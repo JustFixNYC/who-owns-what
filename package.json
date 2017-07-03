@@ -1,0 +1,22 @@
+{
+  "name": "who-owns-what",
+  "version": "1.0.0",
+  "description": "who owns what in nyc.",
+  "main": "index.js",
+  "scripts": {
+    "start:dev": "nodemon ./bin/www",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "express": "^4.15.3",
+    "knex": "^0.13.0",
+    "morgan": "^1.8.2",
+    "pg": "^6.4.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0"
+  }
+}
