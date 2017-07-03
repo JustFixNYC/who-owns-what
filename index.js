@@ -1,7 +1,3 @@
-const express = require('express');
-const logger = require('morgan');
-const bodyParser = require('body-parser');
-
 // Set up DB instance
 // var environment = process.env.NODE_ENV || 'development';
 var dbConfig = require('./knexfile.js')[process.env.NODE_ENV || 'development'];
