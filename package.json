@@ -4,7 +4,7 @@
   "description": "who owns what in nyc.",
   "main": "index.js",
   "scripts": {
-    "start:dev": "nodemon ./bin/www",
+    "server": "nodemon server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
