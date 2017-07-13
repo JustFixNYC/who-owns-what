@@ -1,0 +1,7 @@
+.AddressSearch label {
+  display: block;
+}
+
+.AddressSearch input, .AddressSearch select {
+  margin-left: 10px;
+}
