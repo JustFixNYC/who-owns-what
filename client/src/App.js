@@ -14,7 +14,8 @@ class App extends Component {
         streetname: 'PARK PLACE',
         boro: 'BROOKLYN'
       },
-      contacts: []
+      contacts: [],
+      assocAddrs: []
     };
   }
 
@@ -32,14 +33,14 @@ class App extends Component {
   }
 
   handleFormSubmit = (event) => {
-    const { housenum, streetname, boro } = this.state;
+    const { housenum, streetname, boro } = this.state.searchAddress;
     const query = { housenum, streetname, boro };
 
-    APIClient.search(query, (contacts) => {
-        this.setState({
-          contacts: contacts
-        });
+    APIClient.getBizAddresses(query, (addrs) => {
+      this.setState({
+        assocAddrs: addrs
       });
+    });
 
     event.preventDefault();
   }
@@ -57,7 +58,9 @@ class App extends Component {
             onInputChange={this.handleInputChange}
             onFormSubmit={this.handleFormSubmit}
           />
-          <PropertiesMap />
+        <PropertiesMap
+            addrs={this.state.assocAddrs}
+          />
         </div>
       </div>
     );

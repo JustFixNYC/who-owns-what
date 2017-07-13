@@ -1,10 +1,15 @@
 /* eslint-disable no-undef */
-function search(q, cb) {
 
-  console.log(q);
+function getContacts(q, cb) {
+  return ajax(`api/contacts?housenum=${q.housenum}&streetname=${q.streetname}&boro=${q.boro}`, cb);
+}
 
-  return fetch(`api/contacts?housenum=${q.housenum}&streetname=${q.streetname}&boro=${q.boro}`,
-    { accept: "application/json" })
+function getBizAddresses(q, cb) {
+  return ajax(`api/bizaddresses?housenum=${q.housenum}&streetname=${q.streetname}&boro=${q.boro}`, cb);
+}
+
+function ajax(q, cb) {
+  return fetch(q, { accept: "application/json" })
     .then(checkStatus)
     .then(parseJSON)
     .then(cb);
@@ -25,5 +30,8 @@ function parseJSON(response) {
   return response.json();
 }
 
-const Client = { search };
+const Client = {
+  getContacts,
+  getBizAddresses
+};
 export default Client;
