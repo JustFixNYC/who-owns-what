@@ -9,7 +9,8 @@ export default class LandlordSearch extends Component {
     this.state = {
       housenum: '654',
       streetname: 'PARK PLACE',
-      boro: 'BROOKLYN'
+      boro: 'BROOKLYN',
+      contacts: []
     };
   }
 
@@ -25,14 +26,39 @@ export default class LandlordSearch extends Component {
 
   handleSubmit = (event) => {
 
-    APIClient.search(this.state, contacts => {
-      console.log(contacts);
-    });
+    APIClient.search(
+      {
+        housenum: this.state.housenum,
+        streetname: this.state.streetname,
+        boro: this.state.boro
+      }, (contacts) => {
+        this.setState({
+          contacts: contacts
+        });
+      }
+    );
 
     event.preventDefault();
   }
 
   render() {
+
+    const contacts = this.state.contacts.map((contact, idx) => (
+      <tr key={idx}>
+        <td>{contact.registrationcontacttype}</td>
+        <td>{contact.corporationname}</td>
+        <td>{contact.firstname + ' ' + contact.lastname}</td>
+        <td>
+          {contact.bisnum + ' ' +
+            contact.bisstreet + ' ' +
+            '#' + contact.bisapt + ', ' +
+            contact.biszip}
+        </td>
+        <td>{contact.registrationid}</td>
+      </tr>
+    ));
+
+
     return (
       <div className="LandlordSearch">
         <form onSubmit={this.handleSubmit}>
@@ -67,9 +93,21 @@ export default class LandlordSearch extends Component {
           <input type="submit" value="Go" />
         </form>
 
-
+        <br />
+        <br />
         <table className="results">
-
+          <thead>
+            <tr>
+              <th>Contact Type</th>
+              <th>Corp. Name</th>
+              <th>Name</th>
+              <th>Business Addr.</th>
+              <th>Reg. ID</th>
+            </tr>
+          </thead>
+          <tbody>
+            {contacts}
+          </tbody>
         </table>
       </div>
     );

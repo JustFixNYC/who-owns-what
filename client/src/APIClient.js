@@ -1,6 +1,8 @@
 /* eslint-disable no-undef */
 function search(q, cb) {
 
+  console.log(q);
+
   return fetch(`api/contacts?housenum=${q.housenum}&streetname=${q.streetname}&boro=${q.boro}`,
     { accept: "application/json" })
     .then(checkStatus)
@@ -20,7 +22,6 @@ function checkStatus(response) {
 }
 
 function parseJSON(response) {
-  console.log('resp', response);
   return response.json();
 }
 
