@@ -2,7 +2,7 @@ const router = require('express').Router();
 
 const reg = require('./controllers/registrations');
 
-router.get('*', reg.getContacts);
+router.get('/api/contacts', reg.getContacts);
 
 // Setup a default catch-all route that sends back a welcome message in JSON format.
 // router.get('*', (req, res) => res.status(200).send({

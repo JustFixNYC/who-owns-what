@@ -1,0 +1,7 @@
+.LandlordSearch label {
+  display: block;
+}
+
+.LandlordSearch input, .LandlordSearch select {
+  margin-left: 10px;
+}

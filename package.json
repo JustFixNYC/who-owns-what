@@ -4,7 +4,9 @@
   "description": "who owns what in nyc.",
   "main": "index.js",
   "scripts": {
+    "start": "concurrently \"npm run server\" \"npm run client\"",
     "server": "nodemon server.js",
+    "client": "cd client && npm start",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -17,6 +19,7 @@
     "pg": "^6.4.0"
   },
   "devDependencies": {
+    "concurrently": "^3.5.0",
     "nodemon": "^1.11.0"
   }
 }

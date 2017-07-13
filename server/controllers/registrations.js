@@ -3,7 +3,7 @@ const db = require('../services/queries');
 module.exports = {
   getContacts(req, res) {
 
-    let housenumber = req.query.housenumber,
+    let housenumber = req.query.housenum,
         streetname = req.query.streetname,
         boro = req.query.boro;
 
