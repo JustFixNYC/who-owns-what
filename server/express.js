@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 const logger = require('morgan');
 const bodyParser = require('body-parser');
 const routes = require('./routes');
@@ -13,6 +14,11 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
+// Express only serves static assets in production
+if (process.env.NODE_ENV === 'production') {
+  app.use(path.join(__dirname, express.static('client/build')));
+}
+
 app.use('/', routes);
 
 module.exports = app;
@@ -20,6 +26,6 @@ module.exports = app;
 // // module.exports = (db) => {
 // // module.exports = () => {
 // module.exports = {
-// 
+//
 //
 // };
