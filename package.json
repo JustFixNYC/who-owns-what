@@ -4,11 +4,11 @@
   "description": "who owns what in nyc.",
   "main": "index.js",
   "scripts": {
-    "start": "concurrently \"npm run server\" \"npm run client\"",
+    "start": "concurrently \"yarn server\" \"yarn client\"",
     "server": "nodemon server.js",
-    "client": "cd client && npm start",
+    "client": "cd client && yarn start",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "heroku-postbuild": "cd client && npm install --only=dev && npm install && npm run build"
+    "heroku-postbuild": "cd client && yarn --production=false && yarn run build"
   },
   "author": "",
   "license": "ISC",
