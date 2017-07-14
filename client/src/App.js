@@ -10,8 +10,8 @@ class App extends Component {
 
     this.state = {
       searchAddress: {
-        housenum: '654',
-        streetname: 'PARK PLACE',
+        housenumber: '980',
+        streetname: 'BERGEN STREET',
         boro: 'BROOKLYN'
       },
       contacts: [],
@@ -33,8 +33,8 @@ class App extends Component {
   }
 
   handleFormSubmit = (event) => {
-    const { housenum, streetname, boro } = this.state.searchAddress;
-    const query = { housenum, streetname, boro };
+    const { housenumber, streetname, boro } = this.state.searchAddress;
+    const query = { housenumber, streetname, boro };
 
     APIClient.getBizAddresses(query, (addrs) => {
       this.setState({
@@ -50,7 +50,8 @@ class App extends Component {
     return (
       <div className="App">
         <div className="App-header">
-          <h2>Who owns what in nyc.</h2>
+          <h2>Who owns what in nyc?</h2>
+          <p>Enter an address and find other buildings your landlord might own.</p>
         </div>
         <div className="App-intro">
           <AddressSearch
@@ -60,6 +61,7 @@ class App extends Component {
           />
         <PropertiesMap
             addrs={this.state.assocAddrs}
+            currentAddr={this.state.searchAddress}
           />
         </div>
       </div>

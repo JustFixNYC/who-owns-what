@@ -1,11 +1,11 @@
 /* eslint-disable no-undef */
 
 function getContacts(q, cb) {
-  return ajax(`api/contacts?housenum=${q.housenum}&streetname=${q.streetname}&boro=${q.boro}`, cb);
+  return ajax(`api/contacts?housenumber=${q.housenumber}&streetname=${q.streetname}&boro=${q.boro}`, cb);
 }
 
 function getBizAddresses(q, cb) {
-  return ajax(`api/bizaddresses?housenum=${q.housenum}&streetname=${q.streetname}&boro=${q.boro}`, cb);
+  return ajax(`api/bizaddresses?housenumber=${q.housenumber}&streetname=${q.streetname}&boro=${q.boro}`, cb);
 }
 
 function ajax(q, cb) {

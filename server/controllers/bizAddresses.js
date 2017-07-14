@@ -3,7 +3,7 @@ const knex = require('../services/db');
 module.exports = {
   query: (req, res) => {
 
-    let housenumber = req.query.housenum,
+    let housenumber = req.query.housenumber,
         streetname = req.query.streetname,
         boro = req.query.boro;
 
@@ -40,7 +40,8 @@ module.exports = {
           function() {
             this.on('hpd_contacts.businesshousenumber', 'c2.businesshousenumber')
               .andOn('hpd_contacts.businessstreetname', 'c2.businessstreetname')
-              .andOn('hpd_contacts.businesszip', 'c2.businesszip')
+              .andOn('hpd_contacts.businessapartment', 'c2.businessapartment')
+              .andOn('hpd_contacts.businesszip', 'c2.businesszip');
           }
         );
     }

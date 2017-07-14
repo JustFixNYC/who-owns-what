@@ -9,8 +9,8 @@ const AddressSearch = (props) => {
           Street number:
           <input
             type="text"
-            name="housenum"
-            value={props.address.housenum}
+            name="housenumber"
+            value={props.address.housenumber}
             onChange={props.onInputChange}
           />
         </label>

@@ -3,7 +3,7 @@ const knex = require('../services/db');
 module.exports = {
   query: (req, res) => {
 
-    let housenumber = req.query.housenum,
+    let housenumber = req.query.housenumber,
         streetname = req.query.streetname,
         boro = req.query.boro;
 
