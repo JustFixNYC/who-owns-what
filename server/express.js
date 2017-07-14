@@ -16,7 +16,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 // Express only serves static assets in production
 if (process.env.NODE_ENV === 'production') {
-  app.use(path.join(__dirname, express.static('client/build')));
+  app.use(express.static(path.join(__dirname, 'client/build')));
 }
 
 app.use('/', routes);
