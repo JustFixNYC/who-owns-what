@@ -56,15 +56,21 @@ function AssociatedAddrMarker(props) {
     return (
       <Circle center={position} radius={75} color={'#FFA500'} weight={2} fillOpacity={0.8}>
           <Popup>
-            <dl>
-              <dd><b>Address:</b> {props.addr.housenumber} {props.addr.streetname}</dd>
-              <dd><b>Corporation Name:</b> {props.addr.corporationname ? props.addr.corporationname : (<em>n/a</em>)}</dd>
-              <dd>
+            <div className="card">
+              <div className="card-image">
+                <img src={`https://maps.googleapis.com/maps/api/streetview?size=960x200&location=${props.addr.lat},${props.addr.lng}&key=AIzaSyCJKZm-rRtfREo2o-GNC-feqpbSvfHNB5s`} className="img-responsive"  />
+              </div>
+              <div className="card-header">
+                <h4 className="card-title">{props.addr.housenumber} {props.addr.streetname}</h4>
+              </div>
+              <div className="card-body">
+                <b>Corporation Name:</b> {props.addr.corporationname ? props.addr.corporationname : (<em>n/a</em>)}
+                <br />
                 <b>Owner Name:</b> { (props.addr.firstname && props.addr.lastname) ?
                   props.addr.firstname + ' ' + props.addr.lastname
                   : (<em>n/a</em>)}
-                </dd>
-            </dl>
+              </div>
+            </div>
           </Popup>
       </Circle>
     );
