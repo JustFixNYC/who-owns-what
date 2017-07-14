@@ -11,9 +11,9 @@ class App extends Component {
 
     this.state = {
       searchAddress: {
-        // housenumber: '654',
-        // streetname: 'PARK PLACE',
-        // boro: 'BROOKLYN'
+        // housenumber: '851',
+        // streetname: 'EAST 163 STREET',
+        // boro: 'BRONX'
         housenumber: '',
         streetname: '',
         boro: ''

@@ -86,15 +86,7 @@ function CurrentAddrMarker(props) {
     return (null);
   } else {
     return (
-      <Marker position={position}>
-          /*
-          <Popup>
-            <p>
-              {props.addr.housenumber} {props.addr.streetname}
-            </p>
-          </Popup>
-          */
-      </Marker>
+      <Marker position={position}></Marker>
     );
   }
 }
@@ -114,9 +106,11 @@ export default class PropertiesMap extends React.Component {
 
   render() {
 
+    const githubMapUrl = 'https://{s}.tiles.mapbox.com/v4/github.kedo1cp3/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiZ2l0aHViIiwiYSI6IjEzMDNiZjNlZGQ5Yjg3ZjBkNGZkZWQ3MTIxN2FkODIxIn0.o0lbEdOfJYEOaibweUDlzA';
     let mapCenter = this.state.mapCenter;
-    let bounds = this.props.addrs.length ? [] : this.state.bounds;
-    const githubMapUrl = 'https://{s}.tiles.mapbox.com/v4/github.kedo1cp3/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiZ2l0aHViIiwiYSI6IjEzMDNiZjNlZGQ5Yjg3ZjBkNGZkZWQ3MTIxN2FkODIxIn0.o0lbEdOfJYEOaibweUDlzA'
+
+    // LatLngBounds doesn't like a single LatLng. needs > 1.
+    let bounds = this.props.addrs.length > 1 ? [] : this.state.bounds;
 
     const addrs = this.props.addrs.map((addr, idx) => {
       bounds.push([parseFloat(addr.lat), parseFloat(addr.lng)]);
