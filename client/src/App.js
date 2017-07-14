@@ -85,7 +85,7 @@ class App extends Component {
             onInputChange={this.handleInputChange}
             onFormSubmit={this.handleFormSubmit}
           />
-          <table className="table table-striped">
+        {contacts.length > 0 && <table className="table table-striped">
             <thead>
               <tr>
                 <th>Type</th>
@@ -98,7 +98,7 @@ class App extends Component {
             <tbody>
               {contacts}
             </tbody>
-          </table>
+          </table>}
           <PropertiesMap
             addrs={this.state.assocAddrs}
             currentAddr={this.state.searchAddress}
