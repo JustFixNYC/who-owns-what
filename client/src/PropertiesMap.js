@@ -56,9 +56,15 @@ function AssociatedAddrMarker(props) {
     return (
       <Circle center={position} radius={75} color={'#FFA500'} weight={2} fillOpacity={0.8}>
           <Popup>
-            <p>
-              {props.addr.housenumber} {props.addr.streetname}
-            </p>
+            <dl>
+              <dd><b>Address:</b> {props.addr.housenumber} {props.addr.streetname}</dd>
+              <dd><b>Corporation Name:</b> {props.addr.corporationname ? props.addr.corporationname : (<em>n/a</em>)}</dd>
+              <dd>
+                <b>Owner Name:</b> { (props.addr.firstname && props.addr.lastname) ?
+                  props.addr.firstname + ' ' + props.addr.lastname
+                  : (<em>n/a</em>)}
+                </dd>
+            </dl>
           </Popup>
       </Circle>
     );
@@ -90,16 +96,26 @@ function CurrentAddrMarker(props) {
 
 
 export default class PropertiesMap extends React.Component {
+  constructor() {
+    super();
+
+    this.state = {
+      mapCenter: [40.7127, -73.96270751953125],
+      bounds: [[40.477398, -74.259087], [40.917576, -73.700172]]
+    };
+  }
 
 
   render() {
 
-    let mapCenter = [40.7127, -73.96270751953125];
+    let mapCenter = this.state.mapCenter;
+    let bounds = this.props.addrs.length ? [] : this.state.bounds;
     const githubMapUrl = 'https://{s}.tiles.mapbox.com/v4/github.kedo1cp3/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiZ2l0aHViIiwiYSI6IjEzMDNiZjNlZGQ5Yjg3ZjBkNGZkZWQ3MTIxN2FkODIxIn0.o0lbEdOfJYEOaibweUDlzA'
 
     const addrs = this.props.addrs.map((addr, idx) => {
+      bounds.push([parseFloat(addr.lat), parseFloat(addr.lng)]);
       if(compareAddrs(addr, this.props.currentAddr)) {
-        mapCenter = [parseFloat(addr.lat), parseFloat(addr.lng)];
+        // mapCenter = [parseFloat(addr.lat), parseFloat(addr.lng)];
         return  <CurrentAddrMarker key={idx} addr={addr}  />;
       } else {
         return  <AssociatedAddrMarker key={idx} addr={addr}  />;
@@ -107,7 +123,7 @@ export default class PropertiesMap extends React.Component {
     });
 
     return (
-      <Map center={mapCenter} zoom={13}>
+      <Map center={mapCenter} zoom={13} bounds={bounds}>
         <TileLayer
           url={githubMapUrl}
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'

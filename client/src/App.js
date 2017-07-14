@@ -3,6 +3,7 @@ import AddressSearch from './AddressSearch';
 import PropertiesMap from './PropertiesMap';
 import APIClient from './APIClient';
 import './App.css';
+import 'spectre.css/dist/spectre.css';
 
 class App extends Component {
   constructor() {
@@ -42,16 +43,38 @@ class App extends Component {
       });
     });
 
+    APIClient.getContacts(query, (contacts) => {
+      this.setState({
+        contacts: contacts
+      });
+    });
+
     event.preventDefault();
   }
 
 
   render() {
+
+    const contacts = this.state.contacts.map((contact, idx) => (
+      <tr key={idx}>
+        <td>{contact.registrationcontacttype}</td>
+        <td>{contact.corporationname}</td>
+        <td>{contact.firstname + ' ' + contact.lastname}</td>
+        <td>
+          {contact.bisnum + ' ' +
+            contact.bisstreet + ' ' +
+            '#' + contact.bisapt + ', ' +
+            contact.biszip}
+        </td>
+        <td>{contact.registrationid}</td>
+      </tr>
+    ));
+
     return (
       <div className="App">
         <div className="App-header">
           <h2>Who owns what in nyc?</h2>
-          <p>Enter an address and find other buildings your landlord might own.</p>
+          <h5>Enter an address and find other buildings your landlord might own.</h5>
         </div>
         <div className="App-intro">
           <AddressSearch
@@ -59,7 +82,21 @@ class App extends Component {
             onInputChange={this.handleInputChange}
             onFormSubmit={this.handleFormSubmit}
           />
-        <PropertiesMap
+          <table className="table table-striped">
+            <thead>
+              <tr>
+                <th>Type</th>
+                <th>Corp. Name</th>
+                <th>Name</th>
+                <th>Business Address</th>
+                <th>Reg. ID</th>
+              </tr>
+            </thead>
+            <tbody>
+              {contacts}
+            </tbody>
+          </table>
+          <PropertiesMap
             addrs={this.state.assocAddrs}
             currentAddr={this.state.searchAddress}
           />

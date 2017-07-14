@@ -8,7 +8,8 @@
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-leaflet": "^1.4.0",
-    "react-scripts": "1.0.10"
+    "react-scripts": "1.0.10",
+    "spectre.css": "^0.2.14"
   },
   "scripts": {
     "start": "react-scripts start",

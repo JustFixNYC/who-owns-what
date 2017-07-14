@@ -30,7 +30,19 @@ module.exports = {
     let query = () => {
       return knex
         .distinct(knex.raw('ON (bbl) bbl'))
-        .select('*')
+        .select(
+          'hpd_registrations_grouped_by_bbl.housenumber',
+          'hpd_registrations_grouped_by_bbl.streetname',
+          'hpd_registrations_grouped_by_bbl.boro',
+          'hpd_registrations_grouped_by_bbl.lat',
+          'hpd_registrations_grouped_by_bbl.lng',
+          'hpd_registrations_grouped_by_bbl.registrationid',
+          'hpd_contacts.corporationname',
+          'hpd_contacts.businesshousenumber',
+          'hpd_contacts.businessstreetname',
+          'hpd_contacts.businessapartment',
+          'hpd_contacts.businesszip'
+        )
         .from('hpd_registrations_grouped_by_bbl')
         // 4. get the registrations associated with the contacts found in 3
         .innerJoin('hpd_contacts', 'hpd_contacts.registrationid', 'hpd_registrations_grouped_by_bbl.registrationid')
@@ -40,7 +52,7 @@ module.exports = {
           function() {
             this.on('hpd_contacts.businesshousenumber', 'c2.businesshousenumber')
               .andOn('hpd_contacts.businessstreetname', 'c2.businessstreetname')
-              .andOn('hpd_contacts.businessapartment', 'c2.businessapartment')
+              .andOn(knex.raw('(hpd_contacts.businessapartment ~ c2.businessapartment or (hpd_contacts.businessapartment is null and c2.businessapartment is null))'))
               .andOn('hpd_contacts.businesszip', 'c2.businesszip');
           }
         );
