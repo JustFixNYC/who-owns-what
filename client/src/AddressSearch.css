@@ -1,6 +1,3 @@
-.AddressSearch {
-}
-
 .AddressSearch form {
   margin-top: 25px;
   margin-bottom: 20px;
@@ -18,7 +15,6 @@
   }
 }
 
-
 .AddressSearch form .form-group {
   margin-right: 10px;
 }
@@ -26,11 +22,3 @@
 .AddressSearch form .form-group .btn {
   margin-top: 32px;
 }
-
-/*.AddressSearch label {
-  margin: 5px;
-}*/
-
-/*.AddressSearch input, .AddressSearch select {
-  margin-left: 10px;
-}*/

@@ -21,30 +21,6 @@ function compareAddrs(a, b) {
           a.boro === b.boro) ? true : false;
 }
 
-
-// "bbl": "3002710045",
-// "housenumber": "88",
-// "streetname": "SCHERMERHORN STREET",
-// "zip": "11201",
-// "boro": "BROOKLYN",
-// "lat": "40.690352795899997",
-// "lng": "-73.990416656299999",
-// "registrationid": 352819,
-// "registrationcontactid": 35281905,
-// "registrationcontacttype": "HeadOfficer",
-// "contactdescription": "LLC",
-// "corporationname": null,
-// "title": null,
-// "firstname": "MOSES",
-// "middleinitial": null,
-// "lastname": "GUTMAN",
-// "businesshousenumber": "277",
-// "businessstreetname": "CLASSON AVENUE",
-// "businessapartment": "B",
-// "businesscity": "BROOKLYN",
-// "businessstate": "NY",
-// "businesszip": "11205"
-
 function AssociatedAddrMarker(props) {
   const position = [parseFloat(props.addr.lat), parseFloat(props.addr.lng)];
 

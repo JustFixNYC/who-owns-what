@@ -58,11 +58,8 @@ module.exports = {
         );
     }
 
-    console.log(query().toString());
-
     query()
       .then(result => {
-        console.log(result.length);
         res.status(201).send(result)
       })
       .catch(error => res.status(400).send(error));
