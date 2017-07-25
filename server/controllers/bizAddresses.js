@@ -65,38 +65,7 @@ module.exports = {
     }
 
     query()
-      .then(result => {
-
-
-        const grouped = _(result)
-                        .groupBy('bbl');
-
-        const grouped2 = _(result)
-                        .groupBy('bbl')
-                        .mapKeys((v,k) => {
-                          console.log(v.length);
-                          return v;
-                        });
-
-
-
-        // .groupBy(result, 'bbl')
-        //
-        // console.log(_.keys(grouped));
-        //
-        // const bbls = _.keys(grouped).map()
-
-
-        // console.log(grouped.length);
-        // console.log(typeof grouped);
-        //                 //  .map(item => {
-                        //    console.log(item);
-                        //    return item;
-                        //   });
-
-
-        res.status(201).send(result);
-      })
+      .then(result => res.status(201).send(result))
       .catch(error => res.status(400).send(error));
   }
 };
