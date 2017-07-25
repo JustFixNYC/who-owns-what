@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import AddressSearch from './AddressSearch';
+import OwnersTable from './OwnersTable';
 import PropertiesMap from './PropertiesMap';
 import APIClient from './APIClient';
 import './App.css';
@@ -18,6 +19,8 @@ class App extends Component {
       contacts: [],
       assocAddrs: []
     };
+
+    this.formSubmitted = false;
   }
 
   handleInputChange = (event) => {
@@ -37,20 +40,26 @@ class App extends Component {
     const { housenumber, streetname, boro } = this.state.searchAddress;
     const query = { housenumber, streetname, boro };
 
-    APIClient.getBizAddresses(query, (addrs) => {
+    this.formSubmitted = true;
 
-      const bbls = addrs.map((addr, idx) => addr.bbl);
+    APIClient.getBizAddresses(query, (addrs) => {
 
       this.setState({
         assocAddrs: addrs
       });
 
+      const bbls = addrs.map((addr, idx) => addr.bbl);
+
       // check for JFX users
-      APIClient.searchForJFXUsers(bbls, (res) => {
-        this.setState({
-          hasJustFixUsers: res.hasJustFixUsers
-        })
-      });
+      if(bbls.length) {      
+        APIClient.searchForJFXUsers(bbls, (res) => {
+          this.setState({
+            hasJustFixUsers: res.hasJustFixUsers
+          })
+        });
+      }
+
+
     });
 
 
@@ -66,27 +75,6 @@ class App extends Component {
 
 
   render() {
-
-    const contacts = this.state.contacts.map((contact, idx) => (
-      <tr key={idx}>
-        <td>{contact.registrationcontacttype}</td>
-        <td>{contact.corporationname}</td>
-        <td>{contact.firstname + ' ' + contact.lastname}</td>
-        <td>
-          {contact.bisnum + ' ' +
-            contact.bisstreet + ' ' +
-            '#' + contact.bisapt + ', ' +
-            contact.biszip}
-        </td>
-        <td>{contact.registrationid}</td>
-      </tr>
-    ));
-
-    let hasJustFixUsersWarning = null;
-    if(this.state.hasJustFixUsers) {
-      hasJustFixUsersWarning = <p className="mt-10 text-center text-bold text-danger text-large">This landlord has at least one active JustFix.nyc case!</p>
-    }
-
     return (
       <div className="App">
         <div className="App-header">
@@ -99,25 +87,17 @@ class App extends Component {
             onInputChange={this.handleInputChange}
             onFormSubmit={this.handleFormSubmit}
           />
-        {contacts.length > 0 && <table className="table table-striped">
-            <thead>
-              <tr>
-                <th>Type</th>
-                <th>Corp. Name</th>
-                <th>Name</th>
-                <th>Business Address</th>
-                <th>Reg. ID</th>
-              </tr>
-            </thead>
-            <tbody>
-              {contacts}
-            </tbody>
-          </table>}
-        {hasJustFixUsersWarning}
-        <PropertiesMap
-          addrs={this.state.assocAddrs}
-          currentAddr={this.state.searchAddress}
-        />
+          {this.formSubmitted && !this.state.contacts.length &&
+            <p className="mt-10 text-center text-bold text-large">No results found for this address... maybe try a different format?</p>
+          }
+          <OwnersTable
+            contacts={this.state.contacts}
+            hasJustFixUsers={this.state.hasJustFixUsers}
+          />
+          <PropertiesMap
+            addrs={this.state.assocAddrs}
+            currentAddr={this.state.searchAddress}
+          />
         </div>
       </div>
     );
