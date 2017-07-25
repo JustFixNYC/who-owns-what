@@ -38,10 +38,22 @@ class App extends Component {
     const query = { housenumber, streetname, boro };
 
     APIClient.getBizAddresses(query, (addrs) => {
+
+      const bbls = addrs.map((addr, idx) => addr.bbl);
+
       this.setState({
         assocAddrs: addrs
       });
+
+      // check for JFX users
+      APIClient.searchForJFXUsers(bbls, (res) => {
+        this.setState({
+          hasJustFixUsers: res.hasJustFixUsers
+        })
+      });
     });
+
+
 
     APIClient.getContacts(query, (contacts) => {
       this.setState({
@@ -70,6 +82,11 @@ class App extends Component {
       </tr>
     ));
 
+    let hasJustFixUsersWarning = null;
+    if(this.state.hasJustFixUsers) {
+      hasJustFixUsersWarning = <p className="mt-10 text-center text-bold text-danger text-large">This landlord has at least one active JustFix.nyc case!</p>
+    }
+
     return (
       <div className="App">
         <div className="App-header">
@@ -96,10 +113,11 @@ class App extends Component {
               {contacts}
             </tbody>
           </table>}
-          <PropertiesMap
-            addrs={this.state.assocAddrs}
-            currentAddr={this.state.searchAddress}
-          />
+        {hasJustFixUsersWarning}
+        <PropertiesMap
+          addrs={this.state.assocAddrs}
+          currentAddr={this.state.searchAddress}
+        />
         </div>
       </div>
     );

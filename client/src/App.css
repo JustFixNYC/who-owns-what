@@ -4,3 +4,7 @@
   padding: 35px;
   color: white;
 }
+
+.text-danger {
+  color: red;
+}

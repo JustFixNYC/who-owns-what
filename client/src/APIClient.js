@@ -1,15 +1,35 @@
 /* eslint-disable no-undef */
 
 function getContacts(q, cb) {
-  return ajax(`api/contacts?housenumber=${q.housenumber}&streetname=${q.streetname}&boro=${q.boro}`, cb);
+  return get(`api/contacts?housenumber=${q.housenumber}&streetname=${q.streetname}&boro=${q.boro}`, cb);
 }
 
 function getBizAddresses(q, cb) {
-  return ajax(`api/bizaddresses?housenumber=${q.housenumber}&streetname=${q.streetname}&boro=${q.boro}`, cb);
+  return get(`api/bizaddresses?housenumber=${q.housenumber}&streetname=${q.streetname}&boro=${q.boro}`, cb);
 }
 
-function ajax(q, cb) {
-  return fetch(q, { accept: "application/json" })
+function searchForJFXUsers(bbls, cb) {
+  return post('https://beta.justfix.nyc/api/data/bblslookup', { bbls: bbls }, cb);
+}
+
+function get(url, cb) {
+  return fetch(url, { accept: "application/json" })
+    .then(checkStatus)
+    .then(parseJSON)
+    .then(cb);
+}
+
+function post(url, body, cb) {
+
+  return fetch(url, {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      method: 'POST',
+      mode: 'cors',
+      body: JSON.stringify(body)
+    })
     .then(checkStatus)
     .then(parseJSON)
     .then(cb);
@@ -32,6 +52,7 @@ function parseJSON(response) {
 
 const Client = {
   getContacts,
-  getBizAddresses
+  getBizAddresses,
+  searchForJFXUsers
 };
 export default Client;

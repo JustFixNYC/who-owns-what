@@ -1,4 +1,5 @@
 const knex = require('../services/db');
+const _ = require('lodash');
 
 module.exports = {
   query: (req, res) => {
@@ -31,12 +32,17 @@ module.exports = {
       return knex
         .distinct(knex.raw('ON (bbl) bbl'))
         .select(
+          // 'hpd_registrations_grouped_by_bbl.bbl',
           'hpd_registrations_grouped_by_bbl.housenumber',
           'hpd_registrations_grouped_by_bbl.streetname',
           'hpd_registrations_grouped_by_bbl.boro',
           'hpd_registrations_grouped_by_bbl.lat',
           'hpd_registrations_grouped_by_bbl.lng',
           'hpd_registrations_grouped_by_bbl.registrationid',
+          'hpd_contacts.registrationcontactid',
+          'hpd_contacts.registrationcontacttype',
+          'hpd_contacts.firstname',
+          'hpd_contacts.lastname',
           'hpd_contacts.corporationname',
           'hpd_contacts.businesshousenumber',
           'hpd_contacts.businessstreetname',
@@ -60,7 +66,36 @@ module.exports = {
 
     query()
       .then(result => {
-        res.status(201).send(result)
+
+
+        const grouped = _(result)
+                        .groupBy('bbl');
+
+        const grouped2 = _(result)
+                        .groupBy('bbl')
+                        .mapKeys((v,k) => {
+                          console.log(v.length);
+                          return v;
+                        });
+
+
+
+        // .groupBy(result, 'bbl')
+        //
+        // console.log(_.keys(grouped));
+        //
+        // const bbls = _.keys(grouped).map()
+
+
+        // console.log(grouped.length);
+        // console.log(typeof grouped);
+        //                 //  .map(item => {
+                        //    console.log(item);
+                        //    return item;
+                        //   });
+
+
+        res.status(201).send(result);
       })
       .catch(error => res.status(400).send(error));
   }
