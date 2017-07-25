@@ -65,7 +65,7 @@ module.exports = {
     }
 
     query()
-      .then(result => res.status(201).send(result))
+      .then(result => res.status(200).send(result))
       .catch(error => res.status(400).send(error));
   }
 };
