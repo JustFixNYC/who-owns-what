@@ -42,29 +42,26 @@ class App extends Component {
 
     this.formSubmitted = true;
 
-    APIClient.getBizAddresses(query, (addrs) => {
+    APIClient.getBizAddresses(query).then(addrs => {
 
       this.setState({
         assocAddrs: addrs
       });
 
+      // get array of bbls
       const bbls = addrs.map((addr, idx) => addr.bbl);
 
       // check for JFX users
-      if(bbls.length) {      
-        APIClient.searchForJFXUsers(bbls, (res) => {
+      if(bbls.length) {
+        APIClient.searchForJFXUsers(bbls).then(res => {
           this.setState({
             hasJustFixUsers: res.hasJustFixUsers
           })
         });
       }
-
-
     });
 
-
-
-    APIClient.getContacts(query, (contacts) => {
+    APIClient.getContacts(query).then(contacts => {
       this.setState({
         contacts: contacts
       });

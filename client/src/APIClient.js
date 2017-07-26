@@ -1,26 +1,24 @@
 /* eslint-disable no-undef */
 
 function getContacts(q, cb) {
-  return get(`api/contacts?housenumber=${q.housenumber}&streetname=${q.streetname}&boro=${q.boro}`, cb);
+  return get(`api/contacts?housenumber=${q.housenumber}&streetname=${q.streetname}&boro=${q.boro}`);
 }
 
 function getBizAddresses(q, cb) {
-  return get(`api/bizaddresses?housenumber=${q.housenumber}&streetname=${q.streetname}&boro=${q.boro}`, cb);
+  return get(`api/bizaddresses?housenumber=${q.housenumber}&streetname=${q.streetname}&boro=${q.boro}`);
 }
 
-function searchForJFXUsers(bbls, cb) {
-  return post('https://beta.justfix.nyc/api/data/bblslookup', { bbls: bbls }, cb);
+function searchForJFXUsers(bbls) {
+  return post('https://beta.justfix.nyc/api/data/bblslookup', { bbls: bbls });
 }
 
-function get(url, cb) {
+function get(url) {
   return fetch(url, { accept: "application/json" })
     .then(checkStatus)
-    .then(parseJSON)
-    .then(cb);
+    .then(parseJSON);
 }
 
 function post(url, body, cb) {
-
   return fetch(url, {
       headers: {
         'Accept': 'application/json',
@@ -31,8 +29,7 @@ function post(url, body, cb) {
       body: JSON.stringify(body)
     })
     .then(checkStatus)
-    .then(parseJSON)
-    .then(cb);
+    .then(parseJSON);
 }
 
 function checkStatus(response) {
