@@ -47,7 +47,8 @@ class App extends Component {
 
     APIClient.getLandlords(query).then(landlords => {
 
-      let addrs = landlords.map(l => l.addrs).reduce((a,b) => a.concat(b));
+      // get the addr values from the landlords (aka RBAs) array then reduce them
+      const addrs = landlords.map(l => l.addrs).reduce((a,b) => a.concat(b));
 
       this.setState({
         assocAddrs: addrs

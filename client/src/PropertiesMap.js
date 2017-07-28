@@ -23,7 +23,7 @@ function compareAddrs(a, b) {
 
 function AssociatedAddrMarker(props) {
   const position = [parseFloat(props.addr.lat), parseFloat(props.addr.lng)];
-  
+
   // need to check if either lat or lng is NaN. Occurs for ~0.5% of addresses
   if (position.filter(isNaN).length) {
     console.log('no latlng', props.addr);
@@ -46,7 +46,7 @@ function AssociatedAddrMarker(props) {
                 </ul>
                 <b>Owner Names:</b>
                 <ul>
-                  {props.addr.ownernames.map((owner, idx) => <li key={idx}>{owner.title}: {owner.value}</li> )}
+                  {props.addr.ownernames.map((owner, idx) => <li key={idx}>{owner.title.split(/(?=[A-Z])/).join(" ")}: {owner.value}</li> )}
                 </ul>
               </div>
             </div>
