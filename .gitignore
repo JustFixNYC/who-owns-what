@@ -1,4 +1,4 @@
 .DS_Store
 node_modules/
 env/*
-src/**/*.css
+client/src/**/*.css
