@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "leaflet": "^1.1.0",
+    "node-sass-chokidar": "^0.0.3",
     "prop-types": "^15.5.10",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
@@ -12,10 +13,16 @@
     "spectre.css": "^0.2.14"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build-css": "node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/",
+    "watch-css": "yarn build-css && node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/ --watch --recursive",
+    "start-js": "react-scripts start",
+    "start": "npm-run-all -p watch-css start-js",
+    "build": "yarn build-css && react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
-  "proxy": "http://localhost:3001/"
+  "proxy": "http://localhost:3001/",
+  "devDependencies": {
+    "npm-run-all": "^4.0.2"
+  }
 }

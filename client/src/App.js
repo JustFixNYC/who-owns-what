@@ -3,7 +3,7 @@ import AddressSearch from './AddressSearch';
 import OwnersTable from './OwnersTable';
 import PropertiesMap from './PropertiesMap';
 import APIClient from './APIClient';
-import './App.css';
+import './styles/App.css';
 import 'spectre.css/dist/spectre.css';
 
 class App extends Component {

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Map, Circle, Marker, Popup, TileLayer } from 'react-leaflet';
 import L from 'leaflet';
-import './PropertiesMap.css';
+import './styles/PropertiesMap.css';
 import 'leaflet/dist/leaflet.css';
 
 // resolve import issues with marker assets from lefleat.css

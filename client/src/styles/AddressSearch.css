@@ -1,0 +1,17 @@
+.AddressSearch form {
+  margin-top: 25px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; }
+
+@media screen and (max-width: 480px) {
+  .AddressSearch form {
+    padding-left: 20px;
+    padding-right: 20px; } }
+
+.AddressSearch form .form-group {
+  margin-right: 10px; }
+
+.AddressSearch form .form-group .btn {
+  margin-top: 32px; }

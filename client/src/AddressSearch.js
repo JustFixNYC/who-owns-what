@@ -1,5 +1,5 @@
 import React from 'react';
-import './AddressSearch.css';
+import './styles/AddressSearch.css';
 
 const AddressSearch = (props) => {
   return (

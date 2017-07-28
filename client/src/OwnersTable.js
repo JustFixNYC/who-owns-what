@@ -1,5 +1,5 @@
 import React from 'react';
-import './OwnersTable.css';
+import './styles/OwnersTable.css';
 
 
 const OwnersTable = (props) => {
