@@ -1,11 +1,11 @@
 /* eslint-disable no-undef */
 
-function getContacts(q, cb) {
+function getContacts(q) {
   return get(`api/contacts?housenumber=${q.housenumber}&streetname=${q.streetname}&boro=${q.boro}`);
 }
 
-function getBizAddresses(q, cb) {
-  return get(`api/bizaddresses?housenumber=${q.housenumber}&streetname=${q.streetname}&boro=${q.boro}`);
+function getLandlords(q) {
+  return get(`api/landlord?housenumber=${q.housenumber}&streetname=${q.streetname}&boro=${q.boro}`);
 }
 
 function searchForJFXUsers(bbls) {
@@ -49,7 +49,7 @@ function parseJSON(response) {
 
 const Client = {
   getContacts,
-  getBizAddresses,
+  getLandlords,
   searchForJFXUsers
 };
 export default Client;

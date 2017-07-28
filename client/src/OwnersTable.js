@@ -1,20 +1,39 @@
 import React from 'react';
+import './OwnersTable.css';
+
 
 const OwnersTable = (props) => {
 
-  const contacts = props.contacts.map((contact, idx) => (
-    <tr key={idx}>
-      <td>{contact.registrationcontacttype}</td>
-      <td>{contact.corporationname}</td>
-      <td>{contact.firstname + ' ' + contact.lastname}</td>
-      <td>
-        {contact.bisnum + ' ' +
-          contact.bisstreet + ' ' +
-          '#' + contact.bisapt + ', ' +
-          contact.biszip}
-      </td>
-      <td>{contact.registrationid}</td>
-    </tr>
+  let corps = [];
+  let owners = [];
+  let rbas = [];
+
+  props.contacts.map(c => {
+
+    // basic detection to filter out completely null addrs...
+    // assume that it needs to at least have a streetname
+    if(c.bisstreet) {
+      rbas.push({ title: "Business Address", cat: "cat-rba", value: `${c.bisnum} ${c.bisstreet}${c.bisapt ? ' ' + c.bisapt : ''}, ${c.biszip}` });
+    }
+
+    if(c.registrationcontacttype === "CorporateOwner") {
+      corps.push({ title: "Corporate Owner", cat: "cat-corp", value: c.corporationname });
+    } else {
+      owners.push({ title: c.registrationcontacttype.split(/(?=[A-Z])/).join(" "), cat: "cat-owner", value: `${c.firstname} ${c.lastname}` });
+    }
+  });
+
+  // filter repeated values in rbas and owners
+  // uses Set which enforces uniqueness
+  // see: https://stackoverflow.com/a/44601543/991673
+  rbas = Array.from(new Set(rbas.map(JSON.stringify))).map(JSON.parse);
+  owners = Array.from(new Set(owners.map(JSON.stringify))).map(JSON.parse);
+
+  const contacts = [...corps, ...owners, ...rbas].map((obj, idx) => (
+    <span className={`label ${obj.cat}`} key={idx}>
+      <small>{obj.title}</small>
+      <h5>{obj.value}</h5>
+    </span>
   ));
 
   let hasJustFixUsersWarning = null;
@@ -27,20 +46,9 @@ const OwnersTable = (props) => {
   } else {
     return (
       <div>
-        <table className="table table-striped">
-          <thead>
-            <tr>
-              <th>Type</th>
-              <th>Corp. Name</th>
-              <th>Name</th>
-              <th>Business Address</th>
-              <th>Reg. ID</th>
-            </tr>
-          </thead>
-          <tbody>
-            {contacts}
-          </tbody>
-        </table>
+        <div className="contacts">
+          {contacts}
+        </div>
         {hasJustFixUsersWarning}
       </div>
     );

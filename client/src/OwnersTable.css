@@ -1,0 +1,28 @@
+.contacts {
+  margin: 0 auto;
+  max-width: 90vw;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.contacts .label {
+  border: 1px solid #f0f1f4;
+  margin-right: 15px;
+  margin-bottom: 10px;
+  padding: 5px 10px;
+}
+
+.contacts .label.cat-corp small {
+  color: #32b643;
+}
+.contacts .label.cat-owner small {
+  color: #5764c6;
+}
+.contacts .label.cat-rba small {
+  color: #e85600;
+}
+
+.contacts .label h5 {
+  margin-bottom: 0;
+}

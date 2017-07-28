@@ -23,7 +23,7 @@ function compareAddrs(a, b) {
 
 function AssociatedAddrMarker(props) {
   const position = [parseFloat(props.addr.lat), parseFloat(props.addr.lng)];
-
+  
   // need to check if either lat or lng is NaN. Occurs for ~0.5% of addresses
   if (position.filter(isNaN).length) {
     console.log('no latlng', props.addr);
@@ -40,11 +40,14 @@ function AssociatedAddrMarker(props) {
                 <h4 className="card-title">{props.addr.housenumber} {props.addr.streetname}</h4>
               </div>
               <div className="card-body">
-                <b>Corporation Name:</b> {props.addr.corporationname ? props.addr.corporationname : (<em>n/a</em>)}
-                <br />
-                <b>Owner Name:</b> { (props.addr.firstname && props.addr.lastname) ?
-                  props.addr.firstname + ' ' + props.addr.lastname
-                  : (<em>n/a</em>)}
+                <b>Corporation Names:</b>
+                <ul>
+                  {props.addr.corpnames.map((corp, idx) => <li key={idx}>{corp}</li> )}
+                </ul>
+                <b>Owner Names:</b>
+                <ul>
+                  {props.addr.ownernames.map((owner, idx) => <li key={idx}>{owner.title}: {owner.value}</li> )}
+                </ul>
               </div>
             </div>
           </Popup>
@@ -89,7 +92,11 @@ export default class PropertiesMap extends React.Component {
     let bounds = this.props.addrs.length > 1 ? [] : this.state.bounds;
 
     const addrs = this.props.addrs.map((addr, idx) => {
-      bounds.push([parseFloat(addr.lat), parseFloat(addr.lng)]);
+
+      if (![parseFloat(addr.lat), parseFloat(addr.lng)].filter(isNaN).length) {
+        bounds.push([parseFloat(addr.lat), parseFloat(addr.lng)]);
+      }
+
       if(compareAddrs(addr, this.props.currentAddr)) {
         // mapCenter = [parseFloat(addr.lat), parseFloat(addr.lng)];
         return  <CurrentAddrMarker key={idx} addr={addr}  />;

@@ -12,9 +12,12 @@ class App extends Component {
 
     this.state = {
       searchAddress: {
-        housenumber: '',
-        streetname: '',
-        boro: ''
+        // housenumber: '',
+        // streetname: '',
+        // boro: ''
+        housenumber: '654',
+        streetname: 'PARK PLACE',
+        boro: 'BROOKLYN'
       },
       contacts: [],
       assocAddrs: []
@@ -42,7 +45,9 @@ class App extends Component {
 
     this.formSubmitted = true;
 
-    APIClient.getBizAddresses(query).then(addrs => {
+    APIClient.getLandlords(query).then(landlords => {
+
+      let addrs = landlords.map(l => l.addrs).reduce((a,b) => a.concat(b));
 
       this.setState({
         assocAddrs: addrs
