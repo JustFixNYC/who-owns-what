@@ -23,5 +23,13 @@
     height: 100%;
     z-index: 10;
     background-color: #ffffff;
+
+    ul {
+      margin: 1rem 0.5rem;
+
+      li {
+        margin-top: 0.5rem;
+      }
+    }
   }
 }

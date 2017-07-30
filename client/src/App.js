@@ -47,15 +47,19 @@ class App extends Component {
 
     APIClient.getLandlords(query).then(landlords => {
 
-      // get the addr values from the landlords (aka RBAs) array then reduce them
-      const addrs = landlords.map(l => l.addrs).reduce((a,b) => a.concat(b));
+      // for each landlord/rba found, add its rba to each addr object
+      // and then reduce and concatenate them
+      const addrs = landlords.map(l => {
+        const assocRba = `${l.businesshousenumber} ${l.businessstreetname}${l.businessapartment ? ' ' + l.businessapartment : ''}, ${l.businesszip}`;
+        return l.addrs.map(a => { return { ...a, assocRba }})
+      }).reduce((a,b) => a.concat(b));
 
       this.setState({
         assocAddrs: addrs
       });
 
       // get array of bbls
-      const bbls = addrs.map((addr, idx) => addr.bbl);
+      const bbls = addrs.map(addr => addr.bbl);
 
       // check for JFX users
       if(bbls.length) {

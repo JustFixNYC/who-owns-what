@@ -51,11 +51,14 @@ function DetailView(props) {
           <h4 className="card-title">{props.addr.housenumber} {props.addr.streetname}</h4>
         </div>
         <div className="card-body">
-          <b>Corporation Names:</b>
+          This property is also registered at <b>{props.addr.assocRba}</b>.
+          <br />
+          <br />
+          <b>Corporate Owners:</b>
           <ul>
             {props.addr.corpnames.map((corp, idx) => <li key={idx}>{corp}</li> )}
           </ul>
-          <b>Owner Names:</b>
+          <b>Owners:</b>
           <ul>
             {props.addr.ownernames.map((owner, idx) => <li key={idx}>{owner.title.split(/(?=[A-Z])/).join(" ")}: {owner.value}</li> )}
           </ul>
@@ -124,7 +127,12 @@ export default class PropertiesMap extends React.Component {
             {addrs}
           </Map>
         </div>
-        {this.state.showDetailView ? <DetailView addr={this.state.detailAddr} /> : null}
+        {this.state.showDetailView ?
+          <DetailView
+            addr={this.state.detailAddr}
+            userAddr={this.props.userAddr}
+          /> : null
+        }
       </div>
 
     );
