@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Map, Circle, Marker, Popup, TileLayer } from 'react-leaflet';
+import { CSSTransitionGroup } from 'react-transition-group';
 import L from 'leaflet';
 import 'styles/PropertiesMap.css';
 import 'leaflet/dist/leaflet.css';
@@ -45,7 +46,7 @@ function DetailView(props) {
     <div className="PropertiesMap__detail">
       <div className="card">
         <div className="card-image">
-          <img src={`https://maps.googleapis.com/maps/api/streetview?size=960x200&location=${props.addr.lat},${props.addr.lng}&key=AIzaSyCJKZm-rRtfREo2o-GNC-feqpbSvfHNB5s`} className="img-responsive"  />
+          <img src={`https://maps.googleapis.com/maps/api/streetview?size=960x200&location=${props.addr.lat},${props.addr.lng}&key=AIzaSyCJKZm-rRtfREo2o-GNC-feqpbSvfHNB5s`} alt="Google Street View" className="img-responsive"  />
         </div>
         <div className="card-header">
           <h4 className="card-title">{props.addr.housenumber} {props.addr.streetname}</h4>
@@ -64,8 +65,17 @@ function DetailView(props) {
           </ul>
         </div>
       </div>
+      <div className="clearfix">
+        <button className="btn btn-link float-left" onClick={props.handleCloseDetail}>close detail view --&gt;</button>
+      </div>
     </div>
   );
+}
+
+// see: https://facebook.github.io/react/docs/animation.html#rendering-a-single-child
+function FirstChild(props) {
+  const childrenArray = React.Children.toArray(props.children);
+  return childrenArray[0] || null;
 }
 
 export default class PropertiesMap extends React.Component {
@@ -78,15 +88,33 @@ export default class PropertiesMap extends React.Component {
       showDetailView: false,
       detailAddr: null
     };
+
+    this.detailSlideLength = 250;
   }
 
-  toggleDetailView = (addr) => {
+  openDetailView = (addr) => {
+
+    // very fancy stuff to make the map "animate" on slide
+    let mapRefresh = setInterval(() => { this.refs.map.leafletElement.invalidateSize(); }, 30);
+    setTimeout(() => { clearInterval(mapRefresh) }, this.detailSlideLength);
+
     this.setState({
       showDetailView: true,
       detailAddr: addr
     });
   }
 
+  closeDetailView = () => {
+
+    // very fancy stuff to make the map "animate" on slide
+    let mapRefresh = setInterval(() => { this.refs.map.leafletElement.invalidateSize(); }, 30);
+    setTimeout(() => { clearInterval(mapRefresh) }, this.detailSlideLength);
+
+    this.setState({
+      showDetailView: false,
+      detailAddr: null
+    });
+  }
 
   render() {
 
@@ -110,7 +138,7 @@ export default class PropertiesMap extends React.Component {
           // mapCenter = [parseFloat(addr.lat), parseFloat(addr.lng)];
           return  <Marker key={idx} position={pos}></Marker>;
         } else {
-          return  <AssociatedAddrMarker key={idx} pos={pos} addr={addr} onClick={this.toggleDetailView} />;
+          return  <AssociatedAddrMarker key={idx} pos={pos} addr={addr} onClick={this.openDetailView} />;
         }
 
       }
@@ -119,7 +147,7 @@ export default class PropertiesMap extends React.Component {
     return (
       <div className="PropertiesMap">
         <div className="PropertiesMap__map">
-          <Map center={mapCenter} zoom={13} bounds={bounds}>
+          <Map ref="map" center={mapCenter} zoom={13} bounds={bounds}>
             <TileLayer
               url={githubMapUrl}
               attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
@@ -127,12 +155,19 @@ export default class PropertiesMap extends React.Component {
             {addrs}
           </Map>
         </div>
-        {this.state.showDetailView ?
+        <CSSTransitionGroup
+          component={FirstChild}
+          transitionName="slide"
+          transitionEnterTimeout={this.detailSlideLength}
+          transitionLeaveTimeout={this.detailSlideLength}>
+          { this.state.showDetailView ?
           <DetailView
+            key={this.state.detailAddr}
             addr={this.state.detailAddr}
             userAddr={this.props.userAddr}
-          /> : null
-        }
+            handleCloseDetail={this.closeDetailView}
+          /> : (null) }
+        </CSSTransitionGroup>
       </div>
 
     );

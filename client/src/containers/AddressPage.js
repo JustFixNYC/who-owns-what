@@ -59,8 +59,8 @@ class AddressPage extends Component {
 
   render() {
     return (
-      <div>
-        <div className="Address__info">
+      <div className="AddressPage">
+        <div className="AddressPage__info">
           <h5>Showing results for {this.state.searchAddress.housenumber} {this.state.searchAddress.streetname}, {this.state.searchAddress.boro}:</h5>
           <OwnersTable
             contacts={this.state.contacts}

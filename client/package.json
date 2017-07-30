@@ -11,6 +11,7 @@
     "react-leaflet": "^1.4.0",
     "react-router-dom": "^4.1.2",
     "react-scripts": "1.0.10",
+    "react-transition-group": "1.x",
     "spectre.css": "^0.2.14"
   },
   "scripts": {

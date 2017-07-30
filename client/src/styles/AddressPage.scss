@@ -1,4 +1,10 @@
-.Address__info {
+.AddressPage {
+  height: calc(100vh - 64px);
+  display: flex;
+  flex-direction: column;
+}
+
+.AddressPage__info {
   width: 95vw;
   margin: 0 auto;
 
