@@ -16,9 +16,11 @@ const OwnersTable = (props) => {
       rbas.push({ title: "Business Address", cat: "cat-rba", value: `${c.bisnum} ${c.bisstreet}${c.bisapt ? ' ' + c.bisapt : ''}, ${c.biszip}` });
     }
 
-    if(c.registrationcontacttype === "CorporateOwner") {
+    if(c.corporationname) {
       corps.push({ title: "Corporate Owner", cat: "cat-corp", value: c.corporationname });
-    } else {
+    }
+
+    if(c.registrationcontacttype !== "CorporateOwner") {
       owners.push({ title: c.registrationcontacttype.split(/(?=[A-Z])/).join(" "), cat: "cat-owner", value: `${c.firstname} ${c.lastname}` });
     }
   });

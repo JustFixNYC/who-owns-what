@@ -1,6 +1,6 @@
 .AddressSearch form {
-  margin-top: 25px;
-  margin-bottom: 20px;
+  margin-top: 15px;
+  margin-bottom: 15px;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -17,6 +17,7 @@
 
 .AddressSearch form .form-group {
   margin-right: 10px;
+  margin-bottom: 0;
 }
 
 .AddressSearch form .form-group .btn {

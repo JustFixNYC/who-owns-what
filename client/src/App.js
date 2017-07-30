@@ -84,23 +84,25 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <div className="App-header">
-          <h2>Who owns what in nyc?</h2>
-          <h5>Enter an address and find other buildings your landlord might own.</h5>
+        <div className="App__header">
+          <h4>Who owns what in nyc?</h4>
         </div>
-        <div className="App-intro">
-          <AddressSearch
-            address={this.state.searchAddress}
-            onInputChange={this.handleInputChange}
-            onFormSubmit={this.handleFormSubmit}
-          />
-          {this.formSubmitted && !this.state.contacts.length &&
-            <p className="mt-10 text-center text-bold text-large">No results found for this address... maybe try a different format?</p>
-          }
-          <OwnersTable
-            contacts={this.state.contacts}
-            hasJustFixUsers={this.state.hasJustFixUsers}
-          />
+        <div className="App__body">
+          <div className="App__body__search">
+            <h5 className="text-center">Enter an address and find other buildings your landlord might own:</h5>
+            <AddressSearch
+              address={this.state.searchAddress}
+              onInputChange={this.handleInputChange}
+              onFormSubmit={this.handleFormSubmit}
+            />
+            {this.formSubmitted && !this.state.contacts.length &&
+              <p className="mt-10 text-center text-bold text-large">No results found for this address... maybe try a different format?</p>
+            }
+            <OwnersTable
+              contacts={this.state.contacts}
+              hasJustFixUsers={this.state.hasJustFixUsers}
+            />
+          </div>
           <PropertiesMap
             addrs={this.state.assocAddrs}
             userAddr={this.state.searchAddress}

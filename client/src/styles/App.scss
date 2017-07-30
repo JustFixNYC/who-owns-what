@@ -1,8 +1,24 @@
-.App-header {
-  text-align: center;
-  background-color: #222;
-  padding: 35px;
-  color: white;
+@import '_vars.scss';
+
+.App {
+
+
+}
+
+.App__header {
+  padding: 10px 35px;
+  border-bottom: 1px solid $gray-light;
+  // background-color: $background;
+  margin-bottom: 15px;
+
+  h4 {
+    margin-bottom: 0;
+  }
+}
+
+.App__body__search {
+  width: 95vw;
+  margin: 0 auto;
 }
 
 .text-danger {
