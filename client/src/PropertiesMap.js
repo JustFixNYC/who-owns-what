@@ -21,56 +21,49 @@ function compareAddrs(a, b) {
           a.boro === b.boro) ? true : false;
 }
 
+// need to check if either lat or lng is NaN. Occurs for ~0.5% of addresses
+function latLngIsNull(latlng) {
+  return latlng.filter(isNaN).length;
+};
+
 function AssociatedAddrMarker(props) {
-  const position = [parseFloat(props.addr.lat), parseFloat(props.addr.lng)];
-
-  // need to check if either lat or lng is NaN. Occurs for ~0.5% of addresses
-  if (position.filter(isNaN).length) {
-    console.log('no latlng', props.addr);
-    return (null);
-  } else {
-    return (
-      <Circle center={position} radius={75} color={'#FFA500'} weight={2} fillOpacity={0.8}>
-          <Popup>
-            <div className="card">
-              <div className="card-image">
-                <img src={`https://maps.googleapis.com/maps/api/streetview?size=960x200&location=${props.addr.lat},${props.addr.lng}&key=AIzaSyCJKZm-rRtfREo2o-GNC-feqpbSvfHNB5s`} className="img-responsive"  />
-              </div>
-              <div className="card-header">
-                <h4 className="card-title">{props.addr.housenumber} {props.addr.streetname}</h4>
-              </div>
-              <div className="card-body">
-                <b>Corporation Names:</b>
-                <ul>
-                  {props.addr.corpnames.map((corp, idx) => <li key={idx}>{corp}</li> )}
-                </ul>
-                <b>Owner Names:</b>
-                <ul>
-                  {props.addr.ownernames.map((owner, idx) => <li key={idx}>{owner.title.split(/(?=[A-Z])/).join(" ")}: {owner.value}</li> )}
-                </ul>
-              </div>
-            </div>
-          </Popup>
-      </Circle>
-    );
-  }
+  return (
+    <Circle
+        center={props.pos}
+        radius={75}
+        color={'#FFA500'}
+        weight={2}
+        fillOpacity={0.8}
+        onClick={() => props.onClick(props.addr)}
+      >
+    </Circle>
+  );
 }
 
-function CurrentAddrMarker(props) {
-  const position = [parseFloat(props.addr.lat), parseFloat(props.addr.lng)];
-
-  // see above
-  if (position.filter(isNaN).length) {
-    console.log('no latlng', props.addr);
-    return (null);
-  } else {
-    return (
-      <Marker position={position}></Marker>
-    );
-  }
+function DetailView(props) {
+  return (
+    <div className="PropertiesMap__detail">
+      <div className="card">
+        <div className="card-image">
+          <img src={`https://maps.googleapis.com/maps/api/streetview?size=960x200&location=${props.addr.lat},${props.addr.lng}&key=AIzaSyCJKZm-rRtfREo2o-GNC-feqpbSvfHNB5s`} className="img-responsive"  />
+        </div>
+        <div className="card-header">
+          <h4 className="card-title">{props.addr.housenumber} {props.addr.streetname}</h4>
+        </div>
+        <div className="card-body">
+          <b>Corporation Names:</b>
+          <ul>
+            {props.addr.corpnames.map((corp, idx) => <li key={idx}>{corp}</li> )}
+          </ul>
+          <b>Owner Names:</b>
+          <ul>
+            {props.addr.ownernames.map((owner, idx) => <li key={idx}>{owner.title.split(/(?=[A-Z])/).join(" ")}: {owner.value}</li> )}
+          </ul>
+        </div>
+      </div>
+    </div>
+  );
 }
-
-
 
 export default class PropertiesMap extends React.Component {
   constructor() {
@@ -78,8 +71,17 @@ export default class PropertiesMap extends React.Component {
 
     this.state = {
       mapCenter: [40.7127, -73.96270751953125],
-      bounds: [[40.477398, -74.259087], [40.917576, -73.700172]]
+      bounds: [[40.477398, -74.259087], [40.917576, -73.700172]],
+      showDetailView: false,
+      detailAddr: null
     };
+  }
+
+  toggleDetailView = (addr) => {
+    this.setState({
+      showDetailView: true,
+      detailAddr: addr
+    });
   }
 
 
@@ -93,26 +95,38 @@ export default class PropertiesMap extends React.Component {
 
     const addrs = this.props.addrs.map((addr, idx) => {
 
-      if (![parseFloat(addr.lat), parseFloat(addr.lng)].filter(isNaN).length) {
-        bounds.push([parseFloat(addr.lat), parseFloat(addr.lng)]);
-      }
+      let pos = [parseFloat(addr.lat), parseFloat(addr.lng)];
 
-      if(compareAddrs(addr, this.props.currentAddr)) {
-        // mapCenter = [parseFloat(addr.lat), parseFloat(addr.lng)];
-        return  <CurrentAddrMarker key={idx} addr={addr}  />;
+      if(latLngIsNull(pos)) {
+        return ( null );
       } else {
-        return  <AssociatedAddrMarker key={idx} addr={addr}  />;
+
+        bounds.push(pos);
+
+        if(compareAddrs(addr, this.props.userAddr)) {
+          // mapCenter = [parseFloat(addr.lat), parseFloat(addr.lng)];
+          return  <Marker key={idx} position={pos}></Marker>;
+        } else {
+          return  <AssociatedAddrMarker key={idx} pos={pos} addr={addr} onClick={this.toggleDetailView} />;
+        }
+
       }
     });
 
     return (
-      <Map center={mapCenter} zoom={13} bounds={bounds}>
-        <TileLayer
-          url={githubMapUrl}
-          attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-        />
-        {addrs}
-      </Map>
+      <div className="PropertiesMap">
+        <div className="PropertiesMap__map">
+          <Map center={mapCenter} zoom={13} bounds={bounds}>
+            <TileLayer
+              url={githubMapUrl}
+              attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+            />
+            {addrs}
+          </Map>
+        </div>
+        {this.state.showDetailView ? <DetailView addr={this.state.detailAddr} /> : null}
+      </div>
+
     );
   }
 }

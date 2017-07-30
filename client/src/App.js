@@ -99,7 +99,7 @@ class App extends Component {
           />
           <PropertiesMap
             addrs={this.state.assocAddrs}
-            currentAddr={this.state.searchAddress}
+            userAddr={this.state.searchAddress}
           />
         </div>
       </div>

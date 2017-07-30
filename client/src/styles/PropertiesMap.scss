@@ -1,6 +1,27 @@
-.leaflet-container {
-    margin-top: 25px;
-    height: 75vh;
-    width: 100%;
-    overflow: hidden;
+.PropertiesMap {
+
+  position: relative;
+
+  .PropertiesMap__map {
+
+    position: relative;
+    z-index: 5;
+
+    .leaflet-container {
+        margin-top: 25px;
+        height: 75vh;
+        width: 100%;
+        overflow: hidden;
+    }
+  }
+
+  .PropertiesMap__detail {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 30vw;
+    height: 100%;
+    z-index: 10;
+    background-color: #ffffff;
+  }
 }
