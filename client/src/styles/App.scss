@@ -8,17 +8,30 @@
 .App__header {
   padding: 10px 35px;
   border-bottom: 1px solid $gray-light;
-  // background-color: $background;
   margin-bottom: 15px;
+
+  display: flex;
+
+  & > a,a:hover {
+    text-decoration: none !important;
+  }
 
   h4 {
     margin-bottom: 0;
+    color: $dark;
+    font-weight: bold;
   }
-}
 
-.App__body__search {
-  width: 95vw;
-  margin: 0 auto;
+  nav {
+    margin-left: auto;
+
+    a {
+      margin-left: 10px;
+
+      &.active { text-decoration: underline; }
+    }
+  }
+
 }
 
 .text-danger {

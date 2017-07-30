@@ -9,13 +9,14 @@
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-leaflet": "^1.4.0",
+    "react-router-dom": "^4.1.2",
     "react-scripts": "1.0.10",
     "spectre.css": "^0.2.14"
   },
   "scripts": {
     "build-css": "node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/",
     "watch-css": "yarn build-css && node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/ --watch --recursive",
-    "start-js": "react-scripts start",
+    "start-js": "NODE_PATH=src:src/components:src/containers:src/styles react-scripts start",
     "start": "npm-run-all -p watch-css start-js",
     "build": "yarn build-css && react-scripts build",
     "test": "react-scripts test --env=jsdom",

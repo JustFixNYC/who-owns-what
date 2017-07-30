@@ -1,9 +1,17 @@
 module.exports = {
 
+  // development: {
+  //   client: 'pg',
+  //   connection: process.env.DATABASE_URL + '?ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory',
+  //   ssl: true
+  // },
+
   development: {
     client: 'pg',
-    connection: process.env.DATABASE_URL + '?ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory',
-    ssl: true
+    // connection: process.env.DATABASE_URL + '?ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory',
+    connection: 'postgres://dan:dan@localhost/housing'
+    // ,
+    // ssl: true
   },
 
   staging: {

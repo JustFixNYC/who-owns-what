@@ -1,11 +1,11 @@
 /* eslint-disable no-undef */
 
 function getContacts(q) {
-  return get(`api/contacts?housenumber=${q.housenumber}&streetname=${q.streetname}&boro=${q.boro}`);
+  return get(`/api/contacts?housenumber=${q.housenumber}&streetname=${q.streetname}&boro=${q.boro}`);
 }
 
 function getLandlords(q) {
-  return get(`api/landlord?housenumber=${q.housenumber}&streetname=${q.streetname}&boro=${q.boro}`);
+  return get(`/api/landlord?housenumber=${q.housenumber}&streetname=${q.streetname}&boro=${q.boro}`);
 }
 
 function searchForJFXUsers(bbls) {
