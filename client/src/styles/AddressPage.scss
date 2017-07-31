@@ -8,7 +8,11 @@
   width: 95vw;
   margin: 0 auto;
 
-  & > h5 {
+  h5 {
+    margin-bottom: 0;
 
+    &.mb {
+      margin-bottom: 15px;
+    }
   }
 }

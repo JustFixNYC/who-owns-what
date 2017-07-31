@@ -34,7 +34,7 @@ const OwnersTable = (props) => {
   const contacts = [...corps, ...owners, ...rbas].map((obj, idx) => (
     <span className={`label ${obj.cat}`} key={idx}>
       <small>{obj.title}</small>
-      <h5>{obj.value}</h5>
+      <h6>{obj.value}</h6>
     </span>
   ));
 

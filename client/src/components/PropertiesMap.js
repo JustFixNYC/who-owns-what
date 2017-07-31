@@ -46,7 +46,7 @@ function DetailView(props) {
     <div className="PropertiesMap__detail">
       <div className="card">
         <div className="card-image">
-          <img src={`https://maps.googleapis.com/maps/api/streetview?size=960x200&location=${props.addr.lat},${props.addr.lng}&key=AIzaSyCJKZm-rRtfREo2o-GNC-feqpbSvfHNB5s`} alt="Google Street View" className="img-responsive"  />
+          <img src={`https://maps.googleapis.com/maps/api/streetview?size=960x300&location=${props.addr.lat},${props.addr.lng}&key=AIzaSyCJKZm-rRtfREo2o-GNC-feqpbSvfHNB5s`} alt="Google Street View" className="img-responsive"  />
         </div>
         <div className="card-header">
           <h4 className="card-title">{props.addr.housenumber} {props.addr.streetname}</h4>
@@ -186,7 +186,7 @@ export default class PropertiesMap extends React.Component {
             center={mapCenter}
             zoom={this.state.mapZoom}
             bounds={bounds}
-            boundsOptions={{padding: [100, 100]}}
+            boundsOptions={{padding: [50, 50]}}
             onViewportChanged={this.handleViewportChanged}>
               <TileLayer
                 url={mapUrl}

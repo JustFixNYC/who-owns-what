@@ -75,12 +75,14 @@ class AddressPage extends Component {
     return (
       <div className="AddressPage">
         <div className="AddressPage__info">
-          <h5>Landlord info for {this.state.searchAddress.housenumber} {this.state.searchAddress.streetname}, {this.state.searchAddress.boro}:</h5>
+          <h5 className="mb">Landlord info for {this.state.searchAddress.housenumber} {this.state.searchAddress.streetname}, {this.state.searchAddress.boro}:</h5>
           <OwnersTable
             contacts={this.state.contacts}
             hasJustFixUsers={this.state.hasJustFixUsers}
           />
-          <h5>We found <i>{this.state.assocAddrs.length}</i> associated buildings:</h5>
+          <h5 className="inline-block">We found <i>{this.state.assocAddrs.length}</i> associated buildings:</h5>
+          <p className="inline-block float-right"><i>&nbsp;(click on a building to view details)</i></p>
+
         </div>
         <PropertiesMap
           addrs={this.state.assocAddrs}

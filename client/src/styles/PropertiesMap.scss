@@ -1,3 +1,5 @@
+@import '_vars.scss';
+
 .PropertiesMap {
 
   flex-grow: 1;
@@ -27,12 +29,26 @@
 
     flex: 1 0 $detailWidth;
     height: 100%;
-    overflow: scroll;
+    overflow-y: scroll;
     z-index: 10;
     background-color: #ffffff;
 
+    &::-webkit-scrollbar {
+      width: 13px;
+	    background-color: $gray;
+
+    }
+
+    &::-webkit-scrollbar-track {
+      background-color: $gray;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      border: 1px solid $gray-dark;
+      background-color: $background;
+    }
+
     transition: margin 250ms cubic-bezier(0.215, 0.610, 0.355, 1.000);
-    // transition: margin 500ms cubic-bezier(0.215, 0.610, 0.355, 1.000);
 
     &.slide-enter {
       margin-right: -$detailWidth;
