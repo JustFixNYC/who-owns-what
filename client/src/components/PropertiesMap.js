@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Map, Circle, Marker, Popup, TileLayer } from 'react-leaflet';
+import { Map, Circle, CircleMarker, Marker, Popup, TileLayer } from 'react-leaflet';
 import { CSSTransitionGroup } from 'react-transition-group';
 import L from 'leaflet';
 import 'styles/PropertiesMap.css';
@@ -29,15 +29,15 @@ function latLngIsNull(latlng) {
 
 function AssociatedAddrMarker(props) {
   return (
-    <Circle
+    <CircleMarker
         center={props.pos}
-        radius={75}
+        radius={7.5}
         color={'#FFA500'}
         weight={2}
         fillOpacity={0.8}
         onClick={() => props.onClick(props.addr)}
       >
-    </Circle>
+    </CircleMarker>
   );
 }
 
@@ -78,19 +78,41 @@ function FirstChild(props) {
   return childrenArray[0] || null;
 }
 
+function SlideTransition(props) {
+
+  return (
+    <CSSTransitionGroup
+      { ...props }
+      component={FirstChild}
+      transitionName="slide"
+      transitionEnterTimeout={props.detailSlideLength}
+      transitionLeaveTimeout={props.detailSlideLength}>
+    </CSSTransitionGroup>
+  );
+}
+
 export default class PropertiesMap extends React.Component {
   constructor() {
     super();
 
     this.state = {
       mapCenter: [40.7127, -73.96270751953125],
+      mapZoom: 18,
       bounds: [[40.477398, -74.259087], [40.917576, -73.700172]],
       showDetailView: false,
       detailAddr: null
     };
 
     this.detailSlideLength = 250;
+
   }
+
+  // don't need it atm, but here it is
+  // handleViewportChanged = (viewport) => {
+  //   this.setState({
+  //     viewport: viewport
+  //   });
+  // }
 
   openDetailView = (addr) => {
 
@@ -118,56 +140,71 @@ export default class PropertiesMap extends React.Component {
 
   render() {
 
-    const githubMapUrl = 'https://{s}.tiles.mapbox.com/v4/github.kedo1cp3/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiZ2l0aHViIiwiYSI6IjEzMDNiZjNlZGQ5Yjg3ZjBkNGZkZWQ3MTIxN2FkODIxIn0.o0lbEdOfJYEOaibweUDlzA';
+    const mapboxLight = 'https://api.mapbox.com/styles/v1/dan-kass/cj5rsfld203472sqy1y0px42d/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoiZGFuLWthc3MiLCJhIjoiY2lsZTFxemtxMGVpdnVoa3BqcjI3d3Q1cCJ9.IESJdCy8fmykXbb626NVEw';
+
+    const mapUrl = mapboxLight;
+
     let mapCenter = this.state.mapCenter;
 
     // LatLngBounds doesn't like a single LatLng. needs > 1.
     let bounds = this.props.addrs.length > 1 ? [] : this.state.bounds;
 
+    if(this.state.detailAddr) {
+      mapCenter = [parseFloat(this.state.detailAddr.lat), parseFloat(this.state.detailAddr.lng)];
+      bounds = null;
+    }
+
     const addrs = this.props.addrs.map((addr, idx) => {
 
       let pos = [parseFloat(addr.lat), parseFloat(addr.lng)];
 
-      if(latLngIsNull(pos)) {
-        return ( null );
-      } else {
+      if(!latLngIsNull(pos)) {
 
-        bounds.push(pos);
+        // add to the bounds obj
+        if(!this.state.showDetailView) bounds.push(pos);
 
+        // users makrer or assoc marker?
         if(compareAddrs(addr, this.props.userAddr)) {
-          // mapCenter = [parseFloat(addr.lat), parseFloat(addr.lng)];
           return  <Marker key={idx} position={pos}></Marker>;
         } else {
-          return  <AssociatedAddrMarker key={idx} pos={pos} addr={addr} onClick={this.openDetailView} />;
+          return (
+                  <AssociatedAddrMarker
+                    key={idx} pos={pos} addr={addr}
+                    onClick={this.openDetailView}
+                  />
+                );
         }
-
+      } else {
+        return ( null );
       }
     });
 
     return (
       <div className="PropertiesMap">
         <div className="PropertiesMap__map">
-          <Map ref="map" center={mapCenter} zoom={13} bounds={bounds}>
-            <TileLayer
-              url={githubMapUrl}
-              attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-            />
-            {addrs}
+          <Map ref="map"
+            center={mapCenter}
+            zoom={this.state.mapZoom}
+            bounds={bounds}
+            boundsOptions={{padding: [100, 100]}}
+            onViewportChanged={this.handleViewportChanged}>
+              <TileLayer
+                url={mapUrl}
+                attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+              />
+              { this.props.addrs.length && addrs}
           </Map>
         </div>
-        <CSSTransitionGroup
-          component={FirstChild}
-          transitionName="slide"
-          transitionEnterTimeout={this.detailSlideLength}
-          transitionLeaveTimeout={this.detailSlideLength}>
-          { this.state.showDetailView ?
-          <DetailView
-            key={this.state.detailAddr}
-            addr={this.state.detailAddr}
-            userAddr={this.props.userAddr}
-            handleCloseDetail={this.closeDetailView}
-          /> : (null) }
-        </CSSTransitionGroup>
+        <SlideTransition detailSlideLength={this.detailSlideLength}>
+          { this.state.showDetailView &&
+            <DetailView
+              key={this.state.detailAddr}
+              addr={this.state.detailAddr}
+              userAddr={this.props.userAddr}
+              handleCloseDetail={this.closeDetailView}
+            />
+          }
+        </SlideTransition>
       </div>
 
     );

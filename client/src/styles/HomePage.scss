@@ -1,0 +1,9 @@
+@import '_vars.scss';
+
+.HomePage__search {
+  width: 65vw;
+  margin: 75px auto;
+  background-color: $background;
+  border: 1px solid $border;
+  padding: 35px;
+}
