@@ -22,7 +22,7 @@ if (process.env.NODE_ENV === 'production') {
 app.use('/api', routes);
 
 app.get('*', function(req, res) {
-  res.sendFile(path.resolve(__dirname + '/client/build'));
+  res.sendFile(path.resolve(__dirname + '../client/build/index.html'));
 });
 
 module.exports = app;
