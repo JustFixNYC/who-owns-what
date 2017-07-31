@@ -7,7 +7,7 @@ class AboutPage extends Component {
 
   render() {
     return (
-      <h1>About!</h1>
+      <p className="text-center">About page tbd</p>
     );
   }
 }

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 
 import AddressSearch from 'components/AddressSearch';
 
@@ -10,19 +10,20 @@ class HomePage extends Component {
     super(props);
 
     this.state = {
-      searchAddress: {}
+      searchAddress: {
+        housenumber: '',
+        streetname: '',
+        boro: ''
+      }
     };
 
     this.nothingFound = /(not-found)/g.test(props.location.search);
-
   }
 
   handleFormSubmit = (event, searchAddress) => {
-
     this.setState({
       searchAddress: searchAddress
     });
-
     event.preventDefault();
   }
 
@@ -31,7 +32,11 @@ class HomePage extends Component {
       <div>
         <div className="HomePage__search">
           <h5 className="text-center">Enter an address and find other buildings your landlord might own:</h5>
-          <AddressSearch onFormSubmit={this.handleFormSubmit} />
+          <AddressSearch
+            { ...this.state.searchAddress }
+            onFormSubmit={this.handleFormSubmit}
+          />
+          <Link className="block text-center" to="/address/BROOKLYN/654/PARK%20PLACE">View a sample building</Link>
           {this.nothingFound &&
             <p className="mt-10 text-center text-danger text-bold text-large">No results found for this address... maybe try a different format?</p>
           }

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Map, Circle, CircleMarker, Marker, Popup, TileLayer } from 'react-leaflet';
 import { CSSTransitionGroup } from 'react-transition-group';
 import L from 'leaflet';
+
 import 'styles/PropertiesMap.css';
 import 'leaflet/dist/leaflet.css';
 
@@ -32,7 +33,7 @@ function AssociatedAddrMarker(props) {
     <CircleMarker
         center={props.pos}
         radius={7.5}
-        color={'#FFA500'}
+        color={props.isDetailAddr ? '#5764c6' : '#FFA500'}
         weight={2}
         fillOpacity={0.8}
         onClick={() => props.onClick(props.addr)}
@@ -103,8 +104,7 @@ export default class PropertiesMap extends React.Component {
       detailAddr: null
     };
 
-    this.detailSlideLength = 250;
-
+    this.detailSlideLength = 300;
   }
 
   // don't need it atm, but here it is
@@ -171,6 +171,7 @@ export default class PropertiesMap extends React.Component {
                   <AssociatedAddrMarker
                     key={idx} pos={pos} addr={addr}
                     onClick={this.openDetailView}
+                    isDetailAddr={this.state.detailAddr ? compareAddrs(addr,this.state.detailAddr) : false}
                   />
                 );
         }

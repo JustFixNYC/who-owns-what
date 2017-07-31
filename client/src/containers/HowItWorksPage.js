@@ -7,7 +7,7 @@ class HowItWorksPage extends Component {
 
   render() {
     return (
-      <h1>How it works</h1>
+      <p className="text-center">How it works page tbd</p>
     );
   }
 }

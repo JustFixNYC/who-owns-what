@@ -26,6 +26,8 @@
   .PropertiesMap__detail {
 
     $detailWidth: 30vw;
+    $detailAnimLength: 300;
+    $detailAnimLengthMs: 300 + 0ms;
 
     flex: 1 0 $detailWidth;
     height: 100%;
@@ -35,20 +37,17 @@
 
     &::-webkit-scrollbar {
       width: 13px;
-	    background-color: $gray;
-
+      background-color: #fff;
     }
 
     &::-webkit-scrollbar-track {
-      background-color: $gray;
+      background-color: #fff;
     }
 
     &::-webkit-scrollbar-thumb {
       border: 1px solid $gray-dark;
-      background-color: $background;
+      background-color: $gray;
     }
-
-    transition: margin 250ms cubic-bezier(0.215, 0.610, 0.355, 1.000);
 
     &.slide-enter {
       margin-right: -$detailWidth;
@@ -56,6 +55,7 @@
 
     &.slide-enter.slide-enter-active {
       margin-right: 0;
+      transition: margin $detailAnimLengthMs cubic-bezier(0.215, 0.610, 0.355, 1.000);
     }
 
     &.slide-leave {
@@ -64,6 +64,7 @@
 
     &.slide-leave.slide-leave-active {
       margin-right: -$detailWidth;
+      transition: margin $detailAnimLengthMs cubic-bezier(0.215, 0.610, 0.355, 1.000);
     }
 
     ul {

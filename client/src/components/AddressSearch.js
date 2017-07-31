@@ -2,15 +2,13 @@ import React, { Component } from 'react';
 import 'styles/AddressSearch.css';
 
 class AddressSearch extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+
+    const { housenumber, streetname, boro } = props;
 
     this.state = {
-      searchAddress: {
-        housenumber: '654',
-        streetname: 'PARK PLACE',
-        boro: 'BROOKLYN'
-      }
+      searchAddress: { housenumber, streetname, boro }
     };
   }
 

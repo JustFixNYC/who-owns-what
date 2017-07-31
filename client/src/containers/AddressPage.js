@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 
 import OwnersTable from 'components/OwnersTable';
 import PropertiesMap from 'components/PropertiesMap';
@@ -75,7 +75,10 @@ class AddressPage extends Component {
     return (
       <div className="AddressPage">
         <div className="AddressPage__info">
-          <h5 className="mb">Landlord info for {this.state.searchAddress.housenumber} {this.state.searchAddress.streetname}, {this.state.searchAddress.boro}:</h5>
+          <Link className="btn float-right" to="/">
+            New Search
+          </Link>
+          <h5 className="primary">Landlord info for {this.state.searchAddress.housenumber} {this.state.searchAddress.streetname}, {this.state.searchAddress.boro}:</h5>
           <OwnersTable
             contacts={this.state.contacts}
             hasJustFixUsers={this.state.hasJustFixUsers}
