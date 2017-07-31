@@ -1,0 +1,50 @@
+/*! Spectre.css | MIT License | github.com/picturepan2/spectre */
+
+// Core variables and mixins
+@import 'node_modules/spectre.scss/src/_variables.scss';
+
+// Include our variables to overwrite the default ones
+@import 'styles/_vars.scss';
+
+@import 'node_modules/spectre.scss/src/_mixins.scss';
+
+// Reset and dependencies
+@import 'node_modules/spectre.scss/src/_normalize.scss';
+@import 'node_modules/spectre.scss/src/_base.scss';
+
+// Core classes
+@import 'node_modules/spectre.scss/src/_typography.scss';
+@import 'node_modules/spectre.scss/src/_asian.scss';
+@import 'node_modules/spectre.scss/src/_tables.scss';
+@import 'node_modules/spectre.scss/src/_buttons.scss';
+@import 'node_modules/spectre.scss/src/_forms.scss';
+@import 'node_modules/spectre.scss/src/_labels.scss';
+@import 'node_modules/spectre.scss/src/_codes.scss';
+@import 'node_modules/spectre.scss/src/_media.scss';
+
+// Layout
+@import 'node_modules/spectre.scss/src/_layout.scss';
+@import 'node_modules/spectre.scss/src/_navbar.scss';
+@import 'node_modules/spectre.scss/src/_panels.scss';
+@import 'node_modules/spectre.scss/src/_empty.scss';
+
+// Components
+@import 'node_modules/spectre.scss/src/_autocomplete.scss';
+@import 'node_modules/spectre.scss/src/_avatars.scss';
+@import 'node_modules/spectre.scss/src/_badges.scss';
+@import 'node_modules/spectre.scss/src/_bars.scss';
+@import 'node_modules/spectre.scss/src/_cards.scss';
+@import 'node_modules/spectre.scss/src/_chips.scss';
+@import 'node_modules/spectre.scss/src/_dropdowns.scss';
+@import 'node_modules/spectre.scss/src/_menus.scss';
+@import 'node_modules/spectre.scss/src/_modals.scss';
+@import 'node_modules/spectre.scss/src/_navigation.scss';
+@import 'node_modules/spectre.scss/src/_popovers.scss';
+@import 'node_modules/spectre.scss/src/_steps.scss';
+@import 'node_modules/spectre.scss/src/_tiles.scss';
+@import 'node_modules/spectre.scss/src/_toasts.scss';
+@import 'node_modules/spectre.scss/src/_tooltips.scss';
+
+// Utility classes
+@import 'node_modules/spectre.scss/src/_animations.scss';
+@import 'node_modules/spectre.scss/src/_utilities.scss';

@@ -33,7 +33,7 @@ function AssociatedAddrMarker(props) {
     <CircleMarker
         center={props.pos}
         radius={7.5}
-        color={props.isDetailAddr ? '#5764c6' : '#FFA500'}
+        color={props.isDetailAddr ? '#0096d7' : '#FFA500'}
         weight={2}
         fillOpacity={0.8}
         onClick={() => props.onClick(props.addr)}

@@ -10,3 +10,14 @@ $light: #fff;
 $success: #32b643;
 $warning: #ffb700;
 $error: #e85600;
+
+
+$primary-color: #0096d7;
+$primary-color-dark: darken($primary-color, 3%);
+$primary-color-light: lighten($primary-color, 3%);
+$secondary-color: lighten($primary-color, 40%);
+$secondary-color-dark: darken($secondary-color, 3%);
+$secondary-color-light: lighten($secondary-color, 3%);
+
+$link-color: $primary-color;
+$link-color-dark: darken($link-color, 10%);

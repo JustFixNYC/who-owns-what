@@ -1,3 +1,5 @@
+@import 'styles/_vars.scss';
+
 .contacts {
   // margin: 0 auto;
   // max-width: 90vw;
@@ -15,7 +17,7 @@
       color: #32b643;
     }
     &.cat-owner small {
-      color: #5764c6;
+      color: $primary-color;
     }
     &.cat-rba small {
       color: #e85600;
