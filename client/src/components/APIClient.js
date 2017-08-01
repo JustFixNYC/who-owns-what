@@ -8,6 +8,10 @@ function getLandlords(q) {
   return get(`/api/landlords?housenumber=${q.housenumber}&streetname=${q.streetname}&boro=${q.boro}`);
 }
 
+function searchAddress(q) {
+  return get(`/api/address?housenumber=${q.housenumber}&streetname=${q.streetname}&boro=${q.boro}`);
+}
+
 function searchForJFXUsers(bbls) {
   return post('https://beta.justfix.nyc/api/data/bblslookup', { bbls: bbls });
 }
@@ -50,6 +54,7 @@ function parseJSON(response) {
 const Client = {
   getContacts,
   getLandlords,
+  searchAddress,
   searchForJFXUsers
 };
 export default Client;

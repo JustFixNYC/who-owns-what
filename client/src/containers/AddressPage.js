@@ -23,19 +23,19 @@ class AddressPage extends Component {
 
     const query = this.state.searchAddress;
 
-    APIClient.getLandlords(query).then(landlords => {
+    APIClient.searchAddress(query).then(data => {
+
+      const { contacts, landlords } = data;
+
+      let addrs = [];
 
       if(landlords.length) {
         // for each landlord/rba found, add its rba to each addr object
         // and then reduce and concatenate them
-        const addrs = landlords.map(l => {
+        addrs = landlords.map(l => {
           const assocRba = `${l.businesshousenumber} ${l.businessstreetname}${l.businessapartment ? ' ' + l.businessapartment : ''}, ${l.businesszip}`;
           return l.addrs.map(a => { return { ...a, assocRba }})
         }).reduce((a,b) => a.concat(b));
-
-        this.setState({
-          assocAddrs: addrs
-        });
 
         // get array of bbls
         const bbls = addrs.map(addr => addr.bbl);
@@ -50,14 +50,12 @@ class AddressPage extends Component {
         }
       }
 
-
-    });
-
-    APIClient.getContacts(query).then(contacts => {
       this.setState({
+        hasSearched: true,
         contacts: contacts.length ? contacts : [],
-        hasSearched: true
+        assocAddrs: addrs
       });
+
     });
   }
 
