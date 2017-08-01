@@ -23,6 +23,8 @@ const OwnersTable = (props) => {
     if(c.registrationcontacttype !== "CorporateOwner") {
       owners.push({ title: c.registrationcontacttype.split(/(?=[A-Z])/).join(" "), cat: "cat-owner", value: `${c.firstname} ${c.lastname}` });
     }
+
+    return c;
   });
 
   // filter repeated values in rbas and owners

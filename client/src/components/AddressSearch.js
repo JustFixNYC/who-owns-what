@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Geosuggest from 'react-geosuggest';
 
 import 'styles/AddressSearch.css';
@@ -12,8 +12,18 @@ const AddressSearch = (props) => {
 
   const handleGeosuggest = (suggest) => {
     const components = suggest.gmaps.address_components;
+
     const housenumber = components.find(e => e.types.indexOf('street_number') !== -1).long_name;
-    const streetname = components.find(e => e.types.indexOf('route') !== -1).long_name.toUpperCase();
+
+    const streetnameSuffix = /(.+)(\d+)(TH|RD|ND|ST) (.+)$/g;
+
+    // our system doesn't mess around with 34rd, 61st, 12th, etc. so we just grab the number
+    let streetname = components.find(e => e.types.indexOf('route') !== -1).long_name.toUpperCase();
+    if (streetnameSuffix.test(streetname)) {
+      console.log(streetname, streetnameSuffix.exec(streetname));
+      streetname = streetname.replace(streetnameSuffix, "$1$2 $4");
+    }
+
     const boro = components.find(e => e.types.indexOf('sublocality_level_1') !== -1).long_name.toUpperCase();
     props.onFormSubmit({ housenumber, streetname, boro });
   }

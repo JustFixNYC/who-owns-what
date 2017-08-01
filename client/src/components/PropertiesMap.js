@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { Map, Circle, CircleMarker, Marker, Popup, TileLayer } from 'react-leaflet';
+import React from 'react';
+import { Map, CircleMarker, Marker, TileLayer } from 'react-leaflet';
 import { CSSTransitionGroup } from 'react-transition-group';
 import L from 'leaflet';
 

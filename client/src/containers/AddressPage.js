@@ -63,7 +63,7 @@ class AddressPage extends Component {
 
   render() {
 
-    if(this.state.hasSearched && this.state.contacts.length == 0)  {
+    if(this.state.hasSearched && this.state.contacts.length === 0)  {
       return (
         <Redirect to={{
           pathname: '/',
