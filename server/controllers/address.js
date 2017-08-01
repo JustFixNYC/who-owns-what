@@ -15,7 +15,8 @@ module.exports = {
         // console.dir(geo.address, {depth: null, colors: true});
 
         // successful
-        if(geo.address.geosupportReturnCode == '00') {
+
+        if(geo.address.geosupportReturnCode == '00' && geo.address.bbl) {
           console.log('by bbl', geo.address.bbl);
           return Promise.all([
             db.queryContactsByBBL(geo.address.bbl),

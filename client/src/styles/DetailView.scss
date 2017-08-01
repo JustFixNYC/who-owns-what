@@ -1,0 +1,58 @@
+@import '_vars.scss';
+
+.DetailView {
+
+  $detailWidth: 30vw;
+  $detailAnimLength: 300;
+  $detailAnimLengthMs: 300 + 0ms;
+
+  flex: 1 0 $detailWidth;
+  height: 100%;
+  overflow-y: scroll;
+  z-index: 10;
+  background-color: #ffffff;
+
+  &::-webkit-scrollbar {
+    width: 13px;
+    background-color: #fff;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: #fff;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border: 1px solid $gray-dark;
+    background-color: $gray;
+  }
+
+  &.slide-enter {
+    margin-right: -$detailWidth;
+  }
+
+  &.slide-enter.slide-enter-active {
+    margin-right: 0;
+    transition: margin $detailAnimLengthMs cubic-bezier(0.215, 0.610, 0.355, 1.000);
+  }
+
+  &.slide-leave {
+    margin-right: 0;
+  }
+
+  &.slide-leave.slide-leave-active {
+    margin-right: -$detailWidth;
+    transition: margin $detailAnimLengthMs cubic-bezier(0.215, 0.610, 0.355, 1.000);
+  }
+
+  ul {
+    margin: 1rem 0.5rem;
+
+    li {
+      margin-top: 0.5rem;
+    }
+  }
+
+  a.btn {
+    margin-top: 10px;
+  }
+}

@@ -1,7 +1,9 @@
 import React from 'react';
-import { uniq } from 'util/helpers';
-import { Map, CircleMarker, Marker, TileLayer } from 'react-leaflet';
+import DetailView from 'components/DetailView';
 import { CSSTransitionGroup } from 'react-transition-group';
+import { Map, CircleMarker, Marker, TileLayer } from 'react-leaflet';
+import { uniq } from 'util/helpers';
+
 import L from 'leaflet';
 
 import 'styles/PropertiesMap.css';
@@ -27,7 +29,25 @@ function compareAddrs(a, b) {
 // need to check if either lat or lng is NaN. Occurs for ~0.5% of addresses
 function latLngIsNull(latlng) {
   return latlng.filter(isNaN).length;
-};
+}
+
+function SlideTransition(props) {
+  return (
+    <CSSTransitionGroup
+      { ...props }
+      component={FirstChild}
+      transitionName="slide"
+      transitionEnterTimeout={props.detailSlideLength}
+      transitionLeaveTimeout={props.detailSlideLength}>
+    </CSSTransitionGroup>
+  );
+}
+
+// see: https://facebook.github.io/react/docs/animation.html#rendering-a-single-child
+function FirstChild(props) {
+  const childrenArray = React.Children.toArray(props.children);
+  return childrenArray[0] || null;
+}
 
 function AssociatedAddrMarker(props) {
   return (
@@ -40,56 +60,6 @@ function AssociatedAddrMarker(props) {
         onClick={() => props.onClick(props.addr)}
       >
     </CircleMarker>
-  );
-}
-
-function DetailView(props) {
-  return (
-    <div className="PropertiesMap__detail">
-      <div className="card">
-        <div className="card-image">
-          <img src={`https://maps.googleapis.com/maps/api/streetview?size=960x300&location=${props.addr.lat},${props.addr.lng}&key=AIzaSyCJKZm-rRtfREo2o-GNC-feqpbSvfHNB5s`} alt="Google Street View" className="img-responsive"  />
-        </div>
-        <div className="card-header">
-          <h4 className="card-title">{props.addr.housenumber} {props.addr.streetname}</h4>
-        </div>
-        <div className="card-body">
-          This property is also registered at <b>{props.addr.assocRba}</b>.
-          <br />
-          <br />
-          <b>Corporate Owners:</b>
-          <ul>
-            {props.addr.corpnames.map((corp, idx) => <li key={idx}>{corp}</li> )}
-          </ul>
-          <b>Owners:</b>
-          <ul>
-            {props.addr.ownernames.map((owner, idx) => <li key={idx}>{owner.title.split(/(?=[A-Z])/).join(" ")}: {owner.value}</li> )}
-          </ul>
-        </div>
-      </div>
-      <div className="clearfix">
-        <button className="btn btn-link float-left" onClick={props.handleCloseDetail}>close detail view --&gt;</button>
-      </div>
-    </div>
-  );
-}
-
-// see: https://facebook.github.io/react/docs/animation.html#rendering-a-single-child
-function FirstChild(props) {
-  const childrenArray = React.Children.toArray(props.children);
-  return childrenArray[0] || null;
-}
-
-function SlideTransition(props) {
-
-  return (
-    <CSSTransitionGroup
-      { ...props }
-      component={FirstChild}
-      transitionName="slide"
-      transitionEnterTimeout={props.detailSlideLength}
-      transitionLeaveTimeout={props.detailSlideLength}>
-    </CSSTransitionGroup>
   );
 }
 
@@ -107,13 +77,6 @@ export default class PropertiesMap extends React.Component {
 
     this.detailSlideLength = 300;
   }
-
-  // don't need it atm, but here it is
-  // handleViewportChanged = (viewport) => {
-  //   this.setState({
-  //     viewport: viewport
-  //   });
-  // }
 
   openDetailView = (addr) => {
 
@@ -175,10 +138,10 @@ export default class PropertiesMap extends React.Component {
         return ( null );
       }
     });
-
+    
     if(bounds) {
       bounds = uniq(bounds);
-      bounds = bounds > 1 ? bounds : this.state.bounds;
+      bounds = bounds.length > 1 ? bounds : this.state.bounds;
     }
 
     return (
