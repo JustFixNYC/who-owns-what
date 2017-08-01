@@ -1,15 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-class AboutPage extends Component {
-  constructor() {
-    super();
-  }
-
-  render() {
-    return (
-      <p className="text-center">About page tbd</p>
-    );
-  }
+const AboutPage = () => {
+  return (
+    <p className="text-center">About page tbd</p>
+  );
 }
 
 export default AboutPage;
