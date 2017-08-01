@@ -1,3 +1,6 @@
+// Grab .env file if there is one
+require('dotenv').config();
+
 // This will be our application entry. We'll setup our server here.
 const app = require('./server/express'); // The express app we just created
 

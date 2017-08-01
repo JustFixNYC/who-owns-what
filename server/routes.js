@@ -1,9 +1,9 @@
 const router = require('express').Router();
 
 const contacts = require('./controllers/contacts');
-const landlord = require('./controllers/landlord');
+const landlords = require('./controllers/landlords');
 
 router.get('/contacts', contacts.query);
-router.get('/landlord', landlord.query);
+router.get('/landlords', landlords.query);
 
 module.exports = router;

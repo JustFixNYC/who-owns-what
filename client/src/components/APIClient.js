@@ -5,7 +5,7 @@ function getContacts(q) {
 }
 
 function getLandlords(q) {
-  return get(`/api/landlord?housenumber=${q.housenumber}&streetname=${q.streetname}&boro=${q.boro}`);
+  return get(`/api/landlords?housenumber=${q.housenumber}&streetname=${q.streetname}&boro=${q.boro}`);
 }
 
 function searchForJFXUsers(bbls) {
