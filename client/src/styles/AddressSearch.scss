@@ -1,3 +1,5 @@
+@import '_vars.scss';
+
 .AddressSearch form {
   margin-top: 15px;
   margin-bottom: 15px;
@@ -22,4 +24,47 @@
 
 .AddressSearch form .form-group .btn {
   margin-top: 32px;
+}
+
+
+.AddressSearch {
+
+  .geosuggest {
+
+    margin-bottom: 15px;
+
+    .geosuggest__suggests-wrapper {
+      background-color: #fff;
+      border: 1px solid $border;
+
+      ul {
+        margin: 0;
+
+        .geosuggest__item {
+
+          margin-top: 0;
+          padding: .75rem 1rem;
+
+          &:first-child {
+
+          }
+          &:hover {
+            background-color: $secondary-color;
+            cursor: pointer;
+          }
+
+          &.geosuggest__item--active {
+            background-color: $primary-color;
+            color: #fff;
+
+            &:hover {
+              background-color: $primary-color;
+            }
+          }
+        }
+
+
+      }
+    }
+  }
 }

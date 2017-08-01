@@ -1,81 +1,34 @@
 import React, { Component } from 'react';
+import Geosuggest from 'react-geosuggest';
+
 import 'styles/AddressSearch.css';
 
-class AddressSearch extends Component {
-  constructor(props) {
-    super(props);
+const AddressSearch = (props) => {
 
-    const { housenumber, streetname, boro } = props;
+  const geosuggestBounds = new window.google.maps.LatLngBounds(
+    new window.google.maps.LatLng(40.477398, -74.259087),
+    new window.google.maps.LatLng(40.917576, -73.700172)
+  );
 
-    this.state = {
-      searchAddress: { housenumber, streetname, boro }
-    };
+  const handleGeosuggest = (suggest) => {
+    const components = suggest.gmaps.address_components;
+    const housenumber = components.find(e => e.types.indexOf('street_number') !== -1).long_name;
+    const streetname = components.find(e => e.types.indexOf('route') !== -1).long_name.toUpperCase();
+    const boro = components.find(e => e.types.indexOf('sublocality_level_1') !== -1).long_name.toUpperCase();
+    props.onFormSubmit({ housenumber, streetname, boro });
   }
 
-  handleInputChange = (event) => {
-    const target = event.target;
-    const value = target.type === 'checkbox' ? target.checked : target.value;
-    const name = target.name;
-
-    const searchAddress = this.state.searchAddress;
-    searchAddress[name] = value.toUpperCase();
-
-    this.setState({
-     searchAddress: searchAddress
-    });
-  }
-
-  render() {
-    return (
-      <div className="AddressSearch">
-        <form onSubmit={(event) => this.props.onFormSubmit(event, this.state.searchAddress)}>
-          <div className="form-group col-xs-12">
-            <label className="form-label" htmlFor="housenumber">House number:</label>
-            <input
-              type="text"
-              className="form-input"
-              name="housenumber"
-              id="housenumber"
-              value={this.state.searchAddress.housenumber}
-              onChange={this.handleInputChange}
-            />
-          </div>
-          <div className="form-group col-xs-12">
-            <label className="form-label" htmlFor="streetname">Street name:</label>
-            <input
-              type="text"
-              className="form-input"
-              name="streetname"
-              id="streetname"
-              value={this.state.searchAddress.streetname}
-              onChange={this.handleInputChange}
-            />
-          </div>
-          <div className="form-group col-xs-12">
-            <label className="form-label" htmlFor="boro">Borough:</label>
-            <select
-              className="form-select"
-              name="boro"
-              id="boro"
-              value={this.state.searchAddress.boro}
-              onChange={this.handleInputChange}
-            >
-              <option value="">Choose a borough</option>
-              <option value="BROOKLYN">Brooklyn</option>
-              <option value="MANHATTAN">Manhattan</option>
-              <option value="QUEENS">Queens</option>
-              <option value="BRONX">Bronx</option>
-              <option value="STATEN ISLAND">Staten Island</option>
-            </select>
-          </div>
-          <div className="form-group">
-            <input className="btn btn-primary" type="submit" value="Search" />
-          </div>
-        </form>
+  return (
+    <div className="AddressSearch">
+      <div className="form-group col-xs-12">
+        <Geosuggest
+          bounds={geosuggestBounds}
+          onSuggestSelect={handleGeosuggest}
+          inputClassName="form-input"
+          />
       </div>
-    );
-  }
-
+    </div>
+  );
 }
 
 export default AddressSearch;

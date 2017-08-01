@@ -20,11 +20,12 @@ class HomePage extends Component {
     this.nothingFound = /(not-found)/g.test(props.location.search);
   }
 
-  handleFormSubmit = (event, searchAddress) => {
+  handleFormSubmit = (searchAddress) => {
+    console.log('searching...', searchAddress);
     this.setState({
       searchAddress: searchAddress
     });
-    event.preventDefault();
+    // event.preventDefault();
   }
 
   render() {
