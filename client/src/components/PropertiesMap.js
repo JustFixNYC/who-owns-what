@@ -1,4 +1,5 @@
 import React from 'react';
+import { uniq } from 'util/helpers';
 import { Map, CircleMarker, Marker, TileLayer } from 'react-leaflet';
 import { CSSTransitionGroup } from 'react-transition-group';
 import L from 'leaflet';
@@ -140,14 +141,9 @@ export default class PropertiesMap extends React.Component {
 
   render() {
 
-    const mapboxLight = 'https://api.mapbox.com/styles/v1/dan-kass/cj5rsfld203472sqy1y0px42d/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoiZGFuLWthc3MiLCJhIjoiY2lsZTFxemtxMGVpdnVoa3BqcjI3d3Q1cCJ9.IESJdCy8fmykXbb626NVEw';
-
-    const mapUrl = mapboxLight;
-
+    const mapUrl = 'https://api.mapbox.com/styles/v1/dan-kass/cj5rsfld203472sqy1y0px42d/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoiZGFuLWthc3MiLCJhIjoiY2lsZTFxemtxMGVpdnVoa3BqcjI3d3Q1cCJ9.IESJdCy8fmykXbb626NVEw';
     let mapCenter = this.state.mapCenter;
-
-    // LatLngBounds doesn't like a single LatLng. needs > 1.
-    let bounds = this.props.addrs.length > 1 ? [] : this.state.bounds;
+    let bounds = [];
 
     if(this.state.detailAddr) {
       mapCenter = [parseFloat(this.state.detailAddr.lat), parseFloat(this.state.detailAddr.lng)];
@@ -179,6 +175,11 @@ export default class PropertiesMap extends React.Component {
         return ( null );
       }
     });
+
+    if(bounds) {
+      bounds = uniq(bounds);
+      bounds = bounds > 1 ? bounds : this.state.bounds;
+    }
 
     return (
       <div className="PropertiesMap">

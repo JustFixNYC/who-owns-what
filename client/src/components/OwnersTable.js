@@ -1,6 +1,6 @@
 import React from 'react';
+import { uniq } from 'util/helpers';
 import 'styles/OwnersTable.css';
-
 
 const OwnersTable = (props) => {
 
@@ -27,11 +27,9 @@ const OwnersTable = (props) => {
     return c;
   });
 
-  // filter repeated values in rbas and owners
-  // uses Set which enforces uniqueness
-  // see: https://stackoverflow.com/a/44601543/991673
-  rbas = Array.from(new Set(rbas.map(JSON.stringify))).map(JSON.parse);
-  owners = Array.from(new Set(owners.map(JSON.stringify))).map(JSON.parse);
+  rbas = uniq(rbas);
+  owners = uniq(owners);
+  corps = uniq(corps);
 
   const contacts = [...corps, ...owners, ...rbas].map((obj, idx) => (
     <span className={`label ${obj.cat}`} key={idx}>

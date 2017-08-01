@@ -16,11 +16,13 @@ module.exports = {
 
         // successful
         if(geo.address.geosupportReturnCode == '00') {
+          console.log('by bbl', geo.address.bbl);
           return Promise.all([
             db.queryContactsByBBL(geo.address.bbl),
             db.queryLandlordsByBBL(geo.address.bbl)
           ]);
         } else {
+          console.log('by addr', housenumber, streetname, boro);
           return Promise.all([
             db.queryContactsByAddr(housenumber, streetname, boro),
             db.queryLandlordsByAddr(housenumber, streetname, boro)
