@@ -11,12 +11,10 @@
     "react-dom": "^15.6.1",
     "react-geosuggest": "^2.3.6",
     "react-leaflet": "^1.4.0",
-    "react-mapbox-gl": "^2.1.0",
     "react-router-dom": "^4.1.2",
     "react-scripts": "1.0.10",
     "react-transition-group": "1.x",
-    "spectre.css": "^0.2.14",
-    "spectre.scss": "0.0.1"
+    "spectre.scss": "0.0.2"
   },
   "scripts": {
     "build-css": "node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/",

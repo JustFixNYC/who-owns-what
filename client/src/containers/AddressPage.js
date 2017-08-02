@@ -89,11 +89,12 @@ class AddressPage extends Component {
           <div className="btn-group float-right">
             {this.state.contacts.length ? (
                 <div className="dropdown">
-                  <a href="#" className="btn dropdown-toggle" tabIndex="0">
+                  <button className="btn dropdown-toggle" tabIndex="0">
                     Property Links &#8964;
-                  </a>
+                  </button>
                   <ul className="menu">
                     <li><a href={`http://a836-acris.nyc.gov/bblsearch/bblsearch.asp?borough=${boro}&block=${block}&lot=${lot}`} target="_blank">View documents on ACRIS &#8599;</a></li>
+                    <li><a href={`http://webapps.nyc.gov:8084/CICS/fin1/find001i?FFUNC=C&FBORO=${boro}&FBLOCK=${block}&FLOT=${lot}`} target="_blank">DOF Property Tax Bills &#8599;</a></li>
                     <li><a href={`http://a810-bisweb.nyc.gov/bisweb/PropertyProfileOverviewServlet?boro=${boro}&block=${block}&lot=${lot}`} target="_blank">DOB Property Profile &#8599;</a></li>
                     <li><a href={`https://hpdonline.hpdnyc.org/HPDonline/Provide_address.aspx?p1=${boro}&p2=${this.state.searchAddress.housenumber}&p3=${this.state.searchAddress.streetname}&SearchButton=Search`} target="_blank">HPD Complaints/Violations &#8599;</a></li>
                   </ul>

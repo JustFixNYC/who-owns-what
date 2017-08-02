@@ -2,7 +2,7 @@
 
 .DetailView {
 
-  $detailWidth: 30vw;
+  $detailWidth: 35vw;
   $detailAnimLength: 300;
   $detailAnimLengthMs: 300 + 0ms;
 
@@ -60,6 +60,7 @@
     left: -66px;
     width: 66px;
     height: 42px;
+    transform: translateZ(0);
 
     display: flex;
     align-items: center;
