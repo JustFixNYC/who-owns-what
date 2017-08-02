@@ -108,13 +108,15 @@ class AddressPage extends Component {
 
 
 
-          <h5 className="primary">Landlord info for {this.state.searchAddress.housenumber} {this.state.searchAddress.streetname}, {this.state.searchAddress.boro}:</h5>
+          <h5 className="primary">Information for {this.state.searchAddress.housenumber} {this.state.searchAddress.streetname}, {this.state.searchAddress.boro}:</h5>
           <OwnersTable
             contacts={this.state.contacts}
             hasJustFixUsers={this.state.hasJustFixUsers}
           />
-          <h5 className="inline-block">We found <i>{this.state.assocAddrs.length}</i> associated buildings:</h5>
-          <p className="inline-block float-right"><i>&nbsp;(click on a building to view details)</i></p>
+        { /* <h5 className="inline-block">We found <u>{this.state.assocAddrs.length}</u> other buildings that share this landlord<sup><span className="tooltip" data-tooltip="We can't guarantee 100% accuracy :~(">*</span></sup>:</h5> */ }
+        { /* <h5 className="inline-block">We found <u>{this.state.assocAddrs.length}</u> other buildings that share this landlord:</h5> */ }
+        <h5 className="inline-block">This landlord is associated with <u>{this.state.assocAddrs.length}</u> other buildings:</h5>
+        <p className="inline-block float-right"><i>&nbsp;(click on a building to view details)</i></p>
 
         </div>
         <PropertiesMap

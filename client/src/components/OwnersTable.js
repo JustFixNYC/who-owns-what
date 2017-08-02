@@ -38,10 +38,11 @@ const OwnersTable = (props) => {
     </span>
   ));
 
-  let hasJustFixUsersWarning = null;
-  if(props.hasJustFixUsers) {
-    hasJustFixUsersWarning = <p className="mt-10 text-center text-bold text-danger text-large">This landlord has at least one active JustFix.nyc case!</p>
-  }
+  // let hasJustFixUsersWarning = null;
+  let hasJustFixUsersWarning = <br />;
+  // if(props.hasJustFixUsers) {
+  //   hasJustFixUsersWarning = <p className="mt-10 text-center text-bold text-danger text-large">This landlord has at least one active JustFix.nyc case!</p>
+  // }
 
   if(!contacts.length) {
     return ( null );

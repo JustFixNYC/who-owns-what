@@ -21,9 +21,10 @@
   ul.menu {
     border: 1px solid $gray-dark;
     padding: 0;
-    width: 22rem;
+    width: 24rem;
     right: 0;
     left: inherit;
+    list-style: disc inside none;
 
     li {
       margin-top: 0;

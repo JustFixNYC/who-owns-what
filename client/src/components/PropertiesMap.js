@@ -54,8 +54,9 @@ function AssociatedAddrMarker(props) {
     <CircleMarker
         center={props.pos}
         radius={7.5}
-        color={props.isDetailAddr ? '#0096d7' : '#FFA500'}
-        weight={2}
+        color={'#000000'}
+        fillColor={props.isDetailAddr ? '#0096d7' : '#FFA500'}
+        weight={1}
         fillOpacity={0.8}
         onClick={() => props.onClick(props.addr)}
       >
@@ -104,7 +105,10 @@ export default class PropertiesMap extends React.Component {
 
   render() {
 
-    const mapUrl = 'https://api.mapbox.com/styles/v1/dan-kass/cj5rsfld203472sqy1y0px42d/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoiZGFuLWthc3MiLCJhIjoiY2lsZTFxemtxMGVpdnVoa3BqcjI3d3Q1cCJ9.IESJdCy8fmykXbb626NVEw';
+    const light = 'https://api.mapbox.com/styles/v1/dan-kass/cj5rsfld203472sqy1y0px42d/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoiZGFuLWthc3MiLCJhIjoiY2lsZTFxemtxMGVpdnVoa3BqcjI3d3Q1cCJ9.IESJdCy8fmykXbb626NVEw';
+    const stamen = 'http://a.tile.stamen.com/toner/{z}/{x}/{y}.png';
+
+    const mapUrl = light;
     let mapCenter = this.state.mapCenter;
     let bounds = [];
 
@@ -138,7 +142,7 @@ export default class PropertiesMap extends React.Component {
         return ( null );
       }
     });
-    
+
     if(bounds) {
       bounds = uniq(bounds);
       bounds = bounds.length > 1 ? bounds : this.state.bounds;
@@ -151,7 +155,7 @@ export default class PropertiesMap extends React.Component {
             center={mapCenter}
             zoom={this.state.mapZoom}
             bounds={bounds}
-            boundsOptions={{padding: [50, 50]}}
+            boundsOptions={{padding: [0, 0]}}
             onViewportChanged={this.handleViewportChanged}>
               <TileLayer
                 url={mapUrl}

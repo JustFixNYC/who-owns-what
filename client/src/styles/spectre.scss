@@ -15,6 +15,17 @@ a:focus, .form-input:focus, .btn:focus,  {
   box-shadow: 0 .1rem (.1rem+.1rem)*2 fade-in($gray-light, .30);
 }
 
+.text-danger {
+  color: red;
+}
+.text-warning {
+  color: $error;
+}
+
+sup .tooltip:after {
+  font-size: 100%;
+  line-height: 1.2;
+}
 
 
 // Core variables and mixins
