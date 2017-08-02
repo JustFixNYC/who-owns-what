@@ -44,7 +44,7 @@ const queryContacts = (registrationSubQuery) => {
   );
 };
 
-queryLandlords = (addrOrBBL) => {
+const queryLandlords = (addrOrBBL) => {
   // get 1 or more RBAs from the address
   return knex.raw(addrOrBBL)
     .then(data => {
