@@ -5,6 +5,7 @@ import FileSaver from 'file-saver';
 import OwnersTable from 'components/OwnersTable';
 import PropertiesMap from 'components/PropertiesMap';
 import APIClient from 'components/APIClient';
+import Modal from 'components/Modal';
 
 import 'styles/AddressPage.css';
 
@@ -16,7 +17,8 @@ class AddressPage extends Component {
       searchAddress: { ...props.match.params },
       hasSearched: false,
       contacts: [],
-      assocAddrs: []
+      assocAddrs: [],
+      showExportModal: false
     };
   }
 
@@ -59,6 +61,9 @@ class AddressPage extends Component {
 
     });
   }
+
+  openExportModal = () => this.setState({ showExportModal: true });
+  closeExportModal = () => this.setState({ showExportModal: false });
 
   handleExportClick = () => {
     APIClient.getAddressExport(this.state.searchAddress)
@@ -105,7 +110,7 @@ class AddressPage extends Component {
                 </div>
               ) : null
             }
-            <button className="btn" onClick={this.handleExportClick}>
+            <button className="btn" onClick={this.openExportModal}>
               Export Data
             </button>
             <Link className="btn" to="/">
@@ -126,6 +131,14 @@ class AddressPage extends Component {
           addrs={this.state.assocAddrs}
           userAddr={this.state.searchAddress}
         />
+        <Modal
+          showModal={this.state.showExportModal}
+          onClose={this.closeExportModal}>
+          <p>This will export <b>{this.state.assocAddrs.length}</b> addresses associated with the landlord at <b>{this.state.searchAddress.housenumber} {this.state.searchAddress.streetname}, {this.state.searchAddress.boro}</b>!</p>
+          <p>This data is in <u>CSV file format</u>, which can easily be used in Excel, Google Sheets, or any other spreadsheet program.</p>
+          <br />
+          <button className="btn btn-primary centered" onClick={this.handleExportClick}>Download</button>
+        </Modal>
       </div>
     );
   }

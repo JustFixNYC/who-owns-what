@@ -1,0 +1,18 @@
+.ReactModal__Overlay--after-open {
+
+  z-index: 100;
+
+  .ReactModal__Close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 18px;
+    transition: none;
+  }
+
+  .ReactModal__Content {
+    transform: translate(-50%, -50%);
+    max-width: 40vw;
+    min-width: 300px;
+  }
+}
