@@ -18,6 +18,7 @@
     "csv-express": "^1.2.2",
     "dotenv": "^4.0.0",
     "express": "^4.15.3",
+    "keen-tracking": "^1.1.4",
     "knex": "^0.13.0",
     "lodash": "^4.17.4",
     "morgan": "^1.8.2",
