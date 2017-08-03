@@ -164,6 +164,11 @@ export default class PropertiesMap extends React.Component {
               { this.props.addrs.length && addrs}
           </Map>
         </div>
+        { !this.state.showDetailView &&
+          <div className="PropertiesMap__prompt">
+            <p><i>(click on a building to view details)</i></p> 
+          </div>
+        }
         <SlideTransition detailSlideLength={this.detailSlideLength}>
           { this.state.showDetailView &&
             <DetailView

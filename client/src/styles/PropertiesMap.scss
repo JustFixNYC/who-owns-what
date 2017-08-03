@@ -6,6 +6,21 @@
   height: 100%;
 
   display: flex;
+  position: relative;
+
+  .PropertiesMap__prompt {
+    background: #fff;
+    position: absolute;
+    z-index: 10;
+    top: 0; right: -1px;
+    border: 1px solid $gray-dark;
+    padding: 4px 10px;
+
+    p {
+      text-align: center;
+      margin-bottom: 0;
+    }
+  }
 
   .PropertiesMap__map {
 
