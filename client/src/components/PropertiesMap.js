@@ -65,8 +65,8 @@ function AssociatedAddrMarker(props) {
 }
 
 export default class PropertiesMap extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
       mapCenter: [40.7127, -73.96270751953125],
@@ -166,7 +166,7 @@ export default class PropertiesMap extends React.Component {
         </div>
         { !this.state.showDetailView &&
           <div className="PropertiesMap__prompt">
-            <p><i>(click on a building to view details)</i></p> 
+            <p><i>(click on a building to view details)</i></p>
           </div>
         }
         <SlideTransition detailSlideLength={this.detailSlideLength}>
