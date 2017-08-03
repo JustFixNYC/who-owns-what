@@ -45,7 +45,7 @@ const OwnersTable = (props) => {
   //   hasJustFixUsersWarning = <p className="mt-10 text-center text-bold text-danger text-large">This landlord has at least one active JustFix.nyc case!</p>
   // }
 
-  if(!contacts.length) {
+  if(!props.contacts.length) {
     return ( null );
   } else {
     return (
