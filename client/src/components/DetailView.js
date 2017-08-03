@@ -44,11 +44,11 @@ class DetailView extends Component {
               {this.state.hasJustFixUsers &&
                 <p className="text-bold text-danger">This building has at least one active JustFix.nyc case!</p>
               }
-              <b>Corporate Owners:</b>
+              <b>Shell Companies:</b>
               <ul>
                 {this.props.addr.corpnames.map((corp, idx) => <li key={idx}>{corp}</li> )}
               </ul>
-              <b>Owners:</b>
+              <b>People:</b>
               <ul>
                 {this.props.addr.ownernames.map((owner, idx) => <li key={idx}>{owner.title.split(/(?=[A-Z])/).join(" ")}: {owner.value}</li> )}
               </ul>

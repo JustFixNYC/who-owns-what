@@ -24,6 +24,7 @@ const OwnersTable = (props) => {
       owners.push({ title: c.registrationcontacttype.split(/(?=[A-Z])/).join(" "), cat: "cat-owner", value: `${c.firstname} ${c.lastname}` });
     }
 
+    // just using this to iterate. there's probably (definitely) a better way
     return c;
   });
 
@@ -31,28 +32,46 @@ const OwnersTable = (props) => {
   owners = uniq(owners);
   corps = uniq(corps);
 
-  const contacts = [...corps, ...owners, ...rbas].map((obj, idx) => (
-    <span className={`label ${obj.cat}`} key={idx}>
-      <small>{obj.title}</small>
-      <h6>{obj.value}</h6>
-    </span>
-  ));
+  // const contacts = [...corps, ...owners, ...rbas].map((obj, idx) => (
+  //   <span className={`label ${obj.cat}`} key={idx}>
+  //     <small>{obj.title}</small>
+  //     <h6>{obj.value}</h6>
+  //   </span>
+  // ));
 
-  let hasJustFixUsersWarning = null;
-  // let hasJustFixUsersWarning = <br />;
-  if(props.hasJustFixUsers) {
-    hasJustFixUsersWarning = <p className="mt-10 text-center text-bold text-danger text-large">This landlord has at least one active JustFix.nyc case!</p>
-  }
+  // let hasJustFixUsersWarning = null;
+  // // let hasJustFixUsersWarning = <br />;
+  // if(props.hasJustFixUsers) {
+  //   hasJustFixUsersWarning = <p className="mt-10 text-center text-bold text-danger text-large">This landlord has at least one active JustFix.nyc case!</p>
+  // }
 
   if(!contacts.length) {
     return ( null );
   } else {
     return (
-      <div>
-        <div className="contacts">
-          {contacts}
+      <div className="OwnersTable">
+        <div className="container">
+          <div className="columns">
+            <div className="column col-3">
+              <p>Business Addresses</p>
+              <ul>
+                {rbas.map((rba, idx) => <li key={idx}>{rba.value}</li>)}
+              </ul>
+            </div>
+            <div className="column col-3">
+              <p>Shell Companies</p>
+              <ul>
+                {corps.map((corp, idx) => <li key={idx}>{corp.value}</li>)}
+              </ul>
+            </div>
+            <div className="column col-6">
+              <p>People</p>
+              <ul className="owners">
+                {owners.map((owner, idx) => <li key={idx}>{owner.title}: {owner.value}</li>)}
+              </ul>
+            </div>
+          </div>
         </div>
-        {hasJustFixUsersWarning}
       </div>
     );
   }
