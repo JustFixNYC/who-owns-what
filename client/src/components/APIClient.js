@@ -1,5 +1,4 @@
 /* eslint-disable no-undef */
-
 function getContacts(q) {
   return get(`/api/contacts?housenumber=${q.housenumber}&streetname=${q.streetname}&boro=${q.boro}`);
 }
@@ -10,6 +9,11 @@ function getLandlords(q) {
 
 function searchAddress(q) {
   return get(`/api/address?housenumber=${q.housenumber}&streetname=${q.streetname}&boro=${q.boro}`);
+}
+
+function getAddressExport(q) {
+  return fetch(`/api/address/export?housenumber=${q.housenumber}&streetname=${q.streetname}&boro=${q.boro}`)
+    .then(checkStatus);
 }
 
 function searchForJFXUsers(bbls) {
@@ -55,6 +59,7 @@ const Client = {
   getContacts,
   getLandlords,
   searchAddress,
+  getAddressExport,
   searchForJFXUsers
 };
 export default Client;

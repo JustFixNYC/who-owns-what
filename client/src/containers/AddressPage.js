@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Redirect, Link } from 'react-router-dom';
+import FileSaver from 'file-saver';
 
 import OwnersTable from 'components/OwnersTable';
 import PropertiesMap from 'components/PropertiesMap';
@@ -59,6 +60,12 @@ class AddressPage extends Component {
     });
   }
 
+  handleExportClick = () => {
+    APIClient.getAddressExport(this.state.searchAddress)
+      .then(response => response.blob())
+      .then(blob => FileSaver.saveAs(blob, 'export.csv'));
+  }
+
   render() {
 
     let bbl, boro, block, lot;
@@ -80,9 +87,6 @@ class AddressPage extends Component {
       lot = bbl.slice(6,10).join('');
     }
 
-
-
-
     return (
       <div className="AddressPage">
         <div className="AddressPage__info">
@@ -101,12 +105,13 @@ class AddressPage extends Component {
                 </div>
               ) : null
             }
+            <button className="btn" onClick={this.handleExportClick}>
+              Export Data
+            </button>
             <Link className="btn" to="/">
               New Search
             </Link>
           </div>
-
-
 
           <h5 className="primary">Information for {this.state.searchAddress.housenumber} {this.state.searchAddress.streetname}, {this.state.searchAddress.boro}:</h5>
           <OwnersTable
