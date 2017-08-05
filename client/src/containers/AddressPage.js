@@ -3,7 +3,8 @@ import { Redirect, Link } from 'react-router-dom';
 import FileSaver from 'file-saver';
 
 import OwnersTable from 'components/OwnersTable';
-import PropertiesMap from 'components/PropertiesMap';
+// import PropertiesMap from 'components/PropertiesMap';
+import PropertiesMapGL from 'components/PropertiesMapGL';
 import APIClient from 'components/APIClient';
 import Modal from 'components/Modal';
 
@@ -127,7 +128,7 @@ class AddressPage extends Component {
         { /* <h5 className="inline-block">We found <u>{this.state.assocAddrs.length}</u> other buildings that share this landlord:</h5> */ }
         <h5 className="inline-block mb-10">This landlord is associated with <u>{this.state.assocAddrs.length}</u> other buildings:</h5>
         </div>
-        <PropertiesMap
+        <PropertiesMapGL
           addrs={this.state.assocAddrs}
           userAddr={this.state.searchAddress}
         />

@@ -1,5 +1,5 @@
 import React from 'react';
-import { uniq } from 'util/helpers';
+import Helpers from 'util/helpers';
 import 'styles/OwnersTable.css';
 
 const OwnersTable = (props) => {
@@ -28,9 +28,9 @@ const OwnersTable = (props) => {
     return c;
   });
 
-  rbas = uniq(rbas);
-  owners = uniq(owners);
-  corps = uniq(corps);
+  rbas = Helpers.uniq(rbas);
+  owners = Helpers.uniq(owners);
+  corps = Helpers.uniq(corps);
 
   // const contacts = [...corps, ...owners, ...rbas].map((obj, idx) => (
   //   <span className={`label ${obj.cat}`} key={idx}>
