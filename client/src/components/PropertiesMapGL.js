@@ -36,27 +36,10 @@ const USER_MARKER_PAINT = {
   'circle-color': '#0096d7'
 };
 
+
 // due to the wonky way react-mapboxgl works, we can just specify a center/zoom combo
 // instead we use this offset value to create a fake bounding box around the detail center point
 const DETAIL_OFFSET = 0.0001;
-
-// see: https://github.com/mapbox/mapbox-gl-js/issues/3605
-// const USER_MARKER_LAYOUT = {
-//   'text-line-height': 1, // this is to avoid any padding around the "icon"
-//   'text-padding': 0,
-//   'text-anchor': 'bottom', // change if needed, "bottom" is good for marker style icons like in my screenshot,
-//   'text-allow-overlap': true, // assuming you want this, you probably do
-//   'text-field': String.fromCharCode("0xE55F"), // IMPORTANT SEE BELOW: -- this should be the unicode character you're trying to render as a string -- NOT the character code but the actual character,
-//   'icon-optional': true, // since we're not using an icon, only text.
-//   'text-font': ['Material Icons Regular'], // see step 1 -- whatever the icon font name,
-//   'text-size': 25 // or whatever you want -- dont know if this can be data driven...
-// };
-//
-// const USER_MARKER_PAINT = {
-//   'text-color': '#f44336',
-//   'text-halo-color': '#FFFFFF',
-//   'text-halo-width': 2
-// };
 
 // compare using housenumber, streetname, boro convention
 // TODO: switch to bbl
@@ -89,12 +72,15 @@ export default class PropertiesMap extends React.Component {
     super(props);
 
     this.state = {
+      showDetailView: false,
+      detailAddr: null
+    };
+
+    this.map = {
       mapCenter: [-73.96270751953125, 40.7127],
       mapZoom: [10],
       bounds: [[-74.259087, 40.477398], [-73.700172, 40.917576]],
-      boundsOptions: { padding: {top:50, bottom: 100, left: 50, right: 50} },
-      showDetailView: false,
-      detailAddr: null
+      boundsOptions: { padding: {top:50, bottom: 100, left: 50, right: 50} }
     };
 
     this.detailSlideLength = 300;
@@ -130,7 +116,7 @@ export default class PropertiesMap extends React.Component {
 
       if(!MapHelpers.latLngIsNull(pos)) {
 
-        // add to the *shadow* bounds obj
+        // add to the bounds obj
         if(!this.state.showDetailView) bounds.push(pos);
 
         if(compareAddrs(addr, this.props.userAddr)) {
@@ -147,7 +133,7 @@ export default class PropertiesMap extends React.Component {
 
     // defaults
     if(!this.props.addrs.length) {
-      mapProps.fitBounds = new MapboxGL.LngLatBounds(this.state.bounds);
+      mapProps.fitBounds = new MapboxGL.LngLatBounds(this.map.bounds);
       mapProps.center = mapProps.fitBounds.getCenter();
 
     // detail view
@@ -155,15 +141,15 @@ export default class PropertiesMap extends React.Component {
       let minPos = [parseFloat(this.state.detailAddr.lng) - DETAIL_OFFSET, parseFloat(this.state.detailAddr.lat) - DETAIL_OFFSET];
       let maxPos = [parseFloat(this.state.detailAddr.lng) + DETAIL_OFFSET, parseFloat(this.state.detailAddr.lat) + DETAIL_OFFSET];
       mapProps.fitBounds = new MapboxGL.LngLatBounds([minPos, maxPos]);
-      mapProps.fitBoundsOptions = { ...this.state.boundsOptions, maxZoom: 20, offset: [-125, 0] };
+      mapProps.fitBoundsOptions = { ...this.map.boundsOptions, maxZoom: 20, offset: [-125, 0] };
 
     // regular view
     } else {
       bounds = Helpers.uniq(bounds);
-      bounds = bounds.length > 1 ? bounds : this.state.bounds;
+      bounds = bounds.length > 1 ? bounds : this.map.bounds;
       bounds = MapHelpers.getBoundingBox(bounds);
       mapProps.fitBounds = new MapboxGL.LngLatBounds(bounds);
-      mapProps.fitBoundsOptions = this.state.boundsOptions;
+      mapProps.fitBoundsOptions = this.map.boundsOptions;
     }
 
     return (

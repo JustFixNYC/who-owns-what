@@ -3,7 +3,6 @@ import { Redirect, Link } from 'react-router-dom';
 import FileSaver from 'file-saver';
 
 import OwnersTable from 'components/OwnersTable';
-// import PropertiesMap from 'components/PropertiesMap';
 import PropertiesMapGL from 'components/PropertiesMapGL';
 import APIClient from 'components/APIClient';
 import Modal from 'components/Modal';
