@@ -22,8 +22,7 @@ const BASE_CIRCLE = {
 
 const ASSOC_CIRCLE_PAINT = {
   ...BASE_CIRCLE,
-  'circle-opacity': 0.7,
-  'circle-stroke-color': '#727e96'
+  'circle-opacity': 0.7
 };
 
 const DETAIL_CIRCLE_PAINT = {
