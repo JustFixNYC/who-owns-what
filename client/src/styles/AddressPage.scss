@@ -17,31 +17,4 @@
       margin-bottom: 15px;
     }
   }
-
-  ul.menu {
-    border: 1px solid $gray-dark;
-    padding: 0;
-    width: 24rem;
-    right: 0;
-    left: inherit;
-    list-style: disc inside none;
-
-    li {
-      margin-top: 0;
-      padding-top: 5px;
-      padding-bottom: 5px;
-      padding-left: 10px;
-
-      &:hover {
-        background-color: $primary-color;
-        color: #fff;
-        cursor: pointer;
-
-        a {
-          color: #fff;
-          text-decoration: none;
-        }
-      }
-    }
-  }
 }

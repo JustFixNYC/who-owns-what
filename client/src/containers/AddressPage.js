@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import { Redirect, Link } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import FileSaver from 'file-saver';
 
 import OwnersTable from 'components/OwnersTable';
+import AddressToolbar from 'components/AddressToolbar';
 import PropertiesMap from 'components/PropertiesMap';
 import APIClient from 'components/APIClient';
-import Modal from 'components/Modal';
 
 import 'styles/AddressPage.css';
 
@@ -17,8 +17,7 @@ class AddressPage extends Component {
       searchAddress: { ...props.match.params },
       hasSearched: false,
       contacts: [],
-      assocAddrs: [],
-      showExportModal: false
+      assocAddrs: []
     };
   }
 
@@ -54,6 +53,7 @@ class AddressPage extends Component {
       }
 
       this.setState({
+        searchAddress: contacts.length ? { ...query, bbl: contacts[0].bbl } : query,
         hasSearched: true,
         contacts: contacts.length ? contacts : [],
         assocAddrs: addrs
@@ -62,9 +62,7 @@ class AddressPage extends Component {
     });
   }
 
-  openExportModal = () => this.setState({ showExportModal: true });
-  closeExportModal = () => this.setState({ showExportModal: false });
-
+  // should this properly live in AddressToolbar? you tell me
   handleExportClick = () => {
     APIClient.getAddressExport(this.state.searchAddress)
       .then(response => response.blob())
@@ -72,8 +70,6 @@ class AddressPage extends Component {
   }
 
   render() {
-
-    let bbl, boro, block, lot;
 
     if(this.state.hasSearched && this.state.contacts.length === 0)  {
       return (
@@ -84,40 +80,14 @@ class AddressPage extends Component {
       );
     }
 
-    // I don't like where this is living atm. But fuck it ship it
-    if (this.state.contacts.length) {
-      bbl = this.state.contacts[0].bbl.split('');
-      boro = bbl.slice(0,1).join('');
-      block = bbl.slice(1,6).join('');
-      lot = bbl.slice(6,10).join('');
-    }
-
     return (
       <div className="AddressPage">
         <div className="AddressPage__info">
-          <div className="btn-group float-right">
-            {this.state.contacts.length ? (
-                <div className="dropdown">
-                  <button className="btn dropdown-toggle" tabIndex="0">
-                    Property Links &#8964;
-                  </button>
-                  <ul className="menu">
-                    <li><a href={`http://a836-acris.nyc.gov/bblsearch/bblsearch.asp?borough=${boro}&block=${block}&lot=${lot}`} target="_blank">View documents on ACRIS &#8599;</a></li>
-                    <li><a href={`http://webapps.nyc.gov:8084/CICS/fin1/find001i?FFUNC=C&FBORO=${boro}&FBLOCK=${block}&FLOT=${lot}`} target="_blank">DOF Property Tax Bills &#8599;</a></li>
-                    <li><a href={`http://a810-bisweb.nyc.gov/bisweb/PropertyProfileOverviewServlet?boro=${boro}&block=${block}&lot=${lot}`} target="_blank">DOB Property Profile &#8599;</a></li>
-                    <li><a href={`https://hpdonline.hpdnyc.org/HPDonline/Provide_address.aspx?p1=${boro}&p2=${this.state.searchAddress.housenumber}&p3=${this.state.searchAddress.streetname}&SearchButton=Search`} target="_blank">HPD Complaints/Violations &#8599;</a></li>
-                  </ul>
-                </div>
-              ) : null
-            }
-            <button className="btn" onClick={this.openExportModal}>
-              Export Data
-            </button>
-            <Link className="btn" to="/">
-              New Search
-            </Link>
-          </div>
-
+          <AddressToolbar
+            onExportClick={this.handleExportClick}
+            userAddr={this.state.searchAddress}
+            numOfAssocAddrs={this.state.assocAddrs.length}
+          />
           <h5 className="primary">Information for {this.state.searchAddress.housenumber} {this.state.searchAddress.streetname}, {this.state.searchAddress.boro}:</h5>
           <OwnersTable
             contacts={this.state.contacts}
@@ -131,14 +101,6 @@ class AddressPage extends Component {
           addrs={this.state.assocAddrs}
           userAddr={this.state.searchAddress}
         />
-        <Modal
-          showModal={this.state.showExportModal}
-          onClose={this.closeExportModal}>
-          <p>This will export <b>{this.state.assocAddrs.length}</b> addresses associated with the landlord at <b>{this.state.searchAddress.housenumber} {this.state.searchAddress.streetname}, {this.state.searchAddress.boro}</b>!</p>
-          <p>This data is in <u>CSV file format</u>, which can easily be used in Excel, Google Sheets, or any other spreadsheet program.</p>
-          <br />
-          <button className="btn btn-primary centered" onClick={this.handleExportClick}>Download</button>
-        </Modal>
       </div>
     );
   }

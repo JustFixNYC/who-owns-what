@@ -1,6 +1,6 @@
 import React from 'react';
 import DetailView from 'components/DetailView';
-import { CSSTransitionGroup } from 'react-transition-group';
+import APIClient from 'components/APIClient';
 import ReactMapboxGl, { Layer, Feature, ZoomControl } from 'react-mapbox-gl';
 import * as MapboxGL from 'mapbox-gl';
 import Helpers from 'util/helpers';
@@ -35,7 +35,6 @@ const USER_MARKER_PAINT = {
   'circle-color': '#0096d7'
 };
 
-
 // due to the wonky way react-mapboxgl works, we can just specify a center/zoom combo
 // instead we use this offset value to create a fake bounding box around the detail center point
 const DETAIL_OFFSET = 0.0001;
@@ -48,23 +47,6 @@ function compareAddrs(a, b) {
           a.boro === b.boro) ? true : false;
 }
 
-function SlideTransition(props) {
-  return (
-    <CSSTransitionGroup
-      { ...props }
-      component={FirstChild}
-      transitionName="slide"
-      transitionEnterTimeout={props.detailSlideLength}
-      transitionLeaveTimeout={props.detailSlideLength}>
-    </CSSTransitionGroup>
-  );
-}
-
-// see: https://facebook.github.io/react/docs/animation.html#rendering-a-single-child
-function FirstChild(props) {
-  const childrenArray = React.Children.toArray(props.children);
-  return childrenArray[0] || null;
-}
 
 export default class PropertiesMap extends React.Component {
   constructor(props) {
@@ -72,7 +54,8 @@ export default class PropertiesMap extends React.Component {
 
     this.state = {
       showDetailView: false,
-      detailAddr: null
+      detailAddr: null,
+      detailHasJustFixUsers: false
     };
 
     this.map = {
@@ -82,13 +65,19 @@ export default class PropertiesMap extends React.Component {
       boundsOptions: { padding: {top:50, bottom: 100, left: 50, right: 50} }
     };
 
-    this.detailSlideLength = 300;
+
   }
 
   openDetailView = (addr) => {
     this.setState({
       showDetailView: true,
       detailAddr: addr
+    });
+
+    APIClient.searchForJFXUsers([addr.bbl]).then(res => {
+      this.setState({
+        detailHasJustFixUsers: res.hasJustFixUsers
+      })
     });
   }
 
@@ -177,16 +166,13 @@ export default class PropertiesMap extends React.Component {
             <p><i>(click on a building to view details)</i></p>
           </div>
         }
-        <SlideTransition detailSlideLength={this.detailSlideLength}>
-          { this.state.showDetailView &&
-            <DetailView
-              key={this.state.detailAddr}
-              addr={this.state.detailAddr}
-              userAddr={this.props.userAddr}
-              handleCloseDetail={this.closeDetailView}
-            />
-          }
-        </SlideTransition>
+        <DetailView
+          addr={this.state.detailAddr}
+          hasJustFixUsers={this.state.detailHasJustFixUsers}
+          userAddr={this.props.userAddr}
+          showDetailView={this.state.showDetailView}
+          handleCloseDetail={this.closeDetailView}
+        />
       </div>
 
     );
