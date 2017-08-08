@@ -1,6 +1,4 @@
 import React from 'react';
-import DetailView from 'components/DetailView';
-import APIClient from 'components/APIClient';
 import ReactMapboxGl, { Layer, Feature, ZoomControl } from 'react-mapbox-gl';
 import * as MapboxGL from 'mapbox-gl';
 import Helpers from 'util/helpers';
@@ -37,6 +35,7 @@ const USER_MARKER_PAINT = {
 
 // due to the wonky way react-mapboxgl works, we can just specify a center/zoom combo
 // instead we use this offset value to create a fake bounding box around the detail center point
+// TODO: probably a non-hack way to do this?
 const DETAIL_OFFSET = 0.0001;
 
 // compare using housenumber, streetname, boro convention
@@ -47,134 +46,85 @@ function compareAddrs(a, b) {
           a.boro === b.boro) ? true : false;
 }
 
+const PropertiesMap = (props) => {
 
-export default class PropertiesMap extends React.Component {
-  constructor(props) {
-    super(props);
+  const mapDefaults = {
+    mapCenter: [-73.96270751953125, 40.7127],
+    mapZoom: [10],
+    bounds: [[-74.259087, 40.477398], [-73.700172, 40.917576]],
+    boundsOptions: { padding: {top:50, bottom: 100, left: 50, right: 50} }
+  };
 
-    this.state = {
-      showDetailView: false,
-      detailAddr: null,
-      detailHasJustFixUsers: false
-    };
+  const light = 'mapbox://styles/dan-kass/cj5rsfld203472sqy1y0px42d';
+  const mapUrl = light;
 
-    this.map = {
-      mapCenter: [-73.96270751953125, 40.7127],
-      mapZoom: [10],
-      bounds: [[-74.259087, 40.477398], [-73.700172, 40.917576]],
-      boundsOptions: { padding: {top:50, bottom: 100, left: 50, right: 50} }
-    };
+  let bounds = [];
+  let mapProps = { style: mapUrl };
+  let assocAddrs = [], userAddr = [], detailAddr = [];
 
+  for(let i = 0; i < props.addrs.length; i++) {
 
-  }
+    const addr = props.addrs[i];
+    const pos = [parseFloat(addr.lng), parseFloat(addr.lat)];
 
-  openDetailView = (addr) => {
-    this.setState({
-      showDetailView: true,
-      detailAddr: addr
-    });
+    if(!MapHelpers.latLngIsNull(pos)) {
 
-    APIClient.searchForJFXUsers([addr.bbl]).then(res => {
-      this.setState({
-        detailHasJustFixUsers: res.hasJustFixUsers
-      })
-    });
-  }
+      // add to the bounds obj
+      if(!props.detailAddr) bounds.push(pos);
 
-  closeDetailView = () => {
-    this.setState({
-      showDetailView: false,
-      detailAddr: null
-    });
-  }
-
-  render() {
-
-    const light = 'mapbox://styles/dan-kass/cj5rsfld203472sqy1y0px42d';
-
-    const mapUrl = light;
-    let bounds = [];
-    let mapProps = { style: mapUrl };
-    let assocAddrs = [], userAddr = [], detailAddr = [];
-
-    for(let i = 0; i < this.props.addrs.length; i++) {
-
-      const addr = this.props.addrs[i];
-      const pos = [parseFloat(addr.lng), parseFloat(addr.lat)];
-
-      if(!MapHelpers.latLngIsNull(pos)) {
-
-        // add to the bounds obj
-        if(!this.state.showDetailView) bounds.push(pos);
-
-        if(compareAddrs(addr, this.props.userAddr)) {
-          userAddr.push(<Feature key={i} coordinates={pos} />);
-        } else if(this.state.detailAddr && compareAddrs(addr, this.state.detailAddr)) {
-          detailAddr.push(<Feature key={i} coordinates={pos} />);
-        } else {
-          assocAddrs.push(
-            <Feature key={i} coordinates={pos} onClick={() => this.openDetailView(addr)} />
-          );
-        }
+      if(compareAddrs(addr, props.userAddr)) {
+        userAddr.push(<Feature key={i} coordinates={pos} />);
+      } else if(props.detailAddr && compareAddrs(addr, props.detailAddr)) {
+        detailAddr.push(<Feature key={i} coordinates={pos} />);
+      } else {
+        assocAddrs.push(
+          <Feature key={i} coordinates={pos} onClick={() => props.onOpenDetail(addr)} />
+        );
       }
     }
-
-    // defaults
-    if(!this.props.addrs.length) {
-      mapProps.fitBounds = new MapboxGL.LngLatBounds(this.map.bounds);
-      mapProps.center = mapProps.fitBounds.getCenter();
-
-    // detail view
-    } else if(this.state.detailAddr) {
-      let minPos = [parseFloat(this.state.detailAddr.lng) - DETAIL_OFFSET, parseFloat(this.state.detailAddr.lat) - DETAIL_OFFSET];
-      let maxPos = [parseFloat(this.state.detailAddr.lng) + DETAIL_OFFSET, parseFloat(this.state.detailAddr.lat) + DETAIL_OFFSET];
-      mapProps.fitBounds = new MapboxGL.LngLatBounds([minPos, maxPos]);
-      mapProps.fitBoundsOptions = { ...this.map.boundsOptions, maxZoom: 20, offset: [-125, 0] };
-
-    // regular view
-    } else {
-      bounds = Helpers.uniq(bounds);
-      bounds = bounds.length > 1 ? bounds : this.map.bounds;
-      bounds = MapHelpers.getBoundingBox(bounds);
-      mapProps.fitBounds = new MapboxGL.LngLatBounds(bounds);
-      mapProps.fitBoundsOptions = this.map.boundsOptions;
-    }
-
-    return (
-      <div className="PropertiesMap">
-        <div className="PropertiesMap__map">
-          <Map { ...mapProps }>
-            <ZoomControl position="topLeft" style={{
-                'boxShadow': 'none',
-                'opacity': 1,
-                'backgroundColor': '#ffffff',
-                'borderColor': '#727e96'
-              }} />
-            <Layer type="circle" paint={ASSOC_CIRCLE_PAINT}>
-              { assocAddrs }
-            </Layer>
-            <Layer type="circle" paint={DETAIL_CIRCLE_PAINT}>
-              { detailAddr }
-            </Layer>
-            <Layer type="circle" paint={USER_MARKER_PAINT}>
-              { userAddr }
-            </Layer>
-          </Map>
-        </div>
-        { !this.state.showDetailView &&
-          <div className="PropertiesMap__prompt">
-            <p><i>(click on a building to view details)</i></p>
-          </div>
-        }
-        <DetailView
-          addr={this.state.detailAddr}
-          hasJustFixUsers={this.state.detailHasJustFixUsers}
-          userAddr={this.props.userAddr}
-          showDetailView={this.state.showDetailView}
-          handleCloseDetail={this.closeDetailView}
-        />
-      </div>
-
-    );
   }
+
+  // defaults
+  if(!props.addrs.length) {
+    mapProps.fitBounds = new MapboxGL.LngLatBounds(mapDefaults.bounds);
+    mapProps.center = mapProps.fitBounds.getCenter();
+
+  // detail view
+  } else if(props.detailAddr) {
+    let minPos = [parseFloat(props.detailAddr.lng) - DETAIL_OFFSET, parseFloat(props.detailAddr.lat) - DETAIL_OFFSET];
+    let maxPos = [parseFloat(props.detailAddr.lng) + DETAIL_OFFSET, parseFloat(props.detailAddr.lat) + DETAIL_OFFSET];
+    mapProps.fitBounds = new MapboxGL.LngLatBounds([minPos, maxPos]);
+    mapProps.fitBoundsOptions = { ...mapDefaults.boundsOptions, maxZoom: 20, offset: [-125, 0] };
+
+  // regular view
+  } else {
+    bounds = Helpers.uniq(bounds);
+    bounds = bounds.length > 1 ? bounds : mapDefaults.bounds;
+    bounds = MapHelpers.getBoundingBox(bounds);
+    mapProps.fitBounds = new MapboxGL.LngLatBounds(bounds);
+    mapProps.fitBoundsOptions = mapDefaults.boundsOptions;
+  }
+
+  return (
+    <div className="PropertiesMap">
+      <Map { ...mapProps }>
+        <ZoomControl position="topLeft" style={{
+            'boxShadow': 'none',
+            'opacity': 1,
+            'backgroundColor': '#ffffff',
+            'borderColor': '#727e96'
+          }} />
+        <Layer type="circle" paint={ASSOC_CIRCLE_PAINT}>
+          { assocAddrs }
+        </Layer>
+        <Layer type="circle" paint={DETAIL_CIRCLE_PAINT}>
+          { detailAddr }
+        </Layer>
+        <Layer type="circle" paint={USER_MARKER_PAINT}>
+          { userAddr }
+        </Layer>
+      </Map>
+    </div>
+  );
 }
+export default PropertiesMap;

@@ -2,55 +2,30 @@
 
 .PropertiesMap {
 
-  flex-grow: 1;
+  width: 100%;
   height: 100%;
+  flex-grow: 1;
 
-  display: flex;
+  border-top: 1px solid $gray-dark;
+
+  // this allows DetailView__close to overlay the map
   position: relative;
+  z-index: 5;
 
-  .PropertiesMap__prompt {
-    background: #fff;
-    position: absolute;
-    z-index: 10;
-    top: 0; right: -1px;
-    border: 1px solid $gray-dark;
-    padding: 4px 10px;
-
-    p {
-      text-align: center;
-      margin-bottom: 0;
-    }
-  }
-
-  .PropertiesMap__map {
-
-    width: 100%;
-    height: 100%;
-    flex-grow: 1;
-
-    border-top: 1px solid $gray-dark;
-
-    // this allows DetailView__close to overlay the map
-    position: relative;
-    z-index: 5;
-
-    .leaflet-container {
-        height: 100%;
-        width: 100%;
-        overflow: hidden;
-
-        &.leaflet-touch .leaflet-control-layers, &.leaflet-touch .leaflet-bar {
-          border-radius: 0;
-          border-color: $gray-dark;
-          border-width: 1px;
-        }
-    }
-    .mapboxgl-map {
+  .leaflet-container {
       height: 100%;
       width: 100%;
-      overflow: hidden;      
-    }
+      overflow: hidden;
 
+      &.leaflet-touch .leaflet-control-layers, &.leaflet-touch .leaflet-bar {
+        border-radius: 0;
+        border-color: $gray-dark;
+        border-width: 1px;
+      }
   }
-
+  .mapboxgl-map {
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+  }
 }

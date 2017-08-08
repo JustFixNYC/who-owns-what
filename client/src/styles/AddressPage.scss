@@ -4,17 +4,39 @@
   height: calc(100vh - 64px);
   display: flex;
   flex-direction: column;
-}
 
-.AddressPage__info {
-  width: 95vw;
-  margin: 0 auto 10px auto;
+  .AddressPage__info {
+    width: 95vw;
+    margin: 0 auto 10px auto;
 
-  h5 {
-    margin-bottom: 0;
+    h5 {
+      margin-bottom: 0;
 
-    &.primary {
-      margin-bottom: 15px;
+      &.primary {
+        margin-bottom: 15px;
+      }
+    }
+  }
+
+  .AddressPage__viz {
+    flex-grow: 1;
+    height: 100%;
+
+    display: flex;
+    position: relative;
+
+    .AddressPage__viz-prompt {
+      background: #fff;
+      position: absolute;
+      z-index: 10;
+      top: 0; right: -1px;
+      border: 1px solid $gray-dark;
+      padding: 4px 10px;
+
+      p {
+        text-align: center;
+        margin-bottom: 0;
+      }
     }
   }
 }

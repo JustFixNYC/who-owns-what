@@ -35,11 +35,11 @@ const DetailView = (props) => {
 
   return (
     <SlideTransition length={detailSlideLength}>
-      { props.showDetailView &&
+      { props.addr &&
         <div key={props.addr} className="DetailView">
           <div className="DetailView__wrapper">
             <div className="DetailView__close">
-              <button className="btn btn-link" onClick={props.handleCloseDetail}>[ x ]</button>
+              <button className="btn btn-link" onClick={props.onCloseDetail}>[ x ]</button>
             </div>
             <div className="DetailView__card card">
               <div className="card-image">

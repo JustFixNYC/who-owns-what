@@ -5,6 +5,7 @@ import FileSaver from 'file-saver';
 import OwnersTable from 'components/OwnersTable';
 import AddressToolbar from 'components/AddressToolbar';
 import PropertiesMap from 'components/PropertiesMap';
+import DetailView from 'components/DetailView';
 import APIClient from 'components/APIClient';
 
 import 'styles/AddressPage.css';
@@ -17,7 +18,9 @@ class AddressPage extends Component {
       searchAddress: { ...props.match.params },
       hasSearched: false,
       contacts: [],
-      assocAddrs: []
+      assocAddrs: [],
+      detailAddr: null,
+      detailHasJustFixUsers: false
     };
   }
 
@@ -62,6 +65,24 @@ class AddressPage extends Component {
     });
   }
 
+  handleOpenDetail = (addr) => {
+    this.setState({
+      detailAddr: addr
+    });
+
+    APIClient.searchForJFXUsers([addr.bbl]).then(res => {
+      this.setState({
+        detailHasJustFixUsers: res.hasJustFixUsers
+      })
+    });
+  }
+
+  handleCloseDetail = () => {
+    this.setState({
+      detailAddr: null
+    });
+  }
+
   // should this properly live in AddressToolbar? you tell me
   handleExportClick = () => {
     APIClient.getAddressExport(this.state.searchAddress)
@@ -93,14 +114,27 @@ class AddressPage extends Component {
             contacts={this.state.contacts}
             hasJustFixUsers={this.state.hasJustFixUsers}
           />
-        { /* <h5 className="inline-block">We found <u>{this.state.assocAddrs.length}</u> other buildings that share this landlord<sup><span className="tooltip" data-tooltip="We can't guarantee 100% accuracy :~(">*</span></sup>:</h5> */ }
-        { /* <h5 className="inline-block">We found <u>{this.state.assocAddrs.length}</u> other buildings that share this landlord:</h5> */ }
-        <h5 className="inline-block mb-10">This landlord is associated with <u>{this.state.assocAddrs.length}</u> other buildings:</h5>
+          <h5 className="inline-block mb-10">This landlord is associated with <u>{this.state.assocAddrs.length - 1}</u> other building{(this.state.assocAddrs.length - 1) === 1 ? '':'s'}:</h5>
         </div>
-        <PropertiesMap
-          addrs={this.state.assocAddrs}
-          userAddr={this.state.searchAddress}
-        />
+        <div className="AddressPage__viz">
+          <PropertiesMap
+            addrs={this.state.assocAddrs}
+            userAddr={this.state.searchAddress}
+            detailAddr={this.state.detailAddr}
+            onOpenDetail={this.handleOpenDetail}
+          />
+          { !this.state.detailAddr &&
+            <div className="AddressPage__viz-prompt">
+              <p><i>(click on a building to view details)</i></p>
+            </div>
+          }
+          <DetailView
+            addr={this.state.detailAddr}
+            hasJustFixUsers={this.state.detailHasJustFixUsers}
+            onCloseDetail={this.handleCloseDetail}
+          />
+        </div>
+
       </div>
     );
   }
