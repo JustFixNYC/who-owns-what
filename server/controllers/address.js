@@ -17,7 +17,10 @@ const getDataAndFormat = (query) => {
   return geo.request(housenumber, streetname, boro)
     .then(geo => {
 
+      // debug
+      // const geo = { address: { bbl: '3012380016', geosupportReturnCode: '00' } };
       // console.dir(geo.address, {depth: null, colors: true});
+      
       if(geo.address.geosupportReturnCode == '00' && geo.address.bbl) {
         console.log('by bbl', geo.address.bbl);
         query.byBBL = true;
@@ -33,7 +36,7 @@ const getDataAndFormat = (query) => {
           db.queryLandlordsByAddr(housenumber, streetname, boro)
         ]);
       }
-    })
+    });
 
 }
 

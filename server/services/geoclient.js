@@ -15,7 +15,7 @@ module.exports = {
       },
       json: true
     }
-    
+
     return rp(opts);
   }
 };

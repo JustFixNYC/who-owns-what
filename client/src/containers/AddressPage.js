@@ -10,7 +10,7 @@ import APIClient from 'components/APIClient';
 
 import 'styles/AddressPage.css';
 
-class AddressPage extends Component {
+export default class AddressPage extends Component {
   constructor(props) {
     super(props);
 
@@ -19,6 +19,7 @@ class AddressPage extends Component {
       hasSearched: false,
       contacts: [],
       assocAddrs: [],
+      mapLoaded: false,
       detailAddr: null,
       detailHasJustFixUsers: false
     };
@@ -90,6 +91,12 @@ class AddressPage extends Component {
       .then(blob => FileSaver.saveAs(blob, 'export.csv'));
   }
 
+  handleMapLoad = (map, evt) => {
+    this.setState({
+      mapLoaded: true
+    });
+  }
+
   render() {
 
     if(this.state.hasSearched && this.state.contacts.length === 0)  {
@@ -114,16 +121,18 @@ class AddressPage extends Component {
             contacts={this.state.contacts}
             hasJustFixUsers={this.state.hasJustFixUsers}
           />
-          <h5 className="inline-block mb-10">This landlord is associated with <u>{this.state.assocAddrs.length - 1}</u> other building{(this.state.assocAddrs.length - 1) === 1 ? '':'s'}:</h5>
+        { this.state.hasSearched && <h5 className="inline-block mb-10">This landlord is associated with <u>{this.state.assocAddrs.length - 1}</u> other building{(this.state.assocAddrs.length - 1) === 1 ? '':'s'}:</h5> }
         </div>
         <div className="AddressPage__viz">
-          <PropertiesMap
-            addrs={this.state.assocAddrs}
-            userAddr={this.state.searchAddress}
-            detailAddr={this.state.detailAddr}
-            onOpenDetail={this.handleOpenDetail}
-          />
-          { !this.state.detailAddr &&
+            <PropertiesMap
+              addrs={this.state.assocAddrs}
+              userAddr={this.state.searchAddress}
+              detailAddr={this.state.detailAddr}
+              onOpenDetail={this.handleOpenDetail}
+              onMapLoad={this.handleMapLoad}
+            />
+
+          { !this.state.detailAddr && this.state.hasSearched &&
             <div className="AddressPage__viz-prompt">
               <p><i>(click on a building to view details)</i></p>
             </div>
@@ -139,5 +148,3 @@ class AddressPage extends Component {
     );
   }
 }
-
-export default AddressPage;

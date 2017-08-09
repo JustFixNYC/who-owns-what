@@ -20,11 +20,12 @@ const AddressSearch = (props) => {
     // our system doesn't mess around with 34rd, 61st, 12th, etc. so we just grab the number
     let streetname = components.find(e => e.types.indexOf('route') !== -1).long_name.toUpperCase();
     if (streetnameSuffix.test(streetname)) {
-      console.log(streetname, streetnameSuffix.exec(streetname));
       streetname = streetname.replace(streetnameSuffix, "$1$2 $4");
     }
 
     const boro = components.find(e => e.types.indexOf('sublocality_level_1') !== -1).long_name.toUpperCase();
+
+    
     props.onFormSubmit({ housenumber, streetname, boro });
   }
 
