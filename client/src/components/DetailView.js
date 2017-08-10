@@ -50,17 +50,25 @@ const DetailView = (props) => {
               </div>
               <div className="card-body">
                 <p>This building is also registered at <b>{props.addr.assocRba}</b>.</p>
-                {props.hasJustFixUsers &&
+                { props.hasJustFixUsers &&
                   <p className="text-bold text-danger">This building has at least one active JustFix.nyc case!</p>
                 }
-                <b>Shell Companies:</b>
-                <ul>
-                  {props.addr.corpnames.map((corp, idx) => <li key={idx}>{corp}</li> )}
-                </ul>
-                <b>People:</b>
-                <ul>
-                  {props.addr.ownernames.map((owner, idx) => <li key={idx}>{owner.title.split(/(?=[A-Z])/).join(" ")}: {owner.value}</li> )}
-                </ul>
+                { props.addr.corpnames && props.addr.corpnames.length && (
+                  <span>
+                    <b>Shell Companies:</b>
+                    <ul>
+                      {props.addr.corpnames.map((corp, idx) => <li key={idx}>{corp}</li> )}
+                    </ul>
+                  </span>
+                )}
+                { props.addr.ownernames && props.addr.ownernames.length && (
+                  <span>
+                    <b>People:</b>
+                    <ul>
+                      {props.addr.ownernames.map((owner, idx) => <li key={idx}>{owner.title.split(/(?=[A-Z])/).join(" ")}: {owner.value}</li> )}
+                    </ul>
+                  </span>
+                )}
                 <div className="card-body-links">
                   <a href={`http://a836-acris.nyc.gov/bblsearch/bblsearch.asp?borough=${boro}&block=${block}&lot=${lot}`} target="_blank" className="btn btn-block">View documents on ACRIS &#8599;</a>
                   <a href={`http://webapps.nyc.gov:8084/CICS/fin1/find001i?FFUNC=C&FBORO=${boro}&FBLOCK=${block}&FLOT=${lot}`} target="_blank" className="btn btn-block">DOF Property Tax Bills &#8599;</a>
