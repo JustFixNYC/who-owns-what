@@ -17,6 +17,7 @@ export default class AddressPage extends Component {
     this.state = {
       searchAddress: { ...props.match.params },
       hasSearched: false,
+      geoclient: {},
       contacts: [],
       assocAddrs: [],
       mapLoaded: false,
@@ -31,7 +32,7 @@ export default class AddressPage extends Component {
 
     APIClient.searchAddress(query).then(data => {
 
-      const { contacts, landlords } = data;
+      const { geoclient, contacts, landlords } = data;
 
       let addrs = [];
 
@@ -59,6 +60,7 @@ export default class AddressPage extends Component {
       this.setState({
         searchAddress: contacts.length ? { ...query, bbl: contacts[0].bbl } : query,
         hasSearched: true,
+        geoclient: geoclient,
         contacts: contacts.length ? contacts : [],
         assocAddrs: addrs
       });
@@ -100,10 +102,14 @@ export default class AddressPage extends Component {
   render() {
 
     if(this.state.hasSearched && this.state.contacts.length === 0)  {
+
+      const geoclient = this.state.geoclient;
+      const searchAddress = this.state.searchAddress;
+
       return (
         <Redirect to={{
-          pathname: '/',
-          search: '?not-found=1'
+          pathname: '/not-found',
+          state: { geoclient, searchAddress }
         }}></Redirect>
       );
     }

@@ -13,6 +13,7 @@ import HomePage from 'HomePage';
 import AddressPage from 'AddressPage';
 import AboutPage from 'AboutPage';
 import HowItWorksPage from 'HowItWorksPage';
+import NotRegisteredPage from 'NotRegisteredPage';
 
 const App = () => {
   return (
@@ -29,6 +30,7 @@ const App = () => {
         </div>
         <div className="App__body">
           <Route exact path="/" component={HomePage} />
+          <Route path="/not-found" component={NotRegisteredPage} />
           <Route path="/address/:boro/:housenumber/:streetname" component={AddressPage} />
           <Route path="/about" component={AboutPage} />
           <Route path="/how-it-works" component={HowItWorksPage} />

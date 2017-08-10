@@ -16,8 +16,6 @@ class HomePage extends Component {
         boro: ''
       }
     };
-
-    this.nothingFound = /(not-found)/g.test(props.location.search);
   }
 
   handleFormSubmit = (searchAddress) => {
@@ -38,9 +36,6 @@ class HomePage extends Component {
             onFormSubmit={this.handleFormSubmit}
           />
           <Link className="block text-center" to="/address/BROOKLYN/654/PARK%20PLACE">View a sample building</Link>
-          {this.nothingFound &&
-            <p className="mt-10 text-center text-danger text-bold text-large">No results found for this address! It's likely that its not registered with HPD...</p>
-          }
         </div>
         {this.state.searchAddress.housenumber &&
           <Redirect to={`/address/${this.state.searchAddress.boro}/${this.state.searchAddress.housenumber}/${this.state.searchAddress.streetname}`}></Redirect>
