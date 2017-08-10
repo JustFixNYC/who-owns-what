@@ -7,23 +7,17 @@ With this website, you can find crucial information about who is responsible for
 **This project is currently in active development!**
 
 ### Architecture
-___
-
 This site is built on top of the critical work done by @aepyornis on the [nyc-db](https://github.com/aepyornis/nyc-db) project, which is used to cleanly extract, sanitize, and load [HPD Registration data](http://www1.nyc.gov/site/hpd/about/open-data.page) into a PostreSQL instance.
 
 Backend logic and data manipulation is largely handled by making calls to PostreSQL functions and prebuilding results into tables whenever possible to avoid complex queries made per-request. See the [hpd module](https://github.com/aepyornis/hpd/tree/master) of `nyc-db` for the SQL code that provides this functionality.
 
 ##### Backend
-
 The backend of the app (`/server`) is a simple express build that connects to Postgres using `knex`. Given that we're making raw queries and are minimizing the need for an ORM, in the future we can probably just shift to `pg`.
 
 ##### Frontend
-
 The frontend of the app (`/client`) is built on top of [create-react-app](https://github.com/facebookincubator/create-react-app). See [`/client/README.md`](https://github.com/JustFixNYC/who-owns-what/blob/master/client/README.md) for all the info you might need.
 
 ### Setup
-___
-
 Make sure you have [yarn](https://yarnpkg.com/en/)  and then just
 
 ```
@@ -33,8 +27,6 @@ yarn install && cd client && yarn install
 to grab dependencies for both server and client. You'll need a `.env` in the root directory for `DATABASE_URL`,`GEOCLIENT_ID`, & `GEOCLIENT_KEY` plus various instrumentation that you can do without if you want.
 
 ### Running in development
-___
-
 Check `package.json` in the root directory for all options. To run both `express` and `create-react-app` you just need
 
 ```
@@ -44,8 +36,6 @@ yarn start
 from root.
 
 ### Deploying
-___
-
 Package clientside assets through
 
 ```
