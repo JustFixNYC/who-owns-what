@@ -4,6 +4,8 @@ The Who Owns What project is a new resource for community organizers and tenant 
 
 With this website, you can find crucial information about who is responsible for your building. The site utilizes a database of 160k other properties to connect the dots and discover other properties that your landlord might own or be associated with. Use this tool to discover what buildings in your neighborhood to organize in, what communities your landlord might be targeting, and if your building might be financially overleveraged.
 
+![Imgur](http://i.imgur.com/dfCTLcV.jpg)
+
 **This project is currently in active development!**
 
 ### Architecture
