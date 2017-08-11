@@ -132,7 +132,7 @@ export default class PropertiesMap extends Component {
 
     return (
         <div className="PropertiesMap">
-          <Loader loading={this.state.mapLoading}></Loader>
+          <Loader loading={this.state.mapLoading} classNames="Loader-map">Loading</Loader>
           <Map { ...mapProps }>
             <ZoomControl position="topLeft" style={{
                 'boxShadow': 'none',

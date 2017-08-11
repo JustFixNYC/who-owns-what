@@ -20,7 +20,6 @@ export default class AddressPage extends Component {
       geoclient: {},
       contacts: [],
       assocAddrs: [],
-      mapLoaded: false,
       detailAddr: null,
       detailHasJustFixUsers: false
     };
@@ -28,43 +27,55 @@ export default class AddressPage extends Component {
 
   componentDidMount() {
 
-    const query = this.state.searchAddress;
+    // We need to check where to get the results data for the page...
 
-    APIClient.searchAddress(query).then(data => {
+    // Here, the user conducted a search on HomePage and we already got the results
+    if(this.props.location && this.props.location.state && this.props.location.state.results) {
+      this.handleResults(this.props.location.state.results);
 
-      const { geoclient, contacts, landlords } = data;
-
-      let addrs = [];
-
-      if(landlords.length) {
-        // for each landlord/rba found, add its rba to each addr object
-        // and then reduce and concatenate them
-        addrs = landlords.map(l => {
-          const assocRba = `${l.businesshousenumber} ${l.businessstreetname}${l.businessapartment ? ' ' + l.businessapartment : ''}, ${l.businesszip}`;
-          return l.addrs.map(a => { return { ...a, assocRba }})
-        }).reduce((a,b) => a.concat(b));
-
-        // get array of bbls
-        const bbls = addrs.map(addr => addr.bbl);
-
-        // check for JFX users
-        if(bbls.length) {
-          APIClient.searchForJFXUsers(bbls).then(res => {
-            this.setState({
-              hasJustFixUsers: res.hasJustFixUsers
-            })
-          });
-        }
-      }
-
-      this.setState({
-        searchAddress: contacts.length ? { ...query, bbl: contacts[0].bbl } : query,
-        hasSearched: true,
-        geoclient: geoclient,
-        contacts: contacts.length ? contacts : [],
-        assocAddrs: addrs
+    // Otherwise they navigated directly to this url, so lets fetch it
+    } else {
+      APIClient.searchAddress(this.state.searchAddress).then(results => {
+        this.handleResults(results);
       });
+    }
+  }
 
+  // Processes the results and setState accordingly. Doesn't care where results comes from
+  handleResults = (results) => {
+    const { geoclient, contacts, landlords } = results;
+
+    let addrs = [];
+
+    if(landlords.length) {
+      // for each landlord/rba found, add its rba to each addr object
+      // and then reduce and concatenate them
+      addrs = landlords.map(l => {
+        const assocRba = `${l.businesshousenumber} ${l.businessstreetname}${l.businessapartment ? ' ' + l.businessapartment : ''}, ${l.businesszip}`;
+        return l.addrs.map(a => { return { ...a, assocRba }})
+      }).reduce((a,b) => a.concat(b));
+
+      // get array of bbls
+      const bbls = addrs.map(addr => addr.bbl);
+
+      // check for JFX users
+      if(bbls.length) {
+        APIClient.searchForJFXUsers(bbls).then(res => {
+          this.setState({
+            hasJustFixUsers: res.hasJustFixUsers
+          })
+        });
+      }
+    }
+
+    // The first line of this is essentially "keep searchAddress unless we found a BBL, in which case add it to the searchAddress object"
+    // TBH now that we pass geoclient results to the client we don't really need to do this, but its working just fine atm
+    this.setState({
+      searchAddress: contacts.length ? { ...this.state.searchAddress, bbl: contacts[0].bbl } : this.state.searchAddress,
+      hasSearched: true,
+      geoclient: geoclient,
+      contacts: contacts.length ? contacts : [],
+      assocAddrs: addrs
     });
   }
 
@@ -91,12 +102,6 @@ export default class AddressPage extends Component {
     APIClient.getAddressExport(this.state.searchAddress)
       .then(response => response.blob())
       .then(blob => FileSaver.saveAs(blob, 'export.csv'));
-  }
-
-  handleMapLoad = (map, evt) => {
-    this.setState({
-      mapLoaded: true
-    });
   }
 
   render() {
@@ -130,14 +135,13 @@ export default class AddressPage extends Component {
         { this.state.hasSearched && <h5 className="inline-block mb-10">This landlord is associated with <u>{this.state.assocAddrs.length - 1}</u> other building{(this.state.assocAddrs.length - 1) === 1 ? '':'s'}:</h5> }
         </div>
         <div className="AddressPage__viz">
-            <PropertiesMap
-              addrs={this.state.assocAddrs}
-              userAddr={this.state.searchAddress}
-              detailAddr={this.state.detailAddr}
-              onOpenDetail={this.handleOpenDetail}
-              onMapLoad={this.handleMapLoad}
-            />
-
+          <PropertiesMap
+            addrs={this.state.assocAddrs}
+            userAddr={this.state.searchAddress}
+            detailAddr={this.state.detailAddr}
+            onOpenDetail={this.handleOpenDetail}
+            onMapLoad={this.handleMapLoad}
+          />
           { !this.state.detailAddr && this.state.hasSearched &&
             <div className="AddressPage__viz-prompt">
               <p><i>(click on a building to view details)</i></p>

@@ -9,8 +9,6 @@ const NotRegisteredPage = (props) => {
   const geoclient = props.location.state.geoclient;
   const searchAddress = props.location.state.searchAddress;
 
-  console.log(searchAddress);
-
   let bbl = '', boro, block, lot;
   let buildingTypeMessage;
 
@@ -42,11 +40,11 @@ const NotRegisteredPage = (props) => {
   return (
     <div>
       <div className="HomePage__search NotRegisteredPage">
-        <p className="mt-10 text-danger text-bold text-large">No results found for <u>{searchAddress.housenumber} {searchAddress.streetname}, {searchAddress.boro}</u>!</p>
+        <h5 className="mt-10 text-danger text-center text-bold text-large">No results found for <u>{searchAddress.housenumber} {searchAddress.streetname}, {searchAddress.boro}</u>!</h5>
         {buildingTypeMessage}
         { geoclient && geoclient.bbl &&
           <div>
-            <p>Here are some useful links to research more on the building:</p>
+            <p>Here are some useful links to learn more about this building:</p>
             <div>
               <div className="btn-group btn-group-block">
                 <a href={`http://a836-acris.nyc.gov/bblsearch/bblsearch.asp?borough=${boro}&block=${block}&lot=${lot}`} target="_blank" className="btn">View documents on ACRIS &#8599;</a>
@@ -57,16 +55,11 @@ const NotRegisteredPage = (props) => {
                 <a href={`https://hpdonline.hpdnyc.org/HPDonline/Provide_address.aspx?p1=${boro}&p2=${searchAddress.housenumber}&p3=${searchAddress.streetname}&SearchButton=Search`} target="_blank" className="btn">HPD Complaints/Violations &#8599;</a>
               </div>
             </div>
-
-
-
-
-
-
           </div>
         }
+        <br />
         <Link className="btn btn-primary btn-block" to="/">
-          Search for a different address
+          &lt;-- Search for a different address
         </Link>
       </div>
     </div>

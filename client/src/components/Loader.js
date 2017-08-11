@@ -7,7 +7,7 @@ const Loader = (props) => {
   const loader = (
     <div className={`Loader ${ props.classNames }`}>
       <div className="Loader__content">
-        <p>Loading</p>
+        <p>{props.children}</p>
       </div>
     </div>
   );

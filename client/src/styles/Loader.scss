@@ -1,10 +1,5 @@
 @import '_vars.scss';
 
-.Loader__wrap {
-  width: 100%;
-  height: 100%;
-}
-
 .Loader {
   width: 100%;
   height: 100%;
@@ -16,19 +11,18 @@
   position: relative;
   z-index: 20;
 
-  background-color: #fff;
-
   &.Loader-map {
-    border-top: 1px solid $gray-dark;
+    // border-top: 1px solid $gray-dark;
+    background-color: #fff;
   }
 
   .Loader__content {
 
-    width: 13%;
-
     p {
       font-size: 18px;
+      margin-bottom: 0;
       display: inline-block;
+
 
       &:after {
         overflow: hidden;
@@ -36,13 +30,17 @@
         vertical-align: bottom;
         animation: ellipsis steps(4,end) 1200ms infinite;
         content: "..."; /* ascii code for the ellipsis character */
-        width: 0px;
       }
     }
 
     @keyframes ellipsis {
+      from {
+        width: 0px;
+        margin-right: 36px;
+      },
       to {
-        width: 2em;
+        width: 36px;
+        margin-right: 0px;
       }
     }
   }
