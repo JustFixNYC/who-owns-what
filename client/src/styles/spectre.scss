@@ -6,6 +6,10 @@
 @import 'node_modules/spectre.scss/spectre.scss';
 
 // various overwrites
+a {
+  text-decoration: underline;
+}
+
 a:focus, .form-input:focus, .btn:focus,  {
   // @include control-shadow($gray);
   box-shadow: 0 0 0 .1rem fade-in($gray-light, .15);
@@ -13,6 +17,10 @@ a:focus, .form-input:focus, .btn:focus,  {
 
 .menu {
   box-shadow: 0 .1rem (.1rem+.1rem)*2 fade-in($gray-light, .30);
+}
+
+p {
+  line-height: 1.4;
 }
 
 .text-danger {
@@ -26,6 +34,7 @@ sup .tooltip:after {
   font-size: 100%;
   line-height: 1.2;
 }
+
 
 
 // Core variables and mixins

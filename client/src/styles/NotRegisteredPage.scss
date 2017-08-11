@@ -13,4 +13,20 @@
     max-width: 300px;
     margin: 10px auto 0 auto;
   }
+
+  .btn-group {
+    // margin-bottom: 10px;
+    &:first-child {
+
+      .btn { border-bottom: none; }
+
+
+    }
+
+    @media screen and (max-width: 713px ) {
+      .btn:first-child {
+        border-bottom:none;
+      }
+    }
+  }
 }
