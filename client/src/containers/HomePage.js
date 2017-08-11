@@ -71,11 +71,8 @@ class HomePage extends Component {
     return (
       <div>
         <div className="HomePage__search">
-          // We're currently search for results
           { this.state.searchAddress.housenumber ? (
             <Loader loading={true} >Searching for <b>{this.state.searchAddress.housenumber} {this.state.searchAddress.streetname}, {this.state.searchAddress.boro}</b></Loader>
-
-          // Default state
           ) : (
             <div>
               <h5 className="text-center">Enter an address and find other buildings your landlord might own:</h5>

@@ -43,9 +43,10 @@ const DETAIL_OFFSET = 0.0001;
 // compare using housenumber, streetname, boro convention
 // TODO: switch to bbl
 function compareAddrs(a, b) {
-  return (a.housenumber === b.housenumber &&
-          a.streetname === b.streetname &&
-          a.boro === b.boro) ? true : false;
+  // return (a.housenumber === b.housenumber &&
+  //         a.streetname === b.streetname &&
+  //         a.boro === b.boro) ? true : false;
+  return (a.bbl === b.bbl) ? true : false;
 }
 
 export default class PropertiesMap extends Component {
