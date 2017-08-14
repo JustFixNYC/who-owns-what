@@ -15,6 +15,10 @@
       padding-bottom: 5px;
       padding-left: 10px;
 
+      a {
+        text-decoration: none;
+      }
+
       &:hover {
         background-color: $primary-color;
         color: #fff;
@@ -22,7 +26,6 @@
 
         a {
           color: #fff;
-          text-decoration: none;
         }
       }
     }

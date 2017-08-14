@@ -13,9 +13,6 @@ export default class AddressToolbar extends Component {
     }
   }
 
-  openExportModal = () => this.setState({ showExportModal: true });
-  closeExportModal = () => this.setState({ showExportModal: false });
-
   render() {
 
     // fancy default syntax - if userArr is null, bbl keeps ''
@@ -43,7 +40,7 @@ export default class AddressToolbar extends Component {
               <li><a href={`https://hpdonline.hpdnyc.org/HPDonline/Provide_address.aspx?p1=${boro}&p2=${this.props.userAddr.housenumber}&p3=${this.props.userAddr.streetname}&SearchButton=Search`} target="_blank">HPD Complaints/Violations &#8599;</a></li>
             </ul>
           </div>
-          <button className="btn" onClick={this.openExportModal}>
+          <button className="btn" onClick={() => this.setState({ showExportModal: true })}>
             Export Data
           </button>
           <Link className="btn" to="/">
@@ -52,7 +49,7 @@ export default class AddressToolbar extends Component {
         </div>
         <Modal
           showModal={this.state.showExportModal}
-          onClose={this.closeExportModal}>
+          onClose={() => this.setState({ showExportModal: false })}>
           <p>This will export <b>{this.props.numOfAssocAddrs}</b> addresses associated with the landlord at <b>{this.props.userAddr.housenumber} {this.props.userAddr.streetname}, {this.props.userAddr.boro}</b>!</p>
           <p>This data is in <u>CSV file format</u>, which can easily be used in Excel, Google Sheets, or any other spreadsheet program.</p>
           <br />

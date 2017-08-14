@@ -33,6 +33,7 @@ const DetailView = (props) => {
     lot= bbl.slice(6,10).join('');
   }
 
+
   return (
     <SlideTransition length={detailSlideLength}>
       { props.addr &&
@@ -49,7 +50,9 @@ const DetailView = (props) => {
                 <h4 className="card-title">{props.addr.housenumber} {props.addr.streetname}</h4>
               </div>
               <div className="card-body">
-                <p>This building is also registered at <b>{props.addr.assocRba}</b>.</p>
+                <p>This building is also registered at&nbsp;
+                  {props.addr.assocRba.map((rba, idx) => <span key={idx}><b>{rba}</b>{idx+1 !== props.addr.assocRba.length ? ' and ' : '.'}</span> )}
+                </p>
                 { props.hasJustFixUsers &&
                   <p className="text-bold text-danger">This building has at least one active JustFix.nyc case!</p>
                 }

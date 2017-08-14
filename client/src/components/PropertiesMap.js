@@ -35,18 +35,17 @@ const USER_MARKER_PAINT = {
   'circle-color': '#0096d7'
 };
 
-// due to the wonky way react-mapboxgl works, we can just specify a center/zoom combo
+// due to the wonky way react-mapboxgl works, we can't just specify a center/zoom combo
 // instead we use this offset value to create a fake bounding box around the detail center point
 // TODO: probably a non-hack way to do this?
 const DETAIL_OFFSET = 0.0001;
 
 // compare using housenumber, streetname, boro convention
-// TODO: switch to bbl
 function compareAddrs(a, b) {
   // return (a.housenumber === b.housenumber &&
   //         a.streetname === b.streetname &&
   //         a.boro === b.boro) ? true : false;
-  return (a.bbl === b.bbl) ? true : false;
+  return a.bbl === b.bbl;
 }
 
 export default class PropertiesMap extends Component {
@@ -80,7 +79,7 @@ export default class PropertiesMap extends Component {
     let bounds = [];
     let mapProps = {
       style: mapUrl,
-      onStyleLoad: this.handleMapLoad
+      onStyleLoad: () => this.setState({ mapLoading: false })
     };
 
     let assocAddrs = [], userAddr = [], detailAddr = [];

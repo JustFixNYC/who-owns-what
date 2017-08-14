@@ -1,6 +1,11 @@
 @import 'styles/_vars.scss';
 
 .OwnersTable {
+
+  // color: $primary-color-light;
+  // color: $gray-dark;
+  // color: $secondary-color;
+
   .contacts {
     display: flex;
     flex-wrap: wrap;
@@ -39,7 +44,8 @@
         line-height: 1.5;
         font-weight: bold;
         border-bottom: 1px solid $gray-dark;
-        color: #000000;
+        // color: #000000;
+        color: $dark;
       }
 
       ul {

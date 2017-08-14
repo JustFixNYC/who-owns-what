@@ -2,6 +2,11 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import FileSaver from 'file-saver';
 
+import mergeWith from 'lodash/mergeWith';
+import keys from 'lodash/keys';
+import values from 'lodash/values';
+import groupBy from 'lodash/groupBy';
+
 import OwnersTable from 'components/OwnersTable';
 import AddressToolbar from 'components/AddressToolbar';
 import PropertiesMap from 'components/PropertiesMap';
@@ -50,22 +55,39 @@ export default class AddressPage extends Component {
     if(landlords.length) {
       // for each landlord/rba found, add its rba to each addr object
       // and then reduce and concatenate them
-      addrs = landlords.map(l => {
+      let addrsByLL = landlords.map(l => {
         const assocRba = `${l.businesshousenumber} ${l.businessstreetname}${l.businessapartment ? ' ' + l.businessapartment : ''}, ${l.businesszip}`;
         return l.addrs.map(a => { return { ...a, assocRba }})
       }).reduce((a,b) => a.concat(b));
 
-      // get array of bbls
-      const bbls = addrs.map(addr => addr.bbl);
+      let addrsByBBL = groupBy(addrsByLL, 'bbl');
+
+      // groups duplicates by bbl
+      // this occurs when the property is associated by more than one rba
+      addrs = values(addrsByBBL);
+      const bbls = keys(addrsByBBL);
+
+      // merge the repeat addrs to make the duplicate rba's into an array
+      addrs = addrs.map(addr => {
+        return mergeWith({}, ...addr, (v1, v2, key) => {
+          if(key == 'assocRba') {
+            const arr = (v1 || []);
+            arr.push(v2);
+            return arr;
+          }
+        });
+      });
+
+      console.log(addrs);
 
       // check for JFX users
-      if(bbls.length) {
-        APIClient.searchForJFXUsers(bbls).then(res => {
-          this.setState({
-            hasJustFixUsers: res.hasJustFixUsers
-          })
-        });
-      }
+      // if(bbls.length) {
+      //   APIClient.searchForJFXUsers(bbls).then(res => {
+      //     this.setState({
+      //       hasJustFixUsers: res.hasJustFixUsers
+      //     })
+      //   });
+      // }
     }
 
     // The first line of this is essentially "keep searchAddress unless we found a BBL, in which case add it to the searchAddress object"

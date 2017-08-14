@@ -5,6 +5,7 @@
   "dependencies": {
     "file-saver": "^1.3.3",
     "leaflet": "^1.1.0",
+    "lodash": "^4.17.4",
     "mapbox-gl": "^0.39.1",
     "node-sass-chokidar": "^0.0.3",
     "prop-types": "^15.5.10",
