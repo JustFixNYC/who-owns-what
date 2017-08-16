@@ -25,14 +25,15 @@ const DetailView = (props) => {
 
   const detailSlideLength = 300;
 
-  let bbl, boro, block, lot;
+  let bbl, boro, block, lot, assocRbas;
   if(props.addr) {
     bbl = props.addr.bbl.split('');
     boro = bbl.slice(0,1).join('');
     block = bbl.slice(1,6).join('');
     lot= bbl.slice(6,10).join('');
-  }
 
+    assocRbas = Array.from(props.addr.assocRbas);
+  }
 
   return (
     <SlideTransition length={detailSlideLength}>
@@ -51,7 +52,7 @@ const DetailView = (props) => {
               </div>
               <div className="card-body">
                 <p>This building is also registered at&nbsp;
-                  {props.addr.assocRba.map((rba, idx) => <span key={idx}><b>{rba}</b>{idx+1 !== props.addr.assocRba.length ? ' and ' : '.'}</span> )}
+                  {assocRbas.map((rba, idx) => <span key={idx}><b>{rba}</b>{idx+1 !== assocRbas.length ? ' and ' : '.'}</span> )}
                 </p>
                 { props.hasJustFixUsers &&
                   <p className="text-bold text-danger">This building has at least one active JustFix.nyc case!</p>

@@ -127,9 +127,6 @@ export default class PropertiesMap extends Component {
       mapProps.fitBoundsOptions = this.mapDefaults.boundsOptions;
     }
 
-    // <Loader loading={mapLoading} classNames={"Loader-map"}>
-
-
     return (
         <div className="PropertiesMap">
           <Loader loading={this.state.mapLoading} classNames="Loader-map">Loading</Loader>

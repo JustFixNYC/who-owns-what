@@ -1,11 +1,7 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import FileSaver from 'file-saver';
-
-import mergeWith from 'lodash/mergeWith';
-import keys from 'lodash/keys';
-import values from 'lodash/values';
-import groupBy from 'lodash/groupBy';
+import Helpers from 'util/helpers';
 
 import OwnersTable from 'components/OwnersTable';
 import AddressToolbar from 'components/AddressToolbar';
@@ -53,32 +49,26 @@ export default class AddressPage extends Component {
     let addrs = [];
 
     if(landlords.length) {
-      // for each landlord/rba found, add its rba to each addr object
-      // and then reduce and concatenate them
-      let addrsByLL = landlords.map(l => {
-        const assocRba = `${l.businesshousenumber} ${l.businessstreetname}${l.businessapartment ? ' ' + l.businessapartment : ''}, ${l.businesszip}`;
-        return l.addrs.map(a => { return { ...a, assocRba }})
-      }).reduce((a,b) => a.concat(b));
 
-      let addrsByBBL = groupBy(addrsByLL, 'bbl');
+      // iterate thru each landlord and each address associated with the landlord
+      // if the property is linked by more than one rba (i.e. the BBL already exists), it handles that gracefully in an es6 Set
+      for(let i = 0; i < landlords.length; i++) {
+        const assocRba = `${landlords[i].businesshousenumber} ${landlords[i].businessstreetname}${landlords[i].businessapartment ? ' ' + landlords[i].businessapartment : ''}, ${landlords[i].businesszip}`;
 
-      // groups duplicates by bbl
-      // this occurs when the property is associated by more than one rba
-      addrs = values(addrsByBBL);
-      const bbls = keys(addrsByBBL);
+        for(let j = 0; j < landlords[i].addrs.length; j++) {
+          const addr = landlords[i].addrs[j];
 
-      // merge the repeat addrs to make the duplicate rba's into an array
-      addrs = addrs.map(addr => {
-        return mergeWith({}, ...addr, (v1, v2, key) => {
-          if(key == 'assocRba') {
-            const arr = (v1 || []);
-            arr.push(v2);
-            return arr;
+          // instead of using _.find, we use a for loop that is super performant!
+          // this is my rationalization for calling this function twice per address
+          if(!Helpers.find(addrs, 'bbl', addr.bbl)) {
+            addr.assocRbas = new Set();
+            addrs.push(addr);
+          } else {
+            console.log(addr);
           }
-        });
-      });
-
-      console.log(addrs);
+          Helpers.find(addrs, 'bbl', addr.bbl).assocRbas.add(assocRba);
+        }
+      }
 
       // check for JFX users
       // if(bbls.length) {
@@ -154,7 +144,7 @@ export default class AddressPage extends Component {
             contacts={this.state.contacts}
             hasJustFixUsers={this.state.hasJustFixUsers}
           />
-        { this.state.hasSearched && <h5 className="inline-block mb-10">This landlord is associated with <u>{this.state.assocAddrs.length - 1}</u> other building{(this.state.assocAddrs.length - 1) === 1 ? '':'s'}:</h5> }
+        { this.state.hasSearched && <h5 className="inline-block mb-10">This landlord is associated with <u>{Math.max(this.state.assocAddrs.length - 1, 0)}</u> other building{(this.state.assocAddrs.length - 1) === 1 ? '':'s'}:</h5> }
         </div>
         <div className="AddressPage__viz">
           <PropertiesMap

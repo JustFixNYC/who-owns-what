@@ -6,4 +6,11 @@ export default class Helpers {
     return Array.from(new Set(_array.map(JSON.stringify))).map(JSON.parse);
   };
 
+  static find(array, attrib, value) {
+    for (let i = 0; i < array.length; i++) {
+      if (array[i][attrib] === value) return array[i];
+    }
+    return null;
+  }
+
 }
