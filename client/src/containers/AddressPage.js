@@ -56,17 +56,16 @@ export default class AddressPage extends Component {
         const assocRba = `${landlords[i].businesshousenumber} ${landlords[i].businessstreetname}${landlords[i].businessapartment ? ' ' + landlords[i].businessapartment : ''}, ${landlords[i].businesszip}`;
 
         for(let j = 0; j < landlords[i].addrs.length; j++) {
-          const addr = landlords[i].addrs[j];
+          let newAddr = landlords[i].addrs[j];
 
           // instead of using _.find, we use a for loop that is super performant!
-          // this is my rationalization for calling this function twice per address
-          if(!Helpers.find(addrs, 'bbl', addr.bbl)) {
-            addr.assocRbas = new Set();
-            addrs.push(addr);
+          let addr = Helpers.find(addrs, 'bbl', newAddr.bbl);
+          if(!addr) {
+            newAddr.assocRbas = new Set([assocRba]);
+            addrs.push(newAddr);
           } else {
-            console.log(addr);
+            addr.assocRbas.add(assocRba);
           }
-          Helpers.find(addrs, 'bbl', addr.bbl).assocRbas.add(assocRba);
         }
       }
 
