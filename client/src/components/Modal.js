@@ -28,7 +28,8 @@ const Modal = (props) => {
       borderRadius               : '0',
       outline                    : 'none',
       padding                    : '40px 30px',
-      margin                     : 'auto'
+      margin                     : 'auto',
+      width                      : `${props.width ? props.width : 40}vw`
     }
   };
 

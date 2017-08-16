@@ -9,10 +9,15 @@
   border: 1px solid $gray-dark;
   padding: 35px;
 
-  a.btn-block {
+  a.btn-block:not(.btn-link) {
     max-width: 300px;
     margin: 10px auto 0 auto;
   }
+
+  a.btn-link {
+    text-decoration: underline;
+  }
+
 
   .btn-group {
     // margin-bottom: 10px;
