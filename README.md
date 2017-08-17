@@ -46,6 +46,12 @@ cd client && yarn build
 
 Your express app will grab static files (i.e. the react app and assets) from `client/build` automatically.
 
+## Cross-browser testing
+
+We use BrowserStack Live to make sure that our sites work across browsers, operating systems, and devices.
+
+![BrowserStack](https://www.browserstack.com/images/layout/browserstack-logo-600x315.png)
+
 ## License
 
 JustFix.nyc uses the GNU General Public License v3.0 Open-Source License. See `LICENSE.md` file for the full text.
