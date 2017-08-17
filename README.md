@@ -45,3 +45,7 @@ cd client && yarn build
 ```
 
 Your express app will grab static files (i.e. the react app and assets) from `client/build` automatically.
+
+## License
+
+JustFix.nyc uses the GNU General Public License v3.0 Open-Source License. See `LICENSE.md` file for the full text.
