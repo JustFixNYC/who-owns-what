@@ -130,6 +130,11 @@ export default class AddressPage extends Component {
       );
     }
 
+    let boro, block, lot;
+    if(this.state.searchAddress.bbl) {
+      ({ boro, block, lot } = Helpers.splitBBL(this.state.searchAddress.bbl));
+    }
+
     return (
       <div className="AddressPage">
         <div className="AddressPage__info">
@@ -139,6 +144,8 @@ export default class AddressPage extends Component {
             numOfAssocAddrs={this.state.assocAddrs.length}
           />
           <h5 className="primary">Information for {this.state.searchAddress.housenumber} {this.state.searchAddress.streetname}, {this.state.searchAddress.boro}:</h5>
+          {//<p><i>Boro-Block-Lot: {boro}-{block}-{lot}</i></p>
+          }
           <OwnersTable
             contacts={this.state.contacts}
             hasJustFixUsers={this.state.hasJustFixUsers}

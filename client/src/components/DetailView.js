@@ -1,5 +1,6 @@
 import React from 'react';
 import { CSSTransitionGroup } from 'react-transition-group';
+import Helpers from 'util/helpers';
 
 import 'styles/DetailView.css';
 
@@ -25,13 +26,9 @@ const DetailView = (props) => {
 
   const detailSlideLength = 300;
 
-  let bbl, boro, block, lot, assocRbas;
+  let boro, block, lot, assocRbas;
   if(props.addr) {
-    bbl = props.addr.bbl.split('');
-    boro = bbl.slice(0,1).join('');
-    block = bbl.slice(1,6).join('');
-    lot= bbl.slice(6,10).join('');
-
+    ({ boro, block, lot } = Helpers.splitBBL(props.addr.bbl));
     assocRbas = Array.from(props.addr.assocRbas);
   }
 

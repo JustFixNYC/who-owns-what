@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Modal from 'components/Modal';
+import Helpers from 'util/helpers';
 
 import 'styles/NotRegisteredPage.css';
 
@@ -17,16 +18,13 @@ export default class NotRegisteredPage extends Component {
     const geoclient = this.props.location.state.geoclient;
     const searchAddress = this.props.location.state.searchAddress;
 
-    let bbl = '', boro, block, lot;
+    let boro, block, lot;
     let buildingTypeMessage;
 
     if(geoclient) {
 
       if(geoclient.bbl) {
-        bbl = geoclient.bbl.split('');
-        boro = bbl.slice(0,1).join('');
-        block = bbl.slice(1,6).join('');
-        lot = bbl.slice(6,10).join('');
+        ({ boro, block, lot } = Helpers.splitBBL(geoclient.bbl));
       }
 
       if(geoclient.rpadBuildingClassificationCode) {

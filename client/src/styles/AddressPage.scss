@@ -16,6 +16,12 @@
         margin-bottom: 15px;
       }
     }
+
+    h5 + p {
+      line-height: 1;
+      color: $gray-dark;
+      margin-bottom: 15px;
+    }
   }
 
   .AddressPage__viz {

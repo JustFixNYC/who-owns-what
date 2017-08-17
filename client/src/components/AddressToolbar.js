@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Modal from 'components/Modal';
+import Helpers from 'util/helpers';
 
 import 'styles/AddressToolbar.css';
 
@@ -20,10 +21,7 @@ export default class AddressToolbar extends Component {
     let boro, block, lot;
 
     if (bbl.length) {
-      bbl = bbl.split('');
-      boro = bbl.slice(0,1).join('');
-      block = bbl.slice(1,6).join('');
-      lot = bbl.slice(6,10).join('');
+      ({ boro, block, lot } = Helpers.splitBBL(bbl));
     }
 
     return (

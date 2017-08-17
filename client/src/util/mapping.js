@@ -1,10 +1,10 @@
-export default class MapHelpers {
+export default {
   // need to check if either lat or lng is NaN. Occurs for ~0.5% of addresses
-  static latLngIsNull(latlng) {
+  latLngIsNull(latlng) {
     return latlng.filter(isNaN).length;
-  }
+  },
 
-  static getBoundingBox(latlngs) {
+  getBoundingBox(latlngs) {
     let bs = {}, coords, latitude, longitude;
 
     for (let i = 0; i < latlngs.length; i++) {
