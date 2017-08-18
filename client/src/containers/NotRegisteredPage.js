@@ -34,7 +34,7 @@ export default class NotRegisteredPage extends Component {
             buildingTypeMessage = (
               <div>
                 <p>
-                  This seems like a smaller residential building. If the landlord doesn't reside there, it should be registered with HPD.
+                  This seems like a smaller residential building. If the landlord doesn't reside there, it should be registered with HPD. (<i><a href={`http://www1.nyc.gov/assets/finance/jump/hlpbldgcode.html#${geoclient.rpadBuildingClassificationCode.charAt(0)}`} target="_blank"><u>Building Classification</u></a>: {geoclient.rpadBuildingClassificationCode}</i>)
                   <a className="btn btn-block btn-link" onClick={() => this.setState({ showModal: true })}>What happens if the landlord has failed to register?</a>
                 </p>
               </div>
@@ -44,14 +44,14 @@ export default class NotRegisteredPage extends Component {
             buildingTypeMessage = (
               <div>
                 <p>
-                  This building seems like it should be registered with HPD.
+                  This building seems like it should be registered with HPD. (<i><a href={`http://www1.nyc.gov/assets/finance/jump/hlpbldgcode.html#${geoclient.rpadBuildingClassificationCode.charAt(0)}`} target="_blank"><u>Building Classification</u></a>: {geoclient.rpadBuildingClassificationCode}</i>)
                   <a className="btn btn-block btn-link" onClick={() => this.setState({ showModal: true })}>What happens if the landlord has failed to register?</a>
                 </p>
               </div>
             );
             break;
           default:
-            buildingTypeMessage = (<p>It doesn't seem like this is a residential building that is required to register with HPD. (<i><a href="http://www1.nyc.gov/assets/finance/jump/hlpbldgcode.html" target="_blank"><u>Building Classification</u></a>: {geoclient.rpadBuildingClassificationCode}</i>)</p>);
+            buildingTypeMessage = (<p>It doesn't seem like this is a residential building that is required to register with HPD. (<i><a href={`http://www1.nyc.gov/assets/finance/jump/hlpbldgcode.html#${geoclient.rpadBuildingClassificationCode.charAt(0)}`} target="_blank"><u>Building Classification</u></a>: {geoclient.rpadBuildingClassificationCode}</i>)</p>);
             break;
         };
       }

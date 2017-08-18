@@ -38,7 +38,7 @@ const USER_MARKER_PAINT = {
 // due to the wonky way react-mapboxgl works, we can't just specify a center/zoom combo
 // instead we use this offset value to create a fake bounding box around the detail center point
 // TODO: probably a non-hack way to do this?
-const DETAIL_OFFSET = 0.0001;
+const DETAIL_OFFSET = 0.0007;
 
 // compare using housenumber, streetname, boro convention
 function compareAddrs(a, b) {
