@@ -1,12 +1,4 @@
 /* eslint-disable no-undef */
-function getContacts(q) {
-  return get(`/api/contacts?housenumber=${q.housenumber}&streetname=${q.streetname}&boro=${q.boro}`);
-}
-
-function getLandlords(q) {
-  return get(`/api/landlords?housenumber=${q.housenumber}&streetname=${q.streetname}&boro=${q.boro}`);
-}
-
 function searchAddress(q) {
   return get(`/api/address?housenumber=${q.housenumber}&streetname=${q.streetname}&boro=${q.boro}`);
 }
@@ -56,8 +48,6 @@ function parseJSON(response) {
 }
 
 const Client = {
-  getContacts,
-  getLandlords,
   searchAddress,
   getAddressExport,
   searchForJFXUsers

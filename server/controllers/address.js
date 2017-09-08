@@ -22,28 +22,15 @@ const getDataAndFormat = (query) => {
       // console.dir(geo.address, {depth: null, colors: true});
 
       if(geo.address.geosupportReturnCode == '00' && geo.address.bbl) {
-        console.log('by bbl', geo.address.bbl);
         query.byBBL = true;
         return Promise.all([
-          new Promise(r => r(geo.address)),
-          db.queryContactsByBBL(geo.address.bbl),
-          db.queryLandlordsByBBL(geo.address.bbl)
-        ]);
-
-      // this is a fallback option, but i'm not sure if theres any situation where our DB will
-      // return something that didn't work with geoclient
-      } else {
-        console.log('by addr', housenumber, streetname, boro);
-        query.byBBL = false;
-        return Promise.all([
-          new Promise(r => r({})),
-          db.queryContactsByAddr(housenumber, streetname, boro),
-          db.queryLandlordsByAddr(housenumber, streetname, boro)
+          geo.address,                          // we already have this value
+          db.queryAddress(geo.address.bbl)
         ]);
       }
     });
 
-}
+};
 
 module.exports = {
   query: (req, res) => {
@@ -51,10 +38,9 @@ module.exports = {
       .then(results => {
         keen.recordEvent('search', {
           query: req.query,
-          contacts: results[0].length ? true : false,
           landlords: results[1].length
         });
-        res.status(200).send({ geoclient: results[0], contacts: results[1], landlords: results[2] });
+        res.status(200).send({ geoclient: results[0], addrs: results[1] });
        })
       .catch(err => {
         console.log('err', err);
@@ -66,21 +52,15 @@ module.exports = {
     getDataAndFormat(req.query)
       .then(results => {
 
-        const landlords = results[2];
-        let addrs = [];
+        if(!results || !results[1]) {
+          return res.status(400).send({ message: "Address not found!" });
+        }
 
-        addrs = landlords.map(l => {
-          const assocRba = `${l.businesshousenumber} ${l.businessstreetname}${l.businessapartment ? ' ' + l.businessapartment : ''}, ${l.businesszip}`;
-          //  TODO seriously, get es6 working on the backend
-          return l.addrs.map(a => {
-
-            a.ownernames = JSON.stringify(a.ownernames);
-
-            return Object.assign(a, { businessAddr: assocRba });
-          });
-          // return l.addrs.map(a => { return { ...a, assocRba }})
-
-        }).reduce((a,b) => a.concat(b));
+        let addrs = results[1].map(addr => {
+          addr.ownernames = JSON.stringify(addr.ownernames);
+          // TODO: assign JF user flag? or probably just handle that in pg
+          return addr;
+        });
 
         res.csv(addrs, true);
        })

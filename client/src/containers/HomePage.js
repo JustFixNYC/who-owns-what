@@ -47,8 +47,8 @@ class HomePage extends Component {
       const geoclient = results.geoclient;
       const searchAddress = this.state.searchAddress;
 
-      // no contacts = not found
-      if(!this.state.results.contacts.length) {
+      // no addrs = not found
+      if(!this.state.results.addrs.length) {
         return (
           <Redirect to={{
             pathname: '/not-found',

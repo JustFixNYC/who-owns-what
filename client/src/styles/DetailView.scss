@@ -94,10 +94,14 @@
       }
     }
 
-    .card-body-links {
-      margin-top: 20px;
+    .card-body {
+      padding-top: 0.5rem;
+    }
 
-      a.btn {
+    .card-body-links {
+      margin-bottom: 20px;
+
+      a.btn:not(:first-child) {
         margin-top: 10px;
       }
     }
