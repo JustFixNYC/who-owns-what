@@ -3,3 +3,4 @@ node_modules/
 env/*
 /.env
 client/src/**/*.css
+dist
