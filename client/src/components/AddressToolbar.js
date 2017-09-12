@@ -27,17 +27,19 @@ export default class AddressToolbar extends Component {
     return (
       <div className="AddressToolbar">
         <div className="btn-group float-right">
-          <div className="dropdown">
-            <button className="btn dropdown-toggle" tabIndex="0">
-              Property Links &#8964;
-            </button>
-            <ul className="menu">
-              <li><a href={`http://a836-acris.nyc.gov/bblsearch/bblsearch.asp?borough=${boro}&block=${block}&lot=${lot}`} target="_blank">View documents on ACRIS &#8599;</a></li>
-              <li><a href={`http://webapps.nyc.gov:8084/CICS/fin1/find001i?FFUNC=C&FBORO=${boro}&FBLOCK=${block}&FLOT=${lot}`} target="_blank">DOF Property Tax Bills &#8599;</a></li>
-              <li><a href={`http://a810-bisweb.nyc.gov/bisweb/PropertyProfileOverviewServlet?boro=${boro}&block=${block}&lot=${lot}`} target="_blank">DOB Property Profile &#8599;</a></li>
-              <li><a href={`https://hpdonline.hpdnyc.org/HPDonline/Provide_address.aspx?p1=${boro}&p2=${this.props.userAddr.housenumber}&p3=${this.props.userAddr.streetname}&SearchButton=Search`} target="_blank">HPD Complaints/Violations &#8599;</a></li>
-            </ul>
-          </div>
+          {
+            // <div className="dropdown">
+            //   <button className="btn dropdown-toggle" tabIndex="0">
+            //     Property Links &#8964;
+            //   </button>
+            //   <ul className="menu">
+            //     <li><a href={`http://a836-acris.nyc.gov/bblsearch/bblsearch.asp?borough=${boro}&block=${block}&lot=${lot}`} target="_blank">View documents on ACRIS &#8599;</a></li>
+            //     <li><a href={`http://webapps.nyc.gov:8084/CICS/fin1/find001i?FFUNC=C&FBORO=${boro}&FBLOCK=${block}&FLOT=${lot}`} target="_blank">DOF Property Tax Bills &#8599;</a></li>
+            //     <li><a href={`http://a810-bisweb.nyc.gov/bisweb/PropertyProfileOverviewServlet?boro=${boro}&block=${block}&lot=${lot}`} target="_blank">DOB Property Profile &#8599;</a></li>
+            //     <li><a href={`https://hpdonline.hpdnyc.org/HPDonline/Provide_address.aspx?p1=${boro}&p2=${this.props.userAddr.housenumber}&p3=${this.props.userAddr.streetname}&SearchButton=Search`} target="_blank">HPD Complaints/Violations &#8599;</a></li>
+            //   </ul>
+            // </div>
+          }
           <button className="btn" onClick={() => this.setState({ showExportModal: true })}>
             Export Data
           </button>

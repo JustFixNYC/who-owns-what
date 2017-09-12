@@ -4,6 +4,8 @@ import FileSaver from 'file-saver';
 import Helpers from 'util/helpers';
 
 import _find from 'lodash/find';
+import _countBy from 'lodash/countBy';
+import _ from 'lodash';
 
 import OwnersTable from 'components/OwnersTable';
 import AddressToolbar from 'components/AddressToolbar';
@@ -48,13 +50,27 @@ export default class AddressPage extends Component {
   handleResults = (results) => {
     const { geoclient, addrs } = results;
 
+    console.log('user', _find(addrs, { bbl: geoclient.bbl }));
+
+    let owners = addrs.map(a => a.ownernames).reduce((a,b) => a.concat(b));
+    owners = _.chain(owners)
+      .countBy(o => o.value)
+      .toPairs()
+      .sortBy(o => o[1])
+      .reverse()
+      .value();
+
+
     this.setState({
       searchAddress: { ...this.state.searchAddress, bbl: geoclient.bbl },
       userAddr: _find(addrs, { bbl: geoclient.bbl }),
       hasSearched: true,
       geoclient: geoclient,
       assocAddrs: addrs
+    }, () => {
+      this.handleOpenDetail(this.state.userAddr);
     });
+    
   }
 
   handleOpenDetail = (addr) => {
@@ -102,6 +118,14 @@ export default class AddressPage extends Component {
       ({ boro, block, lot } = Helpers.splitBBL(this.state.searchAddress.bbl));
     }
 
+    let landlordName;
+    if(this.state.userAddr.ownernames) {
+      var owners =  this.state.userAddr.ownernames;    // "owners"
+                                                      // real estate doesn't own nyc tho
+      let landlords = owners.filter(o => o.title == "HeadOfficer" || o.title == "IndividualOwner");
+      landlordName = landlords[0].value;
+    }
+
     return (
       <div className="AddressPage">
         <div className="AddressPage__info">
@@ -110,22 +134,33 @@ export default class AddressPage extends Component {
             userAddr={this.state.searchAddress}
             numOfAssocAddrs={this.state.assocAddrs.length}
           />
-          <h5 className="primary">
-            Information for {this.state.searchAddress.housenumber} {this.state.searchAddress.streetname}, {this.state.searchAddress.boro}:
-          </h5>
-          {//<p><i>Boro-Block-Lot: {boro}-{block}-{lot}</i></p>
-          }
-          <OwnersTable
-            addr={this.state.userAddr}
-            hasJustFixUsers={this.state.hasJustFixUsers}
-          />
-          { this.state.hasSearched &&
-            <h5 className="inline-block mb-10">
-              This landlord is associated with <u>{Math.max(this.state.assocAddrs.length - 1, 0)}</u> other building{(this.state.assocAddrs.length - 1) === 1 ? '':'s'}:
+        {
+          // <h5 className="primary">
+          //   Information for {this.state.searchAddress.housenumber} {this.state.searchAddress.streetname}, {this.state.searchAddress.boro}:
+          // </h5>
+        }
+          { this.state.userAddr &&
+            <h5 className="primary">
+              The landlord at { this.state.searchAddress.housenumber} {this.state.searchAddress.streetname}, {this.state.searchAddress.boro} is associated with ~<u>{Math.max(this.state.assocAddrs.length - 1, 0)}</u> other building{(this.state.assocAddrs.length - 1) === 1 ? '':'s'}:
             </h5>
           }
+          {//<p><i>Boro-Block-Lot: {boro}-{block}-{lot}</i></p>
+          }
+          {
+            // <OwnersTable
+            //   addr={this.state.userAddr}
+            //   hasJustFixUsers={this.state.hasJustFixUsers}
+            // />
+          }
+
+
         </div>
         <div className="AddressPage__viz">
+          <DetailView
+            addr={this.state.detailAddr}
+            hasJustFixUsers={this.state.detailHasJustFixUsers}
+            onCloseDetail={this.handleCloseDetail}
+          />
           <PropertiesMap
             addrs={this.state.assocAddrs}
             userAddr={this.state.userAddr}
@@ -133,16 +168,12 @@ export default class AddressPage extends Component {
             onOpenDetail={this.handleOpenDetail}
             onMapLoad={this.handleMapLoad}
           />
-          { !this.state.detailAddr && this.state.hasSearched &&
-            <div className="AddressPage__viz-prompt">
-              <p><i>(click on a building to view details)</i></p>
-            </div>
+          { // !this.state.detailAddr && this.state.hasSearched &&
+            // <div className="AddressPage__viz-prompt">
+            //   <p><i>(click on a building to view details)</i></p>
+            // </div>
           }
-          <DetailView
-            addr={this.state.detailAddr}
-            hasJustFixUsers={this.state.detailHasJustFixUsers}
-            onCloseDetail={this.handleCloseDetail}
-          />
+
         </div>
 
       </div>

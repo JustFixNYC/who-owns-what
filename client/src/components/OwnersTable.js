@@ -21,21 +21,27 @@ const OwnersTable = (props) => {
           <div className="columns">
             <div className="column col-3">
               <p>Business Addresses</p>
-              <ul>
-                {props.addr.businessaddrs.map((rba, idx) => <li key={idx}>{rba}</li>)}
-              </ul>
+              { props.addr.businessaddrs && props.addr.businessaddrs.length && (
+                <ul>
+                  {props.addr.businessaddrs.map((rba, idx) => <li key={idx}>{rba}</li>)}
+                </ul>
+              )}
             </div>
             <div className="column col-3">
               <p>Shell Companies</p>
-              <ul>
-                {props.addr.corpnames.map((corp, idx) => <li key={idx}>{corp}</li>)}
-              </ul>
+              { props.addr.corpnames && props.addr.corpnames.length && (
+                <ul>
+                  {props.addr.corpnames.map((corp, idx) => <li key={idx}>{corp}</li>)}
+                </ul>
+              )}
             </div>
             <div className="column col-6">
               <p>People</p>
-              <ul className="owners">
-                {props.addr.ownernames.map((owner, idx) => <li key={idx}>{owner.title.split(/(?=[A-Z])/).join(" ")}: {owner.value}</li>)}
-              </ul>
+              { props.addr.ownernames && props.addr.ownernames.length && (
+                <ul className="owners">
+                  {props.addr.ownernames.map((owner, idx) => <li key={idx}>{owner.title.split(/(?=[A-Z])/).join(" ")}: {owner.value}</li>)}
+                </ul>
+              )}
             </div>
           </div>
         </div>

@@ -40,14 +40,6 @@ const USER_MARKER_PAINT = {
 // TODO: probably a non-hack way to do this?
 const DETAIL_OFFSET = 0.0007;
 
-// compare using housenumber, streetname, boro convention
-function compareAddrs(a, b) {
-  // return (a.housenumber === b.housenumber &&
-  //         a.streetname === b.streetname &&
-  //         a.boro === b.boro) ? true : false;
-  return a.bbl === b.bbl;
-}
-
 export default class PropertiesMap extends Component {
   constructor(props) {
     super(props);
@@ -58,9 +50,9 @@ export default class PropertiesMap extends Component {
 
     this.mapDefaults = {
       mapCenter: [-73.96270751953125, 40.7127],
-      mapZoom: [10],
+      mapZoom: [20],
       bounds: [[-74.259087, 40.477398], [-73.700172, 40.917576]],
-      boundsOptions: { padding: {top:50, bottom: 100, left: 50, right: 50} }
+      boundsOptions: { padding: {top:50, bottom: 50, left: 200, right: 50} }
     };
   }
 
@@ -76,7 +68,7 @@ export default class PropertiesMap extends Component {
     const terminal2 = 'mapbox://styles/dan-kass/cj65hlk5v69z42rql5xtunc5s';
     const mapUrl = terminal;
 
-    let bounds = [];
+    let bounds = new Set();
     let mapProps = {
       style: mapUrl,
       onStyleLoad: () => this.setState({ mapLoading: false })
@@ -91,12 +83,11 @@ export default class PropertiesMap extends Component {
 
       if(!MapHelpers.latLngIsNull(pos)) {
 
-        // add to the bounds obj
-        if(!this.props.detailAddr) bounds.push(pos);
+        bounds.add(pos);
 
-        if(compareAddrs(addr, this.props.userAddr)) {
+        if(Helpers.addrsAreEqual(addr, this.props.userAddr)) {
           userAddr.push(<Feature key={i} coordinates={pos} />);
-        } else if(this.props.detailAddr && compareAddrs(addr, this.props.detailAddr)) {
+        } else if(this.props.detailAddr && Helpers.addrsAreEqual(addr, this.props.detailAddr)) {
           detailAddr.push(<Feature key={i} coordinates={pos} />);
         } else {
           assocAddrs.push(
@@ -112,7 +103,8 @@ export default class PropertiesMap extends Component {
       mapProps.center = mapProps.fitBounds.getCenter();
 
     // detail view
-    } else if(this.props.detailAddr) {
+    } else if(this.props.detailAddr && !Helpers.addrsAreEqual(this.props.detailAddr, this.props.userAddr)) {
+      console.log('detail');
       let minPos = [parseFloat(this.props.detailAddr.lng) - DETAIL_OFFSET, parseFloat(this.props.detailAddr.lat) - DETAIL_OFFSET];
       let maxPos = [parseFloat(this.props.detailAddr.lng) + DETAIL_OFFSET, parseFloat(this.props.detailAddr.lat) + DETAIL_OFFSET];
       mapProps.fitBounds = new MapboxGL.LngLatBounds([minPos, maxPos]);
@@ -120,11 +112,11 @@ export default class PropertiesMap extends Component {
 
     // regular view
     } else {
-      bounds = Helpers.uniq(bounds);
+      bounds = Array.from(bounds);
       bounds = bounds.length > 1 ? bounds : this.mapDefaults.bounds;
       bounds = MapHelpers.getBoundingBox(bounds);
       mapProps.fitBounds = new MapboxGL.LngLatBounds(bounds);
-      mapProps.fitBoundsOptions = this.mapDefaults.boundsOptions;
+      mapProps.fitBoundsOptions = { ...this.mapDefaults.boundsOptions, maxZoom: 20, offset: [-125, 0] };
     }
 
     return (
