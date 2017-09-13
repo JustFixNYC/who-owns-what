@@ -25,6 +25,10 @@ const ASSOC_CIRCLE_PAINT = {
   'circle-opacity': 0.8
 };
 
+// const ASSOC_CIRCLE_LAYOUT = {
+//   ''
+// }
+
 const DETAIL_CIRCLE_PAINT = {
   ...BASE_CIRCLE,
   'circle-color': '#FF5722'
@@ -91,11 +95,38 @@ export default class PropertiesMap extends Component {
           detailAddr.push(<Feature key={i} coordinates={pos} />);
         } else {
           assocAddrs.push(
-            <Feature key={i} coordinates={pos} onClick={() => this.props.onOpenDetail(addr)} />
+            // <Feature key={i} coordinates={pos} properties={{ openviolations: addr.openviolations }} onClick={() => this.props.onOpenDetail(addr)} />
+            <Feature key={i} coordinates={pos} properties={{ mapdatapoint: addr.openviolations }} onClick={() => this.props.onOpenDetail(addr)} />
           );
         }
       }
     }
+
+    let vMin = 0, vMax = 0;
+    if(this.props.addrs.length > 1) {
+      let openviolations = this.props.addrs.map(a => (a.openviolations / a.unitsres)).filter(isFinite);
+      vMax = Math.max(...openviolations);
+      vMin = Math.min(...openviolations);
+
+      // let evictions = this.props.addrs.map(a => (a.evictions / a.unitsres)).filter(isFinite);
+      let evictions = this.props.addrs.map(a => a.evictions).filter(isFinite);
+      let eMax = Math.max(...evictions);
+      let eMin = Math.min(...evictions);
+    }
+
+    const dynamic_assoc_paint = {
+      ...ASSOC_CIRCLE_PAINT,
+      'circle-color': {
+        property: 'mapdatapoint',
+        default: '#acb3c2',
+        stops: [
+          [vMin, '#fde0dd'],
+          [(vMax-vMin)/2, '#fa9fb5'],
+          [vMax, '#c51b8a']
+        ]
+      }
+    };
+
 
     // defaults
     if(!this.props.addrs.length) {
@@ -103,8 +134,9 @@ export default class PropertiesMap extends Component {
       mapProps.center = mapProps.fitBounds.getCenter();
 
     // detail view
-    } else if(this.props.detailAddr && !Helpers.addrsAreEqual(this.props.detailAddr, this.props.userAddr)) {
-      console.log('detail');
+    // this displays after a detail click (so not the search address) OR if only 1 addr is returned
+    // i.e. the search address is the only thing to look at
+    } else if(this.props.detailAddr && (!Helpers.addrsAreEqual(this.props.detailAddr, this.props.userAddr) || this.props.addrs.length == 1)) {
       let minPos = [parseFloat(this.props.detailAddr.lng) - DETAIL_OFFSET, parseFloat(this.props.detailAddr.lat) - DETAIL_OFFSET];
       let maxPos = [parseFloat(this.props.detailAddr.lng) + DETAIL_OFFSET, parseFloat(this.props.detailAddr.lat) + DETAIL_OFFSET];
       mapProps.fitBounds = new MapboxGL.LngLatBounds([minPos, maxPos]);
@@ -129,7 +161,7 @@ export default class PropertiesMap extends Component {
                 'backgroundColor': '#ffffff',
                 'borderColor': '#727e96'
               }} />
-            <Layer type="circle" paint={ASSOC_CIRCLE_PAINT}>
+            <Layer type="circle" paint={dynamic_assoc_paint}>
               { assocAddrs }
             </Layer>
             <Layer type="circle" paint={DETAIL_CIRCLE_PAINT}>

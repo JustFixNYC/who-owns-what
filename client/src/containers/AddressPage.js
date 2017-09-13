@@ -70,7 +70,7 @@ export default class AddressPage extends Component {
     }, () => {
       this.handleOpenDetail(this.state.userAddr);
     });
-    
+
   }
 
   handleOpenDetail = (addr) => {
@@ -137,11 +137,12 @@ export default class AddressPage extends Component {
         {
           // <h5 className="primary">
           //   Information for {this.state.searchAddress.housenumber} {this.state.searchAddress.streetname}, {this.state.searchAddress.boro}:
+          //               The landlord at { this.state.searchAddress.housenumber} {this.state.searchAddress.streetname}, {this.state.searchAddress.boro} is associated with ~<u>{Math.max(this.state.assocAddrs.length - 1, 0)}</u> other building{(this.state.assocAddrs.length - 1) === 1 ? '':'s'}:
           // </h5>
         }
           { this.state.userAddr &&
             <h5 className="primary">
-              The landlord at { this.state.searchAddress.housenumber} {this.state.searchAddress.streetname}, {this.state.searchAddress.boro} is associated with ~<u>{Math.max(this.state.assocAddrs.length - 1, 0)}</u> other building{(this.state.assocAddrs.length - 1) === 1 ? '':'s'}:
+              { this.state.searchAddress.housenumber} {this.state.searchAddress.streetname}, {this.state.searchAddress.boro} is linked to ~<u>{Math.max(this.state.assocAddrs.length - 1, 0)}</u> other building{(this.state.assocAddrs.length - 1) === 1 ? '':'s'}:
             </h5>
           }
           {//<p><i>Boro-Block-Lot: {boro}-{block}-{lot}</i></p>
@@ -156,17 +157,18 @@ export default class AddressPage extends Component {
 
         </div>
         <div className="AddressPage__viz">
-          <DetailView
-            addr={this.state.detailAddr}
-            hasJustFixUsers={this.state.detailHasJustFixUsers}
-            onCloseDetail={this.handleCloseDetail}
-          />
+
           <PropertiesMap
             addrs={this.state.assocAddrs}
             userAddr={this.state.userAddr}
             detailAddr={this.state.detailAddr}
             onOpenDetail={this.handleOpenDetail}
             onMapLoad={this.handleMapLoad}
+          />
+          <DetailView
+            addr={this.state.detailAddr}
+            hasJustFixUsers={this.state.detailHasJustFixUsers}
+            onCloseDetail={this.handleCloseDetail}
           />
           { // !this.state.detailAddr && this.state.hasSearched &&
             // <div className="AddressPage__viz-prompt">

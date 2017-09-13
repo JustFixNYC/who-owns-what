@@ -12,17 +12,6 @@
   position: relative;
   z-index: 5;
 
-  .leaflet-container {
-      height: 100%;
-      width: 100%;
-      overflow: hidden;
-
-      &.leaflet-touch .leaflet-control-layers, &.leaflet-touch .leaflet-bar {
-        border-radius: 0;
-        border-color: $gray-dark;
-        border-width: 1px;
-      }
-  }
   .mapboxgl-map {
     height: 100%;
     width: 100%;
