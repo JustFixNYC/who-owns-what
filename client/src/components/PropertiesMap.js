@@ -66,6 +66,40 @@ export default class PropertiesMap extends Component {
     });
   }
 
+  handleMouseMove = (map, e) => {
+      let features = map.queryRenderedFeatures(e.point, { layers: ["layer-1"] });
+      // console.log(features);
+      if(features.length) {
+        map.getCanvas().style.cursor = 'pointer';
+      } else {
+        map.getCanvas().style.cursor = '';
+      }
+      //
+      //
+      // let mousein = this.state.mousein;
+      // if (!cluster.length) {
+      //     map.getCanvas().style.cursor = '';
+      //     mousein = false;
+      // } else if (!mousein) {
+      //
+      //     mousein = true;
+      //     // var pointsInCluster = this.props.cams.items.filter((f) => {
+      //     //     var pointPixels = map.project([f.lng, f.lat])
+      //     //     var pixelDistance = Math.sqrt(
+      //     //         Math.pow(e.point.x - pointPixels.x, 2) +
+      //     //         Math.pow(e.point.y - pointPixels.y, 2)
+      //     //     );
+      //     // return Math.abs(pixelDistance) <= 50;
+      //     // });
+      //     // //this.setState({hidden: false});
+      //     // console.log(cluster, pointsInCluster);
+      // }
+      // if (mousein !== this.state.mousein) {
+      //     console.log(mousein);
+      //     this.setState({mousein: mousein});
+      // }
+  }
+
   render() {
     const light = 'mapbox://styles/dan-kass/cj5rsfld203472sqy1y0px42d';
     const terminal = 'mapbox://styles/dan-kass/cj657o2qu601z2rqbp1jgiys5';
@@ -75,7 +109,8 @@ export default class PropertiesMap extends Component {
     let bounds = new Set();
     let mapProps = {
       style: mapUrl,
-      onStyleLoad: () => this.setState({ mapLoading: false })
+      onStyleLoad: () => this.setState({ mapLoading: false }),
+      onMouseMove: (map, e) => this.handleMouseMove(map, e)
     };
 
     let assocAddrs = [], userAddr = [], detailAddr = [];
@@ -95,14 +130,15 @@ export default class PropertiesMap extends Component {
           detailAddr.push(<Feature key={i} coordinates={pos} />);
         } else {
           assocAddrs.push(
-            // <Feature key={i} coordinates={pos} properties={{ openviolations: addr.openviolations }} onClick={() => this.props.onOpenDetail(addr)} />
-            <Feature key={i} coordinates={pos} properties={{ mapdatapoint: addr.openviolations }} onClick={() => this.props.onOpenDetail(addr)} />
+            <Feature key={i} coordinates={pos} properties={{ mapdatapoint: addr.evictions }} onClick={() => this.props.onOpenDetail(addr)} />
+            // <Feature key={i} coordinates={pos} properties={{ mapdatapoint: addr.openviolations }} onClick={() => this.props.onOpenDetail(addr)} />
           );
         }
       }
     }
 
     let vMin = 0, vMax = 0;
+    let eMin = 0, eMax = 0;
     if(this.props.addrs.length > 1) {
       let openviolations = this.props.addrs.map(a => (a.openviolations / a.unitsres)).filter(isFinite);
       vMax = Math.max(...openviolations);
@@ -110,8 +146,8 @@ export default class PropertiesMap extends Component {
 
       // let evictions = this.props.addrs.map(a => (a.evictions / a.unitsres)).filter(isFinite);
       let evictions = this.props.addrs.map(a => a.evictions).filter(isFinite);
-      let eMax = Math.max(...evictions);
-      let eMin = Math.min(...evictions);
+      eMax = Math.max(...evictions);
+      eMin = Math.min(...evictions);
     }
 
     const dynamic_assoc_paint = {
@@ -120,9 +156,22 @@ export default class PropertiesMap extends Component {
         property: 'mapdatapoint',
         default: '#acb3c2',
         stops: [
-          [vMin, '#fde0dd'],
-          [(vMax-vMin)/2, '#fa9fb5'],
-          [vMax, '#c51b8a']
+          // [vMin, '#fde0dd'],
+          // [(vMax-vMin)/2, '#fa9fb5'],
+          // [vMax, '#c51b8a']
+
+          [eMin, '#fde0dd'],
+          [(eMax-eMin)/2, '#fa9fb5'],
+          [eMax, '#c51b8a']
+
+
+          // [vMin, '#f7fcb9'],
+          // [(vMax-vMin)/2, '#addd8e'],
+          // [vMax, '#31a354']
+
+
+
+
         ]
       }
     };

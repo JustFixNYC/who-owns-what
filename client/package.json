@@ -12,6 +12,7 @@
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-geosuggest": "^2.3.6",
+    "react-google-maps": "next",
     "react-leaflet": "^1.4.0",
     "react-mapbox-gl": "^2.1.0",
     "react-modal": "^2.2.2",

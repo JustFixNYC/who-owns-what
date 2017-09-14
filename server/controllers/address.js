@@ -20,8 +20,7 @@ const getDataAndFormat = (query) => {
       // debug
       // const geo = { address: { bbl: '3012380016', geosupportReturnCode: '00' } };
       // console.dir(geo.address, {depth: null, colors: true});
-
-      if(geo.address.geosupportReturnCode == '00' && geo.address.bbl) {
+      if((geo.address.geosupportReturnCode == '00' || geo.address.geosupportReturnCode == '01') && geo.address.bbl) {
         query.byBBL = true;
         return Promise.all([
           geo.address,                          // we already have this value
@@ -36,6 +35,7 @@ module.exports = {
   query: (req, res) => {
     getDataAndFormat(req.query)
       .then(results => {
+        console.log(results);
         keen.recordEvent('search', {
           query: req.query,
           landlords: results[1].length
