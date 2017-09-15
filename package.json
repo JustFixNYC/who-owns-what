@@ -18,6 +18,7 @@
   "dependencies": {
     "bluebird": "^3.5.0",
     "body-parser": "^1.17.2",
+    "concurrently": "^3.5.0",
     "csv-express": "^1.2.2",
     "dotenv": "^4.0.0",
     "express": "^4.15.3",
