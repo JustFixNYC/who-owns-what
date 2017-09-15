@@ -30,11 +30,18 @@ class HomePage extends Component {
 
     // searching on HomePage allows for more clean redirects
     // as opposed to HomePage > AddressPage > NotRegisteredPage
-    APIClient.searchAddress(searchAddress).then(results => {
-      this.setState({
-        results: results
+    APIClient.searchAddress(searchAddress)
+      .then(results => {
+        this.setState({
+          results: results
+        });
+      })
+      .catch(err => {
+        this.setState({
+          results: { addrs: [] }
+        });
       });
-    })
+
   }
 
   render() {

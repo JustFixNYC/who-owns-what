@@ -26,6 +26,8 @@ const getDataAndFormat = (query) => {
           geo.address,                          // we already have this value
           db.queryAddress(geo.address.bbl)
         ]);
+      } else {
+        throw new Error('Address not found');
       }
     });
 

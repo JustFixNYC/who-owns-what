@@ -1,4 +1,5 @@
 @import '_vars.scss';
+@import '_scrollbar.scss';
 
 .DetailView {
 
@@ -15,6 +16,8 @@
   background-color: #ffffff;
   border-top: 1px solid $gray-dark;
   border-left: 1px solid $gray-dark;
+
+
 
   &.slide-enter {
     margin-right: -$detailWidth;
@@ -38,58 +41,8 @@
     height: 100%;
     width: 100%;
     overflow-y: scroll;
+    @include scrollbar();
 
-    &::-webkit-scrollbar {
-      width: 18px;
-      background-color: #fff;
-    }
-
-    &::-webkit-scrollbar-track {
-      background: #fff url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAG0lEQVQYV2NkYGBogGIGEGAEk0gAWQCsEkMFAFLuAgUPsJBaAAAAAElFTkSuQmCC) repeat;
-      border-left: 1px solid $gray-dark;
-      border-right: 1px solid $gray-dark;
-    }
-
-    &::-webkit-scrollbar-thumb {
-      background-color: $scroll-body;
-      border-left: 1px solid $scroll-border;
-      box-shadow: inset -2px -2px 0px 0px $scroll-border,
-                  inset 2px 2px 0px 0px lighten($scroll-body, 10%);
-    }
-
-    &::-webkit-scrollbar-button:vertical:end:increment,
-    &::-webkit-scrollbar-button:vertical:start:decrement {
-      display: block;
-      height: 20px;
-      background-color: $scroll-body;
-      border-left: 1px solid $scroll-border;
-      box-shadow: inset -1px -1px 0px 0px $scroll-border,
-                  inset 2px 2px 0px 0px lighten($scroll-body, 10%);
-      color: #fff;
-      cursor: pointer;
-
-      &:hover, &:active {
-        background-color: darken($scroll-body, 10%);
-        box-shadow: inset -1px -1px 0px 0px ldarken($scroll-border, 10%),
-                    inset 2px 2px 0px 0px $scroll-body;
-      }
-    }
-
-    // up arrow
-    &::-webkit-scrollbar-button:vertical:start:decrement {
-      background-image:url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KCiA8Zz4KICA8dGl0bGU+YmFja2dyb3VuZDwvdGl0bGU+CiAgPHJlY3QgZmlsbD0ibm9uZSIgaWQ9ImNhbnZhc19iYWNrZ3JvdW5kIiBoZWlnaHQ9IjQwMiIgd2lkdGg9IjU4MiIgeT0iLTEiIHg9Ii0xIi8+CiA8L2c+CiA8Zz4KICA8dGl0bGU+TGF5ZXIgMTwvdGl0bGU+CiAgPHBhdGggZmlsbD0iI2ZmZmZmZiIgaWQ9InN2Z18xIiBkPSJtNDEzLjEsMzI3LjNsLTEuOCwtMi4xbC0xMzYsLTE1Ni41Yy00LjYsLTUuMyAtMTEuNSwtOC42IC0xOS4yLC04LjZjLTcuNywwIC0xNC42LDMuNCAtMTkuMiw4LjZsLTEzNS45LDE1Ni4ybC0yLjMsMi42Yy0xLjcsMi41IC0yLjcsNS41IC0yLjcsOC43YzAsOC43IDcuNCwxNS44IDE2LjYsMTUuOGwwLDBsMjg2LjgsMGwwLDBjOS4yLDAgMTYuNiwtNy4xIDE2LjYsLTE1LjhjMCwtMy4zIC0xLjEsLTYuNCAtMi45LC04Ljl6Ii8+CiA8L2c+Cjwvc3ZnPg==);
-      background-size: 85%;
-      background-position: 1px 2px;
-      border-bottom: 1px solid $scroll-border;
-    }
-
-    // down arrow
-    &::-webkit-scrollbar-button:vertical:end:increment {
-      background-image:url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KCiA8Zz4KICA8dGl0bGU+YmFja2dyb3VuZDwvdGl0bGU+CiAgPHJlY3QgZmlsbD0ibm9uZSIgaWQ9ImNhbnZhc19iYWNrZ3JvdW5kIiBoZWlnaHQ9IjQwMiIgd2lkdGg9IjU4MiIgeT0iLTEiIHg9Ii0xIi8+CiA8L2c+CiA8Zz4KICA8dGl0bGU+TGF5ZXIgMTwvdGl0bGU+CiAgPHBhdGggZmlsbD0iI2ZmZmZmZiIgaWQ9InN2Z18xIiBkPSJtOTguOSwxODQuN2wxLjgsMi4xbDEzNiwxNTYuNWM0LjYsNS4zIDExLjUsOC42IDE5LjIsOC42YzcuNywwIDE0LjYsLTMuNCAxOS4yLC04LjZsMTM1LjksLTE1Ni4ybDIuMywtMi42YzEuNywtMi41IDIuNywtNS41IDIuNywtOC43YzAsLTguNyAtNy40LC0xNS44IC0xNi42LC0xNS44bDAsMGwtMjg2LjgsMGwwLDBjLTkuMiwwIC0xNi42LDcuMSAtMTYuNiwxNS44YzAsMy4zIDEuMSw2LjQgMi45LDguOXoiLz4KIDwvZz4KPC9zdmc+);
-      background-size: 85%;
-      background-position: 1px 2px;
-      border-top: 1px solid $scroll-border;
-    }
   }
 
   .DetailView__close {
@@ -224,6 +177,10 @@
 
       a.btn:not(:first-child) {
         margin-top: 10px;
+      }
+
+      .btn {
+
       }
     }
 

@@ -11,3 +11,13 @@ body {
   color: $dark !important;
   font-family: 'Inconsolata', monospace !important;
 }
+
+a[href^="http://maps.google.com/maps"]{display:none !important}
+a[href^="https://maps.google.com/maps"]{display:none !important}
+
+// .gmnoprint a, .gmnoprint span, .gm-style-cc {
+//     display:none;
+// }
+// .gmnoprint div {
+//     background:none !important;
+// }

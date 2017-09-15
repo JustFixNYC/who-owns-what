@@ -150,31 +150,29 @@ export default class PropertiesMap extends Component {
       eMin = Math.min(...evictions);
     }
 
-    const dynamic_assoc_paint = {
-      ...ASSOC_CIRCLE_PAINT,
-      'circle-color': {
-        property: 'mapdatapoint',
-        default: '#acb3c2',
-        stops: [
-          // [vMin, '#fde0dd'],
-          // [(vMax-vMin)/2, '#fa9fb5'],
-          // [vMax, '#c51b8a']
+    // const dynamic_assoc_paint = {
+    //   ...ASSOC_CIRCLE_PAINT,
+    //   'circle-color': {
+    //     property: 'mapdatapoint',
+    //     default: '#acb3c2',
+    //     stops: [
+    //       // [vMin, '#fde0dd'],
+    //       // [(vMax-vMin)/2, '#fa9fb5'],
+    //       // [vMax, '#c51b8a']
+    //
+    //       [eMin, '#fde0dd'],
+    //       [(eMax-eMin)/2, '#fa9fb5'],
+    //       [eMax, '#c51b8a']
+    //
+    //
+    //       // [vMin, '#f7fcb9'],
+    //       // [(vMax-vMin)/2, '#addd8e'],
+    //       // [vMax, '#31a354']
+    //     ]
+    //   }
+    // };
 
-          [eMin, '#fde0dd'],
-          [(eMax-eMin)/2, '#fa9fb5'],
-          [eMax, '#c51b8a']
-
-
-          // [vMin, '#f7fcb9'],
-          // [(vMax-vMin)/2, '#addd8e'],
-          // [vMax, '#31a354']
-
-
-
-
-        ]
-      }
-    };
+    const dynamic_assoc_paint = { ...ASSOC_CIRCLE_PAINT };
 
 
     // defaults

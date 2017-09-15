@@ -26,6 +26,11 @@ const App = () => {
           <nav className="inline">
             <NavLink to="/about">About</NavLink>
             <NavLink to="/how-it-works">How it Works</NavLink>
+            {
+              // <Link className="btn" to="/">
+              //   New Search
+              // </Link>
+            }
           </nav>
         </div>
         <div className="App__body">

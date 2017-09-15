@@ -1,19 +1,25 @@
 @import '_vars.scss';
 
 .AddressPage {
+  // height: calc(100vh - 68px);
   height: calc(100vh - 64px);
   display: flex;
   flex-direction: column;
 
   .AddressPage__info {
-    width: 95vw;
-    margin: 0 auto 10px auto;
+    width: 100%;
+    padding: 0 15px;
+    margin-bottom: 15px;
+
+    p.small {
+      margin-bottom: 0;
+    }
 
     h5 {
       margin-bottom: 0;
 
       &.primary {
-        margin-bottom: 15px;
+        line-height: 32px;
       }
     }
 
@@ -35,7 +41,9 @@
       background: #fff;
       position: absolute;
       z-index: 10;
-      top: 0; right: -1px;
+      // top: 0; right: -1px;
+      right: 45vw;
+      bottom: 0;
       border: 1px solid $gray-dark;
       padding: 4px 10px;
 

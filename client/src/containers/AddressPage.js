@@ -5,7 +5,7 @@ import Helpers from 'util/helpers';
 
 import _find from 'lodash/find';
 import _countBy from 'lodash/countBy';
-import _ from 'lodash';
+// import _ from 'lodash';
 
 import OwnersTable from 'components/OwnersTable';
 import AddressToolbar from 'components/AddressToolbar';
@@ -40,9 +40,16 @@ export default class AddressPage extends Component {
 
     // Otherwise they navigated directly to this url, so lets fetch it
     } else {
-      APIClient.searchAddress(this.state.searchAddress).then(results => {
-        this.handleResults(results);
-      });
+      APIClient.searchAddress(this.state.searchAddress)
+        .then(results => {
+          this.handleResults(results);
+        })
+        .catch(err => {
+          this.setState({
+            hasSearched: true,
+            assocAddrs: []
+          });
+        })
     }
   }
 
@@ -50,15 +57,15 @@ export default class AddressPage extends Component {
   handleResults = (results) => {
     const { geoclient, addrs } = results;
 
-    console.log('user', _find(addrs, { bbl: geoclient.bbl }));
+    // console.log('user', _find(addrs, { bbl: geoclient.bbl }));
 
-    let owners = addrs.map(a => a.ownernames).reduce((a,b) => a.concat(b));
-    owners = _.chain(owners)
-      .countBy(o => o.value)
-      .toPairs()
-      .sortBy(o => o[1])
-      .reverse()
-      .value();
+    // let owners = addrs.map(a => a.ownernames).reduce((a,b) => a.concat(b));
+    // owners = _.chain(owners)
+    //   .countBy(o => o.value)
+    //   .toPairs()
+    //   .sortBy(o => o[1])
+    //   .reverse()
+    //   .value();
 
 
     this.setState({
@@ -138,12 +145,20 @@ export default class AddressPage extends Component {
           // <h5 className="primary">
           //   Information for {this.state.searchAddress.housenumber} {this.state.searchAddress.streetname}, {this.state.searchAddress.boro}:
           //               The landlord at { this.state.searchAddress.housenumber} {this.state.searchAddress.streetname}, {this.state.searchAddress.boro} is associated with ~<u>{Math.max(this.state.assocAddrs.length - 1, 0)}</u> other building{(this.state.assocAddrs.length - 1) === 1 ? '':'s'}:
+
+          // { this.state.searchAddress.housenumber} {this.state.searchAddress.streetname}, {this.state.searchAddress.boro} is linked to ~<u>{Math.max(this.state.assocAddrs.length - 1, 0)}</u> other building{(this.state.assocAddrs.length - 1) === 1 ? '':'s'}:
           // </h5>
+          // <p className="small"><u>
+          //   Search address: {this.state.searchAddress.housenumber} {this.state.searchAddress.streetname}, {this.state.searchAddress.boro}
+          // </u></p>
         }
           { this.state.userAddr &&
-            <h5 className="primary">
-              { this.state.searchAddress.housenumber} {this.state.searchAddress.streetname}, {this.state.searchAddress.boro} is linked to ~<u>{Math.max(this.state.assocAddrs.length - 1, 0)}</u> other building{(this.state.assocAddrs.length - 1) === 1 ? '':'s'}:
-            </h5>
+            <div className="float-left">
+              <h5 className="primary">
+                This landlord is associated with <u>{Math.max(this.state.assocAddrs.length - 1, 0)}</u> other building{(this.state.assocAddrs.length - 1) === 1 ? '':'s'}:
+              </h5>
+            </div>
+
           }
           {//<p><i>Boro-Block-Lot: {boro}-{block}-{lot}</i></p>
           }
@@ -171,9 +186,9 @@ export default class AddressPage extends Component {
             onCloseDetail={this.handleCloseDetail}
           />
           { // !this.state.detailAddr && this.state.hasSearched &&
-            // <div className="AddressPage__viz-prompt">
-            //   <p><i>(click on a building to view details)</i></p>
-            // </div>
+            <div className="AddressPage__viz-prompt">
+              <p><i>(click on a building to view details)</i></p>
+            </div>
           }
 
         </div>
