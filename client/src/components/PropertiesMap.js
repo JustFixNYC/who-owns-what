@@ -75,30 +75,6 @@ export default class PropertiesMap extends Component {
       } else {
         map.getCanvas().style.cursor = '';
       }
-      //
-      //
-      // let mousein = this.state.mousein;
-      // if (!cluster.length) {
-      //     map.getCanvas().style.cursor = '';
-      //     mousein = false;
-      // } else if (!mousein) {
-      //
-      //     mousein = true;
-      //     // var pointsInCluster = this.props.cams.items.filter((f) => {
-      //     //     var pointPixels = map.project([f.lng, f.lat])
-      //     //     var pixelDistance = Math.sqrt(
-      //     //         Math.pow(e.point.x - pointPixels.x, 2) +
-      //     //         Math.pow(e.point.y - pointPixels.y, 2)
-      //     //     );
-      //     // return Math.abs(pixelDistance) <= 50;
-      //     // });
-      //     // //this.setState({hidden: false});
-      //     // console.log(cluster, pointsInCluster);
-      // }
-      // if (mousein !== this.state.mousein) {
-      //     console.log(mousein);
-      //     this.setState({mousein: mousein});
-      // }
   }
 
   render() {
@@ -133,8 +109,8 @@ export default class PropertiesMap extends Component {
           detailAddr.push(<Feature key={i} coordinates={pos} />);
         } else {
           assocAddrs.push(
-            <Feature key={i} coordinates={pos} properties={{ mapdatapoint: addr.evictions }} onClick={() => this.props.onOpenDetail(addr)} />
-            // <Feature key={i} coordinates={pos} properties={{ mapdatapoint: addr.openviolations }} onClick={() => this.props.onOpenDetail(addr)} />
+            // <Feature key={i} coordinates={pos} properties={{ mapdatapoint: addr.evictions }} onClick={() => this.props.onOpenDetail(addr)} />
+            <Feature key={i} coordinates={pos} properties={{ mapdatapoint: addr.openviolations }} onClick={() => this.props.onOpenDetail(addr)} />
           );
         }
       }
@@ -159,13 +135,17 @@ export default class PropertiesMap extends Component {
     //     property: 'mapdatapoint',
     //     default: '#acb3c2',
     //     stops: [
-    //       // [vMin, '#fde0dd'],
-    //       // [(vMax-vMin)/2, '#fa9fb5'],
-    //       // [vMax, '#c51b8a']
+    //       [vMin, '#fecc5c'],
+    //       [(vMax-vMin)/2, '#fd8d3c'],
+    //       [vMax, '#e31a1c']
     //
-    //       [eMin, '#fde0dd'],
-    //       [(eMax-eMin)/2, '#fa9fb5'],
-    //       [eMax, '#c51b8a']
+    //
+    //
+    //
+    //
+    //       // [eMin, '#fde0dd'],
+    //       // [(eMax-eMin)/2, '#fa9fb5'],
+    //       // [eMax, '#c51b8a']
     //
     //
     //       // [vMin, '#f7fcb9'],

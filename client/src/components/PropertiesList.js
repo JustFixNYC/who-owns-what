@@ -37,6 +37,15 @@ const PropertiesList = (props) => {
             {
               Header: 'Location',
               columns: [
+                // {
+                //   Header: 'Photo',
+                //   accessor: 'bbl',
+                //   Cell: row => {
+                //     const lat = row.original.lat;
+                //     const lng = row.original.lng;
+                //     return (<img src={`https://maps.googleapis.com/maps/api/streetview?size=100x75&location=${lat},${lng}&key=AIzaSyCJKZm-rRtfREo2o-GNC-feqpbSvfHNB5s`} alt="Google Street View" className="img-responsive"  />);
+                //   }
+                // },
                 {
                   Header: 'Address',
                   accessor: d => `${d.housenumber} ${d.streetname}`,

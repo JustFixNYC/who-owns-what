@@ -11,6 +11,10 @@
     border-top: none;
     border-color: $gray-dark;
 
+    .rt-thead .rt-th {
+      padding: 7px 5px;
+    }
+
     .rt-thead.-headerGroups {
       background-color: #fff;
       border-color: $gray-light;
@@ -29,6 +33,7 @@
     .-pagination {
       box-shadow: none;
       border-top: 1px solid $dark;
+      padding: 5px;
 
       .-btn {
         @include button();
