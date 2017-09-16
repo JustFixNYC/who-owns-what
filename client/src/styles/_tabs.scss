@@ -1,0 +1,183 @@
+@mixin tabs() {
+
+  // .tab li {
+  //   position: relative;
+  // }
+  //
+  // .tab li:before, .tab li:after,
+  // .tab li a:before, .tab li a:after {
+  //   /* All pseudo elements are
+  //      abs. positioned and on bottom */
+  //   position: absolute;
+  //   bottom: 0;
+  // }
+  // /* Only the first, last, and active
+  //    tab need pseudo elements at all */
+  // .tab li:last-child:after,   .tab li:last-child a:after,
+  // .tab li:first-child:before, .tab li:first-child a:before,
+  // .tab .active:after,   .tab .active:before,
+  // .tab .active a:after, .tab .active a:before {
+  //   content: "";
+  // }
+  // .tab .active:before, .tab .active:after {
+  //   background: white;
+  //
+  //   /* Squares below circles */
+  //   z-index: 1;
+  // }
+  // /* Squares */
+  // .tab li:before, .tab li:after {
+  //   background: #ddc385;
+  //   width: 10px;
+  //   height: 10px;
+  // }
+  // .tab li:before {
+  //   left: -10px;
+  // }
+  // .tab li:after {
+  //   right: -10px;
+  // }
+  // /* Circles */
+  // .tab li a:after, .tab li a:before {
+  //   width: 20px;
+  //   height: 20px;
+  //   /* Circles are circular */
+  //   -webkit-border-radius: 10px;
+  //   -moz-border-radius:    10px;
+  //   border-radius:         10px;
+  //   background: #222;
+  //
+  //   /* Circles over squares */
+  //   z-index: 2;
+  // }
+  // .tab .active a:after, .tab .active a:before {
+  //   background: #ddc385;
+  // }
+  // /* First and last tab have different
+  //    outside color needs */
+  // .tab li:first-child.active a:before,
+  // .tab li:last-child.active a:after {
+  //   background: #222;
+  // }
+  // .tab li a:before {
+  //   left: -20px;
+  // }
+  // .tab li a:after {
+  //   right: -20px;
+  // }
+
+
+
+  .tab {
+    margin-bottom: 0;
+    border-bottom: none;
+    width: 75%;
+
+    li.tab-item {
+
+      height: 26px;
+
+      background: #ffffff url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAHElEQVQYV2NMS0v7P2vWLEYGKIAzMARgKjFUAABWhQgF0A6r6AAAAABJRU5ErkJggg==) repeat;
+
+      border: 1px solid $gray-dark;
+      border-bottom: none;
+      border-top-left-radius: 3px;
+      border-top-right-radius: 3px;
+
+      position: relative;
+      //
+      // &:nth-child(2) { left: -25px; z-index: 2; }
+      // &:nth-child(3) { left: -50px; z-index: 1; }
+
+      margin-right: 15px;
+
+      &:hover {
+        cursor: pointer;
+      }
+
+      &:before, &:after {
+        // content:'';
+        width:9px;
+        height:7px;
+        position:absolute;
+        z-index:2;
+        bottom:0;
+        background: #ffffff url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAHElEQVQYV2NMS0v7P2vWLEYGKIAzMARgKjFUAABWhQgF0A6r6AAAAABJRU5ErkJggg==) repeat;
+      }
+
+      &:before {
+        left:-8px;
+      }
+      &:after {
+        right:-8px;
+      }
+
+      &.active {
+        height: 27px;
+        top: 1px;
+        border-color: $dark;
+        background: #fff;
+        z-index: 3;
+
+        &:before, &:after {
+          background:#fff;
+          bottom:0;
+        }
+
+        a {
+          &:before, &:after {
+            border-bottom:1px solid $dark;
+          }
+          &:before {
+            border-right:1px solid $dark;
+          }
+          &:after {
+            border-left:1px solid $dark;
+          }
+        }
+      }
+
+      a {
+        font-size: 1.3rem;
+        line-height: 1.5;
+
+        border-bottom: none;
+        padding: 0.3rem 0.25rem;
+
+        position: relative;
+
+        &:focus {
+          box-shadow: none;
+        }
+
+        &:before, &:after {
+          // content:'';
+          width:10px;
+          height:9px;
+          position:absolute;
+          z-index:3;
+          bottom:-1px;
+          background:#fff;
+          overflow:hidden;
+          border-bottom:1px solid $gray-dark;
+        }
+
+        &:before {
+          left:-10px;
+          border-bottom-right-radius:8px;
+          border-right:1px solid $gray-dark;
+        }
+        &:after {
+          right:-10px;
+          border-bottom-left-radius:8px;
+          border-left:1px solid $gray-dark;
+        }
+
+      }
+
+    }
+  }
+
+
+
+}

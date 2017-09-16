@@ -1,0 +1,47 @@
+@import '_vars.scss';
+@import '_scrollbar.scss';
+@import '_button.scss';
+
+.PropertiesList {
+
+  height: 100%;
+  width: 100%;
+
+  .ReactTable {
+    border-top: none;
+    border-color: $gray-dark;
+
+    .rt-thead.-headerGroups {
+      background-color: #fff;
+      border-color: $gray-light;
+      font-weight: bold;
+    }
+
+    .rt-thead.-header {
+      box-shadow: none;
+      border-bottom: 1px solid $dark;
+    }
+
+    .rt-td {
+      text-align: center;
+    }
+
+    .-pagination {
+      box-shadow: none;
+      border-top: 1px solid $dark;
+
+      .-btn {
+        @include button();
+        border-radius: 0;
+      }
+      .-btn[disabled] {
+        opacity: .3;
+        cursor: default;
+      }
+    }
+  }
+
+  .rt-table, .rt-tbody {
+    @include scrollbar();
+  }
+}

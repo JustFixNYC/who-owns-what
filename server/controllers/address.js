@@ -37,7 +37,6 @@ module.exports = {
   query: (req, res) => {
     getDataAndFormat(req.query)
       .then(results => {
-        console.log(results);
         keen.recordEvent('search', {
           query: req.query,
           landlords: results[1].length

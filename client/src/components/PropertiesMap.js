@@ -49,7 +49,8 @@ export default class PropertiesMap extends Component {
     super(props);
 
     this.state = {
-      mapLoading: true
+      mapLoading: true,
+      mapRef: null
     }
 
     this.mapDefaults = {
@@ -109,7 +110,9 @@ export default class PropertiesMap extends Component {
     let bounds = new Set();
     let mapProps = {
       style: mapUrl,
-      onStyleLoad: () => this.setState({ mapLoading: false }),
+      onStyleLoad: (mapObj) => {
+        this.setState({ mapLoading: false, mapRef: mapObj })
+      },
       onMouseMove: (map, e) => this.handleMouseMove(map, e)
     };
 

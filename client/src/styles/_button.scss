@@ -1,0 +1,20 @@
+@mixin button() {
+  border: 1px solid $dark;
+  background-color: $background;
+  box-shadow: inset -1px -1px 0px 0px $gray,
+              inset 2px 2px 0px 0px #fff;
+  transition: none;
+
+  &:hover {
+    color: #454d5d;
+    background-color: darken($background, 5%);
+    box-shadow: inset -1px -1px 0px 0px darken($gray, 5%),
+                inset 2px 2px 0px 0px darken(#fff, 5%);
+  }
+
+  &:active {
+    color: #fff;
+    background-color: darken($gray-light, 40%);
+    box-shadow: inset 1px 1px 0px 0px darken($gray, 35%);
+  }
+}

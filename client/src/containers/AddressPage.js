@@ -10,6 +10,7 @@ import _countBy from 'lodash/countBy';
 import OwnersTable from 'components/OwnersTable';
 import AddressToolbar from 'components/AddressToolbar';
 import PropertiesMap from 'components/PropertiesMap';
+import PropertiesList from 'components/PropertiesList';
 import DetailView from 'components/DetailView';
 import APIClient from 'components/APIClient';
 
@@ -26,7 +27,8 @@ export default class AddressPage extends Component {
       geoclient: {},
       assocAddrs: [],
       detailAddr: null,
-      detailHasJustFixUsers: false
+      detailHasJustFixUsers: false,
+      currentTab: 0
     };
   }
 
@@ -82,7 +84,8 @@ export default class AddressPage extends Component {
 
   handleOpenDetail = (addr) => {
     this.setState({
-      detailAddr: addr
+      detailAddr: addr,
+      currentTab: 0
     });
 
     APIClient.searchForJFXUsers([addr.bbl]).then(res => {
@@ -112,12 +115,14 @@ export default class AddressPage extends Component {
       const geoclient = this.state.geoclient;
       const searchAddress = this.state.searchAddress;
 
-      return (
-        <Redirect to={{
-          pathname: '/not-found',
-          state: { geoclient, searchAddress }
-        }}></Redirect>
-      );
+      console.log('wtf?');
+
+      // return (
+      //   <Redirect to={{
+      //     pathname: '/not-found',
+      //     state: { geoclient, searchAddress }
+      //   }}></Redirect>
+      // );
     }
 
     let boro, block, lot;
@@ -157,6 +162,17 @@ export default class AddressPage extends Component {
               <h5 className="primary">
                 This landlord is associated with <u>{Math.max(this.state.assocAddrs.length - 1, 0)}</u> other building{(this.state.assocAddrs.length - 1) === 1 ? '':'s'}:
               </h5>
+              <ul className="tab tab-block">
+                <li className={`tab-item ${this.state.currentTab === 0 ? "active" : ""}`}>
+                  <a onClick={() => this.setState({ currentTab: 0 })}>Map</a>
+                </li>
+                <li className={`tab-item ${this.state.currentTab === 1 ? "active" : ""}`}>
+                  <a onClick={() => this.setState({ currentTab: 1 })}>List</a>
+                </li>
+                <li className={`tab-item ${this.state.currentTab === 2 ? "active" : ""}`}>
+                  <a onClick={() => this.setState({ currentTab: 2 })}>Summary</a>
+                </li>
+              </ul>
             </div>
 
           }
@@ -170,28 +186,100 @@ export default class AddressPage extends Component {
           }
 
 
-        </div>
-        <div className="AddressPage__viz">
-
-          <PropertiesMap
-            addrs={this.state.assocAddrs}
-            userAddr={this.state.userAddr}
-            detailAddr={this.state.detailAddr}
-            onOpenDetail={this.handleOpenDetail}
-            onMapLoad={this.handleMapLoad}
-          />
-          <DetailView
-            addr={this.state.detailAddr}
-            hasJustFixUsers={this.state.detailHasJustFixUsers}
-            onCloseDetail={this.handleCloseDetail}
-          />
-          { // !this.state.detailAddr && this.state.hasSearched &&
-            <div className="AddressPage__viz-prompt">
-              <p><i>(click on a building to view details)</i></p>
-            </div>
-          }
 
         </div>
+          {
+
+          //   (() => {
+          //   switch (this.state.currentTab) {
+          //     case 0:
+          //       return (
+          //         <div className="AddressPage__content AddressPage__viz AddressPage__content-active">
+          //           <PropertiesMap
+          //             addrs={this.state.assocAddrs}
+          //             userAddr={this.state.userAddr}
+          //             detailAddr={this.state.detailAddr}
+          //             onOpenDetail={this.handleOpenDetail}
+          //             onMapLoad={this.handleMapLoad}
+          //           />
+          //           <DetailView
+          //             addr={this.state.detailAddr}
+          //             hasJustFixUsers={this.state.detailHasJustFixUsers}
+          //             onCloseDetail={this.handleCloseDetail}
+          //           />
+          //           { // !this.state.detailAddr && this.state.hasSearched &&
+          //             <div className="AddressPage__viz-prompt">
+          //               <p><i>(click on a building to view details)</i></p>
+          //             </div>
+          //           }
+          //         </div>
+          //       );
+          //     case 1:
+          //       return (
+          //         <div className="AddressPage__content AddressPage__table AddressPage__content-active">
+          //
+          //           {
+          //
+          //         //  <PropertiesList
+          //         //     addrs={this.state.assocAddrs}
+          //         //   />
+          //
+          //           }
+          //
+          //         </div>
+          //       );
+          //     default:
+          //       null
+          //   }
+          // })()
+
+        }
+
+          <div className={`AddressPage__content AddressPage__viz ${this.state.currentTab === 0 ? "AddressPage__content-active": ''}`}>
+            <PropertiesMap
+              addrs={this.state.assocAddrs}
+              userAddr={this.state.userAddr}
+              detailAddr={this.state.detailAddr}
+              onOpenDetail={this.handleOpenDetail}
+              onMapLoad={this.handleMapLoad}
+            />
+            <DetailView
+              addr={this.state.detailAddr}
+              hasJustFixUsers={this.state.detailHasJustFixUsers}
+              onCloseDetail={this.handleCloseDetail}
+            />
+            { // !this.state.detailAddr && this.state.hasSearched &&
+              <div className="AddressPage__viz-prompt">
+                <p><i>(click on a building to view details)</i></p>
+              </div>
+            }
+          </div>
+          <div className={`AddressPage__content AddressPage__table ${this.state.currentTab === 1 ? "AddressPage__content-active": ''}`}>
+
+            {
+
+             <PropertiesList
+                addrs={this.state.assocAddrs}
+                onOpenDetail={this.handleOpenDetail}
+              />
+
+            }
+
+          </div>
+          <div className={`AddressPage__content AddressPage__summary ${this.state.currentTab === 2 ? "AddressPage__content-active": ''}`}>
+
+            <p>
+              Aliquip do velit voluptate pariatur est ad in dolor commodo quis proident adipisicing aute commodo excepteur aute excepteur. Est nulla ea eu nisi reprehenderit sunt cupidatat elit occaecat. Et labore nisi do eu ullamco consectetur veniam aliqua magna.
+            </p><p>
+              Tempor exercitation sint quis aliquip in ea ea ea elit sint. Occaecat nisi voluptate dolore officia in exercitation adipisicing consequat commodo sunt officia exercitation enim enim proident nulla elit. Nostrud nostrud do cupidatat quis Lorem anim cupidatat aliquip eiusmod culpa.
+            </p><p>
+              Commodo amet quis sint nostrud esse labore consequat laboris ea ullamco consequat ullamco deserunt occaecat reprehenderit exercitation.
+            </p>
+
+          </div>
+
+
+
 
       </div>
     );

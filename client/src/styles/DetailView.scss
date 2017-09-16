@@ -14,8 +14,7 @@
 
   z-index: 10;
   background-color: #ffffff;
-  border-top: 1px solid $gray-dark;
-  border-left: 1px solid $gray-dark;
+  border-left: 1px solid $dark;
 
 
 
@@ -89,6 +88,7 @@
 
     .card-image {
       padding-top: 0;
+      border-bottom: 1px solid $dark;
     }
 
     .card-body {

@@ -32,11 +32,13 @@ class HomePage extends Component {
     // as opposed to HomePage > AddressPage > NotRegisteredPage
     APIClient.searchAddress(searchAddress)
       .then(results => {
+        console.log(results);
         this.setState({
           results: results
         });
       })
       .catch(err => {
+        console.log(err);
         this.setState({
           results: { addrs: [] }
         });

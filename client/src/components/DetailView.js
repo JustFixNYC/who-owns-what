@@ -79,7 +79,7 @@ export default class DetailView extends Component {
               //   <button className="btn btn-link" onClick={this.props.onCloseDetail}>[ x ]</button>
               // </div>
             }
-            { this.props.addr && 
+            { this.props.addr &&
               <div className="DetailView__card card">
                 <div className="card-image">
                   <StreetViewPanorama
@@ -126,7 +126,7 @@ export default class DetailView extends Component {
                           { this.props.addr.totalviolations }
                         </td>
                         <td>
-                          <label>Evictions</label>
+                          <label title="hi">Evictions</label>
                           { this.props.addr.evictions ? this.props.addr.evictions : 'N/A' }
                         </td>
                         <td>
