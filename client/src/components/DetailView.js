@@ -130,8 +130,11 @@ export default class DetailView extends Component {
                           { this.props.addr.evictions ? this.props.addr.evictions : 'N/A' }
                         </td>
                         <td>
-                          <label>Change in RS</label>
-                          N/A
+                          <label>RS Units (Change)</label>
+                          { this.props.addr.rsunits2016
+                            ? `${this.props.addr.rsunits2016} (${this.props.addr.rsdiff > 0 ? `+${this.props.addr.rsdiff}` : `${this.props.addr.rsdiff}`})`
+                            : 'N/A'
+                          }
                         </td>
                       </tr>
                     </tbody>

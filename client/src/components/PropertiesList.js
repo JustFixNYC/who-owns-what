@@ -50,7 +50,7 @@ const PropertiesList = (props) => {
                   Header: 'Address',
                   accessor: d => `${d.housenumber} ${d.streetname}`,
                   id: 'address',
-                  minWidth: 150,
+                  minWidth: 175,
                   style: {
                     textAlign: "left"
                   }
@@ -73,12 +73,14 @@ const PropertiesList = (props) => {
               Header: 'Information',
               columns: [
                 {
-                  Header: 'Year Built',
-                  accessor: 'yearbuilt'
+                  Header: 'Built',
+                  accessor: 'yearbuilt',
+                  maxWidth: 75
                 },
                 {
                   Header: 'Units',
-                  accessor: 'unitsres'
+                  accessor: 'unitsres',
+                  maxWidth: 75
                 }
                 // ,
                 // {
@@ -121,15 +123,34 @@ const PropertiesList = (props) => {
             //   }
             // }
             {
+              Header: 'Rent Stab',
+              columns: [
+                {
+                  Header: "RS Units",
+                  accessor: "rsunits2016",
+                  maxWidth: 75
+                },
+                {
+                  Header: "Change",
+                  accessor: "rsdiff",
+                  Cell: row => row.value ? row.value > 0 ? `+${row.value}` : `${row.value}` : '',
+                  maxWidth: 75
+                  // accessor: d => d.rsdiff > 0 ? `+${d.rsdiff}`: `${d.rsdiff}`
+                }
+              ]
+            },
+            {
               Header: 'HPD Violations',
               columns: [
                 {
                   Header: "Open",
-                  accessor: "openviolations"
+                  accessor: "openviolations",
+                  maxWidth: 75
                 },
                 {
                   Header: "Total",
-                  accessor: "totalviolations"
+                  accessor: "totalviolations",
+                  maxWidth: 75
                 }
               ]
             },
@@ -138,7 +159,8 @@ const PropertiesList = (props) => {
               columns: [
                 {
                   Header: "Evictions",
-                  accessor: "evictions"
+                  accessor: "evictions",
+                  maxWidth: 75
                 }
                 // ,
                 // {
@@ -151,14 +173,14 @@ const PropertiesList = (props) => {
               Header: 'Landlord',
               columns: [
                 {
-                  Header: "Head Officer",
+                  Header: "Officer/Owner",
                   accessor: "ownernames",
                   minWidth: 150,
                   Cell: row => {
-                    const headofficer = row.original.ownernames.find(o => o.title === 'HeadOfficer');
+                    const owner = row.original.ownernames.find(o => o.title === 'HeadOfficer' || o.title === 'IndividualOwner');
                     return (
                       <span>
-                          {headofficer ? headofficer.value : '' }
+                          {owner ? owner.value : '' }
                       </span>
                     );
                   }
