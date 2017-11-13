@@ -8,7 +8,8 @@
   $detailAnimLengthMs: 300 + 0ms;
 
   position: relative;
-  flex: 1 0 $detailWidth;
+  display: inline-block;
+  width: $detailWidth;
   height: 100%;
   overflow: visible;
 
@@ -83,7 +84,18 @@
 
 
     .card-header {
-      // padding-left: 3rem;
+      padding-bottom: 2rem;
+
+      .card-title {
+        margin-bottom: 0;
+      }
+
+      a {
+        margin-top: 0.3rem;
+        margin-bottom: 0;
+        text-decoration: underline;
+        cursor: pointer;
+      }
     }
 
     .card-image {
@@ -101,7 +113,6 @@
       border: 1px solid $gray-dark;
       border-spacing: 0;
       width: 100%;
-      margin-bottom: 1.5rem;
 
       tr {
         display: flex;
@@ -127,6 +138,10 @@
 
           &:not(:last-child) {
             border-right: 1px solid $gray-dark;
+          }
+
+          &:hover, label:hover {
+            cursor: help;
           }
 
           text-align: center;
@@ -159,6 +174,8 @@
 
     .card-body-landlord {
 
+      margin-top: 2.5rem;
+
       b {
         display: block;
         border-bottom: 1px solid $gray-dark;
@@ -187,5 +204,57 @@
 
   }
 
+
+
+
+}
+
+.DetailView__compareTable {
+  width: 100%;
+  border-spacing: 0;
+  margin-top: 25px;
+
+  th, td {
+    padding: 15px 30px;
+  }
+
+  th {
+    font-size: 16px;
+    width: 50%;
+  }
+
+  th:first-child {
+    border-top: 1px dashed $gray;
+    border-left: 1px dashed $gray;
+    border-right: 1px dashed $gray;
+  }
+
+  td {
+    text-align: left;
+    vertical-align: top;
+
+    &:first-child {
+      border-left: 1px dashed $gray;
+      border-right: 1px dashed $gray;
+    }
+
+    div {
+      border-bottom: 1px solid $gray-dark;
+    }
+
+    ul {
+      margin: 0.5rem;
+
+      li {
+        margin-top: 0.5rem;
+      }
+    }
+  }
+
+  tr:last-child {
+    td:first-child {
+      border-bottom: 1px dashed $gray;
+    }
+  }
 
 }

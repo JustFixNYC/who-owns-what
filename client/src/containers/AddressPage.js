@@ -4,10 +4,7 @@ import FileSaver from 'file-saver';
 import Helpers from 'util/helpers';
 
 import _find from 'lodash/find';
-import _countBy from 'lodash/countBy';
-// import _ from 'lodash';
 
-import OwnersTable from 'components/OwnersTable';
 import AddressToolbar from 'components/AddressToolbar';
 import PropertiesMap from 'components/PropertiesMap';
 import PropertiesList from 'components/PropertiesList';
@@ -59,17 +56,6 @@ export default class AddressPage extends Component {
   handleResults = (results) => {
     const { geoclient, addrs } = results;
 
-    // console.log('user', _find(addrs, { bbl: geoclient.bbl }));
-
-    // let owners = addrs.map(a => a.ownernames).reduce((a,b) => a.concat(b));
-    // owners = _.chain(owners)
-    //   .countBy(o => o.value)
-    //   .toPairs()
-    //   .sortBy(o => o[1])
-    //   .reverse()
-    //   .value();
-
-
     this.setState({
       searchAddress: { ...this.state.searchAddress, bbl: geoclient.bbl },
       userAddr: _find(addrs, { bbl: geoclient.bbl }),
@@ -117,25 +103,12 @@ export default class AddressPage extends Component {
 
       console.log('wtf?');
 
-      // return (
-      //   <Redirect to={{
-      //     pathname: '/not-found',
-      //     state: { geoclient, searchAddress }
-      //   }}></Redirect>
-      // );
-    }
-
-    let boro, block, lot;
-    if(this.state.searchAddress.bbl) {
-      ({ boro, block, lot } = Helpers.splitBBL(this.state.searchAddress.bbl));
-    }
-
-    let landlordName;
-    if(this.state.userAddr.ownernames) {
-      var owners =  this.state.userAddr.ownernames;    // "owners"
-                                                      // real estate doesn't own nyc tho
-      let landlords = owners.filter(o => o.title == "HeadOfficer" || o.title == "IndividualOwner");
-      landlordName = landlords[0].value;
+      return (
+        <Redirect to={{
+          pathname: '/not-found',
+          state: { geoclient, searchAddress }
+        }}></Redirect>
+      );
     }
 
     return (
@@ -146,17 +119,6 @@ export default class AddressPage extends Component {
             userAddr={this.state.searchAddress}
             numOfAssocAddrs={this.state.assocAddrs.length}
           />
-        {
-          // <h5 className="primary">
-          //   Information for {this.state.searchAddress.housenumber} {this.state.searchAddress.streetname}, {this.state.searchAddress.boro}:
-          //               The landlord at { this.state.searchAddress.housenumber} {this.state.searchAddress.streetname}, {this.state.searchAddress.boro} is associated with ~<u>{Math.max(this.state.assocAddrs.length - 1, 0)}</u> other building{(this.state.assocAddrs.length - 1) === 1 ? '':'s'}:
-
-          // { this.state.searchAddress.housenumber} {this.state.searchAddress.streetname}, {this.state.searchAddress.boro} is linked to ~<u>{Math.max(this.state.assocAddrs.length - 1, 0)}</u> other building{(this.state.assocAddrs.length - 1) === 1 ? '':'s'}:
-          // </h5>
-          // <p className="small"><u>
-          //   Search address: {this.state.searchAddress.housenumber} {this.state.searchAddress.streetname}, {this.state.searchAddress.boro}
-          // </u></p>
-        }
           { this.state.userAddr &&
             <div className="float-left">
               <h5 className="primary">
@@ -174,112 +136,40 @@ export default class AddressPage extends Component {
                 </li>
               </ul>
             </div>
-
           }
-          {//<p><i>Boro-Block-Lot: {boro}-{block}-{lot}</i></p>
-          }
-          {
-            // <OwnersTable
-            //   addr={this.state.userAddr}
-            //   hasJustFixUsers={this.state.hasJustFixUsers}
-            // />
-          }
-
-
-
         </div>
+        <div className={`AddressPage__content AddressPage__viz ${this.state.currentTab === 0 ? "AddressPage__content-active": ''}`}>
+          <PropertiesMap
+            addrs={this.state.assocAddrs}
+            userAddr={this.state.userAddr}
+            detailAddr={this.state.detailAddr}
+            onOpenDetail={this.handleOpenDetail}
+            isVisible={this.state.currentTab === 0}
+          />
+          <DetailView
+            addr={this.state.detailAddr}
+            userAddr={this.state.userAddr}
+            hasJustFixUsers={this.state.detailHasJustFixUsers}
+            onCloseDetail={this.handleCloseDetail}
+          />
+        </div>
+        <div className={`AddressPage__content AddressPage__table ${this.state.currentTab === 1 ? "AddressPage__content-active": ''}`}>
           {
-
-          //   (() => {
-          //   switch (this.state.currentTab) {
-          //     case 0:
-          //       return (
-          //         <div className="AddressPage__content AddressPage__viz AddressPage__content-active">
-          //           <PropertiesMap
-          //             addrs={this.state.assocAddrs}
-          //             userAddr={this.state.userAddr}
-          //             detailAddr={this.state.detailAddr}
-          //             onOpenDetail={this.handleOpenDetail}
-          //             onMapLoad={this.handleMapLoad}
-          //           />
-          //           <DetailView
-          //             addr={this.state.detailAddr}
-          //             hasJustFixUsers={this.state.detailHasJustFixUsers}
-          //             onCloseDetail={this.handleCloseDetail}
-          //           />
-          //           { // !this.state.detailAddr && this.state.hasSearched &&
-          //             <div className="AddressPage__viz-prompt">
-          //               <p><i>(click on a building to view details)</i></p>
-          //             </div>
-          //           }
-          //         </div>
-          //       );
-          //     case 1:
-          //       return (
-          //         <div className="AddressPage__content AddressPage__table AddressPage__content-active">
-          //
-          //           {
-          //
-          //         //  <PropertiesList
-          //         //     addrs={this.state.assocAddrs}
-          //         //   />
-          //
-          //           }
-          //
-          //         </div>
-          //       );
-          //     default:
-          //       null
-          //   }
-          // })()
-
-        }
-
-          <div className={`AddressPage__content AddressPage__viz ${this.state.currentTab === 0 ? "AddressPage__content-active": ''}`}>
-            <PropertiesMap
+           <PropertiesList
               addrs={this.state.assocAddrs}
-              userAddr={this.state.userAddr}
-              detailAddr={this.state.detailAddr}
               onOpenDetail={this.handleOpenDetail}
-              onMapLoad={this.handleMapLoad}
             />
-            <DetailView
-              addr={this.state.detailAddr}
-              hasJustFixUsers={this.state.detailHasJustFixUsers}
-              onCloseDetail={this.handleCloseDetail}
-            />
-            { // !this.state.detailAddr && this.state.hasSearched &&
-              <div className="AddressPage__viz-prompt">
-                <p><i>(click on a building to view details)</i></p>
-              </div>
-            }
-          </div>
-          <div className={`AddressPage__content AddressPage__table ${this.state.currentTab === 1 ? "AddressPage__content-active": ''}`}>
-
-            {
-
-             <PropertiesList
-                addrs={this.state.assocAddrs}
-                onOpenDetail={this.handleOpenDetail}
-              />
-
-            }
-
-          </div>
-          <div className={`AddressPage__content AddressPage__summary ${this.state.currentTab === 2 ? "AddressPage__content-active": ''}`}>
-
-            <p>
-              Aliquip do velit voluptate pariatur est ad in dolor commodo quis proident adipisicing aute commodo excepteur aute excepteur. Est nulla ea eu nisi reprehenderit sunt cupidatat elit occaecat. Et labore nisi do eu ullamco consectetur veniam aliqua magna.
-            </p><p>
-              Tempor exercitation sint quis aliquip in ea ea ea elit sint. Occaecat nisi voluptate dolore officia in exercitation adipisicing consequat commodo sunt officia exercitation enim enim proident nulla elit. Nostrud nostrud do cupidatat quis Lorem anim cupidatat aliquip eiusmod culpa.
-            </p><p>
-              Commodo amet quis sint nostrud esse labore consequat laboris ea ullamco consequat ullamco deserunt occaecat reprehenderit exercitation.
-            </p>
-
-          </div>
-
-
-
+          }
+        </div>
+        <div className={`AddressPage__content AddressPage__summary ${this.state.currentTab === 2 ? "AddressPage__content-active": ''}`}>
+          <p>
+            Aliquip do velit voluptate pariatur est ad in dolor commodo quis proident adipisicing aute commodo excepteur aute excepteur. Est nulla ea eu nisi reprehenderit sunt cupidatat elit occaecat. Et labore nisi do eu ullamco consectetur veniam aliqua magna.
+          </p><p>
+            Tempor exercitation sint quis aliquip in ea ea ea elit sint. Occaecat nisi voluptate dolore officia in exercitation adipisicing consequat commodo sunt officia exercitation enim enim proident nulla elit. Nostrud nostrud do cupidatat quis Lorem anim cupidatat aliquip eiusmod culpa.
+          </p><p>
+            Commodo amet quis sint nostrud esse labore consequat laboris ea ullamco consequat ullamco deserunt occaecat reprehenderit exercitation.
+          </p>
+        </div>
 
       </div>
     );

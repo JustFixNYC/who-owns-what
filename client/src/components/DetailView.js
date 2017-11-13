@@ -1,28 +1,12 @@
 import React, { Component } from 'react';
 import { CSSTransitionGroup } from 'react-transition-group';
+import { Link } from 'react-router-dom';
 import { StreetViewPanorama } from 'react-google-maps';
 import { STREET_VIEW_PANORAMA } from 'react-google-maps/lib/constants';
 import Helpers from 'util/helpers';
+import Modal from 'components/Modal';
 
 import 'styles/DetailView.css';
-
-function SlideTransition(props) {
-  return (
-    <CSSTransitionGroup
-      { ...props }
-      component={FirstChild}
-      transitionName="slide"
-      transitionEnterTimeout={props.length}
-      transitionLeaveTimeout={props.length}>
-    </CSSTransitionGroup>
-  );
-}
-
-// see: https://facebook.github.io/react/docs/animation.html#rendering-a-single-child
-function FirstChild(props) {
-  const childrenArray = React.Children.toArray(props.children);
-  return childrenArray[0] || null;
-}
 
 export default class DetailView extends Component {
   constructor(props) {
@@ -30,7 +14,8 @@ export default class DetailView extends Component {
 
     this.state = {
       coordinates: null,
-      heading: 0
+      heading: 0,
+      showCompareModal: false
     }
 
     this.detailSlideLength = 300;
@@ -41,7 +26,7 @@ export default class DetailView extends Component {
   // srsly tho google, why not point to the latlng automatically?
   componentDidUpdate(prevProps, prevState) {
 
-    // this says, if the component is getting the addr for the first time OR
+    // this says: if the component is getting the addr for the first time OR
     //            if the component already has an addr but is getting a new one
     if((!prevProps.addr && this.props.addr) ||
         (prevProps.addr && (prevProps.addr.bbl !== this.props.addr.bbl))) {
@@ -65,20 +50,16 @@ export default class DetailView extends Component {
 
   render() {
 
-    let boro, block, lot, ownernames;
+    let boro, block, lot, ownernames, userOwnernames;
     if(this.props.addr) {
       ({ boro, block, lot } = Helpers.splitBBL(this.props.addr.bbl));
       if(this.props.addr.ownernames.length) ownernames = Helpers.uniq(this.props.addr.ownernames);
+      if(this.props.userAddr.ownernames.length) userOwnernames = Helpers.uniq(this.props.userAddr.ownernames);
     }
 
     return (
       <div className="DetailView">
         <div className="DetailView__wrapper">
-            {
-              // <div className="DetailView__close">
-              //   <button className="btn btn-link" onClick={this.props.onCloseDetail}>[ x ]</button>
-              // </div>
-            }
             { this.props.addr &&
               <div className="DetailView__card card">
                 <div className="card-image">
@@ -89,12 +70,18 @@ export default class DetailView extends Component {
                     zoom={0.5}
                     options={{
                       disableDefaultUI: true,
-                      panControl: true
+                      panControl: true,
+                      fullscreenControl: true
                     }}
                   />
                 </div>
                 <div className="card-header">
                   <h4 className="card-title">{this.props.addr.housenumber} {this.props.addr.streetname}, {this.props.addr.boro}</h4>
+                  { !Helpers.addrsAreEqual(this.props.addr, this.props.userAddr) &&
+                    <a onClick={() => this.setState({ showCompareModal: true })}>
+                      <i>How is this building associated?</i>
+                    </a>
+                  }
                 </div>
                 <div className="card-body">
                   { this.props.hasJustFixUsers &&
@@ -103,34 +90,34 @@ export default class DetailView extends Component {
                   <table className="card-body-table">
                     <tbody>
                       <tr>
-                        <td className="double">
+                        <td className="double" title="This is the official identifer for the building according to the Dept. of Finance tax records.">
                           <label>Boro-Block-Lot (BBL)</label>
                           {boro}-{block}-{lot}
                         </td>
-                        <td>
+                        <td title="The year that this building was originally constructed, according to the Dept. of City Planning.">
                           <label>Year Built</label>
                           { this.props.addr.yearbuilt !== 0 ?  this.props.addr.yearbuilt : 'N/A' }
                         </td>
-                        <td>
+                        <td title="The number of residential units in this building, according to the Dept. of City Planning.">
                           <label>Units</label>
                           { this.props.addr.unitsres }
                         </td>
                       </tr>
                       <tr>
-                        <td>
+                        <td title="The number of open HPD violations for this building, updated monthly. Click the HPD Complaints/Violations button for the most up-to-date information.">
                           <label>Open Violations</label>
                           { this.props.addr.openviolations }
                         </td>
-                        <td>
+                        <td  title="This represents the total number of HPD Violations (both open & closed) filed since 2015.">
                           <label>Total Violations</label>
                           { this.props.addr.totalviolations }
                         </td>
-                        <td>
-                          <label title="hi">Evictions</label>
+                        <td title="Eviction filings (not judgements) made in housing court from January 2013 to June 2015. This information was provided by the Office of the Public Advocate.">
+                          <label>Evictions</label>
                           { this.props.addr.evictions ? this.props.addr.evictions : 'N/A' }
                         </td>
-                        <td>
-                          <label>RS Units (Change)</label>
+                        <td title="The current number of rent stabilized apartments in this building (as of 2016). The &Delta; symbol (i.e. &quot;Change&quot;) represents how many RS apts have been lost or gained since 2007. These are estimated from the DOF Property Tax Bills.">
+                          <label>RS Units (&Delta;)</label>
                           { this.props.addr.rsunits2016
                             ? `${this.props.addr.rsunits2016} (${this.props.addr.rsdiff > 0 ? `+${this.props.addr.rsdiff}` : `${this.props.addr.rsdiff}`})`
                             : 'N/A'
@@ -139,6 +126,7 @@ export default class DetailView extends Component {
                       </tr>
                     </tbody>
                   </table>
+                  <span className="float-right"><i>(hover over a box to learn more)</i></span>
                   <div className="card-body-landlord">
                       <div className="columns">
                         <div className="column col-xs-12 col-6">
@@ -176,10 +164,69 @@ export default class DetailView extends Component {
                       <a href={`https://hpdonline.hpdnyc.org/HPDonline/Provide_address.aspx?p1=${boro}&p2=${this.props.addr.housenumber}&p3=${this.props.addr.streetname}&SearchButton=Search`} target="_blank" className="btn btn-block">HPD Complaints/Violations &#8599;</a>
                     </div>
                   </div>
-
                 </div>
               </div>
             }
+            { this.props.addr && <Modal
+              showModal={this.state.showCompareModal}
+              width={60}
+              onClose={() => this.setState({ showCompareModal: false })}>
+              <h6><b>How is this building associated?</b></h6>
+              <p>We compare information about your search address to with a database of over 200k buildings to map a landlord or management company's portfolio. To learn more, check out the <Link to="/how-it-works">How it Works page</Link>.</p>
+              <table className="DetailView__compareTable">
+                <thead>
+                  <tr>
+                    <th>{this.props.addr.housenumber} {this.props.addr.streetname}, {this.props.addr.boro}</th>
+                    <th>{this.props.userAddr.housenumber} {this.props.userAddr.streetname}, {this.props.userAddr.boro}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <div>Shell Companies:</div>
+                      <ul>
+                        {this.props.addr.corpnames && this.props.addr.corpnames.map((corp, idx) => <li key={idx}>{corp}</li> )}
+                      </ul>
+                    </td>
+                    <td>
+                      <div>Shell Companies:</div>
+                      <ul>
+                        {this.props.userAddr.corpnames && this.props.userAddr.corpnames.map((corp, idx) => <li key={idx}>{corp}</li> )}
+                      </ul>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div>Business Addresses:</div>
+                      <ul>
+                        {this.props.addr.businessaddrs && this.props.addr.businessaddrs.map((rba, idx) => <li key={idx}>{rba}</li> )}
+                      </ul>
+                    </td>
+                    <td>
+                      <div>Business Addresses:</div>
+                      <ul>
+                        {this.props.userAddr.businessaddrs && this.props.userAddr.businessaddrs.map((rba, idx) => <li key={idx}>{rba}</li> )}
+                      </ul>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div>People:</div>
+                      <ul>
+                        {ownernames.map((owner, idx) => <li key={idx}>{owner.title.split(/(?=[A-Z])/).join(" ")}: {owner.value}</li> )}
+                      </ul>
+                    </td>
+                    <td>
+                      <div>People:</div>
+                      <ul>
+                        {userOwnernames.map((owner, idx) => <li key={idx}>{owner.title.split(/(?=[A-Z])/).join(" ")}: {owner.value}</li> )}
+                      </ul>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </Modal>
+          }
         </div>
       </div>
     );

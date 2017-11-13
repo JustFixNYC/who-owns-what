@@ -25,10 +25,6 @@ const ASSOC_CIRCLE_PAINT = {
   'circle-opacity': 0.8
 };
 
-// const ASSOC_CIRCLE_LAYOUT = {
-//   ''
-// }
-
 const DETAIL_CIRCLE_PAINT = {
   ...BASE_CIRCLE,
   'circle-color': '#FF5722'
@@ -61,15 +57,21 @@ export default class PropertiesMap extends Component {
     };
   }
 
-  handleMapLoad = () => {
-    this.setState({
-      mapLoading: false
-    });
+  // componentWillReceiveProps(nextProps) {
+  //   if(!this.props.isVisible && nextProps.isVisible) {
+  //     console.log(this.state.mapRef);
+  //     if(this.state.mapRef) this.state.mapRef.resize();
+  //   }
+  // }
+  componentDidUpdate(prevProps, prevState) {
+
+    if(!prevProps.isVisible && this.props.isVisible) {
+      if(this.state.mapRef) this.state.mapRef.resize();
+    }
   }
 
   handleMouseMove = (map, e) => {
-      let features = map.queryRenderedFeatures(e.point, { layers: ["layer-1"] });
-      // console.log(features);
+      let features = map.queryRenderedFeatures(e.point, { layers: ["assoc", "user"] });
       if(features.length) {
         map.getCanvas().style.cursor = 'pointer';
       } else {
@@ -77,23 +79,30 @@ export default class PropertiesMap extends Component {
       }
   }
 
+  handleViewRefresh = () => {
+
+  }
+
+
+
   render() {
     const light = 'mapbox://styles/dan-kass/cj5rsfld203472sqy1y0px42d';
     const terminal = 'mapbox://styles/dan-kass/cj657o2qu601z2rqbp1jgiys5';
     const terminal2 = 'mapbox://styles/dan-kass/cj65hlk5v69z42rql5xtunc5s';
     const mapUrl = terminal;
 
+    // defaults
     let bounds = new Set();
     let mapProps = {
       style: mapUrl,
-      onStyleLoad: (mapObj) => {
-        this.setState({ mapLoading: false, mapRef: mapObj })
-      },
+      containerStyle: { width: '100%', height: '100%' },
+      onStyleLoad: (map, _) => this.setState({ mapLoading: false, mapRef: map }),
       onMouseMove: (map, e) => this.handleMouseMove(map, e)
     };
 
-    let assocAddrs = [], userAddr = [], detailAddr = [];
 
+    // cycle thru each addr and create a Feature for it
+    let assocAddrs = [], userAddr = [], detailAddr = [];
     for(let i = 0; i < this.props.addrs.length; i++) {
 
       const addr = this.props.addrs[i];
@@ -101,64 +110,23 @@ export default class PropertiesMap extends Component {
 
       if(!MapHelpers.latLngIsNull(pos)) {
 
+        // this is only used for the default, "portfolio" view
         bounds.add(pos);
 
         if(Helpers.addrsAreEqual(addr, this.props.userAddr)) {
-          userAddr.push(<Feature key={i} coordinates={pos} />);
+          userAddr.push(<Feature key={i} coordinates={pos} onClick={() => this.props.onOpenDetail(addr)} />);
         } else if(this.props.detailAddr && Helpers.addrsAreEqual(addr, this.props.detailAddr)) {
           detailAddr.push(<Feature key={i} coordinates={pos} />);
         } else {
           assocAddrs.push(
             // <Feature key={i} coordinates={pos} properties={{ mapdatapoint: addr.evictions }} onClick={() => this.props.onOpenDetail(addr)} />
-            <Feature key={i} coordinates={pos} properties={{ mapdatapoint: addr.openviolations }} onClick={() => this.props.onOpenDetail(addr)} />
+            <Feature key={i} coordinates={pos} onClick={() => this.props.onOpenDetail(addr)} />
           );
         }
       }
     }
 
-    let vMin = 0, vMax = 0;
-    let eMin = 0, eMax = 0;
-    if(this.props.addrs.length > 1) {
-      let openviolations = this.props.addrs.map(a => (a.openviolations / a.unitsres)).filter(isFinite);
-      vMax = Math.max(...openviolations);
-      vMin = Math.min(...openviolations);
-
-      // let evictions = this.props.addrs.map(a => (a.evictions / a.unitsres)).filter(isFinite);
-      let evictions = this.props.addrs.map(a => a.evictions).filter(isFinite);
-      eMax = Math.max(...evictions);
-      eMin = Math.min(...evictions);
-    }
-
-    // const dynamic_assoc_paint = {
-    //   ...ASSOC_CIRCLE_PAINT,
-    //   'circle-color': {
-    //     property: 'mapdatapoint',
-    //     default: '#acb3c2',
-    //     stops: [
-    //       [vMin, '#fecc5c'],
-    //       [(vMax-vMin)/2, '#fd8d3c'],
-    //       [vMax, '#e31a1c']
-    //
-    //
-    //
-    //
-    //
-    //       // [eMin, '#fde0dd'],
-    //       // [(eMax-eMin)/2, '#fa9fb5'],
-    //       // [eMax, '#c51b8a']
-    //
-    //
-    //       // [vMin, '#f7fcb9'],
-    //       // [(vMax-vMin)/2, '#addd8e'],
-    //       // [vMax, '#31a354']
-    //     ]
-    //   }
-    // };
-
-    const dynamic_assoc_paint = { ...ASSOC_CIRCLE_PAINT };
-
-
-    // defaults
+    // defaults. this seems to be necessary to est a base state
     if(!this.props.addrs.length) {
       mapProps.fitBounds = new MapboxGL.LngLatBounds(this.mapDefaults.bounds);
       mapProps.center = mapProps.fitBounds.getCenter();
@@ -191,16 +159,19 @@ export default class PropertiesMap extends Component {
                 'backgroundColor': '#ffffff',
                 'borderColor': '#727e96'
               }} />
-            <Layer type="circle" paint={dynamic_assoc_paint}>
+            <Layer id="assoc" type="circle" paint={ASSOC_CIRCLE_PAINT}>
               { assocAddrs }
             </Layer>
-            <Layer type="circle" paint={DETAIL_CIRCLE_PAINT}>
+            <Layer id="detail" type="circle" paint={DETAIL_CIRCLE_PAINT}>
               { detailAddr }
             </Layer>
-            <Layer type="circle" paint={USER_MARKER_PAINT}>
+            <Layer id="user" type="circle" paint={USER_MARKER_PAINT}>
               { userAddr }
             </Layer>
           </Map>
+          <div className="PropertiesMap__prompt">
+            <p><i>(click on a building to view details)</i></p>
+          </div>
         </div>
     );
   }

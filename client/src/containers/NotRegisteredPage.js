@@ -60,7 +60,11 @@ export default class NotRegisteredPage extends Component {
     return (
       <div>
         <div className="HomePage__search NotRegisteredPage">
-          <h5 className="mt-10 text-danger text-center text-bold text-large">No results found for <u>{searchAddress.housenumber} {searchAddress.streetname}, {searchAddress.boro}</u>!</h5>
+          <h5 className="mt-10 text-danger text-center text-bold text-large">No results found for <u>{searchAddress.housenumber} {searchAddress.streetname}{searchAddress.boro ? `, ${searchAddress.boro}`: ''}</u>!</h5>
+          { geoclient && geoclient.latitude && geoclient.longitude &&
+            <img src={`https://maps.googleapis.com/maps/api/streetview?size=800x200&location=${geoclient.latitude},${geoclient.longitude}&key=AIzaSyCJKZm-rRtfREo2o-GNC-feqpbSvfHNB5s`}
+                 alt="Google Street View" className="img-responsive"  />
+          }
           {buildingTypeMessage}
           <br />
           { geoclient && geoclient.bbl &&

@@ -9,6 +9,15 @@
   border: 1px solid $gray-dark;
   padding: 35px;
 
+  h5 {
+    font-size: 1.5em;
+  }
+
+  img {
+    width: 80%;
+    margin: 15px auto;
+  }
+
   a.btn-block:not(.btn-link) {
     max-width: 300px;
     margin: 10px auto 0 auto;
@@ -17,6 +26,8 @@
   a.btn-link {
     text-decoration: underline;
   }
+
+
 
 
   .btn-group {

@@ -2,9 +2,9 @@
 
 .PropertiesMap {
 
-  width: 100%;
+  display: inline-block;
+  width: 65vw;
   height: 100%;
-  flex-grow: 1;
 
 
   // this allows DetailView__close to overlay the map
@@ -15,5 +15,26 @@
     height: 100%;
     width: 100%;
     overflow: hidden;
+
+    canvas {
+      display: block;
+    }
+  }
+
+  .PropertiesMap__prompt {
+    background: #fff;
+    position: absolute;
+    z-index: 10;
+    // top: 0; right: -1px;
+    right: 0;
+    bottom: 0;
+    border-left: 1px solid $dark;
+    border-top: 1px solid $dark;
+    padding: 4px 10px;
+
+    p {
+      text-align: center;
+      margin-bottom: 0;
+    }
   }
 }

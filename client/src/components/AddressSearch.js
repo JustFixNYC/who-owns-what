@@ -23,9 +23,10 @@ const AddressSearch = (props) => {
       streetname = streetname.replace(streetnameSuffix, "$1$2 $4");
     }
 
-    const boro = components.find(e => e.types.indexOf('sublocality_level_1') !== -1).long_name.toUpperCase();
+    let boro = components.find(e => e.types.indexOf('sublocality_level_1') !== -1);
+    if(boro) boro = boro.long_name.toUpperCase();
 
-    
+
     props.onFormSubmit({ housenumber, streetname, boro });
   }
 

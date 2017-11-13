@@ -56,23 +56,6 @@
     position: relative;
     border-bottom: 1px solid $gray-dark;
 
-
-    .AddressPage__viz-prompt {
-      background: #fff;
-      position: absolute;
-      z-index: 10;
-      // top: 0; right: -1px;
-      right: 45vw;
-      bottom: 0;
-      border-left: 1px solid $dark;
-      border-top: 1px solid $dark;
-      padding: 4px 10px;
-
-      p {
-        text-align: center;
-        margin-bottom: 0;
-      }
-    }
   }
 
   .AddressPage__table {
