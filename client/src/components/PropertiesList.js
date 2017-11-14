@@ -50,14 +50,15 @@ const PropertiesList = (props) => {
                   Header: 'Address',
                   accessor: d => `${d.housenumber} ${d.streetname}`,
                   id: 'address',
-                  minWidth: 175,
+                  minWidth: 150,
                   style: {
                     textAlign: "left"
                   }
                 },
                 {
                   Header: 'Zipcode',
-                  accessor: 'zip'
+                  accessor: 'zip',
+                  width: 75
                 },
                 {
                   Header: 'Borough',

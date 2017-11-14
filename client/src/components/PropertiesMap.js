@@ -64,7 +64,6 @@ export default class PropertiesMap extends Component {
   //   }
   // }
   componentDidUpdate(prevProps, prevState) {
-
     if(!prevProps.isVisible && this.props.isVisible) {
       if(this.state.mapRef) this.state.mapRef.resize();
     }

@@ -172,7 +172,7 @@ export default class DetailView extends Component {
               width={60}
               onClose={() => this.setState({ showCompareModal: false })}>
               <h6><b>How is this building associated?</b></h6>
-              <p>We compare information about your search address to with a database of over 200k buildings to map a landlord or management company's portfolio. To learn more, check out the <Link to="/how-it-works">How it Works page</Link>.</p>
+              <p>We compare your search address with a database of over 200k buildings to identify a landlord or management company's portfolio. To learn more, check out the <Link to="/how-it-works">How it Works page</Link>.</p>
               <table className="DetailView__compareTable">
                 <thead>
                   <tr>
