@@ -57,12 +57,6 @@ export default class PropertiesMap extends Component {
     };
   }
 
-  // componentWillReceiveProps(nextProps) {
-  //   if(!this.props.isVisible && nextProps.isVisible) {
-  //     console.log(this.state.mapRef);
-  //     if(this.state.mapRef) this.state.mapRef.resize();
-  //   }
-  // }
   componentDidUpdate(prevProps, prevState) {
     if(!prevProps.isVisible && this.props.isVisible) {
       if(this.state.mapRef) this.state.mapRef.resize();
@@ -77,11 +71,6 @@ export default class PropertiesMap extends Component {
         map.getCanvas().style.cursor = '';
       }
   }
-
-  handleViewRefresh = () => {
-
-  }
-
 
 
   render() {

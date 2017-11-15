@@ -34,7 +34,7 @@
 
     .-pagination {
       box-shadow: none;
-      border-top: 1px solid $dark;
+      border-top: 1px solid $gray-dark;
       padding: 5px;
 
       .-btn {
@@ -48,7 +48,7 @@
     }
   }
 
-  .rt-table, .rt-tbody {
+  .rt-table {
     @include scrollbar();
   }
 }
