@@ -122,7 +122,7 @@ export default class AddressPage extends Component {
           { this.state.userAddr &&
             <div className="float-left">
               <h5 className="primary">
-                This landlord is associated with <u>{Math.max(this.state.assocAddrs.length - 1, 0)}</u> other building{(this.state.assocAddrs.length - 1) === 1 ? '':'s'}:
+                This landlord is associated with <u>{this.state.assocAddrs.length}</u> building{this.state.assocAddrs.length === 1 ? '':'s'}:
               </h5>
               <ul className="tab tab-block">
                 <li className={`tab-item ${this.state.currentTab === 0 ? "active" : ""}`}>

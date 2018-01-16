@@ -29,6 +29,12 @@ b {
   color: #000;
 }
 
+.text-justfix {
+  color: $justfix-blue;
+  a {
+    color: darken($justfix-blue, 10%);
+  }
+}
 .text-danger {
   color: red;
 }

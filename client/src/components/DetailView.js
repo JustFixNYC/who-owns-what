@@ -85,7 +85,9 @@ export default class DetailView extends Component {
                 </div>
                 <div className="card-body">
                   { this.props.hasJustFixUsers &&
-                    <p className="text-bold text-danger">This building has at least one active JustFix.nyc case!</p>
+                    <p className="text-bold text-justfix">
+                      This building has at least one active JustFix.nyc user! <a href={`mailto:hello@justfix.nyc?subject=Outreach request for ${this.props.addr.housenumber} ${this.props.addr.streetname}, ${this.props.addr.boro}`} target="_blank">Click here</a> to get connected.
+                    </p>
                   }
                   <table className="card-body-table">
                     <tbody>

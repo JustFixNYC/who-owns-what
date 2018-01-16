@@ -13,7 +13,7 @@ const Map = ReactMapboxGl({
 });
 
 const BASE_CIRCLE = {
-  'circle-stroke-width': 1,
+  'circle-stroke-width': 1.25,
   'circle-radius': 6,
   'circle-color': '#FF9800',
   'circle-opacity': 1,
@@ -64,7 +64,7 @@ export default class PropertiesMap extends Component {
   }
 
   handleMouseMove = (map, e) => {
-      let features = map.queryRenderedFeatures(e.point, { layers: ["assoc", "user"] });
+      let features = map.queryRenderedFeatures(e.point, { layers: ["assoc"] });
       if(features.length) {
         map.getCanvas().style.cursor = 'pointer';
       } else {
@@ -90,7 +90,7 @@ export default class PropertiesMap extends Component {
 
 
     // cycle thru each addr and create a Feature for it
-    let assocAddrs = [], userAddr = [], detailAddr = [];
+    let assocAddrs = [], selectedAddr = [];
     for(let i = 0; i < this.props.addrs.length; i++) {
 
       const addr = this.props.addrs[i];
@@ -101,18 +101,48 @@ export default class PropertiesMap extends Component {
         // this is only used for the default, "portfolio" view
         bounds.add(pos);
 
+
+        // else if(this.props.detailAddr && Helpers.addrsAreEqual(addr, this.props.detailAddr)) {
+        //   detailAddr.push(<Feature key={i} coordinates={pos} />);
+        // }
+
+        let type;
         if(Helpers.addrsAreEqual(addr, this.props.userAddr)) {
-          userAddr.push(<Feature key={i} coordinates={pos} onClick={() => this.props.onOpenDetail(addr)} />);
-        } else if(this.props.detailAddr && Helpers.addrsAreEqual(addr, this.props.detailAddr)) {
-          detailAddr.push(<Feature key={i} coordinates={pos} />);
+          type = 'search';
+        } else if(addr.hasjustfix) {
+          type = 'justfix';
+        } else {
+          type = 'base';
+        }
+
+        if(this.props.detailAddr && Helpers.addrsAreEqual(addr, this.props.detailAddr)) {
+          selectedAddr.push(<Feature key={i} properties={{ type: type }} coordinates={pos} />);
         } else {
           assocAddrs.push(
-            // <Feature key={i} coordinates={pos} properties={{ mapdatapoint: addr.evictions }} onClick={() => this.props.onOpenDetail(addr)} />
-            <Feature key={i} coordinates={pos} onClick={() => this.props.onOpenDetail(addr)} />
+            <Feature key={i} coordinates={pos} properties={{ type: type }} onClick={() => this.props.onOpenDetail(addr)} />
           );
         }
       }
     }
+
+    const dynamic_assoc_paint = {
+      ...ASSOC_CIRCLE_PAINT,
+      'circle-color': {
+        property: 'type',
+        type: 'categorical',
+        default: '#acb3c2',
+        stops: [
+          ['base', '#FF9800'],
+          ['justfix', '#0096d7'],
+          ['search', '#FF5722']
+        ]
+      }
+    };
+
+    const dynamic_select_paint = {
+      ...dynamic_assoc_paint,
+      'circle-stroke-color': '#e6e6e6'
+    };
 
     // defaults. this seems to be necessary to est a base state
     if(!this.props.addrs.length) {
@@ -147,14 +177,11 @@ export default class PropertiesMap extends Component {
                 'backgroundColor': '#ffffff',
                 'borderColor': '#727e96'
               }} />
-            <Layer id="assoc" type="circle" paint={ASSOC_CIRCLE_PAINT}>
+            <Layer id="assoc" type="circle" paint={dynamic_assoc_paint}>
               { assocAddrs }
             </Layer>
-            <Layer id="detail" type="circle" paint={DETAIL_CIRCLE_PAINT}>
-              { detailAddr }
-            </Layer>
-            <Layer id="user" type="circle" paint={USER_MARKER_PAINT}>
-              { userAddr }
+            <Layer id="selected" type="circle" paint={dynamic_select_paint}>
+              { selectedAddr }
             </Layer>
           </Map>
           <div className="PropertiesMap__prompt">
