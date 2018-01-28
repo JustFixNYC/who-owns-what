@@ -12,6 +12,7 @@ RETURNS TABLE (
   totalviolations bigint,
   openviolationsperbldg numeric,
   totalevictions bigint,
+  avgevictions numeric,
   totalrsdiff bigint,
   avgrspercent numeric,
   rslossaddr json,
@@ -45,6 +46,7 @@ RETURNS TABLE (
     sum(totalviolations) as totalviolations,
     round(avg(openviolations)::numeric, 1) as openviolationsperbldg,
     sum(evictions) as totalevictions,
+    round(avg(evictions)::numeric, 1) as avgevictions,
     sum(rsdiff) as totalrsdiff,
     round(avg(rspercentchange)::numeric, 1) as avgrspercent,
 

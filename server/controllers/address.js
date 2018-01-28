@@ -21,7 +21,6 @@ const getDataAndFormat = (query) => {
       // const geo = { address: { bbl: '3012380016', geosupportReturnCode: '00' } };
       // console.dir(geo.address, {depth: null, colors: true});
       if((geo.address.geosupportReturnCode == '00' || geo.address.geosupportReturnCode == '01') && geo.address.bbl) {
-        query.byBBL = true;
         return Promise.all([
           geo.address,                          // we already have this value
           db.queryAddress(geo.address.bbl)
@@ -36,17 +35,14 @@ const getDataAndFormat = (query) => {
 module.exports = {
   query: (req, res) => {
     getDataAndFormat(req.query)
-      .then(results => {
-        keen.recordEvent('search', {
-          query: req.query,
-          landlords: results[1].length
-        });
-        res.status(200).send({ geoclient: results[0], addrs: results[1] });
-       })
-      .catch(err => {
-        console.log('err', err);
-        res.status(400).send(err);
-      });
+      .then(results => res.status(200).send({ geoclient: results[0], addrs: results[1] }) )
+      .catch(err => res.status(400).send(err) );
+  },
+
+  aggregate: (req, res) => {
+    db.queryAggregate(req.query.bbl)
+      .then(result => res.status(200).send({ result: result }) )
+      .catch(err => res.status(400).send(err) );
   },
 
   export: (req, res) => {
@@ -59,7 +55,6 @@ module.exports = {
 
         let addrs = results[1].map(addr => {
           addr.ownernames = JSON.stringify(addr.ownernames);
-          // TODO: assign JF user flag? or probably just handle that in pg
           return addr;
         });
 

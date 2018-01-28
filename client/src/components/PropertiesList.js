@@ -162,12 +162,13 @@ const PropertiesList = (props) => {
                   Header: "Evictions",
                   accessor: "evictions",
                   maxWidth: 75
+                },
+                {
+                  Header: "JustFix",
+                  accessor: "hasjustfix",
+                  Cell: row => row.value ? 'X' : '',
+                  maxWidth: 75
                 }
-                // ,
-                // {
-                //   Header: "Change in RS",
-                //   accessor: "totalviolations"
-                // }
               ]
             },
             {

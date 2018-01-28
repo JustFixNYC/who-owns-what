@@ -8,6 +8,7 @@ import _find from 'lodash/find';
 import AddressToolbar from 'components/AddressToolbar';
 import PropertiesMap from 'components/PropertiesMap';
 import PropertiesList from 'components/PropertiesList';
+import PropertiesSummary from 'components/PropertiesSummary';
 import DetailView from 'components/DetailView';
 import APIClient from 'components/APIClient';
 
@@ -25,7 +26,7 @@ export default class AddressPage extends Component {
       assocAddrs: [],
       detailAddr: null,
       detailHasJustFixUsers: false,
-      currentTab: 0
+      currentTab: 2
     };
   }
 
@@ -70,8 +71,9 @@ export default class AddressPage extends Component {
 
   handleOpenDetail = (addr) => {
     this.setState({
-      detailAddr: addr,
-      currentTab: 0
+      detailAddr: addr
+      // ,
+      // currentTab: 0
     });
 
     APIClient.searchForJFXUsers([addr.bbl]).then(res => {
@@ -162,13 +164,10 @@ export default class AddressPage extends Component {
           }
         </div>
         <div className={`AddressPage__content AddressPage__summary ${this.state.currentTab === 2 ? "AddressPage__content-active": ''}`}>
-          <p>
-            Aliquip do velit voluptate pariatur est ad in dolor commodo quis proident adipisicing aute commodo excepteur aute excepteur. Est nulla ea eu nisi reprehenderit sunt cupidatat elit occaecat. Et labore nisi do eu ullamco consectetur veniam aliqua magna.
-          </p><p>
-            Tempor exercitation sint quis aliquip in ea ea ea elit sint. Occaecat nisi voluptate dolore officia in exercitation adipisicing consequat commodo sunt officia exercitation enim enim proident nulla elit. Nostrud nostrud do cupidatat quis Lorem anim cupidatat aliquip eiusmod culpa.
-          </p><p>
-            Commodo amet quis sint nostrud esse labore consequat laboris ea ullamco consequat ullamco deserunt occaecat reprehenderit exercitation.
-          </p>
+          <PropertiesSummary
+            isVisible={this.state.currentTab === 2}
+            userAddr={this.state.userAddr}
+          />
         </div>
 
       </div>

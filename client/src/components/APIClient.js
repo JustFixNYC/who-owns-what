@@ -3,6 +3,10 @@ function searchAddress(q) {
   return get(`/api/address?housenumber=${q.housenumber}&streetname=${q.streetname}&boro=${q.boro}`);
 }
 
+function getAggregate(bbl) {
+  return get(`/api/address/aggregate?bbl=${bbl}`);
+}
+
 function getAddressExport(q) {
   return fetch(`/api/address/export?housenumber=${q.housenumber}&streetname=${q.streetname}&boro=${q.boro}`)
     .then(checkStatus);
@@ -49,6 +53,7 @@ function parseJSON(response) {
 
 const Client = {
   searchAddress,
+  getAggregate,
   getAddressExport,
   searchForJFXUsers
 };

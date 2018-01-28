@@ -38,7 +38,8 @@ const USER_MARKER_PAINT = {
 // due to the wonky way react-mapboxgl works, we can't just specify a center/zoom combo
 // instead we use this offset value to create a fake bounding box around the detail center point
 // TODO: probably a non-hack way to do this?
-const DETAIL_OFFSET = 0.0007;
+// const DETAIL_OFFSET = 0.0007;
+const DETAIL_OFFSET = 0.0015;
 
 export default class PropertiesMap extends Component {
   constructor(props) {
@@ -141,7 +142,8 @@ export default class PropertiesMap extends Component {
 
     const dynamic_select_paint = {
       ...dynamic_assoc_paint,
-      'circle-stroke-color': '#e6e6e6'
+      'circle-stroke-color': '#d6d6d6',
+      'circle-opacity': 1
     };
 
     // defaults. this seems to be necessary to est a base state
