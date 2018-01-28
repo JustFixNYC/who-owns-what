@@ -43,7 +43,7 @@ export default class PropertiesSummary extends Component {
           { this.state.agg && (
             <div className="container">
               <div className="columns">
-                <div className="column col-8 PropertiesSummary__content">
+                <div className="PropertiesSummary__content column col-7 col-mr-auto">
                   <p>
                     There are <b>{agg.bldgs}</b> buildings in this portfolio with a total of <b>{agg.units}</b> units. The average age of these buildings is <b>{agg.age}</b> years old.
                   </p>
@@ -81,7 +81,16 @@ export default class PropertiesSummary extends Component {
 
 
                 </div>
-                <div className="column col-4">
+                <div className="column col-3">
+                  {agg.violationsaddr && (
+                    <figure className="figure">
+                      <img src={`https://maps.googleapis.com/maps/api/streetview?size=800x500&location=${agg.violationsaddr.lat},${agg.violationsaddr.lng}&key=AIzaSyCJKZm-rRtfREo2o-GNC-feqpbSvfHNB5s`}
+                             alt="Google Street View" className="img-responsive"  />
+                      <figcaption className="figure-caption text-center text-italic">
+                        {agg.violationsaddr.housenumber} {agg.violationsaddr.streetname}, {agg.violationsaddr.boro} currently has {agg.violationsaddr.openviolations} open HPD violations - the most in this portfolio.
+                      </figcaption>
+                    </figure>
+                  )}
 
                 </div>
               </div>
