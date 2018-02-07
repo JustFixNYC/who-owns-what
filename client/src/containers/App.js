@@ -4,7 +4,7 @@ import {
   Route,
   NavLink,
   Link
-} from 'react-router-dom'
+} from 'react-router-dom';
 
 import 'styles/App.css';
 

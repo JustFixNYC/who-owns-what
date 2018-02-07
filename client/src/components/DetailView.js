@@ -116,11 +116,11 @@ export default class DetailView extends Component {
                         </td>
                         <td title="Eviction filings (not judgements) made in housing court from January 2013 to June 2015. This information was provided by the Office of the Public Advocate.">
                           <label>Evictions</label>
-                          { this.props.addr.evictions ? this.props.addr.evictions : 'N/A' }
+                          { this.props.addr.evictions !== null ? this.props.addr.evictions : 'N/A' }
                         </td>
                         <td title="The current number of rent stabilized apartments in this building (as of 2016). The &Delta; symbol (i.e. &quot;Change&quot;) represents how many RS apts have been lost or gained since 2007. These are estimated from the DOF Property Tax Bills.">
                           <label>RS Units (&Delta;)</label>
-                          { this.props.addr.rsunits2016
+                          { this.props.addr.rsunits2016 !== null
                             ? `${this.props.addr.rsunits2016} (${this.props.addr.rsdiff > 0 ? `+${this.props.addr.rsdiff}` : `${this.props.addr.rsdiff}`})`
                             : 'N/A'
                           }

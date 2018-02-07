@@ -26,7 +26,7 @@ export default class AddressPage extends Component {
       assocAddrs: [],
       detailAddr: null,
       detailHasJustFixUsers: false,
-      currentTab: 2
+      currentTab: 0
     };
   }
 
@@ -71,9 +71,8 @@ export default class AddressPage extends Component {
 
   handleOpenDetail = (addr) => {
     this.setState({
-      detailAddr: addr
-      // ,
-      // currentTab: 0
+      detailAddr: addr,
+      currentTab: 0
     });
 
     APIClient.searchForJFXUsers([addr.bbl]).then(res => {
