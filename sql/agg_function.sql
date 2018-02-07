@@ -15,6 +15,7 @@ RETURNS TABLE (
   avgevictions numeric,
   totalrsdiff bigint,
   avgrspercent numeric,
+  rsproportion numeric,
   rslossaddr json,
   violationsaddr json,
   hasjustfix boolean
@@ -49,6 +50,8 @@ RETURNS TABLE (
     round(avg(evictions)::numeric, 1) as avgevictions,
     sum(rsdiff) as totalrsdiff,
     round(avg(rspercentchange)::numeric, 1) as avgrspercent,
+    -- round(abs(sum(rsdiff)) / sum(unitsres), 1) as rsproportion,
+    round(abs(sum(rsdiff)) / sum(unitsres)::numeric * 100.0, 1) as rsproportion,
 
     -- array_agg allows us to use order by. we put everything in json, then order it
     -- and take the first item. hacks hacks hacks

@@ -4,12 +4,14 @@ DROP TABLE IF EXISTS wow_bldgs CASCADE;
 -- for cross-table analysis. Hence why the corpnames, businessaddrs, and ownernames are simplified
 -- with JSON and such.
 CREATE TABLE wow_bldgs
-AS SELECT
+AS SELECT DISTINCT ON (registrations.bbl) 
   registrations.*,
-  coalesce(totalviolations.total, 0)::int as totalviolations,
-  coalesce(openviolations.total, 0)::int as openviolations,
+  coalesce(violations.total, 0)::int as totalviolations,
+  coalesce(violations.opentotal, 0)::int as openviolations,
   pluto.unitsres,
   pluto.yearbuilt,
+  pluto.lat,
+  pluto.lng,
   evictions.evictions,
   evictions.subsidy421a,
   evictions.subsidy421g,
@@ -21,21 +23,19 @@ AS SELECT
   justfix_users.__v IS NOT NULL as hasjustfix
 FROM hpd_registrations_with_contacts AS registrations
 LEFT JOIN (
-  SELECT bbl, count(*) as total
-  FROM hpd_all_violations
+  SELECT bbl,
+    count(CASE WHEN violationstatus = 'Open' THEN 1 END) as opentotal,
+    count(*) as total
+  FROM hpd_violations
   GROUP BY bbl
-) totalviolations ON (registrations.bbl = totalviolations.bbl)
-LEFT JOIN (
-  SELECT bbl, count(*) as total
-  FROM hpd_open_violations
-  GROUP BY bbl
-) openviolations ON (registrations.bbl = openviolations.bbl)
+) violations ON (registrations.bbl = violations.bbl)
 LEFT JOIN (
   SELECT
     bbl,
     unitsres,
-    yearbuilt
-  FROM pluto_16v2
+    yearbuilt,
+    lat, lng
+  FROM pluto_17v1
 ) pluto ON (registrations.bbl = pluto.bbl)
 LEFT JOIN (
   SELECT
