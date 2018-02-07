@@ -4,3 +4,4 @@ env/*
 /.env
 client/src/**/*.css
 dist
+scripts
