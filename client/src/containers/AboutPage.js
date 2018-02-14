@@ -26,7 +26,7 @@ const AboutPage = () => {
             This project would not exist without your support!
           </p>
           <ul>
-            <li>ziggy, creator and maintainer of <a href="https://github.com/aepyornis/nyc-db" target="blank">nyc-db</a></li>
+            <li>Ziggy, creator and maintainer of <a href="https://github.com/aepyornis/nyc-db" target="blank">nyc-db</a></li>
             <li>Lucy Block at <a href="https://anhd.org/" target="_blank">ANHD</a>, creator of <a href="http://reports.dapmapnyc.org/" target="_blank">DAP district reports</a></li>
             <li>Cea Weaver at <a href="http://nycommunities.org/" target="_blank">NYCC</a></li>
             <li>Aaron Carr at <a href="http://housingrightsny.org/" target="_blank">HRI</a></li>
