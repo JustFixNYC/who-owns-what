@@ -86,7 +86,7 @@ export default class DetailView extends Component {
                 <div className="card-body">
                   { this.props.hasJustFixUsers &&
                     <p className="text-bold text-justfix">
-                      This building has at least one active JustFix.nyc user! <a href={`mailto:hello@justfix.nyc?subject=Outreach request for ${this.props.addr.housenumber} ${this.props.addr.streetname}, ${this.props.addr.boro}`} target="_blank">Click here</a> to get connected.
+                      This building has at least one active JustFix.nyc user! <a href={`mailto:support@justfix.nyc?subject=Outreach request for ${this.props.addr.housenumber} ${this.props.addr.streetname}, ${this.props.addr.boro}`} target="_blank">Click here</a> to get connected.
                     </p>
                   }
                   <table className="card-body-table">
@@ -178,8 +178,10 @@ export default class DetailView extends Component {
               <table className="DetailView__compareTable">
                 <thead>
                   <tr>
+                    <th>
+                      {this.props.userAddr.housenumber} {this.props.userAddr.streetname}, {this.props.userAddr.boro}
+                    </th>
                     <th>{this.props.addr.housenumber} {this.props.addr.streetname}, {this.props.addr.boro}</th>
-                    <th>{this.props.userAddr.housenumber} {this.props.userAddr.streetname}, {this.props.userAddr.boro}</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -187,41 +189,41 @@ export default class DetailView extends Component {
                     <td>
                       <div>Shell Companies:</div>
                       <ul>
-                        {this.props.addr.corpnames && this.props.addr.corpnames.map((corp, idx) => <li key={idx}>{corp}</li> )}
+                        {this.props.userAddr.corpnames && this.props.userAddr.corpnames.map((corp, idx) => <li key={idx}>{corp}</li> )}
                       </ul>
                     </td>
                     <td>
                       <div>Shell Companies:</div>
                       <ul>
-                        {this.props.userAddr.corpnames && this.props.userAddr.corpnames.map((corp, idx) => <li key={idx}>{corp}</li> )}
+                        {this.props.addr.corpnames && this.props.addr.corpnames.map((corp, idx) => <li key={idx}>{corp}</li> )}
                       </ul>
                     </td>
                   </tr>
                   <tr>
-                    <td>
-                      <div>Business Addresses:</div>
-                      <ul>
-                        {this.props.addr.businessaddrs && this.props.addr.businessaddrs.map((rba, idx) => <li key={idx}>{rba}</li> )}
-                      </ul>
-                    </td>
                     <td>
                       <div>Business Addresses:</div>
                       <ul>
                         {this.props.userAddr.businessaddrs && this.props.userAddr.businessaddrs.map((rba, idx) => <li key={idx}>{rba}</li> )}
                       </ul>
                     </td>
+                    <td>
+                      <div>Business Addresses:</div>
+                      <ul>
+                        {this.props.addr.businessaddrs && this.props.addr.businessaddrs.map((rba, idx) => <li key={idx}>{rba}</li> )}
+                      </ul>
+                    </td>
                   </tr>
                   <tr>
                     <td>
                       <div>People:</div>
                       <ul>
-                        {ownernames.map((owner, idx) => <li key={idx}>{owner.title.split(/(?=[A-Z])/).join(" ")}: {owner.value}</li> )}
+                        {userOwnernames.map((owner, idx) => <li key={idx}>{owner.title.split(/(?=[A-Z])/).join(" ")}: {owner.value}</li> )}
                       </ul>
                     </td>
                     <td>
                       <div>People:</div>
                       <ul>
-                        {userOwnernames.map((owner, idx) => <li key={idx}>{owner.title.split(/(?=[A-Z])/).join(" ")}: {owner.value}</li> )}
+                        {ownernames.map((owner, idx) => <li key={idx}>{owner.title.split(/(?=[A-Z])/).join(" ")}: {owner.value}</li> )}
                       </ul>
                     </td>
                   </tr>

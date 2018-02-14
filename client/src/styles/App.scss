@@ -27,9 +27,24 @@
 
     a {
       margin-left: 10px;
+      color: #454d5d;
 
       &.active { text-decoration: underline; }
     }
+  }
+
+}
+
+div.Page {
+  padding: 30px;
+
+  h4 {
+    text-decoration: underline;
+  }
+
+  p {
+    line-height: 1.6;
+    margin-bottom: 1.25rem;
   }
 
 }

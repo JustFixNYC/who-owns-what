@@ -7,9 +7,17 @@
   padding: 30px 60px 30px 30px;
 
   .PropertiesSummary__content {
+
+    h6 {
+      font-size: 1.4rem;
+      margin-bottom: .6rem;
+      text-decoration: underline;
+      font-weight: bold;
+    }
+
     p {
       font-size: 1.6rem;
-      margin-bottom: 1.5rem;
+      margin-bottom: 2.4rem;
     }
 
   }

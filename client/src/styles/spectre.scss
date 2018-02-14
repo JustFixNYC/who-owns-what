@@ -9,6 +9,7 @@
 // various overwrites
 a {
   text-decoration: underline;
+  color: darken($justfix-blue, 10%);
 }
 
 a:focus, .form-input:focus, .btn:focus,  {
@@ -27,6 +28,9 @@ p {
 b, .text-bold {
   font-weight: bold;
   color: #000;
+}
+a.text-bold {
+  color: darken($justfix-blue, 10%);
 }
 
 .text-justfix {

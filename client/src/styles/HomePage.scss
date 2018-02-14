@@ -2,8 +2,39 @@
 
 .HomePage__search {
   width: 65vw;
-  margin: 75px auto;
+  margin: 75px auto 60px auto;
   background-color: $background;
   border: 1px solid $gray-dark;
   padding: 35px;
+}
+
+.HomePage__samples {
+  width: 65vw;
+  margin: 0 auto 30px auto;
+
+  .container {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .HomePage__sample {
+    border: 1px dashed $gray;
+    padding: 10px;
+
+    h6 {
+      text-decoration: underline;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    img {
+      width: 60%;
+      margin: 15px auto;
+
+      &.silvershore {
+        margin-top: 30px;
+        margin-bottom: 30px;
+      }
+    }
+  }
 }

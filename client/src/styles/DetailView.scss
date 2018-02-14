@@ -95,6 +95,7 @@
         margin-bottom: 0;
         text-decoration: underline;
         cursor: pointer;
+        color: $dark;
       }
     }
 
@@ -221,6 +222,11 @@
   th {
     font-size: 16px;
     width: 50%;
+
+    em {
+      font-weight: normal;
+      font-size: 1rem;
+    }
   }
 
   th:first-child {
