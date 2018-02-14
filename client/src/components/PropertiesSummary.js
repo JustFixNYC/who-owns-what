@@ -80,7 +80,7 @@ export default class PropertiesSummary extends Component {
                         {agg.rslossaddr.housenumber} {agg.rslossaddr.streetname}, {agg.rslossaddr.boro}
                       </b>
                     )}
-                    , which has lost <b>{agg.rslossaddr && agg.rslossaddr.rsdiff}</b> units in the past 10 years.
+                    , which has lost <b>{agg.rslossaddr && Math.abs(parseInt(agg.rslossaddr.rsdiff, 10))}</b> units in the past 10 years.
                   </p>
                   {agg.hasjustfix && (
                     <p className="text-justfix">
