@@ -118,12 +118,15 @@ export default class DetailView extends Component {
                           <label>Evictions</label>
                           { this.props.addr.evictions !== null ? this.props.addr.evictions : 'N/A' }
                         </td>
-                        <td title="The current number of rent stabilized apartments in this building (as of 2016). The &Delta; symbol (i.e. &quot;Change&quot;) represents how many RS apts have been lost or gained since 2007. These are estimated from the DOF Property Tax Bills.">
-                          <label>RS Units (&Delta;)</label>
-                          { this.props.addr.rsunits2016 !== null
-                            ? `${this.props.addr.rsunits2016} (${this.props.addr.rsdiff > 0 ? `+${this.props.addr.rsdiff}` : `${this.props.addr.rsdiff}`})`
-                            : 'N/A'
-                          }
+                        <td title="This tracks how rent stabilized units in the building have changed (i.e. &quot;&Delta;&quot;) from 2007 to 2016. If the number for 2016 is red, this means there has been a loss in stabilzied units! These counts are estimated from the DOF Property Tax Bills.">
+                          <label>&Delta; RS Units</label>
+                          <span className="text-light">{ this.props.addr.rsunits2007 !== null ? this.props.addr.rsunits2007 : 'N/A' }</span>
+                          <span>&#x21FE;</span>
+                          <span
+                            className={`${this.props.addr.rsunits2016 < this.props.addr.rsunits2007 ? 'text-danger' : ''}`}
+                            >
+                            { this.props.addr.rsunits2016 !== null ? this.props.addr.rsunits2016 : 'N/A' }
+                          </span>
                         </td>
                       </tr>
                     </tbody>

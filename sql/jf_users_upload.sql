@@ -17,6 +17,6 @@ CREATE TABLE justfix_users
 );
 COPY
     justfix_users(__v, address, advocateName, advocateOrg, advocateRole, bbl, boro, created, fullName, isRentStab, lat, lng, updated)
-FROM '/Users/dan/Desktop/users_020718_postgres.csv' DELIMITER ',' CSV HEADER;
+FROM '/Users/dan/Desktop/users_04082018_postgres.csv' DELIMITER ',' CSV HEADER;
 
 CREATE INDEX ON justfix_users (bbl);

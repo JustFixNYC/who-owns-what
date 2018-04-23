@@ -32,6 +32,9 @@ b, .text-bold {
 a.text-bold {
   color: darken($justfix-blue, 10%);
 }
+.text-light {
+  color: lighten($dark, 35%);
+}
 
 .text-justfix {
   color: $justfix-blue;
