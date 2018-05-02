@@ -18,7 +18,7 @@ const AboutPage = () => {
           <br />
           <h4>Who are we</h4>
           <p>
-            JustFix.nyc is a 501(c)3 non-profit that builds data-driven tools for tenants and organizers fighting displacement in New York. Our goal is safe and healthy homes for all. For more info, check out our <a href="https://drive.google.com/open?id=1reYIFdVe6vuN6j2Jirw-YCboTIUmcd5L" target="_blank">2017 annual report</a> or go to <a href="https://www.justfix.nyc" target="_blank">www.justfix.nyc</a>.
+            JustFix.nyc is a 501(c)3 non-profit that builds data-driven tools for tenants and organizers fighting displacement in New York. Our goal is safe and healthy homes for all. For more info, go to <a href="https://www.justfix.nyc" target="_blank">www.justfix.nyc</a>.
           </p>
           <br />
           <h4>Credits</h4>

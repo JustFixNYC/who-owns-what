@@ -16,8 +16,6 @@ class HomePage extends Component {
     super(props);
 
     this.state = {
-
-
       searchAddress: {
         housenumber: '',
         streetname: '',
@@ -27,29 +25,34 @@ class HomePage extends Component {
     };
   }
 
-  handleFormSubmit = (searchAddress) => {
+  handleFormSubmit = (searchAddress, error) => {
 
     // set state (mainly to show addr on load)
     this.setState({
       searchAddress: searchAddress
     });
 
-    // searching on HomePage allows for more clean redirects
-    // as opposed to HomePage > AddressPage > NotRegisteredPage
-    APIClient.searchAddress(searchAddress)
-      .then(results => {
-        console.log(results);
-        this.setState({
-          results: results
-        });
-      })
-      .catch(err => {
-        console.log(err);
-        this.setState({
-          results: { addrs: [] }
-        });
+    if(error) {
+      this.setState({
+        results: { addrs: [] }
       });
+    } else {
 
+      // searching on HomePage allows for more clean redirects
+      // as opposed to HomePage > AddressPage > NotRegisteredPage
+      APIClient.searchAddress(searchAddress)
+        .then(results => {
+          this.setState({
+            results: results
+          });
+        })
+        .catch(err => {
+          this.setState({
+            results: { addrs: [] }
+          });
+        });
+
+    }
   }
 
   render() {
@@ -64,6 +67,7 @@ class HomePage extends Component {
 
       // no addrs = not found
       if(!this.state.results.addrs.length) {
+        Rollbar.error("Address not found", searchAddress);
         return (
           <Redirect to={{
             pathname: '/not-found',

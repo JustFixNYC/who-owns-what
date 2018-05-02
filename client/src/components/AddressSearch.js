@@ -11,23 +11,52 @@ const AddressSearch = (props) => {
   );
 
   const handleGeosuggest = (suggest) => {
-    const components = suggest.gmaps.address_components;
 
-    const housenumber = components.find(e => e.types.indexOf('street_number') !== -1).long_name;
+    let error = false;
 
-    const streetnameSuffix = /(.+)(\d+)(TH|RD|ND|ST) (.+)$/g;
+    let housenumber, streetname, boro;
+    const formatted_address = suggest.gmaps.formatted_address;
 
-    // our system doesn't mess around with 34rd, 61st, 12th, etc. so we just grab the number
-    let streetname = components.find(e => e.types.indexOf('route') !== -1).long_name.toUpperCase();
-    if (streetnameSuffix.test(streetname)) {
-      streetname = streetname.replace(streetnameSuffix, "$1$2 $4");
+    if(!suggest.gmaps.address_components) {
+      error = true;
+    } else {
+
+      const components = suggest.gmaps.address_components;
+
+
+      const housenumberObj = components.find(e => e.types.indexOf('street_number') !== -1);
+      if(!housenumberObj) {
+        error = true;
+      } else {
+        housenumber = housenumberObj.long_name;
+      }
+
+      const streetnameSuffix = /(.+)(\d+)(TH|RD|ND|ST) (.+)$/g;
+
+      // our system doesn't mess around with 34rd, 61st, 12th, etc. so we just grab the number
+      const streetnameObj = components.find(e => e.types.indexOf('route') !== -1);
+      if(!streetnameObj) {
+        error = true;
+      } else {
+        streetname = streetnameObj.long_name.toUpperCase();
+
+        if(streetnameSuffix.test(streetname)) {
+          streetname = streetname.replace(streetnameSuffix, "$1$2 $4");
+        }
+      }
+
+      const boroObj = components.find(e => e.types.indexOf('sublocality_level_1') !== -1);
+      if(!boroObj) {
+        error = true;
+      } else {
+        boro = boroObj.long_name.toUpperCase();
+      }
+
     }
 
-    let boro = components.find(e => e.types.indexOf('sublocality_level_1') !== -1);
-    if(boro) boro = boro.long_name.toUpperCase();
 
 
-    props.onFormSubmit({ housenumber, streetname, boro });
+    props.onFormSubmit({ housenumber, streetname, boro, formatted_address }, error);
   }
 
   return (
