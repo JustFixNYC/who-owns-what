@@ -77,6 +77,7 @@ class HomePage extends Component {
 
       // lets redirect to AddressPage and pass the results along with us
       } else {
+        window.Rollbar.info("Address found!", searchAddress);
         return (
           <Redirect to={{
             pathname: `/address/${this.state.searchAddress.boro}/${this.state.searchAddress.housenumber}/${this.state.searchAddress.streetname}`,
