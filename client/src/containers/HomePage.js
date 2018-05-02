@@ -67,7 +67,7 @@ class HomePage extends Component {
 
       // no addrs = not found
       if(!this.state.results.addrs.length) {
-        Rollbar.error("Address not found", searchAddress);
+        window.Rollbar.error("Address not found", searchAddress);
         return (
           <Redirect to={{
             pathname: '/not-found',
