@@ -17,7 +17,7 @@ const AddressSearch = (props) => {
     let housenumber, streetname, boro;
     const formatted_address = suggest.gmaps.formatted_address;
 
-    if(!suggest.gmaps.address_components) {
+    if(!suggest.gmaps || !suggest.gmaps.address_components) {
       error = true;
     } else {
 
