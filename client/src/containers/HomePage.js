@@ -77,7 +77,7 @@ class HomePage extends Component {
 
       // lets redirect to AddressPage and pass the results along with us
       } else {
-        ga('send', 'event', 'Search', 'search-found');
+        window.ga('send', 'event', 'Search', 'search-found');
         return (
           <Redirect to={{
             pathname: `/address/${this.state.searchAddress.boro}/${this.state.searchAddress.housenumber}/${this.state.searchAddress.streetname}`,
