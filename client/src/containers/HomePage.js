@@ -32,10 +32,15 @@ class HomePage extends Component {
       searchAddress: searchAddress
     });
 
+    window.gtag('event', 'search');
+
     if(error) {
+
+      window.gtag('event', 'search-error');
       this.setState({
         results: { addrs: [] }
       });
+
     } else {
 
       // searching on HomePage allows for more clean redirects
@@ -47,6 +52,7 @@ class HomePage extends Component {
           });
         })
         .catch(err => {
+          window.Rollbar.error("API error", err, searchAddress);
           this.setState({
             results: { addrs: [] }
           });
@@ -67,7 +73,7 @@ class HomePage extends Component {
 
       // no addrs = not found
       if(!this.state.results.addrs.length) {
-        window.Rollbar.error("Address not found", searchAddress);
+        window.gtag('event', 'search-notfound');
         return (
           <Redirect to={{
             pathname: '/not-found',
@@ -77,7 +83,7 @@ class HomePage extends Component {
 
       // lets redirect to AddressPage and pass the results along with us
       } else {
-        window.ga('send', 'event', 'Search', 'search-found');
+        window.gtag('event', 'search-found');
         return (
           <Redirect to={{
             pathname: `/address/${this.state.searchAddress.boro}/${this.state.searchAddress.housenumber}/${this.state.searchAddress.streetname}`,

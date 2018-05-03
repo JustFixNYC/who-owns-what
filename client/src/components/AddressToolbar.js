@@ -53,7 +53,7 @@ export default class AddressToolbar extends Component {
           <p>This will export <b>{this.props.numOfAssocAddrs}</b> addresses associated with the landlord at <b>{this.props.userAddr.housenumber} {this.props.userAddr.streetname}, {this.props.userAddr.boro}</b>!</p>
           <p>This data is in <u>CSV file format</u>, which can easily be used in Excel, Google Sheets, or any other spreadsheet program.</p>
           <br />
-          <button className="btn centered" onClick={this.props.onExportClick}>Download</button>
+          <button className="btn centered" onClick={() => { window.gtag('event', 'export-data'); this.props.onExportClick(); }}>Download</button>
         </Modal>
       </div>
     );

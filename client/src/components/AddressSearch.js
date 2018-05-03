@@ -54,7 +54,9 @@ const AddressSearch = (props) => {
 
     }
 
-
+    if(error) {
+      window.Rollbar.error("Address not found", { housenumber, streetname, boro, formatted_address });
+    }
 
     props.onFormSubmit({ housenumber, streetname, boro, formatted_address }, error);
   }
