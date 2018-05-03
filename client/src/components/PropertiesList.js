@@ -124,19 +124,24 @@ const PropertiesList = (props) => {
             //   }
             // }
             {
-              Header: 'Rent Stab',
+              Header: 'RS Units',
               columns: [
                 {
-                  Header: "RS Units",
-                  accessor: "rsunits2016",
+                  Header: "2007",
+                  accessor: "rsunits2007",
                   maxWidth: 75
                 },
                 {
-                  Header: "Change",
-                  accessor: "rsdiff",
-                  Cell: row => row.value ? row.value > 0 ? `+${row.value}` : `${row.value}` : '',
+                  Header: "2016",
+                  accessor: "rsunits2016",
+                  Cell: row => {
+                    return (
+                      <span className={`${row.original.rsunits2016 < row.original.rsunits2007 ? 'text-danger' : ''}`}
+                        >{row.original.rsunits2016}
+                      </span>
+                    );
+                  },
                   maxWidth: 75
-                  // accessor: d => d.rsdiff > 0 ? `+${d.rsdiff}`: `${d.rsdiff}`
                 }
               ]
             },

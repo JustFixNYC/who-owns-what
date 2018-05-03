@@ -120,7 +120,7 @@ export default class DetailView extends Component {
                         </td>
                         <td title="This tracks how rent stabilized units in the building have changed (i.e. &quot;&Delta;&quot;) from 2007 to 2016. If the number for 2016 is red, this means there has been a loss in stabilzied units! These counts are estimated from the DOF Property Tax Bills.">
                           <label>&Delta; RS Units</label>
-                          <span className="text-light">{ this.props.addr.rsunits2007 !== null ? this.props.addr.rsunits2007 : 'N/A' }</span>
+                          <span>{ this.props.addr.rsunits2007 !== null ? this.props.addr.rsunits2007 : 'N/A' }</span>
                           <span>&#x21FE;</span>
                           <span
                             className={`${this.props.addr.rsunits2016 < this.props.addr.rsunits2007 ? 'text-danger' : ''}`}
