@@ -40,6 +40,7 @@ export default class AddressPage extends Component {
 
     // Otherwise they navigated directly to this url, so lets fetch it
     } else {
+      window.gtag('event', 'direct-link');
       APIClient.searchAddress(this.state.searchAddress)
         .then(results => {
           this.handleResults(results);
