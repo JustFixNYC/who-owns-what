@@ -23,7 +23,6 @@ const AddressSearch = (props) => {
 
       const components = suggest.gmaps.address_components;
 
-
       const housenumberObj = components.find(e => e.types.indexOf('street_number') !== -1);
       if(!housenumberObj) {
         error = true;
@@ -55,7 +54,7 @@ const AddressSearch = (props) => {
     }
 
     if(error) {
-      window.Rollbar.error("Address not found", { housenumber, streetname, boro, formatted_address });
+      window.Rollbar.error("Address formatting error", { housenumber, streetname, boro, formatted_address });
     }
 
     props.onFormSubmit({ housenumber, streetname, boro, formatted_address }, error);
