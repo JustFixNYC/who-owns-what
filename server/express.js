@@ -3,7 +3,7 @@ const path = require('path');
 const logger = require('morgan');
 const bodyParser = require('body-parser');
 const Rollbar = require('rollbar');
-const rollbar = new Rollbar({
+const rollbar = Rollbar.init({
   accessToken: process.env.ROLLBAR_ACCESS_TOKEN,
   captureUncaught: true,
   captureUnhandledRejections: true
