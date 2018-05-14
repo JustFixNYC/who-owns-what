@@ -72,7 +72,7 @@ class HomePage extends Component {
       const searchAddress = this.state.searchAddress;
 
       // no addrs = not found
-      if(!this.state.results.addrs.length) {
+      if(!this.state.results.addrs || !this.state.results.addrs.length) {
         window.gtag('event', 'search-notfound');
         return (
           <Redirect to={{
