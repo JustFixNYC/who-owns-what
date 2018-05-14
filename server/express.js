@@ -2,7 +2,15 @@ const express = require('express');
 const path = require('path');
 const logger = require('morgan');
 const bodyParser = require('body-parser');
+const Rollbar = require('rollbar');
+const rollbar = new Rollbar({
+  accessToken: process.env.ROLLBAR_ACCESS_TOKEN,
+  captureUncaught: true,
+  captureUnhandledRejections: true
+});
+
 const routes = require('./routes');
+
 
 // Set up the express app
 const app = express();
@@ -24,5 +32,8 @@ app.use('/api', routes);
 app.get('*', function(req, res) {
   res.sendFile(path.resolve(__dirname + '/../client/build/index.html'));
 });
+
+// Use the rollbar error handler to send exceptions to your rollbar account
+app.use(rollbar.errorHandler());
 
 module.exports = app;
