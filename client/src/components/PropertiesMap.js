@@ -186,6 +186,14 @@ export default class PropertiesMap extends Component {
               { selectedAddr }
             </Layer>
           </Map>
+          <div className="PropertiesMap__legend">
+            <p>Legend</p>
+            <ul>
+              <li>your address</li>
+              <li>associated building</li>
+              <li>assoc. building w/ JustFix case</li>
+            </ul>
+          </div>
           <div className="PropertiesMap__prompt">
             <p><i>(click on a building to view details)</i></p>
           </div>
