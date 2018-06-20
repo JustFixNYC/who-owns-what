@@ -12,10 +12,6 @@ function getAddressExport(q) {
     .then(checkStatus);
 }
 
-function searchForJFXUsers(bbls) {
-  return post('https://beta.justfix.nyc/api/data/bblslookup', { bbls: bbls });
-}
-
 function get(url) {
   return fetch(url, { accept: "application/json" })
     .then(checkStatus)

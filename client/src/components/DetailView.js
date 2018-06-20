@@ -84,7 +84,7 @@ export default class DetailView extends Component {
                   }
                 </div>
                 <div className="card-body">
-                  { this.props.hasJustFixUsers &&
+                  { this.props.addr.hasjustfix &&
                     <p className="text-bold text-justfix">
                       This building has at least one active JustFix.nyc user! <a href={`mailto:support@justfix.nyc?subject=Outreach request for ${this.props.addr.housenumber} ${this.props.addr.streetname}, ${this.props.addr.boro}`} target="_blank">Click here</a> to get connected.
                     </p>

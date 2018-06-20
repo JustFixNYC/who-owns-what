@@ -25,7 +25,6 @@ export default class AddressPage extends Component {
       geoclient: {},
       assocAddrs: [],
       detailAddr: null,
-      detailHasJustFixUsers: false,
       currentTab: 0
     };
   }
@@ -75,12 +74,6 @@ export default class AddressPage extends Component {
       detailAddr: addr,
       currentTab: 0
     });
-
-    APIClient.searchForJFXUsers([addr.bbl]).then(res => {
-      this.setState({
-        detailHasJustFixUsers: res.hasJustFixUsers
-      })
-    });
   }
 
   handleCloseDetail = () => {
@@ -102,8 +95,6 @@ export default class AddressPage extends Component {
 
       const geoclient = this.state.geoclient;
       const searchAddress = this.state.searchAddress;
-
-      console.log('wtf?');
 
       return (
         <Redirect to={{
@@ -151,7 +142,6 @@ export default class AddressPage extends Component {
           <DetailView
             addr={this.state.detailAddr}
             userAddr={this.state.userAddr}
-            hasJustFixUsers={this.state.detailHasJustFixUsers}
             onCloseDetail={this.handleCloseDetail}
           />
         </div>
