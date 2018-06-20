@@ -1,6 +1,10 @@
 /* eslint-disable no-undef */
 function searchAddress(q) {
-  return get(`/api/address?housenumber=${q.housenumber}&streetname=${q.streetname}&boro=${q.boro}`);
+  return get(`/api/address?houseNumber=${q.housenumber}&street=${q.streetname}&borough=${q.boro}`);
+}
+
+function searchBBL(q) {
+  return get(`/api/address?block=${q.block}&lot=${q.lot}&borough=${q.boro}`);
 }
 
 function getAggregate(bbl) {
@@ -8,7 +12,7 @@ function getAggregate(bbl) {
 }
 
 function getAddressExport(q) {
-  return fetch(`/api/address/export?housenumber=${q.housenumber}&streetname=${q.streetname}&boro=${q.boro}`)
+  return fetch(`/api/address/export?houseNumber=${q.housenumber}&street=${q.streetname}&borough=${q.boro}`)
     .then(checkStatus);
 }
 
@@ -49,8 +53,8 @@ function parseJSON(response) {
 
 const Client = {
   searchAddress,
+  searchBBL,
   getAggregate,
-  getAddressExport,
-  searchForJFXUsers
+  getAddressExport
 };
 export default Client;

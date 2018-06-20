@@ -19,6 +19,7 @@ RETURNS TABLE (
   rslossaddr json,
   violationsaddr json,
   hasjustfix boolean
+  -- , countjustfix bigint
 ) AS $$
   SELECT
     count(distinct registrationid) as bldgs,
@@ -77,6 +78,9 @@ RETURNS TABLE (
 
     -- perform a boolean OR to see if at least one property in the portfolio has justfix
     bool_or(hasjustfix) as hasjustfix
+
+    -- ,
+    -- count(CASE WHEN hasjustfix THEN 1 END) as countjustfix
 
   FROM get_assoc_addrs_from_bbl(_bbl) assocbldgs
 $$ LANGUAGE SQL;

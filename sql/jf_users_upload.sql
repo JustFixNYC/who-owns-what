@@ -13,10 +13,11 @@ CREATE TABLE justfix_users
     isRentStab boolean,
     lat numeric,
     lng numeric,
+    phone text,
     updated timestamp
 );
 COPY
-    justfix_users(__v, address, advocateName, advocateOrg, advocateRole, bbl, boro, created, fullName, isRentStab, lat, lng, updated)
-FROM '/Users/dan/Desktop/users_05082018_postgres.csv' DELIMITER ',' CSV HEADER;
+    justfix_users(__v, address, advocateName, advocateOrg, advocateRole, bbl, boro, created, fullName, isRentStab, lat, lng, phone, updated)
+FROM '/Users/dan/Desktop/users_06152018_postgres.csv' DELIMITER ',' CSV HEADER;
 
 CREATE INDEX ON justfix_users (bbl);

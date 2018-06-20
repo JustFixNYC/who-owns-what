@@ -67,7 +67,7 @@ export default class NotRegisteredPage extends Component {
             ) : searchAddress.housenumber ? (
               <span> for <u>{searchAddress.housenumber} {searchAddress.streetname}</u></span>
             ) : (
-              <span> for that address</span>
+              <span></span>
             )}!
           </h5>
           { geoclient && geoclient.latitude && geoclient.longitude &&

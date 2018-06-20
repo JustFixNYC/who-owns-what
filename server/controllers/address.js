@@ -4,26 +4,32 @@ const db = require('../services/db'),
       rollbar = require('rollbar');
       Promise = require('bluebird');
 
+const formatData = (geo) => {
+  // debug
+  // const geo = { address: { bbl: '3012380016', geosupportReturnCode: '00' } };
+  // console.dir(geo.address, {depth: null, colors: true});
+
+  const result = geo.address || geo.bbl;
+
+  if((result.geosupportReturnCode == '00' || result.geosupportReturnCode == '01') && result.bbl) {
+    return Promise.all([
+      result,                          // we already have this value
+      db.queryAddress(result.bbl)
+    ]);
+  } else {
+    throw new Error('[geoclient] Address not found');
+  }
+}
+
 const getDataAndFormat = (query) => {
 
-  const { housenumber, streetname, boro } = query;
-
-  return geo.request(housenumber, streetname, boro)
-    .then(geo => {
-
-      // debug
-      // const geo = { address: { bbl: '3012380016', geosupportReturnCode: '00' } };
-      // console.dir(geo.address, {depth: null, colors: true});
-      if((geo.address.geosupportReturnCode == '00' || geo.address.geosupportReturnCode == '01') && geo.address.bbl) {
-        return Promise.all([
-          geo.address,                          // we already have this value
-          db.queryAddress(geo.address.bbl)
-        ]);
-      } else {
-        throw new Error('[geoclient] Address not found');
-      }
-    });
-
+  if(query.houseNumber && query.street && query.borough) {
+    return geo.requestAddress(query).then(formatData);
+  } else if(query.block && query.lot && query.borough) {
+    return geo.requestBBL(query).then(formatData);
+  } else {
+    throw new Error('API query param mismatch');
+  }
 };
 
 module.exports = {
