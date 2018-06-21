@@ -11,16 +11,28 @@
   background-color: $background;
 
   display: flex;
+  justify-content: space-between;
+  position: relative;
 
   & > a,a:hover,a:focus {
     text-decoration: none !important;
   }
 
-  h4 {
-    margin-bottom: 0;
-    color: $dark;
-    font-weight: bold;
+  & > a {
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    h4 {
+      margin-bottom: 0;
+      color: $dark;
+      font-weight: bold;
+    }
+
   }
+
 
   nav {
     margin-left: auto;

@@ -79,6 +79,9 @@ sup .tooltip:after {
 
 .btn:not(.btn-link) {
   @include button();
+
+  padding: 0.7rem .8rem;
+  height: auto;
 }
 
 .btn.btn-primary {
