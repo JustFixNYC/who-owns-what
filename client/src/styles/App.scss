@@ -56,7 +56,8 @@
 .App__body {
   // height: 100%;
   flex: 1;
-  overflow: scroll;
+  -ms-overflow-style: -ms-autohiding-scrollbar;
+  overflow: auto;
 }
 
 div.Page {
