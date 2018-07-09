@@ -42,7 +42,7 @@
     width: 100%;
     overflow-y: scroll;
     @include scrollbar();
-
+    -ms-overflow-style: scrollbar;
   }
 
   .DetailView__close {
@@ -115,14 +115,14 @@
       border-spacing: 0;
       width: 100%;
 
-      tr {
+      .table-row {
         display: flex;
 
         &:not(:last-child) {
           border-bottom: 1px solid $gray-dark;
         }
 
-        td {
+        div {
           flex: 1;
           padding-bottom: 3px;
           // width: 25%;
@@ -130,10 +130,10 @@
           &.double {
             // width: 50%;
             flex: 2;
-            padding-left: 4px;
+            padding-left: 2px;
 
             label {
-              margin-left: -3px;
+              margin-left: -2px;
             }
           }
 

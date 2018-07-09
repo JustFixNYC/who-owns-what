@@ -89,36 +89,35 @@ export default class DetailView extends Component {
                       This building has at least one active JustFix.nyc user! <a href={`mailto:support@justfix.nyc?subject=Outreach request for ${this.props.addr.housenumber} ${this.props.addr.streetname}, ${this.props.addr.boro}`} target="_blank">Click here</a> to get connected.
                     </p>
                   }
-                  <table className="card-body-table">
-                    <tbody>
-                      <tr>
-                        <td className="double" title="This is the official identifer for the building according to the Dept. of Finance tax records.">
+                  <div className="card-body-table">
+                      <div className="table-row">
+                        <div className="double" title="This is the official identifer for the building according to the Dept. of Finance tax records.">
                           <label>Boro-Block-Lot (BBL)</label>
                           {boro}-{block}-{lot}
-                        </td>
-                        <td title="The year that this building was originally constructed, according to the Dept. of City Planning.">
+                        </div>
+                        <div title="The year that this building was originally constructed, according to the Dept. of City Planning.">
                           <label>Year Built</label>
                           { this.props.addr.yearbuilt !== 0 ?  this.props.addr.yearbuilt : 'N/A' }
-                        </td>
-                        <td title="The number of residential units in this building, according to the Dept. of City Planning.">
+                        </div>
+                        <div title="The number of residential units in this building, according to the Dept. of City Planning.">
                           <label>Units</label>
                           { this.props.addr.unitsres }
-                        </td>
-                      </tr>
-                      <tr>
-                        <td title="The number of open HPD violations for this building, updated monthly. Click the HPD Complaints/Violations button for the most up-to-date information.">
+                        </div>
+                      </div>
+                      <div className="table-row">
+                        <div title="The number of open HPD violations for this building, updated monthly. Click the HPD Complaints/Violations button for the most up-to-date information.">
                           <label>Open Violations</label>
                           { this.props.addr.openviolations }
-                        </td>
-                        <td  title="This represents the total number of HPD Violations (both open & closed) filed since 2015.">
+                        </div>
+                        <div  title="This represents the total number of HPD Violations (both open & closed) filed since 2015.">
                           <label>Total Violations</label>
                           { this.props.addr.totalviolations }
-                        </td>
-                        <td title="Eviction filings (not judgements) made in housing court from January 2013 to June 2015. This information was provided by the Office of the Public Advocate.">
+                        </div>
+                        <div title="Eviction filings (not judgements) made in housing court from January 2013 to June 2015. This information was provided by the Office of the Public Advocate.">
                           <label>Evictions</label>
                           { this.props.addr.evictions !== null ? this.props.addr.evictions : 'N/A' }
-                        </td>
-                        <td title="This tracks how rent stabilized units in the building have changed (i.e. &quot;&Delta;&quot;) from 2007 to 2016. If the number for 2016 is red, this means there has been a loss in stabilzied units! These counts are estimated from the DOF Property Tax Bills.">
+                        </div>
+                        <div title="This tracks how rent stabilized units in the building have changed (i.e. &quot;&Delta;&quot;) from 2007 to 2016. If the number for 2016 is red, this means there has been a loss in stabilzied units! These counts are estimated from the DOF Property Tax Bills.">
                           <label>&Delta; RS Units</label>
                           <span>{ this.props.addr.rsunits2007 !== null ? this.props.addr.rsunits2007 : 'N/A' }</span>
                           <span>&#x21FE;</span>
@@ -127,10 +126,9 @@ export default class DetailView extends Component {
                             >
                             { this.props.addr.rsunits2016 !== null ? this.props.addr.rsunits2016 : 'N/A' }
                           </span>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
+                        </div>
+                      </div>
+                  </div>
                   <span className="float-right"><i>(hover over a box to learn more)</i></span>
                   <div className="card-body-landlord">
                       <div className="columns">
