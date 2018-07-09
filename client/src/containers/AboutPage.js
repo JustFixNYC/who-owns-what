@@ -12,6 +12,14 @@ const AboutPage = () => {
           <p>
             With this website, we hope to provide a new tool that demystifies who your landlord is and the other buildings that they “own” (we use this term in quotations because <u>real estate doesn't own NYC</u>). Once you search for your address, we use a common business address of your building’s shell companies (and other data analysis) to find other buildings that are associated with your landlord or management company. Remember: knowledge is power! Use this tool to know your neighbors, organize in solidarity, and build tenant power.
           </p>
+
+          <p>
+            When a landlord buys a building, they will use a shell company, or Limited Liability Corporation, in order to keep their anonymity and protect themselves from the repercussions of their actions. This lack of transparency prevents tenants and organizers from being able to connect the dots, organize, and take action around an entire landlord’s portfolio. Tenants who suffer from the same abusive landlords are left in the dark, oftentimes not even knowing that their neighbors down the block are dealing with the same issues.
+          </p>
+          <p>
+            With this website, we hope to provide a new tool that demystifies who your landlord is and the other buildings that they “own” (we use this term in quotations because <u>real estate doesn't own NYC</u>). Once you search for your address, we use a common business address of your building’s shell companies (and other data analysis) to find other buildings that are associated with your landlord or management company. Remember: knowledge is power! Use this tool to know your neighbors, organize in solidarity, and build tenant power.
+          </p>
+
           <p>
             With NYC ♥ from the team at JustFix.nyc
           </p>

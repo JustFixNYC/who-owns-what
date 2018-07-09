@@ -15,7 +15,7 @@ This site is built on top of the critical work done by [@aepyornis](https://gith
 Backend logic and data manipulation is largely handled by making calls to PostreSQL functions and prebuilding results into tables whenever possible to avoid complex queries made per-request. See the [hpd module](https://github.com/aepyornis/hpd/tree/master) of `nyc-db` for the SQL code that provides this functionality.
 
 #### Backend
-The backend of the app (`/server`) is a simple express build that connects to Postgres using `knex`. Given that we're making raw queries and are minimizing the need for an ORM, in the future we can probably just shift to `pg`.
+The backend of the app (`/server`) is a simple express build that connects to Postgres using `pg-promise`.
 
 #### Frontend
 The frontend of the app (`/client`) is built on top of [create-react-app](https://github.com/facebookincubator/create-react-app). See [`/client/README.md`](https://github.com/JustFixNYC/who-owns-what/blob/master/client/README.md) for all the info you might need.

@@ -2,11 +2,17 @@
 
 .App {
 
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
 
+  & > div {
+    box-sizing: border-box;
+  }
 }
 
 .App__header {
-  padding: 10px 15px;
+  padding: 15px;
   border-bottom: 1px solid $gray-light;
   background-color: $background;
 
@@ -47,8 +53,15 @@
 
 }
 
+.App__body {
+  // height: 100%;
+  flex: 1;
+  overflow: scroll;
+}
+
 div.Page {
   padding: 30px;
+
 
   h4 {
     text-decoration: underline;
