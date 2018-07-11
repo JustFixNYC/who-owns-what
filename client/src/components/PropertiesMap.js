@@ -63,7 +63,7 @@ export default class PropertiesMap extends Component {
         onStyleLoad: (map, _) => this.setState({ mapLoading: false, mapRef: map }),
         onMouseMove: (map, e) => this.handleMouseMove(map, e),
         fitBounds: [[-74.259087, 40.477398], [-73.700172, 40.917576]],
-        fitBoundsOptions: { padding: {top:50, bottom: 50, left: 200, right: 50 }, maxZoom: 20, offset: [-125, 0] }
+        fitBoundsOptions: { padding: {top:50, bottom: 50, left: 50, right: 50 }, maxZoom: 20, offset: [0, 0] }
       }
     }
 

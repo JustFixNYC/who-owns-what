@@ -16,6 +16,9 @@ $scroll-border: $gray-dark;
 $scroll-body: darken($background, 15%);
 
 @mixin scrollbar() {
+
+  -webkit-overflow-scrolling: touch;
+
   &::-webkit-scrollbar {
     width: 18px;
     background-color: #fff;
