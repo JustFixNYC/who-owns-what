@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import FileSaver from 'file-saver';
 import Helpers from 'util/helpers';
+import Browser from 'util/browser';
 
 import _find from 'lodash/find';
 
@@ -25,6 +26,7 @@ export default class AddressPage extends Component {
       geoclient: {},
       assocAddrs: [],
       detailAddr: null,
+      mobileSlideDetail: false,
       currentTab: 0
     };
   }
@@ -45,6 +47,7 @@ export default class AddressPage extends Component {
           this.handleResults(results);
         })
         .catch(err => {
+          console.error(err);
           this.setState({
             hasSearched: true,
             assocAddrs: []
@@ -72,13 +75,14 @@ export default class AddressPage extends Component {
   handleOpenDetail = (addr) => {
     this.setState({
       detailAddr: addr,
+      mobileSlideDetail: true,
       currentTab: 0
     });
   }
 
   handleCloseDetail = () => {
     this.setState({
-      detailAddr: null
+      mobileSlideDetail: false
     });
   }
 
@@ -141,6 +145,7 @@ export default class AddressPage extends Component {
           />
           <DetailView
             addr={this.state.detailAddr}
+            mobileShow={this.state.mobileSlideDetail}
             userAddr={this.state.userAddr}
             onCloseDetail={this.handleCloseDetail}
           />

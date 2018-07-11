@@ -17,6 +17,12 @@
   background-color: #ffffff;
   border-left: 1px solid $dark;
 
+  @include for-phone-only() {
+
+    position: absolute;
+    top: 0; right: 0;
+    transform: translateX(100%);
+  };
 
 
   &.slide-enter {

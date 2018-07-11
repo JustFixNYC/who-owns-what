@@ -6,6 +6,10 @@
   width: 65vw;
   height: 100%;
 
+  @include for-phone-only() {
+    width: 100%;
+  }
+
 
   // this allows DetailView__close to overlay the map
   position: relative;

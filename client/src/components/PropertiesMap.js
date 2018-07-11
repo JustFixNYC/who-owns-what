@@ -12,27 +12,34 @@ const Map = ReactMapboxGl({
   accessToken: 'pk.eyJ1IjoiZGFuLWthc3MiLCJhIjoiY2lsZTFxemtxMGVpdnVoa3BqcjI3d3Q1cCJ9.IESJdCy8fmykXbb626NVEw'
 });
 
+const MAP_STYLE = 'mapbox://styles/dan-kass/cj657o2qu601z2rqbp1jgiys5';
+
 const BASE_CIRCLE = {
   'circle-stroke-width': 1.25,
   'circle-radius': 6,
   'circle-color': '#FF9800',
-  'circle-opacity': 1,
+  'circle-opacity': 0.8,
   'circle-stroke-color': '#000000'
 };
 
-const ASSOC_CIRCLE_PAINT = {
+const DYNAMIC_ASSOC_PAINT = {
   ...BASE_CIRCLE,
-  'circle-opacity': 0.8
+  'circle-color': {
+    property: 'type',
+    type: 'categorical',
+    default: '#acb3c2',
+    stops: [
+      ['base', '#FF9800'],
+      ['justfix', '#0096d7'],
+      ['search', '#FF5722']
+    ]
+  }
 };
 
-const DETAIL_CIRCLE_PAINT = {
-  ...BASE_CIRCLE,
-  'circle-color': '#FF5722'
-};
-
-const USER_MARKER_PAINT = {
-  ...BASE_CIRCLE,
-  'circle-color': '#0096d7'
+const DYNAMIC_SELECTED_PAINT = {
+  ...DYNAMIC_ASSOC_PAINT,
+  'circle-stroke-color': '#d6d6d6',
+  'circle-opacity': 1
 };
 
 // due to the wonky way react-mapboxgl works, we can't just specify a center/zoom combo
@@ -47,18 +54,54 @@ export default class PropertiesMap extends Component {
 
     this.state = {
       mapLoading: true,
-      mapRef: null
+      mapRef: null,
+      addrsBounds: [[]]  // bounds are represented as a 2-dim array of lnglats
     }
 
-    this.mapDefaults = {
-      mapCenter: [-73.96270751953125, 40.7127],
-      mapZoom: [20],
-      bounds: [[-74.259087, 40.477398], [-73.700172, 40.917576]],
-      boundsOptions: { padding: {top:50, bottom: 50, left: 200, right: 50} }
+    // defaults
+    this.mapProps = {
+      style: MAP_STYLE,
+      containerStyle: { width: '100%', height: '100%' },
+      onStyleLoad: (map, _) => this.setState({ mapLoading: false, mapRef: map }),
+      onMouseMove: (map, e) => this.handleMouseMove(map, e),
+      fitBounds: [[-74.259087, 40.477398], [-73.700172, 40.917576]],
+      fitBoundsOptions: { padding: {top:50, bottom: 50, left: 200, right: 50}, maxZoom: 20, offset: [-125, 0] }
     };
   }
 
+  componentWillReceiveProps(nextProps) {
+
+    let addrsPos = new Set();
+
+    if(!this.props.addrs.length && nextProps.addrs.length) {
+
+      // if there aren't enough addrs to build a bounding box,
+      // just use the default one
+      if(nextProps.addrs.length === 1) {
+        this.setState({ addrsBounds: this.mapProps.fitBounds });
+        return;
+      }
+
+      // build a set of lnglats so we can calculate bounds
+      for(let i = 0; i < nextProps.addrs.length; i++) {
+        const addr = nextProps.addrs[i];
+        const pos = [parseFloat(addr.lng), parseFloat(addr.lat)];
+
+        if(!MapHelpers.latLngIsNull(pos)) {
+          addrsPos.add(pos);
+        }
+      }
+
+      // see getBoundingBox() for deets
+      const newAddrsBounds = MapHelpers.getBoundingBox(Array.from(addrsPos));
+      this.setState({ addrsBounds: newAddrsBounds });
+    }
+
+  }
+
   componentDidUpdate(prevProps, prevState) {
+    // is this necessary?
+    // meant to reconfigure after bring the tab back in focus
     if(!prevProps.isVisible && this.props.isVisible) {
       if(this.state.mapRef) this.state.mapRef.resize();
     }
@@ -75,99 +118,56 @@ export default class PropertiesMap extends Component {
 
 
   render() {
-    const light = 'mapbox://styles/dan-kass/cj5rsfld203472sqy1y0px42d';
-    const terminal = 'mapbox://styles/dan-kass/cj657o2qu601z2rqbp1jgiys5';
-    const terminal2 = 'mapbox://styles/dan-kass/cj65hlk5v69z42rql5xtunc5s';
-    const mapUrl = terminal;
 
     // defaults
-    let bounds = new Set();
-    let mapProps = {
-      style: mapUrl,
-      containerStyle: { width: '100%', height: '100%' },
-      onStyleLoad: (map, _) => this.setState({ mapLoading: false, mapRef: map }),
-      onMouseMove: (map, e) => this.handleMouseMove(map, e)
-    };
-
-
-    // cycle thru each addr and create a Feature for it
+    let mapProps = this.mapProps;
     let assocAddrs = [], selectedAddr = [];
-    for(let i = 0; i < this.props.addrs.length; i++) {
-
-      const addr = this.props.addrs[i];
-      const pos = [parseFloat(addr.lng), parseFloat(addr.lat)];
-
-      if(!MapHelpers.latLngIsNull(pos)) {
-
-        // this is only used for the default, "portfolio" view
-        bounds.add(pos);
 
 
-        // else if(this.props.detailAddr && Helpers.addrsAreEqual(addr, this.props.detailAddr)) {
-        //   detailAddr.push(<Feature key={i} coordinates={pos} />);
-        // }
+    if(this.props.addrs.length) {
+      // cycle thru each addr and create a Feature for it
 
-        let type;
-        if(Helpers.addrsAreEqual(addr, this.props.userAddr)) {
-          type = 'search';
-        } else if(addr.hasjustfix) {
-          type = 'justfix';
-        } else {
-          type = 'base';
+      for(let i = 0; i < this.props.addrs.length; i++) {
+
+        const addr = this.props.addrs[i];
+        const pos = [parseFloat(addr.lng), parseFloat(addr.lat)];
+
+        if(!MapHelpers.latLngIsNull(pos)) {
+
+          let type;
+          if(Helpers.addrsAreEqual(addr, this.props.userAddr)) {
+            type = 'search';
+          } else if(addr.hasjustfix) {
+            type = 'justfix';
+          } else {
+            type = 'base';
+          }
+
+          if(this.props.detailAddr && Helpers.addrsAreEqual(addr, this.props.detailAddr)) {
+            selectedAddr.push(<Feature key={i} properties={{ type: type }} coordinates={pos} />);
+          } else {
+            assocAddrs.push(
+              <Feature key={i} coordinates={pos} properties={{ type: type }} onClick={() => this.props.onOpenDetail(addr)} />
+            );
+          }
         }
+      }
 
-        if(this.props.detailAddr && Helpers.addrsAreEqual(addr, this.props.detailAddr)) {
-          selectedAddr.push(<Feature key={i} properties={{ type: type }} coordinates={pos} />);
-        } else {
-          assocAddrs.push(
-            <Feature key={i} coordinates={pos} properties={{ type: type }} onClick={() => this.props.onOpenDetail(addr)} />
-          );
-        }
+      // detail view
+      // this displays after a detail click (so not the search address) OR if only 1 addr is returned
+      // i.e. the search address is the only thing to look at
+      if(this.props.detailAddr && (!Helpers.addrsAreEqual(this.props.detailAddr, this.props.userAddr) || this.props.addrs.length == 1)) {
+        let minPos = [parseFloat(this.props.detailAddr.lng) - DETAIL_OFFSET, parseFloat(this.props.detailAddr.lat) - DETAIL_OFFSET];
+        let maxPos = [parseFloat(this.props.detailAddr.lng) + DETAIL_OFFSET, parseFloat(this.props.detailAddr.lat) + DETAIL_OFFSET];
+        mapProps.fitBounds = [minPos, maxPos];
+
+      // regular view
+      } else {
+        mapProps.fitBounds = this.state.addrsBounds;
       }
     }
 
-    const dynamic_assoc_paint = {
-      ...ASSOC_CIRCLE_PAINT,
-      'circle-color': {
-        property: 'type',
-        type: 'categorical',
-        default: '#acb3c2',
-        stops: [
-          ['base', '#FF9800'],
-          ['justfix', '#0096d7'],
-          ['search', '#FF5722']
-        ]
-      }
-    };
 
-    const dynamic_select_paint = {
-      ...dynamic_assoc_paint,
-      'circle-stroke-color': '#d6d6d6',
-      'circle-opacity': 1
-    };
-
-    // defaults. this seems to be necessary to est a base state
-    if(!this.props.addrs.length) {
-      mapProps.fitBounds = new MapboxGL.LngLatBounds(this.mapDefaults.bounds);
-      mapProps.center = mapProps.fitBounds.getCenter();
-
-    // detail view
-    // this displays after a detail click (so not the search address) OR if only 1 addr is returned
-    // i.e. the search address is the only thing to look at
-    } else if(this.props.detailAddr && (!Helpers.addrsAreEqual(this.props.detailAddr, this.props.userAddr) || this.props.addrs.length == 1)) {
-      let minPos = [parseFloat(this.props.detailAddr.lng) - DETAIL_OFFSET, parseFloat(this.props.detailAddr.lat) - DETAIL_OFFSET];
-      let maxPos = [parseFloat(this.props.detailAddr.lng) + DETAIL_OFFSET, parseFloat(this.props.detailAddr.lat) + DETAIL_OFFSET];
-      mapProps.fitBounds = new MapboxGL.LngLatBounds([minPos, maxPos]);
-      mapProps.fitBoundsOptions = { ...this.mapDefaults.boundsOptions, maxZoom: 20, offset: [-125, 0] };
-
-    // regular view
-    } else {
-      bounds = Array.from(bounds);
-      bounds = bounds.length > 1 ? bounds : this.mapDefaults.bounds;
-      bounds = MapHelpers.getBoundingBox(bounds);
-      mapProps.fitBounds = new MapboxGL.LngLatBounds(bounds);
-      mapProps.fitBoundsOptions = { ...this.mapDefaults.boundsOptions, maxZoom: 20, offset: [-125, 0] };
-    }
 
     return (
         <div className="PropertiesMap">
@@ -179,10 +179,10 @@ export default class PropertiesMap extends Component {
                 'backgroundColor': '#ffffff',
                 'borderColor': '#727e96'
               }} />
-            <Layer id="assoc" type="circle" paint={dynamic_assoc_paint}>
+            <Layer id="assoc" type="circle" paint={DYNAMIC_ASSOC_PAINT}>
               { assocAddrs }
             </Layer>
-            <Layer id="selected" type="circle" paint={dynamic_select_paint}>
+            <Layer id="selected" type="circle" paint={DYNAMIC_SELECTED_PAINT}>
               { selectedAddr }
             </Layer>
           </Map>
