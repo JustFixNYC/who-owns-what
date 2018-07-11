@@ -120,7 +120,7 @@ class HomePage extends Component {
                   <p>
                     This property management company owned by the Kushner family is notorious for <a href="https://www.nytimes.com/2017/08/15/business/tenants-sue-kushner-companies-claiming-rent-rule-violations.html" target="_blank">violating rent regulations</a> and <a href="https://www.villagevoice.com/2017/01/12/jared-kushners-east-village-tenants-horrified-their-landlord-will-be-working-in-the-white-house/" target="_blank">harassing tenants</a>. The stake currently held by Jared Kushner and Ivanka Trump is worth as much as $761 million.
                   </p>
-                  <Link className="btn block text-center" to="/address/BROOKLYN/89/HICKS%20STREET">View portfolio &#10142;</Link>
+                  <Link className="btn block text-center" to="/address/BROOKLYN/89/HICKS%20STREET">View portfolio &#10230;</Link>
                 </div>
               </div>
               <div className="column col-4">
@@ -130,7 +130,7 @@ class HomePage extends Component {
                   <p>
                     Yoel Goldman's All Year Management has been at the <a href="https://commercialobserver.com/2017/09/yoel-goldman-all-year-management-brooklyn-real-estate/" target="_blank">forefront of gentrification</a> in Brooklyn. Tenants in his buidlings in Williamsburg, Bushwick, and Crown Heights have been forced to live in horrendous and often dangerous conditions.
                   </p>
-                  <Link className="btn block text-center" to="/address/BROOKLYN/654/PARK%20PLACE">View portfolio &#10142;</Link>
+                  <Link className="btn block text-center" to="/address/BROOKLYN/654/PARK%20PLACE">View portfolio &#10230;</Link>
                 </div>
               </div>
               <div className="column col-4">
@@ -140,7 +140,7 @@ class HomePage extends Component {
                   <p>
                     Taking the #1 place in this year's <a href="http://landlordwatchlist.com/" target="_blank">Worst Landlord List</a>, Johnathan Cohen's buildings received over 1,000 HPD violations. Tenants in this portfolio were left "without heat, hot water or gas and surrounded by vermin, leaks and mold" for <a href="https://www.dnainfo.com/new-york/20170613/greenpoint/silvershore-properties-landlord-tenant-mold-mice-rats-hpd-dob" target="_blank">months</a> at a time.
                   </p>
-                  <Link className="btn block text-center" to="/address/BROOKLYN/196/KINGSLAND%20AVENUE">View portfolio &#10142;</Link>
+                  <Link className="btn block text-center" to="/address/BROOKLYN/196/KINGSLAND%20AVENUE">View portfolio &#10230;</Link>
                 </div>
               </div>
             </div>

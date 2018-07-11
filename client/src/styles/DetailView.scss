@@ -20,28 +20,52 @@
   @include for-phone-only() {
 
     position: absolute;
-    top: 0; right: 0;
+    top: 0; left: 0;
+    width: 100vw;
+
     transform: translateX(100%);
+    &.DetailView-enter {
+      transform: translateX(100%);
+      transition: transform 500ms ease-in-out;
+    }
+    &.DetailView-enter-active {
+      transform: translateX(0);
+    }
+    &.DetailView-enter-done {
+      transform: translateX(0);
+    }
+
+    &.DetailView-exit {
+      transform: translateX(0);
+      transition: transform 500ms ease-in-out;
+    }
+    &.DetailView-exit-active {
+      transform: translateX(100%);
+    }
+    &.DetailView-exit-done {
+      transform: translateX(100%);
+    }
   };
 
 
-  &.slide-enter {
-    margin-right: -$detailWidth;
-  }
 
-  &.slide-enter.slide-enter-active {
-    margin-right: 0;
-    transition: margin $detailAnimLengthMs cubic-bezier(0.215, 0.610, 0.355, 1.000);
-  }
-
-  &.slide-leave {
-    margin-right: 0;
-  }
-
-  &.slide-leave.slide-leave-active {
-    margin-right: -$detailWidth;
-    transition: margin $detailAnimLengthMs cubic-bezier(0.215, 0.610, 0.355, 1.000);
-  }
+  // &.slide-enter {
+  //   margin-right: -$detailWidth;
+  // }
+  //
+  // &.slide-enter.slide-enter-active {
+  //   margin-right: 0;
+  //   transition: margin $detailAnimLengthMs cubic-bezier(0.215, 0.610, 0.355, 1.000);
+  // }
+  //
+  // &.slide-leave {
+  //   margin-right: 0;
+  // }
+  //
+  // &.slide-leave.slide-leave-active {
+  //   margin-right: -$detailWidth;
+  //   transition: margin $detailAnimLengthMs cubic-bezier(0.215, 0.610, 0.355, 1.000);
+  // }
 
   .DetailView__wrapper {
     height: 100%;
@@ -88,6 +112,23 @@
       }
     }
 
+    .DetailView__mobilePortfolioView {
+      padding: 7px;
+
+      display: none;
+      @include for-phone-only() {
+        display: block;
+      };
+
+      button {
+        font-size: 16px;
+        span {
+          font-weight: bold;
+          text-decoration: underline;
+        }
+      }
+    }
+
 
     .card-header {
       padding-bottom: 2rem;
@@ -96,12 +137,17 @@
         margin-bottom: 0;
       }
 
+      // how is this bldg assoc
       a {
         margin-top: 0.3rem;
         margin-bottom: 0;
         text-decoration: underline;
         cursor: pointer;
         color: $dark;
+
+        @include for-phone-only() {
+          display: none;
+        };
       }
     }
 
@@ -112,7 +158,11 @@
 
     .card-body {
       padding-top: 0;
-      padding-right: 3rem;
+
+      @include for-tablet-portrait-up() {
+        padding-right: 3rem;
+      };
+
     }
 
     .card-body-table {

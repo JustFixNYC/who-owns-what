@@ -26,7 +26,7 @@ export default class AddressPage extends Component {
       geoclient: {},
       assocAddrs: [],
       detailAddr: null,
-      mobileSlideDetail: false,
+      detailMobileSlide: false,
       currentTab: 0
     };
   }
@@ -75,15 +75,21 @@ export default class AddressPage extends Component {
   handleOpenDetail = (addr) => {
     this.setState({
       detailAddr: addr,
-      mobileSlideDetail: true,
+      detailMobileSlide: true,
       currentTab: 0
     });
   }
 
   handleCloseDetail = () => {
     this.setState({
-      mobileSlideDetail: false
+      detailMobileSlide: false
     });
+
+    setTimeout(() => {
+      this.setState({
+        detailAddr: null
+      });
+    }, 500)
   }
 
   // should this properly live in AddressToolbar? you tell me
@@ -145,7 +151,7 @@ export default class AddressPage extends Component {
           />
           <DetailView
             addr={this.state.detailAddr}
-            mobileShow={this.state.mobileSlideDetail}
+            mobileShow={this.state.detailMobileSlide}
             userAddr={this.state.userAddr}
             onCloseDetail={this.handleCloseDetail}
           />

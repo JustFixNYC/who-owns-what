@@ -20,7 +20,7 @@
     "react-router-dom": "^4.1.2",
     "react-scripts": "1.0.10",
     "react-table": "^6.5.3",
-    "react-transition-group": "1.x",
+    "react-transition-group": "^2.2.1",
     "spectre.scss": "0.0.2"
   },
   "scripts": {

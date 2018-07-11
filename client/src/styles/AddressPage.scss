@@ -1,5 +1,7 @@
 @import '_vars.scss';
 @import '_tabs.scss';
+@import '_scrollbar.scss';
+
 
 .AddressPage {
   // height: calc(100vh - 68px);
@@ -62,9 +64,11 @@
   }
 
   .AddressPage__table {
-    overflow: scroll;
+    overflow-x: scroll;
   }
 
   .AddressPage__summary {
+    overflow-y: scroll;
+    @include scrollbar();
   }
 }

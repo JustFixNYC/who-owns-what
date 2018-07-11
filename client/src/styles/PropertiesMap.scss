@@ -84,6 +84,21 @@
         }
       }
     }
+
+    @include for-phone-only() {
+      width: 100%;
+      border-right: 1px solid #000;
+
+      ul li {
+        float: left;
+
+        &:nth-child(2) {
+          margin-top: 0;
+          margin-left: 15px;
+
+        }
+      }
+    };
   }
 
   .PropertiesMap__prompt {
@@ -101,5 +116,10 @@
       text-align: center;
       margin-bottom: 0;
     }
+
+    @include for-phone-only() {
+      width: 100%;
+      border-right: 1px solid #000;
+    };
   }
 }

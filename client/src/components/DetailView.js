@@ -29,8 +29,7 @@ export default class DetailView extends Component {
 
     // this says: if the component is getting the addr for the first time OR
     //            if the component already has an addr but is getting a new one
-    if((!prevProps.addr && this.props.addr) ||
-        (prevProps.addr && (prevProps.addr.bbl !== this.props.addr.bbl))) {
+    if( (!prevProps.addr && this.props.addr) || (prevProps.addr && this.props.addr && (prevProps.addr.bbl !== this.props.addr.bbl))) {
 
       let coordinates = new window.google.maps.LatLng(this.props.addr.lat, this.props.addr.lng);
       let streetViewService = new window.google.maps.StreetViewService();
@@ -58,19 +57,27 @@ export default class DetailView extends Component {
       if(this.props.userAddr.ownernames.length) userOwnernames = Helpers.uniq(this.props.userAddr.ownernames);
     }
 
+    const isMobile = Browser.isMobile();
+
     let showContent = Browser.isMobile() ? this.props.mobileShow : true;
 
     // console.log(showContent);
 
     return (
-
-        <div className="DetailView">
+      <CSSTransition in={!isMobile || this.props.mobileShow} timeout={500} classNames="DetailView">
+        <div className={`DetailView`}>
+        {/* <div className={`DetailView ${(!this.props.addr && isMobile) ? 'DetailView__hide' : 'DetailView__show'}`}> */}
           <div className="DetailView__wrapper">
               { this.props.addr &&
                 <div className="DetailView__card card">
+                  <div className="DetailView__mobilePortfolioView">
+                    <button onClick={() => this.props.onCloseDetail()}>
+                      &#10229; <span>View portfolio map</span>
+                    </button>
+                  </div>
                   <div className="card-image">
                     <StreetViewPanorama
-                      containerElement={<div style={{ width: `100%`, height: `300px` }} />}
+                      containerElement={<div style={{ width: `100%`, height: `${isMobile ? '150px' : '300px'}` }} />}
                       position={this.state.coordinates}
                       pov={{ heading: this.state.heading, pitch: 15 }}
                       zoom={0.5}
@@ -111,7 +118,7 @@ export default class DetailView extends Component {
                           </div>
                         </div>
                         <div className="table-row">
-                          <div title="The number of open HPD violations for this building, updated monthly. Click the HPD Complaints/Violations button for the most up-to-date information.">
+                          <div title="The number of open HPD violations for this building, updated monthly. Click the HPD Building Profile button below for the most up-to-date information.">
                             <label>Open Violations</label>
                             { this.props.addr.openviolations }
                           </div>
@@ -164,13 +171,13 @@ export default class DetailView extends Component {
                         <a href={`http://a836-acris.nyc.gov/bblsearch/bblsearch.asp?borough=${boro}&block=${block}&lot=${lot}`} target="_blank" className="btn btn-block">View documents on ACRIS &#8599;</a>
                       </div>
                       <div className="column col-lg-12 col-6">
-                        <a href={`http://webapps.nyc.gov:8084/CICS/fin1/find001i?FFUNC=C&FBORO=${boro}&FBLOCK=${block}&FLOT=${lot}`} target="_blank" className="btn btn-block">DOF Property Tax Bills &#8599;</a>
+                        <a href={`https://hpdonline.hpdnyc.org/HPDonline/Provide_address.aspx?p1=${boro}&p2=${this.props.addr.housenumber}&p3=${this.props.addr.streetname}&SearchButton=Search`} target="_blank" className="btn btn-block">HPD Building Profile &#8599;</a>
                       </div>
                       <div className="column col-lg-12 col-6">
                         <a href={`http://a810-bisweb.nyc.gov/bisweb/PropertyProfileOverviewServlet?boro=${boro}&block=${block}&lot=${lot}`} target="_blank" className="btn btn-block">DOB Building Profile &#8599;</a>
                       </div>
                       <div className="column col-lg-12 col-6">
-                        <a href={`https://hpdonline.hpdnyc.org/HPDonline/Provide_address.aspx?p1=${boro}&p2=${this.props.addr.housenumber}&p3=${this.props.addr.streetname}&SearchButton=Search`} target="_blank" className="btn btn-block">HPD Complaints/Violations &#8599;</a>
+                        <a href={`http://webapps.nyc.gov:8084/CICS/fin1/find001i?FFUNC=C&FBORO=${boro}&FBLOCK=${block}&FLOT=${lot}`} target="_blank" className="btn btn-block">DOF Property Tax Bills &#8599;</a>
                       </div>
                     </div>
                   </div>
@@ -240,8 +247,7 @@ export default class DetailView extends Component {
             }
           </div>
         </div>
-
+      </CSSTransition>
     );
-
   }
 }
