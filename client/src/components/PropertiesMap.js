@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ReactMapboxGl, { Layer, Feature, ZoomControl } from 'react-mapbox-gl';
 import * as MapboxGL from 'mapbox-gl';
 import Helpers from 'util/helpers';
+import Browser from 'util/browser';
 import MapHelpers from 'util/mapping';
 
 import Loader from 'components/Loader';
@@ -16,7 +17,7 @@ const MAP_STYLE = 'mapbox://styles/dan-kass/cj657o2qu601z2rqbp1jgiys5';
 
 const BASE_CIRCLE = {
   'circle-stroke-width': 1.25,
-  'circle-radius': 6,
+  'circle-radius': Browser.isMobile() ? 8 : 6,
   'circle-color': '#FF9800',
   'circle-opacity': 0.8,
   'circle-stroke-color': '#000000'
@@ -89,10 +90,10 @@ export default class PropertiesMap extends Component {
 
       // if there aren't enough addrs to build a bounding box,
       // just use the default one
-      if(nextProps.addrs.length === 1) {
-        this.setState({ addrsBounds: this.state.mapProps.fitBounds });
-        return;
-      }
+      // if(nextProps.addrs.length === 1) {
+      //   this.setState({ addrsBounds: this.state.mapProps.fitBounds });
+      //   return;
+      // }
 
       // cycle through addrs, adding them to the set and categorizing them
       nextProps.addrs.map((addr, i) => {

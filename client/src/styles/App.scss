@@ -32,7 +32,7 @@
       margin-bottom: 0;
       color: $dark;
       font-weight: bold;
-      font-size: 2.2rem;
+      font-size: 2rem;
     }
 
     @include for-tablet-portrait-up() {
@@ -71,6 +71,7 @@
   // height: 100%;
   flex: 1;
   -ms-overflow-style: -ms-autohiding-scrollbar;
+  -webkit-overflow-scrolling: touch;
   overflow: auto;
 }
 
@@ -87,4 +88,22 @@ div.Page {
     margin-bottom: 1.25rem;
   }
 
+}
+
+.Page__content {
+  @include for-tablet-portrait-up() {
+    p, h1, h2, h3, h4, h5, h6, ul {
+      width: 60%;
+      display: inline-block;
+    }
+
+    aside {
+      width: 38%;
+      float: right;
+
+      img {
+        margin: 0 auto;
+      }
+    }
+  };
 }

@@ -59,8 +59,6 @@ export default class DetailView extends Component {
 
     const isMobile = Browser.isMobile();
 
-    let showContent = Browser.isMobile() ? this.props.mobileShow : true;
-
     // console.log(showContent);
 
     return (

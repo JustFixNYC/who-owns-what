@@ -27,6 +27,13 @@ button, input[type="submit"], input[type="reset"] {
     outline: inherit;
 }
 
+.form-input {
+  @include for-phone-only() {
+    font-size: 16px;
+  };
+
+}
+
 a[href^="http://maps.google.com/maps"]{display:none !important}
 a[href^="https://maps.google.com/maps"]{display:none !important}
 

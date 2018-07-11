@@ -95,7 +95,7 @@ class HomePage extends Component {
 
 
     return (
-      <div>
+      <div className="HomePage">
         <div className="HomePage__search">
           { this.state.searchAddress.housenumber ? (
             <Loader loading={true} >Searching for <b>{this.state.searchAddress.housenumber} {this.state.searchAddress.streetname}, {this.state.searchAddress.boro}</b></Loader>
@@ -113,7 +113,7 @@ class HomePage extends Component {
           <h5 className="text-center">... or view some sample portfolios:</h5>
           <div className="container">
             <div className="columns">
-              <div className="column col-4">
+              <div className="column col-4 col-sm-12">
                 <div className="HomePage__sample">
                   <h6>Kushner Companies / Westminster Management</h6>
                   <img className="img-responsive" src={westminsterLogo} alt="Westminster" />
@@ -123,7 +123,7 @@ class HomePage extends Component {
                   <Link className="btn block text-center" to="/address/BROOKLYN/89/HICKS%20STREET">View portfolio &#10230;</Link>
                 </div>
               </div>
-              <div className="column col-4">
+              <div className="column col-4 col-sm-12">
                 <div className="HomePage__sample">
                   <h6>All Year Management</h6>
                   <img className="img-responsive" src={allyearLogo} alt="All Year" />
@@ -133,7 +133,7 @@ class HomePage extends Component {
                   <Link className="btn block text-center" to="/address/BROOKLYN/654/PARK%20PLACE">View portfolio &#10230;</Link>
                 </div>
               </div>
-              <div className="column col-4">
+              <div className="column col-4 col-sm-12">
                 <div className="HomePage__sample">
                   <h6>Silvershore Properties</h6>
                   <img className="silvershore img-responsive" src={silvershoreLogo} alt="Silvershore" />

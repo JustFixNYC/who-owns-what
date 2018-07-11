@@ -1,15 +1,30 @@
 @import '_vars.scss';
 
+.HomePage {
+  width: 85vw;
+  margin: 0 auto;
+
+  @include for-tablet-portrait-up() {
+    width: 65vw;
+  };
+}
+
 .HomePage__search {
-  width: 65vw;
-  margin: 75px auto 60px auto;
+
   background-color: $background;
   border: 1px solid $gray-dark;
+
+  margin: 75px auto 60px auto;
   padding: 35px;
+
+  @include for-phone-only() {
+    margin: 40px auto 40px auto;
+    padding: 20px;    
+  };
 }
 
 .HomePage__samples {
-  width: 65vw;
+
   margin: 0 auto 30px auto;
 
   .container {

@@ -6,6 +6,10 @@
 
   padding: 30px 60px 30px 30px;
 
+  @include for-phone-only() {
+    padding-right: 30px;
+  };
+
   .PropertiesSummary__content {
 
     h6 {
@@ -20,6 +24,9 @@
       margin-bottom: 2.4rem;
     }
 
+    aside img {
+      max-width: 300px;
+    }
   }
 
 }
