@@ -12,6 +12,7 @@
     "prop-types": "^15.5.10",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
+    "react-draggable": "^3.0.5",
     "react-geosuggest": "^2.3.6",
     "react-google-maps": "next",
     "react-leaflet": "^1.4.0",

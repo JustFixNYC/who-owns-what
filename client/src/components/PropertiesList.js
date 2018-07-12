@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactTable from 'react-table';
 import Helpers from 'util/helpers';
+import Browser from 'util/browser';
 
 import 'react-table/react-table.css';
 import 'styles/PropertiesList.css';
@@ -214,7 +215,7 @@ const PropertiesList = (props) => {
               ]
             }
           ]}
-          defaultPageSize={10}
+          defaultPageSize={Browser.isMobile() ? 5 : 10}
           style={{
             height: "100%"
           }}

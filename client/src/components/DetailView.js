@@ -140,7 +140,7 @@ export default class DetailView extends Component {
                           </div>
                         </div>
                     </div>
-                    <span className="float-right"><i>(hover over a box to learn more)</i></span>
+                    <span className="card-body-table-prompt float-right"><i>(hover over a box to learn more)</i></span>
                     <div className="card-body-landlord">
                         <div className="columns">
                           <div className="column col-xs-12 col-6">
@@ -183,7 +183,7 @@ export default class DetailView extends Component {
               }
               { this.props.addr && <Modal
                 showModal={this.state.showCompareModal}
-                width={60}
+                width={70}
                 onClose={() => this.setState({ showCompareModal: false })}>
                 <h6><b>How is this building associated?</b></h6>
                 <p>We compare your search address with a database of over 200k buildings to identify a landlord or management company's portfolio. To learn more, check out the <Link to="/how-it-works">How it Works page</Link>.</p>

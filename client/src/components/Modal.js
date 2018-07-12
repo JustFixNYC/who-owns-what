@@ -17,7 +17,7 @@ const Modal = (props) => {
     },
     content : {
       position                   : 'absolute',
-      top                        : '40%',
+      top                        : '50%',
       left                       : '50%',
       right                      : 'auto',
       bottom                     : 'auto',

@@ -20,8 +20,10 @@
   @include for-phone-only() {
 
     position: absolute;
-    top: 0; left: 0;
+    top: -32px; left: 0;
     width: 100vw;
+
+    border-top: 1px solid $dark;
 
     transform: translateX(100%);
     &.DetailView-enter {
@@ -231,6 +233,12 @@
 
 
       }
+    }
+
+    .card-body-table-prompt {
+      @include for-phone-only() {
+        display: none;
+      };
     }
 
     .card-body-landlord {

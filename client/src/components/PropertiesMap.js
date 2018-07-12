@@ -56,6 +56,7 @@ export default class PropertiesMap extends Component {
     this.state = {
       mapLoading: true,
       mapRef: null,
+      mobileLegendSlide: false,
       addrsBounds: [[]],  // bounds are represented as a 2d array of lnglats
       assocAddrs: [],    // array of Features
       mapProps: {
@@ -64,19 +65,9 @@ export default class PropertiesMap extends Component {
         onStyleLoad: (map, _) => this.setState({ mapLoading: false, mapRef: map }),
         onMouseMove: (map, e) => this.handleMouseMove(map, e),
         fitBounds: [[-74.259087, 40.477398], [-73.700172, 40.917576]],
-        fitBoundsOptions: { padding: {top:50, bottom: 50, left: 50, right: 50 }, maxZoom: 20, offset: [0, 0] }
+        fitBoundsOptions: { padding: { top:50, bottom: 50, left: 50, right: 50 }, maxZoom: 20, offset: [0, 0] }
       }
     }
-
-    // defaults
-    // this.mapProps = {
-    //   style: MAP_STYLE,
-    //   containerStyle: { width: '100%', height: '100%' },
-    //   onStyleLoad: (map, _) => this.setState({ mapLoading: false, mapRef: map }),
-    //   onMouseMove: (map, e) => this.handleMouseMove(map, e),
-    //   fitBounds: [[-74.259087, 40.477398], [-73.700172, 40.917576]],
-    //   fitBoundsOptions: { padding: {top:50, bottom: 50, left: 200, right: 50 }, maxZoom: 20, offset: [-125, 0] }
-    // };
   }
 
   componentWillReceiveProps(nextProps) {
@@ -140,7 +131,7 @@ export default class PropertiesMap extends Component {
       }, () => {
         // yeah, this sucks, but it seems to be more consistent with
         // getting mapbox to render properly. essentially wait another cycle before
-        // reframing the map
+        // re-bounding the map
         this.setState({
           mapProps: {
             ...this.state.mapProps,
@@ -191,7 +182,6 @@ export default class PropertiesMap extends Component {
     this.props.onOpenDetail(addr);
   }
 
-
   render() {
     return (
         <div className="PropertiesMap">
@@ -220,16 +210,18 @@ export default class PropertiesMap extends Component {
               )}
             </Layer>
           </Map>
-          <div className="PropertiesMap__legend">
-            <p>Legend</p>
+          <div className={`PropertiesMap__legend ${this.state.mobileLegendSlide ? 'PropertiesMap__legend--slide' : ''}`}
+              onClick={() => this.setState({ mobileLegendSlide: !this.state.mobileLegendSlide })}>
+            <p><span>Legend</span> <i>{this.state.mobileLegendSlide ? '▼' : '▲'}&#xFE0E;</i></p>
+
             <ul>
-              <li>your address</li>
+              <li>search address</li>
               <li>associated building</li>
               <li>assoc. building w/ JustFix case</li>
             </ul>
           </div>
           <div className="PropertiesMap__prompt">
-            <p><i>(click on a building to view details)</i></p>
+            <p><i>({Browser.isMobile() ? `tap` : `click`} on a building to view details)</i></p>
           </div>
         </div>
     );
