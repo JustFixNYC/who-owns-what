@@ -20,6 +20,9 @@ const App = () => {
   return (
     <Router>
       <div className="App">
+        <div className="App__warning old_safari_only">
+          <h3>Warning! This site doesn't fully work on older versions of Safari. Try a <a href="http://outdatedbrowser.com/en">modern browser</a>.</h3>
+        </div>
         <div className="App__header">
           <Link to="/">
             <h4>Who owns what in nyc?</h4>

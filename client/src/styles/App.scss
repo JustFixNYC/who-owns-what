@@ -11,6 +11,17 @@
   }
 }
 
+.App__warning {
+  padding: 30px 15px 15px 15px;
+  background-color: $dark;
+  color: #fff;
+  text-align: center;
+
+  a {
+    color: #fff;
+  }
+}
+
 .App__header {
   padding: 15px;
   border-bottom: 1px solid $gray-light;
@@ -73,6 +84,8 @@
   -ms-overflow-style: -ms-autohiding-scrollbar;
   -webkit-overflow-scrolling: touch;
   overflow: auto;
+
+  display: flex;
 }
 
 div.Page {

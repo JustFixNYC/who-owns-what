@@ -4,7 +4,7 @@
 
   display: inline-block;
   width: 65vw;
-  height: 100%;
+  // height: 100%;
 
   @include for-phone-only() {
     width: 100%;

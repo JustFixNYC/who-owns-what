@@ -43,3 +43,18 @@ a[href^="https://maps.google.com/maps"]{display:none !important}
 // .gmnoprint div {
 //     background:none !important;
 // }
+
+.old_safari_only {
+  display: none;
+}
+/* Safari 7.1+ */
+_::-webkit-full-page-media, _:future, :root .old_safari_only {
+  display: block;
+}
+/* Safari 11+ */
+@media not all and (min-resolution:.001dpcm)
+{ @supports (-webkit-appearance:none) and (stroke-color:transparent) {
+    .old_safari_only {
+      display: none;
+    }
+}}
