@@ -17,7 +17,7 @@ const MAP_STYLE = 'mapbox://styles/dan-kass/cj657o2qu601z2rqbp1jgiys5';
 
 const BASE_CIRCLE = {
   'circle-stroke-width': 1.25,
-  'circle-radius': Browser.isMobile() ? 8 : 6,
+  'circle-radius': 8,
   'circle-color': '#FF9800',
   'circle-opacity': 0.8,
   'circle-stroke-color': '#000000'
@@ -65,7 +65,7 @@ export default class PropertiesMap extends Component {
         onStyleLoad: (map, _) => this.setState({ mapLoading: false, mapRef: map }),
         onMouseMove: (map, e) => this.handleMouseMove(map, e),
         fitBounds: [[-74.259087, 40.477398], [-73.700172, 40.917576]],
-        fitBoundsOptions: { padding: { top:50, bottom: 50, left: 50, right: 50 }, maxZoom: 20, offset: [0, 0] }
+        fitBoundsOptions: { padding: { top:50, bottom: 50, left: 50, right: 50 }, maxZoom: 20, offset: [0, Browser.isMobile() ? -25 : 0] }
       }
     }
   }
@@ -212,7 +212,7 @@ export default class PropertiesMap extends Component {
           </Map>
           <div className={`PropertiesMap__legend ${this.state.mobileLegendSlide ? 'PropertiesMap__legend--slide' : ''}`}
               onClick={() => this.setState({ mobileLegendSlide: !this.state.mobileLegendSlide })}>
-            <p><span>Legend</span> <i>{this.state.mobileLegendSlide ? '▼' : '▲'}&#xFE0E;</i></p>
+            <p><span>{Browser.isMobile() ? this.state.mobileLegendSlide ? 'Close ' : 'View ' : ''}Legend</span> <i>{this.state.mobileLegendSlide ? '▼' : '▲'}&#xFE0E;</i></p>
 
             <ul>
               <li>search address</li>

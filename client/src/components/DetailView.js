@@ -75,7 +75,7 @@ export default class DetailView extends Component {
                   </div>
                   <div className="card-image">
                     <StreetViewPanorama
-                      containerElement={<div style={{ width: `100%`, height: `${isMobile ? '150px' : '300px'}` }} />}
+                      containerElement={<div style={{ width: `100%`, height: `${isMobile ? '180px' : '300px'}` }} />}
                       position={this.state.coordinates}
                       pov={{ heading: this.state.heading, pitch: 15 }}
                       zoom={0.5}
