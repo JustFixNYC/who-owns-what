@@ -58,8 +58,8 @@ export default class NotRegisteredPage extends Component {
     }
 
     return (
-      <div>
-        <div className="HomePage__search NotRegisteredPage">
+      <div className="NotRegisteredPage Page">
+        <div className="HomePage__search">
           <h5 className="mt-10 text-danger text-center text-bold text-large">
             No results found
             {searchAddress.formatted_address ? (

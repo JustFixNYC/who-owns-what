@@ -24,8 +24,14 @@
       margin-bottom: 2.4rem;
     }
 
-    aside img {
-      max-width: 300px;
+    aside {
+      img {
+        max-width: 300px;
+      }
+      figcaption {
+        max-width: 300px;
+        margin: 1rem auto;
+      }
     }
   }
 

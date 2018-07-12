@@ -2,14 +2,13 @@
 
 
 // TODO: create shared box component b/t this and HomePage
-.NotRegisteredPage {
+.NotRegisteredPage .HomePage__search {
 
   background-color: $background;
   border: 1px solid $gray-dark;
+  
   padding: 20px;
-
   width: 85vw;
-  margin: 75px auto;
 
   @include for-tablet-portrait-up() {
     width: 65vw;
