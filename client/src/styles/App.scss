@@ -84,7 +84,7 @@ div.Page {
   }
 
   p {
-    line-height: 1.6;
+    // line-height: 1.6;
     margin-bottom: 1.25rem;
   }
 
@@ -95,6 +95,10 @@ div.Page {
     p, h1, h2, h3, h4, h5, h6, ul {
       width: 60%;
       display: inline-block;
+    }
+
+    ul {
+      margin-top: 0;
     }
 
     aside {

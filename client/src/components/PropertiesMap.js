@@ -212,7 +212,7 @@ export default class PropertiesMap extends Component {
           </Map>
           <div className={`PropertiesMap__legend ${this.state.mobileLegendSlide ? 'PropertiesMap__legend--slide' : ''}`}
               onClick={() => this.setState({ mobileLegendSlide: !this.state.mobileLegendSlide })}>
-            <p><span>{Browser.isMobile() ? this.state.mobileLegendSlide ? 'Close ' : 'View ' : ''}Legend</span> <i>{this.state.mobileLegendSlide ? '▼' : '▲'}&#xFE0E;</i></p>
+            <p><span>{Browser.isMobile() ? this.state.mobileLegendSlide ? 'Close ' : 'View ' : ''}Legend</span> <i>{this.state.mobileLegendSlide ? '⬇' : '⬆'}&#xFE0E;</i></p>
 
             <ul>
               <li>search address</li>
@@ -221,7 +221,7 @@ export default class PropertiesMap extends Component {
             </ul>
           </div>
           <div className="PropertiesMap__prompt">
-            <p><i>({Browser.isMobile() ? `tap` : `click`} on a building to view details)</i></p>
+            <p><i>({Browser.isMobile() ? `tap` : `click`} on a building marker to view details)</i></p>
           </div>
         </div>
     );

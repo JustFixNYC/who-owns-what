@@ -52,6 +52,8 @@
 
       i {
         display: none;
+        font-style: normal;
+        font-size: 14px;
 
         @include for-phone-only() {
           display: inline;
@@ -104,11 +106,11 @@
       border-right: 1px solid #000;
       padding-bottom: 10px;
 
-      transform: translateY(50px);
+      transform: translateY(54px);
       transition: transform 250ms ease-in-out;
 
       &.PropertiesMap__legend--slide {
-        transform: translateY(0);
+        transform: translateY(1px);
       }
 
       ul li {
@@ -141,6 +143,7 @@
 
     @include for-phone-only() {
       width: 100%;
+      bottom: -1px;
       border-right: 1px solid #000;
     };
   }
