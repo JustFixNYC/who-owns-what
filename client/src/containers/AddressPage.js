@@ -129,7 +129,12 @@ export default class AddressPage extends Component {
               </h5>
               <ul className="tab tab-block">
                 <li className={`tab-item ${this.state.currentTab === 0 ? "active" : ""}`}>
-                  <a onClick={() => this.setState({ currentTab: 0 })}>Map</a>
+                  <a onClick={() => {
+                    if(Browser.isMobile() && this.state.detailMobileSlide) {
+                      this.handleCloseDetail();
+                    }
+                    this.setState({ currentTab: 0 });
+                  }}>Map</a>
                 </li>
                 <li className={`tab-item ${this.state.currentTab === 1 ? "active" : ""}`}>
                   <a onClick={() => this.setState({ currentTab: 1 })}>List</a>

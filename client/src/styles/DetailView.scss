@@ -20,11 +20,12 @@
   @include for-phone-only() {
 
     position: absolute;
-    top: -32px; left: 0;
-    height: calc(100% + 34px);
+    top: 0; left: 0;
+    // height: calc(100% + 34px);
+    height: 100%;
     width: 100vw;
 
-    border-top: 1px solid $dark;
+    // border-top: 1px solid $dark;
 
     transform: translateX(100%);
     &.DetailView-enter {
@@ -124,7 +125,7 @@
       };
 
       button {
-        font-size: 16px;
+        font-size: 18px;
         span {
           font-weight: bold;
           text-decoration: underline;

@@ -142,14 +142,14 @@ export default class PropertiesMap extends Component {
     }
 
     // reset map to portfolio level if we're removing the detailAddr
-    if(this.props.detailAddr && !nextProps.detailAddr) {
-      this.setState({
-        mapProps: {
-          ...this.state.mapProps,
-          fitBounds: this.state.addrsBounds
-        }
-      });
-    }
+    // if(this.props.detailAddr && !nextProps.detailAddr) {
+    //   this.setState({
+    //     mapProps: {
+    //       ...this.state.mapProps,
+    //       fitBounds: this.state.addrsBounds
+    //     }
+    //   });
+    // }
   }
 
   componentDidUpdate(prevProps, prevState) {
