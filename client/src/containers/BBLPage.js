@@ -72,7 +72,7 @@ export default class BBLPage extends Component {
 
 
     return (
-      <div>
+      <div className="HomePage BBLPage">
         <div className="HomePage__search">
           <Loader loading={true}>Searching...</Loader>
         </div>

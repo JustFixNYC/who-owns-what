@@ -14,8 +14,14 @@ const AddressSearch = (props) => {
 
     let error = false;
 
-    let housenumber, streetname, boro;
-    const formatted_address = suggest.gmaps.formatted_address;
+    let housenumber, streetname, boro, formatted_address;
+
+    console.log(suggest);
+
+    // used only for displaying on NotRegisteredPage
+    if(suggest.gmaps && suggest.gmaps.formatted_address) {
+      formatted_address = suggest.gmaps.formatted_address;
+    }
 
     if(!suggest.gmaps || !suggest.gmaps.address_components) {
       error = true;
