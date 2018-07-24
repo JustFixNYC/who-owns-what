@@ -9,8 +9,10 @@ const rollbar = Rollbar.init({
   captureUnhandledRejections: true
 });
 
-const routes = require('./routes');
+// TODO: change when migrating off heroku
+const sslRedirect = require('heroku-ssl-redirect');
 
+const routes = require('./routes');
 
 // Set up the express app
 const app = express();
@@ -21,6 +23,9 @@ app.use(logger('dev'));
 // Parse incoming requests data (https://github.com/expressjs/body-parser)
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+
+// enable ssl redirect
+app.use(sslRedirect());
 
 // Express only serves static assets in production
 if (process.env.NODE_ENV === 'production') {
