@@ -16,8 +16,6 @@ const AddressSearch = (props) => {
 
     let housenumber, streetname, boro, formatted_address;
 
-    console.log(suggest);
-
     // used only for displaying on NotRegisteredPage
     if(suggest.gmaps && suggest.gmaps.formatted_address) {
       formatted_address = suggest.gmaps.formatted_address;
