@@ -11,18 +11,16 @@ AS SELECT DISTINCT ON (registrations.bbl)
   pluto.unitsres,
   pluto.yearbuilt,
   pluto.lat,
-  pluto.lng
-  -- ,
-  -- evictions.evictions,
-  -- evictions.subsidy421a,
-  -- evictions.subsidy421g,
-  -- evictions.subsidyj51,
-  -- rentstab.unitsstab2007 as rsunits2007,
-  -- rentstab.unitsstab2016 as rsunits2016,
-  -- rentstab.diff as rsdiff,
-  -- rentstab.percentchange as rspercentchange
-  -- ,
-  -- justfix_users.__v IS NOT NULL as hasjustfix
+  pluto.lng,
+  evictions.evictions,
+  evictions.subsidy421a,
+  evictions.subsidy421g,
+  evictions.subsidyj51,
+  rentstab.unitsstab2007 as rsunits2007,
+  rentstab.unitsstab2016 as rsunits2016,
+  rentstab.diff as rsdiff,
+  rentstab.percentchange as rspercentchange,
+  justfix_users.__v IS NOT NULL as hasjustfix
 FROM hpd_registrations_with_contacts AS registrations
 LEFT JOIN (
   SELECT bbl,
@@ -39,26 +37,25 @@ LEFT JOIN (
     lat, lng
   FROM pluto_17v1
 ) pluto ON (registrations.bbl = pluto.bbl)
--- LEFT JOIN (
---   SELECT
---     bin,
---     evictions,
---     subsidy421a,
---     subsidy421g,
---     subsidyj51
---   FROM evictions
--- ) evictions ON (registrations.bin = evictions.bin)
--- LEFT JOIN (
---   SELECT
---     ucbbl,
---     unitsstab2007,
---     unitsstab2016,
---     diff,
---     percentchange
---   FROM rentstab_summary
--- ) rentstab ON (registrations.bbl = rentstab.ucbbl)
--- LEFT JOIN justfix_users ON (registrations.bbl = justfix_users.bbl)
-;
+LEFT JOIN (
+  SELECT
+    bin,
+    evictions,
+    subsidy421a,
+    subsidy421g,
+    subsidyj51
+  FROM evictions
+) evictions ON (registrations.bin = evictions.bin)
+LEFT JOIN (
+  SELECT
+    ucbbl,
+    unitsstab2007,
+    unitsstab2016,
+    diff,
+    percentchange
+  FROM rentstab_summary
+) rentstab ON (registrations.bbl = rentstab.ucbbl)
+LEFT JOIN justfix_users ON (registrations.bbl = justfix_users.bbl);
 
 
 create index on wow_bldgs (registrationid);
