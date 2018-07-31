@@ -61,7 +61,10 @@ module.exports = {
         }
 
         let addrs = results[1].map(addr => {
-          addr.ownernames = JSON.stringify(addr.ownernames);
+          addr.ownernames = addr.ownernames.reduce((owners, owner, idx) => {
+            return owners + `${idx > 0 ? ", " : ""}${owner.value} (${owner.title})`;
+          }, "");
+          
           return addr;
         });
 
