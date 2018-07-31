@@ -61,7 +61,15 @@ module.exports = {
         }
 
         let addrs = results[1].map(addr => {
-          addr.ownernames = JSON.stringify(addr.ownernames);
+          let ownerslist = "";
+          for (var key in addr.ownernames) {
+            ownerslist = ownerslist + addr.ownernames[key].value + " (" + addr.ownernames[key].title + "), "
+          }
+          let endtrim = ownerslist.slice(-2);
+          if (endtrim === ", ") { 
+            ownerslist = ownerslist.slice(0,-2);
+          }
+          addr.ownernames = ownerslist;
           return addr;
         });
 
