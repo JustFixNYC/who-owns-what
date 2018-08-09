@@ -73,6 +73,9 @@ const AddressSearch = (props) => {
           inputClassName="form-input"
           />
       </div>
+      <div className="toast toast-error">
+        <u>Note:</u> We're currently experiencing some difficulties due to an official NYC data service failing. 🙄 We're working on it. If a search fails, try it again in a minute or so!
+      </div>
     </div>
   );
 }
