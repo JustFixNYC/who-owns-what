@@ -93,9 +93,9 @@ export default class NotRegisteredPage extends Component {
           }
 
           <br />
-          <div className="toast toast-error">
+          {/* <div className="toast toast-error">
             <u>Note:</u> We're currently experiencing some difficulties due to an official NYC data service failing. We're working on it. If a search returns with "no results found", try it again in a minute or so!
-          </div>
+          </div> */}
           <br />
 
           <Link className="btn btn-primary btn-block" to="/">
