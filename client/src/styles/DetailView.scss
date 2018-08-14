@@ -256,6 +256,7 @@
 
     .card-body-links {
       margin-top: 20px;
+      margin-bottom: 20px;
 
       a {
         white-space: nowrap;
@@ -270,6 +271,16 @@
       .btn {
 
       }
+    }
+
+    .card-body-prompt {
+
+      h6 {
+        font-weight: bold;
+        margin-bottom: 0.75rem;
+      }
+
+      margin-bottom: 24px;
     }
 
 
