@@ -13,9 +13,9 @@ AS SELECT DISTINCT ON (registrations.bbl)
   pluto.lat,
   pluto.lng,
   evictions.evictions,
-  evictions.subsidy421a,
-  evictions.subsidy421g,
-  evictions.subsidyj51,
+  --evictions.subsidy421a,
+  --evictions.subsidy421g,
+  --evictions.subsidyj51,
   rentstab.unitsstab2007 as rsunits2007,
   rentstab.unitsstab2016 as rsunits2016,
   rentstab.diff as rsdiff,
@@ -39,12 +39,10 @@ LEFT JOIN (
 ) pluto ON (registrations.bbl = pluto.bbl)
 LEFT JOIN (
   SELECT
-    bin,
-    evictions,
-    subsidy421a,
-    subsidy421g,
-    subsidyj51
-  FROM evictions
+    bbl, 
+    count(*) as evictions
+  FROM marshal_evictions_17
+  GROUP BY bbl
 ) evictions ON (registrations.bin = evictions.bin)
 LEFT JOIN (
   SELECT
