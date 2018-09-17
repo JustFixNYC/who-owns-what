@@ -124,7 +124,7 @@ export default class DetailView extends Component {
                             <label>Total Violations</label>
                             { this.props.addr.totalviolations }
                           </div>
-                          <div title="Eviction filings (not judgements) made in housing court from January 2013 to June 2015. This information was provided by the Office of the Public Advocate.">
+                          <div title="Evictions scheduled by NYC Marshals in 2017. The Housing Data Coalition cleaning, geocoded, and validated the data, originally sourced from DOI.">
                             <label>Evictions</label>
                             { this.props.addr.evictions !== null ? this.props.addr.evictions : 'N/A' }
                           </div>
