@@ -78,9 +78,9 @@ export default class PropertiesSummary extends Component {
               <p>
                 This portfolio has an average of <b>{agg.openviolationsperbldg}</b> open HPD violations per building. This is <b>{agg.openviolationsperbldg > VIOLATIONS_AVG ? 'worse' : 'better'}</b> than the citywide average of {VIOLATIONS_AVG}. According to available HPD data, this portfolio has received <b>{agg.totalviolations}</b> total violations.
               </p>
-              <h6>Eviction filings</h6>
+              <h6>Evictions</h6>
               <p>
-                From January 2013 to June 2015, there were an average of <b>{agg.avgevictions}</b> eviction proceedings per building filed in housing court.
+                In 2017, there were an average of <b>{agg.avgevictions}</b> evictions per building scheduled by NYC Marshals.
               </p>
               <h6>Rent stabilization</h6>
               <p>
