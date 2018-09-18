@@ -162,17 +162,11 @@ const PropertiesList = (props) => {
               ]
             },
             {
-              Header: 'Tenants',
+              Header: 'Evictions',
               columns: [
                 {
-                  Header: "Evictions",
+                  Header: "2017",
                   accessor: "evictions",
-                  maxWidth: 75
-                },
-                {
-                  Header: "JustFix",
-                  accessor: "hasjustfix",
-                  Cell: row => row.value ? 'X' : '',
                   maxWidth: 75
                 }
               ]

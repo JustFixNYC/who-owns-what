@@ -92,12 +92,6 @@ export default class PropertiesSummary extends Component {
                 )}
                 , which has lost <b>{agg.rslossaddr && Math.abs(parseInt(agg.rslossaddr.rsdiff, 10))}</b> units in the past 10 years.
               </p>
-              {agg.hasjustfix && (
-                <p className="text-justfix">
-                  <br />
-                  Our records indicate that some of the buildings in this portfolio have active JustFix.nyc cases. Please <a className="text-bold" href={`mailto:support@justfix.nyc?subject=Outreach request for ${this.props.userAddr.housenumber} ${this.props.userAddr.streetname}, ${this.props.userAddr.boro}`} target="_blank">contact us</a> about conducting outreach!
-                </p>
-              )}
             </div>
           )}
         </div>

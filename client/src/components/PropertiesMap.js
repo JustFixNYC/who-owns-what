@@ -31,7 +31,6 @@ const DYNAMIC_ASSOC_PAINT = {
     default: '#acb3c2',
     stops: [
       ['base', '#FF9800'],
-      ['justfix', '#0096d7'],
       ['search', '#FF5722']
     ]
   }
@@ -97,8 +96,6 @@ export default class PropertiesMap extends Component {
           // presuming that nextProps.userAddr is in sync with nextProps.addrs
           if(Helpers.addrsAreEqual(addr, nextProps.userAddr)) {
             addr.mapType = 'search';
-          } else if(addr.hasjustfix) {
-            addr.mapType = 'justfix';
           } else {
             addr.mapType = 'base';
           }
@@ -217,7 +214,6 @@ export default class PropertiesMap extends Component {
             <ul>
               <li>search address</li>
               <li>associated building</li>
-              <li>assoc. building w/ JustFix case</li>
             </ul>
           </div>
           <div className="PropertiesMap__prompt">
