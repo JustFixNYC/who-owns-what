@@ -11,14 +11,14 @@ RETURNS TABLE (
   totalopenviolations bigint,
   totalviolations bigint,
   openviolationsperbldg numeric,
-  totalevictions bigint,
+  totalevictions numeric,
   avgevictions numeric,
   totalrsdiff bigint,
   avgrspercent numeric,
   rsproportion numeric,
   rslossaddr json,
-  violationsaddr json,
-  hasjustfix boolean
+  violationsaddr json
+  -- , hasjustfix boolean
   -- , countjustfix bigint
 ) AS $$
   SELECT
@@ -74,10 +74,10 @@ RETURNS TABLE (
         )
         ORDER BY openviolations DESC
       ))[1]
-    foo1) as violationsaddr,
-
+    foo1) as violationsaddr
+   -- ,bool_or(hasjustfix) as hasjustfix
     -- perform a boolean OR to see if at least one property in the portfolio has justfix
-    bool_or(hasjustfix) as hasjustfix
+ 
 
     -- ,
     -- count(CASE WHEN hasjustfix THEN 1 END) as countjustfix
