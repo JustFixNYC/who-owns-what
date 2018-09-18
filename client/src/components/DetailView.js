@@ -95,11 +95,6 @@ export default class DetailView extends Component {
                     }
                   </div>
                   <div className="card-body">
-                    { this.props.addr.hasjustfix &&
-                      <p className="text-bold text-justfix">
-                        This building has at least one active JustFix.nyc user! <a href={`mailto:support@justfix.nyc?subject=Outreach request for ${this.props.addr.housenumber} ${this.props.addr.streetname}, ${this.props.addr.boro}`} target="_blank">Click here</a> to get connected.
-                      </p>
-                    }
                     <div className="card-body-table">
                         <div className="table-row">
                           <div className="double" title="This is the official identifer for the building according to the Dept. of Finance tax records.">
@@ -124,8 +119,8 @@ export default class DetailView extends Component {
                             <label>Total Violations</label>
                             { this.props.addr.totalviolations }
                           </div>
-                          <div title="Eviction filings (not judgements) made in housing court from January 2013 to June 2015. This information was provided by the Office of the Public Advocate.">
-                            <label>Evictions</label>
+                          <div title="Evictions scheduled by NYC Marshals in 2017. The Housing Data Coalition cleaned, geocoded, and validated the data, originally sourced from DOI.">
+                            <label>2017 Evictions</label>
                             { this.props.addr.evictions !== null ? this.props.addr.evictions : 'N/A' }
                           </div>
                           <div title="This tracks how rent stabilized units in the building have changed (i.e. &quot;&Delta;&quot;) from 2007 to 2016. If the number for 2016 is red, this means there has been a loss in stabilzied units! These counts are estimated from the DOF Property Tax Bills.">

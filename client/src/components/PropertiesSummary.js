@@ -78,9 +78,14 @@ export default class PropertiesSummary extends Component {
               <p>
                 This portfolio has an average of <b>{agg.openviolationsperbldg}</b> open HPD violations per building. This is <b>{agg.openviolationsperbldg > VIOLATIONS_AVG ? 'worse' : 'better'}</b> than the citywide average of {VIOLATIONS_AVG}. According to available HPD data, this portfolio has received <b>{agg.totalviolations}</b> total violations.
               </p>
-              <h6>Eviction filings</h6>
+              <h6>Evictions</h6>
               <p>
-                From January 2013 to June 2015, there were an average of <b>{agg.avgevictions}</b> eviction proceedings per building filed in housing court.
+                In 2017, NYC Marshals scheduled <b>{agg.totalevictions}</b> eviction{agg.totalevictions == 1 ? "" : "s"} across this portfolio. The building with the most evictions was&nbsp;
+                {agg.evictionsaddr && (
+                  <span>
+                    <b>{agg.evictionsaddr.housenumber} {agg.evictionsaddr.streetname}, {agg.evictionsaddr.boro}</b> with <b>{agg.evictionsaddr.evictions}</b> eviction{agg.totalevictions == 1 ? "" : "s"} that year
+                  </span>
+                )}.
               </p>
               <h6>Rent stabilization</h6>
               <p>
@@ -92,12 +97,6 @@ export default class PropertiesSummary extends Component {
                 )}
                 , which has lost <b>{agg.rslossaddr && Math.abs(parseInt(agg.rslossaddr.rsdiff, 10))}</b> units in the past 10 years.
               </p>
-              {agg.hasjustfix && (
-                <p className="text-justfix">
-                  <br />
-                  Our records indicate that some of the buildings in this portfolio have active JustFix.nyc cases. Please <a className="text-bold" href={`mailto:support@justfix.nyc?subject=Outreach request for ${this.props.userAddr.housenumber} ${this.props.userAddr.streetname}, ${this.props.userAddr.boro}`} target="_blank">contact us</a> about conducting outreach!
-                </p>
-              )}
             </div>
           )}
         </div>

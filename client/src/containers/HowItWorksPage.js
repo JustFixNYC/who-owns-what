@@ -24,10 +24,9 @@ const HowItWorksPage = () => {
         <ul>
           <li><a href="https://data.cityofnewyork.us/Housing-Development/Housing-Maintenance-Code-Violations/wvxf-dwi5" target="_blank" className="text-bold">HPD violations</a> <em>- updated monthly</em></li>
           <li><a href="https://www1.nyc.gov/site/planning/data-maps/open-data.page" target="_blank" className="text-bold">Dept. of City Planning lot data (“PLUTO”)</a> <em>- updated yearly</em></li>
-          <li><b>Eviction filings from 2013-15 (from the Public Advocate’s office).</b> For more information, see <a href="https://projects.propublica.org/evictions/#11/40.7900/-73.9600" target="_blank">this article</a> from ProPublica.
+          <li><b>Eviction data for 2017 from <a href="mailto:housingdatacoalition@gmail.com" target="_blank">Housing Data Coalition</a></b>, via <a href="https://www1.nyc.gov/site/doi/offices/cpr2.page" target="_blank">NYC Marshals</a> <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">(CC BY NC SA 4.0)</a>.
           </li>
           <li><b>Rent Stabilization unit estimates (from taxbills.nyc, adapted from Dept. of Finance tax bills).</b> This data is <b>not</b> conclusive, but should be seen as an approximation. See <a href="http://blog.johnkrauss.com/where-is-decontrol/" target="_blank">this page</a> for more information. <em>- updated yearly</em></li>
-          <li><b>Anonymized <a href="https://www.justfix.nyc" target="_blank">JustFix.nyc</a> cases</b> <em>- updated monthly</em></li>
         </ul>
       </div>
     </div>

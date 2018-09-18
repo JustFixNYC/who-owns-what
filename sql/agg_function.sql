@@ -11,14 +11,15 @@ RETURNS TABLE (
   totalopenviolations bigint,
   totalviolations bigint,
   openviolationsperbldg numeric,
-  totalevictions bigint,
+  totalevictions numeric,
   avgevictions numeric,
   totalrsdiff bigint,
   avgrspercent numeric,
   rsproportion numeric,
   rslossaddr json,
-  violationsaddr json,
-  hasjustfix boolean
+  evictionsaddr json,
+  violationsaddr json
+  -- , hasjustfix boolean
   -- , countjustfix bigint
 ) AS $$
   SELECT
@@ -48,7 +49,7 @@ RETURNS TABLE (
     sum(totalviolations) as totalviolations,
     round(avg(openviolations)::numeric, 1) as openviolationsperbldg,
     sum(evictions) as totalevictions,
-    round(avg(evictions)::numeric, 1) as avgevictions,
+    round((sum(evictions)::numeric / count(distinct registrationid)::numeric), 1) as avgevictions,
     sum(rsdiff) as totalrsdiff,
     round(avg(rspercentchange)::numeric, 1) as avgrspercent,
     -- round(abs(sum(rsdiff)) / sum(unitsres), 1) as rsproportion,
@@ -70,14 +71,24 @@ RETURNS TABLE (
       (array_agg (
         json_build_object (
           'housenumber', housenumber, 'streetname', streetname, 'boro', boro,
+          'lat', lat, 'lng', lng, 'evictions', evictions
+        )
+        ORDER BY evictions DESC NULLS LAST
+      ))[1]
+    foo1) as evictionsaddr,
+
+    (SELECT
+      (array_agg (
+        json_build_object (
+          'housenumber', housenumber, 'streetname', streetname, 'boro', boro,
           'lat', lat, 'lng', lng, 'openviolations', openviolations
         )
         ORDER BY openviolations DESC
       ))[1]
-    foo1) as violationsaddr,
-
+    foo2) as violationsaddr
+   -- ,bool_or(hasjustfix) as hasjustfix
     -- perform a boolean OR to see if at least one property in the portfolio has justfix
-    bool_or(hasjustfix) as hasjustfix
+ 
 
     -- ,
     -- count(CASE WHEN hasjustfix THEN 1 END) as countjustfix
