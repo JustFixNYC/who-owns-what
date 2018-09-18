@@ -17,6 +17,7 @@ RETURNS TABLE (
   avgrspercent numeric,
   rsproportion numeric,
   rslossaddr json,
+  evictionsaddr json,
   violationsaddr json
   -- , hasjustfix boolean
   -- , countjustfix bigint
@@ -70,11 +71,21 @@ RETURNS TABLE (
       (array_agg (
         json_build_object (
           'housenumber', housenumber, 'streetname', streetname, 'boro', boro,
+          'lat', lat, 'lng', lng, 'evictions', evictions
+        )
+        ORDER BY evictions DESC NULLS LAST
+      ))[1]
+    foo1) as evictionsaddr,
+
+    (SELECT
+      (array_agg (
+        json_build_object (
+          'housenumber', housenumber, 'streetname', streetname, 'boro', boro,
           'lat', lat, 'lng', lng, 'openviolations', openviolations
         )
         ORDER BY openviolations DESC
       ))[1]
-    foo1) as violationsaddr
+    foo2) as violationsaddr
    -- ,bool_or(hasjustfix) as hasjustfix
     -- perform a boolean OR to see if at least one property in the portfolio has justfix
  
