@@ -80,7 +80,12 @@ export default class PropertiesSummary extends Component {
               </p>
               <h6>Evictions</h6>
               <p>
-                In 2017, there were an average of <b>{agg.avgevictions}</b> evictions per building scheduled by NYC Marshals.
+                In 2017, NYC Marshals scheduled <b>{agg.totalevictions}</b> evictions across this portfolio. The building with the most evictions was&nbsp;
+                {agg.evictionsaddr && (
+                  <span>
+                    <b>{agg.evictionsaddr.housenumber} {agg.evictionsaddr.streetname}, {agg.evictionsaddr.boro}</b> with <b>{agg.evictionsaddr.evictions}</b> evictions that year
+                  </span>
+                )}.
               </p>
               <h6>Rent stabilization</h6>
               <p>
