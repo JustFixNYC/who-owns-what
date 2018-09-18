@@ -48,7 +48,7 @@ RETURNS TABLE (
     sum(totalviolations) as totalviolations,
     round(avg(openviolations)::numeric, 1) as openviolationsperbldg,
     sum(evictions) as totalevictions,
-    round(avg(evictions)::numeric, 1) as avgevictions,
+    round((sum(evictions)::numeric / count(distinct registrationid)::numeric), 1) as avgevictions,
     sum(rsdiff) as totalrsdiff,
     round(avg(rspercentchange)::numeric, 1) as avgrspercent,
     -- round(abs(sum(rsdiff)) / sum(unitsres), 1) as rsproportion,
