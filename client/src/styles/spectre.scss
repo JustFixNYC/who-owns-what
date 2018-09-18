@@ -103,6 +103,29 @@ sup .tooltip:after {
   }
 }
 
+.btn.btn-justfix {
+  color: #fff;
+  background-color: $justfix-blue;
+  box-shadow: inset -1px -1px 0px 0px darken($justfix-blue, 10%),
+              inset 2px 2px 0px 0px lighten($justfix-blue, 5%);
+
+  &:hover {
+    color: #fff;
+    background-color: darken($justfix-blue, 5%);
+    // box-shadow: inset -1px -1px 0px 0px darken($dark, 10%),
+    //             inset 2px 2px 0px 0px $gray-dark;
+
+    box-shadow: inset -1px -1px 0px 0px darken($justfix-blue, 15%),
+                inset 2px 2px 0px 0px $justfix-blue;
+  }
+
+  &:active {
+    color: #fff;
+    background-color: darken($justfix-blue, 10%);
+    box-shadow: inset 1px 1px 0px 0px darken($justfix-blue, 20%);
+  }
+}
+
 .col-auto {
   flex: 0 0 auto;
   max-width: none;

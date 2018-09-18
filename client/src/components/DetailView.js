@@ -159,6 +159,7 @@ export default class DetailView extends Component {
                       </div>
                     </div>
 
+
                     <div className="card-body-links columns">
                       <div className="column col-lg-12 col-6">
                         <a href={`http://a836-acris.nyc.gov/bblsearch/bblsearch.asp?borough=${boro}&block=${block}&lot=${lot}`} target="_blank" className="btn btn-block">View documents on ACRIS &#8599;&#xFE0E;</a>
@@ -172,6 +173,11 @@ export default class DetailView extends Component {
                       <div className="column col-lg-12 col-6">
                         <a href={`http://webapps.nyc.gov:8084/CICS/fin1/find001i?FFUNC=C&FBORO=${boro}&FBLOCK=${block}&FLOT=${lot}`} target="_blank" className="btn btn-block">DOF Property Tax Bills &#8599;&#xFE0E;</a>
                       </div>
+                    </div>
+
+                    <div className="card-body-prompt">
+                      <h6 className="text-center">Are you having issues in this building?</h6>
+                      <a href={`https://beta.justfix.nyc/onboarding/checklist?utm_source=whoownswhat`} target="_blank" className="btn btn-justfix btn-block">Start a case on JustFix.nyc</a>
                     </div>
                   </div>
                 </div>

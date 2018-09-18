@@ -1,3 +1,26 @@
+-- https://github.com/aepyornis/hpd/blob/master/sql/anyarray_remove_null.sql
+DROP FUNCTION IF EXISTS anyarray_remove_null(anyarray);
+CREATE OR REPLACE FUNCTION anyarray_remove_null(from_array anyarray)
+        RETURNS anyarray AS
+$BODY$
+        DECLARE
+                -- The variable used to track iteration over "from_array".
+                loop_offset integer;
+
+                -- The array to be returned by this function.
+                return_array from_array%TYPE;
+        BEGIN
+                -- Iterate over each element in "from_array".
+                FOR loop_offset IN ARRAY_LOWER(from_array, 1)..ARRAY_UPPER(from_array, 1) LOOP
+                        IF from_array[loop_offset] IS NOT NULL THEN -- If NULL, will omit from "return_array".
+                                return_array = ARRAY_APPEND(return_array, from_array[loop_offset]);
+                        END IF;
+                END LOOP;
+
+                RETURN return_array;
+        END;
+$BODY$ LANGUAGE plpgsql;
+
 DROP TABLE IF EXISTS hpd_registrations_with_contacts;
 
 -- This is mainly used as an easy way to provide contact info on request, not a replacement
@@ -22,11 +45,18 @@ LEFT JOIN (
     anyarray_uniq(anyarray_remove_null(array_agg(nullif(corporationname, '')))) as corpnames,
 
     -- concat_ws ignores NULL values
-    anyarray_uniq(anyarray_remove_null(
+    anyarray_uniq(
       array_agg(
         nullif(concat_ws(' ', businesshousenumber, businessstreetname, businessapartment, businesszip), '   ')
       )
-    ))
+      FILTER (
+        WHERE (
+          (businesshousenumber <> '') IS TRUE AND
+          (businessstreetname <> '') IS TRUE AND
+          (businesszip <> '') IS TRUE
+        )
+      )
+    )
     as businessaddrs,
 
     -- craziness! json in postgres!
