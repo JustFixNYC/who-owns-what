@@ -6,7 +6,10 @@ import APIClient from 'components/APIClient';
 
 import 'styles/PropertiesSummary.css';
 
-const VIOLATIONS_AVG = 13.8;
+const VIOLATIONS_AVG = 0.7; // By Unit
+
+// 1588195 open violations according to wow_bldgs
+// 2299803 total units in registered buildings, according to wow_bldgs 
 
 export default class PropertiesSummary extends Component {
   constructor(props) {
@@ -76,7 +79,7 @@ export default class PropertiesSummary extends Component {
               </p>
               <h6>Maintenance code violations</h6>
               <p>
-                This portfolio has an average of <b>{agg.openviolationsperbldg}</b> open HPD violations per building. This is <b>{agg.openviolationsperbldg > VIOLATIONS_AVG ? 'worse' : 'better'}</b> than the citywide average of {VIOLATIONS_AVG}. According to available HPD data, this portfolio has received <b>{agg.totalviolations}</b> total violations.
+                This portfolio has an average of <b>{agg.openviolationsperresunit}</b> open HPD violations per residential unit. This is <b>{agg.openviolationsperresunit > VIOLATIONS_AVG ? 'worse' : 'better'}</b> than the citywide average of {VIOLATIONS_AVG} per residential unit. According to available HPD data, this portfolio has received <b>{agg.totalviolations}</b> total violations.
               </p>
               <h6>Evictions</h6>
               <p>
