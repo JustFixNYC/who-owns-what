@@ -6,10 +6,10 @@ import APIClient from 'components/APIClient';
 
 import 'styles/PropertiesSummary.css';
 
-const VIOLATIONS_AVG = 0.8; // By Unit
+const VIOLATIONS_AVG = 0.7; // By Unit
 
-// 91442 total buildings with > 3 units, according to pluto_17v1
-// 2440780 total units in buildings with > 3, according to pluto_17v1
+// 1588195 open violations according to wow_bldgs
+// 2299803 total units in registered buildings, according to wow_bldgs 
 
 export default class PropertiesSummary extends Component {
   constructor(props) {
