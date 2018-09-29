@@ -79,7 +79,11 @@ export default class PropertiesSummary extends Component {
               </p>
               <h6>Maintenance code violations</h6>
               <p>
-                This portfolio has an average of <b>{agg.openviolationsperresunit}</b> open HPD violations per residential unit. This is <b>{agg.openviolationsperresunit > VIOLATIONS_AVG ? 'worse' : 'better'}</b> than the citywide average of {VIOLATIONS_AVG} per residential unit. According to available HPD data, this portfolio has received <b>{agg.totalviolations}</b> total violations.
+                This portfolio has an average of <b>{agg.openviolationsperresunit}</b> open HPD violations per residential unit. 
+                This is {(agg.openviolationsperresunit >= VIOLATIONS_AVG - 0.05 && agg.openviolationsperresunit < VIOLATIONS_AVG + 0.05)
+                         ? <span><b>about the same</b> as the citywide average. </span>
+                         : <span><b>{agg.openviolationsperresunit > VIOLATIONS_AVG ? 'worse' : 'better'}</b> than the citywide average of {VIOLATIONS_AVG} per residential unit. </span>}
+                According to available HPD data, this portfolio has received <b>{agg.totalviolations}</b> total violations.
               </p>
               <h6>Evictions</h6>
               <p>
