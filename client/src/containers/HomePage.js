@@ -4,6 +4,7 @@ import { Redirect, Link } from 'react-router-dom';
 import AddressSearch from 'components/AddressSearch';
 import Loader from 'components/Loader';
 import APIClient from 'components/APIClient';
+import LegalFooter from 'components/LegalFooter';
 
 import 'styles/HomePage.css';
 
@@ -146,6 +147,7 @@ class HomePage extends Component {
             </div>
           </div>
         </div>
+        <LegalFooter />
       </div>
     );
   }

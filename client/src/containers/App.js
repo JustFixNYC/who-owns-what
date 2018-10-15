@@ -15,6 +15,8 @@ import BBLPage from 'BBLPage';
 import AboutPage from 'AboutPage';
 import HowItWorksPage from 'HowItWorksPage';
 import NotRegisteredPage from 'NotRegisteredPage';
+import TermsOfUsePage from 'TermsOfUsePage';
+import PrivacyPolicyPage from 'PrivacyPolicyPage';
 
 const App = () => {
   return (
@@ -44,6 +46,8 @@ const App = () => {
           <Route path="/bbl/:boro/:block/:lot" component={BBLPage} />
           <Route path="/about" component={AboutPage} />
           <Route path="/how-it-works" component={HowItWorksPage} />
+          <Route path="/terms-of-use" component={TermsOfUsePage} />
+          <Route path="/privacy-policy" component={PrivacyPolicyPage} />
         </div>
       </div>
     </Router>
