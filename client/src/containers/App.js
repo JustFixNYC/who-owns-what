@@ -17,7 +17,7 @@ import HowItWorksPage from 'HowItWorksPage';
 import NotRegisteredPage from 'NotRegisteredPage';
 import TermsOfUsePage from 'TermsOfUsePage';
 import PrivacyPolicyPage from 'PrivacyPolicyPage';
-import ScrollToTop from 'ScrollToTop';
+import ScrollToTop from 'components/ScrollToTop';
 
 const App = () => {
   return (
