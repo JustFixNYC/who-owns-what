@@ -17,10 +17,12 @@ import HowItWorksPage from 'HowItWorksPage';
 import NotRegisteredPage from 'NotRegisteredPage';
 import TermsOfUsePage from 'TermsOfUsePage';
 import PrivacyPolicyPage from 'PrivacyPolicyPage';
+import ScrollToTop from 'ScrollToTop';
 
 const App = () => {
   return (
     <Router>
+      <ScrollToTop>
       <div className="App">
         <div className="App__warning old_safari_only">
           <h3>Warning! This site doesn't fully work on older versions of Safari. Try a <a href="http://outdatedbrowser.com/en">modern browser</a>.</h3>
@@ -50,6 +52,7 @@ const App = () => {
           <Route path="/privacy-policy" component={PrivacyPolicyPage} />
         </div>
       </div>
+      </ScrollToTop>
     </Router>
   );
 }
