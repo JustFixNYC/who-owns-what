@@ -2,18 +2,14 @@
 
 .LegalFooter {
   width: 100vw;
-  left: -7.5vw;
-  padding: 15px;
+  height: 50px;
+  padding: 25px;
   border-top: 1px solid $gray-light;
   background-color: $background;
   display: flex;
   justify-content: space-between;
   align-items: center;
   position: relative;
-
-  @include for-tablet-portrait-up() {
-    left: -17.5vw;
-  };
 
   & > a,a:hover,a:focus {
     text-decoration: none !important;

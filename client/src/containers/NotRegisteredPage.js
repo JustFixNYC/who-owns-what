@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Modal from 'components/Modal';
+import LegalFooter from 'components/LegalFooter';
 import Helpers from 'util/helpers';
 
 import 'styles/NotRegisteredPage.css';
@@ -59,66 +60,69 @@ export default class NotRegisteredPage extends Component {
 
     return (
       <div className="NotRegisteredPage Page">
-        <div className="HomePage__search">
-          <h5 className="mt-10 text-danger text-center text-bold text-large">
-            No results found
-            {searchAddress.formatted_address ? (
-               <span> for <u>{searchAddress.formatted_address}</u></span>
-            ) : searchAddress.housenumber ? (
-              <span> for <u>{searchAddress.housenumber} {searchAddress.streetname}</u></span>
-            ) : (
-              <span></span>
-            )}!
-          </h5>
-          { geoclient && geoclient.latitude && geoclient.longitude &&
-            <img src={`https://maps.googleapis.com/maps/api/streetview?size=800x200&location=${geoclient.latitude},${geoclient.longitude}&key=AIzaSyCJKZm-rRtfREo2o-GNC-feqpbSvfHNB5s`}
-                 alt="Google Street View" className="img-responsive"  />
-          }
-          {buildingTypeMessage}
-          <br />
-          { geoclient && geoclient.bbl &&
-            <div>
-              <p>Here are some useful links to learn more about this building:</p>
+        <div className="HomePage__content">
+          <div className="HomePage__search">
+            <h5 className="mt-10 text-danger text-center text-bold text-large">
+              No results found
+              {searchAddress.formatted_address ? (
+                 <span> for <u>{searchAddress.formatted_address}</u></span>
+              ) : searchAddress.housenumber ? (
+                <span> for <u>{searchAddress.housenumber} {searchAddress.streetname}</u></span>
+              ) : (
+                <span></span>
+              )}!
+            </h5>
+            { geoclient && geoclient.latitude && geoclient.longitude &&
+              <img src={`https://maps.googleapis.com/maps/api/streetview?size=800x200&location=${geoclient.latitude},${geoclient.longitude}&key=AIzaSyCJKZm-rRtfREo2o-GNC-feqpbSvfHNB5s`}
+                   alt="Google Street View" className="img-responsive"  />
+            }
+            {buildingTypeMessage}
+            <br />
+            { geoclient && geoclient.bbl &&
               <div>
-                <div className="btn-group btn-group-block">
-                  <a href={`http://a836-acris.nyc.gov/bblsearch/bblsearch.asp?borough=${boro}&block=${block}&lot=${lot}`} target="_blank" className="btn">View documents on ACRIS &#8599;</a>
-                  <a href={`http://webapps.nyc.gov:8084/CICS/fin1/find001i?FFUNC=C&FBORO=${boro}&FBLOCK=${block}&FLOT=${lot}`} target="_blank" className="btn">DOF Property Tax Bills &#8599;</a>
-                </div>
-                <div className="btn-group btn-group-block">
-                  <a href={`http://a810-bisweb.nyc.gov/bisweb/PropertyProfileOverviewServlet?boro=${boro}&block=${block}&lot=${lot}`} target="_blank" className="btn">DOB Building Profile &#8599;</a>
-                  <a href={`https://hpdonline.hpdnyc.org/HPDonline/Provide_address.aspx?p1=${boro}&p2=${searchAddress.housenumber}&p3=${searchAddress.streetname}&SearchButton=Search`} target="_blank" className="btn">HPD Complaints/Violations &#8599;</a>
+                <p>Here are some useful links to learn more about this building:</p>
+                <div>
+                  <div className="btn-group btn-group-block">
+                    <a href={`http://a836-acris.nyc.gov/bblsearch/bblsearch.asp?borough=${boro}&block=${block}&lot=${lot}`} target="_blank" className="btn">View documents on ACRIS &#8599;</a>
+                    <a href={`http://webapps.nyc.gov:8084/CICS/fin1/find001i?FFUNC=C&FBORO=${boro}&FBLOCK=${block}&FLOT=${lot}`} target="_blank" className="btn">DOF Property Tax Bills &#8599;</a>
+                  </div>
+                  <div className="btn-group btn-group-block">
+                    <a href={`http://a810-bisweb.nyc.gov/bisweb/PropertyProfileOverviewServlet?boro=${boro}&block=${block}&lot=${lot}`} target="_blank" className="btn">DOB Building Profile &#8599;</a>
+                    <a href={`https://hpdonline.hpdnyc.org/HPDonline/Provide_address.aspx?p1=${boro}&p2=${searchAddress.housenumber}&p3=${searchAddress.streetname}&SearchButton=Search`} target="_blank" className="btn">HPD Complaints/Violations &#8599;</a>
+                  </div>
                 </div>
               </div>
-            </div>
-          }
+            }
 
-          <br />
-          {/* <div className="toast toast-error">
-            <u>Note:</u> We're currently experiencing some difficulties due to an official NYC data service failing. We're working on it. If a search returns with "no results found", try it again in a minute or so!
-          </div> */}
-          <br />
+            <br />
+            {/* <div className="toast toast-error">
+              <u>Note:</u> We're currently experiencing some difficulties due to an official NYC data service failing. We're working on it. If a search returns with "no results found", try it again in a minute or so!
+            </div> */}
+            <br />
 
-          <Link className="btn btn-primary btn-block" to="/">
-            &lt;-- Search for a different address
-          </Link>
+            <Link className="btn btn-primary btn-block" to="/">
+              &lt;-- Search for a different address
+            </Link>
+          </div>
+          <Modal
+            width={60}
+            showModal={this.state.showModal}
+            onClose={() => this.setState({ showModal: false })}>
+            <h5>Failure to register a building with HPD</h5>
+            <p>
+              Buildings without valid property registration are subject to the following:
+            </p>
+            <ul>
+              <li>Civil penalties of $250-$500</li>
+              <li>May be issued official Orders</li>
+              <li>Ineligible to certify violations</li>
+              <li>Unable to request Code Violation Dismissals</li>
+              <li>Unable to initiate a court action for nonpayment of rent.</li>
+            </ul>
+            <a className="btn" href="http://www1.nyc.gov/site/hpd/owners/compliance-register-your-property.page" target="_blank">Click here to learn more. &#8599;</a>
+          </Modal>
         </div>
-        <Modal
-          width={60}
-          showModal={this.state.showModal}
-          onClose={() => this.setState({ showModal: false })}>
-          <h5>Failure to register a building with HPD</h5>
-          <p>
-            Buildings without valid property registration are subject to the following:
-          </p>
-          <ul>
-            <li>Civil penalties of $250-$500</li>
-            <li>May be issued official Orders</li>
-            <li>Ineligible to certify violations</li>
-            <li>Unable to request Code Violation Dismissals</li>
-            <li>Unable to initiate a court action for nonpayment of rent.</li>
-          </ul>
-          <a className="btn" href="http://www1.nyc.gov/site/hpd/owners/compliance-register-your-property.page" target="_blank">Click here to learn more. &#8599;</a>
-        </Modal>
+        <LegalFooter />
       </div>
     );
   }
