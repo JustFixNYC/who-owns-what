@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Helpers from 'util/helpers';
 
 import Loader from 'components/Loader';
+import LegalFooter from 'components/LegalFooter';
 import APIClient from 'components/APIClient';
 
 import 'styles/PropertiesSummary.css';
@@ -44,7 +45,8 @@ export default class PropertiesSummary extends Component {
     let agg = this.state.agg;
 
     return (
-        <div className="PropertiesSummary">
+      <div className="Page">
+        <div className="PropertiesSummary Page__content">
           { !this.state.agg ? (
             <Loader loading={true} classNames="Loader-map">Loading</Loader>
           ) : (
@@ -110,6 +112,8 @@ export default class PropertiesSummary extends Component {
             </div>
           )}
         </div>
+        <LegalFooter position="inside" />
+      </div>
     );
   }
 }

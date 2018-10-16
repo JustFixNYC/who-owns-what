@@ -1,7 +1,6 @@
 @import '_vars.scss';
 
 .LegalFooter {
-  width: 100vw;
   height: 50px;
   padding: 25px;
   border-top: 1px solid $gray-light;
@@ -37,7 +36,6 @@
     };
 
   }
-
 
   nav {
     margin-left: auto;
