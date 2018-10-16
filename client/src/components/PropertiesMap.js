@@ -53,7 +53,10 @@ export default class PropertiesMap extends Component {
     super(props);
 
     this.state = {
-      mapLoading: true,
+      // maybe theres a better way for this, but the initial loading boolean
+      // could just be driven by if WebGL is an option or not
+      mapLoading: MapHelpers.hasWebGLContext(),
+      hasWebGLContext: MapHelpers.hasWebGLContext(),
       mapRef: null,
       mobileLegendSlide: false,
       addrsBounds: [[]],  // bounds are represented as a 2d array of lnglats
@@ -183,30 +186,46 @@ export default class PropertiesMap extends Component {
     return (
         <div className="PropertiesMap">
           <Loader loading={this.state.mapLoading} classNames="Loader-map">Loading</Loader>
-          <Map { ...this.state.mapProps }>
-            <ZoomControl position="topLeft" style={{
-                'boxShadow': 'none',
-                'opacity': 1,
-                'backgroundColor': '#ffffff',
-                'borderColor': '#727e96',
-                'top': '10px',
-                'left': '10px'
-              }} />
-            <Layer id="assoc" type="circle" paint={DYNAMIC_ASSOC_PAINT}>
-              {this.state.assocAddrs.length && this.state.assocAddrs }
-            </Layer>
-            <Layer id="selected" type="circle" paint={DYNAMIC_SELECTED_PAINT}>
-              {/*
-                we need to lookup the property pe of this feature from the main addrs array
-                this affects the color of the marker while still outlining it as "selected"
-                */}
-              { this.props.detailAddr && (
-                <Feature
-                  properties={{ mapType: this.props.addrs.find(a => Helpers.addrsAreEqual(a,this.props.detailAddr)).mapType }}
-                  coordinates={[parseFloat(this.props.detailAddr.lng), parseFloat(this.props.detailAddr.lat)]} />
-              )}
-            </Layer>
-          </Map>
+
+          {/*
+            react-mapbox-gl requires a WebGL context to render. It doesn't seem
+            to handle things very well, I couldn't even find a way to catch the
+            error so the site doesn't break. In the meantime, we display this super
+            sad message.
+          */}
+          {!this.state.hasWebGLContext && (
+            <div className="PropertiesMap__error">
+              <h4>Sorry, it looks like theres an error on the map. Try again on a different browser or <a href="http://webglreport.com/" target="_blank">enable WebGL</a>.</h4>
+            </div>
+          )}
+
+          {this.state.hasWebGLContext && (
+            <Map { ...this.state.mapProps }>
+              <ZoomControl position="topLeft" style={{
+                  'boxShadow': 'none',
+                  'opacity': 1,
+                  'backgroundColor': '#ffffff',
+                  'borderColor': '#727e96',
+                  'top': '10px',
+                  'left': '10px'
+                }} />
+              <Layer id="assoc" type="circle" paint={DYNAMIC_ASSOC_PAINT}>
+                {this.state.assocAddrs.length && this.state.assocAddrs }
+              </Layer>
+              <Layer id="selected" type="circle" paint={DYNAMIC_SELECTED_PAINT}>
+                {/*
+                  we need to lookup the property pe of this feature from the main addrs array
+                  this affects the color of the marker while still outlining it as "selected"
+                  */}
+                { this.props.detailAddr && (
+                  <Feature
+                    properties={{ mapType: this.props.addrs.find(a => Helpers.addrsAreEqual(a,this.props.detailAddr)).mapType }}
+                    coordinates={[parseFloat(this.props.detailAddr.lng), parseFloat(this.props.detailAddr.lat)]} />
+                )}
+              </Layer>
+            </Map>
+          )}
+
           <div className={`PropertiesMap__legend ${this.state.mobileLegendSlide ? 'PropertiesMap__legend--slide' : ''}`}
               onClick={() => this.setState({ mobileLegendSlide: !this.state.mobileLegendSlide })}>
             <p><span>{Browser.isMobile() ? this.state.mobileLegendSlide ? 'Close ' : 'View ' : ''}Legend</span> <i>{this.state.mobileLegendSlide ? '\u2b07\uFE0E' : '\u2b06\uFE0E'}</i></p>
@@ -219,6 +238,8 @@ export default class PropertiesMap extends Component {
           <div className="PropertiesMap__prompt">
             <p><i>({Browser.isMobile() ? `tap` : `click`} on a building marker to view details)</i></p>
           </div>
+
+
         </div>
     );
   }
