@@ -6,7 +6,7 @@ const TermsOfUsePage = () => {
     <div className="TermsOfUse Page">
       <div className="Page__content">
         <h4 style={{fontSize: "3.2rem"}}>WhoOwnsWhat — Terms of Use</h4>
-          <p> Effective Date: November 1st, 2018 </p>
+          <p> Effective Date: October 18th, 2018 </p>
           <p><b><em>Please read this agreement carefully. It sets forth the legally binding terms and conditions for your use of the service, such as your grants and waivers of rights, the limitations of our liability, your indemnity of us, and arbitration of certain disputes.</em></b></p>
         <h4> Introduction And Overview </h4>
           <p> Welcome! You have arrived at <a href='https://.whoownswhat.justfix.nyc' target='_blank'>https://.whoownswhat.justfix.nyc</a> and/or are otherwise interacting with our Service (defined below), which is owned and operated by JustFix.nyc d/b/a WhoOwnsWhat (collectively, “WhoOwnsWhat,” “we,” “our,” or “us”). These Terms govern your use of any online service location (e.g., website) that posts a link to these Terms (“Site”) (including both mobile and online versions). It also applies to your use of all features, widgets, plug-ins, applications, content, downloads and/or other services that we own and control and make available through the Site (collectively, with the Site, the “Service”), regardless of how you access or use it, whether via computer, mobile device or otherwise. By using the Service, you acknowledge and accept the Service’s Privacy Policy and consent to the collection and use of your data in accordance therewith. By interacting with and/or using the Service, you signify your assent and agreement to these Terms. If you do not agree to these Terms, you must not use the Service. </p>
