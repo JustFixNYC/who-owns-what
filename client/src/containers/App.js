@@ -39,6 +39,7 @@ const App = () => {
               //   New Search
               // </Link>
             }
+            <a href="https://www.justfix.nyc/donate" target="_blank">Donate</a>  
           </nav>
         </div>
         <div className="App__body">
