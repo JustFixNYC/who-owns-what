@@ -3,11 +3,15 @@ import { CSSTransition } from 'react-transition-group';
 import { Link } from 'react-router-dom';
 import { StreetViewPanorama } from 'react-google-maps';
 import { STREET_VIEW_PANORAMA } from 'react-google-maps/lib/constants';
+import { FacebookButton, TwitterButton, EmailButton } from 'react-social';
 import Helpers from 'util/helpers';
 import Browser from 'util/browser';
 import Modal from 'components/Modal';
 
 import 'styles/DetailView.css';
+
+import fbIcon from '../assets/img/fb.svg';
+import twitterIcon from '../assets/img/twitter.svg';
 
 export default class DetailView extends Component {
   constructor(props) {
@@ -159,7 +163,6 @@ export default class DetailView extends Component {
                       </div>
                     </div>
 
-
                     <div className="card-body-links columns">
                       <div className="column col-lg-12 col-6">
                         <a href={`http://a836-acris.nyc.gov/bblsearch/bblsearch.asp?borough=${boro}&block=${block}&lot=${lot}`} target="_blank" className="btn btn-block">View documents on ACRIS &#8599;&#xFE0E;</a>
@@ -175,10 +178,36 @@ export default class DetailView extends Component {
                       </div>
                     </div>
 
+                    <div className="social-group">
+                      <label className="form-label">
+                        Share this map:
+                      </label>
+                      <div className="btn-group btns-social btn-group-block">
+                        <FacebookButton className="btn btn-steps"
+                          sharer={true}
+                          appId={`1023402221142410`}>
+                          <img src={fbIcon} className="icon mx-1" alt="Facebook" />
+                          <span>Facebook</span>
+                        </FacebookButton>
+                        <TwitterButton className="btn btn-steps"
+                          message={"Here are the " + (this.props.portfolioSize > 1 ? this.props.portfolioSize + " " : " ")  + "buildings my landlord owns... #WhoOwnsWhat @JustFixNYC"}>
+                          <img src={twitterIcon} className="icon mx-1" alt="Twitter" />
+                          <span>Twitter</span>
+                        </TwitterButton>
+                        <EmailButton target="_blank"
+                          message={"The " + (this.props.portfolioSize > 1 ? this.props.portfolioSize + " " : " ")  + "buildings my landlord owns (via the Who Owns What tool)"}
+                          className="btn btn-steps">
+                          <i className="icon icon-mail mx-2" />
+                          <span>Email</span>
+                        </EmailButton>
+                      </div>
+                    </div>
+
                     <div className="card-body-prompt">
                       <h6 className="text-center">Are you having issues in this building?</h6>
                       <a href={`https://beta.justfix.nyc/onboarding/checklist?utm_source=whoownswhat`} target="_blank" className="btn btn-justfix btn-block">Start a case on JustFix.nyc</a>
                     </div>
+
                   </div>
                 </div>
               }
