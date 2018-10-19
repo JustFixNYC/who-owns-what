@@ -190,12 +190,12 @@ export default class DetailView extends Component {
                           <span>Facebook</span>
                         </FacebookButton>
                         <TwitterButton className="btn btn-steps"
-                          message={"Here are the " + (this.props.portfolioSize > 1 ? this.props.portfolioSize + " " : " ")  + "buildings my landlord owns... #WhoOwnsWhat @JustFixNYC"}>
+                          message={"The " + (this.props.portfolioSize > 1 ? this.props.portfolioSize + " " : " ")  + "buildings owned by my landlord... #WhoOwnsWhat @JustFixNYC"}>
                           <img src={twitterIcon} className="icon mx-1" alt="Twitter" />
                           <span>Twitter</span>
                         </TwitterButton>
                         <EmailButton target="_blank"
-                          message={"The " + (this.props.portfolioSize > 1 ? this.props.portfolioSize + " " : " ")  + "buildings my landlord owns (via the Who Owns What tool)"}
+                          message={"The " + (this.props.portfolioSize > 1 ? this.props.portfolioSize + " " : " ")  + "buildings owned by my landlord (via the Who Owns What tool)"}
                           className="btn btn-steps">
                           <i className="icon icon-mail mx-2" />
                           <span>Email</span>
