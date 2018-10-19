@@ -19,5 +19,19 @@ export default {
     }
 
     return [[bs.xMin, bs.yMin],[bs.xMax, bs.yMax]];
+  },
+
+  hasWebGLContext() {
+    var canvas = document.createElement("canvas");
+    // Get WebGLRenderingContext from canvas element.
+    var gl = canvas.getContext("webgl") || canvas.getContext("experimental-webgl");
+    // Report the result.
+    if (gl && gl instanceof WebGLRenderingContext) {
+        // alert("Congratulations! Your browser supports WebGL.");
+        return true;
+    } else {
+        // alert("Your browser or device may not support WebGL.");
+        return false;
+    }
   }
 }
