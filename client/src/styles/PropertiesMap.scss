@@ -25,6 +25,21 @@
     }
   }
 
+  .PropertiesMap__error {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+    position: relative;
+    z-index: 30;
+
+    h4 {
+      padding: 3rem;
+    }
+  }
+
   .PropertiesMap__legend {
     // background: $primary-color;
     // color: $background;
