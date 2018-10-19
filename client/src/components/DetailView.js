@@ -183,20 +183,24 @@ export default class DetailView extends Component {
                         Share this map:
                       </label>
                       <div className="btn-group btns-social btn-group-block">
-                        <FacebookButton className="btn btn-steps"
+                        <FacebookButton 
+                          className="btn btn-steps"
                           sharer={true}
-                          appId={`1023402221142410`}>
+                          appId={`247990609143668`}
+                          message={"The " + (this.props.portfolioSize > 1 ? this.props.portfolioSize + " " : " ")  + "buildings owned by my landlord... #WhoOwnsWhat @JustFixNYC"}>
                           <img src={fbIcon} className="icon mx-1" alt="Facebook" />
                           <span>Facebook</span>
                         </FacebookButton>
-                        <TwitterButton className="btn btn-steps"
+                        <TwitterButton 
+                          className="btn btn-steps"
                           message={"The " + (this.props.portfolioSize > 1 ? this.props.portfolioSize + " " : " ")  + "buildings owned by my landlord... #WhoOwnsWhat @JustFixNYC"}>
                           <img src={twitterIcon} className="icon mx-1" alt="Twitter" />
                           <span>Twitter</span>
                         </TwitterButton>
-                        <EmailButton target="_blank"
-                          message={"The " + (this.props.portfolioSize > 1 ? this.props.portfolioSize + " " : " ")  + "buildings owned by my landlord (via the Who Owns What tool)"}
-                          className="btn btn-steps">
+                        <EmailButton 
+                          className="btn btn-steps"
+                          target="_blank"
+                          message={"The " + (this.props.portfolioSize > 1 ? this.props.portfolioSize + " " : " ")  + "buildings owned by my landlord (via the Who Owns What tool)"}>
                           <i className="icon icon-mail mx-2" />
                           <span>Email</span>
                         </EmailButton>
