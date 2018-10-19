@@ -109,6 +109,10 @@ export default class PropertiesSummary extends Component {
                 )}
                 , which has lost <b>{agg.rslossaddr && Math.abs(parseInt(agg.rslossaddr.rsdiff, 10))}</b> units in the past 10 years.
               </p>
+              <p> 
+                <em>Need more data on this portfolio?</em> 
+                <a href="mailto:hello@justfix.nyc?subject=Who Owns What Data Request" target="_blank" className="btn btn-datarequest btn-block data-request">Send us a data request</a>
+              </p>
             </div>
           )}
         </div>
