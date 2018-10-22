@@ -105,7 +105,7 @@ export default class DetailView extends Component {
                         <div className="table-row">
                           <div className="double" title="This is the official identifer for the building according to the Dept. of Finance tax records.">
                             <label>Boro{bblDash}Block{bblDash}Lot (BBL)</label>
-                            {boro}-{block}-{lot}
+                            {boro}{bblDash}{block}{bblDash}{lot}
                           </div>
                           <div title="The year that this building was originally constructed, according to the Dept. of City Planning.">
                             <label>Year Built</label>
