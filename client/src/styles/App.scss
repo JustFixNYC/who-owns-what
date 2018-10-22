@@ -63,16 +63,17 @@
   nav {
     margin-left: auto;
 
+  @include for-tablet-landscape-down {
+    width: 140px;
+    display: flex;
+    flex-wrap: wrap;
+  }
+
     a {
       margin-left: 10px;
       color: #454d5d;
 
       &.active { text-decoration: underline; }
-
-      @include for-phone-only() {
-        margin-left: 0;
-        display: block;
-      }
     }
   }
 
@@ -89,8 +90,11 @@
 }
 
 div.Page {
-  padding: 30px;
-  width: 100%;
+
+  min-height: 100%;
+  min-width: 100%;
+  display: flex;
+  flex-direction: column;
 
   h4 {
     text-decoration: underline;
@@ -103,6 +107,11 @@ div.Page {
 }
 
 .Page__content {
+  
+  padding: 30px;
+  width: 100%;
+  flex-grow: 1;
+
   @include for-tablet-portrait-up() {
     p, h1, h2, h3, h4, h5, h6, ul {
       width: 60%;

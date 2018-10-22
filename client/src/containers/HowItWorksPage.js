@@ -1,4 +1,5 @@
 import React from 'react';
+import LegalFooter from 'components/LegalFooter';
 
 import 'styles/HowItWorksPage.css';
 
@@ -29,6 +30,7 @@ const HowItWorksPage = () => {
           <li><b>Rent Stabilization unit estimates (from taxbills.nyc, adapted from Dept. of Finance tax bills).</b> This data is <b>not</b> conclusive, but should be seen as an approximation. See <a href="http://blog.johnkrauss.com/where-is-decontrol/" target="_blank">this page</a> for more information. <em>- updated yearly</em></li>
         </ul>
       </div>
+      <LegalFooter />
     </div>
   );
 }

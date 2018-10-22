@@ -5,6 +5,7 @@
 @import 'styles/_button.scss';
 
 @import 'node_modules/spectre.scss/spectre.scss';
+@import 'node_modules/spectre.scss/spectre-icons.scss';
 
 // various overwrites
 a {
@@ -75,57 +76,6 @@ sup .tooltip:after {
 //   }
 // }
 
-
-
-.btn:not(.btn-link) {
-  @include button();
-
-  padding: 0.7rem .8rem;
-  height: auto;
-}
-
-.btn.btn-primary {
-  background-color: $gray-dark;
-  box-shadow: inset -1px -1px 0px 0px $dark,
-              inset 2px 2px 0px 0px lighten($gray-dark, 10%);
-
-  &:hover {
-    color: #fff;
-    background-color: darken($gray-dark, 15%);
-    box-shadow: inset -1px -1px 0px 0px darken($dark, 10%),
-                inset 2px 2px 0px 0px $gray-dark;
-  }
-
-  &:active {
-    color: #fff;
-    background-color: darken($gray-dark, 15%);
-    box-shadow: inset 1px 1px 0px 0px darken($dark, 20%);
-  }
-}
-
-.btn.btn-justfix {
-  color: #fff;
-  background-color: $justfix-blue;
-  box-shadow: inset -1px -1px 0px 0px darken($justfix-blue, 10%),
-              inset 2px 2px 0px 0px lighten($justfix-blue, 5%);
-
-  &:hover {
-    color: #fff;
-    background-color: darken($justfix-blue, 5%);
-    // box-shadow: inset -1px -1px 0px 0px darken($dark, 10%),
-    //             inset 2px 2px 0px 0px $gray-dark;
-
-    box-shadow: inset -1px -1px 0px 0px darken($justfix-blue, 15%),
-                inset 2px 2px 0px 0px $justfix-blue;
-  }
-
-  &:active {
-    color: #fff;
-    background-color: darken($justfix-blue, 10%);
-    box-shadow: inset 1px 1px 0px 0px darken($justfix-blue, 20%);
-  }
-}
-
 .col-auto {
   flex: 0 0 auto;
   max-width: none;
@@ -183,6 +133,7 @@ sup .tooltip:after {
 // @import 'node_modules/spectre.scss/src/_tiles.scss';
 // @import 'node_modules/spectre.scss/src/_toasts.scss';
 // @import 'node_modules/spectre.scss/src/_tooltips.scss';
+// @import 'node_modules/spectre.scss/src/_icons.scss';
 //
 // // Utility classes
 // @import 'node_modules/spectre.scss/src/_animations.scss';

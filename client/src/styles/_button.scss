@@ -1,3 +1,5 @@
+@import '_vars.scss';
+
 @mixin button() {
   border: 1px solid $dark;
   background-color: $background;
@@ -17,4 +19,97 @@
     background-color: darken($gray-light, 40%);
     box-shadow: inset 1px 1px 0px 0px darken($gray, 35%);
   }
+}
+
+@mixin button-special($background-color, $text-color) {
+  color: $text-color;
+  background-color: $background-color;
+  box-shadow: inset -1px -1px 0px 0px darken($background-color, 10%),
+              inset 2px 2px 0px 0px lighten($background-color, 5%);
+
+  &:hover {
+    color: $text-color;
+    background-color: darken($background-color, 5%);
+    // box-shadow: inset -1px -1px 0px 0px darken($dark, 10%),
+    //             inset 2px 2px 0px 0px $gray-dark;
+
+    box-shadow: inset -1px -1px 0px 0px darken($background-color, 15%),
+                inset 2px 2px 0px 0px $background-color;
+  }
+
+  &:active {
+    color: $text-color;
+    background-color: darken($background-color, 10%);
+    box-shadow: inset 1px 1px 0px 0px darken($background-color, 20%);
+  }
+}
+
+.btn:not(.btn-link) {
+  @include button();
+
+  padding: 0.7rem .8rem;
+  height: auto;
+}
+
+.btn.btn-primary {
+  background-color: $gray-dark;
+  box-shadow: inset -1px -1px 0px 0px $dark,
+              inset 2px 2px 0px 0px lighten($gray-dark, 10%);
+
+  &:hover {
+    color: #fff;
+    background-color: darken($gray-dark, 15%);
+    box-shadow: inset -1px -1px 0px 0px darken($dark, 10%),
+                inset 2px 2px 0px 0px $gray-dark;
+  }
+
+  &:active {
+    color: #fff;
+    background-color: darken($gray-dark, 15%);
+    box-shadow: inset 1px 1px 0px 0px darken($dark, 20%);
+  }
+}
+
+.btn.btn-justfix { @include button-special($justfix-blue, #fff); }
+.btn.btn-datarequest { 
+    max-width: 265px;
+    margin-top: 10px;
+}
+
+
+.btns-social {
+  .btn {
+    &:nth-child(1) { @include button-special($facebook, #fff); }
+    &:nth-child(2) { @include button-special($twitter, #fff); }
+
+    margin-bottom: 0;
+
+    span {
+      display: none;
+      margin-left: 5px;
+
+      @include for-tablet-landscape-up() {
+        display: inline;
+      }
+    }
+  }
+}
+
+.btn-group.btn-group-block {
+    display: -ms-flexbox;
+    display: flex;
+}
+.btn-group {
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+}
+
+.btn-block {
+  max-width: none;
+}
+
+.icon-mail:before {
+  border-radius: 0.1rem;
 }

@@ -1,4 +1,5 @@
 import React from 'react';
+import LegalFooter from 'components/LegalFooter';
 
 const AboutPage = () => {
   return (
@@ -36,6 +37,7 @@ const AboutPage = () => {
           <li>the organizing staff at <a href="http://metcouncilonhousing.org/" target="_blank">Met Council</a></li>
         </ul>
       </div>
+      <LegalFooter />
     </div>
   );
 }

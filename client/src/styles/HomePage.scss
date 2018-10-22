@@ -1,8 +1,12 @@
 @import '_vars.scss';
 
 .HomePage {
+}
+
+.HomePage__content {
   width: 85vw;
   margin: 0 auto;
+  flex-grow: 1;
 
   @include for-tablet-portrait-up() {
     width: 65vw;

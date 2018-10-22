@@ -1,0 +1,53 @@
+@import '_vars.scss';
+
+.LegalFooter {
+  height: 50px;
+  padding: 25px;
+  border-top: 1px solid $gray-light;
+  background-color: $background;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+
+  & > a,a:hover,a:focus {
+    text-decoration: none !important;
+  }
+
+  & > a {
+    display: block;
+
+    h4 {
+      margin-bottom: 0;
+      color: $dark;
+      font-weight: bold;
+      font-size: 2rem;
+    }
+
+    @include for-tablet-portrait-up() {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+
+      h4 {
+        font-size: 2.4rem;
+      }
+    };
+
+  }
+
+  nav {
+    margin-left: auto;
+    margin-right: auto;
+
+    a {
+      margin-left: 10px;
+      color: #454d5d;
+
+      &.active { text-decoration: underline; }
+
+    }
+  }
+
+}
