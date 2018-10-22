@@ -186,6 +186,7 @@ export default class DetailView extends Component {
                         <FacebookButton 
                           className="btn btn-steps"
                           sharer={true}
+                          url={'https://whoownswhat.justfix.nyc/address/' + this.props.addr.boro + '/' + this.props.addr.housenumber + '/' + this.props.addr.streetname}
                           appId={`247990609143668`}
                           message={"The " + (this.props.portfolioSize > 1 ? this.props.portfolioSize + " " : " ")  + "buildings owned by my landlord... #WhoOwnsWhat @JustFixNYC"}>
                           <img src={fbIcon} className="icon mx-1" alt="Facebook" />
@@ -193,12 +194,14 @@ export default class DetailView extends Component {
                         </FacebookButton>
                         <TwitterButton 
                           className="btn btn-steps"
+                          url={'https://whoownswhat.justfix.nyc/address/' + this.props.addr.boro + '/' + this.props.addr.housenumber + '/' + this.props.addr.streetname}
                           message={"The " + (this.props.portfolioSize > 1 ? this.props.portfolioSize + " " : " ")  + "buildings owned by my landlord... #WhoOwnsWhat @JustFixNYC"}>
                           <img src={twitterIcon} className="icon mx-1" alt="Twitter" />
                           <span>Twitter</span>
                         </TwitterButton>
                         <EmailButton 
                           className="btn btn-steps"
+                          url={'https://whoownswhat.justfix.nyc/address/' + this.props.addr.boro + '/' + this.props.addr.housenumber + '/' + this.props.addr.streetname}
                           target="_blank"
                           message={"The " + (this.props.portfolioSize > 1 ? this.props.portfolioSize + " " : " ")  + "buildings owned by my landlord (via the Who Owns What tool)"}>
                           <i className="icon icon-mail mx-2" />
