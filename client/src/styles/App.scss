@@ -63,16 +63,17 @@
   nav {
     margin-left: auto;
 
+  @include for-tablet-landscape-down {
+    width: 140px;
+    display: flex;
+    flex-wrap: wrap;
+  }
+
     a {
       margin-left: 10px;
       color: #454d5d;
 
       &.active { text-decoration: underline; }
-
-      @include for-phone-only() {
-        margin-left: 0;
-        display: block;
-      }
     }
   }
 
