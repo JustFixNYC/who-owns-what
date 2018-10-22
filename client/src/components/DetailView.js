@@ -63,6 +63,8 @@ export default class DetailView extends Component {
 
     const isMobile = Browser.isMobile();
 
+    const bblDash = <span className="unselectable" unselectable="on">-</span>;
+
     // console.log(showContent);
 
     return (
@@ -102,7 +104,7 @@ export default class DetailView extends Component {
                     <div className="card-body-table">
                         <div className="table-row">
                           <div className="double" title="This is the official identifer for the building according to the Dept. of Finance tax records.">
-                            <label>Boro-Block-Lot (BBL)</label>
+                            <label>Boro{bblDash}Block{bblDash}Lot (BBL)</label>
                             {boro}-{block}-{lot}
                           </div>
                           <div title="The year that this building was originally constructed, according to the Dept. of City Planning.">

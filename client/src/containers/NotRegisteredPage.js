@@ -19,6 +19,8 @@ export default class NotRegisteredPage extends Component {
     const geoclient = this.props.location.state.geoclient;
     const searchAddress = this.props.location.state.searchAddress;
 
+    const bblDash = <span className="unselectable" unselectable="on">-</span>;
+
     let boro, block, lot;
     let buildingTypeMessage;
 
