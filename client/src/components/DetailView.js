@@ -8,6 +8,8 @@ import Helpers from 'util/helpers';
 import Browser from 'util/browser';
 import Modal from 'components/Modal';
 
+import moment from 'moment';
+
 import 'styles/DetailView.css';
 
 import fbIcon from '../assets/img/fb.svg';
@@ -51,7 +53,6 @@ export default class DetailView extends Component {
   }
 
 
-
   render() {
 
     let boro, block, lot, ownernames, userOwnernames;
@@ -64,6 +65,8 @@ export default class DetailView extends Component {
     const isMobile = Browser.isMobile();
 
     const bblDash = <span className="unselectable" unselectable="on">-</span>;
+
+    const today = new Date();
 
     // console.log(showContent);
 
@@ -164,6 +167,15 @@ export default class DetailView extends Component {
                         </ul>
                       </div>
                     </div>
+
+                    <div className="card-body-registration"> 
+                        <p><b>Last registered:</b> {moment(this.props.addr.lastregistrationdate).format("MMM Do[,] YYYY")} 
+                          {(moment().diff(this.props.addr.registrationenddate, 'days') > 0 
+                            ? <span className="text-danger"> (expired {moment(this.props.addr.registrationenddate).format("MMM Do[,] YYYY")})</span>
+                            : <span> (expires {moment(this.props.addr.registrationenddate).format("MMM Do[,] YYYY")})</span>
+                            )} 
+                          </p>
+                      </div>
 
                     <div className="card-body-links columns">
                       <div className="column col-lg-12 col-6">

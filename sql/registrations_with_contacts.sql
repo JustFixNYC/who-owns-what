@@ -33,6 +33,8 @@ as SELECT
   registrations.zip,
   registrations.boro,
   registrations.registrationid,
+  registrations.lastregistrationdate,
+  registrations.registrationenddate,
   registrations.bbl,
   registrations.bin,
   contacts.corpnames,
