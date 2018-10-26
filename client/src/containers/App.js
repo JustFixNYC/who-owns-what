@@ -62,7 +62,7 @@ render() {
             <Modal
               showModal={this.state.showShareModal}
               onClose={() => this.setState({ showShareModal: false })}>
-                <h5>Share this page with your neighbors:</h5>
+                <h5>Share this tool with your neighbors:</h5>
                 <div className="btn-group btns-social btn-group-block">
                   <FacebookButton 
                     className="btn btn-steps"
