@@ -101,7 +101,7 @@ export default class PropertiesSummary extends Component {
               </p>
               <h6>Rent stabilization</h6>
               <p>
-                This portfolio has also an estimated <b>net {agg.totalrsdiff > 0 ? "gain" : "loss"}</b> of <b>{Math.abs(parseInt(agg.totalrsdiff, 10))}</b> rent stabilized units since 2007 (gained {Math.abs(parseInt(agg.totalrsgain, 10))}, lost {Math.abs(parseInt(agg.totalrsloss, 10))}). 
+                This portfolio also had an estimated <b>net {agg.totalrsdiff > 0 ? "gain" : "loss"}</b> of <b>{Math.abs(parseInt(agg.totalrsdiff, 10))}</b> rent stabilized units since 2007 (gained {Math.abs(parseInt(agg.totalrsgain, 10))}, lost {Math.abs(parseInt(agg.totalrsloss, 10))}). 
                 This represents <b>{agg.rsproportion}%</b> of the total size of this portfolio. The building that has lost the most units is&nbsp;
                 {agg.rslossaddr && (
                   <b>
