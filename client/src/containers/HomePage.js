@@ -103,7 +103,7 @@ class HomePage extends Component {
               <Loader loading={true} >Searching for <b>{this.state.searchAddress.housenumber} {this.state.searchAddress.streetname}, {this.state.searchAddress.boro}</b></Loader>
             ) : (
               <div>
-                <h5 className="text-center">Enter an address and find other buildings your landlord might own:</h5>
+                <h5 className="text-center">Enter an NYC address and find other buildings your landlord might own:</h5>
                 <AddressSearch
                   { ...this.state.searchAddress }
                   onFormSubmit={this.handleFormSubmit}
