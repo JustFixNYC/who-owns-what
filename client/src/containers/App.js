@@ -84,7 +84,7 @@ render() {
                     className="btn btn-steps"
                     url='https://whoownswhat.justfix.nyc/'
                     target="_blank"
-                    message="New JustFix tool helps research on NYC landlords">
+                    message="New JustFix.nyc tool helps research on NYC landlords">
                     <i className="icon icon-mail mx-2" />
                     <span>Email</span>
                   </EmailButton>
