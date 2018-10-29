@@ -47,10 +47,6 @@ render() {
               <h4>Who owns what in nyc?</h4>
             </Link>
             <nav className="inline">
-              <a href="#" onClick={() => this.setState({ showShareModal: true })}>
-                Share
-              </a>
-              <a href="https://www.justfix.nyc/donate" target="_blank">Donate</a>
               <NavLink to="/about">About</NavLink>
               <NavLink to="/how-it-works">How it Works</NavLink>
               {
@@ -58,6 +54,10 @@ render() {
                 //   New Search
                 // </Link>
               }
+              <a href="https://www.justfix.nyc/donate" target="_blank">Donate</a>
+              <a href="#" onClick={() => this.setState({ showShareModal: true })}>
+                Share
+              </a>
             </nav>
             <Modal
               showModal={this.state.showShareModal}
