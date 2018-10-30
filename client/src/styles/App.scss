@@ -36,7 +36,7 @@
   @include for-phone-only {
     flex-direction: column;
     justify-content: center;
-    padding: 5px;
+    padding: 8px;
   }
 
   & > a,a:hover,a:focus {
@@ -85,6 +85,11 @@
     a {
       margin-left: 10px;
       color: #454d5d;
+
+      @include for-phone-only {
+        margin-left: 5px;
+        margin-right: 5px;
+      }
 
       &.active { text-decoration: underline; }
     }
