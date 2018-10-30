@@ -1,4 +1,5 @@
 /* eslint-disable no-undef */
+
 function searchAddress(q) {
   return get(`/api/address?houseNumber=${q.housenumber}&street=${q.streetname}&borough=${q.boro}`);
 }
@@ -51,10 +52,20 @@ function parseJSON(response) {
   return response.json();
 }
 
+/* Mailchimp */
+
+function postNewSubscriber(email, list) {
+  return post('/api/subscribe', { email, list });
+}
+
 const Client = {
   searchAddress,
   searchBBL,
   getAggregate,
-  getAddressExport
+  getAddressExport,
+  postNewSubscriber
 };
+
 export default Client;
+
+
