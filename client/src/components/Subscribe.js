@@ -58,14 +58,14 @@ export default class Subscribe extends React.Component {
         <form onSubmit={this.handleSubmit}>
           <input type="text"
             className="input-email"
-            placeholder="Enter email"
+            placeholder=" Enter email"
             onChange={this.handleChange}
             value={this.state.email}
           />
           <input type="submit" className="btn btn-white" value="Sign up" />
         </form>
         {this.state.response && (
-          <p>{this.state.response}</p>
+          <p className="response-text">{this.state.response}</p>
         )}
       </div>
     );

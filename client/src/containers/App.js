@@ -31,7 +31,7 @@ constructor(props) {
     super(props);
 
     this.state = {
-      showShareModal: false
+      showEngageModal: false
     }
   }
 
@@ -56,13 +56,13 @@ render() {
                 // </Link>
               }
               <a href="https://www.justfix.nyc/donate" target="_blank">Donate</a>
-              <a href="#" onClick={() => this.setState({ showShareModal: true })}>
-                Share
+              <a href="#" onClick={() => this.setState({ showEngageModal: true })}>
+                Engage
               </a>
             </nav>
             <Modal
-              showModal={this.state.showShareModal}
-              onClose={() => this.setState({ showShareModal: false })}>
+              showModal={this.state.showEngageModal}
+              onClose={() => this.setState({ showEngageModal: false })}>
                 <h5 className="first-header">Share this tool with your neighbors:</h5>
                 <div className="btn-group btns-social btn-group-block">
                   <FacebookButton 
