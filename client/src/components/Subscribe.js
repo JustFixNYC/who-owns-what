@@ -3,6 +3,8 @@ import React from 'react';
 
 import APIClient from 'components/APIClient';
 
+import 'styles/Subscribe.css';
+
 //import 'styles/Subscribe.css';
 
 export default class Subscribe extends React.Component {
@@ -55,6 +57,7 @@ export default class Subscribe extends React.Component {
       <div className={`Subscribe ${this.state.success ? 'Subscribe--success':''}`}>
         <form onSubmit={this.handleSubmit}>
           <input type="text"
+            className="input-email"
             placeholder="Enter email"
             onChange={this.handleChange}
             value={this.state.email}

@@ -20,6 +20,7 @@ import TermsOfUsePage from 'TermsOfUsePage';
 import PrivacyPolicyPage from 'PrivacyPolicyPage';
 import ScrollToTop from 'components/ScrollToTop';
 import Modal from 'components/Modal';
+import Subscribe from 'components/Subscribe';
 
 import fbIcon from '../assets/img/fb.svg';
 import twitterIcon from '../assets/img/twitter.svg';
@@ -62,7 +63,7 @@ render() {
             <Modal
               showModal={this.state.showShareModal}
               onClose={() => this.setState({ showShareModal: false })}>
-                <h5>Share this tool with your neighbors:</h5>
+                <h5 className="first-header">Share this tool with your neighbors:</h5>
                 <div className="btn-group btns-social btn-group-block">
                   <FacebookButton 
                     className="btn btn-steps"
@@ -89,6 +90,8 @@ render() {
                     <span>Email</span>
                   </EmailButton>
                 </div>
+                <h5>And sign up for email updates:</h5> 
+                <Subscribe /> 
             </Modal>
           </div>
           <div className="App__body">
