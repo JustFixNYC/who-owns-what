@@ -28,7 +28,6 @@
     "heroku-ssl-redirect": "^0.0.4",
     "keen-tracking": "^1.1.4",
     "lodash": "^4.17.4",
-    "moment": "^2.22.2",
     "morgan": "^1.8.2",
     "pg": "^6.4.0",
     "pg-promise": "^6.5.1",

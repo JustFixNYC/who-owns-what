@@ -8,8 +8,6 @@ import Helpers from 'util/helpers';
 import Browser from 'util/browser';
 import Modal from 'components/Modal';
 
-import moment from 'moment';
-
 import 'styles/DetailView.css';
 
 import fbIcon from '../assets/img/fb.svg';
@@ -22,7 +20,8 @@ export default class DetailView extends Component {
     this.state = {
       coordinates: null,
       heading: 0,
-      showCompareModal: false
+      showCompareModal: false,
+      todaysDate: new Date()
     }
 
     this.detailSlideLength = 300;
@@ -52,6 +51,11 @@ export default class DetailView extends Component {
     }
   }
 
+  formatDate(dateString) {
+    var date = new Date(dateString);
+    var options = {year: 'numeric', month: 'short', day: 'numeric'};
+    return date.toLocaleDateString("en-US", options);
+  }
 
   render() {
 
@@ -65,8 +69,6 @@ export default class DetailView extends Component {
     const isMobile = Browser.isMobile();
 
     const bblDash = <span className="unselectable" unselectable="on">-</span>;
-
-    const today = new Date();
 
     // console.log(showContent);
 
@@ -169,10 +171,10 @@ export default class DetailView extends Component {
                     </div>
 
                     <div className="card-body-registration"> 
-                        <p><b>Last registered:</b> {moment(this.props.addr.lastregistrationdate).format("MMM Do[,] YYYY")} 
-                          {(moment().diff(this.props.addr.registrationenddate, 'days') > 0 
-                            ? <span className="text-danger"> (expired {moment(this.props.addr.registrationenddate).format("MMM Do[,] YYYY")})</span>
-                            : <span> (expires {moment(this.props.addr.registrationenddate).format("MMM Do[,] YYYY")})</span>
+                        <p><b>Last registered:</b> {this.formatDate(this.props.addr.lastregistrationdate)} 
+                          {(this.state.todaysDate > new Date(this.props.addr.registrationenddate)
+                            ? <span className="text-danger"> (expired {this.formatDate(this.props.addr.registrationenddate)})</span>
+                            : <span> (expires {this.formatDate(this.props.addr.registrationenddate)})</span>
                             )} 
                           </p>
                       </div>
