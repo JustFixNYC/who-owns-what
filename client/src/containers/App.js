@@ -57,7 +57,7 @@ render() {
               }
               <a href="https://www.justfix.nyc/donate" target="_blank">Donate</a>
               <a href="#" onClick={() => this.setState({ showEngageModal: true })}>
-                Engage
+                Share
               </a>
             </nav>
             <Modal
@@ -90,8 +90,6 @@ render() {
                     <span>Email</span>
                   </EmailButton>
                 </div>
-                <h5>And sign up for email updates:</h5> 
-                <Subscribe /> 
             </Modal>
           </div>
           <div className="App__body">
