@@ -20,7 +20,8 @@ export default class DetailView extends Component {
     this.state = {
       coordinates: null,
       heading: 0,
-      showCompareModal: false
+      showCompareModal: false,
+      todaysDate: new Date()
     }
 
     this.detailSlideLength = 300;
@@ -68,8 +69,6 @@ export default class DetailView extends Component {
     const isMobile = Browser.isMobile();
 
     const bblDash = <span className="unselectable" unselectable="on">-</span>;
-
-    const today = new Date();
 
     // console.log(showContent);
 
@@ -173,7 +172,7 @@ export default class DetailView extends Component {
 
                     <div className="card-body-registration"> 
                         <p><b>Last registered:</b> {this.formatDate(this.props.addr.lastregistrationdate)} 
-                          {(today > new Date(this.props.addr.registrationenddate)
+                          {(this.state.todaysDate > new Date(this.props.addr.registrationenddate)
                             ? <span className="text-danger"> (expired {this.formatDate(this.props.addr.registrationenddate)})</span>
                             : <span> (expires {this.formatDate(this.props.addr.registrationenddate)})</span>
                             )} 
