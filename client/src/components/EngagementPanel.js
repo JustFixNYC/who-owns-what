@@ -11,11 +11,11 @@ const EngagementPanel = () => {
       <h5>Looking to get more involved with tenant advocacy?</h5>
       <div className="EngagementWrapper">
         <div className="EngagementItem">
-         <p><b>Sign up for email updates:</b></p>
+         <p>Sign up for email updates:</p>
          <Subscribe /> 
         </div>
         <div className="EngagementItem">
-         <p><b>Follow us on social media:</b></p>
+         <p>Follow us on social media:</p>
          <a href="https://twitter.com/justfixnyc?lang=en" target="_blank"
             className="btn btn-white">
             Twitter</a> 
