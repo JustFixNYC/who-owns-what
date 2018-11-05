@@ -6,4 +6,4 @@ RUN apt-get update \
   && rm -rf /var/lib/apt/lists/* \
   && rm -rf /src/*.deb
 
-RUN pip install nycdb
+RUN pip install nycdb psycopg2-binary
