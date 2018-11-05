@@ -1,8 +1,10 @@
 @import '_vars.scss';
 
-.input-email {
-	width: 66.66%;
-	height: 34px;
+.input-group {
+	.input-email {
+		margin-right: 5px;
+		height: auto;
+	}
 }
 
 .response-text {

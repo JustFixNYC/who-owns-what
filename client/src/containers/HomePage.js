@@ -4,6 +4,7 @@ import { Redirect, Link } from 'react-router-dom';
 import AddressSearch from 'components/AddressSearch';
 import Loader from 'components/Loader';
 import APIClient from 'components/APIClient';
+import EngagementPanel from 'components/EngagementPanel';
 import LegalFooter from 'components/LegalFooter';
 
 import 'styles/HomePage.css';
@@ -148,6 +149,7 @@ class HomePage extends Component {
               </div>
             </div>
           </div>
+          <EngagementPanel />
         </div>
         <LegalFooter />
       </div>

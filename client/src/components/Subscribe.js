@@ -55,14 +55,14 @@ export default class Subscribe extends React.Component {
     return (
       // form with input and button
       <div className={`Subscribe ${this.state.success ? 'Subscribe--success':''}`}>
-        <form onSubmit={this.handleSubmit}>
+        <form onSubmit={this.handleSubmit} className="input-group" >
           <input type="text"
-            className="input-email"
+            className="form-input input-email"
             placeholder=" Enter email"
             onChange={this.handleChange}
             value={this.state.email}
           />
-          <input type="submit" className="btn btn-white" value="Sign up" />
+          <input type="submit" className="btn btn-white input-group-btn" value="Sign up" />
         </form>
         {this.state.response && (
           <p className="response-text">{this.state.response}</p>

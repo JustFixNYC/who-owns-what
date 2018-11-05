@@ -7,7 +7,7 @@ class LegalFooter extends Component {
 	render() { 
 
 		return (
-		<div className="LegalFooter">
+		<div className="Footer LegalFooter">
           <nav className="inline">
             <NavLink to="/terms-of-use">Terms of Use</NavLink>
             <NavLink to="/privacy-policy">Privacy Policy</NavLink>
