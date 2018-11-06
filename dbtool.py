@@ -3,7 +3,7 @@ import sys
 import subprocess
 import argparse
 from urllib.parse import urlparse
-from typing import NamedTuple, Any
+from typing import NamedTuple, Any, Tuple, Optional
 from pathlib import Path
 from types import SimpleNamespace
 
@@ -84,18 +84,39 @@ class NycDbBuilder:
              '--root-dir', str(self.data_dir)]
         )
 
-    def does_table_exist(self, name: str) -> bool:
+    def do_tables_exist(self, *names: str) -> bool:
         with self.conn:
-            with self.conn.cursor() as cursor:
-                cursor.execute(f"SELECT to_regclass('public.{name}')")
-                return cursor.fetchone()[0] is not None
+            for name in names:
+                with self.conn.cursor() as cursor:
+                    cursor.execute(f"SELECT to_regclass('public.{name}')")
+                    if cursor.fetchone()[0] is None:
+                        return False
+        return True
 
-    def ensure_dataset(self, name: str, force_refresh=False) -> None:
-        if force_refresh and not self.is_testing:
-            # TODO: Drop the table(s).
-            # TODO: Delete the CSV file(s) if they exist.
-            raise NotImplementedError('TODO Implement this!')
-        if not self.does_table_exist(name):
+    def drop_tables(self, *names: str) -> None:
+        with self.conn:
+            for name in names:
+                with self.conn.cursor() as cursor:
+                    cursor.execute(f"DROP TABLE IF EXISTS {name}")
+
+    def delete_downloaded_data(self, *tables: str) -> None:
+        if self.is_testing:
+            # We don't want to delete data from the testing fixture dir,
+            # so do nothing.
+            return
+        for tablename in tables:
+            csv_file = self.data_dir / f"{tablename}.csv"
+            if csv_file.exists():
+                print(f"Removing {csv_file.name} so it can be re-downloaded.")
+                csv_file.unlink()
+
+    def ensure_dataset(self, name: str, force_refresh: bool=False,
+                       extra_tables: Optional[Tuple[str]]=None) -> None:
+        tables = [name, *(extra_tables or ())]
+        if force_refresh:
+            self.drop_tables(*tables)
+            self.delete_downloaded_data(*tables)
+        if not self.do_tables_exist(*tables):
             print(f"Table {name} not found in the database. Downloading...")
             self.call_nycdb('--download', name)
             print(f"Loading {name} into the database...")
@@ -110,7 +131,7 @@ class NycDbBuilder:
             with self.conn.cursor() as cursor:
                 cursor.execute(sql)
 
-    def build(self) -> None:
+    def build(self, force_refresh: bool) -> None:
         if self.is_testing:
             print("Loading the database with test data.")
         else:
@@ -119,13 +140,14 @@ class NycDbBuilder:
         self.ensure_dataset('pluto_17v1')
         self.ensure_dataset('pluto_18v1')
         self.ensure_dataset('rentstab_summary')
-        self.ensure_dataset('marshal_evictions_17')
-        self.ensure_dataset('hpd_registrations', force_refresh=True)
+        self.ensure_dataset('marshal_evictions_17', force_refresh=force_refresh)
+        self.ensure_dataset('hpd_registrations', force_refresh=force_refresh,
+                            extra_tables=('hpd_contacts',))
 
         print("Running custom SQL for HPD registrations...")
         self.run_sql_file(SQL_DIR / 'registrations_with_contacts.sql')
 
-        self.ensure_dataset('hpd_violations', force_refresh=True)
+        self.ensure_dataset('hpd_violations', force_refresh=force_refresh)
 
         WOW_SCRIPTS = [
             ("Creating WoW buildings table...", "create_bldgs_table.sql"),
@@ -162,7 +184,14 @@ if __name__ == '__main__':
     parser_builddb = subparsers.add_parser('builddb')
     parser_builddb.add_argument(
         '-t', '--use-test-data', action='store_true',
-        help='Load the database with a small amount of test data.')
+        help=('Load the database with a small amount of test data, '
+              'instead of downloading & installing the full data sets.')
+    )
+    parser_builddb.add_argument(
+        '--update', action='store_true',
+        help=('Delete downloaded data & tables for the most frequently-updated '
+              'data sets so they can be re-downloaded and re-installed.')
+    )
     parser_builddb.set_defaults(cmd='builddb')
 
     parser_dbshell = subparsers.add_parser('dbshell')
@@ -186,7 +215,8 @@ if __name__ == '__main__':
     if cmd == 'dbshell':
         dbshell(db)
     elif cmd == 'builddb':
-        NycDbBuilder(db, is_testing=args.use_test_data).build()
+        NycDbBuilder(db, is_testing=args.use_test_data).build(
+            force_refresh=args.update)
     else:
         parser.print_help()
         sys.exit(1)
