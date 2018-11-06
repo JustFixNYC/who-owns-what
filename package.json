@@ -4,6 +4,7 @@
   "description": "who owns what in nyc.",
   "main": "index.js",
   "scripts": {
+    "install-all": "yarn && cd client && yarn",
     "start": "concurrently \"yarn server\" \"yarn client\"",
     "server": "nodemon server.js --exec babel-node",
     "client": "cd client && yarn start",
