@@ -2,6 +2,7 @@ import os
 import sys
 import subprocess
 import argparse
+import time
 from urllib.parse import urlparse
 from typing import NamedTuple, Any, Tuple, Optional
 from pathlib import Path
@@ -20,6 +21,7 @@ SQL_DIR = ROOT_DIR / 'sql'
 
 # Just an alias for our database connection.
 DbConnection = Any
+
 
 class DbContext(NamedTuple):
     host: str
@@ -56,13 +58,25 @@ class DbContext(NamedTuple):
     def connection(self) -> DbConnection:
         import psycopg2
 
-        return psycopg2.connect(
+        tries_left = 5
+        secs_between_tries = 2
+
+        connect = lambda: psycopg2.connect(
             user=self.user,
             password=self.password,
             host=self.host,
             database=self.database,
             port=self.port
         )
+
+        while tries_left > 1:
+            try:
+                return connect()
+            except psycopg2.OperationalError as e:
+                print("Failed to connect to db, retrying...")
+                time.sleep(secs_between_tries)
+                tries_left -= 1
+        return connect()
 
 
 class NycDbBuilder:
