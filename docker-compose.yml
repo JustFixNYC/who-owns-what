@@ -11,14 +11,16 @@ services:
       - 3000:3000
     links:
       - db
-    environment:
-      - DATABASE_URL=postgres://wow:wow@db/wow
+    environment: &environment
+      DATABASE_URL: postgres://wow:wow@db/wow
     command: yarn start
   nycdb:
     build: .
     volumes:
       - .:/wow:delegated
     working_dir: /wow
+    environment:
+      <<: *environment
     links:
       - db
   db:
