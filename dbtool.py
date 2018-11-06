@@ -1,6 +1,8 @@
 import psycopg2
 import os
+import sys
 import subprocess
+import argparse
 from pathlib import Path
 from types import SimpleNamespace
 
@@ -65,7 +67,16 @@ def run_sql_file(conn, sqlpath):
             cursor.execute(sql)
 
 
-if __name__ == '__main__':
+def builddb(args) -> None:
+    global IS_TESTING
+
+    IS_TESTING = args.use_test_data
+
+    if IS_TESTING:
+        print("Loading the database with test data.")
+    else:
+        print("Loading the database with real data (this could take a while).")
+
     conn = connection()
 
     ensure_dataset(conn, 'pluto_17v1')
@@ -90,3 +101,33 @@ if __name__ == '__main__':
     for desc, filename in WOW_SCRIPTS:
         print(desc)
         run_sql_file(conn, SQL_DIR / filename)
+
+
+def dbshell(args) -> int:
+    env = os.environ.copy()
+    env['PGPASSWORD'] = DB_PASSWORD
+    return subprocess.call([
+        'psql', '-h', DB_HOST, '-p', DB_PORT, '-U', DB_USER, '-d', DB_DATABASE
+    ], env=env)
+
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    subparsers = parser.add_subparsers()
+
+    parser_builddb = subparsers.add_parser('builddb')
+    parser_builddb.add_argument(
+        '-t', '--use-test-data', action='store_true',
+        help='Load the database with a small amount of test data.')
+    parser_builddb.set_defaults(func=builddb)
+
+    parser_dbshell = subparsers.add_parser('dbshell')
+    parser_dbshell.set_defaults(func=dbshell)
+
+    args = parser.parse_args()
+
+    if not hasattr(args, 'func'):
+        parser.print_help()
+        sys.exit(1)
+
+    sys.exit(args.func(args) or 0)
