@@ -1,7 +1,7 @@
 version: '2'
 services:
   app:
-    image: node:8.12
+    build: .
     volumes:
       - .:/wow:delegated
       - node-modules:/wow/node_modules/
@@ -11,18 +11,9 @@ services:
       - 3000:3000
     links:
       - db
-    environment: &environment
+    environment:
       DATABASE_URL: postgres://wow:wow@db/wow
     command: yarn start
-  nycdb:
-    build: .
-    volumes:
-      - .:/wow:delegated
-    working_dir: /wow
-    environment:
-      <<: *environment
-    links:
-      - db
   db:
     image: postgres:9.6
     environment:
