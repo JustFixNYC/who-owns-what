@@ -7,6 +7,14 @@ from typing import NamedTuple, Any, Tuple, Optional
 from pathlib import Path
 from types import SimpleNamespace
 
+try:
+    from dotenv import load_dotenv
+    load_dotenv()
+    dotenv_loaded = False
+except ModuleNotFoundError:
+    dotenv_loaded = False
+
+
 ROOT_DIR = Path(__file__).parent.resolve()
 SQL_DIR = ROOT_DIR / 'sql'
 
@@ -203,9 +211,14 @@ if __name__ == '__main__':
 
     if not database_url:
         print(
-            'Please define DATABASE_URL in the environment or pass one in '
+            'Please define DATABASE_URL in the environment or pass one in\n'
             'via the --database-url option.'
         )
+        if dotenv_loaded:
+            print('You can also define it in a .env file.')
+        else:
+            print('If you run "pip install dotenv", you can also define it '
+                  'in a .env file.')
         sys.exit(1)
 
     db = DbContext.from_url(args.database_url)
