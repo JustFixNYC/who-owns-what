@@ -5,7 +5,15 @@ services:
     volumes:
       - .:/wow:delegated
       - node-modules:/wow/node_modules/
+      - client-node-modules:/wow/client/node_modules/
     working_dir: /wow
+    ports:
+      - 3000:3000
+    links:
+      - db
+    environment:
+      - DATABASE_URL=postgres://wow:wow@db/wow
+    command: yarn start
   nycdb:
     build: .
     volumes:
@@ -21,3 +29,4 @@ services:
       - POSTGRES_PASSWORD=wow
 volumes:
   node-modules:
+  client-node-modules:
