@@ -47,10 +47,6 @@ render() {
               <h4>Who owns what in nyc?</h4>
             </Link>
             <nav className="inline">
-              <a href="#" onClick={() => this.setState({ showShareModal: true })}>
-                Share
-              </a>
-              <a href="https://www.justfix.nyc/donate" target="_blank">Donate</a>
               <NavLink to="/about">About</NavLink>
               <NavLink to="/how-it-works">How it Works</NavLink>
               {
@@ -58,11 +54,15 @@ render() {
                 //   New Search
                 // </Link>
               }
+              <a href="https://www.justfix.nyc/donate" target="_blank">Donate</a>
+              <a href="#" onClick={() => this.setState({ showShareModal: true })}>
+                Share
+              </a>
             </nav>
             <Modal
               showModal={this.state.showShareModal}
               onClose={() => this.setState({ showShareModal: false })}>
-                <h5>Share this page with your neighbors:</h5>
+                <h5>Share this tool with your neighbors:</h5>
                 <div className="btn-group btns-social btn-group-block">
                   <FacebookButton 
                     className="btn btn-steps"
@@ -84,7 +84,7 @@ render() {
                     className="btn btn-steps"
                     url='https://whoownswhat.justfix.nyc/'
                     target="_blank"
-                    message="New JustFix tool helps research on NYC landlords">
+                    message="New JustFix.nyc tool helps research on NYC landlords">
                     <i className="icon icon-mail mx-2" />
                     <span>Email</span>
                   </EmailButton>

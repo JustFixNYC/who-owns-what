@@ -5601,6 +5601,13 @@ react-scripts@1.0.10:
   optionalDependencies:
     fsevents "1.1.2"
 
+react-social@^1.10.0:
+  version "1.10.0"
+  resolved "https://registry.yarnpkg.com/react-social/-/react-social-1.10.0.tgz#28c37f170a14b6f7f7c6b39576d659a34b3e3059"
+  dependencies:
+    create-react-class "^15.6.0"
+    prop-types "^15.5.10"
+
 react-table@^6.5.3:
   version "6.5.3"
   resolved "https://registry.yarnpkg.com/react-table/-/react-table-6.5.3.tgz#fd84371b97bcabed8308b766faeeaf4264b155c8"

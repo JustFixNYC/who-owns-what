@@ -20,7 +20,8 @@ export default class DetailView extends Component {
     this.state = {
       coordinates: null,
       heading: 0,
-      showCompareModal: false
+      showCompareModal: false,
+      todaysDate: new Date()
     }
 
     this.detailSlideLength = 300;
@@ -50,7 +51,11 @@ export default class DetailView extends Component {
     }
   }
 
-
+  formatDate(dateString) {
+    var date = new Date(dateString);
+    var options = {year: 'numeric', month: 'short', day: 'numeric'};
+    return date.toLocaleDateString("en-US", options);
+  }
 
   render() {
 
@@ -62,6 +67,8 @@ export default class DetailView extends Component {
     }
 
     const isMobile = Browser.isMobile();
+
+    const bblDash = <span className="unselectable" unselectable="on">-</span>;
 
     // console.log(showContent);
 
@@ -102,8 +109,8 @@ export default class DetailView extends Component {
                     <div className="card-body-table">
                         <div className="table-row">
                           <div className="double" title="This is the official identifer for the building according to the Dept. of Finance tax records.">
-                            <label>Boro-Block-Lot (BBL)</label>
-                            {boro}-{block}-{lot}
+                            <label>Boro{bblDash}Block{bblDash}Lot (BBL)</label>
+                            {boro}{bblDash}{block}{bblDash}{lot}
                           </div>
                           <div title="The year that this building was originally constructed, according to the Dept. of City Planning.">
                             <label>Year Built</label>
@@ -162,6 +169,15 @@ export default class DetailView extends Component {
                         </ul>
                       </div>
                     </div>
+
+                    <div className="card-body-registration"> 
+                        <p><b>Last registered:</b> {this.formatDate(this.props.addr.lastregistrationdate)} 
+                          {(this.state.todaysDate > new Date(this.props.addr.registrationenddate)
+                            ? <span className="text-danger"> (expired {this.formatDate(this.props.addr.registrationenddate)})</span>
+                            : <span> (expires {this.formatDate(this.props.addr.registrationenddate)})</span>
+                            )} 
+                          </p>
+                      </div>
 
                     <div className="card-body-links columns">
                       <div className="column col-lg-12 col-6">

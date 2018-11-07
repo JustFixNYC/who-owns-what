@@ -19,6 +19,8 @@ export default class NotRegisteredPage extends Component {
     const geoclient = this.props.location.state.geoclient;
     const searchAddress = this.props.location.state.searchAddress;
 
+    const bblDash = <span className="unselectable" unselectable="on">-</span>;
+
     let boro, block, lot;
     let buildingTypeMessage;
 
@@ -65,18 +67,21 @@ export default class NotRegisteredPage extends Component {
             <h5 className="mt-10 text-danger text-center text-bold text-large">
               No results found
               {searchAddress.formatted_address ? (
-                 <span> for <u>{searchAddress.formatted_address}</u></span>
+                 <span> for {searchAddress.formatted_address}</span>
               ) : searchAddress.housenumber ? (
-                <span> for <u>{searchAddress.housenumber} {searchAddress.streetname}</u></span>
+                <span> for {searchAddress.housenumber} {searchAddress.streetname}</span>
               ) : (
                 <span></span>
               )}!
             </h5>
-            { geoclient && geoclient.latitude && geoclient.longitude &&
-              <img src={`https://maps.googleapis.com/maps/api/streetview?size=800x200&location=${geoclient.latitude},${geoclient.longitude}&key=AIzaSyCJKZm-rRtfREo2o-GNC-feqpbSvfHNB5s`}
-                   alt="Google Street View" className="img-responsive"  />
-            }
-            {buildingTypeMessage}
+            <h6 className="mt-10 text-center text-bold text-large">
+              { geoclient && geoclient.bbl ? (<span>Boro-Block-Lot (BBL): <a href={"https://zola.planning.nyc.gov/lot/"+boro + "/" + block + "/" + lot} target="_blank">{boro}{bblDash}{block}{bblDash}{lot}</a></span>):(<span></span>) }
+            </h6>
+              { geoclient && geoclient.latitude && geoclient.longitude &&
+            <img src={`https://maps.googleapis.com/maps/api/streetview?size=800x200&location=${geoclient.latitude},${geoclient.longitude}&key=AIzaSyCJKZm-rRtfREo2o-GNC-feqpbSvfHNB5s`}
+                 alt="Google Street View" className="img-responsive"  />
+              }
+          {buildingTypeMessage}
             <br />
             { geoclient && geoclient.bbl &&
               <div>

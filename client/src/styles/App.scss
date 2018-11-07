@@ -28,50 +28,68 @@
   background-color: $background;
 
   display: flex;
+
   justify-content: space-between;
   align-items: center;
   position: relative;
+
+  @include for-phone-only {
+    flex-direction: column;
+    justify-content: center;
+    padding: 8px;
+  }
 
   & > a,a:hover,a:focus {
     text-decoration: none !important;
   }
 
   & > a {
-    display: block;
+
+    @include for-tablet-portrait-up {
+      display: block;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
 
     h4 {
       margin-bottom: 0;
       color: $dark;
       font-weight: bold;
       font-size: 2rem;
-    }
 
-    @include for-tablet-portrait-up() {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-
-      h4 {
+      @include for-tablet-portrait-up() {
         font-size: 2.4rem;
       }
-    };
+
+    }
 
   }
-
 
   nav {
     margin-left: auto;
 
-  @include for-tablet-landscape-down {
-    width: 140px;
-    display: flex;
-    flex-wrap: wrap;
-  }
+    @include for-tablet-landscape-down {
+      width: 140px;
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    @include for-phone-only {
+      width: 100%;
+      justify-content: center;
+      margin-top: 8px;
+    }
 
     a {
       margin-left: 10px;
       color: #454d5d;
+
+      @include for-phone-only {
+        margin-left: 5px;
+        margin-right: 5px;
+      }
 
       &.active { text-decoration: underline; }
     }
