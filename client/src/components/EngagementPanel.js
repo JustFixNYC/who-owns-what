@@ -8,7 +8,7 @@ import 'styles/EngagementPanel.css';
 const EngagementPanel = () => {
   return (
     <div className="EngagementPanel">
-      <h6>Looking to get more involved with tenant advocacy?</h6>
+      <h6>Join the fight for tenant rights!</h6>
       <div className="EngagementWrapper">
         <div className="EngagementItem">
          <p>Sign up for email updates:</p>
