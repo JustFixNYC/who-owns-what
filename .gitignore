@@ -5,3 +5,4 @@ env/*
 client/src/**/*.css
 dist
 scripts/*
+nycdb/
