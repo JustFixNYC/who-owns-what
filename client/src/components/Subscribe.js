@@ -39,12 +39,12 @@ export default class Subscribe extends React.Component {
         // Success
         this.setState({
           success: true,
-          response: 'All set! Check your email shortly.'
+          response: 'All set! Thanks for subscribing!'
         });
       })
       .catch(err => {
         this.setState({
-          response: "Oops! Something went wrong here. Check your input and try again."
+          response: 'Oops! That email is invalid.'
         });
         window.Rollbar.error(err);
       });

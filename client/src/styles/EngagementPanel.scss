@@ -1,6 +1,9 @@
 @import '_vars.scss';
 
 .EngagementPanel {
+  width: max-content;
+  max-width: 100%;
+
   background-color: $background;
   border: 1px solid $gray-dark;
 
@@ -12,9 +15,10 @@
     padding: 20px 0px 20px 0px;
   };
 
-    h5 {
+    h6 {
       text-align: center;
       padding: 0px 15px 0px 15px;
+      font-style: italic;
     }
 
     .EngagementWrapper {
@@ -31,8 +35,8 @@
       };
 
       .EngagementItem {
-        margin-left: 20px;
-        margin-right: 20px;
+        margin-left: 12px;
+        margin-right: 12px;
 
         @include for-tablet-landscape-down() {
           margin-top: 10px;
