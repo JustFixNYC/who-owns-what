@@ -10,29 +10,40 @@ With this website, you can find crucial information about who is responsible for
 **This project is currently in active development!**
 
 ## Architecture
+
 This site is built on top of the critical work done by [@aepyornis](https://github.com/aepyornis) on the [nyc-db](https://github.com/aepyornis/nyc-db) project, which is used to cleanly extract, sanitize, and load [HPD Registration data](http://www1.nyc.gov/site/hpd/about/open-data.page) into a PostreSQL instance.
 
 Backend logic and data manipulation is largely handled by making calls to PostreSQL functions and prebuilding results into tables whenever possible to avoid complex queries made per-request. See the [hpd-registration ](https://github.com/aepyornis/nyc-db/tree/master/src/nycdb/sql/hpd_registrations) scripts of `nyc-db` for the SQL code that provides this functionality.
 
 #### Backend
+
 The backend of the app (`/server`) is a simple express build that connects to Postgres using `pg-promise`.
 
 #### Frontend
+
 The frontend of the app (`/client`) is built on top of [create-react-app](https://github.com/facebookincubator/create-react-app). See [`/client/README.md`](https://github.com/JustFixNYC/who-owns-what/blob/master/client/README.md) for all the info you might need.
 
 ## Setup
-In order to set things up, you'll need to start with a copy of [nyc-db](https://github.com/aepyornis/nyc-db) running on a local Postgres instance. You'll then need to run the code in `sql` in order to build the appropriate tables and functions that the back end relies on.
 
-After that, make sure you have node/npm/[yarn](https://yarnpkg.com/en/)  and then just
+In order to set things up, you'll need to start with the [JustFix fork of nyc-db](https://github.com/JustFixNYC/nyc-db) running on a local Postgres instance. You'll then need to run the code in `sql` in order to build the appropriate tables and functions that the back end relies on.
+
+After that, make sure you have node/npm/[yarn](https://yarnpkg.com/en/) and then run:
 
 ```
-yarn install && cd client && yarn install
+yarn install-all
 ```
 
-to grab dependencies for both server and client. You'll need a `.env` in the root directory for `DATABASE_URL`,`GEOCLIENT_ID`, & `GEOCLIENT_KEY` plus various instrumentation that you can do without if you want.
+to grab dependencies for both server and client.
+
+Then copy `.env.sample` to `.env` and edit it as needed:
+
+```
+cp .env.sample .env
+```
 
 ## Running in development
-Check `package.json` in the root directory for all options. To run both `express` and `create-react-app` you just need
+
+Check `package.json` in the root directory for all options. To run both `express` and `create-react-app` you just need:
 
 ```
 yarn start
@@ -40,8 +51,46 @@ yarn start
 
 from root.
 
+You can visit your local dev instance at http://localhost:3000.
+
+## Alternative: Docker-based development
+
+As an alternative to the aforementioned setup, you can use
+[Docker](https://www.docker.com/get-started). Once you've
+installed Docker, run:
+
+```
+docker-compose run app python dbtool.py builddb --use-test-data
+```
+
+This will build a nyc-db with test data, which is must faster
+than downloading the whole nyc-db. You can, however, opt to
+download the whole thing by leaving out the `--use-test-data`
+argument--but be prepared, as it will take a while!
+
+Once you've done that, run:
+
+```
+docker-compose run app yarn install-all
+```
+
+Then create an `.env` file and edit it as needed:
+
+```
+cp .env.sample .env
+```
+
+Then start up the server:
+
+```
+docker-compose up
+```
+
+Visit http://localhost:3000 and you should be good to go!
+
 ## Deploying
-Package clientside assets through
+
+Package client-side assets through:
 
 ```
 cd client && yarn build
