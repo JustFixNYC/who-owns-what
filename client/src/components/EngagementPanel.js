@@ -26,6 +26,12 @@ const EngagementPanel = () => {
             className="btn btn-white">
             Facebook</a> 
         </div>
+        <div className="EngagementItem">
+         <p>Visit our website:</p>
+         <a href="https://www.justfix.nyc/" target="_blank"
+            className="btn btn-block btn-justfix">
+            www.JustFix.nyc</a> 
+        </div>
       </div>
     </div>
     );
