@@ -13,6 +13,7 @@ module.exports = {
 		(e) => { if (e.error.title === 'Member Exists') {
 					return res.send(emailSuccess);
 				}
+			// console.log(e.error.title);
 			return res.sendStatus(500); 
 			}
 		)
