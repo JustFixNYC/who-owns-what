@@ -30,6 +30,7 @@
       flex-direction: row;
 
       @include for-tablet-landscape-down() {
+        display: block;
         align-items: center; 
         flex-direction: column;
       };
@@ -57,6 +58,16 @@
           margin-bottom: 4px;
         }
 
+        @include for-tablet-landscape-down() {
+
+          .EngagementSocialLinks {
+            display: flex;
+
+              .btn {
+                flex: 1 1 0;
+              }
+            }
+        }
       }
     }
 }
