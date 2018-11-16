@@ -1,13 +1,14 @@
 @import '_vars.scss';
 
 .LegalFooter {
-  height: 50px;
-  padding: 25px;
+  min-height: 60px;
+  padding: 8px;
   border-top: 1px solid $gray-light;
   background-color: $background;
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   position: relative;
 
   & > a,a:hover,a:focus {
@@ -49,6 +50,11 @@
       &.active { text-decoration: underline; }
 
     }
+  }
+
+  .Byline {
+    display: flex;
+    justify-content: right;
   }
 
 }

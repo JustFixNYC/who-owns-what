@@ -12,6 +12,7 @@ class LegalFooter extends Component {
             <NavLink to="/terms-of-use">Terms of Use</NavLink>
             <NavLink to="/privacy-policy">Privacy Policy</NavLink>
           </nav>
+          <nav className="inline">Made with NYC ♥ by the team at <a href="https://www.justfix.nyc/" target="_blank">JustFix.nyc</a></nav>
         </div>)
 	}
 }
