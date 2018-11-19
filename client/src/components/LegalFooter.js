@@ -8,11 +8,11 @@ class LegalFooter extends Component {
 
 		return (
 		<div className="Footer LegalFooter">
+          <span className="Byline">Made with NYC ♥ by the team at <a href="https://www.justfix.nyc/" target="_blank">JustFix.nyc</a></span>
           <nav className="inline">
             <NavLink to="/terms-of-use">Terms of Use</NavLink>
             <NavLink to="/privacy-policy">Privacy Policy</NavLink>
           </nav>
-          <nav className="inline">Made with NYC ♥ by the team at <a href="https://www.justfix.nyc/" target="_blank">JustFix.nyc</a></nav>
         </div>)
 	}
 }
