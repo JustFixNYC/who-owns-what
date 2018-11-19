@@ -37,7 +37,7 @@
                 inset 2px 2px 0px 0px $background-color;
   }
 
-  &:active {
+  &:active, &:focus {
     color: $text-color;
     background-color: darken($background-color, 10%);
     box-shadow: inset 1px 1px 0px 0px darken($background-color, 20%);
@@ -71,7 +71,7 @@
 }
 
 .btn.btn-justfix { @include button-special($justfix-blue, #fff); }
-.btn.btn-datarequest { 
+.btn.btn-datarequest {
     max-width: 265px;
     margin-top: 10px;
 }
