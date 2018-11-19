@@ -1,0 +1,73 @@
+@import '_vars.scss';
+
+.EngagementPanel {
+  width: max-content;
+  max-width: 100%;
+
+  background-color: $background;
+  border: 1px solid $gray-dark;
+
+  margin: 75px auto 45px auto;
+  padding: 30px;
+
+  @include for-phone-only() {
+    margin: 10px auto 30px auto;
+    padding: 20px 0px 20px 0px;
+  };
+
+    h6 {
+      text-align: center;
+      padding: 0px 15px 0px 15px;
+      font-style: italic;
+    }
+
+    .EngagementWrapper {
+
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      position: relative;
+      flex-direction: row;
+
+      @include for-tablet-landscape-down() {
+        display: block;
+        align-items: center; 
+        flex-direction: column;
+      };
+
+      .EngagementItem {
+        margin-left: 12px;
+        margin-right: 12px;
+
+        @include for-tablet-landscape-down() {
+          margin-top: 10px;
+          margin-bottom: 10px;
+        };
+      
+        p {
+          margin-bottom: 3px;
+          color: $dark;
+        }
+
+        .btn {
+          margin-left: 2px;
+          margin-right: 2px;
+        }
+
+        .btn, .input-group .input-email {
+          margin-bottom: 4px;
+        }
+
+        @include for-tablet-landscape-down() {
+
+          .EngagementSocialLinks {
+            display: flex;
+
+              .btn {
+                flex: 1 1 0;
+              }
+            }
+        }
+      }
+    }
+}

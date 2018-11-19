@@ -13,5 +13,15 @@
   .ReactModal__Content {
     transform: translate(-50%, -50%);
     min-width: 300px;
+
+    h5 {
+      margin-bottom: 1.5rem;
+      margin-top: 2.5rem;
+    }
+
+    .first-header {
+      margin-top: 0;
+    }
+  
   }
 }
