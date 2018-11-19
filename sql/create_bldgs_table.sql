@@ -4,7 +4,7 @@ DROP TABLE IF EXISTS wow_bldgs CASCADE;
 -- for cross-table analysis. Hence why the corpnames, businessaddrs, and ownernames are simplified
 -- with JSON and such.
 CREATE TABLE wow_bldgs
-AS SELECT DISTINCT ON (registrations.bbl) 
+AS SELECT DISTINCT ON (registrations.bbl)
   registrations.*,
   coalesce(violations.total, 0)::int as totalviolations,
   coalesce(violations.opentotal, 0)::int as openviolations,
@@ -13,14 +13,10 @@ AS SELECT DISTINCT ON (registrations.bbl)
   pluto.lat,
   pluto.lng,
   evictions.evictions,
-  --evictions.subsidy421a,
-  --evictions.subsidy421g,
-  --evictions.subsidyj51,
   rentstab.unitsstab2007 as rsunits2007,
-  rentstab.unitsstab2016 as rsunits2016,
+  rentstab.unitsstab2017 as rsunits2017,
   rentstab.diff as rsdiff,
   rentstab.percentchange as rspercentchange
-  --,justfix_users.__v IS NOT NULL as hasjustfix
 FROM hpd_registrations_with_contacts AS registrations
 LEFT JOIN (
   SELECT bbl,
@@ -35,11 +31,11 @@ LEFT JOIN (
     unitsres,
     yearbuilt,
     lat, lng
-  FROM pluto_17v1
+  FROM pluto_18v1
 ) pluto ON (registrations.bbl = pluto.bbl)
 LEFT JOIN (
   SELECT
-    bbl, 
+    bbl,
     count(*) as evictions
   FROM marshal_evictions_17
   GROUP BY bbl
@@ -48,14 +44,11 @@ LEFT JOIN (
   SELECT
     ucbbl,
     unitsstab2007,
-    unitsstab2016,
+    unitsstab2017,
     diff,
     percentchange
   FROM rentstab_summary
 ) rentstab ON (registrations.bbl = rentstab.ucbbl);
---LEFT JOIN justfix_users ON (registrations.bbl = justfix_users.bbl);
-
 
 create index on wow_bldgs (registrationid);
 create index on wow_bldgs (bbl);
---create index on wow_bldgs (bin);

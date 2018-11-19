@@ -133,12 +133,12 @@ const PropertiesList = (props) => {
                   maxWidth: 75
                 },
                 {
-                  Header: "2016",
-                  accessor: "rsunits2016",
+                  Header: "2017",
+                  accessor: "rsunits2017",
                   Cell: row => {
                     return (
-                      <span className={`${row.original.rsunits2016 < row.original.rsunits2007 ? 'text-danger' : ''}`}
-                        >{row.original.rsunits2016}
+                      <span className={`${row.original.rsunits2017 < row.original.rsunits2007 ? 'text-danger' : ''}`}
+                        >{row.original.rsunits2017}
                       </span>
                     );
                   },
