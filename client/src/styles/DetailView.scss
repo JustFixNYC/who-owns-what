@@ -264,9 +264,34 @@
       }
     }
 
+    .card-body-resources {
+      margin-top: 56px;
+      margin-bottom: 24px;
+
+      border: 1px solid $gray;
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+      margin-right: -1.5rem;
+      position: relative;
+
+      .card-body-resources__title {
+        position: absolute;
+        top: -19px;
+        left: 7px;
+        padding: 8px;
+        background-color: #fff;
+      }
+    }
+
+    .card-body-links, .card-body-prompt, .card-body-social {
+      margin-top: 24px;
+      margin-bottom: 24px;
+    }
+
     .card-body-links {
-      margin-top: 20px;
-      margin-bottom: 20px;
+      .columns {
+        margin-top: -1rem;
+      }
 
       a {
         white-space: nowrap;
@@ -283,14 +308,9 @@
       }
     }
 
-    .card-body-prompt {
-
-      h6 {
-        font-weight: bold;
-        margin-bottom: 0.75rem;
-      }
-
-      margin-top: 24px;
+    h6.DetailView__subtitle {
+      font-weight: bold;
+      margin-bottom: 0.75rem;
     }
 
 

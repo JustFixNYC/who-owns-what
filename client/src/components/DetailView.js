@@ -134,14 +134,14 @@ export default class DetailView extends Component {
                             <label>2017 Evictions</label>
                             { this.props.addr.evictions !== null ? this.props.addr.evictions : 'N/A' }
                           </div>
-                          <div title="This tracks how rent stabilized units in the building have changed (i.e. &quot;&Delta;&quot;) from 2007 to 2016. If the number for 2016 is red, this means there has been a loss in stabilzied units! These counts are estimated from the DOF Property Tax Bills.">
+                          <div title="This tracks how rent stabilized units in the building have changed (i.e. &quot;&Delta;&quot;) from 2007 to 2017. If the number for 2017 is red, this means there has been a loss in stabilzied units! These counts are estimated from the DOF Property Tax Bills.">
                             <label>&Delta; RS Units</label>
                             <span>{ this.props.addr.rsunits2007 !== null ? this.props.addr.rsunits2007 : 'N/A' }</span>
                             <span>&#x21FE;</span>
                             <span
-                              className={`${this.props.addr.rsunits2016 < this.props.addr.rsunits2007 ? 'text-danger' : ''}`}
+                              className={`${this.props.addr.rsunits2017 < this.props.addr.rsunits2007 ? 'text-danger' : ''}`}
                               >
-                              { this.props.addr.rsunits2016 !== null ? this.props.addr.rsunits2016 : 'N/A' }
+                              { this.props.addr.rsunits2017 !== null ? this.props.addr.rsunits2017 : 'N/A' }
                             </span>
                           </div>
                         </div>
@@ -170,66 +170,78 @@ export default class DetailView extends Component {
                       </div>
                     </div>
 
-                    <div className="card-body-registration"> 
-                        <p><b>Last registered:</b> {this.formatDate(this.props.addr.lastregistrationdate)} 
+                    <div className="card-body-registration">
+                        <p><b>Last registered:</b> {this.formatDate(this.props.addr.lastregistrationdate)}
                           {(this.state.todaysDate > new Date(this.props.addr.registrationenddate)
                             ? <span className="text-danger"> (expired {this.formatDate(this.props.addr.registrationenddate)})</span>
                             : <span> (expires {this.formatDate(this.props.addr.registrationenddate)})</span>
-                            )} 
-                          </p>
+                            )}
+                        </p>
+                    </div>
+
+
+                    <div className="card-body-resources">
+                      <span className="card-body-resources__title"><em>Additional links</em></span>
+
+                      <div className="card-body-links">
+                        <h6 className="DetailView__subtitle">Official building pages</h6>
+                        <div className="columns">
+                          <div className="column col-lg-12 col-6">
+                            <a href={`http://a836-acris.nyc.gov/bblsearch/bblsearch.asp?borough=${boro}&block=${block}&lot=${lot}`} target="_blank" className="btn btn-block">View documents on ACRIS &#8599;&#xFE0E;</a>
+                          </div>
+                          <div className="column col-lg-12 col-6">
+                            <a href={`https://hpdonline.hpdnyc.org/HPDonline/Provide_address.aspx?p1=${boro}&p2=${this.props.addr.housenumber}&p3=${this.props.addr.streetname}&SearchButton=Search`} target="_blank" className="btn btn-block">HPD Building Profile &#8599;&#xFE0E;</a>
+                          </div>
+                          <div className="column col-lg-12 col-6">
+                            <a href={`http://a810-bisweb.nyc.gov/bisweb/PropertyProfileOverviewServlet?boro=${boro}&block=${block}&lot=${lot}`} target="_blank" className="btn btn-block">DOB Building Profile &#8599;&#xFE0E;</a>
+                          </div>
+                          <div className="column col-lg-12 col-6">
+                            <a href={`http://webapps.nyc.gov:8084/CICS/fin1/find001i?FFUNC=C&FBORO=${boro}&FBLOCK=${block}&FLOT=${lot}`} target="_blank" className="btn btn-block">DOF Property Tax Bills &#8599;&#xFE0E;</a>
+                          </div>
+                        </div>
                       </div>
 
-                    <div className="card-body-links columns">
-                      <div className="column col-lg-12 col-6">
-                        <a href={`http://a836-acris.nyc.gov/bblsearch/bblsearch.asp?borough=${boro}&block=${block}&lot=${lot}`} target="_blank" className="btn btn-block">View documents on ACRIS &#8599;&#xFE0E;</a>
+                      <div className="card-body-prompt">
+                        <h6 className="DetailView__subtitle">Are you having issues in this building?</h6>
+                        <a href={`https://app.justfix.nyc?utm_source=whoownswhat`} target="_blank" className="btn btn-justfix btn-block">Take action on JustFix.nyc!</a>
                       </div>
-                      <div className="column col-lg-12 col-6">
-                        <a href={`https://hpdonline.hpdnyc.org/HPDonline/Provide_address.aspx?p1=${boro}&p2=${this.props.addr.housenumber}&p3=${this.props.addr.streetname}&SearchButton=Search`} target="_blank" className="btn btn-block">HPD Building Profile &#8599;&#xFE0E;</a>
-                      </div>
-                      <div className="column col-lg-12 col-6">
-                        <a href={`http://a810-bisweb.nyc.gov/bisweb/PropertyProfileOverviewServlet?boro=${boro}&block=${block}&lot=${lot}`} target="_blank" className="btn btn-block">DOB Building Profile &#8599;&#xFE0E;</a>
-                      </div>
-                      <div className="column col-lg-12 col-6">
-                        <a href={`http://webapps.nyc.gov:8084/CICS/fin1/find001i?FFUNC=C&FBORO=${boro}&FBLOCK=${block}&FLOT=${lot}`} target="_blank" className="btn btn-block">DOF Property Tax Bills &#8599;&#xFE0E;</a>
+
+                      <div className="card-body-social social-group">
+                        <h6 className="DetailView__subtitle">Share this map with your neighbors</h6>
+                        <div className="btn-group btns-social btn-group-block">
+                          <FacebookButton
+                            className="btn btn-steps"
+                            sharer={true}
+                            url={'https://whoownswhat.justfix.nyc/address/' + this.props.addr.boro + '/' + this.props.addr.housenumber + '/' + this.props.addr.streetname}
+                            appId={`247990609143668`}
+                            message={"The " + (this.props.portfolioSize > 1 ? this.props.portfolioSize + " " : " ")  + "buildings that my landlord \"owns\" 👀... #WhoOwnsWhat @JustFixNYC"}>
+                            <img src={fbIcon} className="icon mx-1" alt="Facebook" />
+                            <span>Facebook</span>
+                          </FacebookButton>
+                          <TwitterButton
+                            className="btn btn-steps"
+                            url={'https://whoownswhat.justfix.nyc/address/' + this.props.addr.boro + '/' + this.props.addr.housenumber + '/' + this.props.addr.streetname}
+                            message={"The " + (this.props.portfolioSize > 1 ? this.props.portfolioSize + " " : " ")  + "buildings that my landlord \"owns\" 👀... #WhoOwnsWhat @JustFixNYC"}>
+                            <img src={twitterIcon} className="icon mx-1" alt="Twitter" />
+                            <span>Twitter</span>
+                          </TwitterButton>
+                          <EmailButton
+                            className="btn btn-steps"
+                            url={'https://whoownswhat.justfix.nyc/address/' + this.props.addr.boro + '/' + this.props.addr.housenumber + '/' + this.props.addr.streetname}
+                            target="_blank"
+                            message={"The " + (this.props.portfolioSize > 1 ? this.props.portfolioSize + " " : " ")  + "buildings owned by my landlord (via Who Owns What)"}>
+                            <i className="icon icon-mail mx-2" />
+                            <span>Email</span>
+                          </EmailButton>
+                        </div>
                       </div>
                     </div>
 
-                    <div className="social-group">
-                      <label className="form-label">
-                        Share this map:
-                      </label>
-                      <div className="btn-group btns-social btn-group-block">
-                        <FacebookButton 
-                          className="btn btn-steps"
-                          sharer={true}
-                          url={'https://whoownswhat.justfix.nyc/address/' + this.props.addr.boro + '/' + this.props.addr.housenumber + '/' + this.props.addr.streetname}
-                          appId={`247990609143668`}
-                          message={"The " + (this.props.portfolioSize > 1 ? this.props.portfolioSize + " " : " ")  + "buildings that my landlord 'owns' 👀... #WhoOwnsWhat @JustFixNYC"}>
-                          <img src={fbIcon} className="icon mx-1" alt="Facebook" />
-                          <span>Facebook</span>
-                        </FacebookButton>
-                        <TwitterButton 
-                          className="btn btn-steps"
-                          url={'https://whoownswhat.justfix.nyc/address/' + this.props.addr.boro + '/' + this.props.addr.housenumber + '/' + this.props.addr.streetname}
-                          message={"The " + (this.props.portfolioSize > 1 ? this.props.portfolioSize + " " : " ")  + "buildings that my landlord 'owns' 👀... #WhoOwnsWhat @JustFixNYC"}>
-                          <img src={twitterIcon} className="icon mx-1" alt="Twitter" />
-                          <span>Twitter</span>
-                        </TwitterButton>
-                        <EmailButton 
-                          className="btn btn-steps"
-                          url={'https://whoownswhat.justfix.nyc/address/' + this.props.addr.boro + '/' + this.props.addr.housenumber + '/' + this.props.addr.streetname}
-                          target="_blank"
-                          message={"The " + (this.props.portfolioSize > 1 ? this.props.portfolioSize + " " : " ")  + "buildings owned by my landlord (via the Who Owns What tool)"}>
-                          <i className="icon icon-mail mx-2" />
-                          <span>Email</span>
-                        </EmailButton>
-                      </div>
-                    </div>
 
-                    <div className="card-body-prompt">
-                      <h6 className="text-center">Are you having issues in this building?</h6>
-                      <a href={`https://beta.justfix.nyc/onboarding/checklist?utm_source=whoownswhat`} target="_blank" className="btn btn-justfix btn-block">Start a case on JustFix.nyc</a>
-                    </div>
+
+
+
+
 
                   </div>
                 </div>
