@@ -97,6 +97,7 @@ render() {
             <Route path="/not-found" component={NotRegisteredPage} />
             <Route path="/address/:boro/:housenumber/:streetname" component={AddressPage} />
             <Route path="/bbl/:boro/:block/:lot" component={BBLPage} />
+            <Route path="/bbl/:bbl" component={BBLPage} />
             <Route path="/about" component={AboutPage} />
             <Route path="/how-it-works" component={HowItWorksPage} />
             <Route path="/terms-of-use" component={TermsOfUsePage} />

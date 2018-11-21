@@ -19,6 +19,16 @@ export default class BBLPage extends Component {
   componentDidMount() {
 
     window.gtag('event', 'direct-link');
+
+    if (this.state.searchBBL.bbl.length == 10) {
+      let bbl = this.state.searchBBL.bbl;
+      this.state.searchBBL = {
+        boro: bbl.slice(0,1),
+        block: bbl.slice(1,6),
+        lot: bbl.slice(6,10)
+      };
+    }
+
     APIClient.searchBBL(this.state.searchBBL)
       .then(results => {
         this.setState({
