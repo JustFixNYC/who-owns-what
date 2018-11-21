@@ -11,7 +11,7 @@ export default class BBLPage extends Component {
     super(props);
 
     this.state = {
-      searchBBL: { ...props.match.params },
+      searchBBL: { ...props.match.params }, // either {boro, block, lot} or {bbl}, based on url params
       results: null
     };
   }
@@ -20,6 +20,7 @@ export default class BBLPage extends Component {
 
     window.gtag('event', 'direct-link');
 
+    // handling for when url parameter is full bbl
     if (this.state.searchBBL.bbl.length == 10) {
       let bbl = this.state.searchBBL.bbl;
       this.state.searchBBL = {
