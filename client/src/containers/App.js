@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {
   BrowserRouter as Router,
   Route,
+  Switch,
   NavLink,
   Link
 } from 'react-router-dom';
@@ -93,15 +94,17 @@ render() {
             </Modal>
           </div>
           <div className="App__body">
-            <Route exact path="/" component={HomePage} />
-            <Route path="/not-found" component={NotRegisteredPage} />
-            <Route path="/address/:boro/:housenumber/:streetname" component={AddressPage} />
-            <Route path="/bbl/:boro/:block/:lot" component={BBLPage} />
-            <Route path="/bbl/:bbl" component={BBLPage} />
-            <Route path="/about" component={AboutPage} />
-            <Route path="/how-it-works" component={HowItWorksPage} />
-            <Route path="/terms-of-use" component={TermsOfUsePage} />
-            <Route path="/privacy-policy" component={PrivacyPolicyPage} />
+            <Switch>
+              <Route exact path="/" component={HomePage} />
+              <Route path="/not-found" component={NotRegisteredPage} />
+              <Route path="/address/:boro/:housenumber/:streetname" component={AddressPage} />
+              <Route path="/bbl/:boro/:block/:lot" component={BBLPage} />
+              <Route path="/bbl/:bbl" component={BBLPage} />
+              <Route path="/about" component={AboutPage} />
+              <Route path="/how-it-works" component={HowItWorksPage} />
+              <Route path="/terms-of-use" component={TermsOfUsePage} />
+              <Route path="/privacy-policy" component={PrivacyPolicyPage} />
+            </Switch>
           </div>
         </div>
         </ScrollToTop>
