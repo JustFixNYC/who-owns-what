@@ -1,23 +1,24 @@
 @import '_vars.scss';
 
 .EngagementPanel {
+
   width: max-content;
   max-width: 100%;
 
   background-color: $background;
   border: 1px solid $gray-dark;
 
-  margin: 75px auto 45px auto;
+  margin: 104px auto 104px auto;
   padding: 30px;
 
   @include for-phone-only() {
-    margin: 10px auto 30px auto;
-    padding: 20px 0px 20px 0px;
+    margin: 72px auto 72px auto;
+    box-sizing: border-box;
+    padding: 30px 15px;
   };
 
-    h6 {
+    h5 {
       text-align: center;
-      padding: 0px 15px 0px 15px;
       font-style: italic;
     }
 
@@ -31,19 +32,20 @@
 
       @include for-tablet-landscape-down() {
         display: block;
-        align-items: center; 
+        align-items: center;
         flex-direction: column;
       };
 
       .EngagementItem {
-        margin-left: 12px;
-        margin-right: 12px;
+        min-width: 250px;
+        margin-left: 16px;
+        margin-right: 16px;
 
         @include for-tablet-landscape-down() {
           margin-top: 10px;
           margin-bottom: 10px;
         };
-      
+
         p {
           margin-bottom: 3px;
           color: $dark;

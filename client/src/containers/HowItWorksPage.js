@@ -1,5 +1,6 @@
 import React from 'react';
 import LegalFooter from 'components/LegalFooter';
+import EngagementPanel from 'components/EngagementPanel';
 
 import 'styles/HowItWorksPage.css';
 
@@ -11,7 +12,7 @@ const HowItWorksPage = () => {
       <div className="Page__content">
         <h4>How it works</h4>
         <p>
-          We use <em>property ownership mapping</em> to determine the buildings that a landlord or management company are associated with. The primary basis for this information comes from analyzing <a href="http://www1.nyc.gov/site/hpd/about/open-data.page" target="_blank">HPD data</a> on multiple dwelling registrations, which contains basic landlord information on about 200,000 buildings.
+          We use <em>property ownership mapping</em> to determine the buildings that a landlord or management company are associated with. The primary basis for this information comes from analyzing <a href="http://www1.nyc.gov/site/hpd/about/open-data.page" target="_blank">HPD registration data</a> on multiple dwellings, which contains self-reported landlord contact information on about 200,000 buildings.
         </p>
         <aside>
           <img src={diagramImage} alt="how it works" className=" img-responsive" />
@@ -30,6 +31,7 @@ const HowItWorksPage = () => {
           <li><b>Rent Stabilization unit estimates (from taxbills.nyc, adapted from Dept. of Finance tax bills).</b> This data is <b>not</b> conclusive, but should be seen as an approximation. See <a href="http://blog.johnkrauss.com/where-is-decontrol/" target="_blank">this page</a> for more information. <em>- updated yearly</em></li>
         </ul>
       </div>
+      <EngagementPanel />
       <LegalFooter />
     </div>
   );

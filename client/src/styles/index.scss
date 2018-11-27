@@ -34,6 +34,12 @@ button, input[type="submit"], input[type="reset"] {
 
 }
 
+blockquote {
+  @include for-phone-only() {
+    margin-right: 0;
+  };
+}
+
 a[href^="http://maps.google.com/maps"]{display:none !important}
 a[href^="https://maps.google.com/maps"]{display:none !important}
 
@@ -46,11 +52,18 @@ a[href^="https://maps.google.com/maps"]{display:none !important}
 
 // make text unselectable when copying:
 .unselectable {
-  -webkit-user-select: none; /* Safari */        
+  -webkit-user-select: none; /* Safari */
   -moz-user-select: none; /* Firefox */
   -ms-user-select: none; /* IE10+/Edge */
   user-select: none; /* Standard */
 }
+
+.hover_img a { position:relative; }
+.hover_img a span {
+  position:absolute; display:none; z-index:99;
+
+}
+.hover_img a:hover span { display:block; }
 
 .old_safari_only {
   display: none;

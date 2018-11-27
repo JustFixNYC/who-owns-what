@@ -71,10 +71,6 @@
 }
 
 .btn.btn-justfix { @include button-special($justfix-blue, #fff); }
-.btn.btn-datarequest {
-    max-width: 265px;
-    margin-top: 10px;
-}
 
 
 .btns-social {

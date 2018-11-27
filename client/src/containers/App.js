@@ -36,7 +36,7 @@ constructor(props) {
     }
   }
 
-render() {  
+render() {
     return (
       <Router>
         <ScrollToTop>
@@ -49,6 +49,7 @@ render() {
               <h4>Who owns what in nyc?</h4>
             </Link>
             <nav className="inline">
+              <NavLink exact to="/">Home</NavLink>
               <NavLink to="/about">About</NavLink>
               <NavLink to="/how-it-works">How it Works</NavLink>
               {
@@ -66,23 +67,25 @@ render() {
               onClose={() => this.setState({ showEngageModal: false })}>
                 <h5 className="first-header">Share this tool with your neighbors:</h5>
                 <div className="btn-group btns-social btn-group-block">
-                  <FacebookButton 
+                  <FacebookButton
                     className="btn btn-steps"
                     sharer={true}
+                    windowOptions={['width=400', 'height=200']}
                     url='https://whoownswhat.justfix.nyc/'
                     appId={`247990609143668`}
                     message={"How 'small' and 'local' really is your landlord... #WhoOwnsWhat @JustFixNYC"}>
                     <img src={fbIcon} className="icon mx-1" alt="Facebook" />
                     <span>Facebook</span>
                   </FacebookButton>
-                  <TwitterButton 
+                  <TwitterButton
                     className="btn btn-steps"
+                    windowOptions={['width=400', 'height=200']}
                     url='https://whoownswhat.justfix.nyc/'
                     message={"How 'small' and 'local' really is your landlord... #WhoOwnsWhat @JustFixNYC"}>
                     <img src={twitterIcon} className="icon mx-1" alt="Twitter" />
                     <span>Twitter</span>
                   </TwitterButton>
-                  <EmailButton 
+                  <EmailButton
                     className="btn btn-steps"
                     url='https://whoownswhat.justfix.nyc/'
                     target="_blank"

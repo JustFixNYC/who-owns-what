@@ -150,7 +150,7 @@ export default class DetailView extends Component {
                     <div className="card-body-landlord">
                         <div className="columns">
                           <div className="column col-xs-12 col-6">
-                            <b>Shell Companies:</b>
+                            <b>Business Entities:</b>
                             <ul>
                               {this.props.addr.corpnames && this.props.addr.corpnames.map((corp, idx) => <li key={idx}>{corp}</li> )}
                             </ul>
@@ -207,11 +207,12 @@ export default class DetailView extends Component {
                       </div>
 
                       <div className="card-body-social social-group">
-                        <h6 className="DetailView__subtitle">Share this map with your neighbors</h6>
+                        <h6 className="DetailView__subtitle">Share this page with your neighbors</h6>
                         <div className="btn-group btns-social btn-group-block">
                           <FacebookButton
                             className="btn btn-steps"
                             sharer={true}
+                            windowOptions={['width=400', 'height=200']}
                             url={encodeURI('https://whoownswhat.justfix.nyc/address/' + this.props.addr.boro + '/' + this.props.addr.housenumber + '/' + this.props.addr.streetname)}
                             appId={`247990609143668`}
                             message={"The " + (this.props.portfolioSize > 1 ? this.props.portfolioSize + " " : " ")  + "buildings that my landlord \"owns\" 👀... #WhoOwnsWhat @JustFixNYC"}>
@@ -220,6 +221,7 @@ export default class DetailView extends Component {
                           </FacebookButton>
                           <TwitterButton
                             className="btn btn-steps"
+                            windowOptions={['width=400', 'height=200']}
                             url={encodeURI('https://whoownswhat.justfix.nyc/address/' + this.props.addr.boro + '/' + this.props.addr.housenumber + '/' + this.props.addr.streetname)}
                             message={"The " + (this.props.portfolioSize > 1 ? this.props.portfolioSize + " " : " ")  + "buildings that my landlord \"owns\" 👀... #WhoOwnsWhat @JustFixNYC"}>
                             <img src={twitterIcon} className="icon mx-1" alt="Twitter" />
