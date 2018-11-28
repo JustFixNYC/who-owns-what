@@ -32,9 +32,6 @@
 
     aside {
 
-      margin-top: 48px;
-      margin-bottom: 48px;
-
       @include for-tablet-portrait-up() {
         width: 32%;
         margin-left: 40px;
@@ -42,19 +39,6 @@
         margin-bottom: 0;
       }
 
-
-
-      & > div, & > figure {
-        max-width: 360px;
-        margin: 0 auto;
-      }
-      img {
-
-      }
-      figcaption {
-        max-width: 300px;
-        margin: 1rem auto;
-      }
     }
   }
 

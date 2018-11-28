@@ -30,6 +30,9 @@ const HowItWorksPage = () => {
           </li>
           <li><b>Rent Stabilization unit estimates (from taxbills.nyc, adapted from Dept. of Finance tax bills).</b> This data is <b>not</b> conclusive, but should be seen as an approximation. See <a href="http://blog.johnkrauss.com/where-is-decontrol/" target="_blank">this page</a> for more information. <em>- updated yearly</em></li>
         </ul>
+        <p>
+          For additional questions, or help with research, you can email us at <a href="mailto:hello@justfix.nyc" target="_blank">hello@justfix.nyc</a>.
+        </p>
       </div>
       <EngagementPanel />
       <LegalFooter />
