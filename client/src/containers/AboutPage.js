@@ -12,7 +12,7 @@ const AboutPage = () => {
         <blockquote>
           <p>
             <em>"I’ve lived in buildings where I never even knew who owned the place. The dynamic makes for the beginnings of an absurdly unequal relationship, where tenants shell out huge sums each month with little confidence that the leaky faucet will be fixed or the roaches will be vanquished..."</em>
-            <cite>  —— Ronda Kaysen</cite>
+            <cite>&nbsp;&nbsp;&nbsp;—— Ronda Kaysen</cite>
           </p>
         </blockquote>
         <p>
