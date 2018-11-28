@@ -32,10 +32,19 @@
   .geosuggest {
 
     margin-bottom: 15px;
+    // max-width: 600px;
+    // margin: 0 auto;
 
     .geosuggest__suggests-wrapper {
       background-color: #fff;
-      border: 1px solid $border;
+
+
+      .geosuggest__suggests {
+        &:not(.geosuggest__suggests--hidden) {
+          border: 1px solid $gray;
+          border-top: none;
+        }
+      }
 
       ul {
         margin: 0;

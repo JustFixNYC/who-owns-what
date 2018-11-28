@@ -11,7 +11,7 @@ import 'styles/HomePage.css';
 
 import westminsterLogo from '../assets/img/westminster.svg';
 import allyearLogo from '../assets/img/allyear.png';
-import silvershoreLogo from '../assets/img/silvershore.png';
+import emLogo from '../assets/img/emassociates.jpg';
 
 class HomePage extends Component {
   constructor(props) {
@@ -128,6 +128,16 @@ class HomePage extends Component {
                 </div>
                 <div className="column col-4 col-sm-12">
                   <div className="HomePage__sample">
+                    <h6>E&M Associates</h6>
+                    <img className="emassoc img-responsive" src={emLogo} alt="E&M Associates" />
+                    <p>
+                      E&M Associates was <a href="https://www.nytimes.com/interactive/2018/05/20/nyregion/nyc-affordable-housing.html" target="_blank">reported in the New York Times</a> as a prime example of a landlord who engages in aggresive eviction strategies to displace low-income tenants. In <a href="https://en.wikipedia.org/wiki/Dunbar_Apartments" target="_blank">one of their buildings</a>, they sued at least 250 rent-regulated tenants in under five years — using tactics like lack of repairs and frivolous evictions.
+                    </p>
+                    <Link className="btn block text-center" to="/address/MANHATTAN/2006/ADAM%20CLAYTON%20POWELL%20JR%20BOULEVARD">View portfolio &#10230;</Link>
+                  </div>
+                </div>
+                <div className="column col-4 col-sm-12">
+                  <div className="HomePage__sample">
                     <h6>All Year Management</h6>
                     <img className="img-responsive" src={allyearLogo} alt="All Year" />
                     <p>
@@ -136,16 +146,7 @@ class HomePage extends Component {
                     <Link className="btn block text-center" to="/address/BROOKLYN/654/PARK%20PLACE">View portfolio &#10230;</Link>
                   </div>
                 </div>
-                <div className="column col-4 col-sm-12">
-                  <div className="HomePage__sample">
-                    <h6>Silvershore Properties</h6>
-                    <img className="silvershore img-responsive" src={silvershoreLogo} alt="Silvershore" />
-                    <p>
-                      Taking the #1 place in this year's <a href="http://landlordwatchlist.com/" target="_blank">Worst Landlord List</a>, Johnathan Cohen's buildings received over 1,000 HPD violations. Tenants in this portfolio were left "without heat, hot water or gas and surrounded by vermin, leaks and mold" for <a href="https://www.dnainfo.com/new-york/20170613/greenpoint/silvershore-properties-landlord-tenant-mold-mice-rats-hpd-dob" target="_blank">months</a> at a time.
-                    </p>
-                    <Link className="btn block text-center" to="/address/BROOKLYN/196/KINGSLAND%20AVENUE">View portfolio &#10230;</Link>
-                  </div>
-                </div>
+
               </div>
             </div>
           </div>

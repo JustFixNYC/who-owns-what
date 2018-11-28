@@ -36,7 +36,7 @@
   @include for-phone-only {
     flex-direction: column;
     justify-content: center;
-    padding: 8px;
+    padding: 10px 8px 8px;
   }
 
   & > a,a:hover,a:focus {
@@ -87,11 +87,11 @@
       color: #454d5d;
 
       @include for-phone-only {
-        margin-left: 5px;
-        margin-right: 5px;
+        margin-left: 7px;
+        margin-right: 7px;
       }
 
-      &.active { text-decoration: underline; }
+      &.active { text-decoration: none; }
     }
   }
 
@@ -125,10 +125,19 @@ div.Page {
 }
 
 .Page__content {
-  
+
   padding: 30px;
   width: 100%;
   flex-grow: 1;
+
+  // mobile
+  @include for-phone-only() {
+    aside {
+      margin-top: 48px;
+      margin-bottom: 48px;
+    }
+  };
+
 
   @include for-tablet-portrait-up() {
     p, h1, h2, h3, h4, h5, h6, ul {
@@ -144,8 +153,18 @@ div.Page {
       width: 38%;
       float: right;
 
+      & > div, & > figure {
+        max-width: 360px;
+        margin: 0 auto;
+      }
       img {
         margin: 0 auto;
+      }
+      figcaption {
+        max-width: 300px;
+        margin: 1rem auto;
+        font-size: 1.25rem;
+        line-height: 1.1;
       }
     }
   };

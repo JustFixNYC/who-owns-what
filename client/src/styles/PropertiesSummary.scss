@@ -4,15 +4,21 @@
 
 .PropertiesSummary {
 
-  padding: 30px 60px 30px 30px;
 
-  @include for-phone-only() {
-    padding-right: 30px;
-  };
+
+  // @include for-phone-only() {
+  //   padding-right: 30px;
+  // };
 
   .PropertiesSummary__content {
 
-    h6 {
+    padding: 30px 45px 104px 30px;
+
+    @include for-tablet-portrait-up() {
+      padding: 45px 45px 104px 45px;
+    }
+
+    & > div > h6 {
       font-size: 1.4rem;
       margin-bottom: .6rem;
       text-decoration: underline;
@@ -25,14 +31,41 @@
     }
 
     aside {
-      img {
-        max-width: 300px;
+
+      @include for-tablet-portrait-up() {
+        width: 32%;
+        margin-left: 40px;
+        margin-top: 0;
+        margin-bottom: 0;
       }
-      figcaption {
-        max-width: 300px;
-        margin: 1rem auto;
-      }
+
     }
+  }
+
+  .PropertiesSummary__links {
+    border: 1px solid $gray;
+    padding: 2rem 1.5rem;
+    position: relative;
+
+    .PropertiesSummary__linksTitle {
+      position: absolute;
+      top: -19px;
+      left: 7px;
+      padding: 8px 9px 4px 8px;
+      background-color: #fff;
+    }
+
+    h6.PropertiesSummary__linksSubtitle {
+      font-weight: bold;
+      margin-bottom: 0.75rem;
+      width: 100%;
+    }
+
+    & > div:not(:last-child) {
+      margin-bottom: 24px;
+    }
+
+
   }
 
 }

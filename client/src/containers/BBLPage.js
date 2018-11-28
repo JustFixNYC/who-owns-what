@@ -91,9 +91,11 @@ export default class BBLPage extends Component {
 
 
     return (
-      <div className="HomePage BBLPage">
-        <div className="HomePage__search">
-          <Loader loading={true}>Searching...</Loader>
+      <div className="Page HomePage">
+        <div className="HomePage__content">
+          <div className="HomePage__search">
+            <Loader classNames="Loader--centered" loading={true}>Searching</Loader>
+          </div>
         </div>
       </div>
     );

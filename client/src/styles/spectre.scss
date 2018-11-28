@@ -16,6 +16,7 @@ a {
 a:focus, .form-input:focus, .btn:focus,  {
   // @include control-shadow($gray);
   box-shadow: 0 0 0 .1rem fade-in($gray-light, .15);
+  border-color: $gray-dark;
 }
 
 .menu {

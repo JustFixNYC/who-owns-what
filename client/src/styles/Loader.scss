@@ -16,12 +16,18 @@
     background-color: #fff;
   }
 
+  &.Loader--centered {
+    margin: 0 auto;
+  }
+
   .Loader__content {
 
     p {
+      width: 100%;
       font-size: 18px;
       margin-bottom: 0;
       display: inline-block;
+
 
 
       &:after {
