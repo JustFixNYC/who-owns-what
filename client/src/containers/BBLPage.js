@@ -11,14 +11,33 @@ export default class BBLPage extends Component {
     super(props);
 
     this.state = {
-      searchBBL: { ...props.match.params },
+      searchBBL: { ...props.match.params }, // either {boro, block, lot} or {bbl}, based on url params
       results: null
     };
   }
 
+  componentWillMount() {
+
+    // handling for when url parameter is full bbl
+
+    if (this.state.searchBBL.bbl) {
+      let bbl = this.state.searchBBL.bbl;
+      this.setState({
+        searchBBL: {
+          boro: bbl.slice(0,1),
+          block: bbl.slice(1,6),
+          lot: bbl.slice(6,10)
+        }
+      });
+    }
+
+  }
+
+
   componentDidMount() {
 
     window.gtag('event', 'direct-link');
+
     APIClient.searchBBL(this.state.searchBBL)
       .then(results => {
         this.setState({
