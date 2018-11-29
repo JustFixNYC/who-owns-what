@@ -21,7 +21,7 @@ const AboutPage = () => {
         </blockquote>
 
         <p>
-          When a landlord buys a building, they will typically use a Limited Liability Corporation (known as a shell company) in order to maintain their anonymity and protect themselves from possible reprocussions. This lack of transparency prevents tenants and organizers from being able to connect the dots and understand the systematic issues than stem from a single bad landlord - issues such as forced displacement, neglect of conditions, and discrimination. Tenants who suffer from the same abusive landlords are left in the dark, oftentimes not knowing that their neighbors down the block are dealing with similar issues.
+          When a landlord buys a building, they will typically use a Limited Liability Corporation (known as a shell company) in order to maintain their anonymity and protect themselves from possible repercussions. This lack of transparency prevents tenants and organizers from being able to connect the dots and understand the systematic issues than stem from a single bad landlord - issues such as forced displacement, neglect of conditions, and discrimination. Tenants who suffer from the same abusive landlords are left in the dark, oftentimes not knowing that their neighbors down the block are dealing with similar issues.
         </p>
 
         <aside>
@@ -46,7 +46,11 @@ const AboutPage = () => {
         <br />
         <h4>About JustFix.nyc</h4>
         <p>
-          We're New Yorkers who use data & technology to support our neighbors in the fight for housing justice. We currently support over 50 longstanding tenants rights organizations, legal aid, and neighborhood groups. We envision a New York for all - a place where working-class families can thrive without fear of landlord harrasment or displacement. JustFix.nyc is a registered 501(c)3 non-profit organization. For more info, visit our site at <a href="https://www.justfix.nyc" target="_blank">www.justfix.nyc</a>.
+          We're New Yorkers who use data & technology to support our neighbors in the fight for housing justice. We currently support over 50 longstanding tenants rights organizations, legal aid, and neighborhood groups. We envision a New York for all - a place where working-class families can thrive without fear of landlord harassment or displacement. For more info, visit our site at <a href="https://www.justfix.nyc" target="_blank">www.justfix.nyc</a>.
+          <br />
+          <br />
+          JustFix.nyc is a registered 501(c)3 non-profit organization. We aim to build community-supported services for the community! If you have the capacity, please consider supporting our work <a href="https://www.justfix.nyc/donate" target="_blank">here</a>.
+
         </p>
         <br />
         <br />

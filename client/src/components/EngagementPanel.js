@@ -1,7 +1,10 @@
 import React from 'react';
 import Subscribe from 'components/Subscribe';
+import SocialShare from 'components/SocialShare';
 
 import 'styles/EngagementPanel.css';
+
+
 
 const EngagementPanel = () => {
   return (
@@ -13,18 +16,8 @@ const EngagementPanel = () => {
          <Subscribe />
         </div>
         <div className="EngagementItem">
-         <p>Follow us on social media:</p>
-          <div className="EngagementSocialLinks">
-             <a href="https://twitter.com/justfixnyc?lang=en" target="_blank"
-                className="btn btn-white">
-                Twitter</a>
-             <a href="https://www.instagram.com/justfixnyc/?hl=en" target="_blank"
-                className="btn btn-white">
-                Instagram</a>
-             <a href="https://www.facebook.com/JustFixNYC/" target="_blank"
-                className="btn btn-white">
-                Facebook</a>
-         </div>
+         <p>Share with your neighbors:</p>
+         <SocialShare />
         </div>
         <div className="EngagementItem">
          <p>Visit our website:</p>

@@ -6,7 +6,6 @@ import {
   NavLink,
   Link
 } from 'react-router-dom';
-import { FacebookButton, TwitterButton, EmailButton } from 'react-social';
 
 import 'styles/App.css';
 
@@ -22,9 +21,7 @@ import PrivacyPolicyPage from 'PrivacyPolicyPage';
 import ScrollToTop from 'components/ScrollToTop';
 import Modal from 'components/Modal';
 import Subscribe from 'components/Subscribe';
-
-import fbIcon from '../assets/img/fb.svg';
-import twitterIcon from '../assets/img/twitter.svg';
+import SocialShare from 'components/SocialShare';
 
 export default class App extends Component {
 
@@ -52,11 +49,6 @@ render() {
               <NavLink exact to="/">Home</NavLink>
               <NavLink to="/about">About</NavLink>
               <NavLink to="/how-it-works">How it Works</NavLink>
-              {
-                // <Link className="btn" to="/">
-                //   New Search
-                // </Link>
-              }
               <a href="https://www.justfix.nyc/donate" target="_blank">Donate</a>
               <a href="#" onClick={() => this.setState({ showEngageModal: true })}>
                 Share
@@ -65,35 +57,8 @@ render() {
             <Modal
               showModal={this.state.showEngageModal}
               onClose={() => this.setState({ showEngageModal: false })}>
-                <h5 className="first-header">Share this tool with your neighbors:</h5>
-                <div className="btn-group btns-social btn-group-block">
-                  <FacebookButton
-                    className="btn btn-steps"
-                    sharer={true}
-                    windowOptions={['width=400', 'height=200']}
-                    url='https://whoownswhat.justfix.nyc/'
-                    appId={`247990609143668`}
-                    message={"How 'small' and 'local' really is your landlord... #WhoOwnsWhat @JustFixNYC"}>
-                    <img src={fbIcon} className="icon mx-1" alt="Facebook" />
-                    <span>Facebook</span>
-                  </FacebookButton>
-                  <TwitterButton
-                    className="btn btn-steps"
-                    windowOptions={['width=400', 'height=200']}
-                    url='https://whoownswhat.justfix.nyc/'
-                    message={"How 'small' and 'local' really is your landlord... #WhoOwnsWhat @JustFixNYC"}>
-                    <img src={twitterIcon} className="icon mx-1" alt="Twitter" />
-                    <span>Twitter</span>
-                  </TwitterButton>
-                  <EmailButton
-                    className="btn btn-steps"
-                    url='https://whoownswhat.justfix.nyc/'
-                    target="_blank"
-                    message="New JustFix.nyc tool helps research on NYC landlords">
-                    <i className="icon icon-mail mx-2" />
-                    <span>Email</span>
-                  </EmailButton>
-                </div>
+                <h5 className="first-header">Share this page with your neighbors:</h5>
+                <SocialShare />
             </Modal>
           </div>
           <div className="App__body">
