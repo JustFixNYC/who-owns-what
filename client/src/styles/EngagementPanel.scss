@@ -15,7 +15,6 @@
     margin: 72px auto 72px auto;
     box-sizing: border-box;
     padding: 30px 15px;
-    max-width: 340px;
   };
 
     h5 {
@@ -38,7 +37,6 @@
       };
 
       .EngagementItem {
-        min-width: 250px;
         margin-left: 16px;
         margin-right: 16px;
 
@@ -52,13 +50,8 @@
           color: $dark;
         }
 
-        .btn {
-          margin-left: 2px;
-          margin-right: 2px;
-        }
-
-        .btn, .input-group .input-email {
-          margin-bottom: 4px;
+        .btn-block {
+            min-width: 175px;
         }
 
         @include for-tablet-landscape-down() {
