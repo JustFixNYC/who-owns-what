@@ -1,0 +1,18 @@
+version: '2'
+services:
+  app:
+    extends:
+      file: docker-services.yml
+      service: app
+    volumes:
+      - nycdb:/wow/nycdb/
+    links:
+      - db
+  db:
+    extends:
+      file: docker-services.yml
+      service: db
+volumes:
+  node-modules:
+  client-node-modules:
+  nycdb:
