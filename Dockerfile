@@ -27,3 +27,5 @@ RUN curl -L https://github.com/JustFixNYC/nyc-db/archive/${NYCDB_REV}.zip > nyc-
 # and will log lots of annoying warnings about using psycopg2-binary
 # instead, so let's just install that to avoid the warnings.
 RUN pip install psycopg2-binary
+
+COPY . /wow/

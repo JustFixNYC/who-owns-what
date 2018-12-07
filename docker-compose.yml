@@ -1,28 +1,17 @@
 version: '2'
 services:
   app:
-    build: .
+    extends:
+      file: docker-services.yml
+      service: app
     volumes:
       - .:/wow:delegated
-      - node-modules:/wow/node_modules/
-      - client-node-modules:/wow/client/node_modules/
-    working_dir: /wow
-    ports:
-      - 3000:3000
     links:
       - db
-    environment:
-      DATABASE_URL: postgres://wow:wow@db/wow
-      # Enable polling, as some Docker setups don't work
-      # well with mounted volumes and filesystem notifications.
-      CHOKIDAR_USEPOLLING: 1
-    command: yarn start
   db:
-    image: postgres:9.6
-    environment:
-      - POSTGRES_USER=wow
-      - POSTGRES_DB=wow
-      - POSTGRES_PASSWORD=wow
+    extends:
+      file: docker-services.yml
+      service: db
 volumes:
   node-modules:
   client-node-modules:
