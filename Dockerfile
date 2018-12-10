@@ -14,7 +14,7 @@ RUN apt-get update \
 
 RUN npm install -g yarn
 
-ENV NYCDB_REV=ab8f632c5e3514643955c25a412b9a5dd0bc065c
+ENV NYCDB_REV=c1d7aa7f6efbe305df847ea1b439a8b230a92516
 
 RUN curl -L https://github.com/JustFixNYC/nyc-db/archive/${NYCDB_REV}.zip > nyc-db.zip \
   && unzip nyc-db.zip \
