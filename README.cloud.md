@@ -9,7 +9,7 @@ your local environment to make Docker's command-line tools use that
 host. For example, to do this on Amazon EC2, you might use:
 
 ```
-docker-machine create my-aws-sandbox --driver=amazonec2 --amazonec2-access-key=<your access key> --amazonec2-secret-key=<your secret key>
+docker-machine create my-aws-sandbox --driver=amazonec2 --amazonec2-access-key=<your access key> --amazonec2-secret-key=<your secret key> --amazonec2-instance-type=t2.large
 ```
 
 Then you'll want to load the host's configuration into
