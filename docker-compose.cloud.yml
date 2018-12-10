@@ -12,6 +12,8 @@ services:
     extends:
       file: docker-services.yml
       service: db
+    ports:
+      - 5432:5432
 volumes:
   node-modules:
   client-node-modules:
