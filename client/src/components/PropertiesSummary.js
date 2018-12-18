@@ -57,7 +57,12 @@ export default class PropertiesSummary extends Component {
             <div>
               <h6>General info</h6>
               <p>
-                There are <b>{agg.bldgs}</b> buildings in this portfolio with a total of <b>{agg.units}</b> units. The average age of these buildings is <b>{agg.age}</b> years old.
+                There {agg.bldgs == 1 ? 
+                  <span>is <b>1</b> building </span> :
+                  <span>are <b>{agg.bldgs}</b> buildings </span>}
+                in this portfolio with a total of {agg.units} unit{agg.units == 1 ? "" : "s"}.
+                The {agg.bldgs == 1 ? "" : "average"} age of {agg.bldgs == 1 ? "this building " : "these buildings "}
+                is <b>{agg.age}</b> years old.
               </p>
               <aside>
                 {agg.violationsaddr && (
@@ -72,7 +77,10 @@ export default class PropertiesSummary extends Component {
 
               </aside>
               <h6>Landlord</h6>
-              <p>The most common names that appear in this portfolio are
+              <p>The most common
+                  {agg.topowners.length > 1 ?
+                  <span> names that appear in this portfolio are </span> : 
+                  <span> name that appears in this portfolio is </span> }
                 <b>{agg.topowners && agg.topowners.map((owner,idx) => {
                   return (
                     <span key={idx}>
