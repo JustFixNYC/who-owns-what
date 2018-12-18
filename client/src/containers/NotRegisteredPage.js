@@ -78,7 +78,7 @@ export default class NotRegisteredPage extends Component {
               { geoclient && geoclient.bbl ? (<span>Boro-Block-Lot (BBL): <a href={"https://zola.planning.nyc.gov/lot/"+boro + "/" + block + "/" + lot} target="_blank">{boro}{bblDash}{block}{bblDash}{lot}</a></span>):(<span></span>) }
             </h6>
               { geoclient && geoclient.latitude && geoclient.longitude &&
-            <img src={`https://maps.googleapis.com/maps/api/streetview?size=800x200&location=${geoclient.latitude},${geoclient.longitude}&key=AIzaSyCJKZm-rRtfREo2o-GNC-feqpbSvfHNB5s`}
+            <img src={`https://maps.googleapis.com/maps/api/streetview?size=800x200&location=${geoclient.latitude},${geoclient.longitude}&key=${process.env.REACT_APP_STREETVIEW_API_KEY}`}
                  alt="Google Street View" className="img-responsive"  />
               }
           {buildingTypeMessage}
