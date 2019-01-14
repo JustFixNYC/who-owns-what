@@ -113,14 +113,16 @@ export default class PropertiesSummary extends Component {
               </p>
               <h6>Rent stabilization</h6>
               <p>
-                This portfolio also had an estimated <b>net {agg.totalrsdiff > 0 ? "gain" : "loss"}</b> of <b>{Math.abs(parseInt(agg.totalrsdiff, 10))}</b> rent stabilized units since 2007 (gained {Math.abs(parseInt(agg.totalrsgain, 10))}, lost {Math.abs(parseInt(agg.totalrsloss, 10))}).
-                This represents <b>{agg.rsproportion}%</b> of the total size of this portfolio. The building that has lost the most units is&nbsp;
-                {agg.rslossaddr && (
+                This portfolio also had an estimated <b>net {agg.totalrsdiff > 0 ? "gain" : "loss"}</b> of <b>{Math.abs(parseInt(agg.totalrsdiff, 10)) || 0}</b> rent stabilized unit{agg.totalrsdiff == 1 ? "" : "s"} since 2007 (gained {Math.abs(parseInt(agg.totalrsgain, 10)) || 0}, lost {Math.abs(parseInt(agg.totalrsloss, 10)) || 0}).
+                This represents <b>{agg.rsproportion || 0}%</b> of the total size of this portfolio. 
+                {agg.rslossaddr && (agg.rslossaddr.rsdiff < 0) ?
+                (<span> The building that has lost the most units is&nbsp;
                   <b>
                     {agg.rslossaddr.housenumber} {agg.rslossaddr.streetname}, {agg.rslossaddr.boro}
                   </b>
-                )}
-                , which has lost <b>{agg.rslossaddr && Math.abs(parseInt(agg.rslossaddr.rsdiff, 10))}</b> units in the past 10 years.
+                  , which has lost <b>{Math.abs(parseInt(agg.rslossaddr.rsdiff, 10))}</b> unit{Math.abs(parseInt(agg.rslossaddr.rsdiff, 10)) == 1 ? "" : "s"} in the past 10 years.
+                 </span>) :
+                 ""}
               </p>
               <aside>
                 <div className="PropertiesSummary__links">
