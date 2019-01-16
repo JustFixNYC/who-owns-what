@@ -18,6 +18,9 @@ const PropertiesList = (props) => {
       <div className="PropertiesList">
         <ReactTable
           data={props.addrs}
+          minRows={Browser.isMobile() ? 5 : 10}
+          defaultPageSize={props.addrs.length}
+          showPagination = {false}
           columns={[
             // {
             //   Header: () => {
@@ -209,7 +212,6 @@ const PropertiesList = (props) => {
               ]
             }
           ]}
-          defaultPageSize={Browser.isMobile() ? 5 : 10}
           style={{
             height: "100%"
           }}
