@@ -84,7 +84,7 @@
       display: none;
       margin-left: 5px;
 
-      @include for-tablet-landscape-up() {
+      @media screen and (min-width: 1260px) {
         display: inline;
       }
     }
