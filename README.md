@@ -11,9 +11,9 @@ With this website, you can find crucial information about who is responsible for
 
 ## Architecture
 
-This site is built on top of the critical work done by [@aepyornis](https://github.com/aepyornis) on the [nyc-db](https://github.com/aepyornis/nyc-db) project, which is used to cleanly extract, sanitize, and load [HPD Registration data](http://www1.nyc.gov/site/hpd/about/open-data.page) into a PostreSQL instance.
+This site is built on top of the critical work done by [@aepyornis](https://github.com/aepyornis) on the [nyc-db](https://github.com/aepyornis/nyc-db) project, which is used to cleanly extract, sanitize, and load [HPD Registration data](http://www1.nyc.gov/site/hpd/about/open-data.page) into a PostgreSQL instance.
 
-Backend logic and data manipulation is largely handled by making calls to PostreSQL functions and prebuilding results into tables whenever possible to avoid complex queries made per-request. See the [hpd-registration ](https://github.com/aepyornis/nyc-db/tree/master/src/nycdb/sql/hpd_registrations) scripts of `nyc-db` for the SQL code that provides this functionality.
+Backend logic and data manipulation is largely handled by making calls to PostgreSQL functions and prebuilding results into tables whenever possible to avoid complex queries made per-request. See the [hpd-registration ](https://github.com/aepyornis/nyc-db/tree/master/src/nycdb/sql/hpd_registrations) scripts of `nyc-db` for the SQL code that provides this functionality.
 
 #### Backend
 
@@ -25,7 +25,7 @@ The frontend of the app (`/client`) is built on top of [create-react-app](https:
 
 ## Setup
 
-In order to set things up, you'll need to start with the [JustFix fork of nyc-db](https://github.com/JustFixNYC/nyc-db) running on a local Postgres instance. You'll then need to run the code in `sql` in order to build the appropriate tables and functions that the back end relies on.
+In order to set things up, you'll need to start with the [JustFix fork of nyc-db](https://github.com/JustFixNYC/nyc-db) running on a local Postgre instance. You'll then need to run the code in `sql` in order to build the appropriate tables and functions that the back end relies on.
 
 After that, make sure you have node/npm/[yarn](https://yarnpkg.com/en/) and then run:
 
