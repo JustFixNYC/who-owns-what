@@ -158,6 +158,22 @@ export default class PropertiesMap extends Component {
     if(!prevProps.isVisible && this.props.isVisible) {
       if(this.state.mapRef) this.state.mapRef.resize();
     }
+
+    // meant to pan the map any time the detail address changes 
+    if(prevProps.detailAddr && this.props.detailAddr) {
+      if(!Helpers.addrsAreEqual(prevProps.detailAddr,this.props.detailAddr)) {
+          let addr = this.props.detailAddr;
+          // build a bounding box around our new detail addr
+          let minPos = [parseFloat(addr.lng) - DETAIL_OFFSET, parseFloat(addr.lat) - DETAIL_OFFSET];
+          let maxPos = [parseFloat(addr.lng) + DETAIL_OFFSET, parseFloat(addr.lat) + DETAIL_OFFSET];
+          this.setState({ mapProps: {
+            ...this.state.mapProps,
+            fitBounds: [minPos, maxPos]
+          }});
+
+          //console.log("I panned the map!");
+      }
+    }
   }
 
   handleMouseMove = (map, e) => {
@@ -170,15 +186,6 @@ export default class PropertiesMap extends Component {
   }
 
   handleAddrSelect = (addr, e) => {
-
-    // build a bounding box around our new detail addr
-    let minPos = [parseFloat(addr.lng) - DETAIL_OFFSET, parseFloat(addr.lat) - DETAIL_OFFSET];
-    let maxPos = [parseFloat(addr.lng) + DETAIL_OFFSET, parseFloat(addr.lat) + DETAIL_OFFSET];
-    this.setState({ mapProps: {
-      ...this.state.mapProps,
-      fitBounds: [minPos, maxPos]
-    }});
-
     this.props.onOpenDetail(addr);
   }
 
