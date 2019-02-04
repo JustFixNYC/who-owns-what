@@ -1,0 +1,2 @@
+nycdb==0.1.18
+psycopg2-binary==2.7.7
