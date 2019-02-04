@@ -28,9 +28,10 @@ jobs:
           paths:
             - ~/venv
       - run:
-          name: Install test data
+          name: Test dbtool.py
           command: |
             . ~/venv/bin/activate
+            python dbtool.py selftest
             python dbtool.py builddb --use-test-data
       - store_artifacts:
           path: test-reports
