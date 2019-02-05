@@ -33,6 +33,7 @@ jobs:
             . ~/venv/bin/activate
             python dbtool.py selftest
             python dbtool.py builddb --use-test-data
+            python dbtool.py loadtestdata
       - store_artifacts:
           path: test-reports
           destination: test-reports
