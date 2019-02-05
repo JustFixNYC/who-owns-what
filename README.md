@@ -1,3 +1,5 @@
+[![CircleCI](https://circleci.com/gh/JustFixNYC/who-owns-what.svg?style=svg)](https://circleci.com/gh/JustFixNYC/who-owns-what)
+
 # Who owns what in nyc?
 
 The Who owns What project is a new resource for community organizers and tenant leaders to demystify property ownership and shell company networks across New York City.
