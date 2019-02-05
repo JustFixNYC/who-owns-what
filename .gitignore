@@ -6,3 +6,4 @@ client/src/**/*.css
 dist
 scripts/*
 nycdb/
+.mypy_cache/
