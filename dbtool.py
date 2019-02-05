@@ -193,6 +193,25 @@ def dbshell(db: DbContext):
     sys.exit(retval)
 
 
+def loadtestdata(db: DbContext):
+    '''
+    Loads test data previously created from the 'exporttestdata' command into
+    the database.
+    '''
+
+    sqlfile = (ROOT_DIR / 'tests' / 'wow_bldgs.sql')
+    sql = sqlfile.read_text()
+
+    NycDbBuilder(db, is_testing=True).build(force_refresh=False)
+
+    print(f"Loading test data from {sqlfile}...")
+    with db.connection() as conn:
+        cur = conn.cursor()
+        cur.execute("DELETE FROM wow_bldgs")
+        cur.execute(sql)
+    print("Loaded test data into database.")
+
+
 def exporttestdata(db: DbContext):
     '''
     This command must be run on a fully populated database, but the SQL
@@ -255,6 +274,9 @@ if __name__ == '__main__':
     parser_exporttestdata = subparsers.add_parser('exporttestdata')
     parser_exporttestdata.set_defaults(cmd='exporttestdata')
 
+    parser_loadtestdata = subparsers.add_parser('loadtestdata')
+    parser_loadtestdata.set_defaults(cmd='loadtestdata')
+
     parser_builddb = subparsers.add_parser('builddb')
     parser_builddb.add_argument(
         '-t', '--use-test-data', action='store_true',
@@ -296,6 +318,8 @@ if __name__ == '__main__':
 
     if cmd == 'exporttestdata':
         exporttestdata(db)
+    elif cmd == 'loadtestdata':
+        loadtestdata(db)
     elif cmd == 'dbshell':
         dbshell(db)
     elif cmd == 'builddb':
