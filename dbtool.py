@@ -193,6 +193,48 @@ def dbshell(db: DbContext):
     sys.exit(retval)
 
 
+def exporttestdata(db: DbContext):
+    '''
+    This command must be run on a fully populated database, but the SQL
+    it generates can be useful for test suites and developers who want to
+    work on WoW without first processing lots of data.
+    '''
+
+    wow_table_name = 'wow_bldgs'
+    temp_table_name = 'temp_wow_bldgs_data_to_export'
+
+    # This is the business address for E&M Associates, reported in the
+    # New York Times as a prime example of a landlord who engages in
+    # aggresive eviction strategies to displace low-income tenants.
+    addr = '1465A FLATBUSH AVENUE 11210'
+
+    create_sql = (
+        f"create table {temp_table_name} as "
+        f"select * from {wow_table_name} where '{addr}' = Any(businessaddrs)"
+    )
+    drop_sql = f"drop table {temp_table_name}"
+
+    with db.connection() as conn:
+        cur = conn.cursor()
+        cur.execute(create_sql)
+
+    try:
+        env = os.environ.copy()
+        env['PGPASSWORD'] = db.password
+        output = subprocess.check_output([
+            'pg_dump',
+            '-h', db.host, '-p', str(db.port), '-U', db.user, '-d', db.database,
+            '--table', temp_table_name,
+            '--data-only',
+            '--column-inserts',
+        ], env=env).decode('ascii').replace(temp_table_name, wow_table_name)
+        print(output)
+    finally:
+        with db.connection() as conn:
+            cur = conn.cursor()
+            cur.execute(drop_sql)
+
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     subparsers = parser.add_subparsers()
@@ -202,6 +244,9 @@ if __name__ == '__main__':
         help='Set database URL. Defaults to the DATABASE_URL environment variable.',
         default=os.environ.get('DATABASE_URL', '')
     )
+
+    parser_exporttestdata = subparsers.add_parser('exporttestdata')
+    parser_exporttestdata.set_defaults(cmd='exporttestdata')
 
     parser_builddb = subparsers.add_parser('builddb')
     parser_builddb.add_argument(
@@ -239,7 +284,9 @@ if __name__ == '__main__':
 
     cmd = getattr(args, 'cmd', '')
 
-    if cmd == 'dbshell':
+    if cmd == 'exporttestdata':
+        exporttestdata(db)
+    elif cmd == 'dbshell':
         dbshell(db)
     elif cmd == 'builddb':
         NycDbBuilder(db, is_testing=args.use_test_data).build(
