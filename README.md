@@ -89,7 +89,10 @@ Then start up the server:
 docker-compose up
 ```
 
-Visit http://localhost:3000 and you should be good to go!
+Visit http://localhost:3000 and you should be good to go! If
+you installed test data, you can see useful results by
+clicking on the "All Year Management" portfolio on the
+home page.
 
 ## Deploying
 
