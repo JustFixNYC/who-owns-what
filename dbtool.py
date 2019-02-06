@@ -199,7 +199,7 @@ def loadtestdata(db: DbContext):
     the database.
     '''
 
-    sqlfile = (ROOT_DIR / 'tests' / 'wow_bldgs.sql')
+    sqlfile = (ROOT_DIR / 'tests' / 'exported_test_data.sql')
     sql = sqlfile.read_text()
 
     NycDbBuilder(db, is_testing=True).build(force_refresh=False)
@@ -207,9 +207,40 @@ def loadtestdata(db: DbContext):
     print(f"Loading test data from {sqlfile}...")
     with db.connection() as conn:
         cur = conn.cursor()
-        cur.execute("DELETE FROM wow_bldgs")
         cur.execute(sql)
     print("Loaded test data into database.")
+
+
+def export_table_subset(db: DbContext, table_name: str, query: str) -> str:
+    '''
+    Returns SQL INSERT statements that will populate the given table
+    with *only* the rows specified by the given query.
+    '''
+
+    temp_table_name = f'temp_table_for_export_as_{table_name}'
+
+    with db.connection() as conn:
+        cur = conn.cursor()
+        cur.execute(f"DROP TABLE IF EXISTS {temp_table_name}")
+        cur.execute(f"CREATE TABLE {temp_table_name} AS {query}")
+
+    try:
+        # TODO: This contains much repeated code from dbshell(), we should
+        # consolidate it.
+        env = os.environ.copy()
+        env['PGPASSWORD'] = db.password
+        sql = subprocess.check_output([
+            'pg_dump',
+            '-h', db.host, '-p', str(db.port), '-U', db.user, '-d', db.database,
+            '--table', temp_table_name,
+            '--data-only',
+            '--column-inserts',
+        ], env=env).decode('ascii').replace(temp_table_name, table_name)
+        return f"DELETE FROM public.{table_name};\n\n{sql}"
+    finally:
+        with db.connection() as conn:
+            cur = conn.cursor()
+            cur.execute(f"DROP TABLE {temp_table_name}")
 
 
 def exporttestdata(db: DbContext):
@@ -219,39 +250,60 @@ def exporttestdata(db: DbContext):
     work on WoW without first processing lots of data.
     '''
 
-    wow_table_name = 'wow_bldgs'
-    temp_table_name = 'temp_wow_bldgs_data_to_export'
-
-    # This is the business address for E&M Associates, reported in the
-    # New York Times as a prime example of a landlord who engages in
-    # aggresive eviction strategies to displace low-income tenants.
-    addr = '1465A FLATBUSH AVENUE 11210'
-
-    create_sql = (
-        f"create table {temp_table_name} as "
-        f"select * from {wow_table_name} where '{addr}' = Any(businessaddrs)"
-    )
-    drop_sql = f"drop table {temp_table_name}"
+    # This is the BBL of 654 PARK PLACE, BROOKLYN, which is an
+    # All Year Management property.
+    bbl = "3012380016"
 
     with db.connection() as conn:
         cur = conn.cursor()
-        cur.execute(create_sql)
+        # Get the registration ID for the BBL we care about.
+        cur.execute(
+            f"SELECT DISTINCT registrationid FROM wow_bldgs WHERE bbl = '{bbl}'")
+        reg_id = cur.fetchone()[0]
 
-    try:
-        env = os.environ.copy()
-        env['PGPASSWORD'] = db.password
-        output = subprocess.check_output([
-            'pg_dump',
-            '-h', db.host, '-p', str(db.port), '-U', db.user, '-d', db.database,
-            '--table', temp_table_name,
-            '--data-only',
-            '--column-inserts',
-        ], env=env).decode('ascii').replace(temp_table_name, wow_table_name)
-        print(output)
-    finally:
-        with db.connection() as conn:
-            cur = conn.cursor()
-            cur.execute(drop_sql)
+    sql = '\n'.join([
+        export_table_subset(
+            db,
+            'hpd_business_addresses',
+            # This grabs only the subset of HPD business addresses
+            # used by get_regids_from_regid_by_bisaddr() for the
+            # registration ID we care about.
+            f"SELECT * FROM hpd_business_addresses WHERE {reg_id} = any(uniqregids)"
+        ),
+        export_table_subset(
+            db,
+            'hpd_contacts',
+            # This grabs only the subset of HPD contacts
+            # used by get_regids_from_regid_by_owners() for the
+            # registration ID we care about.
+            f"SELECT * FROM hpd_contacts WHERE registrationid = {reg_id}"
+        ),
+        export_table_subset(
+            db,
+            'wow_bldgs',
+            # TODO: This is basically a copy-paste of the body of the
+            # get_assoc_addrs_from_bbl() function defined in
+            # search_function.sql. It would be nice if we could just
+            # reuse that code instead of duplicating it here.
+            f"""
+            SELECT bldgs.* FROM wow_bldgs AS bldgs
+            INNER JOIN (
+                (SELECT DISTINCT registrationid FROM wow_bldgs r WHERE r.bbl = '{bbl}') userreg
+                LEFT JOIN LATERAL
+                (
+                SELECT
+                    unnest(anyarray_uniq(array_cat_agg(merged.uniqregids))) AS regid
+                FROM (
+                    SELECT uniqregids FROM get_regids_from_regid_by_bisaddr(userreg.registrationid)
+                    UNION SELECT uniqregids FROM get_regids_from_regid_by_owners(userreg.registrationid)
+                ) AS merged
+                ) merged2 ON true
+            ) assocregids ON (bldgs.registrationid = assocregids.regid)
+            """
+        )
+    ])
+
+    print(sql)
 
 
 def selftest():
