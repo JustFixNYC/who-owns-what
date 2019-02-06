@@ -13,6 +13,7 @@ jobs:
           POSTGRES_DB: wow
           POSTGRES_PASSWORD: wow
     steps:
+      - run: echo 'export PATH=/usr/lib/postgresql/9.6/bin/:$PATH' >> $BASH_ENV
       - checkout
       - restore_cache:
           key: v1-py-cache-{{ .Branch }}-{{ checksum "requirements.txt" }}
@@ -34,7 +35,7 @@ jobs:
             python dbtool.py selftest
             python dbtool.py builddb --use-test-data
             python dbtool.py loadtestdata
-            PATH=/usr/lib/postgresql/9.6/bin/:$PATH python dbtool.py exporttestdata > /dev/null
+            python dbtool.py exporttestdata > /dev/null
       - store_artifacts:
           path: test-reports
           destination: test-reports
