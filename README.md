@@ -62,13 +62,14 @@ As an alternative to the aforementioned setup, you can use
 installed Docker, run:
 
 ```
-docker-compose run app python dbtool.py builddb --use-test-data
+docker-compose run app python dbtool.py loadtestdata
 ```
 
 This will build a nyc-db with test data, which is must faster
 than downloading the whole nyc-db. You can, however, opt to
-download the whole thing by leaving out the `--use-test-data`
-argument--but be prepared, as it will take a while!
+download the whole thing by running
+`docker-compose run app python dbtool.py builddb`, but be
+prepared, as it will take a while!
 
 Once you've done that, run:
 
