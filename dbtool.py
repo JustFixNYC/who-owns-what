@@ -193,6 +193,13 @@ def dbshell(db: DbContext):
     sys.exit(retval)
 
 
+def selftest():
+    cmd = ['mypy', __file__, '--ignore-missing-imports']
+    print(f"Running '{' '.join(cmd)}'...")
+    subprocess.check_call(cmd)
+    print("Self-test passed!")
+
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     subparsers = parser.add_subparsers()
@@ -219,6 +226,9 @@ if __name__ == '__main__':
     parser_dbshell = subparsers.add_parser('dbshell')
     parser_dbshell.set_defaults(cmd='dbshell')
 
+    parser_selftest = subparsers.add_parser('selftest')
+    parser_selftest.set_defaults(cmd='selftest')
+
     args = parser.parse_args()
 
     database_url: str = args.database_url
@@ -244,6 +254,8 @@ if __name__ == '__main__':
     elif cmd == 'builddb':
         NycDbBuilder(db, is_testing=args.use_test_data).build(
             force_refresh=args.update)
+    elif cmd == 'selftest':
+        selftest()
     else:
         parser.print_help()
         sys.exit(1)
