@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import ReactMapboxGl, { Layer, Feature, ZoomControl } from 'react-mapbox-gl';
-import * as MapboxGL from 'mapbox-gl';
 import Helpers from 'util/helpers';
 import Browser from 'util/browser';
 import MapHelpers from 'util/mapping';
@@ -195,7 +194,7 @@ export default class PropertiesMap extends Component {
           */}
           {!this.state.hasWebGLContext && (
             <div className="PropertiesMap__error">
-              <h4>Sorry, it looks like theres an error on the map. Try again on a different browser or <a href="http://webglreport.com/" target="_blank">enable WebGL</a>.</h4>
+              <h4>Sorry, it looks like theres an error on the map. Try again on a different browser or <a href="http://webglreport.com/" target="_blank" rel="noopener noreferrer">enable WebGL</a>.</h4>
             </div>
           )}
 

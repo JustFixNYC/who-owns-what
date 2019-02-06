@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { CSSTransition } from 'react-transition-group';
 import { Link } from 'react-router-dom';
 import { StreetViewPanorama } from 'react-google-maps';
-import { STREET_VIEW_PANORAMA } from 'react-google-maps/lib/constants';
 import { FacebookButton, TwitterButton, EmailButton } from 'react-social';
 import Helpers from 'util/helpers';
 import Browser from 'util/browser';

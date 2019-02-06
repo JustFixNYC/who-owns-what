@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import FileSaver from 'file-saver';
-import Helpers from 'util/helpers';
 import Browser from 'util/browser';
 
 import _find from 'lodash/find';

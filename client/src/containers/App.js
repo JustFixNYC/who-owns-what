@@ -20,7 +20,6 @@ import TermsOfUsePage from 'TermsOfUsePage';
 import PrivacyPolicyPage from 'PrivacyPolicyPage';
 import ScrollToTop from 'components/ScrollToTop';
 import Modal from 'components/Modal';
-import Subscribe from 'components/Subscribe';
 import SocialShare from 'components/SocialShare';
 
 export default class App extends Component {
