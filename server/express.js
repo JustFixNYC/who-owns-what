@@ -5,8 +5,11 @@ const bodyParser = require('body-parser');
 const Rollbar = require('rollbar');
 const rollbar = Rollbar.init({
   accessToken: process.env.ROLLBAR_ACCESS_TOKEN,
-  captureUncaught: true,
-  captureUnhandledRejections: true
+  // Only capture uncaught exceptions/unhandled rejections in production;
+  // otherwise Rollbar appears to eat the exception and exit the
+  // process with a 0 exit code, which is EXTREMELY confusing.
+  captureUncaught: process.env.NODE_ENV === 'production',
+  captureUnhandledRejections: process.env.NODE_ENV === 'production'
 });
 
 // TODO: change when migrating off heroku
