@@ -4,7 +4,7 @@ import subprocess
 import argparse
 import time
 from urllib.parse import urlparse
-from typing import NamedTuple, Any, Tuple, Optional
+from typing import NamedTuple, Any, Tuple, Optional, Dict, List
 from pathlib import Path
 from types import SimpleNamespace
 
@@ -77,6 +77,20 @@ class DbContext(NamedTuple):
                 time.sleep(secs_between_tries)
                 tries_left -= 1
         return connect()
+
+    def get_pg_env_and_args(self) -> Tuple[Dict[str, str], List[str]]:
+        '''
+        Return an environment dictionary and command-line arguments that
+        can be passed to Postgres command-line tools (e.g. psql, pg_dump) to
+        connect to the database.
+        '''
+
+        env = os.environ.copy()
+        env['PGPASSWORD'] = db.password
+        args = [
+            '-h', db.host, '-p', str(db.port), '-U', db.user, '-d', db.database
+        ]
+        return (env, args)
 
 
 class NycDbBuilder:
@@ -185,11 +199,8 @@ class NycDbBuilder:
 
 
 def dbshell(db: DbContext):
-    env = os.environ.copy()
-    env['PGPASSWORD'] = db.password
-    retval = subprocess.call([
-        'psql', '-h', db.host, '-p', str(db.port), '-U', db.user, '-d', db.database
-    ], env=env)
+    env, args = db.get_pg_env_and_args()
+    retval = subprocess.call(['psql', *args], env=env)
     sys.exit(retval)
 
 
@@ -225,13 +236,10 @@ def export_table_subset(db: DbContext, table_name: str, query: str) -> str:
         cur.execute(f"CREATE TABLE {temp_table_name} AS {query}")
 
     try:
-        # TODO: This contains much repeated code from dbshell(), we should
-        # consolidate it.
-        env = os.environ.copy()
-        env['PGPASSWORD'] = db.password
+        env, args = db.get_pg_env_and_args()
         sql = subprocess.check_output([
             'pg_dump',
-            '-h', db.host, '-p', str(db.port), '-U', db.user, '-d', db.database,
+            *args,
             '--table', temp_table_name,
             '--data-only',
             '--column-inserts',
