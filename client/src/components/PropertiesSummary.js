@@ -128,7 +128,7 @@ export default class PropertiesSummary extends Component {
                   <span className="PropertiesSummary__linksTitle"><em>Additional links</em></span>
                   <div>
                     <h6 className="PropertiesSummary__linksSubtitle">Want more info on this landlord?</h6>
-                    <a href={encodeURI(`mailto:hello@justfix.nyc?subject=Who Owns What Data Request (${this.props.userAddr.housenumber} ${this.props.userAddr.streetname}, ${this.props.userAddr.boro})`)} target="_blank" className="btn btn-block">Send us a data request</a>
+                    <a href={encodeURI(`mailto:hello@justfix.nyc?subject=Who Owns What Data Request (${this.props.userAddr.housenumber} ${this.props.userAddr.streetname}, ${this.props.userAddr.boro})`)} target="_blank" rel="noopener noreferrer" className="btn btn-block">Send us a data request</a>
                   </div>
                   <div>
                     <h6 className="PropertiesSummary__linksSubtitle">Share this page with your neighbors</h6>

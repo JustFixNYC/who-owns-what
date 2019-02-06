@@ -71,13 +71,13 @@ const AboutPage = () => {
         <h4>Credits</h4>
         <ul>
           <li>Ziggy, creator and maintainer of <a href="https://github.com/aepyornis/nyc-db" target="blank">nyc-db</a></li>
-          <li>Lucy Block at <a href="https://anhd.org/" target="_blank">ANHD</a>, creator of <a href="http://reports.dapmapnyc.org/" target="_blank">DAP district reports</a></li>
-          <li>Cea Weaver at <a href="http://nycommunities.org/" target="_blank">NYCC</a></li>
-          <li>Aaron Carr at <a href="http://housingrightsny.org/" target="_blank">HRI</a></li>
-          <li>VaNessa LaNier & Jacob Udell at <a href="https://unhp.org/" target="_blank">UNHP</a></li>
-          <li>the organizing staff at <a href="https://casapower.org/" target="_blank">CASA</a></li>
-          <li>the organizing staff at <a href="https://impacctbrooklyn.org/" target="_blank">IMPACCT</a></li>
-          <li>the organizing staff at <a href="http://metcouncilonhousing.org/" target="_blank">Met Council</a></li>
+          <li>Lucy Block at <a href="https://anhd.org/" target="_blank">ANHD</a>, creator of <a href="http://reports.dapmapnyc.org/" target="_blank" rel="noopener noreferrer">DAP district reports</a></li>
+          <li>Cea Weaver at <a href="http://nycommunities.org/" target="_blank" rel="noopener noreferrer">NYCC</a></li>
+          <li>Aaron Carr at <a href="http://housingrightsny.org/" target="_blank" rel="noopener noreferrer">HRI</a></li>
+          <li>VaNessa LaNier & Jacob Udell at <a href="https://unhp.org/" target="_blank" rel="noopener noreferrer">UNHP</a></li>
+          <li>the organizing staff at <a href="https://casapower.org/" target="_blank" rel="noopener noreferrer">CASA</a></li>
+          <li>the organizing staff at <a href="https://impacctbrooklyn.org/" target="_blank" rel="noopener noreferrer">IMPACCT</a></li>
+          <li>the organizing staff at <a href="http://metcouncilonhousing.org/" target="_blank" rel="noopener noreferrer">Met Council</a></li>
         </ul>
       </div>
       <EngagementPanel />
