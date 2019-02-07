@@ -1,10 +1,4 @@
-import React, { Component } from 'react';
-import {
-  BrowserRouter as Router,
-  Route,
-  NavLink,
-  Link
-} from 'react-router-dom';
+import { Component } from 'react';
 import { withRouter } from "react-router";
 
 class ScrollToTop extends Component {

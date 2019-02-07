@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Helpers from 'util/helpers';
 import { FacebookButton, TwitterButton, EmailButton } from 'react-social';
 
 import Loader from 'components/Loader';
@@ -57,11 +56,11 @@ export default class PropertiesSummary extends Component {
             <div>
               <h6>General info</h6>
               <p>
-                There {agg.bldgs == 1 ? 
+                There {agg.bldgs === 1 ? 
                   <span>is <b>1</b> building </span> :
                   <span>are <b>{agg.bldgs}</b> buildings </span>}
-                in this portfolio with a total of {agg.units} unit{agg.units == 1 ? "" : "s"}.
-                The {agg.bldgs == 1 ? "" : "average"} age of {agg.bldgs == 1 ? "this building " : "these buildings "}
+                in this portfolio with a total of {agg.units} unit{agg.units === 1 ? "" : "s"}.
+                The {agg.bldgs === 1 ? "" : "average"} age of {agg.bldgs === 1 ? "this building " : "these buildings "}
                 is <b>{agg.age}</b> years old.
               </p>
               <aside>
@@ -101,26 +100,26 @@ export default class PropertiesSummary extends Component {
               </p>
               <h6>Evictions</h6>
               <p>
-                In 2017, NYC Marshals scheduled <b>{agg.totalevictions > 0 ? agg.totalevictions : "0"}</b> eviction{agg.totalevictions == 1 ? "" : "s"} across this portfolio.
+                In 2017, NYC Marshals scheduled <b>{agg.totalevictions > 0 ? agg.totalevictions : "0"}</b> eviction{agg.totalevictions === 1 ? "" : "s"} across this portfolio.
                 {agg.totalevictions > 0 ?
                   <span> The building with the most evictions was&nbsp;
                     {agg.evictionsaddr && (
                       <span>
-                        <b>{agg.evictionsaddr.housenumber} {agg.evictionsaddr.streetname}, {agg.evictionsaddr.boro}</b> with <b>{agg.evictionsaddr.evictions}</b> eviction{agg.totalevictions == 1 ? "" : "s"} that year
+                        <b>{agg.evictionsaddr.housenumber} {agg.evictionsaddr.streetname}, {agg.evictionsaddr.boro}</b> with <b>{agg.evictionsaddr.evictions}</b> eviction{agg.totalevictions === 1 ? "" : "s"} that year
                       </span>
                     )}.
                   </span> : ""}
               </p>
               <h6>Rent stabilization</h6>
               <p>
-                This portfolio also had an estimated <b>net {agg.totalrsdiff > 0 ? "gain" : "loss"}</b> of <b>{Math.abs(parseInt(agg.totalrsdiff, 10)) || 0}</b> rent stabilized unit{agg.totalrsdiff == 1 ? "" : "s"} since 2007 (gained {Math.abs(parseInt(agg.totalrsgain, 10)) || 0}, lost {Math.abs(parseInt(agg.totalrsloss, 10)) || 0}).
+                This portfolio also had an estimated <b>net {agg.totalrsdiff > 0 ? "gain" : "loss"}</b> of <b>{Math.abs(parseInt(agg.totalrsdiff, 10)) || 0}</b> rent stabilized unit{agg.totalrsdiff === 1 ? "" : "s"} since 2007 (gained {Math.abs(parseInt(agg.totalrsgain, 10)) || 0}, lost {Math.abs(parseInt(agg.totalrsloss, 10)) || 0}).
                 This represents <b>{agg.rsproportion || 0}%</b> of the total size of this portfolio. 
                 {agg.rslossaddr && (agg.rslossaddr.rsdiff < 0) ?
                 (<span> The building that has lost the most units is&nbsp;
                   <b>
                     {agg.rslossaddr.housenumber} {agg.rslossaddr.streetname}, {agg.rslossaddr.boro}
                   </b>
-                  , which has lost <b>{Math.abs(parseInt(agg.rslossaddr.rsdiff, 10))}</b> unit{Math.abs(parseInt(agg.rslossaddr.rsdiff, 10)) == 1 ? "" : "s"} in the past 10 years.
+                  , which has lost <b>{Math.abs(parseInt(agg.rslossaddr.rsdiff, 10))}</b> unit{Math.abs(parseInt(agg.rslossaddr.rsdiff, 10)) === 1 ? "" : "s"} in the past 10 years.
                  </span>) :
                  ""}
               </p>
@@ -129,7 +128,7 @@ export default class PropertiesSummary extends Component {
                   <span className="PropertiesSummary__linksTitle"><em>Additional links</em></span>
                   <div>
                     <h6 className="PropertiesSummary__linksSubtitle">Want more info on this landlord?</h6>
-                    <a href={encodeURI(`mailto:hello@justfix.nyc?subject=Who Owns What Data Request (${this.props.userAddr.housenumber} ${this.props.userAddr.streetname}, ${this.props.userAddr.boro})`)} target="_blank" className="btn btn-block">Send us a data request</a>
+                    <a href={encodeURI(`mailto:hello@justfix.nyc?subject=Who Owns What Data Request (${this.props.userAddr.housenumber} ${this.props.userAddr.streetname}, ${this.props.userAddr.boro})`)} target="_blank" rel="noopener noreferrer" className="btn btn-block">Send us a data request</a>
                   </div>
                   <div>
                     <h6 className="PropertiesSummary__linksSubtitle">Share this page with your neighbors</h6>

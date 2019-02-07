@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactTable from 'react-table';
-import Helpers from 'util/helpers';
 import Browser from 'util/browser';
 
 import 'react-table/react-table.css';

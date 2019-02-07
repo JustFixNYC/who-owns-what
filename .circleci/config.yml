@@ -4,7 +4,7 @@ jobs:
   build:
     working_directory: ~/who-owns-what
     docker:
-      - image: circleci/python:3.6
+      - image: circleci/python:3.6-node
         environment:
           DATABASE_URL: postgres://wow:wow@localhost/wow
       - image: circleci/postgres:9.6
@@ -34,6 +34,27 @@ jobs:
             python dbtool.py selftest
             python dbtool.py builddb --use-test-data
             python dbtool.py loadtestdata
+      - restore_cache:
+          name: Restore yarn package cache
+          keys:
+            - yarn-packages-client-{{ checksum "client/yarn.lock" }}-{{ checksum "yarn.lock" }}
+      - run:
+          name: Install node client dependencies
+          command: |
+            cd client
+            yarn install --frozen-lockfile
+      - save_cache:
+          name: Save yarn package cache
+          key: yarn-packages-{{ checksum "client/yarn.lock" }}-{{ checksum "yarn.lock" }}
+          paths:
+            - ~/.cache/yarn
+      - run:
+          name: Build client
+          command: |
+            cd client
+            # Note that CI=true in CircleCI, so this will fail if there are
+            # any linter warnings.
+            yarn build
       - store_artifacts:
           path: test-reports
           destination: test-reports
