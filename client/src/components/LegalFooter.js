@@ -12,7 +12,6 @@ class LegalFooter extends Component {
           <nav className="inline">
             <NavLink to="/terms-of-use">Terms of use</NavLink>
             <NavLink to="/privacy-policy">Privacy policy</NavLink>
-            <a href="#">This is an intentional bug to produce a linter warning</a>
             <a href="https://github.com/JustFixNYC/who-owns-what" target="_blank" rel="noopener noreferrer">View source</a>
           </nav>
         </div>)
