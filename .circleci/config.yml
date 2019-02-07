@@ -14,7 +14,7 @@ jobs:
           POSTGRES_PASSWORD: wow
     steps:
       - checkout
-      - restore_python_cache:
+      - restore_cache:
           key: v1-py-cache-{{ .Branch }}-{{ checksum "requirements.txt" }}
       - run:
           name: Activate venv and install requirements
@@ -22,7 +22,7 @@ jobs:
             python3 -m venv ~/venv
             . ~/venv/bin/activate
             pip install -r requirements.txt
-      - save_python_cache:
+      - save_cache:
           name: Save python deps cache
           key: v1-py-cache-{{ .Branch }}-{{ checksum "requirements.txt" }}
           paths:
@@ -33,7 +33,7 @@ jobs:
             . ~/venv/bin/activate
             python dbtool.py selftest
             python dbtool.py builddb --use-test-data
-      - restore_yarn_cache:
+      - restore_cache:
           name: Restore yarn package cache
           keys:
             - yarn-packages-client-{{ checksum "client/yarn.lock" }}-{{ checksum "yarn.lock" }}
@@ -42,7 +42,7 @@ jobs:
           command: |
             cd client
             yarn install --frozen-lockfile
-      - save_yarn_cache:
+      - save_cache:
           name: Save yarn package cache
           key: yarn-packages-{{ checksum "client/yarn.lock" }}-{{ checksum "yarn.lock" }}
           paths:
