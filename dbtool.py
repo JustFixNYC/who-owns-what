@@ -4,7 +4,7 @@ import subprocess
 import argparse
 import time
 from urllib.parse import urlparse
-from typing import NamedTuple, Any, Tuple, Optional
+from typing import NamedTuple, Any, Tuple, Optional, Dict, List
 from pathlib import Path
 from types import SimpleNamespace
 
@@ -77,6 +77,20 @@ class DbContext(NamedTuple):
                 time.sleep(secs_between_tries)
                 tries_left -= 1
         return connect()
+
+    def get_pg_env_and_args(self) -> Tuple[Dict[str, str], List[str]]:
+        '''
+        Return an environment dictionary and command-line arguments that
+        can be passed to Postgres command-line tools (e.g. psql, pg_dump) to
+        connect to the database.
+        '''
+
+        env = os.environ.copy()
+        env['PGPASSWORD'] = db.password
+        args = [
+            '-h', db.host, '-p', str(db.port), '-U', db.user, '-d', db.database
+        ]
+        return (env, args)
 
 
 class NycDbBuilder:
@@ -185,12 +199,119 @@ class NycDbBuilder:
 
 
 def dbshell(db: DbContext):
-    env = os.environ.copy()
-    env['PGPASSWORD'] = db.password
-    retval = subprocess.call([
-        'psql', '-h', db.host, '-p', str(db.port), '-U', db.user, '-d', db.database
-    ], env=env)
+    env, args = db.get_pg_env_and_args()
+    retval = subprocess.call(['psql', *args], env=env)
     sys.exit(retval)
+
+
+def loadtestdata(db: DbContext):
+    '''
+    Loads test data previously created from the 'exporttestdata' command into
+    the database.
+    '''
+
+    sqlfile = (ROOT_DIR / 'tests' / 'exported_test_data.sql')
+    sql = sqlfile.read_text()
+
+    NycDbBuilder(db, is_testing=True).build(force_refresh=False)
+
+    print(f"Loading test data from {sqlfile}...")
+    with db.connection() as conn:
+        cur = conn.cursor()
+        cur.execute(sql)
+    print("Loaded test data into database.")
+
+
+def export_table_subset(db: DbContext, table_name: str, query: str) -> str:
+    '''
+    Returns SQL INSERT statements that will populate the given table
+    with *only* the rows specified by the given query.
+    '''
+
+    temp_table_name = f'temp_table_for_export_as_{table_name}'
+
+    with db.connection() as conn:
+        cur = conn.cursor()
+        cur.execute(f"DROP TABLE IF EXISTS {temp_table_name}")
+        cur.execute(f"CREATE TABLE {temp_table_name} AS {query}")
+
+    try:
+        env, args = db.get_pg_env_and_args()
+        sql = subprocess.check_output([
+            'pg_dump',
+            *args,
+            '--table', temp_table_name,
+            '--data-only',
+            '--column-inserts',
+        ], env=env).decode('ascii').replace(temp_table_name, table_name)
+        return f"DELETE FROM public.{table_name};\n\n{sql}"
+    finally:
+        with db.connection() as conn:
+            cur = conn.cursor()
+            cur.execute(f"DROP TABLE {temp_table_name}")
+
+
+def exporttestdata(db: DbContext):
+    '''
+    This command must be run on a fully populated database, but the SQL
+    it generates can be useful for test suites and developers who want to
+    work on WoW without first processing lots of data.
+    '''
+
+    # This is the BBL of 654 PARK PLACE, BROOKLYN, which is an
+    # All Year Management property.
+    bbl = "3012380016"
+
+    with db.connection() as conn:
+        cur = conn.cursor()
+        # Get the registration ID for the BBL we care about.
+        cur.execute(
+            f"SELECT DISTINCT registrationid FROM wow_bldgs WHERE bbl = '{bbl}'")
+        reg_id = cur.fetchone()[0]
+
+    sql = '\n'.join([
+        export_table_subset(
+            db,
+            'hpd_business_addresses',
+            # This grabs only the subset of HPD business addresses
+            # used by get_regids_from_regid_by_bisaddr() for the
+            # registration ID we care about.
+            f"SELECT * FROM hpd_business_addresses WHERE {reg_id} = any(uniqregids)"
+        ),
+        export_table_subset(
+            db,
+            'hpd_contacts',
+            # This grabs only the subset of HPD contacts
+            # used by get_regids_from_regid_by_owners() for the
+            # registration ID we care about.
+            f"SELECT * FROM hpd_contacts WHERE registrationid = {reg_id}"
+        ),
+        export_table_subset(
+            db,
+            'wow_bldgs',
+            # TODO: This is basically a copy-paste of the body of the
+            # get_assoc_addrs_from_bbl() function defined in
+            # search_function.sql. It would be nice if we could just
+            # reuse that code instead of duplicating it here.
+            f"""
+            SELECT bldgs.* FROM wow_bldgs AS bldgs
+            INNER JOIN (
+                (SELECT DISTINCT registrationid FROM wow_bldgs r WHERE r.bbl = '{bbl}') userreg
+                LEFT JOIN LATERAL
+                (
+                SELECT
+                    unnest(anyarray_uniq(array_cat_agg(merged.uniqregids))) AS regid
+                FROM (
+                    SELECT uniqregids FROM get_regids_from_regid_by_bisaddr(userreg.registrationid)
+                    UNION SELECT uniqregids FROM get_regids_from_regid_by_owners(userreg.registrationid)
+                ) AS merged
+                ) merged2 ON true
+            ) assocregids ON (bldgs.registrationid = assocregids.regid)
+            """
+        )
+    ])
+
+    print(sql)
 
 
 def selftest():
@@ -209,6 +330,12 @@ if __name__ == '__main__':
         help='Set database URL. Defaults to the DATABASE_URL environment variable.',
         default=os.environ.get('DATABASE_URL', '')
     )
+
+    parser_exporttestdata = subparsers.add_parser('exporttestdata')
+    parser_exporttestdata.set_defaults(cmd='exporttestdata')
+
+    parser_loadtestdata = subparsers.add_parser('loadtestdata')
+    parser_loadtestdata.set_defaults(cmd='loadtestdata')
 
     parser_builddb = subparsers.add_parser('builddb')
     parser_builddb.add_argument(
@@ -249,7 +376,11 @@ if __name__ == '__main__':
 
     cmd = getattr(args, 'cmd', '')
 
-    if cmd == 'dbshell':
+    if cmd == 'exporttestdata':
+        exporttestdata(db)
+    elif cmd == 'loadtestdata':
+        loadtestdata(db)
+    elif cmd == 'dbshell':
         dbshell(db)
     elif cmd == 'builddb':
         NycDbBuilder(db, is_testing=args.use_test_data).build(
