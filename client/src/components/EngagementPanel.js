@@ -21,7 +21,7 @@ const EngagementPanel = () => {
         </div>
         <div className="EngagementItem">
          <p>Visit our website:</p>
-         <a href="https://www.justfix.nyc/" target="_blank"
+         <a href="https://www.justfix.nyc/"
             className="btn btn-block btn-justfix">
             www.JustFix.nyc</a>
         </div>

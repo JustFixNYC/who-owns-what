@@ -48,7 +48,7 @@ render() {
               <NavLink exact to="/">Home</NavLink>
               <NavLink to="/about">About</NavLink>
               <NavLink to="/how-it-works">How it Works</NavLink>
-              <a href="https://www.justfix.nyc/donate" target="_blank">Donate</a>
+              <a href="https://www.justfix.nyc/donate">Donate</a>
               <a href="#" onClick={() => this.setState({ showEngageModal: true })}>
                 Share
               </a>

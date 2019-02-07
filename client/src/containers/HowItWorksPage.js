@@ -18,7 +18,7 @@ const HowItWorksPage = () => {
           <img src={diagramImage} alt="how it works" className=" img-responsive" />
         </aside>
         <p>
-          According to HPD policy, “property owners of residential buildings are required by law to register annually with HPD if the property is a multiple dwelling (3+ residential units) or a private dwelling (1-2 residential units) where neither the owner nor the owner's immediate family resides.” This data must be made publicly available according to <a href="https://opendata.cityofnewyork.us/" target="_blank">NYC’s Open Data law</a>.
+          According to HPD policy, “property owners of residential buildings are required by law to register annually with HPD if the property is a multiple dwelling (3+ residential units) or a private dwelling (1-2 residential units) where neither the owner nor the owner's immediate family resides.” This data must be made publicly available according to <a href="https://opendata.cityofnewyork.us/" target="_blank" rel="noopener noreferrer">NYC’s Open Data law</a>.
         </p>
         <p>
           <b>HPD updates this registration data (and we update this site) monthly.</b> We also use datasets from the following sources to provide additional information on a building:
