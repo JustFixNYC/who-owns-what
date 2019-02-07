@@ -37,5 +37,11 @@
   "proxy": "http://localhost:3001/",
   "devDependencies": {
     "npm-run-all": "^4.0.2"
-  }
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
 }
