@@ -35,7 +35,7 @@ const AboutPage = () => {
 
         <p>
           This website demystifies who your landlord is and the other buildings that they “own” (we use this term in quotations because <span className="hover_img">
-          <a href="#" // eslint-disable-line jsx-a11y/href-no-hash
+          <a href="#" // eslint-disable-line jsx-a11y/anchor-is-valid
           >real estate doesn't own NYC<span><img src={realestateImage} alt="" height="200" /></span></a></span>). Once you search for your address, we use a database of 200,000 other NYC buildings map the portfolio of your landlord or management company.
         </p>
         <p>

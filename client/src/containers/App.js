@@ -49,7 +49,7 @@ render() {
               <NavLink to="/about">About</NavLink>
               <NavLink to="/how-it-works">How it Works</NavLink>
               <a href="https://www.justfix.nyc/donate">Donate</a>
-              <a href="#" // eslint-disable-line jsx-a11y/href-no-hash
+              <a href="#" // eslint-disable-line jsx-a11y/anchor-is-valid
                  onClick={() => this.setState({ showEngageModal: true })}>
                 Share
               </a>

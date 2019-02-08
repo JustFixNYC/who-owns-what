@@ -99,7 +99,8 @@ export default class DetailView extends Component {
                   <div className="card-header">
                     <h4 className="card-title">{this.props.addr.housenumber} {this.props.addr.streetname}, {this.props.addr.boro}</h4>
                     { !Helpers.addrsAreEqual(this.props.addr, this.props.userAddr) &&
-                      <a onClick={() => this.setState({ showCompareModal: true })}>
+                      <a // eslint-disable-line jsx-a11y/anchor-is-valid
+                        onClick={() => this.setState({ showCompareModal: true })}>
                         <i>How is this building associated?</i>
                       </a>
                     }
@@ -202,7 +203,7 @@ export default class DetailView extends Component {
 
                       <div className="card-body-prompt">
                         <h6 className="DetailView__subtitle">Are you having issues in this building?</h6>
-                        <a href={`https://app.justfix.nyc?utm_source=whoownswhat`} target="_blank" className="btn btn-justfix btn-block">Take action on JustFix.nyc!</a>
+                        <a href={`https://app.justfix.nyc?utm_source=whoownswhat`} target="_blank" rel="noopener noreferrer" className="btn btn-justfix btn-block">Take action on JustFix.nyc!</a>
                       </div>
 
                       <div className="card-body-social social-group">
