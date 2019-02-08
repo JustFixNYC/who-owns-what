@@ -11,6 +11,7 @@
     "node-sass-chokidar": "1.x",
     "prop-types": "^15.5.10",
     "react": "^15.6.1",
+    "react-app-polyfill": "^0.2.0",
     "react-dom": "^15.6.1",
     "react-draggable": "^3.0.5",
     "react-geosuggest": "^2.3.6",
