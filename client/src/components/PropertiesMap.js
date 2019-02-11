@@ -171,7 +171,7 @@ export default class PropertiesMap extends Component {
             fitBounds: [minPos, maxPos]
           }});
 
-          console.log("I panned the map!");
+          // console.log("I panned the map!");
       }
     }
   }
