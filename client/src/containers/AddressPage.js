@@ -66,12 +66,12 @@ export default class AddressPage extends Component {
       geoclient: geoclient,
       assocAddrs: addrs
     }, () => {
-      this.handleOpenDetail(this.state.userAddr);
+      this.handleAddrChange(this.state.userAddr);
     });
 
   }
 
-  handleOpenDetail = (addr) => {
+  handleAddrChange = (addr) => {
     this.setState({
       detailAddr: addr,
       detailMobileSlide: true,
@@ -154,7 +154,7 @@ export default class AddressPage extends Component {
             addrs={this.state.assocAddrs}
             userAddr={this.state.userAddr}
             detailAddr={this.state.detailAddr}
-            onOpenDetail={this.handleOpenDetail}
+            onAddrChange={this.handleAddrChange}
             isVisible={this.state.currentTab === 0}
           />
           <DetailView
@@ -169,7 +169,7 @@ export default class AddressPage extends Component {
           {
            <PropertiesList
               addrs={this.state.assocAddrs}
-              onOpenDetail={this.handleOpenDetail}
+              onOpenDetail={this.handleAddrChange}
             />
           }
         </div>
