@@ -186,6 +186,7 @@ export default class PropertiesMap extends Component {
   }
 
   handleAddrSelect = (addr, e) => {
+    // updates state with new focus address
     this.props.onAddrChange(addr);
   }
 
