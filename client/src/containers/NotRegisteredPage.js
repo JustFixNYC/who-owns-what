@@ -37,8 +37,11 @@ export default class NotRegisteredPage extends Component {
             buildingTypeMessage = (
               <div>
                 <p className="text-center">
-                  This seems like a smaller residential building. If the landlord doesn't reside there, it should be registered with HPD. (<i><a href={`http://www1.nyc.gov/assets/finance/jump/hlpbldgcode.html#${geoclient.rpadBuildingClassificationCode.charAt(0)}`} target="_blank"><u>Building Classification</u></a>: {geoclient.rpadBuildingClassificationCode}</i>)
-                  <a className="btn btn-block btn-link" onClick={() => this.setState({ showModal: true })}>What happens if the landlord has failed to register?</a>
+                  This seems like a smaller residential building. If the landlord doesn't reside there, it should be registered with HPD. (<i><a href={`http://www1.nyc.gov/assets/finance/jump/hlpbldgcode.html#${geoclient.rpadBuildingClassificationCode.charAt(0)}`} target="_blank" rel="noopener noreferrer"><u>Building Classification</u></a>: {geoclient.rpadBuildingClassificationCode}</i>)
+                  <a // eslint-disable-line jsx-a11y/anchor-is-valid
+                    className="btn btn-block btn-link"
+                    onClick={() => this.setState({ showModal: true })}
+                  >What happens if the landlord has failed to register?</a>
                 </p>
               </div>
             );
@@ -48,7 +51,10 @@ export default class NotRegisteredPage extends Component {
               <div>
                 <p className="text-center">
                   <b>This building seems like it should be registered with HPD!</b> (<i><a href={`http://www1.nyc.gov/assets/finance/jump/hlpbldgcode.html#${geoclient.rpadBuildingClassificationCode.charAt(0)}`} target="_blank" rel="noopener noreferrer"><u>Building Classification</u></a>: {geoclient.rpadBuildingClassificationCode}</i>)
-                  <a className="btn btn-block btn-link" onClick={() => this.setState({ showModal: true })}>What happens if the landlord has failed to register?</a>
+                  <a // eslint-disable-line jsx-a11y/anchor-is-valid
+                    className="btn btn-block btn-link"
+                    onClick={() => this.setState({ showModal: true })}
+                  >What happens if the landlord has failed to register?</a>
                 </p>
               </div>
             );
