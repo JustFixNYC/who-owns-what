@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import FileSaver from 'file-saver';
-import Helpers from 'util/helpers';
 import Browser from 'util/browser';
 
 import _find from 'lodash/find';
@@ -67,12 +66,12 @@ export default class AddressPage extends Component {
       geoclient: geoclient,
       assocAddrs: addrs
     }, () => {
-      this.handleOpenDetail(this.state.userAddr);
+      this.handleAddrChange(this.state.userAddr);
     });
 
   }
 
-  handleOpenDetail = (addr) => {
+  handleAddrChange = (addr) => {
     this.setState({
       detailAddr: addr,
       detailMobileSlide: true,
@@ -129,18 +128,22 @@ export default class AddressPage extends Component {
               </h5>
               <ul className="tab tab-block">
                 <li className={`tab-item ${this.state.currentTab === 0 ? "active" : ""}`}>
-                  <a onClick={() => {
-                    if(Browser.isMobile() && this.state.detailMobileSlide) {
-                      this.handleCloseDetail();
-                    }
-                    this.setState({ currentTab: 0 });
-                  }}>Map</a>
+                  <a // eslint-disable-line jsx-a11y/anchor-is-valid
+                    onClick={() => {
+                      if(Browser.isMobile() && this.state.detailMobileSlide) {
+                        this.handleCloseDetail();
+                      }
+                      this.setState({ currentTab: 0 });
+                    }}
+                  >Map</a>
                 </li>
                 <li className={`tab-item ${this.state.currentTab === 1 ? "active" : ""}`}>
-                  <a onClick={() => this.setState({ currentTab: 1 })}>List</a>
+                  <a // eslint-disable-line jsx-a11y/anchor-is-valid
+                    onClick={() => this.setState({ currentTab: 1 })}>List</a>
                 </li>
                 <li className={`tab-item ${this.state.currentTab === 2 ? "active" : ""}`}>
-                  <a onClick={() => this.setState({ currentTab: 2 })}>Summary</a>
+                  <a // eslint-disable-line jsx-a11y/anchor-is-valid
+                    onClick={() => this.setState({ currentTab: 2 })}>Summary</a>
                 </li>
               </ul>
             </div>
@@ -151,7 +154,7 @@ export default class AddressPage extends Component {
             addrs={this.state.assocAddrs}
             userAddr={this.state.userAddr}
             detailAddr={this.state.detailAddr}
-            onOpenDetail={this.handleOpenDetail}
+            onAddrChange={this.handleAddrChange}
             isVisible={this.state.currentTab === 0}
           />
           <DetailView
@@ -166,7 +169,7 @@ export default class AddressPage extends Component {
           {
            <PropertiesList
               addrs={this.state.assocAddrs}
-              onOpenDetail={this.handleOpenDetail}
+              onOpenDetail={this.handleAddrChange}
             />
           }
         </div>

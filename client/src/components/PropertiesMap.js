@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import ReactMapboxGl, { Layer, Feature, ZoomControl } from 'react-mapbox-gl';
-import * as MapboxGL from 'mapbox-gl';
 import Helpers from 'util/helpers';
 import Browser from 'util/browser';
 import MapHelpers from 'util/mapping';
@@ -158,6 +157,22 @@ export default class PropertiesMap extends Component {
     if(!prevProps.isVisible && this.props.isVisible) {
       if(this.state.mapRef) this.state.mapRef.resize();
     }
+
+    // meant to pan the map any time the detail address changes 
+    if(prevProps.detailAddr && this.props.detailAddr) {
+      if(!Helpers.addrsAreEqual(prevProps.detailAddr,this.props.detailAddr)) {
+          let addr = this.props.detailAddr;
+          // build a bounding box around our new detail addr
+          let minPos = [parseFloat(addr.lng) - DETAIL_OFFSET, parseFloat(addr.lat) - DETAIL_OFFSET];
+          let maxPos = [parseFloat(addr.lng) + DETAIL_OFFSET, parseFloat(addr.lat) + DETAIL_OFFSET];
+          this.setState({ mapProps: {
+            ...this.state.mapProps,
+            fitBounds: [minPos, maxPos]
+          }});
+
+          // console.log("I panned the map!");
+      }
+    }
   }
 
   handleMouseMove = (map, e) => {
@@ -170,16 +185,8 @@ export default class PropertiesMap extends Component {
   }
 
   handleAddrSelect = (addr, e) => {
-
-    // build a bounding box around our new detail addr
-    let minPos = [parseFloat(addr.lng) - DETAIL_OFFSET, parseFloat(addr.lat) - DETAIL_OFFSET];
-    let maxPos = [parseFloat(addr.lng) + DETAIL_OFFSET, parseFloat(addr.lat) + DETAIL_OFFSET];
-    this.setState({ mapProps: {
-      ...this.state.mapProps,
-      fitBounds: [minPos, maxPos]
-    }});
-
-    this.props.onOpenDetail(addr);
+    // updates state with new focus address
+    this.props.onAddrChange(addr);
   }
 
   render() {
@@ -195,7 +202,7 @@ export default class PropertiesMap extends Component {
           */}
           {!this.state.hasWebGLContext && (
             <div className="PropertiesMap__error">
-              <h4>Sorry, it looks like theres an error on the map. Try again on a different browser or <a href="http://webglreport.com/" target="_blank">enable WebGL</a>.</h4>
+              <h4>Sorry, it looks like theres an error on the map. Try again on a different browser or <a href="http://webglreport.com/" target="_blank" rel="noopener noreferrer">enable WebGL</a>.</h4>
             </div>
           )}
 

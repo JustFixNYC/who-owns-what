@@ -20,7 +20,6 @@ import TermsOfUsePage from 'TermsOfUsePage';
 import PrivacyPolicyPage from 'PrivacyPolicyPage';
 import ScrollToTop from 'components/ScrollToTop';
 import Modal from 'components/Modal';
-import Subscribe from 'components/Subscribe';
 import SocialShare from 'components/SocialShare';
 
 export default class App extends Component {
@@ -49,8 +48,9 @@ render() {
               <NavLink exact to="/">Home</NavLink>
               <NavLink to="/about">About</NavLink>
               <NavLink to="/how-it-works">How it Works</NavLink>
-              <a href="https://www.justfix.nyc/donate" target="_blank">Donate</a>
-              <a href="#" onClick={() => this.setState({ showEngageModal: true })}>
+              <a href="https://www.justfix.nyc/donate">Donate</a>
+              <a href="#" // eslint-disable-line jsx-a11y/anchor-is-valid
+                 onClick={() => this.setState({ showEngageModal: true })}>
                 Share
               </a>
             </nav>

@@ -37,8 +37,11 @@ export default class NotRegisteredPage extends Component {
             buildingTypeMessage = (
               <div>
                 <p className="text-center">
-                  This seems like a smaller residential building. If the landlord doesn't reside there, it should be registered with HPD. (<i><a href={`http://www1.nyc.gov/assets/finance/jump/hlpbldgcode.html#${geoclient.rpadBuildingClassificationCode.charAt(0)}`} target="_blank"><u>Building Classification</u></a>: {geoclient.rpadBuildingClassificationCode}</i>)
-                  <a className="btn btn-block btn-link" onClick={() => this.setState({ showModal: true })}>What happens if the landlord has failed to register?</a>
+                  This seems like a smaller residential building. If the landlord doesn't reside there, it should be registered with HPD. (<i><a href={`http://www1.nyc.gov/assets/finance/jump/hlpbldgcode.html#${geoclient.rpadBuildingClassificationCode.charAt(0)}`} target="_blank" rel="noopener noreferrer"><u>Building Classification</u></a>: {geoclient.rpadBuildingClassificationCode}</i>)
+                  <a // eslint-disable-line jsx-a11y/anchor-is-valid
+                    className="btn btn-block btn-link"
+                    onClick={() => this.setState({ showModal: true })}
+                  >What happens if the landlord has failed to register?</a>
                 </p>
               </div>
             );
@@ -47,14 +50,17 @@ export default class NotRegisteredPage extends Component {
             buildingTypeMessage = (
               <div>
                 <p className="text-center">
-                  <b>This building seems like it should be registered with HPD!</b> (<i><a href={`http://www1.nyc.gov/assets/finance/jump/hlpbldgcode.html#${geoclient.rpadBuildingClassificationCode.charAt(0)}`} target="_blank"><u>Building Classification</u></a>: {geoclient.rpadBuildingClassificationCode}</i>)
-                  <a className="btn btn-block btn-link" onClick={() => this.setState({ showModal: true })}>What happens if the landlord has failed to register?</a>
+                  <b>This building seems like it should be registered with HPD!</b> (<i><a href={`http://www1.nyc.gov/assets/finance/jump/hlpbldgcode.html#${geoclient.rpadBuildingClassificationCode.charAt(0)}`} target="_blank" rel="noopener noreferrer"><u>Building Classification</u></a>: {geoclient.rpadBuildingClassificationCode}</i>)
+                  <a // eslint-disable-line jsx-a11y/anchor-is-valid
+                    className="btn btn-block btn-link"
+                    onClick={() => this.setState({ showModal: true })}
+                  >What happens if the landlord has failed to register?</a>
                 </p>
               </div>
             );
             break;
           default:
-            buildingTypeMessage = (<p className="text-center">It doesn't seem like this is a residential building that is required to register with HPD. (<i><a href={`http://www1.nyc.gov/assets/finance/jump/hlpbldgcode.html#${geoclient.rpadBuildingClassificationCode.charAt(0)}`} target="_blank"><u>Building Classification</u></a>: {geoclient.rpadBuildingClassificationCode}</i>)</p>);
+            buildingTypeMessage = (<p className="text-center">It doesn't seem like this is a residential building that is required to register with HPD. (<i><a href={`http://www1.nyc.gov/assets/finance/jump/hlpbldgcode.html#${geoclient.rpadBuildingClassificationCode.charAt(0)}`} target="_blank" rel="noopener noreferrer"><u>Building Classification</u></a>: {geoclient.rpadBuildingClassificationCode}</i>)</p>);
             break;
         };
       }
@@ -75,7 +81,7 @@ export default class NotRegisteredPage extends Component {
               )}!
             </h5>
             <h6 className="mt-10 text-center text-bold text-large">
-              { geoclient && geoclient.bbl ? (<span>Boro-Block-Lot (BBL): <a href={"https://zola.planning.nyc.gov/lot/"+boro + "/" + block + "/" + lot} target="_blank">{boro}{bblDash}{block}{bblDash}{lot}</a></span>):(<span></span>) }
+              { geoclient && geoclient.bbl ? (<span>Boro-Block-Lot (BBL): <a href={"https://zola.planning.nyc.gov/lot/"+boro + "/" + block + "/" + lot} target="_blank" rel="noopener noreferrer">{boro}{bblDash}{block}{bblDash}{lot}</a></span>):(<span></span>) }
             </h6>
               { geoclient && geoclient.latitude && geoclient.longitude &&
             <img src={`https://maps.googleapis.com/maps/api/streetview?size=800x200&location=${geoclient.latitude},${geoclient.longitude}&key=${process.env.REACT_APP_STREETVIEW_API_KEY}`}
@@ -88,12 +94,12 @@ export default class NotRegisteredPage extends Component {
                 <p>Here are some useful links to learn more about this building:</p>
                 <div>
                   <div className="btn-group btn-group-block">
-                    <a href={`http://a836-acris.nyc.gov/bblsearch/bblsearch.asp?borough=${boro}&block=${block}&lot=${lot}`} target="_blank" className="btn">View documents on ACRIS &#8599;</a>
-                    <a href={`http://webapps.nyc.gov:8084/CICS/fin1/find001i?FFUNC=C&FBORO=${boro}&FBLOCK=${block}&FLOT=${lot}`} target="_blank" className="btn">DOF Property Tax Bills &#8599;</a>
+                    <a href={`http://a836-acris.nyc.gov/bblsearch/bblsearch.asp?borough=${boro}&block=${block}&lot=${lot}`} target="_blank" rel="noopener noreferrer" className="btn">View documents on ACRIS &#8599;</a>
+                    <a href={`http://webapps.nyc.gov:8084/CICS/fin1/find001i?FFUNC=C&FBORO=${boro}&FBLOCK=${block}&FLOT=${lot}`} target="_blank" rel="noopener noreferrer" className="btn">DOF Property Tax Bills &#8599;</a>
                   </div>
                   <div className="btn-group btn-group-block">
-                    <a href={`http://a810-bisweb.nyc.gov/bisweb/PropertyProfileOverviewServlet?boro=${boro}&block=${block}&lot=${lot}`} target="_blank" className="btn">DOB Building Profile &#8599;</a>
-                    <a href={`https://hpdonline.hpdnyc.org/HPDonline/Provide_address.aspx?p1=${boro}&p2=${searchAddress.housenumber}&p3=${searchAddress.streetname}&SearchButton=Search`} target="_blank" className="btn">HPD Complaints/Violations &#8599;</a>
+                    <a href={`http://a810-bisweb.nyc.gov/bisweb/PropertyProfileOverviewServlet?boro=${boro}&block=${block}&lot=${lot}`} target="_blank" rel="noopener noreferrer" className="btn">DOB Building Profile &#8599;</a>
+                    <a href={`https://hpdonline.hpdnyc.org/HPDonline/Provide_address.aspx?p1=${boro}&p2=${searchAddress.housenumber}&p3=${searchAddress.streetname}&SearchButton=Search`} target="_blank" rel="noopener noreferrer" className="btn">HPD Complaints/Violations &#8599;</a>
                   </div>
                 </div>
               </div>
@@ -124,7 +130,7 @@ export default class NotRegisteredPage extends Component {
               <li>Unable to request Code Violation Dismissals</li>
               <li>Unable to initiate a court action for nonpayment of rent.</li>
             </ul>
-            <a className="btn" href="http://www1.nyc.gov/site/hpd/owners/compliance-register-your-property.page" target="_blank">Click here to learn more. &#8599;</a>
+            <a className="btn" href="http://www1.nyc.gov/site/hpd/owners/compliance-register-your-property.page" target="_blank" rel="noopener noreferrer">Click here to learn more. &#8599;</a>
           </Modal>
         </div>
         <LegalFooter />
