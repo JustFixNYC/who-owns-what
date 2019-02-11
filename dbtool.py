@@ -341,7 +341,7 @@ if __name__ == '__main__':
     )
     parser_builddb.add_argument(
         '--update', action='store_true',
-        help=('Delete downloaded data & tables for the most frequently-updated '
+        help=('Delete downloaded data & tables for the '
               'data sets so they can be re-downloaded and re-installed.')
     )
     parser_builddb.set_defaults(cmd='builddb')
