@@ -231,7 +231,7 @@ export default class DetailView extends Component {
                             className="btn btn-steps"
                             url={encodeURI('https://whoownswhat.justfix.nyc/address/' + this.props.addr.boro + '/' + this.props.addr.housenumber + '/' + this.props.addr.streetname)}
                             target="_blank"
-                            message={"The " + (this.props.portfolioSize > 1 ? this.props.portfolioSize + " " : " ")  + "buildings owned by my landlord (via Who Owns What)"}>
+                            message={"The " + (this.props.portfolioSize > 1 ? this.props.portfolioSize + " " : " ")  + "buildings owned by my landlord (via JustFix's Who Owns What tool)"}>
                             <i className="icon icon-mail mx-2" />
                             <span>Email</span>
                           </EmailButton>

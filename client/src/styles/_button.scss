@@ -84,7 +84,8 @@
       display: none;
       margin-left: 5px;
 
-      @include for-tablet-landscape-up() {
+      // 1260px is the breaking point where the social btn text is too large to fit
+      @media screen and (min-width: 1260px) {
         display: inline;
       }
     }

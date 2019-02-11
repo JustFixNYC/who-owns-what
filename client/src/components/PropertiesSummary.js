@@ -128,7 +128,11 @@ export default class PropertiesSummary extends Component {
                   <span className="PropertiesSummary__linksTitle"><em>Additional links</em></span>
                   <div>
                     <h6 className="PropertiesSummary__linksSubtitle">Want more info on this landlord?</h6>
-                    <a href={encodeURI(`mailto:hello@justfix.nyc?subject=Who Owns What Data Request (${this.props.userAddr.housenumber} ${this.props.userAddr.streetname}, ${this.props.userAddr.boro})`)} target="_blank" rel="noopener noreferrer" className="btn btn-block">Send us a data request</a>
+                    <a href={encodeURI(`mailto:hello@justfix.nyc?subject=Who Owns What Data Request (${this.props.userAddr.housenumber} ${this.props.userAddr.streetname}, ${this.props.userAddr.boro})`)} target="_blank" rel="noopener noreferrer" className="btn btn-block">
+                      <div title="For example, you could ask us when your building was purchased, what tax exemptions your landlord receives, how many 311 complaints or construction violations have been issued, or something else!">
+                        <label>Send us a data request</label>
+                      </div>
+                    </a>
                   </div>
                   <div>
                     <h6 className="PropertiesSummary__linksSubtitle">Share this page with your neighbors</h6>
