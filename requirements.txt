@@ -1,3 +1,4 @@
 nycdb==0.1.18
 psycopg2-binary==2.7.7
 mypy==0.660
+PyYAML>=4.2b1

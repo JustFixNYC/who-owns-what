@@ -3,6 +3,9 @@ import sys
 import subprocess
 import argparse
 import time
+import yaml
+import nycdb.dataset
+from nycdb.utility import list_wrap
 from urllib.parse import urlparse
 from typing import NamedTuple, Any, Tuple, Optional, Dict, List
 from pathlib import Path
@@ -18,6 +21,7 @@ except ModuleNotFoundError:
 
 ROOT_DIR = Path(__file__).parent.resolve()
 SQL_DIR = ROOT_DIR / 'sql'
+WOW_YML = yaml.load((ROOT_DIR / 'who-owns-what.yml').read_text())
 
 # Just an alias for our database connection.
 DbConnection = Any
@@ -146,9 +150,15 @@ class NycDbBuilder:
                 print(f"Removing {csv_file.name} so it can be re-downloaded.")
                 csv_file.unlink()
 
-    def ensure_dataset(self, name: str, force_refresh: bool=False,
-                       extra_tables: Optional[Tuple[str]]=None) -> None:
-        tables = [name, *(extra_tables or ())]
+    def ensure_dataset(self, name: str, force_refresh: bool=False) -> None:
+        dataset = nycdb.dataset.datasets()[name]
+        tables: List[str] = [
+            schema['table_name']
+            for schema in list_wrap(dataset['schema'])
+        ]
+        tables_str = 'table' if len(tables) == 1 else 'tables'
+        print(f"Ensuring NYCDB dataset '{name}' is loaded with {len(tables)} {tables_str}...")
+
         if force_refresh:
             self.drop_tables(*tables)
             self.delete_downloaded_data(*tables)
@@ -173,29 +183,15 @@ class NycDbBuilder:
         else:
             print("Loading the database with real data (this could take a while).")
 
-        self.ensure_dataset('pluto_17v1')
-        self.ensure_dataset('pluto_18v1')
-        self.ensure_dataset('rentstab_summary')
-        self.ensure_dataset('marshal_evictions_17', force_refresh=force_refresh)
-        self.ensure_dataset('hpd_registrations', force_refresh=force_refresh,
-                            extra_tables=('hpd_contacts',))
+        datasets: List[str] = WOW_YML['dependencies']
+        sqlfiles: List[str] = WOW_YML['sql']
 
-        print("Running custom SQL for HPD registrations...")
-        self.run_sql_file(SQL_DIR / 'registrations_with_contacts.sql')
+        for dataset in datasets:
+            self.ensure_dataset(dataset, force_refresh=force_refresh)
 
-        self.ensure_dataset('hpd_violations', force_refresh=force_refresh)
-
-        WOW_SCRIPTS = [
-            ("Creating WoW buildings table...", "create_bldgs_table.sql"),
-            ("Adding helper functions...", "helper_functions.sql"),
-            ("Creating WoW search function...", "search_function.sql"),
-            ("Creating WoW agg function...", "agg_function.sql"),
-            ("Creating hpd landlord contact table...", "landlord_contact.sql"),
-        ]
-
-        for desc, filename in WOW_SCRIPTS:
-            print(desc)
-            self.run_sql_file(SQL_DIR / filename)
+        for sqlfile in sqlfiles:
+            print(f"Running {sqlfile}...")
+            self.run_sql_file(SQL_DIR / sqlfile)
 
 
 def dbshell(db: DbContext):
