@@ -1,1 +1,3 @@
 node_modules/
+nycdb/
+.mypy_cache/
