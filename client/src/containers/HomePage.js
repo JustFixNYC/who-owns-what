@@ -77,7 +77,7 @@ class HomePage extends Component {
       if(!this.state.results.addrs || !this.state.results.addrs.length) {
         window.gtag('event', 'search-notfound');
         return (
-          <Redirect to={{
+          <Redirect push to={{
             pathname: '/not-found',
             state: { geoclient, searchAddress }
           }}></Redirect>
@@ -87,7 +87,7 @@ class HomePage extends Component {
       } else {
         window.gtag('event', 'search-found', { 'value': this.state.results.addrs.length });
         return (
-          <Redirect to={{
+          <Redirect push to={{
             pathname: `/address/${this.state.searchAddress.boro}/${this.state.searchAddress.housenumber}/${this.state.searchAddress.streetname}`,
             state: { results }
           }}></Redirect>
