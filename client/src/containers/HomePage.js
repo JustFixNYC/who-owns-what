@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Redirect, Link } from 'react-router-dom';
 
-import AddressSearch from 'components/AddressSearch';
 import Loader from 'components/Loader';
 import APIClient from 'components/APIClient';
 import EngagementPanel from 'components/EngagementPanel';
@@ -12,6 +11,7 @@ import 'styles/HomePage.css';
 import westminsterLogo from '../assets/img/westminster.svg';
 import allyearLogo from '../assets/img/allyear.png';
 import emLogo from '../assets/img/emassociates.jpg';
+import NewAddressSearch from '../components/NewAddressSearch';
 
 class HomePage extends Component {
   constructor(props) {
@@ -105,7 +105,7 @@ class HomePage extends Component {
             ) : (
               <div>
                 <h5 className="text-center">Enter an NYC address and find other buildings your landlord might own:</h5>
-                <AddressSearch
+                <NewAddressSearch
                   { ...this.state.searchAddress }
                   onFormSubmit={this.handleFormSubmit}
                 />
