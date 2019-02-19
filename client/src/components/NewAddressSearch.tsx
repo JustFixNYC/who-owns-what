@@ -1,30 +1,113 @@
 import React from 'react';
+import Downshift, { ControllerStateAndHelpers, DownshiftInterface, GetInputPropsOptions } from 'downshift';
+import { GeoSearchRequester, GeoSearchResults } from '../util/geo-autocomplete-base';
+
+const GeoDownshift = Downshift as DownshiftInterface<SearchAddress>;
 
 export interface SearchAddress {
   /** The house number, e.g. '654'. */
-  housenumber: String,
+  housenumber: string,
 
   /** The street name, e.g. 'PARK PLACE'. */
-  streetname: String,
+  streetname: string,
 
   /** The all-uppercase borough name, e.g. 'BROOKLYN'. */
-  boro: String,
+  boro: string,
 }
 
 export interface NewAddressSearchProps extends SearchAddress {
   onFormSubmit: (searchAddress: SearchAddress, error: any) => void,
 }
 
-export default class NewAddressSearch extends React.Component<NewAddressSearchProps> {
+type State = {
+  isLoading: boolean,
+  results: SearchAddress[]
+};
+
+function toSearchAddresses(results: GeoSearchResults): SearchAddress[] {
+  return results.features.map(feature => {
+    const sa: SearchAddress = {
+      housenumber: feature.properties.housenumber,
+      streetname: feature.properties.street,
+      boro: feature.properties.borough.toUpperCase()
+    };
+    return sa;
+  });
+}
+
+function searchAddressToString(sa: SearchAddress): string {
+  return `${sa.housenumber} ${sa.streetname}, ${sa.boro}`;
+}
+
+export default class NewAddressSearch extends React.Component<NewAddressSearchProps, State> {
+  requester: GeoSearchRequester;
+
+  constructor(props: NewAddressSearchProps) {
+    super(props);
+    this.state = {
+      isLoading: false,
+      results: []
+    };
+    this.requester = new GeoSearchRequester({
+      // TODO: Create an actual AbortController if possible.
+      createAbortController: () => undefined,
+      fetch: window.fetch.bind(window),
+      throttleMs: 250,
+      onError: (e) => console.log('TODO geo search results error', e),
+      onResults: (results) => {
+        this.setState({
+          isLoading: false,
+          results: toSearchAddresses(results)
+        });
+      }
+    });
+  }
+
   render() {
     return (
-      <button className="btn" onClick={() => {
-        this.props.onFormSubmit({
-          housenumber: '654',
-          streetname: 'PARK PLACE',
-          boro: 'BROOKLYN'
-        }, null);
-      }}>Simulate address submission</button>
+      <GeoDownshift
+        onChange={(sa) => {
+          if (sa) {
+            this.props.onFormSubmit(sa, null);
+          } else {
+            console.log('TODO deal with null search addr', sa);
+          }
+        }}
+        itemToString={(sa) => {
+          return sa ? searchAddressToString(sa) : 'none';
+        }}
+      >
+        {(downshift) => {
+          const inputOptions: GetInputPropsOptions = {
+            onChange: (e) => {
+              const { value } = e.currentTarget;
+              if (this.requester.changeSearchRequest(value)) {
+                this.setState({ isLoading: true });
+              } else {
+                this.setState({ isLoading: false, results: [] });
+              }
+            }
+          };
+
+          return (
+            <div>
+              <label {...downshift.getLabelProps()} />
+              <input {...downshift.getInputProps(inputOptions)} />
+              <ul {...downshift.getMenuProps()}>
+                {this.state.results.map((item, index) => {
+                  const label = searchAddressToString(item);
+                  const props = downshift.getItemProps({
+                    key: label,
+                    index,
+                    item
+                  });
+                  return <li {...props}>{label}</li>;
+                })}
+              </ul>
+            </div>
+          );
+        }}
+      </GeoDownshift>
     );
   }
 }
