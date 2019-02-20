@@ -76,7 +76,7 @@ export default class NewAddressSearch extends React.Component<NewAddressSearchPr
           }
         }}
         itemToString={(sa) => {
-          return sa ? searchAddressToString(sa) : 'none';
+          return sa ? searchAddressToString(sa) : '';
         }}
       >
         {(downshift) => {
