@@ -11,7 +11,7 @@ import 'styles/HomePage.css';
 import westminsterLogo from '../assets/img/westminster.svg';
 import allyearLogo from '../assets/img/allyear.png';
 import emLogo from '../assets/img/emassociates.jpg';
-import NewAddressSearch from '../components/NewAddressSearch';
+import AddressSearch from '../components/AddressSearch';
 
 class HomePage extends Component {
   constructor(props) {
@@ -105,7 +105,7 @@ class HomePage extends Component {
             ) : (
               <div>
                 <h5 className="text-center">Enter an NYC address and find other buildings your landlord might own:</h5>
-                <NewAddressSearch
+                <AddressSearch
                   { ...this.state.searchAddress }
                   onFormSubmit={this.handleFormSubmit}
                 />

@@ -17,7 +17,7 @@ export interface SearchAddress {
   boro: string,
 }
 
-export interface NewAddressSearchProps extends SearchAddress {
+export interface AddressSearchProps extends SearchAddress {
   onFormSubmit: (searchAddress: SearchAddress, error: any) => void,
 }
 
@@ -41,10 +41,10 @@ function searchAddressToString(sa: SearchAddress): string {
   return `${sa.housenumber} ${sa.streetname}, ${sa.boro}`;
 }
 
-export default class NewAddressSearch extends React.Component<NewAddressSearchProps, State> {
+export default class AddressSearch extends React.Component<AddressSearchProps, State> {
   requester: GeoSearchRequester;
 
-  constructor(props: NewAddressSearchProps) {
+  constructor(props: AddressSearchProps) {
     super(props);
     this.state = {
       isLoading: false,
