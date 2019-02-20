@@ -90,6 +90,10 @@ export default class NewAddressSearch extends React.Component<NewAddressSearchPr
               }
             }
           };
+          const suggestsClasses = ['geosuggest__suggests'];
+          if (!(downshift.isOpen && this.state.results.length > 0)) {
+            suggestsClasses.push('geosuggest__suggests--hidden');
+          }
 
           return (
             <div className="AddressSearch">
@@ -100,8 +104,7 @@ export default class NewAddressSearch extends React.Component<NewAddressSearchPr
                     <input className="geosuggest__input form-input" {...downshift.getInputProps(inputOptions)} />
                   </div>
                   <div className="geosuggest__suggests-wrapper">
-                    {/* TODO: Conditionally add 'geosuggest__suggests--hidden' below if needed. */}
-                    <ul className="geosuggest__suggests" {...downshift.getMenuProps()}>
+                    <ul className={suggestsClasses.join(' ')} {...downshift.getMenuProps()}>
                       {this.state.results.map((item, index) => {
                         const classes = ['geosuggest__item'];
                         if (downshift.highlightedIndex === index) {
