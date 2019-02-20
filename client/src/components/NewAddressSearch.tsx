@@ -103,15 +103,17 @@ export default class NewAddressSearch extends React.Component<NewAddressSearchPr
                     {/* TODO: Conditionally add 'geosuggest__suggests--hidden' below if needed. */}
                     <ul className="geosuggest__suggests" {...downshift.getMenuProps()}>
                       {this.state.results.map((item, index) => {
-                        // TODO: If this is the active item, we should apply the
-                        // geosuggest__item--active class to it.
+                        const classes = ['geosuggest__item'];
+                        if (downshift.highlightedIndex === index) {
+                          classes.push('geosuggest__item--active');
+                        }
                         const label = searchAddressToString(item);
                         const props = downshift.getItemProps({
                           key: label,
                           index,
                           item
                         });
-                        return <li className="geosuggest__item" {...props}><span>{label}</span></li>;
+                        return <li className={classes.join(' ')} {...props}><span>{label}</span></li>;
                       })}
                     </ul>
                   </div>
