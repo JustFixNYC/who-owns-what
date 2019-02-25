@@ -1,10 +1,14 @@
 import React from 'react';
-import Downshift, { DownshiftInterface, GetInputPropsOptions } from 'downshift';
+import Downshift, { DownshiftInterface, GetInputPropsOptions, ControllerStateAndHelpers } from 'downshift';
 import { GeoSearchRequester, GeoSearchResults } from '../util/geo-autocomplete-base';
 
 import 'styles/AddressSearch.css';
 
 const GeoDownshift = Downshift as DownshiftInterface<SearchAddress>;
+
+const KEY_ENTER = 13;
+
+const KEY_TAB = 9;
 
 export interface SearchAddress {
   /** The house number, e.g. '654'. */
@@ -19,12 +23,29 @@ export interface SearchAddress {
 
 export interface AddressSearchProps extends SearchAddress {
   onFormSubmit: (searchAddress: SearchAddress, error: any) => void,
+  labelText: string,
+  labelClass: string
 }
 
 type State = {
   isLoading: boolean,
   results: SearchAddress[]
 };
+
+/**
+ * Return an empty search address.
+ * 
+ * This could just be a constant but I'm not confident that the
+ * code which calls it won't mutate it, so we'll just create a
+ * new one every time. -AV
+ */
+export function makeEmptySearchAddress(): SearchAddress {
+  return {
+    housenumber: '',
+    streetname: '',
+    boro: ''
+  };
+}
 
 function toSearchAddresses(results: GeoSearchResults): SearchAddress[] {
   return results.features.map(feature => {
@@ -51,7 +72,9 @@ export default class AddressSearch extends React.Component<AddressSearchProps, S
       results: []
     };
     this.requester = new GeoSearchRequester({
-      onError: (e) => console.log('TODO geo search results error', e),
+      onError: (e) => {
+        this.props.onFormSubmit(makeEmptySearchAddress(), e);
+      },
       onResults: (results) => {
         this.setState({
           isLoading: false,
@@ -61,15 +84,52 @@ export default class AddressSearch extends React.Component<AddressSearchProps, S
     });
   }
 
+  componentWillUnmount() {
+    this.requester.shutdown();
+  }
+
+  handleInputValueChange(value: string) {
+    if (this.requester.changeSearchRequest(value)) {
+      this.setState({ isLoading: true });
+    } else {
+      this.setState({ isLoading: false, results: [] });
+    }
+  }
+
+  /**
+   * If the result list is non-empty and visible, and the user hasn't selected
+   * anything, select the first item in the list and return true.
+   *
+   * Otherwise, return false.
+   */
+  selectFirstResult(ds: ControllerStateAndHelpers<SearchAddress>): boolean {
+    const { results } = this.state;
+    if (ds.highlightedIndex === null && ds.isOpen && results.length > 0) {
+      ds.selectItem(results[0]);
+      return true;
+    }
+    return false;
+  }
+
+  handleAutocompleteKeyDown(ds: ControllerStateAndHelpers<SearchAddress>, event: React.KeyboardEvent) {
+    if (event.keyCode === KEY_ENTER || event.keyCode === KEY_TAB) {
+      if (this.selectFirstResult(ds)) {
+        event.preventDefault();
+      }
+    }
+  }
+
   render() {
     return (
       <GeoDownshift
         onChange={(sa) => {
           if (sa) {
             this.props.onFormSubmit(sa, null);
-          } else {
-            console.log('TODO deal with null search addr', sa);
           }
+          // TODO: I am very unclear on what it means for `sa` to be null,
+          // and the docs don't seem to provide any guidance on the matter.
+          // There's no meaningful value for us to pass to `onFormSubmit` in
+          // this case, so we will just do nothing.
         }}
         itemToString={(sa) => {
           return sa ? searchAddressToString(sa) : '';
@@ -77,14 +137,8 @@ export default class AddressSearch extends React.Component<AddressSearchProps, S
       >
         {(downshift) => {
           const inputOptions: GetInputPropsOptions = {
-            onChange: (e) => {
-              const { value } = e.currentTarget;
-              if (this.requester.changeSearchRequest(value)) {
-                this.setState({ isLoading: true });
-              } else {
-                this.setState({ isLoading: false, results: [] });
-              }
-            }
+            onKeyDown: (e) => this.handleAutocompleteKeyDown(downshift, e),
+            onChange: (e) => this.handleInputValueChange(e.currentTarget.value)
           };
           const suggestsClasses = ['geosuggest__suggests'];
           if (!(downshift.isOpen && this.state.results.length > 0)) {
@@ -96,8 +150,8 @@ export default class AddressSearch extends React.Component<AddressSearchProps, S
               <div className="form-group col-xs-12">
                 <div className="geosuggest">
                   <div className="geosuggest__input-wrapper">
-                    <label {...downshift.getLabelProps()} />
-                    <input className="geosuggest__input form-input" {...downshift.getInputProps(inputOptions)} />
+                    <label className={this.props.labelClass} {...downshift.getLabelProps()}>{this.props.labelText}</label>
+                    <input placeholder="Search places" className="geosuggest__input form-input" {...downshift.getInputProps(inputOptions)} />
                   </div>
                   <div className="geosuggest__suggests-wrapper">
                     <ul className={suggestsClasses.join(' ')} {...downshift.getMenuProps()}>
