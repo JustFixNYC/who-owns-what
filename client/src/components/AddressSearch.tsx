@@ -51,10 +51,6 @@ export default class AddressSearch extends React.Component<AddressSearchProps, S
       results: []
     };
     this.requester = new GeoSearchRequester({
-      // TODO: Create an actual AbortController if possible.
-      createAbortController: () => undefined,
-      fetch: window.fetch.bind(window),
-      throttleMs: 250,
       onError: (e) => console.log('TODO geo search results error', e),
       onResults: (results) => {
         this.setState({
