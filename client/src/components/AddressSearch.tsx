@@ -122,6 +122,23 @@ export default class AddressSearch extends React.Component<AddressSearchProps, S
   render() {
     return (
       <GeoDownshift
+        stateReducer={(state, changes) => {
+          switch (changes.type) {
+            case Downshift.stateChangeTypes.mouseUp:
+            case Downshift.stateChangeTypes.touchEnd:
+            case Downshift.stateChangeTypes.blurInput:
+            // By default, Downshift clears the input value,
+            // but we don't want to lose user data, so we'll
+            // override that behavior here.
+            return {
+              ...changes,
+              inputValue: state.inputValue,
+            };
+
+            default:
+            return changes;
+          }
+        }}
         onChange={(sa) => {
           if (sa) {
             this.props.onFormSubmit(sa, null);
