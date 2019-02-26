@@ -20,7 +20,7 @@
 
 export default {
 
-  isMobile() {
+  isMobile(): boolean {
     let width = 0;
     if(typeof window != 'undefined') {
       width =  window.innerWidth && document.documentElement.clientWidth ?
@@ -32,13 +32,14 @@ export default {
     return width <= 599;
   },
 
-  isIE() {
+  isIE(): boolean {
     if(typeof window != 'undefined') {
       return /MSIE \d|Trident.*rv:/.test(window.navigator.userAgent);
     }
+    return false;
   },
 
-  getParameterByName(name, url) {
+  getParameterByName(name: string, url: string): string|null {
       if (!url && typeof window != 'undefined') url = window.location.href;
       name = name.replace(/[\[\]]/g, "\\$&");
       var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
