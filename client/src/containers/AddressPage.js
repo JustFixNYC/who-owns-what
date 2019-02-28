@@ -9,6 +9,7 @@ import AddressToolbar from 'components/AddressToolbar';
 import PropertiesMap from 'components/PropertiesMap';
 import PropertiesList from 'components/PropertiesList';
 import PropertiesSummary from 'components/PropertiesSummary';
+import Indicators from 'components/Indicators';
 import DetailView from 'components/DetailView';
 import APIClient from 'components/APIClient';
 
@@ -145,6 +146,10 @@ export default class AddressPage extends Component {
                   <a // eslint-disable-line jsx-a11y/anchor-is-valid
                     onClick={() => this.setState({ currentTab: 2 })}>Summary</a>
                 </li>
+                <li className={`tab-item ${this.state.currentTab === 3 ? "active" : ""}`}>
+                  <a // eslint-disable-line jsx-a11y/anchor-is-valid
+                    onClick={() => this.setState({ currentTab: 3 })}>History</a>
+                </li>
               </ul>
             </div>
           }
@@ -176,6 +181,12 @@ export default class AddressPage extends Component {
         <div className={`AddressPage__content AddressPage__summary ${this.state.currentTab === 2 ? "AddressPage__content-active": ''}`}>
           <PropertiesSummary
             isVisible={this.state.currentTab === 2}
+            userAddr={this.state.userAddr}
+          />
+        </div>
+        <div className={`AddressPage__content AddressPage__summary ${this.state.currentTab === 3 ? "AddressPage__content-active": ''}`}>
+          <Indicators
+            isVisible={this.state.currentTab === 3}
             userAddr={this.state.userAddr}
           />
         </div>
