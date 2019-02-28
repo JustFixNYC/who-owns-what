@@ -10,7 +10,7 @@ export default class Indicators extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { agg: null };
+    this.state = { saleHistory: null };
   }
 
   // componentDidMount() {
@@ -28,19 +28,30 @@ export default class Indicators extends Component {
 
     // make the api call when we come into view and have
     // the user addrs bbl
-    if(nextProps.isVisible && this.props.userAddr && !this.state.agg) {
-      APIClient.getAggregate(this.props.userAddr.bbl)
-        .then(results => this.setState({ agg: results.result[0] }))
+    if(nextProps.isVisible && this.props.userAddr && !this.state.saleHistory) {
+      APIClient.getSaleHistory(this.props.userAddr.bbl)
+        .then(results => this.setState({ saleHistory: results.result }))
         .catch(err => console.error(err));
     }
   }
 
   render() {
-    let agg = this.state.agg;
-
     return (
       <div className="Page PropertiesSummary">
         <div className="PropertiesSummary__content Page__content">
+          { !this.state.saleHistory ? (
+              <Loader loading={true} classNames="Loader-map">Loading</Loader>
+            ) : 
+          (
+            <div>
+              <h3>Recent Sales:</h3> 
+              <ul>
+                {this.state.saleHistory && 
+                  this.state.saleHistory.map((record, idx) => <li key={idx}>{record.recordedfiled}</li> )}
+              </ul>
+            </div>
+          )
+          }
         </div>
         <LegalFooter position="inside" />
       </div>
