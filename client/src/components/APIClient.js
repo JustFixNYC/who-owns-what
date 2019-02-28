@@ -16,6 +16,10 @@ function getSaleHistory(bbl) {
   return get(`/api/address/salehistory?bbl=${bbl}`);
 }
 
+function getViolsHistory(bbl) {
+  return get(`/api/address/violshistory?bbl=${bbl}`);
+}
+
 function getAddressExport(q) {
   return fetch(`/api/address/export?houseNumber=${q.housenumber}&street=${q.streetname}&borough=${q.boro}`)
     .then(checkStatus);
@@ -67,6 +71,7 @@ const Client = {
   searchBBL,
   getAggregate,
   getSaleHistory,
+  getViolsHistory,
   getAddressExport,
   postNewSubscriber
 };

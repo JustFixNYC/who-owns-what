@@ -30,6 +30,10 @@ export default {
     return a.bbl === b.bbl;
   },
 
+  jsonEqual(a,b) {
+    return JSON.stringify(a) === JSON.stringify(b);
+  },
+
   intersectAddrObjects(a,b){
     return _pickBy(a, function(v, k) {
     	return b[k] === v;

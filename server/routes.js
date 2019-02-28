@@ -8,6 +8,7 @@ const subscribe = require('./controllers/subscribe');
 router.get('/address', address.query);
 router.get('/address/aggregate', address.aggregate);
 router.get('/address/salehistory', address.salehistory);
+router.get('/address/violshistory', address.violshistory);
 router.get('/address/export', address.export);
 router.get('/landlord', landlord.query);
 router.post('/subscribe', subscribe.send);

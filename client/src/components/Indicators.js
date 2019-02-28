@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import RC2 from 'react-chartjs2';
+import Helpers from 'util/helpers';
 
 import Loader from 'components/Loader';
 import LegalFooter from 'components/LegalFooter';
@@ -11,7 +12,12 @@ export default class Indicators extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { saleHistory: null };
+    this.state = { 
+      saleHistory: null,
+      violsHistory: null,
+      violsLabels: null,
+      violsData: null 
+    };
   }
 
   // componentDidMount() {
@@ -33,32 +39,74 @@ export default class Indicators extends Component {
       APIClient.getSaleHistory(this.props.userAddr.bbl)
         .then(results => this.setState({ saleHistory: results.result }))
         .catch(err => console.error(err));
+      if(!this.state.violsHistory) {
+        APIClient.getViolsHistory(this.props.userAddr.bbl)
+          .then(results => this.setState({ violsHistory: results.result }))
+          .catch(err => console.error(err));
+      }
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if(this.state.violsHistory && !Helpers.jsonEqual(prevState.violsHistory, this.state.violsHistory)) {
+
+    const currentYear = parseInt(new Date().getFullYear());
+    const currentMonth = parseInt(new Date().getMonth());
+
+    // Generate array of labels:
+    var violsLabels = []; 
+    
+    var yr, qtr;
+    for (yr = 2013; yr <= currentYear; yr++) {
+      if (yr === currentYear) {
+        for (qtr = 1; qtr < currentMonth/3; qtr++) {
+          violsLabels.push((yr.toString()).concat(" Q",qtr.toString()));
+        }
+      }
+      else {
+        for (qtr = 1; qtr < 5; qtr++) {
+          violsLabels.push((yr.toString()).concat(" Q",qtr.toString()));
+        }
+      }
+    }
+
+    const violsHistory = this.state.violsHistory;
+    const violsArrayLength = violsHistory.length;
+
+
+    // Generate array of bar chart values:
+    var violsData = [];
+
+    var i;
+    var j = 0;
+
+    for (i = 0; i < violsLabels.length; i++) {
+      if (j < violsArrayLength && violsLabels[i] === violsHistory[j].quarter) {
+        violsData.push(parseInt(violsHistory[j].total));
+        j++;
+      }
+      else {
+        violsData.push(0);
+      }
+    }
+
+    this.setState({
+        violsLabels: violsLabels,
+        violsData: violsData
+    });
+
     }
   }
 
   render() {
 
-    var data = {
-        labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+  var data = {
+        labels: this.state.violsLabels,
         datasets: [{
-            label: '# of Votes',
-            data: [12, 19, 3, 5, 2, 3],
-            backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)'
-            ],
-            borderColor: [
-                'rgba(255,99,132,1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)'
-            ],
+            label: '# of HPD Violations',
+            data: this.state.violsData,
+            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+            borderColor: 'rgba(255,99,132,1)',
             borderWidth: 1
         }]
     };
@@ -67,7 +115,8 @@ export default class Indicators extends Component {
         scales: {
             yAxes: [{
                 ticks: {
-                    beginAtZero:true
+                    beginAtZero: true,
+                    suggestedMax: 15
                 }
             }]
         }
