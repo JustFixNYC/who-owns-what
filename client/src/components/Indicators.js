@@ -1,5 +1,10 @@
 import React, { Component } from 'react';
-import RC2 from 'react-chartjs2';
+import { Bar } from 'react-chartjs-2';
+// reference: https://github.com/jerairrest/react-chartjs-2
+
+import 'chartjs-plugin-annotation';
+// reference: https://github.com/chartjs/chartjs-plugin-annotation
+
 import Helpers from 'util/helpers';
 
 import Loader from 'components/Loader';
@@ -14,9 +19,14 @@ export default class Indicators extends Component {
 
     this.state = { 
       saleHistory: null,
+      lastSale: null,
       violsHistory: null,
       violsLabels: null,
-      violsData: null 
+      violsData: {
+        classA: null,
+        classB: null,
+        classC: null
+      } 
     };
   }
 
@@ -48,95 +58,194 @@ export default class Indicators extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
+
     if(this.state.violsHistory && !Helpers.jsonEqual(prevState.violsHistory, this.state.violsHistory)) {
 
-    const currentYear = parseInt(new Date().getFullYear());
-    const currentMonth = parseInt(new Date().getMonth());
+      const currentYear = parseInt(new Date().getFullYear());
+      const currentMonth = parseInt(new Date().getMonth());
 
-    // Generate array of labels:
-    var violsLabels = []; 
-    
-    var yr, qtr;
-    for (yr = 2013; yr <= currentYear; yr++) {
-      if (yr === currentYear) {
-        for (qtr = 1; qtr < currentMonth/3; qtr++) {
-          violsLabels.push((yr.toString()).concat(" Q",qtr.toString()));
+      // Generate array of labels:
+      var violsLabels = []; 
+      var violsData = {
+        classA: [],
+        classB: [],
+        classC: []
+      } ;
+      
+      var yr, qtr;
+      for (yr = 2010; yr <= currentYear; yr++) {
+        if (yr === currentYear) {
+          for (qtr = 1; qtr < currentMonth/3; qtr++) {
+            violsLabels.push((yr.toString()).concat(" Q",qtr.toString()));
+          }
+        }
+        else {
+          for (qtr = 1; qtr < 5; qtr++) {
+            violsLabels.push((yr.toString()).concat(" Q",qtr.toString()));
+          }
         }
       }
-      else {
-        for (qtr = 1; qtr < 5; qtr++) {
-          violsLabels.push((yr.toString()).concat(" Q",qtr.toString()));
+
+      const violsHistory = this.state.violsHistory;
+      const violsArrayLength = violsHistory.length;
+
+
+      // Generate array of bar chart values:
+      
+
+      var i;
+      var j = 0;
+
+      for (i = 0; i < violsLabels.length; i++) {
+        if (j < violsArrayLength && violsLabels[i] === violsHistory[j].quarter) {
+          violsData.classA.push(parseInt(violsHistory[j].class_a));
+          violsData.classB.push(parseInt(violsHistory[j].class_b));
+          violsData.classC.push(parseInt(violsHistory[j].class_c));
+          j++;
+        }
+        else {
+          violsData.classA.push(0);
+          violsData.classB.push(0);
+          violsData.classC.push(0);
         }
       }
+
+      this.setState({
+          violsLabels: violsLabels,
+          violsData: violsData
+      });
+
     }
 
-    const violsHistory = this.state.violsHistory;
-    const violsArrayLength = violsHistory.length;
+    if(this.state.saleHistory && !Helpers.jsonEqual(prevState.saleHistory, this.state.saleHistory)) {
+      if (this.state.saleHistory.length > 0 && (this.state.saleHistory[0].docdate || this.state.saleHistory[0].recordedfiled)) {
+        
+        var lastSaleDate = this.state.saleHistory[0].docdate || this.state.saleHistory[0].recordedfiled; 
+        var lastSaleYear = lastSaleDate.slice(0,4);
+        var lastSaleQuarter = Math.ceil(parseInt(lastSaleDate.slice(5,7)) / 3);
 
-
-    // Generate array of bar chart values:
-    var violsData = [];
-
-    var i;
-    var j = 0;
-
-    for (i = 0; i < violsLabels.length; i++) {
-      if (j < violsArrayLength && violsLabels[i] === violsHistory[j].quarter) {
-        violsData.push(parseInt(violsHistory[j].total));
-        j++;
+        this.setState({
+          lastSale: lastSaleYear.concat(" Q",lastSaleQuarter)
+        });
       }
+
       else {
-        violsData.push(0);
+        this.setState({
+          lastSale: null
+        });
       }
-    }
-
-    this.setState({
-        violsLabels: violsLabels,
-        violsData: violsData
-    });
 
     }
   }
 
   render() {
 
+  // 
+  // 
+
   var data = {
         labels: this.state.violsLabels,
-        datasets: [{
-            label: '# of HPD Violations',
-            data: this.state.violsData,
-            backgroundColor: 'rgba(255, 99, 132, 0.2)',
-            borderColor: 'rgba(255,99,132,1)',
-            borderWidth: 1
+        datasets: [
+          {
+              label: 'Class A',
+              data: this.state.violsData.classA,
+              backgroundColor: 'rgba(191,211,230, 0.6)',
+              borderColor: 'rgba(191,211,230,1)',
+              borderWidth: 1
+          },
+          {
+              label: 'Class B',
+              data: this.state.violsData.classB,
+              backgroundColor: 'rgba(140,150,198, 0.6)',
+              borderColor: 'rgba(140,150,198,1)',
+              borderWidth: 1
+          },
+          {
+              label: 'Class C',
+              data: this.state.violsData.classC,
+              backgroundColor: 'rgba(136,65,157, 0.6)',
+              borderColor: 'rgba(136,65,157,1)',
+              borderWidth: 1
+          }
+        ]
+    };
+
+  var options = {
+      scales: {
+        yAxes: [{
+            ticks: {
+                beginAtZero: true,
+                suggestedMax: 15
+            },
+            stacked: true
+        }],
+        xAxes: [{
+            ticks: {
+                beginAtZero: true,
+                suggestedMax: 15
+            },
+            stacked: true
         }]
-    };
-
-    var options = {
-        scales: {
-            yAxes: [{
-                ticks: {
-                    beginAtZero: true,
-                    suggestedMax: 15
-                }
-            }]
+      },
+      title: {
+        display: true,
+        fontSize: 20,
+        fontFamily: "Inconsolata, monospace",
+        fontColor: "rgb(69, 77, 93)",
+        text: [
+          (this.props.userAddr ? 
+            this.props.userAddr.housenumber + " "  +
+            this.props.userAddr.streetname + ", " + 
+            this.props.userAddr.boro 
+            : ""),
+          'HPD Violations Issued Over Time']
+      },
+      legend: {
+        labels: {
+          fontFamily: "Inconsolata, monospace",
+          fontColor: "rgb(69, 77, 93)"
         }
-    };
-
+      },
+      annotation: {
+        annotations: 
+        [
+            {
+                // drawTime: "afterDatasetsDraw",
+                // id: "hline",
+                type: "line",
+                mode: "vertical",
+                scaleID: "x-axis-0",
+                value: this.state.lastSale,
+                borderColor: "rgb(69, 77, 93)",
+                borderWidth: 2,
+                label: {
+                    content: "Sold to Current Owner",
+                    fontFamily: "Inconsolata, monospace",
+                    fontColor: "#fff",
+                    fontSize: 12,
+                    xPadding: 10,
+                    yPadding: 10,
+                    backgroundColor: "rgb(69, 77, 93)",
+                    position: "top",
+                    yAdjust: 25,
+                    enabled: true
+                }
+            }
+        ],
+        drawTime: "afterDraw" // (default)
+      },
+      maintainAspectRatio: false
+  }; 
 
     return (
       <div className="Page PropertiesSummary">
         <div className="PropertiesSummary__content Page__content">
-          { !this.state.saleHistory ? (
+          { !this.state.saleHistory || !this.state.violsHistory ? (
               <Loader loading={true} classNames="Loader-map">Loading</Loader>
             ) : 
           (
             <div>
-              <RC2 data={data} options={options} type='bar' />
-              <h3>Recent Sales:</h3> 
-              <ul>
-                {this.state.saleHistory && 
-                  this.state.saleHistory.map((record, idx) => <li key={idx}>{record.recordedfiled}</li> )}
-              </ul>
+              <Bar data={data} options={options} width={100} height={450} />
             </div>
           )
           }
