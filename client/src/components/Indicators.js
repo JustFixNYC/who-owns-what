@@ -21,11 +21,11 @@ export default class Indicators extends Component {
       saleHistory: null,
       lastSale: null,
       violsHistory: null,
-      violsLabels: null,
       violsData: {
         classA: null,
         classB: null,
-        classC: null
+        classC: null,
+        labels: null
       } 
     };
   }
@@ -40,6 +40,58 @@ export default class Indicators extends Component {
   //     .catch(err => console.error(err));
   //
   // }
+
+  createViolsData(rawJSON, startingYear) {
+
+    const currentYear = parseInt(new Date().getFullYear());
+    const currentMonth = parseInt(new Date().getMonth());
+
+    var violsData = {
+      classA: [],
+      classB: [],
+      classC: [],
+      labels: []
+    };
+    
+    // Generate array of labels:
+    var yr, qtr;
+    for (yr = startingYear; yr <= currentYear; yr++) {
+      if (yr === currentYear) {
+        for (qtr = 1; qtr < currentMonth/3; qtr++) {
+          violsData.labels.push((yr.toString()).concat(" Q",qtr.toString()));
+        }
+      }
+      else {
+        for (qtr = 1; qtr < 5; qtr++) {
+          violsData.labels.push((yr.toString()).concat(" Q",qtr.toString()));
+        }
+      }
+    }
+
+    // Generate array of bar chart values:
+    const violsHistory = rawJSON;
+    const violsArrayLength = violsHistory.length;
+
+    var i;
+    var j = 0;
+
+    for (i = 0; i < violsData.labels.length; i++) {
+      if (j < violsArrayLength && violsData.labels[i] === violsHistory[j].quarter) {
+        violsData.classA.push(parseInt(violsHistory[j].class_a));
+        violsData.classB.push(parseInt(violsHistory[j].class_b));
+        violsData.classC.push(parseInt(violsHistory[j].class_c));
+        j++;
+      }
+      else {
+        violsData.classA.push(0);
+        violsData.classB.push(0);
+        violsData.classC.push(0);
+      }
+    }
+
+    return violsData;
+
+  }
 
   componentWillReceiveProps(nextProps) {
 
@@ -61,57 +113,10 @@ export default class Indicators extends Component {
 
     if(this.state.violsHistory && !Helpers.jsonEqual(prevState.violsHistory, this.state.violsHistory)) {
 
-      const currentYear = parseInt(new Date().getFullYear());
-      const currentMonth = parseInt(new Date().getMonth());
-
-      // Generate array of labels:
-      var violsLabels = []; 
-      var violsData = {
-        classA: [],
-        classB: [],
-        classC: []
-      } ;
-      
-      var yr, qtr;
-      for (yr = 2010; yr <= currentYear; yr++) {
-        if (yr === currentYear) {
-          for (qtr = 1; qtr < currentMonth/3; qtr++) {
-            violsLabels.push((yr.toString()).concat(" Q",qtr.toString()));
-          }
-        }
-        else {
-          for (qtr = 1; qtr < 5; qtr++) {
-            violsLabels.push((yr.toString()).concat(" Q",qtr.toString()));
-          }
-        }
-      }
-
-      const violsHistory = this.state.violsHistory;
-      const violsArrayLength = violsHistory.length;
-
-
-      // Generate array of bar chart values:
-      
-
-      var i;
-      var j = 0;
-
-      for (i = 0; i < violsLabels.length; i++) {
-        if (j < violsArrayLength && violsLabels[i] === violsHistory[j].quarter) {
-          violsData.classA.push(parseInt(violsHistory[j].class_a));
-          violsData.classB.push(parseInt(violsHistory[j].class_b));
-          violsData.classC.push(parseInt(violsHistory[j].class_c));
-          j++;
-        }
-        else {
-          violsData.classA.push(0);
-          violsData.classB.push(0);
-          violsData.classC.push(0);
-        }
-      }
+      // Note: "starting year" needs to match starting year in SQL query data
+      var violsData = this.createViolsData(this.state.violsHistory, 2010);
 
       this.setState({
-          violsLabels: violsLabels,
           violsData: violsData
       });
 
@@ -144,7 +149,7 @@ export default class Indicators extends Component {
   // 
 
   var data = {
-        labels: this.state.violsLabels,
+        labels: this.state.violsData.labels,
         datasets: [
           {
               label: 'Class A',
