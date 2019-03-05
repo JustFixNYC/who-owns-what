@@ -19,14 +19,24 @@ export default class Indicators extends Component {
 
     this.state = { 
       saleHistory: null,
-      lastSale: null,
+      lastSale: {
+        date: null,
+        quarter: null 
+      },
       violsHistory: null,
       violsData: {
         classA: null,
         classB: null,
         classC: null,
         labels: null
-      } 
+      },
+      complaintsHistory: null,
+      complaintsData: {
+        emergency: null,
+        nonemergency: null,
+        labels: null
+      },
+      activeVis: 'viols'
     };
   }
 
@@ -41,10 +51,38 @@ export default class Indicators extends Component {
   //
   // }
 
-  createViolsData(rawJSON, startingYear) {
+  formatDate(dateString) {
+    var date = new Date(dateString);
+    var options = {year: 'numeric', month: 'long', day: 'numeric'};
+    return date.toLocaleDateString("en-US", options);
+  }
+
+  createLabels(startingYear) {
 
     const currentYear = parseInt(new Date().getFullYear());
     const currentMonth = parseInt(new Date().getMonth());
+
+    var labelsArray = [];
+
+    var yr, qtr;
+    for (yr = startingYear; yr <= currentYear; yr++) {
+      if (yr === currentYear) {
+        for (qtr = 1; qtr < currentMonth/3; qtr++) {
+          labelsArray.push((yr.toString()).concat(" Q",qtr.toString()));
+        }
+      }
+      else {
+        for (qtr = 1; qtr < 5; qtr++) {
+          labelsArray.push((yr.toString()).concat(" Q",qtr.toString()));
+        }
+      }
+    }
+
+    return labelsArray;
+
+  }
+
+  createViolsData(rawJSON) {
 
     var violsData = {
       classA: [],
@@ -52,21 +90,9 @@ export default class Indicators extends Component {
       classC: [],
       labels: []
     };
-    
-    // Generate array of labels:
-    var yr, qtr;
-    for (yr = startingYear; yr <= currentYear; yr++) {
-      if (yr === currentYear) {
-        for (qtr = 1; qtr < currentMonth/3; qtr++) {
-          violsData.labels.push((yr.toString()).concat(" Q",qtr.toString()));
-        }
-      }
-      else {
-        for (qtr = 1; qtr < 5; qtr++) {
-          violsData.labels.push((yr.toString()).concat(" Q",qtr.toString()));
-        }
-      }
-    }
+
+    // Note: "starting year" needs to match starting year in SQL query data
+    violsData.labels = this.createLabels(2010);
 
     // Generate array of bar chart values:
     const violsHistory = rawJSON;
@@ -93,6 +119,42 @@ export default class Indicators extends Component {
 
   }
 
+  createComplaintsData(rawJSON) {
+
+    var complaintsData = {
+      emergency: [],
+      nonemergency: [],
+      labels: []
+    };
+
+    // Note: "starting year" needs to match starting year in SQL query data
+    complaintsData.labels = this.createLabels(2014);
+
+    // Generate array of bar chart values:
+    const complaintsHistory = rawJSON;
+    const complaintsArrayLength = complaintsHistory.length;
+
+    var i;
+    var j = 0;
+
+    for (i = 0; i < complaintsData.labels.length; i++) {
+      if (j < complaintsArrayLength && complaintsData.labels[i] === complaintsHistory[j].quarter) {
+        complaintsData.emergency.push(parseInt(complaintsHistory[j].emergency));
+        complaintsData.nonemergency.push(parseInt(complaintsHistory[j].nonemergency));
+        j++;
+      }
+      else {
+        complaintsData.emergency.push(0);
+        complaintsData.nonemergency.push(0);
+      }
+    }
+
+    return complaintsData;
+
+  }
+
+
+
   componentWillReceiveProps(nextProps) {
 
     // make the api call when we come into view and have
@@ -106,6 +168,11 @@ export default class Indicators extends Component {
           .then(results => this.setState({ violsHistory: results.result }))
           .catch(err => console.error(err));
       }
+      if(!this.state.complaintsHistory) {
+        APIClient.getComplaintsHistory(this.props.userAddr.bbl)
+          .then(results => this.setState({ complaintsHistory: results.result }))
+          .catch(err => console.error(err));
+      }
     }
   }
 
@@ -113,11 +180,21 @@ export default class Indicators extends Component {
 
     if(this.state.violsHistory && !Helpers.jsonEqual(prevState.violsHistory, this.state.violsHistory)) {
 
-      // Note: "starting year" needs to match starting year in SQL query data
-      var violsData = this.createViolsData(this.state.violsHistory, 2010);
+      var violsData = this.createViolsData(this.state.violsHistory);
 
       this.setState({
           violsData: violsData
+      });
+
+    }
+
+    if(this.state.complaintsHistory && !Helpers.jsonEqual(prevState.complaintsHistory, this.state.complaintsHistory)) {
+
+      // Note: "starting year" needs to match starting year in SQL query data
+      var complaintsData = this.createComplaintsData(this.state.complaintsHistory);
+
+      this.setState({
+          complaintsData: complaintsData
       });
 
     }
@@ -130,13 +207,19 @@ export default class Indicators extends Component {
         var lastSaleQuarter = Math.ceil(parseInt(lastSaleDate.slice(5,7)) / 3);
 
         this.setState({
-          lastSale: lastSaleYear.concat(" Q",lastSaleQuarter)
+          lastSale: {
+            date: lastSaleDate,
+            quarter: lastSaleYear.concat(" Q",lastSaleQuarter)
+          }
         });
       }
 
       else {
         this.setState({
-          lastSale: null
+          lastSale: {
+            date: null,
+            quarter: null
+          }
         });
       }
 
@@ -149,30 +232,48 @@ export default class Indicators extends Component {
   // 
 
   var data = {
-        labels: this.state.violsData.labels,
-        datasets: [
-          {
-              label: 'Class A',
-              data: this.state.violsData.classA,
-              backgroundColor: 'rgba(191,211,230, 0.6)',
-              borderColor: 'rgba(191,211,230,1)',
-              borderWidth: 1
-          },
-          {
-              label: 'Class B',
-              data: this.state.violsData.classB,
-              backgroundColor: 'rgba(140,150,198, 0.6)',
-              borderColor: 'rgba(140,150,198,1)',
-              borderWidth: 1
-          },
-          {
-              label: 'Class C',
-              data: this.state.violsData.classC,
-              backgroundColor: 'rgba(136,65,157, 0.6)',
-              borderColor: 'rgba(136,65,157,1)',
-              borderWidth: 1
-          }
-        ]
+        labels: (this.state.activeVis === 'complaints' ? 
+                  this.state.complaintsData.labels : 
+                  this.state.violsData.labels),
+        datasets: 
+          (this.state.activeVis === 'complaints' ? 
+            [{
+                label: 'Non-Emergency',
+                data: this.state.complaintsData.nonemergency,
+                backgroundColor: 'rgba(140,150,198, 0.6)',
+                borderColor: 'rgba(140,150,198,1)',
+                borderWidth: 1
+            },
+            {
+                label: 'Emergency',
+                data: this.state.complaintsData.emergency,
+                backgroundColor: 'rgba(191,211,230, 0.6)',
+                borderColor: 'rgba(191,211,230,1)',
+                borderWidth: 1
+            }] 
+            : 
+            [{
+                label: 'Class A',
+                data: this.state.violsData.classA,
+                backgroundColor: 'rgba(191,211,230, 0.6)',
+                borderColor: 'rgba(191,211,230,1)',
+                borderWidth: 1
+            },
+            {
+                label: 'Class B',
+                data: this.state.violsData.classB,
+                backgroundColor: 'rgba(140,150,198, 0.6)',
+                borderColor: 'rgba(140,150,198,1)',
+                borderWidth: 1
+            },
+            {
+                label: 'Class C',
+                data: this.state.violsData.classC,
+                backgroundColor: 'rgba(136,65,157, 0.6)',
+                borderColor: 'rgba(136,65,157,1)',
+                borderWidth: 1
+            }] 
+          )
     };
 
   var options = {
@@ -203,7 +304,10 @@ export default class Indicators extends Component {
             this.props.userAddr.streetname + ", " + 
             this.props.userAddr.boro 
             : ""),
-          'HPD Violations Issued Over Time']
+          'HPD ' + 
+          (this.state.activeVis === 'complaints' ?
+          'Complaints' : 'Violations') +
+          ' Issued Over Time']
       },
       legend: {
         labels: {
@@ -220,7 +324,7 @@ export default class Indicators extends Component {
                 type: "line",
                 mode: "vertical",
                 scaleID: "x-axis-0",
-                value: this.state.lastSale,
+                value: this.state.lastSale.quarter,
                 borderColor: "rgb(69, 77, 93)",
                 borderWidth: 2,
                 label: {
@@ -251,8 +355,9 @@ export default class Indicators extends Component {
           (
             <div>
               <Bar data={data} options={options} width={100} height={450} />
+              <p> Sold to Current Owner on {this.formatDate(this.state.lastSale.date) || "unknown date"}. </p>
             </div>
-          )
+            )
           }
         </div>
         <LegalFooter position="inside" />

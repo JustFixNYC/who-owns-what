@@ -36,6 +36,28 @@ const violsHistorySQL =
 	GROUP BY QUARTER
 	ORDER BY QUARTER`;
 
+const complaintsHistorySQL = 
+	`SELECT QUARTER,
+       SUM(CASE WHEN TYPEID = ANY('{1,2,4}') THEN 1 ELSE 0 END) AS EMERGENCY,
+       SUM(CASE WHEN TYPEID = ANY('{3,8}') THEN 1 ELSE 0 END) AS NONEMERGENCY,
+       SUM(CASE WHEN TYPEID IS NOT NULL THEN 1 ELSE 0 END) AS TOTAL
+		  FROM (
+				SELECT 
+					CONCAT(EXTRACT(YEAR FROM RECEIVEDDATE),
+					' ',
+					(CASE WHEN EXTRACT(MONTH FROM RECEIVEDDATE) < 4 THEN 'Q1' 
+					 WHEN EXTRACT(MONTH FROM RECEIVEDDATE) < 7 THEN 'Q2'
+					 WHEN EXTRACT(MONTH FROM RECEIVEDDATE) < 10 THEN 'Q3'
+					ELSE 'Q4' END)) AS QUARTER, 
+				 	TYPEID,
+				 	BBL
+				FROM HPD_COMPLAINT_PROBLEMS P
+				LEFT JOIN HPD_COMPLAINTS C ON P.COMPLAINTID = C.COMPLAINTID
+				WHERE BBL = $1
+				AND RECEIVEDDATE >= '2014-01-01'
+				) SUB
+	GROUP BY QUARTER
+	ORDER BY QUARTER`;
 
 
 module.exports = {
@@ -43,5 +65,6 @@ module.exports = {
   queryAggregate: bbl => db.func('get_agg_info_from_bbl', bbl),
   queryLandlord: bbl => db.any('SELECT * FROM hpd_landlord_contact WHERE bbl = $1', bbl),
   querySaleHistory: bbl => db.any(saleHistorySQL, bbl),
-  queryViolsHistory: bbl => db.any(violsHistorySQL, bbl)
+  queryViolsHistory: bbl => db.any(violsHistorySQL, bbl),
+  queryComplaintsHistory: bbl => db.any(complaintsHistorySQL, bbl)
 };
