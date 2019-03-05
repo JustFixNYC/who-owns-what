@@ -11,7 +11,7 @@ import Loader from 'components/Loader';
 import LegalFooter from 'components/LegalFooter';
 import APIClient from 'components/APIClient';
 
-import 'styles/PropertiesSummary.css';
+import 'styles/Indicators.css';
 
 export default class Indicators extends Component {
   constructor(props) {
@@ -21,7 +21,8 @@ export default class Indicators extends Component {
       saleHistory: null,
       lastSale: {
         date: null,
-        quarter: null 
+        quarter: null, 
+        documentid: null 
       },
       violsHistory: null,
       violsData: {
@@ -38,6 +39,8 @@ export default class Indicators extends Component {
       },
       activeVis: 'viols'
     };
+
+    this.handleVisChange = this.handleVisChange.bind(this);
   }
 
   // componentDidMount() {
@@ -50,6 +53,12 @@ export default class Indicators extends Component {
   //     .catch(err => console.error(err));
   //
   // }
+
+  handleVisChange(selectedVis) {
+    this.setState({
+          activeVis: selectedVis
+      });
+  }
 
   formatDate(dateString) {
     var date = new Date(dateString);
@@ -153,8 +162,6 @@ export default class Indicators extends Component {
 
   }
 
-
-
   componentWillReceiveProps(nextProps) {
 
     // make the api call when we come into view and have
@@ -200,7 +207,9 @@ export default class Indicators extends Component {
     }
 
     if(this.state.saleHistory && !Helpers.jsonEqual(prevState.saleHistory, this.state.saleHistory)) {
-      if (this.state.saleHistory.length > 0 && (this.state.saleHistory[0].docdate || this.state.saleHistory[0].recordedfiled)) {
+      if (this.state.saleHistory.length > 0 && 
+          (this.state.saleHistory[0].docdate || this.state.saleHistory[0].recordedfiled) &&
+          this.state.saleHistory[0].documentid ) {
         
         var lastSaleDate = this.state.saleHistory[0].docdate || this.state.saleHistory[0].recordedfiled; 
         var lastSaleYear = lastSaleDate.slice(0,4);
@@ -209,7 +218,8 @@ export default class Indicators extends Component {
         this.setState({
           lastSale: {
             date: lastSaleDate,
-            quarter: lastSaleYear.concat(" Q",lastSaleQuarter)
+            quarter: lastSaleYear + ' Q' + lastSaleQuarter,
+            documentid: this.state.saleHistory[0].documentid
           }
         });
       }
@@ -218,7 +228,8 @@ export default class Indicators extends Component {
         this.setState({
           lastSale: {
             date: null,
-            quarter: null
+            quarter: null,
+            documentid: null
           }
         });
       }
@@ -240,15 +251,15 @@ export default class Indicators extends Component {
             [{
                 label: 'Non-Emergency',
                 data: this.state.complaintsData.nonemergency,
-                backgroundColor: 'rgba(140,150,198, 0.6)',
-                borderColor: 'rgba(140,150,198,1)',
+                backgroundColor: 'rgba(254,232,200, 0.6)',
+                borderColor: 'rgba(254,232,200,1)',
                 borderWidth: 1
             },
             {
                 label: 'Emergency',
                 data: this.state.complaintsData.emergency,
-                backgroundColor: 'rgba(191,211,230, 0.6)',
-                borderColor: 'rgba(191,211,230,1)',
+                backgroundColor: 'rgba(227,74,51, 0.6)',
+                borderColor: 'rgba(227,74,51,1)',
                 borderWidth: 1
             }] 
             : 
@@ -306,8 +317,7 @@ export default class Indicators extends Component {
             : ""),
           'HPD ' + 
           (this.state.activeVis === 'complaints' ?
-          'Complaints' : 'Violations') +
-          ' Issued Over Time']
+          'Complaints since 2014' : 'Violations since 2010')]
       },
       legend: {
         labels: {
@@ -336,8 +346,32 @@ export default class Indicators extends Component {
                     yPadding: 10,
                     backgroundColor: "rgb(69, 77, 93)",
                     position: "top",
-                    yAdjust: 25,
-                    enabled: true
+                    yAdjust: 20,
+                    enabled: true,
+                    cornerRadius: 0
+                }
+            },
+            {
+                // drawTime: "afterDatasetsDraw",
+                // id: "hline",
+                type: "line",
+                mode: "vertical",
+                scaleID: "x-axis-0",
+                value: this.state.lastSale.quarter,
+                borderColor: "rgba(0,0,0,0)",
+                borderWidth: 0,
+                label: {
+                    content: this.formatDate(this.state.lastSale.date),
+                    fontFamily: "Inconsolata, monospace",
+                    fontColor: "#fff",
+                    fontSize: 12,
+                    xPadding: 10,
+                    yPadding: 10,
+                    backgroundColor: "rgb(69, 77, 93)",
+                    position: "top",
+                    yAdjust: 40,
+                    enabled: true,
+                    cornerRadius: 0
                 }
             }
         ],
@@ -347,15 +381,32 @@ export default class Indicators extends Component {
   }; 
 
     return (
-      <div className="Page PropertiesSummary">
-        <div className="PropertiesSummary__content Page__content">
+      <div className="Page Indicators">
+        <div className="Indicators__content Page__content">
           { !this.state.saleHistory || !this.state.violsHistory ? (
               <Loader loading={true} classNames="Loader-map">Loading</Loader>
             ) : 
           (
             <div>
-              <Bar data={data} options={options} width={100} height={450} />
-              <p> Sold to Current Owner on {this.formatDate(this.state.lastSale.date) || "unknown date"}. </p>
+              <div>
+                <Bar data={data} options={options} width={100} height={450} />
+              </div>
+              <div className="Indicators__links">
+                <span className="Indicators__linksTitle"><em>Select a Dataset</em></span>
+                <div className="btn-group btn-group-block control-panel">
+                  <button className={(this.state.activeVis === "viols" ? "selected " : "") + "btn btn-data-select"}
+                          onClick={() => this.handleVisChange('viols')}>HPD Violations</button>
+                  <button className={(this.state.activeVis === "complaints" ? "selected " : "") + "btn btn-data-select"}
+                          onClick={() => this.handleVisChange('complaints')}>HPD Complaints</button>
+                </div> 
+              </div>   
+              {(this.state.lastSale.date && this.state.lastSale.documentid ?
+              <p> Sold to Current Owner on {this.formatDate(this.state.lastSale.date)}. 
+                  (<a href={'https://a836-acris.nyc.gov/DS/DocumentSearch/DocumentImageView?doc_id=' + this.state.lastSale.documentid} 
+                    target="_blank" rel="noopener noreferrer">View Deed</a>)
+              </p> :
+              <p> Last sale date unknown. </p>
+              )}
             </div>
             )
           }
