@@ -34,7 +34,8 @@ export default class Indicators extends Component {
         values: {
           class_a: null,
           class_b: null,
-          class_c: null
+          class_c: null,
+          total: null
         }
       },
 
@@ -43,7 +44,8 @@ export default class Indicators extends Component {
         labels: null,
         values: {
           emergency: null,
-          nonemergency: null
+          nonemergency: null,
+          total: null
         }
       },
 
@@ -122,7 +124,8 @@ export default class Indicators extends Component {
           values: {
             class_a: [],
             class_b: [],
-            class_c: []
+            class_c: [],
+            total: []
           },
           labels: []
         };
@@ -133,7 +136,8 @@ export default class Indicators extends Component {
         vizData = {
           values: {
             emergency: [],
-            nonemergency: []
+            nonemergency: [],
+            total: []
           },
           labels: []
         }
@@ -318,7 +322,9 @@ export default class Indicators extends Component {
   // Create "data" and "options" objects for rendering visualization
 
   var indicatorData = this.state.activeVis + 'Data';
-
+  var dataMaximum = (this.state[indicatorData].values.total ? 
+                      Helpers.maxArray(this.state[indicatorData].values.total) : 0);
+  
   var data = {
         labels: this.state[indicatorData].labels, 
         datasets: datasets
@@ -329,7 +335,7 @@ export default class Indicators extends Component {
         yAxes: [{
             ticks: {
                 beginAtZero: true,
-                suggestedMax: 15
+                suggestedMax: Math.max(12, dataMaximum * 1.25)
             },
             stacked: true
         }],
@@ -379,7 +385,7 @@ export default class Indicators extends Component {
                     yPadding: 10,
                     backgroundColor: "rgb(69, 77, 93)",
                     position: "top",
-                    yAdjust: 20,
+                    yAdjust: 10,
                     enabled: true,
                     cornerRadius: 0
                 }
@@ -402,7 +408,7 @@ export default class Indicators extends Component {
                     yPadding: 10,
                     backgroundColor: "rgb(69, 77, 93)",
                     position: "top",
-                    yAdjust: 40,
+                    yAdjust: 30,
                     enabled: true,
                     cornerRadius: 0
                 }
