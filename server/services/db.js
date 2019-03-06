@@ -59,6 +59,26 @@ const complaintsHistorySQL =
 	GROUP BY QUARTER
 	ORDER BY QUARTER`;
 
+const permitsHistorySQL = 
+	`SELECT QUARTER,
+       SUM(CASE WHEN JOBTYPE IS NOT NULL THEN 1 ELSE 0 END) AS TOTAL
+		  FROM (
+				SELECT 
+					CONCAT(EXTRACT(YEAR FROM PREFILINGDATE),
+					' ',
+					(CASE WHEN EXTRACT(MONTH FROM PREFILINGDATE) < 4 THEN 'Q1' 
+					 WHEN EXTRACT(MONTH FROM PREFILINGDATE) < 7 THEN 'Q2'
+					 WHEN EXTRACT(MONTH FROM PREFILINGDATE) < 10 THEN 'Q3'
+					ELSE 'Q4' END)) AS QUARTER, 
+				 	JOBTYPE,
+				 	BBL
+				FROM DOBJOBS
+				WHERE BBL = $1
+				AND PREFILINGDATE >= '2010-01-01'
+				) SUB
+	GROUP BY QUARTER
+	ORDER BY QUARTER`
+
 
 module.exports = {
   queryAddress: bbl => db.func('get_assoc_addrs_from_bbl', bbl),
@@ -66,5 +86,6 @@ module.exports = {
   queryLandlord: bbl => db.any('SELECT * FROM hpd_landlord_contact WHERE bbl = $1', bbl),
   querySaleHistory: bbl => db.any(saleHistorySQL, bbl),
   queryViolsHistory: bbl => db.any(violsHistorySQL, bbl),
+  queryPermitsHistory: bbl => db.any(permitsHistorySQL, bbl),
   queryComplaintsHistory: bbl => db.any(complaintsHistorySQL, bbl)
 };

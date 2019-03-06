@@ -17,30 +17,48 @@ export default class Indicators extends Component {
   constructor(props) {
     super(props);
 
+    this.indicatorList = ['viols', 'complaints', 'permits'];
+
     this.state = { 
+
       saleHistory: null,
       lastSale: {
         date: null,
         quarter: null, 
         documentid: null 
       },
+
       violsHistory: null,
       violsData: {
-        classA: null,
-        classB: null,
-        classC: null,
-        labels: null
+        labels: null,
+        values: {
+          class_a: null,
+          class_b: null,
+          class_c: null
+        }
       },
+
       complaintsHistory: null,
       complaintsData: {
-        emergency: null,
-        nonemergency: null,
-        labels: null
+        labels: null,
+        values: {
+          emergency: null,
+          nonemergency: null
+        }
       },
+
+      permitsHistory: null,
+      permitsData: {
+        labels: null,
+        values: {
+          total: null
+        }
+      },
+
       activeVis: 'viols'
+
     };
 
-    this.handleVisChange = this.handleVisChange.bind(this);
   }
 
   // componentDidMount() {
@@ -91,76 +109,75 @@ export default class Indicators extends Component {
 
   }
 
-  createViolsData(rawJSON) {
+  createVizData(rawJSON, vizType) {
 
-    var violsData = {
-      classA: [],
-      classB: [],
-      classC: [],
-      labels: []
-    };
+    var vizData;
 
-    // Note: "starting year" needs to match starting year in SQL query data
-    violsData.labels = this.createLabels(2010);
+    // Generate object to hold data for viz
+    // Note: keys in "values" object need to match exact key names in data from API call
+    switch(vizType) {
 
-    // Generate array of bar chart values:
-    const violsHistory = rawJSON;
-    const violsArrayLength = violsHistory.length;
+      case 'viols':
+        vizData = {
+          values: {
+            class_a: [],
+            class_b: [],
+            class_c: []
+          },
+          labels: []
+        };
+        vizData.labels = this.createLabels(2010);
+        break;
 
-    var i;
-    var j = 0;
+      case 'complaints':
+        vizData = {
+          values: {
+            emergency: [],
+            nonemergency: []
+          },
+          labels: []
+        }
+        vizData.labels = this.createLabels(2014);
+        break;
 
-    for (i = 0; i < violsData.labels.length; i++) {
-      if (j < violsArrayLength && violsData.labels[i] === violsHistory[j].quarter) {
-        violsData.classA.push(parseInt(violsHistory[j].class_a));
-        violsData.classB.push(parseInt(violsHistory[j].class_b));
-        violsData.classC.push(parseInt(violsHistory[j].class_c));
-        j++;
+      case 'permits':
+        vizData = {
+          values: {
+            total: []
+          },
+          labels: []
+        }
+        vizData.labels = this.createLabels(2010);
+        break;
+
+      default:
+        break;
       }
-      else {
-        violsData.classA.push(0);
-        violsData.classB.push(0);
-        violsData.classC.push(0);
-      }
-    }
 
-    return violsData;
 
-  }
+      // Generate arrays of data for chart.js visualizations:
 
-  createComplaintsData(rawJSON) {
+      const rawJSONLength = rawJSON.length;
 
-    var complaintsData = {
-      emergency: [],
-      nonemergency: [],
-      labels: []
-    };
+      var i;
+      var j = 0;
 
-    // Note: "starting year" needs to match starting year in SQL query data
-    complaintsData.labels = this.createLabels(2014);
+      for (i = 0; i < vizData.labels.length; i++) {
+        if (j < rawJSONLength && vizData.labels[i] === rawJSON[j].quarter) {
+          for (const column in vizData.values) {
+            vizData.values[column].push(parseInt(rawJSON[j][column]));
+          }
+          j++;
+        }
+        else {
+          for (const column in vizData.values) {
+            vizData.values[column].push(0);
+          }
+        }
+      } 
 
-    // Generate array of bar chart values:
-    const complaintsHistory = rawJSON;
-    const complaintsArrayLength = complaintsHistory.length;
-
-    var i;
-    var j = 0;
-
-    for (i = 0; i < complaintsData.labels.length; i++) {
-      if (j < complaintsArrayLength && complaintsData.labels[i] === complaintsHistory[j].quarter) {
-        complaintsData.emergency.push(parseInt(complaintsHistory[j].emergency));
-        complaintsData.nonemergency.push(parseInt(complaintsHistory[j].nonemergency));
-        j++;
-      }
-      else {
-        complaintsData.emergency.push(0);
-        complaintsData.nonemergency.push(0);
-      }
-    }
-
-    return complaintsData;
-
-  }
+      return vizData;
+  } 
 
   componentWillReceiveProps(nextProps) {
 
@@ -170,40 +187,37 @@ export default class Indicators extends Component {
       APIClient.getSaleHistory(this.props.userAddr.bbl)
         .then(results => this.setState({ saleHistory: results.result }))
         .catch(err => console.error(err));
-      if(!this.state.violsHistory) {
-        APIClient.getViolsHistory(this.props.userAddr.bbl)
-          .then(results => this.setState({ violsHistory: results.result }))
-          .catch(err => console.error(err));
-      }
-      if(!this.state.complaintsHistory) {
-        APIClient.getComplaintsHistory(this.props.userAddr.bbl)
-          .then(results => this.setState({ complaintsHistory: results.result }))
-          .catch(err => console.error(err));
+
+      const indicatorList = this.indicatorList.map(x => x + 'History');
+
+      for (const indicator of indicatorList) {
+        if(!this.state[indicator]) {
+          const APICall = 'get' + Helpers.capitalize(indicator); // i.e: 'getViolsHistory'
+          APIClient[APICall](this.props.userAddr.bbl)
+            .then(results => this.setState({ [indicator]: results.result }))
+            .catch(err => console.error(err));
+        }
       }
     }
   }
 
   componentDidUpdate(prevProps, prevState) {
 
-    if(this.state.violsHistory && !Helpers.jsonEqual(prevState.violsHistory, this.state.violsHistory)) {
+    const indicatorList = this.indicatorList;
 
-      var violsData = this.createViolsData(this.state.violsHistory);
+    for (const indicator of indicatorList) {
+      const indicatorHistory = indicator + 'History';
+      const indicatorData = indicator + 'Data';
 
-      this.setState({
-          violsData: violsData
-      });
+      if(this.state[indicatorHistory] && !Helpers.jsonEqual(prevState[indicatorHistory], this.state[indicatorHistory])) {
 
-    }
+        var inputData = this.createVizData(this.state[indicatorHistory], indicator);
+        
+        this.setState({
+          [indicatorData]: inputData
+        });
 
-    if(this.state.complaintsHistory && !Helpers.jsonEqual(prevState.complaintsHistory, this.state.complaintsHistory)) {
-
-      // Note: "starting year" needs to match starting year in SQL query data
-      var complaintsData = this.createComplaintsData(this.state.complaintsHistory);
-
-      this.setState({
-          complaintsData: complaintsData
-      });
-
+      }
     }
 
     if(this.state.saleHistory && !Helpers.jsonEqual(prevState.saleHistory, this.state.saleHistory)) {
@@ -239,53 +253,76 @@ export default class Indicators extends Component {
 
   render() {
 
-  // 
-  // 
+  // Set configurables for active vis
+  var title; 
+  var datasets;
+
+  switch (this.state.activeVis) {
+    case 'viols': 
+      title = 'HPD Violations since 2010';
+      datasets = 
+        [{
+            label: 'Class A',
+            data: this.state.violsData.values.class_a,
+            backgroundColor: 'rgba(191,211,230, 0.6)',
+            borderColor: 'rgba(191,211,230,1)',
+            borderWidth: 1
+        },
+        {
+            label: 'Class B',
+            data: this.state.violsData.values.class_b,
+            backgroundColor: 'rgba(140,150,198, 0.6)',
+            borderColor: 'rgba(140,150,198,1)',
+            borderWidth: 1
+        },
+        {
+            label: 'Class C',
+            data: this.state.violsData.values.class_c,
+            backgroundColor: 'rgba(136,65,157, 0.6)',
+            borderColor: 'rgba(136,65,157,1)',
+            borderWidth: 1
+        }];
+      break;
+    case 'complaints':
+      title = 'HPD Complaints since 2014';
+      datasets = 
+        [{
+            label: 'Non-Emergency',
+            data: this.state.complaintsData.values.nonemergency,
+            backgroundColor: 'rgba(254,232,200, 0.6)',
+            borderColor: 'rgba(254,232,200,1)',
+            borderWidth: 1
+        },
+        {
+            label: 'Emergency',
+            data: this.state.complaintsData.values.emergency,
+            backgroundColor: 'rgba(227,74,51, 0.6)',
+            borderColor: 'rgba(227,74,51,1)',
+            borderWidth: 1
+        }];
+      break;
+    case 'permits':
+      title = 'DOB Construction Permit Filings since 2010';
+      datasets = 
+        [{
+            label: 'Building Permits Filed',
+            data: this.state.permitsData.values.total,
+            backgroundColor: 'rgba(255,152,0, 0.6)',
+            borderColor: 'rgb(255,152,0)',
+            borderWidth: 1
+        }];
+      break;
+    default: break;
+  }
+
+  // Create "data" and "options" objects for rendering visualization
+
+  var indicatorData = this.state.activeVis + 'Data';
 
   var data = {
-        labels: (this.state.activeVis === 'complaints' ? 
-                  this.state.complaintsData.labels : 
-                  this.state.violsData.labels),
-        datasets: 
-          (this.state.activeVis === 'complaints' ? 
-            [{
-                label: 'Non-Emergency',
-                data: this.state.complaintsData.nonemergency,
-                backgroundColor: 'rgba(254,232,200, 0.6)',
-                borderColor: 'rgba(254,232,200,1)',
-                borderWidth: 1
-            },
-            {
-                label: 'Emergency',
-                data: this.state.complaintsData.emergency,
-                backgroundColor: 'rgba(227,74,51, 0.6)',
-                borderColor: 'rgba(227,74,51,1)',
-                borderWidth: 1
-            }] 
-            : 
-            [{
-                label: 'Class A',
-                data: this.state.violsData.classA,
-                backgroundColor: 'rgba(191,211,230, 0.6)',
-                borderColor: 'rgba(191,211,230,1)',
-                borderWidth: 1
-            },
-            {
-                label: 'Class B',
-                data: this.state.violsData.classB,
-                backgroundColor: 'rgba(140,150,198, 0.6)',
-                borderColor: 'rgba(140,150,198,1)',
-                borderWidth: 1
-            },
-            {
-                label: 'Class C',
-                data: this.state.violsData.classC,
-                backgroundColor: 'rgba(136,65,157, 0.6)',
-                borderColor: 'rgba(136,65,157,1)',
-                borderWidth: 1
-            }] 
-          )
-    };
+        labels: this.state[indicatorData].labels, 
+        datasets: datasets
+  };
 
   var options = {
       scales: {
@@ -298,8 +335,7 @@ export default class Indicators extends Component {
         }],
         xAxes: [{
             ticks: {
-                beginAtZero: true,
-                suggestedMax: 15
+                beginAtZero: true
             },
             stacked: true
         }]
@@ -314,10 +350,7 @@ export default class Indicators extends Component {
             this.props.userAddr.housenumber + " "  +
             this.props.userAddr.streetname + ", " + 
             this.props.userAddr.boro 
-            : ""),
-          'HPD ' + 
-          (this.state.activeVis === 'complaints' ?
-          'Complaints since 2014' : 'Violations since 2010')]
+            : ""), title]
       },
       legend: {
         labels: {
@@ -329,7 +362,7 @@ export default class Indicators extends Component {
         annotations: 
         [
             {
-                // drawTime: "afterDatasetsDraw",
+                drawTime: "beforeDatasetsDraw",
                 // id: "hline",
                 type: "line",
                 mode: "vertical",
@@ -352,7 +385,7 @@ export default class Indicators extends Component {
                 }
             },
             {
-                // drawTime: "afterDatasetsDraw",
+                drawTime: "beforeDatasetsDraw",
                 // id: "hline",
                 type: "line",
                 mode: "vertical",
@@ -392,17 +425,19 @@ export default class Indicators extends Component {
                 <Bar data={data} options={options} width={100} height={450} />
               </div>
               <div className="Indicators__links">
-                <span className="Indicators__linksTitle"><em>Select a Dataset</em></span>
+                <em>Select a Dataset:</em>
                 <div className="btn-group btn-group-block control-panel">
                   <button className={(this.state.activeVis === "viols" ? "selected " : "") + "btn btn-data-select"}
-                          onClick={() => this.handleVisChange('viols')}>HPD Violations</button>
+                          onClick={() => this.handleVisChange("viols")}>HPD Violations</button>
                   <button className={(this.state.activeVis === "complaints" ? "selected " : "") + "btn btn-data-select"}
-                          onClick={() => this.handleVisChange('complaints')}>HPD Complaints</button>
+                          onClick={() => this.handleVisChange("complaints")}>HPD Complaints</button>
+                  <button className={(this.state.activeVis === "permits" ? "selected " : "") + "btn btn-data-select"}
+                          onClick={() => this.handleVisChange("permits")}>DOB Permits</button>
                 </div> 
               </div>   
               {(this.state.lastSale.date && this.state.lastSale.documentid ?
               <p> Sold to Current Owner on {this.formatDate(this.state.lastSale.date)}. 
-                  (<a href={'https://a836-acris.nyc.gov/DS/DocumentSearch/DocumentImageView?doc_id=' + this.state.lastSale.documentid} 
+                  (<a href={"https://a836-acris.nyc.gov/DS/DocumentSearch/DocumentImageView?doc_id=" + this.state.lastSale.documentid} 
                     target="_blank" rel="noopener noreferrer">View Deed</a>)
               </p> :
               <p> Last sale date unknown. </p>

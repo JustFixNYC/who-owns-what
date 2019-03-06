@@ -78,6 +78,15 @@ module.exports = {
       });
   },
 
+  permitshistory: (req, res) => {
+    db.queryPermitsHistory(req.query.bbl)
+      .then(result => res.status(200).send({ result: result }) )
+      .catch(err => {
+        rollbar.error(err, req);
+        res.status(200).send({ error: err.message });
+      });
+  },
+
   export: (req, res) => {
     getDataAndFormat(req.query)
       .then(results => {

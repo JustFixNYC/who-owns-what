@@ -10,6 +10,7 @@ router.get('/address/aggregate', address.aggregate);
 router.get('/address/salehistory', address.salehistory);
 router.get('/address/violshistory', address.violshistory);
 router.get('/address/complaintshistory', address.complaintshistory);
+router.get('/address/permitshistory', address.permitshistory);
 router.get('/address/export', address.export);
 router.get('/landlord', landlord.query);
 router.post('/subscribe', subscribe.send);
