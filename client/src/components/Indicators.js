@@ -330,6 +330,25 @@ export default class Indicators extends Component {
         datasets: datasets
   };
 
+  var labelPosition;
+  var dateLocation = 'current'; 
+
+  if (data.labels && data.labels.length > 10) {
+
+    if (!this.state.lastSale.quarter || this.state.lastSale.quarter < data.labels[0]) {
+      labelPosition = data.labels[0];
+      dateLocation = 'past'; 
+    }
+    else if (this.state.lastSale.quarter > data.labels[data.labels.length - 1]) {
+      labelPosition = data.labels[data.labels.length - 1];
+      dateLocation = 'future'; 
+    }
+    else {
+      labelPosition = this.state.lastSale.quarter;
+    }
+
+  }
+
   var options = {
       scales: {
         yAxes: [{
@@ -373,11 +392,11 @@ export default class Indicators extends Component {
                 type: "line",
                 mode: "vertical",
                 scaleID: "x-axis-0",
-                value: this.state.lastSale.quarter,
-                borderColor: "rgb(69, 77, 93)",
+                value: labelPosition,
+                borderColor: (dateLocation === 'current' ? "rgb(69, 77, 93)" : "rgba(0,0,0,0)"),
                 borderWidth: 2,
                 label: {
-                    content: "Sold to Current Owner",
+                    content: (this.state.lastSale.date ? "Sold to Current Owner" : "Last Sale Unknown"),
                     fontFamily: "Inconsolata, monospace",
                     fontColor: "#fff",
                     fontSize: 12,
@@ -385,22 +404,26 @@ export default class Indicators extends Component {
                     yPadding: 10,
                     backgroundColor: "rgb(69, 77, 93)",
                     position: "top",
+                    xAdjust: (dateLocation === 'past' ? -70 : dateLocation === 'future' ? 70 : 0),
                     yAdjust: 10,
                     enabled: true,
                     cornerRadius: 0
                 }
             },
+          (this.state.lastSale.date ? 
             {
                 drawTime: "beforeDatasetsDraw",
                 // id: "hline",
                 type: "line",
                 mode: "vertical",
                 scaleID: "x-axis-0",
-                value: this.state.lastSale.quarter,
+                value: labelPosition,
                 borderColor: "rgba(0,0,0,0)",
                 borderWidth: 0,
                 label: {
-                    content: this.formatDate(this.state.lastSale.date),
+                    content: (dateLocation === 'past' ? "← " : "") + 
+                              this.formatDate(this.state.lastSale.date) +
+                              (dateLocation === 'future' ? " →" : ""),
                     fontFamily: "Inconsolata, monospace",
                     fontColor: "#fff",
                     fontSize: 12,
@@ -408,11 +431,14 @@ export default class Indicators extends Component {
                     yPadding: 10,
                     backgroundColor: "rgb(69, 77, 93)",
                     position: "top",
+                    xAdjust: (dateLocation === 'past' ? -70 : dateLocation === 'future' ? 70 : 0),
                     yAdjust: 30,
                     enabled: true,
                     cornerRadius: 0
                 }
-            }
+            } :
+            {}
+          )
         ],
         drawTime: "afterDraw" // (default)
       },
