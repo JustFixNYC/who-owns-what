@@ -467,13 +467,6 @@ export default class Indicators extends Component {
                           onClick={() => this.handleVisChange("permits")}>DOB Permits</button>
                 </div> 
               </div>   
-              {(this.state.lastSale.date && this.state.lastSale.documentid ?
-              <p> Sold to Current Owner on {this.formatDate(this.state.lastSale.date)}. 
-                  (<a href={"https://a836-acris.nyc.gov/DS/DocumentSearch/DocumentImageView?doc_id=" + this.state.lastSale.documentid} 
-                    target="_blank" rel="noopener noreferrer">View Deed</a>)
-              </p> :
-              <p> Last sale date unknown. </p>
-              )}
             </div>
             )
           }

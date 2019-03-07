@@ -12,10 +12,10 @@
 
   .Indicators__content {
 
-    padding: 30px 45px 104px 30px;
+    padding: 30px 45px 45px 30px;
 
     @include for-tablet-portrait-up() {
-      padding: 45px 45px 104px 45px;
+      padding: 45px 45px 45px 45px;
     }
 
     & > div > h6 {
