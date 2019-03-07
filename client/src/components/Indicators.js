@@ -129,7 +129,7 @@ export default class Indicators extends Component {
           },
           labels: []
         };
-        vizData.labels = this.createLabels(2010);
+        vizData.labels = this.createLabels(2014);
         break;
 
       case 'complaints':
@@ -151,7 +151,7 @@ export default class Indicators extends Component {
           },
           labels: []
         }
-        vizData.labels = this.createLabels(2010);
+        vizData.labels = this.createLabels(2014);
         break;
 
       default:
@@ -375,9 +375,10 @@ export default class Indicators extends Component {
             this.props.userAddr.housenumber + " "  +
             this.props.userAddr.streetname + ", " + 
             this.props.userAddr.boro 
-            : ""), title]
+            : "")]
       },
       legend: {
+        position: "bottom",
         labels: {
           fontFamily: "Inconsolata, monospace",
           fontColor: "rgb(69, 77, 93)"
@@ -453,9 +454,6 @@ export default class Indicators extends Component {
             ) : 
           (
             <div>
-              <div>
-                <Bar data={data} options={options} width={100} height={450} />
-              </div>
               <div className="Indicators__links">
                 <em>Select a Dataset:</em>
                 <div className="btn-group btn-group-block control-panel">
@@ -466,6 +464,9 @@ export default class Indicators extends Component {
                   <button className={(this.state.activeVis === "permits" ? "selected " : "") + "btn btn-data-select"}
                           onClick={() => this.handleVisChange("permits")}>DOB Permits</button>
                 </div> 
+              </div>
+              <div>
+                <Bar data={data} options={options} width={100} height={450} />
               </div>   
             </div>
             )
