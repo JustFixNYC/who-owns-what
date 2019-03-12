@@ -10,10 +10,12 @@ import 'styles/PropertiesSummary.css';
 import fbIcon from '../assets/img/fb.svg';
 import twitterIcon from '../assets/img/twitter.svg';
 
-const VIOLATIONS_AVG = 0.7; // By Unit
+const VIOLATIONS_AVG = 0.9; // By Unit
 
-// 1588195 open violations according to wow_bldgs
-// 2299803 total units in registered buildings, according to wow_bldgs
+// 1981721 open violations according to wow_bldgs
+// 2314462 total units in registered buildings, according to wow_bldgs
+
+// Data updated 2/11/19
 
 export default class PropertiesSummary extends Component {
   constructor(props) {
@@ -56,11 +58,11 @@ export default class PropertiesSummary extends Component {
             <div>
               <h6>General info</h6>
               <p>
-                There {agg.bldgs === 1 ? 
+                There {parseInt(agg.bldgs) === 1 ? 
                   <span>is <b>1</b> building </span> :
                   <span>are <b>{agg.bldgs}</b> buildings </span>}
-                in this portfolio with a total of {agg.units} unit{agg.units === 1 ? "" : "s"}.
-                The {agg.bldgs === 1 ? "" : "average"} age of {agg.bldgs === 1 ? "this building " : "these buildings "}
+                in this portfolio with a total of {agg.units} unit{parseInt(agg.units) === 1 ? "" : "s"}.
+                The {parseInt(agg.bldgs) === 1 ? "" : "average"} age of {parseInt(agg.bldgs) === 1 ? "this building " : "these buildings "}
                 is <b>{agg.age}</b> years old.
               </p>
               <aside>
@@ -100,19 +102,19 @@ export default class PropertiesSummary extends Component {
               </p>
               <h6>Evictions</h6>
               <p>
-                In 2017, NYC Marshals scheduled <b>{agg.totalevictions > 0 ? agg.totalevictions : "0"}</b> eviction{agg.totalevictions === 1 ? "" : "s"} across this portfolio.
+                In 2017, NYC Marshals scheduled <b>{agg.totalevictions > 0 ? agg.totalevictions : "0"}</b> eviction{parseInt(agg.totalevictions) === 1 ? "" : "s"} across this portfolio.
                 {agg.totalevictions > 0 ?
                   <span> The building with the most evictions was&nbsp;
                     {agg.evictionsaddr && (
                       <span>
-                        <b>{agg.evictionsaddr.housenumber} {agg.evictionsaddr.streetname}, {agg.evictionsaddr.boro}</b> with <b>{agg.evictionsaddr.evictions}</b> eviction{agg.totalevictions === 1 ? "" : "s"} that year
+                        <b>{agg.evictionsaddr.housenumber} {agg.evictionsaddr.streetname}, {agg.evictionsaddr.boro}</b> with <b>{agg.evictionsaddr.evictions}</b> eviction{parseInt(agg.totalevictions) === 1 ? "" : "s"} that year
                       </span>
                     )}.
                   </span> : ""}
               </p>
               <h6>Rent stabilization</h6>
               <p>
-                This portfolio also had an estimated <b>net {agg.totalrsdiff > 0 ? "gain" : "loss"}</b> of <b>{Math.abs(parseInt(agg.totalrsdiff, 10)) || 0}</b> rent stabilized unit{agg.totalrsdiff === 1 ? "" : "s"} since 2007 (gained {Math.abs(parseInt(agg.totalrsgain, 10)) || 0}, lost {Math.abs(parseInt(agg.totalrsloss, 10)) || 0}).
+                This portfolio also had an estimated <b>net {agg.totalrsdiff > 0 ? "gain" : "loss"}</b> of <b>{Math.abs(parseInt(agg.totalrsdiff, 10)) || 0}</b> rent stabilized unit{parseInt(agg.totalrsdiff) === 1 ? "" : "s"} since 2007 (gained {Math.abs(parseInt(agg.totalrsgain, 10)) || 0}, lost {Math.abs(parseInt(agg.totalrsloss, 10)) || 0}).
                 This represents <b>{agg.rsproportion || 0}%</b> of the total size of this portfolio. 
                 {agg.rslossaddr && (agg.rslossaddr.rsdiff < 0) ?
                 (<span> The building that has lost the most units is&nbsp;
@@ -127,9 +129,9 @@ export default class PropertiesSummary extends Component {
                 <div className="PropertiesSummary__links">
                   <span className="PropertiesSummary__linksTitle"><em>Additional links</em></span>
                   <div>
-                    <h6 className="PropertiesSummary__linksSubtitle">Want more info on this landlord?</h6>
-                    <a href={encodeURI(`mailto:hello@justfix.nyc?subject=Who Owns What Data Request (${this.props.userAddr.housenumber} ${this.props.userAddr.streetname}, ${this.props.userAddr.boro})`)} target="_blank" rel="noopener noreferrer" className="btn btn-block">
-                      <div title="For example, you could ask us when your building was purchased, what tax exemptions your landlord receives, how many 311 complaints or construction violations have been issued, or something else!">
+                    <h6 className="PropertiesSummary__linksSubtitle">Looking for more information?</h6>
+                    <a href={encodeURI(`https://docs.google.com/forms/d/e/1FAIpQLSfHdokAh4O-vB6jO8Ym0Wv_lL7cVUxsWvxw5rjZ9Ogcht7HxA/viewform?usp=pp_url&entry.1164013846=${this.props.userAddr.housenumber}+${this.props.userAddr.streetname},+${this.props.userAddr.boro}`)} target="_blank" rel="noopener noreferrer" className="btn btn-block">
+                      <div>
                         <label>Send us a data request</label>
                       </div>
                     </a>
