@@ -65,7 +65,7 @@ export default class Indicators extends Component {
 
   // componentDidMount() {
   //
-  //   APIClient.getAggregate(this.props.userAddr.bbl)
+  //   APIClient.getAggregate(this.props.detailAddr.bbl)
   //     .then(results => {
   //       console.log(results.result[0]);
   //       this.setState({ agg: results[0] });
@@ -183,29 +183,39 @@ export default class Indicators extends Component {
       return vizData;
   } 
 
-  componentWillReceiveProps(nextProps) {
-
-    // make the api call when we come into view and have
-    // the user addrs bbl
-    if(nextProps.isVisible && this.props.userAddr && !this.state.saleHistory) {
-      APIClient.getSaleHistory(this.props.userAddr.bbl)
+  fetchData() {
+      APIClient.getSaleHistory(this.props.detailAddr.bbl)
         .then(results => this.setState({ saleHistory: results.result }))
         .catch(err => console.error(err));
 
       const indicatorList = this.indicatorList.map(x => x + 'History');
 
       for (const indicator of indicatorList) {
-        if(!this.state[indicator]) {
-          const APICall = 'get' + Helpers.capitalize(indicator); // i.e: 'getViolsHistory'
-          APIClient[APICall](this.props.userAddr.bbl)
-            .then(results => this.setState({ [indicator]: results.result }))
-            .catch(err => console.error(err));
-        }
+        const APICall = 'get' + Helpers.capitalize(indicator); // i.e: 'getViolsHistory'
+        APIClient[APICall](this.props.detailAddr.bbl)
+          .then(results => this.setState({ [indicator]: results.result }))
+          .catch(err => console.error(err));
+        
       }
+  }
+
+  componentWillReceiveProps(nextProps) {
+
+    // make the api call when we come into view and have
+    // the user addrs bbl
+    if(nextProps.isVisible && this.props.detailAddr && !this.state.saleHistory) {
+      this.fetchData();
     }
   }
 
   componentDidUpdate(prevProps, prevState) {
+
+    if (prevProps.detailAddr && this.props.detailAddr && 
+    !Helpers.addrsAreEqual(prevProps.detailAddr,this.props.detailAddr)) {
+      this.fetchData();
+    }
+
+
 
     const indicatorList = this.indicatorList;
 
@@ -258,12 +268,10 @@ export default class Indicators extends Component {
   render() {
 
   // Set configurables for active vis
-  var title; 
   var datasets;
 
   switch (this.state.activeVis) {
     case 'viols': 
-      title = 'HPD Violations since 2010';
       datasets = 
         [{
             label: 'Class A',
@@ -288,7 +296,6 @@ export default class Indicators extends Component {
         }];
       break;
     case 'complaints':
-      title = 'HPD Complaints since 2014';
       datasets = 
         [{
             label: 'Non-Emergency',
@@ -306,7 +313,6 @@ export default class Indicators extends Component {
         }];
       break;
     case 'permits':
-      title = 'DOB Construction Permit Filings since 2010';
       datasets = 
         [{
             label: 'Building Permits Filed',
@@ -371,10 +377,10 @@ export default class Indicators extends Component {
         fontFamily: "Inconsolata, monospace",
         fontColor: "rgb(69, 77, 93)",
         text: [
-          (this.props.userAddr ? 
-            this.props.userAddr.housenumber + " "  +
-            this.props.userAddr.streetname + ", " + 
-            this.props.userAddr.boro 
+          (this.props.detailAddr ? 
+            this.props.detailAddr.housenumber + " "  +
+            this.props.detailAddr.streetname + ", " + 
+            this.props.detailAddr.boro 
             : "")]
       },
       legend: {

@@ -187,7 +187,7 @@ export default class AddressPage extends Component {
         <div className={`AddressPage__content AddressPage__summary ${this.state.currentTab === 3 ? "AddressPage__content-active": ''}`}>
           <Indicators
             isVisible={this.state.currentTab === 3}
-            userAddr={this.state.userAddr}
+            detailAddr={this.state.detailAddr}
           />
         </div>
 
