@@ -371,18 +371,18 @@ export default class Indicators extends Component {
             stacked: true
         }]
       },
-      title: {
-        display: true,
-        fontSize: 20,
-        fontFamily: "Inconsolata, monospace",
-        fontColor: "rgb(69, 77, 93)",
-        text: [
-          (this.props.detailAddr ? 
-            this.props.detailAddr.housenumber + " "  +
-            this.props.detailAddr.streetname + ", " + 
-            this.props.detailAddr.boro 
-            : "")]
-      },
+      // title: {
+      //   display: true,
+      //   fontSize: 20,
+      //   fontFamily: "Inconsolata, monospace",
+      //   fontColor: "rgb(69, 77, 93)",
+      //   text: [
+      //     (this.props.detailAddr ? 
+      //       this.props.detailAddr.housenumber + " "  +
+      //       this.props.detailAddr.streetname + ", " + 
+      //       this.props.detailAddr.boro 
+      //       : "")]
+      // },
       legend: {
         position: "bottom",
         labels: {
@@ -460,6 +460,10 @@ export default class Indicators extends Component {
             ) : 
           (
             <div>
+              <h4 className="title">{(this.props.detailAddr ? 
+                    <span>HISTORY OF <b>{this.props.detailAddr.housenumber} {this.props.detailAddr.streetname}, {this.props.detailAddr.boro}</b></span> :
+                    <span></span>)}
+              </h4>
               <div className="Indicators__links">
                 <em>Select a Dataset:</em>
                 <div className="btn-group btn-group-block control-panel">
