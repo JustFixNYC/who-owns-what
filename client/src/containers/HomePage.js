@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Redirect, Link } from 'react-router-dom';
 
-import AddressSearch from 'components/AddressSearch';
 import Loader from 'components/Loader';
 import APIClient from 'components/APIClient';
 import EngagementPanel from 'components/EngagementPanel';
@@ -12,17 +11,14 @@ import 'styles/HomePage.css';
 import westminsterLogo from '../assets/img/westminster.svg';
 import allyearLogo from '../assets/img/allyear.png';
 import emLogo from '../assets/img/emassociates.jpg';
+import AddressSearch, { makeEmptySearchAddress } from '../components/AddressSearch';
 
 class HomePage extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      searchAddress: {
-        housenumber: '',
-        streetname: '',
-        boro: ''
-      },
+      searchAddress: makeEmptySearchAddress(),
       results: null
     };
   }
@@ -95,6 +91,7 @@ class HomePage extends Component {
       }
     }
 
+    const labelText = "Enter an NYC address and find other buildings your landlord might own:";
 
     return (
       <div className="HomePage Page">
@@ -104,9 +101,11 @@ class HomePage extends Component {
               <Loader loading={true} >Searching for <b>{this.state.searchAddress.housenumber} {this.state.searchAddress.streetname}, {this.state.searchAddress.boro}</b></Loader>
             ) : (
               <div>
-                <h5 className="text-center">Enter an NYC address and find other buildings your landlord might own:</h5>
+                <h5 className="text-center">{labelText}</h5>
                 <AddressSearch
                   { ...this.state.searchAddress }
+                  labelText={labelText}
+                  labelClass="text-assistive"
                   onFormSubmit={this.handleFormSubmit}
                 />
               </div>
@@ -143,7 +142,7 @@ class HomePage extends Component {
                     <p>
                       Yoel Goldman's All Year Management has been at the <a href="https://commercialobserver.com/2017/09/yoel-goldman-all-year-management-brooklyn-real-estate/" target="_blank" rel="noopener noreferrer">forefront of gentrification</a> in Brooklyn. Tenants in his buidlings in Williamsburg, Bushwick, and Crown Heights have been forced to live in horrendous and often dangerous conditions.
                     </p>
-                    <Link className="btn block text-center" to="/address/BROOKLYN/654/PARK%20PLACE">View portfolio &#10230;</Link>
+                    <Link className="btn block text-center" to="/address/BROOKLYN/196/RALPH%20AVENUE">View portfolio &#10230;</Link>
                   </div>
                 </div>
 
