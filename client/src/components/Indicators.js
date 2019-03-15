@@ -13,13 +13,7 @@ import APIClient from 'components/APIClient';
 
 import 'styles/Indicators.css';
 
-export default class Indicators extends Component {
-  constructor(props) {
-    super(props);
-
-    this.indicatorList = ['viols', 'complaints', 'permits'];
-
-    this.state = { 
+const initialState = { 
 
       saleHistory: null,
       lastSale: {
@@ -57,10 +51,23 @@ export default class Indicators extends Component {
         }
       },
 
-      activeVis: 'viols'
+      activeVis: 'viols',
+      currentAddr: null
 
-    };
+};
 
+export default class Indicators extends Component {
+  constructor(props) {
+    super(props);
+
+    this.indicatorList = ['viols', 'complaints', 'permits'];
+
+    this.state = initialState;
+
+  }
+
+  reset() {
+    this.setState(initialState);
   }
 
   // componentDidMount() {
@@ -183,6 +190,19 @@ export default class Indicators extends Component {
       return vizData;
   } 
 
+  getDataMaximum() {
+
+    var indicatorDataLabels = this.indicatorList.map(x => x + 'Data');
+    var dataMaximums = indicatorDataLabels.map( 
+      indicatorData => (this.state[indicatorData].values.total ? 
+                        Helpers.maxArray(this.state[indicatorData].values.total) :
+                        0)
+    );
+
+    return Helpers.maxArray(dataMaximums);
+
+  }
+
   fetchData() {
       APIClient.getSaleHistory(this.props.detailAddr.bbl)
         .then(results => this.setState({ saleHistory: results.result }))
@@ -197,25 +217,34 @@ export default class Indicators extends Component {
           .catch(err => console.error(err));
         
       }
+
+      this.setState({
+        currentAddr: this.props.detailAddr
+      });
   }
 
   componentWillReceiveProps(nextProps) {
 
     // make the api call when we come into view and have
     // the user addrs bbl
-    if(nextProps.isVisible && this.props.detailAddr && !this.state.saleHistory) {
+    if(nextProps.isVisible && this.props.detailAddr && 
+        (!this.state.saleHistory ||
+        (this.state.currentAddr && !Helpers.addrsAreEqual(this.props.detailAddr, this.state.currentAddr)))
+      ) {
       this.fetchData();
     }
+    
+    if(this.props.isVisible && !nextProps.isVisible) {
+      this.reset();
+    }
+
+    // if(nextProps.isVisible && this.props.detailAddr && this.state.currentAddr &&
+    // !Helpers.addrsAreEqual(this.props.detailAddr, this.state.currentAddr)) {
+    //   this.fetchData();
+    // }
   }
 
   componentDidUpdate(prevProps, prevState) {
-
-    if (prevProps.detailAddr && this.props.detailAddr && 
-    !Helpers.addrsAreEqual(prevProps.detailAddr,this.props.detailAddr)) {
-      this.fetchData();
-    }
-
-
 
     const indicatorList = this.indicatorList;
 
@@ -235,6 +264,7 @@ export default class Indicators extends Component {
     }
 
     if(this.state.saleHistory && !Helpers.jsonEqual(prevState.saleHistory, this.state.saleHistory)) {
+
       if (this.state.saleHistory.length > 0 && 
           (this.state.saleHistory[0].docdate || this.state.saleHistory[0].recordedfiled) &&
           this.state.saleHistory[0].documentid ) {
@@ -328,8 +358,7 @@ export default class Indicators extends Component {
   // Create "data" and "options" objects for rendering visualization
 
   var indicatorData = this.state.activeVis + 'Data';
-  var dataMaximum = (this.state[indicatorData].values.total ? 
-                      Helpers.maxArray(this.state[indicatorData].values.total) : 0);
+  var dataMaximum = this.getDataMaximum();
   
   var data = {
         labels: this.state[indicatorData].labels, 
@@ -360,7 +389,9 @@ export default class Indicators extends Component {
         yAxes: [{
             ticks: {
                 beginAtZero: true,
-                suggestedMax: Math.max(12, dataMaximum * 1.25)
+                suggestedMax: (this.state.activeVis === 'permits' ?
+                              Math.max(12, Helpers.maxArray(this.state.permitsData.values.total) * 1.25) :
+                              Math.max(12, dataMaximum * 1.25))
             },
             stacked: true
         }],
@@ -455,7 +486,8 @@ export default class Indicators extends Component {
     return (
       <div className="Page Indicators">
         <div className="Indicators__content Page__content">
-          { !this.state.saleHistory || !this.state.violsHistory ? (
+          { !(this.state.saleHistory && this.state.violsHistory) ? 
+            (
               <Loader loading={true} classNames="Loader-map">Loading</Loader>
             ) : 
           (
