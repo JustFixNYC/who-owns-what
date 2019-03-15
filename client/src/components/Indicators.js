@@ -52,6 +52,7 @@ const initialState = {
       },
 
       activeVis: 'viols',
+      xAxisStart: 0,
       currentAddr: null
 
 };
@@ -61,6 +62,8 @@ export default class Indicators extends Component {
     super(props);
 
     this.indicatorList = ['viols', 'complaints', 'permits'];
+
+    this.xAxisSpan = 20;
 
     this.state = initialState;
 
@@ -85,6 +88,44 @@ export default class Indicators extends Component {
     this.setState({
           activeVis: selectedVis
       });
+  }
+
+  handleXAxisChange(shift) {
+
+    const span = this.xAxisSpan;
+
+    const currentVisData = this.state.activeVis + 'Data';
+    const labelsArray = this.state[currentVisData].labels;
+
+    if(!labelsArray || labelsArray.length < span) { 
+      return;
+    }
+
+    const xAxisMax = labelsArray.length - span;
+    const currentPosition = this.state.xAxisStart;
+    
+
+    if (shift === 'left') {
+      const newPosition = Math.max(currentPosition - 4, 0);
+      this.setState({
+          xAxisStart: newPosition
+        });
+    }
+
+    if (shift === 'right') {
+      const newPosition = Math.min(currentPosition + 4, xAxisMax);
+      this.setState({
+          xAxisStart: newPosition
+        });
+
+    }
+
+    if (shift === 'reset') {
+      this.setState({
+          xAxisStart: xAxisMax
+        });
+    }
+
   }
 
   formatDate(dateString) {
@@ -136,7 +177,7 @@ export default class Indicators extends Component {
           },
           labels: []
         };
-        vizData.labels = this.createLabels(2014);
+        vizData.labels = this.createLabels(2010);
         break;
 
       case 'complaints':
@@ -148,7 +189,7 @@ export default class Indicators extends Component {
           },
           labels: []
         }
-        vizData.labels = this.createLabels(2014);
+        vizData.labels = this.createLabels(2010);
         break;
 
       case 'permits':
@@ -158,7 +199,7 @@ export default class Indicators extends Component {
           },
           labels: []
         }
-        vizData.labels = this.createLabels(2014);
+        vizData.labels = this.createLabels(2010);
         break;
 
       default:
@@ -233,7 +274,7 @@ export default class Indicators extends Component {
       ) {
       this.fetchData();
     }
-    
+
     if(this.props.isVisible && !nextProps.isVisible) {
       this.reset();
     }
@@ -247,6 +288,8 @@ export default class Indicators extends Component {
   componentDidUpdate(prevProps, prevState) {
 
     const indicatorList = this.indicatorList;
+
+    // process viz data from incoming API calls: 
 
     for (const indicator of indicatorList) {
       const indicatorHistory = indicator + 'History';
@@ -262,6 +305,14 @@ export default class Indicators extends Component {
 
       }
     }
+
+    // reset chart positions when default dataset loads:
+
+    if(!prevState.violsData.labels && this.state.violsData.labels) {
+      this.handleXAxisChange('reset');
+    }
+
+    // process sale history data: 
 
     if(this.state.saleHistory && !Helpers.jsonEqual(prevState.saleHistory, this.state.saleHistory)) {
 
@@ -358,8 +409,6 @@ export default class Indicators extends Component {
   // Create "data" and "options" objects for rendering visualization
 
   var indicatorData = this.state.activeVis + 'Data';
-  var dataMaximum = this.getDataMaximum();
-  
   var data = {
         labels: this.state[indicatorData].labels, 
         datasets: datasets
@@ -370,12 +419,12 @@ export default class Indicators extends Component {
 
   if (data.labels && data.labels.length > 10) {
 
-    if (!this.state.lastSale.quarter || this.state.lastSale.quarter < data.labels[0]) {
-      labelPosition = data.labels[0];
+    if (!this.state.lastSale.quarter || this.state.lastSale.quarter < data.labels[this.state.xAxisStart]) {
+      labelPosition = data.labels[this.state.xAxisStart];
       dateLocation = 'past'; 
     }
-    else if (this.state.lastSale.quarter > data.labels[data.labels.length - 1]) {
-      labelPosition = data.labels[data.labels.length - 1];
+    else if (this.state.lastSale.quarter > data.labels[this.state.xAxisStart + this.xAxisSpan - 1]) {
+      labelPosition = data.labels[this.state.xAxisStart + this.xAxisSpan - 1];
       dateLocation = 'future'; 
     }
     else {
@@ -383,6 +432,8 @@ export default class Indicators extends Component {
     }
 
   }
+
+  var dataMaximum = this.getDataMaximum();
 
   var options = {
       scales: {
@@ -397,7 +448,8 @@ export default class Indicators extends Component {
         }],
         xAxes: [{
             ticks: {
-                beginAtZero: true
+                min: (data.labels ? data.labels[this.state.xAxisStart] : null),
+                max: (data.labels ? data.labels[this.state.xAxisStart + 19] : null)
             },
             stacked: true
         }]
@@ -505,10 +557,14 @@ export default class Indicators extends Component {
                           onClick={() => this.handleVisChange("complaints")}>HPD Complaints</button>
                   <button className={(this.state.activeVis === "permits" ? "selected " : "") + "btn btn-data-select"}
                           onClick={() => this.handleVisChange("permits")}>DOB Permits</button>
-                </div> 
+                </div>
               </div>
-              <div>
+              <div className="Indicators__viz">
+                <button className="btn btn-axis-shift"
+                  onClick={() => this.handleXAxisChange("left")}>‹</button>
                 <Bar data={data} options={options} width={100} height={450} />
+                <button className="btn btn-axis-shift"
+                  onClick={() => this.handleXAxisChange("right")}>›</button>
               </div>   
             </div>
             )
