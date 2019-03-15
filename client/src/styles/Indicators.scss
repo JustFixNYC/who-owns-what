@@ -40,11 +40,10 @@
     .control-panel {
       justify-content: space-evenly; 
       padding-top: 15px;
-      padding-bottom: 20px;
     }
 
     .btn-data-select {
-        max-width: 350px
+        flex: 1 1 0;
     }
 
     .btn-data-select.selected, .btn-data-select.selected:hover {
