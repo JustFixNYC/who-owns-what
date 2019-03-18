@@ -584,7 +584,7 @@ export default class Indicators extends Component {
                 <div className="Indicators__chart">
                   <Bar data={data} options={options} width={100} height={350} />
                 </div>
-                <button className={(this.state.xAxisStart + this.xAxisSpan >= data.labels.length ? 
+                <button className={(data.labels && this.state.xAxisStart + this.xAxisSpan >= data.labels.length ? 
                   "btn btn-off btn-axis-shift" : "btn btn-axis-shift")}
                   onClick={() => this.handleXAxisChange("right")}>›</button>
               </div>   
