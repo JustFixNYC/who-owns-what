@@ -449,7 +449,18 @@ export default class Indicators extends Component {
         xAxes: [{
             ticks: {
                 min: (data.labels ? data.labels[this.state.xAxisStart] : null),
-                max: (data.labels ? data.labels[this.state.xAxisStart + 19] : null)
+                max: (data.labels ? data.labels[this.state.xAxisStart + 19] : null),
+                // Only show labels for years
+                callback: function(value, index, values) {
+                  if (value.length === 7 && value.slice(-2) === 'Q1') {
+                    const year = value.slice(0,4);
+                    return year;
+                  }
+                  else {
+                    return '';
+                  }
+                }
+                        
             },
             stacked: true
         }]
@@ -466,6 +477,13 @@ export default class Indicators extends Component {
       //       this.props.detailAddr.boro 
       //       : "")]
       // },
+      tooltips: {
+        callbacks: {
+          title: function(tooltipItem) {
+            return this._data.labels[tooltipItem[0].index];
+          }
+        }
+      },
       legend: {
         position: "bottom",
         labels: {
@@ -560,10 +578,14 @@ export default class Indicators extends Component {
                 </div>
               </div>
               <div className="Indicators__viz">
-                <button className="btn btn-axis-shift"
+                <button className={(this.state.xAxisStart === 0 ? 
+                  "btn btn-off btn-axis-shift" : "btn btn-axis-shift")}
                   onClick={() => this.handleXAxisChange("left")}>‹</button>
-                <Bar data={data} options={options} width={100} height={450} />
-                <button className="btn btn-axis-shift"
+                <div className="Indicators__chart">
+                  <Bar data={data} options={options} width={100} height={350} />
+                </div>
+                <button className={(this.state.xAxisStart + this.xAxisSpan >= data.labels.length ? 
+                  "btn btn-off btn-axis-shift" : "btn btn-axis-shift")}
                   onClick={() => this.handleXAxisChange("right")}>›</button>
               </div>   
             </div>
