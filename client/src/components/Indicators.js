@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import { Bar } from 'react-chartjs-2';
 // reference: https://github.com/jerairrest/react-chartjs-2
 
-import 'chartjs-plugin-annotation';
+import * as ChartAnnotation from 'chartjs-plugin-annotation';
 // reference: https://github.com/chartjs/chartjs-plugin-annotation
+// why we're using this import format: https://stackoverflow.com/questions/51664741/chartjs-plugin-annotations-not-displayed-in-angular-5/53071497#53071497
 
 import Helpers from 'util/helpers';
 
@@ -582,7 +583,7 @@ export default class Indicators extends Component {
                   "btn btn-off btn-axis-shift" : "btn btn-axis-shift")}
                   onClick={() => this.handleXAxisChange("left")}>‹</button>
                 <div className="Indicators__chart">
-                  <Bar data={data} options={options} width={100} height={350} />
+                  <Bar data={data} options={options} plugins={[ChartAnnotation]} width={100} height={350} />
                 </div>
                 <button className={(data.labels && this.state.xAxisStart + this.xAxisSpan >= data.labels.length ? 
                   "btn btn-off btn-axis-shift" : "btn btn-axis-shift")}
