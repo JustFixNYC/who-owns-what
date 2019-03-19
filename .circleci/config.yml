@@ -49,12 +49,13 @@ jobs:
           paths:
             - ~/.cache/yarn
       - run:
-          name: Build client
+          name: Build client and run tests
           command: |
             cd client
             # Note that CI=true in CircleCI, so this will fail if there are
             # any linter warnings.
             yarn build
+            yarn test
       - store_artifacts:
           path: test-reports
           destination: test-reports

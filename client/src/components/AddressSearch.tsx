@@ -2,7 +2,7 @@ import React from 'react';
 import Downshift, { DownshiftInterface, GetInputPropsOptions, ControllerStateAndHelpers } from 'downshift';
 import { GeoSearchRequester, GeoSearchResults } from '../util/geo-autocomplete-base';
 
-import 'styles/AddressSearch.css';
+import '../styles/AddressSearch.css';
 
 const GeoDownshift = Downshift as DownshiftInterface<SearchAddress>;
 
@@ -11,8 +11,11 @@ const KEY_ENTER = 13;
 const KEY_TAB = 9;
 
 export interface SearchAddress {
-  /** The house number, e.g. '654'. */
-  housenumber: string,
+  /**
+   * The house number, e.g. '654'. It can be undefined,
+   * e.g. for NYCHA properties.
+   */
+  housenumber?: string,
 
   /** The street name, e.g. 'PARK PLACE'. */
   streetname: string,
@@ -58,8 +61,9 @@ function toSearchAddresses(results: GeoSearchResults): SearchAddress[] {
   });
 }
 
-function searchAddressToString(sa: SearchAddress): string {
-  return `${sa.housenumber} ${sa.streetname}, ${sa.boro}`;
+export function searchAddressToString(sa: SearchAddress): string {
+  const prefix = sa.housenumber ? `${sa.housenumber} ` : '';
+  return `${prefix}${sa.streetname}, ${sa.boro}`;
 }
 
 export default class AddressSearch extends React.Component<AddressSearchProps, State> {
