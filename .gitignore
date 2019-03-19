@@ -7,3 +7,4 @@ dist
 scripts/*
 nycdb/
 .mypy_cache/
+docker-compose.override.yml
