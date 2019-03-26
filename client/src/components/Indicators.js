@@ -399,8 +399,8 @@ export default class Indicators extends Component {
         [{
             label: 'Building Permits Filed',
             data: this.state.permitsData.values.total,
-            backgroundColor: 'rgba(255,152,0, 0.6)',
-            borderColor: 'rgb(255,152,0)',
+            backgroundColor: 'rgba(73, 192, 179, 0.6)',
+            borderColor: 'rgb(73, 192, 179)',
             borderWidth: 1
         }];
       break;
