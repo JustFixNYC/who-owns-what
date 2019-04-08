@@ -31,7 +31,6 @@ jobs:
           name: Test python code
           command: |
             . ~/venv/bin/activate
-            python dbtool.py selftest
             python dbtool.py builddb --use-test-data
             python dbtool.py loadtestdata
             pytest

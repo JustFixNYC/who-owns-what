@@ -1,6 +1,6 @@
 import sys
 from pathlib import Path
-from typing import TextIO, List
+from typing import TextIO, List, IO, Any
 from io import StringIO
 import csv
 
@@ -9,7 +9,7 @@ def create_fake_csv_file(lines: List[str]) -> TextIO:
     return StringIO('\n'.join(lines))
 
 
-def generate_code(csvfile: TextIO, classname: str) -> str:
+def generate_code(csvfile: IO[Any], classname: str) -> str:
     '''
     Generate Python code that represents a factory for the
     CSV file, assuming its first row contains headers that
