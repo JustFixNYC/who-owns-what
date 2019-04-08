@@ -2,3 +2,4 @@ node_modules/
 client/node_modules/
 nycdb/
 .mypy_cache/
+venv/
