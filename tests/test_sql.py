@@ -1,3 +1,5 @@
+import pytest
+
 from .factories.hpd_contacts import HPDContact
 from .factories.hpd_registrations import HPDRegistration
 from .factories.marshal_evictions_17 import MarshalEvictions17
@@ -39,13 +41,25 @@ def test_loading_changes_summary_works(db, nycdb_ctx):
         assert cur.fetchone()['ownername'] == 'BOOP JONES'
 
 
-def test_running_dbtool_works(db, nycdb_ctx):
-    nycdb_ctx.write_zip('pluto_18v1.zip', {
-        'PLUTO_for_WEB/BK_18v1.csv': [Pluto18v1()]
-    })
-    nycdb_ctx.write_csv('hpd_violations.csv', [HPDViolation()])
-    nycdb_ctx.write_csv('changes-summary.csv', [ChangesSummary()])
-    nycdb_ctx.write_csv('marshal_evictions_17.csv', [MarshalEvictions17()])
-    nycdb_ctx.write_csv('hpd_registrations.csv', [HPDRegistration()])
-    nycdb_ctx.write_csv('hpd_contacts.csv', [HPDContact()])
-    nycdb_ctx.get_dbtool_builder().build()
+class TestDbtool:
+    @pytest.fixture(autouse=True, scope="class")
+    def setup_fixture(self, db, nycdb_ctx):
+        nycdb_ctx.write_zip('pluto_18v1.zip', {
+            'PLUTO_for_WEB/BK_18v1.csv': [Pluto18v1()]
+        })
+        nycdb_ctx.write_csv('hpd_violations.csv', [HPDViolation()])
+        nycdb_ctx.write_csv('changes-summary.csv', [ChangesSummary()])
+        nycdb_ctx.write_csv('marshal_evictions_17.csv', [MarshalEvictions17()])
+        nycdb_ctx.write_csv('hpd_registrations.csv', [HPDRegistration()])
+        nycdb_ctx.write_csv('hpd_contacts.csv', [HPDContact()])
+        nycdb_ctx.get_dbtool_builder().build()
+
+    def test_wow_bldgs_is_populated(self, db):
+        with db.cursor() as cur:
+            cur.execute('SELECT COUNT(1) FROM wow_bldgs')
+            assert cur.fetchone()[0] > 0
+
+    def test_get_assoc_addrs_from_bbl_works(self, db):
+        with db.cursor() as cur:
+            cur.execute("SELECT get_assoc_addrs_from_bbl('0000000000')")
+            assert cur.fetchone() is None
