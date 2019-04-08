@@ -1,4 +1,5 @@
 import sys
+import re
 from pathlib import Path
 from typing import TextIO, List, IO, Any
 from io import StringIO
@@ -7,6 +8,37 @@ import csv
 
 def create_fake_csv_file(lines: List[str]) -> TextIO:
     return StringIO('\n'.join(lines))
+
+
+def munge_colname(colname: str) -> str:
+    '''
+    Munge the given column name so it can be an attribute
+    in a NamedTuple, e.g.:
+
+        >>> munge_colname('boop')
+        'boop'
+        >>> munge_colname('421a')
+        'PY_421a'
+    '''
+
+    if not re.match(r'^[A-Za-z]', colname):
+        colname = 'PY_' + colname
+    return colname
+
+
+def unmunge_colname(colname: str) -> str:
+    '''
+    Un-munge any munging done by munge_colname(), e.g.:
+
+        >>> unmunge_colname('boop')
+        'boop'
+        >>> unmunge_colname('PY_421a')
+        '421a'
+    '''
+
+    if colname.startswith('PY_'):
+        return colname[3:]
+    return colname
 
 
 def generate_code(csvfile: IO[Any], classname: str) -> str:
@@ -20,7 +52,7 @@ def generate_code(csvfile: IO[Any], classname: str) -> str:
     For example, given the following fake CSV file:
 
         >>> csvfile = create_fake_csv_file([
-        ...     'foo,bar',
+        ...     'foo,3bar',
         ...     'boop,blop'
         ... ])
 
@@ -32,7 +64,12 @@ def generate_code(csvfile: IO[Any], classname: str) -> str:
         <BLANKLINE>
         class MyFactory(NamedTuple):
             foo: str = 'boop'
-            bar: str = 'blop'
+            PY_3bar: str = 'blop'
+
+    Note that any columns beginning with a number are prefixed
+    with 'PY_' to make it a valid Python identifier (we can't
+    prefix it with an underscore because NamedTuples don't
+    allow this, so 'PY_' it is).
     '''
 
     reader = csv.reader(csvfile)
@@ -43,6 +80,7 @@ def generate_code(csvfile: IO[Any], classname: str) -> str:
         f'class {classname}(NamedTuple):',
     ]
     for (colname, defaultval) in zip(headings, first_row):
+        colname = munge_colname(colname)
         codelines.append(
             f'    {colname}: str = {repr(defaultval)}'
         )

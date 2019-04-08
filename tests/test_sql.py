@@ -14,6 +14,8 @@ import pytest
 import nycdb
 
 import dbtool
+from .generate_factory_from_csv import unmunge_colname
+from .factories.changes_summary import ChangesSummary
 from .factories.hpd_violations import HPDViolation
 from .factories.pluto_18v1 import Pluto18v1
 
@@ -38,7 +40,7 @@ class NycdbContext:
         return nycdb.Dataset(name, args=self.args)
 
     def _write_csv_to_file(self, csvfile, namedtuples):
-        header_row = namedtuples[0]._fields
+        header_row = [unmunge_colname(colname) for colname in namedtuples[0]._fields]
         writer = csv.writer(csvfile)
         writer.writerow(header_row)
         for row in namedtuples:
@@ -160,10 +162,21 @@ def test_loading_pluto_works(db, nycdb_ctx):
         assert cur.fetchone()['address'] == 'FUNKY STREET'
 
 
+def test_loading_changes_summary_works(db, nycdb_ctx):
+    nycdb_ctx.write_csv('changes-summary.csv', [
+        ChangesSummary(PY_421a='blarg', ownername='BOOP JONES')
+    ])
+    nycdb_ctx.get_dataset('rentstab_summary').db_import()
+    with db.cursor() as cur:
+        cur.execute("select * from rentstab_summary where a421='blarg'")
+        assert cur.fetchone()['ownername'] == 'BOOP JONES'
+
+
 def test_running_dbtool_works(db, nycdb_ctx):
     nycdb_ctx.write_zip('pluto_18v1.zip', {
         'PLUTO_for_WEB/BK_18v1.csv': [Pluto18v1()]
     })
     nycdb_ctx.write_csv('hpd_violations.csv', [HPDViolation()])
+    nycdb_ctx.write_csv('changes-summary.csv', [ChangesSummary()])
     # TODO: Uncomment the following line.
     # nycdb_ctx.get_dbtool_builder().build()
