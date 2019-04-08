@@ -105,24 +105,15 @@ class NycDbBuilder:
     conn: DbConnection
     data_dir: Path
     is_testing: bool
-    download_if_needed: bool
 
-    def __init__(
-        self,
-        db: DbContext,
-        is_testing: bool = False,
-        data_dir: Optional[Path] = None,
-        download_if_needed: bool = True
-    ) -> None:
+    def __init__(self, db: DbContext, is_testing: bool) -> None:
         self.db = db
         self.is_testing = is_testing
-        self.download_if_needed = download_if_needed
 
-        if data_dir is None:
-            if is_testing:
-                data_dir = ROOT_DIR / 'tests' / 'data'
-            else:
-                data_dir = ROOT_DIR / 'nycdb' / 'data'
+        if is_testing:
+            data_dir = ROOT_DIR / 'tests' / 'data'
+        else:
+            data_dir = ROOT_DIR / 'nycdb' / 'data'
         data_dir.mkdir(parents=True, exist_ok=True)
         self.data_dir = data_dir
 
@@ -175,9 +166,8 @@ class NycDbBuilder:
             self.drop_tables(*tables)
             self.delete_downloaded_data(*tables)
         if not self.do_tables_exist(*tables):
-            if self.download_if_needed:
-                print(f"Table {name} not found in the database. Downloading...")
-                self.call_nycdb('--download', name)
+            print(f"Table {name} not found in the database. Downloading...")
+            self.call_nycdb('--download', name)
             print(f"Loading {name} into the database...")
             self.call_nycdb('--load', name)
         elif not self.is_testing:
@@ -190,21 +180,26 @@ class NycDbBuilder:
             with self.conn.cursor() as cursor:
                 cursor.execute(sql)
 
-    def build(self, force_refresh: bool = False) -> None:
+    def build(self, force_refresh: bool) -> None:
         if self.is_testing:
             print("Loading the database with test data.")
         else:
             print("Loading the database with real data (this could take a while).")
 
-        datasets: List[str] = WOW_YML['dependencies']
-        sqlfiles: List[str] = WOW_YML['sql']
-
-        for dataset in datasets:
+        for dataset in get_dataset_dependencies():
             self.ensure_dataset(dataset, force_refresh=force_refresh)
 
-        for sqlfile in sqlfiles:
-            print(f"Running {sqlfile}...")
-            self.run_sql_file(SQL_DIR / sqlfile)
+        for sqlpath in get_sqlfile_paths():
+            print(f"Running {sqlpath.name}...")
+            self.run_sql_file(sqlpath)
+
+
+def get_dataset_dependencies() -> List[str]:
+    return WOW_YML['dependencies']
+
+
+def get_sqlfile_paths() -> List[Path]:
+    return [SQL_DIR / sqlfile for sqlfile in WOW_YML['sql']]
 
 
 def dbshell(db: DbContext):

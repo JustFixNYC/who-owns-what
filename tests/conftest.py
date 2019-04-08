@@ -4,6 +4,7 @@ from pathlib import Path
 import csv
 from io import StringIO
 from contextlib import contextmanager
+from typing import List
 import os
 import time
 import tempfile
@@ -58,12 +59,16 @@ class NycdbContext:
                 self._write_csv_to_file(out, files[filename])
                 zf.writestr(filename, out.getvalue())
 
-    def get_dbtool_builder(self):
-        return dbtool.NycDbBuilder(
-            TEST_DB,
-            data_dir=self.root_dir,
-            download_if_needed=False
-        )
+    def load_datasets(self):
+        for dataset in dbtool.get_dataset_dependencies():
+            self.get_dataset(dataset).db_import()
+
+        all_sql = '\n'.join([
+            sqlpath.read_text()
+            for sqlpath in dbtool.get_sqlfile_paths()
+        ])
+        with DbContext().cursor() as cur:
+            cur.execute(all_sql)
 
 
 @pytest.fixture(scope="class")

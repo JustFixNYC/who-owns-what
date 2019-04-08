@@ -52,7 +52,7 @@ class TestDbtool:
         nycdb_ctx.write_csv('marshal_evictions_17.csv', [MarshalEvictions17()])
         nycdb_ctx.write_csv('hpd_registrations.csv', [HPDRegistration()])
         nycdb_ctx.write_csv('hpd_contacts.csv', [HPDContact()])
-        nycdb_ctx.get_dbtool_builder().build()
+        nycdb_ctx.load_datasets()
 
     def test_wow_bldgs_is_populated(self, db):
         with db.cursor() as cur:
