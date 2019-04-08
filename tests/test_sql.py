@@ -3,6 +3,8 @@ import os
 import psycopg2.extras
 import time
 import tempfile
+import zipfile
+from io import StringIO
 from contextlib import contextmanager
 from types import SimpleNamespace
 from pathlib import Path
@@ -13,6 +15,7 @@ import nycdb
 
 import dbtool
 from .factories.hpd_violations import HPDViolation
+from .factories.pluto_18v1 import Pluto18v1
 
 TEST_DB_URL = os.environ['DATABASE_URL'] + '_test'
 
@@ -34,14 +37,32 @@ class NycdbContext:
     def get_dataset(self, name):
         return nycdb.Dataset(name, args=self.args)
 
+    def _write_csv_to_file(self, csvfile, namedtuples):
+        header_row = namedtuples[0]._fields
+        writer = csv.writer(csvfile)
+        writer.writerow(header_row)
+        for row in namedtuples:
+            writer.writerow(row)
+
     def write_csv(self, filename, namedtuples):
         path = self.root_dir / filename
-        header_row = namedtuples[0]._fields
         with path.open('w', newline='') as csvfile:
-            writer = csv.writer(csvfile)
-            writer.writerow(header_row)
-            for row in namedtuples:
-                writer.writerow(row)
+            self._write_csv_to_file(csvfile, namedtuples)
+
+    def write_zip(self, filename, files):
+        path = self.root_dir / filename
+        with zipfile.ZipFile(path, mode="w") as zf:
+            for filename in files:
+                out = StringIO()
+                self._write_csv_to_file(out, files[filename])
+                zf.writestr(filename, out.getvalue())
+
+    def get_dbtool_builder(self):
+        return dbtool.NycDbBuilder(
+            TEST_DB,
+            data_dir=self.root_dir,
+            download_if_needed=False
+        )
 
 
 @pytest.fixture
@@ -124,3 +145,25 @@ def test_loading_violations_works(db, nycdb_ctx):
     with db.cursor() as cur:
         cur.execute("select * from hpd_violations where ViolationID='123'")
         assert cur.fetchone()['novdescription'] == 'boop'
+
+
+def test_loading_pluto_works(db, nycdb_ctx):
+    nycdb_ctx.write_zip('pluto_18v1.zip', {
+        'PLUTO_for_WEB/BK_18v1.csv': [
+            Pluto18v1(HistDist="Funky Historic District", Address="FUNKY STREET"),
+            Pluto18v1(HistDist="Monkey Historic District", Address="MONKEY STREET")
+        ]
+    })
+    nycdb_ctx.get_dataset('pluto_18v1').db_import()
+    with db.cursor() as cur:
+        cur.execute("select * from pluto_18v1 where histdist='Funky Historic District'")
+        assert cur.fetchone()['address'] == 'FUNKY STREET'
+
+
+def test_running_dbtool_works(db, nycdb_ctx):
+    nycdb_ctx.write_zip('pluto_18v1.zip', {
+        'PLUTO_for_WEB/BK_18v1.csv': [Pluto18v1()]
+    })
+    nycdb_ctx.write_csv('hpd_violations.csv', [HPDViolation()])
+    # TODO: Uncomment the following line.
+    # nycdb_ctx.get_dbtool_builder().build()

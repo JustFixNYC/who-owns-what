@@ -105,15 +105,24 @@ class NycDbBuilder:
     conn: DbConnection
     data_dir: Path
     is_testing: bool
+    download_if_needed: bool
 
-    def __init__(self, db: DbContext, is_testing: bool) -> None:
+    def __init__(
+        self,
+        db: DbContext,
+        is_testing: bool = False,
+        data_dir: Optional[Path] = None,
+        download_if_needed: bool = True
+    ) -> None:
         self.db = db
         self.is_testing = is_testing
+        self.download_if_needed = download_if_needed
 
-        if is_testing:
-            data_dir = ROOT_DIR / 'tests' / 'data'
-        else:
-            data_dir = ROOT_DIR / 'nycdb' / 'data'
+        if data_dir is None:
+            if is_testing:
+                data_dir = ROOT_DIR / 'tests' / 'data'
+            else:
+                data_dir = ROOT_DIR / 'nycdb' / 'data'
         data_dir.mkdir(parents=True, exist_ok=True)
         self.data_dir = data_dir
 
@@ -166,8 +175,9 @@ class NycDbBuilder:
             self.drop_tables(*tables)
             self.delete_downloaded_data(*tables)
         if not self.do_tables_exist(*tables):
-            print(f"Table {name} not found in the database. Downloading...")
-            self.call_nycdb('--download', name)
+            if self.download_if_needed:
+                print(f"Table {name} not found in the database. Downloading...")
+                self.call_nycdb('--download', name)
             print(f"Loading {name} into the database...")
             self.call_nycdb('--load', name)
         elif not self.is_testing:
@@ -180,7 +190,7 @@ class NycDbBuilder:
             with self.conn.cursor() as cursor:
                 cursor.execute(sql)
 
-    def build(self, force_refresh: bool) -> None:
+    def build(self, force_refresh: bool = False) -> None:
         if self.is_testing:
             print("Loading the database with test data.")
         else:
