@@ -12,7 +12,7 @@ def test_loading_violations_works(db, nycdb_ctx):
     nycdb_ctx.write_csv('hpd_violations.csv', [
         HPDViolation(ViolationID='123', NOVDescription='boop')
     ])
-    nycdb_ctx.get_dataset('hpd_violations').db_import()
+    nycdb_ctx.load_dataset('hpd_violations')
     with db.cursor() as cur:
         cur.execute("select * from hpd_violations where ViolationID='123'")
         assert cur.fetchone()['novdescription'] == 'boop'
@@ -25,7 +25,7 @@ def test_loading_pluto_works(db, nycdb_ctx):
             Pluto18v1(HistDist="Monkey Historic District", Address="MONKEY STREET")
         ]
     })
-    nycdb_ctx.get_dataset('pluto_18v1').db_import()
+    nycdb_ctx.load_dataset('pluto_18v1')
     with db.cursor() as cur:
         cur.execute("select * from pluto_18v1 where histdist='Funky Historic District'")
         assert cur.fetchone()['address'] == 'FUNKY STREET'
@@ -35,7 +35,7 @@ def test_loading_changes_summary_works(db, nycdb_ctx):
     nycdb_ctx.write_csv('changes-summary.csv', [
         ChangesSummary(PY_421a='blarg', ownername='BOOP JONES')
     ])
-    nycdb_ctx.get_dataset('rentstab_summary').db_import()
+    nycdb_ctx.load_dataset('rentstab_summary')
     with db.cursor() as cur:
         cur.execute("select * from rentstab_summary where a421='blarg'")
         assert cur.fetchone()['ownername'] == 'BOOP JONES'
@@ -52,7 +52,7 @@ class TestDbtool:
         nycdb_ctx.write_csv('marshal_evictions_17.csv', [MarshalEvictions17()])
         nycdb_ctx.write_csv('hpd_registrations.csv', [HPDRegistration()])
         nycdb_ctx.write_csv('hpd_contacts.csv', [HPDContact()])
-        nycdb_ctx.load_datasets()
+        nycdb_ctx.build_everything()
 
     def test_wow_bldgs_is_populated(self, db):
         with db.cursor() as cur:

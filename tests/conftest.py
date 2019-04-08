@@ -36,8 +36,8 @@ class NycdbContext:
         )
         self.root_dir = Path(root_dir)
 
-    def get_dataset(self, name):
-        return nycdb.Dataset(name, args=self.args)
+    def load_dataset(self, name: str):
+        nycdb.Dataset(name, args=self.args).db_import()
 
     def _write_csv_to_file(self, csvfile, namedtuples):
         header_row = [unmunge_colname(colname) for colname in namedtuples[0]._fields]
@@ -59,9 +59,9 @@ class NycdbContext:
                 self._write_csv_to_file(out, files[filename])
                 zf.writestr(filename, out.getvalue())
 
-    def load_datasets(self):
+    def build_everything(self) -> None:
         for dataset in dbtool.get_dataset_dependencies():
-            self.get_dataset(dataset).db_import()
+            self.load_dataset(dataset)
 
         all_sql = '\n'.join([
             sqlpath.read_text()
