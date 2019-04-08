@@ -59,19 +59,22 @@ class DbContext(NamedTuple):
             port=port
         )
 
-    def connection(self) -> DbConnection:
-        import psycopg2
-
-        tries_left = 5
-        secs_between_tries = 2
-
-        connect = lambda: psycopg2.connect(
+    def psycopg2_connect_kwargs(self) -> Dict[str, Any]:
+        return dict(
             user=self.user,
             password=self.password,
             host=self.host,
             database=self.database,
             port=self.port
         )
+
+    def connection(self) -> DbConnection:
+        import psycopg2
+
+        tries_left = 5
+        secs_between_tries = 2
+
+        connect = lambda: psycopg2.connect(**self.psycopg2_connect_kwargs())
 
         while tries_left > 1:
             try:

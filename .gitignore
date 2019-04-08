@@ -8,3 +8,4 @@ scripts/*
 nycdb/
 .mypy_cache/
 docker-compose.override.yml
+__pycache__/
