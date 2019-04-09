@@ -23,11 +23,38 @@ The backend of the app (`/server`) is a simple express build that connects to Po
 
 #### Frontend
 
-The frontend of the app (`/client`) is built on top of [create-react-app](https://github.com/facebookincubator/create-react-app). See [`/client/README.md`](https://github.com/JustFixNYC/who-owns-what/blob/master/client/README.md) for all the info you might need.
+The frontend of the app (`/client`) is built on top of [create-react-app](https://github.com/facebookincubator/create-react-app). See [`/client/README.md`](client/README.md) for all the info you might need.
 
 ## Setup
 
-In order to set things up, you'll need to start with the [JustFix fork of nyc-db](https://github.com/JustFixNYC/nyc-db) running on a local Postgre instance. You'll then need to run the code in `sql` in order to build the appropriate tables and functions that the back end relies on.
+In order to set things up, you'll need to copy `.env.sample` to `.env` and
+edit it as needed:
+
+```
+cp .env.sample .env
+```
+
+In particular, make sure you configure the `DATABASE_URL` environment variable.
+
+Then you'll want to set up and enter a Python 3 virtual environment:
+
+```
+python3 -m venv venv
+source venv/bin/activate  # Or 'venv\Scripts\activate' on Windows
+```
+
+Then you'll need to load data into the database. If you want to use
+real data, which takes a long time to load, you can do so with:
+
+```
+python dbtool.py builddb
+```
+
+Alternatively, you can load a small test dataset with:
+
+```
+python dbtool.py loadtestdata
+```
 
 After that, make sure you have node/npm/[yarn](https://yarnpkg.com/en/) and then run:
 
@@ -35,13 +62,7 @@ After that, make sure you have node/npm/[yarn](https://yarnpkg.com/en/) and then
 yarn install-all
 ```
 
-to grab dependencies for both server and client.
-
-Then copy `.env.sample` to `.env` and edit it as needed:
-
-```
-cp .env.sample .env
-```
+This will grab dependencies for both server and client.
 
 ## Running in development
 
@@ -93,6 +114,20 @@ Visit http://localhost:3000 and you should be good to go! If
 you installed test data, you can see useful results by
 clicking on the "All Year Management" portfolio on the
 home page.
+
+## Tests
+
+Back-end tests are in the [`/tests`](tests/) directory and can be run via
+the Python virtualenv:
+
+```
+pytest
+```
+
+If you're using Docker, this can be done via `docker-compose run app pytest`.
+
+See [`/client/README.md`](client/README.md) for more details on front-end
+tests.
 
 ## Deploying
 
