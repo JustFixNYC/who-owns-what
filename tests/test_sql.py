@@ -7,6 +7,16 @@ from .factories.changes_summary import ChangesSummary
 from .factories.hpd_violations import HPDViolation
 from .factories.pluto_18v1 import Pluto18v1
 
+# This test suite defines two landlords:
+#
+# * CLOUD CITY MEGAPROPERTIES is a landlord with
+#   two buildings in its portfolio, FUNKY and MONKEY.
+#   FUNKY is hidden behind an LLC but the association
+#   can be inferred from its business address.
+#
+# * THE UNRELATED COMPANIES, L.P. is a landlord with
+#   one building, UNRELATED.
+
 FUNKY_BBL = '3000010002'
 
 MONKEY_BBL = '3000040005'
