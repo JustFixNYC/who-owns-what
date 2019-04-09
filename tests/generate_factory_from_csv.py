@@ -1,3 +1,17 @@
+'''
+    This script can be used to generate NamedTuple-based
+    factories for CSV rows.
+
+    Usage:
+
+        generate_factory_from_csv.py <csvfile>
+
+    This will output Python code that contains a
+    NamedTuple subclass for the CSV, where the property
+    names are taken from the first row of the CSV,
+    and the default values are taken from the second row.
+'''
+
 import sys
 import re
 from pathlib import Path
@@ -88,8 +102,8 @@ def generate_code(csvfile: IO[Any], classname: str) -> str:
 
 
 def main():
-    if len(sys.argv) < 2:
-        print(f"usage: {sys.argv[0]} <csvfile>")
+    if len(sys.argv) < 2 or sys.argv[1] in ['-h', '--help']:
+        print(__doc__)
         sys.exit(1)
     csvpath = Path(sys.argv[1])
     with csvpath.open() as csvfile:
