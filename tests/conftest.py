@@ -71,7 +71,7 @@ class NycdbContext:
             cur.execute(all_sql)
 
 
-@pytest.fixture(scope="class")
+@pytest.fixture(scope="module")
 def nycdb_ctx():
     with tempfile.TemporaryDirectory() as dirname:
         yield NycdbContext(dirname)
@@ -95,7 +95,7 @@ def create_db(dbname: str):
     exec_outside_of_transaction('CREATE DATABASE ' + dbname)
 
 
-@pytest.fixture(scope="class")
+@pytest.fixture(scope="module")
 def db():
     """
     Attempt to connect to the database, retrying if necessary, and also
