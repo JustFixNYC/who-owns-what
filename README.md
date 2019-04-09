@@ -41,6 +41,7 @@ Then you'll want to set up and enter a Python 3 virtual environment:
 ```
 python3 -m venv venv
 source venv/bin/activate  # Or 'venv\Scripts\activate' on Windows
+pip install -r requirements.txt
 ```
 
 Then you'll need to load data into the database. If you want to use
