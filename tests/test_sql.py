@@ -177,13 +177,13 @@ class TestSQL:
 
         self.get_assoc_addrs_from_bbl(FUNKY_BBL, expected_bbls=[
             # Ideally this should include SPUNKY, but because the head officer of FUNKY is
-            # completely unrelated to the head officer of SPUNKY they also don't
+            # completely unrelated to the head officer of SPUNKY and they also don't
             # share the exact same address, that connection can't be inferred.
             #
             # In other words, get_assoc_addrs_from_bbl() doesn't currently support
             # transitivity: just because MONKEY is associated with FUNKY and
             # MONKEY is associated with SPUNKY does *not* mean that
-            # FUNKY is associated with SPUNKY.
+            # FUNKY is associated with SPUNKY (even though it should be).
             FUNKY_BBL, MONKEY_BBL
         ])
 
