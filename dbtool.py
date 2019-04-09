@@ -59,19 +59,22 @@ class DbContext(NamedTuple):
             port=port
         )
 
-    def connection(self) -> DbConnection:
-        import psycopg2
-
-        tries_left = 5
-        secs_between_tries = 2
-
-        connect = lambda: psycopg2.connect(
+    def psycopg2_connect_kwargs(self) -> Dict[str, Any]:
+        return dict(
             user=self.user,
             password=self.password,
             host=self.host,
             database=self.database,
             port=self.port
         )
+
+    def connection(self) -> DbConnection:
+        import psycopg2
+
+        tries_left = 5
+        secs_between_tries = 2
+
+        connect = lambda: psycopg2.connect(**self.psycopg2_connect_kwargs())
 
         while tries_left > 1:
             try:
@@ -183,15 +186,20 @@ class NycDbBuilder:
         else:
             print("Loading the database with real data (this could take a while).")
 
-        datasets: List[str] = WOW_YML['dependencies']
-        sqlfiles: List[str] = WOW_YML['sql']
-
-        for dataset in datasets:
+        for dataset in get_dataset_dependencies():
             self.ensure_dataset(dataset, force_refresh=force_refresh)
 
-        for sqlfile in sqlfiles:
-            print(f"Running {sqlfile}...")
-            self.run_sql_file(SQL_DIR / sqlfile)
+        for sqlpath in get_sqlfile_paths():
+            print(f"Running {sqlpath.name}...")
+            self.run_sql_file(sqlpath)
+
+
+def get_dataset_dependencies() -> List[str]:
+    return WOW_YML['dependencies']
+
+
+def get_sqlfile_paths() -> List[Path]:
+    return [SQL_DIR / sqlfile for sqlfile in WOW_YML['sql']]
 
 
 def dbshell(db: DbContext):
@@ -310,13 +318,6 @@ def exporttestdata(db: DbContext):
     print(sql)
 
 
-def selftest():
-    cmd = ['mypy', __file__, '--ignore-missing-imports']
-    print(f"Running '{' '.join(cmd)}'...")
-    subprocess.check_call(cmd)
-    print("Self-test passed!")
-
-
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     subparsers = parser.add_subparsers()
@@ -349,9 +350,6 @@ if __name__ == '__main__':
     parser_dbshell = subparsers.add_parser('dbshell')
     parser_dbshell.set_defaults(cmd='dbshell')
 
-    parser_selftest = subparsers.add_parser('selftest')
-    parser_selftest.set_defaults(cmd='selftest')
-
     args = parser.parse_args()
 
     database_url: str = args.database_url
@@ -381,8 +379,6 @@ if __name__ == '__main__':
     elif cmd == 'builddb':
         NycDbBuilder(db, is_testing=args.use_test_data).build(
             force_refresh=args.update)
-    elif cmd == 'selftest':
-        selftest()
     else:
         parser.print_help()
         sys.exit(1)

@@ -1,5 +1,6 @@
 .DS_Store
 node_modules/
+venv/
 env/*
 /.env
 client/src/**/*.css
@@ -8,3 +9,4 @@ scripts/*
 nycdb/
 .mypy_cache/
 docker-compose.override.yml
+__pycache__/
