@@ -169,26 +169,34 @@ class TestSQL:
 
     def test_get_assoc_addrs_from_bbl_links_buildings_through_businessaddrs_and_names(self):
         self.get_assoc_addrs_from_bbl(MONKEY_BBL, expected_bbls=[
+            # This includes all the buildings in the portfolio because MONKEY shares
+            # the same (fuzzy) head officer name as SPUNKY and the exact same address
+            # as FUNKY.
             FUNKY_BBL, MONKEY_BBL, SPUNKY_BBL
         ])
 
-    def test_get_assoc_addrs_from_bbl_links_buildings_through_businessaddrs(self):
-        results = self.get_assoc_addrs_from_bbl(FUNKY_BBL, expected_bbls=[
+        self.get_assoc_addrs_from_bbl(FUNKY_BBL, expected_bbls=[
             # Ideally this should include SPUNKY, but because the head officer of FUNKY is
-            # completely unrelated to the head officer of SPUNKY and also doesn't
-            # share its address, that connection can't be inferred.
+            # completely unrelated to the head officer of SPUNKY they also don't
+            # share the exact same address, that connection can't be inferred.
+            #
+            # In other words, get_assoc_addrs_from_bbl() doesn't currently support
+            # transitivity: just because MONKEY is associated with FUNKY and
+            # MONKEY is associated with SPUNKY does *not* mean that
+            # FUNKY is associated with SPUNKY.
             FUNKY_BBL, MONKEY_BBL
         ])
 
-        funky = results[FUNKY_BBL]
+        self.get_assoc_addrs_from_bbl(SPUNKY_BBL, expected_bbls=[
+            # For similar reasons, this should ideally include FUNKY but doesn't.
+            SPUNKY_BBL, MONKEY_BBL
+        ])
+
+    def test_get_assoc_addrs_from_bbl_has_expected_strucure(self):
+        funky = self.get_assoc_addrs_from_bbl(FUNKY_BBL)[FUNKY_BBL]
         assert funky['housenumber'] == '1'
         assert funky['streetname'] == 'FUNKY STREET'
         assert funky['businessaddrs'] == ['5 BESPIN AVENUE 11231']
-
-        monkey = results[MONKEY_BBL]
-        assert monkey['housenumber'] == '2'
-        assert monkey['streetname'] == 'MONKEY STREET'
-        assert monkey['businessaddrs'] == ['5 BESPIN AVENUE 11231']
 
     def test_hpd_registrations_with_contacts_is_populated(self):
         r = self.query_one(
