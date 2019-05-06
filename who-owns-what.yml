@@ -3,7 +3,7 @@ dependencies:
   # These are NYCDB datasets needed by the SQL scripts.
   - pluto_18v1
   - rentstab_summary
-  - marshal_evictions_17
+  - marshal_evictions
   - hpd_registrations
   - hpd_violations
 sql:
