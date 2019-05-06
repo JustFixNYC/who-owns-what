@@ -1,4 +1,4 @@
-nycdb==0.1.18
+git+https://github.com/toolness/nyc-db.git@c151e2366b20050eb54d562105a3c63f5699bf1d#egg=nycdb&subdirectory=src
 psycopg2-binary==2.7.7
 mypy==0.660
 PyYAML>=4.2b1
