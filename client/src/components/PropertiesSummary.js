@@ -102,7 +102,7 @@ export default class PropertiesSummary extends Component {
               </p>
               <h6>Evictions</h6>
               <p>
-                In 2017, NYC Marshals scheduled <b>{agg.totalevictions > 0 ? agg.totalevictions : "0"}</b> eviction{parseInt(agg.totalevictions) === 1 ? "" : "s"} across this portfolio.
+                In 2018, NYC Marshals scheduled <b>{agg.totalevictions > 0 ? agg.totalevictions : "0"}</b> eviction{parseInt(agg.totalevictions) === 1 ? "" : "s"} across this portfolio.
                 {agg.totalevictions > 0 ?
                   <span> The building with the most evictions was&nbsp;
                     {agg.evictionsaddr && (
