@@ -130,8 +130,8 @@ export default class DetailView extends Component {
                             <label>Total Violations</label>
                             { this.props.addr.totalviolations }
                           </div>
-                          <div title="Evictions scheduled by NYC Marshals in 2017. The Housing Data Coalition cleaned, geocoded, and validated the data, originally sourced from DOI.">
-                            <label>2017 Evictions</label>
+                          <div title="Evictions executed by NYC Marshals in 2018. City Council, the Housing Data Coalition and Anti-Eviction Mapping Project cleaned, geocoded, and validated the data, originally sourced from DOI.">
+                            <label>2018 Evictions</label>
                             { this.props.addr.evictions !== null ? this.props.addr.evictions : 'N/A' }
                           </div>
                           <div title="This tracks how rent stabilized units in the building have changed (i.e. &quot;&Delta;&quot;) from 2007 to 2017. If the number for 2017 is red, this means there has been a loss in stabilzied units! These counts are estimated from the DOF Property Tax Bills.">
