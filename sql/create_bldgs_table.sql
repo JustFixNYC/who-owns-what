@@ -37,7 +37,8 @@ LEFT JOIN (
   SELECT
     bbl,
     count(*) as evictions
-  FROM marshal_evictions_17
+  FROM marshal_evictions_18
+  WHERE residentialcommercialind = 'Residential'
   GROUP BY bbl
 ) evictions ON (registrations.bbl = evictions.bbl)
 LEFT JOIN (

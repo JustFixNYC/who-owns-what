@@ -167,7 +167,7 @@ const PropertiesList = (props) => {
               Header: 'Evictions',
               columns: [
                 {
-                  Header: "2017",
+                  Header: "2018",
                   accessor: d => (d.evictions ? parseInt(d.evictions) : null),
                   id: 'evictions',
                   maxWidth: 75
