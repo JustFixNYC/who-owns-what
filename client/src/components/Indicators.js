@@ -486,7 +486,7 @@ export default class Indicators extends Component {
         }
       },
       legend: {
-        position: "bottom",
+        position: "top",
         labels: {
           fontFamily: "Inconsolata, monospace",
           fontColor: "rgb(69, 77, 93)"
@@ -576,6 +576,23 @@ export default class Indicators extends Component {
                     <span>BUILDING: <b>{this.props.detailAddr.housenumber} {this.props.detailAddr.streetname}, {this.props.detailAddr.boro}</b></span> :
                     <span></span>)}
               </h4>
+              <h4 className="title"> 
+                {(this.state.activeVis === 'complaints' ? 'HPD Complaints since 2014' : 
+                  this.state.activeVis === 'viols' ? 'HPD Violations since 2010' :
+                  this.state.activeVis === 'permits' ? 'Building Permit Applications since 2010' :
+                  '')}
+              </h4>
+              <div className="Indicators__viz">
+                <button className={(this.state.xAxisStart === 0 ? 
+                  "btn btn-off btn-axis-shift" : "btn btn-axis-shift")}
+                  onClick={() => this.handleXAxisChange("left")}>‹</button>
+                <div className="Indicators__chart">
+                  <Bar data={data} options={options} plugins={[ChartAnnotation]} width={100} height={350} />
+                </div>
+                <button className={(data.labels && this.state.xAxisStart + this.xAxisSpan >= data.labels.length ? 
+                  "btn btn-off btn-axis-shift" : "btn btn-axis-shift")}
+                  onClick={() => this.handleXAxisChange("right")}>›</button>
+              </div> 
               <div className="Indicators__links">
                 <em>Select a Dataset:</em>
                 <li className="menu-item">
@@ -596,18 +613,7 @@ export default class Indicators extends Component {
                       <i className="form-icon"></i> DOB Permits
                     </label>
                 </li>
-              </div>
-              <div className="Indicators__viz">
-                <button className={(this.state.xAxisStart === 0 ? 
-                  "btn btn-off btn-axis-shift" : "btn btn-axis-shift")}
-                  onClick={() => this.handleXAxisChange("left")}>‹</button>
-                <div className="Indicators__chart">
-                  <Bar data={data} options={options} plugins={[ChartAnnotation]} width={100} height={350} />
-                </div>
-                <button className={(data.labels && this.state.xAxisStart + this.xAxisSpan >= data.labels.length ? 
-                  "btn btn-off btn-axis-shift" : "btn btn-axis-shift")}
-                  onClick={() => this.handleXAxisChange("right")}>›</button>
-              </div>   
+              </div>  
             </div>
             )
           }
