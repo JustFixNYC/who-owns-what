@@ -52,7 +52,7 @@ const initialState = {
         }
       },
 
-      activeVis: 'viols',
+      activeVis: 'complaints',
       xAxisStart: 0,
       currentAddr: null
 
@@ -62,7 +62,7 @@ export default class Indicators extends Component {
   constructor(props) {
     super(props);
 
-    this.indicatorList = ['viols', 'complaints', 'permits'];
+    this.indicatorList = ['complaints','viols','permits'];
 
     this.xAxisSpan = 20;
 
@@ -309,7 +309,7 @@ export default class Indicators extends Component {
 
     // reset chart positions when default dataset loads:
 
-    if(!prevState.violsData.labels && this.state.violsData.labels) {
+    if(!prevState.complaintsData.labels && this.state.complaintsData.labels) {
       this.handleXAxisChange('reset');
     }
 
@@ -566,7 +566,7 @@ export default class Indicators extends Component {
     return (
       <div className="Page Indicators">
         <div className="Indicators__content Page__content">
-          { !(this.state.saleHistory && this.state.violsHistory) ? 
+          { !(this.state.saleHistory && this.state.complaintsHistory) ? 
             (
               <Loader loading={true} classNames="Loader-map">Loading</Loader>
             ) : 
@@ -579,15 +579,15 @@ export default class Indicators extends Component {
               <div className="Indicators__links">
                 <em>Select a Dataset:</em>
                 <li className="menu-item">
-                    <label className="form-radio" onClick={() => this.handleVisChange("viols")}>
-                      <input type="radio" checked={(this.state.activeVis === "viols" ? true : false)} />
-                      <i className="form-icon"></i> HPD Violations
-                    </label>
-                </li>
-                <li className="menu-item">
                     <label className="form-radio" onClick={() => this.handleVisChange("complaints")}>
                       <input type="radio" checked={(this.state.activeVis === "complaints" ? true : false)} />
                       <i className="form-icon"></i> HPD Complaints
+                    </label>
+                </li>
+                <li className="menu-item">
+                    <label className="form-radio" onClick={() => this.handleVisChange("viols")}>
+                      <input type="radio" checked={(this.state.activeVis === "viols" ? true : false)} />
+                      <i className="form-icon"></i> HPD Violations
                     </label>
                 </li>
                 <li className="menu-item">
