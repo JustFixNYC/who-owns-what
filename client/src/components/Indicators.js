@@ -490,6 +490,12 @@ export default class Indicators extends Component {
         labels: {
           fontFamily: "Inconsolata, monospace",
           fontColor: "rgb(69, 77, 93)"
+        },
+        onHover: function (event, legendItem) {
+        // There is only a legendItem when your mouse is positioned over one
+          if (legendItem) {
+              event.srcElement.style.cursor = 'pointer';
+          }
         }
       },
       annotation: {
@@ -551,7 +557,10 @@ export default class Indicators extends Component {
         ],
         drawTime: "afterDraw" // (default)
       },
-      maintainAspectRatio: false
+      maintainAspectRatio: false,
+      onHover: function (event) {
+        event.srcElement.style.cursor = 'default';
+    }
   }; 
 
     return (
