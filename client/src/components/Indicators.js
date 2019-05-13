@@ -578,14 +578,24 @@ export default class Indicators extends Component {
               </h4>
               <div className="Indicators__links">
                 <em>Select a Dataset:</em>
-                <div className="btn-group btn-group-block control-panel">
-                  <button className={(this.state.activeVis === "viols" ? "selected " : "") + "btn btn-data-select"}
-                          onClick={() => this.handleVisChange("viols")}>HPD Violations</button>
-                  <button className={(this.state.activeVis === "complaints" ? "selected " : "") + "btn btn-data-select"}
-                          onClick={() => this.handleVisChange("complaints")}>HPD Complaints</button>
-                  <button className={(this.state.activeVis === "permits" ? "selected " : "") + "btn btn-data-select"}
-                          onClick={() => this.handleVisChange("permits")}>DOB Permits</button>
-                </div>
+                <li className="menu-item">
+                    <label className="form-radio" onClick={() => this.handleVisChange("viols")}>
+                      <input type="radio" checked={(this.state.activeVis === "viols" ? true : false)} />
+                      <i className="form-icon"></i> HPD Violations
+                    </label>
+                </li>
+                <li className="menu-item">
+                    <label className="form-radio" onClick={() => this.handleVisChange("complaints")}>
+                      <input type="radio" checked={(this.state.activeVis === "complaints" ? true : false)} />
+                      <i className="form-icon"></i> HPD Complaints
+                    </label>
+                </li>
+                <li className="menu-item">
+                    <label className="form-radio" onClick={() => this.handleVisChange("permits")}>
+                      <input type="radio" checked={(this.state.activeVis === "permits" ? true : false)} />
+                      <i className="form-icon"></i> DOB Permits
+                    </label>
+                </li>
               </div>
               <div className="Indicators__viz">
                 <button className={(this.state.xAxisStart === 0 ? 
