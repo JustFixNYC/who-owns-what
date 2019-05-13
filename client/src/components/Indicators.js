@@ -564,7 +564,7 @@ export default class Indicators extends Component {
           (
             <div>
               <h4 className="title">{(this.props.detailAddr ? 
-                    <span>HISTORY OF <b>{this.props.detailAddr.housenumber} {this.props.detailAddr.streetname}, {this.props.detailAddr.boro}</b></span> :
+                    <span>BUILDING: <b>{this.props.detailAddr.housenumber} {this.props.detailAddr.streetname}, {this.props.detailAddr.boro}</b></span> :
                     <span></span>)}
               </h4>
               <div className="Indicators__links">

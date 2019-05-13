@@ -125,7 +125,7 @@ export default class AddressPage extends Component {
           { this.state.userAddr &&
             <div className="float-left">
               <h5 className="primary">
-                This landlord is associated with <u>{this.state.assocAddrs.length}</u> building{this.state.assocAddrs.length === 1 ? '':'s'}:
+                PORTFOLIO: Your search address is associated with <u>{this.state.assocAddrs.length}</u> building{this.state.assocAddrs.length === 1 ? '':'s'}:
               </h5>
               <ul className="tab tab-block">
                 <li className={`tab-item ${this.state.currentTab === 0 ? "active" : ""}`}>
@@ -136,20 +136,21 @@ export default class AddressPage extends Component {
                       }
                       this.setState({ currentTab: 0 });
                     }}
-                  >Map</a>
+                  >Overview</a>
                 </li>
                 <li className={`tab-item ${this.state.currentTab === 1 ? "active" : ""}`}>
                   <a // eslint-disable-line jsx-a11y/anchor-is-valid
-                    onClick={() => this.setState({ currentTab: 1 })}>List</a>
+                    onClick={() => this.setState({ currentTab: 1 })}>Timeline</a>
                 </li>
                 <li className={`tab-item ${this.state.currentTab === 2 ? "active" : ""}`}>
                   <a // eslint-disable-line jsx-a11y/anchor-is-valid
-                    onClick={() => this.setState({ currentTab: 2 })}>Summary</a>
+                    onClick={() => this.setState({ currentTab: 2 })}>List</a>
                 </li>
                 <li className={`tab-item ${this.state.currentTab === 3 ? "active" : ""}`}>
                   <a // eslint-disable-line jsx-a11y/anchor-is-valid
-                    onClick={() => this.setState({ currentTab: 3 })}>History</a>
+                    onClick={() => this.setState({ currentTab: 3 })}>Summary</a>
                 </li>
+                
               </ul>
             </div>
           }
@@ -170,7 +171,13 @@ export default class AddressPage extends Component {
             onCloseDetail={this.handleCloseDetail}
           />
         </div>
-        <div className={`AddressPage__content AddressPage__table ${this.state.currentTab === 1 ? "AddressPage__content-active": ''}`}>
+        <div className={`AddressPage__content AddressPage__summary ${this.state.currentTab === 1 ? "AddressPage__content-active": ''}`}>
+          <Indicators
+            isVisible={this.state.currentTab === 1}
+            detailAddr={this.state.detailAddr}
+          />
+        </div>
+        <div className={`AddressPage__content AddressPage__table ${this.state.currentTab === 2 ? "AddressPage__content-active": ''}`}>
           {
            <PropertiesList
               addrs={this.state.assocAddrs}
@@ -178,18 +185,13 @@ export default class AddressPage extends Component {
             />
           }
         </div>
-        <div className={`AddressPage__content AddressPage__summary ${this.state.currentTab === 2 ? "AddressPage__content-active": ''}`}>
+        <div className={`AddressPage__content AddressPage__summary ${this.state.currentTab === 3 ? "AddressPage__content-active": ''}`}>
           <PropertiesSummary
-            isVisible={this.state.currentTab === 2}
+            isVisible={this.state.currentTab === 3}
             userAddr={this.state.userAddr}
           />
         </div>
-        <div className={`AddressPage__content AddressPage__summary ${this.state.currentTab === 3 ? "AddressPage__content-active": ''}`}>
-          <Indicators
-            isVisible={this.state.currentTab === 3}
-            detailAddr={this.state.detailAddr}
-          />
-        </div>
+        
 
       </div>
     );
