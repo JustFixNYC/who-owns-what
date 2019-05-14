@@ -175,6 +175,7 @@ export default class AddressPage extends Component {
           <Indicators
             isVisible={this.state.currentTab === 1}
             detailAddr={this.state.detailAddr}
+            onBackToOverview={this.handleAddrChange}
           />
         </div>
         <div className={`AddressPage__content AddressPage__table ${this.state.currentTab === 2 ? "AddressPage__content-active": ''}`}>

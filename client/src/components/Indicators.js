@@ -572,16 +572,20 @@ export default class Indicators extends Component {
             ) : 
           (
             <div>
-              <h4 className="title">{(this.props.detailAddr ? 
-                    <span>BUILDING: <b>{this.props.detailAddr.housenumber} {this.props.detailAddr.streetname}, {this.props.detailAddr.boro}</b></span> :
-                    <span></span>)}
-              </h4>
-              <h4 className="title"> 
+              <div className="title-card">
+                <h4 className="title">{(this.props.detailAddr ? 
+                      <span>BUILDING: <b>{this.props.detailAddr.housenumber} {this.props.detailAddr.streetname}, {this.props.detailAddr.boro}</b></span> :
+                      <span></span>)}
+                </h4>
+                <br/>
+                <button onClick={() => this.props.onBackToOverview(this.props.detailAddr)}>Back to Overview</button>
+              </div>
+              <span className="title viz-title"> 
                 {(this.state.activeVis === 'complaints' ? 'HPD Complaints since 2014' : 
                   this.state.activeVis === 'viols' ? 'HPD Violations since 2010' :
                   this.state.activeVis === 'permits' ? 'Building Permit Applications since 2010' :
-                  '')}
-              </h4>
+                  '')}:
+              </span>
               <div className="Indicators__viz">
                 <button className={(this.state.xAxisStart === 0 ? 
                   "btn btn-off btn-axis-shift" : "btn btn-axis-shift")}
