@@ -235,7 +235,7 @@ export default class DetailView extends Component {
                       </div>
                       <div className="card-body column-right">
                         <div className="card-body-resources">
-                          <span className="card-body-resources__title"><em>Additional links</em></span>
+                          <span className="card-body-resources__title show-lg"><em>Additional links</em></span>
 
                           <div className="card-body-links">
                             <h6 className="DetailView__subtitle">Official building pages</h6>

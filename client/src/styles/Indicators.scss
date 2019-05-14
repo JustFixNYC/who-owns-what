@@ -13,7 +13,6 @@
   .Indicators__content {
 
     padding: 30px 30px 30px 30px;
-    max-width: 900px;
 
     @include for-tablet-portrait-up() {
       padding: 45px 45px 45px 45px;
@@ -29,6 +28,14 @@
     p {
       font-size: 1.6rem;
       margin-bottom: 2.4rem;
+    }
+
+    .columns {
+      .column.column-context:last-child {
+        @include for-tablet-landscape-up() {
+          padding-left: 3rem;
+        }
+      }
     }
 
     .title {
@@ -53,6 +60,20 @@
 
         &:hover {
           text-decoration: none;
+        }
+      }
+    }
+
+    .card {
+      margin-bottom: 3rem;
+    }
+
+    .card.card-links {
+      .card-body {
+        h6 {
+          font-weight: bold;
+          margin-bottom: 0.75rem;
+          width: 100%
         }
       }
     }

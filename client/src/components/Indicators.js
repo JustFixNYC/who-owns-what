@@ -352,6 +352,10 @@ export default class Indicators extends Component {
   // Set configurables for active vis
   var datasets;
 
+  var boro = (this.props.detailAddr ? this.props.detailAddr.bbl.slice(0, 1) : null);
+  var block = (this.props.detailAddr ? this.props.detailAddr.bbl.slice(1, 6) : null);
+  var lot = (this.props.detailAddr ? this.props.detailAddr.bbl.slice(6, 10) : null);
+
   switch (this.state.activeVis) {
     case 'viols': 
       datasets = 
@@ -571,59 +575,96 @@ export default class Indicators extends Component {
               <Loader loading={true} classNames="Loader-map">Loading</Loader>
             ) : 
           (
-            <div>
-              <div className="title-card">
-                <h4 className="title">{(this.props.detailAddr ? 
-                      <span>BUILDING: <b>{this.props.detailAddr.housenumber} {this.props.detailAddr.streetname}, {this.props.detailAddr.boro}</b></span> :
-                      <span></span>)}
-                </h4>
-                <br/>
-                <button onClick={() => this.props.onBackToOverview(this.props.detailAddr)}>Back to Overview</button>
-              </div>
-              <span className="title viz-title"> 
-                {(this.state.activeVis === 'complaints' ? 'HPD Complaints since 2014' : 
-                  this.state.activeVis === 'viols' ? 'HPD Violations since 2010' :
-                  this.state.activeVis === 'permits' ? 'Building Permit Applications since 2010' :
-                  '')}:
-              </span>
-              <div className="Indicators__viz">
-                <button className={(this.state.xAxisStart === 0 ? 
-                  "btn btn-off btn-axis-shift" : "btn btn-axis-shift")}
-                  onClick={() => this.handleXAxisChange("left")}>‹</button>
-                <div className="Indicators__chart">
-                  <Bar data={data} options={options} plugins={[ChartAnnotation]} width={100} height={350} />
+            <div className="columns">
+              <div className="column col-8 col-lg-12">
+                <div className="title-card">
+                  <h4 className="title">{(this.props.detailAddr ? 
+                        <span>BUILDING: <b>{this.props.detailAddr.housenumber} {this.props.detailAddr.streetname}, {this.props.detailAddr.boro}</b></span> :
+                        <span></span>)}
+                  </h4>
+                  <br/>
+                  <button onClick={() => this.props.onBackToOverview(this.props.detailAddr)}>Back to Overview</button>
                 </div>
-                <button className={(data.labels && this.state.xAxisStart + this.xAxisSpan >= data.labels.length ? 
-                  "btn btn-off btn-axis-shift" : "btn btn-axis-shift")}
-                  onClick={() => this.handleXAxisChange("right")}>›</button>
-              </div> 
-              <div className="Indicators__links">
-                <em>Select a Dataset:</em>
-                <li className="menu-item">
-                    <label className="form-radio">
-                      <input type="radio" 
-                        checked={(this.state.activeVis === "complaints" ? true : false)}
-                        onChange={() => this.handleVisChange("complaints")} />
-                      <i className="form-icon"></i> HPD Complaints
-                    </label>
-                </li>
-                <li className="menu-item">
-                    <label className="form-radio">
-                      <input type="radio" 
-                        checked={(this.state.activeVis === "viols" ? true : false)}
-                        onChange={() => this.handleVisChange("viols")} />
-                      <i className="form-icon"></i> HPD Violations
-                    </label>
-                </li>
-                <li className="menu-item">
-                    <label className="form-radio">
-                      <input type="radio" 
-                        checked={(this.state.activeVis === "permits" ? true : false)}
-                        onChange={() => this.handleVisChange("permits")} />
-                      <i className="form-icon"></i> Building Permit Applications
-                    </label>
-                </li>
-              </div>  
+                <span className="title viz-title"> 
+                  {(this.state.activeVis === 'complaints' ? 'HPD Complaints since 2014' : 
+                    this.state.activeVis === 'viols' ? 'HPD Violations since 2010' :
+                    this.state.activeVis === 'permits' ? 'Building Permit Applications since 2010' :
+                    '')}:
+                </span>
+                <div className="Indicators__viz">
+                  <button className={(this.state.xAxisStart === 0 ? 
+                    "btn btn-off btn-axis-shift" : "btn btn-axis-shift")}
+                    onClick={() => this.handleXAxisChange("left")}>‹</button>
+                  <div className="Indicators__chart">
+                    <Bar data={data} options={options} plugins={[ChartAnnotation]} width={100} height={350} />
+                  </div>
+                  <button className={(data.labels && this.state.xAxisStart + this.xAxisSpan >= data.labels.length ? 
+                    "btn btn-off btn-axis-shift" : "btn btn-axis-shift")}
+                    onClick={() => this.handleXAxisChange("right")}>›</button>
+                </div> 
+                <div className="Indicators__links">
+                  <em>Select a Dataset:</em>
+                  <li className="menu-item">
+                      <label className="form-radio">
+                        <input type="radio" 
+                          checked={(this.state.activeVis === "complaints" ? true : false)}
+                          onChange={() => this.handleVisChange("complaints")} />
+                        <i className="form-icon"></i> HPD Complaints
+                      </label>
+                  </li>
+                  <li className="menu-item">
+                      <label className="form-radio">
+                        <input type="radio" 
+                          checked={(this.state.activeVis === "viols" ? true : false)}
+                          onChange={() => this.handleVisChange("viols")} />
+                        <i className="form-icon"></i> HPD Violations
+                      </label>
+                  </li>
+                  <li className="menu-item">
+                      <label className="form-radio">
+                        <input type="radio" 
+                          checked={(this.state.activeVis === "permits" ? true : false)}
+                          onChange={() => this.handleVisChange("permits")} />
+                        <i className="form-icon"></i> Building Permit Applications
+                      </label>
+                  </li>
+                </div>  
+              </div>
+              <div className="column column-context col-4 col-lg-12">
+                <div className="card">
+                  <div className="card-header">
+                    <div className="card-title h5">What are HPD Complaints?</div>
+                    <div className="card-subtitle text-gray"></div>
+                  </div>
+                  <div className="card-body">
+                    These are blah blah blah....
+                  </div>
+                  <div className="card-footer">
+                    Look at more information via the links below...
+                  </div>
+                </div>
+                <div className="card card-links">
+
+                  <div className="card-body card-body-links">
+                    <h6>Official building pages</h6>
+                    <div className="columns">
+                      <div className="column col-12">
+                        <a href={`http://a836-acris.nyc.gov/bblsearch/bblsearch.asp?borough=${boro}&block=${block}&lot=${lot}`} target="_blank" rel="noopener noreferrer" className="btn btn-block">View documents on ACRIS &#8599;&#xFE0E;</a>
+                      </div>
+                      <div className="column col-12">
+                        <a href={`https://hpdonline.hpdnyc.org/HPDonline/Provide_address.aspx?p1=${boro}&p2=${this.props.detailAddr.housenumber}&p3=${this.props.detailAddr.streetname}&SearchButton=Search`} target="_blank" rel="noopener noreferrer" className="btn btn-block">HPD Building Profile &#8599;&#xFE0E;</a>
+                      </div>
+                      <div className="column col-12">
+                        <a href={`http://a810-bisweb.nyc.gov/bisweb/PropertyProfileOverviewServlet?boro=${boro}&block=${block}&lot=${lot}`} target="_blank" rel="noopener noreferrer" className="btn btn-block">DOB Building Profile &#8599;&#xFE0E;</a>
+                      </div>
+                      <div className="column col-12">
+                        <a href={`https://nycprop.nyc.gov/nycproperty/nynav/jsp/selectbbl.jsp`} target="_blank" rel="noopener noreferrer" className="btn btn-block">DOF Property Tax Bills &#8599;&#xFE0E;</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
             </div>
             )
           }
