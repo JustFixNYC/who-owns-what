@@ -596,7 +596,7 @@ export default class Indicators extends Component {
                     "btn btn-off btn-axis-shift" : "btn btn-axis-shift")}
                     onClick={() => this.handleXAxisChange("left")}>‹</button>
                   <div className="Indicators__chart">
-                    <Bar data={data} options={options} plugins={[ChartAnnotation]} width={100} height={350} />
+                    <Bar data={data} options={options} plugins={[ChartAnnotation]} width={100} height={300} />
                   </div>
                   <button className={(data.labels && this.state.xAxisStart + this.xAxisSpan >= data.labels.length ? 
                     "btn btn-off btn-axis-shift" : "btn btn-axis-shift")}
@@ -633,14 +633,33 @@ export default class Indicators extends Component {
               <div className="column column-context col-4 col-lg-12">
                 <div className="card">
                   <div className="card-header">
-                    <div className="card-title h5">What are HPD Complaints?</div>
+                    <div className="card-title h5">What are 
+                    {(this.state.activeVis === 'complaints' ? ' HPD Complaints' : 
+                    this.state.activeVis === 'viols' ? ' HPD Violations' :
+                    this.state.activeVis === 'permits' ? ' Building Permit Applications' :
+                    '')}?</div>
                     <div className="card-subtitle text-gray"></div>
                   </div>
                   <div className="card-body">
-                    These are blah blah blah....
-                  </div>
-                  <div className="card-footer">
-                    Look at more information via the links below...
+                    {(this.state.activeVis === 'complaints' ? 
+                      <span>HPD Complaints are housing issues reported to the City <b>by a tenant calling 311</b>.
+                      When someone issues a complaint, the Department of Housing Preservation and Development begins a process of investigation that may lead to an official violation from the City. 
+                      Read more about HPD Complaints and how to file them at the <a href='https://www1.nyc.gov/site/hpd/renters/complaints-and-inspections.page' target="_blank" rel="noopener noreferrer">official HPD page</a>.</span> : 
+                    this.state.activeVis === 'viols' ? 
+                      <span>HPD Violations occur when an official City Inspector finds the conditions of a home in violation of the law. 
+                      If not corrected, these violations incur fines for the owner— however, HPD violations are notoriously unenforced by the City.
+                      These Violations fall into three categories:<br/>
+                        <br/>
+                      <b>Class A</b> — non-hazardous<br/>
+                      <b>Class B</b> — hazardous<br/>
+                      <b>Class C</b> — immediately hazardous<br/>
+                        <br/>
+                      Read more about HPD Violations at the <a href='https://www1.nyc.gov/site/hpd/owners/compliance-maintenance-requirements.page' target="_blank" rel="noopener noreferrer">official HPD page</a>.</span> :
+                    this.state.activeVis === 'permits' ? 
+                      <span>Owners submit Building Permit Applications to the Department of Buildings before any construction project to get necessary approval.
+                      The number of applications filed can indicate how much construction the owner was planning. 
+                      Read more about DOB Building Applications/Permits at the <a href='https://www1.nyc.gov/site/buildings/about/building-applications-and-permits.page' target="_blank" rel="noopener noreferrer">official NYC Buildings page</a>.</span> :
+                    '')}
                   </div>
                 </div>
                 <div className="card card-links">
