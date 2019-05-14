@@ -600,20 +600,26 @@ export default class Indicators extends Component {
               <div className="Indicators__links">
                 <em>Select a Dataset:</em>
                 <li className="menu-item">
-                    <label className="form-radio" onClick={() => this.handleVisChange("complaints")}>
-                      <input type="radio" checked={(this.state.activeVis === "complaints" ? true : false)} />
+                    <label className="form-radio">
+                      <input type="radio" 
+                        checked={(this.state.activeVis === "complaints" ? true : false)}
+                        onChange={() => this.handleVisChange("complaints")} />
                       <i className="form-icon"></i> HPD Complaints
                     </label>
                 </li>
                 <li className="menu-item">
-                    <label className="form-radio" onClick={() => this.handleVisChange("viols")}>
-                      <input type="radio" checked={(this.state.activeVis === "viols" ? true : false)} />
+                    <label className="form-radio">
+                      <input type="radio" 
+                        checked={(this.state.activeVis === "viols" ? true : false)}
+                        onChange={() => this.handleVisChange("viols")} />
                       <i className="form-icon"></i> HPD Violations
                     </label>
                 </li>
                 <li className="menu-item">
-                    <label className="form-radio" onClick={() => this.handleVisChange("permits")}>
-                      <input type="radio" checked={(this.state.activeVis === "permits" ? true : false)} />
+                    <label className="form-radio">
+                      <input type="radio" 
+                        checked={(this.state.activeVis === "permits" ? true : false)}
+                        onChange={() => this.handleVisChange("permits")} />
                       <i className="form-icon"></i> Building Permit Applications
                     </label>
                 </li>
