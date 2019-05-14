@@ -610,7 +610,7 @@ export default class Indicators extends Component {
                 <li className="menu-item">
                     <label className="form-radio" onClick={() => this.handleVisChange("permits")}>
                       <input type="radio" checked={(this.state.activeVis === "permits" ? true : false)} />
-                      <i className="form-icon"></i> DOB Permits
+                      <i className="form-icon"></i> Building Permit Applications
                     </label>
                 </li>
               </div>  
