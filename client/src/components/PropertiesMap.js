@@ -243,7 +243,7 @@ export default class PropertiesMap extends Component {
             </ul>
           </div>
           <div className="PropertiesMap__prompt">
-            <p><i>({Browser.isMobile() ? `tap` : `click`} on a building marker to view details)</i></p>
+            <p><i>({Browser.isMobile() ? `tap` : `click`} to view details)</i></p>
           </div>
 
 

@@ -43,6 +43,7 @@
   .PropertiesMap__legend {
     // background: $primary-color;
     // color: $background;
+    width: 180px;
     background: #fff;
     position: absolute;
     z-index: 10;
@@ -141,6 +142,7 @@
   }
 
   .PropertiesMap__prompt {
+    width: 180px;
     background: #fff;
     position: absolute;
     z-index: 10;
@@ -149,7 +151,7 @@
     bottom: 0;
     border-left: 1px solid $dark;
     border-top: 1px solid $dark;
-    padding: 4px 10px;
+    padding: 4px 8px;
 
     p {
       text-align: center;
