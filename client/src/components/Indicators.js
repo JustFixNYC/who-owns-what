@@ -1,13 +1,8 @@
 import React, { Component } from 'react';
-import { Bar } from 'react-chartjs-2';
-// reference: https://github.com/jerairrest/react-chartjs-2
-
-import * as ChartAnnotation from 'chartjs-plugin-annotation';
-// reference: https://github.com/chartjs/chartjs-plugin-annotation
-// why we're using this import format: https://stackoverflow.com/questions/51664741/chartjs-plugin-annotations-not-displayed-in-angular-5/53071497#53071497
 
 import Helpers from 'util/helpers';
 
+import IndicatorsViz from 'components/IndicatorsViz';
 import Loader from 'components/Loader';
 import LegalFooter from 'components/LegalFooter';
 import APIClient from 'components/APIClient';
@@ -52,8 +47,10 @@ const initialState = {
         }
       },
 
+      indicatorList: ['complaints','viols','permits'],
       activeVis: 'complaints',
       xAxisStart: 0,
+      xAxisSpan: 20,
       currentAddr: null
 
 };
@@ -61,10 +58,6 @@ const initialState = {
 export default class Indicators extends Component {
   constructor(props) {
     super(props);
-
-    this.indicatorList = ['complaints','viols','permits'];
-
-    this.xAxisSpan = 20;
 
     this.state = initialState;
 
@@ -74,17 +67,6 @@ export default class Indicators extends Component {
     this.setState(initialState);
   }
 
-  // componentDidMount() {
-  //
-  //   APIClient.getAggregate(this.props.detailAddr.bbl)
-  //     .then(results => {
-  //       console.log(results.result[0]);
-  //       this.setState({ agg: results[0] });
-  //     })
-  //     .catch(err => console.error(err));
-  //
-  // }
-
   handleVisChange(selectedVis) {
     this.setState({
           activeVis: selectedVis
@@ -93,7 +75,7 @@ export default class Indicators extends Component {
 
   handleXAxisChange(shift) {
 
-    const span = this.xAxisSpan;
+    const span = this.state.xAxisSpan;
 
     const currentVisData = this.state.activeVis + 'Data';
     const labelsArray = this.state[currentVisData].labels;
@@ -232,25 +214,12 @@ export default class Indicators extends Component {
       return vizData;
   } 
 
-  getDataMaximum() {
-
-    var indicatorDataLabels = this.indicatorList.map(x => x + 'Data');
-    var dataMaximums = indicatorDataLabels.map( 
-      indicatorData => (this.state[indicatorData].values.total ? 
-                        Helpers.maxArray(this.state[indicatorData].values.total) :
-                        0)
-    );
-
-    return Helpers.maxArray(dataMaximums);
-
-  }
-
   fetchData() {
       APIClient.getSaleHistory(this.props.detailAddr.bbl)
         .then(results => this.setState({ saleHistory: results.result }))
         .catch(err => console.error(err));
 
-      const indicatorList = this.indicatorList.map(x => x + 'History');
+      const indicatorList = this.state.indicatorList.map(x => x + 'History');
 
       for (const indicator of indicatorList) {
         const APICall = 'get' + Helpers.capitalize(indicator); // i.e: 'getViolsHistory'
@@ -288,7 +257,7 @@ export default class Indicators extends Component {
 
   componentDidUpdate(prevProps, prevState) {
 
-    const indicatorList = this.indicatorList;
+    const indicatorList = this.state.indicatorList;
 
     // process viz data from incoming API calls: 
 
@@ -349,244 +318,13 @@ export default class Indicators extends Component {
 
   render() {
 
-  // Set configurables for active vis
-  var datasets;
 
   var boro = (this.props.detailAddr ? this.props.detailAddr.bbl.slice(0, 1) : null);
   var block = (this.props.detailAddr ? this.props.detailAddr.bbl.slice(1, 6) : null);
   var lot = (this.props.detailAddr ? this.props.detailAddr.bbl.slice(6, 10) : null);
 
-  switch (this.state.activeVis) {
-    case 'viols': 
-      datasets = 
-        [{
-            label: 'Class A',
-            data: this.state.violsData.values.class_a,
-            backgroundColor: 'rgba(191,211,230, 0.6)',
-            borderColor: 'rgba(191,211,230,1)',
-            borderWidth: 1
-        },
-        {
-            label: 'Class B',
-            data: this.state.violsData.values.class_b,
-            backgroundColor: 'rgba(140,150,198, 0.6)',
-            borderColor: 'rgba(140,150,198,1)',
-            borderWidth: 1
-        },
-        {
-            label: 'Class C',
-            data: this.state.violsData.values.class_c,
-            backgroundColor: 'rgba(136,65,157, 0.6)',
-            borderColor: 'rgba(136,65,157,1)',
-            borderWidth: 1
-        }];
-      break;
-    case 'complaints':
-      datasets = 
-        [{
-            label: 'Non-Emergency',
-            data: this.state.complaintsData.values.nonemergency,
-            backgroundColor: 'rgba(254,232,200, 0.6)',
-            borderColor: 'rgba(254,232,200,1)',
-            borderWidth: 1
-        },
-        {
-            label: 'Emergency',
-            data: this.state.complaintsData.values.emergency,
-            backgroundColor: 'rgba(227,74,51, 0.6)',
-            borderColor: 'rgba(227,74,51,1)',
-            borderWidth: 1
-        }];
-      break;
-    case 'permits':
-      datasets = 
-        [{
-            label: 'Building Permits Filed',
-            data: this.state.permitsData.values.total,
-            backgroundColor: 'rgba(73, 192, 179, 0.6)',
-            borderColor: 'rgb(73, 192, 179)',
-            borderWidth: 1
-        }];
-      break;
-    default: break;
-  }
-
-  // Create "data" and "options" objects for rendering visualization
-
   var indicatorData = this.state.activeVis + 'Data';
-  var data = {
-        labels: this.state[indicatorData].labels, 
-        datasets: datasets
-  };
-
-  var labelPosition;
-  var dateLocation = 'current'; 
-
-  if (data.labels && data.labels.length > 10) {
-
-    if (!this.state.lastSale.quarter || this.state.lastSale.quarter < data.labels[this.state.xAxisStart]) {
-      labelPosition = data.labels[this.state.xAxisStart];
-      dateLocation = 'past'; 
-    }
-    else if (this.state.lastSale.quarter > data.labels[this.state.xAxisStart + this.xAxisSpan - 1]) {
-      labelPosition = data.labels[this.state.xAxisStart + this.xAxisSpan - 1];
-      dateLocation = 'future'; 
-    }
-    else {
-      labelPosition = this.state.lastSale.quarter;
-    }
-
-  }
-
-  var dataMaximum = this.getDataMaximum();
-
-  var options = {
-      scales: {
-        yAxes: [{
-            ticks: {
-                beginAtZero: true,
-                suggestedMax: (this.state.activeVis === 'permits' ?
-                              Math.max(12, Helpers.maxArray(this.state.permitsData.values.total) * 1.25) :
-                              Math.max(12, dataMaximum * 1.25))
-            },
-            stacked: true
-        }],
-        xAxes: [{
-            ticks: {
-                min: (data.labels ? data.labels[this.state.xAxisStart] : null),
-                max: (data.labels ? data.labels[this.state.xAxisStart + 19] : null),
-                // Only show labels for years
-                callback: function(value, index, values) {
-                  if (value.length === 7 && value.slice(-2) === 'Q1') {
-                    const year = value.slice(0,4);
-                    return year;
-                  }
-                  else {
-                    return '';
-                  }
-                }
-                        
-            },
-            stacked: true
-        }]
-      },
-      // title: {
-      //   display: true,
-      //   fontSize: 20,
-      //   fontFamily: "Inconsolata, monospace",
-      //   fontColor: "rgb(69, 77, 93)",
-      //   text: [
-      //     (this.props.detailAddr ? 
-      //       this.props.detailAddr.housenumber + " "  +
-      //       this.props.detailAddr.streetname + ", " + 
-      //       this.props.detailAddr.boro 
-      //       : "")]
-      // },
-      tooltips: {
-        callbacks: {
-          title: function(tooltipItem) {
-
-            const quarter = this._data.labels[tooltipItem[0].index].slice(-1);
-            var monthRange;
-            
-            switch (quarter) {
-              case "1":
-                monthRange = "Jan - Mar";
-                break;
-              case "2":
-                monthRange = "Apr - Jun";
-                break;
-              case "3": 
-                monthRange = "Jul - Sep";
-                break;
-              case "4":
-                monthRange = "Oct - Dec";
-                break;
-              default:
-                monthRange = "";
-            }
-
-            return monthRange + " " + this._data.labels[tooltipItem[0].index].slice(0,4);
-          }
-        }
-      },
-      legend: {
-        position: "top",
-        labels: {
-          fontFamily: "Inconsolata, monospace",
-          fontColor: "rgb(69, 77, 93)"
-        },
-        onHover: function (event, legendItem) {
-        // There is only a legendItem when your mouse is positioned over one
-          if (legendItem) {
-              event.srcElement.style.cursor = 'pointer';
-          }
-        }
-      },
-      annotation: {
-        annotations: 
-        [
-            {
-                drawTime: "beforeDatasetsDraw",
-                // id: "hline",
-                type: "line",
-                mode: "vertical",
-                scaleID: "x-axis-0",
-                value: labelPosition,
-                borderColor: (dateLocation === 'current' ? "rgb(69, 77, 93)" : "rgba(0,0,0,0)"),
-                borderWidth: 2,
-                label: {
-                    content: (this.state.lastSale.date ? "Sold to Current Owner" : "Last Sale Unknown"),
-                    fontFamily: "Inconsolata, monospace",
-                    fontColor: "#fff",
-                    fontSize: 12,
-                    xPadding: 10,
-                    yPadding: 10,
-                    backgroundColor: "rgb(69, 77, 93)",
-                    position: "top",
-                    xAdjust: (dateLocation === 'past' ? -70 : dateLocation === 'future' ? 70 : 0),
-                    yAdjust: 10,
-                    enabled: true,
-                    cornerRadius: 0
-                }
-            },
-          (this.state.lastSale.date ? 
-            {
-                drawTime: "beforeDatasetsDraw",
-                // id: "hline",
-                type: "line",
-                mode: "vertical",
-                scaleID: "x-axis-0",
-                value: labelPosition,
-                borderColor: "rgba(0,0,0,0)",
-                borderWidth: 0,
-                label: {
-                    content: (dateLocation === 'past' ? "← " : "") + 
-                              this.formatDate(this.state.lastSale.date) +
-                              (dateLocation === 'future' ? " →" : ""),
-                    fontFamily: "Inconsolata, monospace",
-                    fontColor: "#fff",
-                    fontSize: 12,
-                    xPadding: 10,
-                    yPadding: 10,
-                    backgroundColor: "rgb(69, 77, 93)",
-                    position: "top",
-                    xAdjust: (dateLocation === 'past' ? -70 : dateLocation === 'future' ? 70 : 0),
-                    yAdjust: 30,
-                    enabled: true,
-                    cornerRadius: 0
-                }
-            } :
-            {}
-          )
-        ],
-        drawTime: "afterDraw" // (default)
-      },
-      maintainAspectRatio: false,
-      onHover: function (event) {
-        event.srcElement.style.cursor = 'default';
-    }
-  }; 
+  var xAxisLength = (this.state[indicatorData].labels ? this.state[indicatorData].labels.length : 0);
 
     return (
       <div className="Page Indicators">
@@ -616,10 +354,8 @@ export default class Indicators extends Component {
                   <button className={(this.state.xAxisStart === 0 ? 
                     "btn btn-off btn-axis-shift" : "btn btn-axis-shift")}
                     onClick={() => this.handleXAxisChange("left")}>‹</button>
-                  <div className="Indicators__chart">
-                    <Bar data={data} options={options} plugins={[ChartAnnotation]} width={100} height={300} />
-                  </div>
-                  <button className={(data.labels && this.state.xAxisStart + this.xAxisSpan >= data.labels.length ? 
+                  <IndicatorsViz {...this.state} />
+                  <button className={(this.state.xAxisStart + this.state.xAxisSpan >= xAxisLength ? 
                     "btn btn-off btn-axis-shift" : "btn btn-axis-shift")}
                     onClick={() => this.handleXAxisChange("right")}>›</button>
                 </div> 
