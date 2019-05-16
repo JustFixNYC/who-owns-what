@@ -485,7 +485,28 @@ export default class Indicators extends Component {
       tooltips: {
         callbacks: {
           title: function(tooltipItem) {
-            return this._data.labels[tooltipItem[0].index];
+
+            const quarter = this._data.labels[tooltipItem[0].index].slice(-1);
+            var monthRange;
+            
+            switch (quarter) {
+              case "1":
+                monthRange = "Jan - Mar";
+                break;
+              case "2":
+                monthRange = "Apr - Jun";
+                break;
+              case "3": 
+                monthRange = "Jul - Sep";
+                break;
+              case "4":
+                monthRange = "Oct - Dec";
+                break;
+              default:
+                monthRange = "";
+            }
+
+            return monthRange + " " + this._data.labels[tooltipItem[0].index].slice(0,4);
           }
         }
       },
