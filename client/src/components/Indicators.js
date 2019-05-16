@@ -600,7 +600,7 @@ export default class Indicators extends Component {
               <div className="column col-8 col-lg-12">
                 <div className="title-card">
                   <h4 className="title">{(this.props.detailAddr ? 
-                        <span>BUILDING: <b>{this.props.detailAddr.housenumber} {this.props.detailAddr.streetname}, {this.props.detailAddr.boro}</b></span> :
+                        <span>BUILDING: <b>{this.props.detailAddr.housenumber} {Helpers.titleCase(this.props.detailAddr.streetname)}, {Helpers.titleCase(this.props.detailAddr.boro)}</b></span> :
                         <span></span>)}
                   </h4>
                   <br/>
