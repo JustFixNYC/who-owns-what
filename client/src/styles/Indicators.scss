@@ -13,7 +13,6 @@
   .Indicators__content {
 
     padding: 30px 30px 30px 30px;
-    max-width: 900px;
 
     @include for-tablet-portrait-up() {
       padding: 45px 45px 45px 45px;
@@ -31,11 +30,53 @@
       margin-bottom: 2.4rem;
     }
 
+    .columns {
+      .column.column-context:last-child {
+        @include for-tablet-landscape-up() {
+          padding-left: 3rem;
+        }
+      }
+    }
+
     .title {
-      font-size: 2rem;
-      text-decoration: none;    
-      padding-left: 1.5rem;
-      margin-bottom: 0px;
+        font-size: 2rem;
+        text-decoration: none;    
+        padding-left: 1.5rem;
+        margin-bottom: 0px;
+
+        &.viz-title {
+          margin-left: 4.5rem;
+          display: block;
+        }
+      }
+
+    .title-card {
+
+      padding-bottom: 2.5rem;
+
+      button {
+        color: #454d5d;
+        margin-left: 1.5rem;
+        text-decoration: underline;
+
+        &:hover {
+          text-decoration: none;
+        }
+      }
+    }
+
+    .card {
+      margin-bottom: 3rem;
+    }
+
+    .card.card-links {
+      .card-body {
+        h6 {
+          font-weight: bold;
+          margin-bottom: 0.75rem;
+          width: 100%
+        }
+      }
     }
 
     .control-panel {
@@ -67,24 +108,15 @@
 
   .Indicators__links {
     padding: 1rem 1.5rem;
+    margin-left: 4.5rem;
     position: relative;
 
     .Indicators__linksTitle {
-      position: absolute;
-      top: -19px;
-      left: 7px;
-      padding: 8px 9px 4px 8px;
-      background-color: #fff;
+      font-size: 1.5rem;
     }
 
-    h6.Indicators__linksSubtitle {
-      font-weight: bold;
-      margin-bottom: 0.75rem;
-      width: 100%;
-    }
-
-    & > div:not(:last-child) {
-      margin-bottom: 24px;
+    li {
+      list-style: none;
     }
 
 
@@ -93,14 +125,15 @@
   .Indicators__viz {
     display: flex;
     flex-direction: row;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
 
     .Indicators__chart {
       width: 100%;
     }
 
     .btn-axis-shift {
-      height: 45px;
-      margin-bottom: 52.5px; // Button placement offset
+      height: 70px;
       border-radius: 30px;
       font-size: 20px;
       align-self: center;

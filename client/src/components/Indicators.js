@@ -52,7 +52,7 @@ const initialState = {
         }
       },
 
-      activeVis: 'viols',
+      activeVis: 'complaints',
       xAxisStart: 0,
       currentAddr: null
 
@@ -62,7 +62,7 @@ export default class Indicators extends Component {
   constructor(props) {
     super(props);
 
-    this.indicatorList = ['viols', 'complaints', 'permits'];
+    this.indicatorList = ['complaints','viols','permits'];
 
     this.xAxisSpan = 20;
 
@@ -309,7 +309,7 @@ export default class Indicators extends Component {
 
     // reset chart positions when default dataset loads:
 
-    if(!prevState.violsData.labels && this.state.violsData.labels) {
+    if(!prevState.complaintsData.labels && this.state.complaintsData.labels) {
       this.handleXAxisChange('reset');
     }
 
@@ -351,6 +351,10 @@ export default class Indicators extends Component {
 
   // Set configurables for active vis
   var datasets;
+
+  var boro = (this.props.detailAddr ? this.props.detailAddr.bbl.slice(0, 1) : null);
+  var block = (this.props.detailAddr ? this.props.detailAddr.bbl.slice(1, 6) : null);
+  var lot = (this.props.detailAddr ? this.props.detailAddr.bbl.slice(6, 10) : null);
 
   switch (this.state.activeVis) {
     case 'viols': 
@@ -481,15 +485,42 @@ export default class Indicators extends Component {
       tooltips: {
         callbacks: {
           title: function(tooltipItem) {
-            return this._data.labels[tooltipItem[0].index];
+
+            const quarter = this._data.labels[tooltipItem[0].index].slice(-1);
+            var monthRange;
+            
+            switch (quarter) {
+              case "1":
+                monthRange = "Jan - Mar";
+                break;
+              case "2":
+                monthRange = "Apr - Jun";
+                break;
+              case "3": 
+                monthRange = "Jul - Sep";
+                break;
+              case "4":
+                monthRange = "Oct - Dec";
+                break;
+              default:
+                monthRange = "";
+            }
+
+            return monthRange + " " + this._data.labels[tooltipItem[0].index].slice(0,4);
           }
         }
       },
       legend: {
-        position: "bottom",
+        position: "top",
         labels: {
           fontFamily: "Inconsolata, monospace",
           fontColor: "rgb(69, 77, 93)"
+        },
+        onHover: function (event, legendItem) {
+        // There is only a legendItem when your mouse is positioned over one
+          if (legendItem) {
+              event.srcElement.style.cursor = 'pointer';
+          }
         }
       },
       annotation: {
@@ -551,44 +582,129 @@ export default class Indicators extends Component {
         ],
         drawTime: "afterDraw" // (default)
       },
-      maintainAspectRatio: false
+      maintainAspectRatio: false,
+      onHover: function (event) {
+        event.srcElement.style.cursor = 'default';
+    }
   }; 
 
     return (
       <div className="Page Indicators">
         <div className="Indicators__content Page__content">
-          { !(this.state.saleHistory && this.state.violsHistory) ? 
+          { !(this.state.saleHistory && this.state.complaintsHistory) ? 
             (
               <Loader loading={true} classNames="Loader-map">Loading</Loader>
             ) : 
           (
-            <div>
-              <h4 className="title">{(this.props.detailAddr ? 
-                    <span>HISTORY OF <b>{this.props.detailAddr.housenumber} {this.props.detailAddr.streetname}, {this.props.detailAddr.boro}</b></span> :
-                    <span></span>)}
-              </h4>
-              <div className="Indicators__links">
-                <em>Select a Dataset:</em>
-                <div className="btn-group btn-group-block control-panel">
-                  <button className={(this.state.activeVis === "viols" ? "selected " : "") + "btn btn-data-select"}
-                          onClick={() => this.handleVisChange("viols")}>HPD Violations</button>
-                  <button className={(this.state.activeVis === "complaints" ? "selected " : "") + "btn btn-data-select"}
-                          onClick={() => this.handleVisChange("complaints")}>HPD Complaints</button>
-                  <button className={(this.state.activeVis === "permits" ? "selected " : "") + "btn btn-data-select"}
-                          onClick={() => this.handleVisChange("permits")}>DOB Permits</button>
+            <div className="columns">
+              <div className="column col-8 col-lg-12">
+                <div className="title-card">
+                  <h4 className="title">{(this.props.detailAddr ? 
+                        <span>BUILDING: <b>{this.props.detailAddr.housenumber} {Helpers.titleCase(this.props.detailAddr.streetname)}, {Helpers.titleCase(this.props.detailAddr.boro)}</b></span> :
+                        <span></span>)}
+                  </h4>
+                  <br/>
+                  <button onClick={() => this.props.onBackToOverview(this.props.detailAddr)}>Back to Overview</button>
+                </div>
+                <span className="title viz-title"> 
+                  {(this.state.activeVis === 'complaints' ? 'HPD Complaints since 2014' : 
+                    this.state.activeVis === 'viols' ? 'HPD Violations since 2010' :
+                    this.state.activeVis === 'permits' ? 'Building Permit Applications since 2010' :
+                    '')}:
+                </span>
+                <div className="Indicators__viz">
+                  <button className={(this.state.xAxisStart === 0 ? 
+                    "btn btn-off btn-axis-shift" : "btn btn-axis-shift")}
+                    onClick={() => this.handleXAxisChange("left")}>‹</button>
+                  <div className="Indicators__chart">
+                    <Bar data={data} options={options} plugins={[ChartAnnotation]} width={100} height={300} />
+                  </div>
+                  <button className={(data.labels && this.state.xAxisStart + this.xAxisSpan >= data.labels.length ? 
+                    "btn btn-off btn-axis-shift" : "btn btn-axis-shift")}
+                    onClick={() => this.handleXAxisChange("right")}>›</button>
+                </div> 
+                <div className="Indicators__links">
+                  <em className="Indicators__linksTitle">Select a Dataset:</em>
+                  <li className="menu-item">
+                      <label className="form-radio">
+                        <input type="radio" 
+                          checked={(this.state.activeVis === "complaints" ? true : false)}
+                          onChange={() => this.handleVisChange("complaints")} />
+                        <i className="form-icon"></i> HPD Complaints
+                      </label>
+                  </li>
+                  <li className="menu-item">
+                      <label className="form-radio">
+                        <input type="radio" 
+                          checked={(this.state.activeVis === "viols" ? true : false)}
+                          onChange={() => this.handleVisChange("viols")} />
+                        <i className="form-icon"></i> HPD Violations
+                      </label>
+                  </li>
+                  <li className="menu-item">
+                      <label className="form-radio">
+                        <input type="radio" 
+                          checked={(this.state.activeVis === "permits" ? true : false)}
+                          onChange={() => this.handleVisChange("permits")} />
+                        <i className="form-icon"></i> Building Permit Applications
+                      </label>
+                  </li>
+                </div>  
+              </div>
+              <div className="column column-context col-4 col-lg-12">
+                <div className="card">
+                  <div className="card-header">
+                    <div className="card-title h5">What are 
+                    {(this.state.activeVis === 'complaints' ? ' HPD Complaints' : 
+                    this.state.activeVis === 'viols' ? ' HPD Violations' :
+                    this.state.activeVis === 'permits' ? ' Building Permit Applications' :
+                    '')}?</div>
+                    <div className="card-subtitle text-gray"></div>
+                  </div>
+                  <div className="card-body">
+                    {(this.state.activeVis === 'complaints' ? 
+                      <span>HPD Complaints are housing issues reported to the City <b>by a tenant calling 311</b>.
+                      When someone issues a complaint, the Department of Housing Preservation and Development begins a process of investigation that may lead to an official violation from the City. 
+                      Read more about HPD Complaints and how to file them at the <a href='https://www1.nyc.gov/site/hpd/renters/complaints-and-inspections.page' target="_blank" rel="noopener noreferrer">official HPD page</a>.</span> : 
+                    this.state.activeVis === 'viols' ? 
+                      <span>HPD Violations occur when an official City Inspector finds the conditions of a home in violation of the law. 
+                      If not corrected, these violations incur fines for the owner— however, HPD violations are notoriously unenforced by the City.
+                      These Violations fall into three categories:<br/>
+                        <br/>
+                      <b>Class A</b> — non-hazardous<br/>
+                      <b>Class B</b> — hazardous<br/>
+                      <b>Class C</b> — immediately hazardous<br/>
+                        <br/>
+                      Read more about HPD Violations at the <a href='https://www1.nyc.gov/site/hpd/owners/compliance-maintenance-requirements.page' target="_blank" rel="noopener noreferrer">official HPD page</a>.</span> :
+                    this.state.activeVis === 'permits' ? 
+                      <span>Owners submit Building Permit Applications to the Department of Buildings before any construction project to get necessary approval.
+                      The number of applications filed can indicate how much construction the owner was planning. 
+                      Read more about DOB Building Applications/Permits at the <a href='https://www1.nyc.gov/site/buildings/about/building-applications-and-permits.page' target="_blank" rel="noopener noreferrer">official NYC Buildings page</a>.</span> :
+                    '')}
+                  </div>
+                </div>
+                <div className="card card-links">
+
+                  <div className="card-body card-body-links">
+                    <h6>Official building pages</h6>
+                    <div className="columns">
+                      <div className="column col-12">
+                        <a href={`http://a836-acris.nyc.gov/bblsearch/bblsearch.asp?borough=${boro}&block=${block}&lot=${lot}`} target="_blank" rel="noopener noreferrer" className="btn btn-block">View documents on ACRIS &#8599;&#xFE0E;</a>
+                      </div>
+                      <div className="column col-12">
+                        <a href={`https://hpdonline.hpdnyc.org/HPDonline/Provide_address.aspx?p1=${boro}&p2=${this.props.detailAddr.housenumber}&p3=${this.props.detailAddr.streetname}&SearchButton=Search`} target="_blank" rel="noopener noreferrer" className="btn btn-block">HPD Building Profile &#8599;&#xFE0E;</a>
+                      </div>
+                      <div className="column col-12">
+                        <a href={`http://a810-bisweb.nyc.gov/bisweb/PropertyProfileOverviewServlet?boro=${boro}&block=${block}&lot=${lot}`} target="_blank" rel="noopener noreferrer" className="btn btn-block">DOB Building Profile &#8599;&#xFE0E;</a>
+                      </div>
+                      <div className="column col-12">
+                        <a href={`https://nycprop.nyc.gov/nycproperty/nynav/jsp/selectbbl.jsp`} target="_blank" rel="noopener noreferrer" className="btn btn-block">DOF Property Tax Bills &#8599;&#xFE0E;</a>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
-              <div className="Indicators__viz">
-                <button className={(this.state.xAxisStart === 0 ? 
-                  "btn btn-off btn-axis-shift" : "btn btn-axis-shift")}
-                  onClick={() => this.handleXAxisChange("left")}>‹</button>
-                <div className="Indicators__chart">
-                  <Bar data={data} options={options} plugins={[ChartAnnotation]} width={100} height={350} />
-                </div>
-                <button className={(data.labels && this.state.xAxisStart + this.xAxisSpan >= data.labels.length ? 
-                  "btn btn-off btn-axis-shift" : "btn btn-axis-shift")}
-                  onClick={() => this.handleXAxisChange("right")}>›</button>
-              </div>   
+
             </div>
             )
           }
