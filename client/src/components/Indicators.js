@@ -624,7 +624,7 @@ export default class Indicators extends Component {
                     onClick={() => this.handleXAxisChange("right")}>›</button>
                 </div> 
                 <div className="Indicators__links">
-                  <em>Select a Dataset:</em>
+                  <em className="Indicators__linksTitle">Select a Dataset:</em>
                   <li className="menu-item">
                       <label className="form-radio">
                         <input type="radio" 

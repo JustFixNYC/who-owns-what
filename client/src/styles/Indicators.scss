@@ -107,24 +107,11 @@
 
   .Indicators__links {
     padding: 1rem 1.5rem;
+    margin-left: 4.5rem;
     position: relative;
 
     .Indicators__linksTitle {
-      position: absolute;
-      top: -19px;
-      left: 7px;
-      padding: 8px 9px 4px 8px;
-      background-color: #fff;
-    }
-
-    h6.Indicators__linksSubtitle {
-      font-weight: bold;
-      margin-bottom: 0.75rem;
-      width: 100%;
-    }
-
-    & > div:not(:last-child) {
-      margin-bottom: 24px;
+      font-size: 1.5rem;
     }
 
     li {
