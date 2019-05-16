@@ -12,12 +12,6 @@ import 'styles/Indicators.css';
 
 export default class IndicatorsViz extends Component {
 
-  formatDate(dateString) {
-    var date = new Date(dateString);
-    var options = {year: 'numeric', month: 'long', day: 'numeric'};
-    return date.toLocaleDateString("en-US", options);
-  }
-
   getDataMaximum() {
 
     var indicatorDataLabels = this.props.indicatorList.map(x => x + 'Data');
@@ -243,7 +237,7 @@ export default class IndicatorsViz extends Component {
                 borderWidth: 0,
                 label: {
                     content: (dateLocation === 'past' ? "← " : "") + 
-                              this.formatDate(this.props.lastSale.date) +
+                              Helpers.formatDate(this.props.lastSale.date) +
                               (dateLocation === 'future' ? " →" : ""),
                     fontFamily: "Inconsolata, monospace",
                     fontColor: "#fff",

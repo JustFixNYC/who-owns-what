@@ -58,6 +58,12 @@ export default {
     return string.toLowerCase().split(' ').map(function(word) {
       return (word.charAt(0).toUpperCase() + word.slice(1));
     }).join(' ');
+  },
+
+  formatDate(dateString) {
+    var date = new Date(dateString);
+    var options = {year: 'numeric', month: 'long', day: 'numeric'};
+    return date.toLocaleDateString("en-US", options);
   }
 
 };

@@ -111,12 +111,6 @@ export default class Indicators extends Component {
 
   }
 
-  formatDate(dateString) {
-    var date = new Date(dateString);
-    var options = {year: 'numeric', month: 'long', day: 'numeric'};
-    return date.toLocaleDateString("en-US", options);
-  }
-
   createLabels(startingYear) {
 
     const currentYear = parseInt(new Date().getFullYear());
@@ -336,6 +330,7 @@ export default class Indicators extends Component {
           (
             <div className="columns">
               <div className="column col-8 col-lg-12">
+
                 <div className="title-card">
                   <h4 className="title">{(this.props.detailAddr ? 
                         <span>BUILDING: <b>{this.props.detailAddr.housenumber} {Helpers.titleCase(this.props.detailAddr.streetname)}, {Helpers.titleCase(this.props.detailAddr.boro)}</b></span> :
@@ -344,12 +339,14 @@ export default class Indicators extends Component {
                   <br/>
                   <button onClick={() => this.props.onBackToOverview(this.props.detailAddr)}>Back to Overview</button>
                 </div>
+
                 <span className="title viz-title"> 
                   {(this.state.activeVis === 'complaints' ? 'HPD Complaints since 2014' : 
                     this.state.activeVis === 'viols' ? 'HPD Violations since 2010' :
                     this.state.activeVis === 'permits' ? 'Building Permit Applications since 2010' :
                     '')}:
                 </span>
+
                 <div className="Indicators__viz">
                   <button className={(this.state.xAxisStart === 0 ? 
                     "btn btn-off btn-axis-shift" : "btn btn-axis-shift")}
@@ -359,6 +356,7 @@ export default class Indicators extends Component {
                     "btn btn-off btn-axis-shift" : "btn btn-axis-shift")}
                     onClick={() => this.handleXAxisChange("right")}>›</button>
                 </div> 
+
                 <div className="Indicators__links">
                   <em className="Indicators__linksTitle">Select a Dataset:</em>
                   <li className="menu-item">
@@ -385,9 +383,11 @@ export default class Indicators extends Component {
                         <i className="form-icon"></i> Building Permit Applications
                       </label>
                   </li>
-                </div>  
+                </div> 
+
               </div>
               <div className="column column-context col-4 col-lg-12">
+                
                 <div className="card">
                   <div className="card-header">
                     <div className="card-title h5">What are 
@@ -419,8 +419,8 @@ export default class Indicators extends Component {
                     '')}
                   </div>
                 </div>
-                <div className="card card-links">
 
+                <div className="card card-links">
                   <div className="card-body card-body-links">
                     <h6>Official building pages</h6>
                     <div className="columns">
@@ -439,6 +439,7 @@ export default class Indicators extends Component {
                     </div>
                   </div>
                 </div>
+
               </div>
 
             </div>
