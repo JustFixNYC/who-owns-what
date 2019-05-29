@@ -158,6 +158,7 @@ export default class IndicatorsViz extends Component {
       //       : "")]
       // },
       tooltips: {
+        mode: 'label',
         callbacks: {
           title: function(tooltipItem) {
 
@@ -182,6 +183,16 @@ export default class IndicatorsViz extends Component {
             }
 
             return monthRange + " " + this._data.labels[tooltipItem[0].index].slice(0,4);
+          },
+          footer: function(tooltipItem, data) {
+            var total = 0;
+
+            var i; 
+            for (i = 0; i < data.datasets.length; i++) {
+              total += parseInt(data.datasets[i].data[tooltipItem[i].index]);
+            }
+
+            return "Total: " + total;
           }
         }
       },
