@@ -22,7 +22,7 @@
     "babel-preset-stage-2": "^6.24.1",
     "bluebird": "^3.5.0",
     "body-parser": "^1.17.2",
-    "chart.js": "2.7.3",
+    "chart.js": "^2.8.0",
     "chartjs-plugin-annotation": "^0.5.7",
     "concurrently": "^3.5.0",
     "csv-express": "^1.2.2",
