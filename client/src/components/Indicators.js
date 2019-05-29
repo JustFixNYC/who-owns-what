@@ -341,8 +341,8 @@ export default class Indicators extends Component {
                 </div>
 
                 <span className="title viz-title"> 
-                  {(this.state.activeVis === 'complaints' ? 'HPD Complaints since 2014' : 
-                    this.state.activeVis === 'viols' ? 'HPD Violations since 2010' :
+                  {(this.state.activeVis === 'complaints' ? 'HPD Complaints Issued since 2014' : 
+                    this.state.activeVis === 'viols' ? 'HPD Violations Issued since 2010' :
                     this.state.activeVis === 'permits' ? 'Building Permit Applications since 2010' :
                     '')}:
                 </span>
