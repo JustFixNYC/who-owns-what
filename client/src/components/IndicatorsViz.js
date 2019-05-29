@@ -203,9 +203,17 @@ export default class IndicatorsViz extends Component {
           fontColor: "rgb(69, 77, 93)"
         },
         onHover: function (event, legendItem) {
-        // There is only a legendItem when your mouse is positioned over one
           if (legendItem) {
-              event.srcElement.style.cursor = 'pointer';
+            legendItem.lineWidth = 3;
+            this.chart.render({duration: 0});
+            event.srcElement.style.cursor = 'pointer';
+          }
+
+        },
+        onLeave: function (event, legendItem) {
+          if (legendItem) {
+            legendItem.lineWidth = 1;
+            this.chart.render({duration: 0});
           }
         }
       },
