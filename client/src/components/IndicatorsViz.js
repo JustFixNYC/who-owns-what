@@ -272,6 +272,33 @@ export default class IndicatorsViz extends Component {
                 }
             } :
             {}
+          ),
+        (this.props.activeVis === 'complaints' ? 
+            {
+                drawTime: "beforeDatasetsDraw",
+                // id: "hline",
+                type: "line",
+                mode: "vertical",
+                scaleID: "x-axis-0",
+                value: "2012 Q1",
+                borderColor: "rgba(0,0,0,0)",
+                borderWidth: 0,
+                label: {
+                    content: "No data available for this time period",
+                    fontFamily: "Inconsolata, monospace",
+                    fontColor: "#e85600",
+                    fontSize: 12,
+                    xPadding: 10,
+                    yPadding: 10,
+                    backgroundColor: "rgba(0,0,0,0)",
+                    position: "top",
+                    xAdjust: 0,
+                    yAdjust: 105,
+                    enabled: true,
+                    cornerRadius: 0
+                }
+            } :
+            {}
           )
         ],
         drawTime: "afterDraw" // (default)
