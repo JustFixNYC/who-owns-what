@@ -52,25 +52,25 @@ export default class IndicatorsViz extends Component {
         {
             label: 'Class A',
             data: this.props.violsData.values.class_a,
-            backgroundColor: 'rgba(191,211,230, 0.6)',
-            borderColor: 'rgba(191,211,230,1)',
+            backgroundColor: 'rgba(157, 194, 227, 0.6)',
+            borderColor: 'rgba(157, 194, 227,1)',
             borderWidth: 1
         }];
       break;
     case 'complaints':
       datasets = 
         [{
-            label: 'Non-Emergency',
-            data: this.props.complaintsData.values.nonemergency,
-            backgroundColor: 'rgba(254,232,200, 0.6)',
-            borderColor: 'rgba(254,232,200,1)',
-            borderWidth: 1
-        },
-        {
             label: 'Emergency',
             data: this.props.complaintsData.values.emergency,
             backgroundColor: 'rgba(227,74,51, 0.6)',
             borderColor: 'rgba(227,74,51,1)',
+            borderWidth: 1
+        },
+        {
+            label: 'Non-Emergency',
+            data: this.props.complaintsData.values.nonemergency,
+            backgroundColor: 'rgba(255, 219, 170, 0.6)',
+            borderColor: 'rgba(255, 219, 170,1)',
             borderWidth: 1
         }];
       break;
