@@ -35,10 +35,10 @@ export default class IndicatorsViz extends Component {
     case 'viols': 
       datasets = 
         [{
-            label: 'Class A',
-            data: this.props.violsData.values.class_a,
-            backgroundColor: 'rgba(191,211,230, 0.6)',
-            borderColor: 'rgba(191,211,230,1)',
+            label: 'Class C',
+            data: this.props.violsData.values.class_c,
+            backgroundColor: 'rgba(136,65,157, 0.6)',
+            borderColor: 'rgba(136,65,157,1)',
             borderWidth: 1
         },
         {
@@ -49,10 +49,10 @@ export default class IndicatorsViz extends Component {
             borderWidth: 1
         },
         {
-            label: 'Class C',
-            data: this.props.violsData.values.class_c,
-            backgroundColor: 'rgba(136,65,157, 0.6)',
-            borderColor: 'rgba(136,65,157,1)',
+            label: 'Class A',
+            data: this.props.violsData.values.class_a,
+            backgroundColor: 'rgba(191,211,230, 0.6)',
+            borderColor: 'rgba(191,211,230,1)',
             borderWidth: 1
         }];
       break;
@@ -159,6 +159,9 @@ export default class IndicatorsViz extends Component {
       // },
       tooltips: {
         mode: 'label',
+        itemSort: function(a, b) {
+          return b.datasetIndex - a.datasetIndex
+        },
         callbacks: {
           title: function(tooltipItem) {
 
