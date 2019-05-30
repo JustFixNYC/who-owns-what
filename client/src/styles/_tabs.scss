@@ -97,6 +97,10 @@
 
       margin-right: 15px;
 
+      @include for-phone-only() {
+        margin-right: 12px;
+      }
+
       &:hover {
         cursor: pointer;
       }

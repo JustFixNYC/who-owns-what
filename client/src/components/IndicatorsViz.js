@@ -7,6 +7,7 @@ import * as ChartAnnotation from 'chartjs-plugin-annotation';
 // why we're using this import format: https://stackoverflow.com/questions/51664741/chartjs-plugin-annotations-not-displayed-in-angular-5/53071497#53071497
 
 import Helpers from 'util/helpers';
+import Browser from 'util/browser';
 
 import 'styles/Indicators.css';
 
@@ -35,10 +36,10 @@ export default class IndicatorsViz extends Component {
     case 'viols': 
       datasets = 
         [{
-            label: 'Class A',
-            data: this.props.violsData.values.class_a,
-            backgroundColor: 'rgba(191,211,230, 0.6)',
-            borderColor: 'rgba(191,211,230,1)',
+            label: 'Class C',
+            data: this.props.violsData.values.class_c,
+            backgroundColor: 'rgba(136,65,157, 0.6)',
+            borderColor: 'rgba(136,65,157,1)',
             borderWidth: 1
         },
         {
@@ -49,27 +50,27 @@ export default class IndicatorsViz extends Component {
             borderWidth: 1
         },
         {
-            label: 'Class C',
-            data: this.props.violsData.values.class_c,
-            backgroundColor: 'rgba(136,65,157, 0.6)',
-            borderColor: 'rgba(136,65,157,1)',
+            label: 'Class A',
+            data: this.props.violsData.values.class_a,
+            backgroundColor: 'rgba(157, 194, 227, 0.6)',
+            borderColor: 'rgba(157, 194, 227,1)',
             borderWidth: 1
         }];
       break;
     case 'complaints':
       datasets = 
         [{
-            label: 'Non-Emergency',
-            data: this.props.complaintsData.values.nonemergency,
-            backgroundColor: 'rgba(254,232,200, 0.6)',
-            borderColor: 'rgba(254,232,200,1)',
-            borderWidth: 1
-        },
-        {
             label: 'Emergency',
             data: this.props.complaintsData.values.emergency,
             backgroundColor: 'rgba(227,74,51, 0.6)',
             borderColor: 'rgba(227,74,51,1)',
+            borderWidth: 1
+        },
+        {
+            label: 'Non-Emergency',
+            data: this.props.complaintsData.values.nonemergency,
+            backgroundColor: 'rgba(255, 219, 170, 0.6)',
+            borderColor: 'rgba(255, 219, 170,1)',
             borderWidth: 1
         }];
       break;
@@ -130,6 +131,8 @@ export default class IndicatorsViz extends Component {
             ticks: {
                 min: (data.labels ? data.labels[this.props.xAxisStart] : null),
                 max: (data.labels ? data.labels[this.props.xAxisStart + 19] : null),
+                maxRotation: 45,
+                minRotation: 45,
                 // Only show labels for years
                 callback: function(value, index, values) {
                   if (value.length === 7 && value.slice(-2) === 'Q1') {
@@ -158,6 +161,10 @@ export default class IndicatorsViz extends Component {
       //       : "")]
       // },
       tooltips: {
+        mode: 'label',
+        itemSort: function(a, b) {
+          return b.datasetIndex - a.datasetIndex
+        },
         callbacks: {
           title: function(tooltipItem) {
 
@@ -182,19 +189,37 @@ export default class IndicatorsViz extends Component {
             }
 
             return monthRange + " " + this._data.labels[tooltipItem[0].index].slice(0,4);
+          },
+          footer: function(tooltipItem, data) {
+
+            var total = 0;
+
+            var i; 
+            for (i = 0; i < tooltipItem.length; i++) {
+              total += parseInt(tooltipItem[i].value);
+            }
+            return "Total: " + total;
           }
         }
       },
       legend: {
-        position: "top",
+        position: "bottom",
         labels: {
           fontFamily: "Inconsolata, monospace",
           fontColor: "rgb(69, 77, 93)"
         },
         onHover: function (event, legendItem) {
-        // There is only a legendItem when your mouse is positioned over one
           if (legendItem) {
-              event.srcElement.style.cursor = 'pointer';
+            legendItem.lineWidth = 3;
+            this.chart.render({duration: 0});
+            event.srcElement.style.cursor = 'pointer';
+          }
+
+        },
+        onLeave: function (event, legendItem) {
+          if (legendItem) {
+            legendItem.lineWidth = 1;
+            this.chart.render({duration: 0});
           }
         }
       },
@@ -248,6 +273,33 @@ export default class IndicatorsViz extends Component {
                     position: "top",
                     xAdjust: (dateLocation === 'past' ? -70 : dateLocation === 'future' ? 70 : 0),
                     yAdjust: 30,
+                    enabled: true,
+                    cornerRadius: 0
+                }
+            } :
+            {}
+          ),
+        (this.props.activeVis === 'complaints' ? 
+            {
+                drawTime: "beforeDatasetsDraw",
+                // id: "hline",
+                type: "line",
+                mode: "vertical",
+                scaleID: "x-axis-0",
+                value: "2012 Q1",
+                borderColor: "rgba(0,0,0,0)",
+                borderWidth: 0,
+                label: {
+                    content: (Browser.isMobile() ? "No data available" : "No data available for this time period"),
+                    fontFamily: "Inconsolata, monospace",
+                    fontColor: "#e85600",
+                    fontSize: 12,
+                    xPadding: 10,
+                    yPadding: 10,
+                    backgroundColor: "rgba(0,0,0,0)",
+                    position: "top",
+                    xAdjust: 0,
+                    yAdjust: 105,
                     enabled: true,
                     cornerRadius: 0
                 }

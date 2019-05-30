@@ -45,8 +45,8 @@
         margin-bottom: 0px;
 
         &.viz-title {
-          margin-left: 4.5rem;
           display: block;
+          text-align: center;
         }
       }
 
@@ -107,16 +107,17 @@
   }
 
   .Indicators__links {
-    padding: 1rem 1.5rem;
-    margin-left: 4.5rem;
+    padding: 0rem 1.5rem 2.5rem 1.5rem;
     position: relative;
 
     .Indicators__linksTitle {
       font-size: 1.5rem;
+      margin-right: 2rem;
     }
 
     li {
       list-style: none;
+      display: inline;
     }
 
 
@@ -137,6 +138,9 @@
       border-radius: 30px;
       font-size: 20px;
       align-self: center;
+
+      // button placement offset: 
+      margin-bottom: 75px;
     }
 
     .btn-off {
