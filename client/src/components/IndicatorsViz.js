@@ -130,6 +130,8 @@ export default class IndicatorsViz extends Component {
             ticks: {
                 min: (data.labels ? data.labels[this.props.xAxisStart] : null),
                 max: (data.labels ? data.labels[this.props.xAxisStart + 19] : null),
+                maxRotation: 45,
+                minRotation: 45,
                 // Only show labels for years
                 callback: function(value, index, values) {
                   if (value.length === 7 && value.slice(-2) === 'Q1') {
