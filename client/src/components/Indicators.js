@@ -89,14 +89,14 @@ export default class Indicators extends Component {
     
 
     if (shift === 'left') {
-      const newPosition = Math.max(currentPosition - 4, 0);
+      const newPosition = Math.max(currentPosition - 2, 0);
       this.setState({
           xAxisStart: newPosition
         });
     }
 
     if (shift === 'right') {
-      const newPosition = Math.min(currentPosition + 4, xAxisMax);
+      const newPosition = Math.min(currentPosition + 2, xAxisMax);
       this.setState({
           xAxisStart: newPosition
         });
