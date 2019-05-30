@@ -340,23 +340,6 @@ export default class Indicators extends Component {
                   <button onClick={() => this.props.onBackToOverview(this.props.detailAddr)}>Back to Overview</button>
                 </div>
 
-                <span className="title viz-title"> 
-                  {(this.state.activeVis === 'complaints' ? 'HPD Complaints Issued since 2014' : 
-                    this.state.activeVis === 'viols' ? 'HPD Violations Issued since 2010' :
-                    this.state.activeVis === 'permits' ? 'Building Permit Applications since 2010' :
-                    '')}:
-                </span>
-
-                <div className="Indicators__viz">
-                  <button className={(this.state.xAxisStart === 0 ? 
-                    "btn btn-off btn-axis-shift" : "btn btn-axis-shift")}
-                    onClick={() => this.handleXAxisChange("left")}>‹</button>
-                  <IndicatorsViz {...this.state} />
-                  <button className={(this.state.xAxisStart + this.state.xAxisSpan >= xAxisLength ? 
-                    "btn btn-off btn-axis-shift" : "btn btn-axis-shift")}
-                    onClick={() => this.handleXAxisChange("right")}>›</button>
-                </div> 
-
                 <div className="Indicators__links">
                   <em className="Indicators__linksTitle">Select a Dataset:</em>
                   <li className="menu-item">
@@ -383,6 +366,23 @@ export default class Indicators extends Component {
                         <i className="form-icon"></i> Building Permit Applications
                       </label>
                   </li>
+                </div> 
+
+                <span className="title viz-title"> 
+                  {(this.state.activeVis === 'complaints' ? 'HPD Complaints Issued since 2014' : 
+                    this.state.activeVis === 'viols' ? 'HPD Violations Issued since 2010' :
+                    this.state.activeVis === 'permits' ? 'Building Permit Applications since 2010' :
+                    '')}
+                </span>
+
+                <div className="Indicators__viz">
+                  <button className={(this.state.xAxisStart === 0 ? 
+                    "btn btn-off btn-axis-shift" : "btn btn-axis-shift")}
+                    onClick={() => this.handleXAxisChange("left")}>‹</button>
+                  <IndicatorsViz {...this.state} />
+                  <button className={(this.state.xAxisStart + this.state.xAxisSpan >= xAxisLength ? 
+                    "btn btn-off btn-axis-shift" : "btn btn-axis-shift")}
+                    onClick={() => this.handleXAxisChange("right")}>›</button>
                 </div> 
 
               </div>

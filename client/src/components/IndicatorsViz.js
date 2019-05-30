@@ -7,6 +7,7 @@ import * as ChartAnnotation from 'chartjs-plugin-annotation';
 // why we're using this import format: https://stackoverflow.com/questions/51664741/chartjs-plugin-annotations-not-displayed-in-angular-5/53071497#53071497
 
 import Helpers from 'util/helpers';
+import Browser from 'util/browser';
 
 import 'styles/Indicators.css';
 
@@ -202,7 +203,7 @@ export default class IndicatorsViz extends Component {
         }
       },
       legend: {
-        position: "top",
+        position: "bottom",
         labels: {
           fontFamily: "Inconsolata, monospace",
           fontColor: "rgb(69, 77, 93)"
@@ -289,7 +290,7 @@ export default class IndicatorsViz extends Component {
                 borderColor: "rgba(0,0,0,0)",
                 borderWidth: 0,
                 label: {
-                    content: "No data available for this time period",
+                    content: (Browser.isMobile() ? "No data available" : "No data available for this time period"),
                     fontFamily: "Inconsolata, monospace",
                     fontColor: "#e85600",
                     fontSize: 12,
