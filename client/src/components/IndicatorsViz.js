@@ -13,6 +13,24 @@ import 'styles/Indicators.css';
 
 export default class IndicatorsViz extends Component {
 
+  constructor(props) {
+    super(props);
+    this.state = { 
+      shouldRedraw: false 
+    };
+  }
+
+  // Make Chart Redraw ONLY when the time span changes:
+  componentWillReceiveProps(nextProps) { 
+    if(nextProps.activeTimeSpan !== this.props.activeTimeSpan) {
+      this.setState({shouldRedraw: true})
+    } 
+    else {
+     this.setState({shouldRedraw: false})
+    }
+  }
+
+  // Group raw data to match selected time span:
   groupLabels(labelsArray) {
     if (this.props.activeTimeSpan === 'quarter') {
       var labelsByQuarter = []; 
@@ -373,7 +391,7 @@ export default class IndicatorsViz extends Component {
 
     return (
       <div className="Indicators__chart">
-        <Bar data={data} options={options} plugins={[ChartAnnotation]} width={100} height={300} redraw />
+        <Bar data={data} options={options} plugins={[ChartAnnotation]} width={100} height={300} redraw={this.state.shouldRedraw} />
       </div>
     );
   }
