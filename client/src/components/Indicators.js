@@ -49,7 +49,7 @@ const initialState = {
 
       indicatorList: ['complaints','viols','permits'],
       activeVis: 'complaints',
-      timeSpanList: ['year','quarter','month'],
+      timeSpanList: ['month','quarter','year'],
       activeTimeSpan: 'month',
       xAxisStart: 0,
       xAxisSpan: 20,
@@ -60,19 +60,11 @@ const initialState = {
 export default class Indicators extends Component {
   constructor(props) {
     super(props);
-
     this.state = initialState;
-
   }
 
   reset() {
     this.setState(initialState);
-  }
-
-  handleVisChange(selectedVis) {
-    this.setState({
-          activeVis: selectedVis
-      });
   }
 
   handleXAxisChange(shift) {
@@ -86,9 +78,13 @@ export default class Indicators extends Component {
       return;
     }
 
-    const xAxisMax = labelsArray.length - span;
+    var groupedLabelsLength = labelsArray.length;
+    if (this.state.activeTimeSpan === 'quarter') {
+      groupedLabelsLength = Math.floor(labelsArray.length / 3);
+    }
+
+    const xAxisMax = groupedLabelsLength - span;
     const currentPosition = this.state.xAxisStart;
-    
 
     if (shift === 'left') {
       const newPosition = Math.max(currentPosition - 2, 0);
@@ -102,7 +98,6 @@ export default class Indicators extends Component {
       this.setState({
           xAxisStart: newPosition
         });
-
     }
 
     if (shift === 'reset') {
@@ -113,8 +108,19 @@ export default class Indicators extends Component {
 
   }
 
-  createVizData(rawJSON, vizType) {
+  handleVisChange(selectedVis) {
+    this.setState({
+      activeVis: selectedVis
+    });
+  }
 
+  handleTimeSpanChange(selectedTimeSpan) {
+    this.setState({
+      activeTimeSpan: selectedTimeSpan,
+    });
+  }
+
+  createVizData(rawJSON, vizType) {
     var vizData;
 
     // Generate object to hold data for viz
@@ -159,18 +165,19 @@ export default class Indicators extends Component {
 
 
       // Generate arrays of data for chart.js visualizations:
+      // Default grouping is by MONTH
 
       const rawJSONLength = rawJSON.length;
        
       for (let i = 0; i < rawJSONLength; i++) {
+
         vizData.labels.push(rawJSON[i].month);
 
         for (const column in vizData.values) {
           vizData.values[column].push(parseInt(rawJSON[i][column]));
         }
 
-      } 
-
+      }
       return vizData;
   } 
 
@@ -232,19 +239,21 @@ export default class Indicators extends Component {
         this.setState({
           [indicatorData]: inputData
         });
-
       }
     }
 
-    // reset chart positions when default dataset loads:
+    // reset chart positions when default dataset loads or when activeTimeSpan changes:
 
-    if(!prevState.complaintsData.labels && this.state.complaintsData.labels) {
+    if((!prevState.complaintsData.labels && this.state.complaintsData.labels) ||
+    (prevState.activeTimeSpan !== this.state.activeTimeSpan)) {
       this.handleXAxisChange('reset');
     }
 
-    // process sale history data: 
+    // process sale history data when default dataset loads or when activeTimeSpan changes: 
 
-    if(this.state.saleHistory && !Helpers.jsonEqual(prevState.saleHistory, this.state.saleHistory)) {
+    if(this.state.saleHistory && 
+        (!Helpers.jsonEqual(prevState.saleHistory, this.state.saleHistory) ||
+        (prevState.activeTimeSpan !== this.state.activeTimeSpan))) {
 
       if (this.state.saleHistory.length > 0 && 
           (this.state.saleHistory[0].docdate || this.state.saleHistory[0].recordedfiled) &&
@@ -335,7 +344,27 @@ export default class Indicators extends Component {
                         <i className="form-icon"></i> Building Permit Applications
                       </label>
                   </li>
-                </div> 
+                </div>
+
+                <div className="Indicators__links">
+                  <em className="Indicators__linksTitle">Group by:</em>
+                  <li className="menu-item">
+                      <label className="form-radio">
+                        <input type="radio" 
+                          checked={(this.state.activeTimeSpan === "month" ? true : false)}
+                          onChange={() => this.handleTimeSpanChange("month")} />
+                        <i className="form-icon"></i> Month
+                      </label>
+                  </li>
+                  <li className="menu-item">
+                      <label className="form-radio">
+                        <input type="radio" 
+                          checked={(this.state.activeTimeSpan === "quarter" ? true : false)}
+                          onChange={() => this.handleTimeSpanChange("quarter")} />
+                        <i className="form-icon"></i> Quarter
+                      </label>
+                  </li>
+                </div>  
 
                 <span className="title viz-title"> 
                   {(this.state.activeVis === 'complaints' ? 'HPD Complaints Issued since 2014' : 

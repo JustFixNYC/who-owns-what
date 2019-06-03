@@ -13,12 +13,43 @@ import 'styles/Indicators.css';
 
 export default class IndicatorsViz extends Component {
 
+  groupLabels(labelsArray) {
+    if (this.props.activeTimeSpan === 'quarter') {
+      var labelsByQuarter = []; 
+      for (let i = 2; i < labelsArray.length; i = i + 3) {
+        var quarter = labelsArray[i].slice(0,4) + '-Q' + Math.ceil(parseInt(labelsArray[i].slice(-2)) / 3);
+        labelsByQuarter.push(quarter); 
+      }
+      return labelsByQuarter;
+    }
+
+    else {
+      return labelsArray;
+    }
+  }
+
+  groupData(dataArray) {
+    if (this.props.activeTimeSpan === 'quarter') {
+      var dataByQuarter = []; 
+      for (let i = 2; i < dataArray.length; i = i + 3) {
+        var sum = dataArray[i] + dataArray[i-1] + dataArray[i-2];
+        dataByQuarter.push(sum); 
+      }
+      return dataByQuarter;
+    }
+
+    else {
+      return dataArray;
+    }
+
+  }
+
   getDataMaximum() {
 
     var indicatorDataLabels = this.props.indicatorList.map(x => x + 'Data');
     var dataMaximums = indicatorDataLabels.map( 
       indicatorData => (this.props[indicatorData].values.total ? 
-                        Helpers.maxArray(this.props[indicatorData].values.total) :
+                        Helpers.maxArray(this.groupData(this.props[indicatorData].values.total)) :
                         0)
     );
 
@@ -37,21 +68,21 @@ export default class IndicatorsViz extends Component {
       datasets = 
         [{
             label: 'Class C',
-            data: this.props.violsData.values.class_c,
+            data: this.groupData(this.props.violsData.values.class_c),
             backgroundColor: 'rgba(136,65,157, 0.6)',
             borderColor: 'rgba(136,65,157,1)',
             borderWidth: 1
         },
         {
             label: 'Class B',
-            data: this.props.violsData.values.class_b,
+            data: this.groupData(this.props.violsData.values.class_b),
             backgroundColor: 'rgba(140,150,198, 0.6)',
             borderColor: 'rgba(140,150,198,1)',
             borderWidth: 1
         },
         {
             label: 'Class A',
-            data: this.props.violsData.values.class_a,
+            data: this.groupData(this.props.violsData.values.class_a),
             backgroundColor: 'rgba(157, 194, 227, 0.6)',
             borderColor: 'rgba(157, 194, 227,1)',
             borderWidth: 1
@@ -61,14 +92,14 @@ export default class IndicatorsViz extends Component {
       datasets = 
         [{
             label: 'Emergency',
-            data: this.props.complaintsData.values.emergency,
+            data: this.groupData(this.props.complaintsData.values.emergency),
             backgroundColor: 'rgba(227,74,51, 0.6)',
             borderColor: 'rgba(227,74,51,1)',
             borderWidth: 1
         },
         {
             label: 'Non-Emergency',
-            data: this.props.complaintsData.values.nonemergency,
+            data: this.groupData(this.props.complaintsData.values.nonemergency),
             backgroundColor: 'rgba(255, 219, 170, 0.6)',
             borderColor: 'rgba(255, 219, 170,1)',
             borderWidth: 1
@@ -78,7 +109,7 @@ export default class IndicatorsViz extends Component {
       datasets = 
         [{
             label: 'Building Permits Filed',
-            data: this.props.permitsData.values.total,
+            data: this.groupData(this.props.permitsData.values.total),
             backgroundColor: 'rgba(73, 192, 179, 0.6)',
             borderColor: 'rgb(73, 192, 179)',
             borderWidth: 1
@@ -91,7 +122,7 @@ export default class IndicatorsViz extends Component {
 
   var indicatorData = this.props.activeVis + 'Data';
   var data = {
-        labels: this.props[indicatorData].labels, 
+        labels: this.groupLabels(this.props[indicatorData].labels), 
         datasets: datasets
   };
 
@@ -137,9 +168,12 @@ export default class IndicatorsViz extends Component {
                 callback: function(value, index, values) {
 
                   if (timeSpan === 'month') {
-                    // Make date value include day:
-                    var fullDate = value.concat('-15');
+                    var fullDate = value.concat('-15'); // Make date value include a day so it can be parsed
                     return Helpers.formatDate(fullDate).slice(0,3) + " '"  + fullDate.slice(2,4);
+                  }
+
+                  else if (timeSpan === 'quarter') {
+                    return value.slice(-2) + ' ' + value.slice(0,4);
                   }
 
                   else {
@@ -339,7 +373,7 @@ export default class IndicatorsViz extends Component {
 
     return (
       <div className="Indicators__chart">
-        <Bar data={data} options={options} plugins={[ChartAnnotation]} width={100} height={300} />
+        <Bar data={data} options={options} plugins={[ChartAnnotation]} width={100} height={300} redraw />
       </div>
     );
   }
