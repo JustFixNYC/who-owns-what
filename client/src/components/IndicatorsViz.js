@@ -100,21 +100,21 @@ export default class IndicatorsViz extends Component {
 
   if (data.labels && data.labels.length > 10) {
 
-    if (!this.props.lastSale.quarter || this.props.lastSale.quarter < data.labels[this.props.xAxisStart]) {
+    if (!this.props.lastSale.label || this.props.lastSale.label < data.labels[this.props.xAxisStart]) {
       labelPosition = data.labels[this.props.xAxisStart];
       dateLocation = 'past'; 
     }
-    else if (this.props.lastSale.quarter > data.labels[this.props.xAxisStart + this.props.xAxisSpan - 1]) {
+    else if (this.props.lastSale.label > data.labels[this.props.xAxisStart + this.props.xAxisSpan - 1]) {
       labelPosition = data.labels[this.props.xAxisStart + this.props.xAxisSpan - 1];
       dateLocation = 'future'; 
     }
     else {
-      labelPosition = this.props.lastSale.quarter;
+      labelPosition = this.props.lastSale.label;
     }
-
   }
 
   var dataMaximum = this.getDataMaximum();
+  var timeSpan = this.props.activeTimeSpan;
 
   var options = {
       scales: {
@@ -133,12 +133,15 @@ export default class IndicatorsViz extends Component {
                 max: (data.labels ? data.labels[this.props.xAxisStart + 19] : null),
                 maxRotation: 45,
                 minRotation: 45,
-                // Only show labels for years
+                // Labels for Months
                 callback: function(value, index, values) {
-                  if (value.length === 7 && value.slice(-2) === 'Q1') {
-                    const year = value.slice(0,4);
-                    return year;
+
+                  if (timeSpan === 'month') {
+                    // Make date value include day:
+                    var fullDate = value.concat('-15');
+                    return Helpers.formatDate(fullDate).slice(0,3) + " '"  + fullDate.slice(2,4);
                   }
+
                   else {
                     return '';
                   }
@@ -168,27 +171,46 @@ export default class IndicatorsViz extends Component {
         callbacks: {
           title: function(tooltipItem) {
 
-            const quarter = this._data.labels[tooltipItem[0].index].slice(-1);
-            var monthRange;
-            
-            switch (quarter) {
-              case "1":
-                monthRange = "Jan - Mar";
-                break;
-              case "2":
-                monthRange = "Apr - Jun";
-                break;
-              case "3": 
-                monthRange = "Jul - Sep";
-                break;
-              case "4":
-                monthRange = "Oct - Dec";
-                break;
-              default:
-                monthRange = "";
+            if (timeSpan === 'quarter') {
+
+              const quarter = this._data.labels[tooltipItem[0].index].slice(-1);
+              var monthRange;
+              
+              switch (quarter) {
+                case "1":
+                  monthRange = "Jan - Mar";
+                  break;
+                case "2":
+                  monthRange = "Apr - Jun";
+                  break;
+                case "3": 
+                  monthRange = "Jul - Sep";
+                  break;
+                case "4":
+                  monthRange = "Oct - Dec";
+                  break;
+                default:
+                  monthRange = "";
+              }
+
+              return monthRange + " " + this._data.labels[tooltipItem[0].index].slice(0,4);
             }
 
-            return monthRange + " " + this._data.labels[tooltipItem[0].index].slice(0,4);
+            else if (timeSpan === 'year') {
+              return this._data.labels[tooltipItem[0].index];
+            }
+
+            else if (timeSpan === 'month') {
+
+              // Make date value include day:
+              var fullDate = (this._data.labels[tooltipItem[0].index]).concat('-15');
+              return Helpers.formatDate(fullDate);
+            }
+
+            else {
+              return '';
+            }
+
           },
           footer: function(tooltipItem, data) {
 

@@ -14,7 +14,7 @@ const initialState = {
       saleHistory: null,
       lastSale: {
         date: null,
-        quarter: null, 
+        label: null, 
         documentid: null 
       },
 
@@ -49,6 +49,8 @@ const initialState = {
 
       indicatorList: ['complaints','viols','permits'],
       activeVis: 'complaints',
+      timeSpanList: ['year','quarter','month'],
+      activeTimeSpan: 'month',
       xAxisStart: 0,
       xAxisSpan: 20,
       currentAddr: null
@@ -111,31 +113,6 @@ export default class Indicators extends Component {
 
   }
 
-  createLabels(startingYear) {
-
-    const currentYear = parseInt(new Date().getFullYear());
-    const currentMonth = parseInt(new Date().getMonth());
-
-    var labelsArray = [];
-
-    var yr, qtr;
-    for (yr = startingYear; yr <= currentYear; yr++) {
-      if (yr === currentYear) {
-        for (qtr = 1; qtr < currentMonth/3; qtr++) {
-          labelsArray.push((yr.toString()).concat(" Q",qtr.toString()));
-        }
-      }
-      else {
-        for (qtr = 1; qtr < 5; qtr++) {
-          labelsArray.push((yr.toString()).concat(" Q",qtr.toString()));
-        }
-      }
-    }
-
-    return labelsArray;
-
-  }
-
   createVizData(rawJSON, vizType) {
 
     var vizData;
@@ -154,7 +131,6 @@ export default class Indicators extends Component {
           },
           labels: []
         };
-        vizData.labels = this.createLabels(2010);
         break;
 
       case 'complaints':
@@ -166,7 +142,6 @@ export default class Indicators extends Component {
           },
           labels: []
         }
-        vizData.labels = this.createLabels(2010);
         break;
 
       case 'permits':
@@ -176,7 +151,6 @@ export default class Indicators extends Component {
           },
           labels: []
         }
-        vizData.labels = this.createLabels(2010);
         break;
 
       default:
@@ -187,22 +161,14 @@ export default class Indicators extends Component {
       // Generate arrays of data for chart.js visualizations:
 
       const rawJSONLength = rawJSON.length;
+       
+      for (let i = 0; i < rawJSONLength; i++) {
+        vizData.labels.push(rawJSON[i].month);
 
-      var i;
-      var j = 0;
+        for (const column in vizData.values) {
+          vizData.values[column].push(parseInt(rawJSON[i][column]));
+        }
 
-      for (i = 0; i < vizData.labels.length; i++) {
-        if (j < rawJSONLength && vizData.labels[i] === rawJSON[j].quarter) {
-          for (const column in vizData.values) {
-            vizData.values[column].push(parseInt(rawJSON[j][column]));
-          }
-          j++;
-        }
-        else {
-          for (const column in vizData.values) {
-            vizData.values[column].push(0);
-          }
-        }
       } 
 
       return vizData;
@@ -286,12 +252,15 @@ export default class Indicators extends Component {
         
         var lastSaleDate = this.state.saleHistory[0].docdate || this.state.saleHistory[0].recordedfiled; 
         var lastSaleYear = lastSaleDate.slice(0,4);
-        var lastSaleQuarter = Math.ceil(parseInt(lastSaleDate.slice(5,7)) / 3);
+        var lastSaleQuarter = lastSaleYear + '-Q' + Math.ceil(parseInt(lastSaleDate.slice(5,7)) / 3);
+        var lastSaleMonth = lastSaleDate.slice(0,7);
 
         this.setState({
           lastSale: {
             date: lastSaleDate,
-            quarter: lastSaleYear + ' Q' + lastSaleQuarter,
+            label: (this.state.activeTimeSpan === 'year' ? lastSaleYear :
+                    this.state.activeTimeSpan === 'quarter' ? lastSaleQuarter :
+                    lastSaleMonth),
             documentid: this.state.saleHistory[0].documentid
           }
         });
@@ -301,7 +270,7 @@ export default class Indicators extends Component {
         this.setState({
           lastSale: {
             date: null,
-            quarter: null,
+            label: null,
             documentid: null
           }
         });
