@@ -50,8 +50,8 @@ const initialState = {
       indicatorList: ['complaints','viols','permits'],
       activeVis: 'complaints',
       timeSpanList: ['month','quarter','year'],
-      activeTimeSpan: 'month',
-      monthsInGroup: 1,
+      activeTimeSpan: 'quarter',
+      monthsInGroup: 3,
       xAxisStart: 0,
       xAxisSpan: 20,
       currentAddr: null
@@ -82,7 +82,7 @@ export default class Indicators extends Component {
 
     const groupedLabelsLength = Math.floor(labelsArray.length / this.state.monthsInGroup);
 
-    const xAxisMax = groupedLabelsLength - span;
+    const xAxisMax = Math.max(groupedLabelsLength - span, 0);
     const currentPosition = this.state.xAxisStart;
     const offset = Math.ceil(6 / this.state.monthsInGroup);
 
@@ -280,6 +280,7 @@ export default class Indicators extends Component {
             documentid: this.state.saleHistory[0].documentid
           }
         });
+
       }
 
       else {

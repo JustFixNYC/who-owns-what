@@ -32,30 +32,33 @@ export default class IndicatorsViz extends Component {
 
   // Group raw data to match selected time span:
   groupLabels(labelsArray) {
+    // BY QUARTER: 
     if (labelsArray && this.props.activeTimeSpan === 'quarter') {
       var labelsByQuarter = []; 
       for (let i = 2; i < labelsArray.length; i = i + 3) {
-        var quarter = labelsArray[i].slice(0,4) + '-Q' + Math.ceil(parseInt(labelsArray[i].slice(-2)) / 3);
+        var quarter = labelsArray[i].slice(0,4) 
+          + '-Q' + Math.ceil(parseInt(labelsArray[i].slice(-2)) / 3); // i.e "2012-Q2" 
         labelsByQuarter.push(quarter); 
       }
       return labelsByQuarter;
     }
-
+    // BY YEAR:
     else if (labelsArray && this.props.activeTimeSpan === 'year') {
       var labelsByYear = []; 
       for (let i = 11; i < labelsArray.length; i = i + 12) {
-        var year = labelsArray[i].slice(0,4);
+        var year = labelsArray[i].slice(0,4); // i.e "2012" 
         labelsByYear.push(year); 
       }
       return labelsByYear;
     }
-
+    // BY MONTH (Default):
     else {
       return labelsArray;
     }
   }
 
   groupData(dataArray) {
+    // BY QUARTER:
     if (dataArray && this.props.activeTimeSpan === 'quarter') {
       var dataByQuarter = []; 
       for (let i = 2; i < dataArray.length; i = i + 3) {
@@ -64,7 +67,7 @@ export default class IndicatorsViz extends Component {
       }
       return dataByQuarter;
     }
-
+    // BY YEAR:
     else if (dataArray && this.props.activeTimeSpan === 'year') {
       var dataByYear = []; 
       for (let i = 12; i < dataArray.length; i = i + 12) {
@@ -73,7 +76,7 @@ export default class IndicatorsViz extends Component {
       }
       return dataByYear;
     }
-
+    // BY MONTH (Default):
     else {
       return dataArray;
     }
@@ -165,14 +168,16 @@ export default class IndicatorsViz extends Component {
   var labelPosition;
   var dateLocation = 'current'; 
 
-  if (data.labels && data.labels.length > 10) {
+  if (data.labels) {
+
+    const lastColumnIndex = Math.min(this.props.xAxisStart + this.props.xAxisSpan, data.labels.length) - 1;
 
     if (!this.props.lastSale.label || this.props.lastSale.label < data.labels[this.props.xAxisStart]) {
       labelPosition = data.labels[this.props.xAxisStart];
       dateLocation = 'past'; 
     }
-    else if (this.props.lastSale.label > data.labels[this.props.xAxisStart + this.props.xAxisSpan - 1]) {
-      labelPosition = data.labels[this.props.xAxisStart + this.props.xAxisSpan - 1];
+    else if (this.props.lastSale.label > data.labels[lastColumnIndex]) {
+      labelPosition = data.labels[lastColumnIndex];
       dateLocation = 'future'; 
     }
     else {
@@ -367,11 +372,11 @@ export default class IndicatorsViz extends Component {
                 type: "line",
                 mode: "vertical",
                 scaleID: "x-axis-0",
-                value: (timeSpan === "quarter" ? "2012-Q4" : "2013-10"),
+                value: (timeSpan === "quarter" ? "2012-Q4" : timeSpan === "year" ? "2012" : "2013-10"),
                 borderColor: "rgba(0,0,0,0)",
                 borderWidth: 0,
                 label: {
-                    content: (Browser.isMobile() ? "← No data available" : "← No data available for this time period"),
+                    content: (Browser.isMobile() || timeSpan === "year" ? "← No data available" : "← No data available for this time period"),
                     fontFamily: "Inconsolata, monospace",
                     fontColor: "#e85600",
                     fontSize: 12,
