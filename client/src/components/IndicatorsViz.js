@@ -182,20 +182,21 @@ export default class IndicatorsViz extends Component {
                 max: (data.labels ? data.labels[this.props.xAxisStart + 19] : null),
                 maxRotation: 45,
                 minRotation: 45,
-                // Labels for Months
                 callback: function(value, index, values) {
 
                   if (timeSpan === 'month') {
                     var fullDate = value.concat('-15'); // Make date value include a day so it can be parsed
-                    return Helpers.formatDate(fullDate).slice(0,3) + " '"  + fullDate.slice(2,4);
+                    return (value.slice(5,7) === "01" ? value.slice(0,4) + "  " : "") // Include special year label for January
+                     + Helpers.formatDate(fullDate).slice(0,3);
                   }
 
                   else if (timeSpan === 'quarter') {
-                    return value.slice(-2) + " '" + value.slice(2,4);
+                    return (value.slice(-2) === "Q1" ? value.slice(0,4) + "  " : "") // Include special year label for Q1
+                     + value.slice(-2);
                   }
 
                   else {
-                    return '';
+                    return value;
                   }
                 }
                         
@@ -203,18 +204,6 @@ export default class IndicatorsViz extends Component {
             stacked: true
         }]
       },
-      // title: {
-      //   display: true,
-      //   fontSize: 20,
-      //   fontFamily: "Inconsolata, monospace",
-      //   fontColor: "rgb(69, 77, 93)",
-      //   text: [
-      //     (this.props.detailAddr ? 
-      //       this.props.detailAddr.housenumber + " "  +
-      //       this.props.detailAddr.streetname + ", " + 
-      //       this.props.detailAddr.boro 
-      //       : "")]
-      // },
       tooltips: {
         mode: 'label',
         itemSort: function(a, b) {
@@ -360,11 +349,11 @@ export default class IndicatorsViz extends Component {
                 type: "line",
                 mode: "vertical",
                 scaleID: "x-axis-0",
-                value: "2012 Q1",
+                value: (timeSpan === "quarter" ? "2012-Q4" : "2013-10"),
                 borderColor: "rgba(0,0,0,0)",
                 borderWidth: 0,
                 label: {
-                    content: (Browser.isMobile() ? "No data available" : "No data available for this time period"),
+                    content: (Browser.isMobile() ? "← No data available" : "← No data available for this time period"),
                     fontFamily: "Inconsolata, monospace",
                     fontColor: "#e85600",
                     fontSize: 12,
