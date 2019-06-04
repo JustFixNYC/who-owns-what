@@ -191,7 +191,7 @@ export default class IndicatorsViz extends Component {
                   }
 
                   else if (timeSpan === 'quarter') {
-                    return value.slice(-2) + ' ' + value.slice(0,4);
+                    return value.slice(-2) + " '" + value.slice(2,4);
                   }
 
                   else {

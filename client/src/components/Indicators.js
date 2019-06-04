@@ -51,6 +51,7 @@ const initialState = {
       activeVis: 'complaints',
       timeSpanList: ['month','quarter','year'],
       activeTimeSpan: 'month',
+      monthsInGroup: 1,
       xAxisStart: 0,
       xAxisSpan: 20,
       currentAddr: null
@@ -78,23 +79,21 @@ export default class Indicators extends Component {
       return;
     }
 
-    var groupedLabelsLength = labelsArray.length;
-    if (this.state.activeTimeSpan === 'quarter') {
-      groupedLabelsLength = Math.floor(labelsArray.length / 3);
-    }
+    const groupedLabelsLength = Math.floor(labelsArray.length / this.state.monthsInGroup);
 
     const xAxisMax = groupedLabelsLength - span;
     const currentPosition = this.state.xAxisStart;
+    const offset = Math.ceil(6 / this.state.monthsInGroup);
 
     if (shift === 'left') {
-      const newPosition = Math.max(currentPosition - 2, 0);
+      const newPosition = Math.max(currentPosition - offset, 0);
       this.setState({
           xAxisStart: newPosition
         });
     }
 
     if (shift === 'right') {
-      const newPosition = Math.min(currentPosition + 2, xAxisMax);
+      const newPosition = Math.min(currentPosition + offset, xAxisMax);
       this.setState({
           xAxisStart: newPosition
         });
@@ -115,8 +114,11 @@ export default class Indicators extends Component {
   }
 
   handleTimeSpanChange(selectedTimeSpan) {
+    var monthsInGroup = (selectedTimeSpan === 'quarter' ? 3 : selectedTimeSpan === 'year' ? 12 : 1)
+
     this.setState({
       activeTimeSpan: selectedTimeSpan,
+      monthsInGroup: monthsInGroup
     });
   }
 
@@ -296,7 +298,7 @@ export default class Indicators extends Component {
   var lot = (this.props.detailAddr ? this.props.detailAddr.bbl.slice(6, 10) : null);
 
   var indicatorData = this.state.activeVis + 'Data';
-  var xAxisLength = (this.state[indicatorData].labels ? this.state[indicatorData].labels.length : 0);
+  var xAxisLength = (this.state[indicatorData].labels ? Math.floor(this.state[indicatorData].labels.length / this.state.monthsInGroup) : 0);
 
     return (
       <div className="Page Indicators">
