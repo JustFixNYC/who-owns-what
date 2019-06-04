@@ -170,7 +170,7 @@ export default class IndicatorsViz extends Component {
 
   if (data.labels) {
 
-    const lastColumnIndex = Math.min(this.props.xAxisStart + this.props.xAxisSpan, data.labels.length) - 1;
+    const lastColumnIndex = Math.min(this.props.xAxisStart + this.props.xAxisViewableColumns, data.labels.length) - 1;
 
     if (!this.props.lastSale.label || this.props.lastSale.label < data.labels[this.props.xAxisStart]) {
       labelPosition = data.labels[this.props.xAxisStart];

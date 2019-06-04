@@ -53,7 +53,7 @@ const initialState = {
       activeTimeSpan: 'quarter',
       monthsInGroup: 3,
       xAxisStart: 0,
-      xAxisSpan: 20,
+      xAxisViewableColumns: 20,
       currentAddr: null
 
 };
@@ -71,7 +71,7 @@ export default class Indicators extends Component {
   // Shift the X-axis 'left' or 'right', or 'reset' the X-axis to default
   handleXAxisChange(shift) {
 
-    const span = this.state.xAxisSpan;
+    const span = this.state.xAxisViewableColumns;
 
     const currentVisData = this.state.activeVis + 'Data';
     const labelsArray = this.state[currentVisData].labels;
@@ -303,9 +303,10 @@ export default class Indicators extends Component {
   var block = (this.props.detailAddr ? this.props.detailAddr.bbl.slice(1, 6) : null);
   var lot = (this.props.detailAddr ? this.props.detailAddr.bbl.slice(6, 10) : null);
 
-  var indicatorData = this.state.activeVis + 'Data';
+  var indicatorData = this.state.activeVis + 'Data'; 
   var xAxisLength = (this.state[indicatorData].labels ? Math.floor(this.state[indicatorData].labels.length / this.state.monthsInGroup) : 0);
-
+  var indicatorDataTotal = (this.state[indicatorData].values.total ? (this.state[indicatorData].values.total).reduce((total, sum) => (total + sum)) : null);
+  
     return (
       <div className="Page Indicators">
         <div className="Indicators__content Page__content">
@@ -383,7 +384,8 @@ export default class Indicators extends Component {
                 </div>  
 
                 <span className="title viz-title"> 
-                  {(this.state.activeVis === 'complaints' ? 'HPD Complaints Issued since 2014' : 
+                  { indicatorDataTotal + ' ' +
+                    (this.state.activeVis === 'complaints' ? 'HPD Complaints Issued since 2014' : 
                     this.state.activeVis === 'viols' ? 'HPD Violations Issued since 2010' :
                     this.state.activeVis === 'permits' ? 'Building Permit Applications since 2010' :
                     '')}
@@ -394,7 +396,7 @@ export default class Indicators extends Component {
                     "btn btn-off btn-axis-shift" : "btn btn-axis-shift")}
                     onClick={() => this.handleXAxisChange("left")}>‹</button>
                   <IndicatorsViz {...this.state} />
-                  <button className={(this.state.xAxisStart + this.state.xAxisSpan >= xAxisLength || this.state.activeTimeSpan === 'year'? 
+                  <button className={(this.state.xAxisStart + this.state.xAxisViewableColumns >= xAxisLength || this.state.activeTimeSpan === 'year'? 
                     "btn btn-off btn-axis-shift" : "btn btn-axis-shift")}
                     onClick={() => this.handleXAxisChange("right")}>›</button>
                 </div> 
