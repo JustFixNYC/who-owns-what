@@ -14,7 +14,7 @@ const initialState = {
       saleHistory: null,
       lastSale: {
         date: null,
-        quarter: null, 
+        label: null, 
         documentid: null 
       },
 
@@ -49,6 +49,9 @@ const initialState = {
 
       indicatorList: ['complaints','viols','permits'],
       activeVis: 'complaints',
+      timeSpanList: ['month','quarter','year'],
+      activeTimeSpan: 'quarter',
+      monthsInGroup: 3,
       xAxisStart: 0,
       xAxisSpan: 20,
       currentAddr: null
@@ -58,21 +61,14 @@ const initialState = {
 export default class Indicators extends Component {
   constructor(props) {
     super(props);
-
     this.state = initialState;
-
   }
 
   reset() {
     this.setState(initialState);
   }
 
-  handleVisChange(selectedVis) {
-    this.setState({
-          activeVis: selectedVis
-      });
-  }
-
+  // Shift the X-axis 'left' or 'right', or 'reset' the X-axis to default
   handleXAxisChange(shift) {
 
     const span = this.state.xAxisSpan;
@@ -84,23 +80,24 @@ export default class Indicators extends Component {
       return;
     }
 
-    const xAxisMax = labelsArray.length - span;
+    const groupedLabelsLength = Math.floor(labelsArray.length / this.state.monthsInGroup);
+
+    const xAxisMax = Math.max(groupedLabelsLength - span, 0);
     const currentPosition = this.state.xAxisStart;
-    
+    const offset = Math.ceil(6 / this.state.monthsInGroup);
 
     if (shift === 'left') {
-      const newPosition = Math.max(currentPosition - 2, 0);
+      const newPosition = Math.max(currentPosition - offset, 0);
       this.setState({
           xAxisStart: newPosition
         });
     }
 
     if (shift === 'right') {
-      const newPosition = Math.min(currentPosition + 2, xAxisMax);
+      const newPosition = Math.min(currentPosition + offset, xAxisMax);
       this.setState({
           xAxisStart: newPosition
         });
-
     }
 
     if (shift === 'reset') {
@@ -111,33 +108,22 @@ export default class Indicators extends Component {
 
   }
 
-  createLabels(startingYear) {
+  handleVisChange(selectedVis) {
+    this.setState({
+      activeVis: selectedVis
+    });
+  }
 
-    const currentYear = parseInt(new Date().getFullYear());
-    const currentMonth = parseInt(new Date().getMonth());
+  handleTimeSpanChange(selectedTimeSpan) {
+    var monthsInGroup = (selectedTimeSpan === 'quarter' ? 3 : selectedTimeSpan === 'year' ? 12 : 1)
 
-    var labelsArray = [];
-
-    var yr, qtr;
-    for (yr = startingYear; yr <= currentYear; yr++) {
-      if (yr === currentYear) {
-        for (qtr = 1; qtr < currentMonth/3; qtr++) {
-          labelsArray.push((yr.toString()).concat(" Q",qtr.toString()));
-        }
-      }
-      else {
-        for (qtr = 1; qtr < 5; qtr++) {
-          labelsArray.push((yr.toString()).concat(" Q",qtr.toString()));
-        }
-      }
-    }
-
-    return labelsArray;
-
+    this.setState({
+      activeTimeSpan: selectedTimeSpan,
+      monthsInGroup: monthsInGroup
+    });
   }
 
   createVizData(rawJSON, vizType) {
-
     var vizData;
 
     // Generate object to hold data for viz
@@ -154,7 +140,6 @@ export default class Indicators extends Component {
           },
           labels: []
         };
-        vizData.labels = this.createLabels(2010);
         break;
 
       case 'complaints':
@@ -166,7 +151,6 @@ export default class Indicators extends Component {
           },
           labels: []
         }
-        vizData.labels = this.createLabels(2010);
         break;
 
       case 'permits':
@@ -176,7 +160,6 @@ export default class Indicators extends Component {
           },
           labels: []
         }
-        vizData.labels = this.createLabels(2010);
         break;
 
       default:
@@ -185,26 +168,19 @@ export default class Indicators extends Component {
 
 
       // Generate arrays of data for chart.js visualizations:
+      // Default grouping is by MONTH
 
       const rawJSONLength = rawJSON.length;
+       
+      for (let i = 0; i < rawJSONLength; i++) {
 
-      var i;
-      var j = 0;
+        vizData.labels.push(rawJSON[i].month);
 
-      for (i = 0; i < vizData.labels.length; i++) {
-        if (j < rawJSONLength && vizData.labels[i] === rawJSON[j].quarter) {
-          for (const column in vizData.values) {
-            vizData.values[column].push(parseInt(rawJSON[j][column]));
-          }
-          j++;
+        for (const column in vizData.values) {
+          vizData.values[column].push(parseInt(rawJSON[i][column]));
         }
-        else {
-          for (const column in vizData.values) {
-            vizData.values[column].push(0);
-          }
-        }
-      } 
 
+      }
       return vizData;
   } 
 
@@ -266,19 +242,25 @@ export default class Indicators extends Component {
         this.setState({
           [indicatorData]: inputData
         });
-
       }
     }
 
-    // reset chart positions when default dataset loads:
+    // reset chart positions when:
+    // 1. default dataset loads or 
+    // 2. when activeTimeSpan changes:
 
-    if(!prevState.complaintsData.labels && this.state.complaintsData.labels) {
+    if((!prevState.complaintsData.labels && this.state.complaintsData.labels) ||
+    (prevState.activeTimeSpan !== this.state.activeTimeSpan)) {
       this.handleXAxisChange('reset');
     }
 
-    // process sale history data: 
+    // process sale history data when:
+    // 1. default dataset loads or 
+    // 2. when activeTimeSpan changes 
 
-    if(this.state.saleHistory && !Helpers.jsonEqual(prevState.saleHistory, this.state.saleHistory)) {
+    if(this.state.saleHistory && 
+        (!Helpers.jsonEqual(prevState.saleHistory, this.state.saleHistory) ||
+        (prevState.activeTimeSpan !== this.state.activeTimeSpan))) {
 
       if (this.state.saleHistory.length > 0 && 
           (this.state.saleHistory[0].docdate || this.state.saleHistory[0].recordedfiled) &&
@@ -286,22 +268,26 @@ export default class Indicators extends Component {
         
         var lastSaleDate = this.state.saleHistory[0].docdate || this.state.saleHistory[0].recordedfiled; 
         var lastSaleYear = lastSaleDate.slice(0,4);
-        var lastSaleQuarter = Math.ceil(parseInt(lastSaleDate.slice(5,7)) / 3);
+        var lastSaleQuarter = lastSaleYear + '-Q' + Math.ceil(parseInt(lastSaleDate.slice(5,7)) / 3);
+        var lastSaleMonth = lastSaleDate.slice(0,7);
 
         this.setState({
           lastSale: {
             date: lastSaleDate,
-            quarter: lastSaleYear + ' Q' + lastSaleQuarter,
+            label: (this.state.activeTimeSpan === 'year' ? lastSaleYear :
+                    this.state.activeTimeSpan === 'quarter' ? lastSaleQuarter :
+                    lastSaleMonth),
             documentid: this.state.saleHistory[0].documentid
           }
         });
+
       }
 
       else {
         this.setState({
           lastSale: {
             date: null,
-            quarter: null,
+            label: null,
             documentid: null
           }
         });
@@ -318,7 +304,7 @@ export default class Indicators extends Component {
   var lot = (this.props.detailAddr ? this.props.detailAddr.bbl.slice(6, 10) : null);
 
   var indicatorData = this.state.activeVis + 'Data';
-  var xAxisLength = (this.state[indicatorData].labels ? this.state[indicatorData].labels.length : 0);
+  var xAxisLength = (this.state[indicatorData].labels ? Math.floor(this.state[indicatorData].labels.length / this.state.monthsInGroup) : 0);
 
     return (
       <div className="Page Indicators">
@@ -366,7 +352,35 @@ export default class Indicators extends Component {
                         <i className="form-icon"></i> Building Permit Applications
                       </label>
                   </li>
-                </div> 
+                </div>
+
+                <div className="Indicators__links">
+                  <em className="Indicators__linksTitle">Group by:</em>
+                  <li className="menu-item">
+                      <label className="form-radio">
+                        <input type="radio" 
+                          checked={(this.state.activeTimeSpan === "month" ? true : false)}
+                          onChange={() => this.handleTimeSpanChange("month")} />
+                        <i className="form-icon"></i> Month
+                      </label>
+                  </li>
+                  <li className="menu-item">
+                      <label className="form-radio">
+                        <input type="radio" 
+                          checked={(this.state.activeTimeSpan === "quarter" ? true : false)}
+                          onChange={() => this.handleTimeSpanChange("quarter")} />
+                        <i className="form-icon"></i> Quarter
+                      </label>
+                  </li>
+                  <li className="menu-item">
+                      <label className="form-radio">
+                        <input type="radio" 
+                          checked={(this.state.activeTimeSpan === "year" ? true : false)}
+                          onChange={() => this.handleTimeSpanChange("year")} />
+                        <i className="form-icon"></i> Year
+                      </label>
+                  </li>
+                </div>  
 
                 <span className="title viz-title"> 
                   {(this.state.activeVis === 'complaints' ? 'HPD Complaints Issued since 2014' : 
@@ -376,11 +390,11 @@ export default class Indicators extends Component {
                 </span>
 
                 <div className="Indicators__viz">
-                  <button className={(this.state.xAxisStart === 0 ? 
+                  <button className={(this.state.xAxisStart === 0 || this.state.activeTimeSpan === 'year' ? 
                     "btn btn-off btn-axis-shift" : "btn btn-axis-shift")}
                     onClick={() => this.handleXAxisChange("left")}>‹</button>
                   <IndicatorsViz {...this.state} />
-                  <button className={(this.state.xAxisStart + this.state.xAxisSpan >= xAxisLength ? 
+                  <button className={(this.state.xAxisStart + this.state.xAxisSpan >= xAxisLength || this.state.activeTimeSpan === 'year'? 
                     "btn btn-off btn-axis-shift" : "btn btn-axis-shift")}
                     onClick={() => this.handleXAxisChange("right")}>›</button>
                 </div> 

@@ -13,12 +13,82 @@ import 'styles/Indicators.css';
 
 export default class IndicatorsViz extends Component {
 
+  constructor(props) {
+    super(props);
+    this.state = { 
+      shouldRedraw: false 
+    };
+  }
+
+  // Make Chart Redraw ONLY when the time span changes:
+  componentWillReceiveProps(nextProps) { 
+    if(nextProps.activeTimeSpan !== this.props.activeTimeSpan) {
+      this.setState({shouldRedraw: true})
+    } 
+    else {
+     this.setState({shouldRedraw: false})
+    }
+  }
+
+  // Group raw data to match selected time span:
+  groupLabels(labelsArray) {
+    // BY QUARTER: 
+    if (labelsArray && this.props.activeTimeSpan === 'quarter') {
+      var labelsByQuarter = []; 
+      for (let i = 2; i < labelsArray.length; i = i + 3) {
+        var quarter = labelsArray[i].slice(0,4) 
+          + '-Q' + Math.ceil(parseInt(labelsArray[i].slice(-2)) / 3); // i.e "2012-Q2" 
+        labelsByQuarter.push(quarter); 
+      }
+      return labelsByQuarter;
+    }
+    // BY YEAR:
+    else if (labelsArray && this.props.activeTimeSpan === 'year') {
+      var labelsByYear = []; 
+      for (let i = 11; i < labelsArray.length; i = i + 12) {
+        var year = labelsArray[i].slice(0,4); // i.e "2012" 
+        labelsByYear.push(year); 
+      }
+      return labelsByYear;
+    }
+    // BY MONTH (Default):
+    else {
+      return labelsArray;
+    }
+  }
+
+  groupData(dataArray) {
+    // BY QUARTER:
+    if (dataArray && this.props.activeTimeSpan === 'quarter') {
+      var dataByQuarter = []; 
+      for (let i = 2; i < dataArray.length; i = i + 3) {
+        var sumQuarter = dataArray[i] + dataArray[i-1] + dataArray[i-2];
+        dataByQuarter.push(sumQuarter); 
+      }
+      return dataByQuarter;
+    }
+    // BY YEAR:
+    else if (dataArray && this.props.activeTimeSpan === 'year') {
+      var dataByYear = []; 
+      for (let i = 12; i < dataArray.length; i = i + 12) {
+        var sumYear = (dataArray.slice(i - 12, i)).reduce( (total, sum) => (total + sum) );
+        dataByYear.push(sumYear); 
+      }
+      return dataByYear;
+    }
+    // BY MONTH (Default):
+    else {
+      return dataArray;
+    }
+
+  }
+
   getDataMaximum() {
 
     var indicatorDataLabels = this.props.indicatorList.map(x => x + 'Data');
     var dataMaximums = indicatorDataLabels.map( 
       indicatorData => (this.props[indicatorData].values.total ? 
-                        Helpers.maxArray(this.props[indicatorData].values.total) :
+                        Helpers.maxArray(this.groupData(this.props[indicatorData].values.total)) :
                         0)
     );
 
@@ -37,21 +107,21 @@ export default class IndicatorsViz extends Component {
       datasets = 
         [{
             label: 'Class C',
-            data: this.props.violsData.values.class_c,
+            data: this.groupData(this.props.violsData.values.class_c),
             backgroundColor: 'rgba(136,65,157, 0.6)',
             borderColor: 'rgba(136,65,157,1)',
             borderWidth: 1
         },
         {
             label: 'Class B',
-            data: this.props.violsData.values.class_b,
+            data: this.groupData(this.props.violsData.values.class_b),
             backgroundColor: 'rgba(140,150,198, 0.6)',
             borderColor: 'rgba(140,150,198,1)',
             borderWidth: 1
         },
         {
             label: 'Class A',
-            data: this.props.violsData.values.class_a,
+            data: this.groupData(this.props.violsData.values.class_a),
             backgroundColor: 'rgba(157, 194, 227, 0.6)',
             borderColor: 'rgba(157, 194, 227,1)',
             borderWidth: 1
@@ -61,14 +131,14 @@ export default class IndicatorsViz extends Component {
       datasets = 
         [{
             label: 'Emergency',
-            data: this.props.complaintsData.values.emergency,
+            data: this.groupData(this.props.complaintsData.values.emergency),
             backgroundColor: 'rgba(227,74,51, 0.6)',
             borderColor: 'rgba(227,74,51,1)',
             borderWidth: 1
         },
         {
             label: 'Non-Emergency',
-            data: this.props.complaintsData.values.nonemergency,
+            data: this.groupData(this.props.complaintsData.values.nonemergency),
             backgroundColor: 'rgba(255, 219, 170, 0.6)',
             borderColor: 'rgba(255, 219, 170,1)',
             borderWidth: 1
@@ -78,7 +148,7 @@ export default class IndicatorsViz extends Component {
       datasets = 
         [{
             label: 'Building Permits Filed',
-            data: this.props.permitsData.values.total,
+            data: this.groupData(this.props.permitsData.values.total),
             backgroundColor: 'rgba(73, 192, 179, 0.6)',
             borderColor: 'rgb(73, 192, 179)',
             borderWidth: 1
@@ -91,30 +161,32 @@ export default class IndicatorsViz extends Component {
 
   var indicatorData = this.props.activeVis + 'Data';
   var data = {
-        labels: this.props[indicatorData].labels, 
+        labels: this.groupLabels(this.props[indicatorData].labels), 
         datasets: datasets
   };
 
   var labelPosition;
   var dateLocation = 'current'; 
 
-  if (data.labels && data.labels.length > 10) {
+  if (data.labels) {
 
-    if (!this.props.lastSale.quarter || this.props.lastSale.quarter < data.labels[this.props.xAxisStart]) {
+    const lastColumnIndex = Math.min(this.props.xAxisStart + this.props.xAxisSpan, data.labels.length) - 1;
+
+    if (!this.props.lastSale.label || this.props.lastSale.label < data.labels[this.props.xAxisStart]) {
       labelPosition = data.labels[this.props.xAxisStart];
       dateLocation = 'past'; 
     }
-    else if (this.props.lastSale.quarter > data.labels[this.props.xAxisStart + this.props.xAxisSpan - 1]) {
-      labelPosition = data.labels[this.props.xAxisStart + this.props.xAxisSpan - 1];
+    else if (this.props.lastSale.label > data.labels[lastColumnIndex]) {
+      labelPosition = data.labels[lastColumnIndex];
       dateLocation = 'future'; 
     }
     else {
-      labelPosition = this.props.lastSale.quarter;
+      labelPosition = this.props.lastSale.label;
     }
-
   }
 
   var dataMaximum = this.getDataMaximum();
+  var timeSpan = this.props.activeTimeSpan;
 
   var options = {
       scales: {
@@ -133,14 +205,21 @@ export default class IndicatorsViz extends Component {
                 max: (data.labels ? data.labels[this.props.xAxisStart + 19] : null),
                 maxRotation: 45,
                 minRotation: 45,
-                // Only show labels for years
                 callback: function(value, index, values) {
-                  if (value.length === 7 && value.slice(-2) === 'Q1') {
-                    const year = value.slice(0,4);
-                    return year;
+
+                  if (timeSpan === 'month') {
+                    var fullDate = value.concat('-15'); // Make date value include a day so it can be parsed
+                    return (value.slice(5,7) === "01" ? value.slice(0,4) + "  " : "") // Include special year label for January
+                     + Helpers.formatDate(fullDate).slice(0,3);
                   }
+
+                  else if (timeSpan === 'quarter') {
+                    return (value.slice(-2) === "Q1" ? value.slice(0,4) + "  " : "") // Include special year label for Q1
+                     + value.slice(-2);
+                  }
+
                   else {
-                    return '';
+                    return value;
                   }
                 }
                         
@@ -148,18 +227,6 @@ export default class IndicatorsViz extends Component {
             stacked: true
         }]
       },
-      // title: {
-      //   display: true,
-      //   fontSize: 20,
-      //   fontFamily: "Inconsolata, monospace",
-      //   fontColor: "rgb(69, 77, 93)",
-      //   text: [
-      //     (this.props.detailAddr ? 
-      //       this.props.detailAddr.housenumber + " "  +
-      //       this.props.detailAddr.streetname + ", " + 
-      //       this.props.detailAddr.boro 
-      //       : "")]
-      // },
       tooltips: {
         mode: 'label',
         itemSort: function(a, b) {
@@ -168,27 +235,46 @@ export default class IndicatorsViz extends Component {
         callbacks: {
           title: function(tooltipItem) {
 
-            const quarter = this._data.labels[tooltipItem[0].index].slice(-1);
-            var monthRange;
-            
-            switch (quarter) {
-              case "1":
-                monthRange = "Jan - Mar";
-                break;
-              case "2":
-                monthRange = "Apr - Jun";
-                break;
-              case "3": 
-                monthRange = "Jul - Sep";
-                break;
-              case "4":
-                monthRange = "Oct - Dec";
-                break;
-              default:
-                monthRange = "";
+            if (timeSpan === 'quarter') {
+
+              const quarter = this._data.labels[tooltipItem[0].index].slice(-1);
+              var monthRange;
+              
+              switch (quarter) {
+                case "1":
+                  monthRange = "Jan - Mar";
+                  break;
+                case "2":
+                  monthRange = "Apr - Jun";
+                  break;
+                case "3": 
+                  monthRange = "Jul - Sep";
+                  break;
+                case "4":
+                  monthRange = "Oct - Dec";
+                  break;
+                default:
+                  monthRange = "";
+              }
+
+              return monthRange + " " + this._data.labels[tooltipItem[0].index].slice(0,4);
             }
 
-            return monthRange + " " + this._data.labels[tooltipItem[0].index].slice(0,4);
+            else if (timeSpan === 'year') {
+              return this._data.labels[tooltipItem[0].index];
+            }
+
+            else if (timeSpan === 'month') {
+
+              // Make date value include day:
+              var fullDate = (this._data.labels[tooltipItem[0].index]).concat('-15');
+              return Helpers.formatDate(fullDate);
+            }
+
+            else {
+              return '';
+            }
+
           },
           footer: function(tooltipItem, data) {
 
@@ -286,11 +372,11 @@ export default class IndicatorsViz extends Component {
                 type: "line",
                 mode: "vertical",
                 scaleID: "x-axis-0",
-                value: "2012 Q1",
+                value: (timeSpan === "quarter" ? "2012-Q4" : timeSpan === "year" ? "2012" : "2013-10"),
                 borderColor: "rgba(0,0,0,0)",
                 borderWidth: 0,
                 label: {
-                    content: (Browser.isMobile() ? "No data available" : "No data available for this time period"),
+                    content: (Browser.isMobile() || timeSpan === "year" ? "← No data available" : "← No data available for this time period"),
                     fontFamily: "Inconsolata, monospace",
                     fontColor: "#e85600",
                     fontSize: 12,
@@ -317,7 +403,7 @@ export default class IndicatorsViz extends Component {
 
     return (
       <div className="Indicators__chart">
-        <Bar data={data} options={options} plugins={[ChartAnnotation]} width={100} height={300} />
+        <Bar data={data} options={options} plugins={[ChartAnnotation]} width={100} height={300} redraw={this.state.shouldRedraw} />
       </div>
     );
   }

@@ -62,7 +62,7 @@ export default {
 
   formatDate(dateString) {
     var date = new Date(dateString);
-    var options = {year: 'numeric', month: 'long', day: 'numeric'};
+    var options = {year: 'numeric', month: 'long'};
     return date.toLocaleDateString("en-US", options);
   }
 
