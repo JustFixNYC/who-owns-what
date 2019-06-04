@@ -15,17 +15,29 @@ export default class IndicatorsViz extends Component {
   constructor(props) {
     super(props);
     this.state = { 
-      shouldRedraw: false 
+      shouldRedraw: false,
+      animationTime: 1000 
     };
   }
 
   // Make Chart Redraw ONLY when the time span changes:
   componentWillReceiveProps(nextProps) { 
     if(nextProps.activeTimeSpan !== this.props.activeTimeSpan) {
-      this.setState({shouldRedraw: true})
-    } 
+      const animationTime = (nextProps.activeTimeSpan === 'month' ? 2500 : 1000);
+      this.setState({
+        shouldRedraw: true,
+        animationTime: animationTime
+      });
+      setTimeout(function() {
+        this.setState({
+          animationTime: 1000
+        });
+      }.bind(this), 2500);
+    }
     else {
-     this.setState({shouldRedraw: false})
+     this.setState({
+        shouldRedraw: false
+      });
     }
   }
 
@@ -384,6 +396,9 @@ export default class IndicatorsViz extends Component {
           )
         ],
         drawTime: "afterDraw" // (default)
+      },
+      animation: {
+        duration: this.state.animationTime
       },
       maintainAspectRatio: false,
       onHover: function (event) {
