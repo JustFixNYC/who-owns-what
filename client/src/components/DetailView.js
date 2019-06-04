@@ -149,6 +149,11 @@ export default class DetailView extends Component {
                             </div>
                         </div>
                         <span className="card-body-table-prompt float-right"><i>(hover over a box to learn more)</i></span>
+                        <div className="card-body-timeline-link">
+                          <button className="btn btn-primary btn-block" onClick={() => this.props.onLinkToTimeline()}>
+                            <span>View data over time </span>&#8599;&#xFE0E;
+                          </button>
+                        </div>
                         <div className="card-body-landlord">
                             <div className="columns">
                               <div className="column col-xs-12 col-6">

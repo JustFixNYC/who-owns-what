@@ -80,6 +80,12 @@ export default class AddressPage extends Component {
     });
   }
 
+  handleTimelineLink = () => {
+    this.setState({
+      currentTab: 1
+    })
+  }
+
   handleCloseDetail = () => {
     this.setState({
       detailMobileSlide: false
@@ -169,6 +175,7 @@ export default class AddressPage extends Component {
             mobileShow={this.state.detailMobileSlide}
             userAddr={this.state.userAddr}
             onCloseDetail={this.handleCloseDetail}
+            onLinkToTimeline={this.handleTimelineLink}
           />
         </div>
         <div className={`AddressPage__content AddressPage__summary ${this.state.currentTab === 1 ? "AddressPage__content-active": ''}`}>
