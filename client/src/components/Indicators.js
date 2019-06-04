@@ -64,10 +64,7 @@ export default class Indicators extends Component {
     this.state = initialState;
   }
 
-  reset() {
-    this.setState(initialState);
-  }
-
+  // Shift the X-axis 'left' or 'right', or 'reset' the X-axis to default
   handleXAxisChange(shift) {
 
     const span = this.state.xAxisSpan;
@@ -244,14 +241,18 @@ export default class Indicators extends Component {
       }
     }
 
-    // reset chart positions when default dataset loads or when activeTimeSpan changes:
+    // reset chart positions when:
+    // 1. default dataset loads or 
+    // 2. when activeTimeSpan changes:
 
     if((!prevState.complaintsData.labels && this.state.complaintsData.labels) ||
     (prevState.activeTimeSpan !== this.state.activeTimeSpan)) {
       this.handleXAxisChange('reset');
     }
 
-    // process sale history data when default dataset loads or when activeTimeSpan changes: 
+    // process sale history data when:
+    // 1. default dataset loads or 
+    // 2. when activeTimeSpan changes 
 
     if(this.state.saleHistory && 
         (!Helpers.jsonEqual(prevState.saleHistory, this.state.saleHistory) ||
