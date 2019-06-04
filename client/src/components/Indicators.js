@@ -64,6 +64,10 @@ export default class Indicators extends Component {
     this.state = initialState;
   }
 
+  reset() {
+    this.setState(initialState);
+  }
+
   // Shift the X-axis 'left' or 'right', or 'reset' the X-axis to default
   handleXAxisChange(shift) {
 
@@ -367,6 +371,14 @@ export default class Indicators extends Component {
                         <i className="form-icon"></i> Quarter
                       </label>
                   </li>
+                  <li className="menu-item">
+                      <label className="form-radio">
+                        <input type="radio" 
+                          checked={(this.state.activeTimeSpan === "year" ? true : false)}
+                          onChange={() => this.handleTimeSpanChange("year")} />
+                        <i className="form-icon"></i> Year
+                      </label>
+                  </li>
                 </div>  
 
                 <span className="title viz-title"> 
@@ -377,11 +389,11 @@ export default class Indicators extends Component {
                 </span>
 
                 <div className="Indicators__viz">
-                  <button className={(this.state.xAxisStart === 0 ? 
+                  <button className={(this.state.xAxisStart === 0 || this.state.activeTimeSpan === 'year' ? 
                     "btn btn-off btn-axis-shift" : "btn btn-axis-shift")}
                     onClick={() => this.handleXAxisChange("left")}>‹</button>
                   <IndicatorsViz {...this.state} />
-                  <button className={(this.state.xAxisStart + this.state.xAxisSpan >= xAxisLength ? 
+                  <button className={(this.state.xAxisStart + this.state.xAxisSpan >= xAxisLength || this.state.activeTimeSpan === 'year'? 
                     "btn btn-off btn-axis-shift" : "btn btn-axis-shift")}
                     onClick={() => this.handleXAxisChange("right")}>›</button>
                 </div> 

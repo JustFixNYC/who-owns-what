@@ -32,7 +32,7 @@ export default class IndicatorsViz extends Component {
 
   // Group raw data to match selected time span:
   groupLabels(labelsArray) {
-    if (this.props.activeTimeSpan === 'quarter') {
+    if (labelsArray && this.props.activeTimeSpan === 'quarter') {
       var labelsByQuarter = []; 
       for (let i = 2; i < labelsArray.length; i = i + 3) {
         var quarter = labelsArray[i].slice(0,4) + '-Q' + Math.ceil(parseInt(labelsArray[i].slice(-2)) / 3);
@@ -41,19 +41,37 @@ export default class IndicatorsViz extends Component {
       return labelsByQuarter;
     }
 
+    else if (labelsArray && this.props.activeTimeSpan === 'year') {
+      var labelsByYear = []; 
+      for (let i = 11; i < labelsArray.length; i = i + 12) {
+        var year = labelsArray[i].slice(0,4);
+        labelsByYear.push(year); 
+      }
+      return labelsByYear;
+    }
+
     else {
       return labelsArray;
     }
   }
 
   groupData(dataArray) {
-    if (this.props.activeTimeSpan === 'quarter') {
+    if (dataArray && this.props.activeTimeSpan === 'quarter') {
       var dataByQuarter = []; 
       for (let i = 2; i < dataArray.length; i = i + 3) {
-        var sum = dataArray[i] + dataArray[i-1] + dataArray[i-2];
-        dataByQuarter.push(sum); 
+        var sumQuarter = dataArray[i] + dataArray[i-1] + dataArray[i-2];
+        dataByQuarter.push(sumQuarter); 
       }
       return dataByQuarter;
+    }
+
+    else if (dataArray && this.props.activeTimeSpan === 'year') {
+      var dataByYear = []; 
+      for (let i = 12; i < dataArray.length; i = i + 12) {
+        var sumYear = (dataArray.slice(i - 12, i)).reduce( (total, sum) => (total + sum) );
+        dataByYear.push(sumYear); 
+      }
+      return dataByYear;
     }
 
     else {
