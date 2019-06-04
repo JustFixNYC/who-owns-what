@@ -123,6 +123,26 @@ export default class Indicators extends Component {
     });
   }
 
+  fetchData() {
+      APIClient.getSaleHistory(this.props.detailAddr.bbl)
+        .then(results => this.setState({ saleHistory: results.result }))
+        .catch(err => console.error(err));
+
+      const indicatorList = this.state.indicatorList.map(x => x + 'History');
+
+      for (const indicator of indicatorList) {
+        const APICall = 'get' + Helpers.capitalize(indicator); // i.e: 'getViolsHistory'
+        APIClient[APICall](this.props.detailAddr.bbl)
+          .then(results => this.setState({ [indicator]: results.result }))
+          .catch(err => console.error(err));
+        
+      }
+
+      this.setState({
+        currentAddr: this.props.detailAddr
+      });
+  }
+
   createVizData(rawJSON, vizType) {
     var vizData;
 
@@ -184,26 +204,6 @@ export default class Indicators extends Component {
       return vizData;
   } 
 
-  fetchData() {
-      APIClient.getSaleHistory(this.props.detailAddr.bbl)
-        .then(results => this.setState({ saleHistory: results.result }))
-        .catch(err => console.error(err));
-
-      const indicatorList = this.state.indicatorList.map(x => x + 'History');
-
-      for (const indicator of indicatorList) {
-        const APICall = 'get' + Helpers.capitalize(indicator); // i.e: 'getViolsHistory'
-        APIClient[APICall](this.props.detailAddr.bbl)
-          .then(results => this.setState({ [indicator]: results.result }))
-          .catch(err => console.error(err));
-        
-      }
-
-      this.setState({
-        currentAddr: this.props.detailAddr
-      });
-  }
-
   componentWillReceiveProps(nextProps) {
 
     // make the api call when we come into view and have
@@ -218,11 +218,6 @@ export default class Indicators extends Component {
     if(this.props.isVisible && !nextProps.isVisible) {
       this.reset();
     }
-
-    // if(nextProps.isVisible && this.props.detailAddr && this.state.currentAddr &&
-    // !Helpers.addrsAreEqual(this.props.detailAddr, this.state.currentAddr)) {
-    //   this.fetchData();
-    // }
   }
 
   componentDidUpdate(prevProps, prevState) {

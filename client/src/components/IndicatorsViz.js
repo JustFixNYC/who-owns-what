@@ -7,7 +7,6 @@ import * as ChartAnnotation from 'chartjs-plugin-annotation';
 // why we're using this import format: https://stackoverflow.com/questions/51664741/chartjs-plugin-annotations-not-displayed-in-angular-5/53071497#53071497
 
 import Helpers from 'util/helpers';
-import Browser from 'util/browser';
 
 import 'styles/Indicators.css';
 
@@ -30,9 +29,8 @@ export default class IndicatorsViz extends Component {
     }
   }
 
-  // Group raw data to match selected time span:
+  // Group monthly raw data to match selected time span:
   groupLabels(labelsArray) {
-    // BY QUARTER: 
     if (labelsArray && this.props.activeTimeSpan === 'quarter') {
       var labelsByQuarter = []; 
       for (let i = 2; i < labelsArray.length; i = i + 3) {
@@ -42,7 +40,6 @@ export default class IndicatorsViz extends Component {
       }
       return labelsByQuarter;
     }
-    // BY YEAR:
     else if (labelsArray && this.props.activeTimeSpan === 'year') {
       var labelsByYear = []; 
       for (let i = 11; i < labelsArray.length; i = i + 12) {
@@ -51,14 +48,12 @@ export default class IndicatorsViz extends Component {
       }
       return labelsByYear;
     }
-    // BY MONTH (Default):
     else {
       return labelsArray;
     }
   }
 
   groupData(dataArray) {
-    // BY QUARTER:
     if (dataArray && this.props.activeTimeSpan === 'quarter') {
       var dataByQuarter = []; 
       for (let i = 2; i < dataArray.length; i = i + 3) {
@@ -67,7 +62,6 @@ export default class IndicatorsViz extends Component {
       }
       return dataByQuarter;
     }
-    // BY YEAR:
     else if (dataArray && this.props.activeTimeSpan === 'year') {
       var dataByYear = []; 
       for (let i = 12; i < dataArray.length; i = i + 12) {
@@ -76,7 +70,6 @@ export default class IndicatorsViz extends Component {
       }
       return dataByYear;
     }
-    // BY MONTH (Default):
     else {
       return dataArray;
     }
@@ -88,8 +81,7 @@ export default class IndicatorsViz extends Component {
     var indicatorDataLabels = this.props.indicatorList.map(x => x + 'Data');
     var dataMaximums = indicatorDataLabels.map( 
       indicatorData => (this.props[indicatorData].values.total ? 
-                        Helpers.maxArray(this.groupData(this.props[indicatorData].values.total)) :
-                        0)
+                        Helpers.maxArray(this.groupData(this.props[indicatorData].values.total)) : 0)
     );
 
     return Helpers.maxArray(dataMaximums);
@@ -99,7 +91,6 @@ export default class IndicatorsViz extends Component {
   render() {
 
   // Set configurables for active vis
-
   var datasets;
 
   switch (this.props.activeVis) {
@@ -158,7 +149,6 @@ export default class IndicatorsViz extends Component {
   }
 
   // Create "data" and "options" objects for rendering visualization
-
   var indicatorData = this.props.activeVis + 'Data';
   var data = {
         labels: this.groupLabels(this.props[indicatorData].labels), 
@@ -202,7 +192,7 @@ export default class IndicatorsViz extends Component {
         xAxes: [{
             ticks: {
                 min: (data.labels ? data.labels[this.props.xAxisStart] : null),
-                max: (data.labels ? data.labels[this.props.xAxisStart + 19] : null),
+                max: (data.labels ? data.labels[this.props.xAxisStart + this.props.xAxisViewableColumns - 1] : null),
                 maxRotation: 45,
                 minRotation: 45,
                 callback: function(value, index, values) {
@@ -376,7 +366,7 @@ export default class IndicatorsViz extends Component {
                 borderColor: "rgba(0,0,0,0)",
                 borderWidth: 0,
                 label: {
-                    content: (Browser.isMobile() || timeSpan === "year" ? "← No data available" : "← No data available for this time period"),
+                    content: "← No data available",
                     fontFamily: "Inconsolata, monospace",
                     fontColor: "#e85600",
                     fontSize: 12,
