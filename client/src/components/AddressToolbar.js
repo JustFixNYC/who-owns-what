@@ -42,7 +42,7 @@ export default class AddressToolbar extends Component {
           <button className="btn" onClick={() => this.setState({ showExportModal: true })}>
             Export Data
           </button>
-          <Link className="btn" to="/">
+          <Link className="btn" onClick={() => { window.gtag('event', 'new-search');}} to="/">
             New Search
           </Link>
         </div>

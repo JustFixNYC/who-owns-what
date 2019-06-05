@@ -139,7 +139,7 @@ export default class AddressPage extends Component {
                 </li>
                 <li className={`tab-item ${this.state.currentTab === 1 ? "active" : ""}`}>
                   <a // eslint-disable-line jsx-a11y/anchor-is-valid
-                    onClick={() => this.setState({ currentTab: 1 })}>List</a>
+                    onClick={() => {this.setState({ currentTab: 1 }); window.gtag('event', 'portfolio-tab');}}>List</a>
                 </li>
                 <li className={`tab-item ${this.state.currentTab === 2 ? "active" : ""}`}>
                   <a // eslint-disable-line jsx-a11y/anchor-is-valid
