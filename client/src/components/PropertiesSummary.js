@@ -102,7 +102,7 @@ export default class PropertiesSummary extends Component {
               </p>
               <h6>Evictions</h6>
               <p>
-                In 2017, NYC Marshals scheduled <b>{agg.totalevictions > 0 ? agg.totalevictions : "0"}</b> eviction{parseInt(agg.totalevictions) === 1 ? "" : "s"} across this portfolio.
+                In 2018, NYC Marshals scheduled <b>{agg.totalevictions > 0 ? agg.totalevictions : "0"}</b> eviction{parseInt(agg.totalevictions) === 1 ? "" : "s"} across this portfolio.
                 {agg.totalevictions > 0 ?
                   <span> The building with the most evictions was&nbsp;
                     {agg.evictionsaddr && (
@@ -130,7 +130,7 @@ export default class PropertiesSummary extends Component {
                   <span className="PropertiesSummary__linksTitle"><em>Additional links</em></span>
                   <div>
                     <h6 className="PropertiesSummary__linksSubtitle">Looking for more information?</h6>
-                    <a href={encodeURI(`https://docs.google.com/forms/d/e/1FAIpQLSfHdokAh4O-vB6jO8Ym0Wv_lL7cVUxsWvxw5rjZ9Ogcht7HxA/viewform?usp=pp_url&entry.1164013846=${this.props.userAddr.housenumber}+${this.props.userAddr.streetname},+${this.props.userAddr.boro}`)} target="_blank" rel="noopener noreferrer" className="btn btn-block">
+                    <a onClick={() => {window.gtag('event', 'data-request');}} href={encodeURI(`https://docs.google.com/forms/d/e/1FAIpQLSfHdokAh4O-vB6jO8Ym0Wv_lL7cVUxsWvxw5rjZ9Ogcht7HxA/viewform?usp=pp_url&entry.1164013846=${this.props.userAddr.housenumber}+${this.props.userAddr.streetname},+${this.props.userAddr.boro}`)} target="_blank" rel="noopener noreferrer" className="btn btn-block">
                       <div>
                         <label>Send us a data request</label>
                       </div>

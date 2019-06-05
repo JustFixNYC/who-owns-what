@@ -167,8 +167,9 @@ const PropertiesList = (props) => {
               Header: 'Evictions',
               columns: [
                 {
-                  Header: "2017",
-                  accessor: "evictions",
+                  Header: "2018",
+                  accessor: d => (d.evictions ? parseInt(d.evictions) : null),
+                  id: 'evictions',
                   maxWidth: 75
                 }
               ]
@@ -178,16 +179,12 @@ const PropertiesList = (props) => {
               columns: [
                 {
                   Header: "Officer/Owner",
-                  accessor: "ownernames",
-                  minWidth: 150,
-                  Cell: row => {
-                    const owner = row.original.ownernames.find(o => o.title === 'HeadOfficer' || o.title === 'IndividualOwner');
-                    return (
-                      <span>
-                          {owner ? owner.value : '' }
-                      </span>
-                    );
-                  }
+                  accessor: d => {
+                    var owner = d.ownernames.find(o => o.title === 'HeadOfficer' || o.title === 'IndividualOwner'); 
+                    return (owner ? owner.value : '');
+                  },
+                  id: "ownernames",
+                  minWidth: 150
                 }
                 // ,
                 // {
