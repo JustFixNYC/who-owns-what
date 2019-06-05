@@ -41,7 +41,7 @@ render() {
             <h3>Warning! This site doesn't fully work on older versions of Safari. Try a <a href="http://outdatedbrowser.com/en">modern browser</a>.</h3>
           </div>
           <div className="App__header">
-            <Link to="/">
+            <Link onClick={() => {window.gtag('event', 'site-title');}} to="/">
               <h4>Who owns what in nyc?</h4>
             </Link>
             <nav className="inline">
@@ -58,7 +58,7 @@ render() {
               showModal={this.state.showEngageModal}
               onClose={() => this.setState({ showEngageModal: false })}>
                 <h5 className="first-header">Share this page with your neighbors:</h5>
-                <SocialShare />
+                <SocialShare location="share-modal" />
             </Modal>
           </div>
           <div className="App__body">

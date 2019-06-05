@@ -9,6 +9,7 @@ const SocialShare = (props) => {
   return (
     <div className="btn-group btns-social btn-group-block">
      <FacebookButton
+       onClick={() => {window.gtag('event', 'facebook-' + props.location);}}
        className="btn btn-steps"
        sharer={true}
        windowOptions={['width=400', 'height=200']}
@@ -18,6 +19,7 @@ const SocialShare = (props) => {
        <span>Facebook</span>
      </FacebookButton>
      <TwitterButton
+       onClick={() => {window.gtag('event', 'twitter-' + props.location);}}
        className="btn btn-steps"
        windowOptions={['width=400', 'height=200']}
        url="https://whoownswhat.justfix.nyc/"
@@ -27,6 +29,7 @@ const SocialShare = (props) => {
        <span>Twitter</span>
      </TwitterButton>
      <EmailButton
+       onClick={() => {window.gtag('event', 'email-' + props.location);}}
        className="btn btn-steps"
        url='https://whoownswhat.justfix.nyc/'
        target="_blank"
