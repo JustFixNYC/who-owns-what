@@ -326,7 +326,7 @@ export default class Indicators extends Component {
                   <div className="Indicators__linksContainer">
                     <em className="Indicators__linksTitle">Select a Dataset:</em> <br/>
                     <li className="menu-item">
-                        <label className={"form-radio" + (this.state.activeVis === "complaints" ? " active" : "")}>
+                        <label className={"form-radio" + (this.state.activeVis === "complaints" ? " active" : "")} onClick={() => {window.gtag('event', 'complaints-timeline-tab');}}>
                           <input type="radio" 
                             checked={(this.state.activeVis === "complaints" ? true : false)}
                             onChange={() => this.handleVisChange("complaints")} />
@@ -334,7 +334,7 @@ export default class Indicators extends Component {
                         </label>
                     </li>
                     <li className="menu-item">
-                        <label className={"form-radio" + (this.state.activeVis === "viols" ? " active" : "")}>
+                        <label className={"form-radio" + (this.state.activeVis === "viols" ? " active" : "")} onClick={() => {window.gtag('event', 'violations-timeline-tab');}}>
                           <input type="radio" 
                             checked={(this.state.activeVis === "viols" ? true : false)}
                             onChange={() => this.handleVisChange("viols")} />
@@ -342,7 +342,7 @@ export default class Indicators extends Component {
                         </label>
                     </li>
                     <li className="menu-item">
-                        <label className={"form-radio" + (this.state.activeVis === "permits" ? " active" : "")}>
+                        <label className={"form-radio" + (this.state.activeVis === "permits" ? " active" : "")} onClick={() => {window.gtag('event', 'permits-timeline-tab');}}>
                           <input type="radio" 
                             checked={(this.state.activeVis === "permits" ? true : false)}
                             onChange={() => this.handleVisChange("permits")} />
@@ -353,7 +353,7 @@ export default class Indicators extends Component {
                   <div className="Indicators__linksContainer">
                     <em className="Indicators__linksTitle">Group by:</em> <br/>
                     <li className="menu-item">
-                        <label className={"form-radio" + (this.state.activeTimeSpan === "month" ? " active" : "")}>
+                        <label className={"form-radio" + (this.state.activeTimeSpan === "month" ? " active" : "")} onClick={() => {window.gtag('event', 'month-timeline-tab');}}>
                           <input type="radio" 
                             checked={(this.state.activeTimeSpan === "month" ? true : false)}
                             onChange={() => this.handleTimeSpanChange("month")} />
@@ -361,7 +361,7 @@ export default class Indicators extends Component {
                         </label>
                     </li>
                     <li className="menu-item">
-                        <label className={"form-radio" + (this.state.activeTimeSpan === "quarter" ? " active" : "")}>
+                        <label className={"form-radio" + (this.state.activeTimeSpan === "quarter" ? " active" : "")} onClick={() => {window.gtag('event', 'quarter-timeline-tab');}}>
                           <input type="radio" 
                             checked={(this.state.activeTimeSpan === "quarter" ? true : false)}
                             onChange={() => this.handleTimeSpanChange("quarter")} />
@@ -369,7 +369,7 @@ export default class Indicators extends Component {
                         </label>
                     </li>
                     <li className="menu-item">
-                        <label className={"form-radio" + (this.state.activeTimeSpan === "year" ? " active" : "")}>
+                        <label className={"form-radio" + (this.state.activeTimeSpan === "year" ? " active" : "")} onClick={() => {window.gtag('event', 'year-timeline-tab');}}>
                           <input type="radio" 
                             checked={(this.state.activeTimeSpan === "year" ? true : false)}
                             onChange={() => this.handleTimeSpanChange("year")} />
@@ -390,7 +390,7 @@ export default class Indicators extends Component {
                 <div className="Indicators__viz">
                   <button className={(this.state.xAxisStart === 0 || this.state.activeTimeSpan === 'year' ? 
                     "btn btn-off btn-axis-shift" : "btn btn-axis-shift")}
-                    onClick={() => this.handleXAxisChange("left")}>‹</button>
+                    onClick={() => {this.handleXAxisChange("left"); window.gtag('event', 'graph-back-button');}}>‹</button>
                   <IndicatorsViz {...this.state} />
                   <button className={(this.state.xAxisStart + this.state.xAxisViewableColumns >= xAxisLength || this.state.activeTimeSpan === 'year'? 
                     "btn btn-off btn-axis-shift" : "btn btn-axis-shift")}
@@ -444,16 +444,16 @@ export default class Indicators extends Component {
                     <h6>Official building pages</h6>
                     <div className="columns">
                       <div className="column col-12">
-                        <a href={`http://a836-acris.nyc.gov/bblsearch/bblsearch.asp?borough=${boro}&block=${block}&lot=${lot}`} target="_blank" rel="noopener noreferrer" className="btn btn-block">View documents on ACRIS &#8599;&#xFE0E;</a>
+                        <a onClick={() => {window.gtag('event', 'acris-timeline-tab');}} href={`http://a836-acris.nyc.gov/bblsearch/bblsearch.asp?borough=${boro}&block=${block}&lot=${lot}`} target="_blank" rel="noopener noreferrer" className="btn btn-block">View documents on ACRIS &#8599;&#xFE0E;</a>
                       </div>
                       <div className="column col-12">
-                        <a href={`https://hpdonline.hpdnyc.org/HPDonline/Provide_address.aspx?p1=${boro}&p2=${this.props.detailAddr.housenumber}&p3=${this.props.detailAddr.streetname}&SearchButton=Search`} target="_blank" rel="noopener noreferrer" className="btn btn-block">HPD Building Profile &#8599;&#xFE0E;</a>
+                        <a onClick={() => {window.gtag('event', 'hpd-timeline-tab');}} href={`https://hpdonline.hpdnyc.org/HPDonline/Provide_address.aspx?p1=${boro}&p2=${this.props.detailAddr.housenumber}&p3=${this.props.detailAddr.streetname}&SearchButton=Search`} target="_blank" rel="noopener noreferrer" className="btn btn-block">HPD Building Profile &#8599;&#xFE0E;</a>
                       </div>
                       <div className="column col-12">
-                        <a href={`http://a810-bisweb.nyc.gov/bisweb/PropertyProfileOverviewServlet?boro=${boro}&block=${block}&lot=${lot}`} target="_blank" rel="noopener noreferrer" className="btn btn-block">DOB Building Profile &#8599;&#xFE0E;</a>
+                        <a onClick={() => {window.gtag('event', 'dob-timeline-tab');}} href={`http://a810-bisweb.nyc.gov/bisweb/PropertyProfileOverviewServlet?boro=${boro}&block=${block}&lot=${lot}`} target="_blank" rel="noopener noreferrer" className="btn btn-block">DOB Building Profile &#8599;&#xFE0E;</a>
                       </div>
                       <div className="column col-12">
-                        <a href={`https://nycprop.nyc.gov/nycproperty/nynav/jsp/selectbbl.jsp`} target="_blank" rel="noopener noreferrer" className="btn btn-block">DOF Property Tax Bills &#8599;&#xFE0E;</a>
+                        <a onClick={() => {window.gtag('event', 'dof-timeline-tab');}} href={`https://nycprop.nyc.gov/nycproperty/nynav/jsp/selectbbl.jsp`} target="_blank" rel="noopener noreferrer" className="btn btn-block">DOF Property Tax Bills &#8599;&#xFE0E;</a>
                       </div>
                     </div>
                   </div>

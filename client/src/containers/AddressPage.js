@@ -146,7 +146,7 @@ export default class AddressPage extends Component {
                 </li>
                 <li className={`tab-item ${this.state.currentTab === 1 ? "active" : ""}`}>
                   <a // eslint-disable-line jsx-a11y/anchor-is-valid
-                    onClick={() => this.setState({ currentTab: 1 })}>Timeline</a>
+                    onClick={() => {this.setState({ currentTab: 1 }); window.gtag('event', 'timeline-tab');}}>Timeline</a>
                 </li>
                 <li className={`tab-item ${this.state.currentTab === 2 ? "active" : ""}`}>
                   <a // eslint-disable-line jsx-a11y/anchor-is-valid
@@ -154,7 +154,7 @@ export default class AddressPage extends Component {
                 </li>
                 <li className={`tab-item ${this.state.currentTab === 3 ? "active" : ""}`}>
                   <a // eslint-disable-line jsx-a11y/anchor-is-valid
-                    onClick={() => this.setState({ currentTab: 3 })}>Summary</a>
+                    onClick={() => {this.setState({ currentTab: 3 }); window.gtag('event', 'summary-tab');}}>Summary</a>
                 </li>
                 
               </ul>

@@ -150,7 +150,7 @@ export default class DetailView extends Component {
                         </div>
                         <span className="card-body-table-prompt float-right"><i>(hover over a box to learn more)</i></span>
                         <div className="card-body-timeline-link">
-                          <button className="btn btn-primary btn-block" onClick={() => this.props.onLinkToTimeline()}>
+                          <button className="btn btn-primary btn-block" onClick={() => {this.props.onLinkToTimeline(); window.gtag('event', 'view-data-over-time-overview-tab');}}>
                             <span>View data over time </span>&#8599;&#xFE0E;
                           </button>
                         </div>
