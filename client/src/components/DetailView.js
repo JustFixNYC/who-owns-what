@@ -188,13 +188,14 @@ export default class DetailView extends Component {
                         
                         <div className="card-body-prompt hide-lg">
                           <h6 className="DetailView__subtitle">Are you having issues in this building?</h6>
-                          <a href={`https://app.justfix.nyc?utm_source=whoownswhat`} target="_blank" rel="noopener noreferrer" className="btn btn-justfix btn-block">Take action on JustFix.nyc!</a>
+                          <a onClick={() => {window.gtag('event', 'take-action-overview-tab');}} href={`https://app.justfix.nyc?utm_source=whoownswhat`} target="_blank" rel="noopener noreferrer" className="btn btn-justfix btn-block">Take action on JustFix.nyc!</a>
                         </div>
 
                         <div className="card-body-social social-group hide-lg">
                           <h6 className="DetailView__subtitle">Share this page with your neighbors</h6>
                           <div className="btn-group btns-social btn-group-block">
                             <FacebookButton
+                              onClick={() => {window.gtag('event', 'facebook-overview-tab');}}
                               className="btn btn-steps"
                               sharer={true}
                               windowOptions={['width=400', 'height=200']}
@@ -205,6 +206,7 @@ export default class DetailView extends Component {
                               <span>Facebook</span>
                             </FacebookButton>
                             <TwitterButton
+                              onClick={() => {window.gtag('event', 'twitter-overview-tab');}}
                               className="btn btn-steps"
                               windowOptions={['width=400', 'height=200']}
                               url={encodeURI('https://whoownswhat.justfix.nyc/address/' + this.props.addr.boro + '/' + this.props.addr.housenumber + '/' + this.props.addr.streetname)}
@@ -213,6 +215,7 @@ export default class DetailView extends Component {
                               <span>Twitter</span>
                             </TwitterButton>
                             <EmailButton
+                              onClick={() => {window.gtag('event', 'email-overview-tab');}}
                               className="btn btn-steps"
                               url={encodeURI('https://whoownswhat.justfix.nyc/address/' + this.props.addr.boro + '/' + this.props.addr.housenumber + '/' + this.props.addr.streetname)}
                               target="_blank"
@@ -245,17 +248,17 @@ export default class DetailView extends Component {
                           <div className="card-body-links">
                             <h6 className="DetailView__subtitle">Official building pages</h6>
                             <div className="columns">
-                              <div className="column col-12">
-                                <a href={`http://a836-acris.nyc.gov/bblsearch/bblsearch.asp?borough=${boro}&block=${block}&lot=${lot}`} target="_blank" rel="noopener noreferrer" className="btn btn-block">View documents on ACRIS &#8599;&#xFE0E;</a>
+                              <div className="column col-lg-12 col-6">
+                                <a onClick={() => {window.gtag('event', 'acris-overview-tab');}} href={`http://a836-acris.nyc.gov/bblsearch/bblsearch.asp?borough=${boro}&block=${block}&lot=${lot}`} target="_blank" rel="noopener noreferrer" className="btn btn-block">View documents on ACRIS &#8599;&#xFE0E;</a>
                               </div>
-                              <div className="column col-12">
-                                <a href={`https://hpdonline.hpdnyc.org/HPDonline/Provide_address.aspx?p1=${boro}&p2=${this.props.addr.housenumber}&p3=${this.props.addr.streetname}&SearchButton=Search`} target="_blank" rel="noopener noreferrer" className="btn btn-block">HPD Building Profile &#8599;&#xFE0E;</a>
+                              <div className="column col-lg-12 col-6">
+                                <a onClick={() => {window.gtag('event', 'hpd-overview-tab');}} href={`https://hpdonline.hpdnyc.org/HPDonline/Provide_address.aspx?p1=${boro}&p2=${this.props.addr.housenumber}&p3=${this.props.addr.streetname}&SearchButton=Search`} target="_blank" rel="noopener noreferrer" className="btn btn-block">HPD Building Profile &#8599;&#xFE0E;</a>
                               </div>
-                              <div className="column col-12">
-                                <a href={`http://a810-bisweb.nyc.gov/bisweb/PropertyProfileOverviewServlet?boro=${boro}&block=${block}&lot=${lot}`} target="_blank" rel="noopener noreferrer" className="btn btn-block">DOB Building Profile &#8599;&#xFE0E;</a>
+                              <div className="column col-lg-12 col-6">
+                                <a onClick={() => {window.gtag('event', 'dob-overview-tab');}} href={`http://a810-bisweb.nyc.gov/bisweb/PropertyProfileOverviewServlet?boro=${boro}&block=${block}&lot=${lot}`} target="_blank" rel="noopener noreferrer" className="btn btn-block">DOB Building Profile &#8599;&#xFE0E;</a>
                               </div>
-                              <div className="column col-12">
-                                <a href={`https://nycprop.nyc.gov/nycproperty/nynav/jsp/selectbbl.jsp`} target="_blank" rel="noopener noreferrer" className="btn btn-block">DOF Property Tax Bills &#8599;&#xFE0E;</a>
+                              <div className="column col-lg-12 col-6">
+                                <a onClick={() => {window.gtag('event', 'dof-overview-tab');}} href={`https://nycprop.nyc.gov/nycproperty/nynav/jsp/selectbbl.jsp`} target="_blank" rel="noopener noreferrer" className="btn btn-block">DOF Property Tax Bills &#8599;&#xFE0E;</a>
                               </div>
                             </div>
                           </div>
