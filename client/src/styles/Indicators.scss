@@ -155,9 +155,10 @@
       margin-bottom: 75px;
     }
 
-    .btn-off {
+    .btn-off, .btn-off:hover, .btn-off:active {
       opacity: 0.25;
-      pointer-events: none;
+      cursor: default;
+      color: #454d5d;
       border: 1px solid #454d5d;
       background-color: #f8f9fa;
       box-shadow: inset -1px -1px 0px 0px #acb3c2, inset 2px 2px 0px 0px #fff;
