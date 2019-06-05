@@ -123,6 +123,26 @@ export default class Indicators extends Component {
     });
   }
 
+  fetchData() {
+      APIClient.getSaleHistory(this.props.detailAddr.bbl)
+        .then(results => this.setState({ saleHistory: results.result }))
+        .catch(err => console.error(err));
+
+      const indicatorList = this.state.indicatorList.map(x => x + 'History');
+
+      for (const indicator of indicatorList) {
+        const APICall = 'get' + Helpers.capitalize(indicator); // i.e: 'getViolsHistory'
+        APIClient[APICall](this.props.detailAddr.bbl)
+          .then(results => this.setState({ [indicator]: results.result }))
+          .catch(err => console.error(err));
+        
+      }
+
+      this.setState({
+        currentAddr: this.props.detailAddr
+      });
+  }
+
   createVizData(rawJSON, vizType) {
     var vizData;
 
@@ -184,26 +204,6 @@ export default class Indicators extends Component {
       return vizData;
   } 
 
-  fetchData() {
-      APIClient.getSaleHistory(this.props.detailAddr.bbl)
-        .then(results => this.setState({ saleHistory: results.result }))
-        .catch(err => console.error(err));
-
-      const indicatorList = this.state.indicatorList.map(x => x + 'History');
-
-      for (const indicator of indicatorList) {
-        const APICall = 'get' + Helpers.capitalize(indicator); // i.e: 'getViolsHistory'
-        APIClient[APICall](this.props.detailAddr.bbl)
-          .then(results => this.setState({ [indicator]: results.result }))
-          .catch(err => console.error(err));
-        
-      }
-
-      this.setState({
-        currentAddr: this.props.detailAddr
-      });
-  }
-
   componentWillReceiveProps(nextProps) {
 
     // make the api call when we come into view and have
@@ -218,11 +218,6 @@ export default class Indicators extends Component {
     if(this.props.isVisible && !nextProps.isVisible) {
       this.reset();
     }
-
-    // if(nextProps.isVisible && this.props.detailAddr && this.state.currentAddr &&
-    // !Helpers.addrsAreEqual(this.props.detailAddr, this.state.currentAddr)) {
-    //   this.fetchData();
-    // }
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -328,59 +323,60 @@ export default class Indicators extends Component {
                 </div>
 
                 <div className="Indicators__links">
-                  <em className="Indicators__linksTitle">Select a Dataset:</em>
-                  <li className="menu-item">
-                      <label className="form-radio">
-                        <input type="radio" 
-                          checked={(this.state.activeVis === "complaints" ? true : false)}
-                          onChange={() => this.handleVisChange("complaints")} />
-                        <i className="form-icon"></i> HPD Complaints
-                      </label>
-                  </li>
-                  <li className="menu-item">
-                      <label className="form-radio">
-                        <input type="radio" 
-                          checked={(this.state.activeVis === "viols" ? true : false)}
-                          onChange={() => this.handleVisChange("viols")} />
-                        <i className="form-icon"></i> HPD Violations
-                      </label>
-                  </li>
-                  <li className="menu-item">
-                      <label className="form-radio">
-                        <input type="radio" 
-                          checked={(this.state.activeVis === "permits" ? true : false)}
-                          onChange={() => this.handleVisChange("permits")} />
-                        <i className="form-icon"></i> Building Permit Applications
-                      </label>
-                  </li>
-                </div>
-
-                <div className="Indicators__links">
-                  <em className="Indicators__linksTitle">Group by:</em>
-                  <li className="menu-item">
-                      <label className="form-radio">
-                        <input type="radio" 
-                          checked={(this.state.activeTimeSpan === "month" ? true : false)}
-                          onChange={() => this.handleTimeSpanChange("month")} />
-                        <i className="form-icon"></i> Month
-                      </label>
-                  </li>
-                  <li className="menu-item">
-                      <label className="form-radio">
-                        <input type="radio" 
-                          checked={(this.state.activeTimeSpan === "quarter" ? true : false)}
-                          onChange={() => this.handleTimeSpanChange("quarter")} />
-                        <i className="form-icon"></i> Quarter
-                      </label>
-                  </li>
-                  <li className="menu-item">
-                      <label className="form-radio">
-                        <input type="radio" 
-                          checked={(this.state.activeTimeSpan === "year" ? true : false)}
-                          onChange={() => this.handleTimeSpanChange("year")} />
-                        <i className="form-icon"></i> Year
-                      </label>
-                  </li>
+                  <div className="Indicators__linksContainer">
+                    <em className="Indicators__linksTitle">Select a Dataset:</em> <br/>
+                    <li className="menu-item">
+                        <label className={"form-radio" + (this.state.activeVis === "complaints" ? " active" : "")}>
+                          <input type="radio" 
+                            checked={(this.state.activeVis === "complaints" ? true : false)}
+                            onChange={() => this.handleVisChange("complaints")} />
+                          <i className="form-icon"></i> HPD Complaints
+                        </label>
+                    </li>
+                    <li className="menu-item">
+                        <label className={"form-radio" + (this.state.activeVis === "viols" ? " active" : "")}>
+                          <input type="radio" 
+                            checked={(this.state.activeVis === "viols" ? true : false)}
+                            onChange={() => this.handleVisChange("viols")} />
+                          <i className="form-icon"></i> HPD Violations
+                        </label>
+                    </li>
+                    <li className="menu-item">
+                        <label className={"form-radio" + (this.state.activeVis === "permits" ? " active" : "")}>
+                          <input type="radio" 
+                            checked={(this.state.activeVis === "permits" ? true : false)}
+                            onChange={() => this.handleVisChange("permits")} />
+                          <i className="form-icon"></i> Building Permit Applications
+                        </label>
+                    </li>
+                  </div>
+                  <div className="Indicators__linksContainer">
+                    <em className="Indicators__linksTitle">Group by:</em> <br/>
+                    <li className="menu-item">
+                        <label className={"form-radio" + (this.state.activeTimeSpan === "month" ? " active" : "")}>
+                          <input type="radio" 
+                            checked={(this.state.activeTimeSpan === "month" ? true : false)}
+                            onChange={() => this.handleTimeSpanChange("month")} />
+                          <i className="form-icon"></i> Month
+                        </label>
+                    </li>
+                    <li className="menu-item">
+                        <label className={"form-radio" + (this.state.activeTimeSpan === "quarter" ? " active" : "")}>
+                          <input type="radio" 
+                            checked={(this.state.activeTimeSpan === "quarter" ? true : false)}
+                            onChange={() => this.handleTimeSpanChange("quarter")} />
+                          <i className="form-icon"></i> Quarter
+                        </label>
+                    </li>
+                    <li className="menu-item">
+                        <label className={"form-radio" + (this.state.activeTimeSpan === "year" ? " active" : "")}>
+                          <input type="radio" 
+                            checked={(this.state.activeTimeSpan === "year" ? true : false)}
+                            onChange={() => this.handleTimeSpanChange("year")} />
+                          <i className="form-icon"></i> Year
+                        </label>
+                    </li>
+                  </div>
                 </div>  
 
                 <span className="title viz-title"> 

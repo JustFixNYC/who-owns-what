@@ -110,16 +110,28 @@
     padding: 0rem 1.5rem 2.5rem 1.5rem;
     position: relative;
 
-    .Indicators__linksTitle {
-      font-size: 1.5rem;
-      margin-right: 2rem;
-    }
+    .Indicators__linksContainer {
 
-    li {
-      list-style: none;
-      display: inline;
-    }
+      &:first-child {
+        padding-bottom: 1rem;
+      }
 
+      .Indicators__linksTitle {
+        font-size: 1.5rem;
+        margin-right: 2rem;
+      }
+
+      li {
+        list-style: none;
+        display: inline;
+
+        label.active {
+          font-weight: bold;
+          color: #000;
+        }
+      }
+
+    }
 
   }
 
