@@ -10,12 +10,12 @@ import 'styles/PropertiesSummary.css';
 import fbIcon from '../assets/img/fb.svg';
 import twitterIcon from '../assets/img/twitter.svg';
 
-const VIOLATIONS_AVG = 0.9; // By Unit
+const VIOLATIONS_AVG = 0.7; // By Unit
 
-// 1981721 open violations according to wow_bldgs
-// 2314462 total units in registered buildings, according to wow_bldgs
+// 1656793 open violations according to wow_bldgs
+// 2331139 total units in registered buildings, according to wow_bldgs
 
-// Data updated 2/11/19
+// Data updated 6/6/19
 
 export default class PropertiesSummary extends Component {
   constructor(props) {
