@@ -31,6 +31,9 @@ export default class DetailView extends Component {
   // srsly tho google, why not point to the latlng automatically?
   componentDidUpdate(prevProps, prevState) {
 
+    // scroll to top of wrapper div:
+    document.querySelector('.DetailView__wrapper').scrollTop = 0;
+
     // this says: if the component is getting the addr for the first time OR
     //            if the component already has an addr but is getting a new one
     if( (!prevProps.addr && this.props.addr) || (prevProps.addr && this.props.addr && (prevProps.addr.bbl !== this.props.addr.bbl))) {
