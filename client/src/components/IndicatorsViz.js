@@ -300,7 +300,9 @@ export default class IndicatorsViz extends Component {
           if (legendItem) {
             legendItem.lineWidth = 3;
             this.chart.render({duration: 0});
-            event.srcElement.style.cursor = 'pointer';
+            if(event.srcElement && event.srcElement.style) {
+              event.srcElement.style.cursor = 'pointer';
+            }
           }
 
         },
@@ -402,7 +404,9 @@ export default class IndicatorsViz extends Component {
       },
       maintainAspectRatio: false,
       onHover: function (event) {
-        event.srcElement.style.cursor = 'default';
+        if(event.srcElement && event.srcElement.style) {
+          event.srcElement.style.cursor = 'default';
+        }
     }
   }; 
 
