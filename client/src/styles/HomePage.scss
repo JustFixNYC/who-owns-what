@@ -41,9 +41,18 @@
     padding: 10px;
 
     h6 {
-      text-decoration: underline;
       font-weight: bold;
       text-align: center;
+
+      a {
+        color: $dark;
+        text-decoration: underline;
+
+        &:hover {
+          text-decoration: none;
+        }
+        
+      }
     }
 
     img {
