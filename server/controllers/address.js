@@ -26,7 +26,13 @@ const getDataAndFormat = (query) => {
   if(query.houseNumber && query.street && query.borough) {
     return geo.requestAddress(query).then(formatData);
   } else if(query.block && query.lot && query.borough) {
-    return geo.requestBBL(query).then(formatData);
+    return formatData({
+      address: {
+        geosupportReturnCode: '00',
+        bbl: query.borough + query.block + query.lot
+      }
+    });
+    // return geo.requestBBL(query).then(formatData);
   } else {
     throw new Error('API query param mismatch');
   }

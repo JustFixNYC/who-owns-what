@@ -22,6 +22,9 @@ export interface SearchAddress {
 
   /** The all-uppercase borough name, e.g. 'BROOKLYN'. */
   boro: string,
+
+  /** The padded BBL, e.g. '1234567890'. */
+  bbl: string
 }
 
 export interface AddressSearchProps extends SearchAddress {
@@ -46,7 +49,8 @@ export function makeEmptySearchAddress(): SearchAddress {
   return {
     housenumber: '',
     streetname: '',
-    boro: ''
+    boro: '',
+    bbl: ''
   };
 }
 
@@ -55,7 +59,8 @@ function toSearchAddresses(results: GeoSearchResults): SearchAddress[] {
     const sa: SearchAddress = {
       housenumber: feature.properties.housenumber,
       streetname: feature.properties.street,
-      boro: feature.properties.borough.toUpperCase()
+      boro: feature.properties.borough.toUpperCase(),
+      bbl: feature.properties.pad_bbl
     };
     return sa;
   });

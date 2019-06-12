@@ -31,6 +31,20 @@ export default class BBLPage extends Component {
       });
     }
 
+    else if (this.state.searchBBL.boro && this.state.searchBBL.block && this.state.searchBBL.lot) {
+      const newBoro = this.state.searchBBL.boro;
+      const newBlock = this.state.searchBBL.block.padStart(5,'0');
+      const newLot = this.state.searchBBL.lot.padStart(4,'0');
+
+      this.setState({
+        searchBBL: {
+          boro: newBoro,
+          block: newBlock,
+          lot: newLot
+        }
+      });
+    }
+
   }
 
 
