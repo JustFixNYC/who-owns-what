@@ -192,6 +192,9 @@ export default class AddressSearch extends React.Component<AddressSearchProps, S
                     </ul>
                   </div>
                 </div>
+                <div className="toast toast-error">
+                  <u>Note:</u> We're currently experiencing some difficulties due to an official NYC data service failing. We're working on it. If a search returns with "no results found", try it again in a minute or so!
+                </div>
               </div>
             </div>
           );
