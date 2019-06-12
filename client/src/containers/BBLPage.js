@@ -55,7 +55,6 @@ export default class BBLPage extends Component {
         this.setState({
           results: results
         });
-        console.log(this.state.results);
       })
       .catch(err => {
         window.Rollbar.error("API error", err, this.state.searchBBL);
