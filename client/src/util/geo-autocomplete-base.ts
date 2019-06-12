@@ -64,6 +64,8 @@ export interface GeoSearchProperties {
 
   /** e.g. "150 COURT STREET, Brooklyn, New York, NY, USA" */
   label: string;
+
+  pad_bbl: string;
 }
 
 /**

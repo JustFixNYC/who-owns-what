@@ -43,6 +43,7 @@ export default class AddressPage extends Component {
       window.gtag('event', 'direct-link');
       APIClient.searchAddress(this.state.searchAddress)
         .then(results => {
+          console.log("BOOP", results);
           this.handleResults(results);
         })
         .catch(err => {
