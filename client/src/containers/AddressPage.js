@@ -13,6 +13,7 @@ import DetailView from 'components/DetailView';
 import APIClient from 'components/APIClient';
 
 import 'styles/AddressPage.css';
+import { GeoSearchRequester } from '../util/geo-autocomplete-base';
 
 export default class AddressPage extends Component {
   constructor(props) {
@@ -41,9 +42,17 @@ export default class AddressPage extends Component {
     // Otherwise they navigated directly to this url, so lets fetch it
     } else {
       window.gtag('event', 'direct-link');
-      APIClient.searchAddress(this.state.searchAddress)
-        .then(results => {
-          console.log("BOOP", results);
+      const req = new GeoSearchRequester({});
+      const {boro, housenumber, streetname} = this.state.searchAddress;
+      const addr = `${housenumber} ${streetname}, ${boro}`;
+      console.log('searching for', addr);
+      req.fetchResults(addr).then(results => {
+        const firstResult = results.features[0];
+        if (!firstResult) throw new Error('Invalid address!');
+        return APIClient.searchAddress({
+          bbl: firstResult.properties.pad_bbl
+        });
+      }).then(results => {
           this.handleResults(results);
         })
         .catch(err => {
