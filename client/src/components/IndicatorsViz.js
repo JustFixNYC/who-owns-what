@@ -190,6 +190,10 @@ export default class IndicatorsViz extends Component {
   var dataMaximum = this.getDataMaximum();
   var timeSpan = this.props.activeTimeSpan;
 
+  var acrisURL = (this.props.lastSale && this.props.lastSale.documentid ? 
+                    'https://a836-acris.nyc.gov/DS/DocumentSearch/DocumentImageView?doc_id=' + this.props.lastSale.documentid :
+                    'https://a836-acris.nyc.gov/DS/DocumentSearch/Index');
+
   var options = {
       scales: {
         yAxes: [{
@@ -314,11 +318,11 @@ export default class IndicatorsViz extends Component {
         }
       },
       annotation: {
+        events: ['click'],
         annotations: 
         [
             {
                 drawTime: "beforeDatasetsDraw",
-                // id: "hline",
                 type: "line",
                 mode: "vertical",
                 scaleID: "x-axis-0",
@@ -332,18 +336,23 @@ export default class IndicatorsViz extends Component {
                     fontSize: 12,
                     xPadding: 10,
                     yPadding: 10,
-                    backgroundColor: "rgb(69, 77, 93)",
+                    backgroundColor: 'rgb(69, 77, 93)',
                     position: "top",
                     xAdjust: (dateLocation === 'past' ? -70 : dateLocation === 'future' ? 70 : 0),
                     yAdjust: 10,
                     enabled: true,
                     cornerRadius: 0
-                }
+                },
+                // onMouseover: function (event) {
+                //   var element = this;
+                //   element.chartInstance.update();
+                //   element.chartInstance.chart.canvas.style.cursor = 'pointer';
+                // },
+                onClick: () => { window.open(acrisURL, '_blank'); }
             },
           (this.props.lastSale.date ? 
             {
                 drawTime: "beforeDatasetsDraw",
-                // id: "hline",
                 type: "line",
                 mode: "vertical",
                 scaleID: "x-axis-0",
@@ -359,20 +368,25 @@ export default class IndicatorsViz extends Component {
                     fontSize: 12,
                     xPadding: 10,
                     yPadding: 10,
-                    backgroundColor: "rgb(69, 77, 93)",
+                    backgroundColor: 'rgb(69, 77, 93)',
                     position: "top",
                     xAdjust: (dateLocation === 'past' ? -70 : dateLocation === 'future' ? 70 : 0),
                     yAdjust: 30,
                     enabled: true,
                     cornerRadius: 0
-                }
+                },
+                // onMouseover: function(e) {
+                //   var element = this;
+                //   element.chartInstance.update();
+                //   element.chartInstance.chart.canvas.style.cursor = 'pointer';
+                // },
+                onClick: () => { window.open(acrisURL, '_blank'); }
             } :
             {}
           ),
         (this.props.activeVis === 'complaints' ? 
             {
                 drawTime: "beforeDatasetsDraw",
-                // id: "hline",
                 type: "line",
                 mode: "vertical",
                 scaleID: "x-axis-0",
