@@ -123,8 +123,8 @@ export default class Indicators extends Component {
     });
   }
 
-  fetchData() {
-      APIClient.getSaleHistory(this.props.detailAddr.bbl)
+  fetchData(detailAddr) {
+      APIClient.getSaleHistory(detailAddr.bbl)
         .then(results => this.setState({ saleHistory: results.result }))
         .catch(err => console.error(err));
 
@@ -132,14 +132,14 @@ export default class Indicators extends Component {
 
       for (const indicator of indicatorList) {
         const APICall = 'get' + Helpers.capitalize(indicator); // i.e: 'getViolsHistory'
-        APIClient[APICall](this.props.detailAddr.bbl)
+        APIClient[APICall](detailAddr.bbl)
           .then(results => this.setState({ [indicator]: results.result }))
           .catch(err => console.error(err));
         
       }
 
       this.setState({
-        currentAddr: this.props.detailAddr
+        currentAddr: detailAddr
       });
   }
 
@@ -206,17 +206,13 @@ export default class Indicators extends Component {
 
   componentWillReceiveProps(nextProps) {
 
-    // make the api call when we come into view and have
-    // the user addrs bbl
-    if(nextProps.isVisible && this.props.detailAddr && 
-        (!this.state.saleHistory ||
-        (this.state.currentAddr && !Helpers.addrsAreEqual(this.props.detailAddr, this.state.currentAddr)))
-      ) {
-      this.fetchData();
-    }
-
-    if(this.props.isVisible && !nextProps.isVisible) {
+    // make the api call when we have a new detail address from the Address Page
+    if(nextProps.detailAddr && nextProps.detailAddr.bbl && // will be receiving a detailAddr prop AND
+        (!this.props.detailAddr || // either we don't have one now 
+         (this.props.detailAddr && this.props.detailAddr.bbl && ! // OR we have a different one
+          Helpers.addrsAreEqual(this.props.detailAddr, nextProps.detailAddr)))) { 
       this.reset();
+      this.fetchData(nextProps.detailAddr);
     }
   }
 
@@ -305,7 +301,7 @@ export default class Indicators extends Component {
     return (
       <div className="Page Indicators">
         <div className="Indicators__content Page__content">
-          { !(this.state.saleHistory && this.state.complaintsHistory) ? 
+          { !(this.props.isVisible && this.state.saleHistory && this.state.complaintsHistory) ? 
             (
               <Loader loading={true} classNames="Loader-map">Loading</Loader>
             ) : 
