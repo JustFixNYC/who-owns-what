@@ -144,64 +144,31 @@ export default class Indicators extends Component {
   }
 
   createVizData(rawJSON, vizType) {
-    var vizData;
 
     // Generate object to hold data for viz
     // Note: keys in "values" object need to match exact key names in data from API call
-    switch(vizType) {
+    var vizData = Object.assign({},initialState[vizType]);
+    
+    vizData.labels = [];
+    for (const column in vizData.values) {
+      vizData.values[column] = [];
+    }
 
-      case 'viols':
-        vizData = {
-          values: {
-            class_a: [],
-            class_b: [],
-            class_c: [],
-            total: []
-          },
-          labels: []
-        };
-        break;
+    // Generate arrays of data for chart.js visualizations:
+    // Default grouping is by MONTH
 
-      case 'complaints':
-        vizData = {
-          values: {
-            emergency: [],
-            nonemergency: [],
-            total: []
-          },
-          labels: []
-        }
-        break;
+    const rawJSONLength = rawJSON.length;
+     
+    for (let i = 0; i < rawJSONLength; i++) {
 
-      case 'permits':
-        vizData = {
-          values: {
-            total: []
-          },
-          labels: []
-        }
-        break;
+      vizData.labels.push(rawJSON[i].month);
 
-      default:
-        break;
+      for (const column in vizData.values) {
+        vizData.values[column].push(parseInt(rawJSON[i][column]));
       }
 
-
-      // Generate arrays of data for chart.js visualizations:
-      // Default grouping is by MONTH
-
-      const rawJSONLength = rawJSON.length;
-       
-      for (let i = 0; i < rawJSONLength; i++) {
-
-        vizData.labels.push(rawJSON[i].month);
-
-        for (const column in vizData.values) {
-          vizData.values[column].push(parseInt(rawJSON[i][column]));
-        }
-
-      }
-      return vizData;
+    }
+    return vizData;
   } 
 
   componentWillReceiveProps(nextProps) {
@@ -228,7 +195,7 @@ export default class Indicators extends Component {
 
       if(this.state[indicatorHistory] && !Helpers.jsonEqual(prevState[indicatorHistory], this.state[indicatorHistory])) {
 
-        var inputData = this.createVizData(this.state[indicatorHistory], indicator);
+        var inputData = this.createVizData(this.state[indicatorHistory], indicatorData);
         
         this.setState({
           [indicatorData]: inputData
