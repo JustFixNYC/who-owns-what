@@ -31,6 +31,18 @@ export default class BBLPage extends Component {
       });
     }
 
+    else if (this.state.searchBBL.boro && this.state.searchBBL.block && this.state.searchBBL.lot) {
+      const searchBBL = {
+        boro: this.state.searchBBL.boro,
+        block: this.state.searchBBL.block.padStart(5,'0'),
+        lot: this.state.searchBBL.lot.padStart(4,'0')
+      };
+
+      this.setState({
+        searchBBL: searchBBL
+      });
+    }
+
   }
 
 
@@ -61,11 +73,12 @@ export default class BBLPage extends Component {
       const results = this.state.results;
       const geoclient = results.geoclient;
       let searchAddress = {};
-      if(geoclient) {
-        searchAddress.housenumber = geoclient.giLowHouseNumber1;
-        searchAddress.streetname = geoclient.giStreetName1;
-        searchAddress.boro = geoclient.firstBoroughName;
-      }
+
+      // if(geoclient) {
+      //   searchAddress.housenumber = geoclient.giLowHouseNumber1;
+      //   searchAddress.streetname = geoclient.giStreetName1;
+      //   searchAddress.boro = geoclient.firstBoroughName;
+      // }
 
       // no addrs = not found
       if(!this.state.results.addrs || !this.state.results.addrs.length) {
@@ -80,6 +93,7 @@ export default class BBLPage extends Component {
       // lets redirect to AddressPage and pass the results along with us
       } else {
         window.gtag('event', 'search-found', { 'value': this.state.results.addrs.length });
+        const searchAddress = this.state.results.addrs.find( (element) => (element.bbl === this.state.searchBBL.boro + this.state.searchBBL.block + this.state.searchBBL.lot));
         return (
           <Redirect to={{
             pathname: `/address/${searchAddress.boro}/${searchAddress.housenumber}/${searchAddress.streetname}`,

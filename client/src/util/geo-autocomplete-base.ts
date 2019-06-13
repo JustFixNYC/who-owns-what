@@ -64,6 +64,8 @@ export interface GeoSearchProperties {
 
   /** e.g. "150 COURT STREET, Brooklyn, New York, NY, USA" */
   label: string;
+
+  pad_bbl: string;
 }
 
 /**
@@ -142,7 +144,7 @@ export class GeoSearchRequester {
    * Fetch results for the given query, returning null if the
    * network request was aborted.
    */
-  private fetchResults(value: string): Promise<GeoSearchResults|null> {
+  fetchResults(value: string): Promise<GeoSearchResults|null> {
     const url = `${GEO_AUTOCOMPLETE_URL}?text=${encodeURIComponent(value)}`;
 
     // It's important that we pull fetch out as its own variable,

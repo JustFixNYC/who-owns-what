@@ -1,6 +1,13 @@
 /* eslint-disable no-undef */
 
 function searchAddress(q) {
+  if (q.bbl) {
+    return searchBBL({
+      boro: q.bbl.slice(0,1),
+      block: q.bbl.slice(1,6),
+      lot: q.bbl.slice(6,10)
+    });
+  }
   return get(`/api/address?houseNumber=${q.housenumber}&street=${q.streetname}&borough=${q.boro}`);
 }
 
