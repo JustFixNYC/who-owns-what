@@ -125,7 +125,8 @@ export default class Indicators extends Component {
   fetchData(detailAddr) {
       APIClient.getSaleHistory(detailAddr.bbl)
         .then(results => this.setState({ saleHistory: results.result }))
-        .catch(err => console.error(err));
+        .catch(err => {window.Rollbar.error("API error on Indicators: Sale History", err, detailAddr.bbl);}
+      );
 
       const indicatorList = this.state.indicatorList.map(x => x + 'History');
 
@@ -133,7 +134,8 @@ export default class Indicators extends Component {
         const APICall = 'get' + Helpers.capitalize(indicator); // i.e: 'getViolsHistory'
         APIClient[APICall](detailAddr.bbl)
           .then(results => this.setState({ [indicator]: results.result }))
-          .catch(err => console.error(err));
+          .catch(err => {window.Rollbar.error(("API error on Indicators: " + indicator), err, detailAddr.bbl);}
+        );
         
       }
 
