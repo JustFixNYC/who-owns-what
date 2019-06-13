@@ -48,6 +48,7 @@ const initialState = {
       },
 
       indicatorList: ['complaints','viols','permits'],
+      defaultVis: 'complaints',
       activeVis: 'complaints',
       timeSpanList: ['month','quarter','year'],
       activeTimeSpan: 'quarter',
@@ -72,9 +73,7 @@ export default class Indicators extends Component {
   handleXAxisChange(shift) {
 
     const span = this.state.xAxisViewableColumns;
-
-    const currentVisData = this.state.activeVis + 'Data';
-    const labelsArray = this.state[currentVisData].labels;
+    const labelsArray = this.state[(this.state.activeVis + 'Data')].labels;
 
     if(!labelsArray || labelsArray.length < span) { 
       return;
@@ -190,15 +189,13 @@ export default class Indicators extends Component {
     // process viz data from incoming API calls: 
 
     for (const indicator of indicatorList) {
-      const indicatorHistory = indicator + 'History';
-      const indicatorData = indicator + 'Data';
 
-      if(this.state[indicatorHistory] && !Helpers.jsonEqual(prevState[indicatorHistory], this.state[indicatorHistory])) {
+      if(this.state[indicator + 'History'] && !Helpers.jsonEqual(prevState[indicator + 'History'], this.state[indicator + 'History'])) {
 
-        var inputData = this.createVizData(this.state[indicatorHistory], indicatorData);
+        var inputData = this.createVizData(this.state[indicator + 'History'], (indicator + 'Data'));
         
         this.setState({
-          [indicatorData]: inputData
+          [(indicator + 'Data')]: inputData
         });
       }
     }
@@ -207,7 +204,7 @@ export default class Indicators extends Component {
     // 1. default dataset loads or 
     // 2. when activeTimeSpan changes:
 
-    if((!prevState.complaintsData.labels && this.state.complaintsData.labels) ||
+    if((!prevState[(this.state.defaultVis + 'Data')].labels && this.state[(this.state.defaultVis + 'Data')].labels) ||
     (prevState.activeTimeSpan !== this.state.activeTimeSpan)) {
       this.handleXAxisChange('reset');
     }
@@ -268,7 +265,7 @@ export default class Indicators extends Component {
     return (
       <div className="Page Indicators">
         <div className="Indicators__content Page__content">
-          { !(this.props.isVisible && this.state.saleHistory && this.state.complaintsHistory) ? 
+          { !(this.props.isVisible && this.state.saleHistory && this.state[(this.state.defaultVis + 'History')]) ? 
             (
               <Loader loading={true} classNames="Loader-map">Loading</Loader>
             ) : 
