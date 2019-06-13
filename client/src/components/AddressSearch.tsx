@@ -197,9 +197,6 @@ export default class AddressSearch extends React.Component<AddressSearchProps, S
                     </ul>
                   </div>
                 </div>
-                <div className="toast toast-success">
-                  Hooray! After an earlier incident with an official NYC data service failing, Who Owns What is back up and running. Feel free to tweet Atul Varma at @toolness and thank him for his help :)
-                </div>
               </div>
             </div>
           );
