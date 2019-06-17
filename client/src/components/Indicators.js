@@ -351,6 +351,11 @@ export default class Indicators extends Component {
                     onClick={() => this.handleXAxisChange("right")}>›</button>
                 </div> 
 
+                <div className="Indicators__feedback hide-lg">
+                  <i>Have thoughts about this page?</i> 
+                  <nobr><a href="https://airtable.com/shrZ9uL3id6oWEn8T" target="_blank" rel="noopener noreferrer">Send us feedback!</a></nobr>
+                </div>
+
               </div>
               <div className="column column-context col-4 col-lg-12">
                 
@@ -411,6 +416,11 @@ export default class Indicators extends Component {
                       </div>
                     </div>
                   </div>
+                </div>
+
+                <div className="Indicators__feedback show-lg">
+                  <i>Have thoughts about this page?</i> 
+                  <nobr><a href="https://airtable.com/shrZ9uL3id6oWEn8T" target="_blank" rel="noopener noreferrer">Send us feedback!</a></nobr>
                 </div>
 
               </div>

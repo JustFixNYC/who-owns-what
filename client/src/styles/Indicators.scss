@@ -166,4 +166,23 @@
 
   }
 
+  .Indicators__feedback {
+    
+    text-align: center;
+
+    @include for-tablet-landscape-up() {
+      padding-top: 4rem;
+    }
+
+    a {
+      color: #454d5d;
+      margin-left: 1.5rem;
+      text-decoration: underline;
+
+      &:hover {
+        text-decoration: none;
+      }
+    }
+  }
+
 }
