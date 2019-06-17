@@ -351,11 +351,6 @@ export default class IndicatorsViz extends Component {
                     enabled: true,
                     cornerRadius: 0
                 },
-                // onMouseover: function (event) {
-                //   var element = this;
-                //   element.chartInstance.update();
-                //   element.chartInstance.chart.canvas.style.cursor = 'pointer';
-                // },
                 onClick: () => { window.open(acrisURL, '_blank'); }
             },
           (this.props.lastSale.date ? 
@@ -383,11 +378,6 @@ export default class IndicatorsViz extends Component {
                     enabled: true,
                     cornerRadius: 0
                 },
-                // onMouseover: function(e) {
-                //   var element = this;
-                //   element.chartInstance.update();
-                //   element.chartInstance.chart.canvas.style.cursor = 'pointer';
-                // },
                 onClick: () => { window.open(acrisURL, '_blank'); }
             } :
             {}

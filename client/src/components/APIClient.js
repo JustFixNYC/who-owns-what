@@ -27,18 +27,6 @@ function getIndicatorHistory(bbl) {
   return get(`/api/address/indicatorhistory?bbl=${bbl}`);
 }
 
-// function getViolsHistory(bbl) {
-//   return get(`/api/address/violshistory?bbl=${bbl}`);
-// }
-
-// function getComplaintsHistory(bbl) {
-//   return get(`/api/address/complaintshistory?bbl=${bbl}`);
-// }
-
-// function getPermitsHistory(bbl) {
-//   return get(`/api/address/permitshistory?bbl=${bbl}`);
-// }
-
 function getAddressExport(q) {
   return fetch(`/api/address/export?houseNumber=${q.housenumber}&street=${q.streetname}&borough=${q.boro}`)
     .then(checkStatus);
@@ -91,9 +79,6 @@ const Client = {
   getAggregate,
   getSaleHistory,
   getIndicatorHistory,
-  // getViolsHistory,
-  // getComplaintsHistory,
-  // getPermitsHistory,
   getAddressExport,
   postNewSubscriber
 };

@@ -12,14 +12,14 @@ import 'styles/Indicators.css';
 const initialState = { 
 
       saleHistory: null,
-      indicatorHistory: null,
       lastSale: {
         date: null,
         label: null, 
         documentid: null 
       },
 
-      violsHistory: null,
+      indicatorHistory: null,
+
       violsData: {
         labels: null,
         values: {
@@ -30,7 +30,6 @@ const initialState = {
         }
       },
 
-      complaintsHistory: null,
       complaintsData: {
         labels: null,
         values: {
@@ -40,7 +39,6 @@ const initialState = {
         }
       },
 
-      permitsHistory: null,
       permitsData: {
         labels: null,
         values: {
@@ -70,7 +68,7 @@ export default class Indicators extends Component {
     this.setState(initialState);
   }
 
-  // Shift the X-axis 'left' or 'right', or 'reset' the X-axis to default
+  /**  Shift the X-axis 'left' or 'right', or 'reset' the X-axis to default */
   handleXAxisChange(shift) {
 
     const span = this.state.xAxisViewableColumns;
@@ -129,17 +127,6 @@ export default class Indicators extends Component {
         .catch(err => {window.Rollbar.error("API error on Indicators: Sale History", err, detailAddr.bbl);}
       );
 
-      // const indicatorList = this.state.indicatorList.map(x => x + 'History');
-
-      // for (const indicator of indicatorList) {
-      //   const APICall = 'get' + Helpers.capitalize(indicator); // i.e: 'getViolsHistory'
-      //   APIClient[APICall](detailAddr.bbl)
-      //     .then(results => this.setState({ [indicator]: results.result }))
-      //     .catch(err => {window.Rollbar.error(("API error on Indicators: " + indicator), err, detailAddr.bbl);}
-      //   );
-        
-      // }
-
       APIClient.getIndicatorHistory(detailAddr.bbl)
         .then(results => this.setState({ indicatorHistory: results.result }))
         .catch(err => {window.Rollbar.error("API error on Indicators: Indicator History", err, detailAddr.bbl);}
@@ -151,8 +138,6 @@ export default class Indicators extends Component {
   }
 
   createVizData(rawJSON, vizType) {
-
-    console.log("doing it");
 
     // Generate object to hold data for viz
     // Note: keys in "values" object need to match exact key names in data from API call
@@ -186,8 +171,8 @@ export default class Indicators extends Component {
     // make the api call when we have a new detail address from the Address Page
     if(nextProps.detailAddr && nextProps.detailAddr.bbl && // will be receiving a detailAddr prop AND
         (!this.props.detailAddr || // either we don't have one now 
-         (this.props.detailAddr && this.props.detailAddr.bbl && ! // OR we have a different one
-          Helpers.addrsAreEqual(this.props.detailAddr, nextProps.detailAddr)))) { 
+         (this.props.detailAddr && this.props.detailAddr.bbl && // OR we have a different one
+          !Helpers.addrsAreEqual(this.props.detailAddr, nextProps.detailAddr)))) { 
       this.reset();
       this.fetchData(nextProps.detailAddr);
     }
