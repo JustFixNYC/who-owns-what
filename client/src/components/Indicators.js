@@ -12,6 +12,7 @@ import 'styles/Indicators.css';
 const initialState = { 
 
       saleHistory: null,
+      indicatorHistory: null,
       lastSale: {
         date: null,
         label: null, 
@@ -128,16 +129,21 @@ export default class Indicators extends Component {
         .catch(err => {window.Rollbar.error("API error on Indicators: Sale History", err, detailAddr.bbl);}
       );
 
-      const indicatorList = this.state.indicatorList.map(x => x + 'History');
+      // const indicatorList = this.state.indicatorList.map(x => x + 'History');
 
-      for (const indicator of indicatorList) {
-        const APICall = 'get' + Helpers.capitalize(indicator); // i.e: 'getViolsHistory'
-        APIClient[APICall](detailAddr.bbl)
-          .then(results => this.setState({ [indicator]: results.result }))
-          .catch(err => {window.Rollbar.error(("API error on Indicators: " + indicator), err, detailAddr.bbl);}
-        );
+      // for (const indicator of indicatorList) {
+      //   const APICall = 'get' + Helpers.capitalize(indicator); // i.e: 'getViolsHistory'
+      //   APIClient[APICall](detailAddr.bbl)
+      //     .then(results => this.setState({ [indicator]: results.result }))
+      //     .catch(err => {window.Rollbar.error(("API error on Indicators: " + indicator), err, detailAddr.bbl);}
+      //   );
         
-      }
+      // }
+
+      APIClient.getIndicatorHistory(detailAddr.bbl)
+        .then(results => this.setState({ indicatorHistory: results.result }))
+        .catch(err => {window.Rollbar.error("API error on Indicators: Indicator History", err, detailAddr.bbl);}
+      );
 
       this.setState({
         currentAddr: detailAddr
@@ -146,9 +152,11 @@ export default class Indicators extends Component {
 
   createVizData(rawJSON, vizType) {
 
+    console.log("doing it");
+
     // Generate object to hold data for viz
     // Note: keys in "values" object need to match exact key names in data from API call
-    var vizData = Object.assign({},initialState[vizType]);
+    var vizData = Object.assign({},initialState[(vizType + 'Data')]);
     
     vizData.labels = [];
     for (const column in vizData.values) {
@@ -165,7 +173,8 @@ export default class Indicators extends Component {
       vizData.labels.push(rawJSON[i].month);
 
       for (const column in vizData.values) {
-        vizData.values[column].push(parseInt(rawJSON[i][column]));
+        const vizTypePlusColumn = vizType + '_' + column
+        vizData.values[column].push(parseInt(rawJSON[i][vizTypePlusColumn]));
       }
 
     }
@@ -190,11 +199,12 @@ export default class Indicators extends Component {
 
     // process viz data from incoming API calls: 
 
-    for (const indicator of indicatorList) {
+    
+    if(this.state.indicatorHistory && !Helpers.jsonEqual(prevState.indicatorHistory, this.state.indicatorHistory)) {
+     
+      for (const indicator of indicatorList) {
 
-      if(this.state[indicator + 'History'] && !Helpers.jsonEqual(prevState[indicator + 'History'], this.state[indicator + 'History'])) {
-
-        var inputData = this.createVizData(this.state[indicator + 'History'], (indicator + 'Data'));
+        var inputData = this.createVizData(this.state.indicatorHistory, indicator);
         
         this.setState({
           [(indicator + 'Data')]: inputData
@@ -267,7 +277,7 @@ export default class Indicators extends Component {
     return (
       <div className="Page Indicators">
         <div className="Indicators__content Page__content">
-          { !(this.props.isVisible && this.state.saleHistory && this.state[(this.state.defaultVis + 'History')]) ? 
+          { !(this.props.isVisible && this.state.saleHistory && this.state.indicatorHistory) ? 
             (
               <Loader loading={true} classNames="Loader-map">Loading</Loader>
             ) : 
