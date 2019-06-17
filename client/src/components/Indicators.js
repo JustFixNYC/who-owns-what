@@ -12,6 +12,7 @@ import 'styles/Indicators.css';
 const initialState = { 
 
       saleHistory: null,
+
       lastSale: {
         date: null,
         label: null, 
@@ -237,11 +238,7 @@ export default class Indicators extends Component {
 
       else {
         this.setState({
-          lastSale: {
-            date: null,
-            label: null,
-            documentid: null
-          }
+          lastSale: initialState.lastSale
         });
       }
 
