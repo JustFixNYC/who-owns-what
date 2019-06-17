@@ -23,16 +23,8 @@ function getSaleHistory(bbl) {
   return get(`/api/address/salehistory?bbl=${bbl}`);
 }
 
-function getViolsHistory(bbl) {
-  return get(`/api/address/violshistory?bbl=${bbl}`);
-}
-
-function getComplaintsHistory(bbl) {
-  return get(`/api/address/complaintshistory?bbl=${bbl}`);
-}
-
-function getPermitsHistory(bbl) {
-  return get(`/api/address/permitshistory?bbl=${bbl}`);
+function getIndicatorHistory(bbl) {
+  return get(`/api/address/indicatorhistory?bbl=${bbl}`);
 }
 
 function getAddressExport(q) {
@@ -86,9 +78,7 @@ const Client = {
   searchBBL,
   getAggregate,
   getSaleHistory,
-  getViolsHistory,
-  getComplaintsHistory,
-  getPermitsHistory,
+  getIndicatorHistory,
   getAddressExport,
   postNewSubscriber
 };

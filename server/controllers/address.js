@@ -66,26 +66,8 @@ module.exports = {
       });
   },
 
-  violshistory: (req, res) => {
-    db.queryViolsHistory(req.query.bbl)
-      .then(result => res.status(200).send({ result: result }) )
-      .catch(err => {
-        rollbar.error(err, req);
-        res.status(200).send({ error: err.message });
-      });
-  },
-
-  complaintshistory: (req, res) => {
-    db.queryComplaintsHistory(req.query.bbl)
-      .then(result => res.status(200).send({ result: result }) )
-      .catch(err => {
-        rollbar.error(err, req);
-        res.status(200).send({ error: err.message });
-      });
-  },
-
-  permitshistory: (req, res) => {
-    db.queryPermitsHistory(req.query.bbl)
+  indicatorhistory: (req, res) => {
+    db.queryIndicatorHistory(req.query.bbl)
       .then(result => res.status(200).send({ result: result }) )
       .catch(err => {
         rollbar.error(err, req);
