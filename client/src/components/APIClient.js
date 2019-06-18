@@ -19,6 +19,14 @@ function getAggregate(bbl) {
   return get(`/api/address/aggregate?bbl=${bbl}`);
 }
 
+function getSaleHistory(bbl) {
+  return get(`/api/address/salehistory?bbl=${bbl}`);
+}
+
+function getIndicatorHistory(bbl) {
+  return get(`/api/address/indicatorhistory?bbl=${bbl}`);
+}
+
 function getAddressExport(q) {
   return fetch(`/api/address/export?houseNumber=${q.housenumber}&street=${q.streetname}&borough=${q.boro}`)
     .then(checkStatus);
@@ -69,6 +77,8 @@ const Client = {
   searchAddress,
   searchBBL,
   getAggregate,
+  getSaleHistory,
+  getIndicatorHistory,
   getAddressExport,
   postNewSubscriber
 };

@@ -30,6 +30,10 @@
       &.primary {
         line-height: 20px;
         margin-bottom: 20px;
+
+        @include for-tablet-landscape-down() {
+          max-width: 385px;
+        }
       }
     }
 

@@ -3,7 +3,7 @@
 
 .DetailView {
 
-  $detailWidth: 45vw;
+  $detailWidth: 70vw;
   $detailAnimLength: 300;
   $detailAnimLengthMs: 300 + 0ms;
 
@@ -116,6 +116,11 @@
       }
     }
 
+    .columns.main-content-columns {
+      margin-left: 0;
+      margin-right: 0;
+    }
+
     .DetailView__mobilePortfolioView {
       padding: 13px;
 
@@ -166,6 +171,14 @@
       @include for-tablet-portrait-up() {
         padding-right: 3rem;
       };
+
+      &.column-right {
+
+        @include for-tablet-landscape-up() {
+          padding-right: 0;
+          padding-left: 0;
+        }
+      }
 
     }
 
@@ -243,6 +256,11 @@
       };
     }
 
+    .card-body-timeline-link {
+      margin-top: 2.5rem;
+      padding-top: 1rem;
+    }
+
     .card-body-landlord {
 
       margin-top: 2.5rem;
@@ -265,7 +283,6 @@
     }
 
     .card-body-resources {
-      margin-top: 56px;
       margin-bottom: 24px;
 
       border: 1px solid $gray;
@@ -273,6 +290,11 @@
       padding-right: 1.5rem;
       margin-right: -1.5rem;
       position: relative;
+
+      @include for-tablet-landscape-up() {
+        margin-top: 56px;
+        margin-right: 0;
+      }
 
       .card-body-resources__title {
         position: absolute;
@@ -286,6 +308,12 @@
     .card-body-links, .card-body-prompt, .card-body-social {
       margin-top: 24px;
       margin-bottom: 24px;
+    }
+
+    .card-body-prompt {
+      @include for-tablet-landscape-up() {
+        margin-top: 48px;
+      }
     }
 
     .card-body-links {

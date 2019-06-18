@@ -75,6 +75,10 @@
     border-bottom: none;
     width: 75%;
 
+    @include for-tablet-landscape-down() {
+      width: 100%;
+    }
+
     li.tab-item {
 
       height: 26px;
@@ -92,6 +96,10 @@
       // &:nth-child(3) { left: -50px; z-index: 1; }
 
       margin-right: 15px;
+
+      @include for-phone-only() {
+        margin-right: 12px;
+      }
 
       &:hover {
         cursor: pointer;
