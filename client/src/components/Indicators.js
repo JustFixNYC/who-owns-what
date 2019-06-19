@@ -65,11 +65,12 @@ export default class Indicators extends Component {
     this.state = initialState;
   }
 
+  /** Resets the component to initial blank state */
   reset() {
     this.setState(initialState);
   }
 
-  /**  Shift the X-axis 'left' or 'right', or 'reset' the X-axis to default */
+  /** Shifts the X-axis 'left' or 'right', or 'reset' the X-axis to default */
   handleXAxisChange(shift) {
 
     const span = this.state.xAxisViewableColumns;
@@ -113,6 +114,7 @@ export default class Indicators extends Component {
     });
   }
 
+  /** Changes viewing timespan to be by 'year', 'quarter', or 'month' */
   handleTimeSpanChange(selectedTimeSpan) {
     var monthsInGroup = (selectedTimeSpan === 'quarter' ? 3 : selectedTimeSpan === 'year' ? 12 : 1)
 
@@ -122,6 +124,7 @@ export default class Indicators extends Component {
     });
   }
 
+  /** Fetches data for Indicators component via 2 API calls and saves the raw data in state */
   fetchData(detailAddr) {
       APIClient.getSaleHistory(detailAddr.bbl)
         .then(results => this.setState({ saleHistory: results.result }))
@@ -138,6 +141,7 @@ export default class Indicators extends Component {
       });
   }
 
+  /** Reorganizes raw data from API call and then returns an object that matches the data stucture in state  */
   createVizData(rawJSON, vizType) {
 
     // Generate object to hold data for viz
@@ -184,7 +188,6 @@ export default class Indicators extends Component {
     const indicatorList = this.state.indicatorList;
 
     // process viz data from incoming API calls: 
-
     
     if(this.state.indicatorHistory && !Helpers.jsonEqual(prevState.indicatorHistory, this.state.indicatorHistory)) {
      
