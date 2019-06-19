@@ -20,7 +20,13 @@ export default class IndicatorsViz extends Component {
     };
   }
 
-  // Make Chart Redraw ONLY when the time span changes:
+  // Objectives: 
+  // 1. Make Chart Redraw IF AND ONLY IF the activeTimeSpan changes
+  // 2. If swtiching to 'month', animationTime should be 2500 (2.5 seconds), 
+  //    otherwise animationTime should be 1000 (1 second)
+  // 3. On any other change to the component, shouldRedraw should be false
+  //
+  // Atul, is there any way to recreate this functionality without componentWillReceiveProps?
   componentWillReceiveProps(nextProps) { 
     if(nextProps.activeTimeSpan !== this.props.activeTimeSpan) {
       const animationTime = (nextProps.activeTimeSpan === 'month' ? 2500 : 1000);
