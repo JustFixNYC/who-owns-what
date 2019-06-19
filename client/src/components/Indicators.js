@@ -248,13 +248,15 @@ export default class Indicators extends Component {
   render() {
 
 
-  var boro = (this.props.detailAddr ? this.props.detailAddr.bbl.slice(0, 1) : null);
-  var block = (this.props.detailAddr ? this.props.detailAddr.bbl.slice(1, 6) : null);
-  var lot = (this.props.detailAddr ? this.props.detailAddr.bbl.slice(6, 10) : null);
+  const boro = (this.props.detailAddr ? this.props.detailAddr.bbl.slice(0, 1) : null);
+  const block = (this.props.detailAddr ? this.props.detailAddr.bbl.slice(1, 6) : null);
+  const lot = (this.props.detailAddr ? this.props.detailAddr.bbl.slice(6, 10) : null);
+  const housenumber = (this.props.detailAddr ? this.props.detailAddr.housenumber : null);
+  const streetname = (this.props.detailAddr ? this.props.detailAddr.streetname : null);
 
-  var indicatorData = this.state.activeVis + 'Data'; 
-  var xAxisLength = (this.state[indicatorData].labels ? Math.floor(this.state[indicatorData].labels.length / this.state.monthsInGroup) : 0);
-  var indicatorDataTotal = (this.state[indicatorData].values.total ? (this.state[indicatorData].values.total).reduce((total, sum) => (total + sum)) : null);
+  const indicatorData = this.state.activeVis + 'Data'; 
+  const xAxisLength = (this.state[indicatorData].labels ? Math.floor(this.state[indicatorData].labels.length / this.state.monthsInGroup) : 0);
+  const indicatorDataTotal = (this.state[indicatorData].values.total ? (this.state[indicatorData].values.total).reduce((total, sum) => (total + sum)) : null);
   
     return (
       <div className="Page Indicators">
@@ -403,16 +405,24 @@ export default class Indicators extends Component {
                     <h6>Official building pages</h6>
                     <div className="columns">
                       <div className="column col-12">
-                        <a onClick={() => {window.gtag('event', 'acris-timeline-tab');}} href={`http://a836-acris.nyc.gov/bblsearch/bblsearch.asp?borough=${boro}&block=${block}&lot=${lot}`} target="_blank" rel="noopener noreferrer" className="btn btn-block">View documents on ACRIS &#8599;&#xFE0E;</a>
+                        <a onClick={() => {window.gtag('event', 'acris-timeline-tab');}} 
+                           href={`http://a836-acris.nyc.gov/bblsearch/bblsearch.asp?borough=${boro}&block=${block}&lot=${lot}`} target="_blank" rel="noopener noreferrer" 
+                           className="btn btn-block">View documents on ACRIS &#8599;&#xFE0E;</a>
                       </div>
                       <div className="column col-12">
-                        <a onClick={() => {window.gtag('event', 'hpd-timeline-tab');}} href={`https://hpdonline.hpdnyc.org/HPDonline/Provide_address.aspx?p1=${boro}&p2=${this.props.detailAddr.housenumber}&p3=${this.props.detailAddr.streetname}&SearchButton=Search`} target="_blank" rel="noopener noreferrer" className="btn btn-block">HPD Building Profile &#8599;&#xFE0E;</a>
+                        <a onClick={() => {window.gtag('event', 'hpd-timeline-tab');}} 
+                           href={(housenumber && streetname ? `https://hpdonline.hpdnyc.org/HPDonline/Provide_address.aspx?p1=${boro}&p2=${housenumber}&p3=${streetname}&SearchButton=Search` : `https://hpdonline.hpdnyc.org/HPDonline/provide_address.aspx`)} target="_blank" rel="noopener noreferrer" 
+                           className="btn btn-block">HPD Building Profile &#8599;&#xFE0E;</a>
                       </div>
                       <div className="column col-12">
-                        <a onClick={() => {window.gtag('event', 'dob-timeline-tab');}} href={`http://a810-bisweb.nyc.gov/bisweb/PropertyProfileOverviewServlet?boro=${boro}&block=${block}&lot=${lot}`} target="_blank" rel="noopener noreferrer" className="btn btn-block">DOB Building Profile &#8599;&#xFE0E;</a>
+                        <a onClick={() => {window.gtag('event', 'dob-timeline-tab');}} 
+                           href={`http://a810-bisweb.nyc.gov/bisweb/PropertyProfileOverviewServlet?boro=${boro}&block=${block}&lot=${lot}`} target="_blank" rel="noopener noreferrer" 
+                           className="btn btn-block">DOB Building Profile &#8599;&#xFE0E;</a>
                       </div>
                       <div className="column col-12">
-                        <a onClick={() => {window.gtag('event', 'dof-timeline-tab');}} href={`https://nycprop.nyc.gov/nycproperty/nynav/jsp/selectbbl.jsp`} target="_blank" rel="noopener noreferrer" className="btn btn-block">DOF Property Tax Bills &#8599;&#xFE0E;</a>
+                        <a onClick={() => {window.gtag('event', 'dof-timeline-tab');}} 
+                           href={`https://nycprop.nyc.gov/nycproperty/nynav/jsp/selectbbl.jsp`} target="_blank" rel="noopener noreferrer" 
+                           className="btn btn-block">DOF Property Tax Bills &#8599;&#xFE0E;</a>
                       </div>
                     </div>
                   </div>
