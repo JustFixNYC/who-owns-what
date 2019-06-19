@@ -41,7 +41,7 @@ export default class IndicatorsViz extends Component {
     }
   }
 
-  // Group monthly raw data to match selected time span:
+  /** Returns new data labels match selected time span */ 
   groupLabels(labelsArray) {
     if (labelsArray && this.props.activeTimeSpan === 'quarter') {
       var labelsByQuarter = []; 
@@ -65,6 +65,7 @@ export default class IndicatorsViz extends Component {
     }
   }
 
+  /** Returns grouped data to match selected time span */ 
   groupData(dataArray) {
     if (dataArray && this.props.activeTimeSpan === 'quarter') {
       var dataByQuarter = []; 
@@ -88,6 +89,7 @@ export default class IndicatorsViz extends Component {
 
   }
 
+  /** Returns maximum y-value across all datasets, grouped by selected timespan */
   getDataMaximum() {
 
     var indicatorDataLabels = this.props.indicatorList.map(x => x + 'Data');
@@ -102,7 +104,7 @@ export default class IndicatorsViz extends Component {
 
   render() {
 
-  // Set configurables for active vis
+  // Create "data" object according to Chart.js documentation 
   var datasets;
 
   switch (this.props.activeVis) {
@@ -160,15 +162,16 @@ export default class IndicatorsViz extends Component {
     default: break;
   }
 
-  // Create "data" and "options" objects for rendering visualization
   var indicatorData = this.props.activeVis + 'Data';
   var data = {
         labels: this.groupLabels(this.props[indicatorData].labels), 
         datasets: datasets
   };
 
-  var labelPosition;
-  var dateLocation = 'current'; 
+  // Create "options" object according to Chart.js documentation 
+
+  var labelPosition; // specific graph label value where we want to mark "Sold to Current Owner" 
+  var dateLocation = 'current'; // last sale date is either in the 'past', 'future', or 'current' (default)
 
   if (data.labels) {
 
