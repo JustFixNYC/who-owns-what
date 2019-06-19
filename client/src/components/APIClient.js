@@ -19,6 +19,10 @@ function getAggregate(bbl) {
   return get(`/api/address/aggregate?bbl=${bbl}`);
 }
 
+function getBuildingInfo(bbl) {
+  return get(`/api/address/buildinginfo?bbl=${bbl}`);
+}
+
 function getSaleHistory(bbl) {
   return get(`/api/address/salehistory?bbl=${bbl}`);
 }
@@ -77,6 +81,7 @@ const Client = {
   searchAddress,
   searchBBL,
   getAggregate,
+  getBuildingInfo,
   getSaleHistory,
   getIndicatorHistory,
   getAddressExport,
