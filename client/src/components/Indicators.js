@@ -305,7 +305,7 @@ export default class Indicators extends Component {
                     </li>
                   </div>
                   <div className="Indicators__linksContainer">
-                    <em className="Indicators__linksTitle">Group by:</em> <br/>
+                    <em className="Indicators__linksTitle">View by:</em> <br/>
                     <li className="menu-item">
                         <label className={"form-radio" + (this.state.activeTimeSpan === "month" ? " active" : "")} onClick={() => {window.gtag('event', 'month-timeline-tab');}}>
                           <input type="radio" 

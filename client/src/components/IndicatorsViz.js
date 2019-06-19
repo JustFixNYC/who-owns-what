@@ -150,7 +150,7 @@ export default class IndicatorsViz extends Component {
     case 'permits':
       datasets = 
         [{
-            label: 'Building Permits Filed',
+            label: 'Building Permits Applied For',
             data: this.groupData(this.props.permitsData.values.total),
             backgroundColor: 'rgba(73, 192, 179, 0.6)',
             borderColor: 'rgb(73, 192, 179)',
