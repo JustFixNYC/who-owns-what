@@ -11,7 +11,6 @@ import Helpers from 'util/helpers';
 import 'styles/Indicators.css';
 
 export default class IndicatorsViz extends Component {
-
   constructor(props) {
     super(props);
     this.state = { 
@@ -35,12 +34,18 @@ export default class IndicatorsViz extends Component {
       }.bind(this), 2500);
     }
     else {
-     this.setState({
+      this.setState({
         shouldRedraw: false
       });
     }
   }
 
+  render() {
+    return <IndicatorsVizImplementation {...this.props} animationTime={this.state.animationTime} shouldRedraw={this.state.shouldRedraw} />;
+  }
+}
+
+class IndicatorsVizImplementation extends Component {
   /** Returns new data labels match selected time span */ 
   groupLabels(labelsArray) {
     if (labelsArray && this.props.activeTimeSpan === 'quarter') {
@@ -415,7 +420,7 @@ export default class IndicatorsViz extends Component {
         drawTime: "afterDraw" // (default)
       },
       animation: {
-        duration: this.state.animationTime
+        duration: this.props.animationTime
       },
       maintainAspectRatio: false,
       onHover: function (event) {
@@ -427,7 +432,7 @@ export default class IndicatorsViz extends Component {
 
     return (
       <div className="Indicators__chart">
-        <Bar data={data} options={options} plugins={[ChartAnnotation]} width={100} height={300} redraw={this.state.shouldRedraw} />
+        <Bar data={data} options={options} plugins={[ChartAnnotation]} width={100} height={300} redraw={this.props.shouldRedraw} />
       </div>
     );
   }
