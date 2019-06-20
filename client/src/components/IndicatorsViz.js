@@ -10,38 +10,54 @@ import Helpers from 'util/helpers';
 
 import 'styles/Indicators.css';
 
+const DEFAULT_ANIMATION_MS = 1000;
+const MONTH_ANIMATION_MS = 2500;
+
 export default class IndicatorsViz extends Component {
   constructor(props) {
     super(props);
-    this.state = { 
+    this.state = {
+      ...props,
       shouldRedraw: false,
-      animationTime: 1000 
+      animationTime: 1000
     };
+    this.timeout = undefined;
   }
 
   // Make Chart Redraw ONLY when the time span changes:
-  componentWillReceiveProps(nextProps) { 
-    if(nextProps.activeTimeSpan !== this.props.activeTimeSpan) {
-      const animationTime = (nextProps.activeTimeSpan === 'month' ? 2500 : 1000);
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps === this.props) {
+      return;
+    }
+    if (prevProps.activeTimeSpan !== this.props.activeTimeSpan) {
+      const animationTime = (this.props.activeTimeSpan === 'month' ? MONTH_ANIMATION_MS : DEFAULT_ANIMATION_MS);
       this.setState({
+        ...this.props,
         shouldRedraw: true,
         animationTime: animationTime
       });
-      setTimeout(function() {
+      clearTimeout(this.timeout);
+      this.timeout = setTimeout(function() {
         this.setState({
-          animationTime: 1000
+          animationTime: DEFAULT_ANIMATION_MS
         });
-      }.bind(this), 2500);
+        this.timeout = undefined;
+      }.bind(this), MONTH_ANIMATION_MS);
     }
     else {
       this.setState({
+        ...this.props,
         shouldRedraw: false
       });
     }
   }
 
+  componentWillUnmount() {
+    clearTimeout(this.timeout);
+  }
+
   render() {
-    return <IndicatorsVizImplementation {...this.props} animationTime={this.state.animationTime} shouldRedraw={this.state.shouldRedraw} />;
+    return <IndicatorsVizImplementation {...this.state} />;
   }
 }
 
