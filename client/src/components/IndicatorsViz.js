@@ -10,37 +10,58 @@ import Helpers from 'util/helpers';
 
 import 'styles/Indicators.css';
 
-export default class IndicatorsViz extends Component {
+const DEFAULT_ANIMATION_MS = 1000;
+const MONTH_ANIMATION_MS = 2500;
 
+export default class IndicatorsViz extends Component {
   constructor(props) {
     super(props);
-    this.state = { 
+    this.state = {
+      ...props,
       shouldRedraw: false,
-      animationTime: 1000 
+      animationTime: 1000
     };
+    this.timeout = undefined;
   }
 
   // Make Chart Redraw ONLY when the time span changes:
-  componentWillReceiveProps(nextProps) { 
-    if(nextProps.activeTimeSpan !== this.props.activeTimeSpan) {
-      const animationTime = (nextProps.activeTimeSpan === 'month' ? 2500 : 1000);
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps === this.props) {
+      return;
+    }
+    if (prevProps.activeTimeSpan !== this.props.activeTimeSpan) {
+      const animationTime = (this.props.activeTimeSpan === 'month' ? MONTH_ANIMATION_MS : DEFAULT_ANIMATION_MS);
       this.setState({
+        ...this.props,
         shouldRedraw: true,
         animationTime: animationTime
       });
-      setTimeout(function() {
+      clearTimeout(this.timeout);
+      this.timeout = setTimeout(function() {
         this.setState({
-          animationTime: 1000
+          animationTime: DEFAULT_ANIMATION_MS
         });
-      }.bind(this), 2500);
+        this.timeout = undefined;
+      }.bind(this), MONTH_ANIMATION_MS);
     }
     else {
-     this.setState({
+      this.setState({
+        ...this.props,
         shouldRedraw: false
       });
     }
   }
 
+  componentWillUnmount() {
+    clearTimeout(this.timeout);
+  }
+
+  render() {
+    return <IndicatorsVizImplementation {...this.state} />;
+  }
+}
+
+class IndicatorsVizImplementation extends Component {
   /** Returns new data labels match selected time span */ 
   groupLabels(labelsArray) {
     if (labelsArray && this.props.activeTimeSpan === 'quarter') {
@@ -415,7 +436,7 @@ export default class IndicatorsViz extends Component {
         drawTime: "afterDraw" // (default)
       },
       animation: {
-        duration: this.state.animationTime
+        duration: this.props.animationTime
       },
       maintainAspectRatio: false,
       onHover: function (event) {
@@ -427,7 +448,7 @@ export default class IndicatorsViz extends Component {
 
     return (
       <div className="Indicators__chart">
-        <Bar data={data} options={options} plugins={[ChartAnnotation]} width={100} height={300} redraw={this.state.shouldRedraw} />
+        <Bar data={data} options={options} plugins={[ChartAnnotation]} width={100} height={300} redraw={this.props.shouldRedraw} />
       </div>
     );
   }
