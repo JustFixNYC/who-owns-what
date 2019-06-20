@@ -153,23 +153,23 @@ class IndicatorsVizImplementation extends Component {
             borderWidth: 1
         }];
       break;
-    case 'complaints':
-      datasets = 
-        [{
-            label: 'Emergency',
-            data: this.groupData(this.props.complaintsData.values.emergency),
-            backgroundColor: 'rgba(227,74,51, 0.6)',
-            borderColor: 'rgba(227,74,51,1)',
-            borderWidth: 1
-        },
-        {
-            label: 'Non-Emergency',
-            data: this.groupData(this.props.complaintsData.values.nonemergency),
-            backgroundColor: 'rgba(255, 219, 170, 0.6)',
-            borderColor: 'rgba(255, 219, 170,1)',
-            borderWidth: 1
-        }];
-      break;
+    // case 'complaints':
+    //   datasets = 
+    //     [{
+    //         label: 'Emergency',
+    //         data: this.groupData(this.props.complaintsData.values.emergency),
+    //         backgroundColor: 'rgba(227,74,51, 0.6)',
+    //         borderColor: 'rgba(227,74,51,1)',
+    //         borderWidth: 1
+    //     },
+    //     {
+    //         label: 'Non-Emergency',
+    //         data: this.groupData(this.props.complaintsData.values.nonemergency),
+    //         backgroundColor: 'rgba(255, 219, 170, 0.6)',
+    //         borderColor: 'rgba(255, 219, 170,1)',
+    //         borderWidth: 1
+    //     }];
+    //   break;
     case 'permits':
       datasets = 
         [{
@@ -179,6 +179,49 @@ class IndicatorsVizImplementation extends Component {
             borderColor: 'rgb(73, 192, 179)',
             borderWidth: 1
         }];
+      break;
+    case 'complaints':
+      datasets = 
+      [{
+        label: 'Class C',
+        data: this.groupData(this.props.violsData.values.class_c),
+        backgroundColor: 'rgba(136,65,157, 0.6)',
+        borderColor: 'rgba(136,65,157,1)',
+        stack: '1',
+        borderWidth: 1
+      },
+      {
+        label: 'Class B',
+        data: this.groupData(this.props.violsData.values.class_b),
+        backgroundColor: 'rgba(140,150,198, 0.6)',
+        borderColor: 'rgba(140,150,198,1)',
+        stack: '1',
+        borderWidth: 1
+      },
+      {
+        label: 'Class A',
+        data: this.groupData(this.props.violsData.values.class_a),
+        backgroundColor: 'rgba(157, 194, 227, 0.6)',
+        borderColor: 'rgba(157, 194, 227,1)',
+        stack: '1',
+        borderWidth: 1
+      },
+      {
+        label: 'Emergency',
+        data: this.groupData(this.props.complaintsData.values.emergency),
+        backgroundColor: 'rgba(227,74,51, 0.6)',
+        borderColor: 'rgba(227,74,51,1)',
+        stack: '2',
+        borderWidth: 1
+      },
+      {
+        label: 'Non-Emergency',
+        data: this.groupData(this.props.complaintsData.values.nonemergency),
+        backgroundColor: 'rgba(255, 219, 170, 0.6)',
+        borderColor: 'rgba(255, 219, 170,1)',
+        stack: '2',
+        borderWidth: 1
+      }];
       break;
     default: break;
   }
