@@ -29,8 +29,15 @@ export default class NotRegisteredPage extends Component {
 
   render() {
     const geosearch = this.props.location.state.geosearch;
+    const searchAddress = this.props.location.state.searchAddress;
     const buildingInfo = (this.state.buildingInfo ? this.state.buildingInfo[0] : null);
-
+    
+    const usersInputAddress = 
+      (searchAddress && (searchAddress.housenumber || searchAddress.streetname) ?
+        (searchAddress.housenumber || '') + (searchAddress.housenumber && searchAddress.streetname ? ' ' : '') + (searchAddress.streetname || '') :
+      buildingInfo ?
+        buildingInfo.formatted_address :
+      null );
     const bblDash = <span className="unselectable" unselectable="on">-</span>;
 
     let boro, block, lot;
@@ -84,8 +91,8 @@ export default class NotRegisteredPage extends Component {
           <div className="HomePage__search">
             <h5 className="mt-10 text-danger text-center text-bold text-large">
               No results found
-              {buildingInfo && buildingInfo.formatted_address ? (
-                 <span> for {buildingInfo.formatted_address}</span>
+              {usersInputAddress ? (
+                 <span> for {usersInputAddress}</span>
               ) : (
                 <span></span>
               )}!
