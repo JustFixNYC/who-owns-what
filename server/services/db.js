@@ -3,14 +3,26 @@ const Promise = require('bluebird');
 const pgp = require('pg-promise')({ promiseLib: Promise });
 const db = pgp(process.env.DATABASE_URL);
 
+// PLUTO Building Info Query for when BBL is not found
+const buildingInfoSQL = 
+  `SELECT 
+	   ADDRESS FORMATTED_ADDRESS,
+	   SPLIT_PART( ADDRESS, ' ' , 1 ) HOUSENUMBER,
+	   SUBSTR(ADDRESS, STRPOS(ADDRESS, ' ') + 1) STREETNAME,
+	   BLDGCLASS,
+	   LAT LATITUDE,
+	   LNG LONGITUDE
+   FROM PLUTO_18V2
+   WHERE BBL = $1`
+
 
 // WOW Indicators Custom Queries
 const saleHistorySQL = 
   `SELECT * 
-   FROM real_property_legals l 
-    LEFT JOIN real_property_master m ON l.documentid = m.documentid
-   WHERE bbl = $1 AND doctype = 'DEED'
-   ORDER BY COALESCE(docdate,recordedfiled) DESC`;
+   FROM REAL_PROPERTY_LEGALS L 
+   LEFT JOIN REAL_PROPERTY_MASTER M ON L.DOCUMENTID = M.DOCUMENTID
+   WHERE BBL = $1 AND DOCTYPE = 'DEED'
+   ORDER BY COALESCE(DOCDATE,RECORDEDFILED) DESC`;
 
 const indicatorHistorySQL = 
 	`WITH TIME_SERIES AS (
@@ -74,6 +86,7 @@ module.exports = {
   queryAddress: bbl => db.func('get_assoc_addrs_from_bbl', bbl),
   queryAggregate: bbl => db.func('get_agg_info_from_bbl', bbl),
   queryLandlord: bbl => db.any('SELECT * FROM hpd_landlord_contact WHERE bbl = $1', bbl),
+  queryBuildingInfo: bbl => db.any(buildingInfoSQL, bbl),
   querySaleHistory: bbl => db.any(saleHistorySQL, bbl),
   queryIndicatorHistory: bbl => db.any(indicatorHistorySQL, bbl)
 };

@@ -1,5 +1,4 @@
 const db = require('../services/db'),
-      geo = require('../services/geoclient'),
       csv = require('csv-express'),
       rollbar = require('rollbar');
       Promise = require('bluebird');
@@ -17,7 +16,7 @@ const formatData = (geo) => {
       db.queryAddress(result.bbl)
     ]);
   } else {
-    throw new Error('[geoclient] Address not found');
+    throw new Error('[geosearch] Address not found');
   }
 }
 
@@ -41,7 +40,7 @@ const getDataAndFormat = (query) => {
 module.exports = {
   query: (req, res) => {
     getDataAndFormat(req.query)
-      .then(results => res.status(200).send({ geoclient: results[0], addrs: results[1] }) )
+      .then(results => res.status(200).send({ geosearch: results[0], addrs: results[1] }) )
       .catch(err => {
         rollbar.error(err, req);
         res.status(200).send({ error: err.message });
@@ -50,6 +49,15 @@ module.exports = {
 
   aggregate: (req, res) => {
     db.queryAggregate(req.query.bbl)
+      .then(result => res.status(200).send({ result: result }) )
+      .catch(err => {
+        rollbar.error(err, req);
+        res.status(200).send({ error: err.message });
+      });
+  },
+
+  buildinginfo: (req, res) => {
+    db.queryBuildingInfo(req.query.bbl)
       .then(result => res.status(200).send({ result: result }) )
       .catch(err => {
         rollbar.error(err, req);

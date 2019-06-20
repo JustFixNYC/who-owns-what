@@ -69,7 +69,7 @@ class HomePage extends Component {
 
       // redirect doesn't like `this` so lets make a ref
       const results = this.state.results;
-      const geoclient = results.geoclient;
+      const geosearch = results.geosearch;
       const searchAddress = this.state.searchAddress;
 
       // no addrs = not found
@@ -78,7 +78,7 @@ class HomePage extends Component {
         return (
           <Redirect push to={{
             pathname: '/not-found',
-            state: { geoclient, searchAddress }
+            state: { geosearch, searchAddress }
           }}></Redirect>
         );
 

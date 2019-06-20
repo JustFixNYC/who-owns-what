@@ -1,5 +1,4 @@
 const db = require('../services/db'),
-      geo = require('../services/geoclient'),
       csv = require('csv-express'),
       rollbar = require('rollbar');
       Promise = require('bluebird');
