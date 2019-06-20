@@ -30,8 +30,8 @@ export default class NotRegisteredPage extends Component {
   render() {
     const geosearch = this.props.location.state.geosearch;
     const searchAddress = this.props.location.state.searchAddress;
-    const buildingInfo = (this.state.buildingInfo ? this.state.buildingInfo[0] : null);
-    
+    const buildingInfo = (this.state.buildingInfo && this.state.buildingInfo.length > 0 ? this.state.buildingInfo[0] : null);
+
     const usersInputAddress = 
       (searchAddress && (searchAddress.housenumber || searchAddress.streetname) ?
         (searchAddress.housenumber || '') + (searchAddress.housenumber && searchAddress.streetname ? ' ' : '') + (searchAddress.streetname || '') :
@@ -98,7 +98,7 @@ export default class NotRegisteredPage extends Component {
               )}!
             </h5>
             <h6 className="mt-10 text-center text-bold text-large">
-              { geosearch && geosearch.bbl ? (<span>Boro-Block-Lot (BBL): <a href={"https://zola.planning.nyc.gov/lot/"+boro + "/" + block + "/" + lot} target="_blank" rel="noopener noreferrer">{boro}{bblDash}{block}{bblDash}{lot}</a></span>):(<span></span>) }
+              { geosearch && geosearch.bbl && buildingInfo ? (<span>Boro-Block-Lot (BBL): <a href={"https://zola.planning.nyc.gov/lot/"+boro + "/" + block + "/" + lot} target="_blank" rel="noopener noreferrer">{boro}{bblDash}{block}{bblDash}{lot}</a></span>):(<span></span>) }
             </h6>
               { buildingInfo && buildingInfo.latitude && buildingInfo.longitude &&
             <img src={`https://maps.googleapis.com/maps/api/streetview?size=800x200&location=${buildingInfo.latitude},${buildingInfo.longitude}&key=${process.env.REACT_APP_STREETVIEW_API_KEY}`}
