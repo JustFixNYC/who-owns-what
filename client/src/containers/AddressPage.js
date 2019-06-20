@@ -24,7 +24,7 @@ export default class AddressPage extends Component {
       searchAddress: { ...props.match.params },   // maybe this should be
       userAddr: {},                               // merged together?
       hasSearched: false,
-      geoclient: {},
+      geosearch: {},
       assocAddrs: [],
       detailAddr: null,
       detailMobileSlide: false,
@@ -68,13 +68,13 @@ export default class AddressPage extends Component {
 
   // Processes the results and setState accordingly. Doesn't care where results comes from
   handleResults = (results) => {
-    const { geoclient, addrs } = results;
+    const { geosearch, addrs } = results;
 
     this.setState({
-      searchAddress: { ...this.state.searchAddress, bbl: geoclient.bbl },
-      userAddr: _find(addrs, { bbl: geoclient.bbl }),
+      searchAddress: { ...this.state.searchAddress, bbl: geosearch.bbl },
+      userAddr: _find(addrs, { bbl: geosearch.bbl }),
       hasSearched: true,
-      geoclient: geoclient,
+      geosearch: geosearch,
       assocAddrs: addrs
     }, () => {
       this.handleAddrChange(this.state.userAddr);
@@ -119,13 +119,13 @@ export default class AddressPage extends Component {
 
     if(this.state.hasSearched && this.state.assocAddrs.length === 0)  {
 
-      const geoclient = this.state.geoclient;
+      const geosearch = this.state.geosearch;
       const searchAddress = this.state.searchAddress;
 
       return (
         <Redirect to={{
           pathname: '/not-found',
-          state: { geoclient, searchAddress }
+          state: { geosearch, searchAddress }
         }}></Redirect>
       );
     }

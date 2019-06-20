@@ -71,13 +71,13 @@ export default class BBLPage extends Component {
 
       // redirect doesn't like `this` so lets make a ref
       const results = this.state.results;
-      const geoclient = results.geoclient;
+      const geosearch = results.geosearch;
       let searchAddress = {};
 
-      // if(geoclient) {
-      //   searchAddress.housenumber = geoclient.giLowHouseNumber1;
-      //   searchAddress.streetname = geoclient.giStreetName1;
-      //   searchAddress.boro = geoclient.firstBoroughName;
+      // if(geosearch) {
+      //   searchAddress.housenumber = geosearch.giLowHouseNumber1;
+      //   searchAddress.streetname = geosearch.giStreetName1;
+      //   searchAddress.boro = geosearch.firstBoroughName;
       // }
 
       // no addrs = not found
@@ -86,7 +86,7 @@ export default class BBLPage extends Component {
         return (
           <Redirect to={{
             pathname: '/not-found',
-            state: { geoclient, searchAddress }
+            state: { geosearch, searchAddress }
           }}></Redirect>
         );
 

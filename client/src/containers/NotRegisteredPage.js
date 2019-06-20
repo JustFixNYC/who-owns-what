@@ -18,8 +18,8 @@ export default class NotRegisteredPage extends Component {
   }
 
   componentDidMount() {
-    if(this.props.location.state.geoclient && this.props.location.state.geoclient.bbl && !this.state.buildingInfo) {
-      const bbl = this.props.location.state.geoclient.bbl;
+    if(this.props.location.state.geosearch && this.props.location.state.geosearch.bbl && !this.state.buildingInfo) {
+      const bbl = this.props.location.state.geosearch.bbl;
       APIClient.getBuildingInfo(bbl)
         .then(results => this.setState({ buildingInfo: results.result }))
         .catch(err => {window.Rollbar.error("API error: Building Info", err, bbl);}
@@ -28,7 +28,7 @@ export default class NotRegisteredPage extends Component {
   }
 
   render() {
-    const geoclient = this.props.location.state.geoclient;
+    const geosearch = this.props.location.state.geosearch;
     const buildingInfo = (this.state.buildingInfo ? this.state.buildingInfo[0] : null);
 
     const bblDash = <span className="unselectable" unselectable="on">-</span>;
@@ -36,10 +36,10 @@ export default class NotRegisteredPage extends Component {
     let boro, block, lot;
     let buildingTypeMessage;
 
-    if(geoclient) {
+    if(geosearch) {
 
-      if(geoclient.bbl) {
-        ({ boro, block, lot } = Helpers.splitBBL(geoclient.bbl));
+      if(geosearch.bbl) {
+        ({ boro, block, lot } = Helpers.splitBBL(geosearch.bbl));
       }
 
       if(buildingInfo && buildingInfo.bldgclass) {
@@ -91,7 +91,7 @@ export default class NotRegisteredPage extends Component {
               )}!
             </h5>
             <h6 className="mt-10 text-center text-bold text-large">
-              { geoclient && geoclient.bbl ? (<span>Boro-Block-Lot (BBL): <a href={"https://zola.planning.nyc.gov/lot/"+boro + "/" + block + "/" + lot} target="_blank" rel="noopener noreferrer">{boro}{bblDash}{block}{bblDash}{lot}</a></span>):(<span></span>) }
+              { geosearch && geosearch.bbl ? (<span>Boro-Block-Lot (BBL): <a href={"https://zola.planning.nyc.gov/lot/"+boro + "/" + block + "/" + lot} target="_blank" rel="noopener noreferrer">{boro}{bblDash}{block}{bblDash}{lot}</a></span>):(<span></span>) }
             </h6>
               { buildingInfo && buildingInfo.latitude && buildingInfo.longitude &&
             <img src={`https://maps.googleapis.com/maps/api/streetview?size=800x200&location=${buildingInfo.latitude},${buildingInfo.longitude}&key=${process.env.REACT_APP_STREETVIEW_API_KEY}`}
@@ -99,7 +99,7 @@ export default class NotRegisteredPage extends Component {
               }
           {buildingTypeMessage}
             <br />
-            { geoclient && geoclient.bbl && buildingInfo && buildingInfo.housenumber && buildingInfo.streetname &&
+            { geosearch && geosearch.bbl && buildingInfo && buildingInfo.housenumber && buildingInfo.streetname &&
               <div>
                 <p>Here are some useful links to learn more about this building:</p>
                 <div>
