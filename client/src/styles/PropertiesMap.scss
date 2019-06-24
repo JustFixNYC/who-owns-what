@@ -23,6 +23,25 @@
     canvas {
       display: block;
     }
+
+    // overrides spacing/sizing rules for MapBox attribution control
+    .mapboxgl-control-container > .mapboxgl-ctrl-bottom-right {
+      bottom: 115px;
+
+      .mapboxgl-ctrl-attrib.mapboxgl-compact:after {
+        width: 20px;
+        height: 20px;
+      }
+
+      @include for-phone-only() {
+        bottom: 60px;
+
+        .mapboxgl-ctrl-attrib.mapboxgl-compact {
+          margin: 0 5px 10px 10px;
+        }
+      }
+
+    }
   }
 
   .PropertiesMap__error {
