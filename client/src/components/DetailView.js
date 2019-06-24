@@ -131,7 +131,7 @@ export default class DetailView extends Component {
                                 <label>Open Violations</label>
                                 { this.props.addr.openviolations }
                               </div>
-                              <div  title="This represents the total number of HPD Violations (both open & closed) filed since 2015.">
+                              <div  title="This represents the total number of HPD Violations (both open & closed) recorded by the city.">
                                 <label>Total Violations</label>
                                 { this.props.addr.totalviolations }
                               </div>
