@@ -224,7 +224,7 @@ class IndicatorsVizImplementation extends Component {
             ticks: {
                 beginAtZero: true,
                 suggestedMax: (this.props.activeVis === 'permits' ?
-                              Math.max(12, Helpers.maxArray(this.props.permitsData.values.total) * 1.25) :
+                              Math.max(12, Helpers.maxArray(this.groupData(this.props.permitsData.values.total)) * 1.25) :
                               Math.max(12, dataMaximum * 1.25))
             },
             scaleLabel: {
