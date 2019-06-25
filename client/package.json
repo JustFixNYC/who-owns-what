@@ -23,6 +23,7 @@
     "react-chartjs2": "^1.2.1",
     "react-dom": "^15.6.1",
     "react-draggable": "^3.0.5",
+    "react-fullstory": "^1.1.0",
     "react-google-maps": "next",
     "react-leaflet": "^1.4.0",
     "react-mapbox-gl": "^3.8.0",
