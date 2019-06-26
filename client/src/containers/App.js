@@ -6,7 +6,6 @@ import {
   NavLink,
   Link
 } from 'react-router-dom';
-import FullStory from 'react-fullstory';
 
 import 'styles/App.css';
 
@@ -38,7 +37,6 @@ render() {
       <Router>
         <ScrollToTop>
           <div className="App">
-            <FullStory org="MBQ2E" />
             <div className="App__warning old_safari_only">
               <h3>Warning! This site doesn't fully work on older versions of Safari. Try a <a href="http://outdatedbrowser.com/en">modern browser</a>.</h3>
             </div>
