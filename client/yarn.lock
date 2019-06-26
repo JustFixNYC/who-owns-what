@@ -8764,11 +8764,6 @@ react-error-overlay@^5.1.4:
   resolved "https://registry.yarnpkg.com/react-error-overlay/-/react-error-overlay-5.1.6.tgz#0cd73407c5d141f9638ae1e0c63e7b2bf7e9929d"
   integrity sha512-X1Y+0jR47ImDVr54Ab6V9eGk0Hnu7fVWGeHQSOXHf/C2pF9c6uy3gef8QUeuUiWlNb0i08InPSE5a/KJzNzw1Q==
 
-react-fullstory@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/react-fullstory/-/react-fullstory-1.1.0.tgz#ea117c63a08896ebc0856798e87dee290271f492"
-  integrity sha512-2WSlOTHBPAwfqNjyYlULvWrlWrz+8QxJ+5z8RIZP2oWQ+4TaoJLJF1MSeAL4LI2Rs2/E24vnkEmYUjoUDL6bGw==
-
 react-google-maps@next:
   version "7.1.0"
   resolved "https://registry.yarnpkg.com/react-google-maps/-/react-google-maps-7.1.0.tgz#4bd06efc869cbcb6a978c6dbf04daf725e1afd68"
