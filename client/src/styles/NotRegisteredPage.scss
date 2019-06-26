@@ -15,8 +15,18 @@
     padding: 35px;
   };
 
+  @include for-phone-only() {
+    .text-large {
+      font-size: 1.15em;
+    }
+  }
+
   h5 {
     font-size: 1.5em;
+  }
+
+  .bbl-link {
+    text-align: center;
   }
 
   img {
@@ -29,11 +39,19 @@
     margin: 10px auto 0 auto;
   }
 
-  a.btn-link {
-    text-decoration: underline;
+  p, span {
+    a {
+      text-decoration: underline;
+      &:hover {
+        text-decoration: none;
+      }
+    }
+  } 
+
+  a.btn {
+    display: table;
+    white-space: normal;
   }
-
-
 
 
   .btn-group {

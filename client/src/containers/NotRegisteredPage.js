@@ -56,7 +56,7 @@ export default class NotRegisteredPage extends Component {
             buildingTypeMessage = (
               <div>
                 <p className="text-center">
-                  This seems like a smaller residential building. If the landlord doesn't reside there, it should be registered with HPD. (<i><a href={`http://www1.nyc.gov/assets/finance/jump/hlpbldgcode.html#${generalBldgCat.charAt(0)}`} target="_blank" rel="noopener noreferrer"><u>Building Classification</u></a>: {buildingInfo.bldgclass}</i>)
+                  This seems like a smaller residential building. If the landlord doesn't reside there, it should be registered with HPD. <nobr>(<i><a href={`http://www1.nyc.gov/assets/finance/jump/hlpbldgcode.html#${generalBldgCat.charAt(0)}`} target="_blank" rel="noopener noreferrer">Building Classification</a>: {buildingInfo.bldgclass}</i>)</nobr>
                   <a // eslint-disable-line jsx-a11y/anchor-is-valid
                     className="btn btn-block btn-link"
                     onClick={() => this.setState({ showModal: true })}
@@ -69,7 +69,7 @@ export default class NotRegisteredPage extends Component {
             buildingTypeMessage = (
               <div>
                 <p className="text-center">
-                  <b>This building seems like it should be registered with HPD!</b> (<i><a href={`http://www1.nyc.gov/assets/finance/jump/hlpbldgcode.html#${generalBldgCat.charAt(0)}`} target="_blank" rel="noopener noreferrer"><u>Building Classification</u></a>: {buildingInfo.bldgclass}</i>)
+                  <b>This building seems like it should be registered with HPD!</b> <nobr>(<i><a href={`http://www1.nyc.gov/assets/finance/jump/hlpbldgcode.html#${generalBldgCat.charAt(0)}`} target="_blank" rel="noopener noreferrer">Building Classification</a>: {buildingInfo.bldgclass}</i>)</nobr>
                   <a // eslint-disable-line jsx-a11y/anchor-is-valid
                     className="btn btn-block btn-link"
                     onClick={() => this.setState({ showModal: true })}
@@ -79,7 +79,7 @@ export default class NotRegisteredPage extends Component {
             );
             break;
           default:
-            buildingTypeMessage = (<p className="text-center">It doesn't seem like this is a residential building that is required to register with HPD. (<i><a href={`http://www1.nyc.gov/assets/finance/jump/hlpbldgcode.html#${generalBldgCat.charAt(0)}`} target="_blank" rel="noopener noreferrer"><u>Building Classification</u></a>: {buildingInfo.bldgclass}</i>)</p>);
+            buildingTypeMessage = (<p className="text-center">It doesn't seem like this property is required to register with HPD. <nobr>(<i><a href={`http://www1.nyc.gov/assets/finance/jump/hlpbldgcode.html#${generalBldgCat.charAt(0)}`} target="_blank" rel="noopener noreferrer"><u>Building Classification</u></a>: {buildingInfo.bldgclass}</i>)</nobr></p>);
             break;
         };
       }
@@ -90,7 +90,7 @@ export default class NotRegisteredPage extends Component {
         <div className="HomePage__content">
           <div className="HomePage__search">
             <h5 className="mt-10 text-danger text-center text-bold text-large">
-              No results found
+              No registration found
               {usersInputAddress ? (
                  <span> for {usersInputAddress}</span>
               ) : (
@@ -98,13 +98,15 @@ export default class NotRegisteredPage extends Component {
               )}!
             </h5>
             <h6 className="mt-10 text-center text-bold text-large">
-              { geosearch && geosearch.bbl && buildingInfo ? (<span>Boro-Block-Lot (BBL): <a href={"https://zola.planning.nyc.gov/lot/"+boro + "/" + block + "/" + lot} target="_blank" rel="noopener noreferrer">{boro}{bblDash}{block}{bblDash}{lot}</a></span>):(<span></span>) }
+              {buildingTypeMessage}
             </h6>
               { buildingInfo && buildingInfo.latitude && buildingInfo.longitude &&
             <img src={`https://maps.googleapis.com/maps/api/streetview?size=800x200&location=${buildingInfo.latitude},${buildingInfo.longitude}&key=${process.env.REACT_APP_STREETVIEW_API_KEY}`}
                  alt="Google Street View" className="img-responsive"  />
               }
-          {buildingTypeMessage}
+            <div className="bbl-link">
+              { geosearch && geosearch.bbl && buildingInfo ? (<span>Boro-Block-Lot (BBL): <nobr><a href={"https://zola.planning.nyc.gov/lot/"+boro + "/" + block + "/" + lot} target="_blank" rel="noopener noreferrer">{boro}{bblDash}{block}{bblDash}{lot}</a></nobr></span>):(<span></span>) }
+            </div>
             <br />
             { geosearch && geosearch.bbl && buildingInfo && buildingInfo.housenumber && buildingInfo.streetname &&
               <div>
