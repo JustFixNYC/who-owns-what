@@ -98,13 +98,13 @@ export default class NotRegisteredPage extends Component {
               )}!
             </h5>
             <h6 className="mt-10 text-center text-bold text-large">
-              { geosearch && geosearch.bbl && buildingInfo ? (<span>Boro-Block-Lot (BBL): <a href={"https://zola.planning.nyc.gov/lot/"+boro + "/" + block + "/" + lot} target="_blank" rel="noopener noreferrer">{boro}{bblDash}{block}{bblDash}{lot}</a></span>):(<span></span>) }
-            </h6>
+              {buildingTypeMessage}
+              </h6>
               { buildingInfo && buildingInfo.latitude && buildingInfo.longitude &&
             <img src={`https://maps.googleapis.com/maps/api/streetview?size=800x200&location=${buildingInfo.latitude},${buildingInfo.longitude}&key=${process.env.REACT_APP_STREETVIEW_API_KEY}`}
                  alt="Google Street View" className="img-responsive"  />
               }
-          {buildingTypeMessage}
+            { geosearch && geosearch.bbl && buildingInfo ? (<span>Boro-Block-Lot (BBL): <a href={"https://zola.planning.nyc.gov/lot/"+boro + "/" + block + "/" + lot} target="_blank" rel="noopener noreferrer">{boro}{bblDash}{block}{bblDash}{lot}</a></span>):(<span></span>) }
             <br />
             { geosearch && geosearch.bbl && buildingInfo && buildingInfo.housenumber && buildingInfo.streetname &&
               <div>
