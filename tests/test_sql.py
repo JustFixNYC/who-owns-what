@@ -11,9 +11,11 @@ from .factories.pluto_18v1 import Pluto18v1
 # This test suite defines two landlords:
 #
 # * CLOUD CITY MEGAPROPERTIES is a landlord with
-#   two buildings in its portfolio, FUNKY and MONKEY.
-#   FUNKY is hidden behind an LLC but the association
-#   can be inferred from its business address.
+#   three buildings in its portfolio, FUNKY, MONKEY,
+#   and SPUNKY. FUNKY is hidden behind an LLC but
+#   the association can be inferred from its business
+#   address, while SPUNKY has a head officer whose
+#   name is spelled slightly differently from MONKEY's.
 #
 # * THE UNRELATED COMPANIES, L.P. is a landlord with
 #   one building, UNRELATED.
@@ -21,6 +23,8 @@ from .factories.pluto_18v1 import Pluto18v1
 FUNKY_BBL = '3000010002'
 
 MONKEY_BBL = '3000040005'
+
+SPUNKY_BBL = '3000040006'
 
 UNRELATED_BBL = '1000010002'
 
@@ -40,6 +44,15 @@ MONKEY_REGISTRATION = HPDRegistration(
     BoroID='3',
     Block='4',
     Lot='5',
+)
+
+SPUNKY_REGISTRATION = HPDRegistration(
+    RegistrationID='4',
+    HouseNumber='4',
+    StreetName='SPUNKY STREET',
+    BoroID='3',
+    Block='4',
+    Lot='6',
 )
 
 UNRELATED_REGISTRATION = HPDRegistration(
@@ -73,6 +86,17 @@ MONKEY_CONTACT = HPDContact(
     BusinessZip='11231'
 )
 
+SPUNKY_CONTACT = HPDContact(
+    RegistrationID='4',
+    Type='HeadOfficer',
+    FirstName='Landlordo',
+    LastName='Calrisian',
+    CorporationName='4 SPUNKY STREET LLC',
+    BusinessHouseNumber='700',
+    BusinessStreetName='SUPERSPUNKY AVE',
+    BusinessZip='11201'
+)
+
 UNRELATED_CONTACT = HPDContact(
     RegistrationID='3',
     Type='HeadOfficer',
@@ -98,11 +122,13 @@ class TestSQL:
         nycdb_ctx.write_csv('hpd_registrations.csv', [
             FUNKY_REGISTRATION,
             MONKEY_REGISTRATION,
+            SPUNKY_REGISTRATION,
             UNRELATED_REGISTRATION
         ])
         nycdb_ctx.write_csv('hpd_contacts.csv', [
             FUNKY_CONTACT,
             MONKEY_CONTACT,
+            SPUNKY_CONTACT,
             UNRELATED_CONTACT
         ])
         nycdb_ctx.build_everything()
@@ -121,12 +147,14 @@ class TestSQL:
             cur.execute(query)
             return cur.fetchall()
 
-    def get_assoc_addrs_from_bbl(self, bbl):
+    def get_assoc_addrs_from_bbl(self, bbl, expected_bbls=None):
         results = self.query_all(
             f"SELECT * FROM get_assoc_addrs_from_bbl('{bbl}')")
         results_by_bbl = {}
         for result in results:
             results_by_bbl[result['bbl']] = result
+        if expected_bbls is not None:
+            assert set(results_by_bbl.keys()) == set(expected_bbls)
         return results_by_bbl
 
     def test_wow_bldgs_is_populated(self):
@@ -141,23 +169,36 @@ class TestSQL:
     def test_get_assoc_addrs_from_bbl_returns_empty_set_on_invalid_bbl(self):
         assert len(self.get_assoc_addrs_from_bbl('zzz')) == 0
 
-    def test_get_assoc_addrs_from_bbl_is_bidirectional(self):
-        assert self.get_assoc_addrs_from_bbl(FUNKY_BBL) == \
-            self.get_assoc_addrs_from_bbl(MONKEY_BBL)
+    def test_get_assoc_addrs_from_bbl_links_buildings_through_businessaddrs_and_names(self):
+        self.get_assoc_addrs_from_bbl(MONKEY_BBL, expected_bbls=[
+            # This includes all the buildings in the portfolio because MONKEY shares
+            # the same (fuzzy) head officer name as SPUNKY and the exact same address
+            # as FUNKY.
+            FUNKY_BBL, MONKEY_BBL, SPUNKY_BBL
+        ])
 
-    def test_get_assoc_addrs_from_bbl_links_buildings_through_businessaddrs(self):
-        results = self.get_assoc_addrs_from_bbl(FUNKY_BBL)
-        assert len(results) == 2
+        self.get_assoc_addrs_from_bbl(FUNKY_BBL, expected_bbls=[
+            # Ideally this should include SPUNKY, but because the head officer of FUNKY is
+            # completely unrelated to the head officer of SPUNKY and they also don't
+            # share the exact same address, that connection can't be inferred.
+            #
+            # In other words, get_assoc_addrs_from_bbl() doesn't currently support
+            # transitivity: just because MONKEY is associated with FUNKY and
+            # MONKEY is associated with SPUNKY does *not* mean that
+            # FUNKY is associated with SPUNKY (even though it should be).
+            FUNKY_BBL, MONKEY_BBL
+        ])
 
-        funky = results[FUNKY_BBL]
+        self.get_assoc_addrs_from_bbl(SPUNKY_BBL, expected_bbls=[
+            # For similar reasons, this should ideally include FUNKY but doesn't.
+            SPUNKY_BBL, MONKEY_BBL
+        ])
+
+    def test_get_assoc_addrs_from_bbl_has_expected_strucure(self):
+        funky = self.get_assoc_addrs_from_bbl(FUNKY_BBL)[FUNKY_BBL]
         assert funky['housenumber'] == '1'
         assert funky['streetname'] == 'FUNKY STREET'
         assert funky['businessaddrs'] == ['5 BESPIN AVENUE 11231']
-
-        monkey = results[MONKEY_BBL]
-        assert monkey['housenumber'] == '2'
-        assert monkey['streetname'] == 'MONKEY STREET'
-        assert monkey['businessaddrs'] == ['5 BESPIN AVENUE 11231']
 
     def test_hpd_registrations_with_contacts_is_populated(self):
         r = self.query_one(
