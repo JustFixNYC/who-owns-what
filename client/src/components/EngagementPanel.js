@@ -6,7 +6,7 @@ import 'styles/EngagementPanel.css';
 
 
 
-const EngagementPanel = () => {
+const EngagementPanel = (props) => {
   return (
     <div className="EngagementPanel">
       <h5>Join the fight for tenant rights!</h5>
@@ -17,7 +17,7 @@ const EngagementPanel = () => {
         </div>
         <div className="EngagementItem">
          <p>Share with your neighbors:</p>
-         <SocialShare />
+         <SocialShare location={props.location} />
         </div>
         <div className="EngagementItem">
          <p>Visit our website:</p>

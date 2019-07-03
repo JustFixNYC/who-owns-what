@@ -2,15 +2,12 @@ import React, { Component } from 'react';
 import { CSSTransition } from 'react-transition-group';
 import { Link } from 'react-router-dom';
 import { StreetViewPanorama } from 'react-google-maps';
-import { FacebookButton, TwitterButton, EmailButton } from 'react-social';
 import Helpers from 'util/helpers';
 import Browser from 'util/browser';
 import Modal from 'components/Modal';
+import SocialShare from 'components/SocialShare';
 
 import 'styles/DetailView.css';
-
-import fbIcon from '../assets/img/fb.svg';
-import twitterIcon from '../assets/img/twitter.svg';
 
 export default class DetailView extends Component {
   constructor(props) {
@@ -196,37 +193,12 @@ export default class DetailView extends Component {
 
                         <div className="card-body-social social-group hide-lg">
                           <h6 className="DetailView__subtitle">Share this page with your neighbors</h6>
-                          <div className="btn-group btns-social btn-group-block">
-                            <FacebookButton
-                              onClick={() => {window.gtag('event', 'facebook-overview-tab');}}
-                              className="btn btn-steps"
-                              sharer={true}
-                              windowOptions={['width=400', 'height=200']}
-                              url={encodeURI('https://whoownswhat.justfix.nyc/address/' + this.props.addr.boro + '/' + this.props.addr.housenumber + '/' + this.props.addr.streetname)}
-                              appId={`247990609143668`}
-                              message={"The " + (this.props.portfolioSize > 1 ? this.props.portfolioSize + " " : " ")  + "buildings that my landlord \"owns\" 👀... #WhoOwnsWhat @JustFixNYC"}>
-                              <img src={fbIcon} className="icon mx-1" alt="Facebook" />
-                              <span>Facebook</span>
-                            </FacebookButton>
-                            <TwitterButton
-                              onClick={() => {window.gtag('event', 'twitter-overview-tab');}}
-                              className="btn btn-steps"
-                              windowOptions={['width=400', 'height=200']}
-                              url={encodeURI('https://whoownswhat.justfix.nyc/address/' + this.props.addr.boro + '/' + this.props.addr.housenumber + '/' + this.props.addr.streetname)}
-                              message={"The " + (this.props.portfolioSize > 1 ? this.props.portfolioSize + " " : " ")  + "buildings that my landlord \"owns\" 👀... #WhoOwnsWhat @JustFixNYC"}>
-                              <img src={twitterIcon} className="icon mx-1" alt="Twitter" />
-                              <span>Twitter</span>
-                            </TwitterButton>
-                            <EmailButton
-                              onClick={() => {window.gtag('event', 'email-overview-tab');}}
-                              className="btn btn-steps"
-                              url={encodeURI('https://whoownswhat.justfix.nyc/address/' + this.props.addr.boro + '/' + this.props.addr.housenumber + '/' + this.props.addr.streetname)}
-                              target="_blank"
-                              message={"The " + (this.props.portfolioSize > 1 ? this.props.portfolioSize + " " : " ")  + "buildings owned by my landlord (via JustFix's Who Owns What tool)"}>
-                              <i className="icon icon-mail mx-2" />
-                              <span>Email</span>
-                            </EmailButton>
-                          </div>
+                          <SocialShare 
+                            location="overview-tab"
+                            url={encodeURI('https://whoownswhat.justfix.nyc/address/' + this.props.addr.boro + '/' + this.props.addr.housenumber + '/' + this.props.addr.streetname)}
+                            twitterMessage={"The " + (parseInt(this.props.portfolioSize) > 1 ? this.props.portfolioSize + " " : "")  + "buildings that my landlord \"owns\" 👀... #WhoOwnsWhat @JustFixNYC"}
+                            emailMessage={"The " + (parseInt(this.props.portfolioSize) > 1 ? this.props.portfolioSize + " " : "")  + "buildings owned by my landlord (via JustFix's Who Owns What tool)"}
+                            />
                         </div>
                       </div>
                     </div>
@@ -273,34 +245,12 @@ export default class DetailView extends Component {
 
                           <div className="card-body-social social-group show-lg">
                             <h6 className="DetailView__subtitle">Share this page with your neighbors</h6>
-                            <div className="btn-group btns-social btn-group-block">
-                              <FacebookButton
-                                className="btn btn-steps"
-                                sharer={true}
-                                windowOptions={['width=400', 'height=200']}
-                                url={encodeURI('https://whoownswhat.justfix.nyc/address/' + this.props.addr.boro + '/' + this.props.addr.housenumber + '/' + this.props.addr.streetname)}
-                                appId={`247990609143668`}
-                                message={"The " + (this.props.portfolioSize > 1 ? this.props.portfolioSize + " " : " ")  + "buildings that my landlord \"owns\" 👀... #WhoOwnsWhat @JustFixNYC"}>
-                                <img src={fbIcon} className="icon mx-1" alt="Facebook" />
-                                <span>Facebook</span>
-                              </FacebookButton>
-                              <TwitterButton
-                                className="btn btn-steps"
-                                windowOptions={['width=400', 'height=200']}
-                                url={encodeURI('https://whoownswhat.justfix.nyc/address/' + this.props.addr.boro + '/' + this.props.addr.housenumber + '/' + this.props.addr.streetname)}
-                                message={"The " + (this.props.portfolioSize > 1 ? this.props.portfolioSize + " " : " ")  + "buildings that my landlord \"owns\" 👀... #WhoOwnsWhat @JustFixNYC"}>
-                                <img src={twitterIcon} className="icon mx-1" alt="Twitter" />
-                                <span>Twitter</span>
-                              </TwitterButton>
-                              <EmailButton
-                                className="btn btn-steps"
-                                url={encodeURI('https://whoownswhat.justfix.nyc/address/' + this.props.addr.boro + '/' + this.props.addr.housenumber + '/' + this.props.addr.streetname)}
-                                target="_blank"
-                                message={"The " + (this.props.portfolioSize > 1 ? this.props.portfolioSize + " " : " ")  + "buildings owned by my landlord (via JustFix's Who Owns What tool)"}>
-                                <i className="icon icon-mail mx-2" />
-                                <span>Email</span>
-                              </EmailButton>
-                            </div>
+                            <SocialShare 
+                              location="overview-tab"
+                              url={encodeURI('https://whoownswhat.justfix.nyc/address/' + this.props.addr.boro + '/' + this.props.addr.housenumber + '/' + this.props.addr.streetname)}
+                              twitterMessage={"The " + (parseInt(this.props.portfolioSize) > 1 ? this.props.portfolioSize + " " : "")  + "buildings that my landlord \"owns\" 👀... #WhoOwnsWhat @JustFixNYC"}
+                              emailMessage={"The " + (parseInt(this.props.portfolioSize) > 1 ? this.props.portfolioSize + " " : "")  + "buildings owned by my landlord (via JustFix's Who Owns What tool)"}
+                              />
                           </div>
 
                         </div>

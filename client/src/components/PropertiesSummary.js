@@ -1,14 +1,11 @@
 import React, { Component } from 'react';
-import { FacebookButton, TwitterButton, EmailButton } from 'react-social';
 
 import Loader from 'components/Loader';
 import LegalFooter from 'components/LegalFooter';
 import APIClient from 'components/APIClient';
+import SocialShare from 'components/SocialShare';
 
 import 'styles/PropertiesSummary.css';
-
-import fbIcon from '../assets/img/fb.svg';
-import twitterIcon from '../assets/img/twitter.svg';
 
 const VIOLATIONS_AVG = 0.7; // By Unit
 
@@ -138,34 +135,12 @@ export default class PropertiesSummary extends Component {
                   </div>
                   <div>
                     <h6 className="PropertiesSummary__linksSubtitle">Share this page with your neighbors</h6>
-                    <div className="btn-group btns-social btn-group-block">
-                      <FacebookButton
-                        className="btn btn-steps"
-                        sharer={true}
-                        windowOptions={['width=400', 'height=200']}
-                        url={encodeURI(`https://whoownswhat.justfix.nyc/address/${this.props.userAddr.boro}/${this.props.userAddr.housenumber}/${this.props.userAddr.streetname}`)}
-                        appId={`247990609143668`}
-                        message={"The " + (this.props.portfolioSize > 1 ? this.props.portfolioSize + " " : " ")  + "buildings that my landlord \"owns\" 👀... #WhoOwnsWhat @JustFixNYC"}>
-                        <img src={fbIcon} className="icon mx-1" alt="Facebook" />
-                        <span>Facebook</span>
-                      </FacebookButton>
-                      <TwitterButton
-                        className="btn btn-steps"
-                        windowOptions={['width=400', 'height=200']}
-                        url={encodeURI(`https://whoownswhat.justfix.nyc/address/${this.props.userAddr.boro}/${this.props.userAddr.housenumber}/${this.props.userAddr.streetname}`)}
-                        message={"The " + (this.props.portfolioSize > 1 ? this.props.portfolioSize + " " : " ")  + "buildings that my landlord \"owns\" 👀... #WhoOwnsWhat @JustFixNYC"}>
-                        <img src={twitterIcon} className="icon mx-1" alt="Twitter" />
-                        <span>Twitter</span>
-                      </TwitterButton>
-                      <EmailButton
-                        className="btn btn-steps"
-                        url={encodeURI(`https://whoownswhat.justfix.nyc/address/${this.props.userAddr.boro}/${this.props.userAddr.housenumber}/${this.props.userAddr.streetname}`)}
-                        target="_blank"
-                        message={"The " + (this.props.portfolioSize > 1 ? this.props.portfolioSize + " " : " ")  + "buildings owned by my landlord (via JustFix.nyc)"}>
-                        <i className="icon icon-mail mx-2" />
-                        <span>Email</span>
-                      </EmailButton>
-                    </div>
+                    <SocialShare 
+                      location="summary-tab"
+                      url={encodeURI('https://whoownswhat.justfix.nyc/address/' + this.props.userAddr.boro + '/' + this.props.userAddr.housenumber + '/' + this.props.userAddr.streetname)}
+                      twitterMessage={"The " + (parseInt(agg.bldgs) > 1 ? agg.bldgs + " " : "")  + "buildings that my landlord \"owns\" 👀... #WhoOwnsWhat @JustFixNYC"}
+                      emailMessage={"The " + (parseInt(agg.bldgs) > 1 ? agg.bldgs + " " : "")  + "buildings owned by my landlord (via JustFix's Who Owns What tool)"}
+                      />
                   </div>
                 </div>
               </aside>
