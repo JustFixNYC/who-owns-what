@@ -204,7 +204,7 @@ export default class DetailView extends Component {
                               windowOptions={['width=400', 'height=200']}
                               url={encodeURI('https://whoownswhat.justfix.nyc/address/' + this.props.addr.boro + '/' + this.props.addr.housenumber + '/' + this.props.addr.streetname)}
                               appId={`247990609143668`}
-                              message={"The " + (this.props.portfolioSize > 1 ? this.props.portfolioSize + " " : " ")  + "buildings that my landlord \"owns\" 👀... #WhoOwnsWhat @JustFixNYC"}>
+                              message={"The " + (parseInt(this.props.portfolioSize) > 1 ? this.props.portfolioSize + " " : "")  + "buildings that my landlord \"owns\" 👀... #WhoOwnsWhat @JustFixNYC"}>
                               <img src={fbIcon} className="icon mx-1" alt="Facebook" />
                               <span>Facebook</span>
                             </FacebookButton>
@@ -213,7 +213,7 @@ export default class DetailView extends Component {
                               className="btn btn-steps"
                               windowOptions={['width=400', 'height=200']}
                               url={encodeURI('https://whoownswhat.justfix.nyc/address/' + this.props.addr.boro + '/' + this.props.addr.housenumber + '/' + this.props.addr.streetname)}
-                              message={"The " + (this.props.portfolioSize > 1 ? this.props.portfolioSize + " " : " ")  + "buildings that my landlord \"owns\" 👀... #WhoOwnsWhat @JustFixNYC"}>
+                              message={"The " + (parseInt(this.props.portfolioSize) > 1 ? this.props.portfolioSize + " " : "")  + "buildings that my landlord \"owns\" 👀... #WhoOwnsWhat @JustFixNYC"}>
                               <img src={twitterIcon} className="icon mx-1" alt="Twitter" />
                               <span>Twitter</span>
                             </TwitterButton>
@@ -222,7 +222,7 @@ export default class DetailView extends Component {
                               className="btn btn-steps"
                               url={encodeURI('https://whoownswhat.justfix.nyc/address/' + this.props.addr.boro + '/' + this.props.addr.housenumber + '/' + this.props.addr.streetname)}
                               target="_blank"
-                              message={"The " + (this.props.portfolioSize > 1 ? this.props.portfolioSize + " " : " ")  + "buildings owned by my landlord (via JustFix's Who Owns What tool)"}>
+                              message={"The " + (parseInt(this.props.portfolioSize) > 1 ? this.props.portfolioSize + " " : "")  + "buildings owned by my landlord (via JustFix's Who Owns What tool)"}>
                               <i className="icon icon-mail mx-2" />
                               <span>Email</span>
                             </EmailButton>
@@ -275,28 +275,31 @@ export default class DetailView extends Component {
                             <h6 className="DetailView__subtitle">Share this page with your neighbors</h6>
                             <div className="btn-group btns-social btn-group-block">
                               <FacebookButton
+                                onClick={() => {window.gtag('event', 'facebook-overview-tab');}}
                                 className="btn btn-steps"
                                 sharer={true}
                                 windowOptions={['width=400', 'height=200']}
                                 url={encodeURI('https://whoownswhat.justfix.nyc/address/' + this.props.addr.boro + '/' + this.props.addr.housenumber + '/' + this.props.addr.streetname)}
                                 appId={`247990609143668`}
-                                message={"The " + (this.props.portfolioSize > 1 ? this.props.portfolioSize + " " : " ")  + "buildings that my landlord \"owns\" 👀... #WhoOwnsWhat @JustFixNYC"}>
+                                message={"The " + (parseInt(this.props.portfolioSize) > 1 ? this.props.portfolioSize + " " : "")  + "buildings that my landlord \"owns\" 👀... #WhoOwnsWhat @JustFixNYC"}>
                                 <img src={fbIcon} className="icon mx-1" alt="Facebook" />
                                 <span>Facebook</span>
                               </FacebookButton>
                               <TwitterButton
+                                onClick={() => {window.gtag('event', 'twitter-overview-tab');}}
                                 className="btn btn-steps"
                                 windowOptions={['width=400', 'height=200']}
                                 url={encodeURI('https://whoownswhat.justfix.nyc/address/' + this.props.addr.boro + '/' + this.props.addr.housenumber + '/' + this.props.addr.streetname)}
-                                message={"The " + (this.props.portfolioSize > 1 ? this.props.portfolioSize + " " : " ")  + "buildings that my landlord \"owns\" 👀... #WhoOwnsWhat @JustFixNYC"}>
+                                message={"The " + (parseInt(this.props.portfolioSize) > 1 ? this.props.portfolioSize + " " : "")  + "buildings that my landlord \"owns\" 👀... #WhoOwnsWhat @JustFixNYC"}>
                                 <img src={twitterIcon} className="icon mx-1" alt="Twitter" />
                                 <span>Twitter</span>
                               </TwitterButton>
                               <EmailButton
+                                onClick={() => {window.gtag('event', 'email-overview-tab');}}
                                 className="btn btn-steps"
                                 url={encodeURI('https://whoownswhat.justfix.nyc/address/' + this.props.addr.boro + '/' + this.props.addr.housenumber + '/' + this.props.addr.streetname)}
                                 target="_blank"
-                                message={"The " + (this.props.portfolioSize > 1 ? this.props.portfolioSize + " " : " ")  + "buildings owned by my landlord (via JustFix's Who Owns What tool)"}>
+                                message={"The " + (parseInt(this.props.portfolioSize) > 1 ? this.props.portfolioSize + " " : "")  + "buildings owned by my landlord (via JustFix's Who Owns What tool)"}>
                                 <i className="icon icon-mail mx-2" />
                                 <span>Email</span>
                               </EmailButton>

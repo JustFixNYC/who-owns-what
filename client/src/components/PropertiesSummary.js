@@ -145,7 +145,7 @@ export default class PropertiesSummary extends Component {
                         windowOptions={['width=400', 'height=200']}
                         url={encodeURI(`https://whoownswhat.justfix.nyc/address/${this.props.userAddr.boro}/${this.props.userAddr.housenumber}/${this.props.userAddr.streetname}`)}
                         appId={`247990609143668`}
-                        message={"The " + (this.props.portfolioSize > 1 ? this.props.portfolioSize + " " : " ")  + "buildings that my landlord \"owns\" 👀... #WhoOwnsWhat @JustFixNYC"}>
+                        message={"The " + (parseInt(this.props.portfolioSize) > 1 ? this.props.portfolioSize + " " : "")  + "buildings that my landlord \"owns\" 👀... #WhoOwnsWhat @JustFixNYC"}>
                         <img src={fbIcon} className="icon mx-1" alt="Facebook" />
                         <span>Facebook</span>
                       </FacebookButton>
@@ -153,7 +153,7 @@ export default class PropertiesSummary extends Component {
                         className="btn btn-steps"
                         windowOptions={['width=400', 'height=200']}
                         url={encodeURI(`https://whoownswhat.justfix.nyc/address/${this.props.userAddr.boro}/${this.props.userAddr.housenumber}/${this.props.userAddr.streetname}`)}
-                        message={"The " + (this.props.portfolioSize > 1 ? this.props.portfolioSize + " " : " ")  + "buildings that my landlord \"owns\" 👀... #WhoOwnsWhat @JustFixNYC"}>
+                        message={"The " + (parseInt(this.props.portfolioSize) > 1 ? this.props.portfolioSize + " " : "")  + "buildings that my landlord \"owns\" 👀... #WhoOwnsWhat @JustFixNYC"}>
                         <img src={twitterIcon} className="icon mx-1" alt="Twitter" />
                         <span>Twitter</span>
                       </TwitterButton>
@@ -161,7 +161,7 @@ export default class PropertiesSummary extends Component {
                         className="btn btn-steps"
                         url={encodeURI(`https://whoownswhat.justfix.nyc/address/${this.props.userAddr.boro}/${this.props.userAddr.housenumber}/${this.props.userAddr.streetname}`)}
                         target="_blank"
-                        message={"The " + (this.props.portfolioSize > 1 ? this.props.portfolioSize + " " : " ")  + "buildings owned by my landlord (via JustFix.nyc)"}>
+                        message={"The " + (parseInt(this.props.portfolioSize) > 1 ? this.props.portfolioSize + " " : "")  + "buildings owned by my landlord (via JustFix.nyc)"}>
                         <i className="icon icon-mail mx-2" />
                         <span>Email</span>
                       </EmailButton>
