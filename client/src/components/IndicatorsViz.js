@@ -233,7 +233,7 @@ class IndicatorsVizImplementation extends Component {
               fontColor: "rgb(69, 77, 93)",
               fontSize: 14,
               padding: 8,
-              labelString: (this.props.activeVis === 'complaints' ? 'Complaints Issued' : this.props.activeVis === 'viols' ? 'Violations Issued' : 'Building Permits Applied For')
+              labelString: this.props[indicatorData].text.yAxisTitle
             },
             stacked: true,
         }],
