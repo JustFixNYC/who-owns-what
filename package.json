@@ -40,7 +40,7 @@
     "react-dom": "^16.0.0",
     "request": "^2.81.0",
     "request-promise": "^4.2.1",
-    "rollbar": "^2.3.9"
+    "rollbar": "2.4.6"
   },
   "devDependencies": {
     "nodemon": "^1.11.0"
