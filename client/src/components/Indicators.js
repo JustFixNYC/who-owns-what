@@ -264,7 +264,9 @@ export default class Indicators extends Component {
     return (
       <div className="Page Indicators">
         <div className="Indicators__content Page__content">
-          { !(this.props.isVisible && this.state.saleHistory && this.state.indicatorHistory) ? 
+          { !(this.props.isVisible && 
+              this.state.saleHistory && this.state.indicatorHistory &&
+              this.state[this.state.defaultVis + 'Data'].labels) ? 
             (
               <Loader loading={true} classNames="Loader-map">Loading</Loader>
             ) : 
