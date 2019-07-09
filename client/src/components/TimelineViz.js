@@ -113,10 +113,10 @@ class TimelineVizImplementation extends Component {
   /** Returns maximum y-value across all datasets, grouped by selected timespan */
   getDataMaximum() {
 
-    var indicatorDataLabels = this.props.indicatorList.map(x => x + 'Data');
-    var dataMaximums = indicatorDataLabels.map( 
-      indicatorData => (this.props[indicatorData].values.total ? 
-                        Helpers.maxArray(this.groupData(this.props[indicatorData].values.total)) : 0)
+    var datasetNames = this.props.indicatorList;
+    var dataMaximums = datasetNames.map( 
+      dataset => (this.props.indicatorData[dataset].values.total ? 
+                        Helpers.maxArray(this.groupData(this.props.indicatorData[dataset].values.total)) : 0)
     );
 
     return Helpers.maxArray(dataMaximums);
@@ -129,52 +129,52 @@ class TimelineVizImplementation extends Component {
   var datasets;
 
   switch (this.props.activeVis) {
-    case 'viols': 
+    case 'hpd_violations': 
       datasets = 
         [{
             label: 'Class C',
-            data: this.groupData(this.props.violsData.values.class_c),
+            data: this.groupData(this.props.indicatorData.hpd_violations.values.class_c),
             backgroundColor: 'rgba(136,65,157, 0.6)',
             borderColor: 'rgba(136,65,157,1)',
             borderWidth: 1
         },
         {
             label: 'Class B',
-            data: this.groupData(this.props.violsData.values.class_b),
+            data: this.groupData(this.props.indicatorData.hpd_violations.values.class_b),
             backgroundColor: 'rgba(140,150,198, 0.6)',
             borderColor: 'rgba(140,150,198,1)',
             borderWidth: 1
         },
         {
             label: 'Class A',
-            data: this.groupData(this.props.violsData.values.class_a),
+            data: this.groupData(this.props.indicatorData.hpd_violations.values.class_a),
             backgroundColor: 'rgba(157, 194, 227, 0.6)',
             borderColor: 'rgba(157, 194, 227,1)',
             borderWidth: 1
         }];
       break;
-    case 'complaints':
+    case 'hpd_complaints':
       datasets = 
         [{
             label: 'Emergency',
-            data: this.groupData(this.props.complaintsData.values.emergency),
+            data: this.groupData(this.props.indicatorData.hpd_complaints.values.emergency),
             backgroundColor: 'rgba(227,74,51, 0.6)',
             borderColor: 'rgba(227,74,51,1)',
             borderWidth: 1
         },
         {
             label: 'Non-Emergency',
-            data: this.groupData(this.props.complaintsData.values.nonemergency),
+            data: this.groupData(this.props.indicatorData.hpd_complaints.values.nonemergency),
             backgroundColor: 'rgba(255, 219, 170, 0.6)',
             borderColor: 'rgba(255, 219, 170,1)',
             borderWidth: 1
         }];
       break;
-    case 'permits':
+    case 'dob_permits':
       datasets = 
         [{
             label: 'Building Permits Applied For',
-            data: this.groupData(this.props.permitsData.values.total),
+            data: this.groupData(this.props.indicatorData.dob_permits.values.total),
             backgroundColor: 'rgba(73, 192, 179, 0.6)',
             borderColor: 'rgb(73, 192, 179)',
             borderWidth: 1
@@ -183,9 +183,8 @@ class TimelineVizImplementation extends Component {
     default: break;
   }
 
-  var indicatorData = this.props.activeVis + 'Data';
   var data = {
-        labels: this.groupLabels(this.props[indicatorData].labels), 
+        labels: this.groupLabels(this.props.indicatorData[this.props.activeVis].labels), 
         datasets: datasets
   };
 
@@ -223,8 +222,8 @@ class TimelineVizImplementation extends Component {
         yAxes: [{
             ticks: {
                 beginAtZero: true,
-                suggestedMax: (this.props.activeVis === 'permits' ?
-                              Math.max(12, Helpers.maxArray(this.groupData(this.props.permitsData.values.total)) * 1.25) :
+                suggestedMax: (this.props.activeVis === 'dob_permits' ?
+                              Math.max(12, Helpers.maxArray(this.groupData(this.props.indicatorData.dob_permits.values.total)) * 1.25) :
                               Math.max(12, dataMaximum * 1.25))
             },
             scaleLabel: {
@@ -233,7 +232,7 @@ class TimelineVizImplementation extends Component {
               fontColor: "rgb(69, 77, 93)",
               fontSize: 14,
               padding: 8,
-              labelString: this.props[indicatorData].text.yAxisTitle
+              labelString: this.props.indicatorData[this.props.activeVis].text.yAxisTitle
             },
             stacked: true,
         }],
@@ -406,7 +405,7 @@ class TimelineVizImplementation extends Component {
             } :
             {}
           ),
-        (this.props.activeVis === 'complaints' ? 
+        (this.props.activeVis === 'hpd_complaints' ? 
             {
                 drawTime: "beforeDatasetsDraw",
                 type: "line",

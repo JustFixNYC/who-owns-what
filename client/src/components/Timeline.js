@@ -13,7 +13,6 @@ import 'styles/Timeline.css';
 const initialState = { 
 
       saleHistory: null,
-
       lastSale: {
         date: null,
         label: null, 
@@ -21,51 +20,56 @@ const initialState = {
       },
 
       indicatorHistory: null,
+      indicatorData: {
+        
+        isLoaded: false,
 
-      violsData: {
-        labels: null,
-        values: {
-          class_a: null,
-          class_b: null,
-          class_c: null,
-          total: null
-        }, 
-        text: {
-          title: "HPD Violations",
-          titleSuffix: "Issued since 2010",
-          yAxisTitle: "Violations Issued"
-        }
-      },
-
-      complaintsData: {
-        labels: null,
-        values: {
-          emergency: null,
-          nonemergency: null,
-          total: null
+        hpd_violations: {
+          labels: null,
+          values: {
+            class_a: null,
+            class_b: null,
+            class_c: null,
+            total: null
+          }, 
+          text: {
+            title: "HPD Violations",
+            titleSuffix: "Issued since 2010",
+            yAxisTitle: "Violations Issued"
+          }
         },
-        text: {
-          title: "HPD Complaints",
-          titleSuffix: "Issued since 2014",
-          yAxisTitle: "Complaints Issued",
-        }
-      },
 
-      permitsData: {
-        labels: null,
-        values: {
-          total: null
+        hpd_complaints: {
+          labels: null,
+          values: {
+            emergency: null,
+            nonemergency: null,
+            total: null
+          },
+          text: {
+            title: "HPD Complaints",
+            titleSuffix: "Issued since 2014",
+            yAxisTitle: "Complaints Issued",
+          }
         },
-        text: {
-          title: "Building Permit Applications",
-          titleSuffix: "since 2010",
-          yAxisTitle: "Building Permits Applied For",
+
+        dob_permits: {
+          labels: null,
+          values: {
+            total: null
+          },
+          text: {
+            title: "Building Permit Applications",
+            titleSuffix: "since 2010",
+            yAxisTitle: "Building Permits Applied For",
+          }
         }
+
       },
 
-      indicatorList: ['complaints','viols','permits'],
-      defaultVis: 'complaints',
-      activeVis: 'complaints',
+      indicatorList: ['hpd_complaints','hpd_violations','dob_permits'],
+      defaultVis: 'hpd_complaints',
+      activeVis: 'hpd_complaints',
       timeSpanList: ['month','quarter','year'],
       activeTimeSpan: 'quarter',
       monthsInGroup: 3,
@@ -90,15 +94,15 @@ export default class Timeline extends Component {
   handleXAxisChange(shift) {
 
     const span = this.state.xAxisViewableColumns;
-    const labelsArray = this.state[(this.state.activeVis + 'Data')].labels;
+    const labelsArray = this.state.indicatorData[this.state.activeVis].labels;
 
     if(!labelsArray || labelsArray.length < span) { 
       return;
     }
 
     const groupedLabelsLength = Math.floor(labelsArray.length / this.state.monthsInGroup);
-
     const xAxisMax = Math.max(groupedLabelsLength - span, 0);
+
     const currentPosition = this.state.xAxisStart;
     const offset = Math.ceil(6 / this.state.monthsInGroup);
 
@@ -158,32 +162,33 @@ export default class Timeline extends Component {
   }
 
   /** Reorganizes raw data from API call and then returns an object that matches the data stucture in state  */
-  createVizData(rawJSON, vizType) {
+  createVizData(rawJSON) {
 
     // Generate object to hold data for viz
     // Note: keys in "values" object need to match exact key names in data from API call
-    var vizData = Object.assign({},initialState[(vizType + 'Data')]);
+    var vizData = Object.assign({},initialState.indicatorData);
     
-    vizData.labels = [];
-    for (const column in vizData.values) {
-      vizData.values[column] = [];
-    }
-
-    // Generate arrays of data for chart.js visualizations:
-    // Default grouping is by MONTH
-
+    const indicatorList = this.state.indicatorList;
     const rawJSONLength = rawJSON.length;
-     
-    for (let i = 0; i < rawJSONLength; i++) {
 
-      vizData.labels.push(rawJSON[i].month);
+    for (const indicator of indicatorList) {
+      vizData[indicator].labels = []
 
-      for (const column in vizData.values) {
-        const vizTypePlusColumn = vizType + '_' + column
-        vizData.values[column].push(parseInt(rawJSON[i][vizTypePlusColumn]));
+      for (let i = 0; i < rawJSONLength; i++) {
+        vizData[indicator].labels.push(rawJSON[i].month);
       }
 
+      for (const column in vizData[indicator].values) {
+        vizData[indicator].values[column] = [];
+        
+        const vizTypePlusColumn = indicator + '_' + column
+        for (let i = 0; i < rawJSONLength; i++) {
+          vizData[indicator].values[column].push(parseInt(rawJSON[i][vizTypePlusColumn]));
+        }
+      }
     }
+
+    vizData.isLoaded = true;
     return vizData;
   } 
 
@@ -200,28 +205,19 @@ export default class Timeline extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-
-    const indicatorList = this.state.indicatorList;
-
     // process viz data from incoming API calls: 
     
     if(this.state.indicatorHistory && !Helpers.jsonEqual(prevState.indicatorHistory, this.state.indicatorHistory)) {
-     
-      for (const indicator of indicatorList) {
-
-        var inputData = this.createVizData(this.state.indicatorHistory, indicator);
-        
-        this.setState({
-          [(indicator + 'Data')]: inputData
-        });
-      }
+      this.setState({
+        indicatorData: this.createVizData(this.state.indicatorHistory)
+      }); 
     }
 
     // reset chart positions when:
     // 1. default dataset loads or 
     // 2. when activeTimeSpan changes:
 
-    if((!prevState[(this.state.defaultVis + 'Data')].labels && this.state[(this.state.defaultVis + 'Data')].labels) ||
+    if((!prevState.indicatorData.isLoaded && this.state.indicatorData.isLoaded) ||
     (prevState.activeTimeSpan !== this.state.activeTimeSpan)) {
       this.handleXAxisChange('reset');
     }
@@ -272,16 +268,17 @@ export default class Timeline extends Component {
   const housenumber = (this.props.detailAddr ? this.props.detailAddr.housenumber : null);
   const streetname = (this.props.detailAddr ? this.props.detailAddr.streetname : null);
 
-  const indicatorData = this.state.activeVis + 'Data'; 
-  const xAxisLength = (this.state[indicatorData].labels ? Math.floor(this.state[indicatorData].labels.length / this.state.monthsInGroup) : 0);
-  const indicatorDataTotal = (this.state[indicatorData].values.total ? (this.state[indicatorData].values.total).reduce((total, sum) => (total + sum)) : null);
+  const currentData = this.state.indicatorData[this.state.activeVis]; 
+  const indicatorDataTotal = (currentData.values.total ? (currentData.values.total).reduce((total, sum) => (total + sum)) : null);
+
+  const xAxisLength = (currentData.labels ? Math.floor(currentData.labels.length / this.state.monthsInGroup) : 0);
   
     return (
       <div className="Page Timeline">
         <div className="Timeline__content Page__content">
           { !(this.props.isVisible && 
               this.state.saleHistory && this.state.indicatorHistory &&
-              this.state[this.state.defaultVis + 'Data'].labels) ? 
+              this.state.indicatorData[this.state.defaultVis].labels) ? 
             (
               <Loader loading={true} classNames="Loader-map">Loading</Loader>
             ) : 
@@ -309,7 +306,7 @@ export default class Timeline extends Component {
                             <input type="radio" 
                               checked={(this.state.activeVis === indicator ? true : false)}
                               onChange={() => this.handleVisChange(indicator)} />
-                            <i className="form-icon"></i> {this.state[indicator + 'Data'].text.title}
+                            <i className="form-icon"></i> {this.state.indicatorData[(indicator)].text.title}
                           </label>
                         </li>
                     )}
@@ -332,8 +329,8 @@ export default class Timeline extends Component {
                 </div>  
 
                 <span className="title viz-title"> 
-                  { indicatorDataTotal + ' ' + (this.state[indicatorData].text.title).slice(0,-1) + 
-                    Helpers.pluralize(indicatorDataTotal) + ' ' + this.state[indicatorData].text.titleSuffix}
+                  { indicatorDataTotal + ' ' + (currentData.text.title).slice(0,-1) + 
+                    Helpers.pluralize(indicatorDataTotal) + ' ' + currentData.text.titleSuffix}
                 </span>
 
                 <div className="Timeline__viz">
@@ -356,7 +353,7 @@ export default class Timeline extends Component {
                 
                 <div className="card">
                   <div className="card-header">
-                    <div className="card-title h5">What are {this.state[indicatorData].text.title}?</div>
+                    <div className="card-title h5">What are {currentData.text.title}?</div>
                     <div className="card-subtitle text-gray"></div>
                   </div>
                   <div className="card-body">
