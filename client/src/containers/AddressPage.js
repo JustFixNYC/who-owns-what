@@ -9,7 +9,7 @@ import AddressToolbar from 'components/AddressToolbar';
 import PropertiesMap from 'components/PropertiesMap';
 import PropertiesList from 'components/PropertiesList';
 import PropertiesSummary from 'components/PropertiesSummary';
-import Indicators from 'components/Indicators';
+import Timeline from 'components/Timeline';
 import DetailView from 'components/DetailView';
 import APIClient from 'components/APIClient';
 
@@ -189,7 +189,7 @@ export default class AddressPage extends Component {
           />
         </div>
         <div className={`AddressPage__content AddressPage__summary ${this.state.currentTab === 1 ? "AddressPage__content-active": ''}`}>
-          <Indicators
+          <Timeline
             isVisible={this.state.currentTab === 1}
             detailAddr={this.state.detailAddr}
             onBackToOverview={this.handleAddrChange}

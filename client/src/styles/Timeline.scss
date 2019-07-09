@@ -2,7 +2,7 @@
 @import '_scrollbar.scss';
 @import '_button.scss';
 
-.Indicators {
+.Timeline {
 
 
 
@@ -10,7 +10,7 @@
   //   padding-right: 30px;
   // };
 
-  .Indicators__content {
+  .Timeline__content {
 
     padding: 30px 30px 30px 30px;
 
@@ -106,17 +106,17 @@
     }
   }
 
-  .Indicators__links {
+  .Timeline__links {
     padding: 0rem 1.5rem 2.5rem 1.5rem;
     position: relative;
 
-    .Indicators__linksContainer {
+    .Timeline__linksContainer {
 
       &:first-child {
         padding-bottom: 1rem;
       }
 
-      .Indicators__linksTitle {
+      .Timeline__linksTitle {
         font-size: 1.5rem;
         margin-right: 2rem;
       }
@@ -135,13 +135,13 @@
 
   }
 
-  .Indicators__viz {
+  .Timeline__viz {
     display: flex;
     flex-direction: row;
     margin-top: 1rem;
     margin-bottom: 0.5rem;
 
-    .Indicators__chart {
+    .Timeline__chart {
       width: 100%;
     }
 
@@ -166,7 +166,7 @@
 
   }
 
-  .Indicators__feedback {
+  .Timeline__feedback {
     
     text-align: center;
 

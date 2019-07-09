@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 
 import Helpers from 'util/helpers';
 
-import IndicatorsViz from 'components/IndicatorsViz';
-import IndicatorsDescription from 'components/IndicatorsDescription';
+import TimelineViz from 'components/TimelineViz';
+import TimelineDescription from 'components/TimelineDescription';
 import Loader from 'components/Loader';
 import LegalFooter from 'components/LegalFooter';
 import APIClient from 'components/APIClient';
 
-import 'styles/Indicators.css';
+import 'styles/Timeline.css';
 
 const initialState = { 
 
@@ -75,7 +75,7 @@ const initialState = {
 
 };
 
-export default class Indicators extends Component {
+export default class Timeline extends Component {
   constructor(props) {
     super(props);
     this.state = initialState;
@@ -140,16 +140,16 @@ export default class Indicators extends Component {
     });
   }
 
-  /** Fetches data for Indicators component via 2 API calls and saves the raw data in state */
+  /** Fetches data for Timeline component via 2 API calls and saves the raw data in state */
   fetchData(detailAddr) {
       APIClient.getSaleHistory(detailAddr.bbl)
         .then(results => this.setState({ saleHistory: results.result }))
-        .catch(err => {window.Rollbar.error("API error on Indicators: Sale History", err, detailAddr.bbl);}
+        .catch(err => {window.Rollbar.error("API error on Timeline: Sale History", err, detailAddr.bbl);}
       );
 
       APIClient.getIndicatorHistory(detailAddr.bbl)
         .then(results => this.setState({ indicatorHistory: results.result }))
-        .catch(err => {window.Rollbar.error("API error on Indicators: Indicator History", err, detailAddr.bbl);}
+        .catch(err => {window.Rollbar.error("API error on Timeline: Indicator History", err, detailAddr.bbl);}
       );
 
       this.setState({
@@ -277,8 +277,8 @@ export default class Indicators extends Component {
   const indicatorDataTotal = (this.state[indicatorData].values.total ? (this.state[indicatorData].values.total).reduce((total, sum) => (total + sum)) : null);
   
     return (
-      <div className="Page Indicators">
-        <div className="Indicators__content Page__content">
+      <div className="Page Timeline">
+        <div className="Timeline__content Page__content">
           { !(this.props.isVisible && 
               this.state.saleHistory && this.state.indicatorHistory &&
               this.state[this.state.defaultVis + 'Data'].labels) ? 
@@ -298,9 +298,9 @@ export default class Indicators extends Component {
                   <button onClick={() => this.props.onBackToOverview(this.props.detailAddr)}>Back to Overview</button>
                 </div>
 
-                <div className="Indicators__links">
-                  <div className="Indicators__linksContainer">
-                    <em className="Indicators__linksTitle">Select a Dataset:</em> <br/>
+                <div className="Timeline__links">
+                  <div className="Timeline__linksContainer">
+                    <em className="Timeline__linksTitle">Select a Dataset:</em> <br/>
                     {/** Generates a data selection button for every dataset listed in indicatorList */}
                     {(this.state.indicatorList).map(
                       (indicator,i) => 
@@ -314,8 +314,8 @@ export default class Indicators extends Component {
                         </li>
                     )}
                   </div>
-                  <div className="Indicators__linksContainer">
-                    <em className="Indicators__linksTitle">View by:</em> <br/>
+                  <div className="Timeline__linksContainer">
+                    <em className="Timeline__linksTitle">View by:</em> <br/>
                     {/** Generates a time span selection button for every time span listed in timeSpanList */}
                     {(this.state.timeSpanList).map(
                       (timeSpan, i) => 
@@ -336,17 +336,17 @@ export default class Indicators extends Component {
                     Helpers.pluralize(indicatorDataTotal) + ' ' + this.state[indicatorData].text.titleSuffix}
                 </span>
 
-                <div className="Indicators__viz">
+                <div className="Timeline__viz">
                   <button className={(this.state.xAxisStart === 0 || this.state.activeTimeSpan === 'year' ? 
                     "btn btn-off btn-axis-shift" : "btn btn-axis-shift")}
                     onClick={() => {this.handleXAxisChange("left"); window.gtag('event', 'graph-back-button');}}>‹</button>
-                  <IndicatorsViz {...this.state} />
+                  <TimelineViz {...this.state} />
                   <button className={(this.state.xAxisStart + this.state.xAxisViewableColumns >= xAxisLength || this.state.activeTimeSpan === 'year'? 
                     "btn btn-off btn-axis-shift" : "btn btn-axis-shift")}
                     onClick={() => this.handleXAxisChange("right")}>›</button>
                 </div> 
 
-                <div className="Indicators__feedback hide-lg">
+                <div className="Timeline__feedback hide-lg">
                   <i>Have thoughts about this page?</i> 
                   <nobr><a href="https://airtable.com/shrZ9uL3id6oWEn8T" target="_blank" rel="noopener noreferrer">Send us feedback!</a></nobr>
                 </div>
@@ -360,7 +360,7 @@ export default class Indicators extends Component {
                     <div className="card-subtitle text-gray"></div>
                   </div>
                   <div className="card-body">
-                    <IndicatorsDescription activeVis={this.state.activeVis} />
+                    <TimelineDescription activeVis={this.state.activeVis} />
                   </div>
                 </div>
 
@@ -392,7 +392,7 @@ export default class Indicators extends Component {
                   </div>
                 </div>
 
-                <div className="Indicators__feedback show-lg">
+                <div className="Timeline__feedback show-lg">
                   <i>Have thoughts about this page?</i> 
                   <nobr><a href="https://airtable.com/shrZ9uL3id6oWEn8T" target="_blank" rel="noopener noreferrer">Send us feedback!</a></nobr>
                 </div>

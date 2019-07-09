@@ -16,7 +16,7 @@ const buildingInfoSQL =
    WHERE BBL = $1`
 
 
-// WOW Indicators Custom Queries
+// WOW Timeline Custom Queries
 const saleHistorySQL = 
   `SELECT * 
    FROM REAL_PROPERTY_LEGALS L 

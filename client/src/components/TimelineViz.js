@@ -8,12 +8,12 @@ import * as ChartAnnotation from 'chartjs-plugin-annotation';
 
 import Helpers from 'util/helpers';
 
-import 'styles/Indicators.css';
+import 'styles/Timeline.css';
 
 const DEFAULT_ANIMATION_MS = 1000;
 const MONTH_ANIMATION_MS = 2500;
 
-export default class IndicatorsViz extends Component {
+export default class TimelineViz extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -57,11 +57,11 @@ export default class IndicatorsViz extends Component {
   }
 
   render() {
-    return <IndicatorsVizImplementation {...this.state} />;
+    return <TimelineVizImplementation {...this.state} />;
   }
 }
 
-class IndicatorsVizImplementation extends Component {
+class TimelineVizImplementation extends Component {
   /** Returns new data labels match selected time span */ 
   groupLabels(labelsArray) {
     if (labelsArray && this.props.activeTimeSpan === 'quarter') {
@@ -447,7 +447,7 @@ class IndicatorsVizImplementation extends Component {
   }; 
 
     return (
-      <div className="Indicators__chart">
+      <div className="Timeline__chart">
         <Bar data={data} options={options} plugins={[ChartAnnotation]} width={100} height={300} redraw={this.props.shouldRedraw} />
       </div>
     );

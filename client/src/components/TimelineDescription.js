@@ -1,6 +1,6 @@
 import React from 'react';
 
-const IndicatorsDescription = (props) => {
+const TimelineDescription = (props) => {
     return (
         (props.activeVis === 'complaints' ? 
             <span>HPD Complaints are housing issues reported to the City <b>by a tenant calling 311</b>.
@@ -32,4 +32,4 @@ const IndicatorsDescription = (props) => {
     );
 };
 
-export default IndicatorsDescription; 
+export default TimelineDescription; 
