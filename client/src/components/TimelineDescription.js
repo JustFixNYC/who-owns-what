@@ -28,12 +28,12 @@ const TimelineDescription = (props) => {
             <br/> 
             Read more about DOB Building Applications/Permits at the <a href='https://www1.nyc.gov/site/buildings/about/building-applications-and-dob_permits.page' target="_blank" rel="noopener noreferrer">official NYC Buildings page</a>.</span>
         : props.activeVis === 'dob_violations' ?
-            <span>A Building or DOB Violation is a notice that a property is not in compliance with some building law.
+            <span>A DOB Violation is a notice that a property is not in compliance with some building law.
             It includes an order from the Department of Buildings to correct the violating condition, which must be corrected before a new or amended Certificate of Occupancy (CO) can be obtained. 
             DOB Violations are generally considered less severe than ECB violations, and can be identified as:<br/>
             <br/>
             <b>Emergency</b> — critical building situation<br/>
-            <b>Nonemergency</b> — all others<br/>
+            <b>Non-Emergency</b> — all others<br/>
             <br/>
             Read more about Building Violations at the <a href='https://www1.nyc.gov/site/buildings/safety/dob-violations.page' target="_blank" rel="noopener noreferrer">official DOB page</a>.</span>
         : props.activeVis === 'ecb_violations' ?
