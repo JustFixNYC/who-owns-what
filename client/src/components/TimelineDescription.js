@@ -14,7 +14,7 @@ const TimelineDescription = (props) => {
         : props.activeVis === 'hpd_violations' ?
             <span>HPD Violations occur when an official City Inspector finds the conditions of a home in violation of the law. 
             If not corrected, these violations incur fines for the owner— however, HPD violations are notoriously unenforced by the City.
-            These Violations fall into three categories:<br/>
+            HPD Violations fall into three categories:<br/>
             <br/>
             <b>Class A</b> — non-hazardous<br/>
             <b>Class B</b> — hazardous<br/>
@@ -27,7 +27,23 @@ const TimelineDescription = (props) => {
             <br/>
             <br/> 
             Read more about DOB Building Applications/Permits at the <a href='https://www1.nyc.gov/site/buildings/about/building-applications-and-dob_permits.page' target="_blank" rel="noopener noreferrer">official NYC Buildings page</a>.</span>
-        : <span/>
+        : props.activeVis === 'dob_violations' ?
+            <span>A Building or DOB Violation is a notice that a property is not in compliance with some building law.
+            It includes an order from the Department of Buildings to correct the violating condition, which must be corrected before a new or amended Certificate of Occupancy (CO) can be obtained. 
+            DOB Violations are generally considered less severe than ECB violations, and can be identified as:<br/>
+            <br/>
+            <b>Emergency</b> — critical building situation<br/>
+            <b>Nonemergency</b> — all others<br/>
+            <br/>
+            Read more about Building Violations at the <a href='https://www1.nyc.gov/site/buildings/safety/dob-violations.page' target="_blank" rel="noopener noreferrer">official DOB page</a>.</span>
+        : props.activeVis === 'ecb_violations' ?
+            <span>Like DOB Violations, ECB (Environmental Control Board) Violations occur when a property does not comply with building code or zoning law. 
+            However, people named in an ECB violation must first attend a hearing with the Office of Administrative Trials and Hearings to pay a fine or have the violation dismissed. 
+            For that reason, ECB Violations are generally considered more severe than DOB Violations.
+            <br/>
+            <br/> 
+            Read more about ECB Violations at the <a href='https://www1.nyc.gov/site/buildings/safety/ecb-violations.page' target="_blank" rel="noopener noreferrer">official City page</a>.</span>
+        :<span/>
         )
     );
 };

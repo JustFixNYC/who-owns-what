@@ -180,6 +180,33 @@ class TimelineVizImplementation extends Component {
             borderWidth: 1
         }];
       break;
+    case 'dob_violations':
+      datasets = 
+        [{
+            label: 'Emergency',
+            data: this.groupData(this.props.indicatorData.dob_violations.values.emergency),
+            backgroundColor: 'rgba(215,25,28, 0.6)',
+            borderColor: 'rgba(215,25,28,1)',
+            borderWidth: 1
+        },
+        {
+            label: 'Non-Emergency',
+            data: this.groupData(this.props.indicatorData.dob_violations.values.nonemergency),
+            backgroundColor: 'rgba(254,224,139, 0.6)',
+            borderColor: 'rgba(254,224,139,1)',
+            borderWidth: 1
+        }];
+      break;
+    case 'ecb_violations': 
+      datasets = 
+        [{
+            label: 'ECB Violations Issued',
+            data: this.groupData(this.props.indicatorData.ecb_violations.values.total),
+            backgroundColor: 'rgba(153,142,195, 0.6)',
+            borderColor: 'rgba(153,142,195,1)',
+            borderWidth: 1
+        }];
+      break;
     default: break;
   }
 
@@ -222,7 +249,9 @@ class TimelineVizImplementation extends Component {
         yAxes: [{
             ticks: {
                 beginAtZero: true,
-                suggestedMax: (this.props.activeVis === 'dob_permits' ?
+                suggestedMax: (this.props.activeVis === 'dob_permits' || 
+                               this.props.activeVis === 'dob_violations' ||
+                               this.props.activeVis === 'ecb_violations' ?
                               Math.max(12, Helpers.maxArray(this.groupData(this.props.indicatorData.dob_permits.values.total)) * 1.25) :
                               Math.max(12, dataMaximum * 1.25))
             },

@@ -63,11 +63,37 @@ const initialState = {
             titleSuffix: "since 2010",
             yAxisTitle: "Building Permits Applied For",
           }
+        },
+
+        dob_violations: {
+          labels: null,
+          values: {
+            emergency: null,
+            nonemergency: null,
+            total: null
+          },
+          text: {
+            title: "DOB Violations",
+            titleSuffix: "since 2010",
+            yAxisTitle: "Violations Issued",
+          }
+        },
+
+        ecb_violations: {
+          labels: null,
+          values: {
+            total: null
+          },
+          text: {
+            title: "ECB Violations",
+            titleSuffix: "since 2010",
+            yAxisTitle: "Violations Issued",
+          }
         }
 
       },
 
-      indicatorList: ['hpd_complaints','hpd_violations','dob_permits'],
+      indicatorList: ['hpd_complaints','hpd_violations','dob_permits', 'dob_violations', 'ecb_violations'],
       defaultVis: 'hpd_complaints',
       activeVis: 'hpd_complaints',
       timeSpanList: ['month','quarter','year'],
