@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Bar } from 'react-chartjs-2';
+import { Bar, Line } from 'react-chartjs-2';
 // reference: https://github.com/jerairrest/react-chartjs-2
 
 import * as ChartAnnotation from 'chartjs-plugin-annotation';
@@ -132,25 +132,20 @@ class TimelineVizImplementation extends Component {
     case 'hpd_violations': 
       datasets = 
         [{
-            label: 'Class C',
-            data: this.groupData(this.props.indicatorData.hpd_violations.values.class_c),
+            label: 'Complaints',
+            data: this.groupData(this.props.indicatorData.hpd_complaints.values.total),
+            backgroundColor: 'rgba(227,74,51, 0.8)',
+            borderColor: 'rgba(227,74,51,1)',
+            borderWidth: 2,
+            fill: false
+        },
+        {
+            label: 'Violations',
+            data: this.groupData(this.props.indicatorData.hpd_violations.values.total),
             backgroundColor: 'rgba(136,65,157, 0.6)',
-            borderColor: 'rgba(136,65,157,1)',
-            borderWidth: 1
-        },
-        {
-            label: 'Class B',
-            data: this.groupData(this.props.indicatorData.hpd_violations.values.class_b),
-            backgroundColor: 'rgba(140,150,198, 0.6)',
-            borderColor: 'rgba(140,150,198,1)',
-            borderWidth: 1
-        },
-        {
-            label: 'Class A',
-            data: this.groupData(this.props.indicatorData.hpd_violations.values.class_a),
-            backgroundColor: 'rgba(157, 194, 227, 0.6)',
-            borderColor: 'rgba(157, 194, 227,1)',
-            borderWidth: 1
+            borderColor: 'rgba(136,65,157,0.8)',
+            borderWidth: 2,
+            fill: false
         }];
       break;
     case 'hpd_complaints':
@@ -263,7 +258,7 @@ class TimelineVizImplementation extends Component {
               padding: 8,
               labelString: this.props.indicatorData[this.props.activeVis].text.yAxisTitle
             },
-            stacked: true,
+            stacked: !(this.props.activeVis === 'hpd_violations'),
         }],
         xAxes: [{
             ticks: {
@@ -476,7 +471,10 @@ class TimelineVizImplementation extends Component {
 
     return (
       <div className="Timeline__chart">
+        {(this.props.activeVis === 'hpd_violations' ?
+        <Line data={data} options={options} plugins={[ChartAnnotation]} width={100} height={300} redraw={this.props.shouldRedraw} /> :
         <Bar data={data} options={options} plugins={[ChartAnnotation]} width={100} height={300} redraw={this.props.shouldRedraw} />
+        )}
       </div>
     );
   }
