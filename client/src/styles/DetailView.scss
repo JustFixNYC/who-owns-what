@@ -296,6 +296,13 @@
         margin-right: 0;
       }
 
+      .chip {
+        background-color: $gray-light;
+        color: $dark;
+        max-height: 1.8rem;
+        border-radius: 25px;
+      }
+
       .card-body-resources__title {
         position: absolute;
         top: -19px;
