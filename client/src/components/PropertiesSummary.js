@@ -137,7 +137,7 @@ export default class PropertiesSummary extends Component {
                     <h6 className="PropertiesSummary__linksSubtitle">Share this page with your neighbors</h6>
                     <SocialShare 
                       location="summary-tab"
-                      url={encodeURI('https://whoownswhat.justfix.nyc/address/' + this.props.userAddr.boro + '/' + this.props.userAddr.housenumber + '/' + this.props.userAddr.streetname)}
+                      url={encodeURI('whoownswhat.justfix.nyc/address/' + this.props.userAddr.boro + '/' + this.props.userAddr.housenumber + '/' + this.props.userAddr.streetname)}
                       twitterMessage={"The " + (parseInt(agg.bldgs) > 1 ? agg.bldgs + " " : "")  + "buildings that my landlord \"owns\" 👀... #WhoOwnsWhat @JustFixNYC"}
                       emailMessage={"The " + (parseInt(agg.bldgs) > 1 ? agg.bldgs + " " : "")  + "buildings owned by my landlord (via JustFix's Who Owns What tool)"}
                       />
