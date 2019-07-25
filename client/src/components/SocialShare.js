@@ -1,11 +1,13 @@
 import React from 'react';
 import { FacebookButton, TwitterButton, EmailButton } from 'react-social';
+import {isMobile, isIOS, osVersion} from "react-device-detect";
 
 import fbIcon from '../assets/img/fb.svg';
 import twitterIcon from '../assets/img/twitter.svg';
 
 const SocialShare = (props) => {
 
+  console.log(osVersion, typeof osVersion);
   // Expected Props: location
   // Optional Props: url, twitterMessage, emailMessage
 
@@ -40,6 +42,13 @@ const SocialShare = (props) => {
        <i className="icon icon-mail mx-2" />
        <span>Email</span>
      </EmailButton>
+     {isMobile && 
+     <a className="btn btn-steps" 
+      onClick={() => {window.gtag('event', 'twitter-' + props.location);}}
+      href={"sms:" + (isIOS && osVersion >= "8.0.0" ? "&" : isIOS && osVersion < "8.0.0" ? ";" : "?") + "body=" + (props.url || "https://whoownswhat.justfix.nyc/")}
+      target="_blank" rel="noopener noreferrer">
+        <i className="icon icon-message mx-2" />
+    </a>}
     </div>
   );
 

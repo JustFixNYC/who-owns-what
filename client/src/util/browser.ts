@@ -32,6 +32,22 @@ export default {
     return width <= 599;
   },
 
+  getMobileOperatingSystem(): string {
+    var userAgent = navigator.userAgent || navigator.vendor;
+  
+        // Windows Phone must come first because its UA also contains "Android"
+      if (/android/i.test(userAgent)) {
+          return "Android";
+      }
+  
+      // iOS detection from: http://stackoverflow.com/a/9039885/177710
+      if (/iPad|iPhone|iPod/.test(userAgent)) {
+          return "iOS";
+      }
+  
+      return "";
+  },
+
   isIE(): boolean {
     if(typeof window != 'undefined') {
       return /MSIE \d|Trident.*rv:/.test(window.navigator.userAgent);
