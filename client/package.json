@@ -21,6 +21,7 @@
     "react-app-polyfill": "^0.2.0",
     "react-chartjs-2": "^2.7.4",
     "react-chartjs2": "^1.2.1",
+    "react-device-detect": "^1.7.5",
     "react-dom": "^15.6.1",
     "react-draggable": "^3.0.5",
     "react-google-maps": "next",

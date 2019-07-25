@@ -76,6 +76,12 @@
           margin-bottom: 0.75rem;
           width: 100%
         }
+        .chip {
+          background-color: $gray-light;
+          color: $dark;
+          max-height: 1.8rem;
+          border-radius: 25px;
+        }
       }
     }
 
