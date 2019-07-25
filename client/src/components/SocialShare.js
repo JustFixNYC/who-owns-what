@@ -45,9 +45,9 @@ const SocialShare = (props) => {
      {isMobile && 
      <a className="btn btn-steps" 
       onClick={() => {window.gtag('event', 'twitter-' + props.location);}}
-      href={"sms:" + (isIOS && osVersion >= "8.0.0" ? "&" : isIOS && osVersion < "8.0.0" ? ";" : "?") + "body=" + (props.url || "https://whoownswhat.justfix.nyc/")}
+      href={"sms: " + (isIOS && osVersion >= "8.0.0" ? "&" : isIOS && osVersion < "8.0.0" ? ";" : "?") + "body=" + (props.url || "https://whoownswhat.justfix.nyc/")}
       target="_blank" rel="noopener noreferrer">
-        <i className="icon icon-message mx-2" />
+       SMS
     </a>}
     </div>
   );
