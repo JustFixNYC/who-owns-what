@@ -18,7 +18,7 @@ const SocialShare = (props) => {
        className="btn btn-steps"
        sharer={true}
        windowOptions={['width=400', 'height=200']}
-       url={(props.url || 'whoownswhat.justfix.nyc')}
+       url={(props.url || 'https://whoownswhat.justfix.nyc/')}
        appId={`247990609143668`}>
        <img src={fbIcon} className="icon mx-1" alt="Facebook" />
        <span>Facebook</span>
@@ -27,7 +27,7 @@ const SocialShare = (props) => {
        onClick={() => {window.gtag('event', 'twitter-' + props.location);}}
        className="btn btn-steps"
        windowOptions={['width=400', 'height=200']}
-       url={(props.url || 'whoownswhat.justfix.nyc')}
+       url={(props.url || 'https://whoownswhat.justfix.nyc/')}
        message={(props.twitterMessage || `#WhoOwnsWhat @JustFixNYC`)}
        >
        <img src={twitterIcon} className="icon mx-1" alt="Twitter" />
@@ -36,7 +36,7 @@ const SocialShare = (props) => {
      <EmailButton
        onClick={() => {window.gtag('event', 'email-' + props.location);}}
        className="btn btn-steps"
-       url={(props.url || 'whoownswhat.justfix.nyc')}
+       url={(props.url || 'https://whoownswhat.justfix.nyc/')}
        target="_blank"
        message={(props.emailMessage || "New JustFix.nyc tool helps research on NYC landlords")}>
        <i className="icon icon-mail mx-2" />
@@ -45,8 +45,8 @@ const SocialShare = (props) => {
      {isMobile && 
      <a className="btn btn-steps" 
       onClick={() => {window.gtag('event', 'twitter-' + props.location);}}
-        href={"sms: " + (isIOS && osVersion >= "8.0.0" ? "&" : isIOS && osVersion < "8.0.0" ? "&" : "?") + "body=" + (props.url || "whoownswhat.justfix.nyc/")}
-        target="_blank" rel="noopener noreferrer">
+      href={"sms:" + (isIOS && osVersion >= "8.0.0" ? "&" : isIOS && osVersion < "8.0.0" ? ";" : "?") + "body=" + (props.url || "https://whoownswhat.justfix.nyc/")}
+      target="_blank" rel="noopener noreferrer">
         <i className="icon icon-message mx-2" />
     </a>}
     </div>
