@@ -7,7 +7,6 @@ import twitterIcon from '../assets/img/twitter.svg';
 
 const SocialShare = (props) => {
 
-  console.log(osVersion, typeof osVersion);
   // Expected Props: location
   // Optional Props: url, twitterMessage, emailMessage
 
