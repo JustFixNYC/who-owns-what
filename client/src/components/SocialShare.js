@@ -1,6 +1,6 @@
 import React from 'react';
 import { FacebookButton, TwitterButton, EmailButton } from 'react-social';
-import {isMobile, isIOS} from "react-device-detect";
+import {isMobile, isAndroid} from "react-device-detect";
 
 import fbIcon from '../assets/img/fb.svg';
 import twitterIcon from '../assets/img/twitter.svg';
@@ -44,7 +44,7 @@ const SocialShare = (props) => {
      {isMobile && 
      <a className="btn btn-steps" 
       onClick={() => {window.gtag('event', 'twitter-' + props.location);}}
-      href={"sms: " + (isIOS ? "&" : "?") + "body=" + encodeURIComponent(props.url || "https://whoownswhat.justfix.nyc/")}
+      href={"sms: " + (isAndroid ? "?" : "&") + "body=" + encodeURIComponent(props.url || "https://whoownswhat.justfix.nyc/")}
       target="_blank" rel="noopener noreferrer">
        SMS
     </a>}
