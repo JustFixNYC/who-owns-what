@@ -195,7 +195,7 @@ export default class DetailView extends Component {
                           <h6 className="DetailView__subtitle">Share this page with your neighbors</h6>
                           <SocialShare 
                             location="overview-tab"
-                            url={encodeURI('https://whoownswhat.justfix.nyc/address/' + this.props.addr.boro + '/' + this.props.addr.housenumber + '/' + this.props.addr.streetname)}
+                            url={encodeURI('https://whoownswhat.justfix.nyc/bbl/' + boro + block + lot)}
                             twitterMessage={"The " + (parseInt(this.props.portfolioSize) > 1 ? this.props.portfolioSize + " " : "")  + "buildings that my landlord \"owns\" 👀... #WhoOwnsWhat @JustFixNYC"}
                             emailMessage={"The " + (parseInt(this.props.portfolioSize) > 1 ? this.props.portfolioSize + " " : "")  + "buildings owned by my landlord (via JustFix's Who Owns What tool)"}
                             />
@@ -250,7 +250,7 @@ export default class DetailView extends Component {
                             <h6 className="DetailView__subtitle">Share this page with your neighbors</h6>
                             <SocialShare 
                               location="overview-tab"
-                              url={encodeURI('https://whoownswhat.justfix.nyc/address/' + this.props.addr.boro + '/' + this.props.addr.housenumber + '/' + this.props.addr.streetname)}
+                              url={encodeURI('https://whoownswhat.justfix.nyc/bbl/' + boro + block + lot)}
                               twitterMessage={"The " + (parseInt(this.props.portfolioSize) > 1 ? this.props.portfolioSize + " " : "")  + "buildings that my landlord \"owns\" 👀... #WhoOwnsWhat @JustFixNYC"}
                               emailMessage={"The " + (parseInt(this.props.portfolioSize) > 1 ? this.props.portfolioSize + " " : "")  + "buildings owned by my landlord (via JustFix's Who Owns What tool)"}
                               />
