@@ -13,7 +13,8 @@ export default class BBLPage extends Component {
 
     this.state = {
       searchBBL: { ...props.match.params }, // either {boro, block, lot} or {bbl}, based on url params
-      results: null
+      results: null,
+      bblExists: false
     };
   }
 
@@ -57,33 +58,54 @@ export default class BBLPage extends Component {
       .then(results => {
         if(!(results.result && results.result.length > 0 )) {
           this.setState({
-            results: null
+            bblExists: false
           });
         }
         else {
-          APIClient.searchBBL(this.state.searchBBL)
-            .then(results => {
-              this.setState({
-                results: results
-              });
-            })
-            .catch(err => {
-              window.Rollbar.error("API error", err, this.state.searchBBL);
-              this.setState({
-                results: { addrs: [] }
-              });
-            });
+          this.setState({
+            bblExists: true
+          });
         }
       })
       .catch(err => {window.Rollbar.error("API error: Building Info", err, bbl);}
     );
-
   }
+
+  componentDidUpdate(prevProps, prevState) {
+
+
+    if (!prevState.bblExists && this.state.bblExists) {
+        console.log("going through api call");
+        APIClient.searchBBL(this.state.searchBBL)
+        .then(results => {
+          console.log("got positive result");
+          this.setState({
+            results: results
+          });
+        })
+        .catch(err => {
+          console.log("got error ...");
+          window.Rollbar.error("API error", err, this.state.searchBBL);
+          this.setState({
+            results: { addrs: [] }
+          });
+        });
+      }
+  }
+
+
 
   render() {
 
+    if(!this.state.bblExists) {
+      window.gtag('event', 'search-notfound');
+        return (
+          <NotRegisteredPage/>
+        );
+    }
+
     // If searched and got results,
-    if(this.state.results) {
+    else if(this.state.results && this.state.results.addrs) {
 
       // redirect doesn't like `this` so lets make a ref
       const results = this.state.results;
@@ -95,14 +117,6 @@ export default class BBLPage extends Component {
       // }
 
       // no addrs = not found
-      if(!this.state.results) {
-        
-        window.gtag('event', 'search-notfound');
-        return (
-          <NotRegisteredPage/>
-        );
-      // lets redirect to AddressPage and pass the results along with us
-      } else {
         window.gtag('event', 'search-found', { 'value': this.state.results.addrs.length });
         const searchAddress = this.state.results.addrs.find( (element) => (element.bbl === this.state.searchBBL.boro + this.state.searchBBL.block + this.state.searchBBL.lot));
         return (
@@ -111,9 +125,6 @@ export default class BBLPage extends Component {
             state: { results }
           }}></Redirect>
         );
-       }
-
-      
     }
 
 
