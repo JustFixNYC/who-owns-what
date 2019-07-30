@@ -3,6 +3,7 @@ import { Redirect } from 'react-router-dom';
 
 import Loader from 'components/Loader';
 import APIClient from 'components/APIClient';
+import NotRegisteredPage from './NotRegisteredPage';
 
 // import 'styles/HomePage.css';
 
@@ -71,8 +72,6 @@ export default class BBLPage extends Component {
 
       // redirect doesn't like `this` so lets make a ref
       const results = this.state.results;
-      const geosearch = results.geosearch;
-      let searchAddress = {};
 
       // if(geosearch) {
       //   searchAddress.housenumber = geosearch.giLowHouseNumber1;
@@ -84,12 +83,8 @@ export default class BBLPage extends Component {
       if(!this.state.results.addrs || !this.state.results.addrs.length) {
         window.gtag('event', 'search-notfound');
         return (
-          <Redirect to={{
-            pathname: '/not-found',
-            state: { geosearch, searchAddress }
-          }}></Redirect>
+          <NotRegisteredPage/>
         );
-
       // lets redirect to AddressPage and pass the results along with us
       } else {
         window.gtag('event', 'search-found', { 'value': this.state.results.addrs.length });
@@ -100,7 +95,9 @@ export default class BBLPage extends Component {
             state: { results }
           }}></Redirect>
         );
-      }
+       }
+
+      
     }
 
 

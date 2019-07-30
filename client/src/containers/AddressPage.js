@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
 import FileSaver from 'file-saver';
 import Browser from 'util/browser';
 
@@ -15,6 +14,7 @@ import APIClient from 'components/APIClient';
 
 import 'styles/AddressPage.css';
 import { GeoSearchRequester } from '../util/geo-autocomplete-base';
+import NotRegisteredPage from './NotRegisteredPage';
 
 export default class AddressPage extends Component {
   constructor(props) {
@@ -118,15 +118,8 @@ export default class AddressPage extends Component {
   render() {
 
     if(this.state.hasSearched && this.state.assocAddrs.length === 0)  {
-
-      const geosearch = this.state.geosearch;
-      const searchAddress = this.state.searchAddress;
-
       return (
-        <Redirect to={{
-          pathname: '/not-found',
-          state: { geosearch, searchAddress }
-        }}></Redirect>
+        <NotRegisteredPage/>
       );
     }
 
