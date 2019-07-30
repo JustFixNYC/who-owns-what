@@ -119,7 +119,7 @@ export default class AddressPage extends Component {
 
     if(this.state.hasSearched && this.state.assocAddrs.length === 0)  {
       return (
-        <NotRegisteredPage/>
+        <NotRegisteredPage geosearch={this.state.geosearch} searchAddress={this.state.searchAddress} />
       );
     }
 

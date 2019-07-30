@@ -51,18 +51,33 @@ export default class BBLPage extends Component {
 
     window.gtag('event', 'direct-link');
 
-    APIClient.searchBBL(this.state.searchBBL)
+    const bbl = this.state.searchBBL.boro + this.state.searchBBL.block + this.state.searchBBL.lot;
+
+    APIClient.getBuildingInfo(bbl)
       .then(results => {
-        this.setState({
-          results: results
-        });
+        if(!(results.result && results.result.length > 0 )) {
+          this.setState({
+            results: null
+          });
+        }
+        else {
+          APIClient.searchBBL(this.state.searchBBL)
+            .then(results => {
+              this.setState({
+                results: results
+              });
+            })
+            .catch(err => {
+              window.Rollbar.error("API error", err, this.state.searchBBL);
+              this.setState({
+                results: { addrs: [] }
+              });
+            });
+        }
       })
-      .catch(err => {
-        window.Rollbar.error("API error", err, this.state.searchBBL);
-        this.setState({
-          results: { addrs: [] }
-        });
-      });
+      .catch(err => {window.Rollbar.error("API error: Building Info", err, bbl);}
+    );
+
   }
 
   render() {
@@ -80,7 +95,8 @@ export default class BBLPage extends Component {
       // }
 
       // no addrs = not found
-      if(!this.state.results.addrs || !this.state.results.addrs.length) {
+      if(!this.state.results) {
+        
         window.gtag('event', 'search-notfound');
         return (
           <NotRegisteredPage/>
