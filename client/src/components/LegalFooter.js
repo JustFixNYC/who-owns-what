@@ -12,7 +12,7 @@ class LegalFooter extends Component {
           <nav className="inline">
             <NavLink to="/terms-of-use">Terms of use</NavLink>
             <NavLink to="/privacy-policy">Privacy policy</NavLink>
-            <a href="https://github.com/JustFixNYC/who-owns-what" target="_blank" rel="noopener noreferrer">View source</a>
+            <a href="https://github.com/JustFixNYC/who-owns-what" target="_blank" rel="noopener noreferrer">View source code</a>
           </nav>
         </div>)
 	}
