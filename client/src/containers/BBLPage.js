@@ -14,7 +14,7 @@ export default class BBLPage extends Component {
     this.state = {
       searchBBL: { ...props.match.params }, // either {boro, block, lot} or {bbl}, based on url params
       results: null,
-      bblExists: false
+      bblExists: null
     };
   }
 
@@ -75,16 +75,13 @@ export default class BBLPage extends Component {
 
 
     if (!prevState.bblExists && this.state.bblExists) {
-        console.log("going through api call");
         APIClient.searchBBL(this.state.searchBBL)
         .then(results => {
-          console.log("got positive result");
           this.setState({
             results: results
           });
         })
         .catch(err => {
-          console.log("got error ...");
           window.Rollbar.error("API error", err, this.state.searchBBL);
           this.setState({
             results: { addrs: [] }
@@ -97,7 +94,7 @@ export default class BBLPage extends Component {
 
   render() {
 
-    if(!this.state.bblExists) {
+    if(this.state.bblExists && this.state.bblExists === false) {
       window.gtag('event', 'search-notfound');
         return (
           <NotRegisteredPage/>
@@ -109,6 +106,7 @@ export default class BBLPage extends Component {
 
       // redirect doesn't like `this` so lets make a ref
       const results = this.state.results;
+      console.log(results);
 
       // if(geosearch) {
       //   searchAddress.housenumber = geosearch.giLowHouseNumber1;
@@ -118,7 +116,8 @@ export default class BBLPage extends Component {
 
       // no addrs = not found
         window.gtag('event', 'search-found', { 'value': this.state.results.addrs.length });
-        const searchAddress = this.state.results.addrs.find( (element) => (element.bbl === this.state.searchBBL.boro + this.state.searchBBL.block + this.state.searchBBL.lot));
+        const searchAddress = {boro: "Test", housenumber: "test", streetname: "test"};
+        //= this.state.results.addrs.find( (element) => (element.bbl === this.state.searchBBL.boro + this.state.searchBBL.block + this.state.searchBBL.lot));
         return (
           <Redirect to={{
             pathname: `/address/${searchAddress.boro}/${searchAddress.housenumber}/${searchAddress.streetname}`,
