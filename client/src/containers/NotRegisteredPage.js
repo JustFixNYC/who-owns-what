@@ -86,7 +86,7 @@ export default class NotRegisteredPage extends Component {
     }
 
 
-    if(buildingInfo === null) {
+    if(!geosearch && !buildingInfo) {
       return (
         <div className="NotRegisteredPage Page">
           <div className="HomePage__content">
