@@ -14,21 +14,32 @@ export default class BBLPage extends Component {
     this.state = {
       searchBBL: { ...props.match.params }, // either {boro, block, lot} or {bbl}, based on url params
       results: null,
-      bblExists: null
+      bblExists: null,
+      foundAddress: {
+        boro: null,
+        housenumber: null,
+        streetname: null
+      }
     };
   }
 
-  componentWillMount() {
+
+  componentDidMount() {
+
+    window.gtag('event', 'direct-link');
+
+    var fullBBL;
 
     // handling for when url parameter is full bbl
-
     if (this.state.searchBBL.bbl) {
-      let bbl = this.state.searchBBL.bbl;
+
+      fullBBL = this.state.searchBBL.bbl;
+
       this.setState({
         searchBBL: {
-          boro: bbl.slice(0,1),
-          block: bbl.slice(1,6),
-          lot: bbl.slice(6,10)
+          boro: fullBBL.slice(0,1),
+          block: fullBBL.slice(1,6),
+          lot: fullBBL.slice(6,10)
         }
       });
     }
@@ -40,21 +51,15 @@ export default class BBLPage extends Component {
         lot: this.state.searchBBL.lot.padStart(4,'0')
       };
 
+      fullBBL = searchBBL.boro + searchBBL.block + searchBBL.lot;
+
       this.setState({
         searchBBL: searchBBL
       });
+
     }
 
-  }
-
-
-  componentDidMount() {
-
-    window.gtag('event', 'direct-link');
-
-    const bbl = this.state.searchBBL.boro + this.state.searchBBL.block + this.state.searchBBL.lot;
-
-    APIClient.getBuildingInfo(bbl)
+    APIClient.getBuildingInfo(fullBBL)
       .then(results => {
         if(!(results.result && results.result.length > 0 )) {
           this.setState({
@@ -63,11 +68,16 @@ export default class BBLPage extends Component {
         }
         else {
           this.setState({
-            bblExists: true
+            bblExists: true,
+            foundAddress: {
+              boro: results.result[0].boro,
+              housenumber: results.result[0].housenumber,
+              streetname: results.result[0].streetname
+            }
           });
         }
       })
-      .catch(err => {window.Rollbar.error("API error: Building Info", err, bbl);}
+      .catch(err => {window.Rollbar.error("API error: Building Info", err, fullBBL);}
     );
   }
 
@@ -94,7 +104,7 @@ export default class BBLPage extends Component {
 
   render() {
 
-    if(this.state.bblExists && this.state.bblExists === false) {
+    if(this.state.bblExists === false) {
       window.gtag('event', 'search-notfound');
         return (
           <NotRegisteredPage/>
@@ -102,11 +112,10 @@ export default class BBLPage extends Component {
     }
 
     // If searched and got results,
-    else if(this.state.results && this.state.results.addrs) {
+    else if(this.state.bblExists && this.state.results && this.state.results.addrs) {
 
       // redirect doesn't like `this` so lets make a ref
       const results = this.state.results;
-      console.log(results);
 
       // if(geosearch) {
       //   searchAddress.housenumber = geosearch.giLowHouseNumber1;
@@ -114,13 +123,20 @@ export default class BBLPage extends Component {
       //   searchAddress.boro = geosearch.firstBoroughName;
       // }
 
-      // no addrs = not found
+      var addressForURL;
+      if (results.addrs.length > 0) {
         window.gtag('event', 'search-found', { 'value': this.state.results.addrs.length });
-        const searchAddress = {boro: "Test", housenumber: "test", streetname: "test"};
+        addressForURL = this.state.results.addrs.find( (element) => (element.bbl === this.state.searchBBL.boro + this.state.searchBBL.block + this.state.searchBBL.lot));
+      }
+      else {
+        window.gtag('event', 'search-notfound');
+        addressForURL = this.state.foundAddress;
+      }
+        
         //= this.state.results.addrs.find( (element) => (element.bbl === this.state.searchBBL.boro + this.state.searchBBL.block + this.state.searchBBL.lot));
         return (
           <Redirect to={{
-            pathname: `/address/${searchAddress.boro}/${searchAddress.housenumber}/${searchAddress.streetname}`,
+            pathname: `/address/${addressForURL.boro}/${addressForURL.housenumber}/${addressForURL.streetname}`,
             state: { results }
           }}></Redirect>
         );
