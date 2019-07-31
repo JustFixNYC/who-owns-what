@@ -69,29 +69,23 @@ class HomePage extends Component {
 
       // redirect doesn't like `this` so lets make a ref
       const results = this.state.results;
-      const geosearch = results.geosearch;
-      const searchAddress = this.state.searchAddress;
 
       // no addrs = not found
       if(!this.state.results.addrs || !this.state.results.addrs.length) {
         window.gtag('event', 'search-notfound');
-        return (
-          <Redirect push to={{
-            pathname: '/not-found',
-            state: { geosearch, searchAddress }
-          }}></Redirect>
-        );
 
       // lets redirect to AddressPage and pass the results along with us
       } else {
         window.gtag('event', 'search-found', { 'value': this.state.results.addrs.length });
-        return (
-          <Redirect push to={{
-            pathname: `/address/${this.state.searchAddress.boro}/${this.state.searchAddress.housenumber}/${this.state.searchAddress.streetname}`,
-            state: { results }
-          }}></Redirect>
-        );
       }
+      return (
+        <Redirect push to={{
+          pathname: `/address/` + this.state.searchAddress.boro + `/`
+            + (this.state.searchAddress.housenumber ? this.state.searchAddress.housenumber : ` `) + `/`
+            + this.state.searchAddress.streetname,
+          state: { results }
+        }}></Redirect>
+      );
     }
 
     const labelText = "Enter an NYC address and find other buildings your landlord might own:";

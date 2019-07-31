@@ -18,8 +18,8 @@ export default class NotRegisteredPage extends Component {
   }
 
   componentDidMount() {
-    if(this.props.location.state.geosearch && this.props.location.state.geosearch.bbl && !this.state.buildingInfo) {
-      const bbl = this.props.location.state.geosearch.bbl;
+    if(this.props.geosearch && this.props.geosearch.bbl && !this.state.buildingInfo) {
+      const bbl = this.props.geosearch.bbl;
       APIClient.getBuildingInfo(bbl)
         .then(results => this.setState({ buildingInfo: results.result }))
         .catch(err => {window.Rollbar.error("API error: Building Info", err, bbl);}
@@ -28,8 +28,8 @@ export default class NotRegisteredPage extends Component {
   }
 
   render() {
-    const geosearch = this.props.location.state.geosearch;
-    const searchAddress = this.props.location.state.searchAddress;
+    const geosearch = this.props.geosearch;
+    const searchAddress = this.props.searchAddress;
     const buildingInfo = (this.state.buildingInfo && this.state.buildingInfo.length > 0 ? this.state.buildingInfo[0] : null);
 
     const usersInputAddress = 
@@ -83,6 +83,21 @@ export default class NotRegisteredPage extends Component {
             break;
         };
       }
+    }
+
+
+    if(!geosearch && !buildingInfo) {
+      return (
+        <div className="NotRegisteredPage Page">
+          <div className="HomePage__content">
+            <div className="HomePage__search">
+              <h5 className="mt-10 text-danger text-center text-bold text-large">
+                No address found
+              </h5>
+            </div>
+         `</div>
+        </div>
+      );
     }
 
     return (
@@ -155,5 +170,6 @@ export default class NotRegisteredPage extends Component {
         <LegalFooter />
       </div>
     );
+    
   }
 }
