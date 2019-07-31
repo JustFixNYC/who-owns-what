@@ -136,7 +136,9 @@ export default class BBLPage extends Component {
         //= this.state.results.addrs.find( (element) => (element.bbl === this.state.searchBBL.boro + this.state.searchBBL.block + this.state.searchBBL.lot));
         return (
           <Redirect to={{
-            pathname: `/address/${addressForURL.boro}/${addressForURL.housenumber}/${addressForURL.streetname}`,
+            pathname: `/address/` + addressForURL.boro + `/`
+            + (addressForURL.housenumber ? addressForURL.housenumber : ` `) + `/`
+            + addressForURL.streetname,
             state: { results }
           }}></Redirect>
         );

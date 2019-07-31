@@ -80,7 +80,9 @@ class HomePage extends Component {
       }
       return (
         <Redirect push to={{
-          pathname: `/address/${this.state.searchAddress.boro}/${this.state.searchAddress.housenumber}/${this.state.searchAddress.streetname}`,
+          pathname: `/address/` + this.state.searchAddress.boro + `/`
+            + (this.state.searchAddress.housenumber ? this.state.searchAddress.housenumber : ` `) + `/`
+            + this.state.searchAddress.streetname,
           state: { results }
         }}></Redirect>
       );
