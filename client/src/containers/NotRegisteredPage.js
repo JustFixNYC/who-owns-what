@@ -22,7 +22,7 @@ export default class NotRegisteredPage extends Component {
       const bbl = this.props.geosearch.bbl;
       APIClient.getBuildingInfo(bbl)
         .then(results => this.setState({ buildingInfo: results.result }))
-        .catch(err => {window.Rollbar.error("API error: Building Info", err, bbl);}
+        .catch(err => {window.Rollbar.error("API error on Not Registered page: Building Info", err, bbl);}
       );
     }
   }

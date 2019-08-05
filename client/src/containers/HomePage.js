@@ -53,7 +53,7 @@ class HomePage extends Component {
           });
         })
         .catch(err => {
-          window.Rollbar.error("API error", err, searchAddress);
+          window.Rollbar.error("API error from homepage: Search Address", err, searchAddress);
           this.setState({
             results: { addrs: [] }
           });
