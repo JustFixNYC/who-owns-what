@@ -46,8 +46,7 @@ render() {
               <nav className="inline">
                 <NavLink exact to="/">Home</NavLink>
                 <NavLink to="/about">About</NavLink>
-                <NavLink to="/how-it-works">How it Works</NavLink>
-                <a href="https://www.justfix.nyc/donate">Donate</a>
+                <NavLink to="/how-it-works">How to use</NavLink>
                 <a href="#" // eslint-disable-line jsx-a11y/anchor-is-valid
                   onClick={() => this.setState({ showEngageModal: true })}>
                   Share
