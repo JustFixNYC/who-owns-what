@@ -77,7 +77,7 @@ export default class BBLPage extends Component {
           });
         }
       })
-      .catch(err => {window.Rollbar.error("API error: Building Info", err, fullBBL);}
+      .catch(err => {window.Rollbar.error("API error from BBL page: Building Info", err, fullBBL);}
     );
   }
 
@@ -92,7 +92,7 @@ export default class BBLPage extends Component {
           });
         })
         .catch(err => {
-          window.Rollbar.error("API error", err, this.state.searchBBL);
+          window.Rollbar.error("API error from BBL page: Search BBL", err, this.state.searchBBL);
           this.setState({
             results: { addrs: [] }
           });
