@@ -39,6 +39,7 @@ function getAddressExport(q) {
 function get(url) {
   return fetch(url, { accept: "application/json" })
     .then(checkStatus)
+    .then(verifyIsJson)
     .then(parseJSON);
 }
 
@@ -53,7 +54,26 @@ function post(url, body, cb) {
       body: JSON.stringify(body)
     })
     .then(checkStatus)
+    .then(verifyIsJson)
     .then(parseJSON);
+}
+
+/**
+ * @param {Response} response 
+ */
+async function verifyIsJson(response) {
+  const contentType = response.headers.get('Content-Type');
+  if (contentType && /^application\/json/.test(contentType)) {
+    return response;
+  }
+  const text = await response.text();
+  const msg = `Expected JSON response but got ${contentType} from ${response.url}`;
+  window.Rollbar.error(msg, {
+    text,
+    contentType,
+    url: response.url
+  });
+  throw new Error(msg);
 }
 
 function checkStatus(response) {
