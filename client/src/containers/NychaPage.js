@@ -30,7 +30,7 @@ export default class NychaPage extends Component {
 
   render() {
     const geosearch = this.props.geosearch;
-    const searchAddress = this.props.searchAddress;
+    // const searchAddress = this.props.searchAddress;
     const buildingInfo = (this.state.buildingInfo && this.state.buildingInfo.length > 0 ? this.state.buildingInfo[0] : null);
 
     // const usersInputAddress = 
