@@ -14,7 +14,9 @@ import APIClient from 'components/APIClient';
 
 import 'styles/AddressPage.css';
 import { GeoSearchRequester } from '../util/geo-autocomplete-base';
+import NychaPage from './NychaPage';
 import NotRegisteredPage from './NotRegisteredPage';
+import helpers from '../util/helpers';
 
 export default class AddressPage extends Component {
   constructor(props) {
@@ -117,9 +119,12 @@ export default class AddressPage extends Component {
 
   render() {
 
-    if(this.state.hasSearched && this.state.assocAddrs.length === 0)  {
+   if(this.state.hasSearched && this.state.assocAddrs.length === 0)  {
       return (
-        <NotRegisteredPage geosearch={this.state.geosearch} searchAddress={this.state.searchAddress} />
+        (this.state.searchAddress && this.state.searchAddress.bbl
+          && helpers.getNychaData(this.state.searchAddress.bbl) ? 
+        <NychaPage geosearch={this.state.geosearch} searchAddress={this.state.searchAddress} nychaData={helpers.getNychaData(this.state.searchAddress.bbl)} /> : 
+        <NotRegisteredPage geosearch={this.state.geosearch} searchAddress={this.state.searchAddress} /> )
       );
     }
 

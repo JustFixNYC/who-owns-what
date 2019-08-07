@@ -3,6 +3,8 @@
 // import _keys from 'lodash/keys';
 import _pickBy from 'lodash/pickBy';
 
+import nycha_bbls from 'data/nycha_bbls.json';
+
 export default {
   // filter repeated values in rbas and owners
   // uses Set which enforces uniqueness
@@ -42,6 +44,14 @@ export default {
 
   jsonEqual(a,b) {
     return JSON.stringify(a) === JSON.stringify(b);
+  },
+
+  getNychaData(searchBBL) {
+    const bbl = searchBBL.toString();
+    for (var index = 0; index < nycha_bbls.length; index++ ) {
+     if(nycha_bbls[index].bbl.toString() === bbl) return nycha_bbls[index];
+   }
+   return null;
   },
 
   intersectAddrObjects(a,b){
