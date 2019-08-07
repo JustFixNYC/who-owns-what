@@ -102,12 +102,8 @@ export default class NychaPage extends Component {
                 <p>Here are some useful links to learn more about this building:</p>
                 <div>
                   <div className="btn-group btn-group-block">
-                    <a href={`http://a836-acris.nyc.gov/bblsearch/bblsearch.asp?borough=${boro}&block=${block}&lot=${lot}`} target="_blank" rel="noopener noreferrer" className="btn">View documents on ACRIS &#8599;</a>
-                    <a href={`http://webapps.nyc.gov:8084/CICS/fin1/find001i?FFUNC=C&FBORO=${boro}&FBLOCK=${block}&FLOT=${lot}`} target="_blank" rel="noopener noreferrer" className="btn">DOF Property Tax Bills &#8599;</a>
-                  </div>
-                  <div className="btn-group btn-group-block">
-                    <a href={`http://a810-bisweb.nyc.gov/bisweb/PropertyProfileOverviewServlet?boro=${boro}&block=${block}&lot=${lot}`} target="_blank" rel="noopener noreferrer" className="btn">DOB Building Profile &#8599;</a>
-                    <a href={`https://hpdonline.hpdnyc.org/HPDonline/Provide_address.aspx?p1=${boro}&p2=${buildingInfo.housenumber}&p3=${buildingInfo.streetname}&SearchButton=Search`} target="_blank" rel="noopener noreferrer" className="btn">HPD Complaints/Violations &#8599;</a>
+                    <a href={`https://www1.nyc.gov/assets/nycha/downloads/pdf/Development-Guide-01142019.pdf`} target="_blank" rel="noopener noreferrer" className="btn">NYCHA Facility Directory &#8599;</a>
+                    <a href={`https://www1.nyc.gov/site/nycha/mynycha/mynycha-landing.page`} target="_blank" rel="noopener noreferrer" className="btn">MyNYCHA App &#8599;</a>
                   </div>
                 </div>
               </div>
