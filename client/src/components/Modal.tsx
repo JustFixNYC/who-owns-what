@@ -3,7 +3,14 @@ import ReactModal from 'react-modal';
 
 import 'styles/Modal.css';
 
-const Modal = (props) => {
+type ModalProps = {
+  showModal: boolean;
+  onClose: (event: React.MouseEvent) => void;
+  children: any;
+  width?: number;
+};
+
+const Modal = (props: ModalProps) => {
 
   // style overrides are here. new stuff is in ReactModal.scss
   const styles = {
