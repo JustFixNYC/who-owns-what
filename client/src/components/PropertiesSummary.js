@@ -21,22 +21,11 @@ export default class PropertiesSummary extends Component {
     this.state = { agg: null };
   }
 
-  // componentDidMount() {
-  //
-  //   APIClient.getAggregate(this.props.userAddr.bbl)
-  //     .then(results => {
-  //       console.log(results.result[0]);
-  //       this.setState({ agg: results[0] });
-  //     })
-  //     .catch(err => console.error(err));
-  //
-  // }
-
-  componentWillReceiveProps(nextProps) {
+  componentDidUpdate(prevProps, prevState) {
 
     // make the api call when we come into view and have
     // the user addrs bbl
-    if(nextProps.isVisible && this.props.userAddr && !this.state.agg) {
+    if(this.props.isVisible && this.props.userAddr && !this.state.agg) {
       APIClient.getAggregate(this.props.userAddr.bbl)
         .then(results => this.setState({ agg: results.result[0] }))
         .catch(err => console.error(err));
