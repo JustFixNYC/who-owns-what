@@ -71,87 +71,67 @@ export default class PropertiesMap extends Component {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
-
-    // addrs are being populated for the first time, so lets initialize things
-    if(!this.props.addrs.length && nextProps.addrs.length) {
-
-      // set of addr positions to determine custom bounds
-      let addrsPos = new Set();
-      let newAssocAddrs = [];
-
-      // if there aren't enough addrs to build a bounding box,
-      // just use the default one
-      // if(nextProps.addrs.length === 1) {
-      //   this.setState({ addrsBounds: this.state.mapProps.fitBounds });
-      //   return;
-      // }
-
-      // cycle through addrs, adding them to the set and categorizing them
-      nextProps.addrs.map((addr, i) => {
-
-        const pos = [parseFloat(addr.lng), parseFloat(addr.lat)];
-
-        if(!MapHelpers.latLngIsNull(pos)) {
-          addrsPos.add(pos);
-
-          // presuming that nextProps.userAddr is in sync with nextProps.addrs
-          if(Helpers.addrsAreEqual(addr, nextProps.userAddr)) {
-            addr.mapType = 'search';
-          } else {
-            addr.mapType = 'base';
-          }
-        }
-
-        // push a new Feature for the map
-        newAssocAddrs.push(
-          <Feature key={i}
-            coordinates={pos}
-            properties={{ mapType: addr.mapType }}
-            onClick={(e) => this.handleAddrSelect(addr, e)}
-          />
-        );
-
-        return addr;
-      });
-
-      // see getBoundingBox() for deets
-      const newAddrsBounds = MapHelpers.getBoundingBox(Array.from(addrsPos));
-
-      // sets things up, including initial portfolio level map view
-      this.setState({
-        addrsBounds: newAddrsBounds,
-        assocAddrs: newAssocAddrs
-        // ,
-        // mapProps: {
-        //   ...this.state.mapProps,
-        //   fitBounds: newAddrsBounds
-        // }
-      }, () => {
-        // yeah, this sucks, but it seems to be more consistent with
-        // getting mapbox to render properly. essentially wait another cycle before
-        // re-bounding the map
-        this.setState({
-          mapProps: {
-            ...this.state.mapProps,
-            fitBounds: this.state.addrsBounds
-          }
-        });
-      });
-    }
-
-    // reset map to portfolio level if we're removing the detailAddr
-    // if(this.props.detailAddr && !nextProps.detailAddr) {
-    //   this.setState({
-    //     mapProps: {
-    //       ...this.state.mapProps,
-    //       fitBounds: this.state.addrsBounds
-    //     }
-    //   });
-    // }
-  }
-
   componentDidUpdate(prevProps, prevState) {
+        // addrs are being populated for the first time, so lets initialize things
+        if(!this.state.assocAddrs.length && this.props.addrs.length) {
+          console.log("loading addresses: ", this.props.addrs.length);
+          // set of addr positions to determine custom bounds
+          let addrsPos = new Set();
+          let newAssocAddrs = [];
+    
+          // cycle through addrs, adding them to the set and categorizing them
+          this.props.addrs.map((addr, i) => {
+    
+            const pos = [parseFloat(addr.lng), parseFloat(addr.lat)];
+    
+            if(!MapHelpers.latLngIsNull(pos)) {
+              addrsPos.add(pos);
+    
+              // presuming that nextProps.userAddr is in sync with nextProps.addrs
+              if(Helpers.addrsAreEqual(addr, this.props.userAddr)) {
+                addr.mapType = 'search';
+              } else {
+                addr.mapType = 'base';
+              }
+            }
+    
+            // push a new Feature for the map
+            newAssocAddrs.push(
+              <Feature key={i}
+                coordinates={pos}
+                properties={{ mapType: addr.mapType }}
+                onClick={(e) => this.handleAddrSelect(addr, e)}
+              />
+            );
+    
+            return addr;
+          });
+    
+          // see getBoundingBox() for deets
+          const newAddrsBounds = MapHelpers.getBoundingBox(Array.from(addrsPos));
+    
+          // sets things up, including initial portfolio level map view
+          this.setState({
+            addrsBounds: newAddrsBounds,
+            assocAddrs: newAssocAddrs
+            // ,
+            // mapProps: {
+            //   ...this.state.mapProps,
+            //   fitBounds: newAddrsBounds
+            // }
+          }, () => {
+            // yeah, this sucks, but it seems to be more consistent with
+            // getting mapbox to render properly. essentially wait another cycle before
+            // re-bounding the map
+            this.setState({
+              mapProps: {
+                ...this.state.mapProps,
+                fitBounds: this.state.addrsBounds
+              }
+            });
+          });
+        }
+  
     // is this necessary?
     // meant to reconfigure after bring the tab back in focus
     if(!prevProps.isVisible && this.props.isVisible) {
