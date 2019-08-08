@@ -159,20 +159,20 @@ export default class DetailView extends Component {
                               <div className="column col-xs-12 col-6">
                                 <b>Business Entities:</b>
                                 <ul>
-                                  {this.props.addr.corpnames && this.props.addr.corpnames.map((corp, idx) => <li key={idx}>{corp}</li> )}
+                                  {this.props.addr.corpnames && this.props.addr.corpnames.map((corp, idx) => <li key={idx}>{Helpers.titleCase(corp)}</li> )}
                                 </ul>
                               </div>
                               <div className="column col-xs-12 col-6">
                                 <b>Business Addresses:</b>
                                 <ul>
-                                  {this.props.addr.businessaddrs && this.props.addr.businessaddrs.map((rba, idx) => <li key={idx}>{rba}</li> )}
+                                  {this.props.addr.businessaddrs && this.props.addr.businessaddrs.map((rba, idx) => <li key={idx}>{Helpers.titleCase(rba)}</li> )}
                                 </ul>
                               </div>
                             </div>
                           <div>
                             <b>People:</b>
                             <ul>
-                              {ownernames.map((owner, idx) => <li key={idx}>{owner.title.split(/(?=[A-Z])/).join(" ")}: {owner.value}</li> )}
+                              {ownernames.map((owner, idx) => <li key={idx}>{owner.title.split(/(?=[A-Z])/).join(" ")}: {Helpers.titleCase(owner.value)}</li> )}
                             </ul>
                           </div>
                         </div>

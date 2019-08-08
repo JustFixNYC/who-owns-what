@@ -4,6 +4,7 @@ import Loader from 'components/Loader';
 import LegalFooter from 'components/LegalFooter';
 import APIClient from 'components/APIClient';
 import SocialShare from 'components/SocialShare';
+import Helpers from 'util/helpers';
 
 import 'styles/PropertiesSummary.css';
 
@@ -72,11 +73,11 @@ export default class PropertiesSummary extends Component {
                   return (
                     <span key={idx}>
                       {!idx ? " " : idx < agg.topowners.length - 1 ? ", " : ", and "}
-                      {owner}
+                      {Helpers.titleCase(owner)}
                     </span>
                   );
                 })}</b>.
-                The most common corporate entity is <b>{agg.topcorp || `n/a`}</b> and the most common business address is <b>{agg.topbusinessaddr || `n/a`}</b>.
+                The most common corporate entity is <b>{Helpers.titleCase(agg.topcorp) || `n/a`}</b> and the most common business address is <b>{Helpers.titleCase(agg.topbusinessaddr) || `n/a`}</b>.
               </p>
               <h6>Maintenance code violations</h6>
               <p>
