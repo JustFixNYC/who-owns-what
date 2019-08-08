@@ -174,7 +174,7 @@ export default class NychaPage extends Component {
 
                 <div className="justfix-cta">
                   <p>Are you having issues in this development?</p>
-                  <a onClick={() => {window.gtag('event', 'take-action-nycha-page');}} href={`https://app.justfix.nyc?utm_source=whoownswhat`} target="_blank" rel="noopener noreferrer" className="btn btn-justfix btn-block">Take action on JustFix.nyc!</a>
+                  <a onClick={() => {window.gtag('event', 'take-action-nycha-page');}} href={`https://app.justfix.nyc?utm_source=whoownswhat_nycha`} target="_blank" rel="noopener noreferrer" className="btn btn-justfix btn-block">Take action on JustFix.nyc!</a>
                 </div>
 
                 <div className="social-share">
