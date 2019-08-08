@@ -125,7 +125,6 @@ export default class AddressPage extends Component {
     }
 
     else if(this.state.hasSearched && this.state.assocAddrs && this.state.assocAddrs.length) {
-      console.log(this.state.assocAddrs);
       return (
         <div className="AddressPage">
           <div className="AddressPage__info">

@@ -74,7 +74,6 @@ export default class PropertiesMap extends Component {
   componentDidUpdate(prevProps, prevState) {
         // addrs are being populated for the first time, so lets initialize things
         if(!this.state.assocAddrs.length && this.props.addrs.length) {
-          console.log("loading addresses: ", this.props.addrs.length);
           // set of addr positions to determine custom bounds
           let addrsPos = new Set();
           let newAssocAddrs = [];
