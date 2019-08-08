@@ -26,74 +26,81 @@
     font-size: 1.5em;
   }
 
-  .bbl-link {
-    text-align: center;
-  }
-
-  img {
+  .wrapper {
     width: 80%;
-    margin: 15px auto;
-  }
+    margin: auto;
 
-  a.btn-block:not(.btn-link) {
-    max-width: 300px;
-    margin: 10px auto 0 auto;
-  }
-
-  p, span {
-    a {
-      text-decoration: underline;
-      &:hover {
-        text-decoration: none;
-      }
+    .bbl-link {
+      text-align: center;
     }
-  } 
 
-  a.btn {
-    display: table;
-    white-space: normal;
-  }
+    img.streetview{
+      
+      margin: 15px auto;
+    }
 
-  .card-body {
-    width: 80%;
-    margin: 30px auto 0px auto;
-    
-    @include datatable();
+    a.btn-block:not(.btn-link):not(.btn-justfix) {
+      max-width: 300px;
+      margin: 10px auto 0 auto;
+    }
 
-    .nycha-addresses {
-
-      margin-top: 2rem;
-
-      b {
-        display: block;
-        border-bottom: 1px solid $gray-dark;
-
+    p, span {
+      a {
+        text-decoration: underline;
         &:hover {
-          cursor: help;
+          text-decoration: none;
         }
       }
+    } 
 
-      ul {
-        margin-top: 1rem;
-        margin-left: 0;
-        list-style-type:none;
+    a.btn {
+      display: table;
+      white-space: normal;
+    }
+
+    .card-body {
+      margin: 30px auto 0px auto;
+      
+      @include datatable();
+
+      .nycha-addresses {
+
+        margin-top: 2rem;
+
+        b {
+          display: block;
+          border-bottom: 1px solid $gray-dark;
+
+          &:hover {
+            cursor: help;
+          }
+        }
+
+        ul {
+          margin-top: 1rem;
+          margin-left: 0;
+          list-style-type:none;
+        }
       }
     }
-  }
 
-
-  .btn-group {
-    // margin-bottom: 10px;
-    &:first-child {
-
-      .btn { border-bottom: none; }
-
-
+    .justfix-cta, .social-share {
+      margin-top: 2rem;
     }
 
-    @media screen and (max-width: 713px ) {
-      .btn:first-child {
-        border-bottom:none;
+    .btn-group {
+      // margin-bottom: 10px;
+      &:first-child {
+
+        .btn { border-bottom: none; }
+
+
+      }
+
+      @media screen and (max-width: 713px ) {
+        .btn:first-child {
+          border-bottom:none;
+        }
       }
     }
   }
