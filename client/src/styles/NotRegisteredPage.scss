@@ -1,4 +1,5 @@
 @import '_vars.scss';
+@import '_datatable.scss';
 
 
 // TODO: create shared box component b/t this and HomePage
@@ -56,79 +57,8 @@
   .card-body {
     width: 80%;
     margin: 30px auto 0px auto;
-    .card-body-table {
-
-      border: 1px solid $gray-dark;
-      border-spacing: 0;
-      width: 100%;
-
-      .table-row {
-        display: flex;
-
-        &:not(:last-child) {
-          border-bottom: 1px solid $gray-dark;
-        }
-
-        div {
-          flex: 1;
-          padding-bottom: 3px;
-          // width: 25%;
-
-          &.double {
-            // width: 50%;
-            flex: 2;
-            padding-left: 2px;
-
-            label {
-              margin-left: -2px;
-            }
-          }
-
-          &:not(:last-child) {
-            border-right: 1px solid $gray-dark;
-          }
-
-          &:hover, label:hover {
-            cursor: help;
-          }
-
-          text-align: center;
-          font-size: 2rem;
-
-          @include for-tablet-landscape-down() {
-            font-size: 1.6rem;
-          }
-
-          @include for-phone-only() {
-            font-size: 1.3rem;
-          }
-
-          label {
-            display: block;
-            line-height: 1.1;
-            font-size: 1.3rem;
-            padding: 1px 0;
-            // background-color: $background;
-            border-bottom: 1px solid $gray-dark;
-            margin-bottom: 3px;
-            color: #000;
-
-            background-image: linear-gradient(
-                to right top,
-                $background 33%,
-                darken($background, 8%) 33%,
-                darken($background, 8%) 66%,
-                $background 66%
-            );
-            background-size: 3px 3px;
-          }
-
-          span {
-            margin: 0 3px;
-          }
-        }
-      }
-    }
+    
+    @include datatable();
 
     .nycha-addresses {
 
