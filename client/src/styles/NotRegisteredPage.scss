@@ -55,7 +55,7 @@
 
   .card-body {
     width: 80%;
-    margin: 15px auto;
+    margin: 30px auto;
     .card-body-table {
 
       border: 1px solid $gray-dark;
@@ -94,6 +94,14 @@
 
           text-align: center;
           font-size: 2rem;
+
+          @include for-tablet-landscape-down() {
+            font-size: 1.6rem;
+          }
+
+          @include for-phone-only() {
+            font-size: 1.3rem;
+          }
 
           label {
             display: block;

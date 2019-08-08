@@ -1,19 +1,16 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import Modal from 'components/Modal';
 import LegalFooter from 'components/LegalFooter';
 import Helpers from 'util/helpers';
 import APIClient from 'components/APIClient';
 
 import 'styles/NotRegisteredPage.css';
-import 'styles/DetailView.css';
 
 export default class NychaPage extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      showModal: false,
       buildingInfo: null
     }
   }
@@ -33,19 +30,49 @@ export default class NychaPage extends Component {
     // const searchAddress = this.props.searchAddress;
     const buildingInfo = (this.state.buildingInfo && this.state.buildingInfo.length > 0 ? this.state.buildingInfo[0] : null);
 
+    let boro, block, lot;
+    
+    if(geosearch && geosearch.bbl) {
+      ({ boro, block, lot } = Helpers.splitBBL(geosearch.bbl));
+    }
+
+    const bblDash = <span className="unselectable" unselectable="on">-</span>;
+    
+    const nycha = this.props.nychaData;
+    const boroData = 
+      (boro === '1' ? 
+        { boroName: 'Manhattan',
+          boroOfficeAddress1: '1980 Lexington Ave #1',
+          boroOfficeAddress2: 'New York, NY 10035',
+          boroOfficePhone: '(917) 206-3500'
+        } :
+      boro === '2' ? 
+        { boroName: 'Bronx',
+          boroOfficeAddress1: '1200 Water Pl, Suite #200',
+          boroOfficeAddress2: 'Bronx, NY 10461',
+          boroOfficePhone: '(718) 409-8626'
+        } :
+      boro === '3' ? 
+        { boroName: 'Brooklyn',
+          boroOfficeAddress1: '816 Ashford St',
+          boroOfficeAddress2: 'Brooklyn, NY 11207',
+          boroOfficePhone: '(718) 491-6967'
+        } :
+      boro === '4' || boro === '5' ? 
+        { boroName: 'Queens',
+          boroOfficeAddress1: '90-20 170th St, 1st Floor',
+          boroOfficeAddress2: 'Jamaica, NY 11432',
+          boroOfficePhone: '(718) 553-4700'
+        } : null );
+
+
     // const usersInputAddress = 
     //   (searchAddress && (searchAddress.housenumber || searchAddress.streetname) ?
     //     (searchAddress.housenumber || '') + (searchAddress.housenumber && searchAddress.streetname ? ' ' : '') + (searchAddress.streetname || '') :
     //   buildingInfo ?
     //     buildingInfo.formatted_address :
     //   null );
-    const bblDash = <span className="unselectable" unselectable="on">-</span>;
 
-    let boro, block, lot;
-    
-    if(geosearch && geosearch.bbl) {
-      ({ boro, block, lot } = Helpers.splitBBL(geosearch.bbl));
-    }
 
     if(!geosearch && !buildingInfo) {
       return (
@@ -66,29 +93,45 @@ export default class NychaPage extends Component {
         <div className="HomePage__content">
           <div className="HomePage__search">
             <h5 className="mt-10 text-center text-bold text-large">
-              {this.props.nychaData && this.props.nychaData.development}: Public Housing Development
+              {nycha.development}: Public Housing Development
             </h5>
             <h6 className="mt-10 text-center text-bold text-large">
-              This building is owned and managed by the NYC Housing Authority (NYCHA)
+              This building is owned by the NYC Housing Authority (NYCHA)
             </h6>
             <div className="card-body">
-                        <div className="card-body-table">
-                            <div className="table-row">
-                              <div className="double" title="This is the official identifer for the building according to the Dept. of Finance tax records.">
-                                <label>Boro{bblDash}Block{bblDash}Lot (BBL)</label>
-                                {boro}{bblDash}{block}{bblDash}{lot}
-                              </div>
-                              <div title="The year that this building was originally constructed, according to the Dept. of City Planning.">
-                                <label>2018 Evictions</label>
-                                { this.props.nychaData.dev_evictions }
-                              </div>
-                              <div title="The number of residential units in this building, according to the Dept. of City Planning.">
-                                <label>Units</label>
-                                { this.props.nychaData.dev_unitsres }
-                              </div>
-                            </div>
-                        </div>
+              <div className="card-body-table">
+                  <div className="table-row">
+                    <div title="The city borough where your search address is located">
+                      <label>Borough</label>
+                      { boroData && boroData.boroName }
+                    </div>
+                    <div title="The number of residential units across all buildings in this development, according to the Dept. of City Planning.">
+                      <label>Units</label>
+                      { nycha.dev_unitsres }
+                    </div>
+                    <div title="Evictions executed in this development by NYC Marshals in 2018. City Council, the Housing Data Coalition and Anti-Eviction Mapping Project cleaned, geocoded, and validated the data, originally sourced from DOI.">
+                      <label>2018 Evictions</label>
+                      { nycha.dev_evictions }
+                    </div>
+                  </div>
+                    { boroData && 
+                    (<div className="table-row">
+                      <div title="Contact info for the NYCHA office overseeing your borough. Some experts suggest reaching out to Borough Management Offices to advocate for repairs, as they tend to have more administrative power than local management offices.">
+                        <label>Borough Management Office</label>
+                        {boroData.boroOfficeAddress1}<span className="hide-lg">, </span><br className="show-lg" />{boroData.boroOfficeAddress2}<br/>
+                        {boroData.boroOfficePhone}
                       </div>
+                    </div>) }
+                  <div className="table-row">
+                    <div title="Contact info for the federal office overseeing all of New York State and New Jersey. Some experts suggest reaching out to the Regional Office to advocate for repairs, as they tend to have more administrative power than local management offices.">
+                      <label>New York Regional Office</label>
+                      26 Federal Plaza<span className="hide-lg">, </span><br className="show-lg" />New York, NY 10278<br/>
+                      (212) 264-1290<br/>
+                      complaints_office_02@hud.gov
+                    </div>
+                  </div>
+              </div>
+            </div>
               { buildingInfo && buildingInfo.latitude && buildingInfo.longitude &&
             <img src={`https://maps.googleapis.com/maps/api/streetview?size=800x200&location=${buildingInfo.latitude},${buildingInfo.longitude}&key=${process.env.REACT_APP_STREETVIEW_API_KEY}`}
                  alt="Google Street View" className="img-responsive"  />
@@ -97,17 +140,21 @@ export default class NychaPage extends Component {
               { geosearch && geosearch.bbl && buildingInfo ? (<span>Boro-Block-Lot (BBL): <nobr><a href={"https://zola.planning.nyc.gov/lot/"+boro + "/" + block + "/" + lot} target="_blank" rel="noopener noreferrer">{boro}{bblDash}{block}{bblDash}{lot}</a></nobr></span>):(<span></span>) }
             </div>
             <br />
-            { geosearch && geosearch.bbl && buildingInfo && buildingInfo.housenumber && buildingInfo.streetname &&
+            
               <div>
-                <p>Here are some useful links to learn more about this building:</p>
+                <p>Here are some useful links:</p>
                 <div>
                   <div className="btn-group btn-group-block">
-                    <a href={`https://www1.nyc.gov/assets/nycha/downloads/pdf/Development-Guide-01142019.pdf`} target="_blank" rel="noopener noreferrer" className="btn">NYCHA Facility Directory &#8599;</a>
-                    <a href={`https://www1.nyc.gov/site/nycha/mynycha/mynycha-landing.page`} target="_blank" rel="noopener noreferrer" className="btn">MyNYCHA App &#8599;</a>
+                    <a href="https://www.hud.gov/sites/documents/958.PDF" target="_blank" rel="noopener noreferrer" className="btn">HUD Complaint Form 958 &#8599;</a>
+                    <a href={`http://a810-bisweb.nyc.gov/bisweb/PropertyProfileOverviewServlet?boro=${boro}&block=${block}&lot=${lot}`} target="_blank" rel="noopener noreferrer" className="btn">DOB Building Profile &#8599;</a>
+                  </div>
+                  <div className="btn-group btn-group-block">
+                    <a href="https://www1.nyc.gov/assets/nycha/downloads/pdf/Development-Guide-01142019.pdf" target="_blank" rel="noopener noreferrer" className="btn">NYCHA Facility Directory &#8599;</a>
+                    <a href="https://www1.nyc.gov/site/nycha/mynycha/mynycha-landing.page" target="_blank" rel="noopener noreferrer" className="btn">MyNYCHA App &#8599;</a>
                   </div>
                 </div>
               </div>
-            }
+            
 
             <br />
             {/* <div className="toast toast-error">
@@ -119,23 +166,6 @@ export default class NychaPage extends Component {
               &lt;-- Search for a different address
             </Link>
           </div>
-          <Modal
-            width={60}
-            showModal={this.state.showModal}
-            onClose={() => this.setState({ showModal: false })}>
-            <h5>Failure to register a building with HPD</h5>
-            <p>
-              Buildings without valid property registration are subject to the following:
-            </p>
-            <ul>
-              <li>Civil penalties of $250-$500</li>
-              <li>May be issued official Orders</li>
-              <li>Ineligible to certify violations</li>
-              <li>Unable to request Code Violation Dismissals</li>
-              <li>Unable to initiate a court action for nonpayment of rent.</li>
-            </ul>
-            <a className="btn" href="http://www1.nyc.gov/site/hpd/owners/compliance-register-your-property.page" target="_blank" rel="noopener noreferrer">Click here to learn more. &#8599;</a>
-          </Modal>
         </div>
         <LegalFooter />
       </div>
