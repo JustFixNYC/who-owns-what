@@ -55,7 +55,7 @@
 
   .card-body {
     width: 80%;
-    margin: 30px auto;
+    margin: 30px auto 0px auto;
     .card-body-table {
 
       border: 1px solid $gray-dark;
@@ -127,6 +127,26 @@
             margin: 0 3px;
           }
         }
+      }
+    }
+
+    .nycha-addresses {
+
+      margin-top: 2rem;
+
+      b {
+        display: block;
+        border-bottom: 1px solid $gray-dark;
+
+        &:hover {
+          cursor: help;
+        }
+      }
+
+      ul {
+        margin-top: 1rem;
+        margin-left: 0;
+        list-style-type:none;
       }
     }
   }

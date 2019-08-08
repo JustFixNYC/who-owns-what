@@ -16,6 +16,7 @@ export default class NychaPage extends Component {
   }
 
   componentDidMount() {
+    window.gtag('event', 'nycha-page');
     if(this.props.geosearch && this.props.geosearch.bbl && !this.state.buildingInfo) {
       const bbl = this.props.geosearch.bbl;
       APIClient.getBuildingInfo(bbl)
@@ -65,15 +66,6 @@ export default class NychaPage extends Component {
           boroOfficePhone: '(718) 553-4700'
         } : null );
 
-
-    // const usersInputAddress = 
-    //   (searchAddress && (searchAddress.housenumber || searchAddress.streetname) ?
-    //     (searchAddress.housenumber || '') + (searchAddress.housenumber && searchAddress.streetname ? ' ' : '') + (searchAddress.streetname || '') :
-    //   buildingInfo ?
-    //     buildingInfo.formatted_address :
-    //   null );
-
-
     if(!geosearch && !buildingInfo) {
       return (
         <div className="NotRegisteredPage Page">
@@ -83,7 +75,7 @@ export default class NychaPage extends Component {
                 No address found
               </h5>
             </div>
-         `</div>
+          </div>
         </div>
       );
     }
@@ -100,21 +92,49 @@ export default class NychaPage extends Component {
             </h6>
             <div className="card-body">
               <div className="card-body-table">
-                  <div className="table-row">
-                    <div title="The city borough where your search address is located">
-                      <label>Borough</label>
-                      { boroData && boroData.boroName }
-                    </div>
-                    <div title="The number of residential units across all buildings in this development, according to the Dept. of City Planning.">
-                      <label>Units</label>
-                      { nycha.dev_unitsres }
-                    </div>
-                    <div title="Evictions executed in this development by NYC Marshals in 2018. City Council, the Housing Data Coalition and Anti-Eviction Mapping Project cleaned, geocoded, and validated the data, originally sourced from DOI.">
-                      <label>2018 Evictions</label>
-                      { nycha.dev_evictions }
-                    </div>
+                <div className="table-row">
+                  <div title="The city borough where your search address is located">
+                    <label>Borough</label>
+                    { boroData && boroData.boroName }
                   </div>
-                    { boroData && 
+                  <div title="The number of residential units across all buildings in this development, according to the Dept. of City Planning.">
+                    <label>Units</label>
+                    { nycha.dev_unitsres }
+                  </div>
+                  <div title="Evictions executed in this development by NYC Marshals in 2018. City Council, the Housing Data Coalition and Anti-Eviction Mapping Project cleaned, geocoded, and validated the data, originally sourced from DOI.">
+                    <label>2018 Evictions</label>
+                    { nycha.dev_evictions }
+                  </div>
+                </div>
+              </div>
+              <div className="columns nycha-addresses">
+              { boroData && 
+                <div className="column col-lg-12 col-6">
+                  <div title="The NYCHA office overseeing your borough. Some experts suggest reaching out to Borough Management Offices to advocate for repairs, as they tend to have more administrative power than local management offices.">
+                    <b>Borough Management Office:</b>
+                  </div>
+                    <ul>
+                      <li>{boroData.boroOfficeAddress1}, {boroData.boroOfficeAddress2}</li>
+                      <li>{boroData.boroOfficePhone}</li>
+                    </ul>
+              
+                </div> }
+                <div className="column col-lg-12 col-6">
+                  <div title="The federal HUD office overseeing New York State. Some experts suggest reaching out to the Regional Office to advocate for repairs, as they tend to have more administrative power than local management offices." >
+                    <b>New York Regional Office:</b>
+                  </div>
+                  <ul>
+                    <li>26 Federal Plaza, New York, NY 10278</li>
+                    <li>(212) 264-1290</li>
+                    <li>complaints_office_02@hud.gov</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            
+        
+
+                    {/* { boroData && 
                     (<div className="table-row">
                       <div title="Contact info for the NYCHA office overseeing your borough. Some experts suggest reaching out to Borough Management Offices to advocate for repairs, as they tend to have more administrative power than local management offices.">
                         <label>Borough Management Office</label>
@@ -129,9 +149,9 @@ export default class NychaPage extends Component {
                       (212) 264-1290<br/>
                       complaints_office_02@hud.gov
                     </div>
-                  </div>
-              </div>
-            </div>
+                  </div> */}
+     
+
               { buildingInfo && buildingInfo.latitude && buildingInfo.longitude &&
             <img src={`https://maps.googleapis.com/maps/api/streetview?size=800x200&location=${buildingInfo.latitude},${buildingInfo.longitude}&key=${process.env.REACT_APP_STREETVIEW_API_KEY}`}
                  alt="Google Street View" className="img-responsive"  />
@@ -142,7 +162,7 @@ export default class NychaPage extends Component {
             <br />
             
               <div>
-                <p>Here are some useful links:</p>
+                <p>Useful links:</p>
                 <div>
                   <div className="btn-group btn-group-block">
                     <a href="https://www.hud.gov/sites/documents/958.PDF" target="_blank" rel="noopener noreferrer" className="btn">HUD Complaint Form 958 &#8599;</a>
