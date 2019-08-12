@@ -163,11 +163,11 @@ export default class NychaPage extends Component {
                   <div>
                     <div className="btn-group btn-group-block">
                       <a href="https://www.hud.gov/sites/documents/958.PDF" target="_blank" rel="noopener noreferrer" className="btn">HUD Complaint Form 958 &#8599;</a>
-                      <a href={`http://a810-bisweb.nyc.gov/bisweb/PropertyProfileOverviewServlet?boro=${boro}&block=${block}&lot=${lot}`} target="_blank" rel="noopener noreferrer" className="btn">DOB Building Profile &#8599;</a>
+                      <a href="https://www1.nyc.gov/assets/nycha/downloads/pdf/Development-Guide-01142019.pdf" target="_blank" rel="noopener noreferrer" className="btn">NYCHA Facility Directory &#8599;</a>
                     </div>
                     <div className="btn-group btn-group-block">
-                      <a href="https://www1.nyc.gov/assets/nycha/downloads/pdf/Development-Guide-01142019.pdf" target="_blank" rel="noopener noreferrer" className="btn">NYCHA Facility Directory &#8599;</a>
                       <a href="https://www1.nyc.gov/site/nycha/mynycha/mynycha-landing.page" target="_blank" rel="noopener noreferrer" className="btn">MyNYCHA App &#8599;</a>
+                      <a href={`http://a810-bisweb.nyc.gov/bisweb/PropertyProfileOverviewServlet?boro=${boro}&block=${block}&lot=${lot}`} target="_blank" rel="noopener noreferrer" className="btn">DOB Building Profile &#8599;</a>
                     </div>
                   </div>
                 </div>
