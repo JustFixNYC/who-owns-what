@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import Browser from 'util/browser';
 import LegalFooter from 'components/LegalFooter';
 import Helpers from 'util/helpers';
 import APIClient from 'components/APIClient';
@@ -132,7 +133,11 @@ export default class NychaPage extends Component {
                     </div>
                       <ul>
                         <li>{boroData.boroOfficeAddress1}, {boroData.boroOfficeAddress2}</li>
-                        <li>{boroData.boroOfficePhone}</li>
+                        <li>
+                          {Browser.isMobile() ? 
+                          (<span><a href={("tel:+1" + boroData.boroOfficePhone)} target="_blank" rel="noopener noreferrer">{boroData.boroOfficePhone}</a></span>) :
+                          (<span>{boroData.boroOfficePhone}</span>)}
+                      </li>
                       </ul>
                 
                   </div> }
@@ -142,8 +147,14 @@ export default class NychaPage extends Component {
                     </div>
                     <ul>
                       <li>26 Federal Plaza, New York, NY 10278</li>
-                      <li>(212) 264-1290</li>
-                      <li>complaints_office_02@hud.gov</li>
+                      <li>
+                          {Browser.isMobile() ? 
+                          (<span><a href="tel:+1212-264-1290" target="_blank" rel="noopener noreferrer">(212) 264-1290</a></span>) :
+                          (<span>(212) 264-1290</span>)}
+                      </li>
+                      <li>
+                        <span><a href="mailto:complaints_office_02@hud.gov" target="_blank" rel="noopener noreferrer">complaints_office_02@hud.gov</a></span>
+                      </li>
                     </ul>
                   </div>
                 </div>
