@@ -58,12 +58,14 @@ export default class DetailView extends Component {
 
   render() {
 
-    let boro, block, lot, ownernames, userOwnernames;
+    let boro, block, lot, ownernames, userOwnernames, takeActionURL;
     if(this.props.addr) {
       ({ boro, block, lot } = Helpers.splitBBL(this.props.addr.bbl));
+      takeActionURL = 'https://app.justfix.nyc/ddo?address=' + encodeURIComponent((this.props.addr.housenumber + ' ' + this.props.addr.streetname).trim()) + '&borough=' + encodeURIComponent(this.props.addr.boro) + '/?utm_source=whoownswhat_take_action';
       if(this.props.addr.ownernames.length) ownernames = Helpers.uniq(this.props.addr.ownernames);
       if(this.props.userAddr.ownernames.length) userOwnernames = Helpers.uniq(this.props.userAddr.ownernames);
     }
+
 
     const isMobile = Browser.isMobile();
 
@@ -188,7 +190,7 @@ export default class DetailView extends Component {
                         
                         <div className="card-body-prompt hide-lg">
                           <h6 className="DetailView__subtitle">Are you having issues in this building?</h6>
-                          <a onClick={() => {window.gtag('event', 'take-action-overview-tab');}} href={`https://app.justfix.nyc?utm_source=whoownswhat`} target="_blank" rel="noopener noreferrer" className="btn btn-justfix btn-block">Take action on JustFix.nyc!</a>
+                          <a onClick={() => {window.gtag('event', 'take-action-overview-tab');}} href={takeActionURL} target="_blank" rel="noopener noreferrer" className="btn btn-justfix btn-block">Take action on JustFix.nyc!</a>
                         </div>
 
                         <div className="card-body-social social-group hide-lg">
@@ -243,7 +245,7 @@ export default class DetailView extends Component {
 
                           <div className="card-body-prompt show-lg">
                             <h6 className="DetailView__subtitle">Are you having issues in this building?</h6>
-                            <a href={`https://app.justfix.nyc?utm_source=whoownswhat`} target="_blank" rel="noopener noreferrer" className="btn btn-justfix btn-block">Take action on JustFix.nyc!</a>
+                            <a href={takeActionURL} target="_blank" rel="noopener noreferrer" className="btn btn-justfix btn-block">Take action on JustFix.nyc!</a>
                           </div>
 
                           <div className="card-body-social social-group show-lg">
