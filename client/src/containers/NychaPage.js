@@ -83,7 +83,7 @@ export default class NychaPage extends Component {
         } : 
         null );
 
-    const takeActionURL = (usersInputAddress && ('https://app.justfix.nyc/ddo?address=' + encodeURIComponent((usersInputAddress.housenumber + ' ' + usersInputAddress.streetname).trim()) + '&borough=' + encodeURIComponent(usersInputAddress.boro) + '/?utm_source=whoownswhat_take_action_nycha'));
+    const takeActionURL = Helpers.createTakeActionURL(usersInputAddress,'nycha_page');
 
     if(!geosearch && !buildingInfo) {
       return (

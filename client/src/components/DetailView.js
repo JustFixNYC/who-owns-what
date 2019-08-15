@@ -61,7 +61,8 @@ export default class DetailView extends Component {
     let boro, block, lot, ownernames, userOwnernames, takeActionURL;
     if(this.props.addr) {
       ({ boro, block, lot } = Helpers.splitBBL(this.props.addr.bbl));
-      takeActionURL = 'https://app.justfix.nyc/ddo?address=' + encodeURIComponent((this.props.addr.housenumber + ' ' + this.props.addr.streetname).trim()) + '&borough=' + encodeURIComponent(this.props.addr.boro) + '/?utm_source=whoownswhat_take_action';
+      takeActionURL = Helpers.createTakeActionURL(this.props.addr,'detail_view');
+      
       if(this.props.addr.ownernames.length) ownernames = Helpers.uniq(this.props.addr.ownernames);
       if(this.props.userAddr.ownernames.length) userOwnernames = Helpers.uniq(this.props.userAddr.ownernames);
     }
