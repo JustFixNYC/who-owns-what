@@ -59,7 +59,7 @@ export default {
       const formattedBoro = addr.boro.toUpperCase().replace(/ /g,"_");
       if (["BROOKLYN","QUEENS","BRONX","MANHATTAN","STATEN_ISLAND"].includes(formattedBoro)) {
         const fullAddress = (addr.housenumber + (addr.housenumber && addr.streetname && ' ') + addr.streetname).trim();
-        return ('https://app.justfix.nyc/ddo?address=' + encodeURIComponent(fullAddress) + '&borough=' + encodeURIComponent(formattedBoro) + '/?utm_source=whoownswhat&utm_content=take_action&utm_medium=' + utm_medium);
+        return ('https://app.justfix.nyc/ddo?address=' + encodeURIComponent(fullAddress) + '&borough=' + encodeURIComponent(formattedBoro) + '&utm_source=whoownswhat&utm_content=take_action&utm_medium=' + utm_medium);
       }
     }
     else {
