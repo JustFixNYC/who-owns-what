@@ -4,8 +4,6 @@ import EngagementPanel from 'components/EngagementPanel';
 
 import 'styles/AboutPage.css';
 
-import realestateImage from '../assets/img/realestate.jpg';
-import protestImageTwo from '../assets/img/protest2.jpg';
 import diagramImage from '../assets/img/howitworks.jpg';
 
 const AboutPage = () => {
