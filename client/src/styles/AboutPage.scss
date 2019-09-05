@@ -1,0 +1,16 @@
+@import '_vars.scss';
+
+.AboutPage {
+
+    .divider {
+        max-width: 60%;
+
+        @include for-phone-only() {
+            max-width: 100%;
+          }
+    }
+
+    .credits {
+        opacity: 0.7;
+    }
+}
