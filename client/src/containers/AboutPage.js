@@ -33,7 +33,8 @@ const AboutPage = () => {
           <h4>Who Owns What connects the dots</h4>
 
           <p>
-            By searching and comparing names and addresses within the registration listings for over 200,000 buildings in NYC, it’s able to build and map your landlord’s “portfolio.” Curious? Here’s a deeper dive into how the tool works.
+            By searching and comparing names and addresses within the registration listings for over 200,000 buildings in NYC, it’s able to build and map your landlord’s “portfolio.” 
+            Curious? <a href="https://medium.com/@JustFixNYC/who-owns-what-linking-nyc-buildings-with-data-173571e7bb31" target="_blank" rel="noopener noreferrer">Read our methodology</a> for a deeper dive into how the tool works.
           </p>
 
           <p>
