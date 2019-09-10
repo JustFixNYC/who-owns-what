@@ -11,39 +11,43 @@ const AboutPage = () => {
     <div className="AboutPage Page">
       <div className="Page__content">
 
-        <h4>About this project</h4>
+        <span className="info">
 
-        <p>
-          Who Owns What was built to help <b>rebalance the power dynamic between landlords and tenants</b>.
-        </p>
+          <h4>About this project</h4>
 
-        <p>
-          When a landlord buys a building, they often use Limited Liability Corporations (LLCs, AKA shell companies), to hide their identities, creating a tangled web of associations and businessess. It then becomes difficult to pinpoint precisely which landlord or company is causing issues across many buildings, and makes it even harder to prove that a landlord is refusing to respond to issues, creating unsafe conditions for tenants, overcharging for rent and other discriminatory practices.
-        </p>
+          <p>
+            Who Owns What was built to help <b>rebalance the power dynamic between landlords and tenants</b>.
+          </p>
 
-        <aside>
-          <img src={diagramImage} alt="how it works" className=" img-responsive" />
-        </aside>
+          <p>
+            When a landlord buys a building, they often use Limited Liability Corporations (LLCs, AKA shell companies), to hide their identities, creating a tangled web of associations and businessess. It then becomes difficult to pinpoint precisely which landlord or company is causing issues across many buildings, and makes it even harder to prove that a landlord is refusing to respond to issues, creating unsafe conditions for tenants, overcharging for rent and other discriminatory practices.
+          </p>
 
-        <br />
-        <br />
+          <aside>
+            <img src={diagramImage} alt="how it works" className=" img-responsive" />
+          </aside>
 
-        <h4>Who Owns What connects the dots</h4>
+          <br />
+          <br />
 
-        <p>
-          By searching and comparing names and addresses within the registration listings for over 200,000 buildings in NYC, it’s able to build and map your landlord’s “portfolio.” Curious? Here’s a deeper dive into how the tool works.
-        </p>
+          <h4>Who Owns What connects the dots</h4>
 
-        <p>
-          Use it to meet your neighbors, organize a building association, and grow your tenant power! 
-        </p>
+          <p>
+            By searching and comparing names and addresses within the registration listings for over 200,000 buildings in NYC, it’s able to build and map your landlord’s “portfolio.” Curious? Here’s a deeper dive into how the tool works.
+          </p>
 
-        <p>
-          With NYC ♥ from the team at JustFix.nyc
-        </p>
+          <p>
+            Use it to meet your neighbors, organize a building association, and grow your tenant power! 
+          </p>
 
-        <br />
-        <br />
+          <p>
+            With NYC ♥ from the team at JustFix.nyc
+          </p>
+
+          <br />
+          <br />
+
+        </span>
 
         <div className="divider" />
 
