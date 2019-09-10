@@ -13,7 +13,7 @@ class LegalFooter extends Component {
             <a target="_blank" rel="noopener noreferrer" href="https://www.justfix.nyc/donate">Donate</a>
             <NavLink to="/terms-of-use">Terms of use</NavLink>
             <NavLink to="/privacy-policy">Privacy policy</NavLink><br />
-            <NavLink to="/how-it-works">Methodology</NavLink>
+            <a href="https://medium.com/@JustFixNYC/who-owns-what-linking-nyc-buildings-with-data-173571e7bb31" target="_blank" rel="noopener noreferrer">Methodology</a>
             <a href="https://github.com/JustFixNYC/who-owns-what" target="_blank" rel="noopener noreferrer">Source code</a>
           </nav>
         </div>)
