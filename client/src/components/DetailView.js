@@ -102,7 +102,7 @@ export default class DetailView extends Component {
                   <div className="columns main-content-columns">
                     <div className="column col-lg-12 col-7">
                       <div className="card-header">
-                        <h4 className="card-title">BUILDING: {this.props.addr.housenumber} {Helpers.titleCase(this.props.addr.streetname)}, {Helpers.titleCase(this.props.addr.boro)}</h4>
+                        <h4 className="card-title">BUILDING: {this.props.addr.housenumber} {Helpers.titleCase(this.props.addr.streetname)}, {Helpers.titleCase(this.props.addr.boro)} {this.props.addr.zip}</h4>
                         { !Helpers.addrsAreEqual(this.props.addr, this.props.userAddr) &&
                           <a // eslint-disable-line jsx-a11y/anchor-is-valid
                             onClick={() => this.setState({ showCompareModal: true })}>
