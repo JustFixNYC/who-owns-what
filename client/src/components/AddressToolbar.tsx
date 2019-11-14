@@ -1,11 +1,25 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import Modal from 'components/Modal';
+import Modal from './Modal';
 
 import 'styles/AddressToolbar.css';
 
-export default class AddressToolbar extends Component {
-  constructor(props) {
+export type AddressToolbarProps = {
+  onExportClick: () => void;
+  numOfAssocAddrs: number;
+  userAddr: {
+    housenumber: string;
+    streetname: string;
+    boro: string;
+  }
+};
+
+type State = {
+  showExportModal: boolean
+};
+
+export default class AddressToolbar extends Component<AddressToolbarProps, State> {
+  constructor(props: AddressToolbarProps) {
     super(props);
 
     this.state = {

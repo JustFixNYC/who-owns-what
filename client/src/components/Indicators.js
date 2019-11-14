@@ -288,7 +288,8 @@ export default class Indicators extends Component {
                     <em className="Indicators__linksTitle">Select a Dataset:</em> <br/>
                     <li className="menu-item">
                         <label className={"form-radio" + (this.state.activeVis === "complaints" ? " active" : "")} onClick={() => {window.gtag('event', 'complaints-timeline-tab');}}>
-                          <input type="radio" 
+                          <input type="radio"
+                          	name="Dataset" 
                             checked={(this.state.activeVis === "complaints" ? true : false)}
                             onChange={() => this.handleVisChange("complaints")} />
                           <i className="form-icon"></i> HPD Complaints
@@ -296,7 +297,8 @@ export default class Indicators extends Component {
                     </li>
                     <li className="menu-item">
                         <label className={"form-radio" + (this.state.activeVis === "viols" ? " active" : "")} onClick={() => {window.gtag('event', 'violations-timeline-tab');}}>
-                          <input type="radio" 
+                          <input type="radio"
+                            name="Dataset" 
                             checked={(this.state.activeVis === "viols" ? true : false)}
                             onChange={() => this.handleVisChange("viols")} />
                           <i className="form-icon"></i> HPD Violations
@@ -304,7 +306,8 @@ export default class Indicators extends Component {
                     </li>
                     <li className="menu-item">
                         <label className={"form-radio" + (this.state.activeVis === "permits" ? " active" : "")} onClick={() => {window.gtag('event', 'permits-timeline-tab');}}>
-                          <input type="radio" 
+                          <input type="radio"
+                            name="Dataset" 
                             checked={(this.state.activeVis === "permits" ? true : false)}
                             onChange={() => this.handleVisChange("permits")} />
                           <i className="form-icon"></i> Building Permit Applications
@@ -315,7 +318,8 @@ export default class Indicators extends Component {
                     <em className="Indicators__linksTitle">View by:</em> <br/>
                     <li className="menu-item">
                         <label className={"form-radio" + (this.state.activeTimeSpan === "month" ? " active" : "")} onClick={() => {window.gtag('event', 'month-timeline-tab');}}>
-                          <input type="radio" 
+                          <input type="radio"
+                            name="Time" 
                             checked={(this.state.activeTimeSpan === "month" ? true : false)}
                             onChange={() => this.handleTimeSpanChange("month")} />
                           <i className="form-icon"></i> Month
@@ -323,7 +327,8 @@ export default class Indicators extends Component {
                     </li>
                     <li className="menu-item">
                         <label className={"form-radio" + (this.state.activeTimeSpan === "quarter" ? " active" : "")} onClick={() => {window.gtag('event', 'quarter-timeline-tab');}}>
-                          <input type="radio" 
+                          <input type="radio"
+                            name= "Time" 
                             checked={(this.state.activeTimeSpan === "quarter" ? true : false)}
                             onChange={() => this.handleTimeSpanChange("quarter")} />
                           <i className="form-icon"></i> Quarter
@@ -331,7 +336,8 @@ export default class Indicators extends Component {
                     </li>
                     <li className="menu-item">
                         <label className={"form-radio" + (this.state.activeTimeSpan === "year" ? " active" : "")} onClick={() => {window.gtag('event', 'year-timeline-tab');}}>
-                          <input type="radio" 
+                          <input type="radio"
+                            name="Time" 
                             checked={(this.state.activeTimeSpan === "year" ? true : false)}
                             onChange={() => this.handleTimeSpanChange("year")} />
                           <i className="form-icon"></i> Year

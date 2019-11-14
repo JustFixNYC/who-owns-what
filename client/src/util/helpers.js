@@ -3,6 +3,8 @@
 // import _keys from 'lodash/keys';
 import _pickBy from 'lodash/pickBy';
 
+import nycha_bbls from 'data/nycha_bbls.json';
+
 export default {
   // filter repeated values in rbas and owners
   // uses Set which enforces uniqueness
@@ -42,6 +44,28 @@ export default {
 
   jsonEqual(a,b) {
     return JSON.stringify(a) === JSON.stringify(b);
+  },
+
+  getNychaData(searchBBL) {
+    const bbl = searchBBL.toString();
+    for (var index = 0; index < nycha_bbls.length; index++ ) {
+     if(nycha_bbls[index].bbl.toString() === bbl) return nycha_bbls[index];
+   }
+   return null;
+  },
+
+  createTakeActionURL(addr, utm_medium) {
+    if (addr && addr.boro && (addr.housenumber || addr.streetname)) {
+      const formattedBoro = addr.boro.toUpperCase().replace(/ /g,"_");
+      if (["BROOKLYN","QUEENS","BRONX","MANHATTAN","STATEN_ISLAND"].includes(formattedBoro)) {
+        const fullAddress = (addr.housenumber + (addr.housenumber && addr.streetname && ' ') + addr.streetname).trim();
+        return ('https://app.justfix.nyc/ddo?address=' + encodeURIComponent(fullAddress) + '&borough=' + encodeURIComponent(formattedBoro) + '&utm_source=whoownswhat&utm_content=take_action&utm_medium=' + utm_medium);
+      }
+    }
+    else {
+      window.Rollbar.error("Address improperly formatted for DDO:", addr);
+      return ('https://app.justfix.nyc/?utm_source=whoownswhat&utm_content=take_action_failed_attempt&utm_medium=' + utm_medium);
+    }
   },
 
   intersectAddrObjects(a,b){

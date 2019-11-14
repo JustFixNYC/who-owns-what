@@ -3,10 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@justfixnyc/geosearch-requester": "0.0.6",
+    "@types/gtag.js": "^0.0.2",
     "@types/jest": "^24.0.6",
     "@types/node": "^11.9.4",
     "@types/react": "^16.8.3",
     "@types/react-dom": "^16.8.2",
+    "@types/react-modal": "^3.8.2",
+    "@types/react-router-dom": "^4.3.4",
     "babel-polyfill": "^6.26.0",
     "chart.js": "^2.8.0",
     "chartjs-plugin-annotation": "^0.5.7",
@@ -42,7 +46,7 @@
     "start-js": "NODE_PATH=src:src/components:src/containers:src/styles react-scripts start",
     "start": "npm-run-all -p watch-css start-js",
     "build": "yarn build-css && NODE_PATH=src:src/components:src/containers:src/styles react-scripts build",
-    "test": "react-scripts test --env=jsdom",
+    "test": "react-scripts test --env=jsdom --transformIgnorePatterns \"node_modules/(?!@justfixnyc)/\"",
     "eject": "react-scripts eject"
   },
   "proxy": "http://localhost:3001/",

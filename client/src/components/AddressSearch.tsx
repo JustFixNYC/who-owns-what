@@ -1,6 +1,6 @@
 import React from 'react';
 import Downshift, { DownshiftInterface, GetInputPropsOptions, ControllerStateAndHelpers } from 'downshift';
-import { GeoSearchRequester, GeoSearchResults } from '../util/geo-autocomplete-base';
+import { GeoSearchRequester, GeoSearchResults } from '@justfixnyc/geosearch-requester';
 
 import '../styles/AddressSearch.css';
 
