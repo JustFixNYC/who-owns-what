@@ -2,13 +2,13 @@ import React from 'react';
 import LegalFooter from 'components/LegalFooter';
 import EngagementPanel from 'components/EngagementPanel';
 
-import 'styles/HowItWorksPage.css';
+import 'styles/HowToUsePage.css';
 
 import diagramImage from '../assets/img/howitworks.jpg';
 
-const HowItWorksPage = () => {
+const HowToUsePage = () => {
   return (
-    <div className="HowItWorksPage Page">
+    <div className="HowToUsePage Page">
       <div className="Page__content">
         <h4>Lorem Ipsum</h4>
         <p>
@@ -29,4 +29,4 @@ const HowItWorksPage = () => {
   );
 }
 
-export default HowItWorksPage;
+export default HowToUsePage;

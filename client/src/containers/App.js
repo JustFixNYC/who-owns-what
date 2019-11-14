@@ -14,7 +14,7 @@ import HomePage from 'HomePage';
 import AddressPage from 'AddressPage';
 import BBLPage from 'BBLPage';
 import AboutPage from 'AboutPage';
-import HowItWorksPage from 'HowItWorksPage';
+import HowToUsePage from 'HowToUsePage';
 import TermsOfUsePage from 'TermsOfUsePage';
 import PrivacyPolicyPage from 'PrivacyPolicyPage';
 import ScrollToTop from 'components/ScrollToTop';
@@ -66,7 +66,7 @@ render() {
                 <Route path="/bbl/:boro/:block/:lot" component={BBLPage} />
                 <Route path="/bbl/:bbl" component={BBLPage} />
                 <Route path="/about" component={AboutPage} />
-                <Route path="/how-it-works" component={HowItWorksPage} />
+                <Route path="/how-it-works" component={HowToUsePage} />
                 <Route path="/terms-of-use" component={TermsOfUsePage} />
                 <Route path="/privacy-policy" component={PrivacyPolicyPage} />
               </Switch>
