@@ -14,7 +14,7 @@ import APIClient from 'components/APIClient';
 import Loader from 'components/Loader';
 
 import 'styles/AddressPage.css';
-import { GeoSearchRequester } from '../util/geo-autocomplete-base';
+import { GeoSearchRequester } from '@justfixnyc/geosearch-requester';
 import NychaPage from './NychaPage';
 import NotRegisteredPage from './NotRegisteredPage';
 import helpers from '../util/helpers';
