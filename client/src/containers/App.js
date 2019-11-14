@@ -6,6 +6,7 @@ import {
   NavLink,
   Link
 } from 'react-router-dom';
+import { Trans } from '@lingui/macro';
 
 import 'styles/App.css';
 
@@ -41,7 +42,7 @@ render() {
             </div>
             <div className="App__header">
               <Link onClick={() => {window.gtag('event', 'site-title');}} to="/">
-                <h4>Who owns what in nyc?</h4>
+                <h4><Trans>Who owns what in nyc?</Trans></h4>
               </Link>
               <nav className="inline">
                 <NavLink exact to="/">Home</NavLink>

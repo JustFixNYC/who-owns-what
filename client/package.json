@@ -3,7 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@babel/core": "^7.7.2",
     "@justfixnyc/geosearch-requester": "0.0.6",
+    "@lingui/cli": "^2.8.3",
+    "@lingui/macro": "^2.8.3",
+    "@lingui/react": "^2.8.3",
     "@types/gtag.js": "^0.0.2",
     "@types/jest": "^24.0.6",
     "@types/node": "^11.9.4",
@@ -41,6 +45,7 @@
     "typescript": "^3.3.3"
   },
   "scripts": {
+    "lingui": "lingui",
     "build-css": "node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/",
     "watch-css": "yarn build-css && node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/ --watch --recursive",
     "start-js": "NODE_PATH=src:src/components:src/containers:src/styles react-scripts start",
