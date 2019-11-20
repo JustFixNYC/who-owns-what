@@ -6,6 +6,7 @@ import ReactDOM from 'react-dom';
 import App from 'containers/App';
 import { I18nProvider } from '@lingui/react'
 import { defaultI18nRender } from './default-i18n-render';
+import catalogEn from './locales/en/messages';
 import catalogEs from './locales/es/messages';
 
 // import registerServiceWorker from './registerServiceWorker';
@@ -13,6 +14,7 @@ import 'styles/spectre.css';
 import 'styles/index.css';
 
 const catalogs = {
+  en: catalogEn,
   es: catalogEs,
 };
 
