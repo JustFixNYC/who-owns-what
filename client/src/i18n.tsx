@@ -29,6 +29,16 @@ const catalogs: LocaleCatalog = {
 
 const defaultLocale: Locale = 'en';
 
+function getBestDefaultLocale(): Locale {
+  const preferredLocale = navigator.language.slice(0, 2);
+
+  if (isSupportedLocale(preferredLocale)) {
+    return preferredLocale;
+  }
+
+  return defaultLocale;
+}
+
 function defaultI18nRender(props: {translation: string|any[]}): JSX.Element {
   // For some reason using a React fragment here fails with:
   //
@@ -41,7 +51,7 @@ function defaultI18nRender(props: {translation: string|any[]}): JSX.Element {
   return <span>{props.translation}</span>;
 }
 
-function isSupportedLocale(code: string): boolean {
+function isSupportedLocale(code: string): code is Locale {
   return code in catalogs;
 }
 
@@ -50,7 +60,7 @@ function parseLocaleFromPath(path: string): Locale|null {
   if (localeMatch) {
     const code = localeMatch[1];
     if (isSupportedLocale(code)) {
-      return code as Locale;
+      return code;
     }
   }
 
@@ -73,7 +83,7 @@ export const I18n = withRouter(function I18nWithoutRouter(props: {children: any}
   const locale = parseLocaleFromPath(pathname);
 
   if (!locale) {
-    return <Redirect to={`/${defaultLocale}${pathname}`} />;
+    return <Redirect to={`/${getBestDefaultLocale()}${pathname}`} />;
   }
 
   return <I18nProvider language={locale} catalogs={catalogs} defaultRender={defaultI18nRender}>
