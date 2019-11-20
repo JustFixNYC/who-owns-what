@@ -49,14 +49,15 @@
     "lingui": "lingui",
     "build-css": "node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/",
     "watch-css": "yarn build-css && node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/ --watch --recursive",
-    "start-js": "NODE_PATH=src:src/components:src/containers:src/styles react-scripts start",
+    "start-js": "cross-env NODE_PATH=src:src/components:src/containers:src/styles react-scripts start",
     "start": "npm-run-all -p watch-css start-js",
-    "build": "yarn build-css && NODE_PATH=src:src/components:src/containers:src/styles react-scripts build",
+    "build": "yarn build-css && cross-env NODE_PATH=src:src/components:src/containers:src/styles react-scripts build",
     "test": "react-scripts test --env=jsdom --transformIgnorePatterns \"node_modules/(?!@justfixnyc)/\"",
     "eject": "react-scripts eject"
   },
   "proxy": "http://localhost:3001/",
   "devDependencies": {
+    "cross-env": "^6.0.3",
     "npm-run-all": "^4.0.2"
   },
   "browserslist": [
