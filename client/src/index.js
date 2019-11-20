@@ -6,13 +6,20 @@ import ReactDOM from 'react-dom';
 import App from 'containers/App';
 import { I18nProvider } from '@lingui/react'
 import { defaultI18nRender } from './default-i18n-render';
+import catalogEs from './locales/es/messages';
 
 // import registerServiceWorker from './registerServiceWorker';
 import 'styles/spectre.css';
 import 'styles/index.css';
 
+const catalogs = {
+  es: catalogEs,
+};
+
 ReactDOM.render(
-  <I18nProvider language="en" defaultRender={defaultI18nRender}><App /></I18nProvider>,
+  // TODO: We need to provide some affordance that allows the user to change the language.
+  // For now, developers can manually change the "language" prop below.
+  <I18nProvider language="en" catalogs={catalogs} defaultRender={defaultI18nRender}><App /></I18nProvider>,
   document.getElementById('root')
 );
 // registerServiceWorker();
