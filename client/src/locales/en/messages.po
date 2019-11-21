@@ -17,6 +17,14 @@ msgstr ""
 msgid "Emergency"
 msgstr "Emergency"
 
+#: src/components/PropertiesSummary.js:51
+msgid "The {bldgs, plural, one {} other {average}} age of {bldgs, plural, one {this building} other {these buildings}} is <0>{age}</0> years old."
+msgstr "The {bldgs, plural, one {} other {average}} age of {bldgs, plural, one {this building} other {these buildings}} is <0>{age}</0> years old."
+
+#: src/components/PropertiesSummary.js:49
+msgid "There {bldgs, plural, one {<0>is <1>1</1> building</0>} other {<2>are <3>{bldgs}</3> buildings</2>}} in this portfolio with a total of {units, plural, one {1 unit} other {# units}}."
+msgstr "There {bldgs, plural, one {<0>is <1>1</1> building</0>} other {<2>are <3>{bldgs}</3> buildings</2>}} in this portfolio with a total of {units, plural, one {1 unit} other {# units}}."
+
 #: src/containers/App.js:45
 msgid "Who owns what in nyc?"
 msgstr "Who owns what in nyc?"

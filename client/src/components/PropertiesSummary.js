@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Trans, Plural } from '@lingui/macro';
 
 import Loader from 'components/Loader';
 import LegalFooter from 'components/LegalFooter';
@@ -34,6 +35,7 @@ export default class PropertiesSummary extends Component {
 
   render() {
     let agg = this.state.agg;
+    let {bldgs, units, age} = agg || {};
 
     return (
       <div className="Page PropertiesSummary">
@@ -44,12 +46,9 @@ export default class PropertiesSummary extends Component {
             <div>
               <h6>General info</h6>
               <p>
-                There {parseInt(agg.bldgs) === 1 ? 
-                  <span>is <b>1</b> building </span> :
-                  <span>are <b>{agg.bldgs}</b> buildings </span>}
-                in this portfolio with a total of {agg.units} unit{parseInt(agg.units) === 1 ? "" : "s"}.
-                The {parseInt(agg.bldgs) === 1 ? "" : "average"} age of {parseInt(agg.bldgs) === 1 ? "this building " : "these buildings "}
-                is <b>{agg.age}</b> years old.
+                <Trans>There <Plural value={bldgs} one={<span>is <b>1</b> building</span>} other={<span>are <b>{bldgs}</b> buildings</span>} /> in this portfolio with a total of <Plural value={units} one="1 unit" other="# units" />.</Trans>
+                {` `}
+                <Trans>The <Plural value={bldgs} one="" other="average" /> age of <Plural value={bldgs} one="this building" other="these buildings" /> is <b>{age}</b> years old.</Trans>
               </p>
               <aside>
                 {agg.violationsaddr && (
