@@ -16,19 +16,31 @@ import catalogEn from './locales/en/messages';
 import catalogEs from './locales/es/messages';
 import { LocationDescriptorObject, History } from 'history';
 
+/** Our supported locales. */
 type Locale = 'en'|'es';
 
+/** The structure for message catalogs that lingui expects. */
 type LocaleCatalog = {
   [P in Locale]: any
 };
 
+/** Message catalogs for our supported locales. */
 const catalogs: LocaleCatalog = {
   en: catalogEn,
   es: catalogEs,
 };
 
+/**
+ * The fallback default locale to use if we don't support the
+ * browser's preferred locale.
+ */
 const defaultLocale: Locale = 'en';
 
+/**
+ * Return the best possible guess at what the default locale
+ * should be, taking into account the current browser's language
+ * preferences and the locales we support.
+ */
 function getBestDefaultLocale(): Locale {
   const preferredLocale = navigator.language.slice(0, 2);
 
@@ -39,6 +51,11 @@ function getBestDefaultLocale(): Locale {
   return defaultLocale;
 }
 
+/**
+ * A default renderer for lingui. For details on why we need this, see:
+ * 
+ *   https://github.com/lingui/js-lingui/issues/592
+ */
 function defaultI18nRender(props: {translation: string|any[]}): JSX.Element {
   // For some reason using a React fragment here fails with:
   //
@@ -51,10 +68,17 @@ function defaultI18nRender(props: {translation: string|any[]}): JSX.Element {
   return <span>{props.translation}</span>;
 }
 
+/** Return whether the given string is a supported locale. */
 function isSupportedLocale(code: string): code is Locale {
   return code in catalogs;
 }
 
+/**
+ * Given a path (e.g. `/en/boop`), return the locale of the first
+ * component of the path if it's a supported locale.
+ * 
+ * Return null if there is no locale, or if it's an unsupported one.
+ */
 function parseLocaleFromPath(path: string): Locale|null {
   const localeMatch = path.match(/^\/([a-z][a-z])\//);
   if (localeMatch) {
@@ -67,6 +91,11 @@ function parseLocaleFromPath(path: string): Locale|null {
   return null;
 }
 
+/**
+ * Return the current locale given React Router props, throwing an
+ * assertion failure if the current pathname doesn't have a
+ * locale prefix.
+ */
 function localeFromRouter(routerProps: RouteComponentProps): Locale {
   const { pathname } = routerProps.location;
   const locale = parseLocaleFromPath(pathname);
@@ -78,6 +107,15 @@ function localeFromRouter(routerProps: RouteComponentProps): Locale {
   return locale;
 }
 
+/**
+ * A wrapper for lingui's `<I18nProvider>` that activates a localization based on the
+ * current path.
+ * 
+ * If the current path contains no localization information, the component will redirect
+ * to a new URL that consists of the best possible default locale, followed by the current
+ * path (e.g. it will redirect from `/boop` to `/es/boop` for browsers that indicate their
+ * language preference is Spanish).
+ */
 export const I18n = withRouter(function I18nWithoutRouter(props: {children: any} & RouteComponentProps): JSX.Element {
   const { pathname } = props.location;
   const locale = parseLocaleFromPath(pathname);
@@ -91,6 +129,9 @@ export const I18n = withRouter(function I18nWithoutRouter(props: {children: any}
   </I18nProvider>
 });
 
+/**
+ * Prefix the given path with the current locale, taken from the given React Router props.
+ */
 function localePrefixPath(routerProps: RouteComponentProps, path: History.LocationDescriptor): History.LocationDescriptor {
   const locale = localeFromRouter(routerProps);
 
@@ -104,18 +145,30 @@ function localePrefixPath(routerProps: RouteComponentProps, path: History.Locati
   };
 }
 
+/**
+ * Like React Router's <NavLink>, but it prefixes the passed-in `to` prop with
+ * the current locale.
+ */
 export function LocaleNavLink(props: NavLinkProps & {to: string}): JSX.Element {
   return <Route render={rProps => 
     <NavLink {...props} to={localePrefixPath(rProps, props.to)} />
   } />;
 }
 
+/**
+ * Like React Router's <Link>, but it prefixes the passed-in `to` prop with
+ * the current locale.
+ */
 export function LocaleLink(props: LinkProps & {to: string}): JSX.Element {
   return <Route render={rProps => 
     <Link {...props} to={localePrefixPath(rProps, props.to)} />
   } />;
 }
 
+/**
+ * Like React Router's <Redirect>, but it prefixes the passed-in `to` prop with
+ * the current locale.
+ */
 export function LocaleRedirect(props: Omit<RedirectProps, 'to'> & {to: LocationDescriptorObject}): JSX.Element {
   return <Route render={rProps => 
     <Redirect {...props} to={localePrefixPath(rProps, props.to)} />
