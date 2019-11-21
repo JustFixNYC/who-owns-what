@@ -155,12 +155,19 @@ function localePrefixPath(routerProps: RouteComponentProps, path: History.Locati
   };
 }
 
+/**
+ * Given a locale-prefixed path (e.g. `/en/boop`), return the same path
+ * without the locale prefix (e.g. `/boop`).
+ */
 function removeLocalePrefix(path: string): string {
   const pathParts = path.split('/');
   pathParts.splice(1, 1);
   return pathParts.join('/');
 }
 
+/**
+ * A UI affordance that allows the user to switch locales.
+ */
 export const LocaleSwitcher = withRouter(function LocaleSwitcher(props: RouteComponentProps) {
   const locale = localeFromRouter(props);
   const toLocale: Locale = locale === 'en' ? 'es' : 'en';
