@@ -42,7 +42,7 @@ render() {
               </div>
               <div className="App__header">
                 <Link onClick={() => {window.gtag('event', 'site-title');}} to="/">
-                  <h4><Trans>Who owns what in nyc?</Trans></h4>
+                  <Trans render="h4">Who owns what in nyc?</Trans>
                 </Link>
                 <nav className="inline">
                   <LocaleNavLink exact to="/">Home</LocaleNavLink>
