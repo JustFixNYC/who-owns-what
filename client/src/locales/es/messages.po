@@ -19,11 +19,11 @@ msgstr "Emergencia"
 
 #: src/components/PropertiesSummary.js:51
 msgid "The {bldgs, plural, one {} other {average}} age of {bldgs, plural, one {this building} other {these buildings}} is <0>{age}</0> years old."
-msgstr ""
+msgstr "La {bldgs, plural, one {edad} other {media de las edades }} de {bldgs, plural, one {este edificio} other {estos edificios}} es <0>{age}</0> años."
 
 #: src/components/PropertiesSummary.js:49
 msgid "There {bldgs, plural, one {<0>is <1>1</1> building</0>} other {<2>are <3>{bldgs}</3> buildings</2>}} in this portfolio with a total of {units, plural, one {1 unit} other {# units}}."
-msgstr ""
+msgstr "Hay {bldgs, plural, one {<0><1>1</1> edificio</0>} other {<2><3>{bldgs}</3> edificios</2>}} en este portfolio con un total de {units, plural, one {1 apartamento} other {# apartamento}}."
 
 #: src/containers/App.js:45
 msgid "Who owns what in nyc?"
