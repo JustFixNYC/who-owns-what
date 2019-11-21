@@ -9,7 +9,7 @@ import { Trans } from '@lingui/macro';
 import 'styles/App.css';
 
 // import top-level containers (i.e. pages)
-import { I18n, LocaleNavLink, LocaleLink as Link } from '../i18n';
+import { I18n, LocaleNavLink, LocaleLink as Link, LocaleSwitcher } from '../i18n';
 import HomePage from 'HomePage';
 import AddressPage from 'AddressPage';
 import BBLPage from 'BBLPage';
@@ -53,6 +53,7 @@ render() {
                     onClick={() => this.setState({ showEngageModal: true })}>
                     Share
                   </a>
+                  <LocaleSwitcher/>
                 </nav>
                 <Modal
                   showModal={this.state.showEngageModal}

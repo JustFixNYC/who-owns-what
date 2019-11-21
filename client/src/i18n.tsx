@@ -30,6 +30,16 @@ const catalogs: LocaleCatalog = {
   es: catalogEs,
 };
 
+/** A type that maps locales to language names. */
+type LocaleLanguages = {
+  [P in Locale]: string
+};
+
+const languages: LocaleLanguages = {
+  en: 'English',
+  es: 'Español'
+};
+
 /**
  * The fallback default locale to use if we don't support the
  * browser's preferred locale.
@@ -144,6 +154,20 @@ function localePrefixPath(routerProps: RouteComponentProps, path: History.Locati
     pathname: `/${locale}${path.pathname}`
   };
 }
+
+function removeLocalePrefix(path: string): string {
+  const pathParts = path.split('/');
+  pathParts.splice(1, 1);
+  return pathParts.join('/');
+}
+
+export const LocaleSwitcher = withRouter(function LocaleSwitcher(props: RouteComponentProps) {
+  const locale = localeFromRouter(props);
+  const toLocale: Locale = locale === 'en' ? 'es' : 'en';
+  const to = `/${toLocale}${removeLocalePrefix(props.location.pathname)}`;
+
+  return <NavLink to={to}>{languages[toLocale]}</NavLink>;
+});
 
 /**
  * Like React Router's <NavLink>, but it prefixes the passed-in `to` prop with
