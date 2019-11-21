@@ -16,6 +16,19 @@ import catalogEn from './locales/en/messages';
 import catalogEs from './locales/es/messages';
 import { LocationDescriptorObject, History } from 'history';
 
+/**
+ * This feature flag determines whether to actively "promote"
+ * locales other than English to users. It's useful while we're
+ * working on actually translating the app, before we're finished,
+ * to ensure that we don't invite users to opt-in to a feature
+ * that isn't actually finished yet.
+ * 
+ * If disabled, we'll still allow other locales' routes to be
+ * accessed--we just won't actively send users there, or show links
+ * that send them there.
+ */
+const ENABLE_PUBLIC_FACING_I18N = !!process.env.REACT_APP_ENABLE_PUBLIC_FACING_I18N;
+
 /** Our supported locales. */
 type Locale = 'en'|'es';
 
@@ -54,7 +67,7 @@ const defaultLocale: Locale = 'en';
 function getBestDefaultLocale(): Locale {
   const preferredLocale = navigator.language.slice(0, 2);
 
-  if (isSupportedLocale(preferredLocale)) {
+  if (isSupportedLocale(preferredLocale) && ENABLE_PUBLIC_FACING_I18N) {
     return preferredLocale;
   }
 
@@ -173,7 +186,9 @@ export const LocaleSwitcher = withRouter(function LocaleSwitcher(props: RouteCom
   const toLocale: Locale = locale === 'en' ? 'es' : 'en';
   const to = `/${toLocale}${removeLocalePrefix(props.location.pathname)}`;
 
-  return <NavLink to={to}>{languages[toLocale]}</NavLink>;
+  return ENABLE_PUBLIC_FACING_I18N
+    ? <NavLink to={to}>{languages[toLocale]}</NavLink>
+    : null;
 });
 
 /**
