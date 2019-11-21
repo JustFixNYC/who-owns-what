@@ -13,6 +13,10 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-#: src/containers/App.js:49
+#: src/components/IndicatorsViz.js:168
+msgid "Emergency"
+msgstr "Emergencia"
+
+#: src/containers/App.js:45
 msgid "Who owns what in nyc?"
 msgstr "¿Quién posee qué en Nueva York?"
