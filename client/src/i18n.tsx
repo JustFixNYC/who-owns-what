@@ -75,24 +75,21 @@ function getBestDefaultLocale(): Locale {
 }
 
 /**
- * A default renderer for lingui. For details on why we need this, see:
+ * A default renderer for lingui. This is only needed to work around the fact that
+ * we're on React 15.6, which lingui's default renderer seems to be incompatible with:
  * 
  *   https://github.com/lingui/js-lingui/issues/592
+ * 
+ * We should remove this once we upgrade to React 16.
  */
 function defaultI18nRender(props: {translation: string|any[]}): JSX.Element {
-  // For some reason using a React fragment here fails with:
-  //
-  //   React.createElement: type is invalid -- expected a string (for built-in components)
-  //   or a class/function (for composite components) but got: undefined. You likely forgot
-  //   to export your component from the file it's defined in.
-  //
-  // I think this has to do with the way that we're being called by lingui.
-
+  // Ideally we'd use a React Fragment here, but those weren't introduced until
+  // React 16.
   return <span>{props.translation}</span>;
 }
 
 /** Return whether the given string is a supported locale. */
-function isSupportedLocale(code: string): code is Locale {
+export function isSupportedLocale(code: string): code is Locale {
   return code in catalogs;
 }
 
@@ -102,7 +99,7 @@ function isSupportedLocale(code: string): code is Locale {
  * 
  * Return null if there is no locale, or if it's an unsupported one.
  */
-function parseLocaleFromPath(path: string): Locale|null {
+export function parseLocaleFromPath(path: string): Locale|null {
   const localeMatch = path.match(/^\/([a-z][a-z])\//);
   if (localeMatch) {
     const code = localeMatch[1];
@@ -119,7 +116,7 @@ function parseLocaleFromPath(path: string): Locale|null {
  * assertion failure if the current pathname doesn't have a
  * locale prefix.
  */
-function localeFromRouter(routerProps: RouteComponentProps): Locale {
+export function localeFromRouter(routerProps: RouteComponentProps): Locale {
   const { pathname } = routerProps.location;
   const locale = parseLocaleFromPath(pathname);
 
@@ -155,7 +152,7 @@ export const I18n = withRouter(function I18nWithoutRouter(props: {children: any}
 /**
  * Prefix the given path with the current locale, taken from the given React Router props.
  */
-function localePrefixPath(routerProps: RouteComponentProps, path: History.LocationDescriptor): History.LocationDescriptor {
+export function localePrefixPath(routerProps: RouteComponentProps, path: History.LocationDescriptor): History.LocationDescriptor {
   const locale = localeFromRouter(routerProps);
 
   if (typeof(path) === 'string') {
@@ -172,7 +169,7 @@ function localePrefixPath(routerProps: RouteComponentProps, path: History.Locati
  * Given a locale-prefixed path (e.g. `/en/boop`), return the same path
  * without the locale prefix (e.g. `/boop`).
  */
-function removeLocalePrefix(path: string): string {
+export function removeLocalePrefix(path: string): string {
   const pathParts = path.split('/');
   pathParts.splice(1, 1);
   return pathParts.join('/');
@@ -180,6 +177,9 @@ function removeLocalePrefix(path: string): string {
 
 /**
  * A UI affordance that allows the user to switch locales.
+ * 
+ * Since we currently only have two locales, this just offers a toggle to the
+ * other language.
  */
 export const LocaleSwitcher = withRouter(function LocaleSwitcher(props: RouteComponentProps) {
   const locale = localeFromRouter(props);
