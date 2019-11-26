@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { LocaleLink as Link } from '../i18n';
 import Modal from './Modal';
 
 import 'styles/AddressToolbar.css';
