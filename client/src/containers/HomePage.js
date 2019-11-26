@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Redirect, Link } from 'react-router-dom';
 
 import Loader from 'components/Loader';
 import APIClient from 'components/APIClient';
@@ -8,6 +7,7 @@ import LegalFooter from 'components/LegalFooter';
 
 import 'styles/HomePage.css';
 
+import { LocaleLink as Link, LocaleRedirect as Redirect } from '../i18n';
 import westminsterLogo from '../assets/img/westminster.svg';
 import allyearLogo from '../assets/img/allyear.png';
 import emLogo from '../assets/img/emassociates.jpg';

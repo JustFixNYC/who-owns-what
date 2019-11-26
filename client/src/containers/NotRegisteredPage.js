@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { LocaleLink as Link } from '../i18n';
 import Modal from 'components/Modal';
 import LegalFooter from 'components/LegalFooter';
 import Helpers from 'util/helpers';

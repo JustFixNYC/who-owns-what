@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
 
+import { LocaleRedirect as Redirect } from '../i18n';
 import Loader from 'components/Loader';
 import APIClient from 'components/APIClient';
 import NotRegisteredPage from './NotRegisteredPage';

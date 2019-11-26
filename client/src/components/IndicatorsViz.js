@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import { Bar } from 'react-chartjs-2';
+import { I18n } from '@lingui/react';
+import { t } from '@lingui/macro';
+
 // reference: https://github.com/jerairrest/react-chartjs-2
 
 import * as ChartAnnotation from 'chartjs-plugin-annotation';
@@ -57,7 +60,11 @@ export default class IndicatorsViz extends Component {
   }
 
   render() {
-    return <IndicatorsVizImplementation {...this.state} />;
+    return (
+      <I18n>
+        {({ i18n }) => <IndicatorsVizImplementation {...this.state} i18n={i18n} />}
+      </I18n>
+    );
   }
 }
 
@@ -128,6 +135,8 @@ class IndicatorsVizImplementation extends Component {
   // Create "data" object according to Chart.js documentation 
   var datasets;
 
+  const { i18n } = this.props;
+
   switch (this.props.activeVis) {
     case 'viols': 
       datasets = 
@@ -156,7 +165,7 @@ class IndicatorsVizImplementation extends Component {
     case 'complaints':
       datasets = 
         [{
-            label: 'Emergency',
+            label: i18n._(t`Emergency`),
             data: this.groupData(this.props.complaintsData.values.emergency),
             backgroundColor: 'rgba(227,74,51, 0.6)',
             borderColor: 'rgba(227,74,51,1)',
