@@ -236,7 +236,7 @@ export default class DetailView extends Component {
                                 <a onClick={() => {window.gtag('event', 'dob-overview-tab');}} href={`http://a810-bisweb.nyc.gov/bisweb/PropertyProfileOverviewServlet?boro=${boro}&block=${block}&lot=${lot}`} target="_blank" rel="noopener noreferrer" className="btn btn-block">DOB Building Profile &#8599;&#xFE0E;</a>
                               </div>
                               <div className="column col-12">
-                                <a onClick={() => {window.gtag('event', 'dof-overview-tab');}} href={`https://nycprop.nyc.gov/nycproperty/nynav/jsp/selectbbl.jsp`} target="_blank" rel="noopener noreferrer" className="btn btn-block">DOF Property Tax Bills &#8599;&#xFE0E;</a>
+                                <a onClick={() => {window.gtag('event', 'dof-overview-tab');}} href={`https://a836-pts-access.nyc.gov/care/search/commonsearch.aspx?mode=persprop`} target="_blank" rel="noopener noreferrer" className="btn btn-block">DOF Property Tax Bills &#8599;&#xFE0E;</a>
                               </div>
                               <div className="column col-12">
                                 <a onClick={() => {window.gtag('event', 'dap-overview-tab');}} href={`https://portal.displacementalert.org/property/${boro}${block}${lot}`} target="_blank" rel="noopener noreferrer" className="btn btn-block"><span className="chip text-italic">New!</span> ANHD DAP Portal &#8599;&#xFE0E;</a>
