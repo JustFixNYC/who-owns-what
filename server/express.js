@@ -37,6 +37,14 @@ if (process.env.NODE_ENV === 'production') {
 
 app.use('/api', routes);
 
+const return404 = function(req, res) {
+  res.status(404).end();
+};
+
+// These will help prevent https://github.com/JustFixNYC/who-owns-what/issues/169.
+app.get(/^\/static\/.*/, return404);
+app.get(/^\/[0-9A-Za-z_.\-]+\.(js|json|ico|html)$/, return404);
+
 app.get('*', function(req, res) {
   res.sendFile(path.resolve(__dirname + '/../client/build/index.html'));
 });
