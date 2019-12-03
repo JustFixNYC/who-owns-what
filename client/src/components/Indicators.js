@@ -171,7 +171,7 @@ export default class Indicators extends Component {
     return vizData;
   } 
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
 
     // make the api call when we have a new detail address from the Address Page
     if(nextProps.detailAddr && nextProps.detailAddr.bbl && // will be receiving a detailAddr prop AND
