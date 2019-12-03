@@ -6,6 +6,7 @@ services:
       - .:/wow:delegated
       - node-modules:/wow/node_modules/
       - client-node-modules:/wow/client/node_modules/
+      - yarn-cache:/var/yarn-cache/
     working_dir: /wow
     ports:
       - 3000:3000
@@ -14,6 +15,7 @@ services:
       - db
     environment:
       DATABASE_URL: postgres://wow:wow@db/wow
+      YARN_CACHE_FOLDER: /var/yarn-cache
       # Enable polling, as some Docker setups don't work
       # well with mounted volumes and filesystem notifications.
       CHOKIDAR_USEPOLLING: 1
@@ -27,3 +29,4 @@ services:
 volumes:
   node-modules:
   client-node-modules:
+  yarn-cache:
