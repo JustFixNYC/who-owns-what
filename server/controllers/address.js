@@ -57,6 +57,15 @@ module.exports = {
       });
   },
 
+  dapAggregate: (req, res) => {
+    db.queryDapAggregate(req.query.bbl)
+      .then(result => res.status(200).send({ result: result }) )
+      .catch(err => {
+        rollbar.error(err, req);
+        res.status(200).send({ error: err.message });
+      });
+  },
+
   buildinginfo: (req, res) => {
     db.queryBuildingInfo(req.query.bbl)
       .then(result => res.status(200).send({ result: result }) )
