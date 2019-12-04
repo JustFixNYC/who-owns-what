@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { CSSTransition } from 'react-transition-group';
 import { LocaleLink as Link } from '../i18n';
 import { StreetView } from './StreetView';
+import { LazyLoadWhenVisible } from './LazyLoadWhenVisible';
 import Helpers from 'util/helpers';
 import Browser from 'util/browser';
 import Modal from 'components/Modal';
@@ -48,7 +49,7 @@ export default class DetailView extends Component {
 
     const bblDash = <span className="unselectable" unselectable="on">-</span>;
 
-    const streetView = <StreetView addr={this.props.addr} />;
+    const streetView = <LazyLoadWhenVisible><StreetView addr={this.props.addr} /></LazyLoadWhenVisible>;
 
     // console.log(showContent);
 
