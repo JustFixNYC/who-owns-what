@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 
-import Loader from 'components/Loader';
-import APIClient from 'components/APIClient';
-import EngagementPanel from 'components/EngagementPanel';
-import LegalFooter from 'components/LegalFooter';
+import Loader from '../components/Loader';
+import APIClient from '../components/APIClient';
+import EngagementPanel from '../components/EngagementPanel';
+import LegalFooter from '../components/LegalFooter';
 
 import 'styles/HomePage.css';
 
@@ -11,10 +11,18 @@ import { LocaleLink as Link, LocaleRedirect as Redirect } from '../i18n';
 import westminsterLogo from '../assets/img/westminster.svg';
 import allyearLogo from '../assets/img/allyear.png';
 import emLogo from '../assets/img/emassociates.jpg';
-import AddressSearch, { makeEmptySearchAddress } from '../components/AddressSearch';
+import AddressSearch, { makeEmptySearchAddress, SearchAddress } from '../components/AddressSearch';
 
-class HomePage extends Component {
-  constructor(props) {
+type HomePageProps = {};
+
+type State = {
+  searchAddress: SearchAddress,
+  results: {addrs: unknown[]}|null,
+  sampleURLs: string[]
+};
+
+class HomePage extends Component<HomePageProps, State> {
+  constructor(props: HomePageProps) {
     super(props);
 
     this.state = {
@@ -26,7 +34,7 @@ class HomePage extends Component {
     };
   }
 
-  handleFormSubmit = (searchAddress, error) => {
+  handleFormSubmit = (searchAddress: SearchAddress, error: any) => {
 
     // set state (mainly to show addr on load)
     this.setState({
@@ -46,7 +54,7 @@ class HomePage extends Component {
 
       // searching on HomePage allows for more clean redirects
       // as opposed to HomePage > AddressPage > NotRegisteredPage
-      APIClient.searchAddress(searchAddress)
+      APIClient.searchAddress({...searchAddress, housenumber: searchAddress.housenumber || ''})
         .then(results => {
           this.setState({
             results: results
