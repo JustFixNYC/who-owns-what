@@ -6,7 +6,7 @@ import fbIcon from '../assets/img/fb.svg';
 import twitterIcon from '../assets/img/twitter.svg';
 
 const SocialShare: React.FC<{
-  location: string,
+  location?: string,
   url?: string,
   twitterMessage?: string,
   emailMessage?: string,

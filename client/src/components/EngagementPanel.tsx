@@ -1,12 +1,14 @@
 import React from 'react';
-import Subscribe from 'components/Subscribe';
-import SocialShare from 'components/SocialShare';
+import Subscribe from './Subscribe';
+import SocialShare from './SocialShare';
 
 import 'styles/EngagementPanel.css';
 
 
 
-const EngagementPanel = (props) => {
+const EngagementPanel: React.FC<{
+  location?: string
+}> = (props) => {
   return (
     <div className="EngagementPanel">
       <h5>Join the fight for tenant rights!</h5>
