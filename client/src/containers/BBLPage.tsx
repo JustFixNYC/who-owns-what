@@ -1,18 +1,43 @@
 import React, { Component } from 'react';
 
 import { LocaleRedirect as Redirect } from '../i18n';
-import Loader from 'components/Loader';
-import APIClient from 'components/APIClient';
+import Loader from '../components/Loader';
+import APIClient from '../components/APIClient';
 import NotRegisteredPage from './NotRegisteredPage';
+import { RouteComponentProps } from 'react-router';
 
 // import 'styles/HomePage.css';
 
-export default class BBLPage extends Component {
-  constructor(props) {
+// This will be *either* bbl *or* boro, block, and lot.
+type BBLPageParams = {
+  bbl?: string,
+  boro?: string,
+  block?: string,
+  lot?: string,
+};
+
+type BBLPageProps = RouteComponentProps<BBLPageParams>;
+
+type Addr = {
+  bbl?: string,
+  boro: string|null,
+  housenumber: string|null,
+  streetname: string|null
+};
+
+type State = {
+  searchBBL: BBLPageParams,
+  results: {addrs: Addr[]}|null,
+  bblExists: null|boolean,
+  foundAddress: Addr
+};
+
+export default class BBLPage extends Component<BBLPageProps, State> {
+  constructor(props: BBLPageProps) {
     super(props);
 
     this.state = {
-      searchBBL: { ...props.match.params }, // either {boro, block, lot} or {bbl}, based on url params
+      searchBBL: { ...props.match.params },
       results: null,
       bblExists: null,
       foundAddress: {
@@ -23,12 +48,11 @@ export default class BBLPage extends Component {
     };
   }
 
-
   componentDidMount() {
 
     window.gtag('event', 'direct-link');
 
-    var fullBBL;
+    var fullBBL: string;
 
     // handling for when url parameter is full bbl
     if (this.state.searchBBL.bbl) {
@@ -57,6 +81,8 @@ export default class BBLPage extends Component {
         searchBBL: searchBBL
       });
 
+    } else {
+      throw new Error('Invalid params, expected either a BBL or boro/block/lot!');
     }
 
     APIClient.getBuildingInfo(fullBBL)
@@ -81,11 +107,11 @@ export default class BBLPage extends Component {
     );
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(prevProps: BBLPageProps, prevState: State) {
 
 
     if (!prevState.bblExists && this.state.bblExists) {
-        APIClient.searchBBL(this.state.searchBBL)
+        APIClient.searchBBL(this.strictGetSearchBBL())
         .then(results => {
           this.setState({
             results: results
@@ -100,7 +126,13 @@ export default class BBLPage extends Component {
       }
   }
 
-
+  strictGetSearchBBL() {
+    const {boro, block, lot} = this.state.searchBBL;
+    if (!(boro && block && lot)) {
+      throw new Error(`boro, block, and lot must be non-empty!`);
+    }
+    return {boro, block, lot};
+  }
 
   render() {
 
@@ -123,10 +155,16 @@ export default class BBLPage extends Component {
       //   searchAddress.boro = geosearch.firstBoroughName;
       // }
 
-      var addressForURL;
+      var addressForURL: Addr;
+
       if (results.addrs.length > 0) {
         window.gtag('event', 'search-found', { 'value': this.state.results.addrs.length });
-        addressForURL = this.state.results.addrs.find( (element) => (element.bbl === this.state.searchBBL.boro + this.state.searchBBL.block + this.state.searchBBL.lot));
+        const searchBBL = this.strictGetSearchBBL();
+        const foundAddr = this.state.results.addrs.find( (element) => (element.bbl === searchBBL.boro + searchBBL.block + searchBBL.lot));
+        if (!foundAddr) {
+          throw new Error('BBL not found in results!');
+        }
+        addressForURL = foundAddr;
       }
       else {
         window.gtag('event', 'search-notfound');
