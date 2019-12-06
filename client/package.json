@@ -46,6 +46,7 @@
     "react-social": "^1.10.0",
     "react-table": "^6.5.3",
     "react-transition-group": "^2.2.1",
+    "rollbar": "^2.14.4",
     "spectre.scss": "0.0.2",
     "typescript": "^3.3.3"
   },

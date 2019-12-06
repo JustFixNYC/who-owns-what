@@ -1,6 +1,18 @@
 /* eslint-disable no-undef */
 
-function searchAddress(q) {
+type WithBoroBlockLot = {
+  boro: string,
+  block: string,
+  lot: string,
+};
+
+type Q = {
+  bbl?: string,
+  housenumber: string,
+  streetname: string,
+} & WithBoroBlockLot;
+
+function searchAddress(q: Q) {
   if (q.bbl) {
     return searchBBL({
       boro: q.bbl.slice(0,1),
@@ -11,39 +23,39 @@ function searchAddress(q) {
   return get(`/api/address?houseNumber=${q.housenumber}&street=${q.streetname}&borough=${q.boro}`);
 }
 
-function searchBBL(q) {
+function searchBBL(q: WithBoroBlockLot) {
   return get(`/api/address?block=${q.block}&lot=${q.lot}&borough=${q.boro}`);
 }
 
-function getAggregate(bbl) {
+function getAggregate(bbl: string) {
   return get(`/api/address/aggregate?bbl=${bbl}`);
 }
 
-function getBuildingInfo(bbl) {
+function getBuildingInfo(bbl: string) {
   return get(`/api/address/buildinginfo?bbl=${bbl}`);
 }
 
-function getSaleHistory(bbl) {
+function getSaleHistory(bbl: string) {
   return get(`/api/address/salehistory?bbl=${bbl}`);
 }
 
-function getIndicatorHistory(bbl) {
+function getIndicatorHistory(bbl: string) {
   return get(`/api/address/indicatorhistory?bbl=${bbl}`);
 }
 
-function getAddressExport(q) {
+function getAddressExport(q: Q) {
   return fetch(`/api/address/export?houseNumber=${q.housenumber}&street=${q.streetname}&borough=${q.boro}`)
     .then(checkStatus);
 }
 
-function get(url) {
-  return fetch(url, { accept: "application/json" })
+function get(url: string) {
+  return fetch(url, { headers: { accept: "application/json" } })
     .then(checkStatus)
     .then(verifyIsJson)
     .then(parseJSON);
 }
 
-function post(url, body, cb) {
+function post(url: string, body: any) {
   return fetch(url, {
       headers: {
         'Accept': 'application/json',
@@ -58,10 +70,7 @@ function post(url, body, cb) {
     .then(parseJSON);
 }
 
-/**
- * @param {Response} response 
- */
-async function verifyIsJson(response) {
+async function verifyIsJson(response: Response) {
   const contentType = response.headers.get('Content-Type');
   if (contentType && /^application\/json/.test(contentType)) {
     return response;
@@ -76,25 +85,32 @@ async function verifyIsJson(response) {
   throw new Error(msg);
 }
 
-function checkStatus(response) {
+function checkStatus(response: Response) {
   if (response.status >= 200 && response.status < 300) {
     return response;
   }
-  const error = new Error(`HTTP Error ${response.statusText}`);
-  error.status = response.statusText;
-  error.response = response;
+  const error = new HTTPError(response);
   console.log(error); // eslint-disable-line no-console
   throw error;
 }
 
-function parseJSON(response) {
+class HTTPError extends Error {
+  status: string;
+
+  constructor(readonly response: Response) {
+    super(`HTTP Error ${response.statusText}`);
+    this.status = response.statusText;
+  }
+}
+
+function parseJSON(response: Response) {
   return response.json();
 }
 
 /* Mailchimp */
 
-function postNewSubscriber(email, list) {
-  return post('/api/subscribe', { email, list });
+function postNewSubscriber(email: string) {
+  return post('/api/subscribe', { email });
 }
 
 const Client = {
