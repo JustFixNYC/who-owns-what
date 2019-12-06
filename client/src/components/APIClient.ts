@@ -10,7 +10,8 @@ type Q = {
   bbl?: string,
   housenumber: string,
   streetname: string,
-} & WithBoroBlockLot;
+  boro: string,
+};
 
 function searchAddress(q: Q) {
   if (q.bbl) {
@@ -43,7 +44,7 @@ function getIndicatorHistory(bbl: string) {
   return get(`/api/address/indicatorhistory?bbl=${bbl}`);
 }
 
-function getAddressExport(q: Q) {
+function getAddressExport(q: Q & WithBoroBlockLot) {
   return fetch(`/api/address/export?houseNumber=${q.housenumber}&street=${q.streetname}&borough=${q.boro}`)
     .then(checkStatus);
 }
