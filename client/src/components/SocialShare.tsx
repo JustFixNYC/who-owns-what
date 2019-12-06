@@ -5,7 +5,12 @@ import {isMobile, isAndroid} from "react-device-detect";
 import fbIcon from '../assets/img/fb.svg';
 import twitterIcon from '../assets/img/twitter.svg';
 
-const SocialShare = (props) => {
+const SocialShare: React.FC<{
+  location: string,
+  url?: string,
+  twitterMessage?: string,
+  emailMessage?: string,
+}> = (props) => {
 
   // Expected Props: location
   // Optional Props: url, twitterMessage, emailMessage
