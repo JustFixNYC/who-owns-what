@@ -1,11 +1,19 @@
+type LatLng = [number, number];
+
 export default {
   // need to check if either lat or lng is NaN. Occurs for ~0.5% of addresses
-  latLngIsNull(latlng) {
-    return latlng.filter(isNaN).length;
+  latLngIsNull(latlng: LatLng): boolean {
+    return latlng.filter(isNaN).length > 0;
   },
 
-  getBoundingBox(latlngs) {
-    let bs = {}, coords, latitude, longitude;
+  getBoundingBox(latlngs: LatLng[]): [LatLng, LatLng] {
+    let bs = {
+      xMin: Infinity,
+      yMin: Infinity,
+      xMax: -Infinity,
+      yMax: -Infinity
+    };
+    let coords, latitude, longitude;
 
     for (let i = 0; i < latlngs.length; i++) {
       coords = latlngs[i];
@@ -21,7 +29,7 @@ export default {
     return [[bs.xMin, bs.yMin],[bs.xMax, bs.yMax]];
   },
 
-  hasWebGLContext() {
+  hasWebGLContext(): boolean {
     var canvas = document.createElement("canvas");
     // Get WebGLRenderingContext from canvas element.
     var gl = canvas.getContext("webgl") || canvas.getContext("experimental-webgl");

@@ -1,13 +1,30 @@
 import React from 'react';
 import ReactTable from 'react-table';
-import Browser from 'util/browser';
+import Browser from '../util/browser';
 
 import 'react-table/react-table.css';
 import 'styles/PropertiesList.css';
 
-const PropertiesList = (props) => {
+type Addr = {
+  housenumber: string,
+  streetname: string,
+  zip: string,
+  boro: string,
+  bbl: string,
+  yearbuilt: number,
+  unitsres: number,
+  rsunits2007: number,
+  rsunits2017: number,
+  openviolations: number,
+  totalviolations: number,
+  evictions: string|null,
+  ownernames: {title: string, value: string}[],
+};
 
-
+const PropertiesList: React.FC<{
+  addrs: Addr[],
+  onOpenDetail: (addr: Addr) => void,
+}> = (props) => {
   // console.log(props.addrs);
 
   if(!props.addrs.length) {
@@ -60,16 +77,19 @@ const PropertiesList = (props) => {
                 },
                 {
                   Header: 'Zipcode',
-                  accessor: 'zip',
+                  accessor: d => d.zip,
+                  id: 'zip',
                   width: 75
                 },
                 {
                   Header: 'Borough',
-                  accessor: 'boro'
+                  accessor: d => d.boro,
+                  id: 'boro',
                 },
                 {
                   Header: 'BBL',
-                  accessor: 'bbl'
+                  accessor: d => d.bbl,
+                  id: 'bbl',
                 }
               ]
             },
@@ -78,12 +98,14 @@ const PropertiesList = (props) => {
               columns: [
                 {
                   Header: 'Built',
-                  accessor: 'yearbuilt',
+                  accessor: d => d.yearbuilt,
+                  id: 'yearbuilt',
                   maxWidth: 75
                 },
                 {
                   Header: 'Units',
-                  accessor: 'unitsres',
+                  accessor: d => d.unitsres,
+                  id: 'unitsres',
                   maxWidth: 75
                 }
                 // ,
@@ -131,12 +153,14 @@ const PropertiesList = (props) => {
               columns: [
                 {
                   Header: "2007",
-                  accessor: "rsunits2007",
+                  accessor: d => d.rsunits2007,
+                  id: 'rsunits2007',
                   maxWidth: 75
                 },
                 {
                   Header: "2017",
-                  accessor: "rsunits2017",
+                  accessor: d => d.rsunits2017,
+                  id: 'rsunits2017',
                   Cell: row => {
                     return (
                       <span className={`${row.original.rsunits2017 < row.original.rsunits2007 ? 'text-danger' : ''}`}
@@ -153,12 +177,14 @@ const PropertiesList = (props) => {
               columns: [
                 {
                   Header: "Open",
-                  accessor: "openviolations",
+                  accessor: d => d.openviolations,
+                  id: 'openviolations',
                   maxWidth: 75
                 },
                 {
                   Header: "Total",
-                  accessor: "totalviolations",
+                  accessor: d => d.totalviolations,
+                  id: 'totalviolations',
                   maxWidth: 75
                 }
               ]
@@ -195,7 +221,7 @@ const PropertiesList = (props) => {
             },
             {
               Header: 'View detail',
-              accessor: "bbl",
+              accessor: d => d.bbl,
               columns: [
                 {
                     Cell: row => {

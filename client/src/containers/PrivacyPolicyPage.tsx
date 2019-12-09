@@ -1,5 +1,5 @@
 import React from 'react';
-import LegalFooter from 'components/LegalFooter';
+import LegalFooter from '../components/LegalFooter';
 
 const PrivacyPolicyPage = () => {
   return (

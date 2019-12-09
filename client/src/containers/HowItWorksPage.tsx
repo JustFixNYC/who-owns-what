@@ -1,10 +1,11 @@
 import React from 'react';
-import LegalFooter from 'components/LegalFooter';
-import EngagementPanel from 'components/EngagementPanel';
+import LegalFooter from '../components/LegalFooter';
+import EngagementPanel from '../components/EngagementPanel';
 
 import 'styles/HowItWorksPage.css';
 
 import diagramImage from '../assets/img/howitworks.jpg';
+import { Nobr } from '../components/Nobr';
 
 const HowItWorksPage = () => {
   return (
@@ -33,7 +34,7 @@ const HowItWorksPage = () => {
           <li><a href="https://data.cityofnewyork.us/Housing-Development/Housing-Maintenance-Code-Complaints/uwyv-629c" target="_blank" rel="noopener noreferrer" className="text-bold">HPD complaints</a> <em>- updated monthly</em></li>
           <li><a href="https://data.cityofnewyork.us/Housing-Development/DOB-Job-Application-Filings/ic3t-wcy2" target="_blank" rel="noopener noreferrer" className="text-bold">DOB job application filings</a> <em>- updated daily</em></li>
           <li><a href="https://www1.nyc.gov/site/planning/data-maps/open-data.page" target="_blank" rel="noopener noreferrer" className="text-bold">Dept. of City Planning lot data (“PLUTO”)</a> <em>- updated yearly</em></li>
-          <li><b>Eviction data for 2018</b> from City Counsel, the <nobr><a href="https://www.housingdatanyc.org/" target="_blank" rel="noopener noreferrer">Housing Data Coalition</a></nobr>, and the <nobr><a href="https://www.antievictionmap.com/" target="_blank" rel="noopener noreferrer">Anti-Eviction Mapping Project</a></nobr> via <a href="https://www1.nyc.gov/site/doi/offices/cpr2.page" target="_blank" rel="noopener noreferrer">NYC Marshals</a> <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener noreferrer">(CC BY NC SA 4.0)</a>.
+          <li><b>Eviction data for 2018</b> from City Counsel, the <Nobr><a href="https://www.housingdatanyc.org/" target="_blank" rel="noopener noreferrer">Housing Data Coalition</a></Nobr>, and the <Nobr><a href="https://www.antievictionmap.com/" target="_blank" rel="noopener noreferrer">Anti-Eviction Mapping Project</a></Nobr> via <a href="https://www1.nyc.gov/site/doi/offices/cpr2.page" target="_blank" rel="noopener noreferrer">NYC Marshals</a> <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener noreferrer">(CC BY NC SA 4.0)</a>.
           </li>
           <li><b>Rent Stabilization unit estimates (from taxbills.nyc, adapted from Dept. of Finance tax bills).</b> This data is <b>not</b> conclusive, but should be seen as an approximation. See <a href="http://blog.johnkrauss.com/where-is-decontrol/" target="_blank" rel="noopener noreferrer">this page</a> for more information. <em>- updated yearly</em></li>
         </ul>
