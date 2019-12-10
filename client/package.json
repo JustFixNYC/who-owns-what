@@ -64,7 +64,12 @@
   },
   "proxy": "http://localhost:3001/",
   "devDependencies": {
+    "@babel/preset-env": "^7.7.6",
+    "@babel/preset-typescript": "^7.7.4",
+    "@babel/register": "^7.7.4",
+    "contentful": "^7.10.0",
     "cross-env": "^6.0.3",
+    "dotenv": "^8.2.0",
     "npm-run-all": "^4.0.2"
   },
   "browserslist": [
