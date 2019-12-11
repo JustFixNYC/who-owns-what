@@ -15,6 +15,7 @@ import { I18nProvider } from '@lingui/react';
 import catalogEn from './locales/en/messages';
 import catalogEs from './locales/es/messages';
 import { LocationDescriptorObject, History } from 'history';
+import { SupportedLocale, languageNames } from './i18n-base';
 
 /**
  * This feature flag determines whether to actively "promote"
@@ -29,12 +30,9 @@ import { LocationDescriptorObject, History } from 'history';
  */
 const ENABLE_PUBLIC_FACING_I18N = !!process.env.REACT_APP_ENABLE_PUBLIC_FACING_I18N;
 
-/** Our supported locales. */
-type Locale = 'en'|'es';
-
 /** The structure for message catalogs that lingui expects. */
 type LocaleCatalog = {
-  [P in Locale]: any
+  [P in SupportedLocale]: any
 };
 
 /** Message catalogs for our supported locales. */
@@ -43,28 +41,18 @@ const catalogs: LocaleCatalog = {
   es: catalogEs,
 };
 
-/** A type that maps locales to language names. */
-type LocaleLanguages = {
-  [P in Locale]: string
-};
-
-const languages: LocaleLanguages = {
-  en: 'English',
-  es: 'Español'
-};
-
 /**
  * The fallback default locale to use if we don't support the
  * browser's preferred locale.
  */
-const defaultLocale: Locale = 'en';
+const defaultLocale: SupportedLocale = 'en';
 
 /**
  * Return the best possible guess at what the default locale
  * should be, taking into account the current browser's language
  * preferences and the locales we support.
  */
-function getBestDefaultLocale(): Locale {
+function getBestDefaultLocale(): SupportedLocale {
   const preferredLocale = navigator.language.slice(0, 2);
 
   if (isSupportedLocale(preferredLocale) && ENABLE_PUBLIC_FACING_I18N) {
@@ -75,7 +63,7 @@ function getBestDefaultLocale(): Locale {
 }
 
 /** Return whether the given string is a supported locale. */
-export function isSupportedLocale(code: string): code is Locale {
+export function isSupportedLocale(code: string): code is SupportedLocale {
   return code in catalogs;
 }
 
@@ -85,7 +73,7 @@ export function isSupportedLocale(code: string): code is Locale {
  * 
  * Return null if there is no locale, or if it's an unsupported one.
  */
-export function parseLocaleFromPath(path: string): Locale|null {
+export function parseLocaleFromPath(path: string): SupportedLocale|null {
   const localeMatch = path.match(/^\/([a-z][a-z])\//);
   if (localeMatch) {
     const code = localeMatch[1];
@@ -102,7 +90,7 @@ export function parseLocaleFromPath(path: string): Locale|null {
  * assertion failure if the current pathname doesn't have a
  * locale prefix.
  */
-export function localeFromRouter(routerProps: RouteComponentProps): Locale {
+export function localeFromRouter(routerProps: RouteComponentProps): SupportedLocale {
   const { pathname } = routerProps.location;
   const locale = parseLocaleFromPath(pathname);
 
@@ -169,11 +157,11 @@ export function removeLocalePrefix(path: string): string {
  */
 export const LocaleSwitcher = withRouter(function LocaleSwitcher(props: RouteComponentProps) {
   const locale = localeFromRouter(props);
-  const toLocale: Locale = locale === 'en' ? 'es' : 'en';
+  const toLocale: SupportedLocale = locale === 'en' ? 'es' : 'en';
   const to = `/${toLocale}${removeLocalePrefix(props.location.pathname)}`;
 
   return ENABLE_PUBLIC_FACING_I18N
-    ? <NavLink to={to}>{languages[toLocale]}</NavLink>
+    ? <NavLink to={to}>{languageNames[toLocale]}</NavLink>
     : null;
 });
 

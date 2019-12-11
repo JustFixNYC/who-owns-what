@@ -2,6 +2,7 @@ import path from 'path';
 import fs from 'fs';
 import * as contentful from "contentful";
 import { PageEntryFields } from "./entries";
+import { getSupportedLocales } from '../i18n-base';
 
 const CONTENTFUL_SPACE_ID = process.env.CONTENTFUL_SPACE_ID;
 const CONTENTFUL_ACCESS_TOKEN = process.env.CONTENTFUL_ACCESS_TOKEN;
@@ -20,16 +21,19 @@ export async function pullFromContentful() {
     accessToken: CONTENTFUL_ACCESS_TOKEN,
   });
 
-  const entries = await client.getEntries<PageEntryFields>({
-    'content_type': 'page',
-  });
-
-  entries.items.forEach(entry => {
-    const { locale } = entry.sys;
-    const filename = `${entry.fields.slug}.${locale}.json`;
-    console.log(`Exporting ${filename}.`);
-    fs.writeFileSync(path.join(DATA_DIR, filename), JSON.stringify(entry.fields, null, 2), {
-      encoding: 'utf-8',
+  for (let locale of getSupportedLocales()) {
+    const entries = await client.getEntries<PageEntryFields>({
+      'content_type': 'page',
+      'locale': locale,
     });
-  });
+
+    entries.items.forEach(entry => {
+      const { locale } = entry.sys;
+      const filename = `${entry.fields.slug}.${locale}.json`;
+      console.log(`Exporting ${filename}.`);
+      fs.writeFileSync(path.join(DATA_DIR, filename), JSON.stringify(entry.fields, null, 2), {
+        encoding: 'utf-8',
+      });
+    });
+  }
 }
