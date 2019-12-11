@@ -12,7 +12,7 @@ require('@babel/register')({
 
 require('dotenv').config({path: '.env.local'});
 
-require('./src/contentful').pullFromContentful().catch(e => {
+require('./src/contentful/pull').pullFromContentful().catch(e => {
   console.error(e);
   process.exit(1);
 });

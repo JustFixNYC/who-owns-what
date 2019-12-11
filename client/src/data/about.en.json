@@ -1,0 +1,140 @@
+{
+  "title": "About this project",
+  "slug": "about",
+  "content": {
+    "data": {},
+    "content": [
+      {
+        "data": {},
+        "content": [
+          {
+            "data": {},
+            "marks": [],
+            "value": "About this project",
+            "nodeType": "text"
+          }
+        ],
+        "nodeType": "heading-1"
+      },
+      {
+        "data": {},
+        "content": [
+          {
+            "data": {},
+            "content": [
+              {
+                "data": {},
+                "marks": [
+                  {
+                    "type": "italic"
+                  }
+                ],
+                "value": "\"I’ve lived in buildings where I never even knew who owned the place. The dynamic makes for the beginnings of an absurdly unequal relationship, where tenants shell out huge sums each month with little confidence that the leaky faucet will be fixed or the roaches will be vanquished...\"",
+                "nodeType": "text"
+              },
+              {
+                "data": {},
+                "marks": [],
+                "value": "   —— Ronda Kaysen",
+                "nodeType": "text"
+              }
+            ],
+            "nodeType": "paragraph"
+          }
+        ],
+        "nodeType": "blockquote"
+      },
+      {
+        "data": {},
+        "content": [
+          {
+            "data": {},
+            "marks": [],
+            "value": "When a landlord buys a building, they will typically use a Limited Liability Corporation (known as a shell company) in order to maintain their anonymity and protect themselves from possible repercussions. This lack of transparency prevents tenants and organizers from being able to connect the dots and understand the systematic issues than stem from a single bad landlord - issues such as forced displacement, neglect of conditions, and discrimination. Tenants who suffer from the same abusive landlords are left in the dark, oftentimes not knowing that their neighbors down the block are dealing with similar ",
+            "nodeType": "text"
+          },
+          {
+            "data": {
+              "uri": "/blarg"
+            },
+            "content": [
+              {
+                "data": {},
+                "marks": [],
+                "value": "issues",
+                "nodeType": "text"
+              }
+            ],
+            "nodeType": "hyperlink"
+          },
+          {
+            "data": {},
+            "marks": [],
+            "value": ".",
+            "nodeType": "text"
+          }
+        ],
+        "nodeType": "paragraph"
+      },
+      {
+        "data": {
+          "target": {
+            "sys": {
+              "space": {
+                "sys": {
+                  "type": "Link",
+                  "linkType": "Space",
+                  "id": "lu7sab8sr77o"
+                }
+              },
+              "id": "5yuZKwVaApVqrK0Ftlig4r",
+              "type": "Asset",
+              "createdAt": "2019-12-10T13:30:06.345Z",
+              "updatedAt": "2019-12-10T13:30:06.345Z",
+              "environment": {
+                "sys": {
+                  "id": "master",
+                  "type": "Link",
+                  "linkType": "Environment"
+                }
+              },
+              "revision": 1,
+              "locale": "en"
+            },
+            "fields": {
+              "title": "protest",
+              "description": "Rent Guidelines Board rally in 1979, organized by Met Council. Via \"The Tenant Movement in New York City, 1904-1984\"",
+              "file": {
+                "url": "//images.ctfassets.net/lu7sab8sr77o/5yuZKwVaApVqrK0Ftlig4r/afab71ad52d63ebcb1f1ef2ab9fbf462/protest.147b1853.jpg",
+                "details": {
+                  "size": 19547,
+                  "image": {
+                    "width": 347,
+                    "height": 223
+                  }
+                },
+                "fileName": "protest.147b1853.jpg",
+                "contentType": "image/jpeg"
+              }
+            }
+          }
+        },
+        "content": [],
+        "nodeType": "embedded-asset-block"
+      },
+      {
+        "data": {},
+        "content": [
+          {
+            "data": {},
+            "marks": [],
+            "value": "",
+            "nodeType": "text"
+          }
+        ],
+        "nodeType": "paragraph"
+      }
+    ],
+    "nodeType": "document"
+  }
+}
