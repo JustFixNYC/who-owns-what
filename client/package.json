@@ -54,6 +54,7 @@
   },
   "scripts": {
     "lingui": "lingui",
+    "typecheck": "tsc",
     "build-css": "node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/",
     "watch-css": "yarn build-css && node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/ --watch --recursive",
     "start-js": "lingui compile && cross-env NODE_PATH=src:src/components:src/containers:src/styles react-scripts start",
