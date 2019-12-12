@@ -74,20 +74,6 @@ function getBestDefaultLocale(): Locale {
   return defaultLocale;
 }
 
-/**
- * A default renderer for lingui. This is only needed to work around the fact that
- * we're on React 15.6, which lingui's default renderer seems to be incompatible with:
- * 
- *   https://github.com/lingui/js-lingui/issues/592
- * 
- * We should remove this once we upgrade to React 16.
- */
-function defaultI18nRender(props: {translation: string|any[]}): JSX.Element {
-  // Ideally we'd use a React Fragment here, but those weren't introduced until
-  // React 16.
-  return <span>{props.translation}</span>;
-}
-
 /** Return whether the given string is a supported locale. */
 export function isSupportedLocale(code: string): code is Locale {
   return code in catalogs;
@@ -144,7 +130,7 @@ export const I18n = withRouter(function I18nWithoutRouter(props: {children: any}
     return <Redirect to={`/${getBestDefaultLocale()}${pathname}`} />;
   }
 
-  return <I18nProvider language={locale} catalogs={catalogs} defaultRender={defaultI18nRender}>
+  return <I18nProvider language={locale} catalogs={catalogs}>
     {props.children}
   </I18nProvider>
 });

@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { CSSTransition } from 'react-transition-group';
 import { LocaleLink as Link } from '../i18n';
-import { StreetViewPanorama } from 'react-google-maps';
+import { StreetView } from './StreetView';
+import { LazyLoadWhenVisible } from './LazyLoadWhenVisible';
 import Helpers from 'util/helpers';
 import Browser from 'util/browser';
 import Modal from 'components/Modal';
@@ -14,8 +15,6 @@ export default class DetailView extends Component {
     super(props);
 
     this.state = {
-      coordinates: null,
-      heading: 0,
       showCompareModal: false,
       todaysDate: new Date()
     }
@@ -23,31 +22,9 @@ export default class DetailView extends Component {
     this.detailSlideLength = 300;
   }
 
-  // we need to trigger an ajax call (the streetViewService) when props
-  // receives a new address. this computes the street view heading
-  // srsly tho google, why not point to the latlng automatically?
   componentDidUpdate(prevProps, prevState) {
-
     // scroll to top of wrapper div:
     document.querySelector('.DetailView__wrapper').scrollTop = 0;
-
-    // this says: if the component is getting the addr for the first time OR
-    //            if the component already has an addr but is getting a new one
-    if( (!prevProps.addr && this.props.addr) || (prevProps.addr && this.props.addr && (prevProps.addr.bbl !== this.props.addr.bbl))) {
-
-      let coordinates = new window.google.maps.LatLng(this.props.addr.lat, this.props.addr.lng);
-      let streetViewService = new window.google.maps.StreetViewService();
-
-      streetViewService.getPanoramaByLocation(coordinates, 50, (panoData) => {
-        if (panoData !== null) {
-          let panoCoordinates = panoData.location.latLng;
-          this.setState({
-            heading: window.google.maps.geometry.spherical.computeHeading(panoCoordinates, coordinates),
-            coordinates: coordinates
-          });
-        }
-      });
-    }
   }
 
   formatDate(dateString) {
@@ -72,6 +49,8 @@ export default class DetailView extends Component {
 
     const bblDash = <span className="unselectable" unselectable="on">-</span>;
 
+    const streetView = <LazyLoadWhenVisible><StreetView addr={this.props.addr} /></LazyLoadWhenVisible>;
+
     // console.log(showContent);
 
     return (
@@ -87,17 +66,7 @@ export default class DetailView extends Component {
                     </button>
                   </div>
                   <div className="card-image show-lg">
-                    <StreetViewPanorama
-                      containerElement={<div style={{ width: `100%`, height: `${isMobile ? '180px' : '300px'}` }} />}
-                      position={this.state.coordinates}
-                      pov={{ heading: this.state.heading, pitch: 15 }}
-                      zoom={0.5}
-                      options={{
-                        disableDefaultUI: true,
-                        panControl: true,
-                        fullscreenControl: true
-                      }}
-                    />
+                    {streetView}
                   </div>
                   <div className="columns main-content-columns">
                     <div className="column col-lg-12 col-7">
@@ -207,17 +176,7 @@ export default class DetailView extends Component {
                     </div>
                     <div className="column col-lg-12 col-5">
                       <div className="card-image hide-lg">
-                        <StreetViewPanorama
-                          containerElement={<div style={{ width: `100%`, height: `${isMobile ? '180px' : '300px'}` }} />}
-                          position={this.state.coordinates}
-                          pov={{ heading: this.state.heading, pitch: 15 }}
-                          zoom={0.5}
-                          options={{
-                            disableDefaultUI: true,
-                            panControl: true,
-                            fullscreenControl: true
-                          }}
-                        />
+                        {streetView}
                       </div>
                       <div className="card-body column-right">
                         <div className="card-body-resources">
@@ -236,7 +195,7 @@ export default class DetailView extends Component {
                                 <a onClick={() => {window.gtag('event', 'dob-overview-tab');}} href={`http://a810-bisweb.nyc.gov/bisweb/PropertyProfileOverviewServlet?boro=${boro}&block=${block}&lot=${lot}`} target="_blank" rel="noopener noreferrer" className="btn btn-block">DOB Building Profile &#8599;&#xFE0E;</a>
                               </div>
                               <div className="column col-12">
-                                <a onClick={() => {window.gtag('event', 'dof-overview-tab');}} href={`https://nycprop.nyc.gov/nycproperty/nynav/jsp/selectbbl.jsp`} target="_blank" rel="noopener noreferrer" className="btn btn-block">DOF Property Tax Bills &#8599;&#xFE0E;</a>
+                                <a onClick={() => {window.gtag('event', 'dof-overview-tab');}} href={`https://a836-pts-access.nyc.gov/care/search/commonsearch.aspx?mode=persprop`} target="_blank" rel="noopener noreferrer" className="btn btn-block">DOF Property Tax Bills &#8599;&#xFE0E;</a>
                               </div>
                               <div className="column col-12">
                                 <a onClick={() => {window.gtag('event', 'dap-overview-tab');}} href={`https://portal.displacementalert.org/property/${boro}${block}${lot}`} target="_blank" rel="noopener noreferrer" className="btn btn-block"><span className="chip text-italic">New!</span> ANHD DAP Portal &#8599;&#xFE0E;</a>

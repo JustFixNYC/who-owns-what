@@ -1,10 +1,15 @@
 import React from 'react';
-import Helpers from 'util/helpers';
 import 'styles/OwnersTable.css';
 
 import _isEmpty from 'lodash/isEmpty';
 
-const OwnersTable = (props) => {
+const OwnersTable: React.FC<{
+  addr: {
+    businessaddrs?: string[],
+    corpnames?: string[],
+    ownernames?: {title: string, value: string}[]
+  }
+}> = (props) => {
 
   // let hasJustFixUsersWarning = null;
   // // let hasJustFixUsersWarning = <br />;

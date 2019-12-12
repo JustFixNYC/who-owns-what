@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {NavLink} from 'react-router-dom';
+import {LocaleNavLink as NavLink} from '../i18n';
 
 import 'styles/LegalFooter.css';
 

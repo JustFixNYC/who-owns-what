@@ -2,7 +2,10 @@ import React from 'react';
 
 import 'styles/Loader.css';
 
-const Loader = (props) => {
+const Loader: React.FC<{
+  classNames?: string,
+  loading: boolean
+}> = (props) => {
 
   const loader = (
     <div className={`Loader ${ props.classNames }`}>

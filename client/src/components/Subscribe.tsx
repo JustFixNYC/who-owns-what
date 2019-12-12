@@ -1,14 +1,22 @@
 import React from 'react';
 // other imports
 
-import APIClient from 'components/APIClient';
+import APIClient from './APIClient';
 
 import 'styles/Subscribe.css';
 
 //import 'styles/Subscribe.css';
 
-export default class Subscribe extends React.Component {
-  constructor(props) {
+type SubscribeProps = {};
+
+type State = {
+  email: string,
+  success: boolean,
+  response: string,
+};
+
+export default class Subscribe extends React.Component<SubscribeProps, State> {
+  constructor(props: SubscribeProps) {
     super(props);
     this.state = {
       email: '',
@@ -17,11 +25,11 @@ export default class Subscribe extends React.Component {
     };
   }
 
-  handleChange = (e) => {
+  handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({ email: e.target.value });
   }
 
-  handleSubmit = (e) => {
+  handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const email = this.state.email || null;
@@ -34,7 +42,7 @@ export default class Subscribe extends React.Component {
       return;
     }
 
-    APIClient.postNewSubscriber(this.state.email, this.props.list)
+    APIClient.postNewSubscriber(this.state.email)
       .then(result => {
         // Success
         this.setState({

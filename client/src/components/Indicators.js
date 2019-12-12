@@ -171,7 +171,7 @@ export default class Indicators extends Component {
     return vizData;
   } 
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
 
     // make the api call when we have a new detail address from the Address Page
     if(nextProps.detailAddr && nextProps.detailAddr.bbl && // will be receiving a detailAddr prop AND
@@ -432,7 +432,7 @@ export default class Indicators extends Component {
                       </div>
                       <div className="column col-12">
                         <a onClick={() => {window.gtag('event', 'dof-timeline-tab');}} 
-                           href={`https://nycprop.nyc.gov/nycproperty/nynav/jsp/selectbbl.jsp`} target="_blank" rel="noopener noreferrer" 
+                           href={`https://a836-pts-access.nyc.gov/care/search/commonsearch.aspx?mode=persprop`} target="_blank" rel="noopener noreferrer" 
                            className="btn btn-block">DOF Property Tax Bills &#8599;&#xFE0E;</a>
                       </div>
                       <div className="column col-12">
