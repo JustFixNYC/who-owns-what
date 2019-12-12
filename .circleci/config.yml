@@ -52,6 +52,7 @@ jobs:
           name: Build client and run tests
           command: |
             cd client
+            yarn lingui compile
             yarn typecheck
             # Note that CI=true in CircleCI, so this will fail if there are
             # any linter warnings.
