@@ -1,4 +1,4 @@
-import { removeLocalePrefix, parseLocaleFromPath, isSupportedLocale, localeFromRouter, localePrefixPath } from "./i18n";
+import { removeLocalePrefix, parseLocaleFromPath, localeFromRouter, localePrefixPath } from "./i18n";
 
 function routerProps(pathname: string): any {
   return { location: { pathname }};
@@ -15,11 +15,6 @@ describe("i18n", () => {
 
   it("parses nothing from paths when locale is not present", () => {
     expect(parseLocaleFromPath("/blarf")).toBe(null);
-  });
-
-  it("tells us whether a locale is supported or not", () => {
-    expect(isSupportedLocale('en')).toBe(true);
-    expect(isSupportedLocale('zz')).toBe(false);
   });
 
   it("extracts locale from router path", () => {
