@@ -1,6 +1,6 @@
 import React from 'react';
-import LegalFooter from 'components/LegalFooter';
-import EngagementPanel from 'components/EngagementPanel';
+import LegalFooter from '../components/LegalFooter';
+import EngagementPanel from '../components/EngagementPanel';
 
 import 'styles/HowToUsePage.css';
 
