@@ -1,7 +1,7 @@
 import path from 'path';
 import fs from 'fs';
 import * as contentful from "contentful";
-import { PageEntryFields, PageEntryContentType } from "./entries";
+import { PageFields, PageContentType } from "./content-types";
 import { getSupportedLocales } from '../i18n-base';
 
 const CONTENTFUL_SPACE_ID = process.env.CONTENTFUL_SPACE_ID;
@@ -22,8 +22,8 @@ export async function pullFromContentful() {
   });
 
   for (let locale of getSupportedLocales()) {
-    const entries = await client.getEntries<PageEntryFields>({
-      'content_type': PageEntryContentType,
+    const entries = await client.getEntries<PageFields>({
+      'content_type': PageContentType,
       'locale': locale,
     });
 
