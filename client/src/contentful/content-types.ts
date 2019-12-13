@@ -19,20 +19,3 @@ export type PageFields = {
   /** The content of the page, defined as "rich text" in Contentful. */
   content: Document,
 };
-
-/**
- * This is semantically the same thing as a Contentful `Document` (rich text),
- * but typed in a way that works with using the `import` statement on a
- * JSON-serialized Contentful Document. (Annoyingly, the latter doesn't type-match
- * with a `Document`, so we're hacking the type a bit so clients don't have to
- * typecast everywhere.)
- */
-type JsonifiedDocument = {
-  data: Object,
-  content: any[],
-  nodeType: string
-};
-
-export type JsonifiedPageEntryFields = Omit<PageFields, 'content'> & {
-  content: JsonifiedDocument
-};

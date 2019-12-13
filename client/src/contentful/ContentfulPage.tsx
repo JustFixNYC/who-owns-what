@@ -1,13 +1,14 @@
 import React from 'react';
-import { JsonifiedPageEntryFields, PageFields } from './content-types';
+import { PageFields } from './content-types';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import { BLOCKS } from '@contentful/rich-text-types';
 import { Asset } from 'contentful';
 import { withI18n, withI18nProps } from '@lingui/react';
 import { SupportedLocale } from '../i18n-base';
+import { WithJsonifiedDocuments } from './jsonified-document';
 
 type LocalizedPages = {
-  [P in SupportedLocale]: JsonifiedPageEntryFields|PageFields
+  [P in SupportedLocale]: WithJsonifiedDocuments<PageFields>|PageFields
 };
 
 const ContentfulPageWithI18n: React.FC<{locales: LocalizedPages} & withI18nProps> = props => {
