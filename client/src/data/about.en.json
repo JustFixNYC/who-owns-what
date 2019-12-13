@@ -64,13 +64,13 @@
                 "sys": {
                   "type": "Link",
                   "linkType": "Space",
-                  "id": "lu7sab8sr77o"
+                  "id": "lhtzm8rjj8y4"
                 }
               },
-              "id": "7r8JVTzg24OgSfiWmmTPsz",
+              "id": "3Dt21GL4AttopNFvqDJt6w",
               "type": "Asset",
-              "createdAt": "2019-12-13T11:04:05.453Z",
-              "updatedAt": "2019-12-13T11:04:05.453Z",
+              "createdAt": "2019-12-13T16:36:36.545Z",
+              "updatedAt": "2019-12-13T16:36:36.545Z",
               "environment": {
                 "sys": {
                   "id": "master",
@@ -84,7 +84,7 @@
             "fields": {
               "title": "How it works",
               "file": {
-                "url": "//images.ctfassets.net/lu7sab8sr77o/7r8JVTzg24OgSfiWmmTPsz/2476aa1ff9ceccd339f770d82e99d2e3/howitworks.jpg",
+                "url": "//images.ctfassets.net/lhtzm8rjj8y4/3Dt21GL4AttopNFvqDJt6w/99705012ab4fcc57b41cfbc61436c90e/howitworks.jpg",
                 "details": {
                   "size": 108378,
                   "image": {

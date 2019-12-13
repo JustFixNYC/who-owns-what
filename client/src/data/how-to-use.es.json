@@ -10,11 +10,11 @@
           {
             "data": {},
             "marks": [],
-            "value": "Cómo utilizar\n\nTODO: Translate this!",
+            "value": "Spanish Lorem Ipsum",
             "nodeType": "text"
           }
         ],
-        "nodeType": "paragraph"
+        "nodeType": "heading-4"
       },
       {
         "data": {},
@@ -22,7 +22,7 @@
           {
             "data": {},
             "marks": [],
-            "value": "",
+            "value": "TODO: Translate this!",
             "nodeType": "text"
           }
         ],
