@@ -46,6 +46,18 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
+## `yarn lingui`
+
+Runs the [`lingui` CLI](https://lingui.js.org/tutorials/cli.html) with the given parameters.
+For instance, if you want to extract messages to localize, you can run `yarn lingui extract`.
+
+## `yarn contentful`
+
+Some pages contain long-form rich text content that is localized via [Contentful](). The
+latest versions of the content can be pulled by running this command. You'll want to make
+sure you have the proper environment variables defined so this script can access your
+Contentful space; see [`.env.local.sample`](./.env.local.sample) for more details.
+
 ## Learn More
 
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
