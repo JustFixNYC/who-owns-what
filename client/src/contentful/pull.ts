@@ -8,6 +8,9 @@ const CONTENTFUL_SPACE_ID = process.env.CONTENTFUL_SPACE_ID;
 const CONTENTFUL_ACCESS_TOKEN = process.env.CONTENTFUL_ACCESS_TOKEN;
 const DATA_DIR = path.join(__dirname, '..', 'data');
 
+/**
+ * Pull all content types from Contentful and serialize them to JSON.
+ */
 export async function pullFromContentful() {
   if (!(CONTENTFUL_SPACE_ID && CONTENTFUL_ACCESS_TOKEN)) {
     throw new Error(

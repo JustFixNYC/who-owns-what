@@ -11,7 +11,15 @@ type LocalizedPages = {
   [P in SupportedLocale]: WithJsonifiedDocuments<PageFields>|PageFields
 };
 
-const ContentfulPageWithI18n: React.FC<{locales: LocalizedPages} & withI18nProps> = props => {
+export type ContentfulPageProps = {
+  /** The page to render, localized in all supported locales. */
+  locales: LocalizedPages,
+};
+
+/**
+ * A page defined and localized in Contentful.
+ */
+export const ContentfulPage = withI18n()((props: ContentfulPageProps & withI18nProps) => {
   const locale = props.i18n.language as SupportedLocale;
   const page = props.locales[locale] as PageFields;
   const result = documentToReactComponents(page.content, {
@@ -28,6 +36,4 @@ const ContentfulPageWithI18n: React.FC<{locales: LocalizedPages} & withI18nProps
   });
 
   return <>{result}</>;
-};
-
-export const ContentfulPage = withI18n()(ContentfulPageWithI18n);
+});
