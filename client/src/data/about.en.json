@@ -1,0 +1,642 @@
+{
+  "title": "About this project",
+  "slug": "about",
+  "content": {
+    "data": {},
+    "content": [
+      {
+        "data": {},
+        "content": [
+          {
+            "data": {},
+            "marks": [],
+            "value": "About this project",
+            "nodeType": "text"
+          }
+        ],
+        "nodeType": "heading-4"
+      },
+      {
+        "data": {},
+        "content": [
+          {
+            "data": {},
+            "marks": [],
+            "value": "Who Owns What was built to help ",
+            "nodeType": "text"
+          },
+          {
+            "data": {},
+            "marks": [
+              {
+                "type": "bold"
+              }
+            ],
+            "value": "rebalance the power dynamic between landlords and tenants",
+            "nodeType": "text"
+          },
+          {
+            "data": {},
+            "marks": [],
+            "value": ".",
+            "nodeType": "text"
+          }
+        ],
+        "nodeType": "paragraph"
+      },
+      {
+        "data": {},
+        "content": [
+          {
+            "data": {},
+            "marks": [],
+            "value": "When a landlord buys a building, they often use Limited Liability Corporations (LLCs, AKA shell companies), to hide their identities, creating a tangled web of associations and businesses. It then becomes difficult to pinpoint precisely which landlord or company is causing issues across many buildings, and makes it even harder to prove that a landlord is refusing to respond to issues, creating unsafe conditions for tenants, overcharging for rent and other discriminatory practices.",
+            "nodeType": "text"
+          }
+        ],
+        "nodeType": "paragraph"
+      },
+      {
+        "data": {
+          "target": {
+            "sys": {
+              "space": {
+                "sys": {
+                  "type": "Link",
+                  "linkType": "Space",
+                  "id": "lu7sab8sr77o"
+                }
+              },
+              "id": "7r8JVTzg24OgSfiWmmTPsz",
+              "type": "Asset",
+              "createdAt": "2019-12-13T11:04:05.453Z",
+              "updatedAt": "2019-12-13T11:04:05.453Z",
+              "environment": {
+                "sys": {
+                  "id": "master",
+                  "type": "Link",
+                  "linkType": "Environment"
+                }
+              },
+              "revision": 1,
+              "locale": "en"
+            },
+            "fields": {
+              "title": "How it works",
+              "file": {
+                "url": "//images.ctfassets.net/lu7sab8sr77o/7r8JVTzg24OgSfiWmmTPsz/2476aa1ff9ceccd339f770d82e99d2e3/howitworks.jpg",
+                "details": {
+                  "size": 108378,
+                  "image": {
+                    "width": 1771,
+                    "height": 1476
+                  }
+                },
+                "fileName": "howitworks.jpg",
+                "contentType": "image/jpeg"
+              }
+            }
+          }
+        },
+        "content": [],
+        "nodeType": "embedded-asset-block"
+      },
+      {
+        "data": {},
+        "content": [
+          {
+            "data": {},
+            "marks": [],
+            "value": "Who Owns What connects the dots",
+            "nodeType": "text"
+          }
+        ],
+        "nodeType": "heading-4"
+      },
+      {
+        "data": {},
+        "content": [
+          {
+            "data": {},
+            "marks": [],
+            "value": "By searching and comparing names and addresses within the registration listings for over 200,000 buildings in NYC, it’s able to build and map your landlord’s “portfolio.” Curious? ",
+            "nodeType": "text"
+          },
+          {
+            "data": {
+              "uri": "https://medium.com/@JustFixNYC/who-owns-what-linking-nyc-buildings-with-data-173571e7bb31"
+            },
+            "content": [
+              {
+                "data": {},
+                "marks": [],
+                "value": "Read our methodology",
+                "nodeType": "text"
+              }
+            ],
+            "nodeType": "hyperlink"
+          },
+          {
+            "data": {},
+            "marks": [],
+            "value": " for a deeper dive into how the tool works.",
+            "nodeType": "text"
+          }
+        ],
+        "nodeType": "paragraph"
+      },
+      {
+        "data": {},
+        "content": [
+          {
+            "data": {},
+            "marks": [],
+            "value": "Use it to meet your neighbors, organize a building association, and grow your tenant power!",
+            "nodeType": "text"
+          }
+        ],
+        "nodeType": "paragraph"
+      },
+      {
+        "data": {},
+        "content": [
+          {
+            "data": {},
+            "marks": [],
+            "value": "With NYC ♥ from the team at JustFix.nyc",
+            "nodeType": "text"
+          }
+        ],
+        "nodeType": "paragraph"
+      },
+      {
+        "data": {},
+        "content": [],
+        "nodeType": "hr"
+      },
+      {
+        "data": {},
+        "content": [
+          {
+            "data": {},
+            "marks": [],
+            "value": "About JustFix.nyc",
+            "nodeType": "text"
+          }
+        ],
+        "nodeType": "heading-6"
+      },
+      {
+        "data": {},
+        "content": [
+          {
+            "data": {},
+            "marks": [],
+            "value": "We use data & technology to build digital tools that support the fight for housing justice. We partner with over 30 tenant organizing groups, legal service providers, and neighborhood groups. We envision a New York where working-class families can thrive without fear of landlord harassment or displacement. For more info, visit our website at ",
+            "nodeType": "text"
+          },
+          {
+            "data": {
+              "uri": "https://www.justfix.nyc"
+            },
+            "content": [
+              {
+                "data": {},
+                "marks": [],
+                "value": "www.justfix.nyc",
+                "nodeType": "text"
+              }
+            ],
+            "nodeType": "hyperlink"
+          },
+          {
+            "data": {},
+            "marks": [],
+            "value": ".\n\nJustFix.nyc is a registered 501(c)3 non-profit organization. If you have the capacity, please consider ",
+            "nodeType": "text"
+          },
+          {
+            "data": {
+              "uri": "https://www.justfix.nyc/donate"
+            },
+            "content": [
+              {
+                "data": {},
+                "marks": [],
+                "value": "donating to support our work",
+                "nodeType": "text"
+              }
+            ],
+            "nodeType": "hyperlink"
+          },
+          {
+            "data": {},
+            "marks": [],
+            "value": ".",
+            "nodeType": "text"
+          }
+        ],
+        "nodeType": "paragraph"
+      },
+      {
+        "data": {},
+        "content": [
+          {
+            "data": {},
+            "marks": [],
+            "value": "About the Housing Data Coalition",
+            "nodeType": "text"
+          }
+        ],
+        "nodeType": "heading-6"
+      },
+      {
+        "data": {},
+        "content": [
+          {
+            "data": {},
+            "marks": [],
+            "value": "The Housing Data Coalition (HDC) is a group of individuals and organizations who use public data to further housing justice in New York City. To fight the real estate industry’s escalating exploitation of housing data that drives speculation and displacement, HDC aims to make public data more accessible for housing justice groups. HDC members connect, learn, and give mutual support to a variety of projects involving housing data. For more info about our working groups and monthly meetings, email ",
+            "nodeType": "text"
+          },
+          {
+            "data": {
+              "uri": "mailto:housingdatacoalition@gmail.com"
+            },
+            "content": [
+              {
+                "data": {},
+                "marks": [],
+                "value": "housingdatacoalition@gmail.com",
+                "nodeType": "text"
+              }
+            ],
+            "nodeType": "hyperlink"
+          },
+          {
+            "data": {},
+            "marks": [],
+            "value": ".",
+            "nodeType": "text"
+          }
+        ],
+        "nodeType": "paragraph"
+      },
+      {
+        "data": {},
+        "content": [
+          {
+            "data": {},
+            "marks": [],
+            "value": "Credits",
+            "nodeType": "text"
+          }
+        ],
+        "nodeType": "heading-6"
+      },
+      {
+        "data": {},
+        "content": [
+          {
+            "data": {},
+            "content": [
+              {
+                "data": {},
+                "content": [
+                  {
+                    "data": {},
+                    "marks": [],
+                    "value": "Ziggy, creator and maintainer of ",
+                    "nodeType": "text"
+                  },
+                  {
+                    "data": {
+                      "uri": "https://github.com/aepyornis/nyc-db"
+                    },
+                    "content": [
+                      {
+                        "data": {},
+                        "marks": [],
+                        "value": "nyc-db",
+                        "nodeType": "text"
+                      }
+                    ],
+                    "nodeType": "hyperlink"
+                  },
+                  {
+                    "data": {},
+                    "marks": [],
+                    "value": " ",
+                    "nodeType": "text"
+                  }
+                ],
+                "nodeType": "paragraph"
+              }
+            ],
+            "nodeType": "list-item"
+          },
+          {
+            "data": {},
+            "content": [
+              {
+                "data": {},
+                "content": [
+                  {
+                    "data": {},
+                    "marks": [],
+                    "value": "Lucy Block at ",
+                    "nodeType": "text"
+                  },
+                  {
+                    "data": {
+                      "uri": "https://anhd.org/"
+                    },
+                    "content": [
+                      {
+                        "data": {},
+                        "marks": [],
+                        "value": "ANHD",
+                        "nodeType": "text"
+                      }
+                    ],
+                    "nodeType": "hyperlink"
+                  },
+                  {
+                    "data": {},
+                    "marks": [],
+                    "value": ", creator of ",
+                    "nodeType": "text"
+                  },
+                  {
+                    "data": {
+                      "uri": "http://reports.dapmapnyc.org/"
+                    },
+                    "content": [
+                      {
+                        "data": {},
+                        "marks": [],
+                        "value": "DAP district reports",
+                        "nodeType": "text"
+                      }
+                    ],
+                    "nodeType": "hyperlink"
+                  },
+                  {
+                    "data": {},
+                    "marks": [],
+                    "value": " ",
+                    "nodeType": "text"
+                  }
+                ],
+                "nodeType": "paragraph"
+              }
+            ],
+            "nodeType": "list-item"
+          },
+          {
+            "data": {},
+            "content": [
+              {
+                "data": {},
+                "content": [
+                  {
+                    "data": {},
+                    "marks": [],
+                    "value": "Cea Weaver at ",
+                    "nodeType": "text"
+                  },
+                  {
+                    "data": {
+                      "uri": "http://nycommunities.org/"
+                    },
+                    "content": [
+                      {
+                        "data": {},
+                        "marks": [],
+                        "value": "NYCC",
+                        "nodeType": "text"
+                      }
+                    ],
+                    "nodeType": "hyperlink"
+                  },
+                  {
+                    "data": {},
+                    "marks": [],
+                    "value": " ",
+                    "nodeType": "text"
+                  }
+                ],
+                "nodeType": "paragraph"
+              }
+            ],
+            "nodeType": "list-item"
+          },
+          {
+            "data": {},
+            "content": [
+              {
+                "data": {},
+                "content": [
+                  {
+                    "data": {},
+                    "marks": [],
+                    "value": "Aaron Carr at ",
+                    "nodeType": "text"
+                  },
+                  {
+                    "data": {
+                      "uri": "http://housingrightsny.org/"
+                    },
+                    "content": [
+                      {
+                        "data": {},
+                        "marks": [],
+                        "value": "HRI",
+                        "nodeType": "text"
+                      }
+                    ],
+                    "nodeType": "hyperlink"
+                  },
+                  {
+                    "data": {},
+                    "marks": [],
+                    "value": " ",
+                    "nodeType": "text"
+                  }
+                ],
+                "nodeType": "paragraph"
+              }
+            ],
+            "nodeType": "list-item"
+          },
+          {
+            "data": {},
+            "content": [
+              {
+                "data": {},
+                "content": [
+                  {
+                    "data": {},
+                    "marks": [],
+                    "value": "VaNessa LaNier & Jacob Udell at ",
+                    "nodeType": "text"
+                  },
+                  {
+                    "data": {
+                      "uri": "https://unhp.org/"
+                    },
+                    "content": [
+                      {
+                        "data": {},
+                        "marks": [],
+                        "value": "UNHP",
+                        "nodeType": "text"
+                      }
+                    ],
+                    "nodeType": "hyperlink"
+                  },
+                  {
+                    "data": {},
+                    "marks": [],
+                    "value": "",
+                    "nodeType": "text"
+                  }
+                ],
+                "nodeType": "paragraph"
+              }
+            ],
+            "nodeType": "list-item"
+          },
+          {
+            "data": {},
+            "content": [
+              {
+                "data": {},
+                "content": [
+                  {
+                    "data": {},
+                    "marks": [],
+                    "value": "the organizing staff at ",
+                    "nodeType": "text"
+                  },
+                  {
+                    "data": {
+                      "uri": "https://casapower.org/"
+                    },
+                    "content": [
+                      {
+                        "data": {},
+                        "marks": [],
+                        "value": "CASA",
+                        "nodeType": "text"
+                      }
+                    ],
+                    "nodeType": "hyperlink"
+                  },
+                  {
+                    "data": {},
+                    "marks": [],
+                    "value": " ",
+                    "nodeType": "text"
+                  }
+                ],
+                "nodeType": "paragraph"
+              }
+            ],
+            "nodeType": "list-item"
+          },
+          {
+            "data": {},
+            "content": [
+              {
+                "data": {},
+                "content": [
+                  {
+                    "data": {},
+                    "marks": [],
+                    "value": "the organizing staff at ",
+                    "nodeType": "text"
+                  },
+                  {
+                    "data": {
+                      "uri": "https://impacctbrooklyn.org/"
+                    },
+                    "content": [
+                      {
+                        "data": {},
+                        "marks": [],
+                        "value": "IMPACCT",
+                        "nodeType": "text"
+                      }
+                    ],
+                    "nodeType": "hyperlink"
+                  },
+                  {
+                    "data": {},
+                    "marks": [],
+                    "value": " ",
+                    "nodeType": "text"
+                  }
+                ],
+                "nodeType": "paragraph"
+              }
+            ],
+            "nodeType": "list-item"
+          },
+          {
+            "data": {},
+            "content": [
+              {
+                "data": {},
+                "content": [
+                  {
+                    "data": {},
+                    "marks": [],
+                    "value": "the organizing staff at ",
+                    "nodeType": "text"
+                  },
+                  {
+                    "data": {
+                      "uri": "http://metcouncilonhousing.org/"
+                    },
+                    "content": [
+                      {
+                        "data": {},
+                        "marks": [],
+                        "value": "Met Council",
+                        "nodeType": "text"
+                      }
+                    ],
+                    "nodeType": "hyperlink"
+                  },
+                  {
+                    "data": {},
+                    "marks": [],
+                    "value": "",
+                    "nodeType": "text"
+                  }
+                ],
+                "nodeType": "paragraph"
+              }
+            ],
+            "nodeType": "list-item"
+          }
+        ],
+        "nodeType": "unordered-list"
+      },
+      {
+        "data": {},
+        "content": [
+          {
+            "data": {},
+            "marks": [],
+            "value": "",
+            "nodeType": "text"
+          }
+        ],
+        "nodeType": "paragraph"
+      }
+    ],
+    "nodeType": "document"
+  }
+}
