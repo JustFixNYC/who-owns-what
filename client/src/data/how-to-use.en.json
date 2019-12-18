@@ -10,7 +10,7 @@
           {
             "data": {},
             "marks": [],
-            "value": "Lorem Ipsum",
+            "value": "The Most Important Things You Can Do With Who Owns What:",
             "nodeType": "text"
           }
         ],
@@ -22,27 +22,7 @@
           {
             "data": {},
             "marks": [],
-            "value": "Lorem property ownership mapping Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nost ",
-            "nodeType": "text"
-          },
-          {
-            "data": {
-              "uri": "http://www1.nyc.gov/site/hpd/about/open-data.page"
-            },
-            "content": [
-              {
-                "data": {},
-                "marks": [],
-                "value": "HPD registration data",
-                "nodeType": "text"
-              }
-            ],
-            "nodeType": "hyperlink"
-          },
-          {
-            "data": {},
-            "marks": [],
-            "value": " buildings.",
+            "value": "",
             "nodeType": "text"
           }
         ],
@@ -54,11 +34,23 @@
           {
             "data": {},
             "marks": [],
-            "value": "Duis aute irure dolor in reprehenderit:",
+            "value": "Here are a few ways to get the most out of the powerful tool you’re about to use. ",
             "nodeType": "text"
           }
         ],
         "nodeType": "paragraph"
+      },
+      {
+        "data": {},
+        "content": [
+          {
+            "data": {},
+            "marks": [],
+            "value": "Learn more about your building’s issues—and how you may be able to get them fixed. ",
+            "nodeType": "text"
+          }
+        ],
+        "nodeType": "heading-5"
       },
       {
         "data": {},
@@ -72,25 +64,103 @@
                   {
                     "data": {},
                     "marks": [],
-                    "value": "r magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut",
+                    "value": "Check out the violation history for your building. ",
                     "nodeType": "text"
                   }
                 ],
                 "nodeType": "paragraph"
-              }
-            ],
-            "nodeType": "list-item"
-          },
-          {
-            "data": {},
-            "content": [
+              },
+              {
+                "data": {},
+                "content": [
+                  {
+                    "data": {},
+                    "content": [
+                      {
+                        "data": {},
+                        "content": [
+                          {
+                            "data": {},
+                            "marks": [],
+                            "value": "Any complaints verified by the HPD inspector (but not yet taken care of) will show up as “Open Violations” in your building’s profile in the “Overview” tab. These violations have different categories - A (non-hazardous), B, (hazardous), and C (immediately hazardous) and you can find more detailed information on the Timeline tab.",
+                            "nodeType": "text"
+                          }
+                        ],
+                        "nodeType": "paragraph"
+                      }
+                    ],
+                    "nodeType": "list-item"
+                  },
+                  {
+                    "data": {},
+                    "content": [
+                      {
+                        "data": {},
+                        "content": [
+                          {
+                            "data": {},
+                            "marks": [],
+                            "value": "Use the “Timeline” tab to see a recent history of 311 complaints reported by tenants and official violations issued by the Department of Housing Preservation and Development. ",
+                            "nodeType": "text"
+                          }
+                        ],
+                        "nodeType": "paragraph"
+                      }
+                    ],
+                    "nodeType": "list-item"
+                  },
+                  {
+                    "data": {},
+                    "content": [
+                      {
+                        "data": {},
+                        "content": [
+                          {
+                            "data": {},
+                            "marks": [],
+                            "value": "See if the number of rent stabilized apartments in your building has changed. If there is a decrease in rent stabilized units, there may be illegal deregulation of units, rent overcharges, or potential harassment of tenants occurring. Request your rent history via our ",
+                            "nodeType": "text"
+                          },
+                          {
+                            "data": {
+                              "uri": "https://app.justfix.nyc/rh/splash?utm_source=who_owns_what"
+                            },
+                            "content": [
+                              {
+                                "data": {},
+                                "marks": [
+                                  {
+                                    "type": "underline"
+                                  }
+                                ],
+                                "value": "Online Form",
+                                "nodeType": "text"
+                              }
+                            ],
+                            "nodeType": "hyperlink"
+                          },
+                          {
+                            "data": {},
+                            "marks": [],
+                            "value": " or by texting “RENT HISTORY” to (646) 783-0627 to find out more. Dig deeper into the violations by checking out the HPD Building Profile or by going to the Displacement Alert Portal (DAP) from the Association for Neighborhood and Housing Development (ANHD).",
+                            "nodeType": "text"
+                          }
+                        ],
+                        "nodeType": "paragraph"
+                      }
+                    ],
+                    "nodeType": "list-item"
+                  }
+                ],
+                "nodeType": "ordered-list"
+              },
               {
                 "data": {},
                 "content": [
                   {
                     "data": {},
                     "marks": [],
-                    "value": "minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis aute",
+                    "value": "",
                     "nodeType": "text"
                   }
                 ],
@@ -101,6 +171,528 @@
           }
         ],
         "nodeType": "ordered-list"
+      },
+      {
+        "data": {},
+        "content": [
+          {
+            "data": {},
+            "marks": [],
+            "value": "See who else your landlord or property manager may be harming. ",
+            "nodeType": "text"
+          }
+        ],
+        "nodeType": "heading-5"
+      },
+      {
+        "data": {},
+        "content": [
+          {
+            "data": {},
+            "content": [
+              {
+                "data": {},
+                "content": [
+                  {
+                    "data": {},
+                    "marks": [],
+                    "value": "Determine if it’s possible to build a tenant association (TA).",
+                    "nodeType": "text"
+                  }
+                ],
+                "nodeType": "paragraph"
+              },
+              {
+                "data": {},
+                "content": [
+                  {
+                    "data": {},
+                    "content": [
+                      {
+                        "data": {},
+                        "content": [
+                          {
+                            "data": {},
+                            "marks": [],
+                            "value": "Check the “Complaint History” list in the “HPD Building Profile” for full details on the issues and to see which one of your neighbors is constantly calling 311 with complaints. If you have their contact info, send them their building profile via Facebook, Twitter, email, or text by using the share buttons, or give them an immediate list of actions to take by sharing the “",
+                            "nodeType": "text"
+                          },
+                          {
+                            "data": {
+                              "uri": "https://app.justfix.nyc/ddo"
+                            },
+                            "content": [
+                              {
+                                "data": {},
+                                "marks": [
+                                  {
+                                    "type": "underline"
+                                  }
+                                ],
+                                "value": "Take Action on JustFix.nyc",
+                                "nodeType": "text"
+                              }
+                            ],
+                            "nodeType": "hyperlink"
+                          },
+                          {
+                            "data": {},
+                            "marks": [],
+                            "value": "” page on the “Overview” tab.",
+                            "nodeType": "text"
+                          }
+                        ],
+                        "nodeType": "paragraph"
+                      }
+                    ],
+                    "nodeType": "list-item"
+                  },
+                  {
+                    "data": {},
+                    "content": [
+                      {
+                        "data": {},
+                        "content": [
+                          {
+                            "data": {},
+                            "marks": [],
+                            "value": "If you see that the issues in your building have gone unresolved for too long, you and your neighbors may have grounds to start an HP (Housing Part) Action, so consider using our HP Action tool to ",
+                            "nodeType": "text"
+                          },
+                          {
+                            "data": {
+                              "uri": "https://app.justfix.nyc/hp/splash"
+                            },
+                            "content": [
+                              {
+                                "data": {},
+                                "marks": [
+                                  {
+                                    "type": "underline"
+                                  }
+                                ],
+                                "value": "sue your landlord for repairs",
+                                "nodeType": "text"
+                              }
+                            ],
+                            "nodeType": "hyperlink"
+                          },
+                          {
+                            "data": {},
+                            "marks": [],
+                            "value": " during your first TA meeting. This article has a few helpful tips on how to set up the meeting: ",
+                            "nodeType": "text"
+                          },
+                          {
+                            "data": {
+                              "uri": "http://metcouncilonhousing.org/help_and_answers/tenants_associations#answer03"
+                            },
+                            "content": [
+                              {
+                                "data": {},
+                                "marks": [
+                                  {
+                                    "type": "underline"
+                                  }
+                                ],
+                                "value": "http://metcouncilonhousing.org/help_and_answers/tenants_associations#answer03",
+                                "nodeType": "text"
+                              }
+                            ],
+                            "nodeType": "hyperlink"
+                          },
+                          {
+                            "data": {},
+                            "marks": [],
+                            "value": "",
+                            "nodeType": "text"
+                          }
+                        ],
+                        "nodeType": "paragraph"
+                      }
+                    ],
+                    "nodeType": "list-item"
+                  },
+                  {
+                    "data": {},
+                    "content": [
+                      {
+                        "data": {},
+                        "content": [
+                          {
+                            "data": {},
+                            "marks": [],
+                            "value": "Use the “Portfolio” tab to see information about other buildings that are associated with your address due to similar management. If other buildings in your landlord’s portfolio also have issues, you may be able to connect with even more tenants like you to build a TA across multiple buildings, and take action together!",
+                            "nodeType": "text"
+                          }
+                        ],
+                        "nodeType": "paragraph"
+                      }
+                    ],
+                    "nodeType": "list-item"
+                  }
+                ],
+                "nodeType": "ordered-list"
+              }
+            ],
+            "nodeType": "list-item"
+          }
+        ],
+        "nodeType": "ordered-list"
+      },
+      {
+        "data": {},
+        "content": [
+          {
+            "data": {},
+            "marks": [
+              {
+                "type": "bold"
+              }
+            ],
+            "value": "",
+            "nodeType": "text"
+          }
+        ],
+        "nodeType": "paragraph"
+      },
+      {
+        "data": {},
+        "content": [
+          {
+            "data": {},
+            "marks": [],
+            "value": "Scout out a new building before you move in.",
+            "nodeType": "text"
+          }
+        ],
+        "nodeType": "heading-5"
+      },
+      {
+        "data": {},
+        "content": [
+          {
+            "data": {},
+            "content": [
+              {
+                "data": {},
+                "content": [
+                  {
+                    "data": {},
+                    "marks": [],
+                    "value": "See who you’ll be dealing with.",
+                    "nodeType": "text"
+                  }
+                ],
+                "nodeType": "paragraph"
+              },
+              {
+                "data": {},
+                "content": [
+                  {
+                    "data": {},
+                    "content": [
+                      {
+                        "data": {},
+                        "content": [
+                          {
+                            "data": {},
+                            "marks": [],
+                            "value": "Due to the ways that real estate companies disguise themselves, it can be difficult to know who’s ",
+                            "nodeType": "text"
+                          },
+                          {
+                            "data": {},
+                            "marks": [
+                              {
+                                "type": "italic"
+                              }
+                            ],
+                            "value": "really ",
+                            "nodeType": "text"
+                          },
+                          {
+                            "data": {},
+                            "marks": [],
+                            "value": "involved with your property. Take note of the business addresses and names that come up on the profile of your prospective building. Googling them can provide helpful insight on what their reputation is like. ",
+                            "nodeType": "text"
+                          }
+                        ],
+                        "nodeType": "paragraph"
+                      }
+                    ],
+                    "nodeType": "list-item"
+                  }
+                ],
+                "nodeType": "ordered-list"
+              },
+              {
+                "data": {},
+                "content": [
+                  {
+                    "data": {},
+                    "marks": [],
+                    "value": "",
+                    "nodeType": "text"
+                  }
+                ],
+                "nodeType": "paragraph"
+              }
+            ],
+            "nodeType": "list-item"
+          },
+          {
+            "data": {},
+            "content": [
+              {
+                "data": {},
+                "content": [
+                  {
+                    "data": {},
+                    "marks": [],
+                    "value": "See what kinds of problems others in the building have experienced. ",
+                    "nodeType": "text"
+                  }
+                ],
+                "nodeType": "paragraph"
+              },
+              {
+                "data": {},
+                "content": [
+                  {
+                    "data": {},
+                    "content": [
+                      {
+                        "data": {},
+                        "content": [
+                          {
+                            "data": {},
+                            "marks": [],
+                            "value": "Keep an eye on what kinds of problems others have had, and how long it has taken for them to get resolved. The data on Who Owns What gets updated every month.",
+                            "nodeType": "text"
+                          }
+                        ],
+                        "nodeType": "paragraph"
+                      }
+                    ],
+                    "nodeType": "list-item"
+                  }
+                ],
+                "nodeType": "ordered-list"
+              }
+            ],
+            "nodeType": "list-item"
+          }
+        ],
+        "nodeType": "ordered-list"
+      },
+      {
+        "data": {},
+        "content": [
+          {
+            "data": {},
+            "marks": [],
+            "value": "",
+            "nodeType": "text"
+          }
+        ],
+        "nodeType": "paragraph"
+      },
+      {
+        "data": {},
+        "content": [
+          {
+            "data": {},
+            "marks": [],
+            "value": "A few more helpful tips and terms: ",
+            "nodeType": "text"
+          }
+        ],
+        "nodeType": "heading-4"
+      },
+      {
+        "data": {},
+        "content": [
+          {
+            "data": {},
+            "marks": [
+              {
+                "type": "bold"
+              }
+            ],
+            "value": "Building Registration",
+            "nodeType": "text"
+          },
+          {
+            "data": {},
+            "marks": [],
+            "value": " - If your building has more than two units or your landlord (or immediate family) doesn’t live there, your landlord has a duty to register their building. If their registration has lapsed, they can get fined, and may be trying to illegally raise your rent. Add the lack of building registration as an issue in your ",
+            "nodeType": "text"
+          },
+          {
+            "data": {
+              "uri": "https://app.justfix.nyc/"
+            },
+            "content": [
+              {
+                "data": {},
+                "marks": [
+                  {
+                    "type": "underline"
+                  }
+                ],
+                "value": "Letter of Complaint using our JustFix App",
+                "nodeType": "text"
+              }
+            ],
+            "nodeType": "hyperlink"
+          },
+          {
+            "data": {},
+            "marks": [],
+            "value": ", and while you're at it, request your rent history by texting “RENT HISTORY” to (646) 783-0627, to check if you're being overcharged.",
+            "nodeType": "text"
+          }
+        ],
+        "nodeType": "paragraph"
+      },
+      {
+        "data": {},
+        "content": [
+          {
+            "data": {},
+            "marks": [
+              {
+                "type": "bold"
+              }
+            ],
+            "value": "“How Is This Building Associated?”",
+            "nodeType": "text"
+          },
+          {
+            "data": {},
+            "marks": [],
+            "value": " Clicking this link when exploring a portfolio will let you compare the names and addresses the two buildings have in common. ",
+            "nodeType": "text"
+          }
+        ],
+        "nodeType": "paragraph"
+      },
+      {
+        "data": {},
+        "content": [
+          {
+            "data": {},
+            "marks": [
+              {
+                "type": "bold"
+              }
+            ],
+            "value": "Δ Rent Stabilized Units:",
+            "nodeType": "text"
+          },
+          {
+            "data": {},
+            "marks": [],
+            "value": " Rent stabilized units are apartments that require the landlord to provide a 1 or 2 year lease, and where the rent increase is controlled annually by the Rent Guidelines Board. If the number of rent stabilized units on the right is smaller than the number on the left, it means that units have lost their rent stabilized status (have been deregulated), and may mean that the landlord is attempting to push out rent-stabilized tenants.",
+            "nodeType": "text"
+          }
+        ],
+        "nodeType": "paragraph"
+      },
+      {
+        "data": {},
+        "content": [
+          {
+            "data": {},
+            "marks": [
+              {
+                "type": "bold"
+              }
+            ],
+            "value": "Open Violations, Total Violations, HPD, and 311: ",
+            "nodeType": "text"
+          }
+        ],
+        "nodeType": "paragraph"
+      },
+      {
+        "data": {},
+        "content": [
+          {
+            "data": {},
+            "content": [
+              {
+                "data": {},
+                "content": [
+                  {
+                    "data": {},
+                    "marks": [],
+                    "value": "Building complaints are reported to HPD (Housing Preservation and Development) by calling 311. ",
+                    "nodeType": "text"
+                  }
+                ],
+                "nodeType": "paragraph"
+              }
+            ],
+            "nodeType": "list-item"
+          },
+          {
+            "data": {},
+            "content": [
+              {
+                "data": {},
+                "content": [
+                  {
+                    "data": {},
+                    "marks": [],
+                    "value": "Then, HPD sends an inspector to the building to check things out. ",
+                    "nodeType": "text"
+                  }
+                ],
+                "nodeType": "paragraph"
+              }
+            ],
+            "nodeType": "list-item"
+          },
+          {
+            "data": {},
+            "content": [
+              {
+                "data": {},
+                "content": [
+                  {
+                    "data": {},
+                    "marks": [],
+                    "value": "Anything the inspector notices is wrong then becomes an “Open Violation” until steps are taken to fix it. ",
+                    "nodeType": "text"
+                  }
+                ],
+                "nodeType": "paragraph"
+              }
+            ],
+            "nodeType": "list-item"
+          },
+          {
+            "data": {},
+            "content": [
+              {
+                "data": {},
+                "content": [
+                  {
+                    "data": {},
+                    "marks": [],
+                    "value": "“Total Violations” is a historical count of all Open and Closed Violations. ",
+                    "nodeType": "text"
+                  }
+                ],
+                "nodeType": "paragraph"
+              }
+            ],
+            "nodeType": "list-item"
+          }
+        ],
+        "nodeType": "unordered-list"
       },
       {
         "data": {},
