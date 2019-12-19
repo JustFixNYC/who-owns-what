@@ -138,15 +138,22 @@ div.Page {
     }
   };
 
+  li p {
+    display: inline;
+  }
 
   @include for-tablet-portrait-up() {
-    p, h1, h2, h3, h4, h5, h6, ul, ol {
+    p, h1, h2, h3, h4, h5, h6, ul {
       width: 60%;
       display: inline-block;
     }
 
     ul, ol {
       margin-top: 0;
+    }
+
+    ol {
+      width: 80%;
     }
 
     aside {
