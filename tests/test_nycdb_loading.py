@@ -1,5 +1,5 @@
 from .factories.hpd_violations import HPDViolation
-from .factories.pluto_18v1 import Pluto18v1
+from .factories.pluto_19v1 import Pluto19v1
 from .factories.changes_summary import ChangesSummary
 
 
@@ -14,15 +14,15 @@ def test_loading_violations_works(db, nycdb_ctx):
 
 
 def test_loading_pluto_works(db, nycdb_ctx):
-    nycdb_ctx.write_zip('pluto_18v1.zip', {
+    nycdb_ctx.write_zip('pluto_19v1.zip', {
         'PLUTO_for_WEB/BK_18v1.csv': [
-            Pluto18v1(HistDist="Funky Historic District", Address="FUNKY STREET"),
-            Pluto18v1(HistDist="Monkey Historic District", Address="MONKEY STREET")
+            Pluto19v1(HistDist="Funky Historic District", Address="FUNKY STREET"),
+            Pluto19v1(HistDist="Monkey Historic District", Address="MONKEY STREET")
         ]
     })
-    nycdb_ctx.load_dataset('pluto_18v1')
+    nycdb_ctx.load_dataset('pluto_19v1')
     with db.cursor() as cur:
-        cur.execute("select * from pluto_18v1 where histdist='Funky Historic District'")
+        cur.execute("select * from pluto_19v1 where histdist='Funky Historic District'")
         assert cur.fetchone()['address'] == 'FUNKY STREET'
 
 

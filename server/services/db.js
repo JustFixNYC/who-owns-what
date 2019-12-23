@@ -19,7 +19,7 @@ const buildingInfoSQL =
      ELSE '' END BORO,
 	   LAT LATITUDE,
 	   LNG LONGITUDE
-   FROM PLUTO_18V2
+   FROM PLUTO_19V1
    WHERE BBL = $1`
 
 
