@@ -10,7 +10,7 @@ import 'styles/HomePage.css';
 import { LocaleLink as Link, LocaleRedirect as Redirect } from '../i18n';
 import westminsterLogo from '../assets/img/westminster.svg';
 import allyearLogo from '../assets/img/allyear.png';
-import emLogo from '../assets/img/emassociates.jpg';
+import aeLogo from '../assets/img/aande.jpeg';
 import AddressSearch, { makeEmptySearchAddress, SearchAddress } from '../components/AddressSearch';
 
 type HomePageProps = {};
@@ -29,7 +29,7 @@ class HomePage extends Component<HomePageProps, State> {
       searchAddress: makeEmptySearchAddress(),
       results: null,
       sampleURLs: ['/address/BROOKLYN/89/HICKS%20STREET',
-                   '/address/MANHATTAN/2006/ADAM%20CLAYTON%20POWELL%20JR%20BOULEVARD',
+                   '/address/QUEENS/4125/CASE%20STREET',
                    '/address/BROOKLYN/196/RALPH%20AVENUE']
     };
   }
@@ -140,14 +140,15 @@ class HomePage extends Component<HomePageProps, State> {
                   <div className="HomePage__sample">
                     <h6>
                       <Link to={this.state.sampleURLs[1]}  onClick={() => {window.gtag('event', 'example-portfolio-2-homepage');}} >
-                        E&M Associates
+                        A&E Real Estate
                       </Link>
                     </h6>
                     <Link to={this.state.sampleURLs[1]} onClick={() => {window.gtag('event', 'example-portfolio-2-homepage');}} >
-                      <img className="emassoc img-responsive" src={emLogo} alt="E&M Associates" />
+                      <img className="emassoc img-responsive" src={aeLogo} alt="E&M Associates" />
                     </Link>
                     <p>
-                      E&M Associates was <a href="https://www.nytimes.com/interactive/2018/05/20/nyregion/nyc-affordable-housing.html" target="_blank" rel="noopener noreferrer">reported in the New York Times</a> as a prime example of a landlord who engages in aggresive eviction strategies to displace low-income tenants. In <a href="https://en.wikipedia.org/wiki/Dunbar_Apartments" target="_blank" rel="noopener noreferrer">one of their buildings</a>, they sued at least 250 rent-regulated tenants in under five years — using tactics like lack of repairs and frivolous evictions.
+                      The city’s fifth <a href="https://www.worstevictorsnyc.org/evictors-list/citywide" target="_blank" rel="noopener noreferrer">worst evictor</a> in 2018, A&E is a prime example of a landlord who engages in <a href="https://www.dnainfo.com/new-york/20170124/washington-heights/ae-real-estate-holdings-affordable-housing-nyc-tax-breaks/" target="_blank" rel="noopener noreferrer">aggressive eviction strategies</a> to displace low-income tenants. 
+                      Besides lack of repairs and frivolous evictions in housing court, A&E has also been known to use <a href="https://hcr.ny.gov/faqs-major-capital-and-individual-apartment-improvements" target="blank" rel="noopener noreferrer">MCIs</a> to <a href="https://www.nytimes.com/interactive/2018/05/20/nyregion/nyc-affordable-housing.html" target="_blank" rel="noopener noreferrer">double rents</a> in rent-stabilized buildings.
                     </p>
                     <Link className="btn block text-center" to={this.state.sampleURLs[1]} onClick={() => {window.gtag('event', 'example-portfolio-2-homepage');}} >View portfolio &#10230;</Link>
                   </div>
