@@ -105,8 +105,8 @@ class IndicatorsVizImplementation extends Component {
     }
     else if (dataArray && this.props.activeTimeSpan === 'year') {
       var dataByYear = []; 
-      for (let i = 12; i < dataArray.length; i = i + 12) {
-        var sumYear = (dataArray.slice(i - 12, i)).reduce( (total, sum) => (total + sum) );
+      for (let i = 11; i < dataArray.length; i = i + 12) {
+        var sumYear = (dataArray.slice(i - 11, i + 1)).reduce( (total, sum) => (total + sum) );
         dataByYear.push(sumYear); 
       }
       return dataByYear;
