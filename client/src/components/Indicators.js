@@ -6,8 +6,11 @@ import IndicatorsViz from 'components/IndicatorsViz';
 import Loader from 'components/Loader';
 import LegalFooter from 'components/LegalFooter';
 import APIClient from 'components/APIClient';
+import { withI18n } from '@lingui/react';
+import { plural } from '@lingui/macro';
 
 import 'styles/Indicators.css';
+
 
 const initialState = { 
 
@@ -59,7 +62,7 @@ const initialState = {
 
 };
 
-export default class Indicators extends Component {
+class IndicatorsWithoutI18n extends Component {
   constructor(props) {
     super(props);
     this.state = initialState;
@@ -261,6 +264,8 @@ export default class Indicators extends Component {
   const xAxisLength = (this.state[indicatorData].labels ? Math.floor(this.state[indicatorData].labels.length / this.state.monthsInGroup) : 0);
   const indicatorDataTotal = (this.state[indicatorData].values.total ? (this.state[indicatorData].values.total).reduce((total, sum) => (total + sum)) : null);
   
+  const i18n = this.props.i18n;
+  
     return (
       <div className="Page Indicators">
         <div className="Indicators__content Page__content">
@@ -347,11 +352,23 @@ export default class Indicators extends Component {
                 </div>  
 
                 <span className="title viz-title"> 
-                  { indicatorDataTotal + ' ' +
-                    (this.state.activeVis === 'complaints' ? 'HPD Complaint' + Helpers.pluralize(indicatorDataTotal) + ' Issued since 2014' : 
-                    this.state.activeVis === 'viols' ? 'HPD Violation' + Helpers.pluralize(indicatorDataTotal) + ' Issued since 2010' :
-                    this.state.activeVis === 'permits' ? 'Building Permit Application' + Helpers.pluralize(indicatorDataTotal) + ' since 2010' :
-                    '')}
+                  { (this.state.activeVis === 'complaints' 
+                    ? i18n._(plural({
+                        value: indicatorDataTotal,
+                        one: "# HPD Complaint Issued since 2014",
+                        other: "# HPD Complaints Issued since 2014"
+                      })) :  this.state.activeVis === 'viols' 
+                    ? i18n._(plural({
+                      value: indicatorDataTotal,
+                      one: "# HPD Violation Issued since 2010",
+                      other: "# HPD Violations Issued since 2010"
+                    })) : this.state.activeVis === 'permits' 
+                    ? i18n._(plural({
+                      value: indicatorDataTotal,
+                      one: "# Building Permit Application since 2010",
+                      other: "# Building Permit Applications since 2010"
+                    })) : '' )
+                  }
                 </span>
 
                 <div className="Indicators__viz">
@@ -458,3 +475,6 @@ export default class Indicators extends Component {
     );
   }
 }
+
+const Indicators = withI18n()(IndicatorsWithoutI18n);
+export default Indicators;
