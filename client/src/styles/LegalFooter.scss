@@ -10,11 +10,11 @@
   align-items: flex-start;
   position: relative;
 
-  @include for-tablet-landscape-up() {
+  @include for-desktop-up() {
     height: 0px;
   }
 
-  @include for-tablet-landscape-down() {
+  @include for-desktop-down() {
     padding: 8px;
     min-height: 60px;
     justify-content: space-between;
@@ -34,8 +34,15 @@
   nav {
     margin-left: auto;
 
-    @include for-tablet-landscape-down() {
+    @include for-desktop-down() {
       margin-right: auto;
+      text-align: center;
+    }
+
+    br {
+      @include for-tablet-portrait-up() {
+        display: none;
+      }
     }
 
     a:not(:first-child) {
@@ -46,7 +53,7 @@
   .Byline {
     align-self: center;
 
-    @include for-tablet-landscape-up() {
+    @include for-desktop-up() {
       position: absolute;
     }
   }

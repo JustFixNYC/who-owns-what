@@ -1,15 +1,15 @@
 import React from 'react';
 import LegalFooter from '../components/LegalFooter';
 import EngagementPanel from '../components/EngagementPanel';
-import en from '../data/about.en.json';
-import es from '../data/about.es.json';
+import en from '../data/how-to-use.en.json';
+import es from '../data/how-to-use.es.json';
 
-import 'styles/AboutPage.css';
+import 'styles/HowToUsePage.css';
 import { ContentfulPage } from '../contentful/ContentfulPage';
 
-const AboutPage = () => {
+const HowToUsePage = () => {
   return (
-    <div className="AboutPage Page">
+    <div className="HowToUsePage Page">
       <div className="Page__content">
         <ContentfulPage locales={{en, es}} />
       </div>
@@ -19,4 +19,4 @@ const AboutPage = () => {
   );
 }
 
-export default AboutPage;
+export default HowToUsePage;

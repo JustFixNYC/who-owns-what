@@ -1,0 +1,34 @@
+{
+  "title": "Cómo utilizar",
+  "slug": "how-to-use",
+  "content": {
+    "data": {},
+    "content": [
+      {
+        "data": {},
+        "content": [
+          {
+            "data": {},
+            "marks": [],
+            "value": "Spanish Lorem Ipsum",
+            "nodeType": "text"
+          }
+        ],
+        "nodeType": "heading-4"
+      },
+      {
+        "data": {},
+        "content": [
+          {
+            "data": {},
+            "marks": [],
+            "value": "TODO: Translate this!",
+            "nodeType": "text"
+          }
+        ],
+        "nodeType": "paragraph"
+      }
+    ],
+    "nodeType": "document"
+  }
+}

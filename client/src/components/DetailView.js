@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { CSSTransition } from 'react-transition-group';
-import { LocaleLink as Link } from '../i18n';
 import { StreetView } from './StreetView';
 import { LazyLoadWhenVisible } from './LazyLoadWhenVisible';
 import Helpers from 'util/helpers';
@@ -231,7 +230,7 @@ export default class DetailView extends Component {
                 width={70}
                 onClose={() => this.setState({ showCompareModal: false })}>
                 <h6><b>How is this building associated?</b></h6>
-                <p>We compare your search address with a database of over 200k buildings to identify a landlord or management company's portfolio. To learn more, check out the <Link to="/how-it-works">How it Works page</Link>.</p>
+                <p>We compare your search address with a database of over 200k buildings to identify a landlord or management company's portfolio. To learn more, check out <a href="https://medium.com/@JustFixNYC/who-owns-what-linking-nyc-buildings-with-the-same-owner-173571e7bb31" rel="noreferrer noopener" target="_blank">our methodology</a>.</p>
                 <table className="DetailView__compareTable">
                   <thead>
                     <tr>

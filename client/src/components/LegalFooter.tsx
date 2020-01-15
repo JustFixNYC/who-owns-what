@@ -10,9 +10,11 @@ class LegalFooter extends Component {
 		<div className="Footer LegalFooter">
           <span className="Byline">Made with NYC ♥ by the team at <a href="https://www.justfix.nyc/">JustFix.nyc</a></span>
           <nav className="inline">
+            <a target="_blank" rel="noopener noreferrer" href="https://donorbox.org/donate-to-justfix-nyc">Donate</a>
             <NavLink to="/terms-of-use">Terms of use</NavLink>
-            <NavLink to="/privacy-policy">Privacy policy</NavLink>
-            <a href="https://github.com/JustFixNYC/who-owns-what" target="_blank" rel="noopener noreferrer">View source code</a>
+            <NavLink to="/privacy-policy">Privacy policy</NavLink><br />
+            <a href="https://medium.com/@JustFixNYC/who-owns-what-linking-nyc-buildings-with-data-173571e7bb31" target="_blank" rel="noopener noreferrer">Methodology</a>
+            <a href="https://github.com/JustFixNYC/who-owns-what" target="_blank" rel="noopener noreferrer">Source code</a>
           </nav>
         </div>)
 	}
