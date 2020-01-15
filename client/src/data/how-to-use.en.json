@@ -108,7 +108,43 @@
                       }
                     ],
                     "nodeType": "list-item"
-                  },
+                  }
+                ],
+                "nodeType": "ordered-list"
+              },
+              {
+                "data": {},
+                "content": [
+                  {
+                    "data": {},
+                    "marks": [],
+                    "value": "",
+                    "nodeType": "text"
+                  }
+                ],
+                "nodeType": "paragraph"
+              }
+            ],
+            "nodeType": "list-item"
+          },
+          {
+            "data": {},
+            "content": [
+              {
+                "data": {},
+                "content": [
+                  {
+                    "data": {},
+                    "marks": [],
+                    "value": "See if the number of rent stabilized apartments in your building has changed. ",
+                    "nodeType": "text"
+                  }
+                ],
+                "nodeType": "paragraph"
+              },
+              {
+                "data": {},
+                "content": [
                   {
                     "data": {},
                     "content": [
@@ -118,7 +154,7 @@
                           {
                             "data": {},
                             "marks": [],
-                            "value": "See if the number of rent stabilized apartments in your building has changed. If there is a decrease in rent stabilized units, there may be illegal deregulation of units, rent overcharges, or potential harassment of tenants occurring. Request your rent history via our ",
+                            "value": "If there is a decrease in rent stabilized units, there may be illegal deregulation of units, rent overcharges, or potential harassment of tenants occurring. Request your rent history via our ",
                             "nodeType": "text"
                           },
                           {
@@ -153,18 +189,6 @@
                   }
                 ],
                 "nodeType": "ordered-list"
-              },
-              {
-                "data": {},
-                "content": [
-                  {
-                    "data": {},
-                    "marks": [],
-                    "value": "",
-                    "nodeType": "text"
-                  }
-                ],
-                "nodeType": "paragraph"
               }
             ],
             "nodeType": "list-item"
@@ -178,7 +202,7 @@
           {
             "data": {},
             "marks": [],
-            "value": "See who else your landlord or property manager may be harming. ",
+            "value": "See who else your landlord or property manager may be harming— and determine if it’s possible to build a tenant association (TA). ",
             "nodeType": "text"
           }
         ],
@@ -196,143 +220,119 @@
                   {
                     "data": {},
                     "marks": [],
-                    "value": "Determine if it’s possible to build a tenant association (TA).",
+                    "value": "Check the “Complaint History” list in the “HPD Building Profile” for full details on the issues and to see which one of your neighbors is constantly calling 311 with complaints. If you have their contact info, send them their building profile via Facebook, Twitter, email, or text by using the share buttons, or give them an immediate list of actions to take by sharing the “",
+                    "nodeType": "text"
+                  },
+                  {
+                    "data": {
+                      "uri": "https://justfix.nyc"
+                    },
+                    "content": [
+                      {
+                        "data": {},
+                        "marks": [
+                          {
+                            "type": "underline"
+                          }
+                        ],
+                        "value": "Take Action on JustFix.nyc",
+                        "nodeType": "text"
+                      }
+                    ],
+                    "nodeType": "hyperlink"
+                  },
+                  {
+                    "data": {},
+                    "marks": [],
+                    "value": "” page on the “Overview” tab.",
                     "nodeType": "text"
                   }
                 ],
                 "nodeType": "paragraph"
-              },
+              }
+            ],
+            "nodeType": "list-item"
+          },
+          {
+            "data": {},
+            "content": [
               {
                 "data": {},
                 "content": [
                   {
                     "data": {},
+                    "marks": [],
+                    "value": "If you see that the issues in your building have gone unresolved for too long, you and your neighbors may have grounds to start an HP (Housing Part) Action, so consider using our HP Action tool to ",
+                    "nodeType": "text"
+                  },
+                  {
+                    "data": {
+                      "uri": "https://app.justfix.nyc/hp/splash"
+                    },
                     "content": [
                       {
                         "data": {},
-                        "content": [
+                        "marks": [
                           {
-                            "data": {},
-                            "marks": [],
-                            "value": "Check the “Complaint History” list in the “HPD Building Profile” for full details on the issues and to see which one of your neighbors is constantly calling 311 with complaints. If you have their contact info, send them their building profile via Facebook, Twitter, email, or text by using the share buttons, or give them an immediate list of actions to take by sharing the “",
-                            "nodeType": "text"
-                          },
-                          {
-                            "data": {
-                              "uri": "https://app.justfix.nyc/ddo"
-                            },
-                            "content": [
-                              {
-                                "data": {},
-                                "marks": [
-                                  {
-                                    "type": "underline"
-                                  }
-                                ],
-                                "value": "Take Action on JustFix.nyc",
-                                "nodeType": "text"
-                              }
-                            ],
-                            "nodeType": "hyperlink"
-                          },
-                          {
-                            "data": {},
-                            "marks": [],
-                            "value": "” page on the “Overview” tab.",
-                            "nodeType": "text"
+                            "type": "underline"
                           }
                         ],
-                        "nodeType": "paragraph"
+                        "value": "sue your landlord for repairs",
+                        "nodeType": "text"
                       }
                     ],
-                    "nodeType": "list-item"
+                    "nodeType": "hyperlink"
                   },
                   {
                     "data": {},
+                    "marks": [],
+                    "value": " during your first TA meeting. This article has a few helpful tips on how to set up the meeting: ",
+                    "nodeType": "text"
+                  },
+                  {
+                    "data": {
+                      "uri": "http://metcouncilonhousing.org/help_and_answers/tenants_associations#answer03"
+                    },
                     "content": [
                       {
                         "data": {},
-                        "content": [
+                        "marks": [
                           {
-                            "data": {},
-                            "marks": [],
-                            "value": "If you see that the issues in your building have gone unresolved for too long, you and your neighbors may have grounds to start an HP (Housing Part) Action, so consider using our HP Action tool to ",
-                            "nodeType": "text"
-                          },
-                          {
-                            "data": {
-                              "uri": "https://app.justfix.nyc/hp/splash"
-                            },
-                            "content": [
-                              {
-                                "data": {},
-                                "marks": [
-                                  {
-                                    "type": "underline"
-                                  }
-                                ],
-                                "value": "sue your landlord for repairs",
-                                "nodeType": "text"
-                              }
-                            ],
-                            "nodeType": "hyperlink"
-                          },
-                          {
-                            "data": {},
-                            "marks": [],
-                            "value": " during your first TA meeting. This article has a few helpful tips on how to set up the meeting: ",
-                            "nodeType": "text"
-                          },
-                          {
-                            "data": {
-                              "uri": "http://metcouncilonhousing.org/help_and_answers/tenants_associations#answer03"
-                            },
-                            "content": [
-                              {
-                                "data": {},
-                                "marks": [
-                                  {
-                                    "type": "underline"
-                                  }
-                                ],
-                                "value": "http://metcouncilonhousing.org/help_and_answers/tenants_associations#answer03",
-                                "nodeType": "text"
-                              }
-                            ],
-                            "nodeType": "hyperlink"
-                          },
-                          {
-                            "data": {},
-                            "marks": [],
-                            "value": "",
-                            "nodeType": "text"
+                            "type": "underline"
                           }
                         ],
-                        "nodeType": "paragraph"
+                        "value": "http://metcouncilonhousing.org/help_and_answers/tenants_associations#answer03",
+                        "nodeType": "text"
                       }
                     ],
-                    "nodeType": "list-item"
+                    "nodeType": "hyperlink"
                   },
                   {
                     "data": {},
-                    "content": [
-                      {
-                        "data": {},
-                        "content": [
-                          {
-                            "data": {},
-                            "marks": [],
-                            "value": "Use the “Portfolio” tab to see information about other buildings that are associated with your address due to similar management. If other buildings in your landlord’s portfolio also have issues, you may be able to connect with even more tenants like you to build a TA across multiple buildings, and take action together!",
-                            "nodeType": "text"
-                          }
-                        ],
-                        "nodeType": "paragraph"
-                      }
-                    ],
-                    "nodeType": "list-item"
+                    "marks": [],
+                    "value": "",
+                    "nodeType": "text"
                   }
                 ],
-                "nodeType": "ordered-list"
+                "nodeType": "paragraph"
+              }
+            ],
+            "nodeType": "list-item"
+          },
+          {
+            "data": {},
+            "content": [
+              {
+                "data": {},
+                "content": [
+                  {
+                    "data": {},
+                    "marks": [],
+                    "value": "Use the “Portfolio” tab to see information about other buildings that are associated with your address due to similar management. If other buildings in your landlord’s portfolio also have issues, you may be able to connect with even more tenants like you to build a TA across multiple buildings, and take action together!",
+                    "nodeType": "text"
+                  }
+                ],
+                "nodeType": "paragraph"
               }
             ],
             "nodeType": "list-item"
@@ -380,51 +380,27 @@
                   {
                     "data": {},
                     "marks": [],
-                    "value": "See who you’ll be dealing with.",
+                    "value": "See who you’ll be dealing with: Due to the ways that real estate companies disguise themselves, it can be difficult to know who’s ",
+                    "nodeType": "text"
+                  },
+                  {
+                    "data": {},
+                    "marks": [
+                      {
+                        "type": "italic"
+                      }
+                    ],
+                    "value": "really ",
+                    "nodeType": "text"
+                  },
+                  {
+                    "data": {},
+                    "marks": [],
+                    "value": "involved with your property. Take note of the business addresses and names that come up on the profile of your prospective building. Googling them can provide helpful insight on what their reputation is like. ",
                     "nodeType": "text"
                   }
                 ],
                 "nodeType": "paragraph"
-              },
-              {
-                "data": {},
-                "content": [
-                  {
-                    "data": {},
-                    "content": [
-                      {
-                        "data": {},
-                        "content": [
-                          {
-                            "data": {},
-                            "marks": [],
-                            "value": "Due to the ways that real estate companies disguise themselves, it can be difficult to know who’s ",
-                            "nodeType": "text"
-                          },
-                          {
-                            "data": {},
-                            "marks": [
-                              {
-                                "type": "italic"
-                              }
-                            ],
-                            "value": "really ",
-                            "nodeType": "text"
-                          },
-                          {
-                            "data": {},
-                            "marks": [],
-                            "value": "involved with your property. Take note of the business addresses and names that come up on the profile of your prospective building. Googling them can provide helpful insight on what their reputation is like. ",
-                            "nodeType": "text"
-                          }
-                        ],
-                        "nodeType": "paragraph"
-                      }
-                    ],
-                    "nodeType": "list-item"
-                  }
-                ],
-                "nodeType": "ordered-list"
               },
               {
                 "data": {},
@@ -450,35 +426,11 @@
                   {
                     "data": {},
                     "marks": [],
-                    "value": "See what kinds of problems others in the building have experienced. ",
+                    "value": "Keep an eye on what kinds of problems others have had, and how long it has taken for them to get resolved. The data on Who Owns What gets updated every day.",
                     "nodeType": "text"
                   }
                 ],
                 "nodeType": "paragraph"
-              },
-              {
-                "data": {},
-                "content": [
-                  {
-                    "data": {},
-                    "content": [
-                      {
-                        "data": {},
-                        "content": [
-                          {
-                            "data": {},
-                            "marks": [],
-                            "value": "Keep an eye on what kinds of problems others have had, and how long it has taken for them to get resolved. The data on Who Owns What gets updated every month.",
-                            "nodeType": "text"
-                          }
-                        ],
-                        "nodeType": "paragraph"
-                      }
-                    ],
-                    "nodeType": "list-item"
-                  }
-                ],
-                "nodeType": "ordered-list"
               }
             ],
             "nodeType": "list-item"
@@ -504,7 +456,7 @@
           {
             "data": {},
             "marks": [],
-            "value": "A few more helpful tips and terms: ",
+            "value": "A few more helpful tips and terms:",
             "nodeType": "text"
           }
         ],
