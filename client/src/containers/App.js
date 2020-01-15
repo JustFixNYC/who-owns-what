@@ -47,7 +47,7 @@ render() {
                 <nav className="inline">
                   <LocaleNavLink exact to="/">Home</LocaleNavLink>
                   <LocaleNavLink to="/about">About</LocaleNavLink>
-                  <LocaleNavLink to="/how-it-works">How to use</LocaleNavLink>
+                  <LocaleNavLink to="/how-to-use">How to use</LocaleNavLink>
                   <a href="https://www.justfix.nyc/donate">Donate</a>
                   <a href="#" // eslint-disable-line jsx-a11y/anchor-is-valid
                     onClick={() => this.setState({ showEngageModal: true })}>
@@ -69,7 +69,10 @@ render() {
                   <Route path="/:locale/bbl/:boro/:block/:lot" component={BBLPage} />
                   <Route path="/:locale/bbl/:bbl" component={BBLPage} />
                   <Route path="/:locale/about" component={AboutPage} />
-                  <Route path="/:locale/how-it-works" component={HowToUsePage} />
+                  <Route path="/:locale/how-to-use" component={HowToUsePage} />
+                  <Route path="/:locale/how-it-works" render={() => {
+                    window.location.href = "https://medium.com/@JustFixNYC/who-owns-what-linking-nyc-buildings-with-the-same-owner-173571e7bb31";
+                  }} />
                   <Route path="/:locale/terms-of-use" component={TermsOfUsePage} />
                   <Route path="/:locale/privacy-policy" component={PrivacyPolicyPage} />
                 </Switch>
