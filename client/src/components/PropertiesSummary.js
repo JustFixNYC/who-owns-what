@@ -44,7 +44,7 @@ export default class PropertiesSummary extends Component {
             <Loader loading={true} classNames="Loader-map">Loading</Loader>
           ) : (
             <div>
-              <h6>General info</h6>
+              <Trans render="h6">General info</Trans>
               <p>
                 <Trans>There <Plural value={bldgs} one={<span>is <b>1</b> building</span>} other={<span>are <b>{bldgs}</b> buildings</span>} /> in this portfolio with a total of <Plural value={units} one="1 unit" other="# units" />.</Trans>
                 {` `}
@@ -56,34 +56,36 @@ export default class PropertiesSummary extends Component {
                     <img src={`https://maps.googleapis.com/maps/api/streetview?size=800x500&location=${agg.violationsaddr.lat},${agg.violationsaddr.lng}&key=${process.env.REACT_APP_STREETVIEW_API_KEY}`}
                            alt="Google Street View" className="img-responsive"  />
                     <figcaption className="figure-caption text-center text-italic">
-                      {agg.violationsaddr.housenumber} {agg.violationsaddr.streetname}, {agg.violationsaddr.boro} currently has {agg.violationsaddr.openviolations} open HPD violations - the most in this portfolio.
+                      <Trans>{agg.violationsaddr.housenumber} {agg.violationsaddr.streetname}, {agg.violationsaddr.boro} currently has <Plural value={agg.violationsaddr.openviolations} one="one open HPD violation" other="# open HPD violations" /> - the most in this portfolio.</Trans>
                     </figcaption>
                   </figure>
                 )}
 
               </aside>
-              <h6>Landlord</h6>
-              <p>The most common
-                  {agg.topowners.length > 1 ?
-                  <span> names that appear in this portfolio are </span> : 
-                  <span> name that appears in this portfolio is </span> }
-                <b>{agg.topowners && agg.topowners.map((owner,idx) => {
-                  return (
+              <Trans render="h6">Landlord</Trans>
+              <p>
+                <Trans>The most common
+                  <Plural value={agg.topowners.length} one="names that appear in this portfolio are" other="name that appears in this portfolio is" /></Trans>
+                {/* TO DO: Componentalize this list generator:  */}
+                <b>{agg.topowners && agg.topowners.map((owner,idx) => (
                     <span key={idx}>
                       {!idx ? " " : idx < agg.topowners.length - 1 ? ", " : ", and "}
                       {owner}
                     </span>
-                  );
-                })}</b>.
-                The most common corporate entity is <b>{agg.topcorp || `n/a`}</b> and the most common business address is <b>{agg.topbusinessaddr || `n/a`}</b>.
+                  ))}</b>.{" "}
+                {agg.topcorp && agg.topbusinessaddr 
+                && <Trans> The most common corporate entity is <b>{agg.topcorp}</b> and the most common business address is <b>{agg.topbusinessaddr}</b>.</Trans>}
+
               </p>
-              <h6>Maintenance code violations</h6>
+              <Trans render="h6">Maintenance code violations</Trans>
               <p>
-                This portfolio has an average of <b>{agg.openviolationsperresunit}</b> open HPD violations per residential unit.
-                This is {(agg.openviolationsperresunit >= VIOLATIONS_AVG - 0.05 && agg.openviolationsperresunit < VIOLATIONS_AVG + 0.05)
-                         ? <span><b>about the same</b> as the citywide average. </span>
-                         : <span><b>{agg.openviolationsperresunit > VIOLATIONS_AVG ? 'worse' : 'better'}</b> than the citywide average of {VIOLATIONS_AVG} per residential unit. </span>}
-                According to available HPD data, this portfolio has received <b>{agg.totalviolations}</b> total violations.
+                <Trans>This portfolio has an average of <b>{agg.openviolationsperresunit}</b> open HPD violations per residential unit.</Trans>{" "}
+                {(agg.openviolationsperresunit >= VIOLATIONS_AVG - 0.05 && agg.openviolationsperresunit < VIOLATIONS_AVG + 0.05)
+                         ? <Trans>This is <b>about the same</b> as the citywide average. </Trans> 
+                         : agg.openviolationsperresunit > VIOLATIONS_AVG 
+                         ? <Trans>This is <b>worse</b> than the citywide average of {VIOLATIONS_AVG} per residential unit. </Trans> 
+                         : <Trans>This is <b>better</b> than the citywide average of {VIOLATIONS_AVG} per residential unit. </Trans>}{" "}
+                <Trans>According to available HPD data, this portfolio has received <b>{agg.totalviolations}</b> total violations.</Trans>
               </p>
               <h6>Evictions</h6>
               <p>
