@@ -83,10 +83,6 @@ export default {
     return string.charAt(0).toUpperCase() + string.slice(1);
   },
 
-  pluralize(number: number): string {
-    return (number === 1 ? '' : 's');
-  },
-
   titleCase(string: string): string {
     return string.toLowerCase().split(' ').map(function(word) {
       return (word.charAt(0).toUpperCase() + word.slice(1));

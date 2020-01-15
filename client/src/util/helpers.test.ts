@@ -74,11 +74,6 @@ test("capitalize() works", () => {
   expect(helpers.capitalize("boop jones")).toBe("Boop jones");
 });
 
-test("pluralize() works", () => {
-  expect(helpers.pluralize(1)).toBe('');
-  expect(helpers.pluralize(5)).toBe('s');
-});
-
 test("titleCase() works", () => {
   expect(helpers.titleCase("boop jones")).toBe("Boop Jones");
 });
