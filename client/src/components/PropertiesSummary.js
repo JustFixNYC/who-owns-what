@@ -7,6 +7,7 @@ import APIClient from 'components/APIClient';
 import SocialShare from 'components/SocialShare';
 
 import 'styles/PropertiesSummary.css';
+import { EvictionsSummary } from './EvictionsSummary';
 
 const VIOLATIONS_AVG = 0.7; // By Unit
 
@@ -87,18 +88,8 @@ export default class PropertiesSummary extends Component {
                          : <Trans>This is <b>better</b> than the citywide average of {VIOLATIONS_AVG} per residential unit. </Trans>}{" "}
                 <Trans>According to available HPD data, this portfolio has received <b>{agg.totalviolations}</b> total violations.</Trans>
               </p>
-              <h6>Evictions</h6>
-              <p>
-                In 2018, NYC Marshals scheduled <b>{agg.totalevictions > 0 ? agg.totalevictions : "0"}</b> eviction{parseInt(agg.totalevictions) === 1 ? "" : "s"} across this portfolio.
-                {agg.totalevictions > 0 ?
-                  <span> The building with the most evictions was&nbsp;
-                    {agg.evictionsaddr && (
-                      <span>
-                        <b>{agg.evictionsaddr.housenumber} {agg.evictionsaddr.streetname}, {agg.evictionsaddr.boro}</b> with <b>{agg.evictionsaddr.evictions}</b> eviction{parseInt(agg.totalevictions) === 1 ? "" : "s"} that year
-                      </span>
-                    )}.
-                  </span> : ""}
-              </p>
+              <Trans render="h6">Evictions</Trans>
+              <EvictionsSummary {...agg} />
               <h6>Rent stabilization</h6>
               <p>
                 This portfolio also had an estimated <b>net {agg.totalrsdiff > 0 ? "gain" : "loss"}</b> of <b>{Math.abs(parseInt(agg.totalrsdiff, 10)) || 0}</b> rent stabilized unit{parseInt(agg.totalrsdiff) === 1 ? "" : "s"} since 2007 (gained {Math.abs(parseInt(agg.totalrsgain, 10)) || 0}, lost {Math.abs(parseInt(agg.totalrsloss, 10)) || 0}).

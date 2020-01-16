@@ -5,12 +5,36 @@ import _pickBy from 'lodash/pickBy';
 import { deepEqual as assertDeepEqual } from 'assert';
 import nycha_bbls from '../data/nycha_bbls.json';
 
+/**
+ * Urg, our codebase wasn't originally written in TypeScript and
+ * some of our legacy code appears to pass around numbers as strings,
+ * so this type accounts for that.
+ */
+export type MaybeStringyNumber = string|null|undefined|number;
+
 export default {
   // filter repeated values in rbas and owners
   // uses Set which enforces uniqueness
   // see: https://stackoverflow.com/a/44601543/991673
   uniq<T>(_array: T[]): T[] {
     return Array.from(new Set(_array.map(val => JSON.stringify(val)))).map(val => JSON.parse(val));
+  },
+
+  /**
+   * Attempts to coerce the given argument into an integer, returning
+   * the given default value on failure.
+   */
+  coerceToInt<T>(value: MaybeStringyNumber, defaultValue: T): number|T {
+    if (typeof(value) === 'number' && !isNaN(value)) {
+      return value;
+    }
+    if (typeof(value) === 'string') {
+      let intValue = parseInt(value);
+      if (!isNaN(intValue)) {
+        return intValue;
+      }
+    }
+    return defaultValue;
   },
 
   find<T, K extends keyof T>(array: T[], attrib: K, value: T[K]): T|null {
