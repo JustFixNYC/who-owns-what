@@ -95,17 +95,17 @@ export default class PropertiesSummary extends Component {
               <RentstabSummary {...agg} />
               <aside>
                 <div className="PropertiesSummary__links">
-                  <span className="PropertiesSummary__linksTitle"><em>Additional links</em></span>
+                  <span className="PropertiesSummary__linksTitle"><Trans render="em">Additional links</Trans></span>
                   <div>
-                    <h6 className="PropertiesSummary__linksSubtitle">Looking for more information?</h6>
+                    <h6 className="PropertiesSummary__linksSubtitle"><Trans>Looking for more information?</Trans></h6>
                     <a onClick={() => {window.gtag('event', 'data-request');}} href={encodeURI(`https://docs.google.com/forms/d/e/1FAIpQLSfHdokAh4O-vB6jO8Ym0Wv_lL7cVUxsWvxw5rjZ9Ogcht7HxA/viewform?usp=pp_url&entry.1164013846=${this.props.userAddr.housenumber}+${this.props.userAddr.streetname},+${this.props.userAddr.boro}`)} target="_blank" rel="noopener noreferrer" className="btn btn-block">
                       <div>
-                        <label>Send us a data request</label>
+                        <Trans render="label">Send us a data request</Trans>
                       </div>
                     </a>
                   </div>
                   <div>
-                    <h6 className="PropertiesSummary__linksSubtitle">Share this page with your neighbors</h6>
+                    <h6 className="PropertiesSummary__linksSubtitle"><Trans>Share this page with your neighbors</Trans></h6>
                     <SocialShare 
                       location="summary-tab"
                       url={encodeURI('https://whoownswhat.justfix.nyc/address/' + this.props.userAddr.boro + '/' + this.props.userAddr.housenumber + '/' + this.props.userAddr.streetname).replace(" ", "%20")} // Support for Android
