@@ -32,7 +32,7 @@
 
     aside {
 
-      @include for-tablet-portrait-up() {
+      @include for-tablet-landscape-up() {
         width: 32%;
         margin-left: 40px;
         margin-top: 0;

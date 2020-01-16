@@ -140,14 +140,18 @@ div.Page {
       margin-top: 4rem;
     }
     aside {
-      margin-top: 24px;
-      margin-bottom: 24px;
+      margin-top: 48px;
+      margin-bottom: 48px;
+
+      &.contentful-asset {
+        display: none;
+      }
     }
   };
 
   @include for-tablet-landscape-up() {
     aside {
-      width: 40%;
+      width: 38%;
       float: right;
 
       & > div, & > figure {

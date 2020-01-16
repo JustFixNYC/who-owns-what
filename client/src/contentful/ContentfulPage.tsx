@@ -27,7 +27,7 @@ export const ContentfulPage = withI18n()((props: ContentfulPageProps & withI18nP
       [BLOCKS.EMBEDDED_ASSET]: node => {
         const asset = node.data.target as Asset;
         return (
-          <aside>
+          <aside className="contentful-asset">
             <img src={asset.fields.file.url} alt={asset.fields.description} className="img-responsive" />
           </aside>
         );
