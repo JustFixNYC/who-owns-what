@@ -11,6 +11,7 @@ import { EvictionsSummary } from './EvictionsSummary';
 import { RentstabSummary } from './RentstabSummary';
 import { withI18n } from '@lingui/react';
 import helpers from '../util/helpers';
+import { StringifyListWithConjunction } from './StringifyList';
 
 const VIOLATIONS_AVG = 0.7; // By Unit
 
@@ -72,14 +73,9 @@ export class PropertiesSummaryWithoutI18n extends Component {
               <Trans render="h6">Landlord</Trans>
               <p>
                 <Trans>The most common
-                  <Plural value={agg.topowners.length} one="names that appear in this portfolio are" other="name that appears in this portfolio is" /></Trans>
-                {/* TO DO: Componentalize this list generator:  */}
-                <b>{agg.topowners && agg.topowners.map((owner,idx) => (
-                    <span key={idx}>
-                      {!idx ? " " : idx < agg.topowners.length - 1 ? ", " : ", and "}
-                      {owner}
-                    </span>
-                  ))}</b>.{" "}
+                  <Plural value={agg.topowners.length} one="name that appears in this portfolio is" other="names that appear in this portfolio are" /> <b><StringifyListWithConjunction values={agg.topowners} /></b>.
+                </Trans>
+                {" "}
                 {agg.topcorp && agg.topbusinessaddr 
                 && <Trans> The most common corporate entity is <b>{agg.topcorp}</b> and the most common business address is <b>{agg.topbusinessaddr}</b>.</Trans>}
 
