@@ -286,31 +286,7 @@
                   {
                     "data": {},
                     "marks": [],
-                    "value": " during your first TA meeting. This article has a few helpful tips on how to set up the meeting: ",
-                    "nodeType": "text"
-                  },
-                  {
-                    "data": {
-                      "uri": "http://metcouncilonhousing.org/help_and_answers/tenants_associations#answer03"
-                    },
-                    "content": [
-                      {
-                        "data": {},
-                        "marks": [
-                          {
-                            "type": "underline"
-                          }
-                        ],
-                        "value": "http://metcouncilonhousing.org/help_and_answers/tenants_associations#answer03",
-                        "nodeType": "text"
-                      }
-                    ],
-                    "nodeType": "hyperlink"
-                  },
-                  {
-                    "data": {},
-                    "marks": [],
-                    "value": "",
+                    "value": " during your first TA meeting. ",
                     "nodeType": "text"
                   }
                 ],
@@ -483,7 +459,7 @@
           },
           {
             "data": {
-              "uri": "https://app.justfix.nyc/"
+              "uri": "https://app.justfix.nyc/loc/splash"
             },
             "content": [
               {
@@ -524,7 +500,7 @@
           {
             "data": {},
             "marks": [],
-            "value": " Clicking this link when exploring a portfolio will let you compare the names and addresses the two buildings have in common. ",
+            "value": " Clicking this link when exploring a portfolio will let you compare the owner names and addresses that two buildings have in common. ",
             "nodeType": "text"
           }
         ],
