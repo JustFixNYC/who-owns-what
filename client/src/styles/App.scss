@@ -130,34 +130,24 @@ div.Page {
   width: 100%;
   flex-grow: 1;
 
-  // mobile
-  @include for-phone-only() {
-    aside {
-      margin-top: 48px;
-      margin-bottom: 48px;
-    }
-  };
-
   li p {
     display: inline;
   }
 
-  @include for-tablet-portrait-up() {
-    p, h1, h2, h3, h4, h5, h6, ul {
-      width: 60%;
-      display: inline-block;
+  // mobile
+  @include for-tablet-landscape-down() {
+    h5 {
+      margin-top: 4rem;
     }
-
-    ul, ol {
-      margin-top: 0;
-    }
-
-    ol {
-      width: 80%;
-    }
-
     aside {
-      width: 38%;
+      margin-top: 24px;
+      margin-bottom: 24px;
+    }
+  };
+
+  @include for-tablet-landscape-up() {
+    aside {
+      width: 40%;
       float: right;
 
       & > div, & > figure {
@@ -174,5 +164,16 @@ div.Page {
         line-height: 1.1;
       }
     }
+
+    p, h1, h2, h3, h4, h5, h6 {
+      width: 55vw;
+      display: inline-block;
+    }
+
+    ul, ol {
+      margin-top: 0;
+      max-width: 50vw;
+    }
+  
   };
 }
