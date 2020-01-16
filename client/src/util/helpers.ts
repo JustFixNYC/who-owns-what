@@ -23,6 +23,10 @@ export default {
   /**
    * Attempts to coerce the given argument into an integer, returning
    * the given default value on failure.
+   * 
+   * Note that this function will *not* convert a float to an int in
+   * any way; if a number is passed in, it is assumed to be an int and
+   * returned immediately.
    */
   coerceToInt<T>(value: MaybeStringyNumber, defaultValue: T): number|T {
     if (typeof(value) === 'number' && !isNaN(value)) {
