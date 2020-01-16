@@ -8,6 +8,7 @@ import SocialShare from 'components/SocialShare';
 
 import 'styles/PropertiesSummary.css';
 import { EvictionsSummary } from './EvictionsSummary';
+import { RentstabSummary } from './RentstabSummary';
 
 const VIOLATIONS_AVG = 0.7; // By Unit
 
@@ -90,19 +91,8 @@ export default class PropertiesSummary extends Component {
               </p>
               <Trans render="h6">Evictions</Trans>
               <EvictionsSummary {...agg} />
-              <h6>Rent stabilization</h6>
-              <p>
-                This portfolio also had an estimated <b>net {agg.totalrsdiff > 0 ? "gain" : "loss"}</b> of <b>{Math.abs(parseInt(agg.totalrsdiff, 10)) || 0}</b> rent stabilized unit{parseInt(agg.totalrsdiff) === 1 ? "" : "s"} since 2007 (gained {Math.abs(parseInt(agg.totalrsgain, 10)) || 0}, lost {Math.abs(parseInt(agg.totalrsloss, 10)) || 0}).
-                This represents <b>{agg.rsproportion || 0}%</b> of the total size of this portfolio. 
-                {agg.rslossaddr && (agg.rslossaddr.rsdiff < 0) ?
-                (<span> The building that has lost the most units is&nbsp;
-                  <b>
-                    {agg.rslossaddr.housenumber} {agg.rslossaddr.streetname}, {agg.rslossaddr.boro}
-                  </b>
-                  , which has lost <b>{Math.abs(parseInt(agg.rslossaddr.rsdiff, 10))}</b> unit{Math.abs(parseInt(agg.rslossaddr.rsdiff, 10)) === 1 ? "" : "s"} in the past 10 years.
-                 </span>) :
-                 ""}
-              </p>
+              <Trans render="h6">Rent stabilization</Trans>
+              <RentstabSummary {...agg} />
               <aside>
                 <div className="PropertiesSummary__links">
                   <span className="PropertiesSummary__linksTitle"><em>Additional links</em></span>
