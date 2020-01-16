@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Trans, Plural } from '@lingui/macro';
+import { Trans, Plural, t } from '@lingui/macro';
 
 import Loader from 'components/Loader';
 import LegalFooter from 'components/LegalFooter';
@@ -9,6 +9,8 @@ import SocialShare from 'components/SocialShare';
 import 'styles/PropertiesSummary.css';
 import { EvictionsSummary } from './EvictionsSummary';
 import { RentstabSummary } from './RentstabSummary';
+import { withI18n } from '@lingui/react';
+import helpers from '../util/helpers';
 
 const VIOLATIONS_AVG = 0.7; // By Unit
 
@@ -17,7 +19,7 @@ const VIOLATIONS_AVG = 0.7; // By Unit
 
 // Data updated 6/6/19
 
-export default class PropertiesSummary extends Component {
+export class PropertiesSummaryWithoutI18n extends Component {
   constructor(props) {
     super(props);
 
@@ -36,8 +38,11 @@ export default class PropertiesSummary extends Component {
   }
 
   render() {
+    const i18n = this.props.i18n;
     let agg = this.state.agg;
     let {bldgs, units, age} = agg || {};
+
+    bldgs = helpers.coerceToInt(bldgs, 0);
 
     return (
       <div className="Page PropertiesSummary">
@@ -109,8 +114,8 @@ export default class PropertiesSummary extends Component {
                     <SocialShare 
                       location="summary-tab"
                       url={encodeURI('https://whoownswhat.justfix.nyc/address/' + this.props.userAddr.boro + '/' + this.props.userAddr.housenumber + '/' + this.props.userAddr.streetname).replace(" ", "%20")} // Support for Android
-                      twitterMessage={"The " + (parseInt(agg.bldgs) > 1 ? agg.bldgs + " " : "")  + "buildings that my landlord \"owns\" 👀... #WhoOwnsWhat @JustFixNYC"}
-                      emailMessage={"The " + (parseInt(agg.bldgs) > 1 ? agg.bldgs + " " : "")  + "buildings owned by my landlord (via JustFix's Who Owns What tool)"}
+                      twitterMessage={i18n._(t`The ${bldgs} buildings that my landlord "owns" 👀... #WhoOwnsWhat @JustFixNYC`)}
+                      emailMessage={i18n._(t`The ${bldgs} buildings owned by my landlord (via JustFix's Who Owns What tool)`)}
                       />
                   </div>
                 </div>
@@ -123,3 +128,7 @@ export default class PropertiesSummary extends Component {
     );
   }
 }
+
+const PropertiesSummary = withI18n()(PropertiesSummaryWithoutI18n);
+
+export default PropertiesSummary;
