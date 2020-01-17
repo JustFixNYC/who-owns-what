@@ -125,7 +125,7 @@ class HomePage extends Component<HomePageProps, State> {
                   <div className="HomePage__sample">
                     <h6>
                       <Link to={this.state.sampleURLs[0]} onClick={() => {window.gtag('event', 'example-portfolio-1-homepage');}} >
-                        <Trans>Kushner Companies / Westminster Management</Trans>
+                        Kushner Companies / Westminster Management
                       </Link>
                     </h6>
                     <Link to={this.state.sampleURLs[0]} onClick={() => {window.gtag('event', 'example-portfolio-1-homepage');}} >
@@ -141,7 +141,7 @@ class HomePage extends Component<HomePageProps, State> {
                   <div className="HomePage__sample">
                     <h6>
                       <Link to={this.state.sampleURLs[1]}  onClick={() => {window.gtag('event', 'example-portfolio-2-homepage');}} >
-                        <Trans>A&amp;E Real Estate</Trans>
+                        A&amp;E Real Estate
                       </Link>
                     </h6>
                     <Link to={this.state.sampleURLs[1]} onClick={() => {window.gtag('event', 'example-portfolio-2-homepage');}} >
@@ -158,7 +158,7 @@ class HomePage extends Component<HomePageProps, State> {
                   <div className="HomePage__sample">
                     <h6>
                       <Link to={this.state.sampleURLs[2]} onClick={() => {window.gtag('event', 'example-portfolio-1-homepage');}} >
-                        <Trans>All Year Management</Trans>
+                        All Year Management
                       </Link>
                     </h6>
                       <Link to={this.state.sampleURLs[2]} onClick={() => {window.gtag('event', 'example-portfolio-1-homepage');}} >
