@@ -73,7 +73,7 @@ export class PropertiesSummaryWithoutI18n extends Component {
               <Trans render="h6">Landlord</Trans>
               <p>
                 <Trans>The most common
-                  <Plural value={agg.topowners.length} one="name that appears in this portfolio is" other="names that appear in this portfolio are" /> <b><StringifyListWithConjunction values={agg.topowners} /></b>.
+                <Plural value={agg.topowners.length} one="name that appears in this portfolio is" other="names that appear in this portfolio are" /> <StringifyListWithConjunction values={agg.topowners} renderItem={item => <strong>{item}</strong>} />.
                 </Trans>
                 {" "}
                 {agg.topcorp && agg.topbusinessaddr 
