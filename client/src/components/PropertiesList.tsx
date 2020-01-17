@@ -4,6 +4,9 @@ import Browser from '../util/browser';
 
 import 'react-table/react-table.css';
 import 'styles/PropertiesList.css';
+import { I18n } from '@lingui/core';
+import { withI18n } from '@lingui/react';
+import { t } from '@lingui/macro';
 
 type Addr = {
   housenumber: string,
@@ -21,10 +24,12 @@ type Addr = {
   ownernames: {title: string, value: string}[],
 };
 
-const PropertiesList: React.FC<{
+const PropertiesListWithoutI18n: React.FC<{
+  i18n: I18n,
   addrs: Addr[],
   onOpenDetail: (addr: Addr) => void,
 }> = (props) => {
+  const { i18n } = props;
   // console.log(props.addrs);
 
   if(!props.addrs.length) {
@@ -55,7 +60,7 @@ const PropertiesList: React.FC<{
             //   ]
             // },
             {
-              Header: 'Location',
+              Header: i18n._(t`Location`),
               columns: [
                 // {
                 //   Header: 'Photo',
@@ -67,7 +72,7 @@ const PropertiesList: React.FC<{
                 //   }
                 // },
                 {
-                  Header: 'Address',
+                  Header: i18n._(t`Address`),
                   accessor: d => `${d.housenumber} ${d.streetname}`,
                   id: 'address',
                   minWidth: 150,
@@ -76,13 +81,13 @@ const PropertiesList: React.FC<{
                   }
                 },
                 {
-                  Header: 'Zipcode',
+                  Header: i18n._(t`Zipcode`),
                   accessor: d => d.zip,
                   id: 'zip',
                   width: 75
                 },
                 {
-                  Header: 'Borough',
+                  Header: i18n._(t`Borough`),
                   accessor: d => d.boro,
                   id: 'boro',
                 },
@@ -94,16 +99,16 @@ const PropertiesList: React.FC<{
               ]
             },
             {
-              Header: 'Information',
+              Header: i18n._(t`Information`),
               columns: [
                 {
-                  Header: 'Built',
+                  Header: i18n._(t`Built`),
                   accessor: d => d.yearbuilt,
                   id: 'yearbuilt',
                   maxWidth: 75
                 },
                 {
-                  Header: 'Units',
+                  Header: i18n._(t`Units`),
                   accessor: d => d.unitsres,
                   id: 'unitsres',
                   maxWidth: 75
@@ -149,7 +154,7 @@ const PropertiesList: React.FC<{
             //   }
             // }
             {
-              Header: 'RS Units',
+              Header: i18n._(t`RS Units`),
               columns: [
                 {
                   Header: "2007",
@@ -173,16 +178,16 @@ const PropertiesList: React.FC<{
               ]
             },
             {
-              Header: 'HPD Violations',
+              Header: i18n._(t`HPD Violations`),
               columns: [
                 {
-                  Header: "Open",
+                  Header: i18n._(t`Open`),
                   accessor: d => d.openviolations,
                   id: 'openviolations',
                   maxWidth: 75
                 },
                 {
-                  Header: "Total",
+                  Header: i18n._(t`Total`),
                   accessor: d => d.totalviolations,
                   id: 'totalviolations',
                   maxWidth: 75
@@ -190,7 +195,7 @@ const PropertiesList: React.FC<{
               ]
             },
             {
-              Header: 'Evictions',
+              Header: i18n._(t`Evictions`),
               columns: [
                 {
                   Header: "2018",
@@ -201,10 +206,10 @@ const PropertiesList: React.FC<{
               ]
             },
             {
-              Header: 'Landlord',
+              Header: i18n._(t`Landlord`),
               columns: [
                 {
-                  Header: "Officer/Owner",
+                  Header: i18n._(t`Officer/Owner`),
                   accessor: d => {
                     var owner = d.ownernames.find(o => o.title === 'HeadOfficer' || o.title === 'IndividualOwner'); 
                     return (owner ? owner.value : '');
@@ -220,7 +225,7 @@ const PropertiesList: React.FC<{
               ]
             },
             {
-              Header: 'View detail',
+              Header: i18n._(t`View detail`),
               accessor: d => d.bbl,
               columns: [
                 {
@@ -245,4 +250,7 @@ const PropertiesList: React.FC<{
 
 
 }
+
+const PropertiesList = withI18n()(PropertiesListWithoutI18n);
+
 export default PropertiesList;
