@@ -4,16 +4,18 @@ import {isMobile, isAndroid} from "react-device-detect";
 
 import fbIcon from '../assets/img/fb.svg';
 import twitterIcon from '../assets/img/twitter.svg';
+import { I18n } from '@lingui/core';
+import { t, Trans } from '@lingui/macro';
+import { withI18n } from '@lingui/react';
 
-const SocialShare: React.FC<{
+const SocialShareWithoutI18n: React.FC<{
+  i18n: I18n,
   location?: string,
   url?: string,
   twitterMessage?: string,
   emailMessage?: string,
 }> = (props) => {
-
-  // Expected Props: location
-  // Optional Props: url, twitterMessage, emailMessage
+  const { i18n } = props;
 
   return (
     <div className="btn-group btns-social btn-group-block">
@@ -42,9 +44,9 @@ const SocialShare: React.FC<{
        className="btn btn-steps"
        url={(props.url || 'https://whoownswhat.justfix.nyc/')}
        target="_blank"
-       message={(props.emailMessage || "New JustFix.nyc tool helps research on NYC landlords")}>
+       message={(props.emailMessage || i18n._(t`New JustFix.nyc tool helps research on NYC landlords`))}>
        <i className="icon icon-mail mx-2" />
-       <span>Email</span>
+       <Trans render="span">Email</Trans>
      </EmailButton>
      {isMobile && 
      <a className="btn btn-steps" 
@@ -57,4 +59,7 @@ const SocialShare: React.FC<{
   );
 
 }
+
+const SocialShare = withI18n()(SocialShareWithoutI18n);
+
 export default SocialShare;
