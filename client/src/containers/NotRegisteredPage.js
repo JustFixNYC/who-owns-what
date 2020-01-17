@@ -126,9 +126,9 @@ export default class NotRegisteredPage extends Component {
           <div className="HomePage__search">
             <h5 className="mt-10 text-danger text-center text-bold text-large">
               {usersInputAddress ? (
-                <span>No registration found for {usersInputAddressFragment}!</span>
+                <Trans>No registration found for {usersInputAddressFragment}!</Trans>
               ) : (
-                <span>No registration found!</span>
+                <Trans>No registration found!</Trans>
               )}
             </h5>
             <h6 className="mt-10 text-center text-bold text-large">
