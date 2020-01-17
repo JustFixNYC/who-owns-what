@@ -7,7 +7,7 @@ import Loader from 'components/Loader';
 import LegalFooter from 'components/LegalFooter';
 import APIClient from 'components/APIClient';
 import { withI18n } from '@lingui/react';
-import { plural } from '@lingui/macro';
+import { plural, Trans } from '@lingui/macro';
 
 import 'styles/Indicators.css';
 
@@ -265,6 +265,7 @@ class IndicatorsWithoutI18n extends Component {
   const indicatorDataTotal = (this.state[indicatorData].values.total ? (this.state[indicatorData].values.total).reduce((total, sum) => (total + sum)) : null);
   
   const i18n = this.props.i18n;
+  const detailAddrStr = this.props.detailAddr && `${this.props.detailAddr.housenumber} ${Helpers.titleCase(this.props.detailAddr.streetname)}, ${Helpers.titleCase(this.props.detailAddr.boro)}`;
   
     return (
       <div className="Page Indicators">
@@ -273,7 +274,7 @@ class IndicatorsWithoutI18n extends Component {
               this.state.saleHistory && this.state.indicatorHistory &&
               this.state[this.state.defaultVis + 'Data'].labels) ? 
             (
-              <Loader loading={true} classNames="Loader-map">Loading</Loader>
+              <Loader loading={true} classNames="Loader-map"><Trans>Loading</Trans></Loader>
             ) : 
           (
             <div className="columns">
@@ -281,23 +282,23 @@ class IndicatorsWithoutI18n extends Component {
 
                 <div className="title-card">
                   <h4 className="title">{(this.props.detailAddr ? 
-                        <span>BUILDING: <b>{this.props.detailAddr.housenumber} {Helpers.titleCase(this.props.detailAddr.streetname)}, {Helpers.titleCase(this.props.detailAddr.boro)}</b></span> :
+                    <span><Trans>BUILDING</Trans>: <b>{detailAddrStr}</b></span> :
                         <span></span>)}
                   </h4>
                   <br/>
-                  <button onClick={() => this.props.onBackToOverview(this.props.detailAddr)}>Back to Overview</button>
+                  <button onClick={() => this.props.onBackToOverview(this.props.detailAddr)}><Trans>Back to Overview</Trans></button>
                 </div>
 
                 <div className="Indicators__links">
                   <div className="Indicators__linksContainer">
-                    <em className="Indicators__linksTitle">Select a Dataset:</em> <br/>
+                    <em className="Indicators__linksTitle"><Trans>Select a Dataset</Trans>:</em> <br/>
                     <li className="menu-item">
                         <label className={"form-radio" + (this.state.activeVis === "complaints" ? " active" : "")} onClick={() => {window.gtag('event', 'complaints-timeline-tab');}}>
                           <input type="radio"
                           	name="Dataset" 
                             checked={(this.state.activeVis === "complaints" ? true : false)}
                             onChange={() => this.handleVisChange("complaints")} />
-                          <i className="form-icon"></i> HPD Complaints
+                          <i className="form-icon"></i> <Trans>HPD Complaints</Trans>
                         </label>
                     </li>
                     <li className="menu-item">
@@ -306,7 +307,7 @@ class IndicatorsWithoutI18n extends Component {
                             name="Dataset" 
                             checked={(this.state.activeVis === "viols" ? true : false)}
                             onChange={() => this.handleVisChange("viols")} />
-                          <i className="form-icon"></i> HPD Violations
+                          <i className="form-icon"></i> <Trans>HPD Violations</Trans>
                         </label>
                     </li>
                     <li className="menu-item">
@@ -315,7 +316,7 @@ class IndicatorsWithoutI18n extends Component {
                             name="Dataset" 
                             checked={(this.state.activeVis === "permits" ? true : false)}
                             onChange={() => this.handleVisChange("permits")} />
-                          <i className="form-icon"></i> Building Permit Applications
+                          <i className="form-icon"></i> <Trans>Building Permit Applications</Trans>
                         </label>
                     </li>
                   </div>
@@ -327,7 +328,7 @@ class IndicatorsWithoutI18n extends Component {
                             name="Time" 
                             checked={(this.state.activeTimeSpan === "month" ? true : false)}
                             onChange={() => this.handleTimeSpanChange("month")} />
-                          <i className="form-icon"></i> Month
+                          <i className="form-icon"></i> <Trans>Month</Trans>
                         </label>
                     </li>
                     <li className="menu-item">
@@ -345,7 +346,7 @@ class IndicatorsWithoutI18n extends Component {
                             name="Time" 
                             checked={(this.state.activeTimeSpan === "year" ? true : false)}
                             onChange={() => this.handleTimeSpanChange("year")} />
-                          <i className="form-icon"></i> Year
+                          <i className="form-icon"></i> <Trans>Year</Trans>
                         </label>
                     </li>
                   </div>
@@ -382,8 +383,8 @@ class IndicatorsWithoutI18n extends Component {
                 </div> 
 
                 <div className="Indicators__feedback hide-lg">
-                  <i>Have thoughts about this page?</i> 
-                  <nobr><a href="https://airtable.com/shrZ9uL3id6oWEn8T" target="_blank" rel="noopener noreferrer">Send us feedback!</a></nobr>
+                  <Trans render="i">Have thoughts about this page?</Trans> 
+                  <nobr><a href="https://airtable.com/shrZ9uL3id6oWEn8T" target="_blank" rel="noopener noreferrer"><Trans>Send us feedback!</Trans></a></nobr>
                 </div>
 
               </div>
@@ -430,30 +431,30 @@ class IndicatorsWithoutI18n extends Component {
 
                 <div className="card card-links">
                   <div className="card-body card-body-links">
-                    <h6>Official building pages</h6>
+                    <Trans render="h6">Official building pages</Trans>
                     <div className="columns">
                       <div className="column col-12">
                         <a onClick={() => {window.gtag('event', 'acris-timeline-tab');}} 
                            href={`http://a836-acris.nyc.gov/bblsearch/bblsearch.asp?borough=${boro}&block=${block}&lot=${lot}`} target="_blank" rel="noopener noreferrer" 
-                           className="btn btn-block">View documents on ACRIS &#8599;&#xFE0E;</a>
+                           className="btn btn-block"><Trans>View documents on ACRIS</Trans> &#8599;&#xFE0E;</a>
                       </div>
                       <div className="column col-12">
                         <a onClick={() => {window.gtag('event', 'hpd-timeline-tab');}} 
                            href={(housenumber && streetname ? `https://hpdonline.hpdnyc.org/HPDonline/Provide_address.aspx?p1=${boro}&p2=${housenumber}&p3=${streetname}&SearchButton=Search` : `https://hpdonline.hpdnyc.org/HPDonline/provide_address.aspx`)} target="_blank" rel="noopener noreferrer" 
-                           className="btn btn-block">HPD Building Profile &#8599;&#xFE0E;</a>
+                           className="btn btn-block"><Trans>HPD Building Profile</Trans> &#8599;&#xFE0E;</a>
                       </div>
                       <div className="column col-12">
                         <a onClick={() => {window.gtag('event', 'dob-timeline-tab');}} 
                            href={`http://a810-bisweb.nyc.gov/bisweb/PropertyProfileOverviewServlet?boro=${boro}&block=${block}&lot=${lot}`} target="_blank" rel="noopener noreferrer" 
-                           className="btn btn-block">DOB Building Profile &#8599;&#xFE0E;</a>
+                           className="btn btn-block"><Trans>DOB Building Profile</Trans> &#8599;&#xFE0E;</a>
                       </div>
                       <div className="column col-12">
                         <a onClick={() => {window.gtag('event', 'dof-timeline-tab');}} 
                            href={`https://a836-pts-access.nyc.gov/care/search/commonsearch.aspx?mode=persprop`} target="_blank" rel="noopener noreferrer" 
-                           className="btn btn-block">DOF Property Tax Bills &#8599;&#xFE0E;</a>
+                           className="btn btn-block"><Trans>DOF Property Tax Bills</Trans> &#8599;&#xFE0E;</a>
                       </div>
                       <div className="column col-12">
-                          <a onClick={() => {window.gtag('event', 'dap-timeline-tab');}} href={`https://portal.displacementalert.org/property/${boro}${block}${lot}`} target="_blank" rel="noopener noreferrer" className="btn btn-block"><span className="chip text-italic">New!</span> ANHD DAP Portal &#8599;&#xFE0E;</a>
+                          <a onClick={() => {window.gtag('event', 'dap-timeline-tab');}} href={`https://portal.displacementalert.org/property/${boro}${block}${lot}`} target="_blank" rel="noopener noreferrer" className="btn btn-block"><span className="chip text-italic"><Trans>New!</Trans></span> <Trans>ANHD DAP Portal</Trans> &#8599;&#xFE0E;</a>
                       </div>
                     </div>
                   </div>
