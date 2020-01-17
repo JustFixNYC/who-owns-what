@@ -7,6 +7,7 @@ import MapHelpers from 'util/mapping';
 import Loader from 'components/Loader';
 
 import 'styles/PropertiesMap.css';
+import { Trans, Select } from '@lingui/macro';
 
 const Map = ReactMapboxGl({
   accessToken: 'pk.eyJ1IjoiZGFuLWthc3MiLCJhIjoiY2lsZTFxemtxMGVpdnVoa3BqcjI3d3Q1cCJ9.IESJdCy8fmykXbb626NVEw'
@@ -169,9 +170,11 @@ export default class PropertiesMap extends Component {
   }
 
   render() {
+    const browserType = Browser.isMobile() ? 'mobile' : 'other';
+
     return (
         <div className="PropertiesMap">
-          <Loader loading={this.state.mapLoading} classNames="Loader-map">Loading</Loader>
+          <Loader loading={this.state.mapLoading} classNames="Loader-map"><Trans>Loading</Trans></Loader>
 
           {/*
             react-mapbox-gl requires a WebGL context to render. It doesn't seem
@@ -181,7 +184,7 @@ export default class PropertiesMap extends Component {
           */}
           {!this.state.hasWebGLContext && (
             <div className="PropertiesMap__error">
-              <h4>Sorry, it looks like theres an error on the map. Try again on a different browser or <a href="http://webglreport.com/" target="_blank" rel="noopener noreferrer">enable WebGL</a>.</h4>
+              <Trans render="h4">Sorry, it looks like there's an error on the map. Try again on a different browser or <a href="http://webglreport.com/" target="_blank" rel="noopener noreferrer">enable WebGL</a>.</Trans>
             </div>
           )}
 
@@ -214,15 +217,15 @@ export default class PropertiesMap extends Component {
 
           <div className={`PropertiesMap__legend ${this.state.mobileLegendSlide ? 'PropertiesMap__legend--slide' : ''}`}
               onClick={() => this.setState({ mobileLegendSlide: !this.state.mobileLegendSlide })}>
-            <p><span>{Browser.isMobile() ? this.state.mobileLegendSlide ? 'Close ' : 'View ' : ''}Legend</span> <i>{this.state.mobileLegendSlide ? '\u2b07\uFE0E' : '\u2b06\uFE0E'}</i></p>
+            <p><Trans render="span">{Browser.isMobile() ? this.state.mobileLegendSlide ? 'Close ' : 'View ' : ''}Legend</Trans> <i>{this.state.mobileLegendSlide ? '\u2b07\uFE0E' : '\u2b06\uFE0E'}</i></p>
 
             <ul>
-              <li>search address</li>
-              <li>associated building</li>
+              <Trans render="li">search address</Trans>
+              <Trans render="li">associated building</Trans>
             </ul>
           </div>
           <div className="PropertiesMap__prompt">
-            <p><i>({Browser.isMobile() ? `tap` : `click`} to view details)</i></p>
+            <p><Trans render="i">(<Select value={browserType} mobile="tap" other="click" /> to view details)</Trans></p>
           </div>
 
 
