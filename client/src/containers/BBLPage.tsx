@@ -5,6 +5,7 @@ import Loader from '../components/Loader';
 import APIClient from '../components/APIClient';
 import NotRegisteredPage from './NotRegisteredPage';
 import { RouteComponentProps } from 'react-router';
+import { Trans } from '@lingui/macro';
 
 // import 'styles/HomePage.css';
 
@@ -187,7 +188,7 @@ export default class BBLPage extends Component<BBLPageProps, State> {
       <div className="Page HomePage">
         <div className="HomePage__content">
           <div className="HomePage__search">
-            <Loader classNames="Loader--centered" loading={true}>Searching</Loader>
+            <Loader classNames="Loader--centered" loading={true}><Trans>Searching</Trans></Loader>
           </div>
         </div>
       </div>
