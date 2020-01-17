@@ -1941,7 +1941,7 @@
   dependencies:
     "@types/jest-diff" "*"
 
-"@types/lingui__core@*":
+"@types/lingui__core@*", "@types/lingui__core@^2.7.0":
   version "2.7.0"
   resolved "https://registry.yarnpkg.com/@types/lingui__core/-/lingui__core-2.7.0.tgz#a93e53338a5a7ae5aa8cdb22ef0111d2053c6ef0"
   integrity sha512-4gx/msI4cVlx1/RI1g6bDREZqflWh4HflMX3A5mMnvM6ymohg5SOzWk+R18N6/44ONPqOI+pcP8xjKLrI2tQhQ==
