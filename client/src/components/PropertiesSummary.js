@@ -1,17 +1,16 @@
 import React, { Component } from 'react';
-import { Trans, Plural, t } from '@lingui/macro';
+import { Trans, Plural } from '@lingui/macro';
 
 import Loader from 'components/Loader';
 import LegalFooter from 'components/LegalFooter';
 import APIClient from 'components/APIClient';
-import SocialShare from 'components/SocialShare';
 
 import 'styles/PropertiesSummary.css';
 import { EvictionsSummary } from './EvictionsSummary';
 import { RentstabSummary } from './RentstabSummary';
-import { withI18n } from '@lingui/react';
 import helpers from '../util/helpers';
 import { StringifyListWithConjunction } from './StringifyList';
+import { SocialSharePortfolio } from './SocialShare';
 
 const VIOLATIONS_AVG = 0.7; // By Unit
 
@@ -20,7 +19,7 @@ const VIOLATIONS_AVG = 0.7; // By Unit
 
 // Data updated 6/6/19
 
-export class PropertiesSummaryWithoutI18n extends Component {
+export default class PropertiesSummary extends Component {
   constructor(props) {
     super(props);
 
@@ -39,7 +38,6 @@ export class PropertiesSummaryWithoutI18n extends Component {
   }
 
   render() {
-    const i18n = this.props.i18n;
     let agg = this.state.agg;
     let {bldgs, units, age} = agg || {};
 
@@ -107,12 +105,7 @@ export class PropertiesSummaryWithoutI18n extends Component {
                   </div>
                   <div>
                     <h6 className="PropertiesSummary__linksSubtitle"><Trans>Share this page with your neighbors</Trans></h6>
-                    <SocialShare 
-                      location="summary-tab"
-                      url={encodeURI('https://whoownswhat.justfix.nyc/address/' + this.props.userAddr.boro + '/' + this.props.userAddr.housenumber + '/' + this.props.userAddr.streetname).replace(" ", "%20")} // Support for Android
-                      twitterMessage={i18n._(t`The ${bldgs} buildings that my landlord "owns" 👀... #WhoOwnsWhat @JustFixNYC`)}
-                      emailMessage={i18n._(t`The ${bldgs} buildings owned by my landlord (via JustFix's Who Owns What tool)`)}
-                      />
+                    <SocialSharePortfolio location="summary-tab" addr={this.props.userAddr} buildings={bldgs} />
                   </div>
                 </div>
               </aside>
@@ -124,7 +117,3 @@ export class PropertiesSummaryWithoutI18n extends Component {
     );
   }
 }
-
-const PropertiesSummary = withI18n()(PropertiesSummaryWithoutI18n);
-
-export default PropertiesSummary;
