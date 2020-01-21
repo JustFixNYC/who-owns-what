@@ -7,9 +7,10 @@ import Loader from 'components/Loader';
 import LegalFooter from 'components/LegalFooter';
 import APIClient from 'components/APIClient';
 import { withI18n } from '@lingui/react';
-import { plural, Trans } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 
 import 'styles/Indicators.css';
+import { IndicatorsDatasetRadio, INDICATORS_DATASETS } from './IndicatorsDatasets';
 
 
 const initialState = { 
@@ -66,6 +67,7 @@ class IndicatorsWithoutI18n extends Component {
   constructor(props) {
     super(props);
     this.state = initialState;
+    this.handleVisChange = this.handleVisChange.bind(this);
   }
 
   /** Resets the component to initial blank state */
@@ -267,6 +269,8 @@ class IndicatorsWithoutI18n extends Component {
   const i18n = this.props.i18n;
   const detailAddrStr = this.props.detailAddr && `${this.props.detailAddr.housenumber} ${Helpers.titleCase(this.props.detailAddr.streetname)}, ${Helpers.titleCase(this.props.detailAddr.boro)}`;
   
+  const dataset = INDICATORS_DATASETS[this.state.activeVis];
+
     return (
       <div className="Page Indicators">
         <div className="Indicators__content Page__content">
@@ -292,33 +296,9 @@ class IndicatorsWithoutI18n extends Component {
                 <div className="Indicators__links">
                   <div className="Indicators__linksContainer">
                     <em className="Indicators__linksTitle"><Trans>Select a Dataset</Trans>:</em> <br/>
-                    <li className="menu-item">
-                        <label className={"form-radio" + (this.state.activeVis === "complaints" ? " active" : "")} onClick={() => {window.gtag('event', 'complaints-timeline-tab');}}>
-                          <input type="radio"
-                          	name="Dataset" 
-                            checked={(this.state.activeVis === "complaints" ? true : false)}
-                            onChange={() => this.handleVisChange("complaints")} />
-                          <i className="form-icon"></i> <Trans>HPD Complaints</Trans>
-                        </label>
-                    </li>
-                    <li className="menu-item">
-                        <label className={"form-radio" + (this.state.activeVis === "viols" ? " active" : "")} onClick={() => {window.gtag('event', 'violations-timeline-tab');}}>
-                          <input type="radio"
-                            name="Dataset" 
-                            checked={(this.state.activeVis === "viols" ? true : false)}
-                            onChange={() => this.handleVisChange("viols")} />
-                          <i className="form-icon"></i> <Trans>HPD Violations</Trans>
-                        </label>
-                    </li>
-                    <li className="menu-item">
-                        <label className={"form-radio" + (this.state.activeVis === "permits" ? " active" : "")} onClick={() => {window.gtag('event', 'permits-timeline-tab');}}>
-                          <input type="radio"
-                            name="Dataset" 
-                            checked={(this.state.activeVis === "permits" ? true : false)}
-                            onChange={() => this.handleVisChange("permits")} />
-                          <i className="form-icon"></i> <Trans>Building Permit Applications</Trans>
-                        </label>
-                    </li>
+                    <IndicatorsDatasetRadio id="complaints" activeId={this.state.activeVis} onChange={this.handleVisChange} />
+                    <IndicatorsDatasetRadio id="viols" activeId={this.state.activeVis} onChange={this.handleVisChange} />
+                    <IndicatorsDatasetRadio id="permits" activeId={this.state.activeVis} onChange={this.handleVisChange} />
                   </div>
                   <div className="Indicators__linksContainer">
                     <em className="Indicators__linksTitle">View by:</em> <br/>
@@ -337,7 +317,7 @@ class IndicatorsWithoutI18n extends Component {
                             name= "Time" 
                             checked={(this.state.activeTimeSpan === "quarter" ? true : false)}
                             onChange={() => this.handleTimeSpanChange("quarter")} />
-                          <i className="form-icon"></i> Quarter
+                          <i className="form-icon"></i> <Trans>Quarter</Trans>
                         </label>
                     </li>
                     <li className="menu-item">
@@ -353,23 +333,7 @@ class IndicatorsWithoutI18n extends Component {
                 </div>  
 
                 <span className="title viz-title"> 
-                  { (this.state.activeVis === 'complaints' 
-                    ? i18n._(plural({
-                        value: indicatorDataTotal,
-                        one: "# HPD Complaint Issued since 2014",
-                        other: "# HPD Complaints Issued since 2014"
-                      })) :  this.state.activeVis === 'viols' 
-                    ? i18n._(plural({
-                      value: indicatorDataTotal,
-                      one: "# HPD Violation Issued since 2010",
-                      other: "# HPD Violations Issued since 2010"
-                    })) : this.state.activeVis === 'permits' 
-                    ? i18n._(plural({
-                      value: indicatorDataTotal,
-                      one: "# Building Permit Application since 2010",
-                      other: "# Building Permit Applications since 2010"
-                    })) : '' )
-                  }
+                  {dataset && dataset.quantity(i18n, indicatorDataTotal)}
                 </span>
 
                 <div className="Indicators__viz">
@@ -392,40 +356,11 @@ class IndicatorsWithoutI18n extends Component {
                 
                 <div className="card">
                   <div className="card-header">
-                    <div className="card-title h5">What are 
-                    {(this.state.activeVis === 'complaints' ? ' HPD Complaints' : 
-                    this.state.activeVis === 'viols' ? ' HPD Violations' :
-                    this.state.activeVis === 'permits' ? ' Building Permit Applications' :
-                    '')}?</div>
+                    <div className="card-title h5">What are {dataset && dataset.name(i18n)}?</div>
                     <div className="card-subtitle text-gray"></div>
                   </div>
                   <div className="card-body">
-                    {(this.state.activeVis === 'complaints' ? 
-                      <span>HPD Complaints are housing issues reported to the City <b>by a tenant calling 311</b>.
-                      When someone issues a complaint, the Department of Housing Preservation and Development begins a process of investigation that may lead to an official violation from the City.
-                      Complaints can be identified as:<br/>
-                        <br/>
-                      <b>Emergency</b> — reported to be hazardous/dire<br/>
-                      <b>Non-Emergency</b> — all others<br/>
-                        <br/>  
-                      Read more about HPD Complaints and how to file them at the <a href='https://www1.nyc.gov/site/hpd/renters/complaints-and-inspections.page' target="_blank" rel="noopener noreferrer">official HPD page</a>.</span> : 
-                    this.state.activeVis === 'viols' ? 
-                      <span>HPD Violations occur when an official City Inspector finds the conditions of a home in violation of the law. 
-                      If not corrected, these violations incur fines for the owner— however, HPD violations are notoriously unenforced by the City.
-                      These Violations fall into three categories:<br/>
-                        <br/>
-                      <b>Class A</b> — non-hazardous<br/>
-                      <b>Class B</b> — hazardous<br/>
-                      <b>Class C</b> — immediately hazardous<br/>
-                        <br/>
-                      Read more about HPD Violations at the <a href='https://www1.nyc.gov/site/hpd/owners/compliance-maintenance-requirements.page' target="_blank" rel="noopener noreferrer">official HPD page</a>.</span> :
-                    this.state.activeVis === 'permits' ? 
-                      <span>Owners submit Building Permit Applications to the Department of Buildings before any construction project to get necessary approval.
-                      The number of applications filed can indicate how much construction the owner was planning.
-                        <br/>
-                        <br/> 
-                      Read more about DOB Building Applications/Permits at the <a href='https://www1.nyc.gov/site/buildings/about/building-applications-and-permits.page' target="_blank" rel="noopener noreferrer">official NYC Buildings page</a>.</span> :
-                    '')}
+                    {dataset && dataset.explanation(i18n)}
                   </div>
                 </div>
 
