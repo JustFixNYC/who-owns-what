@@ -45,13 +45,13 @@ render() {
                   <Trans render="h4">Who owns what in nyc?</Trans>
                 </Link>
                 <nav className="inline">
-                  <LocaleNavLink exact to="/">Home</LocaleNavLink>
-                  <LocaleNavLink to="/about">About</LocaleNavLink>
-                  <LocaleNavLink to="/how-to-use">How to use</LocaleNavLink>
-                  <a href="https://www.justfix.nyc/donate">Donate</a>
+                  <LocaleNavLink exact to="/"><Trans>Home</Trans></LocaleNavLink>
+                  <LocaleNavLink to="/about"><Trans>About</Trans></LocaleNavLink>
+                  <LocaleNavLink to="/how-to-use"><Trans>How to use</Trans></LocaleNavLink>
+                  <a href="https://www.justfix.nyc/donate"><Trans>Donate</Trans></a>
                   <a href="#" // eslint-disable-line jsx-a11y/anchor-is-valid
                     onClick={() => this.setState({ showEngageModal: true })}>
-                    Share
+                    <Trans>Share</Trans>
                   </a>
                   <LocaleSwitcher/>
                 </nav>
