@@ -217,7 +217,7 @@ export default class PropertiesMap extends Component {
 
           <div className={`PropertiesMap__legend ${this.state.mobileLegendSlide ? 'PropertiesMap__legend--slide' : ''}`}
               onClick={() => this.setState({ mobileLegendSlide: !this.state.mobileLegendSlide })}>
-            <p><Trans render="span">{Browser.isMobile() ? this.state.mobileLegendSlide ? 'Close ' : 'View ' : ''}Legend</Trans> <i>{this.state.mobileLegendSlide ? '\u2b07\uFE0E' : '\u2b06\uFE0E'}</i></p>
+            <p><span>{Browser.isMobile() ? this.state.mobileLegendSlide ? <Trans>Close legend</Trans> : <Trans>View legend</Trans> : ''}</span> <i>{this.state.mobileLegendSlide ? '\u2b07\uFE0E' : '\u2b06\uFE0E'}</i></p>
 
             <ul>
               <Trans render="li">search address</Trans>

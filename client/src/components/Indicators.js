@@ -286,7 +286,7 @@ class IndicatorsWithoutI18n extends Component {
 
                 <div className="title-card">
                   <h4 className="title">{(this.props.detailAddr ? 
-                    <span><Trans>BUILDING</Trans>: <b>{detailAddrStr}</b></span> :
+                    <span><Trans>BUILDING:</Trans> <b>{detailAddrStr}</b></span> :
                         <span></span>)}
                   </h4>
                   <br/>
@@ -295,7 +295,7 @@ class IndicatorsWithoutI18n extends Component {
 
                 <div className="Indicators__links">
                   <div className="Indicators__linksContainer">
-                    <em className="Indicators__linksTitle"><Trans>Select a Dataset</Trans>:</em> <br/>
+                    <em className="Indicators__linksTitle"><Trans>Select a Dataset:</Trans></em> <br/>
                     <IndicatorsDatasetRadio id="complaints" activeId={this.state.activeVis} onChange={this.handleVisChange} />
                     <IndicatorsDatasetRadio id="viols" activeId={this.state.activeVis} onChange={this.handleVisChange} />
                     <IndicatorsDatasetRadio id="permits" activeId={this.state.activeVis} onChange={this.handleVisChange} />

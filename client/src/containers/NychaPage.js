@@ -170,7 +170,7 @@ class NychaPageWithoutI18n extends Component {
                   alt="Google Street View" className="streetview img-responsive"  />
                 }
               <div className="bbl-link">
-                { geosearch && geosearch.bbl && buildingInfo ? (<span><Trans>Boro-Block-Lot (BBL)</Trans>: <nobr><a href={"https://zola.planning.nyc.gov/lot/"+boro + "/" + block + "/" + lot} target="_blank" rel="noopener noreferrer">{boro}{bblDash}{block}{bblDash}{lot}</a></nobr></span>):(<span></span>) }
+                { geosearch && geosearch.bbl && buildingInfo ? (<span>Boro-Block-Lot (BBL): <nobr><a href={"https://zola.planning.nyc.gov/lot/"+boro + "/" + block + "/" + lot} target="_blank" rel="noopener noreferrer">{boro}{bblDash}{block}{bblDash}{lot}</a></nobr></span>):(<span></span>) }
               </div>
               <br />
               
@@ -194,7 +194,7 @@ class NychaPageWithoutI18n extends Component {
                 </div>
 
                 <div className="social-share">
-                  <Trans render="p">Share this page with your neighbors:</Trans>
+                  <p><Trans>Share this page with your neighbors</Trans></p>
                   <SocialShare 
                     location="nycha-page"
                     url={usersInputAddress && encodeURI('https://whoownswhat.justfix.nyc/address/' + usersInputAddress.boro + '/' + usersInputAddress.housenumber + '/' + usersInputAddress.streetname).replace(" ", "%20")} // Support for Android

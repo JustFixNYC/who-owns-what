@@ -71,7 +71,7 @@ export default class DetailView extends Component {
                   <div className="columns main-content-columns">
                     <div className="column col-lg-12 col-7">
                       <div className="card-header">
-                        <h4 className="card-title"><Trans>BUILDING</Trans>: {this.props.addr.housenumber} {Helpers.titleCase(this.props.addr.streetname)}, {Helpers.titleCase(this.props.addr.boro)}</h4>
+                        <h4 className="card-title"><Trans>BUILDING:</Trans> {this.props.addr.housenumber} {Helpers.titleCase(this.props.addr.streetname)}, {Helpers.titleCase(this.props.addr.boro)}</h4>
                         { !Helpers.addrsAreEqual(this.props.addr, this.props.userAddr) &&
                           <a // eslint-disable-line jsx-a11y/anchor-is-valid
                             onClick={() => this.setState({ showCompareModal: true })}>
@@ -129,20 +129,20 @@ export default class DetailView extends Component {
                         <div className="card-body-landlord">
                             <div className="columns">
                               <div className="column col-xs-12 col-6">
-                                <b><Trans>Business Entities</Trans>:</b>
+                                <b><Trans>Business Entities</Trans></b>
                                 <ul>
                                   {this.props.addr.corpnames && this.props.addr.corpnames.map((corp, idx) => <li key={idx}>{corp}</li> )}
                                 </ul>
                               </div>
                               <div className="column col-xs-12 col-6">
-                                <b><Trans>Business Addresses</Trans>:</b>
+                                <b><Trans>Business Addresses</Trans></b>
                                 <ul>
                                   {this.props.addr.businessaddrs && this.props.addr.businessaddrs.map((rba, idx) => <li key={idx}>{rba}</li> )}
                                 </ul>
                               </div>
                             </div>
                           <div>
-                            <b><Trans>People</Trans>:</b>
+                            <b><Trans>People</Trans></b>
                             <ul>
                               {ownernames.map((owner, idx) => <li key={idx}>{owner.title.split(/(?=[A-Z])/).join(" ")}: {owner.value}</li> )}
                             </ul>
@@ -150,10 +150,10 @@ export default class DetailView extends Component {
                         </div>
 
                         <div className="card-body-registration">
-                            <p><b><Trans>Last registered</Trans>:</b> {this.formatDate(this.props.addr.lastregistrationdate)}
+                            <p><b><Trans>Last registered:</Trans></b> {this.formatDate(this.props.addr.lastregistrationdate)}
                               {(this.state.todaysDate > new Date(this.props.addr.registrationenddate)
-                                ? <span className="text-danger"> (<Trans>expired {this.formatDate(this.props.addr.registrationenddate)}</Trans>)</span>
-                                : <span> (<Trans>expires {this.formatDate(this.props.addr.registrationenddate)}</Trans>)</span>
+                                ? <span className="text-danger"> <Trans>(expired {this.formatDate(this.props.addr.registrationenddate)})</Trans></span>
+                                : <span> <Trans>(expires {this.formatDate(this.props.addr.registrationenddate)})</Trans></span>
                                 )}
                             </p>
                         </div>
@@ -220,7 +220,7 @@ export default class DetailView extends Component {
                 showModal={this.state.showCompareModal}
                 width={70}
                 onClose={() => this.setState({ showCompareModal: false })}>
-                <h6><Trans render="b">How is this building associated?</Trans></h6>
+                <h6><Trans render="b">How is this building associated to this portfolio?</Trans></h6>
                 <Trans render="p">We compare your search address with a database of over 200k buildings to identify a landlord or management company's portfolio. To learn more, check out <a href="https://medium.com/@JustFixNYC/who-owns-what-linking-nyc-buildings-with-the-same-owner-173571e7bb31" rel="noreferrer noopener" target="_blank">our methodology</a>.</Trans>
                 <table className="DetailView__compareTable">
                   <thead>
@@ -234,13 +234,13 @@ export default class DetailView extends Component {
                   <tbody>
                     <tr>
                       <td>
-                        <div><Trans>Shell Companies</Trans>:</div>
+                        <div><Trans>Shell Companies</Trans></div>
                         <ul>
                           {this.props.userAddr.corpnames && this.props.userAddr.corpnames.map((corp, idx) => <li key={idx}>{corp}</li> )}
                         </ul>
                       </td>
                       <td>
-                        <div><Trans>Shell Companies:</Trans></div>
+                        <div><Trans>Shell Companies</Trans></div>
                         <ul>
                           {this.props.addr.corpnames && this.props.addr.corpnames.map((corp, idx) => <li key={idx}>{corp}</li> )}
                         </ul>
@@ -248,13 +248,13 @@ export default class DetailView extends Component {
                     </tr>
                     <tr>
                       <td>
-                        <div><Trans>Business Addresses</Trans>:</div>
+                        <div><Trans>Business Addresses</Trans></div>
                         <ul>
                           {this.props.userAddr.businessaddrs && this.props.userAddr.businessaddrs.map((rba, idx) => <li key={idx}>{rba}</li> )}
                         </ul>
                       </td>
                       <td>
-                        <div><Trans>Business Addresses</Trans>:</div>
+                        <div><Trans>Business Addresses</Trans></div>
                         <ul>
                           {this.props.addr.businessaddrs && this.props.addr.businessaddrs.map((rba, idx) => <li key={idx}>{rba}</li> )}
                         </ul>
@@ -262,13 +262,13 @@ export default class DetailView extends Component {
                     </tr>
                     <tr>
                       <td>
-                        <div><Trans>People</Trans>:</div>
+                        <div><Trans>People</Trans></div>
                         <ul>
                           {userOwnernames.map((owner, idx) => <li key={idx}>{owner.title.split(/(?=[A-Z])/).join(" ")}: {owner.value}</li> )}
                         </ul>
                       </td>
                       <td>
-                        <div><Trans>People</Trans>:</div>
+                        <div><Trans>People</Trans></div>
                         <ul>
                           {ownernames.map((owner, idx) => <li key={idx}>{owner.title.split(/(?=[A-Z])/).join(" ")}: {owner.value}</li> )}
                         </ul>

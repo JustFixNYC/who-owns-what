@@ -15,15 +15,15 @@ const EngagementPanel: React.FC<{
       <Trans render="h5">Join the fight for tenant rights!</Trans>
       <div className="EngagementWrapper">
         <div className="EngagementItem">
-         <Trans render="p">Sign up for email updates:</Trans>
+         <p><Trans>Sign up for email updates</Trans></p>
          <Subscribe />
         </div>
         <div className="EngagementItem">
-         <Trans render="p">Share with your neighbors:</Trans>
+         <p><Trans>Share this page with your neighbors</Trans></p>
          <SocialShare location={props.location} />
         </div>
         <div className="EngagementItem">
-         <Trans render="p">Visit our website:</Trans>
+         <p><Trans>Visit our website</Trans></p>
          <a href="https://www.justfix.nyc/"
             className="btn btn-block btn-justfix">
             www.JustFix.nyc</a>

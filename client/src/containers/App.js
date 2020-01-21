@@ -58,7 +58,7 @@ render() {
                 <Modal
                   showModal={this.state.showEngageModal}
                   onClose={() => this.setState({ showEngageModal: false })}>
-                    <h5 className="first-header"><Trans>Share this page with your neighbors:</Trans></h5>
+                    <h5 className="first-header"><Trans>Share this page with your neighbors</Trans></h5>
                     <SocialShare location="share-modal" />
                 </Modal>
               </div>
