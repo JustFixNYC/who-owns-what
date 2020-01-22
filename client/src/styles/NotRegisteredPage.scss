@@ -26,6 +26,14 @@
     font-size: 1.5em;
   }
 
+  button.is-link {
+    text-decoration: underline;
+    color: #0072a4;
+    &:hover {
+      color: #2f3540
+    }
+  }
+
   .wrapper {
     width: 80%;
     margin: auto;

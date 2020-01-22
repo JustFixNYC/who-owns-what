@@ -51,8 +51,8 @@ export default class NotRegisteredPage extends Component {
     
     const failedToRegisterLink = 
       <div className="text-center">
-        <a href="#" onClick={() => this.setState({ showModal: true })}
-        ><Trans>What happens if the landlord has failed to register?</Trans></a>
+        <button className="is-link" onClick={() => this.setState({ showModal: true })}
+        ><Trans>What happens if the landlord has failed to register?</Trans></button>
       </div>;
 
     const bblDash = <span className="unselectable" unselectable="on">-</span>;
