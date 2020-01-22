@@ -48,6 +48,13 @@ export default class NotRegisteredPage extends Component {
           streetname: (buildingInfo.streetname || ' ') 
         } : 
         null );
+    
+    const failedToRegisterLink = 
+      <div className="text-center">
+        <a href="#" onClick={() => this.setState({ showModal: true })}
+        ><Trans>What happens if the landlord has failed to register?</Trans></a>
+      </div>;
+
     const bblDash = <span className="unselectable" unselectable="on">-</span>;
 
     let boro, block, lot;
@@ -65,35 +72,35 @@ export default class NotRegisteredPage extends Component {
           case 'B':
             buildingTypeMessage = (
               <div>
-                <p className="text-center">
-                  <Trans>This seems like a smaller residential building. If the landlord doesn't reside there, it should be registered with HPD.</Trans>{" "}
-                  <nobr>(<i><a href={`http://www1.nyc.gov/assets/finance/jump/hlpbldgcode.html#${generalBldgCat.charAt(0)}`} target="_blank" rel="noopener noreferrer"><Trans>Building Classification</Trans></a>: {buildingInfo.bldgclass}</i>)</nobr>
-                  <a // eslint-disable-line jsx-a11y/anchor-is-valid
-                    className="btn btn-block btn-link"
-                    onClick={() => this.setState({ showModal: true })}
-                  ><Trans>What happens if the landlord has failed to register?</Trans></a>
-                </p>
+                <h6 className="mt-10 text-center text-bold text-large">
+                  <p className="text-center">
+                    <Trans>This seems like a smaller residential building. If the landlord doesn't reside there, it should be registered with HPD.</Trans>{" "}
+                    <nobr>(<i><a href={`http://www1.nyc.gov/assets/finance/jump/hlpbldgcode.html#${generalBldgCat.charAt(0)}`} target="_blank" rel="noopener noreferrer"><Trans>Building Classification</Trans></a>: {buildingInfo.bldgclass}</i>)</nobr>
+                  </p>
+                </h6>
+                {failedToRegisterLink}
               </div>
             );
             break;
           case 'C':
             buildingTypeMessage = (
               <div>
-                <p className="text-center">
-                  <Trans render="b">This building seems like it should be registered with HPD!</Trans>{" "}
-                  <nobr>(<i><a href={`http://www1.nyc.gov/assets/finance/jump/hlpbldgcode.html#${generalBldgCat.charAt(0)}`} target="_blank" rel="noopener noreferrer"><Trans>Building Classification</Trans></a>: {buildingInfo.bldgclass}</i>)</nobr>
-                  <a // eslint-disable-line jsx-a11y/anchor-is-valid
-                    className="btn btn-block btn-link"
-                    onClick={() => this.setState({ showModal: true })}
-                  ><Trans>What happens if the landlord has failed to register?</Trans></a>
-                </p>
+                <h6 className="mt-10 text-center text-bold text-large">
+                  <p className="text-center">
+                    <Trans render="b">This building seems like it should be registered with HPD!</Trans>{" "}
+                    <nobr>(<i><a href={`http://www1.nyc.gov/assets/finance/jump/hlpbldgcode.html#${generalBldgCat.charAt(0)}`} target="_blank" rel="noopener noreferrer"><Trans>Building Classification</Trans></a>: {buildingInfo.bldgclass}</i>)</nobr>
+                  </p>
+                </h6>
+                {failedToRegisterLink}
               </div>
             );
             break;
           default:
             buildingTypeMessage = (
-              <p className="text-center"><Trans>It doesn't seem like this property is required to register with HPD.</Trans>{" "}
-              <nobr>(<i><a href={`http://www1.nyc.gov/assets/finance/jump/hlpbldgcode.html#${generalBldgCat.charAt(0)}`} target="_blank" rel="noopener noreferrer"><Trans render="u">Building Classification</Trans></a>: {buildingInfo.bldgclass}</i>)</nobr></p>
+              <h6 className="mt-10 text-center text-bold text-large">
+                <p className="text-center"><Trans>It doesn't seem like this property is required to register with HPD.</Trans>{" "}
+                <nobr>(<i><a href={`http://www1.nyc.gov/assets/finance/jump/hlpbldgcode.html#${generalBldgCat.charAt(0)}`} target="_blank" rel="noopener noreferrer"><Trans render="u">Building Classification</Trans></a>: {buildingInfo.bldgclass}</i>)</nobr></p>
+              </h6>
             );
             break;
         };
@@ -131,9 +138,7 @@ export default class NotRegisteredPage extends Component {
                 <Trans>No registration found!</Trans>
               )}
             </h5>
-            <h6 className="mt-10 text-center text-bold text-large">
-              {buildingTypeMessage}
-            </h6>
+            {buildingTypeMessage}
             <div className="wrapper">
                 { buildingInfo && buildingInfo.latitude && buildingInfo.longitude &&
               <img src={`https://maps.googleapis.com/maps/api/streetview?size=800x200&location=${buildingInfo.latitude},${buildingInfo.longitude}&key=${process.env.REACT_APP_STREETVIEW_API_KEY}`}
