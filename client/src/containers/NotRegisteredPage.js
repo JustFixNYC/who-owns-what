@@ -197,7 +197,7 @@ export default class NotRegisteredPage extends Component {
                 <Trans render="li">Unable to request Code Violation Dismissals</Trans>
                 <Trans render="li">Unable to initiate a court action for nonpayment of rent.</Trans>
               </ul>
-              <a className="btn" href="http://www1.nyc.gov/site/hpd/owners/compliance-register-your-property.page" target="_blank" rel="noopener noreferrer"><Trans>Click here to learn more.</Trans> &#8599;</a>
+              <a className="btn" href="https://www1.nyc.gov/site/hpd/services-and-information/register-your-property.page" target="_blank" rel="noopener noreferrer"><Trans>Click here to learn more.</Trans> &#8599;</a>
             </Modal>
           </div>
          </div>
