@@ -5,9 +5,10 @@ import { LazyLoadWhenVisible } from './LazyLoadWhenVisible';
 import Helpers from 'util/helpers';
 import Browser from 'util/browser';
 import Modal from 'components/Modal';
-import SocialShare from 'components/SocialShare';
 
 import 'styles/DetailView.css';
+import { Trans } from '@lingui/macro';
+import { SocialSharePortfolio } from './SocialShare';
 
 export default class DetailView extends Component {
   constructor(props) {
@@ -61,7 +62,7 @@ export default class DetailView extends Component {
                 <div className="DetailView__card card">
                   <div className="DetailView__mobilePortfolioView">
                     <button onClick={() => this.props.onCloseDetail()}>
-                      &#10229; <span>View portfolio map</span>
+                      &#10229; <Trans render="span">View portfolio map</Trans>
                     </button>
                   </div>
                   <div className="card-image show-lg">
@@ -70,11 +71,11 @@ export default class DetailView extends Component {
                   <div className="columns main-content-columns">
                     <div className="column col-lg-12 col-7">
                       <div className="card-header">
-                        <h4 className="card-title">BUILDING: {this.props.addr.housenumber} {Helpers.titleCase(this.props.addr.streetname)}, {Helpers.titleCase(this.props.addr.boro)}</h4>
+                        <h4 className="card-title"><Trans>BUILDING:</Trans> {this.props.addr.housenumber} {Helpers.titleCase(this.props.addr.streetname)}, {Helpers.titleCase(this.props.addr.boro)}</h4>
                         { !Helpers.addrsAreEqual(this.props.addr, this.props.userAddr) &&
                           <a // eslint-disable-line jsx-a11y/anchor-is-valid
                             onClick={() => this.setState({ showCompareModal: true })}>
-                            <i>How is this building associated to this portfolio?</i>
+                            <Trans render="i">How is this building associated to this portfolio?</Trans>
                           </a>
                         }
                       </div>
@@ -86,29 +87,29 @@ export default class DetailView extends Component {
                                 {boro}{bblDash}{block}{bblDash}{lot}
                               </div>
                               <div title="The year that this building was originally constructed, according to the Dept. of City Planning.">
-                                <label>Year Built</label>
+                                <Trans render="label">Year Built</Trans>
                                 { this.props.addr.yearbuilt !== 0 ?  this.props.addr.yearbuilt : 'N/A' }
                               </div>
                               <div title="The number of residential units in this building, according to the Dept. of City Planning.">
-                                <label>Units</label>
+                                <Trans render="label">Units</Trans>
                                 { this.props.addr.unitsres }
                               </div>
                             </div>
                             <div className="table-row">
                               <div title="The number of open HPD violations for this building, updated monthly. Click the HPD Building Profile button below for the most up-to-date information.">
-                                <label>Open Violations</label>
+                                <Trans render="label">Open Violations</Trans>
                                 { this.props.addr.openviolations }
                               </div>
                               <div  title="This represents the total number of HPD Violations (both open & closed) recorded by the city.">
-                                <label>Total Violations</label>
+                                <Trans render="label">Total Violations</Trans>
                                 { this.props.addr.totalviolations }
                               </div>
                               <div title="Evictions executed by NYC Marshals in 2018. City Council, the Housing Data Coalition and Anti-Eviction Mapping Project cleaned, geocoded, and validated the data, originally sourced from DOI.">
-                                <label>2018 Evictions</label>
+                                <Trans render="label">2018 Evictions</Trans>
                                 { this.props.addr.evictions !== null ? this.props.addr.evictions : 'N/A' }
                               </div>
                               <div title="This tracks how rent stabilized units in the building have changed (i.e. &quot;&Delta;&quot;) from 2007 to 2017. If the number for 2017 is red, this means there has been a loss in stabilzied units! These counts are estimated from the DOF Property Tax Bills.">
-                                <label>&Delta; RS Units</label>
+                                <label>&Delta; <Trans>RS Units</Trans></label>
                                 <span>{ this.props.addr.rsunits2007 !== null ? this.props.addr.rsunits2007 : 'N/A' }</span>
                                 <span>&#x21FE;</span>
                                 <span
@@ -119,29 +120,29 @@ export default class DetailView extends Component {
                               </div>
                             </div>
                         </div>
-                        <span className="card-body-table-prompt float-right"><i>(hover over a box to learn more)</i></span>
+                        <span className="card-body-table-prompt float-right"><Trans render="i">(hover over a box to learn more)</Trans></span>
                         <div className="card-body-timeline-link">
                           <button className="btn btn-primary btn-block" onClick={() => {this.props.onLinkToTimeline(); window.gtag('event', 'view-data-over-time-overview-tab');}}>
-                            <span>View data over time </span>&#8599;&#xFE0E;
+                            <Trans render="span">View data over time </Trans>&#8599;&#xFE0E;
                           </button>
                         </div>
                         <div className="card-body-landlord">
                             <div className="columns">
                               <div className="column col-xs-12 col-6">
-                                <b>Business Entities:</b>
+                                <b><Trans>Business Entities</Trans></b>
                                 <ul>
                                   {this.props.addr.corpnames && this.props.addr.corpnames.map((corp, idx) => <li key={idx}>{corp}</li> )}
                                 </ul>
                               </div>
                               <div className="column col-xs-12 col-6">
-                                <b>Business Addresses:</b>
+                                <b><Trans>Business Addresses</Trans></b>
                                 <ul>
                                   {this.props.addr.businessaddrs && this.props.addr.businessaddrs.map((rba, idx) => <li key={idx}>{rba}</li> )}
                                 </ul>
                               </div>
                             </div>
                           <div>
-                            <b>People:</b>
+                            <b><Trans>People</Trans></b>
                             <ul>
                               {ownernames.map((owner, idx) => <li key={idx}>{owner.title.split(/(?=[A-Z])/).join(" ")}: {owner.value}</li> )}
                             </ul>
@@ -149,27 +150,22 @@ export default class DetailView extends Component {
                         </div>
 
                         <div className="card-body-registration">
-                            <p><b>Last registered:</b> {this.formatDate(this.props.addr.lastregistrationdate)}
+                            <p><b><Trans>Last registered:</Trans></b> {this.formatDate(this.props.addr.lastregistrationdate)}
                               {(this.state.todaysDate > new Date(this.props.addr.registrationenddate)
-                                ? <span className="text-danger"> (expired {this.formatDate(this.props.addr.registrationenddate)})</span>
-                                : <span> (expires {this.formatDate(this.props.addr.registrationenddate)})</span>
+                                ? <span className="text-danger"> <Trans>(expired {this.formatDate(this.props.addr.registrationenddate)})</Trans></span>
+                                : <span> <Trans>(expires {this.formatDate(this.props.addr.registrationenddate)})</Trans></span>
                                 )}
                             </p>
                         </div>
                         
                         <div className="card-body-prompt hide-lg">
-                          <h6 className="DetailView__subtitle">Are you having issues in this building?</h6>
-                          <a onClick={() => {window.gtag('event', 'take-action-overview-tab');}} href={takeActionURL} target="_blank" rel="noopener noreferrer" className="btn btn-justfix btn-block">Take action on JustFix.nyc!</a>
+                          <h6 className="DetailView__subtitle"><Trans>Are you having issues in this building?</Trans></h6>
+                          <a onClick={() => {window.gtag('event', 'take-action-overview-tab');}} href={takeActionURL} target="_blank" rel="noopener noreferrer" className="btn btn-justfix btn-block"><Trans>Take action on JustFix.nyc!</Trans></a>
                         </div>
 
                         <div className="card-body-social social-group hide-lg">
-                          <h6 className="DetailView__subtitle">Share this page with your neighbors</h6>
-                          <SocialShare 
-                            location="overview-tab"
-                            url={encodeURI('https://whoownswhat.justfix.nyc/address/' + this.props.addr.boro + '/' + this.props.addr.housenumber + '/' + this.props.addr.streetname).replace(" ", "%20")} // Support for Android
-                            twitterMessage={"The " + (parseInt(this.props.portfolioSize) > 1 ? this.props.portfolioSize + " " : "")  + "buildings that my landlord \"owns\" 👀... #WhoOwnsWhat @JustFixNYC"}
-                            emailMessage={"The " + (parseInt(this.props.portfolioSize) > 1 ? this.props.portfolioSize + " " : "")  + "buildings owned by my landlord (via JustFix's Who Owns What tool)"}
-                            />
+                          <h6 className="DetailView__subtitle"><Trans>Share this page with your neighbors</Trans></h6>
+                          <SocialSharePortfolio location="overview-tab" addr={this.props.addr} buildings={this.props.portfolioSize} />
                         </div>
                       </div>
                     </div>
@@ -179,42 +175,37 @@ export default class DetailView extends Component {
                       </div>
                       <div className="card-body column-right">
                         <div className="card-body-resources">
-                          <span className="card-body-resources__title show-lg"><em>Additional links</em></span>
+                          <span className="card-body-resources__title show-lg"><Trans render="em">Additional links</Trans></span>
 
                           <div className="card-body-links">
-                            <h6 className="DetailView__subtitle">Official building pages</h6>
+                            <h6 className="DetailView__subtitle"><Trans>Official building pages</Trans></h6>
                             <div className="columns">
                               <div className="column col-12">
-                                <a onClick={() => {window.gtag('event', 'acris-overview-tab');}} href={`http://a836-acris.nyc.gov/bblsearch/bblsearch.asp?borough=${boro}&block=${block}&lot=${lot}`} target="_blank" rel="noopener noreferrer" className="btn btn-block">View documents on ACRIS &#8599;&#xFE0E;</a>
+                                <a onClick={() => {window.gtag('event', 'acris-overview-tab');}} href={`http://a836-acris.nyc.gov/bblsearch/bblsearch.asp?borough=${boro}&block=${block}&lot=${lot}`} target="_blank" rel="noopener noreferrer" className="btn btn-block"><Trans>View documents on ACRIS</Trans> &#8599;&#xFE0E;</a>
                               </div>
                               <div className="column col-12">
-                                <a onClick={() => {window.gtag('event', 'hpd-overview-tab');}} href={`https://hpdonline.hpdnyc.org/HPDonline/Provide_address.aspx?p1=${boro}&p2=${this.props.addr.housenumber}&p3=${this.props.addr.streetname}&SearchButton=Search`} target="_blank" rel="noopener noreferrer" className="btn btn-block">HPD Building Profile &#8599;&#xFE0E;</a>
+                                <a onClick={() => {window.gtag('event', 'hpd-overview-tab');}} href={`https://hpdonline.hpdnyc.org/HPDonline/Provide_address.aspx?p1=${boro}&p2=${this.props.addr.housenumber}&p3=${this.props.addr.streetname}&SearchButton=Search`} target="_blank" rel="noopener noreferrer" className="btn btn-block"><Trans>HPD Building Profile</Trans> &#8599;&#xFE0E;</a>
                               </div>
                               <div className="column col-12">
-                                <a onClick={() => {window.gtag('event', 'dob-overview-tab');}} href={`http://a810-bisweb.nyc.gov/bisweb/PropertyProfileOverviewServlet?boro=${boro}&block=${block}&lot=${lot}`} target="_blank" rel="noopener noreferrer" className="btn btn-block">DOB Building Profile &#8599;&#xFE0E;</a>
+                                <a onClick={() => {window.gtag('event', 'dob-overview-tab');}} href={`http://a810-bisweb.nyc.gov/bisweb/PropertyProfileOverviewServlet?boro=${boro}&block=${block}&lot=${lot}`} target="_blank" rel="noopener noreferrer" className="btn btn-block"><Trans>DOB Building Profile</Trans> &#8599;&#xFE0E;</a>
                               </div>
                               <div className="column col-12">
-                                <a onClick={() => {window.gtag('event', 'dof-overview-tab');}} href={`https://a836-pts-access.nyc.gov/care/search/commonsearch.aspx?mode=persprop`} target="_blank" rel="noopener noreferrer" className="btn btn-block">DOF Property Tax Bills &#8599;&#xFE0E;</a>
+                                <a onClick={() => {window.gtag('event', 'dof-overview-tab');}} href={`https://a836-pts-access.nyc.gov/care/search/commonsearch.aspx?mode=persprop`} target="_blank" rel="noopener noreferrer" className="btn btn-block"><Trans>DOF Property Tax Bills</Trans> &#8599;&#xFE0E;</a>
                               </div>
                               <div className="column col-12">
-                                <a onClick={() => {window.gtag('event', 'dap-overview-tab');}} href={`https://portal.displacementalert.org/property/${boro}${block}${lot}`} target="_blank" rel="noopener noreferrer" className="btn btn-block"><span className="chip text-italic">New!</span> ANHD DAP Portal &#8599;&#xFE0E;</a>
+                                <a onClick={() => {window.gtag('event', 'dap-overview-tab');}} href={`https://portal.displacementalert.org/property/${boro}${block}${lot}`} target="_blank" rel="noopener noreferrer" className="btn btn-block"><span className="chip text-italic"><Trans>New!</Trans></span> <Trans>ANHD DAP Portal</Trans> &#8599;&#xFE0E;</a>
                               </div>
                             </div>
                           </div>
 
                           <div className="card-body-prompt show-lg">
-                            <h6 className="DetailView__subtitle">Are you having issues in this building?</h6>
-                            <a href={takeActionURL} target="_blank" rel="noopener noreferrer" className="btn btn-justfix btn-block">Take action on JustFix.nyc!</a>
+                            <h6 className="DetailView__subtitle"><Trans>Are you having issues in this building?</Trans></h6>
+                            <a href={takeActionURL} target="_blank" rel="noopener noreferrer" className="btn btn-justfix btn-block"><Trans>Take action on JustFix.nyc!</Trans></a>
                           </div>
 
                           <div className="card-body-social social-group show-lg">
-                            <h6 className="DetailView__subtitle">Share this page with your neighbors</h6>
-                            <SocialShare 
-                              location="overview-tab"
-                              url={encodeURI('https://whoownswhat.justfix.nyc/address/' + this.props.addr.boro + '/' + this.props.addr.housenumber + '/' + this.props.addr.streetname).replace(" ", "%20")} // Support for Android
-                              twitterMessage={"The " + (parseInt(this.props.portfolioSize) > 1 ? this.props.portfolioSize + " " : "")  + "buildings that my landlord \"owns\" 👀... #WhoOwnsWhat @JustFixNYC"}
-                              emailMessage={"The " + (parseInt(this.props.portfolioSize) > 1 ? this.props.portfolioSize + " " : "")  + "buildings owned by my landlord (via JustFix's Who Owns What tool)"}
-                              />
+                            <h6 className="DetailView__subtitle"><Trans>Share this page with your neighbors</Trans></h6>
+                            <SocialSharePortfolio location="overview-tab" addr={this.props.addr} buildings={this.props.portfolioSize} />
                           </div>
 
                         </div>
@@ -229,8 +220,8 @@ export default class DetailView extends Component {
                 showModal={this.state.showCompareModal}
                 width={70}
                 onClose={() => this.setState({ showCompareModal: false })}>
-                <h6><b>How is this building associated?</b></h6>
-                <p>We compare your search address with a database of over 200k buildings to identify a landlord or management company's portfolio. To learn more, check out <a href="https://medium.com/@JustFixNYC/who-owns-what-linking-nyc-buildings-with-the-same-owner-173571e7bb31" rel="noreferrer noopener" target="_blank">our methodology</a>.</p>
+                <h6><Trans render="b">How is this building associated to this portfolio?</Trans></h6>
+                <Trans render="p">We compare your search address with a database of over 200k buildings to identify a landlord or management company's portfolio. To learn more, check out <a href="https://medium.com/@JustFixNYC/who-owns-what-linking-nyc-buildings-with-the-same-owner-173571e7bb31" rel="noreferrer noopener" target="_blank">our methodology</a>.</Trans>
                 <table className="DetailView__compareTable">
                   <thead>
                     <tr>
@@ -243,13 +234,13 @@ export default class DetailView extends Component {
                   <tbody>
                     <tr>
                       <td>
-                        <div>Shell Companies:</div>
+                        <div><Trans>Shell Companies</Trans></div>
                         <ul>
                           {this.props.userAddr.corpnames && this.props.userAddr.corpnames.map((corp, idx) => <li key={idx}>{corp}</li> )}
                         </ul>
                       </td>
                       <td>
-                        <div>Shell Companies:</div>
+                        <div><Trans>Shell Companies</Trans></div>
                         <ul>
                           {this.props.addr.corpnames && this.props.addr.corpnames.map((corp, idx) => <li key={idx}>{corp}</li> )}
                         </ul>
@@ -257,13 +248,13 @@ export default class DetailView extends Component {
                     </tr>
                     <tr>
                       <td>
-                        <div>Business Addresses:</div>
+                        <div><Trans>Business Addresses</Trans></div>
                         <ul>
                           {this.props.userAddr.businessaddrs && this.props.userAddr.businessaddrs.map((rba, idx) => <li key={idx}>{rba}</li> )}
                         </ul>
                       </td>
                       <td>
-                        <div>Business Addresses:</div>
+                        <div><Trans>Business Addresses</Trans></div>
                         <ul>
                           {this.props.addr.businessaddrs && this.props.addr.businessaddrs.map((rba, idx) => <li key={idx}>{rba}</li> )}
                         </ul>
@@ -271,13 +262,13 @@ export default class DetailView extends Component {
                     </tr>
                     <tr>
                       <td>
-                        <div>People:</div>
+                        <div><Trans>People</Trans></div>
                         <ul>
                           {userOwnernames.map((owner, idx) => <li key={idx}>{owner.title.split(/(?=[A-Z])/).join(" ")}: {owner.value}</li> )}
                         </ul>
                       </td>
                       <td>
-                        <div>People:</div>
+                        <div><Trans>People</Trans></div>
                         <ul>
                           {ownernames.map((owner, idx) => <li key={idx}>{owner.title.split(/(?=[A-Z])/).join(" ")}: {owner.value}</li> )}
                         </ul>

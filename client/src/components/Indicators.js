@@ -6,8 +6,12 @@ import IndicatorsViz from 'components/IndicatorsViz';
 import Loader from 'components/Loader';
 import LegalFooter from 'components/LegalFooter';
 import APIClient from 'components/APIClient';
+import { withI18n } from '@lingui/react';
+import { Trans } from '@lingui/macro';
 
 import 'styles/Indicators.css';
+import { IndicatorsDatasetRadio, INDICATORS_DATASETS } from './IndicatorsDatasets';
+
 
 const initialState = { 
 
@@ -59,10 +63,11 @@ const initialState = {
 
 };
 
-export default class Indicators extends Component {
+class IndicatorsWithoutI18n extends Component {
   constructor(props) {
     super(props);
     this.state = initialState;
+    this.handleVisChange = this.handleVisChange.bind(this);
   }
 
   /** Resets the component to initial blank state */
@@ -261,6 +266,11 @@ export default class Indicators extends Component {
   const xAxisLength = (this.state[indicatorData].labels ? Math.floor(this.state[indicatorData].labels.length / this.state.monthsInGroup) : 0);
   const indicatorDataTotal = (this.state[indicatorData].values.total ? (this.state[indicatorData].values.total).reduce((total, sum) => (total + sum)) : null);
   
+  const i18n = this.props.i18n;
+  const detailAddrStr = this.props.detailAddr && `${this.props.detailAddr.housenumber} ${Helpers.titleCase(this.props.detailAddr.streetname)}, ${Helpers.titleCase(this.props.detailAddr.boro)}`;
+  
+  const dataset = INDICATORS_DATASETS[this.state.activeVis];
+
     return (
       <div className="Page Indicators">
         <div className="Indicators__content Page__content">
@@ -268,7 +278,7 @@ export default class Indicators extends Component {
               this.state.saleHistory && this.state.indicatorHistory &&
               this.state[this.state.defaultVis + 'Data'].labels) ? 
             (
-              <Loader loading={true} classNames="Loader-map">Loading</Loader>
+              <Loader loading={true} classNames="Loader-map"><Trans>Loading</Trans></Loader>
             ) : 
           (
             <div className="columns">
@@ -276,43 +286,19 @@ export default class Indicators extends Component {
 
                 <div className="title-card">
                   <h4 className="title">{(this.props.detailAddr ? 
-                        <span>BUILDING: <b>{this.props.detailAddr.housenumber} {Helpers.titleCase(this.props.detailAddr.streetname)}, {Helpers.titleCase(this.props.detailAddr.boro)}</b></span> :
+                    <span><Trans>BUILDING:</Trans> <b>{detailAddrStr}</b></span> :
                         <span></span>)}
                   </h4>
                   <br/>
-                  <button onClick={() => this.props.onBackToOverview(this.props.detailAddr)}>Back to Overview</button>
+                  <button onClick={() => this.props.onBackToOverview(this.props.detailAddr)}><Trans>Back to Overview</Trans></button>
                 </div>
 
                 <div className="Indicators__links">
                   <div className="Indicators__linksContainer">
-                    <em className="Indicators__linksTitle">Select a Dataset:</em> <br/>
-                    <li className="menu-item">
-                        <label className={"form-radio" + (this.state.activeVis === "complaints" ? " active" : "")} onClick={() => {window.gtag('event', 'complaints-timeline-tab');}}>
-                          <input type="radio"
-                          	name="Dataset" 
-                            checked={(this.state.activeVis === "complaints" ? true : false)}
-                            onChange={() => this.handleVisChange("complaints")} />
-                          <i className="form-icon"></i> HPD Complaints
-                        </label>
-                    </li>
-                    <li className="menu-item">
-                        <label className={"form-radio" + (this.state.activeVis === "viols" ? " active" : "")} onClick={() => {window.gtag('event', 'violations-timeline-tab');}}>
-                          <input type="radio"
-                            name="Dataset" 
-                            checked={(this.state.activeVis === "viols" ? true : false)}
-                            onChange={() => this.handleVisChange("viols")} />
-                          <i className="form-icon"></i> HPD Violations
-                        </label>
-                    </li>
-                    <li className="menu-item">
-                        <label className={"form-radio" + (this.state.activeVis === "permits" ? " active" : "")} onClick={() => {window.gtag('event', 'permits-timeline-tab');}}>
-                          <input type="radio"
-                            name="Dataset" 
-                            checked={(this.state.activeVis === "permits" ? true : false)}
-                            onChange={() => this.handleVisChange("permits")} />
-                          <i className="form-icon"></i> Building Permit Applications
-                        </label>
-                    </li>
+                    <em className="Indicators__linksTitle"><Trans>Select a Dataset:</Trans></em> <br/>
+                    <IndicatorsDatasetRadio id="complaints" activeId={this.state.activeVis} onChange={this.handleVisChange} />
+                    <IndicatorsDatasetRadio id="viols" activeId={this.state.activeVis} onChange={this.handleVisChange} />
+                    <IndicatorsDatasetRadio id="permits" activeId={this.state.activeVis} onChange={this.handleVisChange} />
                   </div>
                   <div className="Indicators__linksContainer">
                     <em className="Indicators__linksTitle">View by:</em> <br/>
@@ -322,7 +308,7 @@ export default class Indicators extends Component {
                             name="Time" 
                             checked={(this.state.activeTimeSpan === "month" ? true : false)}
                             onChange={() => this.handleTimeSpanChange("month")} />
-                          <i className="form-icon"></i> Month
+                          <i className="form-icon"></i> <Trans>Month</Trans>
                         </label>
                     </li>
                     <li className="menu-item">
@@ -331,7 +317,7 @@ export default class Indicators extends Component {
                             name= "Time" 
                             checked={(this.state.activeTimeSpan === "quarter" ? true : false)}
                             onChange={() => this.handleTimeSpanChange("quarter")} />
-                          <i className="form-icon"></i> Quarter
+                          <i className="form-icon"></i> <Trans>Quarter</Trans>
                         </label>
                     </li>
                     <li className="menu-item">
@@ -340,18 +326,14 @@ export default class Indicators extends Component {
                             name="Time" 
                             checked={(this.state.activeTimeSpan === "year" ? true : false)}
                             onChange={() => this.handleTimeSpanChange("year")} />
-                          <i className="form-icon"></i> Year
+                          <i className="form-icon"></i> <Trans>Year</Trans>
                         </label>
                     </li>
                   </div>
                 </div>  
 
                 <span className="title viz-title"> 
-                  { indicatorDataTotal + ' ' +
-                    (this.state.activeVis === 'complaints' ? 'HPD Complaint' + Helpers.pluralize(indicatorDataTotal) + ' Issued since 2014' : 
-                    this.state.activeVis === 'viols' ? 'HPD Violation' + Helpers.pluralize(indicatorDataTotal) + ' Issued since 2010' :
-                    this.state.activeVis === 'permits' ? 'Building Permit Application' + Helpers.pluralize(indicatorDataTotal) + ' since 2010' :
-                    '')}
+                  {dataset && dataset.quantity(i18n, indicatorDataTotal)}
                 </span>
 
                 <div className="Indicators__viz">
@@ -365,8 +347,8 @@ export default class Indicators extends Component {
                 </div> 
 
                 <div className="Indicators__feedback hide-lg">
-                  <i>Have thoughts about this page?</i> 
-                  <nobr><a href="https://airtable.com/shrZ9uL3id6oWEn8T" target="_blank" rel="noopener noreferrer">Send us feedback!</a></nobr>
+                  <Trans render="i">Have thoughts about this page?</Trans> 
+                  <nobr><a href="https://airtable.com/shrZ9uL3id6oWEn8T" target="_blank" rel="noopener noreferrer"><Trans>Send us feedback!</Trans></a></nobr>
                 </div>
 
               </div>
@@ -374,69 +356,40 @@ export default class Indicators extends Component {
                 
                 <div className="card">
                   <div className="card-header">
-                    <div className="card-title h5">What are 
-                    {(this.state.activeVis === 'complaints' ? ' HPD Complaints' : 
-                    this.state.activeVis === 'viols' ? ' HPD Violations' :
-                    this.state.activeVis === 'permits' ? ' Building Permit Applications' :
-                    '')}?</div>
+                    <div className="card-title h5">What are {dataset && dataset.name(i18n)}?</div>
                     <div className="card-subtitle text-gray"></div>
                   </div>
                   <div className="card-body">
-                    {(this.state.activeVis === 'complaints' ? 
-                      <span>HPD Complaints are housing issues reported to the City <b>by a tenant calling 311</b>.
-                      When someone issues a complaint, the Department of Housing Preservation and Development begins a process of investigation that may lead to an official violation from the City.
-                      Complaints can be identified as:<br/>
-                        <br/>
-                      <b>Emergency</b> — reported to be hazardous/dire<br/>
-                      <b>Non-Emergency</b> — all others<br/>
-                        <br/>  
-                      Read more about HPD Complaints and how to file them at the <a href='https://www1.nyc.gov/site/hpd/renters/complaints-and-inspections.page' target="_blank" rel="noopener noreferrer">official HPD page</a>.</span> : 
-                    this.state.activeVis === 'viols' ? 
-                      <span>HPD Violations occur when an official City Inspector finds the conditions of a home in violation of the law. 
-                      If not corrected, these violations incur fines for the owner— however, HPD violations are notoriously unenforced by the City.
-                      These Violations fall into three categories:<br/>
-                        <br/>
-                      <b>Class A</b> — non-hazardous<br/>
-                      <b>Class B</b> — hazardous<br/>
-                      <b>Class C</b> — immediately hazardous<br/>
-                        <br/>
-                      Read more about HPD Violations at the <a href='https://www1.nyc.gov/site/hpd/owners/compliance-maintenance-requirements.page' target="_blank" rel="noopener noreferrer">official HPD page</a>.</span> :
-                    this.state.activeVis === 'permits' ? 
-                      <span>Owners submit Building Permit Applications to the Department of Buildings before any construction project to get necessary approval.
-                      The number of applications filed can indicate how much construction the owner was planning.
-                        <br/>
-                        <br/> 
-                      Read more about DOB Building Applications/Permits at the <a href='https://www1.nyc.gov/site/buildings/about/building-applications-and-permits.page' target="_blank" rel="noopener noreferrer">official NYC Buildings page</a>.</span> :
-                    '')}
+                    {dataset && dataset.explanation(i18n)}
                   </div>
                 </div>
 
                 <div className="card card-links">
                   <div className="card-body card-body-links">
-                    <h6>Official building pages</h6>
+                    <Trans render="h6">Official building pages</Trans>
                     <div className="columns">
                       <div className="column col-12">
                         <a onClick={() => {window.gtag('event', 'acris-timeline-tab');}} 
                            href={`http://a836-acris.nyc.gov/bblsearch/bblsearch.asp?borough=${boro}&block=${block}&lot=${lot}`} target="_blank" rel="noopener noreferrer" 
-                           className="btn btn-block">View documents on ACRIS &#8599;&#xFE0E;</a>
+                           className="btn btn-block"><Trans>View documents on ACRIS</Trans> &#8599;&#xFE0E;</a>
                       </div>
                       <div className="column col-12">
                         <a onClick={() => {window.gtag('event', 'hpd-timeline-tab');}} 
                            href={(housenumber && streetname ? `https://hpdonline.hpdnyc.org/HPDonline/Provide_address.aspx?p1=${boro}&p2=${housenumber}&p3=${streetname}&SearchButton=Search` : `https://hpdonline.hpdnyc.org/HPDonline/provide_address.aspx`)} target="_blank" rel="noopener noreferrer" 
-                           className="btn btn-block">HPD Building Profile &#8599;&#xFE0E;</a>
+                           className="btn btn-block"><Trans>HPD Building Profile</Trans> &#8599;&#xFE0E;</a>
                       </div>
                       <div className="column col-12">
                         <a onClick={() => {window.gtag('event', 'dob-timeline-tab');}} 
                            href={`http://a810-bisweb.nyc.gov/bisweb/PropertyProfileOverviewServlet?boro=${boro}&block=${block}&lot=${lot}`} target="_blank" rel="noopener noreferrer" 
-                           className="btn btn-block">DOB Building Profile &#8599;&#xFE0E;</a>
+                           className="btn btn-block"><Trans>DOB Building Profile</Trans> &#8599;&#xFE0E;</a>
                       </div>
                       <div className="column col-12">
                         <a onClick={() => {window.gtag('event', 'dof-timeline-tab');}} 
                            href={`https://a836-pts-access.nyc.gov/care/search/commonsearch.aspx?mode=persprop`} target="_blank" rel="noopener noreferrer" 
-                           className="btn btn-block">DOF Property Tax Bills &#8599;&#xFE0E;</a>
+                           className="btn btn-block"><Trans>DOF Property Tax Bills</Trans> &#8599;&#xFE0E;</a>
                       </div>
                       <div className="column col-12">
-                          <a onClick={() => {window.gtag('event', 'dap-timeline-tab');}} href={`https://portal.displacementalert.org/property/${boro}${block}${lot}`} target="_blank" rel="noopener noreferrer" className="btn btn-block"><span className="chip text-italic">New!</span> ANHD DAP Portal &#8599;&#xFE0E;</a>
+                          <a onClick={() => {window.gtag('event', 'dap-timeline-tab');}} href={`https://portal.displacementalert.org/property/${boro}${block}${lot}`} target="_blank" rel="noopener noreferrer" className="btn btn-block"><span className="chip text-italic"><Trans>New!</Trans></span> <Trans>ANHD DAP Portal</Trans> &#8599;&#xFE0E;</a>
                       </div>
                     </div>
                   </div>
@@ -458,3 +411,6 @@ export default class Indicators extends Component {
     );
   }
 }
+
+const Indicators = withI18n()(IndicatorsWithoutI18n);
+export default Indicators;

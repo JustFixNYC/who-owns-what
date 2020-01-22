@@ -29,7 +29,7 @@ export interface SearchAddress {
 
 export interface AddressSearchProps extends SearchAddress {
   onFormSubmit: (searchAddress: SearchAddress, error: any) => void,
-  labelText: string,
+  labelText: string|JSX.Element,
   labelClass: string
 }
 

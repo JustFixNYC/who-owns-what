@@ -7,6 +7,7 @@ import APIClient from 'components/APIClient';
 import SocialShare from 'components/SocialShare';
 
 import 'styles/NotRegisteredPage.css';
+import { Trans } from '@lingui/macro';
 
 export default class NotRegisteredPage extends Component {
   constructor(props) {
@@ -65,11 +66,12 @@ export default class NotRegisteredPage extends Component {
             buildingTypeMessage = (
               <div>
                 <p className="text-center">
-                  This seems like a smaller residential building. If the landlord doesn't reside there, it should be registered with HPD. <nobr>(<i><a href={`http://www1.nyc.gov/assets/finance/jump/hlpbldgcode.html#${generalBldgCat.charAt(0)}`} target="_blank" rel="noopener noreferrer">Building Classification</a>: {buildingInfo.bldgclass}</i>)</nobr>
+                  <Trans>This seems like a smaller residential building. If the landlord doesn't reside there, it should be registered with HPD.</Trans>{" "}
+                  <nobr>(<i><a href={`http://www1.nyc.gov/assets/finance/jump/hlpbldgcode.html#${generalBldgCat.charAt(0)}`} target="_blank" rel="noopener noreferrer"><Trans>Building Classification</Trans></a>: {buildingInfo.bldgclass}</i>)</nobr>
                   <a // eslint-disable-line jsx-a11y/anchor-is-valid
                     className="btn btn-block btn-link"
                     onClick={() => this.setState({ showModal: true })}
-                  >What happens if the landlord has failed to register?</a>
+                  ><Trans>What happens if the landlord has failed to register?</Trans></a>
                 </p>
               </div>
             );
@@ -78,17 +80,21 @@ export default class NotRegisteredPage extends Component {
             buildingTypeMessage = (
               <div>
                 <p className="text-center">
-                  <b>This building seems like it should be registered with HPD!</b> <nobr>(<i><a href={`http://www1.nyc.gov/assets/finance/jump/hlpbldgcode.html#${generalBldgCat.charAt(0)}`} target="_blank" rel="noopener noreferrer">Building Classification</a>: {buildingInfo.bldgclass}</i>)</nobr>
+                  <Trans render="b">This building seems like it should be registered with HPD!</Trans>{" "}
+                  <nobr>(<i><a href={`http://www1.nyc.gov/assets/finance/jump/hlpbldgcode.html#${generalBldgCat.charAt(0)}`} target="_blank" rel="noopener noreferrer"><Trans>Building Classification</Trans></a>: {buildingInfo.bldgclass}</i>)</nobr>
                   <a // eslint-disable-line jsx-a11y/anchor-is-valid
                     className="btn btn-block btn-link"
                     onClick={() => this.setState({ showModal: true })}
-                  >What happens if the landlord has failed to register?</a>
+                  ><Trans>What happens if the landlord has failed to register?</Trans></a>
                 </p>
               </div>
             );
             break;
           default:
-            buildingTypeMessage = (<p className="text-center">It doesn't seem like this property is required to register with HPD. <nobr>(<i><a href={`http://www1.nyc.gov/assets/finance/jump/hlpbldgcode.html#${generalBldgCat.charAt(0)}`} target="_blank" rel="noopener noreferrer"><u>Building Classification</u></a>: {buildingInfo.bldgclass}</i>)</nobr></p>);
+            buildingTypeMessage = (
+              <p className="text-center"><Trans>It doesn't seem like this property is required to register with HPD.</Trans>{" "}
+              <nobr>(<i><a href={`http://www1.nyc.gov/assets/finance/jump/hlpbldgcode.html#${generalBldgCat.charAt(0)}`} target="_blank" rel="noopener noreferrer"><Trans render="u">Building Classification</Trans></a>: {buildingInfo.bldgclass}</i>)</nobr></p>
+            );
             break;
         };
       }
@@ -101,7 +107,7 @@ export default class NotRegisteredPage extends Component {
           <div className="HomePage__content">
             <div className="HomePage__search">
               <h5 className="mt-10 text-danger text-center text-bold text-large">
-                No address found
+                <Trans>No address found</Trans>
               </h5>
             </div>
          `</div>
@@ -109,18 +115,21 @@ export default class NotRegisteredPage extends Component {
       );
     }
 
+    const usersInputAddressFragment = usersInputAddress ? <>
+      {(usersInputAddress.housenumber === ' ' ? '' : (usersInputAddress.housenumber + ' '))}
+      {(usersInputAddress.streetname !== ' ' && (usersInputAddress.streetname))}
+    </> : null;
+
     return (
       <div className="NotRegisteredPage Page">
         <div className="HomePage__content">
           <div className="HomePage__search">
             <h5 className="mt-10 text-danger text-center text-bold text-large">
-              No registration found
               {usersInputAddress ? (
-                 <span> for {(usersInputAddress.housenumber === ' ' ? '' : (usersInputAddress.housenumber + ' '))}
-                  {(usersInputAddress.streetname !== ' ' && (usersInputAddress.streetname))}</span>
+                <Trans>No registration found for {usersInputAddressFragment}!</Trans>
               ) : (
-                <span></span>
-              )}!
+                <Trans>No registration found!</Trans>
+              )}
             </h5>
             <h6 className="mt-10 text-center text-bold text-large">
               {buildingTypeMessage}
@@ -136,22 +145,22 @@ export default class NotRegisteredPage extends Component {
               <br />
               { geosearch && geosearch.bbl && buildingInfo && buildingInfo.housenumber && buildingInfo.streetname &&
                 <div>
-                  <p>Useful links:</p>
+                  <Trans render="p">Useful links:</Trans>
                   <div>
                     <div className="btn-group btn-group-block">
-                      <a href={`http://a836-acris.nyc.gov/bblsearch/bblsearch.asp?borough=${boro}&block=${block}&lot=${lot}`} target="_blank" rel="noopener noreferrer" className="btn">View documents on ACRIS &#8599;</a>
-                      <a href={`http://webapps.nyc.gov:8084/CICS/fin1/find001i?FFUNC=C&FBORO=${boro}&FBLOCK=${block}&FLOT=${lot}`} target="_blank" rel="noopener noreferrer" className="btn">DOF Property Tax Bills &#8599;</a>
+                      <a href={`http://a836-acris.nyc.gov/bblsearch/bblsearch.asp?borough=${boro}&block=${block}&lot=${lot}`} target="_blank" rel="noopener noreferrer" className="btn"><Trans>View documents on ACRIS</Trans> &#8599;</a>
+                      <a href={`http://webapps.nyc.gov:8084/CICS/fin1/find001i?FFUNC=C&FBORO=${boro}&FBLOCK=${block}&FLOT=${lot}`} target="_blank" rel="noopener noreferrer" className="btn"><Trans>DOF Property Tax Bills</Trans> &#8599;</a>
                     </div>
                     <div className="btn-group btn-group-block">
-                      <a href={`http://a810-bisweb.nyc.gov/bisweb/PropertyProfileOverviewServlet?boro=${boro}&block=${block}&lot=${lot}`} target="_blank" rel="noopener noreferrer" className="btn">DOB Building Profile &#8599;</a>
-                      <a href={`https://hpdonline.hpdnyc.org/HPDonline/Provide_address.aspx?p1=${boro}&p2=${buildingInfo.housenumber}&p3=${buildingInfo.streetname}&SearchButton=Search`} target="_blank" rel="noopener noreferrer" className="btn">HPD Complaints/Violations &#8599;</a>
+                      <a href={`http://a810-bisweb.nyc.gov/bisweb/PropertyProfileOverviewServlet?boro=${boro}&block=${block}&lot=${lot}`} target="_blank" rel="noopener noreferrer" className="btn"><Trans>DOB Building Profile</Trans> &#8599;</a>
+                      <a href={`https://hpdonline.hpdnyc.org/HPDonline/Provide_address.aspx?p1=${boro}&p2=${buildingInfo.housenumber}&p3=${buildingInfo.streetname}&SearchButton=Search`} target="_blank" rel="noopener noreferrer" className="btn"><Trans>HPD Complaints/Violations</Trans> &#8599;</a>
                     </div>
                   </div>
                 </div>
               }
 
               <div className="social-share">
-                <p>Share this page with your neighbors:</p>
+                <p><Trans>Share this page with your neighbors</Trans></p>
                 <SocialShare 
                   location="nycha-page"
                   url={usersInputAddress && encodeURI('https://whoownswhat.justfix.nyc/address/' + usersInputAddress.boro + '/' + usersInputAddress.housenumber + '/' + usersInputAddress.streetname).replace(" ", "%20")} // Support for Android
@@ -165,25 +174,25 @@ export default class NotRegisteredPage extends Component {
               <br />
 
               <Link className="btn btn-primary btn-block" to="/">
-                &lt;-- Search for a different address
+                &lt;-- <Trans>Search for a different address</Trans>
               </Link>
             </div>
             <Modal
               width={60}
               showModal={this.state.showModal}
               onClose={() => this.setState({ showModal: false })}>
-              <h5>Failure to register a building with HPD</h5>
-              <p>
+              <Trans render="h5">Failure to register a building with HPD</Trans>
+              <Trans render="p">
                 Buildings without valid property registration are subject to the following:
-              </p>
+              </Trans>
               <ul>
-                <li>Civil penalties of $250-$500</li>
-                <li>May be issued official Orders</li>
-                <li>Ineligible to certify violations</li>
-                <li>Unable to request Code Violation Dismissals</li>
-                <li>Unable to initiate a court action for nonpayment of rent.</li>
+                <Trans render="li">Civil penalties of $250-$500</Trans>
+                <Trans render="li">May be issued official Orders</Trans>
+                <Trans render="li">Ineligible to certify violations</Trans>
+                <Trans render="li">Unable to request Code Violation Dismissals</Trans>
+                <Trans render="li">Unable to initiate a court action for nonpayment of rent.</Trans>
               </ul>
-              <a className="btn" href="http://www1.nyc.gov/site/hpd/owners/compliance-register-your-property.page" target="_blank" rel="noopener noreferrer">Click here to learn more. &#8599;</a>
+              <a className="btn" href="http://www1.nyc.gov/site/hpd/owners/compliance-register-your-property.page" target="_blank" rel="noopener noreferrer"><Trans>Click here to learn more.</Trans> &#8599;</a>
             </Modal>
           </div>
          </div>

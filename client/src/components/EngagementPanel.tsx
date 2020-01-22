@@ -3,6 +3,7 @@ import Subscribe from './Subscribe';
 import SocialShare from './SocialShare';
 
 import 'styles/EngagementPanel.css';
+import { Trans } from '@lingui/macro';
 
 
 
@@ -11,18 +12,18 @@ const EngagementPanel: React.FC<{
 }> = (props) => {
   return (
     <div className="EngagementPanel">
-      <h5>Join the fight for tenant rights!</h5>
+      <Trans render="h5">Join the fight for tenant rights!</Trans>
       <div className="EngagementWrapper">
         <div className="EngagementItem">
-         <p>Sign up for email updates:</p>
+         <p><Trans>Sign up for email updates</Trans></p>
          <Subscribe />
         </div>
         <div className="EngagementItem">
-         <p>Share with your neighbors:</p>
+         <p><Trans>Share this page with your neighbors</Trans></p>
          <SocialShare location={props.location} />
         </div>
         <div className="EngagementItem">
-         <p>Visit our website:</p>
+         <p><Trans>Visit our website</Trans></p>
          <a href="https://www.justfix.nyc/"
             className="btn btn-block btn-justfix">
             www.JustFix.nyc</a>

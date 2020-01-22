@@ -141,21 +141,21 @@ class IndicatorsVizImplementation extends Component {
     case 'viols': 
       datasets = 
         [{
-            label: 'Class C',
+            label: i18n._(t`Class C`),
             data: this.groupData(this.props.violsData.values.class_c),
             backgroundColor: 'rgba(136,65,157, 0.6)',
             borderColor: 'rgba(136,65,157,1)',
             borderWidth: 1
         },
         {
-            label: 'Class B',
+            label: i18n._(t`Class B`),
             data: this.groupData(this.props.violsData.values.class_b),
             backgroundColor: 'rgba(140,150,198, 0.6)',
             borderColor: 'rgba(140,150,198,1)',
             borderWidth: 1
         },
         {
-            label: 'Class A',
+            label: i18n._(t`Class A`),
             data: this.groupData(this.props.violsData.values.class_a),
             backgroundColor: 'rgba(157, 194, 227, 0.6)',
             borderColor: 'rgba(157, 194, 227,1)',
@@ -172,7 +172,7 @@ class IndicatorsVizImplementation extends Component {
             borderWidth: 1
         },
         {
-            label: 'Non-Emergency',
+            label: i18n._(t`Non-Emergency`),
             data: this.groupData(this.props.complaintsData.values.nonemergency),
             backgroundColor: 'rgba(255, 219, 170, 0.6)',
             borderColor: 'rgba(255, 219, 170,1)',
@@ -182,7 +182,7 @@ class IndicatorsVizImplementation extends Component {
     case 'permits':
       datasets = 
         [{
-            label: 'Building Permits Applied For',
+            label: i18n._(t`Building Permits Applied For`),
             data: this.groupData(this.props.permitsData.values.total),
             backgroundColor: 'rgba(73, 192, 179, 0.6)',
             borderColor: 'rgb(73, 192, 179)',
@@ -242,7 +242,9 @@ class IndicatorsVizImplementation extends Component {
               fontColor: "rgb(69, 77, 93)",
               fontSize: 14,
               padding: 8,
-              labelString: (this.props.activeVis === 'complaints' ? 'Complaints Issued' : this.props.activeVis === 'viols' ? 'Violations Issued' : 'Building Permits Applied For')
+              labelString: (this.props.activeVis === 'complaints' 
+              ? i18n._(t`Complaints Issued`) : this.props.activeVis === 'viols' 
+              ? i18n._(t`Violations Issued`) : i18n._(t`Building Permits Applied For`))
             },
             stacked: true,
         }],
@@ -331,7 +333,7 @@ class IndicatorsVizImplementation extends Component {
             for (i = 0; i < tooltipItem.length; i++) {
               total += parseInt(tooltipItem[i].value);
             }
-            return "Total: " + total;
+            return i18n._(t`Total`) + ": " + total;
           }
         }
       },
@@ -371,7 +373,7 @@ class IndicatorsVizImplementation extends Component {
                 borderColor: (dateLocation === 'current' ? "rgb(69, 77, 93)" : "rgba(0,0,0,0)"),
                 borderWidth: 2,
                 label: {
-                    content: (this.props.lastSale.date ? "Sold to Current Owner" : "Last Sale Unknown"),
+                    content: (this.props.lastSale.date ? i18n._(t`Sold to Current Owner`) : i18n._(t`Last Sale Unknown`)),
                     fontFamily: "Inconsolata, monospace",
                     fontColor: "#fff",
                     fontSize: 12,
@@ -425,7 +427,7 @@ class IndicatorsVizImplementation extends Component {
                 borderColor: "rgba(0,0,0,0)",
                 borderWidth: 0,
                 label: {
-                    content: "← No data available",
+                    content: ('← ' + i18n._(t`No data available`)),
                     fontFamily: "Inconsolata, monospace",
                     fontColor: "#e85600",
                     fontSize: 12,

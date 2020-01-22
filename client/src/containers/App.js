@@ -38,27 +38,27 @@ render() {
           <ScrollToTop>
             <div className="App">
               <div className="App__warning old_safari_only">
-                <h3>Warning! This site doesn't fully work on older versions of Safari. Try a <a href="http://outdatedbrowser.com/en">modern browser</a>.</h3>
+                <Trans render="h3">Warning! This site doesn't fully work on older versions of Safari. Try a <a href="http://outdatedbrowser.com/en">modern browser</a>.</Trans>
               </div>
               <div className="App__header">
                 <Link onClick={() => {window.gtag('event', 'site-title');}} to="/">
                   <Trans render="h4">Who owns what in nyc?</Trans>
                 </Link>
                 <nav className="inline">
-                  <LocaleNavLink exact to="/">Home</LocaleNavLink>
-                  <LocaleNavLink to="/about">About</LocaleNavLink>
-                  <LocaleNavLink to="/how-to-use">How to use</LocaleNavLink>
-                  <a href="https://www.justfix.nyc/donate">Donate</a>
+                  <LocaleNavLink exact to="/"><Trans>Home</Trans></LocaleNavLink>
+                  <LocaleNavLink to="/about"><Trans>About</Trans></LocaleNavLink>
+                  <LocaleNavLink to="/how-to-use"><Trans>How to use</Trans></LocaleNavLink>
+                  <a href="https://www.justfix.nyc/donate"><Trans>Donate</Trans></a>
                   <a href="#" // eslint-disable-line jsx-a11y/anchor-is-valid
                     onClick={() => this.setState({ showEngageModal: true })}>
-                    Share
+                    <Trans>Share</Trans>
                   </a>
                   <LocaleSwitcher/>
                 </nav>
                 <Modal
                   showModal={this.state.showEngageModal}
                   onClose={() => this.setState({ showEngageModal: false })}>
-                    <h5 className="first-header">Share this page with your neighbors:</h5>
+                    <h5 className="first-header"><Trans>Share this page with your neighbors</Trans></h5>
                     <SocialShare location="share-modal" />
                 </Modal>
               </div>

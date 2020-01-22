@@ -18,6 +18,7 @@ import { GeoSearchRequester } from '@justfixnyc/geosearch-requester';
 import NychaPage from './NychaPage';
 import NotRegisteredPage from './NotRegisteredPage';
 import helpers from '../util/helpers';
+import { Trans, Plural } from '@lingui/macro';
 
 export default class AddressPage extends Component {
   constructor(props) {
@@ -141,7 +142,7 @@ export default class AddressPage extends Component {
             { this.state.userAddr &&
               <div className="float-left">
                 <h5 className="primary">
-                  PORTFOLIO: Your search address is associated with <u>{this.state.assocAddrs.length}</u> building{this.state.assocAddrs.length === 1 ? '':'s'}:
+                  <Trans>PORTFOLIO: Your search address is associated with <u>{this.state.assocAddrs.length}</u> <Plural value={this.state.assocAddrs.length} one="building" other="buildings" />:</Trans>
                 </h5>
                 <ul className="tab tab-block">
                   <li className={`tab-item ${this.state.currentTab === 0 ? "active" : ""}`}>
@@ -152,19 +153,19 @@ export default class AddressPage extends Component {
                         }
                         this.setState({ currentTab: 0 });
                       }}
-                    >Overview</a>
+                    ><Trans>Overview</Trans></a>
                   </li>
                   <li className={`tab-item ${this.state.currentTab === 1 ? "active" : ""}`}>
                     <a // eslint-disable-line jsx-a11y/anchor-is-valid
-                      onClick={() => {this.setState({ currentTab: 1 }); window.gtag('event', 'timeline-tab');}}>Timeline</a>
+                      onClick={() => {this.setState({ currentTab: 1 }); window.gtag('event', 'timeline-tab');}}><Trans>Timeline</Trans></a>
                   </li>
                   <li className={`tab-item ${this.state.currentTab === 2 ? "active" : ""}`}>
                     <a // eslint-disable-line jsx-a11y/anchor-is-valid
-                      onClick={() => {this.setState({ currentTab: 2 }); window.gtag('event', 'portfolio-tab');}}>Portfolio</a>
+                      onClick={() => {this.setState({ currentTab: 2 }); window.gtag('event', 'portfolio-tab');}}><Trans>Portfolio</Trans></a>
                   </li>
                   <li className={`tab-item ${this.state.currentTab === 3 ? "active" : ""}`}>
                     <a // eslint-disable-line jsx-a11y/anchor-is-valid
-                      onClick={() => {this.setState({ currentTab: 3 }); window.gtag('event', 'summary-tab');}}>Summary</a>
+                      onClick={() => {this.setState({ currentTab: 3 }); window.gtag('event', 'summary-tab');}}><Trans>Summary</Trans></a>
                   </li>
                   
                 </ul>
@@ -215,7 +216,7 @@ export default class AddressPage extends Component {
       );
     }
     else {
-      return (<Loader loading={true} classNames="Loader-map">Loading</Loader>);
+      return (<Loader loading={true} classNames="Loader-map"><Trans>Loading</Trans></Loader>);
     }
   }
 }

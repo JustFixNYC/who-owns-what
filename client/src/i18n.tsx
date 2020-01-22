@@ -157,6 +157,9 @@ export const LocaleSwitcher = withRouter(function LocaleSwitcher(props: RouteCom
 /**
  * Like React Router's <NavLink>, but it prefixes the passed-in `to` prop with
  * the current locale.
+ * 
+ * Note that this doesn't localize the actual *text* of the link--it only localizes
+ * the path!
  */
 export function LocaleNavLink(props: NavLinkProps & {to: string}): JSX.Element {
   return <Route render={rProps => 
@@ -167,6 +170,9 @@ export function LocaleNavLink(props: NavLinkProps & {to: string}): JSX.Element {
 /**
  * Like React Router's <Link>, but it prefixes the passed-in `to` prop with
  * the current locale.
+ * 
+ * Note that this doesn't localize the actual *text* of the link--it only localizes
+ * the path!
  */
 export function LocaleLink(props: LinkProps & {to: string}): JSX.Element {
   return <Route render={rProps => 
