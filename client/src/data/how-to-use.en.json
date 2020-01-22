@@ -46,11 +46,68 @@
           {
             "data": {},
             "marks": [],
+            "value": "",
+            "nodeType": "text"
+          }
+        ],
+        "nodeType": "paragraph"
+      },
+      {
+        "data": {},
+        "content": [
+          {
+            "data": {},
+            "marks": [],
             "value": "Learn more about your building’s issues—and how you may be able to get them fixed. ",
             "nodeType": "text"
           }
         ],
         "nodeType": "heading-5"
+      },
+      {
+        "data": {
+          "target": {
+            "sys": {
+              "space": {
+                "sys": {
+                  "type": "Link",
+                  "linkType": "Space",
+                  "id": "lhtzm8rjj8y4"
+                }
+              },
+              "id": "2Ivr4g7lSDnFz4D9lCfEUE",
+              "type": "Asset",
+              "createdAt": "2020-01-16T20:01:10.593Z",
+              "updatedAt": "2020-01-16T20:27:11.250Z",
+              "environment": {
+                "sys": {
+                  "id": "master",
+                  "type": "Link",
+                  "linkType": "Environment"
+                }
+              },
+              "revision": 4,
+              "locale": "en"
+            },
+            "fields": {
+              "title": "WOW How to Use Visual 1",
+              "file": {
+                "url": "//images.ctfassets.net/lhtzm8rjj8y4/2Ivr4g7lSDnFz4D9lCfEUE/5bc3434e70c0eceeb2ec2b22897a70c5/WOW_How_to_Use_Visual_1.png",
+                "details": {
+                  "size": 569902,
+                  "image": {
+                    "width": 1300,
+                    "height": 904
+                  }
+                },
+                "fileName": "WOW How to Use Visual 1.png",
+                "contentType": "image/png"
+              }
+            }
+          }
+        },
+        "content": [],
+        "nodeType": "embedded-asset-block"
       },
       {
         "data": {},
@@ -101,6 +158,24 @@
                             "data": {},
                             "marks": [],
                             "value": "Use the “Timeline” tab to see a recent history of 311 complaints reported by tenants and official violations issued by the Department of Housing Preservation and Development. ",
+                            "nodeType": "text"
+                          }
+                        ],
+                        "nodeType": "paragraph"
+                      }
+                    ],
+                    "nodeType": "list-item"
+                  },
+                  {
+                    "data": {},
+                    "content": [
+                      {
+                        "data": {},
+                        "content": [
+                          {
+                            "data": {},
+                            "marks": [],
+                            "value": "Dig deeper into the violations by checking out the HPD Building Profile or by going to the Displacement Alert Portal (DAP) from the Association for Neighborhood and Housing Development (ANHD).",
                             "nodeType": "text"
                           }
                         ],
@@ -178,7 +253,7 @@
                           {
                             "data": {},
                             "marks": [],
-                            "value": " or by texting “RENT HISTORY” to (646) 783-0627 to find out more. Dig deeper into the violations by checking out the HPD Building Profile or by going to the Displacement Alert Portal (DAP) from the Association for Neighborhood and Housing Development (ANHD).",
+                            "value": " or by texting “RENT HISTORY” to (646) 783-0627 to find out more. ",
                             "nodeType": "text"
                           }
                         ],
@@ -202,11 +277,80 @@
           {
             "data": {},
             "marks": [],
+            "value": "",
+            "nodeType": "text"
+          }
+        ],
+        "nodeType": "paragraph"
+      },
+      {
+        "data": {},
+        "content": [
+          {
+            "data": {},
+            "marks": [],
+            "value": "",
+            "nodeType": "text"
+          }
+        ],
+        "nodeType": "paragraph"
+      },
+      {
+        "data": {},
+        "content": [
+          {
+            "data": {},
+            "marks": [],
             "value": "See who else your landlord or property manager may be harming— and determine if it’s possible to build a tenant association (TA). ",
             "nodeType": "text"
           }
         ],
         "nodeType": "heading-5"
+      },
+      {
+        "data": {
+          "target": {
+            "sys": {
+              "space": {
+                "sys": {
+                  "type": "Link",
+                  "linkType": "Space",
+                  "id": "lhtzm8rjj8y4"
+                }
+              },
+              "id": "5akoKd4rOoR15ticUArlUQ",
+              "type": "Asset",
+              "createdAt": "2020-01-16T20:01:10.590Z",
+              "updatedAt": "2020-01-16T20:01:10.590Z",
+              "environment": {
+                "sys": {
+                  "id": "master",
+                  "type": "Link",
+                  "linkType": "Environment"
+                }
+              },
+              "revision": 1,
+              "locale": "en"
+            },
+            "fields": {
+              "title": "WOW How to Use Visual 2",
+              "file": {
+                "url": "//images.ctfassets.net/lhtzm8rjj8y4/5akoKd4rOoR15ticUArlUQ/785ce23a4714c342cfee51940b37aa82/WOW_How_to_Use_Visual_2.png",
+                "details": {
+                  "size": 2016990,
+                  "image": {
+                    "width": 2846,
+                    "height": 1978
+                  }
+                },
+                "fileName": "WOW How to Use Visual 2.png",
+                "contentType": "image/png"
+              }
+            }
+          }
+        },
+        "content": [],
+        "nodeType": "embedded-asset-block"
       },
       {
         "data": {},
@@ -286,31 +430,7 @@
                   {
                     "data": {},
                     "marks": [],
-                    "value": " during your first TA meeting. This article has a few helpful tips on how to set up the meeting: ",
-                    "nodeType": "text"
-                  },
-                  {
-                    "data": {
-                      "uri": "http://metcouncilonhousing.org/help_and_answers/tenants_associations#answer03"
-                    },
-                    "content": [
-                      {
-                        "data": {},
-                        "marks": [
-                          {
-                            "type": "underline"
-                          }
-                        ],
-                        "value": "http://metcouncilonhousing.org/help_and_answers/tenants_associations#answer03",
-                        "nodeType": "text"
-                      }
-                    ],
-                    "nodeType": "hyperlink"
-                  },
-                  {
-                    "data": {},
-                    "marks": [],
-                    "value": "",
+                    "value": " during your first TA meeting. ",
                     "nodeType": "text"
                   }
                 ],
@@ -345,11 +465,19 @@
         "content": [
           {
             "data": {},
-            "marks": [
-              {
-                "type": "bold"
-              }
-            ],
+            "marks": [],
+            "value": "",
+            "nodeType": "text"
+          }
+        ],
+        "nodeType": "paragraph"
+      },
+      {
+        "data": {},
+        "content": [
+          {
+            "data": {},
+            "marks": [],
             "value": "",
             "nodeType": "text"
           }
@@ -367,6 +495,51 @@
           }
         ],
         "nodeType": "heading-5"
+      },
+      {
+        "data": {
+          "target": {
+            "sys": {
+              "space": {
+                "sys": {
+                  "type": "Link",
+                  "linkType": "Space",
+                  "id": "lhtzm8rjj8y4"
+                }
+              },
+              "id": "5DWchgwSQVt35d2F7Gepx3",
+              "type": "Asset",
+              "createdAt": "2020-01-16T20:01:10.599Z",
+              "updatedAt": "2020-01-16T20:01:10.599Z",
+              "environment": {
+                "sys": {
+                  "id": "master",
+                  "type": "Link",
+                  "linkType": "Environment"
+                }
+              },
+              "revision": 1,
+              "locale": "en"
+            },
+            "fields": {
+              "title": "WOW How to Use Visual 3",
+              "file": {
+                "url": "//images.ctfassets.net/lhtzm8rjj8y4/5DWchgwSQVt35d2F7Gepx3/b4a68af76356f6dd1d850888c10ce47c/WOW_How_to_Use_Visual_3.png",
+                "details": {
+                  "size": 2001797,
+                  "image": {
+                    "width": 2846,
+                    "height": 1978
+                  }
+                },
+                "fileName": "WOW How to Use Visual 3.png",
+                "contentType": "image/png"
+              }
+            }
+          }
+        },
+        "content": [],
+        "nodeType": "embedded-asset-block"
       },
       {
         "data": {},
@@ -456,6 +629,66 @@
           {
             "data": {},
             "marks": [],
+            "value": "",
+            "nodeType": "text"
+          }
+        ],
+        "nodeType": "paragraph"
+      },
+      {
+        "data": {},
+        "content": [
+          {
+            "data": {},
+            "marks": [],
+            "value": "",
+            "nodeType": "text"
+          }
+        ],
+        "nodeType": "paragraph"
+      },
+      {
+        "data": {},
+        "content": [
+          {
+            "data": {},
+            "marks": [],
+            "value": "",
+            "nodeType": "text"
+          }
+        ],
+        "nodeType": "paragraph"
+      },
+      {
+        "data": {},
+        "content": [
+          {
+            "data": {},
+            "marks": [],
+            "value": "",
+            "nodeType": "text"
+          }
+        ],
+        "nodeType": "paragraph"
+      },
+      {
+        "data": {},
+        "content": [
+          {
+            "data": {},
+            "marks": [],
+            "value": "",
+            "nodeType": "text"
+          }
+        ],
+        "nodeType": "paragraph"
+      },
+      {
+        "data": {},
+        "content": [
+          {
+            "data": {},
+            "marks": [],
             "value": "A few more helpful tips and terms:",
             "nodeType": "text"
           }
@@ -483,7 +716,7 @@
           },
           {
             "data": {
-              "uri": "https://app.justfix.nyc/"
+              "uri": "https://app.justfix.nyc/loc/splash"
             },
             "content": [
               {
@@ -524,7 +757,7 @@
           {
             "data": {},
             "marks": [],
-            "value": " Clicking this link when exploring a portfolio will let you compare the names and addresses the two buildings have in common. ",
+            "value": " Clicking this link when exploring a portfolio will let you compare the owner names and addresses that two buildings have in common. ",
             "nodeType": "text"
           }
         ],
