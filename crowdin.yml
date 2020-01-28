@@ -1,0 +1,3 @@
+files:
+  - source: /client/src/locales/en/messages.po
+    translation: /client/src/locales/%two_letters_code%/%original_file_name%
