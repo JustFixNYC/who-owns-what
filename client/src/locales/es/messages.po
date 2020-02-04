@@ -43,7 +43,7 @@ msgstr ""
 msgid "ANHD DAP Portal"
 msgstr ""
 
-#: src/containers/App.js:49
+#: src/containers/App.js:55
 msgid "About"
 msgstr ""
 
@@ -91,9 +91,9 @@ msgstr ""
 msgid "Borough Management Office:"
 msgstr ""
 
-#: src/containers/NotRegisteredPage.js:70
-#: src/containers/NotRegisteredPage.js:84
-#: src/containers/NotRegisteredPage.js:96
+#: src/containers/NotRegisteredPage.js:78
+#: src/containers/NotRegisteredPage.js:91
+#: src/containers/NotRegisteredPage.js:102
 msgid "Building Classification"
 msgstr ""
 
@@ -106,7 +106,7 @@ msgstr ""
 msgid "Building Permits Applied For"
 msgstr ""
 
-#: src/containers/NotRegisteredPage.js:185
+#: src/containers/NotRegisteredPage.js:190
 msgid "Buildings without valid property registration are subject to the following:"
 msgstr ""
 
@@ -125,7 +125,7 @@ msgstr ""
 msgid "Business Entities"
 msgstr ""
 
-#: src/containers/NotRegisteredPage.js:189
+#: src/containers/NotRegisteredPage.js:194
 msgid "Civil penalties of $250-$500"
 msgstr ""
 
@@ -141,7 +141,7 @@ msgstr ""
 msgid "Class C"
 msgstr ""
 
-#: src/containers/NotRegisteredPage.js:195
+#: src/containers/NotRegisteredPage.js:200
 msgid "Click here to learn more."
 msgstr ""
 
@@ -155,19 +155,23 @@ msgstr ""
 
 #: src/components/DetailView.js:190
 #: src/components/Indicators.js:384
-#: src/containers/NotRegisteredPage.js:155
+#: src/containers/NotRegisteredPage.js:160
 #: src/containers/NychaPage.js:186
 msgid "DOB Building Profile"
 msgstr ""
 
 #: src/components/DetailView.js:193
 #: src/components/Indicators.js:389
-#: src/containers/NotRegisteredPage.js:152
+#: src/containers/NotRegisteredPage.js:157
 msgid "DOF Property Tax Bills"
 msgstr ""
 
+#: src/containers/App.js:50
+msgid "Demo Site"
+msgstr ""
+
 #: src/components/LegalFooter.tsx:10
-#: src/containers/App.js:51
+#: src/containers/App.js:57
 msgid "Donate"
 msgstr ""
 
@@ -204,7 +208,7 @@ msgstr ""
 msgid "Export Data"
 msgstr ""
 
-#: src/containers/NotRegisteredPage.js:184
+#: src/containers/NotRegisteredPage.js:189
 msgid "Failure to register a building with HPD"
 msgstr ""
 
@@ -225,7 +229,7 @@ msgstr ""
 msgid "HPD Complaints are housing issues reported to the City <0>by a tenant calling 311</0>. When someone issues a complaint, the Department of Housing Preservation and Development begins a process of investigation that may lead to an official violation from the City. Complaints can be identified as:<1/><2/><3>Emergency</3> — reported to be hazardous/dire<4/><5>Non-Emergency</5> — all others<6/><7/> Read more about HPD Complaints and how to file them at the <8>official HPD page</8>."
 msgstr ""
 
-#: src/containers/NotRegisteredPage.js:156
+#: src/containers/NotRegisteredPage.js:161
 msgid "HPD Complaints/Violations"
 msgstr ""
 
@@ -246,7 +250,7 @@ msgstr ""
 msgid "Have thoughts about this page?"
 msgstr ""
 
-#: src/containers/App.js:48
+#: src/containers/App.js:54
 msgid "Home"
 msgstr ""
 
@@ -255,7 +259,7 @@ msgstr ""
 msgid "How is this building associated to this portfolio?"
 msgstr ""
 
-#: src/containers/App.js:50
+#: src/containers/App.js:56
 msgid "How to use"
 msgstr ""
 
@@ -263,7 +267,7 @@ msgstr ""
 msgid "In 2018, NYC Marshals scheduled {totalEvictions, plural, one {one eviction} other {# evictions}} across this portfolio."
 msgstr ""
 
-#: src/containers/NotRegisteredPage.js:191
+#: src/containers/NotRegisteredPage.js:196
 msgid "Ineligible to certify violations"
 msgstr ""
 
@@ -271,7 +275,7 @@ msgstr ""
 msgid "Information"
 msgstr ""
 
-#: src/containers/NotRegisteredPage.js:95
+#: src/containers/NotRegisteredPage.js:101
 msgid "It doesn't seem like this property is required to register with HPD."
 msgstr ""
 
@@ -314,7 +318,7 @@ msgstr ""
 msgid "Maintenance code violations"
 msgstr ""
 
-#: src/containers/NotRegisteredPage.js:190
+#: src/containers/NotRegisteredPage.js:195
 msgid "May be issued official Orders"
 msgstr ""
 
@@ -351,7 +355,7 @@ msgstr ""
 msgid "New!"
 msgstr ""
 
-#: src/containers/NotRegisteredPage.js:110
+#: src/containers/NotRegisteredPage.js:117
 #: src/containers/NychaPage.js:97
 msgid "No address found"
 msgstr ""
@@ -360,11 +364,11 @@ msgstr ""
 msgid "No data available"
 msgstr ""
 
-#: src/containers/NotRegisteredPage.js:129
+#: src/containers/NotRegisteredPage.js:136
 msgid "No registration found for {usersInputAddressFragment}!"
 msgstr ""
 
-#: src/containers/NotRegisteredPage.js:131
+#: src/containers/NotRegisteredPage.js:138
 msgid "No registration found!"
 msgstr ""
 
@@ -441,7 +445,7 @@ msgstr ""
 msgid "Rent stabilization"
 msgstr ""
 
-#: src/containers/NotRegisteredPage.js:177
+#: src/containers/NotRegisteredPage.js:182
 #: src/containers/NychaPage.js:212
 msgid "Search for a different address"
 msgstr ""
@@ -466,7 +470,7 @@ msgstr ""
 msgid "Send us feedback!"
 msgstr ""
 
-#: src/containers/App.js:54
+#: src/containers/App.js:60
 msgid "Share"
 msgstr ""
 
@@ -474,8 +478,8 @@ msgstr ""
 #: src/components/DetailView.js:207
 #: src/components/EngagementPanel.tsx:15
 #: src/components/PropertiesSummary.js:107
-#: src/containers/App.js:61
-#: src/containers/NotRegisteredPage.js:163
+#: src/containers/App.js:67
+#: src/containers/NotRegisteredPage.js:168
 #: src/containers/NychaPage.js:197
 msgid "Share this page with your neighbors"
 msgstr ""
@@ -572,7 +576,7 @@ msgstr "Hay {bldgs, plural, one {<0><1>1</1> edificio</0>} other {<2><3>{bldgs}<
 msgid "This building is owned by the NYC Housing Authority (NYCHA)"
 msgstr ""
 
-#: src/containers/NotRegisteredPage.js:83
+#: src/containers/NotRegisteredPage.js:90
 msgid "This building seems like it should be registered with HPD!"
 msgstr ""
 
@@ -608,7 +612,7 @@ msgstr ""
 msgid "This represents <0>{rsProportion}%</0> of the total size of this portfolio."
 msgstr ""
 
-#: src/containers/NotRegisteredPage.js:69
+#: src/containers/NotRegisteredPage.js:77
 msgid "This seems like a smaller residential building. If the landlord doesn't reside there, it should be registered with HPD."
 msgstr ""
 
@@ -629,11 +633,11 @@ msgstr ""
 msgid "Total Violations"
 msgstr ""
 
-#: src/containers/NotRegisteredPage.js:193
+#: src/containers/NotRegisteredPage.js:198
 msgid "Unable to initiate a court action for nonpayment of rent."
 msgstr ""
 
-#: src/containers/NotRegisteredPage.js:192
+#: src/containers/NotRegisteredPage.js:197
 msgid "Unable to request Code Violation Dismissals"
 msgstr ""
 
@@ -643,7 +647,7 @@ msgstr ""
 msgid "Units"
 msgstr ""
 
-#: src/containers/NotRegisteredPage.js:148
+#: src/containers/NotRegisteredPage.js:153
 #: src/containers/NychaPage.js:178
 msgid "Useful links:"
 msgstr ""
@@ -658,7 +662,7 @@ msgstr ""
 
 #: src/components/DetailView.js:184
 #: src/components/Indicators.js:374
-#: src/containers/NotRegisteredPage.js:151
+#: src/containers/NotRegisteredPage.js:156
 msgid "View documents on ACRIS"
 msgstr ""
 
@@ -684,7 +688,7 @@ msgstr ""
 msgid "Visit our website"
 msgstr ""
 
-#: src/containers/App.js:41
+#: src/containers/App.js:42
 msgid "Warning! This site doesn't fully work on older versions of Safari. Try a <0>modern browser</0>."
 msgstr ""
 
@@ -692,12 +696,11 @@ msgstr ""
 msgid "We compare your search address with a database of over 200k buildings to identify a landlord or management company's portfolio. To learn more, check out <0>our methodology</0>."
 msgstr ""
 
-#: src/containers/NotRegisteredPage.js:74
-#: src/containers/NotRegisteredPage.js:88
+#: src/containers/NotRegisteredPage.js:55
 msgid "What happens if the landlord has failed to register?"
 msgstr ""
 
-#: src/containers/App.js:45
+#: src/containers/App.js:46
 msgid "Who owns what in nyc?"
 msgstr "¿Quién posee qué en Nueva York?"
 
