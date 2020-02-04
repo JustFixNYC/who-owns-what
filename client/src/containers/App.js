@@ -32,6 +32,7 @@ constructor(props) {
   }
 
 render() {
+    const isDemoSite = process.env.REACT_APP_DEMO_SITE === '1';
     return (
       <Router>
         <I18n>
@@ -44,6 +45,11 @@ render() {
                 <Link onClick={() => {window.gtag('event', 'site-title');}} to="/">
                   <Trans render="h4">Who owns what in nyc?</Trans>
                 </Link>
+                {isDemoSite &&
+                  <span className="label label-warning ml-2 text-uppercase">
+                    <Trans>Demo Site</Trans>
+                  </span>
+                }
                 <nav className="inline">
                   <LocaleNavLink exact to="/"><Trans>Home</Trans></LocaleNavLink>
                   <LocaleNavLink to="/about"><Trans>About</Trans></LocaleNavLink>

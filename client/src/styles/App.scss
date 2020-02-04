@@ -33,6 +33,11 @@
   align-items: center;
   position: relative;
 
+  .label.label-warning {
+    color: $dark;
+    transform: rotate(-4deg);
+  }
+
   @include for-phone-only {
     flex-direction: column;
     justify-content: center;
