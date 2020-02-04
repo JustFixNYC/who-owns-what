@@ -35,7 +35,11 @@
 
   .label.label-warning {
     color: $dark;
-    transform: rotate(-4deg);
+    margin-top: 0.75rem;
+    @include for-tablet-portrait-up {
+      transform: rotate(-4deg);
+      margin-top: 0rem;
+    }
   }
 
   @include for-phone-only {
