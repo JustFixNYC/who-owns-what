@@ -296,6 +296,10 @@ msgstr "Last Sale Unknown"
 msgid "Last registered:"
 msgstr "Last registered:"
 
+#: src/components/PropertiesMap.js:220
+msgid "Legend"
+msgstr "Legend"
+
 #: src/components/Indicators.js:281
 #: src/components/PropertiesMap.js:177
 #: src/containers/AddressPage.js:219

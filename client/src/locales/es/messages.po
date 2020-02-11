@@ -296,6 +296,10 @@ msgstr ""
 msgid "Last registered:"
 msgstr ""
 
+#: src/components/PropertiesMap.js:220
+msgid "Legend"
+msgstr ""
+
 #: src/components/Indicators.js:281
 #: src/components/PropertiesMap.js:177
 #: src/containers/AddressPage.js:219
