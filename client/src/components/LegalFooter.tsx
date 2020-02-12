@@ -21,9 +21,9 @@ class LegalFooter extends Component {
       </div>
 
     <div className="Disclaimer">
-      <p className="text-italic">Disclaimer: The information in JustFix.nyc does not constitute legal advice and must not be used as a substitute for the advice of a lawyer qualified to give advice on legal issues pertaining to housing. 
-          We can help direct you to free legal services if necessary.</p>
-      <p className="text-italic">JustFix.nyc is a registered 501(c)(3) nonprofit organization.</p>
+      <p className="text-italic"><Trans>Disclaimer: The information in JustFix.nyc does not constitute legal advice and must not be used as a substitute for the advice of a lawyer qualified to give advice on legal issues pertaining to housing. 
+          We can help direct you to free legal services if necessary.</Trans></p>
+      <p className="text-italic"><Trans>JustFix.nyc is a registered 501(c)(3) nonprofit organization.</Trans></p>
     </div>
 
   </div>)

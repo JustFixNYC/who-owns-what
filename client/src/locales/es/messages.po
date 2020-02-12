@@ -170,7 +170,11 @@ msgstr ""
 msgid "Demo Site"
 msgstr ""
 
-#: src/components/LegalFooter.tsx:10
+#: src/components/LegalFooter.tsx:21
+msgid "Disclaimer: The information in JustFix.nyc does not constitute legal advice and must not be used as a substitute for the advice of a lawyer qualified to give advice on legal issues pertaining to housing. We can help direct you to free legal services if necessary."
+msgstr ""
+
+#: src/components/LegalFooter.tsx:12
 #: src/containers/App.js:57
 msgid "Donate"
 msgstr ""
@@ -283,6 +287,10 @@ msgstr ""
 msgid "Join the fight for tenant rights!"
 msgstr ""
 
+#: src/components/LegalFooter.tsx:23
+msgid "JustFix.nyc is a registered 501(c)(3) nonprofit organization."
+msgstr ""
+
 #: src/components/PropertiesList.tsx:177
 #: src/components/PropertiesSummary.js:71
 msgid "Landlord"
@@ -314,7 +322,7 @@ msgstr ""
 msgid "Looking for more information?"
 msgstr ""
 
-#: src/components/LegalFooter.tsx:8
+#: src/components/LegalFooter.tsx:10
 msgid "Made with NYC ♥ by the team at <0>JustFix.nyc</0>"
 msgstr ""
 
@@ -326,7 +334,7 @@ msgstr ""
 msgid "May be issued official Orders"
 msgstr ""
 
-#: src/components/LegalFooter.tsx:13
+#: src/components/LegalFooter.tsx:15
 msgid "Methodology"
 msgstr ""
 
@@ -428,7 +436,7 @@ msgstr ""
 msgid "Portfolio"
 msgstr ""
 
-#: src/components/LegalFooter.tsx:12
+#: src/components/LegalFooter.tsx:14
 msgid "Privacy policy"
 msgstr ""
 
@@ -510,7 +518,7 @@ msgstr ""
 msgid "Sorry, it looks like there's an error on the map. Try again on a different browser or <0>enable WebGL</0>."
 msgstr ""
 
-#: src/components/LegalFooter.tsx:14
+#: src/components/LegalFooter.tsx:16
 msgid "Source code"
 msgstr ""
 
@@ -524,7 +532,7 @@ msgstr ""
 msgid "Take action on JustFix.nyc!"
 msgstr ""
 
-#: src/components/LegalFooter.tsx:11
+#: src/components/LegalFooter.tsx:13
 msgid "Terms of use"
 msgstr ""
 
