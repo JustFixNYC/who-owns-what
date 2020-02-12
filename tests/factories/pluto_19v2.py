@@ -88,4 +88,5 @@ class Pluto19v2(NamedTuple):
     PLUTOMapID: str = '1'
     FIRM07_FLAG: str = '1'
     PFIRM15_FLAG: str = '1'
-    Version: str = '18V1'
+    Version: str = '19V2'
+
