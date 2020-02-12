@@ -1,7 +1,7 @@
 from typing import NamedTuple
 
 
-class Pluto19v1(NamedTuple):
+class Pluto19v2(NamedTuple):
     Borough: str = 'BK'
     Block: str = '1'
     Lot: str = '1'

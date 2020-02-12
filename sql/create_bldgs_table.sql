@@ -31,7 +31,7 @@ LEFT JOIN (
     unitsres,
     yearbuilt,
     lat, lng
-  FROM pluto_19v1
+  FROM pluto_19v2
 ) pluto ON (registrations.bbl = pluto.bbl)
 LEFT JOIN (
   SELECT
