@@ -13,17 +13,17 @@ def test_loading_violations_works(db, nycdb_ctx):
         assert cur.fetchone()['novdescription'] == 'boop'
 
 
-# def test_loading_pluto_works(db, nycdb_ctx):
-#     nycdb_ctx.write_zip('pluto_19v2.zip', {
-#         'PLUTO_for_WEB/BK_19v2.csv': [
-#             Pluto19v2(HistDist="Funky Historic District", Address="FUNKY STREET"),
-#             Pluto19v2(HistDist="Monkey Historic District", Address="MONKEY STREET")
-#         ]
-#     })
-#     nycdb_ctx.load_dataset('pluto_19v2')
-#     with db.cursor() as cur:
-#         cur.execute("select * from pluto_19v2 where histdist='Funky Historic District'")
-#         assert cur.fetchone()['address'] == 'FUNKY STREET'
+def test_loading_pluto_works(db, nycdb_ctx):
+    nycdb_ctx.write_zip('pluto_19v2.zip', {
+        'PLUTO_for_WEB/BK_19v2.csv': [
+            Pluto19v2(HistDist="Funky Historic District", Address="FUNKY STREET"),
+            Pluto19v2(HistDist="Monkey Historic District", Address="MONKEY STREET")
+        ]
+    })
+    nycdb_ctx.load_dataset('pluto_19v2')
+    with db.cursor() as cur:
+        cur.execute("select * from pluto_19v2 where histdist='Funky Historic District'")
+        assert cur.fetchone()['address'] == 'FUNKY STREET'
 
 
 def test_loading_changes_summary_works(db, nycdb_ctx):
