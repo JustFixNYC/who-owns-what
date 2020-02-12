@@ -1,61 +1,81 @@
 @import '_vars.scss';
 
 .LegalFooter {
-  padding: 32px 15px 32px 15px;
-  border-top: 1px solid $gray-light;
-  background-color: $background;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-  position: relative;
 
-  @include for-desktop-up() {
-    height: 0px;
-  }
-
-  @include for-desktop-down() {
-    padding: 8px;
-    min-height: 60px;
-    justify-content: space-between;
-  }
-
-  & > a,a:hover,a:focus {
-    text-decoration: none !important;
-  }
-
-  a {
-    color: #454d5d;
-
-    &.active { text-decoration: underline; }
+  .Links, .Disclaimer {
+    
+    border-top: 1px solid $gray-light;
+    background-color: $background;
 
   }
 
-  nav {
-    margin-left: auto;
+  .Links {
 
-    @include for-desktop-down() {
-      margin-right: auto;
-      text-align: center;
+    padding: 32px 15px 32px 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    position: relative;
+
+    @include for-desktop-up() {
+      height: 0px;
     }
 
-    br {
-      @include for-tablet-portrait-up() {
-        display: none;
+    @include for-desktop-down() {
+      padding: 8px;
+      min-height: 60px;
+      justify-content: space-between;
+    }
+
+    @include for-phone-only() {
+      min-height: 80px;
+    }
+
+    & > a,a:hover,a:focus {
+      text-decoration: none !important;
+    }
+
+    a {
+      color: #454d5d;
+
+      &.active { text-decoration: underline; }
+
+    }
+
+    nav {
+      margin-left: auto;
+
+      @include for-desktop-down() {
+        margin-right: auto;
+        text-align: center;
+      }
+
+      br {
+        @include for-tablet-portrait-up() {
+          display: none;
+        }
+      }
+
+      a:not(:first-child) {
+        margin-left: 10px;
       }
     }
 
-    a:not(:first-child) {
-      margin-left: 10px;
+    .Byline {
+      align-self: center;
+
+      @include for-desktop-up() {
+        position: absolute;
+      }
     }
+
   }
 
-  .Byline {
-    align-self: center;
-
-    @include for-desktop-up() {
-      position: absolute;
+  .Disclaimer {
+    padding: 16px;
+    p:last-child {
+      margin-bottom: 0;
     }
   }
-
 }
