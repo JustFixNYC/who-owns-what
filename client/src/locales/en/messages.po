@@ -170,11 +170,11 @@ msgstr "DOF Property Tax Bills"
 msgid "Demo Site"
 msgstr "Demo Site"
 
-#: src/components/LegalFooter.tsx:21
+#: src/components/LegalFooter.tsx:11
 msgid "Disclaimer: The information in JustFix.nyc does not constitute legal advice and must not be used as a substitute for the advice of a lawyer qualified to give advice on legal issues pertaining to housing. We can help direct you to free legal services if necessary."
 msgstr "Disclaimer: The information in JustFix.nyc does not constitute legal advice and must not be used as a substitute for the advice of a lawyer qualified to give advice on legal issues pertaining to housing. We can help direct you to free legal services if necessary."
 
-#: src/components/LegalFooter.tsx:12
+#: src/components/LegalFooter.tsx:19
 #: src/containers/App.js:57
 msgid "Donate"
 msgstr "Donate"
@@ -287,7 +287,7 @@ msgstr "It doesn't seem like this property is required to register with HPD."
 msgid "Join the fight for tenant rights!"
 msgstr "Join the fight for tenant rights!"
 
-#: src/components/LegalFooter.tsx:23
+#: src/components/LegalFooter.tsx:13
 msgid "JustFix.nyc is a registered 501(c)(3) nonprofit organization."
 msgstr "JustFix.nyc is a registered 501(c)(3) nonprofit organization."
 
@@ -322,7 +322,7 @@ msgstr "Location"
 msgid "Looking for more information?"
 msgstr "Looking for more information?"
 
-#: src/components/LegalFooter.tsx:10
+#: src/components/LegalFooter.tsx:17
 msgid "Made with NYC ♥ by the team at <0>JustFix.nyc</0>"
 msgstr "Made with NYC ♥ by the team at <0>JustFix.nyc</0>"
 
@@ -334,7 +334,7 @@ msgstr "Maintenance code violations"
 msgid "May be issued official Orders"
 msgstr "May be issued official Orders"
 
-#: src/components/LegalFooter.tsx:15
+#: src/components/LegalFooter.tsx:23
 msgid "Methodology"
 msgstr "Methodology"
 
@@ -436,7 +436,7 @@ msgstr "Please enter an email address!"
 msgid "Portfolio"
 msgstr "Portfolio"
 
-#: src/components/LegalFooter.tsx:14
+#: src/components/LegalFooter.tsx:21
 msgid "Privacy policy"
 msgstr "Privacy policy"
 
@@ -518,7 +518,7 @@ msgstr "Sold to Current Owner"
 msgid "Sorry, it looks like there's an error on the map. Try again on a different browser or <0>enable WebGL</0>."
 msgstr "Sorry, it looks like there's an error on the map. Try again on a different browser or <0>enable WebGL</0>."
 
-#: src/components/LegalFooter.tsx:16
+#: src/components/LegalFooter.tsx:24
 msgid "Source code"
 msgstr "Source code"
 
@@ -532,7 +532,7 @@ msgstr "Summary"
 msgid "Take action on JustFix.nyc!"
 msgstr "Take action on JustFix.nyc!"
 
-#: src/components/LegalFooter.tsx:13
+#: src/components/LegalFooter.tsx:20
 msgid "Terms of use"
 msgstr "Terms of use"
 
