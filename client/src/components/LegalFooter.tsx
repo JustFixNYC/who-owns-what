@@ -21,9 +21,9 @@ class LegalFooter extends Component {
             <nav className="inline">
               <a target="_blank" rel="noopener noreferrer" href="https://donorbox.org/donate-to-justfix-nyc"><Trans>Donate</Trans></a>
               <NavLink to="/terms-of-use"><Trans>Terms of use</Trans></NavLink>
-              <NavLink  to="/privacy-policy"><Trans>Privacy policy</Trans></NavLink>
+              <NavLink to="/privacy-policy"><Trans>Privacy policy</Trans></NavLink>
                 <br className="hide-md" />
-              <a href="https://medium.com/@JustFixNYC/who-owns-what-linking-nyc-buildings-with-data-173571e7bb31" target="_blank" rel="noopener noreferrer"><Trans>Methodology</Trans></a>
+              <NavLink to="/how-it-works"><Trans>Methodology</Trans></NavLink>
               <a href="https://github.com/JustFixNYC/who-owns-what" target="_blank" rel="noopener noreferrer"><Trans>Source code</Trans></a>
             </nav>
           </div>
