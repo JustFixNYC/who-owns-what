@@ -1,9 +1,33 @@
 {
-  "title": "Metodología",
-  "slug": "methodology",
+  "title": "Methodology",
+  "slug": "how-it-works",
   "content": {
     "data": {},
     "content": [
+      {
+        "data": {},
+        "content": [
+          {
+            "data": {},
+            "marks": [],
+            "value": "Who Owns What Data Methodology ",
+            "nodeType": "text"
+          }
+        ],
+        "nodeType": "heading-4"
+      },
+      {
+        "data": {},
+        "content": [
+          {
+            "data": {},
+            "marks": [],
+            "value": "",
+            "nodeType": "text"
+          }
+        ],
+        "nodeType": "paragraph"
+      },
       {
         "data": {},
         "content": [
