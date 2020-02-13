@@ -227,8 +227,18 @@
                 "content": [
                   {
                     "data": {},
+                    "marks": [
+                      {
+                        "type": "bold"
+                      }
+                    ],
+                    "value": "HPD violations ",
+                    "nodeType": "text"
+                  },
+                  {
+                    "data": {},
                     "marks": [],
-                    "value": "",
+                    "value": "from ",
                     "nodeType": "text"
                   },
                   {
@@ -238,12 +248,8 @@
                     "content": [
                       {
                         "data": {},
-                        "marks": [
-                          {
-                            "type": "bold"
-                          }
-                        ],
-                        "value": "HPD violations",
+                        "marks": [],
+                        "value": "NYC Open Data",
                         "nodeType": "text"
                       }
                     ],
@@ -251,18 +257,8 @@
                   },
                   {
                     "data": {},
-                    "marks": [
-                      {
-                        "type": "bold"
-                      }
-                    ],
-                    "value": " ",
-                    "nodeType": "text"
-                  },
-                  {
-                    "data": {},
                     "marks": [],
-                    "value": "— ",
+                    "value": " — ",
                     "nodeType": "text"
                   },
                   {
@@ -289,8 +285,18 @@
                 "content": [
                   {
                     "data": {},
+                    "marks": [
+                      {
+                        "type": "bold"
+                      }
+                    ],
+                    "value": "HPD complaints ",
+                    "nodeType": "text"
+                  },
+                  {
+                    "data": {},
                     "marks": [],
-                    "value": "",
+                    "value": "from ",
                     "nodeType": "text"
                   },
                   {
@@ -300,12 +306,8 @@
                     "content": [
                       {
                         "data": {},
-                        "marks": [
-                          {
-                            "type": "bold"
-                          }
-                        ],
-                        "value": "HPD complaints",
+                        "marks": [],
+                        "value": "NYC Open Data",
                         "nodeType": "text"
                       }
                     ],
@@ -313,18 +315,8 @@
                   },
                   {
                     "data": {},
-                    "marks": [
-                      {
-                        "type": "bold"
-                      }
-                    ],
-                    "value": " ",
-                    "nodeType": "text"
-                  },
-                  {
-                    "data": {},
                     "marks": [],
-                    "value": "— ",
+                    "value": " — ",
                     "nodeType": "text"
                   },
                   {
@@ -351,8 +343,18 @@
                 "content": [
                   {
                     "data": {},
+                    "marks": [
+                      {
+                        "type": "bold"
+                      }
+                    ],
+                    "value": "DOB job application filings ",
+                    "nodeType": "text"
+                  },
+                  {
+                    "data": {},
                     "marks": [],
-                    "value": "",
+                    "value": "from ",
                     "nodeType": "text"
                   },
                   {
@@ -362,12 +364,8 @@
                     "content": [
                       {
                         "data": {},
-                        "marks": [
-                          {
-                            "type": "bold"
-                          }
-                        ],
-                        "value": "DOB job application filings",
+                        "marks": [],
+                        "value": "NYC Open Data",
                         "nodeType": "text"
                       }
                     ],
@@ -375,18 +373,8 @@
                   },
                   {
                     "data": {},
-                    "marks": [
-                      {
-                        "type": "bold"
-                      }
-                    ],
-                    "value": " ",
-                    "nodeType": "text"
-                  },
-                  {
-                    "data": {},
                     "marks": [],
-                    "value": "— ",
+                    "value": " — ",
                     "nodeType": "text"
                   },
                   {
@@ -413,7 +401,11 @@
                 "content": [
                   {
                     "data": {},
-                    "marks": [],
+                    "marks": [
+                      {
+                        "type": "bold"
+                      }
+                    ],
                     "value": "",
                     "nodeType": "text"
                   },
@@ -429,7 +421,7 @@
                             "type": "bold"
                           }
                         ],
-                        "value": "Dept. of City Planning lot data (“PLUTO”)",
+                        "value": "",
                         "nodeType": "text"
                       }
                     ],
@@ -442,13 +434,33 @@
                         "type": "bold"
                       }
                     ],
-                    "value": " ",
+                    "value": "Primary Land Use Tax Lot data (\"PLUTO\")",
                     "nodeType": "text"
                   },
                   {
                     "data": {},
                     "marks": [],
-                    "value": "— ",
+                    "value": " from ",
+                    "nodeType": "text"
+                  },
+                  {
+                    "data": {
+                      "uri": "https://www1.nyc.gov/site/planning/data-maps/open-data.page"
+                    },
+                    "content": [
+                      {
+                        "data": {},
+                        "marks": [],
+                        "value": "NYC Dept. of City Planning",
+                        "nodeType": "text"
+                      }
+                    ],
+                    "nodeType": "hyperlink"
+                  },
+                  {
+                    "data": {},
+                    "marks": [],
+                    "value": " — ",
                     "nodeType": "text"
                   },
                   {
