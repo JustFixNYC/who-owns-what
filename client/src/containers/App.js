@@ -20,6 +20,7 @@ import PrivacyPolicyPage from 'PrivacyPolicyPage';
 import ScrollToTop from 'components/ScrollToTop';
 import Modal from 'components/Modal';
 import SocialShare from 'components/SocialShare';
+import MethodologyPage from './Methodology';
 
 export default class App extends Component {
 
@@ -76,9 +77,7 @@ render() {
                   <Route path="/:locale/bbl/:bbl" component={BBLPage} />
                   <Route path="/:locale/about" component={AboutPage} />
                   <Route path="/:locale/how-to-use" component={HowToUsePage} />
-                  <Route path="/:locale/how-it-works" render={() => {
-                    window.location.href = "https://medium.com/@JustFixNYC/who-owns-what-linking-nyc-buildings-with-the-same-owner-173571e7bb31";
-                  }} />
+                  <Route path="/:locale/how-it-works" component={MethodologyPage} />
                   <Route path="/:locale/terms-of-use" component={TermsOfUsePage} />
                   <Route path="/:locale/privacy-policy" component={PrivacyPolicyPage} />
                 </Switch>
