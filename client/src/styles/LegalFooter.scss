@@ -4,7 +4,7 @@
 
   .Links, .Disclaimer {
     
-    padding: 16px 32px;
+    padding: 16px;
     border-top: 1px solid $gray-light;
     background-color: $background;
 
@@ -22,7 +22,7 @@
   .Links {
     text-align: right;
 
-    @include for-phone-only() {
+    @media screen and (max-width: 840px) {
       text-align: center
     }
 
