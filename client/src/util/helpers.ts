@@ -88,16 +88,17 @@ export default {
   },
 
   createTakeActionURL(addr: {boro?: string, housenumber: string, streetname: string}|null|undefined, utm_medium: string) {
+    const subdomain = (process.env.REACT_APP_DEMO_SITE === '1' ? 'demo' : 'app' );
     if (addr && addr.boro && (addr.housenumber || addr.streetname)) {
       const formattedBoro = addr.boro.toUpperCase().replace(/ /g,"_");
       if (["BROOKLYN","QUEENS","BRONX","MANHATTAN","STATEN_ISLAND"].includes(formattedBoro)) {
         const fullAddress = (addr.housenumber + (addr.housenumber && addr.streetname && ' ') + addr.streetname).trim();
-        return ('https://app.justfix.nyc/ddo?address=' + encodeURIComponent(fullAddress) + '&borough=' + encodeURIComponent(formattedBoro) + '&utm_source=whoownswhat&utm_content=take_action&utm_medium=' + utm_medium);
+        return `https://${subdomain}.justfix.nyc/ddo?address=${encodeURIComponent(fullAddress)}&borough=${encodeURIComponent(formattedBoro)}&utm_source=whoownswhat&utm_content=take_action&utm_medium=${utm_medium}`;
       }
     }
     else {
       window.Rollbar.error("Address improperly formatted for DDO:", addr || '<falsy value>');
-      return ('https://app.justfix.nyc/?utm_source=whoownswhat&utm_content=take_action_failed_attempt&utm_medium=' + utm_medium);
+      return `https://${subdomain}.justfix.nyc/?utm_source=whoownswhat&utm_content=take_action_failed_attempt&utm_medium=${utm_medium}`;
     }
   },
 
