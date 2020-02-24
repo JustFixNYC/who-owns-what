@@ -9,6 +9,7 @@ import Modal from 'components/Modal';
 import 'styles/DetailView.css';
 import { Trans } from '@lingui/macro';
 import { SocialSharePortfolio } from './SocialShare';
+import { NavLink } from 'react-router-dom';
 
 export default class DetailView extends Component {
   constructor(props) {
@@ -221,7 +222,7 @@ export default class DetailView extends Component {
                 width={70}
                 onClose={() => this.setState({ showCompareModal: false })}>
                 <h6><Trans render="b">How is this building associated to this portfolio?</Trans></h6>
-                <Trans render="p">We compare your search address with a database of over 200k buildings to identify a landlord or management company's portfolio. To learn more, check out <a href="https://medium.com/@JustFixNYC/who-owns-what-linking-nyc-buildings-with-the-same-owner-173571e7bb31" rel="noreferrer noopener" target="_blank">our methodology</a>.</Trans>
+                <Trans render="p">We compare your search address with a database of over 200k buildings to identify a landlord or management company's portfolio. To learn more, check out <NavLink to="/how-it-works">our methodology</NavLink>.</Trans>
                 <table className="DetailView__compareTable">
                   <thead>
                     <tr>
