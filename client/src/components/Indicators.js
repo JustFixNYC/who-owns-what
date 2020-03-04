@@ -389,7 +389,7 @@ class IndicatorsWithoutI18n extends Component {
                            className="btn btn-block"><Trans>DOF Property Tax Bills</Trans> &#8599;&#xFE0E;</a>
                       </div>
                       <div className="column col-12">
-                          <a onClick={() => {window.gtag('event', 'dap-timeline-tab');}} href={`https://portal.displacementalert.org/property/${boro}${block}${lot}`} target="_blank" rel="noopener noreferrer" className="btn btn-block"><span className="chip text-italic"><Trans>New!</Trans></span> <Trans>ANHD DAP Portal</Trans> &#8599;&#xFE0E;</a>
+                          <a onClick={() => {window.gtag('event', 'dap-timeline-tab');}} href={`https://portal.displacementalert.org/property/${boro}${block}${lot}`} target="_blank" rel="noopener noreferrer" className="btn btn-block"><Trans>ANHD DAP Portal</Trans> &#8599;&#xFE0E;</a>
                       </div>
                     </div>
                   </div>
