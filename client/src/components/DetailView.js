@@ -194,7 +194,7 @@ export default class DetailView extends Component {
                                 <a onClick={() => {window.gtag('event', 'dof-overview-tab');}} href={`https://a836-pts-access.nyc.gov/care/search/commonsearch.aspx?mode=persprop`} target="_blank" rel="noopener noreferrer" className="btn btn-block"><Trans>DOF Property Tax Bills</Trans> &#8599;&#xFE0E;</a>
                               </div>
                               <div className="column col-12">
-                                <a onClick={() => {window.gtag('event', 'dap-overview-tab');}} href={`https://portal.displacementalert.org/property/${boro}${block}${lot}`} target="_blank" rel="noopener noreferrer" className="btn btn-block"><span className="chip text-italic"><Trans>New!</Trans></span> <Trans>ANHD DAP Portal</Trans> &#8599;&#xFE0E;</a>
+                                <a onClick={() => {window.gtag('event', 'dap-overview-tab');}} href={`https://portal.displacementalert.org/property/${boro}${block}${lot}`} target="_blank" rel="noopener noreferrer" className="btn btn-block"><Trans>ANHD DAP Portal</Trans> &#8599;&#xFE0E;</a>
                               </div>
                             </div>
                           </div>
