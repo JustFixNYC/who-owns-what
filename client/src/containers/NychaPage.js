@@ -183,7 +183,7 @@ class NychaPageWithoutI18n extends Component {
                     </div>
                     <div className="btn-group btn-group-block">
                       <a href="https://www1.nyc.gov/site/nycha/mynycha/mynycha-landing.page" target="_blank" rel="noopener noreferrer" className="btn"><Trans>MyNYCHA App</Trans> &#8599;</a>
-                      <a href={`http://a810-bisweb.nyc.gov/bisweb/PropertyProfileOverviewServlet?boro=${boro}&block=${block}&lot=${lot}`} target="_blank" rel="noopener noreferrer" className="btn"><Trans>DOB Building Profile</Trans> &#8599;</a>
+                      <a href={`https://portal.displacementalert.org/property/${boro}${block}${lot}`} target="_blank" rel="noopener noreferrer" className="btn"><Trans>ANHD DAP Portal</Trans> &#8599;</a>
                     </div>
                   </div>
                 </div>
