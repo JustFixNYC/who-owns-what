@@ -158,7 +158,7 @@ export default class NotRegisteredPage extends Component {
                     </div>
                     <div className="btn-group btn-group-block">
                       <a href={`http://a810-bisweb.nyc.gov/bisweb/PropertyProfileOverviewServlet?boro=${boro}&block=${block}&lot=${lot}`} target="_blank" rel="noopener noreferrer" className="btn"><Trans>DOB Building Profile</Trans> &#8599;</a>
-                      <a href={`https://hpdonline.hpdnyc.org/HPDonline/Provide_address.aspx?p1=${boro}&p2=${buildingInfo.housenumber}&p3=${buildingInfo.streetname}&SearchButton=Search`} target="_blank" rel="noopener noreferrer" className="btn"><Trans>HPD Complaints/Violations</Trans> &#8599;</a>
+                      <a href={`https://portal.displacementalert.org/property/${boro}${block}${lot}`} target="_blank" rel="noopener noreferrer" className="btn"><Trans>ANHD DAP Portal</Trans> &#8599;</a>
                     </div>
                   </div>
                 </div>
