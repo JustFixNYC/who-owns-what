@@ -16,8 +16,8 @@ def test_loading_violations_works(db, nycdb_ctx):
 def test_loading_pluto_works(db, nycdb_ctx):
     nycdb_ctx.write_zip('pluto_19v2.zip', {
         'PLUTO_for_WEB/BK_19v2.csv': [
-            Pluto19v2(HistDist="Funky Historic District", Address="FUNKY STREET"),
-            Pluto19v2(HistDist="Monkey Historic District", Address="MONKEY STREET")
+            Pluto19v2(histdist="Funky Historic District", address="FUNKY STREET"),
+            Pluto19v2(histdist="Monkey Historic District", address="MONKEY STREET")
         ]
     })
     nycdb_ctx.load_dataset('pluto_19v2')

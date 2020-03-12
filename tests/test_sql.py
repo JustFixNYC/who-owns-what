@@ -4,6 +4,7 @@ from .factories.hpd_contacts import HPDContact
 from .factories.hpd_registrations import HPDRegistration
 from .factories.marshal_evictions_17 import MarshalEvictions17
 from .factories.marshal_evictions_18 import MarshalEvictions18
+from .factories.marshal_evictions_19 import MarshalEvictions19
 from .factories.changes_summary import ChangesSummary
 from .factories.hpd_violations import HPDViolation
 from .factories.pluto_19v2 import Pluto19v2
@@ -119,6 +120,7 @@ class TestSQL:
         nycdb_ctx.write_csv('changes-summary.csv', [ChangesSummary()])
         nycdb_ctx.write_csv('marshal_evictions_17.csv', [MarshalEvictions17()])
         nycdb_ctx.write_csv('marshal_evictions_18.csv', [MarshalEvictions18()])
+        nycdb_ctx.write_csv('marshal_evictions_19.csv', [MarshalEvictions19()])
         nycdb_ctx.write_csv('hpd_registrations.csv', [
             FUNKY_REGISTRATION,
             MONKEY_REGISTRATION,

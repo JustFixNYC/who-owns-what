@@ -31,6 +31,7 @@ jobs:
           name: Test python code
           command: |
             . ~/venv/bin/activate
+            bash install-nycdb.sh
             python dbtool.py builddb --use-test-data
             python dbtool.py loadtestdata
             pytest
