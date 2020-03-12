@@ -146,6 +146,38 @@ We use BrowserStack Live to make sure that our sites work across browsers, opera
 
 ![BrowserStack](https://www.browserstack.com/images/layout/browserstack-logo-600x315.png)
 
+## Updating data
+
+Updating WoW's data is straighforward for about a year, at which point it eventually needs to look at
+different datasets in order to be up-to-date.  For example, because it uses the PLUTO dataset, it needs
+to always look at a reasonably recent version, which can be non-trivial because that dataset's schema
+changes from one revision to another.
+
+To use new data, you'll need to update a few things:
+
+1. Update the [NYCDB][] revision WoW and its test suite use
+   at [`requirements.txt`][].
+2. Update the list of NYCDB datasets WoW depends on at
+   [`who-owns-what.yml`][].
+3. Update any SQL to refer to the new dataset's tables.
+4. Any new or updated datasets may need new scaffolding
+   for WoW's test suite to continue functioning. This
+   means you may need to run the
+   [`tests/generate_factory_from_csv.py`][] tool to
+   create new factories in the `tests/factories`
+   folder. You may also need to add new test data to
+   the `tests/data` directory in order for tests to
+   continue working.
+
+An example of all this in practice can be seen in [#209][],
+which upgrades WoW from PLUTO 18v2 to 19v2.
+
+[NYCDB]: https://github.com/nycdb/nycdb
+[`requirements.txt`]: requirements.txt
+[`who-owns-what.yml`]: who-owns-what.yml
+[`tests/generate_factory_from_csv.py`]: tests/generate_factory_from_csv.py
+[#209]: https://github.com/JustFixNYC/who-owns-what/pull/209
+
 ## License
 
 JustFix.nyc uses the GNU General Public License v3.0 Open-Source License. See `LICENSE.md` file for the full text.
