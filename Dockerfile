@@ -25,8 +25,4 @@ COPY requirements.txt /
 
 RUN pip install -r requirements.txt
 
-COPY install-nycdb.sh /
-
-RUN bash install-nycdb.sh
-
 ENV PATH /wow/node_modules/.bin:/wow/client/node_modules/.bin:$PATH
