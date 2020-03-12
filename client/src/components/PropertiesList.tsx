@@ -198,7 +198,7 @@ const PropertiesListWithoutI18n: React.FC<{
               Header: i18n._(t`Evictions`),
               columns: [
                 {
-                  Header: "2018",
+                  Header: "2019",
                   accessor: d => (d.evictions ? parseInt(d.evictions) : null),
                   id: 'evictions',
                   maxWidth: 75

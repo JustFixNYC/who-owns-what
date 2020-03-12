@@ -124,8 +124,8 @@ class NychaPageWithoutI18n extends Component {
                       <Trans render="label">Units</Trans>
                       { nycha.dev_unitsres }
                     </div>
-                    <div title={i18n._(t`Evictions executed in this development by NYC Marshals in 2018. City Council, the Housing Data Coalition and Anti-Eviction Mapping Project cleaned, geocoded, and validated the data, originally sourced from DOI.`)}>
-                      <Trans render="label">2018 Evictions</Trans>
+                    <div title={i18n._(t`Evictions executed in this development by NYC Marshals in 2019. ANHD and the Housing Data Coalition cleaned, geocoded, and validated the data, originally sourced from DOI.`)}>
+                      <Trans render="label">2019 Evictions</Trans>
                       { nycha.dev_evictions }
                     </div>
                   </div>
