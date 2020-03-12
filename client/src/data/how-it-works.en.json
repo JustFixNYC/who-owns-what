@@ -489,7 +489,7 @@
                 "content": [
                   {
                     "nodeType": "text",
-                    "value": "Eviction data for 2018 ",
+                    "value": "Eviction data for 2019 ",
                     "marks": [
                       {
                         "type": "bold"
@@ -499,7 +499,27 @@
                   },
                   {
                     "nodeType": "text",
-                    "value": "from City Counsel, the ",
+                    "value": "from ",
+                    "marks": [],
+                    "data": {}
+                  },
+                  {
+                    "nodeType": "hyperlink",
+                    "data": {
+                      "uri": "https://anhd.org/"
+                    },
+                    "content": [
+                      {
+                        "nodeType": "text",
+                        "value": "ANHD",
+                        "marks": [],
+                        "data": {}
+                      }
+                    ]
+                  },
+                  {
+                    "nodeType": "text",
+                    "value": " and the ",
                     "marks": [],
                     "data": {}
                   },
@@ -519,27 +539,7 @@
                   },
                   {
                     "nodeType": "text",
-                    "value": ", and the ",
-                    "marks": [],
-                    "data": {}
-                  },
-                  {
-                    "nodeType": "hyperlink",
-                    "content": [
-                      {
-                        "nodeType": "text",
-                        "value": "Anti-Eviction Mapping Project",
-                        "marks": [],
-                        "data": {}
-                      }
-                    ],
-                    "data": {
-                      "uri": "https://www.antievictionmap.com/"
-                    }
-                  },
-                  {
-                    "nodeType": "text",
-                    "value": " via ",
+                    "value": " via ",
                     "marks": [],
                     "data": {}
                   },
@@ -559,39 +559,19 @@
                   },
                   {
                     "nodeType": "text",
-                    "value": " ",
-                    "marks": [],
-                    "data": {}
-                  },
-                  {
-                    "nodeType": "hyperlink",
-                    "content": [
-                      {
-                        "nodeType": "text",
-                        "value": "(CC BY NC SA 4.0)",
-                        "marks": [],
-                        "data": {}
-                      }
-                    ],
-                    "data": {
-                      "uri": "https://creativecommons.org/licenses/by-nc-sa/4.0/"
-                    }
-                  },
-                  {
-                    "nodeType": "text",
-                    "value": ". ",
+                    "value": " ",
                     "marks": [],
                     "data": {}
                   },
                   {
                     "nodeType": "text",
+                    "data": {},
                     "value": "— updated yearly",
                     "marks": [
                       {
                         "type": "italic"
                       }
-                    ],
-                    "data": {}
+                    ]
                   }
                 ],
                 "data": {}
