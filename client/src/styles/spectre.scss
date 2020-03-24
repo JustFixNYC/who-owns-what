@@ -113,7 +113,7 @@ sup .tooltip:after {
 // @import 'node_modules/spectre.scss/src/_media.scss';
 //
 // // Layout
-// @import 'node_modules/spectre.scss/src/_layout.scss';
+@import 'node_modules/spectre.scss/src/_layout.scss';
 // @import 'node_modules/spectre.scss/src/_navbar.scss';
 // @import 'node_modules/spectre.scss/src/_panels.scss';
 // @import 'node_modules/spectre.scss/src/_empty.scss';
@@ -138,4 +138,4 @@ sup .tooltip:after {
 //
 // // Utility classes
 // @import 'node_modules/spectre.scss/src/_animations.scss';
-// @import 'node_modules/spectre.scss/src/_utilities.scss';
+@import 'node_modules/spectre.scss/src/_utilities.scss';

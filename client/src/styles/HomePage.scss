@@ -3,6 +3,25 @@
 .HomePage {
 }
 
+.HomePage__banner {
+  padding: 1rem 1.5rem;
+  
+  .text-bold {
+    color: $dark;
+  }
+
+  a {
+    color: $dark;
+    text-decoration: underline;
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
+
+  background-color: $warning;
+}
+
 .HomePage__content {
   width: 85vw;
   margin: 0 auto;

@@ -22,6 +22,19 @@ type State = {
   sampleURLs: string[]
 };
 
+const MoratoriumBanner = () => (
+<div className="HomePage__banner">
+  <Trans>
+    <span className="text-bold">COVID-19 Update: </span>
+    JustFix.nyc is still in operation, and we are adapting our products to match new rules put in place during the Covid-19 public health crisis. 
+    Thanks to organizing from tenant leaders, renters now have stronger protections during this time, including a full halt on eviction cases. 
+    {' '}<a href="https://www.righttocounselnyc.org/moratorium_faq" rel="noopener noreferrer">
+      <span className="text-bold">Learn more</span>
+    </a>
+  </Trans>
+</div>
+);
+
 class HomePage extends Component<HomePageProps, State> {
   constructor(props: HomePageProps) {
     super(props);
@@ -101,6 +114,7 @@ class HomePage extends Component<HomePageProps, State> {
 
     return (
       <div className="HomePage Page">
+        <MoratoriumBanner />
         <div className="HomePage__content">
           <div className="HomePage__search">
             { this.state.searchAddress.housenumber ? (
