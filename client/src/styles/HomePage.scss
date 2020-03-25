@@ -3,6 +3,37 @@
 .HomePage {
 }
 
+.HomePage__banner {
+  padding: 1rem 1.5rem;
+  
+  .text-bold {
+    color: $dark;
+  }
+
+  .close-button {
+    cursor: pointer;
+    &:hover {
+      opacity: 0.7;
+    }
+  }
+
+  .content {
+    padding-right: 24px;
+
+    a {
+      color: $dark;
+      text-decoration: underline;
+      white-space: nowrap;
+  
+      &:hover {
+        text-decoration: none;
+      }
+    }
+  }
+
+  background-color: $warning;
+}
+
 .HomePage__content {
   width: 85vw;
   margin: 0 auto;
