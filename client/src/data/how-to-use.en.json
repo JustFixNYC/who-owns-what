@@ -139,7 +139,7 @@
                           {
                             "data": {},
                             "marks": [],
-                            "value": "Any complaints verified by the HPD inspector (but not yet taken care of) will show up as “Open Violations” in your building’s profile in the “Overview” tab. These violations have different categories - A (non-hazardous), B, (hazardous), and C (immediately hazardous) and you can find more detailed information on the Timeline tab.",
+                            "value": "Any complaints verified by the Department of Housing Preservation and Development (HPD) inspector (but not yet taken care of) will show up as “Open Violations” in your building’s profile in the “Overview” tab. These violations have different categories - A (non-hazardous), B, (hazardous), and C (immediately hazardous) and you can find more detailed information about these violation classes on the Timeline tab.",
                             "nodeType": "text"
                           }
                         ],
@@ -157,7 +157,7 @@
                           {
                             "data": {},
                             "marks": [],
-                            "value": "Use the “Timeline” tab to see a recent history of 311 complaints reported by tenants and official violations issued by the Department of Housing Preservation and Development. ",
+                            "value": "Use the “Timeline” tab to see a recent history of 311 complaints reported by tenants and official violations issued by HPD. ",
                             "nodeType": "text"
                           }
                         ],
@@ -406,7 +406,7 @@
                   {
                     "data": {},
                     "marks": [],
-                    "value": "If you see that the issues in your building have gone unresolved for too long, you and your neighbors may have grounds to start an HP (Housing Part) Action, so consider using our HP Action tool to ",
+                    "value": "If you see that the issues in your building have gone unresolved for too long, you and your neighbors may have grounds to start an HP (Housing Part) Action. Consider making time in your first TA meeting to walk through our free HP Action tool so that you can generate the paperwork to ",
                     "nodeType": "text"
                   },
                   {
@@ -430,7 +430,7 @@
                   {
                     "data": {},
                     "marks": [],
-                    "value": " during your first TA meeting. ",
+                    "value": " and/or harassment as a collective. ",
                     "nodeType": "text"
                   }
                 ],
@@ -711,7 +711,7 @@
           {
             "data": {},
             "marks": [],
-            "value": " - If your building has more than two units or your landlord (or immediate family) doesn’t live there, your landlord has a duty to register their building. If their registration has lapsed, they can get fined, and may be trying to illegally raise your rent. Add the lack of building registration as an issue in your ",
+            "value": " - If your building has more than two units or your landlord (or immediate family) doesn’t live there, your landlord has a duty to register their building. If their registration has lapsed, they can get fined, and may be trying to illegally raise your rent. Report the lack of building registration using our free ",
             "nodeType": "text"
           },
           {
@@ -726,7 +726,7 @@
                     "type": "underline"
                   }
                 ],
-                "value": "Letter of Complaint using our JustFix App",
+                "value": "Letter of Complaint tool",
                 "nodeType": "text"
               }
             ],
@@ -735,7 +735,31 @@
           {
             "data": {},
             "marks": [],
-            "value": ", and while you're at it, request your rent history by texting “RENT HISTORY” to (646) 783-0627, to check if you're being overcharged.",
+            "value": ", and while you're at it, request your rent history via our ",
+            "nodeType": "text"
+          },
+          {
+            "data": {
+              "uri": "https://app.justfix.nyc/rh/splash?utm_source=who_owns_what"
+            },
+            "content": [
+              {
+                "data": {},
+                "marks": [
+                  {
+                    "type": "underline"
+                  }
+                ],
+                "value": "Online Form",
+                "nodeType": "text"
+              }
+            ],
+            "nodeType": "hyperlink"
+          },
+          {
+            "data": {},
+            "marks": [],
+            "value": " or by texting “RENT HISTORY” to (646) 783-0627, to check if your apartment is rent stabilized and/or if you’re being overcharged.",
             "nodeType": "text"
           }
         ],
@@ -757,7 +781,7 @@
           {
             "data": {},
             "marks": [],
-            "value": " Clicking this link when exploring a portfolio will let you compare the owner names and addresses that two buildings have in common. ",
+            "value": " Clicking this link when exploring a portfolio will let you compare the owner names and addresses that two buildings have in common.",
             "nodeType": "text"
           }
         ],
@@ -779,7 +803,7 @@
           {
             "data": {},
             "marks": [],
-            "value": " Rent stabilized units are apartments that require the landlord to provide a 1 or 2 year lease, and where the rent increase is controlled annually by the Rent Guidelines Board. If the number of rent stabilized units on the right is smaller than the number on the left, it means that units have lost their rent stabilized status (have been deregulated), and may mean that the landlord is attempting to push out rent-stabilized tenants.",
+            "value": " Rent stabilized units are apartments that require the landlord to provide a 1 or 2 year lease, and where the rent increase is controlled annually by the Rent Guidelines Board. If the number of rent stabilized units on the right is smaller than the number on the left and appears in red, it means that units have lost their rent stabilized status (have been deregulated), and may mean that the landlord is attempting to push out rent-stabilized tenants.",
             "nodeType": "text"
           }
         ],
@@ -813,7 +837,7 @@
                   {
                     "data": {},
                     "marks": [],
-                    "value": "Building complaints are reported to HPD (Housing Preservation and Development) by calling 311. ",
+                    "value": "Building complaints are reported to Housing Preservation and Development (HPD) by calling 311. ",
                     "nodeType": "text"
                   }
                 ],
