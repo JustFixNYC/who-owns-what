@@ -58,6 +58,7 @@ module.exports = {
   },
 
   dapAggregate: (req, res) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
     db.queryDapAggregate(req.query.bbl)
       .then(result => res.status(200).send({ result: result }) )
       .catch(err => {
