@@ -105,15 +105,15 @@ test("formatDate() works", () => {
 });
 
 test("formatStreetNameForHpdLink() works", () => {
-  expect(helpers.formatStreetNameForHpdLink('East 21st Street')).toBe('E 21ST STREET');
+  expect(helpers.formatStreetNameForHpdLink('East 21st Street')).toBe('E 21st Street');
 });
 
 test("formatStreetNameForHpdLink() doesn't change anything but the streetname prefix", () => {
-  expect(helpers.formatStreetNameForHpdLink('Easton Avenue')).toBe('EASTON AVENUE');
+  expect(helpers.formatStreetNameForHpdLink('Easton Avenue')).toBe('Easton Avenue');
 });
 
 test("formatStreetNameForHpdLink() still works for one-word streetnames", () => {
-  expect(helpers.formatStreetNameForHpdLink('Broadway')).toBe('BROADWAY');
+  expect(helpers.formatStreetNameForHpdLink('Broadway')).toBe('Broadway');
 });
 
 test("formatStreetNameForHpdLink() still works for empty streetnames", () => {
