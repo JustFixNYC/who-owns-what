@@ -185,7 +185,7 @@ export default class DetailView extends Component {
                                 <a onClick={() => {window.gtag('event', 'acris-overview-tab');}} href={`http://a836-acris.nyc.gov/bblsearch/bblsearch.asp?borough=${boro}&block=${block}&lot=${lot}`} target="_blank" rel="noopener noreferrer" className="btn btn-block"><Trans>View documents on ACRIS</Trans> &#8599;&#xFE0E;</a>
                               </div>
                               <div className="column col-12">
-                                <a onClick={() => {window.gtag('event', 'hpd-overview-tab');}} href={`https://hpdonline.hpdnyc.org/HPDonline/Provide_address.aspx?p1=${boro}&p2=${this.props.addr.housenumber}&p3=${this.props.addr.streetname}&SearchButton=Search`} target="_blank" rel="noopener noreferrer" className="btn btn-block"><Trans>HPD Building Profile</Trans> &#8599;&#xFE0E;</a>
+                                <a onClick={() => {window.gtag('event', 'hpd-overview-tab');}} href={`https://hpdonline.hpdnyc.org/HPDonline/Provide_address.aspx?p1=${boro}&p2=${this.props.addr.housenumber}&p3=${Helpers.formatStreetNameForHpdLink(this.props.addr.streetname)}&SearchButton=Search`} target="_blank" rel="noopener noreferrer" className="btn btn-block"><Trans>HPD Building Profile</Trans> &#8599;&#xFE0E;</a>
                               </div>
                               <div className="column col-12">
                                 <a onClick={() => {window.gtag('event', 'dob-overview-tab');}} href={`http://a810-bisweb.nyc.gov/bisweb/PropertyProfileOverviewServlet?boro=${boro}&block=${block}&lot=${lot}`} target="_blank" rel="noopener noreferrer" className="btn btn-block"><Trans>DOB Building Profile</Trans> &#8599;&#xFE0E;</a>
