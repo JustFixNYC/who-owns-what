@@ -375,7 +375,7 @@ class IndicatorsWithoutI18n extends Component {
                       </div>
                       <div className="column col-12">
                         <a onClick={() => {window.gtag('event', 'hpd-timeline-tab');}} 
-                           href={(housenumber && streetname ? `https://hpdonline.hpdnyc.org/HPDonline/Provide_address.aspx?p1=${boro}&p2=${housenumber}&p3=${streetname}&SearchButton=Search` : `https://hpdonline.hpdnyc.org/HPDonline/provide_address.aspx`)} target="_blank" rel="noopener noreferrer" 
+                           href={(housenumber && streetname ? `https://hpdonline.hpdnyc.org/HPDonline/Provide_address.aspx?p1=${boro}&p2=${housenumber}&p3=${Helpers.formatStreetNameForHpdLink(streetname)}&SearchButton=Search` : `https://hpdonline.hpdnyc.org/HPDonline/provide_address.aspx`)} target="_blank" rel="noopener noreferrer" 
                            className="btn btn-block"><Trans>HPD Building Profile</Trans> &#8599;&#xFE0E;</a>
                       </div>
                       <div className="column col-12">

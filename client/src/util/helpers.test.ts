@@ -103,3 +103,19 @@ test("titleCase() works", () => {
 test("formatDate() works", () => {
   expect(helpers.formatDate('2008-01-05')).toBe('January 2008');
 });
+
+test("formatStreetNameForHpdLink() works", () => {
+  expect(helpers.formatStreetNameForHpdLink('East 21st Street')).toBe('E 21st Street');
+});
+
+test("formatStreetNameForHpdLink() doesn't change anything but the streetname prefix", () => {
+  expect(helpers.formatStreetNameForHpdLink('Easton Avenue')).toBe('Easton Avenue');
+});
+
+test("formatStreetNameForHpdLink() still works for one-word streetnames", () => {
+  expect(helpers.formatStreetNameForHpdLink('Broadway')).toBe('Broadway');
+});
+
+test("formatStreetNameForHpdLink() still works for empty streetnames", () => {
+  expect(helpers.formatStreetNameForHpdLink('')).toBe('');
+});

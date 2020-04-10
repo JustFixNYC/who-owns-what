@@ -122,6 +122,18 @@ export default {
     var date = new Date(dateString);
     var options = {year: 'numeric', month: 'long'};
     return date.toLocaleDateString("en-US", options);
+  },
+
+  formatStreetNameForHpdLink(streetName: string): string {
+    const streetNamePrefix = streetName.slice(0,streetName.indexOf(' '));
+    const newStreetNamePrefix = 
+      (streetNamePrefix.toUpperCase() === 'NORTH' ? 'N'
+      : streetNamePrefix.toUpperCase() === 'SOUTH' ? 'S'
+      : streetNamePrefix.toUpperCase() === 'EAST' ? 'E'
+      : streetNamePrefix.toUpperCase() === 'WEST' ? 'W'
+      : streetNamePrefix); 
+    const streetNameRest = streetName.slice(streetName.indexOf(' '));
+    return newStreetNamePrefix + streetNameRest; 
   }
 
 };
