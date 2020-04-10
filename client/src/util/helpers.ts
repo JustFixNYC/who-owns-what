@@ -8,7 +8,8 @@ import nycha_bbls from '../data/nycha_bbls.json';
 /**
  * An array consisting of Who Owns What's standard enumerations for street names,
  * (which come from the PLUTO dataset fron NYC's Dept. of City Planning) 
- * and the corresponding format preferred by HPD as a url parameter
+ * and the corresponding format preferred by HPD as a url parameter.
+ * NOTE: seems HPD only cares about these formats for numbers 1 to 10
  */
 const hpdNumberTransformations = [
   ["FIRST", "1"],
