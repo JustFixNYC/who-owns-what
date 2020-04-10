@@ -104,12 +104,20 @@ test("formatDate() works", () => {
   expect(helpers.formatDate('2008-01-05')).toBe('January 2008');
 });
 
-test("formatStreetNameForHpdLink() works", () => {
+test("formatStreetNameForHpdLink() works for directional prefixes", () => {
   expect(helpers.formatStreetNameForHpdLink('East 21st Street')).toBe('E 21st Street');
 });
 
-test("formatStreetNameForHpdLink() doesn't change anything but the streetname prefix", () => {
-  expect(helpers.formatStreetNameForHpdLink('Easton Avenue')).toBe('Easton Avenue');
+test("formatStreetNameForHpdLink() works for enumerations", () => {
+  expect(helpers.formatStreetNameForHpdLink('Eighth Avenue')).toBe('8 Avenue');
+});
+
+test("formatStreetNameForHpdLink() works for both prefixes and enumerations at once", () => {
+  expect(helpers.formatStreetNameForHpdLink('North Second Street')).toBe('N 2 Street');
+});
+
+test("formatStreetNameForHpdLink() doesn't change directionals or enumerations within names", () => {
+  expect(helpers.formatStreetNameForHpdLink('Eastonfirst Avenue')).toBe('Eastonfirst Avenue');
 });
 
 test("formatStreetNameForHpdLink() still works for one-word streetnames", () => {
