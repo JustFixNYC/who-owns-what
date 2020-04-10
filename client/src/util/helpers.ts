@@ -6,6 +6,24 @@ import { deepEqual as assertDeepEqual } from 'assert';
 import nycha_bbls from '../data/nycha_bbls.json';
 
 /**
+ * An array consisting of Who Owns What's standard enumerations for street names,
+ * (which come from the PLUTO dataset fron NYC's Dept. of City Planning) 
+ * and the corresponding format preferred by HPD as a url parameter
+ */
+const hpdNumberTransformations = [
+  ["FIRST", "1"],
+  ["SECOND", "2"],
+  ["THIRD", "3"],
+  ["FOURTH", "4"],
+  ["FIFTH", "5"],
+  ["SIXTH", "6"],
+  ["SEVENTH", "7"],
+  ["EIGHTH", "8"],
+  ["NINTH", "9"],
+  ["TENTH", "10"]
+]
+
+/**
  * Urg, our codebase wasn't originally written in TypeScript and
  * some of our legacy code appears to pass around numbers as strings,
  * so this type accounts for that.
@@ -125,15 +143,27 @@ export default {
   },
 
   formatStreetNameForHpdLink(streetName: string): string {
-    const streetNamePrefix = streetName.slice(0,streetName.indexOf(' '));
+    var arr = streetName.split(' ');
+    if (arr === []) {
+      return '';
+    }
+    // Reformat street name directional prefix
     const newStreetNamePrefix = 
-      (streetNamePrefix.toUpperCase() === 'NORTH' ? 'N'
-      : streetNamePrefix.toUpperCase() === 'SOUTH' ? 'S'
-      : streetNamePrefix.toUpperCase() === 'EAST' ? 'E'
-      : streetNamePrefix.toUpperCase() === 'WEST' ? 'W'
-      : streetNamePrefix); 
-    const streetNameRest = streetName.slice(streetName.indexOf(' '));
-    return newStreetNamePrefix + streetNameRest; 
+      (arr[0].toUpperCase() === 'NORTH' ? 'N'
+      : arr[0].toUpperCase() === 'SOUTH' ? 'S'
+      : arr[0].toUpperCase() === 'EAST' ? 'E'
+      : arr[0].toUpperCase() === 'WEST' ? 'W'
+      : arr[0]); 
+    arr[0] = newStreetNamePrefix;
+
+    // Reformat street name enumeration
+    hpdNumberTransformations.forEach(numberPair => {
+      const index = arr.findIndex( (e) => e.toUpperCase() === numberPair[0] );
+      if (index > -1) {
+        arr[index] = numberPair[1];
+      } 
+    });
+    return arr.join(' '); 
   }
 
 };
