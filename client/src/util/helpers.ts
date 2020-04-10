@@ -125,12 +125,12 @@ export default {
   },
 
   formatStreetNameForHpdLink(streetName: string): string {
-    const streetNamePrefix = streetName.toUpperCase().slice(0,streetName.indexOf(' '));
+    const streetNamePrefix = streetName.slice(0,streetName.indexOf(' '));
     const newStreetNamePrefix = 
-      (streetNamePrefix === 'NORTH' ? 'N'
-      : streetNamePrefix === 'SOUTH' ? 'S'
-      : streetNamePrefix === 'EAST' ? 'E'
-      : streetNamePrefix === 'WEST' ? 'W'
+      (streetNamePrefix.toUpperCase() === 'NORTH' ? 'N'
+      : streetNamePrefix.toUpperCase() === 'SOUTH' ? 'S'
+      : streetNamePrefix.toUpperCase() === 'EAST' ? 'E'
+      : streetNamePrefix.toUpperCase() === 'WEST' ? 'W'
       : streetNamePrefix); 
     const streetNameRest = streetName.slice(streetName.indexOf(' '));
     return newStreetNamePrefix + streetNameRest; 
