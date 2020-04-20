@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2020-03-12 20:40\n"
+"PO-Revision-Date: 2020-04-20 01:37\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -32,13 +32,17 @@ msgstr ""
 msgid "({browserType, select, mobile {tap} other {click}} to view details)"
 msgstr ""
 
-#: src/containers/HomePage.tsx:83
+#: src/containers/HomePage.tsx:108
 msgid "... or view some sample portfolios:"
 msgstr ""
 
 #: src/components/DetailView.js:109
 #: src/containers/NychaPage.js:128
 msgid "2019 Evictions"
+msgstr ""
+
+#: src/containers/HomePage.tsx:25
+msgid "<0>COVID-19 Update: </0>JustFix.nyc remains in operation, and we are adapting our products to match new rules put in place during the Covid-19 public health crisis. Thanks to organizing from tenant leaders, renters now have stronger protections during this time, including a full halt on eviction cases. <1><2>Learn more</2></1>"
 msgstr ""
 
 #: src/components/DetailView.js:197
@@ -183,7 +187,7 @@ msgstr ""
 msgid "Donate"
 msgstr ""
 
-#: src/components/AddressToolbar.tsx:35
+#: src/components/AddressToolbar.tsx:34
 msgid "Download"
 msgstr ""
 
@@ -195,7 +199,7 @@ msgstr ""
 msgid "Emergency"
 msgstr "Emergencia"
 
-#: src/containers/HomePage.tsx:73
+#: src/containers/HomePage.tsx:97
 msgid "Enter an NYC address and find other buildings your landlord might own:"
 msgstr ""
 
@@ -212,7 +216,7 @@ msgstr ""
 msgid "Evictions executed in this development by NYC Marshals in 2019. ANHD and the Housing Data Coalition cleaned, geocoded, and validated the data, originally sourced from DOI."
 msgstr ""
 
-#: src/components/AddressToolbar.tsx:25
+#: src/components/AddressToolbar.tsx:24
 msgid "Export Data"
 msgstr ""
 
@@ -354,7 +358,7 @@ msgstr ""
 msgid "New JustFix.nyc tool helps research on NYC landlords"
 msgstr ""
 
-#: src/components/AddressToolbar.tsx:28
+#: src/components/AddressToolbar.tsx:27
 msgid "New Search"
 msgstr ""
 
@@ -461,7 +465,7 @@ msgstr ""
 msgid "Searching"
 msgstr ""
 
-#: src/containers/HomePage.tsx:77
+#: src/containers/HomePage.tsx:102
 msgid "Searching for <0>{0} {1}, {2}</0>"
 msgstr ""
 
@@ -547,7 +551,7 @@ msgstr ""
 msgid "The city borough where your search address is located"
 msgstr ""
 
-#: src/containers/HomePage.tsx:112
+#: src/containers/HomePage.tsx:137
 msgid "The city’s fifth <0>worst evictor</0> in 2018, A&E is a prime example of a landlord who engages in <1>aggressive eviction strategies</1> to displace low-income tenants. Besides lack of repairs and frivolous evictions in housing court, A&E has also been known to use <2>MCIs</2> to <3>double rents</3> in rent-stabilized buildings."
 msgstr ""
 
@@ -587,7 +591,7 @@ msgstr ""
 msgid "This building seems like it should be registered with HPD!"
 msgstr ""
 
-#: src/components/AddressToolbar.tsx:33
+#: src/components/AddressToolbar.tsx:32
 msgid "This data is in <0>CSV file format</0>, which can easily be used in Excel, Google Sheets, or any other spreadsheet program."
 msgstr ""
 
@@ -611,7 +615,7 @@ msgstr ""
 msgid "This portfolio has an average of <0>{0}</0> open HPD violations per residential unit."
 msgstr ""
 
-#: src/containers/HomePage.tsx:96
+#: src/containers/HomePage.tsx:121
 msgid "This property management company owned by the Kushner family is notorious for <0>violating rent regulations</0> and <1>harassing tenants</1>. The stake currently held by Jared Kushner and Ivanka Trump is worth as much as $761 million."
 msgstr ""
 
@@ -623,7 +627,7 @@ msgstr ""
 msgid "This seems like a smaller residential building. If the landlord doesn't reside there, it should be registered with HPD."
 msgstr ""
 
-#: src/components/AddressToolbar.tsx:32
+#: src/components/AddressToolbar.tsx:31
 msgid "This will export <0>{0}</0> addresses associated with the landlord at <1>{userAddrStr}</1>!"
 msgstr ""
 
@@ -677,9 +681,9 @@ msgstr ""
 msgid "View legend"
 msgstr ""
 
-#: src/containers/HomePage.tsx:99
-#: src/containers/HomePage.tsx:116
-#: src/containers/HomePage.tsx:132
+#: src/containers/HomePage.tsx:124
+#: src/containers/HomePage.tsx:141
+#: src/containers/HomePage.tsx:157
 msgid "View portfolio"
 msgstr ""
 
@@ -719,7 +723,7 @@ msgstr ""
 msgid "Year Built"
 msgstr ""
 
-#: src/containers/HomePage.tsx:129
+#: src/containers/HomePage.tsx:154
 msgid "Yoel Goldman's All Year Management has been at the <0>forefront of gentrification</0> in Brooklyn. Tenants in his buidlings in Williamsburg, Bushwick, and Crown Heights have been forced to live in horrendous and often dangerous conditions."
 msgstr ""
 
