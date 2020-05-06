@@ -8,14 +8,10 @@ import APIClient from "components/APIClient";
 import "styles/PropertiesSummary.css";
 import { EvictionsSummary } from "./EvictionsSummary";
 import { RentstabSummary } from "./RentstabSummary";
+import { ViolationsSummary } from "./ViolationsSummary";
 import helpers from "../util/helpers";
 import { StringifyListWithConjunction } from "./StringifyList";
 import { SocialSharePortfolio } from "./SocialShare";
-
-const VIOLATIONS_AVG = 0.7; // By Unit
-
-// 1656793 open violations according to wow_bldgs
-// 2331139 total units in registered buildings, according to wow_bldgs
 
 // Data updated 6/6/19
 
@@ -124,33 +120,7 @@ export default class PropertiesSummary extends Component {
                   </Trans>
                 )}
               </p>
-              <Trans render="h6">Maintenance code violations</Trans>
-              <p>
-                <Trans>
-                  This portfolio has an average of <b>{agg.openviolationsperresunit}</b> open HPD
-                  violations per residential unit.
-                </Trans>{" "}
-                {agg.openviolationsperresunit >= VIOLATIONS_AVG - 0.05 &&
-                agg.openviolationsperresunit < VIOLATIONS_AVG + 0.05 ? (
-                  <Trans>
-                    This is <b>about the same</b> as the citywide average.{" "}
-                  </Trans>
-                ) : agg.openviolationsperresunit > VIOLATIONS_AVG ? (
-                  <Trans>
-                    This is <b>worse</b> than the citywide average of {VIOLATIONS_AVG} per
-                    residential unit.{" "}
-                  </Trans>
-                ) : (
-                  <Trans>
-                    This is <b>better</b> than the citywide average of {VIOLATIONS_AVG} per
-                    residential unit.{" "}
-                  </Trans>
-                )}{" "}
-                <Trans>
-                  According to available HPD data, this portfolio has received{" "}
-                  <b>{agg.totalviolations}</b> total violations.
-                </Trans>
-              </p>
+              <ViolationsSummary {...agg} />
               <Trans render="h6">Evictions</Trans>
               <EvictionsSummary {...agg} />
               <Trans render="h6">Rent stabilization</Trans>
