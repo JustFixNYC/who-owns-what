@@ -1,17 +1,13 @@
-@import '_vars.scss';
-@import '_scrollbar.scss';
-@import '_button.scss';
+@import "_vars.scss";
+@import "_scrollbar.scss";
+@import "_button.scss";
 
 .Indicators {
-
-
-
   // @include for-phone-only() {
   //   padding-right: 30px;
   // };
 
   .Indicators__content {
-
     padding: 30px 30px 30px 30px;
 
     @include for-tablet-portrait-up() {
@@ -20,7 +16,7 @@
 
     & > div > h6 {
       font-size: 1.4rem;
-      margin-bottom: .6rem;
+      margin-bottom: 0.6rem;
       text-decoration: underline;
       font-weight: bold;
     }
@@ -39,22 +35,21 @@
     }
 
     .title {
-        font-size: 2rem;
-        text-decoration: none;    
-        padding-left: 1.5rem;
-        margin-bottom: 0px;
+      font-size: 2rem;
+      text-decoration: none;
+      padding-left: 1.5rem;
+      margin-bottom: 0px;
 
-        &.viz-title {
-          display: block;
-          text-align: center;
-        }
+      &.viz-title {
+        display: block;
+        text-align: center;
       }
+    }
 
     .title-card {
-
       padding-bottom: 2.5rem;
 
-      button {
+      a {
         color: #454d5d;
         margin-left: 1.5rem;
         text-decoration: underline;
@@ -74,7 +69,7 @@
         h6 {
           font-weight: bold;
           margin-bottom: 0.75rem;
-          width: 100%
+          width: 100%;
         }
         .chip {
           background-color: $gray-light;
@@ -86,29 +81,28 @@
     }
 
     .control-panel {
-      justify-content: space-evenly; 
+      justify-content: space-evenly;
       padding-top: 15px;
     }
 
     .btn-data-select {
-        flex: 1 1 0;
+      flex: 1 1 0;
     }
 
-    .btn-data-select.selected, .btn-data-select.selected:hover {
+    .btn-data-select.selected,
+    .btn-data-select.selected:hover {
       color: #fff;
       background-color: #727e96;
       box-shadow: inset 1px 1px 0px 0px #4f596c;
     }
 
     aside {
-
       @include for-tablet-portrait-up() {
         width: 32%;
         margin-left: 40px;
         margin-top: 0;
         margin-bottom: 0;
       }
-
     }
   }
 
@@ -117,7 +111,6 @@
     position: relative;
 
     .Indicators__linksContainer {
-
       &:first-child {
         padding-bottom: 1rem;
       }
@@ -136,9 +129,7 @@
           color: #000;
         }
       }
-
     }
-
   }
 
   .Indicators__viz {
@@ -157,11 +148,13 @@
       font-size: 20px;
       align-self: center;
 
-      // button placement offset: 
+      // button placement offset:
       margin-bottom: 75px;
     }
 
-    .btn-off, .btn-off:hover, .btn-off:active {
+    .btn-off,
+    .btn-off:hover,
+    .btn-off:active {
       opacity: 0.25;
       cursor: default;
       color: #454d5d;
@@ -169,11 +162,9 @@
       background-color: #f8f9fa;
       box-shadow: inset -1px -1px 0px 0px #acb3c2, inset 2px 2px 0px 0px #fff;
     }
-
   }
 
   .Indicators__feedback {
-    
     text-align: center;
 
     @include for-tablet-landscape-up() {
@@ -190,5 +181,4 @@
       }
     }
   }
-
 }

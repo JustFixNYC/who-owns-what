@@ -98,13 +98,6 @@ export default class AddressPage extends Component {
     this.setState({
       detailAddr: addr,
       detailMobileSlide: true,
-      currentTab: 0,
-    });
-  };
-
-  handleTimelineLink = () => {
-    this.setState({
-      currentTab: 1,
     });
   };
 
@@ -176,8 +169,9 @@ export default class AddressPage extends Component {
                       value={this.state.assocAddrs.length}
                       one="building"
                       other="buildings"
-                    />:
+                    />
                   </Trans>
+                  :
                 </h5>
                 <ul className="tab tab-block">
                   <li
@@ -263,7 +257,7 @@ export default class AddressPage extends Component {
               mobileShow={this.state.detailMobileSlide}
               userAddr={this.state.userAddr}
               onCloseDetail={this.handleCloseDetail}
-              onLinkToTimeline={this.handleTimelineLink}
+              generateBaseUrl={this.generateBaseUrl}
             />
           </div>
           <div
@@ -275,6 +269,7 @@ export default class AddressPage extends Component {
               isVisible={this.props.currentTab === 1}
               detailAddr={this.state.detailAddr}
               onBackToOverview={this.handleAddrChange}
+              generateBaseUrl={this.generateBaseUrl}
             />
           </div>
           <div
@@ -286,6 +281,7 @@ export default class AddressPage extends Component {
               <PropertiesList
                 addrs={this.state.assocAddrs}
                 onOpenDetail={this.handleAddrChange}
+                generateBaseUrl={this.generateBaseUrl}
               />
             }
           </div>
