@@ -181,6 +181,7 @@ export default class AddressPage extends Component {
                   >
                     <Link
                       to={this.generateBaseUrl()}
+                      tabIndex={this.props.currentTab === 0 ? -1 : 0}
                       onClick={() => {
                         if (
                           Browser.isMobile() &&
@@ -200,6 +201,7 @@ export default class AddressPage extends Component {
                   >
                     <Link
                       to={this.generateBaseUrl() + "/timeline"}
+                      tabIndex={this.props.currentTab === 1 ? -1 : 0}
                       onClick={() => {
                         window.gtag("event", "timeline-tab");
                       }}
@@ -214,6 +216,7 @@ export default class AddressPage extends Component {
                   >
                     <Link
                       to={this.generateBaseUrl() + "/portfolio"}
+                      tabIndex={this.props.currentTab === 2 ? -1 : 0}
                       onClick={() => {
                         window.gtag("event", "portfolio-tab");
                       }}
@@ -228,6 +231,7 @@ export default class AddressPage extends Component {
                   >
                     <Link
                       to={this.generateBaseUrl() + "/summary"}
+                      tabIndex={this.props.currentTab === 3 ? -1 : 0}
                       onClick={() => {
                         window.gtag("event", "summary-tab");
                       }}
