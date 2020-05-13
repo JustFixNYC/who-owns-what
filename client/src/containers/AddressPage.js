@@ -1,72 +1,78 @@
-import React, { Component } from 'react';
-import FileSaver from 'file-saver';
-import Browser from 'util/browser';
+import React, { Component } from "react";
+import FileSaver from "file-saver";
+import Browser from "util/browser";
 
-import _find from 'lodash/find';
+import _find from "lodash/find";
 
-import AddressToolbar from 'components/AddressToolbar';
-import PropertiesMap from 'components/PropertiesMap';
-import PropertiesList from 'components/PropertiesList';
-import PropertiesSummary from 'components/PropertiesSummary';
-import Indicators from 'components/Indicators';
-import DetailView from 'components/DetailView';
-import APIClient from 'components/APIClient';
-import Loader from 'components/Loader';
+import AddressToolbar from "components/AddressToolbar";
+import PropertiesMap from "components/PropertiesMap";
+import PropertiesList from "components/PropertiesList";
+import PropertiesSummary from "components/PropertiesSummary";
+import Indicators from "components/Indicators";
+import DetailView from "components/DetailView";
+import APIClient from "components/APIClient";
+import Loader from "components/Loader";
 
-import 'styles/AddressPage.css';
-import { GeoSearchRequester } from '@justfixnyc/geosearch-requester';
-import NychaPage from './NychaPage';
-import NotRegisteredPage from './NotRegisteredPage';
-import helpers from '../util/helpers';
-import { Trans, Plural } from '@lingui/macro';
+import "styles/AddressPage.css";
+import { GeoSearchRequester } from "@justfixnyc/geosearch-requester";
+import NychaPage from "./NychaPage";
+import NotRegisteredPage from "./NotRegisteredPage";
+import helpers from "../util/helpers";
+import { Trans, Plural } from "@lingui/macro";
+import { Link } from "react-router-dom";
 
 export default class AddressPage extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      searchAddress: { ...props.match.params },   // maybe this should be
-      userAddr: {},                               // merged together?
+      searchAddress: { ...props.match.params }, // maybe this should be
+      userAddr: {}, // merged together?
       hasSearched: false,
       geosearch: {},
       assocAddrs: [],
       detailAddr: null,
       detailMobileSlide: false,
-      currentTab: 0
     };
   }
 
   componentDidMount() {
-
     // We need to check where to get the results data for the page...
 
     // Here, the user conducted a search on HomePage and we already got the results
-    if(this.props.location && this.props.location.state && this.props.location.state.results) {
+    if (
+      this.props.location &&
+      this.props.location.state &&
+      this.props.location.state.results
+    ) {
       this.handleResults(this.props.location.state.results);
 
-    // Otherwise they navigated directly to this url, so lets fetch it
+      // Otherwise they navigated directly to this url, so lets fetch it
     } else {
-      window.gtag('event', 'direct-link');
+      window.gtag("event", "direct-link");
       const req = new GeoSearchRequester({});
-      const {boro, housenumber, streetname} = this.state.searchAddress;
+      const { boro, housenumber, streetname } = this.state.searchAddress;
       const addr = `${housenumber} ${streetname}, ${boro}`;
-      console.log('searching for', addr);
-      req.fetchResults(addr).then(results => {
-        const firstResult = results.features[0];
-        if (!firstResult) throw new Error('Invalid address!');
-        return APIClient.searchAddress({
-          bbl: firstResult.properties.pad_bbl
-        });
-      }).then(results => {
+      console.log("searching for", addr);
+      req
+        .fetchResults(addr)
+        .then((results) => {
+          const firstResult = results.features[0];
+          if (!firstResult) throw new Error("Invalid address!");
+          return APIClient.searchAddress({
+            bbl: firstResult.properties.pad_bbl,
+          });
+        })
+        .then((results) => {
           this.handleResults(results);
         })
-        .catch(err => {
+        .catch((err) => {
           console.error(err);
           this.setState({
             hasSearched: true,
-            assocAddrs: []
+            assocAddrs: [],
           });
-        })
+        });
     }
   }
 
@@ -74,63 +80,84 @@ export default class AddressPage extends Component {
   handleResults = (results) => {
     const { geosearch, addrs } = results;
 
-    this.setState({
-      searchAddress: { ...this.state.searchAddress, bbl: geosearch.bbl },
-      userAddr: _find(addrs, { bbl: geosearch.bbl }),
-      hasSearched: true,
-      geosearch: geosearch,
-      assocAddrs: addrs
-    }, () => {
-      this.handleAddrChange(this.state.userAddr);
-    });
-
-  }
+    this.setState(
+      {
+        searchAddress: { ...this.state.searchAddress, bbl: geosearch.bbl },
+        userAddr: _find(addrs, { bbl: geosearch.bbl }),
+        hasSearched: true,
+        geosearch: geosearch,
+        assocAddrs: addrs,
+      },
+      () => {
+        this.handleAddrChange(this.state.userAddr);
+      }
+    );
+  };
 
   handleAddrChange = (addr) => {
     this.setState({
       detailAddr: addr,
       detailMobileSlide: true,
-      currentTab: 0
+      currentTab: 0,
     });
-  }
+  };
 
   handleTimelineLink = () => {
     this.setState({
-      currentTab: 1
-    })
-  }
+      currentTab: 1,
+    });
+  };
 
   handleCloseDetail = () => {
     this.setState({
-      detailMobileSlide: false
+      detailMobileSlide: false,
     });
 
     setTimeout(() => {
       this.setState({
-        detailAddr: null
+        detailAddr: null,
       });
-    }, 500)
-  }
+    }, 500);
+  };
+
+  generateBaseUrl = () => {
+    const params = this.props.match.params;
+    return (
+      //:locale/address/:boro/:housenumber/:streetname
+      `/${params.locale}/address/${params.boro}/${params.housenumber}/${
+        params.streetname
+      }`
+    );
+  };
 
   // should this properly live in AddressToolbar? you tell me
   handleExportClick = () => {
     APIClient.getAddressExport(this.state.searchAddress)
-      .then(response => response.blob())
-      .then(blob => FileSaver.saveAs(blob, 'export.csv'));
-  }
+      .then((response) => response.blob())
+      .then((blob) => FileSaver.saveAs(blob, "export.csv"));
+  };
 
   render() {
-
-   if(this.state.hasSearched && this.state.assocAddrs.length === 0)  {
-      return (
-        (this.state.searchAddress && this.state.searchAddress.bbl
-          && helpers.getNychaData(this.state.searchAddress.bbl) ? 
-        <NychaPage geosearch={this.state.geosearch} searchAddress={this.state.searchAddress} nychaData={helpers.getNychaData(this.state.searchAddress.bbl)} /> : 
-        <NotRegisteredPage geosearch={this.state.geosearch} searchAddress={this.state.searchAddress} /> )
+    if (this.state.hasSearched && this.state.assocAddrs.length === 0) {
+      return this.state.searchAddress &&
+        this.state.searchAddress.bbl &&
+        helpers.getNychaData(this.state.searchAddress.bbl) ? (
+        <NychaPage
+          geosearch={this.state.geosearch}
+          searchAddress={this.state.searchAddress}
+          nychaData={helpers.getNychaData(this.state.searchAddress.bbl)}
+        />
+      ) : (
+        <NotRegisteredPage
+          geosearch={this.state.geosearch}
+          searchAddress={this.state.searchAddress}
+        />
       );
-    }
-
-    else if(this.state.hasSearched && this.state.assocAddrs && this.state.assocAddrs.length) {
+    } else if (
+      this.state.hasSearched &&
+      this.state.assocAddrs &&
+      this.state.assocAddrs.length
+    ) {
       return (
         <div className="AddressPage">
           <div className="AddressPage__info">
@@ -139,46 +166,96 @@ export default class AddressPage extends Component {
               userAddr={this.state.searchAddress}
               numOfAssocAddrs={this.state.assocAddrs.length}
             />
-            { this.state.userAddr &&
+            {this.state.userAddr && (
               <div className="float-left">
                 <h5 className="primary">
-                  <Trans>PORTFOLIO: Your search address is associated with <u>{this.state.assocAddrs.length}</u> <Plural value={this.state.assocAddrs.length} one="building" other="buildings" />:</Trans>
+                  <Trans>
+                    PORTFOLIO: Your search address is associated with{" "}
+                    <u>{this.state.assocAddrs.length}</u>{" "}
+                    <Plural
+                      value={this.state.assocAddrs.length}
+                      one="building"
+                      other="buildings"
+                    />:
+                  </Trans>
                 </h5>
                 <ul className="tab tab-block">
-                  <li className={`tab-item ${this.state.currentTab === 0 ? "active" : ""}`}>
-                    <a // eslint-disable-line jsx-a11y/anchor-is-valid
+                  <li
+                    className={`tab-item ${
+                      this.props.currentTab === 0 ? "active" : ""
+                    }`}
+                  >
+                    <Link
+                      to={this.generateBaseUrl()}
                       onClick={() => {
-                        if(Browser.isMobile() && this.state.detailMobileSlide) {
+                        if (
+                          Browser.isMobile() &&
+                          this.state.detailMobileSlide
+                        ) {
                           this.handleCloseDetail();
                         }
-                        this.setState({ currentTab: 0 });
                       }}
-                    ><Trans>Overview</Trans></a>
+                    >
+                      <Trans>Overview</Trans>
+                    </Link>
                   </li>
-                  <li className={`tab-item ${this.state.currentTab === 1 ? "active" : ""}`}>
-                    <a // eslint-disable-line jsx-a11y/anchor-is-valid
-                      onClick={() => {this.setState({ currentTab: 1 }); window.gtag('event', 'timeline-tab');}}><Trans>Timeline</Trans></a>
+                  <li
+                    className={`tab-item ${
+                      this.props.currentTab === 1 ? "active" : ""
+                    }`}
+                  >
+                    <Link
+                      to={this.generateBaseUrl() + "/timeline"}
+                      onClick={() => {
+                        window.gtag("event", "timeline-tab");
+                      }}
+                    >
+                      <Trans>Timeline</Trans>
+                    </Link>
                   </li>
-                  <li className={`tab-item ${this.state.currentTab === 2 ? "active" : ""}`}>
-                    <a // eslint-disable-line jsx-a11y/anchor-is-valid
-                      onClick={() => {this.setState({ currentTab: 2 }); window.gtag('event', 'portfolio-tab');}}><Trans>Portfolio</Trans></a>
+                  <li
+                    className={`tab-item ${
+                      this.props.currentTab === 2 ? "active" : ""
+                    }`}
+                  >
+                    <Link
+                      to={this.generateBaseUrl() + "/portfolio"}
+                      onClick={() => {
+                        window.gtag("event", "portfolio-tab");
+                      }}
+                    >
+                      <Trans>Portfolio</Trans>
+                    </Link>
                   </li>
-                  <li className={`tab-item ${this.state.currentTab === 3 ? "active" : ""}`}>
-                    <a // eslint-disable-line jsx-a11y/anchor-is-valid
-                      onClick={() => {this.setState({ currentTab: 3 }); window.gtag('event', 'summary-tab');}}><Trans>Summary</Trans></a>
+                  <li
+                    className={`tab-item ${
+                      this.props.currentTab === 3 ? "active" : ""
+                    }`}
+                  >
+                    <Link
+                      to={this.generateBaseUrl() + "/summary"}
+                      onClick={() => {
+                        window.gtag("event", "summary-tab");
+                      }}
+                    >
+                      <Trans>Summary</Trans>
+                    </Link>
                   </li>
-                  
                 </ul>
               </div>
-            }
+            )}
           </div>
-          <div className={`AddressPage__content AddressPage__viz ${this.state.currentTab === 0 ? "AddressPage__content-active": ''}`}>
+          <div
+            className={`AddressPage__content AddressPage__viz ${
+              this.props.currentTab === 0 ? "AddressPage__content-active" : ""
+            }`}
+          >
             <PropertiesMap
               addrs={this.state.assocAddrs}
               userAddr={this.state.userAddr}
               detailAddr={this.state.detailAddr}
               onAddrChange={this.handleAddrChange}
-              isVisible={this.state.currentTab === 0}
+              isVisible={this.props.currentTab === 0}
             />
             <DetailView
               addr={this.state.detailAddr}
@@ -189,34 +266,47 @@ export default class AddressPage extends Component {
               onLinkToTimeline={this.handleTimelineLink}
             />
           </div>
-          <div className={`AddressPage__content AddressPage__summary ${this.state.currentTab === 1 ? "AddressPage__content-active": ''}`}>
+          <div
+            className={`AddressPage__content AddressPage__summary ${
+              this.props.currentTab === 1 ? "AddressPage__content-active" : ""
+            }`}
+          >
             <Indicators
-              isVisible={this.state.currentTab === 1}
+              isVisible={this.props.currentTab === 1}
               detailAddr={this.state.detailAddr}
               onBackToOverview={this.handleAddrChange}
             />
           </div>
-          <div className={`AddressPage__content AddressPage__table ${this.state.currentTab === 2 ? "AddressPage__content-active": ''}`}>
+          <div
+            className={`AddressPage__content AddressPage__table ${
+              this.props.currentTab === 2 ? "AddressPage__content-active" : ""
+            }`}
+          >
             {
-            <PropertiesList
+              <PropertiesList
                 addrs={this.state.assocAddrs}
                 onOpenDetail={this.handleAddrChange}
               />
             }
           </div>
-          <div className={`AddressPage__content AddressPage__summary ${this.state.currentTab === 3 ? "AddressPage__content-active": ''}`}>
+          <div
+            className={`AddressPage__content AddressPage__summary ${
+              this.props.currentTab === 3 ? "AddressPage__content-active" : ""
+            }`}
+          >
             <PropertiesSummary
-              isVisible={this.state.currentTab === 3}
+              isVisible={this.props.currentTab === 3}
               userAddr={this.state.userAddr}
             />
           </div>
-          
-
         </div>
       );
-    }
-    else {
-      return (<Loader loading={true} classNames="Loader-map"><Trans>Loading</Trans></Loader>);
+    } else {
+      return (
+        <Loader loading={true} classNames="Loader-map">
+          <Trans>Loading</Trans>
+        </Loader>
+      );
     }
   }
 }
