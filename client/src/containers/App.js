@@ -72,7 +72,10 @@ render() {
               <div className="App__body">
                 <Switch>
                   <Route exact path="/:locale/" component={HomePage} />
-                  <Route path="/:locale/address/:boro/:housenumber/:streetname" component={AddressPage} />
+                  <Route path="/:locale/address/:boro/:housenumber/:streetname" render={(props) => <AddressPage currentTab={0} {...props} />} exact />
+                  <Route path="/:locale/address/:boro/:housenumber/:streetname/timeline" render={(props) => <AddressPage currentTab={1} {...props} />} />
+                  <Route path="/:locale/address/:boro/:housenumber/:streetname/portfolio" render={(props) => <AddressPage currentTab={2} {...props} />} />
+                  <Route path="/:locale/address/:boro/:housenumber/:streetname/summary" render={(props) => <AddressPage currentTab={3} {...props} />} />
                   <Route path="/:locale/bbl/:boro/:block/:lot" component={BBLPage} />
                   <Route path="/:locale/bbl/:bbl" component={BBLPage} />
                   <Route path="/:locale/about" component={AboutPage} />
