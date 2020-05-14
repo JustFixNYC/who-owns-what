@@ -43,7 +43,7 @@ msgid "<0>COVID-19 Update: </0>JustFix.nyc remains in operation, and we are adap
 msgstr ""
 
 #: src/components/DetailView.js:197
-#: src/components/Indicators.js:392
+#: src/components/Indicators.js:587
 #: src/containers/NotRegisteredPage.js:161
 #: src/containers/NychaPage.js:186
 msgid "ANHD DAP Portal"
@@ -62,7 +62,7 @@ msgstr ""
 msgid "Additional links"
 msgstr ""
 
-#: src/components/PropertiesList.tsx:46
+#: src/components/PropertiesList.tsx:47
 msgid "Address"
 msgstr ""
 
@@ -80,15 +80,15 @@ msgid "Are you having issues in this development?"
 msgstr ""
 
 #: src/components/DetailView.js:75
-#: src/components/Indicators.js:289
+#: src/components/Indicators.js:341
 msgid "BUILDING:"
 msgstr ""
 
-#: src/components/Indicators.js:293
+#: src/components/Indicators.js:354
 msgid "Back to Overview"
 msgstr ""
 
-#: src/components/PropertiesList.tsx:61
+#: src/components/PropertiesList.tsx:62
 #: src/containers/NychaPage.js:120
 msgid "Borough"
 msgstr ""
@@ -116,7 +116,7 @@ msgstr ""
 msgid "Buildings without valid property registration are subject to the following:"
 msgstr ""
 
-#: src/components/PropertiesList.tsx:76
+#: src/components/PropertiesList.tsx:77
 msgid "Built"
 msgstr ""
 
@@ -160,13 +160,13 @@ msgid "Complaints Issued"
 msgstr ""
 
 #: src/components/DetailView.js:191
-#: src/components/Indicators.js:384
+#: src/components/Indicators.js:561
 #: src/containers/NotRegisteredPage.js:160
 msgid "DOB Building Profile"
 msgstr ""
 
 #: src/components/DetailView.js:194
-#: src/components/Indicators.js:389
+#: src/components/Indicators.js:574
 #: src/containers/NotRegisteredPage.js:157
 msgid "DOF Property Tax Bills"
 msgstr ""
@@ -188,7 +188,7 @@ msgstr ""
 msgid "Download"
 msgstr ""
 
-#: src/components/SocialShare.tsx:22
+#: src/components/SocialShare.tsx:29
 msgid "Email"
 msgstr ""
 
@@ -204,7 +204,7 @@ msgstr ""
 msgid "Enter email"
 msgstr ""
 
-#: src/components/PropertiesList.tsx:166
+#: src/components/PropertiesList.tsx:157
 #: src/components/PropertiesSummary.js:91
 msgid "Evictions"
 msgstr ""
@@ -226,7 +226,7 @@ msgid "General info"
 msgstr ""
 
 #: src/components/DetailView.js:188
-#: src/components/Indicators.js:379
+#: src/components/Indicators.js:548
 msgid "HPD Building Profile"
 msgstr ""
 
@@ -239,7 +239,7 @@ msgid "HPD Complaints are housing issues reported to the City <0>by a tenant cal
 msgstr ""
 
 #: src/components/IndicatorsDatasets.tsx:24
-#: src/components/PropertiesList.tsx:149
+#: src/components/PropertiesList.tsx:140
 msgid "HPD Violations"
 msgstr ""
 
@@ -251,7 +251,7 @@ msgstr ""
 msgid "HUD Complaint Form 958"
 msgstr ""
 
-#: src/components/Indicators.js:350
+#: src/components/Indicators.js:490
 msgid "Have thoughts about this page?"
 msgstr ""
 
@@ -276,7 +276,7 @@ msgstr ""
 msgid "Ineligible to certify violations"
 msgstr ""
 
-#: src/components/PropertiesList.tsx:73
+#: src/components/PropertiesList.tsx:74
 msgid "Information"
 msgstr ""
 
@@ -292,7 +292,7 @@ msgstr ""
 msgid "JustFix.nyc is a registered 501(c)(3) nonprofit organization."
 msgstr ""
 
-#: src/components/PropertiesList.tsx:177
+#: src/components/PropertiesList.tsx:168
 #: src/components/PropertiesSummary.js:71
 msgid "Landlord"
 msgstr ""
@@ -309,13 +309,13 @@ msgstr ""
 msgid "Legend"
 msgstr ""
 
-#: src/components/Indicators.js:281
+#: src/components/Indicators.js:332
 #: src/components/PropertiesMap.js:177
-#: src/containers/AddressPage.js:219
+#: src/containers/AddressPage.js:307
 msgid "Loading"
 msgstr ""
 
-#: src/components/PropertiesList.tsx:34
+#: src/components/PropertiesList.tsx:35
 msgid "Location"
 msgstr ""
 
@@ -339,7 +339,7 @@ msgstr ""
 msgid "Methodology"
 msgstr ""
 
-#: src/components/Indicators.js:311
+#: src/components/Indicators.js:402
 msgid "Month"
 msgstr ""
 
@@ -351,7 +351,7 @@ msgstr ""
 msgid "NYCHA Facility Directory"
 msgstr ""
 
-#: src/components/SocialShare.tsx:20
+#: src/components/SocialShare.tsx:27
 msgid "New JustFix.nyc tool helps research on NYC landlords"
 msgstr ""
 
@@ -384,12 +384,12 @@ msgstr ""
 msgid "Non-Emergency"
 msgstr ""
 
-#: src/components/PropertiesList.tsx:180
+#: src/components/PropertiesList.tsx:171
 msgid "Officer/Owner"
 msgstr ""
 
 #: src/components/DetailView.js:182
-#: src/components/Indicators.js:369
+#: src/components/Indicators.js:517
 msgid "Official building pages"
 msgstr ""
 
@@ -397,7 +397,7 @@ msgstr ""
 msgid "Oops! That email is invalid."
 msgstr ""
 
-#: src/components/PropertiesList.tsx:152
+#: src/components/PropertiesList.tsx:143
 msgid "Open"
 msgstr ""
 
@@ -405,7 +405,7 @@ msgstr ""
 msgid "Open Violations"
 msgstr ""
 
-#: src/containers/AddressPage.js:156
+#: src/containers/AddressPage.js:194
 msgid "Overview"
 msgstr ""
 
@@ -413,9 +413,13 @@ msgstr ""
 msgid "Owners submit Building Permit Applications to the Department of Buildings before any construction project to get necessary approval. The number of applications filed can indicate how much construction the owner was planning.<0/><1/> Read more about DOB Building Applications/Permits at the <2>official NYC Buildings page</2>."
 msgstr ""
 
-#: src/containers/AddressPage.js:145
-msgid "PORTFOLIO: Your search address is associated with <0>{0}</0> {1, plural, one {building} other {buildings}}:"
+#: src/containers/AddressPage.js:165
+msgid "PORTFOLIO: Your search address is associated with <0>{0}</0> {1, plural, one {building} other {buildings}}"
 msgstr ""
+
+#: src/containers/AddressPage.js:145
+#~ msgid "PORTFOLIO: Your search address is associated with <0>{0}</0> {1, plural, one {building} other {buildings}}:"
+#~ msgstr ""
 
 #: src/components/DetailView.js:146
 #: src/components/DetailView.js:266
@@ -428,7 +432,7 @@ msgstr ""
 msgid "Please enter an email address!"
 msgstr ""
 
-#: src/containers/AddressPage.js:164
+#: src/containers/AddressPage.js:224
 msgid "Portfolio"
 msgstr ""
 
@@ -440,12 +444,12 @@ msgstr ""
 msgid "Public Housing Development"
 msgstr ""
 
-#: src/components/Indicators.js:320
+#: src/components/Indicators.js:427
 msgid "Quarter"
 msgstr ""
 
 #: src/components/DetailView.js:113
-#: src/components/PropertiesList.tsx:128
+#: src/components/PropertiesList.tsx:116
 msgid "RS Units"
 msgstr ""
 
@@ -466,7 +470,7 @@ msgstr ""
 msgid "Searching for <0>{0} {1}, {2}</0>"
 msgstr ""
 
-#: src/components/Indicators.js:298
+#: src/components/Indicators.js:361
 msgid "Select a Dataset:"
 msgstr ""
 
@@ -474,7 +478,7 @@ msgstr ""
 msgid "Send us a data request"
 msgstr ""
 
-#: src/components/Indicators.js:351
+#: src/components/Indicators.js:497
 msgid "Send us feedback!"
 msgstr ""
 
@@ -518,7 +522,7 @@ msgstr ""
 msgid "Source code"
 msgstr ""
 
-#: src/containers/AddressPage.js:168
+#: src/containers/AddressPage.js:239
 msgid "Summary"
 msgstr ""
 
@@ -568,11 +572,11 @@ msgstr ""
 msgid "The {bldgs, plural, one {} other {average}} age of {bldgs, plural, one {this building} other {these buildings}} is <0>{age}</0> years old."
 msgstr "La {bldgs, plural, one {edad} other {media de las edades }} de {bldgs, plural, one {este edificio} other {estos edificios}} es <0>{age}</0> años."
 
-#: src/components/SocialShare.tsx:35
+#: src/components/SocialShare.tsx:46
 msgid "The {buildingCount} buildings owned by my landlord (via JustFix's Who Owns What tool)"
 msgstr ""
 
-#: src/components/SocialShare.tsx:35
+#: src/components/SocialShare.tsx:46
 msgid "The {buildingCount} buildings that my landlord \"owns\" 👀... #WhoOwnsWhat @JustFixNYC"
 msgstr ""
 
@@ -628,12 +632,12 @@ msgstr ""
 msgid "This will export <0>{0}</0> addresses associated with the landlord at <1>{userAddrStr}</1>!"
 msgstr ""
 
-#: src/containers/AddressPage.js:160
+#: src/containers/AddressPage.js:209
 msgid "Timeline"
 msgstr ""
 
 #: src/components/IndicatorsViz.js:336
-#: src/components/PropertiesList.tsx:158
+#: src/components/PropertiesList.tsx:149
 msgid "Total"
 msgstr ""
 
@@ -650,7 +654,7 @@ msgid "Unable to request Code Violation Dismissals"
 msgstr ""
 
 #: src/components/DetailView.js:95
-#: src/components/PropertiesList.tsx:82
+#: src/components/PropertiesList.tsx:83
 #: src/containers/NychaPage.js:124
 msgid "Units"
 msgstr ""
@@ -664,12 +668,12 @@ msgstr ""
 msgid "View data over time"
 msgstr ""
 
-#: src/components/PropertiesList.tsx:196
+#: src/components/PropertiesList.tsx:183
 msgid "View detail"
 msgstr ""
 
 #: src/components/DetailView.js:185
-#: src/components/Indicators.js:374
+#: src/components/Indicators.js:529
 #: src/containers/NotRegisteredPage.js:156
 msgid "View documents on ACRIS"
 msgstr ""
@@ -712,7 +716,7 @@ msgstr ""
 msgid "Who owns what in nyc?"
 msgstr "¿Quién posee qué en Nueva York?"
 
-#: src/components/Indicators.js:329
+#: src/components/Indicators.js:450
 msgid "Year"
 msgstr ""
 
@@ -724,7 +728,7 @@ msgstr ""
 msgid "Yoel Goldman's All Year Management has been at the <0>forefront of gentrification</0> in Brooklyn. Tenants in his buidlings in Williamsburg, Bushwick, and Crown Heights have been forced to live in horrendous and often dangerous conditions."
 msgstr ""
 
-#: src/components/PropertiesList.tsx:55
+#: src/components/PropertiesList.tsx:56
 msgid "Zipcode"
 msgstr ""
 
