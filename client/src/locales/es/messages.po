@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2020-05-15 17:57\n"
+"PO-Revision-Date: 2020-05-15 18:39\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -117,66 +117,66 @@ msgstr "Permisos de Construcción Solicitados"
 
 #: src/containers/NotRegisteredPage.js:190
 msgid "Buildings without valid property registration are subject to the following:"
-msgstr ""
+msgstr "Edificios sin registro de propiedad válido están sujetos a las siguientes obligaciones:"
 
 #: src/components/PropertiesList.tsx:77
 msgid "Built"
-msgstr ""
+msgstr "Construido"
 
 #: src/components/DetailView.js:139
 #: src/components/DetailView.js:252
 #: src/components/DetailView.js:258
 #: src/components/OwnersTable.tsx:19
 msgid "Business Addresses"
-msgstr ""
+msgstr "Dirección Comercial"
 
 #: src/components/DetailView.js:133
 msgid "Business Entities"
-msgstr ""
+msgstr "Entidades Comerciales"
 
 #: src/containers/NotRegisteredPage.js:194
 msgid "Civil penalties of $250-$500"
-msgstr ""
+msgstr "Sanciones civiles de $250-$500"
 
 #: src/components/IndicatorsViz.js:158
 msgid "Class A"
-msgstr ""
+msgstr "Clase A"
 
 #: src/components/IndicatorsViz.js:151
 msgid "Class B"
-msgstr ""
+msgstr "Clase B"
 
 #: src/components/IndicatorsViz.js:144
 msgid "Class C"
-msgstr ""
+msgstr "Clase C"
 
 #: src/containers/NotRegisteredPage.js:200
 msgid "Click here to learn more."
-msgstr ""
+msgstr "HaZ clic aquí para obtener más información."
 
 #: src/components/PropertiesMap.js:220
 msgid "Close legend"
-msgstr ""
+msgstr "Cerrar leyenda"
 
 #: src/components/IndicatorsViz.js:246
 msgid "Complaints Issued"
-msgstr ""
+msgstr "Quejas Emitidas"
 
 #: src/components/DetailView.js:191
 #: src/components/Indicators.js:561
 #: src/containers/NotRegisteredPage.js:160
 msgid "DOB Building Profile"
-msgstr ""
+msgstr "Perfil de edificio en DOB"
 
 #: src/components/DetailView.js:194
 #: src/components/Indicators.js:574
 #: src/containers/NotRegisteredPage.js:157
 msgid "DOF Property Tax Bills"
-msgstr ""
+msgstr "Facturas de Impuestos del DOF"
 
 #: src/containers/App.js:51
 msgid "Demo Site"
-msgstr ""
+msgstr "Sitio Demo"
 
 #: src/components/LegalFooter.tsx:11
 msgid "Disclaimer: The information in JustFix.nyc does not constitute legal advice and must not be used as a substitute for the advice of a lawyer qualified to give advice on legal issues pertaining to housing. We can help direct you to free legal services if necessary."
