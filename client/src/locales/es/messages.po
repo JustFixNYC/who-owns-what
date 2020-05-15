@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2020-05-15 17:37\n"
+"PO-Revision-Date: 2020-05-15 17:48\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -34,27 +34,27 @@ msgstr "({browserType, select, mobile {pulsa} other {haz clic}} para ver los det
 
 #: src/containers/HomePage.tsx:108
 msgid "... or view some sample portfolios:"
-msgstr ""
+msgstr "... o descubra ejemplos de carteras de edificios:"
 
 #: src/components/DetailView.js:109
 #: src/containers/NychaPage.js:128
 msgid "2019 Evictions"
-msgstr ""
+msgstr "Desalojos 2019"
 
 #: src/containers/HomePage.tsx:25
 msgid "<0>COVID-19 Update: </0>JustFix.nyc remains in operation, and we are adapting our products to match new rules put in place during the Covid-19 public health crisis. Thanks to organizing from tenant leaders, renters now have stronger protections during this time, including a full halt on eviction cases. <1><2>Learn more</2></1>"
-msgstr ""
+msgstr "<0>Actualización COVID-19: </0>JustFix.nyc sigue en funcionamiento, y hemos adaptado nuestros productos para que funcionen con las nuevas reglas establecidas durante la crisis de salud pública COVID-19. Gracias a la organización de los líderes inquilinos, los inquilinos de Nueva York ahora tienen protecciones más fuertes, incluyendo una suspensión total de los casos de desalojo. <1><2>Más información</2></1>"
 
 #: src/components/DetailView.js:197
 #: src/components/Indicators.js:587
 #: src/containers/NotRegisteredPage.js:161
 #: src/containers/NychaPage.js:186
 msgid "ANHD DAP Portal"
-msgstr ""
+msgstr "Portal DAP de ANHD"
 
 #: src/containers/App.js:56
 msgid "About"
-msgstr ""
+msgstr "Acerca de"
 
 #: src/components/PropertiesSummary.js:89
 msgid "According to available HPD data, this portfolio has received <0>{0}</0> total violations."
@@ -63,20 +63,20 @@ msgstr ""
 #: src/components/DetailView.js:179
 #: src/components/PropertiesSummary.js:97
 msgid "Additional links"
-msgstr ""
+msgstr "Enlaces adicionales"
 
 #: src/components/PropertiesList.tsx:47
 msgid "Address"
-msgstr ""
+msgstr "Dirección"
 
 #: src/components/Subscribe.tsx:29
 msgid "All set! Thanks for subscribing!"
-msgstr ""
+msgstr "¡Todo listo! ¡Gracias por suscribirte!"
 
 #: src/components/DetailView.js:163
 #: src/components/DetailView.js:203
 msgid "Are you having issues in this building?"
-msgstr ""
+msgstr "¿Tienes problemas en este edificio?"
 
 #: src/containers/NychaPage.js:192
 msgid "Are you having issues in this development?"
