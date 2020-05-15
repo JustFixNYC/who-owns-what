@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2020-05-15 18:49\n"
+"PO-Revision-Date: 2020-05-15 20:33\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -185,15 +185,15 @@ msgstr "Descargo de responsabilidad: La información en JustFix.nyc no constituy
 #: src/components/LegalFooter.tsx:19
 #: src/containers/App.js:58
 msgid "Donate"
-msgstr ""
+msgstr "Donar"
 
 #: src/components/AddressToolbar.tsx:34
 msgid "Download"
-msgstr ""
+msgstr "Descargar"
 
 #: src/components/SocialShare.tsx:29
 msgid "Email"
-msgstr ""
+msgstr "Email"
 
 #: src/components/IndicatorsViz.js:168
 msgid "Emergency"
@@ -201,24 +201,24 @@ msgstr "Emergencia"
 
 #: src/containers/HomePage.tsx:97
 msgid "Enter an NYC address and find other buildings your landlord might own:"
-msgstr ""
+msgstr "Introduce una dirección de NYC [ara encontrar otros edificios que tu propietario podría poseer:"
 
 #: src/components/Subscribe.tsx:51
 msgid "Enter email"
-msgstr ""
+msgstr "Introducir email"
 
 #: src/components/PropertiesList.tsx:157
 #: src/components/PropertiesSummary.js:91
 msgid "Evictions"
-msgstr ""
+msgstr "Desalojos"
 
 #: src/containers/NychaPage.js:127
 msgid "Evictions executed in this development by NYC Marshals in 2019. ANHD and the Housing Data Coalition cleaned, geocoded, and validated the data, originally sourced from DOI."
-msgstr ""
+msgstr "Desalojos ejecutados en este desarrollo por el Mariscal de NYC en 2019. ANHD y la Coalición de Datos de Vivienda limpiaron, codificaron y validaron los datos, originalmente provenientes de DOI."
 
 #: src/components/AddressToolbar.tsx:24
 msgid "Export Data"
-msgstr ""
+msgstr "Exportar datos"
 
 #: src/containers/NotRegisteredPage.js:189
 msgid "Failure to register a building with HPD"
@@ -226,16 +226,16 @@ msgstr ""
 
 #: src/components/PropertiesSummary.js:53
 msgid "General info"
-msgstr ""
+msgstr "Info general"
 
 #: src/components/DetailView.js:188
 #: src/components/Indicators.js:548
 msgid "HPD Building Profile"
-msgstr ""
+msgstr "Perfil de edificio del HPD"
 
 #: src/components/IndicatorsDatasets.tsx:6
 msgid "HPD Complaints"
-msgstr ""
+msgstr "Quejas de HPD"
 
 #: src/components/IndicatorsDatasets.tsx:12
 msgid "HPD Complaints are housing issues reported to the City <0>by a tenant calling 311</0>. When someone issues a complaint, the Department of Housing Preservation and Development begins a process of investigation that may lead to an official violation from the City. Complaints can be identified as:<1/><2/><3>Emergency</3> — reported to be hazardous/dire<4/><5>Non-Emergency</5> — all others<6/><7/> Read more about HPD Complaints and how to file them at the <8>official HPD page</8>."
