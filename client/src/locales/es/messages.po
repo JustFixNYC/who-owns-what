@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2020-05-15 22:07\n"
+"PO-Revision-Date: 2020-05-15 22:28\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -597,11 +597,11 @@ msgstr "¡Parece que este edificio debería estar registrado con el HPD!"
 
 #: src/components/AddressToolbar.tsx:32
 msgid "This data is in <0>CSV file format</0>, which can easily be used in Excel, Google Sheets, or any other spreadsheet program."
-msgstr ""
+msgstr "Estos datos están en <0>formato de archivo CSV</0>, que puede utilizarse fácilmente en Excel, Google Sheets o cualquier otro programa de hoja de cálculo."
 
 #: src/components/PropertiesSummary.js:85
 msgid "This is <0>about the same</0> as the citywide average."
-msgstr ""
+msgstr "Esto es <0>parecido</0> al promedio de toda la ciudad."
 
 #: src/components/PropertiesSummary.js:88
 msgid "This is <0>better</0> than the citywide average of {VIOLATIONS_AVG} per residential unit."
@@ -621,36 +621,36 @@ msgstr "Esta cartera de edificios tiene un promedio de <0>{0}</0> infracciones d
 
 #: src/containers/HomePage.tsx:121
 msgid "This property management company owned by the Kushner family is notorious for <0>violating rent regulations</0> and <1>harassing tenants</1>. The stake currently held by Jared Kushner and Ivanka Trump is worth as much as $761 million."
-msgstr ""
+msgstr "Esta empresa de gestión inmobiliaria es propiedad de la familia Kushner y es notoria por <0>violar las normas de vivienda</0> y por <1>comportamientos abusivos</1>. La participación financiera actualmente sostenida por Jared Kushner e Ivanka Trump asciende a 761 millones de dólares."
 
 #: src/components/RentstabSummary.tsx:19
 msgid "This represents <0>{rsProportion}%</0> of the total size of this portfolio."
-msgstr ""
+msgstr "Esto representa el <0>{rsProportion}%</0> del tamaño total de esta cartera de edificios."
 
 #: src/containers/NotRegisteredPage.js:77
 msgid "This seems like a smaller residential building. If the landlord doesn't reside there, it should be registered with HPD."
-msgstr ""
+msgstr "Este parece ser un edificio residencial pequeño. Si el dueńo no reside allí, el edificio debería estar registrado con el HPD."
 
 #: src/components/AddressToolbar.tsx:31
 msgid "This will export <0>{0}</0> addresses associated with the landlord at <1>{userAddrStr}</1>!"
-msgstr ""
+msgstr "¡Esto exportará <0>{0}</0> direcciones asociadas al propietario de <1>{userAddrStr}</1>!"
 
 #: src/containers/AddressPage.js:209
 msgid "Timeline"
-msgstr ""
+msgstr "Cronología"
 
 #: src/components/IndicatorsViz.js:336
 #: src/components/PropertiesList.tsx:149
 msgid "Total"
-msgstr ""
+msgstr "Total"
 
 #: src/components/DetailView.js:105
 msgid "Total Violations"
-msgstr ""
+msgstr "Infracciones Totales"
 
 #: src/containers/NotRegisteredPage.js:198
 msgid "Unable to initiate a court action for nonpayment of rent."
-msgstr ""
+msgstr "No es possible iniciar una acción judicial por falta de pago del alquiler."
 
 #: src/containers/NotRegisteredPage.js:197
 msgid "Unable to request Code Violation Dismissals"
@@ -665,35 +665,35 @@ msgstr "Unidad Residencial"
 #: src/containers/NotRegisteredPage.js:153
 #: src/containers/NychaPage.js:178
 msgid "Useful links:"
-msgstr ""
+msgstr "Enlaces útiles:"
 
 #: src/components/DetailView.js:127
 msgid "View data over time"
-msgstr ""
+msgstr "Ver datos a lo largo del tiempo"
 
 #: src/components/PropertiesList.tsx:183
 msgid "View detail"
-msgstr ""
+msgstr "Ver detalles"
 
 #: src/components/DetailView.js:185
 #: src/components/Indicators.js:529
 #: src/containers/NotRegisteredPage.js:156
 msgid "View documents on ACRIS"
-msgstr ""
+msgstr "Ver documentos en ACRIS"
 
 #: src/components/PropertiesMap.js:220
 msgid "View legend"
-msgstr ""
+msgstr "Ver leyenda"
 
 #: src/containers/HomePage.tsx:124
 #: src/containers/HomePage.tsx:141
 #: src/containers/HomePage.tsx:157
 msgid "View portfolio"
-msgstr ""
+msgstr "Ver cartera de edificios"
 
 #: src/components/DetailView.js:66
 msgid "View portfolio map"
-msgstr ""
+msgstr "Ver mapa de la cartera de edificios"
 
 #: src/components/IndicatorsViz.js:247
 msgid "Violations Issued"
