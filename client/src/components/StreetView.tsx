@@ -1,24 +1,24 @@
-import React from 'react';
-import { withGoogleMap, StreetViewPanorama } from 'react-google-maps';
-import Browser from '../util/browser';
+import React from "react";
+import { withGoogleMap, StreetViewPanorama } from "react-google-maps";
+import Browser from "../util/browser";
 
 export type StreetViewAddr = {
-  lat: number,
-  lng: number
+  lat: number;
+  lng: number;
 };
 
 export type StreetViewProps = {
-  addr: StreetViewAddr|null|undefined,
+  addr: StreetViewAddr | null | undefined;
 };
 
 type HeadingAndCoords = {
-  heading: number,
-  coordinates: google.maps.LatLng|undefined
+  heading: number;
+  coordinates: google.maps.LatLng | undefined;
 };
 
 type State = HeadingAndCoords;
 
-const UnwrappedStreetViewImpl: React.FC<HeadingAndCoords> = props => {
+const UnwrappedStreetViewImpl: React.FC<HeadingAndCoords> = (props) => {
   return (
     <StreetViewPanorama
       visible
@@ -30,7 +30,7 @@ const UnwrappedStreetViewImpl: React.FC<HeadingAndCoords> = props => {
         disableDefaultUI: true,
         enableCloseButton: false,
         panControl: true,
-        fullscreenControl: true
+        fullscreenControl: true,
       }}
     />
   );
@@ -38,10 +38,13 @@ const UnwrappedStreetViewImpl: React.FC<HeadingAndCoords> = props => {
 
 const StreetViewImpl = withGoogleMap(UnwrappedStreetViewImpl);
 
-const NULL_HEADING_AND_COORDS: HeadingAndCoords = { heading: 0, coordinates: undefined };
+const NULL_HEADING_AND_COORDS: HeadingAndCoords = {
+  heading: 0,
+  coordinates: undefined,
+};
 
-function getAddrHash(addr: StreetViewAddr|null|undefined): string {
-  return addr ? `${addr.lat},${addr.lng}` : '';
+function getAddrHash(addr: StreetViewAddr | null | undefined): string {
+  return addr ? `${addr.lat},${addr.lng}` : "";
 }
 
 export class StreetView extends React.Component<StreetViewProps, State> {
@@ -51,7 +54,7 @@ export class StreetView extends React.Component<StreetViewProps, State> {
   constructor(props: StreetViewProps) {
     super(props);
     this._currAddrHash = getAddrHash(null);
-    this.state = {...NULL_HEADING_AND_COORDS};
+    this.state = { ...NULL_HEADING_AND_COORDS };
   }
 
   componentDidMount() {
@@ -83,8 +86,11 @@ export class StreetView extends React.Component<StreetViewProps, State> {
           // srsly tho google, why not point to the latlng automatically?
           let panoCoordinates = panoData.location.latLng;
           this.setState({
-            heading: window.google.maps.geometry.spherical.computeHeading(panoCoordinates, coordinates),
-            coordinates: coordinates
+            heading: window.google.maps.geometry.spherical.computeHeading(
+              panoCoordinates,
+              coordinates
+            ),
+            coordinates: coordinates,
           });
         } else {
           this.setState(NULL_HEADING_AND_COORDS);
@@ -107,8 +113,10 @@ export class StreetView extends React.Component<StreetViewProps, State> {
       <StreetViewImpl
         heading={heading}
         coordinates={coordinates}
-        containerElement={<div style={{ width: `100%`, height: `${isMobile ? '180px' : '300px'}` }} />}
-        mapElement={<div style={{height: '100%'}} />}
+        containerElement={
+          <div style={{ width: `100%`, height: `${isMobile ? "180px" : "300px"}` }} />
+        }
+        mapElement={<div style={{ height: "100%" }} />}
       />
     );
   }

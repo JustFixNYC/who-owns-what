@@ -1,14 +1,13 @@
-import React from 'react';
+import React from "react";
 
-import 'styles/Loader.css';
+import "styles/Loader.css";
 
 const Loader: React.FC<{
-  classNames?: string,
-  loading: boolean
+  classNames?: string;
+  loading: boolean;
 }> = (props) => {
-
   const loader = (
-    <div className={`Loader ${ props.classNames }`}>
+    <div className={`Loader ${props.classNames}`}>
       <div className="Loader__content">
         <p>{props.children}</p>
       </div>
@@ -17,7 +16,7 @@ const Loader: React.FC<{
 
   // ideally this should return props.children, but instead this version
   // works as a sibling to the element thats loading...
-  if(!props.loading) return null;
+  if (!props.loading) return null;
   else return loader;
-}
+};
 export default Loader;

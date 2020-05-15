@@ -1,4 +1,4 @@
-@import '_vars.scss';
+@import "_vars.scss";
 
 .AddressSearch form {
   margin-top: 15px;
@@ -6,8 +6,6 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-
-
 }
 
 @media screen and (max-width: 480px) {
@@ -26,18 +24,14 @@
   margin-top: 32px;
 }
 
-
 .AddressSearch {
-
   .geosuggest {
-
     margin-bottom: 15px;
     // max-width: 600px;
     // margin: 0 auto;
 
     .geosuggest__suggests-wrapper {
       background-color: #fff;
-
 
       .geosuggest__suggests {
         &:not(.geosuggest__suggests--hidden) {
@@ -50,12 +44,10 @@
         margin: 0;
 
         .geosuggest__item {
-
           margin-top: 0;
-          padding: .75rem 1rem;
+          padding: 0.75rem 1rem;
 
           &:first-child {
-
           }
           &:hover {
             background-color: $secondary-color;
@@ -71,8 +63,6 @@
             }
           }
         }
-
-
       }
     }
   }

@@ -1,5 +1,5 @@
-const rp = require('request-promise'),
-      Promise = require('bluebird');
+const rp = require("request-promise"),
+  Promise = require("bluebird");
 
 const request = (type, params) => {
   const opts = {
@@ -9,12 +9,12 @@ const request = (type, params) => {
       app_id: process.env.GEOCLIENT_ID,
       app_key: process.env.GEOCLIENT_KEY,
     },
-    json: true
-  }
+    json: true,
+  };
   return rp(opts);
-}
+};
 
 module.exports = {
-  requestAddress: (addrQuery) => request('address', addrQuery),
-  requestBBL: (bblQuery) => request('bbl', bblQuery)
+  requestAddress: (addrQuery) => request("address", addrQuery),
+  requestBBL: (bblQuery) => request("bbl", bblQuery),
 };

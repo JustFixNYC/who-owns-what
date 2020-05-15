@@ -40,11 +40,7 @@ export default class AddressPage extends Component {
     // We need to check where to get the results data for the page...
 
     // Here, the user conducted a search on HomePage and we already got the results
-    if (
-      this.props.location &&
-      this.props.location.state &&
-      this.props.location.state.results
-    ) {
+    if (this.props.location && this.props.location.state && this.props.location.state.results) {
       this.handleResults(this.props.location.state.results);
 
       // Otherwise they navigated directly to this url, so lets fetch it
@@ -117,9 +113,7 @@ export default class AddressPage extends Component {
     const params = this.props.match.params;
     return (
       //:locale/address/:boro/:housenumber/:streetname
-      `/${params.locale}/address/${params.boro}/${params.housenumber}/${
-        params.streetname
-      }`
+      `/${params.locale}/address/${params.boro}/${params.housenumber}/${params.streetname}`
     );
   };
 
@@ -146,11 +140,7 @@ export default class AddressPage extends Component {
           searchAddress={this.state.searchAddress}
         />
       );
-    } else if (
-      this.state.hasSearched &&
-      this.state.assocAddrs &&
-      this.state.assocAddrs.length
-    ) {
+    } else if (this.state.hasSearched && this.state.assocAddrs && this.state.assocAddrs.length) {
       return (
         <div className="AddressPage">
           <div className="AddressPage__info">
@@ -165,28 +155,17 @@ export default class AddressPage extends Component {
                   <Trans>
                     PORTFOLIO: Your search address is associated with{" "}
                     <u>{this.state.assocAddrs.length}</u>{" "}
-                    <Plural
-                      value={this.state.assocAddrs.length}
-                      one="building"
-                      other="buildings"
-                    />
+                    <Plural value={this.state.assocAddrs.length} one="building" other="buildings" />
                   </Trans>
                   :
                 </h5>
                 <ul className="tab tab-block">
-                  <li
-                    className={`tab-item ${
-                      this.props.currentTab === 0 ? "active" : ""
-                    }`}
-                  >
+                  <li className={`tab-item ${this.props.currentTab === 0 ? "active" : ""}`}>
                     <Link
                       to={this.generateBaseUrl()}
                       tabIndex={this.props.currentTab === 0 ? -1 : 0}
                       onClick={() => {
-                        if (
-                          Browser.isMobile() &&
-                          this.state.detailMobileSlide
-                        ) {
+                        if (Browser.isMobile() && this.state.detailMobileSlide) {
                           this.handleCloseDetail();
                         }
                       }}
@@ -194,11 +173,7 @@ export default class AddressPage extends Component {
                       <Trans>Overview</Trans>
                     </Link>
                   </li>
-                  <li
-                    className={`tab-item ${
-                      this.props.currentTab === 1 ? "active" : ""
-                    }`}
-                  >
+                  <li className={`tab-item ${this.props.currentTab === 1 ? "active" : ""}`}>
                     <Link
                       to={this.generateBaseUrl() + "/timeline"}
                       tabIndex={this.props.currentTab === 1 ? -1 : 0}
@@ -209,11 +184,7 @@ export default class AddressPage extends Component {
                       <Trans>Timeline</Trans>
                     </Link>
                   </li>
-                  <li
-                    className={`tab-item ${
-                      this.props.currentTab === 2 ? "active" : ""
-                    }`}
-                  >
+                  <li className={`tab-item ${this.props.currentTab === 2 ? "active" : ""}`}>
                     <Link
                       to={this.generateBaseUrl() + "/portfolio"}
                       tabIndex={this.props.currentTab === 2 ? -1 : 0}
@@ -224,11 +195,7 @@ export default class AddressPage extends Component {
                       <Trans>Portfolio</Trans>
                     </Link>
                   </li>
-                  <li
-                    className={`tab-item ${
-                      this.props.currentTab === 3 ? "active" : ""
-                    }`}
-                  >
+                  <li className={`tab-item ${this.props.currentTab === 3 ? "active" : ""}`}>
                     <Link
                       to={this.generateBaseUrl() + "/summary"}
                       tabIndex={this.props.currentTab === 3 ? -1 : 0}

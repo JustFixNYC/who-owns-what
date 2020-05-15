@@ -53,8 +53,7 @@ const SocialShareWithoutI18n: React.FC<{
         url={props.url || "https://whoownswhat.justfix.nyc/"}
         target="_blank"
         message={
-          props.emailMessage ||
-          i18n._(t`New JustFix.nyc tool helps research on NYC landlords`)
+          props.emailMessage || i18n._(t`New JustFix.nyc tool helps research on NYC landlords`)
         }
       >
         <i className="icon icon-mail mx-2" />
@@ -98,9 +97,9 @@ const SocialSharePortfolioWithoutI18n: React.FC<{
       i18n={i18n}
       location={location}
       url={encodeURI(
-        `https://whoownswhat.justfix.nyc/address/${addr.boro}/${
-          addr.housenumber
-        }/${addr.streetname}${location === "summary-tab" ? "/summary" : ""}`
+        `https://whoownswhat.justfix.nyc/address/${addr.boro}/${addr.housenumber}/${
+          addr.streetname
+        }${location === "summary-tab" ? "/summary" : ""}`
       ).replace(" ", "%20")} // Support for Android
       twitterMessage={i18n._(
         t`The ${buildingCount} buildings that my landlord "owns" 👀... #WhoOwnsWhat @JustFixNYC`

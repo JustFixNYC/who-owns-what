@@ -1,5 +1,5 @@
 import { google } from "google-maps";
-import Rollbar from 'rollbar';
+import Rollbar from "rollbar";
 
 declare global {
   interface Window {

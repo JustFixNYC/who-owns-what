@@ -172,9 +172,7 @@ const PropertiesListWithoutI18n: React.FC<{
                     return (
                       <span
                         className={`${
-                          row.original.rsunits2017 < row.original.rsunits2007
-                            ? "text-danger"
-                            : ""
+                          row.original.rsunits2017 < row.original.rsunits2007 ? "text-danger" : ""
                         }`}
                       >
                         {row.original.rsunits2017}
@@ -220,9 +218,7 @@ const PropertiesListWithoutI18n: React.FC<{
                   Header: i18n._(t`Officer/Owner`),
                   accessor: (d) => {
                     var owner = d.ownernames.find(
-                      (o) =>
-                        o.title === "HeadOfficer" ||
-                        o.title === "IndividualOwner"
+                      (o) => o.title === "HeadOfficer" || o.title === "IndividualOwner"
                     );
                     return owner ? owner.value : "";
                   },

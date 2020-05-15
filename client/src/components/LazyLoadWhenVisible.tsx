@@ -1,8 +1,7 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect } from "react";
 
-
-export const LazyLoadWhenVisible: React.FC = props => {
-  if (!('IntersectionObserver' in window)) {
+export const LazyLoadWhenVisible: React.FC = (props) => {
+  if (!("IntersectionObserver" in window)) {
     return <div>{props.children}</div>;
   }
 
@@ -14,7 +13,7 @@ export const LazyLoadWhenVisible: React.FC = props => {
     if (!current) return;
 
     const obs = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
+      entries.forEach((entry) => {
         if (entry.isIntersecting) {
           setHasBeenVisible(true);
         }
@@ -27,5 +26,5 @@ export const LazyLoadWhenVisible: React.FC = props => {
     };
   }, [ref]);
 
-  return <div ref={ref}>{hasBeenVisible && props.children}</div>
+  return <div ref={ref}>{hasBeenVisible && props.children}</div>;
 };

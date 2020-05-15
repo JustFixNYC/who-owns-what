@@ -1,17 +1,13 @@
-@import '_vars.scss';
-@import '_scrollbar.scss';
-@import '_button.scss';
+@import "_vars.scss";
+@import "_scrollbar.scss";
+@import "_button.scss";
 
 .PropertiesSummary {
-
-
-
   // @include for-phone-only() {
   //   padding-right: 30px;
   // };
 
   .PropertiesSummary__content {
-
     padding: 30px 45px 104px 30px;
 
     @include for-tablet-portrait-up() {
@@ -20,7 +16,7 @@
 
     & > div > h6 {
       font-size: 1.4rem;
-      margin-bottom: .6rem;
+      margin-bottom: 0.6rem;
       text-decoration: underline;
       font-weight: bold;
     }
@@ -31,14 +27,12 @@
     }
 
     aside {
-
       @include for-tablet-landscape-up() {
         width: 32%;
         margin-left: 40px;
         margin-top: 0;
         margin-bottom: 0;
       }
-
     }
   }
 
@@ -64,8 +58,5 @@
     & > div:not(:last-child) {
       margin-bottom: 24px;
     }
-
-
   }
-
 }

@@ -1,9 +1,8 @@
-@import '_vars.scss';
-@import '_scrollbar.scss';
-@import '_datatable.scss';
+@import "_vars.scss";
+@import "_scrollbar.scss";
+@import "_datatable.scss";
 
 .DetailView {
-
   $detailWidth: 70vw;
   $detailAnimLength: 300;
   $detailAnimLengthMs: 300 + 0ms;
@@ -19,9 +18,9 @@
   border-left: 1px solid $dark;
 
   @include for-phone-only() {
-
     position: absolute;
-    top: 0; left: 0;
+    top: 0;
+    left: 0;
     // height: calc(100% + 34px);
     height: 100%;
     width: 100vw;
@@ -50,9 +49,7 @@
     &.DetailView-exit-done {
       transform: translateX(100%);
     }
-  };
-
-
+  }
 
   // &.slide-enter {
   //   margin-right: -$detailWidth;
@@ -101,7 +98,6 @@
   }
 
   .DetailView__card {
-
     border: none;
 
     p {
@@ -128,7 +124,7 @@
       display: none;
       @include for-phone-only() {
         display: block;
-      };
+      }
 
       button {
         font-size: 18px;
@@ -138,7 +134,6 @@
         }
       }
     }
-
 
     .card-header {
       padding-bottom: 1.5rem;
@@ -157,7 +152,7 @@
 
         @include for-phone-only() {
           display: none;
-        };
+        }
       }
     }
 
@@ -171,16 +166,14 @@
 
       @include for-tablet-portrait-up() {
         padding-right: 3rem;
-      };
+      }
 
       &.column-right {
-
         @include for-tablet-landscape-up() {
           padding-right: 0;
           padding-left: 0;
         }
       }
-
     }
 
     @include datatable();
@@ -188,7 +181,7 @@
     .card-body-table-prompt {
       @include for-phone-only() {
         display: none;
-      };
+      }
     }
 
     .card-body-timeline-link {
@@ -197,18 +190,15 @@
     }
 
     .card-body-landlord {
-
       margin-top: 2.5rem;
 
       b {
         display: block;
         border-bottom: 1px solid $gray-dark;
       }
-
     }
 
     .card-body-registration {
-
       margin-top: 2.5rem;
 
       b {
@@ -247,7 +237,9 @@
       }
     }
 
-    .card-body-links, .card-body-prompt, .card-body-social {
+    .card-body-links,
+    .card-body-prompt,
+    .card-body-social {
       margin-top: 24px;
       margin-bottom: 24px;
     }
@@ -274,7 +266,6 @@
       }
 
       .btn {
-
       }
     }
 
@@ -282,13 +273,7 @@
       font-weight: bold;
       margin-bottom: 0.75rem;
     }
-
-
   }
-
-
-
-
 }
 
 .DetailView__compareTable {
@@ -296,7 +281,8 @@
   border-spacing: 0;
   margin-top: 25px;
 
-  th, td {
+  th,
+  td {
     padding: 15px 30px;
   }
 
@@ -343,5 +329,4 @@
       border-bottom: 1px dashed $gray;
     }
   }
-
 }
