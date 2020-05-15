@@ -67,11 +67,8 @@ export default class App extends Component {
                   <a href="https://www.justfix.nyc/donate">
                     <Trans>Donate</Trans>
                   </a>
-                  <a
-                    // eslint-disable-next-line
-                    href="#" // jsx-a11y/anchor-is-valid
-                    onClick={() => this.setState({ showEngageModal: true })}
-                  >
+                  {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+                  <a href="#" onClick={() => this.setState({ showEngageModal: true })}>
                     <Trans>Share</Trans>
                   </a>
                   <LocaleSwitcher />
