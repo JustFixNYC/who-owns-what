@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2020-05-15 22:28\n"
+"PO-Revision-Date: 2020-05-15 22:37\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -697,15 +697,15 @@ msgstr "Ver mapa de la cartera de edificios"
 
 #: src/components/IndicatorsViz.js:247
 msgid "Violations Issued"
-msgstr ""
+msgstr "Infracciones emitidas"
 
 #: src/components/EngagementPanel.tsx:19
 msgid "Visit our website"
-msgstr ""
+msgstr "Visite nuestro sitio web"
 
 #: src/containers/App.js:43
 msgid "Warning! This site doesn't fully work on older versions of Safari. Try a <0>modern browser</0>."
-msgstr ""
+msgstr "¡Atención! Este sitio no funciona completamente en versiones antiguas de Safari. Prueba un <0>navegador moderno</0>."
 
 #: src/components/DetailView.js:225
 msgid "We compare your search address with a database of over 200k buildings to identify a landlord or management company's portfolio. To learn more, check out <0>our methodology</0>."
