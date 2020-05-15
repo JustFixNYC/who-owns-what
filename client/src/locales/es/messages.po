@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2020-05-15 21:24\n"
+"PO-Revision-Date: 2020-05-15 21:40\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -441,15 +441,15 @@ msgstr "Cartera de Edificios"
 
 #: src/components/LegalFooter.tsx:21
 msgid "Privacy policy"
-msgstr ""
+msgstr "Política de privacidad"
 
 #: src/containers/NychaPage.js:110
 msgid "Public Housing Development"
-msgstr ""
+msgstr "Desarrollo de Vivienda Pública"
 
 #: src/components/Indicators.js:427
 msgid "Quarter"
-msgstr ""
+msgstr "Trimestre"
 
 #: src/components/DetailView.js:113
 #: src/components/PropertiesList.tsx:116
@@ -458,36 +458,36 @@ msgstr "Unidades Residenciales RS"
 
 #: src/components/PropertiesSummary.js:93
 msgid "Rent stabilization"
-msgstr ""
+msgstr "Renta estabilizada"
 
 #: src/containers/NotRegisteredPage.js:182
 #: src/containers/NychaPage.js:212
 msgid "Search for a different address"
-msgstr ""
+msgstr "Buscar otra dirección"
 
 #: src/containers/BBLPage.tsx:131
 msgid "Searching"
-msgstr ""
+msgstr "Buscando"
 
 #: src/containers/HomePage.tsx:102
 msgid "Searching for <0>{0} {1}, {2}</0>"
-msgstr ""
+msgstr "Buscando <0>{0} {1}, {2}</0>"
 
 #: src/components/Indicators.js:361
 msgid "Select a Dataset:"
-msgstr ""
+msgstr "Seleccione un conjunto de datos:"
 
 #: src/components/PropertiesSummary.js:102
 msgid "Send us a data request"
-msgstr ""
+msgstr "Envíanos una solicitud de datos"
 
 #: src/components/Indicators.js:497
 msgid "Send us feedback!"
-msgstr ""
+msgstr "¡Comparte tu opinión con nosotros!"
 
 #: src/containers/App.js:61
 msgid "Share"
-msgstr ""
+msgstr "Compartir"
 
 #: src/components/DetailView.js:168
 #: src/components/DetailView.js:208
@@ -497,47 +497,47 @@ msgstr ""
 #: src/containers/NotRegisteredPage.js:168
 #: src/containers/NychaPage.js:197
 msgid "Share this page with your neighbors"
-msgstr ""
+msgstr "Comparte esta página con tus vecinos"
 
 #: src/components/DetailView.js:238
 #: src/components/DetailView.js:244
 #: src/components/OwnersTable.tsx:25
 msgid "Shell Companies"
-msgstr ""
+msgstr "Compañía Ficticia"
 
 #: src/components/Subscribe.tsx:52
 msgid "Sign up"
-msgstr ""
+msgstr "Regístrate"
 
 #: src/components/EngagementPanel.tsx:11
 msgid "Sign up for email updates"
-msgstr ""
+msgstr "Regístrate para recibir noticias por email"
 
 #: src/components/IndicatorsViz.js:376
 msgid "Sold to Current Owner"
-msgstr ""
+msgstr "Vendido al Propietario Actual"
 
 #: src/components/PropertiesMap.js:187
 msgid "Sorry, it looks like there's an error on the map. Try again on a different browser or <0>enable WebGL</0>."
-msgstr ""
+msgstr "Lo sentimos, parece que hay un error en el mapa. Inténtalo de nuevo con un navegador diferente o <0>habilita WebGL</0>."
 
 #: src/components/LegalFooter.tsx:24
 msgid "Source code"
-msgstr ""
+msgstr "Código fuente"
 
 #: src/containers/AddressPage.js:239
 msgid "Summary"
-msgstr ""
+msgstr "Resúmen"
 
 #: src/components/DetailView.js:164
 #: src/components/DetailView.js:204
 #: src/containers/NychaPage.js:193
 msgid "Take action on JustFix.nyc!"
-msgstr ""
+msgstr "¡Toma acción en JustFix.nyc!"
 
 #: src/components/LegalFooter.tsx:20
 msgid "Terms of use"
-msgstr ""
+msgstr "Condiciones de uso"
 
 #: src/containers/NychaPage.js:136
 msgid "The NYCHA office overseeing your borough. Some experts suggest reaching out to Borough Management Offices to advocate for repairs, as they tend to have more administrative power than local management offices."
@@ -569,7 +569,7 @@ msgstr ""
 
 #: src/containers/NychaPage.js:123
 msgid "The number of residential units across all buildings in this development, according to the Dept. of City Planning."
-msgstr ""
+msgstr "El número de unidades residenciales en todos los edificios de este desarrollo, según el Departamento Planificación de la Ciudad."
 
 #: src/components/PropertiesSummary.js:57
 msgid "The {bldgs, plural, one {} other {average}} age of {bldgs, plural, one {this building} other {these buildings}} is <0>{age}</0> years old."
@@ -605,11 +605,11 @@ msgstr ""
 
 #: src/components/PropertiesSummary.js:88
 msgid "This is <0>better</0> than the citywide average of {VIOLATIONS_AVG} per residential unit."
-msgstr ""
+msgstr "Esto es <0>mejor</0> que el promedio de la ciudad de {VIOLATIONS_AVG} por unidad residencial."
 
 #: src/components/PropertiesSummary.js:87
 msgid "This is <0>worse</0> than the citywide average of {VIOLATIONS_AVG} per residential unit."
-msgstr ""
+msgstr "Esto es <0>peor</0> que el promedio de la ciudad de {VIOLATIONS_AVG} por unidad residencial."
 
 #: src/components/RentstabSummary.tsx:15
 msgid "This portfolio also had an estimated <0>net {changeType, select, gain {gain} other {loss}}</0> of <1>{absTotalRsDiff}</1> {absTotalRsDiff, plural, one {rent stabilized unit} other {rent stabilized units}} since 2007 (gained {absTotalRsGain}, lost {absTotalRsLoss})."
@@ -617,7 +617,7 @@ msgstr "Esta cartera de edificios tuvo una <0>{changeType, select, gain {gananci
 
 #: src/components/PropertiesSummary.js:83
 msgid "This portfolio has an average of <0>{0}</0> open HPD violations per residential unit."
-msgstr ""
+msgstr "Esta cartera de edificios tiene un promedio de <0>{0}</0> infracciones de HPD actuales por cada unidad residencial."
 
 #: src/containers/HomePage.tsx:121
 msgid "This property management company owned by the Kushner family is notorious for <0>violating rent regulations</0> and <1>harassing tenants</1>. The stake currently held by Jared Kushner and Ivanka Trump is worth as much as $761 million."
@@ -660,7 +660,7 @@ msgstr ""
 #: src/components/PropertiesList.tsx:83
 #: src/containers/NychaPage.js:124
 msgid "Units"
-msgstr ""
+msgstr "Unidad Residencial"
 
 #: src/containers/NotRegisteredPage.js:153
 #: src/containers/NychaPage.js:178
