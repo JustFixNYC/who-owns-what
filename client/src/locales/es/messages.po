@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2020-05-15 20:42\n"
+"PO-Revision-Date: 2020-05-15 21:01\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -265,74 +265,74 @@ msgstr "Inicio"
 #: src/components/DetailView.js:79
 #: src/components/DetailView.js:224
 msgid "How is this building associated to this portfolio?"
-msgstr ""
+msgstr "¿Cómo se asocia este edificio a esta carpeta de viviendas?"
 
 #: src/containers/App.js:57
 msgid "How to use"
-msgstr ""
+msgstr "Cómo usar"
 
 #: src/components/EvictionsSummary.tsx:9
 msgid "In 2019, NYC Marshals scheduled {totalEvictions, plural, one {one eviction} other {# evictions}} across this portfolio."
-msgstr ""
+msgstr "En el 2019, los Mariscales de NYC programaron {totalEvictions, plural, one {un desalojo} other {# desalojos}} en esta carpeta de viviendas."
 
 #: src/containers/NotRegisteredPage.js:196
 msgid "Ineligible to certify violations"
-msgstr ""
+msgstr "Inelegible para certificar infracciones"
 
 #: src/components/PropertiesList.tsx:74
 msgid "Information"
-msgstr ""
+msgstr "Información"
 
 #: src/containers/NotRegisteredPage.js:101
 msgid "It doesn't seem like this property is required to register with HPD."
-msgstr ""
+msgstr "Parece que esta propiedad no necesita estar registrada con HPD."
 
 #: src/components/EngagementPanel.tsx:8
 msgid "Join the fight for tenant rights!"
-msgstr ""
+msgstr "¡Únete a la lucha por los derechos de los inquilinos!"
 
 #: src/components/LegalFooter.tsx:13
 msgid "JustFix.nyc is a registered 501(c)(3) nonprofit organization."
-msgstr ""
+msgstr "JustFix.nyc es una organización registrada 501(c)(3) sin fines de lucro."
 
 #: src/components/PropertiesList.tsx:168
 #: src/components/PropertiesSummary.js:71
 msgid "Landlord"
-msgstr ""
+msgstr "Dueńo del edificio"
 
 #: src/components/IndicatorsViz.js:376
 msgid "Last Sale Unknown"
-msgstr ""
+msgstr "Última venta desconocida"
 
 #: src/components/DetailView.js:154
 msgid "Last registered:"
-msgstr ""
+msgstr "Registrado por última vez:"
 
 #: src/components/PropertiesMap.js:220
 msgid "Legend"
-msgstr ""
+msgstr "Leyenda"
 
 #: src/components/Indicators.js:332
 #: src/components/PropertiesMap.js:177
 #: src/containers/AddressPage.js:307
 msgid "Loading"
-msgstr ""
+msgstr "Cargando"
 
 #: src/components/PropertiesList.tsx:35
 msgid "Location"
-msgstr ""
+msgstr "Ubicación"
 
 #: src/components/PropertiesSummary.js:99
 msgid "Looking for more information?"
-msgstr ""
+msgstr "¿Buscas más información?"
 
 #: src/components/LegalFooter.tsx:17
 msgid "Made with NYC ♥ by the team at <0>JustFix.nyc</0>"
-msgstr ""
+msgstr "Hecho en NYC con ♥ por el equipo de <0>JustFix.nyc</0>"
 
 #: src/components/PropertiesSummary.js:81
 msgid "Maintenance code violations"
-msgstr ""
+msgstr "Infracciones del código de mantenimiento"
 
 #: src/containers/NotRegisteredPage.js:195
 msgid "May be issued official Orders"
@@ -340,48 +340,48 @@ msgstr ""
 
 #: src/components/LegalFooter.tsx:23
 msgid "Methodology"
-msgstr ""
+msgstr "Metodología"
 
 #: src/components/Indicators.js:402
 msgid "Month"
-msgstr ""
+msgstr "Mes"
 
 #: src/containers/NychaPage.js:185
 msgid "MyNYCHA App"
-msgstr ""
+msgstr "App MyNYCHA"
 
 #: src/containers/NychaPage.js:182
 msgid "NYCHA Facility Directory"
-msgstr ""
+msgstr "Directorio de instalaciones de NYCHA"
 
 #: src/components/SocialShare.tsx:27
 msgid "New JustFix.nyc tool helps research on NYC landlords"
-msgstr ""
+msgstr "La nueva herramienta JustFix.nyc te ayuda a investigar a propietarios de NYC"
 
 #: src/components/AddressToolbar.tsx:27
 msgid "New Search"
-msgstr ""
+msgstr "Nueva búsqueda"
 
 #: src/containers/NychaPage.js:151
 msgid "New York Regional Office:"
-msgstr ""
+msgstr "Oficina Regional de Nueva York:"
 
 #: src/containers/NotRegisteredPage.js:117
 #: src/containers/NychaPage.js:97
 msgid "No address found"
-msgstr ""
+msgstr "No se encontraron direcciones"
 
 #: src/components/IndicatorsViz.js:430
 msgid "No data available"
-msgstr ""
+msgstr "No hay datos disponibles"
 
 #: src/containers/NotRegisteredPage.js:136
 msgid "No registration found for {usersInputAddressFragment}!"
-msgstr ""
+msgstr "¡No se ha encontrado ningún registro para {usersInputAddressFragment}!"
 
 #: src/containers/NotRegisteredPage.js:138
 msgid "No registration found!"
-msgstr ""
+msgstr "¡No se ha encontrado nigún registro!"
 
 #: src/components/IndicatorsViz.js:175
 msgid "Non-Emergency"
@@ -389,32 +389,32 @@ msgstr ""
 
 #: src/components/PropertiesList.tsx:171
 msgid "Officer/Owner"
-msgstr ""
+msgstr "Oficial/Propietario"
 
 #: src/components/DetailView.js:182
 #: src/components/Indicators.js:517
 msgid "Official building pages"
-msgstr ""
+msgstr "Páginas oficiales"
 
 #: src/components/Subscribe.tsx:34
 msgid "Oops! That email is invalid."
-msgstr ""
+msgstr "¡Vaya! Ese correo electrónico no es válido."
 
 #: src/components/PropertiesList.tsx:143
 msgid "Open"
-msgstr ""
+msgstr "Abrir"
 
 #: src/components/DetailView.js:101
 msgid "Open Violations"
-msgstr ""
+msgstr "Infracciones Actuales"
 
 #: src/containers/AddressPage.js:194
 msgid "Overview"
-msgstr ""
+msgstr "Vista General"
 
 #: src/components/IndicatorsDatasets.tsx:50
 msgid "Owners submit Building Permit Applications to the Department of Buildings before any construction project to get necessary approval. The number of applications filed can indicate how much construction the owner was planning.<0/><1/> Read more about DOB Building Applications/Permits at the <2>official NYC Buildings page</2>."
-msgstr ""
+msgstr "Antes de empezar cualquier proyecto de construcción, el propietario somete un solicitud para conseguir permisos de construcción al Departamento de Edificios para obtener la autorización necesaria. El número de solicitudes que asociadas a un edificio te puede dar una idea de cuánta construcción planea hacer el propietario. <0/><1/> Encontrarás más información sobre Permisos de Construcción del DOB en la <2>página oficial de Edificios de NYC</2>."
 
 #: src/containers/AddressPage.js:165
 msgid "PORTFOLIO: Your search address is associated with <0>{0}</0> {1, plural, one {building} other {buildings}}"
