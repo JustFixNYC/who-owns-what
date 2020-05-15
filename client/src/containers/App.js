@@ -68,7 +68,8 @@ export default class App extends Component {
                     <Trans>Donate</Trans>
                   </a>
                   <a
-                    href="#" // eslint-disable-line jsx-a11y/anchor-is-valid
+                    // eslint-disable-next-line
+                    href="#" // jsx-a11y/anchor-is-valid
                     onClick={() => this.setState({ showEngageModal: true })}
                   >
                     <Trans>Share</Trans>

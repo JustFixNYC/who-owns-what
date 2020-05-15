@@ -83,7 +83,7 @@ export default class DetailView extends Component {
                         {Helpers.titleCase(this.props.addr.boro)}
                       </h4>
                       {!Helpers.addrsAreEqual(this.props.addr, this.props.userAddr) && (
-                        <a // eslint-disable-line jsx-a11y/anchor-is-valid
+                        <a // eslint-disable-next-line jsx-a11y/anchor-is-valid
                           onClick={() => this.setState({ showCompareModal: true })}
                         >
                           <Trans render="i">
