@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2020-05-15 21:07\n"
+"PO-Revision-Date: 2020-05-15 21:24\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -34,7 +34,7 @@ msgstr "({browserType, select, mobile {pulsa} other {haz clic}} para ver los det
 
 #: src/containers/HomePage.tsx:108
 msgid "... or view some sample portfolios:"
-msgstr "... o descubra ejemplos de carteras de edificios:"
+msgstr "... o descubre ejemplos de carteras de edificios:"
 
 #: src/components/DetailView.js:109
 #: src/containers/NychaPage.js:128
@@ -265,7 +265,7 @@ msgstr "Inicio"
 #: src/components/DetailView.js:79
 #: src/components/DetailView.js:224
 msgid "How is this building associated to this portfolio?"
-msgstr "¿Cómo se asocia este edificio a esta carpeta de viviendas?"
+msgstr "¿Cómo se asocia este edificio a esta cartera de edificios?"
 
 #: src/containers/App.js:57
 msgid "How to use"
@@ -273,7 +273,7 @@ msgstr "Cómo usar"
 
 #: src/components/EvictionsSummary.tsx:9
 msgid "In 2019, NYC Marshals scheduled {totalEvictions, plural, one {one eviction} other {# evictions}} across this portfolio."
-msgstr "En el 2019, los Mariscales de NYC programaron {totalEvictions, plural, one {un desalojo} other {# desalojos}} en esta carpeta de viviendas."
+msgstr "En el 2019, los Mariscales de NYC programaron {totalEvictions, plural, one {un desalojo} other {# desalojos}} en esta cartera de edificios."
 
 #: src/containers/NotRegisteredPage.js:196
 msgid "Ineligible to certify violations"
@@ -418,7 +418,7 @@ msgstr "Antes de empezar cualquier proyecto de construcción, el propietario som
 
 #: src/containers/AddressPage.js:165
 msgid "PORTFOLIO: Your search address is associated with <0>{0}</0> {1, plural, one {building} other {buildings}}"
-msgstr "CARPETA DE VIVIENDAS: La dirección que has buscado está asociada con <0>{0}</0> {1, plural, one {construyendo} other {edificios}}"
+msgstr "CARTERA DE EDIFICIOS: La dirección que has buscado está asociada con <0>{0}</0> {1, plural, one {construyendo} other {edificios}}"
 
 #: src/containers/AddressPage.js:145
 #~ msgid "PORTFOLIO: Your search address is associated with <0>{0}</0> {1, plural, one {building} other {buildings}}:"
@@ -437,7 +437,7 @@ msgstr "Por favor, ¡introduzca una dirección de correo electrónico!"
 
 #: src/containers/AddressPage.js:224
 msgid "Portfolio"
-msgstr "Cartera de Viviendas"
+msgstr "Cartera de Edificios"
 
 #: src/components/LegalFooter.tsx:21
 msgid "Privacy policy"
@@ -454,7 +454,7 @@ msgstr ""
 #: src/components/DetailView.js:113
 #: src/components/PropertiesList.tsx:116
 msgid "RS Units"
-msgstr ""
+msgstr "Unidades Residenciales RS"
 
 #: src/components/PropertiesSummary.js:93
 msgid "Rent stabilization"
@@ -545,7 +545,7 @@ msgstr ""
 
 #: src/components/RentstabSummary.tsx:22
 msgid "The building that has lost the most units is <0>{0} {1}, {2}</0>, which has lost <1>{absRsLossAddrDiff}</1> {absRsLossAddrDiff, plural, one {unit} other {units}} in the past 10 years."
-msgstr ""
+msgstr "El edificio con la major pérdida de unidades residencial de renta estabilizada es <0>{0} {1}, {2}</0>, con una pérdida de <1>{absRsLossAddrDiff}</1> {absRsLossAddrDiff, plural, one {unidad} other {unidades}} en los últimos 10 años."
 
 #: src/components/EvictionsSummary.tsx:11
 msgid "The building with the most evictions was <0>{0} {1}, {2}</0> with {buildingTotalEvictions, plural, one {one eviction} other {# evictions}} that year."
@@ -585,7 +585,7 @@ msgstr ""
 
 #: src/components/PropertiesSummary.js:55
 msgid "There {bldgs, plural, one {<0>is <1>1</1> building</0>} other {<2>are <3>{bldgs}</3> buildings</2>}} in this portfolio with a total of {units, plural, one {1 unit} other {# units}}."
-msgstr "Hay {bldgs, plural, one {<0><1>1</1> edificio</0>} other {<2><3>{bldgs}</3> edificios</2>}} en esta cartera de viviendas, con un total de {units, plural, one {1 apartamento} other {# apartamentos}}."
+msgstr "Hay {bldgs, plural, one {<0><1>1</1> edificio</0>} other {<2><3>{bldgs}</3> edificios</2>}} en esta cartera de viviendas, con un total de {units, plural, one {una unidad residencial} other {# unidades residenciales}}."
 
 #: src/containers/NychaPage.js:113
 msgid "This building is owned by the NYC Housing Authority (NYCHA)"
@@ -613,7 +613,7 @@ msgstr ""
 
 #: src/components/RentstabSummary.tsx:15
 msgid "This portfolio also had an estimated <0>net {changeType, select, gain {gain} other {loss}}</0> of <1>{absTotalRsDiff}</1> {absTotalRsDiff, plural, one {rent stabilized unit} other {rent stabilized units}} since 2007 (gained {absTotalRsGain}, lost {absTotalRsLoss})."
-msgstr ""
+msgstr "Esta cartera de edificios tuvo una <0>{changeType, select, gain {ganancia} other {perdida}} neta</0> de <1>{absTotalRsDiff}</1> {absTotalRsDiff, plural, one {apartamento de renta estabilizada} other {apartamentos de renta estabilizada}} desde el año 2007 (gained {absTotalRsGain}, lost {absTotalRsLoss})."
 
 #: src/components/PropertiesSummary.js:83
 msgid "This portfolio has an average of <0>{0}</0> open HPD violations per residential unit."
