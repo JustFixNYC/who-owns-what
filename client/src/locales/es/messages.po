@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2020-05-15 22:01\n"
+"PO-Revision-Date: 2020-05-15 22:07\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -581,7 +581,7 @@ msgstr "Los {buildingCount} edificios que son propiedad del dueño de mi apartam
 
 #: src/components/SocialShare.tsx:46
 msgid "The {buildingCount} buildings that my landlord \"owns\" 👀... #WhoOwnsWhat @JustFixNYC"
-msgstr ""
+msgstr "Los {buildingCount} edificios que son \"propiedad\" del dueño de mi apartamento 👀... #WhoOwnsWhat @JustFixNYC"
 
 #: src/components/PropertiesSummary.js:55
 msgid "There {bldgs, plural, one {<0>is <1>1</1> building</0>} other {<2>are <3>{bldgs}</3> buildings</2>}} in this portfolio with a total of {units, plural, one {1 unit} other {# units}}."
@@ -589,11 +589,11 @@ msgstr "Hay {bldgs, plural, one {<0><1>1</1> edificio</0>} other {<2><3>{bldgs}<
 
 #: src/containers/NychaPage.js:113
 msgid "This building is owned by the NYC Housing Authority (NYCHA)"
-msgstr ""
+msgstr "Este edificio es propiedad de la NYC Housing Authority (NYCHA)"
 
 #: src/containers/NotRegisteredPage.js:90
 msgid "This building seems like it should be registered with HPD!"
-msgstr ""
+msgstr "¡Parece que este edificio debería estar registrado con el HPD!"
 
 #: src/components/AddressToolbar.tsx:32
 msgid "This data is in <0>CSV file format</0>, which can easily be used in Excel, Google Sheets, or any other spreadsheet program."
