@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2020-05-14 22:47\n"
+"PO-Revision-Date: 2020-05-15 17:37\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -18,19 +18,19 @@ msgstr ""
 
 #: src/components/DetailView.js:156
 msgid "(expired {0})"
-msgstr ""
+msgstr "(caducado {0})"
 
 #: src/components/DetailView.js:157
 msgid "(expires {0})"
-msgstr ""
+msgstr "(caduca {0})"
 
 #: src/components/DetailView.js:124
 msgid "(hover over a box to learn more)"
-msgstr ""
+msgstr "(pase el cursor sobre una casilla para aprender más)"
 
 #: src/components/PropertiesMap.js:228
 msgid "({browserType, select, mobile {tap} other {click}} to view details)"
-msgstr ""
+msgstr "({browserType, select, mobile {pulsa} other {haz clic}} para ver los detalles)"
 
 #: src/containers/HomePage.tsx:108
 msgid "... or view some sample portfolios:"
