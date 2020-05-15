@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2020-05-15 22:37\n"
+"PO-Revision-Date: 2020-05-15 22:45\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -709,11 +709,11 @@ msgstr "¡Atención! Este sitio no funciona completamente en versiones antiguas 
 
 #: src/components/DetailView.js:225
 msgid "We compare your search address with a database of over 200k buildings to identify a landlord or management company's portfolio. To learn more, check out <0>our methodology</0>."
-msgstr ""
+msgstr "Comparamos la dirección que buscaste con una base de datos de más de 200 mil edificios para identificar a un propietario o compañía de gestión. Para obtener más información, consulta <0>nuestra metodología</0>."
 
 #: src/containers/NotRegisteredPage.js:55
 msgid "What happens if the landlord has failed to register?"
-msgstr ""
+msgstr "¿Qué pasa si el propietario no ha registrado el edificio?"
 
 #: src/containers/App.js:47
 msgid "Who owns what in nyc?"
@@ -721,11 +721,11 @@ msgstr "¿Quién posee qué en Nueva York?"
 
 #: src/components/Indicators.js:450
 msgid "Year"
-msgstr ""
+msgstr "Año"
 
 #: src/components/DetailView.js:91
 msgid "Year Built"
-msgstr ""
+msgstr "Año de construcción"
 
 #: src/containers/HomePage.tsx:154
 msgid "Yoel Goldman's All Year Management has been at the <0>forefront of gentrification</0> in Brooklyn. Tenants in his buidlings in Williamsburg, Bushwick, and Crown Heights have been forced to live in horrendous and often dangerous conditions."
@@ -733,19 +733,19 @@ msgstr ""
 
 #: src/components/PropertiesList.tsx:56
 msgid "Zipcode"
-msgstr ""
+msgstr "Código postal"
 
 #: src/components/StringifyList.tsx:18
 msgid "and"
-msgstr ""
+msgstr "y"
 
 #: src/components/PropertiesMap.js:224
 msgid "associated building"
-msgstr ""
+msgstr "edificio asociado"
 
 #: src/components/PropertiesMap.js:223
 msgid "search address"
-msgstr ""
+msgstr "dirección de búsqueda"
 
 #: src/components/PropertiesSummary.js:65
 msgid "{0} {1}, {2} currently has {3, plural, one {one open HPD violation} other {# open HPD violations}} - the most in this portfolio."
