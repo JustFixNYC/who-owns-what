@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2020-05-15 22:45\n"
+"PO-Revision-Date: 2020-05-15 23:12\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -58,7 +58,7 @@ msgstr "Acerca de"
 
 #: src/components/PropertiesSummary.js:89
 msgid "According to available HPD data, this portfolio has received <0>{0}</0> total violations."
-msgstr ""
+msgstr "Según los datos de HPD disponibles, esta cartera de edificios ha recibido un total de <0>{0}</0> infracciones."
 
 #: src/components/DetailView.js:179
 #: src/components/PropertiesSummary.js:97
@@ -80,7 +80,7 @@ msgstr "¿Tienes problemas en este edificio?"
 
 #: src/containers/NychaPage.js:192
 msgid "Are you having issues in this development?"
-msgstr ""
+msgstr "¿Tienes problemas en tu edificio?"
 
 #: src/components/DetailView.js:75
 #: src/components/Indicators.js:341
@@ -336,7 +336,7 @@ msgstr "Infracciones del código de mantenimiento"
 
 #: src/containers/NotRegisteredPage.js:195
 msgid "May be issued official Orders"
-msgstr ""
+msgstr "Pueden emitirse órdenes oficiales"
 
 #: src/components/LegalFooter.tsx:23
 msgid "Methodology"
