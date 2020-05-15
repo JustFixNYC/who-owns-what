@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2020-05-15 21:01\n"
+"PO-Revision-Date: 2020-05-15 21:07\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -418,7 +418,7 @@ msgstr "Antes de empezar cualquier proyecto de construcción, el propietario som
 
 #: src/containers/AddressPage.js:165
 msgid "PORTFOLIO: Your search address is associated with <0>{0}</0> {1, plural, one {building} other {buildings}}"
-msgstr ""
+msgstr "CARPETA DE VIVIENDAS: La dirección que has buscado está asociada con <0>{0}</0> {1, plural, one {construyendo} other {edificios}}"
 
 #: src/containers/AddressPage.js:145
 #~ msgid "PORTFOLIO: Your search address is associated with <0>{0}</0> {1, plural, one {building} other {buildings}}:"
@@ -429,15 +429,15 @@ msgstr ""
 #: src/components/DetailView.js:272
 #: src/components/OwnersTable.tsx:31
 msgid "People"
-msgstr ""
+msgstr "Personas"
 
 #: src/components/Subscribe.tsx:20
 msgid "Please enter an email address!"
-msgstr ""
+msgstr "Por favor, ¡introduzca una dirección de correo electrónico!"
 
 #: src/containers/AddressPage.js:224
 msgid "Portfolio"
-msgstr ""
+msgstr "Cartera de Viviendas"
 
 #: src/components/LegalFooter.tsx:21
 msgid "Privacy policy"
@@ -585,7 +585,7 @@ msgstr ""
 
 #: src/components/PropertiesSummary.js:55
 msgid "There {bldgs, plural, one {<0>is <1>1</1> building</0>} other {<2>are <3>{bldgs}</3> buildings</2>}} in this portfolio with a total of {units, plural, one {1 unit} other {# units}}."
-msgstr "Hay {bldgs, plural, one {<0><1>1</1> edificio</0>} other {<2><3>{bldgs}</3> edificios</2>}} en este portfolio con un total de {units, plural, one {1 apartamento} other {# apartamentos}}."
+msgstr "Hay {bldgs, plural, one {<0><1>1</1> edificio</0>} other {<2><3>{bldgs}</3> edificios</2>}} en esta cartera de viviendas, con un total de {units, plural, one {1 apartamento} other {# apartamentos}}."
 
 #: src/containers/NychaPage.js:113
 msgid "This building is owned by the NYC Housing Authority (NYCHA)"
