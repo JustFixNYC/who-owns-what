@@ -10,10 +10,7 @@ import { withI18n } from "@lingui/react";
 import { Trans } from "@lingui/macro";
 
 import "styles/Indicators.css";
-import {
-  IndicatorsDatasetRadio,
-  INDICATORS_DATASETS,
-} from "./IndicatorsDatasets";
+import { IndicatorsDatasetRadio, INDICATORS_DATASETS } from "./IndicatorsDatasets";
 import { Link } from "react-router-dom";
 
 const initialState = {
@@ -85,9 +82,7 @@ class IndicatorsWithoutI18n extends Component {
       return;
     }
 
-    const groupedLabelsLength = Math.floor(
-      labelsArray.length / this.state.monthsInGroup
-    );
+    const groupedLabelsLength = Math.floor(labelsArray.length / this.state.monthsInGroup);
 
     const xAxisMax = Math.max(groupedLabelsLength - span, 0);
     const currentPosition = this.state.xAxisStart;
@@ -122,8 +117,7 @@ class IndicatorsWithoutI18n extends Component {
 
   /** Changes viewing timespan to be by 'year', 'quarter', or 'month' */
   handleTimeSpanChange(selectedTimeSpan) {
-    var monthsInGroup =
-      selectedTimeSpan === "quarter" ? 3 : selectedTimeSpan === "year" ? 12 : 1;
+    var monthsInGroup = selectedTimeSpan === "quarter" ? 3 : selectedTimeSpan === "year" ? 12 : 1;
 
     this.setState({
       activeTimeSpan: selectedTimeSpan,
@@ -136,21 +130,13 @@ class IndicatorsWithoutI18n extends Component {
     APIClient.getSaleHistory(detailAddr.bbl)
       .then((results) => this.setState({ saleHistory: results.result }))
       .catch((err) => {
-        window.Rollbar.error(
-          "API error on Indicators: Sale History",
-          err,
-          detailAddr.bbl
-        );
+        window.Rollbar.error("API error on Indicators: Sale History", err, detailAddr.bbl);
       });
 
     APIClient.getIndicatorHistory(detailAddr.bbl)
       .then((results) => this.setState({ indicatorHistory: results.result }))
       .catch((err) => {
-        window.Rollbar.error(
-          "API error on Indicators: Indicator History",
-          err,
-          detailAddr.bbl
-        );
+        window.Rollbar.error("API error on Indicators: Indicator History", err, detailAddr.bbl);
       });
 
     this.setState({
@@ -207,16 +193,10 @@ class IndicatorsWithoutI18n extends Component {
 
     if (
       this.state.indicatorHistory &&
-      !Helpers.jsonEqual(
-        prevState.indicatorHistory,
-        this.state.indicatorHistory
-      )
+      !Helpers.jsonEqual(prevState.indicatorHistory, this.state.indicatorHistory)
     ) {
       for (const indicator of indicatorList) {
-        var inputData = this.createVizData(
-          this.state.indicatorHistory,
-          indicator
-        );
+        var inputData = this.createVizData(this.state.indicatorHistory, indicator);
 
         this.setState({
           [indicator + "Data"]: inputData,
@@ -247,18 +227,14 @@ class IndicatorsWithoutI18n extends Component {
     ) {
       if (
         this.state.saleHistory.length > 0 &&
-        (this.state.saleHistory[0].docdate ||
-          this.state.saleHistory[0].recordedfiled) &&
+        (this.state.saleHistory[0].docdate || this.state.saleHistory[0].recordedfiled) &&
         this.state.saleHistory[0].documentid
       ) {
         var lastSaleDate =
-          this.state.saleHistory[0].docdate ||
-          this.state.saleHistory[0].recordedfiled;
+          this.state.saleHistory[0].docdate || this.state.saleHistory[0].recordedfiled;
         var lastSaleYear = lastSaleDate.slice(0, 4);
         var lastSaleQuarter =
-          lastSaleYear +
-          "-Q" +
-          Math.ceil(parseInt(lastSaleDate.slice(5, 7)) / 3);
+          lastSaleYear + "-Q" + Math.ceil(parseInt(lastSaleDate.slice(5, 7)) / 3);
         var lastSaleMonth = lastSaleDate.slice(0, 7);
 
         this.setState({
@@ -282,32 +258,18 @@ class IndicatorsWithoutI18n extends Component {
   }
 
   render() {
-    const boro = this.props.detailAddr
-      ? this.props.detailAddr.bbl.slice(0, 1)
-      : null;
-    const block = this.props.detailAddr
-      ? this.props.detailAddr.bbl.slice(1, 6)
-      : null;
-    const lot = this.props.detailAddr
-      ? this.props.detailAddr.bbl.slice(6, 10)
-      : null;
-    const housenumber = this.props.detailAddr
-      ? this.props.detailAddr.housenumber
-      : null;
-    const streetname = this.props.detailAddr
-      ? this.props.detailAddr.streetname
-      : null;
+    const boro = this.props.detailAddr ? this.props.detailAddr.bbl.slice(0, 1) : null;
+    const block = this.props.detailAddr ? this.props.detailAddr.bbl.slice(1, 6) : null;
+    const lot = this.props.detailAddr ? this.props.detailAddr.bbl.slice(6, 10) : null;
+    const housenumber = this.props.detailAddr ? this.props.detailAddr.housenumber : null;
+    const streetname = this.props.detailAddr ? this.props.detailAddr.streetname : null;
 
     const indicatorData = this.state.activeVis + "Data";
     const xAxisLength = this.state[indicatorData].labels
-      ? Math.floor(
-          this.state[indicatorData].labels.length / this.state.monthsInGroup
-        )
+      ? Math.floor(this.state[indicatorData].labels.length / this.state.monthsInGroup)
       : 0;
     const indicatorDataTotal = this.state[indicatorData].values.total
-      ? this.state[indicatorData].values.total.reduce(
-          (total, sum) => total + sum
-        )
+      ? this.state[indicatorData].values.total.reduce((total, sum) => total + sum)
       : null;
 
     const i18n = this.props.i18n;
@@ -347,9 +309,7 @@ class IndicatorsWithoutI18n extends Component {
                   <br />
                   <Link
                     to={this.props.generateBaseUrl()}
-                    onClick={() =>
-                      this.props.onBackToOverview(this.props.detailAddr)
-                    }
+                    onClick={() => this.props.onBackToOverview(this.props.detailAddr)}
                   >
                     <Trans>Back to Overview</Trans>
                   </Link>
@@ -382,10 +342,7 @@ class IndicatorsWithoutI18n extends Component {
                     <li className="menu-item">
                       <label
                         className={
-                          "form-radio" +
-                          (this.state.activeTimeSpan === "month"
-                            ? " active"
-                            : "")
+                          "form-radio" + (this.state.activeTimeSpan === "month" ? " active" : "")
                         }
                         onClick={() => {
                           window.gtag("event", "month-timeline-tab");
@@ -394,9 +351,7 @@ class IndicatorsWithoutI18n extends Component {
                         <input
                           type="radio"
                           name="Time"
-                          checked={
-                            this.state.activeTimeSpan === "month" ? true : false
-                          }
+                          checked={this.state.activeTimeSpan === "month" ? true : false}
                           onChange={() => this.handleTimeSpanChange("month")}
                         />
                         <i className="form-icon" /> <Trans>Month</Trans>
@@ -405,10 +360,7 @@ class IndicatorsWithoutI18n extends Component {
                     <li className="menu-item">
                       <label
                         className={
-                          "form-radio" +
-                          (this.state.activeTimeSpan === "quarter"
-                            ? " active"
-                            : "")
+                          "form-radio" + (this.state.activeTimeSpan === "quarter" ? " active" : "")
                         }
                         onClick={() => {
                           window.gtag("event", "quarter-timeline-tab");
@@ -417,11 +369,7 @@ class IndicatorsWithoutI18n extends Component {
                         <input
                           type="radio"
                           name="Time"
-                          checked={
-                            this.state.activeTimeSpan === "quarter"
-                              ? true
-                              : false
-                          }
+                          checked={this.state.activeTimeSpan === "quarter" ? true : false}
                           onChange={() => this.handleTimeSpanChange("quarter")}
                         />
                         <i className="form-icon" /> <Trans>Quarter</Trans>
@@ -430,10 +378,7 @@ class IndicatorsWithoutI18n extends Component {
                     <li className="menu-item">
                       <label
                         className={
-                          "form-radio" +
-                          (this.state.activeTimeSpan === "year"
-                            ? " active"
-                            : "")
+                          "form-radio" + (this.state.activeTimeSpan === "year" ? " active" : "")
                         }
                         onClick={() => {
                           window.gtag("event", "year-timeline-tab");
@@ -442,9 +387,7 @@ class IndicatorsWithoutI18n extends Component {
                         <input
                           type="radio"
                           name="Time"
-                          checked={
-                            this.state.activeTimeSpan === "year" ? true : false
-                          }
+                          checked={this.state.activeTimeSpan === "year" ? true : false}
                           onChange={() => this.handleTimeSpanChange("year")}
                         />
                         <i className="form-icon" /> <Trans>Year</Trans>
@@ -460,8 +403,7 @@ class IndicatorsWithoutI18n extends Component {
                 <div className="Indicators__viz">
                   <button
                     className={
-                      this.state.xAxisStart === 0 ||
-                      this.state.activeTimeSpan === "year"
+                      this.state.xAxisStart === 0 || this.state.activeTimeSpan === "year"
                         ? "btn btn-off btn-axis-shift"
                         : "btn btn-axis-shift"
                     }
@@ -475,8 +417,8 @@ class IndicatorsWithoutI18n extends Component {
                   <IndicatorsViz {...this.state} />
                   <button
                     className={
-                      this.state.xAxisStart + this.state.xAxisViewableColumns >=
-                        xAxisLength || this.state.activeTimeSpan === "year"
+                      this.state.xAxisStart + this.state.xAxisViewableColumns >= xAxisLength ||
+                      this.state.activeTimeSpan === "year"
                         ? "btn btn-off btn-axis-shift"
                         : "btn btn-axis-shift"
                     }
@@ -502,14 +444,10 @@ class IndicatorsWithoutI18n extends Component {
               <div className="column column-context col-4 col-lg-12">
                 <div className="card">
                   <div className="card-header">
-                    <div className="card-title h5">
-                      What are {dataset && dataset.name(i18n)}?
-                    </div>
+                    <div className="card-title h5">What are {dataset && dataset.name(i18n)}?</div>
                     <div className="card-subtitle text-gray" />
                   </div>
-                  <div className="card-body">
-                    {dataset && dataset.explanation(i18n)}
-                  </div>
+                  <div className="card-body">{dataset && dataset.explanation(i18n)}</div>
                 </div>
 
                 <div className="card card-links">

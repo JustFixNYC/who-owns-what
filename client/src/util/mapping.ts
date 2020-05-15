@@ -11,7 +11,7 @@ export default {
       xMin: Infinity,
       yMin: Infinity,
       xMax: -Infinity,
-      yMax: -Infinity
+      yMax: -Infinity,
     };
     let coords, latitude, longitude;
 
@@ -26,7 +26,10 @@ export default {
       bs.yMax = bs.yMax > latitude ? bs.yMax : latitude;
     }
 
-    return [[bs.xMin, bs.yMin],[bs.xMax, bs.yMax]];
+    return [
+      [bs.xMin, bs.yMin],
+      [bs.xMax, bs.yMax],
+    ];
   },
 
   hasWebGLContext(): boolean {
@@ -35,11 +38,11 @@ export default {
     var gl = canvas.getContext("webgl") || canvas.getContext("experimental-webgl");
     // Report the result.
     if (gl && gl instanceof WebGLRenderingContext) {
-        // alert("Congratulations! Your browser supports WebGL.");
-        return true;
+      // alert("Congratulations! Your browser supports WebGL.");
+      return true;
     } else {
-        // alert("Your browser or device may not support WebGL.");
-        return false;
+      // alert("Your browser or device may not support WebGL.");
+      return false;
     }
-  }
-}
+  },
+};

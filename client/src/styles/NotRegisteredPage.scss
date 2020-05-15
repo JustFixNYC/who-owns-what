@@ -1,20 +1,18 @@
-@import '_vars.scss';
-@import '_datatable.scss';
-
+@import "_vars.scss";
+@import "_datatable.scss";
 
 // TODO: create shared box component b/t this and HomePage
 .NotRegisteredPage .HomePage__search {
-
   background-color: $background;
   border: 1px solid $gray-dark;
-  
+
   padding: 20px;
   width: 85vw;
 
   @include for-tablet-portrait-up() {
     width: 65vw;
     padding: 35px;
-  };
+  }
 
   @include for-phone-only() {
     .text-large {
@@ -30,7 +28,7 @@
     text-decoration: underline;
     color: #0072a4;
     &:hover {
-      color: #2f3540
+      color: #2f3540;
     }
   }
 
@@ -42,8 +40,7 @@
       text-align: center;
     }
 
-    img.streetview{
-      
+    img.streetview {
       margin: 15px auto;
     }
 
@@ -52,14 +49,15 @@
       margin: 10px auto 0 auto;
     }
 
-    p, span {
+    p,
+    span {
       a {
         text-decoration: underline;
         &:hover {
           text-decoration: none;
         }
       }
-    } 
+    }
 
     a.btn {
       display: table;
@@ -68,11 +66,10 @@
 
     .card-body {
       margin: 30px auto 0px auto;
-      
+
       @include datatable();
 
       .nycha-addresses {
-
         margin-top: 2rem;
 
         b {
@@ -87,27 +84,27 @@
         ul {
           margin-top: 1rem;
           margin-left: 0;
-          list-style-type:none;
+          list-style-type: none;
         }
       }
     }
 
-    .justfix-cta, .social-share {
+    .justfix-cta,
+    .social-share {
       margin-top: 2rem;
     }
 
     .btn-group {
       // margin-bottom: 10px;
       &:first-child {
-
-        .btn { border-bottom: none; }
-
-
+        .btn {
+          border-bottom: none;
+        }
       }
 
-      @media screen and (max-width: 713px ) {
+      @media screen and (max-width: 713px) {
         .btn:first-child {
-          border-bottom:none;
+          border-bottom: none;
         }
       }
     }

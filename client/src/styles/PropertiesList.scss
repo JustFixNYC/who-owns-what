@@ -1,9 +1,8 @@
-@import '_vars.scss';
-@import '_scrollbar.scss';
-@import '_button.scss';
+@import "_vars.scss";
+@import "_scrollbar.scss";
+@import "_button.scss";
 
 .PropertiesList {
-
   height: 100%;
   width: 100%;
 
@@ -46,7 +45,7 @@
         border-radius: 0;
       }
       .-btn[disabled] {
-        opacity: .3;
+        opacity: 0.3;
         cursor: default;
       }
     }

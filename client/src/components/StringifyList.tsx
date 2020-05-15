@@ -1,22 +1,22 @@
-import React from 'react';
+import React from "react";
 import { t } from "@lingui/macro";
 import { I18n } from "@lingui/core";
 import { withI18n } from "@lingui/react";
 
 type FormattedListItem = {
-  type: "element"|"literal",
-  value: string,
+  type: "element" | "literal";
+  value: string;
 };
 
-function item(type: "element"|"literal", value: string): FormattedListItem {
-  return {type, value};
+function item(type: "element" | "literal", value: string): FormattedListItem {
+  return { type, value };
 }
 
 /**
  * Convert the given list of strings into a list of objects
  * that can be used to present them as a list of items
  * separated by a cojunction, e.g. "foo, bar, and baz".
- * 
+ *
  * Ideally we would use `Intl.ListFormat()` for this but it's
  * not supported by many browsers and polyfilling it is
  * complicated enough that it's easier to just roll our own
@@ -44,16 +44,24 @@ function formatListWithConjunction(i18n: I18n, list: string[]): FormattedListIte
 }
 
 export function stringifyListWithConjunction(i18n: I18n, list: string[]): string {
-  return formatListWithConjunction(i18n, list).map(item => item.value).join('');
+  return formatListWithConjunction(i18n, list)
+    .map((item) => item.value)
+    .join("");
 }
 
 /**
  * Convert the given list of strings into a list of strings
  * separated by a cojunction, e.g. "foo, bar, and baz".
  */
-export const StringifyListWithConjunction = withI18n()((props: {values: string[], i18n: I18n, renderItem?: (item: string) => JSX.Element}) => {
-  const renderItem = props.renderItem || ((item) => <>{item}</>);
-  return <>{formatListWithConjunction(props.i18n, props.values).map((item, i) => {
-    return item.type === "literal" ? <>{item.value}</> : renderItem(item.value);
-  })}</>;
-});
+export const StringifyListWithConjunction = withI18n()(
+  (props: { values: string[]; i18n: I18n; renderItem?: (item: string) => JSX.Element }) => {
+    const renderItem = props.renderItem || ((item) => <>{item}</>);
+    return (
+      <>
+        {formatListWithConjunction(props.i18n, props.values).map((item, i) => {
+          return item.type === "literal" ? <>{item.value}</> : renderItem(item.value);
+        })}
+      </>
+    );
+  }
+);

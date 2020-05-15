@@ -1,29 +1,31 @@
-@import '_vars.scss';
+@import "_vars.scss";
 
 .LegalFooter {
-
-  .Links, .Disclaimer {
-    
+  .Links,
+  .Disclaimer {
     padding: 16px;
     border-top: 1px solid $gray-light;
     background-color: $background;
 
-    & > a,a:hover,a:focus {
+    & > a,
+    a:hover,
+    a:focus {
       text-decoration: none !important;
     }
 
     a {
       color: #454d5d;
-      &.active { text-decoration: underline; }
+      &.active {
+        text-decoration: underline;
+      }
     }
-
   }
 
   .Links {
     text-align: right;
 
     @media screen and (max-width: 840px) {
-      text-align: center
+      text-align: center;
     }
 
     div.d-flex {
@@ -41,7 +43,6 @@
         }
       }
     }
-
   }
 
   .Disclaimer p:last-child {

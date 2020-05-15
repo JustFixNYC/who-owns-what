@@ -1,11 +1,11 @@
-@import '_vars.scss';
+@import "_vars.scss";
 
 .HomePage {
 }
 
 .HomePage__banner {
   padding: 1rem 1.5rem;
-  
+
   .text-bold {
     color: $dark;
   }
@@ -24,7 +24,7 @@
       color: $dark;
       text-decoration: underline;
       white-space: nowrap;
-  
+
       &:hover {
         text-decoration: none;
       }
@@ -41,11 +41,10 @@
 
   @include for-tablet-portrait-up() {
     width: 65vw;
-  };
+  }
 }
 
 .HomePage__search {
-
   background-color: $background;
   border: 1px solid $gray-dark;
 
@@ -55,11 +54,10 @@
   @include for-phone-only() {
     margin: 40px auto 30vh auto;
     padding: 20px;
-  };
+  }
 }
 
 .HomePage__samples {
-
   margin: 0 auto 30px auto;
 
   .container {
@@ -82,7 +80,6 @@
         &:hover {
           text-decoration: none;
         }
-        
       }
     }
 

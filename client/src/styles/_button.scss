@@ -1,17 +1,15 @@
-@import '_vars.scss';
+@import "_vars.scss";
 
 @mixin button() {
   border: 1px solid $dark;
   background-color: $background;
-  box-shadow: inset -1px -1px 0px 0px $gray,
-              inset 2px 2px 0px 0px #fff;
+  box-shadow: inset -1px -1px 0px 0px $gray, inset 2px 2px 0px 0px #fff;
   transition: none;
 
   &:hover {
     color: #454d5d;
     background-color: darken($background, 5%);
-    box-shadow: inset -1px -1px 0px 0px darken($gray, 5%),
-                inset 2px 2px 0px 0px darken(#fff, 5%);
+    box-shadow: inset -1px -1px 0px 0px darken($gray, 5%), inset 2px 2px 0px 0px darken(#fff, 5%);
   }
 
   &:active {
@@ -25,7 +23,7 @@
   color: $text-color;
   background-color: $background-color;
   box-shadow: inset -1px -1px 0px 0px darken($background-color, 10%),
-              inset 2px 2px 0px 0px lighten($background-color, 5%);
+    inset 2px 2px 0px 0px lighten($background-color, 5%);
 
   &:hover {
     color: $text-color;
@@ -34,10 +32,11 @@
     //             inset 2px 2px 0px 0px $gray-dark;
 
     box-shadow: inset -1px -1px 0px 0px darken($background-color, 15%),
-                inset 2px 2px 0px 0px $background-color;
+      inset 2px 2px 0px 0px $background-color;
   }
 
-  &:active, &:focus {
+  &:active,
+  &:focus {
     color: $text-color;
     background-color: darken($background-color, 10%);
     box-shadow: inset 1px 1px 0px 0px darken($background-color, 20%);
@@ -47,20 +46,18 @@
 .btn:not(.btn-link) {
   @include button();
 
-  padding: 0.7rem .8rem;
+  padding: 0.7rem 0.8rem;
   height: auto;
 }
 
 .btn.btn-primary {
   background-color: $gray-dark;
-  box-shadow: inset -1px -1px 0px 0px $dark,
-              inset 2px 2px 0px 0px lighten($gray-dark, 10%);
+  box-shadow: inset -1px -1px 0px 0px $dark, inset 2px 2px 0px 0px lighten($gray-dark, 10%);
 
   &:hover {
     color: #fff;
     background-color: darken($gray-dark, 15%);
-    box-shadow: inset -1px -1px 0px 0px darken($dark, 10%),
-                inset 2px 2px 0px 0px $gray-dark;
+    box-shadow: inset -1px -1px 0px 0px darken($dark, 10%), inset 2px 2px 0px 0px $gray-dark;
   }
 
   &:active {
@@ -70,13 +67,18 @@
   }
 }
 
-.btn.btn-justfix { @include button-special($justfix-blue, #fff); }
-
+.btn.btn-justfix {
+  @include button-special($justfix-blue, #fff);
+}
 
 .btns-social {
   .btn {
-    &:nth-child(1) { @include button-special($facebook, #fff); }
-    &:nth-child(2) { @include button-special($twitter, #fff); }
+    &:nth-child(1) {
+      @include button-special($facebook, #fff);
+    }
+    &:nth-child(2) {
+      @include button-special($twitter, #fff);
+    }
 
     margin-bottom: 0;
 
@@ -97,14 +99,14 @@
 }
 
 .btn-group.btn-group-block {
-    display: -ms-flexbox;
-    display: flex;
+  display: -ms-flexbox;
+  display: flex;
 }
 .btn-group {
-    display: -ms-inline-flexbox;
-    display: inline-flex;
-    -ms-flex-wrap: wrap;
-    flex-wrap: wrap;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
 }
 
 .btn-block {

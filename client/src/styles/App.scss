@@ -1,7 +1,6 @@
-@import '_vars.scss';
+@import "_vars.scss";
 
 .App {
-
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -48,12 +47,13 @@
     padding: 10px 8px 8px;
   }
 
-  & > a,a:hover,a:focus {
+  & > a,
+  a:hover,
+  a:focus {
     text-decoration: none !important;
   }
 
   & > a {
-
     @include for-tablet-portrait-up {
       display: block;
       position: absolute;
@@ -71,9 +71,7 @@
       @include for-tablet-portrait-up() {
         font-size: 2.4rem;
       }
-
     }
-
   }
 
   nav {
@@ -100,10 +98,11 @@
         margin-right: 7px;
       }
 
-      &.active { text-decoration: none; }
+      &.active {
+        text-decoration: none;
+      }
     }
   }
-
 }
 
 .App__body {
@@ -117,7 +116,6 @@
 }
 
 div.Page {
-
   min-height: 100%;
   min-width: 100%;
   display: flex;
@@ -130,11 +128,9 @@ div.Page {
     // line-height: 1.6;
     margin-bottom: 1.25rem;
   }
-
 }
 
 .Page__content {
-
   padding: 30px;
   width: 100%;
   flex-grow: 1;
@@ -156,14 +152,15 @@ div.Page {
         display: none;
       }
     }
-  };
+  }
 
   @include for-tablet-landscape-up() {
     aside {
       width: 38%;
       float: right;
 
-      & > div, & > figure {
+      & > div,
+      & > figure {
         max-width: 360px;
         margin: 0 auto;
       }
@@ -178,15 +175,21 @@ div.Page {
       }
     }
 
-    p, h1, h2, h3, h4, h5, h6 {
+    p,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
       width: 55vw;
       display: inline-block;
     }
 
-    ul, ol {
+    ul,
+    ol {
       margin-top: 0;
       max-width: 50vw;
     }
-  
-  };
+  }
 }

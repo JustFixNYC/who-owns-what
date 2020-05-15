@@ -1,8 +1,12 @@
-import React from 'react';
-import Downshift, { DownshiftInterface, GetInputPropsOptions, ControllerStateAndHelpers } from 'downshift';
-import { GeoSearchRequester, GeoSearchResults } from '@justfixnyc/geosearch-requester';
+import React from "react";
+import Downshift, {
+  DownshiftInterface,
+  GetInputPropsOptions,
+  ControllerStateAndHelpers,
+} from "downshift";
+import { GeoSearchRequester, GeoSearchResults } from "@justfixnyc/geosearch-requester";
 
-import '../styles/AddressSearch.css';
+import "../styles/AddressSearch.css";
 
 const GeoDownshift = Downshift as DownshiftInterface<SearchAddress>;
 
@@ -15,59 +19,59 @@ export interface SearchAddress {
    * The house number, e.g. '654'. It can be undefined,
    * e.g. for NYCHA properties.
    */
-  housenumber?: string,
+  housenumber?: string;
 
   /** The street name, e.g. 'PARK PLACE'. */
-  streetname: string,
+  streetname: string;
 
   /** The all-uppercase borough name, e.g. 'BROOKLYN'. */
-  boro: string,
+  boro: string;
 
   /** The padded BBL, e.g. '1234567890'. */
-  bbl: string
+  bbl: string;
 }
 
 export interface AddressSearchProps extends SearchAddress {
-  onFormSubmit: (searchAddress: SearchAddress, error: any) => void,
-  labelText: string|JSX.Element,
-  labelClass: string
+  onFormSubmit: (searchAddress: SearchAddress, error: any) => void;
+  labelText: string | JSX.Element;
+  labelClass: string;
 }
 
 type State = {
-  isLoading: boolean,
-  results: SearchAddress[]
+  isLoading: boolean;
+  results: SearchAddress[];
 };
 
 /**
  * Return an empty search address.
- * 
+ *
  * This could just be a constant but I'm not confident that the
  * code which calls it won't mutate it, so we'll just create a
  * new one every time. -AV
  */
 export function makeEmptySearchAddress(): SearchAddress {
   return {
-    housenumber: '',
-    streetname: '',
-    boro: '',
-    bbl: ''
+    housenumber: "",
+    streetname: "",
+    boro: "",
+    bbl: "",
   };
 }
 
 function toSearchAddresses(results: GeoSearchResults): SearchAddress[] {
-  return results.features.map(feature => {
+  return results.features.map((feature) => {
     const sa: SearchAddress = {
       housenumber: feature.properties.housenumber,
       streetname: feature.properties.street,
       boro: feature.properties.borough.toUpperCase(),
-      bbl: feature.properties.pad_bbl
+      bbl: feature.properties.pad_bbl,
     };
     return sa;
   });
 }
 
 export function searchAddressToString(sa: SearchAddress): string {
-  const prefix = sa.housenumber ? `${sa.housenumber} ` : '';
+  const prefix = sa.housenumber ? `${sa.housenumber} ` : "";
   return `${prefix}${sa.streetname}, ${sa.boro}`;
 }
 
@@ -78,7 +82,7 @@ export default class AddressSearch extends React.Component<AddressSearchProps, S
     super(props);
     this.state = {
       isLoading: false,
-      results: []
+      results: [],
     };
     this.requester = new GeoSearchRequester({
       onError: (e) => {
@@ -87,9 +91,9 @@ export default class AddressSearch extends React.Component<AddressSearchProps, S
       onResults: (results) => {
         this.setState({
           isLoading: false,
-          results: toSearchAddresses(results)
+          results: toSearchAddresses(results),
         });
-      }
+      },
     });
   }
 
@@ -120,7 +124,10 @@ export default class AddressSearch extends React.Component<AddressSearchProps, S
     return false;
   }
 
-  handleAutocompleteKeyDown(ds: ControllerStateAndHelpers<SearchAddress>, event: React.KeyboardEvent) {
+  handleAutocompleteKeyDown(
+    ds: ControllerStateAndHelpers<SearchAddress>,
+    event: React.KeyboardEvent
+  ) {
     if (event.keyCode === KEY_ENTER || event.keyCode === KEY_TAB) {
       if (this.selectFirstResult(ds)) {
         event.preventDefault();
@@ -136,16 +143,16 @@ export default class AddressSearch extends React.Component<AddressSearchProps, S
             case Downshift.stateChangeTypes.mouseUp:
             case Downshift.stateChangeTypes.touchEnd:
             case Downshift.stateChangeTypes.blurInput:
-            // By default, Downshift clears the input value,
-            // but we don't want to lose user data, so we'll
-            // override that behavior here.
-            return {
-              ...changes,
-              inputValue: state.inputValue,
-            };
+              // By default, Downshift clears the input value,
+              // but we don't want to lose user data, so we'll
+              // override that behavior here.
+              return {
+                ...changes,
+                inputValue: state.inputValue,
+              };
 
             default:
-            return changes;
+              return changes;
           }
         }}
         onChange={(sa) => {
@@ -158,17 +165,17 @@ export default class AddressSearch extends React.Component<AddressSearchProps, S
           // this case, so we will just do nothing.
         }}
         itemToString={(sa) => {
-          return sa ? searchAddressToString(sa) : '';
+          return sa ? searchAddressToString(sa) : "";
         }}
       >
         {(downshift) => {
           const inputOptions: GetInputPropsOptions = {
             onKeyDown: (e) => this.handleAutocompleteKeyDown(downshift, e),
-            onChange: (e) => this.handleInputValueChange(e.currentTarget.value)
+            onChange: (e) => this.handleInputValueChange(e.currentTarget.value),
           };
-          const suggestsClasses = ['geosuggest__suggests'];
+          const suggestsClasses = ["geosuggest__suggests"];
           if (!(downshift.isOpen && this.state.results.length > 0)) {
-            suggestsClasses.push('geosuggest__suggests--hidden');
+            suggestsClasses.push("geosuggest__suggests--hidden");
           }
 
           return (
@@ -176,23 +183,33 @@ export default class AddressSearch extends React.Component<AddressSearchProps, S
               <div className="form-group col-xs-12">
                 <div className="geosuggest">
                   <div className="geosuggest__input-wrapper">
-                    <label className={this.props.labelClass} {...downshift.getLabelProps()}>{this.props.labelText}</label>
-                    <input placeholder="Search places" className="geosuggest__input form-input" {...downshift.getInputProps(inputOptions)} />
+                    <label className={this.props.labelClass} {...downshift.getLabelProps()}>
+                      {this.props.labelText}
+                    </label>
+                    <input
+                      placeholder="Search places"
+                      className="geosuggest__input form-input"
+                      {...downshift.getInputProps(inputOptions)}
+                    />
                   </div>
                   <div className="geosuggest__suggests-wrapper">
-                    <ul className={suggestsClasses.join(' ')} {...downshift.getMenuProps()}>
+                    <ul className={suggestsClasses.join(" ")} {...downshift.getMenuProps()}>
                       {this.state.results.map((item, index) => {
-                        const classes = ['geosuggest__item'];
+                        const classes = ["geosuggest__item"];
                         if (downshift.highlightedIndex === index) {
-                          classes.push('geosuggest__item--active');
+                          classes.push("geosuggest__item--active");
                         }
                         const label = searchAddressToString(item);
                         const props = downshift.getItemProps({
                           key: label,
                           index,
-                          item
+                          item,
                         });
-                        return <li className={classes.join(' ')} {...props}><span>{label}</span></li>;
+                        return (
+                          <li className={classes.join(" ")} {...props}>
+                            <span>{label}</span>
+                          </li>
+                        );
                       })}
                     </ul>
                   </div>
