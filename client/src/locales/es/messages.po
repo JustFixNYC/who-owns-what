@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2020-05-15 21:40\n"
+"PO-Revision-Date: 2020-05-15 22:01\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -541,7 +541,7 @@ msgstr "Condiciones de uso"
 
 #: src/containers/NychaPage.js:136
 msgid "The NYCHA office overseeing your borough. Some experts suggest reaching out to Borough Management Offices to advocate for repairs, as they tend to have more administrative power than local management offices."
-msgstr ""
+msgstr "La oficina de la NYCHA que se encarga de tu municipio. Algunos expertos sugieren ponerse en contacto con las Oficinas de Administración Municipales para conseguir reparaciones, ya que tienden a tener más poder administrativo que las oficinas locales."
 
 #: src/components/RentstabSummary.tsx:22
 msgid "The building that has lost the most units is <0>{0} {1}, {2}</0>, which has lost <1>{absRsLossAddrDiff}</1> {absRsLossAddrDiff, plural, one {unit} other {units}} in the past 10 years."
@@ -549,11 +549,11 @@ msgstr "El edificio con la major pérdida de unidades residencial de renta estab
 
 #: src/components/EvictionsSummary.tsx:11
 msgid "The building with the most evictions was <0>{0} {1}, {2}</0> with {buildingTotalEvictions, plural, one {one eviction} other {# evictions}} that year."
-msgstr ""
+msgstr "El edificio con la major cantidad de desalojos fue <0>{0} {1}, {2}</0> con {buildingTotalEvictions, plural, one {un desalojo} other {# desalojos}} ese año."
 
 #: src/containers/NychaPage.js:119
 msgid "The city borough where your search address is located"
-msgstr ""
+msgstr "El municipio donde se encuentra la dirección que has buscado"
 
 #: src/containers/HomePage.tsx:137
 msgid "The city’s fifth <0>worst evictor</0> in 2018, A&E is a prime example of a landlord who engages in <1>aggressive eviction strategies</1> to displace low-income tenants. Besides lack of repairs and frivolous evictions in housing court, A&E has also been known to use <2>MCIs</2> to <3>double rents</3> in rent-stabilized buildings."
@@ -561,11 +561,11 @@ msgstr ""
 
 #: src/components/PropertiesSummary.js:78
 msgid "The most common corporate entity is <0>{0}</0> and the most common business address is <1>{1}</1>."
-msgstr ""
+msgstr "La entidad corporativa más común es <0>{0}</0> y la dirección administrativa más común es <1>{1}</1>."
 
 #: src/components/PropertiesSummary.js:73
 msgid "The most common {0, plural, one {name that appears in this portfolio is} other {names that appear in this portfolio are}} <0/>."
-msgstr ""
+msgstr "{0, plural, one {El nombre más común que aparece en esta cartera de edificios es} other {Los nombres más comunes que aparecen en esta cartera de edificios son}} <0/>."
 
 #: src/containers/NychaPage.js:123
 msgid "The number of residential units across all buildings in this development, according to the Dept. of City Planning."
@@ -577,7 +577,7 @@ msgstr "La {bldgs, plural, one {edad} other {media de las edades }} de {bldgs, p
 
 #: src/components/SocialShare.tsx:46
 msgid "The {buildingCount} buildings owned by my landlord (via JustFix's Who Owns What tool)"
-msgstr ""
+msgstr "Los {buildingCount} edificios que son propiedad del dueño de mi apartamento (a través de la herramienta Quién Posee Qué de JustFix.nyc)"
 
 #: src/components/SocialShare.tsx:46
 msgid "The {buildingCount} buildings that my landlord \"owns\" 👀... #WhoOwnsWhat @JustFixNYC"
