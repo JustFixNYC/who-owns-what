@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2020-05-15 17:48\n"
+"PO-Revision-Date: 2020-05-15 17:57\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -85,35 +85,35 @@ msgstr ""
 #: src/components/DetailView.js:75
 #: src/components/Indicators.js:341
 msgid "BUILDING:"
-msgstr ""
+msgstr "EDIFICIO:"
 
 #: src/components/Indicators.js:354
 msgid "Back to Overview"
-msgstr ""
+msgstr "Volver a la Vista General"
 
 #: src/components/PropertiesList.tsx:62
 #: src/containers/NychaPage.js:120
 msgid "Borough"
-msgstr ""
+msgstr "Barrio"
 
 #: src/containers/NychaPage.js:137
 msgid "Borough Management Office:"
-msgstr ""
+msgstr "Oficina de Gestión Local:"
 
 #: src/containers/NotRegisteredPage.js:78
 #: src/containers/NotRegisteredPage.js:91
 #: src/containers/NotRegisteredPage.js:102
 msgid "Building Classification"
-msgstr ""
+msgstr "Clasificación del Edificio"
 
 #: src/components/IndicatorsDatasets.tsx:44
 msgid "Building Permit Applications"
-msgstr ""
+msgstr "Solicitud de Permiso de Construcción"
 
 #: src/components/IndicatorsViz.js:185
 #: src/components/IndicatorsViz.js:247
 msgid "Building Permits Applied For"
-msgstr ""
+msgstr "Permisos de Construcción Solicitados"
 
 #: src/containers/NotRegisteredPage.js:190
 msgid "Buildings without valid property registration are subject to the following:"
