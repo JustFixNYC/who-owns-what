@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2020-05-15 23:12\n"
+"PO-Revision-Date: 2020-05-15 23:27\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -269,7 +269,7 @@ msgstr "¿Cómo se asocia este edificio a esta cartera de edificios?"
 
 #: src/containers/App.js:57
 msgid "How to use"
-msgstr "Cómo usar"
+msgstr "Cómo se usa"
 
 #: src/components/EvictionsSummary.tsx:9
 msgid "In 2019, NYC Marshals scheduled {totalEvictions, plural, one {one eviction} other {# evictions}} across this portfolio."
@@ -385,7 +385,7 @@ msgstr "¡No se ha encontrado nigún registro!"
 
 #: src/components/IndicatorsViz.js:175
 msgid "Non-Emergency"
-msgstr ""
+msgstr "No Emergencia"
 
 #: src/components/PropertiesList.tsx:171
 msgid "Officer/Owner"
@@ -557,7 +557,7 @@ msgstr "El municipio donde se encuentra la dirección que has buscado"
 
 #: src/containers/HomePage.tsx:137
 msgid "The city’s fifth <0>worst evictor</0> in 2018, A&E is a prime example of a landlord who engages in <1>aggressive eviction strategies</1> to displace low-income tenants. Besides lack of repairs and frivolous evictions in housing court, A&E has also been known to use <2>MCIs</2> to <3>double rents</3> in rent-stabilized buildings."
-msgstr ""
+msgstr "A&E fue el quinto <0>\"peor desalojador\"</0> de la ciudad en el 2018, y es un excelente ejemplo de un propietario que participa en <1>estrategias agresivas de desalojo</1> para desplazar a inquilinos de bajos ingresos. Además de usar la falta de reparaciones y los desalojos frívolos en la corte de viviendas, se sabe que A&E también utiliza los <2>IMCs</2> para <3>alquileres dobles</3> en edificios de resta estabilizada."
 
 #: src/components/PropertiesSummary.js:78
 msgid "The most common corporate entity is <0>{0}</0> and the most common business address is <1>{1}</1>."
@@ -654,7 +654,7 @@ msgstr "No es possible iniciar una acción judicial por falta de pago del alquil
 
 #: src/containers/NotRegisteredPage.js:197
 msgid "Unable to request Code Violation Dismissals"
-msgstr ""
+msgstr "Imposible solicitar el despido de una Infracción del Código de Vivienda"
 
 #: src/components/DetailView.js:95
 #: src/components/PropertiesList.tsx:83
@@ -729,7 +729,7 @@ msgstr "Año de construcción"
 
 #: src/containers/HomePage.tsx:154
 msgid "Yoel Goldman's All Year Management has been at the <0>forefront of gentrification</0> in Brooklyn. Tenants in his buidlings in Williamsburg, Bushwick, and Crown Heights have been forced to live in horrendous and often dangerous conditions."
-msgstr ""
+msgstr "La entidad \"All Year Management\" perteneciente a Yoel Goldman, está en la <0>vanguardia de la gentrificación</0> de Brooklyn. Los inquilinos en sus edificios de Williamsburg, Bushwick, y las Crown Heights se han visto obligados a vivir en condiciones horrendas y a menudo peligrosas."
 
 #: src/components/PropertiesList.tsx:56
 msgid "Zipcode"
@@ -749,17 +749,17 @@ msgstr "dirección de búsqueda"
 
 #: src/components/PropertiesSummary.js:65
 msgid "{0} {1}, {2} currently has {3, plural, one {one open HPD violation} other {# open HPD violations}} - the most in this portfolio."
-msgstr ""
+msgstr "{0} {1}, {2} tiene {3, plural, one {una infracción del HPD actual} other {# infracciones del HPD actuales}} - la major cantidad en esta cartera de edificios."
 
 #: src/components/IndicatorsDatasets.tsx:45
 msgid "{value, plural, one {One Building Permit Application since 2010} other {# Building Permit Applications since 2010}}"
-msgstr ""
+msgstr "{value, plural, one {Una Solicitud de Permiso de Construcción desde el 2010} other {# Solicitudes de Permiso de Construcción desde el 2010}}"
 
 #: src/components/IndicatorsDatasets.tsx:7
 msgid "{value, plural, one {One HPD Complaint Issued since 2014} other {# HPD Complaints Issued since 2014}}"
-msgstr ""
+msgstr "{value, plural, one {Una Queja del HPD emitida desde el 2014} other {# Quejas del HPD emitidas desde el 2014}}"
 
 #: src/components/IndicatorsDatasets.tsx:26
 msgid "{value, plural, one {One HPD Violation Issued since 2010} other {# HPD Violations Issued since 2010}}"
-msgstr ""
+msgstr "{value, plural, one {Una Infracción del HPD emitida desde el 2010} other {# Infracciones del HPD emitidas desde el 2010}}"
 
