@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2020-05-15 23:27\n"
+"PO-Revision-Date: 2020-05-16 21:17\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -222,7 +222,7 @@ msgstr "Exportar datos"
 
 #: src/containers/NotRegisteredPage.js:189
 msgid "Failure to register a building with HPD"
-msgstr ""
+msgstr "Si no se registra un edificio con el HPD"
 
 #: src/components/PropertiesSummary.js:53
 msgid "General info"
