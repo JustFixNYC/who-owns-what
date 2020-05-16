@@ -1,4 +1,4 @@
-@import '_vars.scss';
+@import "_vars.scss";
 
 .Loader {
   width: 100%;
@@ -21,20 +21,17 @@
   }
 
   .Loader__content {
-
     p {
       width: 100%;
       font-size: 18px;
       margin-bottom: 0;
       display: inline-block;
 
-
-
       &:after {
         overflow: hidden;
         display: inline-block;
         vertical-align: bottom;
-        animation: ellipsis steps(4,end) 1200ms infinite;
+        animation: ellipsis steps(4, end) 1200ms infinite;
         content: "..."; /* ascii code for the ellipsis character */
       }
     }

@@ -1,7 +1,6 @@
-@import '_vars.scss';
+@import "_vars.scss";
 
 .EngagementPanel {
-
   width: max-content;
   max-width: 100%;
 
@@ -15,55 +14,53 @@
     margin: 72px auto 72px auto;
     box-sizing: border-box;
     padding: 30px 15px;
-  };
+  }
 
-    h5 {
-      text-align: center;
-      font-style: italic;
+  h5 {
+    text-align: center;
+    font-style: italic;
+  }
+
+  .EngagementWrapper {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    position: relative;
+    flex-direction: row;
+
+    @include for-tablet-landscape-down() {
+      display: block;
+      align-items: center;
+      flex-direction: column;
     }
 
-    .EngagementWrapper {
-
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
-      position: relative;
-      flex-direction: row;
+    .EngagementItem {
+      margin-left: 16px;
+      margin-right: 16px;
 
       @include for-tablet-landscape-down() {
-        display: block;
-        align-items: center;
-        flex-direction: column;
-      };
+        margin-top: 10px;
+        margin-bottom: 10px;
+      }
 
-      .EngagementItem {
-        margin-left: 16px;
-        margin-right: 16px;
+      p {
+        margin-bottom: 3px;
+        color: $dark;
+      }
 
-        @include for-tablet-landscape-down() {
-          margin-top: 10px;
-          margin-bottom: 10px;
-        };
+      .btn-block {
+        min-width: 175px;
+      }
 
-        p {
-          margin-bottom: 3px;
-          color: $dark;
-        }
+      @include for-tablet-landscape-down() {
+        .EngagementSocialLinks {
+          display: flex;
 
-        .btn-block {
-            min-width: 175px;
-        }
-
-        @include for-tablet-landscape-down() {
-
-          .EngagementSocialLinks {
-            display: flex;
-
-              .btn {
-                flex: 1 1 0;
-              }
-            }
+          .btn {
+            flex: 1 1 0;
+          }
         }
       }
     }
+  }
 }

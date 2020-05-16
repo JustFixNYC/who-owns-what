@@ -1,0 +1,34 @@
+{
+  "title": "Metodología",
+  "slug": "how-it-works",
+  "content": {
+    "data": {},
+    "content": [
+      {
+        "data": {},
+        "content": [
+          {
+            "data": {},
+            "marks": [],
+            "value": "Translate this!!",
+            "nodeType": "text"
+          }
+        ],
+        "nodeType": "paragraph"
+      },
+      {
+        "data": {},
+        "content": [
+          {
+            "data": {},
+            "marks": [],
+            "value": "",
+            "nodeType": "text"
+          }
+        ],
+        "nodeType": "paragraph"
+      }
+    ],
+    "nodeType": "document"
+  }
+}

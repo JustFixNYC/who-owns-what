@@ -1,24 +1,24 @@
 /* eslint-disable no-undef */
 
 type WithBoroBlockLot = {
-  boro: string,
-  block: string,
-  lot: string,
+  boro: string;
+  block: string;
+  lot: string;
 };
 
 type Q = {
-  bbl?: string,
-  housenumber: string,
-  streetname: string,
-  boro: string,
+  bbl?: string;
+  housenumber: string;
+  streetname: string;
+  boro: string;
 };
 
 function searchAddress(q: Q) {
   if (q.bbl) {
     return searchBBL({
-      boro: q.bbl.slice(0,1),
-      block: q.bbl.slice(1,6),
-      lot: q.bbl.slice(6,10)
+      boro: q.bbl.slice(0, 1),
+      block: q.bbl.slice(1, 6),
+      lot: q.bbl.slice(6, 10),
     });
   }
   return get(`/api/address?houseNumber=${q.housenumber}&street=${q.streetname}&borough=${q.boro}`);
@@ -45,8 +45,9 @@ function getIndicatorHistory(bbl: string) {
 }
 
 function getAddressExport(q: Q & WithBoroBlockLot) {
-  return fetch(`/api/address/export?houseNumber=${q.housenumber}&street=${q.streetname}&borough=${q.boro}`)
-    .then(checkStatus);
+  return fetch(
+    `/api/address/export?houseNumber=${q.housenumber}&street=${q.streetname}&borough=${q.boro}`
+  ).then(checkStatus);
 }
 
 function get(url: string) {
@@ -58,21 +59,21 @@ function get(url: string) {
 
 function post(url: string, body: any) {
   return fetch(url, {
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      method: 'POST',
-      mode: 'cors',
-      body: JSON.stringify(body)
-    })
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    method: "POST",
+    mode: "cors",
+    body: JSON.stringify(body),
+  })
     .then(checkStatus)
     .then(verifyIsJson)
     .then(parseJSON);
 }
 
 async function verifyIsJson(response: Response) {
-  const contentType = response.headers.get('Content-Type');
+  const contentType = response.headers.get("Content-Type");
   if (contentType && /^application\/json/.test(contentType)) {
     return response;
   }
@@ -81,7 +82,7 @@ async function verifyIsJson(response: Response) {
   window.Rollbar.error(msg, {
     text,
     contentType,
-    url: response.url
+    url: response.url,
   });
   throw new Error(msg);
 }
@@ -111,7 +112,7 @@ function parseJSON(response: Response) {
 /* Mailchimp */
 
 function postNewSubscriber(email: string) {
-  return post('/api/subscribe', { email });
+  return post("/api/subscribe", { email });
 }
 
 const Client = {
@@ -122,9 +123,7 @@ const Client = {
   getSaleHistory,
   getIndicatorHistory,
   getAddressExport,
-  postNewSubscriber
+  postNewSubscriber,
 };
 
 export default Client;
-
-

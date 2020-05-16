@@ -4,9 +4,10 @@ from .factories.hpd_contacts import HPDContact
 from .factories.hpd_registrations import HPDRegistration
 from .factories.marshal_evictions_17 import MarshalEvictions17
 from .factories.marshal_evictions_18 import MarshalEvictions18
+from .factories.marshal_evictions_19 import MarshalEvictions19
 from .factories.changes_summary import ChangesSummary
 from .factories.hpd_violations import HPDViolation
-from .factories.pluto_18v1 import Pluto18v1
+from .factories.pluto_19v2 import Pluto19v2
 
 # This test suite defines two landlords:
 #
@@ -112,13 +113,14 @@ UNRELATED_CONTACT = HPDContact(
 class TestSQL:
     @pytest.fixture(autouse=True, scope="class")
     def setup_class_fixture(self, db, nycdb_ctx):
-        nycdb_ctx.write_zip('pluto_18v1.zip', {
-            'PLUTO_for_WEB/BK_18v1.csv': [Pluto18v1()]
+        nycdb_ctx.write_zip('pluto_19v2.zip', {
+            'PLUTO_for_WEB/BK_19v2.csv': [Pluto19v2()]
         })
         nycdb_ctx.write_csv('hpd_violations.csv', [HPDViolation()])
         nycdb_ctx.write_csv('changes-summary.csv', [ChangesSummary()])
         nycdb_ctx.write_csv('marshal_evictions_17.csv', [MarshalEvictions17()])
         nycdb_ctx.write_csv('marshal_evictions_18.csv', [MarshalEvictions18()])
+        nycdb_ctx.write_csv('marshal_evictions_19.csv', [MarshalEvictions19()])
         nycdb_ctx.write_csv('hpd_registrations.csv', [
             FUNKY_REGISTRATION,
             MONKEY_REGISTRATION,

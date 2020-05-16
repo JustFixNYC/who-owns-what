@@ -1,38 +1,38 @@
-import React from 'react';
+import React from "react";
 // other imports
 
-import APIClient from './APIClient';
+import APIClient from "./APIClient";
 
-import 'styles/Subscribe.css';
-import { I18n } from '@lingui/core';
-import { withI18n } from '@lingui/react';
-import { t } from '@lingui/macro';
+import "styles/Subscribe.css";
+import { I18n } from "@lingui/core";
+import { withI18n } from "@lingui/react";
+import { t } from "@lingui/macro";
 
 //import 'styles/Subscribe.css';
 
 type SubscribeProps = {
-  i18n: I18n,
+  i18n: I18n;
 };
 
 type State = {
-  email: string,
-  success: boolean,
-  response: string,
+  email: string;
+  success: boolean;
+  response: string;
 };
 
 class SubscribeWithoutI18n extends React.Component<SubscribeProps, State> {
   constructor(props: SubscribeProps) {
     super(props);
     this.state = {
-      email: '',
+      email: "",
       success: false,
-      response: ''
+      response: "",
     };
   }
 
   handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({ email: e.target.value });
-  }
+  };
 
   handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -49,40 +49,42 @@ class SubscribeWithoutI18n extends React.Component<SubscribeProps, State> {
     }
 
     APIClient.postNewSubscriber(this.state.email)
-      .then(result => {
+      .then((result) => {
         // Success
         this.setState({
           success: true,
           response: i18n._(t`All set! Thanks for subscribing!`),
         });
       })
-      .catch(err => {
+      .catch((err) => {
         this.setState({
           response: i18n._(t`Oops! That email is invalid.`),
         });
         window.Rollbar.error(err);
       });
-
-  }
+  };
 
   render() {
     const { i18n } = this.props;
 
     return (
       // form with input and button
-      <div className={`Subscribe ${this.state.success ? 'Subscribe--success':''}`}>
-        <form onSubmit={this.handleSubmit} className="input-group" >
-          <input type="text"
+      <div className={`Subscribe ${this.state.success ? "Subscribe--success" : ""}`}>
+        <form onSubmit={this.handleSubmit} className="input-group">
+          <input
+            type="text"
             className="form-input input-email"
             placeholder={" " + i18n._(t`Enter email`)}
             onChange={this.handleChange}
             value={this.state.email}
           />
-          <input type="submit" className="btn btn-white input-group-btn" value={i18n._(t`Sign up`)} />
+          <input
+            type="submit"
+            className="btn btn-white input-group-btn"
+            value={i18n._(t`Sign up`)}
+          />
         </form>
-        {this.state.response && (
-          <p className="response-text">{this.state.response}</p>
-        )}
+        {this.state.response && <p className="response-text">{this.state.response}</p>}
       </div>
     );
   }

@@ -1,13 +1,13 @@
-import helpers from './helpers';
+import helpers from "./helpers";
 
 describe("jsonEqual()", () => {
   it("returns true when objects are equal", () => {
-    expect(helpers.jsonEqual({a: 1}, {a: 1})).toBe(true);
-    expect(helpers.jsonEqual({a: 1, b: 2}, {b: 2, a: 1})).toBe(true);
+    expect(helpers.jsonEqual({ a: 1 }, { a: 1 })).toBe(true);
+    expect(helpers.jsonEqual({ a: 1, b: 2 }, { b: 2, a: 1 })).toBe(true);
   });
 
   it("returns false when objects are not equal", () => {
-    expect(helpers.jsonEqual({a: 1}, {b: 2})).toBe(false);
+    expect(helpers.jsonEqual({ a: 1 }, { b: 2 })).toBe(false);
   });
 });
 
@@ -16,24 +16,24 @@ test("uniq() works", () => {
 });
 
 describe("coerceToInt()", () => {
-  it('Returns default value when input is NaN', () => {
+  it("Returns default value when input is NaN", () => {
     expect(helpers.coerceToInt(NaN, 15)).toBe(15);
   });
 
-  it('Returns default value when input is null or undefined', () => {
+  it("Returns default value when input is null or undefined", () => {
     expect(helpers.coerceToInt(null, 15)).toBe(15);
     expect(helpers.coerceToInt(undefined, 15)).toBe(15);
   });
 
-  it('Returns value when it is already a number', () => {
+  it("Returns value when it is already a number", () => {
     expect(helpers.coerceToInt(0, 15)).toBe(0);
     expect(helpers.coerceToInt(5, 15)).toBe(5);
   });
 
-  it('Returns parsed value when it is a string', () => {
-    expect(helpers.coerceToInt('0', 15)).toBe(0);
-    expect(helpers.coerceToInt('5', 15)).toBe(5);
-    expect(helpers.coerceToInt('blarg', 15)).toBe(15);
+  it("Returns parsed value when it is a string", () => {
+    expect(helpers.coerceToInt("0", 15)).toBe(0);
+    expect(helpers.coerceToInt("5", 15)).toBe(5);
+    expect(helpers.coerceToInt("blarg", 15)).toBe(15);
   });
 });
 
@@ -52,26 +52,26 @@ describe("maxArray()", () => {
 });
 
 test("splitBBL() works", () => {
-  expect(helpers.splitBBL('3012380016')).toEqual({
-    boro: '3',
-    block: '01238',
-    lot: '0016',
+  expect(helpers.splitBBL("3012380016")).toEqual({
+    boro: "3",
+    block: "01238",
+    lot: "0016",
   });
 });
 
 test("addrsAreEqual() works", () => {
-  expect(helpers.addrsAreEqual({bbl: 'boop'}, {bbl: 'boop'})).toBe(true);
-  expect(helpers.addrsAreEqual({bbl: 'yes'}, {bbl: 'no'})).toBe(false);
+  expect(helpers.addrsAreEqual({ bbl: "boop" }, { bbl: "boop" })).toBe(true);
+  expect(helpers.addrsAreEqual({ bbl: "yes" }, { bbl: "no" })).toBe(false);
 });
 
 describe("find()", () => {
   it("returns value if present", () => {
-    const a = {boop: 1};
-    expect(helpers.find([{boop: 2}, a, {boop: 3}], 'boop', 1)).toBe(a);
+    const a = { boop: 1 };
+    expect(helpers.find([{ boop: 2 }, a, { boop: 3 }], "boop", 1)).toBe(a);
   });
 
   it("returns null if not present", () => {
-    expect(helpers.find([{boop: 2}, {boop: 3}], 'boop', 1)).toBe(null);
+    expect(helpers.find([{ boop: 2 }, { boop: 3 }], "boop", 1)).toBe(null);
   });
 });
 
@@ -87,8 +87,8 @@ describe("getNychaData()", () => {
 });
 
 test("intersectAddrObjects() works", () => {
-  expect(helpers.intersectAddrObjects({a: 1, b: 2, c: 3, d: 9}, {a: 5, b: 2, c: 9})).toEqual({
-    b: 2
+  expect(helpers.intersectAddrObjects({ a: 1, b: 2, c: 3, d: 9 }, { a: 5, b: 2, c: 9 })).toEqual({
+    b: 2,
   });
 });
 
@@ -101,5 +101,29 @@ test("titleCase() works", () => {
 });
 
 test("formatDate() works", () => {
-  expect(helpers.formatDate('2008-01-05')).toBe('January 2008');
+  expect(helpers.formatDate("2008-01-05")).toBe("January 2008");
+});
+
+test("formatStreetNameForHpdLink() works for directional prefixes", () => {
+  expect(helpers.formatStreetNameForHpdLink("East 21st Street")).toBe("E 21st Street");
+});
+
+test("formatStreetNameForHpdLink() works for enumerations", () => {
+  expect(helpers.formatStreetNameForHpdLink("Eighth Avenue")).toBe("8 Avenue");
+});
+
+test("formatStreetNameForHpdLink() works for both prefixes and enumerations at once", () => {
+  expect(helpers.formatStreetNameForHpdLink("North Second Street")).toBe("N 2 Street");
+});
+
+test("formatStreetNameForHpdLink() doesn't change directionals or enumerations within names", () => {
+  expect(helpers.formatStreetNameForHpdLink("Eastonfirst Avenue")).toBe("Eastonfirst Avenue");
+});
+
+test("formatStreetNameForHpdLink() still works for one-word streetnames", () => {
+  expect(helpers.formatStreetNameForHpdLink("Broadway")).toBe("Broadway");
+});
+
+test("formatStreetNameForHpdLink() still works for empty streetnames", () => {
+  expect(helpers.formatStreetNameForHpdLink("")).toBe("");
 });

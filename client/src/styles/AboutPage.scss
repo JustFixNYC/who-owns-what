@@ -1,18 +1,18 @@
-@import '_vars.scss';
+@import "_vars.scss";
 
 .AboutPage {
-    hr {
-        max-width: 60%;
-        margin-left: 0;
-        margin-right: 0;
-        margin-bottom: 1.25rem;
+  hr {
+    max-width: 60%;
+    margin-left: 0;
+    margin-right: 0;
+    margin-bottom: 1.25rem;
 
-        @include for-phone-only() {
-            max-width: 100%;
-          }
+    @include for-phone-only() {
+      max-width: 100%;
     }
+  }
 
-    li > p {
-        margin-bottom: 0;
-    }
+  li > p {
+    margin-bottom: 0;
+  }
 }

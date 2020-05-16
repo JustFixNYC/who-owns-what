@@ -28,8 +28,8 @@ $secondary-color-light: lighten($secondary-color, 3%);
 $link-color: $primary-color;
 $link-color-dark: darken($link-color, 10%);
 
-$search-marker: #FF5722;
-$assoc-marker: #FF9800;
+$search-marker: #ff5722;
+$assoc-marker: #ff9800;
 
 $border-radius: 0;
 
@@ -42,29 +42,42 @@ $retro-3: #5c574f;
 $retro-4: #4f4b44;
 $retro-5: #35332e;
 
-
 // responsive sizes:
 $size-lg: 899px;
 
-// mixins: 
+// mixins:
 @mixin for-phone-only {
-  @media (max-width: 599px) { @content; }
+  @media (max-width: 599px) {
+    @content;
+  }
 }
 @mixin for-tablet-landscape-down {
-  @media (max-width: 899px) { @content; }
+  @media (max-width: 899px) {
+    @content;
+  }
 }
 @mixin for-desktop-down {
-  @media (max-width: 1199px) { @content; }
+  @media (max-width: 1199px) {
+    @content;
+  }
 }
 @mixin for-tablet-portrait-up {
-  @media (min-width: 600px) { @content; }
+  @media (min-width: 600px) {
+    @content;
+  }
 }
 @mixin for-tablet-landscape-up {
-  @media (min-width: 900px) { @content; }
+  @media (min-width: 900px) {
+    @content;
+  }
 }
 @mixin for-desktop-up {
-  @media (min-width: 1200px) { @content; }
+  @media (min-width: 1200px) {
+    @content;
+  }
 }
 @mixin for-big-desktop-up {
-  @media (min-width: 1800px) { @content; }
+  @media (min-width: 1800px) {
+    @content;
+  }
 }
