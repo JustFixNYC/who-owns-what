@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2020-05-17 00:46\n"
+"PO-Revision-Date: 2020-05-17 00:52\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -235,7 +235,7 @@ msgstr "Perfil de edificio del HPD"
 
 #: src/components/IndicatorsDatasets.tsx:6
 msgid "HPD Complaints"
-msgstr "Quejas de HPD"
+msgstr "Quejas del HPD"
 
 #: src/components/IndicatorsDatasets.tsx:12
 msgid "HPD Complaints are housing issues reported to the City <0>by a tenant calling 311</0>. When someone issues a complaint, the Department of Housing Preservation and Development begins a process of investigation that may lead to an official violation from the City. Complaints can be identified as:<1/><2/><3>Emergency</3> — reported to be hazardous/dire<4/><5>Non-Emergency</5> — all others<6/><7/> Read more about HPD Complaints and how to file them at the <8>official HPD page</8>."
@@ -573,7 +573,7 @@ msgstr "El número de unidades residenciales en todos los edificios de este desa
 
 #: src/components/PropertiesSummary.js:57
 msgid "The {bldgs, plural, one {} other {average}} age of {bldgs, plural, one {this building} other {these buildings}} is <0>{age}</0> years old."
-msgstr "La {bldgs, plural, one {edad} other {media de las edades }} de {bldgs, plural, one {este edificio} other {estos edificios}} es <0>{age}</0> años."
+msgstr "La {bldgs, plural, one {edad} other {edad media}} de {bldgs, plural, one {este edificio} other {estos edificios}} es de <0>{age}</0> años."
 
 #: src/components/SocialShare.tsx:46
 msgid "The {buildingCount} buildings owned by my landlord (via JustFix's Who Owns What tool)"
@@ -613,11 +613,11 @@ msgstr "Esto es <0>peor</0> que el promedio de la ciudad de {VIOLATIONS_AVG} por
 
 #: src/components/RentstabSummary.tsx:15
 msgid "This portfolio also had an estimated <0>net {changeType, select, gain {gain} other {loss}}</0> of <1>{absTotalRsDiff}</1> {absTotalRsDiff, plural, one {rent stabilized unit} other {rent stabilized units}} since 2007 (gained {absTotalRsGain}, lost {absTotalRsLoss})."
-msgstr "Esta cartera de edificios tuvo una <0>{changeType, select, gain {ganancia} other {perdida}} neta</0> de <1>{absTotalRsDiff}</1> {absTotalRsDiff, plural, one {apartamento de renta estabilizada} other {apartamentos de renta estabilizada}} desde el año 2007 (gained {absTotalRsGain}, lost {absTotalRsLoss})."
+msgstr "Esta cartera de edificios tuvo una <0>{changeType, select, gain {ganancia} other {perdida}} neta</0> de <1>{absTotalRsDiff}</1> {absTotalRsDiff, plural, one {apartamento de renta estabilizada} other {apartamentos de renta estabilizada}} desde el año 2007 (ganó {absTotalRsGain}, perdió {absTotalRsLoss})."
 
 #: src/components/PropertiesSummary.js:83
 msgid "This portfolio has an average of <0>{0}</0> open HPD violations per residential unit."
-msgstr "Esta cartera de edificios tiene un promedio de <0>{0}</0> infracciones de HPD actuales por cada unidad residencial."
+msgstr "Esta cartera de edificios tiene un promedio de <0>{0}</0> infracciones de HPD Actuales por cada unidad residencial."
 
 #: src/containers/HomePage.tsx:121
 msgid "This property management company owned by the Kushner family is notorious for <0>violating rent regulations</0> and <1>harassing tenants</1>. The stake currently held by Jared Kushner and Ivanka Trump is worth as much as $761 million."
