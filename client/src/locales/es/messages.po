@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2020-05-17 00:52\n"
+"PO-Revision-Date: 2020-05-17 01:16\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -94,11 +94,11 @@ msgstr "Volver a la Vista General"
 #: src/components/PropertiesList.tsx:62
 #: src/containers/NychaPage.js:120
 msgid "Borough"
-msgstr "Barrio"
+msgstr "Municipio"
 
 #: src/containers/NychaPage.js:137
 msgid "Borough Management Office:"
-msgstr "Oficina de Gestión Local:"
+msgstr "Oficina de Gestión Municipal:"
 
 #: src/containers/NotRegisteredPage.js:78
 #: src/containers/NotRegisteredPage.js:91
@@ -108,7 +108,7 @@ msgstr "Clasificación del Edificio"
 
 #: src/components/IndicatorsDatasets.tsx:44
 msgid "Building Permit Applications"
-msgstr "Solicitud de Permiso de Construcción"
+msgstr "Solicitudes de Permisos de Construcción"
 
 #: src/components/IndicatorsViz.js:185
 #: src/components/IndicatorsViz.js:247
@@ -214,7 +214,7 @@ msgstr "Desalojos"
 
 #: src/containers/NychaPage.js:127
 msgid "Evictions executed in this development by NYC Marshals in 2019. ANHD and the Housing Data Coalition cleaned, geocoded, and validated the data, originally sourced from DOI."
-msgstr "Desalojos ejecutados en este desarrollo por el Mariscal de NYC en 2019. ANHD y la Coalición de Datos de Vivienda limpiaron, codificaron y validaron los datos, originalmente provenientes de DOI."
+msgstr "Desalojos ejecutados en este complejo por el Mariscal de NYC en 2019. ANHD y la Coalición de Datos de Vivienda limpiaron, codificaron y validaron los datos, originalmente provenientes del DOI."
 
 #: src/components/AddressToolbar.tsx:24
 msgid "Export Data"
@@ -244,7 +244,7 @@ msgstr "Las quejas de HPD son problemas de vivienda presentados a la Ciudad <0>p
 #: src/components/IndicatorsDatasets.tsx:24
 #: src/components/PropertiesList.tsx:140
 msgid "HPD Violations"
-msgstr "Infracciones de HPD"
+msgstr "Infracciones del HPD"
 
 #: src/components/IndicatorsDatasets.tsx:31
 msgid "HPD Violations occur when an official City Inspector finds the conditions of a home in violation of the law. If not corrected, these violations incur fines for the owner— however, HPD violations are notoriously unenforced by the City. These Violations fall into three categories:<0/><1/><2>Class A</2> — non-hazardous<3/><4>Class B</4> — hazardous<5/><6>Class C</6> — immediately hazardous<7/><8/>Read more about HPD Violations at the <9>official HPD page</9>."
@@ -298,7 +298,7 @@ msgstr "JustFix.nyc es una organización registrada 501(c)(3) sin fines de lucro
 #: src/components/PropertiesList.tsx:168
 #: src/components/PropertiesSummary.js:71
 msgid "Landlord"
-msgstr "Dueńo del edificio"
+msgstr "Dueño del edificio"
 
 #: src/components/IndicatorsViz.js:376
 msgid "Last Sale Unknown"
@@ -445,7 +445,7 @@ msgstr "Política de privacidad"
 
 #: src/containers/NychaPage.js:110
 msgid "Public Housing Development"
-msgstr "Desarrollo de Vivienda Pública"
+msgstr "Complejo de Vivienda Pública"
 
 #: src/components/Indicators.js:427
 msgid "Quarter"
@@ -503,7 +503,7 @@ msgstr "Comparte esta página con tus vecinos"
 #: src/components/DetailView.js:244
 #: src/components/OwnersTable.tsx:25
 msgid "Shell Companies"
-msgstr "Compañía Ficticia"
+msgstr "Sociedad Ficticia"
 
 #: src/components/Subscribe.tsx:52
 msgid "Sign up"
@@ -541,7 +541,7 @@ msgstr "Condiciones de uso"
 
 #: src/containers/NychaPage.js:136
 msgid "The NYCHA office overseeing your borough. Some experts suggest reaching out to Borough Management Offices to advocate for repairs, as they tend to have more administrative power than local management offices."
-msgstr "La oficina de la NYCHA que se encarga de tu municipio. Algunos expertos sugieren ponerse en contacto con las Oficinas de Administración Municipales para conseguir reparaciones, ya que tienden a tener más poder administrativo que las oficinas locales."
+msgstr "La oficina de la NYCHA que se encarga de tu municipio. Algunos expertos sugieren ponerse en contacto con las Oficinas de Administración Municipales para conseguir arreglos, ya que tienden a tener más poder administrativo que las oficinas locales."
 
 #: src/components/RentstabSummary.tsx:22
 msgid "The building that has lost the most units is <0>{0} {1}, {2}</0>, which has lost <1>{absRsLossAddrDiff}</1> {absRsLossAddrDiff, plural, one {unit} other {units}} in the past 10 years."
@@ -557,7 +557,7 @@ msgstr "El municipio donde se encuentra la dirección que has buscado"
 
 #: src/containers/HomePage.tsx:137
 msgid "The city’s fifth <0>worst evictor</0> in 2018, A&E is a prime example of a landlord who engages in <1>aggressive eviction strategies</1> to displace low-income tenants. Besides lack of repairs and frivolous evictions in housing court, A&E has also been known to use <2>MCIs</2> to <3>double rents</3> in rent-stabilized buildings."
-msgstr "A&E fue el quinto <0>\"peor desalojador\"</0> de la ciudad en el 2018, y es un excelente ejemplo de un propietario que participa en <1>estrategias agresivas de desalojo</1> para desplazar a inquilinos de bajos ingresos. Además de usar la falta de reparaciones y los desalojos frívolos en la corte de viviendas, se sabe que A&E también utiliza los <2>IMCs</2> para <3>alquileres dobles</3> en edificios de resta estabilizada."
+msgstr "A&E fue el quinto <0>\"peor desalojador\"</0> de la ciudad en el 2018, y es un excelente ejemplo de un propietario que participa en <1>estrategias agresivas de desalojo</1> para desplazar a inquilinos de bajos ingresos. Además de usar la falta de arreglos y los desalojos frívolos en la corte de viviendas, se sabe que A&E también utiliza los <2>IMCs</2> para <3>alquileres dobles</3> en edificios de resta estabilizada."
 
 #: src/components/PropertiesSummary.js:78
 msgid "The most common corporate entity is <0>{0}</0> and the most common business address is <1>{1}</1>."
@@ -569,7 +569,7 @@ msgstr "{0, plural, one {El nombre más común que aparece en esta cartera de ed
 
 #: src/containers/NychaPage.js:123
 msgid "The number of residential units across all buildings in this development, according to the Dept. of City Planning."
-msgstr "El número de unidades residenciales en todos los edificios de este desarrollo, según el Departamento Planificación de la Ciudad."
+msgstr "El número de unidades residenciales en todos los edificios de este complejo, según el Departamento de Planificación de la Ciudad."
 
 #: src/components/PropertiesSummary.js:57
 msgid "The {bldgs, plural, one {} other {average}} age of {bldgs, plural, one {this building} other {these buildings}} is <0>{age}</0> years old."
@@ -629,7 +629,7 @@ msgstr "Esto representa el <0>{rsProportion}%</0> del tamaño total de esta cart
 
 #: src/containers/NotRegisteredPage.js:77
 msgid "This seems like a smaller residential building. If the landlord doesn't reside there, it should be registered with HPD."
-msgstr "Este parece ser un edificio residencial pequeño. Si el dueńo no reside allí, el edificio debería estar registrado con el HPD."
+msgstr "Este parece ser un edificio residencial pequeño. Si el dueño no reside allí, el edificio debería estar registrado con el HPD."
 
 #: src/components/AddressToolbar.tsx:31
 msgid "This will export <0>{0}</0> addresses associated with the landlord at <1>{userAddrStr}</1>!"
