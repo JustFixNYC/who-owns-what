@@ -11,7 +11,7 @@ import { withI18n } from "@lingui/react";
 import { t } from "@lingui/macro";
 import { Trans } from "@lingui/macro";
 import { SocialSharePortfolio } from "./SocialShare";
-import { NavLink, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { LocaleLink } from "../i18n";
 
 class DetailViewWithoutI18n extends Component {
