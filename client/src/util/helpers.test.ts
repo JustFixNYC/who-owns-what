@@ -100,8 +100,25 @@ test("titleCase() works", () => {
   expect(helpers.titleCase("boop jones")).toBe("Boop Jones");
 });
 
-test("formatDate() works", () => {
-  expect(helpers.formatDate("2008-01-05")).toBe("January 2008");
+test("formatDateForTimeline() works", () => {
+  expect(helpers.formatDateForTimeline("2008-01-05")).toBe("January 2008");
+});
+
+test("formatMonthAbbreviationForTimeline() works", () => {
+  expect(helpers.formatMonthAbbreviationForTimeline("2008-01-05")).toBe("Jan");
+});
+
+// Note: Although there is generally good support across modern versions of the usual web browsers,
+// the "locale" prop in the toLocaleDateString function is not supported until Node 13.
+// Therefore, I implemented these two tests to match either the localized result or the default.
+// See more here: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleDateString
+
+test("formatDateForTimeline() works for non-English locales", () => {
+  expect(helpers.formatDateForTimeline("2008-01-05", "es")).toMatch(/Enero de 2008|January 2008/i);
+});
+
+test("formatMonthAbbreviationForTimeline() works for non-English locales", () => {
+  expect(helpers.formatMonthAbbreviationForTimeline("2008-01-05", "es")).toMatch(/Ene|Jan/i);
 });
 
 test("formatStreetNameForHpdLink() works for directional prefixes", () => {

@@ -131,7 +131,7 @@ const PropertiesListWithoutI18n: React.FC<{
               ],
             },
             // {
-            //   Header: 'Shell Companies',
+            //   Header: 'Business Entities',
             //   accessor: 'corpnames',
             //   Cell: row => {
             //     return (<span>{row.original.corpnames ? row.original.corpnames.join(', ') : ''}</span>);

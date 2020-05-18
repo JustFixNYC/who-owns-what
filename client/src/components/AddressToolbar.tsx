@@ -42,11 +42,8 @@ export default class AddressToolbar extends Component<AddressToolbarProps, State
     return (
       <div className="AddressToolbar">
         <div className="btn-group float-right">
-          <button className="btn" onClick={() => this.setState({ showExportModal: true })}>
-            <Trans>Export Data</Trans>
-          </button>
           <Link
-            className="btn"
+            className="btn btn-primary"
             onClick={() => {
               window.gtag("event", "new-search");
             }}
@@ -54,6 +51,9 @@ export default class AddressToolbar extends Component<AddressToolbarProps, State
           >
             <Trans>New Search</Trans>
           </Link>
+          <button className="btn" onClick={() => this.setState({ showExportModal: true })}>
+            <Trans>Export Data</Trans>
+          </button>
         </div>
         <Modal
           showModal={this.state.showExportModal}

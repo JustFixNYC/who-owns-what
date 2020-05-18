@@ -4,6 +4,7 @@
 import _pickBy from "lodash/pickBy";
 import { deepEqual as assertDeepEqual } from "assert";
 import nycha_bbls from "../data/nycha_bbls.json";
+import { SupportedLocale } from "../i18n-base";
 
 /**
  * An array consisting of Who Owns What's standard enumerations for street names,
@@ -153,10 +154,16 @@ export default {
       .join(" ");
   },
 
-  formatDate(dateString: string): string {
+  formatDateForTimeline(dateString: string, locale?: SupportedLocale): string {
     var date = new Date(dateString);
     var options = { year: "numeric", month: "long" };
-    return date.toLocaleDateString("en-US", options);
+    return this.capitalize(date.toLocaleDateString(locale || "en", options));
+  },
+
+  formatMonthAbbreviationForTimeline(dateString: string, locale?: SupportedLocale): string {
+    var date = new Date(dateString);
+    var options = { month: "short" };
+    return this.capitalize(date.toLocaleDateString(locale || "en", options)).slice(0, 3);
   },
 
   formatStreetNameForHpdLink(streetName: string): string {
