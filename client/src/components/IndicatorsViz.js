@@ -131,8 +131,6 @@ class IndicatorsVizImplementation extends Component {
 
     const { i18n } = this.props;
     const locale = i18n._language || "en";
-    console.log(Helpers.formatDateForTimeline("2010-03-05"));
-    console.log(Helpers.formatDateForTimeline("2010-03-05", "es"));
 
     switch (this.props.activeVis) {
       case "viols":
@@ -300,7 +298,7 @@ class IndicatorsVizImplementation extends Component {
             if (timeSpan === "quarter") {
               const quarter = this._data.labels[tooltipItem[0].index].slice(-1);
               const numOfLastMonthInQuarter = parseInt(quarter) * 3;
-              /** A quarter year written out as it's range of months (ex: "Jan - Mar")  */
+              /** The quarter year written out as it's range of months (ex: "Jan - Mar")  */
               const monthRange = `${Helpers.formatMonthSnippetForTimeline(
                 "2020/0" + (numOfLastMonthInQuarter - 2),
                 locale

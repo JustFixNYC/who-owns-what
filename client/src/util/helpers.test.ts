@@ -114,11 +114,11 @@ test("formatMonthSnippetForTimeline() works", () => {
 // See more here: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleDateString
 
 test("formatDateForTimeline() works for non-English locales", () => {
-  expect(helpers.formatDateForTimeline("2008-01-05","es")).toMatch(/Enero de 2008|January 2008/i);
+  expect(helpers.formatDateForTimeline("2008-01-05", "es")).toMatch(/Enero de 2008|January 2008/i);
 });
 
 test("formatMonthSnippetForTimeline() works for non-English locales", () => {
-  expect(helpers.formatMonthSnippetForTimeline("2008-01-05","es")).toMatch(/Ene|Jan/i);
+  expect(helpers.formatMonthSnippetForTimeline("2008-01-05", "es")).toMatch(/Ene|Jan/i);
 });
 
 test("formatStreetNameForHpdLink() works for directional prefixes", () => {
