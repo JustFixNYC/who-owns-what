@@ -1,4 +1,4 @@
-import mapping from './mapping';
+import mapping from "./mapping";
 
 test("latLngIsNull() works", () => {
   expect(mapping.latLngIsNull([NaN, 1])).toBe(true);
@@ -8,9 +8,14 @@ test("latLngIsNull() works", () => {
 });
 
 test("getBoundingBox() works", () => {
-  expect(mapping.getBoundingBox([
-    [2, 3],
-    [0.5, 2.2],
+  expect(
+    mapping.getBoundingBox([
+      [2, 3],
+      [0.5, 2.2],
+      [0, 1],
+    ])
+  ).toEqual([
     [0, 1],
-  ])).toEqual([[0, 1], [2, 3]]);
+    [2, 3],
+  ]);
 });

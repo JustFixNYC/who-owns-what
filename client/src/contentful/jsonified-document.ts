@@ -1,4 +1,4 @@
-import { Document } from '@contentful/rich-text-types';
+import { Document } from "@contentful/rich-text-types";
 
 /**
  * This is semantically the same thing as a Contentful `Document` (rich text),
@@ -8,9 +8,9 @@ import { Document } from '@contentful/rich-text-types';
  * typecast everywhere.)
  */
 export type JsonifiedDocument = {
-  data: Object,
-  content: any[],
-  nodeType: string
+  data: Object;
+  content: any[];
+  nodeType: string;
 };
 
 /**

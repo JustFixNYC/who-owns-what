@@ -1,7 +1,6 @@
-@import '_vars.scss';
+@import "_vars.scss";
 
 .PropertiesMap {
-
   display: inline-block;
   width: 30vw;
   // height: 100%;
@@ -9,7 +8,6 @@
   @include for-phone-only() {
     width: 100%;
   }
-
 
   // this allows DetailView__close to overlay the map
   position: relative;
@@ -40,7 +38,6 @@
           }
         }
       }
-
     }
   }
 
@@ -105,7 +102,7 @@
         margin-top: 0.5rem;
 
         &:before {
-          content: '';
+          content: "";
           display: inline-block;
           height: 11px;
           width: 11px;
@@ -122,9 +119,7 @@
           &:before {
             background-color: $search-marker;
           }
-
         }
-
 
         &:nth-child(2):before {
           background-color: $assoc-marker;
@@ -154,10 +149,9 @@
         &:nth-child(2) {
           margin-top: 0;
           margin-left: 15px;
-
         }
       }
-    };
+    }
   }
 
   .PropertiesMap__prompt {
@@ -181,6 +175,6 @@
       width: 100%;
       bottom: -1px;
       border-right: 1px solid #000;
-    };
+    }
   }
 }

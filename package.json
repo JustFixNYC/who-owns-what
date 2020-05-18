@@ -12,7 +12,10 @@
     "build-server": "babel server -d dist",
     "build-client": "cd client && yarn --production=false && yarn run build",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "heroku-postbuild": "yarn build"
+    "heroku-postbuild": "yarn build",
+    "prettier": "prettier",
+    "prettier:check": "prettier \"**/*.{ts,tsx,js,scss}\" --check",
+    "prettier:fix": "prettier \"**/*.{ts,tsx,js,scss}\" --write"
   },
   "author": "",
   "license": "ISC",
@@ -43,6 +46,7 @@
     "rollbar": "2.4.6"
   },
   "devDependencies": {
-    "nodemon": "^1.11.0"
+    "nodemon": "^1.11.0",
+    "prettier": "2.0.5"
   }
 }

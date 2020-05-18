@@ -1,39 +1,41 @@
-import React from 'react';
-import ReactTable from 'react-table';
-import Browser from '../util/browser';
+import React from "react";
+import ReactTable from "react-table";
+import Browser from "../util/browser";
 
-import 'react-table/react-table.css';
-import 'styles/PropertiesList.css';
-import { I18n } from '@lingui/core';
-import { withI18n } from '@lingui/react';
-import { t } from '@lingui/macro';
+import "react-table/react-table.css";
+import "styles/PropertiesList.css";
+import { I18n } from "@lingui/core";
+import { withI18n } from "@lingui/react";
+import { t } from "@lingui/macro";
+import { Link } from "react-router-dom";
 
 type Addr = {
-  housenumber: string,
-  streetname: string,
-  zip: string,
-  boro: string,
-  bbl: string,
-  yearbuilt: number,
-  unitsres: number,
-  rsunits2007: number,
-  rsunits2017: number,
-  openviolations: number,
-  totalviolations: number,
-  evictions: string|null,
-  ownernames: {title: string, value: string}[],
+  housenumber: string;
+  streetname: string;
+  zip: string;
+  boro: string;
+  bbl: string;
+  yearbuilt: number;
+  unitsres: number;
+  rsunits2007: number;
+  rsunits2017: number;
+  openviolations: number;
+  totalviolations: number;
+  evictions: string | null;
+  ownernames: { title: string; value: string }[];
 };
 
 const PropertiesListWithoutI18n: React.FC<{
-  i18n: I18n,
-  addrs: Addr[],
-  onOpenDetail: (addr: Addr) => void,
+  i18n: I18n;
+  addrs: Addr[];
+  onOpenDetail: (addr: Addr) => void;
+  generateBaseUrl: () => string;
 }> = (props) => {
   const { i18n } = props;
   // console.log(props.addrs);
 
-  if(!props.addrs.length) {
-    return ( null );
+  if (!props.addrs.length) {
+    return null;
   } else {
     return (
       <div className="PropertiesList">
@@ -41,7 +43,7 @@ const PropertiesListWithoutI18n: React.FC<{
           data={props.addrs}
           minRows={Browser.isMobile() ? 5 : 10}
           defaultPageSize={props.addrs.length}
-          showPagination = {false}
+          showPagination={false}
           columns={[
             // {
             //   Header: () => {
@@ -73,46 +75,46 @@ const PropertiesListWithoutI18n: React.FC<{
                 // },
                 {
                   Header: i18n._(t`Address`),
-                  accessor: d => `${d.housenumber} ${d.streetname}`,
-                  id: 'address',
+                  accessor: (d) => `${d.housenumber} ${d.streetname}`,
+                  id: "address",
                   minWidth: 150,
                   style: {
-                    textAlign: "left"
-                  }
+                    textAlign: "left",
+                  },
                 },
                 {
                   Header: i18n._(t`Zipcode`),
-                  accessor: d => d.zip,
-                  id: 'zip',
-                  width: 75
+                  accessor: (d) => d.zip,
+                  id: "zip",
+                  width: 75,
                 },
                 {
                   Header: i18n._(t`Borough`),
-                  accessor: d => d.boro,
-                  id: 'boro',
+                  accessor: (d) => d.boro,
+                  id: "boro",
                 },
                 {
-                  Header: 'BBL',
-                  accessor: d => d.bbl,
-                  id: 'bbl',
-                }
-              ]
+                  Header: "BBL",
+                  accessor: (d) => d.bbl,
+                  id: "bbl",
+                },
+              ],
             },
             {
               Header: i18n._(t`Information`),
               columns: [
                 {
                   Header: i18n._(t`Built`),
-                  accessor: d => d.yearbuilt,
-                  id: 'yearbuilt',
-                  maxWidth: 75
+                  accessor: (d) => d.yearbuilt,
+                  id: "yearbuilt",
+                  maxWidth: 75,
                 },
                 {
                   Header: i18n._(t`Units`),
-                  accessor: d => d.unitsres,
-                  id: 'unitsres',
-                  maxWidth: 75
-                }
+                  accessor: (d) => d.unitsres,
+                  id: "unitsres",
+                  maxWidth: 75,
+                },
                 // ,
                 // {
                 //   Header: '421-a',
@@ -126,7 +128,7 @@ const PropertiesListWithoutI18n: React.FC<{
                 //   Header: 'J-51',
                 //   accessor: 'subsidyj51'
                 // },
-              ]
+              ],
             },
             // {
             //   Header: 'Shell Companies',
@@ -158,98 +160,107 @@ const PropertiesListWithoutI18n: React.FC<{
               columns: [
                 {
                   Header: "2007",
-                  accessor: d => d.rsunits2007,
-                  id: 'rsunits2007',
-                  maxWidth: 75
+                  accessor: (d) => d.rsunits2007,
+                  id: "rsunits2007",
+                  maxWidth: 75,
                 },
                 {
                   Header: "2017",
-                  accessor: d => d.rsunits2017,
-                  id: 'rsunits2017',
-                  Cell: row => {
+                  accessor: (d) => d.rsunits2017,
+                  id: "rsunits2017",
+                  Cell: (row) => {
                     return (
-                      <span className={`${row.original.rsunits2017 < row.original.rsunits2007 ? 'text-danger' : ''}`}
-                        >{row.original.rsunits2017}
+                      <span
+                        className={`${
+                          row.original.rsunits2017 < row.original.rsunits2007 ? "text-danger" : ""
+                        }`}
+                      >
+                        {row.original.rsunits2017}
                       </span>
                     );
                   },
-                  maxWidth: 75
-                }
-              ]
+                  maxWidth: 75,
+                },
+              ],
             },
             {
               Header: i18n._(t`HPD Violations`),
               columns: [
                 {
                   Header: i18n._(t`Open`),
-                  accessor: d => d.openviolations,
-                  id: 'openviolations',
-                  maxWidth: 75
+                  accessor: (d) => d.openviolations,
+                  id: "openviolations",
+                  maxWidth: 75,
                 },
                 {
                   Header: i18n._(t`Total`),
-                  accessor: d => d.totalviolations,
-                  id: 'totalviolations',
-                  maxWidth: 75
-                }
-              ]
+                  accessor: (d) => d.totalviolations,
+                  id: "totalviolations",
+                  maxWidth: 75,
+                },
+              ],
             },
             {
               Header: i18n._(t`Evictions`),
               columns: [
                 {
-                  Header: "2018",
-                  accessor: d => (d.evictions ? parseInt(d.evictions) : null),
-                  id: 'evictions',
-                  maxWidth: 75
-                }
-              ]
+                  Header: "2019",
+                  accessor: (d) => (d.evictions ? parseInt(d.evictions) : null),
+                  id: "evictions",
+                  maxWidth: 75,
+                },
+              ],
             },
             {
               Header: i18n._(t`Landlord`),
               columns: [
                 {
                   Header: i18n._(t`Officer/Owner`),
-                  accessor: d => {
-                    var owner = d.ownernames.find(o => o.title === 'HeadOfficer' || o.title === 'IndividualOwner'); 
-                    return (owner ? owner.value : '');
+                  accessor: (d) => {
+                    var owner = d.ownernames.find(
+                      (o) => o.title === "HeadOfficer" || o.title === "IndividualOwner"
+                    );
+                    return owner ? owner.value : "";
                   },
                   id: "ownernames",
-                  minWidth: 150
-                }
+                  minWidth: 150,
+                },
                 // ,
                 // {
                 //   Header: "Change in RS",
                 //   accessor: "totalviolations"
                 // }
-              ]
+              ],
             },
             {
               Header: i18n._(t`View detail`),
-              accessor: d => d.bbl,
+              accessor: (d) => d.bbl,
               columns: [
                 {
-                    Cell: row => {
-                      return (
-                        <button className="btn" onClick={() => props.onOpenDetail(row.original)}>
-                          <span style={{ padding: '0 3px' }}>&#10142;</span>
-                        </button>);
-                    }
-                }
-              ]
-            }
+                  Cell: (row) => {
+                    return (
+                      <Link
+                        to={props.generateBaseUrl()}
+                        className="btn"
+                        onClick={() => props.onOpenDetail(row.original)}
+                      >
+                        <span style={{ padding: "0 3px" }}>&#10142;</span>
+                      </Link>
+                    );
+                  },
+                },
+              ],
+            },
           ]}
           style={{
-            height: "100%"
+            height: "100%",
           }}
-          className='-striped -highlight'
+          className="-striped -highlight"
         />
       </div>
     );
   }
-
-
-}
+};
 
 const PropertiesList = withI18n()(PropertiesListWithoutI18n);
 

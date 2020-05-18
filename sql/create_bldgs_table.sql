@@ -31,14 +31,14 @@ LEFT JOIN (
     unitsres,
     yearbuilt,
     lat, lng
-  FROM pluto_18v1
+  FROM pluto_19v2
 ) pluto ON (registrations.bbl = pluto.bbl)
 LEFT JOIN (
   SELECT
     bbl,
     count(*) as evictions
-  FROM marshal_evictions_18
-  WHERE residentialcommercialind = 'Residential'
+  FROM marshal_evictions_19
+  WHERE residentialcommercialind = 'RESIDENTIAL'
   GROUP BY bbl
 ) evictions ON (registrations.bbl = evictions.bbl)
 LEFT JOIN (

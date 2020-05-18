@@ -1,7 +1,6 @@
-@import '_vars.scss';
-@import '_tabs.scss';
-@import '_scrollbar.scss';
-
+@import "_vars.scss";
+@import "_tabs.scss";
+@import "_scrollbar.scss";
 
 .AddressPage {
   // height: calc(100vh - 68px);
@@ -44,11 +43,9 @@
     }
 
     @include tabs();
-
   }
 
   .AddressPage__content {
-
     flex: 1;
     // flex-grow: 1;
     // height: 100%;
@@ -57,20 +54,17 @@
     border-top: 1px solid $gray-dark;
 
     &:not(.AddressPage__content-active) {
-      display:none;
+      display: none;
       // visibility: hidden;
     }
   }
 
   .AddressPage__viz {
-
-
     display: flex;
     align-items: stretch;
     position: relative;
     border-bottom: 1px solid $gray-dark;
     width: 100%;
-
   }
 
   .AddressPage__table {

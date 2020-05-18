@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
-import { LocaleLink as Link } from '../i18n';
-import Modal from './Modal';
+import React, { Component } from "react";
+import { LocaleLink as Link } from "../i18n";
+import Modal from "./Modal";
 
-import 'styles/AddressToolbar.css';
-import { Trans } from '@lingui/macro';
+import "styles/AddressToolbar.css";
+import { Trans } from "@lingui/macro";
 
 export type AddressToolbarProps = {
   onExportClick: () => void;
@@ -12,11 +12,11 @@ export type AddressToolbarProps = {
     housenumber: string;
     streetname: string;
     boro: string;
-  }
+  };
 };
 
 type State = {
-  showExportModal: boolean
+  showExportModal: boolean;
 };
 
 export default class AddressToolbar extends Component<AddressToolbarProps, State> {
@@ -24,12 +24,11 @@ export default class AddressToolbar extends Component<AddressToolbarProps, State
     super(props);
 
     this.state = {
-      showExportModal: false
-    }
+      showExportModal: false,
+    };
   }
 
   render() {
-
     // fancy default syntax - if userArr is null, bbl keeps ''
     // let { bbl = '' } = this.props.userAddr;
     // let boro, block, lot;
@@ -43,33 +42,41 @@ export default class AddressToolbar extends Component<AddressToolbarProps, State
     return (
       <div className="AddressToolbar">
         <div className="btn-group float-right">
-          {
-            // <div className="dropdown">
-            //   <button className="btn dropdown-toggle" tabIndex="0">
-            //     Property Links &#8964;
-            //   </button>
-            //   <ul className="menu">
-            //     <li><a href={`http://a836-acris.nyc.gov/bblsearch/bblsearch.asp?borough=${boro}&block=${block}&lot=${lot}`} target="_blank">View documents on ACRIS &#8599;</a></li>
-            //     <li><a href={`http://webapps.nyc.gov:8084/CICS/fin1/find001i?FFUNC=C&FBORO=${boro}&FBLOCK=${block}&FLOT=${lot}`} target="_blank">DOF Property Tax Bills &#8599;</a></li>
-            //     <li><a href={`http://a810-bisweb.nyc.gov/bisweb/PropertyProfileOverviewServlet?boro=${boro}&block=${block}&lot=${lot}`} target="_blank">DOB Property Profile &#8599;</a></li>
-            //     <li><a href={`https://hpdonline.hpdnyc.org/HPDonline/Provide_address.aspx?p1=${boro}&p2=${this.props.userAddr.housenumber}&p3=${this.props.userAddr.streetname}&SearchButton=Search`} target="_blank">HPD Complaints/Violations &#8599;</a></li>
-            //   </ul>
-            // </div>
-          }
           <button className="btn" onClick={() => this.setState({ showExportModal: true })}>
             <Trans>Export Data</Trans>
           </button>
-          <Link className="btn" onClick={() => { window.gtag('event', 'new-search');}} to="/">
+          <Link
+            className="btn"
+            onClick={() => {
+              window.gtag("event", "new-search");
+            }}
+            to="/"
+          >
             <Trans>New Search</Trans>
           </Link>
         </div>
         <Modal
           showModal={this.state.showExportModal}
-          onClose={() => this.setState({ showExportModal: false })}>
-          <Trans render="p">This will export <b>{this.props.numOfAssocAddrs}</b> addresses associated with the landlord at <b>{userAddrStr}</b>!</Trans>
-          <Trans render="p">This data is in <u>CSV file format</u>, which can easily be used in Excel, Google Sheets, or any other spreadsheet program.</Trans>
+          onClose={() => this.setState({ showExportModal: false })}
+        >
+          <Trans render="p">
+            This will export <b>{this.props.numOfAssocAddrs}</b> addresses associated with the
+            landlord at <b>{userAddrStr}</b>!
+          </Trans>
+          <Trans render="p">
+            This data is in <u>CSV file format</u>, which can easily be used in Excel, Google
+            Sheets, or any other spreadsheet program.
+          </Trans>
           <br />
-          <button className="btn centered" onClick={() => { window.gtag('event', 'export-data'); this.props.onExportClick(); }}><Trans>Download</Trans></button>
+          <button
+            className="btn centered"
+            onClick={() => {
+              window.gtag("event", "export-data");
+              this.props.onExportClick();
+            }}
+          >
+            <Trans>Download</Trans>
+          </button>
         </Modal>
       </div>
     );

@@ -1,10 +1,9 @@
-@import '_vars.scss';
+@import "_vars.scss";
 
 .AddressToolbar {
-
   @include for-phone-only() {
     display: none;
-  };
+  }
 
   ul.menu {
     border: 1px solid $gray-dark;
@@ -35,6 +34,4 @@
       }
     }
   }
-
-
 }

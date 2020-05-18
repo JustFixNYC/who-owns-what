@@ -1,11 +1,11 @@
 /*! Spectre.css | MIT License | github.com/picturepan2/spectre */
 
 // Include our variables to overwrite the default ones
-@import 'styles/_vars.scss';
-@import 'styles/_button.scss';
+@import "styles/_vars.scss";
+@import "styles/_button.scss";
 
-@import 'node_modules/spectre.scss/spectre.scss';
-@import 'node_modules/spectre.scss/spectre-icons.scss';
+@import "node_modules/spectre.scss/spectre.scss";
+@import "node_modules/spectre.scss/spectre-icons.scss";
 
 // various overwrites
 a {
@@ -13,21 +13,24 @@ a {
   color: darken($justfix-blue, 10%);
 }
 
-a:focus, .form-input:focus, .btn:focus,  {
+a:focus,
+.form-input:focus,
+.btn:focus {
   // @include control-shadow($gray);
-  box-shadow: 0 0 0 .1rem fade-in($gray-light, .15);
+  box-shadow: 0 0 0 0.1rem fade-in($gray-light, 0.15);
   border-color: $gray-dark;
 }
 
 .menu {
-  box-shadow: 0 .1rem (.1rem+.1rem)*2 fade-in($gray-light, .30);
+  box-shadow: 0 0.1rem (0.1rem+0.1rem) * 2 fade-in($gray-light, 0.3);
 }
 
 p {
   line-height: 1.4;
 }
 
-b, .text-bold {
+b,
+.text-bold {
   font-weight: bold;
   color: #000;
 }
@@ -54,6 +57,10 @@ a.text-bold {
 sup .tooltip:after {
   font-size: 100%;
   line-height: 1.2;
+}
+
+.d-hide {
+  display: none;
 }
 
 // .btn:not(.btn-link) {
@@ -113,7 +120,7 @@ sup .tooltip:after {
 // @import 'node_modules/spectre.scss/src/_media.scss';
 //
 // // Layout
-// @import 'node_modules/spectre.scss/src/_layout.scss';
+@import "node_modules/spectre.scss/src/_layout.scss";
 // @import 'node_modules/spectre.scss/src/_navbar.scss';
 // @import 'node_modules/spectre.scss/src/_panels.scss';
 // @import 'node_modules/spectre.scss/src/_empty.scss';
@@ -138,4 +145,4 @@ sup .tooltip:after {
 //
 // // Utility classes
 // @import 'node_modules/spectre.scss/src/_animations.scss';
-// @import 'node_modules/spectre.scss/src/_utilities.scss';
+@import "node_modules/spectre.scss/src/_utilities.scss";

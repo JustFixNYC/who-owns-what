@@ -1,4 +1,4 @@
-@import '_vars.scss';
+@import "_vars.scss";
 
 // $scroll-border: $dark;
 // $scroll-body: $gray-dark;
@@ -16,7 +16,6 @@ $scroll-border: $gray-dark;
 $scroll-body: darken($background, 15%);
 
 @mixin scrollbar() {
-
   -webkit-overflow-scrolling: touch;
 
   &::-webkit-scrollbar {
@@ -27,7 +26,6 @@ $scroll-body: darken($background, 15%);
   &::-webkit-scrollbar-track {
     background-color: #fff;
 
-
     &:vertical {
       border-left: 1px solid $gray-dark;
       border-right: 1px solid $gray-dark;
@@ -35,7 +33,6 @@ $scroll-body: darken($background, 15%);
     &:horizontal {
       border-top: 1px solid $gray-dark;
     }
-
   }
 
   &::-webkit-scrollbar-thumb {
@@ -51,7 +48,6 @@ $scroll-body: darken($background, 15%);
     }
 
     box-shadow: inset -1px -1px 0px 0px $scroll-border,
-                inset 2px 2px 0px 0px lighten($scroll-body, 10%);
-
+      inset 2px 2px 0px 0px lighten($scroll-body, 10%);
   }
 }

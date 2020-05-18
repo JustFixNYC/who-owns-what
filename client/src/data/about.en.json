@@ -70,7 +70,7 @@
               "id": "3Dt21GL4AttopNFvqDJt6w",
               "type": "Asset",
               "createdAt": "2019-12-13T16:36:36.545Z",
-              "updatedAt": "2019-12-13T16:36:36.545Z",
+              "updatedAt": "2020-05-18T15:19:09.551Z",
               "environment": {
                 "sys": {
                   "id": "master",
@@ -78,7 +78,7 @@
                   "linkType": "Environment"
                 }
               },
-              "revision": 1,
+              "revision": 3,
               "locale": "en"
             },
             "fields": {
@@ -124,7 +124,7 @@
           },
           {
             "data": {
-              "uri": "https://medium.com/@JustFixNYC/who-owns-what-linking-nyc-buildings-with-data-173571e7bb31"
+              "uri": "https://whoownswhat.justfix.nyc/how-it-works"
             },
             "content": [
               {
