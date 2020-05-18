@@ -78,7 +78,7 @@
               "id": "2Ivr4g7lSDnFz4D9lCfEUE",
               "type": "Asset",
               "createdAt": "2020-01-16T20:01:10.593Z",
-              "updatedAt": "2020-01-16T20:27:11.250Z",
+              "updatedAt": "2020-05-18T15:18:54.029Z",
               "environment": {
                 "sys": {
                   "id": "master",
@@ -86,7 +86,7 @@
                   "linkType": "Environment"
                 }
               },
-              "revision": 4,
+              "revision": 6,
               "locale": "en"
             },
             "fields": {
@@ -369,7 +369,7 @@
                   },
                   {
                     "data": {
-                      "uri": "https://justfix.nyc"
+                      "uri": "https://www.justfix.nyc"
                     },
                     "content": [
                       {
@@ -411,7 +411,7 @@
                   },
                   {
                     "data": {
-                      "uri": "https://app.justfix.nyc/hp/splash"
+                      "uri": "https://app.justfix.nyc/ehp"
                     },
                     "content": [
                       {
