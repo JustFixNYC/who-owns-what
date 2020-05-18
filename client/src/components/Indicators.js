@@ -444,7 +444,9 @@ class IndicatorsWithoutI18n extends Component {
               <div className="column column-context col-4 col-lg-12">
                 <div className="card">
                   <div className="card-header">
-                    <div className="card-title h5">What are {dataset && dataset.name(i18n)}?</div>
+                    <div className="card-title h5">
+                      <Trans>What are {dataset && dataset.name(i18n)}?</Trans>
+                    </div>
                     <div className="card-subtitle text-gray" />
                   </div>
                   <div className="card-body">{dataset && dataset.explanation(i18n)}</div>
@@ -452,7 +454,7 @@ class IndicatorsWithoutI18n extends Component {
 
                 <div className="card card-links">
                   <div className="card-body card-body-links">
-                    <Trans render="h6">Official building pages</Trans>
+                    <Trans render="h6">Useful links</Trans>
                     <div className="columns">
                       <div className="column col-12">
                         <a

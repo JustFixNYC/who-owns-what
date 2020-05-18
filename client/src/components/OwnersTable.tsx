@@ -35,7 +35,7 @@ const OwnersTable: React.FC<{
               )}
             </div>
             <div className="column col-3">
-              <Trans render="p">Shell Companies</Trans>
+              <Trans render="p">Business Entities</Trans>
               {props.addr.corpnames && props.addr.corpnames.length && (
                 <ul>
                   {props.addr.corpnames.map((corp, idx) => (

@@ -248,7 +248,7 @@ class NychaPageWithoutI18n extends Component {
               <br />
 
               <div>
-                <Trans render="p">Useful links:</Trans>
+                <Trans render="p">Useful links</Trans>:
                 <div>
                   <div className="btn-group btn-group-block">
                     <a
@@ -260,12 +260,12 @@ class NychaPageWithoutI18n extends Component {
                       <Trans>HUD Complaint Form 958</Trans> &#8599;
                     </a>
                     <a
-                      href="https://www1.nyc.gov/assets/nycha/downloads/pdf/Development-Guide-01142019.pdf"
+                      href="https://www1.nyc.gov/assets/nycha/downloads/pdf/Development-Guide-04-23-2020.pdf"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="btn"
                     >
-                      <Trans>NYCHA Facility Directory</Trans> &#8599;
+                      <Trans>NYCHA Directory</Trans> &#8599;
                     </a>
                   </div>
                   <div className="btn-group btn-group-block">

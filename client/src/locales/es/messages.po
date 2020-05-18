@@ -216,7 +216,7 @@ msgstr "Desalojos"
 msgid "Evictions executed in this development by NYC Marshals in 2019. ANHD and the Housing Data Coalition cleaned, geocoded, and validated the data, originally sourced from DOI."
 msgstr "Desalojos ejecutados en este complejo por el Mariscal de NYC en 2019. ANHD y la Coalición de Datos de Vivienda limpiaron, codificaron y validaron los datos, originalmente provenientes del DOI."
 
-#: src/components/AddressToolbar.tsx:24
+#: src/components/AddressToolbar.tsx:29
 msgid "Export Data"
 msgstr "Exportar datos"
 
@@ -300,7 +300,7 @@ msgstr "JustFix.nyc es una organización registrada 501(c)(3) sin fines de lucro
 msgid "Landlord"
 msgstr "Dueño del edificio"
 
-#: src/components/IndicatorsViz.js:376
+#: src/components/IndicatorsViz.js:368
 msgid "Last Sale Unknown"
 msgstr "Última venta desconocida"
 
@@ -610,6 +610,10 @@ msgstr "Esto es <0>mejor</0> que el promedio de la ciudad de {VIOLATIONS_AVG} po
 #: src/components/PropertiesSummary.js:87
 msgid "This is <0>worse</0> than the citywide average of {VIOLATIONS_AVG} per residential unit."
 msgstr "Esto es <0>peor</0> que el promedio de la ciudad de {VIOLATIONS_AVG} por unidad residencial."
+
+#: src/components/DetailView.js:105
+msgid "This is the official identifer for the building according to the Dept. of Finance tax records."
+msgstr ""
 
 #: src/components/RentstabSummary.tsx:15
 msgid "This portfolio also had an estimated <0>net {changeType, select, gain {gain} other {loss}}</0> of <1>{absTotalRsDiff}</1> {absTotalRsDiff, plural, one {rent stabilized unit} other {rent stabilized units}} since 2007 (gained {absTotalRsGain}, lost {absTotalRsLoss})."
