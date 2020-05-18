@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2020-05-18 14:53\n"
+"PO-Revision-Date: 2020-05-18 15:02\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -58,7 +58,7 @@ msgstr "Acerca de"
 
 #: src/components/PropertiesSummary.js:89
 msgid "According to available HPD data, this portfolio has received <0>{0}</0> total violations."
-msgstr "Según los datos de HPD disponibles, esta cartera de edificios ha recibido un total de <0>{0}</0> infracciones."
+msgstr "Según los datos del HPD disponibles, esta cartera de edificios ha recibido un total de <0>{0}</0> infracciones."
 
 #: src/components/DetailView.js:179
 #: src/components/PropertiesSummary.js:97
@@ -239,7 +239,7 @@ msgstr "Quejas del HPD"
 
 #: src/components/IndicatorsDatasets.tsx:12
 msgid "HPD Complaints are housing issues reported to the City <0>by a tenant calling 311</0>. When someone issues a complaint, the Department of Housing Preservation and Development begins a process of investigation that may lead to an official violation from the City. Complaints can be identified as:<1/><2/><3>Emergency</3> — reported to be hazardous/dire<4/><5>Non-Emergency</5> — all others<6/><7/> Read more about HPD Complaints and how to file them at the <8>official HPD page</8>."
-msgstr "Las quejas de HPD son problemas de vivienda presentados a la Ciudad <0>por un inquilino al llamar al 311</0>. Cuando alguien presenta una queja, el Departamento de Preservación y Desarrollo de la Vivienda, DHCR por sus siglas en inglés, inicia un proceso de investigación que puede conducir a la emisión de una infracción oficial por parte de la Ciudad. Las quejas se pueden identificar como:<1/><2/><3>Emergencia</3> — se ha informado de que son peligrosas<4/><5>No-Emergencia</5> — todas las demás<6/><7/> Encontraras más información sobre las quejas de HPD y cómo presentarlas en la página <8>oficial del HPD</8>."
+msgstr "Las quejas del HPD son problemas de vivienda presentados a la Ciudad <0>por un inquilino al llamar al 311</0>. Cuando alguien presenta una queja, el Departamento de Preservación y Desarrollo de la Vivienda, DHCR por sus siglas en inglés, inicia un proceso de investigación que puede conducir a la emisión de una infracción oficial por parte de la Ciudad. Las quejas se pueden identificar como:<1/><2/><3>Emergencia</3> — se ha informado de que son peligrosas<4/><5>No-Emergencia</5> — todas las demás<6/><7/> Encontraras más información sobre las quejas del HPD y cómo presentarlas en la página <8>oficial del HPD</8>."
 
 #: src/components/IndicatorsDatasets.tsx:24
 #: src/components/PropertiesList.tsx:140
@@ -617,7 +617,7 @@ msgstr "Esta cartera de edificios tuvo una <0>{changeType, select, gain {gananci
 
 #: src/components/PropertiesSummary.js:83
 msgid "This portfolio has an average of <0>{0}</0> open HPD violations per residential unit."
-msgstr "Esta cartera de edificios tiene un promedio de <0>{0}</0> infracciones de HPD Actuales por cada unidad residencial."
+msgstr "Esta cartera de edificios tiene un promedio de <0>{0}</0> infracciones del HPD Actuales por cada unidad residencial."
 
 #: src/containers/HomePage.tsx:121
 msgid "This property management company owned by the Kushner family is notorious for <0>violating rent regulations</0> and <1>harassing tenants</1>. The stake currently held by Jared Kushner and Ivanka Trump is worth as much as $761 million."
@@ -717,7 +717,7 @@ msgstr "¿Qué pasa si el propietario no ha registrado el edificio?"
 
 #: src/containers/App.js:47
 msgid "Who owns what in nyc?"
-msgstr "¿Quién posee qué en Nueva York?"
+msgstr "¿Quién Posee Qué en Nueva York?"
 
 #: src/components/Indicators.js:450
 msgid "Year"
