@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2020-05-18 20:38\n"
+"PO-Revision-Date: 2020-05-18 20:48\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -426,7 +426,7 @@ msgstr "CARTERA DE EDIFICIOS: La dirección que has buscado está asociada con <
 #: src/components/DetailView.js:497
 #: src/components/OwnersTable.tsx:31
 msgid "People"
-msgstr "Personas"
+msgstr "Personas (Encontrarás definiciones en español de los tipos de personas asociadas al edificio en la página \"Como se usa\".)"
 
 #: src/components/Subscribe.tsx:20
 msgid "Please enter an email address!"
@@ -616,7 +616,7 @@ msgstr "Esto es <0>peor</0> que el promedio de la ciudad de {VIOLATIONS_AVG} por
 
 #: src/components/DetailView.js:105
 msgid "This is the official identifer for the building according to the Dept. of Finance tax records."
-msgstr ""
+msgstr "El identificador oficial del edificio según los registros del Departamento de Finanzas."
 
 #: src/components/RentstabSummary.tsx:15
 msgid "This portfolio also had an estimated <0>net {changeType, select, gain {gain} other {loss}}</0> of <1>{absTotalRsDiff}</1> {absTotalRsDiff, plural, one {rent stabilized unit} other {rent stabilized units}} since 2007 (gained {absTotalRsGain}, lost {absTotalRsLoss})."
@@ -636,7 +636,7 @@ msgstr "Esto representa el <0>{rsProportion}%</0> del tamaño total de esta cart
 
 #: src/components/DetailView.js:145
 msgid "This represents the total number of HPD Violations (both open & closed) recorded by the city."
-msgstr ""
+msgstr "Esto representa el número total de Infracciones del HPD (tanto actuales como cerradas) registradas por la ciudad."
 
 #: src/containers/NotRegisteredPage.js:86
 msgid "This seems like a smaller residential building. If the landlord doesn't reside there, it should be registered with HPD."
@@ -644,7 +644,7 @@ msgstr "Este parece ser un edificio residencial pequeño. Si el dueño no reside
 
 #: src/components/DetailView.js:161
 msgid "This tracks how rent stabilized units in the building have changed (i.e. \"&Delta;\") from 2007 to 2017. If the number for 2017 is red, this means there has been a loss in stabilzied units! These counts are estimated from the DOF Property Tax Bills."
-msgstr ""
+msgstr "El cambio en apartamentos de renta estabilizada que hay en el edificio (es decir, \"&Delta;\") del 2007 al 2017. Si el número en 2017 está en rojo, ¡esto significa que ha habido una pérdida en las cantidad de apartamentos de renta estabilizada! Estos recuentos se calculan a partir de las facturas de impuestos del Departamento de Finanzas."
 
 #: src/components/AddressToolbar.tsx:33
 msgid "This will export <0>{0}</0> addresses associated with the landlord at <1>{userAddrStr}</1>!"
@@ -683,7 +683,7 @@ msgstr "Unidades Residenciales"
 #: src/containers/NotRegisteredPage.js:244
 #: src/containers/NychaPage.js:251
 msgid "Useful links"
-msgstr ""
+msgstr "Enlaces útiles"
 
 #: src/components/DetailView.js:198
 msgid "View data over time"
