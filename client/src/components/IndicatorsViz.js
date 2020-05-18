@@ -130,6 +130,7 @@ class IndicatorsVizImplementation extends Component {
     var datasets;
 
     const { i18n } = this.props;
+    const locale = i18n._language || "en";
 
     switch (this.props.activeVis) {
       case "viols":
@@ -272,7 +273,7 @@ class IndicatorsVizImplementation extends Component {
                   var fullDate = value.concat("-15"); // Make date value include a day so it can be parsed
                   return (
                     (value.slice(5, 7) === "01" ? value.slice(0, 4) + "  " : "") +
-                    Helpers.formatDate(fullDate).slice(0, 3) // Include special year label for January
+                    Helpers.formatDateForTimeline(fullDate).slice(0, 3) // Include special year label for January
                   );
                 } else if (timeSpan === "quarter") {
                   return (
@@ -321,7 +322,7 @@ class IndicatorsVizImplementation extends Component {
             } else if (timeSpan === "month") {
               // Make date value include day:
               var fullDate = this._data.labels[tooltipItem[0].index].concat("-15");
-              return Helpers.formatDate(fullDate);
+              return Helpers.formatDateForTimeline(fullDate, locale);
             } else {
               return "";
             }
@@ -402,7 +403,7 @@ class IndicatorsVizImplementation extends Component {
                 label: {
                   content:
                     (dateLocation === "past" ? "← " : "") +
-                    Helpers.formatDate(this.props.lastSale.date) +
+                    Helpers.formatDateForTimeline(this.props.lastSale.date, locale) +
                     (dateLocation === "future" ? " →" : ""),
                   fontFamily: "Inconsolata, monospace",
                   fontColor: "#fff",

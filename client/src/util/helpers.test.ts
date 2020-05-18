@@ -100,8 +100,12 @@ test("titleCase() works", () => {
   expect(helpers.titleCase("boop jones")).toBe("Boop Jones");
 });
 
-test("formatDate() works", () => {
-  expect(helpers.formatDate("2008-01-05")).toBe("January 2008");
+test("formatDateForTimeline() works", () => {
+  expect(helpers.formatDateForTimeline("2008-01-05")).toBe("January 2008");
+});
+
+test("formatDateForTimeline() works for non-English locales", () => {
+  expect(helpers.formatDateForTimeline("2010-03-05","es")).toBe("2010 de marzo");
 });
 
 test("formatStreetNameForHpdLink() works for directional prefixes", () => {

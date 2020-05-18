@@ -34,7 +34,7 @@ class DetailViewWithoutI18n extends Component {
   formatDate(dateString) {
     var date = new Date(dateString);
     var options = { year: "numeric", month: "short", day: "numeric" };
-    return date.toLocaleDateString("en-US", options);
+    return date.toLocaleDateString(this.props.i18n._language || "en", options);
   }
 
   render() {
