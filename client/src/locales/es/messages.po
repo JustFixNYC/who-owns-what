@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2020-05-17 01:16\n"
+"PO-Revision-Date: 2020-05-18 14:53\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -285,7 +285,7 @@ msgstr "Información"
 
 #: src/containers/NotRegisteredPage.js:101
 msgid "It doesn't seem like this property is required to register with HPD."
-msgstr "Parece que esta propiedad no necesita estar registrada con HPD."
+msgstr "Parece que esta propiedad no necesita estar registrada con el HPD."
 
 #: src/components/EngagementPanel.tsx:8
 msgid "Join the fight for tenant rights!"
@@ -352,7 +352,7 @@ msgstr "App MyNYCHA"
 
 #: src/containers/NychaPage.js:182
 msgid "NYCHA Facility Directory"
-msgstr "Directorio de instalaciones de NYCHA"
+msgstr "Directorio de NYCHA"
 
 #: src/components/SocialShare.tsx:27
 msgid "New JustFix.nyc tool helps research on NYC landlords"
