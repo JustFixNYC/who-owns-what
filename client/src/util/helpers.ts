@@ -160,6 +160,12 @@ export default {
     return this.capitalize(date.toLocaleDateString(locale || "en", options));
   },
 
+  formatMonthSnippetForTimeline(dateString: string, locale?: SupportedLocale): string {
+    var date = new Date(dateString);
+    var options = { month: "short" };
+    return this.capitalize(date.toLocaleDateString(locale || "en", options)).slice(0, 3);
+  },
+
   formatStreetNameForHpdLink(streetName: string): string {
     var arr = streetName.split(" ");
     if (arr === []) {

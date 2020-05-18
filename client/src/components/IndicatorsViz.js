@@ -131,6 +131,8 @@ class IndicatorsVizImplementation extends Component {
 
     const { i18n } = this.props;
     const locale = i18n._language || "en";
+    console.log(Helpers.formatDateForTimeline("2010-03-05"));
+    console.log(Helpers.formatDateForTimeline("2010-03-05", "es"));
 
     switch (this.props.activeVis) {
       case "viols":
@@ -272,8 +274,8 @@ class IndicatorsVizImplementation extends Component {
                 if (timeSpan === "month") {
                   var fullDate = value.concat("-15"); // Make date value include a day so it can be parsed
                   return (
-                    (value.slice(5, 7) === "01" ? value.slice(0, 4) + "  " : "") +
-                    Helpers.formatDateForTimeline(fullDate).slice(0, 3) // Include special year label for January
+                    (value.slice(5, 7) === "01" ? value.slice(0, 4) + "  " : "") + // Include special year label for January
+                    Helpers.formatMonthSnippetForTimeline(fullDate, locale)
                   );
                 } else if (timeSpan === "quarter") {
                   return (
@@ -297,24 +299,15 @@ class IndicatorsVizImplementation extends Component {
           title: function (tooltipItem) {
             if (timeSpan === "quarter") {
               const quarter = this._data.labels[tooltipItem[0].index].slice(-1);
-              var monthRange;
-
-              switch (quarter) {
-                case "1":
-                  monthRange = "Jan - Mar";
-                  break;
-                case "2":
-                  monthRange = "Apr - Jun";
-                  break;
-                case "3":
-                  monthRange = "Jul - Sep";
-                  break;
-                case "4":
-                  monthRange = "Oct - Dec";
-                  break;
-                default:
-                  monthRange = "";
-              }
+              const numOfLastMonthInQuarter = parseInt(quarter) * 3;
+              /** A quarter year written out as it's range of months (ex: "Jan - Mar")  */
+              const monthRange = `${Helpers.formatMonthSnippetForTimeline(
+                "2020/0" + (numOfLastMonthInQuarter - 2),
+                locale
+              )} - ${Helpers.formatMonthSnippetForTimeline(
+                "2020/0" + numOfLastMonthInQuarter,
+                locale
+              )}`;
 
               return monthRange + " " + this._data.labels[tooltipItem[0].index].slice(0, 4);
             } else if (timeSpan === "year") {
