@@ -57,7 +57,6 @@ msgstr "About"
 msgid "According to available HPD data, this portfolio has received <0>{0}</0> total violations."
 msgstr "According to available HPD data, this portfolio has received <0>{0}</0> total violations."
 
-#: src/components/DetailView.js:298
 #: src/components/PropertiesSummary.js:161
 msgid "Additional links"
 msgstr "Additional links"
@@ -395,11 +394,6 @@ msgstr "Non-Emergency"
 msgid "Officer/Owner"
 msgstr "Officer/Owner"
 
-#: src/components/DetailView.js:303
-#: src/components/Indicators.js:457
-msgid "Official building pages"
-msgstr "Official building pages"
-
 #: src/components/Subscribe.tsx:34
 msgid "Oops! That email is invalid."
 msgstr "Oops! That email is invalid."
@@ -680,10 +674,13 @@ msgstr "Unable to request Code Violation Dismissals"
 msgid "Units"
 msgstr "Units"
 
+#: src/components/DetailView.js:298
+#: src/components/DetailView.js:303
+#: src/components/Indicators.js:457
 #: src/containers/NotRegisteredPage.js:244
 #: src/containers/NychaPage.js:251
-msgid "Useful links:"
-msgstr "Useful links:"
+msgid "Useful links"
+msgstr "Useful links"
 
 #: src/components/DetailView.js:198
 msgid "View data over time"

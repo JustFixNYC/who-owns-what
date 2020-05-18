@@ -454,7 +454,7 @@ class IndicatorsWithoutI18n extends Component {
 
                 <div className="card card-links">
                   <div className="card-body card-body-links">
-                    <Trans render="h6">Official building pages</Trans>
+                    <Trans render="h6">Useful links</Trans>
                     <div className="columns">
                       <div className="column col-12">
                         <a

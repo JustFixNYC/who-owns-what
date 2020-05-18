@@ -60,7 +60,6 @@ msgstr "Acerca de"
 msgid "According to available HPD data, this portfolio has received <0>{0}</0> total violations."
 msgstr "Según los datos de HPD disponibles, esta cartera de edificios ha recibido un total de <0>{0}</0> infracciones."
 
-#: src/components/DetailView.js:298
 #: src/components/PropertiesSummary.js:161
 msgid "Additional links"
 msgstr "Enlaces adicionales"
@@ -398,11 +397,6 @@ msgstr "No Emergencia"
 msgid "Officer/Owner"
 msgstr "Oficial/Propietario"
 
-#: src/components/DetailView.js:303
-#: src/components/Indicators.js:457
-msgid "Official building pages"
-msgstr "Páginas oficiales"
-
 #: src/components/Subscribe.tsx:34
 msgid "Oops! That email is invalid."
 msgstr "¡Vaya! Ese correo electrónico no es válido."
@@ -683,10 +677,13 @@ msgstr "Imposible solicitar el despido de una Infracción del Código de Viviend
 msgid "Units"
 msgstr "Unidad Residencial"
 
+#: src/components/DetailView.js:298
+#: src/components/DetailView.js:303
+#: src/components/Indicators.js:457
 #: src/containers/NotRegisteredPage.js:244
 #: src/containers/NychaPage.js:251
-msgid "Useful links:"
-msgstr "Enlaces útiles:"
+msgid "Useful links"
+msgstr "Enlaces útiles"
 
 #: src/components/DetailView.js:198
 msgid "View data over time"

@@ -295,12 +295,12 @@ class DetailViewWithoutI18n extends Component {
                     <div className="card-body column-right">
                       <div className="card-body-resources">
                         <span className="card-body-resources__title show-lg">
-                          <Trans render="em">Additional links</Trans>
+                          <Trans render="em">Useful links</Trans>
                         </span>
 
                         <div className="card-body-links">
-                          <h6 className="DetailView__subtitle">
-                            <Trans>Official building pages</Trans>
+                          <h6 className="DetailView__subtitle hide-lg">
+                            <Trans>Useful links</Trans>
                           </h6>
                           <div className="columns">
                             <div className="column col-12">
