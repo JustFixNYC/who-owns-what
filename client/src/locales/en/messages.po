@@ -303,7 +303,7 @@ msgstr "JustFix.nyc is a registered 501(c)(3) nonprofit organization."
 msgid "Landlord"
 msgstr "Landlord"
 
-#: src/components/IndicatorsViz.js:377
+#: src/components/IndicatorsViz.js:368
 msgid "Last Sale Unknown"
 msgstr "Last Sale Unknown"
 
@@ -374,7 +374,7 @@ msgstr "New York Regional Office:"
 msgid "No address found"
 msgstr "No address found"
 
-#: src/components/IndicatorsViz.js:436
+#: src/components/IndicatorsViz.js:427
 msgid "No data available"
 msgstr "No data available"
 
@@ -501,7 +501,7 @@ msgstr "Sign up"
 msgid "Sign up for email updates"
 msgstr "Sign up for email updates"
 
-#: src/components/IndicatorsViz.js:376
+#: src/components/IndicatorsViz.js:367
 msgid "Sold to Current Owner"
 msgstr "Sold to Current Owner"
 
@@ -651,7 +651,7 @@ msgstr "This will export <0>{0}</0> addresses associated with the landlord at <1
 msgid "Timeline"
 msgstr "Timeline"
 
-#: src/components/IndicatorsViz.js:337
+#: src/components/IndicatorsViz.js:328
 #: src/components/PropertiesList.tsx:147
 msgid "Total"
 msgstr "Total"

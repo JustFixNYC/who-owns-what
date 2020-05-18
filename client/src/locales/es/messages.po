@@ -306,7 +306,7 @@ msgstr "JustFix.nyc es una organización registrada 501(c)(3) sin fines de lucro
 msgid "Landlord"
 msgstr "Dueño del edificio"
 
-#: src/components/IndicatorsViz.js:377
+#: src/components/IndicatorsViz.js:368
 msgid "Last Sale Unknown"
 msgstr "Última venta desconocida"
 
@@ -377,7 +377,7 @@ msgstr "Oficina Regional de Nueva York:"
 msgid "No address found"
 msgstr "No se encontraron direcciones"
 
-#: src/components/IndicatorsViz.js:436
+#: src/components/IndicatorsViz.js:427
 msgid "No data available"
 msgstr "No hay datos disponibles"
 
@@ -504,7 +504,7 @@ msgstr "Regístrate"
 msgid "Sign up for email updates"
 msgstr "Regístrate para recibir noticias por email"
 
-#: src/components/IndicatorsViz.js:376
+#: src/components/IndicatorsViz.js:367
 msgid "Sold to Current Owner"
 msgstr "Vendido al Propietario Actual"
 
@@ -654,7 +654,7 @@ msgstr "¡Esto exportará <0>{0}</0> direcciones asociadas al propietario de <1>
 msgid "Timeline"
 msgstr "Cronología"
 
-#: src/components/IndicatorsViz.js:337
+#: src/components/IndicatorsViz.js:328
 #: src/components/PropertiesList.tsx:147
 msgid "Total"
 msgstr "Total"
