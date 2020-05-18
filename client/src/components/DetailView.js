@@ -7,11 +7,13 @@ import Browser from "util/browser";
 import Modal from "components/Modal";
 
 import "styles/DetailView.css";
+import { withI18n } from "@lingui/react";
+import { t } from "@lingui/macro";
 import { Trans } from "@lingui/macro";
 import { SocialSharePortfolio } from "./SocialShare";
 import { NavLink, Link } from "react-router-dom";
 
-export default class DetailView extends Component {
+class DetailViewWithoutI18n extends Component {
   constructor(props) {
     super(props);
 
@@ -35,6 +37,7 @@ export default class DetailView extends Component {
   }
 
   render() {
+    const { i18n } = this.props;
     let boro, block, lot, ownernames, userOwnernames, takeActionURL;
     if (this.props.addr) {
       ({ boro, block, lot } = Helpers.splitBBL(this.props.addr.bbl));
@@ -97,7 +100,9 @@ export default class DetailView extends Component {
                         <div className="table-row">
                           <div
                             className="double"
-                            title="This is the official identifer for the building according to the Dept. of Finance tax records."
+                            title={i18n._(
+                              t`This is the official identifer for the building according to the Dept. of Finance tax records.`
+                            )}
                           >
                             <label>
                               Boro{bblDash}Block{bblDash}Lot (BBL)
@@ -108,29 +113,53 @@ export default class DetailView extends Component {
                             {bblDash}
                             {lot}
                           </div>
-                          <div title="The year that this building was originally constructed, according to the Dept. of City Planning.">
+                          <div
+                            title={i18n._(
+                              t`The year that this building was originally constructed, according to the Dept. of City Planning.`
+                            )}
+                          >
                             <Trans render="label">Year Built</Trans>
                             {this.props.addr.yearbuilt !== 0 ? this.props.addr.yearbuilt : "N/A"}
                           </div>
-                          <div title="The number of residential units in this building, according to the Dept. of City Planning.">
+                          <div
+                            title={i18n._(
+                              t`The number of residential units in this building, according to the Dept. of City Planning.`
+                            )}
+                          >
                             <Trans render="label">Units</Trans>
                             {this.props.addr.unitsres}
                           </div>
                         </div>
                         <div className="table-row">
-                          <div title="The number of open HPD violations for this building, updated monthly. Click the HPD Building Profile button below for the most up-to-date information.">
+                          <div
+                            title={i18n._(
+                              t`The number of open HPD violations for this building, updated monthly. Click the HPD Building Profile button below for the most up-to-date information.`
+                            )}
+                          >
                             <Trans render="label">Open Violations</Trans>
                             {this.props.addr.openviolations}
                           </div>
-                          <div title="This represents the total number of HPD Violations (both open & closed) recorded by the city.">
+                          <div
+                            title={i18n._(
+                              t`This represents the total number of HPD Violations (both open & closed) recorded by the city.`
+                            )}
+                          >
                             <Trans render="label">Total Violations</Trans>
                             {this.props.addr.totalviolations}
                           </div>
-                          <div title="Evictions executed by NYC Marshals in 2019. ANHD and the Housing Data Coalition cleaned, geocoded, and validated the data, originally sourced from DOI.">
+                          <div
+                            title={i18n._(
+                              t`Evictions executed by NYC Marshals in 2019. ANHD and the Housing Data Coalition cleaned, geocoded, and validated the data, originally sourced from DOI.`
+                            )}
+                          >
                             <Trans render="label">2019 Evictions</Trans>
                             {this.props.addr.evictions !== null ? this.props.addr.evictions : "N/A"}
                           </div>
-                          <div title='This tracks how rent stabilized units in the building have changed (i.e. "&Delta;") from 2007 to 2017. If the number for 2017 is red, this means there has been a loss in stabilzied units! These counts are estimated from the DOF Property Tax Bills.'>
+                          <div
+                            title={i18n._(
+                              t`This tracks how rent stabilized units in the building have changed (i.e. "&Delta;") from 2007 to 2017. If the number for 2017 is red, this means there has been a loss in stabilzied units! These counts are estimated from the DOF Property Tax Bills.`
+                            )}
+                          >
                             <label>
                               &Delta; <Trans>RS Units</Trans>
                             </label>
@@ -485,3 +514,7 @@ export default class DetailView extends Component {
     );
   }
 }
+
+const DetailView = withI18n()(DetailViewWithoutI18n);
+
+export default DetailView;
