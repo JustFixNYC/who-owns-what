@@ -106,8 +106,8 @@ msgstr "Building Classification"
 msgid "Building Permit Applications"
 msgstr "Building Permit Applications"
 
-#: src/components/IndicatorsViz.js:181
-#: src/components/IndicatorsViz.js:256
+#: src/components/IndicatorsViz.js:182
+#: src/components/IndicatorsViz.js:257
 msgid "Building Permits Applied For"
 msgstr "Building Permits Applied For"
 
@@ -137,15 +137,15 @@ msgstr "Business Entities"
 msgid "Civil penalties of $250-$500"
 msgstr "Civil penalties of $250-$500"
 
-#: src/components/IndicatorsViz.js:152
+#: src/components/IndicatorsViz.js:153
 msgid "Class A"
 msgstr "Class A"
 
-#: src/components/IndicatorsViz.js:145
+#: src/components/IndicatorsViz.js:146
 msgid "Class B"
 msgstr "Class B"
 
-#: src/components/IndicatorsViz.js:138
+#: src/components/IndicatorsViz.js:139
 msgid "Class C"
 msgstr "Class C"
 
@@ -157,7 +157,7 @@ msgstr "Click here to learn more."
 msgid "Close legend"
 msgstr "Close legend"
 
-#: src/components/IndicatorsViz.js:253
+#: src/components/IndicatorsViz.js:254
 msgid "Complaints Issued"
 msgstr "Complaints Issued"
 
@@ -194,7 +194,7 @@ msgstr "Download"
 msgid "Email"
 msgstr "Email"
 
-#: src/components/IndicatorsViz.js:163
+#: src/components/IndicatorsViz.js:164
 msgid "Emergency"
 msgstr "Emergency"
 
@@ -303,7 +303,7 @@ msgstr "JustFix.nyc is a registered 501(c)(3) nonprofit organization."
 msgid "Landlord"
 msgstr "Landlord"
 
-#: src/components/IndicatorsViz.js:376
+#: src/components/IndicatorsViz.js:377
 msgid "Last Sale Unknown"
 msgstr "Last Sale Unknown"
 
@@ -374,7 +374,7 @@ msgstr "New York Regional Office:"
 msgid "No address found"
 msgstr "No address found"
 
-#: src/components/IndicatorsViz.js:435
+#: src/components/IndicatorsViz.js:436
 msgid "No data available"
 msgstr "No data available"
 
@@ -386,7 +386,7 @@ msgstr "No registration found for {usersInputAddressFragment}!"
 msgid "No registration found!"
 msgstr "No registration found!"
 
-#: src/components/IndicatorsViz.js:170
+#: src/components/IndicatorsViz.js:171
 msgid "Non-Emergency"
 msgstr "Non-Emergency"
 
@@ -501,7 +501,7 @@ msgstr "Sign up"
 msgid "Sign up for email updates"
 msgstr "Sign up for email updates"
 
-#: src/components/IndicatorsViz.js:375
+#: src/components/IndicatorsViz.js:376
 msgid "Sold to Current Owner"
 msgstr "Sold to Current Owner"
 
@@ -651,7 +651,7 @@ msgstr "This will export <0>{0}</0> addresses associated with the landlord at <1
 msgid "Timeline"
 msgstr "Timeline"
 
-#: src/components/IndicatorsViz.js:336
+#: src/components/IndicatorsViz.js:337
 #: src/components/PropertiesList.tsx:147
 msgid "Total"
 msgstr "Total"
@@ -710,7 +710,7 @@ msgstr "View portfolio"
 msgid "View portfolio map"
 msgstr "View portfolio map"
 
-#: src/components/IndicatorsViz.js:255
+#: src/components/IndicatorsViz.js:256
 msgid "Violations Issued"
 msgstr "Violations Issued"
 
