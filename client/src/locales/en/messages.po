@@ -13,15 +13,15 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-#: src/components/DetailView.js:248
+#: src/components/DetailView.js:249
 msgid "(expired {0})"
 msgstr "(expired {0})"
 
-#: src/components/DetailView.js:255
+#: src/components/DetailView.js:256
 msgid "(expires {0})"
 msgstr "(expires {0})"
 
-#: src/components/DetailView.js:187
+#: src/components/DetailView.js:188
 msgid "(hover over a box to learn more)"
 msgstr "(hover over a box to learn more)"
 
@@ -33,7 +33,7 @@ msgstr "({browserType, select, mobile {tap} other {click}} to view details)"
 msgid "... or view some sample portfolios:"
 msgstr "... or view some sample portfolios:"
 
-#: src/components/DetailView.js:155
+#: src/components/DetailView.js:156
 #: src/containers/NychaPage.js:149
 msgid "2019 Evictions"
 msgstr "2019 Evictions"
@@ -42,8 +42,8 @@ msgstr "2019 Evictions"
 msgid "<0>COVID-19 Update: </0>JustFix.nyc remains in operation, and we are adapting our products to match new rules put in place during the Covid-19 public health crisis. Thanks to organizing from tenant leaders, renters now have stronger protections during this time, including a full halt on eviction cases. <1><2>Learn more</2></1>"
 msgstr "<0>COVID-19 Update: </0>JustFix.nyc remains in operation, and we are adapting our products to match new rules put in place during the Covid-19 public health crisis. Thanks to organizing from tenant leaders, renters now have stronger protections during this time, including a full halt on eviction cases. <1><2>Learn more</2></1>"
 
-#: src/components/DetailView.js:371
-#: src/components/Indicators.js:525
+#: src/components/DetailView.js:372
+#: src/components/Indicators.js:527
 #: src/containers/NotRegisteredPage.js:279
 #: src/containers/NychaPage.js:286
 msgid "ANHD DAP Portal"
@@ -57,7 +57,7 @@ msgstr "About"
 msgid "According to available HPD data, this portfolio has received <0>{0}</0> total violations."
 msgstr "According to available HPD data, this portfolio has received <0>{0}</0> total violations."
 
-#: src/components/DetailView.js:297
+#: src/components/DetailView.js:298
 #: src/components/PropertiesSummary.js:161
 msgid "Additional links"
 msgstr "Additional links"
@@ -70,8 +70,8 @@ msgstr "Address"
 msgid "All set! Thanks for subscribing!"
 msgstr "All set! Thanks for subscribing!"
 
-#: src/components/DetailView.js:265
-#: src/components/DetailView.js:379
+#: src/components/DetailView.js:266
+#: src/components/DetailView.js:380
 msgid "Are you having issues in this building?"
 msgstr "Are you having issues in this building?"
 
@@ -79,7 +79,7 @@ msgstr "Are you having issues in this building?"
 msgid "Are you having issues in this development?"
 msgstr "Are you having issues in this development?"
 
-#: src/components/DetailView.js:84
+#: src/components/DetailView.js:85
 #: src/components/Indicators.js:303
 msgid "BUILDING:"
 msgstr "BUILDING:"
@@ -120,16 +120,16 @@ msgstr "Buildings without valid property registration are subject to the followi
 msgid "Built"
 msgstr "Built"
 
-#: src/components/DetailView.js:215
-#: src/components/DetailView.js:460
-#: src/components/DetailView.js:471
+#: src/components/DetailView.js:216
+#: src/components/DetailView.js:461
+#: src/components/DetailView.js:472
 #: src/components/OwnersTable.tsx:19
 msgid "Business Addresses"
 msgstr "Business Addresses"
 
-#: src/components/DetailView.js:204
-#: src/components/DetailView.js:438
-#: src/components/DetailView.js:449
+#: src/components/DetailView.js:205
+#: src/components/DetailView.js:439
+#: src/components/DetailView.js:450
 #: src/components/OwnersTable.tsx:25
 msgid "Business Entities"
 msgstr "Business Entities"
@@ -162,14 +162,14 @@ msgstr "Close legend"
 msgid "Complaints Issued"
 msgstr "Complaints Issued"
 
-#: src/components/DetailView.js:345
-#: src/components/Indicators.js:499
+#: src/components/DetailView.js:346
+#: src/components/Indicators.js:501
 #: src/containers/NotRegisteredPage.js:271
 msgid "DOB Building Profile"
 msgstr "DOB Building Profile"
 
-#: src/components/DetailView.js:358
-#: src/components/Indicators.js:512
+#: src/components/DetailView.js:359
+#: src/components/Indicators.js:514
 #: src/containers/NotRegisteredPage.js:261
 msgid "DOF Property Tax Bills"
 msgstr "DOF Property Tax Bills"
@@ -212,7 +212,7 @@ msgstr "Enter email"
 msgid "Evictions"
 msgstr "Evictions"
 
-#: src/components/DetailView.js:152
+#: src/components/DetailView.js:153
 msgid "Evictions executed by NYC Marshals in 2019. ANHD and the Housing Data Coalition cleaned, geocoded, and validated the data, originally sourced from DOI."
 msgstr "Evictions executed by NYC Marshals in 2019. ANHD and the Housing Data Coalition cleaned, geocoded, and validated the data, originally sourced from DOI."
 
@@ -220,7 +220,7 @@ msgstr "Evictions executed by NYC Marshals in 2019. ANHD and the Housing Data Co
 msgid "Evictions executed in this development by NYC Marshals in 2019. ANHD and the Housing Data Coalition cleaned, geocoded, and validated the data, originally sourced from DOI."
 msgstr "Evictions executed in this development by NYC Marshals in 2019. ANHD and the Housing Data Coalition cleaned, geocoded, and validated the data, originally sourced from DOI."
 
-#: src/components/AddressToolbar.tsx:24
+#: src/components/AddressToolbar.tsx:29
 msgid "Export Data"
 msgstr "Export Data"
 
@@ -232,18 +232,14 @@ msgstr "Failure to register a building with HPD"
 msgid "General info"
 msgstr "General info"
 
-#: src/components/DetailView.js:332
-#: src/components/Indicators.js:486
+#: src/components/DetailView.js:333
+#: src/components/Indicators.js:488
 msgid "HPD Building Profile"
 msgstr "HPD Building Profile"
 
 #: src/components/IndicatorsDatasets.tsx:6
 msgid "HPD Complaints"
 msgstr "HPD Complaints"
-
-#: src/components/IndicatorsDatasets.tsx:12
-#~ msgid "HPD Complaints are housing issues reported to the City <0>by a tenant calling 311</0>. When someone issues a complaint, the Department of Housing Preservation and Development begins a process of investigation that may lead to an official violation from the City. Complaints can be identified as:<1/><2/><3>Emergency</3> — reported to be hazardous/dire<4/><5>Non-Emergency</5> — all others<6/><7/> Read more about HPD Complaints and how to file them at the <8>official HPD page</8>."
-#~ msgstr "HPD Complaints are housing issues reported to the City <0>by a tenant calling 311</0>. When someone issues a complaint, the Department of Housing Preservation and Development begins a process of investigation that may lead to an official violation from the City. Complaints can be identified as:<1/><2/><3>Emergency</3> — reported to be hazardous/dire<4/><5>Non-Emergency</5> — all others<6/><7/> Read more about HPD Complaints and how to file them at the <8>official HPD page</8>."
 
 #: src/components/IndicatorsDatasets.tsx:12
 msgid "HPD Complaints are housing issues reported to the City <0>by a tenant calling 311</0>. When someone issues a complaint, the Department of Housing Preservation and Development begins a process of investigation that may lead to an official violation from the City. Complaints can be identified as:<1/><2/><3>Emergency</3> — reported to be hazardous/dire<4/><5>Non-Emergency</5> — all others<6/><7/>Read more about HPD Complaints and how to file them at the <8>official HPD page</8>."
@@ -270,8 +266,8 @@ msgstr "Have thoughts about this page?"
 msgid "Home"
 msgstr "Home"
 
-#: src/components/DetailView.js:92
-#: src/components/DetailView.js:414
+#: src/components/DetailView.js:93
+#: src/components/DetailView.js:415
 msgid "How is this building associated to this portfolio?"
 msgstr "How is this building associated to this portfolio?"
 
@@ -312,7 +308,7 @@ msgstr "Landlord"
 msgid "Last Sale Unknown"
 msgstr "Last Sale Unknown"
 
-#: src/components/DetailView.js:242
+#: src/components/DetailView.js:243
 msgid "Last registered:"
 msgstr "Last registered:"
 
@@ -359,14 +355,14 @@ msgid "MyNYCHA App"
 msgstr "MyNYCHA App"
 
 #: src/containers/NychaPage.js:268
-msgid "NYCHA Facility Directory"
-msgstr "NYCHA Facility Directory"
+msgid "NYCHA Directory"
+msgstr "NYCHA Directory"
 
 #: src/components/SocialShare.tsx:26
 msgid "New JustFix.nyc tool helps research on NYC landlords"
 msgstr "New JustFix.nyc tool helps research on NYC landlords"
 
-#: src/components/AddressToolbar.tsx:29
+#: src/components/AddressToolbar.tsx:26
 msgid "New Search"
 msgstr "New Search"
 
@@ -399,8 +395,8 @@ msgstr "Non-Emergency"
 msgid "Officer/Owner"
 msgstr "Officer/Owner"
 
-#: src/components/DetailView.js:302
-#: src/components/Indicators.js:455
+#: src/components/DetailView.js:303
+#: src/components/Indicators.js:457
 msgid "Official building pages"
 msgstr "Official building pages"
 
@@ -412,17 +408,13 @@ msgstr "Oops! That email is invalid."
 msgid "Open"
 msgstr "Open"
 
-#: src/components/DetailView.js:139
+#: src/components/DetailView.js:140
 msgid "Open Violations"
 msgstr "Open Violations"
 
 #: src/containers/AddressPage.js:173
 msgid "Overview"
 msgstr "Overview"
-
-#: src/components/IndicatorsDatasets.tsx:50
-#~ msgid "Owners submit Building Permit Applications to the Department of Buildings before any construction project to get necessary approval. The number of applications filed can indicate how much construction the owner was planning.<0/><1/> Read more about DOB Building Applications/Permits at the <2>official NYC Buildings page</2>."
-#~ msgstr "Owners submit Building Permit Applications to the Department of Buildings before any construction project to get necessary approval. The number of applications filed can indicate how much construction the owner was planning.<0/><1/> Read more about DOB Building Applications/Permits at the <2>official NYC Buildings page</2>."
 
 #: src/components/IndicatorsDatasets.tsx:67
 msgid "Owners submit Building Permit Applications to the Department of Buildings before any construction project to get necessary approval. The number of applications filed can indicate how much construction the owner was planning.<0/><1/>Read more about DOB Building Applications/Permits at the <2>official NYC Buildings page</2>."
@@ -432,13 +424,9 @@ msgstr "Owners submit Building Permit Applications to the Department of Building
 msgid "PORTFOLIO: Your search address is associated with <0>{0}</0> {1, plural, one {building} other {buildings}}"
 msgstr "PORTFOLIO: Your search address is associated with <0>{0}</0> {1, plural, one {building} other {buildings}}"
 
-#: src/containers/AddressPage.js:145
-#~ msgid "PORTFOLIO: Your search address is associated with <0>{0}</0> {1, plural, one {building} other {buildings}}:"
-#~ msgstr "PORTFOLIO: Your search address is associated with <0>{0}</0> {1, plural, one {building} other {buildings}}:"
-
-#: src/components/DetailView.js:227
-#: src/components/DetailView.js:484
-#: src/components/DetailView.js:496
+#: src/components/DetailView.js:228
+#: src/components/DetailView.js:485
+#: src/components/DetailView.js:497
 #: src/components/OwnersTable.tsx:31
 msgid "People"
 msgstr "People"
@@ -463,7 +451,7 @@ msgstr "Public Housing Development"
 msgid "Quarter"
 msgstr "Quarter"
 
-#: src/components/DetailView.js:164
+#: src/components/DetailView.js:165
 #: src/components/PropertiesList.tsx:116
 msgid "RS Units"
 msgstr "RS Units"
@@ -501,8 +489,8 @@ msgstr "Send us feedback!"
 msgid "Share"
 msgstr "Share"
 
-#: src/components/DetailView.js:282
-#: src/components/DetailView.js:393
+#: src/components/DetailView.js:283
+#: src/components/DetailView.js:394
 #: src/components/EngagementPanel.tsx:18
 #: src/components/PropertiesSummary.js:185
 #: src/containers/App.js:81
@@ -510,12 +498,6 @@ msgstr "Share"
 #: src/containers/NychaPage.js:309
 msgid "Share this page with your neighbors"
 msgstr "Share this page with your neighbors"
-
-#: src/components/DetailView.js:438
-#: src/components/DetailView.js:449
-#: src/components/OwnersTable.tsx:25
-#~ msgid "Shell Companies"
-#~ msgstr "Shell Companies"
 
 #: src/components/Subscribe.tsx:52
 msgid "Sign up"
@@ -541,8 +523,8 @@ msgstr "Source code"
 msgid "Summary"
 msgstr "Summary"
 
-#: src/components/DetailView.js:276
-#: src/components/DetailView.js:387
+#: src/components/DetailView.js:277
+#: src/components/DetailView.js:388
 #: src/containers/NychaPage.js:303
 msgid "Take action on JustFix.nyc!"
 msgstr "Take action on JustFix.nyc!"
@@ -579,7 +561,7 @@ msgstr "The most common corporate entity is <0>{0}</0> and the most common busin
 msgid "The most common {0, plural, one {name that appears in this portfolio is} other {names that appear in this portfolio are}} <0/>."
 msgstr "The most common {0, plural, one {name that appears in this portfolio is} other {names that appear in this portfolio are}} <0/>."
 
-#: src/components/DetailView.js:136
+#: src/components/DetailView.js:137
 msgid "The number of open HPD violations for this building, updated monthly. Click the HPD Building Profile button below for the most up-to-date information."
 msgstr "The number of open HPD violations for this building, updated monthly. Click the HPD Building Profile button below for the most up-to-date information."
 
@@ -587,11 +569,11 @@ msgstr "The number of open HPD violations for this building, updated monthly. Cl
 msgid "The number of residential units across all buildings in this development, according to the Dept. of City Planning."
 msgstr "The number of residential units across all buildings in this development, according to the Dept. of City Planning."
 
-#: src/components/DetailView.js:126
+#: src/components/DetailView.js:127
 msgid "The number of residential units in this building, according to the Dept. of City Planning."
 msgstr "The number of residential units in this building, according to the Dept. of City Planning."
 
-#: src/components/DetailView.js:118
+#: src/components/DetailView.js:119
 msgid "The year that this building was originally constructed, according to the Dept. of City Planning."
 msgstr "The year that this building was originally constructed, according to the Dept. of City Planning."
 
@@ -635,7 +617,7 @@ msgstr "This is <0>better</0> than the citywide average of {VIOLATIONS_AVG} per 
 msgid "This is <0>worse</0> than the citywide average of {VIOLATIONS_AVG} per residential unit."
 msgstr "This is <0>worse</0> than the citywide average of {VIOLATIONS_AVG} per residential unit."
 
-#: src/components/DetailView.js:104
+#: src/components/DetailView.js:105
 msgid "This is the official identifer for the building according to the Dept. of Finance tax records."
 msgstr "This is the official identifer for the building according to the Dept. of Finance tax records."
 
@@ -655,7 +637,7 @@ msgstr "This property management company owned by the Kushner family is notoriou
 msgid "This represents <0>{rsProportion}%</0> of the total size of this portfolio."
 msgstr "This represents <0>{rsProportion}%</0> of the total size of this portfolio."
 
-#: src/components/DetailView.js:144
+#: src/components/DetailView.js:145
 msgid "This represents the total number of HPD Violations (both open & closed) recorded by the city."
 msgstr "This represents the total number of HPD Violations (both open & closed) recorded by the city."
 
@@ -663,7 +645,7 @@ msgstr "This represents the total number of HPD Violations (both open & closed) 
 msgid "This seems like a smaller residential building. If the landlord doesn't reside there, it should be registered with HPD."
 msgstr "This seems like a smaller residential building. If the landlord doesn't reside there, it should be registered with HPD."
 
-#: src/components/DetailView.js:160
+#: src/components/DetailView.js:161
 msgid "This tracks how rent stabilized units in the building have changed (i.e. \"&Delta;\") from 2007 to 2017. If the number for 2017 is red, this means there has been a loss in stabilzied units! These counts are estimated from the DOF Property Tax Bills."
 msgstr "This tracks how rent stabilized units in the building have changed (i.e. \"&Delta;\") from 2007 to 2017. If the number for 2017 is red, this means there has been a loss in stabilzied units! These counts are estimated from the DOF Property Tax Bills."
 
@@ -680,7 +662,7 @@ msgstr "Timeline"
 msgid "Total"
 msgstr "Total"
 
-#: src/components/DetailView.js:147
+#: src/components/DetailView.js:148
 msgid "Total Violations"
 msgstr "Total Violations"
 
@@ -692,7 +674,7 @@ msgstr "Unable to initiate a court action for nonpayment of rent."
 msgid "Unable to request Code Violation Dismissals"
 msgstr "Unable to request Code Violation Dismissals"
 
-#: src/components/DetailView.js:129
+#: src/components/DetailView.js:130
 #: src/components/PropertiesList.tsx:83
 #: src/containers/NychaPage.js:141
 msgid "Units"
@@ -703,7 +685,7 @@ msgstr "Units"
 msgid "Useful links:"
 msgstr "Useful links:"
 
-#: src/components/DetailView.js:197
+#: src/components/DetailView.js:198
 msgid "View data over time"
 msgstr "View data over time"
 
@@ -711,8 +693,8 @@ msgstr "View data over time"
 msgid "View detail"
 msgstr "View detail"
 
-#: src/components/DetailView.js:315
-#: src/components/Indicators.js:467
+#: src/components/DetailView.js:316
+#: src/components/Indicators.js:469
 #: src/containers/NotRegisteredPage.js:253
 msgid "View documents on ACRIS"
 msgstr "View documents on ACRIS"
@@ -727,7 +709,7 @@ msgstr "View legend"
 msgid "View portfolio"
 msgstr "View portfolio"
 
-#: src/components/DetailView.js:76
+#: src/components/DetailView.js:77
 msgid "View portfolio map"
 msgstr "View portfolio map"
 
@@ -743,9 +725,13 @@ msgstr "Visit our website"
 msgid "Warning! This site doesn't fully work on older versions of Safari. Try a <0>modern browser</0>."
 msgstr "Warning! This site doesn't fully work on older versions of Safari. Try a <0>modern browser</0>."
 
-#: src/components/DetailView.js:416
+#: src/components/DetailView.js:417
 msgid "We compare your search address with a database of over 200k buildings to identify a landlord or management company's portfolio. To learn more, check out <0>our methodology</0>."
 msgstr "We compare your search address with a database of over 200k buildings to identify a landlord or management company's portfolio. To learn more, check out <0>our methodology</0>."
+
+#: src/components/Indicators.js:448
+msgid "What are {0}?"
+msgstr "What are {0}?"
 
 #: src/containers/NotRegisteredPage.js:59
 msgid "What happens if the landlord has failed to register?"
@@ -759,7 +745,7 @@ msgstr "Who owns what in nyc?"
 msgid "Year"
 msgstr "Year"
 
-#: src/components/DetailView.js:121
+#: src/components/DetailView.js:122
 msgid "Year Built"
 msgstr "Year Built"
 
