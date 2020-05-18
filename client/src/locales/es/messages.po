@@ -131,6 +131,9 @@ msgid "Business Addresses"
 msgstr "Dirección Comercial"
 
 #: src/components/DetailView.js:204
+#: src/components/DetailView.js:438
+#: src/components/DetailView.js:449
+#: src/components/OwnersTable.tsx:25
 msgid "Business Entities"
 msgstr "Entidades Comerciales"
 
@@ -514,8 +517,8 @@ msgstr "Comparte esta página con tus vecinos"
 #: src/components/DetailView.js:438
 #: src/components/DetailView.js:449
 #: src/components/OwnersTable.tsx:25
-msgid "Shell Companies"
-msgstr "Compañía Ficticia"
+#~ msgid "Shell Companies"
+#~ msgstr "Compañía Ficticia"
 
 #: src/components/Subscribe.tsx:52
 msgid "Sign up"

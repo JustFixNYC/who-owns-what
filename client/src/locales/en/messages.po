@@ -128,6 +128,9 @@ msgid "Business Addresses"
 msgstr "Business Addresses"
 
 #: src/components/DetailView.js:204
+#: src/components/DetailView.js:438
+#: src/components/DetailView.js:449
+#: src/components/OwnersTable.tsx:25
 msgid "Business Entities"
 msgstr "Business Entities"
 
@@ -511,8 +514,8 @@ msgstr "Share this page with your neighbors"
 #: src/components/DetailView.js:438
 #: src/components/DetailView.js:449
 #: src/components/OwnersTable.tsx:25
-msgid "Shell Companies"
-msgstr "Shell Companies"
+#~ msgid "Shell Companies"
+#~ msgstr "Shell Companies"
 
 #: src/components/Subscribe.tsx:52
 msgid "Sign up"

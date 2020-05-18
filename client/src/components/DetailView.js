@@ -435,7 +435,7 @@ class DetailViewWithoutI18n extends Component {
                     <tr>
                       <td>
                         <div>
-                          <Trans>Shell Companies</Trans>
+                          <Trans>Business Entities</Trans>
                         </div>
                         <ul>
                           {this.props.userAddr.corpnames &&
@@ -446,7 +446,7 @@ class DetailViewWithoutI18n extends Component {
                       </td>
                       <td>
                         <div>
-                          <Trans>Shell Companies</Trans>
+                          <Trans>Business Entities</Trans>
                         </div>
                         <ul>
                           {this.props.addr.corpnames &&
