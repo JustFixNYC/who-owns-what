@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2020-05-18 20:27\n"
+"PO-Revision-Date: 2020-05-18 20:38\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -216,7 +216,7 @@ msgstr "Desalojos"
 
 #: src/components/DetailView.js:153
 msgid "Evictions executed by NYC Marshals in 2019. ANHD and the Housing Data Coalition cleaned, geocoded, and validated the data, originally sourced from DOI."
-msgstr ""
+msgstr "Desalojos ejecutados en este edificio por el Mariscal de NYC en 2019. ANHD y la Coalición de Datos de Vivienda limpiaron, codificaron y validaron los datos, que provienen originalmente del DOI."
 
 #: src/containers/NychaPage.js:146
 msgid "Evictions executed in this development by NYC Marshals in 2019. ANHD and the Housing Data Coalition cleaned, geocoded, and validated the data, originally sourced from DOI."
@@ -358,7 +358,7 @@ msgstr "App MyNYCHA"
 
 #: src/containers/NychaPage.js:268
 msgid "NYCHA Directory"
-msgstr ""
+msgstr "Directorio de NYCHA"
 
 #: src/components/SocialShare.tsx:26
 msgid "New JustFix.nyc tool helps research on NYC landlords"
@@ -560,7 +560,7 @@ msgstr "{0, plural, one {El nombre más común que aparece en esta cartera de ed
 
 #: src/components/DetailView.js:137
 msgid "The number of open HPD violations for this building, updated monthly. Click the HPD Building Profile button below for the most up-to-date information."
-msgstr ""
+msgstr "El número de infracciones del HPD abiertas en este edificio, actualizado mensualmente. Haz clic en el botón del Perfil de Edificio del HPD para obtener la información más reciente."
 
 #: src/containers/NychaPage.js:138
 msgid "The number of residential units across all buildings in this development, according to the Dept. of City Planning."
@@ -568,11 +568,11 @@ msgstr "El número de unidades residenciales en todos los edificios de este comp
 
 #: src/components/DetailView.js:127
 msgid "The number of residential units in this building, according to the Dept. of City Planning."
-msgstr ""
+msgstr "El número de unidades residenciales en este edificio, según el Departamento de Planificación de la Ciudad."
 
 #: src/components/DetailView.js:119
 msgid "The year that this building was originally constructed, according to the Dept. of City Planning."
-msgstr ""
+msgstr "El año en que este edificio fue construido, según el Departamento de Planificación de la Ciudad."
 
 #: src/components/PropertiesSummary.js:75
 msgid "The {bldgs, plural, one {} other {average}} age of {bldgs, plural, one {this building} other {these buildings}} is <0>{age}</0> years old."
