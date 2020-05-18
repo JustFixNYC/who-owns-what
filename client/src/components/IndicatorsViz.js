@@ -273,7 +273,7 @@ class IndicatorsVizImplementation extends Component {
                   var fullDate = value.concat("-15"); // Make date value include a day so it can be parsed
                   return (
                     (value.slice(5, 7) === "01" ? value.slice(0, 4) + "  " : "") + // Include special year label for January
-                    Helpers.formatMonthSnippetForTimeline(fullDate, locale)
+                    Helpers.formatMonthAbbreviationForTimeline(fullDate, locale)
                   );
                 } else if (timeSpan === "quarter") {
                   return (
@@ -299,10 +299,10 @@ class IndicatorsVizImplementation extends Component {
               const quarter = this._data.labels[tooltipItem[0].index].slice(-1);
               const numOfLastMonthInQuarter = parseInt(quarter) * 3;
               /** The quarter year written out as it's range of months (ex: "Jan - Mar")  */
-              const monthRange = `${Helpers.formatMonthSnippetForTimeline(
+              const monthRange = `${Helpers.formatMonthAbbreviationForTimeline(
                 "2020/0" + (numOfLastMonthInQuarter - 2),
                 locale
-              )} - ${Helpers.formatMonthSnippetForTimeline(
+              )} - ${Helpers.formatMonthAbbreviationForTimeline(
                 "2020/0" + numOfLastMonthInQuarter,
                 locale
               )}`;

@@ -160,7 +160,7 @@ export default {
     return this.capitalize(date.toLocaleDateString(locale || "en", options));
   },
 
-  formatMonthSnippetForTimeline(dateString: string, locale?: SupportedLocale): string {
+  formatMonthAbbreviationForTimeline(dateString: string, locale?: SupportedLocale): string {
     var date = new Date(dateString);
     var options = { month: "short" };
     return this.capitalize(date.toLocaleDateString(locale || "en", options)).slice(0, 3);

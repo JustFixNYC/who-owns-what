@@ -104,8 +104,8 @@ test("formatDateForTimeline() works", () => {
   expect(helpers.formatDateForTimeline("2008-01-05")).toBe("January 2008");
 });
 
-test("formatMonthSnippetForTimeline() works", () => {
-  expect(helpers.formatMonthSnippetForTimeline("2008-01-05")).toBe("Jan");
+test("formatMonthAbbreviationForTimeline() works", () => {
+  expect(helpers.formatMonthAbbreviationForTimeline("2008-01-05")).toBe("Jan");
 });
 
 // Note: Although there is generally good support across modern versions of the usual web browsers,
@@ -117,8 +117,8 @@ test("formatDateForTimeline() works for non-English locales", () => {
   expect(helpers.formatDateForTimeline("2008-01-05", "es")).toMatch(/Enero de 2008|January 2008/i);
 });
 
-test("formatMonthSnippetForTimeline() works for non-English locales", () => {
-  expect(helpers.formatMonthSnippetForTimeline("2008-01-05", "es")).toMatch(/Ene|Jan/i);
+test("formatMonthAbbreviationForTimeline() works for non-English locales", () => {
+  expect(helpers.formatMonthAbbreviationForTimeline("2008-01-05", "es")).toMatch(/Ene|Jan/i);
 });
 
 test("formatStreetNameForHpdLink() works for directional prefixes", () => {
