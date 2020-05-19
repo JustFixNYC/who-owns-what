@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2020-05-19 18:07\n"
+"PO-Revision-Date: 2020-05-19 20:17\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -580,7 +580,7 @@ msgstr "La {bldgs, plural, one {edad} other {edad media}} de {bldgs, plural, one
 
 #: src/components/SocialShare.tsx:45
 msgid "The {buildingCount} buildings owned by my landlord (via JustFix's Who Owns What tool)"
-msgstr "Los {buildingCount} edificios que son propiedad del dueño de mi apartamento (a través de la herramienta Quién Posee Qué de JustFix.nyc)"
+msgstr "Los {buildingCount} edificios que son propiedad del dueño de mi apartamento (a través de la herramienta Quién Es El Dueño de JustFix.nyc)"
 
 #: src/components/SocialShare.tsx:45
 msgid "The {buildingCount} buildings that my landlord \"owns\" 👀... #WhoOwnsWhat @JustFixNYC"
@@ -739,7 +739,7 @@ msgstr "¿Qué pasa si el propietario no ha registrado el edificio?"
 
 #: src/containers/App.js:50
 msgid "Who owns what in nyc?"
-msgstr "¿Quién Posee Qué en Nueva York?"
+msgstr "¿Quién Quién Es El Dueño en Nueva York?"
 
 #: src/components/Indicators.js:393
 msgid "Year"
