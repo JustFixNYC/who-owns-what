@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2020-05-18 15:02\n"
+"PO-Revision-Date: 2020-05-18 20:48\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -216,7 +216,7 @@ msgstr "Desalojos"
 
 #: src/components/DetailView.js:153
 msgid "Evictions executed by NYC Marshals in 2019. ANHD and the Housing Data Coalition cleaned, geocoded, and validated the data, originally sourced from DOI."
-msgstr ""
+msgstr "Desalojos ejecutados en este edificio por el Mariscal de NYC en 2019. ANHD y la Coalición de Datos de Vivienda limpiaron, codificaron y validaron los datos, que provienen originalmente del DOI."
 
 #: src/containers/NychaPage.js:146
 msgid "Evictions executed in this development by NYC Marshals in 2019. ANHD and the Housing Data Coalition cleaned, geocoded, and validated the data, originally sourced from DOI."
@@ -245,7 +245,7 @@ msgstr "Quejas del HPD"
 
 #: src/components/IndicatorsDatasets.tsx:12
 msgid "HPD Complaints are housing issues reported to the City <0>by a tenant calling 311</0>. When someone issues a complaint, the Department of Housing Preservation and Development begins a process of investigation that may lead to an official violation from the City. Complaints can be identified as:<1/><2/><3>Emergency</3> — reported to be hazardous/dire<4/><5>Non-Emergency</5> — all others<6/><7/>Read more about HPD Complaints and how to file them at the <8>official HPD page</8>."
-msgstr "Las quejas de HPD son problemas de vivienda presentados a la Ciudad <0>por un inquilino al llamar al 311</0>. Cuando alguien presenta una queja, el Departamento de Preservación y Desarrollo de la Vivienda, DHCR por sus siglas en inglés, inicia un proceso de investigación que puede conducir a la emisión de una infracción oficial por parte de la Ciudad. Las quejas se pueden identificar como:<1/><2/><3>Emergencia</3> — se ha informado de que son peligrosas<4/><5>No-Emergencia</5> — todas las demás<6/><7/>Encontraras más información sobre las quejas de HPD y cómo presentarlas en la página <8>oficial del HPD</8>."
+msgstr "Las quejas de HPD son problemas de vivienda presentados a la Ciudad <0>por un inquilino al llamar al 311</0>. Cuando alguien presenta una queja, el Departamento de Preservación y Desarrollo de la Vivienda, DHCR por sus siglas en inglés, inicia un proceso de investigación que puede conducir a la emisión de una infracción oficial por parte de la Ciudad. Las quejas se pueden identificar como:<1/><2/><3>Emergencia</3> — se ha informado de que son peligrosas<4/><5>No-Emergencia</5> — todas las demás<6/><7/> Encontraras más información sobre las quejas de HPD y cómo presentarlas en la página <8>oficial del HPD</8>."
 
 #: src/components/IndicatorsDatasets.tsx:32
 #: src/components/PropertiesList.tsx:138
@@ -358,7 +358,7 @@ msgstr "App MyNYCHA"
 
 #: src/containers/NychaPage.js:268
 msgid "NYCHA Directory"
-msgstr ""
+msgstr "Directorio de NYCHA"
 
 #: src/components/SocialShare.tsx:26
 msgid "New JustFix.nyc tool helps research on NYC landlords"
@@ -415,7 +415,7 @@ msgstr "Vista General"
 
 #: src/components/IndicatorsDatasets.tsx:67
 msgid "Owners submit Building Permit Applications to the Department of Buildings before any construction project to get necessary approval. The number of applications filed can indicate how much construction the owner was planning.<0/><1/>Read more about DOB Building Applications/Permits at the <2>official NYC Buildings page</2>."
-msgstr "Antes de empezar cualquier proyecto de construcción, el propietario somete un solicitud para conseguir permisos de construcción al Departamento de Edificios para obtener la autorización necesaria. El número de solicitudes que asociadas a un edificio te puede dar una idea de cuánta construcción planea hacer el propietario. <0/><1/>Encontrarás más información sobre Permisos de Construcción del DOB en la <2>página oficial de Edificios de NYC</2>."
+msgstr "Antes de empezar cualquier proyecto de construcción, el propietario somete un solicitud para conseguir permisos de construcción al Departamento de Edificios para obtener la autorización necesaria. El número de solicitudes que asociadas a un edificio te puede dar una idea de cuánta construcción planea hacer el propietario. <0/><1/> Encontrarás más información sobre Permisos de Construcción del DOB en la <2>página oficial de Edificios de NYC</2>."
 
 #: src/containers/AddressPage.js:155
 msgid "PORTFOLIO: Your search address is associated with <0>{0}</0> {1, plural, one {building} other {buildings}}"
@@ -426,7 +426,7 @@ msgstr "CARTERA DE EDIFICIOS: La dirección que has buscado está asociada con <
 #: src/components/DetailView.js:497
 #: src/components/OwnersTable.tsx:31
 msgid "People"
-msgstr "Personas"
+msgstr "Personas (Encontrarás definiciones en español de los tipos de personas asociadas al edificio en la página \"Como se usa\".)"
 
 #: src/components/Subscribe.tsx:20
 msgid "Please enter an email address!"
@@ -560,7 +560,7 @@ msgstr "{0, plural, one {El nombre más común que aparece en esta cartera de ed
 
 #: src/components/DetailView.js:137
 msgid "The number of open HPD violations for this building, updated monthly. Click the HPD Building Profile button below for the most up-to-date information."
-msgstr ""
+msgstr "El número de infracciones del HPD abiertas en este edificio, actualizado mensualmente. Haz clic en el botón del Perfil de Edificio del HPD para obtener la información más reciente."
 
 #: src/containers/NychaPage.js:138
 msgid "The number of residential units across all buildings in this development, according to the Dept. of City Planning."
@@ -568,11 +568,11 @@ msgstr "El número de unidades residenciales en todos los edificios de este comp
 
 #: src/components/DetailView.js:127
 msgid "The number of residential units in this building, according to the Dept. of City Planning."
-msgstr ""
+msgstr "El número de unidades residenciales en este edificio, según el Departamento de Planificación de la Ciudad."
 
 #: src/components/DetailView.js:119
 msgid "The year that this building was originally constructed, according to the Dept. of City Planning."
-msgstr ""
+msgstr "El año en que este edificio fue construido, según el Departamento de Planificación de la Ciudad."
 
 #: src/components/PropertiesSummary.js:75
 msgid "The {bldgs, plural, one {} other {average}} age of {bldgs, plural, one {this building} other {these buildings}} is <0>{age}</0> years old."
@@ -616,7 +616,7 @@ msgstr "Esto es <0>peor</0> que el promedio de la ciudad de {VIOLATIONS_AVG} por
 
 #: src/components/DetailView.js:105
 msgid "This is the official identifer for the building according to the Dept. of Finance tax records."
-msgstr ""
+msgstr "El identificador oficial del edificio según los registros del Departamento de Finanzas."
 
 #: src/components/RentstabSummary.tsx:15
 msgid "This portfolio also had an estimated <0>net {changeType, select, gain {gain} other {loss}}</0> of <1>{absTotalRsDiff}</1> {absTotalRsDiff, plural, one {rent stabilized unit} other {rent stabilized units}} since 2007 (gained {absTotalRsGain}, lost {absTotalRsLoss})."
@@ -636,7 +636,7 @@ msgstr "Esto representa el <0>{rsProportion}%</0> del tamaño total de esta cart
 
 #: src/components/DetailView.js:145
 msgid "This represents the total number of HPD Violations (both open & closed) recorded by the city."
-msgstr ""
+msgstr "Esto representa el número total de Infracciones del HPD (tanto actuales como cerradas) registradas por la ciudad."
 
 #: src/containers/NotRegisteredPage.js:86
 msgid "This seems like a smaller residential building. If the landlord doesn't reside there, it should be registered with HPD."
@@ -644,7 +644,7 @@ msgstr "Este parece ser un edificio residencial pequeño. Si el dueño no reside
 
 #: src/components/DetailView.js:161
 msgid "This tracks how rent stabilized units in the building have changed (i.e. \"&Delta;\") from 2007 to 2017. If the number for 2017 is red, this means there has been a loss in stabilzied units! These counts are estimated from the DOF Property Tax Bills."
-msgstr ""
+msgstr "El cambio en apartamentos de renta estabilizada que hay en el edificio (es decir, \"&Delta;\") del 2007 al 2017. Si el número en 2017 está en rojo, ¡esto significa que ha habido una pérdida en las cantidad de apartamentos de renta estabilizada! Estos recuentos se calculan a partir de las facturas de impuestos del Departamento de Finanzas."
 
 #: src/components/AddressToolbar.tsx:33
 msgid "This will export <0>{0}</0> addresses associated with the landlord at <1>{userAddrStr}</1>!"
@@ -731,7 +731,7 @@ msgstr "Comparamos la dirección que buscaste con una base de datos de más de 2
 
 #: src/components/Indicators.js:448
 msgid "What are {0}?"
-msgstr ""
+msgstr "¿Qué son {0}?"
 
 #: src/containers/NotRegisteredPage.js:59
 msgid "What happens if the landlord has failed to register?"
@@ -784,3 +784,4 @@ msgstr "{value, plural, one {Una Queja del HPD emitida desde el 2014} other {# Q
 #: src/components/IndicatorsDatasets.tsx:34
 msgid "{value, plural, one {One HPD Violation Issued since 2010} other {# HPD Violations Issued since 2010}}"
 msgstr "{value, plural, one {Una Infracción del HPD emitida desde el 2010} other {# Infracciones del HPD emitidas desde el 2010}}"
+
