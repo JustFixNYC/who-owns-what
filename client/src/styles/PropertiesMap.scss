@@ -164,11 +164,12 @@
     bottom: 0;
     border-left: 1px solid $dark;
     border-top: 1px solid $dark;
-    padding: 4px 8px;
+    padding: 6px 4px;
 
     p {
       text-align: center;
       margin-bottom: 0;
+      font-size: 12px;
     }
 
     @include for-phone-only() {

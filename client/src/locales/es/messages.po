@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2020-05-18 20:48\n"
+"PO-Revision-Date: 2020-05-19 18:07\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -30,7 +30,7 @@ msgstr "(pase el cursor sobre una casilla para aprender más)"
 
 #: src/components/PropertiesMap.js:278
 msgid "({browserType, select, mobile {tap} other {click}} to view details)"
-msgstr "({browserType, select, mobile {pulsa} other {haz clic}} para ver los detalles)"
+msgstr "({browserType, select, mobile {pulsa} other {haz clic}} para ver detalles)"
 
 #: src/containers/HomePage.tsx:128
 msgid "... or view some sample portfolios:"
