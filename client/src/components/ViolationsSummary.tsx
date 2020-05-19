@@ -15,12 +15,7 @@ export const ViolationsSummary: React.FC<{
 
   // openviolationsperresunit is not defined when the portfolio has 0 residentials
   // units in PLUTO, so we can't calculate a proportion.
-  const openViolations = _.isNil(openviolationsperresunit) ? (
-    <Trans>
-      The average number of open HPD violations per residential unit is not available for this
-      portfolio.
-    </Trans>
-  ) : (
+  const openViolations = !_.isNil(openviolationsperresunit) && (
     <>
       <Trans>
         This portfolio has an average of <b>{openviolationsperresunit}</b> open HPD violations per
