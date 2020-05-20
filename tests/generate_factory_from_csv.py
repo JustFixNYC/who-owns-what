@@ -4,7 +4,7 @@
 
     Usage:
 
-        generate_factory_from_csv.py <csvfile>
+        python generate_factory_from_csv.py <csvfile>
 
     This will output Python code that contains a
     NamedTuple subclass for the CSV, where the property
@@ -101,13 +101,43 @@ def generate_code(csvfile: IO[Any], classname: str) -> str:
     return '\n'.join(codelines)
 
 
+def hyphens_to_underscores(str: str) -> str:
+    '''
+    Convert any hypens in the given string to underscores.
+    '''
+
+    return str.replace('-', '_')
+
+
+def snake_to_camel(word: str) -> str:
+    '''
+    Convert from snake_case to CamelCase. Taken from:
+
+    https://www.w3resource.com/python-exercises/re/python-re-exercise-37.php
+    '''
+
+    word = hyphens_to_underscores(word)
+    return ''.join(x.capitalize() or '_' for x in word.split('_'))
+
+
+def generate_code_for_file(csvpath: Path) -> str:
+    '''
+    Generate Python code that represents a factory for the
+    given CSV file and return it.
+
+    For more details, see the documentation for `generate_code()`.
+    '''
+
+    with csvpath.open() as csvfile:
+        return generate_code(csvfile, snake_to_camel(csvpath.stem))
+
+
 def main():
     if len(sys.argv) < 2 or sys.argv[1] in ['-h', '--help']:
         print(__doc__)
         sys.exit(1)
     csvpath = Path(sys.argv[1])
-    with csvpath.open() as csvfile:
-        print(generate_code(csvfile, csvpath.stem))
+    print(generate_code_for_file(csvpath))
 
 
 if __name__ == '__main__':
