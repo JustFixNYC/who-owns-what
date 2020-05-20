@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2020-05-19 20:17\n"
+"PO-Revision-Date: 2020-05-20 18:36\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -434,7 +434,7 @@ msgstr "Por favor, ¡introduzca una dirección de correo electrónico!"
 
 #: src/containers/AddressPage.js:195
 msgid "Portfolio"
-msgstr "Cartera de Edificios"
+msgstr "Edificios"
 
 #: src/components/LegalFooter.tsx:37
 msgid "Privacy policy"
