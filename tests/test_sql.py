@@ -123,8 +123,8 @@ class TestSQL:
         nycdb_ctx.write_csv('marshal_evictions_17.csv', [MarshalEvictions17()])
         nycdb_ctx.write_csv('marshal_evictions_18.csv', [MarshalEvictions18()])
         nycdb_ctx.write_csv('marshal_evictions_19.csv', [MarshalEvictions19()])
-        nycdb_ctx.write_csv('real_property_master.csv', [RealPropertyMaster()])
-        nycdb_ctx.write_csv('real_property_legals.csv', [RealPropertyLegals()])
+        nycdb_ctx.write_csv('acris_real_property_master.csv', [RealPropertyMaster()])
+        nycdb_ctx.write_csv('acris_real_property_legals.csv', [RealPropertyLegals()])
         nycdb_ctx.write_csv('hpd_registrations.csv', [
             FUNKY_REGISTRATION,
             MONKEY_REGISTRATION,
