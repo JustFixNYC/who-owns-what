@@ -14,7 +14,7 @@
 from pathlib import Path
 import re
 
-from generate_factory_from_csv import (
+from .generate_factory_from_csv import (
     generate_code_for_file,
     hyphens_to_underscores,
 )
