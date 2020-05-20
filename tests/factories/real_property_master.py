@@ -1,7 +1,7 @@
 from typing import NamedTuple
 
 
-class real_property_master(NamedTuple):
+class RealPropertyMaster(NamedTuple):
     documentid: str = 'FT_4990009008899'
     recordtype: str = 'A'
     crfn: str = ''

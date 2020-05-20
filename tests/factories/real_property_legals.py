@@ -1,7 +1,7 @@
 from typing import NamedTuple
 
 
-class real_property_legals(NamedTuple):
+class RealPropertyLegals(NamedTuple):
     documentid: str = 'FT_4990009008899'
     recordtype: str = 'L'
     borough: str = '4'

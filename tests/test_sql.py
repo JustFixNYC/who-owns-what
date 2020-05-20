@@ -8,6 +8,8 @@ from .factories.marshal_evictions_19 import MarshalEvictions19
 from .factories.changes_summary import ChangesSummary
 from .factories.hpd_violations import HPDViolation
 from .factories.pluto_19v2 import Pluto19v2
+from .factories.real_property_master import RealPropertyMaster
+from .factories.real_property_legals import RealPropertyLegals
 
 # This test suite defines two landlords:
 #
@@ -121,6 +123,8 @@ class TestSQL:
         nycdb_ctx.write_csv('marshal_evictions_17.csv', [MarshalEvictions17()])
         nycdb_ctx.write_csv('marshal_evictions_18.csv', [MarshalEvictions18()])
         nycdb_ctx.write_csv('marshal_evictions_19.csv', [MarshalEvictions19()])
+        nycdb_ctx.write_csv('real_property_master.csv', [RealPropertyMaster()])
+        nycdb_ctx.write_csv('real_property_legals.csv', [RealPropertyLegals()])
         nycdb_ctx.write_csv('hpd_registrations.csv', [
             FUNKY_REGISTRATION,
             MONKEY_REGISTRATION,
