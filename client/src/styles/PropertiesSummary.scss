@@ -41,6 +41,10 @@
     padding: 2rem 1.5rem;
     position: relative;
 
+    .btn {
+      white-space: normal;
+    }
+
     .PropertiesSummary__linksTitle {
       position: absolute;
       top: -19px;

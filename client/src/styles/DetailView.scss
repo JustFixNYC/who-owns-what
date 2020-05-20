@@ -255,17 +255,8 @@
         margin-top: -1rem;
       }
 
-      a {
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-      }
-
       a.btn:not(:first-child) {
         margin-top: 10px;
-      }
-
-      .btn {
       }
     }
 
