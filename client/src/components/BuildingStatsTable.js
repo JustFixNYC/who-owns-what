@@ -1,19 +1,10 @@
 import React from "react";
 
-import { CSSTransition } from "react-transition-group";
-import { StreetView } from "./StreetView";
-import { LazyLoadWhenVisible } from "./LazyLoadWhenVisible";
 import Helpers from "util/helpers";
-import Browser from "util/browser";
-import Modal from "components/Modal";
 
-import "styles/DetailView.css";
 import { withI18n } from "@lingui/react";
 import { t } from "@lingui/macro";
 import { Trans } from "@lingui/macro";
-import { SocialSharePortfolio } from "./SocialShare";
-import { Link } from "react-router-dom";
-import { LocaleLink } from "../i18n";
 
 const BuildingStatsTableWithoutI18n = (props) => {
   const { i18n } = props;

@@ -8,7 +8,6 @@ import Modal from "components/Modal";
 
 import "styles/DetailView.css";
 import { withI18n } from "@lingui/react";
-import { t } from "@lingui/macro";
 import { Trans } from "@lingui/macro";
 import { SocialSharePortfolio } from "./SocialShare";
 import { Link } from "react-router-dom";
@@ -39,7 +38,6 @@ class DetailViewWithoutI18n extends Component {
   }
 
   render() {
-    const { i18n } = this.props;
     let boro, block, lot, ownernames, userOwnernames, takeActionURL;
     if (this.props.addr) {
       ({ boro, block, lot } = Helpers.splitBBL(this.props.addr.bbl));
