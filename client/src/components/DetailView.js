@@ -92,6 +92,7 @@ class DetailViewWithoutI18n extends Component {
                       )}
                     </div>
                     <div className="card-body">
+                      <BuildingStatsTable addr={this.props.addr} />
                       <div className="card-body-timeline-link">
                         <Link
                           to={this.props.generateBaseUrl() + "/timeline"}
@@ -103,7 +104,6 @@ class DetailViewWithoutI18n extends Component {
                           <Trans render="span">View data over time</Trans> &#8599;&#xFE0E;
                         </Link>
                       </div>
-                      <BuildingStatsTable addr={this.props.addr} />
                       <div className="card-body-landlord">
                         <div className="columns">
                           <div className="column col-xs-12 col-6">

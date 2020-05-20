@@ -137,12 +137,10 @@ const BuildingStatsTableWithoutI18n = (props) => {
         <div className="table-row">
           <YearBuilt />
           <UnitsRes />
-        </div>
-        <div className="table-row">
           <OpenViolations />
-          <TotalViolations />
         </div>
         <div className="table-row">
+          <TotalViolations />
           <Evictions />
           <RsUnits />
         </div>
@@ -157,4 +155,3 @@ const BuildingStatsTableWithoutI18n = (props) => {
 const BuildingStatsTable = withI18n()(BuildingStatsTableWithoutI18n);
 
 export default BuildingStatsTable;
-
