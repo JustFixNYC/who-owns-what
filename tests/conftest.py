@@ -17,12 +17,15 @@ import nycdb
 
 import dbtool
 from .generate_factory_from_csv import unmunge_colname
-from .generate_all_factories import DATA_DIR
 
 
 TEST_DB_URL = os.environ['DATABASE_URL'] + '_test'
 
 TEST_DB = dbtool.DbContext.from_url(TEST_DB_URL)
+
+MY_DIR = Path(__file__).parent.resolve()
+
+DATA_DIR = MY_DIR / 'data'
 
 
 class NycdbContext:
