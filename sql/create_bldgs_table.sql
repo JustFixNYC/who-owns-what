@@ -1,55 +1,82 @@
-DROP TABLE IF EXISTS wow_bldgs CASCADE;
+DROP TABLE IF EXISTS WOW_BLDGS CASCADE;
 
 -- This is mainly used as an easy way to provide contact info on request, not a replacement
 -- for cross-table analysis. Hence why the corpnames, businessaddrs, and ownernames are simplified
 -- with JSON and such.
-CREATE TABLE wow_bldgs
-AS SELECT DISTINCT ON (registrations.bbl)
-  registrations.*,
-  coalesce(violations.total, 0)::int as totalviolations,
-  coalesce(violations.opentotal, 0)::int as openviolations,
-  pluto.unitsres,
-  pluto.yearbuilt,
-  pluto.lat,
-  pluto.lng,
-  evictions.evictions,
-  rentstab.unitsstab2007 as rsunits2007,
-  rentstab.unitsstab2017 as rsunits2017,
-  rentstab.diff as rsdiff,
-  rentstab.percentchange as rspercentchange
-FROM hpd_registrations_with_contacts AS registrations
-LEFT JOIN (
-  SELECT bbl,
-    count(CASE WHEN violationstatus = 'Open' THEN 1 END) as opentotal,
-    count(*) as total
-  FROM hpd_violations
-  GROUP BY bbl
-) violations ON (registrations.bbl = violations.bbl)
-LEFT JOIN (
-  SELECT
-    bbl,
-    unitsres,
-    yearbuilt,
-    lat, lng
-  FROM pluto_19v2
-) pluto ON (registrations.bbl = pluto.bbl)
-LEFT JOIN (
-  SELECT
-    bbl,
-    count(*) as evictions
-  FROM marshal_evictions_19
-  WHERE residentialcommercialind = 'RESIDENTIAL'
-  GROUP BY bbl
-) evictions ON (registrations.bbl = evictions.bbl)
-LEFT JOIN (
-  SELECT
-    ucbbl,
-    unitsstab2007,
-    unitsstab2017,
-    diff,
-    percentchange
-  FROM rentstab_summary
-) rentstab ON (registrations.bbl = rentstab.ucbbl);
+CREATE TABLE WOW_BLDGS AS 
 
-create index on wow_bldgs (registrationid);
-create index on wow_bldgs (bbl);
+WITH DEEDS AS (
+	SELECT 
+    	M.DOCUMENTID,
+    	COALESCE(M.DOCDATE,M.RECORDEDFILED) DOCDATE,
+    	M.DOCAMOUNT, 
+    	L.BBL
+	FROM REAL_PROPERTY_MASTER M
+	LEFT JOIN REAL_PROPERTY_LEGALS L USING(DOCUMENTID)
+	WHERE DOCAMOUNT > 1 AND DOCTYPE = ANY('{DEED,DEEDO}')
+	ORDER BY DOCDATE DESC
+),
+
+FIRSTDEEDS AS (
+  SELECT 
+    D.BBL,
+    FIRST(D.DOCUMENTID) DOCUMENTID,
+    FIRST(D.DOCDATE) DOCDATE,
+    FIRST(D.DOCAMOUNT) DOCAMOUNT
+  FROM DEEDS D
+  GROUP BY BBL
+)
+
+SELECT DISTINCT ON (REGISTRATIONS.BBL)
+  REGISTRATIONS.*,
+  COALESCE(VIOLATIONS.TOTAL, 0)::INT AS TOTALVIOLATIONS,
+  COALESCE(VIOLATIONS.OPENTOTAL, 0)::INT AS OPENVIOLATIONS,
+  PLUTO.UNITSRES,
+  PLUTO.YEARBUILT,
+  PLUTO.LAT,
+  PLUTO.LNG,
+  EVICTIONS.EVICTIONS,
+  RENTSTAB.UNITSSTAB2007 AS RSUNITS2007,
+  RENTSTAB.UNITSSTAB2017 AS RSUNITS2017,
+  RENTSTAB.DIFF AS RSDIFF,
+  RENTSTAB.PERCENTCHANGE AS RSPERCENTCHANGE,
+  FIRSTDEEDS.DOCUMENTID AS LASTSALEACRISID,
+  FIRSTDEEDS.DOCDATE AS LASTSALEDATE,
+  FIRSTDEEDS.DOCAMOUNT AS LASTSALEAMOUNT
+FROM HPD_REGISTRATIONS_WITH_CONTACTS AS REGISTRATIONS
+LEFT JOIN (
+  SELECT BBL,
+    COUNT(CASE WHEN VIOLATIONSTATUS = 'OPEN' THEN 1 END) AS OPENTOTAL,
+    COUNT(*) AS TOTAL
+  FROM HPD_VIOLATIONS
+  GROUP BY BBL
+) VIOLATIONS ON (REGISTRATIONS.BBL = VIOLATIONS.BBL)
+LEFT JOIN (
+  SELECT
+    BBL,
+    UNITSRES,
+    YEARBUILT,
+    LAT, LNG
+  FROM PLUTO_19V2
+) PLUTO ON (REGISTRATIONS.BBL = PLUTO.BBL)
+LEFT JOIN (
+  SELECT
+    BBL,
+    COUNT(*) AS EVICTIONS
+  FROM MARSHAL_EVICTIONS_18
+  WHERE RESIDENTIALCOMMERCIALIND = 'RESIDENTIAL'
+  GROUP BY BBL
+) EVICTIONS ON (REGISTRATIONS.BBL = EVICTIONS.BBL)
+LEFT JOIN (
+  SELECT
+    UCBBL,
+    UNITSSTAB2007,
+    UNITSSTAB2017,
+    DIFF,
+    PERCENTCHANGE
+  FROM RENTSTAB_SUMMARY
+) RENTSTAB ON (REGISTRATIONS.BBL = RENTSTAB.UCBBL)
+LEFT JOIN FIRSTDEEDS ON (REGISTRATIONS.BBL = FIRSTDEEDS.BBL);
+
+CREATE INDEX ON WOW_BLDGS (REGISTRATIONID);
+CREATE INDEX ON WOW_BLDGS (BBL);
