@@ -32,6 +32,10 @@
   align-items: center;
   position: relative;
 
+  @include for-desktop-down {
+    padding: 10px 15px;
+  }
+
   .label.label-warning {
     color: $dark;
     margin-top: 0.75rem;
@@ -76,14 +80,20 @@
 
   nav {
     margin-left: auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+
+    @include for-desktop-down {
+      max-width: 240px;
+    }
 
     @include for-tablet-landscape-down {
       width: 140px;
-      display: flex;
-      flex-wrap: wrap;
     }
 
     @include for-phone-only {
+      margin-left: 0;
       width: 100%;
       justify-content: center;
       margin-top: 8px;
@@ -100,6 +110,14 @@
 
       &.active {
         text-decoration: none;
+        cursor: default;
+      }
+    }
+
+    .language-toggle a {
+      margin-right: 0;
+      &:last-child {
+        margin: 0;
       }
     }
   }
