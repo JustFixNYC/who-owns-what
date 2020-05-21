@@ -33,6 +33,10 @@
         @include for-tablet-landscape-down() {
           max-width: 385px;
         }
+
+        @include for-phone-only() {
+          font-size: 1.8rem;
+        }
       }
     }
 
