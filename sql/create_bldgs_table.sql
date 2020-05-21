@@ -1,82 +1,82 @@
-DROP TABLE IF EXISTS WOW_BLDGS CASCADE;
+drop table if exists wow_bldgs cascade;
 
 -- This is mainly used as an easy way to provide contact info on request, not a replacement
 -- for cross-table analysis. Hence why the corpnames, businessaddrs, and ownernames are simplified
 -- with JSON and such.
-CREATE TABLE WOW_BLDGS AS 
+create table wow_bldgs as 
 
-WITH DEEDS AS (
-	SELECT 
-    	M.DOCUMENTID,
-    	COALESCE(M.DOCDATE,M.RECORDEDFILED) DOCDATE,
-    	M.DOCAMOUNT, 
-    	L.BBL
-	FROM REAL_PROPERTY_MASTER M
-	LEFT JOIN REAL_PROPERTY_LEGALS L USING(DOCUMENTID)
-	WHERE DOCAMOUNT > 1 AND DOCTYPE = ANY('{DEED,DEEDO}')
-	ORDER BY DOCDATE DESC
+with deeds as (
+	select 
+    	m.documentid,
+    	coalesce(m.docdate,m.recordedfiled) docdate,
+    	m.docamount, 
+    	l.bbl
+	from real_property_master m
+	left join real_property_legals l using(documentid)
+	where docamount > 1 and doctype = any('{DEED,DEEDO}')
+	order by docdate desc
 ),
 
-FIRSTDEEDS AS (
-  SELECT 
-    D.BBL,
-    FIRST(D.DOCUMENTID) DOCUMENTID,
-    FIRST(D.DOCDATE) DOCDATE,
-    FIRST(D.DOCAMOUNT) DOCAMOUNT
-  FROM DEEDS D
-  GROUP BY BBL
+firstdeeds as (
+  select 
+    d.bbl,
+    first(d.documentid) documentid,
+    first(d.docdate) docdate,
+    first(d.docamount) docamount
+  from deeds d
+  group by bbl
 )
 
-SELECT DISTINCT ON (REGISTRATIONS.BBL)
-  REGISTRATIONS.*,
-  COALESCE(VIOLATIONS.TOTAL, 0)::INT AS TOTALVIOLATIONS,
-  COALESCE(VIOLATIONS.OPENTOTAL, 0)::INT AS OPENVIOLATIONS,
-  PLUTO.UNITSRES,
-  PLUTO.YEARBUILT,
-  PLUTO.LAT,
-  PLUTO.LNG,
-  EVICTIONS.EVICTIONS,
-  RENTSTAB.UNITSSTAB2007 AS RSUNITS2007,
-  RENTSTAB.UNITSSTAB2017 AS RSUNITS2017,
-  RENTSTAB.DIFF AS RSDIFF,
-  RENTSTAB.PERCENTCHANGE AS RSPERCENTCHANGE,
-  FIRSTDEEDS.DOCUMENTID AS LASTSALEACRISID,
-  FIRSTDEEDS.DOCDATE AS LASTSALEDATE,
-  FIRSTDEEDS.DOCAMOUNT AS LASTSALEAMOUNT
-FROM HPD_REGISTRATIONS_WITH_CONTACTS AS REGISTRATIONS
-LEFT JOIN (
-  SELECT BBL,
-    COUNT(CASE WHEN VIOLATIONSTATUS = 'OPEN' THEN 1 END) AS OPENTOTAL,
-    COUNT(*) AS TOTAL
-  FROM HPD_VIOLATIONS
-  GROUP BY BBL
-) VIOLATIONS ON (REGISTRATIONS.BBL = VIOLATIONS.BBL)
-LEFT JOIN (
-  SELECT
-    BBL,
-    UNITSRES,
-    YEARBUILT,
-    LAT, LNG
-  FROM PLUTO_19V2
-) PLUTO ON (REGISTRATIONS.BBL = PLUTO.BBL)
-LEFT JOIN (
-  SELECT
-    BBL,
-    COUNT(*) AS EVICTIONS
-  FROM MARSHAL_EVICTIONS_18
-  WHERE RESIDENTIALCOMMERCIALIND = 'RESIDENTIAL'
-  GROUP BY BBL
-) EVICTIONS ON (REGISTRATIONS.BBL = EVICTIONS.BBL)
-LEFT JOIN (
-  SELECT
-    UCBBL,
-    UNITSSTAB2007,
-    UNITSSTAB2017,
-    DIFF,
-    PERCENTCHANGE
-  FROM RENTSTAB_SUMMARY
-) RENTSTAB ON (REGISTRATIONS.BBL = RENTSTAB.UCBBL)
-LEFT JOIN FIRSTDEEDS ON (REGISTRATIONS.BBL = FIRSTDEEDS.BBL);
+select distinct on (registrations.bbl)
+  registrations.*,
+  coalesce(violations.total, 0)::int as totalviolations,
+  coalesce(violations.opentotal, 0)::int as openviolations,
+  pluto.unitsres,
+  pluto.yearbuilt,
+  pluto.lat,
+  pluto.lng,
+  evictions.evictions,
+  rentstab.unitsstab2007 as rsunits2007,
+  rentstab.unitsstab2017 as rsunits2017,
+  rentstab.diff as rsdiff,
+  rentstab.percentchange as rspercentchange,
+  firstdeeds.documentid as lastsaleacrisid,
+  firstdeeds.docdate as lastsaledate,
+  firstdeeds.docamount as lastsaleamount
+from hpd_registrations_with_contacts as registrations
+left join (
+  select bbl,
+    count(case when violationstatus = 'Open' then 1 end) as opentotal,
+    count(*) as total
+  from hpd_violations
+  group by bbl
+) violations on (registrations.bbl = violations.bbl)
+left join (
+  select
+    bbl,
+    unitsres,
+    yearbuilt,
+    lat, lng
+  from pluto_19v2
+) pluto on (registrations.bbl = pluto.bbl)
+left join (
+  select
+    bbl,
+    count(*) as evictions
+  from marshal_evictions_19
+  where residentialcommercialind = 'RESIDENTIAL'
+  group by bbl
+) evictions on (registrations.bbl = evictions.bbl)
+left join (
+  select
+    ucbbl,
+    unitsstab2007,
+    unitsstab2017,
+    diff,
+    percentchange
+  from rentstab_summary
+) rentstab on (registrations.bbl = rentstab.ucbbl)
+left join firstdeeds on (registrations.bbl = firstdeeds.bbl);
 
-CREATE INDEX ON WOW_BLDGS (REGISTRATIONID);
-CREATE INDEX ON WOW_BLDGS (BBL);
+create index on wow_bldgs (registrationid);
+create index on wow_bldgs (bbl);
