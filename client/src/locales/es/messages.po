@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2020-05-19 18:07\n"
+"PO-Revision-Date: 2020-05-21 14:53\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -411,7 +411,7 @@ msgstr "Infracciones Actuales"
 
 #: src/containers/AddressPage.js:173
 msgid "Overview"
-msgstr "Vista General"
+msgstr "General"
 
 #: src/components/IndicatorsDatasets.tsx:67
 msgid "Owners submit Building Permit Applications to the Department of Buildings before any construction project to get necessary approval. The number of applications filed can indicate how much construction the owner was planning.<0/><1/>Read more about DOB Building Applications/Permits at the <2>official NYC Buildings page</2>."
@@ -434,7 +434,7 @@ msgstr "Por favor, ¡introduzca una dirección de correo electrónico!"
 
 #: src/containers/AddressPage.js:195
 msgid "Portfolio"
-msgstr "Cartera de Edificios"
+msgstr "Edificios"
 
 #: src/components/LegalFooter.tsx:37
 msgid "Privacy policy"
@@ -580,7 +580,7 @@ msgstr "La {bldgs, plural, one {edad} other {edad media}} de {bldgs, plural, one
 
 #: src/components/SocialShare.tsx:45
 msgid "The {buildingCount} buildings owned by my landlord (via JustFix's Who Owns What tool)"
-msgstr "Los {buildingCount} edificios que son propiedad del dueño de mi apartamento (a través de la herramienta Quién Posee Qué de JustFix.nyc)"
+msgstr "Los {buildingCount} edificios que son propiedad del dueño de mi apartamento (a través de la herramienta Quién Es El Dueño de JustFix.nyc)"
 
 #: src/components/SocialShare.tsx:45
 msgid "The {buildingCount} buildings that my landlord \"owns\" 👀... #WhoOwnsWhat @JustFixNYC"
@@ -739,7 +739,7 @@ msgstr "¿Qué pasa si el propietario no ha registrado el edificio?"
 
 #: src/containers/App.js:50
 msgid "Who owns what in nyc?"
-msgstr "¿Quién Posee Qué en Nueva York?"
+msgstr "¿Quién Es El Dueño en Nueva York?"
 
 #: src/components/Indicators.js:393
 msgid "Year"
@@ -784,4 +784,3 @@ msgstr "{value, plural, one {Una Queja del HPD emitida desde el 2014} other {# Q
 #: src/components/IndicatorsDatasets.tsx:34
 msgid "{value, plural, one {One HPD Violation Issued since 2010} other {# HPD Violations Issued since 2010}}"
 msgstr "{value, plural, one {Una Infracción del HPD emitida desde el 2010} other {# Infracciones del HPD emitidas desde el 2010}}"
-
