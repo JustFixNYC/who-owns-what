@@ -1,12 +1,12 @@
 import pytest
 
-from .factories.hpd_contacts import HPDContact
-from .factories.hpd_registrations import HPDRegistration
+from .factories.hpd_contacts import HpdContacts
+from .factories.hpd_registrations import HpdRegistrations
 from .factories.marshal_evictions_17 import MarshalEvictions17
 from .factories.marshal_evictions_18 import MarshalEvictions18
 from .factories.marshal_evictions_19 import MarshalEvictions19
 from .factories.changes_summary import ChangesSummary
-from .factories.hpd_violations import HPDViolation
+from .factories.hpd_violations import HpdViolations
 from .factories.pluto_19v2 import Pluto19v2
 from .factories.real_property_master import RealPropertyMaster
 from .factories.real_property_legals import RealPropertyLegals
@@ -31,7 +31,7 @@ SPUNKY_BBL = '3000040006'
 
 UNRELATED_BBL = '1000010002'
 
-FUNKY_REGISTRATION = HPDRegistration(
+FUNKY_REGISTRATION = HpdRegistrations(
     RegistrationID='1',
     HouseNumber='1',
     StreetName='FUNKY STREET',
@@ -40,7 +40,7 @@ FUNKY_REGISTRATION = HPDRegistration(
     Lot='2',
 )
 
-MONKEY_REGISTRATION = HPDRegistration(
+MONKEY_REGISTRATION = HpdRegistrations(
     RegistrationID='2',
     HouseNumber='2',
     StreetName='MONKEY STREET',
@@ -49,7 +49,7 @@ MONKEY_REGISTRATION = HPDRegistration(
     Lot='5',
 )
 
-SPUNKY_REGISTRATION = HPDRegistration(
+SPUNKY_REGISTRATION = HpdRegistrations(
     RegistrationID='4',
     HouseNumber='4',
     StreetName='SPUNKY STREET',
@@ -58,7 +58,7 @@ SPUNKY_REGISTRATION = HPDRegistration(
     Lot='6',
 )
 
-UNRELATED_REGISTRATION = HPDRegistration(
+UNRELATED_REGISTRATION = HpdRegistrations(
     RegistrationID='3',
     HouseNumber='3',
     StreetName='UNRELATED STREET',
@@ -67,7 +67,7 @@ UNRELATED_REGISTRATION = HPDRegistration(
     Lot='2',
 )
 
-FUNKY_CONTACT = HPDContact(
+FUNKY_CONTACT = HpdContacts(
     RegistrationID='1',
     Type='HeadOfficer',
     FirstName='Lobot',
@@ -78,7 +78,7 @@ FUNKY_CONTACT = HPDContact(
     BusinessZip='11231'
 )
 
-MONKEY_CONTACT = HPDContact(
+MONKEY_CONTACT = HpdContacts(
     RegistrationID='2',
     Type='HeadOfficer',
     FirstName='Landlordo',
@@ -89,7 +89,7 @@ MONKEY_CONTACT = HPDContact(
     BusinessZip='11231'
 )
 
-SPUNKY_CONTACT = HPDContact(
+SPUNKY_CONTACT = HpdContacts(
     RegistrationID='4',
     Type='HeadOfficer',
     FirstName='Landlordo',
@@ -100,7 +100,7 @@ SPUNKY_CONTACT = HPDContact(
     BusinessZip='11201'
 )
 
-UNRELATED_CONTACT = HPDContact(
+UNRELATED_CONTACT = HpdContacts(
     RegistrationID='3',
     Type='HeadOfficer',
     FirstName='Boop',
@@ -118,7 +118,7 @@ class TestSQL:
         nycdb_ctx.write_zip('pluto_19v2.zip', {
             'PLUTO_for_WEB/BK_19v2.csv': [Pluto19v2()]
         })
-        nycdb_ctx.write_csv('hpd_violations.csv', [HPDViolation()])
+        nycdb_ctx.write_csv('hpd_violations.csv', [HpdViolations()])
         nycdb_ctx.write_csv('changes-summary.csv', [ChangesSummary()])
         nycdb_ctx.write_csv('marshal_evictions_17.csv', [MarshalEvictions17()])
         nycdb_ctx.write_csv('marshal_evictions_18.csv', [MarshalEvictions18()])

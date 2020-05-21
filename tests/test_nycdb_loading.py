@@ -1,11 +1,11 @@
-from .factories.hpd_violations import HPDViolation
+from .factories.hpd_violations import HpdViolations
 from .factories.pluto_19v2 import Pluto19v2
 from .factories.changes_summary import ChangesSummary
 
 
 def test_loading_violations_works(db, nycdb_ctx):
     nycdb_ctx.write_csv('hpd_violations.csv', [
-        HPDViolation(ViolationID='123', NOVDescription='boop')
+        HpdViolations(ViolationID='123', NOVDescription='boop')
     ])
     nycdb_ctx.load_dataset('hpd_violations')
     with db.cursor() as cur:
