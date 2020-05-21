@@ -128,12 +128,12 @@ const BuildingStatsTableWithoutI18n = (props) => {
         <div className="table-row">
           <YearBuilt />
           <UnitsRes />
-          <OpenViolations />
+          <RsUnits />
         </div>
         <div className="table-row">
+          <OpenViolations />
           <TotalViolations />
           <Evictions />
-          <RsUnits />
         </div>
       </div>
       <span className="card-body-table-prompt float-right">

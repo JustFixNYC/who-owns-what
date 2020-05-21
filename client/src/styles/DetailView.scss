@@ -164,6 +164,12 @@
     .card-body {
       padding-top: 0;
 
+      &:last-child {
+        @include for-phone-only() {
+          padding: 1rem;
+        }
+      }
+      
       @include for-tablet-portrait-up() {
         padding-right: 3rem;
       }
