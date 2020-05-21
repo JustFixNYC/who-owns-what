@@ -100,6 +100,14 @@
 
       &.active {
         text-decoration: none;
+        cursor: default;
+      }
+    }
+
+    .language-toggle a {
+      margin-right: 0;
+      &:last-child {
+        margin: 0;
       }
     }
   }
