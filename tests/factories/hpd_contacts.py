@@ -1,7 +1,7 @@
 from typing import NamedTuple
 
 
-class HPDContact(NamedTuple):
+class HpdContacts(NamedTuple):
     RegistrationContactID: str = '33193103'
     RegistrationID: str = '331931'
     Type: str = 'CorporateOwner'
