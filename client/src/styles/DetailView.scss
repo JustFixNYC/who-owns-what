@@ -238,7 +238,7 @@
     }
 
     .card-body-links,
-    .card-body-prompt,
+      .card-body-prompt,
     .card-body-social {
       margin-top: 24px;
       margin-bottom: 24px;
@@ -263,9 +263,6 @@
 
       a.btn:not(:first-child) {
         margin-top: 10px;
-      }
-
-      .btn {
       }
     }
 
