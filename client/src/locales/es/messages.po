@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2020-05-20 18:36\n"
+"PO-Revision-Date: 2020-05-21 14:41\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -739,7 +739,7 @@ msgstr "¿Qué pasa si el propietario no ha registrado el edificio?"
 
 #: src/containers/App.js:50
 msgid "Who owns what in nyc?"
-msgstr "¿Quién Quién Es El Dueño en Nueva York?"
+msgstr "¿Quién Es El Dueño en Nueva York?"
 
 #: src/components/Indicators.js:393
 msgid "Year"
