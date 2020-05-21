@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 
 import Helpers from "util/helpers";
 
@@ -6,17 +6,20 @@ import { withI18n } from "@lingui/react";
 import { t } from "@lingui/macro";
 import { Trans } from "@lingui/macro";
 
-const BuildingStatsTableWithoutI18n = (props) => {
-  const { i18n } = props;
-  const { boro, block, lot } = Helpers.splitBBL(props.addr.bbl);
+const AddrContext = React.createContext();
+const I18nContext = React.createContext();
 
-  const bblDash = (
-    <span className="unselectable" unselectable="on">
-      -
-    </span>
-  );
+const bblDash = (
+  <span className="unselectable" unselectable="on">
+    -
+  </span>
+);
 
-  const BBL = () => (
+const BBL = () => {
+  const addr = useContext(AddrContext);
+  const { boro, block, lot } = Helpers.splitBBL(addr.bbl);
+  const i18n = useContext(I18nContext);
+  return (
     <div
       className="double"
       title={i18n._(
@@ -33,63 +36,87 @@ const BuildingStatsTableWithoutI18n = (props) => {
       {lot}
     </div>
   );
+};
 
-  const YearBuilt = () => (
+const YearBuilt = () => {
+  const addr = useContext(AddrContext);
+  const i18n = useContext(I18nContext);
+  return (
     <div
       title={i18n._(
         t`The year that this building was originally constructed, according to the Dept. of City Planning.`
       )}
     >
       <Trans render="label">Year Built</Trans>
-      {props.addr.yearbuilt !== 0 ? props.addr.yearbuilt : "N/A"}
+      {addr.yearbuilt !== 0 ? addr.yearbuilt : "N/A"}
     </div>
   );
+};
 
-  const UnitsRes = () => (
+const UnitsRes = () => {
+  const addr = useContext(AddrContext);
+  const i18n = useContext(I18nContext);
+  return (
     <div
       title={i18n._(
         t`The number of residential units in this building, according to the Dept. of City Planning.`
       )}
     >
       <Trans render="label">Units</Trans>
-      {props.addr.unitsres}
+      {addr.unitsres}
     </div>
   );
+};
 
-  const OpenViolations = () => (
+const OpenViolations = () => {
+  const addr = useContext(AddrContext);
+  const i18n = useContext(I18nContext);
+  return (
     <div
       title={i18n._(
         t`The number of open HPD violations for this building, updated monthly. Click the HPD Building Profile button below for the most up-to-date information.`
       )}
     >
       <Trans render="label">Open Violations</Trans>
-      {props.addr.openviolations}
+      {addr.openviolations}
     </div>
   );
+};
 
-  const TotalViolations = () => (
+const TotalViolations = () => {
+  const addr = useContext(AddrContext);
+  const i18n = useContext(I18nContext);
+  return (
     <div
       title={i18n._(
         t`This represents the total number of HPD Violations (both open & closed) recorded by the city.`
       )}
     >
       <Trans render="label">Total Violations</Trans>
-      {props.addr.totalviolations}
+      {addr.totalviolations}
     </div>
   );
+};
 
-  const Evictions = () => (
+const Evictions = () => {
+  const addr = useContext(AddrContext);
+  const i18n = useContext(I18nContext);
+  return (
     <div
       title={i18n._(
         t`Evictions executed by NYC Marshals in 2019. ANHD and the Housing Data Coalition cleaned, geocoded, and validated the data, originally sourced from DOI.`
       )}
     >
       <Trans render="label">2019 Evictions</Trans>
-      {props.addr.evictions !== null ? props.addr.evictions : "N/A"}
+      {addr.evictions !== null ? addr.evictions : "N/A"}
     </div>
   );
+};
 
-  const RsUnits = () => (
+const RsUnits = () => {
+  const addr = useContext(AddrContext);
+  const i18n = useContext(I18nContext);
+  return (
     <div
       title={i18n._(
         t`This tracks how rent stabilized units in the building have changed (i.e. "&Delta;") from 2007 to 2017. If the number for 2017 is red, this means there has been a loss in stabilzied units! These counts are estimated from the DOF Property Tax Bills.`
@@ -98,16 +125,18 @@ const BuildingStatsTableWithoutI18n = (props) => {
       <label>
         &Delta; <Trans>RS Units</Trans>
       </label>
-      <span>{props.addr.rsunits2007 !== null ? props.addr.rsunits2007 : "N/A"}</span>
+      <span>{addr.rsunits2007 !== null ? addr.rsunits2007 : "N/A"}</span>
       <span>&#x21FE;</span>
-      <span className={`${props.addr.rsunits2017 < props.addr.rsunits2007 ? "text-danger" : ""}`}>
-        {props.addr.rsunits2017 !== null ? props.addr.rsunits2017 : "N/A"}
+      <span className={`${addr.rsunits2017 < addr.rsunits2007 ? "text-danger" : ""}`}>
+        {addr.rsunits2017 !== null ? addr.rsunits2017 : "N/A"}
       </span>
     </div>
   );
+};
 
-  return (
-    <>
+const BuildingStatsTableWithoutI18n = (props) => (
+  <AddrContext.Provider value={props.addr}>
+    <I18nContext.Provider value={props.i18n}>
       <div className="card-body-table hide-sm">
         <div className="table-row">
           <BBL />
@@ -139,9 +168,9 @@ const BuildingStatsTableWithoutI18n = (props) => {
       <span className="card-body-table-prompt float-right">
         <Trans render="i">(hover over a box to learn more)</Trans>
       </span>
-    </>
-  );
-};
+    </I18nContext.Provider>
+  </AddrContext.Provider>
+);
 
 const BuildingStatsTable = withI18n()(BuildingStatsTableWithoutI18n);
 
