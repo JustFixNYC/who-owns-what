@@ -8,7 +8,7 @@
     "start": "concurrently \"yarn server\" \"yarn client\"",
     "server": "nodemon server.js --exec babel-node",
     "client": "cd client && yarn start",
-    "build": "yarn prettier:check && concurrently \"yarn build-server\" \"yarn build-client\"",
+    "build": "concurrently \"yarn build-server\" \"yarn build-client\"",
     "build-server": "babel server -d dist",
     "build-client": "cd client && yarn --production=false && yarn run build",
     "test": "echo \"Error: no test specified\" && exit 1",
