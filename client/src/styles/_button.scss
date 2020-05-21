@@ -50,6 +50,14 @@
   height: auto;
 }
 
+.card-body-links {
+  .btn:not(.btn-link) {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
 .btn.btn-primary {
   background-color: $gray-dark;
   box-shadow: inset -1px -1px 0px 0px $dark, inset 2px 2px 0px 0px lighten($gray-dark, 10%);

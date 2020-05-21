@@ -127,7 +127,7 @@
       }
 
       button {
-        font-size: 18px;
+        font-size: 14px;
         span {
           font-weight: bold;
           text-decoration: underline;
@@ -163,6 +163,12 @@
 
     .card-body {
       padding-top: 0;
+
+      &:last-child {
+        @include for-phone-only() {
+          padding: 1rem;
+        }
+      }
 
       @include for-tablet-portrait-up() {
         padding-right: 3rem;
@@ -253,12 +259,6 @@
     .card-body-links {
       .columns {
         margin-top: -1rem;
-      }
-
-      a {
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
       }
 
       a.btn:not(:first-child) {

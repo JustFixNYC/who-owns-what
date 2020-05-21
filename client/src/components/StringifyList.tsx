@@ -59,7 +59,11 @@ export const StringifyListWithConjunction = withI18n()(
     return (
       <>
         {formatListWithConjunction(props.i18n, props.values).map((item, i) => {
-          return item.type === "literal" ? <>{item.value}</> : renderItem(item.value);
+          return item.type === "literal" ? (
+            <span key={i}>{item.value}</span>
+          ) : (
+            <span key={i}>{renderItem(item.value)}</span>
+          );
         })}
       </>
     );
