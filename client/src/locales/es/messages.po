@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2020-05-22 02:16\n"
+"PO-Revision-Date: 2020-05-22 20:57\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -689,7 +689,7 @@ msgstr "Enlaces útiles"
 
 #: src/components/Indicators.js:342
 msgid "View by:"
-msgstr ""
+msgstr "Visualizar por:"
 
 #: src/components/DetailView.js:102
 msgid "View data over time"
