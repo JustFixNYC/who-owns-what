@@ -65,6 +65,11 @@
       display: none;
       // visibility: hidden;
     }
+
+    // Make content of page extend a bit beyond the edge of the viewportÏ
+    .Page__content {
+      min-height: calc(100vh - 150px);
+    }
   }
 
   .AddressPage__viz {
