@@ -338,7 +338,10 @@ class IndicatorsWithoutI18n extends Component {
                     />
                   </div>
                   <div className="Indicators__linksContainer">
-                    <em className="Indicators__linksTitle">View by:</em> <br />
+                    <em className="Indicators__linksTitle">
+                      <Trans>View by:</Trans>
+                    </em>
+                    <br />
                     <li className="menu-item">
                       <label
                         className={
