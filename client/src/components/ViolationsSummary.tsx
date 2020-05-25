@@ -10,7 +10,7 @@ const VIOLATIONS_AVG = 0.7; // By Unit
 export const ViolationsSummary: React.FC<{
   openviolationsperresunit: MaybeStringyNumber;
   totalviolations: number;
-}> = props => {
+}> = (props) => {
   const { openviolationsperresunit, totalviolations } = props;
 
   // openviolationsperresunit is not defined when the portfolio has 0 residentials
