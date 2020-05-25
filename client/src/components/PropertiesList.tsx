@@ -23,7 +23,18 @@ type Addr = {
   totalviolations: number;
   evictions: string | null;
   ownernames: { title: string; value: string }[];
+  lastsaledate: string;
+  lastsaleamount: string;
+  lastsaleacrisid: string;
 };
+
+const formatDate = (dateString: string) => {
+  var date = new Date(dateString);
+  var options = { year: "numeric", month: "short", day: "numeric" };
+  return date.toLocaleDateString("en", options);
+};
+
+const formatPrice = new Intl.NumberFormat("en-US");
 
 const PropertiesListWithoutI18n: React.FC<{
   i18n: I18n;
@@ -33,7 +44,6 @@ const PropertiesListWithoutI18n: React.FC<{
 }> = (props) => {
   const { i18n } = props;
   // console.log(props.addrs);
-
   if (!props.addrs.length) {
     return null;
   } else {
@@ -230,6 +240,25 @@ const PropertiesListWithoutI18n: React.FC<{
                 //   Header: "Change in RS",
                 //   accessor: "totalviolations"
                 // }
+              ],
+            },
+            {
+              Header: i18n._(t`Last Sale`),
+              columns: [
+                {
+                  Header: i18n._(t`Date`),
+                  accessor: (d) => d.lastsaledate,
+                  Cell: (row) => row.original.lastsaledate && formatDate(row.original.lastsaledate),
+                  id: "lastsaledate",
+                },
+                {
+                  Header: i18n._(t`Price`),
+                  accessor: (d) => d.lastsaleamount,
+                  Cell: (row) =>
+                    row.original.lastsaleamount &&
+                    "$" + formatPrice.format(row.original.lastsaleamount),
+                  id: "lastsaleamount",
+                },
               ],
             },
             {
