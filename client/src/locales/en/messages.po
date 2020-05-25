@@ -53,7 +53,7 @@ msgstr "ANHD DAP Portal"
 msgid "About"
 msgstr "About"
 
-#: src/components/ViolationsSummary.tsx:29
+#: src/components/ViolationsSummary.tsx:30
 msgid "According to available HPD data, this portfolio has received <0>{totalviolations}</0> total violations."
 msgstr "According to available HPD data, this portfolio has received <0>{totalviolations}</0> total violations."
 
@@ -334,7 +334,7 @@ msgstr "Looking for more information?"
 msgid "Made with NYC ♥ by the team at <0>JustFix.nyc</0>"
 msgstr "Made with NYC ♥ by the team at <0>JustFix.nyc</0>"
 
-#: src/components/ViolationsSummary.tsx:10
+#: src/components/ViolationsSummary.tsx:11
 msgid "Maintenance code violations"
 msgstr "Maintenance code violations"
 
@@ -601,15 +601,15 @@ msgstr "This building seems like it should be registered with HPD!"
 msgid "This data is in <0>CSV file format</0>, which can easily be used in Excel, Google Sheets, or any other spreadsheet program."
 msgstr "This data is in <0>CSV file format</0>, which can easily be used in Excel, Google Sheets, or any other spreadsheet program."
 
-#: src/components/ViolationsSummary.tsx:19
+#: src/components/ViolationsSummary.tsx:20
 msgid "This is <0>about the same</0> as the citywide average."
 msgstr "This is <0>about the same</0> as the citywide average."
 
-#: src/components/ViolationsSummary.tsx:24
+#: src/components/ViolationsSummary.tsx:25
 msgid "This is <0>better</0> than the citywide average of {VIOLATIONS_AVG} per residential unit."
 msgstr "This is <0>better</0> than the citywide average of {VIOLATIONS_AVG} per residential unit."
 
-#: src/components/ViolationsSummary.tsx:21
+#: src/components/ViolationsSummary.tsx:22
 msgid "This is <0>worse</0> than the citywide average of {VIOLATIONS_AVG} per residential unit."
 msgstr "This is <0>worse</0> than the citywide average of {VIOLATIONS_AVG} per residential unit."
 
@@ -621,7 +621,7 @@ msgstr "This is the official identifer for the building according to the Dept. o
 msgid "This portfolio also had an estimated <0>net {changeType, select, gain {gain} other {loss}}</0> of <1>{absTotalRsDiff}</1> {absTotalRsDiff, plural, one {rent stabilized unit} other {rent stabilized units}} since 2007 (gained {absTotalRsGain}, lost {absTotalRsLoss})."
 msgstr "This portfolio also had an estimated <0>net {changeType, select, gain {gain} other {loss}}</0> of <1>{absTotalRsDiff}</1> {absTotalRsDiff, plural, one {rent stabilized unit} other {rent stabilized units}} since 2007 (gained {absTotalRsGain}, lost {absTotalRsLoss})."
 
-#: src/components/ViolationsSummary.tsx:14
+#: src/components/ViolationsSummary.tsx:15
 msgid "This portfolio has an average of <0>{openviolationsperresunit}</0> open HPD violations per residential unit."
 msgstr "This portfolio has an average of <0>{openviolationsperresunit}</0> open HPD violations per residential unit."
 

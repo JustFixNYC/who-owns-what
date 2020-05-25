@@ -56,7 +56,7 @@ msgstr "Portal DAP de ANHD"
 msgid "About"
 msgstr "Acerca de"
 
-#: src/components/ViolationsSummary.tsx:29
+#: src/components/ViolationsSummary.tsx:30
 msgid "According to available HPD data, this portfolio has received <0>{totalviolations}</0> total violations."
 msgstr "Según los datos del HPD disponibles, esta cartera de edificios ha recibido un total de <0>{totalviolations}</0> infracciones."
 
@@ -337,7 +337,7 @@ msgstr "¿Buscas más información?"
 msgid "Made with NYC ♥ by the team at <0>JustFix.nyc</0>"
 msgstr "Hecho en NYC con ♥ por el equipo de <0>JustFix.nyc</0>"
 
-#: src/components/ViolationsSummary.tsx:10
+#: src/components/ViolationsSummary.tsx:11
 msgid "Maintenance code violations"
 msgstr "Infracciones del código de mantenimiento"
 
@@ -604,15 +604,15 @@ msgstr "¡Parece que este edificio debería estar registrado con el HPD!"
 msgid "This data is in <0>CSV file format</0>, which can easily be used in Excel, Google Sheets, or any other spreadsheet program."
 msgstr "Estos datos están en <0>formato de archivo CSV</0>, que puede utilizarse fácilmente en Excel, Google Sheets o cualquier otro programa de hoja de cálculo."
 
-#: src/components/ViolationsSummary.tsx:19
+#: src/components/ViolationsSummary.tsx:20
 msgid "This is <0>about the same</0> as the citywide average."
 msgstr "Esto es <0>parecido</0> al promedio de toda la ciudad."
 
-#: src/components/ViolationsSummary.tsx:24
+#: src/components/ViolationsSummary.tsx:25
 msgid "This is <0>better</0> than the citywide average of {VIOLATIONS_AVG} per residential unit."
 msgstr "Esto es <0>mejor</0> que el promedio de la ciudad de {VIOLATIONS_AVG} por unidad residencial."
 
-#: src/components/ViolationsSummary.tsx:21
+#: src/components/ViolationsSummary.tsx:22
 msgid "This is <0>worse</0> than the citywide average of {VIOLATIONS_AVG} per residential unit."
 msgstr "Esto es <0>peor</0> que el promedio de la ciudad de {VIOLATIONS_AVG} por unidad residencial."
 
@@ -624,7 +624,7 @@ msgstr "El identificador oficial del edificio según los registros del Departame
 msgid "This portfolio also had an estimated <0>net {changeType, select, gain {gain} other {loss}}</0> of <1>{absTotalRsDiff}</1> {absTotalRsDiff, plural, one {rent stabilized unit} other {rent stabilized units}} since 2007 (gained {absTotalRsGain}, lost {absTotalRsLoss})."
 msgstr "Esta cartera de edificios tuvo una <0>{changeType, select, gain {ganancia} other {perdida}} neta</0> de <1>{absTotalRsDiff}</1> {absTotalRsDiff, plural, one {apartamento de renta estabilizada} other {apartamentos de renta estabilizada}} desde el año 2007 (ganó {absTotalRsGain}, perdió {absTotalRsLoss})."
 
-#: src/components/ViolationsSummary.tsx:14
+#: src/components/ViolationsSummary.tsx:15
 msgid "This portfolio has an average of <0>{openviolationsperresunit}</0> open HPD violations per residential unit."
 msgstr "Esta cartera de edificios tiene un promedio de <0>{openviolationsperresunit}</0> infracciones del HPD Actuales por cada unidad residencial."
 
