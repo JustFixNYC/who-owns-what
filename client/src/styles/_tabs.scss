@@ -78,6 +78,7 @@
 
     li.tab-item {
       height: 26px;
+      max-width: 105px;
 
       background: #ffffff
         url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAHElEQVQYV2NMS0v7P2vWLEYGKIAzMARgKjFUAABWhQgF0A6r6AAAAABJRU5ErkJggg==)
@@ -96,7 +97,7 @@
       margin-right: 15px;
 
       @include for-phone-only() {
-        margin-right: 12px;
+        margin-right: 11px;
       }
 
       &:hover {

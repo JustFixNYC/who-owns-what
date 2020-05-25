@@ -30,8 +30,16 @@
         line-height: 20px;
         margin-bottom: 20px;
 
+        @include for-desktop-down() {
+          max-width: 630px;
+        }
+
         @include for-tablet-landscape-down() {
           max-width: 385px;
+        }
+
+        @include for-phone-only() {
+          font-size: 1.8rem;
         }
       }
     }
@@ -56,6 +64,11 @@
     &:not(.AddressPage__content-active) {
       display: none;
       // visibility: hidden;
+    }
+
+    // Make content of page extend a bit beyond the edge of the viewport
+    .Page__content {
+      min-height: calc(100vh - 150px);
     }
   }
 

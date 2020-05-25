@@ -101,12 +101,6 @@ export default class AddressPage extends Component {
     this.setState({
       detailMobileSlide: false,
     });
-
-    setTimeout(() => {
-      this.setState({
-        detailAddr: null,
-      });
-    }, 500);
   };
 
   generateBaseUrl = () => {

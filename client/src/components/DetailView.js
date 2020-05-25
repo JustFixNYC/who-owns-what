@@ -8,11 +8,11 @@ import Modal from "components/Modal";
 
 import "styles/DetailView.css";
 import { withI18n } from "@lingui/react";
-import { t } from "@lingui/macro";
 import { Trans } from "@lingui/macro";
 import { SocialSharePortfolio } from "./SocialShare";
 import { Link } from "react-router-dom";
 import { LocaleLink } from "../i18n";
+import BuildingStatsTable from "./BuildingStatsTable";
 
 class DetailViewWithoutI18n extends Component {
   constructor(props) {
@@ -38,7 +38,6 @@ class DetailViewWithoutI18n extends Component {
   }
 
   render() {
-    const { i18n } = this.props;
     let boro, block, lot, ownernames, userOwnernames, takeActionURL;
     if (this.props.addr) {
       ({ boro, block, lot } = Helpers.splitBBL(this.props.addr.bbl));
@@ -50,12 +49,6 @@ class DetailViewWithoutI18n extends Component {
     }
 
     const isMobile = Browser.isMobile();
-
-    const bblDash = (
-      <span className="unselectable" unselectable="on">
-        -
-      </span>
-    );
 
     const streetView = (
       <LazyLoadWhenVisible>
@@ -97,96 +90,7 @@ class DetailViewWithoutI18n extends Component {
                       )}
                     </div>
                     <div className="card-body">
-                      <div className="card-body-table">
-                        <div className="table-row">
-                          <div
-                            className="double"
-                            title={i18n._(
-                              t`This is the official identifer for the building according to the Dept. of Finance tax records.`
-                            )}
-                          >
-                            <label>
-                              Boro{bblDash}Block{bblDash}Lot (BBL)
-                            </label>
-                            {boro}
-                            {bblDash}
-                            {block}
-                            {bblDash}
-                            {lot}
-                          </div>
-                          <div
-                            title={i18n._(
-                              t`The year that this building was originally constructed, according to the Dept. of City Planning.`
-                            )}
-                          >
-                            <Trans render="label">Year Built</Trans>
-                            {this.props.addr.yearbuilt !== 0 ? this.props.addr.yearbuilt : "N/A"}
-                          </div>
-                          <div
-                            title={i18n._(
-                              t`The number of residential units in this building, according to the Dept. of City Planning.`
-                            )}
-                          >
-                            <Trans render="label">Units</Trans>
-                            {this.props.addr.unitsres}
-                          </div>
-                        </div>
-                        <div className="table-row">
-                          <div
-                            title={i18n._(
-                              t`The number of open HPD violations for this building, updated monthly. Click the HPD Building Profile button below for the most up-to-date information.`
-                            )}
-                          >
-                            <Trans render="label">Open Violations</Trans>
-                            {this.props.addr.openviolations}
-                          </div>
-                          <div
-                            title={i18n._(
-                              t`This represents the total number of HPD Violations (both open & closed) recorded by the city.`
-                            )}
-                          >
-                            <Trans render="label">Total Violations</Trans>
-                            {this.props.addr.totalviolations}
-                          </div>
-                          <div
-                            title={i18n._(
-                              t`Evictions executed by NYC Marshals in 2019. ANHD and the Housing Data Coalition cleaned, geocoded, and validated the data, originally sourced from DOI.`
-                            )}
-                          >
-                            <Trans render="label">2019 Evictions</Trans>
-                            {this.props.addr.evictions !== null ? this.props.addr.evictions : "N/A"}
-                          </div>
-                          <div
-                            title={i18n._(
-                              t`This tracks how rent stabilized units in the building have changed (i.e. "&Delta;") from 2007 to 2017. If the number for 2017 is red, this means there has been a loss in stabilzied units! These counts are estimated from the DOF Property Tax Bills.`
-                            )}
-                          >
-                            <label>
-                              &Delta; <Trans>RS Units</Trans>
-                            </label>
-                            <span>
-                              {this.props.addr.rsunits2007 !== null
-                                ? this.props.addr.rsunits2007
-                                : "N/A"}
-                            </span>
-                            <span>&#x21FE;</span>
-                            <span
-                              className={`${
-                                this.props.addr.rsunits2017 < this.props.addr.rsunits2007
-                                  ? "text-danger"
-                                  : ""
-                              }`}
-                            >
-                              {this.props.addr.rsunits2017 !== null
-                                ? this.props.addr.rsunits2017
-                                : "N/A"}
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                      <span className="card-body-table-prompt float-right">
-                        <Trans render="i">(hover over a box to learn more)</Trans>
-                      </span>
+                      <BuildingStatsTable addr={this.props.addr} />
                       <div className="card-body-timeline-link">
                         <Link
                           to={this.props.generateBaseUrl() + "/timeline"}

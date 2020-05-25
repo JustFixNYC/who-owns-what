@@ -338,7 +338,10 @@ class IndicatorsWithoutI18n extends Component {
                     />
                   </div>
                   <div className="Indicators__linksContainer">
-                    <em className="Indicators__linksTitle">View by:</em> <br />
+                    <em className="Indicators__linksTitle">
+                      <Trans>View by:</Trans>
+                    </em>
+                    <br />
                     <li className="menu-item">
                       <label
                         className={
@@ -532,14 +535,14 @@ class IndicatorsWithoutI18n extends Component {
                 </div>
 
                 <div className="Indicators__feedback show-lg">
-                  <i>Have thoughts about this page?</i>
+                  <Trans render="i">Have thoughts about this page?</Trans>
                   <nobr>
                     <a
                       href="https://airtable.com/shrZ9uL3id6oWEn8T"
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      Send us feedback!
+                      <Trans>Send us feedback!</Trans>
                     </a>
                   </nobr>
                 </div>
