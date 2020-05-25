@@ -89,11 +89,12 @@
     }
 
     @include for-tablet-landscape-down {
-      width: 140px;
+      max-width: 140px;
     }
 
     @include for-phone-only {
       margin-left: 0;
+      max-width: none;
       width: 100%;
       justify-content: center;
       margin-top: 8px;
