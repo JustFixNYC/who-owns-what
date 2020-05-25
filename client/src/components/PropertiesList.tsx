@@ -253,11 +253,27 @@ const PropertiesListWithoutI18n: React.FC<{
                 },
                 {
                   Header: i18n._(t`Price`),
-                  accessor: (d) => d.lastsaleamount,
+                  accessor: (d) => (d.lastsaleamount ? parseInt(d.lastsaleamount) : null),
                   Cell: (row) =>
                     row.original.lastsaleamount &&
                     "$" + formatPrice.format(row.original.lastsaleamount),
                   id: "lastsaleamount",
+                },
+                {
+                  Header: i18n._(t`Link to Deed`),
+                  accessor: (d) => d.lastsaleacrisid,
+                  Cell: (row) =>
+                    row.original.lastsaleacrisid && (
+                      <a
+                        href={`https://a836-acris.nyc.gov/DS/DocumentSearch/DocumentImageView?doc_id=${row.original.lastsaleacrisid}`}
+                        className="btn"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <span style={{ padding: "0 3px" }}>&#8599;&#xFE0E;</span>
+                      </a>
+                    ),
+                  id: "lastsaleacrisid",
                 },
               ],
             },
