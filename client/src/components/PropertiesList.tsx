@@ -8,6 +8,7 @@ import { I18n } from "@lingui/core";
 import { withI18n } from "@lingui/react";
 import { t } from "@lingui/macro";
 import { Link } from "react-router-dom";
+import { SupportedLocale } from "../i18n-base";
 
 type Addr = {
   housenumber: string;
@@ -28,13 +29,11 @@ type Addr = {
   lastsaleacrisid: string;
 };
 
-const formatDate = (dateString: string) => {
+const formatDate = (dateString: string, locale?: SupportedLocale) => {
   var date = new Date(dateString);
   var options = { year: "numeric", month: "short", day: "numeric" };
-  return date.toLocaleDateString("en", options);
+  return date.toLocaleDateString(locale || "en", options);
 };
-
-const formatPrice = new Intl.NumberFormat("en-US");
 
 const PropertiesListWithoutI18n: React.FC<{
   i18n: I18n;
@@ -43,6 +42,8 @@ const PropertiesListWithoutI18n: React.FC<{
   generateBaseUrl: () => string;
 }> = (props) => {
   const { i18n } = props;
+  const locale = (i18n.language as SupportedLocale) || "en";
+  const formatPrice = new Intl.NumberFormat(locale);
   // console.log(props.addrs);
   if (!props.addrs.length) {
     return null;
@@ -248,7 +249,8 @@ const PropertiesListWithoutI18n: React.FC<{
                 {
                   Header: i18n._(t`Date`),
                   accessor: (d) => d.lastsaledate,
-                  Cell: (row) => row.original.lastsaledate && formatDate(row.original.lastsaledate),
+                  Cell: (row) =>
+                    row.original.lastsaledate && formatDate(row.original.lastsaledate, locale),
                   id: "lastsaledate",
                 },
                 {
