@@ -321,7 +321,7 @@ msgstr "Leyenda"
 
 #: src/components/Indicators.js:294
 #: src/components/PropertiesMap.js:191
-#: src/containers/AddressPage.js:274
+#: src/containers/AddressPage.js:268
 msgid "Loading"
 msgstr "Cargando"
 
@@ -410,7 +410,7 @@ msgstr "Abrir"
 msgid "Open Violations"
 msgstr "Infracciones Actuales"
 
-#: src/containers/AddressPage.js:173
+#: src/containers/AddressPage.js:167
 msgid "Overview"
 msgstr "General"
 
@@ -418,7 +418,7 @@ msgstr "General"
 msgid "Owners submit Building Permit Applications to the Department of Buildings before any construction project to get necessary approval. The number of applications filed can indicate how much construction the owner was planning.<0/><1/>Read more about DOB Building Applications/Permits at the <2>official NYC Buildings page</2>."
 msgstr "Antes de empezar cualquier proyecto de construcción, el propietario somete un solicitud para conseguir permisos de construcción al Departamento de Edificios para obtener la autorización necesaria. El número de solicitudes que asociadas a un edificio te puede dar una idea de cuánta construcción planea hacer el propietario. <0/><1/> Encontrarás más información sobre Permisos de Construcción del DOB en la <2>página oficial de Edificios de NYC</2>."
 
-#: src/containers/AddressPage.js:155
+#: src/containers/AddressPage.js:149
 msgid "PORTFOLIO: Your search address is associated with <0>{0}</0> {1, plural, one {building} other {buildings}}"
 msgstr "CARTERA DE EDIFICIOS: La dirección que has buscado está asociada con <0>{0}</0> {1, plural, one {construyendo} other {edificios}}"
 
@@ -433,7 +433,7 @@ msgstr "Personas (Encontrarás definiciones en español de los tipos de personas
 msgid "Please enter an email address!"
 msgstr "Por favor, ¡introduzca una dirección de correo electrónico!"
 
-#: src/containers/AddressPage.js:195
+#: src/containers/AddressPage.js:189
 msgid "Portfolio"
 msgstr "Edificios"
 
@@ -518,7 +518,7 @@ msgstr "Lo sentimos, parece que hay un error en el mapa. Inténtalo de nuevo con
 msgid "Source code"
 msgstr "Código fuente"
 
-#: src/containers/AddressPage.js:206
+#: src/containers/AddressPage.js:200
 msgid "Summary"
 msgstr "Resúmen"
 
@@ -652,7 +652,7 @@ msgstr "El cambio en apartamentos de renta estabilizada que hay en el edificio (
 msgid "This will export <0>{0}</0> addresses associated with the landlord at <1>{userAddrStr}</1>!"
 msgstr "¡Esto exportará <0>{0}</0> direcciones asociadas al propietario de <1>{userAddrStr}</1>!"
 
-#: src/containers/AddressPage.js:184
+#: src/containers/AddressPage.js:178
 msgid "Timeline"
 msgstr "Cronología"
 
