@@ -51,7 +51,7 @@ RETURNS TABLE (
     sum(openviolations) as totalopenviolations,
     sum(totalviolations) as totalviolations,
     round(avg(openviolations)::numeric, 1) as openviolationsperbldg,
-    round((sum(openviolations)::numeric / sum(unitsres)::numeric), 1) as openviolationsperresunit,
+    round((sum(openviolations)::numeric / NULLIF(sum(unitsres), 0)::numeric), 1) as openviolationsperresunit,
     sum(evictions) as totalevictions,
     round((sum(evictions)::numeric / count(distinct registrationid)::numeric), 1) as avgevictions,
     coalesce(sum(rsdiff) filter (where rsdiff > 0),0) as totalrsgain,
@@ -59,7 +59,7 @@ RETURNS TABLE (
     sum(rsdiff) as totalrsdiff,
     round(avg(rspercentchange)::numeric, 1) as avgrspercent,
     -- round(abs(sum(rsdiff)) / sum(unitsres), 1) as rsproportion,
-    round(abs(sum(rsdiff)) / sum(unitsres)::numeric * 100.0, 1) as rsproportion,
+    round(abs(sum(rsdiff)) / NULLIF(sum(unitsres), 0)::numeric * 100.0, 1) as rsproportion,
 
     -- array_agg allows us to use order by. we put everything in json, then order it
     -- and take the first item. hacks hacks hacks
