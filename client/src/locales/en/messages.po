@@ -53,11 +53,11 @@ msgstr "ANHD DAP Portal"
 msgid "About"
 msgstr "About"
 
-#: src/components/PropertiesSummary.js:149
-msgid "According to available HPD data, this portfolio has received <0>{0}</0> total violations."
-msgstr "According to available HPD data, this portfolio has received <0>{0}</0> total violations."
+#: src/components/ViolationsSummary.tsx:30
+msgid "According to available HPD data, this portfolio has received <0>{totalviolations}</0> total violations."
+msgstr "According to available HPD data, this portfolio has received <0>{totalviolations}</0> total violations."
 
-#: src/components/PropertiesSummary.js:161
+#: src/components/PropertiesSummary.js:131
 msgid "Additional links"
 msgstr "Additional links"
 
@@ -207,7 +207,7 @@ msgid "Enter email"
 msgstr "Enter email"
 
 #: src/components/PropertiesList.tsx:155
-#: src/components/PropertiesSummary.js:154
+#: src/components/PropertiesSummary.js:124
 msgid "Evictions"
 msgstr "Evictions"
 
@@ -227,7 +227,7 @@ msgstr "Export Data"
 msgid "Failure to register a building with HPD"
 msgstr "Failure to register a building with HPD"
 
-#: src/components/PropertiesSummary.js:54
+#: src/components/PropertiesSummary.js:50
 msgid "General info"
 msgstr "General info"
 
@@ -300,7 +300,7 @@ msgid "JustFix.nyc is a registered 501(c)(3) nonprofit organization."
 msgstr "JustFix.nyc is a registered 501(c)(3) nonprofit organization."
 
 #: src/components/PropertiesList.tsx:166
-#: src/components/PropertiesSummary.js:104
+#: src/components/PropertiesSummary.js:100
 msgid "Landlord"
 msgstr "Landlord"
 
@@ -326,7 +326,7 @@ msgstr "Loading"
 msgid "Location"
 msgstr "Location"
 
-#: src/components/PropertiesSummary.js:165
+#: src/components/PropertiesSummary.js:135
 msgid "Looking for more information?"
 msgstr "Looking for more information?"
 
@@ -334,7 +334,7 @@ msgstr "Looking for more information?"
 msgid "Made with NYC ♥ by the team at <0>JustFix.nyc</0>"
 msgstr "Made with NYC ♥ by the team at <0>JustFix.nyc</0>"
 
-#: src/components/PropertiesSummary.js:127
+#: src/components/ViolationsSummary.tsx:11
 msgid "Maintenance code violations"
 msgstr "Maintenance code violations"
 
@@ -451,7 +451,7 @@ msgstr "Quarter"
 msgid "RS Units"
 msgstr "RS Units"
 
-#: src/components/PropertiesSummary.js:156
+#: src/components/PropertiesSummary.js:126
 msgid "Rent stabilization"
 msgstr "Rent stabilization"
 
@@ -472,7 +472,7 @@ msgstr "Searching for <0>{0} {1}, {2}</0>"
 msgid "Select a Dataset:"
 msgstr "Select a Dataset:"
 
-#: src/components/PropertiesSummary.js:179
+#: src/components/PropertiesSummary.js:149
 msgid "Send us a data request"
 msgstr "Send us a data request"
 
@@ -488,7 +488,7 @@ msgstr "Share"
 #: src/components/DetailView.js:187
 #: src/components/DetailView.js:298
 #: src/components/EngagementPanel.tsx:18
-#: src/components/PropertiesSummary.js:185
+#: src/components/PropertiesSummary.js:155
 #: src/containers/App.js:81
 #: src/containers/NotRegisteredPage.js:288
 #: src/containers/NychaPage.js:309
@@ -549,11 +549,11 @@ msgstr "The city borough where your search address is located"
 msgid "The city’s fifth <0>worst evictor</0> in 2018, A&E is a prime example of a landlord who engages in <1>aggressive eviction strategies</1> to displace low-income tenants. Besides lack of repairs and frivolous evictions in housing court, A&E has also been known to use <2>MCIs</2> to <3>double rents</3> in rent-stabilized buildings."
 msgstr "The city’s fifth <0>worst evictor</0> in 2018, A&E is a prime example of a landlord who engages in <1>aggressive eviction strategies</1> to displace low-income tenants. Besides lack of repairs and frivolous evictions in housing court, A&E has also been known to use <2>MCIs</2> to <3>double rents</3> in rent-stabilized buildings."
 
-#: src/components/PropertiesSummary.js:120
+#: src/components/PropertiesSummary.js:116
 msgid "The most common corporate entity is <0>{0}</0> and the most common business address is <1>{1}</1>."
 msgstr "The most common corporate entity is <0>{0}</0> and the most common business address is <1>{1}</1>."
 
-#: src/components/PropertiesSummary.js:106
+#: src/components/PropertiesSummary.js:102
 msgid "The most common {0, plural, one {name that appears in this portfolio is} other {names that appear in this portfolio are}} <0/>."
 msgstr "The most common {0, plural, one {name that appears in this portfolio is} other {names that appear in this portfolio are}} <0/>."
 
@@ -573,7 +573,7 @@ msgstr "The number of residential units in this building, according to the Dept.
 msgid "The year that this building was originally constructed, according to the Dept. of City Planning."
 msgstr "The year that this building was originally constructed, according to the Dept. of City Planning."
 
-#: src/components/PropertiesSummary.js:75
+#: src/components/PropertiesSummary.js:71
 msgid "The {bldgs, plural, one {} other {average}} age of {bldgs, plural, one {this building} other {these buildings}} is <0>{age}</0> years old."
 msgstr "The {bldgs, plural, one {} other {average}} age of {bldgs, plural, one {this building} other {these buildings}} is <0>{age}</0> years old."
 
@@ -585,7 +585,7 @@ msgstr "The {buildingCount} buildings owned by my landlord (via JustFix's Who Ow
 msgid "The {buildingCount} buildings that my landlord \"owns\" 👀... #WhoOwnsWhat @JustFixNYC"
 msgstr "The {buildingCount} buildings that my landlord \"owns\" 👀... #WhoOwnsWhat @JustFixNYC"
 
-#: src/components/PropertiesSummary.js:56
+#: src/components/PropertiesSummary.js:52
 msgid "There {bldgs, plural, one {<0>is <1>1</1> building</0>} other {<2>are <3>{bldgs}</3> buildings</2>}} in this portfolio with a total of {units, plural, one {1 unit} other {# units}}."
 msgstr "There {bldgs, plural, one {<0>is <1>1</1> building</0>} other {<2>are <3>{bldgs}</3> buildings</2>}} in this portfolio with a total of {units, plural, one {1 unit} other {# units}}."
 
@@ -601,15 +601,15 @@ msgstr "This building seems like it should be registered with HPD!"
 msgid "This data is in <0>CSV file format</0>, which can easily be used in Excel, Google Sheets, or any other spreadsheet program."
 msgstr "This data is in <0>CSV file format</0>, which can easily be used in Excel, Google Sheets, or any other spreadsheet program."
 
-#: src/components/PropertiesSummary.js:135
+#: src/components/ViolationsSummary.tsx:20
 msgid "This is <0>about the same</0> as the citywide average."
 msgstr "This is <0>about the same</0> as the citywide average."
 
-#: src/components/PropertiesSummary.js:144
+#: src/components/ViolationsSummary.tsx:25
 msgid "This is <0>better</0> than the citywide average of {VIOLATIONS_AVG} per residential unit."
 msgstr "This is <0>better</0> than the citywide average of {VIOLATIONS_AVG} per residential unit."
 
-#: src/components/PropertiesSummary.js:139
+#: src/components/ViolationsSummary.tsx:22
 msgid "This is <0>worse</0> than the citywide average of {VIOLATIONS_AVG} per residential unit."
 msgstr "This is <0>worse</0> than the citywide average of {VIOLATIONS_AVG} per residential unit."
 
@@ -621,9 +621,9 @@ msgstr "This is the official identifer for the building according to the Dept. o
 msgid "This portfolio also had an estimated <0>net {changeType, select, gain {gain} other {loss}}</0> of <1>{absTotalRsDiff}</1> {absTotalRsDiff, plural, one {rent stabilized unit} other {rent stabilized units}} since 2007 (gained {absTotalRsGain}, lost {absTotalRsLoss})."
 msgstr "This portfolio also had an estimated <0>net {changeType, select, gain {gain} other {loss}}</0> of <1>{absTotalRsDiff}</1> {absTotalRsDiff, plural, one {rent stabilized unit} other {rent stabilized units}} since 2007 (gained {absTotalRsGain}, lost {absTotalRsLoss})."
 
-#: src/components/PropertiesSummary.js:129
-msgid "This portfolio has an average of <0>{0}</0> open HPD violations per residential unit."
-msgstr "This portfolio has an average of <0>{0}</0> open HPD violations per residential unit."
+#: src/components/ViolationsSummary.tsx:15
+msgid "This portfolio has an average of <0>{openviolationsperresunit}</0> open HPD violations per residential unit."
+msgstr "This portfolio has an average of <0>{openviolationsperresunit}</0> open HPD violations per residential unit."
 
 #: src/containers/HomePage.tsx:146
 msgid "This property management company owned by the Kushner family is notorious for <0>violating rent regulations</0> and <1>harassing tenants</1>. The stake currently held by Jared Kushner and Ivanka Trump is worth as much as $761 million."
@@ -772,7 +772,7 @@ msgstr "associated building"
 msgid "search address"
 msgstr "search address"
 
-#: src/components/PropertiesSummary.js:90
+#: src/components/PropertiesSummary.js:86
 msgid "{0} {1}, {2} currently has {3, plural, one {one open HPD violation} other {# open HPD violations}} - the most in this portfolio."
 msgstr "{0} {1}, {2} currently has {3, plural, one {one open HPD violation} other {# open HPD violations}} - the most in this portfolio."
 
