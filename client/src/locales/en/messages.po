@@ -318,7 +318,7 @@ msgstr "Legend"
 
 #: src/components/Indicators.js:294
 #: src/components/PropertiesMap.js:191
-#: src/containers/AddressPage.js:274
+#: src/containers/AddressPage.js:268
 msgid "Loading"
 msgstr "Loading"
 
@@ -407,7 +407,7 @@ msgstr "Open"
 msgid "Open Violations"
 msgstr "Open Violations"
 
-#: src/containers/AddressPage.js:173
+#: src/containers/AddressPage.js:167
 msgid "Overview"
 msgstr "Overview"
 
@@ -415,7 +415,7 @@ msgstr "Overview"
 msgid "Owners submit Building Permit Applications to the Department of Buildings before any construction project to get necessary approval. The number of applications filed can indicate how much construction the owner was planning.<0/><1/>Read more about DOB Building Applications/Permits at the <2>official NYC Buildings page</2>."
 msgstr "Owners submit Building Permit Applications to the Department of Buildings before any construction project to get necessary approval. The number of applications filed can indicate how much construction the owner was planning.<0/><1/>Read more about DOB Building Applications/Permits at the <2>official NYC Buildings page</2>."
 
-#: src/containers/AddressPage.js:155
+#: src/containers/AddressPage.js:149
 msgid "PORTFOLIO: Your search address is associated with <0>{0}</0> {1, plural, one {building} other {buildings}}"
 msgstr "PORTFOLIO: Your search address is associated with <0>{0}</0> {1, plural, one {building} other {buildings}}"
 
@@ -430,7 +430,7 @@ msgstr "People"
 msgid "Please enter an email address!"
 msgstr "Please enter an email address!"
 
-#: src/containers/AddressPage.js:195
+#: src/containers/AddressPage.js:189
 msgid "Portfolio"
 msgstr "Portfolio"
 
@@ -515,7 +515,7 @@ msgstr "Sorry, it looks like there's an error on the map. Try again on a differe
 msgid "Source code"
 msgstr "Source code"
 
-#: src/containers/AddressPage.js:206
+#: src/containers/AddressPage.js:200
 msgid "Summary"
 msgstr "Summary"
 
@@ -649,7 +649,7 @@ msgstr "This tracks how rent stabilized units in the building have changed (i.e.
 msgid "This will export <0>{0}</0> addresses associated with the landlord at <1>{userAddrStr}</1>!"
 msgstr "This will export <0>{0}</0> addresses associated with the landlord at <1>{userAddrStr}</1>!"
 
-#: src/containers/AddressPage.js:184
+#: src/containers/AddressPage.js:178
 msgid "Timeline"
 msgstr "Timeline"
 
