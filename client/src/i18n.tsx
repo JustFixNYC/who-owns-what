@@ -152,11 +152,14 @@ export function removeLocalePrefix(path: string): string {
  * other language.
  */
 export const LocaleSwitcher = withRouter(function LocaleSwitcher(props: RouteComponentProps) {
-  const locale = localeFromRouter(props);
-  const toLocale: SupportedLocale = locale === "en" ? "es" : "en";
-  const to = `/${toLocale}${removeLocalePrefix(props.location.pathname)}`;
+  const to = (toLocale: SupportedLocale) =>
+    `/${toLocale}${removeLocalePrefix(props.location.pathname)}`;
 
-  return ENABLE_PUBLIC_FACING_I18N ? <NavLink to={to}>{languageNames[toLocale]}</NavLink> : null;
+  return ENABLE_PUBLIC_FACING_I18N ? (
+    <span className="language-toggle">
+      <NavLink to={to("en")}>EN</NavLink>/<NavLink to={to("es")}>ES</NavLink>
+    </span>
+  ) : null;
 });
 
 /**

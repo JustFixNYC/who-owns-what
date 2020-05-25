@@ -1,7 +1,7 @@
 from typing import NamedTuple
 
 
-class HPDViolation(NamedTuple):
+class HpdViolations(NamedTuple):
     ViolationID: str = '4827077'
     BuildingID: str = '220548'
     RegistrationID: str = '0'
