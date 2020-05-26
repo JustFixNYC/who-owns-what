@@ -9,7 +9,6 @@ router.get("/address", address.query);
 router.get("/address/aggregate", address.aggregate);
 router.get("/address/dap-aggregate", address.dapAggregate);
 router.get("/address/buildinginfo", address.buildinginfo);
-router.get("/address/salehistory", address.salehistory);
 router.get("/address/indicatorhistory", address.indicatorhistory);
 router.get("/address/export", address.export);
 router.get("/landlord", landlord.query);

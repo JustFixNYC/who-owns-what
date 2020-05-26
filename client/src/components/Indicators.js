@@ -14,8 +14,6 @@ import { IndicatorsDatasetRadio, INDICATORS_DATASETS } from "./IndicatorsDataset
 import { Link } from "react-router-dom";
 
 const initialState = {
-  saleHistory: null,
-
   lastSale: {
     date: null,
     label: null,
@@ -127,12 +125,6 @@ class IndicatorsWithoutI18n extends Component {
 
   /** Fetches data for Indicators component via 2 API calls and saves the raw data in state */
   fetchData(detailAddr) {
-    APIClient.getSaleHistory(detailAddr.bbl)
-      .then((results) => this.setState({ saleHistory: results.result }))
-      .catch((err) => {
-        window.Rollbar.error("API error on Indicators: Sale History", err, detailAddr.bbl);
-      });
-
     APIClient.getIndicatorHistory(detailAddr.bbl)
       .then((results) => this.setState({ indicatorHistory: results.result }))
       .catch((err) => {
@@ -282,7 +274,6 @@ class IndicatorsWithoutI18n extends Component {
         <div className="Indicators__content Page__content">
           {!(
             this.props.isVisible &&
-            this.state.saleHistory &&
             this.state.indicatorHistory &&
             this.state[this.state.defaultVis + "Data"].labels
           ) ? (

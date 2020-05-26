@@ -21,13 +21,7 @@ const buildingInfoSQL = `SELECT
    FROM PLUTO_19V2
    WHERE BBL = $1`;
 
-// WOW Indicators Custom Queries
-const saleHistorySQL = `SELECT * 
-   FROM REAL_PROPERTY_LEGALS L 
-   LEFT JOIN REAL_PROPERTY_MASTER M ON L.DOCUMENTID = M.DOCUMENTID
-   WHERE BBL = $1 AND DOCTYPE = 'DEED'
-   ORDER BY COALESCE(DOCDATE,RECORDEDFILED) DESC`;
-
+// WOW Indicators Custom Query for Timeline Tab
 const indicatorHistorySQL = `WITH TIME_SERIES AS (
       SELECT TO_CHAR(I::DATE , 'YYYY-MM') AS MONTH 
       FROM GENERATE_SERIES('2010-01-01', CURRENT_DATE - INTERVAL '1 MONTH', '1 MONTH'::INTERVAL) I
@@ -91,6 +85,5 @@ module.exports = {
   queryDapAggregate: (bbl) => db.func("get_agg_info_from_bbl", bbl),
   queryLandlord: (bbl) => db.any("SELECT * FROM hpd_landlord_contact WHERE bbl = $1", bbl),
   queryBuildingInfo: (bbl) => db.any(buildingInfoSQL, bbl),
-  querySaleHistory: (bbl) => db.any(saleHistorySQL, bbl),
   queryIndicatorHistory: (bbl) => db.any(indicatorHistorySQL, bbl),
 };

@@ -36,10 +36,6 @@ function getBuildingInfo(bbl: string) {
   return get(`/api/address/buildinginfo?bbl=${bbl}`);
 }
 
-function getSaleHistory(bbl: string) {
-  return get(`/api/address/salehistory?bbl=${bbl}`);
-}
-
 function getIndicatorHistory(bbl: string) {
   return get(`/api/address/indicatorhistory?bbl=${bbl}`);
 }
@@ -120,7 +116,6 @@ const Client = {
   searchBBL,
   getAggregate,
   getBuildingInfo,
-  getSaleHistory,
   getIndicatorHistory,
   getAddressExport,
   postNewSubscriber,
