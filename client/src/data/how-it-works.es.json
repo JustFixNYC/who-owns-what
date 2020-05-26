@@ -2,38 +2,39 @@
   "title": "Metodología",
   "slug": "how-it-works",
   "content": {
+    "nodeType": "document",
     "data": {},
     "content": [
       {
-        "data": {},
+        "nodeType": "heading-4",
         "content": [
           {
-            "data": {},
+            "nodeType": "text",
+            "value": "Metodologia de Datos de Quién Es El Dueño",
             "marks": [],
-            "value": "Metodologia de Datos de Quien Posee Que",
-            "nodeType": "text"
+            "data": {}
           }
         ],
-        "nodeType": "heading-4"
-      },
-      {
-        "data": {},
-        "content": [
-          {
-            "data": {},
-            "marks": [],
-            "value": "",
-            "nodeType": "text"
-          }
-        ],
-        "nodeType": "paragraph"
+        "data": {}
       },
       {
         "nodeType": "paragraph",
         "content": [
           {
             "nodeType": "text",
-            "value": "En Quién Posee Qué, usamos el ",
+            "value": "",
+            "marks": [],
+            "data": {}
+          }
+        ],
+        "data": {}
+      },
+      {
+        "nodeType": "paragraph",
+        "content": [
+          {
+            "nodeType": "text",
+            "value": "En Quién Es El Dueño, usamos el ",
             "marks": [],
             "data": {}
           },
@@ -81,9 +82,9 @@
         "content": [
           {
             "nodeType": "text",
-            "data": {},
-            "value": "Cuando haces una búsqueda Quién Posee Qué, nuestra base de datos:",
-            "marks": []
+            "value": "Cuando haces una búsqueda Quién Es El Dueño, nuestra base de datos:",
+            "marks": [],
+            "data": {}
           }
         ],
         "data": {}
@@ -93,7 +94,6 @@
         "content": [
           {
             "nodeType": "list-item",
-            "data": {},
             "content": [
               {
                 "nodeType": "paragraph",
@@ -123,7 +123,8 @@
                 ],
                 "data": {}
               }
-            ]
+            ],
+            "data": {}
           },
           {
             "nodeType": "list-item",
@@ -167,9 +168,9 @@
         "content": [
           {
             "nodeType": "text",
-            "data": {},
             "value": "De acuerdo con la política del HPD, “la ley requiere que los propietarios de edificios residenciales se registren anualmente con el HPD si la propiedad es una vivienda múltiple (más de 3 unidades residenciales) o una vivienda privada (1–2 unidades residenciales) donde no vive ni el dueño ni su familia inmediata\". Estos datos deben estar disponibles públicamente de acuerdo con la ley de datos abiertos de Nueva York.\n",
-            "marks": []
+            "marks": [],
+            "data": {}
           }
         ],
         "data": {}
@@ -179,13 +180,13 @@
         "content": [
           {
             "nodeType": "text",
-            "data": {},
             "value": "El HPD actualiza estos datos de registro (que se actualizan en vivo en este sitio web) mensualmente",
             "marks": [
               {
                 "type": "bold"
               }
-            ]
+            ],
+            "data": {}
           },
           {
             "nodeType": "text",
@@ -201,7 +202,6 @@
         "content": [
           {
             "nodeType": "list-item",
-            "data": {},
             "content": [
               {
                 "nodeType": "paragraph",
@@ -238,18 +238,28 @@
                   },
                   {
                     "nodeType": "text",
-                    "value": " — actualizado a diario",
+                    "value": " —",
                     "marks": [],
+                    "data": {}
+                  },
+                  {
+                    "nodeType": "text",
+                    "value": " actualizado a diario",
+                    "marks": [
+                      {
+                        "type": "italic"
+                      }
+                    ],
                     "data": {}
                   }
                 ],
                 "data": {}
               }
-            ]
+            ],
+            "data": {}
           },
           {
             "nodeType": "list-item",
-            "data": {},
             "content": [
               {
                 "nodeType": "paragraph",
@@ -286,14 +296,25 @@
                   },
                   {
                     "nodeType": "text",
-                    "value": " — actualizado mensualmente",
+                    "value": " — ",
                     "marks": [],
+                    "data": {}
+                  },
+                  {
+                    "nodeType": "text",
+                    "value": "actualizado mensualmente",
+                    "marks": [
+                      {
+                        "type": "italic"
+                      }
+                    ],
                     "data": {}
                   }
                 ],
                 "data": {}
               }
-            ]
+            ],
+            "data": {}
           },
           {
             "nodeType": "list-item",
@@ -333,8 +354,18 @@
                   },
                   {
                     "nodeType": "text",
-                    "value": " — actualizado a diario",
+                    "value": " — ",
                     "marks": [],
+                    "data": {}
+                  },
+                  {
+                    "nodeType": "text",
+                    "value": "actualizado a diario",
+                    "marks": [
+                      {
+                        "type": "italic"
+                      }
+                    ],
                     "data": {}
                   }
                 ],
@@ -415,7 +446,7 @@
                   },
                   {
                     "nodeType": "text",
-                    "value": "updated yearly",
+                    "value": "actualizado anualmente",
                     "marks": [
                       {
                         "type": "italic"
@@ -535,6 +566,64 @@
                 "content": [
                   {
                     "nodeType": "text",
+                    "value": "Registros de escrituras de ACRIS de",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      }
+                    ],
+                    "data": {}
+                  },
+                  {
+                    "nodeType": "text",
+                    "value": " ",
+                    "marks": [],
+                    "data": {}
+                  },
+                  {
+                    "nodeType": "hyperlink",
+                    "content": [
+                      {
+                        "nodeType": "text",
+                        "value": "NYC Open Data",
+                        "marks": [],
+                        "data": {}
+                      }
+                    ],
+                    "data": {
+                      "uri": "https://data.cityofnewyork.us/City-Government/ACRIS-Real-Property-Master/bnx9-e6tj"
+                    }
+                  },
+                  {
+                    "nodeType": "text",
+                    "value": ". Nota: solo incluimos escrituras que tienen una cantidad asociada mas de $1. — ",
+                    "marks": [],
+                    "data": {}
+                  },
+                  {
+                    "nodeType": "text",
+                    "value": "actualizado bimensualmente",
+                    "marks": [
+                      {
+                        "type": "italic"
+                      }
+                    ],
+                    "data": {}
+                  }
+                ],
+                "data": {}
+              }
+            ],
+            "data": {}
+          },
+          {
+            "nodeType": "list-item",
+            "content": [
+              {
+                "nodeType": "paragraph",
+                "content": [
+                  {
+                    "nodeType": "text",
                     "value": "Aproximaciones de las cantidades de Apartamentos de Renta Estabilizada (de taxbills.nyc, adaptadas de las facturas de impuestos del Departamento de Finanzas).",
                     "marks": [
                       {
@@ -551,9 +640,6 @@
                   },
                   {
                     "nodeType": "hyperlink",
-                    "data": {
-                      "uri": "http://blog.johnkrauss.com/where-is-decontrol/"
-                    },
                     "content": [
                       {
                         "nodeType": "text",
@@ -561,7 +647,10 @@
                         "marks": [],
                         "data": {}
                       }
-                    ]
+                    ],
+                    "data": {
+                      "uri": "http://blog.johnkrauss.com/where-is-decontrol/"
+                    }
                   },
                   {
                     "nodeType": "text",
@@ -571,13 +660,13 @@
                   },
                   {
                     "nodeType": "text",
-                    "data": {},
                     "value": "— actualizado anualmente",
                     "marks": [
                       {
                         "type": "italic"
                       }
-                    ]
+                    ],
+                    "data": {}
                   }
                 ],
                 "data": {}
@@ -593,9 +682,9 @@
         "content": [
           {
             "nodeType": "text",
-            "data": {},
             "value": "Nuestro código es Open Source y es accesible ",
-            "marks": []
+            "marks": [],
+            "data": {}
           },
           {
             "nodeType": "hyperlink",
@@ -640,7 +729,6 @@
         ],
         "data": {}
       }
-    ],
-    "nodeType": "document"
+    ]
   }
 }
