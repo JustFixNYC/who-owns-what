@@ -259,7 +259,7 @@ const PropertiesListWithoutI18n: React.FC<{
                   id: "lastsaledate",
                 },
                 {
-                  Header: i18n._(t`Price`),
+                  Header: i18n._(t`Amount`),
                   accessor: (d) => (d.lastsaleamount ? parseInt(d.lastsaleamount) : null),
                   Cell: (row) =>
                     row.original.lastsaleamount &&
