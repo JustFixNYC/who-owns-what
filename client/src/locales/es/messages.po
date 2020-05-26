@@ -393,6 +393,10 @@ msgstr "Nueva búsqueda"
 msgid "New York Regional Office:"
 msgstr "Oficina Regional de Nueva York:"
 
+#: src/components/PropertiesList.tsx:226
+msgid "No"
+msgstr ""
+
 #: src/containers/NotRegisteredPage.js:179
 #: src/containers/NychaPage.js:110
 msgid "No address found"
@@ -715,7 +719,7 @@ msgstr "Visualizar por:"
 msgid "View data over time"
 msgstr "Ver datos a lo largo del tiempo"
 
-#: src/components/PropertiesList.tsx:230
+#: src/components/PropertiesList.tsx:232
 msgid "View detail"
 msgstr "Ver detalles"
 
@@ -774,6 +778,10 @@ msgstr "Año"
 #: src/components/BuildingStatsTable.js:50
 msgid "Year Built"
 msgstr "Año de construcción"
+
+#: src/components/PropertiesList.tsx:225
+msgid "Yes"
+msgstr ""
 
 #: src/containers/HomePage.tsx:220
 msgid "Yoel Goldman's All Year Management has been at the <0>forefront of gentrification</0> in Brooklyn. Tenants in his buidlings in Williamsburg, Bushwick, and Crown Heights have been forced to live in horrendous and often dangerous conditions."
