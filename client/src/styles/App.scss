@@ -8,6 +8,11 @@
   & > div {
     box-sizing: border-box;
   }
+
+  // Standard inline-link focus class:
+  a:not(.btn):focus {
+    box-shadow: 0 0 0 2px $gray;
+  }
 }
 
 .App__warning {
