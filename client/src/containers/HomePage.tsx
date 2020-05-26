@@ -196,6 +196,7 @@ class HomePage extends Component<HomePageProps, State> {
                       </Link>
                     </h6>
                     <Link
+                      className="image"
                       to={this.state.sampleURLs[0]}
                       onClick={() => {
                         window.gtag("event", "example-portfolio-1-homepage");
@@ -247,6 +248,7 @@ class HomePage extends Component<HomePageProps, State> {
                       </Link>
                     </h6>
                     <Link
+                      className="image"
                       to={this.state.sampleURLs[1]}
                       onClick={() => {
                         window.gtag("event", "example-portfolio-2-homepage");
@@ -318,6 +320,7 @@ class HomePage extends Component<HomePageProps, State> {
                       </Link>
                     </h6>
                     <Link
+                      className="image"
                       to={this.state.sampleURLs[2]}
                       onClick={() => {
                         window.gtag("event", "example-portfolio-1-homepage");
