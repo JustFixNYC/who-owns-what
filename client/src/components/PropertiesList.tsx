@@ -294,7 +294,9 @@ const PropertiesListWithoutI18n: React.FC<{
                   },
                   Cell: (row) =>
                     row.original.lastsaleacrisid &&
-                    isPartOfGroupSale(row.original.lastsaleacrisid, props.addrs) && <span>✓</span>,
+                    (isPartOfGroupSale(row.original.lastsaleacrisid, props.addrs)
+                      ? i18n._(t`Yes`)
+                      : i18n._(t`No`)),
                   id: "lastsaleisgroupsale",
                 },
               ],
