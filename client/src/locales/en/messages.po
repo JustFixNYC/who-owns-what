@@ -29,7 +29,7 @@ msgstr "(hover over a box to learn more)"
 msgid "({browserType, select, mobile {tap} other {click}} to view details)"
 msgstr "({browserType, select, mobile {tap} other {click}} to view details)"
 
-#: src/containers/HomePage.tsx:128
+#: src/containers/HomePage.tsx:130
 msgid "... or view some sample portfolios:"
 msgstr "... or view some sample portfolios:"
 
@@ -38,7 +38,7 @@ msgstr "... or view some sample portfolios:"
 msgid "2019 Evictions"
 msgstr "2019 Evictions"
 
-#: src/containers/HomePage.tsx:27
+#: src/containers/HomePage.tsx:28
 msgid "<0>COVID-19 Update: </0>JustFix.nyc remains in operation, and we are adapting our products to match new rules put in place during the Covid-19 public health crisis. Thanks to organizing from tenant leaders, renters now have stronger protections during this time, including a full halt on eviction cases. <1><2>Learn more</2></1>"
 msgstr "<0>COVID-19 Update: </0>JustFix.nyc remains in operation, and we are adapting our products to match new rules put in place during the Covid-19 public health crisis. Thanks to organizing from tenant leaders, renters now have stronger protections during this time, including a full halt on eviction cases. <1><2>Learn more</2></1>"
 
@@ -49,6 +49,7 @@ msgstr "<0>COVID-19 Update: </0>JustFix.nyc remains in operation, and we are ada
 msgid "ANHD DAP Portal"
 msgstr "ANHD DAP Portal"
 
+#: src/containers/AboutPage.tsx:13
 #: src/containers/App.js:62
 msgid "About"
 msgstr "About"
@@ -198,7 +199,7 @@ msgstr "Email"
 msgid "Emergency"
 msgstr "Emergency"
 
-#: src/containers/HomePage.tsx:108
+#: src/containers/HomePage.tsx:109
 msgid "Enter an NYC address and find other buildings your landlord might own:"
 msgstr "Enter an NYC address and find other buildings your landlord might own:"
 
@@ -272,6 +273,7 @@ msgid "How is this building associated to this portfolio?"
 msgstr "How is this building associated to this portfolio?"
 
 #: src/containers/App.js:65
+#: src/containers/HowToUsePage.tsx:13
 msgid "How to use"
 msgstr "How to use"
 
@@ -318,7 +320,7 @@ msgstr "Legend"
 
 #: src/components/Indicators.js:294
 #: src/components/PropertiesMap.js:191
-#: src/containers/AddressPage.js:268
+#: src/containers/AddressPage.js:285
 msgid "Loading"
 msgstr "Loading"
 
@@ -343,6 +345,7 @@ msgid "May be issued official Orders"
 msgstr "May be issued official Orders"
 
 #: src/components/LegalFooter.tsx:41
+#: src/containers/Methodology.tsx:14
 msgid "Methodology"
 msgstr "Methodology"
 
@@ -407,7 +410,7 @@ msgstr "Open"
 msgid "Open Violations"
 msgstr "Open Violations"
 
-#: src/containers/AddressPage.js:167
+#: src/containers/AddressPage.js:183
 msgid "Overview"
 msgstr "Overview"
 
@@ -415,7 +418,7 @@ msgstr "Overview"
 msgid "Owners submit Building Permit Applications to the Department of Buildings before any construction project to get necessary approval. The number of applications filed can indicate how much construction the owner was planning.<0/><1/>Read more about DOB Building Applications/Permits at the <2>official NYC Buildings page</2>."
 msgstr "Owners submit Building Permit Applications to the Department of Buildings before any construction project to get necessary approval. The number of applications filed can indicate how much construction the owner was planning.<0/><1/>Read more about DOB Building Applications/Permits at the <2>official NYC Buildings page</2>."
 
-#: src/containers/AddressPage.js:149
+#: src/containers/AddressPage.js:161
 msgid "PORTFOLIO: Your search address is associated with <0>{0}</0> {1, plural, one {building} other {buildings}}"
 msgstr "PORTFOLIO: Your search address is associated with <0>{0}</0> {1, plural, one {building} other {buildings}}"
 
@@ -430,11 +433,12 @@ msgstr "People"
 msgid "Please enter an email address!"
 msgstr "Please enter an email address!"
 
-#: src/containers/AddressPage.js:189
+#: src/containers/AddressPage.js:205
 msgid "Portfolio"
 msgstr "Portfolio"
 
 #: src/components/LegalFooter.tsx:37
+#: src/containers/PrivacyPolicyPage.tsx:8
 msgid "Privacy policy"
 msgstr "Privacy policy"
 
@@ -460,11 +464,11 @@ msgstr "Rent stabilization"
 msgid "Search for a different address"
 msgstr "Search for a different address"
 
-#: src/containers/BBLPage.tsx:141
+#: src/containers/BBLPage.tsx:143
 msgid "Searching"
 msgstr "Searching"
 
-#: src/containers/HomePage.tsx:114
+#: src/containers/HomePage.tsx:116
 msgid "Searching for <0>{0} {1}, {2}</0>"
 msgstr "Searching for <0>{0} {1}, {2}</0>"
 
@@ -515,7 +519,7 @@ msgstr "Sorry, it looks like there's an error on the map. Try again on a differe
 msgid "Source code"
 msgstr "Source code"
 
-#: src/containers/AddressPage.js:200
+#: src/containers/AddressPage.js:216
 msgid "Summary"
 msgstr "Summary"
 
@@ -526,6 +530,7 @@ msgid "Take action on JustFix.nyc!"
 msgstr "Take action on JustFix.nyc!"
 
 #: src/components/LegalFooter.tsx:34
+#: src/containers/TermsOfUsePage.tsx:8
 msgid "Terms of use"
 msgstr "Terms of use"
 
@@ -545,7 +550,7 @@ msgstr "The building with the most evictions was <0>{0} {1}, {2}</0> with {build
 msgid "The city borough where your search address is located"
 msgstr "The city borough where your search address is located"
 
-#: src/containers/HomePage.tsx:179
+#: src/containers/HomePage.tsx:182
 msgid "The city’s fifth <0>worst evictor</0> in 2018, A&E is a prime example of a landlord who engages in <1>aggressive eviction strategies</1> to displace low-income tenants. Besides lack of repairs and frivolous evictions in housing court, A&E has also been known to use <2>MCIs</2> to <3>double rents</3> in rent-stabilized buildings."
 msgstr "The city’s fifth <0>worst evictor</0> in 2018, A&E is a prime example of a landlord who engages in <1>aggressive eviction strategies</1> to displace low-income tenants. Besides lack of repairs and frivolous evictions in housing court, A&E has also been known to use <2>MCIs</2> to <3>double rents</3> in rent-stabilized buildings."
 
@@ -625,7 +630,7 @@ msgstr "This portfolio also had an estimated <0>net {changeType, select, gain {g
 msgid "This portfolio has an average of <0>{openviolationsperresunit}</0> open HPD violations per residential unit."
 msgstr "This portfolio has an average of <0>{openviolationsperresunit}</0> open HPD violations per residential unit."
 
-#: src/containers/HomePage.tsx:146
+#: src/containers/HomePage.tsx:148
 msgid "This property management company owned by the Kushner family is notorious for <0>violating rent regulations</0> and <1>harassing tenants</1>. The stake currently held by Jared Kushner and Ivanka Trump is worth as much as $761 million."
 msgstr "This property management company owned by the Kushner family is notorious for <0>violating rent regulations</0> and <1>harassing tenants</1>. The stake currently held by Jared Kushner and Ivanka Trump is worth as much as $761 million."
 
@@ -649,7 +654,7 @@ msgstr "This tracks how rent stabilized units in the building have changed (i.e.
 msgid "This will export <0>{0}</0> addresses associated with the landlord at <1>{userAddrStr}</1>!"
 msgstr "This will export <0>{0}</0> addresses associated with the landlord at <1>{userAddrStr}</1>!"
 
-#: src/containers/AddressPage.js:178
+#: src/containers/AddressPage.js:194
 msgid "Timeline"
 msgstr "Timeline"
 
@@ -675,6 +680,10 @@ msgstr "Unable to request Code Violation Dismissals"
 #: src/containers/NychaPage.js:141
 msgid "Units"
 msgstr "Units"
+
+#: src/components/Page.js:11
+msgid "Use this free tool from JustFix.nyc to research your building and investigate landlords! We use property ownership mapping to identify a landlord's portfolio and provide data to indicate potential tenant harassment and displacement."
+msgstr "Use this free tool from JustFix.nyc to research your building and investigate landlords! We use property ownership mapping to identify a landlord's portfolio and provide data to indicate potential tenant harassment and displacement."
 
 #: src/components/DetailView.js:202
 #: src/components/DetailView.js:207
@@ -706,9 +715,9 @@ msgstr "View documents on ACRIS"
 msgid "View legend"
 msgstr "View legend"
 
-#: src/containers/HomePage.tsx:161
-#: src/containers/HomePage.tsx:202
-#: src/containers/HomePage.tsx:231
+#: src/containers/HomePage.tsx:164
+#: src/containers/HomePage.tsx:205
+#: src/containers/HomePage.tsx:235
 msgid "View portfolio"
 msgstr "View portfolio"
 
@@ -740,6 +749,7 @@ msgstr "What are {0}?"
 msgid "What happens if the landlord has failed to register?"
 msgstr "What happens if the landlord has failed to register?"
 
+#: src/components/Page.js:13
 #: src/containers/App.js:50
 msgid "Who owns what in nyc?"
 msgstr "Who owns what in nyc?"
@@ -752,7 +762,7 @@ msgstr "Year"
 msgid "Year Built"
 msgstr "Year Built"
 
-#: src/containers/HomePage.tsx:220
+#: src/containers/HomePage.tsx:223
 msgid "Yoel Goldman's All Year Management has been at the <0>forefront of gentrification</0> in Brooklyn. Tenants in his buidlings in Williamsburg, Bushwick, and Crown Heights have been forced to live in horrendous and often dangerous conditions."
 msgstr "Yoel Goldman's All Year Management has been at the <0>forefront of gentrification</0> in Brooklyn. Tenants in his buidlings in Williamsburg, Bushwick, and Crown Heights have been forced to live in horrendous and often dangerous conditions."
 
@@ -767,6 +777,10 @@ msgstr "and"
 #: src/components/PropertiesMap.js:273
 msgid "associated building"
 msgstr "associated building"
+
+#: src/components/Page.js:9
+msgid "pay rent, rent, can't pay rent, may rent, may 1"
+msgstr "pay rent, rent, can't pay rent, may rent, may 1"
 
 #: src/components/PropertiesMap.js:272
 msgid "search address"

@@ -124,16 +124,24 @@ export default class AddressPage extends Component {
       return this.state.searchAddress &&
         this.state.searchAddress.bbl &&
         helpers.getNychaData(this.state.searchAddress.bbl) ? (
-        <NychaPage
-          geosearch={this.state.geosearch}
-          searchAddress={this.state.searchAddress}
-          nychaData={helpers.getNychaData(this.state.searchAddress.bbl)}
-        />
+        <Page
+          title={`${this.state.searchAddress.housenumber} ${this.state.searchAddress.streetname}`}
+        >
+          <NychaPage
+            geosearch={this.state.geosearch}
+            searchAddress={this.state.searchAddress}
+            nychaData={helpers.getNychaData(this.state.searchAddress.bbl)}
+          />
+        </Page>
       ) : (
-        <NotRegisteredPage
-          geosearch={this.state.geosearch}
-          searchAddress={this.state.searchAddress}
-        />
+        <Page
+          title={`${this.state.searchAddress.housenumber} ${this.state.searchAddress.streetname}`}
+        >
+          <NotRegisteredPage
+            geosearch={this.state.geosearch}
+            searchAddress={this.state.searchAddress}
+          />
+        </Page>
       );
     } else if (this.state.hasSearched && this.state.assocAddrs && this.state.assocAddrs.length) {
       return (

@@ -32,7 +32,7 @@ msgstr "(pase el cursor sobre una casilla para aprender más)"
 msgid "({browserType, select, mobile {tap} other {click}} to view details)"
 msgstr "({browserType, select, mobile {pulsa} other {haz clic}} para ver detalles)"
 
-#: src/containers/HomePage.tsx:128
+#: src/containers/HomePage.tsx:130
 msgid "... or view some sample portfolios:"
 msgstr "... o descubre ejemplos de carteras de edificios:"
 
@@ -41,7 +41,7 @@ msgstr "... o descubre ejemplos de carteras de edificios:"
 msgid "2019 Evictions"
 msgstr "Desalojos 2019"
 
-#: src/containers/HomePage.tsx:27
+#: src/containers/HomePage.tsx:28
 msgid "<0>COVID-19 Update: </0>JustFix.nyc remains in operation, and we are adapting our products to match new rules put in place during the Covid-19 public health crisis. Thanks to organizing from tenant leaders, renters now have stronger protections during this time, including a full halt on eviction cases. <1><2>Learn more</2></1>"
 msgstr "<0>Actualización COVID-19: </0>JustFix.nyc sigue en funcionamiento, y hemos adaptado nuestros productos para que funcionen con las nuevas reglas establecidas durante la crisis de salud pública COVID-19. Gracias a la organización de los líderes inquilinos, los inquilinos de Nueva York ahora tienen protecciones más fuertes, incluyendo una suspensión total de los casos de desalojo. <1><2>Más información</2></1>"
 
@@ -52,6 +52,7 @@ msgstr "<0>Actualización COVID-19: </0>JustFix.nyc sigue en funcionamiento, y h
 msgid "ANHD DAP Portal"
 msgstr "Portal DAP de ANHD"
 
+#: src/containers/AboutPage.tsx:13
 #: src/containers/App.js:62
 msgid "About"
 msgstr "Acerca de"
@@ -201,7 +202,7 @@ msgstr "Email"
 msgid "Emergency"
 msgstr "Emergencia"
 
-#: src/containers/HomePage.tsx:108
+#: src/containers/HomePage.tsx:109
 msgid "Enter an NYC address and find other buildings your landlord might own:"
 msgstr "Introduce una dirección de NYC para encontrar otros edificios que tu propietario podría poseer:"
 
@@ -275,6 +276,7 @@ msgid "How is this building associated to this portfolio?"
 msgstr "¿Cómo se asocia este edificio a esta cartera de edificios?"
 
 #: src/containers/App.js:65
+#: src/containers/HowToUsePage.tsx:13
 msgid "How to use"
 msgstr "Cómo se usa"
 
@@ -321,7 +323,7 @@ msgstr "Leyenda"
 
 #: src/components/Indicators.js:294
 #: src/components/PropertiesMap.js:191
-#: src/containers/AddressPage.js:268
+#: src/containers/AddressPage.js:285
 msgid "Loading"
 msgstr "Cargando"
 
@@ -346,6 +348,7 @@ msgid "May be issued official Orders"
 msgstr "Pueden emitirse órdenes oficiales"
 
 #: src/components/LegalFooter.tsx:41
+#: src/containers/Methodology.tsx:14
 msgid "Methodology"
 msgstr "Metodología"
 
@@ -410,7 +413,7 @@ msgstr "Abrir"
 msgid "Open Violations"
 msgstr "Infracciones Actuales"
 
-#: src/containers/AddressPage.js:167
+#: src/containers/AddressPage.js:183
 msgid "Overview"
 msgstr "General"
 
@@ -418,7 +421,7 @@ msgstr "General"
 msgid "Owners submit Building Permit Applications to the Department of Buildings before any construction project to get necessary approval. The number of applications filed can indicate how much construction the owner was planning.<0/><1/>Read more about DOB Building Applications/Permits at the <2>official NYC Buildings page</2>."
 msgstr "Antes de empezar cualquier proyecto de construcción, el propietario somete un solicitud para conseguir permisos de construcción al Departamento de Edificios para obtener la autorización necesaria. El número de solicitudes que asociadas a un edificio te puede dar una idea de cuánta construcción planea hacer el propietario. <0/><1/> Encontrarás más información sobre Permisos de Construcción del DOB en la <2>página oficial de Edificios de NYC</2>."
 
-#: src/containers/AddressPage.js:149
+#: src/containers/AddressPage.js:161
 msgid "PORTFOLIO: Your search address is associated with <0>{0}</0> {1, plural, one {building} other {buildings}}"
 msgstr "CARTERA DE EDIFICIOS: La dirección que has buscado está asociada con <0>{0}</0> {1, plural, one {construyendo} other {edificios}}"
 
@@ -433,11 +436,12 @@ msgstr "Personas (Encontrarás definiciones en español de los tipos de personas
 msgid "Please enter an email address!"
 msgstr "Por favor, ¡introduzca una dirección de correo electrónico!"
 
-#: src/containers/AddressPage.js:189
+#: src/containers/AddressPage.js:205
 msgid "Portfolio"
 msgstr "Edificios"
 
 #: src/components/LegalFooter.tsx:37
+#: src/containers/PrivacyPolicyPage.tsx:8
 msgid "Privacy policy"
 msgstr "Política de privacidad"
 
@@ -463,11 +467,11 @@ msgstr "Renta estabilizada"
 msgid "Search for a different address"
 msgstr "Buscar otra dirección"
 
-#: src/containers/BBLPage.tsx:141
+#: src/containers/BBLPage.tsx:143
 msgid "Searching"
 msgstr "Buscando"
 
-#: src/containers/HomePage.tsx:114
+#: src/containers/HomePage.tsx:116
 msgid "Searching for <0>{0} {1}, {2}</0>"
 msgstr "Buscando <0>{0} {1}, {2}</0>"
 
@@ -518,7 +522,7 @@ msgstr "Lo sentimos, parece que hay un error en el mapa. Inténtalo de nuevo con
 msgid "Source code"
 msgstr "Código fuente"
 
-#: src/containers/AddressPage.js:200
+#: src/containers/AddressPage.js:216
 msgid "Summary"
 msgstr "Resúmen"
 
@@ -529,6 +533,7 @@ msgid "Take action on JustFix.nyc!"
 msgstr "¡Toma acción en JustFix.nyc!"
 
 #: src/components/LegalFooter.tsx:34
+#: src/containers/TermsOfUsePage.tsx:8
 msgid "Terms of use"
 msgstr "Condiciones de uso"
 
@@ -548,7 +553,7 @@ msgstr "El edificio con la major cantidad de desalojos fue <0>{0} {1}, {2}</0> c
 msgid "The city borough where your search address is located"
 msgstr "El municipio donde se encuentra la dirección que has buscado"
 
-#: src/containers/HomePage.tsx:179
+#: src/containers/HomePage.tsx:182
 msgid "The city’s fifth <0>worst evictor</0> in 2018, A&E is a prime example of a landlord who engages in <1>aggressive eviction strategies</1> to displace low-income tenants. Besides lack of repairs and frivolous evictions in housing court, A&E has also been known to use <2>MCIs</2> to <3>double rents</3> in rent-stabilized buildings."
 msgstr "A&E fue el quinto <0>\"peor desalojador\"</0> de la ciudad en el 2018, y es un excelente ejemplo de un propietario que participa en <1>estrategias agresivas de desalojo</1> para desplazar a inquilinos de bajos ingresos. Además de usar la falta de arreglos y los desalojos frívolos en la corte de viviendas, se sabe que A&E también utiliza los <2>IMCs</2> para <3>alquileres dobles</3> en edificios de resta estabilizada."
 
@@ -628,7 +633,7 @@ msgstr "Esta cartera de edificios tuvo una <0>{changeType, select, gain {gananci
 msgid "This portfolio has an average of <0>{openviolationsperresunit}</0> open HPD violations per residential unit."
 msgstr "Esta cartera de edificios tiene un promedio de <0>{openviolationsperresunit}</0> infracciones del HPD Actuales por cada unidad residencial."
 
-#: src/containers/HomePage.tsx:146
+#: src/containers/HomePage.tsx:148
 msgid "This property management company owned by the Kushner family is notorious for <0>violating rent regulations</0> and <1>harassing tenants</1>. The stake currently held by Jared Kushner and Ivanka Trump is worth as much as $761 million."
 msgstr "Esta empresa de gestión inmobiliaria es propiedad de la familia Kushner y es notoria por <0>violar las normas de vivienda</0> y por <1>comportamientos abusivos</1>. La participación financiera actualmente sostenida por Jared Kushner e Ivanka Trump asciende a 761 millones de dólares."
 
@@ -652,7 +657,7 @@ msgstr "El cambio en apartamentos de renta estabilizada que hay en el edificio (
 msgid "This will export <0>{0}</0> addresses associated with the landlord at <1>{userAddrStr}</1>!"
 msgstr "¡Esto exportará <0>{0}</0> direcciones asociadas al propietario de <1>{userAddrStr}</1>!"
 
-#: src/containers/AddressPage.js:178
+#: src/containers/AddressPage.js:194
 msgid "Timeline"
 msgstr "Cronología"
 
@@ -678,6 +683,10 @@ msgstr "Imposible solicitar el despido de una Infracción del Código de Viviend
 #: src/containers/NychaPage.js:141
 msgid "Units"
 msgstr "Unidades Residenciales"
+
+#: src/components/Page.js:11
+msgid "Use this free tool from JustFix.nyc to research your building and investigate landlords! We use property ownership mapping to identify a landlord's portfolio and provide data to indicate potential tenant harassment and displacement."
+msgstr ""
 
 #: src/components/DetailView.js:202
 #: src/components/DetailView.js:207
@@ -709,9 +718,9 @@ msgstr "Ver documentos en ACRIS"
 msgid "View legend"
 msgstr "Ver leyenda"
 
-#: src/containers/HomePage.tsx:161
-#: src/containers/HomePage.tsx:202
-#: src/containers/HomePage.tsx:231
+#: src/containers/HomePage.tsx:164
+#: src/containers/HomePage.tsx:205
+#: src/containers/HomePage.tsx:235
 msgid "View portfolio"
 msgstr "Ver cartera de edificios"
 
@@ -743,6 +752,7 @@ msgstr "¿Qué son {0}?"
 msgid "What happens if the landlord has failed to register?"
 msgstr "¿Qué pasa si el propietario no ha registrado el edificio?"
 
+#: src/components/Page.js:13
 #: src/containers/App.js:50
 msgid "Who owns what in nyc?"
 msgstr "¿Quién Es El Dueño en Nueva York?"
@@ -755,7 +765,7 @@ msgstr "Año"
 msgid "Year Built"
 msgstr "Año de construcción"
 
-#: src/containers/HomePage.tsx:220
+#: src/containers/HomePage.tsx:223
 msgid "Yoel Goldman's All Year Management has been at the <0>forefront of gentrification</0> in Brooklyn. Tenants in his buidlings in Williamsburg, Bushwick, and Crown Heights have been forced to live in horrendous and often dangerous conditions."
 msgstr "La entidad \"All Year Management\" perteneciente a Yoel Goldman, está en la <0>vanguardia de la gentrificación</0> de Brooklyn. Los inquilinos en sus edificios de Williamsburg, Bushwick, y las Crown Heights se han visto obligados a vivir en condiciones horrendas y a menudo peligrosas."
 
@@ -770,6 +780,10 @@ msgstr "y"
 #: src/components/PropertiesMap.js:273
 msgid "associated building"
 msgstr "edificio asociado"
+
+#: src/components/Page.js:9
+msgid "pay rent, rent, can't pay rent, may rent, may 1"
+msgstr ""
 
 #: src/components/PropertiesMap.js:272
 msgid "search address"

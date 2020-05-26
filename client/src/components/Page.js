@@ -3,6 +3,7 @@ import { Helmet } from "react-helmet";
 import { t } from "@lingui/macro";
 import { withI18n } from "@lingui/react";
 import { i18n } from "@lingui/core";
+import helpers from "../util/helpers";
 
 const metadataWithoutI18n = {
   keywords: i18n._(t`pay rent, rent, can't pay rent, may rent, may 1`),
@@ -20,7 +21,7 @@ const ORIGIN_URL = "https://whoownswhat.justfix.nyc/";
 const SHARE_IMAGE_URL = "https://i.imgur.com/6WL74DZ.png";
 
 const Page = (props) => {
-  const title = props.title;
+  const title = props.title && helpers.titleCase(props.title.trim());
   const fullTitle = title ? `${title} | ${getMetadata().siteName}` : getMetadata().siteName;
 
   return (
