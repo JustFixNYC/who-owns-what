@@ -10,7 +10,7 @@
           {
             "data": {},
             "marks": [],
-            "value": "Las Cosas Más Importantes Que Puedes Hacer con Quién Posee Qué",
+            "value": "Las Cosas Más Importantes Que Puedes Hacer con Quién Es El Dueño",
             "nodeType": "text"
           }
         ],
@@ -343,7 +343,7 @@
                   {
                     "nodeType": "text",
                     "data": {},
-                    "value": "Para obtener detalles sobre los problemas que hay en tu edificio y para ver si alguno de tus vecinos llama repetidamente al 311 para reportar Quejas, consulte la lista de \"Historial de Quejas\" en el \"Perfil de Edificio del HPD\". Si tienes la información de contacto de tus vecinos, envíales el perfil de edificio de Quién Posee Qué a través de Facebook, Twitter, correo electrónico o mensaje de texto usando los botones para compartir. También le puedes proporcionar una lista inmediata de acciones a tomar compartiendo la página \"",
+                    "value": "Para obtener detalles sobre los problemas que hay en tu edificio y para ver si alguno de tus vecinos llama repetidamente al 311 para reportar Quejas, consulte la lista de \"Historial de Quejas\" en el \"Perfil de Edificio del HPD\". Si tienes la información de contacto de tus vecinos, envíales el perfil de edificio de Quién Es El Dueño a través de Facebook, Twitter, correo electrónico o mensaje de texto usando los botones para compartir. También le puedes proporcionar una lista inmediata de acciones a tomar compartiendo la página \"",
                     "marks": []
                   },
                   {
@@ -528,7 +528,7 @@
                 "content": [
                   {
                     "nodeType": "text",
-                    "value": "Presta atención a los tipos de problemas que hayan tenido otros inquilinos y cuánto tiempo les ha llevado resolverlos. Los datos de Quién Posee Qué se actualizan todos los días.",
+                    "value": "Presta atención a los tipos de problemas que hayan tenido otros inquilinos y cuánto tiempo les ha llevado resolverlos. Los datos de Quién Es El Dueño se actualizan todos los días.",
                     "marks": [],
                     "data": {}
                   }

@@ -14,8 +14,6 @@ import { IndicatorsDatasetRadio, INDICATORS_DATASETS } from "./IndicatorsDataset
 import { Link } from "react-router-dom";
 
 const initialState = {
-  saleHistory: null,
-
   lastSale: {
     date: null,
     label: null,
@@ -127,12 +125,6 @@ class IndicatorsWithoutI18n extends Component {
 
   /** Fetches data for Indicators component via 2 API calls and saves the raw data in state */
   fetchData(detailAddr) {
-    APIClient.getSaleHistory(detailAddr.bbl)
-      .then((results) => this.setState({ saleHistory: results.result }))
-      .catch((err) => {
-        window.Rollbar.error("API error on Indicators: Sale History", err, detailAddr.bbl);
-      });
-
     APIClient.getIndicatorHistory(detailAddr.bbl)
       .then((results) => this.setState({ indicatorHistory: results.result }))
       .catch((err) => {
@@ -221,17 +213,13 @@ class IndicatorsWithoutI18n extends Component {
     // 2. when activeTimeSpan changes
 
     if (
-      this.state.saleHistory &&
-      (!Helpers.jsonEqual(prevState.saleHistory, this.state.saleHistory) ||
-        prevState.activeTimeSpan !== this.state.activeTimeSpan)
+      (this.state.currentAddr &&
+        !prevState[this.state.defaultVis + "Data"].labels &&
+        this.state[this.state.defaultVis + "Data"].labels) ||
+      prevState.activeTimeSpan !== this.state.activeTimeSpan
     ) {
-      if (
-        this.state.saleHistory.length > 0 &&
-        (this.state.saleHistory[0].docdate || this.state.saleHistory[0].recordedfiled) &&
-        this.state.saleHistory[0].documentid
-      ) {
-        var lastSaleDate =
-          this.state.saleHistory[0].docdate || this.state.saleHistory[0].recordedfiled;
+      if (this.props.detailAddr.lastsaledate && this.props.detailAddr.lastsaleacrisid) {
+        var lastSaleDate = this.props.detailAddr.lastsaledate;
         var lastSaleYear = lastSaleDate.slice(0, 4);
         var lastSaleQuarter =
           lastSaleYear + "-Q" + Math.ceil(parseInt(lastSaleDate.slice(5, 7)) / 3);
@@ -246,7 +234,7 @@ class IndicatorsWithoutI18n extends Component {
                 : this.state.activeTimeSpan === "quarter"
                 ? lastSaleQuarter
                 : lastSaleMonth,
-            documentid: this.state.saleHistory[0].documentid,
+            documentid: this.props.detailAddr.lastsaleacrisid,
           },
         });
       } else {
@@ -286,7 +274,6 @@ class IndicatorsWithoutI18n extends Component {
         <div className="Indicators__content Page__content">
           {!(
             this.props.isVisible &&
-            this.state.saleHistory &&
             this.state.indicatorHistory &&
             this.state[this.state.defaultVis + "Data"].labels
           ) ? (

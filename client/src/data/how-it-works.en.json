@@ -590,6 +590,64 @@
                         "type": "bold"
                       }
                     ],
+                    "value": "ACRIS deed records ",
+                    "nodeType": "text"
+                  },
+                  {
+                    "data": {},
+                    "marks": [],
+                    "value": "from ",
+                    "nodeType": "text"
+                  },
+                  {
+                    "data": {
+                      "uri": "https://data.cityofnewyork.us/City-Government/ACRIS-Real-Property-Master/bnx9-e6tj"
+                    },
+                    "content": [
+                      {
+                        "data": {},
+                        "marks": [],
+                        "value": "NYC Open Data",
+                        "nodeType": "text"
+                      }
+                    ],
+                    "nodeType": "hyperlink"
+                  },
+                  {
+                    "data": {},
+                    "marks": [],
+                    "value": ". Note: we only include deeds with an associated amount greater than $1. — ",
+                    "nodeType": "text"
+                  },
+                  {
+                    "data": {},
+                    "marks": [
+                      {
+                        "type": "italic"
+                      }
+                    ],
+                    "value": "updated bimonthly",
+                    "nodeType": "text"
+                  }
+                ],
+                "nodeType": "paragraph"
+              }
+            ],
+            "nodeType": "list-item"
+          },
+          {
+            "data": {},
+            "content": [
+              {
+                "data": {},
+                "content": [
+                  {
+                    "data": {},
+                    "marks": [
+                      {
+                        "type": "bold"
+                      }
+                    ],
                     "value": "Rent Stabilization unit estimates (from taxbills.nyc, adapted from Dept. of Finance tax bills).",
                     "nodeType": "text"
                   },

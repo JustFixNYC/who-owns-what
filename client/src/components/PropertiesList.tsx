@@ -8,6 +8,7 @@ import { I18n } from "@lingui/core";
 import { withI18n } from "@lingui/react";
 import { t } from "@lingui/macro";
 import { Link } from "react-router-dom";
+import { SupportedLocale } from "../i18n-base";
 
 type Addr = {
   housenumber: string;
@@ -23,6 +24,20 @@ type Addr = {
   totalviolations: number;
   evictions: string | null;
   ownernames: { title: string; value: string }[];
+  lastsaledate: string;
+  lastsaleamount: string;
+  lastsaleacrisid: string;
+};
+
+const formatDate = (dateString: string, locale?: SupportedLocale) => {
+  var date = new Date(dateString);
+  var options = { year: "numeric", month: "short", day: "numeric" };
+  return date.toLocaleDateString(locale || "en", options);
+};
+
+const isPartOfGroupSale = (saleId: string, addrs: Addr[]) => {
+  const addrsWithMatchingSale = addrs.filter((addr) => addr.lastsaleacrisid === saleId);
+  return addrsWithMatchingSale.length > 1;
 };
 
 const PropertiesListWithoutI18n: React.FC<{
@@ -32,8 +47,9 @@ const PropertiesListWithoutI18n: React.FC<{
   generateBaseUrl: () => string;
 }> = (props) => {
   const { i18n } = props;
+  const locale = (i18n.language as SupportedLocale) || "en";
+  const formatPrice = new Intl.NumberFormat(locale);
   // console.log(props.addrs);
-
   if (!props.addrs.length) {
     return null;
   } else {
@@ -230,6 +246,59 @@ const PropertiesListWithoutI18n: React.FC<{
                 //   Header: "Change in RS",
                 //   accessor: "totalviolations"
                 // }
+              ],
+            },
+            {
+              Header: i18n._(t`Last Sale`),
+              columns: [
+                {
+                  Header: i18n._(t`Date`),
+                  accessor: (d) => d.lastsaledate,
+                  Cell: (row) =>
+                    row.original.lastsaledate && formatDate(row.original.lastsaledate, locale),
+                  id: "lastsaledate",
+                },
+                {
+                  Header: i18n._(t`Amount`),
+                  accessor: (d) => (d.lastsaleamount ? parseInt(d.lastsaleamount) : null),
+                  Cell: (row) =>
+                    row.original.lastsaleamount &&
+                    "$" + formatPrice.format(row.original.lastsaleamount),
+                  id: "lastsaleamount",
+                },
+                {
+                  Header: i18n._(t`Link to Deed`),
+                  accessor: (d) => d.lastsaleacrisid,
+                  Cell: (row) =>
+                    row.original.lastsaleacrisid && (
+                      <a
+                        href={`https://a836-acris.nyc.gov/DS/DocumentSearch/DocumentImageView?doc_id=${row.original.lastsaleacrisid}`}
+                        className="btn"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <span style={{ padding: "0 3px" }}>&#8599;&#xFE0E;</span>
+                      </a>
+                    ),
+                  id: "lastsaleacrisid",
+                },
+                {
+                  Header: i18n._(t`Group Sale?`),
+                  accessor: (d) => {
+                    // Make id's that are part of group sales show up first when sorted:
+                    const idPrefix =
+                      d.lastsaleacrisid && isPartOfGroupSale(d.lastsaleacrisid, props.addrs)
+                        ? " "
+                        : "";
+                    return `${idPrefix}${d.lastsaleacrisid}`;
+                  },
+                  Cell: (row) =>
+                    row.original.lastsaleacrisid &&
+                    (isPartOfGroupSale(row.original.lastsaleacrisid, props.addrs)
+                      ? i18n._(t`Yes`)
+                      : i18n._(t`No`)),
+                  id: "lastsaleisgroupsale",
+                },
               ],
             },
             {
