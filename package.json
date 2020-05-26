@@ -20,6 +20,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@types/react-helmet": "^6.0.0",
     "babel-cli": "^6.26.0",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1",
@@ -41,6 +42,7 @@
     "react": "^16.0.0",
     "react-chartjs-2": "^2.7.4",
     "react-dom": "^16.0.0",
+    "react-helmet": "^6.0.0",
     "request": "^2.81.0",
     "request-promise": "^4.2.1",
     "rollbar": "2.4.6"
