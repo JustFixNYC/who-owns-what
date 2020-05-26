@@ -35,6 +35,11 @@ const formatDate = (dateString: string, locale?: SupportedLocale) => {
   return date.toLocaleDateString(locale || "en", options);
 };
 
+const isPartOfGroupSale = (saleId: string, addrs: Addr[]) => {
+  const addrsWithMatchingSale = addrs.filter((addr) => addr.lastsaleacrisid === saleId);
+  return addrsWithMatchingSale.length > 1;
+};
+
 const PropertiesListWithoutI18n: React.FC<{
   i18n: I18n;
   addrs: Addr[];
@@ -276,6 +281,21 @@ const PropertiesListWithoutI18n: React.FC<{
                       </a>
                     ),
                   id: "lastsaleacrisid",
+                },
+                {
+                  Header: i18n._(t`Group Sale?`),
+                  accessor: (d) => {
+                    // Make id's that are part of group sales show up first when sorted:
+                    const idPrefix =
+                      d.lastsaleacrisid && isPartOfGroupSale(d.lastsaleacrisid, props.addrs)
+                        ? " "
+                        : "";
+                    return `${idPrefix}${d.lastsaleacrisid}`;
+                  },
+                  Cell: (row) =>
+                    row.original.lastsaleacrisid &&
+                    isPartOfGroupSale(row.original.lastsaleacrisid, props.addrs) && <span>✓</span>,
+                  id: "lastsaleisgroupsale",
                 },
               ],
             },
