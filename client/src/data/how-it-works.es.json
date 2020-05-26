@@ -420,7 +420,7 @@
                   },
                   {
                     "nodeType": "text",
-                    "value": " from ",
+                    "value": " de ",
                     "marks": [],
                     "data": {}
                   },
@@ -566,7 +566,7 @@
                 "content": [
                   {
                     "nodeType": "text",
-                    "value": "Registros de escrituras de ACRIS de",
+                    "value": "Registros de escrituras de ACRIS ",
                     "marks": [
                       {
                         "type": "bold"
@@ -576,7 +576,7 @@
                   },
                   {
                     "nodeType": "text",
-                    "value": " ",
+                    "value": "de ",
                     "marks": [],
                     "data": {}
                   },
