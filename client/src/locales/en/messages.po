@@ -50,7 +50,7 @@ msgid "ANHD DAP Portal"
 msgstr "ANHD DAP Portal"
 
 #: src/containers/AboutPage.tsx:13
-#: src/containers/App.js:62
+#: src/containers/App.js:71
 msgid "About"
 msgstr "About"
 
@@ -182,7 +182,7 @@ msgstr "DOF Property Tax Bills"
 msgid "Date"
 msgstr "Date"
 
-#: src/containers/App.js:54
+#: src/containers/App.js:63
 msgid "Demo Site"
 msgstr "Demo Site"
 
@@ -191,7 +191,7 @@ msgid "Disclaimer: The information in JustFix.nyc does not constitute legal advi
 msgstr "Disclaimer: The information in JustFix.nyc does not constitute legal advice and must not be used as a substitute for the advice of a lawyer qualified to give advice on legal issues pertaining to housing. We can help direct you to free legal services if necessary."
 
 #: src/components/LegalFooter.tsx:31
-#: src/containers/App.js:68
+#: src/containers/App.js:77
 msgid "Donate"
 msgstr "Donate"
 
@@ -275,7 +275,7 @@ msgstr "HUD Complaint Form 958"
 msgid "Have thoughts about this page?"
 msgstr "Have thoughts about this page?"
 
-#: src/containers/App.js:59
+#: src/containers/App.js:68
 msgid "Home"
 msgstr "Home"
 
@@ -284,7 +284,7 @@ msgstr "Home"
 msgid "How is this building associated to this portfolio?"
 msgstr "How is this building associated to this portfolio?"
 
-#: src/containers/App.js:65
+#: src/containers/App.js:74
 #: src/containers/HowToUsePage.tsx:13
 msgid "How to use"
 msgstr "How to use"
@@ -513,7 +513,7 @@ msgstr "Send us a data request"
 msgid "Send us feedback!"
 msgstr "Send us feedback!"
 
-#: src/containers/App.js:72
+#: src/containers/App.js:81
 msgid "Share"
 msgstr "Share"
 
@@ -521,7 +521,7 @@ msgstr "Share"
 #: src/components/DetailView.js:298
 #: src/components/EngagementPanel.tsx:18
 #: src/components/PropertiesSummary.js:155
-#: src/containers/App.js:81
+#: src/containers/App.js:90
 #: src/containers/NotRegisteredPage.js:288
 #: src/containers/NychaPage.js:309
 msgid "Share this page with your neighbors"
@@ -761,7 +761,7 @@ msgstr "Violations Issued"
 msgid "Visit our website"
 msgstr "Visit our website"
 
-#: src/containers/App.js:38
+#: src/containers/App.js:54
 msgid "Warning! This site doesn't fully work on older versions of Safari. Try a <0>modern browser</0>."
 msgstr "Warning! This site doesn't fully work on older versions of Safari. Try a <0>modern browser</0>."
 
@@ -777,10 +777,14 @@ msgstr "What are {0}?"
 msgid "What happens if the landlord has failed to register?"
 msgstr "What happens if the landlord has failed to register?"
 
+#: src/containers/App.js:26
+msgid "Who owns what in n y c?"
+msgstr "Who owns what in n y c?"
+
 #: src/components/Page.tsx:9
 #: src/components/Page.tsx:19
 #: src/components/Page.tsx:20
-#: src/containers/App.js:50
+#: src/containers/App.js:32
 msgid "Who owns what in nyc?"
 msgstr "Who owns what in nyc?"
 

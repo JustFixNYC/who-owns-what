@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { Trans } from "@lingui/macro";
+import { Trans, t } from "@lingui/macro";
 
 import "styles/App.css";
 
@@ -17,6 +17,22 @@ import ScrollToTop from "components/ScrollToTop";
 import Modal from "components/Modal";
 import SocialShare from "components/SocialShare";
 import MethodologyPage from "./Methodology";
+import { withI18n } from "@lingui/react";
+
+const HomeLink = withI18n()((props) => {
+  const { i18n } = props;
+  return (
+    <Link
+      aria-label={i18n._(t`Who owns what in n y c?`)}
+      onClick={() => {
+        window.gtag("event", "site-title");
+      }}
+      to="/"
+    >
+      <Trans render="h4">Who owns what in nyc?</Trans>
+    </Link>
+  );
+});
 
 export default class App extends Component {
   constructor(props) {
@@ -41,14 +57,7 @@ export default class App extends Component {
                 </Trans>
               </div>
               <div className="App__header">
-                <Link
-                  onClick={() => {
-                    window.gtag("event", "site-title");
-                  }}
-                  to="/"
-                >
-                  <Trans render="h4">Who owns what in nyc?</Trans>
-                </Link>
+                <HomeLink />
                 {isDemoSite && (
                   <span className="label label-warning ml-2 text-uppercase">
                     <Trans>Demo Site</Trans>
