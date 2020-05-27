@@ -145,7 +145,7 @@ export default class AddressPage extends Component {
             />
             {this.state.userAddr && (
               <div className="float-left">
-                <h5 className="primary">
+                <h5 className="primary" tabIndex={1}>
                   <Trans>
                     PORTFOLIO: Your search address is associated with{" "}
                     <u>{this.state.assocAddrs.length}</u>{" "}
