@@ -248,7 +248,7 @@ class NychaPageWithoutI18n extends Component {
               <br />
 
               <div>
-                <Trans render="p">Useful links</Trans>:
+                <Trans render="p">Useful links</Trans>
                 <div>
                   <div className="btn-group btn-group-block">
                     <a
