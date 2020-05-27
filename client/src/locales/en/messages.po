@@ -318,6 +318,10 @@ msgstr "JustFix.nyc is a registered 501(c)(3) nonprofit organization."
 msgid "Landlord"
 msgstr "Landlord"
 
+#: src/components/Page.tsx:7
+msgid "Landlord, Portfolio, Tenant, Displacement, Map, JustFix, NYC, New York, Housing, Who Owns What"
+msgstr "Landlord, Portfolio, Tenant, Displacement, Map, JustFix, NYC, New York, Housing, Who Owns What"
+
 #: src/components/PropertiesList.tsx:191
 msgid "Last Sale"
 msgstr "Last Sale"
@@ -705,7 +709,7 @@ msgstr "Unable to request Code Violation Dismissals"
 msgid "Units"
 msgstr "Units"
 
-#: src/components/Page.js:11
+#: src/components/Page.tsx:8
 msgid "Use this free tool from JustFix.nyc to research your building and investigate landlords! We use property ownership mapping to identify a landlord's portfolio and provide data to indicate potential tenant harassment and displacement."
 msgstr "Use this free tool from JustFix.nyc to research your building and investigate landlords! We use property ownership mapping to identify a landlord's portfolio and provide data to indicate potential tenant harassment and displacement."
 
@@ -773,7 +777,9 @@ msgstr "What are {0}?"
 msgid "What happens if the landlord has failed to register?"
 msgstr "What happens if the landlord has failed to register?"
 
-#: src/components/Page.js:13
+#: src/components/Page.tsx:9
+#: src/components/Page.tsx:19
+#: src/components/Page.tsx:20
 #: src/containers/App.js:50
 msgid "Who owns what in nyc?"
 msgstr "Who owns what in nyc?"
@@ -805,10 +811,6 @@ msgstr "and"
 #: src/components/PropertiesMap.js:273
 msgid "associated building"
 msgstr "associated building"
-
-#: src/components/Page.js:9
-msgid "pay rent, rent, can't pay rent, may rent, may 1"
-msgstr "pay rent, rent, can't pay rent, may rent, may 1"
 
 #: src/components/PropertiesMap.js:272
 msgid "search address"

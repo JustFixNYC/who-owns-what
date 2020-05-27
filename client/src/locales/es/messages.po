@@ -321,6 +321,10 @@ msgstr "JustFix.nyc es una organización registrada 501(c)(3) sin fines de lucro
 msgid "Landlord"
 msgstr "Dueño del edificio"
 
+#: src/components/Page.tsx:7
+msgid "Landlord, Portfolio, Tenant, Displacement, Map, JustFix, NYC, New York, Housing, Who Owns What"
+msgstr ""
+
 #: src/components/PropertiesList.tsx:191
 msgid "Last Sale"
 msgstr ""
@@ -708,7 +712,7 @@ msgstr "Imposible solicitar el despido de una Infracción del Código de Viviend
 msgid "Units"
 msgstr "Unidades Residenciales"
 
-#: src/components/Page.js:11
+#: src/components/Page.tsx:8
 msgid "Use this free tool from JustFix.nyc to research your building and investigate landlords! We use property ownership mapping to identify a landlord's portfolio and provide data to indicate potential tenant harassment and displacement."
 msgstr ""
 
@@ -776,7 +780,9 @@ msgstr "¿Qué son {0}?"
 msgid "What happens if the landlord has failed to register?"
 msgstr "¿Qué pasa si el propietario no ha registrado el edificio?"
 
-#: src/components/Page.js:13
+#: src/components/Page.tsx:9
+#: src/components/Page.tsx:19
+#: src/components/Page.tsx:20
 #: src/containers/App.js:50
 msgid "Who owns what in nyc?"
 msgstr "¿Quién Es El Dueño en Nueva York?"
@@ -808,10 +814,6 @@ msgstr "y"
 #: src/components/PropertiesMap.js:273
 msgid "associated building"
 msgstr "edificio asociado"
-
-#: src/components/Page.js:9
-msgid "pay rent, rent, can't pay rent, may rent, may 1"
-msgstr ""
 
 #: src/components/PropertiesMap.js:272
 msgid "search address"
