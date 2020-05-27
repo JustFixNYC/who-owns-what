@@ -10,7 +10,7 @@ const metadata = {
   siteName: t`Who owns what in nyc?`,
 };
 
-const FB_APP_ID = "247990609143668";
+export const FB_APP_ID = "247990609143668";
 const TWITTER_HANDLE = "@JustFixNYC";
 const ORIGIN_URL = "https://whoownswhat.justfix.nyc/";
 const SHARE_IMAGE_URL = "https://i.imgur.com/6WL74DZ.png";
