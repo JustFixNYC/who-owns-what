@@ -20,6 +20,7 @@ import NotRegisteredPage from "./NotRegisteredPage";
 import helpers from "../util/helpers";
 import { Trans, Plural } from "@lingui/macro";
 import { Link } from "react-router-dom";
+import Page from "../components/Page";
 
 export default class AddressPage extends Component {
   constructor(props) {
@@ -123,144 +124,160 @@ export default class AddressPage extends Component {
       return this.state.searchAddress &&
         this.state.searchAddress.bbl &&
         helpers.getNychaData(this.state.searchAddress.bbl) ? (
-        <NychaPage
-          geosearch={this.state.geosearch}
-          searchAddress={this.state.searchAddress}
-          nychaData={helpers.getNychaData(this.state.searchAddress.bbl)}
-        />
+        <Page
+          title={`${this.state.searchAddress.housenumber} ${this.state.searchAddress.streetname}`}
+        >
+          <NychaPage
+            geosearch={this.state.geosearch}
+            searchAddress={this.state.searchAddress}
+            nychaData={helpers.getNychaData(this.state.searchAddress.bbl)}
+          />
+        </Page>
       ) : (
-        <NotRegisteredPage
-          geosearch={this.state.geosearch}
-          searchAddress={this.state.searchAddress}
-        />
+        <Page
+          title={`${this.state.searchAddress.housenumber} ${this.state.searchAddress.streetname}`}
+        >
+          <NotRegisteredPage
+            geosearch={this.state.geosearch}
+            searchAddress={this.state.searchAddress}
+          />
+        </Page>
       );
     } else if (this.state.hasSearched && this.state.assocAddrs && this.state.assocAddrs.length) {
       return (
-        <div className="AddressPage">
-          <div className="AddressPage__info">
-            <AddressToolbar
-              onExportClick={this.handleExportClick}
-              userAddr={this.state.searchAddress}
-              numOfAssocAddrs={this.state.assocAddrs.length}
-            />
-            {this.state.userAddr && (
-              <div className="float-left">
-                <h5 className="primary">
-                  <Trans>
-                    PORTFOLIO: Your search address is associated with{" "}
-                    <u>{this.state.assocAddrs.length}</u>{" "}
-                    <Plural value={this.state.assocAddrs.length} one="building" other="buildings" />
-                  </Trans>
-                  :
-                </h5>
-                <ul className="tab tab-block">
-                  <li className={`tab-item ${this.props.currentTab === 0 ? "active" : ""}`}>
-                    <Link
-                      to={this.generateBaseUrl()}
-                      tabIndex={this.props.currentTab === 0 ? -1 : 0}
-                      onClick={() => {
-                        if (Browser.isMobile() && this.state.detailMobileSlide) {
-                          this.handleCloseDetail();
-                        }
-                      }}
-                    >
-                      <Trans>Overview</Trans>
-                    </Link>
-                  </li>
-                  <li className={`tab-item ${this.props.currentTab === 1 ? "active" : ""}`}>
-                    <Link
-                      to={this.generateBaseUrl() + "/timeline"}
-                      tabIndex={this.props.currentTab === 1 ? -1 : 0}
-                      onClick={() => {
-                        window.gtag("event", "timeline-tab");
-                      }}
-                    >
-                      <Trans>Timeline</Trans>
-                    </Link>
-                  </li>
-                  <li className={`tab-item ${this.props.currentTab === 2 ? "active" : ""}`}>
-                    <Link
-                      to={this.generateBaseUrl() + "/portfolio"}
-                      tabIndex={this.props.currentTab === 2 ? -1 : 0}
-                      onClick={() => {
-                        window.gtag("event", "portfolio-tab");
-                      }}
-                    >
-                      <Trans>Portfolio</Trans>
-                    </Link>
-                  </li>
-                  <li className={`tab-item ${this.props.currentTab === 3 ? "active" : ""}`}>
-                    <Link
-                      to={this.generateBaseUrl() + "/summary"}
-                      tabIndex={this.props.currentTab === 3 ? -1 : 0}
-                      onClick={() => {
-                        window.gtag("event", "summary-tab");
-                      }}
-                    >
-                      <Trans>Summary</Trans>
-                    </Link>
-                  </li>
-                </ul>
-              </div>
-            )}
-          </div>
-          <div
-            className={`AddressPage__content AddressPage__viz ${
-              this.props.currentTab === 0 ? "AddressPage__content-active" : ""
-            }`}
-          >
-            <PropertiesMap
-              addrs={this.state.assocAddrs}
-              userAddr={this.state.userAddr}
-              detailAddr={this.state.detailAddr}
-              onAddrChange={this.handleAddrChange}
-              isVisible={this.props.currentTab === 0}
-            />
-            <DetailView
-              addr={this.state.detailAddr}
-              portfolioSize={this.state.assocAddrs.length}
-              mobileShow={this.state.detailMobileSlide}
-              userAddr={this.state.userAddr}
-              onCloseDetail={this.handleCloseDetail}
-              generateBaseUrl={this.generateBaseUrl}
-            />
-          </div>
-          <div
-            className={`AddressPage__content AddressPage__summary ${
-              this.props.currentTab === 1 ? "AddressPage__content-active" : ""
-            }`}
-          >
-            <Indicators
-              isVisible={this.props.currentTab === 1}
-              detailAddr={this.state.detailAddr}
-              onBackToOverview={this.handleAddrChange}
-              generateBaseUrl={this.generateBaseUrl}
-            />
-          </div>
-          <div
-            className={`AddressPage__content AddressPage__table ${
-              this.props.currentTab === 2 ? "AddressPage__content-active" : ""
-            }`}
-          >
-            {
-              <PropertiesList
+        <Page
+          title={`${this.state.searchAddress.housenumber} ${this.state.searchAddress.streetname}`}
+        >
+          <div className="AddressPage">
+            <div className="AddressPage__info">
+              <AddressToolbar
+                onExportClick={this.handleExportClick}
+                userAddr={this.state.searchAddress}
+                numOfAssocAddrs={this.state.assocAddrs.length}
+              />
+              {this.state.userAddr && (
+                <div className="float-left">
+                  <h5 className="primary">
+                    <Trans>
+                      PORTFOLIO: Your search address is associated with{" "}
+                      <u>{this.state.assocAddrs.length}</u>{" "}
+                      <Plural
+                        value={this.state.assocAddrs.length}
+                        one="building"
+                        other="buildings"
+                      />
+                    </Trans>
+                    :
+                  </h5>
+                  <ul className="tab tab-block">
+                    <li className={`tab-item ${this.props.currentTab === 0 ? "active" : ""}`}>
+                      <Link
+                        to={this.generateBaseUrl()}
+                        tabIndex={this.props.currentTab === 0 ? -1 : 0}
+                        onClick={() => {
+                          if (Browser.isMobile() && this.state.detailMobileSlide) {
+                            this.handleCloseDetail();
+                          }
+                        }}
+                      >
+                        <Trans>Overview</Trans>
+                      </Link>
+                    </li>
+                    <li className={`tab-item ${this.props.currentTab === 1 ? "active" : ""}`}>
+                      <Link
+                        to={this.generateBaseUrl() + "/timeline"}
+                        tabIndex={this.props.currentTab === 1 ? -1 : 0}
+                        onClick={() => {
+                          window.gtag("event", "timeline-tab");
+                        }}
+                      >
+                        <Trans>Timeline</Trans>
+                      </Link>
+                    </li>
+                    <li className={`tab-item ${this.props.currentTab === 2 ? "active" : ""}`}>
+                      <Link
+                        to={this.generateBaseUrl() + "/portfolio"}
+                        tabIndex={this.props.currentTab === 2 ? -1 : 0}
+                        onClick={() => {
+                          window.gtag("event", "portfolio-tab");
+                        }}
+                      >
+                        <Trans>Portfolio</Trans>
+                      </Link>
+                    </li>
+                    <li className={`tab-item ${this.props.currentTab === 3 ? "active" : ""}`}>
+                      <Link
+                        to={this.generateBaseUrl() + "/summary"}
+                        tabIndex={this.props.currentTab === 3 ? -1 : 0}
+                        onClick={() => {
+                          window.gtag("event", "summary-tab");
+                        }}
+                      >
+                        <Trans>Summary</Trans>
+                      </Link>
+                    </li>
+                  </ul>
+                </div>
+              )}
+            </div>
+            <div
+              className={`AddressPage__content AddressPage__viz ${
+                this.props.currentTab === 0 ? "AddressPage__content-active" : ""
+              }`}
+            >
+              <PropertiesMap
                 addrs={this.state.assocAddrs}
-                onOpenDetail={this.handleAddrChange}
+                userAddr={this.state.userAddr}
+                detailAddr={this.state.detailAddr}
+                onAddrChange={this.handleAddrChange}
+                isVisible={this.props.currentTab === 0}
+              />
+              <DetailView
+                addr={this.state.detailAddr}
+                portfolioSize={this.state.assocAddrs.length}
+                mobileShow={this.state.detailMobileSlide}
+                userAddr={this.state.userAddr}
+                onCloseDetail={this.handleCloseDetail}
                 generateBaseUrl={this.generateBaseUrl}
               />
-            }
+            </div>
+            <div
+              className={`AddressPage__content AddressPage__summary ${
+                this.props.currentTab === 1 ? "AddressPage__content-active" : ""
+              }`}
+            >
+              <Indicators
+                isVisible={this.props.currentTab === 1}
+                detailAddr={this.state.detailAddr}
+                onBackToOverview={this.handleAddrChange}
+                generateBaseUrl={this.generateBaseUrl}
+              />
+            </div>
+            <div
+              className={`AddressPage__content AddressPage__table ${
+                this.props.currentTab === 2 ? "AddressPage__content-active" : ""
+              }`}
+            >
+              {
+                <PropertiesList
+                  addrs={this.state.assocAddrs}
+                  onOpenDetail={this.handleAddrChange}
+                  generateBaseUrl={this.generateBaseUrl}
+                />
+              }
+            </div>
+            <div
+              className={`AddressPage__content AddressPage__summary ${
+                this.props.currentTab === 3 ? "AddressPage__content-active" : ""
+              }`}
+            >
+              <PropertiesSummary
+                isVisible={this.props.currentTab === 3}
+                userAddr={this.state.userAddr}
+              />
+            </div>
           </div>
-          <div
-            className={`AddressPage__content AddressPage__summary ${
-              this.props.currentTab === 3 ? "AddressPage__content-active" : ""
-            }`}
-          >
-            <PropertiesSummary
-              isVisible={this.props.currentTab === 3}
-              userAddr={this.state.userAddr}
-            />
-          </div>
-        </div>
+        </Page>
       );
     } else {
       return (
