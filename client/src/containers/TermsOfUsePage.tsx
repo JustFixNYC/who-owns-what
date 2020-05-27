@@ -1,11 +1,11 @@
 import React from "react";
 import LegalFooter from "../components/LegalFooter";
-import { withI18n } from "@lingui/react";
+import { withI18n, withI18nProps } from "@lingui/react";
 import Page from "../components/Page";
-import { i18n } from "@lingui/core";
 import { t } from "@lingui/macro";
 
-const TermsOfUsePageWithoutI18n = () => {
+const TermsOfUsePage = withI18n()((props: withI18nProps) => {
+  const { i18n } = props;
   return (
     <Page title={i18n._(t`Terms of use`)}>
       <div className="TermsOfUse Page">
@@ -739,8 +739,6 @@ const TermsOfUsePageWithoutI18n = () => {
       </div>
     </Page>
   );
-};
-
-const TermsOfUsePage = withI18n()(TermsOfUsePageWithoutI18n);
+});
 
 export default TermsOfUsePage;

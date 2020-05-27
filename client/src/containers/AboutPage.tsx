@@ -7,11 +7,11 @@ import es from "../data/about.es.json";
 import "styles/AboutPage.css";
 import { ContentfulPage } from "../contentful/ContentfulPage";
 import Page from "../components/Page";
-import { withI18n } from "@lingui/react";
-import { i18n } from "@lingui/core";
+import { withI18n, withI18nProps } from "@lingui/react";
 import { t } from "@lingui/macro";
 
-const AboutPageWithoutI18n = () => {
+const AboutPage = withI18n()((props: withI18nProps) => {
+  const { i18n } = props;
   return (
     <Page title={i18n._(t`About`)}>
       <div className="AboutPage Page">
@@ -23,8 +23,6 @@ const AboutPageWithoutI18n = () => {
       </div>
     </Page>
   );
-};
-
-const AboutPage = withI18n()(AboutPageWithoutI18n);
+});
 
 export default AboutPage;

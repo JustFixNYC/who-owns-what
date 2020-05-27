@@ -1,11 +1,11 @@
 import React from "react";
 import LegalFooter from "../components/LegalFooter";
-import { withI18n } from "@lingui/react";
+import { withI18n, withI18nProps } from "@lingui/react";
 import Page from "../components/Page";
-import { i18n } from "@lingui/core";
 import { t } from "@lingui/macro";
 
-const PrivacyPolicyPageWithoutI18n = () => {
+const PrivacyPolicyPage = withI18n()((props: withI18nProps) => {
+  const { i18n } = props;
   return (
     <Page title={i18n._(t`Privacy policy`)}>
       <div className="PrivacyPolicy Page">
@@ -547,8 +547,6 @@ const PrivacyPolicyPageWithoutI18n = () => {
       </div>
     </Page>
   );
-};
-
-const PrivacyPolicyPage = withI18n()(PrivacyPolicyPageWithoutI18n);
+});
 
 export default PrivacyPolicyPage;

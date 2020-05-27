@@ -20,9 +20,11 @@ const TWITTER_HANDLE = "@JustFixNYC";
 const ORIGIN_URL = "https://whoownswhat.justfix.nyc/";
 const SHARE_IMAGE_URL = "https://i.imgur.com/6WL74DZ.png";
 
-const Page = (props) => {
+const PageWithoutI18n = (props) => {
   const title = props.title && helpers.titleCase(props.title.trim());
-  const fullTitle = title ? `${title} | ${getMetadata().siteName}` : getMetadata().siteName;
+  const fullTitle = title
+    ? `${title} | ${i18n._(t`Who owns what in nyc?`)}`
+    : i18n._(t`Who owns what in nyc?`);
 
   return (
     <>
@@ -34,7 +36,7 @@ const Page = (props) => {
         <meta name="keywords" content={getMetadata().keywords} />
         <meta name="author" content="JustFix.nyc" />
         <meta property="fb:app_id" content={FB_APP_ID} />}
-        <meta property="og:site_name" content={getMetadata().siteName} />
+        <meta property="og:site_name" content={i18n._(t`Who owns what in nyc?`)} />
         <meta property="og:description" content={getMetadata().description} />
         <meta property="og:url" content={ORIGIN_URL} />
         <meta property="og:image" content={SHARE_IMAGE_URL} />
@@ -45,11 +47,13 @@ const Page = (props) => {
         <meta name="twitter:description" content={getMetadata().description} />
         <meta name="twitter:url" content={ORIGIN_URL} />
         <meta name="twitter:image" content={SHARE_IMAGE_URL} />
-        <meta name="twitter:image:alt" content={getMetadata().siteName} />
+        <meta name="twitter:image:alt" content={i18n._(t`Who owns what in nyc?`)} />
       </Helmet>
       {props.children}
     </>
   );
 };
+
+const Page = withI18n()(PageWithoutI18n);
 
 export default Page;

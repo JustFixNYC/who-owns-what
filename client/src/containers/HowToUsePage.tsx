@@ -6,12 +6,12 @@ import es from "../data/how-to-use.es.json";
 
 import "styles/HowToUsePage.css";
 import { ContentfulPage } from "../contentful/ContentfulPage";
-import { withI18n } from "@lingui/react";
-import { i18n } from "@lingui/core";
+import { withI18n, withI18nProps } from "@lingui/react";
 import { t } from "@lingui/macro";
 import Page from "../components/Page";
 
-const HowToUsePageWithoutI18n = () => {
+const HowToUsePage = withI18n()((props: withI18nProps) => {
+  const { i18n } = props;
   return (
     <Page title={i18n._(t`How to use`)}>
       <div className="HowToUsePage Page">
@@ -23,8 +23,6 @@ const HowToUsePageWithoutI18n = () => {
       </div>
     </Page>
   );
-};
-
-const HowToUsePage = withI18n()(HowToUsePageWithoutI18n);
+});
 
 export default HowToUsePage;
