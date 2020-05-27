@@ -23,6 +23,7 @@ const HomeLink = withI18n()((props) => {
   const { i18n } = props;
   return (
     <Link
+      // We need to spell out each letter of "nyc" here for screenreaders to pronounce:
       aria-label={i18n._(t`Who owns what in n y c?`)}
       onClick={() => {
         window.gtag("event", "site-title");
