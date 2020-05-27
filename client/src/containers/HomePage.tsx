@@ -167,7 +167,9 @@ class HomePage extends Component<HomePageProps, State> {
               </Loader>
             ) : (
               <div>
-                <h5 className="text-center">{labelText}</h5>
+                <h1 className="text-center" tabIndex={1}>
+                  {labelText}
+                </h1>
                 <AddressSearch
                   {...this.state.searchAddress}
                   labelText={labelText}
