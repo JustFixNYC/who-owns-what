@@ -20,7 +20,7 @@ type PageProps = {
   children: React.ReactNode;
 };
 
-const PageWithoutI18n = (props: PageProps & withI18nProps) => {
+const Page = withI18n()((props: PageProps & withI18nProps) => {
   const i18n = props.i18n;
   const title = props.title && helpers.titleCase(props.title.trim());
   const fullTitle = title
@@ -53,8 +53,6 @@ const PageWithoutI18n = (props: PageProps & withI18nProps) => {
       {props.children}
     </>
   );
-};
-
-const Page = withI18n()(PageWithoutI18n);
+});
 
 export default Page;
