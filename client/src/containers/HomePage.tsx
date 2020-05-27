@@ -197,6 +197,7 @@ class HomePage extends Component<HomePageProps, State> {
                     </h6>
                     <Link
                       className="image"
+                      tabIndex={-1} // Since link is not necessary navigation, removing tab focus
                       to={this.state.sampleURLs[0]}
                       onClick={() => {
                         window.gtag("event", "example-portfolio-1-homepage");
@@ -249,6 +250,7 @@ class HomePage extends Component<HomePageProps, State> {
                     </h6>
                     <Link
                       className="image"
+                      tabIndex={-1} // Since link is not necessary navigation, removing tab focus
                       to={this.state.sampleURLs[1]}
                       onClick={() => {
                         window.gtag("event", "example-portfolio-2-homepage");
@@ -321,6 +323,7 @@ class HomePage extends Component<HomePageProps, State> {
                     </h6>
                     <Link
                       className="image"
+                      tabIndex={-1} // Since link is not necessary navigation, removing tab focus
                       to={this.state.sampleURLs[2]}
                       onClick={() => {
                         window.gtag("event", "example-portfolio-1-homepage");
