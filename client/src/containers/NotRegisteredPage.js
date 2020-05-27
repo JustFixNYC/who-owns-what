@@ -241,7 +241,7 @@ export default class NotRegisteredPage extends Component {
                 buildingInfo.housenumber &&
                 buildingInfo.streetname && (
                   <div>
-                    <Trans render="p">Useful links</Trans>:
+                    <Trans render="p">Useful links</Trans>
                     <div>
                       <div className="btn-group btn-group-block">
                         <a

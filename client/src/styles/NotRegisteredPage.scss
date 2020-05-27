@@ -16,7 +16,7 @@
 
   @include for-phone-only() {
     .text-large {
-      font-size: 1.15em;
+      font-size: 1em;
     }
   }
 
@@ -33,8 +33,10 @@
   }
 
   .wrapper {
-    width: 80%;
     margin: auto;
+    @include for-tablet-portrait-up() {
+      width: 80%;
+    }
 
     .bbl-link {
       text-align: center;
