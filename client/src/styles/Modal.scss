@@ -1,3 +1,5 @@
+@import "_vars.scss";
+
 .ReactModal__Overlay--after-open {
   z-index: 100;
 
@@ -20,6 +22,26 @@
 
     .first-header {
       margin-top: 0;
+    }
+
+    .btn {
+      white-space: normal;
+    }
+
+    @include for-phone-only() {
+      // Force override on custom styling defined in Modal.tsx
+      padding: 30px 20px !important;
+
+      h5 {
+        margin-top: 0;
+      }
+
+      ul {
+        margin-left: 0;
+        li {
+          margin: 0;
+        }
+      }
     }
   }
 }
