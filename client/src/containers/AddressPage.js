@@ -145,14 +145,14 @@ export default class AddressPage extends Component {
             />
             {this.state.userAddr && (
               <div className="float-left">
-                <h5 className="primary" tabIndex={1}>
+                <h1 className="primary" tabIndex={1}>
                   <Trans>
                     PORTFOLIO: Your search address is associated with{" "}
                     <u>{this.state.assocAddrs.length}</u>{" "}
                     <Plural value={this.state.assocAddrs.length} one="building" other="buildings" />
                   </Trans>
                   :
-                </h5>
+                </h1>
                 <ul className="tab tab-block">
                   <li className={`tab-item ${this.props.currentTab === 0 ? "active" : ""}`}>
                     <Link
