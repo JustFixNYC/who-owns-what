@@ -8,6 +8,7 @@ import { I18n } from "@lingui/core";
 import { t, Trans } from "@lingui/macro";
 import { withI18n } from "@lingui/react";
 import helpers, { MaybeStringyNumber } from "../util/helpers";
+import { FB_APP_ID } from "./Page";
 
 const SocialShareWithoutI18n: React.FC<{
   i18n: I18n;
@@ -28,7 +29,7 @@ const SocialShareWithoutI18n: React.FC<{
         sharer={true}
         windowOptions={["width=400", "height=200"]}
         url={props.url || "https://whoownswhat.justfix.nyc/"}
-        appId={`247990609143668`}
+        appId={FB_APP_ID}
       >
         <img src={fbIcon} className="icon mx-1" alt="Facebook" />
         <span>Facebook</span>
