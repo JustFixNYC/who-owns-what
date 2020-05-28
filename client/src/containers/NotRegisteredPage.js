@@ -196,7 +196,7 @@ export default class NotRegisteredPage extends Component {
       <div className="NotRegisteredPage Page">
         <div className="HomePage__content">
           <div className="HomePage__search">
-            <h5 className="mt-10 text-danger text-center text-bold text-large" tabIndex={1}>
+            <h5 className="mt-10 text-danger text-center text-bold text-large" >
               {usersInputAddress ? (
                 <Trans>No registration found for {usersInputAddressFragment}!</Trans>
               ) : (
