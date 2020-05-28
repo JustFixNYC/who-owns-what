@@ -281,9 +281,11 @@ export default class AddressPage extends Component {
       );
     } else {
       return (
-        <Loader loading={true} classNames="Loader-map">
-          <Trans>Loading</Trans>
-        </Loader>
+        <Page>
+          <Loader loading={true} classNames="Loader-map">
+            <Trans>Loading</Trans>
+          </Loader>
+        </Page>
       );
     }
   }
