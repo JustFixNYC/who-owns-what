@@ -163,7 +163,7 @@ const IndicatorsDatasetRadioWithoutI18n: React.FC<{
           window.gtag("event", `${analyticsName}-timeline-tab`);
         }}
       >
-        <input type="radio" name="Dataset" checked={isActive} onChange={() => onChange(id)} />
+        <input type="radio" name={name} checked={isActive} onChange={() => onChange(id)} />
         <i className="form-icon"></i> {name}
       </label>
     </li>

@@ -340,7 +340,7 @@ class IndicatorsWithoutI18n extends Component {
                       >
                         <input
                           type="radio"
-                          name="Time"
+                          name="month"
                           checked={this.state.activeTimeSpan === "month" ? true : false}
                           onChange={() => this.handleTimeSpanChange("month")}
                         />
@@ -358,7 +358,7 @@ class IndicatorsWithoutI18n extends Component {
                       >
                         <input
                           type="radio"
-                          name="Time"
+                          name="quarter"
                           checked={this.state.activeTimeSpan === "quarter" ? true : false}
                           onChange={() => this.handleTimeSpanChange("quarter")}
                         />
@@ -376,7 +376,7 @@ class IndicatorsWithoutI18n extends Component {
                       >
                         <input
                           type="radio"
-                          name="Time"
+                          name="year"
                           checked={this.state.activeTimeSpan === "year" ? true : false}
                           onChange={() => this.handleTimeSpanChange("year")}
                         />
@@ -392,6 +392,9 @@ class IndicatorsWithoutI18n extends Component {
 
                 <div className="Indicators__viz">
                   <button
+                    aria-hidden={
+                      this.state.xAxisStart === 0 || this.state.activeTimeSpan === "year"
+                    }
                     className={
                       this.state.xAxisStart === 0 || this.state.activeTimeSpan === "year"
                         ? "btn btn-off btn-axis-shift"
@@ -406,6 +409,10 @@ class IndicatorsWithoutI18n extends Component {
                   </button>
                   <IndicatorsViz {...this.state} />
                   <button
+                    aria-hidden={
+                      this.state.xAxisStart + this.state.xAxisViewableColumns >= xAxisLength ||
+                      this.state.activeTimeSpan
+                    }
                     className={
                       this.state.xAxisStart + this.state.xAxisViewableColumns >= xAxisLength ||
                       this.state.activeTimeSpan === "year"
