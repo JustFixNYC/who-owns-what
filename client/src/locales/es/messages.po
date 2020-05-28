@@ -46,14 +46,14 @@ msgid "<0>COVID-19 Update: </0>JustFix.nyc remains in operation, and we are adap
 msgstr "<0>Actualización COVID-19: </0>JustFix.nyc sigue en funcionamiento, y hemos adaptado nuestros productos para que funcionen con las nuevas reglas establecidas durante la crisis de salud pública COVID-19. Gracias a la organización de los líderes inquilinos, los inquilinos de Nueva York ahora tienen protecciones más fuertes, incluyendo una suspensión total de los casos de desalojo. <1><2>Más información</2></1>"
 
 #: src/components/DetailView.js:276
-#: src/components/Indicators.js:517
+#: src/components/Indicators.js:524
 #: src/containers/NotRegisteredPage.js:279
 #: src/containers/NychaPage.js:286
 msgid "ANHD DAP Portal"
 msgstr "Portal DAP de ANHD"
 
 #: src/containers/AboutPage.tsx:13
-#: src/containers/App.js:71
+#: src/containers/App.js:72
 msgid "About"
 msgstr "Acerca de"
 
@@ -170,13 +170,13 @@ msgid "Complaints Issued"
 msgstr "Quejas Emitidas"
 
 #: src/components/DetailView.js:250
-#: src/components/Indicators.js:491
+#: src/components/Indicators.js:498
 #: src/containers/NotRegisteredPage.js:271
 msgid "DOB Building Profile"
 msgstr "Perfil de edificio en DOB"
 
 #: src/components/DetailView.js:263
-#: src/components/Indicators.js:504
+#: src/components/Indicators.js:511
 #: src/containers/NotRegisteredPage.js:261
 msgid "DOF Property Tax Bills"
 msgstr "Facturas de Impuestos del DOF"
@@ -185,7 +185,7 @@ msgstr "Facturas de Impuestos del DOF"
 msgid "Date"
 msgstr ""
 
-#: src/containers/App.js:63
+#: src/containers/App.js:64
 msgid "Demo Site"
 msgstr "Sitio Demo"
 
@@ -194,7 +194,7 @@ msgid "Disclaimer: The information in JustFix.nyc does not constitute legal advi
 msgstr "Descargo de responsabilidad: La información en JustFix.nyc no constituye asesoramiento jurídico y no debe ser utilizado como sustituto del asesoramiento de un abogado cualificado para asesorar sobre cuestiones jurídicas relativas a la vivienda. Nosotros podemos ayudarte a dirigirte a servicios legales gratuitos si es necesario."
 
 #: src/components/LegalFooter.tsx:31
-#: src/containers/App.js:77
+#: src/containers/App.js:78
 msgid "Donate"
 msgstr "Donar"
 
@@ -202,7 +202,7 @@ msgstr "Donar"
 msgid "Download"
 msgstr "Descargar"
 
-#: src/components/SocialShare.tsx:28
+#: src/components/SocialShare.tsx:29
 msgid "Email"
 msgstr "Email"
 
@@ -248,7 +248,7 @@ msgid "Group Sale?"
 msgstr ""
 
 #: src/components/DetailView.js:237
-#: src/components/Indicators.js:478
+#: src/components/Indicators.js:485
 msgid "HPD Building Profile"
 msgstr "Perfil de edificio del HPD"
 
@@ -273,12 +273,12 @@ msgstr "Infracciones del HPD se dan cuando un Inspector oficial de la Ciudad det
 msgid "HUD Complaint Form 958"
 msgstr "Formulario de queja HUD 958"
 
-#: src/components/Indicators.js:422
-#: src/components/Indicators.js:525
+#: src/components/Indicators.js:429
+#: src/components/Indicators.js:532
 msgid "Have thoughts about this page?"
 msgstr "¿Tienes ideas sobre esta página?"
 
-#: src/containers/App.js:68
+#: src/containers/App.js:69
 msgid "Home"
 msgstr "Inicio"
 
@@ -287,7 +287,7 @@ msgstr "Inicio"
 msgid "How is this building associated to this portfolio?"
 msgstr "¿Cómo se asocia este edificio a esta cartera de edificios?"
 
-#: src/containers/App.js:74
+#: src/containers/App.js:75
 #: src/containers/HowToUsePage.tsx:13
 msgid "How to use"
 msgstr "Cómo se usa"
@@ -342,6 +342,7 @@ msgid "Legend"
 msgstr "Leyenda"
 
 #: src/components/PropertiesList.tsx:207
+#: src/components/PropertiesList.tsx:209
 msgid "Link to Deed"
 msgstr ""
 
@@ -388,7 +389,7 @@ msgstr "App MyNYCHA"
 msgid "NYCHA Directory"
 msgstr "Directorio de NYCHA"
 
-#: src/components/SocialShare.tsx:26
+#: src/components/SocialShare.tsx:27
 msgid "New JustFix.nyc tool helps research on NYC landlords"
 msgstr "La nueva herramienta JustFix.nyc te ayuda a investigar a propietarios de NYC"
 
@@ -511,12 +512,12 @@ msgstr "Seleccione un conjunto de datos:"
 msgid "Send us a data request"
 msgstr "Envíanos una solicitud de datos"
 
-#: src/components/Indicators.js:429
-#: src/components/Indicators.js:532
+#: src/components/Indicators.js:436
+#: src/components/Indicators.js:539
 msgid "Send us feedback!"
 msgstr "¡Comparte tu opinión con nosotros!"
 
-#: src/containers/App.js:81
+#: src/containers/App.js:82
 msgid "Share"
 msgstr "Compartir"
 
@@ -524,7 +525,7 @@ msgstr "Compartir"
 #: src/components/DetailView.js:298
 #: src/components/EngagementPanel.tsx:18
 #: src/components/PropertiesSummary.js:155
-#: src/containers/App.js:90
+#: src/containers/App.js:91
 #: src/containers/NotRegisteredPage.js:288
 #: src/containers/NychaPage.js:309
 msgid "Share this page with your neighbors"
@@ -581,7 +582,7 @@ msgstr "El edificio con la major cantidad de desalojos fue <0>{0} {1}, {2}</0> c
 msgid "The city borough where your search address is located"
 msgstr "El municipio donde se encuentra la dirección que has buscado"
 
-#: src/containers/HomePage.tsx:182
+#: src/containers/HomePage.tsx:184
 msgid "The city’s fifth <0>worst evictor</0> in 2018, A&E is a prime example of a landlord who engages in <1>aggressive eviction strategies</1> to displace low-income tenants. Besides lack of repairs and frivolous evictions in housing court, A&E has also been known to use <2>MCIs</2> to <3>double rents</3> in rent-stabilized buildings."
 msgstr "A&E fue el quinto <0>\"peor desalojador\"</0> de la ciudad en el 2018, y es un excelente ejemplo de un propietario que participa en <1>estrategias agresivas de desalojo</1> para desplazar a inquilinos de bajos ingresos. Además de usar la falta de arreglos y los desalojos frívolos en la corte de viviendas, se sabe que A&E también utiliza los <2>IMCs</2> para <3>alquileres dobles</3> en edificios de resta estabilizada."
 
@@ -613,11 +614,11 @@ msgstr "El año en que este edificio fue construido, según el Departamento de P
 msgid "The {bldgs, plural, one {} other {average}} age of {bldgs, plural, one {this building} other {these buildings}} is <0>{age}</0> years old."
 msgstr "La {bldgs, plural, one {edad} other {edad media}} de {bldgs, plural, one {este edificio} other {estos edificios}} es de <0>{age}</0> años."
 
-#: src/components/SocialShare.tsx:45
+#: src/components/SocialShare.tsx:46
 msgid "The {buildingCount} buildings owned by my landlord (via JustFix's Who Owns What tool)"
 msgstr "Los {buildingCount} edificios que son propiedad del dueño de mi apartamento (a través de la herramienta Quién Es El Dueño de JustFix.nyc)"
 
-#: src/components/SocialShare.tsx:45
+#: src/components/SocialShare.tsx:46
 msgid "The {buildingCount} buildings that my landlord \"owns\" 👀... #WhoOwnsWhat @JustFixNYC"
 msgstr "Los {buildingCount} edificios que son \"propiedad\" del dueño de mi apartamento 👀... #WhoOwnsWhat @JustFixNYC"
 
@@ -661,7 +662,7 @@ msgstr "Esta cartera de edificios tuvo una <0>{changeType, select, gain {gananci
 msgid "This portfolio has an average of <0>{openviolationsperresunit}</0> open HPD violations per residential unit."
 msgstr "Esta cartera de edificios tiene un promedio de <0>{openviolationsperresunit}</0> infracciones del HPD Actuales por cada unidad residencial."
 
-#: src/containers/HomePage.tsx:148
+#: src/containers/HomePage.tsx:149
 msgid "This property management company owned by the Kushner family is notorious for <0>violating rent regulations</0> and <1>harassing tenants</1>. The stake currently held by Jared Kushner and Ivanka Trump is worth as much as $761 million."
 msgstr "Esta empresa de gestión inmobiliaria es propiedad de la familia Kushner y es notoria por <0>violar las normas de vivienda</0> y por <1>comportamientos abusivos</1>. La participación financiera actualmente sostenida por Jared Kushner e Ivanka Trump asciende a 761 millones de dólares."
 
@@ -718,7 +719,7 @@ msgstr ""
 
 #: src/components/DetailView.js:202
 #: src/components/DetailView.js:207
-#: src/components/Indicators.js:447
+#: src/components/Indicators.js:454
 #: src/containers/NotRegisteredPage.js:244
 #: src/containers/NychaPage.js:251
 msgid "Useful links"
@@ -733,11 +734,12 @@ msgid "View data over time"
 msgstr "Ver datos a lo largo del tiempo"
 
 #: src/components/PropertiesList.tsx:232
+#: src/components/PropertiesList.tsx:237
 msgid "View detail"
 msgstr "Ver detalles"
 
 #: src/components/DetailView.js:220
-#: src/components/Indicators.js:459
+#: src/components/Indicators.js:466
 #: src/containers/NotRegisteredPage.js:253
 msgid "View documents on ACRIS"
 msgstr "Ver documentos en ACRIS"
@@ -746,9 +748,9 @@ msgstr "Ver documentos en ACRIS"
 msgid "View legend"
 msgstr "Ver leyenda"
 
-#: src/containers/HomePage.tsx:164
-#: src/containers/HomePage.tsx:205
-#: src/containers/HomePage.tsx:235
+#: src/containers/HomePage.tsx:165
+#: src/containers/HomePage.tsx:207
+#: src/containers/HomePage.tsx:238
 msgid "View portfolio"
 msgstr "Ver cartera de edificios"
 
@@ -764,7 +766,7 @@ msgstr "Infracciones emitidas"
 msgid "Visit our website"
 msgstr "Visite nuestro sitio web"
 
-#: src/containers/App.js:54
+#: src/containers/App.js:55
 msgid "Warning! This site doesn't fully work on older versions of Safari. Try a <0>modern browser</0>."
 msgstr "¡Atención! Este sitio no funciona completamente en versiones antiguas de Safari. Prueba un <0>navegador moderno</0>."
 
@@ -772,7 +774,7 @@ msgstr "¡Atención! Este sitio no funciona completamente en versiones antiguas 
 msgid "We compare your search address with a database of over 200k buildings to identify a landlord or management company's portfolio. To learn more, check out <0>our methodology</0>."
 msgstr "Comparamos la dirección que buscaste con una base de datos de más de 200 mil edificios para identificar a un propietario o compañía de gestión. Para obtener más información, consulta <0>nuestra metodología</0>."
 
-#: src/components/Indicators.js:438
+#: src/components/Indicators.js:445
 msgid "What are {0}?"
 msgstr "¿Qué son {0}?"
 
@@ -780,14 +782,14 @@ msgstr "¿Qué son {0}?"
 msgid "What happens if the landlord has failed to register?"
 msgstr "¿Qué pasa si el propietario no ha registrado el edificio?"
 
-#: src/containers/App.js:26
+#: src/containers/App.js:27
 msgid "Who owns what in n y c?"
 msgstr "¿Quién Es El Dueño en Nueva York?"
 
 #: src/components/Page.tsx:9
 #: src/components/Page.tsx:19
 #: src/components/Page.tsx:20
-#: src/containers/App.js:32
+#: src/containers/App.js:33
 msgid "Who owns what in nyc?"
 msgstr "¿Quién Es El Dueño en Nueva York?"
 
@@ -803,7 +805,7 @@ msgstr "Año de construcción"
 msgid "Yes"
 msgstr ""
 
-#: src/containers/HomePage.tsx:223
+#: src/containers/HomePage.tsx:226
 msgid "Yoel Goldman's All Year Management has been at the <0>forefront of gentrification</0> in Brooklyn. Tenants in his buidlings in Williamsburg, Bushwick, and Crown Heights have been forced to live in horrendous and often dangerous conditions."
 msgstr "La entidad \"All Year Management\" perteneciente a Yoel Goldman, está en la <0>vanguardia de la gentrificación</0> de Brooklyn. Los inquilinos en sus edificios de Williamsburg, Bushwick, y las Crown Heights se han visto obligados a vivir en condiciones horrendas y a menudo peligrosas."
 
