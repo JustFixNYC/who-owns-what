@@ -119,7 +119,7 @@ class NychaPageWithoutI18n extends Component {
       <div className="NotRegisteredPage Page">
         <div className="HomePage__content">
           <div className="HomePage__search">
-            <h5 className="mt-10 text-center text-bold text-large" >
+            <h5 className="mt-10 text-center text-bold text-large">
               {nycha.development}: <Trans>Public Housing Development</Trans>
             </h5>
             <h6 className="mt-10 text-center text-bold text-large">

@@ -74,7 +74,7 @@ class DetailViewWithoutI18n extends Component {
                 <div className="columns main-content-columns">
                   <div className="column col-lg-12 col-7">
                     <div className="card-header">
-                      <h4 className="card-title" >
+                      <h4 className="card-title">
                         <Trans>BUILDING:</Trans> {this.props.addr.housenumber}{" "}
                         {Helpers.titleCase(this.props.addr.streetname)},{" "}
                         {Helpers.titleCase(this.props.addr.boro)}
