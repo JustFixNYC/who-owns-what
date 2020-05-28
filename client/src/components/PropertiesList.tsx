@@ -275,6 +275,7 @@ const PropertiesListWithoutI18n: React.FC<{
                         href={`https://a836-acris.nyc.gov/DS/DocumentSearch/DocumentImageView?doc_id=${row.original.lastsaleacrisid}`}
                         className="btn"
                         target="_blank"
+                        aria-label={i18n._(t`Link to Deed`)}
                         rel="noopener noreferrer"
                       >
                         <span style={{ padding: "0 3px" }}>&#8599;&#xFE0E;</span>
@@ -311,6 +312,7 @@ const PropertiesListWithoutI18n: React.FC<{
                       <Link
                         to={props.generateBaseUrl()}
                         className="btn"
+                        aria-label={i18n._(t`View detail`)}
                         onClick={() => props.onOpenDetail(row.original)}
                       >
                         <span style={{ padding: "0 3px" }}>&#10142;</span>
