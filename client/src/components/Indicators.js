@@ -411,7 +411,7 @@ class IndicatorsWithoutI18n extends Component {
                   <button
                     aria-hidden={
                       this.state.xAxisStart + this.state.xAxisViewableColumns >= xAxisLength ||
-                      this.state.activeTimeSpan
+                      this.state.activeTimeSpan === "year"
                     }
                     className={
                       this.state.xAxisStart + this.state.xAxisViewableColumns >= xAxisLength ||
