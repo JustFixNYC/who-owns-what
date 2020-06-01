@@ -255,22 +255,23 @@ const PropertiesListWithoutI18n: React.FC<{
                   Header: i18n._(t`Date`),
                   accessor: (d) => d.lastsaledate,
                   Cell: (row) =>
-                    row.original.lastsaledate && formatDate(row.original.lastsaledate, locale),
+                    row.original.lastsaledate ? formatDate(row.original.lastsaledate, locale) : "",
                   id: "lastsaledate",
                 },
                 {
                   Header: i18n._(t`Amount`),
                   accessor: (d) => (d.lastsaleamount ? parseInt(d.lastsaleamount) : null),
                   Cell: (row) =>
-                    row.original.lastsaleamount &&
-                    "$" + formatPrice.format(row.original.lastsaleamount),
+                    row.original.lastsaleamount
+                      ? "$" + formatPrice.format(row.original.lastsaleamount)
+                      : "",
                   id: "lastsaleamount",
                 },
                 {
                   Header: i18n._(t`Link to Deed`),
                   accessor: (d) => d.lastsaleacrisid,
                   Cell: (row) =>
-                    row.original.lastsaleacrisid && (
+                    row.original.lastsaleacrisid ? (
                       <a
                         href={`https://a836-acris.nyc.gov/DS/DocumentSearch/DocumentImageView?doc_id=${row.original.lastsaleacrisid}`}
                         className="btn"
@@ -279,6 +280,8 @@ const PropertiesListWithoutI18n: React.FC<{
                       >
                         <span style={{ padding: "0 3px" }}>&#8599;&#xFE0E;</span>
                       </a>
+                    ) : (
+                      <></>
                     ),
                   id: "lastsaleacrisid",
                 },
@@ -293,10 +296,11 @@ const PropertiesListWithoutI18n: React.FC<{
                     return `${idPrefix}${d.lastsaleacrisid}`;
                   },
                   Cell: (row) =>
-                    row.original.lastsaleacrisid &&
-                    (isPartOfGroupSale(row.original.lastsaleacrisid, props.addrs)
-                      ? i18n._(t`Yes`)
-                      : i18n._(t`No`)),
+                    row.original.lastsaleacrisid
+                      ? isPartOfGroupSale(row.original.lastsaleacrisid, props.addrs)
+                        ? i18n._(t`Yes`)
+                        : i18n._(t`No`)
+                      : "",
                   id: "lastsaleisgroupsale",
                 },
               ],
