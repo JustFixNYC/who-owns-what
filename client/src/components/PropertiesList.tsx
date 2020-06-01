@@ -255,7 +255,9 @@ const PropertiesListWithoutI18n: React.FC<{
                   Header: i18n._(t`Date`),
                   accessor: (d) => d.lastsaledate,
                   Cell: (row) =>
-                    row.original.lastsaledate ? formatDate(row.original.lastsaledate, locale) : "",
+                    row.original.lastsaledate
+                      ? formatDate(row.original.lastsaledate, locale)
+                      : null,
                   id: "lastsaledate",
                 },
                 {
@@ -264,7 +266,7 @@ const PropertiesListWithoutI18n: React.FC<{
                   Cell: (row) =>
                     row.original.lastsaleamount
                       ? "$" + formatPrice.format(row.original.lastsaleamount)
-                      : "",
+                      : null,
                   id: "lastsaleamount",
                 },
                 {
@@ -280,9 +282,7 @@ const PropertiesListWithoutI18n: React.FC<{
                       >
                         <span style={{ padding: "0 3px" }}>&#8599;&#xFE0E;</span>
                       </a>
-                    ) : (
-                      <></>
-                    ),
+                    ) : null,
                   id: "lastsaleacrisid",
                 },
                 {
@@ -300,7 +300,7 @@ const PropertiesListWithoutI18n: React.FC<{
                       ? isPartOfGroupSale(row.original.lastsaleacrisid, props.addrs)
                         ? i18n._(t`Yes`)
                         : i18n._(t`No`)
-                      : "",
+                      : null,
                   id: "lastsaleisgroupsale",
                 },
               ],
