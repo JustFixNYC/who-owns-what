@@ -1,81 +1,27 @@
 @import "_vars.scss";
 
 .HomePage {
-}
+  .HomePage__banner {
+    padding: 1rem 1.5rem;
 
-.HomePage__banner {
-  padding: 1rem 1.5rem;
-
-  .text-bold {
-    color: $dark;
-  }
-
-  .close-button {
-    cursor: pointer;
-    &:hover {
-      opacity: 0.7;
-    }
-  }
-
-  .content {
-    padding-right: 24px;
-
-    a {
+    .text-bold {
       color: $dark;
-      text-decoration: underline;
-      white-space: nowrap;
+    }
 
+    .close-button {
+      cursor: pointer;
       &:hover {
-        text-decoration: none;
+        opacity: 0.7;
       }
     }
-  }
 
-  background-color: $warning;
-}
-
-.HomePage__content {
-  width: 85vw;
-  margin: 0 auto;
-  flex-grow: 1;
-
-  @include for-tablet-portrait-up() {
-    width: 65vw;
-  }
-}
-
-.HomePage__search {
-  background-color: $background;
-  border: 1px solid $gray-dark;
-
-  margin: 75px auto 60px auto;
-  padding: 35px;
-
-  @include for-phone-only() {
-    margin: 40px auto 30vh auto;
-    padding: 20px;
-  }
-}
-
-.HomePage__samples {
-  margin: 0 auto 30px auto;
-
-  .container {
-    padding-left: 0;
-    padding-right: 0;
-  }
-
-  .HomePage__sample {
-    border: 1px dashed $gray;
-    padding: 10px;
-
-    h6 {
-      font-weight: bold;
-      text-align: center;
+    .content {
+      padding-right: 24px;
 
       a {
         color: $dark;
         text-decoration: underline;
+        white-space: nowrap;
 
         &:hover {
           text-decoration: none;
@@ -83,13 +29,70 @@
       }
     }
 
-    img {
-      width: 60%;
-      margin: 15px auto;
+    background-color: $warning;
+  }
 
-      &.emassoc {
-        max-height: 75px;
-        width: auto;
+  .HomePage__content {
+    width: 85vw;
+    margin: 0 auto;
+    flex-grow: 1;
+
+    h1 {
+      font-size: 2rem;
+    }
+
+    @include for-tablet-portrait-up() {
+      width: 65vw;
+    }
+  }
+
+  .HomePage__search {
+    background-color: $background;
+    border: 1px solid $gray-dark;
+
+    margin: 75px auto 60px auto;
+    padding: 35px;
+
+    @include for-phone-only() {
+      margin: 40px auto 30vh auto;
+      padding: 20px;
+    }
+  }
+
+  .HomePage__samples {
+    margin: 0 auto 30px auto;
+
+    .container {
+      padding-left: 0;
+      padding-right: 0;
+    }
+
+    .HomePage__sample {
+      border: 1px dashed $gray;
+      padding: 10px;
+
+      h6 {
+        font-weight: bold;
+        text-align: center;
+
+        a {
+          color: $dark;
+          text-decoration: underline;
+
+          &:hover {
+            text-decoration: none;
+          }
+        }
+      }
+
+      img {
+        width: 60%;
+        margin: 15px auto;
+
+        &.emassoc {
+          max-height: 75px;
+          width: auto;
+        }
       }
     }
   }

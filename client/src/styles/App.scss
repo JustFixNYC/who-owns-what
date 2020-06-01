@@ -8,6 +8,13 @@
   & > div {
     box-sizing: border-box;
   }
+
+  // Standard inline-link focus class:
+  a:not(.btn):not(.image):focus {
+    box-shadow: none;
+    outline: 2px solid $gray-dark;
+    outline-offset: 2px;
+  }
 }
 
 .App__warning {
