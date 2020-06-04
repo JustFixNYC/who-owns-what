@@ -12,12 +12,12 @@
   @include for-tablet-portrait-up() {
     width: 65vw;
     padding: 35px;
+    margin: 4rem auto;
   }
 
   @include for-phone-only() {
-    .text-large {
-      font-size: 1em;
-    }
+    width: 100%;
+    border: none;
   }
 
   h5 {
@@ -63,8 +63,10 @@
 
     a.btn {
       max-width: 100%;
-      display: table;
       white-space: normal;
+      @include for-phone-only() {
+        width: 100%;
+      }
     }
 
     .card-body {
