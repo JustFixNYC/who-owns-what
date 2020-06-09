@@ -2,31 +2,32 @@
   "title": "Cómo utilizar",
   "slug": "how-to-use",
   "content": {
+    "nodeType": "document",
     "data": {},
     "content": [
       {
-        "data": {},
+        "nodeType": "heading-4",
         "content": [
           {
-            "data": {},
-            "marks": [],
+            "nodeType": "text",
             "value": "Las Cosas Más Importantes Que Puedes Hacer con Quién Es El Dueño",
-            "nodeType": "text"
+            "marks": [],
+            "data": {}
           }
         ],
-        "nodeType": "heading-4"
+        "data": {}
       },
       {
-        "data": {},
+        "nodeType": "paragraph",
         "content": [
           {
-            "data": {},
-            "marks": [],
+            "nodeType": "text",
             "value": "",
-            "nodeType": "text"
+            "marks": [],
+            "data": {}
           }
         ],
-        "nodeType": "paragraph"
+        "data": {}
       },
       {
         "nodeType": "paragraph",
@@ -102,7 +103,6 @@
         "content": [
           {
             "nodeType": "list-item",
-            "data": {},
             "content": [
               {
                 "nodeType": "paragraph",
@@ -145,7 +145,6 @@
                 "content": [
                   {
                     "nodeType": "list-item",
-                    "data": {},
                     "content": [
                       {
                         "nodeType": "paragraph",
@@ -159,7 +158,8 @@
                         ],
                         "data": {}
                       }
-                    ]
+                    ],
+                    "data": {}
                   },
                   {
                     "nodeType": "list-item",
@@ -194,7 +194,8 @@
                 ],
                 "data": {}
               }
-            ]
+            ],
+            "data": {}
           },
           {
             "nodeType": "list-item",
@@ -266,9 +267,9 @@
         "content": [
           {
             "nodeType": "text",
-            "data": {},
             "value": "",
-            "marks": []
+            "marks": [],
+            "data": {}
           }
         ],
         "data": {}
@@ -278,9 +279,9 @@
         "content": [
           {
             "nodeType": "text",
-            "data": {},
             "value": "Comprueba a quién más puede estar perjudicando el dueño o manager de tu edificio, y determina si es posible crear una asociación de inquilinos.\n",
-            "marks": []
+            "marks": [],
+            "data": {}
           }
         ],
         "data": {}
@@ -335,16 +336,15 @@
         "content": [
           {
             "nodeType": "list-item",
-            "data": {},
             "content": [
               {
                 "nodeType": "paragraph",
                 "content": [
                   {
                     "nodeType": "text",
-                    "data": {},
                     "value": "Para obtener detalles sobre los problemas que hay en tu edificio y para ver si alguno de tus vecinos llama repetidamente al 311 para reportar Quejas, consulte la lista de \"Historial de Quejas\" en el \"Perfil de Edificio del HPD\". Si tienes la información de contacto de tus vecinos, envíales el perfil de edificio de Quién Es El Dueño a través de Facebook, Twitter, correo electrónico o mensaje de texto usando los botones para compartir. También le puedes proporcionar una lista inmediata de acciones a tomar compartiendo la página \"",
-                    "marks": []
+                    "marks": [],
+                    "data": {}
                   },
                   {
                     "nodeType": "hyperlink",
@@ -369,7 +369,8 @@
                 ],
                 "data": {}
               }
-            ]
+            ],
+            "data": {}
           },
           {
             "nodeType": "list-item",
@@ -435,9 +436,9 @@
         "content": [
           {
             "nodeType": "text",
-            "data": {},
             "value": "",
-            "marks": []
+            "marks": [],
+            "data": {}
           }
         ],
         "data": {}
@@ -447,9 +448,9 @@
         "content": [
           {
             "nodeType": "text",
-            "data": {},
             "value": "Investiga los detalles de un edificio antes de mudarte.",
-            "marks": []
+            "marks": [],
+            "data": {}
           }
         ],
         "data": {}
@@ -546,9 +547,9 @@
         "content": [
           {
             "nodeType": "text",
-            "data": {},
             "value": "",
-            "marks": []
+            "marks": [],
+            "data": {}
           }
         ],
         "data": {}
@@ -558,9 +559,9 @@
         "content": [
           {
             "nodeType": "text",
-            "data": {},
             "value": "",
-            "marks": []
+            "marks": [],
+            "data": {}
           }
         ],
         "data": {}
@@ -570,9 +571,9 @@
         "content": [
           {
             "nodeType": "text",
-            "data": {},
             "value": "",
-            "marks": []
+            "marks": [],
+            "data": {}
           }
         ],
         "data": {}
@@ -582,9 +583,9 @@
         "content": [
           {
             "nodeType": "text",
-            "data": {},
             "value": "",
-            "marks": []
+            "marks": [],
+            "data": {}
           }
         ],
         "data": {}
@@ -680,13 +681,13 @@
         "content": [
           {
             "nodeType": "text",
-            "data": {},
             "value": "\"¿Cómo se asocia este edificio?\"",
             "marks": [
               {
                 "type": "bold"
               }
-            ]
+            ],
+            "data": {}
           },
           {
             "nodeType": "text",
@@ -712,7 +713,7 @@
           },
           {
             "nodeType": "text",
-            "value": " Los Apartamentos de Renta Estabilizada son apartamentos que están sujetos a reglas específicas, una de las cuales es que el dueño tiene que proporcionar un contrato de renta de 1 o 2 años, con un aumento máximo de renta que fija la Junta de Pautas de Alquiler (RGB por sus siglas en inglés). En el indicador de la pestaña \"Vista General\", si el número de apartamentos de renta estabilizada a la derecha es menor que el número de la izquierda y aparece en rojo, significa que algunos apartamentos han perdido su estatus de renta estabilizada (es decir, han sido desregulados), y puede significar que el dueño esté intentando echar a los inquilinos que vivan en los apartamentos de renta estabilizada.\n",
+            "value": " Los Apartamentos de Renta Estabilizada son apartamentos que están sujetos a reglas específicas, una de las cuales es que el dueño tiene que proporcionar un contrato de renta de 1 o 2 años, con un aumento máximo de renta que fija la Junta de Pautas de Alquiler (RGB por sus siglas en inglés). En el indicador de la pestaña \"Vista General\", si el número de apartamentos de renta estabilizada a la derecha es menor que el número de la izquierda y aparece en rojo, significa que algunos apartamentos han perdido su estatus de renta estabilizada (es decir, han sido desregulados), y puede significar que el dueño esté intentando echar a los inquilinos que vivan en los apartamentos de renta estabilizada.",
             "marks": [],
             "data": {}
           }
@@ -724,13 +725,13 @@
         "content": [
           {
             "nodeType": "text",
-            "data": {},
             "value": "Infracciones Actuales, Infracciones Totales, HPD y 311:",
             "marks": [
               {
                 "type": "bold"
               }
-            ]
+            ],
+            "data": {}
           }
         ],
         "data": {}
@@ -740,7 +741,6 @@
         "content": [
           {
             "nodeType": "list-item",
-            "data": {},
             "content": [
               {
                 "nodeType": "paragraph",
@@ -754,7 +754,8 @@
                 ],
                 "data": {}
               }
-            ]
+            ],
+            "data": {}
           },
           {
             "nodeType": "list-item",
@@ -818,14 +819,209 @@
         "content": [
           {
             "nodeType": "text",
-            "data": {},
+            "value": "Tipos de personas asociadas al edificio:",
+            "marks": [
+              {
+                "type": "bold"
+              }
+            ],
+            "data": {}
+          }
+        ],
+        "data": {}
+      },
+      {
+        "nodeType": "unordered-list",
+        "content": [
+          {
+            "nodeType": "list-item",
+            "content": [
+              {
+                "nodeType": "paragraph",
+                "content": [
+                  {
+                    "nodeType": "text",
+                    "value": "\"Head Officer\" — Oficial Principal",
+                    "marks": [],
+                    "data": {}
+                  }
+                ],
+                "data": {}
+              }
+            ],
+            "data": {}
+          },
+          {
+            "nodeType": "list-item",
+            "content": [
+              {
+                "nodeType": "paragraph",
+                "content": [
+                  {
+                    "nodeType": "text",
+                    "value": "\"Corporate Owner\" — Dueño Corporativo",
+                    "marks": [],
+                    "data": {}
+                  }
+                ],
+                "data": {}
+              }
+            ],
+            "data": {}
+          },
+          {
+            "nodeType": "list-item",
+            "content": [
+              {
+                "nodeType": "paragraph",
+                "content": [
+                  {
+                    "nodeType": "text",
+                    "value": "\"Individual Owner\" — Dueño Individual",
+                    "marks": [],
+                    "data": {}
+                  }
+                ],
+                "data": {}
+              }
+            ],
+            "data": {}
+          },
+          {
+            "nodeType": "list-item",
+            "content": [
+              {
+                "nodeType": "paragraph",
+                "content": [
+                  {
+                    "nodeType": "text",
+                    "value": "\"Joint Owner\" — Dueño Conjunto",
+                    "marks": [],
+                    "data": {}
+                  }
+                ],
+                "data": {}
+              }
+            ],
+            "data": {}
+          },
+          {
+            "nodeType": "list-item",
+            "content": [
+              {
+                "nodeType": "paragraph",
+                "content": [
+                  {
+                    "nodeType": "text",
+                    "value": "\"Site Manager\" — Manager del Propiedad",
+                    "marks": [],
+                    "data": {}
+                  }
+                ],
+                "data": {}
+              }
+            ],
+            "data": {}
+          },
+          {
+            "nodeType": "list-item",
+            "content": [
+              {
+                "nodeType": "paragraph",
+                "content": [
+                  {
+                    "nodeType": "text",
+                    "value": "\"Agent\" — Agente",
+                    "marks": [],
+                    "data": {}
+                  }
+                ],
+                "data": {}
+              }
+            ],
+            "data": {}
+          },
+          {
+            "nodeType": "list-item",
+            "content": [
+              {
+                "nodeType": "paragraph",
+                "content": [
+                  {
+                    "nodeType": "text",
+                    "value": "\"Lessee\" — Arrendatario",
+                    "marks": [],
+                    "data": {}
+                  }
+                ],
+                "data": {}
+              }
+            ],
+            "data": {}
+          },
+          {
+            "nodeType": "list-item",
+            "content": [
+              {
+                "nodeType": "paragraph",
+                "content": [
+                  {
+                    "nodeType": "text",
+                    "value": "\"Officer\" — Oficial",
+                    "marks": [],
+                    "data": {}
+                  }
+                ],
+                "data": {}
+              }
+            ],
+            "data": {}
+          },
+          {
+            "nodeType": "list-item",
+            "content": [
+              {
+                "nodeType": "paragraph",
+                "content": [
+                  {
+                    "nodeType": "text",
+                    "value": "\"Shareholder\" — Accionista",
+                    "marks": [],
+                    "data": {}
+                  }
+                ],
+                "data": {}
+              },
+              {
+                "nodeType": "paragraph",
+                "content": [
+                  {
+                    "nodeType": "text",
+                    "value": "",
+                    "marks": [],
+                    "data": {}
+                  }
+                ],
+                "data": {}
+              }
+            ],
+            "data": {}
+          }
+        ],
+        "data": {}
+      },
+      {
+        "nodeType": "paragraph",
+        "content": [
+          {
+            "nodeType": "text",
             "value": "",
-            "marks": []
+            "marks": [],
+            "data": {}
           }
         ],
         "data": {}
       }
-    ],
-    "nodeType": "document"
+    ]
   }
 }
