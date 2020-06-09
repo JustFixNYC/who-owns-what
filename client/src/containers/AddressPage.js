@@ -233,6 +233,7 @@ export default class AddressPage extends Component {
                 isVisible={this.props.currentTab === 0}
               />
               <DetailView
+                addrs={this.state.assocAddrs}
                 addr={this.state.detailAddr}
                 portfolioSize={this.state.assocAddrs.length}
                 mobileShow={this.state.detailMobileSlide}
