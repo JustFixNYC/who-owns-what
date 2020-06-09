@@ -10,6 +10,7 @@ import "styles/DetailView.css";
 import { withI18n } from "@lingui/react";
 import { Trans } from "@lingui/macro";
 import { SocialSharePortfolio } from "./SocialShare";
+import { isPartOfGroupSale } from "./PropertiesList";
 import { Link } from "react-router-dom";
 import { LocaleLink } from "../i18n";
 import BuildingStatsTable from "./BuildingStatsTable";
@@ -49,6 +50,8 @@ class DetailViewWithoutI18n extends Component {
     }
 
     const isMobile = Browser.isMobile();
+
+    const formatPrice = new Intl.NumberFormat(this.props.i18n._language || "en");
 
     const streetView = (
       <LazyLoadWhenVisible>
@@ -163,6 +166,31 @@ class DetailViewWithoutI18n extends Component {
                             </span>
                           )}
                         </p>
+                        {this.props.addr.lastsaledate &&
+                          this.props.addr.lastsaleamount &&
+                          this.props.addrs && (
+                            <p>
+                              <b>
+                                <Trans>Last sold:</Trans>
+                              </b>{" "}
+                              <>
+                                {this.formatDate(this.props.addr.lastsaledate)}{" "}
+                                <Trans>
+                                  for ${formatPrice.format(this.props.addr.lastsaleamount)}
+                                </Trans>
+                                {this.props.addr.lastsaleacrisid &&
+                                  isPartOfGroupSale(
+                                    this.props.addr.lastsaleacrisid,
+                                    this.props.addrs
+                                  ) && (
+                                    <>
+                                      {" "}
+                                      <Trans>(as part of a group sale)</Trans>
+                                    </>
+                                  )}
+                              </>
+                            </p>
+                          )}
                       </div>
 
                       <div className="card-body-prompt hide-lg">
