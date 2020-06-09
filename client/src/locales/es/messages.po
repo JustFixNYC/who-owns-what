@@ -16,11 +16,15 @@ msgstr ""
 "X-Crowdin-Language: es-ES\n"
 "X-Crowdin-File: /master/client/src/locales/en/messages.po\n"
 
-#: src/components/DetailView.js:153
+#: src/components/DetailView.js:188
+msgid "(as part of a group sale)"
+msgstr "(como parte de una venta en grupo)"
+
+#: src/components/DetailView.js:156
 msgid "(expired {0})"
 msgstr "(caducado {0})"
 
-#: src/components/DetailView.js:160
+#: src/components/DetailView.js:163
 msgid "(expires {0})"
 msgstr "(caduca {0})"
 
@@ -45,7 +49,7 @@ msgstr "Desalojos 2019"
 msgid "<0>COVID-19 Update: </0>JustFix.nyc remains in operation, and we are adapting our products to match new rules put in place during the Covid-19 public health crisis. Thanks to organizing from tenant leaders, renters now have stronger protections during this time, including a full halt on eviction cases. <1><2>Learn more</2></1>"
 msgstr "<0>Actualización COVID-19: </0>JustFix.nyc sigue en funcionamiento, y hemos adaptado nuestros productos para que funcionen con las nuevas reglas establecidas durante la crisis de salud pública COVID-19. Gracias a la organización de los líderes inquilinos, los inquilinos de Nueva York ahora tienen protecciones más fuertes, incluyendo una suspensión total de los casos de desalojo. <1><2>Más información</2></1>"
 
-#: src/components/DetailView.js:276
+#: src/components/DetailView.js:304
 #: src/components/Indicators.js:524
 #: src/containers/NotRegisteredPage.js:279
 #: src/containers/NychaPage.js:286
@@ -73,12 +77,12 @@ msgstr "Dirección"
 msgid "All set! Thanks for subscribing!"
 msgstr "¡Todo listo! ¡Gracias por suscribirte!"
 
-#: src/components/PropertiesList.tsx:200
+#: src/components/PropertiesList.tsx:202
 msgid "Amount"
 msgstr "Importe"
 
-#: src/components/DetailView.js:170
-#: src/components/DetailView.js:284
+#: src/components/DetailView.js:198
+#: src/components/DetailView.js:312
 msgid "Are you having issues in this building?"
 msgstr "¿Tienes problemas en este edificio?"
 
@@ -86,7 +90,7 @@ msgstr "¿Tienes problemas en este edificio?"
 msgid "Are you having issues in this development?"
 msgstr "¿Tienes problemas en tu edificio?"
 
-#: src/components/DetailView.js:78
+#: src/components/DetailView.js:81
 #: src/components/Indicators.js:290
 msgid "BUILDING:"
 msgstr "EDIFICIO:"
@@ -127,16 +131,16 @@ msgstr "Edificios sin registro de propiedad válido están sujetos a las siguien
 msgid "Built"
 msgstr "Construido"
 
-#: src/components/DetailView.js:120
-#: src/components/DetailView.js:365
-#: src/components/DetailView.js:376
+#: src/components/DetailView.js:123
+#: src/components/DetailView.js:393
+#: src/components/DetailView.js:404
 #: src/components/OwnersTable.tsx:19
 msgid "Business Addresses"
 msgstr "Dirección Comercial"
 
-#: src/components/DetailView.js:109
-#: src/components/DetailView.js:343
-#: src/components/DetailView.js:354
+#: src/components/DetailView.js:112
+#: src/components/DetailView.js:371
+#: src/components/DetailView.js:382
 #: src/components/OwnersTable.tsx:25
 msgid "Business Entities"
 msgstr "Entidades Comerciales"
@@ -169,13 +173,13 @@ msgstr "Cerrar leyenda"
 msgid "Complaints Issued"
 msgstr "Quejas Emitidas"
 
-#: src/components/DetailView.js:250
+#: src/components/DetailView.js:278
 #: src/components/Indicators.js:498
 #: src/containers/NotRegisteredPage.js:271
 msgid "DOB Building Profile"
 msgstr "Perfil de edificio en DOB"
 
-#: src/components/DetailView.js:263
+#: src/components/DetailView.js:291
 #: src/components/Indicators.js:511
 #: src/containers/NotRegisteredPage.js:261
 msgid "DOF Property Tax Bills"
@@ -243,11 +247,11 @@ msgstr "Si no se registra un edificio con el HPD"
 msgid "General info"
 msgstr "Información general"
 
-#: src/components/PropertiesList.tsx:215
+#: src/components/PropertiesList.tsx:218
 msgid "Group Sale?"
 msgstr "¿Venta en grupo?"
 
-#: src/components/DetailView.js:237
+#: src/components/DetailView.js:265
 #: src/components/Indicators.js:485
 msgid "HPD Building Profile"
 msgstr "Perfil de edificio del HPD"
@@ -282,8 +286,8 @@ msgstr "¿Tienes ideas sobre esta página?"
 msgid "Home"
 msgstr "Inicio"
 
-#: src/components/DetailView.js:86
-#: src/components/DetailView.js:319
+#: src/components/DetailView.js:89
+#: src/components/DetailView.js:347
 msgid "How is this building associated to this portfolio?"
 msgstr "¿Cómo se asocia este edificio a este portafolio de edificios?"
 
@@ -333,22 +337,26 @@ msgstr "Última venta"
 msgid "Last Sale Unknown"
 msgstr "Última venta desconocida"
 
-#: src/components/DetailView.js:147
+#: src/components/DetailView.js:150
 msgid "Last registered:"
 msgstr "Registrado por última vez:"
+
+#: src/components/DetailView.js:174
+msgid "Last sold:"
+msgstr "Vendido por última vez:"
 
 #: src/components/PropertiesMap.js:265
 msgid "Legend"
 msgstr "Leyenda"
 
-#: src/components/PropertiesList.tsx:207
-#: src/components/PropertiesList.tsx:209
+#: src/components/PropertiesList.tsx:210
+#: src/components/PropertiesList.tsx:212
 msgid "Link to Deed"
 msgstr "Enlace a la Escritura"
 
 #: src/components/Indicators.js:281
 #: src/components/PropertiesMap.js:191
-#: src/containers/AddressPage.js:285
+#: src/containers/AddressPage.js:287
 msgid "Loading"
 msgstr "Cargando"
 
@@ -401,7 +409,7 @@ msgstr "Nueva búsqueda"
 msgid "New York Regional Office:"
 msgstr "Oficina Regional de Nueva York:"
 
-#: src/components/PropertiesList.tsx:226
+#: src/components/PropertiesList.tsx:229
 msgid "No"
 msgstr "No"
 
@@ -454,9 +462,9 @@ msgstr "Antes de empezar cualquier proyecto de construcción, el propietario som
 msgid "PORTFOLIO: Your search address is associated with <0>{0}</0> {1, plural, one {building} other {buildings}}"
 msgstr "PORTAFOLIO DE EDIFICIOS: La dirección que has buscado está asociada con <0>{0}</0> {1, plural, one {construyendo} other {edificios}}"
 
-#: src/components/DetailView.js:132
-#: src/components/DetailView.js:389
-#: src/components/DetailView.js:401
+#: src/components/DetailView.js:135
+#: src/components/DetailView.js:417
+#: src/components/DetailView.js:429
 #: src/components/OwnersTable.tsx:31
 msgid "People"
 msgstr "Personas (Encontrarás definiciones en español de los tipos de personas asociadas al edificio en la página \"Como se usa\".)"
@@ -521,8 +529,8 @@ msgstr "¡Comparte tu opinión con nosotros!"
 msgid "Share"
 msgstr "Compartir"
 
-#: src/components/DetailView.js:187
-#: src/components/DetailView.js:298
+#: src/components/DetailView.js:215
+#: src/components/DetailView.js:326
 #: src/components/EngagementPanel.tsx:18
 #: src/components/PropertiesSummary.js:155
 #: src/containers/App.js:91
@@ -555,8 +563,8 @@ msgstr "Código fuente"
 msgid "Summary"
 msgstr "Resúmen"
 
-#: src/components/DetailView.js:181
-#: src/components/DetailView.js:292
+#: src/components/DetailView.js:209
+#: src/components/DetailView.js:320
 #: src/containers/NychaPage.js:303
 msgid "Take action on JustFix.nyc!"
 msgstr "¡Toma acción en JustFix.nyc!"
@@ -717,8 +725,8 @@ msgstr "Unidades Residenciales"
 msgid "Use this free tool from JustFix.nyc to research your building and investigate landlords! We use property ownership mapping to identify a landlord's portfolio and provide data to indicate potential tenant harassment and displacement."
 msgstr "Utilice esta herramienta gratuita de JustFix.nyc para investigar tu edificio e investigar a los arrendadores de Nueva York! Utilizamos el mapeo de propiedad para identificar el portafolio de edificios de un arrendador y proporcionar datos para revelar posibles casos de hostigamiento y desplazamiento de inquilinos."
 
-#: src/components/DetailView.js:202
-#: src/components/DetailView.js:207
+#: src/components/DetailView.js:230
+#: src/components/DetailView.js:235
 #: src/components/Indicators.js:454
 #: src/containers/NotRegisteredPage.js:244
 #: src/containers/NychaPage.js:251
@@ -729,16 +737,16 @@ msgstr "Enlaces útiles"
 msgid "View by:"
 msgstr "Visualizar por:"
 
-#: src/components/DetailView.js:102
+#: src/components/DetailView.js:105
 msgid "View data over time"
 msgstr "Ver datos a lo largo del tiempo"
 
-#: src/components/PropertiesList.tsx:232
-#: src/components/PropertiesList.tsx:237
+#: src/components/PropertiesList.tsx:236
+#: src/components/PropertiesList.tsx:241
 msgid "View detail"
 msgstr "Ver detalles"
 
-#: src/components/DetailView.js:220
+#: src/components/DetailView.js:248
 #: src/components/Indicators.js:466
 #: src/containers/NotRegisteredPage.js:253
 msgid "View documents on ACRIS"
@@ -754,7 +762,7 @@ msgstr "Ver leyenda"
 msgid "View portfolio"
 msgstr "Ver portafolio de edificios"
 
-#: src/components/DetailView.js:70
+#: src/components/DetailView.js:73
 msgid "View portfolio map"
 msgstr "Ver mapa del portafolio de edificios"
 
@@ -770,7 +778,7 @@ msgstr "Visite nuestro sitio web"
 msgid "Warning! This site doesn't fully work on older versions of Safari. Try a <0>modern browser</0>."
 msgstr "¡Atención! Este sitio no funciona completamente en versiones antiguas de Safari. Prueba un <0>navegador moderno</0>."
 
-#: src/components/DetailView.js:321
+#: src/components/DetailView.js:349
 msgid "We compare your search address with a database of over 200k buildings to identify a landlord or management company's portfolio. To learn more, check out <0>our methodology</0>."
 msgstr "Comparamos la dirección que buscaste con una base de datos de más de 200 mil edificios para identificar a un propietario o compañía de gestión. Para obtener más información, consulta <0>nuestra metodología</0>."
 
@@ -801,7 +809,7 @@ msgstr "Año"
 msgid "Year Built"
 msgstr "Año de construcción"
 
-#: src/components/PropertiesList.tsx:225
+#: src/components/PropertiesList.tsx:228
 msgid "Yes"
 msgstr "Si"
 
@@ -820,6 +828,10 @@ msgstr "y"
 #: src/components/PropertiesMap.js:273
 msgid "associated building"
 msgstr "edificio asociado"
+
+#: src/components/DetailView.js:178
+msgid "for ${0}"
+msgstr "por ${0}"
 
 #: src/components/PropertiesMap.js:272
 msgid "search address"
