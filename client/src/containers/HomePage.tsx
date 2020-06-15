@@ -52,7 +52,7 @@ class MoratoriumBanner extends Component<HomePageProps, BannerState> {
             leaders, renters now have stronger protections during this time, including a full halt
             on eviction cases.{" "}
             <a
-              href="https://www.righttocounselnyc.org/moratorium_faq"
+              href="https://www.righttocounselnyc.org/ny_eviction_moratorium_faq"
               target="_blank"
               rel="noopener noreferrer"
             >
