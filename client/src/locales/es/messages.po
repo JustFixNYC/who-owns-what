@@ -8,17 +8,19 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2020-06-09 18:49\n"
+"PO-Revision-Date: 2020-06-15 14:22\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Crowdin-Project: who-owns-what\n"
+"X-Crowdin-Project-ID: 386313\n"
 "X-Crowdin-Language: es-ES\n"
 "X-Crowdin-File: /master/client/src/locales/en/messages.po\n"
+"X-Crowdin-File-ID: 31\n"
 
 #: src/components/DetailView.js:188
 msgid "(as part of a group sale)"
-msgstr ""
+msgstr "(como parte de una venta en grupo)"
 
 #: src/components/DetailView.js:156
 msgid "(expired {0})"
@@ -343,7 +345,7 @@ msgstr "Registrado por última vez:"
 
 #: src/components/DetailView.js:174
 msgid "Last sold:"
-msgstr ""
+msgstr "Vendido por última vez:"
 
 #: src/components/PropertiesMap.js:265
 msgid "Legend"
@@ -831,7 +833,7 @@ msgstr "edificio asociado"
 
 #: src/components/DetailView.js:178
 msgid "for ${0}"
-msgstr ""
+msgstr "por ${0}"
 
 #: src/components/PropertiesMap.js:272
 msgid "search address"
