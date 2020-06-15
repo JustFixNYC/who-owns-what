@@ -53,7 +53,7 @@ msgid "ANHD DAP Portal"
 msgstr "Portal DAP de ANHD"
 
 #: src/containers/AboutPage.tsx:13
-#: src/containers/App.js:71
+#: src/containers/App.js:72
 msgid "About"
 msgstr "Acerca de"
 
@@ -185,7 +185,7 @@ msgstr "Facturas de Impuestos del DOF"
 msgid "Date"
 msgstr "Fecha"
 
-#: src/containers/App.js:63
+#: src/containers/App.js:64
 msgid "Demo Site"
 msgstr "Sitio Demo"
 
@@ -194,7 +194,7 @@ msgid "Disclaimer: The information in JustFix.nyc does not constitute legal advi
 msgstr "Descargo de responsabilidad: La información en JustFix.nyc no constituye asesoramiento jurídico y no debe ser utilizado como sustituto del asesoramiento de un abogado cualificado para asesorar sobre cuestiones jurídicas relativas a la vivienda. Nosotros podemos ayudarte a dirigirte a servicios legales gratuitos si es necesario."
 
 #: src/components/LegalFooter.tsx:31
-#: src/containers/App.js:77
+#: src/containers/App.js:78
 msgid "Donate"
 msgstr "Donar"
 
@@ -202,7 +202,7 @@ msgstr "Donar"
 msgid "Download"
 msgstr "Descargar"
 
-#: src/components/SocialShare.tsx:28
+#: src/components/SocialShare.tsx:29
 msgid "Email"
 msgstr "Email"
 
@@ -278,7 +278,7 @@ msgstr "Formulario de queja HUD 958"
 msgid "Have thoughts about this page?"
 msgstr "¿Tienes ideas sobre esta página?"
 
-#: src/containers/App.js:68
+#: src/containers/App.js:69
 msgid "Home"
 msgstr "Inicio"
 
@@ -287,7 +287,7 @@ msgstr "Inicio"
 msgid "How is this building associated to this portfolio?"
 msgstr "¿Cómo se asocia este edificio a este portafolio de edificios?"
 
-#: src/containers/App.js:74
+#: src/containers/App.js:75
 #: src/containers/HowToUsePage.tsx:13
 msgid "How to use"
 msgstr "Cómo se usa"
@@ -388,7 +388,7 @@ msgstr "App MyNYCHA"
 msgid "NYCHA Directory"
 msgstr "Directorio de NYCHA"
 
-#: src/components/SocialShare.tsx:26
+#: src/components/SocialShare.tsx:27
 msgid "New JustFix.nyc tool helps research on NYC landlords"
 msgstr "La nueva herramienta JustFix.nyc te ayuda a investigar a propietarios de NYC"
 
@@ -516,7 +516,7 @@ msgstr "Envíanos una solicitud de datos"
 msgid "Send us feedback!"
 msgstr "¡Comparte tu opinión con nosotros!"
 
-#: src/containers/App.js:81
+#: src/containers/App.js:82
 msgid "Share"
 msgstr "Compartir"
 
@@ -524,7 +524,7 @@ msgstr "Compartir"
 #: src/components/DetailView.js:298
 #: src/components/EngagementPanel.tsx:18
 #: src/components/PropertiesSummary.js:155
-#: src/containers/App.js:90
+#: src/containers/App.js:91
 #: src/containers/NotRegisteredPage.js:288
 #: src/containers/NychaPage.js:309
 msgid "Share this page with your neighbors"
@@ -613,11 +613,11 @@ msgstr "El año en que este edificio fue construido, según el Departamento de P
 msgid "The {bldgs, plural, one {} other {average}} age of {bldgs, plural, one {this building} other {these buildings}} is <0>{age}</0> years old."
 msgstr "La {bldgs, plural, one {edad} other {edad media}} de {bldgs, plural, one {este edificio} other {estos edificios}} es de <0>{age}</0> años."
 
-#: src/components/SocialShare.tsx:45
+#: src/components/SocialShare.tsx:46
 msgid "The {buildingCount} buildings owned by my landlord (via JustFix's Who Owns What tool)"
 msgstr "Los {buildingCount} edificios que son propiedad del dueño de mi apartamento (a través de la herramienta Quién Es El Dueño de JustFix.nyc)"
 
-#: src/components/SocialShare.tsx:45
+#: src/components/SocialShare.tsx:46
 msgid "The {buildingCount} buildings that my landlord \"owns\" 👀... #WhoOwnsWhat @JustFixNYC"
 msgstr "Los {buildingCount} edificios que son \"propiedad\" del dueño de mi apartamento 👀... #WhoOwnsWhat @JustFixNYC"
 
@@ -764,7 +764,7 @@ msgstr "Infracciones emitidas"
 msgid "Visit our website"
 msgstr "Visite nuestro sitio web"
 
-#: src/containers/App.js:54
+#: src/containers/App.js:55
 msgid "Warning! This site doesn't fully work on older versions of Safari. Try a <0>modern browser</0>."
 msgstr "¡Atención! Este sitio no funciona completamente en versiones antiguas de Safari. Prueba un <0>navegador moderno</0>."
 
@@ -780,14 +780,14 @@ msgstr "¿Qué son {0}?"
 msgid "What happens if the landlord has failed to register?"
 msgstr "¿Qué pasa si el propietario no ha registrado el edificio?"
 
-#: src/containers/App.js:26
+#: src/containers/App.js:27
 msgid "Who owns what in n y c?"
 msgstr "¿Quién Es El Dueño en Nueva York?"
 
 #: src/components/Page.tsx:9
 #: src/components/Page.tsx:19
 #: src/components/Page.tsx:20
-#: src/containers/App.js:32
+#: src/containers/App.js:33
 msgid "Who owns what in nyc?"
 msgstr "¿Quién Es El Dueño en Nueva York?"
 
