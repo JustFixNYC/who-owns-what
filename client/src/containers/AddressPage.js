@@ -157,7 +157,7 @@ export default class AddressPage extends Component {
               />
               {this.state.userAddr && (
                 <div className="float-left">
-                  <h5 className="primary">
+                  <h1 className="primary">
                     <Trans>
                       PORTFOLIO: Your search address is associated with{" "}
                       <u>{this.state.assocAddrs.length}</u>{" "}
@@ -168,7 +168,7 @@ export default class AddressPage extends Component {
                       />
                     </Trans>
                     :
-                  </h5>
+                  </h1>
                   <ul className="tab tab-block">
                     <li className={`tab-item ${this.props.currentTab === 0 ? "active" : ""}`}>
                       <Link
@@ -233,6 +233,7 @@ export default class AddressPage extends Component {
                 isVisible={this.props.currentTab === 0}
               />
               <DetailView
+                addrs={this.state.assocAddrs}
                 addr={this.state.detailAddr}
                 portfolioSize={this.state.assocAddrs.length}
                 mobileShow={this.state.detailMobileSlide}
@@ -281,9 +282,11 @@ export default class AddressPage extends Component {
       );
     } else {
       return (
-        <Loader loading={true} classNames="Loader-map">
-          <Trans>Loading</Trans>
-        </Loader>
+        <Page>
+          <Loader loading={true} classNames="Loader-map">
+            <Trans>Loading</Trans>
+          </Loader>
+        </Page>
       );
     }
   }

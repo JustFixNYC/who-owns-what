@@ -35,7 +35,7 @@ const formatDate = (dateString: string, locale?: SupportedLocale) => {
   return date.toLocaleDateString(locale || "en", options);
 };
 
-const isPartOfGroupSale = (saleId: string, addrs: Addr[]) => {
+export const isPartOfGroupSale = (saleId: string, addrs: Addr[]) => {
   const addrsWithMatchingSale = addrs.filter((addr) => addr.lastsaleacrisid === saleId);
   return addrsWithMatchingSale.length > 1;
 };
@@ -255,31 +255,35 @@ const PropertiesListWithoutI18n: React.FC<{
                   Header: i18n._(t`Date`),
                   accessor: (d) => d.lastsaledate,
                   Cell: (row) =>
-                    row.original.lastsaledate && formatDate(row.original.lastsaledate, locale),
+                    row.original.lastsaledate
+                      ? formatDate(row.original.lastsaledate, locale)
+                      : null,
                   id: "lastsaledate",
                 },
                 {
                   Header: i18n._(t`Amount`),
                   accessor: (d) => (d.lastsaleamount ? parseInt(d.lastsaleamount) : null),
                   Cell: (row) =>
-                    row.original.lastsaleamount &&
-                    "$" + formatPrice.format(row.original.lastsaleamount),
+                    row.original.lastsaleamount
+                      ? "$" + formatPrice.format(row.original.lastsaleamount)
+                      : null,
                   id: "lastsaleamount",
                 },
                 {
                   Header: i18n._(t`Link to Deed`),
                   accessor: (d) => d.lastsaleacrisid,
                   Cell: (row) =>
-                    row.original.lastsaleacrisid && (
+                    row.original.lastsaleacrisid ? (
                       <a
                         href={`https://a836-acris.nyc.gov/DS/DocumentSearch/DocumentImageView?doc_id=${row.original.lastsaleacrisid}`}
                         className="btn"
                         target="_blank"
+                        aria-label={i18n._(t`Link to Deed`)}
                         rel="noopener noreferrer"
                       >
                         <span style={{ padding: "0 3px" }}>&#8599;&#xFE0E;</span>
                       </a>
-                    ),
+                    ) : null,
                   id: "lastsaleacrisid",
                 },
                 {
@@ -293,10 +297,11 @@ const PropertiesListWithoutI18n: React.FC<{
                     return `${idPrefix}${d.lastsaleacrisid}`;
                   },
                   Cell: (row) =>
-                    row.original.lastsaleacrisid &&
-                    (isPartOfGroupSale(row.original.lastsaleacrisid, props.addrs)
-                      ? i18n._(t`Yes`)
-                      : i18n._(t`No`)),
+                    row.original.lastsaleacrisid
+                      ? isPartOfGroupSale(row.original.lastsaleacrisid, props.addrs)
+                        ? i18n._(t`Yes`)
+                        : i18n._(t`No`)
+                      : null,
                   id: "lastsaleisgroupsale",
                 },
               ],
@@ -311,6 +316,7 @@ const PropertiesListWithoutI18n: React.FC<{
                       <Link
                         to={props.generateBaseUrl()}
                         className="btn"
+                        aria-label={i18n._(t`View detail`)}
                         onClick={() => props.onOpenDetail(row.original)}
                       >
                         <span style={{ padding: "0 3px" }}>&#10142;</span>

@@ -52,7 +52,7 @@ class MoratoriumBanner extends Component<HomePageProps, BannerState> {
             leaders, renters now have stronger protections during this time, including a full halt
             on eviction cases.{" "}
             <a
-              href="https://www.righttocounselnyc.org/moratorium_faq"
+              href="https://www.righttocounselnyc.org/ny_eviction_moratorium_faq"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -169,7 +169,7 @@ class HomePage extends Component<HomePageProps, State> {
                 </Loader>
               ) : (
                 <div>
-                  <h5 className="text-center">{labelText}</h5>
+                  <h1 className="text-center">{labelText}</h1>
                   <AddressSearch
                     {...this.state.searchAddress}
                     labelText={labelText}
@@ -198,6 +198,8 @@ class HomePage extends Component<HomePageProps, State> {
                         </Link>
                       </h6>
                       <Link
+                        className="image"
+                        tabIndex={-1} // Since link is not necessary navigation, removing tab focus
                         to={this.state.sampleURLs[0]}
                         onClick={() => {
                           window.gtag("event", "example-portfolio-1-homepage");
@@ -250,6 +252,8 @@ class HomePage extends Component<HomePageProps, State> {
                         </Link>
                       </h6>
                       <Link
+                        className="image"
+                        tabIndex={-1} // Since link is not necessary navigation, removing tab focus
                         to={this.state.sampleURLs[1]}
                         onClick={() => {
                           window.gtag("event", "example-portfolio-2-homepage");
@@ -321,6 +325,8 @@ class HomePage extends Component<HomePageProps, State> {
                         </Link>
                       </h6>
                       <Link
+                        className="image"
+                        tabIndex={-1} // Since link is not necessary navigation, removing tab focus
                         to={this.state.sampleURLs[2]}
                         onClick={() => {
                           window.gtag("event", "example-portfolio-1-homepage");
