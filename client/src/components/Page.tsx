@@ -3,6 +3,7 @@ import { Helmet } from "react-helmet";
 import { t } from "@lingui/macro";
 import { withI18n, withI18nProps } from "@lingui/react";
 import helpers from "../util/helpers";
+import { GoogleTagManager } from "../components/GoogleTagManager";
 
 const metadata = {
   keywords: t`Landlord, Portfolio, Tenant, Displacement, Map, JustFix, NYC, New York, Housing, Who Owns What`,
@@ -30,6 +31,7 @@ const Page = withI18n()((props: PageProps & withI18nProps) => {
   return (
     <>
       <Helmet>
+        <GoogleTagManager />
         <title>{fullTitle}</title>
         <meta property="og:title" content={title} />
         <meta name="twitter:title" content={title} />
