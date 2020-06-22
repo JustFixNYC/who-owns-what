@@ -21,7 +21,6 @@ type PageProps = {
 };
 
 const Page = withI18n()((props: PageProps & withI18nProps) => {
-  
   const i18n = props.i18n;
   const title = props.title && helpers.titleCase(props.title.trim());
   const fullTitle = title
