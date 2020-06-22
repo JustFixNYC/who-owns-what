@@ -61,9 +61,6 @@ const Page = withI18n()((props: PageProps & withI18nProps) => {
             : []
         }
       >
-        {gtmId ? (
-          <script async src={`https://www.googletagmanager.com/gtag/js?id=${gtmId}`}></script>
-        ) : null}
         <title>{fullTitle}</title>
         <meta property="og:title" content={title} />
         <meta name="twitter:title" content={title} />
