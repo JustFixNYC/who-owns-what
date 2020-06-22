@@ -70,7 +70,7 @@
               "id": "3Dt21GL4AttopNFvqDJt6w",
               "type": "Asset",
               "createdAt": "2019-12-13T16:36:36.545Z",
-              "updatedAt": "2020-05-18T15:19:09.551Z",
+              "updatedAt": "2020-06-22T21:25:01.816Z",
               "environment": {
                 "sys": {
                   "id": "master",
@@ -78,22 +78,23 @@
                   "linkType": "Environment"
                 }
               },
-              "revision": 3,
+              "revision": 4,
               "locale": "en"
             },
             "fields": {
               "title": "How it works",
+              "description": "How it works",
               "file": {
-                "url": "//images.ctfassets.net/lhtzm8rjj8y4/3Dt21GL4AttopNFvqDJt6w/99705012ab4fcc57b41cfbc61436c90e/howitworks.jpg",
+                "url": "//images.ctfassets.net/lhtzm8rjj8y4/3Dt21GL4AttopNFvqDJt6w/464dead3dc976c4d4c8290ab85a1cbd6/WOW_English_Network_diagram.png",
                 "details": {
-                  "size": 108378,
+                  "size": 530860,
                   "image": {
                     "width": 1771,
                     "height": 1476
                   }
                 },
-                "fileName": "howitworks.jpg",
-                "contentType": "image/jpeg"
+                "fileName": "WOW English Network diagram.png",
+                "contentType": "image/png"
               }
             }
           }
