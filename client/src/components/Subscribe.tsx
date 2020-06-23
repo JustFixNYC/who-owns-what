@@ -39,6 +39,7 @@ class SubscribeWithoutI18n extends React.Component<SubscribeProps, State> {
 
     const email = this.state.email || null;
     const { i18n } = this.props;
+    const locale = i18n.language;
 
     // check if email is missing, return undefined
     if (!email) {
@@ -53,7 +54,7 @@ class SubscribeWithoutI18n extends React.Component<SubscribeProps, State> {
     fetch(`https://${isDemoSite ? "demo" : "app"}.justfix.nyc/mailchimp/subscribe`, {
       method: "POST",
       mode: "cors",
-      body: "email=" + encodeURIComponent(email) + "&language=en&source=wow",
+      body: `email=${encodeURIComponent(email)}&language=${locale}&source=wow`,
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
       },
