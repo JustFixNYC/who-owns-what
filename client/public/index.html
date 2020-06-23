@@ -21,14 +21,15 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
 
-     <!-- 
+    <!-- 
       Google Tag Manager
        
-      Note that this script here is a truncated version of what GTM provides. 
-      The actual loading of the GTM script itself is done in React so that we can
-      properly set the page <title> tag before GTM loads. See below for more info.
+      Note that we insert the GTM script tag from JS to ensure that
+      GTM only initializes itself once we've set the title tag.
+      For more details, see Page.tsx in this repository.
     -->
-     <script>
+    <meta name="jf-gtm-id" content="GTM-NMPT5JP">
+    <script>
       (function (window, dataLayer) {
         window.dataLayer = window.dataLayer || [];
         window.dataLayer.push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
@@ -36,19 +37,11 @@
     </script>
     <!-- End Google Tag Manager -->
 
-    <!--
-      Global site tag (gtag.js) - Google Analytics
-
-      Note that we insert the GTM script tag from JS to ensure that
-      GTM only initializes itself once we've set the title tag.
-      For more details, see Page.tsx in this repository.
-    -->
-    <meta name="jf-gtm-id" content="GTM-NMPT5JP">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-
       gtag('config', 'UA-67069242-5');
     </script>
 
