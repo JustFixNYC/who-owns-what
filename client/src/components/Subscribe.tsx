@@ -49,9 +49,9 @@ class SubscribeWithoutI18n extends React.Component<SubscribeProps, State> {
       return;
     }
 
-    const isDemoSite = process.env.REACT_APP_DEMO_SITE === "1";
+    const tenantPlatformOrigin = process.env.REACT_APP_TENANT_PLATFORM_SITE_ORIGIN === "1";
 
-    fetch(`https://${isDemoSite ? "demo" : "app"}.justfix.nyc/mailchimp/subscribe`, {
+    fetch(`https://${tenantPlatformOrigin}/mailchimp/subscribe`, {
       method: "POST",
       mode: "cors",
       body: `email=${encodeURIComponent(email)}&language=${locale}&source=wow`,
@@ -71,7 +71,9 @@ class SubscribeWithoutI18n extends React.Component<SubscribeProps, State> {
             response: i18n._(t`Oops! That email is invalid.`),
           });
         } else {
-          window.Rollbar.error(`Mailchimp email signup responded with error code ${result.errorCode}.`);
+          window.Rollbar.error(
+            `Mailchimp email signup responded with error code ${result.errorCode}.`
+          );
           this.setState({
             response: i18n._(t`Oops! A network error occurred. Try again later.`),
           });
