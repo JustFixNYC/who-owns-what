@@ -105,12 +105,6 @@ function parseJSON(response: Response) {
   return response.json();
 }
 
-/* Mailchimp */
-
-function postNewSubscriber(email: string) {
-  return post("/api/subscribe", { email });
-}
-
 const Client = {
   searchAddress,
   searchBBL,
@@ -118,7 +112,6 @@ const Client = {
   getBuildingInfo,
   getIndicatorHistory,
   getAddressExport,
-  postNewSubscriber,
 };
 
 export default Client;
