@@ -48,7 +48,16 @@ class SubscribeWithoutI18n extends React.Component<SubscribeProps, State> {
       return;
     }
 
-    APIClient.postNewSubscriber(this.state.email)
+    const isDemoSite = process.env.REACT_APP_DEMO_SITE === "1";
+
+    fetch(`https://${isDemoSite ? "demo" : "app"}.justfix.nyc/mailchimp/subscribe`, {
+      method: "POST",
+      mode: "cors",
+      body: "email=" + encodeURIComponent(email) + "&language=en&source=wow",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+    })
       .then((result) => {
         // Success
         this.setState({
