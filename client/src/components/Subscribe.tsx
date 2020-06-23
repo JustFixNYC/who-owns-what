@@ -49,7 +49,7 @@ class SubscribeWithoutI18n extends React.Component<SubscribeProps, State> {
       return;
     }
 
-    const tenantPlatformOrigin = process.env.REACT_APP_TENANT_PLATFORM_SITE_ORIGIN === "1";
+    const tenantPlatformOrigin = process.env.REACT_APP_TENANT_PLATFORM_SITE_ORIGIN;
 
     fetch(`https://${tenantPlatformOrigin}/mailchimp/subscribe`, {
       method: "POST",
