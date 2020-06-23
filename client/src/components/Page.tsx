@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Helmet } from "react-helmet";
 import { t } from "@lingui/macro";
 import { withI18n, withI18nProps } from "@lingui/react";
@@ -27,16 +27,47 @@ const Page = withI18n()((props: PageProps & withI18nProps) => {
     ? `${title} | ${i18n._(t`Who owns what in nyc?`)}`
     : i18n._(t`Who owns what in nyc?`);
 
+  /**
+   * Google Tag Manager reports the title of the landing page when it
+   * initializes, but because we only render the <title> on the client-side
+   * via React, we need to wait until it's rendered before we initialize
+   * GTM.
+   *
+   * This inserts the GTM script tag on mount, which is assumed to also
+   * be when the <title> tag should be set. This should ensure that
+   * GTM reports the correct landing page title.
+   */
+  const [gtmId, setGtmId] = useState("");
+  useEffect(() => {
+    // This <meta> tag is set in our index.html.
+    const metaEl = document.querySelector('meta[name="jf-gtm-id"]');
+    const metaGtmId = metaEl && metaEl.getAttribute("content");
+    if (metaGtmId) {
+      setGtmId(metaGtmId);
+    }
+  }, []);
+
   return (
     <>
-      <Helmet>
+      <Helmet
+        script={
+          gtmId
+            ? [
+                {
+                  src: `https://www.googletagmanager.com/gtag/js?id=${gtmId}`,
+                  type: "text/javascript",
+                },
+              ]
+            : []
+        }
+      >
         <title>{fullTitle}</title>
         <meta property="og:title" content={title} />
         <meta name="twitter:title" content={title} />
         <meta name="description" content={i18n._(metadata.description)} />
         <meta name="keywords" content={i18n._(metadata.keywords)} />
         <meta name="author" content="JustFix.nyc" />
-        <meta property="fb:app_id" content={FB_APP_ID} />}
+        <meta property="fb:app_id" content={FB_APP_ID} />
         <meta property="og:site_name" content={i18n._(metadata.siteName)} />
         <meta property="og:description" content={i18n._(metadata.description)} />
         <meta property="og:url" content={ORIGIN_URL} />

@@ -18,7 +18,6 @@ import Modal from "components/Modal";
 import SocialShare from "components/SocialShare";
 import MethodologyPage from "./Methodology";
 import { withI18n } from "@lingui/react";
-import { GoogleTagManager } from "../components/GoogleTagManager";
 
 const HomeLink = withI18n()((props) => {
   const { i18n } = props;
@@ -51,7 +50,6 @@ export default class App extends Component {
       <Router>
         <I18n>
           <ScrollToTop>
-            <GoogleTagManager />
             <div className="App">
               <div className="App__warning old_safari_only">
                 <Trans render="h3">

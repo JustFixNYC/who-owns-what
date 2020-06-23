@@ -66,7 +66,7 @@
               "id": "3Dt21GL4AttopNFvqDJt6w",
               "type": "Asset",
               "createdAt": "2019-12-13T16:36:36.545Z",
-              "updatedAt": "2020-05-18T15:19:09.551Z",
+              "updatedAt": "2020-06-22T21:25:01.816Z",
               "environment": {
                 "sys": {
                   "id": "master",
@@ -74,22 +74,23 @@
                   "linkType": "Environment"
                 }
               },
-              "revision": 3,
+              "revision": 4,
               "locale": "es"
             },
             "fields": {
-              "title": "howitworks.jpg?h=250",
+              "title": "Como se usa",
+              "description": "Como se usa",
               "file": {
-                "url": "//images.ctfassets.net/lhtzm8rjj8y4/3Dt21GL4AttopNFvqDJt6w/99705012ab4fcc57b41cfbc61436c90e/howitworks.jpg",
+                "url": "//images.ctfassets.net/lhtzm8rjj8y4/3Dt21GL4AttopNFvqDJt6w/e70de130f8dc5e48c0434810075cd6b4/WOW_Spanish_Network_diagram.png",
                 "details": {
-                  "size": 108378,
+                  "size": 534092,
                   "image": {
                     "width": 1771,
                     "height": 1476
                   }
                 },
-                "fileName": "howitworks.jpg",
-                "contentType": "image/jpeg"
+                "fileName": "WOW Spanish Network diagram.png",
+                "contentType": "image/png"
               }
             }
           }
