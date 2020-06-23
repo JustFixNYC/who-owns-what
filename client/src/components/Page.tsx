@@ -54,7 +54,7 @@ const Page = withI18n()((props: PageProps & withI18nProps) => {
           gtmId
             ? [
                 {
-                  src: `https://www.googletagmanager.com/gtag/js?id=${gtmId}`,
+                  src: `https://www.googletagmanager.com/gtm.js?id=${gtmId}`,
                   type: "text/javascript",
                 },
               ]
