@@ -37,7 +37,15 @@
     </script>
     <!-- End Google Tag Manager -->
 
-    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <!-- 
+      Global site tag (gtag.js) - Google Analytics 
+
+      Note that this is a pretty unusual implementation of Google Analytics integration.
+      We reference this code when we register events, i.e `window.gtag("event", "boop")`.
+      
+      In the future, we should migrate to registering these events in our GTM setup itself
+      to avoid using two different code snippets for analytics.
+    -->
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
