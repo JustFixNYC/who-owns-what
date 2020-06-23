@@ -58,18 +58,28 @@ class SubscribeWithoutI18n extends React.Component<SubscribeProps, State> {
         "Content-Type": "application/x-www-form-urlencoded",
       },
     })
+      .then((result) => result.json())
       .then((result) => {
-        // Success
-        this.setState({
-          success: true,
-          response: i18n._(t`All set! Thanks for subscribing!`),
-        });
+        if (result.status === 200) {
+          this.setState({
+            success: true,
+            response: i18n._(t`All set! Thanks for subscribing!`),
+          });
+        } else if (result.errorCode === "INVALID_EMAIL") {
+          this.setState({
+            response: i18n._(t`Oops! That email is invalid.`),
+          });
+        } else {
+          window.Rollbar.error(`Mailchimp email signup responded with error code ${result.errorCode}.`);
+          this.setState({
+            response: i18n._(t`Oops! A network error occurred. Try again later.`),
+          });
+        }
       })
       .catch((err) => {
         this.setState({
-          response: i18n._(t`Oops! That email is invalid.`),
+          response: i18n._(t`Oops! A network error occurred. Try again later.`),
         });
-        window.Rollbar.error(err);
       });
   };
 
