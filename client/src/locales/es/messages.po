@@ -443,7 +443,7 @@ msgstr "Oficial/Propietario"
 #: src/components/Subscribe.tsx:48
 #: src/components/Subscribe.tsx:54
 msgid "Oops! A network error occurred. Try again later."
-msgstr ""
+msgstr "¡Vaya! Hubo un error en la red. Inténtalo más tarde."
 
 #: src/components/Subscribe.tsx:42
 msgid "Oops! That email is invalid."
