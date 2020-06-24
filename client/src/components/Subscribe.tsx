@@ -39,6 +39,7 @@ class SubscribeWithoutI18n extends React.Component<SubscribeProps, State> {
 
     const email = this.state.email || null;
     const { i18n } = this.props;
+    const locale = i18n.language;
 
     // check if email is missing, return undefined
     if (!email) {
@@ -48,19 +49,41 @@ class SubscribeWithoutI18n extends React.Component<SubscribeProps, State> {
       return;
     }
 
-    APIClient.postNewSubscriber(this.state.email)
+    const tenantPlatformOrigin =
+      process.env.REACT_APP_TENANT_PLATFORM_SITE_ORIGIN || "https://demo.justfix.nyc";
+
+    fetch(`${tenantPlatformOrigin}/mailchimp/subscribe`, {
+      method: "POST",
+      mode: "cors",
+      body: `email=${encodeURIComponent(email)}&language=${locale}&source=wow`,
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+    })
+      .then((result) => result.json())
       .then((result) => {
-        // Success
-        this.setState({
-          success: true,
-          response: i18n._(t`All set! Thanks for subscribing!`),
-        });
+        if (result.status === 200) {
+          this.setState({
+            success: true,
+            response: i18n._(t`All set! Thanks for subscribing!`),
+          });
+        } else if (result.errorCode === "INVALID_EMAIL") {
+          this.setState({
+            response: i18n._(t`Oops! That email is invalid.`),
+          });
+        } else {
+          window.Rollbar.error(
+            `Mailchimp email signup responded with error code ${result.errorCode}.`
+          );
+          this.setState({
+            response: i18n._(t`Oops! A network error occurred. Try again later.`),
+          });
+        }
       })
       .catch((err) => {
         this.setState({
-          response: i18n._(t`Oops! That email is invalid.`),
+          response: i18n._(t`Oops! A network error occurred. Try again later.`),
         });
-        window.Rollbar.error(err);
       });
   };
 
