@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2020-06-15 17:19\n"
+"PO-Revision-Date: 2020-06-24 22:30\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -59,7 +59,7 @@ msgid "ANHD DAP Portal"
 msgstr "Portal DAP de ANHD"
 
 #: src/containers/AboutPage.tsx:13
-#: src/containers/App.js:74
+#: src/containers/App.js:72
 msgid "About"
 msgstr "Acerca de"
 
@@ -75,7 +75,7 @@ msgstr "Enlaces adicionales"
 msgid "Address"
 msgstr "Dirección"
 
-#: src/components/Subscribe.tsx:29
+#: src/components/Subscribe.tsx:37
 msgid "All set! Thanks for subscribing!"
 msgstr "¡Todo listo! ¡Gracias por suscribirte!"
 
@@ -191,7 +191,7 @@ msgstr "Facturas de Impuestos del DOF"
 msgid "Date"
 msgstr "Fecha"
 
-#: src/containers/App.js:66
+#: src/containers/App.js:64
 msgid "Demo Site"
 msgstr "Sitio Demo"
 
@@ -200,7 +200,7 @@ msgid "Disclaimer: The information in JustFix.nyc does not constitute legal advi
 msgstr "Descargo de responsabilidad: La información en JustFix.nyc no constituye asesoramiento jurídico y no debe ser utilizado como sustituto del asesoramiento de un abogado cualificado para asesorar sobre cuestiones jurídicas relativas a la vivienda. Nosotros podemos ayudarte a dirigirte a servicios legales gratuitos si es necesario."
 
 #: src/components/LegalFooter.tsx:31
-#: src/containers/App.js:80
+#: src/containers/App.js:78
 msgid "Donate"
 msgstr "Donar"
 
@@ -220,7 +220,7 @@ msgstr "Emergencia"
 msgid "Enter an NYC address and find other buildings your landlord might own:"
 msgstr "Introduce una dirección de NYC para encontrar otros edificios que tu propietario podría poseer:"
 
-#: src/components/Subscribe.tsx:51
+#: src/components/Subscribe.tsx:70
 msgid "Enter email"
 msgstr "Introducir email"
 
@@ -284,7 +284,7 @@ msgstr "Formulario de queja HUD 958"
 msgid "Have thoughts about this page?"
 msgstr "¿Tienes ideas sobre esta página?"
 
-#: src/containers/App.js:71
+#: src/containers/App.js:69
 msgid "Home"
 msgstr "Inicio"
 
@@ -293,7 +293,7 @@ msgstr "Inicio"
 msgid "How is this building associated to this portfolio?"
 msgstr "¿Cómo se asocia este edificio a este portafolio de edificios?"
 
-#: src/containers/App.js:77
+#: src/containers/App.js:75
 #: src/containers/HowToUsePage.tsx:13
 msgid "How to use"
 msgstr "Cómo se usa"
@@ -440,7 +440,12 @@ msgstr "No Emergencia"
 msgid "Officer/Owner"
 msgstr "Oficial/Propietario"
 
-#: src/components/Subscribe.tsx:34
+#: src/components/Subscribe.tsx:48
+#: src/components/Subscribe.tsx:54
+msgid "Oops! A network error occurred. Try again later."
+msgstr ""
+
+#: src/components/Subscribe.tsx:42
 msgid "Oops! That email is invalid."
 msgstr "¡Vaya! Ese correo electrónico no es válido."
 
@@ -471,7 +476,7 @@ msgstr "PORTAFOLIO DE EDIFICIOS: La dirección que has buscado está asociada co
 msgid "People"
 msgstr "Personas (Encontrarás definiciones en español de los tipos de personas asociadas al edificio en la página \"Como se usa\".)"
 
-#: src/components/Subscribe.tsx:20
+#: src/components/Subscribe.tsx:19
 msgid "Please enter an email address!"
 msgstr "Por favor, ¡introduzca una dirección de correo electrónico!"
 
@@ -527,7 +532,7 @@ msgstr "Envíanos una solicitud de datos"
 msgid "Send us feedback!"
 msgstr "¡Comparte tu opinión con nosotros!"
 
-#: src/containers/App.js:84
+#: src/containers/App.js:82
 msgid "Share"
 msgstr "Compartir"
 
@@ -535,13 +540,13 @@ msgstr "Compartir"
 #: src/components/DetailView.js:326
 #: src/components/EngagementPanel.tsx:18
 #: src/components/PropertiesSummary.js:155
-#: src/containers/App.js:93
+#: src/containers/App.js:91
 #: src/containers/NotRegisteredPage.js:288
 #: src/containers/NychaPage.js:309
 msgid "Share this page with your neighbors"
 msgstr "Comparte esta página con tus vecinos"
 
-#: src/components/Subscribe.tsx:52
+#: src/components/Subscribe.tsx:71
 msgid "Sign up"
 msgstr "Regístrate"
 
@@ -776,7 +781,7 @@ msgstr "Infracciones emitidas"
 msgid "Visit our website"
 msgstr "Visite nuestro sitio web"
 
-#: src/containers/App.js:57
+#: src/containers/App.js:55
 msgid "Warning! This site doesn't fully work on older versions of Safari. Try a <0>modern browser</0>."
 msgstr "¡Atención! Este sitio no funciona completamente en versiones antiguas de Safari. Prueba un <0>navegador moderno</0>."
 
@@ -792,14 +797,14 @@ msgstr "¿Qué son {0}?"
 msgid "What happens if the landlord has failed to register?"
 msgstr "¿Qué pasa si el propietario no ha registrado el edificio?"
 
-#: src/containers/App.js:28
+#: src/containers/App.js:27
 msgid "Who owns what in n y c?"
 msgstr "¿Quién Es El Dueño en Nueva York?"
 
 #: src/components/Page.tsx:9
 #: src/components/Page.tsx:19
 #: src/components/Page.tsx:20
-#: src/containers/App.js:34
+#: src/containers/App.js:33
 msgid "Who owns what in nyc?"
 msgstr "¿Quién Es El Dueño en Nueva York?"
 
