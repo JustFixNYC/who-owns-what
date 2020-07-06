@@ -13,9 +13,9 @@ With this website, you can find crucial information about who is responsible for
 
 ## Architecture
 
-This site is built on top of the critical work done by [@aepyornis](https://github.com/aepyornis) on the [nyc-db](https://github.com/aepyornis/nyc-db) project, which is used to cleanly extract, sanitize, and load [HPD Registration data](http://www1.nyc.gov/site/hpd/about/open-data.page) into a PostgreSQL instance.
+This site is built on top of the critical work done by [@aepyornis](https://github.com/aepyornis) on the [nycdb](https://github.com/nycdb/nycdb) project, which is used to cleanly extract, sanitize, and load [HPD Registration data](http://www1.nyc.gov/site/hpd/about/open-data.page) into a PostgreSQL instance.
 
-Backend logic and data manipulation is largely handled by making calls to PostgreSQL functions and prebuilding results into tables whenever possible to avoid complex queries made per-request. See the [hpd-registration ](https://github.com/aepyornis/nyc-db/tree/master/src/nycdb/sql/hpd_registrations) scripts of `nyc-db` for the SQL code that provides this functionality.
+Backend logic and data manipulation is largely handled by making calls to PostgreSQL functions and prebuilding results into tables whenever possible to avoid complex queries made per-request. See the [hpd-registration ](https://github.com/nycdb/nycdb/tree/master/src/nycdb/sql/hpd_registrations) scripts of `nycdb` for the SQL code that provides this functionality.
 
 #### Backend
 
