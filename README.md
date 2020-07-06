@@ -13,9 +13,9 @@ With this website, you can find crucial information about who is responsible for
 
 ## Architecture
 
-This site is built on top of the critical work done by [@aepyornis](https://github.com/aepyornis) on the [nyc-db](https://github.com/aepyornis/nyc-db) project, which is used to cleanly extract, sanitize, and load [HPD Registration data](http://www1.nyc.gov/site/hpd/about/open-data.page) into a PostgreSQL instance.
+This site is built on top of the critical work done by [@aepyornis](https://github.com/aepyornis) on the [nycdb](https://github.com/nycdb/nycdb) project, which is used to cleanly extract, sanitize, and load [HPD Registration data](http://www1.nyc.gov/site/hpd/about/open-data.page) into a PostgreSQL instance.
 
-Backend logic and data manipulation is largely handled by making calls to PostgreSQL functions and prebuilding results into tables whenever possible to avoid complex queries made per-request. See the [hpd-registration ](https://github.com/aepyornis/nyc-db/tree/master/src/nycdb/sql/hpd_registrations) scripts of `nyc-db` for the SQL code that provides this functionality.
+Backend logic and data manipulation is largely handled by making calls to PostgreSQL functions and prebuilding results into tables whenever possible to avoid complex queries made per-request. See the [hpd-registration ](https://github.com/nycdb/nycdb/tree/master/src/nycdb/sql/hpd_registrations) scripts of `nycdb` for the SQL code that provides this functionality.
 
 #### Backend
 
@@ -87,8 +87,8 @@ installed Docker, run:
 docker-compose run app python dbtool.py loadtestdata
 ```
 
-This will build a nyc-db with test data, which is must faster
-than downloading the whole nyc-db. You can, however, opt to
+This will build a nycdb with test data, which is must faster
+than downloading the whole nycdb. You can, however, opt to
 download the whole thing by running
 `docker-compose run app python dbtool.py builddb`, but be
 prepared, as it will take a while!
@@ -115,6 +115,9 @@ Visit http://localhost:3000 and you should be good to go! If
 you installed test data, you can see useful results by
 clicking on the "All Year Management" portfolio on the
 home page.
+
+Note: If you would like to connect your Docker instance to an external postgres database, you
+can update the `DATABASE_URL` [server-side env variable](https://github.com/JustFixNYC/who-owns-what/blob/master/.env.sample) with your remote db's connection URI. 
 
 ## Tests
 
