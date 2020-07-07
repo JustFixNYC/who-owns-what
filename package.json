@@ -1,6 +1,6 @@
 {
-  "//*":"NOTE: THIS REPOSITORY CONTAINS TWO PACKAGE.JSON FILES",
-  "//**":"FIND THE CLIENT-SIDE PACKAGE.JSON FILE IN THE `client` DIRECTORY",
+  "//*": "NOTE: THIS REPOSITORY CONTAINS TWO PACKAGE.JSON FILES",
+  "//**": "FIND THE CLIENT-SIDE PACKAGE.JSON FILE IN THE `client` DIRECTORY",
   "name": "who-owns-what",
   "version": "1.0.0",
   "description": "who owns what in nyc.",
@@ -37,7 +37,6 @@
     "morgan": "^1.8.2",
     "pg": "^6.4.0",
     "pg-promise": "^6.5.1",
-    "prop-types": "15.7.2",
     "request": "^2.81.0",
     "request-promise": "^4.2.1",
     "rollbar": "2.4.6"
