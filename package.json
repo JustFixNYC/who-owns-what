@@ -38,8 +38,6 @@
     "pg": "^6.4.0",
     "pg-promise": "^6.5.1",
     "prop-types": "15.7.2",
-    "react": "^16.0.0",
-    "react-dom": "^16.0.0",
     "request": "^2.81.0",
     "request-promise": "^4.2.1",
     "rollbar": "2.4.6"
