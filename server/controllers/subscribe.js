@@ -1,4 +1,4 @@
-// NOTE: This Server export is deprecated! 
+// NOTE: This Server export is deprecated!
 // We will be removing from the codebase soon.
 
 const mailchimp = require("../services/mailchimp");
