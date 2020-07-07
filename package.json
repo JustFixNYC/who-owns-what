@@ -1,4 +1,6 @@
 {
+  "//*":"NOTE: THIS REPOSITORY CONTAINS TWO PACKAGE.JSON FILES",
+  "//**":"FIND THE CLIENT-SIDE PACKAGE.JSON FILE IN THE `client` DIRECTORY",
   "name": "who-owns-what",
   "version": "1.0.0",
   "description": "who owns what in nyc.",
