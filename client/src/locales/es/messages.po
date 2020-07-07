@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2020-06-24 22:30\n"
+"PO-Revision-Date: 2020-07-07 14:24\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -443,7 +443,7 @@ msgstr "Oficial/Propietario"
 #: src/components/Subscribe.tsx:48
 #: src/components/Subscribe.tsx:54
 msgid "Oops! A network error occurred. Try again later."
-msgstr ""
+msgstr "¡Vaya! Hubo un error en la red. Inténtalo más tarde."
 
 #: src/components/Subscribe.tsx:42
 msgid "Oops! That email is invalid."
