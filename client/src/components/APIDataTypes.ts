@@ -24,19 +24,18 @@ type AddressRecord = {
   bbl: string;
   bin: number; // Should be string
   boro: string;
-  businessaddrs: string[];
-  corpnames: string[];
-  evictions: number | null; // Should be just number
+  businessaddrs: string[] | null;
+  corpnames: string[] | null;
+  evictions: number | null;
   housenumber: string;
   lastregistrationdate: Date;
   lastsaleacrisid: string | null;
   lastsaleamount: string | null; // Should be number
   lastsaledate: Date | null;
-  lat: number;
-  lng: number;
-  mapType: string; // What is this??
+  lat: number | null;
+  lng: number | null;
   openviolations: number;
-  ownernames: HpdOwnerContact[];
+  ownernames: HpdOwnerContact[] | null;
   registrationenddate: Date;
   registrationid: number; // Should be string
   rsdiff: number | null;
@@ -45,9 +44,9 @@ type AddressRecord = {
   rsunits2017: number | null;
   streetname: string;
   totalviolations: number;
-  unitsres: number;
-  yearbuilt: number;
-  zip: string;
+  unitsres: number | null;
+  yearbuilt: number | null;
+  zip: string | null;
 };
 
 export type SearchResults = {
@@ -69,33 +68,33 @@ type AddressLocation = {
 };
 
 type EvictionAddress = AddressLocation & {
-  evictions: number;
+  evictions: number | null;
 };
 
 type RentStabilizedAddress = AddressLocation & {
-  rsdiff: number;
+  rsdiff: number | null;
 };
 
 type HpdViolationsAddress = AddressLocation & {
-  openviolations: number;
+  openviolations: number | null;
 };
 
 type SummaryStatsRecord = {
   age: string; // Should be number
-  avgevictions: string; // Should be number
-  avgrspercent: string; // Should be number
+  avgevictions: string | null; // Should be number
+  avgrspercent: string | null; // Should be number
   bldgs: string; // Should be number
   evictionsaddr: EvictionAddress;
   openviolationsperbldg: string; // Should be number
   openviolationsperresunit: string; // Should be number
   rslossaddr: RentStabilizedAddress;
-  rsproportion: string; // Should be number
-  topbusinessaddr: string;
-  topcorp: string;
+  rsproportion: string | null; // Should be number
+  topbusinessaddr: string | null;
+  topcorp: string | null;
   topowners: string[];
-  totalevictions: string; // Should be number
+  totalevictions: string | null; // Should be number
   totalopenviolations: string; // Should be number
-  totalrsdiff: string; // Should be number
+  totalrsdiff: string | null; // Should be number
   totalrsgain: string; // Should be number
   totalrsloss: string; // Should be number
   totalviolations: string; // Should be number
