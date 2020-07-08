@@ -4,5 +4,6 @@ client/node_modules
 
 # These files are auto-generated.
 client/src/**/*.css
+client/src/locales
 client/build
 dist
