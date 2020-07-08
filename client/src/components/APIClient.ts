@@ -8,7 +8,7 @@ import {
   BuildingInfoResults,
   IndicatorsHistoryResults,
   AddressInput,
-  WithBoroBlockLot
+  WithBoroBlockLot,
 } from "./APIDataTypes";
 
 // API REQUESTS TO THE DATABASE:
@@ -18,7 +18,7 @@ function searchAddress(q: AddressInput): Promise<SearchResults> {
     return searchBBL({
       boro: q.bbl.slice(0, 1),
       block: q.bbl.slice(1, 6),
-      lot: q.bbl.slice(6, 10)
+      lot: q.bbl.slice(6, 10),
     });
   }
   return get(`/api/address?houseNumber=${q.housenumber}&street=${q.streetname}&borough=${q.boro}`);
@@ -59,11 +59,11 @@ function post(url: string, body: any) {
   return fetch(url, {
     headers: {
       Accept: "application/json",
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
     },
     method: "POST",
     mode: "cors",
-    body: JSON.stringify(body)
+    body: JSON.stringify(body),
   })
     .then(checkStatus)
     .then(verifyIsJson)
@@ -80,7 +80,7 @@ async function verifyIsJson(response: Response) {
   window.Rollbar.error(msg, {
     text,
     contentType,
-    url: response.url
+    url: response.url,
   });
   throw new Error(msg);
 }
@@ -113,7 +113,7 @@ const Client = {
   getAggregate,
   getBuildingInfo,
   getIndicatorHistory,
-  getAddressExport
+  getAddressExport,
 };
 
 export default Client;
