@@ -42,7 +42,7 @@ function getIndicatorHistory(bbl: string): Promise<IndicatorsHistoryResults> {
 
 function getAddressExport(q: AddressInput & WithBoroBlockLot) {
   return fetch(
-    `/api/address/export?houseNumber=${q.housenumber}&street=${q.streetname}&borough=${q.boro}`
+    `/api/address/export?houseNumber=${q.housenumber}&street=${q.streetname}&borough=${q.boro}`,
   ).then(checkStatus);
 }
 
