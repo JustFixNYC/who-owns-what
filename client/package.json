@@ -61,7 +61,7 @@
   },
   "scripts": {
     "lingui": "lingui",
-    "prettier:check": "cd .. && prettier \"**/*.{ts,tsx,js,scss}\" --check && cd client",
+    "prettier:check": "cd .. && yarn prettier:check && cd client",
     "contentful": "node pull-contentful-data.js",
     "typecheck": "tsc",
     "build-css": "node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/",
