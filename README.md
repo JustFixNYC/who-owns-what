@@ -17,7 +17,7 @@ This site is built on top of the critical work done by [@aepyornis](https://gith
 
 Backend logic and data manipulation is largely handled by making calls to PostgreSQL functions and prebuilding results into tables whenever possible to avoid complex queries made per-request. See the [hpd-registration ](https://github.com/nycdb/nycdb/tree/master/src/nycdb/sql/hpd_registrations) scripts of `nycdb` for the SQL code that provides this functionality.
 
-Note that both the backend and the frontend of the app each contain __separate `package.json` configurations__ as well as __separate sets of environment variables__. 
+Note that both the backend and the frontend of the app each contain __separate `package.json` configurations__ as well as __separate sets of environment variables__. We are not just being weird here— this is a recommended practice according to the [create-react-app](https://github.com/facebookincubator/create-react-app) framework that we used to build the tool. 
 
 #### Backend
 
