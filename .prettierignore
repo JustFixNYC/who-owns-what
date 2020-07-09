@@ -1,6 +1,7 @@
 # Yikes! Don't go in there!
 node_modules
 client/node_modules
+.*
 
 # These files are auto-generated.
 client/src/**/*.css
