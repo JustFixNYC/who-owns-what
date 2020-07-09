@@ -32,7 +32,7 @@ class MoratoriumBanner extends Component<HomePageProps, BannerState> {
     super(Props);
 
     this.state = {
-      isHidden: false
+      isHidden: false,
     };
   }
 
@@ -48,9 +48,9 @@ class MoratoriumBanner extends Component<HomePageProps, BannerState> {
           <Trans>
             <span className="text-bold">COVID-19 Update: </span>
             JustFix.nyc is operating, and has adapted our products to match preliminary rules put in
-            place during the COVID-19 crisis. While NYC is in Phase 2, we still
-            recommend full precautions. Thanks to tenant organizing during this time, renters cannot
-            be evicted for any reason until August 6. Visit{" "}
+            place during the COVID-19 crisis. While NYC is in Phase 2, we still recommend full
+            precautions. Thanks to tenant organizing during this time, renters cannot be evicted for
+            any reason until August 6. Visit{" "}
             <a
               href="https://www.righttocounselnyc.org/ny_eviction_moratorium_faq"
               target="_blank"
@@ -76,15 +76,15 @@ class HomePage extends Component<HomePageProps, State> {
       sampleURLs: [
         "/address/BROOKLYN/89/HICKS%20STREET",
         "/address/QUEENS/4125/CASE%20STREET",
-        "/address/BROOKLYN/196/RALPH%20AVENUE"
-      ]
+        "/address/BROOKLYN/196/RALPH%20AVENUE",
+      ],
     };
   }
 
   handleFormSubmit = (searchAddress: SearchAddress, error: any) => {
     // set state (mainly to show addr on load)
     this.setState({
-      searchAddress: searchAddress
+      searchAddress: searchAddress,
     });
 
     window.gtag("event", "search");
@@ -92,24 +92,24 @@ class HomePage extends Component<HomePageProps, State> {
     if (error) {
       window.gtag("event", "search-error");
       this.setState({
-        results: { addrs: [] }
+        results: { addrs: [] },
       });
     } else {
       // searching on HomePage allows for more clean redirects
       // as opposed to HomePage > AddressPage > NotRegisteredPage
       APIClient.searchAddress({
         ...searchAddress,
-        housenumber: searchAddress.housenumber || ""
+        housenumber: searchAddress.housenumber || "",
       })
-        .then(results => {
+        .then((results) => {
           this.setState({
-            results: results
+            results: results,
           });
         })
-        .catch(err => {
+        .catch((err) => {
           window.Rollbar.error("API error from homepage: Search Address", err, searchAddress);
           this.setState({
-            results: { addrs: [] }
+            results: { addrs: [] },
           });
         });
     }
@@ -128,7 +128,7 @@ class HomePage extends Component<HomePageProps, State> {
         // lets redirect to AddressPage and pass the results along with us
       } else {
         window.gtag("event", "search-found", {
-          value: this.state.results.addrs.length
+          value: this.state.results.addrs.length,
         });
       }
       return (
@@ -142,7 +142,7 @@ class HomePage extends Component<HomePageProps, State> {
               (this.state.searchAddress.housenumber ? this.state.searchAddress.housenumber : ` `) +
               `/` +
               this.state.searchAddress.streetname,
-            state: { results }
+            state: { results },
           }}
         />
       );
