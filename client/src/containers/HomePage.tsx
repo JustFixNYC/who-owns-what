@@ -47,17 +47,18 @@ class MoratoriumBanner extends Component<HomePageProps, BannerState> {
         <div className="content">
           <Trans>
             <span className="text-bold">COVID-19 Update: </span>
-            JustFix.nyc remains in operation, and we are adapting our products to match new rules
-            put in place during the Covid-19 public health crisis. Thanks to organizing from tenant
-            leaders, renters now have stronger protections during this time, including a full halt
-            on eviction cases.{" "}
+            JustFix.nyc is operating, and has adapted our products to match preliminary rules put in
+            place during the COVID-19 crisis. While NYC is in Phase 2, we still recommend full
+            precautions. Thanks to tenant organizing during this time, renters cannot be evicted for
+            any reason until August 6. Visit{" "}
             <a
               href="https://www.righttocounselnyc.org/ny_eviction_moratorium_faq"
               target="_blank"
               rel="noopener noreferrer"
             >
-              <span className="text-bold">Learn more</span>
-            </a>
+              <span className="text-bold">Right to Council’s Eviction Moratorium FAQs</span>
+            </a>{" "}
+            to learn more.
           </Trans>
         </div>
       </div>
@@ -143,7 +144,7 @@ class HomePage extends Component<HomePageProps, State> {
               this.state.searchAddress.streetname,
             state: { results },
           }}
-        ></Redirect>
+        />
       );
     }
 
