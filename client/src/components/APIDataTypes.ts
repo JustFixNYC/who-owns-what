@@ -1,5 +1,7 @@
 // TYPES ASSOCIATED WITH INPUT DATA:
 
+type Borough = "MANHATTAN" | "BRONX" | "BROOKLYN" | "QUEENS" | "STATEN ISLAND";
+
 export type WithBoroBlockLot = {
   boro: string;
   block: string;
@@ -10,7 +12,7 @@ export type AddressInput = {
   bbl?: string;
   housenumber: string;
   streetname: string;
-  boro: string;
+  boro: Borough;
 };
 
 // TYPES ASSOCIATED WITH ADDRESS SEARCH QUERY:
@@ -23,7 +25,7 @@ type HpdOwnerContact = {
 type AddressRecord = {
   bbl: string;
   bin: number; // Should be string
-  boro: string;
+  boro: Borough;
   businessaddrs: string[] | null;
   corpnames: string[] | null;
   evictions: number | null;
@@ -60,7 +62,7 @@ export type SearchResults = {
 // TYPES ASSOCIATED WITH SUMMARY AGGREGATE QUERY:
 
 type AddressLocation = {
-  boro: string;
+  boro: Borough;
   housenumber: string;
   lat: number;
   lng: number;
