@@ -1,6 +1,6 @@
 {
-  "//*":"NOTE: THIS REPOSITORY CONTAINS TWO PACKAGE.JSON FILES",
-  "//**":"FIND THE SERVER-SIDE PACKAGE.JSON FILE IN THE PARENT DIRECTORY",
+  "//*": "NOTE: THIS REPOSITORY CONTAINS TWO PACKAGE.JSON FILES",
+  "//**": "FIND THE SERVER-SIDE PACKAGE.JSON FILE IN THE PARENT DIRECTORY",
   "name": "client",
   "version": "0.1.0",
   "private": true,
@@ -81,7 +81,8 @@
     "@babel/register": "^7.7.4",
     "cross-env": "^6.0.3",
     "dotenv": "^8.2.0",
-    "npm-run-all": "^4.0.2"
+    "npm-run-all": "^4.0.2",
+    "ts-type-checked": "^0.5.0"
   },
   "browserslist": [
     ">0.2%",
