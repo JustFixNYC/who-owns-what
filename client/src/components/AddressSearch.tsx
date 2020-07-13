@@ -60,7 +60,7 @@ export function makeEmptySearchAddress(): SearchAddress {
 }
 
 function toSearchAddresses(results: GeoSearchResults): SearchAddress[] {
-  return results.features.map(feature => {
+  return results.features.map((feature) => {
     let boro = feature.properties.borough.toUpperCase() as Borough;
     const sa: SearchAddress = {
       housenumber: feature.properties.housenumber,
@@ -87,10 +87,10 @@ export default class AddressSearch extends React.Component<AddressSearchProps, S
       results: [],
     };
     this.requester = new GeoSearchRequester({
-      onError: e => {
+      onError: (e) => {
         this.props.onFormSubmit(makeEmptySearchAddress(), e);
       },
-      onResults: results => {
+      onResults: (results) => {
         this.setState({
           isLoading: false,
           results: toSearchAddresses(results),
@@ -157,7 +157,7 @@ export default class AddressSearch extends React.Component<AddressSearchProps, S
               return changes;
           }
         }}
-        onChange={sa => {
+        onChange={(sa) => {
           if (sa) {
             this.props.onFormSubmit(sa, null);
           }
@@ -166,14 +166,14 @@ export default class AddressSearch extends React.Component<AddressSearchProps, S
           // There's no meaningful value for us to pass to `onFormSubmit` in
           // this case, so we will just do nothing.
         }}
-        itemToString={sa => {
+        itemToString={(sa) => {
           return sa ? searchAddressToString(sa) : "";
         }}
       >
-        {downshift => {
+        {(downshift) => {
           const inputOptions: GetInputPropsOptions = {
-            onKeyDown: e => this.handleAutocompleteKeyDown(downshift, e),
-            onChange: e => this.handleInputValueChange(e.currentTarget.value),
+            onKeyDown: (e) => this.handleAutocompleteKeyDown(downshift, e),
+            onChange: (e) => this.handleInputValueChange(e.currentTarget.value),
           };
           const suggestsClasses = ["geosuggest__suggests"];
           if (!(downshift.isOpen && this.state.results.length > 0)) {
