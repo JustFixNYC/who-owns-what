@@ -183,7 +183,7 @@ export default class BBLPage extends Component<BBLPageProps, State> {
               addressForURL.streetname,
             state: { results },
           }}
-        ></Redirect>
+        />
       );
     }
 
