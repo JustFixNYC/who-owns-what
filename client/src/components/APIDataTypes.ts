@@ -1,6 +1,6 @@
 // TYPES ASSOCIATED WITH INPUT DATA:
 
-type Borough = "MANHATTAN" | "BRONX" | "BROOKLYN" | "QUEENS" | "STATEN ISLAND";
+export type Borough = "MANHATTAN" | "BRONX" | "BROOKLYN" | "QUEENS" | "STATEN ISLAND" | null;
 
 export type WithBoroBlockLot = {
   boro: string;

@@ -7,6 +7,7 @@ import Downshift, {
 import { GeoSearchRequester, GeoSearchResults } from "@justfixnyc/geosearch-requester";
 
 import "../styles/AddressSearch.css";
+import { Borough } from "./APIDataTypes";
 
 const GeoDownshift = Downshift as DownshiftInterface<SearchAddress>;
 
@@ -25,7 +26,7 @@ export interface SearchAddress {
   streetname: string;
 
   /** The all-uppercase borough name, e.g. 'BROOKLYN'. */
-  boro: string;
+  boro: Borough;
 
   /** The padded BBL, e.g. '1234567890'. */
   bbl: string;
@@ -53,17 +54,18 @@ export function makeEmptySearchAddress(): SearchAddress {
   return {
     housenumber: "",
     streetname: "",
-    boro: "",
+    boro: null,
     bbl: "",
   };
 }
 
 function toSearchAddresses(results: GeoSearchResults): SearchAddress[] {
-  return results.features.map((feature) => {
+  return results.features.map(feature => {
+    let boro = feature.properties.borough.toUpperCase() as Borough;
     const sa: SearchAddress = {
       housenumber: feature.properties.housenumber,
       streetname: feature.properties.street,
-      boro: feature.properties.borough.toUpperCase(),
+      boro: boro,
       bbl: feature.properties.pad_bbl,
     };
     return sa;
@@ -85,10 +87,10 @@ export default class AddressSearch extends React.Component<AddressSearchProps, S
       results: [],
     };
     this.requester = new GeoSearchRequester({
-      onError: (e) => {
+      onError: e => {
         this.props.onFormSubmit(makeEmptySearchAddress(), e);
       },
-      onResults: (results) => {
+      onResults: results => {
         this.setState({
           isLoading: false,
           results: toSearchAddresses(results),
@@ -155,7 +157,7 @@ export default class AddressSearch extends React.Component<AddressSearchProps, S
               return changes;
           }
         }}
-        onChange={(sa) => {
+        onChange={sa => {
           if (sa) {
             this.props.onFormSubmit(sa, null);
           }
@@ -164,14 +166,14 @@ export default class AddressSearch extends React.Component<AddressSearchProps, S
           // There's no meaningful value for us to pass to `onFormSubmit` in
           // this case, so we will just do nothing.
         }}
-        itemToString={(sa) => {
+        itemToString={sa => {
           return sa ? searchAddressToString(sa) : "";
         }}
       >
-        {(downshift) => {
+        {downshift => {
           const inputOptions: GetInputPropsOptions = {
-            onKeyDown: (e) => this.handleAutocompleteKeyDown(downshift, e),
-            onChange: (e) => this.handleInputValueChange(e.currentTarget.value),
+            onKeyDown: e => this.handleAutocompleteKeyDown(downshift, e),
+            onChange: e => this.handleInputValueChange(e.currentTarget.value),
           };
           const suggestsClasses = ["geosuggest__suggests"];
           if (!(downshift.isOpen && this.state.results.length > 0)) {

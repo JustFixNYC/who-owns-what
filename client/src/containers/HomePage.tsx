@@ -14,6 +14,7 @@ import aeLogo from "../assets/img/aande.jpeg";
 import AddressSearch, { makeEmptySearchAddress, SearchAddress } from "../components/AddressSearch";
 import { Trans } from "@lingui/macro";
 import Page from "../components/Page";
+import { SearchResults } from "../components/APIDataTypes";
 
 type HomePageProps = {};
 
@@ -100,12 +101,12 @@ class HomePage extends Component<HomePageProps, State> {
         ...searchAddress,
         housenumber: searchAddress.housenumber || "",
       })
-        .then((results) => {
+        .then((results: SearchResults) => {
           this.setState({
             results: results,
           });
         })
-        .catch((err) => {
+        .catch((err: any) => {
           window.Rollbar.error("API error from homepage: Search Address", err, searchAddress);
           this.setState({
             results: { addrs: [] },
