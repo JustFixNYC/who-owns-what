@@ -7,7 +7,7 @@ import NotRegisteredPage from "./NotRegisteredPage";
 import { RouteComponentProps } from "react-router";
 import { Trans } from "@lingui/macro";
 import Page from "../components/Page";
-import { SearchResults, Borough } from "../components/APIDataTypes";
+import { SearchResults } from "../components/APIDataTypes";
 import { createRouteForAddressPage } from "../routes";
 import { SearchAddress, makeEmptySearchAddress } from "../components/AddressSearch";
 
