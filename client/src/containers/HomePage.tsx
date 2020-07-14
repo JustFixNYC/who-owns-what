@@ -97,7 +97,7 @@ class HomePage extends Component<HomePageProps, State> {
     } else {
       // searching on HomePage allows for more clean redirects
       // as opposed to HomePage > AddressPage > NotRegisteredPage
-      APIClient.searchAddress({
+      APIClient.searchForAddress({
         ...searchAddress,
         housenumber: searchAddress.housenumber || "",
       })

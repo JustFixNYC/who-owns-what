@@ -13,9 +13,9 @@ import { SearchAddress } from "./AddressSearch";
 
 // API REQUESTS TO THE DATABASE:
 
-function searchAddress(q: SearchAddress): Promise<SearchResults> {
+function searchForAddress(q: SearchAddress): Promise<SearchResults> {
   if (q.bbl) {
-    return searchBBL({
+    return searchForBBL({
       boro: q.bbl.slice(0, 1),
       block: q.bbl.slice(1, 6),
       lot: q.bbl.slice(6, 10),
@@ -24,7 +24,7 @@ function searchAddress(q: SearchAddress): Promise<SearchResults> {
   return get(`/api/address?houseNumber=${q.housenumber}&street=${q.streetname}&borough=${q.boro}`);
 }
 
-function searchBBL(q: WithBoroBlockLot): Promise<SearchResults> {
+function searchForBBL(q: WithBoroBlockLot): Promise<SearchResults> {
   return get(`/api/address?block=${q.block}&lot=${q.lot}&borough=${q.boro}`);
 }
 
@@ -108,8 +108,8 @@ function parseJSON(response: Response) {
 }
 
 const Client = {
-  searchAddress,
-  searchBBL,
+  searchForAddress,
+  searchForBBL,
   getAggregate,
   getBuildingInfo,
   getIndicatorHistory,

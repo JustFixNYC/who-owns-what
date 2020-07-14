@@ -110,7 +110,7 @@ export default class BBLPage extends Component<BBLPageProps, State> {
 
   componentDidUpdate(prevProps: BBLPageProps, prevState: State) {
     if (!prevState.bblExists && this.state.bblExists) {
-      APIClient.searchBBL(this.strictGetSearchBBL())
+      APIClient.searchForBBL(this.strictGetSearchBBL())
         .then((results) => {
           this.setState({
             results: results,
