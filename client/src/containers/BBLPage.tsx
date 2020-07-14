@@ -9,6 +9,7 @@ import { Trans } from "@lingui/macro";
 import Page from "../components/Page";
 import { SearchResults, Borough } from "../components/APIDataTypes";
 import { createRouteForAddressPage } from "../routes";
+import { SearchAddress } from "../components/AddressSearch";
 
 // import 'styles/HomePage.css';
 
@@ -22,18 +23,11 @@ type BBLPageParams = {
 
 type BBLPageProps = RouteComponentProps<BBLPageParams>;
 
-type Addr = {
-  bbl?: string;
-  boro: Borough | "";
-  housenumber?: string;
-  streetname: string;
-};
-
 type State = {
   searchBBL: BBLPageParams;
   results: SearchResults | null;
-  bblExists: null | boolean;
-  foundAddress: Addr;
+  bblExists: boolean | null;
+  foundAddress: SearchAddress;
 };
 
 export default class BBLPage extends Component<BBLPageProps, State> {
@@ -48,6 +42,7 @@ export default class BBLPage extends Component<BBLPageProps, State> {
         boro: "",
         housenumber: "",
         streetname: "",
+        bbl: "",
       },
     };
   }
@@ -101,6 +96,7 @@ export default class BBLPage extends Component<BBLPageProps, State> {
               boro: results.result[0].boro,
               housenumber: results.result[0].housenumber,
               streetname: results.result[0].streetname,
+              bbl: fullBBL,
             },
           });
         }
@@ -146,13 +142,7 @@ export default class BBLPage extends Component<BBLPageProps, State> {
       // redirect doesn't like `this` so lets make a ref
       const results = this.state.results;
 
-      // if(geosearch) {
-      //   searchAddress.housenumber = geosearch.giLowHouseNumber1;
-      //   searchAddress.streetname = geosearch.giStreetName1;
-      //   searchAddress.boro = geosearch.firstBoroughName;
-      // }
-
-      var addressForURL: Addr;
+      var addressForURL: SearchAddress;
 
       if (results.addrs.length > 0) {
         window.gtag("event", "search-found", {
