@@ -27,7 +27,7 @@ export interface SearchAddress {
 
   /** The all-uppercase borough name, e.g. 'BROOKLYN'.
    * We allow for an empty string case in this type as our GeoSearch form submission includes the possibility
-   * of an 'empty' address search. See AddressSearch.tsx for more details.
+   * of an 'empty' address search. See the AddressSearch class below for more details.
    */
   boro: Borough | "";
 
