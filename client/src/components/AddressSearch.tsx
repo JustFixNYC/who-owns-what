@@ -25,8 +25,11 @@ export interface SearchAddress {
   /** The street name, e.g. 'PARK PLACE'. */
   streetname: string;
 
-  /** The all-uppercase borough name, e.g. 'BROOKLYN'. */
-  boro: Borough;
+  /** The all-uppercase borough name, e.g. 'BROOKLYN'.
+   * We allow for an empty string case in this type as our GeoSearch form submission includes the possibility
+   * of an 'empty' address search. See AddressSearch.tsx for more details.
+   */
+  boro: Borough | "";
 
   /** The padded BBL, e.g. '1234567890'. */
   bbl: string;
@@ -54,18 +57,18 @@ export function makeEmptySearchAddress(): SearchAddress {
   return {
     housenumber: "",
     streetname: "",
-    boro: null,
+    boro: "",
     bbl: "",
   };
 }
 
 function toSearchAddresses(results: GeoSearchResults): SearchAddress[] {
   return results.features.map((feature) => {
-    let boro = feature.properties.borough.toUpperCase() as Borough;
+    let formattedBoroName = feature.properties.borough.toUpperCase() as Borough;
     const sa: SearchAddress = {
       housenumber: feature.properties.housenumber,
       streetname: feature.properties.street,
-      boro: boro,
+      boro: formattedBoroName,
       bbl: feature.properties.pad_bbl,
     };
     return sa;

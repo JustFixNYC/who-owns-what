@@ -1,18 +1,11 @@
 // TYPES ASSOCIATED WITH INPUT DATA:
 
-export type Borough = "MANHATTAN" | "BRONX" | "BROOKLYN" | "QUEENS" | "STATEN ISLAND" | null;
+export type Borough = "MANHATTAN" | "BRONX" | "BROOKLYN" | "QUEENS" | "STATEN ISLAND";
 
 export type WithBoroBlockLot = {
   boro: string;
   block: string;
   lot: string;
-};
-
-export type AddressInput = {
-  bbl?: string;
-  housenumber: string;
-  streetname: string;
-  boro: Borough;
 };
 
 // TYPES ASSOCIATED WITH ADDRESS SEARCH QUERY:

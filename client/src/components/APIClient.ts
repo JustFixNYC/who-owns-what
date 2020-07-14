@@ -7,13 +7,13 @@ import {
   SummaryResults,
   BuildingInfoResults,
   IndicatorsHistoryResults,
-  AddressInput,
   WithBoroBlockLot,
 } from "./APIDataTypes";
+import { SearchAddress } from "./AddressSearch";
 
 // API REQUESTS TO THE DATABASE:
 
-function searchAddress(q: AddressInput): Promise<SearchResults> {
+function searchAddress(q: SearchAddress): Promise<SearchResults> {
   if (q.bbl) {
     return searchBBL({
       boro: q.bbl.slice(0, 1),
@@ -40,7 +40,7 @@ function getIndicatorHistory(bbl: string): Promise<IndicatorsHistoryResults> {
   return get(`/api/address/indicatorhistory?bbl=${bbl}`);
 }
 
-function getAddressExport(q: AddressInput & WithBoroBlockLot) {
+function getAddressExport(q: SearchAddress & WithBoroBlockLot) {
   return fetch(
     `/api/address/export?houseNumber=${q.housenumber}&street=${q.streetname}&borough=${q.boro}`
   ).then(checkStatus);
