@@ -1,8 +1,6 @@
 import React from "react";
 // other imports
 
-import APIClient from "./APIClient";
-
 import "styles/Subscribe.css";
 import { I18n } from "@lingui/core";
 import { withI18n } from "@lingui/react";
