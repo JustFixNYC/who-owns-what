@@ -1,7 +1,3 @@
-/* eslint-disable no-undef */
-
-import { NumericDictionary } from "lodash";
-
 import {
   SearchResults,
   SummaryResults,
@@ -50,21 +46,6 @@ function getAddressExport(q: SearchAddress & WithBoroBlockLot) {
 
 function get(url: string) {
   return fetch(url, { headers: { accept: "application/json" } })
-    .then(checkStatus)
-    .then(verifyIsJson)
-    .then(parseJSON);
-}
-
-function post(url: string, body: any) {
-  return fetch(url, {
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    },
-    method: "POST",
-    mode: "cors",
-    body: JSON.stringify(body),
-  })
     .then(checkStatus)
     .then(verifyIsJson)
     .then(parseJSON);

@@ -15,7 +15,7 @@ import { I18nProvider } from "@lingui/react";
 import catalogEn from "./locales/en/messages";
 import catalogEs from "./locales/es/messages";
 import { LocationDescriptorObject, History } from "history";
-import { SupportedLocale, languageNames, defaultLocale, isSupportedLocale } from "./i18n-base";
+import { SupportedLocale, defaultLocale, isSupportedLocale } from "./i18n-base";
 
 /** The structure for message catalogs that lingui expects. */
 type LocaleCatalog = {
