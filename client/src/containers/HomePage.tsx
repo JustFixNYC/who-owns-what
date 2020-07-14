@@ -101,12 +101,12 @@ class HomePage extends Component<HomePageProps, State> {
         ...searchAddress,
         housenumber: searchAddress.housenumber || "",
       })
-        .then((results: SearchResults) => {
+        .then((results) => {
           this.setState({
             results: results,
           });
         })
-        .catch((err: any) => {
+        .catch((err) => {
           window.Rollbar.error("API error from homepage: Search Address", err, searchAddress);
           this.setState({
             results: { addrs: [] },
