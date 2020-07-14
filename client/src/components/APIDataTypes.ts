@@ -17,7 +17,8 @@ type HpdOwnerContact = {
 
 type AddressRecord = {
   bbl: string;
-  bin: number; // Should be string
+  /** Front-end interprets as string */
+  bin: number;
   boro: Borough;
   businessaddrs: string[] | null;
   corpnames: string[] | null;
@@ -25,16 +26,19 @@ type AddressRecord = {
   housenumber: string;
   lastregistrationdate: Date;
   lastsaleacrisid: string | null;
-  lastsaleamount: string | null; // Should be number
+  /** Front-end interprets as number */
+  lastsaleamount: string | null;
   lastsaledate: Date | null;
   lat: number | null;
   lng: number | null;
   openviolations: number;
   ownernames: HpdOwnerContact[] | null;
   registrationenddate: Date;
-  registrationid: number; // Should be string
+  /** Front-end interprets as string */
+  registrationid: number;
   rsdiff: number | null;
-  rspercentchange: string | null; // Should be number
+  /** Front-end interprets as number */
+  rspercentchange: string | null;
   rsunits2007: number | null;
   rsunits2017: number | null;
   streetname: string;
@@ -75,25 +79,39 @@ type HpdViolationsAddress = AddressLocation & {
 };
 
 type SummaryStatsRecord = {
-  age: string; // Should be number
-  avgevictions: string | null; // Should be number
-  avgrspercent: string | null; // Should be number
-  bldgs: string; // Should be number
+  /** Front-end interprets as number */
+  age: string;
+  /** Front-end interprets as number */
+  avgevictions: string | null;
+  /** Front-end interprets as number */
+  avgrspercent: string | null;
+  /** Front-end interprets as number */
+  bldgs: string;
   evictionsaddr: EvictionAddress;
-  openviolationsperbldg: string; // Should be number
-  openviolationsperresunit: string; // Should be number
+  /** Front-end interprets as number */
+  openviolationsperbldg: string;
+  /** Front-end interprets as number */
+  openviolationsperresunit: string;
   rslossaddr: RentStabilizedAddress;
-  rsproportion: string | null; // Should be number
+  /** Front-end interprets as number */
+  rsproportion: string | null;
   topbusinessaddr: string | null;
   topcorp: string | null;
   topowners: string[];
-  totalevictions: string | null; // Should be number
-  totalopenviolations: string; // Should be number
-  totalrsdiff: string | null; // Should be number
-  totalrsgain: string; // Should be number
-  totalrsloss: string; // Should be number
-  totalviolations: string; // Should be number
-  units: string; // Should be number
+  /** Front-end interprets as number */
+  totalevictions: string | null;
+  /** Front-end interprets as number */
+  totalopenviolations: string;
+  /** Front-end interprets as number */
+  totalrsdiff: string | null;
+  /** Front-end interprets as number */
+  totalrsgain: string;
+  /** Front-end interprets as number */
+  totalrsloss: string;
+  /** Front-end interprets as number */
+  totalviolations: string;
+  /** Front-end interprets as number */
+  units: string;
   violationsaddr: HpdViolationsAddress;
 };
 
@@ -116,14 +134,22 @@ export type BuildingInfoResults = {
 
 type MonthlyTimelineData = {
   month: string;
-  complaints_emergency: string; // Should be number
-  complaints_nonemergency: string; // Should be number
-  complaints_total: string; // Should be number
-  permits_total: string; // Should be number
-  viols_class_a: string; // Should be number
-  viols_class_b: string; // Should be number
-  viols_class_c: string; // Should be number
-  viols_total: string; // Should be number
+  /** Front-end interprets as number */
+  complaints_emergency: string;
+  /** Front-end interprets as number */
+  complaints_nonemergency: string;
+  /** Front-end interprets as number */
+  complaints_total: string;
+  /** Front-end interprets as number */
+  permits_total: string;
+  /** Front-end interprets as number */
+  viols_class_a: string;
+  /** Front-end interprets as number */
+  viols_class_b: string;
+  /** Front-end interprets as number */
+  viols_class_c: string;
+  /** Front-end interprets as number */
+  viols_total: string;
 };
 
 export type IndicatorsHistoryResults = {
