@@ -12,7 +12,7 @@ import SocialShare from "components/SocialShare";
 import { withI18n } from "@lingui/react";
 import { WhoOwnsWhatRoutes } from "../routes";
 
-const HomeLink = withI18n()(props => {
+const HomeLink = withI18n()((props) => {
   const { i18n } = props;
   return (
     <Link
@@ -33,7 +33,7 @@ export default class App extends Component {
     super(props);
 
     this.state = {
-      showEngageModal: false
+      showEngageModal: false,
     };
   }
 
