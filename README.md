@@ -82,8 +82,18 @@ You can visit your local dev instance at http://localhost:3000.
 ## Alternative: Docker-based development
 
 As an alternative to the aforementioned setup, you can use
-[Docker](https://www.docker.com/get-started). Once you've
-installed Docker, run:
+[Docker](https://www.docker.com/get-started).
+
+First create an `.env` file and edit it as needed:
+
+```
+cp .env.sample .env
+```
+
+Note that you don't need to change `DATABASE_URL` if you
+just want to use the test database.
+
+Now run:
 
 ```
 docker-compose run app python dbtool.py loadtestdata
@@ -99,12 +109,6 @@ Once you've done that, run:
 
 ```
 docker-compose run app yarn install-all
-```
-
-Then create an `.env` file and edit it as needed:
-
-```
-cp .env.sample .env
 ```
 
 Then start up the server:
