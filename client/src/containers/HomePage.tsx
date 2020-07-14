@@ -14,7 +14,6 @@ import aeLogo from "../assets/img/aande.jpeg";
 import AddressSearch, { makeEmptySearchAddress, SearchAddress } from "../components/AddressSearch";
 import { Trans } from "@lingui/macro";
 import Page from "../components/Page";
-import { SearchResults } from "../components/APIDataTypes";
 
 type HomePageProps = {};
 
