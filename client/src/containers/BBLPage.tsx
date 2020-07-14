@@ -9,7 +9,7 @@ import { Trans } from "@lingui/macro";
 import Page from "../components/Page";
 import { SearchResults, Borough } from "../components/APIDataTypes";
 import { createRouteForAddressPage } from "../routes";
-import { SearchAddress } from "../components/AddressSearch";
+import { SearchAddress, makeEmptySearchAddress } from "../components/AddressSearch";
 
 // import 'styles/HomePage.css';
 
@@ -38,12 +38,7 @@ export default class BBLPage extends Component<BBLPageProps, State> {
       searchBBL: { ...props.match.params },
       results: null,
       bblExists: null,
-      foundAddress: {
-        boro: "",
-        housenumber: "",
-        streetname: "",
-        bbl: "",
-      },
+      foundAddress: makeEmptySearchAddress(),
     };
   }
 
