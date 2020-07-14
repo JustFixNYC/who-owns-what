@@ -7,6 +7,8 @@ import NotRegisteredPage from "./NotRegisteredPage";
 import { RouteComponentProps } from "react-router";
 import { Trans } from "@lingui/macro";
 import Page from "../components/Page";
+import { SearchResults, Borough } from "../components/APIDataTypes";
+import { createRouteForAddressPage } from "../routes";
 
 // import 'styles/HomePage.css';
 
@@ -22,14 +24,14 @@ type BBLPageProps = RouteComponentProps<BBLPageParams>;
 
 type Addr = {
   bbl?: string;
-  boro: string | null;
-  housenumber: string | null;
-  streetname: string | null;
+  boro: Borough | "";
+  housenumber?: string;
+  streetname: string;
 };
 
 type State = {
   searchBBL: BBLPageParams;
-  results: { addrs: Addr[] } | null;
+  results: SearchResults | null;
   bblExists: null | boolean;
   foundAddress: Addr;
 };
@@ -43,9 +45,9 @@ export default class BBLPage extends Component<BBLPageProps, State> {
       results: null,
       bblExists: null,
       foundAddress: {
-        boro: null,
-        housenumber: null,
-        streetname: null,
+        boro: "",
+        housenumber: "",
+        streetname: "",
       },
     };
   }
@@ -169,17 +171,14 @@ export default class BBLPage extends Component<BBLPageProps, State> {
         addressForURL = this.state.foundAddress;
       }
 
-      //= this.state.results.addrs.find( (element) => (element.bbl === this.state.searchBBL.boro + this.state.searchBBL.block + this.state.searchBBL.lot));
       return (
         <Redirect
           to={{
-            pathname:
-              `/address/` +
-              addressForURL.boro +
-              `/` +
-              (addressForURL.housenumber ? addressForURL.housenumber : ` `) +
-              `/` +
+            pathname: createRouteForAddressPage(
+              addressForURL.boro,
               addressForURL.streetname,
+              addressForURL.housenumber
+            ),
             state: { results },
           }}
         />
