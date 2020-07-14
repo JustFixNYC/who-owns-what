@@ -7,7 +7,6 @@ import NotRegisteredPage from "./NotRegisteredPage";
 import { RouteComponentProps } from "react-router";
 import { Trans } from "@lingui/macro";
 import Page from "../components/Page";
-import { BuildingInfoResults, SearchResults } from "../components/APIDataTypes";
 
 // import 'styles/HomePage.css';
 
@@ -88,7 +87,7 @@ export default class BBLPage extends Component<BBLPageProps, State> {
     }
 
     APIClient.getBuildingInfo(fullBBL)
-      .then((results: BuildingInfoResults) => {
+      .then((results) => {
         if (!(results.result && results.result.length > 0)) {
           this.setState({
             bblExists: false,
@@ -104,7 +103,7 @@ export default class BBLPage extends Component<BBLPageProps, State> {
           });
         }
       })
-      .catch((err: any) => {
+      .catch((err) => {
         window.Rollbar.error("API error from BBL page: Building Info", err, fullBBL);
       });
   }
@@ -112,12 +111,12 @@ export default class BBLPage extends Component<BBLPageProps, State> {
   componentDidUpdate(prevProps: BBLPageProps, prevState: State) {
     if (!prevState.bblExists && this.state.bblExists) {
       APIClient.searchBBL(this.strictGetSearchBBL())
-        .then((results: SearchResults) => {
+        .then((results) => {
           this.setState({
             results: results,
           });
         })
-        .catch((err: any) => {
+        .catch((err) => {
           window.Rollbar.error("API error from BBL page: Search BBL", err, this.state.searchBBL);
           this.setState({
             results: { addrs: [] },
