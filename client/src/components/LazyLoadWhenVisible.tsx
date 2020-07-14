@@ -1,10 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
 
 export const LazyLoadWhenVisible: React.FC = (props) => {
-  if (!("IntersectionObserver" in window)) {
-    return <div>{props.children}</div>;
-  }
-
   const ref = useRef<HTMLDivElement>(null);
   const [hasBeenVisible, setHasBeenVisible] = useState(false);
 
@@ -25,6 +21,10 @@ export const LazyLoadWhenVisible: React.FC = (props) => {
       obs.unobserve(current);
     };
   }, [ref]);
+
+  if (!("IntersectionObserver" in window)) {
+    return <div>{props.children}</div>;
+  }
 
   return <div ref={ref}>{hasBeenVisible && props.children}</div>;
 };
