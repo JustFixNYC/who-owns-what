@@ -14,6 +14,7 @@ import aeLogo from "../assets/img/aande.jpeg";
 import AddressSearch, { makeEmptySearchAddress, SearchAddress } from "../components/AddressSearch";
 import { Trans } from "@lingui/macro";
 import Page from "../components/Page";
+import { createRouteForAddressPage } from "../routes";
 
 type HomePageProps = {};
 
@@ -135,13 +136,11 @@ class HomePage extends Component<HomePageProps, State> {
         <Redirect
           push
           to={{
-            pathname:
-              `/address/` +
-              this.state.searchAddress.boro +
-              `/` +
-              (this.state.searchAddress.housenumber ? this.state.searchAddress.housenumber : ` `) +
-              `/` +
+            pathname: createRouteForAddressPage(
+              this.state.searchAddress.boro,
               this.state.searchAddress.streetname,
+              this.state.searchAddress.housenumber
+            ),
             state: { results },
           }}
         />
