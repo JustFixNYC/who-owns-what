@@ -149,21 +149,29 @@ class DetailViewWithoutI18n extends Component {
                           <b>
                             <Trans>Last registered:</Trans>
                           </b>{" "}
-                          {Helpers.formatDate(this.props.addr.lastregistrationdate, {
-                            year: "numeric",
-                            month: "short",
-                            day: "numeric",
-                          })}
+                          {Helpers.formatDate(
+                            this.props.addr.lastregistrationdate,
+                            {
+                              year: "numeric",
+                              month: "short",
+                              day: "numeric",
+                            },
+                            this.props.i18n._language || "en"
+                          )}
                           {this.state.todaysDate > new Date(this.props.addr.registrationenddate) ? (
                             <span className="text-danger">
                               {" "}
                               <Trans>
                                 (expired{" "}
-                                {Helpers.formatDate(this.props.addr.registrationenddate, {
-                                  year: "numeric",
-                                  month: "short",
-                                  day: "numeric",
-                                })}
+                                {Helpers.formatDate(
+                                  this.props.addr.registrationenddate,
+                                  {
+                                    year: "numeric",
+                                    month: "short",
+                                    day: "numeric",
+                                  },
+                                  this.props.i18n._language || "en"
+                                )}
                                 )
                               </Trans>
                             </span>
@@ -172,11 +180,15 @@ class DetailViewWithoutI18n extends Component {
                               {" "}
                               <Trans>
                                 (expires{" "}
-                                {Helpers.formatDate(this.props.addr.registrationenddate, {
-                                  year: "numeric",
-                                  month: "short",
-                                  day: "numeric",
-                                })}
+                                {Helpers.formatDate(
+                                  this.props.addr.registrationenddate,
+                                  {
+                                    year: "numeric",
+                                    month: "short",
+                                    day: "numeric",
+                                  },
+                                  this.props.i18n._language || "en"
+                                )}
                                 )
                               </Trans>
                             </span>
@@ -190,11 +202,15 @@ class DetailViewWithoutI18n extends Component {
                                 <Trans>Last sold:</Trans>
                               </b>{" "}
                               <>
-                                {Helpers.formatDate(this.props.addr.lastsaledate, {
-                                  year: "numeric",
-                                  month: "short",
-                                  day: "numeric",
-                                })}{" "}
+                                {Helpers.formatDate(
+                                  this.props.addr.lastsaledate,
+                                  {
+                                    year: "numeric",
+                                    month: "short",
+                                    day: "numeric",
+                                  },
+                                  this.props.i18n._language || "en"
+                                )}{" "}
                                 <Trans>
                                   for ${formatPrice.format(this.props.addr.lastsaleamount)}
                                 </Trans>
