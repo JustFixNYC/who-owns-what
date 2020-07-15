@@ -10,6 +10,7 @@ import { withI18n } from "@lingui/react";
 import helpers, { MaybeStringyNumber } from "../util/helpers";
 import { FB_APP_ID } from "./Page";
 import { Borough } from "./APIDataTypes";
+import { createRouteForAddressPage } from "../routes";
 
 const SocialShareWithoutI18n: React.FC<{
   i18n: I18n;
@@ -90,7 +91,7 @@ export default SocialShare;
 const SocialSharePortfolioWithoutI18n: React.FC<{
   i18n: I18n;
   location?: string;
-  addr: { boro: Borough; housenumber: string | null; streetname: string };
+  addr: { boro: Borough; housenumber?: string; streetname: string };
   buildings: MaybeStringyNumber;
 }> = ({ i18n, location, addr, buildings }) => {
   const buildingCount = helpers.coerceToInt(buildings, 0);
