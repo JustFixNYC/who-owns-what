@@ -303,11 +303,11 @@ class IndicatorsVizImplementation extends Component {
                 "2020/0" + (numOfLastMonthInQuarter - 2),
                 { month: "short" },
                 locale
-              )} - ${Helpers.formatDate(
+              ).slice(0,3)} - ${Helpers.formatDate(
                 "2020/0" + numOfLastMonthInQuarter,
                 { month: "short" },
                 locale
-              )}`;
+              ).slice(0,3)}`;
 
               return monthRange + " " + this._data.labels[tooltipItem[0].index].slice(0, 4);
             } else if (timeSpan === "year") {
