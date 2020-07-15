@@ -36,6 +36,8 @@ export const createWhoOwnsWhatRoutePaths = (prefix?: string) => {
   };
 };
 
+export const getSiteOrigin = () => `${window.location.protocol}//${window.location.host}`;
+
 export const WhoOwnsWhatRoutes = () => {
   const paths = createWhoOwnsWhatRoutePaths("/:locale");
   return (
