@@ -2,6 +2,7 @@ import React from "react";
 import ReactTable from "react-table";
 import Browser from "../util/browser";
 
+import Helpers from "../util/helpers";
 import "react-table/react-table.css";
 import "styles/PropertiesList.css";
 import { I18n } from "@lingui/core";
@@ -28,13 +29,13 @@ type Addr = {
   lastsaleamount: string;
   lastsaleacrisid: string;
 };
-
+/*
 const formatDate = (dateString: string, locale?: SupportedLocale) => {
   var date = new Date(dateString);
   var options = { year: "numeric", month: "short", day: "numeric" };
   return date.toLocaleDateString(locale || "en", options);
 };
-
+*/
 export const isPartOfGroupSale = (saleId: string, addrs: Addr[]) => {
   const addrsWithMatchingSale = addrs.filter((addr) => addr.lastsaleacrisid === saleId);
   return addrsWithMatchingSale.length > 1;
@@ -256,7 +257,11 @@ const PropertiesListWithoutI18n: React.FC<{
                   accessor: (d) => d.lastsaledate,
                   Cell: (row) =>
                     row.original.lastsaledate
-                      ? formatDate(row.original.lastsaledate, locale)
+                      ? Helpers.formatDate(
+                          row.original.lastsaledate,
+                          { year: "numeric", month: "short", day: "numeric" },
+                          locale
+                        )
                       : null,
                   id: "lastsaledate",
                 },

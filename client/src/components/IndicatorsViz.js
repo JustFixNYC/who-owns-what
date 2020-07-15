@@ -273,7 +273,7 @@ class IndicatorsVizImplementation extends Component {
                   var fullDate = value.concat("-15"); // Make date value include a day so it can be parsed
                   return (
                     (value.slice(5, 7) === "01" ? value.slice(0, 4) + "  " : "") + // Include special year label for January
-                    Helpers.formatMonthAbbreviationForTimeline(fullDate, locale)
+                    Helpers.formatDate(fullDate, { month: "short" }, locale)
                   );
                 } else if (timeSpan === "quarter") {
                   return (
@@ -298,12 +298,14 @@ class IndicatorsVizImplementation extends Component {
             if (timeSpan === "quarter") {
               const quarter = this._data.labels[tooltipItem[0].index].slice(-1);
               const numOfLastMonthInQuarter = parseInt(quarter) * 3;
-              /** The quarter year written out as it's range of months (ex: "Jan - Mar")  */
-              const monthRange = `${Helpers.formatMonthAbbreviationForTimeline(
+              /** The quarter year written out as it's range of months (ex: "Jan - Mar")  ISSUE IN SAFARI & FIREFOX*/
+              const monthRange = `${Helpers.formatDate(
                 "2020/0" + (numOfLastMonthInQuarter - 2),
+                { month: "short" },
                 locale
-              )} - ${Helpers.formatMonthAbbreviationForTimeline(
+              )} - ${Helpers.formatDate(
                 "2020/0" + numOfLastMonthInQuarter,
+                { month: "short" },
                 locale
               )}`;
 
@@ -313,7 +315,7 @@ class IndicatorsVizImplementation extends Component {
             } else if (timeSpan === "month") {
               // Make date value include day:
               var fullDate = this._data.labels[tooltipItem[0].index].concat("-15");
-              return Helpers.formatDateForTimeline(fullDate, locale);
+              return Helpers.formatDate(fullDate, { year: "numeric", month: "long" }, locale);
             } else {
               return "";
             }
@@ -394,7 +396,11 @@ class IndicatorsVizImplementation extends Component {
                 label: {
                   content:
                     (dateLocation === "past" ? "← " : "") +
-                    Helpers.formatDateForTimeline(this.props.lastSale.date, locale) +
+                    Helpers.formatDate(
+                      this.props.lastSale.date,
+                      { year: "numeric", month: "long" },
+                      locale
+                    ) +
                     (dateLocation === "future" ? " →" : ""),
                   fontFamily: "Inconsolata, monospace",
                   fontColor: "#fff",

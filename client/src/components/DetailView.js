@@ -31,13 +31,13 @@ class DetailViewWithoutI18n extends Component {
     // scroll to top of wrapper div:
     document.querySelector(".DetailView__wrapper").scrollTop = 0;
   }
-
+  /*
   formatDate(dateString) {
     var date = new Date(dateString);
     var options = { year: "numeric", month: "short", day: "numeric" };
     return date.toLocaleDateString(this.props.i18n._language || "en", options);
   }
-
+*/
   render() {
     let boro, block, lot, ownernames, userOwnernames, takeActionURL;
     if (this.props.addr) {
@@ -149,19 +149,35 @@ class DetailViewWithoutI18n extends Component {
                           <b>
                             <Trans>Last registered:</Trans>
                           </b>{" "}
-                          {this.formatDate(this.props.addr.lastregistrationdate)}
+                          {Helpers.formatDate(this.props.addr.lastregistrationdate, {
+                            year: "numeric",
+                            month: "short",
+                            day: "numeric",
+                          })}
                           {this.state.todaysDate > new Date(this.props.addr.registrationenddate) ? (
                             <span className="text-danger">
                               {" "}
                               <Trans>
-                                (expired {this.formatDate(this.props.addr.registrationenddate)})
+                                (expired{" "}
+                                {Helpers.formatDate(this.props.addr.registrationenddate, {
+                                  year: "numeric",
+                                  month: "short",
+                                  day: "numeric",
+                                })}
+                                )
                               </Trans>
                             </span>
                           ) : (
                             <span>
                               {" "}
                               <Trans>
-                                (expires {this.formatDate(this.props.addr.registrationenddate)})
+                                (expires{" "}
+                                {Helpers.formatDate(this.props.addr.registrationenddate, {
+                                  year: "numeric",
+                                  month: "short",
+                                  day: "numeric",
+                                })}
+                                )
                               </Trans>
                             </span>
                           )}
@@ -174,7 +190,11 @@ class DetailViewWithoutI18n extends Component {
                                 <Trans>Last sold:</Trans>
                               </b>{" "}
                               <>
-                                {this.formatDate(this.props.addr.lastsaledate)}{" "}
+                                {Helpers.formatDate(this.props.addr.lastsaledate, {
+                                  year: "numeric",
+                                  month: "short",
+                                  day: "numeric",
+                                })}{" "}
                                 <Trans>
                                   for ${formatPrice.format(this.props.addr.lastsaleamount)}
                                 </Trans>

@@ -154,9 +154,8 @@ export default {
       .join(" ");
   },
 
-  formatDateForTimeline(dateString: string, locale?: SupportedLocale): string {
+  formatDate(dateString: string, options: object, locale?: SupportedLocale): string {
     var date = new Date(dateString);
-    var options = { year: "numeric", month: "long" };
     return this.capitalize(date.toLocaleDateString(locale || "en", options));
   },
 
