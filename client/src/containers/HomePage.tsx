@@ -75,9 +75,9 @@ class HomePage extends Component<HomePageProps, State> {
       searchAddress: makeEmptySearchAddress(),
       results: null,
       sampleURLs: [
-        "/address/BROOKLYN/89/HICKS%20STREET",
-        "/address/QUEENS/4125/CASE%20STREET",
-        "/address/BROOKLYN/196/RALPH%20AVENUE",
+        encodeURI(createRouteForAddressPage("BROOKLYN", "HICKS STREET", "89")),
+        encodeURI(createRouteForAddressPage("QUEENS", "CASE STREET", "4125")),
+        encodeURI(createRouteForAddressPage("BROOKLYN", "RALPH AVENUE", "196")),
       ],
     };
   }

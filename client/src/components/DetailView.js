@@ -14,6 +14,7 @@ import { isPartOfGroupSale } from "./PropertiesList";
 import { Link } from "react-router-dom";
 import { LocaleLink } from "../i18n";
 import BuildingStatsTable from "./BuildingStatsTable";
+import { createWhoOwnsWhatRoutePaths } from "../routes";
 
 class DetailViewWithoutI18n extends Component {
   constructor(props) {
@@ -349,7 +350,10 @@ class DetailViewWithoutI18n extends Component {
                 <Trans render="p">
                   We compare your search address with a database of over 200k buildings to identify
                   a landlord or management company's portfolio. To learn more, check out{" "}
-                  <LocaleLink to="/how-it-works">our methodology</LocaleLink>.
+                  <LocaleLink to={createWhoOwnsWhatRoutePaths().methodology}>
+                    our methodology
+                  </LocaleLink>
+                  .
                 </Trans>
                 <table className="DetailView__compareTable">
                   <thead>

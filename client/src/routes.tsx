@@ -18,7 +18,7 @@ const addressPageRouteWithParams = createRouteForAddressPage(
   ":housenumber"
 );
 
-const createWhoOwnsWhatRoutePaths = (prefix?: string) => {
+export const createWhoOwnsWhatRoutePaths = (prefix?: string) => {
   const pathPrefix = prefix || "";
   return {
     home: `${pathPrefix}/`,

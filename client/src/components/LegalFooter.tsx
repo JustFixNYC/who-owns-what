@@ -3,9 +3,11 @@ import { LocaleNavLink as NavLink } from "../i18n";
 
 import "styles/LegalFooter.css";
 import { Trans } from "@lingui/macro";
+import { createWhoOwnsWhatRoutePaths } from "../routes";
 
 class LegalFooter extends Component {
   render() {
+    const paths = createWhoOwnsWhatRoutePaths();
     return (
       <div className="Footer LegalFooter container">
         <div className="columns">
@@ -37,14 +39,14 @@ class LegalFooter extends Component {
                 >
                   <Trans>Donate</Trans>
                 </a>
-                <NavLink to="/terms-of-use">
+                <NavLink to={paths.termsOfUse}>
                   <Trans>Terms of use</Trans>
                 </NavLink>
-                <NavLink to="/privacy-policy">
+                <NavLink to={paths.privacyPolicy}>
                   <Trans>Privacy policy</Trans>
                 </NavLink>
                 <br className="hide-md" />
-                <NavLink to="/how-it-works">
+                <NavLink to={paths.methodology}>
                   <Trans>Methodology</Trans>
                 </NavLink>
                 <a

@@ -10,7 +10,7 @@ import ScrollToTop from "components/ScrollToTop";
 import Modal from "components/Modal";
 import SocialShare from "components/SocialShare";
 import { withI18n } from "@lingui/react";
-import { WhoOwnsWhatRoutes } from "../routes";
+import { WhoOwnsWhatRoutes, createWhoOwnsWhatRoutePaths } from "../routes";
 
 const HomeLink = withI18n()((props) => {
   const { i18n } = props;
@@ -39,6 +39,7 @@ export default class App extends Component {
 
   render() {
     const isDemoSite = process.env.REACT_APP_DEMO_SITE === "1";
+    const paths = createWhoOwnsWhatRoutePaths();
     return (
       <Router>
         <I18n>
@@ -58,13 +59,13 @@ export default class App extends Component {
                   </span>
                 )}
                 <nav className="inline">
-                  <LocaleNavLink exact to="/">
+                  <LocaleNavLink exact to={paths.home}>
                     <Trans>Home</Trans>
                   </LocaleNavLink>
-                  <LocaleNavLink to="/about">
+                  <LocaleNavLink to={paths.about}>
                     <Trans>About</Trans>
                   </LocaleNavLink>
-                  <LocaleNavLink to="/how-to-use">
+                  <LocaleNavLink to={paths.howToUse}>
                     <Trans>How to use</Trans>
                   </LocaleNavLink>
                   <a href="https://www.justfix.nyc/donate">
