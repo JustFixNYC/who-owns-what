@@ -9,6 +9,7 @@ import { t, Trans } from "@lingui/macro";
 import { withI18n } from "@lingui/react";
 import helpers, { MaybeStringyNumber } from "../util/helpers";
 import { FB_APP_ID } from "./Page";
+import { Borough } from "./APIDataTypes";
 
 const SocialShareWithoutI18n: React.FC<{
   i18n: I18n;
@@ -89,7 +90,7 @@ export default SocialShare;
 const SocialSharePortfolioWithoutI18n: React.FC<{
   i18n: I18n;
   location?: string;
-  addr: { boro: any; housenumber: any; streetname: any };
+  addr: { boro: Borough; housenumber: string | null; streetname: string };
   buildings: MaybeStringyNumber;
 }> = ({ i18n, location, addr, buildings }) => {
   const buildingCount = helpers.coerceToInt(buildings, 0);
@@ -98,9 +99,11 @@ const SocialSharePortfolioWithoutI18n: React.FC<{
       i18n={i18n}
       location={location}
       url={encodeURI(
-        `https://whoownswhat.justfix.nyc/address/${addr.boro}/${addr.housenumber}/${
-          addr.streetname
-        }${location === "summary-tab" ? "/summary" : ""}`
+        `https://whoownswhat.justfix.nyc${createRouteForAddressPage(
+          addr.boro,
+          addr.streetname,
+          addr.housenumber
+        )}${location === "summary-tab" ? "/summary" : ""}`
       ).replace(" ", "%20")} // Support for Android
       twitterMessage={i18n._(
         t`The ${buildingCount} buildings that my landlord "owns" 👀... #WhoOwnsWhat @JustFixNYC`
