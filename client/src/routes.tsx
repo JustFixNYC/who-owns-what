@@ -13,16 +13,17 @@ import { SearchAddress } from "./components/AddressSearch";
 type AddressPageUrlParams = Pick<SearchAddress, "boro" | "housenumber" | "streetname">;
 
 /**
- * This generates an encoded route path for an Address Page from an object
- * of URL param inputs. Note that since `encodeURIComponent` has some issues encoding whitespaces
+ * Since `encodeURIComponent` has some issues encoding whitespaces
  * on Android devices, we add a simple string replace here as a fail-safe.
  */
-export const createRouteForAddressPage = (params: AddressPageUrlParams) =>
-  `/address/${encodeURIComponent(params.boro)}/${encodeURIComponent(
-    params.housenumber || " "
-  )}/${encodeURIComponent(params.streetname)}`.replace(" ", "%20"); // Support for Android;
+const encodeUrlParam = (param: string) => encodeURIComponent(param.trim()).replace(" ", "%20");
 
-const addressPageRouteWithPlaceholders = "/address/:boro/:streetname/:housenumber";
+export const createRouteForAddressPage = (params: AddressPageUrlParams) =>
+  `/address/${encodeUrlParam(params.boro)}/${encodeUrlParam(
+    params.housenumber || " "
+  )}/${encodeUrlParam(params.streetname)}`;
+
+const addressPageRouteWithPlaceholders = "/address/:boro/:housenumber/:streetname";
 
 export const createWhoOwnsWhatRoutePaths = (prefix?: string) => {
   const pathPrefix = prefix || "";
