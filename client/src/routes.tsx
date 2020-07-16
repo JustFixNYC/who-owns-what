@@ -12,16 +12,20 @@ import { SearchAddress } from "./components/AddressSearch";
 
 type AddressPageUrlParams = Pick<SearchAddress, "boro" | "housenumber" | "streetname">;
 
-/**
- * Since `encodeURIComponent` has some issues encoding whitespaces
- * on Android devices, we add a simple string replace here as a fail-safe.
- */
-const encodeUrlParam = (param: string) => encodeURIComponent(param.trim()).replace(" ", "%20");
+export const createRouteForAddressPage = (params: AddressPageUrlParams) => {
+  let route = `/address/${encodeURIComponent(params.boro)}/${encodeURIComponent(
+    params.housenumber ? params.housenumber : " "
+  )}/${encodeURIComponent(params.streetname)}`;
 
-export const createRouteForAddressPage = (params: AddressPageUrlParams) =>
-  `/address/${encodeUrlParam(params.boro)}/${encodeUrlParam(
-    params.housenumber || " "
-  )}/${encodeUrlParam(params.streetname)}`;
+  if (route.includes(" ")) {
+    window.Rollbar.error(
+      "An Address Page URL was not encoded properly! There's a space in the URL."
+    );
+    route = route.replace(" ", "%20");
+  }
+
+  return route;
+};
 
 const addressPageRouteWithPlaceholders = "/address/:boro/:housenumber/:streetname";
 
