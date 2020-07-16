@@ -13,7 +13,10 @@ import helpers from "../util/helpers";
 import { StringifyListWithConjunction } from "./StringifyList";
 import { SocialSharePortfolio } from "./SocialShare";
 
-// Data updated 6/6/19
+const generateLinkToDataRequestForm = (fullAddress) =>
+  `https://docs.google.com/forms/d/e/1FAIpQLSfHdokAh4O-vB6jO8Ym0Wv_lL7cVUxsWvxw5rjZ9Ogcht7HxA/viewform?usp=pp_url&entry.1164013846=${encodeURIComponent(
+    fullAddress
+  )}`;
 
 export default class PropertiesSummary extends Component {
   constructor(props) {
@@ -138,8 +141,8 @@ export default class PropertiesSummary extends Component {
                       onClick={() => {
                         window.gtag("event", "data-request");
                       }}
-                      href={encodeURI(
-                        `https://docs.google.com/forms/d/e/1FAIpQLSfHdokAh4O-vB6jO8Ym0Wv_lL7cVUxsWvxw5rjZ9Ogcht7HxA/viewform?usp=pp_url&entry.1164013846=${this.props.userAddr.housenumber}+${this.props.userAddr.streetname},+${this.props.userAddr.boro}`
+                      href={generateLinkToDataRequestForm(
+                        `${this.props.userAddr.housenumber} ${this.props.userAddr.streetname}, ${this.props.userAddr.boro}`
                       )}
                       target="_blank"
                       rel="noopener noreferrer"
