@@ -148,11 +148,7 @@ class HomePage extends Component<HomePageProps, State> {
         <Redirect
           push
           to={{
-            pathname: createRouteForAddressPage({
-              boro: this.state.searchAddress.boro,
-              streetname: this.state.searchAddress.streetname,
-              housenumber: this.state.searchAddress.housenumber,
-            }),
+            pathname: createRouteForAddressPage(this.state.searchAddress),
             state: { results },
           }}
         />

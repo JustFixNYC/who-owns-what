@@ -159,11 +159,7 @@ export default class BBLPage extends Component<BBLPageProps, State> {
       return (
         <Redirect
           to={{
-            pathname: createRouteForAddressPage({
-              boro: addressForURL.boro,
-              streetname: addressForURL.streetname,
-              housenumber: addressForURL.housenumber,
-            }),
+            pathname: createRouteForAddressPage(addressForURL),
             state: { results },
           }}
         />

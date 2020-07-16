@@ -232,7 +232,7 @@ export default class NotRegisteredPage extends Component {
                     </nobr>
                   </span>
                 ) : (
-                  <span></span>
+                  <span />
                 )}
               </div>
               <br />
@@ -292,11 +292,7 @@ export default class NotRegisteredPage extends Component {
                   location="nycha-page"
                   url={
                     usersInputAddress &&
-                    `${getSiteOrigin()}${createRouteForAddressPage({
-                      boro: usersInputAddress.boro,
-                      streetname: usersInputAddress.streetname,
-                      housenumber: usersInputAddress.housenumber,
-                    })}`
+                    `${getSiteOrigin()}${createRouteForAddressPage(usersInputAddress)}`
                   }
                 />
               </div>

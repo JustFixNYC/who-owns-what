@@ -313,11 +313,7 @@ class NychaPageWithoutI18n extends Component {
                   location="nycha-page"
                   url={
                     usersInputAddress &&
-                    `${getSiteOrigin()}${createRouteForAddressPage({
-                      boro: usersInputAddress.boro,
-                      streetname: usersInputAddress.streetname,
-                      housenumber: usersInputAddress.housenumber,
-                    })}`
+                    `${getSiteOrigin()}${createRouteForAddressPage(usersInputAddress)}`
                   }
                 />
               </div>
