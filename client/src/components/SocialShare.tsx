@@ -30,7 +30,7 @@ const SocialShareWithoutI18n: React.FC<{
         className="btn btn-steps"
         sharer={true}
         windowOptions={["width=400", "height=200"]}
-        url={props.url || "https://whoownswhat.justfix.nyc/"}
+        url={props.url || getSiteOrigin()}
         appId={FB_APP_ID}
       >
         <img src={fbIcon} className="icon mx-1" alt="Facebook" />
@@ -42,7 +42,7 @@ const SocialShareWithoutI18n: React.FC<{
         }}
         className="btn btn-steps"
         windowOptions={["width=400", "height=200"]}
-        url={props.url || "https://whoownswhat.justfix.nyc/"}
+        url={props.url || getSiteOrigin()}
         message={props.twitterMessage || `#WhoOwnsWhat @JustFixNYC`}
       >
         <img src={twitterIcon} className="icon mx-1" alt="Twitter" />
@@ -53,7 +53,7 @@ const SocialShareWithoutI18n: React.FC<{
           window.gtag("event", "email-" + props.location);
         }}
         className="btn btn-steps"
-        url={props.url || "https://whoownswhat.justfix.nyc/"}
+        url={props.url || getSiteOrigin()}
         target="_blank"
         message={
           props.emailMessage || i18n._(t`New JustFix.nyc tool helps research on NYC landlords`)
@@ -72,7 +72,7 @@ const SocialShareWithoutI18n: React.FC<{
             "sms: " +
             (isAndroid ? "?" : "&") +
             "body=" +
-            encodeURIComponent(props.url || "https://whoownswhat.justfix.nyc/")
+            encodeURIComponent(props.url || getSiteOrigin())
           }
           target="_blank"
           rel="noopener noreferrer"
