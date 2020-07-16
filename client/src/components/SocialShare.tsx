@@ -99,13 +99,11 @@ const SocialSharePortfolioWithoutI18n: React.FC<{
     <SocialShareWithoutI18n
       i18n={i18n}
       location={location}
-      url={encodeURI(
-        `${getSiteOrigin()}${createRouteForAddressPage({
-          boro: addr.boro,
-          streetname: addr.streetname,
-          housenumber: addr.housenumber,
-        })}${location === "summary-tab" ? "/summary" : ""}`
-      )}
+      url={`${getSiteOrigin()}${createRouteForAddressPage({
+        boro: addr.boro,
+        streetname: addr.streetname,
+        housenumber: addr.housenumber,
+      })}${location === "summary-tab" ? "/summary" : ""}`}
       twitterMessage={i18n._(
         t`The ${buildingCount} buildings that my landlord "owns" 👀... #WhoOwnsWhat @JustFixNYC`
       )}

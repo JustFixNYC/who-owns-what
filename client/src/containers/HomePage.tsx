@@ -88,7 +88,7 @@ class HomePage extends Component<HomePageProps, State> {
         createRouteForAddressPage({
           boro: "BROOKLYN",
           housenumber: "196",
-          streetname: " RALPH AVENUE",
+          streetname: "RALPH AVENUE",
         }),
       ],
     };

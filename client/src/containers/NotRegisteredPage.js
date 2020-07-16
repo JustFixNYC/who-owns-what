@@ -292,12 +292,12 @@ export default class NotRegisteredPage extends Component {
                   location="nycha-page"
                   url={
                     usersInputAddress &&
-                    `${getSiteOrigin}${createRouteForAddressPage({
+                    `${getSiteOrigin()}${createRouteForAddressPage({
                       boro: usersInputAddress.boro,
                       streetname: usersInputAddress.streetname,
                       housenumber: usersInputAddress.housenumber,
                     })}`
-                  } // Support for Android
+                  }
                 />
               </div>
 
