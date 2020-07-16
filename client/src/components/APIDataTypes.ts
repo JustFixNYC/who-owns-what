@@ -50,7 +50,7 @@ type AddressRecord = {
 
 export type SearchResults = {
   addrs: AddressRecord[];
-  geosearch: {
+  geosearch?: {
     geosupportReturnCode: string;
     bbl: string;
   };

@@ -1,23 +1,16 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router } from "react-router-dom";
 import { Trans, t } from "@lingui/macro";
 
 import "styles/App.css";
 
 // import top-level containers (i.e. pages)
 import { I18n, LocaleNavLink, LocaleLink as Link, LocaleSwitcher } from "../i18n";
-import HomePage from "HomePage";
-import AddressPage from "AddressPage";
-import BBLPage from "BBLPage";
-import AboutPage from "AboutPage";
-import HowToUsePage from "HowToUsePage";
-import TermsOfUsePage from "TermsOfUsePage";
-import PrivacyPolicyPage from "PrivacyPolicyPage";
 import ScrollToTop from "components/ScrollToTop";
 import Modal from "components/Modal";
 import SocialShare from "components/SocialShare";
-import MethodologyPage from "./Methodology";
 import { withI18n } from "@lingui/react";
+import { WhoOwnsWhatRoutes, createWhoOwnsWhatRoutePaths } from "../routes";
 
 const HomeLink = withI18n()((props) => {
   const { i18n } = props;
@@ -46,6 +39,7 @@ export default class App extends Component {
 
   render() {
     const isDemoSite = process.env.REACT_APP_DEMO_SITE === "1";
+    const paths = createWhoOwnsWhatRoutePaths();
     return (
       <Router>
         <I18n>
@@ -65,13 +59,13 @@ export default class App extends Component {
                   </span>
                 )}
                 <nav className="inline">
-                  <LocaleNavLink exact to="/">
+                  <LocaleNavLink exact to={paths.home}>
                     <Trans>Home</Trans>
                   </LocaleNavLink>
-                  <LocaleNavLink to="/about">
+                  <LocaleNavLink to={paths.about}>
                     <Trans>About</Trans>
                   </LocaleNavLink>
-                  <LocaleNavLink to="/how-to-use">
+                  <LocaleNavLink to={paths.howToUse}>
                     <Trans>How to use</Trans>
                   </LocaleNavLink>
                   <a href="https://www.justfix.nyc/donate">
@@ -94,33 +88,7 @@ export default class App extends Component {
                 </Modal>
               </div>
               <div className="App__body">
-                <Switch>
-                  <Route exact path="/:locale/" component={HomePage} />
-                  <Route
-                    path="/:locale/address/:boro/:housenumber/:streetname"
-                    render={(props) => <AddressPage currentTab={0} {...props} />}
-                    exact
-                  />
-                  <Route
-                    path="/:locale/address/:boro/:housenumber/:streetname/timeline"
-                    render={(props) => <AddressPage currentTab={1} {...props} />}
-                  />
-                  <Route
-                    path="/:locale/address/:boro/:housenumber/:streetname/portfolio"
-                    render={(props) => <AddressPage currentTab={2} {...props} />}
-                  />
-                  <Route
-                    path="/:locale/address/:boro/:housenumber/:streetname/summary"
-                    render={(props) => <AddressPage currentTab={3} {...props} />}
-                  />
-                  <Route path="/:locale/bbl/:boro/:block/:lot" component={BBLPage} />
-                  <Route path="/:locale/bbl/:bbl" component={BBLPage} />
-                  <Route path="/:locale/about" component={AboutPage} />
-                  <Route path="/:locale/how-to-use" component={HowToUsePage} />
-                  <Route path="/:locale/how-it-works" component={MethodologyPage} />
-                  <Route path="/:locale/terms-of-use" component={TermsOfUsePage} />
-                  <Route path="/:locale/privacy-policy" component={PrivacyPolicyPage} />
-                </Switch>
+                <WhoOwnsWhatRoutes />
               </div>
             </div>
           </ScrollToTop>
