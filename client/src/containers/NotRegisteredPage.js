@@ -8,7 +8,7 @@ import SocialShare from "components/SocialShare";
 
 import "styles/NotRegisteredPage.css";
 import { Trans } from "@lingui/macro";
-import { createRouteForAddressPage } from "../routes";
+import { createRouteForAddressPage, getSiteOrigin } from "../routes";
 
 export default class NotRegisteredPage extends Component {
   constructor(props) {
@@ -292,13 +292,11 @@ export default class NotRegisteredPage extends Component {
                   location="nycha-page"
                   url={
                     usersInputAddress &&
-                    encodeURI(
-                      `https://whoownswhat.justfix.nyc${createRouteForAddressPage(
-                        usersInputAddress.boro,
-                        usersInputAddress.streetname,
-                        usersInputAddress.housenumber
-                      )}`
-                    ).replace(" ", "%20")
+                    `${getSiteOrigin}${createRouteForAddressPage({
+                      boro: usersInputAddress.boro,
+                      streetname: usersInputAddress.streetname,
+                      housenumber: usersInputAddress.housenumber,
+                    })}`
                   } // Support for Android
                 />
               </div>

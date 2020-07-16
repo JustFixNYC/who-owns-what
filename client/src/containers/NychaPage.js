@@ -9,7 +9,7 @@ import SocialShare from "components/SocialShare";
 import "styles/NotRegisteredPage.css";
 import { Trans, t } from "@lingui/macro";
 import { withI18n } from "@lingui/react";
-import { createRouteForAddressPage } from "../routes";
+import { createRouteForAddressPage, getSiteOrigin } from "../routes";
 
 class NychaPageWithoutI18n extends Component {
   constructor(props) {
@@ -313,14 +313,12 @@ class NychaPageWithoutI18n extends Component {
                   location="nycha-page"
                   url={
                     usersInputAddress &&
-                    encodeURI(
-                      `https://whoownswhat.justfix.nyc${createRouteForAddressPage(
-                        usersInputAddress.boro,
-                        usersInputAddress.streetname,
-                        usersInputAddress.housenumber
-                      )}`
-                    ).replace(" ", "%20")
-                  } // Support for Android
+                    `${getSiteOrigin()}${createRouteForAddressPage({
+                      boro: usersInputAddress.boro,
+                      streetname: usersInputAddress.streetname,
+                      housenumber: usersInputAddress.housenumber,
+                    })}`
+                  }
                 />
               </div>
 
