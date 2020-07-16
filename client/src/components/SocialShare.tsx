@@ -10,7 +10,7 @@ import { withI18n } from "@lingui/react";
 import helpers, { MaybeStringyNumber } from "../util/helpers";
 import { FB_APP_ID } from "./Page";
 import { Borough } from "./APIDataTypes";
-import { createRouteForAddressPage } from "../routes";
+import { createRouteForAddressPage, getSiteOrigin } from "../routes";
 
 const SocialShareWithoutI18n: React.FC<{
   i18n: I18n;
@@ -100,12 +100,12 @@ const SocialSharePortfolioWithoutI18n: React.FC<{
       i18n={i18n}
       location={location}
       url={encodeURI(
-        `https://whoownswhat.justfix.nyc${createRouteForAddressPage(
-          addr.boro,
-          addr.streetname,
-          addr.housenumber
-        )}${location === "summary-tab" ? "/summary" : ""}`
-      ).replace(" ", "%20")} // Support for Android
+        `${getSiteOrigin()}${createRouteForAddressPage({
+          boro: addr.boro,
+          streetname: addr.streetname,
+          housenumber: addr.housenumber,
+        })}${location === "summary-tab" ? "/summary" : ""}`
+      )}
       twitterMessage={i18n._(
         t`The ${buildingCount} buildings that my landlord "owns" 👀... #WhoOwnsWhat @JustFixNYC`
       )}

@@ -75,9 +75,21 @@ class HomePage extends Component<HomePageProps, State> {
       searchAddress: makeEmptySearchAddress(),
       results: null,
       sampleURLs: [
-        encodeURI(createRouteForAddressPage("BROOKLYN", "HICKS STREET", "89")),
-        encodeURI(createRouteForAddressPage("QUEENS", "CASE STREET", "4125")),
-        encodeURI(createRouteForAddressPage("BROOKLYN", "RALPH AVENUE", "196")),
+        createRouteForAddressPage({
+          boro: "BROOKLYN",
+          housenumber: "89",
+          streetname: "HICKS STREET",
+        }),
+        createRouteForAddressPage({
+          boro: "QUEENS",
+          housenumber: "4125",
+          streetname: "CASE STREET",
+        }),
+        createRouteForAddressPage({
+          boro: "BROOKLYN",
+          housenumber: "196",
+          streetname: " RALPH AVENUE",
+        }),
       ],
     };
   }
@@ -136,11 +148,11 @@ class HomePage extends Component<HomePageProps, State> {
         <Redirect
           push
           to={{
-            pathname: createRouteForAddressPage(
-              this.state.searchAddress.boro,
-              this.state.searchAddress.streetname,
-              this.state.searchAddress.housenumber
-            ),
+            pathname: createRouteForAddressPage({
+              boro: this.state.searchAddress.boro,
+              streetname: this.state.searchAddress.streetname,
+              housenumber: this.state.searchAddress.housenumber,
+            }),
             state: { results },
           }}
         />

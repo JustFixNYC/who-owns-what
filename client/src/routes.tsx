@@ -8,25 +8,41 @@ import HowToUsePage from "./containers/HowToUsePage";
 import MethodologyPage from "./containers/Methodology";
 import TermsOfUsePage from "./containers/TermsOfUsePage";
 import PrivacyPolicyPage from "./containers/PrivacyPolicyPage";
+import { SearchAddress } from "./components/AddressSearch";
 
-export const createRouteForAddressPage = (boro: string, streetname: string, housenumber?: string) =>
-  `/address/${boro}/${housenumber || " "}/${streetname}`;
+type AddressPageUrlParams = Pick<SearchAddress, "boro" | "housenumber" | "streetname">;
 
-const addressPageRouteWithParams = createRouteForAddressPage(
-  ":boro",
-  ":streetname",
-  ":housenumber"
-);
+/**
+ * This generates an encoded route path for an Address Page from an object
+ * of URL param inputs. Note that since `encodeURIComponent` has some issues encoding whitespaces
+ * on Android devices, we add a simple string replace here as a fail-safe.
+ */
+export const createRouteForAddressPage = (params: AddressPageUrlParams) =>
+  `/address/${encodeURIComponent(params.boro)}/${encodeURIComponent(
+    params.housenumber || " "
+  )}/${encodeURIComponent(params.streetname)}`.replace(" ", "%20"); // Support for Android;
+
+const addressPageRouteWithPlaceholders = "/address/:boro/:streetname/:housenumber";
 
 export const createWhoOwnsWhatRoutePaths = (prefix?: string) => {
   const pathPrefix = prefix || "";
   return {
     home: `${pathPrefix}/`,
-    addressPageOverview: `${pathPrefix}${addressPageRouteWithParams}`,
-    addressPageTimeline: `${pathPrefix}${addressPageRouteWithParams}/timeline`,
-    addressPagePortfolio: `${pathPrefix}${addressPageRouteWithParams}/portfolio`,
-    addressPageSummary: `${pathPrefix}${addressPageRouteWithParams}/summary`,
+    addressPageOverview: `${pathPrefix}${addressPageRouteWithPlaceholders}`,
+    addressPageTimeline: `${pathPrefix}${addressPageRouteWithPlaceholders}/timeline`,
+    addressPagePortfolio: `${pathPrefix}${addressPageRouteWithPlaceholders}/portfolio`,
+    addressPageSummary: `${pathPrefix}${addressPageRouteWithPlaceholders}/summary`,
+    /** Note: this path doesn't correspond to a stable page on the site. It simply provides an entry point that
+     * immediately redirects to an addressPageOverview. This path is helpful for folks who, say, have a list of
+     * boro, block, lot values in a spreadsheet and want to easily generate direct links to WhoOwnsWhat.
+     * See `BBLPage.tsx` for more details.
+     */
     bbl: `${pathPrefix}/bbl/:boro/:block/:lot`,
+    /** Note: this path doesn't correspond to a stable page on the site. It simply provides an entry point that
+     * immediately redirects to an addressPageOverview. This path is helpful for folks who, say, have a list of
+     * bbl values in a spreadsheet and want to easily generate direct links to WhoOwnsWhat.
+     * See `BBLPage.tsx` for more details.
+     */
     bblWithFullBblInUrl: `${pathPrefix}/bbl/:bbl`,
     about: `${pathPrefix}/about`,
     howToUse: `${pathPrefix}/how-to-use`,
@@ -36,6 +52,9 @@ export const createWhoOwnsWhatRoutePaths = (prefix?: string) => {
   };
 };
 
+/**
+ * In other words, get the current site url without its url paths, i.e. `https://whoownswhat.justfix.nyc/`
+ */
 export const getSiteOrigin = () => `${window.location.protocol}//${window.location.host}`;
 
 export const WhoOwnsWhatRoutes = () => {
