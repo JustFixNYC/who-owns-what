@@ -48,7 +48,7 @@ const Page = withI18n()((props: PageProps & withI18nProps) => {
     }
   }, []);
 
-  window.boop(); // TODO: THIS IS TEMPORARY CODE TO ENSURE CIRCLECI BARFS.
+  window.location.href = 1; // TODO: THIS IS TEMPORARY CODE TO ENSURE CIRCLECI BARFS.
   return (
     <>
       <Helmet
