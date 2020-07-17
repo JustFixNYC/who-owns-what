@@ -29,13 +29,13 @@ def make_json_response(obj: Dict[str, Any]) -> JsonResponse:
     return res
 
 
-def call_db_func(name: str, params: List[Any]) -> Any:
+def call_db_func(name: str, params: List[Any]) -> List[Dict[str, Any]]:
     with connections['wow'].cursor() as cursor:
         cursor.callproc(name, params)
         return dictfetchall(cursor)
 
 
-def exec_db_query(sql_file: Path, params: Dict[str, Any]) -> Any:
+def exec_db_query(sql_file: Path, params: Dict[str, Any]) -> List[Dict[str, Any]]:
     sql = sql_file.read_text()
     with connections['wow'].cursor() as cursor:
         cursor.execute(sql, params)
@@ -83,14 +83,16 @@ def address_aggregate(request):
     # TODO: validate bbl, return 400 if it's bad.
 
     result = call_db_func('get_agg_info_from_bbl', [bbl])
-
-    return make_json_response({
-        'result': result,
-    })
+    return make_json_response({ 'result': result })
 
 
 def address_buildinginfo(request):
-    raise NotImplementedError()
+    bbl = request.GET.get('bbl', '')
+
+    # TODO: validate bbl, return 400 if it's bad.
+
+    result = exec_db_query(SQL_DIR / 'address_buildinginfo.sql', { 'bbl': bbl })
+    return make_json_response({ 'result': result })
 
 
 def address_indicatorhistory(request):
@@ -98,13 +100,8 @@ def address_indicatorhistory(request):
 
     # TODO: validate bbl, return 400 if it's bad.
 
-    result = exec_db_query(SQL_DIR / 'address_indicatorhistory.sql', {
-        'bbl': bbl,
-    })
-
-    return make_json_response({
-        'result': result,
-    })
+    result = exec_db_query(SQL_DIR / 'address_indicatorhistory.sql', { 'bbl': bbl })
+    return make_json_response({ 'result': result })
 
 
 def address_export(request):
