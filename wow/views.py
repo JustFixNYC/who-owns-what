@@ -1,6 +1,12 @@
 from typing import Dict, Any, List
+from pathlib import Path
 from django.http import HttpResponse, JsonResponse
 from django.db import connections
+
+
+MY_DIR = Path(__file__).parent.resolve()
+
+SQL_DIR = MY_DIR / 'sql'
 
 
 def hello(request):
@@ -26,6 +32,13 @@ def make_json_response(obj: Dict[str, Any]) -> JsonResponse:
 def call_db_func(name: str, params: List[Any]) -> Any:
     with connections['wow'].cursor() as cursor:
         cursor.callproc(name, params)
+        return dictfetchall(cursor)
+
+
+def exec_db_query(sql_file: Path, params: Dict[str, Any]) -> Any:
+    sql = sql_file.read_text()
+    with connections['wow'].cursor() as cursor:
+        cursor.execute(sql, params)
         return dictfetchall(cursor)
 
 
@@ -81,7 +94,17 @@ def address_buildinginfo(request):
 
 
 def address_indicatorhistory(request):
-    raise NotImplementedError()
+    bbl = request.GET.get('bbl', '')
+
+    # TODO: validate bbl, return 400 if it's bad.
+
+    result = exec_db_query(SQL_DIR / 'address_indicatorhistory.sql', {
+        'bbl': bbl,
+    })
+
+    return make_json_response({
+        'result': result,
+    })
 
 
 def address_export(request):
