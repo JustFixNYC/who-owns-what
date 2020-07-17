@@ -1,6 +1,7 @@
+import csv
 from typing import Dict, Any, List
 from pathlib import Path
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse, JsonResponse, Http404
 from django.db import connections
 
 
@@ -104,5 +105,47 @@ def address_indicatorhistory(request):
     return make_json_response({ 'result': result })
 
 
+def stringify_owners(owners: List[Dict[str, str]]) -> str:
+    return ', '.join([
+        f"{owner['value']} ({owner['title']})"
+        for owner in owners
+    ])
+
+
+def stringify_lists(d: Dict[str, Any]):
+    for key, value in d.items():
+        if isinstance(value, list):
+            d[key] = ','.join([str(v) for v in value])
+
+
 def address_export(request):
-    raise NotImplementedError()
+    # TODO: The old version of this endpoint accepted
+    # 'houseNumber', 'street', 'borough' args; we should reject those w/ 400,
+    # since it would require us to make a network request to geosearch, which
+    # we don't currently support.
+
+    bbl = request.GET.get('bbl', '')
+
+    # TODO: validate bbl, return 400 if it's bad.
+
+    addrs = call_db_func('get_assoc_addrs_from_bbl', [bbl])
+
+    if not addrs:
+        raise Http404()
+
+    first_row = addrs[0]
+
+    for addr in addrs:
+        addr['ownernames'] = stringify_owners(addr['ownernames'])
+        stringify_lists(addr)
+
+    # https://docs.djangoproject.com/en/3.0/howto/outputting-csv/
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = f'attachment; filename="wow-addresses-{bbl}.csv"'
+    response['Access-Control-Allow-Origin'] = '*'
+
+    writer = csv.DictWriter(response, list(first_row.keys()))
+    writer.writeheader()
+    writer.writerows(addrs)
+
+    return response

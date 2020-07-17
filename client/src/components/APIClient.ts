@@ -37,16 +37,17 @@ function getIndicatorHistory(bbl: string): Promise<IndicatorsHistoryResults> {
 }
 
 function getAddressExport(q: SearchAddress & WithBoroBlockLot) {
-  return fetch(
-    `/api/address/export?houseNumber=${q.housenumber}&street=${q.streetname}&borough=${q.boro}`
-  ).then(checkStatus);
+  return fetch(apiURL(`/api/address/export?bbl=${q.bbl}`)).then(checkStatus);
 }
 
 // OTHER API FUNCTIONS AND HELPERS:
 
+function apiURL(url: string): string {
+  return `${process.env.REACT_APP_API_BASE_URL || ""}${url}`;
+}
+
 function get(url: string) {
-  const absURL = `${process.env.REACT_APP_API_BASE_URL || ""}${url}`;
-  return fetch(absURL, { headers: { accept: "application/json" } })
+  return fetch(apiURL(url), { headers: { accept: "application/json" } })
     .then(checkStatus)
     .then(verifyIsJson)
     .then(parseJSON);
