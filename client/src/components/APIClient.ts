@@ -45,7 +45,7 @@ function getAddressExport(q: SearchAddress & WithBoroBlockLot) {
 // OTHER API FUNCTIONS AND HELPERS:
 
 function get(url: string) {
-  const absURL = `${process.env.REACT_APP_API_BASE_URL || ''}${url}`;
+  const absURL = `${process.env.REACT_APP_API_BASE_URL || ""}${url}`;
   return fetch(absURL, { headers: { accept: "application/json" } })
     .then(checkStatus)
     .then(verifyIsJson)
