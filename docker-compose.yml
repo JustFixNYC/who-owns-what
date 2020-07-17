@@ -24,6 +24,7 @@ services:
     links:
       - app
     environment:
+      REACT_APP_API_BASE_URL: http://localhost:8000
       YARN_CACHE_FOLDER: /var/yarn-cache
       # Enable polling, as some Docker setups don't work
       # well with mounted volumes and filesystem notifications.
