@@ -52,9 +52,9 @@ jobs:
       - run:
           name: Build client and run tests
           command: |
+            yarn prettier:check
             cd client
             yarn lingui compile
-            yarn typecheck
             # Note that CI=true in CircleCI, so this will fail if there are
             # any linter warnings.
             yarn build
