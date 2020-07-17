@@ -10,3 +10,4 @@ nycdb/
 .mypy_cache/
 docker-compose.override.yml
 __pycache__/
+yarn-error.log

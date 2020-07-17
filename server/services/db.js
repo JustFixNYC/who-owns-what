@@ -1,6 +1,5 @@
 // Set up DB instance
-const Promise = require("bluebird");
-const pgp = require("pg-promise")({ promiseLib: Promise });
+const pgp = require("pg-promise")();
 const db = pgp(process.env.DATABASE_URL);
 
 // PLUTO Building Info Query for when BBL is not found

@@ -1,7 +1,6 @@
 const db = require("../services/db"),
   csv = require("csv-express"),
   rollbar = require("rollbar");
-Promise = require("bluebird");
 
 module.exports = {
   query: (req, res) => {

@@ -1,5 +1,4 @@
-const rp = require("request-promise"),
-  Promise = require("bluebird");
+const rp = require("request-promise");
 
 const request = (type, params) => {
   const opts = {

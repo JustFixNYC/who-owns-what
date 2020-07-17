@@ -2,7 +2,6 @@ const db = require("../services/db"),
   csv = require("csv-express"),
   geo = require("../services/geoclient"),
   rollbar = require("rollbar");
-Promise = require("bluebird");
 
 const formatData = (geo) => {
   // debug
