@@ -166,6 +166,23 @@ export default {
     return this.capitalize(date.toLocaleDateString(locale || "en", options)).slice(0, 3);
   },
 
+  /** The quarter number written out as it's range of months (ex: "1" becomes "Jan - Mar")  */
+  getMonthRangeFromQuarter(quarter: "1" | "2" | "3" | "4", locale?: SupportedLocale): string {
+    const monthRange = {
+      start: (parseInt(quarter) * 3 - 2).toString().padStart(2, "0"), // i.e "01"
+      end: (parseInt(quarter) * 3).toString().padStart(2, "0"), // i.e. "03"
+    };
+
+    // Note: the year and day of each of these dates is meaningless, as we only need to extract the month
+    const startDate = `2000-${monthRange.start}-15`;
+    const endDate = `2000-${monthRange.end}-15`;
+
+    return `${this.formatMonthAbbreviationForTimeline(
+      startDate,
+      locale
+    )} - ${this.formatMonthAbbreviationForTimeline(endDate, locale)}`;
+  },
+
   formatStreetNameForHpdLink(streetName: string): string {
     var arr = streetName.split(" ");
     if (arr === []) {
