@@ -17,7 +17,11 @@ services:
     ports:
       - 3000:3000
     environment:
-      REACT_APP_API_BASE_URL: http://localhost:8000
+      - REACT_APP_API_BASE_URL=http://localhost:8000
+
+    # https://github.com/facebook/create-react-app/issues/8688#issuecomment-602110747
+    stdin_open: true
+
     command: yarn start
   db:
     image: postgres:9.6
