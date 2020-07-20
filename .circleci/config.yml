@@ -32,8 +32,6 @@ jobs:
           command: |
             . ~/venv/bin/activate
             mypy .
-            python dbtool.py builddb --use-test-data
-            python dbtool.py loadtestdata
             pytest
       - restore_cache:
           name: Restore yarn package cache
