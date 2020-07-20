@@ -3,6 +3,13 @@ import psycopg2
 
 import dbtool
 
+# Extra datasets that WoW needs to work, but which aren't
+# prerequisites for WoW's materialized views/functions.
+EXTRA_NYCDB_DATASETS = [
+    'hpd_complaints',
+    'dobjobs',
+]
+
 
 @pytest.fixture(scope='session')
 def django_db_setup(django_db_setup, django_db_blocker):
@@ -32,3 +39,7 @@ def django_db_setup(django_db_setup, django_db_blocker):
 
         if not is_already_built:
             dbtool.loadtestdata(db)
+
+            builder = dbtool.NycDbBuilder(db, is_testing=True)
+            for dataset in EXTRA_NYCDB_DATASETS:
+                builder.ensure_dataset(dataset, force_refresh=False)
