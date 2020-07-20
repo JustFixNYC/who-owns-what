@@ -25,4 +25,4 @@ COPY requirements.txt /
 
 RUN pip install -r requirements.txt
 
-ENV PATH /wow/node_modules/.bin:/wow/client/node_modules/.bin:$PATH
+ENV PATH /wow/client/node_modules/.bin:$PATH

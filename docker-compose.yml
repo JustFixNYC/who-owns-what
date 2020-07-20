@@ -1,34 +1,23 @@
 version: '2'
 services:
   app:
-    build: .
-    volumes:
-      - .:/wow:delegated
-    working_dir: /wow
+    extends:
+      file: docker-services.yml
+      service: base_app
     ports:
       - 8000:8000
     links:
       - db
     command: python manage.py runserver 0.0.0.0:8000
-    environment:
-      - PYTHONUNBUFFERED=yup
   client:
-    build: .
-    volumes:
-      - .:/wow:delegated
-      - client-node-modules:/wow/client/node_modules/
-      - yarn-cache:/var/yarn-cache/
+    extends:
+      file: docker-services.yml
+      service: base_app
     working_dir: /wow/client
     ports:
       - 3000:3000
-    links:
-      - app
     environment:
       REACT_APP_API_BASE_URL: http://localhost:8000
-      YARN_CACHE_FOLDER: /var/yarn-cache
-      # Enable polling, as some Docker setups don't work
-      # well with mounted volumes and filesystem notifications.
-      CHOKIDAR_USEPOLLING: 1
     command: yarn start
   db:
     image: postgres:9.6

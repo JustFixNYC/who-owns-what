@@ -1,0 +1,15 @@
+version: '2'
+services:
+  base_app:
+    build: .
+    volumes:
+      - .:/wow:delegated
+      - client-node-modules:/wow/client/node_modules/
+      - yarn-cache:/var/yarn-cache/
+    environment:
+      - PYTHONUNBUFFERED=yup
+      - YARN_CACHE_FOLDER=/var/yarn-cache
+      # Enable polling, as some Docker setups don't work
+      # well with mounted volumes and filesystem notifications.
+      - CHOKIDAR_USEPOLLING=1
+    working_dir: /wow
