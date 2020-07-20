@@ -19,7 +19,10 @@ import dbtool
 from .generate_factory_from_csv import unmunge_colname
 
 
-TEST_DB_URL = os.environ['DATABASE_URL'] + '_test'
+if 'TEST_DATABASE_URL' in os.environ:
+    TEST_DB_URL = os.environ['TEST_DATABASE_URL']
+else:
+    TEST_DB_URL = os.environ['DATABASE_URL'] + '_test'
 
 TEST_DB = dbtool.DbContext.from_url(TEST_DB_URL)
 
