@@ -297,17 +297,7 @@ class IndicatorsVizImplementation extends Component {
           title: function (tooltipItem) {
             if (timeSpan === "quarter") {
               const quarter = this._data.labels[tooltipItem[0].index].slice(-1);
-              const numOfLastMonthInQuarter = parseInt(quarter) * 3;
-              /** The quarter year written out as it's range of months (ex: "Jan - Mar")  ISSUE IN SAFARI & FIREFOX*/
-              const monthRange = `${Helpers.formatDate(
-                "2020/0" + (numOfLastMonthInQuarter - 2),
-                { month: "short" },
-                locale
-              ).slice(0, 3)} - ${Helpers.formatDate(
-                "2020/0" + numOfLastMonthInQuarter,
-                { month: "short" },
-                locale
-              ).slice(0, 3)}`;
+              const monthRange = Helpers.getMonthRangeFromQuarter(quarter, locale);
 
               return monthRange + " " + this._data.labels[tooltipItem[0].index].slice(0, 4);
             } else if (timeSpan === "year") {

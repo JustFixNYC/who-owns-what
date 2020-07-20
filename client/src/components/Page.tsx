@@ -3,6 +3,7 @@ import { Helmet } from "react-helmet";
 import { t } from "@lingui/macro";
 import { withI18n, withI18nProps } from "@lingui/react";
 import helpers from "../util/helpers";
+import { getSiteOrigin } from "../routes";
 
 const metadata = {
   keywords: t`Landlord, Portfolio, Tenant, Displacement, Map, JustFix, NYC, New York, Housing, Who Owns What`,
@@ -12,7 +13,7 @@ const metadata = {
 
 export const FB_APP_ID = "247990609143668";
 const TWITTER_HANDLE = "@JustFixNYC";
-const ORIGIN_URL = "https://whoownswhat.justfix.nyc";
+const ORIGIN_URL = getSiteOrigin();
 const SHARE_IMAGE_URL = "https://i.imgur.com/6WL74DZ.png";
 
 type PageProps = {
