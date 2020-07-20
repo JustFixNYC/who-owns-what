@@ -10,10 +10,6 @@ MY_DIR = Path(__file__).parent.resolve()
 SQL_DIR = MY_DIR / 'sql'
 
 
-def hello(request):
-    return HttpResponse("hello world")
-
-
 def dictfetchall(cursor):
     # https://docs.djangoproject.com/en/3.0/topics/db/sql/#executing-custom-sql-directly
     "Return all rows from a cursor as a dict"

@@ -3,12 +3,6 @@ from io import StringIO
 import pytest
 
 
-def test_hello_works(client):
-    res = client.get('/api/hello')
-    assert res.status_code == 200
-    assert res.content == b"hello world"
-
-
 class TestAddressQuery:
     def test_it_works(self, db, client):
         res = client.get('/api/address?block=01678&lot=0054&borough=3')

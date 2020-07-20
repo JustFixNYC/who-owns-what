@@ -5,7 +5,6 @@ from . import views
 app_name = 'wow'
 
 urlpatterns = [
-    path('hello', views.hello, name='hello'),
     path('address', views.address_query, name='address_query'),
     path('address/aggregate', views.address_aggregate, name='address_aggregate'),
     path('address/dap-aggregate', views.address_dap_aggregate, name='address_dap_aggregate'),
