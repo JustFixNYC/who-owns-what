@@ -35,7 +35,7 @@ const formatDate = (dateString: string, locale?: SupportedLocale) => {
   return date.toLocaleDateString(locale || "en", options);
 };
 
-const isPartOfGroupSale = (saleId: string, addrs: Addr[]) => {
+export const isPartOfGroupSale = (saleId: string, addrs: Addr[]) => {
   const addrsWithMatchingSale = addrs.filter((addr) => addr.lastsaleacrisid === saleId);
   return addrsWithMatchingSale.length > 1;
 };

@@ -2,31 +2,32 @@
   "title": "Cómo utilizar",
   "slug": "how-to-use",
   "content": {
+    "nodeType": "document",
     "data": {},
     "content": [
       {
-        "data": {},
+        "nodeType": "heading-4",
         "content": [
           {
-            "data": {},
-            "marks": [],
+            "nodeType": "text",
             "value": "Las Cosas Más Importantes Que Puedes Hacer con Quién Es El Dueño",
-            "nodeType": "text"
+            "marks": [],
+            "data": {}
           }
         ],
-        "nodeType": "heading-4"
+        "data": {}
       },
       {
-        "data": {},
+        "nodeType": "paragraph",
         "content": [
           {
-            "data": {},
-            "marks": [],
+            "nodeType": "text",
             "value": "",
-            "nodeType": "text"
+            "marks": [],
+            "data": {}
           }
         ],
-        "nodeType": "paragraph"
+        "data": {}
       },
       {
         "nodeType": "paragraph",
@@ -68,7 +69,7 @@
               "id": "2Ivr4g7lSDnFz4D9lCfEUE",
               "type": "Asset",
               "createdAt": "2020-01-16T20:01:10.593Z",
-              "updatedAt": "2020-05-18T15:18:54.029Z",
+              "updatedAt": "2020-06-25T16:01:03.623Z",
               "environment": {
                 "sys": {
                   "id": "master",
@@ -76,21 +77,22 @@
                   "linkType": "Environment"
                 }
               },
-              "revision": 6,
+              "revision": 7,
               "locale": "es"
             },
             "fields": {
-              "title": "WOW How to Use Visual 1.png?h=250",
+              "title": "WOW Cómo se Usa 1",
+              "description": "WOW Cómo se Usa 1",
               "file": {
-                "url": "//images.ctfassets.net/lhtzm8rjj8y4/2Ivr4g7lSDnFz4D9lCfEUE/5bc3434e70c0eceeb2ec2b22897a70c5/WOW_How_to_Use_Visual_1.png",
+                "url": "//images.ctfassets.net/lhtzm8rjj8y4/2Ivr4g7lSDnFz4D9lCfEUE/7c9214f431d3debf34ff133234cdb99f/WOW_Spanish_How_to_use_01.png",
                 "details": {
-                  "size": 569902,
+                  "size": 605702,
                   "image": {
                     "width": 1300,
-                    "height": 904
+                    "height": 901
                   }
                 },
-                "fileName": "WOW How to Use Visual 1.png",
+                "fileName": "WOW Spanish How to use 01.png",
                 "contentType": "image/png"
               }
             }
@@ -102,7 +104,6 @@
         "content": [
           {
             "nodeType": "list-item",
-            "data": {},
             "content": [
               {
                 "nodeType": "paragraph",
@@ -145,7 +146,6 @@
                 "content": [
                   {
                     "nodeType": "list-item",
-                    "data": {},
                     "content": [
                       {
                         "nodeType": "paragraph",
@@ -159,7 +159,8 @@
                         ],
                         "data": {}
                       }
-                    ]
+                    ],
+                    "data": {}
                   },
                   {
                     "nodeType": "list-item",
@@ -194,7 +195,8 @@
                 ],
                 "data": {}
               }
-            ]
+            ],
+            "data": {}
           },
           {
             "nodeType": "list-item",
@@ -266,9 +268,9 @@
         "content": [
           {
             "nodeType": "text",
-            "data": {},
             "value": "",
-            "marks": []
+            "marks": [],
+            "data": {}
           }
         ],
         "data": {}
@@ -278,9 +280,9 @@
         "content": [
           {
             "nodeType": "text",
-            "data": {},
             "value": "Comprueba a quién más puede estar perjudicando el dueño o manager de tu edificio, y determina si es posible crear una asociación de inquilinos.\n",
-            "marks": []
+            "marks": [],
+            "data": {}
           }
         ],
         "data": {}
@@ -301,7 +303,7 @@
               "id": "5akoKd4rOoR15ticUArlUQ",
               "type": "Asset",
               "createdAt": "2020-01-16T20:01:10.590Z",
-              "updatedAt": "2020-01-16T20:29:05.332Z",
+              "updatedAt": "2020-06-25T16:02:07.065Z",
               "environment": {
                 "sys": {
                   "id": "master",
@@ -309,21 +311,22 @@
                   "linkType": "Environment"
                 }
               },
-              "revision": 2,
+              "revision": 3,
               "locale": "es"
             },
             "fields": {
-              "title": "WOW How to Use Visual 2",
+              "title": "WOW Cómo se Usa 2",
+              "description": "WOW Cómo se Usa 2",
               "file": {
-                "url": "//images.ctfassets.net/lhtzm8rjj8y4/5akoKd4rOoR15ticUArlUQ/42c42c667fdac6bfd1caa0bdf216030b/WOW_How_to_Use_Visual_2.png",
+                "url": "//images.ctfassets.net/lhtzm8rjj8y4/5akoKd4rOoR15ticUArlUQ/3b359ccedc4bd6e5a96a0fee68a67fc4/WOW_Spanish_How_to_use_02.png",
                 "details": {
-                  "size": 563899,
+                  "size": 603044,
                   "image": {
                     "width": 1300,
-                    "height": 904
+                    "height": 901
                   }
                 },
-                "fileName": "WOW How to Use Visual 2.png",
+                "fileName": "WOW Spanish How to use 02.png",
                 "contentType": "image/png"
               }
             }
@@ -335,16 +338,15 @@
         "content": [
           {
             "nodeType": "list-item",
-            "data": {},
             "content": [
               {
                 "nodeType": "paragraph",
                 "content": [
                   {
                     "nodeType": "text",
-                    "data": {},
                     "value": "Para obtener detalles sobre los problemas que hay en tu edificio y para ver si alguno de tus vecinos llama repetidamente al 311 para reportar Quejas, consulte la lista de \"Historial de Quejas\" en el \"Perfil de Edificio del HPD\". Si tienes la información de contacto de tus vecinos, envíales el perfil de edificio de Quién Es El Dueño a través de Facebook, Twitter, correo electrónico o mensaje de texto usando los botones para compartir. También le puedes proporcionar una lista inmediata de acciones a tomar compartiendo la página \"",
-                    "marks": []
+                    "marks": [],
+                    "data": {}
                   },
                   {
                     "nodeType": "hyperlink",
@@ -369,7 +371,8 @@
                 ],
                 "data": {}
               }
-            ]
+            ],
+            "data": {}
           },
           {
             "nodeType": "list-item",
@@ -435,9 +438,9 @@
         "content": [
           {
             "nodeType": "text",
-            "data": {},
             "value": "",
-            "marks": []
+            "marks": [],
+            "data": {}
           }
         ],
         "data": {}
@@ -447,9 +450,9 @@
         "content": [
           {
             "nodeType": "text",
-            "data": {},
             "value": "Investiga los detalles de un edificio antes de mudarte.",
-            "marks": []
+            "marks": [],
+            "data": {}
           }
         ],
         "data": {}
@@ -470,7 +473,7 @@
               "id": "5DWchgwSQVt35d2F7Gepx3",
               "type": "Asset",
               "createdAt": "2020-01-16T20:01:10.599Z",
-              "updatedAt": "2020-01-16T20:28:48.165Z",
+              "updatedAt": "2020-06-25T16:02:45.015Z",
               "environment": {
                 "sys": {
                   "id": "master",
@@ -478,21 +481,22 @@
                   "linkType": "Environment"
                 }
               },
-              "revision": 2,
+              "revision": 3,
               "locale": "es"
             },
             "fields": {
-              "title": "WOW How to Use Visual 3",
+              "title": "WOW Cómo se Usa 3",
+              "description": "WOW Cómo se Usa 3",
               "file": {
-                "url": "//images.ctfassets.net/lhtzm8rjj8y4/5DWchgwSQVt35d2F7Gepx3/e22ef98d98e59ed54897c1a9a716b508/WOW_How_to_Use_Visual_3.png",
+                "url": "//images.ctfassets.net/lhtzm8rjj8y4/5DWchgwSQVt35d2F7Gepx3/48cff8fd5cf9c9297b62b26a8f4bea1e/WOW_Spanish_How_to_use_03.png",
                 "details": {
-                  "size": 557402,
+                  "size": 598621,
                   "image": {
                     "width": 1300,
-                    "height": 904
+                    "height": 901
                   }
                 },
-                "fileName": "WOW How to Use Visual 3.png",
+                "fileName": "WOW Spanish How to use 03.png",
                 "contentType": "image/png"
               }
             }
@@ -546,9 +550,9 @@
         "content": [
           {
             "nodeType": "text",
-            "data": {},
             "value": "",
-            "marks": []
+            "marks": [],
+            "data": {}
           }
         ],
         "data": {}
@@ -558,9 +562,9 @@
         "content": [
           {
             "nodeType": "text",
-            "data": {},
             "value": "",
-            "marks": []
+            "marks": [],
+            "data": {}
           }
         ],
         "data": {}
@@ -570,9 +574,9 @@
         "content": [
           {
             "nodeType": "text",
-            "data": {},
             "value": "",
-            "marks": []
+            "marks": [],
+            "data": {}
           }
         ],
         "data": {}
@@ -582,9 +586,9 @@
         "content": [
           {
             "nodeType": "text",
-            "data": {},
             "value": "",
-            "marks": []
+            "marks": [],
+            "data": {}
           }
         ],
         "data": {}
@@ -680,13 +684,13 @@
         "content": [
           {
             "nodeType": "text",
-            "data": {},
             "value": "\"¿Cómo se asocia este edificio?\"",
             "marks": [
               {
                 "type": "bold"
               }
-            ]
+            ],
+            "data": {}
           },
           {
             "nodeType": "text",
@@ -712,7 +716,7 @@
           },
           {
             "nodeType": "text",
-            "value": " Los Apartamentos de Renta Estabilizada son apartamentos que están sujetos a reglas específicas, una de las cuales es que el dueño tiene que proporcionar un contrato de renta de 1 o 2 años, con un aumento máximo de renta que fija la Junta de Pautas de Alquiler (RGB por sus siglas en inglés). En el indicador de la pestaña \"Vista General\", si el número de apartamentos de renta estabilizada a la derecha es menor que el número de la izquierda y aparece en rojo, significa que algunos apartamentos han perdido su estatus de renta estabilizada (es decir, han sido desregulados), y puede significar que el dueño esté intentando echar a los inquilinos que vivan en los apartamentos de renta estabilizada.\n",
+            "value": " Los Apartamentos de Renta Estabilizada son apartamentos que están sujetos a reglas específicas, una de las cuales es que el dueño tiene que proporcionar un contrato de renta de 1 o 2 años, con un aumento máximo de renta que fija la Junta de Pautas de Alquiler (RGB por sus siglas en inglés). En el indicador de la pestaña \"Vista General\", si el número de apartamentos de renta estabilizada a la derecha es menor que el número de la izquierda y aparece en rojo, significa que algunos apartamentos han perdido su estatus de renta estabilizada (es decir, han sido desregulados), y puede significar que el dueño esté intentando echar a los inquilinos que vivan en los apartamentos de renta estabilizada.",
             "marks": [],
             "data": {}
           }
@@ -724,13 +728,13 @@
         "content": [
           {
             "nodeType": "text",
-            "data": {},
             "value": "Infracciones Actuales, Infracciones Totales, HPD y 311:",
             "marks": [
               {
                 "type": "bold"
               }
-            ]
+            ],
+            "data": {}
           }
         ],
         "data": {}
@@ -740,7 +744,6 @@
         "content": [
           {
             "nodeType": "list-item",
-            "data": {},
             "content": [
               {
                 "nodeType": "paragraph",
@@ -754,7 +757,8 @@
                 ],
                 "data": {}
               }
-            ]
+            ],
+            "data": {}
           },
           {
             "nodeType": "list-item",
@@ -818,14 +822,209 @@
         "content": [
           {
             "nodeType": "text",
-            "data": {},
+            "value": "Tipos de personas asociadas al edificio:",
+            "marks": [
+              {
+                "type": "bold"
+              }
+            ],
+            "data": {}
+          }
+        ],
+        "data": {}
+      },
+      {
+        "nodeType": "unordered-list",
+        "content": [
+          {
+            "nodeType": "list-item",
+            "content": [
+              {
+                "nodeType": "paragraph",
+                "content": [
+                  {
+                    "nodeType": "text",
+                    "value": "\"Head Officer\" — Oficial Principal",
+                    "marks": [],
+                    "data": {}
+                  }
+                ],
+                "data": {}
+              }
+            ],
+            "data": {}
+          },
+          {
+            "nodeType": "list-item",
+            "content": [
+              {
+                "nodeType": "paragraph",
+                "content": [
+                  {
+                    "nodeType": "text",
+                    "value": "\"Corporate Owner\" — Dueño Corporativo",
+                    "marks": [],
+                    "data": {}
+                  }
+                ],
+                "data": {}
+              }
+            ],
+            "data": {}
+          },
+          {
+            "nodeType": "list-item",
+            "content": [
+              {
+                "nodeType": "paragraph",
+                "content": [
+                  {
+                    "nodeType": "text",
+                    "value": "\"Individual Owner\" — Dueño Individual",
+                    "marks": [],
+                    "data": {}
+                  }
+                ],
+                "data": {}
+              }
+            ],
+            "data": {}
+          },
+          {
+            "nodeType": "list-item",
+            "content": [
+              {
+                "nodeType": "paragraph",
+                "content": [
+                  {
+                    "nodeType": "text",
+                    "value": "\"Joint Owner\" — Dueño Conjunto",
+                    "marks": [],
+                    "data": {}
+                  }
+                ],
+                "data": {}
+              }
+            ],
+            "data": {}
+          },
+          {
+            "nodeType": "list-item",
+            "content": [
+              {
+                "nodeType": "paragraph",
+                "content": [
+                  {
+                    "nodeType": "text",
+                    "value": "\"Site Manager\" — Manager del Propiedad",
+                    "marks": [],
+                    "data": {}
+                  }
+                ],
+                "data": {}
+              }
+            ],
+            "data": {}
+          },
+          {
+            "nodeType": "list-item",
+            "content": [
+              {
+                "nodeType": "paragraph",
+                "content": [
+                  {
+                    "nodeType": "text",
+                    "value": "\"Agent\" — Agente",
+                    "marks": [],
+                    "data": {}
+                  }
+                ],
+                "data": {}
+              }
+            ],
+            "data": {}
+          },
+          {
+            "nodeType": "list-item",
+            "content": [
+              {
+                "nodeType": "paragraph",
+                "content": [
+                  {
+                    "nodeType": "text",
+                    "value": "\"Lessee\" — Arrendatario",
+                    "marks": [],
+                    "data": {}
+                  }
+                ],
+                "data": {}
+              }
+            ],
+            "data": {}
+          },
+          {
+            "nodeType": "list-item",
+            "content": [
+              {
+                "nodeType": "paragraph",
+                "content": [
+                  {
+                    "nodeType": "text",
+                    "value": "\"Officer\" — Oficial",
+                    "marks": [],
+                    "data": {}
+                  }
+                ],
+                "data": {}
+              }
+            ],
+            "data": {}
+          },
+          {
+            "nodeType": "list-item",
+            "content": [
+              {
+                "nodeType": "paragraph",
+                "content": [
+                  {
+                    "nodeType": "text",
+                    "value": "\"Shareholder\" — Accionista",
+                    "marks": [],
+                    "data": {}
+                  }
+                ],
+                "data": {}
+              },
+              {
+                "nodeType": "paragraph",
+                "content": [
+                  {
+                    "nodeType": "text",
+                    "value": "",
+                    "marks": [],
+                    "data": {}
+                  }
+                ],
+                "data": {}
+              }
+            ],
+            "data": {}
+          }
+        ],
+        "data": {}
+      },
+      {
+        "nodeType": "paragraph",
+        "content": [
+          {
+            "nodeType": "text",
             "value": "",
-            "marks": []
+            "marks": [],
+            "data": {}
           }
         ],
         "data": {}
       }
-    ],
-    "nodeType": "document"
+    ]
   }
 }

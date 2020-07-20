@@ -10,9 +10,11 @@ import "styles/DetailView.css";
 import { withI18n } from "@lingui/react";
 import { Trans } from "@lingui/macro";
 import { SocialSharePortfolio } from "./SocialShare";
+import { isPartOfGroupSale } from "./PropertiesList";
 import { Link } from "react-router-dom";
 import { LocaleLink } from "../i18n";
 import BuildingStatsTable from "./BuildingStatsTable";
+import { createWhoOwnsWhatRoutePaths } from "../routes";
 
 class DetailViewWithoutI18n extends Component {
   constructor(props) {
@@ -49,6 +51,8 @@ class DetailViewWithoutI18n extends Component {
     }
 
     const isMobile = Browser.isMobile();
+
+    const formatPrice = new Intl.NumberFormat(this.props.i18n._language || "en");
 
     const streetView = (
       <LazyLoadWhenVisible>
@@ -163,6 +167,31 @@ class DetailViewWithoutI18n extends Component {
                             </span>
                           )}
                         </p>
+                        {this.props.addr.lastsaledate &&
+                          this.props.addr.lastsaleamount &&
+                          this.props.addrs && (
+                            <p>
+                              <b>
+                                <Trans>Last sold:</Trans>
+                              </b>{" "}
+                              <>
+                                {this.formatDate(this.props.addr.lastsaledate)}{" "}
+                                <Trans>
+                                  for ${formatPrice.format(this.props.addr.lastsaleamount)}
+                                </Trans>
+                                {this.props.addr.lastsaleacrisid &&
+                                  isPartOfGroupSale(
+                                    this.props.addr.lastsaleacrisid,
+                                    this.props.addrs
+                                  ) && (
+                                    <>
+                                      {" "}
+                                      <Trans>(as part of a group sale)</Trans>
+                                    </>
+                                  )}
+                              </>
+                            </p>
+                          )}
                       </div>
 
                       <div className="card-body-prompt hide-lg">
@@ -321,7 +350,10 @@ class DetailViewWithoutI18n extends Component {
                 <Trans render="p">
                   We compare your search address with a database of over 200k buildings to identify
                   a landlord or management company's portfolio. To learn more, check out{" "}
-                  <LocaleLink to="/how-it-works">our methodology</LocaleLink>.
+                  <LocaleLink to={createWhoOwnsWhatRoutePaths().methodology}>
+                    our methodology
+                  </LocaleLink>
+                  .
                 </Trans>
                 <table className="DetailView__compareTable">
                   <thead>

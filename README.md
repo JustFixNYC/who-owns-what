@@ -13,13 +13,15 @@ With this website, you can find crucial information about who is responsible for
 
 ## Architecture
 
-This site is built on top of the critical work done by [@aepyornis](https://github.com/aepyornis) on the [nyc-db](https://github.com/aepyornis/nyc-db) project, which is used to cleanly extract, sanitize, and load [HPD Registration data](http://www1.nyc.gov/site/hpd/about/open-data.page) into a PostgreSQL instance.
+This site is built on top of the critical work done by [@aepyornis](https://github.com/aepyornis) on the [nycdb](https://github.com/nycdb/nycdb) project, which is used to cleanly extract, sanitize, and load [HPD Registration data](http://www1.nyc.gov/site/hpd/about/open-data.page) into a PostgreSQL instance.
 
-Backend logic and data manipulation is largely handled by making calls to PostgreSQL functions and prebuilding results into tables whenever possible to avoid complex queries made per-request. See the [hpd-registration ](https://github.com/aepyornis/nyc-db/tree/master/src/nycdb/sql/hpd_registrations) scripts of `nyc-db` for the SQL code that provides this functionality.
+Backend logic and data manipulation is largely handled by making calls to PostgreSQL functions and prebuilding results into tables whenever possible to avoid complex queries made per-request. See the [hpd-registration ](https://github.com/nycdb/nycdb/tree/master/src/nycdb/sql/hpd_registrations) scripts of `nycdb` for the SQL code that provides this functionality.
+
+Note that both the backend and the frontend of the app each contain __separate `package.json` configurations__ as well as __separate sets of environment variables__. We are not just being weird here— this is a recommended practice according to the [create-react-app](https://github.com/facebookincubator/create-react-app) framework that we used to build the tool. 
 
 #### Backend
 
-The backend of the app (`/server`) is a simple express build that connects to Postgres using `pg-promise`.
+The backend of the app (`/server`) is a simple express build that connects to Postgres using `pg-promise`. 
 
 #### Frontend
 
@@ -80,15 +82,25 @@ You can visit your local dev instance at http://localhost:3000.
 ## Alternative: Docker-based development
 
 As an alternative to the aforementioned setup, you can use
-[Docker](https://www.docker.com/get-started). Once you've
-installed Docker, run:
+[Docker](https://www.docker.com/get-started).
+
+First create an `.env` file and edit it as needed:
+
+```
+cp .env.sample .env
+```
+
+Note that you don't need to change `DATABASE_URL` if you
+just want to use the test database.
+
+Now run:
 
 ```
 docker-compose run app python dbtool.py loadtestdata
 ```
 
-This will build a nyc-db with test data, which is must faster
-than downloading the whole nyc-db. You can, however, opt to
+This will build a nycdb with test data, which is must faster
+than downloading the whole nycdb. You can, however, opt to
 download the whole thing by running
 `docker-compose run app python dbtool.py builddb`, but be
 prepared, as it will take a while!
@@ -97,12 +109,6 @@ Once you've done that, run:
 
 ```
 docker-compose run app yarn install-all
-```
-
-Then create an `.env` file and edit it as needed:
-
-```
-cp .env.sample .env
 ```
 
 Then start up the server:
@@ -115,6 +121,9 @@ Visit http://localhost:3000 and you should be good to go! If
 you installed test data, you can see useful results by
 clicking on the "All Year Management" portfolio on the
 home page.
+
+Note: If you would like to connect your Docker instance to an external postgres database, you
+can update the `DATABASE_URL` [server-side env variable](https://github.com/JustFixNYC/who-owns-what/blob/master/.env.sample) with your remote db's connection URI. 
 
 ## Tests
 

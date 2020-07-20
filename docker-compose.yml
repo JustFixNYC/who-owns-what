@@ -14,7 +14,7 @@ services:
     links:
       - db
     environment:
-      DATABASE_URL: postgres://wow:wow@db/wow
+      DATABASE_URL: ${DATABASE_URL}
       YARN_CACHE_FOLDER: /var/yarn-cache
       # Enable polling, as some Docker setups don't work
       # well with mounted volumes and filesystem notifications.

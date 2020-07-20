@@ -15,20 +15,7 @@ import { I18nProvider } from "@lingui/react";
 import catalogEn from "./locales/en/messages";
 import catalogEs from "./locales/es/messages";
 import { LocationDescriptorObject, History } from "history";
-import { SupportedLocale, languageNames, defaultLocale, isSupportedLocale } from "./i18n-base";
-
-/**
- * This feature flag determines whether to actively "promote"
- * locales other than English to users. It's useful while we're
- * working on actually translating the app, before we're finished,
- * to ensure that we don't invite users to opt-in to a feature
- * that isn't actually finished yet.
- *
- * If disabled, we'll still allow other locales' routes to be
- * accessed--we just won't actively send users there, or show links
- * that send them there.
- */
-const ENABLE_PUBLIC_FACING_I18N = !!process.env.REACT_APP_ENABLE_PUBLIC_FACING_I18N;
+import { SupportedLocale, defaultLocale, isSupportedLocale } from "./i18n-base";
 
 /** The structure for message catalogs that lingui expects. */
 type LocaleCatalog = {
@@ -49,7 +36,7 @@ const catalogs: LocaleCatalog = {
 function getBestDefaultLocale(): SupportedLocale {
   const preferredLocale = navigator.language.slice(0, 2);
 
-  if (isSupportedLocale(preferredLocale) && ENABLE_PUBLIC_FACING_I18N) {
+  if (isSupportedLocale(preferredLocale)) {
     return preferredLocale;
   }
 
@@ -155,11 +142,11 @@ export const LocaleSwitcher = withRouter(function LocaleSwitcher(props: RouteCom
   const to = (toLocale: SupportedLocale) =>
     `/${toLocale}${removeLocalePrefix(props.location.pathname)}`;
 
-  return ENABLE_PUBLIC_FACING_I18N ? (
+  return (
     <span className="language-toggle">
       <NavLink to={to("en")}>EN</NavLink>/<NavLink to={to("es")}>ES</NavLink>
     </span>
-  ) : null;
+  );
 });
 
 /**

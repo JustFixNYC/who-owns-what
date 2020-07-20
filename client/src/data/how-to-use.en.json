@@ -78,7 +78,7 @@
               "id": "2Ivr4g7lSDnFz4D9lCfEUE",
               "type": "Asset",
               "createdAt": "2020-01-16T20:01:10.593Z",
-              "updatedAt": "2020-05-18T15:18:54.029Z",
+              "updatedAt": "2020-06-25T16:01:03.623Z",
               "environment": {
                 "sys": {
                   "id": "master",
@@ -86,11 +86,12 @@
                   "linkType": "Environment"
                 }
               },
-              "revision": 6,
+              "revision": 7,
               "locale": "en"
             },
             "fields": {
               "title": "WOW How to Use Visual 1",
+              "description": "WOW How to Use Visual 1",
               "file": {
                 "url": "//images.ctfassets.net/lhtzm8rjj8y4/2Ivr4g7lSDnFz4D9lCfEUE/5bc3434e70c0eceeb2ec2b22897a70c5/WOW_How_to_Use_Visual_1.png",
                 "details": {
@@ -321,7 +322,7 @@
               "id": "5akoKd4rOoR15ticUArlUQ",
               "type": "Asset",
               "createdAt": "2020-01-16T20:01:10.590Z",
-              "updatedAt": "2020-01-16T20:29:05.332Z",
+              "updatedAt": "2020-06-25T16:02:07.065Z",
               "environment": {
                 "sys": {
                   "id": "master",
@@ -329,11 +330,12 @@
                   "linkType": "Environment"
                 }
               },
-              "revision": 2,
+              "revision": 3,
               "locale": "en"
             },
             "fields": {
               "title": "WOW How to Use Visual 2",
+              "description": "WOW How to Use Visual 2",
               "file": {
                 "url": "//images.ctfassets.net/lhtzm8rjj8y4/5akoKd4rOoR15ticUArlUQ/42c42c667fdac6bfd1caa0bdf216030b/WOW_How_to_Use_Visual_2.png",
                 "details": {
@@ -510,7 +512,7 @@
               "id": "5DWchgwSQVt35d2F7Gepx3",
               "type": "Asset",
               "createdAt": "2020-01-16T20:01:10.599Z",
-              "updatedAt": "2020-01-16T20:28:48.165Z",
+              "updatedAt": "2020-06-25T16:02:45.015Z",
               "environment": {
                 "sys": {
                   "id": "master",
@@ -518,11 +520,12 @@
                   "linkType": "Environment"
                 }
               },
-              "revision": 2,
+              "revision": 3,
               "locale": "en"
             },
             "fields": {
               "title": "WOW How to Use Visual 3",
+              "description": "WOW How to Use Visual 3",
               "file": {
                 "url": "//images.ctfassets.net/lhtzm8rjj8y4/5DWchgwSQVt35d2F7Gepx3/e22ef98d98e59ed54897c1a9a716b508/WOW_How_to_Use_Visual_3.png",
                 "details": {

@@ -56,7 +56,7 @@ export default class AddressPage extends Component {
         .then((results) => {
           const firstResult = results.features[0];
           if (!firstResult) throw new Error("Invalid address!");
-          return APIClient.searchAddress({
+          return APIClient.searchForAddress({
             bbl: firstResult.properties.pad_bbl,
           });
         })
@@ -233,6 +233,7 @@ export default class AddressPage extends Component {
                 isVisible={this.props.currentTab === 0}
               />
               <DetailView
+                addrs={this.state.assocAddrs}
                 addr={this.state.detailAddr}
                 portfolioSize={this.state.assocAddrs.length}
                 mobileShow={this.state.detailMobileSlide}
