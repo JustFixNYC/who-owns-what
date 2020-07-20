@@ -37,23 +37,24 @@ jobs:
       - restore_cache:
           name: Restore yarn package cache
           keys:
-            - yarn-packages-client-{{ checksum "client/yarn.lock" }}-{{ checksum "yarn.lock" }}
+            - yarn-packages-v2-{{ checksum "client/yarn.lock" }}-{{ checksum "yarn.lock" }}
       - run:
-          name: Install node client dependencies
+          name: Install all node dependencies
           command: |
+            yarn install --frozen-lockfile
             cd client
             yarn install --frozen-lockfile
       - save_cache:
           name: Save yarn package cache
-          key: yarn-packages-{{ checksum "client/yarn.lock" }}-{{ checksum "yarn.lock" }}
+          key: yarn-packages-v2-{{ checksum "client/yarn.lock" }}-{{ checksum "yarn.lock" }}
           paths:
             - ~/.cache/yarn
       - run:
           name: Build client and run tests
           command: |
+            yarn prettier:check
             cd client
             yarn lingui compile
-            yarn typecheck
             # Note that CI=true in CircleCI, so this will fail if there are
             # any linter warnings.
             yarn build

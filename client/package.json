@@ -1,4 +1,6 @@
 {
+  "//*": "NOTE: THIS REPOSITORY CONTAINS TWO PACKAGE.JSON FILES",
+  "//**": "FIND THE SERVER-SIDE PACKAGE.JSON FILE IN THE PARENT DIRECTORY",
   "name": "client",
   "version": "0.1.0",
   "private": true,
@@ -29,6 +31,7 @@
     "babel-polyfill": "^6.26.0",
     "chart.js": "^2.8.0",
     "chartjs-plugin-annotation": "^0.5.7",
+    "concurrently": "^5.2.0",
     "contentful": "^7.11.0",
     "downshift": "^3.2.2",
     "file-saver": "^1.3.3",
@@ -50,7 +53,7 @@
     "react-mapbox-gl": "^3.8.0",
     "react-modal": "^3.0.0",
     "react-router-dom": "^5.1.2",
-    "react-scripts": "2.1.3",
+    "react-scripts": "3.4.1",
     "react-social": "^1.10.0",
     "react-table": "^6.5.3",
     "react-transition-group": "^2.2.1",
@@ -60,6 +63,8 @@
   },
   "scripts": {
     "lingui": "lingui",
+    "prettier:check": "cd .. && yarn prettier:check",
+    "prettier:fix": "cd .. && yarn prettier:fix",
     "contentful": "node pull-contentful-data.js",
     "typecheck": "tsc",
     "build-css": "node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/",

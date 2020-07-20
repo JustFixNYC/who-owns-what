@@ -1,21 +1,17 @@
-/* eslint-disable no-undef */
+import {
+  SearchResults,
+  SummaryResults,
+  BuildingInfoResults,
+  IndicatorsHistoryResults,
+  WithBoroBlockLot,
+} from "./APIDataTypes";
+import { SearchAddress } from "./AddressSearch";
 
-type WithBoroBlockLot = {
-  boro: string;
-  block: string;
-  lot: string;
-};
+// API REQUESTS TO THE DATABASE:
 
-type Q = {
-  bbl?: string;
-  housenumber: string;
-  streetname: string;
-  boro: string;
-};
-
-function searchAddress(q: Q) {
+function searchForAddress(q: SearchAddress): Promise<SearchResults> {
   if (q.bbl) {
-    return searchBBL({
+    return searchForBBL({
       boro: q.bbl.slice(0, 1),
       block: q.bbl.slice(1, 6),
       lot: q.bbl.slice(6, 10),
@@ -24,45 +20,32 @@ function searchAddress(q: Q) {
   return get(`/api/address?houseNumber=${q.housenumber}&street=${q.streetname}&borough=${q.boro}`);
 }
 
-function searchBBL(q: WithBoroBlockLot) {
+function searchForBBL(q: WithBoroBlockLot): Promise<SearchResults> {
   return get(`/api/address?block=${q.block}&lot=${q.lot}&borough=${q.boro}`);
 }
 
-function getAggregate(bbl: string) {
+function getAggregate(bbl: string): Promise<SummaryResults> {
   return get(`/api/address/aggregate?bbl=${bbl}`);
 }
 
-function getBuildingInfo(bbl: string) {
+function getBuildingInfo(bbl: string): Promise<BuildingInfoResults> {
   return get(`/api/address/buildinginfo?bbl=${bbl}`);
 }
 
-function getIndicatorHistory(bbl: string) {
+function getIndicatorHistory(bbl: string): Promise<IndicatorsHistoryResults> {
   return get(`/api/address/indicatorhistory?bbl=${bbl}`);
 }
 
-function getAddressExport(q: Q & WithBoroBlockLot) {
+function getAddressExport(q: SearchAddress & WithBoroBlockLot) {
   return fetch(
     `/api/address/export?houseNumber=${q.housenumber}&street=${q.streetname}&borough=${q.boro}`
   ).then(checkStatus);
 }
 
+// OTHER API FUNCTIONS AND HELPERS:
+
 function get(url: string) {
   return fetch(url, { headers: { accept: "application/json" } })
-    .then(checkStatus)
-    .then(verifyIsJson)
-    .then(parseJSON);
-}
-
-function post(url: string, body: any) {
-  return fetch(url, {
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    },
-    method: "POST",
-    mode: "cors",
-    body: JSON.stringify(body),
-  })
     .then(checkStatus)
     .then(verifyIsJson)
     .then(parseJSON);
@@ -105,20 +88,13 @@ function parseJSON(response: Response) {
   return response.json();
 }
 
-/* Mailchimp */
-
-function postNewSubscriber(email: string) {
-  return post("/api/subscribe", { email });
-}
-
 const Client = {
-  searchAddress,
-  searchBBL,
+  searchForAddress,
+  searchForBBL,
   getAggregate,
   getBuildingInfo,
   getIndicatorHistory,
   getAddressExport,
-  postNewSubscriber,
 };
 
 export default Client;

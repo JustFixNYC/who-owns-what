@@ -9,6 +9,8 @@ import { t, Trans } from "@lingui/macro";
 import { withI18n } from "@lingui/react";
 import helpers, { MaybeStringyNumber } from "../util/helpers";
 import { FB_APP_ID } from "./Page";
+import { Borough } from "./APIDataTypes";
+import { createRouteForAddressPage, getSiteOrigin } from "../routes";
 
 const SocialShareWithoutI18n: React.FC<{
   i18n: I18n;
@@ -28,7 +30,7 @@ const SocialShareWithoutI18n: React.FC<{
         className="btn btn-steps"
         sharer={true}
         windowOptions={["width=400", "height=200"]}
-        url={props.url || "https://whoownswhat.justfix.nyc/"}
+        url={props.url || getSiteOrigin()}
         appId={FB_APP_ID}
       >
         <img src={fbIcon} className="icon mx-1" alt="Facebook" />
@@ -40,7 +42,7 @@ const SocialShareWithoutI18n: React.FC<{
         }}
         className="btn btn-steps"
         windowOptions={["width=400", "height=200"]}
-        url={props.url || "https://whoownswhat.justfix.nyc/"}
+        url={props.url || getSiteOrigin()}
         message={props.twitterMessage || `#WhoOwnsWhat @JustFixNYC`}
       >
         <img src={twitterIcon} className="icon mx-1" alt="Twitter" />
@@ -51,7 +53,7 @@ const SocialShareWithoutI18n: React.FC<{
           window.gtag("event", "email-" + props.location);
         }}
         className="btn btn-steps"
-        url={props.url || "https://whoownswhat.justfix.nyc/"}
+        url={props.url || getSiteOrigin()}
         target="_blank"
         message={
           props.emailMessage || i18n._(t`New JustFix.nyc tool helps research on NYC landlords`)
@@ -70,7 +72,7 @@ const SocialShareWithoutI18n: React.FC<{
             "sms: " +
             (isAndroid ? "?" : "&") +
             "body=" +
-            encodeURIComponent(props.url || "https://whoownswhat.justfix.nyc/")
+            encodeURIComponent(props.url || getSiteOrigin())
           }
           target="_blank"
           rel="noopener noreferrer"
@@ -89,7 +91,7 @@ export default SocialShare;
 const SocialSharePortfolioWithoutI18n: React.FC<{
   i18n: I18n;
   location?: string;
-  addr: { boro: any; housenumber: any; streetname: any };
+  addr: { boro: Borough; housenumber?: string; streetname: string };
   buildings: MaybeStringyNumber;
 }> = ({ i18n, location, addr, buildings }) => {
   const buildingCount = helpers.coerceToInt(buildings, 0);
@@ -97,11 +99,11 @@ const SocialSharePortfolioWithoutI18n: React.FC<{
     <SocialShareWithoutI18n
       i18n={i18n}
       location={location}
-      url={encodeURI(
-        `https://whoownswhat.justfix.nyc/address/${addr.boro}/${addr.housenumber}/${
-          addr.streetname
-        }${location === "summary-tab" ? "/summary" : ""}`
-      ).replace(" ", "%20")} // Support for Android
+      url={`${getSiteOrigin()}${createRouteForAddressPage({
+        boro: addr.boro,
+        streetname: addr.streetname,
+        housenumber: addr.housenumber,
+      })}${location === "summary-tab" ? "/summary" : ""}`}
       twitterMessage={i18n._(
         t`The ${buildingCount} buildings that my landlord "owns" 👀... #WhoOwnsWhat @JustFixNYC`
       )}

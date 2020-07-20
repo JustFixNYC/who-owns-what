@@ -7,6 +7,7 @@ import Downshift, {
 import { GeoSearchRequester, GeoSearchResults } from "@justfixnyc/geosearch-requester";
 
 import "../styles/AddressSearch.css";
+import { Borough } from "./APIDataTypes";
 
 const GeoDownshift = Downshift as DownshiftInterface<SearchAddress>;
 
@@ -24,8 +25,11 @@ export interface SearchAddress {
   /** The street name, e.g. 'PARK PLACE'. */
   streetname: string;
 
-  /** The all-uppercase borough name, e.g. 'BROOKLYN'. */
-  boro: string;
+  /** The all-uppercase borough name, e.g. 'BROOKLYN'.
+   * We allow for an empty string case in this type as our GeoSearch form submission includes the possibility
+   * of an 'empty' address search. See the AddressSearch class below for more details.
+   */
+  boro: Borough | "";
 
   /** The padded BBL, e.g. '1234567890'. */
   bbl: string;
@@ -60,10 +64,11 @@ export function makeEmptySearchAddress(): SearchAddress {
 
 function toSearchAddresses(results: GeoSearchResults): SearchAddress[] {
   return results.features.map((feature) => {
+    let formattedBoroName = feature.properties.borough.toUpperCase() as Borough;
     const sa: SearchAddress = {
       housenumber: feature.properties.housenumber,
       streetname: feature.properties.street,
-      boro: feature.properties.borough.toUpperCase(),
+      boro: formattedBoroName,
       bbl: feature.properties.pad_bbl,
     };
     return sa;
