@@ -1,6 +1,7 @@
 import os
 from pathlib import Path
 from typing import List
+from django.core.exceptions import ImproperlyConfigured
 import dj_database_url
 import dotenv
 
@@ -10,14 +11,23 @@ BASE_DIR = MY_DIR.parent
 
 dotenv.load_dotenv()
 
-# TODO FIX THIS
+def get_required_env(key: str) -> str:
+    value = os.environ.get(key)
+    if not value:
+        raise ImproperlyConfigured(
+            f"The environment variable '{key}' "
+            f"must be set to a non-empty value! Please see "
+            f".env.sample for more documentation."
+        )
+    return value
+
+
+DEBUG = os.environ.get('DEBUG') == "true"
+
+SECRET_KEY =  get_required_env('SECRET_KEY')
+
+# TODO: Add Rollbar support!
 ROLLBAR = None
-
-# TODO FIX THIS
-SECRET_KEY = "TODO FIX THIS"
-
-# TODO FIX THIS
-DEBUG = True
 
 # TODO: Figure out if this can securely stay at '*'.
 ALLOWED_HOSTS: List[str] = ['*']
@@ -36,5 +46,5 @@ DATABASES = {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': str(BASE_DIR / 'db.sqlite3'),
     },
-    'wow': dj_database_url.parse(os.environ['DATABASE_URL']),
+    'wow': dj_database_url.parse(get_required_env('DATABASE_URL')),
 }
