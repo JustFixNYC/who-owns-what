@@ -67,12 +67,12 @@ jobs:
       - checkout
       - run:
           name: Deploy to Heroku
+          # Note that when pushing to Heroku via HTTPS auth, the username
+          # is ignored, which is why it's "boop" below. For more information,
+          # see:
+          #
+          #   https://devcenter.heroku.com/articles/git#http-git-authentication
           command: |
-            # curl https://cli-assets.heroku.com/install.sh | sh
-            # heroku login
-            # heroku git:remote -a wow-django
-
-            # git push heroku +HEAD:master
             git push https://boop:${HEROKU_API_KEY}@git.heroku.com/wow-django.git +HEAD:master
 workflows:
   version: 2
