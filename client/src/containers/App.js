@@ -60,7 +60,7 @@ export default class App extends Component {
                 )}
                 <nav className="inline">
                   <LocaleNavLink exact to={paths.home}>
-                    BOOP <Trans>Home</Trans>
+                    <Trans>Home</Trans>
                   </LocaleNavLink>
                   <LocaleNavLink to={paths.about}>
                     <Trans>About</Trans>
