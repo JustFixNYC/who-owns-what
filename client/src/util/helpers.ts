@@ -112,6 +112,7 @@ export default {
   formatPrice(locale: string, amount: number) {
     const formatPrice = new Intl.NumberFormat(locale);
     formatPrice.format(amount);
+    return formatPrice;
   },
 
   createTakeActionURL(
