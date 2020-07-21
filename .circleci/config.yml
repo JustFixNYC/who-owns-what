@@ -68,11 +68,12 @@ jobs:
       - run:
           name: Deploy to Heroku
           command: |
-            curl https://cli-assets.heroku.com/install.sh | sh
-            heroku login
-            heroku git:remote -a wow-django
+            # curl https://cli-assets.heroku.com/install.sh | sh
+            # heroku login
+            # heroku git:remote -a wow-django
 
-            git push heroku +HEAD:master
+            # git push heroku +HEAD:master
+            git push https://boop:${HEROKU_API_KEY}@git.heroku.com/wow-django.git +HEAD:master
 workflows:
   version: 2
   test_and_deploy:
