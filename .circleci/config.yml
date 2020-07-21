@@ -74,14 +74,6 @@ jobs:
           #   https://devcenter.heroku.com/articles/git#http-git-authentication
           command: |
             git push https://boop:${HEROKU_API_KEY}@git.heroku.com/wow-django.git +HEAD:master
-      - run:
-          name: Trigger deploy to Netlify
-          # This POST request triggers a redeploy of our front-end code on Netlify.
-          # For the official documentation, see: 
-          # 
-          #   https://docs.netlify.com/configure-builds/build-hooks/
-          command: |
-            curl -X POST -d {} https://api.netlify.com/build_hooks/5f170d149d83827ca30bb5a9
 workflows:
   version: 2
   test_and_deploy:
