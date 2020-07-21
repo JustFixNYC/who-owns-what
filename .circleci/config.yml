@@ -86,7 +86,8 @@ workflows:
   version: 2
   test_and_deploy:
     jobs:
+      - deploy
 #      - test
-      - deploy:
+#      - deploy:
 #          requires:
 #            - test
