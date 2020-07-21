@@ -109,6 +109,11 @@ export default {
     return null;
   },
 
+  formatPrice(locale: string, amount: number) {
+    const formatPrice = new Intl.NumberFormat(locale);
+    formatPrice.format(amount);
+  },
+
   createTakeActionURL(
     addr: { boro?: string; housenumber: string; streetname: string } | null | undefined,
     utm_medium: string
@@ -158,14 +163,6 @@ export default {
     var date = new Date(dateString);
     return this.capitalize(date.toLocaleDateString(locale || "en", options));
   },
-
-  /*
-  formatMonthAbbreviationForTimeline(dateString: string, locale?: SupportedLocale): string {
-    var date = new Date(dateString);
-    var options = { month: "short" };
-    return this.capitalize(date.toLocaleDateString(locale || "en", options)).slice(0, 3);
-  },
-  */
 
   /** The quarter number written out as it's range of months (ex: "1" becomes "Jan - Mar")  */
   getMonthRangeFromQuarter(quarter: "1" | "2" | "3" | "4", locale?: SupportedLocale): string {

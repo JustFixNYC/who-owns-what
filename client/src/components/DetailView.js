@@ -46,7 +46,6 @@ class DetailViewWithoutI18n extends Component {
 
     const isMobile = Browser.isMobile();
     const locale = this.props.i18n.language || "en";
-    const formatPrice = new Intl.NumberFormat(locale);
 
     const streetView = (
       <LazyLoadWhenVisible>
@@ -207,7 +206,7 @@ class DetailViewWithoutI18n extends Component {
                                   locale
                                 )}{" "}
                                 <Trans>
-                                  for ${formatPrice.format(this.props.addr.lastsaleamount)}
+                                  for ${Helpers.formatPrice(locale, this.props.addr.lastsaleamount)}
                                 </Trans>
                                 {this.props.addr.lastsaleacrisid &&
                                   isPartOfGroupSale(

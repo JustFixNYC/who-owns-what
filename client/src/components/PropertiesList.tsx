@@ -49,8 +49,6 @@ const PropertiesListWithoutI18n: React.FC<{
 }> = (props) => {
   const { i18n } = props;
   const locale = (i18n.language as SupportedLocale) || "en";
-  const formatPrice = new Intl.NumberFormat(locale);
-  // console.log(props.addrs);
   if (!props.addrs.length) {
     return null;
   } else {
@@ -270,7 +268,7 @@ const PropertiesListWithoutI18n: React.FC<{
                   accessor: (d) => (d.lastsaleamount ? parseInt(d.lastsaleamount) : null),
                   Cell: (row) =>
                     row.original.lastsaleamount
-                      ? "$" + formatPrice.format(row.original.lastsaleamount)
+                      ? "$" + Helpers.formatPrice(locale, row.original.lastsaleamount)
                       : null,
                   id: "lastsaleamount",
                 },
