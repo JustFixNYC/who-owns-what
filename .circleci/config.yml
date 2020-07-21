@@ -70,9 +70,9 @@ jobs:
             git push heroku +HEAD:master
 workflows:
   version: 2
-    test_and_deploy:
-      jobs:
-        - test
-        - deploy:
-            requires:
-              - test
+  test_and_deploy:
+    jobs:
+      - test
+      - deploy:
+          requires:
+            - test
