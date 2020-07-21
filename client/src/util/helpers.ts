@@ -159,11 +159,13 @@ export default {
     return this.capitalize(date.toLocaleDateString(locale || "en", options));
   },
 
+  /*
   formatMonthAbbreviationForTimeline(dateString: string, locale?: SupportedLocale): string {
     var date = new Date(dateString);
     var options = { month: "short" };
     return this.capitalize(date.toLocaleDateString(locale || "en", options)).slice(0, 3);
   },
+  */
 
   /** The quarter number written out as it's range of months (ex: "1" becomes "Jan - Mar")  */
   getMonthRangeFromQuarter(quarter: "1" | "2" | "3" | "4", locale?: SupportedLocale): string {
@@ -176,10 +178,10 @@ export default {
     const startDate = `2000-${monthRange.start}-15`;
     const endDate = `2000-${monthRange.end}-15`;
 
-    return `${this.formatMonthAbbreviationForTimeline(
-      startDate,
+    return `${this.formatDate(
+      startDate, {month: "short"},
       locale
-    )} - ${this.formatMonthAbbreviationForTimeline(endDate, locale)}`;
+    ).slice(0,3)} - ${this.formatDate(endDate, {month: "short"}, locale).slice(0,3)}`;
   },
 
   formatStreetNameForHpdLink(streetName: string): string {
