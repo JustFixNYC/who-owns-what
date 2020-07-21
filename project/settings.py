@@ -3,13 +3,17 @@ from pathlib import Path
 from typing import List
 from django.core.exceptions import ImproperlyConfigured
 import dj_database_url
-import dotenv
+
+try:
+    import dotenv
+    dotenv.load_dotenv()
+except ImportError:
+    # We don't have development dependencies installed.
+    pass
 
 MY_DIR = Path(__file__).parent.resolve()
 
 BASE_DIR = MY_DIR.parent
-
-dotenv.load_dotenv()
 
 def get_required_env(key: str) -> str:
     value = os.environ.get(key)
