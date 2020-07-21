@@ -178,10 +178,10 @@ export default {
     const startDate = `2000-${monthRange.start}-15`;
     const endDate = `2000-${monthRange.end}-15`;
 
-    return `${this.formatDate(
-      startDate, {month: "short"},
-      locale
-    ).slice(0,3)} - ${this.formatDate(endDate, {month: "short"}, locale).slice(0,3)}`;
+    return `${this.formatDate(startDate, { month: "short" }, locale).slice(
+      0,
+      3
+    )} - ${this.formatDate(endDate, { month: "short" }, locale).slice(0, 3)}`;
   },
 
   formatStreetNameForHpdLink(streetName: string): string {

@@ -32,13 +32,7 @@ class DetailViewWithoutI18n extends Component {
     // scroll to top of wrapper div:
     document.querySelector(".DetailView__wrapper").scrollTop = 0;
   }
-  /*
-  formatDate(dateString) {
-    var date = new Date(dateString);
-    var options = { year: "numeric", month: "short", day: "numeric" };
-    return date.toLocaleDateString(this.props.i18n._language || "en", options);
-  }
-*/
+
   render() {
     let boro, block, lot, ownernames, userOwnernames, takeActionURL;
     if (this.props.addr) {
@@ -51,8 +45,8 @@ class DetailViewWithoutI18n extends Component {
     }
 
     const isMobile = Browser.isMobile();
-
-    const formatPrice = new Intl.NumberFormat(this.props.i18n._language || "en");
+    const locale = this.props.i18n.language || "en";
+    const formatPrice = new Intl.NumberFormat(locale);
 
     const streetView = (
       <LazyLoadWhenVisible>
@@ -157,7 +151,7 @@ class DetailViewWithoutI18n extends Component {
                               month: "short",
                               day: "numeric",
                             },
-                            this.props.i18n._language || "en"
+                            locale
                           )}
                           {this.state.todaysDate > new Date(this.props.addr.registrationenddate) ? (
                             <span className="text-danger">
@@ -171,7 +165,7 @@ class DetailViewWithoutI18n extends Component {
                                     month: "short",
                                     day: "numeric",
                                   },
-                                  this.props.i18n._language || "en"
+                                  locale
                                 )}
                                 )
                               </Trans>
@@ -188,7 +182,7 @@ class DetailViewWithoutI18n extends Component {
                                     month: "short",
                                     day: "numeric",
                                   },
-                                  this.props.i18n._language || "en"
+                                  locale
                                 )}
                                 )
                               </Trans>
@@ -210,7 +204,7 @@ class DetailViewWithoutI18n extends Component {
                                     month: "short",
                                     day: "numeric",
                                   },
-                                  this.props.i18n._language || "en"
+                                  locale
                                 )}{" "}
                                 <Trans>
                                   for ${formatPrice.format(this.props.addr.lastsaleamount)}
