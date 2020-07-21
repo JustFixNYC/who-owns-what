@@ -1,5 +1,9 @@
+import os
 import copy
 import dj_database_url
+
+os.environ['DEBUG'] = ''
+os.environ['SECRET_KEY'] = "for testing only!"
 
 from .settings import *
 
