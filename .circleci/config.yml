@@ -15,16 +15,16 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: v1-py-cache-{{ .Branch }}-{{ checksum "requirements.txt" }}
+          key: v1-py-cache-{{ .Branch }}-{{ checksum "requirements.txt" }}-{{ checksum "requirements-dev.txt" }}
       - run:
           name: Activate venv and install requirements
           command: |
             python3 -m venv ~/venv
             . ~/venv/bin/activate
-            pip install -r requirements.txt
+            pip install -r requirements-dev.txt
       - save_cache:
           name: Save python deps cache
-          key: v1-py-cache-{{ .Branch }}-{{ checksum "requirements.txt" }}
+          key: v1-py-cache-{{ .Branch }}-{{ checksum "requirements.txt" }}-{{ checksum "requirements-dev.txt" }}
           paths:
             - ~/venv
       - run:

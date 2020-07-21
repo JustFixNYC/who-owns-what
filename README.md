@@ -44,7 +44,7 @@ Then you'll want to set up and enter a Python 3 virtual environment:
 ```
 python3 -m venv venv
 source venv/bin/activate  # Or 'venv\Scripts\activate' on Windows
-pip install -r requirements.txt
+pip install -r requirements-dev.txt
 ```
 
 Then you'll need to load data into the database. If you want to use
@@ -180,7 +180,7 @@ changes from one revision to another.
 To use new data, you'll need to update a few things:
 
 1. Update the [NYCDB][] revision WoW and its test suite use
-   at [`requirements.txt`][].
+   at [`requirements-dev.txt`][].
 2. Update the list of NYCDB datasets WoW depends on at
    [`who-owns-what.yml`][].
 3. Update any SQL to refer to the new dataset's tables.
@@ -202,7 +202,7 @@ project may be useful for keeping the WoW database up-to-date on a day-to-day
 basis.
 
 [NYCDB]: https://github.com/nycdb/nycdb
-[`requirements.txt`]: requirements.txt
+[`requirements-dev.txt`]: requirements-dev.txt
 [`who-owns-what.yml`]: who-owns-what.yml
 [`tests/generate_factory_from_csv.py`]: tests/generate_factory_from_csv.py
 [#209]: https://github.com/JustFixNYC/who-owns-what/pull/209
