@@ -61,6 +61,8 @@ jobs:
           path: test-reports
           destination: test-reports
   deploy:
+    machine:
+      enabled: true
     steps:
       - checkout
       - run:
