@@ -1,7 +1,7 @@
 version: 2.0
 
 jobs:
-  build:
+  test:
     working_directory: ~/who-owns-what
     docker:
       - image: circleci/python:3.6-node
@@ -60,3 +60,19 @@ jobs:
       - store_artifacts:
           path: test-reports
           destination: test-reports
+  deploy:
+    steps:
+      - checkout
+      - run:
+          command: |
+            curl https://cli-assets.heroku.com/install.sh | sh
+            heroku git:remote -a wow-django
+            git push heroku +HEAD:master
+workflows:
+  version: 2
+    test_and_deploy:
+      jobs:
+        - test
+        - deploy:
+            requires:
+              - test
