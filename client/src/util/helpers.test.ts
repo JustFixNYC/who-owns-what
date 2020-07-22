@@ -100,12 +100,12 @@ test("titleCase() works", () => {
   expect(helpers.titleCase("boop jones")).toBe("Boop Jones");
 });
 
-test("formatDateForTimeline() works", () => {
-  expect(helpers.formatDateForTimeline("2008-01-05")).toBe("January 2008");
+test("formatDate() works", () => {
+  expect(helpers.formatDate("2008-01-05", { year: "numeric", month: "long" })).toBe("January 2008");
 });
 
-test("formatMonthAbbreviationForTimeline() works", () => {
-  expect(helpers.formatMonthAbbreviationForTimeline("2008-01-05")).toBe("Jan");
+test("formatDate() works for month abbreviation", () => {
+  expect(helpers.formatDate("2008-01-05", { month: "short" })).toBe("Jan");
 });
 
 // Note: Although there is generally good support across modern versions of the usual web browsers,
@@ -113,12 +113,14 @@ test("formatMonthAbbreviationForTimeline() works", () => {
 // Therefore, I implemented these two tests to match either the localized result or the default.
 // See more here: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleDateString
 
-test("formatDateForTimeline() works for non-English locales", () => {
-  expect(helpers.formatDateForTimeline("2008-01-05", "es")).toMatch(/Enero de 2008|January 2008/i);
+test("formatDate() works for  non-English locales", () => {
+  expect(helpers.formatDate("2008-01-05", { year: "numeric", month: "long" }, "es")).toMatch(
+    /Enero de 2008|January 2008/i
+  );
 });
 
-test("formatMonthAbbreviationForTimeline() works for non-English locales", () => {
-  expect(helpers.formatMonthAbbreviationForTimeline("2008-01-05", "es")).toMatch(/Ene|Jan/i);
+test("formatDate() works for timeline in non-English locales", () => {
+  expect(helpers.formatDate("2008-01-05", { month: "short" }, "es")).toMatch(/Ene|Jan/i);
 });
 
 test("formatStreetNameForHpdLink() works for directional prefixes", () => {

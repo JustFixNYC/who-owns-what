@@ -9,6 +9,7 @@ import { withI18n } from "@lingui/react";
 import { t } from "@lingui/macro";
 import { Link } from "react-router-dom";
 import { SupportedLocale } from "../i18n-base";
+import Helpers, { longDateOptions } from "../util/helpers";
 
 type Addr = {
   housenumber: string;
@@ -29,12 +30,6 @@ type Addr = {
   lastsaleacrisid: string;
 };
 
-const formatDate = (dateString: string, locale?: SupportedLocale) => {
-  var date = new Date(dateString);
-  var options = { year: "numeric", month: "short", day: "numeric" };
-  return date.toLocaleDateString(locale || "en", options);
-};
-
 export const isPartOfGroupSale = (saleId: string, addrs: Addr[]) => {
   const addrsWithMatchingSale = addrs.filter((addr) => addr.lastsaleacrisid === saleId);
   return addrsWithMatchingSale.length > 1;
@@ -48,8 +43,6 @@ const PropertiesListWithoutI18n: React.FC<{
 }> = (props) => {
   const { i18n } = props;
   const locale = (i18n.language as SupportedLocale) || "en";
-  const formatPrice = new Intl.NumberFormat(locale);
-  // console.log(props.addrs);
   if (!props.addrs.length) {
     return null;
   } else {
@@ -256,7 +249,7 @@ const PropertiesListWithoutI18n: React.FC<{
                   accessor: (d) => d.lastsaledate,
                   Cell: (row) =>
                     row.original.lastsaledate
-                      ? formatDate(row.original.lastsaledate, locale)
+                      ? Helpers.formatDate(row.original.lastsaledate, longDateOptions, locale)
                       : null,
                   id: "lastsaledate",
                 },
@@ -265,7 +258,7 @@ const PropertiesListWithoutI18n: React.FC<{
                   accessor: (d) => (d.lastsaleamount ? parseInt(d.lastsaleamount) : null),
                   Cell: (row) =>
                     row.original.lastsaleamount
-                      ? "$" + formatPrice.format(row.original.lastsaleamount)
+                      ? "$" + Helpers.formatPrice(row.original.lastsaleamount, locale)
                       : null,
                   id: "lastsaleamount",
                 },

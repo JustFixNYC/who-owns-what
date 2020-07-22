@@ -9,7 +9,7 @@ import * as ChartAnnotation from "chartjs-plugin-annotation";
 // reference: https://github.com/chartjs/chartjs-plugin-annotation
 // why we're using this import format: https://stackoverflow.com/questions/51664741/chartjs-plugin-annotations-not-displayed-in-angular-5/53071497#53071497
 
-import Helpers from "util/helpers";
+import Helpers, { mediumDateOptions, shortDateOptions } from "util/helpers";
 
 import "styles/Indicators.css";
 
@@ -273,7 +273,7 @@ class IndicatorsVizImplementation extends Component {
                   var fullDate = value.concat("-15"); // Make date value include a day so it can be parsed
                   return (
                     (value.slice(5, 7) === "01" ? value.slice(0, 4) + "  " : "") + // Include special year label for January
-                    Helpers.formatMonthAbbreviationForTimeline(fullDate, locale)
+                    Helpers.formatDate(fullDate, shortDateOptions, locale)
                   );
                 } else if (timeSpan === "quarter") {
                   return (
@@ -305,7 +305,7 @@ class IndicatorsVizImplementation extends Component {
             } else if (timeSpan === "month") {
               // Make date value include day:
               var fullDate = this._data.labels[tooltipItem[0].index].concat("-15");
-              return Helpers.formatDateForTimeline(fullDate, locale);
+              return Helpers.formatDate(fullDate, mediumDateOptions, locale);
             } else {
               return "";
             }
@@ -386,7 +386,7 @@ class IndicatorsVizImplementation extends Component {
                 label: {
                   content:
                     (dateLocation === "past" ? "← " : "") +
-                    Helpers.formatDateForTimeline(this.props.lastSale.date, locale) +
+                    Helpers.formatDate(this.props.lastSale.date, mediumDateOptions, locale) +
                     (dateLocation === "future" ? " →" : ""),
                   fontFamily: "Inconsolata, monospace",
                   fontColor: "#fff",

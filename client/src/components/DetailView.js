@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { CSSTransition } from "react-transition-group";
 import { StreetView } from "./StreetView";
 import { LazyLoadWhenVisible } from "./LazyLoadWhenVisible";
-import Helpers from "util/helpers";
+import Helpers, { longDateOptions } from "util/helpers";
 import Browser from "util/browser";
 import Modal from "components/Modal";
 
@@ -33,12 +33,6 @@ class DetailViewWithoutI18n extends Component {
     document.querySelector(".DetailView__wrapper").scrollTop = 0;
   }
 
-  formatDate(dateString) {
-    var date = new Date(dateString);
-    var options = { year: "numeric", month: "short", day: "numeric" };
-    return date.toLocaleDateString(this.props.i18n._language || "en", options);
-  }
-
   render() {
     let boro, block, lot, ownernames, userOwnernames, takeActionURL;
     if (this.props.addr) {
@@ -51,8 +45,7 @@ class DetailViewWithoutI18n extends Component {
     }
 
     const isMobile = Browser.isMobile();
-
-    const formatPrice = new Intl.NumberFormat(this.props.i18n._language || "en");
+    const locale = this.props.i18n.language || "en";
 
     const streetView = (
       <LazyLoadWhenVisible>
@@ -150,19 +143,35 @@ class DetailViewWithoutI18n extends Component {
                           <b>
                             <Trans>Last registered:</Trans>
                           </b>{" "}
-                          {this.formatDate(this.props.addr.lastregistrationdate)}
+                          {Helpers.formatDate(
+                            this.props.addr.lastregistrationdate,
+                            longDateOptions,
+                            locale
+                          )}
                           {this.state.todaysDate > new Date(this.props.addr.registrationenddate) ? (
                             <span className="text-danger">
                               {" "}
                               <Trans>
-                                (expired {this.formatDate(this.props.addr.registrationenddate)})
+                                (expired{" "}
+                                {Helpers.formatDate(
+                                  this.props.addr.registrationenddate,
+                                  longDateOptions,
+                                  locale
+                                )}
+                                )
                               </Trans>
                             </span>
                           ) : (
+                            // prettier-ignore
                             <span>
                               {" "}
                               <Trans>
-                                (expires {this.formatDate(this.props.addr.registrationenddate)})
+                                (expires{" "} 
+                                {Helpers.formatDate(
+                                  this.props.addr.registrationenddate,
+                                  longDateOptions,
+                                  locale
+                                )})
                               </Trans>
                             </span>
                           )}
@@ -175,9 +184,13 @@ class DetailViewWithoutI18n extends Component {
                                 <Trans>Last sold:</Trans>
                               </b>{" "}
                               <>
-                                {this.formatDate(this.props.addr.lastsaledate)}{" "}
+                                {Helpers.formatDate(
+                                  this.props.addr.lastsaledate,
+                                  longDateOptions,
+                                  locale
+                                )}{" "}
                                 <Trans>
-                                  for ${formatPrice.format(this.props.addr.lastsaleamount)}
+                                  for ${Helpers.formatPrice(this.props.addr.lastsaleamount, locale)}
                                 </Trans>
                                 {this.props.addr.lastsaleacrisid &&
                                   isPartOfGroupSale(

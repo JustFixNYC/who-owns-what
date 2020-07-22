@@ -25,6 +25,10 @@ const hpdNumberTransformations = [
   ["TENTH", "10"],
 ];
 
+export const longDateOptions = { year: "numeric", month: "short", day: "numeric" };
+export const mediumDateOptions = { year: "numeric", month: "long" };
+export const shortDateOptions = { month: "short" };
+
 /**
  * Urg, our codebase wasn't originally written in TypeScript and
  * some of our legacy code appears to pass around numbers as strings,
@@ -109,6 +113,11 @@ export default {
     return null;
   },
 
+  formatPrice(amount: number, locale?: SupportedLocale): string {
+    const formatPrice = new Intl.NumberFormat(locale || "en");
+    return formatPrice.format(amount);
+  },
+
   createTakeActionURL(
     addr: { boro?: string; housenumber: string; streetname: string } | null | undefined,
     utm_medium: string
@@ -154,16 +163,9 @@ export default {
       .join(" ");
   },
 
-  formatDateForTimeline(dateString: string, locale?: SupportedLocale): string {
+  formatDate(dateString: string, options: object, locale?: SupportedLocale): string {
     var date = new Date(dateString);
-    var options = { year: "numeric", month: "long" };
     return this.capitalize(date.toLocaleDateString(locale || "en", options));
-  },
-
-  formatMonthAbbreviationForTimeline(dateString: string, locale?: SupportedLocale): string {
-    var date = new Date(dateString);
-    var options = { month: "short" };
-    return this.capitalize(date.toLocaleDateString(locale || "en", options)).slice(0, 3);
   },
 
   /** The quarter number written out as it's range of months (ex: "1" becomes "Jan - Mar")  */
@@ -177,10 +179,10 @@ export default {
     const startDate = `2000-${monthRange.start}-15`;
     const endDate = `2000-${monthRange.end}-15`;
 
-    return `${this.formatMonthAbbreviationForTimeline(
-      startDate,
-      locale
-    )} - ${this.formatMonthAbbreviationForTimeline(endDate, locale)}`;
+    return `${this.formatDate(startDate, { month: "short" }, locale).slice(
+      0,
+      3
+    )} - ${this.formatDate(endDate, { month: "short" }, locale).slice(0, 3)}`;
   },
 
   formatStreetNameForHpdLink(streetName: string): string {
