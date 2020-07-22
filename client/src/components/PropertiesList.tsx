@@ -251,7 +251,7 @@ const PropertiesListWithoutI18n: React.FC<{
                     row.original.lastsaledate
                       ? Helpers.formatDate(
                           row.original.lastsaledate,
-                          { year: "numeric", month: "short", day: "numeric" },
+                          longDateOptions,
                           locale
                         )
                       : null,
@@ -262,7 +262,7 @@ const PropertiesListWithoutI18n: React.FC<{
                   accessor: (d) => (d.lastsaleamount ? parseInt(d.lastsaleamount) : null),
                   Cell: (row) =>
                     row.original.lastsaleamount
-                      ? "$" + Helpers.formatPrice(locale, row.original.lastsaleamount)
+                      ? "$" + Helpers.formatPrice(row.original.lastsaleamount, locale)
                       : null,
                   id: "lastsaleamount",
                 },

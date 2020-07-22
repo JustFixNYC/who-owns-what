@@ -145,11 +145,7 @@ class DetailViewWithoutI18n extends Component {
                           </b>{" "}
                           {Helpers.formatDate(
                             this.props.addr.lastregistrationdate,
-                            {
-                              year: "numeric",
-                              month: "short",
-                              day: "numeric",
-                            },
+                            longDateOptions,
                             locale
                           )}
                           {this.state.todaysDate > new Date(this.props.addr.registrationenddate) ? (
@@ -159,11 +155,7 @@ class DetailViewWithoutI18n extends Component {
                                 (expired{" "}
                                 {Helpers.formatDate(
                                   this.props.addr.registrationenddate,
-                                  {
-                                    year: "numeric",
-                                    month: "short",
-                                    day: "numeric",
-                                  },
+                                  longDateOptions,
                                   locale
                                 )}
                                 )
@@ -177,11 +169,7 @@ class DetailViewWithoutI18n extends Component {
                                 (expires{" "} 
                                 {Helpers.formatDate(
                                   this.props.addr.registrationenddate,
-                                  {
-                                    year: "numeric",
-                                    month: "short",
-                                    day: "numeric",
-                                  },
+                                  longDateOptions,
                                   locale
                                 )})
                               </Trans>
@@ -198,15 +186,11 @@ class DetailViewWithoutI18n extends Component {
                               <>
                                 {Helpers.formatDate(
                                   this.props.addr.lastsaledate,
-                                  {
-                                    year: "numeric",
-                                    month: "short",
-                                    day: "numeric",
-                                  },
+                                  longDateOptions,
                                   locale
                                 )}{" "}
                                 <Trans>
-                                  for ${Helpers.formatPrice(locale, this.props.addr.lastsaleamount)}
+                                  for ${Helpers.formatPrice(this.props.addr.lastsaleamount, locale)}
                                 </Trans>
                                 {this.props.addr.lastsaleacrisid &&
                                   isPartOfGroupSale(

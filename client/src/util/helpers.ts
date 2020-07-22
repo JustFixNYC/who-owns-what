@@ -25,6 +25,12 @@ const hpdNumberTransformations = [
   ["TENTH", "10"],
 ];
 
+
+const longDateOptions = { year: "numeric", month: "short", day: "numeric" };
+const mediumDateOptions = { year: "numeric", month: "long"};
+const shortDateOptions = { month: "short"}
+
+
 /**
  * Urg, our codebase wasn't originally written in TypeScript and
  * some of our legacy code appears to pass around numbers as strings,
@@ -109,7 +115,7 @@ export default {
     return null;
   },
 
-  formatPrice(locale: string, amount: number) {
+  formatPrice(amount:number, locale?: SupportedLocale): string {
     const formatPrice = new Intl.NumberFormat(locale);
     return formatPrice.format(amount);
   },

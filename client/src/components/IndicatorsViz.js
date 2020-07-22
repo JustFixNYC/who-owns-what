@@ -273,7 +273,7 @@ class IndicatorsVizImplementation extends Component {
                   var fullDate = value.concat("-15"); // Make date value include a day so it can be parsed
                   return (
                     (value.slice(5, 7) === "01" ? value.slice(0, 4) + "  " : "") + // Include special year label for January
-                    Helpers.formatDate(fullDate, { month: "short" }, locale)
+                    Helpers.formatDate(fullDate, shortDateOptions, locale)
                   );
                 } else if (timeSpan === "quarter") {
                   return (
@@ -305,7 +305,7 @@ class IndicatorsVizImplementation extends Component {
             } else if (timeSpan === "month") {
               // Make date value include day:
               var fullDate = this._data.labels[tooltipItem[0].index].concat("-15");
-              return Helpers.formatDate(fullDate, { year: "numeric", month: "long" }, locale);
+              return Helpers.formatDate(fullDate, mediumDateOptions, locale);
             } else {
               return "";
             }
@@ -388,7 +388,7 @@ class IndicatorsVizImplementation extends Component {
                     (dateLocation === "past" ? "← " : "") +
                     Helpers.formatDate(
                       this.props.lastSale.date,
-                      { year: "numeric", month: "long" },
+                      mediumDateOptions,
                       locale
                     ) +
                     (dateLocation === "future" ? " →" : ""),
