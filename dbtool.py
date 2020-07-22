@@ -186,7 +186,7 @@ class NycDbBuilder:
         else:
             print("Loading the database with real data (this could take a while).")
 
-        for dataset in get_dataset_dependencies():
+        for dataset in get_dataset_dependencies(for_api=True):
             self.ensure_dataset(dataset, force_refresh=force_refresh)
 
         for sqlpath in get_sqlfile_paths():
@@ -194,8 +194,11 @@ class NycDbBuilder:
             self.run_sql_file(sqlpath)
 
 
-def get_dataset_dependencies() -> List[str]:
-    return WOW_YML['dependencies'] + WOW_YML['api_dependencies']
+def get_dataset_dependencies(for_api: bool) -> List[str]:
+    result = WOW_YML['dependencies']
+    if for_api:
+        result += WOW_YML['api_dependencies']
+    return result
 
 
 def get_sqlfile_paths() -> List[Path]:
