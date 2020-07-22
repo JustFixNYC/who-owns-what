@@ -326,7 +326,7 @@ class NychaPageWithoutI18n extends Component {
 
               <Link className="btn btn-primary btn-block" to="/">
                 &lt;-- <Trans>Search for a different address</Trans>
-              </Link> 
+              </Link>
             </div>
           </div>
         </div>
