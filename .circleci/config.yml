@@ -1,7 +1,7 @@
 version: 2.0
 
 jobs:
-  build:
+  test:
     working_directory: ~/who-owns-what
     docker:
       - image: circleci/python:3.6-node
@@ -15,45 +15,43 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: v1-py-cache-{{ .Branch }}-{{ checksum "requirements.txt" }}
+          key: v1-py-cache-{{ .Branch }}-{{ checksum "requirements.txt" }}-{{ checksum "requirements-dev.txt" }}
       - run:
           name: Activate venv and install requirements
           command: |
             python3 -m venv ~/venv
             . ~/venv/bin/activate
-            pip install -r requirements.txt
+            pip install -r requirements-dev.txt
       - save_cache:
           name: Save python deps cache
-          key: v1-py-cache-{{ .Branch }}-{{ checksum "requirements.txt" }}
+          key: v1-py-cache-{{ .Branch }}-{{ checksum "requirements.txt" }}-{{ checksum "requirements-dev.txt" }}
           paths:
             - ~/venv
       - run:
           name: Test python code
           command: |
             . ~/venv/bin/activate
-            python dbtool.py builddb --use-test-data
-            python dbtool.py loadtestdata
+            mypy .
             pytest
       - restore_cache:
           name: Restore yarn package cache
           keys:
-            - yarn-packages-v2-{{ checksum "client/yarn.lock" }}-{{ checksum "yarn.lock" }}
+            - yarn-packages-v2-{{ checksum "client/yarn.lock" }}
       - run:
           name: Install all node dependencies
           command: |
-            yarn install --frozen-lockfile
             cd client
             yarn install --frozen-lockfile
       - save_cache:
           name: Save yarn package cache
-          key: yarn-packages-v2-{{ checksum "client/yarn.lock" }}-{{ checksum "yarn.lock" }}
+          key: yarn-packages-v2-{{ checksum "client/yarn.lock" }}
           paths:
             - ~/.cache/yarn
       - run:
           name: Build client and run tests
           command: |
-            yarn prettier:check
             cd client
+            yarn prettier:check
             yarn lingui compile
             # Note that CI=true in CircleCI, so this will fail if there are
             # any linter warnings.
@@ -62,3 +60,42 @@ jobs:
       - store_artifacts:
           path: test-reports
           destination: test-reports
+  deploy:
+    machine:
+      enabled: true
+    steps:
+      - checkout
+      - run:
+          name: Deploy to Heroku
+          # Note that you will need to set HEROKU_API_KEY in the CircleCI
+          # settings for this to work. You can generate a Heroku API key
+          # from the command-line with `heroku authorizations:create` for
+          # production apps or `heroku auth:token` for development.
+          #
+          # Note also that when pushing to Heroku via HTTPS auth, the username
+          # is ignored, which is why it's "boop" below. For more information,
+          # see:
+          #
+          #   https://devcenter.heroku.com/articles/git#http-git-authentication
+          command: |
+            if [[ "${CIRCLE_BRANCH}" == "production" ]]; then
+              # This should be the Heroku app name of our production instance.
+              export HEROKU_APP=wow-django
+            else
+              # This should be the Heroku app name of our development instance.
+              heroku HEROKU_APP=wow-django-dev
+            fi
+            git push -f https://boop:${HEROKU_API_KEY}@git.heroku.com/${HEROKU_APP}.git +HEAD:master
+workflows:
+  version: 2
+  test_and_deploy:
+    jobs:
+      - test
+      - deploy:
+          requires:
+            - test
+          filters:
+            branches:
+              only:
+                - production
+                - master

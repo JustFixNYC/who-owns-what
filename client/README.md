@@ -38,6 +38,11 @@ See the section about [running tests](https://facebook.github.io/create-react-ap
 
 ### `yarn build`
 
+**Note:** Before running this, you will want to make sure to set
+`REACT_APP_API_BASE_URL` appropriately, so that the front-end knows where
+its back-end API is. See `.env.local.sample` for more documentation on this
+variable.
+
 Builds the app for production to the `build` folder.<br />
 It correctly bundles React in production mode and optimizes the build for the best performance.
 

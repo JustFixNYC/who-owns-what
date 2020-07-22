@@ -15,13 +15,14 @@ With this website, you can find crucial information about who is responsible for
 
 This site is built on top of the critical work done by [@aepyornis](https://github.com/aepyornis) on the [nycdb](https://github.com/nycdb/nycdb) project, which is used to cleanly extract, sanitize, and load [HPD Registration data](http://www1.nyc.gov/site/hpd/about/open-data.page) into a PostgreSQL instance.
 
-Backend logic and data manipulation is largely handled by making calls to PostgreSQL functions and prebuilding results into tables whenever possible to avoid complex queries made per-request. See the [hpd-registration ](https://github.com/nycdb/nycdb/tree/master/src/nycdb/sql/hpd_registrations) scripts of `nycdb` for the SQL code that provides this functionality.
+Backend logic and data manipulation is largely handled by making calls to PostgreSQL functions and prebuilding results into tables whenever possible to avoid complex queries made per-request. for the SQL code that provides this functionality, see:
 
-Note that both the backend and the frontend of the app each contain __separate `package.json` configurations__ as well as __separate sets of environment variables__. We are not just being weird here— this is a recommended practice according to the [create-react-app](https://github.com/facebookincubator/create-react-app) framework that we used to build the tool. 
+* the [hpd-registration](https://github.com/nycdb/nycdb/tree/master/src/nycdb/sql/hpd_registrations) scripts of `nycdb`, and
+* the [sql](./sql) directory of this repository.
 
 #### Backend
 
-The backend of the app (`/server`) is a simple express build that connects to Postgres using `pg-promise`. 
+The backend of the app is a simple Django app that connects to Postgres.
 
 #### Frontend
 
@@ -43,7 +44,7 @@ Then you'll want to set up and enter a Python 3 virtual environment:
 ```
 python3 -m venv venv
 source venv/bin/activate  # Or 'venv\Scripts\activate' on Windows
-pip install -r requirements.txt
+pip install -r requirements-dev.txt
 ```
 
 Then you'll need to load data into the database. If you want to use
@@ -62,20 +63,31 @@ python dbtool.py loadtestdata
 After that, make sure you have node/npm/[yarn](https://yarnpkg.com/en/) and then run:
 
 ```
-yarn install-all
+cd client
+yarn
 ```
 
-This will grab dependencies for both server and client.
+This will grab dependencies for the client.
 
 ## Running in development
 
-Check `package.json` in the root directory for all options. To run both `express` and `create-react-app` you just need:
+You will need to run two separate terminals; one for the back-end and another for the front-end.
+
+To run the back-end API:
 
 ```
+python manage.py runserver
+```
+
+The server will listen at http://localhost:8000 by default, though you probably
+won't need to visit it unless you're manually testing out the API.
+
+To run the front-end:
+
+```
+cd client
 yarn start
 ```
-
-from root.
 
 You can visit your local dev instance at http://localhost:3000.
 
@@ -108,14 +120,18 @@ prepared, as it will take a while!
 Once you've done that, run:
 
 ```
-docker-compose run app yarn install-all
+bash docker-update.sh
 ```
+
+(You will want to re-run that whenever you update your git repository, too.)
 
 Then start up the server:
 
 ```
 docker-compose up
 ```
+
+Eventually, you should see a message that says "You can now view client in the browser."
 
 Visit http://localhost:3000 and you should be good to go! If
 you installed test data, you can see useful results by
@@ -127,8 +143,7 @@ can update the `DATABASE_URL` [server-side env variable](https://github.com/Just
 
 ## Tests
 
-Back-end tests are in the [`/tests`](tests/) directory and can be run via
-the Python virtualenv:
+Back-end tests can be run via the Python virtualenv:
 
 ```
 pytest
@@ -147,7 +162,7 @@ Package client-side assets through:
 cd client && yarn build
 ```
 
-Your express app will grab static files (i.e. the react app and assets) from `client/build` automatically.
+You will need to deploy `client/build` to a static file server.
 
 ## Cross-browser testing
 
@@ -165,7 +180,7 @@ changes from one revision to another.
 To use new data, you'll need to update a few things:
 
 1. Update the [NYCDB][] revision WoW and its test suite use
-   at [`requirements.txt`][].
+   at [`requirements-dev.txt`][].
 2. Update the list of NYCDB datasets WoW depends on at
    [`who-owns-what.yml`][].
 3. Update any SQL to refer to the new dataset's tables.
@@ -181,8 +196,13 @@ To use new data, you'll need to update a few things:
 An example of all this in practice can be seen in [#209][],
 which upgrades WoW from PLUTO 18v2 to 19v2.
 
+Note also that the
+[justfixnyc/nycdb-k8s-loader](https://github.com/justfixnyc/nycdb-k8s-loader)
+project may be useful for keeping the WoW database up-to-date on a day-to-day
+basis.
+
 [NYCDB]: https://github.com/nycdb/nycdb
-[`requirements.txt`]: requirements.txt
+[`requirements-dev.txt`]: requirements-dev.txt
 [`who-owns-what.yml`]: who-owns-what.yml
 [`tests/generate_factory_from_csv.py`]: tests/generate_factory_from_csv.py
 [#209]: https://github.com/JustFixNYC/who-owns-what/pull/209

@@ -1,5 +1,8 @@
 FROM python:3.6
 
+# This Dockerfile is for development purposes only; we don't use it
+# for production.
+
 ENV NODE_VERSION=12
 
 RUN curl -sL https://deb.nodesource.com/setup_${NODE_VERSION}.x | bash -
@@ -21,8 +24,8 @@ RUN apt-get update \
 
 RUN npm install -g yarn
 
-COPY requirements.txt /
+COPY requirements.txt requirements-dev.txt /
 
-RUN pip install -r requirements.txt
+RUN pip install -r requirements-dev.txt
 
-ENV PATH /wow/node_modules/.bin:/wow/client/node_modules/.bin:$PATH
+ENV PATH /wow/client/node_modules/.bin:$PATH
