@@ -82,7 +82,7 @@ class NycdbContext:
         and then run all our custom SQL.
         '''
 
-        for dataset in dbtool.get_dataset_dependencies():
+        for dataset in dbtool.get_dataset_dependencies(for_api=False):
             self.load_dataset(dataset)
 
         all_sql = '\n'.join([
