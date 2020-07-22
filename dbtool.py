@@ -195,7 +195,7 @@ class NycDbBuilder:
 
 
 def get_dataset_dependencies() -> List[str]:
-    return WOW_YML['dependencies']
+    return WOW_YML['dependencies'] + WOW_YML['api_dependencies']
 
 
 def get_sqlfile_paths() -> List[Path]:
