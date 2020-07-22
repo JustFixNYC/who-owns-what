@@ -67,13 +67,25 @@ jobs:
       - checkout
       - run:
           name: Deploy to Heroku
-          # Note that when pushing to Heroku via HTTPS auth, the username
+          # Note that you will need to set HEROKU_API_KEY in the CircleCI
+          # settings for this to work. You can generate a Heroku API key
+          # from the command-line with `heroku authorizations:create` for
+          # production apps or `heroku auth:token` for development.
+          #
+          # Note also that when pushing to Heroku via HTTPS auth, the username
           # is ignored, which is why it's "boop" below. For more information,
           # see:
           #
           #   https://devcenter.heroku.com/articles/git#http-git-authentication
           command: |
-            git push https://boop:${HEROKU_API_KEY}@git.heroku.com/wow-django.git +HEAD:master
+            if [[ "${CIRCLE_BRANCH}" == "production" ]]; then
+              # This should be the Heroku app name of our production instance.
+              export HEROKU_APP=wow-django
+            else
+              # This should be the Heroku app name of our development instance.
+              heroku HEROKU_APP=wow-django-dev
+            fi
+            git push https://boop:${HEROKU_API_KEY}@git.heroku.com/${HEROKU_APP}.git +HEAD:master
 workflows:
   version: 2
   test_and_deploy:
@@ -82,3 +94,8 @@ workflows:
       - deploy:
           requires:
             - test
+          filters:
+            branches:
+              only:
+                - production
+                - master
