@@ -58,7 +58,12 @@ class LegalFooter extends Component {
                 </a>
               </nav>
               <br className="hide-md" />
-              <a href="https://www.netlify.com" target="_blank" className="hide-md">
+              <a
+                href="https://www.netlify.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hide-md"
+              >
                 <img
                   src="https://www.netlify.com/img/global/badges/netlify-dark.svg"
                   alt="Netlify"
