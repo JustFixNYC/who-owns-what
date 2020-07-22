@@ -57,7 +57,6 @@ class LegalFooter extends Component {
                   <Trans>Source code</Trans>
                 </a>
               </nav>
-              <br className="hide-md" />
               <a
                 href="https://www.netlify.com"
                 target="_blank"
