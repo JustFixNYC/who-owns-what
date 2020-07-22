@@ -4,10 +4,10 @@ import logging
 from typing import Dict, Any, List
 from pathlib import Path
 from django.http import HttpResponse, JsonResponse, Http404
-from django.core.exceptions import ValidationError
 
 from .dbutil import call_db_func, exec_db_query
 from . import csvutil
+from .forms import PaddedBBLForm, SeparatedBBLForm
 
 
 MY_DIR = Path(__file__).parent.resolve()
@@ -15,6 +15,17 @@ MY_DIR = Path(__file__).parent.resolve()
 SQL_DIR = MY_DIR / 'sql'
 
 logger = logging.getLogger(__name__)
+
+
+class InvalidFormError(Exception):
+    def __init__(self, form):
+        self.form_errors = form.errors.get_json_data()
+
+    def as_json_response(self):
+        return JsonResponse({
+            'error': 'Bad request',
+            'validationErrors': self.form_errors,
+        }, status=400)
 
 
 def apply_cors_policy(request, response):
@@ -30,20 +41,26 @@ def api(fn):
     @functools.wraps(fn)
     def wrapper(request, *args, **kwargs):
         request.is_api_request = True        
-        response = fn(request, *args, **kwargs)
+        try:
+            response = fn(request, *args, **kwargs)
+        except InvalidFormError as e:
+            response = e.as_json_response()
         return apply_cors_policy(request, response)
 
     return wrapper
 
 
+def get_validated_form_data(form_class, data) -> Dict[str, Any]:
+    form = form_class(data)
+    if not form.is_valid():
+        raise InvalidFormError(form)
+    return form.cleaned_data
+
+
 @api
 def address_query(request):
-    block = request.GET.get('block', '')
-    lot = request.GET.get('lot', '')
-    borough = request.GET.get('borough', '')
-    bbl = borough + block + lot
-
-    # TODO: validate bbl, return 400 if it's bad.
+    args = get_validated_form_data(SeparatedBBLForm, request.GET)
+    bbl = args['borough'] + args['block'] + args['lot']
 
     # TODO: the original API also sometimes got 'houseNumber', 'street', 'borough' query
     # args, in which case it would look up the BBL. Not sure if we need to do that here.
@@ -73,32 +90,27 @@ def address_dap_aggregate(request):
     return address_aggregate(request)
 
 
+def get_request_bbl(request) -> str:
+    return get_validated_form_data(PaddedBBLForm, request.GET)['bbl']
+
+
 @api
 def address_aggregate(request):
-    bbl = request.GET.get('bbl', '')
-
-    # TODO: validate bbl, return 400 if it's bad.
-
+    bbl = get_request_bbl(request)
     result = call_db_func('get_agg_info_from_bbl', [bbl])
     return JsonResponse({ 'result': result })
 
 
 @api
 def address_buildinginfo(request):
-    bbl = request.GET.get('bbl', '')
-
-    # TODO: validate bbl, return 400 if it's bad.
-
+    bbl = get_request_bbl(request)
     result = exec_db_query(SQL_DIR / 'address_buildinginfo.sql', { 'bbl': bbl })
     return JsonResponse({ 'result': result })
 
 
 @api
 def address_indicatorhistory(request):
-    bbl = request.GET.get('bbl', '')
-
-    # TODO: validate bbl, return 400 if it's bad.
-
+    bbl = get_request_bbl(request)
     result = exec_db_query(SQL_DIR / 'address_indicatorhistory.sql', { 'bbl': bbl })
     return JsonResponse({ 'result': result })
 
@@ -110,10 +122,7 @@ def address_export(request):
     # since it would require us to make a network request to geosearch, which
     # we don't currently support.
 
-    bbl = request.GET.get('bbl', '')
-
-    # TODO: validate bbl, return 400 if it's bad.
-
+    bbl = get_request_bbl(request)
     addrs = call_db_func('get_assoc_addrs_from_bbl', [bbl])
 
     if not addrs:
