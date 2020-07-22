@@ -29,13 +29,7 @@ type Addr = {
   lastsaleamount: string;
   lastsaleacrisid: string;
 };
-/*
-const formatDate = (dateString: string, locale?: SupportedLocale) => {
-  var date = new Date(dateString);
-  var options = { year: "numeric", month: "short", day: "numeric" };
-  return date.toLocaleDateString(locale || "en", options);
-};
-*/
+
 export const isPartOfGroupSale = (saleId: string, addrs: Addr[]) => {
   const addrsWithMatchingSale = addrs.filter((addr) => addr.lastsaleacrisid === saleId);
   return addrsWithMatchingSale.length > 1;
