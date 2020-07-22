@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { CSSTransition } from "react-transition-group";
 import { StreetView } from "./StreetView";
 import { LazyLoadWhenVisible } from "./LazyLoadWhenVisible";
-import Helpers from "util/helpers";
+import Helpers, { longDateOptions } from "util/helpers";
 import Browser from "util/browser";
 import Modal from "components/Modal";
 

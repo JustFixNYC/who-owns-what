@@ -25,11 +25,9 @@ const hpdNumberTransformations = [
   ["TENTH", "10"],
 ];
 
-
-const longDateOptions = { year: "numeric", month: "short", day: "numeric" };
-const mediumDateOptions = { year: "numeric", month: "long"};
-const shortDateOptions = { month: "short"}
-
+export const longDateOptions = { year: "numeric", month: "short", day: "numeric" };
+export const mediumDateOptions = { year: "numeric", month: "long" };
+export const shortDateOptions = { month: "short" };
 
 /**
  * Urg, our codebase wasn't originally written in TypeScript and
@@ -115,8 +113,8 @@ export default {
     return null;
   },
 
-  formatPrice(amount:number, locale?: SupportedLocale): string {
-    const formatPrice = new Intl.NumberFormat(locale);
+  formatPrice(amount: number, locale?: SupportedLocale): string {
+    const formatPrice = new Intl.NumberFormat(locale || "en");
     return formatPrice.format(amount);
   },
 

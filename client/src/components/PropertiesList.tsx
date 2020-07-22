@@ -2,7 +2,6 @@ import React from "react";
 import ReactTable from "react-table";
 import Browser from "../util/browser";
 
-import Helpers from "../util/helpers";
 import "react-table/react-table.css";
 import "styles/PropertiesList.css";
 import { I18n } from "@lingui/core";
@@ -10,6 +9,7 @@ import { withI18n } from "@lingui/react";
 import { t } from "@lingui/macro";
 import { Link } from "react-router-dom";
 import { SupportedLocale } from "../i18n-base";
+import Helpers, { longDateOptions } from "../util/helpers";
 
 type Addr = {
   housenumber: string;
@@ -249,11 +249,7 @@ const PropertiesListWithoutI18n: React.FC<{
                   accessor: (d) => d.lastsaledate,
                   Cell: (row) =>
                     row.original.lastsaledate
-                      ? Helpers.formatDate(
-                          row.original.lastsaledate,
-                          longDateOptions,
-                          locale
-                        )
+                      ? Helpers.formatDate(row.original.lastsaledate, longDateOptions, locale)
                       : null,
                   id: "lastsaledate",
                 },

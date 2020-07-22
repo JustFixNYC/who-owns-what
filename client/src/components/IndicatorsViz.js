@@ -9,7 +9,7 @@ import * as ChartAnnotation from "chartjs-plugin-annotation";
 // reference: https://github.com/chartjs/chartjs-plugin-annotation
 // why we're using this import format: https://stackoverflow.com/questions/51664741/chartjs-plugin-annotations-not-displayed-in-angular-5/53071497#53071497
 
-import Helpers from "util/helpers";
+import Helpers, { mediumDateOptions, shortDateOptions } from "util/helpers";
 
 import "styles/Indicators.css";
 
@@ -386,11 +386,7 @@ class IndicatorsVizImplementation extends Component {
                 label: {
                   content:
                     (dateLocation === "past" ? "← " : "") +
-                    Helpers.formatDate(
-                      this.props.lastSale.date,
-                      mediumDateOptions,
-                      locale
-                    ) +
+                    Helpers.formatDate(this.props.lastSale.date, mediumDateOptions, locale) +
                     (dateLocation === "future" ? " →" : ""),
                   fontFamily: "Inconsolata, monospace",
                   fontColor: "#fff",
