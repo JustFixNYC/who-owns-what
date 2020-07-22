@@ -156,7 +156,7 @@ class HomePage extends Component<HomePageProps, State> {
     }
 
     const labelText = (
-      <Trans>Enter an NYC address and find other buildings your landlord might own:</Trans>
+      <Trans>Enter an NYC BOOP and find other buildings your landlord might own:</Trans>
     );
 
     return (
