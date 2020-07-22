@@ -1,6 +1,6 @@
 import os
 from pathlib import Path
-from typing import List
+from typing import List, Optional, Dict, Any
 from django.core.exceptions import ImproperlyConfigured
 import dj_database_url
 
@@ -30,17 +30,17 @@ DEBUG = os.environ.get('DEBUG') == "true"
 
 SECRET_KEY =  get_required_env('SECRET_KEY')
 
-# TODO: Add Rollbar support!
-ROLLBAR = None
-
 # TODO: Figure out if this can securely stay at '*'.
 ALLOWED_HOSTS: List[str] = ['*']
 
 ROOT_URLCONF = 'project.urls'
 
 INSTALLED_APPS = [
+    'project.apps.DefaultConfig',
     'wow.apps.WowConfig',
 ]
+
+MIDDLEWARE: List[str] = []
 
 DATABASES = {
     'default': {
@@ -52,3 +52,70 @@ DATABASES = {
     },
     'wow': dj_database_url.parse(get_required_env('DATABASE_URL')),
 }
+
+# This is based off the default Django logging configuration:
+# https://github.com/django/django/blob/master/django/utils/log.py
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'rollbar': {
+            # This will be replaced by a real handler if Rollbar is enabled.
+            'level': 'ERROR',
+            'class': 'logging.NullHandler'
+        },
+        'console': {
+            'class': 'logging.StreamHandler',
+            'formatter': None,
+        },
+        'django.server': {
+            'level': 'INFO',
+            'class': 'logging.StreamHandler',
+            'formatter': 'django.server',
+        },
+    },
+    'formatters': {
+        'debug': {
+            'format': '{levelname}:{name} {message}',
+            'style': '{',
+        },
+        'django.server': {
+            '()': 'django.utils.log.ServerFormatter',
+            'format': '[{server_time}] {message}',
+            'style': '{',
+        }
+    },
+    'loggers': {
+        '': {
+            'handlers': ['console', 'rollbar'],
+            'level': 'INFO',
+        },
+        'django': {
+            'handlers': ['console'],
+            'level': 'INFO',
+            'propagate': False,
+        },
+        'django.server': {
+            'handlers': ['django.server'],
+            'level': 'INFO',
+            'propagate': False,
+        },
+    },
+}
+
+ROLLBAR: Optional[Dict[str, Any]] = None
+
+ROLLBAR_ACCESS_TOKEN = os.environ.get('ROLLBAR_ACCESS_TOKEN')
+
+if ROLLBAR_ACCESS_TOKEN:
+    # TODO: It'd be nice to set code_version at some point.
+    ROLLBAR = {
+        'access_token': ROLLBAR_ACCESS_TOKEN,
+        'environment': 'development' if DEBUG else 'production',
+        'root': str(BASE_DIR),
+    }
+    LOGGING['handlers']['rollbar'].update({    # type: ignore
+        'class': 'rollbar.logger.RollbarHandler'
+    })
+    MIDDLEWARE.append(
+        'rollbar.contrib.django.middleware.RollbarNotifierMiddlewareExcluding404')
