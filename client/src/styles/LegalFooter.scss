@@ -36,6 +36,9 @@
     }
 
     nav {
+      @media screen and (min-width: 841px) {
+        margin-bottom: 1.25rem;
+      }
       a {
         display: inline-block;
         &:not(:first-child) {

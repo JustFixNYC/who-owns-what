@@ -1,5 +1,7 @@
-https://github.com/nycdb/nycdb/archive/2560271cb47fc35d7e5584c673fd57cbcdb5880a.zip#subdirectory=src
+# This only contains dependencies for running the API
+# server. For all other dependencies, see requirements-dev.txt.
 psycopg2-binary==2.7.7
-mypy==0.660
-PyYAML>=5.1
-pytest==4.4.0
+django==2.2.13
+rollbar==0.14.5
+dj-database-url==0.5.0
+gunicorn==19.9.0
