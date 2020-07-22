@@ -170,10 +170,11 @@ class DetailViewWithoutI18n extends Component {
                               </Trans>
                             </span>
                           ) : (
+                            // prettier-ignore
                             <span>
                               {" "}
                               <Trans>
-                                (expires{" "}
+                                (expires{" "} 
                                 {Helpers.formatDate(
                                   this.props.addr.registrationenddate,
                                   {
@@ -182,8 +183,7 @@ class DetailViewWithoutI18n extends Component {
                                     day: "numeric",
                                   },
                                   locale
-                                )}
-                                )
+                                )})
                               </Trans>
                             </span>
                           )}
