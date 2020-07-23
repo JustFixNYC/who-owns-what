@@ -15,6 +15,11 @@ type HpdOwnerContact = {
   value: string;
 };
 
+export type GeoSearchData = {
+  geosupportReturnCode: string;
+  bbl: string;
+};
+
 type AddressRecord = {
   bbl: string;
   /** Front-end interprets as string */
@@ -50,10 +55,7 @@ type AddressRecord = {
 
 export type SearchResults = {
   addrs: AddressRecord[];
-  geosearch?: {
-    geosupportReturnCode: string;
-    bbl: string;
-  };
+  geosearch?: GeoSearchData;
 };
 
 // TYPES ASSOCIATED WITH SUMMARY AGGREGATE QUERY:
@@ -121,7 +123,7 @@ export type SummaryResults = {
 
 // TYPES ASSOCIATED BUILDING INFO QUERY:
 
-type BuildingInfoRecord = AddressLocation & {
+export type BuildingInfoRecord = AddressLocation & {
   bldgclass: string;
   formatted_address: string;
 };

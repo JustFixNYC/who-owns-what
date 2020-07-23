@@ -1,17 +1,29 @@
 import React, { Component } from "react";
 import { LocaleLink as Link } from "../i18n";
-import Modal from "components/Modal";
-import LegalFooter from "components/LegalFooter";
-import Helpers from "util/helpers";
-import APIClient from "components/APIClient";
-import SocialShare from "components/SocialShare";
 
 import "styles/NotRegisteredPage.css";
 import { Trans } from "@lingui/macro";
 import { createRouteForAddressPage, getSiteOrigin } from "../routes";
+import Modal from "../components/Modal";
+import LegalFooter from "../components/LegalFooter";
+import Helpers from "../util/helpers";
+import APIClient from "../components/APIClient";
+import SocialShare from "../components/SocialShare";
+import { SearchAddress } from "../components/AddressSearch";
+import { GeoSearchData, BuildingInfoRecord } from "../components/APIDataTypes";
 
-export default class NotRegisteredPage extends Component {
-  constructor(props) {
+type Props = {
+  geosearch?: GeoSearchData;
+  searchAddress?: SearchAddress;
+};
+
+type State = {
+  showModal: boolean;
+  buildingInfo: BuildingInfoRecord[] | null;
+};
+
+export default class NotRegisteredPage extends Component<Props, State> {
+  constructor(props: Props) {
     super(props);
 
     this.state = {
@@ -21,7 +33,7 @@ export default class NotRegisteredPage extends Component {
   }
 
   componentDidMount() {
-    if (this.props.geosearch && this.props.geosearch.bbl && !this.state.buildingInfo) {
+    if (this.props.geosearch && !this.state.buildingInfo) {
       const bbl = this.props.geosearch.bbl;
       APIClient.getBuildingInfo(bbl)
         .then((results) => this.setState({ buildingInfo: results.result }))
@@ -39,20 +51,19 @@ export default class NotRegisteredPage extends Component {
         ? this.state.buildingInfo[0]
         : null;
 
-    const usersInputAddress =
-      searchAddress && searchAddress.boro && (searchAddress.housenumber || searchAddress.streetname)
-        ? {
-            boro: searchAddress.boro,
-            housenumber: searchAddress.housenumber || " ",
-            streetname: searchAddress.streetname || " ",
-          }
-        : buildingInfo && buildingInfo.boro && (buildingInfo.housenumber || buildingInfo.streetname)
-        ? {
-            boro: buildingInfo.boro,
-            housenumber: buildingInfo.housenumber || " ",
-            streetname: buildingInfo.streetname || " ",
-          }
-        : null;
+    const usersInputAddress = searchAddress
+      ? {
+          boro: searchAddress.boro,
+          housenumber: searchAddress.housenumber || " ",
+          streetname: searchAddress.streetname || " ",
+        }
+      : buildingInfo
+      ? {
+          boro: buildingInfo.boro,
+          housenumber: buildingInfo.housenumber || " ",
+          streetname: buildingInfo.streetname || " ",
+        }
+      : null;
 
     const failedToRegisterLink = (
       <div className="text-center">
@@ -72,9 +83,7 @@ export default class NotRegisteredPage extends Component {
     let buildingTypeMessage;
 
     if (geosearch) {
-      if (geosearch.bbl) {
-        ({ boro, block, lot } = Helpers.splitBBL(geosearch.bbl));
-      }
+      ({ boro, block, lot } = Helpers.splitBBL(geosearch.bbl));
 
       if (buildingInfo && buildingInfo.bldgclass) {
         const generalBldgCat = buildingInfo.bldgclass.replace(/[0-9]/g, "");
@@ -291,8 +300,9 @@ export default class NotRegisteredPage extends Component {
                 <SocialShare
                   location="nycha-page"
                   url={
-                    usersInputAddress &&
-                    `${getSiteOrigin()}${createRouteForAddressPage(usersInputAddress)}`
+                    usersInputAddress
+                      ? `${getSiteOrigin()}${createRouteForAddressPage(usersInputAddress)}`
+                      : undefined
                   }
                 />
               </div>
