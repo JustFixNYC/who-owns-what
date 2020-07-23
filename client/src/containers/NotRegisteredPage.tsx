@@ -14,7 +14,9 @@ import { SearchAddress } from "../components/AddressSearch";
 import { GeoSearchData, BuildingInfoRecord } from "../components/APIDataTypes";
 
 type Props = {
+  /** Could concievably be undefined if the input address is totally invalid */
   geosearch?: GeoSearchData;
+   /** Could concievably be undefined if the input address is totally invalid */
   searchAddress?: SearchAddress;
 };
 
@@ -299,7 +301,7 @@ export default class NotRegisteredPage extends Component<Props, State> {
                   <Trans>Share this page with your neighbors</Trans>
                 </p>
                 <SocialShare
-                  location="nycha-page"
+                  location="not-registered-page"
                   url={
                     usersInputAddress
                       ? `${getSiteOrigin()}${createRouteForAddressPage(usersInputAddress)}`
