@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="theme-color" content="#000000">
+    <meta name="version" content="%REACT_APP_VERSION%">
 
     <!--
       manifest.json provides metadata used when your web app is added to the
@@ -79,7 +80,13 @@
         captureUncaught: true,
         captureUnhandledRejections: true,
         payload: {
-            environment: "%NODE_ENV%"
+            environment: "%NODE_ENV%",
+            client: {
+                javascript: {
+                    source_map_enabled: true,
+                    code_version: "%REACT_APP_VERSION%"
+                }
+            }
         }
     };
     // Rollbar Snippet

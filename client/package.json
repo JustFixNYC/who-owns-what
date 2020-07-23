@@ -70,7 +70,7 @@
     "watch-css": "yarn build-css && node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/ --watch --recursive",
     "start-js": "lingui compile && cross-env NODE_PATH=src:src/components:src/containers:src/styles react-scripts start",
     "start": "npm-run-all -p watch-css start-js",
-    "build": "yarn build-css && lingui compile && cross-env NODE_PATH=src:src/components:src/containers:src/styles react-scripts build",
+    "build": "node write-version.js && yarn build-css && lingui compile && cross-env NODE_PATH=src:src/components:src/containers:src/styles react-scripts build",
     "test": "react-scripts test --env=jsdom --transformIgnorePatterns \"node_modules/(?!@justfixnyc)/\"",
     "eject": "react-scripts eject"
   },
