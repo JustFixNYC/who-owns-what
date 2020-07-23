@@ -1,7 +1,15 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router-dom";
 
-// https://reactjs.org/docs/hooks-faq.html#how-to-get-the-previous-props-or-state
+/**
+ * Returns whatever the passed-in value was on
+ * the previous render. This was taken from:
+ *
+ *   https://reactjs.org/docs/hooks-faq.html#how-to-get-the-previous-props-or-state
+ *
+ * The first time it's called, it will return undefined,
+ * since there was no previous render.
+ */
 function usePrevious<T>(value: T): T | undefined {
   const ref = useRef<T | undefined>(undefined);
   useEffect(() => {
@@ -10,6 +18,13 @@ function usePrevious<T>(value: T): T | undefined {
   return ref.current;
 }
 
+/**
+ * Returns a number that changes every time the given
+ * number of milliseconds have elapsed.
+ *
+ * Note that the *amount* of the change is not deterministic. The
+ * only thing that can be relied upon is that it changes.
+ */
 function useIntervalCounter(intervalMs: number): number {
   const [counter, setCounter] = useState(0);
 
@@ -24,6 +39,14 @@ function useIntervalCounter(intervalMs: number): number {
   return counter;
 }
 
+/**
+ * Returns the contents of the text file at the
+ * given URL, re-fetching the URL at the given
+ * interval in milliseconds.
+ *
+ * If the file hasn't been retrieved yet, it returns
+ * undefined.
+ */
 function useLatestFileText(url: string, intervalMs: number): string | undefined {
   const [text, setText] = useState<string | undefined>();
   const counter = useIntervalCounter(intervalMs);
