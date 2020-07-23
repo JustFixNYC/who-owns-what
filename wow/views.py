@@ -5,6 +5,7 @@ from pathlib import Path
 from django.http import HttpResponse, JsonResponse, Http404
 
 from .dbutil import call_db_func, exec_db_query
+from .datautil import int_or_none, float_or_none
 from . import csvutil, apiutil
 from .apiutil import api, get_validated_form_data
 from .forms import PaddedBBLForm, SeparatedBBLForm
@@ -32,6 +33,16 @@ def log_unsupported_request_args(request):
             f'Request contains unsupported arguments: {", ".join(unsupported_args)}')
 
 
+def clean_addr_dict(addr):
+    return {
+        **addr,
+        "bin": str(addr['bin']), 
+        "lastsaleamount": int_or_none(addr['lastsaleamount']),
+        "registrationid": str(addr['registrationid']),
+        "rspercentchange": float_or_none(addr['rspercentchange']),
+    }
+
+
 @api
 def address_query(request):
     log_unsupported_request_args(request)
@@ -39,13 +50,14 @@ def address_query(request):
     bbl = args['borough'] + args['block'] + args['lot']
 
     addrs = call_db_func('get_assoc_addrs_from_bbl', [bbl])
+    cleaned_addrs = map(clean_addr_dict,addrs)
 
     return JsonResponse({
         "geosearch": {
             "geosupportReturnCode": "00",
             "bbl": bbl,
         },
-        "addrs": addrs,
+        "addrs": list(cleaned_addrs),
     })
 
 
