@@ -4,13 +4,14 @@ import { Trans, t } from "@lingui/macro";
 
 import "styles/App.css";
 
+import ScrollToTop from "../components/ScrollToTop";
+import SocialShare from "../components/SocialShare";
+import Modal from "../components/Modal";
+
 // import top-level containers (i.e. pages)
 import { I18n, LocaleNavLink, LocaleLink as Link, LocaleSwitcher } from "../i18n";
 import { withI18n, withI18nProps } from "@lingui/react";
 import { WhoOwnsWhatRoutes, createWhoOwnsWhatRoutePaths } from "../routes";
-import ScrollToTop from "../components/ScrollToTop";
-import SocialShare from "../components/SocialShare";
-import Modal from "../components/Modal";
 
 type Props = {};
 
