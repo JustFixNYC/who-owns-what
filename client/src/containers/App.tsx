@@ -6,13 +6,19 @@ import "styles/App.css";
 
 // import top-level containers (i.e. pages)
 import { I18n, LocaleNavLink, LocaleLink as Link, LocaleSwitcher } from "../i18n";
-import ScrollToTop from "components/ScrollToTop";
-import Modal from "components/Modal";
-import SocialShare from "components/SocialShare";
-import { withI18n } from "@lingui/react";
+import { withI18n, withI18nProps } from "@lingui/react";
 import { WhoOwnsWhatRoutes, createWhoOwnsWhatRoutePaths } from "../routes";
+import ScrollToTop from "../components/ScrollToTop";
+import SocialShare from "../components/SocialShare";
+import Modal from "../components/Modal";
 
-const HomeLink = withI18n()((props) => {
+type Props = {};
+
+type State = {
+  showEngageModal: boolean;
+};
+
+const HomeLink = withI18n()((props: withI18nProps) => {
   const { i18n } = props;
   return (
     <Link
@@ -28,8 +34,8 @@ const HomeLink = withI18n()((props) => {
   );
 });
 
-export default class App extends Component {
-  constructor(props) {
+export default class App extends Component<Props, State> {
+  constructor(props: Props) {
     super(props);
 
     this.state = {
