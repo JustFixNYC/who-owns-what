@@ -16,7 +16,7 @@ import { GeoSearchData, BuildingInfoRecord } from "../components/APIDataTypes";
 type Props = {
   /** Could concievably be undefined if the input address is totally invalid */
   geosearch?: GeoSearchData;
-   /** Could concievably be undefined if the input address is totally invalid */
+  /** Could concievably be undefined if the input address is totally invalid */
   searchAddress?: SearchAddress;
 };
 
