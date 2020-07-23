@@ -12,6 +12,7 @@ import Modal from "../components/Modal";
 import { I18n, LocaleNavLink, LocaleLink as Link, LocaleSwitcher } from "../i18n";
 import { withI18n, withI18nProps } from "@lingui/react";
 import { WhoOwnsWhatRoutes, createWhoOwnsWhatRoutePaths } from "../routes";
+import { VersionUpgrader } from "./VersionUpgrader";
 
 type Props = {};
 
@@ -46,11 +47,19 @@ export default class App extends Component<Props, State> {
 
   render() {
     const isDemoSite = process.env.REACT_APP_DEMO_SITE === "1";
+    const version = process.env.REACT_APP_VERSION;
     const paths = createWhoOwnsWhatRoutePaths();
     return (
       <Router>
         <I18n>
           <ScrollToTop>
+            {version && (
+              <VersionUpgrader
+                currentVersion={version}
+                latestVersionUrl="/version.txt"
+                checkIntervalSecs={300}
+              />
+            )}
             <div className="App">
               <div className="App__warning old_safari_only">
                 <Trans render="h3">
