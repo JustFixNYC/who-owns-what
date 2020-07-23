@@ -9,6 +9,7 @@ import LegalFooter from "../components/LegalFooter";
 import Helpers from "../util/helpers";
 import APIClient from "../components/APIClient";
 import SocialShare from "../components/SocialShare";
+import { Nobr } from "../components/Nobr";
 import { SearchAddress } from "../components/AddressSearch";
 import { GeoSearchData, BuildingInfoRecord } from "../components/APIDataTypes";
 
@@ -97,7 +98,7 @@ export default class NotRegisteredPage extends Component<Props, State> {
                       This seems like a smaller residential building. If the landlord doesn't reside
                       there, it should be registered with HPD.
                     </Trans>{" "}
-                    <nobr>
+                    <Nobr>
                       (
                       <i>
                         <a
@@ -112,7 +113,7 @@ export default class NotRegisteredPage extends Component<Props, State> {
                         : {buildingInfo.bldgclass}
                       </i>
                       )
-                    </nobr>
+                    </Nobr>
                   </p>
                 </h6>
                 {failedToRegisterLink}
@@ -127,7 +128,7 @@ export default class NotRegisteredPage extends Component<Props, State> {
                     <Trans render="b">
                       This building seems like it should be registered with HPD!
                     </Trans>{" "}
-                    <nobr>
+                    <Nobr>
                       (
                       <i>
                         <a
@@ -142,7 +143,7 @@ export default class NotRegisteredPage extends Component<Props, State> {
                         : {buildingInfo.bldgclass}
                       </i>
                       )
-                    </nobr>
+                    </Nobr>
                   </p>
                 </h6>
                 {failedToRegisterLink}
@@ -156,7 +157,7 @@ export default class NotRegisteredPage extends Component<Props, State> {
                   <Trans>
                     It doesn't seem like this property is required to register with HPD.
                   </Trans>{" "}
-                  <nobr>
+                  <Nobr>
                     (
                     <i>
                       <a
@@ -171,7 +172,7 @@ export default class NotRegisteredPage extends Component<Props, State> {
                       : {buildingInfo.bldgclass}
                     </i>
                     )
-                  </nobr>
+                  </Nobr>
                 </p>
               </h6>
             );
@@ -226,7 +227,7 @@ export default class NotRegisteredPage extends Component<Props, State> {
                 {geosearch && geosearch.bbl && buildingInfo ? (
                   <span>
                     Boro-Block-Lot (BBL):{" "}
-                    <nobr>
+                    <Nobr>
                       <a
                         href={"https://zola.planning.nyc.gov/lot/" + boro + "/" + block + "/" + lot}
                         target="_blank"
@@ -238,7 +239,7 @@ export default class NotRegisteredPage extends Component<Props, State> {
                         {bblDash}
                         {lot}
                       </a>
-                    </nobr>
+                    </Nobr>
                   </span>
                 ) : (
                   <span />

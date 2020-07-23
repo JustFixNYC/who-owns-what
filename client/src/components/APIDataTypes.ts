@@ -123,7 +123,12 @@ export type SummaryResults = {
 
 // TYPES ASSOCIATED BUILDING INFO QUERY:
 
-export type BuildingInfoRecord = AddressLocation & {
+export type BuildingInfoRecord = {
+  boro: Borough;
+  housenumber: string;
+  latitude: number;
+  longitude: number;
+  streetname: string;
   bldgclass: string;
   formatted_address: string;
 };
