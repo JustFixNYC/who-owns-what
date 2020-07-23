@@ -75,39 +75,25 @@ type HpdViolationsAddress = AddressLocation & {
 };
 
 type SummaryStatsRecord = {
-  /** Front-end interprets as number */
-  age: string;
-  /** Front-end interprets as number */
-  avgevictions: string | null;
-  /** Front-end interprets as number */
-  avgrspercent: string | null;
-  /** Front-end interprets as number */
-  bldgs: string;
+  age: number;
+  avgevictions: number | null;
+  avgrspercent: number | null;
+  bldgs: number;
   evictionsaddr: EvictionAddress;
-  /** Front-end interprets as number */
-  openviolationsperbldg: string;
-  /** Front-end interprets as number */
-  openviolationsperresunit: string;
+  openviolationsperbldg: number;
+  openviolationsperresunit: number;
   rslossaddr: RentStabilizedAddress;
-  /** Front-end interprets as number */
-  rsproportion: string | null;
+  rsproportion: number | null;
   topbusinessaddr: string | null;
   topcorp: string | null;
   topowners: string[];
-  /** Front-end interprets as number */
-  totalevictions: string | null;
-  /** Front-end interprets as number */
-  totalopenviolations: string;
-  /** Front-end interprets as number */
-  totalrsdiff: string | null;
-  /** Front-end interprets as number */
-  totalrsgain: string;
-  /** Front-end interprets as number */
-  totalrsloss: string;
-  /** Front-end interprets as number */
-  totalviolations: string;
-  /** Front-end interprets as number */
-  units: string;
+  totalevictions: number | null;
+  totalopenviolations: number;
+  totalrsdiff: number | null;
+  totalrsgain: number;
+  totalrsloss: number;
+  totalviolations: number;
+  units: number;
   violationsaddr: HpdViolationsAddress;
 };
 
