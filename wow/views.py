@@ -5,7 +5,7 @@ from pathlib import Path
 from django.http import HttpResponse, JsonResponse, Http404
 
 from .dbutil import call_db_func, exec_db_query
-from .datautil import int_or_none, float_or_none
+from .datautil import int_or_none, str_or_none, float_or_none
 from . import csvutil, apiutil
 from .apiutil import api, get_validated_form_data
 from .forms import PaddedBBLForm, SeparatedBBLForm
@@ -79,11 +79,25 @@ def get_request_bbl(request) -> str:
     return get_validated_form_data(PaddedBBLForm, request.GET)['bbl']
 
 
+def clean_agg_info_dict(agg_info):
+    return {
+        **agg_info,
+        "age": int(agg_info['age']), 
+        "avgevictions": float_or_none(agg_info['avgevictions']),
+        "avgrspercent": float_or_none(agg_info['avgrspercent']),
+        "openviolationsperbldg": float_or_none(agg_info['openviolationsperbldg']),
+        "openviolationsperresunit": float_or_none(agg_info['openviolationsperresunit']),
+        "rsproportion": float_or_none(agg_info['rsproportion']),
+        "totalevictions": int_or_none(agg_info['totalevictions'])
+    }
+
+
 @api
 def address_aggregate(request):
     bbl = get_request_bbl(request)
     result = call_db_func('get_agg_info_from_bbl', [bbl])
-    return JsonResponse({ 'result': result })
+    cleaned_result = map(clean_agg_info_dict, result)
+    return JsonResponse({ 'result': list(cleaned_result) })
 
 
 @api
