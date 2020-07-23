@@ -17,8 +17,7 @@ type HpdOwnerContact = {
 
 type AddressRecord = {
   bbl: string;
-  /** Front-end interprets as string */
-  bin: number;
+  bin: string;
   boro: Borough;
   businessaddrs: string[] | null;
   corpnames: string[] | null;
@@ -26,19 +25,16 @@ type AddressRecord = {
   housenumber: string;
   lastregistrationdate: Date;
   lastsaleacrisid: string | null;
-  /** Front-end interprets as number */
-  lastsaleamount: string | null;
+  lastsaleamount: number | null;
   lastsaledate: Date | null;
   lat: number | null;
   lng: number | null;
   openviolations: number;
   ownernames: HpdOwnerContact[] | null;
   registrationenddate: Date;
-  /** Front-end interprets as string */
-  registrationid: number;
+  registrationid: string;
   rsdiff: number | null;
-  /** Front-end interprets as number */
-  rspercentchange: string | null;
+  rspercentchange: number | null;
   rsunits2007: number | null;
   rsunits2017: number | null;
   streetname: string;
