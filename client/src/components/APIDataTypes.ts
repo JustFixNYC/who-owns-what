@@ -130,22 +130,14 @@ export type BuildingInfoResults = {
 
 type MonthlyTimelineData = {
   month: string;
-  /** Front-end interprets as number */
-  complaints_emergency: string;
-  /** Front-end interprets as number */
-  complaints_nonemergency: string;
-  /** Front-end interprets as number */
-  complaints_total: string;
-  /** Front-end interprets as number */
-  permits_total: string;
-  /** Front-end interprets as number */
-  viols_class_a: string;
-  /** Front-end interprets as number */
-  viols_class_b: string;
-  /** Front-end interprets as number */
-  viols_class_c: string;
-  /** Front-end interprets as number */
-  viols_total: string;
+  complaints_emergency: number;
+  complaints_nonemergency: number;
+  complaints_total: number;
+  permits_total: number;
+  viols_class_a: number;
+  viols_class_b: number;
+  viols_class_c: number;
+  viols_total: number;
 };
 
 export type IndicatorsHistoryResults = {
