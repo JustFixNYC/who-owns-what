@@ -95,7 +95,7 @@ def address_export(request):
     addrs = call_db_func('get_assoc_addrs_from_bbl', [bbl])
 
     if not addrs:
-        raise Http404()
+        return HttpResponse(status=404)
 
     first_row = addrs[0]
 
