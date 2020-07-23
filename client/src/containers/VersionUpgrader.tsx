@@ -1,8 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router-dom";
 
-const FETCH_INTERVAL = 5000;
-
 // https://reactjs.org/docs/hooks-faq.html#how-to-get-the-previous-props-or-state
 function usePrevious<T>(value: T): T | undefined {
   const ref = useRef<T | undefined>(undefined);
@@ -55,24 +53,53 @@ function useLatestFileText(url: string, intervalMs: number): string | undefined 
   return text;
 }
 
-export const VersionUpgrader: React.FC<{
+type VersionUpgraderProps = {
+  /** The current version of our front-end. */
   currentVersion: string;
-}> = ({ currentVersion }) => {
+
+  /**
+   * The URL pointing to a text file containing the latest version
+   * of the front-end that is available.
+   */
+  latestVersionUrl: string;
+
+  /**
+   * How frequently to check to see if a new version is available.
+   */
+  checkIntervalMs: number;
+};
+
+/**
+ * A component that regularly checks to see if a new version of
+ * the front-end is available.
+ *
+ * Once a new version is available, we wait until the user navigates
+ * to a new page, and then immediately reload it to simulate a
+ * "hard" page navigation rather than a "soft" `pushState`-based one.
+ */
+export const VersionUpgrader: React.FC<VersionUpgraderProps> = ({
+  currentVersion,
+  latestVersionUrl,
+  checkIntervalMs,
+}) => {
   const loc = useLocation();
   const url = loc.pathname + loc.search;
   const prevUrl = usePrevious(url);
-  const latestVersion = useLatestFileText("/version.txt", FETCH_INTERVAL);
+  const latestVersion = useLatestFileText(latestVersionUrl, checkIntervalMs);
+  const didUrlChange = prevUrl && prevUrl !== url;
+  const canUpgradeVersion = latestVersion && currentVersion !== latestVersion;
 
   useEffect(() => {
-    const didUrlChange = prevUrl && prevUrl !== url;
-    const isNewVersionAvailable = latestVersion && currentVersion !== latestVersion;
-    if (didUrlChange && isNewVersionAvailable) {
-      // The user just navigated to a new page and we have a new
-      // version available, so simulate a "hard" page navigation
-      // rather than a "soft" pushState-based one.
-      window.location.reload();
+    if (canUpgradeVersion) {
+      if (didUrlChange) {
+        window.location.reload();
+      } else {
+        console.log(
+          "A new version of the front-end is available, will upgrade on next page navigation."
+        );
+      }
     }
-  }, [url, prevUrl, currentVersion, latestVersion]);
+  }, [didUrlChange, canUpgradeVersion]);
 
   return null;
 };

@@ -46,7 +46,13 @@ export default class App extends Component {
       <Router>
         <I18n>
           <ScrollToTop>
-            {version && <VersionUpgrader currentVersion={version} />}
+            {version && (
+              <VersionUpgrader
+                currentVersion={version}
+                latestVersionUrl="/version.txt"
+                checkIntervalMs={5000}
+              />
+            )}
             <div className="App">
               <div className="App__warning old_safari_only">
                 <Trans render="h3">
