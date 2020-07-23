@@ -50,7 +50,7 @@ export default class App extends Component {
               <VersionUpgrader
                 currentVersion={version}
                 latestVersionUrl="/version.txt"
-                checkIntervalMs={5000}
+                checkIntervalSecs={300}
               />
             )}
             <div className="App">

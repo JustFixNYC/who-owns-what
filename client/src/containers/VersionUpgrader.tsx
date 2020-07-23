@@ -64,9 +64,10 @@ type VersionUpgraderProps = {
   latestVersionUrl: string;
 
   /**
-   * How frequently to check to see if a new version is available.
+   * How frequently to check to see if a new version is available,
+   * in seconds.
    */
-  checkIntervalMs: number;
+  checkIntervalSecs: number;
 };
 
 /**
@@ -80,12 +81,12 @@ type VersionUpgraderProps = {
 export const VersionUpgrader: React.FC<VersionUpgraderProps> = ({
   currentVersion,
   latestVersionUrl,
-  checkIntervalMs,
+  checkIntervalSecs,
 }) => {
   const loc = useLocation();
   const url = loc.pathname + loc.search;
   const prevUrl = usePrevious(url);
-  const latestVersion = useLatestFileText(latestVersionUrl, checkIntervalMs);
+  const latestVersion = useLatestFileText(latestVersionUrl, checkIntervalSecs * 1000);
   const didUrlChange = prevUrl && prevUrl !== url;
   const canUpgradeVersion = latestVersion && currentVersion !== latestVersion;
 
