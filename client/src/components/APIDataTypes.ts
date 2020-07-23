@@ -22,8 +22,7 @@ export type GeoSearchData = {
 
 type AddressRecord = {
   bbl: string;
-  /** Front-end interprets as string */
-  bin: number;
+  bin: string;
   boro: Borough;
   businessaddrs: string[] | null;
   corpnames: string[] | null;
@@ -31,19 +30,16 @@ type AddressRecord = {
   housenumber: string;
   lastregistrationdate: Date;
   lastsaleacrisid: string | null;
-  /** Front-end interprets as number */
-  lastsaleamount: string | null;
+  lastsaleamount: number | null;
   lastsaledate: Date | null;
   lat: number | null;
   lng: number | null;
   openviolations: number;
   ownernames: HpdOwnerContact[] | null;
   registrationenddate: Date;
-  /** Front-end interprets as string */
-  registrationid: number;
+  registrationid: string;
   rsdiff: number | null;
-  /** Front-end interprets as number */
-  rspercentchange: string | null;
+  rspercentchange: number | null;
   rsunits2007: number | null;
   rsunits2017: number | null;
   streetname: string;
@@ -81,39 +77,25 @@ type HpdViolationsAddress = AddressLocation & {
 };
 
 type SummaryStatsRecord = {
-  /** Front-end interprets as number */
-  age: string;
-  /** Front-end interprets as number */
-  avgevictions: string | null;
-  /** Front-end interprets as number */
-  avgrspercent: string | null;
-  /** Front-end interprets as number */
-  bldgs: string;
+  age: number;
+  avgevictions: number | null;
+  avgrspercent: number | null;
+  bldgs: number;
   evictionsaddr: EvictionAddress;
-  /** Front-end interprets as number */
-  openviolationsperbldg: string;
-  /** Front-end interprets as number */
-  openviolationsperresunit: string;
+  openviolationsperbldg: number;
+  openviolationsperresunit: number;
   rslossaddr: RentStabilizedAddress;
-  /** Front-end interprets as number */
-  rsproportion: string | null;
+  rsproportion: number | null;
   topbusinessaddr: string | null;
   topcorp: string | null;
   topowners: string[];
-  /** Front-end interprets as number */
-  totalevictions: string | null;
-  /** Front-end interprets as number */
-  totalopenviolations: string;
-  /** Front-end interprets as number */
-  totalrsdiff: string | null;
-  /** Front-end interprets as number */
-  totalrsgain: string;
-  /** Front-end interprets as number */
-  totalrsloss: string;
-  /** Front-end interprets as number */
-  totalviolations: string;
-  /** Front-end interprets as number */
-  units: string;
+  totalevictions: number | null;
+  totalopenviolations: number;
+  totalrsdiff: number | null;
+  totalrsgain: number;
+  totalrsloss: number;
+  totalviolations: number;
+  units: number;
   violationsaddr: HpdViolationsAddress;
 };
 
@@ -141,22 +123,14 @@ export type BuildingInfoResults = {
 
 type MonthlyTimelineData = {
   month: string;
-  /** Front-end interprets as number */
-  complaints_emergency: string;
-  /** Front-end interprets as number */
-  complaints_nonemergency: string;
-  /** Front-end interprets as number */
-  complaints_total: string;
-  /** Front-end interprets as number */
-  permits_total: string;
-  /** Front-end interprets as number */
-  viols_class_a: string;
-  /** Front-end interprets as number */
-  viols_class_b: string;
-  /** Front-end interprets as number */
-  viols_class_c: string;
-  /** Front-end interprets as number */
-  viols_total: string;
+  complaints_emergency: number;
+  complaints_nonemergency: number;
+  complaints_total: number;
+  permits_total: number;
+  viols_class_a: number;
+  viols_class_b: number;
+  viols_class_c: number;
+  viols_total: number;
 };
 
 export type IndicatorsHistoryResults = {
