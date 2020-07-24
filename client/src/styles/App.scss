@@ -219,3 +219,141 @@ div.Page {
     }
   }
 }
+
+#canvasContainer{
+  position: absolute;
+  left: 0px;
+  top:0px;
+  width:100%;
+  height:100%;
+  z-index: 100;
+  
+}
+/* Button used to open the chat form - fixed at the bottom of the page */
+.open-button {
+  background-color: #454d5d;
+  color: white;
+  padding: 0.25em 1em 0.25em 0.5em;
+  font-size: 1.4em;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  position: fixed;
+  bottom: 23px;
+  right: 28px;
+  width: 10px;
+  text-align: center;
+  z-index: 11;
+}
+
+/* The popup chat - hidden by default */
+.chat-popup {
+  display: none;
+  position: fixed;
+  bottom: 22px;
+  right: 27px;
+  border: 1px solid #727e96;
+  z-index: 12;
+  width: 25%;
+  max-width: 300px;
+}
+
+/* Add styles to the form container */
+.form-container {
+  width: 100%;
+  height:100%;
+  padding: 10px;
+  padding-top: 12px;
+  background-color: white;
+  color: #454d5d;
+}
+
+/* Full-width textarea */
+.form-container .blurb {
+  width: 100%;
+  padding: 5px;
+  margin-top: 5px;
+  border: none;
+  background: #f1f1f1;
+  resize: none;
+  min-height: 50px;
+}
+
+.header{
+	background-image: linear-gradient(to right top, #f8f9fa 33%, #e0e5e9 33%, #e0e5e9 66%, #f8f9fa 66%);
+    background-size: 3px 3px;
+  width: 100%;
+  padding-right: 10px;
+  padding-top: 5px;
+  color: #454d5d;
+  //border-bottom: 1px solid #727e96;
+}
+
+b {
+  color: #42445c !important;
+}
+
+.pop-up-header{
+  padding: 0px 10px 5px 10px;
+  display: inline-block;
+  font-size: 1.4em;
+  color: #454d5d;
+}
+
+/* Set a style for the submit/send button */
+.form-container .btn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  margin-bottom:10px;
+  opacity: 0.8;
+}
+
+.float-right {
+    float: right;
+}
+
+.form-container .cancel {
+  background-color: white;
+  font-size: 2 em;
+  font-style: bold;
+  color:#454d5d;
+  border: none;
+  max-width: 15px;
+  max-height: 15px;
+  padding: 10px;
+}
+
+/* Add some hover effects to buttons */
+.form-container .btn:hover, .open-button:hover {
+  opacity: 1;
+}
+
+.show-me-entry{
+  //padding: 3px 5px;
+  margin-bottom: 15px;
+  font-size: 1.1em;
+}
+
+.last{
+  margin-bottom: 0px;
+}
+
+.entry-title{
+  font-size: 1em;
+  color: #454d5d;
+}
+
+
+.show-me-button{
+  background-color: #454d5d;
+  color: white;
+  font-size: 0.7em;
+  padding: 2px 5px 2px 5px;
+  border: none;
+  border-radius: 4px;
+}
+

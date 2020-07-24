@@ -185,6 +185,7 @@ export default class AddressPage extends Component {
                     </li>
                     <li className={`tab-item ${this.props.currentTab === 1 ? "active" : ""}`}>
                       <Link
+                        data-show-me="Timeline Tab"
                         to={this.generateBaseUrl() + "/timeline"}
                         tabIndex={this.props.currentTab === 1 ? -1 : 0}
                         onClick={() => {

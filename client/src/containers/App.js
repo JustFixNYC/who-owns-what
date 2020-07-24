@@ -28,6 +28,75 @@ const HomeLink = withI18n()((props) => {
   );
 });
 
+var myCanvas;
+
+function createCanvasOverlay(elem, dataShowMeTag, entryNumber, blurbText) {
+  console.log("createCanvasOverlay");
+  elem.scrollIntoViewIfNeeded({ behavior: "auto", block: "center" });
+  let boundingBox = elem.getBoundingClientRect();
+  let canvasContainer = document.getElementById("canvasContainer");
+  // Part of block below is inspired by code from Google excanvas.js
+  if(!myCanvas){
+  myCanvas = document.createElement("canvas");
+  }
+  myCanvas.style.visibility = "visible";
+  myCanvas.style.width = canvasContainer.scrollWidth + "px";
+  myCanvas.style.height = canvasContainer.scrollHeight + "px";
+  // You must set this otherwise the canvas will be streethed to fit the container
+  myCanvas.width = canvasContainer.scrollWidth;
+  myCanvas.height = canvasContainer.scrollHeight;
+  //surfaceElement.style.width=window.innerWidth;
+  myCanvas.style.overflow = "visible";
+  myCanvas.style.position = "absolute";
+  myCanvas.style.zIndex = 11;
+  var context = myCanvas.getContext("2d");
+  //  console.log("canvas Conatiner = ", canvasContainer, "canvas = ", myCanvas, "context = ", context);
+  context.globalCompositeOperation = "source-out";
+  context.fillStyle = "rgb(255,255,255)";
+  context.globalAlpha = 1;
+  context.fillRect(boundingBox.x, boundingBox.y, boundingBox.width, boundingBox.height);
+  context.fillStyle = "rgb(0,0,0)";
+  context.globalAlpha = 0.4;
+  context.fillRect(0, 0, myCanvas.width, myCanvas.height);
+  canvasContainer.appendChild(myCanvas);
+  myCanvas.onclick = () => ToggleElement(dataShowMeTag, entryNumber, blurbText);
+
+  //alert(myCanvas);
+}
+
+function hideCanvas() {
+  if (myCanvas) {
+    myCanvas.style.visibility = "hidden";
+    
+  }
+}
+
+function ToggleElement(dataShowMeTag, entryNumber, blurbText) {
+  console.log("show me clicked", dataShowMeTag);
+  let elem = document.querySelector("[data-show-me=" + CSS.escape(dataShowMeTag) + "]");
+  //console.log(elem);
+  if (elem !== null) {
+    console.log("toggle status on click: ", elem.dataShowMeToggleState);
+    if (elem.dataShowMeToggleState === "toggled") {
+      hideCanvas();
+      let blurb = document.getElementById(entryNumber + "-blurb");
+      blurb.parentNode.removeChild(blurb);
+      elem.dataShowMeToggleState = "";
+      console.log("toggle off: ", elem.dataShowMeToggleState);
+    } else {
+      elem.dataShowMeToggleState = "toggled";
+      console.log("toggle on: ", elem.dataShowMeToggleState);
+      createCanvasOverlay(elem, dataShowMeTag, entryNumber, blurbText);
+      let blurb = document.createElement("p");
+      let blurbContent = document.createTextNode(blurbText);
+      blurb.appendChild(blurbContent);
+      blurb.className = "blurb";
+      blurb.id = entryNumber + "-blurb";
+      document.getElementById(entryNumber).appendChild(blurb);
+    }
+  }
+}
+
 export default class App extends Component {
   constructor(props) {
     super(props);
@@ -40,11 +109,89 @@ export default class App extends Component {
   render() {
     const isDemoSite = process.env.REACT_APP_DEMO_SITE === "1";
     const paths = createWhoOwnsWhatRoutePaths();
+
     return (
       <Router>
         <I18n>
           <ScrollToTop>
-            <div className="App">
+            <div className="App" id="canvasContainer">
+              <button
+                className="open-button"
+                onClick={() => (document.getElementById("myForm").style.display = "block")}
+              >
+                i
+              </button>
+              <div className="chat-popup" id="myForm">
+                <div className="header">
+                  <span className = "pop-up-header"><b>What's New</b></span>
+                  <button
+                    type="button"
+                    className="cancel float-right"
+                    onClick={() => (document.getElementById("myForm").style.display = "none")}
+                  >
+                    <b>X</b>
+                  </button>
+                </div>
+                <div className="form-container" id="form-container-entries">
+                  <div className="show-me-entry" id="show-me-entry-1">
+                    <span className = "entry-title">
+                      <b>Spanish Support</b>
+                    </span>
+                    <button
+                      type = "button" className="show-me-button float-right"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        return ToggleElement(
+                          "Spanish Support",
+                          "show-me-entry-1",
+                          "Click “ES” in the upper right corner to switch your view of Who Owns What to Spanish"
+                        )
+                      }
+                      }
+                    >
+                      {" "}
+                      Show me{" "}
+                    </button>
+                  </div>
+
+                  <div className="show-me-entry" id="show-me-entry-2">
+                    <span className = "entry-title">
+                      <b>Timeline Tab</b>
+                    </span>
+                    <button
+                      className="show-me-button float-right"
+                      onClick={() =>
+                        ToggleElement(
+                          "Timeline Tab",
+                          "show-me-entry-2",
+                          "Click the Timeline tab to view info about your building over time"
+                        )
+                      }
+                    >
+                      {" "}
+                      Show me{" "}
+                    </button>
+                  </div>
+                  <div className="show-me-entry last" id="show-me-entry-3">
+                    <span className = "entry-title">
+                      <b>Last Registered </b>
+                    </span>
+                    <button
+                      className="show-me-button float-right"
+                      onClick={() =>
+                        ToggleElement(
+                          "Last Registered",
+                          "show-me-entry-3",
+                          "You can now see the last time your building was registered"
+                        )
+                      }
+                    >
+                      {" "}
+                      Show me{" "}
+                    </button>
+                  </div>
+                </div>
+              </div>
               <div className="App__warning old_safari_only">
                 <Trans render="h3">
                   Warning! This site doesn't fully work on older versions of Safari. Try a{" "}

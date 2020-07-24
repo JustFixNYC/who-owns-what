@@ -146,7 +146,7 @@ class DetailViewWithoutI18n extends Component {
                       </div>
 
                       <div className="card-body-registration">
-                        <p>
+                        <p data-show-me="Last Registered">
                           <b>
                             <Trans>Last registered:</Trans>
                           </b>{" "}

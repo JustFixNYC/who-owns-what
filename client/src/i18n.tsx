@@ -143,7 +143,7 @@ export const LocaleSwitcher = withRouter(function LocaleSwitcher(props: RouteCom
     `/${toLocale}${removeLocalePrefix(props.location.pathname)}`;
 
   return (
-    <span className="language-toggle">
+    <span className="language-toggle" data-show-me="Spanish Support">
       <NavLink to={to("en")}>EN</NavLink>/<NavLink to={to("es")}>ES</NavLink>
     </span>
   );
