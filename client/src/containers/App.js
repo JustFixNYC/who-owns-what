@@ -30,7 +30,7 @@ const HomeLink = withI18n()((props) => {
 
 var myCanvas;
 
-function createCanvasOverlay(elem, dataShowMeTag, entryNumber, blurbText) {
+function createCanvasOverlay(elem, dataShowMeTag, entryNumber, blurbText, Xadjustment, Yadjustment) {
   console.log("createCanvasOverlay");
   elem.scrollIntoViewIfNeeded({ behavior: "auto", block: "center" });
   let boundingBox = elem.getBoundingClientRect();
@@ -54,7 +54,9 @@ function createCanvasOverlay(elem, dataShowMeTag, entryNumber, blurbText) {
   context.globalCompositeOperation = "source-out";
   context.fillStyle = "rgb(255,255,255)";
   context.globalAlpha = 1;
-  context.fillRect(boundingBox.x, boundingBox.y, boundingBox.width, boundingBox.height);
+  
+  context.fillRect(Xadjustment? boundingBox.x + Xadjustment: boundingBox.x, Yadjustment? boundingBox.y + Yadjustment: boundingBox.y, boundingBox.width, boundingBox.height);
+  
   context.fillStyle = "rgb(0,0,0)";
   context.globalAlpha = 0.4;
   context.fillRect(0, 0, myCanvas.width, myCanvas.height);
@@ -71,7 +73,7 @@ function hideCanvas() {
   }
 }
 
-function ToggleElement(dataShowMeTag, entryNumber, blurbText) {
+function ToggleElement(dataShowMeTag, entryNumber, blurbText, Xadjustment, Yadjustment) {
   console.log("show me clicked", dataShowMeTag);
   let elem = document.querySelector("[data-show-me=" + CSS.escape(dataShowMeTag) + "]");
   //console.log(elem);
@@ -86,7 +88,7 @@ function ToggleElement(dataShowMeTag, entryNumber, blurbText) {
     } else {
       elem.dataShowMeToggleState = "toggled";
       console.log("toggle on: ", elem.dataShowMeToggleState);
-      createCanvasOverlay(elem, dataShowMeTag, entryNumber, blurbText);
+      createCanvasOverlay(elem, dataShowMeTag, entryNumber, blurbText, Xadjustment, Yadjustment);
       let blurb = document.createElement("p");
       let blurbContent = document.createTextNode(blurbText);
       blurb.appendChild(blurbContent);
@@ -144,7 +146,9 @@ export default class App extends Component {
                         return ToggleElement(
                           "Spanish Support",
                           "show-me-entry-1",
-                          "Click “ES” in the upper right corner to switch your view of Who Owns What to Spanish"
+                          "Click “ES” in the upper right corner to switch your view of Who Owns What to Spanish",
+                          5,
+                          0
                         )
                       }
                       }
