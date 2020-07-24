@@ -28,114 +28,11 @@ const HomeLink = withI18n()((props) => {
   );
 });
 
-var myCanvas;
+/*
 
-function createCanvasOverlay(elem, dataShowMeTag, entryNumber, blurbText, Xadjustment, Yadjustment) {
-  console.log("createCanvasOverlay");
-  elem.scrollIntoViewIfNeeded({ behavior: "auto", block: "center" });
-  let boundingBox = elem.getBoundingClientRect();
-  let canvasContainer = document.getElementById("canvasContainer");
-  // Part of block below is inspired by code from Google excanvas.js
-  if(!myCanvas){
-  myCanvas = document.createElement("canvas");
-  }
-  myCanvas.style.visibility = "visible";
-  myCanvas.style.width = canvasContainer.scrollWidth + "px";
-  myCanvas.style.height = canvasContainer.scrollHeight + "px";
-  // You must set this otherwise the canvas will be streethed to fit the container
-  myCanvas.width = canvasContainer.scrollWidth;
-  myCanvas.height = canvasContainer.scrollHeight;
-  //surfaceElement.style.width=window.innerWidth;
-  myCanvas.style.overflow = "visible";
-  myCanvas.style.position = "absolute";
-  myCanvas.style.zIndex = 11;
-  var context = myCanvas.getContext("2d");
-  //  console.log("canvas Conatiner = ", canvasContainer, "canvas = ", myCanvas, "context = ", context);
-  context.globalCompositeOperation = "source-out";
-  context.fillStyle = "rgb(255,255,255)";
-  context.globalAlpha = 1;
-  
-  context.fillRect(Xadjustment? boundingBox.x + Xadjustment: boundingBox.x, Yadjustment? boundingBox.y + Yadjustment: boundingBox.y, boundingBox.width, boundingBox.height);
-  
-  context.fillStyle = "rgb(0,0,0)";
-  context.globalAlpha = 0.4;
-  context.fillRect(0, 0, myCanvas.width, myCanvas.height);
-  canvasContainer.appendChild(myCanvas);
-  myCanvas.onclick = () => ToggleElement(dataShowMeTag, entryNumber, blurbText);
 
-  //alert(myCanvas);
-}
 
-function hideCanvas() {
-  if (myCanvas) {
-    myCanvas.style.visibility = "hidden";
-    
-  }
-}
-
-function ToggleElement(dataShowMeTag, entryNumber, blurbText, Xadjustment, Yadjustment) {
-  console.log("show me clicked", dataShowMeTag);
-  let elem = document.querySelector("[data-show-me=" + CSS.escape(dataShowMeTag) + "]");
-  //console.log(elem);
-  if (elem !== null) {
-    console.log("toggle status on click: ", elem.dataShowMeToggleState);
-    if (elem.dataShowMeToggleState === "toggled") {
-      hideCanvas();
-      let blurb = document.getElementById(entryNumber + "-blurb");
-      blurb.parentNode.removeChild(blurb);
-      elem.dataShowMeToggleState = "";
-      console.log("toggle off: ", elem.dataShowMeToggleState);
-    } else {
-      elem.dataShowMeToggleState = "toggled";
-      console.log("toggle on: ", elem.dataShowMeToggleState);
-      createCanvasOverlay(elem, dataShowMeTag, entryNumber, blurbText, Xadjustment, Yadjustment);
-      let blurb = document.createElement("p");
-      let blurbContent = document.createTextNode(blurbText);
-      blurb.appendChild(blurbContent);
-      blurb.className = "blurb";
-      blurb.id = entryNumber + "-blurb";
-      document.getElementById(entryNumber).appendChild(blurb);
-    }
-  }
-}
-
-export default class App extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      showEngageModal: false,
-    };
-  }
-
-  render() {
-    const isDemoSite = process.env.REACT_APP_DEMO_SITE === "1";
-    const paths = createWhoOwnsWhatRoutePaths();
-
-    return (
-      <Router>
-        <I18n>
-          <ScrollToTop>
-            <div className="App" id="canvasContainer">
-              <button
-                className="open-button"
-                onClick={() => (document.getElementById("myForm").style.display = "block")}
-              >
-                i
-              </button>
-              <div className="chat-popup" id="myForm">
-                <div className="header">
-                  <span className = "pop-up-header"><b>What's New</b></span>
-                  <button
-                    type="button"
-                    className="cancel float-right"
-                    onClick={() => (document.getElementById("myForm").style.display = "none")}
-                  >
-                    <b>X</b>
-                  </button>
-                </div>
-                <div className="form-container" id="form-container-entries">
-                  <div className="show-me-entry" id="show-me-entry-1">
+<div className="show-me-entry" id="show-me-entry-1">
                     <span className = "entry-title">
                       <b>Spanish Support</b>
                     </span>
@@ -146,9 +43,7 @@ export default class App extends Component {
                         return ToggleElement(
                           "Spanish Support",
                           "show-me-entry-1",
-                          "Click “ES” in the upper right corner to switch your view of Who Owns What to Spanish",
-                          5,
-                          0
+                          "Click “ES” in the upper right corner to switch your view of Who Owns What to Spanish"
                         )
                       }
                       }
@@ -193,9 +88,178 @@ export default class App extends Component {
                       {" "}
                       Show me{" "}
                     </button>
-                  </div>
-                </div>
-              </div>
+                    </div>
+
+
+
+
+*/
+
+
+
+
+
+
+
+export default class App extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      showEngageModal: false,
+      toggled_entry: "",
+      canvas: "",
+    };
+  }
+
+  drawCanvasOverlay(showMeLocatorTag) {
+    console.log("drawCanvasOverlay called, tag =", showMeLocatorTag, "this.state.canvas = ", this.state.canvas);
+    if(showMeLocatorTag === ""){this.state.canvas.style.visibility = "hidden"; return;}
+    console.log("drawing new canvas");
+    let elem = document.querySelector("[data-show-me=" + CSS.escape(showMeLocatorTag) + "]");
+    //elem.scrollIntoViewIfNeeded({ behavior: "auto", block: "center" });
+    var context = this.state.canvas.getContext("2d");
+    //  console.log("canvas Conatiner = ", canvasContainer, "canvas = ", this.state.canvas, "context = ", context);
+    let boundingBox = elem.getBoundingClientRect();
+    context.globalCompositeOperation = "source-out";
+    context.fillStyle = "rgb(255,255,255)";
+    context.globalAlpha = 1;
+    context.fillRect(boundingBox.x, boundingBox.y, boundingBox.width, boundingBox.height);
+    context.fillStyle = "rgb(0,0,0)";
+    context.globalAlpha = 0.5;
+    context.fillRect(0, 0, this.state.canvas.width, this.state.canvas.height);
+    //this.state.canvas.onclick = () => ToggleElement(showMeLocatorTag, blurbText);
+    this.state.canvas.style.visibility = "visible";
+  }
+
+  createCanvas(){
+    this.state.canvas = document.createElement("canvas");
+    let canvasContainer = document.getElementById("canvasContainer");
+    this.state.canvas.style.width = canvasContainer.scrollWidth + "px";
+    this.state.canvas.style.height = canvasContainer.scrollHeight + "px";
+    this.state.canvas.width = canvasContainer.scrollWidth;
+    this.state.canvas.height = canvasContainer.scrollHeight;
+    //this.state.canvas.style.overflow = "visible";
+    this.state.canvas.style.position = "absolute";
+    this.state.canvas.style.zIndex = 11;
+    this.state.canvas.style.visibility = "hidden";
+    canvasContainer.appendChild(this.state.canvas);
+  }
+
+  componentDidMount(){
+    this.createCanvas();
+  }
+
+  toggleShowMeButton(buttonIndex){
+    let button = document.getElementById("showMeButton-" + buttonIndex);
+    if(button.isToggled){
+        button.isToggled = false;
+        button.textContent = "Show me";
+        button.style.background = "#454d5d";
+        button.style.color = "#FFFFFF";
+    } else {
+        button.isToggled = true;
+        button.textContent = "Hide";
+        button.style.background = "#FE9D43";
+        button.style.color = "#101114";
+    }
+  }
+
+  toggleEntry(entry) {
+    console.log("toggleEntry called, this entry = ", entry.title, "toggled entry =  ", this.state.toggled_entry.title);
+      if (entry.isToggled) {
+        entry.isToggled = false;
+        this.toggleShowMeButton(entry.title);
+        this.drawCanvasOverlay("");
+      } else {
+        entry.isToggled = true;
+        this.drawCanvasOverlay(entry.title);
+        this.toggleShowMeButton(entry.title);
+      }
+  }
+
+
+  
+
+  render() {
+    const isDemoSite = process.env.REACT_APP_DEMO_SITE === "1";
+    const paths = createWhoOwnsWhatRoutePaths();
+
+    let entryElems = [
+      {
+        title: "Spanish Support",
+        text: "Click “ES” in the upper right corner to switch your view of Who Owns What to Spanish",
+        isToggled: false
+        
+      },
+      {
+        title: "Timeline Tab",
+        text: "Click 2 “ES” in the upper right corner to switch your view of Who Owns What to Spanish",
+        isToggled: false
+      },
+      {
+        title: "Last Registered",
+        text: "Click 3 “ES” in the upper right corner to switch your view of Who Owns What to Spanish",
+        isToggled: false
+      }
+    ]
+
+   
+   var entryDivs = entryElems.map(entry => 
+    <div className="show-me-entry" key = {entry.title} >
+                    <span className = "entry-title">
+                      <b>{entry.title}</b>
+                    </span>
+                    <button
+                      type = "button" className="show-me-button float-right"
+                      id = {"showMeButton-" + entry.title}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        if (this.state.toggled_entry === entry) {
+                          this.toggleEntry(entry);
+                          this.state.toggled_entry = "";
+                          return;
+                        }
+                        if(this.state.toggled_entry !== "") {
+                          this.toggleEntry(this.state.toggled_entry);
+                        }
+                        this.toggleEntry(entry);
+                        this.state.toggled_entry = entry;
+                      }
+                      }
+                    >
+                      {" "}
+                      Show me{" "}
+                    </button>
+                    {this.state.expanded_blurb === entry.title ? <span>{entry.text}</span> : ""}
+                  </div>);
+
+    var contextWidget = 
+      <div>
+        <button className="open-button" 
+            onClick={() => (document.getElementById("myForm").style.display = "block")}> i
+          </button>
+        <div className="chat-popup" id="myForm">
+          <div className="header">
+            <span className = "pop-up-header"><b>What's New</b></span>
+              <button  type="button" className="cancel float-right"
+                  onClick={() => (document.getElementById("myForm").style.display = "none")}> <b>X</b>
+                </button>
+          </div>
+          <div className="form-container" id="form-container-entries">
+            {entryDivs}
+          </div>
+        </div>
+     </div> 
+
+
+   
+    return (
+      <Router>
+        <I18n>
+          <ScrollToTop>
+            <div className="App" id="canvasContainer">
+              {contextWidget}
               <div className="App__warning old_safari_only">
                 <Trans render="h3">
                   Warning! This site doesn't fully work on older versions of Safari. Try a{" "}
