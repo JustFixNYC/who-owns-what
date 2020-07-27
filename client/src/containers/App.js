@@ -34,7 +34,7 @@ export default class App extends Component {
 
     this.state = {
       showEngageModal: false,
-      toggled_entry: "",
+      toggled_entry: "invalid entry",
       canvas: "",
     };
   }
@@ -92,7 +92,7 @@ export default class App extends Component {
   }
 
   toggleEntry(entry) {
-      console.log("before toggleEntry: this entry = ", entry.title, "toggled entry =  ", this.state.toggled_entry.title);
+      //console.log("before toggleEntry: this entry = ", entry.title, "toggled entry =  ", this.state.toggled_entry.title);
       if (entry.isToggled) {
         entry.isToggled = false;
         this.toggleShowMeButton(entry.title);
@@ -102,20 +102,23 @@ export default class App extends Component {
         this.toggleShowMeButton(entry.title);
         this.drawCanvasOverlay(entry);
       }
-      console.log("after toggleEntry: this entry = ", entry.title, "toggled entry =  ", this.state.toggled_entry.title);
+      //console.log("after toggleEntry: this entry = ", entry.title, "toggled entry =  ", this.state.toggled_entry.title);
   }
 
   handleToggle(entry){
-    if (this.state.toggled_entry === entry) {
+    console.log("handleToggle: this entry = ", entry, "toggled entry =  ", this.state.toggled_entry);
+    if (this.state.toggled_entry.title === entry.title) {
+      console.log("toggleEntryoff, toggled entry =  ", this.state.toggled_entry.title);
       this.toggleEntry(entry);
-      this.state.toggled_entry = "";
+      this.setState({toggled_entry: "invalid entry"});
       return;
     }
-    if(this.state.toggled_entry !== "") {
+    if(this.state.toggled_entry !== "invalid entry") {
       this.toggleEntry(this.state.toggled_entry);
     }
     this.toggleEntry(entry);
-    this.state.toggled_entry = entry;
+    this.setState({toggled_entry: entry});
+    console.log("toggleEntry on, toggled entry =  ", this.state.toggled_entry.title);
   }
 /*
   componentDidUpdate(prevprops){
@@ -168,8 +171,8 @@ export default class App extends Component {
                     {" "}
                     Show me{" "}
                   </button>
-                  {console.log("in entry divs: this entry = ", entry.title, "toggled entry =  ", this.state.toggled_entry.title)}
-                  {this.state.toggled_entry.title === entry.title ? <span className = "blurb">{entry.text}</span> : ""}
+                  
+                  {this.state.toggled_entry.title === entry.title ? <div className = "blurb">{entry.text}</div> : ""}
               </div>);
 
     var contextWidget = 
