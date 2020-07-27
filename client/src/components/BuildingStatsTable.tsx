@@ -1,13 +1,38 @@
 import React, { useContext } from "react";
 
-import Helpers from "util/helpers";
+import Helpers from "../util/helpers";
+import { AddressRecord } from "./APIDataTypes";
 
-import { withI18n } from "@lingui/react";
+import { withI18n, I18n } from "@lingui/react";
 import { t } from "@lingui/macro";
 import { Trans } from "@lingui/macro";
 
-const AddrContext = React.createContext();
-const I18nContext = React.createContext();
+type Props = {
+  addr: AddressRecord;
+  i18n: I18n;
+};
+
+const EmptyBuildingStatsData = {
+  bbl: "",
+  yearbuilt: 0,
+  unitsres: 0,
+  openviolations: 0,
+  totalviolations: 0,
+  evictions: null,
+  rsunits2007: null,
+  rsunits2017: null,
+};
+
+interface BuildingStatsAddrContext {
+  getBuildingStats(): AddressRecord;
+}
+
+const AddrContext = React.createContext<BuildingStatsAddrContext>({
+  getBuildingStats: () => {
+    throw new Error("This Building Stats table has no data!");
+  },
+});
+const I18nContext = React.createContext({});
 
 const bblDash = (
   <span className="unselectable" unselectable="on">
@@ -16,7 +41,7 @@ const bblDash = (
 );
 
 const BBL = () => {
-  const addr = useContext(AddrContext);
+  const addr = useContext(AddrContext).getBuildingStats();
   const { boro, block, lot } = Helpers.splitBBL(addr.bbl);
   const i18n = useContext(I18nContext);
   return (
@@ -39,7 +64,7 @@ const BBL = () => {
 };
 
 const YearBuilt = () => {
-  const addr = useContext(AddrContext);
+  const addr = useContext(AddrContext).getBuildingStats();
   const i18n = useContext(I18nContext);
   return (
     <div
@@ -54,7 +79,7 @@ const YearBuilt = () => {
 };
 
 const UnitsRes = () => {
-  const addr = useContext(AddrContext);
+  const addr = useContext(AddrContext).getBuildingStats();
   const i18n = useContext(I18nContext);
   return (
     <div
@@ -69,7 +94,7 @@ const UnitsRes = () => {
 };
 
 const OpenViolations = () => {
-  const addr = useContext(AddrContext);
+  const addr = useContext(AddrContext).getBuildingStats();
   const i18n = useContext(I18nContext);
   return (
     <div
@@ -84,7 +109,7 @@ const OpenViolations = () => {
 };
 
 const TotalViolations = () => {
-  const addr = useContext(AddrContext);
+  const addr = useContext(AddrContext).getBuildingStats();
   const i18n = useContext(I18nContext);
   return (
     <div
@@ -99,7 +124,7 @@ const TotalViolations = () => {
 };
 
 const Evictions = () => {
-  const addr = useContext(AddrContext);
+  const addr = useContext(AddrContext).getBuildingStats();
   const i18n = useContext(I18nContext);
   return (
     <div
@@ -114,7 +139,7 @@ const Evictions = () => {
 };
 
 const RsUnits = () => {
-  const addr = useContext(AddrContext);
+  const addr = useContext(AddrContext).getBuildingStats();
   const i18n = useContext(I18nContext);
   return (
     <div
@@ -127,15 +152,25 @@ const RsUnits = () => {
       </label>
       <span>{addr.rsunits2007 !== null ? addr.rsunits2007 : "N/A"}</span>
       <span>&#x21FE;</span>
-      <span className={`${addr.rsunits2017 < addr.rsunits2007 ? "text-danger" : ""}`}>
+      <span
+        className={`${
+          addr.rsunits2007 && addr.rsunits2017 && addr.rsunits2017 < addr.rsunits2007
+            ? "text-danger"
+            : ""
+        }`}
+      >
         {addr.rsunits2017 !== null ? addr.rsunits2017 : "N/A"}
       </span>
     </div>
   );
 };
 
-const BuildingStatsTableWithoutI18n = (props) => (
-  <AddrContext.Provider value={props.addr}>
+const BuildingStatsTableWithoutI18n = (props: Props) => (
+  <AddrContext.Provider
+    value={{
+      getBuildingStats: () => props.addr,
+    }}
+  >
     <I18nContext.Provider value={props.i18n}>
       <div className="card-body-table hide-sm">
         <div className="table-row">
