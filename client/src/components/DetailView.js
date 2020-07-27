@@ -36,13 +36,13 @@ class DetailViewWithoutI18n extends Component {
   render() {
     const isMobile = Browser.isMobile();
     const locale = this.props.i18n.language || "en";
-    let boro, block, lot, ownernames, userOwnernames, takeActionURL, formattedLastRegisteredDate;
+    let boro, block, lot, ownernames, userOwnernames, takeActionURL, formattedLastEndDate;
 
     if (this.props.addr) {
       ({ boro, block, lot } = Helpers.splitBBL(this.props.addr.bbl));
       takeActionURL = Helpers.createTakeActionURL(this.props.addr, "detail_view");
-      formattedLastRegisteredDate = Helpers.formatDate(
-        this.props.addr.lastregistrationdate,
+      formattedLastEndDate = Helpers.formatDate(
+        this.props.addr.registrationenddate,
         longDateOptions,
         locale
       );
@@ -147,16 +147,20 @@ class DetailViewWithoutI18n extends Component {
                           <b>
                             <Trans>Last registered:</Trans>
                           </b>{" "}
-                          {formattedLastRegisteredDate}
+                          {Helpers.formatDate(
+                                   this.props.addr.lastregistrationdate,
+                                     longDateOptions,
+                                     locale
+                                 )}
                           {this.state.todaysDate > new Date(this.props.addr.registrationenddate) ? (
                             <span className="text-danger">
                               {" "}
-                              <Trans>(expired {formattedLastRegisteredDate})</Trans>
+                              <Trans>(expired {formattedLastEndDate})</Trans>
                             </span>
                           ) : (
                             <span>
                               {" "}
-                              <Trans>(expires {formattedLastRegisteredDate})</Trans>
+                              <Trans>(expires {formattedLastEndDate})</Trans>
                             </span>
                           )}
                         </p>
@@ -168,7 +172,11 @@ class DetailViewWithoutI18n extends Component {
                                 <Trans>Last sold:</Trans>
                               </b>{" "}
                               <>
-                                {formattedLastRegisteredDate}{" "}
+                              {Helpers.formatDate(
+                                   this.props.addr.lastsaledate,
+                                     longDateOptions,
+                                     locale
+                                 )}{" "}
                                 <Trans>
                                   for ${Helpers.formatPrice(this.props.addr.lastsaleamount, locale)}
                                 </Trans>
