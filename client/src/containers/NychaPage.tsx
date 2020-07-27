@@ -13,6 +13,7 @@ import { createRouteForAddressPage, getSiteOrigin } from "../routes";
 import { Nobr } from "../components/Nobr";
 import { GeoSearchData, BuildingInfoRecord } from "../components/APIDataTypes";
 import { SearchAddress } from "../components/AddressSearch";
+import { SocialShareForNotRegisteredPage } from "./NotRegisteredPage";
 
 type Props = withI18nProps & {
   geosearch: GeoSearchData;
@@ -323,19 +324,7 @@ class NychaPageWithoutI18n extends Component<Props, State> {
                 </a>
               </div>
 
-              <div className="social-share">
-                <p>
-                  <Trans>Share this page with your neighbors</Trans>
-                </p>
-                <SocialShare
-                  location="nycha-page"
-                  url={
-                    usersInputAddress
-                      ? `${getSiteOrigin()}${createRouteForAddressPage(usersInputAddress)}`
-                      : undefined
-                  }
-                />
-              </div>
+              <SocialShareForNotRegisteredPage addr={usersInputAddress} />
 
               <br />
               {/* <div className="toast toast-error">
