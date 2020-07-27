@@ -34,18 +34,22 @@ class DetailViewWithoutI18n extends Component {
   }
 
   render() {
-    let boro, block, lot, ownernames, userOwnernames, takeActionURL;
+    const isMobile = Browser.isMobile();
+    const locale = this.props.i18n.language || "en";
+    let boro, block, lot, ownernames, userOwnernames, takeActionURL, formattedLastEndDate;
+
     if (this.props.addr) {
       ({ boro, block, lot } = Helpers.splitBBL(this.props.addr.bbl));
       takeActionURL = Helpers.createTakeActionURL(this.props.addr, "detail_view");
-
+      formattedLastEndDate = Helpers.formatDate(
+        this.props.addr.registrationenddate,
+        longDateOptions,
+        locale
+      );
       if (this.props.addr.ownernames.length) ownernames = Helpers.uniq(this.props.addr.ownernames);
       if (this.props.userAddr.ownernames.length)
         userOwnernames = Helpers.uniq(this.props.userAddr.ownernames);
     }
-
-    const isMobile = Browser.isMobile();
-    const locale = this.props.i18n.language || "en";
 
     const streetView = (
       <LazyLoadWhenVisible>
@@ -151,28 +155,12 @@ class DetailViewWithoutI18n extends Component {
                           {this.state.todaysDate > new Date(this.props.addr.registrationenddate) ? (
                             <span className="text-danger">
                               {" "}
-                              <Trans>
-                                (expired{" "}
-                                {Helpers.formatDate(
-                                  this.props.addr.registrationenddate,
-                                  longDateOptions,
-                                  locale
-                                )}
-                                )
-                              </Trans>
+                              <Trans>(expired {formattedLastEndDate})</Trans>
                             </span>
                           ) : (
-                            // prettier-ignore
                             <span>
                               {" "}
-                              <Trans>
-                                (expires{" "} 
-                                {Helpers.formatDate(
-                                  this.props.addr.registrationenddate,
-                                  longDateOptions,
-                                  locale
-                                )})
-                              </Trans>
+                              <Trans>(expires {formattedLastEndDate})</Trans>
                             </span>
                           )}
                         </p>
