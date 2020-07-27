@@ -34,11 +34,10 @@ export default class App extends Component {
 
     this.state = {
       showEngageModal: false,
-      toggled_entry: "invalid entry",
+      toggled_entry: "",
       canvas: "",
     };
   }
-
   createCanvas(){
     let myCanvas = document.createElement("canvas");
     let canvasContainer = document.getElementById("canvasContainer");
@@ -46,7 +45,7 @@ export default class App extends Component {
     myCanvas.style.height = canvasContainer.scrollHeight + "px";
     myCanvas.width = canvasContainer.scrollWidth;
     myCanvas.height = canvasContainer.scrollHeight;
-    //myCanvas.style.overflow = "visible";
+    myCanvas.style.overflow = "visible";
     myCanvas.style.position = "absolute";
     myCanvas.style.zIndex = 11;
     myCanvas.style.visibility = "hidden";
@@ -60,10 +59,9 @@ export default class App extends Component {
 
   drawCanvasOverlay(entry) {
     if(entry === ""){this.state.canvas.style.visibility = "hidden"; return;}
-    //console.log("drawing new canvas");
     let elem = document.querySelector("[data-show-me=" + CSS.escape(entry.title) + "]");
     this.state.canvas.style.visibility = "visible";
-    //elem.scrollIntoViewIfNeeded({ behavior: "auto", block: "center" });
+    elem.scrollIntoViewIfNeeded({ behavior: "auto", block: "center" });
     var cxt = this.state.canvas.getContext("2d");
     cxt.clearRect(0,0, this.state.canvas.width, this.state.canvas.height);
     let boundingBox = elem.getBoundingClientRect();
@@ -75,6 +73,17 @@ export default class App extends Component {
     cxt.globalAlpha = 0.5;
     cxt.fillRect(0, 0, this.state.canvas.width, this.state.canvas.height);
     this.state.canvas.onclick = (e) => {e.preventDefault(); return this.handleToggle(entry)};
+  }
+
+  toggleBlurb(entry){
+    let blurb = document.getElementById("blurb-" + entry.title);
+    if(blurb.isToggled){
+      blurb.isToggled = false;
+      blurb.style.display = "none";
+    } else {
+      blurb.isToggled = true;
+      blurb.style.display = "block";
+    }
   }
 
   toggleShowMeButton(entryTitle){
@@ -93,42 +102,31 @@ export default class App extends Component {
   }
 
   toggleEntry(entry) {
-      //console.log("before toggleEntry: this entry = ", entry.title, "toggled entry =  ", this.state.toggled_entry.title);
       if (entry.isToggled) {
         entry.isToggled = false;
         this.toggleShowMeButton(entry.title);
+        this.toggleBlurb(entry);
         this.drawCanvasOverlay("");
       } else {
         entry.isToggled = true;
         this.toggleShowMeButton(entry.title);
+        this.toggleBlurb(entry);
         this.drawCanvasOverlay(entry);
       }
-      //console.log("after toggleEntry: this entry = ", entry.title, "toggled entry =  ", this.state.toggled_entry.title);
   }
 
   handleToggle(entry){
-    console.log("handleToggle: this entry = ", entry, "toggled entry =  ", this.state.toggled_entry);
     if (this.state.toggled_entry.title === entry.title) {
-      console.log("toggleEntryoff, toggled entry =  ", this.state.toggled_entry.title);
       this.toggleEntry(entry);
-      this.state.toggled_entry = "invalid entry";
+      this.state.toggled_entry = "";
       return;
     }
-    if(this.state.toggled_entry !== "invalid entry") {
+    if(this.state.toggled_entry !== "") {
       this.toggleEntry(this.state.toggled_entry);
     }
     this.toggleEntry(entry);
     this.state.toggled_entry = entry;
-    console.log("toggleEntry on, toggled entry =  ", this.state.toggled_entry.title);
   }
-/*
-  componentDidUpdate(prevprops){
-    if(this.props.toggled_entry !== prevprops.toggled_entry){
-      console.log("YO");
-      this.setState();
-    }
-  }
-*/
 
 
   render() {
@@ -173,7 +171,7 @@ export default class App extends Component {
                     Show me{" "}
                   </button>
                   
-                  {entry.isToggled ? <div className = "blurb">{entry.text}</div> : ""}
+                  <div className = "blurb" id = {"blurb-" + entry.title} style = {{display: "none"}}>{entry.text}</div>
               </div>);
 
     var contextWidget = 
@@ -220,7 +218,7 @@ export default class App extends Component {
             
             <div className="App" id="canvasContainer">
               {contextWidget}
-
+             
               <div className="App__warning old_safari_only">
                 <Trans render="h3">
                   Warning! This site doesn't fully work on older versions of Safari. Try a{" "}
