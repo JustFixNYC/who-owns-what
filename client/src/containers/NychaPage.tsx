@@ -4,15 +4,14 @@ import Browser from "../util/browser";
 import LegalFooter from "../components/LegalFooter";
 import Helpers from "../util/helpers";
 import APIClient from "../components/APIClient";
-import SocialShare from "../components/SocialShare";
 
 import "styles/NotRegisteredPage.css";
 import { Trans, t } from "@lingui/macro";
 import { withI18n, withI18nProps } from "@lingui/react";
-import { createRouteForAddressPage, getSiteOrigin } from "../routes";
 import { Nobr } from "../components/Nobr";
 import { GeoSearchData, BuildingInfoRecord } from "../components/APIDataTypes";
 import { SearchAddress } from "../components/AddressSearch";
+import { SocialShareForNotRegisteredPage } from "./NotRegisteredPage";
 
 type Props = withI18nProps & {
   geosearch: GeoSearchData;
@@ -323,19 +322,7 @@ class NychaPageWithoutI18n extends Component<Props, State> {
                 </a>
               </div>
 
-              <div className="social-share">
-                <p>
-                  <Trans>Share this page with your neighbors</Trans>
-                </p>
-                <SocialShare
-                  location="nycha-page"
-                  url={
-                    usersInputAddress
-                      ? `${getSiteOrigin()}${createRouteForAddressPage(usersInputAddress)}`
-                      : undefined
-                  }
-                />
-              </div>
+              <SocialShareForNotRegisteredPage addr={usersInputAddress} />
 
               <br />
               {/* <div className="toast toast-error">
