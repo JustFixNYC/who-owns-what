@@ -2,12 +2,12 @@ import React, { Component } from "react";
 import { CSSTransition } from "react-transition-group";
 import { StreetView } from "./StreetView";
 import { LazyLoadWhenVisible } from "./LazyLoadWhenVisible";
-import Helpers, { longDateOptions } from "util/helpers";
-import Browser from "util/browser";
-import Modal from "components/Modal";
+import Helpers, { longDateOptions } from "../util/helpers";
+import Browser from "../util/browser";
+import Modal from "../components/Modal";
 
 import "styles/DetailView.css";
-import { withI18n } from "@lingui/react";
+import { withI18n, withI18nProps } from "@lingui/react";
 import { Trans } from "@lingui/macro";
 import { SocialSharePortfolio } from "./SocialShare";
 import { isPartOfGroupSale } from "./PropertiesList";
@@ -15,52 +15,71 @@ import { Link } from "react-router-dom";
 import { LocaleLink } from "../i18n";
 import BuildingStatsTable from "./BuildingStatsTable";
 import { createWhoOwnsWhatRoutePaths } from "../routes";
+import { AddressRecord } from "./APIDataTypes";
+import { SupportedLocale } from "../i18n-base";
 
-class DetailViewWithoutI18n extends Component {
-  constructor(props) {
+type Props = withI18nProps & {
+  addrs: AddressRecord[];
+  addr: AddressRecord;
+  portfolioSize: number;
+  mobileShow: boolean;
+  userAddr: AddressRecord;
+  onCloseDetail: () => void;
+  generateBaseUrl: () => string;
+};
+
+type State = {
+  showCompareModal: boolean;
+};
+
+const getTodaysDate = () => new Date();
+
+class DetailViewWithoutI18n extends Component<Props, State> {
+  constructor(props: Props) {
     super(props);
 
     this.state = {
       showCompareModal: false,
-      todaysDate: new Date(),
     };
-
-    this.detailSlideLength = 300;
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(prevProps: Props, prevState: State) {
     // scroll to top of wrapper div:
     document.querySelector(".DetailView__wrapper").scrollTop = 0;
   }
 
   render() {
     let boro, block, lot, ownernames, userOwnernames, takeActionURL;
-    if (this.props.addr) {
-      ({ boro, block, lot } = Helpers.splitBBL(this.props.addr.bbl));
-      takeActionURL = Helpers.createTakeActionURL(this.props.addr, "detail_view");
+    const addr = this.props.addr;
+    if (addr) {
+      ({ boro, block, lot } = Helpers.splitBBL(addr.bbl));
+      takeActionURL = Helpers.createTakeActionURL(addr, "detail_view");
 
-      if (this.props.addr.ownernames.length) ownernames = Helpers.uniq(this.props.addr.ownernames);
-      if (this.props.userAddr.ownernames.length)
+      if (addr.ownernames?.length) ownernames = Helpers.uniq(addr.ownernames);
+      if (this.props.userAddr.ownernames?.length)
         userOwnernames = Helpers.uniq(this.props.userAddr.ownernames);
     }
 
     const isMobile = Browser.isMobile();
     const locale = this.props.i18n.language || "en";
 
-    const streetView = (
-      <LazyLoadWhenVisible>
-        <StreetView addr={this.props.addr} />
-      </LazyLoadWhenVisible>
-    );
+    const streetView =
+      addr.lng && addr.lat ? (
+        <LazyLoadWhenVisible>
+          <StreetView addr={addr} />
+        </LazyLoadWhenVisible>
+      ) : (
+        <></>
+      );
 
     // console.log(showContent);
 
     return (
       <CSSTransition in={!isMobile || this.props.mobileShow} timeout={500} classNames="DetailView">
         <div className={`DetailView`}>
-          {/* <div className={`DetailView ${(!this.props.addr && isMobile) ? 'DetailView__hide' : 'DetailView__show'}`}> */}
+          {/* <div className={`DetailView ${(!addr && isMobile) ? 'DetailView__hide' : 'DetailView__show'}`}> */}
           <div className="DetailView__wrapper">
-            {this.props.addr && (
+            {addr && (
               <div className="DetailView__card card">
                 <div className="DetailView__mobilePortfolioView">
                   <button onClick={() => this.props.onCloseDetail()}>
@@ -72,11 +91,10 @@ class DetailViewWithoutI18n extends Component {
                   <div className="column col-lg-12 col-7">
                     <div className="card-header">
                       <h4 className="card-title">
-                        <Trans>BUILDING:</Trans> {this.props.addr.housenumber}{" "}
-                        {Helpers.titleCase(this.props.addr.streetname)},{" "}
-                        {Helpers.titleCase(this.props.addr.boro)}
+                        <Trans>BUILDING:</Trans> {addr.housenumber}{" "}
+                        {Helpers.titleCase(addr.streetname)}, {Helpers.titleCase(addr.boro)}
                       </h4>
-                      {!Helpers.addrsAreEqual(this.props.addr, this.props.userAddr) && (
+                      {!Helpers.addrsAreEqual(addr, this.props.userAddr) && (
                         <a // eslint-disable-line jsx-a11y/anchor-is-valid
                           onClick={() => this.setState({ showCompareModal: true })}
                         >
@@ -87,7 +105,7 @@ class DetailViewWithoutI18n extends Component {
                       )}
                     </div>
                     <div className="card-body">
-                      <BuildingStatsTable addr={this.props.addr} />
+                      <BuildingStatsTable addr={addr} />
                       <div className="card-body-timeline-link">
                         <Link
                           to={this.props.generateBaseUrl() + "/timeline"}
@@ -106,10 +124,8 @@ class DetailViewWithoutI18n extends Component {
                               <Trans>Business Entities</Trans>
                             </b>
                             <ul>
-                              {this.props.addr.corpnames &&
-                                this.props.addr.corpnames.map((corp, idx) => (
-                                  <li key={idx}>{corp}</li>
-                                ))}
+                              {addr.corpnames &&
+                                addr.corpnames.map((corp, idx) => <li key={idx}>{corp}</li>)}
                             </ul>
                           </div>
                           <div className="column col-xs-12 col-6">
@@ -117,25 +133,25 @@ class DetailViewWithoutI18n extends Component {
                               <Trans>Business Addresses</Trans>
                             </b>
                             <ul>
-                              {this.props.addr.businessaddrs &&
-                                this.props.addr.businessaddrs.map((rba, idx) => (
-                                  <li key={idx}>{rba}</li>
-                                ))}
+                              {addr.businessaddrs &&
+                                addr.businessaddrs.map((rba, idx) => <li key={idx}>{rba}</li>)}
                             </ul>
                           </div>
                         </div>
-                        <div>
-                          <b>
-                            <Trans>People</Trans>
-                          </b>
-                          <ul>
-                            {ownernames.map((owner, idx) => (
-                              <li key={idx}>
-                                {owner.title.split(/(?=[A-Z])/).join(" ")}: {owner.value}
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
+                        {ownernames && (
+                          <div>
+                            <b>
+                              <Trans>People</Trans>
+                            </b>
+                            <ul>
+                              {ownernames.map((owner, idx) => (
+                                <li key={idx}>
+                                  {owner.title.split(/(?=[A-Z])/).join(" ")}: {owner.value}
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        )}
                       </div>
 
                       <div className="card-body-registration">
@@ -143,18 +159,14 @@ class DetailViewWithoutI18n extends Component {
                           <b>
                             <Trans>Last registered:</Trans>
                           </b>{" "}
-                          {Helpers.formatDate(
-                            this.props.addr.lastregistrationdate,
-                            longDateOptions,
-                            locale
-                          )}
-                          {this.state.todaysDate > new Date(this.props.addr.registrationenddate) ? (
+                          {Helpers.formatDate(addr.lastregistrationdate, longDateOptions, locale)}
+                          {getTodaysDate() > new Date(addr.registrationenddate) ? (
                             <span className="text-danger">
                               {" "}
                               <Trans>
                                 (expired{" "}
                                 {Helpers.formatDate(
-                                  this.props.addr.registrationenddate,
+                                  addr.registrationenddate,
                                   longDateOptions,
                                   locale
                                 )}
@@ -168,7 +180,7 @@ class DetailViewWithoutI18n extends Component {
                               <Trans>
                                 (expires{" "} 
                                 {Helpers.formatDate(
-                                  this.props.addr.registrationenddate,
+                                  addr.registrationenddate,
                                   longDateOptions,
                                   locale
                                 )})
@@ -176,35 +188,24 @@ class DetailViewWithoutI18n extends Component {
                             </span>
                           )}
                         </p>
-                        {this.props.addr.lastsaledate &&
-                          this.props.addr.lastsaleamount &&
-                          this.props.addrs && (
-                            <p>
-                              <b>
-                                <Trans>Last sold:</Trans>
-                              </b>{" "}
-                              <>
-                                {Helpers.formatDate(
-                                  this.props.addr.lastsaledate,
-                                  longDateOptions,
-                                  locale
-                                )}{" "}
-                                <Trans>
-                                  for ${Helpers.formatPrice(this.props.addr.lastsaleamount, locale)}
-                                </Trans>
-                                {this.props.addr.lastsaleacrisid &&
-                                  isPartOfGroupSale(
-                                    this.props.addr.lastsaleacrisid,
-                                    this.props.addrs
-                                  ) && (
-                                    <>
-                                      {" "}
-                                      <Trans>(as part of a group sale)</Trans>
-                                    </>
-                                  )}
-                              </>
-                            </p>
-                          )}
+                        {addr.lastsaledate && addr.lastsaleamount && addrs && (
+                          <p>
+                            <b>
+                              <Trans>Last sold:</Trans>
+                            </b>{" "}
+                            <>
+                              {Helpers.formatDate(addr.lastsaledate, longDateOptions, locale)}{" "}
+                              <Trans>for ${Helpers.formatPrice(addr.lastsaleamount, locale)}</Trans>
+                              {addr.lastsaleacrisid &&
+                                isPartOfGroupSale(addr.lastsaleacrisid, addrs) && (
+                                  <>
+                                    {" "}
+                                    <Trans>(as part of a group sale)</Trans>
+                                  </>
+                                )}
+                            </>
+                          </p>
+                        )}
                       </div>
 
                       <div className="card-body-prompt hide-lg">
@@ -230,7 +231,7 @@ class DetailViewWithoutI18n extends Component {
                         </h6>
                         <SocialSharePortfolio
                           location="overview-tab"
-                          addr={this.props.addr}
+                          addr={addr}
                           buildings={this.props.portfolioSize}
                         />
                       </div>
@@ -268,9 +269,9 @@ class DetailViewWithoutI18n extends Component {
                                   window.gtag("event", "hpd-overview-tab");
                                 }}
                                 href={`https://hpdonline.hpdnyc.org/HPDonline/Provide_address.aspx?p1=${boro}&p2=${
-                                  this.props.addr.housenumber
+                                  addr.housenumber
                                 }&p3=${Helpers.formatStreetNameForHpdLink(
-                                  this.props.addr.streetname
+                                  addr.streetname
                                 )}&SearchButton=Search`}
                                 target="_blank"
                                 rel="noopener noreferrer"
@@ -341,7 +342,7 @@ class DetailViewWithoutI18n extends Component {
                           </h6>
                           <SocialSharePortfolio
                             location="overview-tab"
-                            addr={this.props.addr}
+                            addr={addr}
                             buildings={this.props.portfolioSize}
                           />
                         </div>
@@ -351,7 +352,7 @@ class DetailViewWithoutI18n extends Component {
                 </div>
               </div>
             )}
-            {this.props.addr && (
+            {addr && (
               <Modal
                 showModal={this.state.showCompareModal}
                 width={70}
@@ -376,8 +377,7 @@ class DetailViewWithoutI18n extends Component {
                         {this.props.userAddr.boro}
                       </th>
                       <th>
-                        {this.props.addr.housenumber} {this.props.addr.streetname},{" "}
-                        {this.props.addr.boro}
+                        {addr.housenumber} {addr.streetname}, {addr.boro}
                       </th>
                     </tr>
                   </thead>
@@ -399,8 +399,8 @@ class DetailViewWithoutI18n extends Component {
                           <Trans>Business Entities</Trans>
                         </div>
                         <ul>
-                          {this.props.addr.corpnames &&
-                            this.props.addr.corpnames.map((corp, idx) => <li key={idx}>{corp}</li>)}
+                          {addr.corpnames &&
+                            addr.corpnames.map((corp, idx) => <li key={idx}>{corp}</li>)}
                         </ul>
                       </td>
                     </tr>
@@ -421,10 +421,8 @@ class DetailViewWithoutI18n extends Component {
                           <Trans>Business Addresses</Trans>
                         </div>
                         <ul>
-                          {this.props.addr.businessaddrs &&
-                            this.props.addr.businessaddrs.map((rba, idx) => (
-                              <li key={idx}>{rba}</li>
-                            ))}
+                          {addr.businessaddrs &&
+                            addr.businessaddrs.map((rba, idx) => <li key={idx}>{rba}</li>)}
                         </ul>
                       </td>
                     </tr>
@@ -433,25 +431,29 @@ class DetailViewWithoutI18n extends Component {
                         <div>
                           <Trans>People</Trans>
                         </div>
-                        <ul>
-                          {userOwnernames.map((owner, idx) => (
-                            <li key={idx}>
-                              {owner.title.split(/(?=[A-Z])/).join(" ")}: {owner.value}
-                            </li>
-                          ))}
-                        </ul>
+                        {userOwnernames && (
+                          <ul>
+                            {userOwnernames.map((owner, idx) => (
+                              <li key={idx}>
+                                {owner.title.split(/(?=[A-Z])/).join(" ")}: {owner.value}
+                              </li>
+                            ))}
+                          </ul>
+                        )}
                       </td>
                       <td>
                         <div>
                           <Trans>People</Trans>
                         </div>
-                        <ul>
-                          {ownernames.map((owner, idx) => (
-                            <li key={idx}>
-                              {owner.title.split(/(?=[A-Z])/).join(" ")}: {owner.value}
-                            </li>
-                          ))}
-                        </ul>
+                        {ownernames && (
+                          <ul>
+                            {ownernames.map((owner, idx) => (
+                              <li key={idx}>
+                                {owner.title.split(/(?=[A-Z])/).join(" ")}: {owner.value}
+                              </li>
+                            ))}
+                          </ul>
+                        )}
                       </td>
                     </tr>
                   </tbody>
