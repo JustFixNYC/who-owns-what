@@ -61,7 +61,7 @@ class DetailViewWithoutI18n extends Component<Props, State> {
     }
 
     const isMobile = Browser.isMobile();
-    const locale = this.props.i18n.language || "en";
+    const locale = (this.props.i18n.language as SupportedLocale) || "en";
 
     const streetView =
       addr.lng && addr.lat ? (
@@ -188,7 +188,7 @@ class DetailViewWithoutI18n extends Component<Props, State> {
                             </span>
                           )}
                         </p>
-                        {addr.lastsaledate && addr.lastsaleamount && addrs && (
+                        {addr.lastsaledate && addr.lastsaleamount && this.props.addrs && (
                           <p>
                             <b>
                               <Trans>Last sold:</Trans>
@@ -197,7 +197,7 @@ class DetailViewWithoutI18n extends Component<Props, State> {
                               {Helpers.formatDate(addr.lastsaledate, longDateOptions, locale)}{" "}
                               <Trans>for ${Helpers.formatPrice(addr.lastsaleamount, locale)}</Trans>
                               {addr.lastsaleacrisid &&
-                                isPartOfGroupSale(addr.lastsaleacrisid, addrs) && (
+                                isPartOfGroupSale(addr.lastsaleacrisid, this.props.addrs) && (
                                   <>
                                     {" "}
                                     <Trans>(as part of a group sale)</Trans>
