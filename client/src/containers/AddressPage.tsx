@@ -1,17 +1,17 @@
 import React, { Component } from "react";
 import FileSaver from "file-saver";
-import Browser from "util/browser";
+import Browser from "../util/browser";
 
 import _find from "lodash/find";
 
-import AddressToolbar from "components/AddressToolbar";
-import PropertiesMap from "components/PropertiesMap";
-import PropertiesList from "components/PropertiesList";
-import PropertiesSummary from "components/PropertiesSummary";
-import Indicators from "components/Indicators";
-import DetailView from "components/DetailView";
-import APIClient from "components/APIClient";
-import Loader from "components/Loader";
+import AddressToolbar from "../components/AddressToolbar";
+import PropertiesMap from "../components/PropertiesMap";
+import PropertiesList from "../components/PropertiesList";
+import PropertiesSummary from "../components/PropertiesSummary";
+import Indicators from "../components/Indicators";
+import DetailView from "../components/DetailView";
+import APIClient from "../components/APIClient";
+import Loader from "../components/Loader";
 
 import "styles/AddressPage.css";
 import NychaPage from "./NychaPage";
@@ -20,9 +20,16 @@ import helpers from "../util/helpers";
 import { Trans, Plural } from "@lingui/macro";
 import { Link } from "react-router-dom";
 import Page from "../components/Page";
+import { SearchResults } from "../components/APIDataTypes";
 
-export default class AddressPage extends Component {
-  constructor(props) {
+// TODO: Fix this typing.
+type AddressPageProps = any;
+
+// TODO: Fix this typing.
+type State = any;
+
+export default class AddressPage extends Component<AddressPageProps, State> {
+  constructor(props: AddressPageProps) {
     super(props);
 
     this.state = {
@@ -61,8 +68,12 @@ export default class AddressPage extends Component {
   }
 
   // Processes the results and setState accordingly. Doesn't care where results comes from
-  handleResults = (results) => {
+  handleResults = (results: SearchResults) => {
     const { geosearch, addrs } = results;
+
+    if (!geosearch) {
+      throw new Error("Address results do not contain geosearch results!");
+    }
 
     this.setState(
       {
@@ -78,7 +89,8 @@ export default class AddressPage extends Component {
     );
   };
 
-  handleAddrChange = (addr) => {
+  // TODO: Fix this typing.
+  handleAddrChange = (addr: any) => {
     this.setState({
       detailAddr: addr,
       detailMobileSlide: true,
@@ -108,16 +120,15 @@ export default class AddressPage extends Component {
 
   render() {
     if (this.state.hasSearched && this.state.assocAddrs.length === 0) {
-      return this.state.searchAddress &&
-        this.state.searchAddress.bbl &&
-        helpers.getNychaData(this.state.searchAddress.bbl) ? (
+      const nychaData = helpers.getNychaData(this.state.searchAddress.bbl);
+      return this.state.searchAddress && this.state.searchAddress.bbl && nychaData ? (
         <Page
           title={`${this.state.searchAddress.housenumber} ${this.state.searchAddress.streetname}`}
         >
           <NychaPage
             geosearch={this.state.geosearch}
             searchAddress={this.state.searchAddress}
-            nychaData={helpers.getNychaData(this.state.searchAddress.bbl)}
+            nychaData={nychaData}
           />
         </Page>
       ) : (

@@ -9,6 +9,7 @@
     "@lingui/cli": "^2.8.3",
     "@lingui/macro": "^2.8.3",
     "@lingui/react": "^2.8.3",
+    "@types/file-saver": "^2.0.1",
     "@types/googlemaps": "^3.0.0",
     "@types/gtag.js": "^0.0.2",
     "@types/jest": "^24.0.6",

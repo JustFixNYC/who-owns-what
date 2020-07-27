@@ -19,7 +19,7 @@ type Props = withI18nProps & {
   nychaData: {
     bbl: number;
     development: string;
-    dev_evictions: string;
+    dev_evictions: string | number;
     dev_unitsres: number;
   };
 };
