@@ -1,17 +1,32 @@
 import React, { Component } from "react";
 import { LocaleLink as Link } from "../i18n";
-import Modal from "components/Modal";
-import LegalFooter from "components/LegalFooter";
-import Helpers from "util/helpers";
-import APIClient from "components/APIClient";
-import SocialShare from "components/SocialShare";
 
 import "styles/NotRegisteredPage.css";
 import { Trans } from "@lingui/macro";
 import { createRouteForAddressPage, getSiteOrigin } from "../routes";
+import Modal from "../components/Modal";
+import LegalFooter from "../components/LegalFooter";
+import Helpers from "../util/helpers";
+import APIClient from "../components/APIClient";
+import SocialShare from "../components/SocialShare";
+import { Nobr } from "../components/Nobr";
+import { SearchAddress } from "../components/AddressSearch";
+import { GeoSearchData, BuildingInfoRecord } from "../components/APIDataTypes";
 
-export default class NotRegisteredPage extends Component {
-  constructor(props) {
+type Props = {
+  /** Could concievably be undefined if the input address is totally invalid */
+  geosearch?: GeoSearchData;
+  /** Could concievably be undefined if the input address is totally invalid */
+  searchAddress?: SearchAddress;
+};
+
+type State = {
+  showModal: boolean;
+  buildingInfo: BuildingInfoRecord[] | null;
+};
+
+export default class NotRegisteredPage extends Component<Props, State> {
+  constructor(props: Props) {
     super(props);
 
     this.state = {
@@ -21,7 +36,10 @@ export default class NotRegisteredPage extends Component {
   }
 
   componentDidMount() {
-    if (this.props.geosearch && this.props.geosearch.bbl && !this.state.buildingInfo) {
+    if (this.props.geosearch && !this.state.buildingInfo) {
+      if (!this.props.geosearch.bbl) {
+        window.Rollbar.error("Geosearch result has no BBL!");
+      }
       const bbl = this.props.geosearch.bbl;
       APIClient.getBuildingInfo(bbl)
         .then((results) => this.setState({ buildingInfo: results.result }))
@@ -39,20 +57,19 @@ export default class NotRegisteredPage extends Component {
         ? this.state.buildingInfo[0]
         : null;
 
-    const usersInputAddress =
-      searchAddress && searchAddress.boro && (searchAddress.housenumber || searchAddress.streetname)
-        ? {
-            boro: searchAddress.boro,
-            housenumber: searchAddress.housenumber || " ",
-            streetname: searchAddress.streetname || " ",
-          }
-        : buildingInfo && buildingInfo.boro && (buildingInfo.housenumber || buildingInfo.streetname)
-        ? {
-            boro: buildingInfo.boro,
-            housenumber: buildingInfo.housenumber || " ",
-            streetname: buildingInfo.streetname || " ",
-          }
-        : null;
+    const usersInputAddress = searchAddress
+      ? {
+          boro: searchAddress.boro,
+          housenumber: searchAddress.housenumber || " ",
+          streetname: searchAddress.streetname,
+        }
+      : buildingInfo
+      ? {
+          boro: buildingInfo.boro,
+          housenumber: buildingInfo.housenumber || " ",
+          streetname: buildingInfo.streetname || " ",
+        }
+      : null;
 
     const failedToRegisterLink = (
       <div className="text-center">
@@ -72,9 +89,7 @@ export default class NotRegisteredPage extends Component {
     let buildingTypeMessage;
 
     if (geosearch) {
-      if (geosearch.bbl) {
-        ({ boro, block, lot } = Helpers.splitBBL(geosearch.bbl));
-      }
+      ({ boro, block, lot } = Helpers.splitBBL(geosearch.bbl));
 
       if (buildingInfo && buildingInfo.bldgclass) {
         const generalBldgCat = buildingInfo.bldgclass.replace(/[0-9]/g, "");
@@ -88,7 +103,7 @@ export default class NotRegisteredPage extends Component {
                       This seems like a smaller residential building. If the landlord doesn't reside
                       there, it should be registered with HPD.
                     </Trans>{" "}
-                    <nobr>
+                    <Nobr>
                       (
                       <i>
                         <a
@@ -103,7 +118,7 @@ export default class NotRegisteredPage extends Component {
                         : {buildingInfo.bldgclass}
                       </i>
                       )
-                    </nobr>
+                    </Nobr>
                   </p>
                 </h6>
                 {failedToRegisterLink}
@@ -118,7 +133,7 @@ export default class NotRegisteredPage extends Component {
                     <Trans render="b">
                       This building seems like it should be registered with HPD!
                     </Trans>{" "}
-                    <nobr>
+                    <Nobr>
                       (
                       <i>
                         <a
@@ -133,7 +148,7 @@ export default class NotRegisteredPage extends Component {
                         : {buildingInfo.bldgclass}
                       </i>
                       )
-                    </nobr>
+                    </Nobr>
                   </p>
                 </h6>
                 {failedToRegisterLink}
@@ -147,7 +162,7 @@ export default class NotRegisteredPage extends Component {
                   <Trans>
                     It doesn't seem like this property is required to register with HPD.
                   </Trans>{" "}
-                  <nobr>
+                  <Nobr>
                     (
                     <i>
                       <a
@@ -162,7 +177,7 @@ export default class NotRegisteredPage extends Component {
                       : {buildingInfo.bldgclass}
                     </i>
                     )
-                  </nobr>
+                  </Nobr>
                 </p>
               </h6>
             );
@@ -217,7 +232,7 @@ export default class NotRegisteredPage extends Component {
                 {geosearch && geosearch.bbl && buildingInfo ? (
                   <span>
                     Boro-Block-Lot (BBL):{" "}
-                    <nobr>
+                    <Nobr>
                       <a
                         href={"https://zola.planning.nyc.gov/lot/" + boro + "/" + block + "/" + lot}
                         target="_blank"
@@ -229,7 +244,7 @@ export default class NotRegisteredPage extends Component {
                         {bblDash}
                         {lot}
                       </a>
-                    </nobr>
+                    </Nobr>
                   </span>
                 ) : (
                   <span />
@@ -289,10 +304,11 @@ export default class NotRegisteredPage extends Component {
                   <Trans>Share this page with your neighbors</Trans>
                 </p>
                 <SocialShare
-                  location="nycha-page"
+                  location="not-registered-page"
                   url={
-                    usersInputAddress &&
-                    `${getSiteOrigin()}${createRouteForAddressPage(usersInputAddress)}`
+                    usersInputAddress
+                      ? `${getSiteOrigin()}${createRouteForAddressPage(usersInputAddress)}`
+                      : undefined
                   }
                 />
               </div>

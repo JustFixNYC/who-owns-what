@@ -1,18 +1,36 @@
 import React, { Component } from "react";
 import { LocaleLink as Link } from "../i18n";
-import Browser from "util/browser";
-import LegalFooter from "components/LegalFooter";
-import Helpers from "util/helpers";
-import APIClient from "components/APIClient";
-import SocialShare from "components/SocialShare";
+import Browser from "../util/browser";
+import LegalFooter from "../components/LegalFooter";
+import Helpers from "../util/helpers";
+import APIClient from "../components/APIClient";
+import SocialShare from "../components/SocialShare";
 
 import "styles/NotRegisteredPage.css";
 import { Trans, t } from "@lingui/macro";
-import { withI18n } from "@lingui/react";
+import { withI18n, withI18nProps } from "@lingui/react";
 import { createRouteForAddressPage, getSiteOrigin } from "../routes";
+import { Nobr } from "../components/Nobr";
+import { GeoSearchData, BuildingInfoRecord } from "../components/APIDataTypes";
+import { SearchAddress } from "../components/AddressSearch";
 
-class NychaPageWithoutI18n extends Component {
-  constructor(props) {
+type Props = withI18nProps & {
+  geosearch: GeoSearchData;
+  searchAddress: SearchAddress;
+  nychaData: {
+    bbl: number;
+    development: string;
+    dev_evictions: string;
+    dev_unitsres: number;
+  };
+};
+
+type State = {
+  buildingInfo: BuildingInfoRecord[] | null;
+};
+
+class NychaPageWithoutI18n extends Component<Props, State> {
+  constructor(props: Props) {
     super(props);
 
     this.state = {
@@ -228,7 +246,7 @@ class NychaPageWithoutI18n extends Component {
                 {geosearch && geosearch.bbl && buildingInfo ? (
                   <span>
                     Boro-Block-Lot (BBL):{" "}
-                    <nobr>
+                    <Nobr>
                       <a
                         href={"https://zola.planning.nyc.gov/lot/" + boro + "/" + block + "/" + lot}
                         target="_blank"
@@ -240,7 +258,7 @@ class NychaPageWithoutI18n extends Component {
                         {bblDash}
                         {lot}
                       </a>
-                    </nobr>
+                    </Nobr>
                   </span>
                 ) : (
                   <span></span>
@@ -312,8 +330,9 @@ class NychaPageWithoutI18n extends Component {
                 <SocialShare
                   location="nycha-page"
                   url={
-                    usersInputAddress &&
-                    `${getSiteOrigin()}${createRouteForAddressPage(usersInputAddress)}`
+                    usersInputAddress
+                      ? `${getSiteOrigin()}${createRouteForAddressPage(usersInputAddress)}`
+                      : undefined
                   }
                 />
               </div>
