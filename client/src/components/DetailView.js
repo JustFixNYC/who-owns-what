@@ -16,6 +16,12 @@ import { LocaleLink } from "../i18n";
 import BuildingStatsTable from "./BuildingStatsTable";
 import { createWhoOwnsWhatRoutePaths } from "../routes";
 
+const formatted_Long_Date = Helpers.formatDate(
+  this.props.addr.lastregistrationdate,
+  longDateOptions,
+  locale
+);
+
 class DetailViewWithoutI18n extends Component {
   constructor(props) {
     super(props);
@@ -143,36 +149,16 @@ class DetailViewWithoutI18n extends Component {
                           <b>
                             <Trans>Last registered:</Trans>
                           </b>{" "}
-                          {Helpers.formatDate(
-                            this.props.addr.lastregistrationdate,
-                            longDateOptions,
-                            locale
-                          )}
+                          {formatted_Long_Date}
                           {this.state.todaysDate > new Date(this.props.addr.registrationenddate) ? (
                             <span className="text-danger">
                               {" "}
-                              <Trans>
-                                (expired{" "}
-                                {Helpers.formatDate(
-                                  this.props.addr.registrationenddate,
-                                  longDateOptions,
-                                  locale
-                                )}
-                                )
-                              </Trans>
+                              <Trans>(expired {formatted_Long_Date})</Trans>
                             </span>
                           ) : (
-                            // prettier-ignore
                             <span>
                               {" "}
-                              <Trans>
-                                (expires{" "} 
-                                {Helpers.formatDate(
-                                  this.props.addr.registrationenddate,
-                                  longDateOptions,
-                                  locale
-                                )})
-                              </Trans>
+                              <Trans>(expires {formatted_Long_Date})</Trans>
                             </span>
                           )}
                         </p>
@@ -184,11 +170,7 @@ class DetailViewWithoutI18n extends Component {
                                 <Trans>Last sold:</Trans>
                               </b>{" "}
                               <>
-                                {Helpers.formatDate(
-                                  this.props.addr.lastsaledate,
-                                  longDateOptions,
-                                  locale
-                                )}{" "}
+                                {formatted_Long_Date}{" "}
                                 <Trans>
                                   for ${Helpers.formatPrice(this.props.addr.lastsaleamount, locale)}
                                 </Trans>
