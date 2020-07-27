@@ -20,7 +20,7 @@ export type GeoSearchData = {
   bbl: string;
 };
 
-type AddressRecord = {
+export type AddressRecord = {
   bbl: string;
   bin: string;
   boro: Borough;
