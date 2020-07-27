@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { CSSTransition } from "react-transition-group";
-import { StreetView, StreetViewAddr } from "./StreetView";
+import { StreetView } from "./StreetView";
 import { LazyLoadWhenVisible } from "./LazyLoadWhenVisible";
 import Helpers, { longDateOptions } from "../util/helpers";
 import Browser from "../util/browser";
