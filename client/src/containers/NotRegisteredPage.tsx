@@ -37,6 +37,9 @@ export default class NotRegisteredPage extends Component<Props, State> {
 
   componentDidMount() {
     if (this.props.geosearch && !this.state.buildingInfo) {
+      if (!this.props.geosearch.bbl) {
+        window.Rollbar.error("Geosearch result has no BBL!");
+      }
       const bbl = this.props.geosearch.bbl;
       APIClient.getBuildingInfo(bbl)
         .then((results) => this.setState({ buildingInfo: results.result }))
@@ -58,7 +61,7 @@ export default class NotRegisteredPage extends Component<Props, State> {
       ? {
           boro: searchAddress.boro,
           housenumber: searchAddress.housenumber || " ",
-          streetname: searchAddress.streetname || " ",
+          streetname: searchAddress.streetname,
         }
       : buildingInfo
       ? {
