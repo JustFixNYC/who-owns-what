@@ -156,6 +156,7 @@ class DetailViewWithoutI18n extends Component {
                               <Trans>(expired {formatted_Long_Date})</Trans>
                             </span>
                           ) : (
+                            // prettier-ignore
                             <span>
                               {" "}
                               <Trans>(expires {formatted_Long_Date})</Trans>

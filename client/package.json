@@ -22,7 +22,7 @@
     "@types/react-dom": "^16.8.2",
     "@types/react-helmet": "^6.0.0",
     "@types/react-modal": "^3.8.2",
-    "@types/react-router-dom": "^5.1.3",
+    "@types/react-router-dom": "5.1.5",
     "@types/react-table": "^6.8.5",
     "babel-core": "^7.0.0-bridge.0",
     "babel-plugin-macros": "^2.7.1",
@@ -70,7 +70,7 @@
     "watch-css": "yarn build-css && node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/ --watch --recursive",
     "start-js": "lingui compile && cross-env NODE_PATH=src:src/components:src/containers:src/styles react-scripts start",
     "start": "npm-run-all -p watch-css start-js",
-    "build": "yarn build-css && lingui compile && cross-env NODE_PATH=src:src/components:src/containers:src/styles react-scripts build",
+    "build": "node write-version.js && yarn build-css && lingui compile && cross-env NODE_PATH=src:src/components:src/containers:src/styles react-scripts build",
     "test": "react-scripts test --env=jsdom --transformIgnorePatterns \"node_modules/(?!@justfixnyc)/\"",
     "eject": "react-scripts eject"
   },
@@ -83,10 +83,14 @@
     "npm-run-all": "^4.0.2",
     "prettier": "2.0.5"
   },
+  "engines": {
+    "node": ">=12.0.0"
+  },
+  "@comment browserslist": "Note that when changing browserslist, you need to delete `node_modules/.cache` for the changes to propagate! For more details, see https://github.com/JustFixNYC/who-owns-what/pull/335.",
   "browserslist": [
     ">0.2%",
     "not dead",
-    "not ie <= 11",
+    "ie 11",
     "not op_mini all"
   ]
 }

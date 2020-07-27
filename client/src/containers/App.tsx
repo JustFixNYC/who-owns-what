@@ -4,15 +4,23 @@ import { Trans, t } from "@lingui/macro";
 
 import "styles/App.css";
 
+import ScrollToTop from "../components/ScrollToTop";
+import SocialShare from "../components/SocialShare";
+import Modal from "../components/Modal";
+
 // import top-level containers (i.e. pages)
 import { I18n, LocaleNavLink, LocaleLink as Link, LocaleSwitcher } from "../i18n";
-import ScrollToTop from "components/ScrollToTop";
-import Modal from "components/Modal";
-import SocialShare from "components/SocialShare";
-import { withI18n } from "@lingui/react";
+import { withI18n, withI18nProps } from "@lingui/react";
 import { WhoOwnsWhatRoutes, createWhoOwnsWhatRoutePaths } from "../routes";
+import { VersionUpgrader } from "./VersionUpgrader";
 
-const HomeLink = withI18n()((props) => {
+type Props = {};
+
+type State = {
+  showEngageModal: boolean;
+};
+
+const HomeLink = withI18n()((props: withI18nProps) => {
   const { i18n } = props;
   return (
     <Link
@@ -28,8 +36,8 @@ const HomeLink = withI18n()((props) => {
   );
 });
 
-export default class App extends Component {
-  constructor(props) {
+export default class App extends Component<Props, State> {
+  constructor(props: Props) {
     super(props);
 
     this.state = {
@@ -39,11 +47,19 @@ export default class App extends Component {
 
   render() {
     const isDemoSite = process.env.REACT_APP_DEMO_SITE === "1";
+    const version = process.env.REACT_APP_VERSION;
     const paths = createWhoOwnsWhatRoutePaths();
     return (
       <Router>
         <I18n>
           <ScrollToTop>
+            {version && (
+              <VersionUpgrader
+                currentVersion={version}
+                latestVersionUrl="/version.txt"
+                checkIntervalSecs={300}
+              />
+            )}
             <div className="App">
               <div className="App__warning old_safari_only">
                 <Trans render="h3">

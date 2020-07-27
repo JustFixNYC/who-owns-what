@@ -8,7 +8,6 @@ With this website, you can find crucial information about who is responsible for
 
 ![Imgur](http://i.imgur.com/cYw4gyU.jpg)
 
-
 **This project is currently in active development!**
 
 ## Architecture
@@ -17,8 +16,8 @@ This site is built on top of the critical work done by [@aepyornis](https://gith
 
 Backend logic and data manipulation is largely handled by making calls to PostgreSQL functions and prebuilding results into tables whenever possible to avoid complex queries made per-request. for the SQL code that provides this functionality, see:
 
-* the [hpd-registration](https://github.com/nycdb/nycdb/tree/master/src/nycdb/sql/hpd_registrations) scripts of `nycdb`, and
-* the [sql](./sql) directory of this repository.
+- the [hpd-registration](https://github.com/nycdb/nycdb/tree/master/src/nycdb/sql/hpd_registrations) scripts of `nycdb`, and
+- the [sql](./sql) directory of this repository.
 
 #### Backend
 
@@ -60,7 +59,7 @@ Alternatively, you can load a small test dataset with:
 python dbtool.py loadtestdata
 ```
 
-After that, make sure you have node/npm/[yarn](https://yarnpkg.com/en/) and then run:
+After that, make sure you have Node 12 or higher installed as well as [yarn](https://yarnpkg.com/en/), and then run:
 
 ```
 cd client
@@ -139,7 +138,7 @@ clicking on the "All Year Management" portfolio on the
 home page.
 
 Note: If you would like to connect your Docker instance to an external postgres database, you
-can update the `DATABASE_URL` [server-side env variable](https://github.com/JustFixNYC/who-owns-what/blob/master/.env.sample) with your remote db's connection URI. 
+can update the `DATABASE_URL` [server-side env variable](https://github.com/JustFixNYC/who-owns-what/blob/master/.env.sample) with your remote db's connection URI.
 
 ## Tests
 
@@ -173,7 +172,7 @@ We use BrowserStack Live to make sure that our sites work across browsers, opera
 ## Updating data
 
 Updating WoW's data is straighforward for about a year, at which point it eventually needs to look at
-different datasets in order to be up-to-date.  For example, because it uses the PLUTO dataset, it needs
+different datasets in order to be up-to-date. For example, because it uses the PLUTO dataset, it needs
 to always look at a reasonably recent version, which can be non-trivial because that dataset's schema
 changes from one revision to another.
 
@@ -201,7 +200,7 @@ Note also that the
 project may be useful for keeping the WoW database up-to-date on a day-to-day
 basis.
 
-[NYCDB]: https://github.com/nycdb/nycdb
+[nycdb]: https://github.com/nycdb/nycdb
 [`requirements-dev.txt`]: requirements-dev.txt
 [`who-owns-what.yml`]: who-owns-what.yml
 [`tests/generate_factory_from_csv.py`]: tests/generate_factory_from_csv.py
