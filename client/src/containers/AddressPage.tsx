@@ -18,12 +18,25 @@ import NychaPage from "./NychaPage";
 import NotRegisteredPage from "./NotRegisteredPage";
 import helpers from "../util/helpers";
 import { Trans, Plural } from "@lingui/macro";
-import { Link } from "react-router-dom";
+import { Link, RouteComponentProps } from "react-router-dom";
 import Page from "../components/Page";
 import { SearchResults } from "../components/APIDataTypes";
 
-// TODO: Fix this typing.
-type AddressPageProps = any;
+type RouteParams = {
+  locale?: string;
+  boro?: string;
+  housenumber?: string;
+  streetname?: string;
+};
+
+type RouteState = {
+  // TODO: Fix this typing.
+  results?: any;
+};
+
+type AddressPageProps = RouteComponentProps<RouteParams, {}, RouteState> & {
+  currentTab: number;
+};
 
 // TODO: Fix this typing.
 type State = any;
