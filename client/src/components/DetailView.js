@@ -148,10 +148,10 @@ class DetailViewWithoutI18n extends Component {
                             <Trans>Last registered:</Trans>
                           </b>{" "}
                           {Helpers.formatDate(
-                                   this.props.addr.lastregistrationdate,
-                                     longDateOptions,
-                                     locale
-                                 )}
+                            this.props.addr.lastregistrationdate,
+                            longDateOptions,
+                            locale
+                          )}
                           {this.state.todaysDate > new Date(this.props.addr.registrationenddate) ? (
                             <span className="text-danger">
                               {" "}
@@ -172,11 +172,11 @@ class DetailViewWithoutI18n extends Component {
                                 <Trans>Last sold:</Trans>
                               </b>{" "}
                               <>
-                              {Helpers.formatDate(
-                                   this.props.addr.lastsaledate,
-                                     longDateOptions,
-                                     locale
-                                 )}{" "}
+                                {Helpers.formatDate(
+                                  this.props.addr.lastsaledate,
+                                  longDateOptions,
+                                  locale
+                                )}{" "}
                                 <Trans>
                                   for ${Helpers.formatPrice(this.props.addr.lastsaleamount, locale)}
                                 </Trans>
