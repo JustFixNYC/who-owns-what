@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { CSSTransition } from "react-transition-group";
-import { StreetView } from "./StreetView";
+import { StreetView, StreetViewAddr } from "./StreetView";
 import { LazyLoadWhenVisible } from "./LazyLoadWhenVisible";
 import Helpers, { longDateOptions } from "../util/helpers";
 import Browser from "../util/browser";
@@ -45,7 +45,8 @@ class DetailViewWithoutI18n extends Component<Props, State> {
 
   componentDidUpdate(prevProps: Props, prevState: State) {
     // scroll to top of wrapper div:
-    document.querySelector(".DetailView__wrapper").scrollTop = 0;
+    const wrapper = document.querySelector(".DetailView__wrapper");
+    if (wrapper) wrapper.scrollTop = 0;
   }
 
   render() {
@@ -63,21 +64,24 @@ class DetailViewWithoutI18n extends Component<Props, State> {
     const isMobile = Browser.isMobile();
     const locale = (this.props.i18n.language as SupportedLocale) || "en";
 
-    const streetView =
-      addr.lng && addr.lat ? (
-        <LazyLoadWhenVisible>
-          <StreetView addr={addr} />
-        </LazyLoadWhenVisible>
-      ) : (
-        <></>
-      );
-
-    // console.log(showContent);
+    const streetViewAddr =
+      addr.lat && addr.lng
+        ? {
+            lat: addr.lat,
+            lng: addr.lng,
+          }
+        : null;
+    const streetView = streetViewAddr ? (
+      <LazyLoadWhenVisible>
+        <StreetView addr={streetViewAddr} />
+      </LazyLoadWhenVisible>
+    ) : (
+      <></>
+    );
 
     return (
       <CSSTransition in={!isMobile || this.props.mobileShow} timeout={500} classNames="DetailView">
         <div className={`DetailView`}>
-          {/* <div className={`DetailView ${(!addr && isMobile) ? 'DetailView__hide' : 'DetailView__show'}`}> */}
           <div className="DetailView__wrapper">
             {addr && (
               <div className="DetailView__card card">
