@@ -76,7 +76,7 @@ type HpdViolationsAddress = AddressLocation & {
   openviolations: number | null;
 };
 
-type SummaryStatsRecord = {
+export type SummaryStatsRecord = {
   age: number | null;
   avgevictions: number | null;
   avgrspercent: number | null;
