@@ -3,7 +3,7 @@ import { LocaleLink as Link } from "../i18n";
 
 import "styles/NotRegisteredPage.css";
 import { Trans } from "@lingui/macro";
-import { createRouteForAddressPage, getSiteOrigin, AddressPageUrlParams } from "../routes";
+import { createRouteForAddressPage, getSiteOrigin } from "../routes";
 import Modal from "../components/Modal";
 import LegalFooter from "../components/LegalFooter";
 import Helpers from "../util/helpers";
@@ -24,18 +24,6 @@ type State = {
   showModal: boolean;
   buildingInfo: BuildingInfoRecord[] | null;
 };
-
-export const SocialShareForNotRegisteredPage = (props: { addr?: AddressPageUrlParams | null }) => (
-  <div className="social-share">
-    <p>
-      <Trans>Share this page with your neighbors</Trans>
-    </p>
-    <SocialShare
-      location="not-registered-page"
-      url={props.addr ? `${getSiteOrigin()}${createRouteForAddressPage(props.addr)}` : undefined}
-    />
-  </div>
-);
 
 export default class NotRegisteredPage extends Component<Props, State> {
   constructor(props: Props) {
@@ -311,7 +299,20 @@ export default class NotRegisteredPage extends Component<Props, State> {
                   </div>
                 )}
 
-              <SocialShareForNotRegisteredPage addr={usersInputAddress} />
+              <div className="social-share">
+                <p>
+                  <Trans>Share this page with your neighbors</Trans>
+                </p>
+                <SocialShare
+                  location="not-registered-page"
+                  url={
+                    usersInputAddress
+                      ? `${getSiteOrigin()}${createRouteForAddressPage(usersInputAddress)}`
+                      : undefined
+                  }
+                />
+              </div>
+
               <br />
               {/* <div className="toast toast-error">
                 <u>Note:</u> We're currently experiencing some difficulties due to an official NYC data service failing. We're working on it. If a search returns with "no results found", try it again in a minute or so!

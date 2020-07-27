@@ -10,7 +10,7 @@ import TermsOfUsePage from "./containers/TermsOfUsePage";
 import PrivacyPolicyPage from "./containers/PrivacyPolicyPage";
 import { SearchAddress } from "./components/AddressSearch";
 
-export type AddressPageUrlParams = Pick<SearchAddress, "boro" | "housenumber" | "streetname">;
+type AddressPageUrlParams = Pick<SearchAddress, "boro" | "housenumber" | "streetname">;
 
 export const createRouteForAddressPage = (params: AddressPageUrlParams) => {
   let route = `/address/${encodeURIComponent(params.boro)}/${encodeURIComponent(
