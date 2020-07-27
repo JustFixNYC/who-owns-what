@@ -87,20 +87,18 @@ export default class PropertiesSummary extends Component<Props, State> {
                       alt="Google Street View"
                       className="img-responsive"
                     />
-                    {agg.violationsaddr.openviolations && (
-                      <figcaption className="figure-caption text-center text-italic">
-                        <Trans>
-                          {agg.violationsaddr.housenumber} {agg.violationsaddr.streetname},{" "}
-                          {agg.violationsaddr.boro} currently has{" "}
-                          <Plural
-                            value={agg.violationsaddr.openviolations}
-                            one="one open HPD violation"
-                            other="# open HPD violations"
-                          />{" "}
-                          - the most in this portfolio.
-                        </Trans>
-                      </figcaption>
-                    )}
+                    <figcaption className="figure-caption text-center text-italic">
+                      <Trans>
+                        {agg.violationsaddr.housenumber} {agg.violationsaddr.streetname},{" "}
+                        {agg.violationsaddr.boro} currently has{" "}
+                        <Plural
+                          value={agg.violationsaddr.openviolations || 0}
+                          one="one open HPD violation"
+                          other="# open HPD violations"
+                        />{" "}
+                        - the most in this portfolio.
+                      </Trans>
+                    </figcaption>
                   </figure>
                 )}
               </aside>
