@@ -38,8 +38,17 @@ type AddressPageProps = RouteComponentProps<RouteParams, {}, RouteState> & {
   currentTab: number;
 };
 
-// TODO: Fix this typing.
-type State = any;
+type State = {
+  hasSearched: boolean;
+  detailMobileSlide: boolean;
+
+  // TODO: Fix these typings.
+  searchAddress: any;
+  userAddr: any;
+  geosearch: any;
+  assocAddrs: any;
+  detailAddr: any;
+};
 
 export default class AddressPage extends Component<AddressPageProps, State> {
   constructor(props: AddressPageProps) {
