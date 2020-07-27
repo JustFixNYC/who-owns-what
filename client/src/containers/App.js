@@ -40,17 +40,18 @@ export default class App extends Component {
   }
 
   createCanvas(){
-    this.state.canvas = document.createElement("canvas");
+    let myCanvas = document.createElement("canvas");
     let canvasContainer = document.getElementById("canvasContainer");
-    this.state.canvas.style.width = canvasContainer.scrollWidth + "px";
-    this.state.canvas.style.height = canvasContainer.scrollHeight + "px";
-    this.state.canvas.width = canvasContainer.scrollWidth;
-    this.state.canvas.height = canvasContainer.scrollHeight;
-    //this.state.canvas.style.overflow = "visible";
-    this.state.canvas.style.position = "absolute";
-    this.state.canvas.style.zIndex = 11;
-    this.state.canvas.style.visibility = "hidden";
-    canvasContainer.appendChild(this.state.canvas);
+    myCanvas.style.width = canvasContainer.scrollWidth + "px";
+    myCanvas.style.height = canvasContainer.scrollHeight + "px";
+    myCanvas.width = canvasContainer.scrollWidth;
+    myCanvas.height = canvasContainer.scrollHeight;
+    //myCanvas.style.overflow = "visible";
+    myCanvas.style.position = "absolute";
+    myCanvas.style.zIndex = 11;
+    myCanvas.style.visibility = "hidden";
+    canvasContainer.appendChild(myCanvas);
+    this.setState({canvas: myCanvas});
   }
 
   componentDidMount(){
