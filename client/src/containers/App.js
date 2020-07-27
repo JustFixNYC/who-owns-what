@@ -28,79 +28,6 @@ const HomeLink = withI18n()((props) => {
   );
 });
 
-/*
-
-
-
-<div className="show-me-entry" id="show-me-entry-1">
-                    <span className = "entry-title">
-                      <b>Spanish Support</b>
-                    </span>
-                    <button
-                      type = "button" className="show-me-button float-right"
-                      onClick={(e) => {
-                        e.preventDefault();
-                        return ToggleElement(
-                          "Spanish Support",
-                          "show-me-entry-1",
-                          "Click “ES” in the upper right corner to switch your view of Who Owns What to Spanish"
-                        )
-                      }
-                      }
-                    >
-                      {" "}
-                      Show me{" "}
-                    </button>
-                  </div>
-
-                  <div className="show-me-entry" id="show-me-entry-2">
-                    <span className = "entry-title">
-                      <b>Timeline Tab</b>
-                    </span>
-                    <button
-                      className="show-me-button float-right"
-                      onClick={() =>
-                        ToggleElement(
-                          "Timeline Tab",
-                          "show-me-entry-2",
-                          "Click the Timeline tab to view info about your building over time"
-                        )
-                      }
-                    >
-                      {" "}
-                      Show me{" "}
-                    </button>
-                  </div>
-                  <div className="show-me-entry last" id="show-me-entry-3">
-                    <span className = "entry-title">
-                      <b>Last Registered </b>
-                    </span>
-                    <button
-                      className="show-me-button float-right"
-                      onClick={() =>
-                        ToggleElement(
-                          "Last Registered",
-                          "show-me-entry-3",
-                          "You can now see the last time your building was registered"
-                        )
-                      }
-                    >
-                      {" "}
-                      Show me{" "}
-                    </button>
-                    </div>
-
-
-
-
-*/
-
-
-
-
-
-
-
 export default class App extends Component {
   constructor(props) {
     super(props);
@@ -110,26 +37,6 @@ export default class App extends Component {
       toggled_entry: "",
       canvas: "",
     };
-  }
-
-  drawCanvasOverlay(showMeLocatorTag) {
-    console.log("drawCanvasOverlay called, tag =", showMeLocatorTag, "this.state.canvas = ", this.state.canvas);
-    if(showMeLocatorTag === ""){this.state.canvas.style.visibility = "hidden"; return;}
-    console.log("drawing new canvas");
-    let elem = document.querySelector("[data-show-me=" + CSS.escape(showMeLocatorTag) + "]");
-    //elem.scrollIntoViewIfNeeded({ behavior: "auto", block: "center" });
-    var context = this.state.canvas.getContext("2d");
-    //  console.log("canvas Conatiner = ", canvasContainer, "canvas = ", this.state.canvas, "context = ", context);
-    let boundingBox = elem.getBoundingClientRect();
-    context.globalCompositeOperation = "source-out";
-    context.fillStyle = "rgb(255,255,255)";
-    context.globalAlpha = 1;
-    context.fillRect(boundingBox.x, boundingBox.y, boundingBox.width, boundingBox.height);
-    context.fillStyle = "rgb(0,0,0)";
-    context.globalAlpha = 0.5;
-    context.fillRect(0, 0, this.state.canvas.width, this.state.canvas.height);
-    //this.state.canvas.onclick = () => ToggleElement(showMeLocatorTag, blurbText);
-    this.state.canvas.style.visibility = "visible";
   }
 
   createCanvas(){
@@ -150,8 +57,27 @@ export default class App extends Component {
     this.createCanvas();
   }
 
-  toggleShowMeButton(buttonIndex){
-    let button = document.getElementById("showMeButton-" + buttonIndex);
+  drawCanvasOverlay(entry) {
+    if(entry === ""){this.state.canvas.style.visibility = "hidden"; return;}
+    //console.log("drawing new canvas");
+    let elem = document.querySelector("[data-show-me=" + CSS.escape(entry.title) + "]");
+    this.state.canvas.style.visibility = "visible";
+    //elem.scrollIntoViewIfNeeded({ behavior: "auto", block: "center" });
+    var cxt = this.state.canvas.getContext("2d");
+    cxt.clearRect(0,0, this.state.canvas.width, this.state.canvas.height);
+    let boundingBox = elem.getBoundingClientRect();
+    cxt.globalCompositeOperation = "source-out";
+    cxt.fillStyle = "rgb(255,255,255)";
+    cxt.globalAlpha = 1;
+    cxt.fillRect(boundingBox.x, boundingBox.y, boundingBox.width, boundingBox.height);
+    cxt.fillStyle = "rgb(0,0,0)";
+    cxt.globalAlpha = 0.5;
+    cxt.fillRect(0, 0, this.state.canvas.width, this.state.canvas.height);
+    this.state.canvas.onclick = (e) => {e.preventDefault(); return this.handleToggle(entry)};
+  }
+
+  toggleShowMeButton(entryTitle){
+    let button = document.getElementById("showMeButton-" + entryTitle);
     if(button.isToggled){
         button.isToggled = false;
         button.textContent = "Show me";
@@ -166,20 +92,40 @@ export default class App extends Component {
   }
 
   toggleEntry(entry) {
-    console.log("toggleEntry called, this entry = ", entry.title, "toggled entry =  ", this.state.toggled_entry.title);
+      console.log("before toggleEntry: this entry = ", entry.title, "toggled entry =  ", this.state.toggled_entry.title);
       if (entry.isToggled) {
         entry.isToggled = false;
         this.toggleShowMeButton(entry.title);
         this.drawCanvasOverlay("");
       } else {
         entry.isToggled = true;
-        this.drawCanvasOverlay(entry.title);
         this.toggleShowMeButton(entry.title);
+        this.drawCanvasOverlay(entry);
       }
+      console.log("after toggleEntry: this entry = ", entry.title, "toggled entry =  ", this.state.toggled_entry.title);
   }
 
+  handleToggle(entry){
+    if (this.state.toggled_entry === entry) {
+      this.toggleEntry(entry);
+      this.state.toggled_entry = "";
+      return;
+    }
+    if(this.state.toggled_entry !== "") {
+      this.toggleEntry(this.state.toggled_entry);
+    }
+    this.toggleEntry(entry);
+    this.state.toggled_entry = entry;
+  }
+/*
+  componentDidUpdate(prevprops){
+    if(this.props.toggled_entry !== prevprops.toggled_entry){
+      console.log("YO");
+      this.setState();
+    }
+  }
+*/
 
-  
 
   render() {
     const isDemoSite = process.env.REACT_APP_DEMO_SITE === "1";
@@ -194,72 +140,83 @@ export default class App extends Component {
       },
       {
         title: "Timeline Tab",
-        text: "Click 2 “ES” in the upper right corner to switch your view of Who Owns What to Spanish",
+        text: "Click the Timeline tab to view info about your building over time",
         isToggled: false
       },
       {
         title: "Last Registered",
-        text: "Click 3 “ES” in the upper right corner to switch your view of Who Owns What to Spanish",
+        text: "You can now see the last time your building was registered",
         isToggled: false
       }
     ]
 
    
    var entryDivs = entryElems.map(entry => 
-    <div className="show-me-entry" key = {entry.title} >
-                    <span className = "entry-title">
-                      <b>{entry.title}</b>
-                    </span>
-                    <button
-                      type = "button" className="show-me-button float-right"
-                      id = {"showMeButton-" + entry.title}
-                      onClick={(e) => {
-                        e.preventDefault();
-                        if (this.state.toggled_entry === entry) {
-                          this.toggleEntry(entry);
-                          this.state.toggled_entry = "";
-                          return;
-                        }
-                        if(this.state.toggled_entry !== "") {
-                          this.toggleEntry(this.state.toggled_entry);
-                        }
-                        this.toggleEntry(entry);
-                        this.state.toggled_entry = entry;
-                      }
-                      }
-                    >
-                      {" "}
-                      Show me{" "}
-                    </button>
-                    {this.state.expanded_blurb === entry.title ? <span>{entry.text}</span> : ""}
-                  </div>);
+              <div className="show-me-entry" key = {entry.title} >
+                  <span className = "entry-title">
+                    <b>{entry.title}</b>
+                  </span>
+                  <button
+                    type = "button" className="show-me-button float-right"
+                    id = {"showMeButton-" + entry.title}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      this.handleToggle(entry);
+                    }
+                    }
+                  >
+                    {" "}
+                    Show me{" "}
+                  </button>
+                  {console.log("in entry divs: this entry = ", entry.title, "toggled entry =  ", this.state.toggled_entry.title)}
+                  {this.state.toggled_entry.title === entry.title ? <span className = "blurb">{entry.text}</span> : ""}
+              </div>);
 
     var contextWidget = 
-      <div>
-        <button className="open-button" 
-            onClick={() => (document.getElementById("myForm").style.display = "block")}> i
-          </button>
-        <div className="chat-popup" id="myForm">
-          <div className="header">
-            <span className = "pop-up-header"><b>What's New</b></span>
-              <button  type="button" className="cancel float-right"
-                  onClick={() => (document.getElementById("myForm").style.display = "none")}> <b>X</b>
-                </button>
-          </div>
-          <div className="form-container" id="form-container-entries">
-            {entryDivs}
-          </div>
-        </div>
-     </div> 
+                <div>
+                  <button 
+                    className="open-button" 
+                    onClick={() => (document.getElementById("myForm").style.display = "block")}
+                    > 
+                      i
+                  </button>
+                  <div 
+                  className="chat-popup" 
+                  id="myForm"
+                  >
+                    <div 
+                    className="header"
+                    >
+                      <span className = "pop-up-header">
+                        <b>What's New</b>
+                      </span>
+                      <button  
+                        type="button" 
+                        className="cancel float-right"
+                        onClick={() => (document.getElementById("myForm").style.display = "none")}
+                      > 
+                        <b>X</b>
+                      </button>
+                    </div>
+                    <div 
+                    className="form-container" 
+                    id="form-container-entries"
+                    >
+                      {entryDivs}
+                    </div>
+                  </div>
+              </div> 
 
-
+                   
    
     return (
       <Router>
         <I18n>
           <ScrollToTop>
+            
             <div className="App" id="canvasContainer">
               {contextWidget}
+
               <div className="App__warning old_safari_only">
                 <Trans render="h3">
                   Warning! This site doesn't fully work on older versions of Safari. Try a{" "}
