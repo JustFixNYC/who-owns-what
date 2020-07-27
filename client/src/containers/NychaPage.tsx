@@ -4,12 +4,10 @@ import Browser from "../util/browser";
 import LegalFooter from "../components/LegalFooter";
 import Helpers from "../util/helpers";
 import APIClient from "../components/APIClient";
-import SocialShare from "../components/SocialShare";
 
 import "styles/NotRegisteredPage.css";
 import { Trans, t } from "@lingui/macro";
 import { withI18n, withI18nProps } from "@lingui/react";
-import { createRouteForAddressPage, getSiteOrigin } from "../routes";
 import { Nobr } from "../components/Nobr";
 import { GeoSearchData, BuildingInfoRecord } from "../components/APIDataTypes";
 import { SearchAddress } from "../components/AddressSearch";
