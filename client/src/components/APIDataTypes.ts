@@ -77,7 +77,7 @@ type HpdViolationsAddress = AddressLocation & {
 };
 
 type SummaryStatsRecord = {
-  age: number;
+  age: number | null;
   avgevictions: number | null;
   avgrspercent: number | null;
   bldgs: number;

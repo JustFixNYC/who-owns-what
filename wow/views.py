@@ -82,7 +82,7 @@ def get_request_bbl(request) -> str:
 def clean_agg_info_dict(agg_info):
     return {
         **agg_info,
-        "age": int(agg_info['age']), 
+        "age": int_or_none(agg_info['age']),
         "avgevictions": float_or_none(agg_info['avgevictions']),
         "avgrspercent": float_or_none(agg_info['avgrspercent']),
         "openviolationsperbldg": float_or_none(agg_info['openviolationsperbldg']),

@@ -6,18 +6,48 @@ import {
   WithBoroBlockLot,
 } from "./APIDataTypes";
 import { SearchAddress } from "./AddressSearch";
+import { GeoSearchRequester } from "@justfixnyc/geosearch-requester";
 
 // API REQUESTS TO THE DATABASE:
 
+function searchForAddressWithGeosearch(q: {
+  housenumber?: string;
+  streetname: string;
+  boro: string;
+}): Promise<SearchResults> {
+  let addr = `${q.streetname}, ${q.boro}`;
+  if (q.housenumber) {
+    addr = `${q.housenumber} ${addr}`;
+  }
+  console.log("searching for", addr);
+
+  return new Promise<SearchResults>((resolve, reject) => {
+    const req = new GeoSearchRequester({
+      onError: reject,
+      onResults(results) {
+        const firstResult = results.features[0];
+        if (!firstResult) throw new Error("Invalid address!");
+        resolve(searchForBBL(splitBBL(firstResult.properties.pad_bbl)));
+      },
+      throttleMs: 0,
+    });
+    req.changeSearchRequest(addr);
+  });
+}
+
+function splitBBL(bbl: string): { boro: string; block: string; lot: string } {
+  return {
+    boro: bbl.slice(0, 1),
+    block: bbl.slice(1, 6),
+    lot: bbl.slice(6, 10),
+  };
+}
+
 function searchForAddress(q: SearchAddress): Promise<SearchResults> {
   if (q.bbl) {
-    return searchForBBL({
-      boro: q.bbl.slice(0, 1),
-      block: q.bbl.slice(1, 6),
-      lot: q.bbl.slice(6, 10),
-    });
+    return searchForBBL(splitBBL(q.bbl));
   }
-  return get(`/api/address?houseNumber=${q.housenumber}&street=${q.streetname}&borough=${q.boro}`);
+  return searchForAddressWithGeosearch(q);
 }
 
 function searchForBBL(q: WithBoroBlockLot): Promise<SearchResults> {
@@ -92,6 +122,7 @@ function parseJSON(response: Response) {
 
 const Client = {
   searchForAddress,
+  searchForAddressWithGeosearch,
   searchForBBL,
   getAggregate,
   getBuildingInfo,

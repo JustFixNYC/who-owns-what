@@ -14,7 +14,6 @@ import APIClient from "components/APIClient";
 import Loader from "components/Loader";
 
 import "styles/AddressPage.css";
-import { GeoSearchRequester } from "@justfixnyc/geosearch-requester";
 import NychaPage from "./NychaPage";
 import NotRegisteredPage from "./NotRegisteredPage";
 import helpers from "../util/helpers";
@@ -47,19 +46,7 @@ export default class AddressPage extends Component {
       // Otherwise they navigated directly to this url, so lets fetch it
     } else {
       window.gtag("event", "direct-link");
-      const req = new GeoSearchRequester({});
-      const { boro, housenumber, streetname } = this.state.searchAddress;
-      const addr = `${housenumber} ${streetname}, ${boro}`;
-      console.log("searching for", addr);
-      req
-        .fetchResults(addr)
-        .then((results) => {
-          const firstResult = results.features[0];
-          if (!firstResult) throw new Error("Invalid address!");
-          return APIClient.searchForAddress({
-            bbl: firstResult.properties.pad_bbl,
-          });
-        })
+      APIClient.searchForAddressWithGeosearch(this.state.searchAddress)
         .then((results) => {
           this.handleResults(results);
         })

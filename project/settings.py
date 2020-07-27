@@ -108,12 +108,14 @@ ROLLBAR: Optional[Dict[str, Any]] = None
 ROLLBAR_ACCESS_TOKEN = os.environ.get('ROLLBAR_ACCESS_TOKEN')
 
 if ROLLBAR_ACCESS_TOKEN:
-    # TODO: It'd be nice to set code_version at some point.
     ROLLBAR = {
         'access_token': ROLLBAR_ACCESS_TOKEN,
         'environment': 'development' if DEBUG else 'production',
         'root': str(BASE_DIR),
     }
+    if 'HEROKU_SLUG_COMMIT' in os.environ:
+        # https://devcenter.heroku.com/articles/dyno-metadata
+        ROLLBAR['code_version'] = os.environ['HEROKU_SLUG_COMMIT']
     LOGGING['handlers']['rollbar'].update({    # type: ignore
         'class': 'rollbar.logger.RollbarHandler'
     })
