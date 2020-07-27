@@ -34,23 +34,22 @@ class DetailViewWithoutI18n extends Component {
   }
 
   render() {
-    let boro, block, lot, ownernames, userOwnernames, takeActionURL;
+    const isMobile = Browser.isMobile();
+    const locale = this.props.i18n.language || "en";
+    let boro, block, lot, ownernames, userOwnernames, takeActionURL, formattedLastRegisteredDate;
+
     if (this.props.addr) {
       ({ boro, block, lot } = Helpers.splitBBL(this.props.addr.bbl));
       takeActionURL = Helpers.createTakeActionURL(this.props.addr, "detail_view");
-
+      formattedLastRegisteredDate = Helpers.formatDate(
+        this.props.addr.lastregistrationdate,
+        longDateOptions,
+        locale
+      );
       if (this.props.addr.ownernames.length) ownernames = Helpers.uniq(this.props.addr.ownernames);
       if (this.props.userAddr.ownernames.length)
         userOwnernames = Helpers.uniq(this.props.userAddr.ownernames);
     }
-
-    const isMobile = Browser.isMobile();
-    const locale = this.props.i18n.language || "en";
-    const formatted_Long_Date = Helpers.formatDate(
-      this.props.addr.lastregistrationdate,
-      longDateOptions,
-      locale
-    );
 
     const streetView = (
       <LazyLoadWhenVisible>
@@ -148,17 +147,16 @@ class DetailViewWithoutI18n extends Component {
                           <b>
                             <Trans>Last registered:</Trans>
                           </b>{" "}
-                          {formatted_Long_Date}
+                          {formattedLastRegisteredDate}
                           {this.state.todaysDate > new Date(this.props.addr.registrationenddate) ? (
                             <span className="text-danger">
                               {" "}
-                              <Trans>(expired {formatted_Long_Date})</Trans>
+                              <Trans>(expired {formattedLastRegisteredDate})</Trans>
                             </span>
                           ) : (
-                            // prettier-ignore
                             <span>
                               {" "}
-                              <Trans>(expires {formatted_Long_Date})</Trans>
+                              <Trans>(expires {formattedLastRegisteredDate})</Trans>
                             </span>
                           )}
                         </p>
@@ -170,7 +168,7 @@ class DetailViewWithoutI18n extends Component {
                                 <Trans>Last sold:</Trans>
                               </b>{" "}
                               <>
-                                {formatted_Long_Date}{" "}
+                                {formattedLastRegisteredDate}{" "}
                                 <Trans>
                                   for ${Helpers.formatPrice(this.props.addr.lastsaleamount, locale)}
                                 </Trans>
