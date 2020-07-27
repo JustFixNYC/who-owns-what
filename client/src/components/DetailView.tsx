@@ -56,8 +56,8 @@ class DetailViewWithoutI18n extends Component<Props, State> {
       ({ boro, block, lot } = Helpers.splitBBL(addr.bbl));
       takeActionURL = Helpers.createTakeActionURL(addr, "detail_view");
 
-      if (addr.ownernames?.length) ownernames = Helpers.uniq(addr.ownernames);
-      if (this.props.userAddr.ownernames?.length)
+      if (addr.ownernames && addr.ownernames.length) ownernames = Helpers.uniq(addr.ownernames);
+      if (this.props.userAddr.ownernames && this.props.userAddr.ownernames.length)
         userOwnernames = Helpers.uniq(this.props.userAddr.ownernames);
     }
 

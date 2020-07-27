@@ -144,7 +144,7 @@ export default class PropertiesSummary extends Component<Props, State> {
                         window.gtag("event", "data-request");
                       }}
                       href={generateLinkToDataRequestForm(
-                        `${this.props.userAddr.housenumber} ${this.props.userAddr.streetname}, ${this.props.userAddr.boro}`
+                        `${this.props.userAddr.housenumber}${this.props.userAddr.streetname},${this.props.userAddr.boro}`
                       )}
                       target="_blank"
                       rel="noopener noreferrer"

@@ -145,9 +145,11 @@ const PropertiesListWithoutI18n: React.FC<{
                 {
                   Header: i18n._(t`Officer/Owner`),
                   accessor: (d) => {
-                    var owner = d.ownernames?.find(
-                      (o) => o.title === "HeadOfficer" || o.title === "IndividualOwner"
-                    );
+                    var owner =
+                      d.ownernames &&
+                      d.ownernames.find(
+                        (o) => o.title === "HeadOfficer" || o.title === "IndividualOwner"
+                      );
                     return owner ? owner.value : "";
                   },
                   id: "ownernames",
