@@ -16,12 +16,6 @@ import { LocaleLink } from "../i18n";
 import BuildingStatsTable from "./BuildingStatsTable";
 import { createWhoOwnsWhatRoutePaths } from "../routes";
 
-const formatted_Long_Date = Helpers.formatDate(
-  this.props.addr.lastregistrationdate,
-  longDateOptions,
-  locale
-);
-
 class DetailViewWithoutI18n extends Component {
   constructor(props) {
     super(props);
@@ -52,6 +46,11 @@ class DetailViewWithoutI18n extends Component {
 
     const isMobile = Browser.isMobile();
     const locale = this.props.i18n.language || "en";
+    const formatted_Long_Date = Helpers.formatDate(
+      this.props.addr.lastregistrationdate,
+      longDateOptions,
+      locale
+    );
 
     const streetView = (
       <LazyLoadWhenVisible>
