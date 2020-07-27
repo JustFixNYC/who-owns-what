@@ -110,14 +110,14 @@ export default class App extends Component {
     if (this.state.toggled_entry.title === entry.title) {
       console.log("toggleEntryoff, toggled entry =  ", this.state.toggled_entry.title);
       this.toggleEntry(entry);
-      this.setState({toggled_entry: "invalid entry"});
+      this.state.toggled_entry = "invalid entry";
       return;
     }
     if(this.state.toggled_entry !== "invalid entry") {
       this.toggleEntry(this.state.toggled_entry);
     }
     this.toggleEntry(entry);
-    this.setState({toggled_entry: entry});
+    this.state.toggled_entry = entry;
     console.log("toggleEntry on, toggled entry =  ", this.state.toggled_entry.title);
   }
 /*
@@ -172,7 +172,7 @@ export default class App extends Component {
                     Show me{" "}
                   </button>
                   
-                  {this.state.toggled_entry.title === entry.title ? <div className = "blurb">{entry.text}</div> : ""}
+                  {entry.isToggled ? <div className = "blurb">{entry.text}</div> : ""}
               </div>);
 
     var contextWidget = 
