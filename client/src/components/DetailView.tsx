@@ -54,10 +54,19 @@ class DetailViewWithoutI18n extends Component<Props, State> {
     const locale = (this.props.i18n.language as SupportedLocale) || "en";
     const addr = this.props.addr;
 
-    let boro, block, lot, ownernames, userOwnernames, takeActionURL, formattedRegEndDate;
+    // Let's save some variables that will be helpful in rendering the front-end component
+    let boro,
+      block,
+      lot,
+      takeActionURL,
+      formattedRegEndDate,
+      streetViewAddr,
+      ownernames,
+      userOwnernames;
 
     if (addr) {
       ({ boro, block, lot } = Helpers.splitBBL(addr.bbl));
+
       takeActionURL = Helpers.createTakeActionURL(addr, "detail_view");
 
       formattedRegEndDate = Helpers.formatDate(
@@ -65,19 +74,21 @@ class DetailViewWithoutI18n extends Component<Props, State> {
         longDateOptions,
         locale
       );
+
+      streetViewAddr =
+        addr.lat && addr.lng
+          ? {
+              lat: addr.lat,
+              lng: addr.lng,
+            }
+          : null;
+
       if (addr.ownernames && addr.ownernames.length) ownernames = Helpers.uniq(addr.ownernames);
+
       if (this.props.userAddr.ownernames && this.props.userAddr.ownernames.length)
         userOwnernames = Helpers.uniq(this.props.userAddr.ownernames);
     }
 
-    const streetViewAddr =
-      addr.lat && addr.lng
-        ? {
-            lat: addr.lat,
-            lng: addr.lng,
-          }
-        : null;
-        
     const streetView = streetViewAddr ? (
       <LazyLoadWhenVisible>
         <StreetView addr={streetViewAddr} />
