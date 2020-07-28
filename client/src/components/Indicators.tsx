@@ -188,7 +188,11 @@ class IndicatorsWithoutI18n extends Component<IndicatorsProps, IndicatorsState> 
         this.state[this.state.defaultVis].labels) ||
       prevState.activeTimeSpan !== this.state.activeTimeSpan
     ) {
-      if (this.props.detailAddr.lastsaledate && this.props.detailAddr.lastsaleacrisid) {
+      if (
+        this.props.detailAddr &&
+        this.props.detailAddr.lastsaledate &&
+        this.props.detailAddr.lastsaleacrisid
+      ) {
         var lastSaleDate = this.props.detailAddr.lastsaledate;
         var lastSaleYear = lastSaleDate.slice(0, 4);
         var lastSaleQuarter =
@@ -216,11 +220,13 @@ class IndicatorsWithoutI18n extends Component<IndicatorsProps, IndicatorsState> 
   }
 
   render() {
-    const boro = this.props.detailAddr ? this.props.detailAddr.bbl.slice(0, 1) : null;
-    const block = this.props.detailAddr ? this.props.detailAddr.bbl.slice(1, 6) : null;
-    const lot = this.props.detailAddr ? this.props.detailAddr.bbl.slice(6, 10) : null;
-    const housenumber = this.props.detailAddr ? this.props.detailAddr.housenumber : null;
-    const streetname = this.props.detailAddr ? this.props.detailAddr.streetname : null;
+    const detailAddr = this.props.detailAddr;
+
+    const boro = detailAddr ? detailAddr.bbl.slice(0, 1) : null;
+    const block = detailAddr ? detailAddr.bbl.slice(1, 6) : null;
+    const lot = detailAddr ? detailAddr.bbl.slice(6, 10) : null;
+    const housenumber = detailAddr ? detailAddr.housenumber : null;
+    const streetname = detailAddr ? detailAddr.streetname : null;
 
     const { activeVis } = this.state;
     const data = this.state[activeVis];
@@ -230,11 +236,12 @@ class IndicatorsWithoutI18n extends Component<IndicatorsProps, IndicatorsState> 
       : null;
 
     const i18n = this.props.i18n;
+
     const detailAddrStr =
-      this.props.detailAddr &&
-      `${this.props.detailAddr.housenumber} ${Helpers.titleCase(
-        this.props.detailAddr.streetname
-      )}, ${Helpers.titleCase(this.props.detailAddr.boro)}`;
+      detailAddr &&
+      `${detailAddr.housenumber} ${Helpers.titleCase(detailAddr.streetname)}, ${Helpers.titleCase(
+        detailAddr.boro
+      )}`;
 
     const dataset = INDICATORS_DATASETS[this.state.activeVis];
 
@@ -252,24 +259,22 @@ class IndicatorsWithoutI18n extends Component<IndicatorsProps, IndicatorsState> 
           ) : (
             <div className="columns">
               <div className="column col-8 col-lg-12">
-                <div className="title-card">
-                  <h4 className="title">
-                    {this.props.detailAddr ? (
+                {detailAddr && (
+                  <div className="title-card">
+                    <h4 className="title">
                       <span>
                         <Trans>BUILDING:</Trans> <b>{detailAddrStr}</b>
                       </span>
-                    ) : (
-                      <span />
-                    )}
-                  </h4>
-                  <br />
-                  <Link
-                    to={this.props.generateBaseUrl()}
-                    onClick={() => this.props.onBackToOverview(this.props.detailAddr)}
-                  >
-                    <Trans>Back to Overview</Trans>
-                  </Link>
-                </div>
+                    </h4>
+                    <br />
+                    <Link
+                      to={this.props.generateBaseUrl()}
+                      onClick={() => this.props.onBackToOverview(detailAddr)}
+                    >
+                      <Trans>Back to Overview</Trans>
+                    </Link>
+                  </div>
+                )}
 
                 <div className="Indicators__links">
                   <div className="Indicators__linksContainer">
