@@ -189,6 +189,7 @@ const BuildingStatsTableWithoutI18n = (props: { addr: AddressRecord }) => (
       </div>
     </div>
     <div className="card-body-table show-sm">
+      <div className="table-row">
         <BBL />
       </div>
       <div className="table-row">
