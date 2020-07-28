@@ -69,11 +69,7 @@ class DetailViewWithoutI18n extends Component<Props, State> {
 
       takeActionURL = Helpers.createTakeActionURL(addr, "detail_view");
 
-      formattedRegEndDate = Helpers.formatDate(
-        addr.registrationenddate,
-        longDateOptions,
-        locale
-      );
+      formattedRegEndDate = Helpers.formatDate(addr.registrationenddate, longDateOptions, locale);
 
       streetViewAddr =
         addr.lat && addr.lng
