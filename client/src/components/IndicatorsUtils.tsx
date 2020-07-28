@@ -13,38 +13,41 @@ type LastSaleData = {
 };
 
 type ViolsData = {
-  labels: string | null;
+  labels: string[] | null;
   values: {
-    class_a: number | null;
-    class_b: number | null;
-    class_c: number | null;
-    total: number | null;
+    class_a: number[] | null;
+    class_b: number[] | null;
+    class_c: number[] | null;
+    total: number[] | null;
   };
 };
 
 type ComplaintsData = {
-  labels: string | null;
+  labels: string[] | null;
   values: {
-    emergency: number | null;
-    nonemergency: number | null;
-    total: number | null;
+    emergency: number[] | null;
+    nonemergency: number[] | null;
+    total: number[] | null;
   };
 };
 
 type PermitsData = {
-  labels: string | null;
+  labels: string[] | null;
   values: {
-    total: number | null;
+    total: number[] | null;
   };
 };
 
-export type IndicatorsState = {
-  indicatorHistory: MonthlyTimelineData[] | null;
-
-  lastSale: LastSaleData;
+type IndicatorsDataFromAPI = {
   violsData: ViolsData;
   complaintsData: ComplaintsData;
   permitsData: PermitsData;
+};
+
+export type IndicatorsState = IndicatorsDataFromAPI & {
+  indicatorHistory: MonthlyTimelineData[] | null;
+
+  lastSale: LastSaleData;
 
   indicatorList: IndicatorsDatasetId[];
   defaultVis: IndicatorsDatasetId;
@@ -112,6 +115,11 @@ export type IndicatorsProps = withI18nProps & {
   generateBaseUrl: () => string;
 };
 
-// Other Useful Types:
+// Other Useful Types and Type-related utilites:
 
 export type IndicatorChartShift = "left" | "right" | "reset";
+
+export const getIndicatorDatasetKey = (datasetId: IndicatorsDatasetId) => {
+    const datasetKeyName = (datasetId + "Data") as keyof IndicatorsDataFromAPI;
+    return datasetKeyName;
+  };

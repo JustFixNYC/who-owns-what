@@ -28,15 +28,15 @@ export type AddressRecord = {
   corpnames: string[] | null;
   evictions: number | null;
   housenumber: string;
-  lastregistrationdate: Date;
+  lastregistrationdate: string;
   lastsaleacrisid: string | null;
   lastsaleamount: number | null;
-  lastsaledate: Date | null;
+  lastsaledate: string | null;
   lat: number | null;
   lng: number | null;
   openviolations: number;
   ownernames: HpdOwnerContact[] | null;
-  registrationenddate: Date;
+  registrationenddate: string;
   registrationid: string;
   rsdiff: number | null;
   rspercentchange: number | null;

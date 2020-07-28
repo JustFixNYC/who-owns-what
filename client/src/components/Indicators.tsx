@@ -22,6 +22,7 @@ import {
   IndicatorsState,
   IndicatorChartShift,
   IndicatorsTimeSpan,
+  getIndicatorDatasetKey,
 } from "./IndicatorsUtils";
 import { AddressRecord } from "./APIDataTypes";
 import { Nobr } from "./Nobr";
@@ -41,7 +42,7 @@ class IndicatorsWithoutI18n extends Component<IndicatorsProps, IndicatorsState> 
   /** Shifts the X-axis 'left' or 'right', or 'reset' the X-axis to default */
   handleXAxisChange(shift: IndicatorChartShift) {
     const span = this.state.xAxisViewableColumns;
-    const labelsArray = this.state[this.state.activeVis + "Data"].labels;
+    const labelsArray = this.state[getIndicatorDatasetKey(this.state.activeVis)].labels;
 
     if (!labelsArray || labelsArray.length < span) {
       return;
@@ -107,11 +108,11 @@ class IndicatorsWithoutI18n extends Component<IndicatorsProps, IndicatorsState> 
   createVizData(rawJSON: any, vizType: IndicatorsDatasetId) {
     // Generate object to hold data for viz
     // Note: keys in "values" object need to match exact key names in data from API call
-    var vizData = Object.assign({}, indicatorsInitialState[vizType + "Data"]);
+    var vizData = Object.assign({}, indicatorsInitialState[getIndicatorDatasetKey(vizType)]);
 
     vizData.labels = [];
     for (const column in vizData.values) {
-      vizData.values[column] = [];
+      vizData.values[column as keyof vizData.values] = [];
     }
 
     // Generate arrays of data for chart.js visualizations:
@@ -156,9 +157,10 @@ class IndicatorsWithoutI18n extends Component<IndicatorsProps, IndicatorsState> 
     ) {
       for (const indicator of indicatorList) {
         var inputData = this.createVizData(this.state.indicatorHistory, indicator);
+        const indicatorKey = getIndicatorDatasetKey(indicator) as keyof IndicatorsState;
 
         this.setState({
-          [indicator + "Data"]: inputData,
+          [indicatorKey]: inputData,
         });
       }
     }
@@ -168,8 +170,8 @@ class IndicatorsWithoutI18n extends Component<IndicatorsProps, IndicatorsState> 
     // 2. when activeTimeSpan changes:
 
     if (
-      (!prevState[this.state.defaultVis + "Data"].labels &&
-        this.state[this.state.defaultVis + "Data"].labels) ||
+      (!prevState[getIndicatorDatasetKey(this.state.defaultVis)].labels &&
+        this.state[getIndicatorDatasetKey(this.state.defaultVis)].labels) ||
       prevState.activeTimeSpan !== this.state.activeTimeSpan
     ) {
       this.handleXAxisChange("reset");
@@ -181,8 +183,8 @@ class IndicatorsWithoutI18n extends Component<IndicatorsProps, IndicatorsState> 
 
     if (
       (this.state.currentAddr &&
-        !prevState[this.state.defaultVis + "Data"].labels &&
-        this.state[this.state.defaultVis + "Data"].labels) ||
+        !prevState[getIndicatorDatasetKey(this.state.defaultVis)].labels &&
+        this.state[getIndicatorDatasetKey(this.state.defaultVis)].labels) ||
       prevState.activeTimeSpan !== this.state.activeTimeSpan
     ) {
       if (this.props.detailAddr.lastsaledate && this.props.detailAddr.lastsaleacrisid) {
@@ -219,8 +221,8 @@ class IndicatorsWithoutI18n extends Component<IndicatorsProps, IndicatorsState> 
     const housenumber = this.props.detailAddr ? this.props.detailAddr.housenumber : null;
     const streetname = this.props.detailAddr ? this.props.detailAddr.streetname : null;
 
-    const indicatorData = this.state.activeVis + "Data";
-    const xAxisLength = this.state[indicatorData].labels
+    const indicatorData = getIndicatorDatasetKey(this.state.activeVis);
+    const xAxisLength = this.state[indicatorData].labels 
       ? Math.floor(this.state[indicatorData].labels.length / this.state.monthsInGroup)
       : 0;
     const indicatorDataTotal = this.state[indicatorData].values.total
@@ -242,7 +244,7 @@ class IndicatorsWithoutI18n extends Component<IndicatorsProps, IndicatorsState> 
           {!(
             this.props.isVisible &&
             this.state.indicatorHistory &&
-            this.state[this.state.defaultVis + "Data"].labels
+            this.state[getIndicatorDatasetKey(this.state.defaultVis)].labels
           ) ? (
             <Loader loading={true} classNames="Loader-map">
               <Trans>Loading</Trans>
@@ -354,7 +356,7 @@ class IndicatorsWithoutI18n extends Component<IndicatorsProps, IndicatorsState> 
                 </div>
 
                 <span className="title viz-title">
-                  {dataset && dataset.quantity(i18n, indicatorDataTotal)}
+                  {dataset && indicatorDataTotal && dataset.quantity(i18n, indicatorDataTotal)}
                 </span>
 
                 <div className="Indicators__viz">
