@@ -15,7 +15,7 @@ import { Events as MapboxMapEvents } from "react-mapbox-gl/lib/map-events";
 type Props = {
   addrs: AddressRecord[];
   userAddr: AddressRecord;
-  detailAddr: AddressRecord;
+  detailAddr: AddressRecord | null;
   onAddrChange: (addr: AddressRecord) => void;
   isVisible: boolean;
 };

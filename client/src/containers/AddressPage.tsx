@@ -271,18 +271,18 @@ export default class AddressPage extends Component<AddressPageProps, State> {
                 this.props.currentTab === 0 ? "AddressPage__content-active" : ""
               }`}
             >
-              {userAddr && detailAddr && (
+              {userAddr && (
                 <>
                   <PropertiesMap
                     addrs={assocAddrs}
                     userAddr={userAddr}
-                    detailAddr={detailAddr}
+                    detailAddr={detailAddr || null}
                     onAddrChange={this.handleAddrChange}
                     isVisible={this.props.currentTab === 0}
                   />
                   <DetailView
                     addrs={assocAddrs}
-                    addr={detailAddr}
+                    addr={detailAddr || null}
                     portfolioSize={assocAddrs.length}
                     mobileShow={this.state.detailMobileSlide}
                     userAddr={userAddr}
