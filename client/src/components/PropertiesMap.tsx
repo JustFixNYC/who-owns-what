@@ -2,13 +2,15 @@ import React, { Component } from "react";
 import ReactMapboxGl, { Layer, Feature, ZoomControl } from "react-mapbox-gl";
 import Helpers from "../util/helpers";
 import Browser from "../util/browser";
-import MapHelpers from "../util/mapping";
+import MapHelpers, { LatLng } from "../util/mapping";
 
 import Loader from "../components/Loader";
 
 import "styles/PropertiesMap.css";
 import { Trans, Select } from "@lingui/macro";
 import { AddressRecord } from "./APIDataTypes";
+import { Props as MapboxMapProps } from "react-mapbox-gl/lib/map";
+import { Events as MapboxMapEvents } from "react-mapbox-gl/lib/map-events";
 
 type Props = {
   addrs: AddressRecord[];
@@ -25,26 +27,31 @@ type State = {
   mobileLegendSlide: boolean;
   addrsBounds: number[][];
   assocAddrs: JSX.Element[];
-  mapProps: {
-    style: string;
-    containerStyle: object;
-    onStyleLoad: (map: any, _: any) => void;
-    onMouseMove: (map: any, e: any) => void;
-    fitBounds: number[][];
-    fitBoundsOptions: {
-      padding: object;
-      maxZoom: number;
-      offset: number[];
-    };
-  };
+  mapProps: MapboxMapProps & MapboxMapEvents;
 };
 
+const MAPBOX_ACCESS_TOKEN =
+  "pk.eyJ1IjoiZGFuLWthc3MiLCJhIjoiY2lsZTFxemtxMGVpdnVoa3BqcjI3d3Q1cCJ9.IESJdCy8fmykXbb626NVEw";
+
+const MAPBOX_STYLE = "mapbox://styles/dan-kass/cj657o2qu601z2rqbp1jgiys5";
+
 const Map = ReactMapboxGl({
-  accessToken:
-    "pk.eyJ1IjoiZGFuLWthc3MiLCJhIjoiY2lsZTFxemtxMGVpdnVoa3BqcjI3d3Q1cCJ9.IESJdCy8fmykXbb626NVEw",
+  accessToken: MAPBOX_ACCESS_TOKEN,
 });
 
-const MAP_STYLE = "mapbox://styles/dan-kass/cj657o2qu601z2rqbp1jgiys5";
+const MAP_CONFIGURABLES = {
+  style: MAPBOX_STYLE,
+  containerStyle: { width: "100%", height: "100%" },
+  fitBounds: [
+    [-74.259087, 40.477398],
+    [-73.700172, 40.917576],
+  ],
+  fitBoundsOptions: {
+    padding: { top: 50, bottom: 50, left: 50, right: 50 },
+    maxZoom: 20,
+    offset: [0, Browser.isMobile() ? -25 : 0],
+  },
+};
 
 const BASE_CIRCLE = {
   "circle-stroke-width": 1.25,
@@ -93,19 +100,9 @@ export default class PropertiesMap extends Component<Props, State> {
       addrsBounds: [[]], // bounds are represented as a 2d array of lnglats
       assocAddrs: [], // array of Features
       mapProps: {
-        style: MAP_STYLE,
-        containerStyle: { width: "100%", height: "100%" },
-        onStyleLoad: (map, _) => this.setState({ mapLoading: false, mapRef: map }),
-        onMouseMove: (map, e) => this.handleMouseMove(map, e),
-        fitBounds: [
-          [-74.259087, 40.477398],
-          [-73.700172, 40.917576],
-        ],
-        fitBoundsOptions: {
-          padding: { top: 50, bottom: 50, left: 50, right: 50 },
-          maxZoom: 20,
-          offset: [0, Browser.isMobile() ? -25 : 0],
-        },
+        onStyleLoad: (map: any, _: any) => this.setState({ mapLoading: false, mapRef: map }),
+        onMouseMove: (map: any, e: any) => this.handleMouseMove(map, e),
+        ...MAP_CONFIGURABLES,
       },
     };
   }
@@ -119,7 +116,7 @@ export default class PropertiesMap extends Component<Props, State> {
 
       // cycle through addrs, adding them to the set and categorizing them
       this.props.addrs.map((addr, i) => {
-        const pos = [addr.lng, addr.lat];
+        const pos: LatLng = [addr.lng || NaN, addr.lat || NaN];
 
         if (!MapHelpers.latLngIsNull(pos)) {
           addrsPos.add(pos);
@@ -146,18 +143,14 @@ export default class PropertiesMap extends Component<Props, State> {
       });
 
       // see getBoundingBox() for deets
-      const newAddrsBounds = MapHelpers.getBoundingBox(Array.from(addrsPos));
+      const pointsArray = Array.from(addrsPos) as LatLng[];
+      const newAddrsBounds = MapHelpers.getBoundingBox(pointsArray);
 
       // sets things up, including initial portfolio level map view
       this.setState(
         {
           addrsBounds: newAddrsBounds,
           assocAddrs: newAssocAddrs,
-          // ,
-          // mapProps: {
-          //   ...this.state.mapProps,
-          //   fitBounds: newAddrsBounds
-          // }
         },
         () => {
           // yeah, this sucks, but it seems to be more consistent with
@@ -180,21 +173,25 @@ export default class PropertiesMap extends Component<Props, State> {
     }
 
     // meant to pan the map any time the detail address changes
-    if (prevProps.detailAddr && this.props.detailAddr) {
-      if (!Helpers.addrsAreEqual(prevProps.detailAddr, this.props.detailAddr)) {
-        let addr = this.props.detailAddr;
-        // build a bounding box around our new detail addr
-        let minPos = [addr.lng - DETAIL_OFFSET, addr.lat - DETAIL_OFFSET];
-        let maxPos = [addr.lng + DETAIL_OFFSET, addr.lat + DETAIL_OFFSET];
-        this.setState({
-          mapProps: {
-            ...this.state.mapProps,
-            fitBounds: [minPos, maxPos],
-          },
-        });
+    if (
+      prevProps.detailAddr &&
+      this.props.detailAddr &&
+      !Helpers.addrsAreEqual(prevProps.detailAddr, this.props.detailAddr)
+    ) {
+      let addr = this.props.detailAddr;
+      if (!(addr.lat && addr.lng)) return;
 
-        // console.log("I panned the map!");
-      }
+      // build a bounding box around our new detail addr
+      let minPos = [addr.lng - DETAIL_OFFSET, addr.lat - DETAIL_OFFSET];
+      let maxPos = [addr.lng + DETAIL_OFFSET, addr.lat + DETAIL_OFFSET];
+      this.setState({
+        mapProps: {
+          ...this.state.mapProps,
+          fitBounds: [minPos, maxPos],
+        },
+      });
+
+      // console.log("I panned the map!");
     }
   }
 
@@ -214,6 +211,13 @@ export default class PropertiesMap extends Component<Props, State> {
 
   render() {
     const browserType = Browser.isMobile() ? "mobile" : "other";
+    const addrs = this.props.addrs;
+    const detailAddr = this.props.detailAddr;
+
+    const getMapTypeForAddr = (addr: AddressRecord) => {
+      const matchingAddr = addrs.find((a) => Helpers.addrsAreEqual(a, addr));
+      return matchingAddr ? matchingAddr.mapType : "base";
+    };
 
     return (
       <div className="PropertiesMap">
@@ -242,7 +246,7 @@ export default class PropertiesMap extends Component<Props, State> {
         {this.state.hasWebGLContext && (
           <Map {...this.state.mapProps}>
             <ZoomControl
-              position="topLeft"
+              position="top-left"
               style={{
                 boxShadow: "none",
                 opacity: 1,
@@ -252,22 +256,24 @@ export default class PropertiesMap extends Component<Props, State> {
                 left: "10px",
               }}
             />
-            <Layer id="assoc" type="circle" paint={DYNAMIC_ASSOC_PAINT}>
-              {this.state.assocAddrs.length && this.state.assocAddrs}
-            </Layer>
+            {this.state.assocAddrs.length ? (
+              <Layer id="assoc" type="circle" paint={DYNAMIC_ASSOC_PAINT}>
+                {this.state.assocAddrs}
+              </Layer>
+            ) : (
+              <></>
+            )}
             <Layer id="selected" type="circle" paint={DYNAMIC_SELECTED_PAINT}>
               {/*
                   we need to lookup the property pe of this feature from the main addrs array
                   this affects the color of the marker while still outlining it as "selected"
                   */}
-              {this.props.detailAddr && (
+              {detailAddr && detailAddr.lng && detailAddr.lat && (
                 <Feature
                   properties={{
-                    mapType: this.props.addrs.find((a) =>
-                      Helpers.addrsAreEqual(a, this.props.detailAddr)
-                    ).mapType,
+                    mapType: getMapTypeForAddr(detailAddr),
                   }}
-                  coordinates={[this.props.detailAddr.lng, this.props.detailAddr.lat]}
+                  coordinates={[detailAddr.lng, detailAddr.lat]}
                 />
               )}
             </Layer>
