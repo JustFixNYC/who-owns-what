@@ -100,8 +100,8 @@ export default class PropertiesMap extends Component<Props, State> {
       addrsBounds: [[]], // bounds are represented as a 2d array of lnglats
       assocAddrs: [], // array of Features
       mapProps: {
-        onStyleLoad: (map: any, _: any) => this.setState({ mapLoading: false, mapRef: map }),
-        onMouseMove: (map: any, e: any) => this.handleMouseMove(map, e),
+        onStyleLoad: (map, _) => this.setState({ mapLoading: false, mapRef: map }),
+        onMouseMove: (map, e) => this.handleMouseMove(map, e),
         ...MAP_CONFIGURABLES,
       },
     };
