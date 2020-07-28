@@ -90,7 +90,7 @@ function makeAnnotations(
 
   for (let anno of annotations) {
     if (anno) {
-      annotations.push(anno);
+      result.push(anno);
     }
   }
 
