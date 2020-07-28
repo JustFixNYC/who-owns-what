@@ -2552,6 +2552,20 @@
   dependencies:
     "@babel/types" "^7.3.0"
 
+"@types/chart.js@*":
+  version "2.9.23"
+  resolved "https://registry.yarnpkg.com/@types/chart.js/-/chart.js-2.9.23.tgz#5de713e801f5aff4d042c7d49ab9691489c11848"
+  integrity sha512-4QQNE/b+digosu3mnj4E7aNQGKnlpzXa9JvQYPtexpO7v9gnDeqwc1DxF8vLJWLDCNoO6hH0EgO8K/7PtJl8wg==
+  dependencies:
+    moment "^2.10.2"
+
+"@types/chartjs-plugin-annotation@^0.5.0":
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/@types/chartjs-plugin-annotation/-/chartjs-plugin-annotation-0.5.0.tgz#e7815c32d324a2e3afa4ce0269ac53651606de4a"
+  integrity sha512-fIqDjJdTrPlwisI+JT33pOGBfy7adyEssg7I8FtP84wGeL5F6rKPLtmDXDT5UFJtxDgbV69pKinvMRVwdPzNtw==
+  dependencies:
+    "@types/chart.js" "*"
+
 "@types/color-name@^1.1.1":
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/@types/color-name/-/color-name-1.1.1.tgz#1c1261bbeaa10a8055bbc5d8ab84b7b2afc846a0"
