@@ -189,7 +189,7 @@ export default class AddressPage extends Component<AddressPageProps, State> {
           />
         </Page>
       );
-    } else if (hasSearched && assocAddrs && assocAddrs.length) {
+    } else if (hasSearched && assocAddrs && assocAddrs.length && userAddr) {
       return (
         <Page
           title={`${this.state.searchAddress.housenumber} ${this.state.searchAddress.streetname}`}
@@ -271,26 +271,22 @@ export default class AddressPage extends Component<AddressPageProps, State> {
                 this.props.currentTab === 0 ? "AddressPage__content-active" : ""
               }`}
             >
-              {userAddr && (
-                <>
-                  <PropertiesMap
-                    addrs={assocAddrs}
-                    userAddr={userAddr}
-                    detailAddr={detailAddr || null}
-                    onAddrChange={this.handleAddrChange}
-                    isVisible={this.props.currentTab === 0}
-                  />
-                  <DetailView
-                    addrs={assocAddrs}
-                    addr={detailAddr || null}
-                    portfolioSize={assocAddrs.length}
-                    mobileShow={this.state.detailMobileSlide}
-                    userAddr={userAddr}
-                    onCloseDetail={this.handleCloseDetail}
-                    generateBaseUrl={this.generateBaseUrl}
-                  />
-                </>
-              )}
+              <PropertiesMap
+                addrs={assocAddrs}
+                userAddr={userAddr}
+                detailAddr={detailAddr || null}
+                onAddrChange={this.handleAddrChange}
+                isVisible={this.props.currentTab === 0}
+              />
+              <DetailView
+                addrs={assocAddrs}
+                addr={detailAddr || null}
+                portfolioSize={assocAddrs.length}
+                mobileShow={this.state.detailMobileSlide}
+                userAddr={userAddr}
+                onCloseDetail={this.handleCloseDetail}
+                generateBaseUrl={this.generateBaseUrl}
+              />
             </div>
             <div
               className={`AddressPage__content AddressPage__summary ${
@@ -320,9 +316,7 @@ export default class AddressPage extends Component<AddressPageProps, State> {
                 this.props.currentTab === 3 ? "AddressPage__content-active" : ""
               }`}
             >
-              {userAddr && (
-                <PropertiesSummary isVisible={this.props.currentTab === 3} userAddr={userAddr} />
-              )}
+              <PropertiesSummary isVisible={this.props.currentTab === 3} userAddr={userAddr} />
             </div>
           </div>
         </Page>
