@@ -20,7 +20,7 @@ export type GeoSearchData = {
   bbl: string;
 };
 
-type AddressRecord = {
+export type AddressRecord = {
   bbl: string;
   bin: string;
   boro: Borough;
@@ -121,7 +121,7 @@ export type BuildingInfoResults = {
 
 // TYPES ASSOCIATED WITH INDICATORS (TIMELINE TAB) QUERY:
 
-type MonthlyTimelineData = {
+export type MonthlyTimelineData = {
   month: string;
   complaints_emergency: number;
   complaints_nonemergency: number;
