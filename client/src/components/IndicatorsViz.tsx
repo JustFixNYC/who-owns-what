@@ -102,6 +102,14 @@ type IndicatorVizImplementationProps = withI18nProps & IndicatorVizState;
 class IndicatorsVizImplementation extends Component<IndicatorVizImplementationProps> {
   /** Returns new data labels match selected time span */
 
+  barRef: React.RefObject<Bar>;
+
+  constructor(props: IndicatorVizImplementationProps) {
+    super(props);
+
+    this.barRef = React.createRef();
+  }
+
   groupLabels(labelsArray: string[] | null) {
     if (labelsArray && this.props.activeTimeSpan === "quarter") {
       var labelsByQuarter = [];
@@ -259,6 +267,13 @@ class IndicatorsVizImplementation extends Component<IndicatorVizImplementationPr
           this.props.lastSale.documentid
         : "https://a836-acris.nyc.gov/DS/DocumentSearch/Index";
 
+    const rerenderBar = () => {
+      const {barRef} = this;
+      if (barRef.current) {
+        barRef.current.chartInstance.render({ duration: 0 });
+      }
+    };
+
     var options: ChartOptions = {
       scales: {
         yAxes: [
@@ -325,17 +340,30 @@ class IndicatorsVizImplementation extends Component<IndicatorVizImplementationPr
           return (b.datasetIndex || 0) - (a.datasetIndex || 0);
         },
         callbacks: {
-          title(tooltipItem) {
+          title(tooltipItem, data) {
+            const { index } = tooltipItem[0];
+            const { labels } = data;
+
+            if (!(typeof(index) !== "undefined" && labels && labels[index])) {
+              return "";
+            }
+
+            const label = labels[index];
+
+            if (typeof(label) !== "string") {
+              return "";
+            }
+
             if (timeSpan === "quarter") {
-              const quarter = this._data.labels[tooltipItem[0].index].slice(-1);
+              const quarter = label.slice(-1) as "1" | "2" | "3" | "4";
               const monthRange = Helpers.getMonthRangeFromQuarter(quarter, locale);
 
-              return monthRange + " " + this._data.labels[tooltipItem[0].index].slice(0, 4);
+              return monthRange + " " + label.slice(0, 4);
             } else if (timeSpan === "year") {
-              return this._data.labels[tooltipItem[0].index];
+              return label;
             } else if (timeSpan === "month") {
               // Make date value include day:
-              var fullDate = this._data.labels[tooltipItem[0].index].concat("-15");
+              var fullDate = label.concat("-15");
               return Helpers.formatDate(fullDate, mediumDateOptions, locale);
             } else {
               return "";
@@ -361,14 +389,14 @@ class IndicatorsVizImplementation extends Component<IndicatorVizImplementationPr
         onHover(event, legendItem) {
           if (legendItem) {
             legendItem.lineWidth = 3;
-            this.chart.render({ duration: 0 });
+            rerenderBar();
             setCursorStyle(event.srcElement, "pointer");
           }
         },
         onLeave(event, legendItem) {
           if (legendItem) {
             legendItem.lineWidth = 1;
-            this.chart.render({ duration: 0 });
+            rerenderBar();
           }
         },
       },
@@ -470,6 +498,7 @@ class IndicatorsVizImplementation extends Component<IndicatorVizImplementationPr
     return (
       <div className="Indicators__chart">
         <Bar
+          ref={this.barRef}
           data={data}
           options={options}
           plugins={[ChartAnnotation]}
