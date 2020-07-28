@@ -116,7 +116,7 @@ export default class AddressPage extends Component<AddressPageProps, State> {
       searchAddress: { ...this.state.searchAddress, bbl: geosearch.bbl },
     });
 
-    /* Case for when our API call returns multiple associated addresses */
+    /* Case for when our API call returns a portfolio of multiple associated addresses */
     if (addrs.length) {
       const userAddr = _find(addrs, { bbl: geosearch.bbl });
 
