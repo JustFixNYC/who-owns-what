@@ -59,10 +59,11 @@ export default class IndicatorsViz extends Component<IndicatorVizProps, Indicato
         this.timeout = undefined;
       }, MONTH_ANIMATION_MS);
     } else {
-      this.setState({
+      this.setState(state => ({
+        ...state,
         ...this.props,
         shouldRedraw: false,
-      });
+      }));
     }
   }
 
