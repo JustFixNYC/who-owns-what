@@ -26,6 +26,12 @@ type IndicatorVizState = IndicatorsState & {
   animationTime: number;
 };
 
+function setCursorStyle(target: EventTarget | null, style: "default" | "pointer") {
+  if (target && target instanceof HTMLElement) {
+    target.style.cursor = "pointer";
+  }
+}
+
 export default class IndicatorsViz extends Component<IndicatorVizProps, IndicatorVizState> {
   timeout?: number;
 
@@ -315,11 +321,11 @@ class IndicatorsVizImplementation extends Component<IndicatorVizImplementationPr
       },
       tooltips: {
         mode: "label",
-        itemSort: function (a: any, b: any) {
-          return b.datasetIndex - a.datasetIndex;
+        itemSort(a, b) {
+          return (b.datasetIndex || 0) - (a.datasetIndex || 0);
         },
         callbacks: {
-          title: function (tooltipItem: any) {
+          title(tooltipItem) {
             if (timeSpan === "quarter") {
               const quarter = this._data.labels[tooltipItem[0].index].slice(-1);
               const monthRange = Helpers.getMonthRangeFromQuarter(quarter, locale);
@@ -335,12 +341,12 @@ class IndicatorsVizImplementation extends Component<IndicatorVizImplementationPr
               return "";
             }
           },
-          footer: function (tooltipItem: any, data: any) {
+          footer(tooltipItem, data) {
             var total = 0;
 
             var i;
             for (i = 0; i < tooltipItem.length; i++) {
-              total += parseInt(tooltipItem[i].value);
+              total += parseInt(tooltipItem[i].value || "0");
             }
             return i18n._(t`Total`) + ": " + total;
           },
@@ -352,16 +358,14 @@ class IndicatorsVizImplementation extends Component<IndicatorVizImplementationPr
           fontFamily: "Inconsolata, monospace",
           fontColor: "rgb(69, 77, 93)",
         },
-        onHover: function (event: any, legendItem: any) {
+        onHover(event, legendItem) {
           if (legendItem) {
             legendItem.lineWidth = 3;
             this.chart.render({ duration: 0 });
-            if (event.srcElement && event.srcElement.style) {
-              event.srcElement.style.cursor = "pointer";
-            }
+            setCursorStyle(event.srcElement, "pointer");
           }
         },
-        onLeave: function (event: any, legendItem: any) {
+        onLeave(event, legendItem) {
           if (legendItem) {
             legendItem.lineWidth = 1;
             this.chart.render({ duration: 0 });
@@ -458,10 +462,8 @@ class IndicatorsVizImplementation extends Component<IndicatorVizImplementationPr
         duration: this.props.animationTime,
       },
       maintainAspectRatio: false,
-      onHover: function (event: any) {
-        if (event.srcElement && event.srcElement.style) {
-          event.srcElement.style.cursor = "default";
-        }
+      onHover(event) {
+        setCursorStyle(event.srcElement, "default");
       },
     };
 
