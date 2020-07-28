@@ -34,6 +34,8 @@ export type AddressRecord = {
   lastsaledate: string | null;
   lat: number | null;
   lng: number | null;
+  /** This property gets assigned in the PropertiesMap component, not from our API */
+  mapType?: string;
   openviolations: number;
   ownernames: HpdOwnerContact[] | null;
   registrationenddate: string;

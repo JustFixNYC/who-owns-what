@@ -1,13 +1,43 @@
 import React, { Component } from "react";
 import ReactMapboxGl, { Layer, Feature, ZoomControl } from "react-mapbox-gl";
-import Helpers from "util/helpers";
-import Browser from "util/browser";
-import MapHelpers from "util/mapping";
+import Helpers from "../util/helpers";
+import Browser from "../util/browser";
+import MapHelpers from "../util/mapping";
 
-import Loader from "components/Loader";
+import Loader from "../components/Loader";
 
 import "styles/PropertiesMap.css";
 import { Trans, Select } from "@lingui/macro";
+import { AddressRecord } from "./APIDataTypes";
+
+type Props = {
+  addrs: AddressRecord[];
+  userAddr: AddressRecord;
+  detailAddr: AddressRecord;
+  onAddrChange: (addr: AddressRecord) => void;
+  isVisible: boolean;
+};
+
+type State = {
+  mapLoading: boolean;
+  hasWebGLContext: boolean;
+  mapRef: any | null;
+  mobileLegendSlide: boolean;
+  addrsBounds: number[][];
+  assocAddrs: JSX.Element[];
+  mapProps: {
+    style: string;
+    containerStyle: object;
+    onStyleLoad: (map: any, _: any) => void;
+    onMouseMove: (map: any, e: any) => void;
+    fitBounds: number[][];
+    fitBoundsOptions: {
+      padding: object;
+      maxZoom: number;
+      offset: number[];
+    };
+  };
+};
 
 const Map = ReactMapboxGl({
   accessToken:
@@ -49,8 +79,8 @@ const DYNAMIC_SELECTED_PAINT = {
 // const DETAIL_OFFSET = 0.0007;
 const DETAIL_OFFSET = 0.0015;
 
-export default class PropertiesMap extends Component {
-  constructor(props) {
+export default class PropertiesMap extends Component<Props, State> {
+  constructor(props: Props) {
     super(props);
 
     this.state = {
@@ -80,16 +110,16 @@ export default class PropertiesMap extends Component {
     };
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(prevProps: Props, prevState: State) {
     // addrs are being populated for the first time, so lets initialize things
     if (!this.state.assocAddrs.length && this.props.addrs.length) {
       // set of addr positions to determine custom bounds
       let addrsPos = new Set();
-      let newAssocAddrs = [];
+      let newAssocAddrs: JSX.Element[] = [];
 
       // cycle through addrs, adding them to the set and categorizing them
       this.props.addrs.map((addr, i) => {
-        const pos = [parseFloat(addr.lng), parseFloat(addr.lat)];
+        const pos = [addr.lng, addr.lat];
 
         if (!MapHelpers.latLngIsNull(pos)) {
           addrsPos.add(pos);
@@ -154,8 +184,8 @@ export default class PropertiesMap extends Component {
       if (!Helpers.addrsAreEqual(prevProps.detailAddr, this.props.detailAddr)) {
         let addr = this.props.detailAddr;
         // build a bounding box around our new detail addr
-        let minPos = [parseFloat(addr.lng) - DETAIL_OFFSET, parseFloat(addr.lat) - DETAIL_OFFSET];
-        let maxPos = [parseFloat(addr.lng) + DETAIL_OFFSET, parseFloat(addr.lat) + DETAIL_OFFSET];
+        let minPos = [addr.lng - DETAIL_OFFSET, addr.lat - DETAIL_OFFSET];
+        let maxPos = [addr.lng + DETAIL_OFFSET, addr.lat + DETAIL_OFFSET];
         this.setState({
           mapProps: {
             ...this.state.mapProps,
@@ -168,7 +198,7 @@ export default class PropertiesMap extends Component {
     }
   }
 
-  handleMouseMove = (map, e) => {
+  handleMouseMove = (map: any, e: any) => {
     let features = map.queryRenderedFeatures(e.point, { layers: ["assoc"] });
     if (features.length) {
       map.getCanvas().style.cursor = "pointer";
@@ -177,7 +207,7 @@ export default class PropertiesMap extends Component {
     }
   };
 
-  handleAddrSelect = (addr, e) => {
+  handleAddrSelect = (addr: AddressRecord, e: any) => {
     // updates state with new focus address
     this.props.onAddrChange(addr);
   };
@@ -237,10 +267,7 @@ export default class PropertiesMap extends Component {
                       Helpers.addrsAreEqual(a, this.props.detailAddr)
                     ).mapType,
                   }}
-                  coordinates={[
-                    parseFloat(this.props.detailAddr.lng),
-                    parseFloat(this.props.detailAddr.lat),
-                  ]}
+                  coordinates={[this.props.detailAddr.lng, this.props.detailAddr.lat]}
                 />
               )}
             </Layer>
