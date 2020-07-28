@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Bar } from "react-chartjs-2";
-import { I18n } from "@lingui/react";
+import { I18n, withI18nProps } from "@lingui/react";
 import { t } from "@lingui/macro";
 
 // reference: https://github.com/jerairrest/react-chartjs-2
@@ -9,15 +9,24 @@ import * as ChartAnnotation from "chartjs-plugin-annotation";
 // reference: https://github.com/chartjs/chartjs-plugin-annotation
 // why we're using this import format: https://stackoverflow.com/questions/51664741/chartjs-plugin-annotations-not-displayed-in-angular-5/53071497#53071497
 
-import Helpers, { mediumDateOptions, shortDateOptions } from "util/helpers";
+import Helpers, { mediumDateOptions, shortDateOptions } from "../util/helpers";
 
 import "styles/Indicators.css";
+import { IndicatorsState, getIndicatorDatasetKey } from "./IndicatorsUtils";
+import { SupportedLocale } from "../i18n-base";
 
 const DEFAULT_ANIMATION_MS = 1000;
 const MONTH_ANIMATION_MS = 2500;
 
-export default class IndicatorsViz extends Component {
-  constructor(props) {
+type IndicatorVizProps = IndicatorsState;
+
+type IndicatorVizState = IndicatorsState & {
+  shouldRedraw: boolean;
+  animationTime: number;
+}
+
+export default class IndicatorsViz extends Component<IndicatorVizProps, IndicatorVizState> {
+  constructor(props: IndicatorVizProps) {
     super(props);
     this.state = {
       ...props,
@@ -28,7 +37,7 @@ export default class IndicatorsViz extends Component {
   }
 
   // Make Chart Redraw ONLY when the time span changes:
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(prevProps: IndicatorVizProps, prevState: IndicatorVizState) {
     if (prevProps === this.props) {
       return;
     }
@@ -67,10 +76,12 @@ export default class IndicatorsViz extends Component {
   }
 }
 
-class IndicatorsVizImplementation extends Component {
+type IndicatorVizImplementationProps = withI18nProps & IndicatorVizState;
+
+class IndicatorsVizImplementation extends Component<IndicatorVizImplementationProps> {
   /** Returns new data labels match selected time span */
 
-  groupLabels(labelsArray) {
+  groupLabels(labelsArray: string[] | null) {
     if (labelsArray && this.props.activeTimeSpan === "quarter") {
       var labelsByQuarter = [];
       for (let i = 2; i < labelsArray.length; i = i + 3) {
@@ -93,7 +104,7 @@ class IndicatorsVizImplementation extends Component {
 
   /** Returns grouped data to match selected time span */
 
-  groupData(dataArray) {
+  groupData(dataArray: number[] | null) {
     if (dataArray && this.props.activeTimeSpan === "quarter") {
       var dataByQuarter = [];
       for (let i = 2; i < dataArray.length; i = i + 3) {
@@ -115,7 +126,7 @@ class IndicatorsVizImplementation extends Component {
 
   /** Returns maximum y-value across all datasets, grouped by selected timespan */
   getDataMaximum() {
-    var indicatorDataLabels = this.props.indicatorList.map((x) => x + "Data");
+    var indicatorDataLabels = this.props.indicatorList.map((x) => getIndicatorDatasetKey(x));
     var dataMaximums = indicatorDataLabels.map((indicatorData) =>
       this.props[indicatorData].values.total
         ? Helpers.maxArray(this.groupData(this.props[indicatorData].values.total))
@@ -130,7 +141,7 @@ class IndicatorsVizImplementation extends Component {
     var datasets;
 
     const { i18n } = this.props;
-    const locale = i18n._language || "en";
+    const locale = i18n.language || "en" as SupportedLocale;
 
     switch (this.props.activeVis) {
       case "viols":
@@ -191,8 +202,8 @@ class IndicatorsVizImplementation extends Component {
         break;
     }
 
-    var indicatorData = this.props.activeVis + "Data";
-    var data = {
+    var indicatorData = getIndicatorDatasetKey(this.props.activeVis);
+    var data: any = {
       labels: this.groupLabels(this.props[indicatorData].labels),
       datasets: datasets,
     };
@@ -229,7 +240,7 @@ class IndicatorsVizImplementation extends Component {
           this.props.lastSale.documentid
         : "https://a836-acris.nyc.gov/DS/DocumentSearch/Index";
 
-    var options = {
+    var options: any = {
       scales: {
         yAxes: [
           {
@@ -268,7 +279,7 @@ class IndicatorsVizImplementation extends Component {
                 : null,
               maxRotation: 45,
               minRotation: 45,
-              callback: function (value, index, values) {
+              callback: function (value: any, index: any, values: any) {
                 if (timeSpan === "month") {
                   var fullDate = value.concat("-15"); // Make date value include a day so it can be parsed
                   return (
@@ -290,11 +301,11 @@ class IndicatorsVizImplementation extends Component {
       },
       tooltips: {
         mode: "label",
-        itemSort: function (a, b) {
+        itemSort: function (a: any, b: any) {
           return b.datasetIndex - a.datasetIndex;
         },
         callbacks: {
-          title: function (tooltipItem) {
+          title: function (tooltipItem: any) {
             if (timeSpan === "quarter") {
               const quarter = this._data.labels[tooltipItem[0].index].slice(-1);
               const monthRange = Helpers.getMonthRangeFromQuarter(quarter, locale);
@@ -310,7 +321,7 @@ class IndicatorsVizImplementation extends Component {
               return "";
             }
           },
-          footer: function (tooltipItem, data) {
+          footer: function (tooltipItem: any, data: any) {
             var total = 0;
 
             var i;
@@ -327,7 +338,7 @@ class IndicatorsVizImplementation extends Component {
           fontFamily: "Inconsolata, monospace",
           fontColor: "rgb(69, 77, 93)",
         },
-        onHover: function (event, legendItem) {
+        onHover: function (event: any, legendItem: any) {
           if (legendItem) {
             legendItem.lineWidth = 3;
             this.chart.render({ duration: 0 });
@@ -336,7 +347,7 @@ class IndicatorsVizImplementation extends Component {
             }
           }
         },
-        onLeave: function (event, legendItem) {
+        onLeave: function (event: any, legendItem: any) {
           if (legendItem) {
             legendItem.lineWidth = 1;
             this.chart.render({ duration: 0 });
@@ -438,7 +449,7 @@ class IndicatorsVizImplementation extends Component {
         duration: this.props.animationTime,
       },
       maintainAspectRatio: false,
-      onHover: function (event) {
+      onHover: function (event: any) {
         if (event.srcElement && event.srcElement.style) {
           event.srcElement.style.cursor = "default";
         }

@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "@types/chartjs-plugin-annotation": "^0.5.0"
+  }
+}
