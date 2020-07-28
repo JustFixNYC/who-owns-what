@@ -110,24 +110,31 @@ export default class AddressPage extends Component<AddressPageProps, State> {
       throw new Error("Address results do not contain geosearch results!");
     }
 
-    const userAddr = _find(addrs, { bbl: geosearch.bbl });
+    this.setState({
+      hasSearched: true,
+      geosearch: geosearch,
+      searchAddress: { ...this.state.searchAddress, bbl: geosearch.bbl },
+    });
 
-    if (!userAddr) {
-      throw new Error("The user's address was not found in the API Search results!");
-    }
+    /* Case for when our API call returns multiple associated addresses */
+    if (addrs.length) {
+      const userAddr = _find(addrs, { bbl: geosearch.bbl });
 
-    this.setState(
-      {
-        hasSearched: true,
-        searchAddress: { ...this.state.searchAddress, bbl: geosearch.bbl },
-        userAddr: userAddr,
-        geosearch: geosearch,
-        assocAddrs: addrs,
-      },
-      () => {
-        this.handleAddrChange(userAddr);
+      if (!userAddr) {
+        throw new Error("The user's address was not found in the API Address Search results!");
       }
-    );
+
+      this.setState(
+        {
+          userAddr: userAddr,
+          assocAddrs: addrs,
+        },
+        () => {
+          this.handleAddrChange(userAddr);
+        }
+      );
+    }
+    
   };
 
   handleAddrChange = (addr: AddressRecord) => {
