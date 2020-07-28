@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Bar } from "react-chartjs-2";
-import { I18n } from "@lingui/react";
+import { I18n, withI18nProps } from "@lingui/react";
 import { t } from "@lingui/macro";
 
 // reference: https://github.com/jerairrest/react-chartjs-2
@@ -9,15 +9,33 @@ import * as ChartAnnotation from "chartjs-plugin-annotation";
 // reference: https://github.com/chartjs/chartjs-plugin-annotation
 // why we're using this import format: https://stackoverflow.com/questions/51664741/chartjs-plugin-annotations-not-displayed-in-angular-5/53071497#53071497
 
-import Helpers, { mediumDateOptions, shortDateOptions } from "util/helpers";
+import Helpers, { mediumDateOptions, shortDateOptions } from "../util/helpers";
 
 import "styles/Indicators.css";
+import { IndicatorsState } from "./IndicatorsTypes";
+import { SupportedLocale } from "../i18n-base";
+import { ChartOptions } from "chart.js";
 
 const DEFAULT_ANIMATION_MS = 1000;
 const MONTH_ANIMATION_MS = 2500;
 
-export default class IndicatorsViz extends Component {
-  constructor(props) {
+type IndicatorVizProps = IndicatorsState;
+
+type IndicatorVizState = IndicatorsState & {
+  shouldRedraw: boolean;
+  animationTime: number;
+};
+
+function setCursorStyle(target: EventTarget | null, style: "default" | "pointer") {
+  if (target && target instanceof HTMLElement) {
+    target.style.cursor = "pointer";
+  }
+}
+
+export default class IndicatorsViz extends Component<IndicatorVizProps, IndicatorVizState> {
+  timeout?: number;
+
+  constructor(props: IndicatorVizProps) {
     super(props);
     this.state = {
       ...props,
@@ -28,7 +46,7 @@ export default class IndicatorsViz extends Component {
   }
 
   // Make Chart Redraw ONLY when the time span changes:
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(prevProps: IndicatorVizProps, prevState: IndicatorVizState) {
     if (prevProps === this.props) {
       return;
     }
@@ -40,21 +58,19 @@ export default class IndicatorsViz extends Component {
         shouldRedraw: true,
         animationTime: animationTime,
       });
-      clearTimeout(this.timeout);
-      this.timeout = setTimeout(
-        function () {
-          this.setState({
-            animationTime: DEFAULT_ANIMATION_MS,
-          });
-          this.timeout = undefined;
-        }.bind(this),
-        MONTH_ANIMATION_MS
-      );
+      window.clearTimeout(this.timeout);
+      this.timeout = window.setTimeout(() => {
+        this.setState({
+          animationTime: DEFAULT_ANIMATION_MS,
+        });
+        this.timeout = undefined;
+      }, MONTH_ANIMATION_MS);
     } else {
-      this.setState({
+      this.setState((state) => ({
+        ...state,
         ...this.props,
         shouldRedraw: false,
-      });
+      }));
     }
   }
 
@@ -67,10 +83,34 @@ export default class IndicatorsViz extends Component {
   }
 }
 
-class IndicatorsVizImplementation extends Component {
+function makeAnnotations(
+  annotations: Array<ChartAnnotation.AnnotationOptions | false>
+): ChartAnnotation.AnnotationOptions[] {
+  const result: ChartAnnotation.AnnotationOptions[] = [];
+
+  for (let anno of annotations) {
+    if (anno) {
+      result.push(anno);
+    }
+  }
+
+  return result;
+}
+
+type IndicatorVizImplementationProps = withI18nProps & IndicatorVizState;
+
+class IndicatorsVizImplementation extends Component<IndicatorVizImplementationProps> {
   /** Returns new data labels match selected time span */
 
-  groupLabels(labelsArray) {
+  barRef: React.RefObject<Bar>;
+
+  constructor(props: IndicatorVizImplementationProps) {
+    super(props);
+
+    this.barRef = React.createRef();
+  }
+
+  groupLabels(labelsArray: string[] | null) {
     if (labelsArray && this.props.activeTimeSpan === "quarter") {
       var labelsByQuarter = [];
       for (let i = 2; i < labelsArray.length; i = i + 3) {
@@ -93,7 +133,7 @@ class IndicatorsVizImplementation extends Component {
 
   /** Returns grouped data to match selected time span */
 
-  groupData(dataArray) {
+  groupData(dataArray: number[] | null) {
     if (dataArray && this.props.activeTimeSpan === "quarter") {
       var dataByQuarter = [];
       for (let i = 2; i < dataArray.length; i = i + 3) {
@@ -115,12 +155,10 @@ class IndicatorsVizImplementation extends Component {
 
   /** Returns maximum y-value across all datasets, grouped by selected timespan */
   getDataMaximum() {
-    var indicatorDataLabels = this.props.indicatorList.map((x) => x + "Data");
-    var dataMaximums = indicatorDataLabels.map((indicatorData) =>
-      this.props[indicatorData].values.total
-        ? Helpers.maxArray(this.groupData(this.props[indicatorData].values.total))
-        : 0
-    );
+    var dataMaximums = this.props.indicatorList.map((indicatorData) => {
+      const { total } = this.props[indicatorData].values;
+      return total ? Helpers.maxArray(this.groupData(total) || [0]) : 0;
+    });
 
     return Helpers.maxArray(dataMaximums);
   }
@@ -130,28 +168,28 @@ class IndicatorsVizImplementation extends Component {
     var datasets;
 
     const { i18n } = this.props;
-    const locale = i18n._language || "en";
+    const locale = (i18n.language || "en") as SupportedLocale;
 
     switch (this.props.activeVis) {
       case "viols":
         datasets = [
           {
             label: i18n._(t`Class C`),
-            data: this.groupData(this.props.violsData.values.class_c),
+            data: this.groupData(this.props.viols.values.class_c),
             backgroundColor: "rgba(136,65,157, 0.6)",
             borderColor: "rgba(136,65,157,1)",
             borderWidth: 1,
           },
           {
             label: i18n._(t`Class B`),
-            data: this.groupData(this.props.violsData.values.class_b),
+            data: this.groupData(this.props.viols.values.class_b),
             backgroundColor: "rgba(140,150,198, 0.6)",
             borderColor: "rgba(140,150,198,1)",
             borderWidth: 1,
           },
           {
             label: i18n._(t`Class A`),
-            data: this.groupData(this.props.violsData.values.class_a),
+            data: this.groupData(this.props.viols.values.class_a),
             backgroundColor: "rgba(157, 194, 227, 0.6)",
             borderColor: "rgba(157, 194, 227,1)",
             borderWidth: 1,
@@ -162,14 +200,14 @@ class IndicatorsVizImplementation extends Component {
         datasets = [
           {
             label: i18n._(t`Emergency`),
-            data: this.groupData(this.props.complaintsData.values.emergency),
+            data: this.groupData(this.props.complaints.values.emergency),
             backgroundColor: "rgba(227,74,51, 0.6)",
             borderColor: "rgba(227,74,51,1)",
             borderWidth: 1,
           },
           {
             label: i18n._(t`Non-Emergency`),
-            data: this.groupData(this.props.complaintsData.values.nonemergency),
+            data: this.groupData(this.props.complaints.values.nonemergency),
             backgroundColor: "rgba(255, 219, 170, 0.6)",
             borderColor: "rgba(255, 219, 170,1)",
             borderWidth: 1,
@@ -180,7 +218,7 @@ class IndicatorsVizImplementation extends Component {
         datasets = [
           {
             label: i18n._(t`Building Permits Applied For`),
-            data: this.groupData(this.props.permitsData.values.total),
+            data: this.groupData(this.props.permits.values.total),
             backgroundColor: "rgba(73, 192, 179, 0.6)",
             borderColor: "rgb(73, 192, 179)",
             borderWidth: 1,
@@ -191,9 +229,9 @@ class IndicatorsVizImplementation extends Component {
         break;
     }
 
-    var indicatorData = this.props.activeVis + "Data";
-    var data = {
-      labels: this.groupLabels(this.props[indicatorData].labels),
+    var { activeVis } = this.props;
+    var data: any = {
+      labels: this.groupLabels(this.props[activeVis].labels),
       datasets: datasets,
     };
 
@@ -229,7 +267,14 @@ class IndicatorsVizImplementation extends Component {
           this.props.lastSale.documentid
         : "https://a836-acris.nyc.gov/DS/DocumentSearch/Index";
 
-    var options = {
+    const rerenderBar = () => {
+      const { barRef } = this;
+      if (barRef.current) {
+        barRef.current.chartInstance.render({ duration: 0 });
+      }
+    };
+
+    var options: ChartOptions = {
       scales: {
         yAxes: [
           {
@@ -239,7 +284,8 @@ class IndicatorsVizImplementation extends Component {
                 this.props.activeVis === "permits"
                   ? Math.max(
                       12,
-                      Helpers.maxArray(this.groupData(this.props.permitsData.values.total)) * 1.25
+                      Helpers.maxArray(this.groupData(this.props.permits.values.total) || [0]) *
+                        1.25
                     )
                   : Math.max(12, dataMaximum * 1.25),
             },
@@ -268,7 +314,7 @@ class IndicatorsVizImplementation extends Component {
                 : null,
               maxRotation: 45,
               minRotation: 45,
-              callback: function (value, index, values) {
+              callback: function (value: any, index: any, values: any) {
                 if (timeSpan === "month") {
                   var fullDate = value.concat("-15"); // Make date value include a day so it can be parsed
                   return (
@@ -290,32 +336,45 @@ class IndicatorsVizImplementation extends Component {
       },
       tooltips: {
         mode: "label",
-        itemSort: function (a, b) {
-          return b.datasetIndex - a.datasetIndex;
+        itemSort(a, b) {
+          return (b.datasetIndex || 0) - (a.datasetIndex || 0);
         },
         callbacks: {
-          title: function (tooltipItem) {
+          title(tooltipItem, data) {
+            const { index } = tooltipItem[0];
+            const { labels } = data;
+
+            if (!(typeof index !== "undefined" && labels && labels[index])) {
+              return "";
+            }
+
+            const label = labels[index];
+
+            if (typeof label !== "string") {
+              return "";
+            }
+
             if (timeSpan === "quarter") {
-              const quarter = this._data.labels[tooltipItem[0].index].slice(-1);
+              const quarter = label.slice(-1) as "1" | "2" | "3" | "4";
               const monthRange = Helpers.getMonthRangeFromQuarter(quarter, locale);
 
-              return monthRange + " " + this._data.labels[tooltipItem[0].index].slice(0, 4);
+              return monthRange + " " + label.slice(0, 4);
             } else if (timeSpan === "year") {
-              return this._data.labels[tooltipItem[0].index];
+              return label;
             } else if (timeSpan === "month") {
               // Make date value include day:
-              var fullDate = this._data.labels[tooltipItem[0].index].concat("-15");
+              var fullDate = label.concat("-15");
               return Helpers.formatDate(fullDate, mediumDateOptions, locale);
             } else {
               return "";
             }
           },
-          footer: function (tooltipItem, data) {
+          footer(tooltipItem, data) {
             var total = 0;
 
             var i;
             for (i = 0; i < tooltipItem.length; i++) {
-              total += parseInt(tooltipItem[i].value);
+              total += parseInt(tooltipItem[i].value || "0");
             }
             return i18n._(t`Total`) + ": " + total;
           },
@@ -327,25 +386,23 @@ class IndicatorsVizImplementation extends Component {
           fontFamily: "Inconsolata, monospace",
           fontColor: "rgb(69, 77, 93)",
         },
-        onHover: function (event, legendItem) {
+        onHover(event, legendItem) {
           if (legendItem) {
             legendItem.lineWidth = 3;
-            this.chart.render({ duration: 0 });
-            if (event.srcElement && event.srcElement.style) {
-              event.srcElement.style.cursor = "pointer";
-            }
+            rerenderBar();
+            setCursorStyle(event.srcElement, "pointer");
           }
         },
-        onLeave: function (event, legendItem) {
+        onLeave(event, legendItem) {
           if (legendItem) {
             legendItem.lineWidth = 1;
-            this.chart.render({ duration: 0 });
+            rerenderBar();
           }
         },
       },
       annotation: {
         events: ["click"],
-        annotations: [
+        annotations: makeAnnotations([
           {
             drawTime: "beforeDatasetsDraw",
             type: "line",
@@ -374,80 +431,74 @@ class IndicatorsVizImplementation extends Component {
               window.open(acrisURL, "_blank");
             },
           },
-          this.props.lastSale.date
-            ? {
-                drawTime: "beforeDatasetsDraw",
-                type: "line",
-                mode: "vertical",
-                scaleID: "x-axis-0",
-                value: labelPosition,
-                borderColor: "rgba(0,0,0,0)",
-                borderWidth: 0,
-                label: {
-                  content:
-                    (dateLocation === "past" ? "← " : "") +
-                    Helpers.formatDate(this.props.lastSale.date, mediumDateOptions, locale) +
-                    (dateLocation === "future" ? " →" : ""),
-                  fontFamily: "Inconsolata, monospace",
-                  fontColor: "#fff",
-                  fontSize: 12,
-                  xPadding: 10,
-                  yPadding: 10,
-                  backgroundColor: "rgb(69, 77, 93)",
-                  position: "top",
-                  xAdjust: dateLocation === "past" ? -70 : dateLocation === "future" ? 70 : 0,
-                  yAdjust: 30,
-                  enabled: true,
-                  cornerRadius: 0,
-                },
-                onClick: () => {
-                  window.open(acrisURL, "_blank");
-                },
-              }
-            : {},
-          this.props.activeVis === "complaints"
-            ? {
-                drawTime: "beforeDatasetsDraw",
-                type: "line",
-                mode: "vertical",
-                scaleID: "x-axis-0",
-                value:
-                  timeSpan === "quarter" ? "2012-Q4" : timeSpan === "year" ? "2012" : "2013-10",
-                borderColor: "rgba(0,0,0,0)",
-                borderWidth: 0,
-                label: {
-                  content: "← " + i18n._(t`No data available`),
-                  fontFamily: "Inconsolata, monospace",
-                  fontColor: "#e85600",
-                  fontSize: 12,
-                  xPadding: 10,
-                  yPadding: 10,
-                  backgroundColor: "rgba(0,0,0,0)",
-                  position: "top",
-                  xAdjust: 0,
-                  yAdjust: 105,
-                  enabled: true,
-                  cornerRadius: 0,
-                },
-              }
-            : {},
-        ],
+          !!this.props.lastSale.date && {
+            drawTime: "beforeDatasetsDraw",
+            type: "line",
+            mode: "vertical",
+            scaleID: "x-axis-0",
+            value: labelPosition,
+            borderColor: "rgba(0,0,0,0)",
+            borderWidth: 0,
+            label: {
+              content:
+                (dateLocation === "past" ? "← " : "") +
+                Helpers.formatDate(this.props.lastSale.date, mediumDateOptions, locale) +
+                (dateLocation === "future" ? " →" : ""),
+              fontFamily: "Inconsolata, monospace",
+              fontColor: "#fff",
+              fontSize: 12,
+              xPadding: 10,
+              yPadding: 10,
+              backgroundColor: "rgb(69, 77, 93)",
+              position: "top",
+              xAdjust: dateLocation === "past" ? -70 : dateLocation === "future" ? 70 : 0,
+              yAdjust: 30,
+              enabled: true,
+              cornerRadius: 0,
+            },
+            onClick: () => {
+              window.open(acrisURL, "_blank");
+            },
+          },
+          this.props.activeVis === "complaints" && {
+            drawTime: "beforeDatasetsDraw",
+            type: "line",
+            mode: "vertical",
+            scaleID: "x-axis-0",
+            value: timeSpan === "quarter" ? "2012-Q4" : timeSpan === "year" ? "2012" : "2013-10",
+            borderColor: "rgba(0,0,0,0)",
+            borderWidth: 0,
+            label: {
+              content: "← " + i18n._(t`No data available`),
+              fontFamily: "Inconsolata, monospace",
+              fontColor: "#e85600",
+              fontSize: 12,
+              xPadding: 10,
+              yPadding: 10,
+              backgroundColor: "rgba(0,0,0,0)",
+              position: "top",
+              xAdjust: 0,
+              yAdjust: 105,
+              enabled: true,
+              cornerRadius: 0,
+            },
+          },
+        ]),
         drawTime: "afterDraw", // (default)
       },
       animation: {
         duration: this.props.animationTime,
       },
       maintainAspectRatio: false,
-      onHover: function (event) {
-        if (event.srcElement && event.srcElement.style) {
-          event.srcElement.style.cursor = "default";
-        }
+      onHover(event) {
+        setCursorStyle(event.srcElement, "default");
       },
     };
 
     return (
       <div className="Indicators__chart">
         <Bar
+          ref={this.barRef}
           data={data}
           options={options}
           plugins={[ChartAnnotation]}

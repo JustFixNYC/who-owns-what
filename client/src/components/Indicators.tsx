@@ -1,80 +1,48 @@
 import React, { Component } from "react";
 
-import Helpers from "util/helpers";
+import Helpers from "../util/helpers";
 
-import IndicatorsViz from "components/IndicatorsViz";
-import Loader from "components/Loader";
-import LegalFooter from "components/LegalFooter";
-import APIClient from "components/APIClient";
+import IndicatorsViz from "../components/IndicatorsViz";
+import Loader from "../components/Loader";
+import LegalFooter from "../components/LegalFooter";
+import APIClient from "../components/APIClient";
 import { withI18n } from "@lingui/react";
 import { Trans } from "@lingui/macro";
 
 import "styles/Indicators.css";
-import { IndicatorsDatasetRadio, INDICATORS_DATASETS } from "./IndicatorsDatasets";
+import {
+  IndicatorsDatasetRadio,
+  INDICATORS_DATASETS,
+  IndicatorsDatasetId,
+} from "./IndicatorsDatasets";
 import { Link } from "react-router-dom";
+import {
+  indicatorsInitialState,
+  IndicatorsProps,
+  IndicatorsState,
+  IndicatorChartShift,
+  IndicatorsTimeSpan,
+  IndicatorsData,
+} from "./IndicatorsTypes";
+import { AddressRecord } from "./APIDataTypes";
+import { Nobr } from "./Nobr";
 
-const initialState = {
-  lastSale: {
-    date: null,
-    label: null,
-    documentid: null,
-  },
-
-  indicatorHistory: null,
-
-  violsData: {
-    labels: null,
-    values: {
-      class_a: null,
-      class_b: null,
-      class_c: null,
-      total: null,
-    },
-  },
-
-  complaintsData: {
-    labels: null,
-    values: {
-      emergency: null,
-      nonemergency: null,
-      total: null,
-    },
-  },
-
-  permitsData: {
-    labels: null,
-    values: {
-      total: null,
-    },
-  },
-
-  indicatorList: ["complaints", "viols", "permits"],
-  defaultVis: "complaints",
-  activeVis: "complaints",
-  timeSpanList: ["month", "quarter", "year"],
-  activeTimeSpan: "quarter",
-  monthsInGroup: 3,
-  xAxisStart: 0,
-  xAxisViewableColumns: 20,
-  currentAddr: null,
-};
-
-class IndicatorsWithoutI18n extends Component {
-  constructor(props) {
+class IndicatorsWithoutI18n extends Component<IndicatorsProps, IndicatorsState> {
+  constructor(props: IndicatorsProps) {
     super(props);
-    this.state = initialState;
+    this.state = indicatorsInitialState;
     this.handleVisChange = this.handleVisChange.bind(this);
   }
 
   /** Resets the component to initial blank state */
   reset() {
-    this.setState(initialState);
+    this.setState(indicatorsInitialState);
   }
 
   /** Shifts the X-axis 'left' or 'right', or 'reset' the X-axis to default */
-  handleXAxisChange(shift) {
+  handleXAxisChange(shift: IndicatorChartShift) {
     const span = this.state.xAxisViewableColumns;
-    const labelsArray = this.state[this.state.activeVis + "Data"].labels;
+    const labelsArray = this.state[this.state.activeVis].labels;
 
     if (!labelsArray || labelsArray.length < span) {
       return;
@@ -107,14 +75,14 @@ class IndicatorsWithoutI18n extends Component {
     }
   }
 
-  handleVisChange(selectedVis) {
+  handleVisChange(selectedVis: IndicatorsDatasetId) {
     this.setState({
       activeVis: selectedVis,
     });
   }
 
   /** Changes viewing timespan to be by 'year', 'quarter', or 'month' */
-  handleTimeSpanChange(selectedTimeSpan) {
+  handleTimeSpanChange(selectedTimeSpan: IndicatorsTimeSpan) {
     var monthsInGroup = selectedTimeSpan === "quarter" ? 3 : selectedTimeSpan === "year" ? 12 : 1;
 
     this.setState({
@@ -124,7 +92,7 @@ class IndicatorsWithoutI18n extends Component {
   }
 
   /** Fetches data for Indicators component via 2 API calls and saves the raw data in state */
-  fetchData(detailAddr) {
+  fetchData(detailAddr: AddressRecord) {
     APIClient.getIndicatorHistory(detailAddr.bbl)
       .then((results) => this.setState({ indicatorHistory: results.result }))
       .catch((err) => {
@@ -137,10 +105,10 @@ class IndicatorsWithoutI18n extends Component {
   }
 
   /** Reorganizes raw data from API call and then returns an object that matches the data stucture in state  */
-  createVizData(rawJSON, vizType) {
+  createVizData(rawJSON: any, vizType: IndicatorsDatasetId): IndicatorsData {
     // Generate object to hold data for viz
     // Note: keys in "values" object need to match exact key names in data from API call
-    var vizData = Object.assign({}, initialState[vizType + "Data"]);
+    var vizData: IndicatorsData = Object.assign({}, indicatorsInitialState[vizType]);
 
     vizData.labels = [];
     for (const column in vizData.values) {
@@ -157,13 +125,16 @@ class IndicatorsWithoutI18n extends Component {
 
       for (const column in vizData.values) {
         const vizTypePlusColumn = vizType + "_" + column;
-        vizData.values[column].push(parseInt(rawJSON[i][vizTypePlusColumn]));
+        const values = vizData.values[column];
+        if (!values)
+          throw new Error(`Column "${column}" of visualization "${vizType}" is not an array!`);
+        values.push(parseInt(rawJSON[i][vizTypePlusColumn]));
       }
     }
     return vizData;
   }
 
-  UNSAFE_componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps: IndicatorsProps) {
     // make the api call when we have a new detail address from the Address Page
     if (
       nextProps.detailAddr &&
@@ -178,7 +149,7 @@ class IndicatorsWithoutI18n extends Component {
     }
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(prevProps: IndicatorsProps, prevState: IndicatorsState) {
     const indicatorList = this.state.indicatorList;
 
     // process viz data from incoming API calls:
@@ -191,8 +162,8 @@ class IndicatorsWithoutI18n extends Component {
         var inputData = this.createVizData(this.state.indicatorHistory, indicator);
 
         this.setState({
-          [indicator + "Data"]: inputData,
-        });
+          [indicator]: inputData,
+        } as any);
       }
     }
 
@@ -201,8 +172,7 @@ class IndicatorsWithoutI18n extends Component {
     // 2. when activeTimeSpan changes:
 
     if (
-      (!prevState[this.state.defaultVis + "Data"].labels &&
-        this.state[this.state.defaultVis + "Data"].labels) ||
+      (!prevState[this.state.defaultVis].labels && this.state[this.state.defaultVis].labels) ||
       prevState.activeTimeSpan !== this.state.activeTimeSpan
     ) {
       this.handleXAxisChange("reset");
@@ -214,8 +184,8 @@ class IndicatorsWithoutI18n extends Component {
 
     if (
       (this.state.currentAddr &&
-        !prevState[this.state.defaultVis + "Data"].labels &&
-        this.state[this.state.defaultVis + "Data"].labels) ||
+        !prevState[this.state.defaultVis].labels &&
+        this.state[this.state.defaultVis].labels) ||
       prevState.activeTimeSpan !== this.state.activeTimeSpan
     ) {
       if (this.props.detailAddr.lastsaledate && this.props.detailAddr.lastsaleacrisid) {
@@ -239,7 +209,7 @@ class IndicatorsWithoutI18n extends Component {
         });
       } else {
         this.setState({
-          lastSale: initialState.lastSale,
+          lastSale: indicatorsInitialState.lastSale,
         });
       }
     }
@@ -252,12 +222,11 @@ class IndicatorsWithoutI18n extends Component {
     const housenumber = this.props.detailAddr ? this.props.detailAddr.housenumber : null;
     const streetname = this.props.detailAddr ? this.props.detailAddr.streetname : null;
 
-    const indicatorData = this.state.activeVis + "Data";
-    const xAxisLength = this.state[indicatorData].labels
-      ? Math.floor(this.state[indicatorData].labels.length / this.state.monthsInGroup)
-      : 0;
-    const indicatorDataTotal = this.state[indicatorData].values.total
-      ? this.state[indicatorData].values.total.reduce((total, sum) => total + sum)
+    const { activeVis } = this.state;
+    const data = this.state[activeVis];
+    const xAxisLength = data.labels ? Math.floor(data.labels.length / this.state.monthsInGroup) : 0;
+    const indicatorDataTotal = data.values.total
+      ? data.values.total.reduce((total: number, sum: number) => total + sum)
       : null;
 
     const i18n = this.props.i18n;
@@ -275,7 +244,7 @@ class IndicatorsWithoutI18n extends Component {
           {!(
             this.props.isVisible &&
             this.state.indicatorHistory &&
-            this.state[this.state.defaultVis + "Data"].labels
+            this.state[this.state.defaultVis].labels
           ) ? (
             <Loader loading={true} classNames="Loader-map">
               <Trans>Loading</Trans>
@@ -387,7 +356,7 @@ class IndicatorsWithoutI18n extends Component {
                 </div>
 
                 <span className="title viz-title">
-                  {dataset && dataset.quantity(i18n, indicatorDataTotal)}
+                  {dataset && indicatorDataTotal && dataset.quantity(i18n, indicatorDataTotal)}
                 </span>
 
                 <div className="Indicators__viz">
@@ -427,7 +396,7 @@ class IndicatorsWithoutI18n extends Component {
 
                 <div className="Indicators__feedback hide-lg">
                   <Trans render="i">Have thoughts about this page?</Trans>
-                  <nobr>
+                  <Nobr>
                     <a
                       href="https://airtable.com/shrZ9uL3id6oWEn8T"
                       target="_blank"
@@ -435,7 +404,7 @@ class IndicatorsWithoutI18n extends Component {
                     >
                       <Trans>Send us feedback!</Trans>
                     </a>
-                  </nobr>
+                  </Nobr>
                 </div>
               </div>
               <div className="column column-context col-4 col-lg-12">
@@ -530,7 +499,7 @@ class IndicatorsWithoutI18n extends Component {
 
                 <div className="Indicators__feedback show-lg">
                   <Trans render="i">Have thoughts about this page?</Trans>
-                  <nobr>
+                  <Nobr>
                     <a
                       href="https://airtable.com/shrZ9uL3id6oWEn8T"
                       target="_blank"
@@ -538,13 +507,13 @@ class IndicatorsWithoutI18n extends Component {
                     >
                       <Trans>Send us feedback!</Trans>
                     </a>
-                  </nobr>
+                  </Nobr>
                 </div>
               </div>
             </div>
           )}
         </div>
-        <LegalFooter position="inside" />
+        <LegalFooter />
       </div>
     );
   }
