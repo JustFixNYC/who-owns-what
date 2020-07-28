@@ -14,6 +14,7 @@ import Helpers, { mediumDateOptions, shortDateOptions } from "../util/helpers";
 import "styles/Indicators.css";
 import { IndicatorsState } from "./IndicatorsUtils";
 import { SupportedLocale } from "../i18n-base";
+import { ChartOptions } from "chart.js";
 
 const DEFAULT_ANIMATION_MS = 1000;
 const MONTH_ANIMATION_MS = 2500;
@@ -59,7 +60,7 @@ export default class IndicatorsViz extends Component<IndicatorVizProps, Indicato
         this.timeout = undefined;
       }, MONTH_ANIMATION_MS);
     } else {
-      this.setState(state => ({
+      this.setState((state) => ({
         ...state,
         ...this.props,
         shouldRedraw: false,
@@ -74,6 +75,20 @@ export default class IndicatorsViz extends Component<IndicatorVizProps, Indicato
   render() {
     return <I18n>{({ i18n }) => <IndicatorsVizImplementation {...this.state} i18n={i18n} />}</I18n>;
   }
+}
+
+function makeAnnotations(
+  annotations: Array<ChartAnnotation.AnnotationOptions | false>
+): ChartAnnotation.AnnotationOptions[] {
+  const result: ChartAnnotation.AnnotationOptions[] = [];
+
+  for (let anno of annotations) {
+    if (anno) {
+      annotations.push(anno);
+    }
+  }
+
+  return result;
 }
 
 type IndicatorVizImplementationProps = withI18nProps & IndicatorVizState;
@@ -238,7 +253,7 @@ class IndicatorsVizImplementation extends Component<IndicatorVizImplementationPr
           this.props.lastSale.documentid
         : "https://a836-acris.nyc.gov/DS/DocumentSearch/Index";
 
-    var options: any = {
+    var options: ChartOptions = {
       scales: {
         yAxes: [
           {
@@ -355,7 +370,7 @@ class IndicatorsVizImplementation extends Component<IndicatorVizImplementationPr
       },
       annotation: {
         events: ["click"],
-        annotations: [
+        annotations: makeAnnotations([
           {
             drawTime: "beforeDatasetsDraw",
             type: "line",
@@ -384,64 +399,59 @@ class IndicatorsVizImplementation extends Component<IndicatorVizImplementationPr
               window.open(acrisURL, "_blank");
             },
           },
-          this.props.lastSale.date
-            ? {
-                drawTime: "beforeDatasetsDraw",
-                type: "line",
-                mode: "vertical",
-                scaleID: "x-axis-0",
-                value: labelPosition,
-                borderColor: "rgba(0,0,0,0)",
-                borderWidth: 0,
-                label: {
-                  content:
-                    (dateLocation === "past" ? "← " : "") +
-                    Helpers.formatDate(this.props.lastSale.date, mediumDateOptions, locale) +
-                    (dateLocation === "future" ? " →" : ""),
-                  fontFamily: "Inconsolata, monospace",
-                  fontColor: "#fff",
-                  fontSize: 12,
-                  xPadding: 10,
-                  yPadding: 10,
-                  backgroundColor: "rgb(69, 77, 93)",
-                  position: "top",
-                  xAdjust: dateLocation === "past" ? -70 : dateLocation === "future" ? 70 : 0,
-                  yAdjust: 30,
-                  enabled: true,
-                  cornerRadius: 0,
-                },
-                onClick: () => {
-                  window.open(acrisURL, "_blank");
-                },
-              }
-            : {},
-          this.props.activeVis === "complaints"
-            ? {
-                drawTime: "beforeDatasetsDraw",
-                type: "line",
-                mode: "vertical",
-                scaleID: "x-axis-0",
-                value:
-                  timeSpan === "quarter" ? "2012-Q4" : timeSpan === "year" ? "2012" : "2013-10",
-                borderColor: "rgba(0,0,0,0)",
-                borderWidth: 0,
-                label: {
-                  content: "← " + i18n._(t`No data available`),
-                  fontFamily: "Inconsolata, monospace",
-                  fontColor: "#e85600",
-                  fontSize: 12,
-                  xPadding: 10,
-                  yPadding: 10,
-                  backgroundColor: "rgba(0,0,0,0)",
-                  position: "top",
-                  xAdjust: 0,
-                  yAdjust: 105,
-                  enabled: true,
-                  cornerRadius: 0,
-                },
-              }
-            : {},
-        ],
+          !!this.props.lastSale.date && {
+            drawTime: "beforeDatasetsDraw",
+            type: "line",
+            mode: "vertical",
+            scaleID: "x-axis-0",
+            value: labelPosition,
+            borderColor: "rgba(0,0,0,0)",
+            borderWidth: 0,
+            label: {
+              content:
+                (dateLocation === "past" ? "← " : "") +
+                Helpers.formatDate(this.props.lastSale.date, mediumDateOptions, locale) +
+                (dateLocation === "future" ? " →" : ""),
+              fontFamily: "Inconsolata, monospace",
+              fontColor: "#fff",
+              fontSize: 12,
+              xPadding: 10,
+              yPadding: 10,
+              backgroundColor: "rgb(69, 77, 93)",
+              position: "top",
+              xAdjust: dateLocation === "past" ? -70 : dateLocation === "future" ? 70 : 0,
+              yAdjust: 30,
+              enabled: true,
+              cornerRadius: 0,
+            },
+            onClick: () => {
+              window.open(acrisURL, "_blank");
+            },
+          },
+          this.props.activeVis === "complaints" && {
+            drawTime: "beforeDatasetsDraw",
+            type: "line",
+            mode: "vertical",
+            scaleID: "x-axis-0",
+            value: timeSpan === "quarter" ? "2012-Q4" : timeSpan === "year" ? "2012" : "2013-10",
+            borderColor: "rgba(0,0,0,0)",
+            borderWidth: 0,
+            label: {
+              content: "← " + i18n._(t`No data available`),
+              fontFamily: "Inconsolata, monospace",
+              fontColor: "#e85600",
+              fontSize: 12,
+              xPadding: 10,
+              yPadding: 10,
+              backgroundColor: "rgba(0,0,0,0)",
+              position: "top",
+              xAdjust: 0,
+              yAdjust: 105,
+              enabled: true,
+              cornerRadius: 0,
+            },
+          },
+        ]),
         drawTime: "afterDraw", // (default)
       },
       animation: {
