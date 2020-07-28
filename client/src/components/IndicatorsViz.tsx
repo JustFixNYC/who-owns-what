@@ -12,7 +12,7 @@ import * as ChartAnnotation from "chartjs-plugin-annotation";
 import Helpers, { mediumDateOptions, shortDateOptions } from "../util/helpers";
 
 import "styles/Indicators.css";
-import { IndicatorsState } from "./IndicatorsUtils";
+import { IndicatorsState } from "./IndicatorsTypes";
 import { SupportedLocale } from "../i18n-base";
 import { ChartOptions } from "chart.js";
 

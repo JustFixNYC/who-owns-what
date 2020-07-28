@@ -23,7 +23,7 @@ import {
   IndicatorChartShift,
   IndicatorsTimeSpan,
   IndicatorsData,
-} from "./IndicatorsUtils";
+} from "./IndicatorsTypes";
 import { AddressRecord } from "./APIDataTypes";
 import { Nobr } from "./Nobr";
 

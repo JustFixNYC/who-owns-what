@@ -1,4 +1,4 @@
-import { MonthlyTimelineData, AddressRecord } from "../components/APIDataTypes";
+import { MonthlyTimelineData, AddressRecord } from "./APIDataTypes";
 import { IndicatorsDatasetId } from "./IndicatorsDatasets";
 import { withI18nProps } from "@lingui/react";
 
