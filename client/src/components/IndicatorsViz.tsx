@@ -12,7 +12,7 @@ import * as ChartAnnotation from "chartjs-plugin-annotation";
 import Helpers, { mediumDateOptions, shortDateOptions } from "../util/helpers";
 
 import "styles/Indicators.css";
-import { IndicatorsState, getIndicatorDatasetKey } from "./IndicatorsUtils";
+import { IndicatorsState } from "./IndicatorsUtils";
 import { SupportedLocale } from "../i18n-base";
 
 const DEFAULT_ANIMATION_MS = 1000;
@@ -23,9 +23,11 @@ type IndicatorVizProps = IndicatorsState;
 type IndicatorVizState = IndicatorsState & {
   shouldRedraw: boolean;
   animationTime: number;
-}
+};
 
 export default class IndicatorsViz extends Component<IndicatorVizProps, IndicatorVizState> {
+  timeout?: number;
+
   constructor(props: IndicatorVizProps) {
     super(props);
     this.state = {
@@ -49,16 +51,13 @@ export default class IndicatorsViz extends Component<IndicatorVizProps, Indicato
         shouldRedraw: true,
         animationTime: animationTime,
       });
-      clearTimeout(this.timeout);
-      this.timeout = setTimeout(
-        function () {
-          this.setState({
-            animationTime: DEFAULT_ANIMATION_MS,
-          });
-          this.timeout = undefined;
-        }.bind(this),
-        MONTH_ANIMATION_MS
-      );
+      window.clearTimeout(this.timeout);
+      this.timeout = window.setTimeout(() => {
+        this.setState({
+          animationTime: DEFAULT_ANIMATION_MS,
+        });
+        this.timeout = undefined;
+      }, MONTH_ANIMATION_MS);
     } else {
       this.setState({
         ...this.props,
@@ -126,12 +125,10 @@ class IndicatorsVizImplementation extends Component<IndicatorVizImplementationPr
 
   /** Returns maximum y-value across all datasets, grouped by selected timespan */
   getDataMaximum() {
-    var indicatorDataLabels = this.props.indicatorList.map((x) => getIndicatorDatasetKey(x));
-    var dataMaximums = indicatorDataLabels.map((indicatorData) =>
-      this.props[indicatorData].values.total
-        ? Helpers.maxArray(this.groupData(this.props[indicatorData].values.total))
-        : 0
-    );
+    var dataMaximums = this.props.indicatorList.map((indicatorData) => {
+      const { total } = this.props[indicatorData].values;
+      return total ? Helpers.maxArray(this.groupData(total) || [0]) : 0;
+    });
 
     return Helpers.maxArray(dataMaximums);
   }
@@ -141,28 +138,28 @@ class IndicatorsVizImplementation extends Component<IndicatorVizImplementationPr
     var datasets;
 
     const { i18n } = this.props;
-    const locale = i18n.language || "en" as SupportedLocale;
+    const locale = (i18n.language || "en") as SupportedLocale;
 
     switch (this.props.activeVis) {
       case "viols":
         datasets = [
           {
             label: i18n._(t`Class C`),
-            data: this.groupData(this.props.violsData.values.class_c),
+            data: this.groupData(this.props.viols.values.class_c),
             backgroundColor: "rgba(136,65,157, 0.6)",
             borderColor: "rgba(136,65,157,1)",
             borderWidth: 1,
           },
           {
             label: i18n._(t`Class B`),
-            data: this.groupData(this.props.violsData.values.class_b),
+            data: this.groupData(this.props.viols.values.class_b),
             backgroundColor: "rgba(140,150,198, 0.6)",
             borderColor: "rgba(140,150,198,1)",
             borderWidth: 1,
           },
           {
             label: i18n._(t`Class A`),
-            data: this.groupData(this.props.violsData.values.class_a),
+            data: this.groupData(this.props.viols.values.class_a),
             backgroundColor: "rgba(157, 194, 227, 0.6)",
             borderColor: "rgba(157, 194, 227,1)",
             borderWidth: 1,
@@ -173,14 +170,14 @@ class IndicatorsVizImplementation extends Component<IndicatorVizImplementationPr
         datasets = [
           {
             label: i18n._(t`Emergency`),
-            data: this.groupData(this.props.complaintsData.values.emergency),
+            data: this.groupData(this.props.complaints.values.emergency),
             backgroundColor: "rgba(227,74,51, 0.6)",
             borderColor: "rgba(227,74,51,1)",
             borderWidth: 1,
           },
           {
             label: i18n._(t`Non-Emergency`),
-            data: this.groupData(this.props.complaintsData.values.nonemergency),
+            data: this.groupData(this.props.complaints.values.nonemergency),
             backgroundColor: "rgba(255, 219, 170, 0.6)",
             borderColor: "rgba(255, 219, 170,1)",
             borderWidth: 1,
@@ -191,7 +188,7 @@ class IndicatorsVizImplementation extends Component<IndicatorVizImplementationPr
         datasets = [
           {
             label: i18n._(t`Building Permits Applied For`),
-            data: this.groupData(this.props.permitsData.values.total),
+            data: this.groupData(this.props.permits.values.total),
             backgroundColor: "rgba(73, 192, 179, 0.6)",
             borderColor: "rgb(73, 192, 179)",
             borderWidth: 1,
@@ -202,9 +199,9 @@ class IndicatorsVizImplementation extends Component<IndicatorVizImplementationPr
         break;
     }
 
-    var indicatorData = getIndicatorDatasetKey(this.props.activeVis);
+    var { activeVis } = this.props;
     var data: any = {
-      labels: this.groupLabels(this.props[indicatorData].labels),
+      labels: this.groupLabels(this.props[activeVis].labels),
       datasets: datasets,
     };
 
@@ -250,7 +247,8 @@ class IndicatorsVizImplementation extends Component<IndicatorVizImplementationPr
                 this.props.activeVis === "permits"
                   ? Math.max(
                       12,
-                      Helpers.maxArray(this.groupData(this.props.permitsData.values.total)) * 1.25
+                      Helpers.maxArray(this.groupData(this.props.permits.values.total) || [0]) *
+                        1.25
                     )
                   : Math.max(12, dataMaximum * 1.25),
             },

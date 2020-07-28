@@ -22,7 +22,7 @@ import {
   IndicatorsState,
   IndicatorChartShift,
   IndicatorsTimeSpan,
-  getIndicatorDatasetKey,
+  IndicatorsData,
 } from "./IndicatorsUtils";
 import { AddressRecord } from "./APIDataTypes";
 import { Nobr } from "./Nobr";
@@ -42,7 +42,7 @@ class IndicatorsWithoutI18n extends Component<IndicatorsProps, IndicatorsState> 
   /** Shifts the X-axis 'left' or 'right', or 'reset' the X-axis to default */
   handleXAxisChange(shift: IndicatorChartShift) {
     const span = this.state.xAxisViewableColumns;
-    const labelsArray = this.state[getIndicatorDatasetKey(this.state.activeVis)].labels;
+    const labelsArray = this.state[this.state.activeVis].labels;
 
     if (!labelsArray || labelsArray.length < span) {
       return;
@@ -105,14 +105,14 @@ class IndicatorsWithoutI18n extends Component<IndicatorsProps, IndicatorsState> 
   }
 
   /** Reorganizes raw data from API call and then returns an object that matches the data stucture in state  */
-  createVizData(rawJSON: any, vizType: IndicatorsDatasetId) {
+  createVizData(rawJSON: any, vizType: IndicatorsDatasetId): IndicatorsData {
     // Generate object to hold data for viz
     // Note: keys in "values" object need to match exact key names in data from API call
-    var vizData = Object.assign({}, indicatorsInitialState[getIndicatorDatasetKey(vizType)]);
+    var vizData: IndicatorsData = Object.assign({}, indicatorsInitialState[vizType]);
 
     vizData.labels = [];
     for (const column in vizData.values) {
-      vizData.values[column as keyof vizData.values] = [];
+      vizData.values[column] = [];
     }
 
     // Generate arrays of data for chart.js visualizations:
@@ -125,7 +125,10 @@ class IndicatorsWithoutI18n extends Component<IndicatorsProps, IndicatorsState> 
 
       for (const column in vizData.values) {
         const vizTypePlusColumn = vizType + "_" + column;
-        vizData.values[column].push(parseInt(rawJSON[i][vizTypePlusColumn]));
+        const values = vizData.values[column];
+        if (!values)
+          throw new Error(`Column "${column}" of visualization "${vizType}" is not an array!`);
+        values.push(parseInt(rawJSON[i][vizTypePlusColumn]));
       }
     }
     return vizData;
@@ -157,11 +160,10 @@ class IndicatorsWithoutI18n extends Component<IndicatorsProps, IndicatorsState> 
     ) {
       for (const indicator of indicatorList) {
         var inputData = this.createVizData(this.state.indicatorHistory, indicator);
-        const indicatorKey = getIndicatorDatasetKey(indicator) as keyof IndicatorsState;
 
         this.setState({
-          [indicatorKey]: inputData,
-        });
+          [indicator]: inputData,
+        } as any);
       }
     }
 
@@ -170,8 +172,7 @@ class IndicatorsWithoutI18n extends Component<IndicatorsProps, IndicatorsState> 
     // 2. when activeTimeSpan changes:
 
     if (
-      (!prevState[getIndicatorDatasetKey(this.state.defaultVis)].labels &&
-        this.state[getIndicatorDatasetKey(this.state.defaultVis)].labels) ||
+      (!prevState[this.state.defaultVis].labels && this.state[this.state.defaultVis].labels) ||
       prevState.activeTimeSpan !== this.state.activeTimeSpan
     ) {
       this.handleXAxisChange("reset");
@@ -183,8 +184,8 @@ class IndicatorsWithoutI18n extends Component<IndicatorsProps, IndicatorsState> 
 
     if (
       (this.state.currentAddr &&
-        !prevState[getIndicatorDatasetKey(this.state.defaultVis)].labels &&
-        this.state[getIndicatorDatasetKey(this.state.defaultVis)].labels) ||
+        !prevState[this.state.defaultVis].labels &&
+        this.state[this.state.defaultVis].labels) ||
       prevState.activeTimeSpan !== this.state.activeTimeSpan
     ) {
       if (this.props.detailAddr.lastsaledate && this.props.detailAddr.lastsaleacrisid) {
@@ -221,12 +222,11 @@ class IndicatorsWithoutI18n extends Component<IndicatorsProps, IndicatorsState> 
     const housenumber = this.props.detailAddr ? this.props.detailAddr.housenumber : null;
     const streetname = this.props.detailAddr ? this.props.detailAddr.streetname : null;
 
-    const indicatorData = getIndicatorDatasetKey(this.state.activeVis);
-    const xAxisLength = this.state[indicatorData].labels 
-      ? Math.floor(this.state[indicatorData].labels.length / this.state.monthsInGroup)
-      : 0;
-    const indicatorDataTotal = this.state[indicatorData].values.total
-      ? this.state[indicatorData].values.total.reduce((total: number, sum: number) => total + sum)
+    const { activeVis } = this.state;
+    const data = this.state[activeVis];
+    const xAxisLength = data.labels ? Math.floor(data.labels.length / this.state.monthsInGroup) : 0;
+    const indicatorDataTotal = data.values.total
+      ? data.values.total.reduce((total: number, sum: number) => total + sum)
       : null;
 
     const i18n = this.props.i18n;
@@ -244,7 +244,7 @@ class IndicatorsWithoutI18n extends Component<IndicatorsProps, IndicatorsState> 
           {!(
             this.props.isVisible &&
             this.state.indicatorHistory &&
-            this.state[getIndicatorDatasetKey(this.state.defaultVis)].labels
+            this.state[this.state.defaultVis].labels
           ) ? (
             <Loader loading={true} classNames="Loader-map">
               <Trans>Loading</Trans>

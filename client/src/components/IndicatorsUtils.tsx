@@ -12,36 +12,48 @@ type LastSaleData = {
   documentid: string | null;
 };
 
-type ViolsData = {
+type IndicatorsDataValues = {
+  [k in string]?: number[] | null;
+} & {
+  total: number[] | null;
+};
+
+export interface IndicatorsData {
   labels: string[] | null;
+  values: IndicatorsDataValues;
+}
+
+interface ViolsData extends IndicatorsData {
   values: {
     class_a: number[] | null;
     class_b: number[] | null;
     class_c: number[] | null;
     total: number[] | null;
   };
-};
+}
 
-type ComplaintsData = {
-  labels: string[] | null;
+interface ComplaintsData extends IndicatorsData {
   values: {
     emergency: number[] | null;
     nonemergency: number[] | null;
     total: number[] | null;
   };
-};
+}
 
-type PermitsData = {
-  labels: string[] | null;
+interface PermitsData extends IndicatorsData {
   values: {
     total: number[] | null;
   };
+}
+
+type IndicatorsDataIndex = {
+  [k in IndicatorsDatasetId]: IndicatorsData;
 };
 
-type IndicatorsDataFromAPI = {
-  violsData: ViolsData;
-  complaintsData: ComplaintsData;
-  permitsData: PermitsData;
+type IndicatorsDataFromAPI = IndicatorsDataIndex & {
+  viols: ViolsData;
+  complaints: ComplaintsData;
+  permits: PermitsData;
 };
 
 export type IndicatorsState = IndicatorsDataFromAPI & {
@@ -69,7 +81,7 @@ export const indicatorsInitialState: IndicatorsState = {
 
   indicatorHistory: null,
 
-  violsData: {
+  viols: {
     labels: null,
     values: {
       class_a: null,
@@ -79,7 +91,7 @@ export const indicatorsInitialState: IndicatorsState = {
     },
   },
 
-  complaintsData: {
+  complaints: {
     labels: null,
     values: {
       emergency: null,
@@ -88,7 +100,7 @@ export const indicatorsInitialState: IndicatorsState = {
     },
   },
 
-  permitsData: {
+  permits: {
     labels: null,
     values: {
       total: null,
@@ -118,8 +130,3 @@ export type IndicatorsProps = withI18nProps & {
 // Other Useful Types and Type-related utilites:
 
 export type IndicatorChartShift = "left" | "right" | "reset";
-
-export const getIndicatorDatasetKey = (datasetId: IndicatorsDatasetId) => {
-    const datasetKeyName = (datasetId + "Data") as keyof IndicatorsDataFromAPI;
-    return datasetKeyName;
-  };
