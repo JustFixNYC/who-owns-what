@@ -15,6 +15,9 @@ type HpdOwnerContact = {
   value: string;
 };
 
+/** Date fields that come from our API Data are strings with the format YYYY-MM-DD */
+type APIDate = string;
+
 export type GeoSearchData = {
   geosupportReturnCode: string;
   bbl: string;
@@ -28,17 +31,17 @@ export type AddressRecord = {
   corpnames: string[] | null;
   evictions: number | null;
   housenumber: string;
-  lastregistrationdate: string;
+  lastregistrationdate: APIDate;
   lastsaleacrisid: string | null;
   lastsaleamount: number | null;
-  lastsaledate: string | null;
+  lastsaledate: APIDate | null;
   lat: number | null;
   lng: number | null;
   /** This property gets assigned in the PropertiesMap component, not from our API */
   mapType?: "base" | "search";
   openviolations: number;
   ownernames: HpdOwnerContact[] | null;
-  registrationenddate: string;
+  registrationenddate: APIDate;
   registrationid: string;
   rsdiff: number | null;
   rspercentchange: number | null;
