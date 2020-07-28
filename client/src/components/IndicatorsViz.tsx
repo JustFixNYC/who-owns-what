@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import { Bar } from "react-chartjs-2";
+import { Bar, ChartData } from "react-chartjs-2";
 import { I18n, withI18nProps } from "@lingui/react";
 import { t } from "@lingui/macro";
+import * as chartjs from "chart.js";
 
 // reference: https://github.com/jerairrest/react-chartjs-2
 
@@ -165,7 +166,7 @@ class IndicatorsVizImplementation extends Component<IndicatorVizImplementationPr
 
   render() {
     // Create "data" object according to Chart.js documentation
-    var datasets;
+    var datasets: chartjs.ChartDataSets[];
 
     const { i18n } = this.props;
     const locale = (i18n.language || "en") as SupportedLocale;
@@ -175,21 +176,21 @@ class IndicatorsVizImplementation extends Component<IndicatorVizImplementationPr
         datasets = [
           {
             label: i18n._(t`Class C`),
-            data: this.groupData(this.props.viols.values.class_c),
+            data: this.groupData(this.props.viols.values.class_c) || [],
             backgroundColor: "rgba(136,65,157, 0.6)",
             borderColor: "rgba(136,65,157,1)",
             borderWidth: 1,
           },
           {
             label: i18n._(t`Class B`),
-            data: this.groupData(this.props.viols.values.class_b),
+            data: this.groupData(this.props.viols.values.class_b) || [],
             backgroundColor: "rgba(140,150,198, 0.6)",
             borderColor: "rgba(140,150,198,1)",
             borderWidth: 1,
           },
           {
             label: i18n._(t`Class A`),
-            data: this.groupData(this.props.viols.values.class_a),
+            data: this.groupData(this.props.viols.values.class_a) || [],
             backgroundColor: "rgba(157, 194, 227, 0.6)",
             borderColor: "rgba(157, 194, 227,1)",
             borderWidth: 1,
@@ -200,14 +201,14 @@ class IndicatorsVizImplementation extends Component<IndicatorVizImplementationPr
         datasets = [
           {
             label: i18n._(t`Emergency`),
-            data: this.groupData(this.props.complaints.values.emergency),
+            data: this.groupData(this.props.complaints.values.emergency) || [],
             backgroundColor: "rgba(227,74,51, 0.6)",
             borderColor: "rgba(227,74,51,1)",
             borderWidth: 1,
           },
           {
             label: i18n._(t`Non-Emergency`),
-            data: this.groupData(this.props.complaints.values.nonemergency),
+            data: this.groupData(this.props.complaints.values.nonemergency) || [],
             backgroundColor: "rgba(255, 219, 170, 0.6)",
             borderColor: "rgba(255, 219, 170,1)",
             borderWidth: 1,
@@ -218,7 +219,7 @@ class IndicatorsVizImplementation extends Component<IndicatorVizImplementationPr
         datasets = [
           {
             label: i18n._(t`Building Permits Applied For`),
-            data: this.groupData(this.props.permits.values.total),
+            data: this.groupData(this.props.permits.values.total) || [],
             backgroundColor: "rgba(73, 192, 179, 0.6)",
             borderColor: "rgb(73, 192, 179)",
             borderWidth: 1,
@@ -226,18 +227,19 @@ class IndicatorsVizImplementation extends Component<IndicatorVizImplementationPr
         ];
         break;
       default:
+        datasets = [];
         break;
     }
 
     var { activeVis } = this.props;
-    var data: any = {
-      labels: this.groupLabels(this.props[activeVis].labels),
-      datasets: datasets,
+    var data: ChartData<chartjs.ChartData> = {
+      labels: this.groupLabels(this.props[activeVis].labels) || [],
+      datasets,
     };
 
     // Create "options" object according to Chart.js documentation
 
-    var labelPosition; // specific graph label value where we want to mark "Sold to Current Owner"
+    var labelPosition: string = ""; // specific graph label value where we want to mark "Sold to Current Owner" (as YYYY-MM)
     var dateLocation = "current"; // last sale date is either in the 'past', 'future', or 'current' (default)
 
     if (data.labels) {
@@ -248,10 +250,10 @@ class IndicatorsVizImplementation extends Component<IndicatorVizImplementationPr
         !this.props.lastSale.label ||
         this.props.lastSale.label < data.labels[this.props.xAxisStart]
       ) {
-        labelPosition = data.labels[this.props.xAxisStart];
+        labelPosition = (data.labels[this.props.xAxisStart] || "").toString();
         dateLocation = "past";
       } else if (this.props.lastSale.label > data.labels[lastColumnIndex]) {
-        labelPosition = data.labels[lastColumnIndex];
+        labelPosition = (data.labels[lastColumnIndex] || "").toString();
         dateLocation = "future";
       } else {
         labelPosition = this.props.lastSale.label;
