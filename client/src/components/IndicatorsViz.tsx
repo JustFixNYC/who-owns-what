@@ -268,7 +268,7 @@ class IndicatorsVizImplementation extends Component<IndicatorVizImplementationPr
         : "https://a836-acris.nyc.gov/DS/DocumentSearch/Index";
 
     const rerenderBar = () => {
-      const {barRef} = this;
+      const { barRef } = this;
       if (barRef.current) {
         barRef.current.chartInstance.render({ duration: 0 });
       }
@@ -344,13 +344,13 @@ class IndicatorsVizImplementation extends Component<IndicatorVizImplementationPr
             const { index } = tooltipItem[0];
             const { labels } = data;
 
-            if (!(typeof(index) !== "undefined" && labels && labels[index])) {
+            if (!(typeof index !== "undefined" && labels && labels[index])) {
               return "";
             }
 
             const label = labels[index];
 
-            if (typeof(label) !== "string") {
+            if (typeof label !== "string") {
               return "";
             }
 
