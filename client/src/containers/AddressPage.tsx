@@ -134,7 +134,6 @@ export default class AddressPage extends Component<AddressPageProps, State> {
         }
       );
     }
-    
   };
 
   handleAddrChange = (addr: AddressRecord) => {
