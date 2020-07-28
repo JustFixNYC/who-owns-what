@@ -20,7 +20,7 @@ import helpers from "../util/helpers";
 import { Trans, Plural } from "@lingui/macro";
 import { Link, RouteComponentProps } from "react-router-dom";
 import Page from "../components/Page";
-import { SearchResults } from "../components/APIDataTypes";
+import { SearchResults, AddressRecord } from "../components/APIDataTypes";
 
 type RouteParams = {
   locale?: string;
@@ -41,12 +41,12 @@ type AddressPageProps = RouteComponentProps<RouteParams, {}, RouteState> & {
 type State = {
   hasSearched: boolean;
   detailMobileSlide: boolean;
+  assocAddrs: AddressRecord[];
 
   // TODO: Fix these typings.
   searchAddress: any;
   userAddr: any;
   geosearch: any;
-  assocAddrs: any;
   detailAddr: any;
 };
 

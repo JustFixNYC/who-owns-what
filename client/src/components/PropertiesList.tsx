@@ -10,35 +10,17 @@ import { t } from "@lingui/macro";
 import { Link } from "react-router-dom";
 import { SupportedLocale } from "../i18n-base";
 import Helpers, { longDateOptions } from "../util/helpers";
+import { AddressRecord } from "./APIDataTypes";
 
-type Addr = {
-  housenumber: string;
-  streetname: string;
-  zip: string;
-  boro: string;
-  bbl: string;
-  yearbuilt: number;
-  unitsres: number;
-  rsunits2007: number;
-  rsunits2017: number;
-  openviolations: number;
-  totalviolations: number;
-  evictions: string | null;
-  ownernames: { title: string; value: string }[];
-  lastsaledate: string;
-  lastsaleamount: string;
-  lastsaleacrisid: string;
-};
-
-export const isPartOfGroupSale = (saleId: string, addrs: Addr[]) => {
+export const isPartOfGroupSale = (saleId: string, addrs: AddressRecord[]) => {
   const addrsWithMatchingSale = addrs.filter((addr) => addr.lastsaleacrisid === saleId);
   return addrsWithMatchingSale.length > 1;
 };
 
 const PropertiesListWithoutI18n: React.FC<{
   i18n: I18n;
-  addrs: Addr[];
-  onOpenDetail: (addr: Addr) => void;
+  addrs: AddressRecord[];
+  onOpenDetail: (addr: AddressRecord) => void;
   generateBaseUrl: () => string;
 }> = (props) => {
   const { i18n } = props;
@@ -214,7 +196,7 @@ const PropertiesListWithoutI18n: React.FC<{
               columns: [
                 {
                   Header: "2019",
-                  accessor: (d) => (d.evictions ? parseInt(d.evictions) : null),
+                  accessor: (d) => (d.evictions ? d.evictions : null),
                   id: "evictions",
                   maxWidth: 75,
                 },
@@ -226,7 +208,7 @@ const PropertiesListWithoutI18n: React.FC<{
                 {
                   Header: i18n._(t`Officer/Owner`),
                   accessor: (d) => {
-                    var owner = d.ownernames.find(
+                    var owner = d.ownernames && d.ownernames.find(
                       (o) => o.title === "HeadOfficer" || o.title === "IndividualOwner"
                     );
                     return owner ? owner.value : "";
@@ -255,7 +237,7 @@ const PropertiesListWithoutI18n: React.FC<{
                 },
                 {
                   Header: i18n._(t`Amount`),
-                  accessor: (d) => (d.lastsaleamount ? parseInt(d.lastsaleamount) : null),
+                  accessor: (d) => (d.lastsaleamount ? d.lastsaleamount : null),
                   Cell: (row) =>
                     row.original.lastsaleamount
                       ? "$" + Helpers.formatPrice(row.original.lastsaleamount, locale)
