@@ -1,4 +1,4 @@
-import { createMachine } from "xstate";
+import { createMachine, assign } from "xstate";
 import {
   SearchAddressWithoutBbl,
   AddressRecord,
@@ -83,18 +83,21 @@ interface WowContext {
   buildingInfo?: BuildingInfoRecord;
 }
 
-const wowMachine = createMachine<WowContext, WowEvent, WowState>({
+export const wowMachine = createMachine<WowContext, WowEvent, WowState>({
   id: "wow",
   initial: "noData",
+  context: {},
   states: {
     noData: {
       on: {
         SEARCH: {
           target: "searchInProgress",
           cond: (ctx, event) => !!event.address.boro && !!event.address.streetname,
+          actions: assign((ctx, event) => {
+            return { searchAddrParams: event.address };
+          }),
         },
       },
-      entry: (ctx, event) => console.log("To Do: Make network request to GeoSearch for "),
     },
     searchInProgress: {},
     searchFound: {},
