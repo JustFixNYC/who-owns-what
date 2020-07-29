@@ -60,7 +60,8 @@
     "react-transition-group": "^2.2.1",
     "rollbar": "^2.14.4",
     "spectre.scss": "0.0.2",
-    "typescript": "^3.3.3"
+    "typescript": "^3.3.3",
+    "xstate": "^4.11.0"
   },
   "scripts": {
     "lingui": "lingui",

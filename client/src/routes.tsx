@@ -8,9 +8,9 @@ import HowToUsePage from "./containers/HowToUsePage";
 import MethodologyPage from "./containers/Methodology";
 import TermsOfUsePage from "./containers/TermsOfUsePage";
 import PrivacyPolicyPage from "./containers/PrivacyPolicyPage";
-import { SearchAddress } from "./components/AddressSearch";
+import { SearchAddressWithoutBbl } from "components/APIDataTypes";
 
-export type AddressPageUrlParams = Pick<SearchAddress, "boro" | "housenumber" | "streetname">;
+export type AddressPageUrlParams = SearchAddressWithoutBbl;
 
 export const createRouteForAddressPage = (params: AddressPageUrlParams) => {
   let route = `/address/${encodeURIComponent(params.boro)}/${encodeURIComponent(
