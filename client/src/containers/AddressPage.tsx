@@ -105,38 +105,36 @@ export default class AddressPage extends Component<AddressPageProps, State> {
   // Processes the results and setState accordingly. Doesn't care where results comes from
   handleResults = (results: SearchResults) => {
     const { geosearch, addrs } = results;
+    let userAddr: AddressRecord | undefined = undefined;
 
     if (!geosearch) {
       throw new Error("Address results do not contain geosearch results!");
     }
 
-    this.setState({
-      hasSearched: true,
-      geosearch: geosearch,
-      searchAddress: { ...this.state.searchAddress, bbl: geosearch.bbl },
-    });
-
     /* Case for when our API call returns a portfolio of multiple associated addresses */
     if (addrs.length) {
-      const userAddr = _find(addrs, { bbl: geosearch.bbl });
+      userAddr = _find(addrs, { bbl: geosearch.bbl });
 
       if (!userAddr) {
         throw new Error("The user's address was not found in the API Address Search results!");
       }
-
-      this.setState(
-        {
-          userAddr: userAddr,
-          assocAddrs: addrs,
-        },
-        () => {
-          this.handleAddrChange(userAddr);
-        }
-      );
     }
+
+    this.setState(
+      {
+        hasSearched: true,
+        geosearch: geosearch,
+        userAddr,
+        assocAddrs: addrs,
+        searchAddress: { ...this.state.searchAddress, bbl: geosearch.bbl },
+      },
+      () => {
+        this.handleAddrChange(userAddr);
+      }
+    );
   };
 
-  handleAddrChange = (addr: AddressRecord) => {
+  handleAddrChange = (addr?: AddressRecord) => {
     this.setState({
       detailAddr: addr,
       detailMobileSlide: true,
