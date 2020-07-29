@@ -122,7 +122,7 @@ export const indicatorsInitialState: IndicatorsState = {
 
 export type IndicatorsProps = withI18nProps & {
   isVisible: boolean;
-  detailAddr: AddressRecord;
+  detailAddr: AddressRecord | null;
   onBackToOverview: (addr: AddressRecord) => void;
   generateBaseUrl: () => string;
 };

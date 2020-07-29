@@ -20,7 +20,7 @@ import { SupportedLocale } from "../i18n-base";
 
 type Props = withI18nProps & {
   addrs: AddressRecord[];
-  addr: AddressRecord;
+  addr: AddressRecord | null;
   portfolioSize: number;
   mobileShow: boolean;
   userAddr: AddressRecord;
@@ -69,11 +69,7 @@ class DetailViewWithoutI18n extends Component<Props, State> {
 
       takeActionURL = Helpers.createTakeActionURL(addr, "detail_view");
 
-      formattedRegEndDate = Helpers.formatDate(
-        this.props.addr.registrationenddate,
-        longDateOptions,
-        locale
-      );
+      formattedRegEndDate = Helpers.formatDate(addr.registrationenddate, longDateOptions, locale);
 
       streetViewAddr =
         addr.lat && addr.lng

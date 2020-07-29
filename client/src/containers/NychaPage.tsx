@@ -14,12 +14,12 @@ import { SearchAddress } from "../components/AddressSearch";
 import { SocialShareForNotRegisteredPage } from "./NotRegisteredPage";
 
 type Props = withI18nProps & {
-  geosearch: GeoSearchData;
+  geosearch?: GeoSearchData;
   searchAddress: SearchAddress;
   nychaData: {
     bbl: number;
     development: string;
-    dev_evictions: string;
+    dev_evictions: string | number;
     dev_unitsres: number;
   };
 };

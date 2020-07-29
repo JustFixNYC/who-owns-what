@@ -1,37 +1,79 @@
 import React, { Component } from "react";
 import FileSaver from "file-saver";
-import Browser from "util/browser";
+import Browser from "../util/browser";
 
 import _find from "lodash/find";
 
-import AddressToolbar from "components/AddressToolbar";
-import PropertiesMap from "components/PropertiesMap";
-import PropertiesList from "components/PropertiesList";
-import PropertiesSummary from "components/PropertiesSummary";
-import Indicators from "components/Indicators";
-import DetailView from "components/DetailView";
-import APIClient from "components/APIClient";
-import Loader from "components/Loader";
+import AddressToolbar from "../components/AddressToolbar";
+import PropertiesMap from "../components/PropertiesMap";
+import PropertiesList from "../components/PropertiesList";
+import PropertiesSummary from "../components/PropertiesSummary";
+import Indicators from "../components/Indicators";
+import DetailView from "../components/DetailView";
+import APIClient from "../components/APIClient";
+import Loader from "../components/Loader";
 
 import "styles/AddressPage.css";
 import NychaPage from "./NychaPage";
 import NotRegisteredPage from "./NotRegisteredPage";
 import helpers from "../util/helpers";
 import { Trans, Plural } from "@lingui/macro";
-import { Link } from "react-router-dom";
+import { Link, RouteComponentProps } from "react-router-dom";
 import Page from "../components/Page";
+import { SearchResults, AddressRecord, GeoSearchData, Borough } from "../components/APIDataTypes";
+import { SearchAddress } from "../components/AddressSearch";
 
-export default class AddressPage extends Component {
-  constructor(props) {
+type RouteParams = {
+  locale?: string;
+  boro?: string;
+  housenumber?: string;
+  streetname?: string;
+};
+
+type RouteState = {
+  // TODO: Fix this typing.
+  results?: SearchResults;
+};
+
+type AddressPageProps = RouteComponentProps<RouteParams, {}, RouteState> & {
+  currentTab: number;
+};
+
+type State = {
+  hasSearched: boolean;
+  detailMobileSlide: boolean;
+  assocAddrs: AddressRecord[];
+  geosearch?: GeoSearchData;
+  searchAddress: SearchAddress;
+  userAddr?: AddressRecord;
+  detailAddr?: AddressRecord;
+};
+
+const validateRouteParams = (params: RouteParams) => {
+  if (!params.boro) {
+    throw new Error("Address Page URL params did not contain a proper boro!");
+  } else if (!params.streetname) {
+    throw new Error("Address Page URL params did not contain a proper streetname!");
+  } else {
+    const searchAddress: SearchAddress = {
+      boro: params.boro as Borough,
+      streetname: params.streetname,
+      housenumber: params.housenumber,
+      bbl: "",
+    };
+    return searchAddress;
+  }
+};
+
+export default class AddressPage extends Component<AddressPageProps, State> {
+  constructor(props: AddressPageProps) {
     super(props);
 
     this.state = {
-      searchAddress: { ...props.match.params }, // maybe this should be
-      userAddr: {}, // merged together?
+      searchAddress: validateRouteParams(props.match.params), // maybe this should be
       hasSearched: false,
-      geosearch: {},
+      geosearch: undefined,
       assocAddrs: [],
-      detailAddr: null,
       detailMobileSlide: false,
     };
   }
@@ -61,24 +103,40 @@ export default class AddressPage extends Component {
   }
 
   // Processes the results and setState accordingly. Doesn't care where results comes from
-  handleResults = (results) => {
+  handleResults = (results: SearchResults) => {
     const { geosearch, addrs } = results;
 
-    this.setState(
-      {
-        searchAddress: { ...this.state.searchAddress, bbl: geosearch.bbl },
-        userAddr: _find(addrs, { bbl: geosearch.bbl }),
-        hasSearched: true,
-        geosearch: geosearch,
-        assocAddrs: addrs,
-      },
-      () => {
-        this.handleAddrChange(this.state.userAddr);
+    if (!geosearch) {
+      throw new Error("Address results do not contain geosearch results!");
+    }
+
+    this.setState({
+      hasSearched: true,
+      geosearch: geosearch,
+      searchAddress: { ...this.state.searchAddress, bbl: geosearch.bbl },
+    });
+
+    /* Case for when our API call returns a portfolio of multiple associated addresses */
+    if (addrs.length) {
+      const userAddr = _find(addrs, { bbl: geosearch.bbl });
+
+      if (!userAddr) {
+        throw new Error("The user's address was not found in the API Address Search results!");
       }
-    );
+
+      this.setState(
+        {
+          userAddr: userAddr,
+          assocAddrs: addrs,
+        },
+        () => {
+          this.handleAddrChange(userAddr);
+        }
+      );
+    }
   };
 
-  handleAddrChange = (addr) => {
+  handleAddrChange = (addr: AddressRecord) => {
     this.setState({
       detailAddr: addr,
       detailMobileSlide: true,
@@ -101,23 +159,24 @@ export default class AddressPage extends Component {
 
   // should this properly live in AddressToolbar? you tell me
   handleExportClick = () => {
-    APIClient.getAddressExport(this.state.searchAddress)
+    APIClient.getAddressExport(this.state.searchAddress.bbl)
       .then((response) => response.blob())
       .then((blob) => FileSaver.saveAs(blob, "export.csv"));
   };
 
   render() {
+    const { hasSearched, assocAddrs, detailAddr, userAddr } = this.state;
+
     if (this.state.hasSearched && this.state.assocAddrs.length === 0) {
-      return this.state.searchAddress &&
-        this.state.searchAddress.bbl &&
-        helpers.getNychaData(this.state.searchAddress.bbl) ? (
+      const nychaData = helpers.getNychaData(this.state.searchAddress.bbl);
+      return this.state.searchAddress && this.state.searchAddress.bbl && nychaData ? (
         <Page
           title={`${this.state.searchAddress.housenumber} ${this.state.searchAddress.streetname}`}
         >
           <NychaPage
             geosearch={this.state.geosearch}
             searchAddress={this.state.searchAddress}
-            nychaData={helpers.getNychaData(this.state.searchAddress.bbl)}
+            nychaData={nychaData}
           />
         </Page>
       ) : (
@@ -130,7 +189,7 @@ export default class AddressPage extends Component {
           />
         </Page>
       );
-    } else if (this.state.hasSearched && this.state.assocAddrs && this.state.assocAddrs.length) {
+    } else if (hasSearched && assocAddrs && assocAddrs.length && userAddr) {
       return (
         <Page
           title={`${this.state.searchAddress.housenumber} ${this.state.searchAddress.streetname}`}
@@ -139,7 +198,7 @@ export default class AddressPage extends Component {
             <div className="AddressPage__info">
               <AddressToolbar
                 onExportClick={this.handleExportClick}
-                userAddr={this.state.searchAddress}
+                searchAddr={this.state.searchAddress}
                 numOfAssocAddrs={this.state.assocAddrs.length}
               />
               {this.state.userAddr && (
@@ -213,18 +272,18 @@ export default class AddressPage extends Component {
               }`}
             >
               <PropertiesMap
-                addrs={this.state.assocAddrs}
-                userAddr={this.state.userAddr}
-                detailAddr={this.state.detailAddr}
+                addrs={assocAddrs}
+                userAddr={userAddr}
+                detailAddr={detailAddr || null}
                 onAddrChange={this.handleAddrChange}
                 isVisible={this.props.currentTab === 0}
               />
               <DetailView
-                addrs={this.state.assocAddrs}
-                addr={this.state.detailAddr}
-                portfolioSize={this.state.assocAddrs.length}
+                addrs={assocAddrs}
+                addr={detailAddr || null}
+                portfolioSize={assocAddrs.length}
                 mobileShow={this.state.detailMobileSlide}
-                userAddr={this.state.userAddr}
+                userAddr={userAddr}
                 onCloseDetail={this.handleCloseDetail}
                 generateBaseUrl={this.generateBaseUrl}
               />
@@ -236,7 +295,7 @@ export default class AddressPage extends Component {
             >
               <Indicators
                 isVisible={this.props.currentTab === 1}
-                detailAddr={this.state.detailAddr}
+                detailAddr={detailAddr || null}
                 onBackToOverview={this.handleAddrChange}
                 generateBaseUrl={this.generateBaseUrl}
               />
@@ -246,23 +305,18 @@ export default class AddressPage extends Component {
                 this.props.currentTab === 2 ? "AddressPage__content-active" : ""
               }`}
             >
-              {
-                <PropertiesList
-                  addrs={this.state.assocAddrs}
-                  onOpenDetail={this.handleAddrChange}
-                  generateBaseUrl={this.generateBaseUrl}
-                />
-              }
+              <PropertiesList
+                addrs={assocAddrs}
+                onOpenDetail={this.handleAddrChange}
+                generateBaseUrl={this.generateBaseUrl}
+              />
             </div>
             <div
               className={`AddressPage__content AddressPage__summary ${
                 this.props.currentTab === 3 ? "AddressPage__content-active" : ""
               }`}
             >
-              <PropertiesSummary
-                isVisible={this.props.currentTab === 3}
-                userAddr={this.state.userAddr}
-              />
+              <PropertiesSummary isVisible={this.props.currentTab === 3} userAddr={userAddr} />
             </div>
           </div>
         </Page>

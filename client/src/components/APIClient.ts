@@ -66,8 +66,8 @@ function getIndicatorHistory(bbl: string): Promise<IndicatorsHistoryResults> {
   return get(`/api/address/indicatorhistory?bbl=${bbl}`);
 }
 
-function getAddressExport(q: SearchAddress & WithBoroBlockLot) {
-  return fetch(apiURL(`/api/address/export?bbl=${q.bbl}`)).then(checkStatus);
+function getAddressExport(bbl: string) {
+  return fetch(apiURL(`/api/address/export?bbl=${bbl}`)).then(checkStatus);
 }
 
 // OTHER API FUNCTIONS AND HELPERS:

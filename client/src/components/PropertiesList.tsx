@@ -171,7 +171,7 @@ const PropertiesListWithoutI18n: React.FC<{
                 },
                 {
                   Header: i18n._(t`Amount`),
-                  accessor: (d) => d.lastsaleamount,
+                  accessor: (d) => d.lastsaleamount || null,
                   Cell: (row) =>
                     row.original.lastsaleamount
                       ? "$" + Helpers.formatPrice(row.original.lastsaleamount, locale)
