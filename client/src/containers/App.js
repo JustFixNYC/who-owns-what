@@ -34,8 +34,8 @@ export default class App extends Component {
 
     this.state = {
       showEngageModal: false,
-      toggled_entry: "",
       canvas: "",
+      allowToggle: true,
     };
   }
   createCanvas(){
@@ -48,25 +48,26 @@ export default class App extends Component {
     myCanvas.style.overflow = "visible";
     myCanvas.style.position = "absolute";
     myCanvas.style.zIndex = 11;
-    myCanvas.style.visibility = "hidden";
+    myCanvas.hidden = true;
     canvasContainer.appendChild(myCanvas);
     this.setState({canvas: myCanvas});
   }
 
   componentDidMount(){
     this.createCanvas();
+    this.setupAccordion();
   }
 
-  drawCanvasOverlay(entry) {
-    if(entry === ""){this.state.canvas.style.visibility = "hidden"; return;}
-    let elem = document.querySelector("[data-show-me=" + CSS.escape(entry.title) + "]");
-    this.state.canvas.style.visibility = "visible";
+  drawCanvasOverlay(entryTitle) {
+    if(entryTitle === ""){this.state.canvas.setAttribute('hidden', ''); return;}
+    let elem = document.querySelector("[data-show-me=" + CSS.escape(entryTitle) + "]");
+    this.state.canvas.removeAttribute('hidden');
     let boundingBox = new DOMRect(0,0,this.state.canvas.width,this.state.canvas.height);
     if(elem){
     elem.scrollIntoViewIfNeeded({ behavior: "auto", block: "center" });
     boundingBox = elem.getBoundingClientRect();
     }
-    var cxt = this.state.canvas.getContext("2d");
+    let cxt = this.state.canvas.getContext("2d");
     cxt.clearRect(0,0, this.state.canvas.width, this.state.canvas.height);
     cxt.globalCompositeOperation = "source-out";
     cxt.fillStyle = "rgb(255,255,255)";
@@ -75,67 +76,125 @@ export default class App extends Component {
     cxt.fillStyle = "rgb(0,0,0)";
     cxt.globalAlpha = 0.5;
     cxt.fillRect(0, 0, this.state.canvas.width, this.state.canvas.height);
-    this.state.canvas.onclick = (e) => {e.preventDefault(); return this.handleToggle(entry)};
+    this.state.canvas.addEventListener('click', (event) => {event.preventDefault(); return this.dismissActiveEntry()});
   }
 
-  toggleBlurb(entry){
-    let blurb = document.getElementById("blurb-" + entry.title);
-    if(blurb.isToggled){
-      blurb.isToggled = false;
-      blurb.style.display = "none";
+  dismissActiveEntry(){
+    let active = document.querySelector('[aria-expanded="true"]');
+        // close the open accordion
+        if (active) {
+          // Set the expanded state on the triggering element
+          active.setAttribute('aria-expanded', 'false');
+          //toggle button off
+          let activeButton = active.firstChild.firstChild.nextSibling;
+          activeButton.textContent = "Show";
+          this.drawCanvasOverlay("");
+          // Hide the accordion sections, using aria-controls to specify the desired section
+          document.getElementById(active.getAttribute('aria-controls')).setAttribute('hidden', '');
+          // When toggling is not allowed, clean up disabled state
+          if (!this.state.allowToggle) {
+            active.removeAttribute('aria-disabled');
+          }
+  }
+}
+
+  toggleCallback(event){
+      let target = event.target;
+        // Check if the current toggle is expanded.
+        let isExpanded = target.getAttribute('aria-expanded') === 'true';
+        //Check if another toggle is expanded
+        let active = document.querySelector('[aria-expanded="true"]');
+        if(active){ 
+        this.dismissActiveEntry();
+        }
+        if (!isExpanded) { //only expand the target if it wasn't expanded alread
+          // Set the expanded state on the triggering element
+          target.setAttribute('aria-expanded', 'true');
+          this.drawCanvasOverlay(target.id);
+          //toggle button on
+          active = document.querySelector('[aria-expanded="true"]');
+          let activeButton = active.firstChild.firstChild.nextSibling;
+          activeButton.textContent = "Hide";
+          // Show the accordion sections, using aria-controls to specify the desired section
+          document.getElementById(target.getAttribute('aria-controls')).removeAttribute('hidden');
+          // If toggling is not allowed, set disabled state on trigger
+          if (!this.state.allowToggle) {
+            target.setAttribute('aria-disabled', 'true');
+          }
+        }
+        event.preventDefault();
+  }
+
+  setupAccordion = () => {
+    console.log("OY");
+    let accordion = document.querySelector('div.Accordion');
+    //if toggling not allowed, accordion will appear with all sections expanded
+    if (this.state.allowToggle) { 
+      accordion.addEventListener('click', (event) => {event.preventDefault(); return this.toggleCallback(event)});
+      
     } else {
-      blurb.isToggled = true;
-      blurb.style.display = "block";
-    }
-  }
-
-  toggleShowMeButton(entryTitle){
-    let button = document.getElementById("showMeButton-" + entryTitle);
-    if(button.isToggled){
-        button.isToggled = false;
-        button.textContent = "Show me";
-        button.style.background = "#454d5d";
-        button.style.color = "#FFFFFF";
-    } else {
-        button.isToggled = true;
-        button.textContent = "Hide";
-        button.style.background = "#FE9D43";
-        button.style.color = "#101114";
-    }
-  }
-
-  toggleEntry(entry) {
-      if (entry.isToggled) {
-        entry.isToggled = false;
-        this.toggleShowMeButton(entry.title);
-        this.toggleBlurb(entry);
-        this.drawCanvasOverlay("");
-      } else {
-        entry.isToggled = true;
-        this.toggleShowMeButton(entry.title);
-        this.toggleBlurb(entry);
-        this.drawCanvasOverlay(entry);
+      accordion.querySelectorAll('[aria-expanded]').forEach(function (section) {
+        section.setAttribute('aria-disabled', 'true');
+        });
+    let triggers = Array.prototype.slice.call(accordion.querySelectorAll('.Accordion-trigger'));
+    // Bind keyboard behaviors on the main accordion container
+    accordion.addEventListener('keydown', function (event) {
+      let target = event.target;
+      let key = event.which.toString();
+      // 33 = Page Up, 34 = Page Down
+      let ctrlModifier = (event.ctrlKey && key.match(/33|34/));
+      // Is this coming from an accordion header?
+      if (target.classList.contains('Accordion-trigger')) {
+        // Up/ Down arrow and Control + Page Up/ Page Down keyboard operations
+        // 38 = Up, 40 = Down
+        if (key.match(/38|40/) || ctrlModifier) {
+          let index = triggers.indexOf(target);
+          let direction = (key.match(/34|40/)) ? 1 : -1;
+          let length = triggers.length;
+          let newIndex = (index + length + direction) % length;
+          triggers[newIndex].focus();
+          event.preventDefault();
+        }
+        else if (key.match(/35|36/)) {
+          // 35 = End, 36 = Home keyboard operations
+          switch (key) {
+            // Go to first accordion
+            case '36':
+              triggers[0].focus();
+              break;
+              // Go to last accordion
+            case '35':
+              triggers[triggers.length - 1].focus();
+              break;
+            default:
+              break;
+          }
+          event.preventDefault();
+        }
       }
+    });
+  
+    // These are used to style the accordion when one of the buttons has focus
+    accordion.querySelectorAll('.Accordion-trigger .cancel').forEach(function (trigger) {
+      trigger.addEventListener('focus', function (event) {
+        accordion.classList.add('focus');
+      });
+      trigger.addEventListener('blur', function (event) {
+        accordion.classList.remove('focus');
+      });
+  
+    });
   }
-
-  handleToggle(entry){
-    if (this.state.toggled_entry.title === entry.title) {
-      this.toggleEntry(entry);
-      this.state.toggled_entry = "";
-      return;
-    }
-    if(this.state.toggled_entry !== "") {
-      this.toggleEntry(this.state.toggled_entry);
-    }
-    this.toggleEntry(entry);
-    this.state.toggled_entry = entry;
-  }
+  
+    // Minor setup: will set disabled state, via aria-disabled, to an
+    // expanded/ active accordion which is not allowed to be toggled close
+}
 
 
   render() {
     const isDemoSite = process.env.REACT_APP_DEMO_SITE === "1";
     const paths = createWhoOwnsWhatRoutePaths();
-
+   
     let entryElems = [
       {
         title: "Spanish Support",
@@ -155,59 +214,65 @@ export default class App extends Component {
       }
     ]
 
-   
-   var entryDivs = entryElems.map(entry => 
-              <div className="show-me-entry" key = {entry.title} >
-                  <span className = "entry-title">
-                    <b>{entry.title}</b>
-                  </span>
-                  <button
-                    type = "button" className="show-me-button float-right"
-                    id = {"showMeButton-" + entry.title}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      this.handleToggle(entry);
-                    }
-                    }
-                  >
-                    {" "}
-                    Show me{" "}
-                  </button>
-                  
-                  <div className = "blurb" id = {"blurb-" + entry.title} style = {{display: "none"}}>{entry.text}</div>
-              </div>);
 
-    var contextWidget = 
+   let entryDivs = entryElems.map(entry => 
+    <div className = "accordion-entry" key = {entry.title}>
+    <h3>
+      {this.state.allowToggle? 
+        <button aria-expanded="false"
+                className="Accordion-trigger"
+                aria-controls={"sect-" + entry.title}
+                id={entry.title} >
+          <span className="Accordion-title">
+            {entry.title}
+            <span className="Accordion-icon">Show</span>
+          </span>
+        </button> 
+        :
+        <span className="Accordion-title" aria-label={entry.title}>
+        {entry.title}
+        </span>
+      }
+    </h3>
+    <div id={"sect-" + entry.title}
+         role="region"
+         aria-labelledby={"accordion-" + entry.title + "-id"}
+         className="Accordion-panel" hidden = {this.state.allowToggle? true : ''}>
+         <p htmlFor={"update-" + entry.title}> {entry.text} </p>
+    </div>
+    </div>);
+
+
+  let widgetHeader = 
+      <div 
+      className="header"
+      >
+        <span className = "pop-up-header">
+          <b>What's New</b>
+        </span>
+        <button  
+          type="button" role = "button"
+          className="cancel float-right"
+          onClick={() => (document.getElementById("myForm").style.display = "none")}
+        > 
+          <b>X</b>
+        </button>
+      </div>
+  
+
+    let contextWidget = 
                 <div>
-                  <button 
-                    className="open-button" 
+                  <button className="open-button" 
                     onClick={() => (document.getElementById("myForm").style.display = "block")}
-                    > 
+                  > 
                       i
                   </button>
-                  <div 
-                  className="chat-popup" 
-                  id="myForm"
-                  >
-                    <div 
-                    className="header"
-                    >
-                      <span className = "pop-up-header">
-                        <b>What's New</b>
-                      </span>
-                      <button  
-                        type="button" 
-                        className="cancel float-right"
-                        onClick={() => (document.getElementById("myForm").style.display = "none")}
-                      > 
-                        <b>X</b>
-                      </button>
-                    </div>
-                    <div 
-                    className="form-container" 
-                    id="form-container-entries"
-                    >
-                      {entryDivs}
+                  <div className="chat-popup" id="myForm" >
+                   {widgetHeader}
+                    <div className="form-container"  id="form-container-entries" >
+                      <div id="accordionGroup" className="Accordion">
+                        {entryDivs}
+                      </div>
                     </div>
                   </div>
               </div> 
@@ -220,8 +285,7 @@ export default class App extends Component {
           <ScrollToTop>
             
             <div className="App" id="canvasContainer">
-              {contextWidget}
-             
+             {contextWidget}
               <div className="App__warning old_safari_only">
                 <Trans render="h3">
                   Warning! This site doesn't fully work on older versions of Safari. Try a{" "}
