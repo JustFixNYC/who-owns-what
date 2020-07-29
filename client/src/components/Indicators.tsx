@@ -361,7 +361,9 @@ class IndicatorsWithoutI18n extends Component<IndicatorsProps, IndicatorsState> 
                 </div>
 
                 <span className="title viz-title">
-                  {dataset && indicatorDataTotal && dataset.quantity(i18n, indicatorDataTotal)}
+                  {dataset &&
+                    indicatorDataTotal !== null &&
+                    dataset.quantity(i18n, indicatorDataTotal)}
                 </span>
 
                 <div className="Indicators__viz">
