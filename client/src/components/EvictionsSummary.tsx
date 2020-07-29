@@ -1,22 +1,13 @@
 import React from "react";
-import helpers, { MaybeStringyNumber } from "../util/helpers";
 import { Trans, Plural } from "@lingui/macro";
+import { SummaryStatsRecord } from "./APIDataTypes";
 
-export const EvictionsSummary: React.FC<{
-  totalevictions: MaybeStringyNumber;
-  evictionsaddr:
-    | {
-        housenumber: string;
-        streetname: string;
-        boro: string;
-        evictions: MaybeStringyNumber;
-      }
-    | null
-    | undefined;
-}> = (props) => {
-  const totalEvictions = helpers.coerceToInt(props.totalevictions, 0);
+type EvictionsSummaryData = Pick<SummaryStatsRecord, "evictionsaddr" | "totalevictions">;
+
+export const EvictionsSummary: React.FC<EvictionsSummaryData> = (props) => {
+  const totalEvictions = props.totalevictions || 0;
   const building = props.evictionsaddr;
-  const buildingTotalEvictions = helpers.coerceToInt(building && building.evictions, 0);
+  const buildingTotalEvictions = (building && building.evictions) || 0;
 
   return (
     <p>
