@@ -21,7 +21,7 @@ except ModuleNotFoundError:
 
 ROOT_DIR = Path(__file__).parent.resolve()
 SQL_DIR = ROOT_DIR / 'sql'
-WOW_YML = yaml.load((ROOT_DIR / 'who-owns-what.yml').read_text())
+WOW_YML = yaml.full_load((ROOT_DIR / 'who-owns-what.yml').read_text())
 
 # Just an alias for our database connection.
 DbConnection = Any
