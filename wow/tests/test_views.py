@@ -116,7 +116,7 @@ class TestAddressExport(ApiTest):
 
         f = StringIO(res.content.decode('utf-8'))
         csvreader = csv.DictReader(f)
-        assert 'bbl' in csvreader.fieldnames
+        assert 'bbl' in (csvreader.fieldnames or [])
         assert len(list(csvreader)) > 0
 
     def test_it_returns_404_when_no_bbls_exist(self, db, client):

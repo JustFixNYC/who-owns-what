@@ -7,7 +7,7 @@ os.environ['SECRET_KEY'] = "for testing only!"
 
 from .settings import *
 
-DATABASES = copy.deepcopy(DATABASES)  # type: ignore
+DATABASES = copy.deepcopy(DATABASES)
 
 if 'TEST_DATABASE_URL' in os.environ:
     DATABASES['wow'] = dj_database_url.parse(os.environ['TEST_DATABASE_URL'])
