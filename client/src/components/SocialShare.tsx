@@ -92,7 +92,7 @@ const SocialSharePortfolioWithoutI18n: React.FC<{
   i18n: I18n;
   location?: string;
   addr: { boro: Borough; housenumber?: string; streetname: string };
-  buildings: MaybeStringyNumber;
+  buildings: number;
 }> = ({ i18n, location, addr, buildings }) => {
   const buildingCount = helpers.coerceToInt(buildings, 0);
   return (
