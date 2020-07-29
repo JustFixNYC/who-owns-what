@@ -16,7 +16,7 @@ export const EvictionsSummary: React.FC<EvictionsSummaryData> = (props) => {
         <Plural value={totalEvictions} one="one eviction" other="# evictions" /> across this
         portfolio.
       </Trans>{" "}
-      {building && (
+      {building && totalEvictions > 0 && (
         <Trans>
           The building with the most evictions was{" "}
           <b>
