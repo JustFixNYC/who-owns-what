@@ -1,4 +1,4 @@
-import { Machine, createMachine } from "xstate";
+import { createMachine } from "xstate";
 import {
   SearchAddressWithoutBbl,
   AddressRecord,
@@ -11,6 +11,10 @@ type WowState =
   | {
       value: "searchInProgress";
       context: WowContext & { searchAddrParams: SearchAddressWithoutBbl };
+    }
+  | {
+      value: "bblNotFound";
+      context: WowContext & { searchAddrParams: SearchAddressWithoutBbl; searchAddrBbl: undefined };
     }
   | {
       value: "portfolioNotFound";
@@ -38,6 +42,10 @@ type WowState =
         searchAddrBbl: string;
         portfolioData: PortfolioData;
       };
+    }
+  | {
+      value: "networkErrorOccurred";
+      context: WowContext & { searchAddrParams: SearchAddressWithoutBbl };
     };
 
 type WowEvent =
@@ -79,7 +87,15 @@ const wowMachine = createMachine<WowContext, WowEvent, WowState>({
   id: "wow",
   initial: "noData",
   states: {
-    noData: {},
+    noData: {
+      on: {
+        SEARCH: {
+          target: "searchInProgress",
+          cond: (ctx, event) => !!event.address.boro && !!event.address.streetname,
+        },
+      },
+      entry: (ctx, event) => console.log("To Do: Make network request to GeoSearch for "),
+    },
     searchInProgress: {},
     searchFound: {},
   },
