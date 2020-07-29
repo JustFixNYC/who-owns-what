@@ -15,28 +15,6 @@ test("uniq() works", () => {
   expect(helpers.uniq([1, 1, 2, 4, 4])).toEqual([1, 2, 4]);
 });
 
-describe("coerceToInt()", () => {
-  it("Returns default value when input is NaN", () => {
-    expect(helpers.coerceToInt(NaN, 15)).toBe(15);
-  });
-
-  it("Returns default value when input is null or undefined", () => {
-    expect(helpers.coerceToInt(null, 15)).toBe(15);
-    expect(helpers.coerceToInt(undefined, 15)).toBe(15);
-  });
-
-  it("Returns value when it is already a number", () => {
-    expect(helpers.coerceToInt(0, 15)).toBe(0);
-    expect(helpers.coerceToInt(5, 15)).toBe(5);
-  });
-
-  it("Returns parsed value when it is a string", () => {
-    expect(helpers.coerceToInt("0", 15)).toBe(0);
-    expect(helpers.coerceToInt("5", 15)).toBe(5);
-    expect(helpers.coerceToInt("blarg", 15)).toBe(15);
-  });
-});
-
 describe("maxArray()", () => {
   it("returns 0 for arrays with negative numbers", () => {
     expect(helpers.maxArray([-1, -2])).toBe(0);

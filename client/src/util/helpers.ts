@@ -29,13 +29,6 @@ export const longDateOptions = { year: "numeric", month: "short", day: "numeric"
 export const mediumDateOptions = { year: "numeric", month: "long" };
 export const shortDateOptions = { month: "short" };
 
-/**
- * Urg, our codebase wasn't originally written in TypeScript and
- * some of our legacy code appears to pass around numbers as strings,
- * so this type accounts for that.
- */
-export type MaybeStringyNumber = string | null | undefined | number;
-
 export default {
   // filter repeated values in rbas and owners
   // uses Set which enforces uniqueness
@@ -44,27 +37,6 @@ export default {
     return Array.from(new Set(_array.map((val) => JSON.stringify(val)))).map((val) =>
       JSON.parse(val)
     );
-  },
-
-  /**
-   * Attempts to coerce the given argument into an integer, returning
-   * the given default value on failure.
-   *
-   * Note that this function will *not* convert a float to an int in
-   * any way; if a number is passed in, it is assumed to be an int and
-   * returned immediately.
-   */
-  coerceToInt<T>(value: MaybeStringyNumber, defaultValue: T): number | T {
-    if (typeof value === "number" && !isNaN(value)) {
-      return value;
-    }
-    if (typeof value === "string") {
-      let intValue = parseInt(value);
-      if (!isNaN(intValue)) {
-        return intValue;
-      }
-    }
-    return defaultValue;
   },
 
   find<T, K extends keyof T>(array: T[], attrib: K, value: T[K]): T | null {
