@@ -1,10 +1,14 @@
-import { createMachine, assign } from "xstate";
+import { createMachine, assign, DoneInvokeEvent } from "xstate";
 import {
   SearchAddressWithoutBbl,
   AddressRecord,
-  BuildingInfoRecord,
+  BuildingInfoRecord
 } from "components/APIDataTypes";
 import { NychaData } from "containers/NychaPage";
+import APIClient from "components/APIClient";
+import helpers, { assertNotUndefined } from "util/helpers";
+
+import _find from "lodash/find";
 
 type WowState =
   | { value: "noData"; context: {} }
@@ -17,7 +21,7 @@ type WowState =
       context: WowContext & { searchAddrParams: SearchAddressWithoutBbl; searchAddrBbl: undefined };
     }
   | {
-      value: "portfolioNotFound";
+      value: "unregisteredFound";
       context: WowContext & {
         searchAddrParams: SearchAddressWithoutBbl;
         searchAddrBbl: string;
@@ -83,6 +87,57 @@ interface WowContext {
   buildingInfo?: BuildingInfoRecord;
 }
 
+async function getSearchResult(addr: SearchAddressWithoutBbl): Promise<WowState> {
+  const apiResults = await APIClient.searchForAddressWithGeosearch(addr);
+  if (!apiResults.geosearch) {
+    return {
+      value: "bblNotFound",
+      context: { searchAddrParams: addr, searchAddrBbl: undefined },
+    };
+  } else if (apiResults.addrs.length === 0) {
+    const buildingInfoResults = await APIClient.getBuildingInfo(apiResults.geosearch.bbl);
+    const nychaData = helpers.getNychaData(apiResults.geosearch.bbl);
+
+    return nychaData
+      ? {
+          value: "nychaFound",
+          context: {
+            searchAddrParams: addr,
+            searchAddrBbl: apiResults.geosearch.bbl,
+            portfolioData: undefined,
+            nychaData,
+            buildingInfo: buildingInfoResults.result[0],
+          },
+        }
+      : {
+          value: "unregisteredFound",
+          context: {
+            searchAddrParams: addr,
+            searchAddrBbl: apiResults.geosearch.bbl,
+            portfolioData: undefined,
+            buildingInfo: buildingInfoResults.result[0],
+          },
+        };
+  } else {
+    const searchAddr = _find(apiResults.addrs, { bbl: apiResults.geosearch.bbl });
+    if (!searchAddr) {
+      throw new Error("The user's address was not found in the API Address Search results!");
+    }
+    return {
+      value: "portfolioFound",
+      context: {
+        searchAddrParams: addr,
+        searchAddrBbl: apiResults.geosearch.bbl,
+        portfolioData: {
+          searchAddr,
+          detailAddr: searchAddr,
+          assocAddrs: apiResults.addrs,
+        },
+      },
+    };
+  }
+}
+
 export const wowMachine = createMachine<WowContext, WowEvent, WowState>({
   id: "wow",
   initial: "noData",
@@ -99,7 +154,47 @@ export const wowMachine = createMachine<WowContext, WowEvent, WowState>({
         },
       },
     },
-    searchInProgress: {},
-    searchFound: {},
+    searchInProgress: {
+      invoke: {
+        id: "geosearch",
+        src: (ctx, event) => getSearchResult(assertNotUndefined(ctx.searchAddrParams)),
+        onDone: [
+          {
+            target: "bblNotFound",
+            cond: (ctx, event: DoneInvokeEvent<WowState>) => event.data.value === "bblNotFound",
+            actions: assign((ctx, event: DoneInvokeEvent<WowState>) => {
+              return { ...event.data.context };
+            }),
+          },
+          {
+            target: "nychaFound",
+            cond: (ctx, event: DoneInvokeEvent<WowState>) => event.data.value === "nychaFound",
+            actions: assign((ctx, event: DoneInvokeEvent<WowState>) => {
+              return { ...event.data.context };
+            }),
+          },
+          {
+            target: "unregisteredFound",
+            cond: (ctx, event: DoneInvokeEvent<WowState>) =>
+              event.data.value === "unregisteredFound",
+            actions: assign((ctx, event: DoneInvokeEvent<WowState>) => {
+              return { ...event.data.context };
+            }),
+          },
+          {
+            target: "portfolioFound",
+            cond: (ctx, event: DoneInvokeEvent<WowState>) =>
+              event.data.value === "portfolioFound",
+            actions: assign((ctx, event: DoneInvokeEvent<WowState>) => {
+              return { ...event.data.context };
+            }),
+          },
+        ],
+      },
+    },
+    bblNotFound: {},
+    nychaFound: {},
+    unregisteredFound: {},
+    portfolioFound: {},
   },
 });
