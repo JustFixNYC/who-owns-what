@@ -34,10 +34,10 @@ export default class PropertiesSummary extends Component<Props, State> {
     this.state = { agg: null };
   }
 
-  componentDidUpdate(prevProps: Props, prevState: State) {
+  componentDidMount() {
     // make the api call when we come into view and have
     // the user addrs bbl
-    if (this.props.isVisible && this.props.userAddr && !this.state.agg) {
+    if (this.props.userAddr && !this.state.agg) {
       APIClient.getAggregate(this.props.userAddr.bbl)
         .then((results) => this.setState({ agg: results.result[0] }))
         .catch((err) => console.error(err));
