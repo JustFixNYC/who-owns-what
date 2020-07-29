@@ -7,7 +7,6 @@ import twitterIcon from "../assets/img/twitter.svg";
 import { I18n } from "@lingui/core";
 import { t, Trans } from "@lingui/macro";
 import { withI18n } from "@lingui/react";
-import helpers from "../util/helpers";
 import { FB_APP_ID } from "./Page";
 import { Borough } from "./APIDataTypes";
 import { createRouteForAddressPage, getSiteOrigin } from "../routes";
