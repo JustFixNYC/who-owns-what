@@ -61,10 +61,13 @@ export default class App extends Component {
     if(entry === ""){this.state.canvas.style.visibility = "hidden"; return;}
     let elem = document.querySelector("[data-show-me=" + CSS.escape(entry.title) + "]");
     this.state.canvas.style.visibility = "visible";
+    let boundingBox = new DOMRect(0,0,this.state.canvas.width,this.state.canvas.height);
+    if(elem){
     elem.scrollIntoViewIfNeeded({ behavior: "auto", block: "center" });
+    boundingBox = elem.getBoundingClientRect();
+    }
     var cxt = this.state.canvas.getContext("2d");
     cxt.clearRect(0,0, this.state.canvas.width, this.state.canvas.height);
-    let boundingBox = elem.getBoundingClientRect();
     cxt.globalCompositeOperation = "source-out";
     cxt.fillStyle = "rgb(255,255,255)";
     cxt.globalAlpha = 1;
