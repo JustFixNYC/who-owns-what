@@ -39,9 +39,7 @@ export const shortDateOptions = { month: "short" };
  */
 export function assertNotUndefined<T>(thing: T | undefined): T | never {
   if (thing === undefined) {
-    throw new Error(
-      "Assertion failure, expected argument to not be undefined!"
-    );
+    throw new Error("Assertion failure, expected argument to not be undefined!");
   }
   return thing;
 }

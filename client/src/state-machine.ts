@@ -2,7 +2,7 @@ import { createMachine, assign, DoneInvokeEvent } from "xstate";
 import {
   SearchAddressWithoutBbl,
   AddressRecord,
-  BuildingInfoRecord
+  BuildingInfoRecord,
 } from "components/APIDataTypes";
 import { NychaData } from "containers/NychaPage";
 import APIClient from "components/APIClient";
@@ -183,8 +183,7 @@ export const wowMachine = createMachine<WowContext, WowEvent, WowState>({
           },
           {
             target: "portfolioFound",
-            cond: (ctx, event: DoneInvokeEvent<WowState>) =>
-              event.data.value === "portfolioFound",
+            cond: (ctx, event: DoneInvokeEvent<WowState>) => event.data.value === "portfolioFound",
             actions: assign((ctx, event: DoneInvokeEvent<WowState>) => {
               return { ...event.data.context };
             }),
