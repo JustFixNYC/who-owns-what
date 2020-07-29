@@ -1,11 +1,44 @@
-import { Machine } from "xstate";
-import { SearchAddressWithoutBbl, AddressRecord } from "components/APIDataTypes";
+import { Machine, createMachine } from "xstate";
+import {
+  SearchAddressWithoutBbl,
+  AddressRecord,
+  BuildingInfoRecord,
+} from "components/APIDataTypes";
+import { NychaData } from "containers/NychaPage";
 
-interface WowStateSchema {
-  states: {
-    noData: {};
-  };
-}
+type WowState =
+  | { value: "noData"; context: {} }
+  | {
+      value: "searchInProgress";
+      context: WowContext & { searchAddrParams: SearchAddressWithoutBbl };
+    }
+  | {
+      value: "portfolioNotFound";
+      context: WowContext & {
+        searchAddrParams: SearchAddressWithoutBbl;
+        searchAddrBbl: string;
+        portfolioData: undefined;
+        buildingInfo: BuildingInfoRecord;
+      };
+    }
+  | {
+      value: "nychaFound";
+      context: WowContext & {
+        searchAddrParams: SearchAddressWithoutBbl;
+        searchAddrBbl: string;
+        portfolioData: undefined;
+        nychaData: NychaData;
+        buildingInfo: BuildingInfoRecord;
+      };
+    }
+  | {
+      value: "portfolioFound";
+      context: WowContext & {
+        searchAddrParams: SearchAddressWithoutBbl;
+        searchAddrBbl: string;
+        portfolioData: PortfolioData;
+      };
+    };
 
 type WowEvent =
   | { type: "SEARCH"; address: SearchAddressWithoutBbl }
@@ -35,12 +68,19 @@ interface WowContext {
    * retrieved ONLY if the address's bbl has a matching record in our database of HPD registered buildings
    */
   portfolioData?: PortfolioData;
+  /**
+   * Secondary building-specific data gathered if we can't find the building address in our
+   * database of HPD registered buildings
+   */
+  buildingInfo?: BuildingInfoRecord;
 }
 
-const wowMachine = Machine<WowContext, WowStateSchema, WowEvent>({
+const wowMachine = createMachine<WowContext, WowEvent, WowState>({
   id: "wow",
   initial: "noData",
   states: {
     noData: {},
+    searchInProgress: {},
+    searchFound: {},
   },
 });

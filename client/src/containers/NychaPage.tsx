@@ -13,15 +13,17 @@ import { GeoSearchData, BuildingInfoRecord } from "../components/APIDataTypes";
 import { SearchAddress } from "../components/AddressSearch";
 import { SocialShareForNotRegisteredPage } from "./NotRegisteredPage";
 
+export type NychaData = {
+  bbl: number;
+  development: string;
+  dev_evictions: string | number;
+  dev_unitsres: number;
+};
+
 type Props = withI18nProps & {
   geosearch?: GeoSearchData;
   searchAddress: SearchAddress;
-  nychaData: {
-    bbl: number;
-    development: string;
-    dev_evictions: string | number;
-    dev_unitsres: number;
-  };
+  nychaData: NychaData;
 };
 
 type State = {
