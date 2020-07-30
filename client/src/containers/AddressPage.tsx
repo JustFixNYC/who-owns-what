@@ -105,9 +105,8 @@ export default class AddressPage extends Component<AddressPageProps, State> {
     const { state, send } = this.props;
 
     if (state.value === "bblNotFound") {
-      return <NotFoundPage />
-    }
-    else if (state.value === "nychaFound") {
+      return <NotFoundPage />;
+    } else if (state.value === "nychaFound") {
       return <NychaPage state={state} send={send} />;
     } else if (state.value === "unregisteredFound") {
       return <NotRegisteredPage state={state} send={send} />;
