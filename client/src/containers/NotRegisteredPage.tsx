@@ -6,7 +6,7 @@ import { Trans } from "@lingui/macro";
 import { createRouteForAddressPage, getSiteOrigin, AddressPageUrlParams } from "../routes";
 import Modal from "../components/Modal";
 import LegalFooter from "../components/LegalFooter";
-import Helpers, { assertNotUndefined } from "../util/helpers";
+import Helpers from "../util/helpers";
 import SocialShare from "../components/SocialShare";
 import { Nobr } from "../components/Nobr";
 import { WithMachineProps } from "state-machine";
@@ -40,9 +40,13 @@ export default class NotRegisteredPage extends Component<Props, State> {
   }
 
   render() {
-    const { searchAddrParams, searchAddrBbl } = this.props.state.context;
-    const buildingInfo = assertNotUndefined(this.props.state.context.buildingInfo);
-    const { boro, block, lot } = Helpers.splitBBL(assertNotUndefined(searchAddrBbl));
+    const { state } = this.props;
+    if (!state.matches("unregisteredFound")) {
+      throw new Error(`Invalid state: ${state.value}`);
+    }
+    const { searchAddrParams, searchAddrBbl, buildingInfo } = state.context;
+
+    const { boro, block, lot } = Helpers.splitBBL(searchAddrBbl);
 
     const usersInputAddress = searchAddrParams
       ? {

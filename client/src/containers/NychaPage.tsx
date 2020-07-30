@@ -2,7 +2,7 @@ import React from "react";
 import { LocaleLink as Link } from "../i18n";
 import Browser from "../util/browser";
 import LegalFooter from "../components/LegalFooter";
-import Helpers, { assertNotUndefined } from "../util/helpers";
+import Helpers from "../util/helpers";
 
 import "styles/NotRegisteredPage.css";
 import { Trans, t } from "@lingui/macro";
@@ -22,9 +22,13 @@ export type NychaData = {
 type NychaPageProps = WithMachineProps & withI18nProps;
 
 const NychaPageWithoutI18n: React.FC<NychaPageProps> = (props) => {
-  const i18n = props.i18n;
-  const { searchAddrParams, searchAddrBbl, nychaData, buildingInfo } = props.state.context;
-  const { boro, block, lot } = Helpers.splitBBL(assertNotUndefined(searchAddrBbl));
+  const {i18n, state} = props;
+  if (!state.matches('nychaFound')) {
+    throw new Error(`Invalid state ${state.value}`);
+  }
+
+  const { searchAddrParams, searchAddrBbl, nychaData: nycha, buildingInfo } = state.context;
+  const { boro, block, lot } = Helpers.splitBBL(searchAddrBbl);
 
   const bblDash = (
     <span className="unselectable" unselectable="on">
@@ -32,7 +36,6 @@ const NychaPageWithoutI18n: React.FC<NychaPageProps> = (props) => {
     </span>
   );
 
-  const nycha = assertNotUndefined(nychaData);
   const boroData =
     boro === "1"
       ? {
