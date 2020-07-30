@@ -26,10 +26,11 @@ function searchForAddressWithGeosearch(q: {
       onError: reject,
       onResults(results) {
         const firstResult = results.features[0];
-        if (!firstResult) return resolve({
-          addrs: [],
-          geosearch: undefined,
-        });
+        if (!firstResult)
+          return resolve({
+            addrs: [],
+            geosearch: undefined,
+          });
         resolve(searchForBBL(splitBBL(firstResult.properties.pad_bbl)));
       },
       throttleMs: 0,

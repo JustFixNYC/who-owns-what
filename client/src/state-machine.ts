@@ -206,22 +206,22 @@ export const wowMachine = createMachine<WowContext, WowEvent, WowState>({
     bblNotFound: {
       on: {
         ...handleSearchEvent,
-      }
+      },
     },
     nychaFound: {
       on: {
         ...handleSearchEvent,
-      }
+      },
     },
     unregisteredFound: {
       on: {
         ...handleSearchEvent,
-      }
+      },
     },
     portfolioFound: {
       on: {
         ...handleSearchEvent,
-      }
+      },
     },
   },
 });

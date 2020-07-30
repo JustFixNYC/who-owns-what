@@ -22,8 +22,8 @@ export type NychaData = {
 type NychaPageProps = WithMachineProps & withI18nProps;
 
 const NychaPageWithoutI18n: React.FC<NychaPageProps> = (props) => {
-  const {i18n, state} = props;
-  if (!state.matches('nychaFound')) {
+  const { i18n, state } = props;
+  if (!state.matches("nychaFound")) {
     throw new Error(`Invalid state ${state.value}`);
   }
 
