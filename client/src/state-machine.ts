@@ -86,6 +86,7 @@ interface WowContext {
    * database of HPD registered buildings
    */
   buildingInfo?: BuildingInfoRecord;
+  nychaData?: NychaData;
 }
 
 type WowMachineEverything = State<WowContext, WowEvent, any, WowState>;
