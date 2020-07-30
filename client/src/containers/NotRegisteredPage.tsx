@@ -10,6 +10,7 @@ import Helpers, { assertNotUndefined } from "../util/helpers";
 import SocialShare from "../components/SocialShare";
 import { Nobr } from "../components/Nobr";
 import { WithMachineProps } from "state-machine";
+import Page from "components/Page";
 
 type Props = WithMachineProps;
 
@@ -161,21 +162,6 @@ export default class NotRegisteredPage extends Component<Props, State> {
         break;
     }
 
-    // if (!geosearch && !buildingInfo) {
-    //   return (
-    //     <div className="NotRegisteredPage Page">
-    //       <div className="HomePage__content">
-    //         <div className="HomePage__search">
-    //           <h5 className="mt-10 text-danger text-center text-bold text-large">
-    //             <Trans>No address found</Trans>
-    //           </h5>
-    //         </div>
-    //         `
-    //       </div>
-    //     </div>
-    //   );
-    // }
-
     const usersInputAddressFragment = usersInputAddress ? (
       <>
         {usersInputAddress.housenumber === " " ? "" : usersInputAddress.housenumber + " "}
@@ -184,123 +170,129 @@ export default class NotRegisteredPage extends Component<Props, State> {
     ) : null;
 
     return (
-      <div className="NotRegisteredPage Page">
-        <div className="HomePage__content">
-          <div className="HomePage__search">
-            <h5 className="mt-10 text-danger text-center text-bold text-large">
-              {usersInputAddress ? (
-                <Trans>No registration found for {usersInputAddressFragment}!</Trans>
-              ) : (
-                <Trans>No registration found!</Trans>
-              )}
-            </h5>
-            {buildingTypeMessage}
-            <div className="wrapper">
-              {buildingInfo && buildingInfo.latitude && buildingInfo.longitude && (
-                <img
-                  src={`https://maps.googleapis.com/maps/api/streetview?size=800x200&location=${buildingInfo.latitude},${buildingInfo.longitude}&key=${process.env.REACT_APP_STREETVIEW_API_KEY}`}
-                  alt="Google Street View"
-                  className="streetview img-responsive"
-                />
-              )}
-              <div className="bbl-link">
-                <span>
-                  Boro-Block-Lot (BBL):{" "}
-                  <Nobr>
-                    <a
-                      href={"https://zola.planning.nyc.gov/lot/" + boro + "/" + block + "/" + lot}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      {boro}
-                      {bblDash}
-                      {block}
-                      {bblDash}
-                      {lot}
-                    </a>
-                  </Nobr>
-                </span>
-              </div>
-              <br />
-              <div>
-                <Trans render="p">Useful links</Trans>
+      <Page
+        title={searchAddrParams && `${searchAddrParams.housenumber} ${searchAddrParams.streetname}`}
+      >
+        <div className="NotRegisteredPage Page">
+          <div className="HomePage__content">
+            <div className="HomePage__search">
+              <h5 className="mt-10 text-danger text-center text-bold text-large">
+                {usersInputAddress ? (
+                  <Trans>No registration found for {usersInputAddressFragment}!</Trans>
+                ) : (
+                  <Trans>No registration found!</Trans>
+                )}
+              </h5>
+              {buildingTypeMessage}
+              <div className="wrapper">
+                {buildingInfo && buildingInfo.latitude && buildingInfo.longitude && (
+                  <img
+                    src={`https://maps.googleapis.com/maps/api/streetview?size=800x200&location=${buildingInfo.latitude},${buildingInfo.longitude}&key=${process.env.REACT_APP_STREETVIEW_API_KEY}`}
+                    alt="Google Street View"
+                    className="streetview img-responsive"
+                  />
+                )}
+                <div className="bbl-link">
+                  <span>
+                    Boro-Block-Lot (BBL):{" "}
+                    <Nobr>
+                      <a
+                        href={"https://zola.planning.nyc.gov/lot/" + boro + "/" + block + "/" + lot}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {boro}
+                        {bblDash}
+                        {block}
+                        {bblDash}
+                        {lot}
+                      </a>
+                    </Nobr>
+                  </span>
+                </div>
+                <br />
                 <div>
-                  <div className="btn-group btn-group-block">
-                    <a
-                      href={`http://a836-acris.nyc.gov/bblsearch/bblsearch.asp?borough=${boro}&block=${block}&lot=${lot}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="btn"
-                    >
-                      <Trans>View documents on ACRIS</Trans> &#8599;
-                    </a>
-                    <a
-                      href={`http://webapps.nyc.gov:8084/CICS/fin1/find001i?FFUNC=C&FBORO=${boro}&FBLOCK=${block}&FLOT=${lot}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="btn"
-                    >
-                      <Trans>DOF Property Tax Bills</Trans> &#8599;
-                    </a>
-                  </div>
-                  <div className="btn-group btn-group-block">
-                    <a
-                      href={`http://a810-bisweb.nyc.gov/bisweb/PropertyProfileOverviewServlet?boro=${boro}&block=${block}&lot=${lot}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="btn"
-                    >
-                      <Trans>DOB Building Profile</Trans> &#8599;
-                    </a>
-                    <a
-                      href={`https://portal.displacementalert.org/property/${boro}${block}${lot}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="btn"
-                    >
-                      <Trans>ANHD DAP Portal</Trans> &#8599;
-                    </a>
+                  <Trans render="p">Useful links</Trans>
+                  <div>
+                    <div className="btn-group btn-group-block">
+                      <a
+                        href={`http://a836-acris.nyc.gov/bblsearch/bblsearch.asp?borough=${boro}&block=${block}&lot=${lot}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="btn"
+                      >
+                        <Trans>View documents on ACRIS</Trans> &#8599;
+                      </a>
+                      <a
+                        href={`http://webapps.nyc.gov:8084/CICS/fin1/find001i?FFUNC=C&FBORO=${boro}&FBLOCK=${block}&FLOT=${lot}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="btn"
+                      >
+                        <Trans>DOF Property Tax Bills</Trans> &#8599;
+                      </a>
+                    </div>
+                    <div className="btn-group btn-group-block">
+                      <a
+                        href={`http://a810-bisweb.nyc.gov/bisweb/PropertyProfileOverviewServlet?boro=${boro}&block=${block}&lot=${lot}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="btn"
+                      >
+                        <Trans>DOB Building Profile</Trans> &#8599;
+                      </a>
+                      <a
+                        href={`https://portal.displacementalert.org/property/${boro}${block}${lot}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="btn"
+                      >
+                        <Trans>ANHD DAP Portal</Trans> &#8599;
+                      </a>
+                    </div>
                   </div>
                 </div>
+
+                <SocialShareForNotRegisteredPage addr={usersInputAddress} />
+                <br />
+                <br />
+
+                <Link className="btn btn-primary btn-block" to="/">
+                  &lt;-- <Trans>Search for a different address</Trans>
+                </Link>
               </div>
-
-              <SocialShareForNotRegisteredPage addr={usersInputAddress} />
-              <br />
-              <br />
-
-              <Link className="btn btn-primary btn-block" to="/">
-                &lt;-- <Trans>Search for a different address</Trans>
-              </Link>
-            </div>
-            <Modal
-              width={60}
-              showModal={this.state.showModal}
-              onClose={() => this.setState({ showModal: false })}
-            >
-              <Trans render="h5">Failure to register a building with HPD</Trans>
-              <Trans render="p">
-                Buildings without valid property registration are subject to the following:
-              </Trans>
-              <ul>
-                <Trans render="li">Civil penalties of $250-$500</Trans>
-                <Trans render="li">May be issued official Orders</Trans>
-                <Trans render="li">Ineligible to certify violations</Trans>
-                <Trans render="li">Unable to request Code Violation Dismissals</Trans>
-                <Trans render="li">Unable to initiate a court action for nonpayment of rent.</Trans>
-              </ul>
-              <a
-                className="btn"
-                href="https://www1.nyc.gov/site/hpd/services-and-information/register-your-property.page"
-                target="_blank"
-                rel="noopener noreferrer"
+              <Modal
+                width={60}
+                showModal={this.state.showModal}
+                onClose={() => this.setState({ showModal: false })}
               >
-                <Trans>Click here to learn more.</Trans> &#8599;
-              </a>
-            </Modal>
+                <Trans render="h5">Failure to register a building with HPD</Trans>
+                <Trans render="p">
+                  Buildings without valid property registration are subject to the following:
+                </Trans>
+                <ul>
+                  <Trans render="li">Civil penalties of $250-$500</Trans>
+                  <Trans render="li">May be issued official Orders</Trans>
+                  <Trans render="li">Ineligible to certify violations</Trans>
+                  <Trans render="li">Unable to request Code Violation Dismissals</Trans>
+                  <Trans render="li">
+                    Unable to initiate a court action for nonpayment of rent.
+                  </Trans>
+                </ul>
+                <a
+                  className="btn"
+                  href="https://www1.nyc.gov/site/hpd/services-and-information/register-your-property.page"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Trans>Click here to learn more.</Trans> &#8599;
+                </a>
+              </Modal>
+            </div>
           </div>
+          <LegalFooter />
         </div>
-        <LegalFooter />
-      </div>
+      </Page>
     );
   }
 }
