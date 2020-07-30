@@ -1,4 +1,4 @@
-import { createMachine, assign, DoneInvokeEvent } from "xstate";
+import { createMachine, assign, DoneInvokeEvent, State } from "xstate";
 import {
   SearchAddressWithoutBbl,
   AddressRecord,
@@ -87,6 +87,13 @@ interface WowContext {
   buildingInfo?: BuildingInfoRecord;
 }
 
+type WowMachineEverything = State<WowContext, WowEvent, any, WowState>;
+
+export type WithMachineProps = {
+  state: WowMachineEverything;
+  send: (event: WowEvent) => WowMachineEverything;
+};
+
 async function getSearchResult(addr: SearchAddressWithoutBbl): Promise<WowState> {
   const apiResults = await APIClient.searchForAddressWithGeosearch(addr);
   if (!apiResults.geosearch) {
@@ -138,6 +145,10 @@ async function getSearchResult(addr: SearchAddressWithoutBbl): Promise<WowState>
   }
 }
 
+const assignWowStateContext = assign((ctx: WowContext, event: DoneInvokeEvent<WowState>) => {
+  return { ...event.data.context };
+});
+
 export const wowMachine = createMachine<WowContext, WowEvent, WowState>({
   id: "wow",
   initial: "noData",
@@ -162,31 +173,23 @@ export const wowMachine = createMachine<WowContext, WowEvent, WowState>({
           {
             target: "bblNotFound",
             cond: (ctx, event: DoneInvokeEvent<WowState>) => event.data.value === "bblNotFound",
-            actions: assign((ctx, event: DoneInvokeEvent<WowState>) => {
-              return { ...event.data.context };
-            }),
+            actions: assignWowStateContext,
           },
           {
             target: "nychaFound",
             cond: (ctx, event: DoneInvokeEvent<WowState>) => event.data.value === "nychaFound",
-            actions: assign((ctx, event: DoneInvokeEvent<WowState>) => {
-              return { ...event.data.context };
-            }),
+            actions: assignWowStateContext,
           },
           {
             target: "unregisteredFound",
             cond: (ctx, event: DoneInvokeEvent<WowState>) =>
               event.data.value === "unregisteredFound",
-            actions: assign((ctx, event: DoneInvokeEvent<WowState>) => {
-              return { ...event.data.context };
-            }),
+            actions: assignWowStateContext,
           },
           {
             target: "portfolioFound",
             cond: (ctx, event: DoneInvokeEvent<WowState>) => event.data.value === "portfolioFound",
-            actions: assign((ctx, event: DoneInvokeEvent<WowState>) => {
-              return { ...event.data.context };
-            }),
+            actions: assignWowStateContext,
           },
         ],
       },

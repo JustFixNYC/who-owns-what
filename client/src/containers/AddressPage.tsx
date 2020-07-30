@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useEffect } from "react";
 import FileSaver from "file-saver";
 import Browser from "../util/browser";
 
@@ -20,8 +20,16 @@ import helpers from "../util/helpers";
 import { Trans, Plural } from "@lingui/macro";
 import { Link, RouteComponentProps } from "react-router-dom";
 import Page from "../components/Page";
-import { SearchResults, AddressRecord, GeoSearchData, Borough } from "../components/APIDataTypes";
+import {
+  SearchResults,
+  AddressRecord,
+  GeoSearchData,
+  Borough,
+  SearchAddressWithoutBbl,
+} from "../components/APIDataTypes";
 import { SearchAddress } from "../components/AddressSearch";
+import { useMachine } from "@xstate/react";
+import { wowMachine, WithMachineProps } from "state-machine";
 
 type RouteParams = {
   locale?: string;
@@ -35,9 +43,10 @@ type RouteState = {
   results?: SearchResults;
 };
 
-type AddressPageProps = RouteComponentProps<RouteParams, {}, RouteState> & {
-  currentTab: number;
-};
+type AddressPageProps = RouteComponentProps<RouteParams, {}, RouteState> &
+  WithMachineProps & {
+    currentTab: number;
+  };
 
 type State = {
   hasSearched: boolean;
@@ -79,6 +88,8 @@ export default class AddressPage extends Component<AddressPageProps, State> {
   }
 
   componentDidMount() {
+    this.props.send({ type: "SEARCH", address: this.state.searchAddress });
+
     // We need to check where to get the results data for the page...
 
     // Here, the user conducted a search on HomePage and we already got the results
@@ -199,6 +210,7 @@ export default class AddressPage extends Component<AddressPageProps, State> {
                 searchAddr={this.state.searchAddress}
                 numOfAssocAddrs={this.state.assocAddrs.length}
               />
+              <p>{this.props.state.value}</p>
               {this.state.userAddr && (
                 <div className="float-left">
                   <h1 className="primary">

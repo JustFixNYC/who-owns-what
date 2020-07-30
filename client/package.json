@@ -27,6 +27,7 @@
     "@types/react-router-dom": "5.1.5",
     "@types/react-table": "^6.8.5",
     "@types/react-transition-group": "^4.4.0",
+    "@xstate/react": "^0.8.1",
     "babel-core": "^7.0.0-bridge.0",
     "babel-plugin-macros": "^2.7.1",
     "babel-polyfill": "^6.26.0",

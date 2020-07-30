@@ -9,6 +9,8 @@ import MethodologyPage from "./containers/Methodology";
 import TermsOfUsePage from "./containers/TermsOfUsePage";
 import PrivacyPolicyPage from "./containers/PrivacyPolicyPage";
 import { SearchAddressWithoutBbl } from "components/APIDataTypes";
+import { useMachine } from "@xstate/react";
+import { wowMachine } from "state-machine";
 
 export type AddressPageUrlParams = SearchAddressWithoutBbl;
 
@@ -64,25 +66,27 @@ export const getSiteOrigin = () => `${window.location.protocol}//${window.locati
 
 export const WhoOwnsWhatRoutes = () => {
   const paths = createWhoOwnsWhatRoutePaths("/:locale");
+  const [state, send] = useMachine(wowMachine);
+  const machineProps = { state, send };
   return (
     <Switch>
       <Route exact path={paths.home} component={HomePage} />
       <Route
         path={paths.addressPageOverview}
-        render={(props) => <AddressPage currentTab={0} {...props} />}
+        render={(props) => <AddressPage currentTab={0} {...machineProps} {...props} />}
         exact
       />
       <Route
         path={paths.addressPageTimeline}
-        render={(props) => <AddressPage currentTab={1} {...props} />}
+        render={(props) => <AddressPage currentTab={1} {...machineProps} {...props} />}
       />
       <Route
         path={paths.addressPagePortfolio}
-        render={(props) => <AddressPage currentTab={2} {...props} />}
+        render={(props) => <AddressPage currentTab={2} {...machineProps} {...props} />}
       />
       <Route
         path={paths.addressPageSummary}
-        render={(props) => <AddressPage currentTab={3} {...props} />}
+        render={(props) => <AddressPage currentTab={3} {...machineProps} {...props} />}
       />
       <Route path={paths.bbl} component={BBLPage} />
       <Route path={paths.bblWithFullBblInUrl} component={BBLPage} />
