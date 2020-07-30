@@ -2,8 +2,6 @@ import React, { Component } from "react";
 import FileSaver from "file-saver";
 import Browser from "../util/browser";
 
-import _find from "lodash/find";
-
 import AddressToolbar from "../components/AddressToolbar";
 import PropertiesMap from "../components/PropertiesMap";
 import PropertiesList from "../components/PropertiesList";
@@ -16,11 +14,11 @@ import Loader from "../components/Loader";
 import "styles/AddressPage.css";
 import NychaPage from "./NychaPage";
 import NotRegisteredPage from "./NotRegisteredPage";
-import helpers, { assertNotUndefined } from "../util/helpers";
+import { assertNotUndefined } from "../util/helpers";
 import { Trans, Plural } from "@lingui/macro";
 import { Link, RouteComponentProps } from "react-router-dom";
 import Page from "../components/Page";
-import { SearchResults, AddressRecord, GeoSearchData, Borough } from "../components/APIDataTypes";
+import { SearchResults, AddressRecord, Borough } from "../components/APIDataTypes";
 import { SearchAddress } from "../components/AddressSearch";
 import { WithMachineProps } from "state-machine";
 
@@ -104,29 +102,12 @@ export default class AddressPage extends Component<AddressPageProps, State> {
 
   render() {
     const { state, send } = this.props;
-
-    // if (state.value === 'nychaFound')
-    //   return <Page
-    //       title={`${this.state.searchAddress.housenumber} ${this.state.searchAddress.streetname}`}
-    //     >
-    //       <NychaPage
-    //         geosearch={this.state.geosearch}
-    //         searchAddress={this.state.searchAddress}
-    //         nychaData={state.context.nychaData}
-    //       />
-    //     </Page>
-    //   ) : (
-    //     <Page
-    //       title={`${this.state.searchAddress.housenumber} ${this.state.searchAddress.streetname}`}
-    //     >
-    //       <NotRegisteredPage
-    //         geosearch={this.state.geosearch}
-    //         searchAddress={this.state.searchAddress}
-    //       />
-    //     </Page>
-    //   );
-    // } else if (hasSearched && assocAddrs && assocAddrs.length && userAddr) {
-    if (state.value === "portfolioFound") {
+    
+    if (state.value === "nychaFound") {
+      return <NychaPage state={state} send={send} />;
+    } else if (state.value === "unregisteredFound") {
+      return <NotRegisteredPage state={state} send={send} />;
+    } else if (state.value === "portfolioFound") {
       const { detailAddr, assocAddrs, searchAddr } = assertNotUndefined(
         state.context.portfolioData
       );

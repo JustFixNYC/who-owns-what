@@ -1,17 +1,16 @@
-import React, { Component } from "react";
+import React from "react";
 import { LocaleLink as Link } from "../i18n";
 import Browser from "../util/browser";
 import LegalFooter from "../components/LegalFooter";
-import Helpers from "../util/helpers";
-import APIClient from "../components/APIClient";
+import Helpers, { assertNotUndefined } from "../util/helpers";
 
 import "styles/NotRegisteredPage.css";
 import { Trans, t } from "@lingui/macro";
 import { withI18n, withI18nProps } from "@lingui/react";
 import { Nobr } from "../components/Nobr";
-import { GeoSearchData, BuildingInfoRecord } from "../components/APIDataTypes";
-import { SearchAddress } from "../components/AddressSearch";
 import { SocialShareForNotRegisteredPage } from "./NotRegisteredPage";
+import { WithMachineProps } from "state-machine";
+import Page from "components/Page";
 
 export type NychaData = {
   bbl: number;
@@ -20,122 +19,72 @@ export type NychaData = {
   dev_unitsres: number;
 };
 
-type Props = withI18nProps & {
-  geosearch?: GeoSearchData;
-  searchAddress: SearchAddress;
-  nychaData: NychaData;
-};
+type NychaPageProps = WithMachineProps & withI18nProps;
 
-type State = {
-  buildingInfo: BuildingInfoRecord[] | null;
-};
+const NychaPageWithoutI18n: React.FC<NychaPageProps> = (props) => {
+  const i18n = props.i18n;
+  const { searchAddrParams, searchAddrBbl, nychaData, buildingInfo } = props.state.context;
+  const { boro, block, lot } = Helpers.splitBBL(assertNotUndefined(searchAddrBbl));
 
-class NychaPageWithoutI18n extends Component<Props, State> {
-  constructor(props: Props) {
-    super(props);
+  const bblDash = (
+    <span className="unselectable" unselectable="on">
+      -
+    </span>
+  );
 
-    this.state = {
-      buildingInfo: null,
-    };
-  }
+  const nycha = assertNotUndefined(nychaData);
+  const boroData =
+    boro === "1"
+      ? {
+          boroName: "Manhattan",
+          boroOfficeAddress1: "1980 Lexington Ave #1",
+          boroOfficeAddress2: "New York, NY 10035",
+          boroOfficePhone: "(917) 206-3500",
+        }
+      : boro === "2"
+      ? {
+          boroName: "Bronx",
+          boroOfficeAddress1: "1200 Water Pl, Suite #200",
+          boroOfficeAddress2: "Bronx, NY 10461",
+          boroOfficePhone: "(718) 409-8626",
+        }
+      : boro === "3"
+      ? {
+          boroName: "Brooklyn",
+          boroOfficeAddress1: "816 Ashford St",
+          boroOfficeAddress2: "Brooklyn, NY 11207",
+          boroOfficePhone: "(718) 491-6967",
+        }
+      : boro === "4" || boro === "5"
+      ? {
+          boroName: "Queens",
+          boroOfficeAddress1: "90-20 170th St, 1st Floor",
+          boroOfficeAddress2: "Jamaica, NY 11432",
+          boroOfficePhone: "(718) 553-4700",
+        }
+      : null;
 
-  componentDidMount() {
-    window.gtag("event", "nycha-page");
-    if (this.props.geosearch && this.props.geosearch.bbl && !this.state.buildingInfo) {
-      const bbl = this.props.geosearch.bbl;
-      APIClient.getBuildingInfo(bbl)
-        .then((results) => this.setState({ buildingInfo: results.result }))
-        .catch((err) => {
-          window.Rollbar.error("API error on Not Registered page: Building Info", err, bbl);
-        });
-    }
-  }
+  const usersInputAddress =
+    searchAddrParams &&
+    searchAddrParams.boro &&
+    (searchAddrParams.housenumber || searchAddrParams.streetname)
+      ? {
+          boro: searchAddrParams.boro,
+          housenumber: searchAddrParams.housenumber || " ",
+          streetname: searchAddrParams.streetname || " ",
+        }
+      : buildingInfo && buildingInfo.boro && (buildingInfo.housenumber || buildingInfo.streetname)
+      ? {
+          boro: buildingInfo.boro,
+          housenumber: buildingInfo.housenumber || " ",
+          streetname: buildingInfo.streetname || " ",
+        }
+      : null;
 
-  render() {
-    const i18n = this.props.i18n;
-    const geosearch = this.props.geosearch;
-    const searchAddress = this.props.searchAddress;
-    const buildingInfo =
-      this.state.buildingInfo && this.state.buildingInfo.length > 0
-        ? this.state.buildingInfo[0]
-        : null;
+  const takeActionURL = Helpers.createTakeActionURL(usersInputAddress, "nycha_page");
 
-    let boro, block, lot;
-
-    if (geosearch && geosearch.bbl) {
-      ({ boro, block, lot } = Helpers.splitBBL(geosearch.bbl));
-    }
-
-    const bblDash = (
-      <span className="unselectable" unselectable="on">
-        -
-      </span>
-    );
-
-    const nycha = this.props.nychaData;
-    const boroData =
-      boro === "1"
-        ? {
-            boroName: "Manhattan",
-            boroOfficeAddress1: "1980 Lexington Ave #1",
-            boroOfficeAddress2: "New York, NY 10035",
-            boroOfficePhone: "(917) 206-3500",
-          }
-        : boro === "2"
-        ? {
-            boroName: "Bronx",
-            boroOfficeAddress1: "1200 Water Pl, Suite #200",
-            boroOfficeAddress2: "Bronx, NY 10461",
-            boroOfficePhone: "(718) 409-8626",
-          }
-        : boro === "3"
-        ? {
-            boroName: "Brooklyn",
-            boroOfficeAddress1: "816 Ashford St",
-            boroOfficeAddress2: "Brooklyn, NY 11207",
-            boroOfficePhone: "(718) 491-6967",
-          }
-        : boro === "4" || boro === "5"
-        ? {
-            boroName: "Queens",
-            boroOfficeAddress1: "90-20 170th St, 1st Floor",
-            boroOfficeAddress2: "Jamaica, NY 11432",
-            boroOfficePhone: "(718) 553-4700",
-          }
-        : null;
-
-    const usersInputAddress =
-      searchAddress && searchAddress.boro && (searchAddress.housenumber || searchAddress.streetname)
-        ? {
-            boro: searchAddress.boro,
-            housenumber: searchAddress.housenumber || " ",
-            streetname: searchAddress.streetname || " ",
-          }
-        : buildingInfo && buildingInfo.boro && (buildingInfo.housenumber || buildingInfo.streetname)
-        ? {
-            boro: buildingInfo.boro,
-            housenumber: buildingInfo.housenumber || " ",
-            streetname: buildingInfo.streetname || " ",
-          }
-        : null;
-
-    const takeActionURL = Helpers.createTakeActionURL(usersInputAddress, "nycha_page");
-
-    if (!geosearch && !buildingInfo) {
-      return (
-        <div className="NotRegisteredPage Page">
-          <div className="HomePage__content">
-            <div className="HomePage__search">
-              <h5 className="mt-10 text-danger text-center text-bold text-large">
-                <Trans>No address found</Trans>
-              </h5>
-            </div>
-          </div>
-        </div>
-      );
-    }
-
-    return (
+  return (
+    <Page title={searchAddrParams && `${searchAddrParams.housenumber} ${searchAddrParams.streetname}`}>
       <div className="NotRegisteredPage Page">
         <div className="HomePage__content">
           <div className="HomePage__search">
@@ -244,26 +193,22 @@ class NychaPageWithoutI18n extends Component<Props, State> {
                 />
               )}
               <div className="bbl-link">
-                {geosearch && geosearch.bbl && buildingInfo ? (
-                  <span>
-                    Boro-Block-Lot (BBL):{" "}
-                    <Nobr>
-                      <a
-                        href={"https://zola.planning.nyc.gov/lot/" + boro + "/" + block + "/" + lot}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        {boro}
-                        {bblDash}
-                        {block}
-                        {bblDash}
-                        {lot}
-                      </a>
-                    </Nobr>
-                  </span>
-                ) : (
-                  <span></span>
-                )}
+                <span>
+                  Boro-Block-Lot (BBL):{" "}
+                  <Nobr>
+                    <a
+                      href={"https://zola.planning.nyc.gov/lot/" + boro + "/" + block + "/" + lot}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {boro}
+                      {bblDash}
+                      {block}
+                      {bblDash}
+                      {lot}
+                    </a>
+                  </Nobr>
+                </span>
               </div>
               <br />
 
@@ -340,9 +285,9 @@ class NychaPageWithoutI18n extends Component<Props, State> {
         </div>
         <LegalFooter />
       </div>
-    );
-  }
-}
+    </Page>
+  );
+};
 
 const NychaPage = withI18n()(NychaPageWithoutI18n);
 

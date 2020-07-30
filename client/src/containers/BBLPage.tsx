@@ -127,44 +127,44 @@ export default class BBLPage extends Component<BBLPageProps, State> {
   }
 
   render() {
-    if (this.state.bblExists === false) {
-      window.gtag("event", "search-notfound");
-      return <NotRegisteredPage />;
-    }
+    // if (this.state.bblExists === false) {
+    //   window.gtag("event", "search-notfound");
+    //   return <NotRegisteredPage />;
+    // }
 
-    // If searched and got results,
-    else if (this.state.bblExists && this.state.results && this.state.results.addrs) {
-      // redirect doesn't like `this` so lets make a ref
-      const results = this.state.results;
+    // // If searched and got results,
+    // else if (this.state.bblExists && this.state.results && this.state.results.addrs) {
+    //   // redirect doesn't like `this` so lets make a ref
+    //   const results = this.state.results;
 
-      var addressForURL: SearchAddress;
+    //   var addressForURL: SearchAddress;
 
-      if (results.addrs.length > 0) {
-        window.gtag("event", "search-found", {
-          value: this.state.results.addrs.length,
-        });
-        const searchBBL = this.strictGetSearchBBL();
-        const foundAddr = this.state.results.addrs.find(
-          (element) => element.bbl === searchBBL.boro + searchBBL.block + searchBBL.lot
-        );
-        if (!foundAddr) {
-          throw new Error("BBL not found in results!");
-        }
-        addressForURL = foundAddr;
-      } else {
-        window.gtag("event", "search-notfound");
-        addressForURL = this.state.foundAddress;
-      }
+    //   if (results.addrs.length > 0) {
+    //     window.gtag("event", "search-found", {
+    //       value: this.state.results.addrs.length,
+    //     });
+    //     const searchBBL = this.strictGetSearchBBL();
+    //     const foundAddr = this.state.results.addrs.find(
+    //       (element) => element.bbl === searchBBL.boro + searchBBL.block + searchBBL.lot
+    //     );
+    //     if (!foundAddr) {
+    //       throw new Error("BBL not found in results!");
+    //     }
+    //     addressForURL = foundAddr;
+    //   } else {
+    //     window.gtag("event", "search-notfound");
+    //     addressForURL = this.state.foundAddress;
+    //   }
 
-      return (
-        <Redirect
-          to={{
-            pathname: createRouteForAddressPage(addressForURL),
-            state: { results },
-          }}
-        />
-      );
-    }
+    //   return (
+    //     <Redirect
+    //       to={{
+    //         pathname: createRouteForAddressPage(addressForURL),
+    //         state: { results },
+    //       }}
+    //     />
+    //   );
+    // }
 
     return (
       <Page>

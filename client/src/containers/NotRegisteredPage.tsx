@@ -6,23 +6,15 @@ import { Trans } from "@lingui/macro";
 import { createRouteForAddressPage, getSiteOrigin, AddressPageUrlParams } from "../routes";
 import Modal from "../components/Modal";
 import LegalFooter from "../components/LegalFooter";
-import Helpers from "../util/helpers";
-import APIClient from "../components/APIClient";
+import Helpers, { assertNotUndefined } from "../util/helpers";
 import SocialShare from "../components/SocialShare";
 import { Nobr } from "../components/Nobr";
-import { SearchAddress } from "../components/AddressSearch";
-import { GeoSearchData, BuildingInfoRecord } from "../components/APIDataTypes";
+import { WithMachineProps } from "state-machine";
 
-type Props = {
-  /** Could concievably be undefined if the input address is totally invalid */
-  geosearch?: GeoSearchData;
-  /** Could concievably be undefined if the input address is totally invalid */
-  searchAddress?: SearchAddress;
-};
+type Props = WithMachineProps;
 
 type State = {
   showModal: boolean;
-  buildingInfo: BuildingInfoRecord[] | null;
 };
 
 export const SocialShareForNotRegisteredPage = (props: { addr?: AddressPageUrlParams | null }) => (
@@ -43,37 +35,19 @@ export default class NotRegisteredPage extends Component<Props, State> {
 
     this.state = {
       showModal: false,
-      buildingInfo: null,
     };
   }
 
-  componentDidMount() {
-    if (this.props.geosearch && !this.state.buildingInfo) {
-      if (!this.props.geosearch.bbl) {
-        window.Rollbar.error("Geosearch result has no BBL!");
-      }
-      const bbl = this.props.geosearch.bbl;
-      APIClient.getBuildingInfo(bbl)
-        .then((results) => this.setState({ buildingInfo: results.result }))
-        .catch((err) => {
-          window.Rollbar.error("API error on Not Registered page: Building Info", err, bbl);
-        });
-    }
-  }
-
   render() {
-    const geosearch = this.props.geosearch;
-    const searchAddress = this.props.searchAddress;
-    const buildingInfo =
-      this.state.buildingInfo && this.state.buildingInfo.length > 0
-        ? this.state.buildingInfo[0]
-        : null;
+    const { searchAddrParams, searchAddrBbl } = this.props.state.context;
+    const buildingInfo = assertNotUndefined(this.props.state.context.buildingInfo);
+    const { boro, block, lot } = Helpers.splitBBL(assertNotUndefined(searchAddrBbl));
 
-    const usersInputAddress = searchAddress
+    const usersInputAddress = searchAddrParams
       ? {
-          boro: searchAddress.boro,
-          housenumber: searchAddress.housenumber || " ",
-          streetname: searchAddress.streetname,
+          boro: searchAddrParams.boro,
+          housenumber: searchAddrParams.housenumber || " ",
+          streetname: searchAddrParams.streetname,
         }
       : buildingInfo
       ? {
@@ -97,121 +71,110 @@ export default class NotRegisteredPage extends Component<Props, State> {
       </span>
     );
 
-    let boro, block, lot;
     let buildingTypeMessage;
 
-    if (geosearch) {
-      ({ boro, block, lot } = Helpers.splitBBL(geosearch.bbl));
-
-      if (buildingInfo && buildingInfo.bldgclass) {
-        const generalBldgCat = buildingInfo.bldgclass.replace(/[0-9]/g, "");
-        switch (generalBldgCat) {
-          case "B":
-            buildingTypeMessage = (
-              <div>
-                <h6 className="mt-10 text-center text-bold text-large">
-                  <p className="text-center">
-                    <Trans>
-                      This seems like a smaller residential building. If the landlord doesn't reside
-                      there, it should be registered with HPD.
-                    </Trans>{" "}
-                    <Nobr>
-                      (
-                      <i>
-                        <a
-                          href={`http://www1.nyc.gov/assets/finance/jump/hlpbldgcode.html#${generalBldgCat.charAt(
-                            0
-                          )}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          <Trans>Building Classification</Trans>
-                        </a>
-                        : {buildingInfo.bldgclass}
-                      </i>
-                      )
-                    </Nobr>
-                  </p>
-                </h6>
-                {failedToRegisterLink}
-              </div>
-            );
-            break;
-          case "C":
-            buildingTypeMessage = (
-              <div>
-                <h6 className="mt-10 text-center text-bold text-large">
-                  <p className="text-center">
-                    <Trans render="b">
-                      This building seems like it should be registered with HPD!
-                    </Trans>{" "}
-                    <Nobr>
-                      (
-                      <i>
-                        <a
-                          href={`http://www1.nyc.gov/assets/finance/jump/hlpbldgcode.html#${generalBldgCat.charAt(
-                            0
-                          )}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          <Trans>Building Classification</Trans>
-                        </a>
-                        : {buildingInfo.bldgclass}
-                      </i>
-                      )
-                    </Nobr>
-                  </p>
-                </h6>
-                {failedToRegisterLink}
-              </div>
-            );
-            break;
-          default:
-            buildingTypeMessage = (
-              <h6 className="mt-10 text-center text-bold text-large">
-                <p className="text-center">
-                  <Trans>
-                    It doesn't seem like this property is required to register with HPD.
-                  </Trans>{" "}
-                  <Nobr>
-                    (
-                    <i>
-                      <a
-                        href={`http://www1.nyc.gov/assets/finance/jump/hlpbldgcode.html#${generalBldgCat.charAt(
-                          0
-                        )}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <Trans render="u">Building Classification</Trans>
-                      </a>
-                      : {buildingInfo.bldgclass}
-                    </i>
-                    )
-                  </Nobr>
-                </p>
-              </h6>
-            );
-            break;
-        }
-      }
-    }
-
-    if (!geosearch && !buildingInfo) {
-      return (
-        <div className="NotRegisteredPage Page">
-          <div className="HomePage__content">
-            <div className="HomePage__search">
-              <h5 className="mt-10 text-danger text-center text-bold text-large">
-                <Trans>No address found</Trans>
-              </h5>
-            </div>
-            `
+    const generalBldgCat = buildingInfo && buildingInfo.bldgclass.replace(/[0-9]/g, "");
+    switch (generalBldgCat) {
+      case "B":
+        buildingTypeMessage = (
+          <div>
+            <h6 className="mt-10 text-center text-bold text-large">
+              <p className="text-center">
+                <Trans>
+                  This seems like a smaller residential building. If the landlord doesn't reside
+                  there, it should be registered with HPD.
+                </Trans>{" "}
+                <Nobr>
+                  (
+                  <i>
+                    <a
+                      href={`http://www1.nyc.gov/assets/finance/jump/hlpbldgcode.html#${generalBldgCat.charAt(
+                        0
+                      )}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <Trans>Building Classification</Trans>
+                    </a>
+                    : {buildingInfo.bldgclass}
+                  </i>
+                  )
+                </Nobr>
+              </p>
+            </h6>
+            {failedToRegisterLink}
           </div>
-        </div>
-      );
+        );
+        break;
+      case "C":
+        buildingTypeMessage = (
+          <div>
+            <h6 className="mt-10 text-center text-bold text-large">
+              <p className="text-center">
+                <Trans render="b">This building seems like it should be registered with HPD!</Trans>{" "}
+                <Nobr>
+                  (
+                  <i>
+                    <a
+                      href={`http://www1.nyc.gov/assets/finance/jump/hlpbldgcode.html#${generalBldgCat.charAt(
+                        0
+                      )}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <Trans>Building Classification</Trans>
+                    </a>
+                    : {buildingInfo.bldgclass}
+                  </i>
+                  )
+                </Nobr>
+              </p>
+            </h6>
+            {failedToRegisterLink}
+          </div>
+        );
+        break;
+      default:
+        buildingTypeMessage = (
+          <h6 className="mt-10 text-center text-bold text-large">
+            <p className="text-center">
+              <Trans>It doesn't seem like this property is required to register with HPD.</Trans>{" "}
+              <Nobr>
+                (
+                <i>
+                  <a
+                    href={`http://www1.nyc.gov/assets/finance/jump/hlpbldgcode.html#${generalBldgCat.charAt(
+                      0
+                    )}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Trans render="u">Building Classification</Trans>
+                  </a>
+                  : {buildingInfo.bldgclass}
+                </i>
+                )
+              </Nobr>
+            </p>
+          </h6>
+        );
+        break;
     }
+
+    // if (!geosearch && !buildingInfo) {
+    //   return (
+    //     <div className="NotRegisteredPage Page">
+    //       <div className="HomePage__content">
+    //         <div className="HomePage__search">
+    //           <h5 className="mt-10 text-danger text-center text-bold text-large">
+    //             <Trans>No address found</Trans>
+    //           </h5>
+    //         </div>
+    //         `
+    //       </div>
+    //     </div>
+    //   );
+    // }
 
     const usersInputAddressFragment = usersInputAddress ? (
       <>
@@ -241,81 +204,68 @@ export default class NotRegisteredPage extends Component<Props, State> {
                 />
               )}
               <div className="bbl-link">
-                {geosearch && geosearch.bbl && buildingInfo ? (
-                  <span>
-                    Boro-Block-Lot (BBL):{" "}
-                    <Nobr>
-                      <a
-                        href={"https://zola.planning.nyc.gov/lot/" + boro + "/" + block + "/" + lot}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        {boro}
-                        {bblDash}
-                        {block}
-                        {bblDash}
-                        {lot}
-                      </a>
-                    </Nobr>
-                  </span>
-                ) : (
-                  <span />
-                )}
+                <span>
+                  Boro-Block-Lot (BBL):{" "}
+                  <Nobr>
+                    <a
+                      href={"https://zola.planning.nyc.gov/lot/" + boro + "/" + block + "/" + lot}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {boro}
+                      {bblDash}
+                      {block}
+                      {bblDash}
+                      {lot}
+                    </a>
+                  </Nobr>
+                </span>
               </div>
               <br />
-              {geosearch &&
-                geosearch.bbl &&
-                buildingInfo &&
-                buildingInfo.housenumber &&
-                buildingInfo.streetname && (
-                  <div>
-                    <Trans render="p">Useful links</Trans>
-                    <div>
-                      <div className="btn-group btn-group-block">
-                        <a
-                          href={`http://a836-acris.nyc.gov/bblsearch/bblsearch.asp?borough=${boro}&block=${block}&lot=${lot}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="btn"
-                        >
-                          <Trans>View documents on ACRIS</Trans> &#8599;
-                        </a>
-                        <a
-                          href={`http://webapps.nyc.gov:8084/CICS/fin1/find001i?FFUNC=C&FBORO=${boro}&FBLOCK=${block}&FLOT=${lot}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="btn"
-                        >
-                          <Trans>DOF Property Tax Bills</Trans> &#8599;
-                        </a>
-                      </div>
-                      <div className="btn-group btn-group-block">
-                        <a
-                          href={`http://a810-bisweb.nyc.gov/bisweb/PropertyProfileOverviewServlet?boro=${boro}&block=${block}&lot=${lot}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="btn"
-                        >
-                          <Trans>DOB Building Profile</Trans> &#8599;
-                        </a>
-                        <a
-                          href={`https://portal.displacementalert.org/property/${boro}${block}${lot}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="btn"
-                        >
-                          <Trans>ANHD DAP Portal</Trans> &#8599;
-                        </a>
-                      </div>
-                    </div>
+              <div>
+                <Trans render="p">Useful links</Trans>
+                <div>
+                  <div className="btn-group btn-group-block">
+                    <a
+                      href={`http://a836-acris.nyc.gov/bblsearch/bblsearch.asp?borough=${boro}&block=${block}&lot=${lot}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn"
+                    >
+                      <Trans>View documents on ACRIS</Trans> &#8599;
+                    </a>
+                    <a
+                      href={`http://webapps.nyc.gov:8084/CICS/fin1/find001i?FFUNC=C&FBORO=${boro}&FBLOCK=${block}&FLOT=${lot}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn"
+                    >
+                      <Trans>DOF Property Tax Bills</Trans> &#8599;
+                    </a>
                   </div>
-                )}
+                  <div className="btn-group btn-group-block">
+                    <a
+                      href={`http://a810-bisweb.nyc.gov/bisweb/PropertyProfileOverviewServlet?boro=${boro}&block=${block}&lot=${lot}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn"
+                    >
+                      <Trans>DOB Building Profile</Trans> &#8599;
+                    </a>
+                    <a
+                      href={`https://portal.displacementalert.org/property/${boro}${block}${lot}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn"
+                    >
+                      <Trans>ANHD DAP Portal</Trans> &#8599;
+                    </a>
+                  </div>
+                </div>
+              </div>
 
               <SocialShareForNotRegisteredPage addr={usersInputAddress} />
               <br />
-              {/* <div className="toast toast-error">
-                <u>Note:</u> We're currently experiencing some difficulties due to an official NYC data service failing. We're working on it. If a search returns with "no results found", try it again in a minute or so!
-              </div> */}
               <br />
 
               <Link className="btn btn-primary btn-block" to="/">
