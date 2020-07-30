@@ -69,9 +69,7 @@ export default class AddressPage extends Component<AddressPageProps, State> {
   }
 
   componentDidMount() {
-    if (this.props.state.value === "noData") {
-      this.props.send({ type: "SEARCH", address: validateRouteParams(this.props.match.params) });
-    }
+    this.props.send({ type: "SEARCH", address: validateRouteParams(this.props.match.params) });
   }
 
   handleAddrChange = (addr?: AddressRecord) => {
@@ -125,7 +123,6 @@ export default class AddressPage extends Component<AddressPageProps, State> {
                 searchAddr={searchAddr}
                 numOfAssocAddrs={assocAddrs.length}
               />
-              <p>{this.props.state.value}</p>
               <div className="float-left">
                 <h1 className="primary">
                   <Trans>

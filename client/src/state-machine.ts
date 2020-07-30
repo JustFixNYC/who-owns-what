@@ -1,4 +1,4 @@
-import { createMachine, assign, DoneInvokeEvent, State } from "xstate";
+import { createMachine, assign, DoneInvokeEvent, State, TransitionsConfig } from "xstate";
 import {
   SearchAddressWithoutBbl,
   AddressRecord,
@@ -151,6 +151,16 @@ const assignWowStateContext = assign((ctx: WowContext, event: DoneInvokeEvent<Wo
   return { ...event.data.context };
 });
 
+const handleSearchEvent: TransitionsConfig<WowContext, WowEvent> = {
+  SEARCH: {
+    target: "searchInProgress",
+    cond: (ctx, event) => !!event.address.boro && !!event.address.streetname,
+    actions: assign((ctx, event) => {
+      return { searchAddrParams: event.address };
+    }),
+  },
+};
+
 export const wowMachine = createMachine<WowContext, WowEvent, WowState>({
   id: "wow",
   initial: "noData",
@@ -158,16 +168,13 @@ export const wowMachine = createMachine<WowContext, WowEvent, WowState>({
   states: {
     noData: {
       on: {
-        SEARCH: {
-          target: "searchInProgress",
-          cond: (ctx, event) => !!event.address.boro && !!event.address.streetname,
-          actions: assign((ctx, event) => {
-            return { searchAddrParams: event.address };
-          }),
-        },
+        ...handleSearchEvent,
       },
     },
     searchInProgress: {
+      on: {
+        ...handleSearchEvent,
+      },
       invoke: {
         id: "geosearch",
         src: (ctx, event) => getSearchResult(assertNotUndefined(ctx.searchAddrParams)),
@@ -196,9 +203,25 @@ export const wowMachine = createMachine<WowContext, WowEvent, WowState>({
         ],
       },
     },
-    bblNotFound: {},
-    nychaFound: {},
-    unregisteredFound: {},
-    portfolioFound: {},
+    bblNotFound: {
+      on: {
+        ...handleSearchEvent,
+      }
+    },
+    nychaFound: {
+      on: {
+        ...handleSearchEvent,
+      }
+    },
+    unregisteredFound: {
+      on: {
+        ...handleSearchEvent,
+      }
+    },
+    portfolioFound: {
+      on: {
+        ...handleSearchEvent,
+      }
+    },
   },
 });
