@@ -102,7 +102,7 @@ export default class AddressPage extends Component<AddressPageProps, State> {
 
   render() {
     const { state, send } = this.props;
-    
+
     if (state.value === "nychaFound") {
       return <NychaPage state={state} send={send} />;
     } else if (state.value === "unregisteredFound") {

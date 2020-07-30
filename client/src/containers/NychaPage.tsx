@@ -84,7 +84,9 @@ const NychaPageWithoutI18n: React.FC<NychaPageProps> = (props) => {
   const takeActionURL = Helpers.createTakeActionURL(usersInputAddress, "nycha_page");
 
   return (
-    <Page title={searchAddrParams && `${searchAddrParams.housenumber} ${searchAddrParams.streetname}`}>
+    <Page
+      title={searchAddrParams && `${searchAddrParams.housenumber} ${searchAddrParams.streetname}`}
+    >
       <div className="NotRegisteredPage Page">
         <div className="HomePage__content">
           <div className="HomePage__search">

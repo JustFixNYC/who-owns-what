@@ -7,6 +7,7 @@ import { Trans } from "@lingui/macro";
 import Page from "../components/Page";
 import { createRouteForAddressPage } from "../routes";
 import { makeEmptySearchAddress } from "../components/AddressSearch";
+import { SearchAddressWithoutBbl } from "../components/APIDataTypes";
 
 // This will be *either* bbl *or* boro, block, and lot.
 type BBLPageParams = {
@@ -20,13 +21,10 @@ type BBLPageProps = RouteComponentProps<BBLPageParams>;
 
 const BBLPage: React.FC<BBLPageProps> = (props) => {
   const history = useHistory();
-
-  window.gtag("event", "direct-link");
-
   const params = props.match.params;
 
   var fullBBL: string;
-  var searchAddress = makeEmptySearchAddress();
+  var searchAddress: SearchAddressWithoutBbl = makeEmptySearchAddress();
 
   // handling for when url parameter is separated bbl
   if (params.bbl) {
@@ -43,7 +41,6 @@ const BBLPage: React.FC<BBLPageProps> = (props) => {
         boro: results.result[0].boro,
         housenumber: results.result[0].housenumber,
         streetname: results.result[0].streetname,
-        bbl: fullBBL,
       };
       const addressPage = createRouteForAddressPage(searchAddress);
       history.push(addressPage);
