@@ -51,15 +51,9 @@ const BBLPage: React.FC<BBLPageProps> = (props) => {
 
   return (
     <Page>
-      <div className="Page HomePage">
-        <div className="HomePage__content">
-          <div className="HomePage__search">
-            <Loader classNames="Loader--centered" loading={true}>
-              <Trans>Searching</Trans>
-            </Loader>
-          </div>
-        </div>
-      </div>
+      <Loader loading={true} classNames="Loader-map">
+        <Trans>Loading</Trans>
+      </Loader>
     </Page>
   );
 };
