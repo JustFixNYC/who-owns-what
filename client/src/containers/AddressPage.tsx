@@ -14,7 +14,6 @@ import Loader from "../components/Loader";
 import "styles/AddressPage.css";
 import NychaPage from "./NychaPage";
 import NotRegisteredPage from "./NotRegisteredPage";
-import { assertNotUndefined } from "../util/helpers";
 import { Trans, Plural } from "@lingui/macro";
 import { Link, RouteComponentProps } from "react-router-dom";
 import Page from "../components/Page";
@@ -102,16 +101,14 @@ export default class AddressPage extends Component<AddressPageProps, State> {
   render() {
     const { state, send } = this.props;
 
-    if (state.value === "bblNotFound") {
+    if (state.matches("bblNotFound")) {
       return <NotFoundPage />;
-    } else if (state.value === "nychaFound") {
+    } else if (state.matches("nychaFound")) {
       return <NychaPage state={state} send={send} />;
-    } else if (state.value === "unregisteredFound") {
+    } else if (state.matches("unregisteredFound")) {
       return <NotRegisteredPage state={state} send={send} />;
-    } else if (state.value === "portfolioFound") {
-      const { detailAddr, assocAddrs, searchAddr } = assertNotUndefined(
-        state.context.portfolioData
-      );
+    } else if (state.matches("portfolioFound")) {
+      const { detailAddr, assocAddrs, searchAddr } = state.context.portfolioData;
       return (
         <Page
           title={`${this.props.match.params.housenumber} ${this.props.match.params.streetname}`}
