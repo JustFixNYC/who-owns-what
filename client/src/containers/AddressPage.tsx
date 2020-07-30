@@ -21,6 +21,7 @@ import Page from "../components/Page";
 import { SearchResults, AddressRecord, Borough } from "../components/APIDataTypes";
 import { SearchAddress } from "../components/AddressSearch";
 import { WithMachineProps } from "state-machine";
+import NotFoundPage from "./NotFoundPage";
 
 type RouteParams = {
   locale?: string;
@@ -103,7 +104,10 @@ export default class AddressPage extends Component<AddressPageProps, State> {
   render() {
     const { state, send } = this.props;
 
-    if (state.value === "nychaFound") {
+    if (state.value === "bblNotFound") {
+      return <NotFoundPage />
+    }
+    else if (state.value === "nychaFound") {
       return <NychaPage state={state} send={send} />;
     } else if (state.value === "unregisteredFound") {
       return <NotRegisteredPage state={state} send={send} />;
