@@ -1,4 +1,4 @@
-import React, { Component, useEffect } from "react";
+import React, { Component } from "react";
 import FileSaver from "file-saver";
 import Browser from "../util/browser";
 
@@ -20,16 +20,9 @@ import helpers from "../util/helpers";
 import { Trans, Plural } from "@lingui/macro";
 import { Link, RouteComponentProps } from "react-router-dom";
 import Page from "../components/Page";
-import {
-  SearchResults,
-  AddressRecord,
-  GeoSearchData,
-  Borough,
-  SearchAddressWithoutBbl,
-} from "../components/APIDataTypes";
+import { SearchResults, AddressRecord, GeoSearchData, Borough } from "../components/APIDataTypes";
 import { SearchAddress } from "../components/AddressSearch";
-import { useMachine } from "@xstate/react";
-import { wowMachine, WithMachineProps } from "state-machine";
+import { WithMachineProps } from "state-machine";
 
 type RouteParams = {
   locale?: string;
