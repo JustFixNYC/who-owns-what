@@ -6,8 +6,6 @@ import { RouteComponentProps, useHistory } from "react-router";
 import { Trans } from "@lingui/macro";
 import Page from "../components/Page";
 import { createRouteForAddressPage } from "../routes";
-import { makeEmptySearchAddress } from "../components/AddressSearch";
-import { SearchAddressWithoutBbl } from "../components/APIDataTypes";
 import NotFoundPage from "./NotFoundPage";
 
 // This will be *either* bbl *or* boro, block, and lot.
@@ -26,7 +24,6 @@ const BBLPage: React.FC<BBLPageProps> = (props) => {
   const [isNotFound, setIsNotFound] = useState(false);
 
   var fullBBL: string;
-  var searchAddress: SearchAddressWithoutBbl = makeEmptySearchAddress();
 
   // handling for when url parameter is separated bbl
   if (params.bbl) {
@@ -47,12 +44,11 @@ const BBLPage: React.FC<BBLPageProps> = (props) => {
           setIsNotFound(true);
           return;
         }
-        searchAddress = {
+        const addressPage = createRouteForAddressPage({
           boro: results.result[0].boro,
           housenumber: results.result[0].housenumber,
           streetname: results.result[0].streetname,
-        };
-        const addressPage = createRouteForAddressPage(searchAddress);
+        });
         history.push(addressPage);
       })
       .catch((err) => {
@@ -62,7 +58,7 @@ const BBLPage: React.FC<BBLPageProps> = (props) => {
     return () => {
       isMounted = false;
     };
-  }, []);
+  }, [fullBBL, history]);
 
   return isNotFound ? (
     <NotFoundPage />
