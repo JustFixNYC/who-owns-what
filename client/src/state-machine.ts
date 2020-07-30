@@ -54,6 +54,7 @@ type WowState =
 
 type WowEvent =
   | { type: "SEARCH"; address: SearchAddressWithoutBbl }
+  | { type: "RESET_DATA" }
   | { type: "SELECT_DETAIL_ADDR"; bbl: string }
   | { type: "VIEW_SUMMARY" }
   | { type: "VIEW_TIMELINE" };
