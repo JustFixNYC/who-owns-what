@@ -3,6 +3,8 @@ import {
   SearchAddressWithoutBbl,
   AddressRecord,
   BuildingInfoRecord,
+  MonthlyTimelineData,
+  SummaryStatsRecord,
 } from "components/APIDataTypes";
 import { NychaData } from "containers/NychaPage";
 import APIClient from "components/APIClient";
@@ -71,6 +73,16 @@ type PortfolioData = {
   detailAddr: AddressRecord;
 };
 
+type TimelineData = {
+  timelineBbl: string;
+  monthlyTimelineData: MonthlyTimelineData;
+};
+
+type SummaryData = {
+  summaryBbl: string;
+  summaryStats: SummaryStatsRecord;
+};
+
 interface WowContext {
   /** The original parameters that a user inputs to locate their building on WOW */
   searchAddrParams?: SearchAddressWithoutBbl;
@@ -86,7 +98,12 @@ interface WowContext {
    * database of HPD registered buildings
    */
   buildingInfo?: BuildingInfoRecord;
+  /** NYCHA Public Housing development details (grabbed if the search address is public housing) */
   nychaData?: NychaData;
+  /** All data used to render the "Timeline tab" of the Address Page. Updates on any change to `detailAddr` */
+  timelineData?: TimelineData;
+  /** All data used to render the "Summary tab" of the Address Page. Updates on any change to `searchAddr` */
+  summaryData?: SummaryData;
 }
 
 type WowMachineEverything = State<WowContext, WowEvent, any, WowState>;
