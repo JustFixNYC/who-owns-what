@@ -187,6 +187,7 @@ export default class PropertiesMap extends Component<Props, State> {
 
   handleMapPan = () => {
     const { detailAddr } = getPortfolioData(this.props);
+
     if (!(this.state.mapFocusBbl && detailAddr.bbl === this.state.mapFocusBbl)) {
       const { lat, lng } = detailAddr;
 
@@ -207,15 +208,16 @@ export default class PropertiesMap extends Component<Props, State> {
     }
   };
 
+  getMapTypeForAddr = (addr: AddressRecord) => {
+    const { assocAddrs } = getPortfolioData(this.props);
+    const matchingAddr = assocAddrs.find((a) => Helpers.addrsAreEqual(a, addr));
+    return matchingAddr ? matchingAddr.mapType : "base";
+  };
+
   render() {
     const browserType = Browser.isMobile() ? "mobile" : "other";
 
-    const { assocAddrs, detailAddr } = getPortfolioData(this.props);
-
-    const getMapTypeForAddr = (addr: AddressRecord) => {
-      const matchingAddr = assocAddrs.find((a) => Helpers.addrsAreEqual(a, addr));
-      return matchingAddr ? matchingAddr.mapType : "base";
-    };
+    const { detailAddr } = getPortfolioData(this.props);
 
     return (
       <div className="PropertiesMap">
@@ -266,10 +268,10 @@ export default class PropertiesMap extends Component<Props, State> {
                   we need to lookup the property pe of this feature from the main addrs array
                   this affects the color of the marker while still outlining it as "selected"
                   */}
-              {detailAddr && detailAddr.lng && detailAddr.lat && (
+              {detailAddr.lng && detailAddr.lat && (
                 <Feature
                   properties={{
-                    mapType: getMapTypeForAddr(detailAddr),
+                    mapType: this.getMapTypeForAddr(detailAddr),
                   }}
                   coordinates={[detailAddr.lng, detailAddr.lat]}
                 />
