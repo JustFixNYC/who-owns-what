@@ -178,7 +178,7 @@ const handleSearchEvent: TransitionsConfig<WowContext, WowEvent> = {
   },
 };
 
-export const getPortfolioData = (props: WithMachineProps) => {
+export const accessPortfolioData = (props: WithMachineProps) => {
   const { state } = props;
   if (!state.matches("portfolioFound")) {
     throw new Error(`Invalid state ${state.value}`);

@@ -11,7 +11,7 @@ import { Trans, Select } from "@lingui/macro";
 import { AddressRecord } from "./APIDataTypes";
 import { Props as MapboxMapProps } from "react-mapbox-gl/lib/map";
 import { Events as MapboxMapEvents } from "react-mapbox-gl/lib/map-events";
-import { WithMachineProps, getPortfolioData } from "state-machine";
+import { WithMachineProps, accessPortfolioData } from "state-machine";
 
 type Props = WithMachineProps & {
   onAddrChange: (bbl: string) => void;
@@ -110,7 +110,7 @@ export default class PropertiesMap extends Component<Props, State> {
     let addrsPos = new Set();
     let newAssocAddrs: JSX.Element[] = [];
 
-    const { assocAddrs, searchAddr } = getPortfolioData(this.props);
+    const { assocAddrs, searchAddr } = accessPortfolioData(this.props);
 
     // cycle through addrs, adding them to the set and categorizing them
     assocAddrs.forEach((addr, i) => {
@@ -186,7 +186,7 @@ export default class PropertiesMap extends Component<Props, State> {
   };
 
   handleMapPan = () => {
-    const { detailAddr } = getPortfolioData(this.props);
+    const { detailAddr } = accessPortfolioData(this.props);
 
     if (!(this.state.mapFocusBbl && detailAddr.bbl === this.state.mapFocusBbl)) {
       const { lat, lng } = detailAddr;
@@ -209,7 +209,7 @@ export default class PropertiesMap extends Component<Props, State> {
   };
 
   getMapTypeForAddr = (addr: AddressRecord) => {
-    const { assocAddrs } = getPortfolioData(this.props);
+    const { assocAddrs } = accessPortfolioData(this.props);
     const matchingAddr = assocAddrs.find((a) => Helpers.addrsAreEqual(a, addr));
     return matchingAddr ? matchingAddr.mapType : "base";
   };
@@ -217,7 +217,7 @@ export default class PropertiesMap extends Component<Props, State> {
   render() {
     const browserType = Browser.isMobile() ? "mobile" : "other";
 
-    const { detailAddr } = getPortfolioData(this.props);
+    const { detailAddr } = accessPortfolioData(this.props);
 
     return (
       <div className="PropertiesMap">
