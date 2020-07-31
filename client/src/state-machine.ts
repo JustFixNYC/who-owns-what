@@ -221,6 +221,21 @@ export const wowMachine = createMachine<WowContext, WowEvent, WowState>({
     portfolioFound: {
       on: {
         ...handleSearchEvent,
+        SELECT_DETAIL_ADDR: {
+          target: "portfolioFound",
+          actions: assign((ctx, event) => {
+            const portfolioData = assertNotUndefined(ctx.portfolioData);
+            const newDetailAddr = assertNotUndefined(
+              _find(portfolioData.assocAddrs, { bbl: event.bbl })
+            );
+            return {
+              portfolioData: {
+                ...portfolioData,
+                detailAddr: newDetailAddr,
+              },
+            };
+          }),
+        },
       },
     },
   },

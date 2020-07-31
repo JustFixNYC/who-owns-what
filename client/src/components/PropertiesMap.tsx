@@ -16,7 +16,7 @@ type Props = {
   addrs: AddressRecord[];
   userAddr: AddressRecord;
   detailAddr: AddressRecord | null;
-  onAddrChange: (addr: AddressRecord) => void;
+  onAddrChange: (bbl: string) => void;
   isVisible: boolean;
 };
 
@@ -206,7 +206,7 @@ export default class PropertiesMap extends Component<Props, State> {
 
   handleAddrSelect = (addr: AddressRecord, e: any) => {
     // updates state with new focus address
-    this.props.onAddrChange(addr);
+    this.props.onAddrChange(addr.bbl);
   };
 
   render() {

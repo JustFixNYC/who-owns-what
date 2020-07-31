@@ -17,7 +17,7 @@ import NotRegisteredPage from "./NotRegisteredPage";
 import { Trans, Plural } from "@lingui/macro";
 import { Link, RouteComponentProps } from "react-router-dom";
 import Page from "../components/Page";
-import { SearchResults, AddressRecord, Borough } from "../components/APIDataTypes";
+import { SearchResults, Borough } from "../components/APIDataTypes";
 import { SearchAddress } from "../components/AddressSearch";
 import { WithMachineProps } from "state-machine";
 import NotFoundPage from "./NotFoundPage";
@@ -71,7 +71,8 @@ export default class AddressPage extends Component<AddressPageProps, State> {
     this.props.send({ type: "SEARCH", address: validateRouteParams(this.props.match.params) });
   }
 
-  handleAddrChange = (addr?: AddressRecord) => {
+  handleAddrChange = (newFocusBbl: string) => {
+    this.props.send({ type: "SELECT_DETAIL_ADDR", bbl: newFocusBbl });
     this.setState({
       detailMobileSlide: true,
     });
@@ -217,7 +218,8 @@ export default class AddressPage extends Component<AddressPageProps, State> {
               }`}
             >
               <PropertiesList
-                addrs={assocAddrs}
+                state={state}
+                send={send}
                 onOpenDetail={this.handleAddrChange}
                 generateBaseUrl={this.generateBaseUrl}
               />
