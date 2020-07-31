@@ -184,9 +184,8 @@ export default class AddressPage extends Component<AddressPageProps, State> {
               }`}
             >
               <PropertiesMap
-                addrs={assocAddrs}
-                userAddr={searchAddr}
-                detailAddr={detailAddr}
+                state={state}
+                send={send}
                 onAddrChange={this.handleAddrChange}
                 isVisible={this.props.currentTab === 0}
               />

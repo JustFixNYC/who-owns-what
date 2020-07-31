@@ -11,11 +11,9 @@ import { Trans, Select } from "@lingui/macro";
 import { AddressRecord } from "./APIDataTypes";
 import { Props as MapboxMapProps } from "react-mapbox-gl/lib/map";
 import { Events as MapboxMapEvents } from "react-mapbox-gl/lib/map-events";
+import { WithMachineProps } from "state-machine";
 
-type Props = {
-  addrs: AddressRecord[];
-  userAddr: AddressRecord;
-  detailAddr: AddressRecord | null;
+type Props = WithMachineProps & {
   onAddrChange: (bbl: string) => void;
   isVisible: boolean;
 };
@@ -26,7 +24,7 @@ type State = {
   mapRef: any | null;
   mobileLegendSlide: boolean;
   addrsBounds: number[][];
-  assocAddrs: JSX.Element[];
+  addrsPoints: JSX.Element[];
   mapProps: MapboxMapProps & MapboxMapEvents;
 };
 
@@ -98,7 +96,7 @@ export default class PropertiesMap extends Component<Props, State> {
       mapRef: null,
       mobileLegendSlide: false,
       addrsBounds: [[]], // bounds are represented as a 2d array of lnglats
-      assocAddrs: [], // array of Features
+      addrsPoints: [], // array of Features
       mapProps: {
         onStyleLoad: (map, _) => this.setState({ mapLoading: false, mapRef: map }),
         onMouseMove: (map, e) => this.handleMouseMove(map, e),
@@ -107,92 +105,93 @@ export default class PropertiesMap extends Component<Props, State> {
     };
   }
 
-  componentDidUpdate(prevProps: Props, prevState: State) {
-    // addrs are being populated for the first time, so lets initialize things
-    if (!this.state.assocAddrs.length && this.props.addrs.length) {
-      // set of addr positions to determine custom bounds
-      let addrsPos = new Set();
-      let newAssocAddrs: JSX.Element[] = [];
+  componentDidMount() {
+    const { state } = this.props;
+    let addrsPos = new Set();
+    let newAssocAddrs: JSX.Element[] = [];
 
-      // cycle through addrs, adding them to the set and categorizing them
-      this.props.addrs.map((addr, i) => {
-        const pos: LatLng = [addr.lng || NaN, addr.lat || NaN];
-
-        if (!MapHelpers.latLngIsNull(pos)) {
-          addrsPos.add(pos);
-
-          // presuming that nextProps.userAddr is in sync with nextProps.addrs
-          if (Helpers.addrsAreEqual(addr, this.props.userAddr)) {
-            addr.mapType = "search";
-          } else {
-            addr.mapType = "base";
-          }
-        }
-
-        // push a new Feature for the map
-        newAssocAddrs.push(
-          <Feature
-            key={i}
-            coordinates={pos}
-            properties={{ mapType: addr.mapType }}
-            onClick={(e) => this.handleAddrSelect(addr, e)}
-          />
-        );
-
-        return addr;
-      });
-
-      // see getBoundingBox() for deets
-      const pointsArray = Array.from(addrsPos) as LatLng[];
-      const newAddrsBounds = MapHelpers.getBoundingBox(pointsArray);
-
-      // sets things up, including initial portfolio level map view
-      this.setState(
-        {
-          addrsBounds: newAddrsBounds,
-          assocAddrs: newAssocAddrs,
-        },
-        () => {
-          // yeah, this sucks, but it seems to be more consistent with
-          // getting mapbox to render properly. essentially wait another cycle before
-          // re-bounding the map
-          this.setState({
-            mapProps: {
-              ...this.state.mapProps,
-              fitBounds: this.state.addrsBounds,
-            },
-          });
-        }
-      );
+    if (!state.matches("portfolioFound")) {
+      throw new Error(`Invalid state ${state.value}`);
     }
+    const { assocAddrs, searchAddr } = state.context.portfolioData;
 
+    // cycle through addrs, adding them to the set and categorizing them
+    assocAddrs.map((addr, i) => {
+      const pos: LatLng = [addr.lng || NaN, addr.lat || NaN];
+
+      if (!MapHelpers.latLngIsNull(pos)) {
+        addrsPos.add(pos);
+
+        // presuming that nextProps.userAddr is in sync with nextProps.addrs
+        if (Helpers.addrsAreEqual(addr, searchAddr)) {
+          addr.mapType = "search";
+        } else {
+          addr.mapType = "base";
+        }
+      }
+
+      // push a new Feature for the map
+      newAssocAddrs.push(
+        <Feature
+          key={i}
+          coordinates={pos}
+          properties={{ mapType: addr.mapType }}
+          onClick={(e) => this.handleAddrSelect(addr, e)}
+        />
+      );
+    });
+    // see getBoundingBox() for deets
+    const pointsArray = Array.from(addrsPos) as LatLng[];
+    const newAddrsBounds = MapHelpers.getBoundingBox(pointsArray);
+
+    // sets things up, including initial portfolio level map view
+    this.setState(
+      {
+        addrsBounds: newAddrsBounds,
+        addrsPoints: newAssocAddrs,
+      },
+      () => {
+        // yeah, this sucks, but it seems to be more consistent with
+        // getting mapbox to render properly. essentially wait another cycle before
+        // re-bounding the map
+        this.setState({
+          mapProps: {
+            ...this.state.mapProps,
+            fitBounds: this.state.addrsBounds,
+          },
+        });
+      }
+    );
+  }
+
+  componentDidUpdate(prevProps: Props, prevState: State) {
     // is this necessary?
     // meant to reconfigure after bring the tab back in focus
     if (!prevProps.isVisible && this.props.isVisible) {
       if (this.state.mapRef) this.state.mapRef.resize();
     }
 
-    // meant to pan the map any time the detail address changes
-    if (
-      prevProps.detailAddr &&
-      this.props.detailAddr &&
-      !Helpers.addrsAreEqual(prevProps.detailAddr, this.props.detailAddr)
-    ) {
-      let addr = this.props.detailAddr;
-      if (!(addr.lat && addr.lng)) return;
+    // // meant to pan the map any time the detail address changes
+    // if (
+    //   prevProps.detailAddr &&
+    //   this.props.detailAddr &&
+    //   !Helpers.addrsAreEqual(prevProps.detailAddr, this.props.detailAddr)
+    // ) {
+    //   let addr = this.props.detailAddr;
+    //   if (!(addr.lat && addr.lng)) return;
 
-      // build a bounding box around our new detail addr
-      let minPos = [addr.lng - DETAIL_OFFSET, addr.lat - DETAIL_OFFSET];
-      let maxPos = [addr.lng + DETAIL_OFFSET, addr.lat + DETAIL_OFFSET];
-      this.setState({
-        mapProps: {
-          ...this.state.mapProps,
-          fitBounds: [minPos, maxPos],
-        },
-      });
+    //   // build a bounding box around our new detail addr
+    //   let minPos = [addr.lng - DETAIL_OFFSET, addr.lat - DETAIL_OFFSET];
+    //   let maxPos = [addr.lng + DETAIL_OFFSET, addr.lat + DETAIL_OFFSET];
+    //   this.setState({
+    //     mapProps: {
+    //       ...this.state.mapProps,
+    //       fitBounds: [minPos, maxPos],
+    //     },
+    //   });
 
-      // console.log("I panned the map!");
-    }
+    //   // console.log("I panned the map!");
+    // }
   }
 
   handleMouseMove = (map: any, e: any) => {
@@ -211,11 +210,14 @@ export default class PropertiesMap extends Component<Props, State> {
 
   render() {
     const browserType = Browser.isMobile() ? "mobile" : "other";
-    const addrs = this.props.addrs;
-    const detailAddr = this.props.detailAddr;
+    const { state } = this.props;
+    if (!state.matches("portfolioFound")) {
+      throw new Error(`Invalid state ${state.value}`);
+    }
+    const { assocAddrs, detailAddr } = state.context.portfolioData;
 
     const getMapTypeForAddr = (addr: AddressRecord) => {
-      const matchingAddr = addrs.find((a) => Helpers.addrsAreEqual(a, addr));
+      const matchingAddr = assocAddrs.find((a) => Helpers.addrsAreEqual(a, addr));
       return matchingAddr ? matchingAddr.mapType : "base";
     };
 
@@ -256,9 +258,9 @@ export default class PropertiesMap extends Component<Props, State> {
                 left: "10px",
               }}
             />
-            {this.state.assocAddrs.length ? (
+            {this.state.addrsPoints.length ? (
               <Layer id="assoc" type="circle" paint={DYNAMIC_ASSOC_PAINT}>
-                {this.state.assocAddrs}
+                {this.state.addrsPoints}
               </Layer>
             ) : (
               <></>
