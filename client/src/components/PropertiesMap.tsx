@@ -11,7 +11,7 @@ import { Trans, Select } from "@lingui/macro";
 import { AddressRecord } from "./APIDataTypes";
 import { Props as MapboxMapProps } from "react-mapbox-gl/lib/map";
 import { Events as MapboxMapEvents } from "react-mapbox-gl/lib/map-events";
-import { WithMachineProps } from "state-machine";
+import { WithMachineProps, getPortfolioData } from "state-machine";
 
 type Props = WithMachineProps & {
   onAddrChange: (bbl: string) => void;
@@ -27,14 +27,6 @@ type State = {
   addrsBounds: number[][];
   addrsPoints: JSX.Element[];
   mapProps: MapboxMapProps & MapboxMapEvents;
-};
-
-const getPortfolioData = (props: WithMachineProps) => {
-  const { state } = props;
-  if (!state.matches("portfolioFound")) {
-    throw new Error(`Invalid state ${state.value}`);
-  }
-  return state.context.portfolioData;
 };
 
 const MAPBOX_ACCESS_TOKEN =
@@ -121,7 +113,7 @@ export default class PropertiesMap extends Component<Props, State> {
     const { assocAddrs, searchAddr } = getPortfolioData(this.props);
 
     // cycle through addrs, adding them to the set and categorizing them
-    assocAddrs.map((addr, i) => {
+    assocAddrs.forEach((addr, i) => {
       const pos: LatLng = [addr.lng || NaN, addr.lat || NaN];
 
       if (!MapHelpers.latLngIsNull(pos)) {
@@ -176,8 +168,25 @@ export default class PropertiesMap extends Component<Props, State> {
       if (this.state.mapRef) this.state.mapRef.resize();
     }
 
+    this.handleMapPan();
+  }
+
+  handleMouseMove = (map: any, e: any) => {
+    let features = map.queryRenderedFeatures(e.point, { layers: ["assoc"] });
+    if (features.length) {
+      map.getCanvas().style.cursor = "pointer";
+    } else {
+      map.getCanvas().style.cursor = "";
+    }
+  };
+
+  handleAddrSelect = (addr: AddressRecord, e: any) => {
+    // updates state with new detail address
+    this.props.onAddrChange(addr.bbl);
+  };
+
+  handleMapPan = () => {
     const { detailAddr } = getPortfolioData(this.props);
-    // meant to pan the map any time the detail address changes
     if (!(this.state.mapFocusBbl && detailAddr.bbl === this.state.mapFocusBbl)) {
       const { lat, lng } = detailAddr;
 
@@ -195,23 +204,7 @@ export default class PropertiesMap extends Component<Props, State> {
           fitBounds: newBounds,
         },
       });
-
-      // console.log("I panned the map!");
     }
-  }
-
-  handleMouseMove = (map: any, e: any) => {
-    let features = map.queryRenderedFeatures(e.point, { layers: ["assoc"] });
-    if (features.length) {
-      map.getCanvas().style.cursor = "pointer";
-    } else {
-      map.getCanvas().style.cursor = "";
-    }
-  };
-
-  handleAddrSelect = (addr: AddressRecord, e: any) => {
-    // updates state with new focus address
-    this.props.onAddrChange(addr.bbl);
   };
 
   render() {

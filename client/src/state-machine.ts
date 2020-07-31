@@ -178,6 +178,14 @@ const handleSearchEvent: TransitionsConfig<WowContext, WowEvent> = {
   },
 };
 
+export const getPortfolioData = (props: WithMachineProps) => {
+  const { state } = props;
+  if (!state.matches("portfolioFound")) {
+    throw new Error(`Invalid state ${state.value}`);
+  }
+  return state.context.portfolioData;
+};
+
 export const wowMachine = createMachine<WowContext, WowEvent, WowState>({
   id: "wow",
   initial: "noData",
