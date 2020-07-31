@@ -20,12 +20,21 @@ type Props = WithMachineProps & {
 
 type State = {
   mapLoading: boolean;
+  mapFocusBbl?: string;
   hasWebGLContext: boolean;
   mapRef: any | null;
   mobileLegendSlide: boolean;
   addrsBounds: number[][];
   addrsPoints: JSX.Element[];
   mapProps: MapboxMapProps & MapboxMapEvents;
+};
+
+const getPortfolioData = (props: WithMachineProps) => {
+  const { state } = props;
+  if (!state.matches("portfolioFound")) {
+    throw new Error(`Invalid state ${state.value}`);
+  }
+  return state.context.portfolioData;
 };
 
 const MAPBOX_ACCESS_TOKEN =
@@ -106,14 +115,10 @@ export default class PropertiesMap extends Component<Props, State> {
   }
 
   componentDidMount() {
-    const { state } = this.props;
     let addrsPos = new Set();
     let newAssocAddrs: JSX.Element[] = [];
 
-    if (!state.matches("portfolioFound")) {
-      throw new Error(`Invalid state ${state.value}`);
-    }
-    const { assocAddrs, searchAddr } = state.context.portfolioData;
+    const { assocAddrs, searchAddr } = getPortfolioData(this.props);
 
     // cycle through addrs, adding them to the set and categorizing them
     assocAddrs.map((addr, i) => {
@@ -171,27 +176,28 @@ export default class PropertiesMap extends Component<Props, State> {
       if (this.state.mapRef) this.state.mapRef.resize();
     }
 
-    // // meant to pan the map any time the detail address changes
-    // if (
-    //   prevProps.detailAddr &&
-    //   this.props.detailAddr &&
-    //   !Helpers.addrsAreEqual(prevProps.detailAddr, this.props.detailAddr)
-    // ) {
-    //   let addr = this.props.detailAddr;
-    //   if (!(addr.lat && addr.lng)) return;
+    const { detailAddr } = getPortfolioData(this.props);
+    // meant to pan the map any time the detail address changes
+    if (!(this.state.mapFocusBbl && detailAddr.bbl === this.state.mapFocusBbl)) {
+      const { lat, lng } = detailAddr;
 
-    //   // build a bounding box around our new detail addr
-    //   let minPos = [addr.lng - DETAIL_OFFSET, addr.lat - DETAIL_OFFSET];
-    //   let maxPos = [addr.lng + DETAIL_OFFSET, addr.lat + DETAIL_OFFSET];
-    //   this.setState({
-    //     mapProps: {
-    //       ...this.state.mapProps,
-    //       fitBounds: [minPos, maxPos],
-    //     },
-    //   });
+      // build a bounding box around our new detail addr
+      const newBounds = !!(lat && lng)
+        ? [
+            [lng - DETAIL_OFFSET, lat - DETAIL_OFFSET],
+            [lng + DETAIL_OFFSET, lat + DETAIL_OFFSET],
+          ]
+        : this.state.mapProps.fitBounds;
+      this.setState({
+        mapFocusBbl: detailAddr.bbl,
+        mapProps: {
+          ...this.state.mapProps,
+          fitBounds: newBounds,
+        },
+      });
 
-    //   // console.log("I panned the map!");
-    // }
+      // console.log("I panned the map!");
+    }
   }
 
   handleMouseMove = (map: any, e: any) => {
@@ -210,11 +216,8 @@ export default class PropertiesMap extends Component<Props, State> {
 
   render() {
     const browserType = Browser.isMobile() ? "mobile" : "other";
-    const { state } = this.props;
-    if (!state.matches("portfolioFound")) {
-      throw new Error(`Invalid state ${state.value}`);
-    }
-    const { assocAddrs, detailAddr } = state.context.portfolioData;
+
+    const { assocAddrs, detailAddr } = getPortfolioData(this.props);
 
     const getMapTypeForAddr = (addr: AddressRecord) => {
       const matchingAddr = assocAddrs.find((a) => Helpers.addrsAreEqual(a, addr));
