@@ -54,6 +54,14 @@ type WowState =
       context: WowPortfolioFoundContext;
     }
   | {
+      value: { portfolioFound: { timeline: "noData" } };
+      context: WowPortfolioFoundContext;
+    }
+  | {
+      value: { portfolioFound: { timeline: "pending" } };
+      context: WowPortfolioFoundContext;
+    }
+  | {
       value: { portfolioFound: { timeline: "error" } };
       context: WowPortfolioFoundContext;
     }
@@ -62,6 +70,14 @@ type WowState =
       context: WowPortfolioFoundContext & {
         timelineData: TimelineData;
       };
+    }
+  | {
+      value: { portfolioFound: { summary: "noData" } };
+      context: WowPortfolioFoundContext;
+    }
+  | {
+      value: { portfolioFound: { summary: "pending" } };
+      context: WowPortfolioFoundContext;
     }
   | {
       value: { portfolioFound: { summary: "error" } };
@@ -309,12 +325,14 @@ export const wowMachine = createMachine<WowContext, WowEvent, WowState>({
 
 // TODO REMOVE THE FOLLOWING, IT IS ALL TEMPORARY.
 
-const boop = interpret(wowMachine);
+export function blargghh() {
+  const boop = interpret(wowMachine);
 
-if (boop.state.matches({ portfolioFound: { timeline: "success" } })) {
-  boop.state.context.timelineData.timelineBbl;
-}
+  if (boop.state.matches({ portfolioFound: { timeline: "success" } })) {
+    console.log(boop.state.context.timelineData.timelineBbl);
+  }
 
-function blorp(x: WowMachineInState<{ portfolioFound: { timeline: "success" } }>) {
-  x.context.timelineData.monthlyTimelineData;
+  function blorp(x: WowMachineInState<{ portfolioFound: { timeline: "success" } }>) {
+    console.log(x.context.timelineData.monthlyTimelineData);
+  }
 }

@@ -102,6 +102,8 @@ export default class AddressPage extends Component<AddressPageProps, State> {
   render() {
     const { state, send } = this.props;
 
+    console.log("RENDER BUDDY", state.value);
+
     if (state.matches("bblNotFound")) {
       return <NotFoundPage />;
     } else if (state.matches("nychaFound")) {
