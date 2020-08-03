@@ -335,4 +335,6 @@ export function blargghh() {
   function blorp(x: WowMachineInState<{ portfolioFound: { timeline: "success" } }>) {
     console.log(x.context.timelineData.monthlyTimelineData);
   }
+
+  console.log(boop, blorp);
 }
