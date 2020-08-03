@@ -20,7 +20,6 @@ type Props = WithMachineInStateProps<"portfolioFound"> & {
 
 type State = {
   mapLoading: boolean;
-  mapFocusBbl?: string;
   hasWebGLContext: boolean;
   mapRef: any | null;
   mobileLegendSlide: boolean;
@@ -168,7 +167,32 @@ export default class PropertiesMap extends Component<Props, State> {
       if (this.state.mapRef) this.state.mapRef.resize();
     }
 
-    this.handleMapPan();
+    /**
+     * Either we are receiving detailAddr for the first time, or it has been updated to a new address.
+     */
+    const didDetailAddrUpdate =
+      (!prevProps.state.context.portfolioData && this.props.state.context.portfolioData) ||
+      prevProps.state.context.portfolioData.detailAddr.bbl !==
+        this.getPortfolioData().detailAddr.bbl;
+
+    if (didDetailAddrUpdate) {
+      const { detailAddr } = this.getPortfolioData();
+      const { lat, lng } = detailAddr;
+
+      // build a bounding box around our new detail addr
+      const newBounds = !!(lat && lng)
+        ? [
+            [lng - DETAIL_OFFSET, lat - DETAIL_OFFSET],
+            [lng + DETAIL_OFFSET, lat + DETAIL_OFFSET],
+          ]
+        : this.state.mapProps.fitBounds;
+      this.setState({
+        mapProps: {
+          ...this.state.mapProps,
+          fitBounds: newBounds,
+        },
+      });
+    }
   }
 
   handleMouseMove = (map: any, e: any) => {
@@ -188,29 +212,6 @@ export default class PropertiesMap extends Component<Props, State> {
   getPortfolioData() {
     return this.props.state.context.portfolioData;
   }
-
-  handleMapPan = () => {
-    const { detailAddr } = this.getPortfolioData();
-
-    if (!(this.state.mapFocusBbl && detailAddr.bbl === this.state.mapFocusBbl)) {
-      const { lat, lng } = detailAddr;
-
-      // build a bounding box around our new detail addr
-      const newBounds = !!(lat && lng)
-        ? [
-            [lng - DETAIL_OFFSET, lat - DETAIL_OFFSET],
-            [lng + DETAIL_OFFSET, lat + DETAIL_OFFSET],
-          ]
-        : this.state.mapProps.fitBounds;
-      this.setState({
-        mapFocusBbl: detailAddr.bbl,
-        mapProps: {
-          ...this.state.mapProps,
-          fitBounds: newBounds,
-        },
-      });
-    }
-  };
 
   getMapTypeForAddr = (addr: AddressRecord) => {
     const { assocAddrs } = this.getPortfolioData();
