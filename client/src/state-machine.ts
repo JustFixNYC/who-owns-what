@@ -1,4 +1,11 @@
-import { createMachine, assign, DoneInvokeEvent, State, TransitionsConfig } from "xstate";
+import {
+  createMachine,
+  assign,
+  DoneInvokeEvent,
+  State,
+  TransitionsConfig,
+  interpret,
+} from "xstate";
 import {
   SearchAddressWithoutBbl,
   AddressRecord,
@@ -11,6 +18,7 @@ import APIClient from "components/APIClient";
 import helpers, { assertNotUndefined } from "util/helpers";
 
 import _find from "lodash/find";
+import { useMachine } from "@xstate/react";
 
 type WowState =
   | { value: "noData"; context: {} }
@@ -43,16 +51,38 @@ type WowState =
     }
   | {
       value: "portfolioFound";
-      context: WowContext & {
-        searchAddrParams: SearchAddressWithoutBbl;
-        searchAddrBbl: string;
-        portfolioData: PortfolioData;
+      context: WowPortfolioFoundContext;
+    }
+  | {
+      value: { portfolioFound: { timeline: "error" } };
+      context: WowPortfolioFoundContext;
+    }
+  | {
+      value: { portfolioFound: { timeline: "success" } };
+      context: WowPortfolioFoundContext & {
+        timelineData: TimelineData;
+      };
+    }
+  | {
+      value: { portfolioFound: { summary: "error" } };
+      context: WowPortfolioFoundContext;
+    }
+  | {
+      value: { portfolioFound: { summary: "success" } };
+      context: WowPortfolioFoundContext & {
+        summaryData: SummaryData;
       };
     }
   | {
       value: "networkErrorOccurred";
       context: WowContext & { searchAddrParams: SearchAddressWithoutBbl };
     };
+
+type WowPortfolioFoundContext = WowContext & {
+  searchAddrParams: SearchAddressWithoutBbl;
+  searchAddrBbl: string;
+  portfolioData: PortfolioData;
+};
 
 type WowEvent =
   | { type: "SEARCH"; address: SearchAddressWithoutBbl }
@@ -276,3 +306,15 @@ export const wowMachine = createMachine<WowContext, WowEvent, WowState>({
     },
   },
 });
+
+// TODO REMOVE THE FOLLOWING, IT IS ALL TEMPORARY.
+
+const boop = interpret(wowMachine);
+
+if (boop.state.matches({ portfolioFound: { timeline: "success" } })) {
+  boop.state.context.timelineData.timelineBbl;
+}
+
+function blorp(x: WowMachineInState<{ portfolioFound: { timeline: "success" } }>) {
+  x.context.timelineData.monthlyTimelineData;
+}
