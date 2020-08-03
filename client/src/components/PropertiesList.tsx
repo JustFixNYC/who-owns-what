@@ -11,7 +11,7 @@ import { Link } from "react-router-dom";
 import { SupportedLocale } from "../i18n-base";
 import Helpers, { longDateOptions } from "../util/helpers";
 import { AddressRecord } from "./APIDataTypes";
-import { WithMachineProps } from "state-machine";
+import { WithMachineInStateProps } from "state-machine";
 
 export const isPartOfGroupSale = (saleId: string, addrs: AddressRecord[]) => {
   const addrsWithMatchingSale = addrs.filter((addr) => addr.lastsaleacrisid === saleId);
@@ -19,7 +19,7 @@ export const isPartOfGroupSale = (saleId: string, addrs: AddressRecord[]) => {
 };
 
 const PropertiesListWithoutI18n: React.FC<
-  WithMachineProps & {
+  WithMachineInStateProps<"portfolioFound"> & {
     i18n: I18n;
     onOpenDetail: (bbl: string) => void;
     generateBaseUrl: () => string;
@@ -27,10 +27,6 @@ const PropertiesListWithoutI18n: React.FC<
 > = (props) => {
   const { i18n } = props;
   const locale = (i18n.language as SupportedLocale) || "en";
-
-  if (!props.state.matches("portfolioFound")) {
-    throw new Error(`Invalid state: ${props.state.value}`);
-  }
 
   const addrs = props.state.context.portfolioData.assocAddrs;
   return (

@@ -9,7 +9,7 @@ import { Trans, t } from "@lingui/macro";
 import { withI18n, withI18nProps } from "@lingui/react";
 import { Nobr } from "../components/Nobr";
 import { SocialShareForNotRegisteredPage } from "./NotRegisteredPage";
-import { WithMachineProps } from "state-machine";
+import { WithMachineInStateProps } from "state-machine";
 import Page from "components/Page";
 
 export type NychaData = {
@@ -19,13 +19,10 @@ export type NychaData = {
   dev_unitsres: number;
 };
 
-type NychaPageProps = WithMachineProps & withI18nProps;
+type NychaPageProps = WithMachineInStateProps<"nychaFound"> & withI18nProps;
 
 const NychaPageWithoutI18n: React.FC<NychaPageProps> = (props) => {
   const { i18n, state } = props;
-  if (!state.matches("nychaFound")) {
-    throw new Error(`Invalid state ${state.value}`);
-  }
 
   const { searchAddrParams, searchAddrBbl, nychaData: nycha, buildingInfo } = state.context;
   const { boro, block, lot } = Helpers.splitBBL(searchAddrBbl);

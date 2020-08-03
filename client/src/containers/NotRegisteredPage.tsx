@@ -9,10 +9,10 @@ import LegalFooter from "../components/LegalFooter";
 import Helpers from "../util/helpers";
 import SocialShare from "../components/SocialShare";
 import { Nobr } from "../components/Nobr";
-import { WithMachineProps } from "state-machine";
+import { WithMachineInStateProps } from "state-machine";
 import Page from "components/Page";
 
-type Props = WithMachineProps;
+type Props = WithMachineInStateProps<"unregisteredFound">;
 
 type State = {
   showModal: boolean;
@@ -41,9 +41,6 @@ export default class NotRegisteredPage extends Component<Props, State> {
 
   render() {
     const { state } = this.props;
-    if (!state.matches("unregisteredFound")) {
-      throw new Error(`Invalid state: ${state.value}`);
-    }
     const { searchAddrParams, searchAddrBbl, buildingInfo } = state.context;
 
     const { boro, block, lot } = Helpers.splitBBL(searchAddrBbl);

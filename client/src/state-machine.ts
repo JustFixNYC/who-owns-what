@@ -108,8 +108,28 @@ interface WowContext {
 
 type WowMachineEverything = State<WowContext, WowEvent, any, WowState>;
 
+type WowMachineInState<TSV extends Stupid["value"], Stupid extends WowState = WowState> = State<
+  (Stupid extends { value: TSV } ? Stupid : never)["context"],
+  WowEvent,
+  any,
+  Stupid
+>;
+
 export type WithMachineProps = {
   state: WowMachineEverything;
+  send: (event: WowEvent) => WowMachineEverything;
+};
+
+export type WithMachineInStateProps<
+  TSV extends Stupid["value"],
+  /**
+   * I have no idea why this type has to be parametrized
+   * since we never change this default, hence the name
+   * "Stupid". -AV
+   */
+  Stupid extends WowState = WowState
+> = {
+  state: WowMachineInState<TSV, Stupid>;
   send: (event: WowEvent) => WowMachineEverything;
 };
 
@@ -176,14 +196,6 @@ const handleSearchEvent: TransitionsConfig<WowContext, WowEvent> = {
       return { searchAddrParams: event.address };
     }),
   },
-};
-
-export const accessPortfolioData = (props: WithMachineProps) => {
-  const { state } = props;
-  if (!state.matches("portfolioFound")) {
-    throw new Error(`Invalid state ${state.value}`);
-  }
-  return state.context.portfolioData;
 };
 
 export const wowMachine = createMachine<WowContext, WowEvent, WowState>({

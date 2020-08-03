@@ -11,9 +11,9 @@ import { Trans, Select } from "@lingui/macro";
 import { AddressRecord } from "./APIDataTypes";
 import { Props as MapboxMapProps } from "react-mapbox-gl/lib/map";
 import { Events as MapboxMapEvents } from "react-mapbox-gl/lib/map-events";
-import { WithMachineProps, accessPortfolioData } from "state-machine";
+import { WithMachineInStateProps } from "state-machine";
 
-type Props = WithMachineProps & {
+type Props = WithMachineInStateProps<"portfolioFound"> & {
   onAddrChange: (bbl: string) => void;
   isVisible: boolean;
 };
@@ -110,7 +110,7 @@ export default class PropertiesMap extends Component<Props, State> {
     let addrsPos = new Set();
     let newAssocAddrs: JSX.Element[] = [];
 
-    const { assocAddrs, searchAddr } = accessPortfolioData(this.props);
+    const { assocAddrs, searchAddr } = this.props.state.context.portfolioData;
 
     // cycle through addrs, adding them to the set and categorizing them
     assocAddrs.forEach((addr, i) => {
@@ -185,8 +185,12 @@ export default class PropertiesMap extends Component<Props, State> {
     this.props.onAddrChange(addr.bbl);
   };
 
+  getPortfolioData() {
+    return this.props.state.context.portfolioData;
+  }
+
   handleMapPan = () => {
-    const { detailAddr } = accessPortfolioData(this.props);
+    const { detailAddr } = this.getPortfolioData();
 
     if (!(this.state.mapFocusBbl && detailAddr.bbl === this.state.mapFocusBbl)) {
       const { lat, lng } = detailAddr;
@@ -209,7 +213,7 @@ export default class PropertiesMap extends Component<Props, State> {
   };
 
   getMapTypeForAddr = (addr: AddressRecord) => {
-    const { assocAddrs } = accessPortfolioData(this.props);
+    const { assocAddrs } = this.getPortfolioData();
     const matchingAddr = assocAddrs.find((a) => Helpers.addrsAreEqual(a, addr));
     return matchingAddr ? matchingAddr.mapType : "base";
   };
@@ -217,7 +221,7 @@ export default class PropertiesMap extends Component<Props, State> {
   render() {
     const browserType = Browser.isMobile() ? "mobile" : "other";
 
-    const { detailAddr } = accessPortfolioData(this.props);
+    const { detailAddr } = this.getPortfolioData();
 
     return (
       <div className="PropertiesMap">
