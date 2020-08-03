@@ -108,11 +108,18 @@ interface WowContext {
 
 type WowMachineEverything = State<WowContext, WowEvent, any, WowState>;
 
-type WowMachineInState<TSV extends Stupid["value"], Stupid extends WowState = WowState> = State<
-  (Stupid extends { value: TSV } ? Stupid : never)["context"],
+type WowMachineInState<
+  TSV extends WowStateByAnotherName["value"],
+  /**
+   * I have no idea why this type has to be parametrized
+   * since we never change this default, hence the name. -AV
+   */
+  WowStateByAnotherName extends WowState = WowState
+> = State<
+  (WowStateByAnotherName extends { value: TSV } ? WowStateByAnotherName : never)["context"],
   WowEvent,
   any,
-  Stupid
+  WowStateByAnotherName
 >;
 
 export type WithMachineProps = {
@@ -120,16 +127,8 @@ export type WithMachineProps = {
   send: (event: WowEvent) => WowMachineEverything;
 };
 
-export type WithMachineInStateProps<
-  TSV extends Stupid["value"],
-  /**
-   * I have no idea why this type has to be parametrized
-   * since we never change this default, hence the name
-   * "Stupid". -AV
-   */
-  Stupid extends WowState = WowState
-> = {
-  state: WowMachineInState<TSV, Stupid>;
+export type WithMachineInStateProps<TSV extends WowState["value"]> = {
+  state: WowMachineInState<TSV>;
   send: (event: WowEvent) => WowMachineEverything;
 };
 
