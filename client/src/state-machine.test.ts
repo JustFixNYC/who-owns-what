@@ -1,7 +1,7 @@
 import { wowMachine, WowEvent } from "./state-machine";
 import { interpret } from "xstate";
 import { GEO_AUTOCOMPLETE_URL } from "@justfixnyc/geosearch-requester";
-import { waitUntilStateMatches, mockJsonResponse } from "tests/test-util";
+import { waitUntilStateMatches, mockJsonResponse, mockResponses } from "tests/test-util";
 import GEOCODING_EXAMPLE_SEARCH from "./tests/geocoding-example-search.json";
 
 const SEARCH_EVENT: WowEvent = {
@@ -30,50 +30,42 @@ describe("wowMachine", () => {
   });
 
   it("should deal w/ geosearch network errors", async () => {
-    fetchMock.mockIf(SEARCH_URL, async (req) => ({
-      status: 500,
-    }));
+    mockResponses({ [SEARCH_URL]: { status: 500 } });
     const wm = interpret(wowMachine).start();
     wm.send(SEARCH_EVENT);
     await waitUntilStateMatches(wm, "networkErrorOccurred");
   });
 
   it("should deal w/ invalid addresses", async () => {
-    fetchMock.mockIf(SEARCH_URL, async (req) => mockJsonResponse({ features: [] }));
+    mockResponses({ [SEARCH_URL]: mockJsonResponse({ features: [] }) });
     const wm = interpret(wowMachine).start();
     wm.send(SEARCH_EVENT);
     await waitUntilStateMatches(wm, "bblNotFound");
   });
 
   it("should deal w/ unregistered addresses", async () => {
-    fetchMock.mockResponse(async (req) => {
-      switch (req.url) {
-        case SEARCH_URL:
-          return mockJsonResponse(GEOCODING_EXAMPLE_SEARCH);
-        case ADDRESS_URL:
-          return mockJsonResponse({
-            addrs: [],
-            geosearch: {
-              geosupportReturnCode: "00",
-              bbl: "3002920026",
-            },
-          });
-        case BUILDINGINFO_URL:
-          return mockJsonResponse({
-            result: [
-              {
-                formatted_address: "144 COURT STREET",
-                housenumber: "144",
-                streetname: "COURT STREET",
-                bldgclass: "O5",
-                boro: "BROOKLYN",
-                latitude: 40.6889099948209,
-                longitude: -73.99302988771,
-              },
-            ],
-          });
-      }
-      throw new Error(`Unexpected URL: ${req.url}`);
+    mockResponses({
+      [SEARCH_URL]: mockJsonResponse(GEOCODING_EXAMPLE_SEARCH),
+      [ADDRESS_URL]: mockJsonResponse({
+        addrs: [],
+        geosearch: {
+          geosupportReturnCode: "00",
+          bbl: "3002920026",
+        },
+      }),
+      [BUILDINGINFO_URL]: mockJsonResponse({
+        result: [
+          {
+            formatted_address: "144 COURT STREET",
+            housenumber: "144",
+            streetname: "COURT STREET",
+            bldgclass: "O5",
+            boro: "BROOKLYN",
+            latitude: 40.6889099948209,
+            longitude: -73.99302988771,
+          },
+        ],
+      }),
     });
 
     const wm = interpret(wowMachine).start();
