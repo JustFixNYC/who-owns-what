@@ -357,7 +357,9 @@ class IndicatorsWithoutI18n extends Component<IndicatorsProps, IndicatorsState> 
                     </div>
                     <div className="card-subtitle text-gray" />
                   </div>
-                  <div className="card-body">{datasetDescription && datasetDescription.explanation(i18n)}</div>
+                  <div className="card-body">
+                    {datasetDescription && datasetDescription.explanation(i18n)}
+                  </div>
                 </div>
 
                 <div className="card card-links">
