@@ -1,26 +1,34 @@
-import { WowState, WowContext, WowEvent } from "state-machine";
-import { Interpreter, State } from "xstate";
+import { Interpreter, State, EventObject, StateSchema, Typestate } from "xstate";
 
+/**
+ * Wait until a XState interpreter's state matches the given one,
+ * and return it.
+ *
+ * If the interpreter's current state matches the given one, return
+ * it immediately.
+ */
 export async function waitUntilStateMatches<
-  TSV extends WowStateByAnotherName["value"],
-  /**
-   * I have no idea why this type has to be parametrized
-   * since we never change this default, hence the name. -AV
-   */
-  WowStateByAnotherName extends WowState = WowState
+  TContext,
+  TSV extends TTypestate["value"],
+  TEvent extends EventObject = EventObject,
+  TStateSchema extends StateSchema<TContext> = any,
+  TTypestate extends Typestate<TContext> = {
+    value: any;
+    context: TContext;
+  }
 >(
-  wm: Interpreter<WowContext, any, WowEvent, WowState>,
+  wm: Interpreter<TContext, any, TEvent, TTypestate>,
   match: TSV
 ): Promise<
   State<
-    (WowStateByAnotherName extends { value: TSV } ? WowStateByAnotherName : never)["context"],
-    WowEvent,
+    (TTypestate extends { value: TSV } ? TTypestate : never)["context"],
+    TEvent,
     any,
-    WowStateByAnotherName
+    TTypestate
   >
 > {
   return new Promise((resolve, reject) => {
-    function handleTransition(state: State<WowContext, WowEvent, any, WowState>) {
+    function handleTransition(state: State<TContext, TEvent, any, TTypestate>) {
       if (state.matches(match)) {
         wm.off(handleTransition);
         resolve(state);
