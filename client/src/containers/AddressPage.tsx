@@ -238,7 +238,6 @@ export default class AddressPage extends Component<AddressPageProps, State> {
                 state={state}
                 send={send}
                 isVisible={this.props.currentTab === 3}
-                userAddr={searchAddr}
               />
             </div>
           </div>

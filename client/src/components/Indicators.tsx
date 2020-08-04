@@ -172,12 +172,13 @@ class IndicatorsWithoutI18n extends Component<IndicatorsProps, IndicatorsState> 
       const lot = bbl.slice(6, 10);
 
       const { activeVis } = this.state;
-      const data = state.context.timelineData[activeVis];
-      const xAxisLength = data.labels
-        ? Math.floor(data.labels.length / this.state.monthsInGroup)
+      const activeData = state.context.timelineData[activeVis];
+
+      const xAxisLength = activeData.labels
+        ? Math.floor(activeData.labels.length / this.state.monthsInGroup)
         : 0;
-      const indicatorDataTotal = data.values.total
-        ? data.values.total.reduce((total: number, sum: number) => total + sum)
+      const indicatorDataTotal = activeData.values.total
+        ? activeData.values.total.reduce((total: number, sum: number) => total + sum)
         : null;
 
       const i18n = this.props.i18n;
@@ -186,7 +187,7 @@ class IndicatorsWithoutI18n extends Component<IndicatorsProps, IndicatorsState> 
         detailAddr.streetname
       )}, ${Helpers.titleCase(detailAddr.boro)}`;
 
-      const dataset = INDICATORS_DATASETS[this.state.activeVis];
+      const datasetDescription = INDICATORS_DATASETS[this.state.activeVis];
 
       return (
         <div className="Page Indicators">
@@ -295,9 +296,9 @@ class IndicatorsWithoutI18n extends Component<IndicatorsProps, IndicatorsState> 
                 </div>
 
                 <span className="title viz-title">
-                  {dataset &&
+                  {datasetDescription &&
                     indicatorDataTotal !== null &&
-                    dataset.quantity(i18n, indicatorDataTotal)}
+                    datasetDescription.quantity(i18n, indicatorDataTotal)}
                 </span>
 
                 <div className="Indicators__viz">
@@ -352,11 +353,11 @@ class IndicatorsWithoutI18n extends Component<IndicatorsProps, IndicatorsState> 
                 <div className="card">
                   <div className="card-header">
                     <div className="card-title h5">
-                      <Trans>What are {dataset && dataset.name(i18n)}?</Trans>
+                      <Trans>What are {datasetDescription && datasetDescription.name(i18n)}?</Trans>
                     </div>
                     <div className="card-subtitle text-gray" />
                   </div>
-                  <div className="card-body">{dataset && dataset.explanation(i18n)}</div>
+                  <div className="card-body">{datasetDescription && datasetDescription.explanation(i18n)}</div>
                 </div>
 
                 <div className="card card-links">

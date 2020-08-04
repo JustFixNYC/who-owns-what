@@ -10,12 +10,10 @@ import { RentstabSummary } from "./RentstabSummary";
 import { ViolationsSummary } from "./ViolationsSummary";
 import { StringifyListWithConjunction } from "./StringifyList";
 import { SocialSharePortfolio } from "./SocialShare";
-import { AddressRecord } from "./APIDataTypes";
-import { WithMachineProps } from "state-machine";
+import { WithMachineInStateProps } from "state-machine";
 
-type Props = WithMachineProps & {
+type Props = WithMachineInStateProps<"portfolioFound"> & {
   isVisible: boolean;
-  userAddr: AddressRecord;
 };
 
 const generateLinkToDataRequestForm = (fullAddress: string) =>
@@ -43,6 +41,7 @@ export default class PropertiesSummary extends Component<Props, {}> {
 
   render() {
     let agg = this.props.state.context.summaryData;
+    let searchAddr = this.props.state.context.portfolioData.searchAddr;
 
     return (
       <div className="Page PropertiesSummary">
@@ -141,7 +140,7 @@ export default class PropertiesSummary extends Component<Props, {}> {
                         window.gtag("event", "data-request");
                       }}
                       href={generateLinkToDataRequestForm(
-                        `${this.props.userAddr.housenumber}${this.props.userAddr.streetname},${this.props.userAddr.boro}`
+                        `${searchAddr.housenumber}${searchAddr.streetname},${searchAddr.boro}`
                       )}
                       target="_blank"
                       rel="noopener noreferrer"
@@ -158,7 +157,7 @@ export default class PropertiesSummary extends Component<Props, {}> {
                     </h6>
                     <SocialSharePortfolio
                       location="summary-tab"
-                      addr={this.props.userAddr}
+                      addr={searchAddr}
                       buildings={agg.bldgs}
                     />
                   </div>

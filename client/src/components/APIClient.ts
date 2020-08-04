@@ -80,6 +80,7 @@ async function getIndicatorHistory(bbl: string): Promise<IndicatorsDataFromAPI> 
 
   for (const indicator of indicatorsInitialState.indicatorList) {
     var inputData = helpers.createVizData(rawIndicatorData, indicator);
+    // TO DO: Fix this "any" typecasting
     structuredIndicatorData[indicator] = inputData as any;
   }
   return structuredIndicatorData;
