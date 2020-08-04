@@ -13,7 +13,7 @@ import helpers, { assertNotUndefined } from "util/helpers";
 import _find from "lodash/find";
 import { IndicatorsDataFromAPI } from "components/IndicatorsTypes";
 
-type WowState =
+export type WowState =
   | { value: "noData"; context: {} }
   | {
       value: "searchInProgress";
@@ -111,7 +111,7 @@ type PortfolioData = {
   detailAddr: AddressRecord;
 };
 
-interface WowContext {
+export interface WowContext {
   /** The original parameters that a user inputs to locate their building on WOW */
   searchAddrParams?: SearchAddressWithoutBbl;
   /** The BBL code found by GeoSearch corresponding with the search address parameters */
