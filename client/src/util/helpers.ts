@@ -7,6 +7,7 @@ import nycha_bbls from "../data/nycha_bbls.json";
 import { SupportedLocale } from "../i18n-base";
 import { IndicatorsDatasetId } from "components/IndicatorsDatasets";
 import { IndicatorsData, indicatorsInitialDataStructure } from "components/IndicatorsTypes";
+import { SearchAddressWithoutBbl } from "components/APIDataTypes";
 
 /**
  * An array consisting of Who Owns What's standard enumerations for street names,
@@ -44,6 +45,17 @@ export function assertNotUndefined<T>(thing: T | undefined): T | never {
     throw new Error("Assertion failure, expected argument to not be undefined!");
   }
   return thing;
+}
+
+export function searchAddrsAreEqual(
+  addr1: SearchAddressWithoutBbl,
+  addr2: SearchAddressWithoutBbl
+) {
+  return (
+    addr1.boro === addr2.boro &&
+    addr1.streetname === addr2.streetname &&
+    addr1.housenumber === addr2.housenumber
+  );
 }
 
 export default {

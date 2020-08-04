@@ -97,6 +97,7 @@ class IndicatorsWithoutI18n extends Component<IndicatorsProps, IndicatorsState> 
 
   componentDidMount() {
     this.updateData();
+    this.handleXAxisChange("reset");
   }
 
   componentDidUpdate(prevProps: IndicatorsProps, prevState: IndicatorsState) {

@@ -21,6 +21,7 @@ import { SearchResults, Borough } from "../components/APIDataTypes";
 import { SearchAddress } from "../components/AddressSearch";
 import { WithMachineProps } from "state-machine";
 import NotFoundPage from "./NotFoundPage";
+import { searchAddrsAreEqual } from "util/helpers";
 
 type RouteParams = {
   locale?: string;
@@ -68,7 +69,13 @@ export default class AddressPage extends Component<AddressPageProps, State> {
   }
 
   componentDidMount() {
-    this.props.send({ type: "SEARCH", address: validateRouteParams(this.props.match.params) });
+    const { state, send, match } = this.props;
+    if (
+      state.matches("portfolioFound") &&
+      searchAddrsAreEqual(state.context.portfolioData.searchAddr, validateRouteParams(match.params))
+    )
+      return;
+    send({ type: "SEARCH", address: validateRouteParams(match.params) });
   }
 
   handleAddrChange = (newFocusBbl: string) => {
