@@ -24,7 +24,6 @@ const generateLinkToDataRequestForm = (fullAddress: string) =>
   )}`;
 
 export default class PropertiesSummary extends Component<Props, {}> {
-  
   updateData() {
     if (
       this.props.state.matches({ portfolioFound: { summary: "noData" } }) &&
