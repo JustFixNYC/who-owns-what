@@ -221,7 +221,7 @@ const handleSearchEvent: TransitionsConfig<WowContext, WowEvent> = {
     target: "searchInProgress",
     cond: (ctx, event) => !!event.address.boro && !!event.address.streetname,
     actions: assign((ctx, event) => {
-      return { searchAddrParams: event.address };
+      return { searchAddrParams: event.address, summaryData: undefined, timelineData: undefined };
     }),
   },
 };
