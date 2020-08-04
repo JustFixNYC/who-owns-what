@@ -13,6 +13,7 @@ import {
   MonthlyTimelineData,
   SummaryStatsRecord,
   IndicatorsHistoryResults,
+  SummaryResults,
 } from "components/APIDataTypes";
 import { NychaData } from "containers/NychaPage";
 import APIClient from "components/APIClient";
@@ -338,7 +339,26 @@ export const wowMachine = createMachine<WowContext, WowEvent, WowState>({
           initial: "noData",
           states: {
             noData: {},
-            pending: {},
+            pending: {
+              invoke: {
+                id: "timeline",
+                src: (ctx, event) =>
+                  APIClient.getAggregate(assertNotUndefined(ctx.portfolioData).detailAddr.bbl),
+                onDone: {
+                  target: "success",
+                  actions: assign({
+                    summaryData: (ctx, event: DoneInvokeEvent<SummaryResults>) => {
+                      return {
+                        summaryStats: event.data.result[0],
+                      };
+                    },
+                  }),
+                },
+                onError: {
+                  target: "error",
+                },
+              },
+            },
             error: {},
             success: {},
           },
@@ -348,6 +368,9 @@ export const wowMachine = createMachine<WowContext, WowEvent, WowState>({
         ...handleSearchEvent,
         VIEW_TIMELINE: {
           target: [".timeline.pending"],
+        },
+        VIEW_SUMMARY: {
+          target: [".summary.pending"],
         },
         SELECT_DETAIL_ADDR: {
           target: [".summary.noData", ".timeline.noData"],
