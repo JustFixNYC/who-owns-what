@@ -5,6 +5,9 @@ import _pickBy from "lodash/pickBy";
 import { deepEqual as assertDeepEqual } from "assert";
 import nycha_bbls from "../data/nycha_bbls.json";
 import { SupportedLocale } from "../i18n-base";
+import { IndicatorsDatasetId } from "components/IndicatorsDatasets";
+import { IndicatorsData, indicatorsInitialDataStructure } from "components/IndicatorsTypes";
+import { SearchAddressWithoutBbl } from "components/APIDataTypes";
 
 /**
  * An array consisting of Who Owns What's standard enumerations for street names,
@@ -28,6 +31,32 @@ const hpdNumberTransformations = [
 export const longDateOptions = { year: "numeric", month: "short", day: "numeric" };
 export const mediumDateOptions = { year: "numeric", month: "long" };
 export const shortDateOptions = { month: "short" };
+
+/**
+ * Assert that the given argument isn't undefined and return it. Throw
+ * an exception otherwise.
+ *
+ * This is primarily useful for situations where we're unable to
+ * statically verify that something isn't undefined (e.g. due to the limitations
+ * of typings we didn't write) but are sure it won't be in practice.
+ */
+export function assertNotUndefined<T>(thing: T | undefined): T | never {
+  if (thing === undefined) {
+    throw new Error("Assertion failure, expected argument to not be undefined!");
+  }
+  return thing;
+}
+
+export function searchAddrsAreEqual(
+  addr1: SearchAddressWithoutBbl,
+  addr2: SearchAddressWithoutBbl
+) {
+  return (
+    addr1.boro === addr2.boro &&
+    addr1.streetname === addr2.streetname &&
+    addr1.housenumber === addr2.housenumber
+  );
+}
 
 export default {
   // filter repeated values in rbas and owners
@@ -113,6 +142,36 @@ export default {
       window.Rollbar.error("Address improperly formatted for DDO:", addr || "<falsy value>");
       return `https://${subdomain}.justfix.nyc/?utm_source=whoownswhat&utm_content=take_action_failed_attempt&utm_medium=${utm_medium}`;
     }
+  },
+
+  /** Reorganizes raw data from API call and then returns an object that matches the data stucture in state  */
+  createVizData(rawJSON: any, vizType: IndicatorsDatasetId): IndicatorsData {
+    // Generate object to hold data for viz
+    // Note: keys in "values" object need to match exact key names in data from API call
+    var vizData: IndicatorsData = Object.assign({}, indicatorsInitialDataStructure[vizType]);
+
+    vizData.labels = [];
+    for (const column in vizData.values) {
+      vizData.values[column] = [];
+    }
+
+    // Generate arrays of data for chart.js visualizations:
+    // Default grouping is by MONTH
+
+    const rawJSONLength = rawJSON.length;
+
+    for (let i = 0; i < rawJSONLength; i++) {
+      vizData.labels.push(rawJSON[i].month);
+
+      for (const column in vizData.values) {
+        const vizTypePlusColumn = vizType + "_" + column;
+        const values = vizData.values[column];
+        if (!values)
+          throw new Error(`Column "${column}" of visualization "${vizType}" is not an array!`);
+        values.push(parseInt(rawJSON[i][vizTypePlusColumn]));
+      }
+    }
+    return vizData;
   },
 
   intersectAddrObjects(a: any, b: any) {

@@ -1,16 +1,10 @@
-import { MonthlyTimelineData, AddressRecord } from "./APIDataTypes";
 import { IndicatorsDatasetId } from "./IndicatorsDatasets";
 import { withI18nProps } from "@lingui/react";
+import { WithMachineInStateProps } from "state-machine";
 
 export type IndicatorsTimeSpan = "month" | "quarter" | "year";
 
-// Types Relating to the State of the Indicators Component:
-
-type LastSaleData = {
-  date: string | null;
-  label: string | null;
-  documentid: string | null;
-};
+// Types Relating to the State Machine Data for the Indicators Component:
 
 type IndicatorsDataValues = {
   [k in string]?: number[] | null;
@@ -46,41 +40,17 @@ interface PermitsData extends IndicatorsData {
   };
 }
 
-type IndicatorsDataIndex = {
+export type IndicatorsDataIndex = {
   [k in IndicatorsDatasetId]: IndicatorsData;
 };
 
-type IndicatorsDataFromAPI = IndicatorsDataIndex & {
+export type IndicatorsDataFromAPI = IndicatorsDataIndex & {
   viols: ViolsData;
   complaints: ComplaintsData;
   permits: PermitsData;
 };
 
-export type IndicatorsState = IndicatorsDataFromAPI & {
-  indicatorHistory: MonthlyTimelineData[] | null;
-
-  lastSale: LastSaleData;
-
-  indicatorList: IndicatorsDatasetId[];
-  defaultVis: IndicatorsDatasetId;
-  activeVis: IndicatorsDatasetId;
-  timeSpanList: IndicatorsTimeSpan[];
-  activeTimeSpan: IndicatorsTimeSpan;
-  monthsInGroup: number;
-  xAxisStart: number;
-  xAxisViewableColumns: number;
-  currentAddr: AddressRecord | null;
-};
-
-export const indicatorsInitialState: IndicatorsState = {
-  lastSale: {
-    date: null,
-    label: null,
-    documentid: null,
-  },
-
-  indicatorHistory: null,
-
+export const indicatorsInitialDataStructure: IndicatorsDataFromAPI = {
   viols: {
     labels: null,
     values: {
@@ -106,6 +76,34 @@ export const indicatorsInitialState: IndicatorsState = {
       total: null,
     },
   },
+};
+
+// Types Relating to the State of the Indicators Component:
+
+type LastSaleData = {
+  date: string | null;
+  label: string | null;
+  documentid: string | null;
+};
+
+export type IndicatorsState = {
+  lastSale: LastSaleData;
+  indicatorList: IndicatorsDatasetId[];
+  defaultVis: IndicatorsDatasetId;
+  activeVis: IndicatorsDatasetId;
+  timeSpanList: IndicatorsTimeSpan[];
+  activeTimeSpan: IndicatorsTimeSpan;
+  monthsInGroup: number;
+  xAxisStart: number;
+  xAxisViewableColumns: number;
+};
+
+export const indicatorsInitialState: IndicatorsState = {
+  lastSale: {
+    date: null,
+    label: null,
+    documentid: null,
+  },
 
   indicatorList: ["complaints", "viols", "permits"],
   defaultVis: "complaints",
@@ -115,17 +113,16 @@ export const indicatorsInitialState: IndicatorsState = {
   monthsInGroup: 3,
   xAxisStart: 0,
   xAxisViewableColumns: 20,
-  currentAddr: null,
 };
 
 // Types Relating to the Props of the Indicators Component:
 
-export type IndicatorsProps = withI18nProps & {
-  isVisible: boolean;
-  detailAddr: AddressRecord | null;
-  onBackToOverview: (addr: AddressRecord) => void;
-  generateBaseUrl: () => string;
-};
+export type IndicatorsProps = withI18nProps &
+  WithMachineInStateProps<"portfolioFound"> & {
+    isVisible: boolean;
+    onBackToOverview: (bbl: string) => void;
+    generateBaseUrl: () => string;
+  };
 
 // Other Useful Types and Type-related utilites:
 

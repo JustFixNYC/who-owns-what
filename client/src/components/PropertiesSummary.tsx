@@ -3,7 +3,6 @@ import { Trans, Plural } from "@lingui/macro";
 
 import Loader from "../components/Loader";
 import LegalFooter from "../components/LegalFooter";
-import APIClient from "../components/APIClient";
 
 import "styles/PropertiesSummary.css";
 import { EvictionsSummary } from "./EvictionsSummary";
@@ -11,15 +10,11 @@ import { RentstabSummary } from "./RentstabSummary";
 import { ViolationsSummary } from "./ViolationsSummary";
 import { StringifyListWithConjunction } from "./StringifyList";
 import { SocialSharePortfolio } from "./SocialShare";
-import { AddressRecord, SummaryStatsRecord } from "./APIDataTypes";
+import { WithMachineInStateProps } from "state-machine";
+import { ErrorPageScaffolding } from "containers/NotFoundPage";
 
-type Props = {
+type Props = WithMachineInStateProps<"portfolioFound"> & {
   isVisible: boolean;
-  userAddr: AddressRecord;
-};
-
-type State = {
-  agg: SummaryStatsRecord | null;
 };
 
 const generateLinkToDataRequestForm = (fullAddress: string) =>
@@ -27,30 +22,45 @@ const generateLinkToDataRequestForm = (fullAddress: string) =>
     fullAddress
   )}`;
 
-export default class PropertiesSummary extends Component<Props, State> {
-  constructor(props: Props) {
-    super(props);
-
-    this.state = { agg: null };
-  }
-
-  componentDidUpdate(prevProps: Props, prevState: State) {
-    // make the api call when we come into view and have
-    // the user addrs bbl
-    if (this.props.isVisible && this.props.userAddr && !this.state.agg) {
-      APIClient.getAggregate(this.props.userAddr.bbl)
-        .then((results) => this.setState({ agg: results.result[0] }))
-        .catch((err) => console.error(err));
+export default class PropertiesSummary extends Component<Props, {}> {
+  updateData() {
+    if (
+      this.props.state.matches({ portfolioFound: { summary: "noData" } }) &&
+      this.props.isVisible
+    ) {
+      this.props.send({ type: "VIEW_SUMMARY" });
     }
   }
 
-  render() {
-    let agg = this.state.agg;
+  componentDidMount() {
+    this.updateData();
+  }
 
-    return (
-      <div className="Page PropertiesSummary">
-        <div className="PropertiesSummary__content Page__content">
-          {agg ? (
+  componentDidUpdate() {
+    this.updateData();
+  }
+
+  render() {
+    const { state } = this.props;
+    let agg = state.context.summaryData;
+    let searchAddr = state.context.portfolioData.searchAddr;
+
+    if (state.matches({ portfolioFound: { summary: "error" } }))
+      return (
+        <ErrorPageScaffolding>
+          <Trans>Oops! A network error occurred. Try again later.</Trans>
+        </ErrorPageScaffolding>
+      );
+    else if (!agg) {
+      return (
+        <Loader loading={true} classNames="Loader-map">
+          <Trans>Loading</Trans>
+        </Loader>
+      );
+    } else {
+      return (
+        <div className="Page PropertiesSummary">
+          <div className="PropertiesSummary__content Page__content">
             <div>
               <Trans render="h6">General info</Trans>
               <p>
@@ -144,7 +154,7 @@ export default class PropertiesSummary extends Component<Props, State> {
                         window.gtag("event", "data-request");
                       }}
                       href={generateLinkToDataRequestForm(
-                        `${this.props.userAddr.housenumber}${this.props.userAddr.streetname},${this.props.userAddr.boro}`
+                        `${searchAddr.housenumber}${searchAddr.streetname},${searchAddr.boro}`
                       )}
                       target="_blank"
                       rel="noopener noreferrer"
@@ -161,21 +171,17 @@ export default class PropertiesSummary extends Component<Props, State> {
                     </h6>
                     <SocialSharePortfolio
                       location="summary-tab"
-                      addr={this.props.userAddr}
+                      addr={searchAddr}
                       buildings={agg.bldgs}
                     />
                   </div>
                 </div>
               </aside>
             </div>
-          ) : (
-            <Loader loading={true} classNames="Loader-map">
-              Loading
-            </Loader>
-          )}
+          </div>
+          <LegalFooter />
         </div>
-        <LegalFooter />
-      </div>
-    );
+      );
+    }
   }
 }

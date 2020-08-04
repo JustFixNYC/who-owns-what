@@ -7,6 +7,12 @@ import {
 } from "./APIDataTypes";
 import { SearchAddress } from "./AddressSearch";
 import { GeoSearchRequester } from "@justfixnyc/geosearch-requester";
+import {
+  indicatorsInitialState,
+  indicatorsInitialDataStructure,
+  IndicatorsDataFromAPI,
+} from "./IndicatorsTypes";
+import helpers from "util/helpers";
 
 // API REQUESTS TO THE DATABASE:
 
@@ -19,14 +25,17 @@ function searchForAddressWithGeosearch(q: {
   if (q.housenumber) {
     addr = `${q.housenumber} ${addr}`;
   }
-  console.log("searching for", addr);
 
   return new Promise<SearchResults>((resolve, reject) => {
     const req = new GeoSearchRequester({
       onError: reject,
       onResults(results) {
         const firstResult = results.features[0];
-        if (!firstResult) throw new Error("Invalid address!");
+        if (!firstResult)
+          return resolve({
+            addrs: [],
+            geosearch: undefined,
+          });
         resolve(searchForBBL(splitBBL(firstResult.properties.pad_bbl)));
       },
       throttleMs: 0,
@@ -62,8 +71,19 @@ function getBuildingInfo(bbl: string): Promise<BuildingInfoResults> {
   return get(`/api/address/buildinginfo?bbl=${bbl}`);
 }
 
-function getIndicatorHistory(bbl: string): Promise<IndicatorsHistoryResults> {
-  return get(`/api/address/indicatorhistory?bbl=${bbl}`);
+async function getIndicatorHistory(bbl: string): Promise<IndicatorsDataFromAPI> {
+  const apiData: Promise<IndicatorsHistoryResults> = get(
+    `/api/address/indicatorhistory?bbl=${bbl}`
+  );
+  const rawIndicatorData = (await apiData).result;
+  const structuredIndicatorData = Object.assign({}, indicatorsInitialDataStructure);
+
+  for (const indicator of indicatorsInitialState.indicatorList) {
+    var inputData = helpers.createVizData(rawIndicatorData, indicator);
+    // TO DO: Fix this "any" typecasting
+    structuredIndicatorData[indicator] = inputData as any;
+  }
+  return structuredIndicatorData;
 }
 
 function getAddressExport(bbl: string) {

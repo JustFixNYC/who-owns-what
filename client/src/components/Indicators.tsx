@@ -5,7 +5,6 @@ import Helpers from "../util/helpers";
 import IndicatorsViz from "../components/IndicatorsViz";
 import Loader from "../components/Loader";
 import LegalFooter from "../components/LegalFooter";
-import APIClient from "../components/APIClient";
 import { withI18n } from "@lingui/react";
 import { Trans } from "@lingui/macro";
 
@@ -22,10 +21,9 @@ import {
   IndicatorsState,
   IndicatorChartShift,
   IndicatorsTimeSpan,
-  IndicatorsData,
 } from "./IndicatorsTypes";
-import { AddressRecord } from "./APIDataTypes";
 import { Nobr } from "./Nobr";
+import { ErrorPageScaffolding } from "containers/NotFoundPage";
 
 class IndicatorsWithoutI18n extends Component<IndicatorsProps, IndicatorsState> {
   constructor(props: IndicatorsProps) {
@@ -34,15 +32,13 @@ class IndicatorsWithoutI18n extends Component<IndicatorsProps, IndicatorsState> 
     this.handleVisChange = this.handleVisChange.bind(this);
   }
 
-  /** Resets the component to initial blank state */
-  reset() {
-    this.setState(indicatorsInitialState);
-  }
-
   /** Shifts the X-axis 'left' or 'right', or 'reset' the X-axis to default */
   handleXAxisChange(shift: IndicatorChartShift) {
     const span = this.state.xAxisViewableColumns;
-    const labelsArray = this.state[this.state.activeVis].labels;
+    const activeVis = this.state.activeVis;
+    const labelsArray =
+      this.props.state.context.timelineData &&
+      this.props.state.context.timelineData[activeVis].labels;
 
     if (!labelsArray || labelsArray.length < span) {
       return;
@@ -91,90 +87,35 @@ class IndicatorsWithoutI18n extends Component<IndicatorsProps, IndicatorsState> 
     });
   }
 
-  /** Fetches data for Indicators component via 2 API calls and saves the raw data in state */
-  fetchData(detailAddr: AddressRecord) {
-    APIClient.getIndicatorHistory(detailAddr.bbl)
-      .then((results) => this.setState({ indicatorHistory: results.result }))
-      .catch((err) => {
-        window.Rollbar.error("API error on Indicators: Indicator History", err, detailAddr.bbl);
-      });
-
-    this.setState({
-      currentAddr: detailAddr,
-    });
-  }
-
-  /** Reorganizes raw data from API call and then returns an object that matches the data stucture in state  */
-  createVizData(rawJSON: any, vizType: IndicatorsDatasetId): IndicatorsData {
-    // Generate object to hold data for viz
-    // Note: keys in "values" object need to match exact key names in data from API call
-    var vizData: IndicatorsData = Object.assign({}, indicatorsInitialState[vizType]);
-
-    vizData.labels = [];
-    for (const column in vizData.values) {
-      vizData.values[column] = [];
-    }
-
-    // Generate arrays of data for chart.js visualizations:
-    // Default grouping is by MONTH
-
-    const rawJSONLength = rawJSON.length;
-
-    for (let i = 0; i < rawJSONLength; i++) {
-      vizData.labels.push(rawJSON[i].month);
-
-      for (const column in vizData.values) {
-        const vizTypePlusColumn = vizType + "_" + column;
-        const values = vizData.values[column];
-        if (!values)
-          throw new Error(`Column "${column}" of visualization "${vizType}" is not an array!`);
-        values.push(parseInt(rawJSON[i][vizTypePlusColumn]));
-      }
-    }
-    return vizData;
-  }
-
-  UNSAFE_componentWillReceiveProps(nextProps: IndicatorsProps) {
-    // make the api call when we have a new detail address from the Address Page
+  updateData() {
     if (
-      nextProps.detailAddr &&
-      nextProps.detailAddr.bbl && // will be receiving a detailAddr prop AND
-      (!this.props.detailAddr || // either we don't have one now
-        (this.props.detailAddr &&
-        this.props.detailAddr.bbl && // OR we have a different one
-          !Helpers.addrsAreEqual(this.props.detailAddr, nextProps.detailAddr)))
+      this.props.state.matches({ portfolioFound: { timeline: "noData" } }) &&
+      this.props.isVisible
     ) {
-      this.reset();
-      this.fetchData(nextProps.detailAddr);
+      this.props.send({ type: "VIEW_TIMELINE" });
     }
+  }
+
+  componentDidMount() {
+    this.updateData();
+    this.handleXAxisChange("reset");
   }
 
   componentDidUpdate(prevProps: IndicatorsProps, prevState: IndicatorsState) {
-    const indicatorList = this.state.indicatorList;
+    const { state } = this.props;
 
-    // process viz data from incoming API calls:
+    this.updateData();
 
-    if (
-      this.state.indicatorHistory &&
-      !Helpers.jsonEqual(prevState.indicatorHistory, this.state.indicatorHistory)
-    ) {
-      for (const indicator of indicatorList) {
-        var inputData = this.createVizData(this.state.indicatorHistory, indicator);
-
-        this.setState({
-          [indicator]: inputData,
-        } as any);
-      }
-    }
+    const newlyLoadedRawData =
+      !prevProps.state.matches({ portfolioFound: { timeline: "success" } }) &&
+      state.matches({ portfolioFound: { timeline: "success" } }) &&
+      state.context.timelineData;
 
     // reset chart positions when:
     // 1. default dataset loads or
     // 2. when activeTimeSpan changes:
 
-    if (
-      (!prevState[this.state.defaultVis].labels && this.state[this.state.defaultVis].labels) ||
-      prevState.activeTimeSpan !== this.state.activeTimeSpan
-    ) {
+    if (newlyLoadedRawData || prevState.activeTimeSpan !== this.state.activeTimeSpan) {
       this.handleXAxisChange("reset");
     }
 
@@ -182,18 +123,10 @@ class IndicatorsWithoutI18n extends Component<IndicatorsProps, IndicatorsState> 
     // 1. default dataset loads or
     // 2. when activeTimeSpan changes
 
-    if (
-      (this.state.currentAddr &&
-        !prevState[this.state.defaultVis].labels &&
-        this.state[this.state.defaultVis].labels) ||
-      prevState.activeTimeSpan !== this.state.activeTimeSpan
-    ) {
-      if (
-        this.props.detailAddr &&
-        this.props.detailAddr.lastsaledate &&
-        this.props.detailAddr.lastsaleacrisid
-      ) {
-        var lastSaleDate = this.props.detailAddr.lastsaledate;
+    if (newlyLoadedRawData || prevState.activeTimeSpan !== this.state.activeTimeSpan) {
+      const { detailAddr } = this.props.state.context.portfolioData;
+      if (detailAddr.lastsaledate && detailAddr.lastsaleacrisid) {
+        var lastSaleDate = detailAddr.lastsaledate;
         var lastSaleYear = lastSaleDate.slice(0, 4);
         var lastSaleQuarter =
           lastSaleYear + "-Q" + Math.ceil(parseInt(lastSaleDate.slice(5, 7)) / 3);
@@ -208,7 +141,7 @@ class IndicatorsWithoutI18n extends Component<IndicatorsProps, IndicatorsState> 
                 : this.state.activeTimeSpan === "quarter"
                 ? lastSaleQuarter
                 : lastSaleMonth,
-            documentid: this.props.detailAddr.lastsaleacrisid,
+            documentid: detailAddr.lastsaleacrisid,
           },
         });
       } else {
@@ -220,43 +153,51 @@ class IndicatorsWithoutI18n extends Component<IndicatorsProps, IndicatorsState> 
   }
 
   render() {
-    const detailAddr = this.props.detailAddr;
+    if (
+      !(
+        this.props.isVisible &&
+        this.props.state.matches({ portfolioFound: { timeline: "success" } })
+      )
+    ) {
+      return this.props.state.matches({ portfolioFound: { timeline: "error" } }) ? (
+        <ErrorPageScaffolding>
+          <Trans>Oops! A network error occurred. Try again later.</Trans>
+        </ErrorPageScaffolding>
+      ) : (
+        <Loader loading={true} classNames="Loader-map">
+          <Trans>Loading</Trans>
+        </Loader>
+      );
+    } else {
+      const { state, send } = this.props;
 
-    const boro = detailAddr ? detailAddr.bbl.slice(0, 1) : null;
-    const block = detailAddr ? detailAddr.bbl.slice(1, 6) : null;
-    const lot = detailAddr ? detailAddr.bbl.slice(6, 10) : null;
-    const housenumber = detailAddr ? detailAddr.housenumber : null;
-    const streetname = detailAddr ? detailAddr.streetname : null;
+      const { detailAddr } = state.context.portfolioData;
+      const { housenumber, streetname, bbl } = detailAddr;
+      const boro = bbl.slice(0, 1);
+      const block = bbl.slice(1, 6);
+      const lot = bbl.slice(6, 10);
 
-    const { activeVis } = this.state;
-    const data = this.state[activeVis];
-    const xAxisLength = data.labels ? Math.floor(data.labels.length / this.state.monthsInGroup) : 0;
-    const indicatorDataTotal = data.values.total
-      ? data.values.total.reduce((total: number, sum: number) => total + sum)
-      : null;
+      const { activeVis } = this.state;
+      const activeData = state.context.timelineData[activeVis];
 
-    const i18n = this.props.i18n;
+      const xAxisLength = activeData.labels
+        ? Math.floor(activeData.labels.length / this.state.monthsInGroup)
+        : 0;
+      const indicatorDataTotal = activeData.values.total
+        ? activeData.values.total.reduce((total: number, sum: number) => total + sum)
+        : null;
 
-    const detailAddrStr =
-      detailAddr &&
-      `${detailAddr.housenumber} ${Helpers.titleCase(detailAddr.streetname)}, ${Helpers.titleCase(
-        detailAddr.boro
-      )}`;
+      const i18n = this.props.i18n;
 
-    const dataset = INDICATORS_DATASETS[this.state.activeVis];
+      const detailAddrStr = `${detailAddr.housenumber} ${Helpers.titleCase(
+        detailAddr.streetname
+      )}, ${Helpers.titleCase(detailAddr.boro)}`;
 
-    return (
-      <div className="Page Indicators">
-        <div className="Indicators__content Page__content">
-          {!(
-            this.props.isVisible &&
-            this.state.indicatorHistory &&
-            this.state[this.state.defaultVis].labels
-          ) ? (
-            <Loader loading={true} classNames="Loader-map">
-              <Trans>Loading</Trans>
-            </Loader>
-          ) : (
+      const datasetDescription = INDICATORS_DATASETS[this.state.activeVis];
+
+      return (
+        <div className="Page Indicators">
+          <div className="Indicators__content Page__content">
             <div className="columns">
               <div className="column col-8 col-lg-12">
                 {detailAddr && (
@@ -269,7 +210,7 @@ class IndicatorsWithoutI18n extends Component<IndicatorsProps, IndicatorsState> 
                     <br />
                     <Link
                       to={this.props.generateBaseUrl()}
-                      onClick={() => this.props.onBackToOverview(detailAddr)}
+                      onClick={() => this.props.onBackToOverview(bbl)}
                     >
                       <Trans>Back to Overview</Trans>
                     </Link>
@@ -284,17 +225,17 @@ class IndicatorsWithoutI18n extends Component<IndicatorsProps, IndicatorsState> 
                     <br />
                     <IndicatorsDatasetRadio
                       id="complaints"
-                      activeId={this.state.activeVis}
+                      activeId={activeVis}
                       onChange={this.handleVisChange}
                     />
                     <IndicatorsDatasetRadio
                       id="viols"
-                      activeId={this.state.activeVis}
+                      activeId={activeVis}
                       onChange={this.handleVisChange}
                     />
                     <IndicatorsDatasetRadio
                       id="permits"
-                      activeId={this.state.activeVis}
+                      activeId={activeVis}
                       onChange={this.handleVisChange}
                     />
                   </div>
@@ -361,9 +302,9 @@ class IndicatorsWithoutI18n extends Component<IndicatorsProps, IndicatorsState> 
                 </div>
 
                 <span className="title viz-title">
-                  {dataset &&
+                  {datasetDescription &&
                     indicatorDataTotal !== null &&
-                    dataset.quantity(i18n, indicatorDataTotal)}
+                    datasetDescription.quantity(i18n, indicatorDataTotal)}
                 </span>
 
                 <div className="Indicators__viz">
@@ -383,7 +324,7 @@ class IndicatorsWithoutI18n extends Component<IndicatorsProps, IndicatorsState> 
                   >
                     ‹
                   </button>
-                  <IndicatorsViz {...this.state} />
+                  <IndicatorsViz state={state} send={send} {...this.state} />
                   <button
                     aria-hidden={
                       this.state.xAxisStart + this.state.xAxisViewableColumns >= xAxisLength ||
@@ -418,11 +359,13 @@ class IndicatorsWithoutI18n extends Component<IndicatorsProps, IndicatorsState> 
                 <div className="card">
                   <div className="card-header">
                     <div className="card-title h5">
-                      <Trans>What are {dataset && dataset.name(i18n)}?</Trans>
+                      <Trans>What are {datasetDescription && datasetDescription.name(i18n)}?</Trans>
                     </div>
                     <div className="card-subtitle text-gray" />
                   </div>
-                  <div className="card-body">{dataset && dataset.explanation(i18n)}</div>
+                  <div className="card-body">
+                    {datasetDescription && datasetDescription.explanation(i18n)}
+                  </div>
                 </div>
 
                 <div className="card card-links">
@@ -518,11 +461,11 @@ class IndicatorsWithoutI18n extends Component<IndicatorsProps, IndicatorsState> 
                 </div>
               </div>
             </div>
-          )}
+          </div>
+          <LegalFooter />
         </div>
-        <LegalFooter />
-      </div>
-    );
+      );
+    }
   }
 }
 

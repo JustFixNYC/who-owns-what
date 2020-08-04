@@ -1,5 +1,7 @@
 // TYPES ASSOCIATED WITH INPUT DATA:
 
+import { SearchAddress } from "./AddressSearch";
+
 export type Borough = "MANHATTAN" | "BRONX" | "BROOKLYN" | "QUEENS" | "STATEN ISLAND";
 
 export type WithBoroBlockLot = {
@@ -7,6 +9,8 @@ export type WithBoroBlockLot = {
   block: string;
   lot: string;
 };
+
+export type SearchAddressWithoutBbl = Omit<SearchAddress, "bbl">;
 
 // TYPES ASSOCIATED WITH ADDRESS SEARCH QUERY:
 
