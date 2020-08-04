@@ -47,19 +47,17 @@ interface PermitsData extends IndicatorsData {
   };
 }
 
-type IndicatorsDataIndex = {
+export type IndicatorsDataIndex = {
   [k in IndicatorsDatasetId]: IndicatorsData;
 };
 
-type IndicatorsDataFromAPI = IndicatorsDataIndex & {
+export type IndicatorsDataFromAPI = IndicatorsDataIndex & {
   viols: ViolsData;
   complaints: ComplaintsData;
   permits: PermitsData;
 };
 
-export type IndicatorsState = IndicatorsDataFromAPI & {
-  indicatorHistory: MonthlyTimelineData[] | null;
-
+export type IndicatorsState = {
   lastSale: LastSaleData;
 
   indicatorList: IndicatorsDatasetId[];
@@ -72,15 +70,7 @@ export type IndicatorsState = IndicatorsDataFromAPI & {
   xAxisViewableColumns: number;
 };
 
-export const indicatorsInitialState: IndicatorsState = {
-  lastSale: {
-    date: null,
-    label: null,
-    documentid: null,
-  },
-
-  indicatorHistory: null,
-
+export const indicatorsInitialDataStrucutre: IndicatorsDataFromAPI = {
   viols: {
     labels: null,
     values: {
@@ -105,6 +95,14 @@ export const indicatorsInitialState: IndicatorsState = {
     values: {
       total: null,
     },
+  },
+};
+
+export const indicatorsInitialState: IndicatorsState = {
+  lastSale: {
+    date: null,
+    label: null,
+    documentid: null,
   },
 
   indicatorList: ["complaints", "viols", "permits"],

@@ -40,7 +40,10 @@ class IndicatorsWithoutI18n extends Component<IndicatorsProps, IndicatorsState> 
   /** Shifts the X-axis 'left' or 'right', or 'reset' the X-axis to default */
   handleXAxisChange(shift: IndicatorChartShift) {
     const span = this.state.xAxisViewableColumns;
-    const labelsArray = this.state[this.state.activeVis].labels;
+    const activeVis = this.state.activeVis;
+    const labelsArray =
+      this.props.state.context.timelineData &&
+      this.props.state.context.timelineData[activeVis].labels;
 
     if (!labelsArray || labelsArray.length < span) {
       return;
@@ -91,46 +94,13 @@ class IndicatorsWithoutI18n extends Component<IndicatorsProps, IndicatorsState> 
 
   componentDidMount() {
     if (this.props.state.matches({ portfolioFound: { timeline: "noData" } })) {
+      this.reset();
       this.props.send({ type: "VIEW_TIMELINE" });
     }
   }
 
-  /** Reorganizes raw data from API call and then returns an object that matches the data stucture in state  */
-  createVizData(rawJSON: any, vizType: IndicatorsDatasetId): IndicatorsData {
-    // Generate object to hold data for viz
-    // Note: keys in "values" object need to match exact key names in data from API call
-    var vizData: IndicatorsData = Object.assign({}, indicatorsInitialState[vizType]);
-
-    vizData.labels = [];
-    for (const column in vizData.values) {
-      vizData.values[column] = [];
-    }
-
-    // Generate arrays of data for chart.js visualizations:
-    // Default grouping is by MONTH
-
-    const rawJSONLength = rawJSON.length;
-
-    for (let i = 0; i < rawJSONLength; i++) {
-      vizData.labels.push(rawJSON[i].month);
-
-      for (const column in vizData.values) {
-        const vizTypePlusColumn = vizType + "_" + column;
-        const values = vizData.values[column];
-        if (!values)
-          throw new Error(`Column "${column}" of visualization "${vizType}" is not an array!`);
-        values.push(parseInt(rawJSON[i][vizTypePlusColumn]));
-      }
-    }
-    return vizData;
-  }
-
   componentDidUpdate(prevProps: IndicatorsProps, prevState: IndicatorsState) {
-    const indicatorList = this.state.indicatorList;
     const { state } = this.props;
-
-    const newDataWasFormatted =
-      !prevState[this.state.defaultVis].labels && this.state[this.state.defaultVis].labels;
 
     // process viz data from incoming API calls:
     const newlyLoadedRawData =
@@ -138,20 +108,11 @@ class IndicatorsWithoutI18n extends Component<IndicatorsProps, IndicatorsState> 
       state.matches({ portfolioFound: { timeline: "success" } }) &&
       state.context.timelineData;
 
-    if (newlyLoadedRawData) {
-      for (const indicator of indicatorList) {
-        var inputData = this.createVizData(newlyLoadedRawData, indicator);
-        this.setState({
-          [indicator]: inputData,
-        } as any);
-      }
-    }
-
     // reset chart positions when:
     // 1. default dataset loads or
     // 2. when activeTimeSpan changes:
 
-    if (newDataWasFormatted || prevState.activeTimeSpan !== this.state.activeTimeSpan) {
+    if (newlyLoadedRawData || prevState.activeTimeSpan !== this.state.activeTimeSpan) {
       this.handleXAxisChange("reset");
     }
 
@@ -159,7 +120,7 @@ class IndicatorsWithoutI18n extends Component<IndicatorsProps, IndicatorsState> 
     // 1. default dataset loads or
     // 2. when activeTimeSpan changes
 
-    if (newDataWasFormatted || prevState.activeTimeSpan !== this.state.activeTimeSpan) {
+    if (newlyLoadedRawData || prevState.activeTimeSpan !== this.state.activeTimeSpan) {
       const { detailAddr } = this.props.state.context.portfolioData;
       if (detailAddr.lastsaledate && detailAddr.lastsaleacrisid) {
         var lastSaleDate = detailAddr.lastsaledate;
@@ -189,10 +150,11 @@ class IndicatorsWithoutI18n extends Component<IndicatorsProps, IndicatorsState> 
   }
 
   render() {
-    const { state } = this.props;
     if (
-      !(this.props.isVisible && state.matches({ portfolioFound: { timeline: "success" } })) &&
-      this.state[this.state.defaultVis].labels
+      !(
+        this.props.isVisible &&
+        this.props.state.matches({ portfolioFound: { timeline: "success" } })
+      )
     ) {
       return (
         <Loader loading={true} classNames="Loader-map">
@@ -200,7 +162,9 @@ class IndicatorsWithoutI18n extends Component<IndicatorsProps, IndicatorsState> 
         </Loader>
       );
     } else {
-      const { detailAddr } = this.props.state.context.portfolioData;
+      const { state, send } = this.props;
+      console.log(state.value, state.context);
+      const { detailAddr } = state.context.portfolioData;
 
       const boro = detailAddr ? detailAddr.bbl.slice(0, 1) : null;
       const block = detailAddr ? detailAddr.bbl.slice(1, 6) : null;
@@ -209,7 +173,7 @@ class IndicatorsWithoutI18n extends Component<IndicatorsProps, IndicatorsState> 
       const streetname = detailAddr ? detailAddr.streetname : null;
 
       const { activeVis } = this.state;
-      const data = this.state[activeVis];
+      const data = state.context.timelineData[activeVis];
       const xAxisLength = data.labels
         ? Math.floor(data.labels.length / this.state.monthsInGroup)
         : 0;
@@ -354,7 +318,7 @@ class IndicatorsWithoutI18n extends Component<IndicatorsProps, IndicatorsState> 
                   >
                     ‹
                   </button>
-                  <IndicatorsViz {...this.state} />
+                  <IndicatorsViz state={state} send={send} {...this.state} />
                   <button
                     aria-hidden={
                       this.state.xAxisStart + this.state.xAxisViewableColumns >= xAxisLength ||

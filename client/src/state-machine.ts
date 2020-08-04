@@ -13,6 +13,7 @@ import APIClient from "components/APIClient";
 import helpers, { assertNotUndefined } from "util/helpers";
 
 import _find from "lodash/find";
+import { IndicatorsDataFromAPI, IndicatorsData } from "components/IndicatorsTypes";
 
 type WowState =
   | { value: "noData"; context: {} }
@@ -62,7 +63,7 @@ type WowState =
   | {
       value: { portfolioFound: { timeline: "success" } };
       context: WowPortfolioFoundContext & {
-        timelineData: TimelineData;
+        timelineData: IndicatorsDataFromAPI;
       };
     }
   | {
@@ -113,10 +114,6 @@ type PortfolioData = {
   detailAddr: AddressRecord;
 };
 
-type TimelineData = {
-  monthlyTimelineData: MonthlyTimelineData;
-};
-
 type SummaryData = {
   summaryStats: SummaryStatsRecord;
 };
@@ -139,7 +136,7 @@ interface WowContext {
   /** NYCHA Public Housing development details (grabbed if the search address is public housing) */
   nychaData?: NychaData;
   /** All data used to render the "Timeline tab" of the Address Page. Updates on any change to `detailAddr` */
-  timelineData?: TimelineData;
+  timelineData?: IndicatorsDataFromAPI;
   /** All data used to render the "Summary tab" of the Address Page. Updates on any change to `searchAddr` */
   summaryData?: SummaryData;
 }
@@ -312,10 +309,8 @@ export const wowMachine = createMachine<WowContext, WowEvent, WowState>({
                 onDone: {
                   target: "success",
                   actions: assign({
-                    timelineData: (ctx, event: DoneInvokeEvent<IndicatorsHistoryResults>) => {
-                      return {
-                        monthlyTimelineData: event.data.result[0],
-                      };
+                    timelineData: (ctx, event: DoneInvokeEvent<IndicatorsDataFromAPI>) => {
+                      return event.data;
                     },
                   }),
                 },
