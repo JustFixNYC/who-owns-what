@@ -248,7 +248,7 @@ const HomePage: React.FC<WithMachineProps> = (props) => {
                       <Link
                         to={getSampleUrls()[2]}
                         onClick={() => {
-                          window.gtag("event", "example-portfolio-1-homepage");
+                          window.gtag("event", "example-portfolio-3-homepage");
                         }}
                       >
                         All Year Management
@@ -259,7 +259,7 @@ const HomePage: React.FC<WithMachineProps> = (props) => {
                       tabIndex={-1} // Since link is not necessary navigation, removing tab focus
                       to={getSampleUrls()[2]}
                       onClick={() => {
-                        window.gtag("event", "example-portfolio-1-homepage");
+                        window.gtag("event", "example-portfolio-3-homepage");
                       }}
                     >
                       <img className="img-responsive" src={allyearLogo} alt="All Year" />
