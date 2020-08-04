@@ -4,13 +4,7 @@ import { WithMachineInStateProps } from "state-machine";
 
 export type IndicatorsTimeSpan = "month" | "quarter" | "year";
 
-// Types Relating to the State of the Indicators Component:
-
-type LastSaleData = {
-  date: string | null;
-  label: string | null;
-  documentid: string | null;
-};
+// Types Relating to the State Machine Data for the Indicators Component:
 
 type IndicatorsDataValues = {
   [k in string]?: number[] | null;
@@ -56,18 +50,6 @@ export type IndicatorsDataFromAPI = IndicatorsDataIndex & {
   permits: PermitsData;
 };
 
-export type IndicatorsState = {
-  lastSale: LastSaleData;
-  indicatorList: IndicatorsDatasetId[];
-  defaultVis: IndicatorsDatasetId;
-  activeVis: IndicatorsDatasetId;
-  timeSpanList: IndicatorsTimeSpan[];
-  activeTimeSpan: IndicatorsTimeSpan;
-  monthsInGroup: number;
-  xAxisStart: number;
-  xAxisViewableColumns: number;
-};
-
 export const indicatorsInitialDataStructure: IndicatorsDataFromAPI = {
   viols: {
     labels: null,
@@ -94,6 +76,26 @@ export const indicatorsInitialDataStructure: IndicatorsDataFromAPI = {
       total: null,
     },
   },
+};
+
+// Types Relating to the State of the Indicators Component:
+
+type LastSaleData = {
+  date: string | null;
+  label: string | null;
+  documentid: string | null;
+};
+
+export type IndicatorsState = {
+  lastSale: LastSaleData;
+  indicatorList: IndicatorsDatasetId[];
+  defaultVis: IndicatorsDatasetId;
+  activeVis: IndicatorsDatasetId;
+  timeSpanList: IndicatorsTimeSpan[];
+  activeTimeSpan: IndicatorsTimeSpan;
+  monthsInGroup: number;
+  xAxisStart: number;
+  xAxisViewableColumns: number;
 };
 
 export const indicatorsInitialState: IndicatorsState = {
