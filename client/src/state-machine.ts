@@ -366,7 +366,7 @@ export const wowMachine = createMachine<WowContext, WowEvent, WowState>({
           target: [".summary.pending"],
         },
         SELECT_DETAIL_ADDR: {
-          target: [".summary.noData", ".timeline.noData"],
+          target: [".timeline.noData"],
           actions: assign((ctx, event) => {
             const portfolioData = assertNotUndefined(ctx.portfolioData);
             const newDetailAddr = assertNotUndefined(
