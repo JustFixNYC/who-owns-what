@@ -21,7 +21,6 @@ import {
   IndicatorsState,
   IndicatorChartShift,
   IndicatorsTimeSpan,
-  IndicatorsData,
 } from "./IndicatorsTypes";
 import { Nobr } from "./Nobr";
 

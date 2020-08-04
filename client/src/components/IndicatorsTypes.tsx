@@ -1,4 +1,3 @@
-import { MonthlyTimelineData, AddressRecord } from "./APIDataTypes";
 import { IndicatorsDatasetId } from "./IndicatorsDatasets";
 import { withI18nProps } from "@lingui/react";
 import { WithMachineInStateProps } from "state-machine";
@@ -59,7 +58,6 @@ export type IndicatorsDataFromAPI = IndicatorsDataIndex & {
 
 export type IndicatorsState = {
   lastSale: LastSaleData;
-
   indicatorList: IndicatorsDatasetId[];
   defaultVis: IndicatorsDatasetId;
   activeVis: IndicatorsDatasetId;

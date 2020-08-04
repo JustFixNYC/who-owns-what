@@ -3,9 +3,7 @@ import {
   SearchAddressWithoutBbl,
   AddressRecord,
   BuildingInfoRecord,
-  MonthlyTimelineData,
   SummaryStatsRecord,
-  IndicatorsHistoryResults,
   SummaryResults,
 } from "components/APIDataTypes";
 import { NychaData } from "containers/NychaPage";
@@ -13,7 +11,7 @@ import APIClient from "components/APIClient";
 import helpers, { assertNotUndefined } from "util/helpers";
 
 import _find from "lodash/find";
-import { IndicatorsDataFromAPI, IndicatorsData } from "components/IndicatorsTypes";
+import { IndicatorsDataFromAPI } from "components/IndicatorsTypes";
 
 type WowState =
   | { value: "noData"; context: {} }
