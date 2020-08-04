@@ -7,9 +7,7 @@ import {
 } from "./APIDataTypes";
 import { SearchAddress } from "./AddressSearch";
 import { GeoSearchRequester } from "@justfixnyc/geosearch-requester";
-import { IndicatorsDatasetId } from "./IndicatorsDatasets";
 import {
-  IndicatorsData,
   indicatorsInitialState,
   indicatorsInitialDataStructure,
   IndicatorsDataFromAPI,
