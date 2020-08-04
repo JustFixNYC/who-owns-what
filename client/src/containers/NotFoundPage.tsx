@@ -3,7 +3,7 @@ import { Trans, t } from "@lingui/macro";
 import { withI18n, withI18nProps } from "@lingui/react";
 import Page from "components/Page";
 
-export const ErrorPageScaffolding = (props: {children: React.ReactNode}) => (
+export const ErrorPageScaffolding = (props: { children: React.ReactNode }) => (
   <div className="NotRegisteredPage Page">
     <div className="HomePage__content">
       <div className="HomePage__search">

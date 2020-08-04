@@ -11,6 +11,7 @@ import { ViolationsSummary } from "./ViolationsSummary";
 import { StringifyListWithConjunction } from "./StringifyList";
 import { SocialSharePortfolio } from "./SocialShare";
 import { WithMachineInStateProps } from "state-machine";
+import { ErrorPageScaffolding } from "containers/NotFoundPage";
 
 type Props = WithMachineInStateProps<"portfolioFound"> & {
   isVisible: boolean;
@@ -40,13 +41,26 @@ export default class PropertiesSummary extends Component<Props, {}> {
   }
 
   render() {
-    let agg = this.props.state.context.summaryData;
-    let searchAddr = this.props.state.context.portfolioData.searchAddr;
+    const { state } = this.props;
+    let agg = state.context.summaryData;
+    let searchAddr = state.context.portfolioData.searchAddr;
 
-    return (
-      <div className="Page PropertiesSummary">
-        <div className="PropertiesSummary__content Page__content">
-          {agg ? (
+    if (state.matches({ portfolioFound: { summary: "error" } }))
+      return (
+        <ErrorPageScaffolding>
+          <Trans>Oops! A network error occurred. Try again later.</Trans>
+        </ErrorPageScaffolding>
+      );
+    else if (!agg) {
+      return (
+        <Loader loading={true} classNames="Loader-map">
+          <Trans>Loading</Trans>
+        </Loader>
+      );
+    } else {
+      return (
+        <div className="Page PropertiesSummary">
+          <div className="PropertiesSummary__content Page__content">
             <div>
               <Trans render="h6">General info</Trans>
               <p>
@@ -164,14 +178,10 @@ export default class PropertiesSummary extends Component<Props, {}> {
                 </div>
               </aside>
             </div>
-          ) : (
-            <Loader loading={true} classNames="Loader-map">
-              Loading
-            </Loader>
-          )}
+          </div>
+          <LegalFooter />
         </div>
-        <LegalFooter />
-      </div>
-    );
+      );
+    }
   }
 }
