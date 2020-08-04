@@ -19,7 +19,6 @@ function searchForAddressWithGeosearch(q: {
   if (q.housenumber) {
     addr = `${q.housenumber} ${addr}`;
   }
-  console.log("searching for", addr);
 
   return new Promise<SearchResults>((resolve, reject) => {
     const req = new GeoSearchRequester({
