@@ -206,7 +206,8 @@ export default class AddressPage extends Component<AddressPageProps, State> {
             >
               <Indicators
                 isVisible={this.props.currentTab === 1}
-                detailAddr={detailAddr}
+                state={state}
+                send={send}
                 onBackToOverview={this.handleAddrChange}
                 generateBaseUrl={this.generateBaseUrl}
               />

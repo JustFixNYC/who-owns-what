@@ -5,7 +5,6 @@ import Helpers from "../util/helpers";
 import IndicatorsViz from "../components/IndicatorsViz";
 import Loader from "../components/Loader";
 import LegalFooter from "../components/LegalFooter";
-import APIClient from "../components/APIClient";
 import { withI18n } from "@lingui/react";
 import { Trans } from "@lingui/macro";
 
@@ -24,7 +23,6 @@ import {
   IndicatorsTimeSpan,
   IndicatorsData,
 } from "./IndicatorsTypes";
-import { AddressRecord } from "./APIDataTypes";
 import { Nobr } from "./Nobr";
 
 class IndicatorsWithoutI18n extends Component<IndicatorsProps, IndicatorsState> {
@@ -91,17 +89,10 @@ class IndicatorsWithoutI18n extends Component<IndicatorsProps, IndicatorsState> 
     });
   }
 
-  /** Fetches data for Indicators component via 2 API calls and saves the raw data in state */
-  fetchData(detailAddr: AddressRecord) {
-    APIClient.getIndicatorHistory(detailAddr.bbl)
-      .then((results) => this.setState({ indicatorHistory: results.result }))
-      .catch((err) => {
-        window.Rollbar.error("API error on Indicators: Indicator History", err, detailAddr.bbl);
-      });
-
-    this.setState({
-      currentAddr: detailAddr,
-    });
+  componentDidMount() {
+    if (this.props.state.matches({ portfolioFound: { timeline: "noData" } })) {
+      this.props.send({ type: "VIEW_TIMELINE" });
+    }
   }
 
   /** Reorganizes raw data from API call and then returns an object that matches the data stucture in state  */
@@ -134,33 +125,22 @@ class IndicatorsWithoutI18n extends Component<IndicatorsProps, IndicatorsState> 
     return vizData;
   }
 
-  UNSAFE_componentWillReceiveProps(nextProps: IndicatorsProps) {
-    // make the api call when we have a new detail address from the Address Page
-    if (
-      nextProps.detailAddr &&
-      nextProps.detailAddr.bbl && // will be receiving a detailAddr prop AND
-      (!this.props.detailAddr || // either we don't have one now
-        (this.props.detailAddr &&
-        this.props.detailAddr.bbl && // OR we have a different one
-          !Helpers.addrsAreEqual(this.props.detailAddr, nextProps.detailAddr)))
-    ) {
-      this.reset();
-      this.fetchData(nextProps.detailAddr);
-    }
-  }
-
   componentDidUpdate(prevProps: IndicatorsProps, prevState: IndicatorsState) {
     const indicatorList = this.state.indicatorList;
+    const { state } = this.props;
+
+    const newDataWasFormatted =
+      !prevState[this.state.defaultVis].labels && this.state[this.state.defaultVis].labels;
 
     // process viz data from incoming API calls:
+    const newlyLoadedRawData =
+      !prevProps.state.matches({ portfolioFound: { timeline: "success" } }) &&
+      state.matches({ portfolioFound: { timeline: "success" } }) &&
+      state.context.timelineData;
 
-    if (
-      this.state.indicatorHistory &&
-      !Helpers.jsonEqual(prevState.indicatorHistory, this.state.indicatorHistory)
-    ) {
+    if (newlyLoadedRawData) {
       for (const indicator of indicatorList) {
-        var inputData = this.createVizData(this.state.indicatorHistory, indicator);
-
+        var inputData = this.createVizData(newlyLoadedRawData, indicator);
         this.setState({
           [indicator]: inputData,
         } as any);
@@ -171,10 +151,7 @@ class IndicatorsWithoutI18n extends Component<IndicatorsProps, IndicatorsState> 
     // 1. default dataset loads or
     // 2. when activeTimeSpan changes:
 
-    if (
-      (!prevState[this.state.defaultVis].labels && this.state[this.state.defaultVis].labels) ||
-      prevState.activeTimeSpan !== this.state.activeTimeSpan
-    ) {
+    if (newDataWasFormatted || prevState.activeTimeSpan !== this.state.activeTimeSpan) {
       this.handleXAxisChange("reset");
     }
 
@@ -182,18 +159,10 @@ class IndicatorsWithoutI18n extends Component<IndicatorsProps, IndicatorsState> 
     // 1. default dataset loads or
     // 2. when activeTimeSpan changes
 
-    if (
-      (this.state.currentAddr &&
-        !prevState[this.state.defaultVis].labels &&
-        this.state[this.state.defaultVis].labels) ||
-      prevState.activeTimeSpan !== this.state.activeTimeSpan
-    ) {
-      if (
-        this.props.detailAddr &&
-        this.props.detailAddr.lastsaledate &&
-        this.props.detailAddr.lastsaleacrisid
-      ) {
-        var lastSaleDate = this.props.detailAddr.lastsaledate;
+    if (newDataWasFormatted || prevState.activeTimeSpan !== this.state.activeTimeSpan) {
+      const { detailAddr } = this.props.state.context.portfolioData;
+      if (detailAddr.lastsaledate && detailAddr.lastsaleacrisid) {
+        var lastSaleDate = detailAddr.lastsaledate;
         var lastSaleYear = lastSaleDate.slice(0, 4);
         var lastSaleQuarter =
           lastSaleYear + "-Q" + Math.ceil(parseInt(lastSaleDate.slice(5, 7)) / 3);
@@ -208,7 +177,7 @@ class IndicatorsWithoutI18n extends Component<IndicatorsProps, IndicatorsState> 
                 : this.state.activeTimeSpan === "quarter"
                 ? lastSaleQuarter
                 : lastSaleMonth,
-            documentid: this.props.detailAddr.lastsaleacrisid,
+            documentid: detailAddr.lastsaleacrisid,
           },
         });
       } else {
@@ -220,43 +189,45 @@ class IndicatorsWithoutI18n extends Component<IndicatorsProps, IndicatorsState> 
   }
 
   render() {
-    const detailAddr = this.props.detailAddr;
+    const { state } = this.props;
+    if (
+      !(this.props.isVisible && state.matches({ portfolioFound: { timeline: "success" } })) &&
+      this.state[this.state.defaultVis].labels
+    ) {
+      return (
+        <Loader loading={true} classNames="Loader-map">
+          <Trans>Loading</Trans>
+        </Loader>
+      );
+    } else {
+      const { detailAddr } = this.props.state.context.portfolioData;
 
-    const boro = detailAddr ? detailAddr.bbl.slice(0, 1) : null;
-    const block = detailAddr ? detailAddr.bbl.slice(1, 6) : null;
-    const lot = detailAddr ? detailAddr.bbl.slice(6, 10) : null;
-    const housenumber = detailAddr ? detailAddr.housenumber : null;
-    const streetname = detailAddr ? detailAddr.streetname : null;
+      const boro = detailAddr ? detailAddr.bbl.slice(0, 1) : null;
+      const block = detailAddr ? detailAddr.bbl.slice(1, 6) : null;
+      const lot = detailAddr ? detailAddr.bbl.slice(6, 10) : null;
+      const housenumber = detailAddr ? detailAddr.housenumber : null;
+      const streetname = detailAddr ? detailAddr.streetname : null;
 
-    const { activeVis } = this.state;
-    const data = this.state[activeVis];
-    const xAxisLength = data.labels ? Math.floor(data.labels.length / this.state.monthsInGroup) : 0;
-    const indicatorDataTotal = data.values.total
-      ? data.values.total.reduce((total: number, sum: number) => total + sum)
-      : null;
+      const { activeVis } = this.state;
+      const data = this.state[activeVis];
+      const xAxisLength = data.labels
+        ? Math.floor(data.labels.length / this.state.monthsInGroup)
+        : 0;
+      const indicatorDataTotal = data.values.total
+        ? data.values.total.reduce((total: number, sum: number) => total + sum)
+        : null;
 
-    const i18n = this.props.i18n;
+      const i18n = this.props.i18n;
 
-    const detailAddrStr =
-      detailAddr &&
-      `${detailAddr.housenumber} ${Helpers.titleCase(detailAddr.streetname)}, ${Helpers.titleCase(
-        detailAddr.boro
-      )}`;
+      const detailAddrStr = `${detailAddr.housenumber} ${Helpers.titleCase(
+        detailAddr.streetname
+      )}, ${Helpers.titleCase(detailAddr.boro)}`;
 
-    const dataset = INDICATORS_DATASETS[this.state.activeVis];
+      const dataset = INDICATORS_DATASETS[this.state.activeVis];
 
-    return (
-      <div className="Page Indicators">
-        <div className="Indicators__content Page__content">
-          {!(
-            this.props.isVisible &&
-            this.state.indicatorHistory &&
-            this.state[this.state.defaultVis].labels
-          ) ? (
-            <Loader loading={true} classNames="Loader-map">
-              <Trans>Loading</Trans>
-            </Loader>
-          ) : (
+      return (
+        <div className="Page Indicators">
+          <div className="Indicators__content Page__content">
             <div className="columns">
               <div className="column col-8 col-lg-12">
                 {detailAddr && (
@@ -518,11 +489,11 @@ class IndicatorsWithoutI18n extends Component<IndicatorsProps, IndicatorsState> 
                 </div>
               </div>
             </div>
-          )}
+          </div>
+          <LegalFooter />
         </div>
-        <LegalFooter />
-      </div>
-    );
+      );
+    }
   }
 }
 

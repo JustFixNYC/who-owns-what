@@ -1,6 +1,7 @@
 import { MonthlyTimelineData, AddressRecord } from "./APIDataTypes";
 import { IndicatorsDatasetId } from "./IndicatorsDatasets";
 import { withI18nProps } from "@lingui/react";
+import { WithMachineInStateProps } from "state-machine";
 
 export type IndicatorsTimeSpan = "month" | "quarter" | "year";
 
@@ -69,7 +70,6 @@ export type IndicatorsState = IndicatorsDataFromAPI & {
   monthsInGroup: number;
   xAxisStart: number;
   xAxisViewableColumns: number;
-  currentAddr: AddressRecord | null;
 };
 
 export const indicatorsInitialState: IndicatorsState = {
@@ -115,17 +115,16 @@ export const indicatorsInitialState: IndicatorsState = {
   monthsInGroup: 3,
   xAxisStart: 0,
   xAxisViewableColumns: 20,
-  currentAddr: null,
 };
 
 // Types Relating to the Props of the Indicators Component:
 
-export type IndicatorsProps = withI18nProps & {
-  isVisible: boolean;
-  detailAddr: AddressRecord | null;
-  onBackToOverview: (bbl: string) => void;
-  generateBaseUrl: () => string;
-};
+export type IndicatorsProps = withI18nProps &
+  WithMachineInStateProps<"portfolioFound"> & {
+    isVisible: boolean;
+    onBackToOverview: (bbl: string) => void;
+    generateBaseUrl: () => string;
+  };
 
 // Other Useful Types and Type-related utilites:
 
