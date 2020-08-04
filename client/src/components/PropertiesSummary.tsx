@@ -3,7 +3,6 @@ import { Trans, Plural } from "@lingui/macro";
 
 import Loader from "../components/Loader";
 import LegalFooter from "../components/LegalFooter";
-import APIClient from "../components/APIClient";
 
 import "styles/PropertiesSummary.css";
 import { EvictionsSummary } from "./EvictionsSummary";
@@ -11,7 +10,7 @@ import { RentstabSummary } from "./RentstabSummary";
 import { ViolationsSummary } from "./ViolationsSummary";
 import { StringifyListWithConjunction } from "./StringifyList";
 import { SocialSharePortfolio } from "./SocialShare";
-import { AddressRecord, SummaryStatsRecord } from "./APIDataTypes";
+import { AddressRecord } from "./APIDataTypes";
 import { WithMachineProps } from "state-machine";
 
 type Props = WithMachineProps & {
