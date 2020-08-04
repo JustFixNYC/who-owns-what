@@ -1,4 +1,5 @@
 import { Interpreter, State, EventObject, StateSchema, Typestate } from "xstate";
+import { MockResponseInit } from "jest-fetch-mock/types";
 
 /**
  * Wait until a XState interpreter's state matches the given one,
@@ -38,4 +39,15 @@ export async function waitUntilStateMatches<
     wm.onTransition(handleTransition);
     handleTransition(wm.state);
   });
+}
+
+/**
+ * Create a jest-fetch-mock JSON response with the given payload.
+ */
+export function mockJsonResponse<T>(value: T): MockResponseInit {
+  return {
+    body: JSON.stringify(value),
+    headers: { "Content-Type": "application/json" },
+    status: 200,
+  };
 }

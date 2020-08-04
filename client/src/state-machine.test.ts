@@ -1,7 +1,7 @@
 import { wowMachine, WowEvent } from "./state-machine";
 import { interpret } from "xstate";
 import { GEO_AUTOCOMPLETE_URL } from "@justfixnyc/geosearch-requester";
-import { waitUntilStateMatches } from "tests/test-util";
+import { waitUntilStateMatches, mockJsonResponse } from "tests/test-util";
 import GEOCODING_EXAMPLE_SEARCH from "./tests/geocoding-example-search.json";
 
 const SEARCH_EVENT: WowEvent = {
@@ -14,6 +14,10 @@ const SEARCH_EVENT: WowEvent = {
 };
 
 const SEARCH_URL = `${GEO_AUTOCOMPLETE_URL}?text=150%20court%20st%2C%20BROOKLYN`;
+
+const ADDRESS_URL = "https://wowapi/api/address?block=00292&lot=0026&borough=3";
+
+const BUILDINGINFO_URL = "https://wowapi/api/address/buildinginfo?bbl=3002920026";
 
 describe("wowMachine", () => {
   beforeEach(() => {
@@ -35,10 +39,7 @@ describe("wowMachine", () => {
   });
 
   it("should deal w/ invalid addresses", async () => {
-    fetchMock.mockIf(SEARCH_URL, async (req) => ({
-      body: JSON.stringify({ features: [] }),
-      status: 200,
-    }));
+    fetchMock.mockIf(SEARCH_URL, async (req) => mockJsonResponse({ features: [] }));
     const wm = interpret(wowMachine).start();
     wm.send(SEARCH_EVENT);
     await waitUntilStateMatches(wm, "bblNotFound");
@@ -46,29 +47,19 @@ describe("wowMachine", () => {
 
   it("should deal w/ unregistered addresses", async () => {
     fetchMock.mockResponse(async (req) => {
-      if (req.url === SEARCH_URL) {
-        return {
-          body: JSON.stringify(GEOCODING_EXAMPLE_SEARCH),
-          headers: { "Content-Type": "application/json" },
-          status: 200,
-        };
-      }
-      if (req.url === "https://wowapi/api/address?block=00292&lot=0026&borough=3") {
-        return {
-          body: JSON.stringify({
+      switch (req.url) {
+        case SEARCH_URL:
+          return mockJsonResponse(GEOCODING_EXAMPLE_SEARCH);
+        case ADDRESS_URL:
+          return mockJsonResponse({
             addrs: [],
             geosearch: {
               geosupportReturnCode: "00",
               bbl: "3002920026",
             },
-          }),
-          headers: { "Content-Type": "application/json" },
-          status: 200,
-        };
-      }
-      if (req.url === "https://wowapi/api/address/buildinginfo?bbl=3002920026") {
-        return {
-          body: JSON.stringify({
+          });
+        case BUILDINGINFO_URL:
+          return mockJsonResponse({
             result: [
               {
                 formatted_address: "144 COURT STREET",
@@ -80,14 +71,9 @@ describe("wowMachine", () => {
                 longitude: -73.99302988771,
               },
             ],
-          }),
-          headers: { "Content-Type": "application/json" },
-          status: 200,
-        };
+          });
       }
-      return {
-        status: 500,
-      };
+      throw new Error(`Unexpected URL: ${req.url}`);
     });
 
     const wm = interpret(wowMachine).start();
