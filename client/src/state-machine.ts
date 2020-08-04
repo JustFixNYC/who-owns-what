@@ -300,6 +300,27 @@ export const wowMachine = createMachine<WowContext, WowEvent, WowState>({
       },
     },
     portfolioFound: {
+      type: "parallel",
+      states: {
+        timeline: {
+          initial: "noData",
+          states: {
+            noData: {},
+            pending: {},
+            error: {},
+            success: {},
+          },
+        },
+        summary: {
+          initial: "noData",
+          states: {
+            noData: {},
+            pending: {},
+            error: {},
+            success: {},
+          },
+        },
+      },
       on: {
         ...handleSearchEvent,
         SELECT_DETAIL_ADDR: {
