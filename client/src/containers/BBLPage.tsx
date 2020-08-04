@@ -35,6 +35,7 @@ const BBLPage: React.FC<BBLPageProps> = (props) => {
   }
 
   useEffect(() => {
+    window.gtag("event", "bblLink");
     let isMounted = true;
 
     APIClient.getBuildingInfo(fullBBL)

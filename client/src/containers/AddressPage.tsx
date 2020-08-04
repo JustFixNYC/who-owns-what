@@ -115,12 +115,16 @@ export default class AddressPage extends Component<AddressPageProps, State> {
     const { state, send } = this.props;
 
     if (state.matches("bblNotFound")) {
+      window.gtag("event", "bblNotFoundPage");
       return <NotFoundPage />;
     } else if (state.matches("nychaFound")) {
+      window.gtag("event", "nychaPage");
       return <NychaPage state={state} send={send} />;
     } else if (state.matches("unregisteredFound")) {
+      window.gtag("event", "unregisteredPage");
       return <NotRegisteredPage state={state} send={send} />;
     } else if (state.matches("portfolioFound")) {
+      window.gtag("event", "portfolioFoundPage");
       const { detailAddr, assocAddrs, searchAddr } = state.context.portfolioData;
       return (
         <Page
