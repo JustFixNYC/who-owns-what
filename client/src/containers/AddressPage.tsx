@@ -72,7 +72,12 @@ export default class AddressPage extends Component<AddressPageProps, State> {
   }
 
   handleAddrChange = (newFocusBbl: string) => {
-    this.props.send({ type: "SELECT_DETAIL_ADDR", bbl: newFocusBbl });
+    if (!this.props.state.matches("portfolioFound")) {
+      throw new Error("A change of detail address was attempted without any portfolio data found.");
+    }
+    const detailBbl = this.props.state.context.portfolioData.detailAddr.bbl;
+    if (newFocusBbl !== detailBbl)
+      this.props.send({ type: "SELECT_DETAIL_ADDR", bbl: newFocusBbl });
     this.setState({
       detailMobileSlide: true,
     });
