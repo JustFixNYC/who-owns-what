@@ -5,6 +5,8 @@ import {
   BuildingInfoRecord,
   MonthlyTimelineData,
   SummaryStatsRecord,
+  IndicatorsHistoryResults,
+  SummaryResults,
 } from "components/APIDataTypes";
 import { NychaData } from "containers/NychaPage";
 import APIClient from "components/APIClient";
@@ -43,16 +45,54 @@ type WowState =
     }
   | {
       value: "portfolioFound";
-      context: WowContext & {
-        searchAddrParams: SearchAddressWithoutBbl;
-        searchAddrBbl: string;
-        portfolioData: PortfolioData;
+      context: WowPortfolioFoundContext;
+    }
+  | {
+      value: { portfolioFound: { timeline: "noData" } };
+      context: WowPortfolioFoundContext;
+    }
+  | {
+      value: { portfolioFound: { timeline: "pending" } };
+      context: WowPortfolioFoundContext;
+    }
+  | {
+      value: { portfolioFound: { timeline: "error" } };
+      context: WowPortfolioFoundContext;
+    }
+  | {
+      value: { portfolioFound: { timeline: "success" } };
+      context: WowPortfolioFoundContext & {
+        timelineData: TimelineData;
+      };
+    }
+  | {
+      value: { portfolioFound: { summary: "noData" } };
+      context: WowPortfolioFoundContext;
+    }
+  | {
+      value: { portfolioFound: { summary: "pending" } };
+      context: WowPortfolioFoundContext;
+    }
+  | {
+      value: { portfolioFound: { summary: "error" } };
+      context: WowPortfolioFoundContext;
+    }
+  | {
+      value: { portfolioFound: { summary: "success" } };
+      context: WowPortfolioFoundContext & {
+        summaryData: SummaryData;
       };
     }
   | {
       value: "networkErrorOccurred";
       context: WowContext & { searchAddrParams: SearchAddressWithoutBbl };
     };
+
+type WowPortfolioFoundContext = WowContext & {
+  searchAddrParams: SearchAddressWithoutBbl;
+  searchAddrBbl: string;
+  portfolioData: PortfolioData;
+};
 
 type WowEvent =
   | { type: "SEARCH"; address: SearchAddressWithoutBbl }
@@ -74,12 +114,10 @@ type PortfolioData = {
 };
 
 type TimelineData = {
-  timelineBbl: string;
   monthlyTimelineData: MonthlyTimelineData;
 };
 
 type SummaryData = {
-  summaryBbl: string;
   summaryStats: SummaryStatsRecord;
 };
 
@@ -237,6 +275,9 @@ export const wowMachine = createMachine<WowContext, WowEvent, WowState>({
             actions: assignWowStateContext,
           },
         ],
+        onError: {
+          target: "networkErrorOccurred",
+        },
       },
     },
     bblNotFound: {
@@ -255,10 +296,77 @@ export const wowMachine = createMachine<WowContext, WowEvent, WowState>({
       },
     },
     portfolioFound: {
+      type: "parallel",
+      states: {
+        timeline: {
+          initial: "noData",
+          states: {
+            noData: {},
+            pending: {
+              invoke: {
+                id: "timeline",
+                src: (ctx, event) =>
+                  APIClient.getIndicatorHistory(
+                    assertNotUndefined(ctx.portfolioData).detailAddr.bbl
+                  ),
+                onDone: {
+                  target: "success",
+                  actions: assign({
+                    timelineData: (ctx, event: DoneInvokeEvent<IndicatorsHistoryResults>) => {
+                      return {
+                        monthlyTimelineData: event.data.result[0],
+                      };
+                    },
+                  }),
+                },
+                onError: {
+                  target: "error",
+                },
+              },
+            },
+            error: {},
+            success: {},
+          },
+        },
+        summary: {
+          initial: "noData",
+          states: {
+            noData: {},
+            pending: {
+              invoke: {
+                id: "timeline",
+                src: (ctx, event) =>
+                  APIClient.getAggregate(assertNotUndefined(ctx.portfolioData).detailAddr.bbl),
+                onDone: {
+                  target: "success",
+                  actions: assign({
+                    summaryData: (ctx, event: DoneInvokeEvent<SummaryResults>) => {
+                      return {
+                        summaryStats: event.data.result[0],
+                      };
+                    },
+                  }),
+                },
+                onError: {
+                  target: "error",
+                },
+              },
+            },
+            error: {},
+            success: {},
+          },
+        },
+      },
       on: {
         ...handleSearchEvent,
+        VIEW_TIMELINE: {
+          target: [".timeline.pending"],
+        },
+        VIEW_SUMMARY: {
+          target: [".summary.pending"],
+        },
         SELECT_DETAIL_ADDR: {
-          target: "portfolioFound",
+          target: [".summary.noData", ".timeline.noData"],
           actions: assign((ctx, event) => {
             const portfolioData = assertNotUndefined(ctx.portfolioData);
             const newDetailAddr = assertNotUndefined(
@@ -274,5 +382,6 @@ export const wowMachine = createMachine<WowContext, WowEvent, WowState>({
         },
       },
     },
+    networkErrorOccurred: {},
   },
 });
