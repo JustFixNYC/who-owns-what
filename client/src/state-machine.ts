@@ -12,6 +12,7 @@ import {
   BuildingInfoRecord,
   MonthlyTimelineData,
   SummaryStatsRecord,
+  IndicatorsHistoryResults,
 } from "components/APIDataTypes";
 import { NychaData } from "containers/NychaPage";
 import APIClient from "components/APIClient";
@@ -119,12 +120,10 @@ type PortfolioData = {
 };
 
 type TimelineData = {
-  timelineBbl: string;
   monthlyTimelineData: MonthlyTimelineData;
 };
 
 type SummaryData = {
-  summaryBbl: string;
   summaryStats: SummaryStatsRecord;
 };
 
@@ -282,6 +281,9 @@ export const wowMachine = createMachine<WowContext, WowEvent, WowState>({
             actions: assignWowStateContext,
           },
         ],
+        onError: {
+          target: "networkErrorOccurred",
+        },
       },
     },
     bblNotFound: {
@@ -306,7 +308,28 @@ export const wowMachine = createMachine<WowContext, WowEvent, WowState>({
           initial: "noData",
           states: {
             noData: {},
-            pending: {},
+            pending: {
+              invoke: {
+                id: "timeline",
+                src: (ctx, event) =>
+                  APIClient.getIndicatorHistory(
+                    assertNotUndefined(ctx.portfolioData).detailAddr.bbl
+                  ),
+                onDone: {
+                  target: "success",
+                  actions: assign({
+                    timelineData: (ctx, event: DoneInvokeEvent<IndicatorsHistoryResults>) => {
+                      return {
+                        monthlyTimelineData: event.data.result[0],
+                      };
+                    },
+                  }),
+                },
+                onError: {
+                  target: "error",
+                },
+              },
+            },
             error: {},
             success: {},
           },
@@ -323,8 +346,11 @@ export const wowMachine = createMachine<WowContext, WowEvent, WowState>({
       },
       on: {
         ...handleSearchEvent,
+        VIEW_TIMELINE: {
+          target: [".timeline.pending"],
+        },
         SELECT_DETAIL_ADDR: {
-          target: "portfolioFound",
+          target: [".summary.noData", ".timeline.noData"],
           actions: assign((ctx, event) => {
             const portfolioData = assertNotUndefined(ctx.portfolioData);
             const newDetailAddr = assertNotUndefined(
@@ -340,6 +366,7 @@ export const wowMachine = createMachine<WowContext, WowEvent, WowState>({
         },
       },
     },
+    networkErrorOccurred: {},
   },
 });
 
@@ -349,7 +376,7 @@ export function blargghh() {
   const boop = interpret(wowMachine);
 
   if (boop.state.matches({ portfolioFound: { timeline: "success" } })) {
-    console.log(boop.state.context.timelineData.timelineBbl);
+    console.log(boop.state.context.timelineData.monthlyTimelineData);
   }
 
   function blorp(x: WowMachineInState<{ portfolioFound: { timeline: "success" } }>) {
