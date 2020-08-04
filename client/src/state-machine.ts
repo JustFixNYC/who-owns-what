@@ -1,11 +1,4 @@
-import {
-  createMachine,
-  assign,
-  DoneInvokeEvent,
-  State,
-  TransitionsConfig,
-  interpret,
-} from "xstate";
+import { createMachine, assign, DoneInvokeEvent, State, TransitionsConfig } from "xstate";
 import {
   SearchAddressWithoutBbl,
   AddressRecord,
@@ -392,19 +385,3 @@ export const wowMachine = createMachine<WowContext, WowEvent, WowState>({
     networkErrorOccurred: {},
   },
 });
-
-// TODO REMOVE THE FOLLOWING, IT IS ALL TEMPORARY.
-
-export function blargghh() {
-  const boop = interpret(wowMachine);
-
-  if (boop.state.matches({ portfolioFound: { timeline: "success" } })) {
-    console.log(boop.state.context.timelineData.monthlyTimelineData);
-  }
-
-  function blorp(x: WowMachineInState<{ portfolioFound: { timeline: "success" } }>) {
-    console.log(x.context.timelineData.monthlyTimelineData);
-  }
-
-  console.log(boop, blorp);
-}
