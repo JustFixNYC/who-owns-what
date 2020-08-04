@@ -3,6 +3,7 @@ import { interpret } from "xstate";
 import { GEO_AUTOCOMPLETE_URL } from "@justfixnyc/geosearch-requester";
 import { waitUntilStateMatches, mockJsonResponse, mockResponses } from "tests/test-util";
 import GEOCODING_EXAMPLE_SEARCH from "./tests/geocoding-example-search.json";
+import { SearchResults, BuildingInfoResults } from "components/APIDataTypes";
 
 const SEARCH_EVENT: WowEvent = {
   type: "SEARCH",
@@ -46,14 +47,14 @@ describe("wowMachine", () => {
   it("should deal w/ unregistered addresses", async () => {
     mockResponses({
       [SEARCH_URL]: mockJsonResponse(GEOCODING_EXAMPLE_SEARCH),
-      [ADDRESS_URL]: mockJsonResponse({
+      [ADDRESS_URL]: mockJsonResponse<SearchResults>({
         addrs: [],
         geosearch: {
           geosupportReturnCode: "00",
           bbl: "3002920026",
         },
       }),
-      [BUILDINGINFO_URL]: mockJsonResponse({
+      [BUILDINGINFO_URL]: mockJsonResponse<BuildingInfoResults>({
         result: [
           {
             formatted_address: "144 COURT STREET",
