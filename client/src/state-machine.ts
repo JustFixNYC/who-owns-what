@@ -79,7 +79,7 @@ type WowState =
   | {
       value: { portfolioFound: { summary: "success" } };
       context: WowPortfolioFoundContext & {
-        summaryData: SummaryData;
+        summaryData: SummaryStatsRecord;
       };
     }
   | {
@@ -112,10 +112,6 @@ type PortfolioData = {
   detailAddr: AddressRecord;
 };
 
-type SummaryData = {
-  summaryStats: SummaryStatsRecord;
-};
-
 interface WowContext {
   /** The original parameters that a user inputs to locate their building on WOW */
   searchAddrParams?: SearchAddressWithoutBbl;
@@ -136,7 +132,7 @@ interface WowContext {
   /** All data used to render the "Timeline tab" of the Address Page. Updates on any change to `detailAddr` */
   timelineData?: IndicatorsDataFromAPI;
   /** All data used to render the "Summary tab" of the Address Page. Updates on any change to `searchAddr` */
-  summaryData?: SummaryData;
+  summaryData?: SummaryStatsRecord;
 }
 
 type WowMachineEverything = State<WowContext, WowEvent, any, WowState>;
@@ -334,9 +330,7 @@ export const wowMachine = createMachine<WowContext, WowEvent, WowState>({
                   target: "success",
                   actions: assign({
                     summaryData: (ctx, event: DoneInvokeEvent<SummaryResults>) => {
-                      return {
-                        summaryStats: event.data.result[0],
-                      };
+                      return event.data.result[0];
                     },
                   }),
                 },

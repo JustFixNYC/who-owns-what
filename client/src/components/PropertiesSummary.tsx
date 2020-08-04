@@ -12,14 +12,11 @@ import { ViolationsSummary } from "./ViolationsSummary";
 import { StringifyListWithConjunction } from "./StringifyList";
 import { SocialSharePortfolio } from "./SocialShare";
 import { AddressRecord, SummaryStatsRecord } from "./APIDataTypes";
+import { WithMachineProps } from "state-machine";
 
-type Props = {
+type Props = WithMachineProps & {
   isVisible: boolean;
   userAddr: AddressRecord;
-};
-
-type State = {
-  agg: SummaryStatsRecord | null;
 };
 
 const generateLinkToDataRequestForm = (fullAddress: string) =>
@@ -27,25 +24,30 @@ const generateLinkToDataRequestForm = (fullAddress: string) =>
     fullAddress
   )}`;
 
-export default class PropertiesSummary extends Component<Props, State> {
+export default class PropertiesSummary extends Component<Props, {}> {
   constructor(props: Props) {
     super(props);
-
-    this.state = { agg: null };
   }
 
-  componentDidUpdate(prevProps: Props, prevState: State) {
-    // make the api call when we come into view and have
-    // the user addrs bbl
-    if (this.props.isVisible && this.props.userAddr && !this.state.agg) {
-      APIClient.getAggregate(this.props.userAddr.bbl)
-        .then((results) => this.setState({ agg: results.result[0] }))
-        .catch((err) => console.error(err));
+  updateData() {
+    if (
+      this.props.state.matches({ portfolioFound: { summary: "noData" } }) &&
+      this.props.isVisible
+    ) {
+      this.props.send({ type: "VIEW_SUMMARY" });
     }
   }
 
+  componentDidMount() {
+    this.updateData();
+  }
+
+  componentDidUpdate() {
+    this.updateData();
+  }
+
   render() {
-    let agg = this.state.agg;
+    let agg = this.props.state.context.summaryData;
 
     return (
       <div className="Page PropertiesSummary">

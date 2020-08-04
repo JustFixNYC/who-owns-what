@@ -229,7 +229,12 @@ export default class AddressPage extends Component<AddressPageProps, State> {
                 this.props.currentTab === 3 ? "AddressPage__content-active" : ""
               }`}
             >
-              <PropertiesSummary isVisible={this.props.currentTab === 3} userAddr={searchAddr} />
+              <PropertiesSummary
+                state={state}
+                send={send}
+                isVisible={this.props.currentTab === 3}
+                userAddr={searchAddr}
+              />
             </div>
           </div>
         </Page>
