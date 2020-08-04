@@ -32,11 +32,6 @@ class IndicatorsWithoutI18n extends Component<IndicatorsProps, IndicatorsState> 
     this.handleVisChange = this.handleVisChange.bind(this);
   }
 
-  /** Resets the component to initial blank state */
-  reset() {
-    this.setState(indicatorsInitialState);
-  }
-
   /** Shifts the X-axis 'left' or 'right', or 'reset' the X-axis to default */
   handleXAxisChange(shift: IndicatorChartShift) {
     const span = this.state.xAxisViewableColumns;
@@ -92,17 +87,24 @@ class IndicatorsWithoutI18n extends Component<IndicatorsProps, IndicatorsState> 
     });
   }
 
-  componentDidMount() {
-    if (this.props.state.matches({ portfolioFound: { timeline: "noData" } })) {
-      this.reset();
+  updateData() {
+    if (
+      this.props.state.matches({ portfolioFound: { timeline: "noData" } }) &&
+      this.props.isVisible
+    ) {
       this.props.send({ type: "VIEW_TIMELINE" });
     }
+  }
+
+  componentDidMount() {
+    this.updateData();
   }
 
   componentDidUpdate(prevProps: IndicatorsProps, prevState: IndicatorsState) {
     const { state } = this.props;
 
-    // process viz data from incoming API calls:
+    this.updateData();
+
     const newlyLoadedRawData =
       !prevProps.state.matches({ portfolioFound: { timeline: "success" } }) &&
       state.matches({ portfolioFound: { timeline: "success" } }) &&
@@ -163,14 +165,12 @@ class IndicatorsWithoutI18n extends Component<IndicatorsProps, IndicatorsState> 
       );
     } else {
       const { state, send } = this.props;
-      console.log(state.value, state.context);
-      const { detailAddr } = state.context.portfolioData;
 
-      const boro = detailAddr ? detailAddr.bbl.slice(0, 1) : null;
-      const block = detailAddr ? detailAddr.bbl.slice(1, 6) : null;
-      const lot = detailAddr ? detailAddr.bbl.slice(6, 10) : null;
-      const housenumber = detailAddr ? detailAddr.housenumber : null;
-      const streetname = detailAddr ? detailAddr.streetname : null;
+      const { detailAddr } = state.context.portfolioData;
+      const { housenumber, streetname, bbl } = detailAddr;
+      const boro = bbl.slice(0, 1);
+      const block = bbl.slice(1, 6);
+      const lot = bbl.slice(6, 10);
 
       const { activeVis } = this.state;
       const data = state.context.timelineData[activeVis];
@@ -204,7 +204,7 @@ class IndicatorsWithoutI18n extends Component<IndicatorsProps, IndicatorsState> 
                     <br />
                     <Link
                       to={this.props.generateBaseUrl()}
-                      onClick={() => this.props.onBackToOverview(detailAddr.bbl)}
+                      onClick={() => this.props.onBackToOverview(bbl)}
                     >
                       <Trans>Back to Overview</Trans>
                     </Link>
@@ -219,17 +219,17 @@ class IndicatorsWithoutI18n extends Component<IndicatorsProps, IndicatorsState> 
                     <br />
                     <IndicatorsDatasetRadio
                       id="complaints"
-                      activeId={this.state.activeVis}
+                      activeId={activeVis}
                       onChange={this.handleVisChange}
                     />
                     <IndicatorsDatasetRadio
                       id="viols"
-                      activeId={this.state.activeVis}
+                      activeId={activeVis}
                       onChange={this.handleVisChange}
                     />
                     <IndicatorsDatasetRadio
                       id="permits"
-                      activeId={this.state.activeVis}
+                      activeId={activeVis}
                       onChange={this.handleVisChange}
                     />
                   </div>

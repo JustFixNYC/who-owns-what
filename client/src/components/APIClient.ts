@@ -11,41 +11,12 @@ import { IndicatorsDatasetId } from "./IndicatorsDatasets";
 import {
   IndicatorsData,
   indicatorsInitialState,
-  indicatorsInitialDataStrucutre,
+  indicatorsInitialDataStructure,
   IndicatorsDataFromAPI,
 } from "./IndicatorsTypes";
+import helpers from "util/helpers";
 
 // API REQUESTS TO THE DATABASE:
-
-/** Reorganizes raw data from API call and then returns an object that matches the data stucture in state  */
-function createVizData(rawJSON: any, vizType: IndicatorsDatasetId): IndicatorsData {
-  // Generate object to hold data for viz
-  // Note: keys in "values" object need to match exact key names in data from API call
-  var vizData: IndicatorsData = Object.assign({}, indicatorsInitialDataStrucutre[vizType]);
-
-  vizData.labels = [];
-  for (const column in vizData.values) {
-    vizData.values[column] = [];
-  }
-
-  // Generate arrays of data for chart.js visualizations:
-  // Default grouping is by MONTH
-
-  const rawJSONLength = rawJSON.length;
-
-  for (let i = 0; i < rawJSONLength; i++) {
-    vizData.labels.push(rawJSON[i].month);
-
-    for (const column in vizData.values) {
-      const vizTypePlusColumn = vizType + "_" + column;
-      const values = vizData.values[column];
-      if (!values)
-        throw new Error(`Column "${column}" of visualization "${vizType}" is not an array!`);
-      values.push(parseInt(rawJSON[i][vizTypePlusColumn]));
-    }
-  }
-  return vizData;
-}
 
 function searchForAddressWithGeosearch(q: {
   housenumber?: string;
@@ -106,14 +77,14 @@ async function getIndicatorHistory(bbl: string): Promise<IndicatorsDataFromAPI> 
   const apiData: Promise<IndicatorsHistoryResults> = get(
     `/api/address/indicatorhistory?bbl=${bbl}`
   );
-  const boop = (await apiData).result;
-  const obj = Object.assign({}, indicatorsInitialDataStrucutre);
+  const rawIndicatorData = (await apiData).result;
+  const structuredIndicatorData = Object.assign({}, indicatorsInitialDataStructure);
 
   for (const indicator of indicatorsInitialState.indicatorList) {
-    var inputData = createVizData(boop, indicator);
-    obj[indicator] = inputData as any;
+    var inputData = helpers.createVizData(rawIndicatorData, indicator);
+    structuredIndicatorData[indicator] = inputData as any;
   }
-  return obj;
+  return structuredIndicatorData;
 }
 
 function getAddressExport(bbl: string) {

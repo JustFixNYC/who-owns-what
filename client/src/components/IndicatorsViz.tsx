@@ -82,15 +82,13 @@ export default class IndicatorsViz extends Component<IndicatorVizProps, Indicato
 
   render() {
     const { state, send } = this.props;
-    if (state.matches({ portfolioFound: { timeline: "success" } })) {
-      return (
-        <I18n>
-          {({ i18n }) => (
-            <IndicatorsVizImplementation {...this.state} i18n={i18n} state={state} send={send} />
-          )}
-        </I18n>
-      );
-    } else return <></>;
+    return (
+      <I18n>
+        {({ i18n }) => (
+          <IndicatorsVizImplementation {...this.state} i18n={i18n} state={state} send={send} />
+        )}
+      </I18n>
+    );
   }
 }
 

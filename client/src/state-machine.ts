@@ -329,7 +329,7 @@ export const wowMachine = createMachine<WowContext, WowEvent, WowState>({
             noData: {},
             pending: {
               invoke: {
-                id: "timeline",
+                id: "summary",
                 src: (ctx, event) =>
                   APIClient.getAggregate(assertNotUndefined(ctx.portfolioData).detailAddr.bbl),
                 onDone: {

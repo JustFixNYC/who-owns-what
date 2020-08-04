@@ -70,7 +70,7 @@ export type IndicatorsState = {
   xAxisViewableColumns: number;
 };
 
-export const indicatorsInitialDataStrucutre: IndicatorsDataFromAPI = {
+export const indicatorsInitialDataStructure: IndicatorsDataFromAPI = {
   viols: {
     labels: null,
     values: {
