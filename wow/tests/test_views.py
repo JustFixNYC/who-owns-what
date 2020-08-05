@@ -14,7 +14,6 @@ def api_server_error(request):
     raise Exception("kaboom")
 
 
-
 def server_error(request):
     raise Exception("kaboom")
 
