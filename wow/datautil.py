@@ -20,4 +20,3 @@ def str_or_none(val: Any) -> Optional[str]:
         return None
     else:
         return str(val)
-

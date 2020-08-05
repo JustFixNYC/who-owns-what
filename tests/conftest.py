@@ -1,22 +1,10 @@
-import os
-from types import SimpleNamespace
-from pathlib import Path
-import csv
-from io import StringIO
 from contextlib import contextmanager
-from typing import List
-import os
 import time
-import tempfile
-import zipfile
 import psycopg2
 import psycopg2.extras
 from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
 import pytest
-import nycdb
 
-import dbtool
-from .generate_factory_from_csv import unmunge_colname
 from .nycdb_context import TEST_DB
 
 
@@ -94,7 +82,6 @@ class DbContext:
 
         with psycopg2.connect(**TEST_DB.psycopg2_connect_kwargs()) as conn:
             yield conn
-
 
     @contextmanager
     def cursor(self):

@@ -1,0 +1,15 @@
+[flake8]
+
+exclude = 
+    */migrations/*.py,
+    venv,
+    node_modules,
+    tests/factories
+
+max-line-length = 100
+
+ignore =
+    # Sometimes we want to use f-strings on multiple lines
+    # of strings to keep formatting consistent, even though
+    # some of the f-strings may not have placeholders.
+    F541

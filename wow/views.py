@@ -1,11 +1,10 @@
 import csv
 import logging
-from typing import Dict, Any, List
 from pathlib import Path
-from django.http import HttpResponse, JsonResponse, Http404
+from django.http import HttpResponse, JsonResponse
 
 from .dbutil import call_db_func, exec_db_query
-from .datautil import int_or_none, str_or_none, float_or_none
+from .datautil import int_or_none, float_or_none
 from . import csvutil, apiutil
 from .apiutil import api, get_validated_form_data
 from .forms import PaddedBBLForm, SeparatedBBLForm
@@ -36,7 +35,7 @@ def log_unsupported_request_args(request):
 def clean_addr_dict(addr):
     return {
         **addr,
-        "bin": str(addr['bin']), 
+        "bin": str(addr['bin']),
         "lastsaleamount": int_or_none(addr['lastsaleamount']),
         "registrationid": str(addr['registrationid']),
         "rspercentchange": float_or_none(addr['rspercentchange']),
@@ -50,7 +49,7 @@ def address_query(request):
     bbl = args['borough'] + args['block'] + args['lot']
 
     addrs = call_db_func('get_assoc_addrs_from_bbl', [bbl])
-    cleaned_addrs = map(clean_addr_dict,addrs)
+    cleaned_addrs = map(clean_addr_dict, addrs)
 
     return JsonResponse({
         "geosearch": {
@@ -97,21 +96,21 @@ def address_aggregate(request):
     bbl = get_request_bbl(request)
     result = call_db_func('get_agg_info_from_bbl', [bbl])
     cleaned_result = map(clean_agg_info_dict, result)
-    return JsonResponse({ 'result': list(cleaned_result) })
+    return JsonResponse({'result': list(cleaned_result)})
 
 
 @api
 def address_buildinginfo(request):
     bbl = get_request_bbl(request)
-    result = exec_db_query(SQL_DIR / 'address_buildinginfo.sql', { 'bbl': bbl })
-    return JsonResponse({ 'result': result })
+    result = exec_db_query(SQL_DIR / 'address_buildinginfo.sql', {'bbl': bbl})
+    return JsonResponse({'result': result})
 
 
 @api
 def address_indicatorhistory(request):
     bbl = get_request_bbl(request)
-    result = exec_db_query(SQL_DIR / 'address_indicatorhistory.sql', { 'bbl': bbl })
-    return JsonResponse({ 'result': result })
+    result = exec_db_query(SQL_DIR / 'address_indicatorhistory.sql', {'bbl': bbl})
+    return JsonResponse({'result': result})
 
 
 @api

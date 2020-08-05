@@ -6,7 +6,6 @@ import csv
 import zipfile
 import tempfile
 import nycdb
-import pytest
 
 import dbtool
 from .generate_factory_from_csv import unmunge_colname
