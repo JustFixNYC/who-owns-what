@@ -6,6 +6,7 @@ from django.test import Client
 import pytest
 
 from wow.apiutil import api
+from project.urls import handler500  # noqa
 
 
 @api
