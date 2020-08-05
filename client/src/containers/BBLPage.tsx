@@ -53,7 +53,7 @@ const BBLPage: React.FC<BBLPageProps> = (props) => {
           housenumber: results.result[0].housenumber,
           streetname: results.result[0].streetname,
         });
-        history.push(addressPage);
+        history.replace(addressPage);
       })
       .catch((err) => {
         window.Rollbar.error("API error from BBL page: Building Info", err, fullBBL);
