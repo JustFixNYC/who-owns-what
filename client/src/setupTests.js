@@ -8,6 +8,7 @@ window.Rollbar = {
 
 require("jest-fetch-mock").enableMocks();
 
-// We need to "mock" this function here as Jest doesn't work well with MapBox GL.
-// Read more here: https://github.com/mapbox/mapbox-gl-js/issues/3436#issuecomment-421117409
+// NOTE: there is some piece of the MapBox GL library that doesn't mesh well with our Jest testing platform.
+// Therefore, to fix this, we needed to "mock" this function here so Jest stops complaining.
+// Read more: https://github.com/mapbox/mapbox-gl-js/issues/3436#issuecomment-421117409
 window.URL.createObjectURL = function () {};
