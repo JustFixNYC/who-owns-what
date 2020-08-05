@@ -3,10 +3,7 @@
 // import _keys from 'lodash/keys';
 import _pickBy from "lodash/pickBy";
 import { deepEqual as assertDeepEqual } from "assert";
-import nycha_bbls from "../data/nycha_bbls.json";
 import { SupportedLocale } from "../i18n-base";
-import { IndicatorsDatasetId } from "components/IndicatorsDatasets";
-import { IndicatorsData, indicatorsInitialDataStructure } from "components/IndicatorsTypes";
 import { SearchAddressWithoutBbl } from "components/APIDataTypes";
 
 /**
@@ -106,14 +103,6 @@ export default {
     }
   },
 
-  getNychaData(searchBBL: string | number) {
-    const bbl = searchBBL.toString();
-    for (var index = 0; index < nycha_bbls.length; index++) {
-      if (nycha_bbls[index].bbl.toString() === bbl) return nycha_bbls[index];
-    }
-    return null;
-  },
-
   formatPrice(amount: number, locale?: SupportedLocale): string {
     const formatPrice = new Intl.NumberFormat(locale || "en");
     return formatPrice.format(amount);
@@ -142,36 +131,6 @@ export default {
       window.Rollbar.error("Address improperly formatted for DDO:", addr || "<falsy value>");
       return `https://${subdomain}.justfix.nyc/?utm_source=whoownswhat&utm_content=take_action_failed_attempt&utm_medium=${utm_medium}`;
     }
-  },
-
-  /** Reorganizes raw data from API call and then returns an object that matches the data stucture in state  */
-  createVizData(rawJSON: any, vizType: IndicatorsDatasetId): IndicatorsData {
-    // Generate object to hold data for viz
-    // Note: keys in "values" object need to match exact key names in data from API call
-    var vizData: IndicatorsData = Object.assign({}, indicatorsInitialDataStructure[vizType]);
-
-    vizData.labels = [];
-    for (const column in vizData.values) {
-      vizData.values[column] = [];
-    }
-
-    // Generate arrays of data for chart.js visualizations:
-    // Default grouping is by MONTH
-
-    const rawJSONLength = rawJSON.length;
-
-    for (let i = 0; i < rawJSONLength; i++) {
-      vizData.labels.push(rawJSON[i].month);
-
-      for (const column in vizData.values) {
-        const vizTypePlusColumn = vizType + "_" + column;
-        const values = vizData.values[column];
-        if (!values)
-          throw new Error(`Column "${column}" of visualization "${vizType}" is not an array!`);
-        values.push(parseInt(rawJSON[i][vizTypePlusColumn]));
-      }
-    }
-    return vizData;
   },
 
   intersectAddrObjects(a: any, b: any) {
