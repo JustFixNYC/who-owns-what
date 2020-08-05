@@ -1,18 +1,18 @@
 import helpers from "./helpers";
 
-describe("jsonEqual()", () => {
-  it("returns true when objects are equal", () => {
-    expect(helpers.jsonEqual({ a: 1 }, { a: 1 })).toBe(true);
-    expect(helpers.jsonEqual({ a: 1, b: 2 }, { b: 2, a: 1 })).toBe(true);
-  });
-
-  it("returns false when objects are not equal", () => {
-    expect(helpers.jsonEqual({ a: 1 }, { b: 2 })).toBe(false);
-  });
-});
-
 test("uniq() works", () => {
   expect(helpers.uniq([1, 1, 2, 4, 4])).toEqual([1, 2, 4]);
+});
+
+describe("find()", () => {
+  it("returns value if present", () => {
+    const a = { boop: 1 };
+    expect(helpers.find([{ boop: 2 }, a, { boop: 3 }], "boop", 1)).toBe(a);
+  });
+
+  it("returns null if not present", () => {
+    expect(helpers.find([{ boop: 2 }, { boop: 3 }], "boop", 1)).toBe(null);
+  });
 });
 
 describe("maxArray()", () => {
@@ -42,25 +42,14 @@ test("addrsAreEqual() works", () => {
   expect(helpers.addrsAreEqual({ bbl: "yes" }, { bbl: "no" })).toBe(false);
 });
 
-describe("find()", () => {
-  it("returns value if present", () => {
-    const a = { boop: 1 };
-    expect(helpers.find([{ boop: 2 }, a, { boop: 3 }], "boop", 1)).toBe(a);
+describe("jsonEqual()", () => {
+  it("returns true when objects are equal", () => {
+    expect(helpers.jsonEqual({ a: 1 }, { a: 1 })).toBe(true);
+    expect(helpers.jsonEqual({ a: 1, b: 2 }, { b: 2, a: 1 })).toBe(true);
   });
 
-  it("returns null if not present", () => {
-    expect(helpers.find([{ boop: 2 }, { boop: 3 }], "boop", 1)).toBe(null);
-  });
-});
-
-describe("getNychaData()", () => {
-  it("returns null if BBL is not a NYCHA BBL", () => {
-    expect(helpers.getNychaData("blarg")).toBe(null);
-  });
-
-  it("returns data if BBL is a NYCHA BBL", () => {
-    const data = helpers.getNychaData("4004770049");
-    expect(data && data.development).toBe("QUEENSBRIDGE SOUTH");
+  it("returns false when objects are not equal", () => {
+    expect(helpers.jsonEqual({ a: 1 }, { b: 2 })).toBe(false);
   });
 });
 

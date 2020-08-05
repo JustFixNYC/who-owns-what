@@ -1,9 +1,22 @@
-import { wowMachine, WowEvent } from "./state-machine";
+import { wowMachine, WowEvent, getNychaData } from "./state-machine";
 import { interpret } from "xstate";
 import { GEO_AUTOCOMPLETE_URL } from "@justfixnyc/geosearch-requester";
 import { waitUntilStateMatches, mockJsonResponse, mockResponses } from "tests/test-util";
 import GEOCODING_EXAMPLE_SEARCH from "./tests/geocoding-example-search.json";
 import { SearchResults, BuildingInfoResults } from "components/APIDataTypes";
+
+// State Machine Helper Functions:
+
+describe("getNychaData()", () => {
+  it("returns null if BBL is not a NYCHA BBL", () => {
+    expect(getNychaData("blarg")).toBe(null);
+  });
+
+  it("returns data if BBL is a NYCHA BBL", () => {
+    const data = getNychaData("4004770049");
+    expect(data && data.development).toBe("QUEENSBRIDGE SOUTH");
+  });
+});
 
 const SEARCH_EVENT: WowEvent = {
   type: "SEARCH",
