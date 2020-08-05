@@ -11,6 +11,7 @@ import PrivacyPolicyPage from "./containers/PrivacyPolicyPage";
 import { SearchAddressWithoutBbl } from "components/APIDataTypes";
 import { useMachine } from "@xstate/react";
 import { wowMachine } from "state-machine";
+import { DevPage } from "containers/DevPage";
 
 export type AddressPageUrlParams = SearchAddressWithoutBbl;
 
@@ -56,6 +57,7 @@ export const createWhoOwnsWhatRoutePaths = (prefix?: string) => {
     methodology: `${pathPrefix}/how-it-works`,
     termsOfUse: `${pathPrefix}/terms-of-use`,
     privacyPolicy: `${pathPrefix}/privacy-policy`,
+    dev: `${pathPrefix}/dev`,
   };
 };
 
@@ -95,6 +97,7 @@ export const WhoOwnsWhatRoutes = () => {
       <Route path={paths.methodology} component={MethodologyPage} />
       <Route path={paths.termsOfUse} component={TermsOfUsePage} />
       <Route path={paths.privacyPolicy} component={PrivacyPolicyPage} />
+      <Route path={paths.dev} component={DevPage} />
     </Switch>
   );
 };
