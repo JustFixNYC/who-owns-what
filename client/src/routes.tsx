@@ -30,6 +30,10 @@ export const createRouteForAddressPage = (params: AddressPageUrlParams) => {
   return route;
 };
 
+export const createRouteForFullBbl = (bbl: string) => {
+  return `/bbl/${bbl}`;
+};
+
 const addressPageRouteWithPlaceholders = "/address/:boro/:housenumber/:streetname";
 
 export const createWhoOwnsWhatRoutePaths = (prefix?: string) => {
