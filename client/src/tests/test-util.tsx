@@ -1,4 +1,5 @@
 import { Interpreter, State, EventObject, StateSchema, Typestate } from "xstate";
+import { MockResponseInit } from "jest-fetch-mock/types";
 
 /**
  * Wait until a XState interpreter's state matches the given one,
@@ -37,5 +38,43 @@ export async function waitUntilStateMatches<
 
     wm.onTransition(handleTransition);
     handleTransition(wm.state);
+  });
+}
+
+/**
+ * Create a jest-fetch-mock JSON response with the given payload.
+ */
+export function mockJsonResponse<T>(value: T): MockResponseInit {
+  return {
+    body: JSON.stringify(value),
+    headers: { "Content-Type": "application/json" },
+    status: 200,
+  };
+}
+
+export type MockResponseMapping = {
+  [url: string]: MockResponseInit | undefined;
+};
+
+/**
+ * Given an object that maps request URLs to jest-fetch-mock responses,
+ * mock fetch so that the appropriate responses are returned when
+ * their URLs are requested.
+ *
+ * If a request is ever made that does *not* map to something in the
+ * mapping, an error is raised.
+ *
+ * If this is called inside a test, remember to call
+ * `fetchMock.resetMocks()` between tests!
+ */
+export function mockResponses(mapping: MockResponseMapping) {
+  fetchMock.mockResponse(async (req) => {
+    const result = mapping[req.url];
+    if (!result) {
+      const msg = `Unexpected mock URL: ${req.url}`;
+      console.error(msg);
+      throw new Error(msg);
+    }
+    return result;
   });
 }
