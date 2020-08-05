@@ -4,6 +4,7 @@ import { GEO_AUTOCOMPLETE_URL } from "@justfixnyc/geosearch-requester";
 import { waitUntilStateMatches, mockJsonResponse, mockResponses } from "tests/test-util";
 import GEOCODING_EXAMPLE_SEARCH from "./tests/geocoding-example-search.json";
 import { SearchResults, BuildingInfoResults } from "components/APIDataTypes";
+import helpers from "util/helpers";
 
 const SEARCH_EVENT: WowEvent = {
   type: "SEARCH",
@@ -14,11 +15,22 @@ const SEARCH_EVENT: WowEvent = {
   },
 };
 
+function generateMockRequestURLs(bbl: string) {
+  const bblBits = helpers.splitBBL(bbl);
+  const newGeocodingExample = JSON.parse(JSON.stringify(GEOCODING_EXAMPLE_SEARCH));
+  newGeocodingExample.features[0].properties.pad_bbl = bbl;
+  return {
+    GEOCODING_EXAMPLE_SEARCH: newGeocodingExample,
+    ADDRESS_URL: `https://wowapi/api/address?block=${bblBits.block}&lot=${bblBits.lot}&borough=${bblBits.boro}`,
+    BUILDINGINFO_URL: `https://wowapi/api/address/buildinginfo?bbl=${bbl}`,
+  };
+}
+
 const SEARCH_URL = `${GEO_AUTOCOMPLETE_URL}?text=150%20court%20st%2C%20BROOKLYN`;
 
-const ADDRESS_URL = "https://wowapi/api/address?block=00292&lot=0026&borough=3";
-
-const BUILDINGINFO_URL = "https://wowapi/api/address/buildinginfo?bbl=3002920026";
+const NOT_REG_URLS = generateMockRequestURLs("3002920026");
+const NYCHA_URLS = generateMockRequestURLs("3004040001");
+const PORTFOLIO_URLS = generateMockRequestURLs("3012380016");
 
 describe("wowMachine", () => {
   beforeEach(() => {
@@ -46,15 +58,15 @@ describe("wowMachine", () => {
 
   it("should deal w/ unregistered addresses", async () => {
     mockResponses({
-      [SEARCH_URL]: mockJsonResponse(GEOCODING_EXAMPLE_SEARCH),
-      [ADDRESS_URL]: mockJsonResponse<SearchResults>({
+      [SEARCH_URL]: mockJsonResponse(NOT_REG_URLS.GEOCODING_EXAMPLE_SEARCH),
+      [NOT_REG_URLS.ADDRESS_URL]: mockJsonResponse<SearchResults>({
         addrs: [],
         geosearch: {
           geosupportReturnCode: "00",
           bbl: "3002920026",
         },
       }),
-      [BUILDINGINFO_URL]: mockJsonResponse<BuildingInfoResults>({
+      [NOT_REG_URLS.BUILDINGINFO_URL]: mockJsonResponse<BuildingInfoResults>({
         result: [
           {
             formatted_address: "144 COURT STREET",
@@ -72,5 +84,85 @@ describe("wowMachine", () => {
     const wm = interpret(wowMachine).start();
     wm.send(SEARCH_EVENT);
     await waitUntilStateMatches(wm, "unregisteredFound");
+  });
+
+  it("should deal w/ nycha addresses", async () => {
+    mockResponses({
+      [SEARCH_URL]: mockJsonResponse(NYCHA_URLS.GEOCODING_EXAMPLE_SEARCH),
+      [NYCHA_URLS.ADDRESS_URL]: mockJsonResponse<SearchResults>({
+        addrs: [],
+        geosearch: {
+          geosupportReturnCode: "00",
+          bbl: "3004040001",
+        },
+      }),
+      [NYCHA_URLS.BUILDINGINFO_URL]: mockJsonResponse<BuildingInfoResults>({
+        result: [
+          {
+            formatted_address: "229 HOYT STREET",
+            housenumber: "229",
+            streetname: "HOYT STREET",
+            bldgclass: "D3",
+            boro: "BROOKLYN",
+            latitude: 40.6828986245727,
+            longitude: -73.9889310316597,
+          },
+        ],
+      }),
+    });
+
+    const wm = interpret(wowMachine).start();
+    wm.send(SEARCH_EVENT);
+    await waitUntilStateMatches(wm, "nychaFound");
+  });
+
+  it("should deal w/ addresses with portfolios", async () => {
+    mockResponses({
+      [SEARCH_URL]: mockJsonResponse(PORTFOLIO_URLS.GEOCODING_EXAMPLE_SEARCH),
+      [PORTFOLIO_URLS.ADDRESS_URL]: mockJsonResponse<SearchResults>({
+        addrs: [
+          {
+            housenumber: "654",
+            streetname: "PARK PLACE",
+            zip: "11216",
+            boro: "BROOKLYN",
+            registrationid: "352819",
+            lastregistrationdate: "2019-08-30",
+            registrationenddate: "2020-09-01",
+            bbl: "3012380016",
+            bin: "3031404",
+            corpnames: ["654 PARK PLACE LLC"],
+            businessaddrs: ["12 SPENCER STREET 4 11205"],
+            ownernames: [
+              { title: "HeadOfficer", value: "MOSES GUTMAN" },
+              { title: "Agent", value: "NATHAN SCHWARCZ" },
+            ],
+            totalviolations: 12,
+            openviolations: 0,
+            unitsres: 13,
+            yearbuilt: 1931,
+            lat: 40.6737974139504,
+            lng: -73.9562781322538,
+            evictions: null,
+            rsunits2007: 11,
+            rsunits2017: 12,
+            rsdiff: 1,
+            rspercentchange: 8.33,
+            lastsaleacrisid: "2008012400521001",
+            lastsaledate: "2008-01-17",
+            lastsaleamount: 750000,
+            mapType: "search",
+          },
+        ],
+        geosearch: {
+          geosupportReturnCode: "00",
+          bbl: "3012380016",
+        },
+      }),
+    });
+
+    const wm = interpret(wowMachine).start();
+    wm.send(SEARCH_EVENT);
+    await waitUntilStateMatches(wm, "portfolioFound");
   });
 });
