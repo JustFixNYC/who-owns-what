@@ -6,16 +6,16 @@ from django.test import Client
 import pytest
 
 from wow.apiutil import api
-from project.urls import handler500
+from project.urls import handler500  # noqa
 
 
 @api
 def api_server_error(request):
-    kaboom()  # type: ignore
+    raise Exception("kaboom")
 
 
 def server_error(request):
-    kaboom()  # type: ignore
+    raise Exception("kaboom")
 
 
 urlpatterns = [
