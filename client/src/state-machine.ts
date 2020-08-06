@@ -7,7 +7,7 @@ import {
   SummaryResults,
 } from "components/APIDataTypes";
 import { NychaData } from "containers/NychaPage";
-import APIClient from "components/APIClient";
+import APIClient, { NetworkError } from "components/APIClient";
 import { assertNotUndefined } from "util/helpers";
 import nycha_bbls from "data/nycha_bbls.json";
 
@@ -234,6 +234,17 @@ const handleSearchEvent: TransitionsConfig<WowContext, WowEvent> = {
   },
 };
 
+function maybeReportError(context: unknown, event: DoneInvokeEvent<any>) {
+  const { data } = event;
+  if (data instanceof Error && !(data instanceof NetworkError)) {
+    if (window.Rollbar) {
+      window.Rollbar.error(data);
+    } else {
+      console.error(data);
+    }
+  }
+}
+
 export const wowMachine = createMachine<WowContext, WowEvent, WowState>({
   id: "wow",
   initial: "noData",
@@ -276,6 +287,7 @@ export const wowMachine = createMachine<WowContext, WowEvent, WowState>({
         ],
         onError: {
           target: "networkErrorOccurred",
+          actions: [maybeReportError],
         },
       },
     },
@@ -318,6 +330,7 @@ export const wowMachine = createMachine<WowContext, WowEvent, WowState>({
                 },
                 onError: {
                   target: "error",
+                  actions: [maybeReportError],
                 },
               },
             },
@@ -344,6 +357,7 @@ export const wowMachine = createMachine<WowContext, WowEvent, WowState>({
                 },
                 onError: {
                   target: "error",
+                  actions: [maybeReportError],
                 },
               },
             },
