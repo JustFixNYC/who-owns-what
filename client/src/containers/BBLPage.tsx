@@ -32,6 +32,10 @@ export const getFullBblFromPageParams = (params: BBLPageParams) => {
   return fullBBL;
 };
 
+export const isValidBblFormat = (bbl: string) => {
+  return bbl.length === 10 && /^\d+$/.test(bbl);
+};
+
 const BBLPage: React.FC<BBLPageProps> = (props) => {
   const history = useHistory();
   const fullBBL = getFullBblFromPageParams(props.match.params);
@@ -40,28 +44,31 @@ const BBLPage: React.FC<BBLPageProps> = (props) => {
   useEffect(() => {
     window.gtag("event", "bblLink");
     let isMounted = true;
-
-    APIClient.getBuildingInfo(fullBBL)
-      .then((results) => {
-        if (!isMounted) return;
-        if (results.result.length === 0) {
-          setIsNotFound(true);
-          return;
-        }
-        const addressPage = createRouteForAddressPage({
-          boro: results.result[0].boro,
-          housenumber: results.result[0].housenumber,
-          streetname: results.result[0].streetname,
+    if (!isValidBblFormat(fullBBL)) {
+      setIsNotFound(true);
+    } else {
+      APIClient.getBuildingInfo(fullBBL)
+        .then((results) => {
+          if (!isMounted) return;
+          if (results.result.length === 0) {
+            setIsNotFound(true);
+            return;
+          }
+          const addressPage = createRouteForAddressPage({
+            boro: results.result[0].boro,
+            housenumber: results.result[0].housenumber,
+            streetname: results.result[0].streetname,
+          });
+          history.replace(addressPage);
+        })
+        .catch((err) => {
+          window.Rollbar.error("API error from BBL page: Building Info", err, fullBBL);
         });
-        history.replace(addressPage);
-      })
-      .catch((err) => {
-        window.Rollbar.error("API error from BBL page: Building Info", err, fullBBL);
-      });
 
-    return () => {
-      isMounted = false;
-    };
+      return () => {
+        isMounted = false;
+      };
+    }
   }, [fullBBL, history]);
 
   return isNotFound ? (
