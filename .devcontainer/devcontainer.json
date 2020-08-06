@@ -11,7 +11,7 @@
 		// This is where the virtual environment set up by our Docker Compose config is located.
 		"python.pythonPath": "/usr/local/bin/python",
 		"python.linting.pylintEnabled": false,
-		"python.linting.flake8Enabled": false,
+		"python.linting.flake8Enabled": true,
 		"python.linting.enabled": true,
 		"python.linting.mypyEnabled": true,
 		"[typescriptreact]": {

@@ -180,7 +180,7 @@ def warn(msg):  # type: (str) -> None
 
     info(
         "\x1b[31;1m"  # Red
-        "WARNING: " + msg +
+        "WARNING: " + msg + \
         "\x1b[0m"     # Reset colors
     )
 

@@ -15,6 +15,7 @@ MY_DIR = Path(__file__).parent.resolve()
 
 BASE_DIR = MY_DIR.parent
 
+
 def get_required_env(key: str) -> str:
     value = os.environ.get(key)
     if not value:
@@ -28,7 +29,7 @@ def get_required_env(key: str) -> str:
 
 DEBUG = os.environ.get('DEBUG') == "true"
 
-SECRET_KEY =  get_required_env('SECRET_KEY')
+SECRET_KEY = get_required_env('SECRET_KEY')
 
 # TODO: Figure out if this can securely stay at '*'.
 ALLOWED_HOSTS: List[str] = ['*']

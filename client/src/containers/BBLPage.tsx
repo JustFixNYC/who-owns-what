@@ -9,7 +9,7 @@ import { createRouteForAddressPage } from "../routes";
 import NotFoundPage from "./NotFoundPage";
 
 // This will be *either* bbl *or* boro, block, and lot.
-type BBLPageParams = {
+export type BBLPageParams = {
   bbl?: string;
   boro?: string;
   block?: string;
@@ -18,11 +18,7 @@ type BBLPageParams = {
 
 type BBLPageProps = RouteComponentProps<BBLPageParams>;
 
-const BBLPage: React.FC<BBLPageProps> = (props) => {
-  const history = useHistory();
-  const params = props.match.params;
-  const [isNotFound, setIsNotFound] = useState(false);
-
+export const getFullBblFromPageParams = (params: BBLPageParams) => {
   var fullBBL: string;
 
   // handling for when url parameter is separated bbl
@@ -33,6 +29,13 @@ const BBLPage: React.FC<BBLPageProps> = (props) => {
   } else {
     throw new Error("Invalid params, expected either a BBL or boro/block/lot!");
   }
+  return fullBBL;
+};
+
+const BBLPage: React.FC<BBLPageProps> = (props) => {
+  const history = useHistory();
+  const fullBBL = getFullBblFromPageParams(props.match.params);
+  const [isNotFound, setIsNotFound] = useState(false);
 
   useEffect(() => {
     window.gtag("event", "bblLink");
@@ -50,7 +53,7 @@ const BBLPage: React.FC<BBLPageProps> = (props) => {
           housenumber: results.result[0].housenumber,
           streetname: results.result[0].streetname,
         });
-        history.push(addressPage);
+        history.replace(addressPage);
       })
       .catch((err) => {
         window.Rollbar.error("API error from BBL page: Building Info", err, fullBBL);

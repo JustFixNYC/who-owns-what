@@ -8,7 +8,8 @@ import {
 } from "components/APIDataTypes";
 import { NychaData } from "containers/NychaPage";
 import APIClient from "components/APIClient";
-import helpers, { assertNotUndefined } from "util/helpers";
+import { assertNotUndefined } from "util/helpers";
+import nycha_bbls from "data/nycha_bbls.json";
 
 import _find from "lodash/find";
 import { IndicatorsDataFromAPI } from "components/IndicatorsTypes";
@@ -160,6 +161,14 @@ export type WithMachineInStateProps<TSV extends WowState["value"]> = {
   send: (event: WowEvent) => WowMachineEverything;
 };
 
+export function getNychaData(searchBBL: string) {
+  const bbl = searchBBL.toString();
+  for (var index = 0; index < nycha_bbls.length; index++) {
+    if (nycha_bbls[index].bbl.toString() === bbl) return nycha_bbls[index];
+  }
+  return null;
+}
+
 async function getSearchResult(addr: SearchAddressWithoutBbl): Promise<WowState> {
   const apiResults = await APIClient.searchForAddressWithGeosearch(addr);
   if (!apiResults.geosearch) {
@@ -169,7 +178,7 @@ async function getSearchResult(addr: SearchAddressWithoutBbl): Promise<WowState>
     };
   } else if (apiResults.addrs.length === 0) {
     const buildingInfoResults = await APIClient.getBuildingInfo(apiResults.geosearch.bbl);
-    const nychaData = helpers.getNychaData(apiResults.geosearch.bbl);
+    const nychaData = getNychaData(apiResults.geosearch.bbl);
 
     return nychaData
       ? {
