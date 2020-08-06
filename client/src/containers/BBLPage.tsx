@@ -7,6 +7,7 @@ import { Trans } from "@lingui/macro";
 import Page from "../components/Page";
 import { createRouteForAddressPage } from "../routes";
 import NotFoundPage from "./NotFoundPage";
+import { reportError } from "error-reporting";
 
 // This will be *either* bbl *or* boro, block, and lot.
 export type BBLPageParams = {
@@ -61,9 +62,7 @@ const BBLPage: React.FC<BBLPageProps> = (props) => {
           });
           history.replace(addressPage);
         })
-        .catch((err) => {
-          window.Rollbar.error("API error from BBL page: Building Info", err, fullBBL);
-        });
+        .catch(reportError);
 
       return () => {
         isMounted = false;

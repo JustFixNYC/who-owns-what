@@ -5,6 +5,7 @@ import "styles/Subscribe.css";
 import { I18n } from "@lingui/core";
 import { withI18n } from "@lingui/react";
 import { t } from "@lingui/macro";
+import { reportError } from "error-reporting";
 
 //import 'styles/Subscribe.css';
 
@@ -70,9 +71,7 @@ class SubscribeWithoutI18n extends React.Component<SubscribeProps, State> {
             response: i18n._(t`Oops! That email is invalid.`),
           });
         } else {
-          window.Rollbar.error(
-            `Mailchimp email signup responded with error code ${result.errorCode}.`
-          );
+          reportError(`Mailchimp email signup responded with error code ${result.errorCode}.`);
           this.setState({
             response: i18n._(t`Oops! A network error occurred. Try again later.`),
           });

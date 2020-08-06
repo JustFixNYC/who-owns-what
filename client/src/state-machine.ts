@@ -13,6 +13,7 @@ import nycha_bbls from "data/nycha_bbls.json";
 
 import _find from "lodash/find";
 import { IndicatorsDataFromAPI } from "components/IndicatorsTypes";
+import { reportError } from "error-reporting";
 
 export type WowState =
   | { value: "noData"; context: {} }
@@ -234,6 +235,10 @@ const handleSearchEvent: TransitionsConfig<WowContext, WowEvent> = {
   },
 };
 
+function reportEventError(context: unknown, event: DoneInvokeEvent<any>) {
+  reportError(event.data);
+}
+
 export const wowMachine = createMachine<WowContext, WowEvent, WowState>({
   id: "wow",
   initial: "noData",
@@ -276,6 +281,7 @@ export const wowMachine = createMachine<WowContext, WowEvent, WowState>({
         ],
         onError: {
           target: "networkErrorOccurred",
+          actions: [reportEventError],
         },
       },
     },
@@ -318,6 +324,7 @@ export const wowMachine = createMachine<WowContext, WowEvent, WowState>({
                 },
                 onError: {
                   target: "error",
+                  actions: [reportEventError],
                 },
               },
             },
@@ -344,6 +351,7 @@ export const wowMachine = createMachine<WowContext, WowEvent, WowState>({
                 },
                 onError: {
                   target: "error",
+                  actions: [reportEventError],
                 },
               },
             },

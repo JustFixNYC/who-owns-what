@@ -15,6 +15,7 @@ import {
 } from "./IndicatorsTypes";
 import helpers from "util/helpers";
 import { IndicatorsDatasetId } from "./IndicatorsDatasets";
+import { NetworkError, HTTPError } from "error-reporting";
 
 // API REQUESTS TO THE DATABASE:
 
@@ -30,7 +31,9 @@ function searchForAddressWithGeosearch(q: {
 
   return new Promise<SearchResults>((resolve, reject) => {
     const req = new GeoSearchRequester({
-      onError: reject,
+      onError(e) {
+        reject(new NetworkError(e.message));
+      },
       onResults(results) {
         const firstResult = results.features[0];
         if (!firstResult)
@@ -84,19 +87,19 @@ function searchForAddress(q: SearchAddress): Promise<SearchResults> {
 }
 
 function searchForBBL(q: WithBoroBlockLot): Promise<SearchResults> {
-  return get(`/api/address?block=${q.block}&lot=${q.lot}&borough=${q.boro}`);
+  return getApiJson(`/api/address?block=${q.block}&lot=${q.lot}&borough=${q.boro}`);
 }
 
 function getAggregate(bbl: string): Promise<SummaryResults> {
-  return get(`/api/address/aggregate?bbl=${bbl}`);
+  return getApiJson(`/api/address/aggregate?bbl=${bbl}`);
 }
 
 function getBuildingInfo(bbl: string): Promise<BuildingInfoResults> {
-  return get(`/api/address/buildinginfo?bbl=${bbl}`);
+  return getApiJson(`/api/address/buildinginfo?bbl=${bbl}`);
 }
 
 async function getIndicatorHistory(bbl: string): Promise<IndicatorsDataFromAPI> {
-  const apiData: Promise<IndicatorsHistoryResults> = get(
+  const apiData: Promise<IndicatorsHistoryResults> = getApiJson(
     `/api/address/indicatorhistory?bbl=${bbl}`
   );
   const rawIndicatorData = (await apiData).result;
@@ -111,56 +114,52 @@ async function getIndicatorHistory(bbl: string): Promise<IndicatorsDataFromAPI> 
 }
 
 function getAddressExport(bbl: string) {
-  return fetch(apiURL(`/api/address/export?bbl=${bbl}`)).then(checkStatus);
+  return friendlyFetch(apiURL(`/api/address/export?bbl=${bbl}`));
 }
 
 // OTHER API FUNCTIONS AND HELPERS:
 
+/**
+ * Like `fetch()`, but raises a `NetworkError` if there's
+ * a network error or the response's HTTP status code isn't
+ * in the range 200-299.
+ */
+const friendlyFetch: typeof fetch = async (input, init) => {
+  let response: Response;
+  try {
+    response = await fetch(input, init);
+  } catch (e) {
+    throw new NetworkError(e.message);
+  }
+  if (!response.ok) {
+    throw new HTTPError(response);
+  }
+  return response;
+};
+
+/**
+ * Rebase a url like `/api/boop` to start with our API base URL,
+ * if it's available.
+ */
 function apiURL(url: string): string {
   return `${process.env.REACT_APP_API_BASE_URL || ""}${url}`;
 }
 
-function get(url: string) {
-  return fetch(apiURL(url), { headers: { accept: "application/json" } })
-    .then(checkStatus)
-    .then(verifyIsJson)
-    .then(parseJSON);
-}
-
-async function verifyIsJson(response: Response) {
-  const contentType = response.headers.get("Content-Type");
-  if (contentType && /^application\/json/.test(contentType)) {
-    return response;
+/**
+ * Return the parsed JSON response from our API server at the given
+ * URL, e.g. `/api/boop`.
+ */
+async function getApiJson(url: string): Promise<any> {
+  const res = await friendlyFetch(apiURL(url), { headers: { accept: "application/json" } });
+  const contentType = res.headers.get("Content-Type");
+  if (!(contentType && /^application\/json/.test(contentType))) {
+    throw new NetworkError(`Expected JSON response but got ${contentType} from ${res.url}`, true);
   }
-  const text = await response.text();
-  const msg = `Expected JSON response but got ${contentType} from ${response.url}`;
-  window.Rollbar.error(msg, {
-    text,
-    contentType,
-    url: response.url,
-  });
-  throw new Error(msg);
-}
-
-function checkStatus(response: Response) {
-  if (response.status >= 200 && response.status < 300) {
-    return response;
+  try {
+    return await res.json();
+  } catch (e) {
+    throw new NetworkError(e.message);
   }
-  const error = new HTTPError(response);
-  throw error;
-}
-
-class HTTPError extends Error {
-  status: string;
-
-  constructor(readonly response: Response) {
-    super(`HTTP Error ${response.statusText}`);
-    this.status = response.statusText;
-  }
-}
-
-function parseJSON(response: Response) {
-  return response.json();
 }
 
 const Client = {
