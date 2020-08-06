@@ -3,8 +3,14 @@ import { interpret } from "xstate";
 import { GEO_AUTOCOMPLETE_URL } from "@justfixnyc/geosearch-requester";
 import { waitUntilStateMatches, mockJsonResponse, mockResponses } from "tests/test-util";
 import GEOCODING_EXAMPLE_SEARCH from "./tests/geocoding-example-search.json";
-import { SearchResults, BuildingInfoResults, AddressRecord } from "components/APIDataTypes";
+import { SearchResults, BuildingInfoResults } from "components/APIDataTypes";
 import helpers from "util/helpers";
+import {
+  SAMPLE_BUILDING_INFO_RESULTS,
+  SAMPLE_ADDRESS_RECORDS,
+  SAMPLE_TIMELINE_DATA,
+} from "state-machine-sample-data";
+import { IndicatorsDataFromAPI } from "components/IndicatorsTypes";
 
 const SEARCH_EVENT: WowEvent = {
   type: "SEARCH",
@@ -23,89 +29,10 @@ function generateMockRequestStuff(bbl: string) {
     GEOCODING_EXAMPLE_SEARCH: newGeocodingExample,
     ADDRESS_URL: `https://wowapi/api/address?block=${bblBits.block}&lot=${bblBits.lot}&borough=${bblBits.boro}`,
     BUILDINGINFO_URL: `https://wowapi/api/address/buildinginfo?bbl=${bbl}`,
+    INDICATORS_URL: `https://wowapi/api/address/indicatorhistory?bbl=${bbl}`,
+    SUMMARY_URL: `https://wowapi/api/address/aggregate?bbl=${bbl}`,
   };
 }
-
-const SAMPLE_BUILDING_INFO_RESULTS: BuildingInfoResults = {
-  result: [
-    {
-      formatted_address: "144 COURT STREET",
-      housenumber: "144",
-      streetname: "COURT STREET",
-      bldgclass: "O5",
-      boro: "BROOKLYN",
-      latitude: 40.6889099948209,
-      longitude: -73.99302988771,
-    },
-  ],
-};
-
-const SAMPLE_ADDRESS_RECORDS: AddressRecord[] = [
-  {
-    housenumber: "654",
-    streetname: "PARK PLACE",
-    zip: "11216",
-    boro: "BROOKLYN",
-    registrationid: "352819",
-    lastregistrationdate: "2019-08-30",
-    registrationenddate: "2020-09-01",
-    bbl: "3012380016",
-    bin: "3031404",
-    corpnames: ["654 PARK PLACE LLC"],
-    businessaddrs: ["12 SPENCER STREET 4 11205"],
-    ownernames: [
-      { title: "HeadOfficer", value: "MOSES GUTMAN" },
-      { title: "Agent", value: "NATHAN SCHWARCZ" },
-    ],
-    totalviolations: 12,
-    openviolations: 0,
-    unitsres: 13,
-    yearbuilt: 1931,
-    lat: 40.6737974139504,
-    lng: -73.9562781322538,
-    evictions: null,
-    rsunits2007: 11,
-    rsunits2017: 12,
-    rsdiff: 1,
-    rspercentchange: 8.33,
-    lastsaleacrisid: "2008012400521001",
-    lastsaledate: "2008-01-17",
-    lastsaleamount: 750000,
-    mapType: "search",
-  },
-  {
-    housenumber: "378",
-    streetname: "LEWIS AVENUE",
-    zip: "11233",
-    boro: "BROOKLYN",
-    registrationid: "323149",
-    lastregistrationdate: "2019-08-06",
-    registrationenddate: "2020-09-01",
-    bbl: "3016690036",
-    bin: "3046748",
-    corpnames: ["378 LEWIS LLC"],
-    businessaddrs: ["12 SPENCER STREET 4 11205"],
-    ownernames: [
-      { title: "HeadOfficer", value: "ALEX ENGELMAN" },
-      { title: "Agent", value: "NAFTALI GESTETNER" },
-    ],
-    totalviolations: 18,
-    openviolations: 1,
-    unitsres: 8,
-    yearbuilt: 1910,
-    lat: 40.6825213771841,
-    lng: -73.9352559095722,
-    evictions: null,
-    rsunits2007: 8,
-    rsunits2017: 0,
-    rsdiff: -8,
-    rspercentchange: -100,
-    lastsaleacrisid: "2013041200684001",
-    lastsaledate: "2013-03-22",
-    lastsaleamount: 1800000,
-    mapType: "base",
-  },
-];
 
 const SEARCH_URL = `${GEO_AUTOCOMPLETE_URL}?text=150%20court%20st%2C%20BROOKLYN`;
 
@@ -192,5 +119,26 @@ describe("wowMachine", () => {
     const wm = interpret(wowMachine).start();
     wm.send(SEARCH_EVENT);
     await waitUntilStateMatches(wm, "portfolioFound");
+  });
+  it("should deal w/ viewing timeline data", async () => {
+    mockResponses({
+      [SEARCH_URL]: mockJsonResponse(PORTFOLIO_URLS.GEOCODING_EXAMPLE_SEARCH),
+      [PORTFOLIO_URLS.ADDRESS_URL]: mockJsonResponse<SearchResults>({
+        addrs: SAMPLE_ADDRESS_RECORDS,
+        geosearch: {
+          geosupportReturnCode: "00",
+          bbl: "3012380016",
+        },
+      }),
+      [PORTFOLIO_URLS.INDICATORS_URL]: mockJsonResponse<IndicatorsDataFromAPI>(
+        SAMPLE_TIMELINE_DATA
+      ),
+    });
+
+    const wm = interpret(wowMachine).start();
+    wm.send(SEARCH_EVENT);
+    await waitUntilStateMatches(wm, "portfolioFound");
+    wm.send({type: "VIEW_TIMELINE"});
+    await waitUntilStateMatches(wm, { portfolioFound: { timeline: "success" } });
   });
 });
