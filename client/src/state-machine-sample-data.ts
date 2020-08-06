@@ -1,10 +1,9 @@
 import {
   BuildingInfoResults,
   AddressRecord,
-  MonthlyTimelineData,
+  SummaryResults,
   IndicatorsHistoryResults,
 } from "components/APIDataTypes";
-import { IndicatorsDataFromAPI } from "components/IndicatorsTypes";
 
 export const SAMPLE_BUILDING_INFO_RESULTS: BuildingInfoResults = {
   result: [
@@ -99,6 +98,60 @@ export const SAMPLE_TIMELINE_DATA: IndicatorsHistoryResults = {
       viols_class_b: 0,
       viols_class_c: 2,
       viols_total: 3,
+    },
+  ],
+};
+
+export const SAMPLE_SUMMARY_DATA: SummaryResults = {
+  result: [
+    {
+      bldgs: 170,
+      units: 1501,
+      age: 86,
+      topowners: [
+        "YOEL GOLDMAN",
+        "NATHAN SCHWARCZ",
+        "NAFTALI GESTETNER",
+        "MOSHE ENGEL",
+        "HECTOR PENA",
+      ],
+      topcorp: "NORTH BROOKLYN MANAGEMENT LLC",
+      topbusinessaddr: "12 SPENCER STREET 4 11205",
+      totalopenviolations: 501,
+      totalviolations: 7346,
+      openviolationsperbldg: 2.9,
+      openviolationsperresunit: 0.3,
+      totalevictions: 16,
+      avgevictions: 0.1,
+      totalrsgain: 121,
+      totalrsloss: -307,
+      totalrsdiff: -186,
+      avgrspercent: -34.1,
+      rsproportion: 12.4,
+      rslossaddr: {
+        housenumber: "160",
+        streetname: "HAVEMEYER STREET",
+        boro: "BROOKLYN",
+        lat: 40.7114809355843,
+        lng: -73.9578477410413,
+        rsdiff: -18,
+      },
+      evictionsaddr: {
+        housenumber: "1104",
+        streetname: "BUSHWICK AVENUE",
+        boro: "BROOKLYN",
+        lat: 40.6897931410334,
+        lng: -73.9192530710074,
+        evictions: 3,
+      },
+      violationsaddr: {
+        housenumber: "188",
+        streetname: "SOUTH THIRD STREET",
+        boro: "BROOKLYN",
+        lat: 40.7114873132789,
+        lng: -73.9603474392426,
+        openviolations: 55,
+      },
     },
   ],
 };

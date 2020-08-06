@@ -3,12 +3,18 @@ import { interpret } from "xstate";
 import { GEO_AUTOCOMPLETE_URL } from "@justfixnyc/geosearch-requester";
 import { waitUntilStateMatches, mockJsonResponse, mockResponses } from "tests/test-util";
 import GEOCODING_EXAMPLE_SEARCH from "./tests/geocoding-example-search.json";
-import { SearchResults, BuildingInfoResults, IndicatorsHistoryResults } from "components/APIDataTypes";
+import {
+  SearchResults,
+  BuildingInfoResults,
+  IndicatorsHistoryResults,
+  SummaryResults,
+} from "components/APIDataTypes";
 import helpers from "util/helpers";
 import {
   SAMPLE_BUILDING_INFO_RESULTS,
   SAMPLE_ADDRESS_RECORDS,
   SAMPLE_TIMELINE_DATA,
+  SAMPLE_SUMMARY_DATA,
 } from "state-machine-sample-data";
 
 const SEARCH_EVENT: WowEvent = {
@@ -45,9 +51,9 @@ const PORTFOLIO_FOUND_CTX: WowPortfolioFoundContext = {
   portfolioData: {
     searchAddr: SAMPLE_ADDRESS_RECORDS[0],
     detailAddr: SAMPLE_ADDRESS_RECORDS[0],
-    assocAddrs: SAMPLE_ADDRESS_RECORDS
-  }
-}
+    assocAddrs: SAMPLE_ADDRESS_RECORDS,
+  },
+};
 
 describe("wowMachine", () => {
   beforeEach(() => {
@@ -129,6 +135,7 @@ describe("wowMachine", () => {
     wm.send(SEARCH_EVENT);
     await waitUntilStateMatches(wm, "portfolioFound");
   });
+
   it("should deal w/ viewing timeline data", async () => {
     mockResponses({
       [PORTFOLIO_URLS.INDICATORS_URL]: mockJsonResponse<IndicatorsHistoryResults>(
@@ -138,9 +145,40 @@ describe("wowMachine", () => {
 
     const wm = interpret(wowMachine).start({ portfolioFound: { timeline: "noData" } });
     wm.state.context = PORTFOLIO_FOUND_CTX;
-   
-    // wm.send(SEARCH_EVENT);
-    wm.send({type: "VIEW_TIMELINE"});
-    var state = await waitUntilStateMatches(wm, { portfolioFound: { timeline: "success" } });
+
+    wm.send({ type: "VIEW_TIMELINE" });
+    await waitUntilStateMatches(wm, { portfolioFound: { timeline: "success" } });
+  });
+
+  it("should deal w/ timeline data request errors", async () => {
+    mockResponses({ [PORTFOLIO_URLS.INDICATORS_URL]: { status: 500 } });
+
+    const wm = interpret(wowMachine).start({ portfolioFound: { timeline: "noData" } });
+    wm.state.context = PORTFOLIO_FOUND_CTX;
+
+    wm.send({ type: "VIEW_TIMELINE" });
+    await waitUntilStateMatches(wm, { portfolioFound: { timeline: "error" } });
+  });
+
+  it("should deal w/ viewing summary data", async () => {
+    mockResponses({
+      [PORTFOLIO_URLS.SUMMARY_URL]: mockJsonResponse<SummaryResults>(SAMPLE_SUMMARY_DATA),
+    });
+
+    const wm = interpret(wowMachine).start({ portfolioFound: { summary: "noData" } });
+    wm.state.context = PORTFOLIO_FOUND_CTX;
+
+    wm.send({ type: "VIEW_SUMMARY" });
+    await waitUntilStateMatches(wm, { portfolioFound: { summary: "success" } });
+  });
+
+  it("should deal w/ summary data request errors", async () => {
+    mockResponses({ [PORTFOLIO_URLS.SUMMARY_URL]: { status: 500 } });
+
+    const wm = interpret(wowMachine).start({ portfolioFound: { summary: "noData" } });
+    wm.state.context = PORTFOLIO_FOUND_CTX;
+
+    wm.send({ type: "VIEW_SUMMARY" });
+    await waitUntilStateMatches(wm, { portfolioFound: { summary: "error" } });
   });
 });
