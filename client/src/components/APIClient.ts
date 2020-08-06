@@ -15,6 +15,7 @@ import {
 } from "./IndicatorsTypes";
 import helpers from "util/helpers";
 import { IndicatorsDatasetId } from "./IndicatorsDatasets";
+import { NetworkError, HTTPError } from "error-reporting";
 
 // API REQUESTS TO THE DATABASE:
 
@@ -86,19 +87,19 @@ function searchForAddress(q: SearchAddress): Promise<SearchResults> {
 }
 
 function searchForBBL(q: WithBoroBlockLot): Promise<SearchResults> {
-  return getJSON(`/api/address?block=${q.block}&lot=${q.lot}&borough=${q.boro}`);
+  return getApiJson(`/api/address?block=${q.block}&lot=${q.lot}&borough=${q.boro}`);
 }
 
 function getAggregate(bbl: string): Promise<SummaryResults> {
-  return getJSON(`/api/address/aggregate?bbl=${bbl}`);
+  return getApiJson(`/api/address/aggregate?bbl=${bbl}`);
 }
 
 function getBuildingInfo(bbl: string): Promise<BuildingInfoResults> {
-  return getJSON(`/api/address/buildinginfo?bbl=${bbl}`);
+  return getApiJson(`/api/address/buildinginfo?bbl=${bbl}`);
 }
 
 async function getIndicatorHistory(bbl: string): Promise<IndicatorsDataFromAPI> {
-  const apiData: Promise<IndicatorsHistoryResults> = getJSON(
+  const apiData: Promise<IndicatorsHistoryResults> = getApiJson(
     `/api/address/indicatorhistory?bbl=${bbl}`
   );
   const rawIndicatorData = (await apiData).result;
@@ -112,6 +113,17 @@ async function getIndicatorHistory(bbl: string): Promise<IndicatorsDataFromAPI> 
   return structuredIndicatorData;
 }
 
+function getAddressExport(bbl: string) {
+  return friendlyFetch(apiURL(`/api/address/export?bbl=${bbl}`));
+}
+
+// OTHER API FUNCTIONS AND HELPERS:
+
+/**
+ * Like `fetch()`, but raises a `NetworkError` if there's
+ * a network error or the response's HTTP status code isn't
+ * in the range 200-299.
+ */
 const friendlyFetch: typeof fetch = async (input, init) => {
   let response: Response;
   try {
@@ -125,44 +137,28 @@ const friendlyFetch: typeof fetch = async (input, init) => {
   return response;
 };
 
-function getAddressExport(bbl: string) {
-  return friendlyFetch(apiURL(`/api/address/export?bbl=${bbl}`));
-}
-
-// OTHER API FUNCTIONS AND HELPERS:
-
+/**
+ * Rebase a url like `/api/boop` to start with our API base URL,
+ * if it's available.
+ */
 function apiURL(url: string): string {
   return `${process.env.REACT_APP_API_BASE_URL || ""}${url}`;
 }
 
-async function getJSON(url: string): Promise<any> {
+/**
+ * Return the parsed JSON response from our API server at the given
+ * URL, e.g. `/api/boop`.
+ */
+async function getApiJson(url: string): Promise<any> {
   const res = await friendlyFetch(apiURL(url), { headers: { accept: "application/json" } });
+  const contentType = res.headers.get("Content-Type");
+  if (!(contentType && /^application\/json/.test(contentType))) {
+    throw new NetworkError(`Expected JSON response but got ${contentType} from ${res.url}`, true);
+  }
   try {
     return await res.json();
   } catch (e) {
     throw new NetworkError(e.message);
-  }
-}
-
-/**
- * A generic network error. It could be because the network is down, or because
- * a server returned a HTTP response like 404 or 500.
- *
- * Note that we need to define this ourselves because `fetch()` will actually
- * reject with a `TypeError` on network failure, which is awfully ambiguous.
- */
-export class NetworkError extends Error {}
-
-/**
- * A network error that happened because the HTTP status code is not in
- * the range 200-299.
- */
-export class HTTPError extends NetworkError {
-  status: string;
-
-  constructor(readonly response: Response) {
-    super(`HTTP Error ${response.statusText}`);
-    this.status = response.statusText;
   }
 }
 

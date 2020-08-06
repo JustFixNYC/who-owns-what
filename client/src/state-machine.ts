@@ -7,12 +7,13 @@ import {
   SummaryResults,
 } from "components/APIDataTypes";
 import { NychaData } from "containers/NychaPage";
-import APIClient, { NetworkError } from "components/APIClient";
+import APIClient from "components/APIClient";
 import { assertNotUndefined } from "util/helpers";
 import nycha_bbls from "data/nycha_bbls.json";
 
 import _find from "lodash/find";
 import { IndicatorsDataFromAPI } from "components/IndicatorsTypes";
+import { reportError } from "error-reporting";
 
 export type WowState =
   | { value: "noData"; context: {} }
@@ -234,15 +235,8 @@ const handleSearchEvent: TransitionsConfig<WowContext, WowEvent> = {
   },
 };
 
-function maybeReportError(context: unknown, event: DoneInvokeEvent<any>) {
-  const { data } = event;
-  if (data instanceof Error && !(data instanceof NetworkError)) {
-    if (window.Rollbar) {
-      window.Rollbar.error(data);
-    } else {
-      console.error(data);
-    }
-  }
+function reportEventError(context: unknown, event: DoneInvokeEvent<any>) {
+  reportError(event.data);
 }
 
 export const wowMachine = createMachine<WowContext, WowEvent, WowState>({
@@ -287,7 +281,7 @@ export const wowMachine = createMachine<WowContext, WowEvent, WowState>({
         ],
         onError: {
           target: "networkErrorOccurred",
-          actions: [maybeReportError],
+          actions: [reportEventError],
         },
       },
     },
@@ -330,7 +324,7 @@ export const wowMachine = createMachine<WowContext, WowEvent, WowState>({
                 },
                 onError: {
                   target: "error",
-                  actions: [maybeReportError],
+                  actions: [reportEventError],
                 },
               },
             },
@@ -357,7 +351,7 @@ export const wowMachine = createMachine<WowContext, WowEvent, WowState>({
                 },
                 onError: {
                   target: "error",
-                  actions: [maybeReportError],
+                  actions: [reportEventError],
                 },
               },
             },

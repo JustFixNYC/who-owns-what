@@ -12,6 +12,7 @@ import { SearchAddressWithoutBbl } from "components/APIDataTypes";
 import { useMachine } from "@xstate/react";
 import { wowMachine } from "state-machine";
 import { DevPage } from "containers/DevPage";
+import { reportError } from "error-reporting";
 
 export type AddressPageUrlParams = SearchAddressWithoutBbl;
 
@@ -21,9 +22,7 @@ export const createRouteForAddressPage = (params: AddressPageUrlParams) => {
   )}/${encodeURIComponent(params.streetname)}`;
 
   if (route.includes(" ")) {
-    window.Rollbar.error(
-      "An Address Page URL was not encoded properly! There's a space in the URL."
-    );
+    reportError("An Address Page URL was not encoded properly! There's a space in the URL.");
     route = route.replace(" ", "%20");
   }
 

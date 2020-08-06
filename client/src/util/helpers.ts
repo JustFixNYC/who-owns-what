@@ -5,6 +5,7 @@ import _pickBy from "lodash/pickBy";
 import { deepEqual as assertDeepEqual } from "assert";
 import { SupportedLocale } from "../i18n-base";
 import { SearchAddressWithoutBbl } from "components/APIDataTypes";
+import { reportError } from "error-reporting";
 
 /**
  * An array consisting of Who Owns What's standard enumerations for street names,
@@ -128,7 +129,7 @@ export default {
         )}&utm_source=whoownswhat&utm_content=take_action&utm_medium=${utm_medium}`;
       }
     } else {
-      window.Rollbar.error("Address improperly formatted for DDO:", addr || "<falsy value>");
+      reportError(`Address improperly formatted for DDO: ${addr || "<falsy value>"}`);
       return `https://${subdomain}.justfix.nyc/?utm_source=whoownswhat&utm_content=take_action_failed_attempt&utm_medium=${utm_medium}`;
     }
   },
