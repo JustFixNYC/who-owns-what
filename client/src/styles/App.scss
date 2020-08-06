@@ -333,6 +333,11 @@ b {
   padding: 10px;
 }
 
+.form-container .cancel .focus {
+  background-color: red;
+  color: blue;
+}
+
 /* Add some hover effects to buttons */
 .form-container .btn:hover,
 .open-button:hover {
@@ -363,50 +368,56 @@ b {
   border-radius: 4px;
 }
 
-.Accordion {
+.widget {
   width: 100%;
   height: 100%;
   padding-top: 0px;
 }
 
-.Accordion h3 {
+.widget h3 {
   margin: 0;
   padding: 0;
 }
 
-.Accordion.focus {
+.widget.focus {
   border-color: hsl(216, 94%, 73%);
 }
 
+.widget *:first-child .widget-trigger {
+  border-radius: 5px 5px 0 0;
+}
 
-.Accordion.focus h3 {
+.widget.focus h3 {
   background-color: hsl(0, 0%, 97%);
 }
 
-.Accordion > * + * {
+.widget-trigger:focus .widget-title {
+  border-color: hsl(216, 94%, 73%);
+}
+.widget > * + * {
   border-top: 1px solid hsl(0, 0%, 82%);
 }
 
-.Accordion-trigger {
+.widget-trigger {
   background: none;
   color: hsl(0, 0%, 13%);
-  display: block;
-  font-size: 1rem;
-  font-weight: normal;
-  margin: 0;
-  padding: 1em 0em 1em 0em;
+  display: inline-block;
+  margin: 10px;
   position: relative;
-  text-align: left;
-  width: 100%;
   outline: none;
 }
 
-.Accordion-trigger:focus,
-.Accordion-trigger:hover {
+.navButtons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.widget-trigger:focus,
+.widget-trigger:hover {
   background: hsl(216, 94%, 94%);
 }
 
-.Accordion *:first-child .Accordion-trigger {
+.widget *:first-child .widget-trigger {
   border-radius: 5px 5px 0 0;
 }
 
@@ -414,11 +425,11 @@ button {
   border-style: none;
 }
 
-.Accordion button::-moz-focus-inner {
+.widget button::-moz-focus-inner {
   border: 0;
 }
 
-.Accordion-title {
+.widget-title {
   display: block;
   pointer-events: none;
   border: transparent 2px solid;
@@ -429,38 +440,36 @@ button {
   outline: none;
 }
 
-.Accordion-trigger:focus {
+.widget-trigger:focus {
   border-color: hsl(216, 94%, 73%);
 }
 
-
-.Accordion-icon {
-  
-  //height: 1.4rem;
+.widget-button {
+  height: 100%;
+  width: 100%;
   font-size: 1rem;
   pointer-events: none;
-  position: absolute;
+  position: relative;
   float: right;
-  right: 5px;
   background-color: #42445c;
   color: white;
-  font-size: 0.7em;
+  font-size: 1em;
   padding: 0.4em 0.5em 0.2em 0.5em;
   border-radius: 4px;
 }
 
-.Accordion-trigger[aria-expanded="true"] .Accordion-icon {
+.widget-trigger[aria-expanded="true"] .widget-icon {
   //transform: translateY(-50%) rotate(-135deg);
-  background-color: #FE9D43;
+  background-color: #fe9d43;
   color: #42445c;
 }
 
-.Accordion-panel {
+.widget-panel {
   margin: 0;
   padding: 0.5em 0.25em;
 }
 
 /* For Edge bug https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/4806035/ */
-.Accordion-panel[hidden] {
+.widget-panel[hidden] {
   display: none;
 }
