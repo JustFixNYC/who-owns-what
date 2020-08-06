@@ -1,4 +1,4 @@
-import { wowMachine, WowEvent } from "./state-machine";
+import { wowMachine, WowEvent, WowPortfolioFoundContext } from "./state-machine";
 import { interpret } from "xstate";
 import { GEO_AUTOCOMPLETE_URL } from "@justfixnyc/geosearch-requester";
 import { waitUntilStateMatches, mockJsonResponse, mockResponses } from "tests/test-util";
@@ -39,6 +39,16 @@ const SEARCH_URL = `${GEO_AUTOCOMPLETE_URL}?text=150%20court%20st%2C%20BROOKLYN`
 const NOT_REG_URLS = generateMockRequestStuff("3002920026");
 const NYCHA_URLS = generateMockRequestStuff("3004040001");
 const PORTFOLIO_URLS = generateMockRequestStuff("3012380016");
+
+const PORTFOLIO_FOUND_CTX: WowPortfolioFoundContext = {
+  searchAddrParams: SEARCH_EVENT.address,
+  searchAddrBbl: "3012380016",
+  portfolioData: {
+    searchAddr: SAMPLE_ADDRESS_RECORDS[0],
+    detailAddr: SAMPLE_ADDRESS_RECORDS[0],
+    assocAddrs: SAMPLE_ADDRESS_RECORDS
+  }
+}
 
 describe("wowMachine", () => {
   beforeEach(() => {
@@ -122,23 +132,27 @@ describe("wowMachine", () => {
   });
   it("should deal w/ viewing timeline data", async () => {
     mockResponses({
-      [SEARCH_URL]: mockJsonResponse(PORTFOLIO_URLS.GEOCODING_EXAMPLE_SEARCH),
-      [PORTFOLIO_URLS.ADDRESS_URL]: mockJsonResponse<SearchResults>({
-        addrs: SAMPLE_ADDRESS_RECORDS,
-        geosearch: {
-          geosupportReturnCode: "00",
-          bbl: "3012380016",
-        },
-      }),
+      // [SEARCH_URL]: mockJsonResponse(PORTFOLIO_URLS.GEOCODING_EXAMPLE_SEARCH),
+      // [PORTFOLIO_URLS.ADDRESS_URL]: mockJsonResponse<SearchResults>({
+      //   addrs: SAMPLE_ADDRESS_RECORDS,
+      //   geosearch: {
+      //     geosupportReturnCode: "00",
+      //     bbl: "3012380016",
+      //   },
+      // }),
       [PORTFOLIO_URLS.INDICATORS_URL]: mockJsonResponse<IndicatorsDataFromAPI>(
         SAMPLE_TIMELINE_DATA
       ),
     });
 
-    const wm = interpret(wowMachine).start();
-    wm.send(SEARCH_EVENT);
-    await waitUntilStateMatches(wm, "portfolioFound");
+    const wm = interpret(wowMachine).start({ portfolioFound: { timeline: "noData" } });
+    wm.state.context = PORTFOLIO_FOUND_CTX;
+
+    console.log(wm.state.context);
+    console.log(wm.state.value);
+    // wm.send(SEARCH_EVENT);
     wm.send({type: "VIEW_TIMELINE"});
+    expect(wm.state.value).toBe({ portfolioFound: { timeline: "pending" } })
     await waitUntilStateMatches(wm, { portfolioFound: { timeline: "success" } });
   });
 });
