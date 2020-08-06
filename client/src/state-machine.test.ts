@@ -3,14 +3,13 @@ import { interpret } from "xstate";
 import { GEO_AUTOCOMPLETE_URL } from "@justfixnyc/geosearch-requester";
 import { waitUntilStateMatches, mockJsonResponse, mockResponses } from "tests/test-util";
 import GEOCODING_EXAMPLE_SEARCH from "./tests/geocoding-example-search.json";
-import { SearchResults, BuildingInfoResults } from "components/APIDataTypes";
+import { SearchResults, BuildingInfoResults, IndicatorsHistoryResults } from "components/APIDataTypes";
 import helpers from "util/helpers";
 import {
   SAMPLE_BUILDING_INFO_RESULTS,
   SAMPLE_ADDRESS_RECORDS,
   SAMPLE_TIMELINE_DATA,
 } from "state-machine-sample-data";
-import { IndicatorsDataFromAPI } from "components/IndicatorsTypes";
 
 const SEARCH_EVENT: WowEvent = {
   type: "SEARCH",
@@ -132,27 +131,16 @@ describe("wowMachine", () => {
   });
   it("should deal w/ viewing timeline data", async () => {
     mockResponses({
-      // [SEARCH_URL]: mockJsonResponse(PORTFOLIO_URLS.GEOCODING_EXAMPLE_SEARCH),
-      // [PORTFOLIO_URLS.ADDRESS_URL]: mockJsonResponse<SearchResults>({
-      //   addrs: SAMPLE_ADDRESS_RECORDS,
-      //   geosearch: {
-      //     geosupportReturnCode: "00",
-      //     bbl: "3012380016",
-      //   },
-      // }),
-      [PORTFOLIO_URLS.INDICATORS_URL]: mockJsonResponse<IndicatorsDataFromAPI>(
+      [PORTFOLIO_URLS.INDICATORS_URL]: mockJsonResponse<IndicatorsHistoryResults>(
         SAMPLE_TIMELINE_DATA
       ),
     });
 
     const wm = interpret(wowMachine).start({ portfolioFound: { timeline: "noData" } });
     wm.state.context = PORTFOLIO_FOUND_CTX;
-
-    console.log(wm.state.context);
-    console.log(wm.state.value);
+   
     // wm.send(SEARCH_EVENT);
     wm.send({type: "VIEW_TIMELINE"});
-    expect(wm.state.value).toBe({ portfolioFound: { timeline: "pending" } })
-    await waitUntilStateMatches(wm, { portfolioFound: { timeline: "success" } });
+    var state = await waitUntilStateMatches(wm, { portfolioFound: { timeline: "success" } });
   });
 });

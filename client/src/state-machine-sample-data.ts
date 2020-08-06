@@ -1,4 +1,9 @@
-import { BuildingInfoResults, AddressRecord } from "components/APIDataTypes";
+import {
+  BuildingInfoResults,
+  AddressRecord,
+  MonthlyTimelineData,
+  IndicatorsHistoryResults,
+} from "components/APIDataTypes";
 import { IndicatorsDataFromAPI } from "components/IndicatorsTypes";
 
 export const SAMPLE_BUILDING_INFO_RESULTS: BuildingInfoResults = {
@@ -82,30 +87,18 @@ export const SAMPLE_ADDRESS_RECORDS: AddressRecord[] = [
   },
 ];
 
-export const SAMPLE_TIMELINE_DATA: IndicatorsDataFromAPI = {
-  viols: {
-    labels: ["2019-07"],
-    values: {
-      class_a: [1],
-      class_b: [2],
-      class_c: [0],
-      total: [3],
+export const SAMPLE_TIMELINE_DATA: IndicatorsHistoryResults = {
+  result: [
+    {
+      month: "2019-07",
+      complaints_emergency: 1,
+      complaints_nonemergency: 0,
+      complaints_total: 1,
+      permits_total: 2,
+      viols_class_a: 1,
+      viols_class_b: 0,
+      viols_class_c: 2,
+      viols_total: 3,
     },
-  },
-
-  complaints: {
-    labels: ["2019-07"],
-    values: {
-      emergency: [1],
-      nonemergency: [0],
-      total: [1],
-    },
-  },
-
-  permits: {
-    labels: ["2019-07"],
-    values: {
-      total: [2],
-    },
-  },
+  ],
 };
