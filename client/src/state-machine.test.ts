@@ -1,9 +1,21 @@
-import { wowMachine, WowEvent, getNychaData } from "./state-machine";
+import { wowMachine, WowEvent, WowPortfolioFoundContext, getNychaData } from "./state-machine";
 import { interpret } from "xstate";
 import { GEO_AUTOCOMPLETE_URL } from "@justfixnyc/geosearch-requester";
 import { waitUntilStateMatches, mockJsonResponse, mockResponses } from "tests/test-util";
 import GEOCODING_EXAMPLE_SEARCH from "./tests/geocoding-example-search.json";
-import { SearchResults, BuildingInfoResults } from "components/APIDataTypes";
+import {
+  SearchResults,
+  BuildingInfoResults,
+  IndicatorsHistoryResults,
+  SummaryResults,
+} from "components/APIDataTypes";
+import helpers from "util/helpers";
+import {
+  SAMPLE_BUILDING_INFO_RESULTS,
+  SAMPLE_ADDRESS_RECORDS,
+  SAMPLE_TIMELINE_DATA,
+  SAMPLE_SUMMARY_DATA,
+} from "state-machine-sample-data";
 
 // State Machine Helper Functions:
 
@@ -27,11 +39,34 @@ const SEARCH_EVENT: WowEvent = {
   },
 };
 
+function generateMockRequestStuff(bbl: string) {
+  const bblBits = helpers.splitBBL(bbl);
+  const newGeocodingExample = JSON.parse(JSON.stringify(GEOCODING_EXAMPLE_SEARCH));
+  newGeocodingExample.features[0].properties.pad_bbl = bbl;
+  return {
+    GEOCODING_EXAMPLE_SEARCH: newGeocodingExample,
+    ADDRESS_URL: `https://wowapi/api/address?block=${bblBits.block}&lot=${bblBits.lot}&borough=${bblBits.boro}`,
+    BUILDINGINFO_URL: `https://wowapi/api/address/buildinginfo?bbl=${bbl}`,
+    INDICATORS_URL: `https://wowapi/api/address/indicatorhistory?bbl=${bbl}`,
+    SUMMARY_URL: `https://wowapi/api/address/aggregate?bbl=${bbl}`,
+  };
+}
+
 const SEARCH_URL = `${GEO_AUTOCOMPLETE_URL}?text=150%20court%20st%2C%20BROOKLYN`;
 
-const ADDRESS_URL = "https://wowapi/api/address?block=00292&lot=0026&borough=3";
+const NOT_REG_URLS = generateMockRequestStuff("3002920026");
+const NYCHA_URLS = generateMockRequestStuff("3004040001");
+const PORTFOLIO_URLS = generateMockRequestStuff("3012380016");
 
-const BUILDINGINFO_URL = "https://wowapi/api/address/buildinginfo?bbl=3002920026";
+const PORTFOLIO_FOUND_CTX: WowPortfolioFoundContext = {
+  searchAddrParams: SEARCH_EVENT.address,
+  searchAddrBbl: "3012380016",
+  portfolioData: {
+    searchAddr: SAMPLE_ADDRESS_RECORDS[0],
+    detailAddr: SAMPLE_ADDRESS_RECORDS[0],
+    assocAddrs: SAMPLE_ADDRESS_RECORDS,
+  },
+};
 
 describe("wowMachine", () => {
   beforeEach(() => {
@@ -59,31 +94,104 @@ describe("wowMachine", () => {
 
   it("should deal w/ unregistered addresses", async () => {
     mockResponses({
-      [SEARCH_URL]: mockJsonResponse(GEOCODING_EXAMPLE_SEARCH),
-      [ADDRESS_URL]: mockJsonResponse<SearchResults>({
+      [SEARCH_URL]: mockJsonResponse(NOT_REG_URLS.GEOCODING_EXAMPLE_SEARCH),
+      [NOT_REG_URLS.ADDRESS_URL]: mockJsonResponse<SearchResults>({
         addrs: [],
         geosearch: {
           geosupportReturnCode: "00",
           bbl: "3002920026",
         },
       }),
-      [BUILDINGINFO_URL]: mockJsonResponse<BuildingInfoResults>({
-        result: [
-          {
-            formatted_address: "144 COURT STREET",
-            housenumber: "144",
-            streetname: "COURT STREET",
-            bldgclass: "O5",
-            boro: "BROOKLYN",
-            latitude: 40.6889099948209,
-            longitude: -73.99302988771,
-          },
-        ],
-      }),
+      [NOT_REG_URLS.BUILDINGINFO_URL]: mockJsonResponse<BuildingInfoResults>(
+        SAMPLE_BUILDING_INFO_RESULTS
+      ),
     });
 
     const wm = interpret(wowMachine).start();
     wm.send(SEARCH_EVENT);
     await waitUntilStateMatches(wm, "unregisteredFound");
+  });
+
+  it("should deal w/ nycha addresses", async () => {
+    mockResponses({
+      [SEARCH_URL]: mockJsonResponse(NYCHA_URLS.GEOCODING_EXAMPLE_SEARCH),
+      [NYCHA_URLS.ADDRESS_URL]: mockJsonResponse<SearchResults>({
+        addrs: [],
+        geosearch: {
+          geosupportReturnCode: "00",
+          bbl: "3004040001",
+        },
+      }),
+      [NYCHA_URLS.BUILDINGINFO_URL]: mockJsonResponse<BuildingInfoResults>(
+        SAMPLE_BUILDING_INFO_RESULTS
+      ),
+    });
+
+    const wm = interpret(wowMachine).start();
+    wm.send(SEARCH_EVENT);
+    await waitUntilStateMatches(wm, "nychaFound");
+  });
+
+  it("should deal w/ addresses with portfolios", async () => {
+    mockResponses({
+      [SEARCH_URL]: mockJsonResponse(PORTFOLIO_URLS.GEOCODING_EXAMPLE_SEARCH),
+      [PORTFOLIO_URLS.ADDRESS_URL]: mockJsonResponse<SearchResults>({
+        addrs: SAMPLE_ADDRESS_RECORDS,
+        geosearch: {
+          geosupportReturnCode: "00",
+          bbl: "3012380016",
+        },
+      }),
+    });
+
+    const wm = interpret(wowMachine).start();
+    wm.send(SEARCH_EVENT);
+    await waitUntilStateMatches(wm, "portfolioFound");
+  });
+
+  it("should deal w/ viewing timeline data", async () => {
+    mockResponses({
+      [PORTFOLIO_URLS.INDICATORS_URL]: mockJsonResponse<IndicatorsHistoryResults>(
+        SAMPLE_TIMELINE_DATA
+      ),
+    });
+
+    const wm = interpret(wowMachine).start({ portfolioFound: { timeline: "noData" } });
+    wm.state.context = PORTFOLIO_FOUND_CTX;
+
+    wm.send({ type: "VIEW_TIMELINE" });
+    await waitUntilStateMatches(wm, { portfolioFound: { timeline: "success" } });
+  });
+
+  it("should deal w/ timeline data request errors", async () => {
+    mockResponses({ [PORTFOLIO_URLS.INDICATORS_URL]: { status: 500 } });
+
+    const wm = interpret(wowMachine).start({ portfolioFound: { timeline: "noData" } });
+    wm.state.context = PORTFOLIO_FOUND_CTX;
+
+    wm.send({ type: "VIEW_TIMELINE" });
+    await waitUntilStateMatches(wm, { portfolioFound: { timeline: "error" } });
+  });
+
+  it("should deal w/ viewing summary data", async () => {
+    mockResponses({
+      [PORTFOLIO_URLS.SUMMARY_URL]: mockJsonResponse<SummaryResults>(SAMPLE_SUMMARY_DATA),
+    });
+
+    const wm = interpret(wowMachine).start({ portfolioFound: { summary: "noData" } });
+    wm.state.context = PORTFOLIO_FOUND_CTX;
+
+    wm.send({ type: "VIEW_SUMMARY" });
+    await waitUntilStateMatches(wm, { portfolioFound: { summary: "success" } });
+  });
+
+  it("should deal w/ summary data request errors", async () => {
+    mockResponses({ [PORTFOLIO_URLS.SUMMARY_URL]: { status: 500 } });
+
+    const wm = interpret(wowMachine).start({ portfolioFound: { summary: "noData" } });
+    wm.state.context = PORTFOLIO_FOUND_CTX;
+
+    wm.send({ type: "VIEW_SUMMARY" });
+    await waitUntilStateMatches(wm, { portfolioFound: { summary: "error" } });
   });
 });

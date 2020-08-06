@@ -88,7 +88,7 @@ export type WowState =
       context: WowContext & { searchAddrParams: SearchAddressWithoutBbl };
     };
 
-type WowPortfolioFoundContext = WowContext & {
+export type WowPortfolioFoundContext = WowContext & {
   searchAddrParams: SearchAddressWithoutBbl;
   searchAddrBbl: string;
   portfolioData: PortfolioData;

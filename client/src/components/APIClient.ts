@@ -147,7 +147,6 @@ function checkStatus(response: Response) {
     return response;
   }
   const error = new HTTPError(response);
-  console.log(error); // eslint-disable-line no-console
   throw error;
 }
 
