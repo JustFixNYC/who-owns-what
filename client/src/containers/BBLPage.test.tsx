@@ -1,4 +1,4 @@
-import { getFullBblFromPageParams, BBLPageParams } from "./BBLPage";
+import { getFullBblFromPageParams, BBLPageParams, isValidBblFormat } from "./BBLPage";
 
 const pageParamsWithFullBbl: BBLPageParams = {
   bbl: "1003450021",
@@ -28,5 +28,19 @@ describe("getFullBblFromPageParams()", () => {
     expect(() => getFullBblFromPageParams(incompletePageParams)).toThrowError(
       "Invalid params, expected either a BBL or boro/block/lot!"
     );
+  });
+});
+
+describe("isValidBblFormat()", () => {
+  it("returns true for a valid bbl", () => {
+    expect(isValidBblFormat("1003450021")).toBe(true);
+  });
+
+  it("returns false if bbl is not the right number of digits", () => {
+    expect(isValidBblFormat("100345003")).toBe(false);
+  });
+
+  it("returns false if bbl contains non-numeric characters", () => {
+    expect(isValidBblFormat("100345003X")).toBe(false);
   });
 });
