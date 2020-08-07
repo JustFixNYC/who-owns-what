@@ -11,6 +11,10 @@ import Modal from "components/Modal";
 import SocialShare from "components/SocialShare";
 import { withI18n } from "@lingui/react";
 import { WhoOwnsWhatRoutes, createWhoOwnsWhatRoutePaths } from "../routes";
+import Spanish_gif from "../assets/img/Feature_callout_gifs/Spanish.gif";
+import Timeline_gif from "../assets/img/Feature_callout_gifs/Timeline.gif";
+import URLS_gif from "../assets/img/Feature_callout_gifs/URLS.gif";
+import LastSold_gif from "../assets/img/Feature_callout_gifs/LastSold.gif";
 import { indexOf } from "lodash";
 
 const HomeLink = withI18n()((props) => {
@@ -38,17 +42,28 @@ export default class App extends Component {
       entryIndex: 0,
       entries: [
         {
-          title: "Spanish Support",
-          text:
-            "Click “ES” in the upper right corner to switch your view of Who Owns What to Spanish",
-        },
-        {
+          index: "1 of 4", 
           title: "Timeline Tab",
-          text: "Click the Timeline tab to view info about your building over time",
+          description: "Click the Timeline tab to view info about your building over time",
+          img: Timeline_gif
         },
         {
-          title: "Last Registered",
-          text: "You can now see the last time your building was registered",
+          index: "2 of 4", 
+          title: "Spanish Support",
+          description: "Click “ES” in the upper right corner to switch your view of Who Owns What to Spanish",
+          img: Spanish_gif
+        },
+        {
+          index: "3 of 4", 
+          title: "Unique Tab URLs",
+          description: "You can now share links to specific tabs",
+          img: URLS_gif
+        },
+        {
+          index: "4 of 4", 
+          title: "Last Sold",
+          description: "View the date and price from the last time your building was sold",
+          img: LastSold_gif
         },
       ],
     };
@@ -68,73 +83,120 @@ export default class App extends Component {
       : this.setState({ entryIndex: this.state.entryIndex - 1 });
   }
 
+  toggleWidget(event, widget){
+    if (widget.style.display === "none"){
+    widget.style.display = "inline-block";
+    console.log(event.target);
+    //event.target.classList.add("toggled");
+    document.querySelector('.tooltip-triangle').classList.add('toggled');
+    document.querySelector('.button-info').classList.add('pressed');
+    } else {
+    widget.style.display = "none";
+    //event.target.classList.remove("toggled");
+    document.querySelector('.button-info').classList.remove('pressed');
+    document.querySelector('.tooltip-triangle').classList.remove('toggled');
+  }
+}
+
   render() {
     const isDemoSite = process.env.REACT_APP_DEMO_SITE === "1";
     const paths = createWhoOwnsWhatRoutePaths();
 
     let widgetHeader = (
       <div className="header">
-        <span className="pop-up-header" role = "heading" tabIndex="0">
-          <b>What's New</b>
+        <span className="widget-title focusable" role = "heading" tabIndex="0">
+          What's New
         </span>
         <button
           type="button"
           role="button"
-          className="cancel float-right"
-          onClick={() => (document.getElementById("myForm").style.display = "none")}
+          className="button-cancel material-icons md-18 focusable" 
+          tabIndex = "0"
+          onClick={(event) => {
+            event.preventDefault();
+            let widget = document.getElementById("widget");
+            return this.toggleWidget(event, widget);
+          }}
         >
-          <b tabIndex="0">X</b>
+            close
         </button>
       </div>
     );
 
     let entryDivs = this.state.entries.map((entry) => (
       <div
+        className = "entry"
         id={"page-" + entry.title}
         role="region"
         aria-labelledby={"widget-" + entry.title + "-id"}
-        className="widget-panel"
       >
-        <p htmlFor={"update-" + entry.title}>{entry.title}</p>
-        <p>{entry.text}</p>
+        <p className = "entry-title-container">
+        <span className = "entry-index" aria-describedby={entry.index}>{entry.index}</span>
+        <span className = "entry-title" aria-describedby={"entry title- " + entry.title}>{entry.title}</span>
+        </p>
+        
+        <img className = "widget-image"src = {entry.img}></img>
+        <p className = "widget-description">{entry.description}</p>
       </div>
     ));
 
     let navButtons = (
       <div className="navButtons">
         <button
-          className="widget-trigger"
+          className="button-nav prev focusable"
+          tabIndex = "0"
           onClick={(event) => {
             event.preventDefault();
             return this.prevEntry(event);
           }}
         >
-          <span className="widget-button .btn-prev" tabIndex = "0">Prev</span>
+        <span 
+        class="material-icons md-14 prev-next-icon"
+        >
+          navigate_before
+        </span>
+        <span className = "prev-text">Prev</span> 
         </button>
         <button
-          className="widget-trigger"
+          className="button-nav next focusable" 
+          tabIndex = "0"
           onClick={(event) => {
             event.preventDefault();
             return this.nextEntry(event);
           }}
         >
-          <span className="widget-button .btn-next" tabIndex = "0">Next</span>
+          <span className = "next-text">Next</span> 
+          <span 
+          class="material-icons md-14 prev-next-icon"
+          >
+            navigate_next
+          </span>
         </button>
       </div>
     );
 
     let featureCalloutWidget = (
       <div>
+        <div className = "triangle-button-container">
         <button
-          className="open-button"
+          className="button-info focusable material-icons md-14"
           tabIndex = "0"
-          onClick={() => (document.getElementById("myForm").style.display = "block")}
+          onClick={(event) => {
+            event.preventDefault();
+            let widget = document.getElementById("widget");
+            return this.toggleWidget(event, widget);
+          }}
         >
-          i
+          info
         </button>
-        <div className="chat-popup" id="myForm">
+        <div 
+          class="tooltip-triangle"
+          >
+        </div>
+        </div>
+        <div className="widget-container" id="widget">
           {widgetHeader}
-          <div className="form-container" id="form-container-entries">
+          <div className="widget-content-container" id="widget-entries">
             {entryDivs[this.state.entryIndex]}
             {navButtons}
           </div>

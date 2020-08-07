@@ -220,256 +220,189 @@ div.Page {
   }
 }
 
-#canvasContainer {
-  position: absolute;
-  left: 0px;
-  top: 0px;
-  width: 100%;
-  height: 100%;
-  z-index: 100;
+.material-icons.md-14 { font-size: 14px;}
+.material-icons.md-18 { font-size: 18px; }
+
+.triangle-button-container{
+  display:flex;
+  flex-direction: column;
 }
-/* Button used to open the chat form - fixed at the bottom of the page */
-.open-button {
-  background-color: #454d5d;
-  color: white;
-  padding: 0.25em 1em 0.25em 0.5em;
-  font-size: 1.4em;
+
+.button-info {
+  background: #454d5d;
+  color:white;
+  font-size: 0.1em;
   border-radius: 50%;
-  border: none;
   cursor: pointer;
-  position: fixed;
-  bottom: 23px;
-  right: 28px;
-  width: 10px;
-  text-align: center;
+  position: relative;
+  vertical-align: middle;
   z-index: 11;
+  margin: 2px 2px 0px 0px;
+  @include for-phone-only {
+    margin: 2px 5px 1px 7px;
+  }
 }
 
-/* The popup chat - hidden by default */
-.chat-popup {
+.button-info:hover{
+  background: none;
+  color:#616f8d;
+}
+
+.button-info.pressed {
+  background: none;
+  color:#454d5d;
+}
+
+.tooltip-triangle {
+	width: 0;
+  height: 0;
+  margin-left: auto;
+  margin-right: auto;
+	border-left: 8.25px solid transparent;
+	border-right: 8.5px solid transparent;
+	border-bottom: 14px solid  #454d5d;
+  background-size: 3px 3px;
+  z-index: 11;
+  visibility: hidden;
+}
+
+.tooltip-triangle.toggled {
+  visibility: visible;
+}
+
+/*container for widget, hidden by default */
+.widget-container {
   display: none;
-  position: fixed;
-  bottom: 22px;
-  right: 27px;
-  border: 1px solid #727e96;
-  z-index: 12;
-  width: 25%;
-  max-width: 300px;
+  position: absolute;
+    z-index: 12;
+    width: 25%;
+    right: 8%;
+    min-width: 200px;
+    max-width: 250px;
+    border: 1em solid #454d5d;
+  @include for-phone-only {
+    right: 0%;
+    left: 4%;
+    width: 90%;
+  }
 }
 
-/* Add styles to the form container */
-.form-container {
+.widget-content-container {
   width: 100%;
   height: 100%;
-  padding: 10px;
-  padding-top: 12px;
-  background-color: white;
-  color: #454d5d;
-}
-
-/* Full-width textarea */
-.form-container .blurb {
-  width: 100%;
-  padding: 5px;
-  margin-top: 5px;
-  border: none;
-  background: #f1f1f1;
-  resize: none;
-  min-height: 50px;
-  display: none;
+  padding-top: 5px;
+  color: white;
+  background-color: #454d5d;
 }
 
 .header {
-  background-image: linear-gradient(
-    to right top,
-    #f8f9fa 33%,
-    #e0e5e9 33%,
-    #e0e5e9 66%,
-    #f8f9fa 66%
-  );
-  background-size: 3px 3px;
+  padding: 0px 3px 5px 0px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.2em;
+  background-color: #454d5d;
   width: 100%;
-  padding-right: 10px;
-  padding-top: 5px;
-  color: #454d5d;
-  //border-bottom: 1px solid #727e96;
-}
-
-b {
-  color: #42445c !important;
-}
-
-.pop-up-header {
-  padding: 0px 10px 5px 10px;
-  display: inline-block;
-  font-size: 1.4em;
-  color: #454d5d;
-}
-
-/* Set a style for the submit/send button */
-.form-container .btn {
-  background-color: #4caf50;
   color: white;
-  padding: 16px 20px;
-  border: none;
-  cursor: pointer;
-  width: 100%;
-  margin-bottom: 10px;
-  opacity: 0.8;
+  font-weight: bold;
+  border-bottom: 1px solid #fe9d43;
 }
 
-.float-right {
-  float: right;
+.widget-title {
+  display: inline-block;
+  font-size: 1.2em;
+  background-color: #454d5d;
+  color: white;
+  font-weight: bold;
 }
 
-.form-container .cancel {
-  background-color: white;
-  font-size: 2 em;
-  font-style: bold;
-  color: #454d5d;
-  border: none;
-  max-width: 15px;
-  max-height: 15px;
-  padding: 10px;
+.entry{
+  padding: 5px;
 }
 
-.form-container .cancel .focus {
-  background-color: red;
-  color: blue;
+.button-cancel:hover {
+  background-color: #616f8d;
+  border-radius: 50%;
+  height: 20px;
+  margin-top: 4px;
 }
 
-/* Add some hover effects to buttons */
-.form-container .btn:hover,
-.open-button:hover {
-  opacity: 1;
-}
-
-.show-me-entry {
-  //padding: 3px 5px;
-  margin-bottom: 15px;
-  font-size: 1.1em;
-}
-
-.last {
-  margin-bottom: 0px;
+/* Full-width textarea */
+.widget-description{
+  padding: 5px 0px 5px 0px;
+  margin: 0px;
 }
 
 .entry-title {
-  font-size: 1em;
-  color: #454d5d;
+  font-size: 1.1em;
+  font-weight: 900;
+  margin-left: 10px;
 }
 
-.show-me-button {
-  background-color: #454d5d;
-  color: white;
-  font-size: 0.7em;
-  padding: 2px 5px 2px 5px;
-  border: none;
-  border-radius: 4px;
-}
-
-.widget {
-  width: 100%;
-  height: 100%;
-  padding-top: 0px;
-}
-
-.widget h3 {
-  margin: 0;
-  padding: 0;
-}
-
-.widget.focus {
-  border-color: hsl(216, 94%, 73%);
-}
-
-.widget *:first-child .widget-trigger {
-  border-radius: 5px 5px 0 0;
-}
-
-.widget.focus h3 {
-  background-color: hsl(0, 0%, 97%);
-}
-
-.widget-trigger:focus .widget-title {
-  border-color: hsl(216, 94%, 73%);
-}
-.widget > * + * {
-  border-top: 1px solid hsl(0, 0%, 82%);
-}
-
-.widget-trigger {
-  background: none;
-  color: hsl(0, 0%, 13%);
-  display: inline-block;
-  margin: 10px;
-  position: relative;
-  outline: none;
+.entry-index{
+  font-size: 0.9em;
+  word-spacing: -4px;
 }
 
 .navButtons {
   display: flex;
   justify-content: space-between;
+  padding: 5px;
 }
 
-.widget-trigger:focus,
-.widget-trigger:hover {
-  background: hsl(216, 94%, 94%);
-}
-
-.widget *:first-child .widget-trigger {
-  border-radius: 5px 5px 0 0;
-}
-
-button {
-  border-style: none;
-}
-
-.widget button::-moz-focus-inner {
-  border: 0;
-}
-
-.widget-title {
-  display: block;
-  pointer-events: none;
-  border: transparent 2px solid;
-  border-radius: 5px;
-  padding: 0.25em;
-  font-size: 1.4rem;
-  color: #454d5d;
-  outline: none;
-}
-
-.widget-trigger:focus {
-  border-color: hsl(216, 94%, 73%);
-}
-
-.widget-button {
-  height: 100%;
-  width: 100%;
-  font-size: 1rem;
-  pointer-events: none;
+.button-nav {
+  display: flex;
   position: relative;
-  float: right;
-  background-color: #42445c;
-  color: white;
-  font-size: 1em;
-  padding: 0.4em 0.5em 0.2em 0.5em;
+  outline: none;
+  font-size: 1rem;
+  font-weight: bold;
+  position: relative;
+  font-size: 0.9em;
   border-radius: 4px;
 }
 
-.widget-trigger[aria-expanded="true"] .widget-icon {
-  //transform: translateY(-50%) rotate(-135deg);
-  background-color: #fe9d43;
-  color: #42445c;
+
+.button-nav.prev {
+  background: none;
+  color: white;
+  padding: 0.05em 0.55em 0.2em 0.2em;
+  height: 100%;
 }
 
-.widget-panel {
-  margin: 0;
-  padding: 0.5em 0.25em;
+.prev-text{
+  text-decoration: underline;
+  text-underline-position: under;
 }
 
-/* For Edge bug https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/4806035/ */
-.widget-panel[hidden] {
-  display: none;
+.button-nav.next {
+  background-color: #E89141;
+  color: #454d5d;
+  padding: 0.1em 0.2em 0.2em 0.55em;
+  height: 100%;
 }
+
+.button-nav.prev:hover{
+  background-color:#6d7da5;
+
+}
+
+.button-nav.next:hover{
+  background-color:#6d7da5;
+  color:white;
+
+}
+
+.focusable:focus {
+  box-shadow: none;
+    outline: 2px solid $gray-dark;
+    outline-offset: 2px;
+}
+
+.widget-image{
+  width: 100%;
+}
+
+.prev-next-icon {
+  margin-top: 2px;
+}
+
+
