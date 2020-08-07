@@ -20,7 +20,7 @@ import Page from "../components/Page";
 import { SearchResults, Borough } from "../components/APIDataTypes";
 import { SearchAddress } from "../components/AddressSearch";
 import { WithMachineProps } from "state-machine";
-import NotFoundPage from "./NotFoundPage";
+import NotFoundPage, { ErrorPageScaffolding } from "./NotFoundPage";
 import { searchAddrsAreEqual } from "util/helpers";
 
 type RouteParams = {
@@ -252,6 +252,14 @@ export default class AddressPage extends Component<AddressPageProps, State> {
               />
             </div>
           </div>
+        </Page>
+      );
+    } else if (state.matches("networkErrorOccurred")) {
+      return (
+        <Page>
+          <ErrorPageScaffolding>
+            <Trans>Oops! A network error occurred. Try again later.</Trans>
+          </ErrorPageScaffolding>
         </Page>
       );
     } else {
