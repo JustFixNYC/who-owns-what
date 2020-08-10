@@ -6,7 +6,7 @@ import { RouteComponentProps, useHistory } from "react-router";
 import { Trans } from "@lingui/macro";
 import Page from "../components/Page";
 import { createRouteForAddressPage } from "../routes";
-import NotFoundPage from "./NotFoundPage";
+import { AddrNotFoundPage } from "./NotFoundPage";
 import { reportError } from "error-reporting";
 
 // This will be *either* bbl *or* boro, block, and lot.
@@ -67,7 +67,7 @@ const BBLPage: React.FC<BBLPageProps> = (props) => {
   }, [fullBBL, history]);
 
   return isNotFound ? (
-    <NotFoundPage />
+    <AddrNotFoundPage />
   ) : (
     <Page>
       <Loader loading={true} classNames="Loader-map">

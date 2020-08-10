@@ -20,7 +20,7 @@ import Page from "../components/Page";
 import { SearchResults, Borough } from "../components/APIDataTypes";
 import { SearchAddress } from "../components/AddressSearch";
 import { WithMachineProps } from "state-machine";
-import NotFoundPage from "./NotFoundPage";
+import { AddrNotFoundPage } from "./NotFoundPage";
 import { searchAddrsAreEqual } from "util/helpers";
 import { createAddressPageRoutes } from "routes";
 
@@ -111,7 +111,7 @@ export default class AddressPage extends Component<AddressPageProps, State> {
 
     if (state.matches("bblNotFound")) {
       window.gtag("event", "bbl-not-found-page");
-      return <NotFoundPage />;
+      return <AddrNotFoundPage />;
     } else if (state.matches("nychaFound")) {
       window.gtag("event", "nycha-page");
       return <NychaPage state={state} send={send} />;

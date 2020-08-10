@@ -24,6 +24,7 @@ import TermsOfUsePage from "./TermsOfUsePage";
 import PrivacyPolicyPage from "./PrivacyPolicyPage";
 import { DevPage } from "./DevPage";
 import { wowMachine } from "state-machine";
+import { NotFoundPage } from "./NotFoundPage";
 
 type Props = {};
 
@@ -79,6 +80,7 @@ const WhoOwnsWhatRoutes: React.FC<{}> = () => {
       <Route path={paths.termsOfUse} component={TermsOfUsePage} />
       <Route path={paths.privacyPolicy} component={PrivacyPolicyPage} />
       <Route path={paths.dev} component={DevPage} />
+      <Route component={NotFoundPage} />
     </Switch>
   );
 };
