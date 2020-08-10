@@ -97,12 +97,12 @@ export default class App extends Component<Props, State> {
     let infoButton = document.querySelector(".widget-button-info");
     if (widget.style.display === "none") {
       widget.style.display = "inline-block";
-      tooltipTriangle ? tooltipTriangle.classList.add("toggled") : "";
-      infoButton ? infoButton.classList.add("pressed") : "";
+      if(tooltipTriangle) tooltipTriangle.classList.add("toggled");
+      if(infoButton) infoButton.classList.add("pressed");
     } else {
       widget.style.display = "none";
-      tooltipTriangle ? tooltipTriangle.classList.remove("toggled") : "";
-      infoButton ? infoButton.classList.remove("pressed") : "";
+      if(tooltipTriangle) tooltipTriangle.classList.remove("toggled");
+      if(infoButton) infoButton.classList.remove("pressed");
     }
   }
 
