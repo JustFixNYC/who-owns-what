@@ -1,80 +1,44 @@
 import React, { Component } from "react";
 
-import Helpers from "util/helpers";
+import Helpers from "../util/helpers";
 
-import IndicatorsViz from "components/IndicatorsViz";
-import Loader from "components/Loader";
-import LegalFooter from "components/LegalFooter";
-import APIClient from "components/APIClient";
+import IndicatorsViz from "../components/IndicatorsViz";
+import Loader from "../components/Loader";
+import LegalFooter from "../components/LegalFooter";
 import { withI18n } from "@lingui/react";
 import { Trans } from "@lingui/macro";
 
 import "styles/Indicators.css";
-import { IndicatorsDatasetRadio, INDICATORS_DATASETS } from "./IndicatorsDatasets";
+import {
+  IndicatorsDatasetRadio,
+  INDICATORS_DATASETS,
+  IndicatorsDatasetId,
+} from "./IndicatorsDatasets";
 import { Link } from "react-router-dom";
+import {
+  indicatorsInitialState,
+  IndicatorsProps,
+  IndicatorsState,
+  IndicatorChartShift,
+  IndicatorsTimeSpan,
+} from "./IndicatorsTypes";
+import { Nobr } from "./Nobr";
+import { ErrorPageScaffolding } from "containers/NotFoundPage";
 
-const initialState = {
-  lastSale: {
-    date: null,
-    label: null,
-    documentid: null,
-  },
-
-  indicatorHistory: null,
-
-  violsData: {
-    labels: null,
-    values: {
-      class_a: null,
-      class_b: null,
-      class_c: null,
-      total: null,
-    },
-  },
-
-  complaintsData: {
-    labels: null,
-    values: {
-      emergency: null,
-      nonemergency: null,
-      total: null,
-    },
-  },
-
-  permitsData: {
-    labels: null,
-    values: {
-      total: null,
-    },
-  },
-
-  indicatorList: ["complaints", "viols", "permits"],
-  defaultVis: "complaints",
-  activeVis: "complaints",
-  timeSpanList: ["month", "quarter", "year"],
-  activeTimeSpan: "quarter",
-  monthsInGroup: 3,
-  xAxisStart: 0,
-  xAxisViewableColumns: 20,
-  currentAddr: null,
-};
-
-class IndicatorsWithoutI18n extends Component {
-  constructor(props) {
+class IndicatorsWithoutI18n extends Component<IndicatorsProps, IndicatorsState> {
+  constructor(props: IndicatorsProps) {
     super(props);
-    this.state = initialState;
+    this.state = indicatorsInitialState;
     this.handleVisChange = this.handleVisChange.bind(this);
   }
 
-  /** Resets the component to initial blank state */
-  reset() {
-    this.setState(initialState);
-  }
-
   /** Shifts the X-axis 'left' or 'right', or 'reset' the X-axis to default */
-  handleXAxisChange(shift) {
+  handleXAxisChange(shift: IndicatorChartShift) {
     const span = this.state.xAxisViewableColumns;
-    const labelsArray = this.state[this.state.activeVis + "Data"].labels;
+    const activeVis = this.state.activeVis;
+    const labelsArray =
+      this.props.state.context.timelineData &&
+      this.props.state.context.timelineData[activeVis].labels;
 
     if (!labelsArray || labelsArray.length < span) {
       return;
@@ -107,14 +71,14 @@ class IndicatorsWithoutI18n extends Component {
     }
   }
 
-  handleVisChange(selectedVis) {
+  handleVisChange(selectedVis: IndicatorsDatasetId) {
     this.setState({
       activeVis: selectedVis,
     });
   }
 
   /** Changes viewing timespan to be by 'year', 'quarter', or 'month' */
-  handleTimeSpanChange(selectedTimeSpan) {
+  handleTimeSpanChange(selectedTimeSpan: IndicatorsTimeSpan) {
     var monthsInGroup = selectedTimeSpan === "quarter" ? 3 : selectedTimeSpan === "year" ? 12 : 1;
 
     this.setState({
@@ -123,88 +87,35 @@ class IndicatorsWithoutI18n extends Component {
     });
   }
 
-  /** Fetches data for Indicators component via 2 API calls and saves the raw data in state */
-  fetchData(detailAddr) {
-    APIClient.getIndicatorHistory(detailAddr.bbl)
-      .then((results) => this.setState({ indicatorHistory: results.result }))
-      .catch((err) => {
-        window.Rollbar.error("API error on Indicators: Indicator History", err, detailAddr.bbl);
-      });
-
-    this.setState({
-      currentAddr: detailAddr,
-    });
-  }
-
-  /** Reorganizes raw data from API call and then returns an object that matches the data stucture in state  */
-  createVizData(rawJSON, vizType) {
-    // Generate object to hold data for viz
-    // Note: keys in "values" object need to match exact key names in data from API call
-    var vizData = Object.assign({}, initialState[vizType + "Data"]);
-
-    vizData.labels = [];
-    for (const column in vizData.values) {
-      vizData.values[column] = [];
-    }
-
-    // Generate arrays of data for chart.js visualizations:
-    // Default grouping is by MONTH
-
-    const rawJSONLength = rawJSON.length;
-
-    for (let i = 0; i < rawJSONLength; i++) {
-      vizData.labels.push(rawJSON[i].month);
-
-      for (const column in vizData.values) {
-        const vizTypePlusColumn = vizType + "_" + column;
-        vizData.values[column].push(parseInt(rawJSON[i][vizTypePlusColumn]));
-      }
-    }
-    return vizData;
-  }
-
-  UNSAFE_componentWillReceiveProps(nextProps) {
-    // make the api call when we have a new detail address from the Address Page
+  updateData() {
     if (
-      nextProps.detailAddr &&
-      nextProps.detailAddr.bbl && // will be receiving a detailAddr prop AND
-      (!this.props.detailAddr || // either we don't have one now
-        (this.props.detailAddr &&
-        this.props.detailAddr.bbl && // OR we have a different one
-          !Helpers.addrsAreEqual(this.props.detailAddr, nextProps.detailAddr)))
+      this.props.state.matches({ portfolioFound: { timeline: "noData" } }) &&
+      this.props.isVisible
     ) {
-      this.reset();
-      this.fetchData(nextProps.detailAddr);
+      this.props.send({ type: "VIEW_TIMELINE" });
     }
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    const indicatorList = this.state.indicatorList;
+  componentDidMount() {
+    this.updateData();
+    this.handleXAxisChange("reset");
+  }
 
-    // process viz data from incoming API calls:
+  componentDidUpdate(prevProps: IndicatorsProps, prevState: IndicatorsState) {
+    const { state } = this.props;
 
-    if (
-      this.state.indicatorHistory &&
-      !Helpers.jsonEqual(prevState.indicatorHistory, this.state.indicatorHistory)
-    ) {
-      for (const indicator of indicatorList) {
-        var inputData = this.createVizData(this.state.indicatorHistory, indicator);
+    this.updateData();
 
-        this.setState({
-          [indicator + "Data"]: inputData,
-        });
-      }
-    }
+    const newlyLoadedRawData =
+      !prevProps.state.matches({ portfolioFound: { timeline: "success" } }) &&
+      state.matches({ portfolioFound: { timeline: "success" } }) &&
+      state.context.timelineData;
 
     // reset chart positions when:
     // 1. default dataset loads or
     // 2. when activeTimeSpan changes:
 
-    if (
-      (!prevState[this.state.defaultVis + "Data"].labels &&
-        this.state[this.state.defaultVis + "Data"].labels) ||
-      prevState.activeTimeSpan !== this.state.activeTimeSpan
-    ) {
+    if (newlyLoadedRawData || prevState.activeTimeSpan !== this.state.activeTimeSpan) {
       this.handleXAxisChange("reset");
     }
 
@@ -212,14 +123,10 @@ class IndicatorsWithoutI18n extends Component {
     // 1. default dataset loads or
     // 2. when activeTimeSpan changes
 
-    if (
-      (this.state.currentAddr &&
-        !prevState[this.state.defaultVis + "Data"].labels &&
-        this.state[this.state.defaultVis + "Data"].labels) ||
-      prevState.activeTimeSpan !== this.state.activeTimeSpan
-    ) {
-      if (this.props.detailAddr.lastsaledate && this.props.detailAddr.lastsaleacrisid) {
-        var lastSaleDate = this.props.detailAddr.lastsaledate;
+    if (newlyLoadedRawData || prevState.activeTimeSpan !== this.state.activeTimeSpan) {
+      const { detailAddr } = this.props.state.context.portfolioData;
+      if (detailAddr.lastsaledate && detailAddr.lastsaleacrisid) {
+        var lastSaleDate = detailAddr.lastsaledate;
         var lastSaleYear = lastSaleDate.slice(0, 4);
         var lastSaleQuarter =
           lastSaleYear + "-Q" + Math.ceil(parseInt(lastSaleDate.slice(5, 7)) / 3);
@@ -234,73 +141,81 @@ class IndicatorsWithoutI18n extends Component {
                 : this.state.activeTimeSpan === "quarter"
                 ? lastSaleQuarter
                 : lastSaleMonth,
-            documentid: this.props.detailAddr.lastsaleacrisid,
+            documentid: detailAddr.lastsaleacrisid,
           },
         });
       } else {
         this.setState({
-          lastSale: initialState.lastSale,
+          lastSale: indicatorsInitialState.lastSale,
         });
       }
     }
   }
 
   render() {
-    const boro = this.props.detailAddr ? this.props.detailAddr.bbl.slice(0, 1) : null;
-    const block = this.props.detailAddr ? this.props.detailAddr.bbl.slice(1, 6) : null;
-    const lot = this.props.detailAddr ? this.props.detailAddr.bbl.slice(6, 10) : null;
-    const housenumber = this.props.detailAddr ? this.props.detailAddr.housenumber : null;
-    const streetname = this.props.detailAddr ? this.props.detailAddr.streetname : null;
+    if (
+      !(
+        this.props.isVisible &&
+        this.props.state.matches({ portfolioFound: { timeline: "success" } })
+      )
+    ) {
+      return this.props.state.matches({ portfolioFound: { timeline: "error" } }) ? (
+        <ErrorPageScaffolding>
+          <Trans>Oops! A network error occurred. Try again later.</Trans>
+        </ErrorPageScaffolding>
+      ) : (
+        <Loader loading={true} classNames="Loader-map">
+          <Trans>Loading</Trans>
+        </Loader>
+      );
+    } else {
+      const { state, send } = this.props;
 
-    const indicatorData = this.state.activeVis + "Data";
-    const xAxisLength = this.state[indicatorData].labels
-      ? Math.floor(this.state[indicatorData].labels.length / this.state.monthsInGroup)
-      : 0;
-    const indicatorDataTotal = this.state[indicatorData].values.total
-      ? this.state[indicatorData].values.total.reduce((total, sum) => total + sum)
-      : null;
+      const { detailAddr } = state.context.portfolioData;
+      const { housenumber, streetname, bbl } = detailAddr;
+      const boro = bbl.slice(0, 1);
+      const block = bbl.slice(1, 6);
+      const lot = bbl.slice(6, 10);
 
-    const i18n = this.props.i18n;
-    const detailAddrStr =
-      this.props.detailAddr &&
-      `${this.props.detailAddr.housenumber} ${Helpers.titleCase(
-        this.props.detailAddr.streetname
-      )}, ${Helpers.titleCase(this.props.detailAddr.boro)}`;
+      const { activeVis } = this.state;
+      const activeData = state.context.timelineData[activeVis];
 
-    const dataset = INDICATORS_DATASETS[this.state.activeVis];
+      const xAxisLength = activeData.labels
+        ? Math.floor(activeData.labels.length / this.state.monthsInGroup)
+        : 0;
+      const indicatorDataTotal = activeData.values.total
+        ? activeData.values.total.reduce((total: number, sum: number) => total + sum)
+        : null;
 
-    return (
-      <div className="Page Indicators">
-        <div className="Indicators__content Page__content">
-          {!(
-            this.props.isVisible &&
-            this.state.indicatorHistory &&
-            this.state[this.state.defaultVis + "Data"].labels
-          ) ? (
-            <Loader loading={true} classNames="Loader-map">
-              <Trans>Loading</Trans>
-            </Loader>
-          ) : (
+      const i18n = this.props.i18n;
+
+      const detailAddrStr = `${detailAddr.housenumber} ${Helpers.titleCase(
+        detailAddr.streetname
+      )}, ${Helpers.titleCase(detailAddr.boro)}`;
+
+      const datasetDescription = INDICATORS_DATASETS[this.state.activeVis];
+
+      return (
+        <div className="Page Indicators">
+          <div className="Indicators__content Page__content">
             <div className="columns">
               <div className="column col-8 col-lg-12">
-                <div className="title-card">
-                  <h4 className="title">
-                    {this.props.detailAddr ? (
+                {detailAddr && (
+                  <div className="title-card">
+                    <h4 className="title">
                       <span>
                         <Trans>BUILDING:</Trans> <b>{detailAddrStr}</b>
                       </span>
-                    ) : (
-                      <span />
-                    )}
-                  </h4>
-                  <br />
-                  <Link
-                    to={this.props.generateBaseUrl()}
-                    onClick={() => this.props.onBackToOverview(this.props.detailAddr)}
-                  >
-                    <Trans>Back to Overview</Trans>
-                  </Link>
-                </div>
+                    </h4>
+                    <br />
+                    <Link
+                      to={this.props.generateBaseUrl()}
+                      onClick={() => this.props.onBackToOverview(bbl)}
+                    >
+                      <Trans>Back to Overview</Trans>
+                    </Link>
+                  </div>
+                )}
 
                 <div className="Indicators__links">
                   <div className="Indicators__linksContainer">
@@ -310,17 +225,17 @@ class IndicatorsWithoutI18n extends Component {
                     <br />
                     <IndicatorsDatasetRadio
                       id="complaints"
-                      activeId={this.state.activeVis}
+                      activeId={activeVis}
                       onChange={this.handleVisChange}
                     />
                     <IndicatorsDatasetRadio
                       id="viols"
-                      activeId={this.state.activeVis}
+                      activeId={activeVis}
                       onChange={this.handleVisChange}
                     />
                     <IndicatorsDatasetRadio
                       id="permits"
-                      activeId={this.state.activeVis}
+                      activeId={activeVis}
                       onChange={this.handleVisChange}
                     />
                   </div>
@@ -387,7 +302,9 @@ class IndicatorsWithoutI18n extends Component {
                 </div>
 
                 <span className="title viz-title">
-                  {dataset && dataset.quantity(i18n, indicatorDataTotal)}
+                  {datasetDescription &&
+                    indicatorDataTotal !== null &&
+                    datasetDescription.quantity(i18n, indicatorDataTotal)}
                 </span>
 
                 <div className="Indicators__viz">
@@ -407,7 +324,7 @@ class IndicatorsWithoutI18n extends Component {
                   >
                     ‹
                   </button>
-                  <IndicatorsViz {...this.state} />
+                  <IndicatorsViz state={state} send={send} {...this.state} />
                   <button
                     aria-hidden={
                       this.state.xAxisStart + this.state.xAxisViewableColumns >= xAxisLength ||
@@ -427,7 +344,7 @@ class IndicatorsWithoutI18n extends Component {
 
                 <div className="Indicators__feedback hide-lg">
                   <Trans render="i">Have thoughts about this page?</Trans>
-                  <nobr>
+                  <Nobr>
                     <a
                       href="https://airtable.com/shrZ9uL3id6oWEn8T"
                       target="_blank"
@@ -435,18 +352,20 @@ class IndicatorsWithoutI18n extends Component {
                     >
                       <Trans>Send us feedback!</Trans>
                     </a>
-                  </nobr>
+                  </Nobr>
                 </div>
               </div>
               <div className="column column-context col-4 col-lg-12">
                 <div className="card">
                   <div className="card-header">
                     <div className="card-title h5">
-                      <Trans>What are {dataset && dataset.name(i18n)}?</Trans>
+                      <Trans>What are {datasetDescription && datasetDescription.name(i18n)}?</Trans>
                     </div>
                     <div className="card-subtitle text-gray" />
                   </div>
-                  <div className="card-body">{dataset && dataset.explanation(i18n)}</div>
+                  <div className="card-body">
+                    {datasetDescription && datasetDescription.explanation(i18n)}
+                  </div>
                 </div>
 
                 <div className="card card-links">
@@ -530,7 +449,7 @@ class IndicatorsWithoutI18n extends Component {
 
                 <div className="Indicators__feedback show-lg">
                   <Trans render="i">Have thoughts about this page?</Trans>
-                  <nobr>
+                  <Nobr>
                     <a
                       href="https://airtable.com/shrZ9uL3id6oWEn8T"
                       target="_blank"
@@ -538,15 +457,15 @@ class IndicatorsWithoutI18n extends Component {
                     >
                       <Trans>Send us feedback!</Trans>
                     </a>
-                  </nobr>
+                  </Nobr>
                 </div>
               </div>
             </div>
-          )}
+          </div>
+          <LegalFooter />
         </div>
-        <LegalFooter position="inside" />
-      </div>
-    );
+      );
+    }
   }
 }
 

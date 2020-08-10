@@ -4,15 +4,12 @@ import Modal from "./Modal";
 
 import "styles/AddressToolbar.css";
 import { Trans } from "@lingui/macro";
+import { SearchAddress } from "./AddressSearch";
 
 export type AddressToolbarProps = {
   onExportClick: () => void;
   numOfAssocAddrs: number;
-  userAddr: {
-    housenumber: string;
-    streetname: string;
-    boro: string;
-  };
+  searchAddr: SearchAddress;
 };
 
 type State = {
@@ -37,7 +34,7 @@ export default class AddressToolbar extends Component<AddressToolbarProps, State
     //   ({ boro, block, lot } = Helpers.splitBBL(bbl));
     // }
 
-    const userAddrStr = `${this.props.userAddr.housenumber} ${this.props.userAddr.streetname}, ${this.props.userAddr.boro}`;
+    const userAddrStr = `${this.props.searchAddr.housenumber} ${this.props.searchAddr.streetname}, ${this.props.searchAddr.boro}`;
 
     return (
       <div className="AddressToolbar">

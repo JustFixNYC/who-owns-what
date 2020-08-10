@@ -1,5 +1,7 @@
 // TYPES ASSOCIATED WITH INPUT DATA:
 
+import { SearchAddress } from "./AddressSearch";
+
 export type Borough = "MANHATTAN" | "BRONX" | "BROOKLYN" | "QUEENS" | "STATEN ISLAND";
 
 export type WithBoroBlockLot = {
@@ -8,6 +10,8 @@ export type WithBoroBlockLot = {
   lot: string;
 };
 
+export type SearchAddressWithoutBbl = Omit<SearchAddress, "bbl">;
+
 // TYPES ASSOCIATED WITH ADDRESS SEARCH QUERY:
 
 type HpdOwnerContact = {
@@ -15,30 +19,36 @@ type HpdOwnerContact = {
   value: string;
 };
 
-type AddressRecord = {
+/** Date fields that come from our API Data are strings with the format YYYY-MM-DD */
+type APIDate = string;
+
+export type GeoSearchData = {
+  geosupportReturnCode: string;
   bbl: string;
-  /** Front-end interprets as string */
-  bin: number;
+};
+
+export type AddressRecord = {
+  bbl: string;
+  bin: string;
   boro: Borough;
   businessaddrs: string[] | null;
   corpnames: string[] | null;
   evictions: number | null;
   housenumber: string;
-  lastregistrationdate: Date;
+  lastregistrationdate: APIDate;
   lastsaleacrisid: string | null;
-  /** Front-end interprets as number */
-  lastsaleamount: string | null;
-  lastsaledate: Date | null;
+  lastsaleamount: number | null;
+  lastsaledate: APIDate | null;
   lat: number | null;
   lng: number | null;
+  /** This property gets assigned in the PropertiesMap component, not from our API */
+  mapType?: "base" | "search";
   openviolations: number;
   ownernames: HpdOwnerContact[] | null;
-  registrationenddate: Date;
-  /** Front-end interprets as string */
-  registrationid: number;
+  registrationenddate: APIDate;
+  registrationid: string;
   rsdiff: number | null;
-  /** Front-end interprets as number */
-  rspercentchange: string | null;
+  rspercentchange: number | null;
   rsunits2007: number | null;
   rsunits2017: number | null;
   streetname: string;
@@ -50,10 +60,7 @@ type AddressRecord = {
 
 export type SearchResults = {
   addrs: AddressRecord[];
-  geosearch?: {
-    geosupportReturnCode: string;
-    bbl: string;
-  };
+  geosearch?: GeoSearchData;
 };
 
 // TYPES ASSOCIATED WITH SUMMARY AGGREGATE QUERY:
@@ -78,40 +85,26 @@ type HpdViolationsAddress = AddressLocation & {
   openviolations: number | null;
 };
 
-type SummaryStatsRecord = {
-  /** Front-end interprets as number */
-  age: string;
-  /** Front-end interprets as number */
-  avgevictions: string | null;
-  /** Front-end interprets as number */
-  avgrspercent: string | null;
-  /** Front-end interprets as number */
-  bldgs: string;
+export type SummaryStatsRecord = {
+  age: number | null;
+  avgevictions: number | null;
+  avgrspercent: number | null;
+  bldgs: number;
   evictionsaddr: EvictionAddress;
-  /** Front-end interprets as number */
-  openviolationsperbldg: string;
-  /** Front-end interprets as number */
-  openviolationsperresunit: string;
+  openviolationsperbldg: number;
+  openviolationsperresunit: number;
   rslossaddr: RentStabilizedAddress;
-  /** Front-end interprets as number */
-  rsproportion: string | null;
+  rsproportion: number | null;
   topbusinessaddr: string | null;
   topcorp: string | null;
   topowners: string[];
-  /** Front-end interprets as number */
-  totalevictions: string | null;
-  /** Front-end interprets as number */
-  totalopenviolations: string;
-  /** Front-end interprets as number */
-  totalrsdiff: string | null;
-  /** Front-end interprets as number */
-  totalrsgain: string;
-  /** Front-end interprets as number */
-  totalrsloss: string;
-  /** Front-end interprets as number */
-  totalviolations: string;
-  /** Front-end interprets as number */
-  units: string;
+  totalevictions: number | null;
+  totalopenviolations: number;
+  totalrsdiff: number | null;
+  totalrsgain: number;
+  totalrsloss: number;
+  totalviolations: number;
+  units: number;
   violationsaddr: HpdViolationsAddress;
 };
 
@@ -121,7 +114,12 @@ export type SummaryResults = {
 
 // TYPES ASSOCIATED BUILDING INFO QUERY:
 
-type BuildingInfoRecord = AddressLocation & {
+export type BuildingInfoRecord = {
+  boro: Borough;
+  housenumber: string;
+  latitude: number;
+  longitude: number;
+  streetname: string;
   bldgclass: string;
   formatted_address: string;
 };
@@ -132,24 +130,16 @@ export type BuildingInfoResults = {
 
 // TYPES ASSOCIATED WITH INDICATORS (TIMELINE TAB) QUERY:
 
-type MonthlyTimelineData = {
+export type MonthlyTimelineData = {
   month: string;
-  /** Front-end interprets as number */
-  complaints_emergency: string;
-  /** Front-end interprets as number */
-  complaints_nonemergency: string;
-  /** Front-end interprets as number */
-  complaints_total: string;
-  /** Front-end interprets as number */
-  permits_total: string;
-  /** Front-end interprets as number */
-  viols_class_a: string;
-  /** Front-end interprets as number */
-  viols_class_b: string;
-  /** Front-end interprets as number */
-  viols_class_c: string;
-  /** Front-end interprets as number */
-  viols_total: string;
+  complaints_emergency: number;
+  complaints_nonemergency: number;
+  complaints_total: number;
+  permits_total: number;
+  viols_class_a: number;
+  viols_class_b: number;
+  viols_class_c: number;
+  viols_total: number;
 };
 
 export type IndicatorsHistoryResults = {

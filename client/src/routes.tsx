@@ -8,9 +8,13 @@ import HowToUsePage from "./containers/HowToUsePage";
 import MethodologyPage from "./containers/Methodology";
 import TermsOfUsePage from "./containers/TermsOfUsePage";
 import PrivacyPolicyPage from "./containers/PrivacyPolicyPage";
-import { SearchAddress } from "./components/AddressSearch";
+import { SearchAddressWithoutBbl } from "components/APIDataTypes";
+import { useMachine } from "@xstate/react";
+import { wowMachine } from "state-machine";
+import { DevPage } from "containers/DevPage";
+import { reportError } from "error-reporting";
 
-type AddressPageUrlParams = Pick<SearchAddress, "boro" | "housenumber" | "streetname">;
+export type AddressPageUrlParams = SearchAddressWithoutBbl;
 
 export const createRouteForAddressPage = (params: AddressPageUrlParams) => {
   let route = `/address/${encodeURIComponent(params.boro)}/${encodeURIComponent(
@@ -18,13 +22,15 @@ export const createRouteForAddressPage = (params: AddressPageUrlParams) => {
   )}/${encodeURIComponent(params.streetname)}`;
 
   if (route.includes(" ")) {
-    window.Rollbar.error(
-      "An Address Page URL was not encoded properly! There's a space in the URL."
-    );
+    reportError("An Address Page URL was not encoded properly! There's a space in the URL.");
     route = route.replace(" ", "%20");
   }
 
   return route;
+};
+
+export const createRouteForFullBbl = (bbl: string) => {
+  return `/bbl/${bbl}`;
 };
 
 const addressPageRouteWithPlaceholders = "/address/:boro/:housenumber/:streetname";
@@ -54,6 +60,7 @@ export const createWhoOwnsWhatRoutePaths = (prefix?: string) => {
     methodology: `${pathPrefix}/how-it-works`,
     termsOfUse: `${pathPrefix}/terms-of-use`,
     privacyPolicy: `${pathPrefix}/privacy-policy`,
+    dev: `${pathPrefix}/dev`,
   };
 };
 
@@ -64,25 +71,27 @@ export const getSiteOrigin = () => `${window.location.protocol}//${window.locati
 
 export const WhoOwnsWhatRoutes = () => {
   const paths = createWhoOwnsWhatRoutePaths("/:locale");
+  const [state, send] = useMachine(wowMachine);
+  const machineProps = { state, send };
   return (
     <Switch>
       <Route exact path={paths.home} component={HomePage} />
       <Route
         path={paths.addressPageOverview}
-        render={(props) => <AddressPage currentTab={0} {...props} />}
+        render={(props) => <AddressPage currentTab={0} {...machineProps} {...props} />}
         exact
       />
       <Route
         path={paths.addressPageTimeline}
-        render={(props) => <AddressPage currentTab={1} {...props} />}
+        render={(props) => <AddressPage currentTab={1} {...machineProps} {...props} />}
       />
       <Route
         path={paths.addressPagePortfolio}
-        render={(props) => <AddressPage currentTab={2} {...props} />}
+        render={(props) => <AddressPage currentTab={2} {...machineProps} {...props} />}
       />
       <Route
         path={paths.addressPageSummary}
-        render={(props) => <AddressPage currentTab={3} {...props} />}
+        render={(props) => <AddressPage currentTab={3} {...machineProps} {...props} />}
       />
       <Route path={paths.bbl} component={BBLPage} />
       <Route path={paths.bblWithFullBblInUrl} component={BBLPage} />
@@ -91,6 +100,7 @@ export const WhoOwnsWhatRoutes = () => {
       <Route path={paths.methodology} component={MethodologyPage} />
       <Route path={paths.termsOfUse} component={TermsOfUsePage} />
       <Route path={paths.privacyPolicy} component={PrivacyPolicyPage} />
+      <Route path={paths.dev} component={DevPage} />
     </Switch>
   );
 };

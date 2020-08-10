@@ -22,3 +22,5 @@ yarn-error.log*
 
 /src/locales/_build
 /src/locales/**/*.js
+
+public/version.txt

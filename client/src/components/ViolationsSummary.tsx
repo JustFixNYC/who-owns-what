@@ -1,17 +1,19 @@
 import React from "react";
 import * as _ from "lodash";
-import { MaybeStringyNumber } from "../util/helpers";
 import { Trans } from "@lingui/macro";
+import { SummaryStatsRecord } from "./APIDataTypes";
 
 const VIOLATIONS_AVG = 0.7; // By Unit
 // 1668635 open violations according to wow_bldgs
 // 2366392 total units in registered buildings, according to wow_bldgs
 // Last updated: 5/25/2020
 
-export const ViolationsSummary: React.FC<{
-  openviolationsperresunit: MaybeStringyNumber;
-  totalviolations: number;
-}> = (props) => {
+type ViolationsSummaryData = Pick<
+  SummaryStatsRecord,
+  "openviolationsperresunit" | "totalviolations"
+>;
+
+export const ViolationsSummary: React.FC<ViolationsSummaryData> = (props) => {
   const { openviolationsperresunit, totalviolations } = props;
 
   return (

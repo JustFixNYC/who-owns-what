@@ -31,6 +31,7 @@ jobs:
           name: Test python code
           command: |
             . ~/venv/bin/activate
+            flake8
             mypy .
             pytest
       - restore_cache:

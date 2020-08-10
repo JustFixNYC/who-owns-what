@@ -1,7 +1,13 @@
 -r requirements.txt
 https://github.com/nycdb/nycdb/archive/2560271cb47fc35d7e5584c673fd57cbcdb5880a.zip#subdirectory=src
-mypy==0.660
+mypy==0.782
 PyYAML>=5.1
 pytest==4.4.0
 pytest-django==3.4.5
 python-dotenv==0.9.1
+flake8==3.8.3
+
+# Pyproj is evolving very fast and is already logging some deprecation
+# warnings when we use nycdb; let's use the minimum supported version
+# so we don't get those warnings, at least.
+pyproj==2.1.3

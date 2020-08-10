@@ -15,6 +15,7 @@ MY_DIR = Path(__file__).parent.resolve()
 
 BASE_DIR = MY_DIR.parent
 
+
 def get_required_env(key: str) -> str:
     value = os.environ.get(key)
     if not value:
@@ -28,7 +29,7 @@ def get_required_env(key: str) -> str:
 
 DEBUG = os.environ.get('DEBUG') == "true"
 
-SECRET_KEY =  get_required_env('SECRET_KEY')
+SECRET_KEY = get_required_env('SECRET_KEY')
 
 # TODO: Figure out if this can securely stay at '*'.
 ALLOWED_HOSTS: List[str] = ['*']
@@ -108,12 +109,14 @@ ROLLBAR: Optional[Dict[str, Any]] = None
 ROLLBAR_ACCESS_TOKEN = os.environ.get('ROLLBAR_ACCESS_TOKEN')
 
 if ROLLBAR_ACCESS_TOKEN:
-    # TODO: It'd be nice to set code_version at some point.
     ROLLBAR = {
         'access_token': ROLLBAR_ACCESS_TOKEN,
         'environment': 'development' if DEBUG else 'production',
         'root': str(BASE_DIR),
     }
+    if 'HEROKU_SLUG_COMMIT' in os.environ:
+        # https://devcenter.heroku.com/articles/dyno-metadata
+        ROLLBAR['code_version'] = os.environ['HEROKU_SLUG_COMMIT']
     LOGGING['handlers']['rollbar'].update({    # type: ignore
         'class': 'rollbar.logger.RollbarHandler'
     })
