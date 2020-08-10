@@ -15,7 +15,6 @@ import Spanish_gif from "../assets/img/Feature_callout_gifs/Spanish.gif";
 import Timeline_gif from "../assets/img/Feature_callout_gifs/Timeline.gif";
 import URLS_gif from "../assets/img/Feature_callout_gifs/URLS.gif";
 import LastSold_gif from "../assets/img/Feature_callout_gifs/LastSold.gif";
-import { indexOf } from "lodash";
 
 const HomeLink = withI18n()((props) => {
   const { i18n } = props;
@@ -57,7 +56,8 @@ export default class App extends Component {
         {
           index: "3 of 4",
           title: "Unique Tab URLs",
-          description: "It's now possible to share links to specific tabs (Overview, Timeline, Portfolio, & Summary)",
+          description:
+            "It's now possible to share links to specific tabs (Overview, Timeline, Portfolio, & Summary)",
           img: URLS_gif,
         },
         {
@@ -71,14 +71,12 @@ export default class App extends Component {
   }
 
   nextEntry() {
-    console.log("this.state.entries = ", this.state.entries);
     this.state.entryIndex === this.state.entries.length - 1
       ? this.setState({ entryIndex: 0 })
       : this.setState({ entryIndex: this.state.entryIndex + 1 });
   }
 
   prevEntry() {
-    console.log("this.state.entries = ", this.state.entries);
     this.state.entryIndex === 0
       ? this.setState({ entryIndex: this.state.entries.length - 1 })
       : this.setState({ entryIndex: this.state.entryIndex - 1 });
@@ -87,15 +85,12 @@ export default class App extends Component {
   toggleWidget(event, widget) {
     if (widget.style.display === "none") {
       widget.style.display = "inline-block";
-      console.log(event.target);
-      //event.target.classList.add("toggled");
-      document.querySelector(".tooltip-triangle").classList.add("toggled");
-      document.querySelector(".button-info").classList.add("pressed");
+      document.querySelector(".widget-tooltip-triangle").classList.add("toggled");
+      document.querySelector(".widget-button-info").classList.add("pressed");
     } else {
       widget.style.display = "none";
-      //event.target.classList.remove("toggled");
-      document.querySelector(".button-info").classList.remove("pressed");
-      document.querySelector(".tooltip-triangle").classList.remove("toggled");
+      document.querySelector(".widget-button-info").classList.remove("pressed");
+      document.querySelector(".widget-tooltip-triangle").classList.remove("toggled");
     }
   }
 
@@ -103,15 +98,15 @@ export default class App extends Component {
     const isDemoSite = process.env.REACT_APP_DEMO_SITE === "1";
     const paths = createWhoOwnsWhatRoutePaths();
 
+    //header of the widget, says "What's New" and has close button
     let widgetHeader = (
-      <div className="header">
+      <div className="widget-header">
         <span className="widget-title focusable" role="heading" tabIndex="0">
           What's New
         </span>
         <button
           type="button"
-          role="button"
-          className="button-cancel material-icons md-18 focusable"
+          className="widget-button-cancel material-icons md-18 focusable"
           tabIndex="0"
           onClick={(event) => {
             event.preventDefault();
@@ -124,59 +119,64 @@ export default class App extends Component {
       </div>
     );
 
-    let entryDivs = this.state.entries.map((entry) => (
+    //All entries in the widget will have this format: index, title, image, and description
+    let widgetEntries = this.state.entries.map((entry) => (
       <div
-        className="entry"
+        className="widget-entry"
         id={"page-" + entry.title}
         role="region"
         aria-labelledby={"widget-" + entry.title + "-id"}
       >
-        <p className="entry-title-container">
-          <span className="entry-index" aria-describedby={entry.index}>
+        <p className="widget-entry-title-container">
+          <span className="widget-entry-index" aria-describedby={entry.index}>
             {entry.index}
           </span>
-          <span className="entry-title" aria-describedby={"entry title- " + entry.title}>
+          <span
+            className="widget-entry-title"
+            aria-describedby={"widget-entry title- " + entry.title}
+          >
             {entry.title}
           </span>
         </p>
-
-        <img className="widget-image" src={entry.img}></img>
-        <p className="widget-description">{entry.description}</p>
+        <img className="widget-entry-image" src={entry.img} alt={entry.description}></img>
+        <p className="widget-entry-description">{entry.description}</p>
       </div>
     ));
 
+    //Prev/next buttons
     let navButtons = (
-      <div className="navButtons">
+      <div className="widget-nav-buttons-container">
         <button
-          className="button-nav prev focusable"
+          className="widget-button-nav prev focusable"
           tabIndex="0"
           onClick={(event) => {
             event.preventDefault();
             return this.prevEntry(event);
           }}
         >
-          <span class="material-icons md-14 prev-next-icon">navigate_before</span>
-          <span className="prev-text">Prev</span>
+          <span className="material-icons md-14 widget-prev-next-icon">navigate_before</span>
+          <span className="widget-prev-text">Prev</span>
         </button>
         <button
-          className="button-nav next focusable"
+          className="widget-button-nav next focusable"
           tabIndex="0"
           onClick={(event) => {
             event.preventDefault();
             return this.nextEntry(event);
           }}
         >
-          <span className="next-text">Next</span>
-          <span class="material-icons md-14 prev-next-icon">navigate_next</span>
+          <span className="widget-next-text">Next</span>
+          <span className="material-icons md-14 widget-prev-next-icon">navigate_next</span>
         </button>
       </div>
     );
 
+    //The whole widget, with the info button toggle
     let featureCalloutWidget = (
       <div>
-        <div className="triangle-button-container">
+        <div className="widget-triangle-info-button-container">
           <button
-            className="button-info focusable material-icons md-14"
+            className="widget-button-info focusable material-icons md-14"
             tabIndex="0"
             onClick={(event) => {
               event.preventDefault();
@@ -186,12 +186,12 @@ export default class App extends Component {
           >
             info
           </button>
-          <div class="tooltip-triangle"></div>
+          <div className="widget-tooltip-triangle"></div>
         </div>
         <div className="widget-container" id="widget">
           {widgetHeader}
           <div className="widget-content-container" id="widget-entries">
-            {entryDivs[this.state.entryIndex]}
+            {widgetEntries[this.state.entryIndex]}
             {navButtons}
           </div>
         </div>
