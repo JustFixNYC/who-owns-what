@@ -53,27 +53,27 @@ export default class App extends Component<Props, State> {
         {
           index: "1 of 4",
           title: "Timeline Tab",
-          description: "Click the Timeline tab to view info about your building over time",
+          description: "Click the Timeline tab to view info about your building over time.",
           img: Timeline_gif,
         },
         {
           index: "2 of 4",
           title: "Spanish Support",
           description:
-            "Click “ES” in the upper right corner to switch your view of Who Owns What to Spanish",
+            "Who Owns What is now available in Spanish. Click “ES” in the upper right corner to switch your language.",
           img: Spanish_gif,
         },
         {
           index: "3 of 4",
           title: "Unique Tab URLs",
           description:
-            "It's now possible to share links to specific tabs (Overview, Timeline, Portfolio, & Summary)",
+            "It's now possible to share links to specific tabs (Overview, Timeline, Portfolio, & Summary).",
           img: URLS_gif,
         },
         {
           index: "4 of 4",
           title: "Last Sold",
-          description: "View the date and price from the last time your building was sold",
+          description: "The Overview and Portfolio tabs now display the date and price from when your building was last sold.",
           img: LastSold_gif,
         },
       ],
