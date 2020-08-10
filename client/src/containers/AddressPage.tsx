@@ -22,6 +22,7 @@ import { SearchAddress } from "../components/AddressSearch";
 import { WithMachineProps } from "state-machine";
 import { AddrNotFoundPage } from "./NotFoundPage";
 import { searchAddrsAreEqual } from "util/helpers";
+import { NetworkErrorMessage } from "components/NetworkErrorMessage";
 import { createAddressPageRoutes } from "routes";
 
 type RouteParams = {
@@ -249,6 +250,12 @@ export default class AddressPage extends Component<AddressPageProps, State> {
               />
             </div>
           </div>
+        </Page>
+      );
+    } else if (state.matches("networkErrorOccurred")) {
+      return (
+        <Page>
+          <NetworkErrorMessage />
         </Page>
       );
     } else {
