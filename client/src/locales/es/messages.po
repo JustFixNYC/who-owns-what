@@ -48,8 +48,8 @@ msgid "2019 Evictions"
 msgstr "Desalojos 2019"
 
 #: src/containers/HomePage.tsx:28
-msgid "<0>COVID-19 Update: </0>JustFix.nyc is operating, and has adapted our products to match preliminary rules put in place during the COVID-19 crisis. While NYC is in Phase 2, we still recommend full precautions. Thanks to tenant organizing during this time, renters cannot be evicted for any reason until August 6. Visit <1><2>Right to Council’s Eviction Moratorium FAQs</2></1> to learn more."
-msgstr "<0>Actualización COVID-19: </0>JustFix.nyc está operativo, y hemos adaptado nuestros productos a las normas establecidas durante la crisis de COVID-19. Aunque NYC se encuentre en la fase 2, todavía recomendamos que se tomen todas las precauciones posibles. Gracias al poder de la organización de inquilinos, los inquilinos no pueden ser desalojados por ninguna razón hasta el 6 de agosto. Visita las <1><2>Preguntas Más Frecuentes sobre la Moratoria de Desalojo del Right to Council</2></1> para obtener más información."
+msgid "<0>COVID-19 Update: </0>JustFix.nyc is operating, and has adapted our products to match preliminary rules put in place during the COVID-19 crisis. We recommend you take full precautions to stay safe during this public health crisis. Thanks to tenant organizing during this time, renters cannot be evicted for any reason. Visit <1><2>Right to Council’s Eviction Moratorium FAQs</2></1> to learn more."
+msgstr "<0>Actualización COVID-19: </0>JustFix.nyc está operativo, y hemos adaptado nuestros productos a las normas establecidas durante la crisis de COVID-19. Todavía recomendamos que se tomen todas las precauciones posibles para mantenerse sanos durante esta crisis de salud pública. Gracias al poder de la organización de inquilinos, los inquilinos no pueden ser desalojados por ninguna razón. Visita las <1><2>Preguntas Más Frecuentes sobre la Moratoria de Desalojo del Right to Council</2></1> para obtener más información."
 
 #: src/components/DetailView.tsx:216
 #: src/components/Indicators.tsx:285
@@ -75,7 +75,7 @@ msgstr "Enlaces adicionales"
 msgid "Address"
 msgstr "Dirección"
 
-#: src/components/Subscribe.tsx:38
+#: src/components/Subscribe.tsx:39
 msgid "All set! Thanks for subscribing!"
 msgstr "¡Todo listo! ¡Gracias por suscribirte!"
 
@@ -220,7 +220,7 @@ msgstr "Emergencia"
 msgid "Enter an NYC address and find other buildings your landlord might own:"
 msgstr "Introduce una dirección de NYC para encontrar otros edificios que tu propietario podría poseer:"
 
-#: src/components/Subscribe.tsx:71
+#: src/components/Subscribe.tsx:72
 msgid "Enter email"
 msgstr "Introducir email"
 
@@ -360,7 +360,7 @@ msgstr "Enlace a la Escritura"
 #: src/components/PropertiesMap.tsx:154
 #: src/components/PropertiesSummary.tsx:36
 #: src/containers/AddressPage.tsx:160
-#: src/containers/BBLPage.tsx:51
+#: src/containers/BBLPage.tsx:61
 msgid "Loading"
 msgstr "Cargando"
 
@@ -444,12 +444,12 @@ msgstr "Oficial/Propietario"
 
 #: src/components/Indicators.tsx:119
 #: src/components/PropertiesSummary.tsx:32
-#: src/components/Subscribe.tsx:49
-#: src/components/Subscribe.tsx:55
+#: src/components/Subscribe.tsx:50
+#: src/components/Subscribe.tsx:56
 msgid "Oops! A network error occurred. Try again later."
 msgstr "¡Vaya! Hubo un error en la red. Inténtalo más tarde."
 
-#: src/components/Subscribe.tsx:43
+#: src/components/Subscribe.tsx:44
 msgid "Oops! That email is invalid."
 msgstr "¡Vaya! Ese correo electrónico no es válido."
 
@@ -480,7 +480,7 @@ msgstr "PORTAFOLIO DE EDIFICIOS: La dirección que has buscado está asociada co
 msgid "People"
 msgstr "Personas (Encontrarás definiciones en español de los tipos de personas asociadas al edificio en la página \"Como se usa\".)"
 
-#: src/components/Subscribe.tsx:20
+#: src/components/Subscribe.tsx:21
 msgid "Please enter an email address!"
 msgstr "Por favor, ¡introduzca una dirección de correo electrónico!"
 
@@ -541,7 +541,7 @@ msgstr "Compartir"
 msgid "Share this page with your neighbors"
 msgstr "Comparte esta página con tus vecinos"
 
-#: src/components/Subscribe.tsx:72
+#: src/components/Subscribe.tsx:73
 msgid "Sign up"
 msgstr "Regístrate"
 

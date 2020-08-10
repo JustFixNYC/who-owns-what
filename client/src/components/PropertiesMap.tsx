@@ -7,6 +7,7 @@ import MapHelpers, { LatLng } from "../util/mapping";
 import Loader from "../components/Loader";
 
 import "styles/PropertiesMap.css";
+import "mapbox-gl/src/css/mapbox-gl.css";
 import { Trans, Select } from "@lingui/macro";
 import { AddressRecord } from "./APIDataTypes";
 import { Props as MapboxMapProps } from "react-mapbox-gl/lib/map";

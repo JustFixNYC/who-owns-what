@@ -112,6 +112,26 @@ describe("wowMachine", () => {
     await waitUntilStateMatches(wm, "unregisteredFound");
   });
 
+  it("should deal w/ unregistered addresses not in PLUTO", async () => {
+    mockResponses({
+      [SEARCH_URL]: mockJsonResponse(NOT_REG_URLS.GEOCODING_EXAMPLE_SEARCH),
+      [NOT_REG_URLS.ADDRESS_URL]: mockJsonResponse<SearchResults>({
+        addrs: [],
+        geosearch: {
+          geosupportReturnCode: "00",
+          bbl: "3002920026",
+        },
+      }),
+      [NOT_REG_URLS.BUILDINGINFO_URL]: mockJsonResponse<BuildingInfoResults>({
+        result: [],
+      }),
+    });
+
+    const wm = interpret(wowMachine).start();
+    wm.send(SEARCH_EVENT);
+    await waitUntilStateMatches(wm, "bblNotFound");
+  });
+
   it("should deal w/ nycha addresses", async () => {
     mockResponses({
       [SEARCH_URL]: mockJsonResponse(NYCHA_URLS.GEOCODING_EXAMPLE_SEARCH),
