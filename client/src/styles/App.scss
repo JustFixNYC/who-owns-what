@@ -109,7 +109,7 @@
 
     a {
       margin-left: 10px;
-      color: #454d5d;
+      color: #3E4654;
 
       @include for-phone-only {
         margin-left: 7px;
@@ -220,47 +220,50 @@ div.Page {
   }
 }
 
-.material-icons.md-14 { font-size: 14px;}
-.material-icons.md-18 { font-size: 18px; }
+.material-icons.md-14 {
+  font-size: 14px;
+}
+.material-icons.md-18 {
+  font-size: 18px;
+}
 
-.triangle-button-container{
-  display:flex;
+.triangle-button-container {
+  display: flex;
   flex-direction: column;
 }
 
 .button-info {
-  background: #454d5d;
-  color:white;
+  background: #3E4654;
+  color: white;
   font-size: 0.1em;
   border-radius: 50%;
   cursor: pointer;
   position: relative;
   vertical-align: middle;
   z-index: 11;
-  margin: 2px 2px 0px 0px;
-  @include for-phone-only {
-    margin: 2px 5px 1px 7px;
-  }
+  margin: 3.5px 2px 2.5px 2px;
 }
 
-.button-info:hover{
-  background: none;
-  color:#616f8d;
+.button-info:hover {
+  background: #f8f9fa;
+  color: #3E4654;
+  box-shadow: 0.5px 0.5px 2px rgba(0, 0, 0, 0.7);
 }
 
 .button-info.pressed {
-  background: none;
-  color:#454d5d;
+  background: #f8f9fa;
+  color: #3E4654;
+  box-shadow: 0.5px 0.5px 2px rgba(0, 0, 0, 0.7);
 }
 
 .tooltip-triangle {
-	width: 0;
+  width: 0;
   height: 0;
   margin-left: auto;
   margin-right: auto;
-	border-left: 8.25px solid transparent;
-	border-right: 8.5px solid transparent;
-	border-bottom: 14px solid  #454d5d;
+  border-left: 8.25px solid transparent;
+  border-right: 8.5px solid transparent;
+  border-bottom: 14px solid #3E4654;
   background-size: 3px 3px;
   z-index: 11;
   visibility: hidden;
@@ -274,12 +277,10 @@ div.Page {
 .widget-container {
   display: none;
   position: absolute;
-    z-index: 12;
-    width: 25%;
-    right: 8%;
-    min-width: 200px;
-    max-width: 250px;
-    border: 1em solid #454d5d;
+  z-index: 12;
+  width: 300px;
+  right: 7%;
+  box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.9);
   @include for-phone-only {
     right: 0%;
     left: 4%;
@@ -290,17 +291,17 @@ div.Page {
 .widget-content-container {
   width: 100%;
   height: 100%;
-  padding-top: 5px;
   color: white;
-  background-color: #454d5d;
+  padding-bottom: 1px;
+  background-color: #3E4654;
 }
 
 .header {
-  padding: 0px 3px 5px 0px;
+  padding: 10px;
   display: flex;
   justify-content: space-between;
   font-size: 1.2em;
-  background-color: #454d5d;
+  background-color: #3E4654;
   width: 100%;
   color: white;
   font-weight: bold;
@@ -309,25 +310,36 @@ div.Page {
 
 .widget-title {
   display: inline-block;
-  font-size: 1.2em;
-  background-color: #454d5d;
+  font-size: 1.1em;
+  //background-color: #3E4654;
   color: white;
   font-weight: bold;
 }
 
-.entry{
-  padding: 5px;
+.entry {
+  padding: 10px;
+  background: rgba(255,255,255, 0.1);
+  border-bottom: 1px solid #fe9d43;
+}
+
+.button-cancel{
+  text-shadow: 1.5px 1.5px #333a46;
 }
 
 .button-cancel:hover {
+  color:#c2cae0;
+  /*
   background-color: #616f8d;
   border-radius: 50%;
   height: 20px;
   margin-top: 4px;
+  box-shadow: 1px 1px 4px rgba(0,0,0,0.5);
+  text-shadow: none;
+  */
 }
 
 /* Full-width textarea */
-.widget-description{
+.widget-description {
   padding: 5px 0px 5px 0px;
   margin: 0px;
 }
@@ -338,7 +350,7 @@ div.Page {
   margin-left: 10px;
 }
 
-.entry-index{
+.entry-index {
   font-size: 0.9em;
   word-spacing: -4px;
 }
@@ -346,7 +358,8 @@ div.Page {
 .navButtons {
   display: flex;
   justify-content: space-between;
-  padding: 5px;
+  margin: 10px 5px 8px 5px;
+  background: #3E4654;
 }
 
 .button-nav {
@@ -360,49 +373,52 @@ div.Page {
   border-radius: 4px;
 }
 
-
 .button-nav.prev {
   background: none;
   color: white;
   padding: 0.05em 0.55em 0.2em 0.2em;
   height: 100%;
+  text-shadow: 1px 1px #333a46;
+  
 }
 
-.prev-text{
+.prev-text {
   text-decoration: underline;
   text-underline-position: under;
+
 }
 
 .button-nav.next {
-  background-color: #E89141;
-  color: #454d5d;
+  background-color: #e89141;
+  color: #333a46;
   padding: 0.1em 0.2em 0.2em 0.55em;
   height: 100%;
+  box-shadow: 1px 1px 3px rgba(0,0,0,0.7);
 }
 
-.button-nav.prev:hover{
-  background-color:#6d7da5;
-
+.button-nav.prev:hover {
+  background-color: #6d7da5;
+  box-shadow: 1px 1px 4px rgba(0,0,0,0.5);
+  text-shadow: none;
 }
 
-.button-nav.next:hover{
-  background-color:#6d7da5;
-  color:white;
-
+.button-nav.next:hover {
+  background-color: #6d7da5;
+  color: white;
 }
 
 .focusable:focus {
   box-shadow: none;
-    outline: 2px solid $gray-dark;
-    outline-offset: 2px;
+  outline: 2px solid $gray-dark;
+  outline-offset: 2px;
 }
 
-.widget-image{
+.widget-image {
   width: 100%;
+  box-shadow: 1px 1px 3px #333a46;
 }
 
 .prev-next-icon {
   margin-top: 2px;
+  margin-left: -3px;
 }
-
-
