@@ -180,6 +180,20 @@ async function getSearchResult(addr: SearchAddressWithoutBbl): Promise<WowState>
   } else if (apiResults.addrs.length === 0) {
     const buildingInfoResults = await APIClient.getBuildingInfo(apiResults.geosearch.bbl);
     const nychaData = getNychaData(apiResults.geosearch.bbl);
+    const buildingInfo = buildingInfoResults.result[0];
+
+    if (!buildingInfo) {
+      // Apparently PLUTO doesn't have data for some buildings,
+      // e.g. 77 Park Avenue (at the time of this writing).
+      //
+      // For now we'll just respond as though the address is
+      // invalid; although that's still far from ideal, at least
+      // it won't clog up our error logs...
+      return {
+        value: "bblNotFound",
+        context: { searchAddrParams: addr, searchAddrBbl: undefined },
+      };
+    }
 
     return nychaData
       ? {
@@ -189,7 +203,7 @@ async function getSearchResult(addr: SearchAddressWithoutBbl): Promise<WowState>
             searchAddrBbl: apiResults.geosearch.bbl,
             portfolioData: undefined,
             nychaData,
-            buildingInfo: buildingInfoResults.result[0],
+            buildingInfo,
           },
         }
       : {
@@ -198,7 +212,7 @@ async function getSearchResult(addr: SearchAddressWithoutBbl): Promise<WowState>
             searchAddrParams: addr,
             searchAddrBbl: apiResults.geosearch.bbl,
             portfolioData: undefined,
-            buildingInfo: buildingInfoResults.result[0],
+            buildingInfo,
           },
         };
   } else {
