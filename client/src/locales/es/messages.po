@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2020-08-10 17:33\n"
+"PO-Revision-Date: 2020-08-10 17:40\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -49,7 +49,7 @@ msgstr "Desalojos 2019"
 
 #: src/containers/HomePage.tsx:28
 msgid "<0>COVID-19 Update: </0>JustFix.nyc is operating, and has adapted our products to match preliminary rules put in place during the COVID-19 crisis. We recommend you take full precautions to stay safe during this public health crisis. Thanks to tenant organizing during this time, renters cannot be evicted for any reason. Visit <1><2>Right to Council’s Eviction Moratorium FAQs</2></1> to learn more."
-msgstr ""
+msgstr "<0>Actualización COVID-19: </0>JustFix.nyc está operativo, y hemos adaptado nuestros productos a las normas establecidas durante la crisis de COVID-19. Todavía recomendamos que se tomen todas las precauciones posibles para mantenerse sanos durante esta crisis de salud pública. Gracias al poder de la organización de inquilinos, los inquilinos no pueden ser desalojados por ninguna razón. Visita las <1><2>Preguntas Más Frecuentes sobre la Moratoria de Desalojo del Right to Council</2></1> para obtener más información."
 
 #: src/components/DetailView.tsx:216
 #: src/components/Indicators.tsx:285
