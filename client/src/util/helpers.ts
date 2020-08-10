@@ -3,8 +3,9 @@
 // import _keys from 'lodash/keys';
 import _pickBy from "lodash/pickBy";
 import { deepEqual as assertDeepEqual } from "assert";
-import nycha_bbls from "../data/nycha_bbls.json";
 import { SupportedLocale } from "../i18n-base";
+import { SearchAddressWithoutBbl } from "components/APIDataTypes";
+import { reportError } from "error-reporting";
 
 /**
  * An array consisting of Who Owns What's standard enumerations for street names,
@@ -25,12 +26,35 @@ const hpdNumberTransformations = [
   ["TENTH", "10"],
 ];
 
+export const longDateOptions = { year: "numeric", month: "short", day: "numeric" };
+export const mediumDateOptions = { year: "numeric", month: "long" };
+export const shortDateOptions = { month: "short" };
+
 /**
- * Urg, our codebase wasn't originally written in TypeScript and
- * some of our legacy code appears to pass around numbers as strings,
- * so this type accounts for that.
+ * Assert that the given argument isn't undefined and return it. Throw
+ * an exception otherwise.
+ *
+ * This is primarily useful for situations where we're unable to
+ * statically verify that something isn't undefined (e.g. due to the limitations
+ * of typings we didn't write) but are sure it won't be in practice.
  */
-export type MaybeStringyNumber = string | null | undefined | number;
+export function assertNotUndefined<T>(thing: T | undefined): T | never {
+  if (thing === undefined) {
+    throw new Error("Assertion failure, expected argument to not be undefined!");
+  }
+  return thing;
+}
+
+export function searchAddrsAreEqual(
+  addr1: SearchAddressWithoutBbl,
+  addr2: SearchAddressWithoutBbl
+) {
+  return (
+    addr1.boro === addr2.boro &&
+    addr1.streetname === addr2.streetname &&
+    addr1.housenumber === addr2.housenumber
+  );
+}
 
 export default {
   // filter repeated values in rbas and owners
@@ -40,27 +64,6 @@ export default {
     return Array.from(new Set(_array.map((val) => JSON.stringify(val)))).map((val) =>
       JSON.parse(val)
     );
-  },
-
-  /**
-   * Attempts to coerce the given argument into an integer, returning
-   * the given default value on failure.
-   *
-   * Note that this function will *not* convert a float to an int in
-   * any way; if a number is passed in, it is assumed to be an int and
-   * returned immediately.
-   */
-  coerceToInt<T>(value: MaybeStringyNumber, defaultValue: T): number | T {
-    if (typeof value === "number" && !isNaN(value)) {
-      return value;
-    }
-    if (typeof value === "string") {
-      let intValue = parseInt(value);
-      if (!isNaN(intValue)) {
-        return intValue;
-      }
-    }
-    return defaultValue;
   },
 
   find<T, K extends keyof T>(array: T[], attrib: K, value: T[K]): T | null {
@@ -101,12 +104,9 @@ export default {
     }
   },
 
-  getNychaData(searchBBL: string | number) {
-    const bbl = searchBBL.toString();
-    for (var index = 0; index < nycha_bbls.length; index++) {
-      if (nycha_bbls[index].bbl.toString() === bbl) return nycha_bbls[index];
-    }
-    return null;
+  formatPrice(amount: number, locale?: SupportedLocale): string {
+    const formatPrice = new Intl.NumberFormat(locale || "en");
+    return formatPrice.format(amount);
   },
 
   createTakeActionURL(
@@ -129,7 +129,7 @@ export default {
         )}&utm_source=whoownswhat&utm_content=take_action&utm_medium=${utm_medium}`;
       }
     } else {
-      window.Rollbar.error("Address improperly formatted for DDO:", addr || "<falsy value>");
+      reportError(`Address improperly formatted for DDO: ${addr || "<falsy value>"}`);
       return `https://${subdomain}.justfix.nyc/?utm_source=whoownswhat&utm_content=take_action_failed_attempt&utm_medium=${utm_medium}`;
     }
   },
@@ -154,16 +154,9 @@ export default {
       .join(" ");
   },
 
-  formatDateForTimeline(dateString: string, locale?: SupportedLocale): string {
+  formatDate(dateString: string, options: object, locale?: SupportedLocale): string {
     var date = new Date(dateString);
-    var options = { year: "numeric", month: "long" };
     return this.capitalize(date.toLocaleDateString(locale || "en", options));
-  },
-
-  formatMonthAbbreviationForTimeline(dateString: string, locale?: SupportedLocale): string {
-    var date = new Date(dateString);
-    var options = { month: "short" };
-    return this.capitalize(date.toLocaleDateString(locale || "en", options)).slice(0, 3);
   },
 
   /** The quarter number written out as it's range of months (ex: "1" becomes "Jan - Mar")  */
@@ -177,10 +170,10 @@ export default {
     const startDate = `2000-${monthRange.start}-15`;
     const endDate = `2000-${monthRange.end}-15`;
 
-    return `${this.formatMonthAbbreviationForTimeline(
-      startDate,
-      locale
-    )} - ${this.formatMonthAbbreviationForTimeline(endDate, locale)}`;
+    return `${this.formatDate(startDate, { month: "short" }, locale).slice(
+      0,
+      3
+    )} - ${this.formatDate(endDate, { month: "short" }, locale).slice(0, 3)}`;
   },
 
   formatStreetNameForHpdLink(streetName: string): string {

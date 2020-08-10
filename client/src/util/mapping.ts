@@ -1,4 +1,4 @@
-type LatLng = [number, number];
+export type LatLng = [number, number];
 
 export default {
   // need to check if either lat or lng is NaN. Occurs for ~0.5% of addresses

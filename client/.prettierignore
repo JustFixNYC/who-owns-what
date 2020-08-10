@@ -1,0 +1,8 @@
+# Yikes! Don't go in there!
+node_modules
+.*
+
+# These files are auto-generated.
+src/**/*.css
+src/locales
+build

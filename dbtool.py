@@ -7,9 +7,8 @@ import yaml
 import nycdb.dataset
 from nycdb.utility import list_wrap
 from urllib.parse import urlparse
-from typing import NamedTuple, Any, Tuple, Optional, Dict, List
+from typing import NamedTuple, Any, Tuple, Dict, List
 from pathlib import Path
-from types import SimpleNamespace
 
 try:
     from dotenv import load_dotenv
@@ -21,7 +20,7 @@ except ModuleNotFoundError:
 
 ROOT_DIR = Path(__file__).parent.resolve()
 SQL_DIR = ROOT_DIR / 'sql'
-WOW_YML = yaml.load((ROOT_DIR / 'who-owns-what.yml').read_text())
+WOW_YML = yaml.full_load((ROOT_DIR / 'who-owns-what.yml').read_text())
 
 # Just an alias for our database connection.
 DbConnection = Any
@@ -74,12 +73,13 @@ class DbContext(NamedTuple):
         tries_left = 5
         secs_between_tries = 2
 
-        connect = lambda: psycopg2.connect(**self.psycopg2_connect_kwargs())
+        def connect():
+            return psycopg2.connect(**self.psycopg2_connect_kwargs())
 
         while tries_left > 1:
             try:
                 return connect()
-            except psycopg2.OperationalError as e:
+            except psycopg2.OperationalError:
                 print("Failed to connect to db, retrying...")
                 time.sleep(secs_between_tries)
                 tries_left -= 1
@@ -153,7 +153,7 @@ class NycDbBuilder:
                 print(f"Removing {csv_file.name} so it can be re-downloaded.")
                 csv_file.unlink()
 
-    def ensure_dataset(self, name: str, force_refresh: bool=False) -> None:
+    def ensure_dataset(self, name: str, force_refresh: bool = False) -> None:
         dataset = nycdb.dataset.datasets()[name]
         tables: List[str] = [
             schema['table_name']
@@ -186,7 +186,7 @@ class NycDbBuilder:
         else:
             print("Loading the database with real data (this could take a while).")
 
-        for dataset in get_dataset_dependencies():
+        for dataset in get_dataset_dependencies(for_api=True):
             self.ensure_dataset(dataset, force_refresh=force_refresh)
 
         for sqlpath in get_sqlfile_paths():
@@ -194,8 +194,11 @@ class NycDbBuilder:
             self.run_sql_file(sqlpath)
 
 
-def get_dataset_dependencies() -> List[str]:
-    return WOW_YML['dependencies']
+def get_dataset_dependencies(for_api: bool) -> List[str]:
+    result = WOW_YML['dependencies']
+    if for_api:
+        result += WOW_YML['api_dependencies']
+    return result
 
 
 def get_sqlfile_paths() -> List[Path]:
@@ -307,7 +310,8 @@ def exporttestdata(db: DbContext):
                     unnest(anyarray_uniq(array_cat_agg(merged.uniqregids))) AS regid
                 FROM (
                     SELECT uniqregids FROM get_regids_from_regid_by_bisaddr(userreg.registrationid)
-                    UNION SELECT uniqregids FROM get_regids_from_regid_by_owners(userreg.registrationid)
+                    UNION SELECT uniqregids FROM get_regids_from_regid_by_owners(
+                        userreg.registrationid)
                 ) AS merged
                 ) merged2 ON true
             ) assocregids ON (bldgs.registrationid = assocregids.regid)

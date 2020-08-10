@@ -1,27 +1,21 @@
 import React from "react";
-import helpers, { MaybeStringyNumber } from "../util/helpers";
 import { Trans, Select, Plural } from "@lingui/macro";
+import { SummaryStatsRecord } from "./APIDataTypes";
 
-export const RentstabSummary: React.FC<{
-  totalrsdiff: MaybeStringyNumber;
-  totalrsgain: MaybeStringyNumber;
-  totalrsloss: MaybeStringyNumber;
-  rsproportion: MaybeStringyNumber;
-  rslossaddr: {
-    rsdiff: MaybeStringyNumber;
-    housenumber: string;
-    streetname: string;
-    boro: string;
-  };
-}> = (props) => {
-  const totalRsDiff = helpers.coerceToInt(props.totalrsdiff, 0);
+type RentstabSummaryData = Pick<
+  SummaryStatsRecord,
+  "totalrsdiff" | "totalrsgain" | "totalrsloss" | "rsproportion" | "rslossaddr"
+>;
+
+export const RentstabSummary: React.FC<RentstabSummaryData> = (props) => {
+  const totalRsDiff = props.totalrsdiff || 0;
   const absTotalRsDiff = Math.abs(totalRsDiff);
-  const absTotalRsGain = Math.abs(helpers.coerceToInt(props.totalrsgain, 0));
-  const absTotalRsLoss = Math.abs(helpers.coerceToInt(props.totalrsloss, 0));
-  const rsProportion = helpers.coerceToInt(props.rsproportion, 0);
+  const absTotalRsGain = Math.abs(props.totalrsgain || 0);
+  const absTotalRsLoss = Math.abs(props.totalrsloss || 0);
+  const rsProportion = props.rsproportion || 0;
   const changeType: "gain" | "loss" = totalRsDiff > 0 ? "gain" : "loss";
   const rsLossAddr = props.rslossaddr;
-  const rsLossAddrDiff = helpers.coerceToInt(rsLossAddr && rsLossAddr.rsdiff, 0);
+  const rsLossAddrDiff = (rsLossAddr && rsLossAddr.rsdiff) || 0;
   const absRsLossAddrDiff = Math.abs(rsLossAddrDiff);
 
   return (

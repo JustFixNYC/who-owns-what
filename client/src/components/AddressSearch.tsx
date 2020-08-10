@@ -35,7 +35,7 @@ export interface SearchAddress {
   bbl: string;
 }
 
-export interface AddressSearchProps extends SearchAddress {
+export interface AddressSearchProps {
   onFormSubmit: (searchAddress: SearchAddress, error: any) => void;
   labelText: string | JSX.Element;
   labelClass: string;

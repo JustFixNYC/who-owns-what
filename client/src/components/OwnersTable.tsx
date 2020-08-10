@@ -3,20 +3,13 @@ import "styles/OwnersTable.css";
 
 import _isEmpty from "lodash/isEmpty";
 import { Trans } from "@lingui/macro";
+import { AddressRecord } from "./APIDataTypes";
+
+type OwnersTableData = Pick<AddressRecord, "businessaddrs" | "corpnames" | "ownernames">;
 
 const OwnersTable: React.FC<{
-  addr: {
-    businessaddrs?: string[];
-    corpnames?: string[];
-    ownernames?: { title: string; value: string }[];
-  };
+  addr: OwnersTableData;
 }> = (props) => {
-  // let hasJustFixUsersWarning = null;
-  // // let hasJustFixUsersWarning = <br />;
-  // if(props.hasJustFixUsers) {
-  //   hasJustFixUsersWarning = <p className="mt-10 text-center text-bold text-danger text-large">This landlord has at least one active JustFix.nyc case!</p>
-  // }
-
   if (_isEmpty(props.addr)) {
     return null;
   } else {
