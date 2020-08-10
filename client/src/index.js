@@ -4,7 +4,7 @@ import "babel-polyfill";
 import React from "react";
 import ReactDOM from "react-dom";
 import Modal from "react-modal";
-import App from "containers/App";
+import App from "containers/App.tsx";
 
 // import registerServiceWorker from './registerServiceWorker';
 import "styles/spectre.css";
