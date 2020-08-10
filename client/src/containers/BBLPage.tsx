@@ -55,11 +55,7 @@ const BBLPage: React.FC<BBLPageProps> = (props) => {
             setIsNotFound(true);
             return;
           }
-          const addressPage = createRouteForAddressPage({
-            boro: results.result[0].boro,
-            housenumber: results.result[0].housenumber,
-            streetname: results.result[0].streetname,
-          });
+          const addressPage = createRouteForAddressPage(results.result[0]);
           history.replace(addressPage);
         })
         .catch(reportError);

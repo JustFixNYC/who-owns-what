@@ -14,7 +14,7 @@ import { isPartOfGroupSale } from "./PropertiesList";
 import { Link } from "react-router-dom";
 import { LocaleLink } from "../i18n";
 import BuildingStatsTable from "./BuildingStatsTable";
-import { createWhoOwnsWhatRoutePaths } from "../routes";
+import { createWhoOwnsWhatRoutePaths, AddressPageRoutes } from "../routes";
 import { AddressRecord } from "./APIDataTypes";
 import { SupportedLocale } from "../i18n-base";
 
@@ -25,7 +25,7 @@ type Props = withI18nProps & {
   mobileShow: boolean;
   userAddr: AddressRecord;
   onCloseDetail: () => void;
-  generateBaseUrl: () => string;
+  addressPageRoutes: AddressPageRoutes;
 };
 
 type State = {
@@ -126,7 +126,7 @@ class DetailViewWithoutI18n extends Component<Props, State> {
                       <BuildingStatsTable addr={addr} />
                       <div className="card-body-timeline-link">
                         <Link
-                          to={this.props.generateBaseUrl() + "/timeline"}
+                          to={this.props.addressPageRoutes.timeline}
                           className="btn btn-primary btn-block"
                           onClick={() => {
                             window.gtag("event", "view-data-over-time-overview-tab");

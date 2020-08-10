@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { Trans, t } from "@lingui/macro";
 
 import "styles/App.css";
@@ -11,8 +11,19 @@ import Modal from "../components/Modal";
 // import top-level containers (i.e. pages)
 import { I18n, LocaleNavLink, LocaleLink as Link, LocaleSwitcher } from "../i18n";
 import { withI18n, withI18nProps } from "@lingui/react";
-import { WhoOwnsWhatRoutes, createWhoOwnsWhatRoutePaths } from "../routes";
+import { createWhoOwnsWhatRoutePaths } from "../routes";
 import { VersionUpgrader } from "./VersionUpgrader";
+import { useMachine } from "@xstate/react";
+import HomePage from "./HomePage";
+import AddressPage from "./AddressPage";
+import BBLPage from "./BBLPage";
+import AboutPage from "./AboutPage";
+import HowToUsePage from "./HowToUsePage";
+import MethodologyPage from "./Methodology";
+import TermsOfUsePage from "./TermsOfUsePage";
+import PrivacyPolicyPage from "./PrivacyPolicyPage";
+import { DevPage } from "./DevPage";
+import { wowMachine } from "state-machine";
 
 type Props = {};
 
@@ -35,6 +46,42 @@ const HomeLink = withI18n()((props: withI18nProps) => {
     </Link>
   );
 });
+
+const WhoOwnsWhatRoutes: React.FC<{}> = () => {
+  const paths = createWhoOwnsWhatRoutePaths("/:locale");
+  const [state, send] = useMachine(wowMachine);
+  const machineProps = { state, send };
+  return (
+    <Switch>
+      <Route exact path={paths.home} component={HomePage} />
+      <Route
+        path={paths.addressPage.overview}
+        render={(props) => <AddressPage currentTab={0} {...machineProps} {...props} />}
+        exact
+      />
+      <Route
+        path={paths.addressPage.timeline}
+        render={(props) => <AddressPage currentTab={1} {...machineProps} {...props} />}
+      />
+      <Route
+        path={paths.addressPage.portfolio}
+        render={(props) => <AddressPage currentTab={2} {...machineProps} {...props} />}
+      />
+      <Route
+        path={paths.addressPage.summary}
+        render={(props) => <AddressPage currentTab={3} {...machineProps} {...props} />}
+      />
+      <Route path={paths.bbl} component={BBLPage} />
+      <Route path={paths.bblWithFullBblInUrl} component={BBLPage} />
+      <Route path={paths.about} component={AboutPage} />
+      <Route path={paths.howToUse} component={HowToUsePage} />
+      <Route path={paths.methodology} component={MethodologyPage} />
+      <Route path={paths.termsOfUse} component={TermsOfUsePage} />
+      <Route path={paths.privacyPolicy} component={PrivacyPolicyPage} />
+      <Route path={paths.dev} component={DevPage} />
+    </Switch>
+  );
+};
 
 export default class App extends Component<Props, State> {
   constructor(props: Props) {

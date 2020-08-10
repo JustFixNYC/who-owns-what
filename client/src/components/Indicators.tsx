@@ -209,7 +209,7 @@ class IndicatorsWithoutI18n extends Component<IndicatorsProps, IndicatorsState> 
                     </h4>
                     <br />
                     <Link
-                      to={this.props.generateBaseUrl()}
+                      to={this.props.addressPageRoutes.overview}
                       onClick={() => this.props.onBackToOverview(bbl)}
                     >
                       <Trans>Back to Overview</Trans>

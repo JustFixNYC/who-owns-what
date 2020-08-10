@@ -9,7 +9,7 @@ import { t, Trans } from "@lingui/macro";
 import { withI18n } from "@lingui/react";
 import { FB_APP_ID } from "./Page";
 import { Borough } from "./APIDataTypes";
-import { createRouteForAddressPage, getSiteOrigin } from "../routes";
+import { getSiteOrigin, createAddressPageRoutes } from "../routes";
 
 const SocialShareWithoutI18n: React.FC<{
   i18n: I18n;
@@ -89,22 +89,21 @@ export default SocialShare;
 
 const SocialSharePortfolioWithoutI18n: React.FC<{
   i18n: I18n;
-  location?: string;
+  location: "overview-tab" | "summary-tab";
   addr: { boro: Borough; housenumber?: string; streetname: string };
   buildings: number;
 }> = ({ i18n, location, addr, buildings }) => {
   const buildingCount = buildings || 0;
+  const routes = createAddressPageRoutes(addr);
+  const path = location === "summary-tab" ? routes.summary : routes.overview;
+  const url = getSiteOrigin() + path;
   return (
     <SocialShareWithoutI18n
       i18n={i18n}
       location={location}
-      url={`${getSiteOrigin()}${createRouteForAddressPage({
-        boro: addr.boro,
-        streetname: addr.streetname,
-        housenumber: addr.housenumber,
-      })}${location === "summary-tab" ? "/summary" : ""}`}
+      url={url}
       twitterMessage={i18n._(
-        t`The ${buildingCount} buildings that my landlord "owns" 👀... #WhoOwnsWhat @JustFixNYC`
+        t`The ${buildingCount} buildings that my landlord owns 👀... #WhoOwnsWhat @JustFixNYC`
       )}
       emailMessage={i18n._(
         t`The ${buildingCount} buildings owned by my landlord (via JustFix's Who Owns What tool)`
