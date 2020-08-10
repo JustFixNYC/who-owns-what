@@ -23,8 +23,7 @@ type Props = {};
 type State = {
   showEngageModal: boolean;
   entryIndex: number;
-  entries: {index:string, title:string, description:string, img:string} [];
-         
+  entries: { index: string; title: string; description: string; img: string }[];
 };
 
 const HomeLink = withI18n()((props: withI18nProps) => {
@@ -98,12 +97,12 @@ export default class App extends Component<Props, State> {
     let infoButton = document.querySelector(".widget-button-info");
     if (widget.style.display === "none") {
       widget.style.display = "inline-block";
-      tooltipTriangle? tooltipTriangle.classList.add("toggled"): "";
-      infoButton? infoButton.classList.add("pressed"): "";
+      tooltipTriangle ? tooltipTriangle.classList.add("toggled") : "";
+      infoButton ? infoButton.classList.add("pressed") : "";
     } else {
       widget.style.display = "none";
-      tooltipTriangle? tooltipTriangle.classList.remove("toggled"): "";
-      infoButton? infoButton.classList.remove("pressed"): "";
+      tooltipTriangle ? tooltipTriangle.classList.remove("toggled") : "";
+      infoButton ? infoButton.classList.remove("pressed") : "";
     }
   }
 
@@ -121,7 +120,7 @@ export default class App extends Component<Props, State> {
         <button
           type="button"
           className="widget-button-cancel material-icons md-18 focusable"
-          tabIndex= {0}
+          tabIndex={0}
           onClick={(event) => {
             event.preventDefault();
             let widget = document.getElementById("widget");
