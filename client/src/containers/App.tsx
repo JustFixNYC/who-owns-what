@@ -106,10 +106,40 @@ export default class App extends Component<Props, State> {
     }
   }
 
+  
+
+  
+ // ReactDOM.render(<ToggleInfoButton />, document.querySelector("#info-button-container"))
+  
+
   render() {
     const isDemoSite = process.env.REACT_APP_DEMO_SITE === "1";
     const version = process.env.REACT_APP_VERSION;
     const paths = createWhoOwnsWhatRoutePaths();
+
+
+    let ToggleInfoButton = () => {
+      const [showWidget, setShowWidget] = React.useState(false)
+      const onClick = () => setShowWidget(true)
+      return (
+        <div>
+          { showWidget ? <div onClick={onClick} >
+        Toggled
+      </div> :  <div onClick={onClick} >
+        Toggled
+      </div> }
+          { showWidget ? <Widget/> : null }
+          
+        </div>
+      )
+    }
+  
+    let Widget = () => (
+      <div className="widget">
+        Widget
+      </div>
+    )
+
 
     //header of the widget, says "What's New" and has close button
     let widgetHeader = (
@@ -238,6 +268,7 @@ export default class App extends Component<Props, State> {
                 )}
                 <nav className="inline">
                   {featureCalloutWidget}
+                  {ToggleInfoButton}
                   <LocaleNavLink exact to={paths.home}>
                     <Trans>Home</Trans>
                   </LocaleNavLink>
