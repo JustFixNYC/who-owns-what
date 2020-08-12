@@ -1,6 +1,7 @@
 import { IndicatorsDatasetId } from "./IndicatorsDatasets";
 import { withI18nProps } from "@lingui/react";
 import { WithMachineInStateProps } from "state-machine";
+import { AddressPageRoutes } from "routes";
 
 export type IndicatorsTimeSpan = "month" | "quarter" | "year";
 
@@ -121,7 +122,7 @@ export type IndicatorsProps = withI18nProps &
   WithMachineInStateProps<"portfolioFound"> & {
     isVisible: boolean;
     onBackToOverview: (bbl: string) => void;
-    generateBaseUrl: () => string;
+    addressPageRoutes: AddressPageRoutes;
   };
 
 // Other Useful Types and Type-related utilites:

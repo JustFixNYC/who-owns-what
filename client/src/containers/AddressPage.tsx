@@ -20,8 +20,10 @@ import Page from "../components/Page";
 import { SearchResults, Borough } from "../components/APIDataTypes";
 import { SearchAddress } from "../components/AddressSearch";
 import { WithMachineProps } from "state-machine";
-import NotFoundPage from "./NotFoundPage";
+import { AddrNotFoundPage } from "./NotFoundPage";
 import { searchAddrsAreEqual } from "util/helpers";
+import { NetworkErrorMessage } from "components/NetworkErrorMessage";
+import { createAddressPageRoutes } from "routes";
 
 type RouteParams = {
   locale?: string;
@@ -50,12 +52,14 @@ const validateRouteParams = (params: RouteParams) => {
     throw new Error("Address Page URL params did not contain a proper streetname!");
   } else {
     const searchAddress: SearchAddress = {
+      // TODO: We really shouldn't be blindly typecasting to Borough here,
+      // params.boro could be anything!
       boro: params.boro as Borough,
       streetname: params.streetname,
       housenumber: params.housenumber,
       bbl: "",
     };
-    return searchAddress;
+    return { ...searchAddress, locale: params.locale };
   }
 };
 
@@ -96,14 +100,6 @@ export default class AddressPage extends Component<AddressPageProps, State> {
     });
   };
 
-  generateBaseUrl = () => {
-    const params = this.props.match.params;
-    return (
-      //:locale/address/:boro/:housenumber/:streetname
-      `/${params.locale}/address/${params.boro}/${params.housenumber}/${params.streetname}`
-    );
-  };
-
   // should this properly live in AddressToolbar? you tell me
   handleExportClick = (bbl: string) => {
     APIClient.getAddressExport(bbl)
@@ -116,7 +112,7 @@ export default class AddressPage extends Component<AddressPageProps, State> {
 
     if (state.matches("bblNotFound")) {
       window.gtag("event", "bbl-not-found-page");
-      return <NotFoundPage />;
+      return <AddrNotFoundPage />;
     } else if (state.matches("nychaFound")) {
       window.gtag("event", "nycha-page");
       return <NychaPage state={state} send={send} />;
@@ -126,6 +122,8 @@ export default class AddressPage extends Component<AddressPageProps, State> {
     } else if (state.matches("portfolioFound")) {
       window.gtag("event", "portfolio-found-page");
       const { detailAddr, assocAddrs, searchAddr } = state.context.portfolioData;
+      const routes = createAddressPageRoutes(validateRouteParams(this.props.match.params));
+
       return (
         <Page
           title={`${this.props.match.params.housenumber} ${this.props.match.params.streetname}`}
@@ -147,7 +145,7 @@ export default class AddressPage extends Component<AddressPageProps, State> {
                 <ul className="tab tab-block">
                   <li className={`tab-item ${this.props.currentTab === 0 ? "active" : ""}`}>
                     <Link
-                      to={this.generateBaseUrl()}
+                      to={routes.overview}
                       tabIndex={this.props.currentTab === 0 ? -1 : 0}
                       onClick={() => {
                         if (Browser.isMobile() && this.state.detailMobileSlide) {
@@ -160,7 +158,7 @@ export default class AddressPage extends Component<AddressPageProps, State> {
                   </li>
                   <li className={`tab-item ${this.props.currentTab === 1 ? "active" : ""}`}>
                     <Link
-                      to={this.generateBaseUrl() + "/timeline"}
+                      to={routes.timeline}
                       tabIndex={this.props.currentTab === 1 ? -1 : 0}
                       onClick={() => {
                         window.gtag("event", "timeline-tab");
@@ -171,7 +169,7 @@ export default class AddressPage extends Component<AddressPageProps, State> {
                   </li>
                   <li className={`tab-item ${this.props.currentTab === 2 ? "active" : ""}`}>
                     <Link
-                      to={this.generateBaseUrl() + "/portfolio"}
+                      to={routes.portfolio}
                       tabIndex={this.props.currentTab === 2 ? -1 : 0}
                       onClick={() => {
                         window.gtag("event", "portfolio-tab");
@@ -182,7 +180,7 @@ export default class AddressPage extends Component<AddressPageProps, State> {
                   </li>
                   <li className={`tab-item ${this.props.currentTab === 3 ? "active" : ""}`}>
                     <Link
-                      to={this.generateBaseUrl() + "/summary"}
+                      to={routes.summary}
                       tabIndex={this.props.currentTab === 3 ? -1 : 0}
                       onClick={() => {
                         window.gtag("event", "summary-tab");
@@ -212,7 +210,7 @@ export default class AddressPage extends Component<AddressPageProps, State> {
                 mobileShow={this.state.detailMobileSlide}
                 userAddr={searchAddr}
                 onCloseDetail={this.handleCloseDetail}
-                generateBaseUrl={this.generateBaseUrl}
+                addressPageRoutes={routes}
               />
             </div>
             <div
@@ -225,7 +223,7 @@ export default class AddressPage extends Component<AddressPageProps, State> {
                 state={state}
                 send={send}
                 onBackToOverview={this.handleAddrChange}
-                generateBaseUrl={this.generateBaseUrl}
+                addressPageRoutes={routes}
               />
             </div>
             <div
@@ -237,7 +235,7 @@ export default class AddressPage extends Component<AddressPageProps, State> {
                 state={state}
                 send={send}
                 onOpenDetail={this.handleAddrChange}
-                generateBaseUrl={this.generateBaseUrl}
+                addressPageRoutes={routes}
               />
             </div>
             <div
@@ -252,6 +250,12 @@ export default class AddressPage extends Component<AddressPageProps, State> {
               />
             </div>
           </div>
+        </Page>
+      );
+    } else if (state.matches("networkErrorOccurred")) {
+      return (
+        <Page>
+          <NetworkErrorMessage />
         </Page>
       );
     } else {

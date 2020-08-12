@@ -12,6 +12,7 @@ import { SupportedLocale } from "../i18n-base";
 import Helpers, { longDateOptions } from "../util/helpers";
 import { AddressRecord } from "./APIDataTypes";
 import { WithMachineInStateProps } from "state-machine";
+import { AddressPageRoutes } from "routes";
 
 export const isPartOfGroupSale = (saleId: string, addrs: AddressRecord[]) => {
   const addrsWithMatchingSale = addrs.filter((addr) => addr.lastsaleacrisid === saleId);
@@ -22,7 +23,7 @@ const PropertiesListWithoutI18n: React.FC<
   WithMachineInStateProps<"portfolioFound"> & {
     i18n: I18n;
     onOpenDetail: (bbl: string) => void;
-    generateBaseUrl: () => string;
+    addressPageRoutes: AddressPageRoutes;
   }
 > = (props) => {
   const { i18n } = props;
@@ -222,7 +223,7 @@ const PropertiesListWithoutI18n: React.FC<
                 Cell: (row) => {
                   return (
                     <Link
-                      to={props.generateBaseUrl()}
+                      to={props.addressPageRoutes.overview}
                       className="btn"
                       aria-label={i18n._(t`View detail`)}
                       onClick={() => props.onOpenDetail(row.original.bbl)}

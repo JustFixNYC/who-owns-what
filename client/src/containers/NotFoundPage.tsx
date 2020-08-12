@@ -13,7 +13,7 @@ export const ErrorPageScaffolding = (props: { children: React.ReactNode }) => (
   </div>
 );
 
-const NotFoundPageWithoutI18n: React.FC<withI18nProps> = (props) => {
+const AddrNotFoundPageWithoutI18n: React.FC<withI18nProps> = (props) => {
   const i18n = props.i18n;
   return (
     <Page title={i18n._(t`No address found`)}>
@@ -24,6 +24,15 @@ const NotFoundPageWithoutI18n: React.FC<withI18nProps> = (props) => {
   );
 };
 
-const NotFoundPage = withI18n()(NotFoundPageWithoutI18n);
+export const AddrNotFoundPage = withI18n()(AddrNotFoundPageWithoutI18n);
 
-export default NotFoundPage;
+export const NotFoundPage = withI18n()((props: withI18nProps) => {
+  const i18n = props.i18n;
+  return (
+    <Page title={i18n._(t`Not found`)}>
+      <ErrorPageScaffolding>
+        <Trans>Sorry, the page you are looking for doesn't seem to exist.</Trans>
+      </ErrorPageScaffolding>
+    </Page>
+  );
+});
