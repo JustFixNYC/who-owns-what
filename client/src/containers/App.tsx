@@ -14,6 +14,10 @@ import { withI18n, withI18nProps } from "@lingui/react";
 import { createWhoOwnsWhatRoutePaths } from "../routes";
 import { VersionUpgrader } from "./VersionUpgrader";
 import { useMachine } from "@xstate/react";
+import Timeline_gif from "../assets/img/Feature_callout_gifs/Timeline.gif"
+import Spanish_gif from "../assets/img/Feature_callout_gifs/Spanish.gif"
+import URLS_gif from "../assets/img/Feature_callout_gifs/URLS.gif"
+import LastSold_gif from "../assets/img/Feature_callout_gifs/LastSold.gif"
 import HomePage from "./HomePage";
 import AddressPage from "./AddressPage";
 import BBLPage from "./BBLPage";
