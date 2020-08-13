@@ -53,7 +53,6 @@ def address_query(request):
 
     return JsonResponse({
         "geosearch": {
-            "geosupportReturnCode": "00",
             "bbl": bbl,
         },
         "addrs": list(cleaned_addrs),

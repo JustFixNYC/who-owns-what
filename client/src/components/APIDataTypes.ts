@@ -23,7 +23,6 @@ type HpdOwnerContact = {
 type APIDate = string;
 
 export type GeoSearchData = {
-  geosupportReturnCode: string;
   bbl: string;
 };
 
