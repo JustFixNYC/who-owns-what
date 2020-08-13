@@ -98,7 +98,6 @@ describe("wowMachine", () => {
       [NOT_REG_URLS.ADDRESS_URL]: mockJsonResponse<SearchResults>({
         addrs: [],
         geosearch: {
-          geosupportReturnCode: "00",
           bbl: "3002920026",
         },
       }),
@@ -118,7 +117,6 @@ describe("wowMachine", () => {
       [NOT_REG_URLS.ADDRESS_URL]: mockJsonResponse<SearchResults>({
         addrs: [],
         geosearch: {
-          geosupportReturnCode: "00",
           bbl: "3002920026",
         },
       }),
@@ -138,7 +136,6 @@ describe("wowMachine", () => {
       [NYCHA_URLS.ADDRESS_URL]: mockJsonResponse<SearchResults>({
         addrs: [],
         geosearch: {
-          geosupportReturnCode: "00",
           bbl: "3004040001",
         },
       }),
@@ -158,7 +155,6 @@ describe("wowMachine", () => {
       [PORTFOLIO_URLS.ADDRESS_URL]: mockJsonResponse<SearchResults>({
         addrs: SAMPLE_ADDRESS_RECORDS,
         geosearch: {
-          geosupportReturnCode: "00",
           bbl: "3012380016",
         },
       }),
