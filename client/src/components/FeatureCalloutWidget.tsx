@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { t } from "@lingui/macro";
 import Timeline_gif from "../assets/img/Feature_callout_gifs/Timeline.gif";
 import Spanish_gif from "../assets/img/Feature_callout_gifs/Spanish.gif";
 import URLS_gif from "../assets/img/Feature_callout_gifs/URLS.gif";
@@ -62,20 +61,6 @@ export default class FeatureCalloutWidget extends Component<{}, widgetState> {
       this.state.entryIndex === 0
         ? this.setState({ entryIndex: this.state.entries.length - 1 })
         : this.setState({ entryIndex: this.state.entryIndex - 1 });
-    };
-
-    let toggleWidget = (widget: any) => {
-      let tooltipTriangle = document.querySelector(".widget-tooltip-triangle");
-      let infoButton = document.querySelector(".widget-button-info");
-      if (widget.style.display === "none") {
-        widget.style.display = "inline-block";
-        if (tooltipTriangle) tooltipTriangle.classList.add("toggled");
-        if (infoButton) infoButton.classList.add("pressed");
-      } else {
-        widget.style.display = "none";
-        if (tooltipTriangle) tooltipTriangle.classList.remove("toggled");
-        if (infoButton) infoButton.classList.remove("pressed");
-      }
     };
 
     //header of the widget, says "What's New" and has close button
@@ -192,40 +177,3 @@ export default class FeatureCalloutWidget extends Component<{}, widgetState> {
     );
   }
 }
-
-/*
-    Search = React.createClass({
-      getInitialState: function() {
-          return { 
-            shouldHide:false
-          };
-      },
-      onClick: function() {
-          console.log("onclick");
-          if(!this.state.shouldHide){
-            this.setState({
-              shouldHide: true 
-            })
-          }else{
-            this.setState({
-              shouldHide: false 
-            })
-          }
-      },
-  render: function() {
-      return (
-        <div>
-          <button onClick={this.onClick}>click me</button>
-          <p className={this.state.shouldHide ? 'hidden' : ''} >yoyoyoyoyo</p>
-        </div>
-      );
-  }
-  });
-  
-    
-  
-    
-   // ReactDOM.render(<ToggleInfoButton />, document.querySelector("#info-button-container"))
-  
-   
-  */
