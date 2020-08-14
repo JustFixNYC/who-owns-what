@@ -96,14 +96,12 @@ export default class App extends Component<Props, State> {
     };
   }
 
-  
-
   render() {
     const isDemoSite = process.env.REACT_APP_DEMO_SITE === "1";
     const version = process.env.REACT_APP_VERSION;
     const paths = createWhoOwnsWhatRoutePaths();
 
-/*
+    /*
     let ToggleInfoButton = () => {
       const [showWidget, setShowWidget] = React.useState(false)
       const onClick = () => setShowWidget(true)
@@ -154,7 +152,7 @@ export default class App extends Component<Props, State> {
                   </span>
                 )}
                 <nav className="inline">
-                  <FeatureCalloutWidget/>
+                  <FeatureCalloutWidget />
                   <LocaleNavLink exact to={paths.home}>
                     <Trans>Home</Trans>
                   </LocaleNavLink>
