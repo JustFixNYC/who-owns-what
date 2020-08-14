@@ -90,7 +90,6 @@ const WhoOwnsWhatRoutes: React.FC<{}> = () => {
 export default class App extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
-
     this.state = {
       showEngageModal: false,
     };
@@ -100,31 +99,6 @@ export default class App extends Component<Props, State> {
     const isDemoSite = process.env.REACT_APP_DEMO_SITE === "1";
     const version = process.env.REACT_APP_VERSION;
     const paths = createWhoOwnsWhatRoutePaths();
-
-    /*
-    let ToggleInfoButton = () => {
-      const [showWidget, setShowWidget] = React.useState(false)
-      const onClick = () => setShowWidget(true)
-      return (
-        <div>
-          { showWidget ? <div onClick={onClick} >
-        Toggled
-      </div> :  <div onClick={onClick} >
-        Not Toggled
-      </div> }
-          { showWidget ? <Widget/> : null }
-          
-        </div>
-      )
-    }
-  
-    let Widget = () => (
-      <div className="widget">
-        Widget
-      </div>
-    )
-
-*/
 
     return (
       <Router>
