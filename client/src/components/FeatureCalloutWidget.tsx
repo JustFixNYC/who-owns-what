@@ -10,6 +10,7 @@ import "styles/FeatureCalloutWidget.scss";
 type widgetProps = {};
 
 type widgetState =  {
+  widgetToggled: boolean;
   entryIndex: number;
   entries: { index: string; title: string; description: string; img: string }[];
 };
@@ -18,6 +19,7 @@ export default class FeatureCalloutWidget extends Component<{}, widgetState>  {
 
   componentWillMount(){
     this.setState({
+      widgetToggled: false,
       entryIndex: 0,
       entries: [
         {
@@ -87,10 +89,8 @@ export default class FeatureCalloutWidget extends Component<{}, widgetState>  {
         type="button"
         className="widget-button-cancel material-icons md-18 focusable"
         tabIndex={0}
-        onClick={(event) => {
-          event.preventDefault();
-          let widget = document.getElementById("widget");
-          return toggleWidget(widget);
+        onClick={() => {
+          return (this.state.widgetToggled? this.setState({widgetToggled: false}) : this.setState({widgetToggled: true}));
         }}
       >
         close
@@ -151,30 +151,42 @@ export default class FeatureCalloutWidget extends Component<{}, widgetState>  {
   );
 
     return (
-      <div>
-      <div className="widget-triangle-info-button-container">
-        <button
-          className="widget-button-info focusable material-icons md-14"
-          tabIndex={0}
-          onClick={(event) => {
-            event.preventDefault();
-            let widget: any;
-            widget = document.getElementById("widget");
-            return (toggleWidget(widget));
-          }}
-        >
-          info
-        </button>
-        <div className="widget-tooltip-triangle"></div>
-      </div>
-      <div className="widget-container" id="widget">
-        {widgetHeader}
-        <div className="widget-content-container" id="widget-entries">
-          {widgetEntries[this.state.entryIndex]}
-          {navButtons}
+      this.state.widgetToggled ?
+        <div className="widget-triangle-info-button-container">
+          <button
+            className="widget-button-info focusable material-icons md-14"
+            tabIndex={0}
+            onClick={() => {
+              return (this.state.widgetToggled? this.setState({widgetToggled: false}) : this.setState({widgetToggled: true}));
+            }}
+          >
+            info
+          </button>
         </div>
-      </div>
-    </div>
+        :
+        <div>
+          <div className="widget-triangle-info-button-container">
+            <button
+              className="widget-button-info focusable material-icons md-14"
+              tabIndex={0}
+              onClick={() => {
+                return (this.state.widgetToggled? this.setState({widgetToggled: false}) : this.setState({widgetToggled: true}));
+              }}
+            >
+              info
+            </button>
+            <div className = "traingle-container">
+            <div className = "widget-tooltip-triangle"></div>
+            </div>
+          </div>
+          <div className="widget-container" id="widget">
+            {widgetHeader}
+            <div className="widget-content-container" id="widget-entries"> 
+              {widgetEntries[this.state.entryIndex]}
+              {navButtons}
+            </div>
+          </div>
+        </div>
     );
     }
   } 

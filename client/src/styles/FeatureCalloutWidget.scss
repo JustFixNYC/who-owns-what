@@ -15,12 +15,6 @@
     outline-offset: 2px;
   }
   
-  //info-button and tooltip triangle
-  .widget-triangle-info-button-container {
-    display: flex;
-    flex-direction: column;
-  }
-  
   .widget-button-info {
     background: #3e4654;
     color: white;
@@ -30,7 +24,7 @@
     position: relative;
     vertical-align: middle;
     z-index: 11;
-    margin: 3.5px 2px 2.5px 2px;
+    margin: 3.5px 2px 0px 2px;
   }
   
   .widget-button-info:hover {
@@ -44,6 +38,11 @@
     color: #3e4654;
     box-shadow: 0.5px 0.5px 2px rgba(0, 0, 0, 0.7);
   }
+
+  .triangle-container{
+      position: relative;
+      top:0%;
+  }
   
   .widget-tooltip-triangle {
     width: 0;
@@ -55,24 +54,23 @@
     border-bottom: 14px solid #3e4654;
     background-size: 3px 3px;
     z-index: 11;
-    visibility: hidden;
+    position: absolute;
   }
   
-  .widget-tooltip-triangle.toggled {
-    visibility: visible;
-  }
   
   //container for widget, hidden by default
   .widget-container {
-    display: none;
+    display: inline-block;
     position: absolute;
+    top:3em;
+    right: 7%;
     z-index: 12;
     width: 300px;
-    right: 7%;
     box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.9);
     @include for-phone-only {
       right: 0%;
       left: 4%;
+      top: 5em;
       width: 90%;
     }
   }
