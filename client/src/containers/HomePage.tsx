@@ -16,7 +16,7 @@ import { createRouteForAddressPage } from "../routes";
 import { WithMachineProps } from "state-machine";
 import { useHistory } from "react-router-dom";
 import { CovidMoratoriumBanner } from "@justfixnyc/react-common";
-import { withI18n, withI18nProps, I18n } from "@lingui/react";
+import { withI18n, withI18nProps } from "@lingui/react";
 
 type BannerState = {
   isHidden: boolean;
