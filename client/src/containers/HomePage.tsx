@@ -15,13 +15,15 @@ import Page from "../components/Page";
 import { createRouteForAddressPage } from "../routes";
 import { WithMachineProps } from "state-machine";
 import { useHistory } from "react-router-dom";
+import { CovidMoratoriumBanner } from "@justfixnyc/react-common";
+import { withI18n, withI18nProps } from "@lingui/react";
 
 type BannerState = {
   isHidden: boolean;
 };
 
-class MoratoriumBanner extends Component<{}, BannerState> {
-  constructor(Props: {}) {
+class MoratoriumBannerWithoutI18n extends Component<withI18nProps, BannerState> {
+  constructor(Props: withI18nProps) {
     super(Props);
 
     this.state = {
@@ -32,32 +34,21 @@ class MoratoriumBanner extends Component<{}, BannerState> {
   closeBanner = () => this.setState({ isHidden: true });
 
   render() {
+    const locale = this.props.i18n.language;
     return (
       <div className={"HomePage__banner " + (this.state.isHidden ? "d-hide" : "")}>
         <div className="close-button float-right" onClick={this.closeBanner}>
           ✕
         </div>
         <div className="content">
-          <Trans>
-            <span className="text-bold">COVID-19 Update: </span>
-            JustFix.nyc is operating, and has adapted our products to match preliminary rules put in
-            place during the COVID-19 crisis. We recommend you take full precautions to stay safe
-            during this public health crisis. Thanks to tenant organizing during this time, renters
-            cannot be evicted for any reason. Visit{" "}
-            <a
-              href="https://www.righttocounselnyc.org/ny_eviction_moratorium_faq"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <span className="text-bold">Right to Council’s Eviction Moratorium FAQs</span>
-            </a>{" "}
-            to learn more.
-          </Trans>
+          <CovidMoratoriumBanner locale={locale} />
         </div>
       </div>
     );
   }
 }
+
+const MoratoriumBanner = withI18n()(MoratoriumBannerWithoutI18n);
 
 const getSampleUrls = () => [
   createRouteForAddressPage({
