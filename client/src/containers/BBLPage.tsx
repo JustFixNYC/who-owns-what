@@ -11,6 +11,7 @@ import { reportError } from "error-reporting";
 
 // This will be *either* bbl *or* boro, block, and lot.
 export type BBLPageParams = {
+  locale?: string;
   bbl?: string;
   boro?: string;
   block?: string;
@@ -39,6 +40,7 @@ export const isValidBblFormat = (bbl: string) => {
 
 const BBLPage: React.FC<BBLPageProps> = (props) => {
   const history = useHistory();
+  const { locale } = props.match.params;
   const fullBBL = getFullBblFromPageParams(props.match.params);
   const [isNotFound, setIsNotFound] = useState(false);
 
@@ -55,7 +57,10 @@ const BBLPage: React.FC<BBLPageProps> = (props) => {
             setIsNotFound(true);
             return;
           }
-          const addressPage = createRouteForAddressPage(results.result[0]);
+          const addressPage = createRouteForAddressPage({
+            ...results.result[0],
+            locale,
+          });
           history.replace(addressPage);
         })
         .catch(reportError);
@@ -64,7 +69,7 @@ const BBLPage: React.FC<BBLPageProps> = (props) => {
         isMounted = false;
       };
     }
-  }, [fullBBL, history]);
+  }, [fullBBL, history, locale]);
 
   return isNotFound ? (
     <AddrNotFoundPage />
