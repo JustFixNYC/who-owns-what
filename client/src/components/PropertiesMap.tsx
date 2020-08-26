@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import ReactMapboxGl, { Layer, Feature, ZoomControl } from "react-mapbox-gl";
 import Helpers from "../util/helpers";
 import Browser from "../util/browser";
-import MapHelpers, { LatLng } from "../util/mapping";
+import MapHelpers, { LatLng, BoundingBox } from "../util/mapping";
 
 import Loader from "../components/Loader";
 
@@ -38,7 +38,7 @@ const Map = ReactMapboxGl({
   accessToken: MAPBOX_ACCESS_TOKEN,
 });
 
-const DEFAULT_FIT_BOUNDS: number[][] = [
+const DEFAULT_FIT_BOUNDS: BoundingBox = [
   [-74.259087, 40.477398],
   [-73.700172, 40.917576],
 ];
@@ -141,8 +141,7 @@ export default class PropertiesMap extends Component<Props, State> {
     });
     // see getBoundingBox() for deets
     const pointsArray = Array.from(addrsPos) as LatLng[];
-    const newAddrsBounds =
-      pointsArray.length > 0 ? MapHelpers.getBoundingBox(pointsArray) : DEFAULT_FIT_BOUNDS;
+    const newAddrsBounds = MapHelpers.getBoundingBox(pointsArray, DEFAULT_FIT_BOUNDS);
 
     // sets things up, including initial portfolio level map view
     this.setState(
