@@ -13,7 +13,7 @@ import AddressSearch, { SearchAddress } from "../components/AddressSearch";
 import { Trans } from "@lingui/macro";
 import Page from "../components/Page";
 import { createRouteForAddressPage } from "../routes";
-import { WithMachineProps } from "state-machine";
+import { withMachineProps } from "state-machine";
 import { useHistory } from "react-router-dom";
 import { CovidMoratoriumBanner } from "@justfixnyc/react-common";
 import { withI18n, withI18nProps } from "@lingui/react";
@@ -68,7 +68,7 @@ const getSampleUrls = () => [
   }),
 ];
 
-const HomePage: React.FC<WithMachineProps> = (props) => {
+const HomePage: React.FC<withMachineProps> = (props) => {
   const handleFormSubmit = (searchAddress: SearchAddress, error: any) => {
     window.gtag("event", "search");
 

@@ -16,12 +16,12 @@ import "styles/Indicators.css";
 import { IndicatorsState } from "./IndicatorsTypes";
 import { SupportedLocale } from "../i18n-base";
 import { ChartOptions } from "chart.js";
-import { WithMachineInStateProps } from "state-machine";
+import { withMachineInStateProps } from "state-machine";
 
 const DEFAULT_ANIMATION_MS = 1000;
 const MONTH_ANIMATION_MS = 2500;
 
-type IndicatorVizProps = WithMachineInStateProps<{ portfolioFound: { timeline: "success" } }> &
+type IndicatorVizProps = withMachineInStateProps<{ portfolioFound: { timeline: "success" } }> &
   IndicatorsState;
 
 type IndicatorVizState = IndicatorsState & {
@@ -108,7 +108,7 @@ function makeAnnotations(
 }
 
 type IndicatorVizImplementationProps = withI18nProps &
-  WithMachineInStateProps<{ portfolioFound: { timeline: "success" } }> &
+  withMachineInStateProps<{ portfolioFound: { timeline: "success" } }> &
   IndicatorVizState;
 
 class IndicatorsVizImplementation extends Component<IndicatorVizImplementationProps> {
