@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import FileSaver from "file-saver";
-import Browser from "../util/browser";
 
 import AddressToolbar from "../components/AddressToolbar";
 import PropertiesMap from "../components/PropertiesMap";
