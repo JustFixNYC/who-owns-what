@@ -58,40 +58,31 @@ class DetailViewWithoutI18n extends Component<Props, State> {
     const portfolioSize = assocAddrs.length;
 
     // Let's save some variables that will be helpful in rendering the front-end component
-    let boro,
-      block,
-      lot,
-      takeActionURL,
-      formattedRegEndDate,
-      streetViewAddr,
-      ownernames,
-      userOwnernames;
+    let takeActionURL, formattedRegEndDate, streetViewAddr, ownernames, userOwnernames;
 
-    if (detailAddr) {
-      ({ boro, block, lot } = Helpers.splitBBL(detailAddr.bbl));
+    const { boro, block, lot } = Helpers.splitBBL(detailAddr.bbl);
 
-      takeActionURL = Helpers.createTakeActionURL(detailAddr, "detail_view");
+    takeActionURL = Helpers.createTakeActionURL(detailAddr, "detail_view");
 
-      formattedRegEndDate = Helpers.formatDate(
-        detailAddr.registrationenddate,
-        longDateOptions,
-        locale
-      );
+    formattedRegEndDate = Helpers.formatDate(
+      detailAddr.registrationenddate,
+      longDateOptions,
+      locale
+    );
 
-      streetViewAddr =
-        detailAddr.lat && detailAddr.lng
-          ? {
-              lat: detailAddr.lat,
-              lng: detailAddr.lng,
-            }
-          : null;
+    streetViewAddr =
+      detailAddr.lat && detailAddr.lng
+        ? {
+            lat: detailAddr.lat,
+            lng: detailAddr.lng,
+          }
+        : null;
 
-      if (detailAddr.ownernames && detailAddr.ownernames.length)
-        ownernames = Helpers.uniq(detailAddr.ownernames);
+    if (detailAddr.ownernames && detailAddr.ownernames.length)
+      ownernames = Helpers.uniq(detailAddr.ownernames);
 
-      if (searchAddr.ownernames && searchAddr.ownernames.length)
-        userOwnernames = Helpers.uniq(searchAddr.ownernames);
-    }
+    if (searchAddr.ownernames && searchAddr.ownernames.length)
+      userOwnernames = Helpers.uniq(searchAddr.ownernames);
 
     const streetView = streetViewAddr ? (
       <LazyLoadWhenVisible>
@@ -371,109 +362,107 @@ class DetailViewWithoutI18n extends Component<Props, State> {
                 </div>
               </div>
             )}
-            {detailAddr && (
-              <Modal
-                showModal={this.state.showCompareModal}
-                width={70}
-                onClose={() => this.setState({ showCompareModal: false })}
-              >
-                <h6>
-                  <Trans render="b">How is this building associated to this portfolio?</Trans>
-                </h6>
-                <Trans render="p">
-                  We compare your search address with a database of over 200k buildings to identify
-                  a landlord or management company's portfolio. To learn more, check out{" "}
-                  <LocaleLink to={createWhoOwnsWhatRoutePaths().methodology}>
-                    our methodology
-                  </LocaleLink>
-                  .
-                </Trans>
-                <table className="DetailView__compareTable">
-                  <thead>
-                    <tr>
-                      <th>
-                        {searchAddr.housenumber} {searchAddr.streetname}, {searchAddr.boro}
-                      </th>
-                      <th>
-                        {detailAddr.housenumber} {detailAddr.streetname}, {detailAddr.boro}
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>
-                        <div>
-                          <Trans>Business Entities</Trans>
-                        </div>
+            <Modal
+              showModal={this.state.showCompareModal}
+              width={70}
+              onClose={() => this.setState({ showCompareModal: false })}
+            >
+              <h6>
+                <Trans render="b">How is this building associated to this portfolio?</Trans>
+              </h6>
+              <Trans render="p">
+                We compare your search address with a database of over 200k buildings to identify a
+                landlord or management company's portfolio. To learn more, check out{" "}
+                <LocaleLink to={createWhoOwnsWhatRoutePaths().methodology}>
+                  our methodology
+                </LocaleLink>
+                .
+              </Trans>
+              <table className="DetailView__compareTable">
+                <thead>
+                  <tr>
+                    <th>
+                      {searchAddr.housenumber} {searchAddr.streetname}, {searchAddr.boro}
+                    </th>
+                    <th>
+                      {detailAddr.housenumber} {detailAddr.streetname}, {detailAddr.boro}
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <div>
+                        <Trans>Business Entities</Trans>
+                      </div>
+                      <ul>
+                        {searchAddr.corpnames &&
+                          searchAddr.corpnames.map((corp, idx) => <li key={idx}>{corp}</li>)}
+                      </ul>
+                    </td>
+                    <td>
+                      <div>
+                        <Trans>Business Entities</Trans>
+                      </div>
+                      <ul>
+                        {detailAddr.corpnames &&
+                          detailAddr.corpnames.map((corp, idx) => <li key={idx}>{corp}</li>)}
+                      </ul>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div>
+                        <Trans>Business Addresses</Trans>
+                      </div>
+                      <ul>
+                        {searchAddr.businessaddrs &&
+                          searchAddr.businessaddrs.map((rba, idx) => <li key={idx}>{rba}</li>)}
+                      </ul>
+                    </td>
+                    <td>
+                      <div>
+                        <Trans>Business Addresses</Trans>
+                      </div>
+                      <ul>
+                        {detailAddr.businessaddrs &&
+                          detailAddr.businessaddrs.map((rba, idx) => <li key={idx}>{rba}</li>)}
+                      </ul>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div>
+                        <Trans>People</Trans>
+                      </div>
+                      {userOwnernames && (
                         <ul>
-                          {searchAddr.corpnames &&
-                            searchAddr.corpnames.map((corp, idx) => <li key={idx}>{corp}</li>)}
+                          {userOwnernames.map((owner, idx) => (
+                            <li key={idx}>
+                              {owner.title.split(/(?=[A-Z])/).join(" ")}: {owner.value}
+                            </li>
+                          ))}
                         </ul>
-                      </td>
-                      <td>
-                        <div>
-                          <Trans>Business Entities</Trans>
-                        </div>
+                      )}
+                    </td>
+                    <td>
+                      <div>
+                        <Trans>People</Trans>
+                      </div>
+                      {ownernames && (
                         <ul>
-                          {detailAddr.corpnames &&
-                            detailAddr.corpnames.map((corp, idx) => <li key={idx}>{corp}</li>)}
+                          {ownernames.map((owner, idx) => (
+                            <li key={idx}>
+                              {owner.title.split(/(?=[A-Z])/).join(" ")}: {owner.value}
+                            </li>
+                          ))}
                         </ul>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <div>
-                          <Trans>Business Addresses</Trans>
-                        </div>
-                        <ul>
-                          {searchAddr.businessaddrs &&
-                            searchAddr.businessaddrs.map((rba, idx) => <li key={idx}>{rba}</li>)}
-                        </ul>
-                      </td>
-                      <td>
-                        <div>
-                          <Trans>Business Addresses</Trans>
-                        </div>
-                        <ul>
-                          {detailAddr.businessaddrs &&
-                            detailAddr.businessaddrs.map((rba, idx) => <li key={idx}>{rba}</li>)}
-                        </ul>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <div>
-                          <Trans>People</Trans>
-                        </div>
-                        {userOwnernames && (
-                          <ul>
-                            {userOwnernames.map((owner, idx) => (
-                              <li key={idx}>
-                                {owner.title.split(/(?=[A-Z])/).join(" ")}: {owner.value}
-                              </li>
-                            ))}
-                          </ul>
-                        )}
-                      </td>
-                      <td>
-                        <div>
-                          <Trans>People</Trans>
-                        </div>
-                        {ownernames && (
-                          <ul>
-                            {ownernames.map((owner, idx) => (
-                              <li key={idx}>
-                                {owner.title.split(/(?=[A-Z])/).join(" ")}: {owner.value}
-                              </li>
-                            ))}
-                          </ul>
-                        )}
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </Modal>
-            )}
+                      )}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </Modal>
           </div>
         </div>
       </CSSTransition>
