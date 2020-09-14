@@ -98,7 +98,7 @@ class DetailViewWithoutI18n extends Component<Props, State> {
     );
 
     return (
-      <CSSTransition in={this.props.mobileShow} timeout={500} classNames="DetailView">
+      <CSSTransition in={!isMobile || this.props.mobileShow} timeout={500} classNames="DetailView">
         <div className={`DetailView`}>
           <div className="DetailView__wrapper">
             {detailAddr && (
