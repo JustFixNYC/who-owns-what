@@ -22,6 +22,7 @@ import { withMachineInStateProps } from "state-machine";
 type Props = withI18nProps &
   withMachineInStateProps<"portfolioFound"> & {
     mobileShow: boolean;
+    onOpenDetail: () => void;
     onCloseDetail: () => void;
     addressPageRoutes: AddressPageRoutes;
   };
@@ -39,6 +40,10 @@ class DetailViewWithoutI18n extends Component<Props, State> {
     this.state = {
       showCompareModal: false,
     };
+  }
+
+  componentDidMount() {
+    this.props.onOpenDetail();
   }
 
   componentDidUpdate(prevProps: Props, prevState: State) {

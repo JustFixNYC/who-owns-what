@@ -82,6 +82,18 @@ export default class AddressPage extends Component<AddressPageProps, State> {
     send({ type: "SEARCH", address: validateRouteParams(match.params) });
   }
 
+  handleOpenDetail = () => {
+    this.setState({
+      detailMobileSlide: true,
+    });
+  }
+
+  handleCloseDetail = () => {
+    this.setState({
+      detailMobileSlide: false,
+    });
+  };
+
   handleAddrChange = (newFocusBbl: string) => {
     if (!this.props.state.matches("portfolioFound")) {
       throw new Error("A change of detail address was attempted without any portfolio data found.");
@@ -89,15 +101,7 @@ export default class AddressPage extends Component<AddressPageProps, State> {
     const detailBbl = this.props.state.context.portfolioData.detailAddr.bbl;
     if (newFocusBbl !== detailBbl)
       this.props.send({ type: "SELECT_DETAIL_ADDR", bbl: newFocusBbl });
-    this.setState({
-      detailMobileSlide: true,
-    });
-  };
-
-  handleCloseDetail = () => {
-    this.setState({
-      detailMobileSlide: false,
-    });
+    this.handleOpenDetail();
   };
 
   // should this properly live in AddressToolbar? you tell me
@@ -207,6 +211,7 @@ export default class AddressPage extends Component<AddressPageProps, State> {
                 state={state}
                 send={send}
                 mobileShow={this.state.detailMobileSlide}
+                onOpenDetail={this.handleOpenDetail}
                 onCloseDetail={this.handleCloseDetail}
                 addressPageRoutes={routes}
               />
