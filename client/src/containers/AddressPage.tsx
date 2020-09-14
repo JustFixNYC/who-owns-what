@@ -19,7 +19,7 @@ import { Link, RouteComponentProps } from "react-router-dom";
 import Page from "../components/Page";
 import { SearchResults, Borough } from "../components/APIDataTypes";
 import { SearchAddress } from "../components/AddressSearch";
-import { WithMachineProps } from "state-machine";
+import { withMachineProps } from "state-machine";
 import { AddrNotFoundPage } from "./NotFoundPage";
 import { searchAddrsAreEqual } from "util/helpers";
 import { NetworkErrorMessage } from "components/NetworkErrorMessage";
@@ -37,7 +37,7 @@ type RouteState = {
 };
 
 type AddressPageProps = RouteComponentProps<RouteParams, {}, RouteState> &
-  WithMachineProps & {
+  withMachineProps & {
     currentTab: number;
   };
 

@@ -12,9 +12,9 @@ import { Trans, Select } from "@lingui/macro";
 import { AddressRecord } from "./APIDataTypes";
 import { Props as MapboxMapProps } from "react-mapbox-gl/lib/map";
 import { Events as MapboxMapEvents } from "react-mapbox-gl/lib/map-events";
-import { WithMachineInStateProps } from "state-machine";
+import { withMachineInStateProps } from "state-machine";
 
-type Props = WithMachineInStateProps<"portfolioFound"> & {
+type Props = withMachineInStateProps<"portfolioFound"> & {
   onAddrChange: (bbl: string) => void;
   isVisible: boolean;
 };

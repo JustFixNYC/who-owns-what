@@ -1,6 +1,6 @@
 import { IndicatorsDatasetId } from "./IndicatorsDatasets";
 import { withI18nProps } from "@lingui/react";
-import { WithMachineInStateProps } from "state-machine";
+import { withMachineInStateProps } from "state-machine";
 import { AddressPageRoutes } from "routes";
 
 export type IndicatorsTimeSpan = "month" | "quarter" | "year";
@@ -119,7 +119,7 @@ export const indicatorsInitialState: IndicatorsState = {
 // Types Relating to the Props of the Indicators Component:
 
 export type IndicatorsProps = withI18nProps &
-  WithMachineInStateProps<"portfolioFound"> & {
+  withMachineInStateProps<"portfolioFound"> & {
     isVisible: boolean;
     onBackToOverview: (bbl: string) => void;
     addressPageRoutes: AddressPageRoutes;

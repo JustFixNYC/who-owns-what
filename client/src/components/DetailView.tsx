@@ -17,10 +17,10 @@ import BuildingStatsTable from "./BuildingStatsTable";
 import { createWhoOwnsWhatRoutePaths, AddressPageRoutes } from "../routes";
 import { AddressRecord } from "./APIDataTypes";
 import { SupportedLocale } from "../i18n-base";
-import { WithMachineInStateProps } from "state-machine";
+import { withMachineInStateProps } from "state-machine";
 
 type Props = withI18nProps &
-  WithMachineInStateProps<"portfolioFound"> & {
+  withMachineInStateProps<"portfolioFound"> & {
     mobileShow: boolean;
     onCloseDetail: () => void;
     addressPageRoutes: AddressPageRoutes;

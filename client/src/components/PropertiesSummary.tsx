@@ -10,10 +10,10 @@ import { RentstabSummary } from "./RentstabSummary";
 import { ViolationsSummary } from "./ViolationsSummary";
 import { StringifyListWithConjunction } from "./StringifyList";
 import { SocialSharePortfolio } from "./SocialShare";
-import { WithMachineInStateProps } from "state-machine";
+import { withMachineInStateProps } from "state-machine";
 import { NetworkErrorMessage } from "./NetworkErrorMessage";
 
-type Props = WithMachineInStateProps<"portfolioFound"> & {
+type Props = withMachineInStateProps<"portfolioFound"> & {
   isVisible: boolean;
 };
 
