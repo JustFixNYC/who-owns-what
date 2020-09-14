@@ -86,7 +86,7 @@ export default class AddressPage extends Component<AddressPageProps, State> {
     this.setState({
       detailMobileSlide: true,
     });
-  }
+  };
 
   handleCloseDetail = () => {
     this.setState({
@@ -125,7 +125,7 @@ export default class AddressPage extends Component<AddressPageProps, State> {
       return <NotRegisteredPage state={state} send={send} />;
     } else if (state.matches("portfolioFound")) {
       window.gtag("event", "portfolio-found-page");
-      const { detailAddr, assocAddrs, searchAddr } = state.context.portfolioData;
+      const { assocAddrs, searchAddr } = state.context.portfolioData;
       const routes = createAddressPageRoutes(validateRouteParams(this.props.match.params));
 
       return (

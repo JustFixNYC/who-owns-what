@@ -15,7 +15,6 @@ import { Link } from "react-router-dom";
 import { LocaleLink } from "../i18n";
 import BuildingStatsTable from "./BuildingStatsTable";
 import { createWhoOwnsWhatRoutePaths, AddressPageRoutes } from "../routes";
-import { AddressRecord } from "./APIDataTypes";
 import { SupportedLocale } from "../i18n-base";
 import { withMachineInStateProps } from "state-machine";
 
