@@ -148,15 +148,7 @@ export default class AddressPage extends Component<AddressPageProps, State> {
                 </h1>
                 <ul className="tab tab-block">
                   <li className={`tab-item ${this.props.currentTab === 0 ? "active" : ""}`}>
-                    <Link
-                      to={routes.overview}
-                      tabIndex={this.props.currentTab === 0 ? -1 : 0}
-                      onClick={() => {
-                        if (Browser.isMobile() && this.state.detailMobileSlide) {
-                          this.handleCloseDetail();
-                        }
-                      }}
-                    >
+                    <Link to={routes.overview} tabIndex={this.props.currentTab === 0 ? -1 : 0}>
                       <Trans>Overview</Trans>
                     </Link>
                   </li>
