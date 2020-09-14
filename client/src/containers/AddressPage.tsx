@@ -204,11 +204,9 @@ export default class AddressPage extends Component<AddressPageProps, State> {
                 isVisible={this.props.currentTab === 0}
               />
               <DetailView
-                addrs={assocAddrs}
-                addr={detailAddr}
-                portfolioSize={assocAddrs.length}
+                state={state}
+                send={send}
                 mobileShow={this.state.detailMobileSlide}
-                userAddr={searchAddr}
                 onCloseDetail={this.handleCloseDetail}
                 addressPageRoutes={routes}
               />
