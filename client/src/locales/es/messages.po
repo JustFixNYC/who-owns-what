@@ -316,7 +316,7 @@ msgstr "¡Únete a la lucha por los derechos de los inquilinos!"
 
 #: src/components/LegalFooter.tsx:21
 msgid "JustFix, Inc is a registered 501(c)(3) nonprofit organization."
-msgstr "JustFix.nyc es una organización registrada 501(c)(3) sin fines de lucro."
+msgstr "JustFix, Inc es una organización registrada 501(c)(3) sin fines de lucro."
 
 #: src/components/PropertiesList.tsx:118
 #: src/components/PropertiesSummary.tsx:73
