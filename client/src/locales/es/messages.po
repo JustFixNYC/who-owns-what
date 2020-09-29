@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2020-06-15 14:22\n"
+"PO-Revision-Date: 2020-09-29 15:01\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -436,7 +436,7 @@ msgstr "No Emergencia"
 
 #: src/containers/NotFoundPage.tsx:23
 msgid "Not found"
-msgstr ""
+msgstr "No encontrado"
 
 #: src/components/PropertiesList.tsx:121
 msgid "Officer/Owner"
@@ -558,7 +558,7 @@ msgstr "Lo sentimos, parece que hay un error en el mapa. Inténtalo de nuevo con
 
 #: src/containers/NotFoundPage.tsx:25
 msgid "Sorry, the page you are looking for doesn't seem to exist."
-msgstr ""
+msgstr "Lo sentimos, la página que estás buscando no existe."
 
 #: src/components/LegalFooter.tsx:46
 msgid "Source code"
@@ -857,3 +857,4 @@ msgstr "{value, plural, one {Una Queja del HPD emitida desde el 2014} other {# Q
 #: src/components/IndicatorsDatasets.tsx:34
 msgid "{value, plural, one {One HPD Violation Issued since 2010} other {# HPD Violations Issued since 2010}}"
 msgstr "{value, plural, one {Una Infracción del HPD emitida desde el 2010} other {# Infracciones del HPD emitidas desde el 2010}}"
+
