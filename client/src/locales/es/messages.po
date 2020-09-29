@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2020-09-17 20:41\n"
+"PO-Revision-Date: 2020-09-29 15:01\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -316,7 +316,7 @@ msgstr "¡Únete a la lucha por los derechos de los inquilinos!"
 
 #: src/components/LegalFooter.tsx:21
 msgid "JustFix, Inc is a registered 501(c)(3) nonprofit organization."
-msgstr ""
+msgstr "JustFix, Inc es una organización registrada 501(c)(3) sin fines de lucro."
 
 #: src/components/PropertiesList.tsx:118
 #: src/components/PropertiesSummary.tsx:73
@@ -436,7 +436,7 @@ msgstr "No Emergencia"
 
 #: src/containers/NotFoundPage.tsx:23
 msgid "Not found"
-msgstr ""
+msgstr "No encontrado"
 
 #: src/components/PropertiesList.tsx:121
 msgid "Officer/Owner"
@@ -558,7 +558,7 @@ msgstr "Lo sentimos, parece que hay un error en el mapa. Inténtalo de nuevo con
 
 #: src/containers/NotFoundPage.tsx:25
 msgid "Sorry, the page you are looking for doesn't seem to exist."
-msgstr ""
+msgstr "Lo sentimos, la página que estás buscando no existe."
 
 #: src/components/LegalFooter.tsx:46
 msgid "Source code"
@@ -633,7 +633,7 @@ msgstr "Los {buildingCount} edificios que son propiedad del dueño de mi apartam
 
 #: src/components/SocialShare.tsx:48
 msgid "The {buildingCount} buildings that my landlord owns 👀... #WhoOwnsWhat @JustFixNYC"
-msgstr ""
+msgstr "Los {buildingCount} edificios que son propiedad del dueño de mi apartamento 👀... #WhoOwnsWhat @JustFixNYC"
 
 #: src/components/PropertiesSummary.tsx:43
 msgid "There {0, plural, one {<0>is <1>1</1> building</0>} other {<2>are <3>{1}</3> buildings</2>}} in this portfolio with a total of {2, plural, one {1 unit} other {# units}}."
