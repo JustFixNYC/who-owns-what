@@ -11,7 +11,7 @@ import { Link } from "react-router-dom";
 import { SupportedLocale } from "../i18n-base";
 import Helpers, { longDateOptions } from "../util/helpers";
 import { AddressRecord } from "./APIDataTypes";
-import { WithMachineInStateProps } from "state-machine";
+import { withMachineInStateProps } from "state-machine";
 import { AddressPageRoutes } from "routes";
 
 export const isPartOfGroupSale = (saleId: string, addrs: AddressRecord[]) => {
@@ -20,7 +20,7 @@ export const isPartOfGroupSale = (saleId: string, addrs: AddressRecord[]) => {
 };
 
 const PropertiesListWithoutI18n: React.FC<
-  WithMachineInStateProps<"portfolioFound"> & {
+  withMachineInStateProps<"portfolioFound"> & {
     i18n: I18n;
     onOpenDetail: (bbl: string) => void;
     addressPageRoutes: AddressPageRoutes;

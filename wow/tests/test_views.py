@@ -51,7 +51,6 @@ class TestAddressQuery(ApiTest):
         assert len(json['addrs']) > 0
         assert json['geosearch'] == {
             'bbl': '3016780054',
-            'geosupportReturnCode': '00',
         }
 
 

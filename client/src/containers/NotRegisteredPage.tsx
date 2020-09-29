@@ -9,10 +9,10 @@ import LegalFooter from "../components/LegalFooter";
 import Helpers from "../util/helpers";
 import SocialShare from "../components/SocialShare";
 import { Nobr } from "../components/Nobr";
-import { WithMachineInStateProps } from "state-machine";
+import { withMachineInStateProps } from "state-machine";
 import Page from "components/Page";
 
-type Props = WithMachineInStateProps<"unregisteredFound">;
+type Props = withMachineInStateProps<"unregisteredFound">;
 
 type State = {
   showModal: boolean;

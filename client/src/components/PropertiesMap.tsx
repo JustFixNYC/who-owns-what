@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import ReactMapboxGl, { Layer, Feature, ZoomControl } from "react-mapbox-gl";
 import Helpers from "../util/helpers";
 import Browser from "../util/browser";
-import MapHelpers, { LatLng } from "../util/mapping";
+import MapHelpers, { LatLng, BoundingBox } from "../util/mapping";
 
 import Loader from "../components/Loader";
 
@@ -12,9 +12,9 @@ import { Trans, Select } from "@lingui/macro";
 import { AddressRecord } from "./APIDataTypes";
 import { Props as MapboxMapProps } from "react-mapbox-gl/lib/map";
 import { Events as MapboxMapEvents } from "react-mapbox-gl/lib/map-events";
-import { WithMachineInStateProps } from "state-machine";
+import { withMachineInStateProps } from "state-machine";
 
-type Props = WithMachineInStateProps<"portfolioFound"> & {
+type Props = withMachineInStateProps<"portfolioFound"> & {
   onAddrChange: (bbl: string) => void;
   isVisible: boolean;
 };
@@ -38,13 +38,15 @@ const Map = ReactMapboxGl({
   accessToken: MAPBOX_ACCESS_TOKEN,
 });
 
+const DEFAULT_FIT_BOUNDS: BoundingBox = [
+  [-74.259087, 40.477398],
+  [-73.700172, 40.917576],
+];
+
 const MAP_CONFIGURABLES = {
   style: MAPBOX_STYLE,
   containerStyle: { width: "100%", height: "100%" },
-  fitBounds: [
-    [-74.259087, 40.477398],
-    [-73.700172, 40.917576],
-  ],
+  fitBounds: DEFAULT_FIT_BOUNDS,
   fitBoundsOptions: {
     padding: { top: 50, bottom: 50, left: 50, right: 50 },
     maxZoom: 20,
@@ -139,7 +141,7 @@ export default class PropertiesMap extends Component<Props, State> {
     });
     // see getBoundingBox() for deets
     const pointsArray = Array.from(addrsPos) as LatLng[];
-    const newAddrsBounds = MapHelpers.getBoundingBox(pointsArray);
+    const newAddrsBounds = MapHelpers.getBoundingBox(pointsArray, DEFAULT_FIT_BOUNDS);
 
     // sets things up, including initial portfolio level map view
     this.setState(

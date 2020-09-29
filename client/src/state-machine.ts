@@ -152,12 +152,12 @@ type WowMachineInState<
   WowStateByAnotherName
 >;
 
-export type WithMachineProps = {
+export type withMachineProps = {
   state: WowMachineEverything;
   send: (event: WowEvent) => WowMachineEverything;
 };
 
-export type WithMachineInStateProps<TSV extends WowState["value"]> = {
+export type withMachineInStateProps<TSV extends WowState["value"]> = {
   state: WowMachineInState<TSV>;
   send: (event: WowEvent) => WowMachineEverything;
 };

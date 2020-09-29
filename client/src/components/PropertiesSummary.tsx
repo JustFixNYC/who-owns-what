@@ -10,10 +10,10 @@ import { RentstabSummary } from "./RentstabSummary";
 import { ViolationsSummary } from "./ViolationsSummary";
 import { StringifyListWithConjunction } from "./StringifyList";
 import { SocialSharePortfolio } from "./SocialShare";
-import { WithMachineInStateProps } from "state-machine";
-import { ErrorPageScaffolding } from "containers/NotFoundPage";
+import { withMachineInStateProps } from "state-machine";
+import { NetworkErrorMessage } from "./NetworkErrorMessage";
 
-type Props = WithMachineInStateProps<"portfolioFound"> & {
+type Props = withMachineInStateProps<"portfolioFound"> & {
   isVisible: boolean;
 };
 
@@ -45,12 +45,7 @@ export default class PropertiesSummary extends Component<Props, {}> {
     let agg = state.context.summaryData;
     let searchAddr = state.context.portfolioData.searchAddr;
 
-    if (state.matches({ portfolioFound: { summary: "error" } }))
-      return (
-        <ErrorPageScaffolding>
-          <Trans>Oops! A network error occurred. Try again later.</Trans>
-        </ErrorPageScaffolding>
-      );
+    if (state.matches({ portfolioFound: { summary: "error" } })) return <NetworkErrorMessage />;
     else if (!agg) {
       return (
         <Loader loading={true} classNames="Loader-map">
@@ -154,7 +149,7 @@ export default class PropertiesSummary extends Component<Props, {}> {
                         window.gtag("event", "data-request");
                       }}
                       href={generateLinkToDataRequestForm(
-                        `${searchAddr.housenumber}${searchAddr.streetname},${searchAddr.boro}`
+                        `${searchAddr.housenumber} ${searchAddr.streetname}, ${searchAddr.boro}`
                       )}
                       target="_blank"
                       rel="noopener noreferrer"

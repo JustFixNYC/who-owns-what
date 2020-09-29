@@ -23,7 +23,7 @@ import {
   IndicatorsTimeSpan,
 } from "./IndicatorsTypes";
 import { Nobr } from "./Nobr";
-import { ErrorPageScaffolding } from "containers/NotFoundPage";
+import { NetworkErrorMessage } from "./NetworkErrorMessage";
 
 class IndicatorsWithoutI18n extends Component<IndicatorsProps, IndicatorsState> {
   constructor(props: IndicatorsProps) {
@@ -160,9 +160,7 @@ class IndicatorsWithoutI18n extends Component<IndicatorsProps, IndicatorsState> 
       )
     ) {
       return this.props.state.matches({ portfolioFound: { timeline: "error" } }) ? (
-        <ErrorPageScaffolding>
-          <Trans>Oops! A network error occurred. Try again later.</Trans>
-        </ErrorPageScaffolding>
+        <NetworkErrorMessage />
       ) : (
         <Loader loading={true} classNames="Loader-map">
           <Trans>Loading</Trans>
