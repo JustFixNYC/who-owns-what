@@ -82,7 +82,6 @@ def clean_agg_info_dict(agg_info):
         **agg_info,
         "age": int_or_none(agg_info['age']),
         "avgevictions": float_or_none(agg_info['avgevictions']),
-        "avgrspercent": float_or_none(agg_info['avgrspercent']),
         "openviolationsperbldg": float_or_none(agg_info['openviolationsperbldg']),
         "openviolationsperresunit": float_or_none(agg_info['openviolationsperresunit']),
         "rsproportion": float_or_none(agg_info['rsproportion']),
