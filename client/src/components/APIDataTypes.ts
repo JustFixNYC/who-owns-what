@@ -87,7 +87,6 @@ type HpdViolationsAddress = AddressLocation & {
 export type SummaryStatsRecord = {
   age: number | null;
   avgevictions: number | null;
-  avgrspercent: number | null;
   bldgs: number;
   evictionsaddr: EvictionAddress;
   openviolationsperbldg: number;
