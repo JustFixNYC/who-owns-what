@@ -25,6 +25,17 @@ firstdeeds as (
     first(d.docamount) docamount
   from deeds d
   group by bbl
+),
+
+rentstab as (
+  select
+    ucbbl,
+    coalesce(unitsstab2007, 0) unitsstab2007,
+    coalesce(unitsstab2017, 0) unitsstab2017,
+    coalesce(uc2019, 0) unitsstab2019,
+    coalesce(uc2019, 0) - coalesce(unitsstab2007, 0) diff
+  from rentstab_summary
+  left join rentstab_v2 using(ucbbl)
 )
 
 select distinct on (registrations.bbl)
@@ -38,8 +49,8 @@ select distinct on (registrations.bbl)
   evictions.evictions,
   rentstab.unitsstab2007 as rsunits2007,
   rentstab.unitsstab2017 as rsunits2017,
+  rentstab.unitsstab2019 as rsunits2019,
   rentstab.diff as rsdiff,
-  rentstab.percentchange as rspercentchange,
   firstdeeds.documentid as lastsaleacrisid,
   firstdeeds.docdate as lastsaledate,
   firstdeeds.docamount as lastsaleamount
@@ -67,15 +78,7 @@ left join (
   where residentialcommercialind = 'RESIDENTIAL'
   group by bbl
 ) evictions on (registrations.bbl = evictions.bbl)
-left join (
-  select
-    ucbbl,
-    unitsstab2007,
-    unitsstab2017,
-    diff,
-    percentchange
-  from rentstab_summary
-) rentstab on (registrations.bbl = rentstab.ucbbl)
+left join rentstab on (registrations.bbl = rentstab.ucbbl)
 left join firstdeeds on (registrations.bbl = firstdeeds.bbl);
 
 create index on wow_bldgs (registrationid);
