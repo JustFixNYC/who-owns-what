@@ -25,7 +25,7 @@ msgstr "(expired {formattedRegEndDate})"
 msgid "(expires {formattedRegEndDate})"
 msgstr "(expires {formattedRegEndDate})"
 
-#: src/components/BuildingStatsTable.tsx:124
+#: src/components/BuildingStatsTable.tsx:125
 msgid "(hover over a box to learn more)"
 msgstr "(hover over a box to learn more)"
 
@@ -37,7 +37,7 @@ msgstr "({browserType, select, mobile {tap} other {click}} to view details)"
 msgid "... or view some sample portfolios:"
 msgstr "... or view some sample portfolios:"
 
-#: src/components/BuildingStatsTable.tsx:70
+#: src/components/BuildingStatsTable.tsx:71
 #: src/containers/NychaPage.tsx:87
 msgid "2019 Evictions"
 msgstr "2019 Evictions"
@@ -220,7 +220,7 @@ msgstr "Enter email"
 msgid "Evictions"
 msgstr "Evictions"
 
-#: src/components/BuildingStatsTable.tsx:69
+#: src/components/BuildingStatsTable.tsx:70
 msgid "Evictions executed by NYC Marshals in 2019. ANHD and the Housing Data Coalition cleaned, geocoded, and validated the data, originally sourced from DOI."
 msgstr "Evictions executed by NYC Marshals in 2019. ANHD and the Housing Data Coalition cleaned, geocoded, and validated the data, originally sourced from DOI."
 
@@ -451,7 +451,7 @@ msgstr "Oops! That email is invalid."
 msgid "Open"
 msgstr "Open"
 
-#: src/components/BuildingStatsTable.tsx:52
+#: src/components/BuildingStatsTable.tsx:53
 msgid "Open Violations"
 msgstr "Open Violations"
 
@@ -495,7 +495,7 @@ msgstr "Public Housing Development"
 msgid "Quarter"
 msgstr "Quarter"
 
-#: src/components/BuildingStatsTable.tsx:80
+#: src/components/BuildingStatsTable.tsx:81
 #: src/components/PropertiesList.tsx:68
 msgid "RS Units"
 msgstr "RS Units"
@@ -602,7 +602,7 @@ msgstr "The most common corporate entity is <0>{0}</0> and the most common busin
 msgid "The most common {0, plural, one {name that appears in this portfolio is} other {names that appear in this portfolio are}} <0/>."
 msgstr "The most common {0, plural, one {name that appears in this portfolio is} other {names that appear in this portfolio are}} <0/>."
 
-#: src/components/BuildingStatsTable.tsx:51
+#: src/components/BuildingStatsTable.tsx:52
 msgid "The number of open HPD violations for this building, updated monthly. Click the HPD Building Profile button below for the most up-to-date information."
 msgstr "The number of open HPD violations for this building, updated monthly. Click the HPD Building Profile button below for the most up-to-date information."
 
@@ -610,11 +610,11 @@ msgstr "The number of open HPD violations for this building, updated monthly. Cl
 msgid "The number of residential units across all buildings in this development, according to the Dept. of City Planning."
 msgstr "The number of residential units across all buildings in this development, according to the Dept. of City Planning."
 
-#: src/components/BuildingStatsTable.tsx:42
+#: src/components/BuildingStatsTable.tsx:43
 msgid "The number of residential units in this building, according to the Dept. of City Planning."
 msgstr "The number of residential units in this building, according to the Dept. of City Planning."
 
-#: src/components/BuildingStatsTable.tsx:33
+#: src/components/BuildingStatsTable.tsx:34
 msgid "The year that this building was originally constructed, according to the Dept. of City Planning."
 msgstr "The year that this building was originally constructed, according to the Dept. of City Planning."
 
@@ -658,7 +658,7 @@ msgstr "This is <0>better</0> than the citywide average of {VIOLATIONS_AVG} per 
 msgid "This is <0>worse</0> than the citywide average of {VIOLATIONS_AVG} per residential unit."
 msgstr "This is <0>worse</0> than the citywide average of {VIOLATIONS_AVG} per residential unit."
 
-#: src/components/BuildingStatsTable.tsx:18
+#: src/components/BuildingStatsTable.tsx:19
 msgid "This is the official identifer for the building according to the Dept. of Finance tax records."
 msgstr "This is the official identifer for the building according to the Dept. of Finance tax records."
 
@@ -678,7 +678,7 @@ msgstr "This property management company owned by the Kushner family is notoriou
 msgid "This represents <0>{rsProportion}%</0> of the total size of this portfolio."
 msgstr "This represents <0>{rsProportion}%</0> of the total size of this portfolio."
 
-#: src/components/BuildingStatsTable.tsx:60
+#: src/components/BuildingStatsTable.tsx:61
 msgid "This represents the total number of HPD Violations (both open & closed) recorded by the city."
 msgstr "This represents the total number of HPD Violations (both open & closed) recorded by the city."
 
@@ -686,9 +686,9 @@ msgstr "This represents the total number of HPD Violations (both open & closed) 
 msgid "This seems like a smaller residential building. If the landlord doesn't reside there, it should be registered with HPD."
 msgstr "This seems like a smaller residential building. If the landlord doesn't reside there, it should be registered with HPD."
 
-#: src/components/BuildingStatsTable.tsx:78
-msgid "This tracks how rent stabilized units in the building have changed (i.e. \"&Delta;\") from 2007 to 2019. If the number for 2019 is red, this means there has been a loss in stabilzied units! These counts are estimated from the DOF Property Tax Bills."
-msgstr "This tracks how rent stabilized units in the building have changed (i.e. \"&Delta;\") from 2007 to 2019. If the number for 2019 is red, this means there has been a loss in stabilzied units! These counts are estimated from the DOF Property Tax Bills."
+#: src/components/BuildingStatsTable.tsx:79
+msgid "This tracks how rent stabilized units in the building have changed (i.e. \"{delta}\") from 2007 to 2019. If the number for 2019 is red, this means there has been a loss in stabilzied units! These counts are estimated from the DOF Property Tax Bills."
+msgstr "This tracks how rent stabilized units in the building have changed (i.e. \"{delta}\") from 2007 to 2019. If the number for 2019 is red, this means there has been a loss in stabilzied units! These counts are estimated from the DOF Property Tax Bills."
 
 #: src/components/AddressToolbar.tsx:33
 msgid "This will export <0>{0}</0> addresses associated with the landlord at <1>{userAddrStr}</1>!"
@@ -703,7 +703,7 @@ msgstr "Timeline"
 msgid "Total"
 msgstr "Total"
 
-#: src/components/BuildingStatsTable.tsx:61
+#: src/components/BuildingStatsTable.tsx:62
 msgid "Total Violations"
 msgstr "Total Violations"
 
@@ -715,7 +715,7 @@ msgstr "Unable to initiate a court action for nonpayment of rent."
 msgid "Unable to request Code Violation Dismissals"
 msgstr "Unable to request Code Violation Dismissals"
 
-#: src/components/BuildingStatsTable.tsx:43
+#: src/components/BuildingStatsTable.tsx:44
 #: src/components/PropertiesList.tsx:60
 #: src/containers/NychaPage.tsx:83
 msgid "Units"
@@ -805,7 +805,7 @@ msgstr "Who owns what in nyc?"
 msgid "Year"
 msgstr "Year"
 
-#: src/components/BuildingStatsTable.tsx:34
+#: src/components/BuildingStatsTable.tsx:35
 msgid "Year Built"
 msgstr "Year Built"
 
