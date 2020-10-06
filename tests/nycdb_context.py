@@ -3,6 +3,7 @@ from pathlib import Path
 from types import SimpleNamespace
 from io import StringIO
 import csv
+import yaml
 import zipfile
 import tempfile
 import nycdb
@@ -16,10 +17,6 @@ else:
     TEST_DB_URL = os.environ['DATABASE_URL'] + '_test'
 
 TEST_DB = dbtool.DbContext.from_url(TEST_DB_URL)
-
-MY_DIR = Path(__file__).parent.resolve()
-
-DATA_DIR = MY_DIR / 'data'
 
 
 class NycdbContext:
@@ -99,11 +96,10 @@ def nycdb_ctx(get_cursor):
     '''
 
     with tempfile.TemporaryDirectory() as dirname:
-        # We're just copying over the test acris data over
-        # verbatim for now.
-        tempdirpath = Path(dirname)
-        for filepath in DATA_DIR.glob('acris_*.csv'):
-            tempfile_path = tempdirpath / filepath.name
-            tempfile_path.write_text(filepath.read_text())
+        for glob in dbtool.WOW_YML['extra_nycdb_test_data']:
+            tempdirpath = Path(dirname)
+            for filepath in dbtool.ROOT_DIR.glob(glob):
+                tempfile_path = tempdirpath / filepath.name
+                tempfile_path.write_text(filepath.read_text())
 
         yield NycdbContext(dirname, get_cursor)

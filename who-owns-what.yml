@@ -22,3 +22,7 @@ sql:
   - search_function.sql
   - agg_function.sql
   - landlord_contact.sql
+extra_nycdb_test_data:
+  # This is extra data our tests need that we don't
+  # create ourselves via factories.
+  - "tests/data/acris_*.csv"
