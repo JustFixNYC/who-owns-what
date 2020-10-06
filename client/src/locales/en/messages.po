@@ -687,8 +687,8 @@ msgid "This seems like a smaller residential building. If the landlord doesn't r
 msgstr "This seems like a smaller residential building. If the landlord doesn't reside there, it should be registered with HPD."
 
 #: src/components/BuildingStatsTable.tsx:78
-msgid "This tracks how rent stabilized units in the building have changed (i.e. \"&Delta;\") from 2007 to 2017. If the number for 2017 is red, this means there has been a loss in stabilzied units! These counts are estimated from the DOF Property Tax Bills."
-msgstr "This tracks how rent stabilized units in the building have changed (i.e. \"&Delta;\") from 2007 to 2017. If the number for 2017 is red, this means there has been a loss in stabilzied units! These counts are estimated from the DOF Property Tax Bills."
+msgid "This tracks how rent stabilized units in the building have changed (i.e. \"&Delta;\") from 2007 to 2019. If the number for 2019 is red, this means there has been a loss in stabilzied units! These counts are estimated from the DOF Property Tax Bills."
+msgstr "This tracks how rent stabilized units in the building have changed (i.e. \"&Delta;\") from 2007 to 2019. If the number for 2019 is red, this means there has been a loss in stabilzied units! These counts are estimated from the DOF Property Tax Bills."
 
 #: src/components/AddressToolbar.tsx:33
 msgid "This will export <0>{0}</0> addresses associated with the landlord at <1>{userAddrStr}</1>!"
