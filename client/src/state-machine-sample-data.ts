@@ -46,6 +46,7 @@ export const SAMPLE_ADDRESS_RECORDS: AddressRecord[] = [
     rsunits2007: 11,
     rsunits2017: 12,
     rsdiff: 1,
+    rspercentchange: 8.33,
     lastsaleacrisid: "2008012400521001",
     lastsaledate: "2008-01-17",
     lastsaleamount: 750000,
@@ -77,6 +78,7 @@ export const SAMPLE_ADDRESS_RECORDS: AddressRecord[] = [
     rsunits2007: 8,
     rsunits2017: 0,
     rsdiff: -8,
+    rspercentchange: -100,
     lastsaleacrisid: "2013041200684001",
     lastsaledate: "2013-03-22",
     lastsaleamount: 1800000,
@@ -125,6 +127,7 @@ export const SAMPLE_SUMMARY_DATA: SummaryResults = {
       totalrsloss: -307,
       totalrsdiff: -186,
       rsproportion: 12.4,
+      avgrspercent: -34.1,
       rslossaddr: {
         housenumber: "160",
         streetname: "HAVEMEYER STREET",
