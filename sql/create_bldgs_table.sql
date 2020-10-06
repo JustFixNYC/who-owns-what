@@ -33,7 +33,6 @@ rentstab as (
     coalesce(unitsstab2007, 0) rsunits2007,
     coalesce(unitsstab2017, 0) rsunits2017,
     coalesce(uc2019, 0) rsunitslatest,
-    2019 rsunitslatestyear,
     coalesce(uc2019, 0) - coalesce(unitsstab2007, 0) rsdiff
   from rentstab_summary
   left join rentstab_v2 using(ucbbl)
@@ -51,7 +50,8 @@ select distinct on (registrations.bbl)
   rentstab.rsunits2007,
   rentstab.rsunits2017,
   rentstab.rsunitslatest,
-  rentstab.rsunitslatestyear,
+  -- Year of most recent rent stab data, hard coded in
+  2019 rsunitslatestyear,
   rentstab.rsdiff,
   firstdeeds.documentid as lastsaleacrisid,
   firstdeeds.docdate as lastsaledate,
