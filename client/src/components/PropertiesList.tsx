@@ -95,17 +95,17 @@ const PropertiesListWithoutI18n: React.FC<
                 maxWidth: 75,
               },
               {
-                Header: "2017",
-                accessor: (d) => d.rsunits2017,
-                id: "rsunits2017",
+                Header: "2019",
+                accessor: (d) => d.rsunits2019,
+                id: "rsunits2019",
                 Cell: (row) => {
                   return (
                     <span
                       className={`${
-                        row.original.rsunits2017 < row.original.rsunits2007 ? "text-danger" : ""
+                        row.original.rsunits2019 < row.original.rsunits2007 ? "text-danger" : ""
                       }`}
                     >
-                      {row.original.rsunits2017}
+                      {row.original.rsunits2019}
                     </span>
                   );
                 },

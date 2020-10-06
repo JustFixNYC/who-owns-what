@@ -49,6 +49,7 @@ export type AddressRecord = {
   rsdiff: number | null;
   rsunits2007: number | null;
   rsunits2017: number | null;
+  rsunits2019: number | null;
   streetname: string;
   totalviolations: number;
   unitsres: number | null;
