@@ -30,10 +30,11 @@ firstdeeds as (
 rentstab as (
   select
     ucbbl,
-    coalesce(unitsstab2007, 0) unitsstab2007,
-    coalesce(unitsstab2017, 0) unitsstab2017,
-    coalesce(uc2019, 0) unitsstab2019,
-    coalesce(uc2019, 0) - coalesce(unitsstab2007, 0) diff
+    coalesce(unitsstab2007, 0) rsunits2007,
+    coalesce(unitsstab2017, 0) rsunits2017,
+    coalesce(uc2019, 0) rsunitslatest,
+    2019 rsunitslatestyear,
+    coalesce(uc2019, 0) - coalesce(unitsstab2007, 0) rsdiff
   from rentstab_summary
   left join rentstab_v2 using(ucbbl)
 )
@@ -47,10 +48,11 @@ select distinct on (registrations.bbl)
   pluto.lat,
   pluto.lng,
   evictions.evictions,
-  rentstab.unitsstab2007 as rsunits2007,
-  rentstab.unitsstab2017 as rsunits2017,
-  rentstab.unitsstab2019 as rsunits2019,
-  rentstab.diff as rsdiff,
+  rentstab.rsunits2007,
+  rentstab.rsunits2017,
+  rentstab.rsunitslatest,
+  rentstab.rsunitslatestyear,
+  rentstab.rsdiff,
   firstdeeds.documentid as lastsaleacrisid,
   firstdeeds.docdate as lastsaledate,
   firstdeeds.docamount as lastsaleamount
