@@ -3,7 +3,6 @@ from pathlib import Path
 from types import SimpleNamespace
 from io import StringIO
 import csv
-import yaml
 import zipfile
 import tempfile
 import nycdb
