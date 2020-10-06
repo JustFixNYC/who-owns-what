@@ -50,8 +50,8 @@ select distinct on (registrations.bbl)
   rentstab.rsunits2007,
   rentstab.rsunits2017,
   rentstab.rsunitslatest,
-  -- Year of most recent rent stab data, hard coded in
-  2019 rsunitslatestyear,
+  -- Year of most recent rent stab data:
+  2019 as rsunitslatestyear,
   rentstab.rsdiff,
   firstdeeds.documentid as lastsaleacrisid,
   firstdeeds.docdate as lastsaledate,
