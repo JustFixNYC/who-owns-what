@@ -148,7 +148,7 @@ const RsUnits = () => {
       {({ i18n }) => (
         <div
           title={i18n._(
-            t`This tracks how rent stabilized units in the building have changed (i.e. "${delta}") from 2007 to ${addr.rsunitslatestyear}. If the number for 2019 is red, this means there has been a loss in stabilzied units! These counts are estimated from the DOF Property Tax Bills.`
+            t`This tracks how rent stabilized units in the building have changed (i.e. "${delta}") from 2007 to ${addr.rsunitslatestyear}. If the number for ${addr.rsunitslatestyear} is red, this means there has been a loss in stabilzied units! These counts are estimated from the DOF Property Tax Bills.`
           )}
         >
           <label>
