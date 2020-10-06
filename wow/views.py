@@ -38,7 +38,6 @@ def clean_addr_dict(addr):
         "bin": str(addr['bin']),
         "lastsaleamount": int_or_none(addr['lastsaleamount']),
         "registrationid": str(addr['registrationid']),
-        "rspercentchange": float_or_none(addr['rspercentchange']),
     }
 
 
