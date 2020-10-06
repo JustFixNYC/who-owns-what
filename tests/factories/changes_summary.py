@@ -7,6 +7,7 @@ class ChangesSummary(NamedTuple):
     unitsstab2007: str = '10'
     unitsstab2017: str = '10'
     diff: str = '0'
+    percentchange: str = '0'
     j51: str = '2010 - 2017'
     PY_421a: str = ''
     scrie: str = ''
