@@ -126,8 +126,8 @@ export const SAMPLE_SUMMARY_DATA: SummaryResults = {
       totalrsgain: 121,
       totalrsloss: -307,
       totalrsdiff: -186,
-      rsproportion: 12.4,
       avgrspercent: -34.1,
+      rsproportion: 12.4,
       rslossaddr: {
         housenumber: "160",
         streetname: "HAVEMEYER STREET",
