@@ -38,7 +38,6 @@ def clean_addr_dict(addr):
         "bin": str(addr['bin']),
         "lastsaleamount": int_or_none(addr['lastsaleamount']),
         "registrationid": str(addr['registrationid']),
-        "rspercentchange": float_or_none(addr['rspercentchange']),
     }
 
 
@@ -82,7 +81,6 @@ def clean_agg_info_dict(agg_info):
         **agg_info,
         "age": int_or_none(agg_info['age']),
         "avgevictions": float_or_none(agg_info['avgevictions']),
-        "avgrspercent": float_or_none(agg_info['avgrspercent']),
         "openviolationsperbldg": float_or_none(agg_info['openviolationsperbldg']),
         "openviolationsperresunit": float_or_none(agg_info['openviolationsperresunit']),
         "rsproportion": float_or_none(agg_info['rsproportion']),
