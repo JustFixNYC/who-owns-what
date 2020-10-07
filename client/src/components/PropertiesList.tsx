@@ -30,6 +30,7 @@ const PropertiesListWithoutI18n: React.FC<
   const locale = (i18n.language as SupportedLocale) || "en";
 
   const addrs = props.state.context.portfolioData.assocAddrs;
+  const rsunitslatestyear = props.state.context.portfolioData.searchAddr.rsunitslatestyear;
   return (
     <div className="PropertiesList">
       <ReactTable
@@ -95,17 +96,17 @@ const PropertiesListWithoutI18n: React.FC<
                 maxWidth: 75,
               },
               {
-                Header: "2017",
-                accessor: (d) => d.rsunits2017,
-                id: "rsunits2017",
+                Header: rsunitslatestyear,
+                accessor: (d) => d.rsunitslatest,
+                id: "rsunitslatest",
                 Cell: (row) => {
                   return (
                     <span
                       className={`${
-                        row.original.rsunits2017 < row.original.rsunits2007 ? "text-danger" : ""
+                        row.original.rsunitslatest < row.original.rsunits2007 ? "text-danger" : ""
                       }`}
                     >
-                      {row.original.rsunits2017}
+                      {row.original.rsunitslatest}
                     </span>
                   );
                 },
