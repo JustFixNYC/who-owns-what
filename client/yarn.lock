@@ -2244,7 +2244,7 @@
   resolved "https://registry.yarnpkg.com/@justfixnyc/geosearch-requester/-/geosearch-requester-0.0.6.tgz#af3144a8b599e45ad3ce5c2190fc60da81106475"
   integrity sha512-wHsY9DbiQUp7H/KiQ4+ejTShR6lY3iagiFhw4VoP1kljyem+WIwEkiZNnvUHkOAQIkTtPulLaiKHEMpzaw9xZQ==
 
-"@justfixnyc/react-common@0.0.3":
+"@justfixnyc/react-common@^0.0.3":
   version "0.0.3"
   resolved "https://registry.yarnpkg.com/@justfixnyc/react-common/-/react-common-0.0.3.tgz#c5ae7c7931487ab6256c525339d12bebddf1f482"
   integrity sha512-HYRPG1NADdr7oQwZ/bl0Hluo0ckaKW2QWnsCYJhrKP4ubDLyNZGzDOTPqO6zUGZZ4mUG4iQmdpSbugNcGFsPjA==
