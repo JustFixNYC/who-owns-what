@@ -47,9 +47,10 @@ export type AddressRecord = {
   registrationenddate: APIDate;
   registrationid: string;
   rsdiff: number | null;
-  rspercentchange: number | null;
   rsunits2007: number | null;
   rsunits2017: number | null;
+  rsunitslatest: number | null;
+  rsunitslatestyear: number;
   streetname: string;
   totalviolations: number;
   unitsres: number | null;
@@ -87,7 +88,6 @@ type HpdViolationsAddress = AddressLocation & {
 export type SummaryStatsRecord = {
   age: number | null;
   avgevictions: number | null;
-  avgrspercent: number | null;
   bldgs: number;
   evictionsaddr: EvictionAddress;
   openviolationsperbldg: number;

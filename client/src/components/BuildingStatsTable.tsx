@@ -23,6 +23,8 @@ const bblDash = (
   </span>
 );
 
+const delta = "Δ";
+
 const BBL = () => {
   const addr = useContext(AddrContext).getBuildingStats();
   const { boro, block, lot } = Helpers.splitBBL(addr.bbl);
@@ -146,7 +148,7 @@ const RsUnits = () => {
       {({ i18n }) => (
         <div
           title={i18n._(
-            t`This tracks how rent stabilized units in the building have changed (i.e. "&Delta;") from 2007 to 2017. If the number for 2017 is red, this means there has been a loss in stabilzied units! These counts are estimated from the DOF Property Tax Bills.`
+            t`This tracks how rent stabilized units in the building have changed (i.e. "${delta}") from 2007 to ${addr.rsunitslatestyear}. If the number for ${addr.rsunitslatestyear} is red, this means there has been a loss in stabilzied units! These counts are estimated from the DOF Property Tax Bills.`
           )}
         >
           <label>
@@ -156,12 +158,12 @@ const RsUnits = () => {
           <span>&#x21FE;</span>
           <span
             className={`${
-              addr.rsunits2007 && addr.rsunits2017 && addr.rsunits2017 < addr.rsunits2007
+              addr.rsunits2007 && addr.rsunitslatest && addr.rsunitslatest < addr.rsunits2007
                 ? "text-danger"
                 : ""
             }`}
           >
-            {addr.rsunits2017 !== null ? addr.rsunits2017 : "N/A"}
+            {addr.rsunitslatest !== null ? addr.rsunitslatest : "N/A"}
           </span>
         </div>
       )}
