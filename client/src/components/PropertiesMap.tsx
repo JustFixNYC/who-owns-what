@@ -10,7 +10,7 @@ import "styles/PropertiesMap.css";
 import "mapbox-gl/src/css/mapbox-gl.css";
 import { Trans, Select } from "@lingui/macro";
 import { AddressRecord } from "./APIDataTypes";
-import { Props as MapboxMapProps } from "react-mapbox-gl/lib/map";
+import { FitBounds, Props as MapboxMapProps } from "react-mapbox-gl/lib/map";
 import { Events as MapboxMapEvents } from "react-mapbox-gl/lib/map-events";
 import { withMachineInStateProps } from "state-machine";
 
@@ -24,7 +24,7 @@ type State = {
   hasWebGLContext: boolean;
   mapRef: any | null;
   mobileLegendSlide: boolean;
-  addrsBounds: number[][];
+  addrsBounds: FitBounds;
   addrsPoints: JSX.Element[];
   mapProps: MapboxMapProps & MapboxMapEvents;
 };
@@ -98,7 +98,7 @@ export default class PropertiesMap extends Component<Props, State> {
       hasWebGLContext: MapHelpers.hasWebGLContext(),
       mapRef: null,
       mobileLegendSlide: false,
-      addrsBounds: [[]], // bounds are represented as a 2d array of lnglats
+      addrsBounds: DEFAULT_FIT_BOUNDS, // bounds are represented as a 2d array of lnglats
       addrsPoints: [], // array of Features
       mapProps: {
         onStyleLoad: (map, _) => this.setState({ mapLoading: false, mapRef: map }),
@@ -184,10 +184,10 @@ export default class PropertiesMap extends Component<Props, State> {
 
       // build a bounding box around our new detail addr
       const newBounds = !!(lat && lng)
-        ? [
+        ? ([
             [lng - DETAIL_OFFSET, lat - DETAIL_OFFSET],
             [lng + DETAIL_OFFSET, lat + DETAIL_OFFSET],
-          ]
+          ] as FitBounds)
         : this.state.mapProps.fitBounds;
       this.setState({
         mapProps: {
