@@ -30,9 +30,9 @@ type State = {
 };
 
 const MAPBOX_ACCESS_TOKEN =
-  "pk.eyJ1IjoiZGFuLWthc3MiLCJhIjoiY2lsZTFxemtxMGVpdnVoa3BqcjI3d3Q1cCJ9.IESJdCy8fmykXbb626NVEw";
+  "pk.eyJ1IjoianVzdGZpeCIsImEiOiJja2hldmIxMmEwODVyMnNtZ2NkNGEyNjd0In0.4Piymx4ObHhSPq1K4MOZkw";
 
-const MAPBOX_STYLE = "mapbox://styles/dan-kass/cj657o2qu601z2rqbp1jgiys5";
+const MAPBOX_STYLE = "mapbox://styles/justfix/ckhevcljr02jg19l3jtw9h9w6";
 
 const Map = ReactMapboxGl({
   accessToken: MAPBOX_ACCESS_TOKEN,
