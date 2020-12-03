@@ -1,4 +1,4 @@
--- https://github.com/JDBurnZ/postgresql-anyarray/blob/master/stable/anyarray_uniq.sql
+-- SOURCE: https://github.com/JDBurnZ/postgresql-anyarray/blob/master/stable/anyarray_uniq.sql
 DROP FUNCTION IF EXISTS anyarray_uniq(anyarray);
 CREATE OR REPLACE FUNCTION anyarray_uniq(with_array anyarray)
 	RETURNS anyarray AS
@@ -37,7 +37,7 @@ $BODY$
  END;
 $BODY$ LANGUAGE plpgsql;
 
--- https://github.com/aepyornis/hpd/blob/master/sql/anyarray_remove_null.sql
+-- SOURCE: https://github.com/JDBurnZ/postgresql-anyarray/blob/master/stable/anyarray_remove_null.sql
 DROP FUNCTION IF EXISTS anyarray_remove_null(anyarray);
 CREATE OR REPLACE FUNCTION anyarray_remove_null(from_array anyarray)
         RETURNS anyarray AS
@@ -60,7 +60,8 @@ $BODY$
         END;
 $BODY$ LANGUAGE plpgsql;
 
---  see: https://stackoverflow.com/questions/22677463/how-to-merge-all-integer-arrays-from-all-records-into-single-array-in-postgres/22677955#22677955
+-- HELPFUL LINKS:
+-- https://stackoverflow.com/questions/22677463/how-to-merge-all-integer-arrays-from-all-records-into-single-array-in-postgres/22677955#22677955
 DROP AGGREGATE IF EXISTS array_cat_agg(anyarray);
 CREATE AGGREGATE array_cat_agg(anyarray) (
   SFUNC=array_cat,
@@ -85,7 +86,7 @@ $$ LANGUAGE SQL;
 
 
 
-
+-- HELPFUL LINKS:
 -- http://blog.scoutapp.com/articles/2016/07/12/how-to-make-text-searches-in-postgresql-faster-with-trigram-similarity
 -- http://www.postgresonline.com/journal/archives/169-Fuzzy-string-matching-with-Trigram-and-Trigraphs.html
 
