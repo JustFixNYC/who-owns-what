@@ -50,7 +50,7 @@ function getBestDefaultLocale(): SupportedLocale {
  * Return null if there is no locale, or if it's an unsupported one.
  */
 export function parseLocaleFromPath(path: string): SupportedLocale | null {
-  const localeMatch = path.match(/^\/([a-z][a-z])\//);
+  const localeMatch = path.match(/^\/([a-z][a-z])/);
   if (localeMatch) {
     const code = localeMatch[1];
     if (isSupportedLocale(code)) {
