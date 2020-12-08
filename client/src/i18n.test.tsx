@@ -18,6 +18,10 @@ describe("i18n", () => {
     expect(parseLocaleFromPath("/es/blarf")).toBe("es");
   });
 
+  it("parses locales from paths even when there's no trailing slash", () => {
+    expect(parseLocaleFromPath("/en")).toBe("en");
+  });
+
   it("parses nothing from paths when locale is not present", () => {
     expect(parseLocaleFromPath("/blarf")).toBe(null);
   });
