@@ -31,7 +31,6 @@ rentstab as (
   select
     ucbbl,
     coalesce(unitsstab2007, 0) rsunits2007,
-    coalesce(unitsstab2017, 0) rsunits2017,
     coalesce(uc2019, 0) rsunitslatest,
     coalesce(uc2019, 0) - coalesce(unitsstab2007, 0) rsdiff
   from rentstab_summary
@@ -48,7 +47,6 @@ select distinct on (registrations.bbl)
   pluto.lng,
   evictions.evictions,
   rentstab.rsunits2007,
-  rentstab.rsunits2017,
   rentstab.rsunitslatest,
   -- Year of most recent rent stab data:
   2019 as rsunitslatestyear,
