@@ -13,6 +13,10 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
+#: src/components/SocialShare.tsx:55
+msgid "#WhoOwnsWhat via @JustFixNYC"
+msgstr "#WhoOwnsWhat via @JustFixNYC"
+
 #: src/components/DetailView.tsx:151
 msgid "(as part of a group sale)"
 msgstr "(as part of a group sale)"
@@ -667,8 +671,8 @@ msgid "This is the official identifer for the building according to the Dept. of
 msgstr "This is the official identifer for the building according to the Dept. of Finance tax records."
 
 #: src/components/SocialShare.tsx:54
-msgid "This landlord owns {buildings} buildings, and according to @NYCHousing, has received a total of {portfolioViolations} violations. See more data analysis here (#WhoOwnsWhat via @JustFixNYC):"
-msgstr "This landlord owns {buildings} buildings, and according to @NYCHousing, has received a total of {portfolioViolations} violations. See more data analysis here (#WhoOwnsWhat via @JustFixNYC):"
+msgid "This landlord owns {buildings} buildings, and according to @NYCHousing, has received a total of {portfolioViolations} violations. See more data analysis here:"
+msgstr "This landlord owns {buildings} buildings, and according to @NYCHousing, has received a total of {portfolioViolations} violations. See more data analysis here:"
 
 #: src/components/SocialShare.tsx:56
 msgid "This landlord’s buildings average {violationsPerUnit} open HPD violations per apartment"

@@ -18,6 +18,10 @@ msgstr ""
 "X-Crowdin-File: /master/client/src/locales/en/messages.po\n"
 "X-Crowdin-File-ID: 31\n"
 
+#: src/components/SocialShare.tsx:55
+msgid "#WhoOwnsWhat via @JustFixNYC"
+msgstr ""
+
 #: src/components/DetailView.tsx:151
 msgid "(as part of a group sale)"
 msgstr "(como parte de una venta en grupo)"
@@ -672,7 +676,7 @@ msgid "This is the official identifer for the building according to the Dept. of
 msgstr "El identificador oficial del edificio según los registros del Departamento de Finanzas."
 
 #: src/components/SocialShare.tsx:54
-msgid "This landlord owns {buildings} buildings, and according to @NYCHousing, has received a total of {portfolioViolations} violations. See more data analysis here (#WhoOwnsWhat via @JustFixNYC):"
+msgid "This landlord owns {buildings} buildings, and according to @NYCHousing, has received a total of {portfolioViolations} violations. See more data analysis here:"
 msgstr ""
 
 #: src/components/SocialShare.tsx:56

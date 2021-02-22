@@ -21,6 +21,11 @@ const SocialShareWithoutI18n: React.FC<{
   location?: string;
   url?: string;
   twitterMessage?: string;
+  /**
+   * (Optional) This piece of text shows up at the end of the tweet,
+   * *after* any url included in the message.
+   */
+  tweetCloseout?: string;
   emailSubject?: string;
   emailBody?: string;
 }> = (props) => {
@@ -49,7 +54,9 @@ const SocialShareWithoutI18n: React.FC<{
         }}
         className="btn btn-steps"
         windowOptions={["width=400", "height=200"]}
-        url={props.url || localizedSiteOrigin}
+        url={
+          (props.url || localizedSiteOrigin) + (!!props.tweetCloseout && ` ${props.tweetCloseout}`)
+        }
         message={props.twitterMessage || i18n._(DEFAULT_TWEET)}
       >
         <img src={twitterIcon} className="icon mx-1" alt="Twitter" />
@@ -113,11 +120,14 @@ const SocialSharePortfolioWithoutI18n: React.FC<{
       twitterMessage={
         location === "summary-tab"
           ? i18n._(
-              t`This landlord owns ${buildings} buildings, and according to @NYCHousing, has received a total of ${portfolioViolations} violations. See more data analysis here (#WhoOwnsWhat via @JustFixNYC): `
+              t`This landlord owns ${buildings} buildings, and according to @NYCHousing, has received a total of ${portfolioViolations} violations. See more data analysis here: `
             )
           : i18n._(
               t`I used #WhoOwnsWhat (built by @JustFixNYC) to see not only the open violations in this building, but also rent stabilized losses, evictions, and more. This website is a wealth of info and costs nothing to use. Savvy New Yorkers need this info: `
             )
+      }
+      tweetCloseout={
+        location === "summary-tab" ? i18n._(t`#WhoOwnsWhat via @JustFixNYC`) : undefined
       }
       emailSubject={
         location === "summary-tab"
