@@ -11,14 +11,22 @@ import { FB_APP_ID } from "./Page";
 import { Borough } from "./APIDataTypes";
 import { getSiteOrigin, createAddressPageRoutes } from "../routes";
 
+const DEFAULT_TWEET = t`Who’s responsible for issues in your apartment and building? Use #WhoOwnsWhat, a free tool to research property owners in NYC using public, open data. Built by @JustFixNYC, it functions on any device with an internet connection. Search your address here: `;
+const DEFAULT_EMAIL_SUBJECT = t`All the public info on your landlord`;
+const getDefaultEmailBody = (url: string) =>
+  t`Who Owns What is a free tool built by JustFix.nyc to research property owners in NYC. It has helped over 200,000 New Yorkers find out who really owns their buildings, what other buildings that their landlord or management company owns, and other critical information about code violations, evictions, rent stabilized units, and so much more in any given building. You can look up any residential building located in NYC, even public housing (NYCHA) buildings! Search your address here: ${url}`;
+
 const SocialShareWithoutI18n: React.FC<{
   i18n: I18n;
   location?: string;
   url?: string;
   twitterMessage?: string;
-  emailMessage?: string;
+  emailSubject?: string;
+  emailBody?: string;
 }> = (props) => {
   const { i18n } = props;
+
+  const localizedSiteOrigin = `${getSiteOrigin()}/${i18n.language}`;
 
   return (
     <div className="btn-group btns-social btn-group-block">
@@ -29,7 +37,7 @@ const SocialShareWithoutI18n: React.FC<{
         className="btn btn-steps"
         sharer={true}
         windowOptions={["width=400", "height=200"]}
-        url={props.url || getSiteOrigin()}
+        url={props.url || localizedSiteOrigin}
         appId={FB_APP_ID}
       >
         <img src={fbIcon} className="icon mx-1" alt="Facebook" />
@@ -41,8 +49,8 @@ const SocialShareWithoutI18n: React.FC<{
         }}
         className="btn btn-steps"
         windowOptions={["width=400", "height=200"]}
-        url={props.url || getSiteOrigin()}
-        message={props.twitterMessage || `#WhoOwnsWhat @JustFixNYC`}
+        url={props.url || localizedSiteOrigin}
+        message={props.twitterMessage || i18n._(DEFAULT_TWEET)}
       >
         <img src={twitterIcon} className="icon mx-1" alt="Twitter" />
         <span>Twitter</span>
@@ -52,11 +60,10 @@ const SocialShareWithoutI18n: React.FC<{
           window.gtag("event", "email-" + props.location);
         }}
         className="btn btn-steps"
-        url={props.url || getSiteOrigin()}
+        // NOTE: EmailButton components use the `url` prop for the full body of the email.
+        url={props.emailBody || i18n._(getDefaultEmailBody(localizedSiteOrigin))}
         target="_blank"
-        message={
-          props.emailMessage || i18n._(t`New JustFix.nyc tool helps research on NYC landlords`)
-        }
+        message={props.emailSubject || i18n._(DEFAULT_EMAIL_SUBJECT)}
       >
         <i className="icon icon-mail mx-2" />
         <Trans render="span">Email</Trans>
@@ -71,7 +78,7 @@ const SocialShareWithoutI18n: React.FC<{
             "sms: " +
             (isAndroid ? "?" : "&") +
             "body=" +
-            encodeURIComponent(props.url || getSiteOrigin())
+            encodeURIComponent(props.url || localizedSiteOrigin)
           }
           target="_blank"
           rel="noopener noreferrer"
@@ -105,7 +112,7 @@ const SocialSharePortfolioWithoutI18n: React.FC<{
       twitterMessage={i18n._(
         t`The ${buildingCount} buildings that my landlord owns 👀... #WhoOwnsWhat @JustFixNYC`
       )}
-      emailMessage={i18n._(
+      emailSubject={i18n._(
         t`The ${buildingCount} buildings owned by my landlord (via JustFix's Who Owns What tool)`
       )}
     />
