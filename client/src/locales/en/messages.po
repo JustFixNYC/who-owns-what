@@ -50,7 +50,7 @@ msgid "ANHD DAP Portal"
 msgstr "ANHD DAP Portal"
 
 #: src/containers/AboutPage.tsx:13
-#: src/containers/App.tsx:88
+#: src/containers/App.tsx:89
 msgid "About"
 msgstr "About"
 
@@ -69,6 +69,10 @@ msgstr "Address"
 #: src/components/Subscribe.tsx:39
 msgid "All set! Thanks for subscribing!"
 msgstr "All set! Thanks for subscribing!"
+
+#: src/components/SocialShare.tsx:11
+msgid "All the public info on your landlord"
+msgstr "All the public info on your landlord"
 
 #: src/components/PropertiesList.tsx:145
 msgid "Amount"
@@ -182,7 +186,7 @@ msgstr "DOF Property Tax Bills"
 msgid "Date"
 msgstr "Date"
 
-#: src/containers/App.tsx:81
+#: src/containers/App.tsx:82
 msgid "Demo Site"
 msgstr "Demo Site"
 
@@ -191,7 +195,7 @@ msgid "Disclaimer: The information in JustFix.nyc does not constitute legal advi
 msgstr "Disclaimer: The information in JustFix.nyc does not constitute legal advice and must not be used as a substitute for the advice of a lawyer qualified to give advice on legal issues pertaining to housing. We can help direct you to free legal services if necessary."
 
 #: src/components/LegalFooter.tsx:33
-#: src/containers/App.tsx:94
+#: src/containers/App.tsx:95
 msgid "Donate"
 msgstr "Donate"
 
@@ -199,7 +203,7 @@ msgstr "Donate"
 msgid "Download"
 msgstr "Download"
 
-#: src/components/SocialShare.tsx:29
+#: src/components/SocialShare.tsx:35
 msgid "Email"
 msgstr "Email"
 
@@ -275,7 +279,7 @@ msgstr "HUD Complaint Form 958"
 msgid "Have thoughts about this page?"
 msgstr "Have thoughts about this page?"
 
-#: src/containers/App.tsx:85
+#: src/containers/App.tsx:86
 msgid "Home"
 msgstr "Home"
 
@@ -284,10 +288,22 @@ msgstr "Home"
 msgid "How is this building associated to this portfolio?"
 msgstr "How is this building associated to this portfolio?"
 
-#: src/containers/App.tsx:91
+#: src/containers/App.tsx:92
 #: src/containers/HowToUsePage.tsx:13
 msgid "How to use"
 msgstr "How to use"
+
+#: src/components/SocialShare.tsx:59
+msgid "I just looked up this building on Who Owns What, a free tool built by JustFix.nyc to make data on landlords and evictors more transparent to tenants. You might want to look up your building. Check it out here: {url}."
+msgstr "I just looked up this building on Who Owns What, a free tool built by JustFix.nyc to make data on landlords and evictors more transparent to tenants. You might want to look up your building. Check it out here: {url}."
+
+#: src/components/SocialShare.tsx:55
+msgid "I used #WhoOwnsWhat (built by @JustFixNYC) to see not only the open violations in this building, but also rent stabilized losses, evictions, and more. This website is a wealth of info and costs nothing to use. Savvy New Yorkers need this info:"
+msgstr "I used #WhoOwnsWhat (built by @JustFixNYC) to see not only the open violations in this building, but also rent stabilized losses, evictions, and more. This website is a wealth of info and costs nothing to use. Savvy New Yorkers need this info:"
+
+#: src/components/SocialShare.tsx:58
+msgid "I was checking out this building on Who Owns What, a free landlord research tool from JustFix.nyc. It’s a remarkable website that every tenant and housing advocate should know about! Can you guess how many total violations this landlord portfolio has? Check it out here: {url}."
+msgstr "I was checking out this building on Who Owns What, a free landlord research tool from JustFix.nyc. It’s a remarkable website that every tenant and housing advocate should know about! Can you guess how many total violations this landlord portfolio has? Check it out here: {url}."
 
 #: src/components/EvictionsSummary.tsx:8
 msgid "In 2019, NYC Marshals scheduled {totalEvictions, plural, one {one eviction} other {# evictions}} across this portfolio."
@@ -391,10 +407,6 @@ msgstr "MyNYCHA App"
 #: src/containers/NychaPage.tsx:160
 msgid "NYCHA Directory"
 msgstr "NYCHA Directory"
-
-#: src/components/SocialShare.tsx:27
-msgid "New JustFix.nyc tool helps research on NYC landlords"
-msgstr "New JustFix.nyc tool helps research on NYC landlords"
 
 #: src/components/AddressToolbar.tsx:26
 msgid "New Search"
@@ -522,7 +534,7 @@ msgstr "Send us a data request"
 msgid "Send us feedback!"
 msgstr "Send us feedback!"
 
-#: src/containers/App.tsx:98
+#: src/containers/App.tsx:99
 msgid "Share"
 msgstr "Share"
 
@@ -530,7 +542,7 @@ msgstr "Share"
 #: src/components/DetailView.tsx:238
 #: src/components/EngagementPanel.tsx:18
 #: src/components/PropertiesSummary.tsx:111
-#: src/containers/App.tsx:104
+#: src/containers/App.tsx:105
 #: src/containers/NotRegisteredPage.tsx:14
 msgid "Share this page with your neighbors"
 msgstr "Share this page with your neighbors"
@@ -622,14 +634,6 @@ msgstr "The year that this building was originally constructed, according to the
 msgid "The {0, plural, one {} other {average}} age of {1, plural, one {this building} other {these buildings}} is <0>{2}</0> years old."
 msgstr "The {0, plural, one {} other {average}} age of {1, plural, one {this building} other {these buildings}} is <0>{2}</0> years old."
 
-#: src/components/SocialShare.tsx:48
-msgid "The {buildingCount} buildings owned by my landlord (via JustFix's Who Owns What tool)"
-msgstr "The {buildingCount} buildings owned by my landlord (via JustFix's Who Owns What tool)"
-
-#: src/components/SocialShare.tsx:48
-msgid "The {buildingCount} buildings that my landlord owns 👀... #WhoOwnsWhat @JustFixNYC"
-msgstr "The {buildingCount} buildings that my landlord owns 👀... #WhoOwnsWhat @JustFixNYC"
-
 #: src/components/PropertiesSummary.tsx:43
 msgid "There {0, plural, one {<0>is <1>1</1> building</0>} other {<2>are <3>{1}</3> buildings</2>}} in this portfolio with a total of {2, plural, one {1 unit} other {# units}}."
 msgstr "There {0, plural, one {<0>is <1>1</1> building</0>} other {<2>are <3>{1}</3> buildings</2>}} in this portfolio with a total of {2, plural, one {1 unit} other {# units}}."
@@ -661,6 +665,14 @@ msgstr "This is <0>worse</0> than the citywide average of {VIOLATIONS_AVG} per r
 #: src/components/BuildingStatsTable.tsx:19
 msgid "This is the official identifer for the building according to the Dept. of Finance tax records."
 msgstr "This is the official identifer for the building according to the Dept. of Finance tax records."
+
+#: src/components/SocialShare.tsx:54
+msgid "This landlord owns {buildings} buildings, and according to @NYCHousing, has received a total of {portfolioViolations} violations. See more data analysis here (#WhoOwnsWhat via @JustFixNYC):"
+msgstr "This landlord owns {buildings} buildings, and according to @NYCHousing, has received a total of {portfolioViolations} violations. See more data analysis here (#WhoOwnsWhat via @JustFixNYC):"
+
+#: src/components/SocialShare.tsx:56
+msgid "This landlord’s buildings average {violationsPerUnit} open HPD violations per apartment"
+msgstr "This landlord’s buildings average {violationsPerUnit} open HPD violations per apartment"
 
 #: src/components/RentstabSummary.tsx:14
 msgid "This portfolio also had an estimated <0>net {changeType, select, gain {gain} other {loss}}</0> of <1>{absTotalRsDiff}</1> {absTotalRsDiff, plural, one {rent stabilized unit} other {rent stabilized units}} since 2007 (gained {absTotalRsGain}, lost {absTotalRsLoss})."
@@ -774,7 +786,7 @@ msgstr "Violations Issued"
 msgid "Visit our website"
 msgstr "Visit our website"
 
-#: src/containers/App.tsx:73
+#: src/containers/App.tsx:74
 msgid "Warning! This site doesn't fully work on older versions of Safari. Try a <0>modern browser</0>."
 msgstr "Warning! This site doesn't fully work on older versions of Safari. Try a <0>modern browser</0>."
 
@@ -790,6 +802,10 @@ msgstr "What are {0}?"
 msgid "What happens if the landlord has failed to register?"
 msgstr "What happens if the landlord has failed to register?"
 
+#: src/components/SocialShare.tsx:12
+msgid "Who Owns What is a free tool built by JustFix.nyc to research property owners in NYC. It has helped over 200,000 New Yorkers find out who really owns their buildings, what other buildings that their landlord or management company owns, and other critical information about code violations, evictions, rent stabilized units, and so much more in any given building. You can look up any residential building located in NYC, even public housing (NYCHA) buildings! Search your address here: {url}."
+msgstr "Who Owns What is a free tool built by JustFix.nyc to research property owners in NYC. It has helped over 200,000 New Yorkers find out who really owns their buildings, what other buildings that their landlord or management company owns, and other critical information about code violations, evictions, rent stabilized units, and so much more in any given building. You can look up any residential building located in NYC, even public housing (NYCHA) buildings! Search your address here: {url}."
+
 #: src/containers/App.tsx:29
 msgid "Who owns what in n y c?"
 msgstr "Who owns what in n y c?"
@@ -800,6 +816,10 @@ msgstr "Who owns what in n y c?"
 #: src/containers/App.tsx:32
 msgid "Who owns what in nyc?"
 msgstr "Who owns what in nyc?"
+
+#: src/components/SocialShare.tsx:10
+msgid "Who’s responsible for issues in your apartment and building? Use #WhoOwnsWhat, a free tool to research property owners in NYC using public, open data. Built by @JustFixNYC, it functions on any device with an internet connection. Search your address here:"
+msgstr "Who’s responsible for issues in your apartment and building? Use #WhoOwnsWhat, a free tool to research property owners in NYC using public, open data. Built by @JustFixNYC, it functions on any device with an internet connection. Search your address here:"
 
 #: src/components/Indicators.tsx:192
 msgid "Year"

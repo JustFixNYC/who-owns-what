@@ -14,7 +14,7 @@ import { getSiteOrigin, createAddressPageRoutes } from "../routes";
 const DEFAULT_TWEET = t`Who’s responsible for issues in your apartment and building? Use #WhoOwnsWhat, a free tool to research property owners in NYC using public, open data. Built by @JustFixNYC, it functions on any device with an internet connection. Search your address here: `;
 const DEFAULT_EMAIL_SUBJECT = t`All the public info on your landlord`;
 const getDefaultEmailBody = (url: string) =>
-  t`Who Owns What is a free tool built by JustFix.nyc to research property owners in NYC. It has helped over 200,000 New Yorkers find out who really owns their buildings, what other buildings that their landlord or management company owns, and other critical information about code violations, evictions, rent stabilized units, and so much more in any given building. You can look up any residential building located in NYC, even public housing (NYCHA) buildings! Search your address here: ${url}`;
+  t`Who Owns What is a free tool built by JustFix.nyc to research property owners in NYC. It has helped over 200,000 New Yorkers find out who really owns their buildings, what other buildings that their landlord or management company owns, and other critical information about code violations, evictions, rent stabilized units, and so much more in any given building. You can look up any residential building located in NYC, even public housing (NYCHA) buildings! Search your address here: ${url}.`;
 
 const SocialShareWithoutI18n: React.FC<{
   i18n: I18n;
@@ -98,9 +98,10 @@ const SocialSharePortfolioWithoutI18n: React.FC<{
   i18n: I18n;
   location: "overview-tab" | "summary-tab";
   addr: { boro: Borough; housenumber?: string; streetname: string };
-  buildings: number;
-}> = ({ i18n, location, addr, buildings }) => {
-  const buildingCount = buildings || 0;
+  buildings?: number;
+  portfolioViolations?: number;
+  violationsPerUnit?: number;
+}> = ({ i18n, location, addr, buildings = 0, portfolioViolations = 0, violationsPerUnit = 0 }) => {
   const routes = createAddressPageRoutes(addr);
   const path = location === "summary-tab" ? routes.summary : routes.overview;
   const url = getSiteOrigin() + path;
@@ -109,12 +110,31 @@ const SocialSharePortfolioWithoutI18n: React.FC<{
       i18n={i18n}
       location={location}
       url={url}
-      twitterMessage={i18n._(
-        t`The ${buildingCount} buildings that my landlord owns 👀... #WhoOwnsWhat @JustFixNYC`
-      )}
-      emailSubject={i18n._(
-        t`The ${buildingCount} buildings owned by my landlord (via JustFix's Who Owns What tool)`
-      )}
+      twitterMessage={
+        location === "summary-tab"
+          ? i18n._(
+              t`This landlord owns ${buildings} buildings, and according to @NYCHousing, has received a total of ${portfolioViolations} violations. See more data analysis here (#WhoOwnsWhat via @JustFixNYC): `
+            )
+          : i18n._(
+              t`I used #WhoOwnsWhat (built by @JustFixNYC) to see not only the open violations in this building, but also rent stabilized losses, evictions, and more. This website is a wealth of info and costs nothing to use. Savvy New Yorkers need this info: `
+            )
+      }
+      emailSubject={
+        location === "summary-tab"
+          ? i18n._(
+              t` This landlord’s buildings average ${violationsPerUnit} open HPD violations per apartment`
+            )
+          : i18n._(`Check out the issues in this building`)
+      }
+      emailBody={
+        location === "summary-tab"
+          ? i18n._(
+              t`I was checking out this building on Who Owns What, a free landlord research tool from JustFix.nyc. It’s a remarkable website that every tenant and housing advocate should know about! Can you guess how many total violations this landlord portfolio has? Check it out here: ${url}.`
+            )
+          : i18n._(
+              t`I just looked up this building on Who Owns What, a free tool built by JustFix.nyc to make data on landlords and evictors more transparent to tenants. You might want to look up your building. Check it out here: ${url}.`
+            )
+      }
     />
   );
 };

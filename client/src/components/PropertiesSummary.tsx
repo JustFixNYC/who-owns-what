@@ -168,6 +168,8 @@ export default class PropertiesSummary extends Component<Props, {}> {
                       location="summary-tab"
                       addr={searchAddr}
                       buildings={agg.bldgs}
+                      portfolioViolations={agg.totalviolations}
+                      violationsPerUnit={agg.openviolationsperresunit}
                     />
                   </div>
                 </div>

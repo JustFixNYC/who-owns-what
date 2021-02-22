@@ -350,11 +350,7 @@ class DetailViewWithoutI18n extends Component<Props, State> {
                           <h6 className="DetailView__subtitle">
                             <Trans>Share this page with your neighbors</Trans>
                           </h6>
-                          <SocialSharePortfolio
-                            location="overview-tab"
-                            addr={detailAddr}
-                            buildings={portfolioSize}
-                          />
+                          <SocialSharePortfolio location="overview-tab" addr={detailAddr} />
                         </div>
                       </div>
                     </div>
