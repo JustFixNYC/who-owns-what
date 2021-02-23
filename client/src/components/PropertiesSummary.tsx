@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Trans, Plural } from "@lingui/macro";
+import { Trans, Plural, t } from "@lingui/macro";
 
 import Loader from "../components/Loader";
 import LegalFooter from "../components/LegalFooter";
@@ -9,7 +9,7 @@ import { EvictionsSummary } from "./EvictionsSummary";
 import { RentstabSummary } from "./RentstabSummary";
 import { ViolationsSummary } from "./ViolationsSummary";
 import { StringifyListWithConjunction } from "./StringifyList";
-import { SocialSharePortfolio } from "./SocialShare";
+import { SocialShareAddressPage } from "./SocialShare";
 import { withMachineInStateProps } from "state-machine";
 import { NetworkErrorMessage } from "./NetworkErrorMessage";
 
@@ -164,10 +164,15 @@ export default class PropertiesSummary extends Component<Props, {}> {
                     <h6 className="PropertiesSummary__linksSubtitle">
                       <Trans>Share this page with your neighbors</Trans>
                     </h6>
-                    <SocialSharePortfolio
+                    <SocialShareAddressPage
                       location="summary-tab"
-                      addr={searchAddr}
-                      buildings={agg.bldgs}
+                      customContent={{
+                        tweet: t`This landlord owns ${agg.bldgs} buildings, and according to @NYCHousing, has received a total of ${agg.totalviolations} violations. See more data analysis here: `,
+                        tweetCloseout: t`#WhoOwnsWhat via @JustFixNYC`,
+                        emailSubject: t` This landlord’s buildings average ${agg.openviolationsperresunit} open HPD violations per apartment`,
+                        getEmailBody: (url: string) =>
+                          t`I was checking out this building on Who Owns What, a free landlord research tool from JustFix.nyc. It’s a remarkable website that every tenant and housing advocate should know about! Can you guess how many total violations this landlord portfolio has? Check it out here: ${url}.`,
+                      }}
                     />
                   </div>
                 </div>

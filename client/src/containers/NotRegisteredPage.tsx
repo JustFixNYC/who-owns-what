@@ -3,11 +3,11 @@ import { LocaleLink as Link } from "../i18n";
 
 import "styles/NotRegisteredPage.css";
 import { Trans } from "@lingui/macro";
-import { createRouteForAddressPage, getSiteOrigin, AddressPageUrlParams } from "../routes";
+import { AddressPageUrlParams } from "../routes";
 import Modal from "../components/Modal";
 import LegalFooter from "../components/LegalFooter";
 import Helpers from "../util/helpers";
-import SocialShare from "../components/SocialShare";
+import { SocialShareAddressPage } from "../components/SocialShare";
 import { Nobr } from "../components/Nobr";
 import { withMachineInStateProps } from "state-machine";
 import Page from "components/Page";
@@ -23,10 +23,7 @@ export const SocialShareForNotRegisteredPage = (props: { addr?: AddressPageUrlPa
     <p>
       <Trans>Share this page with your neighbors</Trans>
     </p>
-    <SocialShare
-      location="not-registered-page"
-      url={props.addr ? `${getSiteOrigin()}${createRouteForAddressPage(props.addr)}` : undefined}
-    />
+    <SocialShareAddressPage location="not-registered-page" />
   </div>
 );
 
