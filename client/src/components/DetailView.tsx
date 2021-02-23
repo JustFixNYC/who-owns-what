@@ -8,8 +8,8 @@ import Modal from "../components/Modal";
 
 import "styles/DetailView.css";
 import { withI18n, withI18nProps } from "@lingui/react";
-import { Trans } from "@lingui/macro";
-import { SocialSharePortfolio } from "./SocialShare";
+import { t, Trans } from "@lingui/macro";
+import { SocialShareAddressPage } from "./SocialShare";
 import { isPartOfGroupSale } from "./PropertiesList";
 import { Link } from "react-router-dom";
 import { LocaleLink } from "../i18n";
@@ -31,6 +31,18 @@ type State = {
 };
 
 const getTodaysDate = () => new Date();
+
+const SocialShareDetailView = () => (
+  <SocialShareAddressPage
+    location="overview-tab"
+    customContent={{
+      tweet: t`I used #WhoOwnsWhat (built by @JustFixNYC) to see not only the open violations in this building, but also rent stabilized losses, evictions, and more. This website is a wealth of info and costs nothing to use. Savvy New Yorkers need this info: `,
+      emailSubject: t`Check out the issues in this building`,
+      getEmailBody: (url: string) =>
+        t`I just looked up this building on Who Owns What, a free tool built by JustFix.nyc to make data on landlords and evictors more transparent to tenants. You might want to look up your building. Check it out here: ${url}.`,
+    }}
+  />
+);
 
 class DetailViewWithoutI18n extends Component<Props, State> {
   constructor(props: Props) {
@@ -55,7 +67,6 @@ class DetailViewWithoutI18n extends Component<Props, State> {
     const isMobile = Browser.isMobile();
     const locale = (this.props.i18n.language as SupportedLocale) || "en";
     const { assocAddrs, detailAddr, searchAddr } = this.props.state.context.portfolioData;
-    const portfolioSize = assocAddrs.length;
 
     // Let's save some variables that will be helpful in rendering the front-end component
     let takeActionURL, formattedRegEndDate, streetViewAddr, ownernames, userOwnernames;
@@ -239,11 +250,7 @@ class DetailViewWithoutI18n extends Component<Props, State> {
                         <h6 className="DetailView__subtitle">
                           <Trans>Share this page with your neighbors</Trans>
                         </h6>
-                        <SocialSharePortfolio
-                          location="overview-tab"
-                          addr={detailAddr}
-                          buildings={portfolioSize}
-                        />
+                        <SocialShareDetailView />
                       </div>
                     </div>
                   </div>
@@ -350,11 +357,7 @@ class DetailViewWithoutI18n extends Component<Props, State> {
                           <h6 className="DetailView__subtitle">
                             <Trans>Share this page with your neighbors</Trans>
                           </h6>
-                          <SocialSharePortfolio
-                            location="overview-tab"
-                            addr={detailAddr}
-                            buildings={portfolioSize}
-                          />
+                          <SocialShareDetailView />
                         </div>
                       </div>
                     </div>

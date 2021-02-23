@@ -1,12 +1,12 @@
 import React from "react";
 import Subscribe from "./Subscribe";
-import SocialShare from "./SocialShare";
+import SocialShare, { SocialShareLocation } from "./SocialShare";
 
 import "styles/EngagementPanel.css";
 import { Trans } from "@lingui/macro";
 
 const EngagementPanel: React.FC<{
-  location?: string;
+  location: SocialShareLocation;
 }> = (props) => {
   return (
     <div className="EngagementPanel">

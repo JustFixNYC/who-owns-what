@@ -5,8 +5,15 @@ module "react-social" {
   type BaseProps = {
     onClick: () => void;
     className: string;
+    /**
+     * For EmailButton components, this prop becomes the BODY of the email itself,
+     * so it can be just a url or a larger string of text.
+     */
     url: string;
     windowOptions?: string[];
+    /**
+     * For EmailButton components, this prop becomes the SUBJECT of the email.
+     */
     message?: string;
   };
 
