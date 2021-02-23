@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2020-10-07 16:11\n"
+"PO-Revision-Date: 2021-02-23 14:44\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -20,7 +20,7 @@ msgstr ""
 
 #: src/components/PropertiesSummary.tsx:115
 msgid "#WhoOwnsWhat via @JustFixNYC"
-msgstr ""
+msgstr "#QuiénEsElDueño por @JustFixNYC"
 
 #: src/components/DetailView.tsx:155
 msgid "(as part of a group sale)"
@@ -81,7 +81,7 @@ msgstr "¡Todo listo! ¡Gracias por suscribirte!"
 
 #: src/components/SocialShare.tsx:13
 msgid "All the public info on your landlord"
-msgstr ""
+msgstr "Toda la información pública sobre el dueño/a de tu edificio"
 
 #: src/components/PropertiesList.tsx:145
 msgid "Amount"
@@ -153,7 +153,7 @@ msgstr "Entidades Comerciales"
 
 #: src/components/DetailView.tsx:20
 msgid "Check out the issues in this building"
-msgstr ""
+msgstr "Mira los problemas en este edificio"
 
 #: src/containers/NotRegisteredPage.tsx:178
 msgid "Civil penalties of $250-$500"
@@ -308,15 +308,15 @@ msgstr "Cómo se usa"
 
 #: src/components/DetailView.tsx:21
 msgid "I just looked up this building on Who Owns What, a free tool built by JustFix.nyc to make data on landlords and evictors more transparent to tenants. You might want to look up your building. Check it out here: {url}."
-msgstr ""
+msgstr "Justo busqué este edificio en Quién Es El Dueño, una herramienta gratis construido por JustFix.nyc que hace que la información sobre los dueños de edificios sea más transparente para los inquilinos. Sería bueno buscar tu edificio también. Míralo aquí: {url}."
 
 #: src/components/DetailView.tsx:19
 msgid "I used #WhoOwnsWhat (built by @JustFixNYC) to see not only the open violations in this building, but also rent stabilized losses, evictions, and more. This website is a wealth of info and costs nothing to use. Savvy New Yorkers need this info:"
-msgstr ""
+msgstr "Usé #QuiénEsElDueño (construido por @JustFixNYC) para ver no solo las violaciones del código de vivienda, sino también cuántos apartamentos con renta estabilizada se han perdido, desalojos, y más. Este sitio web no cuesta nada para usar. Ojo, neoyorquinos:"
 
 #: src/components/PropertiesSummary.tsx:117
 msgid "I was checking out this building on Who Owns What, a free landlord research tool from JustFix.nyc. It’s a remarkable website that every tenant and housing advocate should know about! Can you guess how many total violations this landlord portfolio has? Check it out here: {url}."
-msgstr ""
+msgstr "Estaba revisando este edificio en Quién Es El Dueño, una herramienta gratuita construida por JustFix.nyc. ¡Es un sitio web extraordinario que cada inquilino y defensor de viviendas debería saber sobre! ¿Puedes adivinar cuántas violaciones totales tiene este portafolio de este dueño? Míralo aquí: {url}."
 
 #: src/components/EvictionsSummary.tsx:8
 msgid "In 2019, NYC Marshals scheduled {totalEvictions, plural, one {one eviction} other {# evictions}} across this portfolio."
@@ -681,11 +681,11 @@ msgstr "El identificador oficial del edificio según los registros del Departame
 
 #: src/components/PropertiesSummary.tsx:114
 msgid "This landlord owns {0} buildings, and according to @NYCHousing, has received a total of {1} violations. See more data analysis here:"
-msgstr ""
+msgstr "Este dueño de edificio posee {0} edificios, y según @NYCHousing, ha recibido un total de {1} violaciones del código de vivienda. Ver más estadísticas aquí:"
 
 #: src/components/PropertiesSummary.tsx:116
 msgid "This landlord’s buildings average {0} open HPD violations per apartment"
-msgstr ""
+msgstr "Los edificios de este dueño tienen un promedio de {0} violaciones abiertas de HPD por cada apartamento"
 
 #: src/components/RentstabSummary.tsx:14
 msgid "This portfolio also had an estimated <0>net {changeType, select, gain {gain} other {loss}}</0> of <1>{absTotalRsDiff}</1> {absTotalRsDiff, plural, one {rent stabilized unit} other {rent stabilized units}} since 2007 (gained {absTotalRsGain}, lost {absTotalRsLoss})."
@@ -817,7 +817,7 @@ msgstr "¿Qué pasa si el propietario no ha registrado el edificio?"
 
 #: src/components/SocialShare.tsx:14
 msgid "Who Owns What is a free tool built by JustFix.nyc to research property owners in NYC. It has helped over 200,000 New Yorkers find out who really owns their buildings, what other buildings that their landlord or management company owns, and other critical information about code violations, evictions, rent stabilized units, and so much more in any given building. You can look up any residential building located in NYC, even public housing (NYCHA) buildings! Search your address here: {url}"
-msgstr ""
+msgstr "Quién Es El Dueño es una herramienta gratis construida por JustFix.nyc para investigar los dueños de edificios en NYC. Ha asistido más de 200.000 neoyorquinos a enterarse quien realmente son los responsables por sus edificios, cuales otros edificios su dueño o compañía de administración poseen, y otra información crítica sobre violaciones del código de vivienda, desalojos, apartamentos con renta estabilizada y mucho más en cualquier edificio. Puedes buscar información sobre cualquier edificio residencial, también incluyen viviendas públicas (NYCHA). Busca tu dirección aqui: {url}"
 
 #: src/containers/App.tsx:29
 msgid "Who owns what in n y c?"
@@ -832,7 +832,7 @@ msgstr "¿Quién Es El Dueño en Nueva York?"
 
 #: src/components/SocialShare.tsx:12
 msgid "Who’s responsible for issues in your apartment and building? Use #WhoOwnsWhat, a free tool to research property owners in NYC using public, open data. Built by @JustFixNYC, it functions on any device with an internet connection. Search your address here:"
-msgstr ""
+msgstr "¿Quién es responsable por los problemas en tu apartamento y edificio? Usa #QuiénEsElDueño, un sitio web gratis para investigar los dueños de edificios de NYC usando información pública y abierta. Construido por @JustFixNYC, funciona en celular y computadora. Busca tu dirección aquí:"
 
 #: src/components/Indicators.tsx:192
 msgid "Year"
