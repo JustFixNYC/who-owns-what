@@ -308,7 +308,7 @@ msgstr "Cómo se usa"
 
 #: src/components/DetailView.tsx:21
 msgid "I just looked up this building on Who Owns What, a free tool built by JustFix.nyc to make data on landlords and evictors more transparent to tenants. You might want to look up your building. Check it out here: {url}"
-msgstr "Justo busqué este edificio en Quién Es El Dueño, una herramienta gratis construido por JustFix.nyc que hace que la información sobre los dueños de edificios sea más transparente para los inquilinos. Sería bueno buscar tu edificio también. Míralo aquí: {url}"
+msgstr "Justo busqué este edificio en Quién Es El Dueño, una herramienta gratis construida por JustFix.nyc que hace que la información sobre los dueños de edificios sea más transparente para los inquilinos. Sería bueno buscar tu edificio también. Míralo aquí: {url}"
 
 #: src/components/DetailView.tsx:19
 msgid "I used #WhoOwnsWhat (built by @JustFixNYC) to see not only the open violations in this building, but also rent stabilized losses, evictions, and more. This website is a wealth of info and costs nothing to use. Savvy New Yorkers need this info:"
