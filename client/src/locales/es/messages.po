@@ -680,8 +680,8 @@ msgid "This is the official identifer for the building according to the Dept. of
 msgstr "El identificador oficial del edificio según los registros del Departamento de Finanzas."
 
 #: src/components/PropertiesSummary.tsx:114
-msgid "This landlord owns {0} buildings, and according to @NYCHousing, has received a total of {1} violations. See more data analysis here:"
-msgstr "Este dueño de edificio posee {0} edificios, y según @NYCHousing, ha recibido un total de {1} violaciones del código de vivienda. Ver más estadísticas aquí:"
+msgid "This landlord owns {0} buildings, and according to @NYCHousing, has received a total of {1} violations. Can you guess which landlord it is? Find their name and more data analysis here:"
+msgstr ""
 
 #: src/components/PropertiesSummary.tsx:116
 msgid "This landlord’s buildings average {0} open HPD violations per apartment"
