@@ -675,8 +675,8 @@ msgid "This is the official identifer for the building according to the Dept. of
 msgstr "This is the official identifer for the building according to the Dept. of Finance tax records."
 
 #: src/components/PropertiesSummary.tsx:114
-msgid "This landlord owns {0} buildings, and according to @NYCHousing, has received a total of {1} violations. See more data analysis here:"
-msgstr "This landlord owns {0} buildings, and according to @NYCHousing, has received a total of {1} violations. See more data analysis here:"
+msgid "This landlord owns {0} buildings, and according to @NYCHousing, has received a total of {1} violations. Can you guess which landlord it is? Find their name and more data analysis here:"
+msgstr "This landlord owns {0} buildings, and according to @NYCHousing, has received a total of {1} violations. Can you guess which landlord it is? Find their name and more data analysis here:"
 
 #: src/components/PropertiesSummary.tsx:116
 msgid "This landlord’s buildings average {0} open HPD violations per apartment"
