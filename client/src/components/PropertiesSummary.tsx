@@ -167,7 +167,7 @@ export default class PropertiesSummary extends Component<Props, {}> {
                     <SocialShareAddressPage
                       location="summary-tab"
                       customContent={{
-                        tweet: t`This landlord owns ${agg.bldgs} buildings, and according to @NYCHousing, has received a total of ${agg.totalviolations} violations. See more data analysis here: `,
+                        tweet: t`This landlord owns ${agg.bldgs} buildings, and according to @NYCHousing, has received a total of ${agg.totalviolations} violations. Can you guess which landlord it is? Find their name and more data analysis here: `,
                         tweetCloseout: t`#WhoOwnsWhat via @JustFixNYC`,
                         emailSubject: t` This landlord’s buildings average ${agg.openviolationsperresunit} open HPD violations per apartment`,
                         getEmailBody: (url: string) =>
