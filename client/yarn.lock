@@ -2239,10 +2239,10 @@
     "@types/istanbul-reports" "^1.1.1"
     "@types/yargs" "^13.0.0"
 
-"@justfixnyc/geosearch-requester@0.0.6":
-  version "0.0.6"
-  resolved "https://registry.yarnpkg.com/@justfixnyc/geosearch-requester/-/geosearch-requester-0.0.6.tgz#af3144a8b599e45ad3ce5c2190fc60da81106475"
-  integrity sha512-wHsY9DbiQUp7H/KiQ4+ejTShR6lY3iagiFhw4VoP1kljyem+WIwEkiZNnvUHkOAQIkTtPulLaiKHEMpzaw9xZQ==
+"@justfixnyc/geosearch-requester@0.1.0":
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/@justfixnyc/geosearch-requester/-/geosearch-requester-0.1.0.tgz#3cd694907c3b5cb217f4ad34cb7dc16abc6d27e3"
+  integrity sha512-1Fz0RVG4mnxr2ItYI9KuXPku5RMndJSo/v1OMJZLWTRTHGkB6EjK4E3m3JSZ6Ai7GgQUhWsY8b0fKARMe0mKtw==
 
 "@justfixnyc/react-common@^0.0.7":
   version "0.0.7"

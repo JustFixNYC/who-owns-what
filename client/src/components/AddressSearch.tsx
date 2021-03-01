@@ -99,6 +99,7 @@ export default class AddressSearch extends React.Component<AddressSearchProps, S
           results: toSearchAddresses(results),
         });
       },
+      customGeoAutocompleteUrl: "https://staging.geosearch.planninglabs.nyc/v1/autocomplete"
     });
   }
 
