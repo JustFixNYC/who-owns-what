@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2021-02-23 14:44\n"
+"PO-Revision-Date: 2021-03-01 18:13\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -308,7 +308,7 @@ msgstr "Cómo se usa"
 
 #: src/components/DetailView.tsx:21
 msgid "I just looked up this building on Who Owns What, a free tool built by JustFix.nyc to make data on landlords and evictors more transparent to tenants. You might want to look up your building. Check it out here: {url}"
-msgstr "Justo busqué este edificio en Quién Es El Dueño, una herramienta gratis construida por JustFix.nyc que hace que la información sobre los dueños de edificios sea más transparente para los inquilinos. Sería bueno buscar tu edificio también. Míralo aquí: {url}"
+msgstr "Justo busqué este edificio en Quién Es El Dueño, una herramienta gratuita construida por JustFix.nyc que hace que la información sobre los dueños de edificios sea más transparente para los inquilinos. Sería bueno si buscaras tu edificio también. Míralo aquí: {url}"
 
 #: src/components/DetailView.tsx:19
 msgid "I used #WhoOwnsWhat (built by @JustFixNYC) to see not only the open violations in this building, but also rent stabilized losses, evictions, and more. This website is a wealth of info and costs nothing to use. Savvy New Yorkers need this info:"
@@ -681,7 +681,7 @@ msgstr "El identificador oficial del edificio según los registros del Departame
 
 #: src/components/PropertiesSummary.tsx:114
 msgid "This landlord owns {0} buildings, and according to @NYCHousing, has received a total of {1} violations. Can you guess which landlord it is? Find their name and more data analysis here:"
-msgstr ""
+msgstr "Este dueño de edificio posee {0} edificios, y según @NYCHousing, ha recibido un total de {1} violaciones del código de vivienda. ¿Puedes adivinar como se llama el dueño? Encuentra su nombre y ve más estadísticas aquí:"
 
 #: src/components/PropertiesSummary.tsx:116
 msgid "This landlord’s buildings average {0} open HPD violations per apartment"
@@ -817,7 +817,7 @@ msgstr "¿Qué pasa si el propietario no ha registrado el edificio?"
 
 #: src/components/SocialShare.tsx:14
 msgid "Who Owns What is a free tool built by JustFix.nyc to research property owners in NYC. It has helped over 200,000 New Yorkers find out who really owns their building, what other buildings that their landlord or management company owns, and other critical information about code violations, evictions, rent stabilized units, and so much more in any given building. You can look up any residential building located in NYC, even public housing (NYCHA) buildings! Search your address here: {url}"
-msgstr "Quién Es El Dueño es una herramienta gratis construida por JustFix.nyc para investigar los dueños de edificios en NYC. Ha asistido más de 200.000 neoyorquinos a enterarse quien realmente son los responsables por su edificio, cuales otros edificios su dueño o compañía de administración poseen, y otra información crítica sobre violaciones del código de vivienda, desalojos, apartamentos con renta estabilizada y mucho más en cualquier edificio. Puedes buscar información sobre cualquier edificio residencial, también incluyen viviendas públicas (NYCHA). Busca tu dirección aqui: {url}"
+msgstr "Quién Es El Dueño es una herramienta gratis construida por JustFix.nyc para investigar los dueños de edificios en NYC. Ha asistido más de 200.000 neoyorquinos a enterarse quien realmente son los responsables por su edificio, cuáles otros edificios su dueño o compañía de administración poseen, y otra información crítica sobre violaciones del código de vivienda, desalojos, apartamentos con renta estabilizada y mucho más en cualquier edificio. Puedes buscar información sobre cualquier edificio residencial, también incluyen viviendas públicas (NYCHA). Busca tu dirección aquí: {url}"
 
 #: src/containers/App.tsx:29
 msgid "Who owns what in n y c?"
@@ -885,3 +885,4 @@ msgstr "{value, plural, one {Una Queja del HPD emitida desde el 2014} other {# Q
 #: src/components/IndicatorsDatasets.tsx:34
 msgid "{value, plural, one {One HPD Violation Issued since 2010} other {# HPD Violations Issued since 2010}}"
 msgstr "{value, plural, one {Una Infracción del HPD emitida desde el 2010} other {# Infracciones del HPD emitidas desde el 2010}}"
+
