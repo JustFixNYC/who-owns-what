@@ -18,12 +18,11 @@ export const EvictionsSummary: React.FC<EvictionsSummaryData> = (props) => {
       </Trans>{" "}
       {building && totalEvictions > 0 && (
         <Trans>
-          The building with the most evictions was{" "}
+          The building with the most evictions is{" "}
           <b>
             {building.housenumber} {building.streetname}, {building.boro}
           </b>{" "}
-          with <Plural value={buildingTotalEvictions} one="one eviction" other="# evictions" /> that
-          year.
+          with <Plural value={buildingTotalEvictions} one="one eviction" other="# evictions" />.
         </Trans>
       )}
     </p>

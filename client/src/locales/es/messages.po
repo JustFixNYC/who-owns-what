@@ -609,8 +609,8 @@ msgid "The building that has lost the most units is <0>{0} {1}, {2}</0>, which h
 msgstr "El edificio con la major pérdida de unidades residencial de renta estabilizada es <0>{0} {1}, {2}</0>, con una pérdida de <1>{absRsLossAddrDiff}</1> {absRsLossAddrDiff, plural, one {unidad} other {unidades}} en los últimos 10 años."
 
 #: src/components/EvictionsSummary.tsx:13
-msgid "The building with the most evictions was <0>{0} {1}, {2}</0> with {buildingTotalEvictions, plural, one {one eviction} other {# evictions}} that year."
-msgstr "El edificio con la major cantidad de desalojos fue <0>{0} {1}, {2}</0> con {buildingTotalEvictions, plural, one {un desalojo} other {# desalojos}} ese año."
+msgid "The building with the most evictions is <0>{0} {1}, {2}</0> with {buildingTotalEvictions, plural, one {one eviction} other {# evictions}}."
+msgstr ""
 
 #: src/containers/NychaPage.tsx:78
 msgid "The city borough where your search address is located"
