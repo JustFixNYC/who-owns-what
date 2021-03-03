@@ -41,11 +41,6 @@ msgstr "({browserType, select, mobile {tap} other {click}} to view details)"
 msgid "... or view some sample portfolios:"
 msgstr "... or view some sample portfolios:"
 
-#: src/components/BuildingStatsTable.tsx:71
-#: src/containers/NychaPage.tsx:87
-msgid "2019 Evictions"
-msgstr "2019 Evictions"
-
 #: src/components/DetailView.tsx:225
 #: src/components/Indicators.tsx:283
 #: src/containers/NotRegisteredPage.tsx:158
@@ -227,18 +222,20 @@ msgstr "Enter an NYC address and find other buildings your landlord might own:"
 msgid "Enter email"
 msgstr "Enter email"
 
+#: src/components/BuildingStatsTable.tsx:71
 #: src/components/PropertiesList.tsx:108
 #: src/components/PropertiesSummary.tsx:88
+#: src/containers/NychaPage.tsx:87
 msgid "Evictions"
 msgstr "Evictions"
 
 #: src/components/BuildingStatsTable.tsx:70
-msgid "Evictions executed by NYC Marshals in 2019. ANHD and the Housing Data Coalition cleaned, geocoded, and validated the data, originally sourced from DOI."
-msgstr "Evictions executed by NYC Marshals in 2019. ANHD and the Housing Data Coalition cleaned, geocoded, and validated the data, originally sourced from DOI."
+msgid "Evictions executed by NYC Marshals since 2017. ANHD and the Housing Data Coalition cleaned, geocoded, and validated the data, originally sourced from DOI."
+msgstr "Evictions executed by NYC Marshals since 2017. ANHD and the Housing Data Coalition cleaned, geocoded, and validated the data, originally sourced from DOI."
 
 #: src/containers/NychaPage.tsx:86
-msgid "Evictions executed in this development by NYC Marshals in 2019. ANHD and the Housing Data Coalition cleaned, geocoded, and validated the data, originally sourced from DOI."
-msgstr "Evictions executed in this development by NYC Marshals in 2019. ANHD and the Housing Data Coalition cleaned, geocoded, and validated the data, originally sourced from DOI."
+msgid "Evictions executed in this development by NYC Marshals since 2017. ANHD and the Housing Data Coalition cleaned, geocoded, and validated the data, originally sourced from DOI."
+msgstr "Evictions executed in this development by NYC Marshals since 2017. ANHD and the Housing Data Coalition cleaned, geocoded, and validated the data, originally sourced from DOI."
 
 #: src/components/AddressToolbar.tsx:29
 msgid "Export Data"
@@ -312,10 +309,6 @@ msgstr "I used #WhoOwnsWhat (built by @JustFixNYC) to see not only the open viol
 #: src/components/PropertiesSummary.tsx:117
 msgid "I was checking out this building on Who Owns What, a free landlord research tool from JustFix.nyc. It’s a remarkable website that every tenant and housing advocate should know about! Can you guess how many total violations this landlord portfolio has? Check it out here: {url}"
 msgstr "I was checking out this building on Who Owns What, a free landlord research tool from JustFix.nyc. It’s a remarkable website that every tenant and housing advocate should know about! Can you guess how many total violations this landlord portfolio has? Check it out here: {url}"
-
-#: src/components/EvictionsSummary.tsx:8
-msgid "In 2019, NYC Marshals scheduled {totalEvictions, plural, one {one eviction} other {# evictions}} across this portfolio."
-msgstr "In 2019, NYC Marshals scheduled {totalEvictions, plural, one {one eviction} other {# evictions}} across this portfolio."
 
 #: src/containers/NotRegisteredPage.tsx:180
 msgid "Ineligible to certify violations"
@@ -562,6 +555,14 @@ msgstr "Sign up"
 #: src/components/EngagementPanel.tsx:12
 msgid "Sign up for email updates"
 msgstr "Sign up for email updates"
+
+#: src/components/PropertiesList.tsx:111
+msgid "Since 2017"
+msgstr "Since 2017"
+
+#: src/components/EvictionsSummary.tsx:8
+msgid "Since 2017, NYC Marshals scheduled {totalEvictions, plural, one {one eviction} other {# evictions}} across this portfolio."
+msgstr "Since 2017, NYC Marshals scheduled {totalEvictions, plural, one {one eviction} other {# evictions}} across this portfolio."
 
 #: src/components/IndicatorsViz.tsx:350
 msgid "Sold to Current Owner"
