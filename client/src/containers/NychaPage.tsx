@@ -114,10 +114,10 @@ const NychaPageWithoutI18n: React.FC<NychaPageProps> = (props) => {
                     </div>
                     <div
                       title={i18n._(
-                        t`Evictions executed in this development by NYC Marshals since 2017. ANHD and the Housing Data Coalition cleaned, geocoded, and validated the data, originally sourced from DOI.`
+                        t`Evictions executed in this development by NYC Marshals in 2019. ANHD and the Housing Data Coalition cleaned, geocoded, and validated the data, originally sourced from DOI.`
                       )}
                     >
-                      <Trans render="label">Evictions</Trans>
+                      <Trans render="label">2019 Evictions</Trans>
                       {nycha.dev_evictions}
                     </div>
                   </div>
