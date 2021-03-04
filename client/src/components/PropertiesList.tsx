@@ -135,10 +135,10 @@ const PropertiesListWithoutI18n: React.FC<
             Header: i18n._(t`Evictions`),
             columns: [
               {
-                Header: "2019",
+                Header: i18n._(t`Since 2017`),
                 accessor: (d) => d.evictions || null,
                 id: "evictions",
-                maxWidth: 75,
+                maxWidth: 100,
               },
             ],
           },

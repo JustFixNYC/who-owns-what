@@ -46,7 +46,6 @@ msgstr "({browserType, select, mobile {pulsa} other {haz clic}} para ver detalle
 msgid "... or view some sample portfolios:"
 msgstr "... o descubre ejemplos de portafolios de edificios:"
 
-#: src/components/BuildingStatsTable.tsx:71
 #: src/containers/NychaPage.tsx:87
 msgid "2019 Evictions"
 msgstr "Desalojos 2019"
@@ -232,14 +231,15 @@ msgstr "Introduce una dirección de NYC para encontrar otros edificios que tu pr
 msgid "Enter email"
 msgstr "Introducir email"
 
+#: src/components/BuildingStatsTable.tsx:71
 #: src/components/PropertiesList.tsx:108
 #: src/components/PropertiesSummary.tsx:88
 msgid "Evictions"
 msgstr "Desalojos"
 
 #: src/components/BuildingStatsTable.tsx:70
-msgid "Evictions executed by NYC Marshals in 2019. ANHD and the Housing Data Coalition cleaned, geocoded, and validated the data, originally sourced from DOI."
-msgstr "Desalojos ejecutados en este edificio por el Mariscal de NYC en 2019. ANHD y la Coalición de Datos de Vivienda limpiaron, codificaron y validaron los datos, que provienen originalmente del DOI."
+msgid "Evictions executed by NYC Marshals since 2017. ANHD and the Housing Data Coalition cleaned, geocoded, and validated the data, originally sourced from DOI."
+msgstr ""
 
 #: src/containers/NychaPage.tsx:86
 msgid "Evictions executed in this development by NYC Marshals in 2019. ANHD and the Housing Data Coalition cleaned, geocoded, and validated the data, originally sourced from DOI."
@@ -317,10 +317,6 @@ msgstr "Usé #QuiénEsElDueño (construido por @JustFixNYC) para ver no solo las
 #: src/components/PropertiesSummary.tsx:117
 msgid "I was checking out this building on Who Owns What, a free landlord research tool from JustFix.nyc. It’s a remarkable website that every tenant and housing advocate should know about! Can you guess how many total violations this landlord portfolio has? Check it out here: {url}"
 msgstr "Estaba revisando este edificio en Quién Es El Dueño, una herramienta gratuita construida por JustFix.nyc. ¡Es un sitio web extraordinario que cada inquilino y defensor de viviendas debería saber sobre! ¿Puedes adivinar cuántas violaciones totales tiene este portafolio de este dueño? Míralo aquí: {url}"
-
-#: src/components/EvictionsSummary.tsx:8
-msgid "In 2019, NYC Marshals scheduled {totalEvictions, plural, one {one eviction} other {# evictions}} across this portfolio."
-msgstr "En el 2019, los Mariscales de NYC programaron {totalEvictions, plural, one {un desalojo} other {# desalojos}} en este portafolio de edificios."
 
 #: src/containers/NotRegisteredPage.tsx:180
 msgid "Ineligible to certify violations"
@@ -568,6 +564,14 @@ msgstr "Regístrate"
 msgid "Sign up for email updates"
 msgstr "Regístrate para recibir noticias por email"
 
+#: src/components/PropertiesList.tsx:111
+msgid "Since 2017"
+msgstr ""
+
+#: src/components/EvictionsSummary.tsx:8
+msgid "Since 2017, NYC Marshals scheduled {totalEvictions, plural, one {one eviction} other {# evictions}} across this portfolio."
+msgstr ""
+
 #: src/components/IndicatorsViz.tsx:350
 msgid "Sold to Current Owner"
 msgstr "Vendido al Propietario Actual"
@@ -608,8 +612,8 @@ msgid "The building that has lost the most units is <0>{0} {1}, {2}</0>, which h
 msgstr "El edificio con la major pérdida de unidades residencial de renta estabilizada es <0>{0} {1}, {2}</0>, con una pérdida de <1>{absRsLossAddrDiff}</1> {absRsLossAddrDiff, plural, one {unidad} other {unidades}} en los últimos 10 años."
 
 #: src/components/EvictionsSummary.tsx:13
-msgid "The building with the most evictions was <0>{0} {1}, {2}</0> with {buildingTotalEvictions, plural, one {one eviction} other {# evictions}} that year."
-msgstr "El edificio con la major cantidad de desalojos fue <0>{0} {1}, {2}</0> con {buildingTotalEvictions, plural, one {un desalojo} other {# desalojos}} ese año."
+msgid "The building with the most evictions is <0>{0} {1}, {2}</0> with {buildingTotalEvictions, plural, one {one eviction} other {# evictions}}."
+msgstr ""
 
 #: src/containers/NychaPage.tsx:78
 msgid "The city borough where your search address is located"

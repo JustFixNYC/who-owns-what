@@ -30,7 +30,8 @@ class NycdbContext:
             host=TEST_DB.host,
             database=TEST_DB.database,
             port=TEST_DB.port,
-            root_dir=root_dir
+            root_dir=root_dir,
+            hide_progress=False
         )
         self.root_dir = Path(root_dir)
         self.get_cursor = get_cursor
