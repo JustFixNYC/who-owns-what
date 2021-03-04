@@ -74,7 +74,7 @@ left join (
   select
     bbl,
     count(*) as evictions
-  from marshal_evictions_19
+  from marshal_evictions_all
   where residentialcommercialind = 'RESIDENTIAL'
   group by bbl
 ) evictions on (registrations.bbl = evictions.bbl)

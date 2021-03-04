@@ -2,789 +2,789 @@
   "title": "Metodología",
   "slug": "how-it-works",
   "content": {
+    "nodeType": "document",
     "data": {},
     "content": [
       {
-        "data": {},
+        "nodeType": "heading-4",
         "content": [
           {
-            "data": {},
-            "marks": [],
+            "nodeType": "text",
             "value": "Metodologia de Datos de Quién Es El Dueño",
-            "nodeType": "text"
+            "marks": [],
+            "data": {}
           }
         ],
-        "nodeType": "heading-4"
+        "data": {}
       },
       {
-        "data": {},
+        "nodeType": "paragraph",
         "content": [
           {
-            "data": {},
-            "marks": [],
+            "nodeType": "text",
             "value": "",
-            "nodeType": "text"
+            "marks": [],
+            "data": {}
           }
         ],
-        "nodeType": "paragraph"
+        "data": {}
       },
       {
-        "data": {},
+        "nodeType": "paragraph",
         "content": [
           {
-            "data": {},
-            "marks": [],
+            "nodeType": "text",
             "value": "En Quién Es El Dueño, usamos el ",
-            "nodeType": "text"
+            "marks": [],
+            "data": {}
           },
           {
-            "data": {},
+            "nodeType": "text",
+            "value": "trazado de derecho de propiedad",
             "marks": [
               {
                 "type": "bold"
               }
             ],
-            "value": "trazado de derecho de propiedad",
-            "nodeType": "text"
+            "data": {}
           },
           {
-            "data": {},
-            "marks": [],
+            "nodeType": "text",
             "value": " para encontrar otros edificios a los que esté asociado el dueño de tu edificio o su entidad administrativa. Nuestro algoritmo se basa en datos públicos del ",
-            "nodeType": "text"
+            "marks": [],
+            "data": {}
           },
           {
+            "nodeType": "hyperlink",
+            "content": [
+              {
+                "nodeType": "text",
+                "value": "registro    de edificios residenciales del Departamento de Preservación y Desarrollo de la Vivienda",
+                "marks": [],
+                "data": {}
+              }
+            ],
             "data": {
               "uri": "http://www1.nyc.gov/site/hpd/about/open-data.page"
-            },
-            "content": [
-              {
-                "data": {},
-                "marks": [],
-                "value": "registro    de edificios residenciales del Departamento de Preservación y Desarrollo de la Vivienda",
-                "nodeType": "text"
-              }
-            ],
-            "nodeType": "hyperlink"
+            }
           },
           {
-            "data": {},
-            "marks": [],
+            "nodeType": "text",
             "value": " (HPD por sus siglas en inglés), que contienen información auto-reportada por el propietario sobre aproximadamente 170,000 edificios en toda la ciudad.",
-            "nodeType": "text"
-          }
-        ],
-        "nodeType": "paragraph"
-      },
-      {
-        "data": {},
-        "content": [
-          {
-            "data": {},
             "marks": [],
-            "value": "Cuando haces una búsqueda Quién Es El Dueño, nuestra base de datos:",
-            "nodeType": "text"
+            "data": {}
           }
         ],
-        "nodeType": "paragraph"
+        "data": {}
       },
       {
-        "data": {},
+        "nodeType": "paragraph",
         "content": [
           {
-            "data": {},
+            "nodeType": "text",
+            "value": "Cuando haces una búsqueda Quién Es El Dueño, nuestra base de datos:",
+            "marks": [],
+            "data": {}
+          }
+        ],
+        "data": {}
+      },
+      {
+        "nodeType": "ordered-list",
+        "content": [
+          {
+            "nodeType": "list-item",
             "content": [
               {
-                "data": {},
+                "nodeType": "paragraph",
                 "content": [
                   {
-                    "data": {},
-                    "marks": [],
+                    "nodeType": "text",
                     "value": "recopila las ",
-                    "nodeType": "text"
+                    "marks": [],
+                    "data": {}
                   },
                   {
-                    "data": {},
+                    "nodeType": "text",
+                    "value": "direcciones comerciales",
                     "marks": [
                       {
                         "type": "bold"
                       }
                     ],
-                    "value": "direcciones comerciales",
-                    "nodeType": "text"
+                    "data": {}
                   },
                   {
-                    "data": {},
-                    "marks": [],
+                    "nodeType": "text",
                     "value": " de las entidades que están registradas con tu edificio en el HPD y encuentra otras propiedades en la ciudad con una dirección coincidente.",
-                    "nodeType": "text"
+                    "marks": [],
+                    "data": {}
                   }
                 ],
-                "nodeType": "paragraph"
+                "data": {}
               }
             ],
-            "nodeType": "list-item"
+            "data": {}
           },
           {
-            "data": {},
+            "nodeType": "list-item",
             "content": [
               {
-                "data": {},
+                "nodeType": "paragraph",
                 "content": [
                   {
-                    "data": {},
-                    "marks": [],
+                    "nodeType": "text",
                     "value": "reúne los nombres de contacto de ",
-                    "nodeType": "text"
+                    "marks": [],
+                    "data": {}
                   },
                   {
-                    "data": {},
+                    "nodeType": "text",
+                    "value": "\"Oficial Principal\", \"Dueño Individual\" y \"Dueño Corporativo\"",
                     "marks": [
                       {
                         "type": "bold"
                       }
                     ],
-                    "value": "\"Oficial Principal\", \"Dueño Individual\" y \"Dueño Corporativo\"",
-                    "nodeType": "text"
+                    "data": {}
                   },
                   {
-                    "data": {},
-                    "marks": [],
+                    "nodeType": "text",
                     "value": " que estén registrados con tu edificio en el HPD y encuentra otras propiedades en la ciudad con un nombre de contacto coincidente, utilizando \"coincidencia difusa\" para tener en cuenta posibles errores ortográficos.",
-                    "nodeType": "text"
+                    "marks": [],
+                    "data": {}
                   }
                 ],
-                "nodeType": "paragraph"
+                "data": {}
               }
             ],
-            "nodeType": "list-item"
+            "data": {}
           }
         ],
-        "nodeType": "ordered-list"
+        "data": {}
       },
       {
-        "data": {},
+        "nodeType": "paragraph",
         "content": [
           {
-            "data": {},
-            "marks": [],
+            "nodeType": "text",
             "value": "De acuerdo con la política del HPD, “la ley requiere que los propietarios de edificios residenciales se registren anualmente con el HPD si la propiedad es una vivienda múltiple (más de 3 unidades residenciales) o una vivienda privada (1–2 unidades residenciales) donde no vive ni el dueño ni su familia inmediata\". Estos datos deben estar disponibles públicamente de acuerdo con la ley de datos abiertos de Nueva York.\n",
-            "nodeType": "text"
+            "marks": [],
+            "data": {}
           }
         ],
-        "nodeType": "paragraph"
+        "data": {}
       },
       {
-        "data": {},
+        "nodeType": "paragraph",
         "content": [
           {
-            "data": {},
+            "nodeType": "text",
+            "value": "El HPD actualiza estos datos de registro (que se actualizan en vivo en este sitio web) mensualmente",
             "marks": [
               {
                 "type": "bold"
               }
             ],
-            "value": "El HPD actualiza estos datos de registro (que se actualizan en vivo en este sitio web) mensualmente",
-            "nodeType": "text"
+            "data": {}
           },
           {
-            "data": {},
-            "marks": [],
+            "nodeType": "text",
             "value": ". También usamos conjuntos de datos de las siguientes fuentes para proporcionar información adicional:",
-            "nodeType": "text"
+            "marks": [],
+            "data": {}
           }
         ],
-        "nodeType": "paragraph"
+        "data": {}
       },
       {
-        "data": {},
+        "nodeType": "unordered-list",
         "content": [
           {
-            "data": {},
+            "nodeType": "list-item",
             "content": [
               {
-                "data": {},
+                "nodeType": "paragraph",
                 "content": [
                   {
-                    "data": {},
+                    "nodeType": "text",
+                    "value": "Infracciones en el HPD",
                     "marks": [
                       {
                         "type": "bold"
                       }
                     ],
-                    "value": "Infracciones en el HPD",
-                    "nodeType": "text"
+                    "data": {}
                   },
                   {
-                    "data": {},
-                    "marks": [],
+                    "nodeType": "text",
                     "value": " de ",
-                    "nodeType": "text"
+                    "marks": [],
+                    "data": {}
                   },
                   {
+                    "nodeType": "hyperlink",
+                    "content": [
+                      {
+                        "nodeType": "text",
+                        "value": "NYC Open Data",
+                        "marks": [],
+                        "data": {}
+                      }
+                    ],
                     "data": {
                       "uri": "https://data.cityofnewyork.us/Housing-Development/Housing-Maintenance-Code-Violations/wvxf-dwi5"
-                    },
-                    "content": [
-                      {
-                        "data": {},
-                        "marks": [],
-                        "value": "NYC Open Data",
-                        "nodeType": "text"
-                      }
-                    ],
-                    "nodeType": "hyperlink"
+                    }
                   },
                   {
-                    "data": {},
-                    "marks": [],
+                    "nodeType": "text",
                     "value": " —",
-                    "nodeType": "text"
+                    "marks": [],
+                    "data": {}
                   },
                   {
-                    "data": {},
+                    "nodeType": "text",
+                    "value": " actualizado a diario",
                     "marks": [
                       {
                         "type": "italic"
                       }
                     ],
-                    "value": " actualizado a diario",
-                    "nodeType": "text"
+                    "data": {}
                   }
                 ],
-                "nodeType": "paragraph"
+                "data": {}
               }
             ],
-            "nodeType": "list-item"
+            "data": {}
           },
           {
-            "data": {},
+            "nodeType": "list-item",
             "content": [
               {
-                "data": {},
+                "nodeType": "paragraph",
                 "content": [
                   {
-                    "data": {},
+                    "nodeType": "text",
+                    "value": "Quejas al HPD",
                     "marks": [
                       {
                         "type": "bold"
                       }
                     ],
-                    "value": "Quejas al HPD",
-                    "nodeType": "text"
+                    "data": {}
                   },
                   {
-                    "data": {},
-                    "marks": [],
+                    "nodeType": "text",
                     "value": " de ",
-                    "nodeType": "text"
+                    "marks": [],
+                    "data": {}
                   },
                   {
+                    "nodeType": "hyperlink",
+                    "content": [
+                      {
+                        "nodeType": "text",
+                        "value": "NYC Open Data",
+                        "marks": [],
+                        "data": {}
+                      }
+                    ],
                     "data": {
                       "uri": "https://data.cityofnewyork.us/Housing-Development/Housing-Maintenance-Code-Complaints/uwyv-629c"
-                    },
-                    "content": [
-                      {
-                        "data": {},
-                        "marks": [],
-                        "value": "NYC Open Data",
-                        "nodeType": "text"
-                      }
-                    ],
-                    "nodeType": "hyperlink"
+                    }
                   },
                   {
-                    "data": {},
-                    "marks": [],
+                    "nodeType": "text",
                     "value": " — ",
-                    "nodeType": "text"
+                    "marks": [],
+                    "data": {}
                   },
                   {
-                    "data": {},
+                    "nodeType": "text",
+                    "value": "actualizado mensualmente",
                     "marks": [
                       {
                         "type": "italic"
                       }
                     ],
-                    "value": "actualizado mensualmente",
-                    "nodeType": "text"
+                    "data": {}
                   }
                 ],
-                "nodeType": "paragraph"
+                "data": {}
               }
             ],
-            "nodeType": "list-item"
+            "data": {}
           },
           {
-            "data": {},
+            "nodeType": "list-item",
             "content": [
               {
-                "data": {},
+                "nodeType": "paragraph",
                 "content": [
                   {
-                    "data": {},
+                    "nodeType": "text",
+                    "value": "Solicitudes de Trabajo del Departamento de Edificios (DOB por sus siglas en inglés) ",
                     "marks": [
                       {
                         "type": "bold"
                       }
                     ],
-                    "value": "Solicitudes de Trabajo del Departamento de Edificios (DOB por sus siglas en inglés) ",
-                    "nodeType": "text"
+                    "data": {}
                   },
                   {
-                    "data": {},
-                    "marks": [],
+                    "nodeType": "text",
                     "value": "de ",
-                    "nodeType": "text"
+                    "marks": [],
+                    "data": {}
                   },
                   {
+                    "nodeType": "hyperlink",
+                    "content": [
+                      {
+                        "nodeType": "text",
+                        "value": "NYC Open Data",
+                        "marks": [],
+                        "data": {}
+                      }
+                    ],
                     "data": {
                       "uri": "https://data.cityofnewyork.us/Housing-Development/DOB-Job-Application-Filings/ic3t-wcy2"
-                    },
-                    "content": [
-                      {
-                        "data": {},
-                        "marks": [],
-                        "value": "NYC Open Data",
-                        "nodeType": "text"
-                      }
-                    ],
-                    "nodeType": "hyperlink"
+                    }
                   },
                   {
-                    "data": {},
-                    "marks": [],
+                    "nodeType": "text",
                     "value": " — ",
-                    "nodeType": "text"
+                    "marks": [],
+                    "data": {}
                   },
                   {
-                    "data": {},
+                    "nodeType": "text",
+                    "value": "actualizado a diario",
                     "marks": [
                       {
                         "type": "italic"
                       }
                     ],
-                    "value": "actualizado a diario",
-                    "nodeType": "text"
+                    "data": {}
                   }
                 ],
-                "nodeType": "paragraph"
+                "data": {}
               }
             ],
-            "nodeType": "list-item"
+            "data": {}
           },
           {
-            "data": {},
+            "nodeType": "list-item",
             "content": [
               {
-                "data": {},
+                "nodeType": "paragraph",
                 "content": [
                   {
-                    "data": {},
+                    "nodeType": "text",
+                    "value": "",
                     "marks": [
                       {
                         "type": "bold"
                       }
                     ],
-                    "value": "",
-                    "nodeType": "text"
+                    "data": {}
                   },
                   {
-                    "data": {
-                      "uri": "https://www1.nyc.gov/site/planning/data-maps/open-data.page"
-                    },
+                    "nodeType": "hyperlink",
                     "content": [
                       {
-                        "data": {},
+                        "nodeType": "text",
+                        "value": "",
                         "marks": [
                           {
                             "type": "bold"
                           }
                         ],
-                        "value": "",
-                        "nodeType": "text"
+                        "data": {}
                       }
                     ],
-                    "nodeType": "hyperlink"
-                  },
-                  {
-                    "data": {},
-                    "marks": [
-                      {
-                        "type": "bold"
-                      }
-                    ],
-                    "value": "Datos de Impuestos de Uso de Terreno Primario (PLUTO por sus siglas en inglés)",
-                    "nodeType": "text"
-                  },
-                  {
-                    "data": {},
-                    "marks": [],
-                    "value": " de ",
-                    "nodeType": "text"
-                  },
-                  {
                     "data": {
                       "uri": "https://www1.nyc.gov/site/planning/data-maps/open-data.page"
-                    },
-                    "content": [
-                      {
-                        "data": {},
-                        "marks": [],
-                        "value": "NYC Dept. of City Planning",
-                        "nodeType": "text"
-                      }
-                    ],
-                    "nodeType": "hyperlink"
+                    }
                   },
                   {
-                    "data": {},
-                    "marks": [],
-                    "value": " — ",
-                    "nodeType": "text"
-                  },
-                  {
-                    "data": {},
-                    "marks": [
-                      {
-                        "type": "italic"
-                      }
-                    ],
-                    "value": "actualizado anualmente",
-                    "nodeType": "text"
-                  }
-                ],
-                "nodeType": "paragraph"
-              }
-            ],
-            "nodeType": "list-item"
-          },
-          {
-            "data": {},
-            "content": [
-              {
-                "data": {},
-                "content": [
-                  {
-                    "data": {},
+                    "nodeType": "text",
+                    "value": "Datos de Impuestos de Uso de Terreno Primario (PLUTO por sus siglas en inglés)",
                     "marks": [
                       {
                         "type": "bold"
                       }
                     ],
-                    "value": "Datos de Desalojo del 2019 ",
-                    "nodeType": "text"
+                    "data": {}
                   },
                   {
-                    "data": {},
+                    "nodeType": "text",
+                    "value": " de ",
                     "marks": [],
-                    "value": "de  ",
-                    "nodeType": "text"
+                    "data": {}
                   },
                   {
+                    "nodeType": "hyperlink",
+                    "content": [
+                      {
+                        "nodeType": "text",
+                        "value": "NYC Dept. of City Planning",
+                        "marks": [],
+                        "data": {}
+                      }
+                    ],
+                    "data": {
+                      "uri": "https://www1.nyc.gov/site/planning/data-maps/open-data.page"
+                    }
+                  },
+                  {
+                    "nodeType": "text",
+                    "value": " — ",
+                    "marks": [],
+                    "data": {}
+                  },
+                  {
+                    "nodeType": "text",
+                    "value": "actualizado anualmente",
+                    "marks": [
+                      {
+                        "type": "italic"
+                      }
+                    ],
+                    "data": {}
+                  }
+                ],
+                "data": {}
+              }
+            ],
+            "data": {}
+          },
+          {
+            "nodeType": "list-item",
+            "content": [
+              {
+                "nodeType": "paragraph",
+                "content": [
+                  {
+                    "nodeType": "text",
+                    "value": "Datos de Desalojo ",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      }
+                    ],
+                    "data": {}
+                  },
+                  {
+                    "nodeType": "text",
+                    "value": "de  ",
+                    "marks": [],
+                    "data": {}
+                  },
+                  {
+                    "nodeType": "hyperlink",
+                    "content": [
+                      {
+                        "nodeType": "text",
+                        "value": "ANHD",
+                        "marks": [],
+                        "data": {}
+                      }
+                    ],
                     "data": {
                       "uri": "https://anhd.org/"
-                    },
+                    }
+                  },
+                  {
+                    "nodeType": "text",
+                    "value": " y la ",
+                    "marks": [],
+                    "data": {}
+                  },
+                  {
+                    "nodeType": "hyperlink",
                     "content": [
                       {
-                        "data": {},
+                        "nodeType": "text",
+                        "value": "Housing Data Coalition",
                         "marks": [],
-                        "value": "ANHD",
-                        "nodeType": "text"
+                        "data": {}
                       }
                     ],
-                    "nodeType": "hyperlink"
-                  },
-                  {
-                    "data": {},
-                    "marks": [],
-                    "value": " y la ",
-                    "nodeType": "text"
-                  },
-                  {
                     "data": {
                       "uri": "https://www.housingdatanyc.org/"
-                    },
+                    }
+                  },
+                  {
+                    "nodeType": "text",
+                    "value": " a través de ",
+                    "marks": [],
+                    "data": {}
+                  },
+                  {
+                    "nodeType": "hyperlink",
                     "content": [
                       {
-                        "data": {},
+                        "nodeType": "text",
+                        "value": "NYC Marshals",
                         "marks": [],
-                        "value": "Housing Data Coalition",
-                        "nodeType": "text"
+                        "data": {}
                       }
                     ],
-                    "nodeType": "hyperlink"
-                  },
-                  {
-                    "data": {},
-                    "marks": [],
-                    "value": " a través de ",
-                    "nodeType": "text"
-                  },
-                  {
                     "data": {
                       "uri": "https://www1.nyc.gov/site/doi/offices/cpr2.page"
-                    },
-                    "content": [
-                      {
-                        "data": {},
-                        "marks": [],
-                        "value": "NYC Marshals",
-                        "nodeType": "text"
-                      }
-                    ],
-                    "nodeType": "hyperlink"
+                    }
                   },
                   {
-                    "data": {},
-                    "marks": [],
+                    "nodeType": "text",
                     "value": " ",
-                    "nodeType": "text"
+                    "marks": [],
+                    "data": {}
                   },
                   {
-                    "data": {},
+                    "nodeType": "text",
+                    "value": "— actualizado a diario",
                     "marks": [
                       {
                         "type": "italic"
                       }
                     ],
-                    "value": "— actualizado anualmente",
-                    "nodeType": "text"
+                    "data": {}
                   }
                 ],
-                "nodeType": "paragraph"
+                "data": {}
               }
             ],
-            "nodeType": "list-item"
+            "data": {}
           },
           {
-            "data": {},
+            "nodeType": "list-item",
             "content": [
               {
-                "data": {},
+                "nodeType": "paragraph",
                 "content": [
                   {
-                    "data": {},
+                    "nodeType": "text",
+                    "value": "Registros de escrituras de ACRIS ",
                     "marks": [
                       {
                         "type": "bold"
                       }
                     ],
-                    "value": "Registros de escrituras de ACRIS ",
-                    "nodeType": "text"
+                    "data": {}
                   },
                   {
-                    "data": {},
-                    "marks": [],
+                    "nodeType": "text",
                     "value": "de ",
-                    "nodeType": "text"
+                    "marks": [],
+                    "data": {}
                   },
                   {
+                    "nodeType": "hyperlink",
+                    "content": [
+                      {
+                        "nodeType": "text",
+                        "value": "NYC Open Data",
+                        "marks": [],
+                        "data": {}
+                      }
+                    ],
                     "data": {
                       "uri": "https://data.cityofnewyork.us/City-Government/ACRIS-Real-Property-Master/bnx9-e6tj"
-                    },
-                    "content": [
-                      {
-                        "data": {},
-                        "marks": [],
-                        "value": "NYC Open Data",
-                        "nodeType": "text"
-                      }
-                    ],
-                    "nodeType": "hyperlink"
+                    }
                   },
                   {
-                    "data": {},
-                    "marks": [],
+                    "nodeType": "text",
                     "value": ". Nota: solo incluimos escrituras que tienen una cantidad asociada de más de $1.— ",
-                    "nodeType": "text"
+                    "marks": [],
+                    "data": {}
                   },
                   {
-                    "data": {},
+                    "nodeType": "text",
+                    "value": "actualizado bimensualmente",
                     "marks": [
                       {
                         "type": "italic"
                       }
                     ],
-                    "value": "actualizado bimensualmente",
-                    "nodeType": "text"
+                    "data": {}
                   }
                 ],
-                "nodeType": "paragraph"
+                "data": {}
               }
             ],
-            "nodeType": "list-item"
+            "data": {}
           },
           {
-            "data": {},
+            "nodeType": "list-item",
             "content": [
               {
-                "data": {},
+                "nodeType": "paragraph",
                 "content": [
                   {
-                    "data": {},
+                    "nodeType": "text",
+                    "value": "Aproximaciones de las cantidades de Apartamentos de Renta Estabilizada ",
                     "marks": [
                       {
                         "type": "bold"
                       }
                     ],
-                    "value": "Aproximaciones de las cantidades de Apartamentos de Renta Estabilizada ",
-                    "nodeType": "text"
+                    "data": {}
                   },
                   {
-                    "data": {},
-                    "marks": [],
+                    "nodeType": "text",
                     "value": "de ",
-                    "nodeType": "text"
+                    "marks": [],
+                    "data": {}
                   },
                   {
+                    "nodeType": "hyperlink",
+                    "content": [
+                      {
+                        "nodeType": "text",
+                        "value": "taxbills.nyc",
+                        "marks": [],
+                        "data": {}
+                      }
+                    ],
                     "data": {
                       "uri": "https://github.com/talos/nyc-stabilization-unit-counts"
-                    },
+                    }
+                  },
+                  {
+                    "nodeType": "text",
+                    "value": " y ",
+                    "marks": [],
+                    "data": {}
+                  },
+                  {
+                    "nodeType": "hyperlink",
                     "content": [
                       {
-                        "data": {},
+                        "nodeType": "text",
+                        "value": "NYC Doffer",
                         "marks": [],
-                        "value": "taxbills.nyc",
-                        "nodeType": "text"
+                        "data": {}
                       }
                     ],
-                    "nodeType": "hyperlink"
-                  },
-                  {
-                    "data": {},
-                    "marks": [],
-                    "value": " y ",
-                    "nodeType": "text"
-                  },
-                  {
                     "data": {
                       "uri": "https://github.com/JustFixNYC/nyc-doffer"
-                    },
-                    "content": [
-                      {
-                        "data": {},
-                        "marks": [],
-                        "value": "NYC Doffer",
-                        "nodeType": "text"
-                      }
-                    ],
-                    "nodeType": "hyperlink"
+                    }
                   },
                   {
-                    "data": {},
-                    "marks": [],
+                    "nodeType": "text",
                     "value": ", adaptadas de las facturas de impuestos del Departamento de Finanzas",
-                    "nodeType": "text"
+                    "marks": [],
+                    "data": {}
                   },
                   {
-                    "data": {},
+                    "nodeType": "text",
+                    "value": ".",
                     "marks": [
                       {
                         "type": "bold"
                       }
                     ],
-                    "value": ".",
-                    "nodeType": "text"
+                    "data": {}
                   },
                   {
-                    "data": {},
-                    "marks": [],
+                    "nodeType": "text",
                     "value": " Este conjunto de datos no es concluyente y debe verse como una aproximación. Consulte ",
-                    "nodeType": "text"
+                    "marks": [],
+                    "data": {}
                   },
                   {
-                    "data": {
-                      "uri": "http://blog.johnkrauss.com/where-is-decontrol/"
-                    },
+                    "nodeType": "hyperlink",
                     "content": [
                       {
-                        "data": {},
-                        "marks": [],
+                        "nodeType": "text",
                         "value": "esta página",
-                        "nodeType": "text"
+                        "marks": [],
+                        "data": {}
                       }
                     ],
-                    "nodeType": "hyperlink"
+                    "data": {
+                      "uri": "http://blog.johnkrauss.com/where-is-decontrol/"
+                    }
                   },
                   {
-                    "data": {},
-                    "marks": [],
+                    "nodeType": "text",
                     "value": " para obtener más información.",
-                    "nodeType": "text"
+                    "marks": [],
+                    "data": {}
                   },
                   {
-                    "data": {},
+                    "nodeType": "text",
+                    "value": "— actualizado anualmente",
                     "marks": [
                       {
                         "type": "italic"
                       }
                     ],
-                    "value": "— actualizado anualmente",
-                    "nodeType": "text"
+                    "data": {}
                   }
                 ],
-                "nodeType": "paragraph"
+                "data": {}
               }
             ],
-            "nodeType": "list-item"
+            "data": {}
           }
         ],
-        "nodeType": "unordered-list"
+        "data": {}
       },
       {
-        "data": {},
+        "nodeType": "paragraph",
         "content": [
           {
-            "data": {},
-            "marks": [],
+            "nodeType": "text",
             "value": "Nuestro código es Open Source y es accesible ",
-            "nodeType": "text"
+            "marks": [],
+            "data": {}
           },
           {
+            "nodeType": "hyperlink",
+            "content": [
+              {
+                "nodeType": "text",
+                "value": "a través de nuestro GitHub",
+                "marks": [],
+                "data": {}
+              }
+            ],
             "data": {
               "uri": "https://github.com/JustFixNYC/who-owns-what/blob/master/sql/search_function.sql"
-            },
+            }
+          },
+          {
+            "nodeType": "text",
+            "value": ". Para preguntas adicionales o ayuda con la investigación, puedes enviarnos un correo electrónico a ",
+            "marks": [],
+            "data": {}
+          },
+          {
+            "nodeType": "hyperlink",
             "content": [
               {
-                "data": {},
+                "nodeType": "text",
+                "value": "support@justfix.nyc",
                 "marks": [],
-                "value": "a través de nuestro GitHub",
-                "nodeType": "text"
+                "data": {}
               }
             ],
-            "nodeType": "hyperlink"
-          },
-          {
-            "data": {},
-            "marks": [],
-            "value": ". Para preguntas adicionales o ayuda con la investigación, puedes enviarnos un correo electrónico a ",
-            "nodeType": "text"
-          },
-          {
             "data": {
               "uri": "mailto:support@justfix.nyc"
-            },
-            "content": [
-              {
-                "data": {},
-                "marks": [],
-                "value": "support@justfix.nyc",
-                "nodeType": "text"
-              }
-            ],
-            "nodeType": "hyperlink"
+            }
           },
           {
-            "data": {},
-            "marks": [],
+            "nodeType": "text",
             "value": ".",
-            "nodeType": "text"
+            "marks": [],
+            "data": {}
           }
         ],
-        "nodeType": "paragraph"
+        "data": {}
       }
-    ],
-    "nodeType": "document"
+    ]
   }
 }
