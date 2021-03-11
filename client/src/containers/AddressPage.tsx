@@ -79,6 +79,9 @@ export default class AddressPage extends Component<AddressPageProps, State> {
     )
       return;
     send({ type: "SEARCH", address: validateRouteParams(match.params) });
+    /* When searching for user's address, let's reset the DetailView to the "closed" state 
+    so it can pop into view once the address is found */
+    this.handleCloseDetail();
   }
 
   handleOpenDetail = () => {
