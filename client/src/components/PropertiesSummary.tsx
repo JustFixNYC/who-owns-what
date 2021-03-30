@@ -12,15 +12,44 @@ import { StringifyListWithConjunction } from "./StringifyList";
 import { SocialShareAddressPage } from "./SocialShare";
 import { withMachineInStateProps } from "state-machine";
 import { NetworkErrorMessage } from "./NetworkErrorMessage";
+import { AddressRecord } from "./APIDataTypes";
+import { I18n } from "@lingui/react";
 
 type Props = withMachineInStateProps<"portfolioFound"> & {
   isVisible: boolean;
 };
 
-const generateLinkToDataRequestForm = (fullAddress: string) =>
-  `https://docs.google.com/forms/d/e/1FAIpQLSfHdokAh4O-vB6jO8Ym0Wv_lL7cVUxsWvxw5rjZ9Ogcht7HxA/viewform?usp=pp_url&entry.1164013846=${encodeURIComponent(
-    fullAddress
-  )}`;
+const DATA_REQUEST_FORM_URL_ENGLISH = "https://airtable.com/shruDUDHViainzUBB";
+const DATA_REQUEST_FORM_URL_SPANISH = "https://airtable.com/shrQudDbhUVz5J83u";
+
+const DataRequestButton: React.FC<{
+  address: AddressRecord;
+}> = ({ address }) => {
+  const fullAddress = encodeURIComponent(
+    `${address.housenumber} ${address.streetname}, ${address.boro}`
+  );
+  return (
+    <I18n>
+      {({ i18n }) => (
+        <a
+          onClick={() => {
+            window.gtag("event", "data-request");
+          }}
+          href={`${
+            i18n.language === "es" ? DATA_REQUEST_FORM_URL_SPANISH : DATA_REQUEST_FORM_URL_ENGLISH
+          }?prefill_Custom+Data+Request=${i18n._(t`BUILDING:`)}+${fullAddress}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="btn btn-block"
+        >
+          <div>
+            <Trans render="label">Send us a data request</Trans>
+          </div>
+        </a>
+      )}
+    </I18n>
+  );
+};
 
 export default class PropertiesSummary extends Component<Props, {}> {
   updateData() {
@@ -144,21 +173,7 @@ export default class PropertiesSummary extends Component<Props, {}> {
                     <h6 className="PropertiesSummary__linksSubtitle">
                       <Trans>Looking for more information?</Trans>
                     </h6>
-                    <a
-                      onClick={() => {
-                        window.gtag("event", "data-request");
-                      }}
-                      href={generateLinkToDataRequestForm(
-                        `${searchAddr.housenumber} ${searchAddr.streetname}, ${searchAddr.boro}`
-                      )}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="btn btn-block"
-                    >
-                      <div>
-                        <Trans render="label">Send us a data request</Trans>
-                      </div>
-                    </a>
+                    <DataRequestButton address={searchAddr} />
                   </div>
                   <div>
                     <h6 className="PropertiesSummary__linksSubtitle">
