@@ -18,7 +18,7 @@ msgstr ""
 "X-Crowdin-File: /master/client/src/locales/en/messages.po\n"
 "X-Crowdin-File-ID: 31\n"
 
-#: src/components/PropertiesSummary.tsx:123
+#: src/components/PropertiesSummary.tsx:127
 msgid "#WhoOwnsWhat via @JustFixNYC"
 msgstr "#QuiénEsElDueño por @JustFixNYC"
 
@@ -66,7 +66,7 @@ msgstr "Acerca de"
 msgid "According to available HPD data, this portfolio has received <0>{totalviolations}</0> total violations."
 msgstr "Según los datos del HPD disponibles, este portafolio de edificios ha recibido un total de <0>{totalviolations}</0> infracciones."
 
-#: src/components/PropertiesSummary.tsx:109
+#: src/components/PropertiesSummary.tsx:113
 msgid "Additional links"
 msgstr "Enlaces adicionales"
 
@@ -97,7 +97,7 @@ msgstr "¿Tienes problemas en tu edificio?"
 
 #: src/components/DetailView.tsx:76
 #: src/components/Indicators.tsx:147
-#: src/components/PropertiesSummary.tsx:20
+#: src/components/PropertiesSummary.tsx:24
 msgid "BUILDING:"
 msgstr "EDIFICIO:"
 
@@ -234,7 +234,7 @@ msgstr "Introducir email"
 
 #: src/components/BuildingStatsTable.tsx:71
 #: src/components/PropertiesList.tsx:108
-#: src/components/PropertiesSummary.tsx:102
+#: src/components/PropertiesSummary.tsx:106
 msgid "Evictions"
 msgstr "Desalojos"
 
@@ -254,7 +254,7 @@ msgstr "Exportar datos"
 msgid "Failure to register a building with HPD"
 msgstr "Si no se registra un edificio con el HPD"
 
-#: src/components/PropertiesSummary.tsx:55
+#: src/components/PropertiesSummary.tsx:59
 msgid "General info"
 msgstr "Información general"
 
@@ -315,7 +315,7 @@ msgstr "Justo busqué este edificio en Quién Es El Dueño, una herramienta grat
 msgid "I used #WhoOwnsWhat (built by @JustFixNYC) to see not only the open violations in this building, but also rent stabilized losses, evictions, and more. This website is a wealth of info and costs nothing to use. Savvy New Yorkers need this info:"
 msgstr "Usé #QuiénEsElDueño (construido por @JustFixNYC) para ver no solo las violaciones del código de vivienda, sino también cuántos apartamentos con renta estabilizada se han perdido, desalojos, y más. Este sitio web no cuesta nada para usar. Ojo, neoyorquinos:"
 
-#: src/components/PropertiesSummary.tsx:125
+#: src/components/PropertiesSummary.tsx:129
 msgid "I was checking out this building on Who Owns What, a free landlord research tool from JustFix.nyc. It’s a remarkable website that every tenant and housing advocate should know about! Can you guess how many total violations this landlord portfolio has? Check it out here: {url}"
 msgstr "Estaba revisando este edificio en Quién Es El Dueño, una herramienta gratuita construida por JustFix.nyc. ¡Es un sitio web extraordinario que cada inquilino y defensor de viviendas debería saber sobre! ¿Puedes adivinar cuántas violaciones totales tiene este portafolio de este dueño? Míralo aquí: {url}"
 
@@ -340,7 +340,7 @@ msgid "JustFix, Inc is a registered 501(c)(3) nonprofit organization."
 msgstr "JustFix, Inc es una organización registrada 501(c)(3) sin fines de lucro."
 
 #: src/components/PropertiesList.tsx:119
-#: src/components/PropertiesSummary.tsx:87
+#: src/components/PropertiesSummary.tsx:91
 msgid "Landlord"
 msgstr "Dueño del edificio"
 
@@ -375,7 +375,7 @@ msgstr "Enlace a la Escritura"
 
 #: src/components/Indicators.tsx:119
 #: src/components/PropertiesMap.tsx:156
-#: src/components/PropertiesSummary.tsx:48
+#: src/components/PropertiesSummary.tsx:52
 #: src/containers/AddressPage.tsx:165
 #: src/containers/BBLPage.tsx:58
 msgid "Loading"
@@ -385,7 +385,7 @@ msgstr "Cargando"
 msgid "Location"
 msgstr "Ubicación"
 
-#: src/components/PropertiesSummary.tsx:113
+#: src/components/PropertiesSummary.tsx:117
 msgid "Looking for more information?"
 msgstr "¿Buscas más información?"
 
@@ -522,7 +522,7 @@ msgstr "Trimestre"
 msgid "RS Units"
 msgstr "Unidades Residenciales RS"
 
-#: src/components/PropertiesSummary.tsx:104
+#: src/components/PropertiesSummary.tsx:108
 msgid "Rent stabilization"
 msgstr "Renta estabilizada"
 
@@ -535,7 +535,7 @@ msgstr "Buscar otra dirección"
 msgid "Select a Dataset:"
 msgstr "Seleccione un conjunto de datos:"
 
-#: src/components/PropertiesSummary.tsx:22
+#: src/components/PropertiesSummary.tsx:26
 msgid "Send us a data request"
 msgstr "Envíanos una solicitud de datos"
 
@@ -551,7 +551,7 @@ msgstr "Compartir"
 #: src/components/DetailView.tsx:174
 #: src/components/DetailView.tsx:242
 #: src/components/EngagementPanel.tsx:18
-#: src/components/PropertiesSummary.tsx:119
+#: src/components/PropertiesSummary.tsx:123
 #: src/containers/App.tsx:105
 #: src/containers/NotRegisteredPage.tsx:13
 msgid "Share this page with your neighbors"
@@ -624,11 +624,11 @@ msgstr "El municipio donde se encuentra la dirección que has buscado"
 msgid "The city’s fifth <0>worst evictor</0> in 2018, A&E is a prime example of a landlord who engages in <1>aggressive eviction strategies</1> to displace low-income tenants. Besides lack of repairs and frivolous evictions in housing court, A&E has also been known to use <2>MCIs</2> to <3>double rents</3> in rent-stabilized buildings."
 msgstr "A&E fue el quinto <0>\"peor desalojador\"</0> de la ciudad en el 2018, y es un excelente ejemplo de un propietario que participa en <1>estrategias agresivas de desalojo</1> para desplazar a inquilinos de bajos ingresos. Además de usar la falta de arreglos y los desalojos frívolos en la corte de viviendas, se sabe que A&E también utiliza los <2>IMCs</2> para <3>alquileres dobles</3> en edificios de resta estabilizada."
 
-#: src/components/PropertiesSummary.tsx:95
+#: src/components/PropertiesSummary.tsx:99
 msgid "The most common corporate entity is <0>{0}</0> and the most common business address is <1>{1}</1>."
 msgstr "La entidad corporativa más común es <0>{0}</0> y la dirección administrativa más común es <1>{1}</1>."
 
-#: src/components/PropertiesSummary.tsx:89
+#: src/components/PropertiesSummary.tsx:93
 msgid "The most common {0, plural, one {name that appears in this portfolio is} other {names that appear in this portfolio are}} <0/>."
 msgstr "{0, plural, one {El nombre más común que aparece en este portafolio de edificios es} other {Los nombres más comunes que aparecen en este portafolio de edificios son}} <0/>."
 
@@ -648,11 +648,11 @@ msgstr "El número de unidades residenciales en este edificio, según el Departa
 msgid "The year that this building was originally constructed, according to the Dept. of City Planning."
 msgstr "El año en que este edificio fue construido, según el Departamento de Planificación de la Ciudad."
 
-#: src/components/PropertiesSummary.tsx:68
+#: src/components/PropertiesSummary.tsx:72
 msgid "The {0, plural, one {} other {average}} age of {1, plural, one {this building} other {these buildings}} is <0>{2}</0> years old."
 msgstr "La {0, plural, one {edad} other {edad media}} de {1, plural, one {este edificio} other {estos edificios}} es de <0>{2}</0> años."
 
-#: src/components/PropertiesSummary.tsx:57
+#: src/components/PropertiesSummary.tsx:61
 msgid "There {0, plural, one {<0>is <1>1</1> building</0>} other {<2>are <3>{1}</3> buildings</2>}} in this portfolio with a total of {2, plural, one {1 unit} other {# units}}."
 msgstr "Hay {0, plural, one {<0><1>1</1> edificio</0>} other {<2><3>{1}</3> edificios</2>}} en este portafolio de edificios, con un total de {2, plural, one {una unidad residencial} other {# unidades residenciales}}."
 
@@ -684,11 +684,11 @@ msgstr "Esto es <0>peor</0> que el promedio de la ciudad de {VIOLATIONS_AVG} por
 msgid "This is the official identifer for the building according to the Dept. of Finance tax records."
 msgstr "El identificador oficial del edificio según los registros del Departamento de Finanzas."
 
-#: src/components/PropertiesSummary.tsx:122
+#: src/components/PropertiesSummary.tsx:126
 msgid "This landlord owns {0} buildings, and according to @NYCHousing, has received a total of {1} violations. Can you guess which landlord it is? Find their name and more data analysis here:"
 msgstr "Este dueño de edificio posee {0} edificios, y según @NYCHousing, ha recibido un total de {1} violaciones del código de vivienda. ¿Puedes adivinar como se llama el dueño? Encuentra su nombre y ve más estadísticas aquí:"
 
-#: src/components/PropertiesSummary.tsx:124
+#: src/components/PropertiesSummary.tsx:128
 msgid "This landlord’s buildings average {0} open HPD violations per apartment"
 msgstr "Los edificios de este dueño tienen un promedio de {0} violaciones abiertas de HPD por cada apartamento"
 
@@ -875,7 +875,7 @@ msgstr "por ${0}"
 msgid "search address"
 msgstr "dirección de búsqueda"
 
-#: src/components/PropertiesSummary.tsx:78
+#: src/components/PropertiesSummary.tsx:82
 msgid "{0} {1}, {2} currently has {3, plural, one {one open HPD violation} other {# open HPD violations}} - the most in this portfolio."
 msgstr "{0} {1}, {2} tiene {3, plural, one {una infracción del HPD actual} other {# infracciones del HPD actuales}} - la major cantidad en este portafolio de edificios."
 

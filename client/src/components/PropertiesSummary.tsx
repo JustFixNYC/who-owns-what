@@ -14,13 +14,19 @@ import { withMachineInStateProps } from "state-machine";
 import { NetworkErrorMessage } from "./NetworkErrorMessage";
 import { AddressRecord } from "./APIDataTypes";
 import { I18n } from "@lingui/react";
+import { defaultLocale, SupportedLocale } from "i18n-base";
 
 type Props = withMachineInStateProps<"portfolioFound"> & {
   isVisible: boolean;
 };
 
-const DATA_REQUEST_FORM_URL_ENGLISH = "https://airtable.com/shruDUDHViainzUBB";
-const DATA_REQUEST_FORM_URL_SPANISH = "https://airtable.com/shrQudDbhUVz5J83u";
+const DATA_REQUEST_FORM_URLS = {
+  en: "https://airtable.com/shruDUDHViainzUBB",
+  es: "https://airtable.com/shrQudDbhUVz5J83u",
+};
+
+const getDataRequestUrlFromLocale = (locale: SupportedLocale) =>
+  DATA_REQUEST_FORM_URLS[locale] || DATA_REQUEST_FORM_URLS[defaultLocale];
 
 const DataRequestButton: React.FC<{
   address: AddressRecord;
@@ -35,9 +41,9 @@ const DataRequestButton: React.FC<{
           onClick={() => {
             window.gtag("event", "data-request");
           }}
-          href={`${
-            i18n.language === "es" ? DATA_REQUEST_FORM_URL_SPANISH : DATA_REQUEST_FORM_URL_ENGLISH
-          }?prefill_Custom+Data+Request=${i18n._(t`BUILDING:`)}+${fullAddress}`}
+          href={`${getDataRequestUrlFromLocale(
+            i18n.language as SupportedLocale
+          )}?prefill_Custom+Data+Request=${i18n._(t`BUILDING:`)}+${fullAddress}`}
           target="_blank"
           rel="noopener noreferrer"
           className="btn btn-block"
