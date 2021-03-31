@@ -13,8 +13,9 @@ import { SocialShareAddressPage } from "./SocialShare";
 import { withMachineInStateProps } from "state-machine";
 import { NetworkErrorMessage } from "./NetworkErrorMessage";
 import { AddressRecord } from "./APIDataTypes";
-import { I18n } from "@lingui/react";
-import { defaultLocale, SupportedLocale } from "i18n-base";
+import { defaultLocale, isSupportedLocale } from "i18n-base";
+import { I18n } from "@lingui/core/i18n";
+import { I18n as I18nComponent } from "@lingui/react";
 
 type Props = withMachineInStateProps<"portfolioFound"> & {
   isVisible: boolean;
@@ -25,25 +26,33 @@ const DATA_REQUEST_FORM_URLS = {
   es: "https://airtable.com/shrQudDbhUVz5J83u",
 };
 
-const getDataRequestUrlFromLocale = (locale: SupportedLocale) =>
-  DATA_REQUEST_FORM_URLS[locale] || DATA_REQUEST_FORM_URLS[defaultLocale];
+const generateLinkToDataRequestForm = (i18n: I18n, address?: AddressRecord) => {
+  const locale = i18n.language;
+  if (!isSupportedLocale(locale)) {
+    throw new Error(`Trying to generate Data Request Form link with unsupported locale: ${locale}`);
+  }
+  let url = DATA_REQUEST_FORM_URLS[locale] || DATA_REQUEST_FORM_URLS[defaultLocale];
+  if (address) {
+    const buildingLabel = encodeURIComponent(`${i18n._(t`BUILDING:`)} `);
+    const fullAddress = encodeURIComponent(
+      `${address.housenumber} ${address.streetname}, ${address.boro}`
+    );
+    url = `${url}?prefill_Custom+Data+Request=${buildingLabel}${fullAddress}`;
+  }
+  return url;
+};
 
 const DataRequestButton: React.FC<{
-  address: AddressRecord;
+  address?: AddressRecord;
 }> = ({ address }) => {
-  const fullAddress = encodeURIComponent(
-    `${address.housenumber} ${address.streetname}, ${address.boro}`
-  );
   return (
-    <I18n>
+    <I18nComponent>
       {({ i18n }) => (
         <a
           onClick={() => {
             window.gtag("event", "data-request");
           }}
-          href={`${getDataRequestUrlFromLocale(
-            i18n.language as SupportedLocale
-          )}?prefill_Custom+Data+Request=${i18n._(t`BUILDING:`)}+${fullAddress}`}
+          href={generateLinkToDataRequestForm(i18n, address)}
           target="_blank"
           rel="noopener noreferrer"
           className="btn btn-block"
@@ -53,7 +62,7 @@ const DataRequestButton: React.FC<{
           </div>
         </a>
       )}
-    </I18n>
+    </I18nComponent>
   );
 };
 
