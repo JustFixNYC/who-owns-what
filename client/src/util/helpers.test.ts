@@ -1,4 +1,5 @@
-import helpers, { searchAddrsAreEqual, assertNotUndefined } from "./helpers";
+import helpers, { searchAddrsAreEqual } from "./helpers";
+import { assertNotUndefined } from "@justfixnyc/util";
 import { SearchAddressWithoutBbl } from "components/APIDataTypes";
 
 describe("assertNotUndefined()", () => {

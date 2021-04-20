@@ -8,7 +8,7 @@ import {
 } from "components/APIDataTypes";
 import { NychaData } from "containers/NychaPage";
 import APIClient from "components/APIClient";
-import { assertNotUndefined } from "util/helpers";
+import { assertNotUndefined } from "@justfixnyc/util";
 import nycha_bbls from "data/nycha_bbls.json";
 
 import _find from "lodash/find";
