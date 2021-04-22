@@ -104,6 +104,13 @@ def address_buildinginfo(request):
 
 
 @api
+def address_nychastats(request):
+    bbl = get_request_bbl(request)
+    result = exec_db_query(SQL_DIR / 'address_nychastats.sql', {'bbl': bbl})
+    return JsonResponse({'result': result})
+
+
+@api
 def address_indicatorhistory(request):
     bbl = get_request_bbl(request)
     result = exec_db_query(SQL_DIR / 'address_indicatorhistory.sql', {'bbl': bbl})
