@@ -3,6 +3,7 @@ import {
   AddressRecord,
   SummaryResults,
   IndicatorsHistoryResults,
+  NychaStatsResults,
 } from "components/APIDataTypes";
 
 export const SAMPLE_BUILDING_INFO_RESULTS: BuildingInfoResults = {
@@ -15,6 +16,16 @@ export const SAMPLE_BUILDING_INFO_RESULTS: BuildingInfoResults = {
       boro: "BROOKLYN",
       latitude: 40.6889099948209,
       longitude: -73.99302988771,
+    },
+  ],
+};
+
+export const SAMPLE_NYCHA_STATS_RESULTS: NychaStatsResults = {
+  result: [
+    {
+      development: "SOTOMAYOR HOUSES",
+      dev_evictions: 14,
+      dev_unitsres: 1506,
     },
   ],
 };

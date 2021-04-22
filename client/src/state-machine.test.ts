@@ -8,6 +8,7 @@ import {
   BuildingInfoResults,
   IndicatorsHistoryResults,
   SummaryResults,
+  NychaStatsResults,
 } from "components/APIDataTypes";
 import helpers from "util/helpers";
 import {
@@ -15,6 +16,7 @@ import {
   SAMPLE_ADDRESS_RECORDS,
   SAMPLE_TIMELINE_DATA,
   SAMPLE_SUMMARY_DATA,
+  SAMPLE_NYCHA_STATS_RESULTS,
 } from "state-machine-sample-data";
 
 const SEARCH_EVENT: WowEvent = {
@@ -34,6 +36,7 @@ function generateMockRequestStuff(bbl: string) {
     GEOCODING_EXAMPLE_SEARCH: newGeocodingExample,
     ADDRESS_URL: `https://wowapi/api/address?block=${bblBits.block}&lot=${bblBits.lot}&borough=${bblBits.boro}`,
     BUILDINGINFO_URL: `https://wowapi/api/address/buildinginfo?bbl=${bbl}`,
+    NYCHASTATS_URL: `https://wowapi/api/address/nychastats?bbl=${bbl}`,
     INDICATORS_URL: `https://wowapi/api/address/indicatorhistory?bbl=${bbl}`,
     SUMMARY_URL: `https://wowapi/api/address/aggregate?bbl=${bbl}`,
   };
@@ -91,6 +94,9 @@ describe("wowMachine", () => {
       [NOT_REG_URLS.BUILDINGINFO_URL]: mockJsonResponse<BuildingInfoResults>(
         SAMPLE_BUILDING_INFO_RESULTS
       ),
+      [NOT_REG_URLS.NYCHASTATS_URL]: mockJsonResponse<NychaStatsResults>({
+        result: [],
+      }),
     });
 
     const wm = interpret(wowMachine).start();
@@ -108,6 +114,9 @@ describe("wowMachine", () => {
         },
       }),
       [NOT_REG_URLS.BUILDINGINFO_URL]: mockJsonResponse<BuildingInfoResults>({
+        result: [],
+      }),
+      [NOT_REG_URLS.NYCHASTATS_URL]: mockJsonResponse<NychaStatsResults>({
         result: [],
       }),
     });
@@ -129,6 +138,7 @@ describe("wowMachine", () => {
       [NYCHA_URLS.BUILDINGINFO_URL]: mockJsonResponse<BuildingInfoResults>(
         SAMPLE_BUILDING_INFO_RESULTS
       ),
+      [NYCHA_URLS.NYCHASTATS_URL]: mockJsonResponse<NychaStatsResults>(SAMPLE_NYCHA_STATS_RESULTS),
     });
 
     const wm = interpret(wowMachine).start();
