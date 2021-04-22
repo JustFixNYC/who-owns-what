@@ -103,11 +103,20 @@ def address_buildinginfo(request):
     return JsonResponse({'result': result})
 
 
+def clean_nycha_info_dict(nycha_info):
+    return {
+        **nycha_info,
+        "dev_evictions": int_or_none(nycha_info['dev_evictions']),
+        "dev_unitsres": int_or_none(nycha_info['dev_unitsres'])
+    }
+
+
 @api
 def address_nychastats(request):
     bbl = get_request_bbl(request)
     result = exec_db_query(SQL_DIR / 'address_nychastats.sql', {'bbl': bbl})
-    return JsonResponse({'result': result})
+    cleaned_result = map(clean_nycha_info_dict, result)
+    return JsonResponse({'result': list(cleaned_result)})
 
 
 @api

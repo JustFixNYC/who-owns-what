@@ -110,7 +110,7 @@ export type SummaryResults = {
   result: SummaryStatsRecord[];
 };
 
-// TYPES ASSOCIATED BUILDING INFO QUERY:
+// TYPES ASSOCIATED WITH BUILDING INFO QUERY:
 
 export type BuildingInfoRecord = {
   boro: Borough;
@@ -124,6 +124,18 @@ export type BuildingInfoRecord = {
 
 export type BuildingInfoResults = {
   result: BuildingInfoRecord[];
+};
+
+// TYPES ASSOCIATED WITH NYCHA STATS QUERY:
+
+export type NychaStatsRecord = {
+  development: string | null;
+  dev_evictions: number | null;
+  dev_unitsres: number | null;
+};
+
+export type NychaStatsResults = {
+  result: NychaStatsRecord[];
 };
 
 // TYPES ASSOCIATED WITH INDICATORS (TIMELINE TAB) QUERY:
