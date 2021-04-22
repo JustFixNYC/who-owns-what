@@ -97,7 +97,7 @@ class TestAddressNychaStats(ApiTest):
     ]
 
     def test_it_works(self, db, client):
-        res = client.get('/api/address/nychastats?bbl=2055670001')
+        res = client.get('/api/address/nychastats?bbl=2037250001')
         assert res.status_code == 200
         assert res.json()['result'] is not None
 
