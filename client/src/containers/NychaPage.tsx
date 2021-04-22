@@ -103,7 +103,7 @@ const NychaPageWithoutI18n: React.FC<NychaPageProps> = (props) => {
                       )}
                     >
                       <Trans render="label">Units</Trans>
-                      {nycha.dev_unitsres}
+                      {nycha.dev_unitsres || 0}
                     </div>
                     <div
                       title={i18n._(
@@ -111,7 +111,7 @@ const NychaPageWithoutI18n: React.FC<NychaPageProps> = (props) => {
                       )}
                     >
                       <Trans render="label">Evictions</Trans>
-                      {nycha.dev_evictions}
+                      {nycha.dev_evictions || 0}
                     </div>
                   </div>
                 </div>
