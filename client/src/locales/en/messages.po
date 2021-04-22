@@ -41,10 +41,6 @@ msgstr "({browserType, select, mobile {tap} other {click}} to view details)"
 msgid "... or view some sample portfolios:"
 msgstr "... or view some sample portfolios:"
 
-#: src/containers/NychaPage.tsx:87
-msgid "2019 Evictions"
-msgstr "2019 Evictions"
-
 #: src/components/DetailView.tsx:225
 #: src/components/Indicators.tsx:283
 #: src/containers/NotRegisteredPage.tsx:158
@@ -230,6 +226,7 @@ msgstr "Enter email"
 #: src/components/BuildingStatsTable.tsx:71
 #: src/components/PropertiesList.tsx:108
 #: src/components/PropertiesSummary.tsx:117
+#: src/containers/NychaPage.tsx:87
 msgid "Evictions"
 msgstr "Evictions"
 
@@ -238,8 +235,8 @@ msgid "Evictions executed by NYC Marshals since 2017. ANHD and the Housing Data 
 msgstr "Evictions executed by NYC Marshals since 2017. ANHD and the Housing Data Coalition cleaned, geocoded, and validated the data, originally sourced from DOI."
 
 #: src/containers/NychaPage.tsx:86
-msgid "Evictions executed in this development by NYC Marshals in 2019. ANHD and the Housing Data Coalition cleaned, geocoded, and validated the data, originally sourced from DOI."
-msgstr "Evictions executed in this development by NYC Marshals in 2019. ANHD and the Housing Data Coalition cleaned, geocoded, and validated the data, originally sourced from DOI."
+msgid "Evictions executed in this development by NYC Marshals since 2017. ANHD and the Housing Data Coalition cleaned, geocoded, and validated the data, originally sourced from DOI."
+msgstr "Evictions executed in this development by NYC Marshals since 2017. ANHD and the Housing Data Coalition cleaned, geocoded, and validated the data, originally sourced from DOI."
 
 #: src/components/AddressToolbar.tsx:29
 msgid "Export Data"
