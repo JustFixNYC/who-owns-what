@@ -4,6 +4,7 @@ import {
   BuildingInfoResults,
   IndicatorsHistoryResults,
   WithBoroBlockLot,
+  NychaStatsResults,
 } from "./APIDataTypes";
 import { SearchAddress } from "./AddressSearch";
 import { GeoSearchRequester } from "@justfixnyc/geosearch-requester";
@@ -98,6 +99,10 @@ function getBuildingInfo(bbl: string): Promise<BuildingInfoResults> {
   return getApiJson(`/api/address/buildinginfo?bbl=${bbl}`);
 }
 
+function getNychaStats(bbl: string): Promise<NychaStatsResults> {
+  return getApiJson(`/api/address/nychastats?bbl=${bbl}`);
+}
+
 async function getIndicatorHistory(bbl: string): Promise<IndicatorsDataFromAPI> {
   const apiData: Promise<IndicatorsHistoryResults> = getApiJson(
     `/api/address/indicatorhistory?bbl=${bbl}`
@@ -168,6 +173,7 @@ const Client = {
   searchForBBL,
   getAggregate,
   getBuildingInfo,
+  getNychaStats,
   getIndicatorHistory,
   getAddressExport,
 };

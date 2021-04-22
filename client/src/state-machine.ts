@@ -5,11 +5,10 @@ import {
   BuildingInfoRecord,
   SummaryStatsRecord,
   SummaryResults,
+  NychaStatsRecord,
 } from "components/APIDataTypes";
-import { NychaData } from "containers/NychaPage";
 import APIClient from "components/APIClient";
 import { assertNotUndefined } from "util/helpers";
-import nycha_bbls from "data/nycha_bbls.json";
 
 import _find from "lodash/find";
 import { IndicatorsDataFromAPI } from "components/IndicatorsTypes";
@@ -40,7 +39,7 @@ export type WowState =
         searchAddrParams: SearchAddressWithoutBbl;
         searchAddrBbl: string;
         portfolioData: undefined;
-        nychaData: NychaData;
+        nychaStats: NychaStatsRecord;
         buildingInfo: BuildingInfoRecord;
       };
     }
@@ -129,7 +128,7 @@ export interface WowContext {
    */
   buildingInfo?: BuildingInfoRecord;
   /** NYCHA Public Housing development details (grabbed if the search address is public housing) */
-  nychaData?: NychaData;
+  nychaStats?: NychaStatsRecord;
   /** All data used to render the "Timeline tab" of the Address Page. Updates on any change to `detailAddr` */
   timelineData?: IndicatorsDataFromAPI;
   /** All data used to render the "Summary tab" of the Address Page. Updates on any change to `searchAddr` */
@@ -162,14 +161,6 @@ export type withMachineInStateProps<TSV extends WowState["value"]> = {
   send: (event: WowEvent) => WowMachineEverything;
 };
 
-export function getNychaData(searchBBL: string) {
-  const bbl = searchBBL.toString();
-  for (var index = 0; index < nycha_bbls.length; index++) {
-    if (nycha_bbls[index].bbl.toString() === bbl) return nycha_bbls[index];
-  }
-  return null;
-}
-
 async function getSearchResult(addr: SearchAddressWithoutBbl): Promise<WowState> {
   const apiResults = await APIClient.searchForAddressWithGeosearch(addr);
   if (!apiResults.geosearch) {
@@ -179,8 +170,9 @@ async function getSearchResult(addr: SearchAddressWithoutBbl): Promise<WowState>
     };
   } else if (apiResults.addrs.length === 0) {
     const buildingInfoResults = await APIClient.getBuildingInfo(apiResults.geosearch.bbl);
-    const nychaData = getNychaData(apiResults.geosearch.bbl);
     const buildingInfo = buildingInfoResults.result[0];
+    const nychaStatsResults = await APIClient.getNychaStats(apiResults.geosearch.bbl);
+    const nychaStats = nychaStatsResults.result[0];
 
     if (!buildingInfo) {
       // Apparently PLUTO doesn't have data for some buildings,
@@ -195,14 +187,14 @@ async function getSearchResult(addr: SearchAddressWithoutBbl): Promise<WowState>
       };
     }
 
-    return nychaData
+    return nychaStats && nychaStats.development
       ? {
           value: "nychaFound",
           context: {
             searchAddrParams: addr,
             searchAddrBbl: apiResults.geosearch.bbl,
             portfolioData: undefined,
-            nychaData,
+            nychaStats,
             buildingInfo,
           },
         }

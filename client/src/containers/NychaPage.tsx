@@ -12,19 +12,12 @@ import { SocialShareForNotRegisteredPage } from "./NotRegisteredPage";
 import { withMachineInStateProps } from "state-machine";
 import Page from "components/Page";
 
-export type NychaData = {
-  bbl: number;
-  development: string;
-  dev_evictions: string | number;
-  dev_unitsres: number;
-};
-
 type NychaPageProps = withMachineInStateProps<"nychaFound"> & withI18nProps;
 
 const NychaPageWithoutI18n: React.FC<NychaPageProps> = (props) => {
   const { i18n, state } = props;
 
-  const { searchAddrParams, searchAddrBbl, nychaData: nycha, buildingInfo } = state.context;
+  const { searchAddrParams, searchAddrBbl, nychaStats: nycha, buildingInfo } = state.context;
   const { boro, block, lot } = Helpers.splitBBL(searchAddrBbl);
 
   const bblDash = (
