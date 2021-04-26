@@ -15,6 +15,26 @@ export const SAMPLE_BUILDING_INFO_RESULTS: BuildingInfoResults = {
       boro: "BROOKLYN",
       latitude: 40.6889099948209,
       longitude: -73.99302988771,
+      nycha_development: null,
+      nycha_dev_evictions: null,
+      nycha_dev_unitsres: null,
+    },
+  ],
+};
+
+export const SAMPLE_NYCHA_BUILDING_INFO_RESULTS: BuildingInfoResults = {
+  result: [
+    {
+      formatted_address: "1755 BRUCKNER BOULEVARD",
+      housenumber: "1755",
+      streetname: "BRUCKNER BOULEVARD",
+      bldgclass: "D3",
+      boro: "BRONX",
+      latitude: 40.826506542075805,
+      longitude: -73.86649903642933,
+      nycha_development: "SOTOMAYOR HOUSES",
+      nycha_dev_evictions: 14,
+      nycha_dev_unitsres: 1506,
     },
   ],
 };

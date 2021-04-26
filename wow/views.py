@@ -96,11 +96,20 @@ def address_aggregate(request):
     return JsonResponse({'result': list(cleaned_result)})
 
 
+def clean_building_info_dict(building_info):
+    return {
+        **building_info,
+        "nycha_dev_evictions": int_or_none(building_info['nycha_dev_evictions']),
+        "nycha_dev_unitsres": int_or_none(building_info['nycha_dev_unitsres'])
+    }
+
+
 @api
 def address_buildinginfo(request):
     bbl = get_request_bbl(request)
     result = exec_db_query(SQL_DIR / 'address_buildinginfo.sql', {'bbl': bbl})
-    return JsonResponse({'result': result})
+    cleaned_result = map(clean_building_info_dict, result)
+    return JsonResponse({'result': list(cleaned_result)})
 
 
 @api
