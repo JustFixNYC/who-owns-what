@@ -99,8 +99,8 @@ def address_aggregate(request):
 def clean_building_info_dict(building_info):
     return {
         **building_info,
-        "dev_evictions": int_or_none(building_info['dev_evictions']),
-        "dev_unitsres": int_or_none(building_info['dev_unitsres'])
+        "nycha_dev_evictions": int_or_none(building_info['nycha_dev_evictions']),
+        "nycha_dev_unitsres": int_or_none(building_info['nycha_dev_unitsres'])
     }
 
 

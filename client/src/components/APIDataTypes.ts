@@ -120,12 +120,15 @@ export type BuildingInfoRecord = {
   streetname: string;
   bldgclass: string;
   formatted_address: string;
-  /** The name of the NYCHA development (e.g. "SOTOMAYOR HOUSES"). NULL if building is not part of NYCHA. */
-  development: string | null;
-  /** Total executed residential evictions (since 2017) accross the building's entire NYCHA development. NULL if building is not part of NYCHA. */
-  dev_evictions: number | null;
-  /** Total residential units accross the building's entire NYCHA development. NULL if building is not part of NYCHA. */
-  dev_unitsres: number | null;
+  /** The name of the NYCHA development (e.g. "SOTOMAYOR HOUSES").
+   * NULL if building is not part of NYCHA */
+  nycha_development: string | null;
+  /** Total executed residential evictions (since 2017) accross the building's entire NYCHA development.
+   * NULL values either mean 0 evictions took place across the development or building is not part of NYCHA. */
+  nycha_dev_evictions: number | null;
+  /** Total residential units accross the building's entire NYCHA development.
+   * NULL values either mean PLUTO listed 0 residential units across the development or building is not part of NYCHA. */
+  nycha_dev_unitsres: number | null;
 };
 
 export type BuildingInfoResults = {

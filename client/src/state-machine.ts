@@ -183,7 +183,7 @@ async function getSearchResult(addr: SearchAddressWithoutBbl): Promise<WowState>
     }
 
     return {
-      value: buildingInfo.development ? "nychaFound" : "unregisteredFound",
+      value: buildingInfo.nycha_development ? "nychaFound" : "unregisteredFound",
       context: {
         searchAddrParams: addr,
         searchAddrBbl: apiResults.geosearch.bbl,
