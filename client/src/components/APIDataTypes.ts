@@ -120,25 +120,16 @@ export type BuildingInfoRecord = {
   streetname: string;
   bldgclass: string;
   formatted_address: string;
+  /** The name of the NYCHA development (e.g. "SOTOMAYOR HOUSES"). NULL if building is not part of NYCHA. */
+  development: string | null;
+  /** Total executed residential evictions (since 2017) accross the building's entire NYCHA development. NULL if building is not part of NYCHA. */
+  dev_evictions: number | null;
+  /** Total residential units accross the building's entire NYCHA development. NULL if building is not part of NYCHA. */
+  dev_unitsres: number | null;
 };
 
 export type BuildingInfoResults = {
   result: BuildingInfoRecord[];
-};
-
-// TYPES ASSOCIATED WITH NYCHA STATS QUERY:
-
-export type NychaStatsRecord = {
-  /** The name of the NYCHA development */
-  development: string | null;
-  /** Total executed residential evictions (since 2017) accross the entire NYCHA development */
-  dev_evictions: number | null;
-  /** Total residential units accross the entire NYCHA development */
-  dev_unitsres: number | null;
-};
-
-export type NychaStatsResults = {
-  result: NychaStatsRecord[];
 };
 
 // TYPES ASSOCIATED WITH INDICATORS (TIMELINE TAB) QUERY:

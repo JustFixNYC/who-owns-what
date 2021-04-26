@@ -17,7 +17,7 @@ type NychaPageProps = withMachineInStateProps<"nychaFound"> & withI18nProps;
 const NychaPageWithoutI18n: React.FC<NychaPageProps> = (props) => {
   const { i18n, state } = props;
 
-  const { searchAddrParams, searchAddrBbl, nychaStats: nycha, buildingInfo } = state.context;
+  const { searchAddrParams, searchAddrBbl, buildingInfo } = state.context;
   const { boro, block, lot } = Helpers.splitBBL(searchAddrBbl);
 
   const bblDash = (
@@ -84,7 +84,7 @@ const NychaPageWithoutI18n: React.FC<NychaPageProps> = (props) => {
         <div className="HomePage__content">
           <div className="HomePage__search">
             <h5 className="mt-10 text-center text-bold text-large">
-              {nycha.development}: <Trans>Public Housing Development</Trans>
+              {buildingInfo.development}: <Trans>Public Housing Development</Trans>
             </h5>
             <h6 className="mt-10 text-center text-bold text-large">
               <Trans>This building is owned by the NYC Housing Authority (NYCHA)</Trans>
@@ -103,7 +103,7 @@ const NychaPageWithoutI18n: React.FC<NychaPageProps> = (props) => {
                       )}
                     >
                       <Trans render="label">Units</Trans>
-                      {nycha.dev_unitsres || 0}
+                      {buildingInfo.dev_unitsres || 0}
                     </div>
                     <div
                       title={i18n._(
@@ -111,7 +111,7 @@ const NychaPageWithoutI18n: React.FC<NychaPageProps> = (props) => {
                       )}
                     >
                       <Trans render="label">Evictions</Trans>
-                      {nycha.dev_evictions || 0}
+                      {buildingInfo.dev_evictions || 0}
                     </div>
                   </div>
                 </div>

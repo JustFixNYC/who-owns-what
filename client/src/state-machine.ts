@@ -5,7 +5,6 @@ import {
   BuildingInfoRecord,
   SummaryStatsRecord,
   SummaryResults,
-  NychaStatsRecord,
 } from "components/APIDataTypes";
 import APIClient from "components/APIClient";
 import { assertNotUndefined } from "util/helpers";
@@ -39,7 +38,6 @@ export type WowState =
         searchAddrParams: SearchAddressWithoutBbl;
         searchAddrBbl: string;
         portfolioData: undefined;
-        nychaStats: NychaStatsRecord;
         buildingInfo: BuildingInfoRecord;
       };
     }
@@ -124,11 +122,10 @@ export interface WowContext {
   portfolioData?: PortfolioData;
   /**
    * Secondary building-specific data gathered if we can't find the building address in our
-   * database of HPD registered buildings
+   * database of HPD registered buildings. Includes NYCHA Public Housing development details
+   * if the building is public housing.
    */
   buildingInfo?: BuildingInfoRecord;
-  /** NYCHA Public Housing development details (grabbed if the search address is public housing) */
-  nychaStats?: NychaStatsRecord;
   /** All data used to render the "Timeline tab" of the Address Page. Updates on any change to `detailAddr` */
   timelineData?: IndicatorsDataFromAPI;
   /** All data used to render the "Summary tab" of the Address Page. Updates on any change to `searchAddr` */
@@ -171,8 +168,6 @@ async function getSearchResult(addr: SearchAddressWithoutBbl): Promise<WowState>
   } else if (apiResults.addrs.length === 0) {
     const buildingInfoResults = await APIClient.getBuildingInfo(apiResults.geosearch.bbl);
     const buildingInfo = buildingInfoResults.result[0];
-    const nychaStatsResults = await APIClient.getNychaStats(apiResults.geosearch.bbl);
-    const nychaStats = nychaStatsResults.result[0];
 
     if (!buildingInfo) {
       // Apparently PLUTO doesn't have data for some buildings,
@@ -187,26 +182,15 @@ async function getSearchResult(addr: SearchAddressWithoutBbl): Promise<WowState>
       };
     }
 
-    return nychaStats && nychaStats.development
-      ? {
-          value: "nychaFound",
-          context: {
-            searchAddrParams: addr,
-            searchAddrBbl: apiResults.geosearch.bbl,
-            portfolioData: undefined,
-            nychaStats,
-            buildingInfo,
-          },
-        }
-      : {
-          value: "unregisteredFound",
-          context: {
-            searchAddrParams: addr,
-            searchAddrBbl: apiResults.geosearch.bbl,
-            portfolioData: undefined,
-            buildingInfo,
-          },
-        };
+    return {
+      value: buildingInfo.development ? "nychaFound" : "unregisteredFound",
+      context: {
+        searchAddrParams: addr,
+        searchAddrBbl: apiResults.geosearch.bbl,
+        portfolioData: undefined,
+        buildingInfo,
+      },
+    };
   } else {
     const searchAddr = _find(apiResults.addrs, { bbl: apiResults.geosearch.bbl });
     if (!searchAddr) {

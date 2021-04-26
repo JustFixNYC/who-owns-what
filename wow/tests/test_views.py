@@ -90,18 +90,6 @@ class TestAddressBuildingInfo(ApiTest):
         assert res.json()['result'] is not None
 
 
-class TestAddressNychaStats(ApiTest):
-    HTTP_400_URLS = [
-        '/api/address/nychastats',
-        '/api/address/nychastats?bbl=bop',
-    ]
-
-    def test_it_works(self, db, client):
-        res = client.get('/api/address/nychastats?bbl=2037250001')
-        assert res.status_code == 200
-        assert res.json()['result'] is not None
-
-
 class TestAddressIndicatorHistory(ApiTest):
     HTTP_400_URLS = [
         '/api/address/indicatorhistory',
