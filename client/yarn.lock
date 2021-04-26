@@ -2249,6 +2249,11 @@
   resolved "https://registry.yarnpkg.com/@justfixnyc/react-common/-/react-common-0.0.7.tgz#db348dfd37a2d9e14a3edfbcd93ed2985da14acb"
   integrity sha512-A5/uRHPsUAe+xdYMFiJ2iAaoARg3nDQ12LEh6kgBpIoc6f3X2JJUQq/CGPt4gx7yxkNJ9kL1Be/UkT2OBFVwJg==
 
+"@justfixnyc/util@0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@justfixnyc/util/-/util-0.2.0.tgz#82cf176a5ab5bf266008c16a3d5a492e9cc953b8"
+  integrity sha512-kHgbIroXPfHMSdL1V+pOQNYB0G8jz+zaJvTYurE3C0il3atMtJNfOusxbWA1dby3kcus6VsrnJX6kdYdMgMXNw==
+
 "@lingui/babel-plugin-extract-messages@2.8.3":
   version "2.8.3"
   resolved "https://registry.yarnpkg.com/@lingui/babel-plugin-extract-messages/-/babel-plugin-extract-messages-2.8.3.tgz#3fd6bcc97f7fec35b8b39731cd1d99596636a166"
