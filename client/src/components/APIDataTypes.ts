@@ -129,8 +129,11 @@ export type BuildingInfoResults = {
 // TYPES ASSOCIATED WITH NYCHA STATS QUERY:
 
 export type NychaStatsRecord = {
+  /** The name of the NYCHA development */
   development: string | null;
+  /** Total executed residential evictions (since 2017) accross the entire NYCHA development */
   dev_evictions: number | null;
+  /** Total residential units accross the entire NYCHA development */
   dev_unitsres: number | null;
 };
 
