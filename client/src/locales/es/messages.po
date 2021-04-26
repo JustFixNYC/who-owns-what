@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2021-03-31 13:58\n"
+"PO-Revision-Date: 2021-04-26 22:11\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -45,10 +45,6 @@ msgstr "({browserType, select, mobile {pulsa} other {haz clic}} para ver detalle
 #: src/containers/HomePage.tsx:79
 msgid "... or view some sample portfolios:"
 msgstr "... o descubre ejemplos de portafolios de edificios:"
-
-#: src/containers/NychaPage.tsx:87
-msgid "2019 Evictions"
-msgstr "Desalojos 2019"
 
 #: src/components/DetailView.tsx:225
 #: src/components/Indicators.tsx:283
@@ -235,6 +231,7 @@ msgstr "Introducir email"
 #: src/components/BuildingStatsTable.tsx:71
 #: src/components/PropertiesList.tsx:108
 #: src/components/PropertiesSummary.tsx:117
+#: src/containers/NychaPage.tsx:87
 msgid "Evictions"
 msgstr "Desalojos"
 
@@ -243,8 +240,8 @@ msgid "Evictions executed by NYC Marshals since 2017. ANHD and the Housing Data 
 msgstr "Desalojos ejecutados en este edificio por el Mariscal de NYC desde el 2017. ANHD y la Coalición de Datos de Vivienda limpiaron, codificaron y validaron los datos, que provienen originalmente del DOI."
 
 #: src/containers/NychaPage.tsx:86
-msgid "Evictions executed in this development by NYC Marshals in 2019. ANHD and the Housing Data Coalition cleaned, geocoded, and validated the data, originally sourced from DOI."
-msgstr "Desalojos ejecutados en este complejo por el Mariscal de NYC en 2019. ANHD y la Coalición de Datos de Vivienda limpiaron, codificaron y validaron los datos, originalmente provenientes del DOI."
+msgid "Evictions executed in this development by NYC Marshals since 2017. ANHD and the Housing Data Coalition cleaned, geocoded, and validated the data, originally sourced from DOI."
+msgstr ""
 
 #: src/components/AddressToolbar.tsx:29
 msgid "Export Data"
