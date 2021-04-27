@@ -7,8 +7,7 @@ import {
   SummaryResults,
 } from "components/APIDataTypes";
 import APIClient from "components/APIClient";
-import { assertNotUndefined } from "util/helpers";
-
+import { assertNotUndefined } from "@justfixnyc/util";
 import _find from "lodash/find";
 import { IndicatorsDataFromAPI } from "components/IndicatorsTypes";
 import { reportError } from "error-reporting";
