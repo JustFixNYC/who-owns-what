@@ -1,7 +1,6 @@
 import helpers, { searchAddrsAreEqual } from "./helpers";
 import { SearchAddressWithoutBbl } from "components/APIDataTypes";
 
-
 describe("searchAddrsAreEqual()", () => {
   const searchAddr1: SearchAddressWithoutBbl = {
     boro: "BRONX",
