@@ -2244,10 +2244,10 @@
   resolved "https://registry.yarnpkg.com/@justfixnyc/geosearch-requester/-/geosearch-requester-0.0.6.tgz#af3144a8b599e45ad3ce5c2190fc60da81106475"
   integrity sha512-wHsY9DbiQUp7H/KiQ4+ejTShR6lY3iagiFhw4VoP1kljyem+WIwEkiZNnvUHkOAQIkTtPulLaiKHEMpzaw9xZQ==
 
-"@justfixnyc/react-common@^0.0.7":
-  version "0.0.7"
-  resolved "https://registry.yarnpkg.com/@justfixnyc/react-common/-/react-common-0.0.7.tgz#db348dfd37a2d9e14a3edfbcd93ed2985da14acb"
-  integrity sha512-A5/uRHPsUAe+xdYMFiJ2iAaoARg3nDQ12LEh6kgBpIoc6f3X2JJUQq/CGPt4gx7yxkNJ9kL1Be/UkT2OBFVwJg==
+"@justfixnyc/react-common@^0.0.8":
+  version "0.0.8"
+  resolved "https://registry.yarnpkg.com/@justfixnyc/react-common/-/react-common-0.0.8.tgz#8fca9f0ef464383a90a354269d889223a6c5ac31"
+  integrity sha512-CXB2fvQjRA5wrbEU713evBNefqEYbrqWUpLJMPcI5b4N4cP9uZGNk0eSLpDEVZzZacJUc4YG4g24cLy/3PknAA==
 
 "@justfixnyc/util@0.3.0":
   version "0.3.0"
