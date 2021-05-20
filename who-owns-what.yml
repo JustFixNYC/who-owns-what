@@ -7,6 +7,7 @@ dependencies:
   - marshal_evictions
   - hpd_registrations
   - hpd_violations
+  - hpd_complaints
   - acris
   - nycha_bbls
 api_dependencies:
