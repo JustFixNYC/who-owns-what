@@ -70,7 +70,7 @@ select distinct on (registrations.bbl)
   registrations.*,
   coalesce(violations.total, 0)::int as totalviolations,
   coalesce(violations.opentotal, 0)::int as openviolations,
-  coalesce(complaints.totalcomplaints, 0):: int as totalcomplaints,
+  coalesce(complaints.totalcomplaints, 0)::int as totalcomplaints,
   complaints.complaintsbytype,
   pluto.unitsres,
   pluto.yearbuilt,
