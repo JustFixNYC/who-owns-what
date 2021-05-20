@@ -35,12 +35,43 @@ rentstab as (
     coalesce(uc2019, 0) - coalesce(unitsstab2007, 0) rsdiff
   from rentstab_summary
   left join rentstab_v2 using(ucbbl)
+),
+
+complaints as (
+  select 
+    bbl, 
+    sum(countcomplaints) as totalcomplaints, 
+    json_agg(
+        json_build_object(complainttype,countcomplaints) 
+        order by countcomplaints desc) complaintsbytype
+  from 
+    -- ----------
+    -- For every bbl, grab frequency of complaints by type 
+    -- ----------
+    (
+        select 
+            bbl, 
+            case 
+                when majorcategory = any('{UNSANITARY CONDITION,GENERAL}') then minorcategory
+                else majorcategory end 
+            as complainttype,
+            count(*) countcomplaints
+        from hpd_complaints h
+        left join hpd_complaint_problems using(complaintid)
+        -- Limit complaints to those received within the last 3 years
+        where h.receiveddate > CURRENT_DATE - '3 YEARS'::INTERVAL
+        group by bbl, complainttype
+    ) subtable
+    -- ----------
+  group by bbl
 )
 
 select distinct on (registrations.bbl)
   registrations.*,
   coalesce(violations.total, 0)::int as totalviolations,
   coalesce(violations.opentotal, 0)::int as openviolations,
+  coalesce(complaints.totalcomplaints, 0):: int as totalcomplaints,
+  complaints.complaintsbytype,
   pluto.unitsres,
   pluto.yearbuilt,
   pluto.lat,
@@ -79,6 +110,7 @@ left join (
   group by bbl
 ) evictions on (registrations.bbl = evictions.bbl)
 left join rentstab on (registrations.bbl = rentstab.ucbbl)
+left join complaints on (registrations.bbl = complaints.bbl)
 left join firstdeeds on (registrations.bbl = firstdeeds.bbl);
 
 create index on wow_bldgs (registrationid);
