@@ -19,6 +19,10 @@ type HpdOwnerContact = {
   value: string;
 };
 
+type HpdComplaintCount = {
+  complaint: number;
+};
+
 /** Date fields that come from our API Data are strings with the format YYYY-MM-DD */
 type APIDate = string;
 
@@ -31,6 +35,7 @@ export type AddressRecord = {
   bin: string;
   boro: Borough;
   businessaddrs: string[] | null;
+  complaintsbytype: HpdComplaintCount[] | null;
   corpnames: string[] | null;
   evictions: number | null;
   housenumber: string;
@@ -51,6 +56,7 @@ export type AddressRecord = {
   rsunitslatest: number | null;
   rsunitslatestyear: number;
   streetname: string;
+  totalcomplaints: number;
   totalviolations: number;
   unitsres: number | null;
   yearbuilt: number | null;
