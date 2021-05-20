@@ -20,7 +20,7 @@ type HpdOwnerContact = {
 };
 
 type HpdComplaintCount = {
-  complaint: number;
+  [name: string]: number;
 };
 
 /** Date fields that come from our API Data are strings with the format YYYY-MM-DD */
