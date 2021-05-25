@@ -33,11 +33,10 @@ const generateLinkToDataRequestForm = (i18n: I18n, address?: AddressRecord) => {
   }
   let url = DATA_REQUEST_FORM_URLS[locale] || DATA_REQUEST_FORM_URLS[defaultLocale];
   if (address) {
-    const buildingLabel = encodeURIComponent(`${i18n._(t`BUILDING:`)} `);
     const fullAddress = encodeURIComponent(
       `${address.housenumber} ${address.streetname}, ${address.boro}`
     );
-    url = `${url}?prefill_Custom+Data+Request=${buildingLabel}${fullAddress}`;
+    url = `${url}?prefill_Address=${fullAddress}`;
   }
   return url;
 };
