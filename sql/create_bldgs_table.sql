@@ -40,10 +40,12 @@ rentstab as (
 complaints as (
   select 
     bbl, 
-    sum(countcomplaints) as totalcomplaints, 
+    sum(counttotalcomplaints) as totalcomplaints, 
+    sum(countrecentcomplaints) as recentcomplaints,
     json_agg(
-        json_build_object(complainttype,countcomplaints) 
-        order by countcomplaints desc) complaintsbytype
+        json_build_object('type',complainttype,'count',countrecentcomplaints) 
+        order by countrecentcomplaints desc) 
+        filter (where countrecentcomplaints > 0) recentcomplaintsbytype
   from 
     -- ----------
     -- For every bbl, grab frequency of complaints by type 
@@ -55,11 +57,10 @@ complaints as (
                 when majorcategory = any('{UNSANITARY CONDITION,GENERAL}') then minorcategory
                 else majorcategory end 
             as complainttype,
-            count(*) countcomplaints
+            count(*) filter (where h.receiveddate > CURRENT_DATE - '3 YEARS'::INTERVAL) as countrecentcomplaints,
+            count(*) counttotalcomplaints
         from hpd_complaints h
         left join hpd_complaint_problems using(complaintid)
-        -- Limit complaints to those received within the last 3 years
-        where h.receiveddate > CURRENT_DATE - '3 YEARS'::INTERVAL
         group by bbl, complainttype
     ) subtable
     -- ----------
@@ -71,7 +72,8 @@ select distinct on (registrations.bbl)
   coalesce(violations.total, 0)::int as totalviolations,
   coalesce(violations.opentotal, 0)::int as openviolations,
   coalesce(complaints.totalcomplaints, 0)::int as totalcomplaints,
-  complaints.complaintsbytype,
+  coalesce(complaints.recentcomplaints, 0)::int as recentcomplaints,
+  complaints.recentcomplaintsbytype,
   pluto.unitsres,
   pluto.yearbuilt,
   pluto.lat,
