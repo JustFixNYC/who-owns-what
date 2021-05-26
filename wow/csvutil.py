@@ -8,7 +8,7 @@ def stringify_owners(owners: List[Dict[str, str]]) -> str:
     ])
 
 
-def stringify_complaint_types(complaints: List[Dict[str, str]]) -> str:
+def stringify_complaints(complaints: List[Dict[str, str]]) -> str:
     return ', '.join([
         f"{complaint['type']} ({complaint['title']})"
         for complaint in complaints

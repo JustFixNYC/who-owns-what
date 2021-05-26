@@ -131,8 +131,10 @@ def address_export(request):
     first_row = addrs[0]
 
     for addr in addrs:
-        addr['ownernames'] = csvutil.stringify_owners(addr['ownernames'])
-        addr['recentcomplaintsbytype'] = csvutil.stringify_complaint_types(addr['recentcomplaintsbytype'])
+        addr["ownernames"] = csvutil.stringify_owners(addr["ownernames"])
+        addr["recentcomplaintsbytype"] = csvutil.stringify_complaints(
+            addr["recentcomplaintsbytype"]
+        )
         csvutil.stringify_lists(addr)
 
     # https://docs.djangoproject.com/en/3.0/howto/outputting-csv/
