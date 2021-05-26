@@ -19,6 +19,11 @@ type HpdOwnerContact = {
   value: string;
 };
 
+type HpdComplaintCount = {
+  type: string;
+  count: number;
+};
+
 /** Date fields that come from our API Data are strings with the format YYYY-MM-DD */
 type APIDate = string;
 
@@ -44,6 +49,8 @@ export type AddressRecord = {
   mapType?: "base" | "search";
   openviolations: number;
   ownernames: HpdOwnerContact[] | null;
+  recentcomplaints: number;
+  recentcomplaintsbytype: HpdComplaintCount[] | null;
   registrationenddate: APIDate;
   registrationid: string;
   rsdiff: number | null;
@@ -51,6 +58,7 @@ export type AddressRecord = {
   rsunitslatest: number | null;
   rsunitslatestyear: number;
   streetname: string;
+  totalcomplaints: number;
   totalviolations: number;
   unitsres: number | null;
   yearbuilt: number | null;
