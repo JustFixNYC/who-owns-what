@@ -9,10 +9,13 @@ def stringify_owners(owners: List[Dict[str, str]]) -> str:
 
 
 def stringify_complaints(complaints: List[Dict[str, str]]) -> str:
-    return ', '.join([
-        f"{complaint['type']} ({complaint['count']})"
-        for complaint in complaints
-    ])
+    if complaints:
+        return ', '.join([
+            f"{complaint['type']} ({complaint['count']})"
+            for complaint in complaints
+        ])
+    else:
+        return ''
 
 
 def stringify_lists(d: Dict[str, Any]):
