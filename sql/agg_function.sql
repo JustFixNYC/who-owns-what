@@ -50,14 +50,14 @@ RETURNS TABLE (
     (SELECT json_agg(
       json_build_object('type',complainttype,'count',countrecentcomplaints) 
       order by countrecentcomplaints desc) 
-      filter (where countrecentcomplaints > 0) totalrecentcomplaintsbytype
+      filter (where countrecentcomplaints > 0) totalbytype
       FROM (
         SELECT sub1.complainttype, sum(count::integer) countrecentcomplaints
         FROM (
         SELECT 
           json_array_elements_text(recentcomplaintsbytype)::json->>'type' complainttype,
           json_array_elements_text(recentcomplaintsbytype)::json->>'count' count
-        FROM get_assoc_addrs_from_bbl('3002260004')
+        FROM get_assoc_addrs_from_bbl(_bbl)
         ) sub1
         GROUP BY sub1.complainttype
       ) sub2
