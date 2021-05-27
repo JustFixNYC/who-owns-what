@@ -47,6 +47,25 @@ RETURNS TABLE (
       GROUP BY businessaddr ORDER BY count(*) DESC LIMIT 1
     ) rbas) as topbusinessaddr,
 
+    (SELECT json_agg(
+      json_build_object('type',complainttype,'count',countrecentcomplaints) 
+      order by countrecentcomplaints desc) 
+      filter (where countrecentcomplaints > 0) totalrecentcomplaintsbytype
+      FROM (
+        SELECT sub1.complainttype, sum(count::integer) countrecentcomplaints
+        FROM (
+        SELECT 
+          json_array_elements_text(recentcomplaintsbytype)::json->>'type' complainttype,
+          json_array_elements_text(recentcomplaintsbytype)::json->>'count' count
+        FROM get_assoc_addrs_from_bbl('3002260004')
+        ) sub1
+        GROUP BY sub1.complainttype
+      ) sub2
+    ) as totalrecentcomplaintsbytype,
+
+    sum(totalcomplaints) as totalcomplaints,
+    sum(recentcomplaints) as totalrecentcomplaints,
+
     sum(openviolations) as totalopenviolations,
     sum(totalviolations) as totalviolations,
     round(avg(openviolations)::numeric, 1) as openviolationsperbldg,
