@@ -146,6 +146,26 @@ class DetailViewWithoutI18n extends Component<Props, State> {
                           <Trans render="span">View data over time</Trans> &#8599;&#xFE0E;
                         </Link>
                       </div>
+                      <div className="card-body-complaints">
+                        <div>
+                          <b>
+                            <Trans>Most Common 311 Complaints, Last 3 Years</Trans>
+                          </b>
+                          <ul>
+                            {detailAddr.recentcomplaintsbytype ? (
+                              detailAddr.recentcomplaintsbytype
+                                .slice(0, 3)
+                                .map((complaint, idx) => (
+                                  <li key={idx}>
+                                    {complaint.type} ({complaint.count})
+                                  </li>
+                                ))
+                            ) : (
+                              <Trans>None</Trans>
+                            )}
+                          </ul>
+                        </div>
+                      </div>
                       <div className="card-body-landlord">
                         <div className="columns">
                           <div className="column col-xs-12 col-6">
@@ -184,7 +204,6 @@ class DetailViewWithoutI18n extends Component<Props, State> {
                           </div>
                         )}
                       </div>
-
                       <div className="card-body-registration">
                         <p>
                           <b>
