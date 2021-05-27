@@ -8,6 +8,9 @@ RETURNS TABLE (
   topowners text[],
   topcorp text,
   topbusinessaddr text,
+  totalrecentcomplaintsbytype json,
+  totalcomplaints: bigint,
+  totalrecentcomplaints: bigint,
   totalopenviolations bigint,
   totalviolations bigint,
   openviolationsperbldg numeric,
@@ -47,25 +50,27 @@ RETURNS TABLE (
       GROUP BY businessaddr ORDER BY count(*) DESC LIMIT 1
     ) rbas) as topbusinessaddr,
 
+    -- Grab frequency of complaints by type across the entire portfolio
     (SELECT json_agg(
       json_build_object('type',complainttype,'count',countrecentcomplaints) 
       order by countrecentcomplaints desc) 
       filter (where countrecentcomplaints > 0) totalbytype
       FROM (
-        SELECT sub1.complainttype, sum(count::integer) countrecentcomplaints
+        -- Generate sum of building-level counts accross the portfolio for each complaint type: 
+        SELECT complainttype, sum(count::integer) countrecentcomplaints
         FROM (
-        SELECT 
-          json_array_elements_text(recentcomplaintsbytype)::json->>'type' complainttype,
-          json_array_elements_text(recentcomplaintsbytype)::json->>'count' count
-        FROM get_assoc_addrs_from_bbl(_bbl)
-        ) sub1
+        -- Split values of original json arrays into two columns:  
+          SELECT 
+            json_array_elements_text(recentcomplaintsbytype)::json->>'type' complainttype,
+            json_array_elements_text(recentcomplaintsbytype)::json->>'count' count
+          FROM get_assoc_addrs_from_bbl(_bbl)
+          ) sub1
         GROUP BY sub1.complainttype
       ) sub2
     ) as totalrecentcomplaintsbytype,
 
     sum(totalcomplaints) as totalcomplaints,
     sum(recentcomplaints) as totalrecentcomplaints,
-
     sum(openviolations) as totalopenviolations,
     sum(totalviolations) as totalviolations,
     round(avg(openviolations)::numeric, 1) as openviolationsperbldg,
