@@ -101,6 +101,11 @@ class TestAddressHousingType(ApiTest):
         assert res.status_code == 200
         assert res.json()['result'] is not None
 
+    def test_it_returns_empty_result_for_unrecognized_bbl(self, db, client):
+        res = client.get('/api/address/housingtype?bbl=4082491000')
+        assert res.status_code == 200
+        assert res.json()['result'] == []
+
 
 class TestAddressIndicatorHistory(ApiTest):
     HTTP_400_URLS = [
