@@ -120,6 +120,13 @@ def address_indicatorhistory(request):
 
 
 @api
+def address_housingtype(request):
+    bbl = get_request_bbl(request)
+    result = exec_db_query(SQL_DIR / 'address_housingtype.sql', {'bbl': bbl})
+    return JsonResponse({'result': result})
+
+
+@api
 def address_export(request):
     log_unsupported_request_args(request)
     bbl = get_request_bbl(request)

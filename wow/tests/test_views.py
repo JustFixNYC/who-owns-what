@@ -90,6 +90,18 @@ class TestAddressBuildingInfo(ApiTest):
         assert res.json()['result'] is not None
 
 
+class TestAddressHousingType(ApiTest):
+    HTTP_400_URLS = [
+        '/api/address/housingtype',
+        '/api/address/housingtype?bbl=bop',
+    ]
+
+    def test_it_works(self, db, client):
+        res = client.get('/api/address/housingtype?bbl=4082490088')
+        assert res.status_code == 200
+        assert res.json()['result'] is not None
+
+
 class TestAddressIndicatorHistory(ApiTest):
     HTTP_400_URLS = [
         '/api/address/indicatorhistory',
