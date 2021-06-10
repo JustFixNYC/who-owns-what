@@ -135,9 +135,9 @@ const PropertiesListWithoutI18n: React.FC<
               {
                 Header: i18n._(t`Top Complaint`),
                 accessor: (d) => {
-                  const complaintType = findMostCommonType(d.recentcomplaintsbytype);
-                  return complaintType
-                    ? Helpers.getTranslationOfComplaintType(complaintType, i18n)
+                  const mostCommonType = findMostCommonType(d.recentcomplaintsbytype);
+                  return mostCommonType
+                    ? Helpers.getTranslationOfComplaintType(mostCommonType, i18n)
                     : null;
                 },
                 id: "recentcomplaintsbytype",
