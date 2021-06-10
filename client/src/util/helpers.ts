@@ -228,7 +228,7 @@ export default {
     return arr.join(" ");
   },
 
-  getI18nComplaintType(complaintType: string, i18n: I18n) {
+  getTranslationOfComplaintType(complaintType: string, i18n: I18n) {
     const translatedType = hpdComplaintTypeTranslations.get(complaintType);
     if (!translatedType) {
       reportError(`The HPD Complaint type called "${complaintType}" doesn't have a translation.`);
