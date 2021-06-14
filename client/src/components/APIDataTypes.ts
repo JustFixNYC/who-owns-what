@@ -19,7 +19,7 @@ type HpdOwnerContact = {
   value: string;
 };
 
-type HpdComplaintCount = {
+export type HpdComplaintCount = {
   type: string;
   count: number;
 };

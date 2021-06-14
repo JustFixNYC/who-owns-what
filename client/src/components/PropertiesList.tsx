@@ -10,7 +10,7 @@ import { t } from "@lingui/macro";
 import { Link } from "react-router-dom";
 import { SupportedLocale } from "../i18n-base";
 import Helpers, { longDateOptions } from "../util/helpers";
-import { AddressRecord } from "./APIDataTypes";
+import { AddressRecord, HpdComplaintCount } from "./APIDataTypes";
 import { withMachineInStateProps } from "state-machine";
 import { AddressPageRoutes } from "routes";
 
@@ -18,6 +18,9 @@ export const isPartOfGroupSale = (saleId: string, addrs: AddressRecord[]) => {
   const addrsWithMatchingSale = addrs.filter((addr) => addr.lastsaleacrisid === saleId);
   return addrsWithMatchingSale.length > 1;
 };
+
+const findMostCommonType = (complaints: HpdComplaintCount[] | null) =>
+  complaints && complaints.length > 0 && complaints[0].type;
 
 const PropertiesListWithoutI18n: React.FC<
   withMachineInStateProps<"portfolioFound"> & {
@@ -111,6 +114,34 @@ const PropertiesListWithoutI18n: React.FC<
                   );
                 },
                 maxWidth: 75,
+              },
+            ],
+          },
+          {
+            Header: i18n._(t`HPD Complaints`),
+            columns: [
+              {
+                Header: i18n._(t`Total`),
+                accessor: (d) => d.totalcomplaints,
+                id: "totalcomplaints",
+                maxWidth: 75,
+              },
+              {
+                Header: i18n._(t`Last 3 Years`),
+                accessor: (d) => d.recentcomplaints,
+                id: "recentcomplaints",
+                maxWidth: 100,
+              },
+              {
+                Header: i18n._(t`Top Complaint`),
+                accessor: (d) => {
+                  const mostCommonType = findMostCommonType(d.recentcomplaintsbytype);
+                  return mostCommonType
+                    ? Helpers.getTranslationOfComplaintType(mostCommonType, i18n)
+                    : null;
+                },
+                id: "recentcomplaintsbytype",
+                minWidth: 150,
               },
             ],
           },
