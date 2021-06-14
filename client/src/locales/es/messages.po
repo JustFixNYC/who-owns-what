@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2021-06-14 21:11\n"
+"PO-Revision-Date: 2021-06-14 21:21\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -296,7 +296,7 @@ msgstr "PISO"
 
 #: src/util/helpers.ts:51
 msgid "FLOORING/STAIRS"
-msgstr ""
+msgstr "PISO/ESCALERAS"
 
 #: src/containers/NotRegisteredPage.tsx:173
 msgid "Failure to register a building with HPD"
