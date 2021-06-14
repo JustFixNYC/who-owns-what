@@ -157,7 +157,11 @@ class DetailViewWithoutI18n extends Component<Props, State> {
                                 .slice(0, 3)
                                 .map((complaint, idx) => (
                                   <li key={idx}>
-                                    {complaint.type} ({complaint.count})
+                                    {Helpers.getTranslationOfComplaintType(
+                                      complaint.type,
+                                      this.props.i18n
+                                    )}{" "}
+                                    ({complaint.count})
                                   </li>
                                 ))
                             ) : (
