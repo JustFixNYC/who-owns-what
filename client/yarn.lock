@@ -2244,10 +2244,10 @@
   resolved "https://registry.yarnpkg.com/@justfixnyc/geosearch-requester/-/geosearch-requester-0.0.6.tgz#af3144a8b599e45ad3ce5c2190fc60da81106475"
   integrity sha512-wHsY9DbiQUp7H/KiQ4+ejTShR6lY3iagiFhw4VoP1kljyem+WIwEkiZNnvUHkOAQIkTtPulLaiKHEMpzaw9xZQ==
 
-"@justfixnyc/react-common@^0.0.8":
-  version "0.0.8"
-  resolved "https://registry.yarnpkg.com/@justfixnyc/react-common/-/react-common-0.0.8.tgz#8fca9f0ef464383a90a354269d889223a6c5ac31"
-  integrity sha512-CXB2fvQjRA5wrbEU713evBNefqEYbrqWUpLJMPcI5b4N4cP9uZGNk0eSLpDEVZzZacJUc4YG4g24cLy/3PknAA==
+"@justfixnyc/react-common@^0.0.12":
+  version "0.0.12"
+  resolved "https://registry.yarnpkg.com/@justfixnyc/react-common/-/react-common-0.0.12.tgz#9a0ca76848bf9d6d0be942e8539dd88dc6174a52"
+  integrity sha512-c9nGEI3Wtt20/495VMU7LqtxQ8pyqNHtjip7kN7CY3NlzGGFJOMz3cr8VurwmpgvHN/77EPnjOU8WkNEeqkcSw==
 
 "@justfixnyc/util@0.3.0":
   version "0.3.0"
@@ -8993,9 +8993,9 @@ meow@^3.7.0:
     trim-newlines "^1.0.0"
 
 merge-deep@^3.0.2:
-  version "3.0.2"
-  resolved "https://registry.yarnpkg.com/merge-deep/-/merge-deep-3.0.2.tgz#f39fa100a4f1bd34ff29f7d2bf4508fbb8d83ad2"
-  integrity sha512-T7qC8kg4Zoti1cFd8Cr0M+qaZfOwjlPDEdZIIPPB2JZctjaPM4fX+i7HOId69tAti2fvO6X5ldfYUONDODsrkA==
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/merge-deep/-/merge-deep-3.0.3.tgz#1a2b2ae926da8b2ae93a0ac15d90cd1922766003"
+  integrity sha512-qtmzAS6t6grwEkNrunqTBdn0qKwFgNWvlxUbAV8es9M7Ot1EbyApytCnvE0jALPa46ZpKDUo527kKiaWplmlFA==
   dependencies:
     arr-union "^3.1.0"
     clone-deep "^0.2.4"
