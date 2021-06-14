@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2021-06-14 20:37\n"
+"PO-Revision-Date: 2021-06-14 20:50\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -97,7 +97,7 @@ msgstr "¿Tienes problemas en tu edificio?"
 
 #: src/util/helpers.ts:33
 msgid "BELL/BUZZER/INTERCOM"
-msgstr ""
+msgstr "TIMBRE/INTERCOMUNICADOR"
 
 #: src/components/DetailView.tsx:76
 #: src/components/Indicators.tsx:147
@@ -160,15 +160,15 @@ msgstr ""
 
 #: src/util/helpers.ts:55
 msgid "CERAMIC TILE"
-msgstr ""
+msgstr "BALDOSAS CERÁMICAS"
 
 #: src/util/helpers.ts:30
 msgid "CONSTRUCTION"
-msgstr ""
+msgstr "CONSTRUCCIÓN"
 
 #: src/util/helpers.ts:56
 msgid "COOKING GAS"
-msgstr ""
+msgstr "GAS DE COCINA"
 
 #: src/components/DetailView.tsx:20
 msgid "Check out the issues in this building"
@@ -216,11 +216,11 @@ msgstr "Facturas de Impuestos del DOF"
 
 #: src/util/helpers.ts:27
 msgid "DOOR/WINDOW"
-msgstr ""
+msgstr "PUERTA/VENTANA"
 
 #: src/util/helpers.ts:59
 msgid "DOORS"
-msgstr ""
+msgstr "PUERTAS"
 
 #: src/components/PropertiesList.tsx:164
 msgid "Date"
@@ -245,7 +245,7 @@ msgstr "Descargar"
 
 #: src/util/helpers.ts:50
 msgid "ELECTRIC"
-msgstr ""
+msgstr "ELÉCTRICO"
 
 #: src/util/helpers.ts:40
 msgid "ELEVATOR"
@@ -292,7 +292,7 @@ msgstr ""
 
 #: src/util/helpers.ts:45
 msgid "FLOOR"
-msgstr ""
+msgstr "PISO"
 
 #: src/util/helpers.ts:51
 msgid "FLOORING/STAIRS"
@@ -316,11 +316,11 @@ msgstr "¿Venta en grupo?"
 
 #: src/util/helpers.ts:58
 msgid "HEAT/HOT WATER"
-msgstr ""
+msgstr "CALEFACCIÓN/AGUA CALIENTE"
 
 #: src/util/helpers.ts:28
 msgid "HEATING"
-msgstr ""
+msgstr "CALEFACCIÓN"
 
 #: src/components/DetailView.tsx:204
 #: src/components/Indicators.tsx:262
@@ -394,7 +394,7 @@ msgstr "Parece que esta propiedad no necesita estar registrada con el HPD."
 
 #: src/util/helpers.ts:31
 msgid "JANITOR/SUPER"
-msgstr ""
+msgstr "CONSERJE/SÚPER"
 
 #: src/components/EngagementPanel.tsx:8
 msgid "Join the fight for tenant rights!"
@@ -406,7 +406,7 @@ msgstr "JustFix, Inc es una organización registrada 501(c)(3) sin fines de lucr
 
 #: src/util/helpers.ts:60
 msgid "LOCKS"
-msgstr ""
+msgstr "CERRADURAS"
 
 #: src/components/PropertiesList.tsx:146
 #: src/components/PropertiesSummary.tsx:101
@@ -468,7 +468,7 @@ msgstr ""
 
 #: src/util/helpers.ts:48
 msgid "MOLD"
-msgstr ""
+msgstr "MOHO"
 
 #: src/components/LegalFooter.tsx:27
 msgid "Made with NYC ♥ by the team at <0>JustFix.nyc</0>"
@@ -497,7 +497,7 @@ msgstr "App MyNYCHA"
 
 #: src/util/helpers.ts:54
 msgid "NON-CONSTRUCTION"
-msgstr ""
+msgstr "NO CONSTRUCCIÓN"
 
 #: src/containers/NychaPage.tsx:160
 msgid "NYCHA Directory"
@@ -712,7 +712,7 @@ msgstr "Resúmen"
 
 #: src/util/helpers.ts:43
 msgid "TENANT HARASSMENT"
-msgstr ""
+msgstr "ACOSO DE INQUILINO"
 
 #: src/components/DetailView.tsx:168
 #: src/components/DetailView.tsx:236
@@ -891,7 +891,7 @@ msgstr "Enlaces útiles"
 
 #: src/util/helpers.ts:47
 msgid "VENTILATION SYSTEM"
-msgstr ""
+msgstr "SISTEMA DE VENTILACIÓN"
 
 #: src/components/Indicators.tsx:168
 msgid "View by:"
@@ -936,15 +936,15 @@ msgstr "Visite nuestro sitio web"
 
 #: src/util/helpers.ts:49
 msgid "WATER LEAK"
-msgstr ""
+msgstr "CAJA DE AGUA"
 
 #: src/util/helpers.ts:44
 msgid "WINDOW GUARDS"
-msgstr ""
+msgstr "PROTECTORES DE VENTANA"
 
 #: src/util/helpers.ts:39
 msgid "WINDOWS"
-msgstr ""
+msgstr "VENTANAS"
 
 #: src/containers/App.tsx:74
 msgid "Warning! This site doesn't fully work on older versions of Safari. Try a <0>modern browser</0>."
