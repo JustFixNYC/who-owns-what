@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2021-06-14 20:50\n"
+"PO-Revision-Date: 2021-06-14 20:59\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -576,7 +576,7 @@ msgstr "Antes de empezar cualquier proyecto de construcción, el propietario som
 
 #: src/util/helpers.ts:52
 msgid "PAINT/PLASTER"
-msgstr ""
+msgstr "PINTURA/YESO"
 
 #: src/util/helpers.ts:37
 msgid "PESTS"
@@ -629,7 +629,7 @@ msgstr "Renta estabilizada"
 
 #: src/util/helpers.ts:57
 msgid "SAFETY"
-msgstr ""
+msgstr "SEGURIDAD"
 
 #: src/util/helpers.ts:34
 msgid "SEWAGE"
