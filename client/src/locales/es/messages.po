@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2021-06-14 21:21\n"
+"PO-Revision-Date: 2021-06-14 21:30\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -419,7 +419,7 @@ msgstr "Arrendador, Portafolio, Inquilino, Desalojo, Mapa, JustFix, NYC, Nueva Y
 
 #: src/components/PropertiesList.tsx:101
 msgid "Last 3 Years"
-msgstr ""
+msgstr "Últimos 3 años"
 
 #: src/components/PropertiesList.tsx:161
 msgid "Last Sale"
@@ -641,7 +641,7 @@ msgstr ""
 
 #: src/util/helpers.ts:29
 msgid "STAIRS"
-msgstr ""
+msgstr "ESCALERAS"
 
 #: src/containers/NotRegisteredPage.tsx:169
 #: src/containers/NychaPage.tsx:190
@@ -851,7 +851,7 @@ msgstr "Cronología"
 
 #: src/components/PropertiesList.tsx:107
 msgid "Top Complaint"
-msgstr ""
+msgstr "Queja principal"
 
 #: src/components/IndicatorsViz.tsx:313
 #: src/components/PropertiesList.tsx:95
