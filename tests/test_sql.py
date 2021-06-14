@@ -2,10 +2,13 @@ import pytest
 
 from .factories.hpd_contacts import HpdContacts
 from .factories.hpd_registrations import HpdRegistrations
+from .factories.hpd_complaints import HpdComplaints
+from .factories.hpd_complaint_problems import HpdComplaintProblems
 from .factories.marshal_evictions_17 import MarshalEvictions17
 from .factories.marshal_evictions_18 import MarshalEvictions18
 from .factories.marshal_evictions_19 import MarshalEvictions19
 from .factories.marshal_evictions_all import MarshalEvictionsAll
+from .factories.nycha_bbls_18 import NychaBbls18
 from .factories.changes_summary import ChangesSummary
 from .factories.hpd_violations import HpdViolations
 from .factories.pluto_19v2 import Pluto19v2
@@ -120,11 +123,14 @@ class TestSQL:
             'PLUTO_for_WEB/BK_19v2.csv': [Pluto19v2()]
         })
         nycdb_ctx.write_csv('hpd_violations.csv', [HpdViolations()])
+        nycdb_ctx.write_csv('hpd_complaints.csv', [HpdComplaints()])
+        nycdb_ctx.write_csv('hpd_complaint_problems.csv', [HpdComplaintProblems()])
         nycdb_ctx.write_csv('changes-summary.csv', [ChangesSummary()])
         nycdb_ctx.write_csv('marshal_evictions_17.csv', [MarshalEvictions17()])
         nycdb_ctx.write_csv('marshal_evictions_18.csv', [MarshalEvictions18()])
         nycdb_ctx.write_csv('marshal_evictions_19.csv', [MarshalEvictions19()])
         nycdb_ctx.write_csv('marshal_evictions_all.csv', [MarshalEvictionsAll()])
+        nycdb_ctx.write_csv('nycha_bbls_18.csv', [NychaBbls18()])
         nycdb_ctx.write_csv('real_property_master.csv', [RealPropertyMaster()])
         nycdb_ctx.write_csv('real_property_legals.csv', [RealPropertyLegals()])
         nycdb_ctx.write_csv('hpd_registrations.csv', [

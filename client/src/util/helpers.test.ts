@@ -1,17 +1,5 @@
-import helpers, { searchAddrsAreEqual, assertNotUndefined } from "./helpers";
+import helpers, { searchAddrsAreEqual } from "./helpers";
 import { SearchAddressWithoutBbl } from "components/APIDataTypes";
-
-describe("assertNotUndefined()", () => {
-  it("raises exception when undefined", () => {
-    expect(() => assertNotUndefined(undefined)).toThrowError(
-      "expected argument to not be undefined"
-    );
-  });
-
-  it("returns argument when not undefined", () => {
-    expect(assertNotUndefined(null)).toBe(null);
-  });
-});
 
 describe("searchAddrsAreEqual()", () => {
   const searchAddr1: SearchAddressWithoutBbl = {

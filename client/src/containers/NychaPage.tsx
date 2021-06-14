@@ -12,19 +12,12 @@ import { SocialShareForNotRegisteredPage } from "./NotRegisteredPage";
 import { withMachineInStateProps } from "state-machine";
 import Page from "components/Page";
 
-export type NychaData = {
-  bbl: number;
-  development: string;
-  dev_evictions: string | number;
-  dev_unitsres: number;
-};
-
 type NychaPageProps = withMachineInStateProps<"nychaFound"> & withI18nProps;
 
 const NychaPageWithoutI18n: React.FC<NychaPageProps> = (props) => {
   const { i18n, state } = props;
 
-  const { searchAddrParams, searchAddrBbl, nychaData: nycha, buildingInfo } = state.context;
+  const { searchAddrParams, searchAddrBbl, buildingInfo } = state.context;
   const { boro, block, lot } = Helpers.splitBBL(searchAddrBbl);
 
   const bblDash = (
@@ -91,7 +84,7 @@ const NychaPageWithoutI18n: React.FC<NychaPageProps> = (props) => {
         <div className="HomePage__content">
           <div className="HomePage__search">
             <h5 className="mt-10 text-center text-bold text-large">
-              {nycha.development}: <Trans>Public Housing Development</Trans>
+              {buildingInfo.nycha_development}: <Trans>Public Housing Development</Trans>
             </h5>
             <h6 className="mt-10 text-center text-bold text-large">
               <Trans>This building is owned by the NYC Housing Authority (NYCHA)</Trans>
@@ -110,15 +103,15 @@ const NychaPageWithoutI18n: React.FC<NychaPageProps> = (props) => {
                       )}
                     >
                       <Trans render="label">Units</Trans>
-                      {nycha.dev_unitsres}
+                      {buildingInfo.nycha_dev_unitsres || 0}
                     </div>
                     <div
                       title={i18n._(
-                        t`Evictions executed in this development by NYC Marshals in 2019. ANHD and the Housing Data Coalition cleaned, geocoded, and validated the data, originally sourced from DOI.`
+                        t`Evictions executed in this development by NYC Marshals since 2017. ANHD and the Housing Data Coalition cleaned, geocoded, and validated the data, originally sourced from DOI.`
                       )}
                     >
-                      <Trans render="label">2019 Evictions</Trans>
-                      {nycha.dev_evictions}
+                      <Trans render="label">Evictions</Trans>
+                      {buildingInfo.nycha_dev_evictions || 0}
                     </div>
                   </div>
                 </div>
