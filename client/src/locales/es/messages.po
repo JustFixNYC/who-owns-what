@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2021-06-15 00:46\n"
+"PO-Revision-Date: 2021-06-15 12:14\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -55,7 +55,7 @@ msgstr "Portal DAP de ANHD"
 
 #: src/util/helpers.ts:53
 msgid "APPLIANCE"
-msgstr "El medio doméstico"
+msgstr "MEDIO DOMÉSTICO"
 
 #: src/containers/AboutPage.tsx:13
 #: src/containers/App.tsx:89
@@ -156,11 +156,11 @@ msgstr "Entidades Comerciales"
 
 #: src/util/helpers.ts:42
 msgid "CABINET"
-msgstr "Gabinete"
+msgstr "GABINETE"
 
 #: src/util/helpers.ts:55
 msgid "CERAMIC TILE"
-msgstr "Azulejos CERÁMICAS"
+msgstr "AZULEJOS CERÁMICAS"
 
 #: src/util/helpers.ts:30
 msgid "CONSTRUCTION"
@@ -249,7 +249,7 @@ msgstr "ELÉCTRICO"
 
 #: src/util/helpers.ts:40
 msgid "ELEVATOR"
-msgstr "El ascensor"
+msgstr "ASCENSOR"
 
 #: src/components/SocialShare.tsx:39
 msgid "Email"
@@ -288,7 +288,7 @@ msgstr "Exportar datos"
 
 #: src/util/helpers.ts:35
 msgid "FIRE ESCAPE"
-msgstr "La escalera de incendio"
+msgstr "ESCALERA DE INCENDIO"
 
 #: src/util/helpers.ts:45
 msgid "FLOOR"
@@ -464,7 +464,7 @@ msgstr "¿Buscas más información?"
 
 #: src/util/helpers.ts:38
 msgid "MAILBOX"
-msgstr "Buzón"
+msgstr "BUZÓN"
 
 #: src/util/helpers.ts:48
 msgid "MOLD"
@@ -580,11 +580,11 @@ msgstr "PINTURA/YESO"
 
 #: src/util/helpers.ts:37
 msgid "PESTS"
-msgstr "Plagas"
+msgstr "PLAGAS"
 
 #: src/util/helpers.ts:46
 msgid "PLUMBING"
-msgstr "Plomería"
+msgstr "PLOMERÍA"
 
 #: src/containers/AddressPage.tsx:106
 msgid "PORTFOLIO: Your search address is associated with <0>{0}</0> {1, plural, one {building} other {buildings}}"
@@ -633,11 +633,11 @@ msgstr "SEGURIDAD"
 
 #: src/util/helpers.ts:34
 msgid "SEWAGE"
-msgstr "Aguas Negras"
+msgstr "AGUAS NEGRAS"
 
 #: src/util/helpers.ts:36
 msgid "SIGNAGE MISSING"
-msgstr "Falta De Señalización"
+msgstr "FALTA DE SEÑALIZACIÓN"
 
 #: src/util/helpers.ts:29
 msgid "STAIRS"
