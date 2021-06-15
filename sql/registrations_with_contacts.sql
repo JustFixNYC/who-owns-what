@@ -39,7 +39,8 @@ as SELECT
   registrations.bin,
   contacts.corpnames,
   contacts.businessaddrs,
-  contacts.ownernames
+  contacts.ownernames,
+  contacts.ownernameswithaddr || contacts.corpnameswithaddr as allcontacts
 FROM hpd_registrations AS registrations
 LEFT JOIN (
   SELECT
@@ -71,7 +72,38 @@ LEFT JOIN (
         firstname IS NOT NULL AND
         lastname IS NOT NULL
       )
-      AS ownernames,
+    AS ownernames,
+
+    coalesce(
+      jsonb_agg(
+        distinct
+        jsonb_build_object(
+          'title', type, 
+          'value', (firstname || ' ' || lastname),
+          'address', nullif(concat_ws(' ', businesshousenumber, businessstreetname, businessapartment, businesszip), '')
+        )
+      )     	
+      FILTER (
+        WHERE type != 'CorporateOwner' AND
+        firstname IS NOT NULL AND
+        lastname IS NOT NULL
+      ), 
+      '[]'::jsonb) 
+    AS ownernameswithaddr,
+	
+    coalesce(
+      jsonb_agg( 
+        distinct 
+        jsonb_build_object(
+          'title', 'Corporation',
+          'value',  corporationname,
+          'address', nullif(concat_ws(' ', businesshousenumber, businessstreetname, businessapartment, businesszip), '')
+        )
+      )
+      FILTER (WHERE corporationname is not null), 
+      '[]'::jsonb) 
+    AS corpnameswithaddr,
+
     registrationid
   FROM hpd_contacts
   GROUP BY registrationid
