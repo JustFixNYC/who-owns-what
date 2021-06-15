@@ -50,6 +50,7 @@ export type AddressRecord = {
   openviolations: number;
   ownernames: HpdOwnerContact[] | null;
   recentcomplaints: number;
+  /** Note: this property will never be an empty array. Either null, or an array of length 1 or more */
   recentcomplaintsbytype: HpdComplaintCount[] | null;
   registrationenddate: APIDate;
   registrationid: string;
