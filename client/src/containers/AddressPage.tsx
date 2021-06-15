@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import FileSaver from "file-saver";
-import Browser from "../util/browser";
 
 import AddressToolbar from "../components/AddressToolbar";
 import PropertiesMap from "../components/PropertiesMap";
@@ -19,7 +18,7 @@ import { Link, RouteComponentProps } from "react-router-dom";
 import Page from "../components/Page";
 import { SearchResults, Borough } from "../components/APIDataTypes";
 import { SearchAddress } from "../components/AddressSearch";
-import { WithMachineProps } from "state-machine";
+import { withMachineProps } from "state-machine";
 import { AddrNotFoundPage } from "./NotFoundPage";
 import { searchAddrsAreEqual } from "util/helpers";
 import { NetworkErrorMessage } from "components/NetworkErrorMessage";
@@ -37,7 +36,7 @@ type RouteState = {
 };
 
 type AddressPageProps = RouteComponentProps<RouteParams, {}, RouteState> &
-  WithMachineProps & {
+  withMachineProps & {
     currentTab: number;
   };
 
@@ -80,15 +79,12 @@ export default class AddressPage extends Component<AddressPageProps, State> {
     )
       return;
     send({ type: "SEARCH", address: validateRouteParams(match.params) });
+    /* When searching for user's address, let's reset the DetailView to the "closed" state 
+    so it can pop into view once the address is found */
+    this.handleCloseDetail();
   }
 
-  handleAddrChange = (newFocusBbl: string) => {
-    if (!this.props.state.matches("portfolioFound")) {
-      throw new Error("A change of detail address was attempted without any portfolio data found.");
-    }
-    const detailBbl = this.props.state.context.portfolioData.detailAddr.bbl;
-    if (newFocusBbl !== detailBbl)
-      this.props.send({ type: "SELECT_DETAIL_ADDR", bbl: newFocusBbl });
+  handleOpenDetail = () => {
     this.setState({
       detailMobileSlide: true,
     });
@@ -98,6 +94,16 @@ export default class AddressPage extends Component<AddressPageProps, State> {
     this.setState({
       detailMobileSlide: false,
     });
+  };
+
+  handleAddrChange = (newFocusBbl: string) => {
+    if (!this.props.state.matches("portfolioFound")) {
+      throw new Error("A change of detail address was attempted without any portfolio data found.");
+    }
+    const detailBbl = this.props.state.context.portfolioData.detailAddr.bbl;
+    if (newFocusBbl !== detailBbl)
+      this.props.send({ type: "SELECT_DETAIL_ADDR", bbl: newFocusBbl });
+    this.handleOpenDetail();
   };
 
   // should this properly live in AddressToolbar? you tell me
@@ -121,7 +127,7 @@ export default class AddressPage extends Component<AddressPageProps, State> {
       return <NotRegisteredPage state={state} send={send} />;
     } else if (state.matches("portfolioFound")) {
       window.gtag("event", "portfolio-found-page");
-      const { detailAddr, assocAddrs, searchAddr } = state.context.portfolioData;
+      const { assocAddrs, searchAddr } = state.context.portfolioData;
       const routes = createAddressPageRoutes(validateRouteParams(this.props.match.params));
 
       return (
@@ -144,15 +150,7 @@ export default class AddressPage extends Component<AddressPageProps, State> {
                 </h1>
                 <ul className="tab tab-block">
                   <li className={`tab-item ${this.props.currentTab === 0 ? "active" : ""}`}>
-                    <Link
-                      to={routes.overview}
-                      tabIndex={this.props.currentTab === 0 ? -1 : 0}
-                      onClick={() => {
-                        if (Browser.isMobile() && this.state.detailMobileSlide) {
-                          this.handleCloseDetail();
-                        }
-                      }}
-                    >
+                    <Link to={routes.overview} tabIndex={this.props.currentTab === 0 ? -1 : 0}>
                       <Trans>Overview</Trans>
                     </Link>
                   </li>
@@ -204,11 +202,10 @@ export default class AddressPage extends Component<AddressPageProps, State> {
                 isVisible={this.props.currentTab === 0}
               />
               <DetailView
-                addrs={assocAddrs}
-                addr={detailAddr}
-                portfolioSize={assocAddrs.length}
+                state={state}
+                send={send}
                 mobileShow={this.state.detailMobileSlide}
-                userAddr={searchAddr}
+                onOpenDetail={this.handleOpenDetail}
                 onCloseDetail={this.handleCloseDetail}
                 addressPageRoutes={routes}
               />

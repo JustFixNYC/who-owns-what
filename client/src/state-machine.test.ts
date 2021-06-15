@@ -1,4 +1,4 @@
-import { wowMachine, WowEvent, WowPortfolioFoundContext, getNychaData } from "./state-machine";
+import { wowMachine, WowEvent, WowPortfolioFoundContext } from "./state-machine";
 import { interpret } from "xstate";
 import { GEO_AUTOCOMPLETE_URL } from "@justfixnyc/geosearch-requester";
 import { waitUntilStateMatches, mockJsonResponse, mockResponses } from "tests/test-util";
@@ -15,20 +15,8 @@ import {
   SAMPLE_ADDRESS_RECORDS,
   SAMPLE_TIMELINE_DATA,
   SAMPLE_SUMMARY_DATA,
+  SAMPLE_NYCHA_BUILDING_INFO_RESULTS,
 } from "state-machine-sample-data";
-
-// State Machine Helper Functions:
-
-describe("getNychaData()", () => {
-  it("returns null if BBL is not a NYCHA BBL", () => {
-    expect(getNychaData("blarg")).toBe(null);
-  });
-
-  it("returns data if BBL is a NYCHA BBL", () => {
-    const data = getNychaData("4004770049");
-    expect(data && data.development).toBe("QUEENSBRIDGE SOUTH");
-  });
-});
 
 const SEARCH_EVENT: WowEvent = {
   type: "SEARCH",
@@ -98,7 +86,6 @@ describe("wowMachine", () => {
       [NOT_REG_URLS.ADDRESS_URL]: mockJsonResponse<SearchResults>({
         addrs: [],
         geosearch: {
-          geosupportReturnCode: "00",
           bbl: "3002920026",
         },
       }),
@@ -118,7 +105,6 @@ describe("wowMachine", () => {
       [NOT_REG_URLS.ADDRESS_URL]: mockJsonResponse<SearchResults>({
         addrs: [],
         geosearch: {
-          geosupportReturnCode: "00",
           bbl: "3002920026",
         },
       }),
@@ -138,12 +124,11 @@ describe("wowMachine", () => {
       [NYCHA_URLS.ADDRESS_URL]: mockJsonResponse<SearchResults>({
         addrs: [],
         geosearch: {
-          geosupportReturnCode: "00",
           bbl: "3004040001",
         },
       }),
       [NYCHA_URLS.BUILDINGINFO_URL]: mockJsonResponse<BuildingInfoResults>(
-        SAMPLE_BUILDING_INFO_RESULTS
+        SAMPLE_NYCHA_BUILDING_INFO_RESULTS
       ),
     });
 
@@ -158,7 +143,6 @@ describe("wowMachine", () => {
       [PORTFOLIO_URLS.ADDRESS_URL]: mockJsonResponse<SearchResults>({
         addrs: SAMPLE_ADDRESS_RECORDS,
         geosearch: {
-          geosupportReturnCode: "00",
           bbl: "3012380016",
         },
       }),

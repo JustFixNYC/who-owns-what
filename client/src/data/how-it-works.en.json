@@ -492,7 +492,7 @@
                         "type": "bold"
                       }
                     ],
-                    "value": "Eviction data for 2019 ",
+                    "value": "Eviction data ",
                     "nodeType": "text"
                   },
                   {
@@ -568,7 +568,7 @@
                         "type": "italic"
                       }
                     ],
-                    "value": "— updated yearly",
+                    "value": "— updated daily",
                     "nodeType": "text"
                   }
                 ],
@@ -648,13 +648,53 @@
                         "type": "bold"
                       }
                     ],
-                    "value": "Rent Stabilization unit estimates (from taxbills.nyc, adapted from Dept. of Finance tax bills).",
+                    "value": "Rent Stabilization unit estimates ",
                     "nodeType": "text"
                   },
                   {
                     "data": {},
                     "marks": [],
-                    "value": " This data is ",
+                    "value": "from ",
+                    "nodeType": "text"
+                  },
+                  {
+                    "data": {
+                      "uri": "https://github.com/talos/nyc-stabilization-unit-counts"
+                    },
+                    "content": [
+                      {
+                        "data": {},
+                        "marks": [],
+                        "value": "taxbills.nyc",
+                        "nodeType": "text"
+                      }
+                    ],
+                    "nodeType": "hyperlink"
+                  },
+                  {
+                    "data": {},
+                    "marks": [],
+                    "value": " and ",
+                    "nodeType": "text"
+                  },
+                  {
+                    "data": {
+                      "uri": "https://github.com/JustFixNYC/nyc-doffer"
+                    },
+                    "content": [
+                      {
+                        "data": {},
+                        "marks": [],
+                        "value": "NYC Doffer",
+                        "nodeType": "text"
+                      }
+                    ],
+                    "nodeType": "hyperlink"
+                  },
+                  {
+                    "data": {},
+                    "marks": [],
+                    "value": ", adapted from Dept. of Finance tax bills. This data is ",
                     "nodeType": "text"
                   },
                   {

@@ -3,10 +3,13 @@ dependencies:
   # These are NYCDB datasets needed by the SQL scripts.
   - pluto_19v2
   - rentstab_summary
+  - rentstab_v2
   - marshal_evictions
   - hpd_registrations
   - hpd_violations
+  - hpd_complaints
   - acris
+  - nycha_bbls
 api_dependencies:
   # These are NYCDB datasets that aren't needed by the
   # SQL scripts, but which the Django server uses
@@ -22,3 +25,8 @@ sql:
   - search_function.sql
   - agg_function.sql
   - landlord_contact.sql
+extra_nycdb_test_data:
+  # This is extra data our tests need that we don't
+  # create ourselves via factories.
+  - "tests/data/acris_*.csv"
+  - "tests/data/rentstab_counts_from_doffer_2019.csv"

@@ -10,8 +10,8 @@ import { t } from "@lingui/macro";
 import { Link } from "react-router-dom";
 import { SupportedLocale } from "../i18n-base";
 import Helpers, { longDateOptions } from "../util/helpers";
-import { AddressRecord } from "./APIDataTypes";
-import { WithMachineInStateProps } from "state-machine";
+import { AddressRecord, HpdComplaintCount } from "./APIDataTypes";
+import { withMachineInStateProps } from "state-machine";
 import { AddressPageRoutes } from "routes";
 
 export const isPartOfGroupSale = (saleId: string, addrs: AddressRecord[]) => {
@@ -19,8 +19,11 @@ export const isPartOfGroupSale = (saleId: string, addrs: AddressRecord[]) => {
   return addrsWithMatchingSale.length > 1;
 };
 
+const findMostCommonType = (complaints: HpdComplaintCount[] | null) =>
+  complaints && complaints.length > 0 && complaints[0].type;
+
 const PropertiesListWithoutI18n: React.FC<
-  WithMachineInStateProps<"portfolioFound"> & {
+  withMachineInStateProps<"portfolioFound"> & {
     i18n: I18n;
     onOpenDetail: (bbl: string) => void;
     addressPageRoutes: AddressPageRoutes;
@@ -30,6 +33,7 @@ const PropertiesListWithoutI18n: React.FC<
   const locale = (i18n.language as SupportedLocale) || "en";
 
   const addrs = props.state.context.portfolioData.assocAddrs;
+  const rsunitslatestyear = props.state.context.portfolioData.searchAddr.rsunitslatestyear;
   return (
     <div className="PropertiesList">
       <ReactTable
@@ -95,21 +99,49 @@ const PropertiesListWithoutI18n: React.FC<
                 maxWidth: 75,
               },
               {
-                Header: "2017",
-                accessor: (d) => d.rsunits2017,
-                id: "rsunits2017",
+                Header: rsunitslatestyear,
+                accessor: (d) => d.rsunitslatest,
+                id: "rsunitslatest",
                 Cell: (row) => {
                   return (
                     <span
                       className={`${
-                        row.original.rsunits2017 < row.original.rsunits2007 ? "text-danger" : ""
+                        row.original.rsunitslatest < row.original.rsunits2007 ? "text-danger" : ""
                       }`}
                     >
-                      {row.original.rsunits2017}
+                      {row.original.rsunitslatest}
                     </span>
                   );
                 },
                 maxWidth: 75,
+              },
+            ],
+          },
+          {
+            Header: i18n._(t`HPD Complaints`),
+            columns: [
+              {
+                Header: i18n._(t`Total`),
+                accessor: (d) => d.totalcomplaints,
+                id: "totalcomplaints",
+                maxWidth: 75,
+              },
+              {
+                Header: i18n._(t`Last 3 Years`),
+                accessor: (d) => d.recentcomplaints,
+                id: "recentcomplaints",
+                maxWidth: 100,
+              },
+              {
+                Header: i18n._(t`Top Complaint`),
+                accessor: (d) => {
+                  const mostCommonType = findMostCommonType(d.recentcomplaintsbytype);
+                  return mostCommonType
+                    ? Helpers.getTranslationOfComplaintType(mostCommonType, i18n)
+                    : null;
+                },
+                id: "recentcomplaintsbytype",
+                minWidth: 150,
               },
             ],
           },
@@ -134,10 +166,10 @@ const PropertiesListWithoutI18n: React.FC<
             Header: i18n._(t`Evictions`),
             columns: [
               {
-                Header: "2019",
+                Header: i18n._(t`Since 2017`),
                 accessor: (d) => d.evictions || null,
                 id: "evictions",
-                maxWidth: 75,
+                maxWidth: 100,
               },
             ],
           },

@@ -18,7 +18,7 @@ const HowToUsePage = withI18n()((props: withI18nProps) => {
         <div className="Page__content">
           <ContentfulPage locales={{ en, es }} />
         </div>
-        <EngagementPanel />
+        <EngagementPanel location="how-to-use" />
         <LegalFooter />
       </div>
     </Page>

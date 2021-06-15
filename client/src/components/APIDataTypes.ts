@@ -19,11 +19,15 @@ type HpdOwnerContact = {
   value: string;
 };
 
+export type HpdComplaintCount = {
+  type: string;
+  count: number;
+};
+
 /** Date fields that come from our API Data are strings with the format YYYY-MM-DD */
 type APIDate = string;
 
 export type GeoSearchData = {
-  geosupportReturnCode: string;
   bbl: string;
 };
 
@@ -45,13 +49,17 @@ export type AddressRecord = {
   mapType?: "base" | "search";
   openviolations: number;
   ownernames: HpdOwnerContact[] | null;
+  recentcomplaints: number;
+  /** Note: this property will never be an empty array. Either null, or an array of length 1 or more */
+  recentcomplaintsbytype: HpdComplaintCount[] | null;
   registrationenddate: APIDate;
   registrationid: string;
   rsdiff: number | null;
-  rspercentchange: number | null;
   rsunits2007: number | null;
-  rsunits2017: number | null;
+  rsunitslatest: number | null;
+  rsunitslatestyear: number;
   streetname: string;
+  totalcomplaints: number;
   totalviolations: number;
   unitsres: number | null;
   yearbuilt: number | null;
@@ -88,7 +96,6 @@ type HpdViolationsAddress = AddressLocation & {
 export type SummaryStatsRecord = {
   age: number | null;
   avgevictions: number | null;
-  avgrspercent: number | null;
   bldgs: number;
   evictionsaddr: EvictionAddress;
   openviolationsperbldg: number;
@@ -112,7 +119,7 @@ export type SummaryResults = {
   result: SummaryStatsRecord[];
 };
 
-// TYPES ASSOCIATED BUILDING INFO QUERY:
+// TYPES ASSOCIATED WITH BUILDING INFO QUERY:
 
 export type BuildingInfoRecord = {
   boro: Borough;
@@ -122,6 +129,15 @@ export type BuildingInfoRecord = {
   streetname: string;
   bldgclass: string;
   formatted_address: string;
+  /** The name of the NYCHA development (e.g. "SOTOMAYOR HOUSES").
+   * NULL if building is not part of NYCHA */
+  nycha_development: string | null;
+  /** Total executed residential evictions (since 2017) accross the building's entire NYCHA development.
+   * NULL values either mean 0 evictions took place across the development or building is not part of NYCHA. */
+  nycha_dev_evictions: number | null;
+  /** Total residential units accross the building's entire NYCHA development.
+   * NULL values either mean PLUTO listed 0 residential units across the development or building is not part of NYCHA. */
+  nycha_dev_unitsres: number | null;
 };
 
 export type BuildingInfoResults = {

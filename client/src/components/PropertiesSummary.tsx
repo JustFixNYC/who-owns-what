@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Trans, Plural } from "@lingui/macro";
+import { Trans, Plural, t } from "@lingui/macro";
 
 import Loader from "../components/Loader";
 import LegalFooter from "../components/LegalFooter";
@@ -9,18 +9,61 @@ import { EvictionsSummary } from "./EvictionsSummary";
 import { RentstabSummary } from "./RentstabSummary";
 import { ViolationsSummary } from "./ViolationsSummary";
 import { StringifyListWithConjunction } from "./StringifyList";
-import { SocialSharePortfolio } from "./SocialShare";
-import { WithMachineInStateProps } from "state-machine";
+import { SocialShareAddressPage } from "./SocialShare";
+import { withMachineInStateProps } from "state-machine";
 import { NetworkErrorMessage } from "./NetworkErrorMessage";
+import { AddressRecord } from "./APIDataTypes";
+import { defaultLocale, isSupportedLocale } from "i18n-base";
+import { I18n } from "@lingui/core/i18n";
+import { I18n as I18nComponent } from "@lingui/react";
 
-type Props = WithMachineInStateProps<"portfolioFound"> & {
+type Props = withMachineInStateProps<"portfolioFound"> & {
   isVisible: boolean;
 };
 
-const generateLinkToDataRequestForm = (fullAddress: string) =>
-  `https://docs.google.com/forms/d/e/1FAIpQLSfHdokAh4O-vB6jO8Ym0Wv_lL7cVUxsWvxw5rjZ9Ogcht7HxA/viewform?usp=pp_url&entry.1164013846=${encodeURIComponent(
-    fullAddress
-  )}`;
+const DATA_REQUEST_FORM_URLS = {
+  en: "https://airtable.com/shruDUDHViainzUBB",
+  es: "https://airtable.com/shrQudDbhUVz5J83u",
+};
+
+const generateLinkToDataRequestForm = (i18n: I18n, address?: AddressRecord) => {
+  const locale = i18n.language;
+  if (!isSupportedLocale(locale)) {
+    throw new Error(`Trying to generate Data Request Form link with unsupported locale: ${locale}`);
+  }
+  let url = DATA_REQUEST_FORM_URLS[locale] || DATA_REQUEST_FORM_URLS[defaultLocale];
+  if (address) {
+    const fullAddress = encodeURIComponent(
+      `${address.housenumber} ${address.streetname}, ${address.boro}`
+    );
+    url = `${url}?prefill_Address=${fullAddress}`;
+  }
+  return url;
+};
+
+const DataRequestButton: React.FC<{
+  address?: AddressRecord;
+}> = ({ address }) => {
+  return (
+    <I18nComponent>
+      {({ i18n }) => (
+        <a
+          onClick={() => {
+            window.gtag("event", "data-request");
+          }}
+          href={generateLinkToDataRequestForm(i18n, address)}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="btn btn-block"
+        >
+          <div>
+            <Trans render="label">Send us a data request</Trans>
+          </div>
+        </a>
+      )}
+    </I18nComponent>
+  );
+};
 
 export default class PropertiesSummary extends Component<Props, {}> {
   updateData() {
@@ -144,30 +187,21 @@ export default class PropertiesSummary extends Component<Props, {}> {
                     <h6 className="PropertiesSummary__linksSubtitle">
                       <Trans>Looking for more information?</Trans>
                     </h6>
-                    <a
-                      onClick={() => {
-                        window.gtag("event", "data-request");
-                      }}
-                      href={generateLinkToDataRequestForm(
-                        `${searchAddr.housenumber}${searchAddr.streetname},${searchAddr.boro}`
-                      )}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="btn btn-block"
-                    >
-                      <div>
-                        <Trans render="label">Send us a data request</Trans>
-                      </div>
-                    </a>
+                    <DataRequestButton address={searchAddr} />
                   </div>
                   <div>
                     <h6 className="PropertiesSummary__linksSubtitle">
                       <Trans>Share this page with your neighbors</Trans>
                     </h6>
-                    <SocialSharePortfolio
+                    <SocialShareAddressPage
                       location="summary-tab"
-                      addr={searchAddr}
-                      buildings={agg.bldgs}
+                      customContent={{
+                        tweet: t`This landlord owns ${agg.bldgs} buildings, and according to @NYCHousing, has received a total of ${agg.totalviolations} violations. Can you guess which landlord it is? Find their name and more data analysis here: `,
+                        tweetCloseout: t`#WhoOwnsWhat via @JustFixNYC`,
+                        emailSubject: t` This landlord’s buildings average ${agg.openviolationsperresunit} open HPD violations per apartment`,
+                        getEmailBody: (url: string) =>
+                          t`I was checking out this building on Who Owns What, a free landlord research tool from JustFix.nyc. It’s a remarkable website that every tenant and housing advocate should know about! Can you guess how many total violations this landlord portfolio has? Check it out here: ${url}`,
+                      }}
                     />
                   </div>
                 </div>

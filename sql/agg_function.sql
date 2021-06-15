@@ -17,7 +17,6 @@ RETURNS TABLE (
   totalrsgain bigint,
   totalrsloss bigint,
   totalrsdiff bigint,
-  avgrspercent numeric,
   rsproportion numeric,
   rslossaddr json,
   evictionsaddr json,
@@ -57,8 +56,6 @@ RETURNS TABLE (
     coalesce(sum(rsdiff) filter (where rsdiff > 0),0) as totalrsgain,
     coalesce(sum(rsdiff) filter (where rsdiff < 0),0) as totalrsloss,
     sum(rsdiff) as totalrsdiff,
-    round(avg(rspercentchange)::numeric, 1) as avgrspercent,
-    -- round(abs(sum(rsdiff)) / sum(unitsres), 1) as rsproportion,
     round(abs(sum(rsdiff)) / NULLIF(sum(unitsres), 0)::numeric * 100.0, 1) as rsproportion,
 
     -- array_agg allows us to use order by. we put everything in json, then order it

@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2020-06-15 14:22\n"
+"PO-Revision-Date: 2021-06-15 12:44\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -18,48 +18,47 @@ msgstr ""
 "X-Crowdin-File: /master/client/src/locales/en/messages.po\n"
 "X-Crowdin-File-ID: 31\n"
 
-#: src/components/DetailView.tsx:146
+#: src/components/PropertiesSummary.tsx:137
+msgid "#WhoOwnsWhat via @JustFixNYC"
+msgstr "#QuiénEsElDueño por @JustFixNYC"
+
+#: src/components/DetailView.tsx:170
 msgid "(as part of a group sale)"
 msgstr "(como parte de una venta en grupo)"
 
-#: src/components/DetailView.tsx:130
+#: src/components/DetailView.tsx:152
 msgid "(expired {formattedRegEndDate})"
 msgstr "(caducado {formattedRegEndDate})"
 
-#: src/components/DetailView.tsx:133
+#: src/components/DetailView.tsx:155
 msgid "(expires {formattedRegEndDate})"
 msgstr "(caduca {formattedRegEndDate})"
 
-#: src/components/BuildingStatsTable.tsx:124
+#: src/components/BuildingStatsTable.tsx:125
 msgid "(hover over a box to learn more)"
 msgstr "(pase el cursor sobre una casilla para aprender más)"
 
-#: src/components/PropertiesMap.tsx:203
+#: src/components/PropertiesMap.tsx:205
 msgid "({browserType, select, mobile {tap} other {click}} to view details)"
 msgstr "({browserType, select, mobile {pulsa} other {haz clic}} para ver detalles)"
 
-#: src/containers/HomePage.tsx:85
+#: src/containers/HomePage.tsx:79
 msgid "... or view some sample portfolios:"
 msgstr "... o descubre ejemplos de portafolios de edificios:"
 
-#: src/components/BuildingStatsTable.tsx:70
-#: src/containers/NychaPage.tsx:87
-msgid "2019 Evictions"
-msgstr "Desalojos 2019"
-
-#: src/containers/HomePage.tsx:28
-msgid "<0>COVID-19 Update: </0>JustFix.nyc is operating, and has adapted our products to match preliminary rules put in place during the COVID-19 crisis. We recommend you take full precautions to stay safe during this public health crisis. Thanks to tenant organizing during this time, renters cannot be evicted for any reason. Visit <1><2>Right to Council’s Eviction Moratorium FAQs</2></1> to learn more."
-msgstr "<0>Actualización COVID-19: </0>JustFix.nyc está operativo, y hemos adaptado nuestros productos a las normas establecidas durante la crisis de COVID-19. Todavía recomendamos que se tomen todas las precauciones posibles para mantenerse sanos durante esta crisis de salud pública. Gracias al poder de la organización de inquilinos, los inquilinos no pueden ser desalojados por ninguna razón. Visita las <1><2>Preguntas Más Frecuentes sobre la Moratoria de Desalojo del Right to Council</2></1> para obtener más información."
-
-#: src/components/DetailView.tsx:216
-#: src/components/Indicators.tsx:285
-#: src/containers/NotRegisteredPage.tsx:159
+#: src/components/DetailView.tsx:240
+#: src/components/Indicators.tsx:283
+#: src/containers/NotRegisteredPage.tsx:158
 #: src/containers/NychaPage.tsx:168
 msgid "ANHD DAP Portal"
 msgstr "Portal DAP de ANHD"
 
+#: src/util/helpers.ts:53
+msgid "APPLIANCE"
+msgstr "MEDIO DOMÉSTICO"
+
 #: src/containers/AboutPage.tsx:13
-#: src/containers/App.tsx:55
+#: src/containers/App.tsx:89
 msgid "About"
 msgstr "Acerca de"
 
@@ -67,11 +66,11 @@ msgstr "Acerca de"
 msgid "According to available HPD data, this portfolio has received <0>{totalviolations}</0> total violations."
 msgstr "Según los datos del HPD disponibles, este portafolio de edificios ha recibido un total de <0>{totalviolations}</0> infracciones."
 
-#: src/components/PropertiesSummary.tsx:97
+#: src/components/PropertiesSummary.tsx:123
 msgid "Additional links"
 msgstr "Enlaces adicionales"
 
-#: src/components/PropertiesList.tsx:24
+#: src/components/PropertiesList.tsx:26
 msgid "Address"
 msgstr "Dirección"
 
@@ -79,12 +78,16 @@ msgstr "Dirección"
 msgid "All set! Thanks for subscribing!"
 msgstr "¡Todo listo! ¡Gracias por suscribirte!"
 
-#: src/components/PropertiesList.tsx:144
+#: src/components/SocialShare.tsx:13
+msgid "All the public info on your landlord"
+msgstr "Toda la información pública sobre el dueño/a de tu edificio"
+
+#: src/components/PropertiesList.tsx:174
 msgid "Amount"
 msgstr "Importe"
 
-#: src/components/DetailView.tsx:154
-#: src/components/DetailView.tsx:224
+#: src/components/DetailView.tsx:178
+#: src/components/DetailView.tsx:248
 msgid "Are you having issues in this building?"
 msgstr "¿Tienes problemas en este edificio?"
 
@@ -92,16 +95,20 @@ msgstr "¿Tienes problemas en este edificio?"
 msgid "Are you having issues in this development?"
 msgstr "¿Tienes problemas en tu edificio?"
 
-#: src/components/DetailView.tsx:70
-#: src/components/Indicators.tsx:149
+#: src/util/helpers.ts:33
+msgid "BELL/BUZZER/INTERCOM"
+msgstr "TIMBRE/INTERCOMUNICADOR"
+
+#: src/components/DetailView.tsx:77
+#: src/components/Indicators.tsx:147
 msgid "BUILDING:"
 msgstr "EDIFICIO:"
 
-#: src/components/Indicators.tsx:154
+#: src/components/Indicators.tsx:152
 msgid "Back to Overview"
 msgstr "Volver a la Vista General"
 
-#: src/components/PropertiesList.tsx:39
+#: src/components/PropertiesList.tsx:41
 #: src/containers/NychaPage.tsx:79
 msgid "Borough"
 msgstr "Municipio"
@@ -110,9 +117,9 @@ msgstr "Municipio"
 msgid "Borough Management Office:"
 msgstr "Oficina de Gestión Municipal:"
 
-#: src/containers/NotRegisteredPage.tsx:65
-#: src/containers/NotRegisteredPage.tsx:85
-#: src/containers/NotRegisteredPage.tsx:104
+#: src/containers/NotRegisteredPage.tsx:64
+#: src/containers/NotRegisteredPage.tsx:84
+#: src/containers/NotRegisteredPage.tsx:103
 msgid "Building Classification"
 msgstr "Clasificación del Edificio"
 
@@ -125,29 +132,49 @@ msgstr "Solicitudes de Permisos de Construcción"
 msgid "Building Permits Applied For"
 msgstr "Permisos de Construcción Solicitados"
 
-#: src/containers/NotRegisteredPage.tsx:175
+#: src/containers/NotRegisteredPage.tsx:174
 msgid "Buildings without valid property registration are subject to the following:"
 msgstr "Edificios sin registro de propiedad válido están sujetos a las siguientes obligaciones:"
 
-#: src/components/PropertiesList.tsx:54
+#: src/components/PropertiesList.tsx:56
 msgid "Built"
 msgstr "Construido"
 
-#: src/components/DetailView.tsx:102
-#: src/components/DetailView.tsx:290
-#: src/components/DetailView.tsx:299
+#: src/components/DetailView.tsx:125
+#: src/components/DetailView.tsx:313
+#: src/components/DetailView.tsx:322
 #: src/components/OwnersTable.tsx:14
 msgid "Business Addresses"
 msgstr "Dirección Comercial"
 
-#: src/components/DetailView.tsx:93
-#: src/components/DetailView.tsx:270
-#: src/components/DetailView.tsx:279
+#: src/components/DetailView.tsx:116
+#: src/components/DetailView.tsx:293
+#: src/components/DetailView.tsx:302
 #: src/components/OwnersTable.tsx:20
 msgid "Business Entities"
 msgstr "Entidades Comerciales"
 
-#: src/containers/NotRegisteredPage.tsx:179
+#: src/util/helpers.ts:42
+msgid "CABINET"
+msgstr "GABINETE"
+
+#: src/util/helpers.ts:55
+msgid "CERAMIC TILE"
+msgstr "AZULEJOS CERÁMICAS"
+
+#: src/util/helpers.ts:30
+msgid "CONSTRUCTION"
+msgstr "CONSTRUCCIÓN"
+
+#: src/util/helpers.ts:56
+msgid "COOKING GAS"
+msgstr "GAS DE COCINA"
+
+#: src/components/DetailView.tsx:20
+msgid "Check out the issues in this building"
+msgstr "Mira los problemas en este edificio"
+
+#: src/containers/NotRegisteredPage.tsx:178
 msgid "Civil penalties of $250-$500"
 msgstr "Sanciones civiles de $250-$500"
 
@@ -163,11 +190,11 @@ msgstr "Clase B"
 msgid "Class C"
 msgstr "Clase C"
 
-#: src/containers/NotRegisteredPage.tsx:188
+#: src/containers/NotRegisteredPage.tsx:187
 msgid "Click here to learn more."
 msgstr "HaZ clic aquí para obtener más información."
 
-#: src/components/PropertiesMap.tsx:191
+#: src/components/PropertiesMap.tsx:193
 msgid "Close legend"
 msgstr "Cerrar leyenda"
 
@@ -175,23 +202,31 @@ msgstr "Cerrar leyenda"
 msgid "Complaints Issued"
 msgstr "Quejas Emitidas"
 
-#: src/components/DetailView.tsx:202
-#: src/components/Indicators.tsx:271
-#: src/containers/NotRegisteredPage.tsx:156
+#: src/components/DetailView.tsx:226
+#: src/components/Indicators.tsx:269
+#: src/containers/NotRegisteredPage.tsx:155
 msgid "DOB Building Profile"
 msgstr "Perfil de edificio en DOB"
 
-#: src/components/DetailView.tsx:209
-#: src/components/Indicators.tsx:278
-#: src/containers/NotRegisteredPage.tsx:151
+#: src/components/DetailView.tsx:233
+#: src/components/Indicators.tsx:276
+#: src/containers/NotRegisteredPage.tsx:150
 msgid "DOF Property Tax Bills"
 msgstr "Facturas de Impuestos del DOF"
 
-#: src/components/PropertiesList.tsx:136
+#: src/util/helpers.ts:27
+msgid "DOOR/WINDOW"
+msgstr "PUERTA/VENTANA"
+
+#: src/util/helpers.ts:59
+msgid "DOORS"
+msgstr "PUERTAS"
+
+#: src/components/PropertiesList.tsx:166
 msgid "Date"
 msgstr "Fecha"
 
-#: src/containers/App.tsx:48
+#: src/containers/App.tsx:82
 msgid "Demo Site"
 msgstr "Sitio Demo"
 
@@ -200,7 +235,7 @@ msgid "Disclaimer: The information in JustFix.nyc does not constitute legal advi
 msgstr "Descargo de responsabilidad: La información en JustFix.nyc no constituye asesoramiento jurídico y no debe ser utilizado como sustituto del asesoramiento de un abogado cualificado para asesorar sobre cuestiones jurídicas relativas a la vivienda. Nosotros podemos ayudarte a dirigirte a servicios legales gratuitos si es necesario."
 
 #: src/components/LegalFooter.tsx:33
-#: src/containers/App.tsx:61
+#: src/containers/App.tsx:95
 msgid "Donate"
 msgstr "Donar"
 
@@ -208,7 +243,15 @@ msgstr "Donar"
 msgid "Download"
 msgstr "Descargar"
 
-#: src/components/SocialShare.tsx:29
+#: src/util/helpers.ts:50
+msgid "ELECTRIC"
+msgstr "ELÉCTRICO"
+
+#: src/util/helpers.ts:40
+msgid "ELEVATOR"
+msgstr "ASCENSOR"
+
+#: src/components/SocialShare.tsx:39
 msgid "Email"
 msgstr "Email"
 
@@ -216,7 +259,7 @@ msgstr "Email"
 msgid "Emergency"
 msgstr "Emergencia"
 
-#: src/containers/HomePage.tsx:72
+#: src/containers/HomePage.tsx:66
 msgid "Enter an NYC address and find other buildings your landlord might own:"
 msgstr "Introduce una dirección de NYC para encontrar otros edificios que tu propietario podría poseer:"
 
@@ -224,41 +267,68 @@ msgstr "Introduce una dirección de NYC para encontrar otros edificios que tu pr
 msgid "Enter email"
 msgstr "Introducir email"
 
-#: src/components/PropertiesList.tsx:107
-#: src/components/PropertiesSummary.tsx:90
+#: src/components/BuildingStatsTable.tsx:71
+#: src/components/PropertiesList.tsx:137
+#: src/components/PropertiesSummary.tsx:116
+#: src/containers/NychaPage.tsx:87
 msgid "Evictions"
 msgstr "Desalojos"
 
-#: src/components/BuildingStatsTable.tsx:69
-msgid "Evictions executed by NYC Marshals in 2019. ANHD and the Housing Data Coalition cleaned, geocoded, and validated the data, originally sourced from DOI."
-msgstr "Desalojos ejecutados en este edificio por el Mariscal de NYC en 2019. ANHD y la Coalición de Datos de Vivienda limpiaron, codificaron y validaron los datos, que provienen originalmente del DOI."
+#: src/components/BuildingStatsTable.tsx:70
+msgid "Evictions executed by NYC Marshals since 2017. ANHD and the Housing Data Coalition cleaned, geocoded, and validated the data, originally sourced from DOI."
+msgstr "Desalojos ejecutados en este edificio por el Mariscal de NYC desde el 2017. ANHD y la Coalición de Datos de Vivienda limpiaron, codificaron y validaron los datos, que provienen originalmente del DOI."
 
 #: src/containers/NychaPage.tsx:86
-msgid "Evictions executed in this development by NYC Marshals in 2019. ANHD and the Housing Data Coalition cleaned, geocoded, and validated the data, originally sourced from DOI."
-msgstr "Desalojos ejecutados en este complejo por el Mariscal de NYC en 2019. ANHD y la Coalición de Datos de Vivienda limpiaron, codificaron y validaron los datos, originalmente provenientes del DOI."
+msgid "Evictions executed in this development by NYC Marshals since 2017. ANHD and the Housing Data Coalition cleaned, geocoded, and validated the data, originally sourced from DOI."
+msgstr "Desalojos ejecutados en este complejo por el Mariscal de NYC desde el 2017. ANHD y la Coalición de Datos de Vivienda limpiaron, codificaron y validaron los datos, originalmente provenientes del DOI."
 
 #: src/components/AddressToolbar.tsx:29
 msgid "Export Data"
 msgstr "Exportar datos"
 
-#: src/containers/NotRegisteredPage.tsx:174
+#: src/util/helpers.ts:35
+msgid "FIRE ESCAPE"
+msgstr "ESCALERA DE INCENDIO"
+
+#: src/util/helpers.ts:45
+msgid "FLOOR"
+msgstr "PISO"
+
+#: src/util/helpers.ts:51
+msgid "FLOORING/STAIRS"
+msgstr "PISO/ESCALERAS"
+
+#: src/containers/NotRegisteredPage.tsx:173
 msgid "Failure to register a building with HPD"
 msgstr "Si no se registra un edificio con el HPD"
 
-#: src/components/PropertiesSummary.tsx:43
+#: src/util/helpers.ts:41
+msgid "GARBAGE/RECYCLING STORAGE"
+msgstr "ALMACENAMIENTO DE BASURA/RECICLAJE"
+
+#: src/components/PropertiesSummary.tsx:69
 msgid "General info"
 msgstr "Información general"
 
-#: src/components/PropertiesList.tsx:160
+#: src/components/PropertiesList.tsx:190
 msgid "Group Sale?"
 msgstr "¿Venta en grupo?"
 
-#: src/components/DetailView.tsx:195
-#: src/components/Indicators.tsx:264
+#: src/util/helpers.ts:58
+msgid "HEAT/HOT WATER"
+msgstr "CALEFACCIÓN/AGUA CALIENTE"
+
+#: src/util/helpers.ts:28
+msgid "HEATING"
+msgstr "CALEFACCIÓN"
+
+#: src/components/DetailView.tsx:219
+#: src/components/Indicators.tsx:262
 msgid "HPD Building Profile"
 msgstr "Perfil de edificio del HPD"
 
 #: src/components/IndicatorsDatasets.tsx:6
+#: src/components/PropertiesList.tsx:92
 msgid "HPD Complaints"
 msgstr "Quejas del HPD"
 
@@ -267,7 +337,7 @@ msgid "HPD Complaints are housing issues reported to the City <0>by a tenant cal
 msgstr "Las quejas de HPD son problemas de vivienda presentados a la Ciudad <0>por un inquilino al llamar al 311</0>. Cuando alguien presenta una queja, el Departamento de Preservación y Desarrollo de la Vivienda, DHCR por sus siglas en inglés, inicia un proceso de investigación que puede conducir a la emisión de una infracción oficial por parte de la Ciudad. Las quejas se pueden identificar como:<1/><2/><3>Emergencia</3> — se ha informado de que son peligrosas<4/><5>No-Emergencia</5> — todas las demás<6/><7/> Encontraras más información sobre las quejas de HPD y cómo presentarlas en la página <8>oficial del HPD</8>."
 
 #: src/components/IndicatorsDatasets.tsx:32
-#: src/components/PropertiesList.tsx:90
+#: src/components/PropertiesList.tsx:120
 msgid "HPD Violations"
 msgstr "Infracciones del HPD"
 
@@ -279,51 +349,67 @@ msgstr "Infracciones del HPD se dan cuando un Inspector oficial de la Ciudad det
 msgid "HUD Complaint Form 958"
 msgstr "Formulario de queja HUD 958"
 
-#: src/components/Indicators.tsx:226
-#: src/components/Indicators.tsx:293
+#: src/components/Indicators.tsx:224
+#: src/components/Indicators.tsx:291
 msgid "Have thoughts about this page?"
 msgstr "¿Tienes ideas sobre esta página?"
 
-#: src/containers/App.tsx:52
+#: src/containers/App.tsx:86
 msgid "Home"
 msgstr "Inicio"
 
-#: src/components/DetailView.tsx:75
-#: src/components/DetailView.tsx:244
+#: src/components/DetailView.tsx:83
+#: src/components/DetailView.tsx:268
 msgid "How is this building associated to this portfolio?"
 msgstr "¿Cómo se asocia este edificio a este portafolio de edificios?"
 
-#: src/containers/App.tsx:58
+#: src/containers/App.tsx:92
 #: src/containers/HowToUsePage.tsx:13
 msgid "How to use"
 msgstr "Cómo se usa"
 
-#: src/components/EvictionsSummary.tsx:8
-msgid "In 2019, NYC Marshals scheduled {totalEvictions, plural, one {one eviction} other {# evictions}} across this portfolio."
-msgstr "En el 2019, los Mariscales de NYC programaron {totalEvictions, plural, one {un desalojo} other {# desalojos}} en este portafolio de edificios."
+#: src/components/DetailView.tsx:21
+msgid "I just looked up this building on Who Owns What, a free tool built by JustFix.nyc to make data on landlords and evictors more transparent to tenants. You might want to look up your building. Check it out here: {url}"
+msgstr "Justo busqué este edificio en Quién Es El Dueño, una herramienta gratuita construida por JustFix.nyc que hace que la información sobre los dueños de edificios sea más transparente para los inquilinos. Sería bueno si buscaras tu edificio también. Míralo aquí: {url}"
 
-#: src/containers/NotRegisteredPage.tsx:181
+#: src/components/DetailView.tsx:19
+msgid "I used #WhoOwnsWhat (built by @JustFixNYC) to see not only the open violations in this building, but also rent stabilized losses, evictions, and more. This website is a wealth of info and costs nothing to use. Savvy New Yorkers need this info:"
+msgstr "Usé #QuiénEsElDueño (construido por @JustFixNYC) para ver no solo las violaciones del código de vivienda, sino también cuántos apartamentos con renta estabilizada se han perdido, desalojos, y más. Este sitio web no cuesta nada para usar. Ojo, neoyorquinos:"
+
+#: src/components/PropertiesSummary.tsx:139
+msgid "I was checking out this building on Who Owns What, a free landlord research tool from JustFix.nyc. It’s a remarkable website that every tenant and housing advocate should know about! Can you guess how many total violations this landlord portfolio has? Check it out here: {url}"
+msgstr "Estaba revisando este edificio en Quién Es El Dueño, una herramienta gratuita construida por JustFix.nyc. ¡Es un sitio web extraordinario que cada inquilino y defensor de viviendas debería saber sobre! ¿Puedes adivinar cuántas violaciones totales tiene este portafolio de este dueño? Míralo aquí: {url}"
+
+#: src/containers/NotRegisteredPage.tsx:180
 msgid "Ineligible to certify violations"
 msgstr "Inelegible para certificar infracciones"
 
-#: src/components/PropertiesList.tsx:51
+#: src/components/PropertiesList.tsx:53
 msgid "Information"
 msgstr "Información"
 
-#: src/containers/NotRegisteredPage.tsx:99
+#: src/containers/NotRegisteredPage.tsx:98
 msgid "It doesn't seem like this property is required to register with HPD."
 msgstr "Parece que esta propiedad no necesita estar registrada con el HPD."
+
+#: src/util/helpers.ts:31
+msgid "JANITOR/SUPER"
+msgstr "CONSERJE/SÚPER"
 
 #: src/components/EngagementPanel.tsx:8
 msgid "Join the fight for tenant rights!"
 msgstr "¡Únete a la lucha por los derechos de los inquilinos!"
 
 #: src/components/LegalFooter.tsx:21
-msgid "JustFix.nyc is a registered 501(c)(3) nonprofit organization."
-msgstr "JustFix.nyc es una organización registrada 501(c)(3) sin fines de lucro."
+msgid "JustFix, Inc is a registered 501(c)(3) nonprofit organization."
+msgstr "JustFix, Inc es una organización registrada 501(c)(3) sin fines de lucro."
 
-#: src/components/PropertiesList.tsx:118
-#: src/components/PropertiesSummary.tsx:75
+#: src/util/helpers.ts:60
+msgid "LOCKS"
+msgstr "CERRADURAS"
+
+#: src/components/PropertiesList.tsx:148
+#: src/components/PropertiesSummary.tsx:101
 msgid "Landlord"
 msgstr "Dueño del edificio"
 
@@ -331,7 +417,11 @@ msgstr "Dueño del edificio"
 msgid "Landlord, Portfolio, Tenant, Displacement, Map, JustFix, NYC, New York, Housing, Who Owns What"
 msgstr "Arrendador, Portafolio, Inquilino, Desalojo, Mapa, JustFix, NYC, Nueva York, Vivienda, Quién es el Dueño"
 
-#: src/components/PropertiesList.tsx:133
+#: src/components/PropertiesList.tsx:101
+msgid "Last 3 Years"
+msgstr "Últimos 3 años"
+
+#: src/components/PropertiesList.tsx:163
 msgid "Last Sale"
 msgstr "Última venta"
 
@@ -339,38 +429,46 @@ msgstr "Última venta"
 msgid "Last Sale Unknown"
 msgstr "Última venta desconocida"
 
-#: src/components/DetailView.tsx:125
+#: src/components/DetailView.tsx:147
 msgid "Last registered:"
 msgstr "Registrado por última vez:"
 
-#: src/components/DetailView.tsx:138
+#: src/components/DetailView.tsx:160
 msgid "Last sold:"
 msgstr "Vendido por última vez:"
 
-#: src/components/PropertiesMap.tsx:191
+#: src/components/PropertiesMap.tsx:193
 msgid "Legend"
 msgstr "Leyenda"
 
-#: src/components/PropertiesList.tsx:152
-#: src/components/PropertiesList.tsx:154
+#: src/components/PropertiesList.tsx:182
+#: src/components/PropertiesList.tsx:184
 msgid "Link to Deed"
 msgstr "Enlace a la Escritura"
 
-#: src/components/Indicators.tsx:121
-#: src/components/PropertiesMap.tsx:154
-#: src/components/PropertiesSummary.tsx:36
-#: src/containers/AddressPage.tsx:160
-#: src/containers/BBLPage.tsx:61
+#: src/components/Indicators.tsx:119
+#: src/components/PropertiesMap.tsx:156
+#: src/components/PropertiesSummary.tsx:62
+#: src/containers/AddressPage.tsx:165
+#: src/containers/BBLPage.tsx:58
 msgid "Loading"
 msgstr "Cargando"
 
-#: src/components/PropertiesList.tsx:21
+#: src/components/PropertiesList.tsx:23
 msgid "Location"
 msgstr "Ubicación"
 
-#: src/components/PropertiesSummary.tsx:101
+#: src/components/PropertiesSummary.tsx:127
 msgid "Looking for more information?"
 msgstr "¿Buscas más información?"
+
+#: src/util/helpers.ts:38
+msgid "MAILBOX"
+msgstr "BUZÓN"
+
+#: src/util/helpers.ts:48
+msgid "MOLD"
+msgstr "MOHO"
 
 #: src/components/LegalFooter.tsx:27
 msgid "Made with NYC ♥ by the team at <0>JustFix.nyc</0>"
@@ -380,7 +478,7 @@ msgstr "Hecho en NYC con ♥ por el equipo de <0>JustFix.nyc</0>"
 msgid "Maintenance code violations"
 msgstr "Infracciones del código de mantenimiento"
 
-#: src/containers/NotRegisteredPage.tsx:180
+#: src/containers/NotRegisteredPage.tsx:179
 msgid "May be issued official Orders"
 msgstr "Pueden emitirse órdenes oficiales"
 
@@ -389,21 +487,25 @@ msgstr "Pueden emitirse órdenes oficiales"
 msgid "Methodology"
 msgstr "Metodología"
 
-#: src/components/Indicators.tsx:178
+#: src/components/Indicators.tsx:176
 msgid "Month"
 msgstr "Mes"
+
+#: src/components/DetailView.tsx:100
+msgid "Most Common 311 Complaints, Last 3 Years"
+msgstr "Las quejas más comunes de 311, los últimos 3 años"
 
 #: src/containers/NychaPage.tsx:165
 msgid "MyNYCHA App"
 msgstr "App MyNYCHA"
 
+#: src/util/helpers.ts:54
+msgid "NON-CONSTRUCTION"
+msgstr "NO CONSTRUCCIÓN"
+
 #: src/containers/NychaPage.tsx:160
 msgid "NYCHA Directory"
 msgstr "Directorio de NYCHA"
-
-#: src/components/SocialShare.tsx:27
-msgid "New JustFix.nyc tool helps research on NYC landlords"
-msgstr "La nueva herramienta JustFix.nyc te ayuda a investigar a propietarios de NYC"
 
 #: src/components/AddressToolbar.tsx:26
 msgid "New Search"
@@ -413,7 +515,7 @@ msgstr "Nueva búsqueda"
 msgid "New York Regional Office:"
 msgstr "Oficina Regional de Nueva York:"
 
-#: src/components/PropertiesList.tsx:169
+#: src/components/PropertiesList.tsx:199
 msgid "No"
 msgstr "No"
 
@@ -426,11 +528,11 @@ msgstr "No se encontraron direcciones"
 msgid "No data available"
 msgstr "No hay datos disponibles"
 
-#: src/containers/NotRegisteredPage.tsx:123
+#: src/containers/NotRegisteredPage.tsx:122
 msgid "No registration found for {usersInputAddressFragment}!"
 msgstr "¡No se ha encontrado ningún registro para {usersInputAddressFragment}!"
 
-#: src/containers/NotRegisteredPage.tsx:123
+#: src/containers/NotRegisteredPage.tsx:122
 msgid "No registration found!"
 msgstr "¡No se ha encontrado nigún registro!"
 
@@ -438,12 +540,23 @@ msgstr "¡No se ha encontrado nigún registro!"
 msgid "Non-Emergency"
 msgstr "No Emergencia"
 
-#: src/components/PropertiesList.tsx:121
+#: src/components/DetailView.tsx:108
+msgid "None"
+msgstr "Ninguna"
+
+#: src/containers/NotFoundPage.tsx:23
+msgid "Not found"
+msgstr "No encontrado"
+
+#: src/util/helpers.ts:32
+msgid "OUTSIDE BUILDING"
+msgstr "AFUERA DEL EDIFICIO"
+
+#: src/components/PropertiesList.tsx:151
 msgid "Officer/Owner"
 msgstr "Oficial/Propietario"
 
-#: src/components/Indicators.tsx:119
-#: src/components/PropertiesSummary.tsx:32
+#: src/components/NetworkErrorMessage.tsx:5
 #: src/components/Subscribe.tsx:50
 #: src/components/Subscribe.tsx:56
 msgid "Oops! A network error occurred. Try again later."
@@ -453,11 +566,11 @@ msgstr "¡Vaya! Hubo un error en la red. Inténtalo más tarde."
 msgid "Oops! That email is invalid."
 msgstr "¡Vaya! Ese correo electrónico no es válido."
 
-#: src/components/PropertiesList.tsx:93
+#: src/components/PropertiesList.tsx:123
 msgid "Open"
 msgstr "Abrir"
 
-#: src/components/BuildingStatsTable.tsx:52
+#: src/components/BuildingStatsTable.tsx:53
 msgid "Open Violations"
 msgstr "Infracciones Actuales"
 
@@ -469,13 +582,25 @@ msgstr "General"
 msgid "Owners submit Building Permit Applications to the Department of Buildings before any construction project to get necessary approval. The number of applications filed can indicate how much construction the owner was planning.<0/><1/>Read more about DOB Building Applications/Permits at the <2>official NYC Buildings page</2>."
 msgstr "Antes de empezar cualquier proyecto de construcción, el propietario somete un solicitud para conseguir permisos de construcción al Departamento de Edificios para obtener la autorización necesaria. El número de solicitudes que asociadas a un edificio te puede dar una idea de cuánta construcción planea hacer el propietario. <0/><1/> Encontrarás más información sobre Permisos de Construcción del DOB en la <2>página oficial de Edificios de NYC</2>."
 
-#: src/containers/AddressPage.tsx:102
+#: src/util/helpers.ts:52
+msgid "PAINT/PLASTER"
+msgstr "PINTURA/YESO"
+
+#: src/util/helpers.ts:37
+msgid "PESTS"
+msgstr "PLAGAS"
+
+#: src/util/helpers.ts:46
+msgid "PLUMBING"
+msgstr "PLOMERÍA"
+
+#: src/containers/AddressPage.tsx:106
 msgid "PORTFOLIO: Your search address is associated with <0>{0}</0> {1, plural, one {building} other {buildings}}"
 msgstr "PORTAFOLIO DE EDIFICIOS: La dirección que has buscado está asociada con <0>{0}</0> {1, plural, one {construyendo} other {edificios}}"
 
-#: src/components/DetailView.tsx:112
-#: src/components/DetailView.tsx:310
-#: src/components/DetailView.tsx:320
+#: src/components/DetailView.tsx:135
+#: src/components/DetailView.tsx:333
+#: src/components/DetailView.tsx:343
 #: src/components/OwnersTable.tsx:26
 msgid "People"
 msgstr "Personas (Encontrarás definiciones en español de los tipos de personas asociadas al edificio en la página \"Como se usa\".)"
@@ -497,47 +622,63 @@ msgstr "Política de privacidad"
 msgid "Public Housing Development"
 msgstr "Complejo de Vivienda Pública"
 
-#: src/components/Indicators.tsx:186
+#: src/components/Indicators.tsx:184
 msgid "Quarter"
 msgstr "Trimestre"
 
-#: src/components/BuildingStatsTable.tsx:80
-#: src/components/PropertiesList.tsx:68
+#: src/components/BuildingStatsTable.tsx:81
+#: src/components/PropertiesList.tsx:70
 msgid "RS Units"
 msgstr "Unidades Residenciales RS"
 
-#: src/components/PropertiesSummary.tsx:92
+#: src/components/PropertiesSummary.tsx:118
 msgid "Rent stabilization"
 msgstr "Renta estabilizada"
 
-#: src/containers/NotRegisteredPage.tsx:170
+#: src/util/helpers.ts:57
+msgid "SAFETY"
+msgstr "SEGURIDAD"
+
+#: src/util/helpers.ts:34
+msgid "SEWAGE"
+msgstr "AGUAS NEGRAS"
+
+#: src/util/helpers.ts:36
+msgid "SIGNAGE MISSING"
+msgstr "FALTA DE SEÑALIZACIÓN"
+
+#: src/util/helpers.ts:29
+msgid "STAIRS"
+msgstr "ESCALERAS"
+
+#: src/containers/NotRegisteredPage.tsx:169
 #: src/containers/NychaPage.tsx:190
 msgid "Search for a different address"
 msgstr "Buscar otra dirección"
 
-#: src/components/Indicators.tsx:161
+#: src/components/Indicators.tsx:159
 msgid "Select a Dataset:"
 msgstr "Seleccione un conjunto de datos:"
 
-#: src/components/PropertiesSummary.tsx:107
+#: src/components/PropertiesSummary.tsx:36
 msgid "Send us a data request"
 msgstr "Envíanos una solicitud de datos"
 
-#: src/components/Indicators.tsx:229
-#: src/components/Indicators.tsx:296
+#: src/components/Indicators.tsx:227
+#: src/components/Indicators.tsx:294
 msgid "Send us feedback!"
 msgstr "¡Comparte tu opinión con nosotros!"
 
-#: src/containers/App.tsx:65
+#: src/containers/App.tsx:99
 msgid "Share"
 msgstr "Compartir"
 
-#: src/components/DetailView.tsx:165
-#: src/components/DetailView.tsx:233
+#: src/components/DetailView.tsx:189
+#: src/components/DetailView.tsx:257
 #: src/components/EngagementPanel.tsx:18
-#: src/components/PropertiesSummary.tsx:113
-#: src/containers/App.tsx:71
-#: src/containers/NotRegisteredPage.tsx:14
+#: src/components/PropertiesSummary.tsx:133
+#: src/containers/App.tsx:105
+#: src/containers/NotRegisteredPage.tsx:13
 msgid "Share this page with your neighbors"
 msgstr "Comparte esta página con tus vecinos"
 
@@ -549,13 +690,25 @@ msgstr "Regístrate"
 msgid "Sign up for email updates"
 msgstr "Regístrate para recibir noticias por email"
 
+#: src/components/PropertiesList.tsx:140
+msgid "Since 2017"
+msgstr "Desde 2017"
+
+#: src/components/EvictionsSummary.tsx:8
+msgid "Since 2017, NYC Marshals scheduled {totalEvictions, plural, one {one eviction} other {# evictions}} across this portfolio."
+msgstr "Desde el 2017, los Mariscales de NYC programaron {totalEvictions, plural, one {un desalojo} other {# desalojos}} en este portafolio de edificios."
+
 #: src/components/IndicatorsViz.tsx:350
 msgid "Sold to Current Owner"
 msgstr "Vendido al Propietario Actual"
 
-#: src/components/PropertiesMap.tsx:159
+#: src/components/PropertiesMap.tsx:161
 msgid "Sorry, it looks like there's an error on the map. Try again on a different browser or <0>enable WebGL</0>."
 msgstr "Lo sentimos, parece que hay un error en el mapa. Inténtalo de nuevo con un navegador diferente o <0>habilita WebGL</0>."
+
+#: src/containers/NotFoundPage.tsx:25
+msgid "Sorry, the page you are looking for doesn't seem to exist."
+msgstr "Lo sentimos, la página que estás buscando no existe."
 
 #: src/components/LegalFooter.tsx:46
 msgid "Source code"
@@ -565,8 +718,12 @@ msgstr "Código fuente"
 msgid "Summary"
 msgstr "Resúmen"
 
-#: src/components/DetailView.tsx:159
-#: src/components/DetailView.tsx:227
+#: src/util/helpers.ts:43
+msgid "TENANT HARASSMENT"
+msgstr "ACOSO DE INQUILINO"
+
+#: src/components/DetailView.tsx:183
+#: src/components/DetailView.tsx:251
 #: src/containers/NychaPage.tsx:179
 msgid "Take action on JustFix.nyc!"
 msgstr "¡Toma acción en JustFix.nyc!"
@@ -585,26 +742,26 @@ msgid "The building that has lost the most units is <0>{0} {1}, {2}</0>, which h
 msgstr "El edificio con la major pérdida de unidades residencial de renta estabilizada es <0>{0} {1}, {2}</0>, con una pérdida de <1>{absRsLossAddrDiff}</1> {absRsLossAddrDiff, plural, one {unidad} other {unidades}} en los últimos 10 años."
 
 #: src/components/EvictionsSummary.tsx:13
-msgid "The building with the most evictions was <0>{0} {1}, {2}</0> with {buildingTotalEvictions, plural, one {one eviction} other {# evictions}} that year."
-msgstr "El edificio con la major cantidad de desalojos fue <0>{0} {1}, {2}</0> con {buildingTotalEvictions, plural, one {un desalojo} other {# desalojos}} ese año."
+msgid "The building with the most evictions is <0>{0} {1}, {2}</0> with {buildingTotalEvictions, plural, one {one eviction} other {# evictions}}."
+msgstr "El edificio con la major cantidad de desalojos es <0>{0} {1}, {2}</0> con {buildingTotalEvictions, plural, one {un desalojo} other {# desalojos}}."
 
 #: src/containers/NychaPage.tsx:78
 msgid "The city borough where your search address is located"
 msgstr "El municipio donde se encuentra la dirección que has buscado"
 
-#: src/containers/HomePage.tsx:138
+#: src/containers/HomePage.tsx:132
 msgid "The city’s fifth <0>worst evictor</0> in 2018, A&E is a prime example of a landlord who engages in <1>aggressive eviction strategies</1> to displace low-income tenants. Besides lack of repairs and frivolous evictions in housing court, A&E has also been known to use <2>MCIs</2> to <3>double rents</3> in rent-stabilized buildings."
 msgstr "A&E fue el quinto <0>\"peor desalojador\"</0> de la ciudad en el 2018, y es un excelente ejemplo de un propietario que participa en <1>estrategias agresivas de desalojo</1> para desplazar a inquilinos de bajos ingresos. Además de usar la falta de arreglos y los desalojos frívolos en la corte de viviendas, se sabe que A&E también utiliza los <2>IMCs</2> para <3>alquileres dobles</3> en edificios de resta estabilizada."
 
-#: src/components/PropertiesSummary.tsx:83
+#: src/components/PropertiesSummary.tsx:109
 msgid "The most common corporate entity is <0>{0}</0> and the most common business address is <1>{1}</1>."
 msgstr "La entidad corporativa más común es <0>{0}</0> y la dirección administrativa más común es <1>{1}</1>."
 
-#: src/components/PropertiesSummary.tsx:77
+#: src/components/PropertiesSummary.tsx:103
 msgid "The most common {0, plural, one {name that appears in this portfolio is} other {names that appear in this portfolio are}} <0/>."
 msgstr "{0, plural, one {El nombre más común que aparece en este portafolio de edificios es} other {Los nombres más comunes que aparecen en este portafolio de edificios son}} <0/>."
 
-#: src/components/BuildingStatsTable.tsx:51
+#: src/components/BuildingStatsTable.tsx:52
 msgid "The number of open HPD violations for this building, updated monthly. Click the HPD Building Profile button below for the most up-to-date information."
 msgstr "El número de infracciones del HPD abiertas en este edificio, actualizado mensualmente. Haz clic en el botón del Perfil de Edificio del HPD para obtener la información más reciente."
 
@@ -612,27 +769,19 @@ msgstr "El número de infracciones del HPD abiertas en este edificio, actualizad
 msgid "The number of residential units across all buildings in this development, according to the Dept. of City Planning."
 msgstr "El número de unidades residenciales en todos los edificios de este complejo, según el Departamento de Planificación de la Ciudad."
 
-#: src/components/BuildingStatsTable.tsx:42
+#: src/components/BuildingStatsTable.tsx:43
 msgid "The number of residential units in this building, according to the Dept. of City Planning."
 msgstr "El número de unidades residenciales en este edificio, según el Departamento de Planificación de la Ciudad."
 
-#: src/components/BuildingStatsTable.tsx:33
+#: src/components/BuildingStatsTable.tsx:34
 msgid "The year that this building was originally constructed, according to the Dept. of City Planning."
 msgstr "El año en que este edificio fue construido, según el Departamento de Planificación de la Ciudad."
 
-#: src/components/PropertiesSummary.tsx:56
+#: src/components/PropertiesSummary.tsx:82
 msgid "The {0, plural, one {} other {average}} age of {1, plural, one {this building} other {these buildings}} is <0>{2}</0> years old."
 msgstr "La {0, plural, one {edad} other {edad media}} de {1, plural, one {este edificio} other {estos edificios}} es de <0>{2}</0> años."
 
-#: src/components/SocialShare.tsx:49
-msgid "The {buildingCount} buildings owned by my landlord (via JustFix's Who Owns What tool)"
-msgstr "Los {buildingCount} edificios que son propiedad del dueño de mi apartamento (a través de la herramienta Quién Es El Dueño de JustFix.nyc)"
-
-#: src/components/SocialShare.tsx:49
-msgid "The {buildingCount} buildings that my landlord \"owns\" 👀... #WhoOwnsWhat @JustFixNYC"
-msgstr "Los {buildingCount} edificios que son \"propiedad\" del dueño de mi apartamento 👀... #WhoOwnsWhat @JustFixNYC"
-
-#: src/components/PropertiesSummary.tsx:45
+#: src/components/PropertiesSummary.tsx:71
 msgid "There {0, plural, one {<0>is <1>1</1> building</0>} other {<2>are <3>{1}</3> buildings</2>}} in this portfolio with a total of {2, plural, one {1 unit} other {# units}}."
 msgstr "Hay {0, plural, one {<0><1>1</1> edificio</0>} other {<2><3>{1}</3> edificios</2>}} en este portafolio de edificios, con un total de {2, plural, one {una unidad residencial} other {# unidades residenciales}}."
 
@@ -640,7 +789,7 @@ msgstr "Hay {0, plural, one {<0><1>1</1> edificio</0>} other {<2><3>{1}</3> edif
 msgid "This building is owned by the NYC Housing Authority (NYCHA)"
 msgstr "Este edificio es propiedad de la NYC Housing Authority (NYCHA)"
 
-#: src/containers/NotRegisteredPage.tsx:80
+#: src/containers/NotRegisteredPage.tsx:79
 msgid "This building seems like it should be registered with HPD!"
 msgstr "¡Parece que este edificio debería estar registrado con el HPD!"
 
@@ -660,9 +809,17 @@ msgstr "Esto es <0>mejor</0> que el promedio de la ciudad de {VIOLATIONS_AVG} po
 msgid "This is <0>worse</0> than the citywide average of {VIOLATIONS_AVG} per residential unit."
 msgstr "Esto es <0>peor</0> que el promedio de la ciudad de {VIOLATIONS_AVG} por unidad residencial."
 
-#: src/components/BuildingStatsTable.tsx:18
+#: src/components/BuildingStatsTable.tsx:19
 msgid "This is the official identifer for the building according to the Dept. of Finance tax records."
 msgstr "El identificador oficial del edificio según los registros del Departamento de Finanzas."
+
+#: src/components/PropertiesSummary.tsx:136
+msgid "This landlord owns {0} buildings, and according to @NYCHousing, has received a total of {1} violations. Can you guess which landlord it is? Find their name and more data analysis here:"
+msgstr "Este dueño de edificio posee {0} edificios, y según @NYCHousing, ha recibido un total de {1} violaciones del código de vivienda. ¿Puedes adivinar como se llama el dueño? Encuentra su nombre y ve más estadísticas aquí:"
+
+#: src/components/PropertiesSummary.tsx:138
+msgid "This landlord’s buildings average {0} open HPD violations per apartment"
+msgstr "Los edificios de este dueño tienen un promedio de {0} violaciones abiertas de HPD por cada apartamento"
 
 #: src/components/RentstabSummary.tsx:14
 msgid "This portfolio also had an estimated <0>net {changeType, select, gain {gain} other {loss}}</0> of <1>{absTotalRsDiff}</1> {absTotalRsDiff, plural, one {rent stabilized unit} other {rent stabilized units}} since 2007 (gained {absTotalRsGain}, lost {absTotalRsLoss})."
@@ -672,7 +829,7 @@ msgstr "Este portafolio de edificios tuvo una <0>{changeType, select, gain {gana
 msgid "This portfolio has an average of <0>{openviolationsperresunit}</0> open HPD violations per residential unit."
 msgstr "Este portafolio de edificios tiene un promedio de <0>{openviolationsperresunit}</0> infracciones del HPD Actuales por cada unidad residencial."
 
-#: src/containers/HomePage.tsx:104
+#: src/containers/HomePage.tsx:98
 msgid "This property management company owned by the Kushner family is notorious for <0>violating rent regulations</0> and <1>harassing tenants</1>. The stake currently held by Jared Kushner and Ivanka Trump is worth as much as $761 million."
 msgstr "Esta empresa de gestión inmobiliaria es propiedad de la familia Kushner y es notoria por <0>violar las normas de vivienda</0> y por <1>comportamientos abusivos</1>. La participación financiera actualmente sostenida por Jared Kushner e Ivanka Trump asciende a 761 millones de dólares."
 
@@ -680,17 +837,17 @@ msgstr "Esta empresa de gestión inmobiliaria es propiedad de la familia Kushner
 msgid "This represents <0>{rsProportion}%</0> of the total size of this portfolio."
 msgstr "Esto representa el <0>{rsProportion}%</0> del tamaño total de este portafolio de edificios."
 
-#: src/components/BuildingStatsTable.tsx:60
+#: src/components/BuildingStatsTable.tsx:61
 msgid "This represents the total number of HPD Violations (both open & closed) recorded by the city."
 msgstr "Esto representa el número total de Infracciones del HPD (tanto actuales como cerradas) registradas por la ciudad."
 
-#: src/containers/NotRegisteredPage.tsx:57
+#: src/containers/NotRegisteredPage.tsx:56
 msgid "This seems like a smaller residential building. If the landlord doesn't reside there, it should be registered with HPD."
 msgstr "Este parece ser un edificio residencial pequeño. Si el dueño no reside allí, el edificio debería estar registrado con el HPD."
 
-#: src/components/BuildingStatsTable.tsx:78
-msgid "This tracks how rent stabilized units in the building have changed (i.e. \"&Delta;\") from 2007 to 2017. If the number for 2017 is red, this means there has been a loss in stabilzied units! These counts are estimated from the DOF Property Tax Bills."
-msgstr "El cambio en apartamentos de renta estabilizada que hay en el edificio (es decir, \"&Delta;\") del 2007 al 2017. Si el número en 2017 está en rojo, ¡esto significa que ha habido una pérdida en las cantidad de apartamentos de renta estabilizada! Estos recuentos se calculan a partir de las facturas de impuestos del Departamento de Finanzas."
+#: src/components/BuildingStatsTable.tsx:79
+msgid "This tracks how rent stabilized units in the building have changed (i.e. \"{delta}\") from 2007 to {0}. If the number for {1} is red, this means there has been a loss in stabilzied units! These counts are estimated from the DOF Property Tax Bills."
+msgstr "El cambio en apartamentos de renta estabilizada que hay en el edificio (es decir, \"{delta}\") del 2007 al {0}. Si el número en {1} está en rojo, ¡esto significa que ha habido una pérdida en las cantidad de apartamentos de renta estabilizada! Estos recuentos se calculan a partir de las facturas de impuestos del Departamento de Finanzas."
 
 #: src/components/AddressToolbar.tsx:33
 msgid "This will export <0>{0}</0> addresses associated with the landlord at <1>{userAddrStr}</1>!"
@@ -700,25 +857,30 @@ msgstr "¡Esto exportará <0>{0}</0> direcciones asociadas al propietario de <1>
 msgid "Timeline"
 msgstr "Cronología"
 
+#: src/components/PropertiesList.tsx:107
+msgid "Top Complaint"
+msgstr "Queja principal"
+
 #: src/components/IndicatorsViz.tsx:313
-#: src/components/PropertiesList.tsx:99
+#: src/components/PropertiesList.tsx:95
+#: src/components/PropertiesList.tsx:129
 msgid "Total"
 msgstr "Total"
 
-#: src/components/BuildingStatsTable.tsx:61
+#: src/components/BuildingStatsTable.tsx:62
 msgid "Total Violations"
 msgstr "Infracciones Totales"
 
-#: src/containers/NotRegisteredPage.tsx:183
+#: src/containers/NotRegisteredPage.tsx:182
 msgid "Unable to initiate a court action for nonpayment of rent."
 msgstr "No es possible iniciar una acción judicial por falta de pago del alquiler."
 
-#: src/containers/NotRegisteredPage.tsx:182
+#: src/containers/NotRegisteredPage.tsx:181
 msgid "Unable to request Code Violation Dismissals"
 msgstr "Imposible solicitar el despido de una Infracción del Código de Vivienda"
 
-#: src/components/BuildingStatsTable.tsx:43
-#: src/components/PropertiesList.tsx:60
+#: src/components/BuildingStatsTable.tsx:44
+#: src/components/PropertiesList.tsx:62
 #: src/containers/NychaPage.tsx:83
 msgid "Units"
 msgstr "Unidades Residenciales"
@@ -727,44 +889,48 @@ msgstr "Unidades Residenciales"
 msgid "Use this free tool from JustFix.nyc to research your building and investigate landlords! We use property ownership mapping to identify a landlord's portfolio and provide data to indicate potential tenant harassment and displacement."
 msgstr "Utilice esta herramienta gratuita de JustFix.nyc para investigar tu edificio e investigar a los arrendadores de Nueva York! Utilizamos el mapeo de propiedad para identificar el portafolio de edificios de un arrendador y proporcionar datos para revelar posibles casos de hostigamiento y desplazamiento de inquilinos."
 
-#: src/components/DetailView.tsx:176
-#: src/components/DetailView.tsx:181
-#: src/components/Indicators.tsx:249
-#: src/containers/NotRegisteredPage.tsx:144
+#: src/components/DetailView.tsx:200
+#: src/components/DetailView.tsx:205
+#: src/components/Indicators.tsx:247
+#: src/containers/NotRegisteredPage.tsx:143
 #: src/containers/NychaPage.tsx:153
 msgid "Useful links"
 msgstr "Enlaces útiles"
 
-#: src/components/Indicators.tsx:170
+#: src/util/helpers.ts:47
+msgid "VENTILATION SYSTEM"
+msgstr "SISTEMA DE VENTILACIÓN"
+
+#: src/components/Indicators.tsx:168
 msgid "View by:"
 msgstr "Visualizar por:"
 
-#: src/components/DetailView.tsx:86
+#: src/components/DetailView.tsx:94
 msgid "View data over time"
 msgstr "Ver datos a lo largo del tiempo"
 
-#: src/components/PropertiesList.tsx:176
-#: src/components/PropertiesList.tsx:181
+#: src/components/PropertiesList.tsx:206
+#: src/components/PropertiesList.tsx:211
 msgid "View detail"
 msgstr "Ver detalles"
 
-#: src/components/DetailView.tsx:188
-#: src/components/Indicators.tsx:255
-#: src/containers/NotRegisteredPage.tsx:148
+#: src/components/DetailView.tsx:212
+#: src/components/Indicators.tsx:253
+#: src/containers/NotRegisteredPage.tsx:147
 msgid "View documents on ACRIS"
 msgstr "Ver documentos en ACRIS"
 
-#: src/components/PropertiesMap.tsx:191
+#: src/components/PropertiesMap.tsx:193
 msgid "View legend"
 msgstr "Ver leyenda"
 
-#: src/containers/HomePage.tsx:119
-#: src/containers/HomePage.tsx:161
-#: src/containers/HomePage.tsx:191
+#: src/containers/HomePage.tsx:113
+#: src/containers/HomePage.tsx:155
+#: src/containers/HomePage.tsx:185
 msgid "View portfolio"
 msgstr "Ver portafolio de edificios"
 
-#: src/components/DetailView.tsx:62
+#: src/components/DetailView.tsx:69
 msgid "View portfolio map"
 msgstr "Ver mapa del portafolio de edificios"
 
@@ -776,50 +942,70 @@ msgstr "Infracciones emitidas"
 msgid "Visit our website"
 msgstr "Visite nuestro sitio web"
 
-#: src/containers/App.tsx:40
+#: src/util/helpers.ts:49
+msgid "WATER LEAK"
+msgstr "CAJA DE AGUA"
+
+#: src/util/helpers.ts:44
+msgid "WINDOW GUARDS"
+msgstr "PROTECTORES DE VENTANA"
+
+#: src/util/helpers.ts:39
+msgid "WINDOWS"
+msgstr "VENTANAS"
+
+#: src/containers/App.tsx:74
 msgid "Warning! This site doesn't fully work on older versions of Safari. Try a <0>modern browser</0>."
 msgstr "¡Atención! Este sitio no funciona completamente en versiones antiguas de Safari. Prueba un <0>navegador moderno</0>."
 
-#: src/components/DetailView.tsx:246
+#: src/components/DetailView.tsx:270
 msgid "We compare your search address with a database of over 200k buildings to identify a landlord or management company's portfolio. To learn more, check out <0>our methodology</0>."
 msgstr "Comparamos la dirección que buscaste con una base de datos de más de 200 mil edificios para identificar a un propietario o compañía de gestión. Para obtener más información, consulta <0>nuestra metodología</0>."
 
-#: src/components/Indicators.tsx:238
+#: src/components/Indicators.tsx:236
 msgid "What are {0}?"
 msgstr "¿Qué son {0}?"
 
-#: src/containers/NotRegisteredPage.tsx:44
+#: src/containers/NotRegisteredPage.tsx:43
 msgid "What happens if the landlord has failed to register?"
 msgstr "¿Qué pasa si el propietario no ha registrado el edificio?"
 
-#: src/containers/App.tsx:17
+#: src/components/SocialShare.tsx:14
+msgid "Who Owns What is a free tool built by JustFix.nyc to research property owners in NYC. It has helped over 200,000 New Yorkers find out who really owns their building, what other buildings that their landlord or management company owns, and other critical information about code violations, evictions, rent stabilized units, and so much more in any given building. You can look up any residential building located in NYC, even public housing (NYCHA) buildings! Search your address here: {url}"
+msgstr "Quién Es El Dueño es una herramienta gratis construida por JustFix.nyc para investigar los dueños de edificios en NYC. Ha asistido más de 200.000 neoyorquinos a enterarse quien realmente son los responsables por su edificio, cuáles otros edificios su dueño o compañía de administración poseen, y otra información crítica sobre violaciones del código de vivienda, desalojos, apartamentos con renta estabilizada y mucho más en cualquier edificio. Puedes buscar información sobre cualquier edificio residencial, también incluyen viviendas públicas (NYCHA). Busca tu dirección aquí: {url}"
+
+#: src/containers/App.tsx:29
 msgid "Who owns what in n y c?"
 msgstr "¿Quién Es El Dueño en Nueva York?"
 
 #: src/components/Page.tsx:10
 #: src/components/Page.tsx:20
 #: src/components/Page.tsx:21
-#: src/containers/App.tsx:20
+#: src/containers/App.tsx:32
 msgid "Who owns what in nyc?"
 msgstr "¿Quién Es El Dueño en Nueva York?"
 
-#: src/components/Indicators.tsx:194
+#: src/components/SocialShare.tsx:12
+msgid "Who’s responsible for issues in your apartment & building? #WhoOwnsWhat helps you research NYC property owners using public, open data. A free tool built by @JustFixNYC, it works on any device with an internet connection! Search your address here:"
+msgstr "¿Quién es responsable por los problemas en tu apartamento y edificio? #QuiénEsElDueño te ayuda investigar los dueños de edificios de NYC usando data pública y abierta. Un sitio web gratis construido por @JustFixNYC, ¡funciona en cualquier aparato con internet! Úsalo ahorita:"
+
+#: src/components/Indicators.tsx:192
 msgid "Year"
 msgstr "Año"
 
-#: src/components/BuildingStatsTable.tsx:34
+#: src/components/BuildingStatsTable.tsx:35
 msgid "Year Built"
 msgstr "Año de construcción"
 
-#: src/components/PropertiesList.tsx:168
+#: src/components/PropertiesList.tsx:198
 msgid "Yes"
 msgstr "Si"
 
-#: src/containers/HomePage.tsx:180
+#: src/containers/HomePage.tsx:174
 msgid "Yoel Goldman's All Year Management has been at the <0>forefront of gentrification</0> in Brooklyn. Tenants in his buidlings in Williamsburg, Bushwick, and Crown Heights have been forced to live in horrendous and often dangerous conditions."
 msgstr "La entidad \"All Year Management\" perteneciente a Yoel Goldman, está en la <0>vanguardia de la gentrificación</0> de Brooklyn. Los inquilinos en sus edificios de Williamsburg, Bushwick, y las Crown Heights se han visto obligados a vivir en condiciones horrendas y a menudo peligrosas."
 
-#: src/components/PropertiesList.tsx:33
+#: src/components/PropertiesList.tsx:35
 msgid "Zipcode"
 msgstr "Código postal"
 
@@ -827,19 +1013,19 @@ msgstr "Código postal"
 msgid "and"
 msgstr "y"
 
-#: src/components/PropertiesMap.tsx:198
+#: src/components/PropertiesMap.tsx:200
 msgid "associated building"
 msgstr "edificio asociado"
 
-#: src/components/DetailView.tsx:142
+#: src/components/DetailView.tsx:164
 msgid "for ${0}"
 msgstr "por ${0}"
 
-#: src/components/PropertiesMap.tsx:197
+#: src/components/PropertiesMap.tsx:199
 msgid "search address"
 msgstr "dirección de búsqueda"
 
-#: src/components/PropertiesSummary.tsx:66
+#: src/components/PropertiesSummary.tsx:92
 msgid "{0} {1}, {2} currently has {3, plural, one {one open HPD violation} other {# open HPD violations}} - the most in this portfolio."
 msgstr "{0} {1}, {2} tiene {3, plural, one {una infracción del HPD actual} other {# infracciones del HPD actuales}} - la major cantidad en este portafolio de edificios."
 
@@ -854,3 +1040,4 @@ msgstr "{value, plural, one {Una Queja del HPD emitida desde el 2014} other {# Q
 #: src/components/IndicatorsDatasets.tsx:34
 msgid "{value, plural, one {One HPD Violation Issued since 2010} other {# HPD Violations Issued since 2010}}"
 msgstr "{value, plural, one {Una Infracción del HPD emitida desde el 2010} other {# Infracciones del HPD emitidas desde el 2010}}"
+

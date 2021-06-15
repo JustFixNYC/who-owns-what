@@ -4,7 +4,7 @@
   .HomePage__banner {
     padding: 1rem 1.5rem;
 
-    .text-bold {
+    b {
       color: $dark;
     }
 
@@ -17,10 +17,12 @@
 
     .content {
       padding-right: 24px;
+      text-align: center;
 
       a {
         color: $dark;
         text-decoration: underline;
+        font-weight: 700;
 
         &:hover {
           text-decoration: none;

@@ -1,12 +1,18 @@
 export type LatLng = [number, number];
 
+export type BoundingBox = [LatLng, LatLng];
+
 export default {
   // need to check if either lat or lng is NaN. Occurs for ~0.5% of addresses
   latLngIsNull(latlng: LatLng): boolean {
     return latlng.filter(isNaN).length > 0;
   },
 
-  getBoundingBox(latlngs: LatLng[]): [LatLng, LatLng] {
+  getBoundingBox(latlngs: LatLng[], defaultBox: BoundingBox): BoundingBox {
+    if (latlngs.length === 0) {
+      return defaultBox;
+    }
+
     let bs = {
       xMin: Infinity,
       yMin: Infinity,

@@ -21,7 +21,7 @@ class LegalFooter extends Component {
               </Trans>
             </p>
             <p>
-              <Trans>JustFix.nyc is a registered 501(c)(3) nonprofit organization.</Trans>
+              <Trans>JustFix, Inc is a registered 501(c)(3) nonprofit organization.</Trans>
             </p>
           </div>
           <div className="Links column col-4 col-md-12">

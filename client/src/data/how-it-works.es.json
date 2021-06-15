@@ -468,7 +468,7 @@
                 "content": [
                   {
                     "nodeType": "text",
-                    "value": "Datos de Desalojo del 2019 ",
+                    "value": "Datos de Desalojo ",
                     "marks": [
                       {
                         "type": "bold"
@@ -544,7 +544,7 @@
                   },
                   {
                     "nodeType": "text",
-                    "value": "— actualizado anualmente",
+                    "value": "— actualizado a diario",
                     "marks": [
                       {
                         "type": "italic"
@@ -624,7 +624,63 @@
                 "content": [
                   {
                     "nodeType": "text",
-                    "value": "Aproximaciones de las cantidades de Apartamentos de Renta Estabilizada (de taxbills.nyc, adaptadas de las facturas de impuestos del Departamento de Finanzas).",
+                    "value": "Aproximaciones de las cantidades de Apartamentos de Renta Estabilizada ",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      }
+                    ],
+                    "data": {}
+                  },
+                  {
+                    "nodeType": "text",
+                    "value": "de ",
+                    "marks": [],
+                    "data": {}
+                  },
+                  {
+                    "nodeType": "hyperlink",
+                    "content": [
+                      {
+                        "nodeType": "text",
+                        "value": "taxbills.nyc",
+                        "marks": [],
+                        "data": {}
+                      }
+                    ],
+                    "data": {
+                      "uri": "https://github.com/talos/nyc-stabilization-unit-counts"
+                    }
+                  },
+                  {
+                    "nodeType": "text",
+                    "value": " y ",
+                    "marks": [],
+                    "data": {}
+                  },
+                  {
+                    "nodeType": "hyperlink",
+                    "content": [
+                      {
+                        "nodeType": "text",
+                        "value": "NYC Doffer",
+                        "marks": [],
+                        "data": {}
+                      }
+                    ],
+                    "data": {
+                      "uri": "https://github.com/JustFixNYC/nyc-doffer"
+                    }
+                  },
+                  {
+                    "nodeType": "text",
+                    "value": ", adaptadas de las facturas de impuestos del Departamento de Finanzas",
+                    "marks": [],
+                    "data": {}
+                  },
+                  {
+                    "nodeType": "text",
+                    "value": ".",
                     "marks": [
                       {
                         "type": "bold"

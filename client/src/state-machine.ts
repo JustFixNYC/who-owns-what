@@ -6,11 +6,8 @@ import {
   SummaryStatsRecord,
   SummaryResults,
 } from "components/APIDataTypes";
-import { NychaData } from "containers/NychaPage";
 import APIClient from "components/APIClient";
-import { assertNotUndefined } from "util/helpers";
-import nycha_bbls from "data/nycha_bbls.json";
-
+import { assertNotUndefined } from "@justfixnyc/util";
 import _find from "lodash/find";
 import { IndicatorsDataFromAPI } from "components/IndicatorsTypes";
 import { reportError } from "error-reporting";
@@ -40,7 +37,6 @@ export type WowState =
         searchAddrParams: SearchAddressWithoutBbl;
         searchAddrBbl: string;
         portfolioData: undefined;
-        nychaData: NychaData;
         buildingInfo: BuildingInfoRecord;
       };
     }
@@ -125,11 +121,10 @@ export interface WowContext {
   portfolioData?: PortfolioData;
   /**
    * Secondary building-specific data gathered if we can't find the building address in our
-   * database of HPD registered buildings
+   * database of HPD registered buildings. Includes NYCHA Public Housing development details
+   * if the building is public housing.
    */
   buildingInfo?: BuildingInfoRecord;
-  /** NYCHA Public Housing development details (grabbed if the search address is public housing) */
-  nychaData?: NychaData;
   /** All data used to render the "Timeline tab" of the Address Page. Updates on any change to `detailAddr` */
   timelineData?: IndicatorsDataFromAPI;
   /** All data used to render the "Summary tab" of the Address Page. Updates on any change to `searchAddr` */
@@ -152,23 +147,15 @@ type WowMachineInState<
   WowStateByAnotherName
 >;
 
-export type WithMachineProps = {
+export type withMachineProps = {
   state: WowMachineEverything;
   send: (event: WowEvent) => WowMachineEverything;
 };
 
-export type WithMachineInStateProps<TSV extends WowState["value"]> = {
+export type withMachineInStateProps<TSV extends WowState["value"]> = {
   state: WowMachineInState<TSV>;
   send: (event: WowEvent) => WowMachineEverything;
 };
-
-export function getNychaData(searchBBL: string) {
-  const bbl = searchBBL.toString();
-  for (var index = 0; index < nycha_bbls.length; index++) {
-    if (nycha_bbls[index].bbl.toString() === bbl) return nycha_bbls[index];
-  }
-  return null;
-}
 
 async function getSearchResult(addr: SearchAddressWithoutBbl): Promise<WowState> {
   const apiResults = await APIClient.searchForAddressWithGeosearch(addr);
@@ -179,7 +166,6 @@ async function getSearchResult(addr: SearchAddressWithoutBbl): Promise<WowState>
     };
   } else if (apiResults.addrs.length === 0) {
     const buildingInfoResults = await APIClient.getBuildingInfo(apiResults.geosearch.bbl);
-    const nychaData = getNychaData(apiResults.geosearch.bbl);
     const buildingInfo = buildingInfoResults.result[0];
 
     if (!buildingInfo) {
@@ -195,26 +181,15 @@ async function getSearchResult(addr: SearchAddressWithoutBbl): Promise<WowState>
       };
     }
 
-    return nychaData
-      ? {
-          value: "nychaFound",
-          context: {
-            searchAddrParams: addr,
-            searchAddrBbl: apiResults.geosearch.bbl,
-            portfolioData: undefined,
-            nychaData,
-            buildingInfo,
-          },
-        }
-      : {
-          value: "unregisteredFound",
-          context: {
-            searchAddrParams: addr,
-            searchAddrBbl: apiResults.geosearch.bbl,
-            portfolioData: undefined,
-            buildingInfo,
-          },
-        };
+    return {
+      value: buildingInfo.nycha_development ? "nychaFound" : "unregisteredFound",
+      context: {
+        searchAddrParams: addr,
+        searchAddrBbl: apiResults.geosearch.bbl,
+        portfolioData: undefined,
+        buildingInfo,
+      },
+    };
   } else {
     const searchAddr = _find(apiResults.addrs, { bbl: apiResults.geosearch.bbl });
     if (!searchAddr) {
