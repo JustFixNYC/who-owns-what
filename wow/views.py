@@ -1,7 +1,7 @@
 import csv
 import logging
 from pathlib import Path
-from typing import Any, Dict, List
+from typing import Any, Dict
 from django.http import HttpResponse, JsonResponse
 
 from .dbutil import call_db_func, exec_db_query
