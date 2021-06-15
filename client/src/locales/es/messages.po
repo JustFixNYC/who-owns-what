@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2021-06-15 00:32\n"
+"PO-Revision-Date: 2021-06-15 00:38\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -156,11 +156,11 @@ msgstr "Entidades Comerciales"
 
 #: src/util/helpers.ts:42
 msgid "CABINET"
-msgstr "El gabinete"
+msgstr "Gabinete"
 
 #: src/util/helpers.ts:55
 msgid "CERAMIC TILE"
-msgstr "BALDOSAS CERÁMICAS"
+msgstr "Azulejos CERÁMICAS"
 
 #: src/util/helpers.ts:30
 msgid "CONSTRUCTION"
@@ -304,7 +304,7 @@ msgstr "Si no se registra un edificio con el HPD"
 
 #: src/util/helpers.ts:41
 msgid "GARBAGE/RECYCLING STORAGE"
-msgstr ""
+msgstr "El Almacenamiento De Basura/Reciclaje"
 
 #: src/components/PropertiesSummary.tsx:69
 msgid "General info"
@@ -464,7 +464,7 @@ msgstr "¿Buscas más información?"
 
 #: src/util/helpers.ts:38
 msgid "MAILBOX"
-msgstr ""
+msgstr "El Buzón"
 
 #: src/util/helpers.ts:48
 msgid "MOLD"
@@ -542,7 +542,7 @@ msgstr "No encontrado"
 
 #: src/util/helpers.ts:32
 msgid "OUTSIDE BUILDING"
-msgstr ""
+msgstr "Afuera Del Edificio"
 
 #: src/components/PropertiesList.tsx:149
 msgid "Officer/Owner"
@@ -637,7 +637,7 @@ msgstr "Las Aguas Negras"
 
 #: src/util/helpers.ts:36
 msgid "SIGNAGE MISSING"
-msgstr ""
+msgstr "Falta De Señalización"
 
 #: src/util/helpers.ts:29
 msgid "STAIRS"
