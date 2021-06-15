@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2021-06-14 21:30\n"
+"PO-Revision-Date: 2021-06-15 00:32\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -580,11 +580,11 @@ msgstr "PINTURA/YESO"
 
 #: src/util/helpers.ts:37
 msgid "PESTS"
-msgstr ""
+msgstr "Las Plagas"
 
 #: src/util/helpers.ts:46
 msgid "PLUMBING"
-msgstr ""
+msgstr "Las Plomería"
 
 #: src/containers/AddressPage.tsx:106
 msgid "PORTFOLIO: Your search address is associated with <0>{0}</0> {1, plural, one {building} other {buildings}}"
@@ -633,7 +633,7 @@ msgstr "SEGURIDAD"
 
 #: src/util/helpers.ts:34
 msgid "SEWAGE"
-msgstr ""
+msgstr "Las Aguas Negras"
 
 #: src/util/helpers.ts:36
 msgid "SIGNAGE MISSING"
