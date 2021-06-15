@@ -44,6 +44,8 @@ const SocialShareDetailView = () => (
   />
 );
 
+const NUM_COMPLAINT_TYPES_TO_SHOW = 3;
+
 class DetailViewWithoutI18n extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
@@ -154,7 +156,7 @@ class DetailViewWithoutI18n extends Component<Props, State> {
                           <ul>
                             {detailAddr.recentcomplaintsbytype ? (
                               detailAddr.recentcomplaintsbytype
-                                .slice(0, 3)
+                                .slice(0, NUM_COMPLAINT_TYPES_TO_SHOW)
                                 .map((complaint, idx) => (
                                   <li key={idx}>
                                     {Helpers.getTranslationOfComplaintType(
