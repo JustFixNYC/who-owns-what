@@ -44,6 +44,8 @@ const SocialShareDetailView = () => (
   />
 );
 
+const NUM_COMPLAINT_TYPES_TO_SHOW = 3;
+
 class DetailViewWithoutI18n extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
@@ -146,6 +148,30 @@ class DetailViewWithoutI18n extends Component<Props, State> {
                           <Trans render="span">View data over time</Trans> &#8599;&#xFE0E;
                         </Link>
                       </div>
+                      <div className="card-body-complaints">
+                        <div>
+                          <b>
+                            <Trans>Most Common 311 Complaints, Last 3 Years</Trans>
+                          </b>
+                          <ul>
+                            {detailAddr.recentcomplaintsbytype ? (
+                              detailAddr.recentcomplaintsbytype
+                                .slice(0, NUM_COMPLAINT_TYPES_TO_SHOW)
+                                .map((complaint, idx) => (
+                                  <li key={idx}>
+                                    {Helpers.getTranslationOfComplaintType(
+                                      complaint.type,
+                                      this.props.i18n
+                                    )}{" "}
+                                    ({complaint.count})
+                                  </li>
+                                ))
+                            ) : (
+                              <Trans>None</Trans>
+                            )}
+                          </ul>
+                        </div>
+                      </div>
                       <div className="card-body-landlord">
                         <div className="columns">
                           <div className="column col-xs-12 col-6">
@@ -184,7 +210,6 @@ class DetailViewWithoutI18n extends Component<Props, State> {
                           </div>
                         )}
                       </div>
-
                       <div className="card-body-registration">
                         <p>
                           <b>
