@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2021-05-26 16:13\n"
+"PO-Revision-Date: 2021-06-15 12:22\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -55,7 +55,7 @@ msgstr "Portal DAP de ANHD"
 
 #: src/util/helpers.ts:53
 msgid "APPLIANCE"
-msgstr ""
+msgstr "MEDIO DOMÉSTICO"
 
 #: src/containers/AboutPage.tsx:13
 #: src/containers/App.tsx:89
@@ -97,7 +97,7 @@ msgstr "¿Tienes problemas en tu edificio?"
 
 #: src/util/helpers.ts:33
 msgid "BELL/BUZZER/INTERCOM"
-msgstr ""
+msgstr "TIMBRE/INTERCOMUNICADOR"
 
 #: src/components/DetailView.tsx:76
 #: src/components/Indicators.tsx:147
@@ -156,19 +156,19 @@ msgstr "Entidades Comerciales"
 
 #: src/util/helpers.ts:42
 msgid "CABINET"
-msgstr ""
+msgstr "GABINETE"
 
 #: src/util/helpers.ts:55
 msgid "CERAMIC TILE"
-msgstr ""
+msgstr "AZULEJOS CERÁMICAS"
 
 #: src/util/helpers.ts:30
 msgid "CONSTRUCTION"
-msgstr ""
+msgstr "CONSTRUCCIÓN"
 
 #: src/util/helpers.ts:56
 msgid "COOKING GAS"
-msgstr ""
+msgstr "GAS DE COCINA"
 
 #: src/components/DetailView.tsx:20
 msgid "Check out the issues in this building"
@@ -216,11 +216,11 @@ msgstr "Facturas de Impuestos del DOF"
 
 #: src/util/helpers.ts:27
 msgid "DOOR/WINDOW"
-msgstr ""
+msgstr "PUERTA/VENTANA"
 
 #: src/util/helpers.ts:59
 msgid "DOORS"
-msgstr ""
+msgstr "PUERTAS"
 
 #: src/components/PropertiesList.tsx:164
 msgid "Date"
@@ -245,11 +245,11 @@ msgstr "Descargar"
 
 #: src/util/helpers.ts:50
 msgid "ELECTRIC"
-msgstr ""
+msgstr "ELÉCTRICO"
 
 #: src/util/helpers.ts:40
 msgid "ELEVATOR"
-msgstr ""
+msgstr "ASCENSOR"
 
 #: src/components/SocialShare.tsx:39
 msgid "Email"
@@ -288,15 +288,15 @@ msgstr "Exportar datos"
 
 #: src/util/helpers.ts:35
 msgid "FIRE ESCAPE"
-msgstr ""
+msgstr "ESCALERA DE INCENDIO"
 
 #: src/util/helpers.ts:45
 msgid "FLOOR"
-msgstr ""
+msgstr "PISO"
 
 #: src/util/helpers.ts:51
 msgid "FLOORING/STAIRS"
-msgstr ""
+msgstr "PISO/ESCALERAS"
 
 #: src/containers/NotRegisteredPage.tsx:173
 msgid "Failure to register a building with HPD"
@@ -304,7 +304,7 @@ msgstr "Si no se registra un edificio con el HPD"
 
 #: src/util/helpers.ts:41
 msgid "GARBAGE/RECYCLING STORAGE"
-msgstr ""
+msgstr "ALMACENAMIENTO DE BASURA/RECICLAJE"
 
 #: src/components/PropertiesSummary.tsx:69
 msgid "General info"
@@ -316,11 +316,11 @@ msgstr "¿Venta en grupo?"
 
 #: src/util/helpers.ts:58
 msgid "HEAT/HOT WATER"
-msgstr ""
+msgstr "CALEFACCIÓN/AGUA CALIENTE"
 
 #: src/util/helpers.ts:28
 msgid "HEATING"
-msgstr ""
+msgstr "CALEFACCIÓN"
 
 #: src/components/DetailView.tsx:204
 #: src/components/Indicators.tsx:262
@@ -394,7 +394,7 @@ msgstr "Parece que esta propiedad no necesita estar registrada con el HPD."
 
 #: src/util/helpers.ts:31
 msgid "JANITOR/SUPER"
-msgstr ""
+msgstr "CONSERJE/SÚPER"
 
 #: src/components/EngagementPanel.tsx:8
 msgid "Join the fight for tenant rights!"
@@ -406,7 +406,7 @@ msgstr "JustFix, Inc es una organización registrada 501(c)(3) sin fines de lucr
 
 #: src/util/helpers.ts:60
 msgid "LOCKS"
-msgstr ""
+msgstr "CERRADURAS"
 
 #: src/components/PropertiesList.tsx:146
 #: src/components/PropertiesSummary.tsx:101
@@ -419,7 +419,7 @@ msgstr "Arrendador, Portafolio, Inquilino, Desalojo, Mapa, JustFix, NYC, Nueva Y
 
 #: src/components/PropertiesList.tsx:101
 msgid "Last 3 Years"
-msgstr ""
+msgstr "Últimos 3 años"
 
 #: src/components/PropertiesList.tsx:161
 msgid "Last Sale"
@@ -464,11 +464,11 @@ msgstr "¿Buscas más información?"
 
 #: src/util/helpers.ts:38
 msgid "MAILBOX"
-msgstr ""
+msgstr "BUZÓN"
 
 #: src/util/helpers.ts:48
 msgid "MOLD"
-msgstr ""
+msgstr "MOHO"
 
 #: src/components/LegalFooter.tsx:27
 msgid "Made with NYC ♥ by the team at <0>JustFix.nyc</0>"
@@ -497,7 +497,7 @@ msgstr "App MyNYCHA"
 
 #: src/util/helpers.ts:54
 msgid "NON-CONSTRUCTION"
-msgstr ""
+msgstr "NO CONSTRUCCIÓN"
 
 #: src/containers/NychaPage.tsx:160
 msgid "NYCHA Directory"
@@ -542,7 +542,7 @@ msgstr "No encontrado"
 
 #: src/util/helpers.ts:32
 msgid "OUTSIDE BUILDING"
-msgstr ""
+msgstr "AFUERA DEL EDIFICIO"
 
 #: src/components/PropertiesList.tsx:149
 msgid "Officer/Owner"
@@ -576,15 +576,15 @@ msgstr "Antes de empezar cualquier proyecto de construcción, el propietario som
 
 #: src/util/helpers.ts:52
 msgid "PAINT/PLASTER"
-msgstr ""
+msgstr "PINTURA/YESO"
 
 #: src/util/helpers.ts:37
 msgid "PESTS"
-msgstr ""
+msgstr "PLAGAS"
 
 #: src/util/helpers.ts:46
 msgid "PLUMBING"
-msgstr ""
+msgstr "PLOMERÍA"
 
 #: src/containers/AddressPage.tsx:106
 msgid "PORTFOLIO: Your search address is associated with <0>{0}</0> {1, plural, one {building} other {buildings}}"
@@ -629,19 +629,19 @@ msgstr "Renta estabilizada"
 
 #: src/util/helpers.ts:57
 msgid "SAFETY"
-msgstr ""
+msgstr "SEGURIDAD"
 
 #: src/util/helpers.ts:34
 msgid "SEWAGE"
-msgstr ""
+msgstr "AGUAS NEGRAS"
 
 #: src/util/helpers.ts:36
 msgid "SIGNAGE MISSING"
-msgstr ""
+msgstr "FALTA DE SEÑALIZACIÓN"
 
 #: src/util/helpers.ts:29
 msgid "STAIRS"
-msgstr ""
+msgstr "ESCALERAS"
 
 #: src/containers/NotRegisteredPage.tsx:169
 #: src/containers/NychaPage.tsx:190
@@ -712,7 +712,7 @@ msgstr "Resúmen"
 
 #: src/util/helpers.ts:43
 msgid "TENANT HARASSMENT"
-msgstr ""
+msgstr "ACOSO DE INQUILINO"
 
 #: src/components/DetailView.tsx:168
 #: src/components/DetailView.tsx:236
@@ -851,7 +851,7 @@ msgstr "Cronología"
 
 #: src/components/PropertiesList.tsx:107
 msgid "Top Complaint"
-msgstr ""
+msgstr "Queja principal"
 
 #: src/components/IndicatorsViz.tsx:313
 #: src/components/PropertiesList.tsx:95
@@ -891,7 +891,7 @@ msgstr "Enlaces útiles"
 
 #: src/util/helpers.ts:47
 msgid "VENTILATION SYSTEM"
-msgstr ""
+msgstr "SISTEMA DE VENTILACIÓN"
 
 #: src/components/Indicators.tsx:168
 msgid "View by:"
@@ -936,15 +936,15 @@ msgstr "Visite nuestro sitio web"
 
 #: src/util/helpers.ts:49
 msgid "WATER LEAK"
-msgstr ""
+msgstr "CAJA DE AGUA"
 
 #: src/util/helpers.ts:44
 msgid "WINDOW GUARDS"
-msgstr ""
+msgstr "PROTECTORES DE VENTANA"
 
 #: src/util/helpers.ts:39
 msgid "WINDOWS"
-msgstr ""
+msgstr "VENTANAS"
 
 #: src/containers/App.tsx:74
 msgid "Warning! This site doesn't fully work on older versions of Safari. Try a <0>modern browser</0>."
@@ -1032,3 +1032,4 @@ msgstr "{value, plural, one {Una Queja del HPD emitida desde el 2014} other {# Q
 #: src/components/IndicatorsDatasets.tsx:34
 msgid "{value, plural, one {One HPD Violation Issued since 2010} other {# HPD Violations Issued since 2010}}"
 msgstr "{value, plural, one {Una Infracción del HPD emitida desde el 2010} other {# Infracciones del HPD emitidas desde el 2010}}"
+
