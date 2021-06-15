@@ -6,6 +6,7 @@ import { I18n } from "@lingui/core";
 import { withI18n } from "@lingui/react";
 import { t } from "@lingui/macro";
 import { reportError } from "error-reporting";
+import { getDataLayer } from "google-tag-manager";
 
 //import 'styles/Subscribe.css';
 
@@ -62,6 +63,9 @@ class SubscribeWithoutI18n extends React.Component<SubscribeProps, State> {
       .then((result) => result.json())
       .then((result) => {
         if (result.status === 200) {
+          getDataLayer().push({
+            event: "jf.subscribeToMailingList",
+          });
           this.setState({
             success: true,
             response: i18n._(t`All set! Thanks for subscribing!`),
