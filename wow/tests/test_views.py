@@ -1,5 +1,5 @@
 import csv
-from typing import List
+from typing import Any, Dict, List
 from io import StringIO
 from django.urls import path
 from django.test import Client
@@ -127,7 +127,7 @@ class TestAddressExport(ApiTest):
 
 class TestFixupAddrForCsv:
     def test_it_works_when_ownernames_is_none(self):
-        addr = {'ownernames': None, 'recentcomplaintsbytype': []}
+        addr: Dict[str, Any] = {'ownernames': None, 'recentcomplaintsbytype': []}
         _fixup_addr_for_csv(addr)
         assert addr == {
             'ownernames': '',
