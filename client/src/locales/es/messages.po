@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2021-06-15 12:14\n"
+"PO-Revision-Date: 2021-06-15 12:22\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -304,7 +304,7 @@ msgstr "Si no se registra un edificio con el HPD"
 
 #: src/util/helpers.ts:41
 msgid "GARBAGE/RECYCLING STORAGE"
-msgstr "Almacenamiento De Basura/Reciclaje"
+msgstr "ALMACENAMIENTO DE BASURA/RECICLAJE"
 
 #: src/components/PropertiesSummary.tsx:69
 msgid "General info"
@@ -542,7 +542,7 @@ msgstr "No encontrado"
 
 #: src/util/helpers.ts:32
 msgid "OUTSIDE BUILDING"
-msgstr "Afuera Del Edificio"
+msgstr "AFUERA DEL EDIFICIO"
 
 #: src/components/PropertiesList.tsx:149
 msgid "Officer/Owner"
