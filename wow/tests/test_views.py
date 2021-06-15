@@ -7,6 +7,7 @@ import pytest
 
 from wow.apiutil import api
 from project.urls import handler500  # noqa
+from wow.views import _fixup_addr_for_csv
 
 
 @api
@@ -122,6 +123,16 @@ class TestAddressExport(ApiTest):
         res = client.get('/api/address/export?bbl=1234567890')
         assert res.status_code == 404
         assert 'Access-Control-Allow-Origin' in res
+
+
+class TestFixupAddrForCsv:
+    def test_it_works_when_ownernames_is_none(self):
+        addr = {'ownernames': None, 'recentcomplaintsbytype': []}
+        _fixup_addr_for_csv(addr)
+        assert addr == {
+            'ownernames': '',
+            'recentcomplaintsbytype': '',
+        }
 
 
 class TestServerError:
