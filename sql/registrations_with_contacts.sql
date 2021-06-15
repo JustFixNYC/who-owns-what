@@ -100,7 +100,7 @@ LEFT JOIN (
           'address', nullif(concat_ws(' ', businesshousenumber, businessstreetname, businessapartment, businesszip), '')
         )
       )
-      FILTER (WHERE corporationname is not null), 
+      FILTER (WHERE corporationname IS NOT NULL), 
       '[]'::jsonb) 
     AS corpnameswithaddr,
 
