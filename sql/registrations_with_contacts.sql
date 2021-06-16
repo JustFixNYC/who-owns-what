@@ -80,14 +80,16 @@ LEFT JOIN (
         jsonb_build_object(
           'title', type, 
           'value', (firstname || ' ' || lastname),
-          'address', jsonb_build_object(
-            'housenumber', businesshousenumber,
-            'streetname', businessstreetname, 
-            'apartment', businessapartment, 
-            'city', businesscity,
-            'state', businessstate,
-            'zip', businesszip
-          )
+          'address', case when businessstreetname is not null then 
+	          jsonb_build_object(
+	            'housenumber', businesshousenumber,
+	            'streetname', businessstreetname, 
+	            'apartment', businessapartment, 
+	            'city', businesscity,
+	            'state', businessstate,
+	            'zip', businesszip
+	          ) 
+	        else null end
         )
       )     	
       FILTER (
@@ -104,14 +106,16 @@ LEFT JOIN (
         jsonb_build_object(
           'title', 'Corporation',
           'value',  corporationname,
-          'address', jsonb_build_object(
-            'housenumber', businesshousenumber,
-            'streetname', businessstreetname, 
-            'apartment', businessapartment, 
-            'city', businesscity,
-            'state', businessstate,
-            'zip', businesszip
-          )
+          'address', case when businessstreetname is not null then 
+	          jsonb_build_object(
+	            'housenumber', businesshousenumber,
+	            'streetname', businessstreetname, 
+	            'apartment', businessapartment, 
+	            'city', businesscity,
+	            'state', businessstate,
+	            'zip', businesszip
+	          ) 
+	        else null end
         )
       )
       FILTER (WHERE corporationname IS NOT NULL), 
