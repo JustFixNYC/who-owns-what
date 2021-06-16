@@ -5,7 +5,7 @@ from typing import Any, Dict
 from django.http import HttpResponse, JsonResponse
 
 from .dbutil import call_db_func, exec_db_query
-from .datautil import int_or_none, float_or_none
+from .datautil import int_or_none, float_or_none, json_or_none
 from . import csvutil, apiutil
 from .apiutil import api, get_validated_form_data
 from .forms import PaddedBBLForm, SeparatedBBLForm
@@ -39,6 +39,7 @@ def clean_addr_dict(addr):
         "bin": str(addr['bin']),
         "lastsaleamount": int_or_none(addr['lastsaleamount']),
         "registrationid": str(addr['registrationid']),
+        "allcontacts": json_or_none(addr['allcontacts'])
     }
 
 
@@ -125,7 +126,7 @@ def _fixup_addr_for_csv(addr: Dict[str, Any]):
     addr['recentcomplaintsbytype'] = csvutil.stringify_complaints(
         addr['recentcomplaintsbytype']
     )
-    addr['allcontacts'] = csvutil.stringify_full_contacts(addr['allcontacts'] or [])
+    addr['allcontacts'] = csvutil.stringify_full_contacts(addr['allcontacts'])
     csvutil.stringify_lists(addr)
 
 
@@ -141,6 +142,7 @@ def address_export(request):
     first_row = addrs[0]
 
     for addr in addrs:
+        clean_addr_dict(addr)
         _fixup_addr_for_csv(addr)
 
     # https://docs.djangoproject.com/en/3.0/howto/outputting-csv/
