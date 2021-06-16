@@ -1,5 +1,4 @@
 import json
-from json.decoder import JSONDecoder
 from typing import Optional, Any
 
 
@@ -24,7 +23,7 @@ def str_or_none(val: Any) -> Optional[str]:
         return str(val)
 
 
-def json_or_none(val: Any) -> Optional[JSONDecoder]:
+def json_or_none(val: Any) -> Optional[object]:
     if val is None:
         return None
     else:

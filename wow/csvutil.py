@@ -1,4 +1,4 @@
-from typing import List, Dict, Any
+from typing import List, Dict, Any, Optional
 
 
 def stringify_owners(owners: List[Dict[str, str]]) -> str:
@@ -8,13 +8,22 @@ def stringify_owners(owners: List[Dict[str, str]]) -> str:
     ])
 
 
-def stringify_full_contacts(contacts: List[Dict[str, str]]) -> str:
+def stringify_contact_address(address: Optional[Dict[str, str]]) -> str:
+    if address:
+        housenumber = f"{address['housenumber']} " if address['housenumber'] else ''
+        apartment = f"{address['apartment']} " if address['apartment'] else ''
+        zip = f"{address['zip']}" if address['zip'] else ''
+        return f"—{housenumber}{address['streetname']} {apartment}{zip}"
+    else:
+        return ''
+
+
+def stringify_full_contacts(contacts: List[Dict[str, Any]]) -> str:
     if contacts:
-        return ', '.join([(
-            f"{contact['value']} ({contact['title']}) — {contact['address']['housenumber']}"
-            f"{contact['address']['streetname']} {contact['address']['apartment']} "
-            f"{contact['address']['zip']}"
-        ) for contact in contacts])
+        return ', '.join([
+            f"{contact['value']} ({contact['title']})"
+            f"{stringify_contact_address(contact['address'])}"
+            for contact in contacts])
     else:
         return ''
 

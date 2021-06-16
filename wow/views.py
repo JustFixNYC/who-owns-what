@@ -126,7 +126,8 @@ def _fixup_addr_for_csv(addr: Dict[str, Any]):
     addr['recentcomplaintsbytype'] = csvutil.stringify_complaints(
         addr['recentcomplaintsbytype']
     )
-    addr['allcontacts'] = csvutil.stringify_full_contacts(addr['allcontacts'])
+    allcontacts = json_or_none(addr['allcontacts'])
+    addr['allcontacts'] = csvutil.stringify_full_contacts(allcontacts or [])
     csvutil.stringify_lists(addr)
 
 
@@ -142,7 +143,6 @@ def address_export(request):
     first_row = addrs[0]
 
     for addr in addrs:
-        clean_addr_dict(addr)
         _fixup_addr_for_csv(addr)
 
     # https://docs.djangoproject.com/en/3.0/howto/outputting-csv/
