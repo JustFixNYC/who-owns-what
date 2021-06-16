@@ -8,6 +8,16 @@ def stringify_owners(owners: List[Dict[str, str]]) -> str:
     ])
 
 
+def stringify_full_contacts(contacts: List[Dict[str, str]]) -> str:
+    return ', '.join([(
+        f"{contact['value']} ({contact['title']}) — {contact['address']['housenumber']}"
+        f"{contact['address']['streetname']} {contact['address']['apartment']} "
+        f"{contact['address']['zip']}"
+    )
+        for contact in contacts
+    ])
+
+
 def stringify_complaints(complaints: List[Dict[str, str]]) -> str:
     if complaints:
         return ', '.join([
