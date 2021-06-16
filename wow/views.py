@@ -39,6 +39,12 @@ def clean_addr_dict(addr):
         "bin": str(addr['bin']),
         "lastsaleamount": int_or_none(addr['lastsaleamount']),
         "registrationid": str(addr['registrationid']),
+        '''
+        Sadly, our django backend interprets the `allcontacts` json field from nycdb
+        as a string instead of a json object, which means we need o recast it here.
+        This perhaps has to do with nycdb saving this field as a 'jsonb' type, or
+        this documented django bug (https://code.djangoproject.com/ticket/31991).
+        '''
         "allcontacts": json_or_none(addr['allcontacts'])
     }
 
