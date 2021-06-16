@@ -80,7 +80,14 @@ LEFT JOIN (
         jsonb_build_object(
           'title', type, 
           'value', (firstname || ' ' || lastname),
-          'address', nullif(concat_ws(' ', businesshousenumber, businessstreetname, businessapartment, businesszip), '')
+          'address', jsonb_build_object(
+            'housenumber', businesshousenumber,
+            'streetname', businessstreetname, 
+            'apartment', businessapartment, 
+            'city', businesscity,
+            'state', businessstate,
+            'zip', businesszip
+          )
         )
       )     	
       FILTER (
@@ -97,7 +104,14 @@ LEFT JOIN (
         jsonb_build_object(
           'title', 'Corporation',
           'value',  corporationname,
-          'address', nullif(concat_ws(' ', businesshousenumber, businessstreetname, businessapartment, businesszip), '')
+          'address', jsonb_build_object(
+            'housenumber', businesshousenumber,
+            'streetname', businessstreetname, 
+            'apartment', businessapartment, 
+            'city', businesscity,
+            'state', businessstate,
+            'zip', businesszip
+          )
         )
       )
       FILTER (WHERE corporationname IS NOT NULL), 
