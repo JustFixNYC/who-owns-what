@@ -17,6 +17,7 @@ import BuildingStatsTable from "./BuildingStatsTable";
 import { createWhoOwnsWhatRoutePaths, AddressPageRoutes } from "../routes";
 import { SupportedLocale } from "../i18n-base";
 import { withMachineInStateProps } from "state-machine";
+import { Accordion } from "./Accordion";
 
 type Props = withI18nProps &
   withMachineInStateProps<"portfolioFound"> & {
@@ -172,44 +173,7 @@ class DetailViewWithoutI18n extends Component<Props, State> {
                           </ul>
                         </div>
                       </div>
-                      <div className="card-body-landlord">
-                        <div className="columns">
-                          <div className="column col-xs-12 col-6">
-                            <b>
-                              <Trans>Business Entities</Trans>
-                            </b>
-                            <ul>
-                              {detailAddr.corpnames &&
-                                detailAddr.corpnames.map((corp, idx) => <li key={idx}>{corp}</li>)}
-                            </ul>
-                          </div>
-                          <div className="column col-xs-12 col-6">
-                            <b>
-                              <Trans>Business Addresses</Trans>
-                            </b>
-                            <ul>
-                              {detailAddr.businessaddrs &&
-                                detailAddr.businessaddrs.map((rba, idx) => (
-                                  <li key={idx}>{rba}</li>
-                                ))}
-                            </ul>
-                          </div>
-                        </div>
-                        {ownernames && (
-                          <div>
-                            <b>
-                              <Trans>People</Trans>
-                            </b>
-                            <ul>
-                              {ownernames.map((owner, idx) => (
-                                <li key={idx}>
-                                  {owner.title.split(/(?=[A-Z])/).join(" ")}: {owner.value}
-                                </li>
-                              ))}
-                            </ul>
-                          </div>
-                        )}
-                      </div>
+                      <Accordion question="MAGGIE MCCORMICK">Landlord</Accordion>
                       <div className="card-body-registration">
                         <p>
                           <b>
