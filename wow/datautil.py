@@ -1,5 +1,5 @@
 import json
-from typing import Optional, Any
+from typing import List, Optional, Any
 
 
 def int_or_none(val: Any) -> Optional[int]:
@@ -23,7 +23,7 @@ def str_or_none(val: Any) -> Optional[str]:
         return str(val)
 
 
-def json_or_none(val: Any) -> Optional[object]:
+def json_or_none(val: Any) -> Optional[List]:
     if val is None:
         return None
     else:
