@@ -173,7 +173,18 @@ class DetailViewWithoutI18n extends Component<Props, State> {
                           </ul>
                         </div>
                       </div>
-                      <Accordion question="MAGGIE MCCORMICK">Landlord</Accordion>
+                      <div className="card-body-landlord">
+                        <b>
+                          <Trans>Who’s the landlord of this building?</Trans>
+                        </b>
+                        <div>
+                          <Accordion question="MAGGIE MCCORMICK">
+                            <span className="text-bold text-dark">Head Officer</span>
+                            <br />
+                            1065 AVENUE OF THE AMERICAS 31FLOOR 10018
+                          </Accordion>
+                        </div>
+                      </div>
                       <div className="card-body-registration">
                         <p>
                           <b>

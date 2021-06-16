@@ -1,13 +1,15 @@
 @import "_vars.scss";
 
 .Accordion {
+  padding: 1.6rem 1.6rem 1.6rem 0.8rem;
   summary {
+    margin-bottom: 1.8rem;
     // Make question box feel clickable to user
     cursor: pointer;
     // Remove default marker
     list-style-type: none;
     .icon {
-      width: 20px;
+      margin-top: 2px;
     }
   }
 }
