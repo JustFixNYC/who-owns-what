@@ -1,4 +1,4 @@
-from ..datautil import int_or_none, str_or_none, float_or_none
+from ..datautil import int_or_none, json_or_none, str_or_none, float_or_none
 
 
 class TestDataUtilsWork:
@@ -16,3 +16,18 @@ class TestDataUtilsWork:
         assert str_or_none(None) is None
         assert str_or_none('1') == '1'
         assert str_or_none(1) == '1'
+
+    def test_json_or_none_works(self):
+        sample_json_string = '[{"foo": "bar", "beep": { "boop": "blah"}}]'
+        sample_json_string_with_null = '[{"foo": "bar", "beep": null}]'
+        assert json_or_none(None) is None
+        assert json_or_none(sample_json_string) == [{
+            "foo": "bar",
+            "beep": {
+                "boop": "blah"
+            }}
+        ]
+        assert json_or_none(sample_json_string_with_null) == [{
+            "foo": "bar",
+            "beep": None
+        }]
