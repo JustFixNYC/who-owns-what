@@ -226,29 +226,26 @@ class TestSQL:
             'title': 'HeadOfficer',
             'value': 'Lobot Jones',
         }]
-        assert r['allcontacts'] == [
-            {
-            'title': 'HeadOfficer', 
-            'value': 'Lobot Jones', 
-            'address': {
-                'zip': '11231', 
-                'city': 'BROKLYN', 
-                'state': 'NY', 
-                'apartment': None, 
-                'streetname': 'BESPIN AVENUE', 
-                'housenumber': '5'
-                }
+        assert r["allcontacts"] == [{
+            "title": "HeadOfficer",
+            "value": "Lobot Jones",
+            "address": {
+                "zip": "11231",
+                "city": "BROKLYN",
+                "state": "NY",
+                "apartment": None,
+                "streetname": "BESPIN AVENUE",
+                "housenumber": "5",
             },
-            {
-            'title': 'Corporation', 
-            'value': '1 FUNKY STREET LLC',
-            'address': {
-                'zip': '11231', 
-                'city': 'BROKLYN', 
-                'state': 'NY', 
-                'apartment': None, 
-                'streetname': 'BESPIN AVENUE', 
-                'housenumber': '5'
-                }
-            }
-        ]
+        }, {
+            "title": "Corporation",
+            "value": "1 FUNKY STREET LLC",
+            "address": {
+                "zip": "11231",
+                "city": "BROKLYN",
+                "state": "NY",
+                "apartment": None,
+                "streetname": "BESPIN AVENUE",
+                "housenumber": "5",
+            },
+        }]
