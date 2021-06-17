@@ -4,7 +4,7 @@
  * @typedef {import("./index").ContentfulCommonStrings} CommonStrings
  */
 
-let https = require('https');
+let https = require("https");
 
 const ORIGIN = "https://cdn.contentful.com";
 const COMMON_STRING_TAG = "common";
@@ -33,27 +33,29 @@ function toCommonStringsMap(raw) {
 
 async function getRawCommonStrings() {
   const search = new URLSearchParams();
-  search.append('locale', '*');
-  search.append('metadata.tags.sys.id[in]', COMMON_STRING_TAG);
-  search.append('access_token', ACCESS_TOKEN);
+  search.append("locale", "*");
+  search.append("metadata.tags.sys.id[in]", COMMON_STRING_TAG);
+  search.append("access_token", ACCESS_TOKEN);
   const url = `${ORIGIN}/spaces/${SPACE_ID}/entries?${search.toString()}`;
   return new Promise((resolve, reject) => {
-    https.get(url, (res) => {
-      if (res.statusCode !== 200) {
-        reject(new Error(`Got HTTP ${res.statusCode}`));
-        return;
-      }
-      /** @type Buffer[] */
-      const chunks = [];
-      res.on('data', chunk => {
-        chunks.push(chunk);
-      });
-      res.on('end', () => {
-        const data = Buffer.concat(chunks);
-        resolve(JSON.parse(data.toString('utf-8')));
-      });
-      res.on('error', reject);
-    }).on('error', reject);
+    https
+      .get(url, (res) => {
+        if (res.statusCode !== 200) {
+          reject(new Error(`Got HTTP ${res.statusCode}`));
+          return;
+        }
+        /** @type Buffer[] */
+        const chunks = [];
+        res.on("data", (chunk) => {
+          chunks.push(chunk);
+        });
+        res.on("end", () => {
+          const data = Buffer.concat(chunks);
+          resolve(JSON.parse(data.toString("utf-8")));
+        });
+        res.on("error", reject);
+      })
+      .on("error", reject);
   });
 }
 
@@ -63,7 +65,7 @@ async function main() {
   console.log(JSON.stringify(map, null, 2));
 }
 
-main().catch(e => {
+main().catch((e) => {
   console.error(e);
   process.exit(1);
 });

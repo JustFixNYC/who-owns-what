@@ -38,15 +38,15 @@ class MoratoriumBannerWithoutI18n extends Component<withI18nProps, BannerState> 
     const locale = this.props.i18n.language;
     const content = getContentfulCommonString("covidMoratoriumBanner", locale);
 
-    return content && (
-      <div className={"HomePage__banner " + (this.state.isHidden ? "d-hide" : "")}>
-        <div className="close-button float-right" onClick={this.closeBanner}>
-          ✕
+    return (
+      content && (
+        <div className={"HomePage__banner " + (this.state.isHidden ? "d-hide" : "")}>
+          <div className="close-button float-right" onClick={this.closeBanner}>
+            ✕
+          </div>
+          <div className="content">{documentToReactComponents(content)}</div>
         </div>
-        <div className="content">
-          {documentToReactComponents(content)}
-        </div>
-      </div>
+      )
     );
   }
 }
