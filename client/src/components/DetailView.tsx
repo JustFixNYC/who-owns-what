@@ -18,7 +18,8 @@ import { createWhoOwnsWhatRoutePaths, AddressPageRoutes } from "../routes";
 import { SupportedLocale } from "../i18n-base";
 import { withMachineInStateProps } from "state-machine";
 import { Accordion } from "./Accordion";
-import { HpdContactAddress } from "./APIDataTypes";
+import { HpdContactAddress, HpdFullContact } from "./APIDataTypes";
+import _groupBy from "lodash/groupBy";
 
 type Props = withI18nProps &
   withMachineInStateProps<"portfolioFound"> & {
@@ -82,6 +83,8 @@ class DetailViewWithoutI18n extends Component<Props, State> {
     const isMobile = Browser.isMobile();
     const locale = (this.props.i18n.language as SupportedLocale) || "en";
     const { assocAddrs, detailAddr, searchAddr } = this.props.state.context.portfolioData;
+
+    console.log(groupHpdContacts(detailAddr.allcontacts || []));
 
     // Let's save some variables that will be helpful in rendering the front-end component
     let takeActionURL, formattedRegEndDate, streetViewAddr, ownernames, userOwnernames;
@@ -191,17 +194,23 @@ class DetailViewWithoutI18n extends Component<Props, State> {
                             <Trans>Who’s the landlord of this building?</Trans>
                           </b>
                           <div>
-                            {detailAddr.allcontacts.map((contact, i) => (
-                              <Accordion question={contact.value} key={i}>
-                                <span className="text-bold text-dark">{contact.title}</span>
-                                {contact.address && (
-                                  <>
-                                    <br />
-                                    {formatHpdContactAddress(contact.address)}
-                                  </>
-                                )}
-                              </Accordion>
-                            ))}
+                            {Object.entries(_groupBy(detailAddr.allcontacts, "value")).map(
+                              (contact, i) => (
+                                <Accordion question={contact[0]} key={i}>
+                                  {contact[1].map((info, j) => (
+                                    <div key={j}>
+                                      <span className="text-bold text-dark">{info.title}</span>
+                                      {info.address && (
+                                        <>
+                                          <br />
+                                          {formatHpdContactAddress(info.address)}
+                                        </>
+                                      )}
+                                    </div>
+                                  ))}
+                                </Accordion>
+                              )
+                            )}
                           </div>
                         </div>
                       )}
