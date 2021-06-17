@@ -18,6 +18,7 @@ import { createWhoOwnsWhatRoutePaths, AddressPageRoutes } from "../routes";
 import { SupportedLocale } from "../i18n-base";
 import { withMachineInStateProps } from "state-machine";
 import { Accordion } from "./Accordion";
+import { HpdContactAddress } from "./APIDataTypes";
 
 type Props = withI18nProps &
   withMachineInStateProps<"portfolioFound"> & {
@@ -32,6 +33,17 @@ type State = {
 };
 
 const getTodaysDate = () => new Date();
+
+const formatHpdContactAddress = (address: HpdContactAddress) => {
+  const { housenumber, streetname, apartment, city, state, zip } = address;
+  const cityFormatted = city && state ? `${city},` : city;
+  return (
+    <>
+      {[housenumber, streetname, apartment].join(" ")} <br />
+      {[cityFormatted, state, zip].join(" ")}
+    </>
+  );
+};
 
 const SocialShareDetailView = () => (
   <SocialShareAddressPage
@@ -185,9 +197,7 @@ class DetailViewWithoutI18n extends Component<Props, State> {
                                 {contact.address && (
                                   <>
                                     <br />
-                                    {Object.values(contact.address)
-                                      .filter((x) => x)
-                                      .join(" ")}
+                                    {formatHpdContactAddress(contact.address)}
                                   </>
                                 )}
                               </Accordion>

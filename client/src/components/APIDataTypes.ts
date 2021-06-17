@@ -19,7 +19,7 @@ type HpdOwnerContact = {
   value: string;
 };
 
-type HpdContactAddress = {
+export type HpdContactAddress = {
   housenumber: string | null;
   streetname: string;
   apartment: string | null;
