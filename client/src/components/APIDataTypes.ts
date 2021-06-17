@@ -19,15 +19,17 @@ type HpdOwnerContact = {
   value: string;
 };
 
-type HpdFullContact = HpdOwnerContact & {
-  address: {
-    housenumber: string | null;
-    streetname: string;
-    apartment: string | null;
-    city: string | null;
-    state: string | null;
-    zip: string | null;
-  } | null;
+type HpdContactAddress = {
+  housenumber: string | null;
+  streetname: string;
+  apartment: string | null;
+  city: string | null;
+  state: string | null;
+  zip: string | null;
+}
+
+export type HpdFullContact = HpdOwnerContact & {
+  address: HpdContactAddress | null;
 };
 
 export type HpdComplaintCount = {

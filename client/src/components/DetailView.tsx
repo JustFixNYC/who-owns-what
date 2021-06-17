@@ -173,18 +173,24 @@ class DetailViewWithoutI18n extends Component<Props, State> {
                           </ul>
                         </div>
                       </div>
-                      <div className="card-body-landlord">
+                      {detailAddr.allcontacts && <div className="card-body-landlord">
                         <b>
                           <Trans>Who’s the landlord of this building?</Trans>
                         </b>
                         <div>
-                          <Accordion question="MAGGIE MCCORMICK">
-                            <span className="text-bold text-dark">Head Officer</span>
+                          {(detailAddr.allcontacts).map( (contact, i) => 
+                          <Accordion question={contact.value} key={i}>
+                            <span className="text-bold text-dark">{contact.title}</span>
+                            {contact.address &&
+                            <>
                             <br />
-                            1065 AVENUE OF THE AMERICAS 31FLOOR 10018
-                          </Accordion>
+                            {Object.values(contact.address).filter(x => x).join(' ')}
+                            </>
+  }
+                          </Accordion>)
+  }
                         </div>
-                      </div>
+                      </div>}
                       <div className="card-body-registration">
                         <p>
                           <b>
