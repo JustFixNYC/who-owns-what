@@ -26,7 +26,7 @@ type HpdContactAddress = {
   city: string | null;
   state: string | null;
   zip: string | null;
-}
+};
 
 export type HpdFullContact = HpdOwnerContact & {
   address: HpdContactAddress | null;

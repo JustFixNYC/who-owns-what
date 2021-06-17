@@ -173,24 +173,28 @@ class DetailViewWithoutI18n extends Component<Props, State> {
                           </ul>
                         </div>
                       </div>
-                      {detailAddr.allcontacts && <div className="card-body-landlord">
-                        <b>
-                          <Trans>Who’s the landlord of this building?</Trans>
-                        </b>
-                        <div>
-                          {(detailAddr.allcontacts).map( (contact, i) => 
-                          <Accordion question={contact.value} key={i}>
-                            <span className="text-bold text-dark">{contact.title}</span>
-                            {contact.address &&
-                            <>
-                            <br />
-                            {Object.values(contact.address).filter(x => x).join(' ')}
-                            </>
-  }
-                          </Accordion>)
-  }
+                      {detailAddr.allcontacts && (
+                        <div className="card-body-landlord">
+                          <b>
+                            <Trans>Who’s the landlord of this building?</Trans>
+                          </b>
+                          <div>
+                            {detailAddr.allcontacts.map((contact, i) => (
+                              <Accordion question={contact.value} key={i}>
+                                <span className="text-bold text-dark">{contact.title}</span>
+                                {contact.address && (
+                                  <>
+                                    <br />
+                                    {Object.values(contact.address)
+                                      .filter((x) => x)
+                                      .join(" ")}
+                                  </>
+                                )}
+                              </Accordion>
+                            ))}
+                          </div>
                         </div>
-                      </div>}
+                      )}
                       <div className="card-body-registration">
                         <p>
                           <b>
