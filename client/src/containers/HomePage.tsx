@@ -15,8 +15,9 @@ import Page from "../components/Page";
 import { createRouteForAddressPage } from "../routes";
 import { withMachineProps } from "state-machine";
 import { useHistory } from "react-router-dom";
-import { CovidMoratoriumBanner } from "@justfixnyc/react-common";
 import { withI18n, withI18nProps } from "@lingui/react";
+import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
+import { getContentfulCommonString } from "../contentful-common-strings";
 
 type BannerState = {
   isHidden: boolean;
@@ -35,13 +36,15 @@ class MoratoriumBannerWithoutI18n extends Component<withI18nProps, BannerState> 
 
   render() {
     const locale = this.props.i18n.language;
-    return (
+    const content = getContentfulCommonString("covidMoratoriumBanner", locale);
+
+    return content && (
       <div className={"HomePage__banner " + (this.state.isHidden ? "d-hide" : "")}>
         <div className="close-button float-right" onClick={this.closeBanner}>
           ✕
         </div>
         <div className="content">
-          <CovidMoratoriumBanner locale={locale} />
+          {documentToReactComponents(content)}
         </div>
       </div>
     );
