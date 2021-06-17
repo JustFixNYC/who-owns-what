@@ -5,7 +5,7 @@ from typing import Any, Dict
 from django.http import HttpResponse, JsonResponse
 
 from .dbutil import call_db_func, exec_db_query
-from .datautil import int_or_none, float_or_none, json_or_none
+from .datautil import int_or_none, float_or_none
 from . import csvutil, apiutil
 from .apiutil import api, get_validated_form_data
 from .forms import PaddedBBLForm, SeparatedBBLForm
@@ -34,18 +34,12 @@ def log_unsupported_request_args(request):
 
 
 def clean_addr_dict(addr):
+    print("UM", addr)
     return {
         **addr,
         "bin": str(addr['bin']),
         "lastsaleamount": int_or_none(addr['lastsaleamount']),
         "registrationid": str(addr['registrationid']),
-        '''
-        Sadly, our django backend interprets the `allcontacts` json field from nycdb
-        as a string instead of a json object, which means we need o recast it here.
-        This perhaps has to do with nycdb saving this field as a 'jsonb' type, or
-        this documented django bug (https://code.djangoproject.com/ticket/31991).
-        '''
-        "allcontacts": json_or_none(addr['allcontacts'])
     }
 
 
@@ -132,8 +126,7 @@ def _fixup_addr_for_csv(addr: Dict[str, Any]):
     addr['recentcomplaintsbytype'] = csvutil.stringify_complaints(
         addr['recentcomplaintsbytype']
     )
-    allcontacts = json_or_none(addr['allcontacts'])
-    addr['allcontacts'] = csvutil.stringify_full_contacts(allcontacts or [])
+    addr['allcontacts'] = csvutil.stringify_full_contacts(addr['allcontacts'] or [])
     csvutil.stringify_lists(addr)
 
 
