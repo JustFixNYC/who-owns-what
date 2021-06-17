@@ -84,8 +84,6 @@ class DetailViewWithoutI18n extends Component<Props, State> {
     const locale = (this.props.i18n.language as SupportedLocale) || "en";
     const { assocAddrs, detailAddr, searchAddr } = this.props.state.context.portfolioData;
 
-    console.log(groupHpdContacts(detailAddr.allcontacts || []));
-
     // Let's save some variables that will be helpful in rendering the front-end component
     let takeActionURL, formattedRegEndDate, streetViewAddr, ownernames, userOwnernames;
 
