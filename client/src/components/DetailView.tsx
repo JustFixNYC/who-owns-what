@@ -18,7 +18,6 @@ import { createWhoOwnsWhatRoutePaths, AddressPageRoutes } from "../routes";
 import { SupportedLocale } from "../i18n-base";
 import { withMachineInStateProps } from "state-machine";
 import { Accordion } from "./Accordion";
-import { HpdContactAddress } from "./APIDataTypes";
 import _groupBy from "lodash/groupBy";
 
 type Props = withI18nProps &
