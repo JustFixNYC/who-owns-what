@@ -190,24 +190,43 @@
       }
     }
 
-    .card-body-timeline-link {
-      margin-top: 2.5rem;
-      padding-top: 1rem;
-    }
-
+    .card-body-timeline-link,
     .card-body-landlord,
     .card-body-complaints {
       margin-top: 2.5rem;
+    }
 
-      b {
-        display: block;
-        border-bottom: 1px solid $gray-dark;
-      }
+    .card-body-timeline-link {
+      padding-top: 1rem;
+    }
+
+    .card-body-complaints b {
+      display: block;
+      border-bottom: 1px solid $gray-dark;
     }
 
     .card-body-landlord {
       .landlord-contact-info:not(:last-child) {
         margin-bottom: 1.8rem;
+      }
+      .card-title-landlord {
+        border-bottom: 1px solid $gray-dark;
+        details.accordion {
+          padding: 0;
+          div {
+            margin: 0;
+            padding: 0 0.8rem;
+          }
+          summary {
+            width: fit-content;
+            float: right;
+            margin-top: -20px;
+            padding: 0;
+          }
+          .icon {
+            display: none;
+          }
+        }
       }
     }
 

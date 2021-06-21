@@ -176,9 +176,32 @@ class DetailViewWithoutI18n extends Component<Props, State> {
                       </div>
                       {detailAddr.allcontacts && (
                         <div className="card-body-landlord">
-                          <b>
-                            <Trans>Who’s the landlord of this building?</Trans>
-                          </b>
+                          <div className="card-title-landlord">
+                            <b>
+                              <Trans>Who’s the landlord of this building?</Trans>
+                            </b>
+
+                            <Accordion title="Learn more" titleOnOpen="Close">
+                              <br />
+                              <Trans>
+                                <p>
+                                  While the legal owner of a building is often an “LLC” company,
+                                  these names and business addresses registered with HPD offer a
+                                  clearer picture of who the landlord really is.
+                                </p>
+                                <p>
+                                  People listed here as “Head Officer” or “Owner” usually have ties
+                                  to building ownership, while “Site Managers” are part of
+                                  management. That being said, these names are self reported, so
+                                  they can be misleading.
+                                </p>
+                                <p>
+                                  Learn more about HPD registrations and how they power this tool on
+                                  the About page.
+                                </p>
+                              </Trans>
+                            </Accordion>
+                          </div>
                           <div>
                             {
                               // Group all contact info by the name of each person/corporate entity
@@ -192,7 +215,7 @@ class DetailViewWithoutI18n extends Component<Props, State> {
                                     : 0
                                 )
                                 .map((contact, i) => (
-                                  <Accordion question={contact[0]} key={i}>
+                                  <Accordion title={contact[0]} key={i}>
                                     {contact[1].map((info, j) => (
                                       <div className="landlord-contact-info" key={j}>
                                         <span className="text-bold text-dark">{info.title}</span>
