@@ -192,23 +192,33 @@ class DetailViewWithoutI18n extends Component<Props, State> {
                             <Trans>Who’s the landlord of this building?</Trans>
                           </b>
                           <div>
-                            {Object.entries(_groupBy(detailAddr.allcontacts, "value")).map(
-                              (contact, i) => (
-                                <Accordion question={contact[0]} key={i}>
-                                  {contact[1].map((info, j) => (
-                                    <div key={j}>
-                                      <span className="text-bold text-dark">{info.title}</span>
-                                      {info.address && (
-                                        <>
-                                          <br />
-                                          {formatHpdContactAddress(info.address)}
-                                        </>
-                                      )}
-                                    </div>
-                                  ))}
-                                </Accordion>
-                              )
-                            )}
+                            {
+                              // Group all contact info by the name of each person/corporate entity
+                              Object.entries(_groupBy(detailAddr.allcontacts, "value"))
+                                // Move head officers and owners to the top of the list
+                                .sort((contact) =>
+                                  contact[1].find(
+                                    (o) => o.title === "HeadOfficer" || o.title.includes("Owner")
+                                  )
+                                    ? -1
+                                    : 0
+                                )
+                                .map((contact, i) => (
+                                  <Accordion question={contact[0]} key={i}>
+                                    {contact[1].map((info, j) => (
+                                      <div key={j}>
+                                        <span className="text-bold text-dark">{info.title}</span>
+                                        {info.address && (
+                                          <>
+                                            <br />
+                                            {formatHpdContactAddress(info.address)}
+                                          </>
+                                        )}
+                                      </div>
+                                    ))}
+                                  </Accordion>
+                                ))
+                            }
                           </div>
                         </div>
                       )}
