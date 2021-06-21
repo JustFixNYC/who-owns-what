@@ -234,9 +234,15 @@ export default {
     const { housenumber, streetname, apartment, city, state, zip } = address;
     const cityFormatted = city && state ? `${city},` : city;
 
+    const formatArrayAsString = (addrs: (string | null)[]) =>
+      addrs
+        .filter((x) => !!x)
+        .join(" ")
+        .toUpperCase();
+
     return {
-      addressLine1: [housenumber, streetname, apartment].join(" ").toUpperCase(),
-      addressLine2: [cityFormatted, state, zip].join(" ").toUpperCase(),
+      addressLine1: formatArrayAsString([housenumber, streetname, apartment]),
+      addressLine2: formatArrayAsString([cityFormatted, state, zip]),
     };
   },
 
