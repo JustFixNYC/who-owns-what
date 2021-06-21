@@ -220,7 +220,8 @@
           summary {
             width: fit-content;
             float: right;
-            margin-top: -20px;
+            // Move summary text up by one standard line height:
+            margin-top: calc(-1 * #{$html-line-height} * #{$font-size});
             padding: 0;
           }
           .icon {
