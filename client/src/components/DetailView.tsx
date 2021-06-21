@@ -241,6 +241,9 @@ class DetailViewWithoutI18n extends Component<Props, State> {
                                 ))
                             }
                           </div>
+                          <div className="card-footer-landlord">
+                            <LearnMoreAccordion />
+                          </div>
                         </div>
                       )}
                       <div className="card-body-registration">

@@ -234,6 +234,24 @@
           }
         }
       }
+
+      .card-footer-landlord {
+        @include for-tablet-portrait-up {
+          display: none;
+        }
+        details.accordion {
+          padding: 0.5rem 0 0 0;
+          div {
+            margin: 0;
+          }
+          .icon {
+            display: none;
+          }
+          summary {
+            text-decoration: underline;
+          }
+        }
+      }
     }
 
     .card-body-registration {
