@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2021-06-15 12:44\n"
+"PO-Revision-Date: 2021-06-21 13:28\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -568,7 +568,7 @@ msgstr "¡Vaya! Ese correo electrónico no es válido."
 
 #: src/components/PropertiesList.tsx:123
 msgid "Open"
-msgstr "Abrir"
+msgstr "Actuales"
 
 #: src/components/BuildingStatsTable.tsx:53
 msgid "Open Violations"
@@ -999,7 +999,7 @@ msgstr "Año de construcción"
 
 #: src/components/PropertiesList.tsx:198
 msgid "Yes"
-msgstr "Si"
+msgstr "Sí"
 
 #: src/containers/HomePage.tsx:174
 msgid "Yoel Goldman's All Year Management has been at the <0>forefront of gentrification</0> in Brooklyn. Tenants in his buidlings in Williamsburg, Bushwick, and Crown Heights have been forced to live in horrendous and often dangerous conditions."
