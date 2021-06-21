@@ -64,18 +64,16 @@
       margin-bottom: 3rem;
     }
 
-    .card.card-links {
-      .card-body {
-        h6 {
-          font-weight: bold;
-          margin-bottom: 0.75rem;
-          width: 100%;
-        }
-        .chip {
-          background-color: $gray-light;
-          color: $dark;
-          max-height: 1.8rem;
-          border-radius: 25px;
+    .card-body-links {
+      b {
+        display: block;
+        border-bottom: 1px solid $gray-dark;
+      }
+      ul {
+        margin: 1rem 0.5rem;
+        li {
+          margin-top: 0.5rem;
+          line-height: 1.8rem;
         }
       }
     }
