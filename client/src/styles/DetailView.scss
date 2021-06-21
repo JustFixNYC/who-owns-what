@@ -213,6 +213,11 @@
         border-bottom: 1px solid $gray-dark;
         details.accordion {
           padding: 0;
+
+          @include for-phone-only() {
+            display: none;
+          }
+
           div {
             margin: 0;
             padding: 0 0.8rem;

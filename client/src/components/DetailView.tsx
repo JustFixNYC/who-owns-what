@@ -7,7 +7,7 @@ import Browser from "../util/browser";
 import Modal from "../components/Modal";
 
 import "styles/DetailView.css";
-import { withI18n, withI18nProps } from "@lingui/react";
+import { withI18n, withI18nProps, I18n } from "@lingui/react";
 import { t, Trans } from "@lingui/macro";
 import { SocialShareAddressPage } from "./SocialShare";
 import { isPartOfGroupSale } from "./PropertiesList";
@@ -44,6 +44,28 @@ const SocialShareDetailView = () => (
         t`I just looked up this building on Who Owns What, a free tool built by JustFix.nyc to make data on landlords and evictors more transparent to tenants. You might want to look up your building. Check it out here: ${url}`,
     }}
   />
+);
+
+const LearnMoreAccordion = () => (
+  <I18n>
+    {({ i18n }) => (
+      <Accordion title={i18n._(t`Learn more`)} titleOnOpen={i18n._(t`Close`)}>
+        <br />
+        <Trans>
+          <p>
+            While the legal owner of a building is often an “LLC” company, these names and business
+            addresses registered with HPD offer a clearer picture of who the landlord really is.
+          </p>
+          <p>
+            People listed here as “Head Officer” or “Owner” usually have ties to building ownership,
+            while “Site Managers” are part of management. That being said, these names are self
+            reported, so they can be misleading.
+          </p>
+          <p>Learn more about HPD registrations and how they power this tool on the About page.</p>
+        </Trans>
+      </Accordion>
+    )}
+  </I18n>
 );
 
 const NUM_COMPLAINT_TYPES_TO_SHOW = 3;
@@ -180,27 +202,7 @@ class DetailViewWithoutI18n extends Component<Props, State> {
                             <b>
                               <Trans>Who’s the landlord of this building?</Trans>
                             </b>
-
-                            <Accordion title="Learn more" titleOnOpen="Close">
-                              <br />
-                              <Trans>
-                                <p>
-                                  While the legal owner of a building is often an “LLC” company,
-                                  these names and business addresses registered with HPD offer a
-                                  clearer picture of who the landlord really is.
-                                </p>
-                                <p>
-                                  People listed here as “Head Officer” or “Owner” usually have ties
-                                  to building ownership, while “Site Managers” are part of
-                                  management. That being said, these names are self reported, so
-                                  they can be misleading.
-                                </p>
-                                <p>
-                                  Learn more about HPD registrations and how they power this tool on
-                                  the About page.
-                                </p>
-                              </Trans>
-                            </Accordion>
+                            <LearnMoreAccordion />
                           </div>
                           <div>
                             {
