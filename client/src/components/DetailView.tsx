@@ -169,7 +169,7 @@ class DetailViewWithoutI18n extends Component<Props, State> {
                             window.gtag("event", "view-data-over-time-overview-tab");
                           }}
                         >
-                          <Trans render="span">View data over time</Trans> &#8599;&#xFE0E;
+                          <Trans render="span">View data over time &#8599;&#xFE0E;</Trans>
                         </Link>
                       </div>
                       <div className="card-body-complaints">
@@ -289,15 +289,89 @@ class DetailViewWithoutI18n extends Component<Props, State> {
                           </p>
                         )}
                       </div>
+                    </div>
+                  </div>
+                  <div className="column col-lg-12 col-5">
+                    <div className="card-image hide-lg">{streetView}</div>
+                    <div className="card-body column-right">
+                      <div className="card-body-links">
+                        <b>
+                          <Trans>Useful links</Trans>
+                        </b>
+                        <ul>
+                          <li>
+                            View documents on{" "}
+                            <a
+                              onClick={() => {
+                                window.gtag("event", "acris-overview-tab");
+                              }}
+                              href={`http://a836-acris.nyc.gov/bblsearch/bblsearch.asp?borough=${boro}&block=${block}&lot=${lot}`}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              <Trans>ACRIS</Trans>
+                            </a>
+                          </li>
+                          <li>
+                            <a
+                              onClick={() => {
+                                window.gtag("event", "hpd-overview-tab");
+                              }}
+                              href={`https://hpdonline.hpdnyc.org/HPDonline/Provide_address.aspx?p1=${boro}&p2=${
+                                detailAddr.housenumber
+                              }&p3=${Helpers.formatStreetNameForHpdLink(
+                                detailAddr.streetname
+                              )}&SearchButton=Search`}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              <Trans>HPD Building Profile</Trans>
+                            </a>
+                          </li>
+                          <li>
+                            <a
+                              onClick={() => {
+                                window.gtag("event", "dob-overview-tab");
+                              }}
+                              href={`http://a810-bisweb.nyc.gov/bisweb/PropertyProfileOverviewServlet?boro=${boro}&block=${block}&lot=${lot}`}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              <Trans>DOB Building Profile</Trans>
+                            </a>
+                          </li>
+                          <li>
+                            <a
+                              onClick={() => {
+                                window.gtag("event", "dof-overview-tab");
+                              }}
+                              href={`https://a836-pts-access.nyc.gov/care/search/commonsearch.aspx?mode=persprop`}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              <Trans>DOF Property Tax Bills</Trans>
+                            </a>
+                          </li>
+                          <li>
+                            <a
+                              onClick={() => {
+                                window.gtag("event", "dap-overview-tab");
+                              }}
+                              href={`https://portal.displacementalert.org/property/${boro}${block}${lot}`}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              <Trans>ANHD DAP Portal</Trans>
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
 
-                      <div className="card-body-prompt hide-lg">
+                      <div className="card-body-prompt">
                         <h6 className="DetailView__subtitle">
                           <Trans>Are you having issues in this building?</Trans>
                         </h6>
                         <a
-                          onClick={() => {
-                            window.gtag("event", "take-action-overview-tab");
-                          }}
                           href={takeActionURL}
                           target="_blank"
                           rel="noopener noreferrer"
@@ -307,119 +381,11 @@ class DetailViewWithoutI18n extends Component<Props, State> {
                         </a>
                       </div>
 
-                      <div className="card-body-social social-group hide-lg">
+                      <div className="card-body-social social-group">
                         <h6 className="DetailView__subtitle">
                           <Trans>Share this page with your neighbors</Trans>
                         </h6>
                         <SocialShareDetailView />
-                      </div>
-                    </div>
-                  </div>
-                  <div className="column col-lg-12 col-5">
-                    <div className="card-image hide-lg">{streetView}</div>
-                    <div className="card-body column-right">
-                      <div className="card-body-resources">
-                        <span className="card-body-resources__title show-lg">
-                          <Trans render="em">Useful links</Trans>
-                        </span>
-
-                        <div className="card-body-links">
-                          <h6 className="DetailView__subtitle hide-lg">
-                            <Trans>Useful links</Trans>
-                          </h6>
-                          <div className="columns">
-                            <div className="column col-12">
-                              <a
-                                onClick={() => {
-                                  window.gtag("event", "acris-overview-tab");
-                                }}
-                                href={`http://a836-acris.nyc.gov/bblsearch/bblsearch.asp?borough=${boro}&block=${block}&lot=${lot}`}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="btn btn-block"
-                              >
-                                <Trans>View documents on ACRIS</Trans> &#8599;&#xFE0E;
-                              </a>
-                            </div>
-                            <div className="column col-12">
-                              <a
-                                onClick={() => {
-                                  window.gtag("event", "hpd-overview-tab");
-                                }}
-                                href={`https://hpdonline.hpdnyc.org/HPDonline/Provide_address.aspx?p1=${boro}&p2=${
-                                  detailAddr.housenumber
-                                }&p3=${Helpers.formatStreetNameForHpdLink(
-                                  detailAddr.streetname
-                                )}&SearchButton=Search`}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="btn btn-block"
-                              >
-                                <Trans>HPD Building Profile</Trans> &#8599;&#xFE0E;
-                              </a>
-                            </div>
-                            <div className="column col-12">
-                              <a
-                                onClick={() => {
-                                  window.gtag("event", "dob-overview-tab");
-                                }}
-                                href={`http://a810-bisweb.nyc.gov/bisweb/PropertyProfileOverviewServlet?boro=${boro}&block=${block}&lot=${lot}`}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="btn btn-block"
-                              >
-                                <Trans>DOB Building Profile</Trans> &#8599;&#xFE0E;
-                              </a>
-                            </div>
-                            <div className="column col-12">
-                              <a
-                                onClick={() => {
-                                  window.gtag("event", "dof-overview-tab");
-                                }}
-                                href={`https://a836-pts-access.nyc.gov/care/search/commonsearch.aspx?mode=persprop`}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="btn btn-block"
-                              >
-                                <Trans>DOF Property Tax Bills</Trans> &#8599;&#xFE0E;
-                              </a>
-                            </div>
-                            <div className="column col-12">
-                              <a
-                                onClick={() => {
-                                  window.gtag("event", "dap-overview-tab");
-                                }}
-                                href={`https://portal.displacementalert.org/property/${boro}${block}${lot}`}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="btn btn-block"
-                              >
-                                <Trans>ANHD DAP Portal</Trans> &#8599;&#xFE0E;
-                              </a>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div className="card-body-prompt show-lg">
-                          <h6 className="DetailView__subtitle">
-                            <Trans>Are you having issues in this building?</Trans>
-                          </h6>
-                          <a
-                            href={takeActionURL}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="btn btn-justfix btn-block"
-                          >
-                            <Trans>Take action on JustFix.nyc!</Trans>
-                          </a>
-                        </div>
-
-                        <div className="card-body-social social-group show-lg">
-                          <h6 className="DetailView__subtitle">
-                            <Trans>Share this page with your neighbors</Trans>
-                          </h6>
-                          <SocialShareDetailView />
-                        </div>
                       </div>
                     </div>
                   </div>

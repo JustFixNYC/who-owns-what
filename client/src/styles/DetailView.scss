@@ -192,17 +192,24 @@
 
     .card-body-timeline-link,
     .card-body-landlord,
-    .card-body-complaints {
-      margin-top: 2.5rem;
+    .card-body-complaints,
+    .card-body-links {
+      margin-top: 2.4rem;
     }
 
     .card-body-timeline-link {
       padding-top: 1rem;
     }
 
-    .card-body-complaints b {
-      display: block;
-      border-bottom: 1px solid $gray-dark;
+    .card-body-complaints,
+    .card-body-links {
+      b {
+        display: block;
+        border-bottom: 1px solid $gray-dark;
+      }
+      li {
+        line-height: 1.8rem;
+      }
     }
 
     .card-body-landlord {
@@ -263,57 +270,16 @@
       }
     }
 
-    .card-body-resources {
-      margin-bottom: 24px;
-
-      border: 1px solid $gray;
-      padding-left: 1.5rem;
-      padding-right: 1.5rem;
-      margin-right: -1.5rem;
-      position: relative;
-
-      @include for-tablet-landscape-up() {
-        margin-top: 56px;
-        margin-right: 0;
-      }
-
-      .chip {
-        background-color: $gray-light;
-        color: $dark;
-        max-height: 1.8rem;
-        border-radius: 25px;
-      }
-
-      .card-body-resources__title {
-        position: absolute;
-        top: -19px;
-        left: 7px;
-        padding: 8px 9px 4px 8px;
-        background-color: #fff;
+    .card-body-links {
+      @include for-tablet-landscape-down() {
+        margin-top: 0;
       }
     }
 
-    .card-body-links,
     .card-body-prompt,
     .card-body-social {
-      margin-top: 24px;
-      margin-bottom: 24px;
-    }
-
-    .card-body-prompt {
-      @include for-tablet-landscape-up() {
-        margin-top: 48px;
-      }
-    }
-
-    .card-body-links {
-      .columns {
-        margin-top: -1rem;
-      }
-
-      a.btn:not(:first-child) {
-        margin-top: 10px;
-      }
+      margin-top: 2.4rem;
+      margin-bottom: 2.4rem;
     }
 
     h6.DetailView__subtitle {
