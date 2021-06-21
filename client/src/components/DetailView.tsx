@@ -40,8 +40,8 @@ const formatHpdContactAddress = (address: HpdContactAddress) => {
   const cityFormatted = city && state ? `${city},` : city;
   return (
     <>
-      {[housenumber, streetname, apartment].join(" ")} <br />
-      {[cityFormatted, state, zip].join(" ")}
+      {[housenumber, streetname, apartment].join(" ").toUpperCase()} <br />
+      {[cityFormatted, state, zip].join(" ").toUpperCase()}
     </>
   );
 };
