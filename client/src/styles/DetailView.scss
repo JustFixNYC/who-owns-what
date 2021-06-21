@@ -205,6 +205,12 @@
       }
     }
 
+    .card-body-landlord {
+      .landlord-contact-info:not(:last-child) {
+        margin-bottom: 1.8rem;
+      }
+    }
+
     .card-body-registration {
       margin-top: 2.5rem;
 
@@ -264,9 +270,6 @@
 
       a.btn:not(:first-child) {
         margin-top: 10px;
-      }
-
-      .btn {
       }
     }
 

@@ -35,17 +35,6 @@ type State = {
 
 const getTodaysDate = () => new Date();
 
-const formatHpdContactAddress = (address: HpdContactAddress) => {
-  const { housenumber, streetname, apartment, city, state, zip } = address;
-  const cityFormatted = city && state ? `${city},` : city;
-  return (
-    <>
-      {[housenumber, streetname, apartment].join(" ").toUpperCase()} <br />
-      {[cityFormatted, state, zip].join(" ").toUpperCase()}
-    </>
-  );
-};
-
 const SocialShareDetailView = () => (
   <SocialShareAddressPage
     location="overview-tab"
@@ -206,12 +195,20 @@ class DetailViewWithoutI18n extends Component<Props, State> {
                                 .map((contact, i) => (
                                   <Accordion question={contact[0]} key={i}>
                                     {contact[1].map((info, j) => (
-                                      <div key={j}>
+                                      <div className="landlord-contact-info" key={j}>
                                         <span className="text-bold text-dark">{info.title}</span>
                                         {info.address && (
                                           <>
                                             <br />
-                                            {formatHpdContactAddress(info.address)}
+                                            {
+                                              Helpers.formatHpdContactAddress(info.address)
+                                                .addressLine1
+                                            }
+                                            <br />
+                                            {
+                                              Helpers.formatHpdContactAddress(info.address)
+                                                .addressLine2
+                                            }
                                           </>
                                         )}
                                       </div>
