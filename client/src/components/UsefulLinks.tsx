@@ -18,17 +18,19 @@ export const UsefulLinks: React.FC<UsefulLinksProps> = ({ addrForLinks, location
       </b>
       <ul>
         <li>
-          View documents on{" "}
-          <a
-            onClick={() => {
-              window.gtag("event", `acris-${location}`);
-            }}
-            href={`http://a836-acris.nyc.gov/bblsearch/bblsearch.asp?borough=${boro}&block=${block}&lot=${lot}`}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Trans>ACRIS</Trans>
-          </a>
+          <Trans>
+            View documents on{" "}
+            <a
+              onClick={() => {
+                window.gtag("event", `acris-${location}`);
+              }}
+              href={`http://a836-acris.nyc.gov/bblsearch/bblsearch.asp?borough=${boro}&block=${block}&lot=${lot}`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              ACRIS
+            </a>
+          </Trans>
         </li>
         <li>
           <a

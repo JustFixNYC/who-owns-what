@@ -102,16 +102,17 @@ const LearnMoreAccordion = () => (
         <br />
         <Trans>
           <p>
-            While the legal owner of a building is often an “LLC” company, these names and business
-            addresses registered with HPD offer a clearer picture of who the landlord really is.
+            While the legal owner of a building is often a company (usually called an “LLC”), these
+            names and business addresses registered with HPD offer a clearer picture of who the
+            landlord really is.
           </p>
           <p>
             People listed here as “Head Officer” or “Owner” usually have ties to building ownership,
             while “Site Managers” are part of management. That being said, these names are self
-            reported, so they can be misleading.
+            reported by the landlord, so they can be misleading.
           </p>
           <p>
-            Learn more about HPD registrations and how they power this tool on the{" "}
+            Learn more about HPD registrations and how this information powers this tool on the{" "}
             <LocaleLink
               to={createWhoOwnsWhatRoutePaths().about}
               onClick={() => {
