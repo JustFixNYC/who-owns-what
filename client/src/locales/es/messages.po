@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2021-06-22 15:43\n"
+"PO-Revision-Date: 2021-06-22 15:45\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -24,7 +24,7 @@ msgstr "#QuiénEsElDueño por @JustFixNYC"
 
 #: src/util/helpers.ts:232
 msgid "(\"{textInEnglish}\" in English)"
-msgstr ""
+msgstr "(\"{textInEnglish}\" en inglés)"
 
 #: src/components/DetailView.tsx:209
 msgid "(as part of a group sale)"
@@ -83,7 +83,7 @@ msgstr "Dirección"
 
 #: src/util/helpers.ts:68
 msgid "Agent"
-msgstr ""
+msgstr "Agente"
 
 #: src/components/Subscribe.tsx:43
 msgid "All set! Thanks for subscribing!"
@@ -216,7 +216,7 @@ msgstr "Quejas Emitidas"
 
 #: src/util/helpers.ts:64
 msgid "Corporate Owner"
-msgstr ""
+msgstr "Dueño Corporativo"
 
 #: src/components/UsefulLinks.tsx:33
 #: src/containers/NotRegisteredPage.tsx:155
@@ -369,7 +369,7 @@ msgstr "¿Tienes ideas sobre esta página?"
 
 #: src/util/helpers.ts:63
 msgid "Head Officer"
-msgstr ""
+msgstr "Oficial Principal"
 
 #: src/containers/App.tsx:86
 msgid "Home"
@@ -399,7 +399,7 @@ msgstr "Estaba revisando este edificio en Quién Es El Dueño, una herramienta g
 
 #: src/util/helpers.ts:65
 msgid "Individual Owner"
-msgstr ""
+msgstr "Dueño Individual"
 
 #: src/containers/NotRegisteredPage.tsx:180
 msgid "Ineligible to certify violations"
@@ -423,7 +423,7 @@ msgstr "¡Únete a la lucha por los derechos de los inquilinos!"
 
 #: src/util/helpers.ts:66
 msgid "Joint Owner"
-msgstr ""
+msgstr "Dueño Conjunto"
 
 #: src/components/LegalFooter.tsx:21
 msgid "JustFix, Inc is a registered 501(c)(3) nonprofit organization."
@@ -472,7 +472,7 @@ msgstr "Leyenda"
 
 #: src/util/helpers.ts:69
 msgid "Lessee"
-msgstr ""
+msgstr "Arrendatario"
 
 #: src/components/PropertiesList.tsx:182
 #: src/components/PropertiesList.tsx:184
@@ -587,7 +587,7 @@ msgstr "AFUERA DEL EDIFICIO"
 
 #: src/util/helpers.ts:70
 msgid "Officer"
-msgstr ""
+msgstr "Oficial"
 
 #: src/components/PropertiesList.tsx:151
 msgid "Officer/Owner"
@@ -719,7 +719,7 @@ msgstr "Comparte esta página con tus vecinos"
 
 #: src/util/helpers.ts:71
 msgid "Shareholder"
-msgstr ""
+msgstr "Accionista"
 
 #: src/components/Subscribe.tsx:77
 msgid "Sign up"
@@ -739,7 +739,7 @@ msgstr "Desde el 2017, los Mariscales de NYC programaron {totalEvictions, plural
 
 #: src/util/helpers.ts:67
 msgid "Site Manager"
-msgstr ""
+msgstr "Gerente de Propiedad"
 
 #: src/components/IndicatorsViz.tsx:350
 msgid "Sold to Current Owner"
