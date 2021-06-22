@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2021-06-22 15:45\n"
+"PO-Revision-Date: 2021-06-22 16:22\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -22,7 +22,7 @@ msgstr ""
 msgid "#WhoOwnsWhat via @JustFixNYC"
 msgstr "#QuiénEsElDueño por @JustFixNYC"
 
-#: src/util/helpers.ts:240
+#: src/util/helpers.ts:241
 msgid "(\"{textInEnglish}\" in English)"
 msgstr "(\"{textInEnglish}\" en inglés)"
 
@@ -152,13 +152,11 @@ msgstr "Construido"
 
 #: src/components/DetailView.tsx:286
 #: src/components/DetailView.tsx:295
-#: src/components/OwnersTable.tsx:14
 msgid "Business Addresses"
 msgstr "Dirección Comercial"
 
 #: src/components/DetailView.tsx:266
 #: src/components/DetailView.tsx:275
-#: src/components/OwnersTable.tsx:20
 msgid "Business Entities"
 msgstr "Entidades Comerciales"
 
@@ -217,6 +215,10 @@ msgstr "Quejas Emitidas"
 #: src/util/helpers.ts:64
 msgid "Corporate Owner"
 msgstr "Dueño Corporativo"
+
+#: src/util/helpers.ts:72
+msgid "Corporation"
+msgstr "Corporación"
 
 #: src/components/UsefulLinks.tsx:33
 #: src/containers/NotRegisteredPage.tsx:155
@@ -637,9 +639,8 @@ msgstr "PORTAFOLIO DE EDIFICIOS: La dirección que has buscado está asociada co
 
 #: src/components/DetailView.tsx:306
 #: src/components/DetailView.tsx:316
-#: src/components/OwnersTable.tsx:26
 msgid "People"
-msgstr "Personas (Encontrarás definiciones en español de los tipos de personas asociadas al edificio en la página \"Como se usa\".)"
+msgstr "Personas"
 
 #: src/components/Subscribe.tsx:22
 msgid "Please enter an email address!"
@@ -1086,3 +1087,4 @@ msgstr "{value, plural, one {Una Queja del HPD emitida desde el 2014} other {# Q
 #: src/components/IndicatorsDatasets.tsx:34
 msgid "{value, plural, one {One HPD Violation Issued since 2010} other {# HPD Violations Issued since 2010}}"
 msgstr "{value, plural, one {Una Infracción del HPD emitida desde el 2010} other {# Infracciones del HPD emitidas desde el 2010}}"
+
