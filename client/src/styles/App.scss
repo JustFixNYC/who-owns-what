@@ -45,11 +45,26 @@
   }
 
   .dropdown.dropdown-right {
-    .menu.d-block {
-      display: block;
-    }
-    .menu.d-none {
-      display: none;
+    .menu {
+      padding: 0.25rem 0.5rem;
+      font-size: 1.6rem;
+
+      .menu-item a {
+        &:focus {
+          outline-offset: 0px;
+        }
+        &:active,
+        &.active {
+          background: $gray-light;
+        }
+      }
+
+      &.d-block {
+        display: block;
+      }
+      &.d-none {
+        display: none;
+      }
     }
   }
 
