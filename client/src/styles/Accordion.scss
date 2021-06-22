@@ -20,7 +20,7 @@ details.accordion {
     }
     .icon {
       transition: transform 0.2s linear;
-      transform: rotateX(180deg) translateY(-3px);
+      transform: rotateX(180deg);
     }
   }
 
@@ -30,7 +30,7 @@ details.accordion {
     }
     .icon {
       transition: transform 0.2s linear;
-      transform: rotateX(0deg) translateY(0px);
+      transform: rotateX(0deg);
     }
   }
 
