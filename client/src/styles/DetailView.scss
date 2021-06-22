@@ -246,6 +246,7 @@
             // Move summary text up by one standard line height:
             margin-top: calc(-1 * #{$html-line-height} * #{$font-size});
             padding: 0;
+            font-style: italic;
           }
           .icon {
             display: none;
@@ -267,6 +268,7 @@
           }
           summary {
             text-decoration: underline;
+            font-style: italic;
           }
         }
       }
