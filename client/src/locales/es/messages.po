@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2021-06-22 16:05\n"
+"PO-Revision-Date: 2021-06-22 16:21\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -22,7 +22,7 @@ msgstr ""
 msgid "#WhoOwnsWhat via @JustFixNYC"
 msgstr "#QuiénEsElDueño por @JustFixNYC"
 
-#: src/util/helpers.ts:240
+#: src/util/helpers.ts:241
 msgid "(\"{textInEnglish}\" in English)"
 msgstr "(\"{textInEnglish}\" en inglés)"
 
@@ -217,6 +217,10 @@ msgstr "Quejas Emitidas"
 #: src/util/helpers.ts:64
 msgid "Corporate Owner"
 msgstr "Dueño Corporativo"
+
+#: src/util/helpers.ts:72
+msgid "Corporation"
+msgstr ""
 
 #: src/components/UsefulLinks.tsx:33
 #: src/containers/NotRegisteredPage.tsx:155
