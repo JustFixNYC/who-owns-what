@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2021-06-22 13:27\n"
+"PO-Revision-Date: 2021-06-22 13:39\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -48,7 +48,7 @@ msgstr "... o descubre ejemplos de portafolios de edificios:"
 
 #: src/components/DetailView.tsx:50
 msgid "<0>While the legal owner of a building is often a company (usually called an “LLC”), these names and business addresses registered with HPD offer a clearer picture of who the landlord really is.</0><1>People listed here as “Head Officer” or “Owner” usually have ties to building ownership, while “Site Managers” are part of management. That being said, these names are self reported by the landlord, so they can be misleading.</1><2>Learn more about HPD registrations and how this information powers this tool on the <3>About page</3>.</2>"
-msgstr ""
+msgstr "<0>Mientras el dueño legal de un edificio es, con frecuencia, una compañía (se llama muchas veces un “LLC”), estos nombres y direcciones de negocio registrado con HPD se ofrecen una idea más clara de quién es el dueño de verdad.</0><1>Las personas enumeradas aquí como “Oficial Principal” o “Dueño” normalmente tienen una conexión de la propiedad del edificio, mientras que los \"Managers de Propiedad\" son parte de la administración. Dicho eso, estos nombres son autoinformados por el dueño, y entonces pueden ser engañosos.</1><2>Aprende más acerca de registros de HPD y cómo esta información impulsa la herramienta en la <3>página “Acerca de”</3>.</2>"
 
 #: src/components/UsefulLinks.tsx:47
 #: src/containers/NotRegisteredPage.tsx:158
@@ -907,7 +907,7 @@ msgstr "Visualizar por:"
 
 #: src/components/DetailView.tsx:142
 msgid "View data over time ↗︎"
-msgstr ""
+msgstr "Ver datos a lo largo del tiempo ↗︎"
 
 #: src/components/PropertiesList.tsx:206
 #: src/components/PropertiesList.tsx:211
@@ -916,7 +916,7 @@ msgstr "Ver detalles"
 
 #: src/components/UsefulLinks.tsx:13
 msgid "View documents on <0>ACRIS</0>"
-msgstr ""
+msgstr "Ver documentos en <0>ACRIS</0>"
 
 #: src/containers/NotRegisteredPage.tsx:147
 msgid "View documents on ACRIS"
