@@ -23,7 +23,6 @@ import {
   IndicatorChartShift,
   IndicatorsTimeSpan,
 } from "./IndicatorsTypes";
-import { Nobr } from "./Nobr";
 import { NetworkErrorMessage } from "./NetworkErrorMessage";
 
 class IndicatorsWithoutI18n extends Component<IndicatorsProps, IndicatorsState> {
@@ -337,19 +336,6 @@ class IndicatorsWithoutI18n extends Component<IndicatorsProps, IndicatorsState> 
                     ›
                   </button>
                 </div>
-
-                <div className="Indicators__feedback hide-lg">
-                  <Trans render="i">Have thoughts about this page?</Trans>
-                  <Nobr>
-                    <a
-                      href="https://airtable.com/shrZ9uL3id6oWEn8T"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <Trans>Send us feedback!</Trans>
-                    </a>
-                  </Nobr>
-                </div>
               </div>
               <div className="column column-context col-4 col-lg-12">
                 <div className="card">
@@ -365,19 +351,6 @@ class IndicatorsWithoutI18n extends Component<IndicatorsProps, IndicatorsState> 
                 </div>
 
                 <UsefulLinks addrForLinks={detailAddr} location="timeline-tab" />
-
-                <div className="Indicators__feedback show-lg">
-                  <Trans render="i">Have thoughts about this page?</Trans>
-                  <Nobr>
-                    <a
-                      href="https://airtable.com/shrZ9uL3id6oWEn8T"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <Trans>Send us feedback!</Trans>
-                    </a>
-                  </Nobr>
-                </div>
               </div>
             </div>
           </div>
