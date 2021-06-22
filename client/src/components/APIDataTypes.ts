@@ -19,6 +19,17 @@ type HpdOwnerContact = {
   value: string;
 };
 
+type HpdFullContact = HpdOwnerContact & {
+  address: {
+    housenumber: string | null;
+    streetname: string;
+    apartment: string | null;
+    city: string | null;
+    state: string | null;
+    zip: string | null;
+  } | null;
+};
+
 export type HpdComplaintCount = {
   type: string;
   count: number;
@@ -32,6 +43,7 @@ export type GeoSearchData = {
 };
 
 export type AddressRecord = {
+  allcontacts: HpdFullContact[] | null;
   bbl: string;
   bin: string;
   boro: Borough;
