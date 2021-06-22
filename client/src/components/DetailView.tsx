@@ -54,7 +54,10 @@ const SocialShareDetailView = () => (
  * A set of HpdFullContacts grouped by contact name. Will contain exactly one name but can contain
  * one or many full contact entries (with title and address) that have the same matching name.
  */
-type GroupedContact = [string, HpdFullContact[]];
+type GroupedContact = [
+  string, // Contact name
+  HpdFullContact[] // Array of all contact entries with the same name
+];
 
 /**
  * This comparison function, to be used inside the Array.sort() method,
