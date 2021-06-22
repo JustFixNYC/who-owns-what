@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2021-06-15 12:44\n"
+"PO-Revision-Date: 2021-06-22 15:45\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -22,9 +22,9 @@ msgstr ""
 msgid "#WhoOwnsWhat via @JustFixNYC"
 msgstr "#QuiénEsElDueño por @JustFixNYC"
 
-#: src/util/helpers.ts:232
+#: src/util/helpers.ts:240
 msgid "(\"{textInEnglish}\" in English)"
-msgstr ""
+msgstr "(\"{textInEnglish}\" en inglés)"
 
 #: src/components/DetailView.tsx:209
 msgid "(as part of a group sale)"
@@ -52,7 +52,7 @@ msgstr "... o descubre ejemplos de portafolios de edificios:"
 
 #: src/components/DetailView.tsx:54
 msgid "<0>While the legal owner of a building is often a company (usually called an “LLC”), these names and business addresses registered with HPD offer a clearer picture of who the landlord really is.</0><1>People listed here as “Head Officer” or “Owner” usually have ties to building ownership, while “Site Managers” are part of management. That being said, these names are self reported by the landlord, so they can be misleading.</1><2>Learn more about HPD registrations and how this information powers this tool on the <3>About page</3>.</2>"
-msgstr ""
+msgstr "<0>Mientras el dueño legal de un edificio es, con frecuencia, una compañía (se llama muchas veces un “LLC”), estos nombres y direcciones de negocio registrado con HPD se ofrecen una idea más clara de quién es el dueño de verdad.</0><1>Las personas enumeradas aquí como “Oficial Principal” o “Dueño” normalmente tienen una conexión de la propiedad del edificio, mientras que los \"Gerentes de Propiedad\" son parte de la administración. Dicho eso, estos nombres son autoinformados por el dueño, y entonces pueden ser engañosos.</1><2>Aprende más acerca de registros de HPD y cómo esta información impulsa la herramienta en la <3>página “Acerca de”</3>.</2>"
 
 #: src/components/UsefulLinks.tsx:47
 #: src/containers/NotRegisteredPage.tsx:158
@@ -83,7 +83,7 @@ msgstr "Dirección"
 
 #: src/util/helpers.ts:68
 msgid "Agent"
-msgstr ""
+msgstr "Agente"
 
 #: src/components/Subscribe.tsx:43
 msgid "All set! Thanks for subscribing!"
@@ -204,7 +204,7 @@ msgstr "HaZ clic aquí para obtener más información."
 
 #: src/components/DetailView.tsx:52
 msgid "Close"
-msgstr ""
+msgstr "Cerrar"
 
 #: src/components/PropertiesMap.tsx:193
 msgid "Close legend"
@@ -216,7 +216,7 @@ msgstr "Quejas Emitidas"
 
 #: src/util/helpers.ts:64
 msgid "Corporate Owner"
-msgstr ""
+msgstr "Dueño Corporativo"
 
 #: src/components/UsefulLinks.tsx:33
 #: src/containers/NotRegisteredPage.tsx:155
@@ -369,7 +369,7 @@ msgstr "¿Tienes ideas sobre esta página?"
 
 #: src/util/helpers.ts:63
 msgid "Head Officer"
-msgstr ""
+msgstr "Oficial Principal"
 
 #: src/containers/App.tsx:86
 msgid "Home"
@@ -399,7 +399,7 @@ msgstr "Estaba revisando este edificio en Quién Es El Dueño, una herramienta g
 
 #: src/util/helpers.ts:65
 msgid "Individual Owner"
-msgstr ""
+msgstr "Dueño Individual"
 
 #: src/containers/NotRegisteredPage.tsx:180
 msgid "Ineligible to certify violations"
@@ -423,7 +423,7 @@ msgstr "¡Únete a la lucha por los derechos de los inquilinos!"
 
 #: src/util/helpers.ts:66
 msgid "Joint Owner"
-msgstr ""
+msgstr "Dueño Conjunto"
 
 #: src/components/LegalFooter.tsx:21
 msgid "JustFix, Inc is a registered 501(c)(3) nonprofit organization."
@@ -464,7 +464,7 @@ msgstr "Vendido por última vez:"
 
 #: src/components/DetailView.tsx:52
 msgid "Learn more"
-msgstr ""
+msgstr "Aprende más"
 
 #: src/components/PropertiesMap.tsx:193
 msgid "Legend"
@@ -472,7 +472,7 @@ msgstr "Leyenda"
 
 #: src/util/helpers.ts:69
 msgid "Lessee"
-msgstr ""
+msgstr "Arrendatario"
 
 #: src/components/PropertiesList.tsx:182
 #: src/components/PropertiesList.tsx:184
@@ -587,7 +587,7 @@ msgstr "AFUERA DEL EDIFICIO"
 
 #: src/util/helpers.ts:70
 msgid "Officer"
-msgstr ""
+msgstr "Oficial"
 
 #: src/components/PropertiesList.tsx:151
 msgid "Officer/Owner"
@@ -605,7 +605,7 @@ msgstr "¡Vaya! Ese correo electrónico no es válido."
 
 #: src/components/PropertiesList.tsx:123
 msgid "Open"
-msgstr "Abrir"
+msgstr "Actuales"
 
 #: src/components/BuildingStatsTable.tsx:53
 msgid "Open Violations"
@@ -719,7 +719,7 @@ msgstr "Comparte esta página con tus vecinos"
 
 #: src/util/helpers.ts:71
 msgid "Shareholder"
-msgstr ""
+msgstr "Accionista"
 
 #: src/components/Subscribe.tsx:77
 msgid "Sign up"
@@ -739,7 +739,7 @@ msgstr "Desde el 2017, los Mariscales de NYC programaron {totalEvictions, plural
 
 #: src/util/helpers.ts:67
 msgid "Site Manager"
-msgstr ""
+msgstr "Gerente de Propiedad"
 
 #: src/components/IndicatorsViz.tsx:350
 msgid "Sold to Current Owner"
@@ -947,7 +947,7 @@ msgstr "Visualizar por:"
 
 #: src/components/DetailView.tsx:147
 msgid "View data over time ↗︎"
-msgstr ""
+msgstr "Ver datos a lo largo del tiempo ↗︎"
 
 #: src/components/PropertiesList.tsx:206
 #: src/components/PropertiesList.tsx:211
@@ -956,7 +956,7 @@ msgstr "Ver detalles"
 
 #: src/components/UsefulLinks.tsx:13
 msgid "View documents on <0>ACRIS</0>"
-msgstr ""
+msgstr "Ver documentos en <0>ACRIS</0>"
 
 #: src/containers/NotRegisteredPage.tsx:147
 msgid "View documents on ACRIS"
@@ -1033,7 +1033,7 @@ msgstr "¿Quién es responsable por los problemas en tu apartamento y edificio? 
 
 #: src/components/DetailView.tsx:168
 msgid "Who’s the landlord of this building?"
-msgstr ""
+msgstr "¿Quién es el dueño de este edificio?"
 
 #: src/components/Indicators.tsx:190
 msgid "Year"
@@ -1045,7 +1045,7 @@ msgstr "Año de construcción"
 
 #: src/components/PropertiesList.tsx:198
 msgid "Yes"
-msgstr "Si"
+msgstr "Sí"
 
 #: src/containers/HomePage.tsx:174
 msgid "Yoel Goldman's All Year Management has been at the <0>forefront of gentrification</0> in Brooklyn. Tenants in his buidlings in Williamsburg, Bushwick, and Crown Heights have been forced to live in horrendous and often dangerous conditions."
