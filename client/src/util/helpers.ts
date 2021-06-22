@@ -7,7 +7,7 @@ import { SupportedLocale } from "../i18n-base";
 import { HpdContactAddress, SearchAddressWithoutBbl } from "components/APIDataTypes";
 import { reportError } from "error-reporting";
 import { t } from "@lingui/macro";
-import { I18n } from "@lingui/core";
+import { I18n, MessageDescriptor } from "@lingui/core";
 
 /**
  * An array consisting of Who Owns What's standard enumerations for street names,
@@ -65,9 +65,48 @@ const hpdComplaintTypeTranslations = new Map([
   ["LOCKS", t`LOCKS`],
 ]);
 
+const hpdContactTitleTranslations = new Map([
+  ["HeadOfficer", t`Head Officer`],
+  ["CorporateOwner", t`Corporate Owner`],
+  ["IndividualOwner", t`Individual Owner`],
+  ["JointOwner", t`Joint Owner`],
+  ["SiteManager", t`Site Manager`],
+  ["Agent", t`Agent`],
+  ["Lessee", t`Lessee`],
+  ["Officer", t`Officer`],
+  ["Shareholder", t`Shareholder`],
+]);
+
 export const longDateOptions = { year: "numeric", month: "short", day: "numeric" };
 export const mediumDateOptions = { year: "numeric", month: "long" };
 export const shortDateOptions = { month: "short" };
+
+const createTranslationFunctionFromMap = (
+  map: Map<string, MessageDescriptor>,
+  description: string,
+  localeOverride?: SupportedLocale
+) => (textToTranslate: string, i18n: I18n) => {
+  const translatedType = map.get(textToTranslate);
+  if (!translatedType) {
+    reportError(`The ${description} "${textToTranslate}" isn't internationalized`);
+    return textToTranslate;
+  } else
+    return localeOverride ? i18n.use(localeOverride)._(translatedType) : i18n._(translatedType);
+};
+
+const translateComplaintType = createTranslationFunctionFromMap(
+  hpdComplaintTypeTranslations,
+  "HPD Complaint type"
+);
+const translateContactTitle = createTranslationFunctionFromMap(
+  hpdContactTitleTranslations,
+  "HPD Contact title"
+);
+const getContactTitleInEnglish = createTranslationFunctionFromMap(
+  hpdContactTitleTranslations,
+  "HPD Contact title",
+  "en"
+);
 
 export function searchAddrsAreEqual(
   addr1: SearchAddressWithoutBbl,
@@ -246,11 +285,15 @@ export default {
     };
   },
 
-  getTranslationOfComplaintType(complaintType: string, i18n: I18n) {
-    const translatedType = hpdComplaintTypeTranslations.get(complaintType);
-    if (!translatedType) {
-      reportError(`The HPD Complaint type "${complaintType}" isn't internationalized`);
-      return complaintType;
-    } else return i18n._(translatedType);
+  translateComplaintType,
+  translateContactTitle,
+  translateContactTitleAndIncludeEnglish(textToTranslate: string, i18n: I18n) {
+    const translation = translateContactTitle(textToTranslate, i18n);
+    if (i18n.language === "en") return translation;
+    else {
+      const textInEnglish = getContactTitleInEnglish(textToTranslate, i18n);
+      const translationSuffix = i18n._(t`("${textInEnglish}" in English)`);
+      return translation + " " + translationSuffix;
+    }
   },
 };
