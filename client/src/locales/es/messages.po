@@ -65,7 +65,7 @@ msgid "APPLIANCE"
 msgstr "MEDIO DOMÉSTICO"
 
 #: src/containers/AboutPage.tsx:13
-#: src/containers/App.tsx:89
+#: src/containers/App.tsx:63
 msgid "About"
 msgstr "Acerca de"
 
@@ -242,7 +242,7 @@ msgstr "PUERTAS"
 msgid "Date"
 msgstr "Fecha"
 
-#: src/containers/App.tsx:82
+#: src/containers/App.tsx:97
 msgid "Demo Site"
 msgstr "Sitio Demo"
 
@@ -251,7 +251,7 @@ msgid "Disclaimer: The information in JustFix.nyc does not constitute legal advi
 msgstr "Descargo de responsabilidad: La información en JustFix.nyc no constituye asesoramiento jurídico y no debe ser utilizado como sustituto del asesoramiento de un abogado cualificado para asesorar sobre cuestiones jurídicas relativas a la vivienda. Nosotros podemos ayudarte a dirigirte a servicios legales gratuitos si es necesario."
 
 #: src/components/LegalFooter.tsx:33
-#: src/containers/App.tsx:95
+#: src/containers/App.tsx:69
 msgid "Donate"
 msgstr "Donar"
 
@@ -368,7 +368,7 @@ msgstr "Formulario de queja HUD 958"
 msgid "Head Officer"
 msgstr "Oficial Principal"
 
-#: src/containers/App.tsx:86
+#: src/containers/App.tsx:60
 msgid "Home"
 msgstr "Inicio"
 
@@ -377,7 +377,7 @@ msgstr "Inicio"
 msgid "How is this building associated to this portfolio?"
 msgstr "¿Cómo se asocia este edificio a este portafolio de edificios?"
 
-#: src/containers/App.tsx:92
+#: src/containers/App.tsx:66
 #: src/containers/HowToUsePage.tsx:13
 msgid "How to use"
 msgstr "Cómo se usa"
@@ -696,14 +696,15 @@ msgstr "Seleccione un conjunto de datos:"
 msgid "Send us a data request"
 msgstr "Envíanos una solicitud de datos"
 
-#: src/containers/App.tsx:99
+#: src/containers/App.tsx:104
+#: src/containers/App.tsx:120
 msgid "Share"
 msgstr "Compartir"
 
 #: src/components/DetailView.tsx:231
 #: src/components/EngagementPanel.tsx:18
 #: src/components/PropertiesSummary.tsx:133
-#: src/containers/App.tsx:105
+#: src/containers/App.tsx:132
 #: src/containers/NotRegisteredPage.tsx:13
 msgid "Share this page with your neighbors"
 msgstr "Comparte esta página con tus vecinos"
@@ -987,7 +988,7 @@ msgstr "PROTECTORES DE VENTANA"
 msgid "WINDOWS"
 msgstr "VENTANAS"
 
-#: src/containers/App.tsx:74
+#: src/containers/App.tsx:89
 msgid "Warning! This site doesn't fully work on older versions of Safari. Try a <0>modern browser</0>."
 msgstr "¡Atención! Este sitio no funciona completamente en versiones antiguas de Safari. Prueba un <0>navegador moderno</0>."
 
@@ -1077,4 +1078,3 @@ msgstr "{value, plural, one {Una Queja del HPD emitida desde el 2014} other {# Q
 #: src/components/IndicatorsDatasets.tsx:34
 msgid "{value, plural, one {One HPD Violation Issued since 2010} other {# HPD Violations Issued since 2010}}"
 msgstr "{value, plural, one {Una Infracción del HPD emitida desde el 2010} other {# Infracciones del HPD emitidas desde el 2010}}"
-

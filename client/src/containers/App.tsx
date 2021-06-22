@@ -85,6 +85,24 @@ const WhoOwnsWhatRoutes: React.FC<{}> = () => {
   );
 };
 
+const getMainNavLinks = () => {
+  const paths = createWhoOwnsWhatRoutePaths();
+  return [
+    <LocaleNavLink exact to={paths.home}>
+      <Trans>Home</Trans>
+    </LocaleNavLink>,
+    <LocaleNavLink to={paths.about}>
+      <Trans>About</Trans>
+    </LocaleNavLink>,
+    <LocaleNavLink to={paths.howToUse}>
+      <Trans>How to use</Trans>
+    </LocaleNavLink>,
+    <a href="https://www.justfix.nyc/donate">
+      <Trans>Donate</Trans>
+    </a>,
+  ];
+};
+
 const App = () => {
   const [isEngageModalVisible, setEngageModalVisibility] = useState(false);
   const [isDropdownVisible, setDropdownVisibility] = useState(false);
@@ -127,18 +145,7 @@ const App = () => {
               )}
               <nav className="inline">
                 <span className="hide-lg">
-                  <LocaleNavLink exact to={paths.home}>
-                    <Trans>Home</Trans>
-                  </LocaleNavLink>
-                  <LocaleNavLink to={paths.about}>
-                    <Trans>About</Trans>
-                  </LocaleNavLink>
-                  <LocaleNavLink to={paths.howToUse}>
-                    <Trans>How to use</Trans>
-                  </LocaleNavLink>
-                  <a href="https://www.justfix.nyc/donate">
-                    <Trans>Donate</Trans>
-                  </a>
+                  {getMainNavLinks()}
                   {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
                   <a href="#" onClick={() => setEngageModalVisibility(true)}>
                     <Trans>Share</Trans>
@@ -156,26 +163,11 @@ const App = () => {
                     <i className={"icon " + (isDropdownVisible ? "icon-cross" : "icon-menu")}></i>
                   </button>
                   <ul className={"menu menu-reverse " + (isDropdownVisible ? "d-block" : "d-none")}>
-                    <li className="menu-item">
-                      <LocaleNavLink exact to={paths.home}>
-                        <Trans>Home</Trans>
-                      </LocaleNavLink>
-                    </li>
-                    <li className="menu-item">
-                      <LocaleNavLink to={paths.about}>
-                        <Trans>About</Trans>
-                      </LocaleNavLink>
-                    </li>
-                    <li className="menu-item">
-                      <LocaleNavLink to={paths.howToUse}>
-                        <Trans>How to use</Trans>
-                      </LocaleNavLink>
-                    </li>
-                    <li className="menu-item">
-                      <a href="https://www.justfix.nyc/donate">
-                        <Trans>Donate</Trans>
-                      </a>
-                    </li>
+                    {getMainNavLinks().map((link, i) => (
+                      <li className="menu-item" key={i}>
+                        {link}
+                      </li>
+                    ))}
                     <li className="menu-item">
                       {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
                       <a href="#" onClick={() => setEngageModalVisibility(true)}>

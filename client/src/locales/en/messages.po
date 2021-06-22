@@ -60,7 +60,7 @@ msgid "APPLIANCE"
 msgstr "APPLIANCE"
 
 #: src/containers/AboutPage.tsx:13
-#: src/containers/App.tsx:89
+#: src/containers/App.tsx:63
 msgid "About"
 msgstr "About"
 
@@ -237,7 +237,7 @@ msgstr "DOORS"
 msgid "Date"
 msgstr "Date"
 
-#: src/containers/App.tsx:82
+#: src/containers/App.tsx:97
 msgid "Demo Site"
 msgstr "Demo Site"
 
@@ -246,7 +246,7 @@ msgid "Disclaimer: The information in JustFix.nyc does not constitute legal advi
 msgstr "Disclaimer: The information in JustFix.nyc does not constitute legal advice and must not be used as a substitute for the advice of a lawyer qualified to give advice on legal issues pertaining to housing. We can help direct you to free legal services if necessary."
 
 #: src/components/LegalFooter.tsx:33
-#: src/containers/App.tsx:95
+#: src/containers/App.tsx:69
 msgid "Donate"
 msgstr "Donate"
 
@@ -363,7 +363,7 @@ msgstr "HUD Complaint Form 958"
 msgid "Head Officer"
 msgstr "Head Officer"
 
-#: src/containers/App.tsx:86
+#: src/containers/App.tsx:60
 msgid "Home"
 msgstr "Home"
 
@@ -372,7 +372,7 @@ msgstr "Home"
 msgid "How is this building associated to this portfolio?"
 msgstr "How is this building associated to this portfolio?"
 
-#: src/containers/App.tsx:92
+#: src/containers/App.tsx:66
 #: src/containers/HowToUsePage.tsx:13
 msgid "How to use"
 msgstr "How to use"
@@ -691,14 +691,15 @@ msgstr "Select a Dataset:"
 msgid "Send us a data request"
 msgstr "Send us a data request"
 
-#: src/containers/App.tsx:99
+#: src/containers/App.tsx:104
+#: src/containers/App.tsx:120
 msgid "Share"
 msgstr "Share"
 
 #: src/components/DetailView.tsx:231
 #: src/components/EngagementPanel.tsx:18
 #: src/components/PropertiesSummary.tsx:133
-#: src/containers/App.tsx:105
+#: src/containers/App.tsx:132
 #: src/containers/NotRegisteredPage.tsx:13
 msgid "Share this page with your neighbors"
 msgstr "Share this page with your neighbors"
@@ -982,7 +983,7 @@ msgstr "WINDOW GUARDS"
 msgid "WINDOWS"
 msgstr "WINDOWS"
 
-#: src/containers/App.tsx:74
+#: src/containers/App.tsx:89
 msgid "Warning! This site doesn't fully work on older versions of Safari. Try a <0>modern browser</0>."
 msgstr "Warning! This site doesn't fully work on older versions of Safari. Try a <0>modern browser</0>."
 
