@@ -20,6 +20,7 @@ import { withMachineInStateProps } from "state-machine";
 import { Accordion } from "./Accordion";
 import { UsefulLinks } from "./UsefulLinks";
 import _groupBy from "lodash/groupBy";
+import { HpdContactAddress, HpdFullContact } from "./APIDataTypes";
 
 type Props = withI18nProps &
   withMachineInStateProps<"portfolioFound"> & {
@@ -33,6 +34,8 @@ type State = {
   showCompareModal: boolean;
 };
 
+const NUM_COMPLAINT_TYPES_TO_SHOW = 3;
+
 const getTodaysDate = () => new Date();
 
 const SocialShareDetailView = () => (
@@ -45,6 +48,42 @@ const SocialShareDetailView = () => (
         t`I just looked up this building on Who Owns What, a free tool built by JustFix.nyc to make data on landlords and evictors more transparent to tenants. You might want to look up your building. Check it out here: ${url}`,
     }}
   />
+);
+
+/**
+ * A set of HpdFullContacts grouped by contact name. Will contain exactly one name but can contain
+ * one or many full contact entries (with title and address) that have the same matching name.
+ */
+type GroupedContact = [string, HpdFullContact[]];
+
+/**
+ * This comparison function, to be used inside the Array.sort() method,
+ * prioritizes head officers and owners when sorting an array of grouped HPD contacts
+ */
+const sortContactsByImportance = (contact: GroupedContact) =>
+  contact[1].find((o) => o.title === "HeadOfficer" || o.title.includes("Owner")) ? -1 : 0;
+
+const FormattedContactAddress: React.FC<{ address: HpdContactAddress }> = ({ address }) => {
+  const formattedAddress = Helpers.formatHpdContactAddress(address);
+  return (
+    <>
+      <br />
+      {formattedAddress.addressLine1}
+      <br />
+      {formattedAddress.addressLine2}
+    </>
+  );
+};
+
+const HpdContactCard: React.FC<{ contact: GroupedContact }> = ({ contact }) => (
+  <Accordion title={contact[0]}>
+    {contact[1].map((info, j) => (
+      <div className="landlord-contact-info" key={j}>
+        <span className="text-bold text-dark">{info.title}</span>
+        {info.address && <FormattedContactAddress address={info.address} />}
+      </div>
+    ))}
+  </Accordion>
 );
 
 const LearnMoreAccordion = () => (
@@ -62,14 +101,23 @@ const LearnMoreAccordion = () => (
             while “Site Managers” are part of management. That being said, these names are self
             reported, so they can be misleading.
           </p>
-          <p>Learn more about HPD registrations and how they power this tool on the About page.</p>
+          <p>
+            Learn more about HPD registrations and how they power this tool on the{" "}
+            <LocaleLink
+              to={createWhoOwnsWhatRoutePaths().about}
+              onClick={() => {
+                window.gtag("event", "about-page-overview-tab");
+              }}
+            >
+              About page
+            </LocaleLink>
+            .
+          </p>
         </Trans>
       </Accordion>
     )}
   </I18n>
 );
-
-const NUM_COMPLAINT_TYPES_TO_SHOW = 3;
 
 class DetailViewWithoutI18n extends Component<Props, State> {
   constructor(props: Props) {
@@ -207,36 +255,9 @@ class DetailViewWithoutI18n extends Component<Props, State> {
                             {
                               // Group all contact info by the name of each person/corporate entity
                               Object.entries(_groupBy(detailAddr.allcontacts, "value"))
-                                // Move head officers and owners to the top of the list
-                                .sort((contact) =>
-                                  contact[1].find(
-                                    (o) => o.title === "HeadOfficer" || o.title.includes("Owner")
-                                  )
-                                    ? -1
-                                    : 0
-                                )
+                                .sort(sortContactsByImportance)
                                 .map((contact, i) => (
-                                  <Accordion title={contact[0]} key={i}>
-                                    {contact[1].map((info, j) => (
-                                      <div className="landlord-contact-info" key={j}>
-                                        <span className="text-bold text-dark">{info.title}</span>
-                                        {info.address && (
-                                          <>
-                                            <br />
-                                            {
-                                              Helpers.formatHpdContactAddress(info.address)
-                                                .addressLine1
-                                            }
-                                            <br />
-                                            {
-                                              Helpers.formatHpdContactAddress(info.address)
-                                                .addressLine2
-                                            }
-                                          </>
-                                        )}
-                                      </div>
-                                    ))}
-                                  </Accordion>
+                                  <HpdContactCard contact={contact} key={i} />
                                 ))
                             }
                           </div>
