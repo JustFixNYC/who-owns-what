@@ -4,7 +4,7 @@
 import _pickBy from "lodash/pickBy";
 import { deepEqual as assertDeepEqual } from "assert";
 import { SupportedLocale } from "../i18n-base";
-import { SearchAddressWithoutBbl } from "components/APIDataTypes";
+import { HpdContactAddress, SearchAddressWithoutBbl } from "components/APIDataTypes";
 import { reportError } from "error-reporting";
 import { t } from "@lingui/macro";
 import { I18n } from "@lingui/core";
@@ -226,6 +226,24 @@ export default {
       }
     });
     return arr.join(" ");
+  },
+
+  formatHpdContactAddress(
+    address: HpdContactAddress
+  ): { addressLine1: string; addressLine2: string } {
+    const { housenumber, streetname, apartment, city, state, zip } = address;
+    const cityFormatted = city && state ? `${city},` : city;
+
+    const formatArrayAsString = (addrs: (string | null)[]) =>
+      addrs
+        .filter((x) => !!x)
+        .join(" ")
+        .toUpperCase();
+
+    return {
+      addressLine1: formatArrayAsString([housenumber, streetname, apartment]),
+      addressLine2: formatArrayAsString([cityFormatted, state, zip]),
+    };
   },
 
   getTranslationOfComplaintType(complaintType: string, i18n: I18n) {

@@ -34,7 +34,6 @@ def log_unsupported_request_args(request):
 
 
 def clean_addr_dict(addr):
-    print("UM", addr)
     return {
         **addr,
         "bin": str(addr['bin']),
