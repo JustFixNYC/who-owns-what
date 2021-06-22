@@ -220,7 +220,7 @@ msgstr "Dueño Corporativo"
 
 #: src/util/helpers.ts:72
 msgid "Corporation"
-msgstr ""
+msgstr "Corporación"
 
 #: src/components/UsefulLinks.tsx:33
 #: src/containers/NotRegisteredPage.tsx:155
