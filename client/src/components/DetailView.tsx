@@ -79,14 +79,20 @@ const FormattedContactAddress: React.FC<{ address: HpdContactAddress }> = ({ add
 };
 
 const HpdContactCard: React.FC<{ contact: GroupedContact }> = ({ contact }) => (
-  <Accordion title={contact[0]}>
-    {contact[1].map((info, j) => (
-      <div className="landlord-contact-info" key={j}>
-        <span className="text-bold text-dark">{info.title}</span>
-        {info.address && <FormattedContactAddress address={info.address} />}
-      </div>
-    ))}
-  </Accordion>
+  <I18n>
+    {({ i18n }) => (
+      <Accordion title={contact[0]}>
+        {contact[1].map((info, j) => (
+          <div className="landlord-contact-info" key={j}>
+            <span className="text-bold text-dark">
+              {Helpers.translateContactTitleAndIncludeEnglish(info.title, i18n)}
+            </span>
+            {info.address && <FormattedContactAddress address={info.address} />}
+          </div>
+        ))}
+      </Accordion>
+    )}
+  </I18n>
 );
 
 const LearnMoreAccordion = () => (
@@ -144,7 +150,8 @@ class DetailViewWithoutI18n extends Component<Props, State> {
 
   render() {
     const isMobile = Browser.isMobile();
-    const locale = (this.props.i18n.language as SupportedLocale) || "en";
+    const { i18n } = this.props;
+    const locale = (i18n.language as SupportedLocale) || "en";
     const { assocAddrs, detailAddr, searchAddr } = this.props.state.context.portfolioData;
 
     // Let's save some variables that will be helpful in rendering the front-end component
@@ -234,7 +241,7 @@ class DetailViewWithoutI18n extends Component<Props, State> {
                                 .slice(0, NUM_COMPLAINT_TYPES_TO_SHOW)
                                 .map((complaint, idx) => (
                                   <li key={idx}>
-                                    {Helpers.getTranslationOfComplaintType(
+                                    {Helpers.translateComplaintType(
                                       complaint.type,
                                       this.props.i18n
                                     )}{" "}
@@ -421,7 +428,7 @@ class DetailViewWithoutI18n extends Component<Props, State> {
                         <ul>
                           {userOwnernames.map((owner, idx) => (
                             <li key={idx}>
-                              {owner.title.split(/(?=[A-Z])/).join(" ")}: {owner.value}
+                              {Helpers.translateContactTitle(owner.title, i18n)}: {owner.value}
                             </li>
                           ))}
                         </ul>
@@ -435,7 +442,7 @@ class DetailViewWithoutI18n extends Component<Props, State> {
                         <ul>
                           {ownernames.map((owner, idx) => (
                             <li key={idx}>
-                              {owner.title.split(/(?=[A-Z])/).join(" ")}: {owner.value}
+                              {Helpers.translateContactTitle(owner.title, i18n)}: {owner.value}
                             </li>
                           ))}
                         </ul>
