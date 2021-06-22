@@ -11,7 +11,8 @@
 
   // Standard inline-link focus class:
   a:not(.btn):not(.image):focus,
-  summary:focus-visible {
+  summary:focus-visible,
+  button.dropdown-toggle:focus {
     box-shadow: none;
     outline: 2px solid $gray-dark;
     outline-offset: 2px;
@@ -45,6 +46,10 @@
   }
 
   .dropdown.dropdown-right {
+    // Remove default border on focus:
+    button.dropdown-toggle:focus {
+      border: none;
+    }
     .menu {
       padding: 0.25rem 0.5rem;
       font-size: 1.6rem;
