@@ -50,11 +50,7 @@ msgstr "... o descubre ejemplos de portafolios de edificios:"
 msgid "<0>While the legal owner of a building is often an “LLC” company, these names and business addresses registered with HPD offer a clearer picture of who the landlord really is.</0><1>People listed here as “Head Officer” or “Owner” usually have ties to building ownership, while “Site Managers” are part of management. That being said, these names are self reported, so they can be misleading.</1><2>Learn more about HPD registrations and how they power this tool on the <3>About page</3>.</2>"
 msgstr ""
 
-#: src/components/UsefulLinks.tsx:17
-msgid "ACRIS"
-msgstr ""
-
-#: src/components/UsefulLinks.tsx:45
+#: src/components/UsefulLinks.tsx:47
 #: src/containers/NotRegisteredPage.tsx:158
 #: src/containers/NychaPage.tsx:168
 msgid "ANHD DAP Portal"
@@ -210,12 +206,12 @@ msgstr "Cerrar leyenda"
 msgid "Complaints Issued"
 msgstr "Quejas Emitidas"
 
-#: src/components/UsefulLinks.tsx:31
+#: src/components/UsefulLinks.tsx:33
 #: src/containers/NotRegisteredPage.tsx:155
 msgid "DOB Building Profile"
 msgstr "Perfil de edificio en DOB"
 
-#: src/components/UsefulLinks.tsx:38
+#: src/components/UsefulLinks.tsx:40
 #: src/containers/NotRegisteredPage.tsx:150
 msgid "DOF Property Tax Bills"
 msgstr "Facturas de Impuestos del DOF"
@@ -328,7 +324,7 @@ msgstr "CALEFACCIÓN/AGUA CALIENTE"
 msgid "HEATING"
 msgstr "CALEFACCIÓN"
 
-#: src/components/UsefulLinks.tsx:24
+#: src/components/UsefulLinks.tsx:26
 msgid "HPD Building Profile"
 msgstr "Perfil de edificio del HPD"
 
@@ -917,6 +913,10 @@ msgstr ""
 #: src/components/PropertiesList.tsx:211
 msgid "View detail"
 msgstr "Ver detalles"
+
+#: src/components/UsefulLinks.tsx:13
+msgid "View documents on <0>ACRIS</0>"
+msgstr ""
 
 #: src/containers/NotRegisteredPage.tsx:147
 msgid "View documents on ACRIS"
