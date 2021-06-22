@@ -43,6 +43,9 @@ details.accordion {
     cursor: pointer;
     // Remove default marker
     list-style-type: none;
+    &::-webkit-details-marker {
+      display: none;
+    }
     .icon {
       width: 11.3px;
       margin-top: 2px;
