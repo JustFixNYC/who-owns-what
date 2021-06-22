@@ -147,13 +147,11 @@ msgstr "Built"
 
 #: src/components/DetailView.tsx:286
 #: src/components/DetailView.tsx:295
-#: src/components/OwnersTable.tsx:14
 msgid "Business Addresses"
 msgstr "Business Addresses"
 
 #: src/components/DetailView.tsx:266
 #: src/components/DetailView.tsx:275
-#: src/components/OwnersTable.tsx:20
 msgid "Business Entities"
 msgstr "Business Entities"
 
@@ -632,7 +630,6 @@ msgstr "PORTFOLIO: Your search address is associated with <0>{0}</0> {1, plural,
 
 #: src/components/DetailView.tsx:306
 #: src/components/DetailView.tsx:316
-#: src/components/OwnersTable.tsx:26
 msgid "People"
 msgstr "People"
 
