@@ -161,22 +161,4 @@
       box-shadow: inset -1px -1px 0px 0px #acb3c2, inset 2px 2px 0px 0px #fff;
     }
   }
-
-  .Indicators__feedback {
-    text-align: center;
-
-    @include for-tablet-landscape-up() {
-      padding-top: 4rem;
-    }
-
-    a {
-      color: #454d5d;
-      margin-left: 1.5rem;
-      text-decoration: underline;
-
-      &:hover {
-        text-decoration: none;
-      }
-    }
-  }
 }
