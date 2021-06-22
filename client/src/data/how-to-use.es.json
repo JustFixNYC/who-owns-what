@@ -72,7 +72,7 @@
               "id": "2Ivr4g7lSDnFz4D9lCfEUE",
               "type": "Asset",
               "createdAt": "2020-01-16T20:01:10.593Z",
-              "updatedAt": "2021-06-22T17:22:55.144Z",
+              "updatedAt": "2021-06-22T17:34:47.354Z",
               "environment": {
                 "sys": {
                   "id": "master",
@@ -80,19 +80,19 @@
                   "linkType": "Environment"
                 }
               },
-              "revision": 9,
+              "revision": 12,
               "locale": "es"
             },
             "fields": {
               "title": "WOW Cómo se Usa 1",
               "description": "WOW Cómo se Usa 1",
               "file": {
-                "url": "//images.ctfassets.net/lhtzm8rjj8y4/2Ivr4g7lSDnFz4D9lCfEUE/d5d5e37fb9aef245364ba8032173c09d/WOW_Spanish_How_to_use_01.png",
+                "url": "//images.ctfassets.net/lhtzm8rjj8y4/2Ivr4g7lSDnFz4D9lCfEUE/07e1635720937083b25da256106e8c00/WOW_Spanish_How_to_use_01.png",
                 "details": {
-                  "size": 717250,
+                  "size": 451842,
                   "image": {
-                    "width": 1300,
-                    "height": 850
+                    "width": 1000,
+                    "height": 654
                   }
                 },
                 "fileName": "WOW Spanish How to use 01.png",
@@ -309,7 +309,7 @@
               "id": "5akoKd4rOoR15ticUArlUQ",
               "type": "Asset",
               "createdAt": "2020-01-16T20:01:10.590Z",
-              "updatedAt": "2021-06-22T17:23:43.471Z",
+              "updatedAt": "2021-06-22T17:35:31.548Z",
               "environment": {
                 "sys": {
                   "id": "master",
@@ -317,19 +317,19 @@
                   "linkType": "Environment"
                 }
               },
-              "revision": 4,
+              "revision": 5,
               "locale": "es"
             },
             "fields": {
               "title": "WOW Cómo se Usa 2",
               "description": "WOW Cómo se Usa 2",
               "file": {
-                "url": "//images.ctfassets.net/lhtzm8rjj8y4/5akoKd4rOoR15ticUArlUQ/58381185cb73bfe1df209cf706139d48/WOW_Spanish_How_to_use_02.png",
+                "url": "//images.ctfassets.net/lhtzm8rjj8y4/5akoKd4rOoR15ticUArlUQ/cb99cc7c01ebcdd231a254573c667435/WOW_Spanish_How_to_use_02.png",
                 "details": {
-                  "size": 712215,
+                  "size": 449038,
                   "image": {
-                    "width": 1300,
-                    "height": 850
+                    "width": 1000,
+                    "height": 654
                   }
                 },
                 "fileName": "WOW Spanish How to use 02.png",
@@ -482,7 +482,7 @@
               "id": "5DWchgwSQVt35d2F7Gepx3",
               "type": "Asset",
               "createdAt": "2020-01-16T20:01:10.599Z",
-              "updatedAt": "2021-06-22T17:24:52.580Z",
+              "updatedAt": "2021-06-22T17:35:54.827Z",
               "environment": {
                 "sys": {
                   "id": "master",
@@ -490,19 +490,19 @@
                   "linkType": "Environment"
                 }
               },
-              "revision": 4,
+              "revision": 5,
               "locale": "es"
             },
             "fields": {
               "title": "WOW Cómo se Usa 3",
               "description": "WOW Cómo se Usa 3",
               "file": {
-                "url": "//images.ctfassets.net/lhtzm8rjj8y4/5DWchgwSQVt35d2F7Gepx3/02806ad2008edb5e9e17b4a84063b627/WOW_Spanish_How_to_use_03.png",
+                "url": "//images.ctfassets.net/lhtzm8rjj8y4/5DWchgwSQVt35d2F7Gepx3/a21e5bb1656ef7b9cb6f5adc054deca5/WOW_Spanish_How_to_use_03.png",
                 "details": {
-                  "size": 1007250,
+                  "size": 447597,
                   "image": {
-                    "width": 1509,
-                    "height": 987
+                    "width": 1000,
+                    "height": 654
                   }
                 },
                 "fileName": "WOW Spanish How to use 03.png",

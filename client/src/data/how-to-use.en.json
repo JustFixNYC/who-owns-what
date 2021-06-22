@@ -81,7 +81,7 @@
               "id": "2Ivr4g7lSDnFz4D9lCfEUE",
               "type": "Asset",
               "createdAt": "2020-01-16T20:01:10.593Z",
-              "updatedAt": "2021-06-22T17:22:55.144Z",
+              "updatedAt": "2021-06-22T17:34:47.354Z",
               "environment": {
                 "sys": {
                   "id": "master",
@@ -89,19 +89,19 @@
                   "linkType": "Environment"
                 }
               },
-              "revision": 9,
+              "revision": 12,
               "locale": "en"
             },
             "fields": {
               "title": "WOW How to Use Visual 1",
               "description": "WOW How to Use Visual 1",
               "file": {
-                "url": "//images.ctfassets.net/lhtzm8rjj8y4/2Ivr4g7lSDnFz4D9lCfEUE/5076be574ddaeaf2c64d11f10d403455/WOW_English_How_to_use_01.png",
+                "url": "//images.ctfassets.net/lhtzm8rjj8y4/2Ivr4g7lSDnFz4D9lCfEUE/9e0665193005bc2be416870e1812ef2f/WOW_English_How_to_use_01.png",
                 "details": {
-                  "size": 685068,
+                  "size": 432598,
                   "image": {
-                    "width": 1300,
-                    "height": 850
+                    "width": 1000,
+                    "height": 654
                   }
                 },
                 "fileName": "WOW English How to use 01.png",
@@ -328,7 +328,7 @@
               "id": "5akoKd4rOoR15ticUArlUQ",
               "type": "Asset",
               "createdAt": "2020-01-16T20:01:10.590Z",
-              "updatedAt": "2021-06-22T17:23:43.471Z",
+              "updatedAt": "2021-06-22T17:35:31.548Z",
               "environment": {
                 "sys": {
                   "id": "master",
@@ -336,19 +336,19 @@
                   "linkType": "Environment"
                 }
               },
-              "revision": 4,
+              "revision": 5,
               "locale": "en"
             },
             "fields": {
               "title": "WOW How to Use Visual 2",
               "description": "WOW How to Use Visual 2",
               "file": {
-                "url": "//images.ctfassets.net/lhtzm8rjj8y4/5akoKd4rOoR15ticUArlUQ/7b76a50dbcbdbd03a6513cdbf251e800/WOW_English_How_to_use_02.png",
+                "url": "//images.ctfassets.net/lhtzm8rjj8y4/5akoKd4rOoR15ticUArlUQ/28a335de5a6b17a6ee7fb676d460ee19/WOW_English_How_to_use_02.png",
                 "details": {
-                  "size": 680637,
+                  "size": 429170,
                   "image": {
-                    "width": 1300,
-                    "height": 850
+                    "width": 1000,
+                    "height": 654
                   }
                 },
                 "fileName": "WOW English How to use 02.png",
@@ -521,7 +521,7 @@
               "id": "5DWchgwSQVt35d2F7Gepx3",
               "type": "Asset",
               "createdAt": "2020-01-16T20:01:10.599Z",
-              "updatedAt": "2021-06-22T17:24:52.580Z",
+              "updatedAt": "2021-06-22T17:35:54.827Z",
               "environment": {
                 "sys": {
                   "id": "master",
@@ -529,19 +529,19 @@
                   "linkType": "Environment"
                 }
               },
-              "revision": 4,
+              "revision": 5,
               "locale": "en"
             },
             "fields": {
               "title": "WOW How to Use Visual 3",
               "description": "WOW How to Use Visual 3",
               "file": {
-                "url": "//images.ctfassets.net/lhtzm8rjj8y4/5DWchgwSQVt35d2F7Gepx3/8b7b3c19da416a184b881fb003bfac5d/WOW_English_How_to_use_03.png",
+                "url": "//images.ctfassets.net/lhtzm8rjj8y4/5DWchgwSQVt35d2F7Gepx3/68ca78bc1b3fdbd2def982e4fd1b3267/WOW_English_How_to_use_03.png",
                 "details": {
-                  "size": 970675,
+                  "size": 429180,
                   "image": {
-                    "width": 1509,
-                    "height": 987
+                    "width": 1000,
+                    "height": 654
                   }
                 },
                 "fileName": "WOW English How to use 03.png",
