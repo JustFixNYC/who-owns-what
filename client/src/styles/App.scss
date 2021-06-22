@@ -75,10 +75,12 @@
 
   .label.label-warning {
     color: $dark;
-    margin-top: 0.75rem;
-    @include for-tablet-portrait-up {
-      transform: rotate(-4deg);
-      margin-top: 0rem;
+    transform: rotate(-4deg);
+    margin-top: 0rem;
+    height: min-content;
+    @include for-phone-only {
+      font-size: 1rem;
+      width: min-content;
     }
   }
 
