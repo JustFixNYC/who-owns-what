@@ -230,6 +230,12 @@
             display: none;
           }
 
+          // Do not show expandable "Learn More" button on IE11
+          // https://stackoverflow.com/questions/43528940/how-to-detect-ie-and-edge-browsers-in-css
+          @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+            display: none;
+          }
+
           div {
             margin: 0;
             padding: 0 0.8rem;
