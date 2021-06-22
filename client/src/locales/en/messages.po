@@ -105,11 +105,11 @@ msgid "BELL/BUZZER/INTERCOM"
 msgstr "BELL/BUZZER/INTERCOM"
 
 #: src/components/DetailView.tsx:130
-#: src/components/Indicators.tsx:145
+#: src/components/Indicators.tsx:144
 msgid "BUILDING:"
 msgstr "BUILDING:"
 
-#: src/components/Indicators.tsx:150
+#: src/components/Indicators.tsx:149
 msgid "Back to Overview"
 msgstr "Back to Overview"
 
@@ -359,11 +359,6 @@ msgstr "HPD Violations occur when an official City Inspector finds the condition
 msgid "HUD Complaint Form 958"
 msgstr "HUD Complaint Form 958"
 
-#: src/components/Indicators.tsx:222
-#: src/components/Indicators.tsx:246
-msgid "Have thoughts about this page?"
-msgstr "Have thoughts about this page?"
-
 #: src/util/helpers.ts:63
 msgid "Head Officer"
 msgstr "Head Officer"
@@ -476,7 +471,7 @@ msgstr "Lessee"
 msgid "Link to Deed"
 msgstr "Link to Deed"
 
-#: src/components/Indicators.tsx:120
+#: src/components/Indicators.tsx:119
 #: src/components/PropertiesMap.tsx:156
 #: src/components/PropertiesSummary.tsx:62
 #: src/containers/AddressPage.tsx:165
@@ -517,7 +512,7 @@ msgstr "May be issued official Orders"
 msgid "Methodology"
 msgstr "Methodology"
 
-#: src/components/Indicators.tsx:174
+#: src/components/Indicators.tsx:173
 msgid "Month"
 msgstr "Month"
 
@@ -654,7 +649,7 @@ msgstr "Privacy policy"
 msgid "Public Housing Development"
 msgstr "Public Housing Development"
 
-#: src/components/Indicators.tsx:182
+#: src/components/Indicators.tsx:181
 msgid "Quarter"
 msgstr "Quarter"
 
@@ -688,18 +683,13 @@ msgstr "STAIRS"
 msgid "Search for a different address"
 msgstr "Search for a different address"
 
-#: src/components/Indicators.tsx:157
+#: src/components/Indicators.tsx:156
 msgid "Select a Dataset:"
 msgstr "Select a Dataset:"
 
 #: src/components/PropertiesSummary.tsx:36
 msgid "Send us a data request"
 msgstr "Send us a data request"
-
-#: src/components/Indicators.tsx:225
-#: src/components/Indicators.tsx:249
-msgid "Send us feedback!"
-msgstr "Send us feedback!"
 
 #: src/containers/App.tsx:99
 msgid "Share"
@@ -937,7 +927,7 @@ msgstr "Useful links"
 msgid "VENTILATION SYSTEM"
 msgstr "VENTILATION SYSTEM"
 
-#: src/components/Indicators.tsx:166
+#: src/components/Indicators.tsx:165
 msgid "View by:"
 msgstr "View by:"
 
@@ -1000,7 +990,7 @@ msgstr "Warning! This site doesn't fully work on older versions of Safari. Try a
 msgid "We compare your search address with a database of over 200k buildings to identify a landlord or management company's portfolio. To learn more, check out <0>our methodology</0>."
 msgstr "We compare your search address with a database of over 200k buildings to identify a landlord or management company's portfolio. To learn more, check out <0>our methodology</0>."
 
-#: src/components/Indicators.tsx:234
+#: src/components/Indicators.tsx:224
 msgid "What are {0}?"
 msgstr "What are {0}?"
 
@@ -1031,7 +1021,7 @@ msgstr "Who’s responsible for issues in your apartment & building? #WhoOwnsWha
 msgid "Who’s the landlord of this building?"
 msgstr "Who’s the landlord of this building?"
 
-#: src/components/Indicators.tsx:190
+#: src/components/Indicators.tsx:189
 msgid "Year"
 msgstr "Year"
 
