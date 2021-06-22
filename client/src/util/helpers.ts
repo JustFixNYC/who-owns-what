@@ -90,8 +90,7 @@ const createTranslationFunctionFromMap = (
   if (!translatedType) {
     reportError(`The ${description} "${textToTranslate}" isn't internationalized`);
     return textToTranslate;
-  } else
-    return localeOverride ? i18n.use(localeOverride)._(translatedType) : i18n._(translatedType);
+  } else return i18n.use(localeOverride || i18n.language)._(translatedType);
 };
 
 const translateComplaintType = createTranslationFunctionFromMap(
@@ -287,6 +286,15 @@ export default {
 
   translateComplaintType,
   translateContactTitle,
+
+  /**
+   * Translates a HPD Contact title into a target language, and if the target language
+   * isn't English, includes the English translation as well alongside it.
+   *
+   * For example, this function takes the title `HeadOfficer`, and spits out:
+   * - 'Head Officer' if the target language is English
+   * - 'Oficial principal ("Head Officer" en inglés)"' if the target language is Spanish
+   */
   translateContactTitleAndIncludeEnglish(textToTranslate: string, i18n: I18n) {
     const translation = translateContactTitle(textToTranslate, i18n);
     if (i18n.language === "en") return translation;
