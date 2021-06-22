@@ -88,16 +88,16 @@ const WhoOwnsWhatRoutes: React.FC<{}> = () => {
 const getMainNavLinks = () => {
   const paths = createWhoOwnsWhatRoutePaths();
   return [
-    <LocaleNavLink exact to={paths.home}>
+    <LocaleNavLink exact to={paths.home} key={1}>
       <Trans>Home</Trans>
     </LocaleNavLink>,
-    <LocaleNavLink to={paths.about}>
+    <LocaleNavLink to={paths.about} key={2}>
       <Trans>About</Trans>
     </LocaleNavLink>,
-    <LocaleNavLink to={paths.howToUse}>
+    <LocaleNavLink to={paths.howToUse} key={3}>
       <Trans>How to use</Trans>
     </LocaleNavLink>,
-    <a href="https://www.justfix.nyc/donate">
+    <a href="https://www.justfix.nyc/donate" key={4}>
       <Trans>Donate</Trans>
     </a>,
   ];
@@ -154,6 +154,7 @@ const App = () => {
 
                 <div className="dropdown dropdown-right show-lg">
                   <button
+                    tabIndex={0}
                     className={
                       "btn btn-link dropdown-toggle m-2" + (isDropdownVisible ? " active" : "")
                     }
@@ -161,7 +162,10 @@ const App = () => {
                   >
                     <i className={"icon " + (isDropdownVisible ? "icon-cross" : "icon-menu")}></i>
                   </button>
-                  <ul className={"menu menu-reverse " + (isDropdownVisible ? "d-block" : "d-none")}>
+                  <ul
+                    onClick={() => toggleDropdown()}
+                    className={"menu menu-reverse " + (isDropdownVisible ? "d-block" : "d-none")}
+                  >
                     {getMainNavLinks().map((link, i) => (
                       <li className="menu-item" key={i}>
                         {link}
