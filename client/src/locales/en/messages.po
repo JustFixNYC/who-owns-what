@@ -17,15 +17,15 @@ msgstr ""
 msgid "#WhoOwnsWhat via @JustFixNYC"
 msgstr "#WhoOwnsWhat via @JustFixNYC"
 
-#: src/components/DetailView.tsx:203
+#: src/components/DetailView.tsx:204
 msgid "(as part of a group sale)"
 msgstr "(as part of a group sale)"
 
-#: src/components/DetailView.tsx:185
+#: src/components/DetailView.tsx:186
 msgid "(expired {formattedRegEndDate})"
 msgstr "(expired {formattedRegEndDate})"
 
-#: src/components/DetailView.tsx:188
+#: src/components/DetailView.tsx:189
 msgid "(expires {formattedRegEndDate})"
 msgstr "(expires {formattedRegEndDate})"
 
@@ -42,8 +42,8 @@ msgid "... or view some sample portfolios:"
 msgstr "... or view some sample portfolios:"
 
 #: src/components/DetailView.tsx:50
-msgid "<0>While the legal owner of a building is often an “LLC” company, these names and business addresses registered with HPD offer a clearer picture of who the landlord really is.</0><1>People listed here as “Head Officer” or “Owner” usually have ties to building ownership, while “Site Managers” are part of management. That being said, these names are self reported, so they can be misleading.</1><2>Learn more about HPD registrations and how they power this tool on the <3>About page</3>.</2>"
-msgstr "<0>While the legal owner of a building is often an “LLC” company, these names and business addresses registered with HPD offer a clearer picture of who the landlord really is.</0><1>People listed here as “Head Officer” or “Owner” usually have ties to building ownership, while “Site Managers” are part of management. That being said, these names are self reported, so they can be misleading.</1><2>Learn more about HPD registrations and how they power this tool on the <3>About page</3>.</2>"
+msgid "<0>While the legal owner of a building is often a company (usually called an “LLC”), these names and business addresses registered with HPD offer a clearer picture of who the landlord really is.</0><1>People listed here as “Head Officer” or “Owner” usually have ties to building ownership, while “Site Managers” are part of management. That being said, these names are self reported by the landlord, so they can be misleading.</1><2>Learn more about HPD registrations and how this information powers this tool on the <3>About page</3>.</2>"
+msgstr "<0>While the legal owner of a building is often a company (usually called an “LLC”), these names and business addresses registered with HPD offer a clearer picture of who the landlord really is.</0><1>People listed here as “Head Officer” or “Owner” usually have ties to building ownership, while “Site Managers” are part of management. That being said, these names are self reported by the landlord, so they can be misleading.</1><2>Learn more about HPD registrations and how this information powers this tool on the <3>About page</3>.</2>"
 
 #: src/components/UsefulLinks.tsx:47
 #: src/containers/NotRegisteredPage.tsx:158
@@ -84,7 +84,7 @@ msgstr "All the public info on your landlord"
 msgid "Amount"
 msgstr "Amount"
 
-#: src/components/DetailView.tsx:216
+#: src/components/DetailView.tsx:217
 msgid "Are you having issues in this building?"
 msgstr "Are you having issues in this building?"
 
@@ -96,7 +96,7 @@ msgstr "Are you having issues in this development?"
 msgid "BELL/BUZZER/INTERCOM"
 msgstr "BELL/BUZZER/INTERCOM"
 
-#: src/components/DetailView.tsx:124
+#: src/components/DetailView.tsx:125
 #: src/components/Indicators.tsx:145
 msgid "BUILDING:"
 msgstr "BUILDING:"
@@ -137,14 +137,14 @@ msgstr "Buildings without valid property registration are subject to the followi
 msgid "Built"
 msgstr "Built"
 
-#: src/components/DetailView.tsx:280
-#: src/components/DetailView.tsx:289
+#: src/components/DetailView.tsx:281
+#: src/components/DetailView.tsx:290
 #: src/components/OwnersTable.tsx:14
 msgid "Business Addresses"
 msgstr "Business Addresses"
 
-#: src/components/DetailView.tsx:260
-#: src/components/DetailView.tsx:269
+#: src/components/DetailView.tsx:261
+#: src/components/DetailView.tsx:270
 #: src/components/OwnersTable.tsx:20
 msgid "Business Entities"
 msgstr "Business Entities"
@@ -354,8 +354,8 @@ msgstr "Have thoughts about this page?"
 msgid "Home"
 msgstr "Home"
 
-#: src/components/DetailView.tsx:130
-#: src/components/DetailView.tsx:235
+#: src/components/DetailView.tsx:131
+#: src/components/DetailView.tsx:236
 msgid "How is this building associated to this portfolio?"
 msgstr "How is this building associated to this portfolio?"
 
@@ -425,11 +425,11 @@ msgstr "Last Sale"
 msgid "Last Sale Unknown"
 msgstr "Last Sale Unknown"
 
-#: src/components/DetailView.tsx:180
+#: src/components/DetailView.tsx:181
 msgid "Last registered:"
 msgstr "Last registered:"
 
-#: src/components/DetailView.tsx:193
+#: src/components/DetailView.tsx:194
 msgid "Last sold:"
 msgstr "Last sold:"
 
@@ -491,7 +491,7 @@ msgstr "Methodology"
 msgid "Month"
 msgstr "Month"
 
-#: src/components/DetailView.tsx:147
+#: src/components/DetailView.tsx:148
 msgid "Most Common 311 Complaints, Last 3 Years"
 msgstr "Most Common 311 Complaints, Last 3 Years"
 
@@ -540,7 +540,7 @@ msgstr "No registration found!"
 msgid "Non-Emergency"
 msgstr "Non-Emergency"
 
-#: src/components/DetailView.tsx:155
+#: src/components/DetailView.tsx:156
 msgid "None"
 msgstr "None"
 
@@ -598,8 +598,8 @@ msgstr "PLUMBING"
 msgid "PORTFOLIO: Your search address is associated with <0>{0}</0> {1, plural, one {building} other {buildings}}"
 msgstr "PORTFOLIO: Your search address is associated with <0>{0}</0> {1, plural, one {building} other {buildings}}"
 
-#: src/components/DetailView.tsx:300
-#: src/components/DetailView.tsx:310
+#: src/components/DetailView.tsx:301
+#: src/components/DetailView.tsx:311
 #: src/components/OwnersTable.tsx:26
 msgid "People"
 msgstr "People"
@@ -672,7 +672,7 @@ msgstr "Send us feedback!"
 msgid "Share"
 msgstr "Share"
 
-#: src/components/DetailView.tsx:225
+#: src/components/DetailView.tsx:226
 #: src/components/EngagementPanel.tsx:18
 #: src/components/PropertiesSummary.tsx:133
 #: src/containers/App.tsx:105
@@ -720,7 +720,7 @@ msgstr "Summary"
 msgid "TENANT HARASSMENT"
 msgstr "TENANT HARASSMENT"
 
-#: src/components/DetailView.tsx:219
+#: src/components/DetailView.tsx:220
 #: src/containers/NychaPage.tsx:179
 msgid "Take action on JustFix.nyc!"
 msgstr "Take action on JustFix.nyc!"
@@ -900,7 +900,7 @@ msgstr "VENTILATION SYSTEM"
 msgid "View by:"
 msgstr "View by:"
 
-#: src/components/DetailView.tsx:141
+#: src/components/DetailView.tsx:142
 msgid "View data over time ↗︎"
 msgstr "View data over time ↗︎"
 
@@ -927,7 +927,7 @@ msgstr "View legend"
 msgid "View portfolio"
 msgstr "View portfolio"
 
-#: src/components/DetailView.tsx:116
+#: src/components/DetailView.tsx:117
 msgid "View portfolio map"
 msgstr "View portfolio map"
 
@@ -955,7 +955,7 @@ msgstr "WINDOWS"
 msgid "Warning! This site doesn't fully work on older versions of Safari. Try a <0>modern browser</0>."
 msgstr "Warning! This site doesn't fully work on older versions of Safari. Try a <0>modern browser</0>."
 
-#: src/components/DetailView.tsx:237
+#: src/components/DetailView.tsx:238
 msgid "We compare your search address with a database of over 200k buildings to identify a landlord or management company's portfolio. To learn more, check out <0>our methodology</0>."
 msgstr "We compare your search address with a database of over 200k buildings to identify a landlord or management company's portfolio. To learn more, check out <0>our methodology</0>."
 
@@ -986,7 +986,7 @@ msgstr "Who owns what in nyc?"
 msgid "Who’s responsible for issues in your apartment & building? #WhoOwnsWhat helps you research NYC property owners using public, open data. A free tool built by @JustFixNYC, it works on any device with an internet connection! Search your address here:"
 msgstr "Who’s responsible for issues in your apartment & building? #WhoOwnsWhat helps you research NYC property owners using public, open data. A free tool built by @JustFixNYC, it works on any device with an internet connection! Search your address here:"
 
-#: src/components/DetailView.tsx:162
+#: src/components/DetailView.tsx:163
 msgid "Who’s the landlord of this building?"
 msgstr "Who’s the landlord of this building?"
 
@@ -1018,7 +1018,7 @@ msgstr "and"
 msgid "associated building"
 msgstr "associated building"
 
-#: src/components/DetailView.tsx:197
+#: src/components/DetailView.tsx:198
 msgid "for ${0}"
 msgstr "for ${0}"
 
