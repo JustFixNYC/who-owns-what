@@ -168,3 +168,37 @@ describe("formatStreetNameForHpdLink()", () => {
     expect(helpers.formatStreetNameForHpdLink("")).toBe("");
   });
 });
+
+describe("formatHpdContactAddress(), ()", () => {
+  it("works with fully populated addresses", () => {
+    expect(
+      helpers.formatHpdContactAddress({
+        zip: "11205",
+        city: "Brooklyn",
+        state: "NY",
+        apartment: "d",
+        streetname: "BOOP STREET",
+        housenumber: "1",
+      })
+    ).toStrictEqual({
+      addressLine1: "1 BOOP STREET D",
+      addressLine2: "BROOKLYN, NY 11205",
+    });
+  });
+
+  it("works with addresses with missing parts", () => {
+    expect(
+      helpers.formatHpdContactAddress({
+        zip: "11205",
+        city: null,
+        state: null,
+        apartment: null,
+        streetname: "BOOP STREET",
+        housenumber: "1",
+      })
+    ).toStrictEqual({
+      addressLine1: "1 BOOP STREET",
+      addressLine2: "11205",
+    });
+  });
+});

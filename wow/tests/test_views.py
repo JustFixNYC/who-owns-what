@@ -127,11 +127,14 @@ class TestAddressExport(ApiTest):
 
 class TestFixupAddrForCsv:
     def test_it_works_when_ownernames_is_none(self):
-        addr: Dict[str, Any] = {'ownernames': None, 'recentcomplaintsbytype': []}
+        addr: Dict[str, Any] = {
+            'ownernames': None, 'recentcomplaintsbytype': [], 'allcontacts': None
+        }
         _fixup_addr_for_csv(addr)
         assert addr == {
             'ownernames': '',
             'recentcomplaintsbytype': '',
+            'allcontacts': ''
         }
 
 

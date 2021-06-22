@@ -125,6 +125,7 @@ def _fixup_addr_for_csv(addr: Dict[str, Any]):
     addr['recentcomplaintsbytype'] = csvutil.stringify_complaints(
         addr['recentcomplaintsbytype']
     )
+    addr['allcontacts'] = csvutil.stringify_full_contacts(addr['allcontacts'] or [])
     csvutil.stringify_lists(addr)
 
 

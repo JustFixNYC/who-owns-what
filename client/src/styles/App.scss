@@ -10,7 +10,8 @@
   }
 
   // Standard inline-link focus class:
-  a:not(.btn):not(.image):focus {
+  a:not(.btn):not(.image):focus,
+  summary:focus-visible {
     box-shadow: none;
     outline: 2px solid $gray-dark;
     outline-offset: 2px;
