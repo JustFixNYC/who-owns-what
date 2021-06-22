@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2021-06-22 16:21\n"
+"PO-Revision-Date: 2021-06-22 16:22\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -152,13 +152,11 @@ msgstr "Construido"
 
 #: src/components/DetailView.tsx:286
 #: src/components/DetailView.tsx:295
-#: src/components/OwnersTable.tsx:14
 msgid "Business Addresses"
 msgstr "Dirección Comercial"
 
 #: src/components/DetailView.tsx:266
 #: src/components/DetailView.tsx:275
-#: src/components/OwnersTable.tsx:20
 msgid "Business Entities"
 msgstr "Entidades Comerciales"
 
@@ -220,7 +218,7 @@ msgstr "Dueño Corporativo"
 
 #: src/util/helpers.ts:72
 msgid "Corporation"
-msgstr ""
+msgstr "Corporación"
 
 #: src/components/UsefulLinks.tsx:33
 #: src/containers/NotRegisteredPage.tsx:155
@@ -641,7 +639,6 @@ msgstr "PORTAFOLIO DE EDIFICIOS: La dirección que has buscado está asociada co
 
 #: src/components/DetailView.tsx:306
 #: src/components/DetailView.tsx:316
-#: src/components/OwnersTable.tsx:26
 msgid "People"
 msgstr "Personas"
 
