@@ -75,6 +75,7 @@ const hpdContactTitleTranslations = new Map([
   ["Lessee", t`Lessee`],
   ["Officer", t`Officer`],
   ["Shareholder", t`Shareholder`],
+  ["Corporation", t`Corporation`],
 ]);
 
 export const longDateOptions = { year: "numeric", month: "short", day: "numeric" };
