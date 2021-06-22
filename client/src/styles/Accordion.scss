@@ -1,0 +1,65 @@
+@import "_vars.scss";
+
+details.accordion {
+  padding: 1.6rem 1.6rem 1.6rem 0.8rem;
+  @include for-phone-only() {
+    padding-left: 0;
+    padding-right: 0;
+  }
+  &:not(:last-child) {
+    border-bottom: 1px solid #e5e5e5;
+  }
+
+  &[open] summary ~ * {
+    animation: sweep 0.5s ease-in-out;
+  }
+
+  &[open] summary {
+    .title-default {
+      display: none;
+    }
+    .icon {
+      transition: transform 0.2s linear;
+      transform: rotateX(180deg) translateY(-3px);
+    }
+  }
+
+  &:not([open]) summary {
+    .title-on-open {
+      display: none;
+    }
+    .icon {
+      transition: transform 0.2s linear;
+      transform: rotateX(0deg) translateY(0px);
+    }
+  }
+
+  > div {
+    margin-top: 1.8rem;
+  }
+
+  summary {
+    // Make question box feel clickable to user
+    cursor: pointer;
+    // Remove default marker
+    list-style-type: none;
+    &::-webkit-details-marker {
+      display: none;
+    }
+    .icon {
+      width: 11.3px;
+      margin-top: 2px;
+    }
+  }
+}
+
+@keyframes sweep {
+  0% {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
