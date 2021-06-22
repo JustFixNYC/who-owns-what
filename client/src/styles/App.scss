@@ -40,8 +40,17 @@
   align-items: center;
   position: relative;
 
-  @include for-desktop-down {
-    padding: 10px 15px;
+  @include for-phone-only {
+    padding: 10px 8px 8px;
+  }
+
+  .dropdown.dropdown-right {
+    .menu.d-block {
+      display: block;
+      .menu.d-none {
+        display: none;
+      }
+    }
   }
 
   .label.label-warning {
@@ -53,12 +62,6 @@
     }
   }
 
-  @include for-phone-only {
-    flex-direction: column;
-    justify-content: center;
-    padding: 10px 8px 8px;
-  }
-
   & > a,
   a:hover,
   a:focus {
@@ -66,13 +69,14 @@
   }
 
   & > a {
-    @include for-tablet-portrait-up {
-      display: block;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-    }
+    display: block;
+    position: absolute;
+    width: fit-content;
+    max-width: 75%;
+    text-align: center;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 
     h4 {
       margin-bottom: 0;
@@ -88,34 +92,17 @@
 
   nav {
     margin-left: auto;
-    display: flex;
     flex-wrap: wrap;
-    justify-content: flex-end;
+    text-align: end;
 
     @include for-desktop-down {
-      max-width: 240px;
-    }
-
-    @include for-tablet-landscape-down {
-      max-width: 140px;
-    }
-
-    @include for-phone-only {
-      margin-left: 0;
-      max-width: none;
-      width: 100%;
-      justify-content: center;
-      margin-top: 8px;
+      max-width: 200px;
     }
 
     a {
+      display: inline-block;
       margin-left: 10px;
       color: #454d5d;
-
-      @include for-phone-only {
-        margin-left: 7px;
-        margin-right: 7px;
-      }
 
       &.active {
         text-decoration: none;

@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { Trans, t } from "@lingui/macro";
 
@@ -9,7 +9,13 @@ import SocialShare from "../components/SocialShare";
 import Modal from "../components/Modal";
 
 // import top-level containers (i.e. pages)
-import { I18n, LocaleNavLink, LocaleLink as Link, LocaleSwitcher } from "../i18n";
+import {
+  I18n,
+  LocaleNavLink,
+  LocaleLink as Link,
+  LocaleSwitcher,
+  LocaleSwitcherWithFullLanguageName,
+} from "../i18n";
 import { withI18n, withI18nProps } from "@lingui/react";
 import { createWhoOwnsWhatRoutePaths } from "../routes";
 import { VersionUpgrader } from "./VersionUpgrader";
@@ -25,12 +31,6 @@ import PrivacyPolicyPage from "./PrivacyPolicyPage";
 import { DevPage } from "./DevPage";
 import { wowMachine } from "state-machine";
 import { NotFoundPage } from "./NotFoundPage";
-
-type Props = {};
-
-type State = {
-  showEngageModal: boolean;
-};
 
 const HomeLink = withI18n()((props: withI18nProps) => {
   const { i18n } = props;
@@ -85,48 +85,48 @@ const WhoOwnsWhatRoutes: React.FC<{}> = () => {
   );
 };
 
-export default class App extends Component<Props, State> {
-  constructor(props: Props) {
-    super(props);
+const App = () => {
+  const [isEngageModalVisible, setEngageModalVisibility] = useState(false);
+  const [isDropdownVisible, setDropdownVisibility] = useState(false);
 
-    this.state = {
-      showEngageModal: false,
-    };
-  }
+  const toggleDropdown = () => {
+    isDropdownVisible ? setDropdownVisibility(false) : setDropdownVisibility(true);
+  };
 
-  render() {
-    const isDemoSite = process.env.REACT_APP_DEMO_SITE === "1";
-    const version = process.env.REACT_APP_VERSION;
-    const warnAboutOldBrowser = process.env.REACT_APP_ENABLE_OLD_BROWSER_WARNING;
-    const paths = createWhoOwnsWhatRoutePaths();
-    return (
-      <Router>
-        <I18n>
-          <ScrollToTop>
-            {version && (
-              <VersionUpgrader
-                currentVersion={version}
-                latestVersionUrl="/version.txt"
-                checkIntervalSecs={300}
-              />
+  const isDemoSite = process.env.REACT_APP_DEMO_SITE === "1";
+  const version = process.env.REACT_APP_VERSION;
+  const warnAboutOldBrowser = process.env.REACT_APP_ENABLE_OLD_BROWSER_WARNING;
+  const paths = createWhoOwnsWhatRoutePaths();
+
+  return (
+    <Router>
+      <I18n>
+        <ScrollToTop>
+          {version && (
+            <VersionUpgrader
+              currentVersion={version}
+              latestVersionUrl="/version.txt"
+              checkIntervalSecs={300}
+            />
+          )}
+          <div className="App">
+            {warnAboutOldBrowser && (
+              <div className="App__warning old_safari_only">
+                <Trans render="h3">
+                  Warning! This site doesn't fully work on older versions of Safari. Try a{" "}
+                  <a href="http://outdatedbrowser.com/en">modern browser</a>.
+                </Trans>
+              </div>
             )}
-            <div className="App">
-              {warnAboutOldBrowser && (
-                <div className="App__warning old_safari_only">
-                  <Trans render="h3">
-                    Warning! This site doesn't fully work on older versions of Safari. Try a{" "}
-                    <a href="http://outdatedbrowser.com/en">modern browser</a>.
-                  </Trans>
-                </div>
+            <div className="App__header navbar">
+              <HomeLink />
+              {isDemoSite && (
+                <span className="label label-warning ml-2 text-uppercase">
+                  <Trans>Demo Site</Trans>
+                </span>
               )}
-              <div className="App__header">
-                <HomeLink />
-                {isDemoSite && (
-                  <span className="label label-warning ml-2 text-uppercase">
-                    <Trans>Demo Site</Trans>
-                  </span>
-                )}
-                <nav className="inline">
+              <nav className="inline">
+                <span className="hide-lg">
                   <LocaleNavLink exact to={paths.home}>
                     <Trans>Home</Trans>
                   </LocaleNavLink>
@@ -140,28 +140,73 @@ export default class App extends Component<Props, State> {
                     <Trans>Donate</Trans>
                   </a>
                   {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-                  <a href="#" onClick={() => this.setState({ showEngageModal: true })}>
+                  <a href="#" onClick={() => setEngageModalVisibility(true)}>
                     <Trans>Share</Trans>
                   </a>
                   <LocaleSwitcher />
-                </nav>
-                <Modal
-                  showModal={this.state.showEngageModal}
-                  onClose={() => this.setState({ showEngageModal: false })}
-                >
-                  <h5 className="first-header">
-                    <Trans>Share this page with your neighbors</Trans>
-                  </h5>
-                  <SocialShare location="share-modal" />
-                </Modal>
-              </div>
-              <div className="App__body">
-                <WhoOwnsWhatRoutes />
-              </div>
+                </span>
+
+                <div className="dropdown dropdown-right show-lg">
+                  <button
+                    className={
+                      "btn btn-link dropdown-toggle m-2" + (isDropdownVisible ? " active" : "")
+                    }
+                    onClick={() => toggleDropdown()}
+                  >
+                    <i className={"icon " + (isDropdownVisible ? "icon-cross" : "icon-menu")}></i>
+                  </button>
+                  <ul className={"menu menu-reverse " + (isDropdownVisible ? "d-block" : "d-none")}>
+                    <li className="menu-item">
+                      <LocaleNavLink exact to={paths.home}>
+                        <Trans>Home</Trans>
+                      </LocaleNavLink>
+                    </li>
+                    <li className="menu-item">
+                      <LocaleNavLink to={paths.about}>
+                        <Trans>About</Trans>
+                      </LocaleNavLink>
+                    </li>
+                    <li className="menu-item">
+                      <LocaleNavLink to={paths.howToUse}>
+                        <Trans>How to use</Trans>
+                      </LocaleNavLink>
+                    </li>
+                    <li className="menu-item">
+                      <a href="https://www.justfix.nyc/donate">
+                        <Trans>Donate</Trans>
+                      </a>
+                    </li>
+                    <li className="menu-item">
+                      {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+                      <a href="#" onClick={() => setEngageModalVisibility(true)}>
+                        <Trans>Share</Trans>
+                      </a>
+                    </li>
+                    <li className="menu-item">
+                      <LocaleSwitcherWithFullLanguageName />
+                    </li>
+                  </ul>
+                </div>
+              </nav>
+
+              <Modal
+                showModal={isEngageModalVisible}
+                onClose={() => setEngageModalVisibility(false)}
+              >
+                <h5 className="first-header">
+                  <Trans>Share this page with your neighbors</Trans>
+                </h5>
+                <SocialShare location="share-modal" />
+              </Modal>
             </div>
-          </ScrollToTop>
-        </I18n>
-      </Router>
-    );
-  }
-}
+            <div className="App__body">
+              <WhoOwnsWhatRoutes />
+            </div>
+          </div>
+        </ScrollToTop>
+      </I18n>
+    </Router>
+  );
+};
+
+export default App;
