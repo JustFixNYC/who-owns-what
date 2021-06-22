@@ -152,13 +152,11 @@ msgstr "Construido"
 
 #: src/components/DetailView.tsx:286
 #: src/components/DetailView.tsx:295
-#: src/components/OwnersTable.tsx:14
 msgid "Business Addresses"
 msgstr "Dirección Comercial"
 
 #: src/components/DetailView.tsx:266
 #: src/components/DetailView.tsx:275
-#: src/components/OwnersTable.tsx:20
 msgid "Business Entities"
 msgstr "Entidades Comerciales"
 
@@ -641,7 +639,6 @@ msgstr "PORTAFOLIO DE EDIFICIOS: La dirección que has buscado está asociada co
 
 #: src/components/DetailView.tsx:306
 #: src/components/DetailView.tsx:316
-#: src/components/OwnersTable.tsx:26
 msgid "People"
 msgstr "Personas (Encontrarás definiciones en español de los tipos de personas asociadas al edificio en la página \"Como se usa\".)"
 
