@@ -22,7 +22,7 @@ msgstr ""
 msgid "#WhoOwnsWhat via @JustFixNYC"
 msgstr "#QuiénEsElDueño por @JustFixNYC"
 
-#: src/util/helpers.ts:240
+#: src/util/helpers.ts:241
 msgid "(\"{textInEnglish}\" in English)"
 msgstr "(\"{textInEnglish}\" en inglés)"
 
@@ -217,6 +217,10 @@ msgstr "Quejas Emitidas"
 #: src/util/helpers.ts:64
 msgid "Corporate Owner"
 msgstr "Dueño Corporativo"
+
+#: src/util/helpers.ts:72
+msgid "Corporation"
+msgstr ""
 
 #: src/components/UsefulLinks.tsx:33
 #: src/containers/NotRegisteredPage.tsx:155
