@@ -22,15 +22,15 @@ msgstr ""
 msgid "#WhoOwnsWhat via @JustFixNYC"
 msgstr "#QuiénEsElDueño por @JustFixNYC"
 
-#: src/components/DetailView.tsx:203
+#: src/components/DetailView.tsx:204
 msgid "(as part of a group sale)"
 msgstr "(como parte de una venta en grupo)"
 
-#: src/components/DetailView.tsx:185
+#: src/components/DetailView.tsx:186
 msgid "(expired {formattedRegEndDate})"
 msgstr "(caducado {formattedRegEndDate})"
 
-#: src/components/DetailView.tsx:188
+#: src/components/DetailView.tsx:189
 msgid "(expires {formattedRegEndDate})"
 msgstr "(caduca {formattedRegEndDate})"
 
@@ -47,14 +47,10 @@ msgid "... or view some sample portfolios:"
 msgstr "... o descubre ejemplos de portafolios de edificios:"
 
 #: src/components/DetailView.tsx:50
-msgid "<0>While the legal owner of a building is often an “LLC” company, these names and business addresses registered with HPD offer a clearer picture of who the landlord really is.</0><1>People listed here as “Head Officer” or “Owner” usually have ties to building ownership, while “Site Managers” are part of management. That being said, these names are self reported, so they can be misleading.</1><2>Learn more about HPD registrations and how they power this tool on the <3>About page</3>.</2>"
+msgid "<0>While the legal owner of a building is often a company (usually called an “LLC”), these names and business addresses registered with HPD offer a clearer picture of who the landlord really is.</0><1>People listed here as “Head Officer” or “Owner” usually have ties to building ownership, while “Site Managers” are part of management. That being said, these names are self reported by the landlord, so they can be misleading.</1><2>Learn more about HPD registrations and how this information powers this tool on the <3>About page</3>.</2>"
 msgstr ""
 
-#: src/components/UsefulLinks.tsx:17
-msgid "ACRIS"
-msgstr ""
-
-#: src/components/UsefulLinks.tsx:45
+#: src/components/UsefulLinks.tsx:47
 #: src/containers/NotRegisteredPage.tsx:158
 #: src/containers/NychaPage.tsx:168
 msgid "ANHD DAP Portal"
@@ -93,7 +89,7 @@ msgstr "Toda la información pública sobre el dueño/a de tu edificio"
 msgid "Amount"
 msgstr "Importe"
 
-#: src/components/DetailView.tsx:216
+#: src/components/DetailView.tsx:217
 msgid "Are you having issues in this building?"
 msgstr "¿Tienes problemas en este edificio?"
 
@@ -105,7 +101,7 @@ msgstr "¿Tienes problemas en tu edificio?"
 msgid "BELL/BUZZER/INTERCOM"
 msgstr "TIMBRE/INTERCOMUNICADOR"
 
-#: src/components/DetailView.tsx:124
+#: src/components/DetailView.tsx:125
 #: src/components/Indicators.tsx:145
 msgid "BUILDING:"
 msgstr "EDIFICIO:"
@@ -146,14 +142,14 @@ msgstr "Edificios sin registro de propiedad válido están sujetos a las siguien
 msgid "Built"
 msgstr "Construido"
 
-#: src/components/DetailView.tsx:280
-#: src/components/DetailView.tsx:289
+#: src/components/DetailView.tsx:281
+#: src/components/DetailView.tsx:290
 #: src/components/OwnersTable.tsx:14
 msgid "Business Addresses"
 msgstr "Dirección Comercial"
 
-#: src/components/DetailView.tsx:260
-#: src/components/DetailView.tsx:269
+#: src/components/DetailView.tsx:261
+#: src/components/DetailView.tsx:270
 #: src/components/OwnersTable.tsx:20
 msgid "Business Entities"
 msgstr "Entidades Comerciales"
@@ -210,12 +206,12 @@ msgstr "Cerrar leyenda"
 msgid "Complaints Issued"
 msgstr "Quejas Emitidas"
 
-#: src/components/UsefulLinks.tsx:31
+#: src/components/UsefulLinks.tsx:33
 #: src/containers/NotRegisteredPage.tsx:155
 msgid "DOB Building Profile"
 msgstr "Perfil de edificio en DOB"
 
-#: src/components/UsefulLinks.tsx:38
+#: src/components/UsefulLinks.tsx:40
 #: src/containers/NotRegisteredPage.tsx:150
 msgid "DOF Property Tax Bills"
 msgstr "Facturas de Impuestos del DOF"
@@ -328,7 +324,7 @@ msgstr "CALEFACCIÓN/AGUA CALIENTE"
 msgid "HEATING"
 msgstr "CALEFACCIÓN"
 
-#: src/components/UsefulLinks.tsx:24
+#: src/components/UsefulLinks.tsx:26
 msgid "HPD Building Profile"
 msgstr "Perfil de edificio del HPD"
 
@@ -363,8 +359,8 @@ msgstr "¿Tienes ideas sobre esta página?"
 msgid "Home"
 msgstr "Inicio"
 
-#: src/components/DetailView.tsx:130
-#: src/components/DetailView.tsx:235
+#: src/components/DetailView.tsx:131
+#: src/components/DetailView.tsx:236
 msgid "How is this building associated to this portfolio?"
 msgstr "¿Cómo se asocia este edificio a este portafolio de edificios?"
 
@@ -434,11 +430,11 @@ msgstr "Última venta"
 msgid "Last Sale Unknown"
 msgstr "Última venta desconocida"
 
-#: src/components/DetailView.tsx:180
+#: src/components/DetailView.tsx:181
 msgid "Last registered:"
 msgstr "Registrado por última vez:"
 
-#: src/components/DetailView.tsx:193
+#: src/components/DetailView.tsx:194
 msgid "Last sold:"
 msgstr "Vendido por última vez:"
 
@@ -500,7 +496,7 @@ msgstr "Metodología"
 msgid "Month"
 msgstr "Mes"
 
-#: src/components/DetailView.tsx:147
+#: src/components/DetailView.tsx:148
 msgid "Most Common 311 Complaints, Last 3 Years"
 msgstr "Las quejas más comunes de 311, los últimos 3 años"
 
@@ -549,7 +545,7 @@ msgstr "¡No se ha encontrado nigún registro!"
 msgid "Non-Emergency"
 msgstr "No Emergencia"
 
-#: src/components/DetailView.tsx:155
+#: src/components/DetailView.tsx:156
 msgid "None"
 msgstr "Ninguna"
 
@@ -607,8 +603,8 @@ msgstr "PLOMERÍA"
 msgid "PORTFOLIO: Your search address is associated with <0>{0}</0> {1, plural, one {building} other {buildings}}"
 msgstr "PORTAFOLIO DE EDIFICIOS: La dirección que has buscado está asociada con <0>{0}</0> {1, plural, one {construyendo} other {edificios}}"
 
-#: src/components/DetailView.tsx:300
-#: src/components/DetailView.tsx:310
+#: src/components/DetailView.tsx:301
+#: src/components/DetailView.tsx:311
 #: src/components/OwnersTable.tsx:26
 msgid "People"
 msgstr "Personas (Encontrarás definiciones en español de los tipos de personas asociadas al edificio en la página \"Como se usa\".)"
@@ -681,7 +677,7 @@ msgstr "¡Comparte tu opinión con nosotros!"
 msgid "Share"
 msgstr "Compartir"
 
-#: src/components/DetailView.tsx:225
+#: src/components/DetailView.tsx:226
 #: src/components/EngagementPanel.tsx:18
 #: src/components/PropertiesSummary.tsx:133
 #: src/containers/App.tsx:105
@@ -729,7 +725,7 @@ msgstr "Resúmen"
 msgid "TENANT HARASSMENT"
 msgstr "ACOSO DE INQUILINO"
 
-#: src/components/DetailView.tsx:219
+#: src/components/DetailView.tsx:220
 #: src/containers/NychaPage.tsx:179
 msgid "Take action on JustFix.nyc!"
 msgstr "¡Toma acción en JustFix.nyc!"
@@ -909,7 +905,7 @@ msgstr "SISTEMA DE VENTILACIÓN"
 msgid "View by:"
 msgstr "Visualizar por:"
 
-#: src/components/DetailView.tsx:141
+#: src/components/DetailView.tsx:142
 msgid "View data over time ↗︎"
 msgstr ""
 
@@ -917,6 +913,10 @@ msgstr ""
 #: src/components/PropertiesList.tsx:211
 msgid "View detail"
 msgstr "Ver detalles"
+
+#: src/components/UsefulLinks.tsx:13
+msgid "View documents on <0>ACRIS</0>"
+msgstr ""
 
 #: src/containers/NotRegisteredPage.tsx:147
 msgid "View documents on ACRIS"
@@ -932,7 +932,7 @@ msgstr "Ver leyenda"
 msgid "View portfolio"
 msgstr "Ver portafolio de edificios"
 
-#: src/components/DetailView.tsx:116
+#: src/components/DetailView.tsx:117
 msgid "View portfolio map"
 msgstr "Ver mapa del portafolio de edificios"
 
@@ -960,7 +960,7 @@ msgstr "VENTANAS"
 msgid "Warning! This site doesn't fully work on older versions of Safari. Try a <0>modern browser</0>."
 msgstr "¡Atención! Este sitio no funciona completamente en versiones antiguas de Safari. Prueba un <0>navegador moderno</0>."
 
-#: src/components/DetailView.tsx:237
+#: src/components/DetailView.tsx:238
 msgid "We compare your search address with a database of over 200k buildings to identify a landlord or management company's portfolio. To learn more, check out <0>our methodology</0>."
 msgstr "Comparamos la dirección que buscaste con una base de datos de más de 200 mil edificios para identificar a un propietario o compañía de gestión. Para obtener más información, consulta <0>nuestra metodología</0>."
 
@@ -991,7 +991,7 @@ msgstr "¿Quién Es El Dueño en Nueva York?"
 msgid "Who’s responsible for issues in your apartment & building? #WhoOwnsWhat helps you research NYC property owners using public, open data. A free tool built by @JustFixNYC, it works on any device with an internet connection! Search your address here:"
 msgstr "¿Quién es responsable por los problemas en tu apartamento y edificio? #QuiénEsElDueño te ayuda investigar los dueños de edificios de NYC usando data pública y abierta. Un sitio web gratis construido por @JustFixNYC, ¡funciona en cualquier aparato con internet! Úsalo ahorita:"
 
-#: src/components/DetailView.tsx:162
+#: src/components/DetailView.tsx:163
 msgid "Who’s the landlord of this building?"
 msgstr ""
 
@@ -1023,7 +1023,7 @@ msgstr "y"
 msgid "associated building"
 msgstr "edificio asociado"
 
-#: src/components/DetailView.tsx:197
+#: src/components/DetailView.tsx:198
 msgid "for ${0}"
 msgstr "por ${0}"
 
