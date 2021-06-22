@@ -114,7 +114,6 @@ const App = () => {
   const isDemoSite = process.env.REACT_APP_DEMO_SITE === "1";
   const version = process.env.REACT_APP_VERSION;
   const warnAboutOldBrowser = process.env.REACT_APP_ENABLE_OLD_BROWSER_WARNING;
-  const paths = createWhoOwnsWhatRoutePaths();
 
   return (
     <Router>
