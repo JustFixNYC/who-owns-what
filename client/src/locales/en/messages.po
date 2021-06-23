@@ -237,7 +237,7 @@ msgstr "DOORS"
 msgid "Date"
 msgstr "Date"
 
-#: src/containers/App.tsx:97
+#: src/containers/App.tsx:99
 msgid "Demo Site"
 msgstr "Demo Site"
 
@@ -691,15 +691,15 @@ msgstr "Select a Dataset:"
 msgid "Send us a data request"
 msgstr "Send us a data request"
 
-#: src/containers/App.tsx:104
-#: src/containers/App.tsx:120
+#: src/containers/App.tsx:107
+#: src/containers/App.tsx:122
 msgid "Share"
 msgstr "Share"
 
 #: src/components/DetailView.tsx:231
 #: src/components/EngagementPanel.tsx:18
 #: src/components/PropertiesSummary.tsx:133
-#: src/containers/App.tsx:132
+#: src/containers/App.tsx:134
 #: src/containers/NotRegisteredPage.tsx:13
 msgid "Share this page with your neighbors"
 msgstr "Share this page with your neighbors"
@@ -983,7 +983,7 @@ msgstr "WINDOW GUARDS"
 msgid "WINDOWS"
 msgstr "WINDOWS"
 
-#: src/containers/App.tsx:89
+#: src/containers/App.tsx:90
 msgid "Warning! This site doesn't fully work on older versions of Safari. Try a <0>modern browser</0>."
 msgstr "Warning! This site doesn't fully work on older versions of Safari. Try a <0>modern browser</0>."
 
