@@ -14,7 +14,7 @@
     height: 100%;
     background-color: $dark;
     opacity: 0.6;
-    z-index: 100;
+    z-index: 10;
   }
 
   & > div {
@@ -57,7 +57,7 @@
     padding: 10px 8px 8px;
   }
   .dropdown.dropdown-right {
-    z-index: 200;
+    z-index: 20;
     // Remove default border on focus:
     button.dropdown-toggle:focus {
       border: none;
