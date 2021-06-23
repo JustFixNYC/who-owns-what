@@ -158,6 +158,8 @@ const App = () => {
                 <div className="dropdown dropdown-right show-lg">
                   <button
                     tabIndex={0}
+                    aria-label="menu"
+                    aria-expanded={isDropdownVisible}
                     className={
                       "btn btn-link dropdown-toggle m-2" + (isDropdownVisible ? " active" : "")
                     }
