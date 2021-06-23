@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { Trans, t } from "@lingui/macro";
+import FocusTrap from "focus-trap-react";
 
 import "styles/App.css";
 
@@ -155,38 +156,45 @@ const App = () => {
                   </a>
                   <LocaleSwitcher />
                 </span>
-                <div className="dropdown dropdown-right show-lg">
-                  <button
-                    tabIndex={0}
-                    aria-label="menu"
-                    aria-expanded={isDropdownVisible}
-                    className={
-                      "btn btn-link dropdown-toggle m-2" + (isDropdownVisible ? " active" : "")
-                    }
-                    onClick={() => toggleDropdown()}
-                  >
-                    <i className={"icon " + (isDropdownVisible ? "icon-cross" : "icon-menu")}></i>
-                  </button>
-                  <ul
-                    onClick={() => setDropdownVisibility(false)}
-                    className={"menu menu-reverse " + (isDropdownVisible ? "d-block" : "d-none")}
-                  >
-                    {getMainNavLinks().map((link, i) => (
-                      <li className="menu-item" key={i}>
-                        {link}
+                <FocusTrap
+                  active={isDropdownVisible}
+                  focusTrapOptions={{
+                    clickOutsideDeactivates: true,
+                    returnFocusOnDeactivate: false,
+                  }}
+                >
+                  <div className="dropdown dropdown-right show-lg">
+                    <button
+                      aria-label="menu"
+                      aria-expanded={isDropdownVisible}
+                      className={
+                        "btn btn-link dropdown-toggle m-2" + (isDropdownVisible ? " active" : "")
+                      }
+                      onClick={() => toggleDropdown()}
+                    >
+                      <i className={"icon " + (isDropdownVisible ? "icon-cross" : "icon-menu")}></i>
+                    </button>
+                    <ul
+                      onClick={() => setDropdownVisibility(false)}
+                      className={"menu menu-reverse " + (isDropdownVisible ? "d-block" : "d-none")}
+                    >
+                      {getMainNavLinks().map((link, i) => (
+                        <li className="menu-item" key={i}>
+                          {link}
+                        </li>
+                      ))}
+                      <li className="menu-item">
+                        {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+                        <a href="#" onClick={() => setEngageModalVisibility(true)}>
+                          <Trans>Share</Trans>
+                        </a>
                       </li>
-                    ))}
-                    <li className="menu-item">
-                      {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-                      <a href="#" onClick={() => setEngageModalVisibility(true)}>
-                        <Trans>Share</Trans>
-                      </a>
-                    </li>
-                    <li className="menu-item">
-                      <LocaleSwitcherWithFullLanguageName />
-                    </li>
-                  </ul>
-                </div>
+                      <li className="menu-item">
+                        <LocaleSwitcherWithFullLanguageName />
+                      </li>
+                    </ul>
+                  </div>
+                </FocusTrap>
               </nav>
 
               <Modal
