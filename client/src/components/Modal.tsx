@@ -41,7 +41,14 @@ const Modal = (props: ModalProps) => {
   };
 
   return (
-    <ReactModal isOpen={props.showModal} contentLabel="Modal" style={styles}>
+    <ReactModal
+      isOpen={props.showModal}
+      contentLabel="Modal"
+      style={styles}
+      onRequestClose={props.onClose}
+      shouldCloseOnOverlayClick={true}
+      shouldCloseOnEsc={true}
+    >
       <button className="ReactModal__Close btn btn-link" onClick={(e) => props.onClose(e)}>
         [ x ]
       </button>
