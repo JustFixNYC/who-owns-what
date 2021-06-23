@@ -18,11 +18,9 @@ details.accordion {
     .title-default {
       display: none;
     }
-    @include for-tablet-portrait-up {
-      .icon {
-        transition: transform 0.2s linear;
-        transform: scaleY(-1) translateY(-3px);
-      }
+    .icon {
+      transition: transform 0.2s linear;
+      transform: scaleY(-1) translateY(-3px);
     }
   }
 
@@ -30,11 +28,9 @@ details.accordion {
     .title-on-open {
       display: none;
     }
-    @include for-tablet-portrait-up {
-      .icon {
-        transition: transform 0.2s linear;
-        transform: translateY(0px);
-      }
+    .icon {
+      transition: transform 0.2s linear;
+      transform: translateY(0px);
     }
   }
 
