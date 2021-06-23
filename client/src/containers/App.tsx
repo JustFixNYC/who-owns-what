@@ -107,6 +107,7 @@ const App = () => {
   const [isEngageModalVisible, setEngageModalVisibility] = useState(false);
   const [isDropdownVisible, setDropdownVisibility] = useState(false);
 
+  const closeDropdown = () => setDropdownVisibility(false);
   const toggleDropdown = () => {
     isDropdownVisible ? setDropdownVisibility(false) : setDropdownVisibility(true);
   };
@@ -128,7 +129,7 @@ const App = () => {
           )}
           <div className="App">
             <div
-              onClick={() => setDropdownVisibility(false)}
+              onClick={closeDropdown}
               className={"dropdown-overlay" + (isDropdownVisible ? "" : " hidden")}
             />
             {warnAboutOldBrowser && (
@@ -140,12 +141,14 @@ const App = () => {
               </div>
             )}
             <div className="App__header navbar">
-              <HomeLink />
-              {isDemoSite && (
-                <span className="label label-warning ml-2 text-uppercase">
-                  <Trans>Demo Site</Trans>
-                </span>
-              )}
+              <div className="header-logo" onFocus={closeDropdown}>
+                <HomeLink />
+                {isDemoSite && (
+                  <span className="label label-warning ml-2 text-uppercase">
+                    <Trans>Demo Site</Trans>
+                  </span>
+                )}
+              </div>
               <nav className="inline">
                 <span className="hide-lg">
                   {getMainNavLinks()}
@@ -168,7 +171,7 @@ const App = () => {
                     <i className={"icon " + (isDropdownVisible ? "icon-cross" : "icon-menu")}></i>
                   </button>
                   <ul
-                    onClick={() => setDropdownVisibility(false)}
+                    onClick={closeDropdown}
                     className={"menu menu-reverse " + (isDropdownVisible ? "d-block" : "d-none")}
                   >
                     {getMainNavLinks().map((link, i) => (
@@ -199,7 +202,7 @@ const App = () => {
                 <SocialShare location="share-modal" />
               </Modal>
             </div>
-            <div className="App__body">
+            <div className="App__body" onFocus={closeDropdown}>
               <WhoOwnsWhatRoutes />
             </div>
           </div>
