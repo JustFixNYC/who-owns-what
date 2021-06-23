@@ -20,7 +20,7 @@ details.accordion {
     }
     .icon {
       transition: transform 0.2s linear;
-      transform: rotateX(180deg) translateY(-3px);
+      transform: scaleY(-1) translateY(-3px);
     }
   }
 
@@ -30,7 +30,7 @@ details.accordion {
     }
     .icon {
       transition: transform 0.2s linear;
-      transform: rotateX(0deg) translateY(0px);
+      transform: translateY(0px);
     }
   }
 
@@ -39,6 +39,7 @@ details.accordion {
   }
 
   summary {
+    outline: none;
     // Make question box feel clickable to user
     cursor: pointer;
     // Remove default marker

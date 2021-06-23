@@ -217,10 +217,12 @@
         margin-bottom: 1.8rem;
       }
       .card-title-landlord {
-        b {
-          // Avoid collision with "Learn More" button on small desktops:
-          display: block;
-          max-width: 75%;
+        @include for-tablet-portrait-up {
+          b {
+            // Avoid collision with "Learn More" button on small desktops:
+            display: block;
+            max-width: 75%;
+          }
         }
         border-bottom: 1px solid $gray-dark;
         details.accordion {
