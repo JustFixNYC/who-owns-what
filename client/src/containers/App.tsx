@@ -108,6 +108,7 @@ const App = () => {
   const [isEngageModalVisible, setEngageModalVisibility] = useState(false);
   const [isDropdownVisible, setDropdownVisibility] = useState(false);
 
+  const closeDropdown = () => setDropdownVisibility(false);
   const toggleDropdown = () => {
     isDropdownVisible ? setDropdownVisibility(false) : setDropdownVisibility(true);
   };
@@ -129,7 +130,7 @@ const App = () => {
           )}
           <div className="App">
             <div
-              onClick={() => setDropdownVisibility(false)}
+              onClick={closeDropdown}
               className={"dropdown-overlay" + (isDropdownVisible ? "" : " hidden")}
             />
             {warnAboutOldBrowser && (
@@ -161,6 +162,7 @@ const App = () => {
                   focusTrapOptions={{
                     clickOutsideDeactivates: true,
                     returnFocusOnDeactivate: false,
+                    onDeactivate: closeDropdown,
                   }}
                 >
                   <div className="dropdown dropdown-right show-lg">
@@ -175,7 +177,7 @@ const App = () => {
                       <i className={"icon " + (isDropdownVisible ? "icon-cross" : "icon-menu")}></i>
                     </button>
                     <ul
-                      onClick={() => setDropdownVisibility(false)}
+                      onClick={closeDropdown}
                       className={"menu menu-reverse " + (isDropdownVisible ? "d-block" : "d-none")}
                     >
                       {getMainNavLinks().map((link, i) => (
