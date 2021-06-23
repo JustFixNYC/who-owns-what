@@ -217,22 +217,18 @@
         margin-bottom: 1.8rem;
       }
       .card-title-landlord {
-        b {
-          // Avoid collision with "Learn More" button on small desktops:
-          display: block;
-          max-width: 75%;
+        @include for-tablet-portrait-up {
+          b {
+            // Avoid collision with "Learn More" button on small desktops:
+            display: block;
+            max-width: 75%;
+          }
         }
         border-bottom: 1px solid $gray-dark;
         details.accordion {
           padding: 0;
 
           @include for-phone-only() {
-            display: none;
-          }
-
-          // Do not show expandable "Learn More" button on IE11
-          // https://stackoverflow.com/questions/43528940/how-to-detect-ie-and-edge-browsers-in-css
-          @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
             display: none;
           }
 
@@ -247,6 +243,12 @@
             margin-top: calc(-1 * #{$html-line-height} * #{$font-size});
             padding: 0;
             font-style: italic;
+
+            // Do not show expandable "Learn More" button on IE11
+            // https://stackoverflow.com/questions/43528940/how-to-detect-ie-and-edge-browsers-in-css
+            @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+              display: none;
+            }
           }
           .icon {
             display: none;
