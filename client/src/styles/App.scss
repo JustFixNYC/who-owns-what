@@ -5,6 +5,18 @@
   display: flex;
   flex-direction: column;
 
+  .dropdown-overlay {
+    &.hidden {
+      display: none;
+    }
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: $dark;
+    opacity: 0.6;
+    z-index: 100;
+  }
+
   & > div {
     box-sizing: border-box;
   }
@@ -44,8 +56,8 @@
   @include for-phone-only {
     padding: 10px 8px 8px;
   }
-
   .dropdown.dropdown-right {
+    z-index: 200;
     // Remove default border on focus:
     button.dropdown-toggle:focus {
       border: none;

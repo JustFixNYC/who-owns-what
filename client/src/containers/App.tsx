@@ -127,6 +127,10 @@ const App = () => {
             />
           )}
           <div className="App">
+            <div
+              onClick={() => setDropdownVisibility(false)}
+              className={"dropdown-overlay" + (isDropdownVisible ? "" : " hidden")}
+            />
             {warnAboutOldBrowser && (
               <div className="App__warning old_safari_only">
                 <Trans render="h3">
@@ -151,7 +155,6 @@ const App = () => {
                   </a>
                   <LocaleSwitcher />
                 </span>
-
                 <div className="dropdown dropdown-right show-lg">
                   <button
                     tabIndex={0}
@@ -163,7 +166,7 @@ const App = () => {
                     <i className={"icon " + (isDropdownVisible ? "icon-cross" : "icon-menu")}></i>
                   </button>
                   <ul
-                    onClick={() => toggleDropdown()}
+                    onClick={() => setDropdownVisibility(false)}
                     className={"menu menu-reverse " + (isDropdownVisible ? "d-block" : "d-none")}
                   >
                     {getMainNavLinks().map((link, i) => (
