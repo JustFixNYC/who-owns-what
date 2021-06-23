@@ -39,6 +39,7 @@ details.accordion {
   }
 
   summary {
+    outline: none;
     // Make question box feel clickable to user
     cursor: pointer;
     // Remove default marker
