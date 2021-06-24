@@ -90,7 +90,7 @@ const getMainNavLinks = () => {
   const paths = createWhoOwnsWhatRoutePaths();
   return [
     <LocaleNavLink exact to={paths.home} key={1}>
-      <Trans>Home</Trans>
+      <Trans>Search</Trans>
     </LocaleNavLink>,
     <LocaleNavLink to={paths.about} key={2}>
       <Trans>About</Trans>
