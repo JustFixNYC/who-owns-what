@@ -14084,6 +14084,11 @@ wide-align@^1.1.0:
   dependencies:
     string-width "^1.0.2 || 2"
 
+widont@^0.3.3:
+  version "0.3.3"
+  resolved "https://registry.yarnpkg.com/widont/-/widont-0.3.3.tgz#e20743942d02fd6c28ef4d3ff8ee1740146489be"
+  integrity sha512-D0VICcKECbHrlgBmbM/WFKrhMCkt3ys+MxBrm+jLEsXwqM3/b73Yakjlp+bvAAI5hhY5pkYlXAtEbf49rwxa2w==
+
 word-wrap@~1.2.3:
   version "1.2.3"
   resolved "https://registry.yarnpkg.com/word-wrap/-/word-wrap-1.2.3.tgz#610636f6b1f703891bd34771ccb17fb93b47079c"

@@ -32,9 +32,11 @@ import PrivacyPolicyPage from "./PrivacyPolicyPage";
 import { DevPage } from "./DevPage";
 import { wowMachine } from "state-machine";
 import { NotFoundPage } from "./NotFoundPage";
+import widont from "widont";
 
 const HomeLink = withI18n()((props: withI18nProps) => {
   const { i18n } = props;
+  const title = i18n._(t`Who owns what in nyc?`);
   return (
     <Link
       // We need to spell out each letter of "nyc" here for screenreaders to pronounce:
@@ -44,7 +46,7 @@ const HomeLink = withI18n()((props: withI18nProps) => {
       }}
       to="/"
     >
-      <Trans render="h4">Who owns what in nyc?</Trans>
+      <h4>{widont(title)}</h4>
     </Link>
   );
 });

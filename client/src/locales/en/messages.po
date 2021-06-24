@@ -60,7 +60,7 @@ msgid "APPLIANCE"
 msgstr "APPLIANCE"
 
 #: src/containers/AboutPage.tsx:13
-#: src/containers/App.tsx:64
+#: src/containers/App.tsx:66
 msgid "About"
 msgstr "About"
 
@@ -237,7 +237,7 @@ msgstr "DOORS"
 msgid "Date"
 msgstr "Date"
 
-#: src/containers/App.tsx:99
+#: src/containers/App.tsx:101
 msgid "Demo Site"
 msgstr "Demo Site"
 
@@ -246,7 +246,7 @@ msgid "Disclaimer: The information in JustFix.nyc does not constitute legal advi
 msgstr "Disclaimer: The information in JustFix.nyc does not constitute legal advice and must not be used as a substitute for the advice of a lawyer qualified to give advice on legal issues pertaining to housing. We can help direct you to free legal services if necessary."
 
 #: src/components/LegalFooter.tsx:33
-#: src/containers/App.tsx:70
+#: src/containers/App.tsx:72
 msgid "Donate"
 msgstr "Donate"
 
@@ -368,7 +368,7 @@ msgstr "Head Officer"
 msgid "How is this building associated to this portfolio?"
 msgstr "How is this building associated to this portfolio?"
 
-#: src/containers/App.tsx:67
+#: src/containers/App.tsx:69
 #: src/containers/HowToUsePage.tsx:13
 msgid "How to use"
 msgstr "How to use"
@@ -674,7 +674,7 @@ msgstr "SIGNAGE MISSING"
 msgid "STAIRS"
 msgstr "STAIRS"
 
-#: src/containers/App.tsx:61
+#: src/containers/App.tsx:63
 msgid "Search"
 msgstr "Search"
 
@@ -691,15 +691,15 @@ msgstr "Select a Dataset:"
 msgid "Send us a data request"
 msgstr "Send us a data request"
 
-#: src/containers/App.tsx:106
-#: src/containers/App.tsx:126
+#: src/containers/App.tsx:108
+#: src/containers/App.tsx:128
 msgid "Share"
 msgstr "Share"
 
 #: src/components/DetailView.tsx:231
 #: src/components/EngagementPanel.tsx:18
 #: src/components/PropertiesSummary.tsx:133
-#: src/containers/App.tsx:139
+#: src/containers/App.tsx:141
 #: src/containers/NotRegisteredPage.tsx:13
 msgid "Share this page with your neighbors"
 msgstr "Share this page with your neighbors"
@@ -983,7 +983,7 @@ msgstr "WINDOW GUARDS"
 msgid "WINDOWS"
 msgstr "WINDOWS"
 
-#: src/containers/App.tsx:91
+#: src/containers/App.tsx:93
 msgid "Warning! This site doesn't fully work on older versions of Safari. Try a <0>modern browser</0>."
 msgstr "Warning! This site doesn't fully work on older versions of Safari. Try a <0>modern browser</0>."
 
@@ -1003,14 +1003,14 @@ msgstr "What happens if the landlord has failed to register?"
 msgid "Who Owns What is a free tool built by JustFix.nyc to research property owners in NYC. It has helped over 200,000 New Yorkers find out who really owns their building, what other buildings that their landlord or management company owns, and other critical information about code violations, evictions, rent stabilized units, and so much more in any given building. You can look up any residential building located in NYC, even public housing (NYCHA) buildings! Search your address here: {url}"
 msgstr "Who Owns What is a free tool built by JustFix.nyc to research property owners in NYC. It has helped over 200,000 New Yorkers find out who really owns their building, what other buildings that their landlord or management company owns, and other critical information about code violations, evictions, rent stabilized units, and so much more in any given building. You can look up any residential building located in NYC, even public housing (NYCHA) buildings! Search your address here: {url}"
 
-#: src/containers/App.tsx:30
+#: src/containers/App.tsx:32
 msgid "Who owns what in n y c?"
 msgstr "Who owns what in n y c?"
 
 #: src/components/Page.tsx:10
 #: src/components/Page.tsx:20
 #: src/components/Page.tsx:21
-#: src/containers/App.tsx:33
+#: src/containers/App.tsx:29
 msgid "Who owns what in nyc?"
 msgstr "Who owns what in nyc?"
 
