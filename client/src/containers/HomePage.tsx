@@ -17,7 +17,10 @@ import { withMachineProps } from "state-machine";
 import { useHistory } from "react-router-dom";
 import { withI18n, withI18nProps } from "@lingui/react";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
-import { getContentfulCommonString } from "../contentful-common-strings";
+import { ContentfulCommonStrings } from "@justfixnyc/contentful-common-strings";
+import _commonStrings from "../data/common-strings.json";
+
+const commonStrings = new ContentfulCommonStrings(_commonStrings as any);
 
 type BannerState = {
   isHidden: boolean;
@@ -36,7 +39,7 @@ class MoratoriumBannerWithoutI18n extends Component<withI18nProps, BannerState> 
 
   render() {
     const locale = this.props.i18n.language;
-    const content = getContentfulCommonString("covidMoratoriumBanner", locale);
+    const content = commonStrings.get("covidMoratoriumBanner", locale);
 
     return (
       content && (

@@ -4,7 +4,8 @@
   "private": true,
   "dependencies": {
     "@babel/core": "^7.7.2",
-    "@contentful/rich-text-react-renderer": "^13.4.0",
+    "@contentful/rich-text-react-renderer": "^15.0.0",
+    "@justfixnyc/contentful-common-strings": "^0.0.2",
     "@justfixnyc/geosearch-requester": "0.0.6",
     "@justfixnyc/util": "0.3.0",
     "@lingui/cli": "^2.8.3",
@@ -71,7 +72,7 @@
     "prettier:check": "prettier \"**/*.{ts,tsx,js,scss}\" --check",
     "prettier:fix": "prettier \"**/*.{ts,tsx,js,scss}\" --write",
     "contentful": "node pull-contentful-data.js",
-    "contentful-common-strings": "node src/contentful-common-strings/pull.js > src/data/common-strings.json",
+    "contentful-common-strings": "contentful-common-strings fetch -o src/data/common-strings.json",
     "typecheck": "tsc",
     "build-css": "node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/",
     "watch-css": "yarn build-css && node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/ --watch --recursive",
