@@ -190,6 +190,8 @@ class IndicatorsWithoutI18n extends Component<IndicatorsProps, IndicatorsState> 
 
       const datasetDescription = INDICATORS_DATASETS[this.state.activeVis];
 
+      justfix_startFullStoryRecording();
+
       return (
         <div className="Page Indicators">
           <div className="Indicators__content Page__content">
