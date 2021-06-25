@@ -16,6 +16,7 @@ import { createRouteForAddressPage } from "../routes";
 import { withMachineProps } from "state-machine";
 import { useHistory } from "react-router-dom";
 import { withI18n, withI18nProps } from "@lingui/react";
+import { INLINES } from "@contentful/rich-text-types";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import { ContentfulCommonStrings } from "@justfixnyc/contentful-common-strings";
 import _commonStrings from "../data/common-strings.json";
@@ -47,7 +48,17 @@ class MoratoriumBannerWithoutI18n extends Component<withI18nProps, BannerState> 
           <div className="close-button float-right" onClick={this.closeBanner}>
             ✕
           </div>
-          <div className="content">{documentToReactComponents(content)}</div>
+          <div className="content">
+            {documentToReactComponents(content, {
+              renderNode: {
+                [INLINES.HYPERLINK]: (node, children) => (
+                  <a rel="noreferrer noopener" target="_blank" href={node.data.uri}>
+                    {children}
+                  </a>
+                ),
+              },
+            })}
+          </div>
         </div>
       )
     );
