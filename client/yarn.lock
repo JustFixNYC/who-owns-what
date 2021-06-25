@@ -2239,10 +2239,10 @@
     "@types/istanbul-reports" "^1.1.1"
     "@types/yargs" "^13.0.0"
 
-"@justfixnyc/contentful-common-strings@^0.0.2":
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/@justfixnyc/contentful-common-strings/-/contentful-common-strings-0.0.2.tgz#0f5a08e0f4b8033f938cdb0562343fdca3ebc22f"
-  integrity sha512-mc14thTXZ/wAUCvh0tbkcgVUNVncQejgz6eER6gq2MpB2/p846ChqK+D4CQygq+nCv37ACmOgWywlG4YBdzygQ==
+"@justfixnyc/contentful-common-strings@^0.1.0":
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/@justfixnyc/contentful-common-strings/-/contentful-common-strings-0.1.0.tgz#4ca00e3a23a53ecef9dafcb45890adebf992dd57"
+  integrity sha512-EQDDdjCP61/9MkMYOCvqBQBMsSGXrVKuqo08dxPi9l0SJiDnLq1e1GbAj14tPBNu5UM2xNfZrtvcpkEi15JASg==
   dependencies:
     "@contentful/rich-text-types" "^15.0.0"
     cross-fetch "^3.1.4"

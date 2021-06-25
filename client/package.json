@@ -5,7 +5,7 @@
   "dependencies": {
     "@babel/core": "^7.7.2",
     "@contentful/rich-text-react-renderer": "^15.0.0",
-    "@justfixnyc/contentful-common-strings": "^0.0.2",
+    "@justfixnyc/contentful-common-strings": "^0.1.0",
     "@justfixnyc/geosearch-requester": "0.0.6",
     "@justfixnyc/util": "0.3.0",
     "@lingui/cli": "^2.8.3",
@@ -77,7 +77,7 @@
     "build-css": "node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/",
     "watch-css": "yarn build-css && node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/ --watch --recursive",
     "start-js": "lingui compile && react-scripts start",
-    "start": "yarn contentful-common-strings && npm-run-all -p watch-css start-js",
+    "start": "yarn contentful-common-strings --dev && npm-run-all -p watch-css start-js",
     "build": "yarn contentful-common-strings && node write-version.js && yarn build-css && lingui compile && react-scripts build",
     "test": "react-scripts test --env=jsdom --transformIgnorePatterns \"node_modules/(?!@justfixnyc)/\"",
     "eject": "react-scripts eject"
