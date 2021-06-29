@@ -60,12 +60,13 @@ const PropertiesListWithoutI18n: React.FC<
             fixed: "left",
             columns: [
               {
-                Header: i18n._(t`Address`),
+                Header: i18n._(t`Address`) + " ⇅",
                 accessor: (d) => `${d.housenumber} ${d.streetname}`,
                 id: "address",
                 minWidth: 130,
                 style: {
                   textAlign: "left",
+                  whiteSpace: "unset",
                 },
               },
             ],
@@ -74,18 +75,18 @@ const PropertiesListWithoutI18n: React.FC<
             Header: i18n._(t`Location`),
             columns: [
               {
-                Header: i18n._(t`Zipcode`),
+                Header: i18n._(t`Zipcode`) + " ⇅",
                 accessor: (d) => d.zip,
                 id: "zip",
-                width: 75,
+                width: 85,
               },
               {
-                Header: i18n._(t`Borough`),
+                Header: i18n._(t`Borough`) + " ⇅",
                 accessor: (d) => d.boro,
                 id: "boro",
               },
               {
-                Header: "BBL",
+                Header: "BBL" + " ⇅",
                 accessor: (d) => d.bbl,
                 id: "bbl",
               },
