@@ -4,6 +4,10 @@ import Browser from "../util/browser";
 
 import "react-table/react-table.css";
 import "styles/PropertiesList.css";
+
+import withFixedColumns, { TablePropsColumnFixed } from "react-table-hoc-fixed-columns";
+import "react-table-hoc-fixed-columns/lib/styles.css"; // important: this line must be placed after react-table css import
+
 import { I18n } from "@lingui/core";
 import { withI18n } from "@lingui/react";
 import { t } from "@lingui/macro";
@@ -22,6 +26,15 @@ export const isPartOfGroupSale = (saleId: string, addrs: AddressRecord[]) => {
 const findMostCommonType = (complaints: HpdComplaintCount[] | null) =>
   complaints && complaints.length > 0 && complaints[0].type;
 
+/**
+ * By default, the `withFixedColumns` hook retypes the Column components within the table
+ * as having data arrays of type `unknown`, so this recasting is necessary to make sure
+ * we are tyepchecking the raw data as `AddressRecords`
+ */
+const ReactTableFixedColumns = withFixedColumns(ReactTable) as React.ComponentType<
+  Partial<TablePropsColumnFixed<AddressRecord, AddressRecord>>
+>;
+
 const PropertiesListWithoutI18n: React.FC<
   withMachineInStateProps<"portfolioFound"> & {
     i18n: I18n;
@@ -34,26 +47,32 @@ const PropertiesListWithoutI18n: React.FC<
 
   const addrs = props.state.context.portfolioData.assocAddrs;
   const rsunitslatestyear = props.state.context.portfolioData.searchAddr.rsunitslatestyear;
+
   return (
     <div className="PropertiesList">
-      <ReactTable
+      <ReactTableFixedColumns
         data={addrs}
         minRows={Browser.isMobile() ? 5 : 10}
         defaultPageSize={addrs.length}
         showPagination={false}
         columns={[
           {
-            Header: i18n._(t`Location`),
+            fixed: "left",
             columns: [
               {
                 Header: i18n._(t`Address`),
                 accessor: (d) => `${d.housenumber} ${d.streetname}`,
                 id: "address",
-                minWidth: 150,
+                minWidth: 130,
                 style: {
                   textAlign: "left",
                 },
               },
+            ],
+          },
+          {
+            Header: i18n._(t`Location`),
+            columns: [
               {
                 Header: i18n._(t`Zipcode`),
                 accessor: (d) => d.zip,
