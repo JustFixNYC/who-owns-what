@@ -64,6 +64,7 @@ const PropertiesListWithoutI18n: React.FC<
                 accessor: (d) => `${d.housenumber} ${d.streetname}`,
                 id: "address",
                 minWidth: 130,
+                fixed: "left",
                 style: {
                   textAlign: "left",
                   whiteSpace: "unset",
