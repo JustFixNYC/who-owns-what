@@ -86,7 +86,7 @@ const PropertiesListWithoutI18n: React.FC<
                 id: "boro",
               },
               {
-                Header: "BBL" + " ⇅",
+                Header: "BBL ⇅",
                 accessor: (d) => d.bbl,
                 id: "bbl",
               },
