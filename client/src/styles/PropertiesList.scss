@@ -12,6 +12,9 @@
     border-top: none;
     border-color: $gray-dark;
 
+    .rthfc-td-fixed {
+      z-index: 1000;
+    }
     .rt-thead .rt-th {
       padding: 7px 5px;
     }
