@@ -208,7 +208,7 @@ const PropertiesListWithoutI18n: React.FC<
                 ),
                 accessor: (d) => d.recentcomplaints,
                 id: "recentcomplaints",
-                maxWidth: 100,
+                minWidth: 115,
               },
               {
                 Header: (
@@ -362,6 +362,7 @@ const PropertiesListWithoutI18n: React.FC<
                       : i18n._(t`No`)
                     : null,
                 id: "lastsaleisgroupsale",
+                minWidth: 110,
               },
             ],
           },
