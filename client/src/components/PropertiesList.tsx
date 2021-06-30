@@ -96,7 +96,7 @@ const PropertiesListWithoutI18n: React.FC<
                 ),
                 accessor: (d) => d.zip,
                 id: "zip",
-                width: 85,
+                width: i18n.language === "es" ? 125 : 85,
               },
               {
                 Header: (
@@ -132,7 +132,7 @@ const PropertiesListWithoutI18n: React.FC<
                 ),
                 accessor: (d) => d.yearbuilt,
                 id: "yearbuilt",
-                maxWidth: 75,
+                maxWidth: i18n.language === "es" ? 100 : 75,
               },
               {
                 Header: (
@@ -143,7 +143,7 @@ const PropertiesListWithoutI18n: React.FC<
                 ),
                 accessor: (d) => d.unitsres,
                 id: "unitsres",
-                maxWidth: 75,
+                maxWidth: i18n.language === "es" ? 85 : 75,
               },
             ],
           },
@@ -197,7 +197,7 @@ const PropertiesListWithoutI18n: React.FC<
                 ),
                 accessor: (d) => d.totalcomplaints,
                 id: "totalcomplaints",
-                maxWidth: 75,
+                minWidth: i18n.language === "es" ? 90 : 75,
               },
               {
                 Header: (
@@ -208,7 +208,7 @@ const PropertiesListWithoutI18n: React.FC<
                 ),
                 accessor: (d) => d.recentcomplaints,
                 id: "recentcomplaints",
-                minWidth: 115,
+                minWidth: i18n.language === "es" ? 130 : 115,
               },
               {
                 Header: (
@@ -290,7 +290,7 @@ const PropertiesListWithoutI18n: React.FC<
                   return owner ? owner.value : "";
                 },
                 id: "ownernames",
-                minWidth: 150,
+                minWidth: i18n.language === "es" ? 165 : 150,
               },
             ],
           },
@@ -341,6 +341,7 @@ const PropertiesListWithoutI18n: React.FC<
                     </a>
                   ) : null,
                 id: "lastsaleacrisid",
+                width: i18n.language === "es" ? 165 : 110,
               },
               {
                 Header: (
@@ -362,7 +363,7 @@ const PropertiesListWithoutI18n: React.FC<
                       : i18n._(t`No`)
                     : null,
                 id: "lastsaleisgroupsale",
-                minWidth: 110,
+                minWidth: i18n.language === "es" ? 145 : 110,
               },
             ],
           },
