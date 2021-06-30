@@ -8,6 +8,7 @@ import { HpdContactAddress, SearchAddressWithoutBbl } from "components/APIDataTy
 import { reportError } from "error-reporting";
 import { t } from "@lingui/macro";
 import { I18n, MessageDescriptor } from "@lingui/core";
+import React, { useEffect, useState } from "react";
 
 /**
  * An array consisting of Who Owns What's standard enumerations for street names,
@@ -304,5 +305,27 @@ export default {
       const translationSuffix = i18n._(t`("${textInEnglish}" in English)`);
       return translation + " " + translationSuffix;
     }
+  },
+
+  /**
+   * Detects whether a given DOM element is visible on screen.
+   * Borrowed from https://stackoverflow.com/questions/45514676/react-check-if-element-is-visible-in-dom
+   */
+  useOnScreen(ref: React.RefObject<any>) {
+    const [isIntersecting, setIntersecting] = useState(false);
+
+    const observer = new IntersectionObserver(([entry]) => setIntersecting(entry.isIntersecting));
+
+    useEffect(() => {
+      if (ref.current) {
+        observer.observe(ref.current);
+        // Remove the observer as soon as the component is unmounted
+        return () => {
+          observer.disconnect();
+        };
+      }
+    }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+    return isIntersecting;
   },
 };

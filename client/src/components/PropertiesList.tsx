@@ -17,6 +17,8 @@ import Helpers, { longDateOptions } from "../util/helpers";
 import { AddressRecord, HpdComplaintCount } from "./APIDataTypes";
 import { withMachineInStateProps } from "state-machine";
 import { AddressPageRoutes } from "routes";
+import { createRef } from "react";
+import classnames from "classnames";
 
 export const isPartOfGroupSale = (saleId: string, addrs: AddressRecord[]) => {
   const addrsWithMatchingSale = addrs.filter((addr) => addr.lastsaleacrisid === saleId);
@@ -54,8 +56,11 @@ const PropertiesListWithoutI18n: React.FC<
   const addrs = props.state.context.portfolioData.assocAddrs;
   const rsunitslatestyear = props.state.context.portfolioData.searchAddr.rsunitslatestyear;
 
+  const lastColumnRef = createRef<any>();
+  const isLastColumnVisible = Helpers.useOnScreen(lastColumnRef);
+
   return (
-    <div className="PropertiesList">
+    <div className={classnames("PropertiesList", isLastColumnVisible && "last-column-visible")}>
       <ReactTableFixedColumns
         data={addrs}
         minRows={Browser.isMobile() ? 5 : 10}
@@ -368,7 +373,11 @@ const PropertiesListWithoutI18n: React.FC<
             ],
           },
           {
-            Header: i18n._(t`View detail`),
+            Header: (
+              <div ref={lastColumnRef}>
+                <Trans>View detail</Trans>
+              </div>
+            ),
             accessor: (d) => d.bbl,
             columns: [
               {

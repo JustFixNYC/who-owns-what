@@ -91,5 +91,14 @@
       rgba(255, 255, 255, 1) 100%
     ); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#ffffff',GradientType=1 ); /* IE6-9 */
+    visibility: visible;
+    opacity: 1;
+    transition: opacity 0.5s linear;
+  }
+
+  &.last-column-visible::after {
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s 0.5s, opacity 0.5s linear;
   }
 }
