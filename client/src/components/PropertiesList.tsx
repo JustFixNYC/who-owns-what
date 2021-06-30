@@ -43,6 +43,15 @@ const ArrowIcon = () => (
   </span>
 );
 
+const getWidthFromLabel = (label: string, customDefaultWidth?: number) => {
+  const MIN_WIDTH = customDefaultWidth || 70;
+  const LETTER_WIDTH = 7;
+  const ARROW_ICON_WIDTH = 20;
+  const MARGIN_OFFSET = 10;
+
+  return Math.max(label.length * LETTER_WIDTH + ARROW_ICON_WIDTH + MARGIN_OFFSET, MIN_WIDTH);
+};
+
 const PropertiesListWithoutI18n: React.FC<
   withMachineInStateProps<"portfolioFound"> & {
     i18n: I18n;
@@ -102,7 +111,7 @@ const PropertiesListWithoutI18n: React.FC<
                 ),
                 accessor: (d) => d.zip,
                 id: "zip",
-                width: i18n.language === "es" ? 125 : 85,
+                width: getWidthFromLabel(i18n._(t`Zipcode`)),
               },
               {
                 Header: (
@@ -113,6 +122,7 @@ const PropertiesListWithoutI18n: React.FC<
                 ),
                 accessor: (d) => d.boro,
                 id: "boro",
+                width: getWidthFromLabel(i18n._(t`Borough`)),
               },
               {
                 Header: (
@@ -123,6 +133,7 @@ const PropertiesListWithoutI18n: React.FC<
                 ),
                 accessor: (d) => d.bbl,
                 id: "bbl",
+                width: getWidthFromLabel("BBL", 100),
               },
             ],
           },
@@ -138,7 +149,7 @@ const PropertiesListWithoutI18n: React.FC<
                 ),
                 accessor: (d) => d.yearbuilt,
                 id: "yearbuilt",
-                maxWidth: i18n.language === "es" ? 100 : 75,
+                width: getWidthFromLabel(i18n._(t`Built`)),
               },
               {
                 Header: (
@@ -149,7 +160,7 @@ const PropertiesListWithoutI18n: React.FC<
                 ),
                 accessor: (d) => d.unitsres,
                 id: "unitsres",
-                maxWidth: i18n.language === "es" ? 85 : 75,
+                width: getWidthFromLabel(i18n._(t`Units`)),
               },
             ],
           },
@@ -165,7 +176,7 @@ const PropertiesListWithoutI18n: React.FC<
                 ),
                 accessor: (d) => d.rsunits2007,
                 id: "rsunits2007",
-                maxWidth: 75,
+                width: getWidthFromLabel("2007"),
               },
               {
                 Header: (
@@ -187,7 +198,7 @@ const PropertiesListWithoutI18n: React.FC<
                     </span>
                   );
                 },
-                maxWidth: 75,
+                width: getWidthFromLabel("XXXX"),
               },
             ],
           },
@@ -203,7 +214,7 @@ const PropertiesListWithoutI18n: React.FC<
                 ),
                 accessor: (d) => d.totalcomplaints,
                 id: "totalcomplaints",
-                minWidth: i18n.language === "es" ? 90 : 75,
+                width: getWidthFromLabel(i18n._(t`Total`)),
               },
               {
                 Header: (
@@ -214,7 +225,7 @@ const PropertiesListWithoutI18n: React.FC<
                 ),
                 accessor: (d) => d.recentcomplaints,
                 id: "recentcomplaints",
-                minWidth: i18n.language === "es" ? 130 : 115,
+                width: getWidthFromLabel(i18n._(t`Last 3 Years`)),
               },
               {
                 Header: (
@@ -230,7 +241,7 @@ const PropertiesListWithoutI18n: React.FC<
                     : null;
                 },
                 id: "recentcomplaintsbytype",
-                minWidth: 150,
+                width: getWidthFromLabel(i18n._(t`Top Complaint`)),
               },
             ],
           },
@@ -246,7 +257,7 @@ const PropertiesListWithoutI18n: React.FC<
                 ),
                 accessor: (d) => d.openviolations,
                 id: "openviolations",
-                maxWidth: 75,
+                width: getWidthFromLabel(i18n._(t`Open`)),
               },
               {
                 Header: (
@@ -257,7 +268,7 @@ const PropertiesListWithoutI18n: React.FC<
                 ),
                 accessor: (d) => d.totalviolations,
                 id: "totalviolations",
-                maxWidth: 75,
+                width: getWidthFromLabel(i18n._(t`Total`)),
               },
             ],
           },
@@ -273,7 +284,7 @@ const PropertiesListWithoutI18n: React.FC<
                 ),
                 accessor: (d) => d.evictions || null,
                 id: "evictions",
-                maxWidth: 100,
+                width: getWidthFromLabel(i18n._(t`Since 2017`)),
               },
             ],
           },
@@ -296,7 +307,7 @@ const PropertiesListWithoutI18n: React.FC<
                   return owner ? owner.value : "";
                 },
                 id: "ownernames",
-                minWidth: i18n.language === "es" ? 165 : 150,
+                width: getWidthFromLabel(i18n._(t`Officer/Owner`)),
               },
             ],
           },
@@ -316,6 +327,7 @@ const PropertiesListWithoutI18n: React.FC<
                     ? Helpers.formatDate(row.original.lastsaledate, longDateOptions, locale)
                     : null,
                 id: "lastsaledate",
+                width: getWidthFromLabel(i18n._(t`Date`), 100),
               },
               {
                 Header: (
@@ -330,6 +342,7 @@ const PropertiesListWithoutI18n: React.FC<
                     ? "$" + Helpers.formatPrice(row.original.lastsaleamount, locale)
                     : null,
                 id: "lastsaleamount",
+                width: getWidthFromLabel(i18n._(t`Amount`), 100),
               },
               {
                 Header: i18n._(t`Link to Deed`),
@@ -347,7 +360,7 @@ const PropertiesListWithoutI18n: React.FC<
                     </a>
                   ) : null,
                 id: "lastsaleacrisid",
-                width: i18n.language === "es" ? 165 : 110,
+                width: getWidthFromLabel(i18n._(t`Link to Deed`)),
               },
               {
                 Header: (
@@ -369,7 +382,7 @@ const PropertiesListWithoutI18n: React.FC<
                       : i18n._(t`No`)
                     : null,
                 id: "lastsaleisgroupsale",
-                minWidth: i18n.language === "es" ? 145 : 110,
+                width: getWidthFromLabel(i18n._(t`Group Sale?`)),
               },
             ],
           },
@@ -394,6 +407,7 @@ const PropertiesListWithoutI18n: React.FC<
                     </Link>
                   );
                 },
+                width: getWidthFromLabel(i18n._(t`View detail`)),
               },
             ],
           },
