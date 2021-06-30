@@ -10,7 +10,7 @@ import "react-table-hoc-fixed-columns/lib/styles.css"; // important: this line m
 
 import { I18n } from "@lingui/core";
 import { withI18n } from "@lingui/react";
-import { t } from "@lingui/macro";
+import { t, Trans } from "@lingui/macro";
 import { Link } from "react-router-dom";
 import { SupportedLocale } from "../i18n-base";
 import Helpers, { longDateOptions } from "../util/helpers";
@@ -34,6 +34,12 @@ const findMostCommonType = (complaints: HpdComplaintCount[] | null) =>
 const ReactTableFixedColumns = withFixedColumns(ReactTable) as React.ComponentType<
   Partial<TablePropsColumnFixed<AddressRecord, AddressRecord>>
 >;
+
+const ArrowIcon = () => (
+  <span className="arrow-icon">
+    ↑<span>↓</span>
+  </span>
+);
 
 const PropertiesListWithoutI18n: React.FC<
   withMachineInStateProps<"portfolioFound"> & {
@@ -60,7 +66,12 @@ const PropertiesListWithoutI18n: React.FC<
             fixed: "left",
             columns: [
               {
-                Header: i18n._(t`Address`) + " ⇅",
+                Header: (
+                  <>
+                    <Trans>Address</Trans>
+                    <ArrowIcon />
+                  </>
+                ),
                 accessor: (d) => `${d.housenumber} ${d.streetname}`,
                 id: "address",
                 minWidth: 130,
@@ -68,6 +79,7 @@ const PropertiesListWithoutI18n: React.FC<
                 style: {
                   textAlign: "left",
                   whiteSpace: "unset",
+                  paddingRight: "0.75rem",
                 },
               },
             ],
@@ -76,18 +88,33 @@ const PropertiesListWithoutI18n: React.FC<
             Header: i18n._(t`Location`),
             columns: [
               {
-                Header: i18n._(t`Zipcode`) + " ⇅",
+                Header: (
+                  <>
+                    <Trans>Zipcode</Trans>
+                    <ArrowIcon />
+                  </>
+                ),
                 accessor: (d) => d.zip,
                 id: "zip",
                 width: 85,
               },
               {
-                Header: i18n._(t`Borough`) + " ⇅",
+                Header: (
+                  <>
+                    <Trans>Borough</Trans>
+                    <ArrowIcon />
+                  </>
+                ),
                 accessor: (d) => d.boro,
                 id: "boro",
               },
               {
-                Header: "BBL ⇅",
+                Header: (
+                  <>
+                    BBL
+                    <ArrowIcon />
+                  </>
+                ),
                 accessor: (d) => d.bbl,
                 id: "bbl",
               },
@@ -97,13 +124,23 @@ const PropertiesListWithoutI18n: React.FC<
             Header: i18n._(t`Information`),
             columns: [
               {
-                Header: i18n._(t`Built`),
+                Header: (
+                  <>
+                    <Trans>Built</Trans>
+                    <ArrowIcon />
+                  </>
+                ),
                 accessor: (d) => d.yearbuilt,
                 id: "yearbuilt",
                 maxWidth: 75,
               },
               {
-                Header: i18n._(t`Units`),
+                Header: (
+                  <>
+                    <Trans>Units</Trans>
+                    <ArrowIcon />
+                  </>
+                ),
                 accessor: (d) => d.unitsres,
                 id: "unitsres",
                 maxWidth: 75,
@@ -114,13 +151,23 @@ const PropertiesListWithoutI18n: React.FC<
             Header: i18n._(t`RS Units`),
             columns: [
               {
-                Header: "2007",
+                Header: (
+                  <>
+                    2007
+                    <ArrowIcon />
+                  </>
+                ),
                 accessor: (d) => d.rsunits2007,
                 id: "rsunits2007",
                 maxWidth: 75,
               },
               {
-                Header: rsunitslatestyear,
+                Header: (
+                  <>
+                    {rsunitslatestyear}
+                    <ArrowIcon />
+                  </>
+                ),
                 accessor: (d) => d.rsunitslatest,
                 id: "rsunitslatest",
                 Cell: (row) => {
@@ -142,19 +189,34 @@ const PropertiesListWithoutI18n: React.FC<
             Header: i18n._(t`HPD Complaints`),
             columns: [
               {
-                Header: i18n._(t`Total`),
+                Header: (
+                  <>
+                    <Trans>Total</Trans>
+                    <ArrowIcon />
+                  </>
+                ),
                 accessor: (d) => d.totalcomplaints,
                 id: "totalcomplaints",
                 maxWidth: 75,
               },
               {
-                Header: i18n._(t`Last 3 Years`),
+                Header: (
+                  <>
+                    <Trans>Last 3 Years</Trans>
+                    <ArrowIcon />
+                  </>
+                ),
                 accessor: (d) => d.recentcomplaints,
                 id: "recentcomplaints",
                 maxWidth: 100,
               },
               {
-                Header: i18n._(t`Top Complaint`),
+                Header: (
+                  <>
+                    <Trans>Top Complaint</Trans>
+                    <ArrowIcon />
+                  </>
+                ),
                 accessor: (d) => {
                   const mostCommonType = findMostCommonType(d.recentcomplaintsbytype);
                   return mostCommonType
@@ -170,13 +232,23 @@ const PropertiesListWithoutI18n: React.FC<
             Header: i18n._(t`HPD Violations`),
             columns: [
               {
-                Header: i18n._(t`Open`),
+                Header: (
+                  <>
+                    <Trans>Open</Trans>
+                    <ArrowIcon />
+                  </>
+                ),
                 accessor: (d) => d.openviolations,
                 id: "openviolations",
                 maxWidth: 75,
               },
               {
-                Header: i18n._(t`Total`),
+                Header: (
+                  <>
+                    <Trans>Total</Trans>
+                    <ArrowIcon />
+                  </>
+                ),
                 accessor: (d) => d.totalviolations,
                 id: "totalviolations",
                 maxWidth: 75,
@@ -187,7 +259,12 @@ const PropertiesListWithoutI18n: React.FC<
             Header: i18n._(t`Evictions`),
             columns: [
               {
-                Header: i18n._(t`Since 2017`),
+                Header: (
+                  <>
+                    <Trans>Since 2017</Trans>
+                    <ArrowIcon />
+                  </>
+                ),
                 accessor: (d) => d.evictions || null,
                 id: "evictions",
                 maxWidth: 100,
@@ -198,7 +275,12 @@ const PropertiesListWithoutI18n: React.FC<
             Header: i18n._(t`Landlord`),
             columns: [
               {
-                Header: i18n._(t`Officer/Owner`),
+                Header: (
+                  <>
+                    <Trans>Officer/Owner</Trans>
+                    <ArrowIcon />
+                  </>
+                ),
                 accessor: (d) => {
                   var owner =
                     d.ownernames &&
@@ -216,7 +298,12 @@ const PropertiesListWithoutI18n: React.FC<
             Header: i18n._(t`Last Sale`),
             columns: [
               {
-                Header: i18n._(t`Date`),
+                Header: (
+                  <>
+                    <Trans>Date</Trans>
+                    <ArrowIcon />
+                  </>
+                ),
                 accessor: (d) => d.lastsaledate,
                 Cell: (row) =>
                   row.original.lastsaledate
@@ -225,7 +312,12 @@ const PropertiesListWithoutI18n: React.FC<
                 id: "lastsaledate",
               },
               {
-                Header: i18n._(t`Amount`),
+                Header: (
+                  <>
+                    <Trans>Amount</Trans>
+                    <ArrowIcon />
+                  </>
+                ),
                 accessor: (d) => d.lastsaleamount || null,
                 Cell: (row) =>
                   row.original.lastsaleamount
@@ -251,7 +343,12 @@ const PropertiesListWithoutI18n: React.FC<
                 id: "lastsaleacrisid",
               },
               {
-                Header: i18n._(t`Group Sale?`),
+                Header: (
+                  <>
+                    <Trans>Group Sale?</Trans>
+                    <ArrowIcon />
+                  </>
+                ),
                 accessor: (d) => {
                   // Make id's that are part of group sales show up first when sorted:
                   const idPrefix =

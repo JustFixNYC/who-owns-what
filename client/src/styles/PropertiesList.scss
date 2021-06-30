@@ -12,6 +12,16 @@
     border-top: none;
     border-color: $gray-dark;
 
+    .arrow-icon {
+      display: inline-block;
+      margin-left: 0.5rem;
+      span {
+        // This small adjustment aligns second arrow in icon with first
+        display: inline-block;
+        transform: translateY(0.5px);
+      }
+    }
+
     .rthfc-td-fixed {
       z-index: 1000;
     }
