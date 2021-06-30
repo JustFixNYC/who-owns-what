@@ -24,18 +24,11 @@
     }
 
     .rt-thead {
+      .rt-tr {
+        border-bottom: 1px solid $gray-light;
+      }
       .rt-th {
         padding: 7px 5px;
-      }
-      .rthfc-th-fixed {
-        position: fixed;
-        display: list-item;
-      }
-      .rt-tr {
-        // This offsets the rest of the header against the fixed first column
-        // Hence, this value should match the defined width inside the
-        // PropertiesList.tsx component's first column
-        padding-left: 130px;
       }
     }
 
@@ -53,21 +46,6 @@
 
     .rt-td {
       text-align: center;
-    }
-
-    .-pagination {
-      box-shadow: none;
-      border-top: 1px solid $gray-dark;
-      padding: 5px;
-
-      .-btn {
-        @include button();
-        border-radius: 0;
-      }
-      .-btn[disabled] {
-        opacity: 0.3;
-        cursor: default;
-      }
     }
   }
 

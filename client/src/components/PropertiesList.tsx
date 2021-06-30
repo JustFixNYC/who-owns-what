@@ -63,9 +63,10 @@ const PropertiesListWithoutI18n: React.FC<
     <div className={classnames("PropertiesList", isLastColumnVisible && "last-column-visible")}>
       <ReactTableFixedColumns
         data={addrs}
-        minRows={Browser.isMobile() ? 5 : 10}
+        minRows={10}
         defaultPageSize={addrs.length}
         showPagination={false}
+        resizable={!Browser.isMobile()}
         columns={[
           {
             fixed: "left",
@@ -81,7 +82,6 @@ const PropertiesListWithoutI18n: React.FC<
                 id: "address",
                 width: 130,
                 fixed: "left",
-                resizable: false,
                 style: {
                   textAlign: "left",
                   whiteSpace: "unset",
