@@ -11,6 +11,7 @@ import { assertNotUndefined } from "@justfixnyc/util";
 import _find from "lodash/find";
 import { IndicatorsDataFromAPI } from "components/IndicatorsTypes";
 import { reportError } from "error-reporting";
+import { SAMPLE_ADDRESS_RECORDS } from "state-machine-sample-data";
 
 export type WowState =
   | { value: "noData"; context: {} }
@@ -158,56 +159,18 @@ export type withMachineInStateProps<TSV extends WowState["value"]> = {
 };
 
 async function getSearchResult(addr: SearchAddressWithoutBbl): Promise<WowState> {
-  const apiResults = await APIClient.searchForAddressWithGeosearch(addr);
-  if (!apiResults.geosearch) {
-    return {
-      value: "bblNotFound",
-      context: { searchAddrParams: addr, searchAddrBbl: undefined },
-    };
-  } else if (apiResults.addrs.length === 0) {
-    const buildingInfoResults = await APIClient.getBuildingInfo(apiResults.geosearch.bbl);
-    const buildingInfo = buildingInfoResults.result[0];
-
-    if (!buildingInfo) {
-      // Apparently PLUTO doesn't have data for some buildings,
-      // e.g. 77 Park Avenue (at the time of this writing).
-      //
-      // For now we'll just respond as though the address is
-      // invalid; although that's still far from ideal, at least
-      // it won't clog up our error logs...
-      return {
-        value: "bblNotFound",
-        context: { searchAddrParams: addr, searchAddrBbl: undefined },
-      };
-    }
-
-    return {
-      value: buildingInfo.nycha_development ? "nychaFound" : "unregisteredFound",
-      context: {
-        searchAddrParams: addr,
-        searchAddrBbl: apiResults.geosearch.bbl,
-        portfolioData: undefined,
-        buildingInfo,
+  return {
+    value: "portfolioFound",
+    context: {
+      searchAddrParams: addr,
+      searchAddrBbl: "10000000000",
+      portfolioData: {
+        searchAddr: SAMPLE_ADDRESS_RECORDS[0],
+        detailAddr: SAMPLE_ADDRESS_RECORDS[0],
+        assocAddrs: SAMPLE_ADDRESS_RECORDS,
       },
-    };
-  } else {
-    const searchAddr = _find(apiResults.addrs, { bbl: apiResults.geosearch.bbl });
-    if (!searchAddr) {
-      throw new Error("The user's address was not found in the API Address Search results!");
-    }
-    return {
-      value: "portfolioFound",
-      context: {
-        searchAddrParams: addr,
-        searchAddrBbl: apiResults.geosearch.bbl,
-        portfolioData: {
-          searchAddr,
-          detailAddr: searchAddr,
-          assocAddrs: apiResults.addrs,
-        },
-      },
-    };
-  }
+    },
+  };
 }
 
 const assignWowStateContext = assign((ctx: WowContext, event: DoneInvokeEvent<WowState>) => {

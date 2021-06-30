@@ -39,7 +39,7 @@ export const SAMPLE_NYCHA_BUILDING_INFO_RESULTS: BuildingInfoResults = {
   ],
 };
 
-export const SAMPLE_ADDRESS_RECORDS: AddressRecord[] = [
+const SAMPLE_ADDRESS_RECORDS1: AddressRecord[] = [
   {
     housenumber: "654",
     streetname: "PARK PLACE",
@@ -190,6 +190,13 @@ export const SAMPLE_ADDRESS_RECORDS: AddressRecord[] = [
     mapType: "base",
   },
 ];
+
+export const SAMPLE_ADDRESS_RECORDS = SAMPLE_ADDRESS_RECORDS1.concat(SAMPLE_ADDRESS_RECORDS1)
+  .concat(SAMPLE_ADDRESS_RECORDS1)
+  .concat(SAMPLE_ADDRESS_RECORDS1)
+  .concat(SAMPLE_ADDRESS_RECORDS1)
+  .concat(SAMPLE_ADDRESS_RECORDS1)
+  .concat(SAMPLE_ADDRESS_RECORDS1);
 
 export const SAMPLE_TIMELINE_DATA: IndicatorsHistoryResults = {
   result: [
