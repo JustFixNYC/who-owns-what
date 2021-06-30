@@ -10,6 +10,7 @@
 
   .ReactTable {
     border-top: none;
+    border-left: none;
     border-color: $gray-dark;
 
     .arrow-icon {
@@ -22,8 +23,20 @@
       }
     }
 
-    .rt-thead .rt-th {
-      padding: 7px 5px;
+    .rt-thead {
+      .rt-th {
+        padding: 7px 5px;
+      }
+      .rthfc-th-fixed {
+        position: fixed;
+        display: list-item;
+      }
+      .rt-tr {
+        // This offsets the rest of the header against the fixed first column
+        // Hence, this value should match the defined width inside the
+        // PropertiesList.tsx component's first column
+        padding-left: 130px;
+      }
     }
 
     .rt-thead.-headerGroups {
