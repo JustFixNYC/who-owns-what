@@ -81,10 +81,6 @@
     width: 100%;
   }
 
-  .AddressPage__table {
-    overflow-x: scroll;
-  }
-
   .AddressPage__summary {
     overflow-y: scroll;
     @include scrollbar();
