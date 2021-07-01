@@ -52,6 +52,12 @@ const getWidthFromLabel = (label: string, customDefaultWidth?: number) => {
   return Math.max(label.length * LETTER_WIDTH + ARROW_ICON_WIDTH + MARGIN_OFFSET, MIN_WIDTH);
 };
 
+const FIRST_COLUMN_WIDTH = 130;
+
+const secondColumnStyle = {
+  marginLeft: `${FIRST_COLUMN_WIDTH}px`,
+};
+
 const PropertiesListWithoutI18n: React.FC<
   withMachineInStateProps<"portfolioFound"> & {
     i18n: I18n;
@@ -93,15 +99,16 @@ const PropertiesListWithoutI18n: React.FC<
             columns: [
               {
                 Header: (
-                  <>
+                  <div>
                     <Trans>Address</Trans>
                     <ArrowIcon />
-                  </>
+                  </div>
                 ),
                 accessor: (d) => `${d.housenumber} ${d.streetname}`,
                 id: "address",
-                width: 130,
+                width: FIRST_COLUMN_WIDTH,
                 fixed: "left",
+                resizable: false,
                 style: {
                   textAlign: "left",
                   whiteSpace: "unset",
@@ -112,6 +119,8 @@ const PropertiesListWithoutI18n: React.FC<
           },
           {
             Header: i18n._(t`Location`),
+            headerStyle: secondColumnStyle,
+            style: secondColumnStyle,
             columns: [
               {
                 Header: (
@@ -123,6 +132,7 @@ const PropertiesListWithoutI18n: React.FC<
                 accessor: (d) => d.zip,
                 id: "zip",
                 width: getWidthFromLabel(i18n._(t`Zipcode`)),
+                headerStyle: secondColumnStyle,
               },
               {
                 Header: (

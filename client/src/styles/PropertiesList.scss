@@ -24,9 +24,23 @@
     }
 
     .rt-thead {
-      .rt-tr {
+      .rthfc-th-fixed {
+        position: fixed;
+        display: list-item;
+      }
+
+      &.-headerGroups .rthfc-th-fixed {
         border-bottom: 1px solid $gray-light;
       }
+
+      &.-header .rthfc-th-fixed {
+        padding: 0 0 100px 0;
+        > div {
+          padding: 7px 5px;
+          border-bottom: 1px solid $dark;
+        }
+      }
+
       .rt-th {
         padding: 7px 5px;
       }
@@ -46,6 +60,10 @@
 
     .rt-td {
       text-align: center;
+    }
+
+    .rt-tbody {
+      z-index: 10;
     }
   }
 
