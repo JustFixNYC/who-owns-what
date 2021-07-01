@@ -268,7 +268,7 @@ const PropertiesListWithoutI18n: React.FC<
                 ),
                 accessor: (d) => d.openviolations,
                 id: "openviolations",
-                width: getWidthFromLabel(i18n._(t`Open`)),
+                width: getWidthFromLabel(i18n._(t`Open`), 80),
               },
               {
                 Header: (
@@ -279,7 +279,7 @@ const PropertiesListWithoutI18n: React.FC<
                 ),
                 accessor: (d) => d.totalviolations,
                 id: "totalviolations",
-                width: getWidthFromLabel(i18n._(t`Total`)),
+                width: getWidthFromLabel(i18n._(t`Total`), 80),
               },
             ],
           },
