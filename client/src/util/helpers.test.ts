@@ -1,17 +1,5 @@
-import helpers, { searchAddrsAreEqual, assertNotUndefined } from "./helpers";
+import helpers, { searchAddrsAreEqual } from "./helpers";
 import { SearchAddressWithoutBbl } from "components/APIDataTypes";
-
-describe("assertNotUndefined()", () => {
-  it("raises exception when undefined", () => {
-    expect(() => assertNotUndefined(undefined)).toThrowError(
-      "expected argument to not be undefined"
-    );
-  });
-
-  it("returns argument when not undefined", () => {
-    expect(assertNotUndefined(null)).toBe(null);
-  });
-});
 
 describe("searchAddrsAreEqual()", () => {
   const searchAddr1: SearchAddressWithoutBbl = {
@@ -178,5 +166,39 @@ describe("formatStreetNameForHpdLink()", () => {
 
   it("still works for empty streetnames", () => {
     expect(helpers.formatStreetNameForHpdLink("")).toBe("");
+  });
+});
+
+describe("formatHpdContactAddress(), ()", () => {
+  it("works with fully populated addresses", () => {
+    expect(
+      helpers.formatHpdContactAddress({
+        zip: "11205",
+        city: "Brooklyn",
+        state: "NY",
+        apartment: "d",
+        streetname: "BOOP STREET",
+        housenumber: "1",
+      })
+    ).toStrictEqual({
+      addressLine1: "1 BOOP STREET D",
+      addressLine2: "BROOKLYN, NY 11205",
+    });
+  });
+
+  it("works with addresses with missing parts", () => {
+    expect(
+      helpers.formatHpdContactAddress({
+        zip: "11205",
+        city: null,
+        state: null,
+        apartment: null,
+        streetname: "BOOP STREET",
+        housenumber: "1",
+      })
+    ).toStrictEqual({
+      addressLine1: "1 BOOP STREET",
+      addressLine2: "11205",
+    });
   });
 });

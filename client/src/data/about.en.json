@@ -59,6 +59,9 @@
       {
         "data": {
           "target": {
+            "metadata": {
+              "tags": []
+            },
             "sys": {
               "space": {
                 "sys": {

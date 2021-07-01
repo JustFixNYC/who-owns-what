@@ -4,8 +4,10 @@
 import _pickBy from "lodash/pickBy";
 import { deepEqual as assertDeepEqual } from "assert";
 import { SupportedLocale } from "../i18n-base";
-import { SearchAddressWithoutBbl } from "components/APIDataTypes";
+import { HpdContactAddress, SearchAddressWithoutBbl } from "components/APIDataTypes";
 import { reportError } from "error-reporting";
+import { t } from "@lingui/macro";
+import { I18n, MessageDescriptor } from "@lingui/core";
 
 /**
  * An array consisting of Who Owns What's standard enumerations for street names,
@@ -26,24 +28,85 @@ const hpdNumberTransformations = [
   ["TENTH", "10"],
 ];
 
+const hpdComplaintTypeTranslations = new Map([
+  ["DOOR/WINDOW", t`DOOR/WINDOW`],
+  ["HEATING", t`HEATING`],
+  ["STAIRS", t`STAIRS`],
+  ["CONSTRUCTION", t`CONSTRUCTION`],
+  ["JANITOR/SUPER", t`JANITOR/SUPER`],
+  ["OUTSIDE BUILDING", t`OUTSIDE BUILDING`],
+  ["BELL/BUZZER/INTERCOM", t`BELL/BUZZER/INTERCOM`],
+  ["SEWAGE", t`SEWAGE`],
+  ["FIRE-ESCAPE", t`FIRE ESCAPE`],
+  ["SIGNAGE MISSING", t`SIGNAGE MISSING`],
+  ["PESTS", t`PESTS`],
+  ["MAILBOX", t`MAILBOX`],
+  ["WINDOWS", t`WINDOWS`],
+  ["ELEVATOR", t`ELEVATOR`],
+  ["GARBAGE/RECYCLING STORAGE", t`GARBAGE/RECYCLING STORAGE`],
+  ["CABINET", t`CABINET`],
+  ["TENANT HARASSMENT", t`TENANT HARASSMENT`],
+  ["WINDOW GUARDS", t`WINDOW GUARDS`],
+  ["FLOOR", t`FLOOR`],
+  ["PLUMBING", t`PLUMBING`],
+  ["VENTILATION SYSTEM", t`VENTILATION SYSTEM`],
+  ["MOLD", t`MOLD`],
+  ["WATER LEAK", t`WATER LEAK`],
+  ["ELECTRIC", t`ELECTRIC`],
+  ["FLOORING/STAIRS", t`FLOORING/STAIRS`],
+  ["PAINT/PLASTER", t`PAINT/PLASTER`],
+  ["APPLIANCE", t`APPLIANCE`],
+  ["NONCONST", t`NON-CONSTRUCTION`],
+  ["CERAMIC-TILE", t`CERAMIC TILE`],
+  ["COOKING GAS", t`COOKING GAS`],
+  ["SAFETY", t`SAFETY`],
+  ["HEAT/HOT WATER", t`HEAT/HOT WATER`],
+  ["DOORS", t`DOORS`],
+  ["LOCKS", t`LOCKS`],
+]);
+
+const hpdContactTitleTranslations = new Map([
+  ["HeadOfficer", t`Head Officer`],
+  ["CorporateOwner", t`Corporate Owner`],
+  ["IndividualOwner", t`Individual Owner`],
+  ["JointOwner", t`Joint Owner`],
+  ["SiteManager", t`Site Manager`],
+  ["Agent", t`Agent`],
+  ["Lessee", t`Lessee`],
+  ["Officer", t`Officer`],
+  ["Shareholder", t`Shareholder`],
+  ["Corporation", t`Corporation`],
+]);
+
 export const longDateOptions = { year: "numeric", month: "short", day: "numeric" };
 export const mediumDateOptions = { year: "numeric", month: "long" };
 export const shortDateOptions = { month: "short" };
 
-/**
- * Assert that the given argument isn't undefined and return it. Throw
- * an exception otherwise.
- *
- * This is primarily useful for situations where we're unable to
- * statically verify that something isn't undefined (e.g. due to the limitations
- * of typings we didn't write) but are sure it won't be in practice.
- */
-export function assertNotUndefined<T>(thing: T | undefined): T | never {
-  if (thing === undefined) {
-    throw new Error("Assertion failure, expected argument to not be undefined!");
-  }
-  return thing;
-}
+const createTranslationFunctionFromMap = (
+  map: Map<string, MessageDescriptor>,
+  description: string,
+  localeOverride?: SupportedLocale
+) => (textToTranslate: string, i18n: I18n) => {
+  const translatedType = map.get(textToTranslate);
+  if (!translatedType) {
+    reportError(`The ${description} "${textToTranslate}" isn't internationalized`);
+    return textToTranslate;
+  } else return i18n.use(localeOverride || i18n.language)._(translatedType);
+};
+
+const translateComplaintType = createTranslationFunctionFromMap(
+  hpdComplaintTypeTranslations,
+  "HPD Complaint type"
+);
+const translateContactTitle = createTranslationFunctionFromMap(
+  hpdContactTitleTranslations,
+  "HPD Contact title"
+);
+const getContactTitleInEnglish = createTranslationFunctionFromMap(
+  hpdContactTitleTranslations,
+  "HPD Contact title",
+  "en"
+);
 
 export function searchAddrsAreEqual(
   addr1: SearchAddressWithoutBbl,
@@ -202,5 +265,44 @@ export default {
       }
     });
     return arr.join(" ");
+  },
+
+  formatHpdContactAddress(
+    address: HpdContactAddress
+  ): { addressLine1: string; addressLine2: string } {
+    const { housenumber, streetname, apartment, city, state, zip } = address;
+    const cityFormatted = city && state ? `${city},` : city;
+
+    const formatArrayAsString = (addrs: (string | null)[]) =>
+      addrs
+        .filter((x) => !!x)
+        .join(" ")
+        .toUpperCase();
+
+    return {
+      addressLine1: formatArrayAsString([housenumber, streetname, apartment]),
+      addressLine2: formatArrayAsString([cityFormatted, state, zip]),
+    };
+  },
+
+  translateComplaintType,
+  translateContactTitle,
+
+  /**
+   * Translates a HPD Contact title into a target language, and if the target language
+   * isn't English, includes the English translation as well alongside it.
+   *
+   * For example, this function takes the title `HeadOfficer`, and spits out:
+   * - 'Head Officer' if the target language is English
+   * - 'Oficial principal ("Head Officer" en inglés)"' if the target language is Spanish
+   */
+  translateContactTitleAndIncludeEnglish(textToTranslate: string, i18n: I18n) {
+    const translation = translateContactTitle(textToTranslate, i18n);
+    if (i18n.language === "en") return translation;
+    else {
+      const textInEnglish = getContactTitleInEnglish(textToTranslate, i18n);
+      const translationSuffix = i18n._(t`("${textInEnglish}" in English)`);
+      return translation + " " + translationSuffix;
+    }
   },
 };

@@ -7,7 +7,9 @@ dependencies:
   - marshal_evictions
   - hpd_registrations
   - hpd_violations
+  - hpd_complaints
   - acris
+  - nycha_bbls
 api_dependencies:
   # These are NYCDB datasets that aren't needed by the
   # SQL scripts, but which the Django server uses

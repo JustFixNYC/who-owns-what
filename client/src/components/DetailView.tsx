@@ -7,7 +7,7 @@ import Browser from "../util/browser";
 import Modal from "../components/Modal";
 
 import "styles/DetailView.css";
-import { withI18n, withI18nProps } from "@lingui/react";
+import { withI18n, withI18nProps, I18n } from "@lingui/react";
 import { t, Trans } from "@lingui/macro";
 import { SocialShareAddressPage } from "./SocialShare";
 import { isPartOfGroupSale } from "./PropertiesList";
@@ -17,6 +17,10 @@ import BuildingStatsTable from "./BuildingStatsTable";
 import { createWhoOwnsWhatRoutePaths, AddressPageRoutes } from "../routes";
 import { SupportedLocale } from "../i18n-base";
 import { withMachineInStateProps } from "state-machine";
+import { Accordion } from "./Accordion";
+import { UsefulLinks } from "./UsefulLinks";
+import _groupBy from "lodash/groupBy";
+import { HpdContactAddress, HpdFullContact } from "./APIDataTypes";
 
 type Props = withI18nProps &
   withMachineInStateProps<"portfolioFound"> & {
@@ -30,6 +34,8 @@ type State = {
   showCompareModal: boolean;
 };
 
+const NUM_COMPLAINT_TYPES_TO_SHOW = 3;
+
 const getTodaysDate = () => new Date();
 
 const SocialShareDetailView = () => (
@@ -42,6 +48,85 @@ const SocialShareDetailView = () => (
         t`I just looked up this building on Who Owns What, a free tool built by JustFix.nyc to make data on landlords and evictors more transparent to tenants. You might want to look up your building. Check it out here: ${url}`,
     }}
   />
+);
+
+/**
+ * A set of HpdFullContacts grouped by contact name. Will contain exactly one name but can contain
+ * one or many full contact entries (with title and address) that have the same matching name.
+ */
+type GroupedContact = [
+  string, // Contact name
+  HpdFullContact[] // Array of all contact entries with the same name
+];
+
+/**
+ * This comparison function, to be used inside the Array.sort() method,
+ * prioritizes head officers and owners when sorting an array of grouped HPD contacts
+ */
+const sortContactsByImportance = (contact: GroupedContact) =>
+  contact[1].find((o) => o.title === "HeadOfficer" || o.title.includes("Owner")) ? -1 : 0;
+
+const FormattedContactAddress: React.FC<{ address: HpdContactAddress }> = ({ address }) => {
+  const formattedAddress = Helpers.formatHpdContactAddress(address);
+  return (
+    <>
+      <br />
+      {formattedAddress.addressLine1}
+      <br />
+      {formattedAddress.addressLine2}
+    </>
+  );
+};
+
+const HpdContactCard: React.FC<{ contact: GroupedContact }> = ({ contact }) => (
+  <I18n>
+    {({ i18n }) => (
+      <Accordion title={contact[0]}>
+        {contact[1].map((info, j) => (
+          <div className="landlord-contact-info" key={j}>
+            <span className="text-bold text-dark">
+              {Helpers.translateContactTitleAndIncludeEnglish(info.title, i18n)}
+            </span>
+            {info.address && <FormattedContactAddress address={info.address} />}
+          </div>
+        ))}
+      </Accordion>
+    )}
+  </I18n>
+);
+
+const LearnMoreAccordion = () => (
+  <I18n>
+    {({ i18n }) => (
+      <Accordion title={i18n._(t`Learn more`)} titleOnOpen={i18n._(t`Close`)}>
+        <br />
+        <Trans>
+          <p>
+            While the legal owner of a building is often a company (usually called an “LLC”), these
+            names and business addresses registered with HPD offer a clearer picture of who the
+            landlord really is.
+          </p>
+          <p>
+            People listed here as “Head Officer” or “Owner” usually have ties to building ownership,
+            while “Site Managers” are part of management. That being said, these names are self
+            reported by the landlord, so they can be misleading.
+          </p>
+          <p>
+            Learn more about HPD registrations and how this information powers this tool on the{" "}
+            <LocaleLink
+              to={createWhoOwnsWhatRoutePaths().about}
+              onClick={() => {
+                window.gtag("event", "about-page-overview-tab");
+              }}
+            >
+              About page
+            </LocaleLink>
+            .
+          </p>
+        </Trans>
+      </Accordion>
+    )}
+  </I18n>
 );
 
 class DetailViewWithoutI18n extends Component<Props, State> {
@@ -65,13 +150,12 @@ class DetailViewWithoutI18n extends Component<Props, State> {
 
   render() {
     const isMobile = Browser.isMobile();
-    const locale = (this.props.i18n.language as SupportedLocale) || "en";
+    const { i18n } = this.props;
+    const locale = (i18n.language as SupportedLocale) || "en";
     const { assocAddrs, detailAddr, searchAddr } = this.props.state.context.portfolioData;
 
     // Let's save some variables that will be helpful in rendering the front-end component
     let takeActionURL, formattedRegEndDate, streetViewAddr, ownernames, userOwnernames;
-
-    const { boro, block, lot } = Helpers.splitBBL(detailAddr.bbl);
 
     takeActionURL = Helpers.createTakeActionURL(detailAddr, "detail_view");
 
@@ -143,48 +227,56 @@ class DetailViewWithoutI18n extends Component<Props, State> {
                             window.gtag("event", "view-data-over-time-overview-tab");
                           }}
                         >
-                          <Trans render="span">View data over time</Trans> &#8599;&#xFE0E;
+                          <Trans render="span">View data over time &#8599;&#xFE0E;</Trans>
                         </Link>
                       </div>
-                      <div className="card-body-landlord">
-                        <div className="columns">
-                          <div className="column col-xs-12 col-6">
+                      <div className="card-body-complaints">
+                        <div>
+                          <b>
+                            <Trans>Most Common 311 Complaints, Last 3 Years</Trans>
+                          </b>
+                          <ul>
+                            {detailAddr.recentcomplaintsbytype ? (
+                              detailAddr.recentcomplaintsbytype
+                                .slice(0, NUM_COMPLAINT_TYPES_TO_SHOW)
+                                .map((complaint, idx) => (
+                                  <li key={idx}>
+                                    {Helpers.translateComplaintType(
+                                      complaint.type,
+                                      this.props.i18n
+                                    )}{" "}
+                                    ({complaint.count})
+                                  </li>
+                                ))
+                            ) : (
+                              <Trans>None</Trans>
+                            )}
+                          </ul>
+                        </div>
+                      </div>
+                      {detailAddr.allcontacts && (
+                        <div className="card-body-landlord">
+                          <div className="card-title-landlord">
                             <b>
-                              <Trans>Business Entities</Trans>
+                              <Trans>Who’s the landlord of this building?</Trans>
                             </b>
-                            <ul>
-                              {detailAddr.corpnames &&
-                                detailAddr.corpnames.map((corp, idx) => <li key={idx}>{corp}</li>)}
-                            </ul>
+                            <LearnMoreAccordion />
                           </div>
-                          <div className="column col-xs-12 col-6">
-                            <b>
-                              <Trans>Business Addresses</Trans>
-                            </b>
-                            <ul>
-                              {detailAddr.businessaddrs &&
-                                detailAddr.businessaddrs.map((rba, idx) => (
-                                  <li key={idx}>{rba}</li>
-                                ))}
-                            </ul>
+                          <div>
+                            {
+                              // Group all contact info by the name of each person/corporate entity
+                              Object.entries(_groupBy(detailAddr.allcontacts, "value"))
+                                .sort(sortContactsByImportance)
+                                .map((contact, i) => (
+                                  <HpdContactCard contact={contact} key={i} />
+                                ))
+                            }
+                          </div>
+                          <div className="card-footer-landlord">
+                            <LearnMoreAccordion />
                           </div>
                         </div>
-                        {ownernames && (
-                          <div>
-                            <b>
-                              <Trans>People</Trans>
-                            </b>
-                            <ul>
-                              {ownernames.map((owner, idx) => (
-                                <li key={idx}>
-                                  {owner.title.split(/(?=[A-Z])/).join(" ")}: {owner.value}
-                                </li>
-                              ))}
-                            </ul>
-                          </div>
-                        )}
-                      </div>
-
+                      )}
                       <div className="card-body-registration">
                         <p>
                           <b>
@@ -228,15 +320,17 @@ class DetailViewWithoutI18n extends Component<Props, State> {
                           </p>
                         )}
                       </div>
-
-                      <div className="card-body-prompt hide-lg">
+                    </div>
+                  </div>
+                  <div className="column col-lg-12 col-5">
+                    <div className="card-image hide-lg">{streetView}</div>
+                    <div className="card-body column-right">
+                      <UsefulLinks addrForLinks={detailAddr} location="overview-tab" />
+                      <div className="card-body-prompt">
                         <h6 className="DetailView__subtitle">
                           <Trans>Are you having issues in this building?</Trans>
                         </h6>
                         <a
-                          onClick={() => {
-                            window.gtag("event", "take-action-overview-tab");
-                          }}
                           href={takeActionURL}
                           target="_blank"
                           rel="noopener noreferrer"
@@ -246,119 +340,11 @@ class DetailViewWithoutI18n extends Component<Props, State> {
                         </a>
                       </div>
 
-                      <div className="card-body-social social-group hide-lg">
+                      <div className="card-body-social social-group">
                         <h6 className="DetailView__subtitle">
                           <Trans>Share this page with your neighbors</Trans>
                         </h6>
                         <SocialShareDetailView />
-                      </div>
-                    </div>
-                  </div>
-                  <div className="column col-lg-12 col-5">
-                    <div className="card-image hide-lg">{streetView}</div>
-                    <div className="card-body column-right">
-                      <div className="card-body-resources">
-                        <span className="card-body-resources__title show-lg">
-                          <Trans render="em">Useful links</Trans>
-                        </span>
-
-                        <div className="card-body-links">
-                          <h6 className="DetailView__subtitle hide-lg">
-                            <Trans>Useful links</Trans>
-                          </h6>
-                          <div className="columns">
-                            <div className="column col-12">
-                              <a
-                                onClick={() => {
-                                  window.gtag("event", "acris-overview-tab");
-                                }}
-                                href={`http://a836-acris.nyc.gov/bblsearch/bblsearch.asp?borough=${boro}&block=${block}&lot=${lot}`}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="btn btn-block"
-                              >
-                                <Trans>View documents on ACRIS</Trans> &#8599;&#xFE0E;
-                              </a>
-                            </div>
-                            <div className="column col-12">
-                              <a
-                                onClick={() => {
-                                  window.gtag("event", "hpd-overview-tab");
-                                }}
-                                href={`https://hpdonline.hpdnyc.org/HPDonline/Provide_address.aspx?p1=${boro}&p2=${
-                                  detailAddr.housenumber
-                                }&p3=${Helpers.formatStreetNameForHpdLink(
-                                  detailAddr.streetname
-                                )}&SearchButton=Search`}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="btn btn-block"
-                              >
-                                <Trans>HPD Building Profile</Trans> &#8599;&#xFE0E;
-                              </a>
-                            </div>
-                            <div className="column col-12">
-                              <a
-                                onClick={() => {
-                                  window.gtag("event", "dob-overview-tab");
-                                }}
-                                href={`http://a810-bisweb.nyc.gov/bisweb/PropertyProfileOverviewServlet?boro=${boro}&block=${block}&lot=${lot}`}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="btn btn-block"
-                              >
-                                <Trans>DOB Building Profile</Trans> &#8599;&#xFE0E;
-                              </a>
-                            </div>
-                            <div className="column col-12">
-                              <a
-                                onClick={() => {
-                                  window.gtag("event", "dof-overview-tab");
-                                }}
-                                href={`https://a836-pts-access.nyc.gov/care/search/commonsearch.aspx?mode=persprop`}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="btn btn-block"
-                              >
-                                <Trans>DOF Property Tax Bills</Trans> &#8599;&#xFE0E;
-                              </a>
-                            </div>
-                            <div className="column col-12">
-                              <a
-                                onClick={() => {
-                                  window.gtag("event", "dap-overview-tab");
-                                }}
-                                href={`https://portal.displacementalert.org/property/${boro}${block}${lot}`}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="btn btn-block"
-                              >
-                                <Trans>ANHD DAP Portal</Trans> &#8599;&#xFE0E;
-                              </a>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div className="card-body-prompt show-lg">
-                          <h6 className="DetailView__subtitle">
-                            <Trans>Are you having issues in this building?</Trans>
-                          </h6>
-                          <a
-                            href={takeActionURL}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="btn btn-justfix btn-block"
-                          >
-                            <Trans>Take action on JustFix.nyc!</Trans>
-                          </a>
-                        </div>
-
-                        <div className="card-body-social social-group show-lg">
-                          <h6 className="DetailView__subtitle">
-                            <Trans>Share this page with your neighbors</Trans>
-                          </h6>
-                          <SocialShareDetailView />
-                        </div>
                       </div>
                     </div>
                   </div>
@@ -442,7 +428,7 @@ class DetailViewWithoutI18n extends Component<Props, State> {
                         <ul>
                           {userOwnernames.map((owner, idx) => (
                             <li key={idx}>
-                              {owner.title.split(/(?=[A-Z])/).join(" ")}: {owner.value}
+                              {Helpers.translateContactTitle(owner.title, i18n)}: {owner.value}
                             </li>
                           ))}
                         </ul>
@@ -456,7 +442,7 @@ class DetailViewWithoutI18n extends Component<Props, State> {
                         <ul>
                           {ownernames.map((owner, idx) => (
                             <li key={idx}>
-                              {owner.title.split(/(?=[A-Z])/).join(" ")}: {owner.value}
+                              {Helpers.translateContactTitle(owner.title, i18n)}: {owner.value}
                             </li>
                           ))}
                         </ul>

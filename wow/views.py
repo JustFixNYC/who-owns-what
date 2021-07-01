@@ -1,6 +1,7 @@
 import csv
 import logging
 from pathlib import Path
+from typing import Any, Dict
 from django.http import HttpResponse, JsonResponse
 
 from .dbutil import call_db_func, exec_db_query
@@ -96,11 +97,20 @@ def address_aggregate(request):
     return JsonResponse({'result': list(cleaned_result)})
 
 
+def clean_building_info_dict(building_info):
+    return {
+        **building_info,
+        "nycha_dev_evictions": int_or_none(building_info['nycha_dev_evictions']),
+        "nycha_dev_unitsres": int_or_none(building_info['nycha_dev_unitsres'])
+    }
+
+
 @api
 def address_buildinginfo(request):
     bbl = get_request_bbl(request)
     result = exec_db_query(SQL_DIR / 'address_buildinginfo.sql', {'bbl': bbl})
-    return JsonResponse({'result': result})
+    cleaned_result = map(clean_building_info_dict, result)
+    return JsonResponse({'result': list(cleaned_result)})
 
 
 @api
@@ -108,6 +118,15 @@ def address_indicatorhistory(request):
     bbl = get_request_bbl(request)
     result = exec_db_query(SQL_DIR / 'address_indicatorhistory.sql', {'bbl': bbl})
     return JsonResponse({'result': result})
+
+
+def _fixup_addr_for_csv(addr: Dict[str, Any]):
+    addr['ownernames'] = csvutil.stringify_owners(addr['ownernames'] or [])
+    addr['recentcomplaintsbytype'] = csvutil.stringify_complaints(
+        addr['recentcomplaintsbytype']
+    )
+    addr['allcontacts'] = csvutil.stringify_full_contacts(addr['allcontacts'] or [])
+    csvutil.stringify_lists(addr)
 
 
 @api
@@ -122,8 +141,7 @@ def address_export(request):
     first_row = addrs[0]
 
     for addr in addrs:
-        addr['ownernames'] = csvutil.stringify_owners(addr['ownernames'])
-        csvutil.stringify_lists(addr)
+        _fixup_addr_for_csv(addr)
 
     # https://docs.djangoproject.com/en/3.0/howto/outputting-csv/
     response = HttpResponse(content_type='text/csv')
