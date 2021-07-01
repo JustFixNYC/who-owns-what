@@ -38,13 +38,7 @@ $table-border-dark: 1px solid $dark;
       }
 
       &.-header .rthfc-th-fixed {
-        // This extra bottom padding makes sure the user doesn't
-        // see underneath the header column when trying to scroll up
-        padding: 0 0 100px 0;
-        > div {
-          padding: 7px 5px;
-          border-bottom: $table-border-dark;
-        }
+        border-bottom: $table-border-dark;
       }
 
       .rt-th {
@@ -69,8 +63,6 @@ $table-border-dark: 1px solid $dark;
     }
 
     .rt-tbody {
-      z-index: 10;
-
       .rt-tr-group {
         border-bottom: $table-border-light;
         .rt-td {
