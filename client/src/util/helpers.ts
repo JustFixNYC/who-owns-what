@@ -309,15 +309,22 @@ export default {
 
   /**
    * Detects whether a given DOM element is visible on screen.
+   *
+   * Note: for older browsers that do not support IntersectionObserver, this
+   * hook will always return FALSE by default.
+   *
    * Borrowed from https://stackoverflow.com/questions/45514676/react-check-if-element-is-visible-in-dom
    */
   useOnScreen(ref: React.RefObject<any>) {
-    const [isIntersecting, setIntersecting] = useState(false);
+    const isIntersectionObserverSupported = typeof IntersectionObserver !== "undefined";
 
-    const observer = new IntersectionObserver(([entry]) => setIntersecting(entry.isIntersecting));
+    const [isIntersecting, setIntersecting] = useState(false);
+    const observer =
+      isIntersectionObserverSupported &&
+      new IntersectionObserver(([entry]) => setIntersecting(entry.isIntersecting));
 
     useEffect(() => {
-      if (ref.current) {
+      if (observer && ref.current) {
         observer.observe(ref.current);
         // Remove the observer as soon as the component is unmounted
         return () => {
