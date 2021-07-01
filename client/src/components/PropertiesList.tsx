@@ -263,6 +263,9 @@ const PropertiesListWithoutI18n: React.FC<
                 },
                 id: "recentcomplaintsbytype",
                 width: getWidthFromLabel(i18n._(t`Top Complaint`)),
+                style: {
+                  whiteSpace: "unset",
+                },
               },
             ],
           },
@@ -328,7 +331,10 @@ const PropertiesListWithoutI18n: React.FC<
                   return owner ? owner.value : "";
                 },
                 id: "ownernames",
-                width: getWidthFromLabel(i18n._(t`Officer/Owner`)),
+                width: getWidthFromLabel(i18n._(t`Officer/Owner`), 100),
+                style: {
+                  whiteSpace: "unset",
+                },
               },
             ],
           },
