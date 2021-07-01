@@ -2,6 +2,9 @@
 @import "_scrollbar.scss";
 @import "_button.scss";
 
+$table-border-light: 1px solid $gray-light;
+$table-border-dark: 1px solid $dark;
+
 .PropertiesList {
   height: 100%;
   width: 100%;
@@ -27,17 +30,20 @@
       .rthfc-th-fixed {
         position: fixed;
         display: list-item;
+        z-index: 5;
       }
 
       &.-headerGroups .rthfc-th-fixed {
-        border-bottom: 1px solid $gray-light;
+        border-bottom: $table-border-light;
       }
 
       &.-header .rthfc-th-fixed {
+        // This extra bottom padding makes sure the user doesn't
+        // see underneath the header column when trying to scroll up
         padding: 0 0 100px 0;
         > div {
           padding: 7px 5px;
-          border-bottom: 1px solid $dark;
+          border-bottom: $table-border-dark;
         }
       }
 
@@ -55,7 +61,7 @@
 
     .rt-thead.-header {
       box-shadow: none;
-      border-bottom: 1px solid $dark;
+      border-bottom: $table-border-dark;
     }
 
     .rt-td {
@@ -64,6 +70,13 @@
 
     .rt-tbody {
       z-index: 10;
+
+      .rt-tr-group {
+        border-bottom: $table-border-light;
+        .rt-td {
+          border-right: $table-border-light;
+        }
+      }
     }
   }
 
