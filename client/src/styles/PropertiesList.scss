@@ -27,6 +27,7 @@ $table-border-dark: 1px solid $dark;
     }
 
     .rt-thead {
+      max-height: 30px;
       .rthfc-th-fixed {
         position: fixed;
         display: list-item;
