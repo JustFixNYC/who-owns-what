@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import ReactTable from "react-table";
 import Browser from "../util/browser";
 
@@ -53,6 +53,7 @@ const getWidthFromLabel = (label: string, customDefaultWidth?: number) => {
 };
 
 const FIRST_COLUMN_WIDTH = 130;
+const HEADER_HEIGHT = 30;
 
 const secondColumnStyle = {
   marginLeft: `${FIRST_COLUMN_WIDTH}px`,
@@ -85,8 +86,18 @@ const PropertiesListWithoutI18n: React.FC<
    */
   const hideScrollFade = isOlderBrowser || isLastColumnVisible;
 
+  const firstHeaderRef = useRef<HTMLDivElement>(null);
+  const [headerTopSpacing, setHeaderTopSpacing] = useState(0);
+
+  useEffect(() => {
+    if (firstHeaderRef?.current?.offsetTop) setHeaderTopSpacing(firstHeaderRef.current.offsetTop);
+  });
+
   return (
-    <div className={classnames("PropertiesList", hideScrollFade && "hide-scroll-fade")}>
+    <div
+      className={classnames("PropertiesList", hideScrollFade && "hide-scroll-fade")}
+      ref={firstHeaderRef}
+    >
       <ReactTableFixedColumns
         data={addrs}
         minRows={10}
@@ -96,6 +107,10 @@ const PropertiesListWithoutI18n: React.FC<
         columns={[
           {
             fixed: "left",
+            headerStyle: {
+              height: `${HEADER_HEIGHT}px`,
+              top: `${headerTopSpacing}px`,
+            },
             columns: [
               {
                 Header: (
@@ -104,6 +119,9 @@ const PropertiesListWithoutI18n: React.FC<
                     <ArrowIcon />
                   </div>
                 ),
+                headerStyle: {
+                  top: `${headerTopSpacing + HEADER_HEIGHT}px`,
+                },
                 accessor: (d) => `${d.housenumber} ${d.streetname}`,
                 id: "address",
                 width: FIRST_COLUMN_WIDTH,
