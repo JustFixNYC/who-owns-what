@@ -92,7 +92,7 @@ const PropertiesListWithoutI18n: React.FC<
   // Make sure to setHeaderTopSpacing whenever the user changes the page's locale:
   useEffect(() => {
     if (firstHeaderRef?.current?.offsetTop) setHeaderTopSpacing(firstHeaderRef.current.offsetTop);
-  }, [i18n.language, window.innerHeight]);
+  }, [i18n.language]);
 
   return (
     <div
