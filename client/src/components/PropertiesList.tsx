@@ -110,7 +110,9 @@ const PropertiesListWithoutI18n: React.FC<
             fixed: "left",
             headerStyle: {
               height: `${HEADER_HEIGHT}px`,
-              top: `${headerTopSpacing}px`,
+              ...(headerTopSpacing > 0 && {
+                top: `${headerTopSpacing}px`,
+              }),
             },
             columns: [
               {
@@ -121,7 +123,9 @@ const PropertiesListWithoutI18n: React.FC<
                   </div>
                 ),
                 headerStyle: {
-                  top: `${headerTopSpacing + HEADER_HEIGHT}px`,
+                  ...(headerTopSpacing > 0 && {
+                    top: `${headerTopSpacing + HEADER_HEIGHT}px`,
+                  }),
                 },
                 accessor: (d) => `${d.housenumber} ${d.streetname}`,
                 id: "address",
