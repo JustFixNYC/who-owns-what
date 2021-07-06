@@ -97,7 +97,12 @@ const PropertiesListWithoutI18n: React.FC<
   // - the user resizes their viewport window
   useEffect(() => {
     if (tableRef?.current?.offsetTop) setHeaderTopSpacing(tableRef.current.offsetTop);
-  }, [i18n.language, isTableVisible, Helpers.useWindowSize()]);
+  }, [
+    i18n.language,
+    isTableVisible,
+    Helpers.useWindowSize().height,
+    Helpers.useWindowSize().width,
+  ]);
 
   return (
     <div

@@ -8,6 +8,8 @@ $table-border-dark: 1px solid $dark;
 .PropertiesList {
   height: 100%;
   width: 100%;
+  // This makes sure that the fade effect from the "::after" component
+  // doesn't overflow past the boundary of the PropertiesList container
   position: relative;
   overflow: auto;
 
@@ -30,6 +32,8 @@ $table-border-dark: 1px solid $dark;
       max-height: 30px;
       .rthfc-th-fixed {
         position: fixed;
+        // This display prop makes sure that the fixed table cells
+        // fill up their entire alloted spaces
         display: list-item;
         z-index: 5;
       }
