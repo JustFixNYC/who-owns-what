@@ -87,7 +87,7 @@ const PropertiesListWithoutI18n: React.FC<
   const hideScrollFade = isOlderBrowser || isLastColumnVisible;
 
   const firstHeaderRef = useRef<HTMLDivElement>(null);
-  const [headerTopSpacing, setHeaderTopSpacing] = useState(0);
+  const [headerTopSpacing, setHeaderTopSpacing] = useState<number | undefined>();
 
   // Make sure to setHeaderTopSpacing whenever the user changes the page's locale:
   useEffect(() => {
@@ -110,7 +110,7 @@ const PropertiesListWithoutI18n: React.FC<
             fixed: "left",
             headerStyle: {
               height: `${HEADER_HEIGHT}px`,
-              ...(headerTopSpacing > 0 && {
+              ...(!!headerTopSpacing && {
                 top: `${headerTopSpacing}px`,
               }),
             },
@@ -123,7 +123,7 @@ const PropertiesListWithoutI18n: React.FC<
                   </div>
                 ),
                 headerStyle: {
-                  ...(headerTopSpacing > 0 && {
+                  ...(!!headerTopSpacing && {
                     top: `${headerTopSpacing + HEADER_HEIGHT}px`,
                   }),
                 },
