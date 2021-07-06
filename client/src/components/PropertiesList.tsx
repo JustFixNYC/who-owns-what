@@ -86,18 +86,23 @@ const PropertiesListWithoutI18n: React.FC<
    */
   const hideScrollFade = isOlderBrowser || isLastColumnVisible;
 
-  const firstHeaderRef = useRef<HTMLDivElement>(null);
+  const tableRef = useRef<HTMLDivElement>(null);
+  const isTableVisible = Helpers.useOnScreen(tableRef);
+
   const [headerTopSpacing, setHeaderTopSpacing] = useState<number | undefined>();
 
-  // Make sure to setHeaderTopSpacing whenever the user changes the page's locale:
+  // Make sure to setHeaderTopSpacing whenever
+  // - the page's locale changes
+  // - the table comes into view
+  // - the user resizes their viewport window
   useEffect(() => {
-    if (firstHeaderRef?.current?.offsetTop) setHeaderTopSpacing(firstHeaderRef.current.offsetTop);
-  }, [i18n.language]);
+    if (tableRef?.current?.offsetTop) setHeaderTopSpacing(tableRef.current.offsetTop);
+  }, [i18n.language, isTableVisible, Helpers.useWindowSize()]);
 
   return (
     <div
       className={classnames("PropertiesList", hideScrollFade && "hide-scroll-fade")}
-      ref={firstHeaderRef}
+      ref={tableRef}
     >
       <ReactTableFixedColumns
         data={addrs}
