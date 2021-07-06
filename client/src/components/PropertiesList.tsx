@@ -67,6 +67,7 @@ const PropertiesListWithoutI18n: React.FC<
   }
 > = (props) => {
   const { i18n } = props;
+  const { width: windowWidth, height: windowHeight } = Helpers.useWindowSize();
   const locale = (i18n.language as SupportedLocale) || "en";
 
   const addrs = props.state.context.portfolioData.assocAddrs;
@@ -92,17 +93,12 @@ const PropertiesListWithoutI18n: React.FC<
   const [headerTopSpacing, setHeaderTopSpacing] = useState<number | undefined>();
 
   // Make sure to setHeaderTopSpacing whenever
-  // - the page's locale changes
   // - the table comes into view
+  // - the page's locale changes
   // - the user resizes their viewport window
   useEffect(() => {
     if (tableRef?.current?.offsetTop) setHeaderTopSpacing(tableRef.current.offsetTop);
-  }, [
-    i18n.language,
-    isTableVisible,
-    Helpers.useWindowSize().height,
-    Helpers.useWindowSize().width,
-  ]);
+  }, [isTableVisible, locale, windowWidth, windowHeight]);
 
   return (
     <div
