@@ -30,7 +30,7 @@ $table-border-dark: 1px solid $dark;
 
     .rt-thead {
       max-height: 30px;
-      .rthfc-th-fixed {
+      .rt-tr .rthfc-th-fixed.rthfc-th-fixed-left {
         position: fixed;
         // This display prop makes sure that the fixed table cells
         // fill up their entire alloted spaces
