@@ -9,8 +9,7 @@ $table-border-dark: 1px solid $dark;
   height: 100%;
   width: 100%;
   // These next 2 items ensure that the fade effect from the "::after"
-  // component doesn't overflow past the edge of the full 
-  // PropertiesList container
+  // component doesn't overflow past the edge of the PropertiesList container
   position: relative;
   overflow: auto;
 
