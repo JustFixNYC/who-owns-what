@@ -24,6 +24,11 @@ export interface IndicatorsDataset {
   quantity: (i18n: I18n, value: number) => string;
 
   /**
+   * The localized name for label on the Y-axis, when the given dataset is shown.
+   */
+  yAxisLabel: (i18n: I18n) => string;
+
+  /**
    * A localized explanation for what the dataset means, and where to find more information.
    */
   explanation: (i18n: I18n) => JSX.Element;
@@ -45,6 +50,7 @@ export const INDICATORS_DATASETS: IndicatorsDatasetMap = {
           other: "# HPD Violations Issued since 2010",
         })
       ),
+    yAxisLabel: (i18n) => i18n._(t`Violations Issued`),
     explanation: () => (
       <Trans render="span">
         HPD Violations occur when an official City Inspector finds the conditions of a home in
@@ -82,6 +88,7 @@ export const INDICATORS_DATASETS: IndicatorsDatasetMap = {
           other: "# HPD Complaints Issued since 2014",
         })
       ),
+    yAxisLabel: (i18n) => i18n._(t`Complaints Issued`),
     explanation: () => (
       <Trans render="span">
         HPD Complaints are housing issues reported to the City <b>by a tenant calling 311</b>. When
@@ -117,6 +124,7 @@ export const INDICATORS_DATASETS: IndicatorsDatasetMap = {
           other: "# Building Permit Applications since 2010",
         })
       ),
+    yAxisLabel: (i18n) => i18n._(t`Building Permits Applied For`),
     explanation: () => (
       <Trans render="span">
         Owners submit Building Permit Applications to the Department of Buildings before any
@@ -147,6 +155,7 @@ export const INDICATORS_DATASETS: IndicatorsDatasetMap = {
           other: "# HPD Complaints Issued since 2014",
         })
       ),
+    yAxisLabel: (i18n) => i18n._(t`Violations Issued`),
     explanation: () => (
       <Trans render="span">
         HPD Complaints are housing issues reported to the City <b>by a tenant calling 311</b>. When
@@ -182,6 +191,7 @@ export const INDICATORS_DATASETS: IndicatorsDatasetMap = {
           other: "# Building Permit Applications since 2010",
         })
       ),
+    yAxisLabel: (i18n) => i18n._(t`Violations Issued`),
     explanation: () => (
       <Trans render="span">
         Owners submit Building Permit Applications to the Department of Buildings before any

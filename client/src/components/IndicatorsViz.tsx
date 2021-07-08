@@ -17,6 +17,7 @@ import { IndicatorsState } from "./IndicatorsTypes";
 import { SupportedLocale } from "../i18n-base";
 import { ChartOptions } from "chart.js";
 import { withMachineInStateProps } from "state-machine";
+import { INDICATORS_DATASETS } from "./IndicatorsDatasets";
 
 const DEFAULT_ANIMATION_MS = 1000;
 const MONTH_ANIMATION_MS = 2500;
@@ -303,6 +304,14 @@ class IndicatorsVizImplementation extends Component<IndicatorVizImplementationPr
     }
 
     var dataMaximum = this.getDataMaximum();
+    var suggestedYAxisMax =
+      this.props.activeVis !== "complaints" && this.props.activeVis !== "viols"
+        ? Math.max(
+            12,
+            Helpers.maxArray(this.groupData(timelineData.permits.values.total) || [0]) * 1.25
+          )
+        : Math.max(12, dataMaximum * 1.25);
+
     var timeSpan = this.props.activeTimeSpan;
 
     var acrisURL =
@@ -324,14 +333,7 @@ class IndicatorsVizImplementation extends Component<IndicatorVizImplementationPr
           {
             ticks: {
               beginAtZero: true,
-              suggestedMax:
-                this.props.activeVis === "permits"
-                  ? Math.max(
-                      12,
-                      Helpers.maxArray(this.groupData(timelineData.permits.values.total) || [0]) *
-                        1.25
-                    )
-                  : Math.max(12, dataMaximum * 1.25),
+              suggestedMax: suggestedYAxisMax,
             },
             scaleLabel: {
               display: true,
@@ -339,12 +341,7 @@ class IndicatorsVizImplementation extends Component<IndicatorVizImplementationPr
               fontColor: "rgb(69, 77, 93)",
               fontSize: 14,
               padding: 8,
-              labelString:
-                this.props.activeVis === "complaints"
-                  ? i18n._(t`Complaints Issued`)
-                  : this.props.activeVis === "viols"
-                  ? i18n._(t`Violations Issued`)
-                  : i18n._(t`Building Permits Applied For`),
+              labelString: INDICATORS_DATASETS[activeVis].yAxisLabel(i18n),
             },
             stacked: true,
           },
