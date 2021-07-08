@@ -49,6 +49,10 @@ msgstr "... or view some sample portfolios:"
 msgid "<0>While the legal owner of a building is often a company (usually called an “LLC”), these names and business addresses registered with HPD offer a clearer picture of who the landlord really is.</0><1>People listed here as “Head Officer” or “Owner” usually have ties to building ownership, while “Site Managers” are part of management. That being said, these names are self reported by the landlord, so they can be misleading.</1><2>Learn more about HPD registrations and how this information powers this tool on the <3>About page</3>.</2>"
 msgstr "<0>While the legal owner of a building is often a company (usually called an “LLC”), these names and business addresses registered with HPD offer a clearer picture of who the landlord really is.</0><1>People listed here as “Head Officer” or “Owner” usually have ties to building ownership, while “Site Managers” are part of management. That being said, these names are self reported by the landlord, so they can be misleading.</1><2>Learn more about HPD registrations and how this information powers this tool on the <3>About page</3>.</2>"
 
+#: src/components/IndicatorsDatasets.tsx:92
+msgid "A DOB Violation is a notice that a property is not in compliance with some building law. It includes an order from the Department of Buildings to correct the violating condition, which must be corrected before a new or amended Certificate of Occupancy (CO) can be obtained. DOB Violations are generally considered less severe than ECB violations, and can be identified as:<0/><1/><2>Emergency</2> — critical building situation<3/><4>Non-Emergency</4> — all others<5/><6/>Read more about Building Violations at the <7>official DOB page</7>."
+msgstr "A DOB Violation is a notice that a property is not in compliance with some building law. It includes an order from the Department of Buildings to correct the violating condition, which must be corrected before a new or amended Certificate of Occupancy (CO) can be obtained. DOB Violations are generally considered less severe than ECB violations, and can be identified as:<0/><1/><2>Emergency</2> — critical building situation<3/><4>Non-Emergency</4> — all others<5/><6/>Read more about Building Violations at the <7>official DOB page</7>."
+
 #: src/components/UsefulLinks.tsx:47
 #: src/containers/NotRegisteredPage.tsx:158
 #: src/containers/NychaPage.tsx:168
@@ -128,12 +132,12 @@ msgstr "Borough Management Office:"
 msgid "Building Classification"
 msgstr "Building Classification"
 
-#: src/components/IndicatorsDatasets.tsx:61
+#: src/components/IndicatorsDatasets.tsx:63
 msgid "Building Permit Applications"
 msgstr "Building Permit Applications"
 
-#: src/components/IndicatorsViz.tsx:173
-#: src/components/IndicatorsViz.tsx:241
+#: src/components/IndicatorsDatasets.tsx:69
+#: src/components/IndicatorsViz.tsx:174
 msgid "Building Permits Applied For"
 msgstr "Building Permits Applied For"
 
@@ -179,15 +183,15 @@ msgstr "Check out the issues in this building"
 msgid "Civil penalties of $250-$500"
 msgstr "Civil penalties of $250-$500"
 
-#: src/components/IndicatorsViz.tsx:144
+#: src/components/IndicatorsViz.tsx:145
 msgid "Class A"
 msgstr "Class A"
 
-#: src/components/IndicatorsViz.tsx:137
+#: src/components/IndicatorsViz.tsx:138
 msgid "Class B"
 msgstr "Class B"
 
-#: src/components/IndicatorsViz.tsx:130
+#: src/components/IndicatorsViz.tsx:131
 msgid "Class C"
 msgstr "Class C"
 
@@ -203,7 +207,7 @@ msgstr "Close"
 msgid "Close legend"
 msgstr "Close legend"
 
-#: src/components/IndicatorsViz.tsx:238
+#: src/components/IndicatorsDatasets.tsx:42
 msgid "Complaints Issued"
 msgstr "Complaints Issued"
 
@@ -219,6 +223,10 @@ msgstr "Corporation"
 #: src/containers/NotRegisteredPage.tsx:155
 msgid "DOB Building Profile"
 msgstr "DOB Building Profile"
+
+#: src/components/IndicatorsDatasets.tsx:85
+msgid "DOB Violations"
+msgstr "DOB Violations"
 
 #: src/components/UsefulLinks.tsx:40
 #: src/containers/NotRegisteredPage.tsx:150
@@ -254,6 +262,10 @@ msgstr "Donate"
 msgid "Download"
 msgstr "Download"
 
+#: src/components/IndicatorsDatasets.tsx:113
+msgid "ECB Violations"
+msgstr "ECB Violations"
+
 #: src/util/helpers.ts:50
 msgid "ELECTRIC"
 msgstr "ELECTRIC"
@@ -266,7 +278,7 @@ msgstr "ELEVATOR"
 msgid "Email"
 msgstr "Email"
 
-#: src/components/IndicatorsViz.tsx:155
+#: src/components/IndicatorsViz.tsx:156
 msgid "Emergency"
 msgstr "Emergency"
 
@@ -337,21 +349,21 @@ msgstr "HEATING"
 msgid "HPD Building Profile"
 msgstr "HPD Building Profile"
 
-#: src/components/IndicatorsDatasets.tsx:6
+#: src/components/IndicatorsDatasets.tsx:36
 #: src/components/PropertiesList.tsx:92
 msgid "HPD Complaints"
 msgstr "HPD Complaints"
 
-#: src/components/IndicatorsDatasets.tsx:12
+#: src/components/IndicatorsDatasets.tsx:43
 msgid "HPD Complaints are housing issues reported to the City <0>by a tenant calling 311</0>. When someone issues a complaint, the Department of Housing Preservation and Development begins a process of investigation that may lead to an official violation from the City. Complaints can be identified as:<1/><2/><3>Emergency</3> — reported to be hazardous/dire<4/><5>Non-Emergency</5> — all others<6/><7/>Read more about HPD Complaints and how to file them at the <8>official HPD page</8>."
 msgstr "HPD Complaints are housing issues reported to the City <0>by a tenant calling 311</0>. When someone issues a complaint, the Department of Housing Preservation and Development begins a process of investigation that may lead to an official violation from the City. Complaints can be identified as:<1/><2/><3>Emergency</3> — reported to be hazardous/dire<4/><5>Non-Emergency</5> — all others<6/><7/>Read more about HPD Complaints and how to file them at the <8>official HPD page</8>."
 
-#: src/components/IndicatorsDatasets.tsx:32
+#: src/components/IndicatorsDatasets.tsx:6
 #: src/components/PropertiesList.tsx:120
 msgid "HPD Violations"
 msgstr "HPD Violations"
 
-#: src/components/IndicatorsDatasets.tsx:39
+#: src/components/IndicatorsDatasets.tsx:14
 msgid "HPD Violations occur when an official City Inspector finds the conditions of a home in violation of the law. If not corrected, these violations incur fines for the owner— however, HPD violations are notoriously unenforced by the City. These Violations fall into three categories:<0/><1/><2>Class A</2> — non-hazardous<3/><4>Class B</4> — hazardous<5/><6>Class C</6> — immediately hazardous<7/><8/>Read more about HPD Violations at the <9>official HPD page</9>."
 msgstr "HPD Violations occur when an official City Inspector finds the conditions of a home in violation of the law. If not corrected, these violations incur fines for the owner— however, HPD violations are notoriously unenforced by the City. These Violations fall into three categories:<0/><1/><2>Class A</2> — non-hazardous<3/><4>Class B</4> — hazardous<5/><6>Class C</6> — immediately hazardous<7/><8/>Read more about HPD Violations at the <9>official HPD page</9>."
 
@@ -438,7 +450,7 @@ msgstr "Last 3 Years"
 msgid "Last Sale"
 msgstr "Last Sale"
 
-#: src/components/IndicatorsViz.tsx:351
+#: src/components/IndicatorsViz.tsx:377
 msgid "Last Sale Unknown"
 msgstr "Last Sale Unknown"
 
@@ -461,6 +473,10 @@ msgstr "Legend"
 #: src/util/helpers.ts:69
 msgid "Lessee"
 msgstr "Lessee"
+
+#: src/components/IndicatorsDatasets.tsx:120
+msgid "Like DOB Violations, ECB (Environmental Control Board) Violations occur when a property does not comply with building code or zoning law. However, people named in an ECB violation must first attend a hearing with the Office of Administrative Trials and Hearings to pay a fine or have the violation dismissed. For that reason, ECB Violations are generally considered more severe than DOB Violations.<0/><1/>Read more about ECB Violations at the <2>official City page</2>."
+msgstr "Like DOB Violations, ECB (Environmental Control Board) Violations occur when a property does not comply with building code or zoning law. However, people named in an ECB violation must first attend a hearing with the Office of Administrative Trials and Hearings to pay a fine or have the violation dismissed. For that reason, ECB Violations are generally considered more severe than DOB Violations.<0/><1/>Read more about ECB Violations at the <2>official City page</2>."
 
 #: src/components/PropertiesList.tsx:182
 #: src/components/PropertiesList.tsx:184
@@ -508,7 +524,7 @@ msgstr "May be issued official Orders"
 msgid "Methodology"
 msgstr "Methodology"
 
-#: src/components/Indicators.tsx:173
+#: src/components/Indicators.tsx:171
 msgid "Month"
 msgstr "Month"
 
@@ -545,7 +561,7 @@ msgstr "No"
 msgid "No address found"
 msgstr "No address found"
 
-#: src/components/IndicatorsViz.tsx:405
+#: src/components/IndicatorsViz.tsx:431
 msgid "No data available"
 msgstr "No data available"
 
@@ -557,7 +573,7 @@ msgstr "No registration found for {usersInputAddressFragment}!"
 msgid "No registration found!"
 msgstr "No registration found!"
 
-#: src/components/IndicatorsViz.tsx:162
+#: src/components/IndicatorsViz.tsx:163
 msgid "Non-Emergency"
 msgstr "Non-Emergency"
 
@@ -603,7 +619,7 @@ msgstr "Open Violations"
 msgid "Overview"
 msgstr "Overview"
 
-#: src/components/IndicatorsDatasets.tsx:67
+#: src/components/IndicatorsDatasets.tsx:70
 msgid "Owners submit Building Permit Applications to the Department of Buildings before any construction project to get necessary approval. The number of applications filed can indicate how much construction the owner was planning.<0/><1/>Read more about DOB Building Applications/Permits at the <2>official NYC Buildings page</2>."
 msgstr "Owners submit Building Permit Applications to the Department of Buildings before any construction project to get necessary approval. The number of applications filed can indicate how much construction the owner was planning.<0/><1/>Read more about DOB Building Applications/Permits at the <2>official NYC Buildings page</2>."
 
@@ -645,7 +661,7 @@ msgstr "Privacy policy"
 msgid "Public Housing Development"
 msgstr "Public Housing Development"
 
-#: src/components/Indicators.tsx:181
+#: src/components/Indicators.tsx:179
 msgid "Quarter"
 msgstr "Quarter"
 
@@ -728,7 +744,7 @@ msgstr "Since 2017, NYC Marshals scheduled {totalEvictions, plural, one {one evi
 msgid "Site Manager"
 msgstr "Site Manager"
 
-#: src/components/IndicatorsViz.tsx:350
+#: src/components/IndicatorsViz.tsx:376
 msgid "Sold to Current Owner"
 msgstr "Sold to Current Owner"
 
@@ -890,7 +906,7 @@ msgstr "Timeline"
 msgid "Top Complaint"
 msgstr "Top Complaint"
 
-#: src/components/IndicatorsViz.tsx:313
+#: src/components/IndicatorsViz.tsx:339
 #: src/components/PropertiesList.tsx:95
 #: src/components/PropertiesList.tsx:129
 msgid "Total"
@@ -928,7 +944,7 @@ msgstr "Useful links"
 msgid "VENTILATION SYSTEM"
 msgstr "VENTILATION SYSTEM"
 
-#: src/components/Indicators.tsx:165
+#: src/components/Indicators.tsx:163
 msgid "View by:"
 msgstr "View by:"
 
@@ -963,7 +979,9 @@ msgstr "View portfolio"
 msgid "View portfolio map"
 msgstr "View portfolio map"
 
-#: src/components/IndicatorsViz.tsx:240
+#: src/components/IndicatorsDatasets.tsx:13
+#: src/components/IndicatorsDatasets.tsx:91
+#: src/components/IndicatorsDatasets.tsx:119
 msgid "Violations Issued"
 msgstr "Violations Issued"
 
@@ -991,7 +1009,7 @@ msgstr "Warning! This site doesn't fully work on older versions of Safari. Try a
 msgid "We compare your search address with a database of over 200k buildings to identify a landlord or management company's portfolio. To learn more, check out <0>our methodology</0>."
 msgstr "We compare your search address with a database of over 200k buildings to identify a landlord or management company's portfolio. To learn more, check out <0>our methodology</0>."
 
-#: src/components/Indicators.tsx:224
+#: src/components/Indicators.tsx:222
 msgid "What are {0}?"
 msgstr "What are {0}?"
 
@@ -1022,7 +1040,7 @@ msgstr "Who’s responsible for issues in your apartment & building? #WhoOwnsWha
 msgid "Who’s the landlord of this building?"
 msgstr "Who’s the landlord of this building?"
 
-#: src/components/Indicators.tsx:189
+#: src/components/Indicators.tsx:187
 msgid "Year"
 msgstr "Year"
 
@@ -1062,14 +1080,22 @@ msgstr "search address"
 msgid "{0} {1}, {2} currently has {3, plural, one {one open HPD violation} other {# open HPD violations}} - the most in this portfolio."
 msgstr "{0} {1}, {2} currently has {3, plural, one {one open HPD violation} other {# open HPD violations}} - the most in this portfolio."
 
-#: src/components/IndicatorsDatasets.tsx:62
+#: src/components/IndicatorsDatasets.tsx:64
 msgid "{value, plural, one {One Building Permit Application since 2010} other {# Building Permit Applications since 2010}}"
 msgstr "{value, plural, one {One Building Permit Application since 2010} other {# Building Permit Applications since 2010}}"
 
-#: src/components/IndicatorsDatasets.tsx:7
+#: src/components/IndicatorsDatasets.tsx:86
+msgid "{value, plural, one {One DOB Violation Issued since 2010} other {# DOB Violations Issued since 2010}}"
+msgstr "{value, plural, one {One DOB Violation Issued since 2010} other {# DOB Violations Issued since 2010}}"
+
+#: src/components/IndicatorsDatasets.tsx:114
+msgid "{value, plural, one {One ECB Violation Issued since 2010} other {# ECB Violations Issued since 2010}}"
+msgstr "{value, plural, one {One ECB Violation Issued since 2010} other {# ECB Violations Issued since 2010}}"
+
+#: src/components/IndicatorsDatasets.tsx:37
 msgid "{value, plural, one {One HPD Complaint Issued since 2014} other {# HPD Complaints Issued since 2014}}"
 msgstr "{value, plural, one {One HPD Complaint Issued since 2014} other {# HPD Complaints Issued since 2014}}"
 
-#: src/components/IndicatorsDatasets.tsx:34
+#: src/components/IndicatorsDatasets.tsx:8
 msgid "{value, plural, one {One HPD Violation Issued since 2010} other {# HPD Violations Issued since 2010}}"
 msgstr "{value, plural, one {One HPD Violation Issued since 2010} other {# HPD Violations Issued since 2010}}"
