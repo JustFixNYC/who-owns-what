@@ -151,31 +151,32 @@ export const INDICATORS_DATASETS: IndicatorsDatasetMap = {
       i18n._(
         plural({
           value,
-          one: "One HPD Complaint Issued since 2014",
-          other: "# HPD Complaints Issued since 2014",
+          one: "One DOB Violation Issued since 2010",
+          other: "# DOB Violations Issued since 2010",
         })
       ),
     yAxisLabel: (i18n) => i18n._(t`Violations Issued`),
     explanation: () => (
       <Trans render="span">
-        HPD Complaints are housing issues reported to the City <b>by a tenant calling 311</b>. When
-        someone issues a complaint, the Department of Housing Preservation and Development begins a
-        process of investigation that may lead to an official violation from the City. Complaints
-        can be identified as:
+        A DOB Violation is a notice that a property is not in compliance with some building law. It
+        includes an order from the Department of Buildings to correct the violating condition, which
+        must be corrected before a new or amended Certificate of Occupancy (CO) can be obtained. DOB
+        Violations are generally considered less severe than ECB violations, and can be identified
+        as:
         <br />
         <br />
-        <b>Emergency</b> — reported to be hazardous/dire
+        <b>Emergency</b> — critical building situation
         <br />
         <b>Non-Emergency</b> — all others
         <br />
         <br />
-        Read more about HPD Complaints and how to file them at the{" "}
+        Read more about Building Violations at the{" "}
         <a
-          href="https://www1.nyc.gov/site/hpd/renters/complaints-and-inspections.page"
+          href="https://www1.nyc.gov/site/buildings/safety/dob-violations.page"
           target="_blank"
           rel="noopener noreferrer"
         >
-          official HPD page
+          official DOB page
         </a>
         .
       </Trans>
@@ -187,25 +188,27 @@ export const INDICATORS_DATASETS: IndicatorsDatasetMap = {
       i18n._(
         plural({
           value,
-          one: "One Building Permit Application since 2010",
-          other: "# Building Permit Applications since 2010",
+          one: "One ECB Violation Issued since 2010",
+          other: "# ECB Violations Issued since 2010",
         })
       ),
     yAxisLabel: (i18n) => i18n._(t`Violations Issued`),
     explanation: () => (
       <Trans render="span">
-        Owners submit Building Permit Applications to the Department of Buildings before any
-        construction project to get necessary approval. The number of applications filed can
-        indicate how much construction the owner was planning.
+        Like DOB Violations, ECB (Environmental Control Board) Violations occur when a property does
+        not comply with building code or zoning law. However, people named in an ECB violation must
+        first attend a hearing with the Office of Administrative Trials and Hearings to pay a fine
+        or have the violation dismissed. For that reason, ECB Violations are generally considered
+        more severe than DOB Violations.
         <br />
         <br />
-        Read more about DOB Building Applications/Permits at the{" "}
+        Read more about ECB Violations at the{" "}
         <a
-          href="https://www1.nyc.gov/site/buildings/about/building-applications-and-permits.page"
+          href="https://www1.nyc.gov/site/buildings/safety/ecb-violations.page"
           target="_blank"
           rel="noopener noreferrer"
         >
-          official NYC Buildings page
+          official City page
         </a>
         .
       </Trans>
