@@ -32,12 +32,10 @@ $table-border-dark: 1px solid $dark;
       max-height: 30px;
       .rt-tr .rthfc-th-fixed.rthfc-th-fixed-left {
         position: fixed;
-        z-index: 5;
         // This display prop makes sure that the fixed table cells
         // fill up their entire allotted spaces
         display: list-item;
-        // This fixes a spacing issue on Internet Explorer
-        transform: translate3d(0px, 0px, 0px);
+        z-index: 5;
       }
 
       &.-headerGroups .rthfc-th-fixed {
