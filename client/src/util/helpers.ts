@@ -385,7 +385,7 @@ export default {
         });
       }
       // Add event listener
-      window.addEventListener("resize", debounce(250, handleResize));
+      window.addEventListener("resize", debounce(DEBOUNCE_TIME_IN_MS, handleResize));
       // Call handler right away so state gets updated with initial window size
       handleResize();
       // Remove event listener on cleanup
