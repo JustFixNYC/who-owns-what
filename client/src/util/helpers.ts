@@ -83,6 +83,25 @@ export const longDateOptions = { year: "numeric", month: "short", day: "numeric"
 export const mediumDateOptions = { year: "numeric", month: "long" };
 export const shortDateOptions = { month: "short" };
 
+/**
+ * A React Hook that "debounces" the given value, ensuring that the value
+ * returned by the hook is one that hasn't changed in the given number of
+ * milliseconds.
+ *
+ * Originally copied from the tenants2 repo maintained by JustFix
+ * https://github.com/JustFixNYC/tenants2/blob/master/frontend/lib/util/use-debounced-value.tsx
+ */
+const useDebouncedValue = <T>(value: T, ms: number): T => {
+  const [debouncedValue, setDebouncedValue] = useState(value);
+
+  useEffect(() => {
+    const timeout = window.setTimeout(() => setDebouncedValue(value), ms);
+    return () => clearTimeout(timeout);
+  }, [ms, value]);
+
+  return debouncedValue;
+};
+
 const createTranslationFunctionFromMap = (
   map: Map<string, MessageDescriptor>,
   description: string,
@@ -335,6 +354,7 @@ export default {
 
     return isIntersecting;
   },
+  useDebouncedValue,
 
   /**
    * Detects whether a user's viewport window has changed dimensions.
@@ -356,8 +376,8 @@ export default {
       function handleResize() {
         // Set window width/height to state
         setWindowSize({
-          width: window.innerWidth,
-          height: window.innerHeight,
+          width: useDebouncedValue(window.innerWidth, 250),
+          height: useDebouncedValue(window.innerHeight, 250),
         });
       }
       // Add event listener
