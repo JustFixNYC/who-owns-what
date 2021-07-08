@@ -218,21 +218,14 @@ class IndicatorsWithoutI18n extends Component<IndicatorsProps, IndicatorsState> 
                       <Trans>Select a Dataset:</Trans>
                     </em>{" "}
                     <br />
-                    <IndicatorsDatasetRadio
-                      id="complaints"
-                      activeId={activeVis}
-                      onChange={this.handleVisChange}
-                    />
-                    <IndicatorsDatasetRadio
-                      id="viols"
-                      activeId={activeVis}
-                      onChange={this.handleVisChange}
-                    />
-                    <IndicatorsDatasetRadio
-                      id="permits"
-                      activeId={activeVis}
-                      onChange={this.handleVisChange}
-                    />
+                    {Object.keys(INDICATORS_DATASETS).map((datasetKey, i) => (
+                      <IndicatorsDatasetRadio
+                        key={i}
+                        id={datasetKey as IndicatorsDatasetId}
+                        activeId={activeVis}
+                        onChange={this.handleVisChange}
+                      />
+                    ))}
                   </div>
                   <div className="Indicators__linksContainer">
                     <em className="Indicators__linksTitle">

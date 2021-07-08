@@ -170,6 +170,10 @@ export type MonthlyTimelineData = {
   viols_class_b: number;
   viols_class_c: number;
   viols_total: number;
+  dob_viols_emergency: number;
+  dob_viols_nonemergency: number;
+  dob_viols_total: number;
+  ecb_viols_total: number;
 };
 
 export type IndicatorsHistoryResults = {

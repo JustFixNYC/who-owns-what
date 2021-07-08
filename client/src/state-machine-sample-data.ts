@@ -203,6 +203,10 @@ export const SAMPLE_TIMELINE_DATA: IndicatorsHistoryResults = {
       viols_class_b: 0,
       viols_class_c: 2,
       viols_total: 3,
+      dob_viols_emergency: 0,
+      dob_viols_nonemergency: 1,
+      dob_viols_total: 1,
+      ecb_viols_total: 1,
     },
   ],
 };

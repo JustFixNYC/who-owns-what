@@ -41,6 +41,20 @@ interface PermitsData extends IndicatorsData {
   };
 }
 
+interface DobViolsData extends IndicatorsData {
+  values: {
+    emergency: number[] | null;
+    nonemergency: number[] | null;
+    total: number[] | null;
+  };
+}
+
+interface EcbViolsData extends IndicatorsData {
+  values: {
+    total: number[] | null;
+  };
+}
+
 export type IndicatorsDataIndex = {
   [k in IndicatorsDatasetId]: IndicatorsData;
 };
@@ -49,6 +63,8 @@ export type IndicatorsDataFromAPI = IndicatorsDataIndex & {
   viols: ViolsData;
   complaints: ComplaintsData;
   permits: PermitsData;
+  dobviols: DobViolsData;
+  ecbviols: EcbViolsData;
 };
 
 export const indicatorsInitialDataStructure: IndicatorsDataFromAPI = {
@@ -72,6 +88,22 @@ export const indicatorsInitialDataStructure: IndicatorsDataFromAPI = {
   },
 
   permits: {
+    labels: null,
+    values: {
+      total: null,
+    },
+  },
+
+  dobviols: {
+    labels: null,
+    values: {
+      emergency: null,
+      nonemergency: null,
+      total: null,
+    },
+  },
+
+  ecbviols: {
     labels: null,
     values: {
       total: null,
@@ -106,7 +138,7 @@ export const indicatorsInitialState: IndicatorsState = {
     documentid: null,
   },
 
-  indicatorList: ["complaints", "viols", "permits"],
+  indicatorList: ["complaints", "viols", "permits", "dobviols", "ecbviols"],
   defaultVis: "complaints",
   activeVis: "complaints",
   timeSpanList: ["month", "quarter", "year"],

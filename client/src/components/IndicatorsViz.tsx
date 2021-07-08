@@ -239,6 +239,35 @@ class IndicatorsVizImplementation extends Component<IndicatorVizImplementationPr
           },
         ];
         break;
+      case "dobviols":
+        datasets = [
+          {
+            label: "Emergency",
+            data: this.groupData(timelineData.dobviols.values.emergency) || [],
+            backgroundColor: "rgba(215,25,28, 0.6)",
+            borderColor: "rgba(215,25,28,1)",
+            borderWidth: 1,
+          },
+          {
+            label: "Non-Emergency",
+            data: this.groupData(timelineData.dobviols.values.nonemergency) || [],
+            backgroundColor: "rgba(254,224,139, 0.6)",
+            borderColor: "rgba(254,224,139,1)",
+            borderWidth: 1,
+          },
+        ];
+        break;
+      case "ecbviols":
+        datasets = [
+          {
+            label: "ECB Violations Issued",
+            data: this.groupData(timelineData.ecbviols.values.total) || [],
+            backgroundColor: "rgba(153,142,195, 0.6)",
+            borderColor: "rgba(153,142,195,1)",
+            borderWidth: 1,
+          },
+        ];
+        break;
       default:
         datasets = [];
         break;

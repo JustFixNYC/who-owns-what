@@ -3,7 +3,7 @@ import { I18n } from "@lingui/core";
 import { t, Trans, plural } from "@lingui/macro";
 import { withI18n } from "@lingui/react";
 
-export type IndicatorsDatasetId = "complaints" | "viols" | "permits";
+export type IndicatorsDatasetId = "complaints" | "viols" | "permits" | "dobviols" | "ecbviols";
 
 /**
  * This interface encapsulates metadata about an Indicators dataset.
@@ -34,41 +34,6 @@ type IndicatorsDatasetMap = {
 };
 
 export const INDICATORS_DATASETS: IndicatorsDatasetMap = {
-  complaints: {
-    name: (i18n) => i18n._(t`HPD Complaints`),
-    quantity: (i18n, value) =>
-      i18n._(
-        plural({
-          value,
-          one: "One HPD Complaint Issued since 2014",
-          other: "# HPD Complaints Issued since 2014",
-        })
-      ),
-    explanation: () => (
-      <Trans render="span">
-        HPD Complaints are housing issues reported to the City <b>by a tenant calling 311</b>. When
-        someone issues a complaint, the Department of Housing Preservation and Development begins a
-        process of investigation that may lead to an official violation from the City. Complaints
-        can be identified as:
-        <br />
-        <br />
-        <b>Emergency</b> — reported to be hazardous/dire
-        <br />
-        <b>Non-Emergency</b> — all others
-        <br />
-        <br />
-        Read more about HPD Complaints and how to file them at the{" "}
-        <a
-          href="https://www1.nyc.gov/site/hpd/renters/complaints-and-inspections.page"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          official HPD page
-        </a>
-        .
-      </Trans>
-    ),
-  },
   viols: {
     name: (i18n) => i18n._(t`HPD Violations`),
     analyticsName: "violations",
@@ -107,8 +72,108 @@ export const INDICATORS_DATASETS: IndicatorsDatasetMap = {
       </Trans>
     ),
   },
+  complaints: {
+    name: (i18n) => i18n._(t`HPD Complaints`),
+    quantity: (i18n, value) =>
+      i18n._(
+        plural({
+          value,
+          one: "One HPD Complaint Issued since 2014",
+          other: "# HPD Complaints Issued since 2014",
+        })
+      ),
+    explanation: () => (
+      <Trans render="span">
+        HPD Complaints are housing issues reported to the City <b>by a tenant calling 311</b>. When
+        someone issues a complaint, the Department of Housing Preservation and Development begins a
+        process of investigation that may lead to an official violation from the City. Complaints
+        can be identified as:
+        <br />
+        <br />
+        <b>Emergency</b> — reported to be hazardous/dire
+        <br />
+        <b>Non-Emergency</b> — all others
+        <br />
+        <br />
+        Read more about HPD Complaints and how to file them at the{" "}
+        <a
+          href="https://www1.nyc.gov/site/hpd/renters/complaints-and-inspections.page"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          official HPD page
+        </a>
+        .
+      </Trans>
+    ),
+  },
   permits: {
     name: (i18n) => i18n._(t`Building Permit Applications`),
+    quantity: (i18n, value) =>
+      i18n._(
+        plural({
+          value,
+          one: "One Building Permit Application since 2010",
+          other: "# Building Permit Applications since 2010",
+        })
+      ),
+    explanation: () => (
+      <Trans render="span">
+        Owners submit Building Permit Applications to the Department of Buildings before any
+        construction project to get necessary approval. The number of applications filed can
+        indicate how much construction the owner was planning.
+        <br />
+        <br />
+        Read more about DOB Building Applications/Permits at the{" "}
+        <a
+          href="https://www1.nyc.gov/site/buildings/about/building-applications-and-permits.page"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          official NYC Buildings page
+        </a>
+        .
+      </Trans>
+    ),
+  },
+  dobviols: {
+    // TODO: Update This
+    name: (i18n) => i18n._(t`DOB Violations`),
+    quantity: (i18n, value) =>
+      i18n._(
+        plural({
+          value,
+          one: "One HPD Complaint Issued since 2014",
+          other: "# HPD Complaints Issued since 2014",
+        })
+      ),
+    explanation: () => (
+      <Trans render="span">
+        HPD Complaints are housing issues reported to the City <b>by a tenant calling 311</b>. When
+        someone issues a complaint, the Department of Housing Preservation and Development begins a
+        process of investigation that may lead to an official violation from the City. Complaints
+        can be identified as:
+        <br />
+        <br />
+        <b>Emergency</b> — reported to be hazardous/dire
+        <br />
+        <b>Non-Emergency</b> — all others
+        <br />
+        <br />
+        Read more about HPD Complaints and how to file them at the{" "}
+        <a
+          href="https://www1.nyc.gov/site/hpd/renters/complaints-and-inspections.page"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          official HPD page
+        </a>
+        .
+      </Trans>
+    ),
+  },
+  ecbviols: {
+    name: (i18n) => i18n._(t`ECB Violations`),
     quantity: (i18n, value) =>
       i18n._(
         plural({
