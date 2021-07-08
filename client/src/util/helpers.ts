@@ -84,22 +84,24 @@ export const mediumDateOptions = { year: "numeric", month: "long" };
 export const shortDateOptions = { month: "short" };
 
 /**
- * A React Hook that "debounces" the given value, ensuring that the value
- * returned by the hook is one that hasn't changed in the given number of
- * milliseconds.
+ * Delay the action of a certian function by a set amount of time.
  *
- * Originally copied from the tenants2 repo maintained by JustFix
- * https://github.com/JustFixNYC/tenants2/blob/master/frontend/lib/util/use-debounced-value.tsx
+ * Originally copied from:
+ * https://gist.github.com/gragland/4e3d9b1c934a18dc76f585350f97e321#gistcomment-3073492
  */
-const useDebouncedValue = <T>(value: T, ms: number): T => {
-  const [debouncedValue, setDebouncedValue] = useState(value);
+const debounce = (delay: number, fn: any) => {
+  let timerId: any;
 
-  useEffect(() => {
-    const timeout = window.setTimeout(() => setDebouncedValue(value), ms);
-    return () => clearTimeout(timeout);
-  }, [ms, value]);
+  return function (...args: any[]) {
+    if (timerId) {
+      clearTimeout(timerId);
+    }
 
-  return debouncedValue;
+    timerId = setTimeout(() => {
+      fn(...args);
+      timerId = null;
+    }, delay);
+  };
 };
 
 const createTranslationFunctionFromMap = (
@@ -354,7 +356,6 @@ export default {
 
     return isIntersecting;
   },
-  useDebouncedValue,
 
   /**
    * Detects whether a user's viewport window has changed dimensions.
@@ -371,17 +372,20 @@ export default {
       width: undefined,
       height: undefined,
     });
+
+    // How long we should wait before handling a window resize
+    const DEBOUNCE_TIME_IN_MS = 250;
     useEffect(() => {
       // Handler to call on window resize
       function handleResize() {
         // Set window width/height to state
         setWindowSize({
-          width: useDebouncedValue(window.innerWidth, 250),
-          height: useDebouncedValue(window.innerHeight, 250),
+          width: window.innerWidth,
+          height: window.innerHeight,
         });
       }
       // Add event listener
-      window.addEventListener("resize", handleResize);
+      window.addEventListener("resize", debounce(250, handleResize));
       // Call handler right away so state gets updated with initial window size
       handleResize();
       // Remove event listener on cleanup
