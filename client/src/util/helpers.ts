@@ -8,6 +8,7 @@ import { HpdContactAddress, SearchAddressWithoutBbl } from "components/APIDataTy
 import { reportError } from "error-reporting";
 import { t } from "@lingui/macro";
 import { I18n, MessageDescriptor } from "@lingui/core";
+import React, { useEffect, useState } from "react";
 
 /**
  * An array consisting of Who Owns What's standard enumerations for street names,
@@ -81,6 +82,27 @@ const hpdContactTitleTranslations = new Map([
 export const longDateOptions = { year: "numeric", month: "short", day: "numeric" };
 export const mediumDateOptions = { year: "numeric", month: "long" };
 export const shortDateOptions = { month: "short" };
+
+/**
+ * Delay the action of a certian function by a set amount of time.
+ *
+ * Originally copied from:
+ * https://gist.github.com/gragland/4e3d9b1c934a18dc76f585350f97e321#gistcomment-3073492
+ */
+const debounce = (delay: number, fn: any) => {
+  let timerId: any;
+
+  return function (...args: any[]) {
+    if (timerId) {
+      clearTimeout(timerId);
+    }
+
+    timerId = setTimeout(() => {
+      fn(...args);
+      timerId = null;
+    }, delay);
+  };
+};
 
 const createTranslationFunctionFromMap = (
   map: Map<string, MessageDescriptor>,
@@ -304,5 +326,71 @@ export default {
       const translationSuffix = i18n._(t`("${textInEnglish}" in English)`);
       return translation + " " + translationSuffix;
     }
+  },
+
+  /**
+   * Detects whether a given DOM element is visible on screen.
+   *
+   * Note: for older browsers that do not support IntersectionObserver, this
+   * hook will always return FALSE by default.
+   *
+   * Borrowed from https://stackoverflow.com/questions/45514676/react-check-if-element-is-visible-in-dom
+   */
+  useOnScreen(ref: React.RefObject<any>) {
+    const isIntersectionObserverSupported = typeof IntersectionObserver !== "undefined";
+
+    const [isIntersecting, setIntersecting] = useState(false);
+    const observer =
+      isIntersectionObserverSupported &&
+      new IntersectionObserver(([entry]) => setIntersecting(entry.isIntersecting));
+
+    useEffect(() => {
+      if (observer && ref.current) {
+        observer.observe(ref.current);
+        // Remove the observer as soon as the component is unmounted
+        return () => {
+          observer.disconnect();
+        };
+      }
+    }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+    return isIntersecting;
+  },
+
+  /**
+   * Detects whether a user's viewport window has changed dimensions.
+   *
+   * Adapted from https://usehooks.com/useWindowSize/
+   */
+  useWindowSize() {
+    // Initialize state with undefined width/height so server and client renders match
+    // Learn more here: https://joshwcomeau.com/react/the-perils-of-rehydration/
+    const [windowSize, setWindowSize] = useState<{
+      width: number | undefined;
+      height: number | undefined;
+    }>({
+      width: undefined,
+      height: undefined,
+    });
+
+    // How long we should wait before handling a window resize
+    const DEBOUNCE_TIME_IN_MS = 250;
+    useEffect(() => {
+      // Handler to call on window resize
+      function handleResize() {
+        // Set window width/height to state
+        setWindowSize({
+          width: window.innerWidth,
+          height: window.innerHeight,
+        });
+      }
+      // Add event listener
+      window.addEventListener("resize", debounce(DEBOUNCE_TIME_IN_MS, handleResize));
+      // Call handler right away so state gets updated with initial window size
+      handleResize();
+      // Remove event listener on cleanup
+      return () => window.removeEventListener("resize", handleResize);
+    }, []); // Empty array ensures that effect is only run on mount
+    return windowSize;
   },
 };
