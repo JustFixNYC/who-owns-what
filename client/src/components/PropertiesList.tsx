@@ -41,6 +41,13 @@ const PropertiesListWithoutI18n: React.FC<
         minRows={Browser.isMobile() ? 5 : 10}
         defaultPageSize={addrs.length}
         showPagination={false}
+        resizable={!Browser.isMobile()}
+        defaultSorted={[
+          {
+            id: "recentcomplaints",
+            desc: true,
+          },
+        ]}
         columns={[
           {
             Header: i18n._(t`Location`),
