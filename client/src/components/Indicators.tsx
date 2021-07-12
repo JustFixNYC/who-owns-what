@@ -14,6 +14,7 @@ import {
   IndicatorsDatasetRadio,
   INDICATORS_DATASETS,
   IndicatorsDatasetId,
+  indicatorsDatasetIds,
 } from "./IndicatorsDatasets";
 import { Link } from "react-router-dom";
 import {
@@ -218,10 +219,10 @@ class IndicatorsWithoutI18n extends Component<IndicatorsProps, IndicatorsState> 
                       <Trans>Select a Dataset:</Trans>
                     </em>{" "}
                     <br />
-                    {Object.keys(INDICATORS_DATASETS).map((datasetKey, i) => (
+                    {indicatorsDatasetIds.map((datasetKey, i) => (
                       <IndicatorsDatasetRadio
                         key={i}
-                        id={datasetKey as IndicatorsDatasetId}
+                        id={datasetKey}
                         activeId={activeVis}
                         onChange={this.handleVisChange}
                       />
