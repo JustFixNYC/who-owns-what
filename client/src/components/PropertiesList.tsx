@@ -99,9 +99,14 @@ const PropertiesListWithoutI18n: React.FC<
   // - the table comes into view
   // - the page's locale changes
   // - the user resizes their viewport window
+  //
+  // For older browsers, let's not even bother setting the top spacing as
+  // we won't be able to detect when the table becomes visible. Luckily,
+  // the `react-table-hoc-fixed-columns` packages has fallback CSS for these browsers.
   useEffect(() => {
-    if (tableRef?.current?.offsetTop) setHeaderTopSpacing(tableRef.current.offsetTop);
-  }, [isTableVisible, locale, windowWidth, windowHeight]);
+    if (!isOlderBrowser && tableRef?.current?.offsetTop)
+      setHeaderTopSpacing(tableRef.current.offsetTop);
+  }, [isTableVisible, locale, windowWidth, windowHeight, isOlderBrowser]);
 
   return (
     <div
