@@ -90,6 +90,9 @@ const PropertiesListWithoutI18n: React.FC<
   const tableRef = useRef<HTMLDivElement>(null);
   const isTableVisible = Helpers.useOnScreen(tableRef);
 
+  // On most browsers, the header has the `position: fixed` CSS property
+  // and needs a defined `top` property along with it.
+  // So, let's keep track of and also update this top spacing whenever the layout of the page changes.
   const [headerTopSpacing, setHeaderTopSpacing] = useState<number | undefined>();
 
   // Make sure to setHeaderTopSpacing whenever
