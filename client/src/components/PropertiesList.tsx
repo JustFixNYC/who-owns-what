@@ -1,18 +1,24 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import ReactTable from "react-table";
 import Browser from "../util/browser";
 
 import "react-table/react-table.css";
 import "styles/PropertiesList.css";
+
+import withFixedColumns, { TablePropsColumnFixed } from "react-table-hoc-fixed-columns";
+import "react-table-hoc-fixed-columns/lib/styles.css"; // important: this line must be placed after react-table css import
+
 import { I18n } from "@lingui/core";
 import { withI18n } from "@lingui/react";
-import { t } from "@lingui/macro";
+import { t, Trans } from "@lingui/macro";
 import { Link } from "react-router-dom";
 import { SupportedLocale } from "../i18n-base";
 import Helpers, { longDateOptions } from "../util/helpers";
 import { AddressRecord, HpdComplaintCount } from "./APIDataTypes";
 import { withMachineInStateProps } from "state-machine";
 import { AddressPageRoutes } from "routes";
+import { createRef } from "react";
+import classnames from "classnames";
 
 export const isPartOfGroupSale = (saleId: string, addrs: AddressRecord[]) => {
   const addrsWithMatchingSale = addrs.filter((addr) => addr.lastsaleacrisid === saleId);
@@ -22,6 +28,37 @@ export const isPartOfGroupSale = (saleId: string, addrs: AddressRecord[]) => {
 const findMostCommonType = (complaints: HpdComplaintCount[] | null) =>
   complaints && complaints.length > 0 && complaints[0].type;
 
+/**
+ * By default, the `withFixedColumns` hook retypes the Column components within the table
+ * as having data arrays of type `unknown`, so this recasting is necessary to make sure
+ * we are tyepchecking the raw data as `AddressRecords`
+ */
+const ReactTableFixedColumns = withFixedColumns(ReactTable) as React.ComponentType<
+  Partial<TablePropsColumnFixed<AddressRecord, AddressRecord>>
+>;
+
+const ArrowIcon = () => (
+  <span className="arrow-icon">
+    ↑<span>↓</span>
+  </span>
+);
+
+const getWidthFromLabel = (label: string, customDefaultWidth?: number) => {
+  const MIN_WIDTH = customDefaultWidth || 70;
+  const LETTER_WIDTH = 7;
+  const ARROW_ICON_WIDTH = 20;
+  const MARGIN_OFFSET = 10;
+
+  return Math.max(label.length * LETTER_WIDTH + ARROW_ICON_WIDTH + MARGIN_OFFSET, MIN_WIDTH);
+};
+
+const FIRST_COLUMN_WIDTH = 130;
+const HEADER_HEIGHT = 30;
+
+const secondColumnStyle = {
+  marginLeft: `${FIRST_COLUMN_WIDTH}px`,
+};
+
 const PropertiesListWithoutI18n: React.FC<
   withMachineInStateProps<"portfolioFound"> & {
     i18n: I18n;
@@ -30,15 +67,55 @@ const PropertiesListWithoutI18n: React.FC<
   }
 > = (props) => {
   const { i18n } = props;
+  const { width: windowWidth, height: windowHeight } = Helpers.useWindowSize();
   const locale = (i18n.language as SupportedLocale) || "en";
 
   const addrs = props.state.context.portfolioData.assocAddrs;
   const rsunitslatestyear = props.state.context.portfolioData.searchAddr.rsunitslatestyear;
+
+  const lastColumnRef = createRef<any>();
+  const isLastColumnVisible = Helpers.useOnScreen(lastColumnRef);
+  /**
+   * For older browsers that do not support the `useOnScreen` hook,
+   * let's hide the dynamic scroll fade by default.
+   */
+  const isOlderBrowser = typeof IntersectionObserver === "undefined";
+  /**
+   * Let's hide the fade out on the right edge of the table if:
+   * - We've scrolled to the last column OR
+   * - We're using an older browser that cannot detect where we've scrolled
+   */
+  const hideScrollFade = isOlderBrowser || isLastColumnVisible;
+
+  const tableRef = useRef<HTMLDivElement>(null);
+  const isTableVisible = Helpers.useOnScreen(tableRef);
+
+  // On most browsers, the header has the `position: fixed` CSS property
+  // and needs a defined `top` property along with it.
+  // So, let's keep track of and also update this top spacing whenever the layout of the page changes.
+  const [headerTopSpacing, setHeaderTopSpacing] = useState<number | undefined>();
+
+  // Make sure to setHeaderTopSpacing whenever
+  // - the table comes into view
+  // - the page's locale changes
+  // - the user resizes their viewport window
+  //
+  // For older browsers, let's not even bother setting the top spacing as
+  // we won't be able to detect when the table becomes visible. Luckily,
+  // the `react-table-hoc-fixed-columns` packages has fallback CSS for these browsers.
+  useEffect(() => {
+    if (!isOlderBrowser && tableRef?.current?.offsetTop)
+      setHeaderTopSpacing(tableRef.current.offsetTop);
+  }, [isTableVisible, locale, windowWidth, windowHeight, isOlderBrowser]);
+
   return (
-    <div className="PropertiesList">
-      <ReactTable
+    <div
+      className={classnames("PropertiesList", hideScrollFade && "hide-scroll-fade")}
+      ref={tableRef}
+    >
+      <ReactTableFixedColumns
         data={addrs}
-        minRows={Browser.isMobile() ? 5 : 10}
+        minRows={10}
         defaultPageSize={addrs.length}
         showPagination={false}
         resizable={!Browser.isMobile()}
@@ -50,32 +127,77 @@ const PropertiesListWithoutI18n: React.FC<
         ]}
         columns={[
           {
-            Header: i18n._(t`Location`),
+            fixed: "left",
+            headerStyle: {
+              height: `${HEADER_HEIGHT}px`,
+              ...(!!headerTopSpacing && {
+                top: `${headerTopSpacing}px`,
+              }),
+            },
             columns: [
               {
-                Header: i18n._(t`Address`),
+                Header: (
+                  <div>
+                    <Trans>Address</Trans>
+                    <ArrowIcon />
+                  </div>
+                ),
+                headerStyle: {
+                  ...(!!headerTopSpacing && {
+                    top: `${headerTopSpacing + HEADER_HEIGHT}px`,
+                  }),
+                },
                 accessor: (d) => `${d.housenumber} ${d.streetname}`,
                 id: "address",
-                minWidth: 150,
+                width: FIRST_COLUMN_WIDTH,
+                fixed: "left",
+                resizable: false,
                 style: {
                   textAlign: "left",
+                  whiteSpace: "unset",
+                  paddingRight: "0.75rem",
                 },
               },
+            ],
+          },
+          {
+            Header: i18n._(t`Location`),
+            headerStyle: secondColumnStyle,
+            style: secondColumnStyle,
+            columns: [
               {
-                Header: i18n._(t`Zipcode`),
+                Header: (
+                  <>
+                    <Trans>Zipcode</Trans>
+                    <ArrowIcon />
+                  </>
+                ),
                 accessor: (d) => d.zip,
                 id: "zip",
-                width: 75,
+                width: getWidthFromLabel(i18n._(t`Zipcode`)),
+                headerStyle: secondColumnStyle,
               },
               {
-                Header: i18n._(t`Borough`),
+                Header: (
+                  <>
+                    <Trans>Borough</Trans>
+                    <ArrowIcon />
+                  </>
+                ),
                 accessor: (d) => d.boro,
                 id: "boro",
+                width: getWidthFromLabel(i18n._(t`Borough`)),
               },
               {
-                Header: "BBL",
+                Header: (
+                  <>
+                    BBL
+                    <ArrowIcon />
+                  </>
+                ),
                 accessor: (d) => d.bbl,
                 id: "bbl",
+                width: getWidthFromLabel("BBL", 100),
               },
             ],
           },
@@ -83,16 +205,26 @@ const PropertiesListWithoutI18n: React.FC<
             Header: i18n._(t`Information`),
             columns: [
               {
-                Header: i18n._(t`Built`),
+                Header: (
+                  <>
+                    <Trans>Built</Trans>
+                    <ArrowIcon />
+                  </>
+                ),
                 accessor: (d) => d.yearbuilt,
                 id: "yearbuilt",
-                maxWidth: 75,
+                width: getWidthFromLabel(i18n._(t`Built`)),
               },
               {
-                Header: i18n._(t`Units`),
+                Header: (
+                  <>
+                    <Trans>Units</Trans>
+                    <ArrowIcon />
+                  </>
+                ),
                 accessor: (d) => d.unitsres,
                 id: "unitsres",
-                maxWidth: 75,
+                width: getWidthFromLabel(i18n._(t`Units`)),
               },
             ],
           },
@@ -100,27 +232,36 @@ const PropertiesListWithoutI18n: React.FC<
             Header: i18n._(t`RS Units`),
             columns: [
               {
-                Header: "2007",
+                Header: (
+                  <>
+                    2007
+                    <ArrowIcon />
+                  </>
+                ),
                 accessor: (d) => d.rsunits2007,
                 id: "rsunits2007",
-                maxWidth: 75,
+                width: getWidthFromLabel("2007"),
               },
               {
-                Header: rsunitslatestyear,
+                Header: (
+                  <>
+                    {rsunitslatestyear}
+                    <ArrowIcon />
+                  </>
+                ),
                 accessor: (d) => d.rsunitslatest,
                 id: "rsunitslatest",
                 Cell: (row) => {
                   return (
                     <span
-                      className={`${
-                        row.original.rsunitslatest < row.original.rsunits2007 ? "text-danger" : ""
-                      }`}
+                      className={`${row.original.rsunitslatest < row.original.rsunits2007 ? "text-danger" : ""
+                        }`}
                     >
                       {row.original.rsunitslatest}
                     </span>
                   );
                 },
-                maxWidth: 75,
+                width: getWidthFromLabel("XXXX"),
               },
             ],
           },
@@ -128,19 +269,34 @@ const PropertiesListWithoutI18n: React.FC<
             Header: i18n._(t`HPD Complaints`),
             columns: [
               {
-                Header: i18n._(t`Total`),
+                Header: (
+                  <>
+                    <Trans>Total</Trans>
+                    <ArrowIcon />
+                  </>
+                ),
                 accessor: (d) => d.totalcomplaints,
                 id: "totalcomplaints",
-                maxWidth: 75,
+                width: getWidthFromLabel(i18n._(t`Total`)),
               },
               {
-                Header: i18n._(t`Last 3 Years`),
+                Header: (
+                  <>
+                    <Trans>Last 3 Years</Trans>
+                    <ArrowIcon />
+                  </>
+                ),
                 accessor: (d) => d.recentcomplaints,
                 id: "recentcomplaints",
-                maxWidth: 100,
+                width: getWidthFromLabel(i18n._(t`Last 3 Years`)),
               },
               {
-                Header: i18n._(t`Top Complaint`),
+                Header: (
+                  <>
+                    <Trans>Top Complaint</Trans>
+                    <ArrowIcon />
+                  </>
+                ),
                 accessor: (d) => {
                   const mostCommonType = findMostCommonType(d.recentcomplaintsbytype);
                   return mostCommonType
@@ -148,7 +304,10 @@ const PropertiesListWithoutI18n: React.FC<
                     : null;
                 },
                 id: "recentcomplaintsbytype",
-                minWidth: 150,
+                width: getWidthFromLabel(i18n._(t`Top Complaint`)),
+                style: {
+                  whiteSpace: "unset",
+                },
               },
             ],
           },
@@ -156,16 +315,26 @@ const PropertiesListWithoutI18n: React.FC<
             Header: i18n._(t`HPD Violations`),
             columns: [
               {
-                Header: i18n._(t`Open`),
+                Header: (
+                  <>
+                    <Trans>Open</Trans>
+                    <ArrowIcon />
+                  </>
+                ),
                 accessor: (d) => d.openviolations,
                 id: "openviolations",
-                maxWidth: 75,
+                width: getWidthFromLabel(i18n._(t`Open`), 85),
               },
               {
-                Header: i18n._(t`Total`),
+                Header: (
+                  <>
+                    <Trans>Total</Trans>
+                    <ArrowIcon />
+                  </>
+                ),
                 accessor: (d) => d.totalviolations,
                 id: "totalviolations",
-                maxWidth: 75,
+                width: getWidthFromLabel(i18n._(t`Total`), 85),
               },
             ],
           },
@@ -173,10 +342,15 @@ const PropertiesListWithoutI18n: React.FC<
             Header: i18n._(t`Evictions`),
             columns: [
               {
-                Header: i18n._(t`Since 2017`),
+                Header: (
+                  <>
+                    <Trans>Since 2017</Trans>
+                    <ArrowIcon />
+                  </>
+                ),
                 accessor: (d) => d.evictions || null,
                 id: "evictions",
-                maxWidth: 100,
+                width: getWidthFromLabel(i18n._(t`Since 2017`)),
               },
             ],
           },
@@ -184,7 +358,12 @@ const PropertiesListWithoutI18n: React.FC<
             Header: i18n._(t`Landlord`),
             columns: [
               {
-                Header: i18n._(t`Officer/Owner`),
+                Header: (
+                  <>
+                    <Trans>Officer/Owner</Trans>
+                    <ArrowIcon />
+                  </>
+                ),
                 accessor: (d) => {
                   var owner =
                     d.ownernames &&
@@ -194,7 +373,10 @@ const PropertiesListWithoutI18n: React.FC<
                   return owner ? owner.value : "";
                 },
                 id: "ownernames",
-                minWidth: 150,
+                width: getWidthFromLabel(i18n._(t`Officer/Owner`), 100),
+                style: {
+                  whiteSpace: "unset",
+                },
               },
             ],
           },
@@ -202,22 +384,34 @@ const PropertiesListWithoutI18n: React.FC<
             Header: i18n._(t`Last Sale`),
             columns: [
               {
-                Header: i18n._(t`Date`),
+                Header: (
+                  <>
+                    <Trans>Date</Trans>
+                    <ArrowIcon />
+                  </>
+                ),
                 accessor: (d) => d.lastsaledate,
                 Cell: (row) =>
                   row.original.lastsaledate
                     ? Helpers.formatDate(row.original.lastsaledate, longDateOptions, locale)
                     : null,
                 id: "lastsaledate",
+                width: getWidthFromLabel(i18n._(t`Date`), 100),
               },
               {
-                Header: i18n._(t`Amount`),
+                Header: (
+                  <>
+                    <Trans>Amount</Trans>
+                    <ArrowIcon />
+                  </>
+                ),
                 accessor: (d) => d.lastsaleamount || null,
                 Cell: (row) =>
                   row.original.lastsaleamount
                     ? "$" + Helpers.formatPrice(row.original.lastsaleamount, locale)
                     : null,
                 id: "lastsaleamount",
+                width: getWidthFromLabel(i18n._(t`Amount`), 100),
               },
               {
                 Header: i18n._(t`Link to Deed`),
@@ -235,9 +429,15 @@ const PropertiesListWithoutI18n: React.FC<
                     </a>
                   ) : null,
                 id: "lastsaleacrisid",
+                width: getWidthFromLabel(i18n._(t`Link to Deed`)),
               },
               {
-                Header: i18n._(t`Group Sale?`),
+                Header: (
+                  <>
+                    <Trans>Group Sale?</Trans>
+                    <ArrowIcon />
+                  </>
+                ),
                 accessor: (d) => {
                   // Make id's that are part of group sales show up first when sorted:
                   const idPrefix =
@@ -251,11 +451,16 @@ const PropertiesListWithoutI18n: React.FC<
                       : i18n._(t`No`)
                     : null,
                 id: "lastsaleisgroupsale",
+                width: getWidthFromLabel(i18n._(t`Group Sale?`)),
               },
             ],
           },
           {
-            Header: i18n._(t`View detail`),
+            Header: (
+              <div ref={lastColumnRef}>
+                <Trans>View detail</Trans>
+              </div>
+            ),
             accessor: (d) => d.bbl,
             columns: [
               {
@@ -271,6 +476,7 @@ const PropertiesListWithoutI18n: React.FC<
                     </Link>
                   );
                 },
+                width: getWidthFromLabel(i18n._(t`View detail`)),
               },
             ],
           },
