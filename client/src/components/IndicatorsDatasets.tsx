@@ -145,7 +145,6 @@ export const INDICATORS_DATASETS: IndicatorsDatasetMap = {
     ),
   },
   dobviols: {
-    // TODO: Update This
     name: (i18n) => i18n._(t`DOB Violations`),
     quantity: (i18n, value) =>
       i18n._(
