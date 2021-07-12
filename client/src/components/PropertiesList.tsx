@@ -254,8 +254,9 @@ const PropertiesListWithoutI18n: React.FC<
                 Cell: (row) => {
                   return (
                     <span
-                      className={`${row.original.rsunitslatest < row.original.rsunits2007 ? "text-danger" : ""
-                        }`}
+                      className={`${
+                        row.original.rsunitslatest < row.original.rsunits2007 ? "text-danger" : ""
+                      }`}
                     >
                       {row.original.rsunitslatest}
                     </span>
