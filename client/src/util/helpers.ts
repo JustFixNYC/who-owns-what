@@ -359,10 +359,13 @@ export default {
 
   /**
    * Detects whether a user's viewport window has changed dimensions.
+   * The optional parameter `debounceTime` sets the number of milliseconds
+   * to wait between checks of the window size. If unset,
+   * the default value is used (defined below).
    *
    * Adapted from https://usehooks.com/useWindowSize/
    */
-  useWindowSize() {
+  useWindowSize(debounceTime?: number) {
     // Initialize state with undefined width/height so server and client renders match
     // Learn more here: https://joshwcomeau.com/react/the-perils-of-rehydration/
     const [windowSize, setWindowSize] = useState<{
@@ -374,7 +377,7 @@ export default {
     });
 
     // How long we should wait before handling a window resize
-    const DEBOUNCE_TIME_IN_MS = 250;
+    const DEFAULT_DEBOUNCE_TIME_IN_MS = 250;
     useEffect(() => {
       // Handler to call on window resize
       function handleResize() {
@@ -385,7 +388,10 @@ export default {
         });
       }
       // Add event listener
-      window.addEventListener("resize", debounce(DEBOUNCE_TIME_IN_MS, handleResize));
+      window.addEventListener(
+        "resize",
+        debounce(debounceTime || DEFAULT_DEBOUNCE_TIME_IN_MS, handleResize)
+      );
       // Call handler right away so state gets updated with initial window size
       handleResize();
       // Remove event listener on cleanup
