@@ -1,16 +1,22 @@
-import FocusTrap from "focus-trap-react";
 import React, { useState } from "react";
+import classnames from "classnames";
+import FocusTrap from "focus-trap-react";
 
 import "styles/Dropdown.css";
 
-export const Dropdown: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+type DropdownProps = {
+  children: React.ReactNode;
+  style?: "hamburger" | "selector";
+};
+
+export const Dropdown: React.FC<DropdownProps> = ({ children, style = "hamburger" }) => {
   const [isDropdownVisible, setDropdownVisibility] = useState(false);
 
   const closeDropdown = () => setDropdownVisibility(false);
   const toggleDropdown = () => {
     isDropdownVisible ? setDropdownVisibility(false) : setDropdownVisibility(true);
   };
-  console.log(isDropdownVisible);
+
   return (
     <div className="DropdownComponent">
       <FocusTrap
@@ -21,7 +27,7 @@ export const Dropdown: React.FC<{ children: React.ReactNode }> = ({ children }) 
           onDeactivate: closeDropdown,
         }}
       >
-        <div className="dropdown dropdown-right show-lg">
+        <div className={classnames("dropdown", style === "hamburger" && "dropdown-right show-lg")}>
           <button
             aria-label="menu"
             aria-expanded={isDropdownVisible}

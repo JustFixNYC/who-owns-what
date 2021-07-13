@@ -24,6 +24,7 @@ import {
   IndicatorsTimeSpan,
 } from "./IndicatorsTypes";
 import { NetworkErrorMessage } from "./NetworkErrorMessage";
+import { Dropdown } from "./Dropdown";
 
 class IndicatorsWithoutI18n extends Component<IndicatorsProps, IndicatorsState> {
   constructor(props: IndicatorsProps) {
@@ -218,21 +219,23 @@ class IndicatorsWithoutI18n extends Component<IndicatorsProps, IndicatorsState> 
                       <Trans>Select a Dataset:</Trans>
                     </em>{" "}
                     <br />
-                    <IndicatorsDatasetRadio
-                      id="complaints"
-                      activeId={activeVis}
-                      onChange={this.handleVisChange}
-                    />
-                    <IndicatorsDatasetRadio
-                      id="viols"
-                      activeId={activeVis}
-                      onChange={this.handleVisChange}
-                    />
-                    <IndicatorsDatasetRadio
-                      id="permits"
-                      activeId={activeVis}
-                      onChange={this.handleVisChange}
-                    />
+                    <Dropdown>
+                      <IndicatorsDatasetRadio
+                        id="complaints"
+                        activeId={activeVis}
+                        onChange={this.handleVisChange}
+                      />
+                      <IndicatorsDatasetRadio
+                        id="viols"
+                        activeId={activeVis}
+                        onChange={this.handleVisChange}
+                      />
+                      <IndicatorsDatasetRadio
+                        id="permits"
+                        activeId={activeVis}
+                        onChange={this.handleVisChange}
+                      />
+                    </Dropdown>
                   </div>
                   <div className="Indicators__linksContainer">
                     <em className="Indicators__linksTitle">
