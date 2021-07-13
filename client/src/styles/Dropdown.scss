@@ -19,14 +19,19 @@
   }
 
   .dropdown {
-    z-index: 110;
     // Allow the dropdown toggle button child to have variable width (see below)
     display: flex;
     max-width: 300px;
     button.dropdown-toggle {
+      // Remove default border on focus:
+      &:focus {
+        border: none;
+      }
+
       &.dropdown-selector-panel {
         font-size: 2rem;
-        border: 0.5px solid $dark;
+        outline: 1px solid $dark;
+        border: none;
         background-color: $gray-light;
         height: 4.4rem;
         padding: 0px;
@@ -55,19 +60,19 @@
         .icon {
           padding: 1px;
         }
-        &.active .icon {
-          transition: transform 0.2s linear;
-          transform: scaleY(-1) translateY(-3px);
+        &.active {
+          // Keep toggle button above overlay when active:
+          z-index: 110;
+          .icon {
+            transition: transform 0.2s linear;
+            transform: scaleY(-1) translateY(-3px);
+          }
         }
-      }
-
-      // Remove default border on focus:
-      &:focus {
-        border: none;
       }
     }
 
     .menu {
+      z-index: 110;
       padding: 0.25rem 0.5rem;
       font-size: 1.6rem;
 
@@ -93,6 +98,9 @@
   .dropdown-selector-panel + .menu {
     padding: 1.25rem 0.5rem;
     font-size: 2rem;
+    box-shadow: none;
+    // Override default translation so it lies flush with toggle button outline:
+    transform: translateY(1px);
     .menu-item {
       display: inline-block;
       margin: 1rem 0;
