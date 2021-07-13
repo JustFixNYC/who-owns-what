@@ -219,7 +219,7 @@ class IndicatorsWithoutI18n extends Component<IndicatorsProps, IndicatorsState> 
                       <Trans>Select a Dataset:</Trans>
                     </em>{" "}
                     <br />
-                    <Dropdown>
+                    <Dropdown buttonLabel={INDICATORS_DATASETS[activeVis].name(i18n)}>
                       <IndicatorsDatasetRadio
                         id="complaints"
                         activeId={activeVis}

@@ -1,6 +1,9 @@
 @import "_vars.scss";
 
-.DropdownComponent {
+// NOTE: Spectre includes a lot of intricate ".dropdown" class rules that can override
+// some of these custom rules. This class nesting was designed to prioritize these custom
+// rules without bloating our CSS with many new custom class names.
+.App .DropdownComponent {
   .dropdown-overlay {
     &.hidden {
       display: none;
@@ -15,7 +18,7 @@
     z-index: 100;
   }
 
-  .dropdown.dropdown-right {
+  .dropdown {
     z-index: 110;
     // Remove default border on focus:
     button.dropdown-toggle:focus {
