@@ -15,8 +15,13 @@ import Page from "../components/Page";
 import { createRouteForAddressPage } from "../routes";
 import { withMachineProps } from "state-machine";
 import { useHistory } from "react-router-dom";
-import { CovidMoratoriumBanner } from "@justfixnyc/react-common";
 import { withI18n, withI18nProps } from "@lingui/react";
+import { INLINES } from "@contentful/rich-text-types";
+import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
+import { ContentfulCommonStrings } from "@justfixnyc/contentful-common-strings";
+import _commonStrings from "../data/common-strings.json";
+
+const commonStrings = new ContentfulCommonStrings(_commonStrings as any);
 
 type BannerState = {
   isHidden: boolean;
@@ -35,15 +40,27 @@ class MoratoriumBannerWithoutI18n extends Component<withI18nProps, BannerState> 
 
   render() {
     const locale = this.props.i18n.language;
+    const content = commonStrings.get("covidMoratoriumBanner", locale);
+
     return (
-      <div className={"HomePage__banner " + (this.state.isHidden ? "d-hide" : "")}>
-        <div className="close-button float-right" onClick={this.closeBanner}>
-          ✕
+      content && (
+        <div className={"HomePage__banner " + (this.state.isHidden ? "d-hide" : "")}>
+          <div className="close-button float-right" onClick={this.closeBanner}>
+            ✕
+          </div>
+          <div className="content">
+            {documentToReactComponents(content, {
+              renderNode: {
+                [INLINES.HYPERLINK]: (node, children) => (
+                  <a rel="noreferrer noopener" target="_blank" href={node.data.uri}>
+                    {children}
+                  </a>
+                ),
+              },
+            })}
+          </div>
         </div>
-        <div className="content">
-          <CovidMoratoriumBanner locale={locale} />
-        </div>
-      </div>
+      )
     );
   }
 }
