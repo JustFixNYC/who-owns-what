@@ -20,10 +20,53 @@
 
   .dropdown {
     z-index: 110;
-    // Remove default border on focus:
-    button.dropdown-toggle:focus {
-      border: none;
+    // Allow the dropdown toggle button child to have variable width (see below)
+    display: flex;
+    max-width: 300px;
+    button.dropdown-toggle {
+      &.dropdown-selector-panel {
+        font-size: 2rem;
+        border: 0.5px solid $dark;
+        background-color: $gray-light;
+        height: 4.4rem;
+        padding: 0px;
+
+        // Allow the dropdown toggle button to fill space when it includes a text label
+        flex-grow: 1;
+        max-width: 100%;
+
+        display: flex;
+
+        .float-left,
+        .float-right {
+          height: 100%;
+          padding: 1.2rem;
+        }
+
+        .float-left {
+          flex-grow: 1;
+          text-align: start;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+        .float-right {
+          border-left: 0.5px solid $dark;
+        }
+        .icon {
+          padding: 1px;
+        }
+        &.active .icon {
+          transition: transform 0.2s linear;
+          transform: scaleY(-1) translateY(-3px);
+        }
+      }
+
+      // Remove default border on focus:
+      &:focus {
+        border: none;
+      }
     }
+
     .menu {
       padding: 0.25rem 0.5rem;
       font-size: 1.6rem;
@@ -44,6 +87,15 @@
       &.d-block {
         display: block;
       }
+    }
+  }
+
+  .dropdown-selector-panel + .menu {
+    padding: 1.25rem 0.5rem;
+    font-size: 2rem;
+    .menu-item {
+      display: inline-block;
+      margin: 1rem 0;
     }
   }
 }

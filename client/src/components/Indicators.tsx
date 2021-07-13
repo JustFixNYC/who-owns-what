@@ -215,9 +215,9 @@ class IndicatorsWithoutI18n extends Component<IndicatorsProps, IndicatorsState> 
 
                 <div className="Indicators__links">
                   <div className="Indicators__linksContainer">
-                    <em className="Indicators__linksTitle">
-                      <Trans>Select a Dataset:</Trans>
-                    </em>{" "}
+                    <span className="Indicators__linksTitle text-uppercase">
+                      <Trans>Display:</Trans>
+                    </span>{" "}
                     <br />
                     <Dropdown buttonLabel={INDICATORS_DATASETS[activeVis].name(i18n)}>
                       <IndicatorsDatasetRadio

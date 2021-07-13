@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import classnames from "classnames";
 import FocusTrap from "focus-trap-react";
 
+import chevron from "../assets/img/accordionchevron.svg";
+
 import "styles/Dropdown.css";
 
 type DropdownProps = {
@@ -33,11 +35,23 @@ export const Dropdown: React.FC<DropdownProps> = ({ children, buttonLabel }) => 
           <button
             aria-label="menu"
             aria-expanded={isDropdownVisible}
-            className={"btn btn-link dropdown-toggle m-2" + (isDropdownVisible ? " active" : "")}
+            className={classnames(
+              "btn",
+              "btn-link",
+              "dropdown-toggle",
+              "m-2",
+              isDropdownVisible && "active",
+              buttonLabel && "dropdown-selector-panel"
+            )}
             onClick={() => toggleDropdown()}
           >
             {buttonLabel ? (
-              <span>{buttonLabel}</span>
+              <>
+                <div className="float-left">{buttonLabel}</div>
+                <div className="float-right">
+                  <img src={chevron} className="icon" alt="Open" />
+                </div>
+              </>
             ) : (
               <i className={"icon " + (isDropdownVisible ? "icon-cross" : "icon-menu")}></i>
             )}
