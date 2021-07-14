@@ -125,8 +125,10 @@
   }
 
   nav {
+    display: inline-flex;
+    flex-wrap: nowrap;
+    align-items: center;
     margin-left: auto;
-    flex-wrap: wrap;
     text-align: end;
 
     @include for-desktop-down {

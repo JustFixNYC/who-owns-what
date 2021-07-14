@@ -137,21 +137,23 @@ export default class FeatureCalloutWidget extends Component<{}, widgetState> {
     );
 
     return this.state.widgetToggled ? (
-      <div className="widget-triangle-info-button-container">
-        <button
-          className="widget-button-info focusable material-icons md-13"
-          tabIndex={0}
-          onClick={() => {
-            return this.state.widgetToggled
-              ? this.setState({ widgetToggled: false })
-              : this.setState({ widgetToggled: true });
-          }}
-        >
-          info
-        </button>
+      <div className="FeatureCalloutWidget">
+        <div className="widget-triangle-info-button-container">
+          <button
+            className="widget-button-info focusable material-icons md-13"
+            tabIndex={0}
+            onClick={() => {
+              return this.state.widgetToggled
+                ? this.setState({ widgetToggled: false })
+                : this.setState({ widgetToggled: true });
+            }}
+          >
+            info
+          </button>
+        </div>
       </div>
     ) : (
-      <div>
+      <div className="FeatureCalloutWidget">
         <div className="widget-triangle-info-button-container">
           <button
             className="widget-button-info focusable material-icons md-13"

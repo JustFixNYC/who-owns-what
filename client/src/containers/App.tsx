@@ -153,6 +153,7 @@ const App = () => {
                 </span>
               )}
               <nav className="inline">
+                <FeatureCalloutWidget />
                 <span className="hide-lg">
                   {getMainNavLinks()}
                   {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
