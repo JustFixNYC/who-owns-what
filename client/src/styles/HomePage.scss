@@ -60,7 +60,7 @@
     padding: 35px;
 
     @include for-phone-only() {
-      margin: 40px auto 30vh auto;
+      margin: 40px auto 15vh auto;
       padding: 20px;
     }
   }
