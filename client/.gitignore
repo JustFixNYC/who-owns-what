@@ -24,3 +24,5 @@ yarn-error.log*
 /src/locales/**/*.js
 
 public/version.txt
+
+src/data/common-strings.json

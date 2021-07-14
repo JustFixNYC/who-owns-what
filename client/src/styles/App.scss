@@ -5,13 +5,26 @@
   display: flex;
   flex-direction: column;
 
+  .dropdown-overlay {
+    &.hidden {
+      display: none;
+    }
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: $dark;
+    opacity: 0.6;
+    z-index: 100;
+  }
+
   & > div {
     box-sizing: border-box;
   }
 
   // Standard inline-link focus class:
   a:not(.btn):not(.image):focus,
-  summary:focus-visible {
+  summary:focus-visible,
+  button.dropdown-toggle:focus {
     box-shadow: none;
     outline: 2px solid $gray-dark;
     outline-offset: 2px;
@@ -40,23 +53,47 @@
   align-items: center;
   position: relative;
 
-  @include for-desktop-down {
-    padding: 10px 15px;
+  @include for-phone-only {
+    padding: 10px 8px 8px;
+  }
+  .dropdown.dropdown-right {
+    z-index: 110;
+    // Remove default border on focus:
+    button.dropdown-toggle:focus {
+      border: none;
+    }
+    .menu {
+      padding: 0.25rem 0.5rem;
+      font-size: 1.6rem;
+
+      .menu-item a {
+        &:focus {
+          outline-offset: 0px;
+        }
+        &:active,
+        &.active {
+          background: $gray-light;
+        }
+      }
+
+      &.d-block {
+        display: block;
+      }
+      &.d-none {
+        display: none;
+      }
+    }
   }
 
   .label.label-warning {
     color: $dark;
-    margin-top: 0.75rem;
-    @include for-tablet-portrait-up {
-      transform: rotate(-4deg);
-      margin-top: 0rem;
+    transform: rotate(-4deg);
+    margin-top: 0rem;
+    height: min-content;
+    @include for-phone-only {
+      font-size: 1rem;
+      width: min-content;
     }
-  }
-
-  @include for-phone-only {
-    flex-direction: column;
-    justify-content: center;
-    padding: 10px 8px 8px;
   }
 
   & > a,
@@ -66,13 +103,14 @@
   }
 
   & > a {
-    @include for-tablet-portrait-up {
-      display: block;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-    }
+    display: block;
+    position: absolute;
+    width: fit-content;
+    max-width: 75%;
+    text-align: center;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 
     h4 {
       margin-bottom: 0;
@@ -88,34 +126,17 @@
 
   nav {
     margin-left: auto;
-    display: flex;
     flex-wrap: wrap;
-    justify-content: flex-end;
+    text-align: end;
 
     @include for-desktop-down {
-      max-width: 240px;
-    }
-
-    @include for-tablet-landscape-down {
-      max-width: 140px;
-    }
-
-    @include for-phone-only {
-      margin-left: 0;
-      max-width: none;
-      width: 100%;
-      justify-content: center;
-      margin-top: 8px;
+      max-width: 250px;
     }
 
     a {
+      display: inline-block;
       margin-left: 10px;
       color: #3e4654;
-
-      @include for-phone-only {
-        margin-left: 7px;
-        margin-right: 7px;
-      }
 
       &.active {
         text-decoration: none;

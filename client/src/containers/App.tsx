@@ -1,6 +1,7 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { Trans, t } from "@lingui/macro";
+import FocusTrap from "focus-trap-react";
 
 import "styles/App.css";
 
@@ -10,7 +11,13 @@ import Modal from "../components/Modal";
 import FeatureCalloutWidget from "../components/FeatureCalloutWidget";
 
 // import top-level containers (i.e. pages)
-import { I18n, LocaleNavLink, LocaleLink as Link, LocaleSwitcher } from "../i18n";
+import {
+  I18n,
+  LocaleNavLink,
+  LocaleLink as Link,
+  LocaleSwitcher,
+  LocaleSwitcherWithFullLanguageName,
+} from "../i18n";
 import { withI18n, withI18nProps } from "@lingui/react";
 import { createWhoOwnsWhatRoutePaths } from "../routes";
 import { VersionUpgrader } from "./VersionUpgrader";
@@ -27,15 +34,11 @@ import PrivacyPolicyPage from "./PrivacyPolicyPage";
 import { DevPage } from "./DevPage";
 import { wowMachine } from "state-machine";
 import { NotFoundPage } from "./NotFoundPage";
-
-type Props = {};
-
-type State = {
-  showEngageModal: boolean;
-};
+import widont from "widont";
 
 const HomeLink = withI18n()((props: withI18nProps) => {
   const { i18n } = props;
+  const title = i18n._(t`Who owns what in nyc?`);
   return (
     <Link
       // We need to spell out each letter of "nyc" here for screenreaders to pronounce:
@@ -45,7 +48,7 @@ const HomeLink = withI18n()((props: withI18nProps) => {
       }}
       to="/"
     >
-      <Trans render="h4">Who owns what in nyc?</Trans>
+      <h4>{widont(title)}</h4>
     </Link>
   );
 });
@@ -87,85 +90,137 @@ const WhoOwnsWhatRoutes: React.FC<{}> = () => {
   );
 };
 
-export default class App extends Component<Props, State> {
-  constructor(props: Props) {
-    super(props);
+const getMainNavLinks = () => {
+  const paths = createWhoOwnsWhatRoutePaths();
+  return [
+    <LocaleNavLink exact to={paths.home} key={1}>
+      <Trans>Search</Trans>
+    </LocaleNavLink>,
+    <LocaleNavLink to={paths.about} key={2}>
+      <Trans>About</Trans>
+    </LocaleNavLink>,
+    <LocaleNavLink to={paths.howToUse} key={3}>
+      <Trans>How to use</Trans>
+    </LocaleNavLink>,
+    <a href="https://www.justfix.nyc/donate" key={4}>
+      <Trans>Donate</Trans>
+    </a>,
+  ];
+};
 
-    this.state = {
-      showEngageModal: false,
-    };
-  }
+const App = () => {
+  const [isEngageModalVisible, setEngageModalVisibility] = useState(false);
+  const [isDropdownVisible, setDropdownVisibility] = useState(false);
 
-  render() {
-    const isDemoSite = process.env.REACT_APP_DEMO_SITE === "1";
-    const version = process.env.REACT_APP_VERSION;
-    const warnAboutOldBrowser = process.env.REACT_APP_ENABLE_OLD_BROWSER_WARNING;
-    const paths = createWhoOwnsWhatRoutePaths();
+  const closeDropdown = () => setDropdownVisibility(false);
+  const toggleDropdown = () => {
+    isDropdownVisible ? setDropdownVisibility(false) : setDropdownVisibility(true);
+  };
 
-    return (
-      <Router>
-        <I18n>
-          <ScrollToTop>
-            {version && (
-              <VersionUpgrader
-                currentVersion={version}
-                latestVersionUrl="/version.txt"
-                checkIntervalSecs={300}
-              />
+  const isDemoSite = process.env.REACT_APP_DEMO_SITE === "1";
+  const version = process.env.REACT_APP_VERSION;
+  const warnAboutOldBrowser = process.env.REACT_APP_ENABLE_OLD_BROWSER_WARNING;
+
+  return (
+    <Router>
+      <I18n>
+        <ScrollToTop>
+          {version && (
+            <VersionUpgrader
+              currentVersion={version}
+              latestVersionUrl="/version.txt"
+              checkIntervalSecs={300}
+            />
+          )}
+          <div className="App">
+            <div
+              onClick={closeDropdown}
+              className={"dropdown-overlay" + (isDropdownVisible ? "" : " hidden")}
+            />
+            {warnAboutOldBrowser && (
+              <div className="App__warning old_safari_only">
+                <Trans render="h3">
+                  Warning! This site doesn't fully work on older versions of Safari. Try a{" "}
+                  <a href="http://outdatedbrowser.com/en">modern browser</a>.
+                </Trans>
+              </div>
             )}
-            <div className="App">
-              {warnAboutOldBrowser && (
-                <div className="App__warning old_safari_only">
-                  <Trans render="h3">
-                    Warning! This site doesn't fully work on older versions of Safari. Try a{" "}
-                    <a href="http://outdatedbrowser.com/en">modern browser</a>.
-                  </Trans>
-                </div>
+            <div className="App__header navbar">
+              <HomeLink />
+              {isDemoSite && (
+                <span className="label label-warning ml-2 text-uppercase">
+                  <Trans>Demo Site</Trans>
+                </span>
               )}
-              <div className="App__header">
-                <HomeLink />
-                {isDemoSite && (
-                  <span className="label label-warning ml-2 text-uppercase">
-                    <Trans>Demo Site</Trans>
-                  </span>
-                )}
-                <nav className="inline">
-                  <FeatureCalloutWidget />
-                  <LocaleNavLink exact to={paths.home}>
-                    <Trans>Home</Trans>
-                  </LocaleNavLink>
-                  <LocaleNavLink to={paths.about}>
-                    <Trans>About</Trans>
-                  </LocaleNavLink>
-                  <LocaleNavLink to={paths.howToUse}>
-                    <Trans>How to use</Trans>
-                  </LocaleNavLink>
-                  <a href="https://www.justfix.nyc/donate">
-                    <Trans>Donate</Trans>
-                  </a>
+              <nav className="inline">
+                <span className="hide-lg">
+                  {getMainNavLinks()}
                   {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-                  <a href="#" onClick={() => this.setState({ showEngageModal: true })}>
+                  <a href="#" onClick={() => setEngageModalVisibility(true)}>
                     <Trans>Share</Trans>
                   </a>
                   <LocaleSwitcher />
-                </nav>
-                <Modal
-                  showModal={this.state.showEngageModal}
-                  onClose={() => this.setState({ showEngageModal: false })}
+                </span>
+                <FocusTrap
+                  active={isDropdownVisible}
+                  focusTrapOptions={{
+                    clickOutsideDeactivates: true,
+                    returnFocusOnDeactivate: false,
+                    onDeactivate: closeDropdown,
+                  }}
                 >
-                  <h5 className="first-header">
-                    <Trans>Share this page with your neighbors</Trans>
-                  </h5>
-                  <SocialShare location="share-modal" />
-                </Modal>
-              </div>
-              <div className="App__body">
-                <WhoOwnsWhatRoutes />
-              </div>
+                  <div className="dropdown dropdown-right show-lg">
+                    <button
+                      aria-label="menu"
+                      aria-expanded={isDropdownVisible}
+                      className={
+                        "btn btn-link dropdown-toggle m-2" + (isDropdownVisible ? " active" : "")
+                      }
+                      onClick={() => toggleDropdown()}
+                    >
+                      <i className={"icon " + (isDropdownVisible ? "icon-cross" : "icon-menu")}></i>
+                    </button>
+                    <ul
+                      onClick={closeDropdown}
+                      className={"menu menu-reverse " + (isDropdownVisible ? "d-block" : "d-none")}
+                    >
+                      {getMainNavLinks().map((link, i) => (
+                        <li className="menu-item" key={i}>
+                          {link}
+                        </li>
+                      ))}
+                      <li className="menu-item">
+                        {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+                        <a href="#" onClick={() => setEngageModalVisibility(true)}>
+                          <Trans>Share</Trans>
+                        </a>
+                      </li>
+                      <li className="menu-item">
+                        <LocaleSwitcherWithFullLanguageName />
+                      </li>
+                    </ul>
+                  </div>
+                </FocusTrap>
+              </nav>
+
+              <Modal
+                showModal={isEngageModalVisible}
+                onClose={() => setEngageModalVisibility(false)}
+              >
+                <h5 className="first-header">
+                  <Trans>Share this page with your neighbors</Trans>
+                </h5>
+                <SocialShare location="share-modal" />
+              </Modal>
             </div>
-          </ScrollToTop>
-        </I18n>
-      </Router>
-    );
-  }
-}
+            <div className="App__body">
+              <WhoOwnsWhatRoutes />
+            </div>
+          </div>
+        </ScrollToTop>
+      </I18n>
+    </Router>
+  );
+};
+
+export default App;
