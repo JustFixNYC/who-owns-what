@@ -19,6 +19,11 @@
       padding-right: 24px;
       text-align: center;
 
+      // Override default <p> styling:
+      p {
+        margin-bottom: 0;
+      }
+
       a {
         color: $dark;
         text-decoration: underline;
