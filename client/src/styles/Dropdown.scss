@@ -5,7 +5,7 @@
 // rules without bloating our CSS with many new custom class names.
 .App .DropdownComponent {
   max-width: 350px;
-  
+
   .dropdown-overlay {
     &.hidden {
       display: none;
