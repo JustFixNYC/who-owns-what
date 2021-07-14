@@ -5,8 +5,15 @@ import FocusTrap from "focus-trap-react";
 import chevron from "../assets/img/accordionchevron.svg";
 
 import "styles/Dropdown.css";
+import { withI18n, withI18nProps } from "@lingui/react";
+import { t } from "@lingui/macro";
 
-type DropdownProps = {
+type DropdownProps = withI18nProps & {
+  /**
+   * The items that go inside the expandable menu. Since these are
+   * nested inside a `<ul>` element, they should consist of `<li>`'s,
+   * otherwise you may face some DOM nesting errors.
+   */
   children: React.ReactNode;
   /**
    * The text label on the button that toggles the dropdown menu.
@@ -15,7 +22,7 @@ type DropdownProps = {
   buttonLabel?: string;
 };
 
-export const Dropdown: React.FC<DropdownProps> = ({ children, buttonLabel }) => {
+export const Dropdown = withI18n()(({ i18n, children, buttonLabel }: DropdownProps) => {
   const [isDropdownVisible, setDropdownVisibility] = useState(false);
 
   const closeDropdown = () => setDropdownVisibility(false);
@@ -43,7 +50,7 @@ export const Dropdown: React.FC<DropdownProps> = ({ children, buttonLabel }) => 
           )}
         >
           <button
-            aria-label="menu"
+            aria-label={buttonLabel || i18n._(t`Menu`)}
             aria-expanded={isDropdownVisible}
             className={classnames(
               "btn",
@@ -63,12 +70,12 @@ export const Dropdown: React.FC<DropdownProps> = ({ children, buttonLabel }) => 
                 </div>
               </>
             ) : (
-              <i className={"icon " + (isDropdownVisible ? "icon-cross" : "icon-menu")}></i>
+              <i className={classnames("icon", isDropdownVisible ? "icon-cross" : "icon-menu")}></i>
             )}
           </button>
           <ul
             onClick={closeDropdown}
-            className={"menu menu-reverse " + (isDropdownVisible ? "d-block" : "d-none")}
+            className={classnames("menu", "menu-reverse", isDropdownVisible ? "d-block" : "d-none")}
           >
             {children}
           </ul>
@@ -76,8 +83,8 @@ export const Dropdown: React.FC<DropdownProps> = ({ children, buttonLabel }) => 
       </FocusTrap>
       <div
         onClick={closeDropdown}
-        className={"dropdown-overlay" + (isDropdownVisible ? "" : " hidden")}
+        className={classnames("dropdown-overlay", !isDropdownVisible && "hidden")}
       />
     </div>
   );
-};
+});
