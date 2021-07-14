@@ -4,6 +4,8 @@
 // some of these custom rules. This class nesting was designed to prioritize these custom
 // rules without bloating our CSS with many new custom class names.
 .App .DropdownComponent {
+  max-width: 350px;
+  
   .dropdown-overlay {
     &.hidden {
       display: none;
