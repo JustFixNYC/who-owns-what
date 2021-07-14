@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2021-06-30 13:18\n"
+"PO-Revision-Date: 2021-07-14 18:09\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -51,8 +51,8 @@ msgid "... or view some sample portfolios:"
 msgstr "... o descubre ejemplos de portafolios de edificios:"
 
 #: src/components/DetailView.tsx:54
-msgid "<0>While the legal owner of a building is often a company (usually called an “LLC”), these names and business addresses registered with HPD offer a clearer picture of who the landlord really is.</0><1>People listed here as “Head Officer” or “Owner” usually have ties to building ownership, while “Site Managers” are part of management. That being said, these names are self reported by the landlord, so they can be misleading.</1><2>Learn more about HPD registrations and how this information powers this tool on the <3>About page</3>.</2>"
-msgstr "<0>Mientras el dueño legal de un edificio es, con frecuencia, una compañía (se llama muchas veces un “LLC”), estos nombres y direcciones de negocio registrado con HPD se ofrecen una idea más clara de quién es el dueño de verdad.</0><1>Las personas enumeradas aquí como “Oficial Principal” o “Dueño” normalmente tienen una conexión con la propiedad del edificio, mientras que los \"Administradores del Sitio\" formen parte de la gerencia. Dicho eso, estos nombres son autoinformados por el dueño, y entonces pueden ser engañosos.</1><2>Aprende más acerca de registros de HPD y cómo esta información impulsa la herramienta en la <3>página “Acerca de”</3>.</2>"
+msgid "<0>While the legal owner of a building is often a company (usually called an “LLC”), these names and business addresses registered with HPD offer a clearer picture of who really controls the building.</0><1>People listed here as “Head Officer” or “Owner” usually have ties to building ownership, while “Site Managers” are part of management. That being said, these names are self reported by the landlord, so they can be misleading.</1><2>Learn more about HPD registrations and how this information powers this tool on the <3>About page</3>.</2>"
+msgstr "<0>Mientras el dueño legal de un edificio es, con frecuencia, una compañía (se llama muchas veces un “LLC”), estos nombres y direcciones de negocio registrado con HPD se ofrecen una idea más clara de quién controla el edificio.</0><1>Las personas enumeradas aquí como “Oficial Principal” o “Dueño” normalmente tienen una conexión con la propiedad del edificio, mientras que los \"Administradores del Sitio\" formen parte de la gerencia. Dicho eso, estos nombres son autoinformados por el dueño, y entonces pueden ser engañosos.</1><2>Aprende más acerca de registros de HPD y cómo esta información impulsa la herramienta en la <3>página “Acerca de”</3>.</2>"
 
 #: src/components/UsefulLinks.tsx:47
 #: src/containers/NotRegisteredPage.tsx:158
@@ -78,6 +78,7 @@ msgid "Additional links"
 msgstr "Enlaces adicionales"
 
 #: src/components/PropertiesList.tsx:88
+#: src/components/PropertiesList.tsx:96
 msgid "Address"
 msgstr "Dirección"
 
@@ -95,6 +96,8 @@ msgstr "Toda la información pública sobre el dueño/a de tu edificio"
 
 #: src/components/PropertiesList.tsx:308
 #: src/components/PropertiesList.tsx:316
+#: src/components/PropertiesList.tsx:316
+#: src/components/PropertiesList.tsx:324
 msgid "Amount"
 msgstr "Importe"
 
@@ -116,6 +119,12 @@ msgstr "EDIFICIO:"
 
 #: src/components/PropertiesList.tsx:124
 #: src/components/PropertiesList.tsx:129
+#: src/components/Indicators.tsx:149
+msgid "Back to Overview"
+msgstr "Volver a la Vista General"
+
+#: src/components/PropertiesList.tsx:132
+#: src/components/PropertiesList.tsx:137
 #: src/containers/NychaPage.tsx:79
 msgid "Borough"
 msgstr "Municipio"
@@ -145,6 +154,8 @@ msgstr "Edificios sin registro de propiedad válido están sujetos a las siguien
 
 #: src/components/PropertiesList.tsx:147
 #: src/components/PropertiesList.tsx:152
+#: src/components/PropertiesList.tsx:155
+#: src/components/PropertiesList.tsx:160
 msgid "Built"
 msgstr "Construido"
 
@@ -238,6 +249,8 @@ msgstr "PUERTAS"
 
 #: src/components/PropertiesList.tsx:296
 #: src/components/PropertiesList.tsx:304
+#: src/components/PropertiesList.tsx:304
+#: src/components/PropertiesList.tsx:312
 msgid "Date"
 msgstr "Fecha"
 
@@ -289,6 +302,7 @@ msgstr "Introducir email"
 
 #: src/components/BuildingStatsTable.tsx:71
 #: src/components/PropertiesList.tsx:257
+#: src/components/PropertiesList.tsx:265
 #: src/components/PropertiesSummary.tsx:116
 #: src/containers/NychaPage.tsx:87
 msgid "Evictions"
@@ -332,6 +346,8 @@ msgstr "Información general"
 
 #: src/components/PropertiesList.tsx:329
 #: src/components/PropertiesList.tsx:343
+#: src/components/PropertiesList.tsx:337
+#: src/components/PropertiesList.tsx:351
 msgid "Group Sale?"
 msgstr "¿Venta en grupo?"
 
@@ -349,6 +365,8 @@ msgstr "Perfil de edificio del HPD"
 
 #: src/components/IndicatorsDatasets.tsx:13
 #: src/components/PropertiesList.tsx:194
+#: src/components/IndicatorsDatasets.tsx:6
+#: src/components/PropertiesList.tsx:202
 msgid "HPD Complaints"
 msgstr "Quejas del HPD"
 
@@ -358,6 +376,8 @@ msgstr "Las quejas de HPD son problemas de vivienda presentados a la Ciudad <0>p
 
 #: src/components/IndicatorsDatasets.tsx:39
 #: src/components/PropertiesList.tsx:234
+#: src/components/IndicatorsDatasets.tsx:32
+#: src/components/PropertiesList.tsx:242
 msgid "HPD Violations"
 msgstr "Infracciones del HPD"
 
@@ -404,6 +424,7 @@ msgid "Ineligible to certify violations"
 msgstr "Inelegible para certificar infracciones"
 
 #: src/components/PropertiesList.tsx:143
+#: src/components/PropertiesList.tsx:151
 msgid "Information"
 msgstr "Información"
 
@@ -432,6 +453,7 @@ msgid "LOCKS"
 msgstr "CERRADURAS"
 
 #: src/components/PropertiesList.tsx:271
+#: src/components/PropertiesList.tsx:279
 #: src/components/PropertiesSummary.tsx:101
 msgid "Landlord"
 msgstr "Dueño del edificio"
@@ -446,6 +468,12 @@ msgid "Last 3 Years"
 msgstr "Últimos 3 años"
 
 #: src/components/PropertiesList.tsx:292
+#: src/components/PropertiesList.tsx:215
+#: src/components/PropertiesList.tsx:220
+msgid "Last 3 Years"
+msgstr "Últimos 3 años"
+
+#: src/components/PropertiesList.tsx:300
 msgid "Last Sale"
 msgstr "Última venta"
 
@@ -476,6 +504,9 @@ msgstr "Arrendatario"
 #: src/components/PropertiesList.tsx:319
 #: src/components/PropertiesList.tsx:321
 #: src/components/PropertiesList.tsx:325
+#: src/components/PropertiesList.tsx:327
+#: src/components/PropertiesList.tsx:329
+#: src/components/PropertiesList.tsx:333
 msgid "Link to Deed"
 msgstr "Enlace a la Escritura"
 
@@ -488,6 +519,7 @@ msgid "Loading"
 msgstr "Cargando"
 
 #: src/components/PropertiesList.tsx:108
+#: src/components/PropertiesList.tsx:116
 msgid "Location"
 msgstr "Ubicación"
 
@@ -557,6 +589,7 @@ msgid "New York Regional Office:"
 msgstr "Oficina Regional de Nueva York:"
 
 #: src/components/PropertiesList.tsx:340
+#: src/components/PropertiesList.tsx:348
 msgid "No"
 msgstr "No"
 
@@ -599,6 +632,8 @@ msgstr "Oficial"
 
 #: src/components/PropertiesList.tsx:275
 #: src/components/PropertiesList.tsx:284
+#: src/components/PropertiesList.tsx:283
+#: src/components/PropertiesList.tsx:292
 msgid "Officer/Owner"
 msgstr "Oficial/Propietario"
 
@@ -614,6 +649,8 @@ msgstr "¡Vaya! Ese correo electrónico no es válido."
 
 #: src/components/PropertiesList.tsx:238
 #: src/components/PropertiesList.tsx:243
+#: src/components/PropertiesList.tsx:246
+#: src/components/PropertiesList.tsx:251
 msgid "Open"
 msgstr "Actuales"
 
@@ -669,6 +706,7 @@ msgstr "Complejo de Vivienda Pública"
 
 #: src/components/BuildingStatsTable.tsx:81
 #: src/components/PropertiesList.tsx:166
+#: src/components/PropertiesList.tsx:174
 msgid "RS Units"
 msgstr "Unidades RS"
 
@@ -732,6 +770,8 @@ msgstr "Regístrate para recibir noticias por email"
 
 #: src/components/PropertiesList.tsx:261
 #: src/components/PropertiesList.tsx:266
+#: src/components/PropertiesList.tsx:269
+#: src/components/PropertiesList.tsx:274
 msgid "Since 2017"
 msgstr "Desde 2017"
 
@@ -903,6 +943,8 @@ msgstr "Cronología"
 
 #: src/components/PropertiesList.tsx:216
 #: src/components/PropertiesList.tsx:226
+#: src/components/PropertiesList.tsx:224
+#: src/components/PropertiesList.tsx:234
 msgid "Top Complaint"
 msgstr "Queja principal"
 
@@ -911,6 +953,10 @@ msgstr "Queja principal"
 #: src/components/PropertiesList.tsx:203
 #: src/components/PropertiesList.tsx:247
 #: src/components/PropertiesList.tsx:252
+#: src/components/PropertiesList.tsx:206
+#: src/components/PropertiesList.tsx:211
+#: src/components/PropertiesList.tsx:255
+#: src/components/PropertiesList.tsx:260
 msgid "Total"
 msgstr "Total"
 
@@ -929,6 +975,8 @@ msgstr "Imposible solicitar el despido de una Infracción del Código de Viviend
 #: src/components/BuildingStatsTable.tsx:44
 #: src/components/PropertiesList.tsx:156
 #: src/components/PropertiesList.tsx:161
+#: src/components/PropertiesList.tsx:164
+#: src/components/PropertiesList.tsx:169
 #: src/containers/NychaPage.tsx:83
 msgid "Units"
 msgstr "Unidades"
@@ -959,6 +1007,9 @@ msgstr "Ver datos a lo largo del tiempo ↗︎"
 #: src/components/PropertiesList.tsx:349
 #: src/components/PropertiesList.tsx:355
 #: src/components/PropertiesList.tsx:359
+#: src/components/PropertiesList.tsx:357
+#: src/components/PropertiesList.tsx:363
+#: src/components/PropertiesList.tsx:367
 msgid "View detail"
 msgstr "Ver detalles"
 
@@ -1048,6 +1099,7 @@ msgid "Year Built"
 msgstr "Año de construcción"
 
 #: src/components/PropertiesList.tsx:339
+#: src/components/PropertiesList.tsx:347
 msgid "Yes"
 msgstr "Sí"
 
@@ -1057,6 +1109,8 @@ msgstr "La entidad \"All Year Management\" perteneciente a Yoel Goldman, está e
 
 #: src/components/PropertiesList.tsx:114
 #: src/components/PropertiesList.tsx:119
+#: src/components/PropertiesList.tsx:122
+#: src/components/PropertiesList.tsx:127
 msgid "Zipcode"
 msgstr "Código postal"
 
