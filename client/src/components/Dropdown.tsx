@@ -8,6 +8,10 @@ import "styles/Dropdown.css";
 
 type DropdownProps = {
   children: React.ReactNode;
+  /**
+   * The text label on the button that toggles the dropdown menu.
+   * If undefined, the toggle button will default to a hamburger icon.
+   */
   buttonLabel?: string;
 };
 
