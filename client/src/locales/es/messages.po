@@ -250,6 +250,7 @@ msgid "Disclaimer: The information in JustFix.nyc does not constitute legal advi
 msgstr "Descargo de responsabilidad: La información en JustFix.nyc no constituye asesoramiento jurídico y no debe ser utilizado como sustituto del asesoramiento de un abogado cualificado para asesorar sobre cuestiones jurídicas relativas a la vivienda. Nosotros podemos ayudarte a dirigirte a servicios legales gratuitos si es necesario."
 
 #: src/components/Indicators.tsx:154
+#: src/components/Indicators.tsx:157
 msgid "Display:"
 msgstr ""
 
@@ -526,6 +527,14 @@ msgstr "Metodología"
 #: src/components/DetailView.tsx:153
 msgid "Most Common 311 Complaints, Last 3 Years"
 msgstr "Las quejas más comunes de 311, los últimos 3 años"
+
+#: src/components/Indicators.tsx:187
+msgid "Move chart data left."
+msgstr ""
+
+#: src/components/Indicators.tsx:196
+msgid "Move chart data right."
+msgstr ""
 
 #: src/containers/NychaPage.tsx:165
 msgid "MyNYCHA App"
@@ -939,6 +948,7 @@ msgid "VENTILATION SYSTEM"
 msgstr "SISTEMA DE VENTILACIÓN"
 
 #: src/components/Indicators.tsx:163
+#: src/components/Indicators.tsx:166
 msgid "View by:"
 msgstr "Visualizar por:"
 

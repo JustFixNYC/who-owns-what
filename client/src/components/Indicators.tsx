@@ -221,7 +221,12 @@ class IndicatorsWithoutI18n extends Component<IndicatorsProps, IndicatorsState> 
                       <Trans>Display:</Trans>
                     </span>{" "}
                     <br />
-                    <Dropdown buttonLabel={INDICATORS_DATASETS[activeVis].name(i18n)}>
+                    <Dropdown
+                      buttonLabel={INDICATORS_DATASETS[activeVis].name(i18n)}
+                      buttonAriaLabel={`${i18n._(t`Display:`)} ${INDICATORS_DATASETS[
+                        activeVis
+                      ].name(i18n)}`}
+                    >
                       {indicatorsDatasetIds.map((datasetKey, i) => (
                         <IndicatorsDatasetRadio
                           key={i}
@@ -237,7 +242,12 @@ class IndicatorsWithoutI18n extends Component<IndicatorsProps, IndicatorsState> 
                       <Trans>View by:</Trans>
                     </span>
                     <br />
-                    <Dropdown buttonLabel={this.state.activeTimeSpan}>
+                    <Dropdown
+                      buttonLabel={timeSpanTranslations[this.state.activeTimeSpan](i18n)}
+                      buttonAriaLabel={`${i18n._(t`View by:`)} ${timeSpanTranslations[
+                        this.state.activeTimeSpan
+                      ](i18n)}`}
+                    >
                       {IndicatorsTimeSpans.map((timespan, i) => (
                         <li className="menu-item" key={i}>
                           <label
@@ -271,7 +281,11 @@ class IndicatorsWithoutI18n extends Component<IndicatorsProps, IndicatorsState> 
 
                 <div className="Indicators__viz">
                   <button
+                    aria-label={i18n._(t`Move chart data left.`)}
                     aria-hidden={
+                      this.state.xAxisStart === 0 || this.state.activeTimeSpan === "year"
+                    }
+                    aria-disabled={
                       this.state.xAxisStart === 0 || this.state.activeTimeSpan === "year"
                     }
                     className={
@@ -288,7 +302,12 @@ class IndicatorsWithoutI18n extends Component<IndicatorsProps, IndicatorsState> 
                   </button>
                   <IndicatorsViz state={state} send={send} {...this.state} />
                   <button
+                    aria-label={i18n._(t`Move chart data right.`)}
                     aria-hidden={
+                      this.state.xAxisStart + this.state.xAxisViewableColumns >= xAxisLength ||
+                      this.state.activeTimeSpan === "year"
+                    }
+                    aria-disabled={
                       this.state.xAxisStart + this.state.xAxisViewableColumns >= xAxisLength ||
                       this.state.activeTimeSpan === "year"
                     }

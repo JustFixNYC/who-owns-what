@@ -20,71 +20,84 @@ type DropdownProps = withI18nProps & {
    * If undefined, the toggle button will default to a hamburger icon.
    */
   buttonLabel?: string;
+  /**
+   * The aria-label on the button that toggles the dropdown menu (announced by screen readers).
+   * If undefined, the toggle button will have an aria-label that says "Menu"
+   */
+  buttonAriaLabel?: string;
 };
 
-export const Dropdown = withI18n()(({ i18n, children, buttonLabel }: DropdownProps) => {
-  const [isDropdownVisible, setDropdownVisibility] = useState(false);
+export const Dropdown = withI18n()(
+  ({ i18n, children, buttonLabel, buttonAriaLabel }: DropdownProps) => {
+    const [isDropdownVisible, setDropdownVisibility] = useState(false);
 
-  const closeDropdown = () => setDropdownVisibility(false);
-  const toggleDropdown = () => {
-    isDropdownVisible ? setDropdownVisibility(false) : setDropdownVisibility(true);
-  };
+    const closeDropdown = () => setDropdownVisibility(false);
+    const toggleDropdown = () => {
+      isDropdownVisible ? setDropdownVisibility(false) : setDropdownVisibility(true);
+    };
 
-  const isHamburgerMenu = !buttonLabel;
+    const isHamburgerMenu = !buttonLabel;
 
-  return (
-    <div className="DropdownComponent">
-      <FocusTrap
-        active={isDropdownVisible}
-        focusTrapOptions={{
-          clickOutsideDeactivates: true,
-          returnFocusOnDeactivate: false,
-          onDeactivate: closeDropdown,
-        }}
-      >
-        <div
-          className={classnames(
-            "dropdown",
-            isDropdownVisible && "is-open",
-            isHamburgerMenu && "dropdown-right show-lg"
-          )}
+    return (
+      <div className="DropdownComponent">
+        <FocusTrap
+          active={isDropdownVisible}
+          focusTrapOptions={{
+            clickOutsideDeactivates: true,
+            returnFocusOnDeactivate: false,
+            onDeactivate: closeDropdown,
+          }}
         >
-          <button
-            aria-label={buttonLabel || i18n._(t`Menu`)}
-            aria-expanded={isDropdownVisible}
+          <div
             className={classnames(
-              "btn",
-              "btn-link",
-              "dropdown-toggle",
-              "m-2",
-              isDropdownVisible && "active",
-              buttonLabel && "dropdown-selector-panel"
+              "dropdown",
+              isDropdownVisible && "is-open",
+              isHamburgerMenu && "dropdown-right show-lg"
             )}
-            onClick={() => toggleDropdown()}
           >
-            {buttonLabel ? (
-              <>
-                <div className="float-left">{buttonLabel}</div>
-                <div className="float-right">
-                  <img src={chevron} className="icon" alt="Open" />
-                </div>
-              </>
-            ) : (
-              <i className={classnames("icon", isDropdownVisible ? "icon-cross" : "icon-menu")}></i>
-            )}
-          </button>
-          <ul
-            onClick={closeDropdown}
-            className={classnames("menu", "menu-reverse", isDropdownVisible ? "d-block" : "d-none")}
-          >
-            {children}
-          </ul>
-        </div>
-      </FocusTrap>
-      <div
-        onClick={closeDropdown}
-        className={classnames("dropdown-overlay", !isDropdownVisible && "hidden")}
-      />
-    </div>
-  );
-});
+            <button
+              aria-label={buttonAriaLabel || i18n._(t`Menu`)}
+              aria-expanded={isDropdownVisible}
+              className={classnames(
+                "btn",
+                "btn-link",
+                "dropdown-toggle",
+                "m-2",
+                isDropdownVisible && "active",
+                buttonLabel && "dropdown-selector-panel"
+              )}
+              onClick={() => toggleDropdown()}
+            >
+              {buttonLabel ? (
+                <>
+                  <div className="float-left">{buttonLabel}</div>
+                  <div className="float-right">
+                    <img src={chevron} className="icon" alt="Open" />
+                  </div>
+                </>
+              ) : (
+                <i
+                  className={classnames("icon", isDropdownVisible ? "icon-cross" : "icon-menu")}
+                ></i>
+              )}
+            </button>
+            <ul
+              onClick={closeDropdown}
+              className={classnames(
+                "menu",
+                "menu-reverse",
+                isDropdownVisible ? "d-block" : "d-none"
+              )}
+            >
+              {children}
+            </ul>
+          </div>
+        </FocusTrap>
+        <div
+          onClick={closeDropdown}
+          className={classnames("dropdown-overlay", !isDropdownVisible && "hidden")}
+        />
+      </div>
+    );
+  }
+);
