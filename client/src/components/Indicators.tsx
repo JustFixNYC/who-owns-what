@@ -5,6 +5,7 @@ import Helpers from "../util/helpers";
 import IndicatorsViz from "../components/IndicatorsViz";
 import Loader from "../components/Loader";
 import LegalFooter from "../components/LegalFooter";
+import { UsefulLinks } from "./UsefulLinks";
 import { withI18n } from "@lingui/react";
 import { Trans } from "@lingui/macro";
 
@@ -22,7 +23,6 @@ import {
   IndicatorChartShift,
   IndicatorsTimeSpan,
 } from "./IndicatorsTypes";
-import { Nobr } from "./Nobr";
 import { NetworkErrorMessage } from "./NetworkErrorMessage";
 
 class IndicatorsWithoutI18n extends Component<IndicatorsProps, IndicatorsState> {
@@ -170,10 +170,7 @@ class IndicatorsWithoutI18n extends Component<IndicatorsProps, IndicatorsState> 
       const { state, send } = this.props;
 
       const { detailAddr } = state.context.portfolioData;
-      const { housenumber, streetname, bbl } = detailAddr;
-      const boro = bbl.slice(0, 1);
-      const block = bbl.slice(1, 6);
-      const lot = bbl.slice(6, 10);
+      const { bbl } = detailAddr;
 
       const { activeVis } = this.state;
       const activeData = state.context.timelineData[activeVis];
@@ -339,19 +336,6 @@ class IndicatorsWithoutI18n extends Component<IndicatorsProps, IndicatorsState> 
                     ›
                   </button>
                 </div>
-
-                <div className="Indicators__feedback hide-lg">
-                  <Trans render="i">Have thoughts about this page?</Trans>
-                  <Nobr>
-                    <a
-                      href="https://airtable.com/shrZ9uL3id6oWEn8T"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <Trans>Send us feedback!</Trans>
-                    </a>
-                  </Nobr>
-                </div>
               </div>
               <div className="column column-context col-4 col-lg-12">
                 <div className="card">
@@ -366,97 +350,7 @@ class IndicatorsWithoutI18n extends Component<IndicatorsProps, IndicatorsState> 
                   </div>
                 </div>
 
-                <div className="card card-links">
-                  <div className="card-body card-body-links">
-                    <Trans render="h6">Useful links</Trans>
-                    <div className="columns">
-                      <div className="column col-12">
-                        <a
-                          onClick={() => {
-                            window.gtag("event", "acris-timeline-tab");
-                          }}
-                          href={`http://a836-acris.nyc.gov/bblsearch/bblsearch.asp?borough=${boro}&block=${block}&lot=${lot}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="btn btn-block"
-                        >
-                          <Trans>View documents on ACRIS</Trans> &#8599;&#xFE0E;
-                        </a>
-                      </div>
-                      <div className="column col-12">
-                        <a
-                          onClick={() => {
-                            window.gtag("event", "hpd-timeline-tab");
-                          }}
-                          href={
-                            housenumber && streetname
-                              ? `https://hpdonline.hpdnyc.org/HPDonline/Provide_address.aspx?p1=${boro}&p2=${housenumber}&p3=${Helpers.formatStreetNameForHpdLink(
-                                  streetname
-                                )}&SearchButton=Search`
-                              : `https://hpdonline.hpdnyc.org/HPDonline/provide_address.aspx`
-                          }
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="btn btn-block"
-                        >
-                          <Trans>HPD Building Profile</Trans> &#8599;&#xFE0E;
-                        </a>
-                      </div>
-                      <div className="column col-12">
-                        <a
-                          onClick={() => {
-                            window.gtag("event", "dob-timeline-tab");
-                          }}
-                          href={`http://a810-bisweb.nyc.gov/bisweb/PropertyProfileOverviewServlet?boro=${boro}&block=${block}&lot=${lot}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="btn btn-block"
-                        >
-                          <Trans>DOB Building Profile</Trans> &#8599;&#xFE0E;
-                        </a>
-                      </div>
-                      <div className="column col-12">
-                        <a
-                          onClick={() => {
-                            window.gtag("event", "dof-timeline-tab");
-                          }}
-                          href={`https://a836-pts-access.nyc.gov/care/search/commonsearch.aspx?mode=persprop`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="btn btn-block"
-                        >
-                          <Trans>DOF Property Tax Bills</Trans> &#8599;&#xFE0E;
-                        </a>
-                      </div>
-                      <div className="column col-12">
-                        <a
-                          onClick={() => {
-                            window.gtag("event", "dap-timeline-tab");
-                          }}
-                          href={`https://portal.displacementalert.org/property/${boro}${block}${lot}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="btn btn-block"
-                        >
-                          <Trans>ANHD DAP Portal</Trans> &#8599;&#xFE0E;
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="Indicators__feedback show-lg">
-                  <Trans render="i">Have thoughts about this page?</Trans>
-                  <Nobr>
-                    <a
-                      href="https://airtable.com/shrZ9uL3id6oWEn8T"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <Trans>Send us feedback!</Trans>
-                    </a>
-                  </Nobr>
-                </div>
+                <UsefulLinks addrForLinks={detailAddr} location="timeline-tab" />
               </div>
             </div>
           </div>

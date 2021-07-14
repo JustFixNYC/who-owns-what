@@ -4,10 +4,11 @@
 import _pickBy from "lodash/pickBy";
 import { deepEqual as assertDeepEqual } from "assert";
 import { SupportedLocale } from "../i18n-base";
-import { SearchAddressWithoutBbl } from "components/APIDataTypes";
+import { HpdContactAddress, SearchAddressWithoutBbl } from "components/APIDataTypes";
 import { reportError } from "error-reporting";
 import { t } from "@lingui/macro";
-import { I18n } from "@lingui/core";
+import { I18n, MessageDescriptor } from "@lingui/core";
+import React, { useEffect, useState } from "react";
 
 /**
  * An array consisting of Who Owns What's standard enumerations for street names,
@@ -65,9 +66,69 @@ const hpdComplaintTypeTranslations = new Map([
   ["LOCKS", t`LOCKS`],
 ]);
 
+const hpdContactTitleTranslations = new Map([
+  ["HeadOfficer", t`Head Officer`],
+  ["CorporateOwner", t`Corporate Owner`],
+  ["IndividualOwner", t`Individual Owner`],
+  ["JointOwner", t`Joint Owner`],
+  ["SiteManager", t`Site Manager`],
+  ["Agent", t`Agent`],
+  ["Lessee", t`Lessee`],
+  ["Officer", t`Officer`],
+  ["Shareholder", t`Shareholder`],
+  ["Corporation", t`Corporation`],
+]);
+
 export const longDateOptions = { year: "numeric", month: "short", day: "numeric" };
 export const mediumDateOptions = { year: "numeric", month: "long" };
 export const shortDateOptions = { month: "short" };
+
+/**
+ * Delay the action of a certian function by a set amount of time.
+ *
+ * Originally copied from:
+ * https://gist.github.com/gragland/4e3d9b1c934a18dc76f585350f97e321#gistcomment-3073492
+ */
+const debounce = (delay: number, fn: any) => {
+  let timerId: any;
+
+  return function (...args: any[]) {
+    if (timerId) {
+      clearTimeout(timerId);
+    }
+
+    timerId = setTimeout(() => {
+      fn(...args);
+      timerId = null;
+    }, delay);
+  };
+};
+
+const createTranslationFunctionFromMap = (
+  map: Map<string, MessageDescriptor>,
+  description: string,
+  localeOverride?: SupportedLocale
+) => (textToTranslate: string, i18n: I18n) => {
+  const translatedType = map.get(textToTranslate);
+  if (!translatedType) {
+    reportError(`The ${description} "${textToTranslate}" isn't internationalized`);
+    return textToTranslate;
+  } else return i18n.use(localeOverride || i18n.language)._(translatedType);
+};
+
+const translateComplaintType = createTranslationFunctionFromMap(
+  hpdComplaintTypeTranslations,
+  "HPD Complaint type"
+);
+const translateContactTitle = createTranslationFunctionFromMap(
+  hpdContactTitleTranslations,
+  "HPD Contact title"
+);
+const getContactTitleInEnglish = createTranslationFunctionFromMap(
+  hpdContactTitleTranslations,
+  "HPD Contact title",
+  "en"
+);
 
 export function searchAddrsAreEqual(
   addr1: SearchAddressWithoutBbl,
@@ -228,11 +289,108 @@ export default {
     return arr.join(" ");
   },
 
-  getTranslationOfComplaintType(complaintType: string, i18n: I18n) {
-    const translatedType = hpdComplaintTypeTranslations.get(complaintType);
-    if (!translatedType) {
-      reportError(`The HPD Complaint type "${complaintType}" isn't internationalized`);
-      return complaintType;
-    } else return i18n._(translatedType);
+  formatHpdContactAddress(
+    address: HpdContactAddress
+  ): { addressLine1: string; addressLine2: string } {
+    const { housenumber, streetname, apartment, city, state, zip } = address;
+    const cityFormatted = city && state ? `${city},` : city;
+
+    const formatArrayAsString = (addrs: (string | null)[]) =>
+      addrs
+        .filter((x) => !!x)
+        .join(" ")
+        .toUpperCase();
+
+    return {
+      addressLine1: formatArrayAsString([housenumber, streetname, apartment]),
+      addressLine2: formatArrayAsString([cityFormatted, state, zip]),
+    };
+  },
+
+  translateComplaintType,
+  translateContactTitle,
+
+  /**
+   * Translates a HPD Contact title into a target language, and if the target language
+   * isn't English, includes the English translation as well alongside it.
+   *
+   * For example, this function takes the title `HeadOfficer`, and spits out:
+   * - 'Head Officer' if the target language is English
+   * - 'Oficial principal ("Head Officer" en inglés)"' if the target language is Spanish
+   */
+  translateContactTitleAndIncludeEnglish(textToTranslate: string, i18n: I18n) {
+    const translation = translateContactTitle(textToTranslate, i18n);
+    if (i18n.language === "en") return translation;
+    else {
+      const textInEnglish = getContactTitleInEnglish(textToTranslate, i18n);
+      const translationSuffix = i18n._(t`("${textInEnglish}" in English)`);
+      return translation + " " + translationSuffix;
+    }
+  },
+
+  /**
+   * Detects whether a given DOM element is visible on screen.
+   *
+   * Note: for older browsers that do not support IntersectionObserver, this
+   * hook will always return FALSE by default.
+   *
+   * Borrowed from https://stackoverflow.com/questions/45514676/react-check-if-element-is-visible-in-dom
+   */
+  useOnScreen(ref: React.RefObject<any>) {
+    const isIntersectionObserverSupported = typeof IntersectionObserver !== "undefined";
+
+    const [isIntersecting, setIntersecting] = useState(false);
+    const observer =
+      isIntersectionObserverSupported &&
+      new IntersectionObserver(([entry]) => setIntersecting(entry.isIntersecting));
+
+    useEffect(() => {
+      if (observer && ref.current) {
+        observer.observe(ref.current);
+        // Remove the observer as soon as the component is unmounted
+        return () => {
+          observer.disconnect();
+        };
+      }
+    }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+    return isIntersecting;
+  },
+
+  /**
+   * Detects whether a user's viewport window has changed dimensions.
+   *
+   * Adapted from https://usehooks.com/useWindowSize/
+   */
+  useWindowSize() {
+    // Initialize state with undefined width/height so server and client renders match
+    // Learn more here: https://joshwcomeau.com/react/the-perils-of-rehydration/
+    const [windowSize, setWindowSize] = useState<{
+      width: number | undefined;
+      height: number | undefined;
+    }>({
+      width: undefined,
+      height: undefined,
+    });
+
+    // How long we should wait before handling a window resize
+    const DEBOUNCE_TIME_IN_MS = 250;
+    useEffect(() => {
+      // Handler to call on window resize
+      function handleResize() {
+        // Set window width/height to state
+        setWindowSize({
+          width: window.innerWidth,
+          height: window.innerHeight,
+        });
+      }
+      // Add event listener
+      window.addEventListener("resize", debounce(DEBOUNCE_TIME_IN_MS, handleResize));
+      // Call handler right away so state gets updated with initial window size
+      handleResize();
+      // Remove event listener on cleanup
+      return () => window.removeEventListener("resize", handleResize);
+    }, []); // Empty array ensures that effect is only run on mount
+    return windowSize;
   },
 };

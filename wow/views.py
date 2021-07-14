@@ -1,6 +1,7 @@
 import csv
 import logging
 from pathlib import Path
+from typing import Any, Dict
 from django.http import HttpResponse, JsonResponse
 
 from .dbutil import call_db_func, exec_db_query
@@ -119,6 +120,15 @@ def address_indicatorhistory(request):
     return JsonResponse({'result': result})
 
 
+def _fixup_addr_for_csv(addr: Dict[str, Any]):
+    addr['ownernames'] = csvutil.stringify_owners(addr['ownernames'] or [])
+    addr['recentcomplaintsbytype'] = csvutil.stringify_complaints(
+        addr['recentcomplaintsbytype']
+    )
+    addr['allcontacts'] = csvutil.stringify_full_contacts(addr['allcontacts'] or [])
+    csvutil.stringify_lists(addr)
+
+
 @api
 def address_export(request):
     log_unsupported_request_args(request)
@@ -131,11 +141,7 @@ def address_export(request):
     first_row = addrs[0]
 
     for addr in addrs:
-        addr['ownernames'] = csvutil.stringify_owners(addr['ownernames'])
-        addr['recentcomplaintsbytype'] = csvutil.stringify_complaints(
-            addr['recentcomplaintsbytype']
-        )
-        csvutil.stringify_lists(addr)
+        _fixup_addr_for_csv(addr)
 
     # https://docs.djangoproject.com/en/3.0/howto/outputting-csv/
     response = HttpResponse(content_type='text/csv')

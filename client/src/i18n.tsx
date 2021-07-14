@@ -150,6 +150,26 @@ export const LocaleSwitcher = withRouter(function LocaleSwitcher(props: RouteCom
 });
 
 /**
+ * A UI affordance that allows the user to switch to the locale that isn't currently present.
+ *
+ * Since we currently only have two locales, this just offers a toggle to the
+ * other language.
+ */
+export const LocaleSwitcherWithFullLanguageName = withRouter(function LocaleSwitcher(
+  props: RouteComponentProps
+) {
+  const to = (toLocale: SupportedLocale) =>
+    `/${toLocale}${removeLocalePrefix(props.location.pathname)}`;
+  const currentLocale = localeFromRouter(props);
+
+  return currentLocale === "en" ? (
+    <NavLink to={to("es")}>Español</NavLink>
+  ) : (
+    <NavLink to={to("en")}>English</NavLink>
+  );
+});
+
+/**
  * Like React Router's <NavLink>, but it prefixes the passed-in `to` prop with
  * the current locale.
  *

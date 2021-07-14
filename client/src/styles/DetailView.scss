@@ -190,18 +190,89 @@
       }
     }
 
+    .card-body-timeline-link,
+    .card-body-landlord,
+    .card-body-complaints,
+    .card-body-links {
+      margin-top: 2.4rem;
+    }
+
     .card-body-timeline-link {
-      margin-top: 2.5rem;
       padding-top: 1rem;
     }
 
-    .card-body-landlord,
-    .card-body-complaints {
-      margin-top: 2.5rem;
-
+    .card-body-complaints,
+    .card-body-links {
       b {
         display: block;
         border-bottom: 1px solid $gray-dark;
+      }
+      li {
+        line-height: 1.8rem;
+      }
+    }
+
+    .card-body-landlord {
+      .landlord-contact-info:not(:last-child) {
+        margin-bottom: 1.8rem;
+      }
+      .card-title-landlord {
+        @include for-tablet-portrait-up {
+          b {
+            // Avoid collision with "Learn More" button on small desktops:
+            display: block;
+            max-width: 75%;
+          }
+        }
+        border-bottom: 1px solid $gray-dark;
+        details.accordion {
+          padding: 0;
+
+          @include for-phone-only() {
+            display: none;
+          }
+
+          div {
+            margin: 0;
+            padding: 0 0.8rem;
+          }
+          summary {
+            width: fit-content;
+            float: right;
+            // Move summary text up by one standard line height:
+            margin-top: calc(-1 * #{$html-line-height} * #{$font-size});
+            padding: 0;
+            font-style: italic;
+
+            // Do not show expandable "Learn More" button on IE11
+            // https://stackoverflow.com/questions/43528940/how-to-detect-ie-and-edge-browsers-in-css
+            @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+              display: none;
+            }
+          }
+          .icon {
+            display: none;
+          }
+        }
+      }
+
+      .card-footer-landlord {
+        @include for-tablet-portrait-up {
+          display: none;
+        }
+        details.accordion {
+          padding: 0.5rem 0 0 0;
+          div {
+            margin: 0;
+          }
+          .icon {
+            display: none;
+          }
+          summary {
+            text-decoration: underline;
+            font-style: italic;
+          }
+        }
       }
     }
 
@@ -214,60 +285,16 @@
       }
     }
 
-    .card-body-resources {
-      margin-bottom: 24px;
-
-      border: 1px solid $gray;
-      padding-left: 1.5rem;
-      padding-right: 1.5rem;
-      margin-right: -1.5rem;
-      position: relative;
-
-      @include for-tablet-landscape-up() {
-        margin-top: 56px;
-        margin-right: 0;
-      }
-
-      .chip {
-        background-color: $gray-light;
-        color: $dark;
-        max-height: 1.8rem;
-        border-radius: 25px;
-      }
-
-      .card-body-resources__title {
-        position: absolute;
-        top: -19px;
-        left: 7px;
-        padding: 8px 9px 4px 8px;
-        background-color: #fff;
+    .card-body-links {
+      @include for-tablet-landscape-down() {
+        margin-top: 0;
       }
     }
 
-    .card-body-links,
     .card-body-prompt,
     .card-body-social {
-      margin-top: 24px;
-      margin-bottom: 24px;
-    }
-
-    .card-body-prompt {
-      @include for-tablet-landscape-up() {
-        margin-top: 48px;
-      }
-    }
-
-    .card-body-links {
-      .columns {
-        margin-top: -1rem;
-      }
-
-      a.btn:not(:first-child) {
-        margin-top: 10px;
-      }
-
-      .btn {
-      }
+      margin-top: 2.4rem;
+      margin-bottom: 2.4rem;
     }
 
     h6.DetailView__subtitle {
