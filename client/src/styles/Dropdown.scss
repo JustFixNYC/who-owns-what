@@ -19,8 +19,11 @@
   }
 
   .dropdown {
-    // Allow the dropdown toggle button child to have variable width (see below)
-    max-width: 300px;
+    // Don't let dropdown menu extend beyond container:
+    max-width: 100%;
+    &.is-open {
+      z-index: 110;
+    }
     button.dropdown-toggle {
       // Remove default border on focus:
       &:focus {

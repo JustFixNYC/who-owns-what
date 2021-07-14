@@ -31,7 +31,13 @@ export const Dropdown: React.FC<DropdownProps> = ({ children, buttonLabel }) => 
           onDeactivate: closeDropdown,
         }}
       >
-        <div className={classnames("dropdown", isHamburgerMenu && "dropdown-right show-lg")}>
+        <div
+          className={classnames(
+            "dropdown",
+            isDropdownVisible && "is-open",
+            isHamburgerMenu && "dropdown-right show-lg"
+          )}
+        >
           <button
             aria-label="menu"
             aria-expanded={isDropdownVisible}

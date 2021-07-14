@@ -113,18 +113,21 @@
 
     @include for-tablet-portrait-up() {
       display: flex;
+
+      .Indicators__linksContainer:first-child {
+        padding-right: 3rem;
+      }
     }
 
     .Indicators__linksContainer {
       &:first-child {
-        flex: 1 0 auto;
-        max-width: 350px;
         padding-bottom: 1rem;
       }
 
       .Indicators__linksTitle {
+        display: inline-block;
         font-size: 1.5rem;
-        margin-right: 2rem;
+        margin: 0 2rem 0.4rem 0;
       }
     }
   }
