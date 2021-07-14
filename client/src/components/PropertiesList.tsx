@@ -112,7 +112,7 @@ const PropertiesListWithoutI18n: React.FC<
       className={classnames("PropertiesList", hideScrollFade && "hide-scroll-fade")}
       ref={tableRef}
     >
-      <TheTable
+      <TableOfData
         addrs={addrs}
         headerTopSpacing={headerTopSpacing}
         i18n={i18n}
@@ -136,11 +136,15 @@ type TheTableProps = {
   addressPageRoutes: AddressPageRoutes;
 };
 
-const TheTable = React.memo(
+/**
+ * This component memoizes the portfolio table via React.memo
+ * in an attempt to improve performance, particularly on IE11.
+ */
+const TableOfData = React.memo(
   React.forwardRef<HTMLDivElement, TheTableProps>((props, lastColumnRef) => {
     const { addrs, headerTopSpacing, i18n, locale, rsunitslatestyear } = props;
 
-    console.log("Rendering <TheTable>", headerTopSpacing);
+    console.log("Rendering <TableOfData>", headerTopSpacing);
 
     return (
       <ReactTableFixedColumns
