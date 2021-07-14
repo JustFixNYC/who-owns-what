@@ -514,6 +514,10 @@ msgstr "Infracciones del código de mantenimiento"
 msgid "May be issued official Orders"
 msgstr "Pueden emitirse órdenes oficiales"
 
+#: src/components/Dropdown.tsx:22
+msgid "Menu"
+msgstr ""
+
 #: src/components/LegalFooter.tsx:43
 #: src/containers/Methodology.tsx:14
 msgid "Methodology"

@@ -509,6 +509,10 @@ msgstr "Maintenance code violations"
 msgid "May be issued official Orders"
 msgstr "May be issued official Orders"
 
+#: src/components/Dropdown.tsx:22
+msgid "Menu"
+msgstr "Menu"
+
 #: src/components/LegalFooter.tsx:43
 #: src/containers/Methodology.tsx:14
 msgid "Methodology"
