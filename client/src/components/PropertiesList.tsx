@@ -126,7 +126,7 @@ const PropertiesListWithoutI18n: React.FC<
   );
 };
 
-type TheTableProps = {
+type TableOfDataProps = {
   addrs: AddressRecord[];
   headerTopSpacing: number | undefined;
   i18n: I18n;
@@ -141,10 +141,8 @@ type TheTableProps = {
  * in an attempt to improve performance, particularly on IE11.
  */
 const TableOfData = React.memo(
-  React.forwardRef<HTMLDivElement, TheTableProps>((props, lastColumnRef) => {
+  React.forwardRef<HTMLDivElement, TableOfDataProps>((props, lastColumnRef) => {
     const { addrs, headerTopSpacing, i18n, locale, rsunitslatestyear } = props;
-
-    console.log("Rendering <TableOfData>", headerTopSpacing);
 
     return (
       <ReactTableFixedColumns
