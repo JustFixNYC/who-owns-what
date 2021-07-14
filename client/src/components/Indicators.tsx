@@ -7,13 +7,15 @@ import Loader from "../components/Loader";
 import LegalFooter from "../components/LegalFooter";
 import { UsefulLinks } from "./UsefulLinks";
 import { withI18n } from "@lingui/react";
-import { Trans } from "@lingui/macro";
+import { I18n } from "@lingui/core";
+import { t, Trans } from "@lingui/macro";
 
 import "styles/Indicators.css";
 import {
   IndicatorsDatasetRadio,
   INDICATORS_DATASETS,
   IndicatorsDatasetId,
+  indicatorsDatasetIds,
 } from "./IndicatorsDatasets";
 import {
   indicatorsInitialState,
@@ -21,9 +23,20 @@ import {
   IndicatorsState,
   IndicatorChartShift,
   IndicatorsTimeSpan,
+  IndicatorsTimeSpans,
 } from "./IndicatorsTypes";
 import { NetworkErrorMessage } from "./NetworkErrorMessage";
 import { Dropdown } from "./Dropdown";
+
+type TimeSpanTranslationsMap = {
+  [K in IndicatorsTimeSpan]: (i18n: I18n) => string;
+};
+
+const timeSpanTranslations: TimeSpanTranslationsMap = {
+  month: (i18n) => i18n._(t`month`),
+  quarter: (i18n) => i18n._(t`quarter`),
+  year: (i18n) => i18n._(t`year`),
+};
 
 class IndicatorsWithoutI18n extends Component<IndicatorsProps, IndicatorsState> {
   constructor(props: IndicatorsProps) {
@@ -209,21 +222,14 @@ class IndicatorsWithoutI18n extends Component<IndicatorsProps, IndicatorsState> 
                     </span>{" "}
                     <br />
                     <Dropdown buttonLabel={INDICATORS_DATASETS[activeVis].name(i18n)}>
-                      <IndicatorsDatasetRadio
-                        id="complaints"
-                        activeId={activeVis}
-                        onChange={this.handleVisChange}
-                      />
-                      <IndicatorsDatasetRadio
-                        id="viols"
-                        activeId={activeVis}
-                        onChange={this.handleVisChange}
-                      />
-                      <IndicatorsDatasetRadio
-                        id="permits"
-                        activeId={activeVis}
-                        onChange={this.handleVisChange}
-                      />
+                      {indicatorsDatasetIds.map((datasetKey, i) => (
+                        <IndicatorsDatasetRadio
+                          key={i}
+                          id={datasetKey}
+                          activeId={activeVis}
+                          onChange={this.handleVisChange}
+                        />
+                      ))}
                     </Dropdown>
                   </div>
                   <div className="Indicators__linksContainer">
@@ -232,61 +238,27 @@ class IndicatorsWithoutI18n extends Component<IndicatorsProps, IndicatorsState> 
                     </span>
                     <br />
                     <Dropdown buttonLabel={this.state.activeTimeSpan}>
-                      <li className="menu-item">
-                        <label
-                          className={
-                            "form-radio" + (this.state.activeTimeSpan === "month" ? " active" : "")
-                          }
-                          onClick={() => {
-                            window.gtag("event", "month-timeline-tab");
-                          }}
-                        >
-                          <input
-                            type="radio"
-                            name="month"
-                            checked={this.state.activeTimeSpan === "month" ? true : false}
-                            onChange={() => this.handleTimeSpanChange("month")}
-                          />
-                          <i className="form-icon" /> <Trans>month</Trans>
-                        </label>
-                      </li>
-                      <li className="menu-item">
-                        <label
-                          className={
-                            "form-radio" +
-                            (this.state.activeTimeSpan === "quarter" ? " active" : "")
-                          }
-                          onClick={() => {
-                            window.gtag("event", "quarter-timeline-tab");
-                          }}
-                        >
-                          <input
-                            type="radio"
-                            name="quarter"
-                            checked={this.state.activeTimeSpan === "quarter" ? true : false}
-                            onChange={() => this.handleTimeSpanChange("quarter")}
-                          />
-                          <i className="form-icon" /> <Trans>quarter</Trans>
-                        </label>
-                      </li>
-                      <li className="menu-item">
-                        <label
-                          className={
-                            "form-radio" + (this.state.activeTimeSpan === "year" ? " active" : "")
-                          }
-                          onClick={() => {
-                            window.gtag("event", "year-timeline-tab");
-                          }}
-                        >
-                          <input
-                            type="radio"
-                            name="year"
-                            checked={this.state.activeTimeSpan === "year" ? true : false}
-                            onChange={() => this.handleTimeSpanChange("year")}
-                          />
-                          <i className="form-icon" /> <Trans>year</Trans>
-                        </label>
-                      </li>
+                      {IndicatorsTimeSpans.map((timespan, i) => (
+                        <li className="menu-item" key={i}>
+                          <label
+                            className={
+                              "form-radio" +
+                              (this.state.activeTimeSpan === timespan ? " active" : "")
+                            }
+                            onClick={() => {
+                              window.gtag("event", "month-timeline-tab");
+                            }}
+                          >
+                            <input
+                              type="radio"
+                              name={timespan}
+                              checked={this.state.activeTimeSpan === timespan ? true : false}
+                              onChange={() => this.handleTimeSpanChange(timespan)}
+                            />
+                            <i className="form-icon" /> {timeSpanTranslations[timespan](i18n)}
+                          </label>
+                        </li>
+                      ))}
                     </Dropdown>
                   </div>
                 </div>
