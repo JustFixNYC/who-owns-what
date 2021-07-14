@@ -17,7 +17,6 @@ import Helpers, { longDateOptions } from "../util/helpers";
 import { AddressRecord, HpdComplaintCount } from "./APIDataTypes";
 import { withMachineInStateProps } from "state-machine";
 import { AddressPageRoutes } from "routes";
-import { createRef } from "react";
 import classnames from "classnames";
 
 export const isPartOfGroupSale = (saleId: string, addrs: AddressRecord[]) => {
@@ -73,7 +72,7 @@ const PropertiesListWithoutI18n: React.FC<
   const addrs = props.state.context.portfolioData.assocAddrs;
   const rsunitslatestyear = props.state.context.portfolioData.searchAddr.rsunitslatestyear;
 
-  const lastColumnRef = createRef<any>();
+  const lastColumnRef = useRef<HTMLDivElement>(null);
   const isLastColumnVisible = Helpers.useOnScreen(lastColumnRef);
   /**
    * For older browsers that do not support the `useOnScreen` hook,
@@ -113,6 +112,39 @@ const PropertiesListWithoutI18n: React.FC<
       className={classnames("PropertiesList", hideScrollFade && "hide-scroll-fade")}
       ref={tableRef}
     >
+      <TableOfData
+        addrs={addrs}
+        headerTopSpacing={headerTopSpacing}
+        i18n={i18n}
+        locale={locale}
+        rsunitslatestyear={rsunitslatestyear}
+        onOpenDetail={props.onOpenDetail}
+        addressPageRoutes={props.addressPageRoutes}
+        ref={lastColumnRef}
+      />
+    </div>
+  );
+};
+
+type TableOfDataProps = {
+  addrs: AddressRecord[];
+  headerTopSpacing: number | undefined;
+  i18n: I18n;
+  locale: SupportedLocale;
+  rsunitslatestyear: number;
+  onOpenDetail: (bbl: string) => void;
+  addressPageRoutes: AddressPageRoutes;
+};
+
+/**
+ * This component memoizes the portfolio table via React.memo
+ * in an attempt to improve performance, particularly on IE11.
+ */
+const TableOfData = React.memo(
+  React.forwardRef<HTMLDivElement, TableOfDataProps>((props, lastColumnRef) => {
+    const { addrs, headerTopSpacing, i18n, locale, rsunitslatestyear } = props;
+
+    return (
       <ReactTableFixedColumns
         data={addrs}
         minRows={10}
@@ -481,9 +513,9 @@ const PropertiesListWithoutI18n: React.FC<
         }}
         className="-striped -highlight"
       />
-    </div>
-  );
-};
+    );
+  })
+);
 
 const PropertiesList = withI18n()(PropertiesListWithoutI18n);
 
