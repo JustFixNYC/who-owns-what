@@ -127,9 +127,12 @@
   nav {
     display: inline-flex;
     flex-wrap: nowrap;
-    align-items: center;
     margin-left: auto;
     text-align: end;
+
+    @include for-tablet-landscape-down {
+      align-items: center;
+    }
 
     @include for-desktop-down {
       max-width: 250px;
