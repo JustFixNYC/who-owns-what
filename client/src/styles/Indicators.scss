@@ -8,10 +8,14 @@
   // };
 
   .Indicators__content {
-    padding: 16px;
+    padding: 1.6rem;
 
     @include for-tablet-portrait-up() {
-      padding: 26px;
+      padding: 2.6rem;
+      .title-card,
+      .Indicators__links {
+        padding-left: 2.6rem;
+      }
     }
 
     & > div > h6 {
@@ -107,8 +111,14 @@
     padding: 0rem 1.5rem 2.5rem 0rem;
     position: relative;
 
+    @include for-tablet-portrait-up() {
+      display: flex;
+    }
+
     .Indicators__linksContainer {
       &:first-child {
+        flex: 1 0 auto;
+        max-width: 350px;
         padding-bottom: 1rem;
       }
 

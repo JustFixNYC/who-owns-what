@@ -15,7 +15,6 @@ import {
   INDICATORS_DATASETS,
   IndicatorsDatasetId,
 } from "./IndicatorsDatasets";
-import { Link } from "react-router-dom";
 import {
   indicatorsInitialState,
   IndicatorsProps,
@@ -171,7 +170,6 @@ class IndicatorsWithoutI18n extends Component<IndicatorsProps, IndicatorsState> 
       const { state, send } = this.props;
 
       const { detailAddr } = state.context.portfolioData;
-      const { bbl } = detailAddr;
 
       const { activeVis } = this.state;
       const activeData = state.context.timelineData[activeVis];
