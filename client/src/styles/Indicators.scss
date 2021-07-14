@@ -8,10 +8,10 @@
   // };
 
   .Indicators__content {
-    padding: 30px 30px 30px 30px;
+    padding: 16px;
 
     @include for-tablet-portrait-up() {
-      padding: 45px 45px 45px 45px;
+      padding: 26px;
     }
 
     & > div > h6 {
@@ -37,7 +37,6 @@
     .title {
       font-size: 2rem;
       text-decoration: none;
-      padding-left: 1.5rem;
       margin-bottom: 0px;
 
       &.viz-title {
@@ -47,7 +46,7 @@
     }
 
     .title-card {
-      padding-bottom: 2.5rem;
+      padding-bottom: 1.4rem;
 
       a {
         color: #454d5d;
@@ -105,7 +104,7 @@
   }
 
   .Indicators__links {
-    padding: 0rem 1.5rem 2.5rem 1.5rem;
+    padding: 0rem 1.5rem 2.5rem 0rem;
     position: relative;
 
     .Indicators__linksContainer {

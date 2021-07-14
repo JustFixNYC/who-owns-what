@@ -199,17 +199,8 @@ class IndicatorsWithoutI18n extends Component<IndicatorsProps, IndicatorsState> 
                 {detailAddr && (
                   <div className="title-card">
                     <h4 className="title">
-                      <span>
-                        <Trans>BUILDING:</Trans> <b>{detailAddrStr}</b>
-                      </span>
+                      <b>{detailAddrStr}</b>
                     </h4>
-                    <br />
-                    <Link
-                      to={this.props.addressPageRoutes.overview}
-                      onClick={() => this.props.onBackToOverview(bbl)}
-                    >
-                      <Trans>Back to Overview</Trans>
-                    </Link>
                   </div>
                 )}
 
@@ -238,64 +229,67 @@ class IndicatorsWithoutI18n extends Component<IndicatorsProps, IndicatorsState> 
                     </Dropdown>
                   </div>
                   <div className="Indicators__linksContainer">
-                    <em className="Indicators__linksTitle">
+                    <span className="Indicators__linksTitle text-uppercase">
                       <Trans>View by:</Trans>
-                    </em>
+                    </span>
                     <br />
-                    <li className="menu-item">
-                      <label
-                        className={
-                          "form-radio" + (this.state.activeTimeSpan === "month" ? " active" : "")
-                        }
-                        onClick={() => {
-                          window.gtag("event", "month-timeline-tab");
-                        }}
-                      >
-                        <input
-                          type="radio"
-                          name="month"
-                          checked={this.state.activeTimeSpan === "month" ? true : false}
-                          onChange={() => this.handleTimeSpanChange("month")}
-                        />
-                        <i className="form-icon" /> <Trans>Month</Trans>
-                      </label>
-                    </li>
-                    <li className="menu-item">
-                      <label
-                        className={
-                          "form-radio" + (this.state.activeTimeSpan === "quarter" ? " active" : "")
-                        }
-                        onClick={() => {
-                          window.gtag("event", "quarter-timeline-tab");
-                        }}
-                      >
-                        <input
-                          type="radio"
-                          name="quarter"
-                          checked={this.state.activeTimeSpan === "quarter" ? true : false}
-                          onChange={() => this.handleTimeSpanChange("quarter")}
-                        />
-                        <i className="form-icon" /> <Trans>Quarter</Trans>
-                      </label>
-                    </li>
-                    <li className="menu-item">
-                      <label
-                        className={
-                          "form-radio" + (this.state.activeTimeSpan === "year" ? " active" : "")
-                        }
-                        onClick={() => {
-                          window.gtag("event", "year-timeline-tab");
-                        }}
-                      >
-                        <input
-                          type="radio"
-                          name="year"
-                          checked={this.state.activeTimeSpan === "year" ? true : false}
-                          onChange={() => this.handleTimeSpanChange("year")}
-                        />
-                        <i className="form-icon" /> <Trans>Year</Trans>
-                      </label>
-                    </li>
+                    <Dropdown buttonLabel={this.state.activeTimeSpan}>
+                      <li className="menu-item">
+                        <label
+                          className={
+                            "form-radio" + (this.state.activeTimeSpan === "month" ? " active" : "")
+                          }
+                          onClick={() => {
+                            window.gtag("event", "month-timeline-tab");
+                          }}
+                        >
+                          <input
+                            type="radio"
+                            name="month"
+                            checked={this.state.activeTimeSpan === "month" ? true : false}
+                            onChange={() => this.handleTimeSpanChange("month")}
+                          />
+                          <i className="form-icon" /> <Trans>month</Trans>
+                        </label>
+                      </li>
+                      <li className="menu-item">
+                        <label
+                          className={
+                            "form-radio" +
+                            (this.state.activeTimeSpan === "quarter" ? " active" : "")
+                          }
+                          onClick={() => {
+                            window.gtag("event", "quarter-timeline-tab");
+                          }}
+                        >
+                          <input
+                            type="radio"
+                            name="quarter"
+                            checked={this.state.activeTimeSpan === "quarter" ? true : false}
+                            onChange={() => this.handleTimeSpanChange("quarter")}
+                          />
+                          <i className="form-icon" /> <Trans>quarter</Trans>
+                        </label>
+                      </li>
+                      <li className="menu-item">
+                        <label
+                          className={
+                            "form-radio" + (this.state.activeTimeSpan === "year" ? " active" : "")
+                          }
+                          onClick={() => {
+                            window.gtag("event", "year-timeline-tab");
+                          }}
+                        >
+                          <input
+                            type="radio"
+                            name="year"
+                            checked={this.state.activeTimeSpan === "year" ? true : false}
+                            onChange={() => this.handleTimeSpanChange("year")}
+                          />
+                          <i className="form-icon" /> <Trans>year</Trans>
+                        </label>
+                      </li>
+                    </Dropdown>
                   </div>
                 </div>
 
