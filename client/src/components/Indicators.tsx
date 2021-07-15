@@ -165,8 +165,8 @@ class IndicatorsWithoutI18n extends Component<IndicatorsProps, IndicatorsState> 
               this.state.activeTimeSpan === "year"
                 ? lastSaleYear
                 : this.state.activeTimeSpan === "quarter"
-                  ? lastSaleQuarter
-                  : lastSaleMonth,
+                ? lastSaleQuarter
+                : lastSaleMonth,
             documentid: detailAddr.lastsaleacrisid,
           },
         });
@@ -340,7 +340,7 @@ class IndicatorsWithoutI18n extends Component<IndicatorsProps, IndicatorsState> 
                     }
                     className={
                       this.state.xAxisStart + this.state.xAxisViewableColumns >= xAxisLength ||
-                        this.state.activeTimeSpan === "year"
+                      this.state.activeTimeSpan === "year"
                         ? "btn btn-off btn-axis-shift"
                         : "btn btn-axis-shift"
                     }
