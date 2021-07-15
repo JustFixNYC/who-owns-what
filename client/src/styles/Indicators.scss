@@ -3,10 +3,6 @@
 @import "_button.scss";
 
 .Indicators {
-  // @include for-phone-only() {
-  //   padding-right: 30px;
-  // };
-
   .Indicators__content {
     padding: 1.6rem;
 
@@ -51,16 +47,6 @@
 
     .title-card {
       padding-bottom: 1.4rem;
-
-      a {
-        color: #454d5d;
-        margin-left: 1.5rem;
-        text-decoration: underline;
-
-        &:hover {
-          text-decoration: none;
-        }
-      }
     }
 
     .card {
@@ -79,22 +65,6 @@
           line-height: 1.8rem;
         }
       }
-    }
-
-    .control-panel {
-      justify-content: space-evenly;
-      padding-top: 15px;
-    }
-
-    .btn-data-select {
-      flex: 1 1 0;
-    }
-
-    .btn-data-select.selected,
-    .btn-data-select.selected:hover {
-      color: #fff;
-      background-color: #727e96;
-      box-shadow: inset 1px 1px 0px 0px #4f596c;
     }
 
     aside {
