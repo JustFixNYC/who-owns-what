@@ -141,7 +141,10 @@
     margin-bottom: 0.5rem;
 
     .Indicators__chart {
-      width: 100%;
+      width: 95%;
+      @include for-phone-only {
+        width: 85%;
+      }
     }
 
     .btn-axis-shift {
