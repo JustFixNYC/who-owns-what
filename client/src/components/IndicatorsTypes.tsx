@@ -25,7 +25,7 @@ export interface IndicatorsData {
   values: IndicatorsDataValues;
 }
 
-interface ViolsData extends IndicatorsData {
+interface HpdViolationsData extends IndicatorsData {
   values: {
     class_a: number[] | null;
     class_b: number[] | null;
@@ -34,7 +34,7 @@ interface ViolsData extends IndicatorsData {
   };
 }
 
-interface ComplaintsData extends IndicatorsData {
+interface HpdComplaintsData extends IndicatorsData {
   values: {
     emergency: number[] | null;
     nonemergency: number[] | null;
@@ -42,22 +42,17 @@ interface ComplaintsData extends IndicatorsData {
   };
 }
 
-interface PermitsData extends IndicatorsData {
+interface DobPermitsData extends IndicatorsData {
   values: {
     total: number[] | null;
   };
 }
 
-interface DobViolsData extends IndicatorsData {
+interface DobViolationsData extends IndicatorsData {
   values: {
     emergency: number[] | null;
     nonemergency: number[] | null;
-    total: number[] | null;
-  };
-}
-
-interface EcbViolsData extends IndicatorsData {
-  values: {
+    ecb: number[] | null;
     total: number[] | null;
   };
 }
@@ -67,15 +62,14 @@ export type IndicatorsDataIndex = {
 };
 
 export type IndicatorsDataFromAPI = IndicatorsDataIndex & {
-  viols: ViolsData;
-  complaints: ComplaintsData;
-  permits: PermitsData;
-  dobviols: DobViolsData;
-  ecbviols: EcbViolsData;
+  hpdviolations: HpdViolationsData;
+  hpdcomplaints: HpdComplaintsData;
+  dobpermits: DobPermitsData;
+  dobviolations: DobViolationsData;
 };
 
 export const indicatorsInitialDataStructure: IndicatorsDataFromAPI = {
-  viols: {
+  hpdviolations: {
     labels: null,
     values: {
       class_a: null,
@@ -85,7 +79,7 @@ export const indicatorsInitialDataStructure: IndicatorsDataFromAPI = {
     },
   },
 
-  complaints: {
+  hpdcomplaints: {
     labels: null,
     values: {
       emergency: null,
@@ -94,25 +88,19 @@ export const indicatorsInitialDataStructure: IndicatorsDataFromAPI = {
     },
   },
 
-  permits: {
+  dobpermits: {
     labels: null,
     values: {
       total: null,
     },
   },
 
-  dobviols: {
+  dobviolations: {
     labels: null,
     values: {
       emergency: null,
       nonemergency: null,
-      total: null,
-    },
-  },
-
-  ecbviols: {
-    labels: null,
-    values: {
+      ecb: null,
       total: null,
     },
   },
@@ -145,9 +133,9 @@ export const indicatorsInitialState: IndicatorsState = {
     documentid: null,
   },
 
-  indicatorList: ["complaints", "viols", "permits", "dobviols", "ecbviols"],
-  defaultVis: "complaints",
-  activeVis: "complaints",
+  indicatorList: ["hpdcomplaints", "hpdviolations", "dobpermits", "dobviolations"],
+  defaultVis: "hpdcomplaints",
+  activeVis: "hpdcomplaints",
   timeSpanList: ["month", "quarter", "year"],
   activeTimeSpan: "quarter",
   monthsInGroup: 3,

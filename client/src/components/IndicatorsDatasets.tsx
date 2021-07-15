@@ -10,11 +10,10 @@ import { withI18n } from "@lingui/react";
  * See https://stackoverflow.com/a/64174790 for more details on this approach.
  */
 export const indicatorsDatasetIds = [
-  "complaints",
-  "viols",
-  "permits",
-  "dobviols",
-  "ecbviols",
+  "hpdcomplaints",
+  "hpdviolations",
+  "dobpermits",
+  "dobviolations",
 ] as const;
 export type IndicatorsDatasetId = typeof indicatorsDatasetIds[number];
 
@@ -52,7 +51,7 @@ type IndicatorsDatasetMap = {
 };
 
 export const INDICATORS_DATASETS: IndicatorsDatasetMap = {
-  viols: {
+  hpdviolations: {
     name: (i18n) => i18n._(t`HPD Violations`),
     analyticsName: "violations",
     quantity: (i18n, value) =>
@@ -91,7 +90,7 @@ export const INDICATORS_DATASETS: IndicatorsDatasetMap = {
       </Trans>
     ),
   },
-  complaints: {
+  hpdcomplaints: {
     name: (i18n) => i18n._(t`HPD Complaints`),
     quantity: (i18n, value) =>
       i18n._(
@@ -127,7 +126,7 @@ export const INDICATORS_DATASETS: IndicatorsDatasetMap = {
       </Trans>
     ),
   },
-  permits: {
+  dobpermits: {
     name: (i18n) => i18n._(t`Building Permit Applications`),
     quantity: (i18n, value) =>
       i18n._(
@@ -157,7 +156,7 @@ export const INDICATORS_DATASETS: IndicatorsDatasetMap = {
       </Trans>
     ),
   },
-  dobviols: {
+  dobviolations: {
     name: (i18n) => i18n._(t`DOB Violations`),
     quantity: (i18n, value) =>
       i18n._(
@@ -172,9 +171,11 @@ export const INDICATORS_DATASETS: IndicatorsDatasetMap = {
       <Trans render="span">
         A DOB Violation is a notice that a property is not in compliance with some building law. It
         includes an order from the Department of Buildings to correct the violating condition, which
-        must be corrected before a new or amended Certificate of Occupancy (CO) can be obtained. DOB
-        Violations are generally considered less severe than ECB violations, and can be identified
-        as:
+        must be corrected before a new or amended Certificate of Occupancy (CO) can be obtained. If
+        an ECB (Environmental Control Board) Violation occurs, people named in the violation must
+        first attend a hearing with the Office of Administrative Trials and Hearings to pay a fine
+        or have the violation dismissed. For that reason, DOB Violations are generally considered
+        less severe than ECB violations, but can be identified as:
         <br />
         <br />
         <b>Emergency</b> — critical building situation
@@ -189,38 +190,6 @@ export const INDICATORS_DATASETS: IndicatorsDatasetMap = {
           rel="noopener noreferrer"
         >
           official DOB page
-        </a>
-        .
-      </Trans>
-    ),
-  },
-  ecbviols: {
-    name: (i18n) => i18n._(t`ECB Violations`),
-    quantity: (i18n, value) =>
-      i18n._(
-        plural({
-          value,
-          one: "One ECB Violation Issued since 2010",
-          other: "# ECB Violations Issued since 2010",
-        })
-      ),
-    yAxisLabel: (i18n) => i18n._(t`Violations Issued`),
-    explanation: () => (
-      <Trans render="span">
-        Like DOB Violations, ECB (Environmental Control Board) Violations occur when a property does
-        not comply with building code or zoning law. However, people named in an ECB violation must
-        first attend a hearing with the Office of Administrative Trials and Hearings to pay a fine
-        or have the violation dismissed. For that reason, ECB Violations are generally considered
-        more severe than DOB Violations.
-        <br />
-        <br />
-        Read more about ECB Violations at the{" "}
-        <a
-          href="https://www1.nyc.gov/site/buildings/safety/ecb-violations.page"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          official City page
         </a>
         .
       </Trans>

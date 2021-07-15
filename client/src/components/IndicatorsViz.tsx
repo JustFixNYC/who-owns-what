@@ -186,83 +186,79 @@ class IndicatorsVizImplementation extends Component<IndicatorVizImplementationPr
     const locale = (i18n.language || "en") as SupportedLocale;
 
     switch (this.props.activeVis) {
-      case "viols":
+      case "hpdviolations":
         datasets = [
           {
             label: i18n._(t`Class C`),
-            data: this.groupData(timelineData.viols.values.class_c) || [],
+            data: this.groupData(timelineData.hpdviolations.values.class_c) || [],
             backgroundColor: "rgba(136,65,157, 0.6)",
             borderColor: "rgba(136,65,157,1)",
             borderWidth: 1,
           },
           {
             label: i18n._(t`Class B`),
-            data: this.groupData(timelineData.viols.values.class_b) || [],
+            data: this.groupData(timelineData.hpdviolations.values.class_b) || [],
             backgroundColor: "rgba(140,150,198, 0.6)",
             borderColor: "rgba(140,150,198,1)",
             borderWidth: 1,
           },
           {
             label: i18n._(t`Class A`),
-            data: this.groupData(timelineData.viols.values.class_a) || [],
+            data: this.groupData(timelineData.hpdviolations.values.class_a) || [],
             backgroundColor: "rgba(157, 194, 227, 0.6)",
             borderColor: "rgba(157, 194, 227,1)",
             borderWidth: 1,
           },
         ];
         break;
-      case "complaints":
+      case "hpdcomplaints":
         datasets = [
           {
             label: i18n._(t`Emergency`),
-            data: this.groupData(timelineData.complaints.values.emergency) || [],
+            data: this.groupData(timelineData.hpdcomplaints.values.emergency) || [],
             backgroundColor: "rgba(227,74,51, 0.6)",
             borderColor: "rgba(227,74,51,1)",
             borderWidth: 1,
           },
           {
             label: i18n._(t`Non-Emergency`),
-            data: this.groupData(timelineData.complaints.values.nonemergency) || [],
+            data: this.groupData(timelineData.hpdcomplaints.values.nonemergency) || [],
             backgroundColor: "rgba(255, 219, 170, 0.6)",
             borderColor: "rgba(255, 219, 170,1)",
             borderWidth: 1,
           },
         ];
         break;
-      case "permits":
+      case "dobpermits":
         datasets = [
           {
             label: i18n._(t`Building Permits Applied For`),
-            data: this.groupData(timelineData.permits.values.total) || [],
+            data: this.groupData(timelineData.dobpermits.values.total) || [],
             backgroundColor: "rgba(73, 192, 179, 0.6)",
             borderColor: "rgb(73, 192, 179)",
             borderWidth: 1,
           },
         ];
         break;
-      case "dobviols":
+      case "dobviolations":
         datasets = [
           {
             label: "Emergency",
-            data: this.groupData(timelineData.dobviols.values.emergency) || [],
+            data: this.groupData(timelineData.dobviolations.values.emergency) || [],
             backgroundColor: "rgba(215,25,28, 0.6)",
             borderColor: "rgba(215,25,28,1)",
             borderWidth: 1,
           },
           {
             label: "Non-Emergency",
-            data: this.groupData(timelineData.dobviols.values.nonemergency) || [],
+            data: this.groupData(timelineData.dobviolations.values.nonemergency) || [],
             backgroundColor: "rgba(254,224,139, 0.6)",
             borderColor: "rgba(254,224,139,1)",
             borderWidth: 1,
           },
-        ];
-        break;
-      case "ecbviols":
-        datasets = [
           {
-            label: "ECB Violations Issued",
-            data: this.groupData(timelineData.ecbviols.values.total) || [],
+            label: "ECB",
+            data: this.groupData(timelineData.dobviolations.values.ecb) || [],
             backgroundColor: "rgba(153,142,195, 0.6)",
             borderColor: "rgba(153,142,195,1)",
             borderWidth: 1,
@@ -305,10 +301,10 @@ class IndicatorsVizImplementation extends Component<IndicatorVizImplementationPr
 
     var dataMaximum = this.getDataMaximum();
     var suggestedYAxisMax =
-      this.props.activeVis !== "complaints" && this.props.activeVis !== "viols"
+      this.props.activeVis !== "hpdcomplaints" && this.props.activeVis !== "hpdviolations"
         ? Math.max(
             12,
-            Helpers.maxArray(this.groupData(timelineData.permits.values.total) || [0]) * 1.25
+            Helpers.maxArray(this.groupData(timelineData.dobpermits.values.total) || [0]) * 1.25
           )
         : Math.max(12, dataMaximum * 1.25);
 
@@ -501,7 +497,7 @@ class IndicatorsVizImplementation extends Component<IndicatorVizImplementationPr
               window.open(acrisURL, "_blank");
             },
           },
-          this.props.activeVis === "complaints" && {
+          this.props.activeVis === "hpdcomplaints" && {
             drawTime: "beforeDatasetsDraw",
             type: "line",
             mode: "vertical",
