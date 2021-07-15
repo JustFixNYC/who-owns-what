@@ -113,11 +113,33 @@ def address_buildinginfo(request):
     return JsonResponse({'result': list(cleaned_result)})
 
 
+def add_deprecated_fields_to_indicator_history_dict(indicator_history):
+    '''
+    After changing the names of some of the output fields from the
+    `address_indicatorhistory.sql` query, this function makes sure to keep the
+    originalfield names as well in the JSON Response in case users' caches are
+    using an old front end. We can remove this function when we are confident
+    that all caches have updated with the new changes.
+    '''
+    return {
+        **indicator_history,
+        "viols_class_a": indicator_history['hpdviolations_class_a'],
+        "viols_class_b": indicator_history['hpdviolations_class_b'],
+        "viols_class_c": indicator_history['hpdviolations_class_c'],
+        "viols_total": indicator_history['hpdviolations_total'],
+        "complaints_emergency": indicator_history['hpdcomplaints_emergency'],
+        "complaints_nonemergency": indicator_history['hpdcomplaints_nonemergency'],
+        "complaints_total": indicator_history['hpdcomplaints_total'],
+        "permitss_total": indicator_history['dobpermits_total'],
+    }
+
+
 @api
 def address_indicatorhistory(request):
     bbl = get_request_bbl(request)
     result = exec_db_query(SQL_DIR / 'address_indicatorhistory.sql', {'bbl': bbl})
-    return JsonResponse({'result': result})
+    cleaned_result = map(add_deprecated_fields_to_indicator_history_dict, result)
+    return JsonResponse({'result': list(cleaned_result)})
 
 
 def _fixup_addr_for_csv(addr: Dict[str, Any]):
