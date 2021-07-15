@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2021-07-15 17:42\n"
+"PO-Revision-Date: 2021-07-15 17:47\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -252,7 +252,7 @@ msgstr "Descargo de responsabilidad: La información en JustFix.nyc no constituy
 #: src/components/Indicators.tsx:154
 #: src/components/Indicators.tsx:157
 msgid "Display:"
-msgstr ""
+msgstr "Mostrar:"
 
 #: src/components/LegalFooter.tsx:33
 #: src/containers/App.tsx:72
@@ -517,7 +517,7 @@ msgstr "Pueden emitirse órdenes oficiales"
 
 #: src/components/Dropdown.tsx:22
 msgid "Menu"
-msgstr ""
+msgstr "Menu"
 
 #: src/components/LegalFooter.tsx:43
 #: src/containers/Methodology.tsx:14
@@ -530,11 +530,11 @@ msgstr "Las quejas más comunes de 311, los últimos 3 años"
 
 #: src/components/Indicators.tsx:187
 msgid "Move chart data left."
-msgstr ""
+msgstr "Mover datos del gráfico a la izquierda."
 
 #: src/components/Indicators.tsx:196
 msgid "Move chart data right."
-msgstr ""
+msgstr "Mover datos del gráfico a la derecha."
 
 #: src/containers/NychaPage.tsx:165
 msgid "MyNYCHA App"
@@ -1074,11 +1074,11 @@ msgstr "por ${0}"
 
 #: src/components/Indicators.tsx:15
 msgid "month"
-msgstr ""
+msgstr "mes"
 
 #: src/components/Indicators.tsx:16
 msgid "quarter"
-msgstr ""
+msgstr "trimestre"
 
 #: src/components/PropertiesMap.tsx:199
 msgid "search address"
@@ -1086,7 +1086,7 @@ msgstr "dirección de búsqueda"
 
 #: src/components/Indicators.tsx:17
 msgid "year"
-msgstr ""
+msgstr "año"
 
 #: src/components/PropertiesSummary.tsx:92
 msgid "{0} {1}, {2} currently has {3, plural, one {one open HPD violation} other {# open HPD violations}} - the most in this portfolio."
