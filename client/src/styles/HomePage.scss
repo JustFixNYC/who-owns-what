@@ -19,6 +19,11 @@
       padding-right: 24px;
       text-align: center;
 
+      // Override default <p> styling:
+      p {
+        margin-bottom: 0;
+      }
+
       a {
         color: $dark;
         text-decoration: underline;
@@ -55,7 +60,7 @@
     padding: 35px;
 
     @include for-phone-only() {
-      margin: 40px auto 30vh auto;
+      margin: 40px auto 15vh auto;
       padding: 20px;
     }
   }

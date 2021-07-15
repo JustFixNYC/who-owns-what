@@ -3,7 +3,14 @@ import { withI18nProps } from "@lingui/react";
 import { withMachineInStateProps } from "state-machine";
 import { AddressPageRoutes } from "routes";
 
-export type IndicatorsTimeSpan = "month" | "quarter" | "year";
+/**
+ * All the time spans you can view data by on the Timeline Tab, _in the order they will appear on the select menu_.
+ *
+ * Note: This separation of array and type definition allows us to more easily iterate over all dataset ids.
+ * See https://stackoverflow.com/a/64174790 for more details on this approach.
+ */
+export const indicatorsTimeSpans = ["month", "quarter", "year"] as const;
+export type IndicatorsTimeSpan = typeof indicatorsTimeSpans[number];
 
 // Types Relating to the State Machine Data for the Indicators Component:
 

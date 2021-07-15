@@ -103,8 +103,8 @@ const LearnMoreAccordion = () => (
         <Trans>
           <p>
             While the legal owner of a building is often a company (usually called an “LLC”), these
-            names and business addresses registered with HPD offer a clearer picture of who the
-            landlord really is.
+            names and business addresses registered with HPD offer a clearer picture of who really
+            controls the building.
           </p>
           <p>
             People listed here as “Head Officer” or “Owner” usually have ties to building ownership,
