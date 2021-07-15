@@ -4,7 +4,8 @@
 // some of these custom rules. This class nesting was designed to prioritize these custom
 // rules without bloating our CSS with many new custom class names.
 .App .DropdownComponent {
-  max-width: 350px;
+  // Don't let dropdown extend beyond viewport on mobile:
+  max-width: 100%;
 
   .dropdown-overlay {
     &.hidden {
@@ -21,8 +22,8 @@
   }
 
   .dropdown {
-    // Don't let dropdown menu extend beyond container:
-    max-width: 100%;
+    // Fill parent container:
+    width: 100%;
     &.is-open {
       z-index: 110;
     }
@@ -41,7 +42,8 @@
         padding: 0px;
 
         display: flex;
-        max-width: 100%;
+        // Fill parent container:
+        width: 100%;
 
         .float-left,
         .float-right {
@@ -50,6 +52,7 @@
         }
 
         .float-left {
+          flex-grow: 1;
           text-align: start;
           overflow: hidden;
           text-overflow: ellipsis;

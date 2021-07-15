@@ -120,6 +120,8 @@
     }
 
     .Indicators__linksContainer {
+      // Make sure links container doesn't extend beyond viewport
+      max-width: 100%;
       &:first-child {
         padding-bottom: 1rem;
       }

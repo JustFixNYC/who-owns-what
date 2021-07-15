@@ -9,8 +9,8 @@ import { AddressPageRoutes } from "routes";
  * Note: This separation of array and type definition allows us to more easily iterate over all dataset ids.
  * See https://stackoverflow.com/a/64174790 for more details on this approach.
  */
-export const IndicatorsTimeSpans = ["month", "quarter", "year"] as const;
-export type IndicatorsTimeSpan = typeof IndicatorsTimeSpans[number];
+export const indicatorsTimeSpans = ["month", "quarter", "year"] as const;
+export type IndicatorsTimeSpan = typeof indicatorsTimeSpans[number];
 
 // Types Relating to the State Machine Data for the Indicators Component:
 

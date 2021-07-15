@@ -23,7 +23,7 @@ import {
   IndicatorsState,
   IndicatorChartShift,
   IndicatorsTimeSpan,
-  IndicatorsTimeSpans,
+  indicatorsTimeSpans,
 } from "./IndicatorsTypes";
 import { NetworkErrorMessage } from "./NetworkErrorMessage";
 import { Dropdown } from "./Dropdown";
@@ -36,6 +36,19 @@ const timeSpanTranslations: TimeSpanTranslationsMap = {
   month: (i18n) => i18n._(t`month`),
   quarter: (i18n) => i18n._(t`quarter`),
   year: (i18n) => i18n._(t`year`),
+};
+
+/**
+ * Generates an appropriate width for a dropdown selection menu
+ * that's scaled according to the longest text selection.
+ */
+const getDropdownWidthFromLongestSelection = (selections: string[]) => {
+  const LETTER_WIDTH = 10;
+  const MENU_BUFFER = 70;
+  const MAX_WIDTH = 350;
+
+  const lengthOfLongestSelection = Math.max(...selections.map((selection) => selection.length));
+  return Math.min(lengthOfLongestSelection * LETTER_WIDTH + MENU_BUFFER, MAX_WIDTH);
 };
 
 class IndicatorsWithoutI18n extends Component<IndicatorsProps, IndicatorsState> {
@@ -196,6 +209,13 @@ class IndicatorsWithoutI18n extends Component<IndicatorsProps, IndicatorsState> 
 
       const i18n = this.props.i18n;
 
+      const datasetSelectionNames = indicatorsDatasetIds.map((datasetId) =>
+        INDICATORS_DATASETS[datasetId].name(i18n)
+      );
+      const timeSpanSelectionNames = indicatorsTimeSpans.map((timeSpan) =>
+        timeSpanTranslations[timeSpan](i18n)
+      );
+
       const detailAddrStr = `${detailAddr.housenumber} ${Helpers.titleCase(
         detailAddr.streetname
       )}, ${Helpers.titleCase(detailAddr.boro)}`;
@@ -214,9 +234,13 @@ class IndicatorsWithoutI18n extends Component<IndicatorsProps, IndicatorsState> 
                     </h4>
                   </div>
                 )}
-
                 <div className="Indicators__links">
-                  <div className="Indicators__linksContainer">
+                  <div
+                    className="Indicators__linksContainer"
+                    style={{
+                      width: `${getDropdownWidthFromLongestSelection(datasetSelectionNames)}px`,
+                    }}
+                  >
                     <span className="Indicators__linksTitle text-uppercase">
                       <Trans>Display:</Trans>
                     </span>{" "}
@@ -237,7 +261,12 @@ class IndicatorsWithoutI18n extends Component<IndicatorsProps, IndicatorsState> 
                       ))}
                     </Dropdown>
                   </div>
-                  <div className="Indicators__linksContainer">
+                  <div
+                    className="Indicators__linksContainer"
+                    style={{
+                      width: `${getDropdownWidthFromLongestSelection(timeSpanSelectionNames)}px`,
+                    }}
+                  >
                     <span className="Indicators__linksTitle text-uppercase">
                       <Trans>View by:</Trans>
                     </span>
@@ -248,7 +277,7 @@ class IndicatorsWithoutI18n extends Component<IndicatorsProps, IndicatorsState> 
                         this.state.activeTimeSpan
                       ](i18n)}`}
                     >
-                      {IndicatorsTimeSpans.map((timespan, i) => (
+                      {indicatorsTimeSpans.map((timespan, i) => (
                         <li className="menu-item" key={i}>
                           <label
                             className={
@@ -272,13 +301,11 @@ class IndicatorsWithoutI18n extends Component<IndicatorsProps, IndicatorsState> 
                     </Dropdown>
                   </div>
                 </div>
-
                 <span className="title viz-title">
                   {datasetDescription &&
                     indicatorDataTotal !== null &&
                     datasetDescription.quantity(i18n, indicatorDataTotal)}
                 </span>
-
                 <div className="Indicators__viz">
                   <button
                     aria-label={i18n._(t`Move chart data left.`)}
