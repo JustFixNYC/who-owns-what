@@ -1,0 +1,112 @@
+@import "_vars.scss";
+
+// NOTE: Spectre includes a lot of intricate ".dropdown" class rules that can override
+// some of these custom rules. This class nesting was designed to prioritize these custom
+// rules without bloating our CSS with many new custom class names.
+.App .DropdownComponent {
+  // Don't let dropdown extend beyond viewport on mobile:
+  max-width: 100%;
+
+  .dropdown-overlay {
+    &.hidden {
+      display: none;
+    }
+    position: fixed;
+    top: 0px;
+    right: 0px;
+    width: 100%;
+    height: 100%;
+    background-color: $dark;
+    opacity: 0.6;
+    z-index: 100;
+  }
+
+  .dropdown {
+    // Fill parent container:
+    width: 100%;
+    &.is-open {
+      z-index: 110;
+    }
+    button.dropdown-toggle {
+      // Remove default border on focus:
+      &:focus {
+        border: none;
+      }
+
+      &.dropdown-selector-panel {
+        font-size: 2rem;
+        outline: 1px solid $dark;
+        border: none;
+        background-color: $gray-light;
+        height: 4.4rem;
+        padding: 0px;
+
+        display: flex;
+        // Fill parent container:
+        width: 100%;
+
+        .float-left,
+        .float-right {
+          height: 100%;
+          padding: 1.2rem;
+        }
+
+        .float-left {
+          flex-grow: 1;
+          text-align: start;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+        .float-right {
+          border-left: 0.5px solid $dark;
+        }
+        .icon {
+          padding: 1px;
+        }
+        &.active {
+          // Keep toggle button above overlay when active:
+          z-index: 110;
+          .icon {
+            transition: transform 0.2s linear;
+            transform: scaleY(-1) translateY(-3px);
+          }
+        }
+      }
+    }
+
+    .menu {
+      z-index: 110;
+      padding: 0.25rem 0.5rem;
+      font-size: 1.6rem;
+
+      .menu-item a {
+        &:focus {
+          outline-offset: 0px;
+        }
+        &:active,
+        &.active {
+          background: $gray-light;
+        }
+      }
+
+      &.d-none {
+        display: none;
+      }
+      &.d-block {
+        display: block;
+      }
+    }
+  }
+
+  .dropdown-selector-panel + .menu {
+    padding: 1.25rem 0.5rem;
+    font-size: 2rem;
+    box-shadow: none;
+    // Override default translation so it lies flush with toggle button outline:
+    transform: translateY(1px);
+    .menu-item {
+      display: inline-block;
+      margin: 1rem 0;
+    }
+  }
+}

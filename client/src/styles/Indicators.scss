@@ -3,15 +3,15 @@
 @import "_button.scss";
 
 .Indicators {
-  // @include for-phone-only() {
-  //   padding-right: 30px;
-  // };
-
   .Indicators__content {
-    padding: 30px 30px 30px 30px;
+    padding: 1.6rem;
 
     @include for-tablet-portrait-up() {
-      padding: 45px 45px 45px 45px;
+      padding: 2.6rem;
+      .title-card,
+      .Indicators__links {
+        padding-left: 2.6rem;
+      }
     }
 
     & > div > h6 {
@@ -37,7 +37,6 @@
     .title {
       font-size: 2rem;
       text-decoration: none;
-      padding-left: 1.5rem;
       margin-bottom: 0px;
 
       &.viz-title {
@@ -47,17 +46,7 @@
     }
 
     .title-card {
-      padding-bottom: 2.5rem;
-
-      a {
-        color: #454d5d;
-        margin-left: 1.5rem;
-        text-decoration: underline;
-
-        &:hover {
-          text-decoration: none;
-        }
-      }
+      padding-bottom: 1.4rem;
     }
 
     .card {
@@ -78,22 +67,6 @@
       }
     }
 
-    .control-panel {
-      justify-content: space-evenly;
-      padding-top: 15px;
-    }
-
-    .btn-data-select {
-      flex: 1 1 0;
-    }
-
-    .btn-data-select.selected,
-    .btn-data-select.selected:hover {
-      color: #fff;
-      background-color: #727e96;
-      box-shadow: inset 1px 1px 0px 0px #4f596c;
-    }
-
     aside {
       @include for-tablet-portrait-up() {
         width: 32%;
@@ -105,27 +78,28 @@
   }
 
   .Indicators__links {
-    padding: 0rem 1.5rem 2.5rem 1.5rem;
+    padding: 0rem 1.5rem 2.5rem 0rem;
     position: relative;
 
+    @include for-tablet-portrait-up() {
+      display: flex;
+
+      .Indicators__linksContainer:first-child {
+        padding-right: 3rem;
+      }
+    }
+
     .Indicators__linksContainer {
+      // Make sure links container doesn't extend beyond viewport
+      max-width: 100%;
       &:first-child {
         padding-bottom: 1rem;
       }
 
       .Indicators__linksTitle {
+        display: inline-block;
         font-size: 1.5rem;
-        margin-right: 2rem;
-      }
-
-      li {
-        list-style: none;
-        display: inline;
-
-        label.active {
-          font-weight: bold;
-          color: #000;
-        }
+        margin: 0 2rem 0.4rem 0;
       }
     }
   }
@@ -137,7 +111,10 @@
     margin-bottom: 0.5rem;
 
     .Indicators__chart {
-      width: 100%;
+      width: 95%;
+      @include for-phone-only {
+        width: 85%;
+      }
     }
 
     .btn-axis-shift {
