@@ -12,9 +12,9 @@ import {
   indicatorsInitialDataStructure,
   IndicatorsDataFromAPI,
   IndicatorsData,
+  IndicatorsDatasetId,
 } from "./IndicatorsTypes";
 import helpers from "util/helpers";
-import { IndicatorsDatasetId } from "./IndicatorsDatasets";
 import { NetworkError, HTTPError } from "error-reporting";
 
 // API REQUESTS TO THE DATABASE:

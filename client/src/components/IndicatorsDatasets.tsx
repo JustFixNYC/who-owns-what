@@ -2,20 +2,7 @@ import React from "react";
 import { I18n } from "@lingui/core";
 import { t, Trans, plural } from "@lingui/macro";
 import { withI18n } from "@lingui/react";
-
-/**
- * The ids for all datasets shown on the Timeline Tab, _in the order they will appear on the select menu_.
- *
- * Note: This separation of array and type definition allows us to more easily iterate over all dataset ids.
- * See https://stackoverflow.com/a/64174790 for more details on this approach.
- */
-export const indicatorsDatasetIds = [
-  "hpdcomplaints",
-  "hpdviolations",
-  "dobpermits",
-  "dobviolations",
-] as const;
-export type IndicatorsDatasetId = typeof indicatorsDatasetIds[number];
+import { IndicatorsDatasetId } from "./IndicatorsTypes";
 
 /**
  * This interface encapsulates metadata about an Indicators dataset.
