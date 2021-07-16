@@ -117,7 +117,7 @@ def add_deprecated_fields_to_indicator_history_dict(indicator_history):
     '''
     After changing the names of some of the output fields from the
     `address_indicatorhistory.sql` query, this function makes sure to keep the
-    originalfield names as well in the JSON Response in case users' caches are
+    original field names as well in the JSON Response in case users' caches are
     using an old front end. We can remove this function when we are confident
     that all caches have updated with the new changes.
     '''
@@ -130,7 +130,7 @@ def add_deprecated_fields_to_indicator_history_dict(indicator_history):
         "complaints_emergency": indicator_history['hpdcomplaints_emergency'],
         "complaints_nonemergency": indicator_history['hpdcomplaints_nonemergency'],
         "complaints_total": indicator_history['hpdcomplaints_total'],
-        "permitss_total": indicator_history['dobpermits_total'],
+        "permits_total": indicator_history['dobpermits_total'],
     }
 
 
