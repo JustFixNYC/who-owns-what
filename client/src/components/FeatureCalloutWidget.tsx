@@ -49,13 +49,13 @@ const FeatureCalloutWidget = withI18n()((props: withI18nProps) => {
     <div className="FeatureCalloutWidget">
       <div className="widget-triangle-info-button-container">
         <button
-          className="widget-button-info focusable material-icons md-13"
+          className="widget-button-info focusable"
           tabIndex={0}
           onClick={toggleWidget}
           aria-hidden
           aria-label={i18n._(t`What's New`)}
         >
-          info
+          ⓘ
         </button>
         {isWidgetOpen && <div className="widget-tooltip-triangle" />}
       </div>

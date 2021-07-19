@@ -22,26 +22,19 @@
   }
 
   .widget-button-info {
-    background: #3e4654;
-    color: white;
-    font-size: 0.1em;
-    border-radius: 50%;
     cursor: pointer;
     position: relative;
     vertical-align: middle;
     z-index: 51;
+    border-radius: 100%;
+    line-height: 1.4rem;
     margin: -2px 2px 0px 2px;
   }
 
-  .widget-button-info:hover {
-    background: #f8f9fa;
-    color: #3e4654;
-    box-shadow: 0.5px 0.5px 2px rgba(0, 0, 0, 0.7);
-  }
-
+  .widget-button-info:hover,
   .widget-button-info.pressed {
-    background: #f8f9fa;
-    color: #3e4654;
+    color: $background;
+    background-color: #3e4654;
     box-shadow: 0.5px 0.5px 2px rgba(0, 0, 0, 0.7);
   }
 
