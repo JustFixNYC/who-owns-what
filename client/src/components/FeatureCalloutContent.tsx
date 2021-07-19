@@ -1,28 +1,28 @@
-import Timeline_gif from "../assets/img/Feature_callout_gifs/Timeline.gif";
-import Spanish_gif from "../assets/img/Feature_callout_gifs/Spanish.gif";
-import URLS_gif from "../assets/img/Feature_callout_gifs/URLS.gif";
-import LastSold_gif from "../assets/img/Feature_callout_gifs/LastSold.gif";
+import Gif311Data from "../assets/img/Feature_callout_gifs/311-data.gif";
+import GifLandlordInfo from "../assets/img/Feature_callout_gifs/landlord-info.gif";
+import GifDropdowns from "../assets/img/Feature_callout_gifs/dropdowns.gif";
+import GifPortfolioTabRedo from "../assets/img/Feature_callout_gifs/portfolio-tab-redo.gif";
 import { t } from "@lingui/macro";
 
 export const getFeatureCalloutContent = () => [
   {
-    title: t`Timeline Tab`,
-    description: t`Click the Timeline tab to view info about your building over time.`,
-    img: Timeline_gif,
+    title: t`311 Complaints Data`,
+    description: t`See the most common complaints reported by tenants to 311, now on the Overview and Portfolio tabs.`,
+    img: Gif311Data,
   },
   {
-    title: t`Spanish Support`,
-    description: t`Who Owns What is now available in Spanish. Click “ES” in the upper right corner to switch your language.`,
-    img: Spanish_gif,
+    title: t`Clearer Landlord Contact Info`,
+    description: t`We reorganized the contact details for each individual and corporate entities associated with a property on the Overview tab.`,
+    img: GifLandlordInfo,
   },
   {
-    title: t`Unique Tab URLs`,
-    description: t`It's now possible to share links to specific tabs (Overview, Timeline, Portfolio, & Summary).`,
-    img: URLS_gif,
+    title: t`More Mobile Friendly`,
+    description: t`A new set of dropdown menus and design tweaks make it more comfortable to use Who Owns What on the go`,
+    img: GifDropdowns,
   },
   {
-    title: t`Last Sold`,
-    description: t`The Overview and Portfolio tabs now display the date and price from when your building was last sold.`,
-    img: LastSold_gif,
+    title: t`Portfolio Table Redesign`,
+    description: t`We overhauled the Portfolio tab to help make navigating this large table of data easier, especially for mobile phones.`,
+    img: GifPortfolioTabRedo,
   },
 ];
