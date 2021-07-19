@@ -18,14 +18,6 @@ const FeatureCalloutWidget = withI18n()((props: withI18nProps) => {
   const content = getFeatureCalloutContent();
   const numberOfEntries = content.length;
 
-  let goToNextEntry = () => {
-    entryIndex === numberOfEntries - 1 ? setEntryIndex(0) : setEntryIndex(entryIndex + 1);
-  };
-
-  let goToPrevEntry = () => {
-    entryIndex === 0 ? setEntryIndex(numberOfEntries - 1) : setEntryIndex(entryIndex - 1);
-  };
-
   let widgetEntries = content.map((entry, i) => {
     const indexLabel = i18n._(t`${i + 1} of ${numberOfEntries}`);
     const entryTitle = i18n._(entry.title);
@@ -99,7 +91,7 @@ const FeatureCalloutWidget = withI18n()((props: withI18nProps) => {
                   tabIndex={0}
                   onClick={(event) => {
                     event.preventDefault();
-                    return goToPrevEntry();
+                    setEntryIndex((entryIndex - 1) % numberOfEntries);
                   }}
                 >
                   <span className="material-icons md-14 widget-prev-next-icon" aria-hidden>
@@ -112,7 +104,7 @@ const FeatureCalloutWidget = withI18n()((props: withI18nProps) => {
                   tabIndex={0}
                   onClick={(event) => {
                     event.preventDefault();
-                    return goToNextEntry();
+                    setEntryIndex((entryIndex + 1) % numberOfEntries);
                   }}
                 >
                   <span className="widget-next-text">{i18n._(t`Next`)}</span>
