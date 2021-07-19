@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { Trans, t } from "@lingui/macro";
-import FocusTrap from "focus-trap-react";
 
 import "styles/App.css";
 
@@ -35,6 +34,7 @@ import { DevPage } from "./DevPage";
 import { wowMachine } from "state-machine";
 import { NotFoundPage } from "./NotFoundPage";
 import widont from "widont";
+import { Dropdown } from "components/Dropdown";
 
 const HomeLink = withI18n()((props: withI18nProps) => {
   const { i18n } = props;
@@ -110,12 +110,6 @@ const getMainNavLinks = () => {
 
 const App = () => {
   const [isEngageModalVisible, setEngageModalVisibility] = useState(false);
-  const [isDropdownVisible, setDropdownVisibility] = useState(false);
-
-  const closeDropdown = () => setDropdownVisibility(false);
-  const toggleDropdown = () => {
-    isDropdownVisible ? setDropdownVisibility(false) : setDropdownVisibility(true);
-  };
 
   const isDemoSite = process.env.REACT_APP_DEMO_SITE === "1";
   const version = process.env.REACT_APP_VERSION;
@@ -133,10 +127,6 @@ const App = () => {
             />
           )}
           <div className="App">
-            <div
-              onClick={closeDropdown}
-              className={"dropdown-overlay" + (isDropdownVisible ? "" : " hidden")}
-            />
             {warnAboutOldBrowser && (
               <div className="App__warning old_safari_only">
                 <Trans render="h3">
@@ -162,46 +152,22 @@ const App = () => {
                   </a>
                   <LocaleSwitcher />
                 </span>
-                <FocusTrap
-                  active={isDropdownVisible}
-                  focusTrapOptions={{
-                    clickOutsideDeactivates: true,
-                    returnFocusOnDeactivate: false,
-                    onDeactivate: closeDropdown,
-                  }}
-                >
-                  <div className="dropdown dropdown-right show-lg">
-                    <button
-                      aria-label="menu"
-                      aria-expanded={isDropdownVisible}
-                      className={
-                        "btn btn-link dropdown-toggle m-2" + (isDropdownVisible ? " active" : "")
-                      }
-                      onClick={() => toggleDropdown()}
-                    >
-                      <i className={"icon " + (isDropdownVisible ? "icon-cross" : "icon-menu")}></i>
-                    </button>
-                    <ul
-                      onClick={closeDropdown}
-                      className={"menu menu-reverse " + (isDropdownVisible ? "d-block" : "d-none")}
-                    >
-                      {getMainNavLinks().map((link, i) => (
-                        <li className="menu-item" key={i}>
-                          {link}
-                        </li>
-                      ))}
-                      <li className="menu-item">
-                        {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-                        <a href="#" onClick={() => setEngageModalVisibility(true)}>
-                          <Trans>Share</Trans>
-                        </a>
-                      </li>
-                      <li className="menu-item">
-                        <LocaleSwitcherWithFullLanguageName />
-                      </li>
-                    </ul>
-                  </div>
-                </FocusTrap>
+                <Dropdown>
+                  {getMainNavLinks().map((link, i) => (
+                    <li className="menu-item" key={i}>
+                      {link}
+                    </li>
+                  ))}
+                  <li className="menu-item">
+                    {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+                    <a href="#" onClick={() => setEngageModalVisibility(true)}>
+                      <Trans>Share</Trans>
+                    </a>
+                  </li>
+                  <li className="menu-item">
+                    <LocaleSwitcherWithFullLanguageName />
+                  </li>
+                </Dropdown>
               </nav>
 
               <Modal
