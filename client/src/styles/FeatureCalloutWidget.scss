@@ -29,7 +29,7 @@
     cursor: pointer;
     position: relative;
     vertical-align: middle;
-    z-index: 11;
+    z-index: 51;
     margin: -2px 2px 0px 2px;
   }
 
@@ -54,7 +54,7 @@
     border-right: 8.25px solid transparent;
     border-bottom: 14px solid #3e4654;
     background-size: 3px 3px;
-    z-index: 11;
+    z-index: 51;
     position: absolute;
   }
 
@@ -64,7 +64,7 @@
     position: absolute;
     top: 3em;
     right: 7%;
-    z-index: 12;
+    z-index: 52;
     width: 300px;
     box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.9);
     @include for-tablet-landscape-down {
