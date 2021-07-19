@@ -8,8 +8,8 @@ import { useState } from "react";
 import { t } from "@lingui/macro";
 
 const FeatureCalloutWidget = withI18n()((props: withI18nProps) => {
-  const [widgetToggled, setWidgetVisibility] = useState(true);
-  const toggleWidget = () => setWidgetVisibility(!widgetToggled);
+  const [isWidgetOpen, setWidgetVisibility] = useState(true);
+  const toggleWidget = () => setWidgetVisibility(!isWidgetOpen);
 
   const [entryIndex, setEntryIndex] = useState(0);
 
@@ -65,9 +65,9 @@ const FeatureCalloutWidget = withI18n()((props: withI18nProps) => {
         >
           info
         </button>
-        {widgetToggled && <div className="widget-tooltip-triangle" />}
+        {isWidgetOpen && <div className="widget-tooltip-triangle" />}
       </div>
-      {widgetToggled && (
+      {isWidgetOpen && (
         <FocusTrap
           focusTrapOptions={{
             clickOutsideDeactivates: true,

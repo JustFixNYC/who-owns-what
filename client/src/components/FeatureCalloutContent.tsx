@@ -17,7 +17,7 @@ export const getFeatureCalloutContent = () => [
   },
   {
     title: t`More Mobile Friendly`,
-    description: t`A new set of dropdown menus and design tweaks make it more comfortable to use Who Owns What on the go`,
+    description: t`A new set of dropdown menus and design tweaks make it more comfortable to use Who Owns What on the go.`,
     img: GifDropdowns,
   },
   {
