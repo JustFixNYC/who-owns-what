@@ -18,3 +18,7 @@
   # in our package.json won't propagate. For more details on this, see
   # https://github.com/JustFixNYC/who-owns-what/pull/335.
   command = "rm -rf node_modules/.cache && yarn build"
+
+[context.production.environment]
+  # This ENV var enables Git Large File Storage on Netlify deploys:
+  GIT_LFS_ENABLED = "true"
