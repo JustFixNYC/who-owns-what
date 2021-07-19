@@ -198,6 +198,7 @@ msgid "Click the Timeline tab to view info about your building over time."
 msgstr "Click the Timeline tab to view info about your building over time."
 
 #: src/components/DetailView.tsx:52
+#: src/components/FeatureCalloutWidget.tsx:76
 msgid "Close"
 msgstr "Close"
 
@@ -563,7 +564,7 @@ msgstr "New Search"
 msgid "New York Regional Office:"
 msgstr "New York Regional Office:"
 
-#: src/components/FeatureCalloutWidget.tsx:51
+#: src/components/FeatureCalloutWidget.tsx:53
 msgid "Next"
 msgstr "Next"
 
@@ -668,6 +669,10 @@ msgstr "Please enter an email address!"
 #: src/containers/AddressPage.tsx:128
 msgid "Portfolio"
 msgstr "Portfolio"
+
+#: src/components/FeatureCalloutWidget.tsx:47
+msgid "Previous"
+msgstr "Previous"
 
 #: src/components/LegalFooter.tsx:39
 #: src/containers/PrivacyPolicyPage.tsx:8
@@ -1047,7 +1052,8 @@ msgstr "What are {0}?"
 msgid "What happens if the landlord has failed to register?"
 msgstr "What happens if the landlord has failed to register?"
 
-#: src/components/FeatureCalloutWidget.tsx:70
+#: src/components/FeatureCalloutWidget.tsx:61
+#: src/components/FeatureCalloutWidget.tsx:74
 msgid "What's New"
 msgstr "What's New"
 

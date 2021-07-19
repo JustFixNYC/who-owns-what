@@ -65,8 +65,10 @@ const FeatureCalloutWidget = withI18n()((props: withI18nProps) => {
           return goToPrevEntry();
         }}
       >
-        <span className="material-icons md-14 widget-prev-next-icon">navigate_before</span>
-        <span className="widget-prev-text">Prev</span>
+        <span className="material-icons md-14 widget-prev-next-icon" aria-hidden>
+          navigate_before
+        </span>
+        <span className="widget-prev-text">{i18n._(t`Previous`)}</span>
       </button>
       <button
         className="widget-button-nav next focusable"
@@ -77,7 +79,9 @@ const FeatureCalloutWidget = withI18n()((props: withI18nProps) => {
         }}
       >
         <span className="widget-next-text">{i18n._(t`Next`)}</span>
-        <span className="material-icons md-14 widget-prev-next-icon">navigate_next</span>
+        <span className="material-icons md-14 widget-prev-next-icon" aria-hidden>
+          navigate_next
+        </span>
       </button>
     </div>
   );
@@ -89,6 +93,8 @@ const FeatureCalloutWidget = withI18n()((props: withI18nProps) => {
           className="widget-button-info focusable material-icons md-13"
           tabIndex={0}
           onClick={toggleWidget}
+          aria-hidden
+          aria-label={i18n._(t`What's New`)}
         >
           info
         </button>
@@ -112,6 +118,8 @@ const FeatureCalloutWidget = withI18n()((props: withI18nProps) => {
                 className="widget-button-cancel material-icons md-18 focusable"
                 tabIndex={0}
                 onClick={toggleWidget}
+                aria-hidden
+                aria-label={i18n._(t`Close`)}
               >
                 close
               </button>
