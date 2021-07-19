@@ -4,16 +4,6 @@
 .FeatureCalloutWidget {
   display: inline-block;
 
-  //Google Material Icons
-  .material-icons.md-13 {
-    font-size: 13px;
-  }
-  .material-icons.md-14 {
-    font-size: 14px;
-  }
-  .material-icons.md-18 {
-    font-size: 18px;
-  }
   //Focusable class styling (same as "a" hyperlink class above)
   .focusable:focus {
     box-shadow: none;
