@@ -67,10 +67,13 @@
     z-index: 12;
     width: 300px;
     box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.9);
+    @include for-tablet-landscape-down {
+      top: 3.6em;
+      right: 5%;
+    }
     @include for-phone-only {
       right: 0%;
       left: 4%;
-      top: 5em;
       width: 90%;
     }
   }
