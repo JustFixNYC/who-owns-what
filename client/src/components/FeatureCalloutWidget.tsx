@@ -1,190 +1,130 @@
-import React, { Component } from "react";
-import Timeline_gif from "../assets/img/Feature_callout_gifs/Timeline.gif";
-import Spanish_gif from "../assets/img/Feature_callout_gifs/Spanish.gif";
-import URLS_gif from "../assets/img/Feature_callout_gifs/URLS.gif";
-import LastSold_gif from "../assets/img/Feature_callout_gifs/LastSold.gif";
+import React from "react";
 
 import "styles/FeatureCalloutWidget.scss";
 import FocusTrap from "focus-trap-react";
+import { withI18n, withI18nProps } from "@lingui/react";
+import { getFeatureCalloutContent } from "./FeatureCalloutContent";
+import { useState } from "react";
+import { t } from "@lingui/macro";
 
-type widgetProps = {};
+const FeatureCalloutWidget = withI18n()((props: withI18nProps) => {
+  const [widgetToggled, setWidgetVisibility] = useState(true);
+  const toggleWidget = () => setWidgetVisibility(!widgetToggled);
 
-type widgetState = {
-  widgetToggled: boolean;
-  entryIndex: number;
-  entries: { index: string; title: string; description: string; img: string }[];
-};
+  const [entryIndex, setEntryIndex] = useState(0);
 
-export default class FeatureCalloutWidget extends Component<{}, widgetState> {
-  componentWillMount() {
-    this.setState({
-      widgetToggled: false,
-      entryIndex: 0,
-      entries: [
-        {
-          index: "1 of 4",
-          title: "Timeline Tab",
-          description: "Click the Timeline tab to view info about your building over time.",
-          img: Timeline_gif,
-        },
-        {
-          index: "2 of 4",
-          title: "Spanish Support",
-          description:
-            "Who Owns What is now available in Spanish. Click “ES” in the upper right corner to switch your language.",
-          img: Spanish_gif,
-        },
-        {
-          index: "3 of 4",
-          title: "Unique Tab URLs",
-          description:
-            "It's now possible to share links to specific tabs (Overview, Timeline, Portfolio, & Summary).",
-          img: URLS_gif,
-        },
-        {
-          index: "4 of 4",
-          title: "Last Sold",
-          description:
-            "The Overview and Portfolio tabs now display the date and price from when your building was last sold.",
-          img: LastSold_gif,
-        },
-      ],
-    });
-  }
-  render() {
-    let nextEntry = () => {
-      this.state.entryIndex === this.state.entries.length - 1
-        ? this.setState({ entryIndex: 0 })
-        : this.setState({ entryIndex: this.state.entryIndex + 1 });
-    };
+  const { i18n } = props;
 
-    let prevEntry = () => {
-      this.state.entryIndex === 0
-        ? this.setState({ entryIndex: this.state.entries.length - 1 })
-        : this.setState({ entryIndex: this.state.entryIndex - 1 });
-    };
+  const content = getFeatureCalloutContent();
+  const numberOfEntries = content.length;
 
-    //header of the widget, says "What's New" and has close button
-    let widgetHeader = (
-      <div className="widget-header">
-        <span className="widget-title focusable" role="heading" tabIndex={0}>
-          What's New
-        </span>
-        <button
-          type="button"
-          className="widget-button-cancel material-icons md-18 focusable"
-          tabIndex={0}
-          onClick={() => {
-            return this.state.widgetToggled
-              ? this.setState({ widgetToggled: false })
-              : this.setState({ widgetToggled: true });
-          }}
-        >
-          close
-        </button>
-      </div>
-    );
+  let goToNextEntry = () => {
+    entryIndex === numberOfEntries - 1 ? setEntryIndex(0) : setEntryIndex(entryIndex + 1);
+  };
 
-    //All entries in the widget will have this format: index, title, image, and description
-    let widgetEntries = this.state.entries.map((entry) => (
+  let goToPrevEntry = () => {
+    entryIndex === 0 ? setEntryIndex(numberOfEntries - 1) : setEntryIndex(entryIndex - 1);
+  };
+
+  //All entries in the widget will have this format: index, title, image, and description
+  let widgetEntries = content.map((entry, i) => {
+    const indexLabel = i18n._(t`${i + 1} of ${numberOfEntries}`);
+    const entryTitle = i18n._(entry.title);
+    return (
       <div
         className="widget-entry"
-        id={"page-" + entry.title}
+        id={"page-" + entryTitle}
         role="region"
-        aria-labelledby={"widget-" + entry.title + "-id"}
+        aria-labelledby={"widget-" + entryTitle + "-id"}
       >
         <p className="widget-entry-title-container">
-          <span className="widget-entry-index" aria-describedby={entry.index}>
-            {entry.index}
+          <span className="widget-entry-index" aria-describedby={indexLabel}>
+            {indexLabel}
           </span>
           <span
             className="widget-entry-title"
-            aria-describedby={"widget-entry title- " + entry.title}
+            aria-describedby={"widget-entry title- " + entryTitle}
           >
-            {entry.title}
+            {entryTitle}
           </span>
         </p>
-        <img className="widget-entry-image" src={entry.img} alt={entry.description}></img>
-        <p className="widget-entry-description">{entry.description}</p>
-      </div>
-    ));
-
-    //Prev/next buttons
-    let navButtons = (
-      <div className="widget-nav-buttons-container">
-        <button
-          className="widget-button-nav prev focusable"
-          tabIndex={0}
-          onClick={(event) => {
-            event.preventDefault();
-            return prevEntry();
-          }}
-        >
-          <span className="material-icons md-14 widget-prev-next-icon">navigate_before</span>
-          <span className="widget-prev-text">Prev</span>
-        </button>
-        <button
-          className="widget-button-nav next focusable"
-          tabIndex={0}
-          onClick={(event) => {
-            event.preventDefault();
-            return nextEntry();
-          }}
-        >
-          <span className="widget-next-text">Next</span>
-          <span className="material-icons md-14 widget-prev-next-icon">navigate_next</span>
-        </button>
+        <img className="widget-entry-image" src={entry.img} alt={""}></img>
+        <p className="widget-entry-description">{i18n._(entry.description)}</p>
       </div>
     );
+  });
 
-    return this.state.widgetToggled ? (
-      <div className="FeatureCalloutWidget">
-        <div className="widget-triangle-info-button-container">
-          <button
-            className="widget-button-info focusable material-icons md-13"
-            tabIndex={0}
-            onClick={() => {
-              return this.state.widgetToggled
-                ? this.setState({ widgetToggled: false })
-                : this.setState({ widgetToggled: true });
-            }}
-          >
-            info
-          </button>
-        </div>
+  //Prev/next buttons
+  let navButtons = (
+    <div className="widget-nav-buttons-container">
+      <button
+        className="widget-button-nav prev focusable"
+        tabIndex={0}
+        onClick={(event) => {
+          event.preventDefault();
+          return goToPrevEntry();
+        }}
+      >
+        <span className="material-icons md-14 widget-prev-next-icon">navigate_before</span>
+        <span className="widget-prev-text">Prev</span>
+      </button>
+      <button
+        className="widget-button-nav next focusable"
+        tabIndex={0}
+        onClick={(event) => {
+          event.preventDefault();
+          return goToNextEntry();
+        }}
+      >
+        <span className="widget-next-text">{i18n._(t`Next`)}</span>
+        <span className="material-icons md-14 widget-prev-next-icon">navigate_next</span>
+      </button>
+    </div>
+  );
+
+  return (
+    <div className="FeatureCalloutWidget">
+      <div className="widget-triangle-info-button-container">
+        <button
+          className="widget-button-info focusable material-icons md-13"
+          tabIndex={0}
+          onClick={toggleWidget}
+        >
+          info
+        </button>
+        {widgetToggled && <div className="widget-tooltip-triangle" />}
       </div>
-    ) : (
-      <div className="FeatureCalloutWidget">
-        <div className="widget-triangle-info-button-container">
-          <button
-            className="widget-button-info focusable material-icons md-13"
-            tabIndex={0}
-            onClick={() => {
-              return this.state.widgetToggled
-                ? this.setState({ widgetToggled: false })
-                : this.setState({ widgetToggled: true });
-            }}
-          >
-            info
-          </button>
-          <div className="widget-tooltip-triangle"></div>
-        </div>
+      {widgetToggled && (
         <FocusTrap
           focusTrapOptions={{
             clickOutsideDeactivates: true,
             returnFocusOnDeactivate: false,
-            onDeactivate: () => this.setState({ widgetToggled: true }),
+            onDeactivate: () => setWidgetVisibility(false),
           }}
         >
           <div className="widget-container" id="widget">
-            {widgetHeader}
+            <div className="widget-header">
+              <span className="widget-title focusable" role="heading" tabIndex={0}>
+                {i18n._(t`What's New`)}
+              </span>
+              <button
+                type="button"
+                className="widget-button-cancel material-icons md-18 focusable"
+                tabIndex={0}
+                onClick={toggleWidget}
+              >
+                close
+              </button>
+            </div>
             <div className="widget-content-container" id="widget-entries">
-              {widgetEntries[this.state.entryIndex]}
+              {widgetEntries[entryIndex]}
               {navButtons}
             </div>
           </div>
         </FocusTrap>
-      </div>
-    );
-  }
-}
+      )}
+    </div>
+  );
+});
+
+export default FeatureCalloutWidget;
