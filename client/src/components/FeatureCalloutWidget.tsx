@@ -26,7 +26,6 @@ const FeatureCalloutWidget = withI18n()((props: withI18nProps) => {
     entryIndex === 0 ? setEntryIndex(numberOfEntries - 1) : setEntryIndex(entryIndex - 1);
   };
 
-  //All entries in the widget will have this format: index, title, image, and description
   let widgetEntries = content.map((entry, i) => {
     const indexLabel = i18n._(t`${i + 1} of ${numberOfEntries}`);
     const entryTitle = i18n._(entry.title);
@@ -53,38 +52,6 @@ const FeatureCalloutWidget = withI18n()((props: withI18nProps) => {
       </div>
     );
   });
-
-  //Prev/next buttons
-  let navButtons = (
-    <div className="widget-nav-buttons-container">
-      <button
-        className="widget-button-nav prev focusable"
-        tabIndex={0}
-        onClick={(event) => {
-          event.preventDefault();
-          return goToPrevEntry();
-        }}
-      >
-        <span className="material-icons md-14 widget-prev-next-icon" aria-hidden>
-          navigate_before
-        </span>
-        <span className="widget-prev-text">{i18n._(t`Previous`)}</span>
-      </button>
-      <button
-        className="widget-button-nav next focusable"
-        tabIndex={0}
-        onClick={(event) => {
-          event.preventDefault();
-          return goToNextEntry();
-        }}
-      >
-        <span className="widget-next-text">{i18n._(t`Next`)}</span>
-        <span className="material-icons md-14 widget-prev-next-icon" aria-hidden>
-          navigate_next
-        </span>
-      </button>
-    </div>
-  );
 
   return (
     <div className="FeatureCalloutWidget">
@@ -126,7 +93,34 @@ const FeatureCalloutWidget = withI18n()((props: withI18nProps) => {
             </div>
             <div className="widget-content-container" id="widget-entries">
               {widgetEntries[entryIndex]}
-              {navButtons}
+              <div className="widget-nav-buttons-container">
+                <button
+                  className="widget-button-nav prev focusable"
+                  tabIndex={0}
+                  onClick={(event) => {
+                    event.preventDefault();
+                    return goToPrevEntry();
+                  }}
+                >
+                  <span className="material-icons md-14 widget-prev-next-icon" aria-hidden>
+                    navigate_before
+                  </span>
+                  <span className="widget-prev-text">{i18n._(t`Previous`)}</span>
+                </button>
+                <button
+                  className="widget-button-nav next focusable"
+                  tabIndex={0}
+                  onClick={(event) => {
+                    event.preventDefault();
+                    return goToNextEntry();
+                  }}
+                >
+                  <span className="widget-next-text">{i18n._(t`Next`)}</span>
+                  <span className="material-icons md-14 widget-prev-next-icon" aria-hidden>
+                    navigate_next
+                  </span>
+                </button>
+              </div>
             </div>
           </div>
         </FocusTrap>
