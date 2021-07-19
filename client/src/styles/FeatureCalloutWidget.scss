@@ -107,6 +107,7 @@
 
   .widget-button-cancel {
     text-shadow: 1.5px 1.5px #333a46;
+    font-size: 2rem;
   }
 
   .widget-button-cancel:hover {
@@ -161,8 +162,8 @@
   }
 
   .widget-prev-next-icon {
-    margin-top: 2.7px;
-    margin-left: -3px;
+    transform: scale(1.5) translateY(-1px);
+    margin: 0 2px;
   }
 
   .widget-button-nav.prev {
@@ -176,6 +177,10 @@
   .widget-prev-text {
     text-decoration: underline;
     text-underline-position: under;
+  }
+
+  .widget-prev-text {
+    margin-left: 2px;
   }
 
   .widget-next-text {

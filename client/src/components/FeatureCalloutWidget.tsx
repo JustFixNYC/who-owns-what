@@ -74,13 +74,13 @@ const FeatureCalloutWidget = withI18n()((props: withI18nProps) => {
               </span>
               <button
                 type="button"
-                className="widget-button-cancel material-icons md-18 focusable"
+                className="widget-button-cancel focusable"
                 tabIndex={0}
                 onClick={toggleWidget}
                 aria-hidden
                 aria-label={i18n._(t`Close`)}
               >
-                close
+                ✕
               </button>
             </div>
             <div className="widget-content-container" id="widget-entries">
@@ -91,12 +91,10 @@ const FeatureCalloutWidget = withI18n()((props: withI18nProps) => {
                   tabIndex={0}
                   onClick={(event) => {
                     event.preventDefault();
-                    setEntryIndex((entryIndex - 1) % numberOfEntries);
+                    setEntryIndex((entryIndex + numberOfEntries - 1) % numberOfEntries);
                   }}
                 >
-                  <span className="material-icons md-14 widget-prev-next-icon" aria-hidden>
-                    navigate_before
-                  </span>
+                  <span className="widget-prev-next-icon">‹</span>{" "}
                   <span className="widget-prev-text">{i18n._(t`Previous`)}</span>
                 </button>
                 <button
@@ -107,10 +105,8 @@ const FeatureCalloutWidget = withI18n()((props: withI18nProps) => {
                     setEntryIndex((entryIndex + 1) % numberOfEntries);
                   }}
                 >
-                  <span className="widget-next-text">{i18n._(t`Next`)}</span>
-                  <span className="material-icons md-14 widget-prev-next-icon" aria-hidden>
-                    navigate_next
-                  </span>
+                  <span className="widget-next-text">{i18n._(t`Next`)}</span>{" "}
+                  <span className="widget-prev-next-icon">›</span>
                 </button>
               </div>
             </div>
