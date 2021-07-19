@@ -5,6 +5,7 @@ import URLS_gif from "../assets/img/Feature_callout_gifs/URLS.gif";
 import LastSold_gif from "../assets/img/Feature_callout_gifs/LastSold.gif";
 
 import "styles/FeatureCalloutWidget.scss";
+import FocusTrap from "focus-trap-react";
 
 type widgetProps = {};
 
@@ -168,13 +169,21 @@ export default class FeatureCalloutWidget extends Component<{}, widgetState> {
           </button>
           <div className="widget-tooltip-triangle"></div>
         </div>
-        <div className="widget-container" id="widget">
-          {widgetHeader}
-          <div className="widget-content-container" id="widget-entries">
-            {widgetEntries[this.state.entryIndex]}
-            {navButtons}
+        <FocusTrap
+          focusTrapOptions={{
+            clickOutsideDeactivates: true,
+            returnFocusOnDeactivate: false,
+            onDeactivate: () => this.setState({ widgetToggled: true }),
+          }}
+        >
+          <div className="widget-container" id="widget">
+            {widgetHeader}
+            <div className="widget-content-container" id="widget-entries">
+              {widgetEntries[this.state.entryIndex]}
+              {navButtons}
+            </div>
           </div>
-        </div>
+        </FocusTrap>
       </div>
     );
   }
