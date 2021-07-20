@@ -170,8 +170,7 @@ export type MonthlyTimelineData = {
   hpdviolations_class_b: number;
   hpdviolations_class_c: number;
   hpdviolations_total: number;
-  dobviolations_emergency: number;
-  dobviolations_nonemergency: number;
+  dobviolations_regular: number;
   dobviolations_ecb: number;
   dobviolations_total: number;
 };

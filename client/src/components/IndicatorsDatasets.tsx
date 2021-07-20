@@ -145,13 +145,13 @@ export const INDICATORS_DATASETS: IndicatorsDatasetMap = {
     ),
   },
   dobviolations: {
-    name: (i18n) => i18n._(t`DOB Violations`),
+    name: (i18n) => i18n._(t`DOB/ECB Violations`),
     quantity: (i18n, value) =>
       i18n._(
         plural({
           value,
-          one: "One DOB Violation Issued since 2010",
-          other: "# DOB Violations Issued since 2010",
+          one: "One DOB/ECB Violation Issued since 2010",
+          other: "# DOB/ECB Violations Issued since 2010",
         })
       ),
     yAxisLabel: (i18n) => i18n._(t`Violations Issued`),

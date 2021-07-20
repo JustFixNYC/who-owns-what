@@ -63,8 +63,7 @@ interface DobPermitsData extends IndicatorsData {
 
 interface DobViolationsData extends IndicatorsData {
   values: {
-    emergency: number[] | null;
-    nonemergency: number[] | null;
+    regular: number[] | null;
     ecb: number[] | null;
     total: number[] | null;
   };
@@ -111,8 +110,7 @@ export const indicatorsInitialDataStructure: IndicatorsDataFromAPI = {
   dobviolations: {
     labels: null,
     values: {
-      emergency: null,
-      nonemergency: null,
+      regular: null,
       ecb: null,
       total: null,
     },

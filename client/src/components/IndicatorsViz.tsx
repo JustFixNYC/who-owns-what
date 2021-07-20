@@ -243,24 +243,17 @@ class IndicatorsVizImplementation extends Component<IndicatorVizImplementationPr
       case "dobviolations":
         datasets = [
           {
-            label: "Emergency",
-            data: this.groupData(timelineData.dobviolations.values.emergency) || [],
-            backgroundColor: "rgba(215,25,28, 0.6)",
-            borderColor: "rgba(215,25,28,1)",
-            borderWidth: 1,
-          },
-          {
-            label: "Non-Emergency",
-            data: this.groupData(timelineData.dobviolations.values.nonemergency) || [],
-            backgroundColor: "rgba(254,224,139, 0.6)",
-            borderColor: "rgba(254,224,139,1)",
-            borderWidth: 1,
-          },
-          {
-            label: "ECB",
+            label: i18n._(t`ECB`),
             data: this.groupData(timelineData.dobviolations.values.ecb) || [],
-            backgroundColor: "rgba(153,142,195, 0.6)",
-            borderColor: "rgba(153,142,195,1)",
+            backgroundColor: "rgba(217,95,14, 0.6)",
+            borderColor: "rgba(217,95,14,1)",
+            borderWidth: 1,
+          },
+          {
+            label: i18n._(t`Regular`),
+            data: this.groupData(timelineData.dobviolations.values.regular) || [],
+            backgroundColor: "rgba(254,217,142, 0.6)",
+            borderColor: "rgba(254,217,142,1)",
             borderWidth: 1,
           },
         ];
