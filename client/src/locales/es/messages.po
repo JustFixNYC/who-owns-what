@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2021-07-21 18:20\n"
+"PO-Revision-Date: 2021-07-21 18:30\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -1115,7 +1115,7 @@ msgstr "{value, plural, one {Una Solicitud de Permiso de Construcción desde el 
 
 #: src/components/IndicatorsDatasets.tsx:85
 msgid "{value, plural, one {One DOB/ECB Violation Issued since 2010} other {# DOB/ECB Violations Issued since 2010}}"
-msgstr "{value, plural, one {Una violación del DOB/ECB emitida desde el 2010} other {# violaciones del DOB/ECB emitidas desde el 2010}}"
+msgstr "{value, plural, one {Una Violación del DOB/ECB emitida desde el 2010} other {# Violaciones del DOB/ECB emitidas desde el 2010}}"
 
 #: src/components/IndicatorsDatasets.tsx:7
 msgid "{value, plural, one {One HPD Complaint Issued since 2014} other {# HPD Complaints Issued since 2014}}"
@@ -1123,5 +1123,5 @@ msgstr "{value, plural, one {Una Queja del HPD emitida desde el 2014} other {# Q
 
 #: src/components/IndicatorsDatasets.tsx:35
 msgid "{value, plural, one {One HPD Violation Issued since 2010} other {# HPD Violations Issued since 2010}}"
-msgstr "{value, plural, one {Una violación del HPD emitida desde el 2010} other {# violaciones del HPD emitidas desde el 2010}}"
+msgstr "{value, plural, one {Una Violación del HPD emitida desde el 2010} other {# Violaciones del HPD emitidas desde el 2010}}"
 
