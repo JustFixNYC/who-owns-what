@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2021-07-15 17:47\n"
+"PO-Revision-Date: 2021-07-21 18:30\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -56,7 +56,7 @@ msgstr "<0>Mientras el dueño legal de un edificio es, con frecuencia, una compa
 
 #: src/components/IndicatorsDatasets.tsx:91
 msgid "A DOB Violation is a notice that a property is not in compliance with applicable law, usually a building code. DOB violations typically relate to building-wide services (like elevators or boilers), the structural integrity of a property, or illegal construction. Owners must cure all DOB violations before they can file a new or amended Certificate of Occupancy (\"CO\").<0/><1/><2>Non-ECB</2> — typical violation, no court hearing needed<3/><4>ECB (Environment Control Board)</4> — a specific violation of New York City Construction Codes or Zoning Resolution. These violations come with additional penalties and require an owner to attend an <5>OATH hearing</5>. They fall into three classes: Class I (immediately hazardous), Class II (major), and Class III (lesser).<6/><7/>Read more about DOB Violations at the <8>official DOB page</8>."
-msgstr ""
+msgstr "Una violación de DOB es un aviso de que una propiedad no cumple con la ley aplicable, generalmente un código de edificios. Las violaciones de DOB generalmente se relacionan con servicios en todo el edificio (como ascensores o calderas), la integridad estructural de una propiedad o la construcción ilegal. Los dueños deben arreglar todas las violaciones de DOB antes de poder presentar un Certificado de ocupación (\"CO\") nuevo o enmendado.<0/><1/><2>No ECB</2> — infracción típica, no se necesita audiencia judicial<3/><4>ECB (Junta de Control Medioambiental)</4> — una violación específica de los Códigos de Construcción de la Ciudad de Nueva York o la Resolución de Zonificación. Estas violaciones vienen con sanciones adicionales y requieren que el dueño asista a una <5>audiencia de OATH</5>. Se dividen en tres clases: Clase I (peligro inmediato), Clase II (mayor) y Clase III (menor).<6/><7/>Encontrarás más información sobre las Violaciones del DOB en la <8>página oficial del DOB</8>."
 
 #: src/components/UsefulLinks.tsx:47
 #: src/containers/NotRegisteredPage.tsx:158
@@ -75,7 +75,7 @@ msgstr "Acerca de"
 
 #: src/components/ViolationsSummary.tsx:27
 msgid "According to available HPD data, this portfolio has received <0>{totalviolations}</0> total violations."
-msgstr "Según los datos del HPD disponibles, este portafolio de edificios ha recibido un total de <0>{totalviolations}</0> infracciones."
+msgstr "Según los datos del HPD disponibles, este portafolio de edificios ha recibido un total de <0>{totalviolations}</0> violaciones."
 
 #: src/components/PropertiesSummary.tsx:123
 msgid "Additional links"
@@ -229,7 +229,7 @@ msgstr "Perfil de edificio en DOB"
 
 #: src/components/IndicatorsDatasets.tsx:84
 msgid "DOB/ECB Violations"
-msgstr ""
+msgstr "Violaciones del DOB/ECB"
 
 #: src/components/UsefulLinks.tsx:40
 #: src/containers/NotRegisteredPage.tsx:150
@@ -273,7 +273,7 @@ msgstr "Descargar"
 
 #: src/components/IndicatorsViz.tsx:185
 msgid "ECB"
-msgstr ""
+msgstr "ECB"
 
 #: src/util/helpers.ts:51
 msgid "ELECTRIC"
@@ -366,16 +366,16 @@ msgstr "Quejas del HPD"
 
 #: src/components/IndicatorsDatasets.tsx:13
 msgid "HPD Complaints are housing issues reported to the City <0>by a tenant calling 311</0>. When someone issues a complaint, the Department of Housing Preservation and Development begins a process of investigation that may lead to an official violation from the City. Complaints can be identified as:<1/><2/><3>Emergency</3> — reported to be hazardous/dire<4/><5>Non-Emergency</5> — all others<6/><7/>Read more about HPD Complaints and how to file them at the <8>official HPD page</8>."
-msgstr "Las quejas de HPD son problemas de vivienda presentados a la Ciudad <0>por un inquilino al llamar al 311</0>. Cuando alguien presenta una queja, el Departamento de Preservación y Desarrollo de la Vivienda, DHCR por sus siglas en inglés, inicia un proceso de investigación que puede conducir a la emisión de una infracción oficial por parte de la Ciudad. Las quejas se pueden identificar como:<1/><2/><3>Emergencia</3> — se ha informado de que son peligrosas<4/><5>No-Emergencia</5> — todas las demás<6/><7/> Encontraras más información sobre las quejas de HPD y cómo presentarlas en la página <8>oficial del HPD</8>."
+msgstr "Las quejas de HPD son problemas de vivienda presentados a la Ciudad <0>por un inquilino al llamar al 311</0>. Cuando alguien presenta una queja, el Departamento de Preservación y Desarrollo de la Vivienda, DHCR por sus siglas en inglés, inicia un proceso de investigación que puede conducir a la emisión de una infracción oficial por parte de la Ciudad. Las quejas se pueden identificar como:<1/><2/><3>Emergencia</3> — se ha informado de que son peligrosas<4/><5>No-Emergencia</5> — todas las demás<6/><7/> Encontrarás más información sobre las quejas de HPD y cómo presentarlas en la página <8>oficial del HPD</8>."
 
 #: src/components/IndicatorsDatasets.tsx:33
 #: src/components/PropertiesList.tsx:242
 msgid "HPD Violations"
-msgstr "Infracciones del HPD"
+msgstr "Violaciones del HPD"
 
 #: src/components/IndicatorsDatasets.tsx:41
 msgid "HPD Violations occur when an official City Inspector finds the conditions of a home in violation of the law. If not corrected, these violations incur fines for the owner— however, HPD violations are notoriously unenforced by the City. These Violations fall into three categories:<0/><1/><2>Class A</2> — non-hazardous<3/><4>Class B</4> — hazardous<5/><6>Class C</6> — immediately hazardous<7/><8/>Read more about HPD Violations at the <9>official HPD page</9>."
-msgstr "Infracciones del HPD se dan cuando un Inspector oficial de la Ciudad determina que las condiciones de un hogar están en violación de la ley. Si no se corrigen, estas infraccines incurren multas para el propietario, sin embargo, las infracciones del HPD son notoriamente incumplidas por la Ciudad. Existen tres categorías de Infracciones:<0/><1/><2>Clase A</2> — no-peligrosa<3/><4>Clase B</4> — peligrosa<5/><6>Clase C</6> — de peligro inmediato<7/><8/>Encontraras más información sobre las Infracciones del HPD en la <9>página oficial del HPD</9>."
+msgstr "Violaciones del HPD se dan cuando un Inspector oficial de la Ciudad determina que las condiciones de un hogar están en violación de la ley. Si no se corrigen, estas violaciones incurren multas para el propietario, sin embargo, las violaciones del HPD son notoriamente incumplidas por la Ciudad. Existen tres categorías de violaciones:<0/><1/><2>Clase A</2> — no-peligrosa<3/><4>Clase B</4> — peligrosa<5/><6>Clase C</6> — de peligro inmediato<7/><8/>Encontrarás más información sobre las Violaciones del HPD en la <9>página oficial del HPD</9>."
 
 #: src/containers/NychaPage.tsx:157
 msgid "HUD Complaint Form 958"
@@ -413,7 +413,7 @@ msgstr "Dueño Individual"
 
 #: src/containers/NotRegisteredPage.tsx:180
 msgid "Ineligible to certify violations"
-msgstr "Inelegible para certificar infracciones"
+msgstr "Inelegible para certificar violaciones"
 
 #: src/components/PropertiesList.tsx:151
 msgid "Information"
@@ -521,7 +521,7 @@ msgstr "Hecho en NYC con ♥ por el equipo de <0>JustFix.nyc</0>"
 
 #: src/components/ViolationsSummary.tsx:8
 msgid "Maintenance code violations"
-msgstr "Infracciones del código de mantenimiento"
+msgstr "Violaciones del código de mantenimiento"
 
 #: src/containers/NotRegisteredPage.tsx:179
 msgid "May be issued official Orders"
@@ -591,7 +591,7 @@ msgstr "¡No se ha encontrado nigún registro!"
 
 #: src/components/IndicatorsViz.tsx:192
 msgid "Non-ECB"
-msgstr ""
+msgstr "No ECB"
 
 #: src/components/IndicatorsViz.tsx:163
 msgid "Non-Emergency"
@@ -635,7 +635,7 @@ msgstr "Actuales"
 
 #: src/components/BuildingStatsTable.tsx:53
 msgid "Open Violations"
-msgstr "Infracciones Actuales"
+msgstr "Violaciones Actuales"
 
 #: src/containers/AddressPage.tsx:114
 msgid "Overview"
@@ -823,7 +823,7 @@ msgstr "{0, plural, one {El nombre más común que aparece en este portafolio de
 
 #: src/components/BuildingStatsTable.tsx:52
 msgid "The number of open HPD violations for this building, updated monthly. Click the HPD Building Profile button below for the most up-to-date information."
-msgstr "El número de infracciones del HPD abiertas en este edificio, actualizado mensualmente. Haz clic en el botón del Perfil de Edificio del HPD para obtener la información más reciente."
+msgstr "El número de violaciones del HPD abiertas en este edificio, actualizado mensualmente. Haz clic en el botón del Perfil de Edificio del HPD para obtener la información más reciente."
 
 #: src/containers/NychaPage.tsx:82
 msgid "The number of residential units across all buildings in this development, according to the Dept. of City Planning."
@@ -887,7 +887,7 @@ msgstr "Este portafolio de edificios tuvo una <0>{changeType, select, gain {gana
 
 #: src/components/ViolationsSummary.tsx:12
 msgid "This portfolio has an average of <0>{openviolationsperresunit}</0> open HPD violations per residential unit."
-msgstr "Este portafolio de edificios tiene un promedio de <0>{openviolationsperresunit}</0> infracciones del HPD Actuales por cada unidad residencial."
+msgstr "Este portafolio de edificios tiene un promedio de <0>{openviolationsperresunit}</0> violaciones del HPD Actuales por cada unidad residencial."
 
 #: src/containers/HomePage.tsx:109
 msgid "This property management company owned by the Kushner family is notorious for <0>violating rent regulations</0> and <1>harassing tenants</1>. The stake currently held by Jared Kushner and Ivanka Trump is worth as much as $761 million."
@@ -899,7 +899,7 @@ msgstr "Esto representa el <0>{rsProportion}%</0> del tamaño total de este port
 
 #: src/components/BuildingStatsTable.tsx:61
 msgid "This represents the total number of HPD Violations (both open & closed) recorded by the city."
-msgstr "Esto representa el número total de Infracciones del HPD (tanto actuales como cerradas) registradas por la ciudad."
+msgstr "Esto representa el número total de violaciones del HPD (tanto actuales como cerradas) registradas por la ciudad."
 
 #: src/containers/NotRegisteredPage.tsx:56
 msgid "This seems like a smaller residential building. If the landlord doesn't reside there, it should be registered with HPD."
@@ -932,7 +932,7 @@ msgstr "Total"
 
 #: src/components/BuildingStatsTable.tsx:62
 msgid "Total Violations"
-msgstr "Infracciones Totales"
+msgstr "Violaciones Totales"
 
 #: src/containers/NotRegisteredPage.tsx:182
 msgid "Unable to initiate a court action for nonpayment of rent."
@@ -1003,7 +1003,7 @@ msgstr "Ver mapa del portafolio de edificios"
 #: src/components/IndicatorsDatasets.tsx:40
 #: src/components/IndicatorsDatasets.tsx:90
 msgid "Violations Issued"
-msgstr "Infracciones emitidas"
+msgstr "Violaciones emitidas"
 
 #: src/components/EngagementPanel.tsx:24
 msgid "Visit our website"
@@ -1107,7 +1107,7 @@ msgstr "año"
 
 #: src/components/PropertiesSummary.tsx:92
 msgid "{0} {1}, {2} currently has {3, plural, one {one open HPD violation} other {# open HPD violations}} - the most in this portfolio."
-msgstr "{0} {1}, {2} tiene {3, plural, one {una infracción del HPD actual} other {# infracciones del HPD actuales}} - la major cantidad en este portafolio de edificios."
+msgstr "{0} {1}, {2} tiene {3, plural, one {una violación del HPD actual} other {# violaciones del HPD actuales}} - la major cantidad en este portafolio de edificios."
 
 #: src/components/IndicatorsDatasets.tsx:64
 msgid "{value, plural, one {One Building Permit Application since 2010} other {# Building Permit Applications since 2010}}"
@@ -1115,7 +1115,7 @@ msgstr "{value, plural, one {Una Solicitud de Permiso de Construcción desde el 
 
 #: src/components/IndicatorsDatasets.tsx:85
 msgid "{value, plural, one {One DOB/ECB Violation Issued since 2010} other {# DOB/ECB Violations Issued since 2010}}"
-msgstr ""
+msgstr "{value, plural, one {Una Violación del DOB/ECB emitida desde el 2010} other {# Violaciones del DOB/ECB emitidas desde el 2010}}"
 
 #: src/components/IndicatorsDatasets.tsx:7
 msgid "{value, plural, one {One HPD Complaint Issued since 2014} other {# HPD Complaints Issued since 2014}}"
@@ -1123,4 +1123,5 @@ msgstr "{value, plural, one {Una Queja del HPD emitida desde el 2014} other {# Q
 
 #: src/components/IndicatorsDatasets.tsx:35
 msgid "{value, plural, one {One HPD Violation Issued since 2010} other {# HPD Violations Issued since 2010}}"
-msgstr "{value, plural, one {Una Infracción del HPD emitida desde el 2010} other {# Infracciones del HPD emitidas desde el 2010}}"
+msgstr "{value, plural, one {Una Violación del HPD emitida desde el 2010} other {# Violaciones del HPD emitidas desde el 2010}}"
+
