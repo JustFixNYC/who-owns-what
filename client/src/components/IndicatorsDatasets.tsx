@@ -159,16 +159,21 @@ export const INDICATORS_DATASETS: IndicatorsDatasetMap = {
       <Trans render="span">
         A DOB Violation is a notice that a property is not in compliance with some building law. It
         includes an order from the Department of Buildings to correct the violating condition, which
-        must be corrected before a new or amended Certificate of Occupancy (CO) can be obtained. If
-        an ECB (Environmental Control Board) Violation occurs, people named in the violation must
-        first attend a hearing with the Office of Administrative Trials and Hearings to pay a fine
-        or have the violation dismissed. For that reason, DOB Violations are generally considered
-        less severe than ECB violations, but can be identified as:
+        must be corrected before a new or amended Certificate of Occupancy (CO) can be obtained.
+        These Violations can be classified as:
         <br />
         <br />
-        <b>Emergency</b> — critical building situation
+        <b>Regular</b> — typical building violation issued by mail
         <br />
-        <b>Non-Emergency</b> — all others
+        <b>ECB</b> — landlord must attend an{" "}
+        <a
+          href="https://www1.nyc.gov/site/oath/index.page"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          OATH hearing
+        </a>{" "}
+        to pay a fine or have the violation dismissed, typically considered more severe
         <br />
         <br />
         Read more about Building Violations at the{" "}
