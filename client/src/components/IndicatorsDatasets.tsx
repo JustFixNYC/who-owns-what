@@ -166,8 +166,9 @@ export const INDICATORS_DATASETS: IndicatorsDatasetMap = {
         <br />
         <b>Non-ECB</b> — typical violation, no court hearing needed
         <br />
-        <b>ECB</b> — a specific violation of New York City Construction Codes or Zoning Resolution.
-        These violations come with additional penalties and require an owner to attend an{" "}
+        <b>ECB (Environment Control Board)</b> — a specific violation of New York City Construction
+        Codes or Zoning Resolution. These violations come with additional penalties and require an
+        owner to attend an{" "}
         <a
           href="https://www1.nyc.gov/site/oath/index.page"
           target="_blank"
