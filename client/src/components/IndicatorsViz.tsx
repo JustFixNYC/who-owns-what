@@ -250,7 +250,7 @@ class IndicatorsVizImplementation extends Component<IndicatorVizImplementationPr
             borderWidth: 1,
           },
           {
-            label: i18n._(t`Regular`),
+            label: i18n._(t`Non-ECB`),
             data: this.groupData(timelineData.dobviolations.values.regular) || [],
             backgroundColor: "rgba(254,217,142, 0.6)",
             borderColor: "rgba(254,217,142,1)",

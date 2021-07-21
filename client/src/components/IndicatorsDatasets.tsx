@@ -157,26 +157,29 @@ export const INDICATORS_DATASETS: IndicatorsDatasetMap = {
     yAxisLabel: (i18n) => i18n._(t`Violations Issued`),
     explanation: () => (
       <Trans render="span">
-        A DOB Violation is a notice that a property is not in compliance with some building law. It
-        includes an order from the Department of Buildings to correct the violating condition, which
-        must be corrected before a new or amended Certificate of Occupancy (CO) can be obtained.
-        These Violations can be classified as:
+        A DOB Violation is a notice that a property is not in compliance with applicable law,
+        usually a building code. DOB violations typically relate to building-wide services (like
+        elevators or boilers), the structural integrity of a property, or illegal construction.
+        Owners must cure all DOB violations before they can file a new or amended Certificate of
+        Occupancy ("CO").
         <br />
         <br />
-        <b>Regular</b> — typical building violation issued by mail
+        <b>Non-ECB</b> — typical violation, no court hearing needed
         <br />
-        <b>ECB</b> — landlord must attend an{" "}
+        <b>ECB</b> — a specific violation of New York City Construction Codes or Zoning Resolution.
+        These violations come with additional penalties and require an owner to attend an{" "}
         <a
           href="https://www1.nyc.gov/site/oath/index.page"
           target="_blank"
           rel="noopener noreferrer"
         >
           OATH hearing
-        </a>{" "}
-        to pay a fine or have the violation dismissed, typically considered more severe
+        </a>
+        . They fall into three classes: Class I (immediately hazardous), Class II (major), and Class
+        III (lesser).
         <br />
         <br />
-        Read more about Building Violations at the{" "}
+        Read more about DOB Violations at the{" "}
         <a
           href="https://www1.nyc.gov/site/buildings/safety/dob-violations.page"
           target="_blank"
