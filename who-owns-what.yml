@@ -15,6 +15,8 @@ api_dependencies:
   # SQL scripts, but which the Django server uses
   # for the WoW API.
   - hpd_complaints
+  - dob_violations
+  - ecb_violations
   - dobjobs
 sql:
   # These SQL scripts must be executed in order, as

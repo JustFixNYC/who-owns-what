@@ -11,12 +11,7 @@ import { I18n } from "@lingui/core";
 import { t, Trans } from "@lingui/macro";
 
 import "styles/Indicators.css";
-import {
-  IndicatorsDatasetRadio,
-  INDICATORS_DATASETS,
-  IndicatorsDatasetId,
-  indicatorsDatasetIds,
-} from "./IndicatorsDatasets";
+import { IndicatorsDatasetRadio, INDICATORS_DATASETS } from "./IndicatorsDatasets";
 import {
   indicatorsInitialState,
   IndicatorsProps,
@@ -24,6 +19,8 @@ import {
   IndicatorChartShift,
   IndicatorsTimeSpan,
   indicatorsTimeSpans,
+  IndicatorsDatasetId,
+  indicatorsDatasetIds,
 } from "./IndicatorsTypes";
 import { NetworkErrorMessage } from "./NetworkErrorMessage";
 import { Dropdown } from "./Dropdown";

@@ -11,6 +11,8 @@ from .factories.marshal_evictions_all import MarshalEvictionsAll
 from .factories.nycha_bbls_18 import NychaBbls18
 from .factories.changes_summary import ChangesSummary
 from .factories.hpd_violations import HpdViolations
+from .factories.dob_violations import DobViolations
+from .factories.ecb_violations import EcbViolations
 from .factories.pluto_19v2 import Pluto19v2
 from .factories.real_property_master import RealPropertyMaster
 from .factories.real_property_legals import RealPropertyLegals
@@ -124,6 +126,8 @@ class TestSQL:
         })
         nycdb_ctx.write_csv('hpd_violations.csv', [HpdViolations()])
         nycdb_ctx.write_csv('hpd_complaints.csv', [HpdComplaints()])
+        nycdb_ctx.write_csv('dob_violations.csv', [DobViolations()])
+        nycdb_ctx.write_csv('ecb_violations.csv', [EcbViolations()])
         nycdb_ctx.write_csv('hpd_complaint_problems.csv', [HpdComplaintProblems()])
         nycdb_ctx.write_csv('changes-summary.csv', [ChangesSummary()])
         nycdb_ctx.write_csv('marshal_evictions_17.csv', [MarshalEvictions17()])

@@ -49,6 +49,10 @@ msgstr "... or view some sample portfolios:"
 msgid "<0>While the legal owner of a building is often a company (usually called an “LLC”), these names and business addresses registered with HPD offer a clearer picture of who really controls the building.</0><1>People listed here as “Head Officer” or “Owner” usually have ties to building ownership, while “Site Managers” are part of management. That being said, these names are self reported by the landlord, so they can be misleading.</1><2>Learn more about HPD registrations and how this information powers this tool on the <3>About page</3>.</2>"
 msgstr "<0>While the legal owner of a building is often a company (usually called an “LLC”), these names and business addresses registered with HPD offer a clearer picture of who really controls the building.</0><1>People listed here as “Head Officer” or “Owner” usually have ties to building ownership, while “Site Managers” are part of management. That being said, these names are self reported by the landlord, so they can be misleading.</1><2>Learn more about HPD registrations and how this information powers this tool on the <3>About page</3>.</2>"
 
+#: src/components/IndicatorsDatasets.tsx:91
+msgid "A DOB Violation is a notice that a property is not in compliance with applicable law, usually a building code. DOB violations typically relate to building-wide services (like elevators or boilers), the structural integrity of a property, or illegal construction. Owners must cure all DOB violations before they can file a new or amended Certificate of Occupancy (\"CO\").<0/><1/><2>Non-ECB</2> — typical violation, no court hearing needed<3/><4>ECB</4> — a specific violation of New York City Construction Codes or Zoning Resolution. These violations come with additional penalties and require an owner to attend an <5>OATH hearing</5>. They fall into three classes: Class I (immediately hazardous), Class II (major), and Class III (lesser).<6/><7/>Read more about DOB Violations at the <8>official DOB page</8>."
+msgstr "A DOB Violation is a notice that a property is not in compliance with applicable law, usually a building code. DOB violations typically relate to building-wide services (like elevators or boilers), the structural integrity of a property, or illegal construction. Owners must cure all DOB violations before they can file a new or amended Certificate of Occupancy (\"CO\").<0/><1/><2>Non-ECB</2> — typical violation, no court hearing needed<3/><4>ECB</4> — a specific violation of New York City Construction Codes or Zoning Resolution. These violations come with additional penalties and require an owner to attend an <5>OATH hearing</5>. They fall into three classes: Class I (immediately hazardous), Class II (major), and Class III (lesser).<6/><7/>Read more about DOB Violations at the <8>official DOB page</8>."
+
 #: src/components/UsefulLinks.tsx:47
 #: src/containers/NotRegisteredPage.tsx:158
 #: src/containers/NychaPage.tsx:168
@@ -125,12 +129,12 @@ msgstr "Borough Management Office:"
 msgid "Building Classification"
 msgstr "Building Classification"
 
-#: src/components/IndicatorsDatasets.tsx:68
+#: src/components/IndicatorsDatasets.tsx:63
 msgid "Building Permit Applications"
 msgstr "Building Permit Applications"
 
-#: src/components/IndicatorsViz.tsx:173
-#: src/components/IndicatorsViz.tsx:241
+#: src/components/IndicatorsDatasets.tsx:69
+#: src/components/IndicatorsViz.tsx:174
 msgid "Building Permits Applied For"
 msgstr "Building Permits Applied For"
 
@@ -177,15 +181,15 @@ msgstr "Check out the issues in this building"
 msgid "Civil penalties of $250-$500"
 msgstr "Civil penalties of $250-$500"
 
-#: src/components/IndicatorsViz.tsx:144
+#: src/components/IndicatorsViz.tsx:145
 msgid "Class A"
 msgstr "Class A"
 
-#: src/components/IndicatorsViz.tsx:137
+#: src/components/IndicatorsViz.tsx:138
 msgid "Class B"
 msgstr "Class B"
 
-#: src/components/IndicatorsViz.tsx:130
+#: src/components/IndicatorsViz.tsx:131
 msgid "Class C"
 msgstr "Class C"
 
@@ -201,7 +205,7 @@ msgstr "Close"
 msgid "Close legend"
 msgstr "Close legend"
 
-#: src/components/IndicatorsViz.tsx:238
+#: src/components/IndicatorsDatasets.tsx:12
 msgid "Complaints Issued"
 msgstr "Complaints Issued"
 
@@ -217,6 +221,10 @@ msgstr "Corporation"
 #: src/containers/NotRegisteredPage.tsx:155
 msgid "DOB Building Profile"
 msgstr "DOB Building Profile"
+
+#: src/components/IndicatorsDatasets.tsx:84
+msgid "DOB/ECB Violations"
+msgstr "DOB/ECB Violations"
 
 #: src/components/UsefulLinks.tsx:40
 #: src/containers/NotRegisteredPage.tsx:150
@@ -244,8 +252,8 @@ msgstr "Demo Site"
 msgid "Disclaimer: The information in JustFix.nyc does not constitute legal advice and must not be used as a substitute for the advice of a lawyer qualified to give advice on legal issues pertaining to housing. We can help direct you to free legal services if necessary."
 msgstr "Disclaimer: The information in JustFix.nyc does not constitute legal advice and must not be used as a substitute for the advice of a lawyer qualified to give advice on legal issues pertaining to housing. We can help direct you to free legal services if necessary."
 
-#: src/components/Indicators.tsx:154
-#: src/components/Indicators.tsx:157
+#: src/components/Indicators.tsx:168
+#: src/components/Indicators.tsx:171
 msgid "Display:"
 msgstr "Display:"
 
@@ -257,6 +265,10 @@ msgstr "Donate"
 #: src/components/AddressToolbar.tsx:46
 msgid "Download"
 msgstr "Download"
+
+#: src/components/IndicatorsViz.tsx:185
+msgid "ECB"
+msgstr "ECB"
 
 #: src/util/helpers.ts:51
 msgid "ELECTRIC"
@@ -270,7 +282,7 @@ msgstr "ELEVATOR"
 msgid "Email"
 msgstr "Email"
 
-#: src/components/IndicatorsViz.tsx:155
+#: src/components/IndicatorsViz.tsx:156
 msgid "Emergency"
 msgstr "Emergency"
 
@@ -342,21 +354,21 @@ msgstr "HEATING"
 msgid "HPD Building Profile"
 msgstr "HPD Building Profile"
 
-#: src/components/IndicatorsDatasets.tsx:13
+#: src/components/IndicatorsDatasets.tsx:6
 #: src/components/PropertiesList.tsx:202
 msgid "HPD Complaints"
 msgstr "HPD Complaints"
 
-#: src/components/IndicatorsDatasets.tsx:19
+#: src/components/IndicatorsDatasets.tsx:13
 msgid "HPD Complaints are housing issues reported to the City <0>by a tenant calling 311</0>. When someone issues a complaint, the Department of Housing Preservation and Development begins a process of investigation that may lead to an official violation from the City. Complaints can be identified as:<1/><2/><3>Emergency</3> — reported to be hazardous/dire<4/><5>Non-Emergency</5> — all others<6/><7/>Read more about HPD Complaints and how to file them at the <8>official HPD page</8>."
 msgstr "HPD Complaints are housing issues reported to the City <0>by a tenant calling 311</0>. When someone issues a complaint, the Department of Housing Preservation and Development begins a process of investigation that may lead to an official violation from the City. Complaints can be identified as:<1/><2/><3>Emergency</3> — reported to be hazardous/dire<4/><5>Non-Emergency</5> — all others<6/><7/>Read more about HPD Complaints and how to file them at the <8>official HPD page</8>."
 
-#: src/components/IndicatorsDatasets.tsx:39
+#: src/components/IndicatorsDatasets.tsx:33
 #: src/components/PropertiesList.tsx:242
 msgid "HPD Violations"
 msgstr "HPD Violations"
 
-#: src/components/IndicatorsDatasets.tsx:46
+#: src/components/IndicatorsDatasets.tsx:41
 msgid "HPD Violations occur when an official City Inspector finds the conditions of a home in violation of the law. If not corrected, these violations incur fines for the owner— however, HPD violations are notoriously unenforced by the City. These Violations fall into three categories:<0/><1/><2>Class A</2> — non-hazardous<3/><4>Class B</4> — hazardous<5/><6>Class C</6> — immediately hazardous<7/><8/>Read more about HPD Violations at the <9>official HPD page</9>."
 msgstr "HPD Violations occur when an official City Inspector finds the conditions of a home in violation of the law. If not corrected, these violations incur fines for the owner— however, HPD violations are notoriously unenforced by the City. These Violations fall into three categories:<0/><1/><2>Class A</2> — non-hazardous<3/><4>Class B</4> — hazardous<5/><6>Class C</6> — immediately hazardous<7/><8/>Read more about HPD Violations at the <9>official HPD page</9>."
 
@@ -444,7 +456,7 @@ msgstr "Last 3 Years"
 msgid "Last Sale"
 msgstr "Last Sale"
 
-#: src/components/IndicatorsViz.tsx:351
+#: src/components/IndicatorsViz.tsx:366
 msgid "Last Sale Unknown"
 msgstr "Last Sale Unknown"
 
@@ -474,7 +486,7 @@ msgstr "Lessee"
 msgid "Link to Deed"
 msgstr "Link to Deed"
 
-#: src/components/Indicators.tsx:124
+#: src/components/Indicators.tsx:135
 #: src/components/PropertiesMap.tsx:156
 #: src/components/PropertiesSummary.tsx:62
 #: src/containers/AddressPage.tsx:165
@@ -523,11 +535,11 @@ msgstr "Methodology"
 msgid "Most Common 311 Complaints, Last 3 Years"
 msgstr "Most Common 311 Complaints, Last 3 Years"
 
-#: src/components/Indicators.tsx:187
+#: src/components/Indicators.tsx:201
 msgid "Move chart data left."
 msgstr "Move chart data left."
 
-#: src/components/Indicators.tsx:196
+#: src/components/Indicators.tsx:210
 msgid "Move chart data right."
 msgstr "Move chart data right."
 
@@ -560,7 +572,7 @@ msgstr "No"
 msgid "No address found"
 msgstr "No address found"
 
-#: src/components/IndicatorsViz.tsx:405
+#: src/components/IndicatorsViz.tsx:420
 msgid "No data available"
 msgstr "No data available"
 
@@ -572,7 +584,11 @@ msgstr "No registration found for {usersInputAddressFragment}!"
 msgid "No registration found!"
 msgstr "No registration found!"
 
-#: src/components/IndicatorsViz.tsx:162
+#: src/components/IndicatorsViz.tsx:192
+msgid "Non-ECB"
+msgstr "Non-ECB"
+
+#: src/components/IndicatorsViz.tsx:163
 msgid "Non-Emergency"
 msgstr "Non-Emergency"
 
@@ -620,7 +636,7 @@ msgstr "Open Violations"
 msgid "Overview"
 msgstr "Overview"
 
-#: src/components/IndicatorsDatasets.tsx:74
+#: src/components/IndicatorsDatasets.tsx:70
 msgid "Owners submit Building Permit Applications to the Department of Buildings before any construction project to get necessary approval. The number of applications filed can indicate how much construction the owner was planning.<0/><1/>Read more about DOB Building Applications/Permits at the <2>official NYC Buildings page</2>."
 msgstr "Owners submit Building Permit Applications to the Department of Buildings before any construction project to get necessary approval. The number of applications filed can indicate how much construction the owner was planning.<0/><1/>Read more about DOB Building Applications/Permits at the <2>official NYC Buildings page</2>."
 
@@ -738,7 +754,7 @@ msgstr "Since 2017, NYC Marshals scheduled {totalEvictions, plural, one {one evi
 msgid "Site Manager"
 msgstr "Site Manager"
 
-#: src/components/IndicatorsViz.tsx:350
+#: src/components/IndicatorsViz.tsx:365
 msgid "Sold to Current Owner"
 msgstr "Sold to Current Owner"
 
@@ -901,7 +917,7 @@ msgstr "Timeline"
 msgid "Top Complaint"
 msgstr "Top Complaint"
 
-#: src/components/IndicatorsViz.tsx:313
+#: src/components/IndicatorsViz.tsx:328
 #: src/components/PropertiesList.tsx:206
 #: src/components/PropertiesList.tsx:211
 #: src/components/PropertiesList.tsx:255
@@ -942,8 +958,8 @@ msgstr "Useful links"
 msgid "VENTILATION SYSTEM"
 msgstr "VENTILATION SYSTEM"
 
-#: src/components/Indicators.tsx:163
-#: src/components/Indicators.tsx:166
+#: src/components/Indicators.tsx:179
+#: src/components/Indicators.tsx:182
 msgid "View by:"
 msgstr "View by:"
 
@@ -979,7 +995,8 @@ msgstr "View portfolio"
 msgid "View portfolio map"
 msgstr "View portfolio map"
 
-#: src/components/IndicatorsViz.tsx:240
+#: src/components/IndicatorsDatasets.tsx:40
+#: src/components/IndicatorsDatasets.tsx:90
 msgid "Violations Issued"
 msgstr "Violations Issued"
 
@@ -1007,7 +1024,7 @@ msgstr "Warning! This site doesn't fully work on older versions of Safari. Try a
 msgid "We compare your search address with a database of over 200k buildings to identify a landlord or management company's portfolio. To learn more, check out <0>our methodology</0>."
 msgstr "We compare your search address with a database of over 200k buildings to identify a landlord or management company's portfolio. To learn more, check out <0>our methodology</0>."
 
-#: src/components/Indicators.tsx:210
+#: src/components/Indicators.tsx:224
 msgid "What are {0}?"
 msgstr "What are {0}?"
 
@@ -1087,14 +1104,18 @@ msgstr "year"
 msgid "{0} {1}, {2} currently has {3, plural, one {one open HPD violation} other {# open HPD violations}} - the most in this portfolio."
 msgstr "{0} {1}, {2} currently has {3, plural, one {one open HPD violation} other {# open HPD violations}} - the most in this portfolio."
 
-#: src/components/IndicatorsDatasets.tsx:69
+#: src/components/IndicatorsDatasets.tsx:64
 msgid "{value, plural, one {One Building Permit Application since 2010} other {# Building Permit Applications since 2010}}"
 msgstr "{value, plural, one {One Building Permit Application since 2010} other {# Building Permit Applications since 2010}}"
 
-#: src/components/IndicatorsDatasets.tsx:14
+#: src/components/IndicatorsDatasets.tsx:85
+msgid "{value, plural, one {One DOB/ECB Violation Issued since 2010} other {# DOB/ECB Violations Issued since 2010}}"
+msgstr "{value, plural, one {One DOB/ECB Violation Issued since 2010} other {# DOB/ECB Violations Issued since 2010}}"
+
+#: src/components/IndicatorsDatasets.tsx:7
 msgid "{value, plural, one {One HPD Complaint Issued since 2014} other {# HPD Complaints Issued since 2014}}"
 msgstr "{value, plural, one {One HPD Complaint Issued since 2014} other {# HPD Complaints Issued since 2014}}"
 
-#: src/components/IndicatorsDatasets.tsx:41
+#: src/components/IndicatorsDatasets.tsx:35
 msgid "{value, plural, one {One HPD Violation Issued since 2010} other {# HPD Violations Issued since 2010}}"
 msgstr "{value, plural, one {One HPD Violation Issued since 2010} other {# HPD Violations Issued since 2010}}"

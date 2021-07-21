@@ -162,14 +162,17 @@ export type BuildingInfoResults = {
 
 export type MonthlyTimelineData = {
   month: string;
-  complaints_emergency: number;
-  complaints_nonemergency: number;
-  complaints_total: number;
-  permits_total: number;
-  viols_class_a: number;
-  viols_class_b: number;
-  viols_class_c: number;
-  viols_total: number;
+  hpdcomplaints_emergency: number;
+  hpdcomplaints_nonemergency: number;
+  hpdcomplaints_total: number;
+  dobpermits_total: number;
+  hpdviolations_class_a: number;
+  hpdviolations_class_b: number;
+  hpdviolations_class_c: number;
+  hpdviolations_total: number;
+  dobviolations_regular: number;
+  dobviolations_ecb: number;
+  dobviolations_total: number;
 };
 
 export type IndicatorsHistoryResults = {
