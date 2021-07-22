@@ -160,4 +160,4 @@ export type IndicatorsProps = withI18nProps &
 
 // Other Useful Types and Type-related utilites:
 
-export type IndicatorChartShift = "left" | "right" | "reset";
+export type IndicatorsChartShift = "left" | "right" | "reset";

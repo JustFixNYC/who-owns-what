@@ -16,7 +16,7 @@ import {
   indicatorsInitialState,
   IndicatorsProps,
   IndicatorsState,
-  IndicatorChartShift,
+  IndicatorsChartShift,
   IndicatorsTimeSpan,
   indicatorsTimeSpans,
   IndicatorsDatasetId,
@@ -56,7 +56,7 @@ class IndicatorsWithoutI18n extends Component<IndicatorsProps, IndicatorsState> 
   }
 
   /** Shifts the X-axis 'left' or 'right', or 'reset' the X-axis to default */
-  handleXAxisChange(shift: IndicatorChartShift) {
+  handleXAxisChange(shift: IndicatorsChartShift) {
     const span = this.state.xAxisViewableColumns;
     const activeVis = this.state.activeVis;
     const labelsArray =
