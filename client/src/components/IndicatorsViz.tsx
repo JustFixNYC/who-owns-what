@@ -13,7 +13,7 @@ import * as ChartAnnotation from "chartjs-plugin-annotation";
 import Helpers, { mediumDateOptions, shortDateOptions } from "../util/helpers";
 
 import "styles/Indicators.css";
-import { IndicatorsState } from "./IndicatorsTypes";
+import { indicatorsDatasetIds, IndicatorsState } from "./IndicatorsTypes";
 import { SupportedLocale } from "../i18n-base";
 import { ChartOptions } from "chart.js";
 import { withMachineInStateProps } from "state-machine";
@@ -169,7 +169,7 @@ class IndicatorsVizImplementation extends Component<IndicatorVizImplementationPr
   /** Returns maximum y-value across all datasets, grouped by selected timespan */
   getDataMaximum() {
     var { timelineData } = this.props.state.context;
-    var dataMaximums = this.props.indicatorList.map((datasetName) => {
+    var dataMaximums = indicatorsDatasetIds.map((datasetName) => {
       const { total } = timelineData[datasetName].values;
       return total ? Helpers.maxArray(this.groupData(total) || [0]) : 0;
     });
@@ -296,9 +296,9 @@ class IndicatorsVizImplementation extends Component<IndicatorVizImplementationPr
     var suggestedYAxisMax =
       this.props.activeVis !== "hpdcomplaints" && this.props.activeVis !== "hpdviolations"
         ? Math.max(
-            12,
-            Helpers.maxArray(this.groupData(timelineData.dobpermits.values.total) || [0]) * 1.25
-          )
+          12,
+          Helpers.maxArray(this.groupData(timelineData.dobpermits.values.total) || [0]) * 1.25
+        )
         : Math.max(12, dataMaximum * 1.25);
 
     var timeSpan = this.props.activeTimeSpan;
@@ -306,7 +306,7 @@ class IndicatorsVizImplementation extends Component<IndicatorVizImplementationPr
     var acrisURL =
       this.props.lastSale && this.props.lastSale.documentid
         ? "https://a836-acris.nyc.gov/DS/DocumentSearch/DocumentImageView?doc_id=" +
-          this.props.lastSale.documentid
+        this.props.lastSale.documentid
         : "https://a836-acris.nyc.gov/DS/DocumentSearch/Index";
 
     const rerenderBar = () => {
