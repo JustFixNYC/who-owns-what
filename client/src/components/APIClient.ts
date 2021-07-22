@@ -8,7 +8,6 @@ import {
 import { SearchAddress } from "./AddressSearch";
 import { GeoSearchRequester } from "@justfixnyc/geosearch-requester";
 import {
-  indicatorsInitialState,
   indicatorsInitialDataStructure,
   IndicatorsDataFromAPI,
   IndicatorsData,
