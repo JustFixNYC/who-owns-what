@@ -45,17 +45,17 @@ export default class NotRegisteredPage extends Component<Props, State> {
 
     const usersInputAddress = searchAddrParams
       ? {
-        bbl: searchAddrBbl,
-        housenumber: searchAddrParams.housenumber || " ",
-        streetname: searchAddrParams.streetname,
-      }
+          bbl: searchAddrBbl,
+          housenumber: searchAddrParams.housenumber || " ",
+          streetname: searchAddrParams.streetname,
+        }
       : buildingInfo
-        ? {
+      ? {
           bbl: searchAddrBbl,
           housenumber: buildingInfo.housenumber || " ",
           streetname: buildingInfo.streetname || " ",
         }
-        : null;
+      : null;
 
     const failedToRegisterLink = (
       <div className="text-center">
@@ -210,8 +210,9 @@ export default class NotRegisteredPage extends Component<Props, State> {
                   </span>
                 </div>
                 <br />
-                {usersInputAddress &&
-                  <UsefulLinks addrForLinks={usersInputAddress} location="not-registered-page" />}
+                {usersInputAddress && (
+                  <UsefulLinks addrForLinks={usersInputAddress} location="not-registered-page" />
+                )}
                 <SocialShareForNotRegisteredPage />
                 <br />
                 <br />
