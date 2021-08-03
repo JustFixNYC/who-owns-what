@@ -3,11 +3,10 @@ import { LocaleLink as Link } from "../i18n";
 
 import "styles/NotRegisteredPage.css";
 import { Trans } from "@lingui/macro";
-import { AddressPageUrlParams } from "../routes";
 import Modal from "../components/Modal";
 import LegalFooter from "../components/LegalFooter";
 import Helpers from "../util/helpers";
-import SocialShare, { SocialShareAddressPage } from "../components/SocialShare";
+import SocialShare from "../components/SocialShare";
 import { Nobr } from "../components/Nobr";
 import { withMachineInStateProps } from "state-machine";
 import Page from "components/Page";
