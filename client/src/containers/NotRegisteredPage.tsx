@@ -42,19 +42,20 @@ export default class NotRegisteredPage extends Component<Props, State> {
 
     const { boro, block, lot } = Helpers.splitBBL(searchAddrBbl);
 
-    const usersInputAddress = searchAddrParams
-      ? {
-          bbl: searchAddrBbl,
-          housenumber: searchAddrParams.housenumber || " ",
-          streetname: searchAddrParams.streetname,
-        }
-      : buildingInfo
-      ? {
-          bbl: searchAddrBbl,
-          housenumber: buildingInfo.housenumber || " ",
-          streetname: buildingInfo.streetname || " ",
-        }
-      : null;
+    const usersInputAddress =
+      searchAddrParams && searchAddrBbl
+        ? {
+            bbl: searchAddrBbl,
+            housenumber: searchAddrParams.housenumber || " ",
+            streetname: searchAddrParams.streetname,
+          }
+        : buildingInfo
+        ? {
+            bbl: searchAddrBbl,
+            housenumber: buildingInfo.housenumber || " ",
+            streetname: buildingInfo.streetname || " ",
+          }
+        : null;
 
     const failedToRegisterLink = (
       <div className="text-center">
