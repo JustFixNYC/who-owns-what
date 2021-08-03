@@ -29,50 +29,50 @@ const NychaPageWithoutI18n: React.FC<NychaPageProps> = (props) => {
   const boroData =
     boro === "1"
       ? {
-          boroName: "Manhattan",
-          boroOfficeAddress1: "1980 Lexington Ave #1",
-          boroOfficeAddress2: "New York, NY 10035",
-          boroOfficePhone: "(917) 206-3500",
-        }
+        boroName: "Manhattan",
+        boroOfficeAddress1: "1980 Lexington Ave #1",
+        boroOfficeAddress2: "New York, NY 10035",
+        boroOfficePhone: "(917) 206-3500",
+      }
       : boro === "2"
-      ? {
+        ? {
           boroName: "Bronx",
           boroOfficeAddress1: "1200 Water Pl, Suite #200",
           boroOfficeAddress2: "Bronx, NY 10461",
           boroOfficePhone: "(718) 409-8626",
         }
-      : boro === "3"
-      ? {
-          boroName: "Brooklyn",
-          boroOfficeAddress1: "816 Ashford St",
-          boroOfficeAddress2: "Brooklyn, NY 11207",
-          boroOfficePhone: "(718) 491-6967",
-        }
-      : boro === "4" || boro === "5"
-      ? {
-          boroName: "Queens",
-          boroOfficeAddress1: "90-20 170th St, 1st Floor",
-          boroOfficeAddress2: "Jamaica, NY 11432",
-          boroOfficePhone: "(718) 553-4700",
-        }
-      : null;
+        : boro === "3"
+          ? {
+            boroName: "Brooklyn",
+            boroOfficeAddress1: "816 Ashford St",
+            boroOfficeAddress2: "Brooklyn, NY 11207",
+            boroOfficePhone: "(718) 491-6967",
+          }
+          : boro === "4" || boro === "5"
+            ? {
+              boroName: "Queens",
+              boroOfficeAddress1: "90-20 170th St, 1st Floor",
+              boroOfficeAddress2: "Jamaica, NY 11432",
+              boroOfficePhone: "(718) 553-4700",
+            }
+            : null;
 
   const usersInputAddress =
     searchAddrParams &&
-    searchAddrParams.boro &&
-    (searchAddrParams.housenumber || searchAddrParams.streetname)
+      searchAddrParams.boro &&
+      (searchAddrParams.housenumber || searchAddrParams.streetname)
       ? {
-          boro: searchAddrParams.boro,
-          housenumber: searchAddrParams.housenumber || " ",
-          streetname: searchAddrParams.streetname || " ",
-        }
+        boro: searchAddrParams.boro,
+        housenumber: searchAddrParams.housenumber || " ",
+        streetname: searchAddrParams.streetname || " ",
+      }
       : buildingInfo && buildingInfo.boro && (buildingInfo.housenumber || buildingInfo.streetname)
-      ? {
+        ? {
           boro: buildingInfo.boro,
           housenumber: buildingInfo.housenumber || " ",
           streetname: buildingInfo.streetname || " ",
         }
-      : null;
+        : null;
 
   const takeActionURL = Helpers.createTakeActionURL(usersInputAddress, "nycha_page");
 
@@ -264,7 +264,7 @@ const NychaPageWithoutI18n: React.FC<NychaPageProps> = (props) => {
                 </a>
               </div>
 
-              <SocialShareForNotRegisteredPage addr={usersInputAddress} />
+              <SocialShareForNotRegisteredPage />
 
               <br />
               {/* <div className="toast toast-error">

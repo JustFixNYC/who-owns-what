@@ -94,6 +94,17 @@
       }
     }
 
+    .card-body-links 
+    { 
+      ul,ol {
+      margin: 1rem 0.5rem;
+
+      li {
+        margin-top: 0.5rem;
+        line-height: 1.8rem;
+      }
+    }
+  }
     .justfix-cta,
     .social-share {
       margin-top: 2rem;

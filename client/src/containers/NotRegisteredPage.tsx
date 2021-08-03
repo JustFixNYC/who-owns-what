@@ -7,10 +7,11 @@ import { AddressPageUrlParams } from "../routes";
 import Modal from "../components/Modal";
 import LegalFooter from "../components/LegalFooter";
 import Helpers from "../util/helpers";
-import { SocialShareAddressPage } from "../components/SocialShare";
+import SocialShare, { SocialShareAddressPage } from "../components/SocialShare";
 import { Nobr } from "../components/Nobr";
 import { withMachineInStateProps } from "state-machine";
 import Page from "components/Page";
+import { UsefulLinks } from "components/UsefulLinks";
 
 type Props = withMachineInStateProps<"unregisteredFound">;
 
@@ -18,12 +19,12 @@ type State = {
   showModal: boolean;
 };
 
-export const SocialShareForNotRegisteredPage = (props: { addr?: AddressPageUrlParams | null }) => (
+export const SocialShareForNotRegisteredPage = () => (
   <div className="social-share">
     <p>
       <Trans>Share this page with your neighbors</Trans>
     </p>
-    <SocialShareAddressPage location="not-registered-page" />
+    <SocialShare location="not-registered-page" />
   </div>
 );
 
@@ -44,17 +45,17 @@ export default class NotRegisteredPage extends Component<Props, State> {
 
     const usersInputAddress = searchAddrParams
       ? {
-          boro: searchAddrParams.boro,
-          housenumber: searchAddrParams.housenumber || " ",
-          streetname: searchAddrParams.streetname,
-        }
+        bbl: searchAddrBbl,
+        housenumber: searchAddrParams.housenumber || " ",
+        streetname: searchAddrParams.streetname,
+      }
       : buildingInfo
-      ? {
-          boro: buildingInfo.boro,
+        ? {
+          bbl: searchAddrBbl,
           housenumber: buildingInfo.housenumber || " ",
           streetname: buildingInfo.streetname || " ",
         }
-      : null;
+        : null;
 
     const failedToRegisterLink = (
       <div className="text-center">
@@ -209,52 +210,11 @@ export default class NotRegisteredPage extends Component<Props, State> {
                   </span>
                 </div>
                 <br />
-                <div>
-                  <Trans render="p">Useful links</Trans>
-                  <div>
-                    <div className="btn-group btn-group-block">
-                      <a
-                        href={`http://a836-acris.nyc.gov/bblsearch/bblsearch.asp?borough=${boro}&block=${block}&lot=${lot}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="btn"
-                      >
-                        <Trans>View documents on ACRIS</Trans> &#8599;
-                      </a>
-                      <a
-                        href={`http://webapps.nyc.gov:8084/CICS/fin1/find001i?FFUNC=C&FBORO=${boro}&FBLOCK=${block}&FLOT=${lot}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="btn"
-                      >
-                        <Trans>DOF Property Tax Bills</Trans> &#8599;
-                      </a>
-                    </div>
-                    <div className="btn-group btn-group-block">
-                      <a
-                        href={`http://a810-bisweb.nyc.gov/bisweb/PropertyProfileOverviewServlet?boro=${boro}&block=${block}&lot=${lot}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="btn"
-                      >
-                        <Trans>DOB Building Profile</Trans> &#8599;
-                      </a>
-                      <a
-                        href={`https://portal.displacementalert.org/property/${boro}${block}${lot}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="btn"
-                      >
-                        <Trans>ANHD DAP Portal</Trans> &#8599;
-                      </a>
-                    </div>
-                  </div>
-                </div>
-
-                <SocialShareForNotRegisteredPage addr={usersInputAddress} />
+                {usersInputAddress &&
+                  <UsefulLinks addrForLinks={usersInputAddress} location="not-registered-page" />}
+                <SocialShareForNotRegisteredPage />
                 <br />
                 <br />
-
                 <Link className="btn btn-primary btn-block" to="/">
                   &lt;-- <Trans>Search for a different address</Trans>
                 </Link>
