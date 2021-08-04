@@ -42,6 +42,12 @@ export default class NotRegisteredPage extends Component<Props, State> {
 
     const { boro, block, lot } = Helpers.splitBBL(searchAddrBbl);
 
+    /**
+     * This is the address that will show up in the top header of the page.
+     * If the user didn't enter an address themselves (i.e. they are redirected to this page
+     * directly from a BBL-based url), we will fall back on the buildingInfo SQL query to grab
+     * a standard address for the property they are searching.
+     */
     const usersInputAddress = searchAddrBbl
       ? {
           bbl: searchAddrBbl,
