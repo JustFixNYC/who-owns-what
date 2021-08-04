@@ -53,15 +53,13 @@ msgstr "311 Complaints Data"
 msgid "<0>While the legal owner of a building is often a company (usually called an “LLC”), these names and business addresses registered with HPD offer a clearer picture of who really controls the building.</0><1>People listed here as “Head Officer” or “Owner” usually have ties to building ownership, while “Site Managers” are part of management. That being said, these names are self reported by the landlord, so they can be misleading.</1><2>Learn more about HPD registrations and how this information powers this tool on the <3>About page</3>.</2>"
 msgstr "<0>While the legal owner of a building is often a company (usually called an “LLC”), these names and business addresses registered with HPD offer a clearer picture of who really controls the building.</0><1>People listed here as “Head Officer” or “Owner” usually have ties to building ownership, while “Site Managers” are part of management. That being said, these names are self reported by the landlord, so they can be misleading.</1><2>Learn more about HPD registrations and how this information powers this tool on the <3>About page</3>.</2>"
 
-#: src/components/FeatureCalloutContent.tsx:19
-msgid "A new set of dropdown menus and design tweaks make it more comfortable to use Who Owns What on the go."
-msgstr "A new set of dropdown menus and design tweaks make it more comfortable to use Who Owns What on the go."
-
-#: src/components/UsefulLinks.tsx:47
-#: src/containers/NotRegisteredPage.tsx:158
 #: src/components/IndicatorsDatasets.tsx:91
 msgid "A DOB Violation is a notice that a property is not in compliance with applicable law, usually a building code. DOB violations typically relate to building-wide services (like elevators or boilers), the structural integrity of a property, or illegal construction. Owners must cure all DOB violations before they can file a new or amended Certificate of Occupancy (\"CO\").<0/><1/><2>Non-ECB</2> — typical violation, no court hearing needed<3/><4>ECB (Environment Control Board)</4> — a specific violation of New York City Construction Codes or Zoning Resolution. These violations come with additional penalties and require an owner to attend an <5>OATH hearing</5>. They fall into three classes: Class I (immediately hazardous), Class II (major), and Class III (lesser).<6/><7/>Read more about DOB Violations at the <8>official DOB page</8>."
 msgstr "A DOB Violation is a notice that a property is not in compliance with applicable law, usually a building code. DOB violations typically relate to building-wide services (like elevators or boilers), the structural integrity of a property, or illegal construction. Owners must cure all DOB violations before they can file a new or amended Certificate of Occupancy (\"CO\").<0/><1/><2>Non-ECB</2> — typical violation, no court hearing needed<3/><4>ECB (Environment Control Board)</4> — a specific violation of New York City Construction Codes or Zoning Resolution. These violations come with additional penalties and require an owner to attend an <5>OATH hearing</5>. They fall into three classes: Class I (immediately hazardous), Class II (major), and Class III (lesser).<6/><7/>Read more about DOB Violations at the <8>official DOB page</8>."
+
+#: src/components/FeatureCalloutContent.tsx:19
+msgid "A new set of dropdown menus and design tweaks make it more comfortable to use Who Owns What on the go."
+msgstr "A new set of dropdown menus and design tweaks make it more comfortable to use Who Owns What on the go."
 
 #: src/components/UsefulLinks.tsx:45
 #: src/containers/NychaPage.tsx:168
@@ -206,12 +204,12 @@ msgstr "Class C"
 msgid "Clearer Landlord Contact Info"
 msgstr "Clearer Landlord Contact Info"
 
-#: src/containers/NotRegisteredPage.tsx:187
+#: src/containers/NotRegisteredPage.tsx:166
 msgid "Click here to learn more."
 msgstr "Click here to learn more."
 
 #: src/components/DetailView.tsx:52
-#: src/components/FeatureCalloutWidget.tsx:54
+#: src/components/FeatureCalloutWidget.tsx:48
 msgid "Close"
 msgstr "Close"
 
@@ -579,7 +577,7 @@ msgstr "New Search"
 msgid "New York Regional Office:"
 msgstr "New York Regional Office:"
 
-#: src/components/FeatureCalloutWidget.tsx:74
+#: src/components/FeatureCalloutWidget.tsx:66
 msgid "Next"
 msgstr "Next"
 
@@ -693,7 +691,7 @@ msgstr "Portfolio"
 msgid "Portfolio Table Redesign"
 msgstr "Portfolio Table Redesign"
 
-#: src/components/FeatureCalloutWidget.tsx:68
+#: src/components/FeatureCalloutWidget.tsx:60
 msgid "Previous"
 msgstr "Previous"
 
@@ -756,7 +754,7 @@ msgstr "Share"
 #: src/components/DetailView.tsx:231
 #: src/components/EngagementPanel.tsx:18
 #: src/components/PropertiesSummary.tsx:133
-#: src/containers/App.tsx:124
+#: src/containers/App.tsx:127
 #: src/containers/NotRegisteredPage.tsx:14
 msgid "Share this page with your neighbors"
 msgstr "Share this page with your neighbors"
@@ -1067,8 +1065,8 @@ msgstr "What are {0}?"
 msgid "What happens if the landlord has failed to register?"
 msgstr "What happens if the landlord has failed to register?"
 
-#: src/components/FeatureCalloutWidget.tsx:39
-#: src/components/FeatureCalloutWidget.tsx:52
+#: src/components/FeatureCalloutWidget.tsx:33
+#: src/components/FeatureCalloutWidget.tsx:46
 msgid "What's New"
 msgstr "What's New"
 
@@ -1140,7 +1138,7 @@ msgstr "search address"
 msgid "year"
 msgstr "year"
 
-#: src/components/FeatureCalloutWidget.tsx:22
+#: src/components/FeatureCalloutWidget.tsx:16
 msgid "{0} of {numberOfEntries}"
 msgstr "{0} of {numberOfEntries}"
 
