@@ -10,7 +10,7 @@
   width: 85vw;
 
   @include for-tablet-portrait-up() {
-    width: 65vw;
+    max-width: 700px;
     padding: 35px;
     margin: 4rem auto;
   }
