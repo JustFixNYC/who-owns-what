@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2021-07-15 17:47\n"
+"PO-Revision-Date: 2021-07-21 18:30\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -64,6 +64,11 @@ msgstr ""
 
 #: src/components/UsefulLinks.tsx:47
 #: src/containers/NotRegisteredPage.tsx:158
+#: src/components/IndicatorsDatasets.tsx:91
+msgid "A DOB Violation is a notice that a property is not in compliance with applicable law, usually a building code. DOB violations typically relate to building-wide services (like elevators or boilers), the structural integrity of a property, or illegal construction. Owners must cure all DOB violations before they can file a new or amended Certificate of Occupancy (\"CO\").<0/><1/><2>Non-ECB</2> — typical violation, no court hearing needed<3/><4>ECB (Environment Control Board)</4> — a specific violation of New York City Construction Codes or Zoning Resolution. These violations come with additional penalties and require an owner to attend an <5>OATH hearing</5>. They fall into three classes: Class I (immediately hazardous), Class II (major), and Class III (lesser).<6/><7/>Read more about DOB Violations at the <8>official DOB page</8>."
+msgstr "Una violación de DOB es un aviso de que una propiedad no cumple con la ley aplicable, generalmente un código de edificios. Las violaciones de DOB generalmente se relacionan con servicios en todo el edificio (como ascensores o calderas), la integridad estructural de una propiedad o la construcción ilegal. Los dueños deben arreglar todas las violaciones de DOB antes de poder presentar un Certificado de ocupación (\"CO\") nuevo o enmendado.<0/><1/><2>No ECB</2> — infracción típica, no se necesita audiencia judicial<3/><4>ECB (Junta de Control Medioambiental)</4> — una violación específica de los Códigos de Construcción de la Ciudad de Nueva York o la Resolución de Zonificación. Estas violaciones vienen con sanciones adicionales y requieren que el dueño asista a una <5>audiencia de OATH</5>. Se dividen en tres clases: Clase I (peligro inmediato), Clase II (mayor) y Clase III (menor).<6/><7/>Encontrarás más información sobre las Violaciones del DOB en la <8>página oficial del DOB</8>."
+
+#: src/components/UsefulLinks.tsx:45
 #: src/containers/NychaPage.tsx:168
 msgid "ANHD DAP Portal"
 msgstr "Portal DAP de ANHD"
@@ -79,7 +84,7 @@ msgstr "Acerca de"
 
 #: src/components/ViolationsSummary.tsx:27
 msgid "According to available HPD data, this portfolio has received <0>{totalviolations}</0> total violations."
-msgstr "Según los datos del HPD disponibles, este portafolio de edificios ha recibido un total de <0>{totalviolations}</0> infracciones."
+msgstr "Según los datos del HPD disponibles, este portafolio de edificios ha recibido un total de <0>{totalviolations}</0> violaciones."
 
 #: src/components/PropertiesSummary.tsx:123
 msgid "Additional links"
@@ -132,22 +137,22 @@ msgstr "Municipio"
 msgid "Borough Management Office:"
 msgstr "Oficina de Gestión Municipal:"
 
-#: src/containers/NotRegisteredPage.tsx:64
-#: src/containers/NotRegisteredPage.tsx:84
-#: src/containers/NotRegisteredPage.tsx:103
+#: src/containers/NotRegisteredPage.tsx:65
+#: src/containers/NotRegisteredPage.tsx:85
+#: src/containers/NotRegisteredPage.tsx:104
 msgid "Building Classification"
 msgstr "Clasificación del Edificio"
 
-#: src/components/IndicatorsDatasets.tsx:68
+#: src/components/IndicatorsDatasets.tsx:63
 msgid "Building Permit Applications"
 msgstr "Solicitudes de Permisos de Construcción"
 
-#: src/components/IndicatorsViz.tsx:173
-#: src/components/IndicatorsViz.tsx:241
+#: src/components/IndicatorsDatasets.tsx:69
+#: src/components/IndicatorsViz.tsx:175
 msgid "Building Permits Applied For"
 msgstr "Permisos de Construcción Solicitados"
 
-#: src/containers/NotRegisteredPage.tsx:174
+#: src/containers/NotRegisteredPage.tsx:153
 msgid "Buildings without valid property registration are subject to the following:"
 msgstr "Edificios sin registro de propiedad válido están sujetos a las siguientes obligaciones:"
 
@@ -186,19 +191,19 @@ msgstr "GAS DE COCINA"
 msgid "Check out the issues in this building"
 msgstr "Mira los problemas en este edificio"
 
-#: src/containers/NotRegisteredPage.tsx:178
+#: src/containers/NotRegisteredPage.tsx:157
 msgid "Civil penalties of $250-$500"
 msgstr "Sanciones civiles de $250-$500"
 
-#: src/components/IndicatorsViz.tsx:144
+#: src/components/IndicatorsViz.tsx:146
 msgid "Class A"
 msgstr "Clase A"
 
-#: src/components/IndicatorsViz.tsx:137
+#: src/components/IndicatorsViz.tsx:139
 msgid "Class B"
 msgstr "Clase B"
 
-#: src/components/IndicatorsViz.tsx:130
+#: src/components/IndicatorsViz.tsx:132
 msgid "Class C"
 msgstr "Clase C"
 
@@ -219,7 +224,7 @@ msgstr "Cerrar"
 msgid "Close legend"
 msgstr "Cerrar leyenda"
 
-#: src/components/IndicatorsViz.tsx:238
+#: src/components/IndicatorsDatasets.tsx:12
 msgid "Complaints Issued"
 msgstr "Quejas Emitidas"
 
@@ -231,13 +236,15 @@ msgstr "Dueño Corporativo"
 msgid "Corporation"
 msgstr "Corporación"
 
-#: src/components/UsefulLinks.tsx:33
-#: src/containers/NotRegisteredPage.tsx:155
+#: src/components/UsefulLinks.tsx:31
 msgid "DOB Building Profile"
 msgstr "Perfil de edificio en DOB"
 
-#: src/components/UsefulLinks.tsx:40
-#: src/containers/NotRegisteredPage.tsx:150
+#: src/components/IndicatorsDatasets.tsx:84
+msgid "DOB/ECB Violations"
+msgstr "Violaciones del DOB/ECB"
+
+#: src/components/UsefulLinks.tsx:38
 msgid "DOF Property Tax Bills"
 msgstr "Facturas de Impuestos del DOF"
 
@@ -276,6 +283,10 @@ msgstr "Donar"
 msgid "Download"
 msgstr "Descargar"
 
+#: src/components/IndicatorsViz.tsx:186
+msgid "ECB"
+msgstr "ECB"
+
 #: src/util/helpers.ts:51
 msgid "ELECTRIC"
 msgstr "ELÉCTRICO"
@@ -288,7 +299,7 @@ msgstr "ASCENSOR"
 msgid "Email"
 msgstr "Email"
 
-#: src/components/IndicatorsViz.tsx:155
+#: src/components/IndicatorsViz.tsx:157
 msgid "Emergency"
 msgstr "Emergencia"
 
@@ -331,7 +342,7 @@ msgstr "PISO"
 msgid "FLOORING/STAIRS"
 msgstr "PISO/ESCALERAS"
 
-#: src/containers/NotRegisteredPage.tsx:173
+#: src/containers/NotRegisteredPage.tsx:152
 msgid "Failure to register a building with HPD"
 msgstr "Si no se registra un edificio con el HPD"
 
@@ -356,27 +367,27 @@ msgstr "CALEFACCIÓN/AGUA CALIENTE"
 msgid "HEATING"
 msgstr "CALEFACCIÓN"
 
-#: src/components/UsefulLinks.tsx:26
+#: src/components/UsefulLinks.tsx:24
 msgid "HPD Building Profile"
 msgstr "Perfil de edificio del HPD"
 
-#: src/components/IndicatorsDatasets.tsx:13
+#: src/components/IndicatorsDatasets.tsx:6
 #: src/components/PropertiesList.tsx:202
 msgid "HPD Complaints"
 msgstr "Quejas del HPD"
 
-#: src/components/IndicatorsDatasets.tsx:19
+#: src/components/IndicatorsDatasets.tsx:13
 msgid "HPD Complaints are housing issues reported to the City <0>by a tenant calling 311</0>. When someone issues a complaint, the Department of Housing Preservation and Development begins a process of investigation that may lead to an official violation from the City. Complaints can be identified as:<1/><2/><3>Emergency</3> — reported to be hazardous/dire<4/><5>Non-Emergency</5> — all others<6/><7/>Read more about HPD Complaints and how to file them at the <8>official HPD page</8>."
-msgstr "Las quejas de HPD son problemas de vivienda presentados a la Ciudad <0>por un inquilino al llamar al 311</0>. Cuando alguien presenta una queja, el Departamento de Preservación y Desarrollo de la Vivienda, DHCR por sus siglas en inglés, inicia un proceso de investigación que puede conducir a la emisión de una infracción oficial por parte de la Ciudad. Las quejas se pueden identificar como:<1/><2/><3>Emergencia</3> — se ha informado de que son peligrosas<4/><5>No-Emergencia</5> — todas las demás<6/><7/> Encontraras más información sobre las quejas de HPD y cómo presentarlas en la página <8>oficial del HPD</8>."
+msgstr "Las quejas de HPD son problemas de vivienda presentados a la Ciudad <0>por un inquilino al llamar al 311</0>. Cuando alguien presenta una queja, el Departamento de Preservación y Desarrollo de la Vivienda, DHCR por sus siglas en inglés, inicia un proceso de investigación que puede conducir a la emisión de una infracción oficial por parte de la Ciudad. Las quejas se pueden identificar como:<1/><2/><3>Emergencia</3> — se ha informado de que son peligrosas<4/><5>No-Emergencia</5> — todas las demás<6/><7/> Encontrarás más información sobre las quejas de HPD y cómo presentarlas en la página <8>oficial del HPD</8>."
 
-#: src/components/IndicatorsDatasets.tsx:39
+#: src/components/IndicatorsDatasets.tsx:33
 #: src/components/PropertiesList.tsx:242
 msgid "HPD Violations"
-msgstr "Infracciones del HPD"
+msgstr "Violaciones del HPD"
 
-#: src/components/IndicatorsDatasets.tsx:46
+#: src/components/IndicatorsDatasets.tsx:41
 msgid "HPD Violations occur when an official City Inspector finds the conditions of a home in violation of the law. If not corrected, these violations incur fines for the owner— however, HPD violations are notoriously unenforced by the City. These Violations fall into three categories:<0/><1/><2>Class A</2> — non-hazardous<3/><4>Class B</4> — hazardous<5/><6>Class C</6> — immediately hazardous<7/><8/>Read more about HPD Violations at the <9>official HPD page</9>."
-msgstr "Infracciones del HPD se dan cuando un Inspector oficial de la Ciudad determina que las condiciones de un hogar están en violación de la ley. Si no se corrigen, estas infraccines incurren multas para el propietario, sin embargo, las infracciones del HPD son notoriamente incumplidas por la Ciudad. Existen tres categorías de Infracciones:<0/><1/><2>Clase A</2> — no-peligrosa<3/><4>Clase B</4> — peligrosa<5/><6>Clase C</6> — de peligro inmediato<7/><8/>Encontraras más información sobre las Infracciones del HPD en la <9>página oficial del HPD</9>."
+msgstr "Violaciones del HPD se dan cuando un Inspector oficial de la Ciudad determina que las condiciones de un hogar están en violación de la ley. Si no se corrigen, estas violaciones incurren multas para el propietario, sin embargo, las violaciones del HPD son notoriamente incumplidas por la Ciudad. Existen tres categorías de violaciones:<0/><1/><2>Clase A</2> — no-peligrosa<3/><4>Clase B</4> — peligrosa<5/><6>Clase C</6> — de peligro inmediato<7/><8/>Encontrarás más información sobre las Violaciones del HPD en la <9>página oficial del HPD</9>."
 
 #: src/containers/NychaPage.tsx:157
 msgid "HUD Complaint Form 958"
@@ -412,15 +423,15 @@ msgstr "Estaba revisando este edificio en Quién Es El Dueño, una herramienta g
 msgid "Individual Owner"
 msgstr "Dueño Individual"
 
-#: src/containers/NotRegisteredPage.tsx:180
+#: src/containers/NotRegisteredPage.tsx:159
 msgid "Ineligible to certify violations"
-msgstr "Inelegible para certificar infracciones"
+msgstr "Inelegible para certificar violaciones"
 
 #: src/components/PropertiesList.tsx:151
 msgid "Information"
 msgstr "Información"
 
-#: src/containers/NotRegisteredPage.tsx:98
+#: src/containers/NotRegisteredPage.tsx:99
 msgid "It doesn't seem like this property is required to register with HPD."
 msgstr "Parece que esta propiedad no necesita estar registrada con el HPD."
 
@@ -462,7 +473,7 @@ msgstr "Últimos 3 años"
 msgid "Last Sale"
 msgstr "Última venta"
 
-#: src/components/IndicatorsViz.tsx:351
+#: src/components/IndicatorsViz.tsx:368
 msgid "Last Sale Unknown"
 msgstr "Última venta desconocida"
 
@@ -522,9 +533,9 @@ msgstr "Hecho en NYC con ♥ por el equipo de <0>JustFix.nyc</0>"
 
 #: src/components/ViolationsSummary.tsx:8
 msgid "Maintenance code violations"
-msgstr "Infracciones del código de mantenimiento"
+msgstr "Violaciones del código de mantenimiento"
 
-#: src/containers/NotRegisteredPage.tsx:179
+#: src/containers/NotRegisteredPage.tsx:158
 msgid "May be issued official Orders"
 msgstr "Pueden emitirse órdenes oficiales"
 
@@ -586,19 +597,23 @@ msgstr "No"
 msgid "No address found"
 msgstr "No se encontraron direcciones"
 
-#: src/components/IndicatorsViz.tsx:405
+#: src/components/IndicatorsViz.tsx:422
 msgid "No data available"
 msgstr "No hay datos disponibles"
 
-#: src/containers/NotRegisteredPage.tsx:122
+#: src/containers/NotRegisteredPage.tsx:123
 msgid "No registration found for {usersInputAddressFragment}!"
 msgstr "¡No se ha encontrado ningún registro para {usersInputAddressFragment}!"
 
-#: src/containers/NotRegisteredPage.tsx:122
+#: src/containers/NotRegisteredPage.tsx:123
 msgid "No registration found!"
 msgstr "¡No se ha encontrado nigún registro!"
 
-#: src/components/IndicatorsViz.tsx:162
+#: src/components/IndicatorsViz.tsx:193
+msgid "Non-ECB"
+msgstr "No ECB"
+
+#: src/components/IndicatorsViz.tsx:164
 msgid "Non-Emergency"
 msgstr "No Emergencia"
 
@@ -640,13 +655,13 @@ msgstr "Actuales"
 
 #: src/components/BuildingStatsTable.tsx:53
 msgid "Open Violations"
-msgstr "Infracciones Actuales"
+msgstr "Violaciones Actuales"
 
 #: src/containers/AddressPage.tsx:114
 msgid "Overview"
 msgstr "General"
 
-#: src/components/IndicatorsDatasets.tsx:74
+#: src/components/IndicatorsDatasets.tsx:70
 msgid "Owners submit Building Permit Applications to the Department of Buildings before any construction project to get necessary approval. The number of applications filed can indicate how much construction the owner was planning.<0/><1/>Read more about DOB Building Applications/Permits at the <2>official NYC Buildings page</2>."
 msgstr "Antes de empezar cualquier proyecto de construcción, el propietario somete un solicitud para conseguir permisos de construcción al Departamento de Edificios para obtener la autorización necesaria. El número de solicitudes que asociadas a un edificio te puede dar una idea de cuánta construcción planea hacer el propietario. <0/><1/> Encontrarás más información sobre Permisos de Construcción del DOB en la <2>página oficial de Edificios de NYC</2>."
 
@@ -725,7 +740,7 @@ msgstr "ESCALERAS"
 msgid "Search"
 msgstr "Buscar"
 
-#: src/containers/NotRegisteredPage.tsx:169
+#: src/containers/NotRegisteredPage.tsx:148
 #: src/containers/NychaPage.tsx:190
 msgid "Search for a different address"
 msgstr "Buscar otra dirección"
@@ -746,8 +761,8 @@ msgstr "Compartir"
 #: src/components/DetailView.tsx:231
 #: src/components/EngagementPanel.tsx:18
 #: src/components/PropertiesSummary.tsx:133
-#: src/containers/App.tsx:127
-#: src/containers/NotRegisteredPage.tsx:13
+#: src/containers/App.tsx:124
+#: src/containers/NotRegisteredPage.tsx:14
 msgid "Share this page with your neighbors"
 msgstr "Comparte esta página con tus vecinos"
 
@@ -776,7 +791,7 @@ msgstr "Desde el 2017, los Mariscales de NYC programaron {totalEvictions, plural
 msgid "Site Manager"
 msgstr "Administrador del Sitio"
 
-#: src/components/IndicatorsViz.tsx:350
+#: src/components/IndicatorsViz.tsx:367
 msgid "Sold to Current Owner"
 msgstr "Vendido al Propietario Actual"
 
@@ -840,7 +855,7 @@ msgstr "{0, plural, one {El nombre más común que aparece en este portafolio de
 
 #: src/components/BuildingStatsTable.tsx:52
 msgid "The number of open HPD violations for this building, updated monthly. Click the HPD Building Profile button below for the most up-to-date information."
-msgstr "El número de infracciones del HPD abiertas en este edificio, actualizado mensualmente. Haz clic en el botón del Perfil de Edificio del HPD para obtener la información más reciente."
+msgstr "El número de violaciones del HPD abiertas en este edificio, actualizado mensualmente. Haz clic en el botón del Perfil de Edificio del HPD para obtener la información más reciente."
 
 #: src/containers/NychaPage.tsx:82
 msgid "The number of residential units across all buildings in this development, according to the Dept. of City Planning."
@@ -866,7 +881,7 @@ msgstr "Hay {0, plural, one {<0><1>1</1> edificio</0>} other {<2><3>{1}</3> edif
 msgid "This building is owned by the NYC Housing Authority (NYCHA)"
 msgstr "Este edificio es propiedad de la NYC Housing Authority (NYCHA)"
 
-#: src/containers/NotRegisteredPage.tsx:79
+#: src/containers/NotRegisteredPage.tsx:80
 msgid "This building seems like it should be registered with HPD!"
 msgstr "¡Parece que este edificio debería estar registrado con el HPD!"
 
@@ -904,7 +919,7 @@ msgstr "Este portafolio de edificios tuvo una <0>{changeType, select, gain {gana
 
 #: src/components/ViolationsSummary.tsx:12
 msgid "This portfolio has an average of <0>{openviolationsperresunit}</0> open HPD violations per residential unit."
-msgstr "Este portafolio de edificios tiene un promedio de <0>{openviolationsperresunit}</0> infracciones del HPD Actuales por cada unidad residencial."
+msgstr "Este portafolio de edificios tiene un promedio de <0>{openviolationsperresunit}</0> violaciones del HPD Actuales por cada unidad residencial."
 
 #: src/containers/HomePage.tsx:109
 msgid "This property management company owned by the Kushner family is notorious for <0>violating rent regulations</0> and <1>harassing tenants</1>. The stake currently held by Jared Kushner and Ivanka Trump is worth as much as $761 million."
@@ -916,9 +931,9 @@ msgstr "Esto representa el <0>{rsProportion}%</0> del tamaño total de este port
 
 #: src/components/BuildingStatsTable.tsx:61
 msgid "This represents the total number of HPD Violations (both open & closed) recorded by the city."
-msgstr "Esto representa el número total de Infracciones del HPD (tanto actuales como cerradas) registradas por la ciudad."
+msgstr "Esto representa el número total de violaciones del HPD (tanto actuales como cerradas) registradas por la ciudad."
 
-#: src/containers/NotRegisteredPage.tsx:56
+#: src/containers/NotRegisteredPage.tsx:57
 msgid "This seems like a smaller residential building. If the landlord doesn't reside there, it should be registered with HPD."
 msgstr "Este parece ser un edificio residencial pequeño. Si el dueño no reside allí, el edificio debería estar registrado con el HPD."
 
@@ -939,7 +954,7 @@ msgstr "Cronología"
 msgid "Top Complaint"
 msgstr "Queja principal"
 
-#: src/components/IndicatorsViz.tsx:313
+#: src/components/IndicatorsViz.tsx:330
 #: src/components/PropertiesList.tsx:206
 #: src/components/PropertiesList.tsx:211
 #: src/components/PropertiesList.tsx:255
@@ -949,13 +964,13 @@ msgstr "Total"
 
 #: src/components/BuildingStatsTable.tsx:62
 msgid "Total Violations"
-msgstr "Infracciones Totales"
+msgstr "Violaciones Totales"
 
-#: src/containers/NotRegisteredPage.tsx:182
+#: src/containers/NotRegisteredPage.tsx:161
 msgid "Unable to initiate a court action for nonpayment of rent."
 msgstr "No es possible iniciar una acción judicial por falta de pago del alquiler."
 
-#: src/containers/NotRegisteredPage.tsx:181
+#: src/containers/NotRegisteredPage.tsx:160
 msgid "Unable to request Code Violation Dismissals"
 msgstr "Imposible solicitar el despido de una Infracción del Código de Vivienda"
 
@@ -970,8 +985,7 @@ msgstr "Unidades"
 msgid "Use this free tool from JustFix.nyc to research your building and investigate landlords! We use property ownership mapping to identify a landlord's portfolio and provide data to indicate potential tenant harassment and displacement."
 msgstr "Utilice esta herramienta gratuita de JustFix.nyc para investigar tu edificio e investigar a los arrendadores de Nueva York! Utilizamos el mapeo de propiedad para identificar el portafolio de edificios de un arrendador y proporcionar datos para revelar posibles casos de hostigamiento y desplazamiento de inquilinos."
 
-#: src/components/UsefulLinks.tsx:9
-#: src/containers/NotRegisteredPage.tsx:143
+#: src/components/UsefulLinks.tsx:8
 #: src/containers/NychaPage.tsx:153
 msgid "Useful links"
 msgstr "Enlaces útiles"
@@ -995,13 +1009,9 @@ msgstr "Ver datos a lo largo del tiempo ↗︎"
 msgid "View detail"
 msgstr "Ver detalles"
 
-#: src/components/UsefulLinks.tsx:13
+#: src/components/UsefulLinks.tsx:11
 msgid "View documents on <0>ACRIS</0>"
 msgstr "Ver documentos en <0>ACRIS</0>"
-
-#: src/containers/NotRegisteredPage.tsx:147
-msgid "View documents on ACRIS"
-msgstr "Ver documentos en ACRIS"
 
 #: src/components/PropertiesMap.tsx:193
 msgid "View legend"
@@ -1017,9 +1027,10 @@ msgstr "Ver portafolio de edificios"
 msgid "View portfolio map"
 msgstr "Ver mapa del portafolio de edificios"
 
-#: src/components/IndicatorsViz.tsx:240
+#: src/components/IndicatorsDatasets.tsx:40
+#: src/components/IndicatorsDatasets.tsx:90
 msgid "Violations Issued"
-msgstr "Infracciones emitidas"
+msgstr "Violaciones emitidas"
 
 #: src/components/EngagementPanel.tsx:24
 msgid "Visit our website"
@@ -1057,7 +1068,7 @@ msgstr ""
 msgid "What are {0}?"
 msgstr "¿Qué son {0}?"
 
-#: src/containers/NotRegisteredPage.tsx:43
+#: src/containers/NotRegisteredPage.tsx:44
 msgid "What happens if the landlord has failed to register?"
 msgstr "¿Qué pasa si el propietario no ha registrado el edificio?"
 
@@ -1140,16 +1151,20 @@ msgstr ""
 
 #: src/components/PropertiesSummary.tsx:92
 msgid "{0} {1}, {2} currently has {3, plural, one {one open HPD violation} other {# open HPD violations}} - the most in this portfolio."
-msgstr "{0} {1}, {2} tiene {3, plural, one {una infracción del HPD actual} other {# infracciones del HPD actuales}} - la major cantidad en este portafolio de edificios."
+msgstr "{0} {1}, {2} tiene {3, plural, one {una violación del HPD actual} other {# violaciones del HPD actuales}} - la major cantidad en este portafolio de edificios."
 
-#: src/components/IndicatorsDatasets.tsx:69
+#: src/components/IndicatorsDatasets.tsx:64
 msgid "{value, plural, one {One Building Permit Application since 2010} other {# Building Permit Applications since 2010}}"
 msgstr "{value, plural, one {Una Solicitud de Permiso de Construcción desde el 2010} other {# Solicitudes de Permiso de Construcción desde el 2010}}"
 
-#: src/components/IndicatorsDatasets.tsx:14
+#: src/components/IndicatorsDatasets.tsx:85
+msgid "{value, plural, one {One DOB/ECB Violation Issued since 2010} other {# DOB/ECB Violations Issued since 2010}}"
+msgstr "{value, plural, one {Una Violación del DOB/ECB emitida desde el 2010} other {# Violaciones del DOB/ECB emitidas desde el 2010}}"
+
+#: src/components/IndicatorsDatasets.tsx:7
 msgid "{value, plural, one {One HPD Complaint Issued since 2014} other {# HPD Complaints Issued since 2014}}"
 msgstr "{value, plural, one {Una Queja del HPD emitida desde el 2014} other {# Quejas del HPD emitidas desde el 2014}}"
 
-#: src/components/IndicatorsDatasets.tsx:41
+#: src/components/IndicatorsDatasets.tsx:35
 msgid "{value, plural, one {One HPD Violation Issued since 2010} other {# HPD Violations Issued since 2010}}"
-msgstr "{value, plural, one {Una Infracción del HPD emitida desde el 2010} other {# Infracciones del HPD emitidas desde el 2010}}"
+msgstr "{value, plural, one {Una Violación del HPD emitida desde el 2010} other {# Violaciones del HPD emitidas desde el 2010}}"

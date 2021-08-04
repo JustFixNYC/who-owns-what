@@ -11,19 +11,16 @@ import { I18n } from "@lingui/core";
 import { t, Trans } from "@lingui/macro";
 
 import "styles/Indicators.css";
-import {
-  IndicatorsDatasetRadio,
-  INDICATORS_DATASETS,
-  IndicatorsDatasetId,
-  indicatorsDatasetIds,
-} from "./IndicatorsDatasets";
+import { IndicatorsDatasetRadio, INDICATORS_DATASETS } from "./IndicatorsDatasets";
 import {
   indicatorsInitialState,
   IndicatorsProps,
   IndicatorsState,
-  IndicatorChartShift,
+  IndicatorsChartShift,
   IndicatorsTimeSpan,
   indicatorsTimeSpans,
+  IndicatorsDatasetId,
+  indicatorsDatasetIds,
 } from "./IndicatorsTypes";
 import { NetworkErrorMessage } from "./NetworkErrorMessage";
 import { Dropdown } from "./Dropdown";
@@ -59,7 +56,7 @@ class IndicatorsWithoutI18n extends Component<IndicatorsProps, IndicatorsState> 
   }
 
   /** Shifts the X-axis 'left' or 'right', or 'reset' the X-axis to default */
-  handleXAxisChange(shift: IndicatorChartShift) {
+  handleXAxisChange(shift: IndicatorsChartShift) {
     const span = this.state.xAxisViewableColumns;
     const activeVis = this.state.activeVis;
     const labelsArray =

@@ -8,13 +8,13 @@ import {
 import { SearchAddress } from "./AddressSearch";
 import { GeoSearchRequester } from "@justfixnyc/geosearch-requester";
 import {
-  indicatorsInitialState,
   indicatorsInitialDataStructure,
   IndicatorsDataFromAPI,
   IndicatorsData,
+  IndicatorsDatasetId,
+  indicatorsDatasetIds,
 } from "./IndicatorsTypes";
 import helpers from "util/helpers";
-import { IndicatorsDatasetId } from "./IndicatorsDatasets";
 import { NetworkError, HTTPError } from "error-reporting";
 
 // API REQUESTS TO THE DATABASE:
@@ -105,7 +105,7 @@ async function getIndicatorHistory(bbl: string): Promise<IndicatorsDataFromAPI> 
   const rawIndicatorData = (await apiData).result;
   const structuredIndicatorData = Object.assign({}, indicatorsInitialDataStructure);
 
-  for (const indicator of indicatorsInitialState.indicatorList) {
+  for (const indicator of indicatorsDatasetIds) {
     var inputData = createVizData(rawIndicatorData, indicator);
     // TO DO: Fix this "any" typecasting
     structuredIndicatorData[indicator] = inputData as any;
