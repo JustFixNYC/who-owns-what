@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2021-07-21 18:30\n"
+"PO-Revision-Date: 2021-08-04 18:53\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -58,8 +58,7 @@ msgstr "<0>Mientras el dueño legal de un edificio es, con frecuencia, una compa
 msgid "A DOB Violation is a notice that a property is not in compliance with applicable law, usually a building code. DOB violations typically relate to building-wide services (like elevators or boilers), the structural integrity of a property, or illegal construction. Owners must cure all DOB violations before they can file a new or amended Certificate of Occupancy (\"CO\").<0/><1/><2>Non-ECB</2> — typical violation, no court hearing needed<3/><4>ECB (Environment Control Board)</4> — a specific violation of New York City Construction Codes or Zoning Resolution. These violations come with additional penalties and require an owner to attend an <5>OATH hearing</5>. They fall into three classes: Class I (immediately hazardous), Class II (major), and Class III (lesser).<6/><7/>Read more about DOB Violations at the <8>official DOB page</8>."
 msgstr "Una violación de DOB es un aviso de que una propiedad no cumple con la ley aplicable, generalmente un código de edificios. Las violaciones de DOB generalmente se relacionan con servicios en todo el edificio (como ascensores o calderas), la integridad estructural de una propiedad o la construcción ilegal. Los dueños deben arreglar todas las violaciones de DOB antes de poder presentar un Certificado de ocupación (\"CO\") nuevo o enmendado.<0/><1/><2>No ECB</2> — infracción típica, no se necesita audiencia judicial<3/><4>ECB (Junta de Control Medioambiental)</4> — una violación específica de los Códigos de Construcción de la Ciudad de Nueva York o la Resolución de Zonificación. Estas violaciones vienen con sanciones adicionales y requieren que el dueño asista a una <5>audiencia de OATH</5>. Se dividen en tres clases: Clase I (peligro inmediato), Clase II (mayor) y Clase III (menor).<6/><7/>Encontrarás más información sobre las Violaciones del DOB en la <8>página oficial del DOB</8>."
 
-#: src/components/UsefulLinks.tsx:47
-#: src/containers/NotRegisteredPage.tsx:158
+#: src/components/UsefulLinks.tsx:45
 #: src/containers/NychaPage.tsx:168
 msgid "ANHD DAP Portal"
 msgstr "Portal DAP de ANHD"
@@ -128,9 +127,9 @@ msgstr "Municipio"
 msgid "Borough Management Office:"
 msgstr "Oficina de Gestión Municipal:"
 
-#: src/containers/NotRegisteredPage.tsx:64
-#: src/containers/NotRegisteredPage.tsx:84
-#: src/containers/NotRegisteredPage.tsx:103
+#: src/containers/NotRegisteredPage.tsx:65
+#: src/containers/NotRegisteredPage.tsx:85
+#: src/containers/NotRegisteredPage.tsx:104
 msgid "Building Classification"
 msgstr "Clasificación del Edificio"
 
@@ -139,11 +138,11 @@ msgid "Building Permit Applications"
 msgstr "Solicitudes de Permisos de Construcción"
 
 #: src/components/IndicatorsDatasets.tsx:69
-#: src/components/IndicatorsViz.tsx:174
+#: src/components/IndicatorsViz.tsx:175
 msgid "Building Permits Applied For"
 msgstr "Permisos de Construcción Solicitados"
 
-#: src/containers/NotRegisteredPage.tsx:174
+#: src/containers/NotRegisteredPage.tsx:153
 msgid "Buildings without valid property registration are subject to the following:"
 msgstr "Edificios sin registro de propiedad válido están sujetos a las siguientes obligaciones:"
 
@@ -182,23 +181,23 @@ msgstr "GAS DE COCINA"
 msgid "Check out the issues in this building"
 msgstr "Mira los problemas en este edificio"
 
-#: src/containers/NotRegisteredPage.tsx:178
+#: src/containers/NotRegisteredPage.tsx:157
 msgid "Civil penalties of $250-$500"
 msgstr "Sanciones civiles de $250-$500"
 
-#: src/components/IndicatorsViz.tsx:145
+#: src/components/IndicatorsViz.tsx:146
 msgid "Class A"
 msgstr "Clase A"
 
-#: src/components/IndicatorsViz.tsx:138
+#: src/components/IndicatorsViz.tsx:139
 msgid "Class B"
 msgstr "Clase B"
 
-#: src/components/IndicatorsViz.tsx:131
+#: src/components/IndicatorsViz.tsx:132
 msgid "Class C"
 msgstr "Clase C"
 
-#: src/containers/NotRegisteredPage.tsx:187
+#: src/containers/NotRegisteredPage.tsx:166
 msgid "Click here to learn more."
 msgstr "HaZ clic aquí para obtener más información."
 
@@ -222,8 +221,7 @@ msgstr "Dueño Corporativo"
 msgid "Corporation"
 msgstr "Corporación"
 
-#: src/components/UsefulLinks.tsx:33
-#: src/containers/NotRegisteredPage.tsx:155
+#: src/components/UsefulLinks.tsx:31
 msgid "DOB Building Profile"
 msgstr "Perfil de edificio en DOB"
 
@@ -231,8 +229,7 @@ msgstr "Perfil de edificio en DOB"
 msgid "DOB/ECB Violations"
 msgstr "Violaciones del DOB/ECB"
 
-#: src/components/UsefulLinks.tsx:40
-#: src/containers/NotRegisteredPage.tsx:150
+#: src/components/UsefulLinks.tsx:38
 msgid "DOF Property Tax Bills"
 msgstr "Facturas de Impuestos del DOF"
 
@@ -271,7 +268,7 @@ msgstr "Donar"
 msgid "Download"
 msgstr "Descargar"
 
-#: src/components/IndicatorsViz.tsx:185
+#: src/components/IndicatorsViz.tsx:186
 msgid "ECB"
 msgstr "ECB"
 
@@ -287,7 +284,7 @@ msgstr "ASCENSOR"
 msgid "Email"
 msgstr "Email"
 
-#: src/components/IndicatorsViz.tsx:156
+#: src/components/IndicatorsViz.tsx:157
 msgid "Emergency"
 msgstr "Emergencia"
 
@@ -330,7 +327,7 @@ msgstr "PISO"
 msgid "FLOORING/STAIRS"
 msgstr "PISO/ESCALERAS"
 
-#: src/containers/NotRegisteredPage.tsx:173
+#: src/containers/NotRegisteredPage.tsx:152
 msgid "Failure to register a building with HPD"
 msgstr "Si no se registra un edificio con el HPD"
 
@@ -355,7 +352,7 @@ msgstr "CALEFACCIÓN/AGUA CALIENTE"
 msgid "HEATING"
 msgstr "CALEFACCIÓN"
 
-#: src/components/UsefulLinks.tsx:26
+#: src/components/UsefulLinks.tsx:24
 msgid "HPD Building Profile"
 msgstr "Perfil de edificio del HPD"
 
@@ -411,7 +408,7 @@ msgstr "Estaba revisando este edificio en Quién Es El Dueño, una herramienta g
 msgid "Individual Owner"
 msgstr "Dueño Individual"
 
-#: src/containers/NotRegisteredPage.tsx:180
+#: src/containers/NotRegisteredPage.tsx:159
 msgid "Ineligible to certify violations"
 msgstr "Inelegible para certificar violaciones"
 
@@ -419,7 +416,7 @@ msgstr "Inelegible para certificar violaciones"
 msgid "Information"
 msgstr "Información"
 
-#: src/containers/NotRegisteredPage.tsx:98
+#: src/containers/NotRegisteredPage.tsx:99
 msgid "It doesn't seem like this property is required to register with HPD."
 msgstr "Parece que esta propiedad no necesita estar registrada con el HPD."
 
@@ -461,7 +458,7 @@ msgstr "Últimos 3 años"
 msgid "Last Sale"
 msgstr "Última venta"
 
-#: src/components/IndicatorsViz.tsx:366
+#: src/components/IndicatorsViz.tsx:368
 msgid "Last Sale Unknown"
 msgstr "Última venta desconocida"
 
@@ -523,7 +520,7 @@ msgstr "Hecho en NYC con ♥ por el equipo de <0>JustFix.nyc</0>"
 msgid "Maintenance code violations"
 msgstr "Violaciones del código de mantenimiento"
 
-#: src/containers/NotRegisteredPage.tsx:179
+#: src/containers/NotRegisteredPage.tsx:158
 msgid "May be issued official Orders"
 msgstr "Pueden emitirse órdenes oficiales"
 
@@ -577,23 +574,23 @@ msgstr "No"
 msgid "No address found"
 msgstr "No se encontraron direcciones"
 
-#: src/components/IndicatorsViz.tsx:420
+#: src/components/IndicatorsViz.tsx:422
 msgid "No data available"
 msgstr "No hay datos disponibles"
 
-#: src/containers/NotRegisteredPage.tsx:122
+#: src/containers/NotRegisteredPage.tsx:123
 msgid "No registration found for {usersInputAddressFragment}!"
 msgstr "¡No se ha encontrado ningún registro para {usersInputAddressFragment}!"
 
-#: src/containers/NotRegisteredPage.tsx:122
+#: src/containers/NotRegisteredPage.tsx:123
 msgid "No registration found!"
 msgstr "¡No se ha encontrado nigún registro!"
 
-#: src/components/IndicatorsViz.tsx:192
+#: src/components/IndicatorsViz.tsx:193
 msgid "Non-ECB"
 msgstr "No ECB"
 
-#: src/components/IndicatorsViz.tsx:163
+#: src/components/IndicatorsViz.tsx:164
 msgid "Non-Emergency"
 msgstr "No Emergencia"
 
@@ -712,7 +709,7 @@ msgstr "ESCALERAS"
 msgid "Search"
 msgstr "Buscar"
 
-#: src/containers/NotRegisteredPage.tsx:169
+#: src/containers/NotRegisteredPage.tsx:148
 #: src/containers/NychaPage.tsx:190
 msgid "Search for a different address"
 msgstr "Buscar otra dirección"
@@ -730,7 +727,7 @@ msgstr "Compartir"
 #: src/components/EngagementPanel.tsx:18
 #: src/components/PropertiesSummary.tsx:133
 #: src/containers/App.tsx:124
-#: src/containers/NotRegisteredPage.tsx:13
+#: src/containers/NotRegisteredPage.tsx:14
 msgid "Share this page with your neighbors"
 msgstr "Comparte esta página con tus vecinos"
 
@@ -759,7 +756,7 @@ msgstr "Desde el 2017, los Mariscales de NYC programaron {totalEvictions, plural
 msgid "Site Manager"
 msgstr "Administrador del Sitio"
 
-#: src/components/IndicatorsViz.tsx:365
+#: src/components/IndicatorsViz.tsx:367
 msgid "Sold to Current Owner"
 msgstr "Vendido al Propietario Actual"
 
@@ -849,7 +846,7 @@ msgstr "Hay {0, plural, one {<0><1>1</1> edificio</0>} other {<2><3>{1}</3> edif
 msgid "This building is owned by the NYC Housing Authority (NYCHA)"
 msgstr "Este edificio es propiedad de la NYC Housing Authority (NYCHA)"
 
-#: src/containers/NotRegisteredPage.tsx:79
+#: src/containers/NotRegisteredPage.tsx:80
 msgid "This building seems like it should be registered with HPD!"
 msgstr "¡Parece que este edificio debería estar registrado con el HPD!"
 
@@ -901,7 +898,7 @@ msgstr "Esto representa el <0>{rsProportion}%</0> del tamaño total de este port
 msgid "This represents the total number of HPD Violations (both open & closed) recorded by the city."
 msgstr "Esto representa el número total de violaciones del HPD (tanto actuales como cerradas) registradas por la ciudad."
 
-#: src/containers/NotRegisteredPage.tsx:56
+#: src/containers/NotRegisteredPage.tsx:57
 msgid "This seems like a smaller residential building. If the landlord doesn't reside there, it should be registered with HPD."
 msgstr "Este parece ser un edificio residencial pequeño. Si el dueño no reside allí, el edificio debería estar registrado con el HPD."
 
@@ -922,7 +919,7 @@ msgstr "Cronología"
 msgid "Top Complaint"
 msgstr "Queja principal"
 
-#: src/components/IndicatorsViz.tsx:328
+#: src/components/IndicatorsViz.tsx:330
 #: src/components/PropertiesList.tsx:206
 #: src/components/PropertiesList.tsx:211
 #: src/components/PropertiesList.tsx:255
@@ -934,11 +931,11 @@ msgstr "Total"
 msgid "Total Violations"
 msgstr "Violaciones Totales"
 
-#: src/containers/NotRegisteredPage.tsx:182
+#: src/containers/NotRegisteredPage.tsx:161
 msgid "Unable to initiate a court action for nonpayment of rent."
 msgstr "No es possible iniciar una acción judicial por falta de pago del alquiler."
 
-#: src/containers/NotRegisteredPage.tsx:181
+#: src/containers/NotRegisteredPage.tsx:160
 msgid "Unable to request Code Violation Dismissals"
 msgstr "Imposible solicitar el despido de una Infracción del Código de Vivienda"
 
@@ -953,8 +950,7 @@ msgstr "Unidades"
 msgid "Use this free tool from JustFix.nyc to research your building and investigate landlords! We use property ownership mapping to identify a landlord's portfolio and provide data to indicate potential tenant harassment and displacement."
 msgstr "Utilice esta herramienta gratuita de JustFix.nyc para investigar tu edificio e investigar a los arrendadores de Nueva York! Utilizamos el mapeo de propiedad para identificar el portafolio de edificios de un arrendador y proporcionar datos para revelar posibles casos de hostigamiento y desplazamiento de inquilinos."
 
-#: src/components/UsefulLinks.tsx:9
-#: src/containers/NotRegisteredPage.tsx:143
+#: src/components/UsefulLinks.tsx:8
 #: src/containers/NychaPage.tsx:153
 msgid "Useful links"
 msgstr "Enlaces útiles"
@@ -978,13 +974,9 @@ msgstr "Ver datos a lo largo del tiempo ↗︎"
 msgid "View detail"
 msgstr "Ver detalles"
 
-#: src/components/UsefulLinks.tsx:13
+#: src/components/UsefulLinks.tsx:11
 msgid "View documents on <0>ACRIS</0>"
 msgstr "Ver documentos en <0>ACRIS</0>"
-
-#: src/containers/NotRegisteredPage.tsx:147
-msgid "View documents on ACRIS"
-msgstr "Ver documentos en ACRIS"
 
 #: src/components/PropertiesMap.tsx:193
 msgid "View legend"
@@ -1033,7 +1025,7 @@ msgstr "Comparamos la dirección que buscaste con una base de datos de más de 2
 msgid "What are {0}?"
 msgstr "¿Qué son {0}?"
 
-#: src/containers/NotRegisteredPage.tsx:43
+#: src/containers/NotRegisteredPage.tsx:44
 msgid "What happens if the landlord has failed to register?"
 msgstr "¿Qué pasa si el propietario no ha registrado el edificio?"
 
