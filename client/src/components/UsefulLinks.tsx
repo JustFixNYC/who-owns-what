@@ -4,8 +4,8 @@ import Helpers from "../util/helpers";
 import { AddressRecord } from "./APIDataTypes";
 
 type UsefulLinksProps = {
-  addrForLinks: AddressRecord;
-  location: "overview-tab" | "timeline-tab";
+  addrForLinks: Pick<AddressRecord, "bbl" | "housenumber" | "streetname">;
+  location: "overview-tab" | "timeline-tab" | "not-registered-page";
 };
 
 export const UsefulLinks: React.FC<UsefulLinksProps> = ({ addrForLinks, location }) => {
@@ -13,9 +13,7 @@ export const UsefulLinks: React.FC<UsefulLinksProps> = ({ addrForLinks, location
   const { boro, block, lot } = Helpers.splitBBL(bbl);
   return (
     <div className="card-body-links">
-      <b>
-        <Trans>Useful links</Trans>
-      </b>
+      <Trans render={location === "not-registered-page" ? "p" : "b"}>Useful links</Trans>
       <ul>
         <li>
           <Trans>
