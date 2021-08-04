@@ -13,7 +13,7 @@ import * as ChartAnnotation from "chartjs-plugin-annotation";
 import Helpers, { mediumDateOptions, shortDateOptions } from "../util/helpers";
 
 import "styles/Indicators.css";
-import { IndicatorsState } from "./IndicatorsTypes";
+import { indicatorsDatasetIds, IndicatorsState } from "./IndicatorsTypes";
 import { SupportedLocale } from "../i18n-base";
 import { ChartOptions } from "chart.js";
 import { withMachineInStateProps } from "state-machine";
@@ -145,7 +145,6 @@ class IndicatorsVizImplementation extends Component<IndicatorVizImplementationPr
   }
 
   /** Returns grouped data to match selected time span */
-
   groupData(dataArray: number[] | null) {
     if (dataArray && this.props.activeTimeSpan === "quarter") {
       var dataByQuarter = [];
@@ -169,7 +168,7 @@ class IndicatorsVizImplementation extends Component<IndicatorVizImplementationPr
   /** Returns maximum y-value across all datasets, grouped by selected timespan */
   getDataMaximum() {
     var { timelineData } = this.props.state.context;
-    var dataMaximums = this.props.indicatorList.map((datasetName) => {
+    var dataMaximums = indicatorsDatasetIds.map((datasetName) => {
       const { total } = timelineData[datasetName].values;
       return total ? Helpers.maxArray(this.groupData(total) || [0]) : 0;
     });
@@ -303,6 +302,22 @@ class IndicatorsVizImplementation extends Component<IndicatorVizImplementationPr
 
     var timeSpan = this.props.activeTimeSpan;
 
+    const formatXAxisTicks = (dateValue: string): string => {
+      if (timeSpan === "month") {
+        var fullDate = dateValue.concat("-15"); // Make date value include a day so it can be parsed
+        return (
+          (dateValue.slice(5, 7) === "01" ? dateValue.slice(0, 4) + "  " : "") + // Include special year label for January
+          Helpers.formatDate(fullDate, shortDateOptions, locale)
+        );
+      } else if (timeSpan === "quarter") {
+        return (
+          (dateValue.slice(-2) === "Q1" ? dateValue.slice(0, 4) + "  " : "") + dateValue.slice(-2) // Include special year label for Q1
+        );
+      } else {
+        return dateValue;
+      }
+    };
+
     var acrisURL =
       this.props.lastSale && this.props.lastSale.documentid
         ? "https://a836-acris.nyc.gov/DS/DocumentSearch/DocumentImageView?doc_id=" +
@@ -344,21 +359,7 @@ class IndicatorsVizImplementation extends Component<IndicatorVizImplementationPr
                 : null,
               maxRotation: 45,
               minRotation: 45,
-              callback: function (value: any, index: any, values: any) {
-                if (timeSpan === "month") {
-                  var fullDate = value.concat("-15"); // Make date value include a day so it can be parsed
-                  return (
-                    (value.slice(5, 7) === "01" ? value.slice(0, 4) + "  " : "") + // Include special year label for January
-                    Helpers.formatDate(fullDate, shortDateOptions, locale)
-                  );
-                } else if (timeSpan === "quarter") {
-                  return (
-                    (value.slice(-2) === "Q1" ? value.slice(0, 4) + "  " : "") + value.slice(-2) // Include special year label for Q1
-                  );
-                } else {
-                  return value;
-                }
-              },
+              callback: formatXAxisTicks,
             },
             stacked: true,
           },

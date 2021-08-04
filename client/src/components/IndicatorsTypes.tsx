@@ -127,10 +127,8 @@ type LastSaleData = {
 
 export type IndicatorsState = {
   lastSale: LastSaleData;
-  indicatorList: IndicatorsDatasetId[];
   defaultVis: IndicatorsDatasetId;
   activeVis: IndicatorsDatasetId;
-  timeSpanList: IndicatorsTimeSpan[];
   activeTimeSpan: IndicatorsTimeSpan;
   monthsInGroup: number;
   xAxisStart: number;
@@ -143,11 +141,8 @@ export const indicatorsInitialState: IndicatorsState = {
     label: null,
     documentid: null,
   },
-
-  indicatorList: ["hpdcomplaints", "hpdviolations", "dobpermits", "dobviolations"],
   defaultVis: "hpdcomplaints",
   activeVis: "hpdcomplaints",
-  timeSpanList: ["month", "quarter", "year"],
   activeTimeSpan: "quarter",
   monthsInGroup: 3,
   xAxisStart: 0,
@@ -165,4 +160,4 @@ export type IndicatorsProps = withI18nProps &
 
 // Other Useful Types and Type-related utilites:
 
-export type IndicatorChartShift = "left" | "right" | "reset";
+export type IndicatorsChartShift = "left" | "right" | "reset";
