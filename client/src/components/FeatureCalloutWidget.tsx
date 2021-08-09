@@ -8,7 +8,14 @@ import { useState } from "react";
 import { t } from "@lingui/macro";
 
 const FeatureCalloutWidget = withI18n()((props: withI18nProps) => {
-  const [isWidgetOpen, setWidgetVisibility] = useState(true);
+  /**
+   * A randomly chosen boolean value. Has a 50% chance of being true or false on page load.
+   * This implementation allows us to do some hacky A/B Testing between widget being open and
+   * being closed by default.
+   */
+  const DEFAULT_WIDGET_VISIBILITY = Math.random() < 0.5;
+
+  const [isWidgetOpen, setWidgetVisibility] = useState(DEFAULT_WIDGET_VISIBILITY);
   const toggleWidget = () => setWidgetVisibility(!isWidgetOpen);
 
   const [entryIndex, setEntryIndex] = useState(0);
