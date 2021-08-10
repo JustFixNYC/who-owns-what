@@ -110,6 +110,7 @@ const FeatureCalloutWidget = withI18n()((props: withI18nProps) => {
                   tabIndex={0}
                   onClick={(event) => {
                     event.preventDefault();
+                    amplitude.getInstance().logEvent("viewPreviousEntryOnFeatureCalloutWidget");
                     setEntryIndex((entryIndex + numberOfEntries - 1) % numberOfEntries);
                   }}
                 >
@@ -121,6 +122,7 @@ const FeatureCalloutWidget = withI18n()((props: withI18nProps) => {
                   tabIndex={0}
                   onClick={(event) => {
                     event.preventDefault();
+                    amplitude.getInstance().logEvent("viewNextEntryOnFeatureCalloutWidget");
                     setEntryIndex((entryIndex + 1) % numberOfEntries);
                   }}
                 >
