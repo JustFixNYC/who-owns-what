@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2021-08-10 18:28\n"
+"PO-Revision-Date: 2021-08-10 18:34\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -52,7 +52,7 @@ msgstr "... o descubre ejemplos de portafolios de edificios:"
 
 #: src/components/FeatureCalloutContent.tsx:8
 msgid "311 Complaints Data"
-msgstr ""
+msgstr "Datos de quejas al 311"
 
 #: src/components/DetailView.tsx:54
 msgid "<0>While the legal owner of a building is often a company (usually called an “LLC”), these names and business addresses registered with HPD offer a clearer picture of who really controls the building.</0><1>People listed here as “Head Officer” or “Owner” usually have ties to building ownership, while “Site Managers” are part of management. That being said, these names are self reported by the landlord, so they can be misleading.</1><2>Learn more about HPD registrations and how this information powers this tool on the <3>About page</3>.</2>"
@@ -64,7 +64,7 @@ msgstr "Una violación de DOB es un aviso de que una propiedad no cumple con la 
 
 #: src/components/FeatureCalloutContent.tsx:19
 msgid "A new set of dropdown menus and design tweaks make it more comfortable to use Who Owns What on the go."
-msgstr ""
+msgstr "Un nuevo conjunto de menús desplegables y ajustes de diseño hacen que sea más cómodo usar ¿Quién Es El Dueño? donde vaya."
 
 #: src/components/UsefulLinks.tsx:45
 #: src/containers/NychaPage.tsx:168
@@ -207,7 +207,7 @@ msgstr "Clase C"
 
 #: src/components/FeatureCalloutContent.tsx:13
 msgid "Clearer Landlord Contact Info"
-msgstr ""
+msgstr "Información de contacto del dueño más clara"
 
 #: src/containers/NotRegisteredPage.tsx:166
 msgid "Click here to learn more."
@@ -548,7 +548,7 @@ msgstr "Metodología"
 
 #: src/components/FeatureCalloutContent.tsx:18
 msgid "More Mobile Friendly"
-msgstr ""
+msgstr "Más útil para dispositivos móviles"
 
 #: src/components/DetailView.tsx:153
 msgid "Most Common 311 Complaints, Last 3 Years"
@@ -584,7 +584,7 @@ msgstr "Oficina Regional de Nueva York:"
 
 #: src/components/FeatureCalloutWidget.tsx:66
 msgid "Next"
-msgstr ""
+msgstr "Siguiente"
 
 #: src/components/PropertiesList.tsx:348
 msgid "No"
@@ -694,11 +694,11 @@ msgstr "Portafolio"
 
 #: src/components/FeatureCalloutContent.tsx:23
 msgid "Portfolio Table Redesign"
-msgstr ""
+msgstr "Rediseño de la tabla del portafolio"
 
 #: src/components/FeatureCalloutWidget.tsx:60
 msgid "Previous"
-msgstr ""
+msgstr "Anterior"
 
 #: src/components/LegalFooter.tsx:39
 #: src/containers/PrivacyPolicyPage.tsx:8
@@ -745,7 +745,7 @@ msgstr "Buscar otra dirección"
 
 #: src/components/FeatureCalloutContent.tsx:9
 msgid "See the most common complaints reported by tenants to 311, now on the Overview and Portfolio tabs."
-msgstr ""
+msgstr "Vea las quejas más comunes reportadas por inquilinos al 311, ahora en las pestañas General y Portafolio."
 
 #: src/components/PropertiesSummary.tsx:36
 msgid "Send us a data request"
@@ -1056,11 +1056,11 @@ msgstr "Comparamos la dirección que buscaste con una base de datos de más de 2
 
 #: src/components/FeatureCalloutContent.tsx:24
 msgid "We overhauled the Portfolio tab to help make navigating this large table of data easier, especially for mobile phones."
-msgstr ""
+msgstr "Revisamos la pestaña Portafolio para ayudarle navegar por esta gran tabla de datos, especialmente para dispositivos móviles."
 
 #: src/components/FeatureCalloutContent.tsx:14
 msgid "We reorganized the contact details for each individual and corporate entities associated with a property on the Overview tab."
-msgstr ""
+msgstr "Reorganizamos los datos de contacto de cada entidad individual y corporativa asociada con una propiedad en la pestaña General."
 
 #: src/components/Indicators.tsx:224
 msgid "What are {0}?"
@@ -1073,7 +1073,7 @@ msgstr "¿Qué pasa si el propietario no ha registrado el edificio?"
 #: src/components/FeatureCalloutWidget.tsx:33
 #: src/components/FeatureCalloutWidget.tsx:46
 msgid "What's New"
-msgstr ""
+msgstr "Qué hay de nuevo"
 
 #: src/components/SocialShare.tsx:14
 msgid "Who Owns What is a free tool built by JustFix.nyc to research property owners in NYC. It has helped over 200,000 New Yorkers find out who really owns their building, what other buildings that their landlord or management company owns, and other critical information about code violations, evictions, rent stabilized units, and so much more in any given building. You can look up any residential building located in NYC, even public housing (NYCHA) buildings! Search your address here: {url}"
@@ -1145,7 +1145,7 @@ msgstr "año"
 
 #: src/components/FeatureCalloutWidget.tsx:16
 msgid "{0} of {numberOfEntries}"
-msgstr ""
+msgstr "{0} de {numberOfEntries}"
 
 #: src/components/PropertiesSummary.tsx:92
 msgid "{0} {1}, {2} currently has {3, plural, one {one open HPD violation} other {# open HPD violations}} - the most in this portfolio."
