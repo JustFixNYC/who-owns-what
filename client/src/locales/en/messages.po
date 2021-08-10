@@ -45,7 +45,7 @@ msgstr "({browserType, select, mobile {tap} other {click}} to view details)"
 msgid "... or view some sample portfolios:"
 msgstr "... or view some sample portfolios:"
 
-#: src/components/FeatureCalloutContent.tsx:8
+#: src/components/FeatureCalloutContent.ts:8
 msgid "311 Complaints Data"
 msgstr "311 Complaints Data"
 
@@ -57,7 +57,7 @@ msgstr "<0>While the legal owner of a building is often a company (usually calle
 msgid "A DOB Violation is a notice that a property is not in compliance with applicable law, usually a building code. DOB violations typically relate to building-wide services (like elevators or boilers), the structural integrity of a property, or illegal construction. Owners must cure all DOB violations before they can file a new or amended Certificate of Occupancy (\"CO\").<0/><1/><2>Non-ECB</2> — typical violation, no court hearing needed<3/><4>ECB (Environment Control Board)</4> — a specific violation of New York City Construction Codes or Zoning Resolution. These violations come with additional penalties and require an owner to attend an <5>OATH hearing</5>. They fall into three classes: Class I (immediately hazardous), Class II (major), and Class III (lesser).<6/><7/>Read more about DOB Violations at the <8>official DOB page</8>."
 msgstr "A DOB Violation is a notice that a property is not in compliance with applicable law, usually a building code. DOB violations typically relate to building-wide services (like elevators or boilers), the structural integrity of a property, or illegal construction. Owners must cure all DOB violations before they can file a new or amended Certificate of Occupancy (\"CO\").<0/><1/><2>Non-ECB</2> — typical violation, no court hearing needed<3/><4>ECB (Environment Control Board)</4> — a specific violation of New York City Construction Codes or Zoning Resolution. These violations come with additional penalties and require an owner to attend an <5>OATH hearing</5>. They fall into three classes: Class I (immediately hazardous), Class II (major), and Class III (lesser).<6/><7/>Read more about DOB Violations at the <8>official DOB page</8>."
 
-#: src/components/FeatureCalloutContent.tsx:19
+#: src/components/FeatureCalloutContent.ts:19
 msgid "A new set of dropdown menus and design tweaks make it more comfortable to use Who Owns What on the go."
 msgstr "A new set of dropdown menus and design tweaks make it more comfortable to use Who Owns What on the go."
 
@@ -200,7 +200,7 @@ msgstr "Class B"
 msgid "Class C"
 msgstr "Class C"
 
-#: src/components/FeatureCalloutContent.tsx:13
+#: src/components/FeatureCalloutContent.ts:13
 msgid "Clearer Landlord Contact Info"
 msgstr "Clearer Landlord Contact Info"
 
@@ -209,7 +209,7 @@ msgid "Click here to learn more."
 msgstr "Click here to learn more."
 
 #: src/components/DetailView.tsx:52
-#: src/components/FeatureCalloutWidget.tsx:48
+#: src/components/FeatureCalloutWidget.tsx:54
 msgid "Close"
 msgstr "Close"
 
@@ -541,7 +541,7 @@ msgstr "Menu"
 msgid "Methodology"
 msgstr "Methodology"
 
-#: src/components/FeatureCalloutContent.tsx:18
+#: src/components/FeatureCalloutContent.ts:18
 msgid "More Mobile Friendly"
 msgstr "More Mobile Friendly"
 
@@ -577,7 +577,7 @@ msgstr "New Search"
 msgid "New York Regional Office:"
 msgstr "New York Regional Office:"
 
-#: src/components/FeatureCalloutWidget.tsx:66
+#: src/components/FeatureCalloutWidget.tsx:72
 msgid "Next"
 msgstr "Next"
 
@@ -687,11 +687,11 @@ msgstr "Please enter an email address!"
 msgid "Portfolio"
 msgstr "Portfolio"
 
-#: src/components/FeatureCalloutContent.tsx:23
+#: src/components/FeatureCalloutContent.ts:23
 msgid "Portfolio Table Redesign"
 msgstr "Portfolio Table Redesign"
 
-#: src/components/FeatureCalloutWidget.tsx:60
+#: src/components/FeatureCalloutWidget.tsx:66
 msgid "Previous"
 msgstr "Previous"
 
@@ -738,7 +738,7 @@ msgstr "Search"
 msgid "Search for a different address"
 msgstr "Search for a different address"
 
-#: src/components/FeatureCalloutContent.tsx:9
+#: src/components/FeatureCalloutContent.ts:9
 msgid "See the most common complaints reported by tenants to 311, now on the Overview and Portfolio tabs."
 msgstr "See the most common complaints reported by tenants to 311, now on the Overview and Portfolio tabs."
 
@@ -1049,11 +1049,11 @@ msgstr "Warning! This site doesn't fully work on older versions of Safari. Try a
 msgid "We compare your search address with a database of over 200k buildings to identify a landlord or management company's portfolio. To learn more, check out <0>our methodology</0>."
 msgstr "We compare your search address with a database of over 200k buildings to identify a landlord or management company's portfolio. To learn more, check out <0>our methodology</0>."
 
-#: src/components/FeatureCalloutContent.tsx:24
+#: src/components/FeatureCalloutContent.ts:24
 msgid "We overhauled the Portfolio tab to help make navigating this large table of data easier, especially for mobile phones."
 msgstr "We overhauled the Portfolio tab to help make navigating this large table of data easier, especially for mobile phones."
 
-#: src/components/FeatureCalloutContent.tsx:14
+#: src/components/FeatureCalloutContent.ts:14
 msgid "We reorganized the contact details for each individual and corporate entities associated with a property on the Overview tab."
 msgstr "We reorganized the contact details for each individual and corporate entities associated with a property on the Overview tab."
 
@@ -1065,8 +1065,8 @@ msgstr "What are {0}?"
 msgid "What happens if the landlord has failed to register?"
 msgstr "What happens if the landlord has failed to register?"
 
-#: src/components/FeatureCalloutWidget.tsx:33
-#: src/components/FeatureCalloutWidget.tsx:46
+#: src/components/FeatureCalloutWidget.tsx:39
+#: src/components/FeatureCalloutWidget.tsx:52
 msgid "What's New"
 msgstr "What's New"
 
@@ -1138,7 +1138,7 @@ msgstr "search address"
 msgid "year"
 msgstr "year"
 
-#: src/components/FeatureCalloutWidget.tsx:16
+#: src/components/FeatureCalloutWidget.tsx:22
 msgid "{0} of {numberOfEntries}"
 msgstr "{0} of {numberOfEntries}"
 
