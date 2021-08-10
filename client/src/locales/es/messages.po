@@ -50,6 +50,10 @@ msgstr "({browserType, select, mobile {pulsa} other {haz clic}} para ver detalle
 msgid "... or view some sample portfolios:"
 msgstr "... o descubre ejemplos de portafolios de edificios:"
 
+#: src/components/FeatureCalloutContent.tsx:8
+msgid "311 Complaints Data"
+msgstr ""
+
 #: src/components/DetailView.tsx:54
 msgid "<0>While the legal owner of a building is often a company (usually called an “LLC”), these names and business addresses registered with HPD offer a clearer picture of who really controls the building.</0><1>People listed here as “Head Officer” or “Owner” usually have ties to building ownership, while “Site Managers” are part of management. That being said, these names are self reported by the landlord, so they can be misleading.</1><2>Learn more about HPD registrations and how this information powers this tool on the <3>About page</3>.</2>"
 msgstr "<0>Mientras el dueño legal de un edificio es, con frecuencia, una compañía (se llama muchas veces un “LLC”), estos nombres y direcciones de negocio registrado con HPD se ofrecen una idea más clara de quién controla el edificio.</0><1>Las personas enumeradas aquí como “Oficial Principal” o “Dueño” normalmente tienen una conexión con la propiedad del edificio, mientras que los \"Administradores del Sitio\" formen parte de la gerencia. Dicho eso, estos nombres son autoinformados por el dueño, y entonces pueden ser engañosos.</1><2>Aprende más acerca de registros de HPD y cómo esta información impulsa la herramienta en la <3>página “Acerca de”</3>.</2>"
@@ -57,6 +61,10 @@ msgstr "<0>Mientras el dueño legal de un edificio es, con frecuencia, una compa
 #: src/components/IndicatorsDatasets.tsx:91
 msgid "A DOB Violation is a notice that a property is not in compliance with applicable law, usually a building code. DOB violations typically relate to building-wide services (like elevators or boilers), the structural integrity of a property, or illegal construction. Owners must cure all DOB violations before they can file a new or amended Certificate of Occupancy (\"CO\").<0/><1/><2>Non-ECB</2> — typical violation, no court hearing needed<3/><4>ECB (Environment Control Board)</4> — a specific violation of New York City Construction Codes or Zoning Resolution. These violations come with additional penalties and require an owner to attend an <5>OATH hearing</5>. They fall into three classes: Class I (immediately hazardous), Class II (major), and Class III (lesser).<6/><7/>Read more about DOB Violations at the <8>official DOB page</8>."
 msgstr "Una violación de DOB es un aviso de que una propiedad no cumple con la ley aplicable, generalmente un código de edificios. Las violaciones de DOB generalmente se relacionan con servicios en todo el edificio (como ascensores o calderas), la integridad estructural de una propiedad o la construcción ilegal. Los dueños deben arreglar todas las violaciones de DOB antes de poder presentar un Certificado de ocupación (\"CO\") nuevo o enmendado.<0/><1/><2>No ECB</2> — infracción típica, no se necesita audiencia judicial<3/><4>ECB (Junta de Control Medioambiental)</4> — una violación específica de los Códigos de Construcción de la Ciudad de Nueva York o la Resolución de Zonificación. Estas violaciones vienen con sanciones adicionales y requieren que el dueño asista a una <5>audiencia de OATH</5>. Se dividen en tres clases: Clase I (peligro inmediato), Clase II (mayor) y Clase III (menor).<6/><7/>Encontrarás más información sobre las Violaciones del DOB en la <8>página oficial del DOB</8>."
+
+#: src/components/FeatureCalloutContent.tsx:19
+msgid "A new set of dropdown menus and design tweaks make it more comfortable to use Who Owns What on the go."
+msgstr ""
 
 #: src/components/UsefulLinks.tsx:45
 #: src/containers/NychaPage.tsx:168
@@ -68,7 +76,7 @@ msgid "APPLIANCE"
 msgstr "MEDIO DOMÉSTICO"
 
 #: src/containers/AboutPage.tsx:13
-#: src/containers/App.tsx:66
+#: src/containers/App.tsx:67
 msgid "About"
 msgstr "Acerca de"
 
@@ -197,11 +205,16 @@ msgstr "Clase B"
 msgid "Class C"
 msgstr "Clase C"
 
+#: src/components/FeatureCalloutContent.tsx:13
+msgid "Clearer Landlord Contact Info"
+msgstr ""
+
 #: src/containers/NotRegisteredPage.tsx:166
 msgid "Click here to learn more."
 msgstr "HaZ clic aquí para obtener más información."
 
 #: src/components/DetailView.tsx:52
+#: src/components/FeatureCalloutWidget.tsx:48
 msgid "Close"
 msgstr "Cerrar"
 
@@ -246,7 +259,7 @@ msgstr "PUERTAS"
 msgid "Date"
 msgstr "Fecha"
 
-#: src/containers/App.tsx:95
+#: src/containers/App.tsx:97
 msgid "Demo Site"
 msgstr "Sitio Demo"
 
@@ -260,7 +273,7 @@ msgid "Display:"
 msgstr "Mostrar:"
 
 #: src/components/LegalFooter.tsx:33
-#: src/containers/App.tsx:72
+#: src/containers/App.tsx:73
 msgid "Donate"
 msgstr "Donar"
 
@@ -387,7 +400,7 @@ msgstr "Oficial Principal"
 msgid "How is this building associated to this portfolio?"
 msgstr "¿Cómo se asocia este edificio a este portafolio de edificios?"
 
-#: src/containers/App.tsx:69
+#: src/containers/App.tsx:70
 #: src/containers/HowToUsePage.tsx:13
 msgid "How to use"
 msgstr "Cómo se usa"
@@ -533,6 +546,10 @@ msgstr "Menu"
 msgid "Methodology"
 msgstr "Metodología"
 
+#: src/components/FeatureCalloutContent.tsx:18
+msgid "More Mobile Friendly"
+msgstr ""
+
 #: src/components/DetailView.tsx:153
 msgid "Most Common 311 Complaints, Last 3 Years"
 msgstr "Las quejas más comunes de 311, los últimos 3 años"
@@ -564,6 +581,10 @@ msgstr "Nueva búsqueda"
 #: src/containers/NychaPage.tsx:112
 msgid "New York Regional Office:"
 msgstr "Oficina Regional de Nueva York:"
+
+#: src/components/FeatureCalloutWidget.tsx:66
+msgid "Next"
+msgstr ""
 
 #: src/components/PropertiesList.tsx:348
 msgid "No"
@@ -671,6 +692,14 @@ msgstr "Por favor, ¡introduzca una dirección de correo electrónico!"
 msgid "Portfolio"
 msgstr "Portafolio"
 
+#: src/components/FeatureCalloutContent.tsx:23
+msgid "Portfolio Table Redesign"
+msgstr ""
+
+#: src/components/FeatureCalloutWidget.tsx:60
+msgid "Previous"
+msgstr ""
+
 #: src/components/LegalFooter.tsx:39
 #: src/containers/PrivacyPolicyPage.tsx:8
 msgid "Privacy policy"
@@ -705,7 +734,7 @@ msgstr "FALTA DE SEÑALIZACIÓN"
 msgid "STAIRS"
 msgstr "ESCALERAS"
 
-#: src/containers/App.tsx:63
+#: src/containers/App.tsx:64
 msgid "Search"
 msgstr "Buscar"
 
@@ -714,19 +743,23 @@ msgstr "Buscar"
 msgid "Search for a different address"
 msgstr "Buscar otra dirección"
 
+#: src/components/FeatureCalloutContent.tsx:9
+msgid "See the most common complaints reported by tenants to 311, now on the Overview and Portfolio tabs."
+msgstr ""
+
 #: src/components/PropertiesSummary.tsx:36
 msgid "Send us a data request"
 msgstr "Envíanos una solicitud de datos"
 
-#: src/containers/App.tsx:102
-#: src/containers/App.tsx:113
+#: src/containers/App.tsx:105
+#: src/containers/App.tsx:116
 msgid "Share"
 msgstr "Compartir"
 
 #: src/components/DetailView.tsx:231
 #: src/components/EngagementPanel.tsx:18
 #: src/components/PropertiesSummary.tsx:133
-#: src/containers/App.tsx:124
+#: src/containers/App.tsx:127
 #: src/containers/NotRegisteredPage.tsx:14
 msgid "Share this page with your neighbors"
 msgstr "Comparte esta página con tus vecinos"
@@ -1013,13 +1046,21 @@ msgstr "PROTECTORES DE VENTANA"
 msgid "WINDOWS"
 msgstr "VENTANAS"
 
-#: src/containers/App.tsx:87
+#: src/containers/App.tsx:89
 msgid "Warning! This site doesn't fully work on older versions of Safari. Try a <0>modern browser</0>."
 msgstr "¡Atención! Este sitio no funciona completamente en versiones antiguas de Safari. Prueba un <0>navegador moderno</0>."
 
 #: src/components/DetailView.tsx:243
 msgid "We compare your search address with a database of over 200k buildings to identify a landlord or management company's portfolio. To learn more, check out <0>our methodology</0>."
 msgstr "Comparamos la dirección que buscaste con una base de datos de más de 200 mil edificios para identificar a un propietario o compañía de gestión. Para obtener más información, consulta <0>nuestra metodología</0>."
+
+#: src/components/FeatureCalloutContent.tsx:24
+msgid "We overhauled the Portfolio tab to help make navigating this large table of data easier, especially for mobile phones."
+msgstr ""
+
+#: src/components/FeatureCalloutContent.tsx:14
+msgid "We reorganized the contact details for each individual and corporate entities associated with a property on the Overview tab."
+msgstr ""
 
 #: src/components/Indicators.tsx:224
 msgid "What are {0}?"
@@ -1029,18 +1070,23 @@ msgstr "¿Qué son {0}?"
 msgid "What happens if the landlord has failed to register?"
 msgstr "¿Qué pasa si el propietario no ha registrado el edificio?"
 
+#: src/components/FeatureCalloutWidget.tsx:33
+#: src/components/FeatureCalloutWidget.tsx:46
+msgid "What's New"
+msgstr ""
+
 #: src/components/SocialShare.tsx:14
 msgid "Who Owns What is a free tool built by JustFix.nyc to research property owners in NYC. It has helped over 200,000 New Yorkers find out who really owns their building, what other buildings that their landlord or management company owns, and other critical information about code violations, evictions, rent stabilized units, and so much more in any given building. You can look up any residential building located in NYC, even public housing (NYCHA) buildings! Search your address here: {url}"
 msgstr "Quién Es El Dueño es una herramienta gratis construida por JustFix.nyc para investigar los dueños de edificios en NYC. Ha asistido más de 200.000 neoyorquinos a enterarse quien realmente son los responsables por su edificio, cuáles otros edificios su dueño o compañía de administración poseen, y otra información crítica sobre violaciones del código de vivienda, desalojos, apartamentos con renta estabilizada y mucho más en cualquier edificio. Puedes buscar información sobre cualquier edificio residencial, también incluyen viviendas públicas (NYCHA). Busca tu dirección aquí: {url}"
 
-#: src/containers/App.tsx:32
+#: src/containers/App.tsx:33
 msgid "Who owns what in n y c?"
 msgstr "¿Quién Es El Dueño en Nueva York?"
 
 #: src/components/Page.tsx:10
 #: src/components/Page.tsx:20
 #: src/components/Page.tsx:21
-#: src/containers/App.tsx:29
+#: src/containers/App.tsx:30
 msgid "Who owns what in nyc?"
 msgstr "¿Quién Es El Dueño en Nueva York?"
 
@@ -1096,6 +1142,10 @@ msgstr "dirección de búsqueda"
 #: src/components/Indicators.tsx:17
 msgid "year"
 msgstr "año"
+
+#: src/components/FeatureCalloutWidget.tsx:16
+msgid "{0} of {numberOfEntries}"
+msgstr ""
 
 #: src/components/PropertiesSummary.tsx:92
 msgid "{0} {1}, {2} currently has {3, plural, one {one open HPD violation} other {# open HPD violations}} - the most in this portfolio."
