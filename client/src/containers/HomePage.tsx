@@ -20,7 +20,6 @@ import { INLINES } from "@contentful/rich-text-types";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import { ContentfulCommonStrings } from "@justfixnyc/contentful-common-strings";
 import _commonStrings from "../data/common-strings.json";
-import amplitude from "amplitude-js";
 
 const commonStrings = new ContentfulCommonStrings(_commonStrings as any);
 
