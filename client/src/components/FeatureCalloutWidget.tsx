@@ -16,7 +16,10 @@ const FeatureCalloutWidget = withI18n()((props: withI18nProps) => {
    */
   const DEFAULT_WIDGET_VISIBILITY = Math.random() < 0.5;
 
-  var identify = new amplitude.Identify().setOnce("widgetOpenOnStart", DEFAULT_WIDGET_VISIBILITY);
+  var identify = new amplitude.Identify().setOnce(
+    "featureCalloutWidgetOpenOnStart",
+    DEFAULT_WIDGET_VISIBILITY
+  );
   amplitude.getInstance().identify(identify);
 
   const [isWidgetOpen, setWidgetVisibility] = useState(DEFAULT_WIDGET_VISIBILITY);
