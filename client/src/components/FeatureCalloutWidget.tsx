@@ -6,6 +6,7 @@ import { withI18n, withI18nProps } from "@lingui/react";
 import { getFeatureCalloutContent } from "./FeatureCalloutContent";
 import { useState } from "react";
 import { t } from "@lingui/macro";
+import amplitude from "amplitude-js";
 
 const FeatureCalloutWidget = withI18n()((props: withI18nProps) => {
   /**
@@ -15,8 +16,16 @@ const FeatureCalloutWidget = withI18n()((props: withI18nProps) => {
    */
   const DEFAULT_WIDGET_VISIBILITY = Math.random() < 0.5;
 
+  var identify = new amplitude.Identify().setOnce("widgetOpenOnStart", DEFAULT_WIDGET_VISIBILITY);
+  amplitude.getInstance().identify(identify);
+
   const [isWidgetOpen, setWidgetVisibility] = useState(DEFAULT_WIDGET_VISIBILITY);
-  const toggleWidget = () => setWidgetVisibility(!isWidgetOpen);
+  const toggleWidget = () => {
+    isWidgetOpen
+      ? amplitude.getInstance().logEvent("closeFeatureCalloutWidget")
+      : amplitude.getInstance().logEvent("openFeatureCalloutWidget");
+    setWidgetVisibility(!isWidgetOpen);
+  };
 
   const [entryIndex, setEntryIndex] = useState(0);
 
@@ -71,7 +80,10 @@ const FeatureCalloutWidget = withI18n()((props: withI18nProps) => {
           focusTrapOptions={{
             clickOutsideDeactivates: true,
             returnFocusOnDeactivate: false,
-            onDeactivate: () => setWidgetVisibility(false),
+            onDeactivate: () => {
+              amplitude.getInstance().logEvent("closeFeatureCalloutWidget");
+              setWidgetVisibility(false);
+            },
           }}
         >
           <div className="widget-container" id="widget">
