@@ -7,6 +7,7 @@ import "styles/App.css";
 import ScrollToTop from "../components/ScrollToTop";
 import SocialShare from "../components/SocialShare";
 import Modal from "../components/Modal";
+import FeatureCalloutWidget from "../components/FeatureCalloutWidget";
 
 // import top-level containers (i.e. pages)
 import {
@@ -20,6 +21,7 @@ import { withI18n, withI18nProps } from "@lingui/react";
 import { createWhoOwnsWhatRoutePaths } from "../routes";
 import { VersionUpgrader } from "./VersionUpgrader";
 import { useMachine } from "@xstate/react";
+
 import HomePage from "./HomePage";
 import AddressPage from "./AddressPage";
 import BBLPage from "./BBLPage";
@@ -110,6 +112,7 @@ const App = () => {
   const [isEngageModalVisible, setEngageModalVisibility] = useState(false);
 
   const isDemoSite = process.env.REACT_APP_DEMO_SITE === "1";
+  const addFeatureCalloutWidget = process.env.REACT_APP_ENABLE_FEATURE_CALLOUT_WIDGET === "1";
   const version = process.env.REACT_APP_VERSION;
   const warnAboutOldBrowser = process.env.REACT_APP_ENABLE_OLD_BROWSER_WARNING;
 
@@ -141,6 +144,7 @@ const App = () => {
                 </span>
               )}
               <nav className="inline">
+                {addFeatureCalloutWidget && <FeatureCalloutWidget />}
                 <span className="hide-lg">
                   {getMainNavLinks()}
                   {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}

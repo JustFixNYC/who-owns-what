@@ -85,9 +85,14 @@
   }
 
   nav {
+    display: inline-flex;
+    flex-wrap: nowrap;
     margin-left: auto;
-    flex-wrap: wrap;
     text-align: end;
+
+    @include for-tablet-landscape-down {
+      align-items: center;
+    }
 
     @include for-desktop-down {
       max-width: 250px;
@@ -96,7 +101,7 @@
     a {
       display: inline-block;
       margin-left: 10px;
-      color: #454d5d;
+      color: $dark;
 
       &.active {
         text-decoration: none;

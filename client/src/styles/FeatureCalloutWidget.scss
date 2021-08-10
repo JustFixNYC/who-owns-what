@@ -1,0 +1,191 @@
+@import "_vars.scss";
+//start of Feature Callout Widget CSS
+
+.FeatureCalloutWidget {
+  display: inline-block;
+
+  //Focusable class styling (same as "a" hyperlink class above)
+  .focusable:focus {
+    box-shadow: none;
+    outline: 2px solid $gray-dark;
+    outline-offset: 2px;
+  }
+
+  .widget-button-info {
+    cursor: pointer;
+    position: relative;
+    vertical-align: middle;
+    z-index: 51;
+    border-radius: 100%;
+    line-height: 1.4rem;
+    margin: -2px 2px 0px 2px;
+  }
+
+  .widget-button-info:hover,
+  .widget-button-info.pressed {
+    color: $background;
+    background-color: #3e4654;
+    box-shadow: 0.5px 0.5px 2px rgba(0, 0, 0, 0.7);
+  }
+
+  .widget-tooltip-triangle {
+    width: 0;
+    height: 0;
+    margin-left: 0.45px;
+    margin-right: auto;
+    border-left: 8px solid transparent;
+    border-right: 8.25px solid transparent;
+    border-bottom: 14px solid #3e4654;
+    background-size: 3px 3px;
+    z-index: 51;
+    position: absolute;
+  }
+
+  //container for widget, hidden by default
+  .widget-container {
+    display: inline-block;
+    position: absolute;
+    top: 3em;
+    right: 7%;
+    z-index: 52;
+    width: 300px;
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.9);
+    @include for-tablet-landscape-down {
+      top: 3.6em;
+      right: 5%;
+    }
+    @include for-phone-only {
+      right: 0%;
+      left: 4%;
+      width: 90%;
+    }
+  }
+
+  .widget-content-container {
+    width: 100%;
+    height: 100%;
+    color: white;
+    padding-bottom: 1px;
+    background-color: #3e4654;
+  }
+
+  .widget-header {
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.2em;
+    background-color: #3e4654;
+    width: 100%;
+    color: white;
+    font-weight: bold;
+    border-bottom: 1px solid #fe9d43;
+  }
+
+  .widget-title {
+    display: inline-block;
+    font-size: 1.1em;
+    color: white;
+    font-weight: bold;
+  }
+
+  .widget-button-cancel {
+    text-shadow: 1.5px 1.5px #333a46;
+    font-size: 2rem;
+  }
+
+  .widget-button-cancel:hover {
+    color: #c2cae0;
+  }
+
+  //widget entry: title, index, image, & description
+  .widget-entry {
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid #fe9d43;
+  }
+
+  .widget-entry-title {
+    font-size: 1.1em;
+    font-weight: 900;
+    margin-left: 10px;
+  }
+
+  .widget-entry-index {
+    font-size: 0.9em;
+    word-spacing: -4px;
+  }
+
+  .widget-entry-image {
+    width: 100%;
+    box-shadow: 1px 1px 3px #333a46;
+  }
+
+  .widget-entry-description {
+    padding: 5px 0px 5px 0px;
+    margin: 0px;
+  }
+
+  //Prev/next navigation buttons
+  .widget-nav-buttons-container {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 10px 8px 10px;
+    background: #3e4654;
+  }
+
+  .widget-button-nav {
+    display: flex;
+    position: relative;
+    outline: none;
+    font-size: 1rem;
+    font-weight: bold;
+    position: relative;
+    font-size: 0.9em;
+    border-radius: 4px;
+  }
+
+  .widget-prev-next-icon {
+    transform: scale(1.5) translateY(-1px);
+    margin: 0 2px;
+  }
+
+  .widget-button-nav.prev {
+    background: none;
+    color: white;
+    padding: 0.05em 0.55em 0.2em 0.2em;
+    height: 100%;
+    text-shadow: 1px 1px #333a46;
+  }
+
+  .widget-prev-text {
+    text-decoration: underline;
+    text-underline-position: under;
+  }
+
+  .widget-prev-text {
+    margin-left: 2px;
+  }
+
+  .widget-next-text {
+    margin-right: 2px;
+  }
+
+  .widget-button-nav.next {
+    background-color: #e89141;
+    color: #333a46;
+    padding: 0.1em 0.2em 0.2em 0.55em;
+    height: 100%;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+  }
+
+  .widget-button-nav.prev:hover {
+    background-color: #6d7da5;
+    box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+    text-shadow: none;
+  }
+
+  .widget-button-nav.next:hover {
+    background-color: #6d7da5;
+    color: white;
+  }
+}
