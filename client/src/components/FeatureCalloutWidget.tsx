@@ -8,17 +8,21 @@ import { useState } from "react";
 import { t } from "@lingui/macro";
 import { amplitude } from "./Amplitude";
 
-const FeatureCalloutWidget = withI18n()((props: withI18nProps) => {
-  /**
-   * A randomly chosen boolean value. Has a 50% chance of being true or false on page load.
-   * This implementation allows us to do some hacky A/B Testing between widget being open and
-   * being closed by default.
-   */
-  const DEFAULT_WIDGET_VISIBILITY = Math.random() < 0.5;
+/**
+ * A randomly chosen boolean value. Has a 50% chance of being true or false on when component loads.
+ * This implementation allows us to do some hacky A/B Testing between widget being open and
+ * being closed by default.
+ */
+let DEFAULT_WIDGET_VISIBILITY: Boolean | undefined;
 
+const FeatureCalloutWidget = withI18n()((props: withI18nProps) => {
+  // This allows us to define the DEFAULT_WIDGET_VISIBILITY only once, on initial component render:
+  if (DEFAULT_WIDGET_VISIBILITY === undefined) {
+    DEFAULT_WIDGET_VISIBILITY = Math.random() < 0.5;
+  }
   var identify = new amplitude.Identify().setOnce(
-    "featureCalloutWidgetOpenOnStart",
-    DEFAULT_WIDGET_VISIBILITY
+    "isFeatureCalloutWidgetOpenOnStart",
+    DEFAULT_WIDGET_VISIBILITY ? "yes" : "no"
   );
   amplitude.getInstance().identify(identify);
 
