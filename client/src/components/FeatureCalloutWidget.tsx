@@ -6,7 +6,7 @@ import { withI18n, withI18nProps } from "@lingui/react";
 import { getFeatureCalloutContent } from "./FeatureCalloutContent";
 import { useState } from "react";
 import { t } from "@lingui/macro";
-import amplitude from "amplitude-js";
+import { amplitude } from "./Amplitude";
 
 const FeatureCalloutWidget = withI18n()((props: withI18nProps) => {
   /**
