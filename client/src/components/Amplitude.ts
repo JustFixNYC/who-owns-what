@@ -1,6 +1,8 @@
 import amplitude from "amplitude-js";
 
-// Initiate Amplitude instance
+// Initiating Amplitude inside this helper file seems to work better with the Create React App framework than
+// adding a script tag to our index.html file.
+//
 // See https://javascript.plainenglish.io/adding-analytics-to-your-react-application-b584265f9fae for more details
 
 const API_KEY = process.env.REACT_APP_AMPLITUDE_API_KEY;
