@@ -6,17 +6,33 @@ import { withI18n, withI18nProps } from "@lingui/react";
 import { getFeatureCalloutContent } from "./FeatureCalloutContent";
 import { useState } from "react";
 import { t } from "@lingui/macro";
+import { amplitude, logAmplitudeEvent } from "./Amplitude";
+
+/**
+ * A randomly chosen boolean value. Has a 50% chance of being true or false on when component loads.
+ * This implementation allows us to do some hacky A/B Testing between widget being open and
+ * being closed by default.
+ */
+let DEFAULT_WIDGET_VISIBILITY: Boolean | undefined;
 
 const FeatureCalloutWidget = withI18n()((props: withI18nProps) => {
-  /**
-   * A randomly chosen boolean value. Has a 50% chance of being true or false on page load.
-   * This implementation allows us to do some hacky A/B Testing between widget being open and
-   * being closed by default.
-   */
-  const DEFAULT_WIDGET_VISIBILITY = Math.random() < 0.5;
+  // This allows us to define the DEFAULT_WIDGET_VISIBILITY only once, on initial component render:
+  if (DEFAULT_WIDGET_VISIBILITY === undefined) {
+    DEFAULT_WIDGET_VISIBILITY = Math.random() < 0.5;
+  }
+  var identify = new amplitude.Identify().setOnce(
+    "isFeatureCalloutWidgetOpenOnStart",
+    DEFAULT_WIDGET_VISIBILITY ? "yes" : "no"
+  );
+  amplitude.getInstance().identify(identify);
 
   const [isWidgetOpen, setWidgetVisibility] = useState(DEFAULT_WIDGET_VISIBILITY);
-  const toggleWidget = () => setWidgetVisibility(!isWidgetOpen);
+  const toggleWidget = () => {
+    isWidgetOpen
+      ? logAmplitudeEvent("closeFeatureCalloutWidget")
+      : logAmplitudeEvent("openFeatureCalloutWidget");
+    setWidgetVisibility(!isWidgetOpen);
+  };
 
   const [entryIndex, setEntryIndex] = useState(0);
 
@@ -71,7 +87,10 @@ const FeatureCalloutWidget = withI18n()((props: withI18nProps) => {
           focusTrapOptions={{
             clickOutsideDeactivates: true,
             returnFocusOnDeactivate: false,
-            onDeactivate: () => setWidgetVisibility(false),
+            onDeactivate: () => {
+              logAmplitudeEvent("closeFeatureCalloutWidget");
+              setWidgetVisibility(false);
+            },
           }}
         >
           <div className="widget-container" id="widget">
@@ -98,6 +117,7 @@ const FeatureCalloutWidget = withI18n()((props: withI18nProps) => {
                   tabIndex={0}
                   onClick={(event) => {
                     event.preventDefault();
+                    logAmplitudeEvent("viewPreviousEntryOnFeatureCalloutWidget");
                     setEntryIndex((entryIndex + numberOfEntries - 1) % numberOfEntries);
                   }}
                 >
@@ -109,6 +129,7 @@ const FeatureCalloutWidget = withI18n()((props: withI18nProps) => {
                   tabIndex={0}
                   onClick={(event) => {
                     event.preventDefault();
+                    logAmplitudeEvent("viewNextEntryOnFeatureCalloutWidget");
                     setEntryIndex((entryIndex + 1) % numberOfEntries);
                   }}
                 >
