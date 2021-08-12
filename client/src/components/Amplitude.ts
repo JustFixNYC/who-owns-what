@@ -7,6 +7,15 @@ import amplitude from "amplitude-js";
 
 const API_KEY = process.env.REACT_APP_AMPLITUDE_API_KEY;
 if (!API_KEY) throw new Error("No Amplitude API key defined!");
+
 amplitude.getInstance().init(API_KEY);
 
-export { amplitude };
+type AmplitudeEvent =
+  | "closeFeatureCalloutWidget"
+  | "openFeatureCalloutWidget"
+  | "viewPreviousEntryOnFeatureCalloutWidget"
+  | "viewNextEntryOnFeatureCalloutWidget";
+
+const logAmplitudeEvent = (e: AmplitudeEvent) => amplitude.getInstance().logEvent(e);
+
+export { amplitude, logAmplitudeEvent };

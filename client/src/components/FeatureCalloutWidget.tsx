@@ -6,7 +6,7 @@ import { withI18n, withI18nProps } from "@lingui/react";
 import { getFeatureCalloutContent } from "./FeatureCalloutContent";
 import { useState } from "react";
 import { t } from "@lingui/macro";
-import { amplitude } from "./Amplitude";
+import { amplitude, logAmplitudeEvent } from "./Amplitude";
 
 /**
  * A randomly chosen boolean value. Has a 50% chance of being true or false on when component loads.
@@ -29,8 +29,8 @@ const FeatureCalloutWidget = withI18n()((props: withI18nProps) => {
   const [isWidgetOpen, setWidgetVisibility] = useState(DEFAULT_WIDGET_VISIBILITY);
   const toggleWidget = () => {
     isWidgetOpen
-      ? amplitude.getInstance().logEvent("closeFeatureCalloutWidget")
-      : amplitude.getInstance().logEvent("openFeatureCalloutWidget");
+      ? logAmplitudeEvent("closeFeatureCalloutWidget")
+      : logAmplitudeEvent("openFeatureCalloutWidget");
     setWidgetVisibility(!isWidgetOpen);
   };
 
@@ -88,7 +88,7 @@ const FeatureCalloutWidget = withI18n()((props: withI18nProps) => {
             clickOutsideDeactivates: true,
             returnFocusOnDeactivate: false,
             onDeactivate: () => {
-              amplitude.getInstance().logEvent("closeFeatureCalloutWidget");
+              logAmplitudeEvent("closeFeatureCalloutWidget");
               setWidgetVisibility(false);
             },
           }}
@@ -117,7 +117,7 @@ const FeatureCalloutWidget = withI18n()((props: withI18nProps) => {
                   tabIndex={0}
                   onClick={(event) => {
                     event.preventDefault();
-                    amplitude.getInstance().logEvent("viewPreviousEntryOnFeatureCalloutWidget");
+                    logAmplitudeEvent("viewPreviousEntryOnFeatureCalloutWidget");
                     setEntryIndex((entryIndex + numberOfEntries - 1) % numberOfEntries);
                   }}
                 >
@@ -129,7 +129,7 @@ const FeatureCalloutWidget = withI18n()((props: withI18nProps) => {
                   tabIndex={0}
                   onClick={(event) => {
                     event.preventDefault();
-                    amplitude.getInstance().logEvent("viewNextEntryOnFeatureCalloutWidget");
+                    logAmplitudeEvent("viewNextEntryOnFeatureCalloutWidget");
                     setEntryIndex((entryIndex + 1) % numberOfEntries);
                   }}
                 >
