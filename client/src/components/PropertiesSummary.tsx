@@ -16,7 +16,7 @@ import { AddressRecord } from "./APIDataTypes";
 import { defaultLocale, isSupportedLocale } from "i18n-base";
 import { I18n } from "@lingui/core/i18n";
 import { I18n as I18nComponent } from "@lingui/react";
-import { Graph} from "./PortfolioGraph";
+import { PortfolioGraph } from "./PortfolioGraph";
 
 type Props = withMachineInStateProps<"portfolioFound"> & {
   isVisible: boolean;
@@ -100,7 +100,7 @@ export default class PropertiesSummary extends Component<Props, {}> {
       return (
         <div className="Page PropertiesSummary">
           <div className="PropertiesSummary__content Page__content">
-            <Graph/>
+            <PortfolioGraph />
             <div>
               <Trans render="h6">General info</Trans>
               <p>
