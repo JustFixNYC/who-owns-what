@@ -1,9 +1,13 @@
 import React from "react";
+import Cytoscape from "cytoscape";
 import CytoscapeComponent from "react-cytoscapejs";
+// @ts-ignore
+import cola from "cytoscape-cola";
 import _samplePortfolioGraph from "../data/sample-portfolio-graph.json";
 
+Cytoscape.use(cola);
+
 const elements = JSON.parse(_samplePortfolioGraph);
-console.log("Unformatted JSON: ", elements);
 
 type RawPortfolioJson = {
   title: string;
@@ -35,11 +39,13 @@ const formatGraphJSON = (rawJSON: RawPortfolioJson): cytoscape.ElementDefinition
   return nodes.concat(edges);
 };
 
+const layout = { name: "cola" };
+
 export const PortfolioGraph: React.FC<{}> = () => (
   <CytoscapeComponent
     elements={formatGraphJSON(elements)}
     style={{ width: "600px", height: "600px" }}
-    layout={{ name: "random", rows: 1 }}
+    layout={layout}
     stylesheet={[
       {
         selector: "node",
