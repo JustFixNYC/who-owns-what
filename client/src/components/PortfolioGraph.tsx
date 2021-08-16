@@ -20,7 +20,7 @@ const formatGraphJSON = (rawJSON: RawPortfolioJson): cytoscape.ElementDefinition
     group: "nodes",
     data: {
       id: node.id,
-      type: node.name ? "landlord" : "bizaddress",
+      type: node.value.Name ? "landlord" : "bizaddress",
       value: node.value.Name || node.value.BizAddr,
     },
   }));
@@ -51,6 +51,7 @@ export const PortfolioGraph: React.FC<{}> = () => (
         selector: "node",
         style: {
           label: "data(value)",
+          backgroundColor: (ele) => (ele.data("type") === "landlord" ? "red" : "green"),
         },
       },
     ]}
