@@ -389,7 +389,10 @@ if __name__ == '__main__':
         NycDbBuilder(db, is_testing=args.use_test_data).build(
             force_refresh=args.update)
     elif cmd == 'exportgraph':
-        portfoliograph.exportgraph(db)
+        filename = "portfolios.json"
+        with open(filename, 'w') as f:
+            portfoliograph.export_graph_json(db, f)
+        print(f"Wrote portfolio graph to {filename}.")
     else:
         parser.print_help()
         sys.exit(1)
