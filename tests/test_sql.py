@@ -260,6 +260,14 @@ class TestSQL:
 
     def test_portfolio_graph_works(self):
         with self.db.connect() as conn:
+            portfoliograph.populate_portfolios_table(conn)
+        r = self.query_one(
+            "SELECT landlord_names FROM wow_portfolios WHERE '" + FUNKY_BBL + "' = any(bbls)"
+        )
+        assert set(r[0]) == {'LANDLORDO CALRISSIAN', 'LOBOT JONES'}
+
+    def test_portfolio_graph_json_works(self):
+        with self.db.connect() as conn:
             f = StringIO()
             portfoliograph.export_graph_json(conn, f)
 
