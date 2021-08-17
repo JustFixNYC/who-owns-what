@@ -4,16 +4,11 @@ import CytoscapeComponent from "react-cytoscapejs";
 // @ts-ignore
 import cola from "cytoscape-cola";
 import _samplePortfolioGraph from "../data/sample-portfolio-graph.json";
+import { RawPortfolioJson } from "./APIDataTypes";
 
 Cytoscape.use(cola);
 
 const elements = JSON.parse(_samplePortfolioGraph);
-
-type RawPortfolioJson = {
-  title: string;
-  nodes: any[];
-  edges: any[];
-};
 
 const formatGraphJSON = (rawJSON: RawPortfolioJson): cytoscape.ElementDefinition[] => {
   const nodes: cytoscape.ElementDefinition[] = rawJSON.nodes.map((node) => ({

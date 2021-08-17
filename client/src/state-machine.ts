@@ -5,6 +5,7 @@ import {
   BuildingInfoRecord,
   SummaryStatsRecord,
   SummaryResults,
+  RawPortfolioJson,
 } from "components/APIDataTypes";
 import APIClient from "components/APIClient";
 import { assertNotUndefined } from "@justfixnyc/util";
@@ -107,6 +108,11 @@ type PortfolioData = {
   assocAddrs: AddressRecord[];
   /** The address in focus on the Overview Tab and Timeline Tab */
   detailAddr: AddressRecord;
+  /** A Json object encoding the graphical representation of the portfolio.
+   * Only present when the new WOWZA graph-based portfolio mapping algorithm is
+   * used to generate the landlord portfolio.
+   */
+  portfolioGraph?: RawPortfolioJson;
 };
 
 export interface WowContext {

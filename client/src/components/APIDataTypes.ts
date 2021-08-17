@@ -80,9 +80,17 @@ export type AddressRecord = {
   zip: string | null;
 };
 
+// TODO: make this type definition more descriptive
+export type RawPortfolioJson = {
+  title: string;
+  nodes: any[];
+  edges: any[];
+};
+
 export type SearchResults = {
   addrs: AddressRecord[];
   geosearch?: GeoSearchData;
+  graph?: RawPortfolioJson;
 };
 
 // TYPES ASSOCIATED WITH SUMMARY AGGREGATE QUERY:
