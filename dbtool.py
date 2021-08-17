@@ -10,6 +10,8 @@ from urllib.parse import urlparse
 from typing import NamedTuple, Any, Tuple, Dict, List
 from pathlib import Path
 
+import portfoliograph
+
 try:
     from dotenv import load_dotenv
     load_dotenv()
@@ -332,6 +334,9 @@ if __name__ == '__main__':
         default=os.environ.get('DATABASE_URL', '')
     )
 
+    parser_exportgraph = subparsers.add_parser('exportgraph')
+    parser_exportgraph.set_defaults(cmd='exportgraph')
+
     parser_exporttestdata = subparsers.add_parser('exporttestdata')
     parser_exporttestdata.set_defaults(cmd='exporttestdata')
 
@@ -383,6 +388,8 @@ if __name__ == '__main__':
     elif cmd == 'builddb':
         NycDbBuilder(db, is_testing=args.use_test_data).build(
             force_refresh=args.update)
+    elif cmd == 'exportgraph':
+        portfoliograph.exportgraph(db)
     else:
         parser.print_help()
         sys.exit(1)
