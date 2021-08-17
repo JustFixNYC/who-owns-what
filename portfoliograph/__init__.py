@@ -8,17 +8,21 @@ if TYPE_CHECKING:
     from dbtool import DbContext
 
 
-class NodeType(Enum):
+class NodeKind(Enum):
     NAME = 1
     BIZADDR = 2
 
 
 class Node(NamedTuple):
-    kind: NodeType
+    kind: NodeKind
     name: str
 
     def to_json(self):
-        if self.kind == NodeType.NAME:
+        # This format is an artifact from the way hpd-graph-fun's
+        # nodes were serialized. For more details, see:
+        #
+        #   https://github.com/JustFixNYC/hpd-graph-fun
+        if self.kind == NodeKind.NAME:
             return {"Name": self.name}
         return {"BizAddr": self.name}
 
@@ -29,12 +33,14 @@ class RegistrationInfo(NamedTuple):
 
 
 class PortfolioRow(NamedTuple):
-    bbls: Set[str]
+    bbls: List[str]
+    names: List[str]
     graph: nx.Graph
 
     def to_json(self):
         return {
-            "bbls": list(self.bbls),
+            "bbls": self.bbls,
+            "names": self.names,
             "portfolio": to_json_graph(self.graph),
         }
 
@@ -51,9 +57,6 @@ def iter_portfolio_rows(db: 'DbContext') -> Iterable[PortfolioRow]:
 
         # TODO: ignore registrations expired over X days.
         # TODO: process synonyms (e.g. folks in pinnacle)
-        #
-        # For additional reference see:
-        #   https://github.com/JustFixNYC/hpd-graph-fun/blob/main/src/hpd_graph.rs
 
         print("Building registration -> BBL mapping.")
         cur.execute("""
@@ -83,8 +86,8 @@ def iter_portfolio_rows(db: 'DbContext') -> Iterable[PortfolioRow]:
                 f"{row['businessstreetname']}{aptno}, "
                 f"{row['businesscity']} {row['businessstate']}"
             ).upper()
-            name_node = Node(NodeType.NAME, name)
-            bizaddr_node = Node(NodeType.BIZADDR, bizaddr)
+            name_node = Node(NodeKind.NAME, name)
+            bizaddr_node = Node(NodeKind.BIZADDR, bizaddr)
             g.add_node(name_node)
             g.add_node(bizaddr_node)
             if not g.has_edge(name_node, bizaddr_node):
@@ -102,11 +105,16 @@ def iter_portfolio_rows(db: 'DbContext') -> Iterable[PortfolioRow]:
     for c in nx.connected_components(g):
         induced_subgraph = g.subgraph(c)
         bbls: Set[str] = set()
+        names: List[str] = [
+            node.name
+            for node in induced_subgraph.nodes
+            if node.kind == NodeKind.NAME
+        ]
         for (_from, to, attrs) in induced_subgraph.edges.data():
             hpd_regs: Set[RegistrationInfo] = attrs['hpd_regs']
             for reginfo in hpd_regs:
                 bbls = bbls.union(reg_bbl_map[reginfo.reg_id])
-        yield PortfolioRow(bbls=bbls, graph=induced_subgraph)
+        yield PortfolioRow(bbls=list(bbls), names=names, graph=induced_subgraph)
 
 
 def export_graph_json(db: 'DbContext', outfile: TextIO):
