@@ -75,14 +75,14 @@ def iter_portfolio_rows(db: 'DbContext') -> Iterable[PortfolioRow]:
               lastname != ''
         """)
         for row in cur.fetchall():
-            name = f"{row['firstname']} {row['lastname']}"
+            name = f"{row['firstname']} {row['lastname']}".upper()
             aptno: str = row['businessapartment']
             aptno = f" {aptno}" if aptno else ""
             bizaddr = (
                 f"{row['businesshousenumber']} "
                 f"{row['businessstreetname']}{aptno}, "
                 f"{row['businesscity']} {row['businessstate']}"
-            )
+            ).upper()
             name_node = Node(NodeType.NAME, name)
             bizaddr_node = Node(NodeType.BIZADDR, bizaddr)
             g.add_node(name_node)
