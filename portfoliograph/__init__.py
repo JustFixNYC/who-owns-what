@@ -1,7 +1,8 @@
-from typing import Any, Dict, Iterable, List, Set, NamedTuple, TextIO
+from typing import Any, Dict, Iterable, Iterator, List, Set, NamedTuple, TextIO
 from enum import Enum
-from psycopg2.extras import DictCursor
+from psycopg2.extras import DictCursor, Json
 import json
+import itertools
 import networkx as nx
 
 
@@ -159,3 +160,31 @@ def to_json_graph(graph: nx.Graph) -> Dict[str, Any]:
         "nodes": nodes,
         "edges": edges,
     }
+
+
+def grouper(n: int, iterable: Iterable[PortfolioRow]) -> Iterator[List[PortfolioRow]]:
+    # https://stackoverflow.com/a/8991553
+
+    it = iter(iterable)
+    while True:
+        chunk = list(itertools.islice(it, n))
+        if not chunk:
+            return
+        yield chunk
+
+
+def populate_portfolios_table(conn, batch_size=5000, table="wow_portfolios"):
+    with conn.cursor() as cursor:
+        for chunk in grouper(batch_size, iter_portfolio_rows(conn)):
+            # https://stackoverflow.com/a/10147451
+            # why does it take so much work to put stuff in a table quickly
+            args_str = b','.join(
+                cursor.mogrify(
+                    "(%s,%s,%s)",
+                    (row.bbls,
+                     row.landlord_names,
+                     Json(to_json_graph(row.graph)))
+                )
+                for row in chunk
+            ).decode()
+            cursor.execute(f"INSERT INTO {table} VALUES {args_str}")
