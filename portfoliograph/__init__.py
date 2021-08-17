@@ -131,6 +131,12 @@ def export_graph_json(db: 'DbContext', outfile: TextIO):
 
 
 def to_json_graph(graph: nx.Graph) -> Dict[str, Any]:
+    '''
+    Output a portfolio's graph as JSON based on this schema:
+
+    https://github.com/JustFixNYC/hpd-graph-fun/blob/main/typescript/portfolio.d.ts
+    '''
+
     node_indexes: Dict[Node, int] = {}
     counter = 1
     nodes: List[Dict[str, Any]] = []
