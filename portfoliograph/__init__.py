@@ -1,4 +1,5 @@
 from typing import Dict, Set, TYPE_CHECKING, NamedTuple
+from enum import Enum
 from psycopg2.extras import DictCursor
 import networkx as nx
 
@@ -6,12 +7,14 @@ if TYPE_CHECKING:
     from dbtool import DbContext
 
 
-class NameNode(NamedTuple):
+class NodeType(Enum):
+    NAME = 1
+    BIZADDR = 2
+
+
+class Node(NamedTuple):
+    kind: NodeType
     name: str
-
-
-class BizAddrNode(NamedTuple):
-    bizaddr: str
 
 
 class RegistrationInfo(NamedTuple):
@@ -54,8 +57,8 @@ def exportgraph(db: 'DbContext'):
                 f"{row['businessstreetname']}{aptno}, "
                 f"{row['businesscity']} {row['businessstate']}"
             )
-            name_node = NameNode(name)
-            bizaddr_node = BizAddrNode(bizaddr)
+            name_node = Node(NodeType.NAME, name)
+            bizaddr_node = Node(NodeType.BIZADDR, bizaddr)
             g.add_node(name_node)
             g.add_node(bizaddr_node)
             if not g.has_edge(name_node, bizaddr_node):
@@ -81,4 +84,7 @@ def exportgraph(db: 'DbContext'):
     print("Finding connected components.")
     for c in nx.connected_components(g):
         induced_subgraph = g.subgraph(c).copy()
+        from networkx.readwrite.json_graph import cytoscape_data
+        print(cytoscape_data(induced_subgraph))
+        break
         # print("WOO", nx.components.number_connected_components(induced_subgraph))
