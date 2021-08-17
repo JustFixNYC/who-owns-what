@@ -42,12 +42,15 @@ def clean_addr_dict(addr):
     }
 
 
-@api
-def address_query(request):
+def get_bbl_from_request(request):
     log_unsupported_request_args(request)
     args = get_validated_form_data(SeparatedBBLForm, request.GET)
-    bbl = args['borough'] + args['block'] + args['lot']
+    return args['borough'] + args['block'] + args['lot']
 
+
+@api
+def address_query(request):
+    bbl = get_bbl_from_request(request)
     addrs = call_db_func('get_assoc_addrs_from_bbl', [bbl])
     cleaned_addrs = map(clean_addr_dict, addrs)
 
@@ -56,6 +59,23 @@ def address_query(request):
             "bbl": bbl,
         },
         "addrs": list(cleaned_addrs),
+    })
+
+
+@api
+def address_query_with_portfolio_graph(request):
+    bbl = get_bbl_from_request(request)
+    addrs = exec_db_query(SQL_DIR / 'address_portfolio.sql', {'bbl': bbl})
+    graph = list(filter(lambda r: r['graph'] is not None, addrs))[0]['graph']
+    addrs_without_graph = [r.pop('graph') for r in addrs]
+    cleaned_addrs = map(clean_addr_dict, addrs_without_graph)
+
+    return JsonResponse({
+        "geosearch": {
+            "bbl": bbl
+        },
+        "addrs": list(cleaned_addrs),
+        "graph": graph
     })
 
 
