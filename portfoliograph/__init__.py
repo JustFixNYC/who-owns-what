@@ -1,11 +1,8 @@
-from typing import Any, Dict, Iterable, List, Set, TYPE_CHECKING, NamedTuple, TextIO
+from typing import Any, Dict, Iterable, List, Set, NamedTuple, TextIO
 from enum import Enum
 from psycopg2.extras import DictCursor
 import json
 import networkx as nx
-
-if TYPE_CHECKING:
-    from dbtool import DbContext
 
 
 class NodeKind(Enum):
@@ -48,59 +45,58 @@ class PortfolioRow(NamedTuple):
 RegBblMap = Dict[int, Set[str]]
 
 
-def iter_portfolio_rows(db: 'DbContext') -> Iterable[PortfolioRow]:
+def iter_portfolio_rows(conn) -> Iterable[PortfolioRow]:
     g = nx.Graph()
 
-    with db.connection() as conn:
-        reg_bbl_map: RegBblMap = {}
-        cur = conn.cursor(cursor_factory=DictCursor)
+    reg_bbl_map: RegBblMap = {}
+    cur = conn.cursor(cursor_factory=DictCursor)
 
-        # TODO: ignore registrations expired over X days.
-        # TODO: process synonyms (e.g. folks in pinnacle)
+    # TODO: ignore registrations expired over X days.
+    # TODO: process synonyms (e.g. folks in pinnacle)
 
-        print("Building registration -> BBL mapping.")
-        cur.execute("""
-            SELECT registrationid, bbl FROM hpd_registrations
-        """)
-        for reg_id, bbl in cur.fetchall():
-            if reg_id not in reg_bbl_map:
-                reg_bbl_map[reg_id] = set()
-            reg_bbl_map[reg_id].add(bbl)
+    print("Building registration -> BBL mapping.")
+    cur.execute("""
+        SELECT registrationid, bbl FROM hpd_registrations
+    """)
+    for reg_id, bbl in cur.fetchall():
+        if reg_id not in reg_bbl_map:
+            reg_bbl_map[reg_id] = set()
+        reg_bbl_map[reg_id].add(bbl)
 
-        print("Building graph.")
-        # TODO: This SQL query needs to be more awesome, see:
-        # https://github.com/JustFixNYC/who-owns-what/pull/524#discussion_r690589851
-        cur.execute("""
-            SELECT * FROM hpd_contacts
-            WHERE
-              type = any('{HeadOfficer,IndividualOwner,CorporateOwner}') AND
-              businesshousenumber != '' AND
-              businessstreetname != '' AND
-              firstname != '' AND
-              lastname != ''
-        """)
-        for row in cur.fetchall():
-            name = f"{row['firstname']} {row['lastname']}".upper()
-            aptno: str = row['businessapartment']
-            aptno = f" {aptno}" if aptno else ""
-            bizaddr = (
-                f"{row['businesshousenumber']} "
-                f"{row['businessstreetname']}{aptno}, "
-                f"{row['businesscity']} {row['businessstate']}"
-            ).upper()
-            name_node = Node(NodeKind.NAME, name)
-            bizaddr_node = Node(NodeKind.BIZADDR, bizaddr)
-            g.add_node(name_node)
-            g.add_node(bizaddr_node)
-            if not g.has_edge(name_node, bizaddr_node):
-                g.add_edge(name_node, bizaddr_node, hpd_regs=set())
-            edge_data = g[name_node][bizaddr_node]
-            edge_data['hpd_regs'].add(
-                RegistrationInfo(
-                    reg_id=row['registrationid'],
-                    reg_contact_id=row['registrationcontactid'],
-                )
+    print("Building graph.")
+    # TODO: This SQL query needs to be more awesome, see:
+    # https://github.com/JustFixNYC/who-owns-what/pull/524#discussion_r690589851
+    cur.execute("""
+        SELECT * FROM hpd_contacts
+        WHERE
+            type = any('{HeadOfficer,IndividualOwner,CorporateOwner}') AND
+            businesshousenumber != '' AND
+            businessstreetname != '' AND
+            firstname != '' AND
+            lastname != ''
+    """)
+    for row in cur.fetchall():
+        name = f"{row['firstname']} {row['lastname']}".upper()
+        aptno: str = row['businessapartment']
+        aptno = f" {aptno}" if aptno else ""
+        bizaddr = (
+            f"{row['businesshousenumber']} "
+            f"{row['businessstreetname']}{aptno}, "
+            f"{row['businesscity']} {row['businessstate']}"
+        ).upper()
+        name_node = Node(NodeKind.NAME, name)
+        bizaddr_node = Node(NodeKind.BIZADDR, bizaddr)
+        g.add_node(name_node)
+        g.add_node(bizaddr_node)
+        if not g.has_edge(name_node, bizaddr_node):
+            g.add_edge(name_node, bizaddr_node, hpd_regs=set())
+        edge_data = g[name_node][bizaddr_node]
+        edge_data['hpd_regs'].add(
+            RegistrationInfo(
+                reg_id=row['registrationid'],
+                reg_contact_id=row['registrationcontactid'],
             )
+        )
 
     print("Finding connected components.")
 
@@ -122,11 +118,11 @@ def iter_portfolio_rows(db: 'DbContext') -> Iterable[PortfolioRow]:
         yield PortfolioRow(bbls=list(bbls), names=names, graph=induced_subgraph)
 
 
-def export_graph_json(db: 'DbContext', outfile: TextIO):
+def export_graph_json(conn, outfile: TextIO):
     outfile.write('[\n')
     components_written = 0
 
-    for pr in iter_portfolio_rows(db):
+    for pr in iter_portfolio_rows(conn):
         if components_written > 0:
             outfile.write(",\n")
         outfile.write(json.dumps(pr.to_json()))

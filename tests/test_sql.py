@@ -1,3 +1,5 @@
+from io import StringIO
+import json
 import pytest
 
 from .factories.hpd_contacts import HpdContacts
@@ -16,6 +18,8 @@ from .factories.ecb_violations import EcbViolations
 from .factories.pluto_19v2 import Pluto19v2
 from .factories.real_property_master import RealPropertyMaster
 from .factories.real_property_legals import RealPropertyLegals
+
+import portfoliograph
 
 # This test suite defines two landlords:
 #
@@ -253,3 +257,14 @@ class TestSQL:
                 "housenumber": "5",
             },
         }]
+
+    def test_portfolio_graph_works(self):
+        with self.db.connect() as conn:
+            f = StringIO()
+            portfoliograph.export_graph_json(conn, f)
+
+            # Ideally we'd actually do a snapshot test here,
+            # but I'm not confident that the ordering of
+            # lists will be deterministic, so for now we'll
+            # just leave it as a smoke test... -AV
+            json.loads(f.getvalue())

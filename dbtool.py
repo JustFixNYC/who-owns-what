@@ -394,7 +394,8 @@ if __name__ == '__main__':
             force_refresh=args.update)
     elif cmd == 'exportgraph':
         with open(args.outfile, 'w') as f:
-            portfoliograph.export_graph_json(db, f)
+            with db.connection() as conn:
+                portfoliograph.export_graph_json(conn, f)
         print(f"Wrote portfolio graph to {args.outfile}.")
     else:
         parser.print_help()
