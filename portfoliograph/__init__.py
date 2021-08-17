@@ -68,6 +68,8 @@ def iter_portfolio_rows(db: 'DbContext') -> Iterable[PortfolioRow]:
             reg_bbl_map[reg_id].add(bbl)
 
         print("Building graph.")
+        # TODO: This SQL query needs to be more awesome, see:
+        # https://github.com/JustFixNYC/who-owns-what/pull/524#discussion_r690589851
         cur.execute("""
             SELECT * FROM hpd_contacts
             WHERE
