@@ -20,6 +20,7 @@ import { INLINES } from "@contentful/rich-text-types";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import { ContentfulCommonStrings } from "@justfixnyc/contentful-common-strings";
 import _commonStrings from "../data/common-strings.json";
+import { useState } from "react";
 
 const commonStrings = new ContentfulCommonStrings(_commonStrings as any);
 
@@ -99,6 +100,10 @@ const HomePage: React.FC<withMachineProps> = (props) => {
 
   const history = useHistory();
 
+  type PortfolioMethod = "old" | "new";
+
+  const [portfolioMethod, setPortfolioMethod] = useState<PortfolioMethod>("old");
+
   const labelText = (
     <Trans>Enter an NYC address and find other buildings your landlord might own:</Trans>
   );
@@ -117,6 +122,24 @@ const HomePage: React.FC<withMachineProps> = (props) => {
                 onFormSubmit={handleFormSubmit}
               />
             </div>{" "}
+            <label className={"form-radio" + (portfolioMethod === "old" ? " active" : "")}>
+              <input
+                type="radio"
+                name="Old Version"
+                checked={portfolioMethod === "old"}
+                onChange={() => setPortfolioMethod("old")}
+              />
+              <i className="form-icon" /> Old Version
+            </label>
+            <label className={"form-radio" + (portfolioMethod === "new" ? " active" : "")}>
+              <input
+                type="radio"
+                name="New Version"
+                checked={portfolioMethod === "new"}
+                onChange={() => setPortfolioMethod("new")}
+              />
+              <i className="form-icon" /> New Version
+            </label>
           </div>
           <div className="HomePage__samples">
             <h5 className="text-center">
