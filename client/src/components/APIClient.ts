@@ -83,7 +83,9 @@ function createVizData(rawJSON: any, vizType: IndicatorsDatasetId): IndicatorsDa
 
 function searchForBBL(q: WithBoroBlockLot, getPortfolioGraph?: boolean): Promise<SearchResults> {
   return getApiJson(
-    `/api/address${getPortfolioGraph && "/wowza"}?block=${q.block}&lot=${q.lot}&borough=${q.boro}`
+    `/api/address${getPortfolioGraph ? "/wowza" : ""}?block=${q.block}&lot=${q.lot}&borough=${
+      q.boro
+    }`
   );
 }
 
