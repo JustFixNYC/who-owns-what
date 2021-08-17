@@ -336,6 +336,10 @@ if __name__ == '__main__':
 
     parser_exportgraph = subparsers.add_parser('exportgraph')
     parser_exportgraph.set_defaults(cmd='exportgraph')
+    parser_exportgraph.add_argument(
+        '-o', '--outfile', help="JSON filename to export to.",
+        default="portfolios.json"
+    )
 
     parser_exporttestdata = subparsers.add_parser('exporttestdata')
     parser_exporttestdata.set_defaults(cmd='exporttestdata')
@@ -389,10 +393,9 @@ if __name__ == '__main__':
         NycDbBuilder(db, is_testing=args.use_test_data).build(
             force_refresh=args.update)
     elif cmd == 'exportgraph':
-        filename = "portfolios.json"
-        with open(filename, 'w') as f:
+        with open(args.outfile, 'w') as f:
             portfoliograph.export_graph_json(db, f)
-        print(f"Wrote portfolio graph to {filename}.")
+        print(f"Wrote portfolio graph to {args.outfile}.")
     else:
         parser.print_help()
         sys.exit(1)
