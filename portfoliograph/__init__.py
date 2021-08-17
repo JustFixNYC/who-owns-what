@@ -115,7 +115,10 @@ def iter_portfolio_rows(db: 'DbContext') -> Iterable[PortfolioRow]:
         for (_from, to, attrs) in induced_subgraph.edges.data():
             hpd_regs: Set[RegistrationInfo] = attrs['hpd_regs']
             for reginfo in hpd_regs:
-                bbls = bbls.union(reg_bbl_map[reginfo.reg_id])
+                if reginfo.reg_id in reg_bbl_map:
+                    bbls = bbls.union(reg_bbl_map[reginfo.reg_id])
+                else:
+                    print(f"WARNING: HPD registration {reginfo.reg_id} not found.")
         yield PortfolioRow(bbls=list(bbls), names=names, graph=induced_subgraph)
 
 
