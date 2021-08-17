@@ -31,13 +31,13 @@ class RegistrationInfo(NamedTuple):
 
 class PortfolioRow(NamedTuple):
     bbls: List[str]
-    names: List[str]
+    landlord_names: List[str]
     graph: nx.Graph
 
     def to_json(self):
         return {
             "bbls": self.bbls,
-            "names": self.names,
+            "landlord_names": self.landlord_names,
             "portfolio": to_json_graph(self.graph),
         }
 
@@ -115,7 +115,7 @@ def iter_portfolio_rows(conn) -> Iterable[PortfolioRow]:
                     bbls = bbls.union(reg_bbl_map[reginfo.reg_id])
                 else:
                     print(f"WARNING: HPD registration {reginfo.reg_id} not found.")
-        yield PortfolioRow(bbls=list(bbls), names=names, graph=induced_subgraph)
+        yield PortfolioRow(bbls=list(bbls), landlord_names=names, graph=induced_subgraph)
 
 
 def export_graph_json(conn, outfile: TextIO):
