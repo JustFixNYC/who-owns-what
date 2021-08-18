@@ -119,7 +119,7 @@ export default class AddressPage extends Component<AddressPageProps, State> {
   };
 
   render() {
-    const { state, send } = this.props;
+    const { state, send, requestNewPortfolioData } = this.props;
 
     if (state.matches("bblNotFound")) {
       window.gtag("event", "bbl-not-found-page");
@@ -133,7 +133,10 @@ export default class AddressPage extends Component<AddressPageProps, State> {
     } else if (state.matches("portfolioFound")) {
       window.gtag("event", "portfolio-found-page");
       const { assocAddrs, searchAddr } = state.context.portfolioData;
-      const routes = createAddressPageRoutes(validateRouteParams(this.props.match.params));
+      const routes = createAddressPageRoutes(
+        validateRouteParams(this.props.match.params),
+        requestNewPortfolioData
+      );
 
       return (
         <Page

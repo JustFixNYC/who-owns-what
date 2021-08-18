@@ -30,9 +30,12 @@ export const createRouteForFullBbl = (bbl: string) => {
   return `/bbl/${bbl}`;
 };
 
-export const createAddressPageRoutes = (prefix: string | AddressPageUrlParams) => {
+export const createAddressPageRoutes = (
+  prefix: string | AddressPageUrlParams,
+  isWowzaRoute?: boolean
+) => {
   if (typeof prefix === "object") {
-    prefix = createRouteForAddressPage(prefix);
+    prefix = createRouteForAddressPage(prefix, isWowzaRoute);
   }
   return {
     overview: `${prefix}`,
