@@ -35,7 +35,8 @@ const layout = {
   animate: false,
   quality: "proof",
   idealEdgeLength: 200,
-  nodeSeparation:300 };
+  nodeSeparation: 300,
+};
 
 export const PortfolioGraph: React.FC<{ graphJSON: RawPortfolioJson }> = ({ graphJSON }) => (
   <CytoscapeComponent
@@ -48,7 +49,7 @@ export const PortfolioGraph: React.FC<{ graphJSON: RawPortfolioJson }> = ({ grap
         style: {
           label: "data(value)",
           backgroundColor: (ele) => (ele.data("type") === "name" ? "red" : "green"),
-          "min-zoomed-font-size": 16
+          "min-zoomed-font-size": 16,
         },
       },
     ]}
