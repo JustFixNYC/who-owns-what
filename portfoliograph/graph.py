@@ -30,6 +30,8 @@ class RegistrationInfo(NamedTuple):
 def build_graph(dict_cursor) -> nx.Graph:
     g = nx.Graph()
 
+    # TODO: ignore registrations expired over X days.
+    # TODO: process synonyms (e.g. folks in pinnacle)
     # TODO: This SQL query needs to be more awesome, see:
     # https://github.com/JustFixNYC/who-owns-what/pull/524#discussion_r690589851
     dict_cursor.execute("""

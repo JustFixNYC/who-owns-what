@@ -1,4 +1,4 @@
-from typing import Dict, Iterable, Iterator, List, Set, NamedTuple, TextIO
+from typing import Iterable, Iterator, List, Set, NamedTuple, TextIO
 from psycopg2.extras import DictCursor, Json
 import json
 import itertools
@@ -6,6 +6,7 @@ import networkx as nx
 
 from . import graph
 from .graph import RegistrationInfo, NodeKind
+from .hpd_regs import build_reg_bbl_map
 
 
 class PortfolioRow(NamedTuple):
@@ -21,24 +22,11 @@ class PortfolioRow(NamedTuple):
         }
 
 
-RegBblMap = Dict[int, Set[str]]
-
-
 def iter_portfolio_rows(conn) -> Iterable[PortfolioRow]:
-    reg_bbl_map: RegBblMap = {}
     cur = conn.cursor(cursor_factory=DictCursor)
 
-    # TODO: ignore registrations expired over X days.
-    # TODO: process synonyms (e.g. folks in pinnacle)
-
     print("Building registration -> BBL mapping.")
-    cur.execute("""
-        SELECT registrationid, bbl FROM hpd_registrations
-    """)
-    for reg_id, bbl in cur.fetchall():
-        if reg_id not in reg_bbl_map:
-            reg_bbl_map[reg_id] = set()
-        reg_bbl_map[reg_id].add(bbl)
+    reg_bbl_map = build_reg_bbl_map(cur)
 
     print("Building graph.")
     g = graph.build_graph(cur)
