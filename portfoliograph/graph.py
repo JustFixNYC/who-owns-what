@@ -29,8 +29,8 @@ class RegistrationInfo(NamedTuple):
 
 def join_truthies(*items: Optional[str], sep=' ') -> str:
     '''
-    Joins the given arguments with a space, filtering
-    out anything that is falsy, e.g.:
+    Joins the given arguments with a space (or provided separator),
+    filtering out anything that is falsy, e.g.:
 
         >>> join_truthies('boop', 'jones')
         'boop jones'
