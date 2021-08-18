@@ -25,7 +25,6 @@ from portfoliograph.graph import (
     build_graph,
     Node,
     NodeKind,
-    RegistrationInfo
 )
 from portfoliograph.table import (
     populate_portfolios_table,
