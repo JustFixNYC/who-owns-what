@@ -45,6 +45,9 @@ export const createWhoOwnsWhatRoutePaths = (prefix?: string) => {
   return {
     home: `${pathPrefix}/`,
     addressPage: createAddressPageRoutes(`${pathPrefix}/address/:boro/:housenumber/:streetname`),
+    wowzaAddressPage: createAddressPageRoutes(
+      `${pathPrefix}/wowza/address/:boro/:housenumber/:streetname`
+    ),
     /** Note: this path doesn't correspond to a stable page on the site. It simply provides an entry point that
      * immediately redirects to an addressPageOverview. This path is helpful for folks who, say, have a list of
      * boro, block, lot values in a spreadsheet and want to easily generate direct links to WhoOwnsWhat.

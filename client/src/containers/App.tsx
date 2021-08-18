@@ -77,6 +77,23 @@ const WhoOwnsWhatRoutes: React.FC<{}> = () => {
         path={paths.addressPage.summary}
         render={(props) => <AddressPage currentTab={3} {...machineProps} {...props} />}
       />
+      <Route
+        path={paths.wowzaAddressPage.overview}
+        render={(props) => <AddressPage currentTab={0} {...machineProps} {...props} />}
+        exact
+      />
+      <Route
+        path={paths.wowzaAddressPage.timeline}
+        render={(props) => <AddressPage currentTab={1} {...machineProps} {...props} />}
+      />
+      <Route
+        path={paths.wowzaAddressPage.portfolio}
+        render={(props) => <AddressPage currentTab={2} {...machineProps} {...props} />}
+      />
+      <Route
+        path={paths.wowzaAddressPage.summary}
+        render={(props) => <AddressPage currentTab={3} {...machineProps} {...props} />}
+      />
       <Route path={paths.bbl} component={BBLPage} />
       <Route path={paths.bblWithFullBblInUrl} component={BBLPage} />
       <Route path={paths.about} component={AboutPage} />

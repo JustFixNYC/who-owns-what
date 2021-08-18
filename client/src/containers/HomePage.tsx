@@ -87,6 +87,9 @@ const getSampleUrls = () => [
 ];
 
 const HomePage: React.FC<withMachineProps> = (props) => {
+  type PortfolioMethod = "old" | "new";
+  const [portfolioMethod, setPortfolioMethod] = useState<PortfolioMethod>("old");
+
   const handleFormSubmit = (searchAddress: SearchAddress, error: any) => {
     window.gtag("event", "search");
 
@@ -94,15 +97,12 @@ const HomePage: React.FC<withMachineProps> = (props) => {
       window.gtag("event", "search-error");
     } else {
       const addressPage = createRouteForAddressPage(searchAddress);
-      history.push(addressPage);
+      const pathPrefix = portfolioMethod === "new" ? "/wowza" : "";
+      history.push(pathPrefix + addressPage);
     }
   };
 
   const history = useHistory();
-
-  type PortfolioMethod = "old" | "new";
-
-  const [portfolioMethod, setPortfolioMethod] = useState<PortfolioMethod>("old");
 
   const labelText = (
     <Trans>Enter an NYC address and find other buildings your landlord might own:</Trans>
