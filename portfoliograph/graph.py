@@ -1,4 +1,4 @@
-from typing import Any, Dict, List, NamedTuple
+from typing import Any, Dict, List, NamedTuple, Optional
 from enum import Enum
 import networkx as nx
 
@@ -27,31 +27,53 @@ class RegistrationInfo(NamedTuple):
     reg_contact_id: int
 
 
+def join_truthies(*items: Optional[str], sep=' ') -> str:
+    '''
+    Joins the given arguments with a space, filtering
+    out anything that is falsy, e.g.:
+
+        >>> join_truthies('boop', 'jones')
+        'boop jones'
+
+        >>> join_truthies('boop', '')
+        'boop'
+
+        >>> join_truthies(None, 'jones')
+        'jones'
+
+        >>> join_truthies('New York', 'NY', sep=', ')
+        'New York, NY'
+    '''
+
+    return sep.join(filter(None, items))
+
+
 def build_graph(dict_cursor) -> nx.Graph:
     g = nx.Graph()
 
     # TODO: ignore registrations expired over X days.
     # TODO: process synonyms (e.g. folks in pinnacle)
-    # TODO: This SQL query needs to be more awesome, see:
-    # https://github.com/JustFixNYC/who-owns-what/pull/524#discussion_r690589851
     dict_cursor.execute("""
         SELECT * FROM hpd_contacts
         WHERE
-            type = any('{HeadOfficer,IndividualOwner,CorporateOwner}') AND
-            businesshousenumber != '' AND
-            businessstreetname != '' AND
-            firstname != '' AND
-            lastname != ''
+            type = ANY('{HeadOfficer, IndividualOwner, CorporateOwner}')
+            AND (businesshousenumber IS NOT NULL OR businessstreetname IS NOT NULL)
+            AND LENGTH(CONCAT(businesshousenumber, businessstreetname)) > 2
+            AND (firstname IS NOT NULL OR lastname IS NOT NULL)
     """)
     for row in dict_cursor.fetchall():
         name = f"{row['firstname']} {row['lastname']}".upper()
-        aptno: str = row['businessapartment']
-        aptno = f" {aptno}" if aptno else ""
-        bizaddr = (
-            f"{row['businesshousenumber']} "
-            f"{row['businessstreetname']}{aptno}, "
-            f"{row['businesscity']} {row['businessstate']}"
+        name = join_truthies(row['firstname'], row['lastname']).upper()
+        street_addr = join_truthies(
+            row['businesshousenumber'],
+            row['businessstreetname'],
+            row['businessapartment'],
         ).upper()
+        city_state = join_truthies(
+            row['businesscity'],
+            row['businessstate'],
+        ).upper()
+        bizaddr = join_truthies(street_addr, city_state, sep=', ')
         name_node = Node(NodeKind.NAME, name)
         bizaddr_node = Node(NodeKind.BIZADDR, bizaddr)
         g.add_node(name_node)
