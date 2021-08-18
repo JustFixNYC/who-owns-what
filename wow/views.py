@@ -20,7 +20,7 @@ logger = logging.getLogger(__name__)
 
 def log_unsupported_request_args(request):
     '''
-    Some original API endpoints sometimes got 'houseNumber', 'street',
+    Some original API endpoints sometimes got 'houseNumber', 'streept',
     'borough' query args, in which case it would look up the BBL. This
     new implementation of the API doesn't currently support them but
     we do want to log anytime we happen to get requests for them, to
@@ -67,7 +67,9 @@ def address_query_with_portfolio_graph(request):
     bbl = get_bbl_from_request(request)
     addrs = exec_db_query(SQL_DIR / 'address_portfolio.sql', {'bbl': bbl})
     graph = list(filter(lambda r: r['graph'] is not None, addrs))[0]['graph']
-    addrs_without_graph = [r.pop('graph') for r in addrs]
+    print('graph: ', graph)
+    addrs_without_graph = [{k: v for k, v in a.items() if k != 'graph'} for a in addrs]
+    print('addrs: ', addrs_without_graph)
     cleaned_addrs = map(clean_addr_dict, addrs_without_graph)
 
     return JsonResponse({

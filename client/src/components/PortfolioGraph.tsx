@@ -3,12 +3,9 @@ import Cytoscape from "cytoscape";
 import CytoscapeComponent from "react-cytoscapejs";
 // @ts-ignore
 import cola from "cytoscape-cola";
-import _samplePortfolioGraph from "../data/sample-portfolio-graph.json";
 import { RawPortfolioJson } from "./APIDataTypes";
 
 Cytoscape.use(cola);
-
-const elements = JSON.parse(_samplePortfolioGraph);
 
 const formatGraphJSON = (rawJSON: RawPortfolioJson): cytoscape.ElementDefinition[] => {
   const nodes: cytoscape.ElementDefinition[] = rawJSON.nodes.map((node) => ({
@@ -36,9 +33,9 @@ const formatGraphJSON = (rawJSON: RawPortfolioJson): cytoscape.ElementDefinition
 
 const layout = { name: "cola" };
 
-export const PortfolioGraph: React.FC<{}> = () => (
+export const PortfolioGraph: React.FC<{graphJSON: RawPortfolioJson}> = ({graphJSON}) => (
   <CytoscapeComponent
-    elements={formatGraphJSON(elements)}
+    elements={formatGraphJSON(graphJSON)}
     style={{ width: "600px", height: "600px" }}
     layout={layout}
     stylesheet={[
