@@ -20,7 +20,7 @@ logger = logging.getLogger(__name__)
 
 def log_unsupported_request_args(request):
     '''
-    Some original API endpoints sometimes got 'houseNumber', 'streept',
+    Some original API endpoints sometimes got 'houseNumber', 'street',
     'borough' query args, in which case it would look up the BBL. This
     new implementation of the API doesn't currently support them but
     we do want to log anytime we happen to get requests for them, to
