@@ -185,10 +185,6 @@ class NycDbBuilder:
             with self.conn.cursor() as cursor:
                 cursor.execute(sql)
 
-    def populate_portfolios_table(self) -> None:
-        with self.conn:
-            populate_portfolios_table(self.conn)
-
     def build(self, force_refresh: bool) -> None:
         if self.is_testing:
             print("Loading the database with test data.")
@@ -202,7 +198,8 @@ class NycDbBuilder:
             print(f"Running {sqlpath.name}...")
             self.run_sql_file(sqlpath)
 
-        self.populate_portfolios_table()
+        with self.conn:
+            populate_portfolios_table(self.conn)
 
 
 def get_dataset_dependencies(for_api: bool) -> List[str]:
