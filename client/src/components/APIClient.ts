@@ -24,7 +24,7 @@ function searchForAddressWithGeosearch(
     streetname: string;
     boro: string;
   },
-  getPortfolioGraph?: boolean
+  getPortfolioGraph: boolean = false
 ): Promise<SearchResults> {
   let addr = `${q.streetname}, ${q.boro}`;
   if (q.housenumber) {

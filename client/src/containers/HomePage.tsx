@@ -68,27 +68,9 @@ class MoratoriumBannerWithoutI18n extends Component<withI18nProps, BannerState> 
 
 const MoratoriumBanner = withI18n()(MoratoriumBannerWithoutI18n);
 
-const getSampleUrls = () => [
-  createRouteForAddressPage({
-    boro: "BROOKLYN",
-    housenumber: "89",
-    streetname: "HICKS STREET",
-  }),
-  createRouteForAddressPage({
-    boro: "QUEENS",
-    housenumber: "4125",
-    streetname: "CASE STREET",
-  }),
-  createRouteForAddressPage({
-    boro: "BROOKLYN",
-    housenumber: "196",
-    streetname: "RALPH AVENUE",
-  }),
-];
-
 const HomePage: React.FC<withMachineProps> = (props) => {
   type PortfolioMethod = "old" | "new";
-  const [portfolioMethod, setPortfolioMethod] = useState<PortfolioMethod>("old");
+  const [useNewPortfolioMethod, setPortfolioMethod] = useState(false);
 
   const handleFormSubmit = (searchAddress: SearchAddress, error: any) => {
     window.gtag("event", "search");
@@ -96,11 +78,37 @@ const HomePage: React.FC<withMachineProps> = (props) => {
     if (error) {
       window.gtag("event", "search-error");
     } else {
-      const addressPage = createRouteForAddressPage(searchAddress);
-      const pathPrefix = portfolioMethod === "new" ? "/wowza" : "";
-      history.push(pathPrefix + addressPage);
+      const addressPage = createRouteForAddressPage(searchAddress, useNewPortfolioMethod);
+      history.push(addressPage);
     }
   };
+
+  const getSampleUrls = () => [
+    createRouteForAddressPage(
+      {
+        boro: "BROOKLYN",
+        housenumber: "89",
+        streetname: "HICKS STREET",
+      },
+      useNewPortfolioMethod
+    ),
+    createRouteForAddressPage(
+      {
+        boro: "QUEENS",
+        housenumber: "4125",
+        streetname: "CASE STREET",
+      },
+      useNewPortfolioMethod
+    ),
+    createRouteForAddressPage(
+      {
+        boro: "BROOKLYN",
+        housenumber: "196",
+        streetname: "RALPH AVENUE",
+      },
+      useNewPortfolioMethod
+    ),
+  ];
 
   const history = useHistory();
 
@@ -122,21 +130,21 @@ const HomePage: React.FC<withMachineProps> = (props) => {
                 onFormSubmit={handleFormSubmit}
               />
             </div>{" "}
-            <label className={"form-radio" + (portfolioMethod === "old" ? " active" : "")}>
+            <label className={"form-radio" + (!useNewPortfolioMethod ? " active" : "")}>
               <input
                 type="radio"
                 name="Old Version"
-                checked={portfolioMethod === "old"}
-                onChange={() => setPortfolioMethod("old")}
+                checked={!useNewPortfolioMethod}
+                onChange={() => setPortfolioMethod(false)}
               />
               <i className="form-icon" /> Old Version
             </label>
-            <label className={"form-radio" + (portfolioMethod === "new" ? " active" : "")}>
+            <label className={"form-radio" + (useNewPortfolioMethod ? " active" : "")}>
               <input
                 type="radio"
                 name="New Version"
-                checked={portfolioMethod === "new"}
-                onChange={() => setPortfolioMethod("new")}
+                checked={useNewPortfolioMethod}
+                onChange={() => setPortfolioMethod(true)}
               />
               <i className="form-icon" /> New Version
             </label>

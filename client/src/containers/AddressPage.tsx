@@ -38,6 +38,7 @@ type RouteState = {
 type AddressPageProps = RouteComponentProps<RouteParams, {}, RouteState> &
   withMachineProps & {
     currentTab: number;
+    requestNewPortfolioData?: boolean;
   };
 
 type State = {
@@ -78,7 +79,11 @@ export default class AddressPage extends Component<AddressPageProps, State> {
       searchAddrsAreEqual(state.context.portfolioData.searchAddr, validateRouteParams(match.params))
     )
       return;
-    send({ type: "SEARCH", address: validateRouteParams(match.params) });
+    send({
+      type: "SEARCH",
+      address: validateRouteParams(match.params),
+      requestNewPortfolioData: this.props.requestNewPortfolioData || false,
+    });
     /* When searching for user's address, let's reset the DetailView to the "closed" state 
     so it can pop into view once the address is found */
     this.handleCloseDetail();

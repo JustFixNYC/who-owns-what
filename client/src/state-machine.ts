@@ -93,7 +93,7 @@ export type WowPortfolioFoundContext = WowContext & {
 };
 
 export type WowEvent =
-  | { type: "SEARCH"; address: SearchAddressWithoutBbl }
+  | { type: "SEARCH"; address: SearchAddressWithoutBbl; requestNewPortfolioData: boolean }
   | { type: "SELECT_DETAIL_ADDR"; bbl: string }
   | { type: "VIEW_SUMMARY" }
   | { type: "VIEW_TIMELINE" };
@@ -118,6 +118,9 @@ type PortfolioData = {
 export interface WowContext {
   /** The original parameters that a user inputs to locate their building on WOW */
   searchAddrParams?: SearchAddressWithoutBbl;
+  /** Whether or not we want to use the new WOWZA graph-based portfolio mapping algorithm
+   * to generate the landlord portfolio. */
+  requestNewPortfolioData?: boolean;
   /** The BBL code found by GeoSearch corresponding with the search address parameters */
   searchAddrBbl?: string;
   /**
@@ -163,8 +166,11 @@ export type withMachineInStateProps<TSV extends WowState["value"]> = {
   send: (event: WowEvent) => WowMachineEverything;
 };
 
-async function getSearchResult(addr: SearchAddressWithoutBbl): Promise<WowState> {
-  const apiResults = await APIClient.searchForAddressWithGeosearch(addr);
+async function getSearchResult(
+  addr: SearchAddressWithoutBbl,
+  requestNewPortfolioData: boolean
+): Promise<WowState> {
+  const apiResults = await APIClient.searchForAddressWithGeosearch(addr, requestNewPortfolioData);
   if (!apiResults.geosearch) {
     return {
       value: "bblNotFound",
@@ -210,6 +216,7 @@ async function getSearchResult(addr: SearchAddressWithoutBbl): Promise<WowState>
           searchAddr,
           detailAddr: searchAddr,
           assocAddrs: apiResults.addrs,
+          portfolioGraph: apiResults.graph,
         },
       },
     };
@@ -225,7 +232,12 @@ const handleSearchEvent: TransitionsConfig<WowContext, WowEvent> = {
     target: "searchInProgress",
     cond: (ctx, event) => !!event.address.boro && !!event.address.streetname,
     actions: assign((ctx, event) => {
-      return { searchAddrParams: event.address, summaryData: undefined, timelineData: undefined };
+      return {
+        searchAddrParams: event.address,
+        requestNewPortfolioData: event.requestNewPortfolioData,
+        summaryData: undefined,
+        timelineData: undefined,
+      };
     }),
   },
 };
@@ -250,7 +262,11 @@ export const wowMachine = createMachine<WowContext, WowEvent, WowState>({
       },
       invoke: {
         id: "geosearch",
-        src: (ctx, event) => getSearchResult(assertNotUndefined(ctx.searchAddrParams)),
+        src: (ctx, event) =>
+          getSearchResult(
+            assertNotUndefined(ctx.searchAddrParams),
+            ctx.requestNewPortfolioData || false
+          ),
         onDone: [
           {
             target: "bblNotFound",
