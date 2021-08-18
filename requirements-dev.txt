@@ -7,6 +7,7 @@ pytest-django==3.4.5
 python-dotenv==0.9.1
 flake8==3.8.3
 networkx==2.5.1
+freezegun==1.1.0
 
 # Pyproj is evolving very fast and is already logging some deprecation
 # warnings when we use nycdb; let's use the minimum supported version

@@ -1,3 +1,4 @@
+from portfoliograph.hpd_regs import hpd_reg_where_clause
 from typing import Any, Dict, List, NamedTuple, Optional
 from enum import Enum
 import networkx as nx
@@ -51,18 +52,29 @@ def join_truthies(*items: Optional[str], sep=' ') -> str:
 def build_graph(dict_cursor) -> nx.Graph:
     g = nx.Graph()
 
-    # TODO: ignore registrations expired over X days.
     # TODO: process synonyms (e.g. folks in pinnacle)
-    dict_cursor.execute("""
-        SELECT * FROM hpd_contacts
+    dict_cursor.execute(f"""
+        SELECT DISTINCT
+            firstname,
+            lastname,
+            businesshousenumber,
+            businessstreetname,
+            businessapartment,
+            businesscity,
+            businessstate,
+            hpd_contacts.registrationid,
+            hpd_contacts.registrationcontactid
+        FROM hpd_contacts
+        INNER JOIN hpd_registrations
+            ON hpd_contacts.registrationid = hpd_registrations.registrationid
         WHERE
-            type = ANY('{HeadOfficer, IndividualOwner, CorporateOwner}')
+            type = ANY('{{HeadOfficer, IndividualOwner, CorporateOwner}}')
             AND (businesshousenumber IS NOT NULL OR businessstreetname IS NOT NULL)
             AND LENGTH(CONCAT(businesshousenumber, businessstreetname)) > 2
             AND (firstname IS NOT NULL OR lastname IS NOT NULL)
+            AND {hpd_reg_where_clause()}
     """)
     for row in dict_cursor.fetchall():
-        name = f"{row['firstname']} {row['lastname']}".upper()
         name = join_truthies(row['firstname'], row['lastname']).upper()
         street_addr = join_truthies(
             row['businesshousenumber'],

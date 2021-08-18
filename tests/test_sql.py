@@ -1,6 +1,7 @@
 from io import StringIO
 import json
 from psycopg2.extras import DictCursor
+import freezegun
 import pytest
 
 from .factories.hpd_contacts import HpdContacts
@@ -271,7 +272,8 @@ class TestSQL:
     def test_built_graph_works(self):
         with self.db.connect() as conn:
             cur = conn.cursor(cursor_factory=DictCursor)
-            g = build_graph(cur)
+            with freezegun.freeze_time('2018-01-01'):
+                g = build_graph(cur)
             assert set(g.nodes) == {
                 Node(kind=NodeKind.NAME, name='BOOP JONES'),
                 Node(kind=NodeKind.BIZADDR, name='6 UNRELATED AVENUE, BROKLYN NY'),
@@ -281,28 +283,11 @@ class TestSQL:
                 Node(kind=NodeKind.NAME, name='LOBOT JONES'),
                 Node(kind=NodeKind.BIZADDR, name='700 SUPERSPUNKY AVENUE, BROKLYN NY'),
             }
-            edges = set(
-                (_from, to, frozenset(attrs['hpd_regs']))
-                for (_from, to, attrs) in g.edges.data()
-            )
-            assert edges == {
-                (Node(kind=NodeKind.NAME, name='BOOP JONES'),
-                 Node(kind=NodeKind.BIZADDR, name='6 UNRELATED AVENUE, BROKLYN NY'),
-                 frozenset({RegistrationInfo(reg_id=3, reg_contact_id=33193103)})),
-                (Node(kind=NodeKind.BIZADDR, name='5 BESPIN AVENUE, BROKLYN NY'),
-                 Node(kind=NodeKind.NAME, name='LANDLORDO CALRISSIAN'),
-                 frozenset({RegistrationInfo(reg_id=2, reg_contact_id=33193103)})),
-                (Node(kind=NodeKind.NAME, name='LANDLORDO CALRISIAN'),
-                 Node(kind=NodeKind.BIZADDR, name='700 SUPERSPUNKY AVENUE, BROKLYN NY'),
-                 frozenset({RegistrationInfo(reg_id=4, reg_contact_id=33193103)})),
-                (Node(kind=NodeKind.NAME, name='LOBOT JONES'),
-                 Node(kind=NodeKind.BIZADDR, name='5 BESPIN AVENUE, BROKLYN NY'),
-                 frozenset({RegistrationInfo(reg_id=1, reg_contact_id=33193103)}))
-            }
 
     def test_portfolio_graph_works(self):
         with self.db.connect() as conn:
-            populate_portfolios_table(conn)
+            with freezegun.freeze_time('2018-01-01'):
+                populate_portfolios_table(conn)
         r = self.query_one(
             "SELECT landlord_names FROM wow_portfolios WHERE '" + FUNKY_BBL + "' = any(bbls)"
         )
@@ -311,7 +296,8 @@ class TestSQL:
     def test_portfolio_graph_json_works(self):
         with self.db.connect() as conn:
             f = StringIO()
-            export_portfolios_table_json(conn, f)
+            with freezegun.freeze_time('2018-01-01'):
+                export_portfolios_table_json(conn, f)
 
             # Ideally we'd actually do a snapshot test here,
             # but I'm not confident that the ordering of
