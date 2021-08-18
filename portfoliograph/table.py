@@ -37,7 +37,7 @@ def iter_portfolio_rows(conn) -> Iterable[PortfolioRow]:
         induced_subgraph = g.subgraph(c)
         bbls: Set[str] = set()
         names: List[str] = [
-            node.name
+            node.value
             for node in induced_subgraph.nodes
             if node.kind == NodeKind.NAME
         ]

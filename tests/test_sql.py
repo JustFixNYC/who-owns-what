@@ -275,13 +275,13 @@ class TestSQL:
             with freezegun.freeze_time('2018-01-01'):
                 g = build_graph(cur)
             assert set(g.nodes) == {
-                Node(kind=NodeKind.NAME, name='BOOP JONES'),
-                Node(kind=NodeKind.BIZADDR, name='6 UNRELATED AVENUE, BROKLYN NY'),
-                Node(kind=NodeKind.NAME, name='LANDLORDO CALRISIAN'),
-                Node(kind=NodeKind.NAME, name='LANDLORDO CALRISSIAN'),
-                Node(kind=NodeKind.BIZADDR, name='5 BESPIN AVENUE, BROKLYN NY'),
-                Node(kind=NodeKind.NAME, name='LOBOT JONES'),
-                Node(kind=NodeKind.BIZADDR, name='700 SUPERSPUNKY AVENUE, BROKLYN NY'),
+                Node(kind=NodeKind.NAME, value='BOOP JONES'),
+                Node(kind=NodeKind.BIZADDR, value='6 UNRELATED AVENUE, BROKLYN NY'),
+                Node(kind=NodeKind.NAME, value='LANDLORDO CALRISIAN'),
+                Node(kind=NodeKind.NAME, value='LANDLORDO CALRISSIAN'),
+                Node(kind=NodeKind.BIZADDR, value='5 BESPIN AVENUE, BROKLYN NY'),
+                Node(kind=NodeKind.NAME, value='LOBOT JONES'),
+                Node(kind=NodeKind.BIZADDR, value='700 SUPERSPUNKY AVENUE, BROKLYN NY'),
             }
             assert len(list(nx.connected_components(g))) == 3
 

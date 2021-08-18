@@ -5,22 +5,19 @@ import networkx as nx
 
 
 class NodeKind(Enum):
-    NAME = 1
-    BIZADDR = 2
+    NAME = "name"
+    BIZADDR = "bizaddr"
 
 
 class Node(NamedTuple):
     kind: NodeKind
-    name: str
+    value: str
 
-    def to_json(self) -> Dict[str, Any]:
-        # This format is an artifact from the way hpd-graph-fun's
-        # nodes were serialized. For more details, see:
-        #
-        #   https://github.com/JustFixNYC/hpd-graph-fun
-        if self.kind == NodeKind.NAME:
-            return {"Name": self.name}
-        return {"BizAddr": self.name}
+    def to_json(self) -> Dict[str, str]:
+        return {
+            "kind": self.kind.value,
+            "value": self.value,
+        }
 
 
 class RegistrationInfo(NamedTuple):
