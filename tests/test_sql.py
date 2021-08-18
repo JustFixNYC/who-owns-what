@@ -1,5 +1,6 @@
 from io import StringIO
 import json
+import networkx as nx
 from psycopg2.extras import DictCursor
 import freezegun
 import pytest
@@ -282,6 +283,7 @@ class TestSQL:
                 Node(kind=NodeKind.NAME, name='LOBOT JONES'),
                 Node(kind=NodeKind.BIZADDR, name='700 SUPERSPUNKY AVENUE, BROKLYN NY'),
             }
+            assert len(list(nx.connected_components(g))) == 3
 
     def test_portfolio_graph_works(self):
         with self.db.connect() as conn:
