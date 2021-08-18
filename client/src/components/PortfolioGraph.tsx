@@ -33,7 +33,7 @@ const formatGraphJSON = (rawJSON: RawPortfolioJson): cytoscape.ElementDefinition
 
 const layout = { name: "cola" };
 
-export const PortfolioGraph: React.FC<{graphJSON: RawPortfolioJson}> = ({graphJSON}) => (
+export const PortfolioGraph: React.FC<{ graphJSON: RawPortfolioJson }> = ({ graphJSON }) => (
   <CytoscapeComponent
     elements={formatGraphJSON(graphJSON)}
     style={{ width: "600px", height: "600px" }}
