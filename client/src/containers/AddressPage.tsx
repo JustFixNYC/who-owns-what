@@ -38,7 +38,6 @@ type RouteState = {
 type AddressPageProps = RouteComponentProps<RouteParams, {}, RouteState> &
   withMachineProps & {
     currentTab: number;
-    requestNewPortfolioData?: boolean;
   };
 
 type State = {
@@ -82,7 +81,6 @@ export default class AddressPage extends Component<AddressPageProps, State> {
     send({
       type: "SEARCH",
       address: validateRouteParams(match.params),
-      requestNewPortfolioData: this.props.requestNewPortfolioData || false,
     });
     /* When searching for user's address, let's reset the DetailView to the "closed" state 
     so it can pop into view once the address is found */
@@ -119,7 +117,7 @@ export default class AddressPage extends Component<AddressPageProps, State> {
   };
 
   render() {
-    const { state, send, requestNewPortfolioData } = this.props;
+    const { state, send } = this.props;
 
     if (state.matches("bblNotFound")) {
       window.gtag("event", "bbl-not-found-page");
@@ -132,10 +130,11 @@ export default class AddressPage extends Component<AddressPageProps, State> {
       return <NotRegisteredPage state={state} send={send} />;
     } else if (state.matches("portfolioFound")) {
       window.gtag("event", "portfolio-found-page");
-      const { assocAddrs, searchAddr } = state.context.portfolioData;
+      const { useNewPortfolioMethod, portfolioData } = state.context;
+      const { assocAddrs, searchAddr } = portfolioData;
       const routes = createAddressPageRoutes(
         validateRouteParams(this.props.match.params),
-        requestNewPortfolioData
+        useNewPortfolioMethod
       );
 
       return (
