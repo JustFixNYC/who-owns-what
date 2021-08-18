@@ -10,7 +10,10 @@ from urllib.parse import urlparse
 from typing import NamedTuple, Any, Tuple, Dict, List
 from pathlib import Path
 
-import portfoliograph
+from portfoliograph.table import (
+    export_portfolios_table_json,
+    populate_portfolios_table,
+)
 
 try:
     from dotenv import load_dotenv
@@ -184,7 +187,7 @@ class NycDbBuilder:
 
     def populate_portfolios_table(self) -> None:
         with self.conn:
-            portfoliograph.populate_portfolios_table(self.conn)
+            populate_portfolios_table(self.conn)
 
     def build(self, force_refresh: bool) -> None:
         if self.is_testing:
@@ -401,7 +404,7 @@ if __name__ == '__main__':
     elif cmd == 'exportgraph':
         with open(args.outfile, 'w') as f:
             with db.connection() as conn:
-                portfoliograph.export_graph_json(conn, f)
+                export_portfolios_table_json(conn, f)
         print(f"Wrote portfolio graph to {args.outfile}.")
     else:
         parser.print_help()
