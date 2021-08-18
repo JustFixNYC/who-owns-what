@@ -10,6 +10,11 @@ from urllib.parse import urlparse
 from typing import NamedTuple, Any, Tuple, Dict, List
 from pathlib import Path
 
+from portfoliograph.table import (
+    export_portfolios_table_json,
+    populate_portfolios_table,
+)
+
 try:
     from dotenv import load_dotenv
     load_dotenv()
@@ -193,6 +198,9 @@ class NycDbBuilder:
             print(f"Running {sqlpath.name}...")
             self.run_sql_file(sqlpath)
 
+        with self.conn:
+            populate_portfolios_table(self.conn)
+
 
 def get_dataset_dependencies(for_api: bool) -> List[str]:
     result = WOW_YML['dependencies']
@@ -332,6 +340,13 @@ if __name__ == '__main__':
         default=os.environ.get('DATABASE_URL', '')
     )
 
+    parser_exportgraph = subparsers.add_parser('exportgraph')
+    parser_exportgraph.set_defaults(cmd='exportgraph')
+    parser_exportgraph.add_argument(
+        '-o', '--outfile', help="JSON filename to export to.",
+        default="portfolios.json"
+    )
+
     parser_exporttestdata = subparsers.add_parser('exporttestdata')
     parser_exporttestdata.set_defaults(cmd='exporttestdata')
 
@@ -383,6 +398,11 @@ if __name__ == '__main__':
     elif cmd == 'builddb':
         NycDbBuilder(db, is_testing=args.use_test_data).build(
             force_refresh=args.update)
+    elif cmd == 'exportgraph':
+        with open(args.outfile, 'w') as f:
+            with db.connection() as conn:
+                export_portfolios_table_json(conn, f)
+        print(f"Wrote portfolio graph to {args.outfile}.")
     else:
         parser.print_help()
         sys.exit(1)

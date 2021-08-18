@@ -1,3 +1,8 @@
+from io import StringIO
+import json
+import networkx as nx
+from psycopg2.extras import DictCursor
+import freezegun
 import pytest
 
 from .factories.hpd_contacts import HpdContacts
@@ -16,6 +21,16 @@ from .factories.ecb_violations import EcbViolations
 from .factories.pluto_19v2 import Pluto19v2
 from .factories.real_property_master import RealPropertyMaster
 from .factories.real_property_legals import RealPropertyLegals
+
+from portfoliograph.graph import (
+    build_graph,
+    Node,
+    NodeKind,
+)
+from portfoliograph.table import (
+    populate_portfolios_table,
+    export_portfolios_table_json
+)
 
 # This test suite defines two landlords:
 #
@@ -253,3 +268,40 @@ class TestSQL:
                 "housenumber": "5",
             },
         }]
+
+    def test_built_graph_works(self):
+        with self.db.connect() as conn:
+            cur = conn.cursor(cursor_factory=DictCursor)
+            with freezegun.freeze_time('2018-01-01'):
+                g = build_graph(cur)
+            assert set(g.nodes) == {
+                Node(kind=NodeKind.NAME, value='BOOP JONES'),
+                Node(kind=NodeKind.BIZADDR, value='6 UNRELATED AVENUE, BROKLYN NY'),
+                Node(kind=NodeKind.NAME, value='LANDLORDO CALRISIAN'),
+                Node(kind=NodeKind.NAME, value='LANDLORDO CALRISSIAN'),
+                Node(kind=NodeKind.BIZADDR, value='5 BESPIN AVENUE, BROKLYN NY'),
+                Node(kind=NodeKind.NAME, value='LOBOT JONES'),
+                Node(kind=NodeKind.BIZADDR, value='700 SUPERSPUNKY AVENUE, BROKLYN NY'),
+            }
+            assert len(list(nx.connected_components(g))) == 3
+
+    def test_portfolio_graph_works(self):
+        with self.db.connect() as conn:
+            with freezegun.freeze_time('2018-01-01'):
+                populate_portfolios_table(conn)
+        r = self.query_one(
+            "SELECT landlord_names FROM wow_portfolios WHERE '" + FUNKY_BBL + "' = any(bbls)"
+        )
+        assert set(r[0]) == {'LANDLORDO CALRISSIAN', 'LOBOT JONES'}
+
+    def test_portfolio_graph_json_works(self):
+        with self.db.connect() as conn:
+            f = StringIO()
+            with freezegun.freeze_time('2018-01-01'):
+                export_portfolios_table_json(conn, f)
+
+            # Ideally we'd actually do a snapshot test here,
+            # but I'm not confident that the ordering of
+            # lists will be deterministic, so for now we'll
+            # just leave it as a smoke test... -AV
+            json.loads(f.getvalue())
