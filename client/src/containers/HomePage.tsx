@@ -132,7 +132,9 @@ const HomePage: React.FC<withMachineProps> = (props) => {
             </div>{" "}
             {allowChangingPortfolioMethod && (
               <div>
-                <em>How do you want to group landlord portfolios?</em>
+                <em>
+                  <Trans>How do you want to group landlord portfolios?</Trans>
+                </em>
                 <br />
                 <label className={"form-radio" + (!useNewPortfolioMethod ? " active" : "")}>
                   <input
@@ -141,7 +143,7 @@ const HomePage: React.FC<withMachineProps> = (props) => {
                     checked={!useNewPortfolioMethod}
                     onChange={() => setPortfolioMethod(false)}
                   />
-                  <i className="form-icon" /> Old Method
+                  <i className="form-icon" /> <Trans>Old Method</Trans>
                 </label>
                 <br />
                 <label className={"form-radio" + (useNewPortfolioMethod ? " active" : "")}>
@@ -151,7 +153,7 @@ const HomePage: React.FC<withMachineProps> = (props) => {
                     checked={useNewPortfolioMethod}
                     onChange={() => setPortfolioMethod(true)}
                   />
-                  <i className="form-icon" /> New Method (WOWZA!)
+                  <i className="form-icon" /> <Trans>New Method (WOWZA!)</Trans>
                 </label>
               </div>
             )}
