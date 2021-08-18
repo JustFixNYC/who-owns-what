@@ -1,5 +1,6 @@
 from io import StringIO
 import json
+from psycopg2.extras import DictCursor
 import pytest
 
 from .factories.hpd_contacts import HpdContacts
@@ -19,6 +20,12 @@ from .factories.pluto_19v2 import Pluto19v2
 from .factories.real_property_master import RealPropertyMaster
 from .factories.real_property_legals import RealPropertyLegals
 
+from portfoliograph.graph import (
+    build_graph,
+    Node,
+    NodeKind,
+    RegistrationInfo
+)
 from portfoliograph.table import (
     populate_portfolios_table,
     export_portfolios_table_json
@@ -260,6 +267,38 @@ class TestSQL:
                 "housenumber": "5",
             },
         }]
+
+    def test_built_graph_works(self):
+        with self.db.connect() as conn:
+            cur = conn.cursor(cursor_factory=DictCursor)
+            g = build_graph(cur)
+            assert set(g.nodes) == {
+                Node(kind=NodeKind.NAME, name='BOOP JONES'),
+                Node(kind=NodeKind.BIZADDR, name='6 UNRELATED AVENUE, BROKLYN NY'),
+                Node(kind=NodeKind.NAME, name='LANDLORDO CALRISIAN'),
+                Node(kind=NodeKind.NAME, name='LANDLORDO CALRISSIAN'),
+                Node(kind=NodeKind.BIZADDR, name='5 BESPIN AVENUE, BROKLYN NY'),
+                Node(kind=NodeKind.NAME, name='LOBOT JONES'),
+                Node(kind=NodeKind.BIZADDR, name='700 SUPERSPUNKY AVENUE, BROKLYN NY'),
+            }
+            edges = set(
+                (_from, to, frozenset(attrs['hpd_regs']))
+                for (_from, to, attrs) in g.edges.data()
+            )
+            assert edges == {
+                (Node(kind=NodeKind.NAME, name='BOOP JONES'),
+                 Node(kind=NodeKind.BIZADDR, name='6 UNRELATED AVENUE, BROKLYN NY'),
+                 frozenset({RegistrationInfo(reg_id=3, reg_contact_id=33193103)})),
+                (Node(kind=NodeKind.BIZADDR, name='5 BESPIN AVENUE, BROKLYN NY'),
+                 Node(kind=NodeKind.NAME, name='LANDLORDO CALRISSIAN'),
+                 frozenset({RegistrationInfo(reg_id=2, reg_contact_id=33193103)})),
+                (Node(kind=NodeKind.NAME, name='LANDLORDO CALRISIAN'),
+                 Node(kind=NodeKind.BIZADDR, name='700 SUPERSPUNKY AVENUE, BROKLYN NY'),
+                 frozenset({RegistrationInfo(reg_id=4, reg_contact_id=33193103)})),
+                (Node(kind=NodeKind.NAME, name='LOBOT JONES'),
+                 Node(kind=NodeKind.BIZADDR, name='5 BESPIN AVENUE, BROKLYN NY'),
+                 frozenset({RegistrationInfo(reg_id=1, reg_contact_id=33193103)}))
+            }
 
     def test_portfolio_graph_works(self):
         with self.db.connect() as conn:
