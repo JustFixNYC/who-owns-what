@@ -69,9 +69,7 @@ class MoratoriumBannerWithoutI18n extends Component<withI18nProps, BannerState> 
 const MoratoriumBanner = withI18n()(MoratoriumBannerWithoutI18n);
 
 const HomePage: React.FC<withMachineProps> = (props) => {
-  const { useNewPortfolioMethod } = props.state.context;
-  const setPortfolioMethod = (useNewPortfolioMethod: boolean) =>
-    props.send({ type: "TOGGLE_PORTFOLIO_METHOD", useNewPortfolioMethod });
+  const [useNewPortfolioMethod, setPortfolioMethod] = useState(false);
   const allowChangingPortfolioMethod = process.env.REACT_APP_ENABLE_NEW_WOWZA_PORTFOLIO_MAPPING;
 
   const handleFormSubmit = (searchAddress: SearchAddress, error: any) => {

@@ -93,8 +93,7 @@ export type WowPortfolioFoundContext = WowContext & {
 };
 
 export type WowEvent =
-  | { type: "TOGGLE_PORTFOLIO_METHOD"; useNewPortfolioMethod: boolean }
-  | { type: "SEARCH"; address: SearchAddressWithoutBbl }
+  | { type: "SEARCH"; address: SearchAddressWithoutBbl; requestNewPortfolioData: boolean }
   | { type: "SELECT_DETAIL_ADDR"; bbl: string }
   | { type: "VIEW_SUMMARY" }
   | { type: "VIEW_TIMELINE" };
@@ -121,7 +120,7 @@ export interface WowContext {
   searchAddrParams?: SearchAddressWithoutBbl;
   /** Whether or not we want to use the new WOWZA graph-based portfolio mapping algorithm
    * to generate the landlord portfolio. */
-  useNewPortfolioMethod?: boolean;
+  requestNewPortfolioData?: boolean;
   /** The BBL code found by GeoSearch corresponding with the search address parameters */
   searchAddrBbl?: string;
   /**
@@ -169,9 +168,9 @@ export type withMachineInStateProps<TSV extends WowState["value"]> = {
 
 async function getSearchResult(
   addr: SearchAddressWithoutBbl,
-  useNewPortfolioMethod: boolean
+  requestNewPortfolioData: boolean
 ): Promise<WowState> {
-  const apiResults = await APIClient.searchForAddressWithGeosearch(addr, useNewPortfolioMethod);
+  const apiResults = await APIClient.searchForAddressWithGeosearch(addr, requestNewPortfolioData);
   if (!apiResults.geosearch) {
     return {
       value: "bblNotFound",
@@ -235,18 +234,9 @@ const handleSearchEvent: TransitionsConfig<WowContext, WowEvent> = {
     actions: assign((ctx, event) => {
       return {
         searchAddrParams: event.address,
+        requestNewPortfolioData: event.requestNewPortfolioData,
         summaryData: undefined,
         timelineData: undefined,
-      };
-    }),
-  },
-};
-
-const handleToggleOfPortfolioMapping: TransitionsConfig<WowContext, WowEvent> = {
-  TOGGLE_PORTFOLIO_METHOD: {
-    actions: assign((ctx, event) => {
-      return {
-        useNewPortfolioMethod: event.useNewPortfolioMethod,
       };
     }),
   },
@@ -264,7 +254,6 @@ export const wowMachine = createMachine<WowContext, WowEvent, WowState>({
     noData: {
       on: {
         ...handleSearchEvent,
-        ...handleToggleOfPortfolioMapping,
       },
     },
     searchInProgress: {
@@ -276,7 +265,7 @@ export const wowMachine = createMachine<WowContext, WowEvent, WowState>({
         src: (ctx, event) =>
           getSearchResult(
             assertNotUndefined(ctx.searchAddrParams),
-            ctx.useNewPortfolioMethod || false
+            ctx.requestNewPortfolioData || false
           ),
         onDone: [
           {
@@ -384,7 +373,6 @@ export const wowMachine = createMachine<WowContext, WowEvent, WowState>({
       },
       on: {
         ...handleSearchEvent,
-        ...handleToggleOfPortfolioMapping,
         VIEW_TIMELINE: {
           target: [".timeline.pending"],
         },

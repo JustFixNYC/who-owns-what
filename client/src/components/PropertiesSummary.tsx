@@ -100,9 +100,10 @@ export default class PropertiesSummary extends Component<Props, {}> {
       return (
         <div className="Page PropertiesSummary">
           <div className="PropertiesSummary__content Page__content">
-            {state.context.useNewPortfolioMethod && state.context.portfolioData.portfolioGraph && (
-              <PortfolioGraph graphJSON={state.context.portfolioData.portfolioGraph} />
-            )}
+            {state.context.requestNewPortfolioData &&
+              state.context.portfolioData.portfolioGraph && (
+                <PortfolioGraph graphJSON={state.context.portfolioData.portfolioGraph} />
+              )}
             <div>
               <Trans render="h6">General info</Trans>
               <p>
