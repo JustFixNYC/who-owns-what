@@ -2,10 +2,10 @@ import React from "react";
 import Cytoscape from "cytoscape";
 import CytoscapeComponent from "react-cytoscapejs";
 // @ts-ignore
-import cola from "cytoscape-cola";
+import fcose from "cytoscape-fcose";
 import { RawPortfolioJson } from "./APIDataTypes";
 
-Cytoscape.use(cola);
+Cytoscape.use(fcose);
 
 const formatGraphJSON = (rawJSON: RawPortfolioJson): cytoscape.ElementDefinition[] => {
   const nodes: cytoscape.ElementDefinition[] = rawJSON.nodes.map((node) => ({
@@ -29,7 +29,13 @@ const formatGraphJSON = (rawJSON: RawPortfolioJson): cytoscape.ElementDefinition
   return nodes.concat(edges);
 };
 
-const layout = { name: "cola" };
+const layout = {
+  name: "fcose",
+  nodeDimensionsIncludeLabels: true,
+  animate: false,
+  quality: "proof",
+  idealEdgeLength: 200,
+  nodeSeparation:300 };
 
 export const PortfolioGraph: React.FC<{ graphJSON: RawPortfolioJson }> = ({ graphJSON }) => (
   <CytoscapeComponent
@@ -42,6 +48,7 @@ export const PortfolioGraph: React.FC<{ graphJSON: RawPortfolioJson }> = ({ grap
         style: {
           label: "data(value)",
           backgroundColor: (ele) => (ele.data("type") === "name" ? "red" : "green"),
+          "min-zoomed-font-size": 16
         },
       },
     ]}
