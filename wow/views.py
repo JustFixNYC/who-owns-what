@@ -67,9 +67,7 @@ def address_query_with_portfolio_graph(request):
     bbl = get_bbl_from_request(request)
     addrs = exec_db_query(SQL_DIR / 'address_portfolio.sql', {'bbl': bbl})
     graph = list(filter(lambda r: r['graph'] is not None, addrs))[0]['graph']
-    print('graph: ', graph)
     addrs_without_graph = [{k: v for k, v in a.items() if k != 'graph'} for a in addrs]
-    print('addrs: ', addrs_without_graph)
     cleaned_addrs = map(clean_addr_dict, addrs_without_graph)
 
     return JsonResponse({

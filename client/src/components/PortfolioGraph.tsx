@@ -12,8 +12,8 @@ const formatGraphJSON = (rawJSON: RawPortfolioJson): cytoscape.ElementDefinition
     group: "nodes",
     data: {
       id: node.id,
-      type: node.value.Name ? "landlord" : "bizaddress",
-      value: node.value.Name || node.value.BizAddr,
+      type: node.value.kind,
+      value: node.value.value,
     },
   }));
 
@@ -23,8 +23,6 @@ const formatGraphJSON = (rawJSON: RawPortfolioJson): cytoscape.ElementDefinition
       source: edge.from,
       target: edge.to,
       count_hpd_registrations: edge.reg_contacts,
-      is_bridge: edge.is_bridge,
-      sample_bbl: edge.bbl,
     },
   }));
 
@@ -36,14 +34,14 @@ const layout = { name: "cola" };
 export const PortfolioGraph: React.FC<{ graphJSON: RawPortfolioJson }> = ({ graphJSON }) => (
   <CytoscapeComponent
     elements={formatGraphJSON(graphJSON)}
-    style={{ width: "600px", height: "600px" }}
+    style={{ width: "900px", height: "600px" }}
     layout={layout}
     stylesheet={[
       {
         selector: "node",
         style: {
           label: "data(value)",
-          backgroundColor: (ele) => (ele.data("type") === "landlord" ? "red" : "green"),
+          backgroundColor: (ele) => (ele.data("type") === "name" ? "red" : "green"),
         },
       },
     ]}
