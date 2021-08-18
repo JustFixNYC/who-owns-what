@@ -69,8 +69,8 @@ class MoratoriumBannerWithoutI18n extends Component<withI18nProps, BannerState> 
 const MoratoriumBanner = withI18n()(MoratoriumBannerWithoutI18n);
 
 const HomePage: React.FC<withMachineProps> = (props) => {
-  type PortfolioMethod = "old" | "new";
   const [useNewPortfolioMethod, setPortfolioMethod] = useState(false);
+  const allowChangingPortfolioMethod = process.env.REACT_APP_ENABLE_NEW_WOWZA_PORTFOLIO_MAPPING;
 
   const handleFormSubmit = (searchAddress: SearchAddress, error: any) => {
     window.gtag("event", "search");
@@ -130,24 +130,31 @@ const HomePage: React.FC<withMachineProps> = (props) => {
                 onFormSubmit={handleFormSubmit}
               />
             </div>{" "}
-            <label className={"form-radio" + (!useNewPortfolioMethod ? " active" : "")}>
-              <input
-                type="radio"
-                name="Old Version"
-                checked={!useNewPortfolioMethod}
-                onChange={() => setPortfolioMethod(false)}
-              />
-              <i className="form-icon" /> Old Version
-            </label>
-            <label className={"form-radio" + (useNewPortfolioMethod ? " active" : "")}>
-              <input
-                type="radio"
-                name="New Version"
-                checked={useNewPortfolioMethod}
-                onChange={() => setPortfolioMethod(true)}
-              />
-              <i className="form-icon" /> New Version
-            </label>
+            {allowChangingPortfolioMethod && (
+              <div>
+                <em>How do you want to group landlord portfolios?</em>
+                <br />
+                <label className={"form-radio" + (!useNewPortfolioMethod ? " active" : "")}>
+                  <input
+                    type="radio"
+                    name="Old Version"
+                    checked={!useNewPortfolioMethod}
+                    onChange={() => setPortfolioMethod(false)}
+                  />
+                  <i className="form-icon" /> Old Method
+                </label>
+                <br />
+                <label className={"form-radio" + (useNewPortfolioMethod ? " active" : "")}>
+                  <input
+                    type="radio"
+                    name="New Version"
+                    checked={useNewPortfolioMethod}
+                    onChange={() => setPortfolioMethod(true)}
+                  />
+                  <i className="form-icon" /> New Method (WOWZA!)
+                </label>
+              </div>
+            )}
           </div>
           <div className="HomePage__samples">
             <h5 className="text-center">
