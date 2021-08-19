@@ -80,11 +80,23 @@ export type AddressRecord = {
   zip: string | null;
 };
 
-// TODO: make this type definition more descriptive
+export type PortfolioGraphNode = {
+  id: number;
+  value: {
+    kind: "name" | "bizaddr";
+    value: string;
+  };
+};
+
+export type PortfolioGraphEdge = {
+  from: number;
+  to: number;
+  reg_contacts: number;
+};
+
 export type RawPortfolioJson = {
-  title: string;
-  nodes: any[];
-  edges: any[];
+  nodes: PortfolioGraphNode[];
+  edges: PortfolioGraphEdge[];
 };
 
 export type SearchResults = {
