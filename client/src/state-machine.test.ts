@@ -175,8 +175,8 @@ describe("wowMachine", () => {
         },
         graph: {
           edges: [],
-          nodes: []
-        }
+          nodes: [],
+        },
       }),
     });
 
