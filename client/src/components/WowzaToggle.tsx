@@ -6,13 +6,13 @@ import { useHistory, useLocation } from "react-router-dom";
 /**
  * Determines whether a url corresponds to a new WOWZA portfolio mapping page vs an original. 
  */
-const isWowzaPath = (pathname: string) => removeLocalePrefix(pathname).startsWith("/wowza");
+export const isWowzaPath = (pathname: string) => removeLocalePrefix(pathname).startsWith("/wowza");
 
 /**
  * If the user is on a normal WOW address page, this function generates a pathname for the corresponding
  * WOWZA page with updated portfolio mapping, and vice versa.
  */
-const getPathForOtherPortfolioMethod = (pathname: string) => {
+export const getPathForOtherPortfolioMethod = (pathname: string) => {
     if (isWowzaPath(pathname)) {
         return pathname.replace("/wowza", "");
     } else {
