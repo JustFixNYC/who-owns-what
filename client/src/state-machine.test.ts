@@ -28,6 +28,16 @@ const SEARCH_EVENT: WowEvent = {
   useNewPortfolioMethod: false,
 };
 
+const SEARCH_EVENT_WITH_NEW_PORTFOLIO_METHOD: WowEvent = {
+  type: "SEARCH",
+  address: {
+    housenumber: "150",
+    streetname: "court st",
+    boro: "BROOKLYN",
+  },
+  useNewPortfolioMethod: true,
+};
+
 function generateMockRequestStuff(bbl: string) {
   const bblBits = helpers.splitBBL(bbl);
   const newGeocodingExample = JSON.parse(JSON.stringify(GEOCODING_EXAMPLE_SEARCH));
@@ -35,6 +45,7 @@ function generateMockRequestStuff(bbl: string) {
   return {
     GEOCODING_EXAMPLE_SEARCH: newGeocodingExample,
     ADDRESS_URL: `https://wowapi/api/address?block=${bblBits.block}&lot=${bblBits.lot}&borough=${bblBits.boro}`,
+    ADDRESS_URL_WITH_NEW_PORTFOLIO_METHOD: `https://wowapi/api/address/wowza?block=${bblBits.block}&lot=${bblBits.lot}&borough=${bblBits.boro}`,
     BUILDINGINFO_URL: `https://wowapi/api/address/buildinginfo?bbl=${bbl}`,
     INDICATORS_URL: `https://wowapi/api/address/indicatorhistory?bbl=${bbl}`,
     SUMMARY_URL: `https://wowapi/api/address/aggregate?bbl=${bbl}`,
@@ -151,6 +162,26 @@ describe("wowMachine", () => {
 
     const wm = interpret(wowMachine).start();
     wm.send(SEARCH_EVENT);
+    await waitUntilStateMatches(wm, "portfolioFound");
+  });
+
+  it("should deal w/ addresses with portfolios using new portfolio method", async () => {
+    mockResponses({
+      [SEARCH_URL]: mockJsonResponse(PORTFOLIO_URLS.GEOCODING_EXAMPLE_SEARCH),
+      [PORTFOLIO_URLS.ADDRESS_URL_WITH_NEW_PORTFOLIO_METHOD]: mockJsonResponse<SearchResults>({
+        addrs: SAMPLE_ADDRESS_RECORDS,
+        geosearch: {
+          bbl: "3012380016",
+        },
+        graph: {
+          edges: [],
+          nodes: []
+        }
+      }),
+    });
+
+    const wm = interpret(wowMachine).start();
+    wm.send(SEARCH_EVENT_WITH_NEW_PORTFOLIO_METHOD);
     await waitUntilStateMatches(wm, "portfolioFound");
   });
 
