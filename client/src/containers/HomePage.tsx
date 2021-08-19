@@ -70,7 +70,8 @@ const MoratoriumBanner = withI18n()(MoratoriumBannerWithoutI18n);
 
 const HomePage: React.FC<withMachineProps> = (props) => {
   const [useNewPortfolioMethod, setPortfolioMethod] = useState(false);
-  const allowChangingPortfolioMethod = process.env.REACT_APP_ENABLE_NEW_WOWZA_PORTFOLIO_MAPPING === "1";
+  const allowChangingPortfolioMethod =
+    process.env.REACT_APP_ENABLE_NEW_WOWZA_PORTFOLIO_MAPPING === "1";
 
   const handleFormSubmit = (searchAddress: SearchAddress, error: any) => {
     window.gtag("event", "search");
