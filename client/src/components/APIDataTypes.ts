@@ -94,7 +94,7 @@ export type PortfolioGraphEdge = {
   reg_contacts: number;
 };
 
-export type RawPortfolioJson = {
+export type RawPortfolioGraphJson = {
   nodes: PortfolioGraphNode[];
   edges: PortfolioGraphEdge[];
 };
@@ -102,7 +102,7 @@ export type RawPortfolioJson = {
 export type SearchResults = {
   addrs: AddressRecord[];
   geosearch?: GeoSearchData;
-  graph?: RawPortfolioJson;
+  graph?: RawPortfolioGraphJson;
 };
 
 // TYPES ASSOCIATED WITH SUMMARY AGGREGATE QUERY:

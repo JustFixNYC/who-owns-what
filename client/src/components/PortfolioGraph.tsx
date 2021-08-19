@@ -3,11 +3,11 @@ import Cytoscape from "cytoscape";
 import CytoscapeComponent from "react-cytoscapejs";
 // @ts-ignore
 import fcose from "cytoscape-fcose";
-import { RawPortfolioJson } from "./APIDataTypes";
+import { RawPortfolioGraphJson } from "./APIDataTypes";
 
 Cytoscape.use(fcose);
 
-const formatGraphJSON = (rawJSON: RawPortfolioJson): cytoscape.ElementDefinition[] => {
+const formatGraphJSON = (rawJSON: RawPortfolioGraphJson): cytoscape.ElementDefinition[] => {
   const nodes: cytoscape.ElementDefinition[] = rawJSON.nodes.map((node) => ({
     group: "nodes",
     data: {
@@ -38,7 +38,7 @@ const layout = {
   nodeSeparation: 300,
 };
 
-export const PortfolioGraph: React.FC<{ graphJSON: RawPortfolioJson }> = ({ graphJSON }) => (
+export const PortfolioGraph: React.FC<{ graphJSON: RawPortfolioGraphJson }> = ({ graphJSON }) => (
   <CytoscapeComponent
     elements={formatGraphJSON(graphJSON)}
     style={{ width: "900px", height: "600px" }}

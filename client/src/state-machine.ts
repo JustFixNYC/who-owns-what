@@ -5,7 +5,7 @@ import {
   BuildingInfoRecord,
   SummaryStatsRecord,
   SummaryResults,
-  RawPortfolioJson,
+  RawPortfolioGraphJson,
 } from "components/APIDataTypes";
 import APIClient from "components/APIClient";
 import { assertNotUndefined } from "@justfixnyc/util";
@@ -16,75 +16,75 @@ import { reportError } from "error-reporting";
 export type WowState =
   | { value: "noData"; context: {} }
   | {
-      value: "searchInProgress";
-      context: WowContext & { searchAddrParams: SearchAddressWithoutBbl };
-    }
+    value: "searchInProgress";
+    context: WowContext & { searchAddrParams: SearchAddressWithoutBbl };
+  }
   | {
-      value: "bblNotFound";
-      context: WowContext & { searchAddrParams: SearchAddressWithoutBbl; searchAddrBbl: undefined };
-    }
+    value: "bblNotFound";
+    context: WowContext & { searchAddrParams: SearchAddressWithoutBbl; searchAddrBbl: undefined };
+  }
   | {
-      value: "unregisteredFound";
-      context: WowContext & {
-        searchAddrParams: SearchAddressWithoutBbl;
-        searchAddrBbl: string;
-        portfolioData: undefined;
-        buildingInfo: BuildingInfoRecord;
-      };
-    }
-  | {
-      value: "nychaFound";
-      context: WowContext & {
-        searchAddrParams: SearchAddressWithoutBbl;
-        searchAddrBbl: string;
-        portfolioData: undefined;
-        buildingInfo: BuildingInfoRecord;
-      };
-    }
-  | {
-      value: "portfolioFound";
-      context: WowPortfolioFoundContext;
-    }
-  | {
-      value: { portfolioFound: { timeline: "noData" } };
-      context: WowPortfolioFoundContext;
-    }
-  | {
-      value: { portfolioFound: { timeline: "pending" } };
-      context: WowPortfolioFoundContext;
-    }
-  | {
-      value: { portfolioFound: { timeline: "error" } };
-      context: WowPortfolioFoundContext;
-    }
-  | {
-      value: { portfolioFound: { timeline: "success" } };
-      context: WowPortfolioFoundContext & {
-        timelineData: IndicatorsDataFromAPI;
-      };
-    }
-  | {
-      value: { portfolioFound: { summary: "noData" } };
-      context: WowPortfolioFoundContext;
-    }
-  | {
-      value: { portfolioFound: { summary: "pending" } };
-      context: WowPortfolioFoundContext;
-    }
-  | {
-      value: { portfolioFound: { summary: "error" } };
-      context: WowPortfolioFoundContext;
-    }
-  | {
-      value: { portfolioFound: { summary: "success" } };
-      context: WowPortfolioFoundContext & {
-        summaryData: SummaryStatsRecord;
-      };
-    }
-  | {
-      value: "networkErrorOccurred";
-      context: WowContext & { searchAddrParams: SearchAddressWithoutBbl };
+    value: "unregisteredFound";
+    context: WowContext & {
+      searchAddrParams: SearchAddressWithoutBbl;
+      searchAddrBbl: string;
+      portfolioData: undefined;
+      buildingInfo: BuildingInfoRecord;
     };
+  }
+  | {
+    value: "nychaFound";
+    context: WowContext & {
+      searchAddrParams: SearchAddressWithoutBbl;
+      searchAddrBbl: string;
+      portfolioData: undefined;
+      buildingInfo: BuildingInfoRecord;
+    };
+  }
+  | {
+    value: "portfolioFound";
+    context: WowPortfolioFoundContext;
+  }
+  | {
+    value: { portfolioFound: { timeline: "noData" } };
+    context: WowPortfolioFoundContext;
+  }
+  | {
+    value: { portfolioFound: { timeline: "pending" } };
+    context: WowPortfolioFoundContext;
+  }
+  | {
+    value: { portfolioFound: { timeline: "error" } };
+    context: WowPortfolioFoundContext;
+  }
+  | {
+    value: { portfolioFound: { timeline: "success" } };
+    context: WowPortfolioFoundContext & {
+      timelineData: IndicatorsDataFromAPI;
+    };
+  }
+  | {
+    value: { portfolioFound: { summary: "noData" } };
+    context: WowPortfolioFoundContext;
+  }
+  | {
+    value: { portfolioFound: { summary: "pending" } };
+    context: WowPortfolioFoundContext;
+  }
+  | {
+    value: { portfolioFound: { summary: "error" } };
+    context: WowPortfolioFoundContext;
+  }
+  | {
+    value: { portfolioFound: { summary: "success" } };
+    context: WowPortfolioFoundContext & {
+      summaryData: SummaryStatsRecord;
+    };
+  }
+  | {
+    value: "networkErrorOccurred";
+    context: WowContext & { searchAddrParams: SearchAddressWithoutBbl };
+  };
 
 export type WowPortfolioFoundContext = WowContext & {
   searchAddrParams: SearchAddressWithoutBbl;
@@ -112,7 +112,7 @@ type PortfolioData = {
    * Only present when the new WOWZA graph-based portfolio mapping algorithm is
    * used to generate the landlord portfolio.
    */
-  portfolioGraph?: RawPortfolioJson;
+  portfolioGraph?: RawPortfolioGraphJson;
 };
 
 export interface WowContext {
@@ -149,12 +149,12 @@ type WowMachineInState<
    * since we never change this default, hence the name. -AV
    */
   WowStateByAnotherName extends WowState = WowState
-> = State<
-  (WowStateByAnotherName extends { value: TSV } ? WowStateByAnotherName : never)["context"],
-  WowEvent,
-  any,
-  WowStateByAnotherName
->;
+  > = State<
+    (WowStateByAnotherName extends { value: TSV } ? WowStateByAnotherName : never)["context"],
+    WowEvent,
+    any,
+    WowStateByAnotherName
+  >;
 
 export type withMachineProps = {
   state: WowMachineEverything;

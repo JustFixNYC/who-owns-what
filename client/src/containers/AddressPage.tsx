@@ -38,7 +38,7 @@ type RouteState = {
 type AddressPageProps = RouteComponentProps<RouteParams, {}, RouteState> &
   withMachineProps & {
     currentTab: number;
-    requestNewPortfolioData?: boolean;
+    useNewPortfolioMethod?: boolean;
   };
 
 type State = {
@@ -82,7 +82,7 @@ export default class AddressPage extends Component<AddressPageProps, State> {
     send({
       type: "SEARCH",
       address: validateRouteParams(match.params),
-      requestNewPortfolioData: this.props.requestNewPortfolioData || false,
+      requestNewPortfolioData: this.props.useNewPortfolioMethod || false,
     });
     /* When searching for user's address, let's reset the DetailView to the "closed" state 
     so it can pop into view once the address is found */
@@ -119,7 +119,7 @@ export default class AddressPage extends Component<AddressPageProps, State> {
   };
 
   render() {
-    const { state, send, requestNewPortfolioData } = this.props;
+    const { state, send, useNewPortfolioMethod: requestNewPortfolioData } = this.props;
 
     if (state.matches("bblNotFound")) {
       window.gtag("event", "bbl-not-found-page");
@@ -199,9 +199,8 @@ export default class AddressPage extends Component<AddressPageProps, State> {
               </div>
             </div>
             <div
-              className={`AddressPage__content AddressPage__viz ${
-                this.props.currentTab === 0 ? "AddressPage__content-active" : ""
-              }`}
+              className={`AddressPage__content AddressPage__viz ${this.props.currentTab === 0 ? "AddressPage__content-active" : ""
+                }`}
             >
               <PropertiesMap
                 state={state}
@@ -219,9 +218,8 @@ export default class AddressPage extends Component<AddressPageProps, State> {
               />
             </div>
             <div
-              className={`AddressPage__content AddressPage__summary ${
-                this.props.currentTab === 1 ? "AddressPage__content-active" : ""
-              }`}
+              className={`AddressPage__content AddressPage__summary ${this.props.currentTab === 1 ? "AddressPage__content-active" : ""
+                }`}
             >
               <Indicators
                 isVisible={this.props.currentTab === 1}
@@ -232,9 +230,8 @@ export default class AddressPage extends Component<AddressPageProps, State> {
               />
             </div>
             <div
-              className={`AddressPage__content AddressPage__table ${
-                this.props.currentTab === 2 ? "AddressPage__content-active" : ""
-              }`}
+              className={`AddressPage__content AddressPage__table ${this.props.currentTab === 2 ? "AddressPage__content-active" : ""
+                }`}
             >
               <PropertiesList
                 state={state}
@@ -244,9 +241,8 @@ export default class AddressPage extends Component<AddressPageProps, State> {
               />
             </div>
             <div
-              className={`AddressPage__content AddressPage__summary ${
-                this.props.currentTab === 3 ? "AddressPage__content-active" : ""
-              }`}
+              className={`AddressPage__content AddressPage__summary ${this.props.currentTab === 3 ? "AddressPage__content-active" : ""
+                }`}
             >
               <PropertiesSummary
                 state={state}
