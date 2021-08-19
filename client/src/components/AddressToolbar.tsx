@@ -7,32 +7,12 @@ import { Trans } from "@lingui/macro";
 import { SearchAddress } from "./AddressSearch";
 import { useState } from "react";
 import { useHistory, useLocation } from "react-router-dom";
+import { ToggleButtonBetweenPortfolioMethods } from "./WowzaToggle";
 
 export type AddressToolbarProps = {
   onExportClick: () => void;
   numOfAssocAddrs: number;
   searchAddr: SearchAddress;
-};
-
-const ToggleButtonBetweenPortfolioMethods = () => {
-  const history = useHistory();
-  const { pathname } = useLocation();
-  const isWowzaRoute = removeLocalePrefix(pathname).startsWith("/wowza");
-  const toggleUrlChange = () => {
-    if (isWowzaRoute) {
-      history.push(pathname.replace("/wowza", ""));
-    } else {
-      const locale = parseLocaleFromPath(pathname);
-      const newUrl = `/${locale}/wowza${removeLocalePrefix(pathname)}`;
-      history.push(newUrl);
-    }
-    history.go(0);
-  };
-  return (
-    <button className="btn btn-justfix" onClick={() => toggleUrlChange()}>
-      {isWowzaRoute ? <Trans>Switch to Old Version</Trans> : <Trans>Switch to New Version</Trans>}
-    </button>
-  );
 };
 
 const AddressToolbar: React.FC<AddressToolbarProps> = ({
