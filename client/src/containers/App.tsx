@@ -139,7 +139,6 @@ const App = () => {
   const isDemoSite = process.env.REACT_APP_DEMO_SITE === "1";
   const addFeatureCalloutWidget = process.env.REACT_APP_ENABLE_FEATURE_CALLOUT_WIDGET === "1";
   const version = process.env.REACT_APP_VERSION;
-  const warnAboutOldBrowser = process.env.REACT_APP_ENABLE_OLD_BROWSER_WARNING;
 
   return (
     <Router>
@@ -153,14 +152,6 @@ const App = () => {
             />
           )}
           <div className="App">
-            {warnAboutOldBrowser && (
-              <div className="App__warning old_safari_only">
-                <Trans render="h3">
-                  Warning! This site doesn't fully work on older versions of Safari. Try a{" "}
-                  <a href="http://outdatedbrowser.com/en">modern browser</a>.
-                </Trans>
-              </div>
-            )}
             <div className="App__header navbar">
               <HomeLink />
               {isDemoSite && (
