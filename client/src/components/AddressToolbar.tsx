@@ -1,12 +1,11 @@
 import React from "react";
-import { LocaleLink as Link, parseLocaleFromPath, removeLocalePrefix } from "../i18n";
+import { LocaleLink as Link } from "../i18n";
 import Modal from "./Modal";
 
 import "styles/AddressToolbar.css";
 import { Trans } from "@lingui/macro";
 import { SearchAddress } from "./AddressSearch";
 import { useState } from "react";
-import { useHistory, useLocation } from "react-router-dom";
 import { ToggleButtonBetweenPortfolioMethods } from "./WowzaToggle";
 
 export type AddressToolbarProps = {
