@@ -19,7 +19,7 @@ const AddressToolbar: React.FC<AddressToolbarProps> = ({
   numOfAssocAddrs,
   searchAddr,
 }) => {
-  const allowChangingPortfolioMethod = process.env.REACT_APP_ENABLE_NEW_WOWZA_PORTFOLIO_MAPPING;
+  const allowChangingPortfolioMethod = process.env.REACT_APP_ENABLE_NEW_WOWZA_PORTFOLIO_MAPPING === "1";
   const [showExportModal, setExportModalVisibility] = useState(false);
 
   const userAddrStr = `${searchAddr.housenumber} ${searchAddr.streetname}, ${searchAddr.boro}`;
