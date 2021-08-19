@@ -199,8 +199,9 @@ export default class AddressPage extends Component<AddressPageProps, State> {
               </div>
             </div>
             <div
-              className={`AddressPage__content AddressPage__viz ${this.props.currentTab === 0 ? "AddressPage__content-active" : ""
-                }`}
+              className={`AddressPage__content AddressPage__viz ${
+                this.props.currentTab === 0 ? "AddressPage__content-active" : ""
+              }`}
             >
               <PropertiesMap
                 state={state}
@@ -218,8 +219,9 @@ export default class AddressPage extends Component<AddressPageProps, State> {
               />
             </div>
             <div
-              className={`AddressPage__content AddressPage__summary ${this.props.currentTab === 1 ? "AddressPage__content-active" : ""
-                }`}
+              className={`AddressPage__content AddressPage__summary ${
+                this.props.currentTab === 1 ? "AddressPage__content-active" : ""
+              }`}
             >
               <Indicators
                 isVisible={this.props.currentTab === 1}
@@ -230,8 +232,9 @@ export default class AddressPage extends Component<AddressPageProps, State> {
               />
             </div>
             <div
-              className={`AddressPage__content AddressPage__table ${this.props.currentTab === 2 ? "AddressPage__content-active" : ""
-                }`}
+              className={`AddressPage__content AddressPage__table ${
+                this.props.currentTab === 2 ? "AddressPage__content-active" : ""
+              }`}
             >
               <PropertiesList
                 state={state}
@@ -241,8 +244,9 @@ export default class AddressPage extends Component<AddressPageProps, State> {
               />
             </div>
             <div
-              className={`AddressPage__content AddressPage__summary ${this.props.currentTab === 3 ? "AddressPage__content-active" : ""
-                }`}
+              className={`AddressPage__content AddressPage__summary ${
+                this.props.currentTab === 3 ? "AddressPage__content-active" : ""
+              }`}
             >
               <PropertiesSummary
                 state={state}

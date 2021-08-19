@@ -43,7 +43,9 @@ function searchForAddressWithGeosearch(
             addrs: [],
             geosearch: undefined,
           });
-        resolve(searchForBBL(helpers.splitBBL(firstResult.properties.pad_bbl), useNewPortfolioMethod));
+        resolve(
+          searchForBBL(helpers.splitBBL(firstResult.properties.pad_bbl), useNewPortfolioMethod)
+        );
       },
       throttleMs: 0,
     });
@@ -81,9 +83,13 @@ function createVizData(rawJSON: any, vizType: IndicatorsDatasetId): IndicatorsDa
   return vizData;
 }
 
-function searchForBBL(q: WithBoroBlockLot, useNewPortfolioMethod?: boolean): Promise<SearchResults> {
+function searchForBBL(
+  q: WithBoroBlockLot,
+  useNewPortfolioMethod?: boolean
+): Promise<SearchResults> {
   return getApiJson(
-    `/api/address${useNewPortfolioMethod ? "/wowza" : ""}?block=${q.block}&lot=${q.lot}&borough=${q.boro
+    `/api/address${useNewPortfolioMethod ? "/wowza" : ""}?block=${q.block}&lot=${q.lot}&borough=${
+      q.boro
     }`
   );
 }
