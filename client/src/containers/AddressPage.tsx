@@ -82,7 +82,7 @@ export default class AddressPage extends Component<AddressPageProps, State> {
     send({
       type: "SEARCH",
       address: validateRouteParams(match.params),
-      requestNewPortfolioData: this.props.useNewPortfolioMethod || false,
+      useNewPortfolioMethod: this.props.useNewPortfolioMethod || false,
     });
     /* When searching for user's address, let's reset the DetailView to the "closed" state 
     so it can pop into view once the address is found */
@@ -119,7 +119,7 @@ export default class AddressPage extends Component<AddressPageProps, State> {
   };
 
   render() {
-    const { state, send, useNewPortfolioMethod: requestNewPortfolioData } = this.props;
+    const { state, send, useNewPortfolioMethod } = this.props;
 
     if (state.matches("bblNotFound")) {
       window.gtag("event", "bbl-not-found-page");
@@ -135,7 +135,7 @@ export default class AddressPage extends Component<AddressPageProps, State> {
       const { assocAddrs, searchAddr } = state.context.portfolioData;
       const routes = createAddressPageRoutes(
         validateRouteParams(this.props.match.params),
-        requestNewPortfolioData
+        useNewPortfolioMethod
       );
 
       return (

@@ -93,7 +93,7 @@ export type WowPortfolioFoundContext = WowContext & {
 };
 
 export type WowEvent =
-  | { type: "SEARCH"; address: SearchAddressWithoutBbl; requestNewPortfolioData: boolean }
+  | { type: "SEARCH"; address: SearchAddressWithoutBbl; useNewPortfolioMethod: boolean }
   | { type: "SELECT_DETAIL_ADDR"; bbl: string }
   | { type: "VIEW_SUMMARY" }
   | { type: "VIEW_TIMELINE" };
@@ -120,7 +120,7 @@ export interface WowContext {
   searchAddrParams?: SearchAddressWithoutBbl;
   /** Whether or not we want to use the new WOWZA graph-based portfolio mapping algorithm
    * to generate the landlord portfolio. */
-  requestNewPortfolioData?: boolean;
+  useNewPortfolioMethod?: boolean;
   /** The BBL code found by GeoSearch corresponding with the search address parameters */
   searchAddrBbl?: string;
   /**
@@ -168,9 +168,9 @@ export type withMachineInStateProps<TSV extends WowState["value"]> = {
 
 async function getSearchResult(
   addr: SearchAddressWithoutBbl,
-  requestNewPortfolioData: boolean
+  useNewPortfolioMethod: boolean
 ): Promise<WowState> {
-  const apiResults = await APIClient.searchForAddressWithGeosearch(addr, requestNewPortfolioData);
+  const apiResults = await APIClient.searchForAddressWithGeosearch(addr, useNewPortfolioMethod);
   if (!apiResults.geosearch) {
     return {
       value: "bblNotFound",
@@ -234,7 +234,7 @@ const handleSearchEvent: TransitionsConfig<WowContext, WowEvent> = {
     actions: assign((ctx, event) => {
       return {
         searchAddrParams: event.address,
-        requestNewPortfolioData: event.requestNewPortfolioData,
+        useNewPortfolioMethod: event.useNewPortfolioMethod,
         summaryData: undefined,
         timelineData: undefined,
       };
@@ -265,7 +265,7 @@ export const wowMachine = createMachine<WowContext, WowEvent, WowState>({
         src: (ctx, event) =>
           getSearchResult(
             assertNotUndefined(ctx.searchAddrParams),
-            ctx.requestNewPortfolioData || false
+            ctx.useNewPortfolioMethod || false
           ),
         onDone: [
           {

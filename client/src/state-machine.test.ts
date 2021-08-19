@@ -25,7 +25,7 @@ const SEARCH_EVENT: WowEvent = {
     streetname: "court st",
     boro: "BROOKLYN",
   },
-  requestNewPortfolioData: false,
+  useNewPortfolioMethod: false,
 };
 
 function generateMockRequestStuff(bbl: string) {
