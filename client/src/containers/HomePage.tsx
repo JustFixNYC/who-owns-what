@@ -20,6 +20,7 @@ import { INLINES } from "@contentful/rich-text-types";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import { ContentfulCommonStrings } from "@justfixnyc/contentful-common-strings";
 import _commonStrings from "../data/common-strings.json";
+import { useState } from "react";
 
 const commonStrings = new ContentfulCommonStrings(_commonStrings as any);
 
@@ -67,35 +68,48 @@ class MoratoriumBannerWithoutI18n extends Component<withI18nProps, BannerState> 
 
 const MoratoriumBanner = withI18n()(MoratoriumBannerWithoutI18n);
 
-const getSampleUrls = () => [
-  createRouteForAddressPage({
-    boro: "BROOKLYN",
-    housenumber: "89",
-    streetname: "HICKS STREET",
-  }),
-  createRouteForAddressPage({
-    boro: "QUEENS",
-    housenumber: "4125",
-    streetname: "CASE STREET",
-  }),
-  createRouteForAddressPage({
-    boro: "BROOKLYN",
-    housenumber: "196",
-    streetname: "RALPH AVENUE",
-  }),
-];
-
 const HomePage: React.FC<withMachineProps> = (props) => {
+  const [useNewPortfolioMethod, setPortfolioMethod] = useState(false);
+  const allowChangingPortfolioMethod =
+    process.env.REACT_APP_ENABLE_NEW_WOWZA_PORTFOLIO_MAPPING === "1";
+
   const handleFormSubmit = (searchAddress: SearchAddress, error: any) => {
     window.gtag("event", "search");
 
     if (error) {
       window.gtag("event", "search-error");
     } else {
-      const addressPage = createRouteForAddressPage(searchAddress);
+      const addressPage = createRouteForAddressPage(searchAddress, useNewPortfolioMethod);
       history.push(addressPage);
     }
   };
+
+  const getSampleUrls = () => [
+    createRouteForAddressPage(
+      {
+        boro: "BROOKLYN",
+        housenumber: "89",
+        streetname: "HICKS STREET",
+      },
+      useNewPortfolioMethod
+    ),
+    createRouteForAddressPage(
+      {
+        boro: "QUEENS",
+        housenumber: "4125",
+        streetname: "CASE STREET",
+      },
+      useNewPortfolioMethod
+    ),
+    createRouteForAddressPage(
+      {
+        boro: "BROOKLYN",
+        housenumber: "196",
+        streetname: "RALPH AVENUE",
+      },
+      useNewPortfolioMethod
+    ),
+  ];
 
   const history = useHistory();
 
@@ -117,6 +131,33 @@ const HomePage: React.FC<withMachineProps> = (props) => {
                 onFormSubmit={handleFormSubmit}
               />
             </div>{" "}
+            {allowChangingPortfolioMethod && (
+              <div>
+                <em>
+                  <Trans>How do you want to group landlord portfolios?</Trans>
+                </em>
+                <br />
+                <label className={"form-radio" + (!useNewPortfolioMethod ? " active" : "")}>
+                  <input
+                    type="radio"
+                    name="Old Version"
+                    checked={!useNewPortfolioMethod}
+                    onChange={() => setPortfolioMethod(false)}
+                  />
+                  <i className="form-icon" /> <Trans>Old Method</Trans>
+                </label>
+                <br />
+                <label className={"form-radio" + (useNewPortfolioMethod ? " active" : "")}>
+                  <input
+                    type="radio"
+                    name="New Version"
+                    checked={useNewPortfolioMethod}
+                    onChange={() => setPortfolioMethod(true)}
+                  />
+                  <i className="form-icon" /> <Trans>New Method (WOWZA!)</Trans>
+                </label>
+              </div>
+            )}
           </div>
           <div className="HomePage__samples">
             <h5 className="text-center">
