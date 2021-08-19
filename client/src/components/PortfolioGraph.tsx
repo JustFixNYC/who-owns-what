@@ -11,7 +11,7 @@ const formatGraphJSON = (rawJSON: RawPortfolioJson): cytoscape.ElementDefinition
   const nodes: cytoscape.ElementDefinition[] = rawJSON.nodes.map((node) => ({
     group: "nodes",
     data: {
-      id: node.id,
+      id: node.id.toString(),
       type: node.value.kind,
       value: node.value.value,
     },
@@ -20,8 +20,8 @@ const formatGraphJSON = (rawJSON: RawPortfolioJson): cytoscape.ElementDefinition
   const edges: cytoscape.ElementDefinition[] = rawJSON.edges.map((edge) => ({
     group: "edges",
     data: {
-      source: edge.from,
-      target: edge.to,
+      source: edge.from.toString(),
+      target: edge.to.toString(),
       count_hpd_registrations: edge.reg_contacts,
     },
   }));

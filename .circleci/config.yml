@@ -57,6 +57,12 @@ jobs:
             # Note that CI=true in CircleCI, so this will fail if there are
             # any linter warnings.
             yarn build
+
+            # Even though type-checking is done in 'yarn build', we want to
+            # explicitly run it here, because we also want our tests and
+            # any other non-production code typechecked.
+            yarn typecheck
+
             yarn test
       - store_artifacts:
           path: test-reports
