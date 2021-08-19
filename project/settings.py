@@ -41,7 +41,9 @@ INSTALLED_APPS = [
     'wow.apps.WowConfig',
 ]
 
-MIDDLEWARE: List[str] = []
+MIDDLEWARE: List[str] = [
+    'django.middleware.gzip.GZipMiddleware'
+]
 
 DATABASES = {
     'default': {
