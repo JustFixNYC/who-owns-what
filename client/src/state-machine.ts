@@ -4,7 +4,6 @@ import {
   AddressRecord,
   BuildingInfoRecord,
   SummaryStatsRecord,
-  SummaryResults,
   RawPortfolioGraphJson,
 } from "components/APIDataTypes";
 import APIClient from "components/APIClient";
@@ -12,6 +11,7 @@ import { assertNotUndefined } from "@justfixnyc/util";
 import _find from "lodash/find";
 import { IndicatorsDataFromAPI } from "components/IndicatorsTypes";
 import { reportError } from "error-reporting";
+import { calculateAggDataFromAddressList } from "components/PropertiesSummary";
 
 export type WowState =
   | { value: "noData"; context: {} }
@@ -347,25 +347,7 @@ export const wowMachine = createMachine<WowContext, WowEvent, WowState>({
           initial: "noData",
           states: {
             noData: {},
-            pending: {
-              invoke: {
-                id: "summary",
-                src: (ctx, event) =>
-                  APIClient.getAggregate(assertNotUndefined(ctx.portfolioData).detailAddr.bbl),
-                onDone: {
-                  target: "success",
-                  actions: assign({
-                    summaryData: (ctx, event: DoneInvokeEvent<SummaryResults>) => {
-                      return event.data.result[0];
-                    },
-                  }),
-                },
-                onError: {
-                  target: "error",
-                  actions: [reportEventError],
-                },
-              },
-            },
+            pending: {},
             error: {},
             success: {},
           },
@@ -377,7 +359,13 @@ export const wowMachine = createMachine<WowContext, WowEvent, WowState>({
           target: [".timeline.pending"],
         },
         VIEW_SUMMARY: {
-          target: [".summary.pending"],
+          target: [".summary.success"],
+          actions: assign((ctx, event) => {
+            const summaryData = calculateAggDataFromAddressList(
+              assertNotUndefined(ctx.portfolioData?.assocAddrs)
+            );
+            return { summaryData };
+          }),
         },
         SELECT_DETAIL_ADDR: {
           target: [".timeline.noData"],

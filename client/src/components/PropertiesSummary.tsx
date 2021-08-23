@@ -12,11 +12,12 @@ import { StringifyListWithConjunction } from "./StringifyList";
 import { SocialShareAddressPage } from "./SocialShare";
 import { withMachineInStateProps } from "state-machine";
 import { NetworkErrorMessage } from "./NetworkErrorMessage";
-import { AddressRecord } from "./APIDataTypes";
+import { AddressRecord, SummaryStatsRecord } from "./APIDataTypes";
 import { defaultLocale, isSupportedLocale } from "i18n-base";
 import { I18n } from "@lingui/core/i18n";
 import { I18n as I18nComponent } from "@lingui/react";
 import { PortfolioGraph } from "./PortfolioGraph";
+import _ from "lodash";
 
 type Props = withMachineInStateProps<"portfolioFound"> & {
   isVisible: boolean;
@@ -40,6 +41,63 @@ const generateLinkToDataRequestForm = (i18n: I18n, address?: AddressRecord) => {
     url = `${url}?prefill_Address=${fullAddress}`;
   }
   return url;
+};
+
+export const calculateAggDataFromAddressList = (addrs: AddressRecord[]): SummaryStatsRecord => {
+  const bldgs = addrs.length;
+  const units = _.sumBy(addrs, (a) => a.unitsres || 0);
+  const totalopenviolations = _.sumBy(addrs, (a) => a.openviolations);
+  const totalviolations = _.sumBy(addrs, (a) => a.totalviolations);
+  const totalevictions = _.sumBy(addrs, (a) => a.evictions || 0);
+  const totalrsgain = addrs.reduce(
+    (sum, a) => (a.rsdiff && a.rsdiff > 0 ? sum + a.rsdiff : sum),
+    0
+  );
+  const totalrsloss = addrs.reduce(
+    (sum, a) => (a.rsdiff && a.rsdiff < 0 ? sum + a.rsdiff : sum),
+    0
+  );
+  const totalrsdiff = totalrsgain + totalrsloss;
+
+  const addrWithBiggestRsLoss = addrs.reduce((a1, a2) =>
+    (a1.rsdiff || 0) < (a2.rsdiff || 0) ? a1 : a2
+  );
+
+  const addrWithMostEvictions = addrs.reduce((a1, a2) =>
+    (a1.evictions || 0) > (a2.evictions || 0) ? a1 : a2
+  );
+
+  const addrWithMostOpenViolations = addrs.reduce((a1, a2) =>
+    (a1.openviolations || 0) > (a2.openviolations || 0) ? a1 : a2
+  );
+
+  return {
+    bldgs,
+    units,
+    age: new Date().getFullYear() - _.meanBy(addrs, (a) => a.yearbuilt),
+    topowners: [
+      "YOEL GOLDMAN",
+      "NATHAN SCHWARCZ",
+      "NAFTALI GESTETNER",
+      "MOSHE ENGEL",
+      "HECTOR PENA",
+    ],
+    topcorp: "NORTH BROOKLYN MANAGEMENT LLC",
+    topbusinessaddr: "12 SPENCER STREET 4 11205",
+    totalopenviolations,
+    totalviolations,
+    openviolationsperbldg: totalopenviolations / bldgs,
+    openviolationsperresunit: totalopenviolations / units,
+    totalevictions,
+    avgevictions: totalevictions / bldgs,
+    totalrsgain,
+    totalrsloss,
+    totalrsdiff,
+    rsproportion: (Math.abs(totalrsdiff) / units) * 100,
+    rslossaddr: { ...addrWithBiggestRsLoss },
+    evictionsaddr: { ...addrWithMostEvictions },
+    violationsaddr: { ...addrWithMostOpenViolations },
+  };
 };
 
 const DataRequestButton: React.FC<{

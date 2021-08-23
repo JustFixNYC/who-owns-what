@@ -110,8 +110,8 @@ export type SearchResults = {
 type AddressLocation = {
   boro: Borough;
   housenumber: string;
-  lat: number;
-  lng: number;
+  lat: number | null;
+  lng: number | null;
   streetname: string;
 };
 
@@ -147,10 +147,6 @@ export type SummaryStatsRecord = {
   totalviolations: number;
   units: number;
   violationsaddr: HpdViolationsAddress;
-};
-
-export type SummaryResults = {
-  result: SummaryStatsRecord[];
 };
 
 // TYPES ASSOCIATED WITH BUILDING INFO QUERY:
