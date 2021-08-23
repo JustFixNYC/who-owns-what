@@ -42,6 +42,17 @@ const generateLinkToDataRequestForm = (i18n: I18n, address?: AddressRecord) => {
   return url;
 };
 
+const getTopContactNamesFromPortfolio = (addrs: AddressRecord[], numberOfNames: number) => {
+  const allContactNames = addrs
+    .map((a) => a.ownernames?.map((ownername) => ownername.value) || [])
+    .flat();
+
+  const contactsByFrequency = _.countBy(allContactNames);
+  const sortedContactsByFrequency = Object.entries(contactsByFrequency).sort((a, b) => b[1] - a[1]);
+
+  return sortedContactsByFrequency.slice(0, numberOfNames).map((a) => a[0]);
+};
+
 export const calculateAggDataFromAddressList = (addrs: AddressRecord[]): SummaryStatsRecord => {
   const bldgs = addrs.length;
   const units = _.sumBy(addrs, (a) => a.unitsres || 0);
@@ -74,13 +85,7 @@ export const calculateAggDataFromAddressList = (addrs: AddressRecord[]): Summary
     bldgs,
     units,
     age: new Date().getFullYear() - _.meanBy(addrs, (a) => a.yearbuilt),
-    topowners: [
-      "YOEL GOLDMAN",
-      "NATHAN SCHWARCZ",
-      "NAFTALI GESTETNER",
-      "MOSHE ENGEL",
-      "HECTOR PENA",
-    ],
+    topowners: getTopContactNamesFromPortfolio(addrs, 5),
     topcorp: "NORTH BROOKLYN MANAGEMENT LLC",
     topbusinessaddr: "12 SPENCER STREET 4 11205",
     totalopenviolations,
