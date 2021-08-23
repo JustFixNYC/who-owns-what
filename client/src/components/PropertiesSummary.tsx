@@ -42,15 +42,18 @@ const generateLinkToDataRequestForm = (i18n: I18n, address?: AddressRecord) => {
   return url;
 };
 
-const getTopContactNamesFromPortfolio = (addrs: AddressRecord[], numberOfNames: number) => {
+const getMostCommonElementsInArray = (array: any[], numberOfResults: number) => {
+  const elementsByFrequency = _.countBy(array);
+  const sortedElementsByFrequency = Object.entries(elementsByFrequency).sort((a, b) => b[1] - a[1]);
+  return sortedElementsByFrequency.slice(0, numberOfResults).map((a) => a[0]);
+};
+
+const getTopFiveContactsInPortfolio = (addrs: AddressRecord[]) => {
   const allContactNames = addrs
     .map((a) => a.ownernames?.map((ownername) => ownername.value) || [])
     .flat();
 
-  const contactsByFrequency = _.countBy(allContactNames);
-  const sortedContactsByFrequency = Object.entries(contactsByFrequency).sort((a, b) => b[1] - a[1]);
-
-  return sortedContactsByFrequency.slice(0, numberOfNames).map((a) => a[0]);
+  return getMostCommonElementsInArray(allContactNames, 5);
 };
 
 export const calculateAggDataFromAddressList = (addrs: AddressRecord[]): SummaryStatsRecord => {
@@ -81,13 +84,16 @@ export const calculateAggDataFromAddressList = (addrs: AddressRecord[]): Summary
     (a1.openviolations || 0) > (a2.openviolations || 0) ? a1 : a2
   );
 
+  const allBusinessAddrs = addrs.map((addr) => addr.businessaddrs || []).flat();
+  const allCorpNames = addrs.map((addr) => addr.corpnames || []).flat();
+
   return {
     bldgs,
     units,
     age: new Date().getFullYear() - _.meanBy(addrs, (a) => a.yearbuilt),
-    topowners: getTopContactNamesFromPortfolio(addrs, 5),
-    topcorp: "NORTH BROOKLYN MANAGEMENT LLC",
-    topbusinessaddr: "12 SPENCER STREET 4 11205",
+    topowners: getTopFiveContactsInPortfolio(addrs),
+    topcorp: getMostCommonElementsInArray(allCorpNames, 1)[0] || null,
+    topbusinessaddr: getMostCommonElementsInArray(allBusinessAddrs, 1)[0] || null,
     totalopenviolations,
     totalviolations,
     openviolationsperbldg: totalopenviolations / bldgs,
