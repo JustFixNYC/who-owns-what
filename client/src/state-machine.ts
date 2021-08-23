@@ -11,7 +11,7 @@ import { assertNotUndefined } from "@justfixnyc/util";
 import _find from "lodash/find";
 import { IndicatorsDataFromAPI } from "components/IndicatorsTypes";
 import { reportError } from "error-reporting";
-import { calculateAggDataFromAddressList } from "components/PropertiesSummary";
+import { calculateAggDataFromAddressList } from "components/SummaryCalculation";
 
 export type WowState =
   | { value: "noData"; context: {} }
