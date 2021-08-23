@@ -220,14 +220,4 @@ describe("wowMachine", () => {
     wm.send({ type: "VIEW_SUMMARY" });
     await waitUntilStateMatches(wm, { portfolioFound: { summary: "success" } });
   });
-
-  it("should deal w/ summary data request errors", async () => {
-    mockResponses({ [PORTFOLIO_URLS.SUMMARY_URL]: { status: 500 } });
-
-    const wm = interpret(wowMachine).start({ portfolioFound: { summary: "noData" } });
-    wm.state.context = PORTFOLIO_FOUND_CTX;
-
-    wm.send({ type: "VIEW_SUMMARY" });
-    await waitUntilStateMatches(wm, { portfolioFound: { summary: "error" } });
-  });
 });
