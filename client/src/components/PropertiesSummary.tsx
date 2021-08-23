@@ -11,13 +11,11 @@ import { ViolationsSummary } from "./ViolationsSummary";
 import { StringifyListWithConjunction } from "./StringifyList";
 import { SocialShareAddressPage } from "./SocialShare";
 import { withMachineInStateProps } from "state-machine";
-import { AddressRecord, SummaryStatsRecord } from "./APIDataTypes";
+import { AddressRecord } from "./APIDataTypes";
 import { defaultLocale, isSupportedLocale } from "i18n-base";
 import { I18n } from "@lingui/core/i18n";
 import { I18n as I18nComponent } from "@lingui/react";
 import { PortfolioGraph } from "./PortfolioGraph";
-import _ from "lodash";
-import helpers from "util/helpers";
 
 type Props = withMachineInStateProps<"portfolioFound"> & {
   isVisible: boolean;
