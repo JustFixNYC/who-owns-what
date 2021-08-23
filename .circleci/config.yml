@@ -1,5 +1,7 @@
 version: 2.0
 
+orbs:
+  node: circleci/node@12
 jobs:
   test:
     working_directory: ~/who-owns-what
@@ -12,7 +14,6 @@ jobs:
           POSTGRES_USER: wow
           POSTGRES_DB: wow
           POSTGRES_PASSWORD: wow
-      - image: circleci/node:12
     steps:
       - checkout
       - restore_cache:
