@@ -4,6 +4,7 @@ jobs:
   test:
     working_directory: ~/who-owns-what
     docker:
+      - image: circleci/node:12
       - image: circleci/python:3.6-node
         environment:
           DATABASE_URL: postgres://wow:wow@localhost/wow
@@ -37,7 +38,7 @@ jobs:
       - restore_cache:
           name: Restore yarn package cache
           keys:
-            - yarn-packages-v3-{{ checksum "client/yarn.lock" }}
+            - yarn-packages-v2-{{ checksum "client/yarn.lock" }}
       - run:
           name: Install all node dependencies
           command: |
