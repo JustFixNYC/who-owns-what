@@ -49,6 +49,7 @@
     "leaflet": "^1.1.0",
     "lodash": "^4.17.21",
     "mapbox-gl": "^1.12.0",
+    "node-sass": "4.14",
     "node-sass-chokidar": "1.x",
     "prop-types": "^15.7.2",
     "react": "^16.11.0",
@@ -102,7 +103,7 @@
     "prettier": "2.0.5"
   },
   "engines": {
-    "node": ">=12.0.0"
+    "node": "12.0.0"
   },
   "@comment browserslist": "Note that when changing browserslist, you need to delete `node_modules/.cache` for the changes to propagate! For more details, see https://github.com/JustFixNYC/who-owns-what/pull/335.",
   "browserslist": [
