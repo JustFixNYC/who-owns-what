@@ -37,7 +37,7 @@ jobs:
       - restore_cache:
           name: Restore yarn package cache
           keys:
-            - yarn-packages-v2-{{ checksum "client/yarn.lock" }}
+            - yarn-packages-v3-{{ checksum "client/yarn.lock" }}
       - run:
           name: Install all node dependencies
           command: |
