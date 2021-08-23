@@ -335,6 +335,13 @@ export const wowMachine = createMachine<WowContext, WowEvent, WowState>({
             success: {},
           },
         },
+        summary: {
+          initial: "noData",
+          states: {
+            noData: {},
+            success: {},
+          },
+        },
       },
       on: {
         ...handleSearchEvent,
