@@ -4,7 +4,6 @@ jobs:
   test:
     working_directory: ~/who-owns-what
     docker:
-      - image: circleci/node:12
       - image: circleci/python:3.6-node
         environment:
           DATABASE_URL: postgres://wow:wow@localhost/wow
@@ -13,6 +12,7 @@ jobs:
           POSTGRES_USER: wow
           POSTGRES_DB: wow
           POSTGRES_PASSWORD: wow
+      - image: circleci/node:12
     steps:
       - checkout
       - restore_cache:
