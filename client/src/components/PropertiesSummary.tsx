@@ -11,7 +11,6 @@ import { ViolationsSummary } from "./ViolationsSummary";
 import { StringifyListWithConjunction } from "./StringifyList";
 import { SocialShareAddressPage } from "./SocialShare";
 import { withMachineInStateProps } from "state-machine";
-import { NetworkErrorMessage } from "./NetworkErrorMessage";
 import { AddressRecord, SummaryStatsRecord } from "./APIDataTypes";
 import { defaultLocale, isSupportedLocale } from "i18n-base";
 import { I18n } from "@lingui/core/i18n";
@@ -146,9 +145,7 @@ export default class PropertiesSummary extends Component<Props, {}> {
     const { state } = this.props;
     let agg = state.context.summaryData;
     let searchAddr = state.context.portfolioData.searchAddr;
-
-    if (state.matches({ portfolioFound: { summary: "error" } })) return <NetworkErrorMessage />;
-    else if (!agg) {
+    if (!agg) {
       return (
         <Loader loading={true} classNames="Loader-map">
           <Trans>Loading</Trans>

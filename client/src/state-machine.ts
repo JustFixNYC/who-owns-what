@@ -68,14 +68,6 @@ export type WowState =
       context: WowPortfolioFoundContext;
     }
   | {
-      value: { portfolioFound: { summary: "pending" } };
-      context: WowPortfolioFoundContext;
-    }
-  | {
-      value: { portfolioFound: { summary: "error" } };
-      context: WowPortfolioFoundContext;
-    }
-  | {
       value: { portfolioFound: { summary: "success" } };
       context: WowPortfolioFoundContext & {
         summaryData: SummaryStatsRecord;
@@ -339,15 +331,6 @@ export const wowMachine = createMachine<WowContext, WowEvent, WowState>({
                 },
               },
             },
-            error: {},
-            success: {},
-          },
-        },
-        summary: {
-          initial: "noData",
-          states: {
-            noData: {},
-            pending: {},
             error: {},
             success: {},
           },
