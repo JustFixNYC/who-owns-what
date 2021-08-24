@@ -14,7 +14,7 @@ export type SearchAddressWithoutBbl = Omit<SearchAddress, "bbl">;
 
 // TYPES ASSOCIATED WITH ADDRESS SEARCH QUERY:
 
-type HpdOwnerContact = {
+export type HpdOwnerContact = {
   title: string;
   value: string;
 };
