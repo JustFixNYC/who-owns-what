@@ -25,8 +25,8 @@ export const ViolationsSummary: React.FC<ViolationsSummaryData> = (props) => {
         {!_.isNil(openviolationsperresunit) && (
           <>
             <Trans>
-              This portfolio has an average of <b>{openviolationsperresunit}</b> open HPD violations
-              per residential unit.
+              This portfolio has an average of <b>{openviolationsperresunit.toFixed(1)}</b> open HPD
+              violations per residential unit.
             </Trans>{" "}
             {openviolationsperresunit >= VIOLATIONS_AVG - 0.05 &&
             openviolationsperresunit < VIOLATIONS_AVG + 0.05 ? (

@@ -9,6 +9,7 @@ import { reportError } from "error-reporting";
 import { t } from "@lingui/macro";
 import { I18n, MessageDescriptor } from "@lingui/core";
 import React, { useEffect, useState } from "react";
+import _ from "lodash";
 
 /**
  * An array consisting of Who Owns What's standard enumerations for street names,
@@ -166,6 +167,15 @@ export default {
       }
     }
     return max;
+  },
+
+  getMostCommonElementsInArray(array: string[], numberOfResults: number): string[] {
+    const elementsByFrequency = _.countBy(array);
+    const sortedElementsByFrequency = Object.entries(elementsByFrequency).sort(
+      (a, b) => b[1] - a[1]
+    );
+    // Let's discard the frequency number and just return a simple array of strings, in order:
+    return sortedElementsByFrequency.slice(0, numberOfResults).map((a) => a[0]);
   },
 
   splitBBL(bbl: string) {

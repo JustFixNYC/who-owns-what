@@ -7,14 +7,12 @@ import {
   SearchResults,
   BuildingInfoResults,
   IndicatorsHistoryResults,
-  SummaryResults,
 } from "components/APIDataTypes";
 import helpers from "util/helpers";
 import {
   SAMPLE_BUILDING_INFO_RESULTS,
   SAMPLE_ADDRESS_RECORDS,
   SAMPLE_TIMELINE_DATA,
-  SAMPLE_SUMMARY_DATA,
   SAMPLE_NYCHA_BUILDING_INFO_RESULTS,
 } from "state-machine-sample-data";
 
@@ -210,24 +208,10 @@ describe("wowMachine", () => {
   });
 
   it("should deal w/ viewing summary data", async () => {
-    mockResponses({
-      [PORTFOLIO_URLS.SUMMARY_URL]: mockJsonResponse<SummaryResults>(SAMPLE_SUMMARY_DATA),
-    });
-
     const wm = interpret(wowMachine).start({ portfolioFound: { summary: "noData" } });
     wm.state.context = PORTFOLIO_FOUND_CTX;
 
     wm.send({ type: "VIEW_SUMMARY" });
     await waitUntilStateMatches(wm, { portfolioFound: { summary: "success" } });
-  });
-
-  it("should deal w/ summary data request errors", async () => {
-    mockResponses({ [PORTFOLIO_URLS.SUMMARY_URL]: { status: 500 } });
-
-    const wm = interpret(wowMachine).start({ portfolioFound: { summary: "noData" } });
-    wm.state.context = PORTFOLIO_FOUND_CTX;
-
-    wm.send({ type: "VIEW_SUMMARY" });
-    await waitUntilStateMatches(wm, { portfolioFound: { summary: "error" } });
   });
 });

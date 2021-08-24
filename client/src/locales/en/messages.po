@@ -13,11 +13,11 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-#: src/components/PropertiesSummary.tsx:139
+#: src/components/PropertiesSummary.tsx:136
 msgid "#WhoOwnsWhat via @JustFixNYC"
 msgstr "#WhoOwnsWhat via @JustFixNYC"
 
-#: src/util/helpers.ts:260
+#: src/util/helpers.ts:267
 msgid "(\"{textInEnglish}\" in English)"
 msgstr "(\"{textInEnglish}\" in English)"
 
@@ -66,7 +66,7 @@ msgstr "A new set of dropdown menus and design tweaks make it more comfortable t
 msgid "ANHD DAP Portal"
 msgstr "ANHD DAP Portal"
 
-#: src/util/helpers.ts:54
+#: src/util/helpers.ts:55
 msgid "APPLIANCE"
 msgstr "APPLIANCE"
 
@@ -79,7 +79,7 @@ msgstr "About"
 msgid "According to available HPD data, this portfolio has received <0>{totalviolations}</0> total violations."
 msgstr "According to available HPD data, this portfolio has received <0>{totalviolations}</0> total violations."
 
-#: src/components/PropertiesSummary.tsx:125
+#: src/components/PropertiesSummary.tsx:122
 msgid "Additional links"
 msgstr "Additional links"
 
@@ -87,7 +87,7 @@ msgstr "Additional links"
 msgid "Address"
 msgstr "Address"
 
-#: src/util/helpers.ts:69
+#: src/util/helpers.ts:70
 msgid "Agent"
 msgstr "Agent"
 
@@ -112,7 +112,7 @@ msgstr "Are you having issues in this building?"
 msgid "Are you having issues in this development?"
 msgstr "Are you having issues in this development?"
 
-#: src/util/helpers.ts:34
+#: src/util/helpers.ts:35
 msgid "BELL/BUZZER/INTERCOM"
 msgstr "BELL/BUZZER/INTERCOM"
 
@@ -164,19 +164,19 @@ msgstr "Business Addresses"
 msgid "Business Entities"
 msgstr "Business Entities"
 
-#: src/util/helpers.ts:43
+#: src/util/helpers.ts:44
 msgid "CABINET"
 msgstr "CABINET"
 
-#: src/util/helpers.ts:56
+#: src/util/helpers.ts:57
 msgid "CERAMIC TILE"
 msgstr "CERAMIC TILE"
 
-#: src/util/helpers.ts:31
+#: src/util/helpers.ts:32
 msgid "CONSTRUCTION"
 msgstr "CONSTRUCTION"
 
-#: src/util/helpers.ts:57
+#: src/util/helpers.ts:58
 msgid "COOKING GAS"
 msgstr "COOKING GAS"
 
@@ -221,11 +221,11 @@ msgstr "Close legend"
 msgid "Complaints Issued"
 msgstr "Complaints Issued"
 
-#: src/util/helpers.ts:65
+#: src/util/helpers.ts:66
 msgid "Corporate Owner"
 msgstr "Corporate Owner"
 
-#: src/util/helpers.ts:73
+#: src/util/helpers.ts:74
 msgid "Corporation"
 msgstr "Corporation"
 
@@ -241,11 +241,11 @@ msgstr "DOB/ECB Violations"
 msgid "DOF Property Tax Bills"
 msgstr "DOF Property Tax Bills"
 
-#: src/util/helpers.ts:28
+#: src/util/helpers.ts:29
 msgid "DOOR/WINDOW"
 msgstr "DOOR/WINDOW"
 
-#: src/util/helpers.ts:60
+#: src/util/helpers.ts:61
 msgid "DOORS"
 msgstr "DOORS"
 
@@ -280,11 +280,11 @@ msgstr "Download"
 msgid "ECB"
 msgstr "ECB"
 
-#: src/util/helpers.ts:51
+#: src/util/helpers.ts:52
 msgid "ELECTRIC"
 msgstr "ELECTRIC"
 
-#: src/util/helpers.ts:41
+#: src/util/helpers.ts:42
 msgid "ELEVATOR"
 msgstr "ELEVATOR"
 
@@ -306,7 +306,7 @@ msgstr "Enter email"
 
 #: src/components/BuildingStatsTable.tsx:71
 #: src/components/PropertiesList.tsx:265
-#: src/components/PropertiesSummary.tsx:118
+#: src/components/PropertiesSummary.tsx:115
 #: src/containers/NychaPage.tsx:87
 msgid "Evictions"
 msgstr "Evictions"
@@ -323,15 +323,15 @@ msgstr "Evictions executed in this development by NYC Marshals since 2017. ANHD 
 msgid "Export Data"
 msgstr "Export Data"
 
-#: src/util/helpers.ts:36
+#: src/util/helpers.ts:37
 msgid "FIRE ESCAPE"
 msgstr "FIRE ESCAPE"
 
-#: src/util/helpers.ts:46
+#: src/util/helpers.ts:47
 msgid "FLOOR"
 msgstr "FLOOR"
 
-#: src/util/helpers.ts:52
+#: src/util/helpers.ts:53
 msgid "FLOORING/STAIRS"
 msgstr "FLOORING/STAIRS"
 
@@ -339,11 +339,11 @@ msgstr "FLOORING/STAIRS"
 msgid "Failure to register a building with HPD"
 msgstr "Failure to register a building with HPD"
 
-#: src/util/helpers.ts:42
+#: src/util/helpers.ts:43
 msgid "GARBAGE/RECYCLING STORAGE"
 msgstr "GARBAGE/RECYCLING STORAGE"
 
-#: src/components/PropertiesSummary.tsx:71
+#: src/components/PropertiesSummary.tsx:68
 msgid "General info"
 msgstr "General info"
 
@@ -352,11 +352,11 @@ msgstr "General info"
 msgid "Group Sale?"
 msgstr "Group Sale?"
 
-#: src/util/helpers.ts:59
+#: src/util/helpers.ts:60
 msgid "HEAT/HOT WATER"
 msgstr "HEAT/HOT WATER"
 
-#: src/util/helpers.ts:29
+#: src/util/helpers.ts:30
 msgid "HEATING"
 msgstr "HEATING"
 
@@ -386,7 +386,7 @@ msgstr "HPD Violations occur when an official City Inspector finds the condition
 msgid "HUD Complaint Form 958"
 msgstr "HUD Complaint Form 958"
 
-#: src/util/helpers.ts:64
+#: src/util/helpers.ts:65
 msgid "Head Officer"
 msgstr "Head Officer"
 
@@ -412,11 +412,11 @@ msgstr "I just looked up this building on Who Owns What, a free tool built by Ju
 msgid "I used #WhoOwnsWhat (built by @JustFixNYC) to see not only the open violations in this building, but also rent stabilized losses, evictions, and more. This website is a wealth of info and costs nothing to use. Savvy New Yorkers need this info:"
 msgstr "I used #WhoOwnsWhat (built by @JustFixNYC) to see not only the open violations in this building, but also rent stabilized losses, evictions, and more. This website is a wealth of info and costs nothing to use. Savvy New Yorkers need this info:"
 
-#: src/components/PropertiesSummary.tsx:141
+#: src/components/PropertiesSummary.tsx:138
 msgid "I was checking out this building on Who Owns What, a free landlord research tool from JustFix.nyc. It’s a remarkable website that every tenant and housing advocate should know about! Can you guess how many total violations this landlord portfolio has? Check it out here: {url}"
 msgstr "I was checking out this building on Who Owns What, a free landlord research tool from JustFix.nyc. It’s a remarkable website that every tenant and housing advocate should know about! Can you guess how many total violations this landlord portfolio has? Check it out here: {url}"
 
-#: src/util/helpers.ts:66
+#: src/util/helpers.ts:67
 msgid "Individual Owner"
 msgstr "Individual Owner"
 
@@ -432,7 +432,7 @@ msgstr "Information"
 msgid "It doesn't seem like this property is required to register with HPD."
 msgstr "It doesn't seem like this property is required to register with HPD."
 
-#: src/util/helpers.ts:32
+#: src/util/helpers.ts:33
 msgid "JANITOR/SUPER"
 msgstr "JANITOR/SUPER"
 
@@ -440,7 +440,7 @@ msgstr "JANITOR/SUPER"
 msgid "Join the fight for tenant rights!"
 msgstr "Join the fight for tenant rights!"
 
-#: src/util/helpers.ts:67
+#: src/util/helpers.ts:68
 msgid "Joint Owner"
 msgstr "Joint Owner"
 
@@ -448,12 +448,12 @@ msgstr "Joint Owner"
 msgid "JustFix, Inc is a registered 501(c)(3) nonprofit organization."
 msgstr "JustFix, Inc is a registered 501(c)(3) nonprofit organization."
 
-#: src/util/helpers.ts:61
+#: src/util/helpers.ts:62
 msgid "LOCKS"
 msgstr "LOCKS"
 
 #: src/components/PropertiesList.tsx:279
-#: src/components/PropertiesSummary.tsx:103
+#: src/components/PropertiesSummary.tsx:100
 msgid "Landlord"
 msgstr "Landlord"
 
@@ -490,7 +490,7 @@ msgstr "Learn more"
 msgid "Legend"
 msgstr "Legend"
 
-#: src/util/helpers.ts:70
+#: src/util/helpers.ts:71
 msgid "Lessee"
 msgstr "Lessee"
 
@@ -502,7 +502,7 @@ msgstr "Link to Deed"
 
 #: src/components/Indicators.tsx:135
 #: src/components/PropertiesMap.tsx:156
-#: src/components/PropertiesSummary.tsx:63
+#: src/components/PropertiesSummary.tsx:60
 #: src/containers/AddressPage.tsx:161
 #: src/containers/BBLPage.tsx:58
 msgid "Loading"
@@ -512,15 +512,15 @@ msgstr "Loading"
 msgid "Location"
 msgstr "Location"
 
-#: src/components/PropertiesSummary.tsx:129
+#: src/components/PropertiesSummary.tsx:126
 msgid "Looking for more information?"
 msgstr "Looking for more information?"
 
-#: src/util/helpers.ts:39
+#: src/util/helpers.ts:40
 msgid "MAILBOX"
 msgstr "MAILBOX"
 
-#: src/util/helpers.ts:49
+#: src/util/helpers.ts:50
 msgid "MOLD"
 msgstr "MOLD"
 
@@ -565,7 +565,7 @@ msgstr "Move chart data right."
 msgid "MyNYCHA App"
 msgstr "MyNYCHA App"
 
-#: src/util/helpers.ts:55
+#: src/util/helpers.ts:56
 msgid "NON-CONSTRUCTION"
 msgstr "NON-CONSTRUCTION"
 
@@ -626,11 +626,11 @@ msgstr "None"
 msgid "Not found"
 msgstr "Not found"
 
-#: src/util/helpers.ts:33
+#: src/util/helpers.ts:34
 msgid "OUTSIDE BUILDING"
 msgstr "OUTSIDE BUILDING"
 
-#: src/util/helpers.ts:71
+#: src/util/helpers.ts:72
 msgid "Officer"
 msgstr "Officer"
 
@@ -670,15 +670,15 @@ msgstr "Overview"
 msgid "Owners submit Building Permit Applications to the Department of Buildings before any construction project to get necessary approval. The number of applications filed can indicate how much construction the owner was planning.<0/><1/>Read more about DOB Building Applications/Permits at the <2>official NYC Buildings page</2>."
 msgstr "Owners submit Building Permit Applications to the Department of Buildings before any construction project to get necessary approval. The number of applications filed can indicate how much construction the owner was planning.<0/><1/>Read more about DOB Building Applications/Permits at the <2>official NYC Buildings page</2>."
 
-#: src/util/helpers.ts:53
+#: src/util/helpers.ts:54
 msgid "PAINT/PLASTER"
 msgstr "PAINT/PLASTER"
 
-#: src/util/helpers.ts:38
+#: src/util/helpers.ts:39
 msgid "PESTS"
 msgstr "PESTS"
 
-#: src/util/helpers.ts:47
+#: src/util/helpers.ts:48
 msgid "PLUMBING"
 msgstr "PLUMBING"
 
@@ -721,23 +721,23 @@ msgstr "Public Housing Development"
 msgid "RS Units"
 msgstr "RS Units"
 
-#: src/components/PropertiesSummary.tsx:120
+#: src/components/PropertiesSummary.tsx:117
 msgid "Rent stabilization"
 msgstr "Rent stabilization"
 
-#: src/util/helpers.ts:58
+#: src/util/helpers.ts:59
 msgid "SAFETY"
 msgstr "SAFETY"
 
-#: src/util/helpers.ts:35
+#: src/util/helpers.ts:36
 msgid "SEWAGE"
 msgstr "SEWAGE"
 
-#: src/util/helpers.ts:37
+#: src/util/helpers.ts:38
 msgid "SIGNAGE MISSING"
 msgstr "SIGNAGE MISSING"
 
-#: src/util/helpers.ts:30
+#: src/util/helpers.ts:31
 msgid "STAIRS"
 msgstr "STAIRS"
 
@@ -754,7 +754,7 @@ msgstr "Search for a different address"
 msgid "See the most common complaints reported by tenants to 311, now on the Overview and Portfolio tabs."
 msgstr "See the most common complaints reported by tenants to 311, now on the Overview and Portfolio tabs."
 
-#: src/components/PropertiesSummary.tsx:37
+#: src/components/PropertiesSummary.tsx:36
 msgid "Send us a data request"
 msgstr "Send us a data request"
 
@@ -765,13 +765,13 @@ msgstr "Share"
 
 #: src/components/DetailView.tsx:231
 #: src/components/EngagementPanel.tsx:18
-#: src/components/PropertiesSummary.tsx:135
+#: src/components/PropertiesSummary.tsx:132
 #: src/containers/App.tsx:124
 #: src/containers/NotRegisteredPage.tsx:14
 msgid "Share this page with your neighbors"
 msgstr "Share this page with your neighbors"
 
-#: src/util/helpers.ts:72
+#: src/util/helpers.ts:73
 msgid "Shareholder"
 msgstr "Shareholder"
 
@@ -792,7 +792,7 @@ msgstr "Since 2017"
 msgid "Since 2017, NYC Marshals scheduled {totalEvictions, plural, one {one eviction} other {# evictions}} across this portfolio."
 msgstr "Since 2017, NYC Marshals scheduled {totalEvictions, plural, one {one eviction} other {# evictions}} across this portfolio."
 
-#: src/util/helpers.ts:68
+#: src/util/helpers.ts:69
 msgid "Site Manager"
 msgstr "Site Manager"
 
@@ -824,7 +824,7 @@ msgstr "Switch to New Version"
 msgid "Switch to Old Version"
 msgstr "Switch to Old Version"
 
-#: src/util/helpers.ts:44
+#: src/util/helpers.ts:45
 msgid "TENANT HARASSMENT"
 msgstr "TENANT HARASSMENT"
 
@@ -858,11 +858,11 @@ msgstr "The city borough where your search address is located"
 msgid "The city’s fifth <0>worst evictor</0> in 2018, A&E is a prime example of a landlord who engages in <1>aggressive eviction strategies</1> to displace low-income tenants. Besides lack of repairs and frivolous evictions in housing court, A&E has also been known to use <2>MCIs</2> to <3>double rents</3> in rent-stabilized buildings."
 msgstr "The city’s fifth <0>worst evictor</0> in 2018, A&E is a prime example of a landlord who engages in <1>aggressive eviction strategies</1> to displace low-income tenants. Besides lack of repairs and frivolous evictions in housing court, A&E has also been known to use <2>MCIs</2> to <3>double rents</3> in rent-stabilized buildings."
 
-#: src/components/PropertiesSummary.tsx:111
+#: src/components/PropertiesSummary.tsx:108
 msgid "The most common corporate entity is <0>{0}</0> and the most common business address is <1>{1}</1>."
 msgstr "The most common corporate entity is <0>{0}</0> and the most common business address is <1>{1}</1>."
 
-#: src/components/PropertiesSummary.tsx:105
+#: src/components/PropertiesSummary.tsx:102
 msgid "The most common {0, plural, one {name that appears in this portfolio is} other {names that appear in this portfolio are}} <0/>."
 msgstr "The most common {0, plural, one {name that appears in this portfolio is} other {names that appear in this portfolio are}} <0/>."
 
@@ -882,11 +882,11 @@ msgstr "The number of residential units in this building, according to the Dept.
 msgid "The year that this building was originally constructed, according to the Dept. of City Planning."
 msgstr "The year that this building was originally constructed, according to the Dept. of City Planning."
 
-#: src/components/PropertiesSummary.tsx:84
+#: src/components/PropertiesSummary.tsx:81
 msgid "The {0, plural, one {} other {average}} age of {1, plural, one {this building} other {these buildings}} is <0>{2}</0> years old."
 msgstr "The {0, plural, one {} other {average}} age of {1, plural, one {this building} other {these buildings}} is <0>{2}</0> years old."
 
-#: src/components/PropertiesSummary.tsx:73
+#: src/components/PropertiesSummary.tsx:70
 msgid "There {0, plural, one {<0>is <1>1</1> building</0>} other {<2>are <3>{1}</3> buildings</2>}} in this portfolio with a total of {2, plural, one {1 unit} other {# units}}."
 msgstr "There {0, plural, one {<0>is <1>1</1> building</0>} other {<2>are <3>{1}</3> buildings</2>}} in this portfolio with a total of {2, plural, one {1 unit} other {# units}}."
 
@@ -918,11 +918,11 @@ msgstr "This is <0>worse</0> than the citywide average of {VIOLATIONS_AVG} per r
 msgid "This is the official identifer for the building according to the Dept. of Finance tax records."
 msgstr "This is the official identifer for the building according to the Dept. of Finance tax records."
 
-#: src/components/PropertiesSummary.tsx:138
+#: src/components/PropertiesSummary.tsx:135
 msgid "This landlord owns {0} buildings, and according to @NYCHousing, has received a total of {1} violations. Can you guess which landlord it is? Find their name and more data analysis here:"
 msgstr "This landlord owns {0} buildings, and according to @NYCHousing, has received a total of {1} violations. Can you guess which landlord it is? Find their name and more data analysis here:"
 
-#: src/components/PropertiesSummary.tsx:140
+#: src/components/PropertiesSummary.tsx:137
 msgid "This landlord’s buildings average {0} open HPD violations per apartment"
 msgstr "This landlord’s buildings average {0} open HPD violations per apartment"
 
@@ -931,16 +931,16 @@ msgid "This portfolio also had an estimated <0>net {changeType, select, gain {ga
 msgstr "This portfolio also had an estimated <0>net {changeType, select, gain {gain} other {loss}}</0> of <1>{absTotalRsDiff}</1> {absTotalRsDiff, plural, one {rent stabilized unit} other {rent stabilized units}} since 2007 (gained {absTotalRsGain}, lost {absTotalRsLoss})."
 
 #: src/components/ViolationsSummary.tsx:12
-msgid "This portfolio has an average of <0>{openviolationsperresunit}</0> open HPD violations per residential unit."
-msgstr "This portfolio has an average of <0>{openviolationsperresunit}</0> open HPD violations per residential unit."
+msgid "This portfolio has an average of <0>{0}</0> open HPD violations per residential unit."
+msgstr "This portfolio has an average of <0>{0}</0> open HPD violations per residential unit."
 
 #: src/containers/HomePage.tsx:127
 msgid "This property management company owned by the Kushner family is notorious for <0>violating rent regulations</0> and <1>harassing tenants</1>. The stake currently held by Jared Kushner and Ivanka Trump is worth as much as $761 million."
 msgstr "This property management company owned by the Kushner family is notorious for <0>violating rent regulations</0> and <1>harassing tenants</1>. The stake currently held by Jared Kushner and Ivanka Trump is worth as much as $761 million."
 
 #: src/components/RentstabSummary.tsx:23
-msgid "This represents <0>{rsProportion}%</0> of the total size of this portfolio."
-msgstr "This represents <0>{rsProportion}%</0> of the total size of this portfolio."
+msgid "This represents <0>{0}%</0> of the total size of this portfolio."
+msgstr "This represents <0>{0}%</0> of the total size of this portfolio."
 
 #: src/components/BuildingStatsTable.tsx:61
 msgid "This represents the total number of HPD Violations (both open & closed) recorded by the city."
@@ -1003,7 +1003,7 @@ msgstr "Use this free tool from JustFix.nyc to research your building and invest
 msgid "Useful links"
 msgstr "Useful links"
 
-#: src/util/helpers.ts:48
+#: src/util/helpers.ts:49
 msgid "VENTILATION SYSTEM"
 msgstr "VENTILATION SYSTEM"
 
@@ -1049,15 +1049,15 @@ msgstr "Violations Issued"
 msgid "Visit our website"
 msgstr "Visit our website"
 
-#: src/util/helpers.ts:50
+#: src/util/helpers.ts:51
 msgid "WATER LEAK"
 msgstr "WATER LEAK"
 
-#: src/util/helpers.ts:45
+#: src/util/helpers.ts:46
 msgid "WINDOW GUARDS"
 msgstr "WINDOW GUARDS"
 
-#: src/util/helpers.ts:40
+#: src/util/helpers.ts:41
 msgid "WINDOWS"
 msgstr "WINDOWS"
 
@@ -1158,7 +1158,7 @@ msgstr "year"
 msgid "{0} of {numberOfEntries}"
 msgstr "{0} of {numberOfEntries}"
 
-#: src/components/PropertiesSummary.tsx:94
+#: src/components/PropertiesSummary.tsx:91
 msgid "{0} {1}, {2} currently has {3, plural, one {one open HPD violation} other {# open HPD violations}} - the most in this portfolio."
 msgstr "{0} {1}, {2} currently has {3, plural, one {one open HPD violation} other {# open HPD violations}} - the most in this portfolio."
 
