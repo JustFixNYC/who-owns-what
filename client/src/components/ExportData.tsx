@@ -4,11 +4,15 @@ import { CSVDownloader } from "react-papaparse";
 import { AddressRecord, HpdComplaintCount, HpdFullContact, HpdOwnerContact } from "./APIDataTypes";
 import helpers from "util/helpers";
 
-const formatOwnerNames = (names: HpdOwnerContact[] | null) => {
+export const formatOwnerNames = (names: HpdOwnerContact[] | null) => {
   return names ? names.map(({ title, value }) => `${value} (${title})`).join(", ") : "";
 };
 
-const formatAllContacts = (contacts: HpdFullContact[] | null) => {
+export const formatComplaintTypes = (complaints: HpdComplaintCount[] | null) => {
+  return complaints ? complaints.map(({ type, count }) => `${type} (${count})`).join(", ") : "";
+};
+
+export const formatAllContacts = (contacts: HpdFullContact[] | null) => {
   if (!contacts) return "";
   else
     return contacts
@@ -23,10 +27,6 @@ const formatAllContacts = (contacts: HpdFullContact[] | null) => {
       .join("; ");
 };
 
-const formatComplaintTypes = (complaints: HpdComplaintCount[] | null) => {
-  return complaints ? complaints.map(({ type, count }) => `${type} (${count})`).join(", ") : "";
-};
-
 const ExportDataButton: React.FC<{ data: AddressRecord[] }> = ({ data }) => {
   // Remove fields we do not want to include in the data export:
   const fieldsWeWant = data.map(({ mapType, ...fields }) => fields);
@@ -36,8 +36,8 @@ const ExportDataButton: React.FC<{ data: AddressRecord[] }> = ({ data }) => {
       corpnames: !!addr.corpnames ? addr.corpnames.join("; ") : "",
       businessaddrs: !!addr.businessaddrs ? addr.businessaddrs.join("; ") : "",
       ownernames: formatOwnerNames(addr.ownernames),
-      allcontacts: formatAllContacts(addr.allcontacts),
       recentcomplaintsbytype: formatComplaintTypes(addr.recentcomplaintsbytype),
+      allcontacts: formatAllContacts(addr.allcontacts),
     };
   });
 
