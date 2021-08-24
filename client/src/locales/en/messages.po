@@ -13,7 +13,7 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-#: src/components/PropertiesSummary.tsx:140
+#: src/components/PropertiesSummary.tsx:139
 msgid "#WhoOwnsWhat via @JustFixNYC"
 msgstr "#WhoOwnsWhat via @JustFixNYC"
 
@@ -79,7 +79,7 @@ msgstr "About"
 msgid "According to available HPD data, this portfolio has received <0>{totalviolations}</0> total violations."
 msgstr "According to available HPD data, this portfolio has received <0>{totalviolations}</0> total violations."
 
-#: src/components/PropertiesSummary.tsx:126
+#: src/components/PropertiesSummary.tsx:125
 msgid "Additional links"
 msgstr "Additional links"
 
@@ -209,7 +209,7 @@ msgid "Click here to learn more."
 msgstr "Click here to learn more."
 
 #: src/components/DetailView.tsx:52
-#: src/components/FeatureCalloutWidget.tsx:69
+#: src/components/FeatureCalloutWidget.tsx:60
 msgid "Close"
 msgstr "Close"
 
@@ -254,7 +254,7 @@ msgstr "DOORS"
 msgid "Date"
 msgstr "Date"
 
-#: src/containers/App.tsx:101
+#: src/containers/App.tsx:94
 msgid "Demo Site"
 msgstr "Demo Site"
 
@@ -272,7 +272,7 @@ msgstr "Display:"
 msgid "Donate"
 msgstr "Donate"
 
-#: src/components/AddressToolbar.tsx:57
+#: src/components/ExportData.tsx:48
 msgid "Download"
 msgstr "Download"
 
@@ -306,7 +306,7 @@ msgstr "Enter email"
 
 #: src/components/BuildingStatsTable.tsx:71
 #: src/components/PropertiesList.tsx:265
-#: src/components/PropertiesSummary.tsx:119
+#: src/components/PropertiesSummary.tsx:118
 #: src/containers/NychaPage.tsx:87
 msgid "Evictions"
 msgstr "Evictions"
@@ -319,7 +319,7 @@ msgstr "Evictions executed by NYC Marshals since 2017. ANHD and the Housing Data
 msgid "Evictions executed in this development by NYC Marshals since 2017. ANHD and the Housing Data Coalition cleaned, geocoded, and validated the data, originally sourced from DOI."
 msgstr "Evictions executed in this development by NYC Marshals since 2017. ANHD and the Housing Data Coalition cleaned, geocoded, and validated the data, originally sourced from DOI."
 
-#: src/components/AddressToolbar.tsx:40
+#: src/components/AddressToolbar.tsx:22
 msgid "Export Data"
 msgstr "Export Data"
 
@@ -343,7 +343,7 @@ msgstr "Failure to register a building with HPD"
 msgid "GARBAGE/RECYCLING STORAGE"
 msgstr "GARBAGE/RECYCLING STORAGE"
 
-#: src/components/PropertiesSummary.tsx:72
+#: src/components/PropertiesSummary.tsx:71
 msgid "General info"
 msgstr "General info"
 
@@ -412,7 +412,7 @@ msgstr "I just looked up this building on Who Owns What, a free tool built by Ju
 msgid "I used #WhoOwnsWhat (built by @JustFixNYC) to see not only the open violations in this building, but also rent stabilized losses, evictions, and more. This website is a wealth of info and costs nothing to use. Savvy New Yorkers need this info:"
 msgstr "I used #WhoOwnsWhat (built by @JustFixNYC) to see not only the open violations in this building, but also rent stabilized losses, evictions, and more. This website is a wealth of info and costs nothing to use. Savvy New Yorkers need this info:"
 
-#: src/components/PropertiesSummary.tsx:142
+#: src/components/PropertiesSummary.tsx:141
 msgid "I was checking out this building on Who Owns What, a free landlord research tool from JustFix.nyc. It’s a remarkable website that every tenant and housing advocate should know about! Can you guess how many total violations this landlord portfolio has? Check it out here: {url}"
 msgstr "I was checking out this building on Who Owns What, a free landlord research tool from JustFix.nyc. It’s a remarkable website that every tenant and housing advocate should know about! Can you guess how many total violations this landlord portfolio has? Check it out here: {url}"
 
@@ -453,7 +453,7 @@ msgid "LOCKS"
 msgstr "LOCKS"
 
 #: src/components/PropertiesList.tsx:279
-#: src/components/PropertiesSummary.tsx:104
+#: src/components/PropertiesSummary.tsx:103
 msgid "Landlord"
 msgstr "Landlord"
 
@@ -503,7 +503,7 @@ msgstr "Link to Deed"
 #: src/components/Indicators.tsx:135
 #: src/components/PropertiesMap.tsx:156
 #: src/components/PropertiesSummary.tsx:63
-#: src/containers/AddressPage.tsx:169
+#: src/containers/AddressPage.tsx:161
 #: src/containers/BBLPage.tsx:58
 msgid "Loading"
 msgstr "Loading"
@@ -512,7 +512,7 @@ msgstr "Loading"
 msgid "Location"
 msgstr "Location"
 
-#: src/components/PropertiesSummary.tsx:130
+#: src/components/PropertiesSummary.tsx:129
 msgid "Looking for more information?"
 msgstr "Looking for more information?"
 
@@ -577,7 +577,7 @@ msgstr "NYCHA Directory"
 msgid "New Method (WOWZA!)"
 msgstr "New Method (WOWZA!)"
 
-#: src/components/AddressToolbar.tsx:37
+#: src/components/AddressToolbar.tsx:19
 msgid "New Search"
 msgstr "New Search"
 
@@ -585,7 +585,7 @@ msgstr "New Search"
 msgid "New York Regional Office:"
 msgstr "New York Regional Office:"
 
-#: src/components/FeatureCalloutWidget.tsx:89
+#: src/components/FeatureCalloutWidget.tsx:80
 msgid "Next"
 msgstr "Next"
 
@@ -662,7 +662,7 @@ msgstr "Open"
 msgid "Open Violations"
 msgstr "Open Violations"
 
-#: src/containers/AddressPage.tsx:118
+#: src/containers/AddressPage.tsx:110
 msgid "Overview"
 msgstr "Overview"
 
@@ -682,7 +682,7 @@ msgstr "PESTS"
 msgid "PLUMBING"
 msgstr "PLUMBING"
 
-#: src/containers/AddressPage.tsx:110
+#: src/containers/AddressPage.tsx:102
 msgid "PORTFOLIO: Your search address is associated with <0>{0}</0> {1, plural, one {building} other {buildings}}"
 msgstr "PORTFOLIO: Your search address is associated with <0>{0}</0> {1, plural, one {building} other {buildings}}"
 
@@ -695,7 +695,7 @@ msgstr "People"
 msgid "Please enter an email address!"
 msgstr "Please enter an email address!"
 
-#: src/containers/AddressPage.tsx:132
+#: src/containers/AddressPage.tsx:124
 msgid "Portfolio"
 msgstr "Portfolio"
 
@@ -703,7 +703,7 @@ msgstr "Portfolio"
 msgid "Portfolio Table Redesign"
 msgstr "Portfolio Table Redesign"
 
-#: src/components/FeatureCalloutWidget.tsx:82
+#: src/components/FeatureCalloutWidget.tsx:73
 msgid "Previous"
 msgstr "Previous"
 
@@ -721,7 +721,7 @@ msgstr "Public Housing Development"
 msgid "RS Units"
 msgstr "RS Units"
 
-#: src/components/PropertiesSummary.tsx:121
+#: src/components/PropertiesSummary.tsx:120
 msgid "Rent stabilization"
 msgstr "Rent stabilization"
 
@@ -758,15 +758,15 @@ msgstr "See the most common complaints reported by tenants to 311, now on the Ov
 msgid "Send us a data request"
 msgstr "Send us a data request"
 
-#: src/containers/App.tsx:109
-#: src/containers/App.tsx:120
+#: src/containers/App.tsx:102
+#: src/containers/App.tsx:113
 msgid "Share"
 msgstr "Share"
 
 #: src/components/DetailView.tsx:231
 #: src/components/EngagementPanel.tsx:18
-#: src/components/PropertiesSummary.tsx:136
-#: src/containers/App.tsx:131
+#: src/components/PropertiesSummary.tsx:135
+#: src/containers/App.tsx:124
 #: src/containers/NotRegisteredPage.tsx:14
 msgid "Share this page with your neighbors"
 msgstr "Share this page with your neighbors"
@@ -812,15 +812,15 @@ msgstr "Sorry, the page you are looking for doesn't seem to exist."
 msgid "Source code"
 msgstr "Source code"
 
-#: src/containers/AddressPage.tsx:139
+#: src/containers/AddressPage.tsx:131
 msgid "Summary"
 msgstr "Summary"
 
-#: src/components/AddressToolbar.tsx:24
+#: src/components/WowzaToggle.tsx:29
 msgid "Switch to New Version"
 msgstr "Switch to New Version"
 
-#: src/components/AddressToolbar.tsx:24
+#: src/components/WowzaToggle.tsx:29
 msgid "Switch to Old Version"
 msgstr "Switch to Old Version"
 
@@ -858,11 +858,11 @@ msgstr "The city borough where your search address is located"
 msgid "The city’s fifth <0>worst evictor</0> in 2018, A&E is a prime example of a landlord who engages in <1>aggressive eviction strategies</1> to displace low-income tenants. Besides lack of repairs and frivolous evictions in housing court, A&E has also been known to use <2>MCIs</2> to <3>double rents</3> in rent-stabilized buildings."
 msgstr "The city’s fifth <0>worst evictor</0> in 2018, A&E is a prime example of a landlord who engages in <1>aggressive eviction strategies</1> to displace low-income tenants. Besides lack of repairs and frivolous evictions in housing court, A&E has also been known to use <2>MCIs</2> to <3>double rents</3> in rent-stabilized buildings."
 
-#: src/components/PropertiesSummary.tsx:112
+#: src/components/PropertiesSummary.tsx:111
 msgid "The most common corporate entity is <0>{0}</0> and the most common business address is <1>{1}</1>."
 msgstr "The most common corporate entity is <0>{0}</0> and the most common business address is <1>{1}</1>."
 
-#: src/components/PropertiesSummary.tsx:106
+#: src/components/PropertiesSummary.tsx:105
 msgid "The most common {0, plural, one {name that appears in this portfolio is} other {names that appear in this portfolio are}} <0/>."
 msgstr "The most common {0, plural, one {name that appears in this portfolio is} other {names that appear in this portfolio are}} <0/>."
 
@@ -882,11 +882,11 @@ msgstr "The number of residential units in this building, according to the Dept.
 msgid "The year that this building was originally constructed, according to the Dept. of City Planning."
 msgstr "The year that this building was originally constructed, according to the Dept. of City Planning."
 
-#: src/components/PropertiesSummary.tsx:85
+#: src/components/PropertiesSummary.tsx:84
 msgid "The {0, plural, one {} other {average}} age of {1, plural, one {this building} other {these buildings}} is <0>{2}</0> years old."
 msgstr "The {0, plural, one {} other {average}} age of {1, plural, one {this building} other {these buildings}} is <0>{2}</0> years old."
 
-#: src/components/PropertiesSummary.tsx:74
+#: src/components/PropertiesSummary.tsx:73
 msgid "There {0, plural, one {<0>is <1>1</1> building</0>} other {<2>are <3>{1}</3> buildings</2>}} in this portfolio with a total of {2, plural, one {1 unit} other {# units}}."
 msgstr "There {0, plural, one {<0>is <1>1</1> building</0>} other {<2>are <3>{1}</3> buildings</2>}} in this portfolio with a total of {2, plural, one {1 unit} other {# units}}."
 
@@ -898,7 +898,7 @@ msgstr "This building is owned by the NYC Housing Authority (NYCHA)"
 msgid "This building seems like it should be registered with HPD!"
 msgstr "This building seems like it should be registered with HPD!"
 
-#: src/components/AddressToolbar.tsx:48
+#: src/components/AddressToolbar.tsx:30
 msgid "This data is in <0>CSV file format</0>, which can easily be used in Excel, Google Sheets, or any other spreadsheet program."
 msgstr "This data is in <0>CSV file format</0>, which can easily be used in Excel, Google Sheets, or any other spreadsheet program."
 
@@ -918,11 +918,11 @@ msgstr "This is <0>worse</0> than the citywide average of {VIOLATIONS_AVG} per r
 msgid "This is the official identifer for the building according to the Dept. of Finance tax records."
 msgstr "This is the official identifer for the building according to the Dept. of Finance tax records."
 
-#: src/components/PropertiesSummary.tsx:139
+#: src/components/PropertiesSummary.tsx:138
 msgid "This landlord owns {0} buildings, and according to @NYCHousing, has received a total of {1} violations. Can you guess which landlord it is? Find their name and more data analysis here:"
 msgstr "This landlord owns {0} buildings, and according to @NYCHousing, has received a total of {1} violations. Can you guess which landlord it is? Find their name and more data analysis here:"
 
-#: src/components/PropertiesSummary.tsx:141
+#: src/components/PropertiesSummary.tsx:140
 msgid "This landlord’s buildings average {0} open HPD violations per apartment"
 msgstr "This landlord’s buildings average {0} open HPD violations per apartment"
 
@@ -954,11 +954,11 @@ msgstr "This seems like a smaller residential building. If the landlord doesn't 
 msgid "This tracks how rent stabilized units in the building have changed (i.e. \"{delta}\") from 2007 to {0}. If the number for {1} is red, this means there has been a loss in stabilzied units! These counts are estimated from the DOF Property Tax Bills."
 msgstr "This tracks how rent stabilized units in the building have changed (i.e. \"{delta}\") from 2007 to {0}. If the number for {1} is red, this means there has been a loss in stabilzied units! These counts are estimated from the DOF Property Tax Bills."
 
-#: src/components/AddressToolbar.tsx:44
-msgid "This will export <0>{numOfAssocAddrs}</0> addresses associated with the landlord at <1>{userAddrStr}</1>!"
-msgstr "This will export <0>{numOfAssocAddrs}</0> addresses associated with the landlord at <1>{userAddrStr}</1>!"
+#: src/components/AddressToolbar.tsx:26
+msgid "This will export <0>{0}</0> addresses associated with the landlord at <1>{userAddrStr}</1>!"
+msgstr "This will export <0>{0}</0> addresses associated with the landlord at <1>{userAddrStr}</1>!"
 
-#: src/containers/AddressPage.tsx:125
+#: src/containers/AddressPage.tsx:117
 msgid "Timeline"
 msgstr "Timeline"
 
@@ -1061,10 +1061,6 @@ msgstr "WINDOW GUARDS"
 msgid "WINDOWS"
 msgstr "WINDOWS"
 
-#: src/containers/App.tsx:93
-msgid "Warning! This site doesn't fully work on older versions of Safari. Try a <0>modern browser</0>."
-msgstr "Warning! This site doesn't fully work on older versions of Safari. Try a <0>modern browser</0>."
-
 #: src/components/DetailView.tsx:243
 msgid "We compare your search address with a database of over 200k buildings to identify a landlord or management company's portfolio. To learn more, check out <0>our methodology</0>."
 msgstr "We compare your search address with a database of over 200k buildings to identify a landlord or management company's portfolio. To learn more, check out <0>our methodology</0>."
@@ -1085,8 +1081,8 @@ msgstr "What are {0}?"
 msgid "What happens if the landlord has failed to register?"
 msgstr "What happens if the landlord has failed to register?"
 
-#: src/components/FeatureCalloutWidget.tsx:51
-#: src/components/FeatureCalloutWidget.tsx:67
+#: src/components/FeatureCalloutWidget.tsx:42
+#: src/components/FeatureCalloutWidget.tsx:58
 msgid "What's New"
 msgstr "What's New"
 
@@ -1158,11 +1154,11 @@ msgstr "search address"
 msgid "year"
 msgstr "year"
 
-#: src/components/FeatureCalloutWidget.tsx:34
+#: src/components/FeatureCalloutWidget.tsx:25
 msgid "{0} of {numberOfEntries}"
 msgstr "{0} of {numberOfEntries}"
 
-#: src/components/PropertiesSummary.tsx:95
+#: src/components/PropertiesSummary.tsx:94
 msgid "{0} {1}, {2} currently has {3, plural, one {one open HPD violation} other {# open HPD violations}} - the most in this portfolio."
 msgstr "{0} {1}, {2} currently has {3, plural, one {one open HPD violation} other {# open HPD violations}} - the most in this portfolio."
 

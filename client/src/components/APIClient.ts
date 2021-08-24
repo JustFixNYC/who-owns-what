@@ -112,10 +112,6 @@ async function getIndicatorHistory(bbl: string): Promise<IndicatorsDataFromAPI> 
   return structuredIndicatorData;
 }
 
-function getAddressExport(bbl: string) {
-  return friendlyFetch(apiURL(`/api/address/export?bbl=${bbl}`));
-}
-
 // OTHER API FUNCTIONS AND HELPERS:
 
 /**
@@ -166,7 +162,6 @@ const Client = {
   searchForBBL,
   getBuildingInfo,
   getIndicatorHistory,
-  getAddressExport,
 };
 
 export default Client;
