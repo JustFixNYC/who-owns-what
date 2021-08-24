@@ -80,9 +80,29 @@ export type AddressRecord = {
   zip: string | null;
 };
 
+export type PortfolioGraphNode = {
+  id: number;
+  value: {
+    kind: "name" | "bizaddr";
+    value: string;
+  };
+};
+
+export type PortfolioGraphEdge = {
+  from: number;
+  to: number;
+  reg_contacts: number;
+};
+
+export type RawPortfolioGraphJson = {
+  nodes: PortfolioGraphNode[];
+  edges: PortfolioGraphEdge[];
+};
+
 export type SearchResults = {
   addrs: AddressRecord[];
   geosearch?: GeoSearchData;
+  graph?: RawPortfolioGraphJson;
 };
 
 // TYPES ASSOCIATED WITH SUMMARY AGGREGATE QUERY:

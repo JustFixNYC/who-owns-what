@@ -5,7 +5,6 @@ import {
   IndicatorsHistoryResults,
   WithBoroBlockLot,
 } from "./APIDataTypes";
-import { SearchAddress } from "./AddressSearch";
 import { GeoSearchRequester } from "@justfixnyc/geosearch-requester";
 import {
   indicatorsInitialDataStructure,
@@ -19,11 +18,14 @@ import { NetworkError, HTTPError } from "error-reporting";
 
 // API REQUESTS TO THE DATABASE:
 
-function searchForAddressWithGeosearch(q: {
-  housenumber?: string;
-  streetname: string;
-  boro: string;
-}): Promise<SearchResults> {
+function searchForAddressWithGeosearch(
+  q: {
+    housenumber?: string;
+    streetname: string;
+    boro: string;
+  },
+  useNewPortfolioMethod: boolean = false
+): Promise<SearchResults> {
   let addr = `${q.streetname}, ${q.boro}`;
   if (q.housenumber) {
     addr = `${q.housenumber} ${addr}`;
@@ -41,7 +43,9 @@ function searchForAddressWithGeosearch(q: {
             addrs: [],
             geosearch: undefined,
           });
-        resolve(searchForBBL(helpers.splitBBL(firstResult.properties.pad_bbl)));
+        resolve(
+          searchForBBL(helpers.splitBBL(firstResult.properties.pad_bbl), useNewPortfolioMethod)
+        );
       },
       throttleMs: 0,
     });
@@ -79,15 +83,15 @@ function createVizData(rawJSON: any, vizType: IndicatorsDatasetId): IndicatorsDa
   return vizData;
 }
 
-function searchForAddress(q: SearchAddress): Promise<SearchResults> {
-  if (q.bbl) {
-    return searchForBBL(helpers.splitBBL(q.bbl));
-  }
-  return searchForAddressWithGeosearch(q);
-}
-
-function searchForBBL(q: WithBoroBlockLot): Promise<SearchResults> {
-  return getApiJson(`/api/address?block=${q.block}&lot=${q.lot}&borough=${q.boro}`);
+function searchForBBL(
+  q: WithBoroBlockLot,
+  useNewPortfolioMethod?: boolean
+): Promise<SearchResults> {
+  return getApiJson(
+    `/api/address${useNewPortfolioMethod ? "/wowza" : ""}?block=${q.block}&lot=${q.lot}&borough=${
+      q.boro
+    }`
+  );
 }
 
 function getAggregate(bbl: string): Promise<SummaryResults> {
@@ -163,7 +167,6 @@ async function getApiJson(url: string): Promise<any> {
 }
 
 const Client = {
-  searchForAddress,
   searchForAddressWithGeosearch,
   searchForBBL,
   getAggregate,

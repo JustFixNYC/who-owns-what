@@ -77,6 +77,31 @@ const WhoOwnsWhatRoutes: React.FC<{}> = () => {
         path={paths.addressPage.summary}
         render={(props) => <AddressPage currentTab={3} {...machineProps} {...props} />}
       />
+      <Route
+        path={paths.wowzaAddressPage.overview}
+        render={(props) => (
+          <AddressPage currentTab={0} {...machineProps} {...props} useNewPortfolioMethod />
+        )}
+        exact
+      />
+      <Route
+        path={paths.wowzaAddressPage.timeline}
+        render={(props) => (
+          <AddressPage currentTab={1} {...machineProps} {...props} useNewPortfolioMethod />
+        )}
+      />
+      <Route
+        path={paths.wowzaAddressPage.portfolio}
+        render={(props) => (
+          <AddressPage currentTab={2} {...machineProps} {...props} useNewPortfolioMethod />
+        )}
+      />
+      <Route
+        path={paths.wowzaAddressPage.summary}
+        render={(props) => (
+          <AddressPage currentTab={3} {...machineProps} {...props} useNewPortfolioMethod />
+        )}
+      />
       <Route path={paths.bbl} component={BBLPage} />
       <Route path={paths.bblWithFullBblInUrl} component={BBLPage} />
       <Route path={paths.about} component={AboutPage} />
@@ -114,7 +139,6 @@ const App = () => {
   const isDemoSite = process.env.REACT_APP_DEMO_SITE === "1";
   const addFeatureCalloutWidget = process.env.REACT_APP_ENABLE_FEATURE_CALLOUT_WIDGET === "1";
   const version = process.env.REACT_APP_VERSION;
-  const warnAboutOldBrowser = process.env.REACT_APP_ENABLE_OLD_BROWSER_WARNING;
 
   return (
     <Router>
@@ -128,14 +152,6 @@ const App = () => {
             />
           )}
           <div className="App">
-            {warnAboutOldBrowser && (
-              <div className="App__warning old_safari_only">
-                <Trans render="h3">
-                  Warning! This site doesn't fully work on older versions of Safari. Try a{" "}
-                  <a href="http://outdatedbrowser.com/en">modern browser</a>.
-                </Trans>
-              </div>
-            )}
             <div className="App__header navbar">
               <HomeLink />
               {isDemoSite && (
