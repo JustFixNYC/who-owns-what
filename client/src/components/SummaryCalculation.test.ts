@@ -1,8 +1,6 @@
 import { SAMPLE_ADDRESS_RECORDS } from "state-machine-sample-data";
 import { calculateAggDataFromAddressList, extractLocationDataFromAddr } from "./SummaryCalculation";
 
-calculateAggDataFromAddressList;
-
 describe("extractLocationDataFromAddr()", () => {
   it("works", () => {
     expect(extractLocationDataFromAddr(SAMPLE_ADDRESS_RECORDS[0])).toEqual({

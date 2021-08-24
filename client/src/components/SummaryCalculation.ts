@@ -1,6 +1,6 @@
 import _ from "lodash";
 import helpers from "util/helpers";
-import { AddressRecord, SummaryStatsRecord } from "./APIDataTypes";
+import { AddressLocation, AddressRecord, SummaryStatsRecord } from "./APIDataTypes";
 
 export const getTopFiveContactsInPortfolio = (addrs: AddressRecord[]) => {
   const allContactNames = addrs
@@ -10,7 +10,7 @@ export const getTopFiveContactsInPortfolio = (addrs: AddressRecord[]) => {
   return helpers.getMostCommonElementsInArray(allContactNames, 5);
 };
 
-export const extractLocationDataFromAddr = (addr: AddressRecord) => {
+export const extractLocationDataFromAddr = (addr: AddressRecord): AddressLocation => {
   return (({ boro, housenumber, lat, lng, streetname }) => ({
     boro,
     housenumber,

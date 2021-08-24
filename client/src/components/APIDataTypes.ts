@@ -107,7 +107,7 @@ export type SearchResults = {
 
 // TYPES ASSOCIATED WITH SUMMARY AGGREGATE QUERY:
 
-type AddressLocation = {
+export type AddressLocation = {
   boro: Borough;
   housenumber: string;
   lat: number | null;
