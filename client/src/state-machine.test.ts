@@ -7,7 +7,6 @@ import {
   SearchResults,
   BuildingInfoResults,
   IndicatorsHistoryResults,
-  SummaryResults,
 } from "components/APIDataTypes";
 import helpers from "util/helpers";
 import {
@@ -210,10 +209,6 @@ describe("wowMachine", () => {
   });
 
   it("should deal w/ viewing summary data", async () => {
-    mockResponses({
-      [PORTFOLIO_URLS.SUMMARY_URL]: mockJsonResponse<SummaryResults>(SAMPLE_SUMMARY_DATA),
-    });
-
     const wm = interpret(wowMachine).start({ portfolioFound: { summary: "noData" } });
     wm.state.context = PORTFOLIO_FOUND_CTX;
 

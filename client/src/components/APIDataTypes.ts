@@ -148,11 +148,6 @@ export type SummaryStatsRecord = {
   units: number;
   violationsaddr: HpdViolationsAddress;
 };
-
-export type SummaryResults = {
-  result: SummaryStatsRecord[];
-};
-
 // TYPES ASSOCIATED WITH BUILDING INFO QUERY:
 
 export type BuildingInfoRecord = {

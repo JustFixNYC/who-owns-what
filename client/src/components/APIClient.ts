@@ -1,6 +1,5 @@
 import {
   SearchResults,
-  SummaryResults,
   BuildingInfoResults,
   IndicatorsHistoryResults,
   WithBoroBlockLot,
