@@ -2,33 +2,33 @@ import { HpdComplaintCount, HpdFullContact, HpdOwnerContact } from "./APIDataTyp
 import { formatAllContacts, formatComplaintTypes, formatOwnerNames } from "./ExportData";
 
 describe("formatOwnerNames()", () => {
-  it("works when passed real data", () => {
+  it("formats owner names when passed data", () => {
     const owners: HpdOwnerContact[] = [
       { title: "HeadOfficer", value: "BOOP" },
       { title: "Agent", value: "BLARG" },
     ];
     expect(formatOwnerNames(owners)).toBe("BOOP (HeadOfficer), BLARG (Agent)");
   });
-  it("works when passed null", () => {
+  it("returns empty string when passed null", () => {
     expect(formatOwnerNames(null)).toBe("");
   });
 });
 
 describe("formatComplaintTypes()", () => {
-  it("works when passed real data", () => {
+  it("formats complaint types when passed data", () => {
     const complaintsByType: HpdComplaintCount[] = [
       { type: "Roaches", count: 1000 },
       { type: "Toilet", count: 505 },
     ];
     expect(formatComplaintTypes(complaintsByType)).toBe("Roaches (1000), Toilet (505)");
   });
-  it("works when passed null", () => {
+  it("returns empty string when passed null", () => {
     expect(formatComplaintTypes(null)).toBe("");
   });
 });
 
 describe("formatAllContacts()", () => {
-  it("works when passed real data, including different kinds of addresses", () => {
+  it("formats contacts when passed data, including different kinds of business addresses", () => {
     const contacts: HpdFullContact[] = [
       {
         title: "HeadOfficer",
@@ -60,7 +60,7 @@ describe("formatAllContacts()", () => {
       "BOOP (HeadOfficer), 12 SPENCER STREET 4 BROOKLYN, NY 11205; JONES (Officer), HUDSON RIVER HELL, NY; BLARG (Agent)"
     );
   });
-  it("works when passed null", () => {
+  it("returns empty string when passed null", () => {
     expect(formatAllContacts(null)).toBe("");
   });
 });
