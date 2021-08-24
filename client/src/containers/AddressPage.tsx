@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import FileSaver from "file-saver";
 
 import AddressToolbar from "../components/AddressToolbar";
 import PropertiesMap from "../components/PropertiesMap";
@@ -7,7 +6,6 @@ import PropertiesList from "../components/PropertiesList";
 import PropertiesSummary from "../components/PropertiesSummary";
 import Indicators from "../components/Indicators";
 import DetailView from "../components/DetailView";
-import APIClient from "../components/APIClient";
 import Loader from "../components/Loader";
 
 import "styles/AddressPage.css";
@@ -111,13 +109,6 @@ export default class AddressPage extends Component<AddressPageProps, State> {
     this.handleOpenDetail();
   };
 
-  // should this properly live in AddressToolbar? you tell me
-  handleExportClick = (bbl: string) => {
-    APIClient.getAddressExport(bbl)
-      .then((response) => response.blob())
-      .then((blob) => FileSaver.saveAs(blob, "export.csv"));
-  };
-
   render() {
     const { state, send, useNewPortfolioMethod } = this.props;
 
@@ -144,11 +135,7 @@ export default class AddressPage extends Component<AddressPageProps, State> {
         >
           <div className="AddressPage">
             <div className="AddressPage__info">
-              <AddressToolbar
-                onExportClick={() => this.handleExportClick(searchAddr.bbl)}
-                searchAddr={searchAddr}
-                numOfAssocAddrs={assocAddrs.length}
-              />
+              <AddressToolbar searchAddr={searchAddr} assocAddrs={assocAddrs} />
               <div className="float-left">
                 <h1 className="primary">
                   <Trans>
