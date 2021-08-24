@@ -169,7 +169,7 @@ export default {
     return max;
   },
 
-  getMostCommonElementsInArray(array: any[], numberOfResults: number) {
+  getMostCommonElementsInArray(array: string[], numberOfResults: number): string[] {
     const elementsByFrequency = _.countBy(array);
     const sortedElementsByFrequency = Object.entries(elementsByFrequency).sort(
       (a, b) => b[1] - a[1]

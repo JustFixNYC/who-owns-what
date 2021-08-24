@@ -13,17 +13,14 @@ const getTopFiveContactsInPortfolio = (addrs: AddressRecord[]) => {
 export const calculateAggDataFromAddressList = (addrs: AddressRecord[]): SummaryStatsRecord => {
   const bldgs = addrs.length;
   const units = _.sumBy(addrs, (a) => a.unitsres || 0);
+
   const totalopenviolations = _.sumBy(addrs, (a) => a.openviolations);
   const totalviolations = _.sumBy(addrs, (a) => a.totalviolations);
+
   const totalevictions = _.sumBy(addrs, (a) => a.evictions || 0);
-  const totalrsgain = addrs.reduce(
-    (sum, a) => (a.rsdiff && a.rsdiff > 0 ? sum + a.rsdiff : sum),
-    0
-  );
-  const totalrsloss = addrs.reduce(
-    (sum, a) => (a.rsdiff && a.rsdiff < 0 ? sum + a.rsdiff : sum),
-    0
-  );
+
+  const totalrsgain = _.sumBy(addrs, (a) => (a.rsdiff && a.rsdiff > 0 ? a.rsdiff : 0));
+  const totalrsloss = _.sumBy(addrs, (a) => (a.rsdiff && a.rsdiff < 0 ? a.rsdiff : 0));
   const totalrsdiff = totalrsgain + totalrsloss;
 
   const addrWithBiggestRsLoss = addrs.reduce((a1, a2) =>
