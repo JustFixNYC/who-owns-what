@@ -122,14 +122,16 @@ export default class PropertiesSummary extends Component<Props, {}> {
                   <Plural value={agg.units} one="1 unit" other="# units" />.
                 </Trans>
                 {` `}
-                <Trans>
-                  The <Plural value={agg.bldgs} one="" other="average" /> age of{" "}
-                  <Plural value={agg.bldgs} one="this building" other="these buildings" /> is{" "}
-                  <b>{agg.age}</b> years old.
-                </Trans>
+                {agg.age && (
+                  <Trans>
+                    The <Plural value={agg.bldgs} one="" other="average" /> age of{" "}
+                    <Plural value={agg.bldgs} one="this building" other="these buildings" /> is{" "}
+                    <b>{Math.round(agg.age)}</b> years old.
+                  </Trans>
+                )}
               </p>
               <aside>
-                {agg.violationsaddr && (
+                {agg.violationsaddr.lat && agg.violationsaddr.lng && (
                   <figure className="figure">
                     <img
                       src={`https://maps.googleapis.com/maps/api/streetview?size=800x500&location=${agg.violationsaddr.lat},${agg.violationsaddr.lng}&key=${process.env.REACT_APP_STREETVIEW_API_KEY}`}
