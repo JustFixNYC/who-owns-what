@@ -64,6 +64,7 @@
     "react-leaflet": "^1.4.0",
     "react-mapbox-gl": "^4",
     "react-modal": "^3.0.0",
+    "react-papaparse": "^3.17.1",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.4.1",
     "react-social": "^1.10.0",
