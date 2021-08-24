@@ -2,7 +2,7 @@ import { SAMPLE_ADDRESS_RECORDS } from "state-machine-sample-data";
 import { calculateAggDataFromAddressList, extractLocationDataFromAddr } from "./SummaryCalculation";
 
 describe("extractLocationDataFromAddr()", () => {
-  it("works", () => {
+  it("get's precisely the five address-related fields from an AddressRecord", () => {
     expect(extractLocationDataFromAddr(SAMPLE_ADDRESS_RECORDS[0])).toEqual({
       housenumber: "654",
       streetname: "PARK PLACE",

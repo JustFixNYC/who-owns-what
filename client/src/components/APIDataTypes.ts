@@ -105,7 +105,7 @@ export type SearchResults = {
   graph?: RawPortfolioGraphJson;
 };
 
-// TYPES ASSOCIATED WITH SUMMARY AGGREGATE QUERY:
+// TYPES ASSOCIATED WITH SUMMARY AGGREGATION:
 
 export type AddressLocation = {
   boro: Borough;

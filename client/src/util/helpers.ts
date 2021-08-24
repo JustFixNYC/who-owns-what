@@ -174,6 +174,7 @@ export default {
     const sortedElementsByFrequency = Object.entries(elementsByFrequency).sort(
       (a, b) => b[1] - a[1]
     );
+    // Let's discard the frequency number and just return a simple array of strings, in order:
     return sortedElementsByFrequency.slice(0, numberOfResults).map((a) => a[0]);
   },
 

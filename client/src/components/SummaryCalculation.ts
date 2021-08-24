@@ -31,8 +31,19 @@ export const calculateAggDataFromAddressList = (addrs: AddressRecord[]): Summary
 
   const totalevictions = _.sumBy(addrs, (a) => a.evictions || 0);
 
+  /**
+   * Sum of all cases in the portfolio where a building's RS unit count _increased_
+   * Negative values (losses in RS unit) are filtered out of the sum
+   */
   const totalrsgain = _.sumBy(addrs, (a) => (a.rsdiff && a.rsdiff > 0 ? a.rsdiff : 0));
+  /**
+   * Sum of all cases in the portfolio where a building's RS unit count _decreased_
+   * Positive values (gains in RS unit) are filtered out of the sum
+   */
   const totalrsloss = _.sumBy(addrs, (a) => (a.rsdiff && a.rsdiff < 0 ? a.rsdiff : 0));
+  /**
+   * Net change in RS unit count across the portfolio
+   */
   const totalrsdiff = totalrsgain + totalrsloss;
 
   const addrWithBiggestRsLoss = addrs.reduce((a1, a2) =>
