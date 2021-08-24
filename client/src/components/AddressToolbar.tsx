@@ -7,18 +7,15 @@ import { Trans } from "@lingui/macro";
 import { SearchAddress } from "./AddressSearch";
 import { useState } from "react";
 import { ToggleButtonBetweenPortfolioMethods } from "./WowzaToggle";
+import { AddressRecord } from "./APIDataTypes";
+import ExportDataButton from "./ExportData";
 
 export type AddressToolbarProps = {
-  onExportClick: () => void;
-  numOfAssocAddrs: number;
   searchAddr: SearchAddress;
+  assocAddrs: AddressRecord[];
 };
 
-const AddressToolbar: React.FC<AddressToolbarProps> = ({
-  onExportClick,
-  numOfAssocAddrs,
-  searchAddr,
-}) => {
+const AddressToolbar: React.FC<AddressToolbarProps> = ({ searchAddr, assocAddrs }) => {
   const allowChangingPortfolioMethod =
     process.env.REACT_APP_ENABLE_NEW_WOWZA_PORTFOLIO_MAPPING === "1";
   const [showExportModal, setExportModalVisibility] = useState(false);
@@ -44,7 +41,7 @@ const AddressToolbar: React.FC<AddressToolbarProps> = ({
       </div>
       <Modal showModal={showExportModal} onClose={() => setExportModalVisibility(false)}>
         <Trans render="p">
-          This will export <b>{numOfAssocAddrs}</b> addresses associated with the landlord at{" "}
+          This will export <b>{assocAddrs.length}</b> addresses associated with the landlord at{" "}
           <b>{userAddrStr}</b>!
         </Trans>
         <Trans render="p">
@@ -52,15 +49,7 @@ const AddressToolbar: React.FC<AddressToolbarProps> = ({
           or any other spreadsheet program.
         </Trans>
         <br />
-        <button
-          className="btn centered"
-          onClick={() => {
-            window.gtag("event", "export-data");
-            onExportClick();
-          }}
-        >
-          <Trans>Download</Trans>
-        </button>
+        <ExportDataButton data={assocAddrs} />
       </Modal>
     </div>
   );

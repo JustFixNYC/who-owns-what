@@ -209,7 +209,7 @@ msgid "Click here to learn more."
 msgstr "Click here to learn more."
 
 #: src/components/DetailView.tsx:52
-#: src/components/FeatureCalloutWidget.tsx:69
+#: src/components/FeatureCalloutWidget.tsx:60
 msgid "Close"
 msgstr "Close"
 
@@ -272,7 +272,7 @@ msgstr "Display:"
 msgid "Donate"
 msgstr "Donate"
 
-#: src/components/AddressToolbar.tsx:38
+#: src/components/ExportData.tsx:48
 msgid "Download"
 msgstr "Download"
 
@@ -319,7 +319,7 @@ msgstr "Evictions executed by NYC Marshals since 2017. ANHD and the Housing Data
 msgid "Evictions executed in this development by NYC Marshals since 2017. ANHD and the Housing Data Coalition cleaned, geocoded, and validated the data, originally sourced from DOI."
 msgstr "Evictions executed in this development by NYC Marshals since 2017. ANHD and the Housing Data Coalition cleaned, geocoded, and validated the data, originally sourced from DOI."
 
-#: src/components/AddressToolbar.tsx:21
+#: src/components/AddressToolbar.tsx:22
 msgid "Export Data"
 msgstr "Export Data"
 
@@ -503,7 +503,7 @@ msgstr "Link to Deed"
 #: src/components/Indicators.tsx:135
 #: src/components/PropertiesMap.tsx:156
 #: src/components/PropertiesSummary.tsx:63
-#: src/containers/AddressPage.tsx:169
+#: src/containers/AddressPage.tsx:161
 #: src/containers/BBLPage.tsx:58
 msgid "Loading"
 msgstr "Loading"
@@ -577,7 +577,7 @@ msgstr "NYCHA Directory"
 msgid "New Method (WOWZA!)"
 msgstr "New Method (WOWZA!)"
 
-#: src/components/AddressToolbar.tsx:18
+#: src/components/AddressToolbar.tsx:19
 msgid "New Search"
 msgstr "New Search"
 
@@ -585,7 +585,7 @@ msgstr "New Search"
 msgid "New York Regional Office:"
 msgstr "New York Regional Office:"
 
-#: src/components/FeatureCalloutWidget.tsx:89
+#: src/components/FeatureCalloutWidget.tsx:80
 msgid "Next"
 msgstr "Next"
 
@@ -662,7 +662,7 @@ msgstr "Open"
 msgid "Open Violations"
 msgstr "Open Violations"
 
-#: src/containers/AddressPage.tsx:118
+#: src/containers/AddressPage.tsx:110
 msgid "Overview"
 msgstr "Overview"
 
@@ -682,7 +682,7 @@ msgstr "PESTS"
 msgid "PLUMBING"
 msgstr "PLUMBING"
 
-#: src/containers/AddressPage.tsx:110
+#: src/containers/AddressPage.tsx:102
 msgid "PORTFOLIO: Your search address is associated with <0>{0}</0> {1, plural, one {building} other {buildings}}"
 msgstr "PORTFOLIO: Your search address is associated with <0>{0}</0> {1, plural, one {building} other {buildings}}"
 
@@ -695,7 +695,7 @@ msgstr "People"
 msgid "Please enter an email address!"
 msgstr "Please enter an email address!"
 
-#: src/containers/AddressPage.tsx:132
+#: src/containers/AddressPage.tsx:124
 msgid "Portfolio"
 msgstr "Portfolio"
 
@@ -703,7 +703,7 @@ msgstr "Portfolio"
 msgid "Portfolio Table Redesign"
 msgstr "Portfolio Table Redesign"
 
-#: src/components/FeatureCalloutWidget.tsx:82
+#: src/components/FeatureCalloutWidget.tsx:73
 msgid "Previous"
 msgstr "Previous"
 
@@ -812,7 +812,7 @@ msgstr "Sorry, the page you are looking for doesn't seem to exist."
 msgid "Source code"
 msgstr "Source code"
 
-#: src/containers/AddressPage.tsx:139
+#: src/containers/AddressPage.tsx:131
 msgid "Summary"
 msgstr "Summary"
 
@@ -898,7 +898,7 @@ msgstr "This building is owned by the NYC Housing Authority (NYCHA)"
 msgid "This building seems like it should be registered with HPD!"
 msgstr "This building seems like it should be registered with HPD!"
 
-#: src/components/AddressToolbar.tsx:29
+#: src/components/AddressToolbar.tsx:30
 msgid "This data is in <0>CSV file format</0>, which can easily be used in Excel, Google Sheets, or any other spreadsheet program."
 msgstr "This data is in <0>CSV file format</0>, which can easily be used in Excel, Google Sheets, or any other spreadsheet program."
 
@@ -954,11 +954,11 @@ msgstr "This seems like a smaller residential building. If the landlord doesn't 
 msgid "This tracks how rent stabilized units in the building have changed (i.e. \"{delta}\") from 2007 to {0}. If the number for {1} is red, this means there has been a loss in stabilzied units! These counts are estimated from the DOF Property Tax Bills."
 msgstr "This tracks how rent stabilized units in the building have changed (i.e. \"{delta}\") from 2007 to {0}. If the number for {1} is red, this means there has been a loss in stabilzied units! These counts are estimated from the DOF Property Tax Bills."
 
-#: src/components/AddressToolbar.tsx:25
-msgid "This will export <0>{numOfAssocAddrs}</0> addresses associated with the landlord at <1>{userAddrStr}</1>!"
-msgstr "This will export <0>{numOfAssocAddrs}</0> addresses associated with the landlord at <1>{userAddrStr}</1>!"
+#: src/components/AddressToolbar.tsx:26
+msgid "This will export <0>{0}</0> addresses associated with the landlord at <1>{userAddrStr}</1>!"
+msgstr "This will export <0>{0}</0> addresses associated with the landlord at <1>{userAddrStr}</1>!"
 
-#: src/containers/AddressPage.tsx:125
+#: src/containers/AddressPage.tsx:117
 msgid "Timeline"
 msgstr "Timeline"
 
@@ -1081,8 +1081,8 @@ msgstr "What are {0}?"
 msgid "What happens if the landlord has failed to register?"
 msgstr "What happens if the landlord has failed to register?"
 
-#: src/components/FeatureCalloutWidget.tsx:51
-#: src/components/FeatureCalloutWidget.tsx:67
+#: src/components/FeatureCalloutWidget.tsx:42
+#: src/components/FeatureCalloutWidget.tsx:58
 msgid "What's New"
 msgstr "What's New"
 
@@ -1154,7 +1154,7 @@ msgstr "search address"
 msgid "year"
 msgstr "year"
 
-#: src/components/FeatureCalloutWidget.tsx:34
+#: src/components/FeatureCalloutWidget.tsx:25
 msgid "{0} of {numberOfEntries}"
 msgstr "{0} of {numberOfEntries}"
 
