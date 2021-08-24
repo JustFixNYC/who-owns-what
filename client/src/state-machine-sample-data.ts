@@ -127,6 +127,7 @@ export const SAMPLE_ADDRESS_RECORDS: AddressRecord[] = [
     businessaddrs: ["12 SPENCER STREET 4 11205"],
     ownernames: [
       { title: "HeadOfficer", value: "ALEX ENGELMAN" },
+      { title: "Officer", value: "MOSES GUTMAN" },
       { title: "Agent", value: "NAFTALI GESTETNER" },
     ],
     allcontacts: [
@@ -145,6 +146,18 @@ export const SAMPLE_ADDRESS_RECORDS: AddressRecord[] = [
       {
         title: "HeadOfficer",
         value: "ALEX ENGELMAN",
+        address: {
+          zip: "11205",
+          city: "BROOKLYN",
+          state: "NY",
+          apartment: "4",
+          streetname: "SPENCER STREET",
+          housenumber: "12",
+        },
+      },
+      {
+        title: "Officer",
+        value: "MOSES GUTMAN",
         address: {
           zip: "11205",
           city: "BROOKLYN",

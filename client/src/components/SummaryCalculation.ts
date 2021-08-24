@@ -2,12 +2,24 @@ import _ from "lodash";
 import helpers from "util/helpers";
 import { AddressRecord, SummaryStatsRecord } from "./APIDataTypes";
 
-const getTopFiveContactsInPortfolio = (addrs: AddressRecord[]) => {
+export const getTopFiveContactsInPortfolio = (addrs: AddressRecord[]) => {
   const allContactNames = addrs
     .map((a) => a.ownernames?.map((ownername) => ownername.value) || [])
     .flat();
 
   return helpers.getMostCommonElementsInArray(allContactNames, 5);
+};
+
+export const extractLocationDataFromAddr = (addr: AddressRecord) => {
+  return (({ boro, housenumber, lat, lng, streetname }) => ({
+    boro,
+    housenumber,
+    lat,
+    lng,
+    streetname,
+  }))({
+    ...addr,
+  });
 };
 
 export const calculateAggDataFromAddressList = (addrs: AddressRecord[]): SummaryStatsRecord => {
@@ -55,8 +67,17 @@ export const calculateAggDataFromAddressList = (addrs: AddressRecord[]): Summary
     totalrsloss,
     totalrsdiff,
     rsproportion: (Math.abs(totalrsdiff) / units) * 100,
-    rslossaddr: { ...addrWithBiggestRsLoss },
-    evictionsaddr: { ...addrWithMostEvictions },
-    violationsaddr: { ...addrWithMostOpenViolations },
+    rslossaddr: {
+      rsdiff: addrWithBiggestRsLoss.rsdiff,
+      ...extractLocationDataFromAddr(addrWithBiggestRsLoss),
+    },
+    evictionsaddr: {
+      evictions: addrWithMostEvictions.evictions,
+      ...extractLocationDataFromAddr(addrWithMostEvictions),
+    },
+    violationsaddr: {
+      openviolations: addrWithMostOpenViolations.openviolations,
+      ...extractLocationDataFromAddr(addrWithMostOpenViolations),
+    },
   };
 };
