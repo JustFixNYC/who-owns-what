@@ -11,7 +11,6 @@ import { ViolationsSummary } from "./ViolationsSummary";
 import { StringifyListWithConjunction } from "./StringifyList";
 import { SocialShareAddressPage } from "./SocialShare";
 import { withMachineInStateProps } from "state-machine";
-import { NetworkErrorMessage } from "./NetworkErrorMessage";
 import { AddressRecord } from "./APIDataTypes";
 import { defaultLocale, isSupportedLocale } from "i18n-base";
 import { I18n } from "@lingui/core/i18n";
@@ -88,9 +87,7 @@ export default class PropertiesSummary extends Component<Props, {}> {
     const { state } = this.props;
     let agg = state.context.summaryData;
     let searchAddr = state.context.portfolioData.searchAddr;
-
-    if (state.matches({ portfolioFound: { summary: "error" } })) return <NetworkErrorMessage />;
-    else if (!agg) {
+    if (!agg) {
       return (
         <Loader loading={true} classNames="Loader-map">
           <Trans>Loading</Trans>
@@ -125,14 +122,16 @@ export default class PropertiesSummary extends Component<Props, {}> {
                   <Plural value={agg.units} one="1 unit" other="# units" />.
                 </Trans>
                 {` `}
-                <Trans>
-                  The <Plural value={agg.bldgs} one="" other="average" /> age of{" "}
-                  <Plural value={agg.bldgs} one="this building" other="these buildings" /> is{" "}
-                  <b>{agg.age}</b> years old.
-                </Trans>
+                {agg.age && (
+                  <Trans>
+                    The <Plural value={agg.bldgs} one="" other="average" /> age of{" "}
+                    <Plural value={agg.bldgs} one="this building" other="these buildings" /> is{" "}
+                    <b>{Math.round(agg.age)}</b> years old.
+                  </Trans>
+                )}
               </p>
               <aside>
-                {agg.violationsaddr && (
+                {agg.violationsaddr.lat && agg.violationsaddr.lng && (
                   <figure className="figure">
                     <img
                       src={`https://maps.googleapis.com/maps/api/streetview?size=800x500&location=${agg.violationsaddr.lat},${agg.violationsaddr.lng}&key=${process.env.REACT_APP_STREETVIEW_API_KEY}`}

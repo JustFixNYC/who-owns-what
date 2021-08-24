@@ -105,13 +105,13 @@ export type SearchResults = {
   graph?: RawPortfolioGraphJson;
 };
 
-// TYPES ASSOCIATED WITH SUMMARY AGGREGATE QUERY:
+// TYPES ASSOCIATED WITH SUMMARY AGGREGATION:
 
-type AddressLocation = {
+export type AddressLocation = {
   boro: Borough;
   housenumber: string;
-  lat: number;
-  lng: number;
+  lat: number | null;
+  lng: number | null;
   streetname: string;
 };
 
@@ -148,11 +148,6 @@ export type SummaryStatsRecord = {
   units: number;
   violationsaddr: HpdViolationsAddress;
 };
-
-export type SummaryResults = {
-  result: SummaryStatsRecord[];
-};
-
 // TYPES ASSOCIATED WITH BUILDING INFO QUERY:
 
 export type BuildingInfoRecord = {
