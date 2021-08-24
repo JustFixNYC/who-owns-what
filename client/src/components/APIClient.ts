@@ -94,10 +94,6 @@ function searchForBBL(
   );
 }
 
-function getAggregate(bbl: string): Promise<SummaryResults> {
-  return getApiJson(`/api/address/aggregate?bbl=${bbl}`);
-}
-
 function getBuildingInfo(bbl: string): Promise<BuildingInfoResults> {
   return getApiJson(`/api/address/buildinginfo?bbl=${bbl}`);
 }
@@ -169,7 +165,6 @@ async function getApiJson(url: string): Promise<any> {
 const Client = {
   searchForAddressWithGeosearch,
   searchForBBL,
-  getAggregate,
   getBuildingInfo,
   getIndicatorHistory,
   getAddressExport,
