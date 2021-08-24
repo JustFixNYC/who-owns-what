@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2021-08-24 19:34\n"
+"PO-Revision-Date: 2021-08-24 20:53\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -937,7 +937,7 @@ msgstr "Este portafolio de edificios tuvo una <0>{changeType, select, gain {gana
 
 #: src/components/ViolationsSummary.tsx:12
 msgid "This portfolio has an average of <0>{0}</0> open HPD violations per residential unit."
-msgstr ""
+msgstr "Esta cartera de edificios tiene un promedio de <0>{0}</0> infracciones del HPD Actuales por cada unidad residencial."
 
 #: src/containers/HomePage.tsx:127
 msgid "This property management company owned by the Kushner family is notorious for <0>violating rent regulations</0> and <1>harassing tenants</1>. The stake currently held by Jared Kushner and Ivanka Trump is worth as much as $761 million."
@@ -945,7 +945,7 @@ msgstr "Esta empresa de gestión inmobiliaria es propiedad de la familia Kushner
 
 #: src/components/RentstabSummary.tsx:23
 msgid "This represents <0>{0}%</0> of the total size of this portfolio."
-msgstr ""
+msgstr "Esto representa el <0>{0}%</0> del tamaño total de este portafolio de edificios."
 
 #: src/components/BuildingStatsTable.tsx:61
 msgid "This represents the total number of HPD Violations (both open & closed) recorded by the city."
