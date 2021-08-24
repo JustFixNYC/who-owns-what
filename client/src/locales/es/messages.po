@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2021-08-19 19:11\n"
+"PO-Revision-Date: 2021-08-24 19:34\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -397,7 +397,7 @@ msgstr "Oficial Principal"
 
 #: src/containers/HomePage.tsx:92
 msgid "How do you want to group landlord portfolios?"
-msgstr ""
+msgstr "¿Cómo quieres agrupar a los portafolios de los dueños?"
 
 #: src/components/DetailView.tsx:136
 #: src/components/DetailView.tsx:241
@@ -580,7 +580,7 @@ msgstr "Directorio de NYCHA"
 
 #: src/containers/HomePage.tsx:102
 msgid "New Method (WOWZA!)"
-msgstr ""
+msgstr "Nuevo método (¡WOWZA!)"
 
 #: src/components/AddressToolbar.tsx:19
 msgid "New Search"
@@ -646,7 +646,7 @@ msgstr "Oficial/Propietario"
 
 #: src/containers/HomePage.tsx:97
 msgid "Old Method"
-msgstr ""
+msgstr "Método anterior"
 
 #: src/components/NetworkErrorMessage.tsx:5
 #: src/components/Subscribe.tsx:54
@@ -823,11 +823,11 @@ msgstr "Resúmen"
 
 #: src/components/WowzaToggle.tsx:29
 msgid "Switch to New Version"
-msgstr ""
+msgstr "Cambiar a la nueva versión"
 
 #: src/components/WowzaToggle.tsx:29
 msgid "Switch to Old Version"
-msgstr ""
+msgstr "Cambiar a la versión anterior"
 
 #: src/util/helpers.ts:44
 msgid "TENANT HARASSMENT"
@@ -961,7 +961,7 @@ msgstr "El cambio en apartamentos de renta estabilizada que hay en el edificio (
 
 #: src/components/AddressToolbar.tsx:26
 msgid "This will export <0>{0}</0> addresses associated with the landlord at <1>{userAddrStr}</1>!"
-msgstr ""
+msgstr "¡Esto exportará <0>{0}</0> direcciones asociadas al propietario de <1>{userAddrStr}</1>!"
 
 #: src/containers/AddressPage.tsx:117
 msgid "Timeline"
