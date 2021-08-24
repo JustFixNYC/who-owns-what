@@ -52,6 +52,25 @@ describe("maxArray()", () => {
   });
 });
 
+describe("getMostCommonElementsInArray()", () => {
+  it("works", () => {
+    expect(helpers.getMostCommonElementsInArray(["red", "green", "green", "blue"], 1)).toEqual([
+      "green",
+    ]);
+  });
+
+  it("works even if trying to return more top elements than exist", () => {
+    expect(helpers.getMostCommonElementsInArray(["red", "green", "green"], 5)).toEqual([
+      "green",
+      "red",
+    ]);
+  });
+
+  it("works with empty arrays", () => {
+    expect(helpers.getMostCommonElementsInArray([], 1)).toEqual([]);
+  });
+});
+
 test("splitBBL() works", () => {
   expect(helpers.splitBBL("3012380016")).toEqual({
     boro: "3",
