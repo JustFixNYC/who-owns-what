@@ -57,6 +57,10 @@ describe("flattenArray()", () => {
     expect(helpers.flattenArray([1, [2, 3], 4])).toEqual([1, 2, 3, 4]);
   });
 
+  it("keeps doubly-nested arrays intact", () => {
+    expect(helpers.flattenArray([1, [[2, 3], 4]])).toEqual([1, [2, 3], 4]);
+  });
+
   it("returns the same array if no nested elements are themselves arrays", () => {
     expect(helpers.flattenArray([1, 2, 3, 4])).toEqual([1, 2, 3, 4]);
   });
