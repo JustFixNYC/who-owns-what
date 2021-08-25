@@ -52,6 +52,20 @@ describe("maxArray()", () => {
   });
 });
 
+describe("flattenArray()", () => {
+  it("unpacks any elements that are themselves arrays", () => {
+    expect(helpers.flattenArray([1, [2, 3], 4])).toEqual([1, 2, 3, 4]);
+  });
+
+  it("returns the same array if no nested elements are themselves arrays", () => {
+    expect(helpers.flattenArray([1, 2, 3, 4])).toEqual([1, 2, 3, 4]);
+  });
+
+  it("returns empty arrays when given empty arrays", () => {
+    expect(helpers.flattenArray([])).toEqual([]);
+  });
+});
+
 describe("getMostCommonElementsInArray()", () => {
   it("works", () => {
     expect(helpers.getMostCommonElementsInArray(["red", "green", "green", "blue"], 1)).toEqual([

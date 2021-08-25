@@ -3,9 +3,9 @@ import helpers from "util/helpers";
 import { AddressLocation, AddressRecord, SummaryStatsRecord } from "./APIDataTypes";
 
 export const getTopFiveContactsInPortfolio = (addrs: AddressRecord[]) => {
-  const allContactNames = addrs
-    .map((a) => a.ownernames?.map((ownername) => ownername.value) || [])
-    .flat();
+  const allContactNames = helpers.flattenArray(
+    addrs.map((a) => a.ownernames?.map((ownername) => ownername.value) || [])
+  );
 
   return helpers.getMostCommonElementsInArray(allContactNames, 5);
 };
@@ -58,8 +58,8 @@ export const calculateAggDataFromAddressList = (addrs: AddressRecord[]): Summary
     (a1.openviolations || 0) > (a2.openviolations || 0) ? a1 : a2
   );
 
-  const allBusinessAddrs = addrs.map((addr) => addr.businessaddrs || []).flat();
-  const allCorpNames = addrs.map((addr) => addr.corpnames || []).flat();
+  const allBusinessAddrs = helpers.flattenArray(addrs.map((addr) => addr.businessaddrs || []));
+  const allCorpNames = helpers.flattenArray(addrs.map((addr) => addr.corpnames || []));
 
   return {
     bldgs,
