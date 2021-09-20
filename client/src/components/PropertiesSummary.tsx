@@ -16,6 +16,7 @@ import { defaultLocale, isSupportedLocale } from "i18n-base";
 import { I18n } from "@lingui/core/i18n";
 import { I18n as I18nComponent } from "@lingui/react";
 import { PortfolioGraph } from "./PortfolioGraph";
+import { ComplaintsSummary } from "./ComplaintsSummary";
 
 type Props = withMachineInStateProps<"portfolioFound"> & {
   isVisible: boolean;
@@ -176,6 +177,7 @@ export default class PropertiesSummary extends Component<Props, {}> {
                   </Trans>
                 )}
               </p>
+              <ComplaintsSummary {...agg} />
               <ViolationsSummary {...agg} />
               <Trans render="h6">Evictions</Trans>
               <EvictionsSummary {...agg} />

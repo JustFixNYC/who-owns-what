@@ -98,7 +98,7 @@ export const SAMPLE_ADDRESS_RECORDS: AddressRecord[] = [
     openviolations: 0,
     recentcomplaints: 1,
     totalcomplaints: 2,
-    recentcomplaintsbytype: [{ type: "HEAT/HOT WATER", count: 1 }],
+    recentcomplaintsbytype: [{ type: "HEAT/HOT WATER", count: 3 }],
     unitsres: 13,
     yearbuilt: 1931,
     lat: 40.6737974139504,
