@@ -1,6 +1,11 @@
 import _ from "lodash";
 import helpers from "util/helpers";
-import { AddressLocation, AddressRecord, SummaryStatsRecord } from "./APIDataTypes";
+import {
+  AddressLocation,
+  AddressRecord,
+  HpdComplaintCount,
+  SummaryStatsRecord,
+} from "./APIDataTypes";
 
 export const getTopFiveContactsInPortfolio = (addrs: AddressRecord[]) => {
   const allContactNames = helpers.flattenArray(
@@ -8,6 +13,34 @@ export const getTopFiveContactsInPortfolio = (addrs: AddressRecord[]) => {
   );
 
   return helpers.getMostCommonElementsInArray(allContactNames, 5);
+};
+
+const NUM_COMPLAINT_TYPES_TO_SHOW = 3;
+
+const getTopComplaintTypesInPortfolio = (addrs: AddressRecord[]) => {
+  // Generate array of alll HpdComplaintCount objects across entire portfolio
+  const allComplaintTypes = helpers.flattenArray(
+    addrs.map((addr) => addr.recentcomplaintsbytype || [])
+  ) as HpdComplaintCount[];
+
+  // Group complaint counts by type into one large object
+  const complaintCountsGroupedByType = allComplaintTypes.reduce((obj, el) => {
+    obj[el.type] = (obj[el.type] || 0) + el.count;
+    return obj;
+  }, {} as { [key: string]: number });
+
+  // Restructure the grouped object into an array of HpdComplaintCount objects,
+  // sorted by count
+  const complaintTypesSortedByCount = _.toPairs(complaintCountsGroupedByType)
+    .map((a) => {
+      return {
+        type: a[0],
+        count: a[1],
+      };
+    })
+    .sort((a, b) => b.count - a.count);
+
+  return complaintTypesSortedByCount.slice(0, NUM_COMPLAINT_TYPES_TO_SHOW);
 };
 
 export const extractLocationDataFromAddr = (addr: AddressRecord): AddressLocation => {
@@ -31,8 +64,6 @@ export const calculateAggDataFromAddressList = (addrs: AddressRecord[]): Summary
 
   const totalcomplaints = _.sumBy(addrs, (a) => a.totalcomplaints);
   const totalrecentcomplaints = _.sumBy(addrs, (a) => a.recentcomplaints);
-
-  const recentcomplaintsbytype = null;
 
   const totalevictions = _.sumBy(addrs, (a) => a.evictions || 0);
 
@@ -75,7 +106,7 @@ export const calculateAggDataFromAddressList = (addrs: AddressRecord[]): Summary
     topbusinessaddr: helpers.getMostCommonElementsInArray(allBusinessAddrs, 1)[0] || null,
     totalcomplaints,
     totalrecentcomplaints,
-    recentcomplaintsbytype,
+    recentcomplaintsbytype: getTopComplaintTypesInPortfolio(addrs),
     totalopenviolations,
     totalviolations,
     openviolationsperbldg: totalopenviolations / bldgs,

@@ -838,8 +838,8 @@ msgid "Take action on JustFix.nyc!"
 msgstr "Take action on JustFix.nyc!"
 
 #: src/components/ComplaintsSummary.tsx:11
-msgid "Tenants in this portfolio have reported a total of <0>{totalcomplaints}</0> to 311,<1>{totalrecentcomplaints}</1> of which reported in the last 3 years."
-msgstr "Tenants in this portfolio have reported a total of <0>{totalcomplaints}</0> to 311,<1>{totalrecentcomplaints}</1> of which reported in the last 3 years."
+msgid "Tenants in this portfolio have reported a total of <0>{totalcomplaints}</0> to 311, <1>{totalrecentcomplaints}</1> of which reported in the last three years."
+msgstr "Tenants in this portfolio have reported a total of <0>{totalcomplaints}</0> to 311, <1>{totalrecentcomplaints}</1> of which reported in the last three years."
 
 #: src/components/LegalFooter.tsx:36
 #: src/containers/TermsOfUsePage.tsx:8
@@ -871,8 +871,8 @@ msgid "The most common corporate entity is <0>{0}</0> and the most common busine
 msgstr "The most common corporate entity is <0>{0}</0> and the most common business address is <1>{1}</1>."
 
 #: src/components/ComplaintsSummary.tsx:18
-msgid "The most common reported in this portfolio over the last 3 years {0}"
-msgstr "The most common reported in this portfolio over the last 3 years {0}"
+msgid "The most common reported in this portfolio over the last three years <0/>."
+msgstr "The most common reported in this portfolio over the last three years <0/>."
 
 #: src/components/PropertiesSummary.tsx:103
 msgid "The most common {0, plural, one {name that appears in this portfolio is} other {names that appear in this portfolio are}} <0/>."
