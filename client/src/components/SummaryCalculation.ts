@@ -29,6 +29,11 @@ export const calculateAggDataFromAddressList = (addrs: AddressRecord[]): Summary
   const totalopenviolations = _.sumBy(addrs, (a) => a.openviolations);
   const totalviolations = _.sumBy(addrs, (a) => a.totalviolations);
 
+  const totalcomplaints = _.sumBy(addrs, (a) => a.totalcomplaints);
+  const totalrecentcomplaints = _.sumBy(addrs, (a) => a.recentcomplaints);
+
+  const recentcomplaintsbytype = null;
+
   const totalevictions = _.sumBy(addrs, (a) => a.evictions || 0);
 
   /**
@@ -68,6 +73,9 @@ export const calculateAggDataFromAddressList = (addrs: AddressRecord[]): Summary
     topowners: getTopFiveContactsInPortfolio(addrs),
     topcorp: helpers.getMostCommonElementsInArray(allCorpNames, 1)[0] || null,
     topbusinessaddr: helpers.getMostCommonElementsInArray(allBusinessAddrs, 1)[0] || null,
+    totalcomplaints,
+    totalrecentcomplaints,
+    recentcomplaintsbytype,
     totalopenviolations,
     totalviolations,
     openviolationsperbldg: totalopenviolations / bldgs,

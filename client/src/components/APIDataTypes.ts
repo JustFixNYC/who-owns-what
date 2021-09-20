@@ -139,6 +139,9 @@ export type SummaryStatsRecord = {
   topbusinessaddr: string | null;
   topcorp: string | null;
   topowners: string[];
+  totalcomplaints: number;
+  totalrecentcomplaints: number;
+  recentcomplaintsbytype: HpdComplaintCount[] | null;
   totalevictions: number | null;
   totalopenviolations: number;
   totalrsdiff: number | null;
