@@ -1,5 +1,5 @@
 import React from "react";
-import { Plural, Trans } from "@lingui/macro";
+import { Trans, Plural } from "@lingui/macro";
 import { SummaryStatsRecord } from "./APIDataTypes";
 import helpers from "util/helpers";
 import { withI18n, withI18nProps } from "@lingui/react";
