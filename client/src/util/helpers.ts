@@ -169,6 +169,14 @@ export default {
     return max;
   },
 
+  /**
+   * Same functionality as the built-in Array.prototype.flat() function,
+   * but with greater support across older browsers.
+   */
+  flattenArray(array: any[]): any[] {
+    return array.reduce((arr, elem) => arr.concat(elem), []);
+  },
+
   getMostCommonElementsInArray(array: string[], numberOfResults: number): string[] {
     const elementsByFrequency = _.countBy(array);
     const sortedElementsByFrequency = Object.entries(elementsByFrequency).sort(
