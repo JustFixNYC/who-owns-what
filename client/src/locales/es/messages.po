@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2021-08-24 20:53\n"
+"PO-Revision-Date: 2021-09-20 21:31\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -228,7 +228,7 @@ msgstr "Quejas Emitidas"
 
 #: src/components/ComplaintsSummary.tsx:9
 msgid "Complaints to 311"
-msgstr ""
+msgstr "Quejas al 311"
 
 #: src/util/helpers.ts:66
 msgid "Corporate Owner"
@@ -844,7 +844,7 @@ msgstr "¡Toma acción en JustFix.nyc!"
 
 #: src/components/ComplaintsSummary.tsx:11
 msgid "Tenants in this portfolio have reported a total of <0>{totalhpdcomplaints}</0> {totalhpdcomplaints, plural, one {complaint} other {complaints}} to 311, <1>{totalrecenthpdcomplaints}</1> of which {totalrecenthpdcomplaints, plural, one {was} other {were}} reported in the last three years."
-msgstr ""
+msgstr "Los inquilinos en este portafolio han reportado un total de <0>{totalhpdcomplaints}</0> {totalhpdcomplaints, plural, one {queja} other {quejas}} al 311, con <1>{totalrecenthpdcomplaints}</1> {totalrecenthpdcomplaints, plural, one {reportada} other {reportadas}} en los últimos tres años."
 
 #: src/components/LegalFooter.tsx:36
 #: src/containers/TermsOfUsePage.tsx:8
@@ -877,7 +877,7 @@ msgstr "La entidad corporativa más común es <0>{0}</0> y la dirección adminis
 
 #: src/components/ComplaintsSummary.tsx:18
 msgid "The most common {0, plural, one {issue} other {issues}} reported in this portfolio over the last three years {1, plural, one {is} other {are}} <0/>."
-msgstr ""
+msgstr "{0, plural, one {La queja más común reportada} other {Las quejas más comunes reportadas}} en este portafolio en los últimos tres años {1, plural, one {es} other {son}} <0/>."
 
 #: src/components/PropertiesSummary.tsx:103
 msgid "The most common {0, plural, one {name that appears in this portfolio is} other {names that appear in this portfolio are}} <0/>."
@@ -1194,3 +1194,4 @@ msgstr "{value, plural, one {Una Queja del HPD emitida desde el 2014} other {# Q
 #: src/components/IndicatorsDatasets.tsx:35
 msgid "{value, plural, one {One HPD Violation Issued since 2010} other {# HPD Violations Issued since 2010}}"
 msgstr "{value, plural, one {Una Violación del HPD emitida desde el 2010} other {# Violaciones del HPD emitidas desde el 2010}}"
+
