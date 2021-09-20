@@ -222,8 +222,8 @@ msgid "Complaints Issued"
 msgstr "Complaints Issued"
 
 #: src/components/ComplaintsSummary.tsx:9
-msgid "Complaints called in to 311"
-msgstr "Complaints called in to 311"
+msgid "Complaints to 311"
+msgstr "Complaints to 311"
 
 #: src/util/helpers.ts:66
 msgid "Corporate Owner"
@@ -838,8 +838,8 @@ msgid "Take action on JustFix.nyc!"
 msgstr "Take action on JustFix.nyc!"
 
 #: src/components/ComplaintsSummary.tsx:11
-msgid "Tenants in this portfolio have reported a total of <0>{totalcomplaints}</0> {totalcomplaints, plural, one {complaint} other {complaints}} to 311, <1>{totalrecentcomplaints}</1> of which {totalrecentcomplaints, plural, one {was} other {were}} reported in the last three years."
-msgstr "Tenants in this portfolio have reported a total of <0>{totalcomplaints}</0> {totalcomplaints, plural, one {complaint} other {complaints}} to 311, <1>{totalrecentcomplaints}</1> of which {totalrecentcomplaints, plural, one {was} other {were}} reported in the last three years."
+msgid "Tenants in this portfolio have reported a total of <0>{totalhpdcomplaints}</0> {totalhpdcomplaints, plural, one {complaint} other {complaints}} to 311, <1>{totalrecenthpdcomplaints}</1> of which {totalrecenthpdcomplaints, plural, one {was} other {were}} reported in the last three years."
+msgstr "Tenants in this portfolio have reported a total of <0>{totalhpdcomplaints}</0> {totalhpdcomplaints, plural, one {complaint} other {complaints}} to 311, <1>{totalrecenthpdcomplaints}</1> of which {totalrecenthpdcomplaints, plural, one {was} other {were}} reported in the last three years."
 
 #: src/components/LegalFooter.tsx:36
 #: src/containers/TermsOfUsePage.tsx:8

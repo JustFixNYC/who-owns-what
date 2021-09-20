@@ -227,7 +227,7 @@ msgid "Complaints Issued"
 msgstr "Quejas Emitidas"
 
 #: src/components/ComplaintsSummary.tsx:9
-msgid "Complaints called in to 311"
+msgid "Complaints to 311"
 msgstr ""
 
 #: src/util/helpers.ts:66
@@ -843,7 +843,7 @@ msgid "Take action on JustFix.nyc!"
 msgstr "¡Toma acción en JustFix.nyc!"
 
 #: src/components/ComplaintsSummary.tsx:11
-msgid "Tenants in this portfolio have reported a total of <0>{totalcomplaints}</0> {totalcomplaints, plural, one {complaint} other {complaints}} to 311, <1>{totalrecentcomplaints}</1> of which {totalrecentcomplaints, plural, one {was} other {were}} reported in the last three years."
+msgid "Tenants in this portfolio have reported a total of <0>{totalhpdcomplaints}</0> {totalhpdcomplaints, plural, one {complaint} other {complaints}} to 311, <1>{totalrecenthpdcomplaints}</1> of which {totalrecenthpdcomplaints, plural, one {was} other {were}} reported in the last three years."
 msgstr ""
 
 #: src/components/LegalFooter.tsx:36
