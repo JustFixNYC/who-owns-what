@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2021-09-20 20:03\n"
+"PO-Revision-Date: 2021-09-20 20:07\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -844,7 +844,7 @@ msgstr "¡Toma acción en JustFix.nyc!"
 
 #: src/components/ComplaintsSummary.tsx:11
 msgid "Tenants in this portfolio have reported a total of <0>{totalcomplaints}</0> {totalcomplaints, plural, one {complaint} other {complaints}} to 311, <1>{totalrecentcomplaints}</1> of which {totalrecentcomplaints, plural, one {was} other {were}} reported in the last three years."
-msgstr "Los inquilinos en este portafolio han reportado un total de <0>{totalcomplaints}</0> {totalcomplaints, plural, one {queja} other {quejas}} al 311, y <1>{totalrecentcomplaints}</1> {totalrecentcomplaints, plural, one {ha} other {han}} reportados en los últimos tres años."
+msgstr "Los inquilinos en este portafolio han reportado un total de <0>{totalcomplaints}</0> {totalcomplaints, plural, one {queja} other {quejas}} al 311, con <1>{totalrecentcomplaints}</1> {totalrecentcomplaints, plural, one {reportada} other {reportadas}} en los últimos tres años."
 
 #: src/components/LegalFooter.tsx:36
 #: src/containers/TermsOfUsePage.tsx:8
