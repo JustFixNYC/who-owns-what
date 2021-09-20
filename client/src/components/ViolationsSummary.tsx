@@ -3,10 +3,10 @@ import * as _ from "lodash";
 import { Trans } from "@lingui/macro";
 import { SummaryStatsRecord } from "./APIDataTypes";
 
-const VIOLATIONS_AVG = 0.7; // By Unit
-// 1668635 open violations according to wow_bldgs
-// 2366392 total units in registered buildings, according to wow_bldgs
-// Last updated: 5/25/2020
+const VIOLATIONS_AVG = 0.8; // By Unit
+// 1917247 open violations according to wow_bldgs
+// 2414366 total units in registered buildings, according to wow_bldgs
+// Last updated: 9/20/2021
 
 type ViolationsSummaryData = Pick<
   SummaryStatsRecord,
