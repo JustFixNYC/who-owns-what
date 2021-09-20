@@ -15,9 +15,9 @@ export const getTopFiveContactsInPortfolio = (addrs: AddressRecord[]) => {
   return helpers.getMostCommonElementsInArray(allContactNames, 5);
 };
 
-const NUM_COMPLAINT_TYPES_TO_SHOW = 3;
+export const NUM_COMPLAINT_TYPES_TO_SHOW = 3;
 
-const getTopComplaintTypesInPortfolio = (addrs: AddressRecord[]) => {
+export const getTopComplaintTypesInPortfolio = (addrs: AddressRecord[]) => {
   // Generate array of alll HpdComplaintCount objects across entire portfolio
   const allComplaintTypes = helpers.flattenArray(
     addrs.map((addr) => addr.recentcomplaintsbytype || [])

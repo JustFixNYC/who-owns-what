@@ -141,7 +141,7 @@ export type SummaryStatsRecord = {
   topowners: string[];
   totalcomplaints: number;
   totalrecentcomplaints: number;
-  recentcomplaintsbytype: HpdComplaintCount[] | null;
+  recentcomplaintsbytype: HpdComplaintCount[];
   totalevictions: number | null;
   totalopenviolations: number;
   totalrsdiff: number | null;
