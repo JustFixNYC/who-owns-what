@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2021-09-20 19:42\n"
+"PO-Revision-Date: 2021-09-20 20:03\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -228,7 +228,7 @@ msgstr "Quejas Emitidas"
 
 #: src/components/ComplaintsSummary.tsx:9
 msgid "Complaints called in to 311"
-msgstr ""
+msgstr "Quejas llamadas a 311"
 
 #: src/util/helpers.ts:66
 msgid "Corporate Owner"
@@ -844,7 +844,7 @@ msgstr "¡Toma acción en JustFix.nyc!"
 
 #: src/components/ComplaintsSummary.tsx:11
 msgid "Tenants in this portfolio have reported a total of <0>{totalcomplaints}</0> {totalcomplaints, plural, one {complaint} other {complaints}} to 311, <1>{totalrecentcomplaints}</1> of which {totalrecentcomplaints, plural, one {was} other {were}} reported in the last three years."
-msgstr ""
+msgstr "Los inquilinos en este portafolio han reportado un total de <0>{totalcomplaints}</0> {totalcomplaints, plural, one {queja} other {quejas}} al 311, y <1>{totalrecentcomplaints}</1> {totalrecentcomplaints, plural, one {ha} other {han}} reportados en los últimos tres años."
 
 #: src/components/LegalFooter.tsx:36
 #: src/containers/TermsOfUsePage.tsx:8
@@ -877,7 +877,7 @@ msgstr "La entidad corporativa más común es <0>{0}</0> y la dirección adminis
 
 #: src/components/ComplaintsSummary.tsx:18
 msgid "The most common {0, plural, one {issue} other {issues}} reported in this portfolio over the last three years {1, plural, one {is} other {are}} <0/>."
-msgstr ""
+msgstr "{0, plural, one {La queja más común reportada} other {Las quejas más comunes reportadas}} en este portafolio en los últimos tres años {1, plural, one {es} other {son}} <0/>."
 
 #: src/components/PropertiesSummary.tsx:103
 msgid "The most common {0, plural, one {name that appears in this portfolio is} other {names that appear in this portfolio are}} <0/>."
