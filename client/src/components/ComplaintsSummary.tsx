@@ -7,11 +7,16 @@ import { StringifyListWithConjunction } from "./StringifyList";
 
 type ComplaintsSummaryData = Pick<
   SummaryStatsRecord,
-  "totalcomplaints" | "totalrecentcomplaints" | "recentcomplaintsbytype"
+  "totalhpdcomplaints" | "totalrecenthpdcomplaints" | "recenthpdcomplaintsbytype"
 >;
 
 export const ComplaintsSummary = withI18n()((props: ComplaintsSummaryData & withI18nProps) => {
-  const { totalcomplaints, totalrecentcomplaints, recentcomplaintsbytype, i18n } = props;
+  const {
+    totalhpdcomplaints: totalcomplaints,
+    totalrecenthpdcomplaints: totalrecentcomplaints,
+    recenthpdcomplaintsbytype: recentcomplaintsbytype,
+    i18n,
+  } = props;
 
   return (
     <>

@@ -18,7 +18,7 @@ export const getTopFiveContactsInPortfolio = (addrs: AddressRecord[]) => {
 export const NUM_COMPLAINT_TYPES_TO_SHOW = 3;
 
 export const getTopComplaintTypesInPortfolio = (addrs: AddressRecord[]) => {
-  // Generate array of alll HpdComplaintCount objects across entire portfolio
+  // Generate array of all HpdComplaintCount objects across entire portfolio
   const allComplaintTypes = helpers.flattenArray(
     addrs.map((addr) => addr.recentcomplaintsbytype || [])
   ) as HpdComplaintCount[];
@@ -104,9 +104,9 @@ export const calculateAggDataFromAddressList = (addrs: AddressRecord[]): Summary
     topowners: getTopFiveContactsInPortfolio(addrs),
     topcorp: helpers.getMostCommonElementsInArray(allCorpNames, 1)[0] || null,
     topbusinessaddr: helpers.getMostCommonElementsInArray(allBusinessAddrs, 1)[0] || null,
-    totalcomplaints,
-    totalrecentcomplaints,
-    recentcomplaintsbytype: getTopComplaintTypesInPortfolio(addrs),
+    totalhpdcomplaints: totalcomplaints,
+    totalrecenthpdcomplaints: totalrecentcomplaints,
+    recenthpdcomplaintsbytype: getTopComplaintTypesInPortfolio(addrs),
     totalopenviolations,
     totalviolations,
     openviolationsperbldg: totalopenviolations / bldgs,
