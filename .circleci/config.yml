@@ -31,6 +31,8 @@ jobs:
           name: Test python code
           command: |
             . ~/venv/bin/activate
+             # TODO: Once we've formatted all our code with Black, uncomment this line.
+            black --check .p
             flake8
             mypy .
             pytest
