@@ -118,7 +118,7 @@ if ROLLBAR_ACCESS_TOKEN:
     if "HEROKU_SLUG_COMMIT" in os.environ:
         # https://devcenter.heroku.com/articles/dyno-metadata
         ROLLBAR["code_version"] = os.environ["HEROKU_SLUG_COMMIT"]
-    LOGGING["handlers"]["rollbar"].update(   # type: ignore
+    LOGGING["handlers"]["rollbar"].update(  # type: ignore
         {"class": "rollbar.logger.RollbarHandler"}
     )
     MIDDLEWARE.append(
