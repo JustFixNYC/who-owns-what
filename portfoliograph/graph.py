@@ -25,8 +25,8 @@ class RegistrationInfo(NamedTuple):
     reg_contact_id: int
 
 
-def join_truthies(*items: Optional[str], sep=' ') -> str:
-    '''
+def join_truthies(*items: Optional[str], sep=" ") -> str:
+    """
     Joins the given arguments with a space (or provided separator),
     filtering out anything that is falsy, e.g.:
 
@@ -41,7 +41,7 @@ def join_truthies(*items: Optional[str], sep=' ') -> str:
 
         >>> join_truthies('New York', 'NY', sep=', ')
         'New York, NY'
-    '''
+    """
 
     return sep.join(filter(None, items))
 
@@ -50,7 +50,8 @@ def build_graph(dict_cursor) -> nx.Graph:
     g = nx.Graph()
 
     # TODO: process synonyms (e.g. folks in pinnacle)
-    dict_cursor.execute(f"""
+    dict_cursor.execute(
+        f"""
         SELECT DISTINCT
             firstname,
             lastname,
@@ -70,19 +71,20 @@ def build_graph(dict_cursor) -> nx.Graph:
             AND LENGTH(CONCAT(businesshousenumber, businessstreetname)) > 2
             AND (firstname IS NOT NULL OR lastname IS NOT NULL)
             AND {hpd_reg_where_clause()}
-    """)
+    """
+    )
     for row in dict_cursor.fetchall():
-        name = join_truthies(row['firstname'], row['lastname']).upper()
+        name = join_truthies(row["firstname"], row["lastname"]).upper()
         street_addr = join_truthies(
-            row['businesshousenumber'],
-            row['businessstreetname'],
-            row['businessapartment'],
+            row["businesshousenumber"],
+            row["businessstreetname"],
+            row["businessapartment"],
         ).upper()
         city_state = join_truthies(
-            row['businesscity'],
-            row['businessstate'],
+            row["businesscity"],
+            row["businessstate"],
         ).upper()
-        bizaddr = join_truthies(street_addr, city_state, sep=', ')
+        bizaddr = join_truthies(street_addr, city_state, sep=", ")
         name_node = Node(NodeKind.NAME, name)
         bizaddr_node = Node(NodeKind.BIZADDR, bizaddr)
         g.add_node(name_node)
@@ -90,10 +92,10 @@ def build_graph(dict_cursor) -> nx.Graph:
         if not g.has_edge(name_node, bizaddr_node):
             g.add_edge(name_node, bizaddr_node, hpd_regs=set())
         edge_data = g[name_node][bizaddr_node]
-        edge_data['hpd_regs'].add(
+        edge_data["hpd_regs"].add(
             RegistrationInfo(
-                reg_id=row['registrationid'],
-                reg_contact_id=row['registrationcontactid'],
+                reg_id=row["registrationid"],
+                reg_contact_id=row["registrationcontactid"],
             )
         )
 
@@ -101,11 +103,11 @@ def build_graph(dict_cursor) -> nx.Graph:
 
 
 def to_json_graph(graph: nx.Graph) -> Dict[str, Any]:
-    '''
+    """
     Output a portfolio's graph as JSON based on this schema:
 
     https://github.com/JustFixNYC/hpd-graph-fun/blob/main/typescript/portfolio.d.ts
-    '''
+    """
 
     node_indexes: Dict[Node, int] = {}
     counter = 1
@@ -113,17 +115,21 @@ def to_json_graph(graph: nx.Graph) -> Dict[str, Any]:
     edges: List[Dict[str, Any]] = []
     for node in graph:
         node_indexes[node] = counter
-        nodes.append({
-            "id": counter,
-            "value": node.to_json(),
-        })
+        nodes.append(
+            {
+                "id": counter,
+                "value": node.to_json(),
+            }
+        )
         counter += 1
     for (_from, to, attrs) in graph.edges.data():
-        edges.append({
-            "from": node_indexes[_from],
-            "to": node_indexes[to],
-            "reg_contacts": len(attrs['hpd_regs']),
-        })
+        edges.append(
+            {
+                "from": node_indexes[_from],
+                "to": node_indexes[to],
+                "reg_contacts": len(attrs["hpd_regs"]),
+            }
+        )
     return {
         "nodes": nodes,
         "edges": edges,

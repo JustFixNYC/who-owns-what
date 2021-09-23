@@ -2,25 +2,25 @@ from typing import NamedTuple
 
 
 class MarshalEvictions18(NamedTuple):
-    UNIQUE_ID: str = '23'
-    COURT_INDEX_NUMBER: str = '71219/18'
-    DOCKET_NUMBER: str = '9501'
-    CLEAN_HOUSE_NUM: str = '47-10'
-    CLEAN_STREET: str = 'TO 47-16 AUSTELL PLACE THIRD'
-    CLEAN_ADDRESS: str = '47-10 TO 47-16 AUSTELL PLACE THIRD'
-    EVICTION_ADDRESS: str = '47-10 TO 47-16 AUSTELL PLACE - THIRD (3RD) FLOOR SUITE 301'
-    EVICTION_APT_NUM: str = ''
-    EVICTION_ZIP: str = '11101'
-    BOROUGH: str = 'QUEENS'
-    BORO_CODE: str = '4'
-    EXECUTED_DATE: str = '12/21/18'
-    YEAR: str = '2018'
-    RESIDENTIAL_COMMERCIAL_IND: str = 'Commercial'
-    MARSHAL_FIRST_NAME: str = 'Robert'
-    MARSHAL_LAST_NAME: str = 'Renzulli'
-    SCHEDULE_STATUS: str = 'Scheduled'
-    BBL: str = '4000980042'
-    GEOCODER: str = 'GeoSearch'
-    GEOSEARCHABLE_ADDRESS: str = '47-10 TO 47-16 AUSTELL PLACE THIRD , QUEENS, New York'
-    GEOSEARCHABLE_ADDRESS2: str = ''
-    GEOSEARCH_FOUND: str = '47-16 AUSTELL PLACE, Queens, New York, NY, USA'
+    UNIQUE_ID: str = "23"
+    COURT_INDEX_NUMBER: str = "71219/18"
+    DOCKET_NUMBER: str = "9501"
+    CLEAN_HOUSE_NUM: str = "47-10"
+    CLEAN_STREET: str = "TO 47-16 AUSTELL PLACE THIRD"
+    CLEAN_ADDRESS: str = "47-10 TO 47-16 AUSTELL PLACE THIRD"
+    EVICTION_ADDRESS: str = "47-10 TO 47-16 AUSTELL PLACE - THIRD (3RD) FLOOR SUITE 301"
+    EVICTION_APT_NUM: str = ""
+    EVICTION_ZIP: str = "11101"
+    BOROUGH: str = "QUEENS"
+    BORO_CODE: str = "4"
+    EXECUTED_DATE: str = "12/21/18"
+    YEAR: str = "2018"
+    RESIDENTIAL_COMMERCIAL_IND: str = "Commercial"
+    MARSHAL_FIRST_NAME: str = "Robert"
+    MARSHAL_LAST_NAME: str = "Renzulli"
+    SCHEDULE_STATUS: str = "Scheduled"
+    BBL: str = "4000980042"
+    GEOCODER: str = "GeoSearch"
+    GEOSEARCHABLE_ADDRESS: str = "47-10 TO 47-16 AUSTELL PLACE THIRD , QUEENS, New York"
+    GEOSEARCHABLE_ADDRESS2: str = ""
+    GEOSEARCH_FOUND: str = "47-16 AUSTELL PLACE, Queens, New York, NY, USA"
