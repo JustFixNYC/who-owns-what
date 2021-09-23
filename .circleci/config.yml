@@ -31,7 +31,7 @@ jobs:
           name: Check python formatting
           command: |
             . ~/venv/bin/activate
-            black --check .p
+            black --check .
             flake8
             mypy .
       - run:
