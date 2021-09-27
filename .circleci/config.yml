@@ -28,11 +28,16 @@ jobs:
           paths:
             - ~/venv
       - run:
-          name: Test python code
+          name: Check python formatting
           command: |
             . ~/venv/bin/activate
+            black --check .
             flake8
             mypy .
+      - run:
+          name: Test python code
+          command: |
+            . ~/venv/bin/activate            
             pytest
       - restore_cache:
           name: Restore yarn package cache
