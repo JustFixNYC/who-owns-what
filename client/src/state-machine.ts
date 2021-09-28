@@ -12,6 +12,7 @@ import _find from "lodash/find";
 import { IndicatorsDataFromAPI } from "components/IndicatorsTypes";
 import { reportError } from "error-reporting";
 import { calculateAggDataFromAddressList } from "components/SummaryCalculation";
+import helpers from "util/helpers";
 
 export type WowState =
   | { value: "noData"; context: {} }
@@ -85,7 +86,12 @@ export type WowPortfolioFoundContext = WowContext & {
 };
 
 export type WowEvent =
-  | { type: "SEARCH"; address: SearchAddressWithoutBbl; useNewPortfolioMethod: boolean }
+  | {
+      type: "SEARCH";
+      address: SearchAddressWithoutBbl;
+      useNewPortfolioMethod: boolean;
+      bbl?: string;
+    }
   | { type: "SELECT_DETAIL_ADDR"; bbl: string }
   | { type: "VIEW_SUMMARY" }
   | { type: "VIEW_TIMELINE" };
@@ -160,9 +166,12 @@ export type withMachineInStateProps<TSV extends WowState["value"]> = {
 
 async function getSearchResult(
   addr: SearchAddressWithoutBbl,
-  useNewPortfolioMethod: boolean
+  useNewPortfolioMethod: boolean,
+  bbl?: string
 ): Promise<WowState> {
-  const apiResults = await APIClient.searchForAddressWithGeosearch(addr, useNewPortfolioMethod);
+  const apiResults = bbl
+    ? await APIClient.searchForBBL(helpers.splitBBL(bbl), useNewPortfolioMethod)
+    : await APIClient.searchForAddressWithGeosearch(addr, useNewPortfolioMethod);
   if (!apiResults.geosearch) {
     return {
       value: "bblNotFound",
@@ -226,6 +235,7 @@ const handleSearchEvent: TransitionsConfig<WowContext, WowEvent> = {
     actions: assign((ctx, event) => {
       return {
         searchAddrParams: event.address,
+        searchAddrBbl: event.bbl,
         useNewPortfolioMethod: event.useNewPortfolioMethod,
         summaryData: undefined,
         timelineData: undefined,
@@ -257,7 +267,8 @@ export const wowMachine = createMachine<WowContext, WowEvent, WowState>({
         src: (ctx, event) =>
           getSearchResult(
             assertNotUndefined(ctx.searchAddrParams),
-            ctx.useNewPortfolioMethod || false
+            ctx.useNewPortfolioMethod || false,
+            ctx.searchAddrBbl
           ),
         onDone: [
           {
