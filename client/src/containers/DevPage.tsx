@@ -2,7 +2,11 @@ import React from "react";
 import Page from "components/Page";
 import { SearchAddressWithoutBbl } from "components/APIDataTypes";
 import { Link } from "react-router-dom";
-import { createRouteForAddressPage, createRouteForFullBbl } from "routes";
+import {
+  createRouteForAddressPage,
+  createRouteForAltUrlAddressPage,
+  createRouteForFullBbl,
+} from "routes";
 
 type AddressExample = SearchAddressWithoutBbl & {
   desc: string;
@@ -45,7 +49,7 @@ const AddressExample: React.FC<AddressExample> = (props) => {
   return (
     <p>
       <strong>{props.desc}</strong> -{" "}
-      <Link to={createRouteForAddressPage(props)}>
+      <Link to={createRouteForAltUrlAddressPage(props)}>
         {props.housenumber} {props.streetname}, {props.boro}
       </Link>
     </p>

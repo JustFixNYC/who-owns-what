@@ -50,20 +50,11 @@ const BBLPage: React.FC<BBLPageProps> = (props) => {
     if (!isValidBblFormat(fullBBL)) {
       setIsNotFound(true);
     } else {
-      APIClient.getBuildingInfo(fullBBL)
-        .then((results) => {
-          if (!isMounted) return;
-          if (results.result.length === 0) {
-            setIsNotFound(true);
-            return;
-          }
-          const addressPage = createRouteForAddressPage({
-            ...results.result[0],
-            locale,
-          });
-          history.replace(addressPage);
-        })
-        .catch(reportError);
+      const addressPage = createRouteForAddressPage({
+        bbl: fullBBL,
+        locale,
+      });
+      history.replace(addressPage);
 
       return () => {
         isMounted = false;

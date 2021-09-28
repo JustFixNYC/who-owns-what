@@ -1,7 +1,12 @@
 import { SearchAddressWithoutBbl } from "components/APIDataTypes";
 import { reportError } from "error-reporting";
 
-export type AddressPageUrlParams = SearchAddressWithoutBbl & {
+export type AddressPageUrlParams = {
+  bbl: string;
+  locale?: string;
+};
+
+export type AltAddressPageUrlParams = SearchAddressWithoutBbl & {
   locale?: string;
 };
 
@@ -9,6 +14,21 @@ export type AddressPageRoutes = ReturnType<typeof createAddressPageRoutes>;
 
 export const createRouteForAddressPage = (
   params: AddressPageUrlParams,
+  addWowzaToRoute?: boolean
+) => {
+  let route = `/bbl/${params.bbl}`;
+
+  if (addWowzaToRoute) route = "/wowza" + route;
+
+  if (params.locale) {
+    route = `/${params.locale}${route}`;
+  }
+
+  return route;
+};
+
+export const createRouteForAltUrlAddressPage = (
+  params: AltAddressPageUrlParams,
   addWowzaToRoute?: boolean
 ) => {
   let route = `/address/${encodeURIComponent(params.boro)}/${encodeURIComponent(
@@ -52,20 +72,14 @@ export const createWhoOwnsWhatRoutePaths = (prefix?: string) => {
   const pathPrefix = prefix || "";
   return {
     home: `${pathPrefix}/`,
-    addressPage: createAddressPageRoutes(`${pathPrefix}/address/:bbl`),
-    wowzaAddressPage: createAddressPageRoutes(`${pathPrefix}/wowza/address/:bbl`),
+    addressPage: createAddressPageRoutes(`${pathPrefix}/bbl/:bbl`),
+    wowzaAddressPage: createAddressPageRoutes(`${pathPrefix}/wowza/bbl/:bbl`),
     /** Note: this path doesn't correspond to a stable page on the site. It simply provides an entry point that
      * immediately redirects to an addressPageOverview. This path is helpful for folks who, say, have a list of
      * boro, block, lot values in a spreadsheet and want to easily generate direct links to WhoOwnsWhat.
      * See `BBLPage.tsx` for more details.
      */
-    bbl: `${pathPrefix}/bbl/:boro/:block/:lot`,
-    /** Note: this path doesn't correspond to a stable page on the site. It simply provides an entry point that
-     * immediately redirects to an addressPageOverview. This path is helpful for folks who, say, have a list of
-     * bbl values in a spreadsheet and want to easily generate direct links to WhoOwnsWhat.
-     * See `BBLPage.tsx` for more details.
-     */
-    bblWithFullBblInUrl: `${pathPrefix}/bbl/:bbl`,
+    splitBbl: `${pathPrefix}/bbl/:boro/:block/:lot`,
     about: `${pathPrefix}/about`,
     howToUse: `${pathPrefix}/how-to-use`,
     methodology: `${pathPrefix}/how-it-works`,

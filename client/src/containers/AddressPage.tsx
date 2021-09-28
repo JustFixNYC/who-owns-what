@@ -24,9 +24,7 @@ import { createAddressPageRoutes } from "routes";
 
 type RouteParams = {
   locale?: string;
-  boro?: string;
-  housenumber?: string;
-  streetname?: string;
+  bbl?: string;
 };
 
 type RouteState = {
@@ -44,21 +42,13 @@ type State = {
 };
 
 const validateRouteParams = (params: RouteParams) => {
-  if (!params.boro) {
-    throw new Error("Address Page URL params did not contain a proper boro!");
-  } else if (!params.streetname) {
-    throw new Error("Address Page URL params did not contain a proper streetname!");
-  } else {
-    const searchAddress: SearchAddress = {
-      // TODO: We really shouldn't be blindly typecasting to Borough here,
-      // params.boro could be anything!
-      boro: params.boro as Borough,
-      streetname: params.streetname,
-      housenumber: params.housenumber,
-      bbl: "",
+  if (!params.bbl) {
+    throw new Error("Address Page URL params did not contain a proper bbl!");
+  } else
+    return {
+      ...params,
+      bbl: params.bbl,
     };
-    return { ...searchAddress, locale: params.locale };
-  }
 };
 
 export default class AddressPage extends Component<AddressPageProps, State> {
@@ -74,12 +64,12 @@ export default class AddressPage extends Component<AddressPageProps, State> {
     const { state, send, match } = this.props;
     if (
       state.matches("portfolioFound") &&
-      searchAddrsAreEqual(state.context.portfolioData.searchAddr, validateRouteParams(match.params))
+      state.context.portfolioData.searchAddr.bbl === validateRouteParams(match.params).bbl
     )
       return;
     send({
       type: "SEARCH",
-      address: validateRouteParams(match.params),
+      bbl: validateRouteParams(match.params).bbl,
       useNewPortfolioMethod: this.props.useNewPortfolioMethod || false,
     });
     /* When searching for user's address, let's reset the DetailView to the "closed" state 
@@ -130,9 +120,7 @@ export default class AddressPage extends Component<AddressPageProps, State> {
       );
 
       return (
-        <Page
-          title={`${this.props.match.params.housenumber} ${this.props.match.params.streetname}`}
-        >
+        <Page title={`${searchAddr.housenumber} ${searchAddr.streetname}`}>
           <div className="AddressPage">
             <div className="AddressPage__info">
               <AddressToolbar searchAddr={searchAddr} assocAddrs={assocAddrs} />

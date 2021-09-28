@@ -87,25 +87,19 @@ const HomePage: React.FC<withMachineProps> = (props) => {
   const getSampleUrls = () => [
     createRouteForAddressPage(
       {
-        boro: "BROOKLYN",
-        housenumber: "89",
-        streetname: "HICKS STREET",
+        bbl: "3002260004",
       },
       useNewPortfolioMethod
     ),
     createRouteForAddressPage(
       {
-        boro: "QUEENS",
-        housenumber: "4125",
-        streetname: "CASE STREET",
+        bbl: "4015640058",
       },
       useNewPortfolioMethod
     ),
     createRouteForAddressPage(
       {
-        boro: "BROOKLYN",
-        housenumber: "196",
-        streetname: "RALPH AVENUE",
+        bbl: "3016780054",
       },
       useNewPortfolioMethod
     ),

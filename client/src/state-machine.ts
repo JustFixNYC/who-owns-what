@@ -85,7 +85,7 @@ export type WowPortfolioFoundContext = WowContext & {
 };
 
 export type WowEvent =
-  | { type: "SEARCH"; address: SearchAddressWithoutBbl; useNewPortfolioMethod: boolean }
+  | { type: "SEARCH"; bbl: string; useNewPortfolioMethod: boolean }
   | { type: "SELECT_DETAIL_ADDR"; bbl: string }
   | { type: "VIEW_SUMMARY" }
   | { type: "VIEW_TIMELINE" };
@@ -222,10 +222,10 @@ const assignWowStateContext = assign((ctx: WowContext, event: DoneInvokeEvent<Wo
 const handleSearchEvent: TransitionsConfig<WowContext, WowEvent> = {
   SEARCH: {
     target: "searchInProgress",
-    cond: (ctx, event) => !!event.address.boro && !!event.address.streetname,
+    cond: (ctx, event) => !!event.bbl,
     actions: assign((ctx, event) => {
       return {
-        searchAddrParams: event.address,
+        searchAddrBbl: event.bbl,
         useNewPortfolioMethod: event.useNewPortfolioMethod,
         summaryData: undefined,
         timelineData: undefined,
