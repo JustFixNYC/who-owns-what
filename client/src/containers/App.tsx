@@ -102,7 +102,7 @@ const WhoOwnsWhatRoutes: React.FC<{}> = () => {
           <AddressPage currentTab={3} {...machineProps} {...props} useNewPortfolioMethod />
         )}
       />
-      <Route path={paths.oldBbl} component={BBLPage} />
+      <Route path={paths.bblSeparatedIntoParts} component={BBLPage} />
       <Route path={paths.bbl} component={BBLPage} />
       <Route
         path={paths.wowzaBbl}

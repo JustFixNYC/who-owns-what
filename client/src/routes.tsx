@@ -69,7 +69,7 @@ export const createWhoOwnsWhatRoutePaths = (prefix?: string) => {
     /** This route path corresponds to a page identical to the `bbl` route above, but with an older url
      * pattern that we want to support so as not to break any old links that exist out in the web.
      */
-    oldBbl: `${pathPrefix}/bbl/:boro/:block/:lot`,
+    bblSeparatedIntoParts: `${pathPrefix}/bbl/:boro/:block/:lot`,
     about: `${pathPrefix}/about`,
     howToUse: `${pathPrefix}/how-to-use`,
     methodology: `${pathPrefix}/how-it-works`,
