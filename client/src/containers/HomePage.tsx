@@ -79,7 +79,7 @@ const HomePage: React.FC<withMachineProps> = (props) => {
     if (error) {
       window.gtag("event", "search-error");
     } else {
-      const addressPage = createRouteForAddressPage(searchAddress, useNewPortfolioMethod);
+      const addressPage = `/address/${searchAddress.bbl}`;
       history.push(addressPage);
     }
   };
