@@ -186,6 +186,11 @@ export default {
     return sortedElementsByFrequency.slice(0, numberOfResults).map((a) => a[0]);
   },
 
+  /**
+   * Note: while almost all address records will just have one landlord listed, there is a rare
+   * edge case where more than one distinct landlord name might be listed, so we return an array
+   * of names here to accommodate that edge case.
+   */
   getLandlordNameFromAddress(addr: AddressRecord): string[] {
     const { ownernames } = addr;
     if (!ownernames) return [];
