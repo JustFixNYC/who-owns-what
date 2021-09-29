@@ -195,7 +195,7 @@ export default {
     const { ownernames } = addr;
     if (!ownernames) return [];
     const landlords = ownernames.filter((owner) =>
-      ["HeadOfficer", "IndividualOwner", "CorporateOwnerowner"].includes(owner.title)
+      ["HeadOfficer", "IndividualOwner", "CorporateOwner"].includes(owner.title)
     );
     const landlordNames = landlords.map((landlord) => landlord.value);
     // Remove duplicate names:
