@@ -192,7 +192,9 @@ export default {
     const landlords = ownernames.filter((owner) =>
       ["HeadOfficer", "IndividualOwner", "CorporateOwnerowner"].includes(owner.title)
     );
-    return landlords.map((landlord) => landlord.value);
+    const landlordNames = landlords.map((landlord) => landlord.value);
+    // Remove duplicate names:
+    return Array.from(new Set(landlordNames));
   },
 
   splitBBL(bbl: string) {
