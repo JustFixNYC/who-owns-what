@@ -1,5 +1,6 @@
 import helpers, { searchAddrsAreEqual } from "./helpers";
 import { SearchAddressWithoutBbl } from "components/APIDataTypes";
+import { SAMPLE_ADDRESS_RECORDS } from "state-machine-sample-data";
 
 describe("searchAddrsAreEqual()", () => {
   const searchAddr1: SearchAddressWithoutBbl = {
@@ -86,6 +87,52 @@ describe("getMostCommonElementsInArray()", () => {
 
   it("works with empty arrays", () => {
     expect(helpers.getMostCommonElementsInArray([], 1)).toEqual([]);
+  });
+});
+
+describe("getLandlordNameFromAddress()", () => {
+  it("returns an empty array when there are no ownernames", () => {
+    expect(
+      helpers.getLandlordNameFromAddress({
+        ...SAMPLE_ADDRESS_RECORDS[0],
+        ownernames: null,
+      })
+    ).toEqual([]);
+  });
+
+  it("returns an array with 1 landlord's name for addresses with one landlord", () => {
+    expect(
+      helpers.getLandlordNameFromAddress({
+        ...SAMPLE_ADDRESS_RECORDS[0],
+      })
+    ).toEqual(["MOSES GUTMAN"]);
+  });
+
+  it("returns an array with multiple landlord's name for addresses with more than one landlord", () => {
+    expect(
+      helpers.getLandlordNameFromAddress({
+        ...SAMPLE_ADDRESS_RECORDS[0],
+        ownernames: [
+          { title: "HeadOfficer", value: "MOSES GUTMAN" },
+          { title: "HeadOfficer", value: "BOOP GUTMAN" },
+          { title: "IndividualOwner", value: "BOOP JONES" },
+          { title: "Agent", value: "NATHAN SCHWARCZ" },
+        ],
+      })
+    ).toEqual(["MOSES GUTMAN", "BOOP GUTMAN", "BOOP JONES"]);
+  });
+
+  it("filters out duplicate landlord names", () => {
+    expect(
+      helpers.getLandlordNameFromAddress({
+        ...SAMPLE_ADDRESS_RECORDS[0],
+        ownernames: [
+          { title: "HeadOfficer", value: "MOSES GUTMAN" },
+          { title: "CorporateOwner", value: "MOSES GUTMAN" },
+          { title: "Agent", value: "NATHAN SCHWARCZ" },
+        ],
+      })
+    ).toEqual(["MOSES GUTMAN"]);
   });
 });
 
