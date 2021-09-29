@@ -122,6 +122,19 @@ describe("getLandlordNameFromAddress()", () => {
     ).toEqual(["MOSES GUTMAN", "BOOP GUTMAN", "BOOP JONES"]);
   });
 
+  it("can detect all three types of landlord contact records", () => {
+    expect(
+      helpers.getLandlordNameFromAddress({
+        ...SAMPLE_ADDRESS_RECORDS[0],
+        ownernames: [
+          { title: "HeadOfficer", value: "SAM" },
+          { title: "CorporateOwner", value: "SAMARA" },
+          { title: "IndividualOwner", value: "TAHNEE" },
+        ],
+      })
+    ).toEqual(["SAM", "SAMARA", "TAHNEE"]);
+  });
+
   it("filters out duplicate landlord names", () => {
     expect(
       helpers.getLandlordNameFromAddress({
