@@ -4,7 +4,7 @@
 import _pickBy from "lodash/pickBy";
 import { deepEqual as assertDeepEqual } from "assert";
 import { SupportedLocale } from "../i18n-base";
-import { HpdContactAddress, SearchAddressWithoutBbl } from "components/APIDataTypes";
+import { AddressRecord, HpdContactAddress, SearchAddressWithoutBbl } from "components/APIDataTypes";
 import { reportError } from "error-reporting";
 import { t } from "@lingui/macro";
 import { I18n, MessageDescriptor } from "@lingui/core";
@@ -184,6 +184,22 @@ export default {
     );
     // Let's discard the frequency number and just return a simple array of strings, in order:
     return sortedElementsByFrequency.slice(0, numberOfResults).map((a) => a[0]);
+  },
+
+  /**
+   * Note: while almost all address records will just have one landlord listed, there is a rare
+   * edge case where more than one distinct landlord name might be listed, so we return an array
+   * of names here to accommodate that edge case.
+   */
+  getLandlordNameFromAddress(addr: AddressRecord): string[] {
+    const { ownernames } = addr;
+    if (!ownernames) return [];
+    const landlords = ownernames.filter((owner) =>
+      ["HeadOfficer", "IndividualOwner", "CorporateOwner"].includes(owner.title)
+    );
+    const landlordNames = landlords.map((landlord) => landlord.value);
+    // Remove duplicate names:
+    return Array.from(new Set(landlordNames));
   },
 
   splitBBL(bbl: string) {
