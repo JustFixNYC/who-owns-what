@@ -1,8 +1,3 @@
-// import _clone from 'lodash/clone';
-// import _xor from 'lodash/xor';
-// import _keys from 'lodash/keys';
-import _pickBy from "lodash/pickBy";
-import { deepEqual as assertDeepEqual } from "assert";
 import { SupportedLocale } from "../i18n-base";
 import { AddressRecord, HpdContactAddress, SearchAddressWithoutBbl } from "components/APIDataTypes";
 import { reportError } from "error-reporting";
@@ -214,15 +209,6 @@ export default {
     return a.bbl === b.bbl;
   },
 
-  jsonEqual(a: any, b: any): boolean {
-    try {
-      assertDeepEqual(a, b);
-      return true;
-    } catch (e) {
-      return false;
-    }
-  },
-
   formatPrice(amount: number, locale?: SupportedLocale): string {
     const formatPrice = new Intl.NumberFormat(locale || "en");
     return formatPrice.format(amount);
@@ -251,12 +237,6 @@ export default {
       reportError(`Address improperly formatted for DDO: ${addr || "<falsy value>"}`);
       return `https://${subdomain}.justfix.nyc/?utm_source=whoownswhat&utm_content=take_action_failed_attempt&utm_medium=${utm_medium}`;
     }
-  },
-
-  intersectAddrObjects(a: any, b: any) {
-    return _pickBy(a, function (v, k) {
-      return b[k] === v;
-    });
   },
 
   capitalize(string: string): string {

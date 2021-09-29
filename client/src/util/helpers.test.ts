@@ -162,17 +162,6 @@ test("addrsAreEqual() works", () => {
   expect(helpers.addrsAreEqual({ bbl: "yes" }, { bbl: "no" })).toBe(false);
 });
 
-describe("jsonEqual()", () => {
-  it("returns true when objects are equal", () => {
-    expect(helpers.jsonEqual({ a: 1 }, { a: 1 })).toBe(true);
-    expect(helpers.jsonEqual({ a: 1, b: 2 }, { b: 2, a: 1 })).toBe(true);
-  });
-
-  it("returns false when objects are not equal", () => {
-    expect(helpers.jsonEqual({ a: 1 }, { b: 2 })).toBe(false);
-  });
-});
-
 describe("formatPrice()", () => {
   it("works with no locale provided", () => {
     expect(helpers.formatPrice(1000000)).toBe("1,000,000");
@@ -188,12 +177,6 @@ test("createTakeActionURL() works", () => {
   ).toBe(
     "https://app.justfix.nyc/ddo?address=1%20BOOP%20RD&borough=QUEENS&utm_source=whoownswhat&utm_content=take_action&utm_medium=boop"
   );
-});
-
-test("intersectAddrObjects() works", () => {
-  expect(helpers.intersectAddrObjects({ a: 1, b: 2, c: 3, d: 9 }, { a: 5, b: 2, c: 9 })).toEqual({
-    b: 2,
-  });
 });
 
 test("capitalize() works", () => {
