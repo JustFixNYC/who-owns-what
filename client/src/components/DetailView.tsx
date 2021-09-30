@@ -129,6 +129,10 @@ const LearnMoreAccordion = () => (
   </I18n>
 );
 
+const BldgAssociationHeader = () => (
+  <Trans>How is this building associated to this portfolio?</Trans>
+);
+
 class DetailViewWithoutI18n extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
@@ -211,17 +215,17 @@ class DetailViewWithoutI18n extends Component<Props, State> {
                       {!Helpers.addrsAreEqual(detailAddr, searchAddr) &&
                         (useNewPortfolioMethod ? (
                           <Link to={this.props.addressPageRoutes.summary}>
-                            <Trans render="i">
-                              How is this building associated to this portfolio?
-                            </Trans>
+                            <i>
+                              <BldgAssociationHeader />
+                            </i>
                           </Link>
                         ) : (
                           <a // eslint-disable-line jsx-a11y/anchor-is-valid
                             onClick={() => this.setState({ showCompareModal: true })}
                           >
-                            <Trans render="i">
-                              How is this building associated to this portfolio?
-                            </Trans>
+                            <i>
+                              <BldgAssociationHeader />
+                            </i>
                           </a>
                         ))}
                     </div>
@@ -365,7 +369,9 @@ class DetailViewWithoutI18n extends Component<Props, State> {
               onClose={() => this.setState({ showCompareModal: false })}
             >
               <h6>
-                <Trans render="b">How is this building associated to this portfolio?</Trans>
+                <b>
+                  <BldgAssociationHeader />
+                </b>
               </h6>
               <Trans render="p">
                 We compare your search address with a database of over 200k buildings to identify a
