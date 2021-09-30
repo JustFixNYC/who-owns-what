@@ -129,7 +129,7 @@ const LearnMoreAccordion = () => (
   </I18n>
 );
 
-const BldgAssociationHeader = () => (
+const HowIsBldgAssociatedHeader = () => (
   <Trans>How is this building associated to this portfolio?</Trans>
 );
 
@@ -216,7 +216,7 @@ class DetailViewWithoutI18n extends Component<Props, State> {
                         (useNewPortfolioMethod ? (
                           <Link to={this.props.addressPageRoutes.summary}>
                             <i>
-                              <BldgAssociationHeader />
+                              <HowIsBldgAssociatedHeader />
                             </i>
                           </Link>
                         ) : (
@@ -224,7 +224,7 @@ class DetailViewWithoutI18n extends Component<Props, State> {
                             onClick={() => this.setState({ showCompareModal: true })}
                           >
                             <i>
-                              <BldgAssociationHeader />
+                              <HowIsBldgAssociatedHeader />
                             </i>
                           </a>
                         ))}
@@ -370,7 +370,7 @@ class DetailViewWithoutI18n extends Component<Props, State> {
             >
               <h6>
                 <b>
-                  <BldgAssociationHeader />
+                  <HowIsBldgAssociatedHeader />
                 </b>
               </h6>
               <Trans render="p">
