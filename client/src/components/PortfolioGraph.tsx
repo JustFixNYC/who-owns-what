@@ -72,7 +72,10 @@ function generateAdditionalNodes(searchAddr: AddressRecord, detailAddr?: Address
  * finds the `id` property of a node of type `name` that corresponds to the owner
  * (or owners) listed with the address.
  */
-function getLandlordNodeIDFromAddress(existingNodes: PortfolioGraphNode[], addr: AddressRecord) {
+export function getLandlordNodeIDFromAddress(
+  existingNodes: PortfolioGraphNode[],
+  addr: AddressRecord
+) {
   const landlordNames = helpers.getLandlordNameFromAddress(addr);
   const landlordMatches = existingNodes.filter(
     (node) => node.value.kind === "name" && landlordNames.includes(node.value.value)
