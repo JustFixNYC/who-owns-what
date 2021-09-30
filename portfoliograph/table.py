@@ -37,22 +37,22 @@ def iter_portfolio_rows(conn) -> Iterable[PortfolioRow]:
         induced_subgraph = g.subgraph(c)
         bbls: Set[str] = set()
         names: List[str] = [
-            node.value
-            for node in induced_subgraph.nodes
-            if node.kind == NodeKind.NAME
+            node.value for node in induced_subgraph.nodes if node.kind == NodeKind.NAME
         ]
         for (_from, to, attrs) in induced_subgraph.edges.data():
-            hpd_regs: Set[RegistrationInfo] = attrs['hpd_regs']
+            hpd_regs: Set[RegistrationInfo] = attrs["hpd_regs"]
             for reginfo in hpd_regs:
                 if reginfo.reg_id in reg_bbl_map:
                     bbls = bbls.union(reg_bbl_map[reginfo.reg_id])
                 else:
                     print(f"WARNING: HPD registration {reginfo.reg_id} not found.")
-        yield PortfolioRow(bbls=list(bbls), landlord_names=names, graph=induced_subgraph)
+        yield PortfolioRow(
+            bbls=list(bbls), landlord_names=names, graph=induced_subgraph
+        )
 
 
 def export_portfolios_table_json(conn, outfile: TextIO):
-    outfile.write('[\n')
+    outfile.write("[\n")
     components_written = 0
 
     for pr in iter_portfolio_rows(conn):
@@ -61,7 +61,7 @@ def export_portfolios_table_json(conn, outfile: TextIO):
         outfile.write(json.dumps(pr.to_json()))
         components_written += 1
 
-    outfile.write(']\n')
+    outfile.write("]\n")
 
 
 def grouper(n: int, iterable: Iterable[PortfolioRow]) -> Iterator[List[PortfolioRow]]:
@@ -80,12 +80,14 @@ def populate_portfolios_table(conn, batch_size=5000, table="wow_portfolios"):
         for chunk in grouper(batch_size, iter_portfolio_rows(conn)):
             # https://stackoverflow.com/a/10147451
             # why does it take so much work to put stuff in a table quickly
-            args_str = b','.join(
+            args_str = b",".join(
                 cursor.mogrify(
                     "(%s,%s,%s)",
-                    (row.bbls,
-                     row.landlord_names,
-                     Json(graph.to_json_graph(row.graph)))
+                    (
+                        row.bbls,
+                        row.landlord_names,
+                        Json(graph.to_json_graph(row.graph)),
+                    ),
                 )
                 for row in chunk
             ).decode()

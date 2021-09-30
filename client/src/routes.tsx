@@ -58,16 +58,18 @@ export const createWhoOwnsWhatRoutePaths = (prefix?: string) => {
     ),
     /** Note: this path doesn't correspond to a stable page on the site. It simply provides an entry point that
      * immediately redirects to an addressPageOverview. This path is helpful for folks who, say, have a list of
-     * boro, block, lot values in a spreadsheet and want to easily generate direct links to WhoOwnsWhat.
-     * See `BBLPage.tsx` for more details.
-     */
-    bbl: `${pathPrefix}/bbl/:boro/:block/:lot`,
-    /** Note: this path doesn't correspond to a stable page on the site. It simply provides an entry point that
-     * immediately redirects to an addressPageOverview. This path is helpful for folks who, say, have a list of
      * bbl values in a spreadsheet and want to easily generate direct links to WhoOwnsWhat.
      * See `BBLPage.tsx` for more details.
      */
-    bblWithFullBblInUrl: `${pathPrefix}/bbl/:bbl`,
+    bbl: `${pathPrefix}/bbl/:bbl`,
+    /** This route path corresponds to a page identical to the `bbl` path above, just specifying that the user
+     * requests to use the new "WOWZA" portfolio method.
+     */
+    wowzaBbl: `${pathPrefix}/wowza/bbl/:bbl`,
+    /** This route path corresponds to a page identical to the `bbl` route above, but with an older url
+     * pattern that we want to support so as not to break any old links that exist out in the web.
+     */
+    bblSeparatedIntoParts: `${pathPrefix}/bbl/:boro/:block/:lot`,
     about: `${pathPrefix}/about`,
     howToUse: `${pathPrefix}/how-to-use`,
     methodology: `${pathPrefix}/how-it-works`,
