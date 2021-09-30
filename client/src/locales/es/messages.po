@@ -26,15 +26,15 @@ msgstr "#QuiénEsElDueño por @JustFixNYC"
 msgid "(\"{textInEnglish}\" in English)"
 msgstr "(\"{textInEnglish}\" en inglés)"
 
-#: src/components/DetailView.tsx:215
+#: src/components/DetailView.tsx:216
 msgid "(as part of a group sale)"
 msgstr "(como parte de una venta en grupo)"
 
-#: src/components/DetailView.tsx:197
+#: src/components/DetailView.tsx:198
 msgid "(expired {formattedRegEndDate})"
 msgstr "(caducado {formattedRegEndDate})"
 
-#: src/components/DetailView.tsx:200
+#: src/components/DetailView.tsx:201
 msgid "(expires {formattedRegEndDate})"
 msgstr "(caduca {formattedRegEndDate})"
 
@@ -109,7 +109,7 @@ msgstr "Toda la información pública sobre el dueño/a de tu edificio"
 msgid "Amount"
 msgstr "Importe"
 
-#: src/components/DetailView.tsx:228
+#: src/components/DetailView.tsx:229
 msgid "Are you having issues in this building?"
 msgstr "¿Tienes problemas en este edificio?"
 
@@ -121,7 +121,7 @@ msgstr "¿Tienes problemas en tu edificio?"
 msgid "BELL/BUZZER/INTERCOM"
 msgstr "TIMBRE/INTERCOMUNICADOR"
 
-#: src/components/DetailView.tsx:131
+#: src/components/DetailView.tsx:132
 msgid "BUILDING:"
 msgstr "EDIFICIO:"
 
@@ -159,13 +159,13 @@ msgstr "Edificios sin registro de propiedad válido están sujetos a las siguien
 msgid "Built"
 msgstr "Construido"
 
-#: src/components/DetailView.tsx:292
-#: src/components/DetailView.tsx:301
+#: src/components/DetailView.tsx:295
+#: src/components/DetailView.tsx:304
 msgid "Business Addresses"
 msgstr "Dirección Comercial"
 
-#: src/components/DetailView.tsx:272
-#: src/components/DetailView.tsx:281
+#: src/components/DetailView.tsx:275
+#: src/components/DetailView.tsx:284
 msgid "Business Entities"
 msgstr "Entidades Comerciales"
 
@@ -403,9 +403,7 @@ msgstr "Oficial Principal"
 msgid "How do you want to group landlord portfolios?"
 msgstr "¿Cómo quieres agrupar a los portafolios de los dueños?"
 
-#: src/components/DetailView.tsx:137
-#: src/components/DetailView.tsx:142
-#: src/components/DetailView.tsx:247
+#: src/components/DetailView.tsx:77
 msgid "How is this building associated to this portfolio?"
 msgstr "¿Cómo se asocia este edificio a este portafolio de edificios?"
 
@@ -484,11 +482,11 @@ msgstr "Última venta"
 msgid "Last Sale Unknown"
 msgstr "Última venta desconocida"
 
-#: src/components/DetailView.tsx:192
+#: src/components/DetailView.tsx:193
 msgid "Last registered:"
 msgstr "Registrado por última vez:"
 
-#: src/components/DetailView.tsx:205
+#: src/components/DetailView.tsx:206
 msgid "Last sold:"
 msgstr "Vendido por última vez:"
 
@@ -559,7 +557,7 @@ msgstr "Metodología"
 msgid "More Mobile Friendly"
 msgstr "Más útil para dispositivos móviles"
 
-#: src/components/DetailView.tsx:159
+#: src/components/DetailView.tsx:160
 msgid "Most Common 311 Complaints, Last 3 Years"
 msgstr "Las quejas más comunes de 311, los últimos 3 años"
 
@@ -628,7 +626,7 @@ msgstr "No ECB"
 msgid "Non-Emergency"
 msgstr "No Emergencia"
 
-#: src/components/DetailView.tsx:167
+#: src/components/DetailView.tsx:168
 msgid "None"
 msgstr "Ninguna"
 
@@ -696,8 +694,8 @@ msgstr "PLOMERÍA"
 msgid "PORTFOLIO: Your search address is associated with <0>{0}</0> {1, plural, one {building} other {buildings}}"
 msgstr "PORTAFOLIO DE EDIFICIOS: La dirección que has buscado está asociada con <0>{0}</0> {1, plural, one {construyendo} other {edificios}}"
 
-#: src/components/DetailView.tsx:312
-#: src/components/DetailView.tsx:322
+#: src/components/DetailView.tsx:315
+#: src/components/DetailView.tsx:325
 msgid "People"
 msgstr "Personas"
 
@@ -773,7 +771,7 @@ msgstr "Envíanos una solicitud de datos"
 msgid "Share"
 msgstr "Compartir"
 
-#: src/components/DetailView.tsx:237
+#: src/components/DetailView.tsx:238
 #: src/components/EngagementPanel.tsx:18
 #: src/components/PropertiesSummary.tsx:134
 #: src/containers/App.tsx:125
@@ -838,7 +836,7 @@ msgstr "Cambiar a la versión anterior"
 msgid "TENANT HARASSMENT"
 msgstr "ACOSO DE INQUILINO"
 
-#: src/components/DetailView.tsx:231
+#: src/components/DetailView.tsx:232
 #: src/containers/NychaPage.tsx:179
 msgid "Take action on JustFix.nyc!"
 msgstr "¡Toma acción en JustFix.nyc!"
@@ -1030,7 +1028,7 @@ msgstr "SISTEMA DE VENTILACIÓN"
 msgid "View by:"
 msgstr "Visualizar por:"
 
-#: src/components/DetailView.tsx:153
+#: src/components/DetailView.tsx:154
 msgid "View data over time ↗︎"
 msgstr "Ver datos a lo largo del tiempo ↗︎"
 
@@ -1054,7 +1052,7 @@ msgstr "Ver leyenda"
 msgid "View portfolio"
 msgstr "Ver portafolio de edificios"
 
-#: src/components/DetailView.tsx:123
+#: src/components/DetailView.tsx:124
 msgid "View portfolio map"
 msgstr "Ver mapa del portafolio de edificios"
 
@@ -1079,7 +1077,7 @@ msgstr "PROTECTORES DE VENTANA"
 msgid "WINDOWS"
 msgstr "VENTANAS"
 
-#: src/components/DetailView.tsx:249
+#: src/components/DetailView.tsx:252
 msgid "We compare your search address with a database of over 200k buildings to identify a landlord or management company's portfolio. To learn more, check out <0>our methodology</0>."
 msgstr "Comparamos la dirección que buscaste con una base de datos de más de 200 mil edificios para identificar a un propietario o compañía de gestión. Para obtener más información, consulta <0>nuestra metodología</0>."
 
@@ -1123,7 +1121,7 @@ msgstr "¿Quién Es El Dueño en Nueva York?"
 msgid "Who’s responsible for issues in your apartment & building? #WhoOwnsWhat helps you research NYC property owners using public, open data. A free tool built by @JustFixNYC, it works on any device with an internet connection! Search your address here:"
 msgstr "¿Quién es responsable por los problemas en tu apartamento y edificio? #QuiénEsElDueño te ayuda investigar los dueños de edificios de NYC usando data pública y abierta. Un sitio web gratis construido por @JustFixNYC, ¡funciona en cualquier aparato con internet! Úsalo ahorita:"
 
-#: src/components/DetailView.tsx:174
+#: src/components/DetailView.tsx:175
 msgid "Who’s the landlord of this building?"
 msgstr "¿Quién es el dueño de este edificio?"
 
@@ -1152,7 +1150,7 @@ msgstr "y"
 msgid "associated building"
 msgstr "edificio asociado"
 
-#: src/components/DetailView.tsx:209
+#: src/components/DetailView.tsx:210
 msgid "for ${0}"
 msgstr "por ${0}"
 
