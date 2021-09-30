@@ -107,10 +107,10 @@ const formatGraphJSON = (
   );
   nodes = nodes.concat(additionalNodes);
 
-  const edges: cytoscape.ElementDefinition[] = rawJSON.edges.map((edge) =>
+  let edges: cytoscape.ElementDefinition[] = rawJSON.edges.map((edge) =>
     createEdge(edge.from.toString(), edge.to.toString(), edge.reg_contacts)
   );
-  nodes = edges.concat(additionalEdges);
+  edges = edges.concat(additionalEdges);
   return nodes.concat(edges);
 };
 
@@ -120,8 +120,11 @@ type PortfolioGraphProps = Pick<withMachineInStateProps<"portfolioFound">, "stat
 
 export const PortfolioGraph: React.FC<PortfolioGraphProps> = ({ graphJSON, state }) => {
   const { searchAddr, detailAddr } = state.context.portfolioData;
-  const additionalNodes = generateAdditionalNodes(searchAddr, detailAddr);
-  const additionalEdges = generateAdditionalEdges(graphJSON.nodes, searchAddr, detailAddr);
+  const distinctDetailAddr = !helpers.addrsAreEqual(searchAddr, detailAddr)
+    ? detailAddr
+    : undefined;
+  const additionalNodes = generateAdditionalNodes(searchAddr, distinctDetailAddr);
+  const additionalEdges = generateAdditionalEdges(graphJSON.nodes, searchAddr, distinctDetailAddr);
 
   return (
     <CytoscapeComponent
