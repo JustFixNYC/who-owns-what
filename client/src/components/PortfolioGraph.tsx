@@ -46,9 +46,6 @@ function createEdge(
 
 /**
  * Generates one node for the search BBL and one for the detail BBL to show on the portfolio graph.
- * @param searchAddr
- * @param detailAddr
- * @returns
  */
 function generateAdditionalNodes(searchAddr: AddressRecord, detailAddr?: AddressRecord) {
   var additionalNodes = [];
@@ -70,6 +67,11 @@ function generateAdditionalNodes(searchAddr: AddressRecord, detailAddr?: Address
   return additionalNodes;
 }
 
+/**
+ * Given an existing array of graph nodes and an Address Record, this function
+ * finds the `id` property of a node of type `name` that corresponds to the owner
+ * (or owners) listed with the address.
+ */
 function getLandlordNodeIDFromAddress(existingNodes: PortfolioGraphNode[], addr: AddressRecord) {
   const landlordNames = helpers.getLandlordNameFromAddress(addr);
   const landlordMatches = existingNodes.filter(
@@ -78,6 +80,13 @@ function getLandlordNodeIDFromAddress(existingNodes: PortfolioGraphNode[], addr:
   return landlordMatches.map((node) => node.id.toString());
 }
 
+/**
+ * Given the existing array of graph nodes, this function generates an edge from search BBL to its corresponding owner name,
+ * as well as an edge from the detail BBL to its corresponding owner name.
+ *
+ * Note: in rare edge cases, there may be more than one corresponding owner name for a given BBL.
+ * In these cases, multiple edges may be created here.
+ */
 function generateAdditionalEdges(
   existingNodes: PortfolioGraphNode[],
   searchAddr: AddressRecord,
