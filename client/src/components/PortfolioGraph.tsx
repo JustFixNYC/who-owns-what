@@ -83,16 +83,16 @@ function generateAdditionalEdges(
   searchAddr: AddressRecord,
   detailAddr?: AddressRecord
 ) {
-  var additionalEdges: Cytoscape.EdgeDefinition[] = [];
+  let additionalEdges: Cytoscape.EdgeDefinition[] = [];
   const searchBBLEdges = getLandlordNodeIDFromAddress(existingNodes, searchAddr).map((id) =>
-    createEdge(id, "searchAddr")
+    createEdge(id, "searchaddr")
   );
-  additionalEdges.concat(searchBBLEdges);
+  additionalEdges = additionalEdges.concat(searchBBLEdges);
   if (detailAddr) {
     const detailBBLEdges = getLandlordNodeIDFromAddress(existingNodes, detailAddr).map((id) =>
-      createEdge(id, "detailAddr")
+      createEdge(id, "detailaddr")
     );
-    additionalEdges.concat(detailBBLEdges);
+    additionalEdges = additionalEdges.concat(detailBBLEdges);
   }
   return additionalEdges;
 }
