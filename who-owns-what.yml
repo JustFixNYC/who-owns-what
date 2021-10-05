@@ -8,6 +8,8 @@ dependencies:
   - hpd_registrations
   - hpd_violations
   - hpd_complaints
+  - dof_exemptions
+  - dof_exemption_classification_codes
   - acris
   - nycha_bbls
 api_dependencies:
