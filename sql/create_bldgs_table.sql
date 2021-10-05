@@ -125,7 +125,7 @@ left join (
 ) exemptions on (registrations.bbl = exemptions.bbl)
 left join rentstab on (registrations.bbl = rentstab.ucbbl)
 left join complaints on (registrations.bbl = complaints.bbl)
-left join firstdeeds on (registrations.bbl = firstdeeds.bbl)
+left join firstdeeds on (registrations.bbl = firstdeeds.bbl);
 
 create index on wow_bldgs (registrationid);
 create index on wow_bldgs (bbl);
