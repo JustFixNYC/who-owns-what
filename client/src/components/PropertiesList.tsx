@@ -425,6 +425,9 @@ const TableOfData = React.memo(
                 ),
                 accessor: (d) => formatAbatementStartYear(d.yearstartedj51, i18n),
                 id: "yearstartedj51",
+                style: {
+                  whiteSpace: "unset",
+                },
               },
               {
                 Header: (
@@ -435,6 +438,9 @@ const TableOfData = React.memo(
                 ),
                 accessor: (d) => formatAbatementStartYear(d.yearstarted421a, i18n),
                 id: "yearstarted421a",
+                style: {
+                  whiteSpace: "unset",
+                },
               },
             ],
           },
