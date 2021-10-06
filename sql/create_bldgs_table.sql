@@ -1,9 +1,7 @@
-drop table if exists wow_bldgs cascade;
-
 -- This is mainly used as an easy way to provide contact info on request, not a replacement
 -- for cross-table analysis. Hence why the corpnames, businessaddrs, and ownernames are simplified
 -- with JSON and such.
-create table wow_bldgs as 
+create table wow_bldgs_temporary as 
 
 with deeds as (
 	select 
@@ -114,6 +112,9 @@ left join (
 left join rentstab on (registrations.bbl = rentstab.ucbbl)
 left join complaints on (registrations.bbl = complaints.bbl)
 left join firstdeeds on (registrations.bbl = firstdeeds.bbl);
+
+drop table if exists wow_bldgs cascade;
+alter table wow_bldgs_temporary rename to wow_bldgs;
 
 create index on wow_bldgs (registrationid);
 create index on wow_bldgs (bbl);
