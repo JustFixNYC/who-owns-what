@@ -82,6 +82,8 @@ select distinct on (registrations.bbl)
   -- Year of most recent rent stab data:
   2020 as rsunitslatestyear,
   rentstab.rsdiff,
+  exemptions.yearstartedj51::smallint,
+  exemptions.yearstarted421a::smallint,
   firstdeeds.documentid as lastsaleacrisid,
   firstdeeds.docdate as lastsaledate,
   firstdeeds.docamount as lastsaleamount
@@ -109,6 +111,16 @@ left join (
   where residentialcommercialind = 'RESIDENTIAL'
   group by bbl
 ) evictions on (registrations.bbl = evictions.bbl)
+left join (
+	select 
+		bbl,
+		min(benftstart) filter (where description = 'J-51 ALTERATION') yearstartedj51,
+		min(benftstart) filter (where description != 'J-51 ALTERATION') yearstarted421a
+	from dof_exemptions
+	left join dof_exemption_classification_codes on exmpcode = exemptcode
+	where description = 'J-51 ALTERATION' or description ~* '421a'
+	group by bbl
+) exemptions on (registrations.bbl = exemptions.bbl)
 left join rentstab on (registrations.bbl = rentstab.ucbbl)
 left join complaints on (registrations.bbl = complaints.bbl)
 left join firstdeeds on (registrations.bbl = firstdeeds.bbl);
