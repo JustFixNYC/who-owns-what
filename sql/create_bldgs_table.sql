@@ -84,8 +84,8 @@ select distinct on (registrations.bbl)
   -- Year of most recent rent stab data:
   2020 as rsunitslatestyear,
   rentstab.rsdiff,
-  exemptions.yearstartedj51,
-  exemptions.yearstarted421a,
+  exemptions.yearstartedj51::smallint,
+  exemptions.yearstarted421a::smallint,
   firstdeeds.documentid as lastsaleacrisid,
   firstdeeds.docdate as lastsaledate,
   firstdeeds.docamount as lastsaleamount
