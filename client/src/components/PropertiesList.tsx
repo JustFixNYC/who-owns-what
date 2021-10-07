@@ -24,6 +24,12 @@ export const isPartOfGroupSale = (saleId: string, addrs: AddressRecord[]) => {
   return addrsWithMatchingSale.length > 1;
 };
 
+const formatAbatementStartYear = (year: number | null, i18n: I18n) => {
+  const thisYear = new Date().getFullYear();
+  if (!year) return null;
+  return year > thisYear ? i18n._(t`Starts ${year}`) : i18n._(t`Since ${year}`);
+};
+
 const findMostCommonType = (complaints: HpdComplaintCount[] | null) =>
   complaints && complaints.length > 0 && complaints[0].type;
 
@@ -401,6 +407,37 @@ const TableOfData = React.memo(
                 },
                 id: "ownernames",
                 width: getWidthFromLabel(i18n._(t`Officer/Owner`), 100),
+                style: {
+                  whiteSpace: "unset",
+                },
+              },
+            ],
+          },
+          {
+            Header: i18n._(t`Tax Exemptions`),
+            columns: [
+              {
+                Header: (
+                  <>
+                    J-51
+                    <ArrowIcon />
+                  </>
+                ),
+                accessor: (d) => formatAbatementStartYear(d.yearstartedj51, i18n),
+                id: "yearstartedj51",
+                style: {
+                  whiteSpace: "unset",
+                },
+              },
+              {
+                Header: (
+                  <>
+                    421a
+                    <ArrowIcon />
+                  </>
+                ),
+                accessor: (d) => formatAbatementStartYear(d.yearstarted421a, i18n),
+                id: "yearstarted421a",
                 style: {
                   whiteSpace: "unset",
                 },
