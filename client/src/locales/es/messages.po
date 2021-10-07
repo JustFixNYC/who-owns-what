@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2021-09-20 21:31\n"
+"PO-Revision-Date: 2021-10-07 17:46\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -802,7 +802,7 @@ msgstr "Desde el 2017, los Mariscales de NYC programaron {totalEvictions, plural
 
 #: src/components/PropertiesList.tsx:21
 msgid "Since {year}"
-msgstr ""
+msgstr "Desde {year}"
 
 #: src/util/helpers.ts:64
 msgid "Site Manager"
@@ -826,7 +826,7 @@ msgstr "Código fuente"
 
 #: src/components/PropertiesList.tsx:21
 msgid "Starts {year}"
-msgstr ""
+msgstr "Comienza {year}"
 
 #: src/containers/AddressPage.tsx:131
 msgid "Summary"
@@ -851,7 +851,7 @@ msgstr "¡Toma acción en JustFix.nyc!"
 
 #: src/components/PropertiesList.tsx:306
 msgid "Tax Exemptions"
-msgstr ""
+msgstr "Exenciones de impuestos"
 
 #: src/components/ComplaintsSummary.tsx:11
 msgid "Tenants in this portfolio have reported a total of <0>{totalhpdcomplaints}</0> {totalhpdcomplaints, plural, one {complaint} other {complaints}} to 311, <1>{totalrecenthpdcomplaints}</1> of which {totalrecenthpdcomplaints, plural, one {was} other {were}} reported in the last three years."
@@ -1205,3 +1205,4 @@ msgstr "{value, plural, one {Una Queja del HPD emitida desde el 2014} other {# Q
 #: src/components/IndicatorsDatasets.tsx:35
 msgid "{value, plural, one {One HPD Violation Issued since 2010} other {# HPD Violations Issued since 2010}}"
 msgstr "{value, plural, one {Una Violación del HPD emitida desde el 2010} other {# Violaciones del HPD emitidas desde el 2010}}"
+
