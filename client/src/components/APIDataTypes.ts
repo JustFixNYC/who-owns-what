@@ -77,6 +77,10 @@ export type AddressRecord = {
   totalviolations: number;
   unitsres: number | null;
   yearbuilt: number | null;
+  /** Note: in some rare cases, the year listed as the start of this abatement program is actually in the future! */
+  yearstartedj51: number | null;
+  /** Note: in some rare cases, the year listed as the start of this abatement program is actually in the future! */
+  yearstarted421a: number | null;
   zip: string | null;
 };
 

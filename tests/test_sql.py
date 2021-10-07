@@ -9,6 +9,10 @@ from .factories.hpd_contacts import HpdContacts
 from .factories.hpd_registrations import HpdRegistrations
 from .factories.hpd_complaints import HpdComplaints
 from .factories.hpd_complaint_problems import HpdComplaintProblems
+from .factories.dof_exemptions import DofExemptions
+from .factories.dof_exemption_classification_codes import (
+    DofExemptionClassificationCodes,
+)
 from .factories.marshal_evictions_17 import MarshalEvictions17
 from .factories.marshal_evictions_18 import MarshalEvictions18
 from .factories.marshal_evictions_19 import MarshalEvictions19
@@ -140,6 +144,11 @@ class TestSQL:
         nycdb_ctx.write_csv("hpd_complaints.csv", [HpdComplaints()])
         nycdb_ctx.write_csv("dob_violations.csv", [DobViolations()])
         nycdb_ctx.write_csv("ecb_violations.csv", [EcbViolations()])
+        nycdb_ctx.write_csv("dof_exemptions.csv", [DofExemptions()])
+        nycdb_ctx.write_csv(
+            "dof_exemption_classification_codes.csv",
+            [DofExemptionClassificationCodes()],
+        )
         nycdb_ctx.write_csv("hpd_complaint_problems.csv", [HpdComplaintProblems()])
         nycdb_ctx.write_csv("changes-summary.csv", [ChangesSummary()])
         nycdb_ctx.write_csv("marshal_evictions_17.csv", [MarshalEvictions17()])
