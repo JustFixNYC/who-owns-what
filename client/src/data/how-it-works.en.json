@@ -590,6 +590,64 @@
                         "type": "bold"
                       }
                     ],
+                    "value": "Tax Exemption (J51/421a) data ",
+                    "nodeType": "text"
+                  },
+                  {
+                    "data": {},
+                    "marks": [],
+                    "value": "from ",
+                    "nodeType": "text"
+                  },
+                  {
+                    "data": {
+                      "uri": "https://data.cityofnewyork.us/City-Government/Property-Exemption-Detail/muvi-b6kx"
+                    },
+                    "content": [
+                      {
+                        "data": {},
+                        "marks": [],
+                        "value": "NYC Open Data",
+                        "nodeType": "text"
+                      }
+                    ],
+                    "nodeType": "hyperlink"
+                  },
+                  {
+                    "data": {},
+                    "marks": [],
+                    "value": " — ",
+                    "nodeType": "text"
+                  },
+                  {
+                    "data": {},
+                    "marks": [
+                      {
+                        "type": "italic"
+                      }
+                    ],
+                    "value": "updated yearly",
+                    "nodeType": "text"
+                  }
+                ],
+                "nodeType": "paragraph"
+              }
+            ],
+            "nodeType": "list-item"
+          },
+          {
+            "data": {},
+            "content": [
+              {
+                "data": {},
+                "content": [
+                  {
+                    "data": {},
+                    "marks": [
+                      {
+                        "type": "bold"
+                      }
+                    ],
                     "value": "ACRIS deed records ",
                     "nodeType": "text"
                   },
