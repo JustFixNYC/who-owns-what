@@ -31,9 +31,9 @@ type SearchBoxProps = SearchBoxProvided & {
 const SearchBox = ({ currentRefinement, refine, updateSearchQuery }: SearchBoxProps) => (
   <I18n>
     {({ i18n }) => (
-      <form className="control" noValidate action="" role="search">
+      <form noValidate action="" role="search">
         <input
-          className="input is-primary is-size-5"
+          className="form-input"
           type="search"
           placeholder={i18n._(t`Search landlords`)}
           value={currentRefinement}
@@ -58,20 +58,22 @@ type SearchHitsProps = {
 
 const SearchHits = ({ hits }: SearchHitsProps) => {
   return hits && hits.length > 0 ? (
-    <div className="dropdown-content">
-      {hits
-        .map((hit: Hit) => (
-          <Link
-            key={hit.portfolio_bbl}
-            to={createRouteForFullBbl(hit.portfolio_bbl)}
-            className="dropdown-item"
-          >
-            <div className="result__snippet">
-              <Snippet attribute="landlord_names" hit={hit} tagName="u" />
-            </div>
-          </Link>
-        ))
-        .slice(0, SEARCH_RESULTS_LIMIT)}
+    <div className="geosuggest">
+      <div className="geosuggest__suggests">
+        {hits
+          .map((hit: Hit) => (
+            <Link
+              key={hit.portfolio_bbl}
+              to={createRouteForFullBbl(hit.portfolio_bbl)}
+              className="geosuggest__item"
+            >
+              <div className="result__snippet">
+                <Snippet attribute="landlord_names" hit={hit} tagName="u" />
+              </div>
+            </Link>
+          ))
+          .slice(0, SEARCH_RESULTS_LIMIT)}
+      </div>
     </div>
   ) : (
     <div className="label">
@@ -88,7 +90,7 @@ const LandlordSearch = () => {
   const [query, setQuery] = useState("");
 
   return appId && searchKey ? (
-    <div className="search-bar">
+    <div className="AddressSearch">
       <InstantSearch searchClient={algoliasearch(appId, searchKey)} indexName={ALGOLIA_INDEX_NAME}>
         <CustomSearchBox updateSearchQuery={setQuery} />
 
