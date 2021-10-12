@@ -68,7 +68,7 @@ const SearchHits = ({ hits }: SearchHitsProps) => {
               className="geosuggest__item"
             >
               <div className="result__snippet">
-                <Snippet attribute="landlord_names" hit={hit} tagName="u" />
+                <Snippet attribute="landlord_names" hit={hit} tagName="b" />
               </div>
             </Link>
           ))
