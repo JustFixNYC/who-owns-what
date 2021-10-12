@@ -93,11 +93,7 @@ const LandlordSearch = () => {
 
   return appId && searchKey ? (
     <div className="search-bar">
-      <InstantSearch
-        searchClient={algoliasearch(appId, searchKey)}
-        indexName={ALGOLIA_INDEX_NAME}
-        resultsState={[]}
-      >
+      <InstantSearch searchClient={algoliasearch(appId, searchKey)} indexName={ALGOLIA_INDEX_NAME}>
         <CustomSearchBox updateSearchQuery={(e: any) => setQuery(e)} />
 
         {(query || "").length > 0 && (
