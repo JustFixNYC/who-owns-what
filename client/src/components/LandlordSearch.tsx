@@ -6,9 +6,8 @@ import {
   Snippet,
   connectSearchBox,
   connectHits,
-  Hits,
 } from "react-instantsearch-dom";
-import { SearchBoxExposed, SearchBoxProvided } from "react-instantsearch-core";
+import { SearchBoxProvided } from "react-instantsearch-core";
 import { I18n } from "@lingui/react";
 import { t, Trans } from "@lingui/macro";
 import { Link } from "react-router-dom";
@@ -21,16 +20,18 @@ const enableAnalytics = process.env.REACT_APP_ENABLE_ALGOLIA_ANALYTICS;
 const ALGOLIA_INDEX_NAME = "wow_landlords";
 const SEARCH_RESULTS_LIMIT = 5;
 
-const SearchBox = ({ currentRefinement, refine, updateSearchQuery }: any) => (
+type SearchBoxProps = SearchBoxProvided & {
+  /**
+   * This function allows us to set the global search query state of the parent
+   * `<LandlordSearch>` component from within this child `<SearchBox>` component
+   */
+  updateSearchQuery: React.Dispatch<React.SetStateAction<string>>;
+};
+
+const SearchBox = ({ currentRefinement, refine, updateSearchQuery }: SearchBoxProps) => (
   <I18n>
     {({ i18n }) => (
-      <form
-        className="control"
-        noValidate
-        action=""
-        role="search"
-        onSubmit={(e) => e.preventDefault()}
-      >
+      <form className="control" noValidate action="" role="search">
         <input
           className="input is-primary is-size-5"
           type="search"
@@ -80,13 +81,8 @@ const SearchHits = ({ hits }: SearchHitsProps) => {
   );
 };
 
-/* 
-NOTE: We are including a type assertion here because the official type definition 
-of connectSearchBox does not allow us to pass additional props from the 
-input component (SearchBox) to the output component (CustomSearchBox) */
-
-const CustomSearchBox = connectSearchBox(SearchBox) as React.ComponentClass<SearchBoxExposed & any>;
-const CustomHits = connectHits(SearchHits) as React.ComponentClass<Hits & any>;
+const CustomSearchBox = connectSearchBox(SearchBox);
+const CustomHits = connectHits(SearchHits);
 
 const LandlordSearch = () => {
   const [query, setQuery] = useState("");
@@ -94,7 +90,7 @@ const LandlordSearch = () => {
   return appId && searchKey ? (
     <div className="search-bar">
       <InstantSearch searchClient={algoliasearch(appId, searchKey)} indexName={ALGOLIA_INDEX_NAME}>
-        <CustomSearchBox updateSearchQuery={(e: any) => setQuery(e)} />
+        <CustomSearchBox updateSearchQuery={setQuery} />
 
         {(query || "").length > 0 && (
           <React.Fragment>
