@@ -111,7 +111,7 @@ const LandlordSearch = () => {
 
       {query && (
         <div className="search-by is-pulled-right">
-          <img width="100" height="20" alt="Algolia" src={require("../assets/img/algolia.svg")} />
+          <img width="140" height="20" alt="Algolia" src={require("../assets/img/algolia.svg")} />
         </div>
       )}
     </div>
