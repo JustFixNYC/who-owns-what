@@ -131,8 +131,12 @@ const HomePage: React.FC<withMachineProps> = (props) => {
                 labelClass="text-assistive"
                 onFormSubmit={handleFormSubmit}
               />
-              <h1 className="text-center">Or search by your landlord's name:</h1>
-              <LandlordSearch />
+              {useNewPortfolioMethod && (
+                <>
+                  <h1 className="text-center">Or search by your landlord's name:</h1>
+                  <LandlordSearch />
+                </>
+              )}
             </div>{" "}
             {allowChangingPortfolioMethod && (
               <div>

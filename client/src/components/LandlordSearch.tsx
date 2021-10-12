@@ -58,23 +58,27 @@ type SearchHitsProps = {
 
 const SearchHits = ({ hits }: SearchHitsProps) => {
   return hits && hits.length > 0 ? (
-    <div className="geosuggest">
-      <div className="geosuggest__suggests">
-        {hits
-          .map((hit: Hit) => (
-            <Link
-              key={hit.portfolio_bbl}
-              to={createRouteForFullBbl(hit.portfolio_bbl)}
-              className="geosuggest__item"
-            >
-              <div className="result__snippet">
-                <Snippet attribute="landlord_names" hit={hit} tagName="b" />
-              </div>
-            </Link>
-          ))
-          .slice(0, SEARCH_RESULTS_LIMIT)}
-      </div>
-    </div>
+    <I18n>
+      {({ i18n }) => (
+        <div className="geosuggest">
+          <div className="geosuggest__suggests">
+            {hits
+              .map((hit: Hit) => (
+                <Link
+                  key={hit.portfolio_bbl}
+                  to={createRouteForFullBbl(hit.portfolio_bbl, i18n.language, true)}
+                  className="geosuggest__item"
+                >
+                  <div className="result__snippet">
+                    <Snippet attribute="landlord_names" hit={hit} tagName="b" />
+                  </div>
+                </Link>
+              ))
+              .slice(0, SEARCH_RESULTS_LIMIT)}
+          </div>
+        </div>
+      )}
+    </I18n>
   ) : (
     <div className="label">
       <br />
