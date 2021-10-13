@@ -8,12 +8,12 @@ def build_reg_bbl_map(dict_cursor) -> RegBblMap:
     reg_bbl_map: RegBblMap = {}
     dict_cursor.execute(
         f"""
-        SELECT registrationid, first(bbl) bbl
+        SELECT FIRST(registrationid), bbl
         FROM (
             SELECT * FROM hpd_registrations
             ORDER BY registrationenddate DESC
         ) REGS
-        GROUP BY registrationid
+        GROUP BY bbl
     """
     )
     for reg_id, bbl in dict_cursor.fetchall():
