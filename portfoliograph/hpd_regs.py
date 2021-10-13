@@ -1,17 +1,7 @@
-from datetime import timedelta, date
 from typing import Dict, Set
 
 
 RegBblMap = Dict[int, Set[str]]
-
-
-DEFAULT_MAX_EXPIRATION_AGE = timedelta(days=365)
-
-
-def hpd_reg_where_clause(max_expiration_age: timedelta = DEFAULT_MAX_EXPIRATION_AGE):
-    today = date.today()
-    max_reg_end_date = (today - max_expiration_age).isoformat()
-    return f"hpd_registrations.registrationenddate > '{max_reg_end_date}'"
 
 
 def build_reg_bbl_map(dict_cursor) -> RegBblMap:
@@ -20,7 +10,6 @@ def build_reg_bbl_map(dict_cursor) -> RegBblMap:
         f"""
         SELECT registrationid, bbl
         FROM hpd_registrations
-        WHERE {hpd_reg_where_clause()}
     """
     )
     for reg_id, bbl in dict_cursor.fetchall():
