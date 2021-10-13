@@ -1,7 +1,7 @@
 -r requirements.txt
 https://github.com/nycdb/nycdb/archive/ce576305303caae017ec17434c830f2b86ca6c20.zip#subdirectory=src
 mypy==0.782
-PyYAML>=5.1
+PyYAML>=5.4
 pytest==4.4.0
 pytest-django==3.4.5
 python-dotenv==0.9.1
