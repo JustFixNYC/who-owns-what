@@ -61,6 +61,8 @@ const getWidthFromLabel = (label: string, customDefaultWidth?: number) => {
 const FIRST_COLUMN_WIDTH = 130;
 const HEADER_HEIGHT = 30;
 
+const MAX_TABLE_ROWS_PER_PAGE = 500;
+
 const secondColumnStyle = {
   marginLeft: `${FIRST_COLUMN_WIDTH}px`,
 };
@@ -131,7 +133,13 @@ const PropertiesListWithoutI18n: React.FC<
         />
       ) : (
         <Loader loading={true} classNames="Loader-map">
-          <Trans>Loading</Trans>
+          <Trans>Loading {addrs.length} rows</Trans>
+          {addrs.length > MAX_TABLE_ROWS_PER_PAGE && (
+            <>
+              <br />
+              <Trans>(this may take a while)</Trans>
+            </>
+          )}
         </Loader>
       )}
     </div>
@@ -161,7 +169,9 @@ const TableOfData = React.memo(
         data={addrs}
         minRows={10}
         defaultPageSize={addrs.length}
-        showPagination={false}
+        showPagination={addrs.length > MAX_TABLE_ROWS_PER_PAGE}
+        pageSize={500}
+        showPageSizeOptions={false}
         resizable={!Browser.isMobile()}
         columns={[
           {

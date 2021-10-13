@@ -37,6 +37,10 @@ msgstr "(expires {formattedRegEndDate})"
 msgid "(hover over a box to learn more)"
 msgstr "(hover over a box to learn more)"
 
+#: src/components/PropertiesList.tsx:90
+msgid "(this may take a while)"
+msgstr "(this may take a while)"
+
 #: src/components/PropertiesMap.tsx:205
 msgid "({browserType, select, mobile {tap} other {click}} to view details)"
 msgstr "({browserType, select, mobile {tap} other {click}} to view details)"
@@ -83,7 +87,7 @@ msgstr "According to available HPD data, this portfolio has received <0>{totalvi
 msgid "Additional links"
 msgstr "Additional links"
 
-#: src/components/PropertiesList.tsx:105
+#: src/components/PropertiesList.tsx:110
 msgid "Address"
 msgstr "Address"
 
@@ -99,8 +103,8 @@ msgstr "All set! Thanks for subscribing!"
 msgid "All the public info on your landlord"
 msgstr "All the public info on your landlord"
 
-#: src/components/PropertiesList.tsx:352
-#: src/components/PropertiesList.tsx:360
+#: src/components/PropertiesList.tsx:357
+#: src/components/PropertiesList.tsx:365
 msgid "Amount"
 msgstr "Amount"
 
@@ -120,8 +124,8 @@ msgstr "BELL/BUZZER/INTERCOM"
 msgid "BUILDING:"
 msgstr "BUILDING:"
 
-#: src/components/PropertiesList.tsx:141
 #: src/components/PropertiesList.tsx:146
+#: src/components/PropertiesList.tsx:151
 #: src/containers/NychaPage.tsx:79
 msgid "Borough"
 msgstr "Borough"
@@ -149,8 +153,8 @@ msgstr "Building Permits Applied For"
 msgid "Buildings without valid property registration are subject to the following:"
 msgstr "Buildings without valid property registration are subject to the following:"
 
-#: src/components/PropertiesList.tsx:164
 #: src/components/PropertiesList.tsx:169
+#: src/components/PropertiesList.tsx:174
 msgid "Built"
 msgstr "Built"
 
@@ -253,8 +257,8 @@ msgstr "DOOR/WINDOW"
 msgid "DOORS"
 msgstr "DOORS"
 
-#: src/components/PropertiesList.tsx:340
-#: src/components/PropertiesList.tsx:348
+#: src/components/PropertiesList.tsx:345
+#: src/components/PropertiesList.tsx:353
 msgid "Date"
 msgstr "Date"
 
@@ -309,7 +313,7 @@ msgid "Enter email"
 msgstr "Enter email"
 
 #: src/components/BuildingStatsTable.tsx:71
-#: src/components/PropertiesList.tsx:274
+#: src/components/PropertiesList.tsx:279
 #: src/components/PropertiesSummary.tsx:117
 #: src/containers/NychaPage.tsx:87
 msgid "Evictions"
@@ -351,8 +355,8 @@ msgstr "GARBAGE/RECYCLING STORAGE"
 msgid "General info"
 msgstr "General info"
 
-#: src/components/PropertiesList.tsx:373
-#: src/components/PropertiesList.tsx:387
+#: src/components/PropertiesList.tsx:378
+#: src/components/PropertiesList.tsx:392
 msgid "Group Sale?"
 msgstr "Group Sale?"
 
@@ -369,7 +373,7 @@ msgid "HPD Building Profile"
 msgstr "HPD Building Profile"
 
 #: src/components/IndicatorsDatasets.tsx:6
-#: src/components/PropertiesList.tsx:211
+#: src/components/PropertiesList.tsx:216
 msgid "HPD Complaints"
 msgstr "HPD Complaints"
 
@@ -378,7 +382,7 @@ msgid "HPD Complaints are housing issues reported to the City <0>by a tenant cal
 msgstr "HPD Complaints are housing issues reported to the City <0>by a tenant calling 311</0>. When someone issues a complaint, the Department of Housing Preservation and Development begins a process of investigation that may lead to an official violation from the City. Complaints can be identified as:<1/><2/><3>Emergency</3> — reported to be hazardous/dire<4/><5>Non-Emergency</5> — all others<6/><7/>Read more about HPD Complaints and how to file them at the <8>official HPD page</8>."
 
 #: src/components/IndicatorsDatasets.tsx:33
-#: src/components/PropertiesList.tsx:251
+#: src/components/PropertiesList.tsx:256
 msgid "HPD Violations"
 msgstr "HPD Violations"
 
@@ -427,7 +431,7 @@ msgstr "Individual Owner"
 msgid "Ineligible to certify violations"
 msgstr "Ineligible to certify violations"
 
-#: src/components/PropertiesList.tsx:160
+#: src/components/PropertiesList.tsx:165
 msgid "Information"
 msgstr "Information"
 
@@ -455,7 +459,7 @@ msgstr "JustFix, Inc is a registered 501(c)(3) nonprofit organization."
 msgid "LOCKS"
 msgstr "LOCKS"
 
-#: src/components/PropertiesList.tsx:288
+#: src/components/PropertiesList.tsx:293
 #: src/components/PropertiesSummary.tsx:101
 msgid "Landlord"
 msgstr "Landlord"
@@ -464,12 +468,12 @@ msgstr "Landlord"
 msgid "Landlord, Portfolio, Tenant, Displacement, Map, JustFix, NYC, New York, Housing, Who Owns What"
 msgstr "Landlord, Portfolio, Tenant, Displacement, Map, JustFix, NYC, New York, Housing, Who Owns What"
 
-#: src/components/PropertiesList.tsx:224
 #: src/components/PropertiesList.tsx:229
+#: src/components/PropertiesList.tsx:234
 msgid "Last 3 Years"
 msgstr "Last 3 Years"
 
-#: src/components/PropertiesList.tsx:336
+#: src/components/PropertiesList.tsx:341
 msgid "Last Sale"
 msgstr "Last Sale"
 
@@ -497,14 +501,13 @@ msgstr "Legend"
 msgid "Lessee"
 msgstr "Lessee"
 
-#: src/components/PropertiesList.tsx:363
-#: src/components/PropertiesList.tsx:365
-#: src/components/PropertiesList.tsx:369
+#: src/components/PropertiesList.tsx:368
+#: src/components/PropertiesList.tsx:370
+#: src/components/PropertiesList.tsx:374
 msgid "Link to Deed"
 msgstr "Link to Deed"
 
 #: src/components/Indicators.tsx:135
-#: src/components/PropertiesList.tsx:86
 #: src/components/PropertiesMap.tsx:156
 #: src/components/PropertiesSummary.tsx:61
 #: src/containers/AddressPage.tsx:161
@@ -512,7 +515,11 @@ msgstr "Link to Deed"
 msgid "Loading"
 msgstr "Loading"
 
-#: src/components/PropertiesList.tsx:125
+#: src/components/PropertiesList.tsx:87
+msgid "Loading {0} rows"
+msgstr "Loading {0} rows"
+
+#: src/components/PropertiesList.tsx:130
 msgid "Location"
 msgstr "Location"
 
@@ -593,7 +600,7 @@ msgstr "New York Regional Office:"
 msgid "Next"
 msgstr "Next"
 
-#: src/components/PropertiesList.tsx:384
+#: src/components/PropertiesList.tsx:389
 msgid "No"
 msgstr "No"
 
@@ -638,8 +645,8 @@ msgstr "OUTSIDE BUILDING"
 msgid "Officer"
 msgstr "Officer"
 
-#: src/components/PropertiesList.tsx:292
-#: src/components/PropertiesList.tsx:301
+#: src/components/PropertiesList.tsx:297
+#: src/components/PropertiesList.tsx:306
 msgid "Officer/Owner"
 msgstr "Officer/Owner"
 
@@ -657,8 +664,8 @@ msgstr "Oops! A network error occurred. Try again later."
 msgid "Oops! That email is invalid."
 msgstr "Oops! That email is invalid."
 
-#: src/components/PropertiesList.tsx:255
 #: src/components/PropertiesList.tsx:260
+#: src/components/PropertiesList.tsx:265
 msgid "Open"
 msgstr "Open"
 
@@ -721,7 +728,7 @@ msgid "Public Housing Development"
 msgstr "Public Housing Development"
 
 #: src/components/BuildingStatsTable.tsx:81
-#: src/components/PropertiesList.tsx:183
+#: src/components/PropertiesList.tsx:188
 msgid "RS Units"
 msgstr "RS Units"
 
@@ -787,8 +794,8 @@ msgstr "Sign up"
 msgid "Sign up for email updates"
 msgstr "Sign up for email updates"
 
-#: src/components/PropertiesList.tsx:278
 #: src/components/PropertiesList.tsx:283
+#: src/components/PropertiesList.tsx:288
 msgid "Since 2017"
 msgstr "Since 2017"
 
@@ -845,7 +852,7 @@ msgstr "TENANT HARASSMENT"
 msgid "Take action on JustFix.nyc!"
 msgstr "Take action on JustFix.nyc!"
 
-#: src/components/PropertiesList.tsx:309
+#: src/components/PropertiesList.tsx:314
 msgid "Tax Exemptions"
 msgstr "Tax Exemptions"
 
@@ -986,16 +993,16 @@ msgstr "This will export <0>{0}</0> addresses associated with the landlord at <1
 msgid "Timeline"
 msgstr "Timeline"
 
-#: src/components/PropertiesList.tsx:233
-#: src/components/PropertiesList.tsx:243
+#: src/components/PropertiesList.tsx:238
+#: src/components/PropertiesList.tsx:248
 msgid "Top Complaint"
 msgstr "Top Complaint"
 
 #: src/components/IndicatorsViz.tsx:330
-#: src/components/PropertiesList.tsx:215
 #: src/components/PropertiesList.tsx:220
-#: src/components/PropertiesList.tsx:264
+#: src/components/PropertiesList.tsx:225
 #: src/components/PropertiesList.tsx:269
+#: src/components/PropertiesList.tsx:274
 msgid "Total"
 msgstr "Total"
 
@@ -1012,8 +1019,8 @@ msgid "Unable to request Code Violation Dismissals"
 msgstr "Unable to request Code Violation Dismissals"
 
 #: src/components/BuildingStatsTable.tsx:44
-#: src/components/PropertiesList.tsx:173
 #: src/components/PropertiesList.tsx:178
+#: src/components/PropertiesList.tsx:183
 #: src/containers/NychaPage.tsx:83
 msgid "Units"
 msgstr "Units"
@@ -1040,9 +1047,9 @@ msgstr "View by:"
 msgid "View data over time ↗︎"
 msgstr "View data over time ↗︎"
 
-#: src/components/PropertiesList.tsx:393
-#: src/components/PropertiesList.tsx:399
-#: src/components/PropertiesList.tsx:403
+#: src/components/PropertiesList.tsx:398
+#: src/components/PropertiesList.tsx:404
+#: src/components/PropertiesList.tsx:408
 msgid "View detail"
 msgstr "View detail"
 
@@ -1137,7 +1144,7 @@ msgstr "Who’s the landlord of this building?"
 msgid "Year Built"
 msgstr "Year Built"
 
-#: src/components/PropertiesList.tsx:383
+#: src/components/PropertiesList.tsx:388
 msgid "Yes"
 msgstr "Yes"
 
@@ -1145,8 +1152,8 @@ msgstr "Yes"
 msgid "Yoel Goldman's All Year Management has been at the <0>forefront of gentrification</0> in Brooklyn. Tenants in his buidlings in Williamsburg, Bushwick, and Crown Heights have been forced to live in horrendous and often dangerous conditions."
 msgstr "Yoel Goldman's All Year Management has been at the <0>forefront of gentrification</0> in Brooklyn. Tenants in his buidlings in Williamsburg, Bushwick, and Crown Heights have been forced to live in horrendous and often dangerous conditions."
 
-#: src/components/PropertiesList.tsx:131
 #: src/components/PropertiesList.tsx:136
+#: src/components/PropertiesList.tsx:141
 msgid "Zipcode"
 msgstr "Zipcode"
 
