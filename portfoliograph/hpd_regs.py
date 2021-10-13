@@ -8,7 +8,7 @@ def build_reg_bbl_map(dict_cursor) -> RegBblMap:
     reg_bbl_map: RegBblMap = {}
     dict_cursor.execute(
         f"""
-        SELECT FIRST(registrationid), bbl
+        SELECT FIRST(registrationid) registrationid, bbl
         FROM (
             SELECT * FROM hpd_registrations
             ORDER BY registrationenddate DESC
