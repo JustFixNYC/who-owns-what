@@ -1,4 +1,3 @@
-from portfoliograph.hpd_regs import hpd_reg_where_clause
 from typing import Any, Dict, List, NamedTuple, Optional
 from enum import Enum
 import networkx as nx
