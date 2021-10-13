@@ -133,7 +133,6 @@ const PropertiesListWithoutI18n: React.FC<
         />
       ) : (
         <Loader loading={true} classNames="Loader-map">
-          <Trans>Loading {addrs.length} rows</Trans>
           {addrs.length > MAX_TABLE_ROWS_PER_PAGE ? (
             <Trans>Loading</Trans>
           ) : (
