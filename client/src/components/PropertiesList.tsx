@@ -61,7 +61,7 @@ const getWidthFromLabel = (label: string, customDefaultWidth?: number) => {
 const FIRST_COLUMN_WIDTH = 130;
 const HEADER_HEIGHT = 30;
 
-const MAX_TABLE_ROWS_PER_PAGE = 500;
+const MAX_TABLE_ROWS_PER_PAGE = 100;
 
 const secondColumnStyle = {
   marginLeft: `${FIRST_COLUMN_WIDTH}px`,
