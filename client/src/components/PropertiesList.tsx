@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import ReactTable from "react-table";
 import Browser from "../util/browser";
+import Loader from "../components/Loader";
 
 import "react-table/react-table.css";
 import "styles/PropertiesList.css";
@@ -112,22 +113,27 @@ const PropertiesListWithoutI18n: React.FC<
     if (!isOlderBrowser && tableRef?.current?.offsetTop)
       setHeaderTopSpacing(tableRef.current.offsetTop);
   }, [isTableVisible, locale, windowWidth, windowHeight, isOlderBrowser]);
-
   return (
     <div
       className={classnames("PropertiesList", hideScrollFade && "hide-scroll-fade")}
       ref={tableRef}
     >
-      <TableOfData
-        addrs={addrs}
-        headerTopSpacing={headerTopSpacing}
-        i18n={i18n}
-        locale={locale}
-        rsunitslatestyear={rsunitslatestyear}
-        onOpenDetail={props.onOpenDetail}
-        addressPageRoutes={props.addressPageRoutes}
-        ref={lastColumnRef}
-      />
+      {isTableVisible ? (
+        <TableOfData
+          addrs={addrs}
+          headerTopSpacing={headerTopSpacing}
+          i18n={i18n}
+          locale={locale}
+          rsunitslatestyear={rsunitslatestyear}
+          onOpenDetail={props.onOpenDetail}
+          addressPageRoutes={props.addressPageRoutes}
+          ref={lastColumnRef}
+        />
+      ) : (
+        <Loader loading={true} classNames="Loader-map">
+          <Trans>Loading</Trans>
+        </Loader>
+      )}
     </div>
   );
 };
