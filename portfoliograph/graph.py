@@ -70,7 +70,6 @@ def build_graph(dict_cursor) -> nx.Graph:
             AND (businesshousenumber IS NOT NULL OR businessstreetname IS NOT NULL)
             AND LENGTH(CONCAT(businesshousenumber, businessstreetname)) > 2
             AND (firstname IS NOT NULL OR lastname IS NOT NULL)
-            AND {hpd_reg_where_clause()}
     """
     )
     for row in dict_cursor.fetchall():
