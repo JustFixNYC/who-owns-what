@@ -6,6 +6,9 @@ RegBblMap = Dict[int, Set[str]]
 
 def build_reg_bbl_map(dict_cursor) -> RegBblMap:
     reg_bbl_map: RegBblMap = {}
+    # For each BBL, we grab the most recent registrationid we have on file.
+    # We define 'most recent' to mean a registration with the most recent
+    # expiration date and, if there is a tie, most recent non-null registration date
     dict_cursor.execute(
         f"""
         SELECT FIRST(registrationid) registrationid, bbl
