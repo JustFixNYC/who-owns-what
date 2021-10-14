@@ -293,8 +293,9 @@ class DetailViewWithoutI18n extends Component<Props, State> {
                         detailAddr.lastsaledate > detailAddr.registrationenddate && (
                           <p className="text-danger text-italic">
                             <Trans>
-                              Warning: this building has been sold since its registration expired.
-                              The landlord details here may be outdated.
+                              Warning: This building has an expired registration and was sold after
+                              the expiration date. The landlord information listed here may be
+                              outdated.
                             </Trans>
                           </p>
                         )}
