@@ -1099,7 +1099,7 @@ msgid "WINDOWS"
 msgstr "VENTANAS"
 
 #: src/components/DetailView.tsx:192
-msgid "Warning: a new owner bought this building after its registration expired. The landlord details here may be outdated."
+msgid "Warning: this building has been sold since its registration expired. The landlord details here may be outdated."
 msgstr ""
 
 #: src/components/DetailView.tsx:259

@@ -1094,8 +1094,8 @@ msgid "WINDOWS"
 msgstr "WINDOWS"
 
 #: src/components/DetailView.tsx:192
-msgid "Warning: a new owner bought this building after its registration expired. The landlord details here may be outdated."
-msgstr "Warning: a new owner bought this building after its registration expired. The landlord details here may be outdated."
+msgid "Warning: this building has been sold since its registration expired. The landlord details here may be outdated."
+msgstr "Warning: this building has been sold since its registration expired. The landlord details here may be outdated."
 
 #: src/components/DetailView.tsx:259
 msgid "We compare your search address with a database of over 200k buildings to identify a landlord or management company's portfolio. To learn more, check out <0>our methodology</0>."
