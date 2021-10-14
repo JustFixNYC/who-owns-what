@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2021-10-13 20:43\n"
+"PO-Revision-Date: 2021-10-14 15:05\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -513,7 +513,7 @@ msgid "Link to Deed"
 msgstr "Enlace a la Escritura"
 
 #: src/components/Indicators.tsx:135
-#: src/components/PropertiesList.tsx:87
+#: src/components/PropertiesList.tsx:91
 #: src/components/PropertiesMap.tsx:156
 #: src/components/PropertiesSummary.tsx:61
 #: src/containers/AddressPage.tsx:161
