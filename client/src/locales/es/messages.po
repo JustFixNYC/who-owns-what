@@ -26,15 +26,15 @@ msgstr "#QuiénEsElDueño por @JustFixNYC"
 msgid "(\"{textInEnglish}\" in English)"
 msgstr "(\"{textInEnglish}\" en inglés)"
 
-#: src/components/DetailView.tsx:224
+#: src/components/DetailView.tsx:223
 msgid "(as part of a group sale)"
 msgstr "(como parte de una venta en grupo)"
 
-#: src/components/DetailView.tsx:206
+#: src/components/DetailView.tsx:205
 msgid "(expired {formattedRegEndDate})"
 msgstr "(caducado {formattedRegEndDate})"
 
-#: src/components/DetailView.tsx:209
+#: src/components/DetailView.tsx:208
 msgid "(expires {formattedRegEndDate})"
 msgstr "(caduca {formattedRegEndDate})"
 
@@ -113,7 +113,7 @@ msgstr "Toda la información pública sobre el dueño/a de tu edificio"
 msgid "Amount"
 msgstr "Importe"
 
-#: src/components/DetailView.tsx:237
+#: src/components/DetailView.tsx:236
 msgid "Are you having issues in this building?"
 msgstr "¿Tienes problemas en este edificio?"
 
@@ -163,13 +163,13 @@ msgstr "Edificios sin registro de propiedad válido están sujetos a las siguien
 msgid "Built"
 msgstr "Construido"
 
-#: src/components/DetailView.tsx:303
-#: src/components/DetailView.tsx:312
+#: src/components/DetailView.tsx:302
+#: src/components/DetailView.tsx:311
 msgid "Business Addresses"
 msgstr "Dirección Comercial"
 
-#: src/components/DetailView.tsx:283
-#: src/components/DetailView.tsx:292
+#: src/components/DetailView.tsx:282
+#: src/components/DetailView.tsx:291
 msgid "Business Entities"
 msgstr "Entidades Comerciales"
 
@@ -486,11 +486,11 @@ msgstr "Última venta"
 msgid "Last Sale Unknown"
 msgstr "Última venta desconocida"
 
-#: src/components/DetailView.tsx:201
+#: src/components/DetailView.tsx:200
 msgid "Last registered:"
 msgstr "Registrado por última vez:"
 
-#: src/components/DetailView.tsx:214
+#: src/components/DetailView.tsx:213
 msgid "Last sold:"
 msgstr "Vendido por última vez:"
 
@@ -703,8 +703,8 @@ msgstr "PLOMERÍA"
 msgid "PORTFOLIO: Your search address is associated with <0>{0}</0> {1, plural, one {building} other {buildings}}"
 msgstr "PORTAFOLIO DE EDIFICIOS: La dirección que has buscado está asociada con <0>{0}</0> {1, plural, one {construyendo} other {edificios}}"
 
-#: src/components/DetailView.tsx:323
-#: src/components/DetailView.tsx:333
+#: src/components/DetailView.tsx:322
+#: src/components/DetailView.tsx:332
 msgid "People"
 msgstr "Personas"
 
@@ -780,7 +780,7 @@ msgstr "Envíanos una solicitud de datos"
 msgid "Share"
 msgstr "Compartir"
 
-#: src/components/DetailView.tsx:246
+#: src/components/DetailView.tsx:245
 #: src/components/EngagementPanel.tsx:18
 #: src/components/PropertiesSummary.tsx:134
 #: src/containers/App.tsx:125
@@ -853,7 +853,7 @@ msgstr "Cambiar a la versión anterior"
 msgid "TENANT HARASSMENT"
 msgstr "ACOSO DE INQUILINO"
 
-#: src/components/DetailView.tsx:240
+#: src/components/DetailView.tsx:239
 #: src/containers/NychaPage.tsx:179
 msgid "Take action on JustFix.nyc!"
 msgstr "¡Toma acción en JustFix.nyc!"
@@ -1099,10 +1099,10 @@ msgid "WINDOWS"
 msgstr "VENTANAS"
 
 #: src/components/DetailView.tsx:192
-msgid "Warning: This building has an expired registration and was sold after the expiration date. The landlord information listed here may be outdated."
+msgid "Warning: This building has an expired registration and was sold after the expiration date. The landlord info listed here may be outdated."
 msgstr ""
 
-#: src/components/DetailView.tsx:260
+#: src/components/DetailView.tsx:259
 msgid "We compare your search address with a database of over 200k buildings to identify a landlord or management company's portfolio. To learn more, check out <0>our methodology</0>."
 msgstr "Comparamos la dirección que buscaste con una base de datos de más de 200 mil edificios para identificar a un propietario o compañía de gestión. Para obtener más información, consulta <0>nuestra metodología</0>."
 
@@ -1175,7 +1175,7 @@ msgstr "y"
 msgid "associated building"
 msgstr "edificio asociado"
 
-#: src/components/DetailView.tsx:218
+#: src/components/DetailView.tsx:217
 msgid "for ${0}"
 msgstr "por ${0}"
 
