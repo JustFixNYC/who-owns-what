@@ -15,6 +15,8 @@ import { createRouteForFullBbl } from "routes";
 
 const appId = process.env.REACT_APP_ALGOLIA_APP_ID;
 const searchKey = process.env.REACT_APP_ALGOLIA_SEARCH_KEY;
+export const isAlgoliaConfigured = !!appId && !!searchKey;
+
 const enableAnalytics = process.env.REACT_APP_ENABLE_ALGOLIA_ANALYTICS;
 
 const ALGOLIA_INDEX_NAME = "wow_landlords";
@@ -93,7 +95,7 @@ const CustomHits = connectHits(SearchHits);
 const LandlordSearch = () => {
   const [query, setQuery] = useState("");
 
-  return appId && searchKey ? (
+  return isAlgoliaConfigured ? (
     <div className="AddressSearch">
       <InstantSearch searchClient={algoliasearch(appId, searchKey)} indexName={ALGOLIA_INDEX_NAME}>
         <CustomSearchBox updateSearchQuery={setQuery} />
