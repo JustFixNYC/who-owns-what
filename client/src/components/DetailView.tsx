@@ -289,6 +289,15 @@ class DetailViewWithoutI18n extends Component<Props, State> {
                           </div>
                         </div>
                       )}
+                      {detailAddr.lastsaledate &&
+                        detailAddr.lastsaledate > detailAddr.registrationenddate && (
+                          <p className="text-danger text-italic">
+                            <Trans>
+                              Warning: a new owner bought this building after its registration
+                              expired. The landlord details here may be outdated.
+                            </Trans>
+                          </p>
+                        )}
                       <div className="card-body-registration">
                         <p>
                           <b>
