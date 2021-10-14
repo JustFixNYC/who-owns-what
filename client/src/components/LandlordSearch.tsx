@@ -13,9 +13,8 @@ import { t, Trans } from "@lingui/macro";
 import { Link } from "react-router-dom";
 import { createRouteForFullBbl } from "routes";
 
-const appId = process.env.REACT_APP_ALGOLIA_APP_ID;
-const searchKey = process.env.REACT_APP_ALGOLIA_SEARCH_KEY;
-export const isAlgoliaConfigured = !!appId && !!searchKey;
+export const algoliaAppId = process.env.REACT_APP_ALGOLIA_APP_ID;
+export const algoliaSearchKey = process.env.REACT_APP_ALGOLIA_SEARCH_KEY;
 
 const enableAnalytics = process.env.REACT_APP_ENABLE_ALGOLIA_ANALYTICS;
 
@@ -95,9 +94,12 @@ const CustomHits = connectHits(SearchHits);
 const LandlordSearch = () => {
   const [query, setQuery] = useState("");
 
-  return isAlgoliaConfigured ? (
+  return algoliaAppId && algoliaSearchKey ? (
     <div className="AddressSearch">
-      <InstantSearch searchClient={algoliasearch(appId, searchKey)} indexName={ALGOLIA_INDEX_NAME}>
+      <InstantSearch
+        searchClient={algoliasearch(algoliaAppId, algoliaSearchKey)}
+        indexName={ALGOLIA_INDEX_NAME}
+      >
         <CustomSearchBox updateSearchQuery={setQuery} />
 
         {(query || "").length > 0 && (

@@ -21,7 +21,7 @@ import { documentToReactComponents } from "@contentful/rich-text-react-renderer"
 import { ContentfulCommonStrings } from "@justfixnyc/contentful-common-strings";
 import _commonStrings from "../data/common-strings.json";
 import { useState } from "react";
-import LandlordSearch, { isAlgoliaConfigured } from "components/LandlordSearch";
+import LandlordSearch, { algoliaAppId, algoliaSearchKey } from "components/LandlordSearch";
 
 const commonStrings = new ContentfulCommonStrings(_commonStrings as any);
 
@@ -131,7 +131,7 @@ const HomePage: React.FC<withMachineProps> = (props) => {
                 labelClass="text-assistive"
                 onFormSubmit={handleFormSubmit}
               />
-              {useNewPortfolioMethod && isAlgoliaConfigured && (
+              {useNewPortfolioMethod && algoliaAppId && algoliaSearchKey && (
                 <>
                   <h1 className="text-center">Or search by your landlord's name:</h1>
                   <LandlordSearch />
