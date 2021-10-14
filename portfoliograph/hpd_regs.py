@@ -11,7 +11,7 @@ def build_reg_bbl_map(dict_cursor) -> RegBblMap:
         SELECT FIRST(registrationid) registrationid, bbl
         FROM (
             SELECT * FROM hpd_registrations
-            ORDER BY registrationenddate DESC
+            ORDER BY registrationenddate DESC, lastregistrationdate DESC NULLS LAST
         ) REGS
         GROUP BY bbl
     """
