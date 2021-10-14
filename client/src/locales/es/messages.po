@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2021-10-14 20:51\n"
+"PO-Revision-Date: 2021-10-14 20:55\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -44,7 +44,7 @@ msgstr "(pase el cursor sobre una casilla para aprender más)"
 
 #: src/components/PropertiesList.tsx:90
 msgid "(this may take a while)"
-msgstr ""
+msgstr "(esto puede tardar un rato)"
 
 #: src/components/PropertiesMap.tsx:205
 msgid "({browserType, select, mobile {tap} other {click}} to view details)"
@@ -1100,7 +1100,7 @@ msgstr "VENTANAS"
 
 #: src/components/DetailView.tsx:192
 msgid "Warning: This building has an expired registration and was sold after the expiration date. The landlord information listed here may be outdated."
-msgstr ""
+msgstr "Aviso: Este edificio tiene un registro vencido y se vendió después del vencimiento del registro. La información del dueño se incluye aquí puede estar desactualizada."
 
 #: src/components/DetailView.tsx:260
 msgid "We compare your search address with a database of over 200k buildings to identify a landlord or management company's portfolio. To learn more, check out <0>our methodology</0>."
