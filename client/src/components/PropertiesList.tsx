@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import ReactTable from "react-table";
 import Browser from "../util/browser";
+import Loader from "../components/Loader";
 
 import "react-table/react-table.css";
 import "styles/PropertiesList.css";
@@ -60,6 +61,8 @@ const getWidthFromLabel = (label: string, customDefaultWidth?: number) => {
 const FIRST_COLUMN_WIDTH = 130;
 const HEADER_HEIGHT = 30;
 
+const MAX_TABLE_ROWS_PER_PAGE = 500;
+
 const secondColumnStyle = {
   marginLeft: `${FIRST_COLUMN_WIDTH}px`,
 };
@@ -112,22 +115,35 @@ const PropertiesListWithoutI18n: React.FC<
     if (!isOlderBrowser && tableRef?.current?.offsetTop)
       setHeaderTopSpacing(tableRef.current.offsetTop);
   }, [isTableVisible, locale, windowWidth, windowHeight, isOlderBrowser]);
-
   return (
     <div
       className={classnames("PropertiesList", hideScrollFade && "hide-scroll-fade")}
       ref={tableRef}
     >
-      <TableOfData
-        addrs={addrs}
-        headerTopSpacing={headerTopSpacing}
-        i18n={i18n}
-        locale={locale}
-        rsunitslatestyear={rsunitslatestyear}
-        onOpenDetail={props.onOpenDetail}
-        addressPageRoutes={props.addressPageRoutes}
-        ref={lastColumnRef}
-      />
+      {isTableVisible ? (
+        <TableOfData
+          addrs={addrs}
+          headerTopSpacing={headerTopSpacing}
+          i18n={i18n}
+          locale={locale}
+          rsunitslatestyear={rsunitslatestyear}
+          onOpenDetail={props.onOpenDetail}
+          addressPageRoutes={props.addressPageRoutes}
+          ref={lastColumnRef}
+        />
+      ) : (
+        <Loader loading={true} classNames="Loader-map">
+          {addrs.length > MAX_TABLE_ROWS_PER_PAGE ? (
+            <>
+              <Trans>Loading {addrs.length} rows</Trans>
+              <br />
+              <Trans>(this may take a while)</Trans>
+            </>
+          ) : (
+            <Trans>Loading</Trans>
+          )}
+        </Loader>
+      )}
     </div>
   );
 };
@@ -155,7 +171,9 @@ const TableOfData = React.memo(
         data={addrs}
         minRows={10}
         defaultPageSize={addrs.length}
-        showPagination={false}
+        showPagination={addrs.length > MAX_TABLE_ROWS_PER_PAGE}
+        pageSize={MAX_TABLE_ROWS_PER_PAGE}
+        showPageSizeOptions={false}
         resizable={!Browser.isMobile()}
         columns={[
           {
