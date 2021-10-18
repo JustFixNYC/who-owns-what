@@ -1,4 +1,4 @@
-import { SupportedLocale } from "../i18n-base";
+import { defaultLocale, SupportedLocale } from "../i18n-base";
 import { AddressRecord, HpdContactAddress, SearchAddressWithoutBbl } from "components/APIDataTypes";
 import { reportError } from "error-reporting";
 import { t } from "@lingui/macro";
@@ -210,7 +210,7 @@ export default {
   },
 
   formatPrice(amount: number, locale?: SupportedLocale): string {
-    const formatPrice = new Intl.NumberFormat(locale || "en");
+    const formatPrice = new Intl.NumberFormat(locale || defaultLocale);
     return formatPrice.format(amount);
   },
 
@@ -255,7 +255,7 @@ export default {
 
   formatDate(dateString: string, options: object, locale?: SupportedLocale): string {
     var date = new Date(dateString);
-    return this.capitalize(date.toLocaleDateString(locale || "en", options));
+    return this.capitalize(date.toLocaleDateString(locale || defaultLocale, options));
   },
 
   /** The quarter number written out as it's range of months (ex: "1" becomes "Jan - Mar")  */

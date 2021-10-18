@@ -90,8 +90,8 @@ export const INDICATORS_DATASETS: IndicatorsDatasetMap = {
     explanation: () => (
       <Trans render="span">
         HPD Violations occur when an official City Inspector finds the conditions of a home in
-        violation of the law. If not corrected, these violations incur fines for the owner— however,
-        HPD violations are notoriously unenforced by the City. These Violations fall into three
+        violation of the law. If not corrected, these violations incur fines for the owner—however,
+        HPD Violations are notoriously unenforced by the City. These violations fall into four
         categories:
         <br />
         <br />
@@ -100,6 +100,9 @@ export const INDICATORS_DATASETS: IndicatorsDatasetMap = {
         <b>Class B</b> — hazardous
         <br />
         <b>Class C</b> — immediately hazardous
+        <br />
+        <b>Class I</b> — fundamental property issue (e.g. landlord failed to register, building in
+        Alt. Enforcement Program, Vacate Order issued)
         <br />
         <br />
         Read more about HPD Violations at the{" "}
@@ -158,9 +161,9 @@ export const INDICATORS_DATASETS: IndicatorsDatasetMap = {
     explanation: () => (
       <Trans render="span">
         A DOB Violation is a notice that a property is not in compliance with applicable law,
-        usually a building code. DOB violations typically relate to building-wide services (like
+        usually a building code. DOB Violations typically relate to building-wide services (like
         elevators or boilers), the structural integrity of a property, or illegal construction.
-        Owners must cure all DOB violations before they can file a new or amended Certificate of
+        Owners must cure all DOB Violations before they can file a new or amended Certificate of
         Occupancy ("CO").
         <br />
         <br />
