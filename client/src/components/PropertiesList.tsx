@@ -13,7 +13,7 @@ import { I18n } from "@lingui/core";
 import { withI18n } from "@lingui/react";
 import { t, Trans } from "@lingui/macro";
 import { Link } from "react-router-dom";
-import { SupportedLocale } from "../i18n-base";
+import { defaultLocale, SupportedLocale } from "../i18n-base";
 import Helpers, { longDateOptions } from "../util/helpers";
 import { AddressRecord, HpdComplaintCount } from "./APIDataTypes";
 import { withMachineInStateProps } from "state-machine";
@@ -76,7 +76,7 @@ const PropertiesListWithoutI18n: React.FC<
 > = (props) => {
   const { i18n } = props;
   const { width: windowWidth, height: windowHeight } = Helpers.useWindowSize();
-  const locale = (i18n.language as SupportedLocale) || "en";
+  const locale = (i18n.language as SupportedLocale) || defaultLocale;
 
   const addrs = props.state.context.portfolioData.assocAddrs;
   const rsunitslatestyear = props.state.context.portfolioData.searchAddr.rsunitslatestyear;

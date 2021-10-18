@@ -14,7 +14,7 @@ import Helpers, { mediumDateOptions, shortDateOptions } from "../util/helpers";
 
 import "styles/Indicators.css";
 import { indicatorsDatasetIds, IndicatorsState } from "./IndicatorsTypes";
-import { SupportedLocale } from "../i18n-base";
+import { defaultLocale, SupportedLocale } from "../i18n-base";
 import { ChartOptions } from "chart.js";
 import { withMachineInStateProps } from "state-machine";
 import { INDICATORS_DATASETS } from "./IndicatorsDatasets";
@@ -182,7 +182,7 @@ class IndicatorsVizImplementation extends Component<IndicatorVizImplementationPr
     var { timelineData } = this.props.state.context;
 
     const { i18n } = this.props;
-    const locale = (i18n.language || "en") as SupportedLocale;
+    const locale = (i18n.language || defaultLocale) as SupportedLocale;
 
     switch (this.props.activeVis) {
       case "hpdviolations":
