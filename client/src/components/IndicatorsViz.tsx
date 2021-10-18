@@ -188,16 +188,23 @@ class IndicatorsVizImplementation extends Component<IndicatorVizImplementationPr
       case "hpdviolations":
         datasets = [
           {
+            label: i18n._(t`Class I`),
+            data: this.groupData(timelineData.hpdviolations.values.class_i) || [],
+            backgroundColor: "rgba(87, 0, 83, 0.6)",
+            borderColor: "rgba(87, 0, 83, 1)",
+            borderWidth: 1,
+          },
+          {
             label: i18n._(t`Class C`),
             data: this.groupData(timelineData.hpdviolations.values.class_c) || [],
-            backgroundColor: "rgba(136,65,157, 0.6)",
-            borderColor: "rgba(136,65,157,1)",
+            backgroundColor: "rgba(136, 65, 157, 0.6)",
+            borderColor: "rgba(136, 65, 157, 1)",
             borderWidth: 1,
           },
           {
             label: i18n._(t`Class B`),
             data: this.groupData(timelineData.hpdviolations.values.class_b) || [],
-            backgroundColor: "rgba(140,150,198, 0.6)",
+            backgroundColor: "rgba(140, 150, 198, 0.6)",
             borderColor: "rgba(140,150,198,1)",
             borderWidth: 1,
           },

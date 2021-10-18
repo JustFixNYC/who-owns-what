@@ -43,6 +43,7 @@ interface HpdViolationsData extends IndicatorsData {
     class_a: number[] | null;
     class_b: number[] | null;
     class_c: number[] | null;
+    class_i: number[] | null;
     total: number[] | null;
   };
 }
@@ -87,6 +88,7 @@ export const indicatorsInitialDataStructure: IndicatorsDataFromAPI = {
       class_a: null,
       class_b: null,
       class_c: null,
+      class_i: null,
       total: null,
     },
   },
