@@ -101,7 +101,6 @@ export const INDICATORS_DATASETS: IndicatorsDatasetMap = {
         <br />
         <b>Class C</b> — immediately hazardous
         <br />
-        <br />
         <b>Class I</b> — fundamental property issue (e.g. landlord failed to register, building in
         Alt. Enforcement Program, Vacate Order issued)
         <br />

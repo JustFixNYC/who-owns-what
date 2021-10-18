@@ -190,8 +190,8 @@ class IndicatorsVizImplementation extends Component<IndicatorVizImplementationPr
           {
             label: i18n._(t`Class I`),
             data: this.groupData(timelineData.hpdviolations.values.class_i) || [],
-            backgroundColor: "rgba(103, 19, 112, 0.6)",
-            borderColor: "rgba(103, 19, 112, 1)",
+            backgroundColor: "rgba(87, 0, 83, 0.6)",
+            borderColor: "rgba(87, 0, 83, 1)",
             borderWidth: 1,
           },
           {
