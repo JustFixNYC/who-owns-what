@@ -2,8 +2,7 @@ import React from "react";
 import { I18n } from "@lingui/core";
 import { t, Trans, plural } from "@lingui/macro";
 import { withI18n } from "@lingui/react";
-
-export type IndicatorsDatasetId = "complaints" | "viols" | "permits";
+import { IndicatorsDatasetId } from "./IndicatorsTypes";
 
 /**
  * This interface encapsulates metadata about an Indicators dataset.
@@ -24,6 +23,11 @@ export interface IndicatorsDataset {
   quantity: (i18n: I18n, value: number) => string;
 
   /**
+   * The localized name for label on the Y-axis, when the given dataset is shown.
+   */
+  yAxisLabel: (i18n: I18n) => string;
+
+  /**
    * A localized explanation for what the dataset means, and where to find more information.
    */
   explanation: (i18n: I18n) => JSX.Element;
@@ -34,7 +38,7 @@ type IndicatorsDatasetMap = {
 };
 
 export const INDICATORS_DATASETS: IndicatorsDatasetMap = {
-  complaints: {
+  hpdcomplaints: {
     name: (i18n) => i18n._(t`HPD Complaints`),
     quantity: (i18n, value) =>
       i18n._(
@@ -44,6 +48,7 @@ export const INDICATORS_DATASETS: IndicatorsDatasetMap = {
           other: "# HPD Complaints Issued since 2014",
         })
       ),
+    yAxisLabel: (i18n) => i18n._(t`Complaints Issued`),
     explanation: () => (
       <Trans render="span">
         HPD Complaints are housing issues reported to the City <b>by a tenant calling 311</b>. When
@@ -69,7 +74,8 @@ export const INDICATORS_DATASETS: IndicatorsDatasetMap = {
       </Trans>
     ),
   },
-  viols: {
+
+  hpdviolations: {
     name: (i18n) => i18n._(t`HPD Violations`),
     analyticsName: "violations",
     quantity: (i18n, value) =>
@@ -80,6 +86,7 @@ export const INDICATORS_DATASETS: IndicatorsDatasetMap = {
           other: "# HPD Violations Issued since 2010",
         })
       ),
+    yAxisLabel: (i18n) => i18n._(t`Violations Issued`),
     explanation: () => (
       <Trans render="span">
         HPD Violations occur when an official City Inspector finds the conditions of a home in
@@ -107,7 +114,7 @@ export const INDICATORS_DATASETS: IndicatorsDatasetMap = {
       </Trans>
     ),
   },
-  permits: {
+  dobpermits: {
     name: (i18n) => i18n._(t`Building Permit Applications`),
     quantity: (i18n, value) =>
       i18n._(
@@ -117,6 +124,7 @@ export const INDICATORS_DATASETS: IndicatorsDatasetMap = {
           other: "# Building Permit Applications since 2010",
         })
       ),
+    yAxisLabel: (i18n) => i18n._(t`Building Permits Applied For`),
     explanation: () => (
       <Trans render="span">
         Owners submit Building Permit Applications to the Department of Buildings before any
@@ -131,6 +139,54 @@ export const INDICATORS_DATASETS: IndicatorsDatasetMap = {
           rel="noopener noreferrer"
         >
           official NYC Buildings page
+        </a>
+        .
+      </Trans>
+    ),
+  },
+  dobviolations: {
+    name: (i18n) => i18n._(t`DOB/ECB Violations`),
+    quantity: (i18n, value) =>
+      i18n._(
+        plural({
+          value,
+          one: "One DOB/ECB Violation Issued since 2010",
+          other: "# DOB/ECB Violations Issued since 2010",
+        })
+      ),
+    yAxisLabel: (i18n) => i18n._(t`Violations Issued`),
+    explanation: () => (
+      <Trans render="span">
+        A DOB Violation is a notice that a property is not in compliance with applicable law,
+        usually a building code. DOB violations typically relate to building-wide services (like
+        elevators or boilers), the structural integrity of a property, or illegal construction.
+        Owners must cure all DOB violations before they can file a new or amended Certificate of
+        Occupancy ("CO").
+        <br />
+        <br />
+        <b>Non-ECB</b> — typical violation, no court hearing needed
+        <br />
+        <b>ECB (Environment Control Board)</b> — a specific violation of New York City Construction
+        Codes or Zoning Resolution. These violations come with additional penalties and require an
+        owner to attend an{" "}
+        <a
+          href="https://www1.nyc.gov/site/oath/index.page"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          OATH hearing
+        </a>
+        . They fall into three classes: Class I (immediately hazardous), Class II (major), and Class
+        III (lesser).
+        <br />
+        <br />
+        Read more about DOB Violations at the{" "}
+        <a
+          href="https://www1.nyc.gov/site/buildings/safety/dob-violations.page"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          official DOB page
         </a>
         .
       </Trans>

@@ -566,6 +566,64 @@
                 "content": [
                   {
                     "nodeType": "text",
+                    "value": "Datos de Exención de Impuestos (J51/421a) ",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      }
+                    ],
+                    "data": {}
+                  },
+                  {
+                    "nodeType": "text",
+                    "value": "de ",
+                    "marks": [],
+                    "data": {}
+                  },
+                  {
+                    "nodeType": "hyperlink",
+                    "content": [
+                      {
+                        "nodeType": "text",
+                        "value": "NYC Open Data",
+                        "marks": [],
+                        "data": {}
+                      }
+                    ],
+                    "data": {
+                      "uri": "https://data.cityofnewyork.us/City-Government/Property-Exemption-Detail/muvi-b6kx"
+                    }
+                  },
+                  {
+                    "nodeType": "text",
+                    "value": " — ",
+                    "marks": [],
+                    "data": {}
+                  },
+                  {
+                    "nodeType": "text",
+                    "value": "actualizado anualmente",
+                    "marks": [
+                      {
+                        "type": "italic"
+                      }
+                    ],
+                    "data": {}
+                  }
+                ],
+                "data": {}
+              }
+            ],
+            "data": {}
+          },
+          {
+            "nodeType": "list-item",
+            "content": [
+              {
+                "nodeType": "paragraph",
+                "content": [
+                  {
+                    "nodeType": "text",
                     "value": "Registros de escrituras de ACRIS ",
                     "marks": [
                       {

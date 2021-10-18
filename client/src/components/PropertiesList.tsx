@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import ReactTable from "react-table";
 import Browser from "../util/browser";
+import Loader from "../components/Loader";
 
 import "react-table/react-table.css";
 import "styles/PropertiesList.css";
@@ -17,12 +18,17 @@ import Helpers, { longDateOptions } from "../util/helpers";
 import { AddressRecord, HpdComplaintCount } from "./APIDataTypes";
 import { withMachineInStateProps } from "state-machine";
 import { AddressPageRoutes } from "routes";
-import { createRef } from "react";
 import classnames from "classnames";
 
 export const isPartOfGroupSale = (saleId: string, addrs: AddressRecord[]) => {
   const addrsWithMatchingSale = addrs.filter((addr) => addr.lastsaleacrisid === saleId);
   return addrsWithMatchingSale.length > 1;
+};
+
+const formatAbatementStartYear = (year: number | null, i18n: I18n) => {
+  const thisYear = new Date().getFullYear();
+  if (!year) return null;
+  return year > thisYear ? i18n._(t`Starts ${year}`) : i18n._(t`Since ${year}`);
 };
 
 const findMostCommonType = (complaints: HpdComplaintCount[] | null) =>
@@ -55,6 +61,8 @@ const getWidthFromLabel = (label: string, customDefaultWidth?: number) => {
 const FIRST_COLUMN_WIDTH = 130;
 const HEADER_HEIGHT = 30;
 
+const MAX_TABLE_ROWS_PER_PAGE = 500;
+
 const secondColumnStyle = {
   marginLeft: `${FIRST_COLUMN_WIDTH}px`,
 };
@@ -73,7 +81,7 @@ const PropertiesListWithoutI18n: React.FC<
   const addrs = props.state.context.portfolioData.assocAddrs;
   const rsunitslatestyear = props.state.context.portfolioData.searchAddr.rsunitslatestyear;
 
-  const lastColumnRef = createRef<any>();
+  const lastColumnRef = useRef<HTMLDivElement>(null);
   const isLastColumnVisible = Helpers.useOnScreen(lastColumnRef);
   /**
    * For older browsers that do not support the `useOnScreen` hook,
@@ -107,17 +115,65 @@ const PropertiesListWithoutI18n: React.FC<
     if (!isOlderBrowser && tableRef?.current?.offsetTop)
       setHeaderTopSpacing(tableRef.current.offsetTop);
   }, [isTableVisible, locale, windowWidth, windowHeight, isOlderBrowser]);
-
   return (
     <div
       className={classnames("PropertiesList", hideScrollFade && "hide-scroll-fade")}
       ref={tableRef}
     >
+      {isTableVisible ? (
+        <TableOfData
+          addrs={addrs}
+          headerTopSpacing={headerTopSpacing}
+          i18n={i18n}
+          locale={locale}
+          rsunitslatestyear={rsunitslatestyear}
+          onOpenDetail={props.onOpenDetail}
+          addressPageRoutes={props.addressPageRoutes}
+          ref={lastColumnRef}
+        />
+      ) : (
+        <Loader loading={true} classNames="Loader-map">
+          {addrs.length > MAX_TABLE_ROWS_PER_PAGE ? (
+            <>
+              <Trans>Loading {addrs.length} rows</Trans>
+              <br />
+              <Trans>(this may take a while)</Trans>
+            </>
+          ) : (
+            <Trans>Loading</Trans>
+          )}
+        </Loader>
+      )}
+    </div>
+  );
+};
+
+type TableOfDataProps = {
+  addrs: AddressRecord[];
+  headerTopSpacing: number | undefined;
+  i18n: I18n;
+  locale: SupportedLocale;
+  rsunitslatestyear: number;
+  onOpenDetail: (bbl: string) => void;
+  addressPageRoutes: AddressPageRoutes;
+};
+
+/**
+ * This component memoizes the portfolio table via React.memo
+ * in an attempt to improve performance, particularly on IE11.
+ */
+const TableOfData = React.memo(
+  React.forwardRef<HTMLDivElement, TableOfDataProps>((props, lastColumnRef) => {
+    const { addrs, headerTopSpacing, i18n, locale, rsunitslatestyear } = props;
+
+    return (
       <ReactTableFixedColumns
         data={addrs}
         minRows={10}
         defaultPageSize={addrs.length}
-        showPagination={false}
+        showPagination={addrs.length > MAX_TABLE_ROWS_PER_PAGE}
+        pageSize={MAX_TABLE_ROWS_PER_PAGE}
+        showPageSizeOptions={false}
         resizable={!Browser.isMobile()}
         defaultSorted={[
           {
@@ -382,6 +438,37 @@ const PropertiesListWithoutI18n: React.FC<
             ],
           },
           {
+            Header: i18n._(t`Tax Exemptions`),
+            columns: [
+              {
+                Header: (
+                  <>
+                    J-51
+                    <ArrowIcon />
+                  </>
+                ),
+                accessor: (d) => formatAbatementStartYear(d.yearstartedj51, i18n),
+                id: "yearstartedj51",
+                style: {
+                  whiteSpace: "unset",
+                },
+              },
+              {
+                Header: (
+                  <>
+                    421a
+                    <ArrowIcon />
+                  </>
+                ),
+                accessor: (d) => formatAbatementStartYear(d.yearstarted421a, i18n),
+                id: "yearstarted421a",
+                style: {
+                  whiteSpace: "unset",
+                },
+              },
+            ],
+          },
+          {
             Header: i18n._(t`Last Sale`),
             columns: [
               {
@@ -487,9 +574,9 @@ const PropertiesListWithoutI18n: React.FC<
         }}
         className="-striped -highlight"
       />
-    </div>
-  );
-};
+    );
+  })
+);
 
 const PropertiesList = withI18n()(PropertiesListWithoutI18n);
 

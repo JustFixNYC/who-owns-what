@@ -9,13 +9,13 @@ from .nycdb_context import TEST_DB
 
 
 def exec_outside_of_transaction(sql: str):
-    '''
+    """
     Execute the given SQL outside the context of a transaction,
     on the default Postgres database.
-    '''
+    """
 
     kwargs = TEST_DB.psycopg2_connect_kwargs()
-    kwargs['database'] = 'postgres'
+    kwargs["database"] = "postgres"
     conn = psycopg2.connect(**kwargs)
     conn.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
     with conn.cursor() as curs:
@@ -24,15 +24,15 @@ def exec_outside_of_transaction(sql: str):
 
 
 def drop_db(dbname: str):
-    '''Drop the given Postgres database.'''
+    """Drop the given Postgres database."""
 
-    exec_outside_of_transaction('DROP DATABASE ' + dbname)
+    exec_outside_of_transaction("DROP DATABASE " + dbname)
 
 
 def create_db(dbname: str):
-    '''Create the given Postgres database.'''
+    """Create the given Postgres database."""
 
-    exec_outside_of_transaction('CREATE DATABASE ' + dbname)
+    exec_outside_of_transaction("CREATE DATABASE " + dbname)
 
 
 @pytest.fixture(scope="module")
@@ -70,25 +70,25 @@ def db():
 
 
 class DbContext:
-    '''
+    """
     An object facilitating interactions with the database from tests.
-    '''
+    """
 
     @contextmanager
     def connect(self):
-        '''
+        """
         Connect to the database.
-        '''
+        """
 
         with psycopg2.connect(**TEST_DB.psycopg2_connect_kwargs()) as conn:
             yield conn
 
     @contextmanager
     def cursor(self):
-        '''
+        """
         Connect to the database and get a cursor that supports dictionary-like
         rows.
-        '''
+        """
 
         with self.connect() as conn:
             with conn.cursor(cursor_factory=psycopg2.extras.DictCursor) as cur:

@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import FileSaver from "file-saver";
 
 import AddressToolbar from "../components/AddressToolbar";
 import PropertiesMap from "../components/PropertiesMap";
@@ -7,7 +6,6 @@ import PropertiesList from "../components/PropertiesList";
 import PropertiesSummary from "../components/PropertiesSummary";
 import Indicators from "../components/Indicators";
 import DetailView from "../components/DetailView";
-import APIClient from "../components/APIClient";
 import Loader from "../components/Loader";
 
 import "styles/AddressPage.css";
@@ -38,6 +36,7 @@ type RouteState = {
 type AddressPageProps = RouteComponentProps<RouteParams, {}, RouteState> &
   withMachineProps & {
     currentTab: number;
+    useNewPortfolioMethod?: boolean;
   };
 
 type State = {
@@ -78,7 +77,11 @@ export default class AddressPage extends Component<AddressPageProps, State> {
       searchAddrsAreEqual(state.context.portfolioData.searchAddr, validateRouteParams(match.params))
     )
       return;
-    send({ type: "SEARCH", address: validateRouteParams(match.params) });
+    send({
+      type: "SEARCH",
+      address: validateRouteParams(match.params),
+      useNewPortfolioMethod: this.props.useNewPortfolioMethod || false,
+    });
     /* When searching for user's address, let's reset the DetailView to the "closed" state 
     so it can pop into view once the address is found */
     this.handleCloseDetail();
@@ -106,15 +109,8 @@ export default class AddressPage extends Component<AddressPageProps, State> {
     this.handleOpenDetail();
   };
 
-  // should this properly live in AddressToolbar? you tell me
-  handleExportClick = (bbl: string) => {
-    APIClient.getAddressExport(bbl)
-      .then((response) => response.blob())
-      .then((blob) => FileSaver.saveAs(blob, "export.csv"));
-  };
-
   render() {
-    const { state, send } = this.props;
+    const { state, send, useNewPortfolioMethod } = this.props;
 
     if (state.matches("bblNotFound")) {
       window.gtag("event", "bbl-not-found-page");
@@ -128,7 +124,10 @@ export default class AddressPage extends Component<AddressPageProps, State> {
     } else if (state.matches("portfolioFound")) {
       window.gtag("event", "portfolio-found-page");
       const { assocAddrs, searchAddr } = state.context.portfolioData;
-      const routes = createAddressPageRoutes(validateRouteParams(this.props.match.params));
+      const routes = createAddressPageRoutes(
+        validateRouteParams(this.props.match.params),
+        useNewPortfolioMethod
+      );
 
       return (
         <Page
@@ -136,11 +135,7 @@ export default class AddressPage extends Component<AddressPageProps, State> {
         >
           <div className="AddressPage">
             <div className="AddressPage__info">
-              <AddressToolbar
-                onExportClick={() => this.handleExportClick(searchAddr.bbl)}
-                searchAddr={searchAddr}
-                numOfAssocAddrs={assocAddrs.length}
-              />
+              <AddressToolbar searchAddr={searchAddr} assocAddrs={assocAddrs} />
               <div className="float-left">
                 <h1 className="primary">
                   <Trans>

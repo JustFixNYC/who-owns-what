@@ -7,23 +7,46 @@ import Loader from "../components/Loader";
 import LegalFooter from "../components/LegalFooter";
 import { UsefulLinks } from "./UsefulLinks";
 import { withI18n } from "@lingui/react";
-import { Trans } from "@lingui/macro";
+import { I18n } from "@lingui/core";
+import { t, Trans } from "@lingui/macro";
 
 import "styles/Indicators.css";
-import {
-  IndicatorsDatasetRadio,
-  INDICATORS_DATASETS,
-  IndicatorsDatasetId,
-} from "./IndicatorsDatasets";
-import { Link } from "react-router-dom";
+import { IndicatorsDatasetRadio, INDICATORS_DATASETS } from "./IndicatorsDatasets";
 import {
   indicatorsInitialState,
   IndicatorsProps,
   IndicatorsState,
-  IndicatorChartShift,
+  IndicatorsChartShift,
   IndicatorsTimeSpan,
+  indicatorsTimeSpans,
+  IndicatorsDatasetId,
+  indicatorsDatasetIds,
 } from "./IndicatorsTypes";
 import { NetworkErrorMessage } from "./NetworkErrorMessage";
+import { Dropdown } from "./Dropdown";
+
+type TimeSpanTranslationsMap = {
+  [K in IndicatorsTimeSpan]: (i18n: I18n) => string;
+};
+
+const timeSpanTranslations: TimeSpanTranslationsMap = {
+  month: (i18n) => i18n._(t`month`),
+  quarter: (i18n) => i18n._(t`quarter`),
+  year: (i18n) => i18n._(t`year`),
+};
+
+/**
+ * Generates an appropriate width for a dropdown selection menu
+ * that's scaled according to the longest text selection.
+ */
+const getDropdownWidthFromLongestSelection = (selections: string[]) => {
+  const LETTER_WIDTH = 10;
+  const MENU_BUFFER = 70;
+  const MAX_WIDTH = 350;
+
+  const lengthOfLongestSelection = Math.max(...selections.map((selection) => selection.length));
+  return Math.min(lengthOfLongestSelection * LETTER_WIDTH + MENU_BUFFER, MAX_WIDTH);
+};
 
 class IndicatorsWithoutI18n extends Component<IndicatorsProps, IndicatorsState> {
   constructor(props: IndicatorsProps) {
@@ -33,7 +56,7 @@ class IndicatorsWithoutI18n extends Component<IndicatorsProps, IndicatorsState> 
   }
 
   /** Shifts the X-axis 'left' or 'right', or 'reset' the X-axis to default */
-  handleXAxisChange(shift: IndicatorChartShift) {
+  handleXAxisChange(shift: IndicatorsChartShift) {
     const span = this.state.xAxisViewableColumns;
     const activeVis = this.state.activeVis;
     const labelsArray =
@@ -170,7 +193,6 @@ class IndicatorsWithoutI18n extends Component<IndicatorsProps, IndicatorsState> 
       const { state, send } = this.props;
 
       const { detailAddr } = state.context.portfolioData;
-      const { bbl } = detailAddr;
 
       const { activeVis } = this.state;
       const activeData = state.context.timelineData[activeVis];
@@ -183,6 +205,13 @@ class IndicatorsWithoutI18n extends Component<IndicatorsProps, IndicatorsState> 
         : null;
 
       const i18n = this.props.i18n;
+
+      const datasetSelectionNames = indicatorsDatasetIds.map((datasetId) =>
+        INDICATORS_DATASETS[datasetId].name(i18n)
+      );
+      const timeSpanSelectionNames = indicatorsTimeSpans.map((timeSpan) =>
+        timeSpanTranslations[timeSpan](i18n)
+      );
 
       const detailAddrStr = `${detailAddr.housenumber} ${Helpers.titleCase(
         detailAddr.streetname
@@ -198,113 +227,89 @@ class IndicatorsWithoutI18n extends Component<IndicatorsProps, IndicatorsState> 
                 {detailAddr && (
                   <div className="title-card">
                     <h4 className="title">
-                      <span>
-                        <Trans>BUILDING:</Trans> <b>{detailAddrStr}</b>
-                      </span>
+                      <b>{detailAddrStr}</b>
                     </h4>
-                    <br />
-                    <Link
-                      to={this.props.addressPageRoutes.overview}
-                      onClick={() => this.props.onBackToOverview(bbl)}
-                    >
-                      <Trans>Back to Overview</Trans>
-                    </Link>
                   </div>
                 )}
-
                 <div className="Indicators__links">
-                  <div className="Indicators__linksContainer">
-                    <em className="Indicators__linksTitle">
-                      <Trans>Select a Dataset:</Trans>
-                    </em>{" "}
+                  <div
+                    className="Indicators__linksContainer"
+                    style={{
+                      width: `${getDropdownWidthFromLongestSelection(datasetSelectionNames)}px`,
+                    }}
+                  >
+                    <span className="Indicators__linksTitle text-uppercase">
+                      <Trans>Display:</Trans>
+                    </span>{" "}
                     <br />
-                    <IndicatorsDatasetRadio
-                      id="complaints"
-                      activeId={activeVis}
-                      onChange={this.handleVisChange}
-                    />
-                    <IndicatorsDatasetRadio
-                      id="viols"
-                      activeId={activeVis}
-                      onChange={this.handleVisChange}
-                    />
-                    <IndicatorsDatasetRadio
-                      id="permits"
-                      activeId={activeVis}
-                      onChange={this.handleVisChange}
-                    />
+                    <Dropdown
+                      buttonLabel={INDICATORS_DATASETS[activeVis].name(i18n)}
+                      buttonAriaLabel={`${i18n._(t`Display:`)} ${INDICATORS_DATASETS[
+                        activeVis
+                      ].name(i18n)}`}
+                    >
+                      {indicatorsDatasetIds.map((datasetKey, i) => (
+                        <IndicatorsDatasetRadio
+                          key={i}
+                          id={datasetKey}
+                          activeId={activeVis}
+                          onChange={this.handleVisChange}
+                        />
+                      ))}
+                    </Dropdown>
                   </div>
-                  <div className="Indicators__linksContainer">
-                    <em className="Indicators__linksTitle">
+                  <div
+                    className="Indicators__linksContainer"
+                    style={{
+                      width: `${getDropdownWidthFromLongestSelection(timeSpanSelectionNames)}px`,
+                    }}
+                  >
+                    <span className="Indicators__linksTitle text-uppercase">
                       <Trans>View by:</Trans>
-                    </em>
+                    </span>
                     <br />
-                    <li className="menu-item">
-                      <label
-                        className={
-                          "form-radio" + (this.state.activeTimeSpan === "month" ? " active" : "")
-                        }
-                        onClick={() => {
-                          window.gtag("event", "month-timeline-tab");
-                        }}
-                      >
-                        <input
-                          type="radio"
-                          name="month"
-                          checked={this.state.activeTimeSpan === "month" ? true : false}
-                          onChange={() => this.handleTimeSpanChange("month")}
-                        />
-                        <i className="form-icon" /> <Trans>Month</Trans>
-                      </label>
-                    </li>
-                    <li className="menu-item">
-                      <label
-                        className={
-                          "form-radio" + (this.state.activeTimeSpan === "quarter" ? " active" : "")
-                        }
-                        onClick={() => {
-                          window.gtag("event", "quarter-timeline-tab");
-                        }}
-                      >
-                        <input
-                          type="radio"
-                          name="quarter"
-                          checked={this.state.activeTimeSpan === "quarter" ? true : false}
-                          onChange={() => this.handleTimeSpanChange("quarter")}
-                        />
-                        <i className="form-icon" /> <Trans>Quarter</Trans>
-                      </label>
-                    </li>
-                    <li className="menu-item">
-                      <label
-                        className={
-                          "form-radio" + (this.state.activeTimeSpan === "year" ? " active" : "")
-                        }
-                        onClick={() => {
-                          window.gtag("event", "year-timeline-tab");
-                        }}
-                      >
-                        <input
-                          type="radio"
-                          name="year"
-                          checked={this.state.activeTimeSpan === "year" ? true : false}
-                          onChange={() => this.handleTimeSpanChange("year")}
-                        />
-                        <i className="form-icon" /> <Trans>Year</Trans>
-                      </label>
-                    </li>
+                    <Dropdown
+                      buttonLabel={timeSpanTranslations[this.state.activeTimeSpan](i18n)}
+                      buttonAriaLabel={`${i18n._(t`View by:`)} ${timeSpanTranslations[
+                        this.state.activeTimeSpan
+                      ](i18n)}`}
+                    >
+                      {indicatorsTimeSpans.map((timespan, i) => (
+                        <li className="menu-item" key={i}>
+                          <label
+                            className={
+                              "form-radio" +
+                              (this.state.activeTimeSpan === timespan ? " active" : "")
+                            }
+                            onClick={() => {
+                              window.gtag("event", "month-timeline-tab");
+                            }}
+                          >
+                            <input
+                              type="radio"
+                              name={timespan}
+                              checked={this.state.activeTimeSpan === timespan ? true : false}
+                              onChange={() => this.handleTimeSpanChange(timespan)}
+                            />
+                            <i className="form-icon" /> {timeSpanTranslations[timespan](i18n)}
+                          </label>
+                        </li>
+                      ))}
+                    </Dropdown>
                   </div>
                 </div>
-
                 <span className="title viz-title">
                   {datasetDescription &&
                     indicatorDataTotal !== null &&
                     datasetDescription.quantity(i18n, indicatorDataTotal)}
                 </span>
-
                 <div className="Indicators__viz">
                   <button
+                    aria-label={i18n._(t`Move chart data left.`)}
                     aria-hidden={
+                      this.state.xAxisStart === 0 || this.state.activeTimeSpan === "year"
+                    }
+                    aria-disabled={
                       this.state.xAxisStart === 0 || this.state.activeTimeSpan === "year"
                     }
                     className={
@@ -321,7 +326,12 @@ class IndicatorsWithoutI18n extends Component<IndicatorsProps, IndicatorsState> 
                   </button>
                   <IndicatorsViz state={state} send={send} {...this.state} />
                   <button
+                    aria-label={i18n._(t`Move chart data right.`)}
                     aria-hidden={
+                      this.state.xAxisStart + this.state.xAxisViewableColumns >= xAxisLength ||
+                      this.state.activeTimeSpan === "year"
+                    }
+                    aria-disabled={
                       this.state.xAxisStart + this.state.xAxisViewableColumns >= xAxisLength ||
                       this.state.activeTimeSpan === "year"
                     }

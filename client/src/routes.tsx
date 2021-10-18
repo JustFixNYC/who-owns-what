@@ -7,10 +7,15 @@ export type AddressPageUrlParams = SearchAddressWithoutBbl & {
 
 export type AddressPageRoutes = ReturnType<typeof createAddressPageRoutes>;
 
-export const createRouteForAddressPage = (params: AddressPageUrlParams) => {
+export const createRouteForAddressPage = (
+  params: AddressPageUrlParams,
+  addWowzaToRoute?: boolean
+) => {
   let route = `/address/${encodeURIComponent(params.boro)}/${encodeURIComponent(
     params.housenumber ? params.housenumber : " "
   )}/${encodeURIComponent(params.streetname)}`;
+
+  if (addWowzaToRoute) route = "/wowza" + route;
 
   if (route.includes(" ")) {
     reportError("An Address Page URL was not encoded properly! There's a space in the URL.");
@@ -28,9 +33,12 @@ export const createRouteForFullBbl = (bbl: string) => {
   return `/bbl/${bbl}`;
 };
 
-export const createAddressPageRoutes = (prefix: string | AddressPageUrlParams) => {
+export const createAddressPageRoutes = (
+  prefix: string | AddressPageUrlParams,
+  isWowzaRoute?: boolean
+) => {
   if (typeof prefix === "object") {
-    prefix = createRouteForAddressPage(prefix);
+    prefix = createRouteForAddressPage(prefix, isWowzaRoute);
   }
   return {
     overview: `${prefix}`,
@@ -45,18 +53,23 @@ export const createWhoOwnsWhatRoutePaths = (prefix?: string) => {
   return {
     home: `${pathPrefix}/`,
     addressPage: createAddressPageRoutes(`${pathPrefix}/address/:boro/:housenumber/:streetname`),
-    /** Note: this path doesn't correspond to a stable page on the site. It simply provides an entry point that
-     * immediately redirects to an addressPageOverview. This path is helpful for folks who, say, have a list of
-     * boro, block, lot values in a spreadsheet and want to easily generate direct links to WhoOwnsWhat.
-     * See `BBLPage.tsx` for more details.
-     */
-    bbl: `${pathPrefix}/bbl/:boro/:block/:lot`,
+    wowzaAddressPage: createAddressPageRoutes(
+      `${pathPrefix}/wowza/address/:boro/:housenumber/:streetname`
+    ),
     /** Note: this path doesn't correspond to a stable page on the site. It simply provides an entry point that
      * immediately redirects to an addressPageOverview. This path is helpful for folks who, say, have a list of
      * bbl values in a spreadsheet and want to easily generate direct links to WhoOwnsWhat.
      * See `BBLPage.tsx` for more details.
      */
-    bblWithFullBblInUrl: `${pathPrefix}/bbl/:bbl`,
+    bbl: `${pathPrefix}/bbl/:bbl`,
+    /** This route path corresponds to a page identical to the `bbl` path above, just specifying that the user
+     * requests to use the new "WOWZA" portfolio method.
+     */
+    wowzaBbl: `${pathPrefix}/wowza/bbl/:bbl`,
+    /** This route path corresponds to a page identical to the `bbl` route above, but with an older url
+     * pattern that we want to support so as not to break any old links that exist out in the web.
+     */
+    bblSeparatedIntoParts: `${pathPrefix}/bbl/:boro/:block/:lot`,
     about: `${pathPrefix}/about`,
     howToUse: `${pathPrefix}/how-to-use`,
     methodology: `${pathPrefix}/how-it-works`,

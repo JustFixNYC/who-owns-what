@@ -12,4 +12,10 @@ ignore =
     # Sometimes we want to use f-strings on multiple lines
     # of strings to keep formatting consistent, even though
     # some of the f-strings may not have placeholders.
-    F541
+    F541,    
+    # Disable "line break before binary operator"; seems to have been
+    # introduced in a very recent version of flake8 and we don't care.
+    W503,
+    # Black says we should ignore this one:
+    # https://black.readthedocs.io/en/stable/compatible_configs.html#flake8
+    E203

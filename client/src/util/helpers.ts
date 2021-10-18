@@ -1,14 +1,10 @@
-// import _clone from 'lodash/clone';
-// import _xor from 'lodash/xor';
-// import _keys from 'lodash/keys';
-import _pickBy from "lodash/pickBy";
-import { deepEqual as assertDeepEqual } from "assert";
 import { SupportedLocale } from "../i18n-base";
-import { HpdContactAddress, SearchAddressWithoutBbl } from "components/APIDataTypes";
+import { AddressRecord, HpdContactAddress, SearchAddressWithoutBbl } from "components/APIDataTypes";
 import { reportError } from "error-reporting";
 import { t } from "@lingui/macro";
 import { I18n, MessageDescriptor } from "@lingui/core";
 import React, { useEffect, useState } from "react";
+import _ from "lodash";
 
 /**
  * An array consisting of Who Owns What's standard enumerations for street names,
@@ -168,6 +164,39 @@ export default {
     return max;
   },
 
+  /**
+   * Same functionality as the built-in Array.prototype.flat() function,
+   * but with greater support across older browsers.
+   */
+  flattenArray(array: any[]): any[] {
+    return array.reduce((arr, elem) => arr.concat(elem), []);
+  },
+
+  getMostCommonElementsInArray(array: string[], numberOfResults: number): string[] {
+    const elementsByFrequency = _.countBy(array);
+    const sortedElementsByFrequency = Object.entries(elementsByFrequency).sort(
+      (a, b) => b[1] - a[1]
+    );
+    // Let's discard the frequency number and just return a simple array of strings, in order:
+    return sortedElementsByFrequency.slice(0, numberOfResults).map((a) => a[0]);
+  },
+
+  /**
+   * Note: while almost all address records will just have one landlord listed, there is a rare
+   * edge case where more than one distinct landlord name might be listed, so we return an array
+   * of names here to accommodate that edge case.
+   */
+  getLandlordNameFromAddress(addr: AddressRecord): string[] {
+    const { ownernames } = addr;
+    if (!ownernames) return [];
+    const landlords = ownernames.filter((owner) =>
+      ["HeadOfficer", "IndividualOwner", "CorporateOwner"].includes(owner.title)
+    );
+    const landlordNames = landlords.map((landlord) => landlord.value);
+    // Remove duplicate names:
+    return Array.from(new Set(landlordNames));
+  },
+
   splitBBL(bbl: string) {
     const bblArr = bbl.split("");
     const boro = bblArr.slice(0, 1).join("");
@@ -178,15 +207,6 @@ export default {
 
   addrsAreEqual<T extends { bbl: string }>(a: T, b: T) {
     return a.bbl === b.bbl;
-  },
-
-  jsonEqual(a: any, b: any): boolean {
-    try {
-      assertDeepEqual(a, b);
-      return true;
-    } catch (e) {
-      return false;
-    }
   },
 
   formatPrice(amount: number, locale?: SupportedLocale): string {
@@ -217,12 +237,6 @@ export default {
       reportError(`Address improperly formatted for DDO: ${addr || "<falsy value>"}`);
       return `https://${subdomain}.justfix.nyc/?utm_source=whoownswhat&utm_content=take_action_failed_attempt&utm_medium=${utm_medium}`;
     }
-  },
-
-  intersectAddrObjects(a: any, b: any) {
-    return _pickBy(a, function (v, k) {
-      return b[k] === v;
-    });
   },
 
   capitalize(string: string): string {

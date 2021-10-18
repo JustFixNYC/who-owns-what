@@ -7,26 +7,14 @@ sample_json_string_with_null = '[{"foo": "bar", "beep": null}]'
 
 
 class TestDataUtilsWork:
-    @pytest.mark.parametrize("input,expected", [
-        (None, None),
-        ('1', 1),
-        (1, 1)
-    ])
+    @pytest.mark.parametrize("input,expected", [(None, None), ("1", 1), (1, 1)])
     def test_int_or_none_works(self, input, expected):
         assert int_or_none(input) == expected
 
-    @pytest.mark.parametrize("input,expected", [
-        (None, None),
-        (1.0, 1.0),
-        ('1.0', 1.0)
-    ])
+    @pytest.mark.parametrize("input,expected", [(None, None), (1.0, 1.0), ("1.0", 1.0)])
     def test_float_or_none_works(self, input, expected):
         assert float_or_none(input) == expected
 
-    @pytest.mark.parametrize("input,expected", [
-        (None, None),
-        ('1', '1'),
-        (1, '1')
-    ])
+    @pytest.mark.parametrize("input,expected", [(None, None), ("1", "1"), (1, "1")])
     def test_str_or_none_works(self, input, expected):
         assert str_or_none(input) == expected

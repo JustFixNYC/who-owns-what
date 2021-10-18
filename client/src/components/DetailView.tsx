@@ -103,8 +103,8 @@ const LearnMoreAccordion = () => (
         <Trans>
           <p>
             While the legal owner of a building is often a company (usually called an “LLC”), these
-            names and business addresses registered with HPD offer a clearer picture of who the
-            landlord really is.
+            names and business addresses registered with HPD offer a clearer picture of who really
+            controls the building.
           </p>
           <p>
             People listed here as “Head Officer” or “Owner” usually have ties to building ownership,
@@ -127,6 +127,10 @@ const LearnMoreAccordion = () => (
       </Accordion>
     )}
   </I18n>
+);
+
+const HowIsBldgAssociatedHeader = () => (
+  <Trans>How is this building associated to this portfolio?</Trans>
 );
 
 class DetailViewWithoutI18n extends Component<Props, State> {
@@ -152,7 +156,8 @@ class DetailViewWithoutI18n extends Component<Props, State> {
     const isMobile = Browser.isMobile();
     const { i18n } = this.props;
     const locale = (i18n.language as SupportedLocale) || "en";
-    const { assocAddrs, detailAddr, searchAddr } = this.props.state.context.portfolioData;
+    const { useNewPortfolioMethod, portfolioData } = this.props.state.context;
+    const { assocAddrs, detailAddr, searchAddr } = portfolioData;
 
     // Let's save some variables that will be helpful in rendering the front-end component
     let takeActionURL, formattedRegEndDate, streetViewAddr, ownernames, userOwnernames;
@@ -207,15 +212,22 @@ class DetailViewWithoutI18n extends Component<Props, State> {
                         {Helpers.titleCase(detailAddr.streetname)},{" "}
                         {Helpers.titleCase(detailAddr.boro)}
                       </h4>
-                      {!Helpers.addrsAreEqual(detailAddr, searchAddr) && (
-                        <a // eslint-disable-line jsx-a11y/anchor-is-valid
-                          onClick={() => this.setState({ showCompareModal: true })}
-                        >
-                          <Trans render="i">
-                            How is this building associated to this portfolio?
-                          </Trans>
-                        </a>
-                      )}
+                      {!Helpers.addrsAreEqual(detailAddr, searchAddr) &&
+                        (useNewPortfolioMethod ? (
+                          <Link to={this.props.addressPageRoutes.summary}>
+                            <i>
+                              <HowIsBldgAssociatedHeader />
+                            </i>
+                          </Link>
+                        ) : (
+                          <a // eslint-disable-line jsx-a11y/anchor-is-valid
+                            onClick={() => this.setState({ showCompareModal: true })}
+                          >
+                            <i>
+                              <HowIsBldgAssociatedHeader />
+                            </i>
+                          </a>
+                        ))}
                     </div>
                     <div className="card-body">
                       <BuildingStatsTable addr={detailAddr} />
@@ -277,6 +289,15 @@ class DetailViewWithoutI18n extends Component<Props, State> {
                           </div>
                         </div>
                       )}
+                      {detailAddr.lastsaledate &&
+                        detailAddr.lastsaledate > detailAddr.registrationenddate && (
+                          <p className="text-danger text-italic">
+                            <Trans>
+                              Warning: This building has an expired registration and was sold after
+                              the expiration date. The landlord info listed here may be outdated.
+                            </Trans>
+                          </p>
+                        )}
                       <div className="card-body-registration">
                         <p>
                           <b>
@@ -357,7 +378,9 @@ class DetailViewWithoutI18n extends Component<Props, State> {
               onClose={() => this.setState({ showCompareModal: false })}
             >
               <h6>
-                <Trans render="b">How is this building associated to this portfolio?</Trans>
+                <b>
+                  <HowIsBldgAssociatedHeader />
+                </b>
               </h6>
               <Trans render="p">
                 We compare your search address with a database of over 200k buildings to identify a

@@ -14,7 +14,7 @@ export type SearchAddressWithoutBbl = Omit<SearchAddress, "bbl">;
 
 // TYPES ASSOCIATED WITH ADDRESS SEARCH QUERY:
 
-type HpdOwnerContact = {
+export type HpdOwnerContact = {
   title: string;
   value: string;
 };
@@ -77,21 +77,45 @@ export type AddressRecord = {
   totalviolations: number;
   unitsres: number | null;
   yearbuilt: number | null;
+  /** Note: in some rare cases, the year listed as the start of this abatement program is actually in the future! */
+  yearstartedj51: number | null;
+  /** Note: in some rare cases, the year listed as the start of this abatement program is actually in the future! */
+  yearstarted421a: number | null;
   zip: string | null;
+};
+
+export type PortfolioGraphNode = {
+  id: number;
+  value: {
+    kind: "name" | "bizaddr";
+    value: string;
+  };
+};
+
+export type PortfolioGraphEdge = {
+  from: number;
+  to: number;
+  reg_contacts: number;
+};
+
+export type RawPortfolioGraphJson = {
+  nodes: PortfolioGraphNode[];
+  edges: PortfolioGraphEdge[];
 };
 
 export type SearchResults = {
   addrs: AddressRecord[];
   geosearch?: GeoSearchData;
+  graph?: RawPortfolioGraphJson;
 };
 
-// TYPES ASSOCIATED WITH SUMMARY AGGREGATE QUERY:
+// TYPES ASSOCIATED WITH SUMMARY AGGREGATION:
 
-type AddressLocation = {
+export type AddressLocation = {
   boro: Borough;
   housenumber: string;
-  lat: number;
-  lng: number;
+  lat: number | null;
+  lng: number | null;
   streetname: string;
 };
 
@@ -119,6 +143,9 @@ export type SummaryStatsRecord = {
   topbusinessaddr: string | null;
   topcorp: string | null;
   topowners: string[];
+  totalhpdcomplaints: number;
+  totalrecenthpdcomplaints: number;
+  recenthpdcomplaintsbytype: HpdComplaintCount[];
   totalevictions: number | null;
   totalopenviolations: number;
   totalrsdiff: number | null;
@@ -128,11 +155,6 @@ export type SummaryStatsRecord = {
   units: number;
   violationsaddr: HpdViolationsAddress;
 };
-
-export type SummaryResults = {
-  result: SummaryStatsRecord[];
-};
-
 // TYPES ASSOCIATED WITH BUILDING INFO QUERY:
 
 export type BuildingInfoRecord = {
@@ -162,14 +184,17 @@ export type BuildingInfoResults = {
 
 export type MonthlyTimelineData = {
   month: string;
-  complaints_emergency: number;
-  complaints_nonemergency: number;
-  complaints_total: number;
-  permits_total: number;
-  viols_class_a: number;
-  viols_class_b: number;
-  viols_class_c: number;
-  viols_total: number;
+  hpdcomplaints_emergency: number;
+  hpdcomplaints_nonemergency: number;
+  hpdcomplaints_total: number;
+  dobpermits_total: number;
+  hpdviolations_class_a: number;
+  hpdviolations_class_b: number;
+  hpdviolations_class_c: number;
+  hpdviolations_total: number;
+  dobviolations_regular: number;
+  dobviolations_ecb: number;
+  dobviolations_total: number;
 };
 
 export type IndicatorsHistoryResults = {

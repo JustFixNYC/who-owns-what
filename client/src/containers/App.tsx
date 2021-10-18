@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { Trans, t } from "@lingui/macro";
-import FocusTrap from "focus-trap-react";
 
 import "styles/App.css";
 
 import ScrollToTop from "../components/ScrollToTop";
 import SocialShare from "../components/SocialShare";
 import Modal from "../components/Modal";
+import FeatureCalloutWidget from "../components/FeatureCalloutWidget";
 
 // import top-level containers (i.e. pages)
 import {
@@ -21,6 +21,7 @@ import { withI18n, withI18nProps } from "@lingui/react";
 import { createWhoOwnsWhatRoutePaths } from "../routes";
 import { VersionUpgrader } from "./VersionUpgrader";
 import { useMachine } from "@xstate/react";
+
 import HomePage from "./HomePage";
 import AddressPage from "./AddressPage";
 import BBLPage from "./BBLPage";
@@ -33,6 +34,7 @@ import { DevPage } from "./DevPage";
 import { wowMachine } from "state-machine";
 import { NotFoundPage } from "./NotFoundPage";
 import widont from "widont";
+import { Dropdown } from "components/Dropdown";
 
 const HomeLink = withI18n()((props: withI18nProps) => {
   const { i18n } = props;
@@ -75,8 +77,37 @@ const WhoOwnsWhatRoutes: React.FC<{}> = () => {
         path={paths.addressPage.summary}
         render={(props) => <AddressPage currentTab={3} {...machineProps} {...props} />}
       />
+      <Route
+        path={paths.wowzaAddressPage.overview}
+        render={(props) => (
+          <AddressPage currentTab={0} {...machineProps} {...props} useNewPortfolioMethod />
+        )}
+        exact
+      />
+      <Route
+        path={paths.wowzaAddressPage.timeline}
+        render={(props) => (
+          <AddressPage currentTab={1} {...machineProps} {...props} useNewPortfolioMethod />
+        )}
+      />
+      <Route
+        path={paths.wowzaAddressPage.portfolio}
+        render={(props) => (
+          <AddressPage currentTab={2} {...machineProps} {...props} useNewPortfolioMethod />
+        )}
+      />
+      <Route
+        path={paths.wowzaAddressPage.summary}
+        render={(props) => (
+          <AddressPage currentTab={3} {...machineProps} {...props} useNewPortfolioMethod />
+        )}
+      />
+      <Route path={paths.bblSeparatedIntoParts} component={BBLPage} />
       <Route path={paths.bbl} component={BBLPage} />
-      <Route path={paths.bblWithFullBblInUrl} component={BBLPage} />
+      <Route
+        path={paths.wowzaBbl}
+        render={(props) => <BBLPage {...props} useNewPortfolioMethod />}
+      />
       <Route path={paths.about} component={AboutPage} />
       <Route path={paths.howToUse} component={HowToUsePage} />
       <Route path={paths.methodology} component={MethodologyPage} />
@@ -108,16 +139,10 @@ const getMainNavLinks = () => {
 
 const App = () => {
   const [isEngageModalVisible, setEngageModalVisibility] = useState(false);
-  const [isDropdownVisible, setDropdownVisibility] = useState(false);
-
-  const closeDropdown = () => setDropdownVisibility(false);
-  const toggleDropdown = () => {
-    isDropdownVisible ? setDropdownVisibility(false) : setDropdownVisibility(true);
-  };
 
   const isDemoSite = process.env.REACT_APP_DEMO_SITE === "1";
+  const addFeatureCalloutWidget = process.env.REACT_APP_ENABLE_FEATURE_CALLOUT_WIDGET === "1";
   const version = process.env.REACT_APP_VERSION;
-  const warnAboutOldBrowser = process.env.REACT_APP_ENABLE_OLD_BROWSER_WARNING;
 
   return (
     <Router>
@@ -131,18 +156,6 @@ const App = () => {
             />
           )}
           <div className="App">
-            <div
-              onClick={closeDropdown}
-              className={"dropdown-overlay" + (isDropdownVisible ? "" : " hidden")}
-            />
-            {warnAboutOldBrowser && (
-              <div className="App__warning old_safari_only">
-                <Trans render="h3">
-                  Warning! This site doesn't fully work on older versions of Safari. Try a{" "}
-                  <a href="http://outdatedbrowser.com/en">modern browser</a>.
-                </Trans>
-              </div>
-            )}
             <div className="App__header navbar">
               <HomeLink />
               {isDemoSite && (
@@ -151,6 +164,7 @@ const App = () => {
                 </span>
               )}
               <nav className="inline">
+                {addFeatureCalloutWidget && <FeatureCalloutWidget />}
                 <span className="hide-lg">
                   {getMainNavLinks()}
                   {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
@@ -159,46 +173,22 @@ const App = () => {
                   </a>
                   <LocaleSwitcher />
                 </span>
-                <FocusTrap
-                  active={isDropdownVisible}
-                  focusTrapOptions={{
-                    clickOutsideDeactivates: true,
-                    returnFocusOnDeactivate: false,
-                    onDeactivate: closeDropdown,
-                  }}
-                >
-                  <div className="dropdown dropdown-right show-lg">
-                    <button
-                      aria-label="menu"
-                      aria-expanded={isDropdownVisible}
-                      className={
-                        "btn btn-link dropdown-toggle m-2" + (isDropdownVisible ? " active" : "")
-                      }
-                      onClick={() => toggleDropdown()}
-                    >
-                      <i className={"icon " + (isDropdownVisible ? "icon-cross" : "icon-menu")}></i>
-                    </button>
-                    <ul
-                      onClick={closeDropdown}
-                      className={"menu menu-reverse " + (isDropdownVisible ? "d-block" : "d-none")}
-                    >
-                      {getMainNavLinks().map((link, i) => (
-                        <li className="menu-item" key={i}>
-                          {link}
-                        </li>
-                      ))}
-                      <li className="menu-item">
-                        {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-                        <a href="#" onClick={() => setEngageModalVisibility(true)}>
-                          <Trans>Share</Trans>
-                        </a>
-                      </li>
-                      <li className="menu-item">
-                        <LocaleSwitcherWithFullLanguageName />
-                      </li>
-                    </ul>
-                  </div>
-                </FocusTrap>
+                <Dropdown>
+                  {getMainNavLinks().map((link, i) => (
+                    <li className="menu-item" key={i}>
+                      {link}
+                    </li>
+                  ))}
+                  <li className="menu-item">
+                    {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+                    <a href="#" onClick={() => setEngageModalVisibility(true)}>
+                      <Trans>Share</Trans>
+                    </a>
+                  </li>
+                  <li className="menu-item">
+                    <LocaleSwitcherWithFullLanguageName />
+                  </li>
+                </Dropdown>
               </nav>
 
               <Modal

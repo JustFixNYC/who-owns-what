@@ -1,9 +1,7 @@
-drop table if exists wow_bldgs cascade;
-
 -- This is mainly used as an easy way to provide contact info on request, not a replacement
 -- for cross-table analysis. Hence why the corpnames, businessaddrs, and ownernames are simplified
 -- with JSON and such.
-create table wow_bldgs as 
+create table wow_bldgs_temporary as 
 
 with deeds as (
 	select 
@@ -31,8 +29,8 @@ rentstab as (
   select
     ucbbl,
     coalesce(unitsstab2007, 0) rsunits2007,
-    coalesce(uc2019, 0) rsunitslatest,
-    coalesce(uc2019, 0) - coalesce(unitsstab2007, 0) rsdiff
+    coalesce(uc2020, 0) rsunitslatest,
+    coalesce(uc2020, 0) - coalesce(unitsstab2007, 0) rsdiff
   from rentstab_summary
   left join rentstab_v2 using(ucbbl)
 ),
@@ -82,8 +80,10 @@ select distinct on (registrations.bbl)
   rentstab.rsunits2007,
   rentstab.rsunitslatest,
   -- Year of most recent rent stab data:
-  2019 as rsunitslatestyear,
+  2020 as rsunitslatestyear,
   rentstab.rsdiff,
+  exemptions.yearstartedj51::smallint,
+  exemptions.yearstarted421a::smallint,
   firstdeeds.documentid as lastsaleacrisid,
   firstdeeds.docdate as lastsaledate,
   firstdeeds.docamount as lastsaleamount
@@ -111,9 +111,22 @@ left join (
   where residentialcommercialind = 'RESIDENTIAL'
   group by bbl
 ) evictions on (registrations.bbl = evictions.bbl)
+left join (
+	select 
+		bbl,
+		min(benftstart) filter (where description = 'J-51 ALTERATION') yearstartedj51,
+		min(benftstart) filter (where description != 'J-51 ALTERATION') yearstarted421a
+	from dof_exemptions
+	left join dof_exemption_classification_codes on exmpcode = exemptcode
+	where description = 'J-51 ALTERATION' or description ~* '421a'
+	group by bbl
+) exemptions on (registrations.bbl = exemptions.bbl)
 left join rentstab on (registrations.bbl = rentstab.ucbbl)
 left join complaints on (registrations.bbl = complaints.bbl)
 left join firstdeeds on (registrations.bbl = firstdeeds.bbl);
+
+drop table if exists wow_bldgs cascade;
+alter table wow_bldgs_temporary rename to wow_bldgs;
 
 create index on wow_bldgs (registrationid);
 create index on wow_bldgs (bbl);

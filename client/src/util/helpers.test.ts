@@ -1,5 +1,6 @@
 import helpers, { searchAddrsAreEqual } from "./helpers";
 import { SearchAddressWithoutBbl } from "components/APIDataTypes";
+import { SAMPLE_ADDRESS_RECORDS } from "state-machine-sample-data";
 
 describe("searchAddrsAreEqual()", () => {
   const searchAddr1: SearchAddressWithoutBbl = {
@@ -52,6 +53,102 @@ describe("maxArray()", () => {
   });
 });
 
+describe("flattenArray()", () => {
+  it("unpacks any elements that are themselves arrays", () => {
+    expect(helpers.flattenArray([1, [2, 3], 4])).toEqual([1, 2, 3, 4]);
+  });
+
+  it("keeps doubly-nested arrays intact", () => {
+    expect(helpers.flattenArray([1, [[2, 3], 4]])).toEqual([1, [2, 3], 4]);
+  });
+
+  it("returns the same array if no nested elements are themselves arrays", () => {
+    expect(helpers.flattenArray([1, 2, 3, 4])).toEqual([1, 2, 3, 4]);
+  });
+
+  it("returns empty arrays when given empty arrays", () => {
+    expect(helpers.flattenArray([])).toEqual([]);
+  });
+});
+
+describe("getMostCommonElementsInArray()", () => {
+  it("works", () => {
+    expect(helpers.getMostCommonElementsInArray(["red", "green", "green", "blue"], 1)).toEqual([
+      "green",
+    ]);
+  });
+
+  it("works even if trying to return more top elements than exist", () => {
+    expect(helpers.getMostCommonElementsInArray(["red", "green", "green"], 5)).toEqual([
+      "green",
+      "red",
+    ]);
+  });
+
+  it("works with empty arrays", () => {
+    expect(helpers.getMostCommonElementsInArray([], 1)).toEqual([]);
+  });
+});
+
+describe("getLandlordNameFromAddress()", () => {
+  it("returns an empty array when there are no ownernames", () => {
+    expect(
+      helpers.getLandlordNameFromAddress({
+        ...SAMPLE_ADDRESS_RECORDS[0],
+        ownernames: null,
+      })
+    ).toEqual([]);
+  });
+
+  it("returns an array with 1 landlord's name for addresses with one landlord", () => {
+    expect(
+      helpers.getLandlordNameFromAddress({
+        ...SAMPLE_ADDRESS_RECORDS[0],
+      })
+    ).toEqual(["MOSES GUTMAN"]);
+  });
+
+  it("returns an array with multiple landlord's name for addresses with more than one landlord", () => {
+    expect(
+      helpers.getLandlordNameFromAddress({
+        ...SAMPLE_ADDRESS_RECORDS[0],
+        ownernames: [
+          { title: "HeadOfficer", value: "MOSES GUTMAN" },
+          { title: "HeadOfficer", value: "BOOP GUTMAN" },
+          { title: "IndividualOwner", value: "BOOP JONES" },
+          { title: "Agent", value: "NATHAN SCHWARCZ" },
+        ],
+      })
+    ).toEqual(["MOSES GUTMAN", "BOOP GUTMAN", "BOOP JONES"]);
+  });
+
+  it("can detect all three types of landlord contact records", () => {
+    expect(
+      helpers.getLandlordNameFromAddress({
+        ...SAMPLE_ADDRESS_RECORDS[0],
+        ownernames: [
+          { title: "HeadOfficer", value: "SAM" },
+          { title: "CorporateOwner", value: "SAMARA" },
+          { title: "IndividualOwner", value: "TAHNEE" },
+        ],
+      })
+    ).toEqual(["SAM", "SAMARA", "TAHNEE"]);
+  });
+
+  it("filters out duplicate landlord names", () => {
+    expect(
+      helpers.getLandlordNameFromAddress({
+        ...SAMPLE_ADDRESS_RECORDS[0],
+        ownernames: [
+          { title: "HeadOfficer", value: "MOSES GUTMAN" },
+          { title: "CorporateOwner", value: "MOSES GUTMAN" },
+          { title: "Agent", value: "NATHAN SCHWARCZ" },
+        ],
+      })
+    ).toEqual(["MOSES GUTMAN"]);
+  });
+});
+
 test("splitBBL() works", () => {
   expect(helpers.splitBBL("3012380016")).toEqual({
     boro: "3",
@@ -63,17 +160,6 @@ test("splitBBL() works", () => {
 test("addrsAreEqual() works", () => {
   expect(helpers.addrsAreEqual({ bbl: "boop" }, { bbl: "boop" })).toBe(true);
   expect(helpers.addrsAreEqual({ bbl: "yes" }, { bbl: "no" })).toBe(false);
-});
-
-describe("jsonEqual()", () => {
-  it("returns true when objects are equal", () => {
-    expect(helpers.jsonEqual({ a: 1 }, { a: 1 })).toBe(true);
-    expect(helpers.jsonEqual({ a: 1, b: 2 }, { b: 2, a: 1 })).toBe(true);
-  });
-
-  it("returns false when objects are not equal", () => {
-    expect(helpers.jsonEqual({ a: 1 }, { b: 2 })).toBe(false);
-  });
 });
 
 describe("formatPrice()", () => {
@@ -91,12 +177,6 @@ test("createTakeActionURL() works", () => {
   ).toBe(
     "https://app.justfix.nyc/ddo?address=1%20BOOP%20RD&borough=QUEENS&utm_source=whoownswhat&utm_content=take_action&utm_medium=boop"
   );
-});
-
-test("intersectAddrObjects() works", () => {
-  expect(helpers.intersectAddrObjects({ a: 1, b: 2, c: 3, d: 9 }, { a: 5, b: 2, c: 9 })).toEqual({
-    b: 2,
-  });
 });
 
 test("capitalize() works", () => {

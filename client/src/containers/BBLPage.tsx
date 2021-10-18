@@ -18,7 +18,9 @@ export type BBLPageParams = {
   lot?: string;
 };
 
-type BBLPageProps = RouteComponentProps<BBLPageParams>;
+type BBLPageProps = RouteComponentProps<BBLPageParams> & {
+  useNewPortfolioMethod?: boolean;
+};
 
 export const getFullBblFromPageParams = (params: BBLPageParams) => {
   var fullBBL: string;
@@ -57,10 +59,13 @@ const BBLPage: React.FC<BBLPageProps> = (props) => {
             setIsNotFound(true);
             return;
           }
-          const addressPage = createRouteForAddressPage({
-            ...results.result[0],
-            locale,
-          });
+          const addressPage = createRouteForAddressPage(
+            {
+              ...results.result[0],
+              locale,
+            },
+            props.useNewPortfolioMethod
+          );
           history.replace(addressPage);
         })
         .catch(reportError);
@@ -69,7 +74,7 @@ const BBLPage: React.FC<BBLPageProps> = (props) => {
         isMounted = false;
       };
     }
-  }, [fullBBL, history, locale]);
+  }, [fullBBL, history, locale, props.useNewPortfolioMethod]);
 
   return isNotFound ? (
     <AddrNotFoundPage />
