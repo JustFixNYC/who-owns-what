@@ -1,0 +1,38 @@
+@import "_vars.scss";
+
+.LandlordSearch {
+  margin-top: 15px;
+  margin-bottom: 15px;
+  form {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .algolia__suggests {
+    background-color: #fff;
+    border: 1px solid $gray;
+    border-top: none;
+    a.algolia__item {
+      display: block;
+      text-decoration: none !important;
+
+      .result__snippet {
+        display: block;
+        padding: 0.75rem 1rem;
+        color: $dark;
+      }
+
+      &:hover {
+        background-color: $dark;
+        .result__snippet,
+        .result__snippet b {
+          color: $light;
+        }
+      }
+    }
+  }
+
+  .search-by {
+    margin-top: 0.75rem;
+  }
+}

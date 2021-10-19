@@ -13,6 +13,8 @@ import { t, Trans } from "@lingui/macro";
 import { Link } from "react-router-dom";
 import { createRouteForFullBbl } from "routes";
 
+import "../styles/LandlordSearch.css";
+
 export const algoliaAppId = process.env.REACT_APP_ALGOLIA_APP_ID;
 export const algoliaSearchKey = process.env.REACT_APP_ALGOLIA_SEARCH_KEY;
 
@@ -61,22 +63,20 @@ const SearchHits = ({ hits }: SearchHitsProps) => {
   return hits && hits.length > 0 ? (
     <I18n>
       {({ i18n }) => (
-        <div className="geosuggest">
-          <div className="geosuggest__suggests">
-            {hits
-              .map((hit: Hit) => (
-                <Link
-                  key={hit.portfolio_bbl}
-                  to={createRouteForFullBbl(hit.portfolio_bbl, i18n.language, true)}
-                  className="geosuggest__item"
-                >
-                  <div className="result__snippet">
-                    <Snippet attribute="landlord_names" hit={hit} tagName="b" />
-                  </div>
-                </Link>
-              ))
-              .slice(0, SEARCH_RESULTS_LIMIT)}
-          </div>
+        <div className="algolia__suggests">
+          {hits
+            .map((hit: Hit) => (
+              <Link
+                key={hit.portfolio_bbl}
+                to={createRouteForFullBbl(hit.portfolio_bbl, i18n.language, true)}
+                className="algolia__item"
+              >
+                <div className="result__snippet">
+                  <Snippet attribute="landlord_names" hit={hit} tagName="b" />
+                </div>
+              </Link>
+            ))
+            .slice(0, SEARCH_RESULTS_LIMIT)}
         </div>
       )}
     </I18n>
@@ -95,7 +95,7 @@ const LandlordSearch = () => {
   const [query, setQuery] = useState("");
 
   return algoliaAppId && algoliaSearchKey ? (
-    <div className="AddressSearch">
+    <div className="LandlordSearch">
       <InstantSearch
         searchClient={algoliasearch(algoliaAppId, algoliaSearchKey)}
         indexName={ALGOLIA_INDEX_NAME}
