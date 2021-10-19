@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2021-10-19 12:52\n"
+"PO-Revision-Date: 2021-10-19 12:53\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -811,7 +811,7 @@ msgstr "Desde 2017"
 
 #: src/components/EvictionsSummary.tsx:8
 msgid "Since 2017, NYC Marshals executed {totalEvictions, plural, one {one eviction} other {# evictions}} across this portfolio."
-msgstr ""
+msgstr "Desde el 2017, los Mariscales de NYC ejecutaron {totalEvictions, plural, one {un desalojo} other {# desalojos}} en este portafolio de edificios."
 
 #: src/components/PropertiesList.tsx:23
 msgid "Since {year}"
