@@ -22,8 +22,10 @@
         color: $dark;
       }
 
-      &:hover {
+      &:hover,
+      &:focus {
         background-color: $dark;
+        outline: none;
         .result__snippet,
         .result__snippet b {
           color: $light;
