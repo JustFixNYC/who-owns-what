@@ -14,6 +14,7 @@ import { Link } from "react-router-dom";
 import { createRouteForFullBbl } from "routes";
 
 import "../styles/LandlordSearch.css";
+import FocusTrap from "focus-trap-react";
 
 export const algoliaAppId = process.env.REACT_APP_ALGOLIA_APP_ID;
 export const algoliaSearchKey = process.env.REACT_APP_ALGOLIA_SEARCH_KEY;
@@ -93,32 +94,43 @@ const CustomHits = connectHits(SearchHits);
 
 const LandlordSearch = () => {
   const [query, setQuery] = useState("");
+  const [searchIsInFocus, setSearchFocus] = useState(true);
+  const userIsSearching = query.length > 0 && searchIsInFocus;
 
   return algoliaAppId && algoliaSearchKey ? (
-    <div className="LandlordSearch">
-      <InstantSearch
-        searchClient={algoliasearch(algoliaAppId, algoliaSearchKey)}
-        indexName={ALGOLIA_INDEX_NAME}
-      >
-        <CustomSearchBox updateSearchQuery={setQuery} />
+    <FocusTrap
+      active={userIsSearching}
+      focusTrapOptions={{
+        clickOutsideDeactivates: true,
+        returnFocusOnDeactivate: false,
+        onDeactivate: () => setSearchFocus(false),
+      }}
+    >
+      <div className="LandlordSearch" onFocus={() => setSearchFocus(true)}>
+        <InstantSearch
+          searchClient={algoliasearch(algoliaAppId, algoliaSearchKey)}
+          indexName={ALGOLIA_INDEX_NAME}
+        >
+          <CustomSearchBox updateSearchQuery={setQuery} />
 
-        {(query || "").length > 0 && (
-          <React.Fragment>
-            <Configure
-              attributesToSnippet={["landlord_names"]}
-              analytics={enableAnalytics === "1" || false}
-            />
-            <CustomHits />
-          </React.Fragment>
+          {userIsSearching && (
+            <React.Fragment>
+              <Configure
+                attributesToSnippet={["landlord_names"]}
+                analytics={enableAnalytics === "1" || false}
+              />
+              <CustomHits />
+            </React.Fragment>
+          )}
+        </InstantSearch>
+
+        {userIsSearching && (
+          <div className="search-by is-pulled-right">
+            <img width="140" height="20" alt="Algolia" src={require("../assets/img/algolia.svg")} />
+          </div>
         )}
-      </InstantSearch>
-
-      {query && (
-        <div className="search-by is-pulled-right">
-          <img width="140" height="20" alt="Algolia" src={require("../assets/img/algolia.svg")} />
-        </div>
-      )}
-    </div>
+      </div>
+    </FocusTrap>
   ) : (
     <React.Fragment />
   );
