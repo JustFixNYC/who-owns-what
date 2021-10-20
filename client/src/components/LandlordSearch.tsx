@@ -12,6 +12,7 @@ import { I18n } from "@lingui/react";
 import { t, Trans } from "@lingui/macro";
 import { Link } from "react-router-dom";
 import { createRouteForFullBbl } from "routes";
+import classnames from "classnames";
 
 import "../styles/LandlordSearch.css";
 import FocusTrap from "focus-trap-react";
@@ -29,7 +30,7 @@ type SearchBoxProps = SearchBoxProvided & {
    * This function allows us to set the global search query state of the parent
    * `<LandlordSearch>` component from within this child `<SearchBox>` component
    */
-  updateSearchQuery: React.Dispatch<React.SetStateAction<string>>;
+  updateSearchQuery: (q: string) => void;
 };
 
 const SearchBox = ({ currentRefinement, refine, updateSearchQuery }: SearchBoxProps) => (
@@ -95,40 +96,59 @@ const CustomHits = connectHits(SearchHits);
 const LandlordSearch = () => {
   const [query, setQuery] = useState("");
   const [searchIsInFocus, setSearchFocus] = useState(true);
-  const userIsSearching = query.length > 0 && searchIsInFocus;
+  const updateSearchQuery = (newQuery: string) => {
+    // Whenever the user changes their search query,
+    // let's make our search bar in focus.
+    setSearchFocus(true);
+    setQuery(newQuery);
+  };
+
+  /**
+   * We infer that the user is currently utilizing the search bar when:
+   * - the search bar is in focus
+   * - they have typed in at least one character into the search bar
+   */
+  const userIsCurrentlySearching = searchIsInFocus && query.length > 0;
 
   return algoliaAppId && algoliaSearchKey ? (
     <FocusTrap
-      active={userIsSearching}
+      active={userIsCurrentlySearching}
       focusTrapOptions={{
         clickOutsideDeactivates: true,
         returnFocusOnDeactivate: false,
         onDeactivate: () => setSearchFocus(false),
       }}
     >
-      <div className="LandlordSearch" onFocus={() => setSearchFocus(true)}>
+      <div
+        className="LandlordSearch"
+        onFocus={() => setSearchFocus(true)}
+        onClick={() => setSearchFocus(true)}
+      >
         <InstantSearch
           searchClient={algoliasearch(algoliaAppId, algoliaSearchKey)}
           indexName={ALGOLIA_INDEX_NAME}
         >
-          <CustomSearchBox updateSearchQuery={setQuery} />
+          <CustomSearchBox updateSearchQuery={updateSearchQuery} />
 
-          {userIsSearching && (
-            <React.Fragment>
-              <Configure
-                attributesToSnippet={["landlord_names"]}
-                analytics={enableAnalytics === "1" || false}
-              />
-              <CustomHits />
-            </React.Fragment>
-          )}
+          {/* Let's hide the search results when the user is not currently searching a name here */}
+          <div className={classnames(!userIsCurrentlySearching && "d-hide")}>
+            <Configure
+              attributesToSnippet={["landlord_names"]}
+              analytics={enableAnalytics === "1" || false}
+            />
+            <CustomHits />
+          </div>
         </InstantSearch>
 
-        {userIsSearching && (
-          <div className="search-by is-pulled-right">
-            <img width="140" height="20" alt="Algolia" src={require("../assets/img/algolia.svg")} />
-          </div>
-        )}
+        <div
+          className={classnames(
+            "search-by",
+            "is-pulled-right",
+            !userIsCurrentlySearching && "d-hide"
+          )}
+        >
+          <img width="140" height="20" alt="Algolia" src={require("../assets/img/algolia.svg")} />
+        </div>
       </div>
     </FocusTrap>
   ) : (
