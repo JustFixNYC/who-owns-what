@@ -85,7 +85,7 @@ const SearchHits = ({ hits }: SearchHitsProps) => {
                 key={hit.portfolio_bbl}
                 to={createRouteForFullBbl(hit.portfolio_bbl, i18n.language, true)}
                 className="algolia__item"
-                aria-hidden="true"
+                aria-hidden="true" // Make sure search results don't get announced until user is focused on them
               >
                 <div className="result__snippet">
                   <Snippet attribute="landlord_names" hit={hit} tagName="b" />
@@ -106,6 +106,26 @@ const SearchHits = ({ hits }: SearchHitsProps) => {
 
 const CustomSearchBox = connectSearchBox(SearchBox);
 const CustomHits = connectHits(SearchHits);
+
+const AlgoliaAPIConfiguration = () => (
+  <Configure
+    attributesToSnippet={["landlord_names"]}
+    analytics={enableAnalytics === "1" || false}
+  />
+);
+
+const ScreenReaderAnnouncementOfSearchHits: React.FC<{ numberOfHits: number }> = ({
+  numberOfHits,
+}) => (
+  <p className="text-assistive">
+    <Trans>{numberOfHits} search results.</Trans>{" "}
+    {numberOfHits > 0 ? (
+      <Trans>Use the tab key to navigate. Press enter key to select.</Trans>
+    ) : (
+      <Trans>Use the escape key to quit searching.</Trans>
+    )}
+  </p>
+);
 
 const LandlordSearch = () => {
   const [query, setQuery] = useState("");
@@ -145,28 +165,20 @@ const LandlordSearch = () => {
         >
           <CustomSearchBox updateSearchQuery={updateSearchQuery} />
 
-          {/* Let's hide the search results when the user is not currently searching a name here */}
           <div
+            // hide the search results when the user is not currently searching a name here
             className={classnames(!userIsCurrentlySearching && "d-hide")}
             role="region"
             aria-live="polite"
             aria-atomic={true}
           >
-            <Configure
-              attributesToSnippet={["landlord_names"]}
-              analytics={enableAnalytics === "1" || false}
-            />
+            <AlgoliaAPIConfiguration />
+
             <NumberOfHitsContext.Provider value={{ numberOfHits, setNumberOfHits }}>
               <CustomHits />
             </NumberOfHitsContext.Provider>
-            <p className="text-assistive">
-              <Trans>{numberOfHits} search results.</Trans>{" "}
-              {numberOfHits > 0 ? (
-                <Trans>Use the tab key to navigate. Press enter key to select.</Trans>
-              ) : (
-                <Trans>Use the escape key to quit searching.</Trans>
-              )}
-            </p>
+
+            <ScreenReaderAnnouncementOfSearchHits numberOfHits={numberOfHits} />
           </div>
         </InstantSearch>
 
