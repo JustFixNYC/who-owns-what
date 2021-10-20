@@ -610,7 +610,7 @@ msgstr "No se encontraron direcciones"
 msgid "No data available"
 msgstr "No hay datos disponibles"
 
-#: src/components/LandlordSearch.tsx:46
+#: src/components/LandlordSearch.tsx:47
 msgid "No landlords match your search."
 msgstr ""
 
@@ -1034,11 +1034,11 @@ msgstr "Imposible solicitar el despido de una Infracción del Código de Viviend
 msgid "Units"
 msgstr "Unidades"
 
-#: src/components/LandlordSearch.tsx:84
+#: src/components/LandlordSearch.tsx:55
 msgid "Use the escape key to quit searching."
 msgstr ""
 
-#: src/components/LandlordSearch.tsx:84
+#: src/components/LandlordSearch.tsx:55
 msgid "Use the tab key to navigate. Press enter key to select."
 msgstr ""
 
@@ -1210,7 +1210,7 @@ msgstr "{0} de {numberOfEntries}"
 msgid "{0} {1}, {2} currently has {3, plural, one {one open HPD violation} other {# open HPD violations}} - the most in this portfolio."
 msgstr "{0} {1}, {2} tiene {3, plural, one {una violación del HPD actual} other {# violaciones del HPD actuales}} - la major cantidad en este portafolio de edificios."
 
-#: src/components/LandlordSearch.tsx:83
+#: src/components/LandlordSearch.tsx:54
 msgid "{numberOfHits} search results."
 msgstr ""
 
