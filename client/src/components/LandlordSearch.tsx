@@ -84,6 +84,7 @@ const SearchHits = ({ hits }: SearchHitsProps) => {
                 key={hit.portfolio_bbl}
                 to={createRouteForFullBbl(hit.portfolio_bbl, i18n.language, true)}
                 className="algolia__item"
+                aria-hidden="true"
               >
                 <div className="result__snippet">
                   <Snippet attribute="landlord_names" hit={hit} tagName="b" />
@@ -132,39 +133,53 @@ const LandlordSearch = () => {
         onDeactivate: () => setSearchFocus(false),
       }}
     >
-      <NumberOfHitsContext.Provider value={{ numberOfHits, setNumberOfHits }}>
-        <div
-          className="LandlordSearch"
-          onFocus={() => setSearchFocus(true)}
-          onClick={() => setSearchFocus(true)}
+      <div
+        className="LandlordSearch"
+        onFocus={() => setSearchFocus(true)}
+        onClick={() => setSearchFocus(true)}
+      >
+        <InstantSearch
+          searchClient={algoliasearch(algoliaAppId, algoliaSearchKey)}
+          indexName={ALGOLIA_INDEX_NAME}
         >
-          <InstantSearch
-            searchClient={algoliasearch(algoliaAppId, algoliaSearchKey)}
-            indexName={ALGOLIA_INDEX_NAME}
-          >
-            <CustomSearchBox updateSearchQuery={updateSearchQuery} />
+          <CustomSearchBox updateSearchQuery={updateSearchQuery} />
 
-            {/* Let's hide the search results when the user is not currently searching a name here */}
-            <div className={classnames(!userIsCurrentlySearching && "d-hide")}>
-              <Configure
-                attributesToSnippet={["landlord_names"]}
-                analytics={enableAnalytics === "1" || false}
-              />
-              <CustomHits />
-            </div>
-          </InstantSearch>
-
+          {/* Let's hide the search results when the user is not currently searching a name here */}
           <div
-            className={classnames(
-              "search-by",
-              "is-pulled-right",
-              !userIsCurrentlySearching && "d-hide"
-            )}
+            className={classnames(!userIsCurrentlySearching && "d-hide")}
+            role="region"
+            aria-live="polite"
+            aria-atomic={true}
           >
-            <img width="140" height="20" alt="Algolia" src={require("../assets/img/algolia.svg")} />
+            <Configure
+              attributesToSnippet={["landlord_names"]}
+              analytics={enableAnalytics === "1" || false}
+            />
+            <NumberOfHitsContext.Provider value={{ numberOfHits, setNumberOfHits }}>
+              <CustomHits />
+            </NumberOfHitsContext.Provider>
+            <p className="text-assistive">
+              <Trans>{numberOfHits} search results.</Trans>
+              {numberOfHits > 0 && (
+                <>
+                  {" "}
+                  <Trans>Use the tab key to navigate. Press enter key to select.</Trans>
+                </>
+              )}
+            </p>
           </div>
+        </InstantSearch>
+
+        <div
+          className={classnames(
+            "search-by",
+            "is-pulled-right",
+            !userIsCurrentlySearching && "d-hide"
+          )}
+        >
+          <img width="140" height="20" alt="Algolia" src={require("../assets/img/algolia.svg")} />
         </div>
-      </NumberOfHitsContext.Provider>
+      </div>
     </FocusTrap>
   ) : (
     <React.Fragment />
