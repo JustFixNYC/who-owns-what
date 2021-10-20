@@ -159,12 +159,11 @@ const LandlordSearch = () => {
               <CustomHits />
             </NumberOfHitsContext.Provider>
             <p className="text-assistive">
-              <Trans>{numberOfHits} search results.</Trans>
-              {numberOfHits > 0 && (
-                <>
-                  {" "}
-                  <Trans>Use the tab key to navigate. Press enter key to select.</Trans>
-                </>
+              <Trans>{numberOfHits} search results.</Trans>{" "}
+              {numberOfHits > 0 ? (
+                <Trans>Use the tab key to navigate. Press enter key to select.</Trans>
+              ) : (
+                <Trans>Use the escape key to quit searching.</Trans>
               )}
             </p>
           </div>
