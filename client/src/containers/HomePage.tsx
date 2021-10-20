@@ -133,7 +133,9 @@ const HomePage: React.FC<withMachineProps> = (props) => {
               />
               {useNewPortfolioMethod && algoliaAppId && algoliaSearchKey && (
                 <>
-                  <h1 className="text-center">Or search by your landlord's name:</h1>
+                  <h1 className="text-center">
+                    <Trans>Or search by your landlord's name:</Trans>
+                  </h1>
                   <LandlordSearch />
                 </>
               )}
