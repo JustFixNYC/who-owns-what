@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import algoliasearch from "algoliasearch/lite";
 import {
   InstantSearch,
@@ -61,8 +61,20 @@ type SearchHitsProps = {
   hits?: Hit[];
 };
 
+const NumberOfHitsContext = React.createContext({
+  numberOfHits: 0,
+  setNumberOfHits: (n: number) => {},
+});
+
 const SearchHits = ({ hits }: SearchHitsProps) => {
-  return hits && hits.length > 0 ? (
+  const numberOfHits = hits ? hits.length : 0;
+  const { setNumberOfHits } = useContext(NumberOfHitsContext);
+
+  useEffect(() => {
+    setNumberOfHits(Math.min(numberOfHits, SEARCH_RESULTS_LIMIT));
+  }, [numberOfHits, setNumberOfHits]);
+
+  return hits && numberOfHits > 0 ? (
     <I18n>
       {({ i18n }) => (
         <div className="algolia__suggests">
@@ -95,6 +107,7 @@ const CustomHits = connectHits(SearchHits);
 
 const LandlordSearch = () => {
   const [query, setQuery] = useState("");
+  const [numberOfHits, setNumberOfHits] = useState(0);
   const [searchIsInFocus, setSearchFocus] = useState(true);
   const updateSearchQuery = (newQuery: string) => {
     // Whenever the user changes their search query,
@@ -119,37 +132,39 @@ const LandlordSearch = () => {
         onDeactivate: () => setSearchFocus(false),
       }}
     >
-      <div
-        className="LandlordSearch"
-        onFocus={() => setSearchFocus(true)}
-        onClick={() => setSearchFocus(true)}
-      >
-        <InstantSearch
-          searchClient={algoliasearch(algoliaAppId, algoliaSearchKey)}
-          indexName={ALGOLIA_INDEX_NAME}
-        >
-          <CustomSearchBox updateSearchQuery={updateSearchQuery} />
-
-          {/* Let's hide the search results when the user is not currently searching a name here */}
-          <div className={classnames(!userIsCurrentlySearching && "d-hide")}>
-            <Configure
-              attributesToSnippet={["landlord_names"]}
-              analytics={enableAnalytics === "1" || false}
-            />
-            <CustomHits />
-          </div>
-        </InstantSearch>
-
+      <NumberOfHitsContext.Provider value={{ numberOfHits, setNumberOfHits }}>
         <div
-          className={classnames(
-            "search-by",
-            "is-pulled-right",
-            !userIsCurrentlySearching && "d-hide"
-          )}
+          className="LandlordSearch"
+          onFocus={() => setSearchFocus(true)}
+          onClick={() => setSearchFocus(true)}
         >
-          <img width="140" height="20" alt="Algolia" src={require("../assets/img/algolia.svg")} />
+          <InstantSearch
+            searchClient={algoliasearch(algoliaAppId, algoliaSearchKey)}
+            indexName={ALGOLIA_INDEX_NAME}
+          >
+            <CustomSearchBox updateSearchQuery={updateSearchQuery} />
+
+            {/* Let's hide the search results when the user is not currently searching a name here */}
+            <div className={classnames(!userIsCurrentlySearching && "d-hide")}>
+              <Configure
+                attributesToSnippet={["landlord_names"]}
+                analytics={enableAnalytics === "1" || false}
+              />
+              <CustomHits />
+            </div>
+          </InstantSearch>
+
+          <div
+            className={classnames(
+              "search-by",
+              "is-pulled-right",
+              !userIsCurrentlySearching && "d-hide"
+            )}
+          >
+            <img width="140" height="20" alt="Algolia" src={require("../assets/img/algolia.svg")} />
+          </div>
         </div>
-      </div>
+      </NumberOfHitsContext.Provider>
     </FocusTrap>
   ) : (
     <React.Fragment />
