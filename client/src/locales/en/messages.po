@@ -1029,11 +1029,11 @@ msgstr "Unable to request Code Violation Dismissals"
 msgid "Units"
 msgstr "Units"
 
-#: src/components/LandlordSearch.tsx:55
+#: src/components/LandlordSearch.tsx:57
 msgid "Use the escape key to quit searching."
 msgstr "Use the escape key to quit searching."
 
-#: src/components/LandlordSearch.tsx:55
+#: src/components/LandlordSearch.tsx:57
 msgid "Use the tab key to navigate. Press enter key to select."
 msgstr "Use the tab key to navigate. Press enter key to select."
 
@@ -1206,8 +1206,8 @@ msgid "{0} {1}, {2} currently has {3, plural, one {one open HPD violation} other
 msgstr "{0} {1}, {2} currently has {3, plural, one {one open HPD violation} other {# open HPD violations}} - the most in this portfolio."
 
 #: src/components/LandlordSearch.tsx:54
-msgid "{numberOfHits} search results."
-msgstr "{numberOfHits} search results."
+msgid "{numberOfHits} {numberOfHits, plural, one {search result} other {search results}}."
+msgstr "{numberOfHits} {numberOfHits, plural, one {search result} other {search results}}."
 
 #: src/components/IndicatorsDatasets.tsx:64
 msgid "{value, plural, one {One Building Permit Application since 2010} other {# Building Permit Applications since 2010}}"

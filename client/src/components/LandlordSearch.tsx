@@ -9,7 +9,7 @@ import {
 } from "react-instantsearch-dom";
 import { SearchBoxProvided } from "react-instantsearch-core";
 import { I18n } from "@lingui/react";
-import { t, Trans } from "@lingui/macro";
+import { t, Trans, Plural } from "@lingui/macro";
 import { Link } from "react-router-dom";
 import { createRouteForFullBbl } from "routes";
 import classnames from "classnames";
@@ -118,7 +118,9 @@ const ScreenReaderAnnouncementOfSearchHits: React.FC<{ numberOfHits: number }> =
   numberOfHits,
 }) => (
   <p className="text-assistive">
-    <Trans>{numberOfHits} search results.</Trans>{" "}
+    <Trans>
+      {numberOfHits} <Plural value={numberOfHits} one="search result" other="search results" />.
+    </Trans>{" "}
     {numberOfHits > 0 ? (
       <Trans>Use the tab key to navigate. Press enter key to select.</Trans>
     ) : (
