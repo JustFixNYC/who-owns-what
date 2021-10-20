@@ -752,6 +752,10 @@ msgstr "STAIRS"
 msgid "Search"
 msgstr "Search"
 
+#: src/components/LandlordSearch.tsx:18
+msgid "Search by your landlord's name"
+msgstr "Search by your landlord's name"
+
 #: src/containers/NotRegisteredPage.tsx:148
 #: src/containers/NychaPage.tsx:190
 msgid "Search for a different address"

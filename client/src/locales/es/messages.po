@@ -757,6 +757,10 @@ msgstr "ESCALERAS"
 msgid "Search"
 msgstr "Buscar"
 
+#: src/components/LandlordSearch.tsx:18
+msgid "Search by your landlord's name"
+msgstr ""
+
 #: src/containers/NotRegisteredPage.tsx:148
 #: src/containers/NychaPage.tsx:190
 msgid "Search for a different address"

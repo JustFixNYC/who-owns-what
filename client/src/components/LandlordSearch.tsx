@@ -41,6 +41,7 @@ const SearchBox = ({ currentRefinement, refine, updateSearchQuery }: SearchBoxPr
           className="form-input"
           type="search"
           placeholder={i18n._(t`Search landlords`)}
+          aria-label={i18n._(t`Search by your landlord's name`)}
           value={currentRefinement}
           onChange={(event) => {
             refine(event.currentTarget.value);
