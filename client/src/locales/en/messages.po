@@ -103,8 +103,8 @@ msgstr "All set! Thanks for subscribing!"
 msgid "All the public info on your landlord"
 msgstr "All the public info on your landlord"
 
-#: src/components/PropertiesList.tsx:349
-#: src/components/PropertiesList.tsx:357
+#: src/components/PropertiesList.tsx:358
+#: src/components/PropertiesList.tsx:366
 msgid "Amount"
 msgstr "Amount"
 
@@ -261,8 +261,8 @@ msgstr "DOOR/WINDOW"
 msgid "DOORS"
 msgstr "DOORS"
 
-#: src/components/PropertiesList.tsx:337
-#: src/components/PropertiesList.tsx:345
+#: src/components/PropertiesList.tsx:346
+#: src/components/PropertiesList.tsx:354
 msgid "Date"
 msgstr "Date"
 
@@ -359,8 +359,8 @@ msgstr "GARBAGE/RECYCLING STORAGE"
 msgid "General info"
 msgstr "General info"
 
-#: src/components/PropertiesList.tsx:370
-#: src/components/PropertiesList.tsx:384
+#: src/components/PropertiesList.tsx:379
+#: src/components/PropertiesList.tsx:393
 msgid "Group Sale?"
 msgstr "Group Sale?"
 
@@ -477,7 +477,7 @@ msgstr "Landlord, Portfolio, Tenant, Displacement, Map, JustFix, NYC, New York, 
 msgid "Last 3 Years"
 msgstr "Last 3 Years"
 
-#: src/components/PropertiesList.tsx:333
+#: src/components/PropertiesList.tsx:342
 msgid "Last Sale"
 msgstr "Last Sale"
 
@@ -505,9 +505,9 @@ msgstr "Legend"
 msgid "Lessee"
 msgstr "Lessee"
 
-#: src/components/PropertiesList.tsx:360
-#: src/components/PropertiesList.tsx:362
-#: src/components/PropertiesList.tsx:366
+#: src/components/PropertiesList.tsx:369
+#: src/components/PropertiesList.tsx:371
+#: src/components/PropertiesList.tsx:375
 msgid "Link to Deed"
 msgstr "Link to Deed"
 
@@ -605,7 +605,7 @@ msgstr "New York Regional Office:"
 msgid "Next"
 msgstr "Next"
 
-#: src/components/PropertiesList.tsx:381
+#: src/components/PropertiesList.tsx:390
 msgid "No"
 msgstr "No"
 
@@ -1076,9 +1076,9 @@ msgstr "View by:"
 msgid "View data over time ↗︎"
 msgstr "View data over time ↗︎"
 
-#: src/components/PropertiesList.tsx:390
-#: src/components/PropertiesList.tsx:396
-#: src/components/PropertiesList.tsx:400
+#: src/components/PropertiesList.tsx:399
+#: src/components/PropertiesList.tsx:405
+#: src/components/PropertiesList.tsx:409
 msgid "View detail"
 msgstr "View detail"
 
@@ -1177,7 +1177,7 @@ msgstr "Who’s the landlord of this building?"
 msgid "Year Built"
 msgstr "Year Built"
 
-#: src/components/PropertiesList.tsx:380
+#: src/components/PropertiesList.tsx:389
 msgid "Yes"
 msgstr "Yes"
 
@@ -1230,7 +1230,7 @@ msgstr "{0} {1}, {2} currently has {3, plural, one {one open HPD violation} othe
 msgid "{numberOfHits} {numberOfHits, plural, one {search result} other {search results}}."
 msgstr "{numberOfHits} {numberOfHits, plural, one {search result} other {search results}}."
 
-#: src/components/IndicatorsDatasets.tsx:64
+#: src/components/IndicatorsDatasets.tsx:67
 msgid "{value, plural, one {One Building Permit Application since 2010} other {# Building Permit Applications since 2010}}"
 msgstr "{value, plural, one {One Building Permit Application since 2010} other {# Building Permit Applications since 2010}}"
 
