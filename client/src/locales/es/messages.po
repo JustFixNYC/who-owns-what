@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2021-10-19 12:53\n"
+"PO-Revision-Date: 2021-10-21 13:03\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -50,7 +50,7 @@ msgstr "(esto puede tardar un rato)"
 msgid "({browserType, select, mobile {tap} other {click}} to view details)"
 msgstr "({browserType, select, mobile {pulsa} other {haz clic}} para ver detalles)"
 
-#: src/containers/HomePage.tsx:108
+#: src/containers/HomePage.tsx:115
 msgid "... or view some sample portfolios:"
 msgstr "... o descubre ejemplos de portafolios de edificios:"
 
@@ -313,7 +313,7 @@ msgstr "Email"
 msgid "Emergency"
 msgstr "Emergencia"
 
-#: src/containers/HomePage.tsx:80
+#: src/containers/HomePage.tsx:81
 msgid "Enter an NYC address and find other buildings your landlord might own:"
 msgstr "Introduce una dirección de NYC para encontrar otros edificios que tu propietario podría poseer:"
 
@@ -407,7 +407,7 @@ msgstr "Formulario de queja HUD 958"
 msgid "Head Officer"
 msgstr "Oficial Principal"
 
-#: src/containers/HomePage.tsx:92
+#: src/containers/HomePage.tsx:99
 msgid "How do you want to group landlord portfolios?"
 msgstr "¿Cómo quieres agrupar a los portafolios de los dueños?"
 
@@ -594,7 +594,7 @@ msgstr "NO CONSTRUCCIÓN"
 msgid "NYCHA Directory"
 msgstr "Directorio de NYCHA"
 
-#: src/containers/HomePage.tsx:102
+#: src/containers/HomePage.tsx:109
 msgid "New Method (WOWZA!)"
 msgstr "Nuevo método (¡WOWZA!)"
 
@@ -622,6 +622,10 @@ msgstr "No se encontraron direcciones"
 #: src/components/IndicatorsViz.tsx:430
 msgid "No data available"
 msgstr "No hay datos disponibles"
+
+#: src/components/LandlordSearch.tsx:47
+msgid "No landlords match your search."
+msgstr ""
 
 #: src/containers/NotRegisteredPage.tsx:123
 msgid "No registration found for {usersInputAddressFragment}!"
@@ -660,7 +664,7 @@ msgstr "Oficial"
 msgid "Officer/Owner"
 msgstr "Oficial/Propietario"
 
-#: src/containers/HomePage.tsx:97
+#: src/containers/HomePage.tsx:104
 msgid "Old Method"
 msgstr "Método anterior"
 
@@ -682,6 +686,10 @@ msgstr "Actuales"
 #: src/components/BuildingStatsTable.tsx:53
 msgid "Open Violations"
 msgstr "Violaciones Actuales"
+
+#: src/containers/HomePage.tsx:92
+msgid "Or search by your landlord's name:"
+msgstr ""
 
 #: src/containers/AddressPage.tsx:110
 msgid "Overview"
@@ -766,10 +774,18 @@ msgstr "ESCALERAS"
 msgid "Search"
 msgstr "Buscar"
 
+#: src/components/LandlordSearch.tsx:18
+msgid "Search by your landlord's name"
+msgstr ""
+
 #: src/containers/NotRegisteredPage.tsx:148
 #: src/containers/NychaPage.tsx:190
 msgid "Search for a different address"
 msgstr "Buscar otra dirección"
+
+#: src/components/LandlordSearch.tsx:18
+msgid "Search landlords"
+msgstr ""
 
 #: src/components/FeatureCalloutContent.ts:9
 msgid "See the most common complaints reported by tenants to 311, now on the Overview and Portfolio tabs."
@@ -891,7 +907,7 @@ msgstr "El edificio con la major cantidad de desalojos es <0>{0} {1}, {2}</0> co
 msgid "The city borough where your search address is located"
 msgstr "El municipio donde se encuentra la dirección que has buscado"
 
-#: src/containers/HomePage.tsx:161
+#: src/containers/HomePage.tsx:168
 msgid "The city’s fifth <0>worst evictor</0> in 2018, A&E is a prime example of a landlord who engages in <1>aggressive eviction strategies</1> to displace low-income tenants. Besides lack of repairs and frivolous evictions in housing court, A&E has also been known to use <2>MCIs</2> to <3>double rents</3> in rent-stabilized buildings."
 msgstr "A&E fue el quinto <0>\"peor desalojador\"</0> de la ciudad en el 2018, y es un excelente ejemplo de un propietario que participa en <1>estrategias agresivas de desalojo</1> para desplazar a inquilinos de bajos ingresos. Además de usar la falta de arreglos y los desalojos frívolos en la corte de viviendas, se sabe que A&E también utiliza los <2>IMCs</2> para <3>alquileres dobles</3> en edificios de resta estabilizada."
 
@@ -975,7 +991,7 @@ msgstr "Este portafolio de edificios tuvo una <0>{changeType, select, gain {gana
 msgid "This portfolio has an average of <0>{0}</0> open HPD violations per residential unit."
 msgstr "Esta cartera de edificios tiene un promedio de <0>{0}</0> infracciones del HPD Actuales por cada unidad residencial."
 
-#: src/containers/HomePage.tsx:127
+#: src/containers/HomePage.tsx:134
 msgid "This property management company owned by the Kushner family is notorious for <0>violating rent regulations</0> and <1>harassing tenants</1>. The stake currently held by Jared Kushner and Ivanka Trump is worth as much as $761 million."
 msgstr "Esta empresa de gestión inmobiliaria es propiedad de la familia Kushner y es notoria por <0>violar las normas de vivienda</0> y por <1>comportamientos abusivos</1>. La participación financiera actualmente sostenida por Jared Kushner e Ivanka Trump asciende a 761 millones de dólares."
 
@@ -1035,6 +1051,14 @@ msgstr "Imposible solicitar el despido de una Infracción del Código de Viviend
 msgid "Units"
 msgstr "Unidades"
 
+#: src/components/LandlordSearch.tsx:57
+msgid "Use the escape key to quit searching."
+msgstr ""
+
+#: src/components/LandlordSearch.tsx:57
+msgid "Use the tab key to navigate. Press the enter key to select."
+msgstr ""
+
 #: src/components/Page.tsx:9
 msgid "Use this free tool from JustFix.nyc to research your building and investigate landlords! We use property ownership mapping to identify a landlord's portfolio and provide data to indicate potential tenant harassment and displacement."
 msgstr "Utilice esta herramienta gratuita de JustFix.nyc para investigar tu edificio e investigar a los arrendadores de Nueva York! Utilizamos el mapeo de propiedad para identificar el portafolio de edificios de un arrendador y proporcionar datos para revelar posibles casos de hostigamiento y desplazamiento de inquilinos."
@@ -1071,9 +1095,9 @@ msgstr "Ver documentos en <0>ACRIS</0>"
 msgid "View legend"
 msgstr "Ver leyenda"
 
-#: src/containers/HomePage.tsx:142
-#: src/containers/HomePage.tsx:184
-#: src/containers/HomePage.tsx:214
+#: src/containers/HomePage.tsx:149
+#: src/containers/HomePage.tsx:191
+#: src/containers/HomePage.tsx:221
 msgid "View portfolio"
 msgstr "Ver portafolio de edificios"
 
@@ -1162,7 +1186,7 @@ msgstr "Año de construcción"
 msgid "Yes"
 msgstr "Sí"
 
-#: src/containers/HomePage.tsx:203
+#: src/containers/HomePage.tsx:210
 msgid "Yoel Goldman's All Year Management has been at the <0>forefront of gentrification</0> in Brooklyn. Tenants in his buidlings in Williamsburg, Bushwick, and Crown Heights have been forced to live in horrendous and often dangerous conditions."
 msgstr "La entidad \"All Year Management\" perteneciente a Yoel Goldman, está en la <0>vanguardia de la gentrificación</0> de Brooklyn. Los inquilinos en sus edificios de Williamsburg, Bushwick, y las Crown Heights se han visto obligados a vivir en condiciones horrendas y a menudo peligrosas."
 
@@ -1206,6 +1230,10 @@ msgstr "{0} de {numberOfEntries}"
 #: src/components/PropertiesSummary.tsx:92
 msgid "{0} {1}, {2} currently has {3, plural, one {one open HPD violation} other {# open HPD violations}} - the most in this portfolio."
 msgstr "{0} {1}, {2} tiene {3, plural, one {una violación del HPD actual} other {# violaciones del HPD actuales}} - la major cantidad en este portafolio de edificios."
+
+#: src/components/LandlordSearch.tsx:54
+msgid "{numberOfHits} {numberOfHits, plural, one {search result} other {search results}}."
+msgstr ""
 
 #: src/components/IndicatorsDatasets.tsx:67
 msgid "{value, plural, one {One Building Permit Application since 2010} other {# Building Permit Applications since 2010}}"
