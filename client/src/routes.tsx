@@ -29,8 +29,11 @@ export const createRouteForAddressPage = (
   return route;
 };
 
-export const createRouteForFullBbl = (bbl: string) => {
-  return `/bbl/${bbl}`;
+export const createRouteForFullBbl = (bbl: string, prefix?: string, addWowzaToRoute?: boolean) => {
+  let route = `/bbl/${bbl}`;
+  if (addWowzaToRoute) route = "/wowza" + route;
+  if (prefix) route = `/${prefix}` + route;
+  return route;
 };
 
 export const createAddressPageRoutes = (
