@@ -1,26 +1,22 @@
-from datetime import timedelta, date
 from typing import Dict, Set
 
 
 RegBblMap = Dict[int, Set[str]]
 
 
-DEFAULT_MAX_EXPIRATION_AGE = timedelta(days=365)
-
-
-def hpd_reg_where_clause(max_expiration_age: timedelta = DEFAULT_MAX_EXPIRATION_AGE):
-    today = date.today()
-    max_reg_end_date = (today - max_expiration_age).isoformat()
-    return f"hpd_registrations.registrationenddate > '{max_reg_end_date}'"
-
-
 def build_reg_bbl_map(dict_cursor) -> RegBblMap:
     reg_bbl_map: RegBblMap = {}
+    # For each BBL, we grab the most recent registrationid we have on file.
+    # We define 'most recent' to mean a registration with the most recent
+    # expiration date and, if there is a tie, most recent non-null registration date
     dict_cursor.execute(
         f"""
-        SELECT registrationid, bbl
-        FROM hpd_registrations
-        WHERE {hpd_reg_where_clause()}
+        SELECT FIRST(registrationid) registrationid, bbl
+        FROM (
+            SELECT * FROM hpd_registrations
+            ORDER BY registrationenddate DESC, lastregistrationdate DESC NULLS LAST
+        ) REGS
+        GROUP BY bbl
     """
     )
     for reg_id, bbl in dict_cursor.fetchall():

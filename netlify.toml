@@ -1,3 +1,15 @@
+[[redirects]]
+  from = "https://whoownswhat.nyc/*"
+  to = "https://whoownswhat.justfix.nyc"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "https://wow-django.netlify.app/*"
+  to = "https://whoownswhat.justfix.nyc"
+  status = 301
+  force = true
+
 # Settings in the [build] context are global and are applied to all contexts
 # unless otherwise overridden by more specific contexts.
 [build]

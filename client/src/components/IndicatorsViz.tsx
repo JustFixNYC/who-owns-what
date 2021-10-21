@@ -14,7 +14,7 @@ import Helpers, { mediumDateOptions, shortDateOptions } from "../util/helpers";
 
 import "styles/Indicators.css";
 import { indicatorsDatasetIds, IndicatorsState } from "./IndicatorsTypes";
-import { SupportedLocale } from "../i18n-base";
+import { defaultLocale, SupportedLocale } from "../i18n-base";
 import { ChartOptions } from "chart.js";
 import { withMachineInStateProps } from "state-machine";
 import { INDICATORS_DATASETS } from "./IndicatorsDatasets";
@@ -182,22 +182,29 @@ class IndicatorsVizImplementation extends Component<IndicatorVizImplementationPr
     var { timelineData } = this.props.state.context;
 
     const { i18n } = this.props;
-    const locale = (i18n.language || "en") as SupportedLocale;
+    const locale = (i18n.language || defaultLocale) as SupportedLocale;
 
     switch (this.props.activeVis) {
       case "hpdviolations":
         datasets = [
           {
+            label: i18n._(t`Class I`),
+            data: this.groupData(timelineData.hpdviolations.values.class_i) || [],
+            backgroundColor: "rgba(87, 0, 83, 0.6)",
+            borderColor: "rgba(87, 0, 83, 1)",
+            borderWidth: 1,
+          },
+          {
             label: i18n._(t`Class C`),
             data: this.groupData(timelineData.hpdviolations.values.class_c) || [],
-            backgroundColor: "rgba(136,65,157, 0.6)",
-            borderColor: "rgba(136,65,157,1)",
+            backgroundColor: "rgba(136, 65, 157, 0.6)",
+            borderColor: "rgba(136, 65, 157, 1)",
             borderWidth: 1,
           },
           {
             label: i18n._(t`Class B`),
             data: this.groupData(timelineData.hpdviolations.values.class_b) || [],
-            backgroundColor: "rgba(140,150,198, 0.6)",
+            backgroundColor: "rgba(140, 150, 198, 0.6)",
             borderColor: "rgba(140,150,198,1)",
             borderWidth: 1,
           },

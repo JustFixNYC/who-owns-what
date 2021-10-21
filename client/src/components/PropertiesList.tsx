@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import ReactTable from "react-table";
 import Browser from "../util/browser";
+import Loader from "../components/Loader";
 
 import "react-table/react-table.css";
 import "styles/PropertiesList.css";
@@ -12,7 +13,7 @@ import { I18n } from "@lingui/core";
 import { withI18n } from "@lingui/react";
 import { t, Trans } from "@lingui/macro";
 import { Link } from "react-router-dom";
-import { SupportedLocale } from "../i18n-base";
+import { defaultLocale, SupportedLocale } from "../i18n-base";
 import Helpers, { longDateOptions } from "../util/helpers";
 import { AddressRecord, HpdComplaintCount } from "./APIDataTypes";
 import { withMachineInStateProps } from "state-machine";
@@ -60,6 +61,8 @@ const getWidthFromLabel = (label: string, customDefaultWidth?: number) => {
 const FIRST_COLUMN_WIDTH = 130;
 const HEADER_HEIGHT = 30;
 
+const MAX_TABLE_ROWS_PER_PAGE = 500;
+
 const secondColumnStyle = {
   marginLeft: `${FIRST_COLUMN_WIDTH}px`,
 };
@@ -73,7 +76,7 @@ const PropertiesListWithoutI18n: React.FC<
 > = (props) => {
   const { i18n } = props;
   const { width: windowWidth, height: windowHeight } = Helpers.useWindowSize();
-  const locale = (i18n.language as SupportedLocale) || "en";
+  const locale = (i18n.language as SupportedLocale) || defaultLocale;
 
   const addrs = props.state.context.portfolioData.assocAddrs;
   const rsunitslatestyear = props.state.context.portfolioData.searchAddr.rsunitslatestyear;
@@ -112,22 +115,35 @@ const PropertiesListWithoutI18n: React.FC<
     if (!isOlderBrowser && tableRef?.current?.offsetTop)
       setHeaderTopSpacing(tableRef.current.offsetTop);
   }, [isTableVisible, locale, windowWidth, windowHeight, isOlderBrowser]);
-
   return (
     <div
       className={classnames("PropertiesList", hideScrollFade && "hide-scroll-fade")}
       ref={tableRef}
     >
-      <TableOfData
-        addrs={addrs}
-        headerTopSpacing={headerTopSpacing}
-        i18n={i18n}
-        locale={locale}
-        rsunitslatestyear={rsunitslatestyear}
-        onOpenDetail={props.onOpenDetail}
-        addressPageRoutes={props.addressPageRoutes}
-        ref={lastColumnRef}
-      />
+      {isTableVisible ? (
+        <TableOfData
+          addrs={addrs}
+          headerTopSpacing={headerTopSpacing}
+          i18n={i18n}
+          locale={locale}
+          rsunitslatestyear={rsunitslatestyear}
+          onOpenDetail={props.onOpenDetail}
+          addressPageRoutes={props.addressPageRoutes}
+          ref={lastColumnRef}
+        />
+      ) : (
+        <Loader loading={true} classNames="Loader-map">
+          {addrs.length > MAX_TABLE_ROWS_PER_PAGE ? (
+            <>
+              <Trans>Loading {addrs.length} rows</Trans>
+              <br />
+              <Trans>(this may take a while)</Trans>
+            </>
+          ) : (
+            <Trans>Loading</Trans>
+          )}
+        </Loader>
+      )}
     </div>
   );
 };
@@ -155,7 +171,9 @@ const TableOfData = React.memo(
         data={addrs}
         minRows={10}
         defaultPageSize={addrs.length}
-        showPagination={false}
+        showPagination={addrs.length > MAX_TABLE_ROWS_PER_PAGE}
+        pageSize={MAX_TABLE_ROWS_PER_PAGE}
+        showPageSizeOptions={false}
         resizable={!Browser.isMobile()}
         columns={[
           {

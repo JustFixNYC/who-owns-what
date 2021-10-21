@@ -103,6 +103,10 @@
     p {
       line-height: 1.8rem;
       margin-bottom: 15px;
+
+      &.text-danger {
+        margin-top: 15px;
+      }
     }
 
     ul {

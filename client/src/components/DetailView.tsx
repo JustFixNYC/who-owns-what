@@ -15,7 +15,7 @@ import { Link } from "react-router-dom";
 import { LocaleLink } from "../i18n";
 import BuildingStatsTable from "./BuildingStatsTable";
 import { createWhoOwnsWhatRoutePaths, AddressPageRoutes } from "../routes";
-import { SupportedLocale } from "../i18n-base";
+import { defaultLocale, SupportedLocale } from "../i18n-base";
 import { withMachineInStateProps } from "state-machine";
 import { Accordion } from "./Accordion";
 import { UsefulLinks } from "./UsefulLinks";
@@ -155,7 +155,7 @@ class DetailViewWithoutI18n extends Component<Props, State> {
   render() {
     const isMobile = Browser.isMobile();
     const { i18n } = this.props;
-    const locale = (i18n.language as SupportedLocale) || "en";
+    const locale = (i18n.language as SupportedLocale) || defaultLocale;
     const { useNewPortfolioMethod, portfolioData } = this.props.state.context;
     const { assocAddrs, detailAddr, searchAddr } = portfolioData;
 
@@ -289,6 +289,15 @@ class DetailViewWithoutI18n extends Component<Props, State> {
                           </div>
                         </div>
                       )}
+                      {detailAddr.lastsaledate &&
+                        detailAddr.lastsaledate > detailAddr.registrationenddate && (
+                          <p className="text-danger text-italic">
+                            <Trans>
+                              Warning: This building has an expired registration and was sold after
+                              the expiration date. The landlord info listed here may be outdated.
+                            </Trans>
+                          </p>
+                        )}
                       <div className="card-body-registration">
                         <p>
                           <b>
