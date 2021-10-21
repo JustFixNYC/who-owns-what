@@ -1056,7 +1056,7 @@ msgid "Use the escape key to quit searching."
 msgstr ""
 
 #: src/components/LandlordSearch.tsx:57
-msgid "Use the tab key to navigate. Press enter key to select."
+msgid "Use the tab key to navigate. Press the enter key to select."
 msgstr ""
 
 #: src/components/Page.tsx:9

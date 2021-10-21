@@ -122,7 +122,7 @@ const ScreenReaderAnnouncementOfSearchHits: React.FC<{ numberOfHits: number }> =
       {numberOfHits} <Plural value={numberOfHits} one="search result" other="search results" />.
     </Trans>{" "}
     {numberOfHits > 0 ? (
-      <Trans>Use the tab key to navigate. Press enter key to select.</Trans>
+      <Trans>Use the tab key to navigate. Press the enter key to select.</Trans>
     ) : (
       <Trans>Use the escape key to quit searching.</Trans>
     )}
