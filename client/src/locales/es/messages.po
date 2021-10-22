@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2021-10-19 12:53\n"
+"PO-Revision-Date: 2021-10-22 18:27\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -625,7 +625,7 @@ msgstr "No hay datos disponibles"
 
 #: src/components/LandlordSearch.tsx:47
 msgid "No landlords match your search."
-msgstr ""
+msgstr "No hay nombres de dueños coincidan con su búsqueda."
 
 #: src/containers/NotRegisteredPage.tsx:123
 msgid "No registration found for {usersInputAddressFragment}!"
@@ -689,7 +689,7 @@ msgstr "Violaciones Actuales"
 
 #: src/containers/HomePage.tsx:92
 msgid "Or search by your landlord's name:"
-msgstr ""
+msgstr "O buscar por el nombre de tu dueño:"
 
 #: src/containers/AddressPage.tsx:110
 msgid "Overview"
@@ -776,7 +776,7 @@ msgstr "Buscar"
 
 #: src/components/LandlordSearch.tsx:18
 msgid "Search by your landlord's name"
-msgstr ""
+msgstr "Buscar por el nombre de tu dueño"
 
 #: src/containers/NotRegisteredPage.tsx:148
 #: src/containers/NychaPage.tsx:190
@@ -785,7 +785,7 @@ msgstr "Buscar otra dirección"
 
 #: src/components/LandlordSearch.tsx:18
 msgid "Search landlords"
-msgstr ""
+msgstr "Buscar dueños"
 
 #: src/components/FeatureCalloutContent.ts:9
 msgid "See the most common complaints reported by tenants to 311, now on the Overview and Portfolio tabs."
@@ -1053,11 +1053,11 @@ msgstr "Unidades"
 
 #: src/components/LandlordSearch.tsx:57
 msgid "Use the escape key to quit searching."
-msgstr ""
+msgstr "Utilice la clave de escape para salir de la búsqueda."
 
 #: src/components/LandlordSearch.tsx:57
 msgid "Use the tab key to navigate. Press the enter key to select."
-msgstr ""
+msgstr "Utilice la tecla de pestaña para navegar. Pulse la tecla Intro para seleccionar."
 
 #: src/components/Page.tsx:9
 msgid "Use this free tool from JustFix.nyc to research your building and investigate landlords! We use property ownership mapping to identify a landlord's portfolio and provide data to indicate potential tenant harassment and displacement."
@@ -1233,7 +1233,7 @@ msgstr "{0} {1}, {2} tiene {3, plural, one {una violación del HPD actual} other
 
 #: src/components/LandlordSearch.tsx:54
 msgid "{numberOfHits} {numberOfHits, plural, one {search result} other {search results}}."
-msgstr ""
+msgstr "{numberOfHits} {numberOfHits, plural, one {resultado de búsqueda} other {resultados de búsqueda}}."
 
 #: src/components/IndicatorsDatasets.tsx:67
 msgid "{value, plural, one {One Building Permit Application since 2010} other {# Building Permit Applications since 2010}}"
@@ -1250,3 +1250,4 @@ msgstr "{value, plural, one {Una Queja del HPD emitida desde el 2014} other {# Q
 #: src/components/IndicatorsDatasets.tsx:35
 msgid "{value, plural, one {One HPD Violation Issued since 2010} other {# HPD Violations Issued since 2010}}"
 msgstr "{value, plural, one {Una Violación del HPD emitida desde el 2010} other {# Violaciones del HPD emitidas desde el 2010}}"
+
