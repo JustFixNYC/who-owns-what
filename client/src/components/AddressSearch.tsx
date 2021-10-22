@@ -15,6 +15,10 @@ const KEY_ENTER = 13;
 
 const KEY_TAB = 9;
 
+const KEY_ESC = 27;
+
+const SEARCH_RESULTS_LIMIT = 5;
+
 export interface SearchAddress {
   /**
    * The house number, e.g. '654'. It can be undefined,
@@ -96,7 +100,7 @@ export default class AddressSearch extends React.Component<AddressSearchProps, S
       onResults: (results) => {
         this.setState({
           isLoading: false,
-          results: toSearchAddresses(results),
+          results: toSearchAddresses(results).slice(0, SEARCH_RESULTS_LIMIT),
         });
       },
     });
@@ -133,10 +137,36 @@ export default class AddressSearch extends React.Component<AddressSearchProps, S
     ds: ControllerStateAndHelpers<SearchAddress>,
     event: React.KeyboardEvent
   ) {
-    if (event.keyCode === KEY_ENTER || event.keyCode === KEY_TAB) {
+    if (event.keyCode === KEY_ENTER) {
       if (this.selectFirstResult(ds)) {
         event.preventDefault();
       }
+    }
+    // Allow tab key to navigate to next item in autocomplete list
+    if (event.keyCode === KEY_TAB && !event.shiftKey) {
+      ds.setHighlightedIndex(
+        ds.highlightedIndex === this.state.results.length - 1 || ds.highlightedIndex === null
+          ? 0
+          : ds.highlightedIndex + 1
+      );
+      event.preventDefault();
+    }
+    // Allow tab key + shift key to navigate to previous item in autocomplete list
+    if (event.keyCode === KEY_TAB && event.shiftKey) {
+      ds.setHighlightedIndex(
+        ds.highlightedIndex === 0 || ds.highlightedIndex === null
+          ? this.state.results.length - 1
+          : ds.highlightedIndex - 1
+      );
+      event.preventDefault();
+    }
+    // Allow esc key to clear the results
+    // Note: we do not call `event.preventDefault()` here as we also want to allow the event of
+    // pressing the esc key to trigger its default responses as well (like clearing the search form)
+    if (event.keyCode === KEY_ESC) {
+      this.setState({
+        results: [],
+      });
     }
   }
 
