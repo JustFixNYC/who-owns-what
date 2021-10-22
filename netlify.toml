@@ -1,3 +1,15 @@
+[[redirects]]
+  from = "https://whoownswhat.nyc/*"
+  to = "https://whoownswhat.justfix.nyc"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "https://wow-django.netlify.app/*"
+  to = "https://whoownswhat.justfix.nyc"
+  status = 301
+  force = true
+
 # Settings in the [build] context are global and are applied to all contexts
 # unless otherwise overridden by more specific contexts.
 [build]
@@ -18,15 +30,3 @@
   # in our package.json won't propagate. For more details on this, see
   # https://github.com/JustFixNYC/who-owns-what/pull/335.
   command = "rm -rf node_modules/.cache && yarn build"
-
-[[redirects]]
-  from = "https://whoownswhat.nyc/*"
-  to = "https://whoownswhat.justfix.nyc"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "https://wow-django.netlify.app/*"
-  to = "https://whoownswhat.justfix.nyc"
-  status = 301
-  force = true
