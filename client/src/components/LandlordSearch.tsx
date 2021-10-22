@@ -152,7 +152,6 @@ const LandlordSearch = () => {
       active={userIsCurrentlySearching}
       focusTrapOptions={{
         clickOutsideDeactivates: true,
-        returnFocusOnDeactivate: false,
         onDeactivate: () => setSearchFocus(false),
       }}
     >
