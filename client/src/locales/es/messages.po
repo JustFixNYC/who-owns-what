@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2021-10-22 18:27\n"
+"PO-Revision-Date: 2021-10-25 13:45\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -689,7 +689,7 @@ msgstr "Violaciones Actuales"
 
 #: src/containers/HomePage.tsx:92
 msgid "Or search by your landlord's name:"
-msgstr "O buscar por el nombre de tu dueño:"
+msgstr "O busca por el nombre de tu dueño:"
 
 #: src/containers/AddressPage.tsx:110
 msgid "Overview"
@@ -776,7 +776,7 @@ msgstr "Buscar"
 
 #: src/components/LandlordSearch.tsx:18
 msgid "Search by your landlord's name"
-msgstr "Buscar por el nombre de tu dueño"
+msgstr "Busca por el nombre de tu dueño"
 
 #: src/containers/NotRegisteredPage.tsx:148
 #: src/containers/NychaPage.tsx:190
