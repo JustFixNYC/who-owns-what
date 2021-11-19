@@ -22,7 +22,7 @@ from .factories.changes_summary import ChangesSummary
 from .factories.hpd_violations import HpdViolations
 from .factories.dob_violations import DobViolations
 from .factories.ecb_violations import EcbViolations
-from .factories.pluto_19v2 import Pluto19v2
+from .factories.pluto_20v8 import Pluto20v8
 from .factories.real_property_master import RealPropertyMaster
 from .factories.real_property_legals import RealPropertyLegals
 
@@ -138,7 +138,7 @@ class TestSQL:
     @pytest.fixture(autouse=True, scope="class")
     def setup_class_fixture(self, db, nycdb_ctx):
         nycdb_ctx.write_zip(
-            "pluto_19v2.zip", {"PLUTO_for_WEB/BK_19v2.csv": [Pluto19v2()]}
+            "pluto_20v8.zip", {"PLUTO_for_WEB/BK_20v8.csv": [Pluto20v8()]}
         )
         nycdb_ctx.write_csv("hpd_violations.csv", [HpdViolations()])
         nycdb_ctx.write_csv("hpd_complaints.csv", [HpdComplaints()])
