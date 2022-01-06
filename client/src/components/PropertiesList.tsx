@@ -202,6 +202,16 @@ const TableOfData = React.memo(
                 width: FIRST_COLUMN_WIDTH,
                 fixed: "left",
                 resizable: false,
+                Cell: (row) => {
+                  return (
+                    <Link
+                      to={props.addressPageRoutes.overview}
+                      onClick={() => props.onOpenDetail(row.original.bbl)}
+                    >
+                      {row.original.housenumber} {row.original.streetname}
+                    </Link>
+                  );
+                },
                 style: {
                   textAlign: "left",
                   whiteSpace: "unset",
@@ -248,6 +258,16 @@ const TableOfData = React.memo(
                 accessor: (d) => d.bbl,
                 id: "bbl",
                 width: getWidthFromLabel("BBL", 100),
+                Cell: (row) => {
+                  return (
+                    <Link
+                      to={props.addressPageRoutes.overview}
+                      onClick={() => props.onOpenDetail(row.original.bbl)}
+                    >
+                      {row.original.bbl}
+                    </Link>
+                  );
+                },
               },
             ],
           },
