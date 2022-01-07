@@ -137,28 +137,31 @@ export default class AddressSearch extends React.Component<AddressSearchProps, S
     ds: ControllerStateAndHelpers<SearchAddress>,
     event: React.KeyboardEvent
   ) {
+    const { results } = this.state;
     if (event.keyCode === KEY_ENTER) {
       if (this.selectFirstResult(ds)) {
         event.preventDefault();
       }
     }
-    // Allow tab key to navigate to next item in autocomplete list
-    if (event.keyCode === KEY_TAB && !event.shiftKey) {
-      ds.setHighlightedIndex(
-        ds.highlightedIndex === this.state.results.length - 1 || ds.highlightedIndex === null
-          ? 0
-          : ds.highlightedIndex + 1
-      );
-      event.preventDefault();
-    }
-    // Allow tab key + shift key to navigate to previous item in autocomplete list
-    if (event.keyCode === KEY_TAB && event.shiftKey) {
-      ds.setHighlightedIndex(
-        ds.highlightedIndex === 0 || ds.highlightedIndex === null
-          ? this.state.results.length - 1
-          : ds.highlightedIndex - 1
-      );
-      event.preventDefault();
+    if (results.length > 0) {
+      // Allow tab key to navigate to next item in autocomplete list
+      if (event.keyCode === KEY_TAB && !event.shiftKey) {
+        ds.setHighlightedIndex(
+          ds.highlightedIndex === results.length - 1 || ds.highlightedIndex === null
+            ? 0
+            : ds.highlightedIndex + 1
+        );
+        event.preventDefault();
+      }
+      // Allow tab key + shift key to navigate to previous item in autocomplete list
+      if (event.keyCode === KEY_TAB && event.shiftKey) {
+        ds.setHighlightedIndex(
+          ds.highlightedIndex === 0 || ds.highlightedIndex === null
+            ? results.length - 1
+            : ds.highlightedIndex - 1
+        );
+        event.preventDefault();
+      }
     }
     // Allow esc key to clear the results
     // Note: we do not call `event.preventDefault()` here as we also want to allow the event of

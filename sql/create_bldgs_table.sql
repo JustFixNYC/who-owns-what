@@ -100,8 +100,9 @@ left join (
     bbl,
     unitsres,
     yearbuilt,
-    lat, lng
-  from pluto_19v2
+    latitude as lat,
+    longitude as lng
+  from pluto_20v8
 ) pluto on (registrations.bbl = pluto.bbl)
 left join (
   select
