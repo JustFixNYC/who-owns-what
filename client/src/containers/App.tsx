@@ -61,6 +61,11 @@ const WhoOwnsWhatRoutes: React.FC<{}> = () => {
     <Switch>
       <Route exact path={paths.home} component={HomePage} />
       <Route
+        exact
+        path={paths.wowzaHome}
+        render={(props) => <HomePage useNewPortfolioMethod {...machineProps} {...props} />}
+      />
+      <Route
         path={paths.addressPage.overview}
         render={(props) => <AddressPage currentTab={0} {...machineProps} {...props} />}
         exact

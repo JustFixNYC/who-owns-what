@@ -55,6 +55,7 @@ export const createWhoOwnsWhatRoutePaths = (prefix?: string) => {
   const pathPrefix = prefix || "";
   return {
     home: `${pathPrefix}/`,
+    wowzaHome: `${pathPrefix}/wowza`,
     addressPage: createAddressPageRoutes(`${pathPrefix}/address/:boro/:housenumber/:streetname`),
     wowzaAddressPage: createAddressPageRoutes(
       `${pathPrefix}/wowza/address/:boro/:housenumber/:streetname`
