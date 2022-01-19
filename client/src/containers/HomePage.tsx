@@ -20,7 +20,6 @@ import { INLINES } from "@contentful/rich-text-types";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import { ContentfulCommonStrings } from "@justfixnyc/contentful-common-strings";
 import _commonStrings from "../data/common-strings.json";
-import { useState } from "react";
 import LandlordSearch, { algoliaAppId, algoliaSearchKey } from "components/LandlordSearch";
 import { ToggleButtonBetweenPortfolioMethods } from "components/WowzaToggle";
 
