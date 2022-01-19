@@ -20,8 +20,8 @@ import { INLINES } from "@contentful/rich-text-types";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import { ContentfulCommonStrings } from "@justfixnyc/contentful-common-strings";
 import _commonStrings from "../data/common-strings.json";
-import { useState } from "react";
 import LandlordSearch, { algoliaAppId, algoliaSearchKey } from "components/LandlordSearch";
+import { ToggleButtonBetweenPortfolioMethods } from "components/WowzaToggle";
 
 const commonStrings = new ContentfulCommonStrings(_commonStrings as any);
 
@@ -69,8 +69,11 @@ class MoratoriumBannerWithoutI18n extends Component<withI18nProps, BannerState> 
 
 const MoratoriumBanner = withI18n()(MoratoriumBannerWithoutI18n);
 
-const HomePage: React.FC<withMachineProps> = (props) => {
-  const [useNewPortfolioMethod, setPortfolioMethod] = useState(false);
+type HomePageProps = {
+  useNewPortfolioMethod?: boolean;
+} & withMachineProps;
+
+const HomePage: React.FC<HomePageProps> = ({ useNewPortfolioMethod }) => {
   const allowChangingPortfolioMethod =
     process.env.REACT_APP_ENABLE_NEW_WOWZA_PORTFOLIO_MAPPING === "1";
 
@@ -137,36 +140,11 @@ const HomePage: React.FC<withMachineProps> = (props) => {
                     <Trans>Or search by your landlord's name:</Trans>
                   </h1>
                   <LandlordSearch />
+                  <br />
                 </>
               )}
-            </div>{" "}
-            {allowChangingPortfolioMethod && (
-              <div>
-                <em>
-                  <Trans>How do you want to group landlord portfolios?</Trans>
-                </em>
-                <br />
-                <label className={"form-radio" + (!useNewPortfolioMethod ? " active" : "")}>
-                  <input
-                    type="radio"
-                    name="Old Version"
-                    checked={!useNewPortfolioMethod}
-                    onChange={() => setPortfolioMethod(false)}
-                  />
-                  <i className="form-icon" /> <Trans>Old Method</Trans>
-                </label>
-                <br />
-                <label className={"form-radio" + (useNewPortfolioMethod ? " active" : "")}>
-                  <input
-                    type="radio"
-                    name="New Version"
-                    checked={useNewPortfolioMethod}
-                    onChange={() => setPortfolioMethod(true)}
-                  />
-                  <i className="form-icon" /> <Trans>New Method (WOWZA!)</Trans>
-                </label>
-              </div>
-            )}
+            </div>
+            {allowChangingPortfolioMethod && <ToggleButtonBetweenPortfolioMethods />}
           </div>
           <div className="HomePage__samples">
             <h5 className="text-center">
