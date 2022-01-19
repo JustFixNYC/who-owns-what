@@ -139,41 +139,59 @@ export const PortfolioGraph: React.FC<PortfolioGraphProps> = ({ graphJSON, state
   const additionalEdges = generateAdditionalEdges(graphJSON.nodes, searchAddr, distinctDetailAddr);
 
   return (
-    <CytoscapeComponent
-      elements={formatGraphJSON(graphJSON, additionalNodes, additionalEdges)}
-      style={{ width: "100%", height: "60vh" }}
-      layout={layout}
-      stylesheet={[
-        {
-          selector: "node",
-          style: {
-            label: "data(value)",
-            width: (ele: Cytoscape.NodeSingular) => (ele.data("type") === "bizaddr" ? 20 : 30),
-            height: (ele: Cytoscape.NodeSingular) => (ele.data("type") === "bizaddr" ? 20 : 30),
-            "text-wrap": "wrap",
-            "text-max-width": "200px",
-            "font-size": (ele: Cytoscape.NodeSingular) =>
-              ele.data("type") === "bizaddr" ? "12px" : "15px",
-            "font-weight": (ele: Cytoscape.NodeSingular) =>
-              ["searchaddr", "detailaddr"].includes(ele.data("type")) ? 700 : 400,
-            "font-family": "Inconsolata, monospace",
-            backgroundColor: (ele) => NODE_TYPE_TO_COLOR[ele.data("type")],
-            "min-zoomed-font-size": 16,
+    <>
+      <div className="float-left">
+        <span
+          style={{
+            color: "red",
+          }}
+        >
+          ● Landlords
+        </span>{" "}
+        <span
+          style={{
+            color: "gray",
+          }}
+        >
+          ● Business Addresses
+        </span>
+      </div>
+      <CytoscapeComponent
+        elements={formatGraphJSON(graphJSON, additionalNodes, additionalEdges)}
+        style={{ width: "100%", height: "60vh" }}
+        layout={layout}
+        stylesheet={[
+          {
+            selector: "node",
+            style: {
+              label: "data(value)",
+              width: (ele: Cytoscape.NodeSingular) => (ele.data("type") === "bizaddr" ? 20 : 30),
+              height: (ele: Cytoscape.NodeSingular) => (ele.data("type") === "bizaddr" ? 20 : 30),
+              "text-wrap": "wrap",
+              "text-max-width": "200px",
+              "font-size": (ele: Cytoscape.NodeSingular) =>
+                ele.data("type") === "bizaddr" ? "12px" : "15px",
+              "font-weight": (ele: Cytoscape.NodeSingular) =>
+                ["searchaddr", "detailaddr"].includes(ele.data("type")) ? 700 : 400,
+              "font-family": "Inconsolata, monospace",
+              backgroundColor: (ele) => NODE_TYPE_TO_COLOR[ele.data("type")],
+              "min-zoomed-font-size": 16,
+            },
           },
-        },
-        {
-          selector: "edge",
-          style: {
-            "line-color": (ele: Cytoscape.EdgeSingular) =>
-              ele.data("target") === "searchaddr"
-                ? "orange"
-                : ele.data("target") === "detailaddr"
-                ? "yellow"
-                : "default",
+          {
+            selector: "edge",
+            style: {
+              "line-color": (ele: Cytoscape.EdgeSingular) =>
+                ele.data("target") === "searchaddr"
+                  ? "orange"
+                  : ele.data("target") === "detailaddr"
+                  ? "yellow"
+                  : "default",
+            },
           },
-        },
-      ]}
-    />
+        ]}
+      />
+    </>
   );
 };
 
