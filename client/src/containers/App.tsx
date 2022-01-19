@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, useHistory, useLocation } from "react-router-dom";
 import { Trans, t } from "@lingui/macro";
 
 import "styles/App.css";
@@ -35,10 +35,14 @@ import { wowMachine } from "state-machine";
 import { NotFoundPage } from "./NotFoundPage";
 import widont from "widont";
 import { Dropdown } from "components/Dropdown";
+import { isWowzaPath } from "components/WowzaToggle";
 
 const HomeLink = withI18n()((props: withI18nProps) => {
   const { i18n } = props;
   const title = i18n._(t`Who owns what in nyc?`);
+
+  const { pathname } = useLocation();
+
   return (
     <Link
       // We need to spell out each letter of "nyc" here for screenreaders to pronounce:
@@ -46,7 +50,7 @@ const HomeLink = withI18n()((props: withI18nProps) => {
       onClick={() => {
         window.gtag("event", "site-title");
       }}
-      to="/"
+      to={isWowzaPath(pathname) ? "/wowza" : "/"}
     >
       <h4>{widont(title)}</h4>
     </Link>
@@ -124,12 +128,22 @@ const WhoOwnsWhatRoutes: React.FC<{}> = () => {
   );
 };
 
+const SearchLink = () => {
+  const { pathname } = useLocation();
+  const { home, wowzaHome } = createWhoOwnsWhatRoutePaths();
+  const searchRoute = isWowzaPath(pathname) ? wowzaHome : home;
+
+  return (
+    <LocaleNavLink exact to={searchRoute} key={1}>
+      <Trans>Search</Trans>
+    </LocaleNavLink>
+  );
+};
+
 const getMainNavLinks = () => {
   const paths = createWhoOwnsWhatRoutePaths();
   return [
-    <LocaleNavLink exact to={paths.home} key={1}>
-      <Trans>Search</Trans>
-    </LocaleNavLink>,
+    <SearchLink />,
     <LocaleNavLink to={paths.about} key={2}>
       <Trans>About</Trans>
     </LocaleNavLink>,
