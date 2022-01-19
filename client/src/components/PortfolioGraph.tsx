@@ -191,6 +191,7 @@ export const PortfolioGraph: React.FC<PortfolioGraphProps> = ({ graphJSON, state
           },
         ]}
       />
+      <br />
     </>
   );
 };
