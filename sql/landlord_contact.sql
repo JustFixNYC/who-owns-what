@@ -1,9 +1,7 @@
-DROP TABLE IF EXISTS hpd_landlord_contact;
-
 -- This is the table to query landlord contact information for JustFix letters of complaint
 -- The convention is to use the name of the head officer and the buisness address from the
 -- corporate owner.
-CREATE TABLE hpd_landlord_contact
+CREATE TABLE hpd_landlord_contact_temporary
 as SELECT
   registrations.housenumber,
   registrations.streetname,
@@ -45,5 +43,8 @@ LEFT JOIN (
   FROM hpd_contacts
   GROUP BY registrationid
 ) contacts ON (registrations.registrationid = contacts.registrationid);
+
+DROP TABLE IF EXISTS hpd_landlord_contact;
+alter table hpd_landlord_contact_temporary rename to hpd_landlord_contact;
 
 create index on hpd_landlord_contact (bbl);
