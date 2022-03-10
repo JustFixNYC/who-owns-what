@@ -180,6 +180,8 @@ export const PortfolioGraph: React.FC<PortfolioGraphProps> = ({ graphJSON, state
           },
           {
             selector: "edge",
+            label: "data(count_hpd_registrations)",
+            "min-zoomed-font-size": 16,
             style: {
               "line-color": (ele: Cytoscape.EdgeSingular) =>
                 ele.data("target") === "searchaddr"
