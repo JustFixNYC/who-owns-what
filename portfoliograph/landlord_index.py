@@ -19,7 +19,7 @@ ALGOLIA_INDEX_NAME = "wow_landlords"
 
 
 def get_landlord_data_for_algolia(conn, max_index_char_length: int = 2000):
-    # TODO: Check whether wow_portfolios table has changed
+    # TODO: Only update when contents of wow_portfolios table has changed
 
     cleaned_rows = []
     with conn.cursor(cursor_factory=DictCursor) as cursor:
@@ -34,7 +34,6 @@ def get_landlord_data_for_algolia(conn, max_index_char_length: int = 2000):
         """
         )
 
-        # 3. Check if stringified ll_names is longer than 2000 characters
         for row in cursor.fetchall():
             # Avoid Algolia's limit on article size by breaking up the landlord
             # names list into multiple records that each point to the same BBLs.
@@ -63,22 +62,15 @@ def update_landlord_search_index(conn):
 
     landlord_data = get_landlord_data_for_algolia(conn)
 
-    # 4. Upload CSV to Algolia as new index
     # Initialize the client
-    # https://www.algolia.com/doc/api-client/getting-started/instantiate-client-index/?client=python
+    # www.algolia.com/doc/api-client/getting-started/instantiate-client-index/?client=python
     client = SearchClient.create(ALGOLIA_APP_ID, ALGOLIA_API_KEY)
 
     # Initialize an index
-    # https://www.algolia.com/doc/api-client/getting-started/instantiate-client-index/#initialize-an-index
+    # www.algolia.com/doc/api-client/getting-started/instantiate-client-index/#initialize-an-index
     index = client.init_index(ALGOLIA_INDEX_NAME)
 
     # Replace All Objects: Clears all objects from your index and replaces them with a new set of objects.
-    # https://www.algolia.com/doc/api-reference/api-methods/replace-all-objects/?client=python
+    # www.algolia.com/doc/api-reference/api-methods/replace-all-objects/?client=python
     # index.replace_all_objects(landlord_data).wait()
     index.save_object(landlord_data[0]).wait()
-
-    """
-    To test:
-        res = index.search('')
-        print('Current objects: ', res['hits'], '\n')
-    """
