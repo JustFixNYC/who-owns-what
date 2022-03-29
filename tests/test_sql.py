@@ -364,7 +364,7 @@ class TestSQL:
                 } in r2 or {
                     "portfolio_bbl": "3000010002",
                     "landlord_names": "LOBOT JONES, LANDLORDO CALRISSIAN",
-                } in r2 
+                } in r2
 
     def test_portfolio_graph_json_works(self):
         with self.db.connect() as conn:
