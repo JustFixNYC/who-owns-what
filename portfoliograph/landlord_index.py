@@ -70,7 +70,7 @@ def update_landlord_search_index(conn):
     # www.algolia.com/doc/api-client/getting-started/instantiate-client-index/#initialize-an-index
     index = client.init_index(ALGOLIA_INDEX_NAME)
 
-    # Replace All Objects: Clears all objects from your index and 
+    # Replace All Objects: Clears all objects from your index and
     # replaces them with a new set of objects.
     # www.algolia.com/doc/api-reference/api-methods/replace-all-objects/?client=python
     # index.replace_all_objects(landlord_data).wait()
