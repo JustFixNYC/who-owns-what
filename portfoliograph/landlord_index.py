@@ -1,8 +1,23 @@
 import numpy
 import math
+import os
 from psycopg2.extras import DictCursor
+from algoliasearch.search_client import SearchClient
 
-def update_landlord_algolia_index(conn, max_index_char_length: int = 2000):
+try:
+    import dotenv
+
+    dotenv.load_dotenv()
+except ImportError:
+    # We don't have development dependencies installed.
+    pass
+
+# Algolia client credentials
+ALGOLIA_APP_ID = os.environ.get('ALGOLIA_APP_ID')
+ALGOLIA_API_KEY = os.environ.get('ALGOLIA_API_KEY')
+ALGOLIA_INDEX_NAME = "wow_landlords"
+
+def get_landlord_data_for_algolia(conn, max_index_char_length: int = 2000):
     # TODO: Check whether wow_portfolios table has changed
 
     cleaned_rows = []
@@ -34,17 +49,12 @@ def update_landlord_algolia_index(conn, max_index_char_length: int = 2000):
 
     return cleaned_rows
 
+def update_landlord_search_index(conn):
+
+    landlord_data = get_landlord_data_for_algolia(conn)
+
+
     # 4. Upload CSV to Algolia as new index
-    """
-    from algoliasearch.search_client import SearchClient
-    from dotenv import load_dotenv, find_dotenv
-    load_dotenv(find_dotenv())
-
-    # Algolia client credentials
-    ALGOLIA_APP_ID = getenv('ALGOLIA_APP_ID')
-    ALGOLIA_API_KEY = getenv('ALGOLIA_API_KEY')
-    ALGOLIA_INDEX_NAME = getenv('ALGOLIA_INDEX_NAME')
-
     # Initialize the client
     # https://www.algolia.com/doc/api-client/getting-started/instantiate-client-index/?client=python
     client = SearchClient.create(ALGOLIA_APP_ID, ALGOLIA_API_KEY)
@@ -52,25 +62,11 @@ def update_landlord_algolia_index(conn, max_index_char_length: int = 2000):
     # Initialize an index
     # https://www.algolia.com/doc/api-client/getting-started/instantiate-client-index/#initialize-an-index
     index = client.init_index(ALGOLIA_INDEX_NAME)
-    """
 
-    """
-    Of shape:
-
-    new_contacts = [
-    {
-        'name': 'NewFoo',
-        'objectID': '3'
-    },
-    {
-        'name': 'NewBar',
-        'objectID': '4'
-    }
-    ]
-    """
     # Replace All Objects: Clears all objects from your index and replaces them with a new set of objects.
     # https://www.algolia.com/doc/api-reference/api-methods/replace-all-objects/?client=python  
-    # index.replace_all_objects(cleaned_rows).wait()
+    # index.replace_all_objects(landlord_data).wait()
+    index.save_object(landlord_data[0]).wait()
 
     """
     To test:
