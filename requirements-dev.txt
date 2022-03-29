@@ -9,3 +9,7 @@ flake8==3.8.3
 networkx==2.5.1
 freezegun==1.1.0
 black== 21.9b0
+# Pyproj is evolving very fast and is already logging some deprecation
+# warnings when we use nycdb; let's use the minimum supported version
+# so we don't get those warnings, at least.
+pyproj==2.1.3
