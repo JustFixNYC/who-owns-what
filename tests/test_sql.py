@@ -5,6 +5,8 @@ from psycopg2.extras import DictCursor
 import freezegun
 import pytest
 
+from portfoliograph.landlord_index import get_landlord_data_for_algolia
+
 from .factories.hpd_contacts import HpdContacts
 from .factories.hpd_registrations import HpdRegistrations
 from .factories.hpd_complaints import HpdComplaints
@@ -313,6 +315,7 @@ class TestSQL:
             assert len(list(nx.connected_components(g))) == 3
 
     def test_portfolio_graph_works(self):
+        # This test has side effect from populate_portfolios_table
         with self.db.connect() as conn:
             with freezegun.freeze_time("2018-01-01"):
                 populate_portfolios_table(conn)
@@ -322,6 +325,53 @@ class TestSQL:
             + "' = any(bbls)"
         )
         assert set(r[0]) == {"LANDLORDO CALRISSIAN", "LOBOT JONES"}
+
+    def test_landlord_index_query(self):
+        with self.db.connect() as conn:
+            with freezegun.freeze_time("2018-01-01"):
+                r = get_landlord_data_for_algolia(conn, 20)
+                assert len(r) == 4
+                assert {
+                    "portfolio_bbl": "1000010002",
+                    "landlord_names": "BOOP JONES",
+                } in r
+                assert {
+                    "portfolio_bbl": "3000040006",
+                    "landlord_names": "LANDLORDO CALRISIAN",
+                } in r
+                assert {
+                    "portfolio_bbl": "3000010002",
+                    "landlord_names": "LOBOT JONES",
+                } in r
+                assert {
+                    "portfolio_bbl": "3000010002",
+                    "landlord_names": "LANDLORDO CALRISSIAN",
+                } in r
+
+                r2 = get_landlord_data_for_algolia(conn)
+                assert len(r2) == 3
+                assert {
+                    "portfolio_bbl": "1000010002",
+                    "landlord_names": "BOOP JONES",
+                } in r2
+                assert {
+                    "portfolio_bbl": "3000040006",
+                    "landlord_names": "LANDLORDO CALRISIAN",
+                } in r2
+                assert any(
+                    [
+                        {
+                            "portfolio_bbl": "3000010002",
+                            "landlord_names": "LANDLORDO CALRISSIAN, LOBOT JONES",
+                        }
+                        in r2,
+                        {
+                            "portfolio_bbl": "3000010002",
+                            "landlord_names": "LOBOT JONES, LANDLORDO CALRISSIAN",
+                        }
+                        in r2,
+                    ]
+                )
 
     def test_portfolio_graph_json_works(self):
         with self.db.connect() as conn:
