@@ -1,21 +1,7 @@
 import numpy
 import math
-import os
 from psycopg2.extras import DictCursor
 from algoliasearch.search_client import SearchClient
-
-try:
-    import dotenv
-
-    dotenv.load_dotenv()
-except ImportError:
-    # We don't have development dependencies installed.
-    pass
-
-# Algolia client credentials
-ALGOLIA_APP_ID = os.environ.get("ALGOLIA_APP_ID")
-ALGOLIA_API_KEY = os.environ.get("ALGOLIA_API_KEY")
-ALGOLIA_INDEX_NAME = "wow_landlords"
 
 
 def get_landlord_data_for_algolia(conn, max_index_char_length: int = 2000):
@@ -58,17 +44,19 @@ def get_landlord_data_for_algolia(conn, max_index_char_length: int = 2000):
     return cleaned_rows
 
 
-def update_landlord_search_index(conn):
+def update_landlord_search_index(conn, algolia_app_id, algolia_api_key):
+
+    algolia_index_name = "wow_landlords"
 
     landlord_data = get_landlord_data_for_algolia(conn)
 
     # Initialize the client
     # www.algolia.com/doc/api-client/getting-started/instantiate-client-index/?client=python
-    client = SearchClient.create(ALGOLIA_APP_ID, ALGOLIA_API_KEY)
+    client = SearchClient.create(algolia_app_id, algolia_api_key)
 
     # Initialize an index
     # www.algolia.com/doc/api-client/getting-started/instantiate-client-index/#initialize-an-index
-    index = client.init_index(ALGOLIA_INDEX_NAME)
+    index = client.init_index(algolia_index_name)
 
     # Replace All Objects: Clears all objects from your index and
     # replaces them with a new set of objects.
