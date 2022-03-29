@@ -13,9 +13,10 @@ except ImportError:
     pass
 
 # Algolia client credentials
-ALGOLIA_APP_ID = os.environ.get('ALGOLIA_APP_ID')
-ALGOLIA_API_KEY = os.environ.get('ALGOLIA_API_KEY')
+ALGOLIA_APP_ID = os.environ.get("ALGOLIA_APP_ID")
+ALGOLIA_API_KEY = os.environ.get("ALGOLIA_API_KEY")
 ALGOLIA_INDEX_NAME = "wow_landlords"
+
 
 def get_landlord_data_for_algolia(conn, max_index_char_length: int = 2000):
     # TODO: Check whether wow_portfolios table has changed
@@ -40,19 +41,27 @@ def get_landlord_data_for_algolia(conn, max_index_char_length: int = 2000):
             num_parts = math.ceil(len(row["landlord_names"]) / max_index_char_length)
             portfolio_bbl = sorted(row["bbls"])[0]
             if num_parts > 1:
-                names_array = row["landlord_names"].split(', ')
+                names_array = row["landlord_names"].split(", ")
                 parts = numpy.array_split(names_array, num_parts)
-                new_rows = [{"portfolio_bbl": portfolio_bbl, "landlord_names": ', '.join(part)} for part in parts]
+                new_rows = [
+                    {"portfolio_bbl": portfolio_bbl, "landlord_names": ", ".join(part)}
+                    for part in parts
+                ]
                 cleaned_rows.extend(new_rows)
             else:
-                cleaned_rows.append({"portfolio_bbl": portfolio_bbl, "landlord_names": row["landlord_names"]})
+                cleaned_rows.append(
+                    {
+                        "portfolio_bbl": portfolio_bbl,
+                        "landlord_names": row["landlord_names"],
+                    }
+                )
 
     return cleaned_rows
+
 
 def update_landlord_search_index(conn):
 
     landlord_data = get_landlord_data_for_algolia(conn)
-
 
     # 4. Upload CSV to Algolia as new index
     # Initialize the client
@@ -64,7 +73,7 @@ def update_landlord_search_index(conn):
     index = client.init_index(ALGOLIA_INDEX_NAME)
 
     # Replace All Objects: Clears all objects from your index and replaces them with a new set of objects.
-    # https://www.algolia.com/doc/api-reference/api-methods/replace-all-objects/?client=python  
+    # https://www.algolia.com/doc/api-reference/api-methods/replace-all-objects/?client=python
     # index.replace_all_objects(landlord_data).wait()
     index.save_object(landlord_data[0]).wait()
 

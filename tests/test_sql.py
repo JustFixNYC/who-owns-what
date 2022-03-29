@@ -331,16 +331,37 @@ class TestSQL:
             with freezegun.freeze_time("2018-01-01"):
                 r = get_landlord_data_for_algolia(conn, 20)
                 assert len(r) == 4
-                assert {'portfolio_bbl': '1000010002', 'landlord_names': 'BOOP JONES'} in r
-                assert {'portfolio_bbl': '3000040006', 'landlord_names': 'LANDLORDO CALRISIAN'} in r
-                assert {'portfolio_bbl': '3000010002', 'landlord_names': 'LOBOT JONES'} in r
-                assert {'portfolio_bbl': '3000010002', 'landlord_names': 'LANDLORDO CALRISSIAN'} in r
+                assert {
+                    "portfolio_bbl": "1000010002",
+                    "landlord_names": "BOOP JONES",
+                } in r
+                assert {
+                    "portfolio_bbl": "3000040006",
+                    "landlord_names": "LANDLORDO CALRISIAN",
+                } in r
+                assert {
+                    "portfolio_bbl": "3000010002",
+                    "landlord_names": "LOBOT JONES",
+                } in r
+                assert {
+                    "portfolio_bbl": "3000010002",
+                    "landlord_names": "LANDLORDO CALRISSIAN",
+                } in r
 
                 r2 = get_landlord_data_for_algolia(conn)
                 assert len(r2) == 3
-                assert {'portfolio_bbl': '1000010002', 'landlord_names': 'BOOP JONES'} in r2
-                assert {'portfolio_bbl': '3000040006', 'landlord_names': 'LANDLORDO CALRISIAN'} in r2
-                assert {'portfolio_bbl': '3000010002', 'landlord_names': 'LANDLORDO CALRISSIAN, LOBOT JONES'} in r2   
+                assert {
+                    "portfolio_bbl": "1000010002",
+                    "landlord_names": "BOOP JONES",
+                } in r2
+                assert {
+                    "portfolio_bbl": "3000040006",
+                    "landlord_names": "LANDLORDO CALRISIAN",
+                } in r2
+                assert {
+                    "portfolio_bbl": "3000010002",
+                    "landlord_names": "LANDLORDO CALRISSIAN, LOBOT JONES",
+                } in r2
 
     def test_portfolio_graph_json_works(self):
         with self.db.connect() as conn:
