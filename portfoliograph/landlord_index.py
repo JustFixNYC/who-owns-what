@@ -102,5 +102,4 @@ def update_landlord_search_index(conn, algolia_app_id, algolia_api_key):
     # Replace All Objects: Clears all objects from your index and
     # replaces them with a new set of objects.
     # www.algolia.com/doc/api-reference/api-methods/replace-all-objects/?client=python
-    # index.replace_all_objects(landlord_data).wait()
-    index.save_object(landlord_data[0]).wait()
+    index.replace_all_objects(landlord_data, {"safe": True})
