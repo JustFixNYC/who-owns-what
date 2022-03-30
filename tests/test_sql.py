@@ -5,7 +5,7 @@ from psycopg2.extras import DictCursor
 import freezegun
 import pytest
 
-from portfoliograph.landlord_index import get_landlord_data_for_algolia
+from portfoliograph.landlord_index import get_landlord_data_for_algolia, dict_hash
 
 from .factories.hpd_contacts import HpdContacts
 from .factories.hpd_registrations import HpdRegistrations
@@ -331,6 +331,16 @@ class TestSQL:
             with freezegun.freeze_time("2018-01-01"):
                 r = get_landlord_data_for_algolia(conn, 20)
                 assert len(r) == 4
+
+                # The result is a list of dicts, and each dict includes the ObjectID, which
+                # is the hash of the rest of the dict. To simplify the expected data testing
+                # we remove all those objectIDs and test those separately first before checking
+                # the rest of the contents
+                r_hashes = []
+                for row in r:
+                    r_hashes.append(row.pop("objectID"))
+                assert r_hashes[0] == dict_hash(r[0])
+
                 assert {
                     "portfolio_bbl": "1000010002",
                     "landlord_names": "BOOP JONES",
@@ -350,6 +360,12 @@ class TestSQL:
 
                 r2 = get_landlord_data_for_algolia(conn)
                 assert len(r2) == 3
+
+                r2_hashes = []
+                for row in r2:
+                    r2_hashes.append(row.pop("objectID"))
+                assert r2_hashes[0] == dict_hash(r2[0])
+
                 assert {
                     "portfolio_bbl": "1000010002",
                     "landlord_names": "BOOP JONES",
@@ -358,20 +374,10 @@ class TestSQL:
                     "portfolio_bbl": "3000040006",
                     "landlord_names": "LANDLORDO CALRISIAN",
                 } in r2
-                assert any(
-                    [
-                        {
-                            "portfolio_bbl": "3000010002",
-                            "landlord_names": "LANDLORDO CALRISSIAN, LOBOT JONES",
-                        }
-                        in r2,
-                        {
-                            "portfolio_bbl": "3000010002",
-                            "landlord_names": "LOBOT JONES, LANDLORDO CALRISSIAN",
-                        }
-                        in r2,
-                    ]
-                )
+                assert {
+                    "portfolio_bbl": "3000010002",
+                    "landlord_names": "LANDLORDO CALRISSIAN, LOBOT JONES",
+                } in r2
 
     def test_portfolio_graph_json_works(self):
         with self.db.connect() as conn:
