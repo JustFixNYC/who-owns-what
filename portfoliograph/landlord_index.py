@@ -34,7 +34,6 @@ def get_landlord_data_for_algolia(conn, max_index_char_length: int = 2000):
     to create the unique objectID that Algolia requires. (later we can use this hash objectID
     to determine if we need to update the record or not to save some operations/credits)
     """
-    # TODO: Only update when contents of wow_portfolios table has changed
 
     cleaned_rows = []
     with conn.cursor(cursor_factory=DictCursor) as cursor:
@@ -85,11 +84,51 @@ def get_landlord_data_for_algolia(conn, max_index_char_length: int = 2000):
     return cleaned_rows
 
 
+def get_corpname_data_for_algolia(conn):
+    """
+    Query the "wow_bldgs" table to get corporation names we want to search by in Algolia.
+    We then sort bbls to ensure consistent results despite inconsistent
+    order in the query aggregation. We also hash the contents of the record
+    to create the unique objectID that Algolia requires. (later we can use this hash objectID
+    to determine if we need to update the record or not to save some operations/credits)
+    """
+
+    cleaned_rows = []
+    with conn.cursor(cursor_factory=DictCursor) as cursor:
+        cursor.execute(
+            f"""
+            SELECT 
+                corpname,
+                array_agg(distinct bbl) as bbls
+            FROM    
+                (SELECT
+                    unnest(corpnames) as corpname,
+                    bbl
+                FROM wow_bldgs
+                ORDER BY bbl) corps
+            GROUP BY corpname;
+            """
+        )
+
+        for row in cursor.fetchall():
+            # We want to take a single bbl associated with each corporation, but their order is
+            # not concsistent in the aggregation, so we sort and take out
+            # the first one to ensure it's consistent between runs
+            portfolio = {
+                "portfolio_bbl": sorted(row["bbls"])[0],
+                "landlord_names": row["corpname"],
+            }
+            row = {"objectID": dict_hash(portfolio), **portfolio}
+            cleaned_rows.append(row)
+    return cleaned_rows
+
+
 def update_landlord_search_index(conn, algolia_app_id, algolia_api_key):
 
     algolia_index_name = "wow_landlords"
 
     landlord_data = get_landlord_data_for_algolia(conn)
+    corpname_data = get_corpname_data_for_algolia(conn)
 
     # Initialize the client
     # www.algolia.com/doc/api-client/getting-started/instantiate-client-index/?client=python
@@ -102,4 +141,4 @@ def update_landlord_search_index(conn, algolia_app_id, algolia_api_key):
     # Replace All Objects: Clears all objects from your index and
     # replaces them with a new set of objects.
     # www.algolia.com/doc/api-reference/api-methods/replace-all-objects/?client=python
-    index.replace_all_objects(landlord_data, {"safe": True})
+    index.replace_all_objects(landlord_data.extend(corpname_data), {"safe": True})
