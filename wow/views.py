@@ -71,7 +71,10 @@ def address_query_with_portfolio_graph(request):
     addrs = exec_db_query(SQL_DIR / "address_portfolio.sql", {"bbl": bbl})
     graph = None
     cleaned_addrs = []
+    # Note: HPD unregistered properties will return an empty addrs array from the SQL query
     if addrs:
+        # To save memory, graph json object is only stored on search address
+        # even though it reflects the entire portfolio
         addrs_with_graph = list(filter(lambda r: r["graph"] is not None, addrs))
         if addrs_with_graph:
             graph = addrs_with_graph[0]["graph"]
