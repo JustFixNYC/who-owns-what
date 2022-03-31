@@ -97,10 +97,10 @@ def get_corpname_data_for_algolia(conn):
     with conn.cursor(cursor_factory=DictCursor) as cursor:
         cursor.execute(
             f"""
-            SELECT 
+            SELECT
                 corpname,
                 array_agg(distinct bbl) as bbls
-            FROM    
+            FROM
                 (SELECT
                     unnest(corpnames) as corpname,
                     bbl
