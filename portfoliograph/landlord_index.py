@@ -1,6 +1,6 @@
 import numpy
 import math
-from typing import Dict, Any
+from typing import Dict, Any, List
 import hashlib
 import json
 from psycopg2.extras import DictCursor
@@ -25,7 +25,7 @@ def dict_hash(dictionary: Dict[str, Any]) -> str:
     return dhash.hexdigest()
 
 
-def get_landlord_data_for_algolia(conn, max_index_char_length: int = 2000):
+def get_landlord_data_for_algolia(conn, max_index_char_length: int = 2000) -> List[Dict]:
     """
     Query the "wow_portfolios" table to get landlord names we want to search by in Algolia.
     We then sort bbls and landlord names to ensure consistent results despite inconsistent
@@ -84,7 +84,7 @@ def get_landlord_data_for_algolia(conn, max_index_char_length: int = 2000):
     return cleaned_rows
 
 
-def get_corpname_data_for_algolia(conn):
+def get_corpname_data_for_algolia(conn) -> List[Dict]:
     """
     Query the "wow_bldgs" table to get corporation names we want to search by in Algolia.
     We then sort bbls to ensure consistent results despite inconsistent
@@ -141,4 +141,4 @@ def update_landlord_search_index(conn, algolia_app_id, algolia_api_key):
     # Replace All Objects: Clears all objects from your index and
     # replaces them with a new set of objects.
     # www.algolia.com/doc/api-reference/api-methods/replace-all-objects/?client=python
-    index.replace_all_objects(landlord_data.extend(corpname_data), {"safe": True})
+    index.replace_all_objects(landlord_data + corpname_data, {"safe": True})
