@@ -25,7 +25,9 @@ def dict_hash(dictionary: Dict[str, Any]) -> str:
     return dhash.hexdigest()
 
 
-def get_landlord_data_for_algolia(conn, max_index_char_length: int = 2000) -> List[Dict]:
+def get_landlord_data_for_algolia(
+    conn, max_index_char_length: int = 2000
+) -> List[Dict]:
     """
     Query the "wow_portfolios" table to get landlord names we want to search by in Algolia.
     We then sort bbls and landlord names to ensure consistent results despite inconsistent
