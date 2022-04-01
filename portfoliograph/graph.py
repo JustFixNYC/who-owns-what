@@ -65,7 +65,7 @@ def build_graph(dict_cursor) -> nx.Graph:
         INNER JOIN hpd_registrations
             ON hpd_contacts.registrationid = hpd_registrations.registrationid
         WHERE
-            type = ANY('{{HeadOfficer, IndividualOwner, CorporateOwner}}')
+            type = ANY('{{HeadOfficer, IndividualOwner, CorporateOwner, JointOwner}}')
             AND (businesshousenumber IS NOT NULL OR businessstreetname IS NOT NULL)
             AND LENGTH(CONCAT(businesshousenumber, businessstreetname)) > 2
             AND (firstname IS NOT NULL OR lastname IS NOT NULL)
