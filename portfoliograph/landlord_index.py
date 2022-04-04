@@ -140,7 +140,9 @@ def update_landlord_search_index(conn, algolia_app_id, algolia_api_key):
     # www.algolia.com/doc/api-client/getting-started/instantiate-client-index/#initialize-an-index
     index = client.init_index(algolia_index_name)
 
-    # Replace All Objects: Clears all objects from your index and
-    # replaces them with a new set of objects.
-    # www.algolia.com/doc/api-reference/api-methods/replace-all-objects/?client=python
-    index.replace_all_objects(landlord_data + corpname_data, {"safe": True})
+    # Clear Objects: Clear the records of an index without affecting its settings.
+    # Save Objects: Add new objects to an index or replace existing objects
+    # with an updated set of attributes.
+    # https://www.algolia.com/doc/api-client/methods/indexing/
+    index.clear_objects()
+    index.save_objects(landlord_data + corpname_data, {"safe": True})
