@@ -145,4 +145,4 @@ def update_landlord_search_index(conn, algolia_app_id, algolia_api_key):
     # with an updated set of attributes.
     # https://www.algolia.com/doc/api-client/methods/indexing/
     index.clear_objects()
-    index.save_objects(landlord_data + corpname_data, {"safe": True})
+    index.save_objects(landlord_data + corpname_data)
