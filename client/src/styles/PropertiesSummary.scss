@@ -34,6 +34,25 @@
         margin-bottom: 0;
       }
     }
+    .warning {
+      span, a {
+        color: #000000 !important; // this doesn't work for some reason
+        font-family: 'Inconsolata';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 100%;
+        margin-bottom: 2.4rem;
+      }
+
+      a {
+        text-decoration: underline;
+  
+        &:hover {
+          text-decoration: none;
+        }
+      }
+    }
   }
 
   .PropertiesSummary__links {

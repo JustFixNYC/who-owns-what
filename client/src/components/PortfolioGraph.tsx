@@ -6,6 +6,8 @@ import fcose from "cytoscape-fcose";
 import { AddressRecord, PortfolioGraphNode, RawPortfolioGraphJson } from "./APIDataTypes";
 import { withMachineInStateProps } from "state-machine";
 import helpers from "util/helpers";
+import warning from "../assets/img/icon-warning.svg";
+
 
 Cytoscape.use(fcose);
 
@@ -193,14 +195,34 @@ export const PortfolioGraph: React.FC<PortfolioGraphProps> = ({ graphJSON, state
       />
       <div style={{position: "absolute", left: "0px", bottom: "0px"}}>
         <div
+          className="float-left"
           style={{
             backgroundColor: "#ffb700",
             borderRadius: "2px",
             maxWidth: "475px",
             padding: "15px",
+            display: "flex",
+            alignItems: "center",
           }}
         >
-          <span>This diagram may show a network of portfolios. Learn more.</span>
+          <img 
+            src={warning} 
+            className="icon" 
+            alt="Warning" 
+            style={{
+              color: "#000000", 
+              width: "25.36px", 
+              height: "22.77px",
+              marginRight: "5px"
+            }}/>
+            <span 
+              className="warning"
+              style={{
+                color: "#000000", // not sure why this doesn't work when in scss...
+              }}
+            >
+              This diagram may show a network of portfolios. <a href="">Learn more.</a>
+            </span>
         </div>  
       </div>
       <br />
