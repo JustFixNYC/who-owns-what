@@ -139,7 +139,7 @@ export const PortfolioGraph: React.FC<PortfolioGraphProps> = ({ graphJSON, state
   const additionalEdges = generateAdditionalEdges(graphJSON.nodes, searchAddr, distinctDetailAddr);
 
   return (
-    <>
+    <div style={{position: "relative"}}>
       <div className="float-left">
         <span
           style={{
@@ -158,7 +158,7 @@ export const PortfolioGraph: React.FC<PortfolioGraphProps> = ({ graphJSON, state
       </div>
       <CytoscapeComponent
         elements={formatGraphJSON(graphJSON, additionalNodes, additionalEdges)}
-        style={{ width: "100%", height: "60vh" }}
+        style={{ width: "100%", height: "60vh"}}
         layout={layout}
         stylesheet={[
           {
@@ -191,8 +191,20 @@ export const PortfolioGraph: React.FC<PortfolioGraphProps> = ({ graphJSON, state
           },
         ]}
       />
+      <div style={{position: "absolute", left: "0px", bottom: "0px"}}>
+        <div
+          style={{
+            backgroundColor: "#ffb700",
+            borderRadius: "2px",
+            maxWidth: "475px",
+            padding: "15px",
+          }}
+        >
+          <span>This diagram may show a network of portfolios. Learn more.</span>
+        </div>  
+      </div>
       <br />
-    </>
+    </div>
   );
 };
 
