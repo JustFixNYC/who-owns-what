@@ -41,6 +41,7 @@ const HomeLink = withI18n()((props: withI18nProps) => {
   const { i18n } = props;
   const title = i18n._(t`Who owns what in nyc?`);
 
+  const { home, legacy } = createWhoOwnsWhatRoutePaths();
   const { pathname } = useLocation();
 
   return (
@@ -50,7 +51,7 @@ const HomeLink = withI18n()((props: withI18nProps) => {
       onClick={() => {
         window.gtag("event", "site-title");
       }}
-      to={isWowzaPath(pathname) ? "/" : "/legacy"}
+      to={isWowzaPath(pathname) ? home : legacy.home}
     >
       <h4>{widont(title)}</h4>
     </Link>
@@ -115,10 +116,15 @@ const WhoOwnsWhatRoutes: React.FC<{}> = () => {
       <Route path={paths.legacy.bbl} component={BBLPage} />
       <Route path={paths.bbl} render={(props) => <BBLPage {...props} useNewPortfolioMethod />} />
       <Route path={paths.about} component={AboutPage} />
+      <Route path={paths.legacy.about} component={AboutPage} />
       <Route path={paths.howToUse} component={HowToUsePage} />
+      <Route path={paths.legacy.howToUse} component={HowToUsePage} />
       <Route path={paths.methodology} component={MethodologyPage} />
+      <Route path={paths.legacy.methodology} component={MethodologyPage} />
       <Route path={paths.termsOfUse} component={TermsOfUsePage} />
+      <Route path={paths.legacy.termsOfUse} component={TermsOfUsePage} />
       <Route path={paths.privacyPolicy} component={PrivacyPolicyPage} />
+      <Route path={paths.legacy.privacyPolicy} component={PrivacyPolicyPage} />
       <Route path={paths.dev} component={DevPage} />
       <Route component={NotFoundPage} />
     </Switch>
@@ -137,14 +143,14 @@ const SearchLink = () => {
   );
 };
 
-const getMainNavLinks = () => {
-  const paths = createWhoOwnsWhatRoutePaths();
+const getMainNavLinks = (isWowzaPath?: boolean) => {
+  const { about, howToUse, legacy } = createWhoOwnsWhatRoutePaths();
   return [
     <SearchLink />,
-    <LocaleNavLink to={paths.about} key={2}>
+    <LocaleNavLink to={isWowzaPath ? about : legacy.about} key={2}>
       <Trans>About</Trans>
     </LocaleNavLink>,
-    <LocaleNavLink to={paths.howToUse} key={3}>
+    <LocaleNavLink to={isWowzaPath ? howToUse : legacy.howToUse} key={3}>
       <Trans>How to use</Trans>
     </LocaleNavLink>,
     <a href="https://www.justfix.nyc/donate" key={4}>
@@ -153,13 +159,58 @@ const getMainNavLinks = () => {
   ];
 };
 
-const App = () => {
+const Navbar = () => {
+  const { pathname } = useLocation();
   const [isEngageModalVisible, setEngageModalVisibility] = useState(false);
-
-  const isDemoSite = process.env.REACT_APP_DEMO_SITE === "1";
   const addFeatureCalloutWidget = process.env.REACT_APP_ENABLE_FEATURE_CALLOUT_WIDGET === "1";
-  const version = process.env.REACT_APP_VERSION;
+  const isDemoSite = process.env.REACT_APP_DEMO_SITE === "1";
+  return (
+    <div className="App__header navbar">
+      <HomeLink />
+      {isDemoSite && (
+        <span className="label label-warning ml-2 text-uppercase">
+          <Trans>Demo Site</Trans>
+        </span>
+      )}
+      <nav className="inline">
+        {addFeatureCalloutWidget && <FeatureCalloutWidget />}
+        <span className="hide-lg">
+          {getMainNavLinks(isWowzaPath(pathname))}
+          {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+          <a href="#" onClick={() => setEngageModalVisibility(true)}>
+            <Trans>Share</Trans>
+          </a>
+          <LocaleSwitcher />
+        </span>
+        <Dropdown>
+          {getMainNavLinks(isWowzaPath(pathname)).map((link, i) => (
+            <li className="menu-item" key={i}>
+              {link}
+            </li>
+          ))}
+          <li className="menu-item">
+            {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+            <a href="#" onClick={() => setEngageModalVisibility(true)}>
+              <Trans>Share</Trans>
+            </a>
+          </li>
+          <li className="menu-item">
+            <LocaleSwitcherWithFullLanguageName />
+          </li>
+        </Dropdown>
+      </nav>
+      <Modal showModal={isEngageModalVisible} onClose={() => setEngageModalVisibility(false)}>
+        <h5 className="first-header">
+          <Trans>Share this page with your neighbors</Trans>
+        </h5>
+        <SocialShare location="share-modal" />
+      </Modal>
+    </div>
+  );
+};
 
+const App = () => {
+  const version = process.env.REACT_APP_VERSION;
   return (
     <Router>
       <I18n>
@@ -172,51 +223,7 @@ const App = () => {
             />
           )}
           <div className="App">
-            <div className="App__header navbar">
-              <HomeLink />
-              {isDemoSite && (
-                <span className="label label-warning ml-2 text-uppercase">
-                  <Trans>Demo Site</Trans>
-                </span>
-              )}
-              <nav className="inline">
-                {addFeatureCalloutWidget && <FeatureCalloutWidget />}
-                <span className="hide-lg">
-                  {getMainNavLinks()}
-                  {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-                  <a href="#" onClick={() => setEngageModalVisibility(true)}>
-                    <Trans>Share</Trans>
-                  </a>
-                  <LocaleSwitcher />
-                </span>
-                <Dropdown>
-                  {getMainNavLinks().map((link, i) => (
-                    <li className="menu-item" key={i}>
-                      {link}
-                    </li>
-                  ))}
-                  <li className="menu-item">
-                    {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-                    <a href="#" onClick={() => setEngageModalVisibility(true)}>
-                      <Trans>Share</Trans>
-                    </a>
-                  </li>
-                  <li className="menu-item">
-                    <LocaleSwitcherWithFullLanguageName />
-                  </li>
-                </Dropdown>
-              </nav>
-
-              <Modal
-                showModal={isEngageModalVisible}
-                onClose={() => setEngageModalVisibility(false)}
-              >
-                <h5 className="first-header">
-                  <Trans>Share this page with your neighbors</Trans>
-                </h5>
-                <SocialShare location="share-modal" />
-              </Modal>
-            </div>
+            <Navbar />
             <div className="App__body">
               <WhoOwnsWhatRoutes />
             </div>
