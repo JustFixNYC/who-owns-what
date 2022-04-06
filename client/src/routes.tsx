@@ -7,15 +7,12 @@ export type AddressPageUrlParams = SearchAddressWithoutBbl & {
 
 export type AddressPageRoutes = ReturnType<typeof createAddressPageRoutes>;
 
-export const createRouteForAddressPage = (
-  params: AddressPageUrlParams,
-  addWowzaToRoute?: boolean
-) => {
+export const createRouteForAddressPage = (params: AddressPageUrlParams, isWowzaRoute?: boolean) => {
   let route = `/address/${encodeURIComponent(params.boro)}/${encodeURIComponent(
     params.housenumber ? params.housenumber : " "
   )}/${encodeURIComponent(params.streetname)}`;
 
-  if (!addWowzaToRoute) route = "/legacy" + route;
+  if (!isWowzaRoute) route = "/legacy" + route;
 
   if (route.includes(" ")) {
     reportError("An Address Page URL was not encoded properly! There's a space in the URL.");
@@ -29,9 +26,9 @@ export const createRouteForAddressPage = (
   return route;
 };
 
-export const createRouteForFullBbl = (bbl: string, prefix?: string, addWowzaToRoute?: boolean) => {
+export const createRouteForFullBbl = (bbl: string, prefix?: string, isWowzaRoute?: boolean) => {
   let route = `/bbl/${bbl}`;
-  if (!addWowzaToRoute) route = "/legacy" + route;
+  if (!isWowzaRoute) route = "/legacy" + route;
   if (prefix) route = `/${prefix}` + route;
   return route;
 };
