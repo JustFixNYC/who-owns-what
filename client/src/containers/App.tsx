@@ -50,7 +50,7 @@ const HomeLink = withI18n()((props: withI18nProps) => {
       onClick={() => {
         window.gtag("event", "site-title");
       }}
-      to={isWowzaPath(pathname) ? "/wowza" : "/"}
+      to={isWowzaPath(pathname) ? "/" : "/legacy"}
     >
       <h4>{widont(title)}</h4>
     </Link>
@@ -63,60 +63,57 @@ const WhoOwnsWhatRoutes: React.FC<{}> = () => {
   const machineProps = { state, send };
   return (
     <Switch>
-      <Route exact path={paths.home} component={HomePage} />
+      <Route exact path={paths.legacyHome} component={HomePage} />
       <Route
         exact
-        path={paths.wowzaHome}
+        path={paths.home}
         render={(props) => <HomePage useNewPortfolioMethod {...machineProps} {...props} />}
       />
       <Route
-        path={paths.addressPage.overview}
+        path={paths.legacyAddressPage.overview}
         render={(props) => <AddressPage currentTab={0} {...machineProps} {...props} />}
         exact
       />
       <Route
-        path={paths.addressPage.timeline}
+        path={paths.legacyAddressPage.timeline}
         render={(props) => <AddressPage currentTab={1} {...machineProps} {...props} />}
       />
       <Route
-        path={paths.addressPage.portfolio}
+        path={paths.legacyAddressPage.portfolio}
         render={(props) => <AddressPage currentTab={2} {...machineProps} {...props} />}
       />
       <Route
-        path={paths.addressPage.summary}
+        path={paths.legacyAddressPage.summary}
         render={(props) => <AddressPage currentTab={3} {...machineProps} {...props} />}
       />
       <Route
-        path={paths.wowzaAddressPage.overview}
+        path={paths.addressPage.overview}
         render={(props) => (
           <AddressPage currentTab={0} {...machineProps} {...props} useNewPortfolioMethod />
         )}
         exact
       />
       <Route
-        path={paths.wowzaAddressPage.timeline}
+        path={paths.addressPage.timeline}
         render={(props) => (
           <AddressPage currentTab={1} {...machineProps} {...props} useNewPortfolioMethod />
         )}
       />
       <Route
-        path={paths.wowzaAddressPage.portfolio}
+        path={paths.addressPage.portfolio}
         render={(props) => (
           <AddressPage currentTab={2} {...machineProps} {...props} useNewPortfolioMethod />
         )}
       />
       <Route
-        path={paths.wowzaAddressPage.summary}
+        path={paths.addressPage.summary}
         render={(props) => (
           <AddressPage currentTab={3} {...machineProps} {...props} useNewPortfolioMethod />
         )}
       />
       <Route path={paths.bblSeparatedIntoParts} component={BBLPage} />
-      <Route path={paths.bbl} component={BBLPage} />
-      <Route
-        path={paths.wowzaBbl}
-        render={(props) => <BBLPage {...props} useNewPortfolioMethod />}
-      />
+      <Route path={paths.legacyBbl} component={BBLPage} />
+      <Route path={paths.bbl} render={(props) => <BBLPage {...props} useNewPortfolioMethod />} />
       <Route path={paths.about} component={AboutPage} />
       <Route path={paths.howToUse} component={HowToUsePage} />
       <Route path={paths.methodology} component={MethodologyPage} />
@@ -130,8 +127,8 @@ const WhoOwnsWhatRoutes: React.FC<{}> = () => {
 
 const SearchLink = () => {
   const { pathname } = useLocation();
-  const { home, wowzaHome } = createWhoOwnsWhatRoutePaths();
-  const searchRoute = isWowzaPath(pathname) ? wowzaHome : home;
+  const { home, legacyHome } = createWhoOwnsWhatRoutePaths();
+  const searchRoute = isWowzaPath(pathname) ? home : legacyHome;
 
   return (
     <LocaleNavLink exact to={searchRoute} key={1}>

@@ -15,7 +15,7 @@ export const createRouteForAddressPage = (
     params.housenumber ? params.housenumber : " "
   )}/${encodeURIComponent(params.streetname)}`;
 
-  if (addWowzaToRoute) route = "/wowza" + route;
+  if (!addWowzaToRoute) route = "/legacy" + route;
 
   if (route.includes(" ")) {
     reportError("An Address Page URL was not encoded properly! There's a space in the URL.");
@@ -31,7 +31,7 @@ export const createRouteForAddressPage = (
 
 export const createRouteForFullBbl = (bbl: string, prefix?: string, addWowzaToRoute?: boolean) => {
   let route = `/bbl/${bbl}`;
-  if (addWowzaToRoute) route = "/wowza" + route;
+  if (!addWowzaToRoute) route = "/legacy" + route;
   if (prefix) route = `/${prefix}` + route;
   return route;
 };
@@ -54,22 +54,22 @@ export const createAddressPageRoutes = (
 export const createWhoOwnsWhatRoutePaths = (prefix?: string) => {
   const pathPrefix = prefix || "";
   return {
+    legacyHome: `${pathPrefix}/legacy`,
     home: `${pathPrefix}/`,
-    wowzaHome: `${pathPrefix}/wowza`,
-    addressPage: createAddressPageRoutes(`${pathPrefix}/address/:boro/:housenumber/:streetname`),
-    wowzaAddressPage: createAddressPageRoutes(
-      `${pathPrefix}/wowza/address/:boro/:housenumber/:streetname`
+    legacyAddressPage: createAddressPageRoutes(
+      `${pathPrefix}/legacy/address/:boro/:housenumber/:streetname`
     ),
+    addressPage: createAddressPageRoutes(`${pathPrefix}/address/:boro/:housenumber/:streetname`),
     /** Note: this path doesn't correspond to a stable page on the site. It simply provides an entry point that
      * immediately redirects to an addressPageOverview. This path is helpful for folks who, say, have a list of
      * bbl values in a spreadsheet and want to easily generate direct links to WhoOwnsWhat.
      * See `BBLPage.tsx` for more details.
      */
-    bbl: `${pathPrefix}/bbl/:bbl`,
+    legacyBbl: `${pathPrefix}/legacy/bbl/:bbl`,
     /** This route path corresponds to a page identical to the `bbl` path above, just specifying that the user
      * requests to use the new "WOWZA" portfolio method.
      */
-    wowzaBbl: `${pathPrefix}/wowza/bbl/:bbl`,
+    bbl: `${pathPrefix}/bbl/:bbl`,
     /** This route path corresponds to a page identical to the `bbl` route above, but with an older url
      * pattern that we want to support so as not to break any old links that exist out in the web.
      */
