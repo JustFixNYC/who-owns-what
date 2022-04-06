@@ -442,6 +442,7 @@ const TableOfData = React.memo(
                       (o) =>
                         o.title === "HeadOfficer" ||
                         o.title === "IndividualOwner" ||
+                        o.title === "CorporateOwner" ||
                         o.title === "JointOwner"
                     );
                   return owner ? owner.value : "";
