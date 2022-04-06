@@ -10,7 +10,7 @@
         "content": [
           {
             "nodeType": "text",
-            "value": "Metodologia de Datos de Quién Es El Dueño",
+            "value": "Metodología de Datos de Quién Es El Dueño",
             "marks": [],
             "data": {}
           }
@@ -59,7 +59,7 @@
             "content": [
               {
                 "nodeType": "text",
-                "value": "registro    de edificios residenciales del Departamento de Preservación y Desarrollo de la Vivienda",
+                "value": "registro de edificios residenciales del Departamento de Preservación y Desarrollo de la Vivienda",
                 "marks": [],
                 "data": {}
               }
@@ -82,7 +82,7 @@
         "content": [
           {
             "nodeType": "text",
-            "value": "Cuando haces una búsqueda Quién Es El Dueño, nuestra base de datos:",
+            "value": "Para agrupar a los portafolios de los dueños, nuestra base de datos:",
             "marks": [],
             "data": {}
           }
@@ -92,6 +92,40 @@
       {
         "nodeType": "ordered-list",
         "content": [
+          {
+            "nodeType": "list-item",
+            "content": [
+              {
+                "nodeType": "paragraph",
+                "content": [
+                  {
+                    "nodeType": "text",
+                    "value": "reúne los nombres de contacto de ",
+                    "marks": [],
+                    "data": {}
+                  },
+                  {
+                    "nodeType": "text",
+                    "value": "\"Oficial Principal\", \"Dueño Individual\", \"Dueño Corporativo\", y \"Dueño Conjunto\"",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      }
+                    ],
+                    "data": {}
+                  },
+                  {
+                    "nodeType": "text",
+                    "value": " que están registrados en el HPD.",
+                    "marks": [],
+                    "data": {}
+                  }
+                ],
+                "data": {}
+              }
+            ],
+            "data": {}
+          },
           {
             "nodeType": "list-item",
             "content": [
@@ -116,7 +150,7 @@
                   },
                   {
                     "nodeType": "text",
-                    "value": " de las entidades que están registradas con tu edificio en el HPD y encuentra otras propiedades en la ciudad con una dirección coincidente.",
+                    "value": " que están registradas con estos nombres de contacto.",
                     "marks": [],
                     "data": {}
                   }
@@ -134,23 +168,31 @@
                 "content": [
                   {
                     "nodeType": "text",
-                    "value": "reúne los nombres de contacto de ",
+                    "value": "utiliza el ",
                     "marks": [],
                     "data": {}
                   },
                   {
-                    "nodeType": "text",
-                    "value": "\"Oficial Principal\", \"Dueño Individual\" y \"Dueño Corporativo\"",
-                    "marks": [
+                    "nodeType": "hyperlink",
+                    "content": [
                       {
-                        "type": "bold"
+                        "nodeType": "text",
+                        "value": "paquete de Python networkx",
+                        "marks": [
+                          {
+                            "type": "underline"
+                          }
+                        ],
+                        "data": {}
                       }
                     ],
-                    "data": {}
+                    "data": {
+                      "uri": "https://networkx.org/"
+                    }
                   },
                   {
                     "nodeType": "text",
-                    "value": " que estén registrados con tu edificio en el HPD y encuentra otras propiedades en la ciudad con un nombre de contacto coincidente, utilizando \"coincidencia difusa\" para tener en cuenta posibles errores ortográficos.",
+                    "value": " para agrupar a los nombres de contacto de los dueños que comparten las mismas direcciones comerciales, y también genera una lista agregada de edificios para cada grupo de nombres de dueños.",
                     "marks": [],
                     "data": {}
                   }
