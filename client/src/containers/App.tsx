@@ -63,27 +63,27 @@ const WhoOwnsWhatRoutes: React.FC<{}> = () => {
   const machineProps = { state, send };
   return (
     <Switch>
-      <Route exact path={paths.legacyHome} component={HomePage} />
+      <Route exact path={paths.legacy.home} component={HomePage} />
       <Route
         exact
         path={paths.home}
         render={(props) => <HomePage useNewPortfolioMethod {...machineProps} {...props} />}
       />
       <Route
-        path={paths.legacyAddressPage.overview}
+        path={paths.legacy.addressPage.overview}
         render={(props) => <AddressPage currentTab={0} {...machineProps} {...props} />}
         exact
       />
       <Route
-        path={paths.legacyAddressPage.timeline}
+        path={paths.legacy.addressPage.timeline}
         render={(props) => <AddressPage currentTab={1} {...machineProps} {...props} />}
       />
       <Route
-        path={paths.legacyAddressPage.portfolio}
+        path={paths.legacy.addressPage.portfolio}
         render={(props) => <AddressPage currentTab={2} {...machineProps} {...props} />}
       />
       <Route
-        path={paths.legacyAddressPage.summary}
+        path={paths.legacy.addressPage.summary}
         render={(props) => <AddressPage currentTab={3} {...machineProps} {...props} />}
       />
       <Route
@@ -112,7 +112,7 @@ const WhoOwnsWhatRoutes: React.FC<{}> = () => {
         )}
       />
       <Route path={paths.bblSeparatedIntoParts} component={BBLPage} />
-      <Route path={paths.legacyBbl} component={BBLPage} />
+      <Route path={paths.legacy.bbl} component={BBLPage} />
       <Route path={paths.bbl} render={(props) => <BBLPage {...props} useNewPortfolioMethod />} />
       <Route path={paths.about} component={AboutPage} />
       <Route path={paths.howToUse} component={HowToUsePage} />
@@ -127,8 +127,8 @@ const WhoOwnsWhatRoutes: React.FC<{}> = () => {
 
 const SearchLink = () => {
   const { pathname } = useLocation();
-  const { home, legacyHome } = createWhoOwnsWhatRoutePaths();
-  const searchRoute = isWowzaPath(pathname) ? home : legacyHome;
+  const { home, legacy } = createWhoOwnsWhatRoutePaths();
+  const searchRoute = isWowzaPath(pathname) ? home : legacy.home;
 
   return (
     <LocaleNavLink exact to={searchRoute} key={1}>
