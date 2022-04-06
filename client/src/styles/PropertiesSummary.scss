@@ -19,6 +19,10 @@
       margin-bottom: 0.6rem;
       text-decoration: underline;
       font-weight: bold;
+      // Override default styling in App.scss
+      &:first-child {
+        width: 100%;
+      }
     }
 
     p {
