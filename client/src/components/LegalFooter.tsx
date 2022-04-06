@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { LocaleNavLink as NavLink } from "../i18n";
 
 import "styles/LegalFooter.css";
