@@ -163,6 +163,7 @@ class DetailViewWithoutI18n extends Component<Props, State> {
     const locale = (i18n.language as SupportedLocale) || defaultLocale;
     const { useNewPortfolioMethod, portfolioData } = this.props.state.context;
     const { assocAddrs, detailAddr, searchAddr } = portfolioData;
+    const { methodology, legacy } = createWhoOwnsWhatRoutePaths();
 
     // Let's save some variables that will be helpful in rendering the front-end component
     let takeActionURL, formattedRegEndDate, streetViewAddr, ownernames, userOwnernames;
@@ -393,7 +394,7 @@ class DetailViewWithoutI18n extends Component<Props, State> {
                 <LocaleLink
                   to={
                     // This link only shows up on our legacy version of WOW:
-                    createWhoOwnsWhatRoutePaths().legacy.methodology
+                    useNewPortfolioMethod ? legacy.methodology : methodology
                   }
                 >
                   our methodology
