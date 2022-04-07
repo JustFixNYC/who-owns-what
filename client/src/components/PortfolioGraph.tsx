@@ -6,6 +6,7 @@ import fcose from "cytoscape-fcose";
 import { AddressRecord, PortfolioGraphNode, RawPortfolioGraphJson } from "./APIDataTypes";
 import { withMachineInStateProps } from "state-machine";
 import helpers from "util/helpers";
+import { Trans } from "@lingui/macro";
 
 Cytoscape.use(fcose);
 
@@ -146,14 +147,14 @@ export const PortfolioGraph: React.FC<PortfolioGraphProps> = ({ graphJSON, state
             color: "red",
           }}
         >
-          ● Landlords
+          ● <Trans>Owner Names</Trans>
         </span>{" "}
         <span
           style={{
             color: "gray",
           }}
         >
-          ● Business Addresses
+          ● <Trans>Business Addresses</Trans>
         </span>
       </div>
       <CytoscapeComponent
