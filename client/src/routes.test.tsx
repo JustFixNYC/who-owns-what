@@ -26,7 +26,7 @@ describe("createAddressPageRoutes()", () => {
     ).toBe("/es/legacy/address/BROOKLYN/654/PARK%20PLACE/timeline");
   });
 
-  it("correctly sets the right path when route is specified as a wowza route", () => {
+  it("correctly sets the right path when route is specified as a legacy route", () => {
     expect(
       createAddressPageRoutes(
         {
@@ -37,6 +37,6 @@ describe("createAddressPageRoutes()", () => {
         },
         true
       ).timeline
-    ).toBe("/es/address/BROOKLYN/654/PARK%20PLACE/timeline");
+    ).toBe("/es/legacy/address/BROOKLYN/654/PARK%20PLACE/timeline");
   });
 });

@@ -5,7 +5,7 @@ import "styles/LegalFooter.css";
 import { Trans } from "@lingui/macro";
 import { createWhoOwnsWhatRoutePaths } from "../routes";
 import { useLocation } from "react-router-dom";
-import { isWowzaPath } from "./WowzaToggle";
+import { isLegacyPath } from "./WowzaToggle";
 
 const LegalFooter = () => {
   const { termsOfUse, privacyPolicy, methodology, legacy } = createWhoOwnsWhatRoutePaths();
@@ -41,14 +41,14 @@ const LegalFooter = () => {
               >
                 <Trans>Donate</Trans>
               </a>
-              <NavLink to={isWowzaPath(pathname) ? termsOfUse : legacy.termsOfUse}>
+              <NavLink to={isLegacyPath(pathname) ? legacy.termsOfUse : termsOfUse}>
                 <Trans>Terms of use</Trans>
               </NavLink>
-              <NavLink to={isWowzaPath(pathname) ? privacyPolicy : legacy.privacyPolicy}>
+              <NavLink to={isLegacyPath(pathname) ? legacy.privacyPolicy : privacyPolicy}>
                 <Trans>Privacy policy</Trans>
               </NavLink>
               <br className="hide-md" />
-              <NavLink to={isWowzaPath(pathname) ? methodology : legacy.methodology}>
+              <NavLink to={isLegacyPath(pathname) ? legacy.methodology : methodology}>
                 <Trans>Methodology</Trans>
               </NavLink>
               <a

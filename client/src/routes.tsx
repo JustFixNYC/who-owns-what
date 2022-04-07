@@ -7,12 +7,15 @@ export type AddressPageUrlParams = SearchAddressWithoutBbl & {
 
 export type AddressPageRoutes = ReturnType<typeof createAddressPageRoutes>;
 
-export const createRouteForAddressPage = (params: AddressPageUrlParams, isWowzaRoute?: boolean) => {
+export const createRouteForAddressPage = (
+  params: AddressPageUrlParams,
+  isLegacyRoute?: boolean
+) => {
   let route = `/address/${encodeURIComponent(params.boro)}/${encodeURIComponent(
     params.housenumber ? params.housenumber : " "
   )}/${encodeURIComponent(params.streetname)}`;
 
-  if (!isWowzaRoute) route = "/legacy" + route;
+  if (isLegacyRoute) route = "/legacy" + route;
 
   if (route.includes(" ")) {
     reportError("An Address Page URL was not encoded properly! There's a space in the URL.");
@@ -26,19 +29,19 @@ export const createRouteForAddressPage = (params: AddressPageUrlParams, isWowzaR
   return route;
 };
 
-export const createRouteForFullBbl = (bbl: string, prefix?: string, isWowzaRoute?: boolean) => {
+export const createRouteForFullBbl = (bbl: string, prefix?: string, isLegacyRoute?: boolean) => {
   let route = `/bbl/${bbl}`;
-  if (!isWowzaRoute) route = "/legacy" + route;
+  if (isLegacyRoute) route = "/legacy" + route;
   if (prefix) route = `/${prefix}` + route;
   return route;
 };
 
 export const createAddressPageRoutes = (
   prefix: string | AddressPageUrlParams,
-  isWowzaRoute?: boolean
+  isLegacyRoute?: boolean
 ) => {
   if (typeof prefix === "object") {
-    prefix = createRouteForAddressPage(prefix, isWowzaRoute);
+    prefix = createRouteForAddressPage(prefix, isLegacyRoute);
   }
   return {
     overview: `${prefix}`,

@@ -21,7 +21,7 @@ import { Accordion } from "./Accordion";
 import { UsefulLinks } from "./UsefulLinks";
 import _groupBy from "lodash/groupBy";
 import { HpdContactAddress, HpdFullContact } from "./APIDataTypes";
-import { isWowzaPath } from "./WowzaToggle";
+import { isLegacyPath } from "./WowzaToggle";
 
 type Props = withI18nProps &
   withMachineInStateProps<"portfolioFound"> & {
@@ -118,7 +118,7 @@ const LearnMoreAccordion = () => {
             <p>
               Learn more about HPD registrations and how this information powers this tool on the{" "}
               <LocaleLink
-                to={isWowzaPath(pathname) ? about : legacy.about}
+                to={isLegacyPath(pathname) ? legacy.about : about}
                 onClick={() => {
                   window.gtag("event", "about-page-overview-tab");
                 }}
@@ -392,7 +392,7 @@ class DetailViewWithoutI18n extends Component<Props, State> {
                 landlord or management company's portfolio. To learn more, check out{" "}
                 <LocaleLink
                   to={
-                    //This link only shows up on our legacy version of WOW:
+                    // This link only shows up on our legacy version of WOW:
                     createWhoOwnsWhatRoutePaths().legacy.methodology
                   }
                 >

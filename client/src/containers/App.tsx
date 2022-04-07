@@ -35,7 +35,7 @@ import { wowMachine } from "state-machine";
 import { NotFoundPage } from "./NotFoundPage";
 import widont from "widont";
 import { Dropdown } from "components/Dropdown";
-import { isWowzaPath } from "components/WowzaToggle";
+import { isLegacyPath } from "components/WowzaToggle";
 
 const HomeLink = withI18n()((props: withI18nProps) => {
   const { i18n } = props;
@@ -51,7 +51,7 @@ const HomeLink = withI18n()((props: withI18nProps) => {
       onClick={() => {
         window.gtag("event", "site-title");
       }}
-      to={isWowzaPath(pathname) ? home : legacy.home}
+      to={isLegacyPath(pathname) ? legacy.home : home}
     >
       <h4>{widont(title)}</h4>
     </Link>
@@ -134,7 +134,7 @@ const WhoOwnsWhatRoutes: React.FC<{}> = () => {
 const SearchLink = () => {
   const { pathname } = useLocation();
   const { home, legacy } = createWhoOwnsWhatRoutePaths();
-  const searchRoute = isWowzaPath(pathname) ? home : legacy.home;
+  const searchRoute = isLegacyPath(pathname) ? legacy.home : home;
 
   return (
     <LocaleNavLink exact to={searchRoute} key={1}>
@@ -143,14 +143,14 @@ const SearchLink = () => {
   );
 };
 
-const getMainNavLinks = (isWowzaPath?: boolean) => {
+const getMainNavLinks = (isLegacyPath?: boolean) => {
   const { about, howToUse, legacy } = createWhoOwnsWhatRoutePaths();
   return [
     <SearchLink />,
-    <LocaleNavLink to={isWowzaPath ? about : legacy.about} key={2}>
+    <LocaleNavLink to={isLegacyPath ? legacy.about : about} key={2}>
       <Trans>About</Trans>
     </LocaleNavLink>,
-    <LocaleNavLink to={isWowzaPath ? howToUse : legacy.howToUse} key={3}>
+    <LocaleNavLink to={isLegacyPath ? legacy.howToUse : howToUse} key={3}>
       <Trans>How to use</Trans>
     </LocaleNavLink>,
     <a href="https://www.justfix.nyc/donate" key={4}>
@@ -175,7 +175,7 @@ const Navbar = () => {
       <nav className="inline">
         {addFeatureCalloutWidget && <FeatureCalloutWidget />}
         <span className="hide-lg">
-          {getMainNavLinks(isWowzaPath(pathname))}
+          {getMainNavLinks(isLegacyPath(pathname))}
           {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
           <a href="#" onClick={() => setEngageModalVisibility(true)}>
             <Trans>Share</Trans>
@@ -183,7 +183,7 @@ const Navbar = () => {
           <LocaleSwitcher />
         </span>
         <Dropdown>
-          {getMainNavLinks(isWowzaPath(pathname)).map((link, i) => (
+          {getMainNavLinks(isLegacyPath(pathname)).map((link, i) => (
             <li className="menu-item" key={i}>
               {link}
             </li>

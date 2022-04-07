@@ -1,11 +1,10 @@
-import { getPathForOtherPortfolioMethod, isWowzaPath } from "./WowzaToggle";
+import { getPathForOtherPortfolioMethod, isLegacyPath } from "./WowzaToggle";
 
-describe("isWowzaPath()", () => {
+describe("isLegacyPath()", () => {
   it("works", () => {
-    expect(isWowzaPath("/boop")).toBe(true);
-    expect(isWowzaPath("/wowza")).toBe(true);
-    expect(isWowzaPath("/en/address/1425/wowza/avenue")).toBe(true);
-    expect(isWowzaPath("/en/legacy/blah?bee=1")).toBe(false);
+    expect(isLegacyPath("/boop")).toBe(false);
+    expect(isLegacyPath("/en/address/1425/wowza/avenue")).toBe(false);
+    expect(isLegacyPath("/en/legacy/blah?bee=1")).toBe(true);
   });
 });
 

@@ -4,17 +4,17 @@ import React from "react";
 import { useHistory, useLocation } from "react-router-dom";
 
 /**
- * Determines whether a url corresponds to a new WOWZA portfolio mapping page vs an original.
+ * Determines whether a url corresponds to a new WOWZA portfolio mapping page vs an old legacy page.
  */
-export const isWowzaPath = (pathname: string) =>
-  !removeLocalePrefix(pathname).startsWith("/legacy");
+export const isLegacyPath = (pathname: string) =>
+  removeLocalePrefix(pathname).startsWith("/legacy");
 
 /**
  * If the user is on a normal WOW address page, this function generates a pathname for the corresponding
  * WOWZA page with updated portfolio mapping, and vice versa.
  */
 export const getPathForOtherPortfolioMethod = (pathname: string) => {
-  if (!isWowzaPath(pathname)) {
+  if (isLegacyPath(pathname)) {
     return pathname.replace("/legacy", "");
   } else {
     const locale = parseLocaleFromPath(pathname);
@@ -33,10 +33,10 @@ export const ToggleButtonBetweenPortfolioMethods = () => {
         history.go(0);
       }}
     >
-      {isWowzaPath(pathname) ? (
-        <Trans>Switch to Old Version</Trans>
-      ) : (
+      {isLegacyPath(pathname) ? (
         <Trans>Switch to New Version</Trans>
+      ) : (
+        <Trans>Switch to Old Version</Trans>
       )}
     </button>
   );
