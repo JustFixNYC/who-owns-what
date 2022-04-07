@@ -11,7 +11,7 @@ import { withI18n, withI18nProps, I18n } from "@lingui/react";
 import { t, Trans } from "@lingui/macro";
 import { SocialShareAddressPage } from "./SocialShare";
 import { isPartOfGroupSale } from "./PropertiesList";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { LocaleLink } from "../i18n";
 import BuildingStatsTable from "./BuildingStatsTable";
 import { createWhoOwnsWhatRoutePaths, AddressPageRoutes } from "../routes";
@@ -21,6 +21,7 @@ import { Accordion } from "./Accordion";
 import { UsefulLinks } from "./UsefulLinks";
 import _groupBy from "lodash/groupBy";
 import { HpdContactAddress, HpdFullContact } from "./APIDataTypes";
+import { isWowzaPath } from "./WowzaToggle";
 
 type Props = withI18nProps &
   withMachineInStateProps<"portfolioFound"> & {
@@ -95,39 +96,43 @@ const HpdContactCard: React.FC<{ contact: GroupedContact }> = ({ contact }) => (
   </I18n>
 );
 
-const LearnMoreAccordion = () => (
-  <I18n>
-    {({ i18n }) => (
-      <Accordion title={i18n._(t`Learn more`)} titleOnOpen={i18n._(t`Close`)}>
-        <br />
-        <Trans>
-          <p>
-            While the legal owner of a building is often a company (usually called an “LLC”), these
-            names and business addresses registered with HPD offer a clearer picture of who really
-            controls the building.
-          </p>
-          <p>
-            People listed here as “Head Officer” or “Owner” usually have ties to building ownership,
-            while “Site Managers” are part of management. That being said, these names are self
-            reported by the landlord, so they can be misleading.
-          </p>
-          <p>
-            Learn more about HPD registrations and how this information powers this tool on the{" "}
-            <LocaleLink
-              to={createWhoOwnsWhatRoutePaths().about}
-              onClick={() => {
-                window.gtag("event", "about-page-overview-tab");
-              }}
-            >
-              About page
-            </LocaleLink>
-            .
-          </p>
-        </Trans>
-      </Accordion>
-    )}
-  </I18n>
-);
+const LearnMoreAccordion = () => {
+  const { pathname } = useLocation();
+  const { about, legacy } = createWhoOwnsWhatRoutePaths();
+  return (
+    <I18n>
+      {({ i18n }) => (
+        <Accordion title={i18n._(t`Learn more`)} titleOnOpen={i18n._(t`Close`)}>
+          <br />
+          <Trans>
+            <p>
+              While the legal owner of a building is often a company (usually called an “LLC”),
+              these names and business addresses registered with HPD offer a clearer picture of who
+              really controls the building.
+            </p>
+            <p>
+              People listed here as “Head Officer” or “Owner” usually have ties to building
+              ownership, while “Site Managers” are part of management. That being said, these names
+              are self reported by the landlord, so they can be misleading.
+            </p>
+            <p>
+              Learn more about HPD registrations and how this information powers this tool on the{" "}
+              <LocaleLink
+                to={isWowzaPath(pathname) ? about : legacy.about}
+                onClick={() => {
+                  window.gtag("event", "about-page-overview-tab");
+                }}
+              >
+                About page
+              </LocaleLink>
+              .
+            </p>
+          </Trans>
+        </Accordion>
+      )}
+    </I18n>
+  );
+};
 
 const HowIsBldgAssociatedHeader = () => (
   <Trans>How is this building associated to this portfolio?</Trans>
@@ -385,7 +390,12 @@ class DetailViewWithoutI18n extends Component<Props, State> {
               <Trans render="p">
                 We compare your search address with a database of over 200k buildings to identify a
                 landlord or management company's portfolio. To learn more, check out{" "}
-                <LocaleLink to={createWhoOwnsWhatRoutePaths().methodology}>
+                <LocaleLink
+                  to={
+                    //This link only shows up on our legacy version of WOW:
+                    createWhoOwnsWhatRoutePaths().legacy.methodology
+                  }
+                >
                   our methodology
                 </LocaleLink>
                 .
