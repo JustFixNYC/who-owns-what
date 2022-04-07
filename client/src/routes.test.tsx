@@ -12,7 +12,7 @@ describe("createAddressPageRoutes()", () => {
         housenumber: "654",
         streetname: "PARK PLACE",
       }).timeline
-    ).toBe("/legacy/address/BROOKLYN/654/PARK%20PLACE/timeline");
+    ).toBe("/address/BROOKLYN/654/PARK%20PLACE/timeline");
   });
 
   it("prefixes with address page params and locale when given one", () => {
@@ -23,7 +23,7 @@ describe("createAddressPageRoutes()", () => {
         streetname: "PARK PLACE",
         locale: "es",
       }).timeline
-    ).toBe("/es/legacy/address/BROOKLYN/654/PARK%20PLACE/timeline");
+    ).toBe("/es/address/BROOKLYN/654/PARK%20PLACE/timeline");
   });
 
   it("correctly sets the right path when route is specified as a legacy route", () => {
