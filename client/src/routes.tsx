@@ -15,7 +15,10 @@ export const createRouteForAddressPage = (
     params.housenumber ? params.housenumber : " "
   )}/${encodeURIComponent(params.streetname)}`;
 
-  if (isLegacyRoute) route = "/legacy" + route;
+  const allowChangingPortfolioMethod =
+    process.env.REACT_APP_ENABLE_NEW_WOWZA_PORTFOLIO_MAPPING === "1";
+
+  if (isLegacyRoute && allowChangingPortfolioMethod) route = "/legacy" + route;
 
   if (route.includes(" ")) {
     reportError("An Address Page URL was not encoded properly! There's a space in the URL.");
@@ -31,7 +34,9 @@ export const createRouteForAddressPage = (
 
 export const createRouteForFullBbl = (bbl: string, prefix?: string, isLegacyRoute?: boolean) => {
   let route = `/bbl/${bbl}`;
-  if (isLegacyRoute) route = "/legacy" + route;
+  const allowChangingPortfolioMethod =
+    process.env.REACT_APP_ENABLE_NEW_WOWZA_PORTFOLIO_MAPPING === "1";
+  if (isLegacyRoute && allowChangingPortfolioMethod) route = "/legacy" + route;
   if (prefix) route = `/${prefix}` + route;
   return route;
 };

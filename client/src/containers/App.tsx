@@ -62,13 +62,21 @@ const WhoOwnsWhatRoutes: React.FC<{}> = () => {
   const paths = createWhoOwnsWhatRoutePaths("/:locale");
   const [state, send] = useMachine(wowMachine);
   const machineProps = { state, send };
+  const allowChangingPortfolioMethod =
+    process.env.REACT_APP_ENABLE_NEW_WOWZA_PORTFOLIO_MAPPING === "1";
   return (
     <Switch>
       <Route exact path={paths.legacy.home} component={HomePage} />
       <Route
         exact
         path={paths.home}
-        render={(props) => <HomePage useNewPortfolioMethod {...machineProps} {...props} />}
+        render={(props) => (
+          <HomePage
+            useNewPortfolioMethod={allowChangingPortfolioMethod}
+            {...machineProps}
+            {...props}
+          />
+        )}
       />
       <Route
         path={paths.legacy.addressPage.overview}
@@ -90,31 +98,56 @@ const WhoOwnsWhatRoutes: React.FC<{}> = () => {
       <Route
         path={paths.addressPage.overview}
         render={(props) => (
-          <AddressPage currentTab={0} {...machineProps} {...props} useNewPortfolioMethod />
+          <AddressPage
+            currentTab={0}
+            {...machineProps}
+            {...props}
+            useNewPortfolioMethod={allowChangingPortfolioMethod}
+          />
         )}
         exact
       />
       <Route
         path={paths.addressPage.timeline}
         render={(props) => (
-          <AddressPage currentTab={1} {...machineProps} {...props} useNewPortfolioMethod />
+          <AddressPage
+            currentTab={1}
+            {...machineProps}
+            {...props}
+            useNewPortfolioMethod={allowChangingPortfolioMethod}
+          />
         )}
       />
       <Route
         path={paths.addressPage.portfolio}
         render={(props) => (
-          <AddressPage currentTab={2} {...machineProps} {...props} useNewPortfolioMethod />
+          <AddressPage
+            currentTab={2}
+            {...machineProps}
+            {...props}
+            useNewPortfolioMethod={allowChangingPortfolioMethod}
+          />
         )}
       />
       <Route
         path={paths.addressPage.summary}
         render={(props) => (
-          <AddressPage currentTab={3} {...machineProps} {...props} useNewPortfolioMethod />
+          <AddressPage
+            currentTab={3}
+            {...machineProps}
+            {...props}
+            useNewPortfolioMethod={allowChangingPortfolioMethod}
+          />
         )}
       />
       <Route path={paths.bblSeparatedIntoParts} component={BBLPage} />
       <Route path={paths.legacy.bbl} component={BBLPage} />
-      <Route path={paths.bbl} render={(props) => <BBLPage {...props} useNewPortfolioMethod />} />
+      <Route
+        path={paths.bbl}
+        render={(props) => (
+          <BBLPage {...props} useNewPortfolioMethod={allowChangingPortfolioMethod} />
+        )}
+      />
       <Route path={paths.about} component={AboutPage} />
       <Route path={paths.legacy.about} component={AboutPage} />
       <Route path={paths.howToUse} component={HowToUsePage} />
