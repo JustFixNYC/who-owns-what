@@ -138,6 +138,20 @@ const HowIsBldgAssociatedHeader = () => (
   <Trans>How is this building associated to this portfolio?</Trans>
 );
 
+const HowIsBldgAssociatedDescription = () => {
+  const { pathname } = useLocation();
+  const { methodology, legacy } = createWhoOwnsWhatRoutePaths();
+  return (
+    <Trans render="p">
+      We compare your search address with a database of over 200k buildings to identify a landlord
+      or management company's portfolio. To learn more, check out{" "}
+      <LocaleLink to={isLegacyPath(pathname) ? legacy.methodology : methodology}>
+        our methodology
+      </LocaleLink>
+      .
+    </Trans>
+  );
+};
 class DetailViewWithoutI18n extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
@@ -163,7 +177,6 @@ class DetailViewWithoutI18n extends Component<Props, State> {
     const locale = (i18n.language as SupportedLocale) || defaultLocale;
     const { useNewPortfolioMethod, portfolioData } = this.props.state.context;
     const { assocAddrs, detailAddr, searchAddr } = portfolioData;
-    const { methodology, legacy } = createWhoOwnsWhatRoutePaths();
 
     // Let's save some variables that will be helpful in rendering the front-end component
     let takeActionURL, formattedRegEndDate, streetViewAddr, ownernames, userOwnernames;
@@ -388,19 +401,7 @@ class DetailViewWithoutI18n extends Component<Props, State> {
                   <HowIsBldgAssociatedHeader />
                 </b>
               </h6>
-              <Trans render="p">
-                We compare your search address with a database of over 200k buildings to identify a
-                landlord or management company's portfolio. To learn more, check out{" "}
-                <LocaleLink
-                  to={
-                    // This link only shows up on our legacy version of WOW:
-                    useNewPortfolioMethod ? legacy.methodology : methodology
-                  }
-                >
-                  our methodology
-                </LocaleLink>
-                .
-              </Trans>
+              <HowIsBldgAssociatedDescription />
               <table className="DetailView__compareTable">
                 <thead>
                   <tr>
