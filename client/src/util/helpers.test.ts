@@ -115,7 +115,7 @@ describe("getLandlordNameFromAddress()", () => {
         ownernames: [
           { title: "HeadOfficer", value: "MOSES GUTMAN" },
           { title: "HeadOfficer", value: "BOOP GUTMAN" },
-          { title: "IndividualOwner", value: "BOOP JONES" },
+          { title: "JointOwner", value: "BOOP JONES" },
           { title: "Agent", value: "NATHAN SCHWARCZ" },
         ],
       })
