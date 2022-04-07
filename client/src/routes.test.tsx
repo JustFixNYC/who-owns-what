@@ -52,4 +52,19 @@ describe("createAddressPageRoutes()", () => {
       ).timeline
     ).toBe("/es/legacy/address/BROOKLYN/654/PARK%20PLACE/timeline");
   });
+
+  it("defaults to the standard path when env variable is not defined", () => {
+    process.env.REACT_APP_ENABLE_NEW_WOWZA_PORTFOLIO_MAPPING = undefined;
+    expect(
+      createAddressPageRoutes(
+        {
+          boro: "BROOKLYN",
+          housenumber: "654",
+          streetname: "PARK PLACE",
+          locale: "es",
+        },
+        true
+      ).timeline
+    ).toBe("/es/address/BROOKLYN/654/PARK%20PLACE/timeline");
+  });
 });
