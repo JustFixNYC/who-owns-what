@@ -37,7 +37,6 @@ import { NotFoundPage } from "./NotFoundPage";
 import widont from "widont";
 import { Dropdown } from "components/Dropdown";
 import { isLegacyPath } from "components/WowzaToggle";
-import classNames from "classnames";
 
 const HomeLink = withI18n()((props: withI18nProps) => {
   const { i18n } = props;
@@ -199,9 +198,15 @@ const Navbar = () => {
   const [isEngageModalVisible, setEngageModalVisibility] = useState(false);
   const addFeatureCalloutWidget = process.env.REACT_APP_ENABLE_FEATURE_CALLOUT_WIDGET === "1";
   const isDemoSite = process.env.REACT_APP_DEMO_SITE === "1";
+  const allowChangingPortfolioMethod =
+    process.env.REACT_APP_ENABLE_NEW_WOWZA_PORTFOLIO_MAPPING === "1";
   return (
     <div
-      className={classnames("App__header", "navbar", !isLegacyPath(pathname) && "wowza-styling")}
+      className={classnames(
+        "App__header",
+        "navbar",
+        allowChangingPortfolioMethod && !isLegacyPath(pathname) && "wowza-styling"
+      )}
     >
       <HomeLink />
       {isDemoSite && (
@@ -248,8 +253,15 @@ const Navbar = () => {
 
 const AppBody = () => {
   const { pathname } = useLocation();
+  const allowChangingPortfolioMethod =
+    process.env.REACT_APP_ENABLE_NEW_WOWZA_PORTFOLIO_MAPPING === "1";
   return (
-    <div className={classnames("App__body", !isLegacyPath(pathname) && "wowza-styling")}>
+    <div
+      className={classnames(
+        "App__body",
+        allowChangingPortfolioMethod && !isLegacyPath(pathname) && "wowza-styling"
+      )}
+    >
       <WhoOwnsWhatRoutes />
     </div>
   );
