@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 
 import EngagementPanel from "../components/EngagementPanel";
 import LegalFooter from "../components/LegalFooter";
@@ -121,30 +121,63 @@ const HomePage: React.FC<HomePageProps> = ({ useNewPortfolioMethod }) => {
     <Trans>Enter an NYC address and find other buildings your landlord might own:</Trans>
   );
 
+  const wowzaLabelText = <Trans>Find other buildings your landlord might own:</Trans>;
+
+  type SearchType = "address" | "landlord";
+  const [searchType, setSearchType] = useState("address" as SearchType);
+
   return (
     <Page>
       <div className="HomePage Page">
         <MoratoriumBanner />
         <div className="HomePage__content">
           <div className="HomePage__search">
-            <div>
-              <h1 className="text-center">{labelText}</h1>
-              <AddressSearch
-                labelText={labelText}
-                labelClass="text-assistive"
-                onFormSubmit={handleFormSubmit}
-              />
-              {useNewPortfolioMethod && algoliaAppId && algoliaSearchKey && (
-                <>
-                  <h1 className="text-center">
-                    <Trans>Or search by your landlord's name:</Trans>
-                  </h1>
-                  <LandlordSearch />
+            {useNewPortfolioMethod && algoliaAppId && algoliaSearchKey ? (
+              <div>
+                <h1 className="text-center">{wowzaLabelText}</h1>
+                <div>
+                  <Trans>Search by:</Trans>
                   <br />
-                </>
-              )}
-            </div>
-            {allowChangingPortfolioMethod && <ToggleButtonBetweenPortfolioMethods />}
+                  <label className={"form-radio" + (searchType === "address" ? " active" : "")}>
+                    <input
+                      type="radio"
+                      name="Address"
+                      checked={searchType === "address"}
+                      onChange={() => setSearchType("address")}
+                    />
+                    <i className="form-icon" /> <Trans>Address</Trans>
+                  </label>
+                  <label className={"form-radio" + (searchType === "landlord" ? " active" : "")}>
+                    <input
+                      type="radio"
+                      name="Landlord name"
+                      checked={searchType === "landlord"}
+                      onChange={() => setSearchType("landlord")}
+                    />
+                    <i className="form-icon" /> <Trans>Landlord name</Trans>
+                  </label>
+                </div>
+                {searchType === "landlord" ? (
+                  <LandlordSearch />
+                ) : (
+                  <AddressSearch
+                    labelText={labelText}
+                    labelClass="text-assistive"
+                    onFormSubmit={handleFormSubmit}
+                  />
+                )}
+                <br />
+              </div>
+            ) : (
+              <div>
+                <h1 className="text-center">{labelText}</h1>
+                <AddressSearch
+                  labelText={labelText}
+                  labelClass="text-assistive"
+                  onFormSubmit={handleFormSubmit}
+                />
+              </div>
+            )}
           </div>
           <div className="HomePage__samples">
             <h5 className="text-center">
