@@ -346,7 +346,7 @@ msgstr "Desalojos ejecutados en este edificio por el Mariscal de NYC desde el 20
 msgid "Evictions executed in this development by NYC Marshals since 2017. ANHD and the Housing Data Coalition cleaned, geocoded, and validated the data, originally sourced from DOI."
 msgstr "Desalojos ejecutados en este complejo por el Mariscal de NYC desde el 2017. ANHD y la Coalición de Datos de Vivienda limpiaron, codificaron y validaron los datos, originalmente provenientes del DOI."
 
-#: src/components/AddressToolbar.tsx:26
+#: src/components/AddressToolbar.tsx:24
 msgid "Export Data"
 msgstr "Exportar datos"
 
@@ -611,7 +611,7 @@ msgstr ""
 msgid "New"
 msgstr ""
 
-#: src/components/AddressToolbar.tsx:23
+#: src/components/AddressToolbar.tsx:21
 msgid "New Search"
 msgstr "Nueva búsqueda"
 
@@ -875,18 +875,10 @@ msgid "Summary"
 msgstr "Resúmen"
 
 #: src/components/WowzaToggle.tsx:29
-msgid "Switch to New Version"
-msgstr "Cambiar a la nueva versión"
-
-#: src/components/WowzaToggle.tsx:29
-msgid "Switch to Old Version"
-msgstr "Cambiar a la versión anterior"
-
-#: src/components/WowzaToggle.tsx:39
 msgid "Switch to new version"
 msgstr ""
 
-#: src/components/WowzaToggle.tsx:39
+#: src/components/WowzaToggle.tsx:29
 msgid "Switch to old version"
 msgstr ""
 
@@ -972,7 +964,7 @@ msgstr "Este edificio es propiedad de la NYC Housing Authority (NYCHA)"
 msgid "This building seems like it should be registered with HPD!"
 msgstr "¡Parece que este edificio debería estar registrado con el HPD!"
 
-#: src/components/AddressToolbar.tsx:34
+#: src/components/AddressToolbar.tsx:32
 msgid "This data is in <0>CSV file format</0>, which can easily be used in Excel, Google Sheets, or any other spreadsheet program."
 msgstr "Estos datos están en <0>formato de archivo CSV</0>, que puede utilizarse fácilmente en Excel, Google Sheets o cualquier otro programa de hoja de cálculo."
 
@@ -1028,7 +1020,7 @@ msgstr "Este parece ser un edificio residencial pequeño. Si el dueño no reside
 msgid "This tracks how rent stabilized units in the building have changed (i.e. \"{delta}\") from 2007 to {0}. If the number for {1} is red, this means there has been a loss in stabilzied units! These counts are estimated from the DOF Property Tax Bills."
 msgstr "El cambio en apartamentos de renta estabilizada que hay en el edificio (es decir, \"{delta}\") del 2007 al {0}. Si el número en {1} está en rojo, ¡esto significa que ha habido una pérdida en las cantidad de apartamentos de renta estabilizada! Estos recuentos se calculan a partir de las facturas de impuestos del Departamento de Finanzas."
 
-#: src/components/AddressToolbar.tsx:30
+#: src/components/AddressToolbar.tsx:28
 msgid "This will export <0>{0}</0> addresses associated with the landlord at <1>{userAddrStr}</1>!"
 msgstr "¡Esto exportará <0>{0}</0> direcciones asociadas al propietario de <1>{userAddrStr}</1>!"
 

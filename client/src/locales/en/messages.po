@@ -341,7 +341,7 @@ msgstr "Evictions executed by NYC Marshals since 2017. ANHD and the Housing Data
 msgid "Evictions executed in this development by NYC Marshals since 2017. ANHD and the Housing Data Coalition cleaned, geocoded, and validated the data, originally sourced from DOI."
 msgstr "Evictions executed in this development by NYC Marshals since 2017. ANHD and the Housing Data Coalition cleaned, geocoded, and validated the data, originally sourced from DOI."
 
-#: src/components/AddressToolbar.tsx:26
+#: src/components/AddressToolbar.tsx:24
 msgid "Export Data"
 msgstr "Export Data"
 
@@ -606,7 +606,7 @@ msgstr "Network of Landlords"
 msgid "New"
 msgstr "New"
 
-#: src/components/AddressToolbar.tsx:23
+#: src/components/AddressToolbar.tsx:21
 msgid "New Search"
 msgstr "New Search"
 
@@ -870,18 +870,10 @@ msgid "Summary"
 msgstr "Summary"
 
 #: src/components/WowzaToggle.tsx:29
-msgid "Switch to New Version"
-msgstr "Switch to New Version"
-
-#: src/components/WowzaToggle.tsx:29
-msgid "Switch to Old Version"
-msgstr "Switch to Old Version"
-
-#: src/components/WowzaToggle.tsx:39
 msgid "Switch to new version"
 msgstr "Switch to new version"
 
-#: src/components/WowzaToggle.tsx:39
+#: src/components/WowzaToggle.tsx:29
 msgid "Switch to old version"
 msgstr "Switch to old version"
 
@@ -967,7 +959,7 @@ msgstr "This building is owned by the NYC Housing Authority (NYCHA)"
 msgid "This building seems like it should be registered with HPD!"
 msgstr "This building seems like it should be registered with HPD!"
 
-#: src/components/AddressToolbar.tsx:34
+#: src/components/AddressToolbar.tsx:32
 msgid "This data is in <0>CSV file format</0>, which can easily be used in Excel, Google Sheets, or any other spreadsheet program."
 msgstr "This data is in <0>CSV file format</0>, which can easily be used in Excel, Google Sheets, or any other spreadsheet program."
 
@@ -1023,7 +1015,7 @@ msgstr "This seems like a smaller residential building. If the landlord doesn't 
 msgid "This tracks how rent stabilized units in the building have changed (i.e. \"{delta}\") from 2007 to {0}. If the number for {1} is red, this means there has been a loss in stabilzied units! These counts are estimated from the DOF Property Tax Bills."
 msgstr "This tracks how rent stabilized units in the building have changed (i.e. \"{delta}\") from 2007 to {0}. If the number for {1} is red, this means there has been a loss in stabilzied units! These counts are estimated from the DOF Property Tax Bills."
 
-#: src/components/AddressToolbar.tsx:30
+#: src/components/AddressToolbar.tsx:28
 msgid "This will export <0>{0}</0> addresses associated with the landlord at <1>{userAddrStr}</1>!"
 msgstr "This will export <0>{0}</0> addresses associated with the landlord at <1>{userAddrStr}</1>!"
 

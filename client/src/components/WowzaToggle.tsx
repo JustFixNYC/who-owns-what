@@ -22,26 +22,6 @@ export const getPathForOtherPortfolioMethod = (pathname: string) => {
   }
 };
 
-export const ToggleButtonBetweenPortfolioMethods = () => {
-  const history = useHistory();
-  const { pathname } = useLocation();
-  return (
-    <button
-      className="btn btn-justfix"
-      onClick={() => {
-        history.push(getPathForOtherPortfolioMethod(pathname));
-        history.go(0);
-      }}
-    >
-      {isLegacyPath(pathname) ? (
-        <Trans>Switch to New Version</Trans>
-      ) : (
-        <Trans>Switch to Old Version</Trans>
-      )}
-    </button>
-  );
-};
-
 export const ToggleLinkBetweenPortfolioMethods = () => {
   const history = useHistory();
   const { pathname } = useLocation();
