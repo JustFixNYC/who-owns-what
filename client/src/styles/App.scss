@@ -32,12 +32,10 @@
 
 .App__banner {
   padding: 1rem 1.5rem;
-
-  b {
-    color: $dark;
-  }
+  color: $wowza-dark;
 
   .close-button {
+    color: $wowza-dark;
     cursor: pointer;
     &:hover {
       opacity: 0.7;
@@ -55,7 +53,7 @@
 
     a,
     button {
-      color: $dark;
+      color: $wowza-dark;
       text-decoration: underline;
       font-weight: 700;
 
@@ -65,7 +63,7 @@
     }
   }
 
-  background-color: $warning;
+  background-color: $wowza-warning;
 }
 
 .App__header {
