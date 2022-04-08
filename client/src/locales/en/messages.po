@@ -877,6 +877,14 @@ msgstr "Switch to New Version"
 msgid "Switch to Old Version"
 msgstr "Switch to Old Version"
 
+#: src/components/WowzaToggle.tsx:39
+msgid "Switch to new version"
+msgstr "Switch to new version"
+
+#: src/components/WowzaToggle.tsx:39
+msgid "Switch to old version"
+msgstr "Switch to old version"
+
 #: src/util/helpers.ts:41
 msgid "TENANT HARASSMENT"
 msgstr "TENANT HARASSMENT"
@@ -1193,6 +1201,14 @@ msgstr "Yes"
 #: src/containers/HomePage.tsx:207
 msgid "Yoel Goldman's All Year Management has been at the <0>forefront of gentrification</0> in Brooklyn. Tenants in his buidlings in Williamsburg, Bushwick, and Crown Heights have been forced to live in horrendous and often dangerous conditions."
 msgstr "Yoel Goldman's All Year Management has been at the <0>forefront of gentrification</0> in Brooklyn. Tenants in his buidlings in Williamsburg, Bushwick, and Crown Heights have been forced to live in horrendous and often dangerous conditions."
+
+#: src/containers/App.tsx:158
+msgid "You are viewing the new version of Who Owns What."
+msgstr "You are viewing the new version of Who Owns What."
+
+#: src/containers/App.tsx:158
+msgid "You are viewing the old version of Who Owns What."
+msgstr "You are viewing the old version of Who Owns What."
 
 #: src/components/PropertiesList.tsx:142
 #: src/components/PropertiesList.tsx:147

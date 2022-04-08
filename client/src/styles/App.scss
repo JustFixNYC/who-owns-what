@@ -45,6 +45,9 @@
   .content {
     padding-right: 24px;
     text-align: center;
+    @include for-phone-only {
+      text-align: left;
+    }
 
     // Override default <p> styling:
     p {
