@@ -289,6 +289,8 @@ const WowzaBanner = () => {
 
 const App = () => {
   const version = process.env.REACT_APP_VERSION;
+  const allowChangingPortfolioMethod =
+    process.env.REACT_APP_ENABLE_NEW_WOWZA_PORTFOLIO_MAPPING === "1";
   return (
     <Router>
       <I18n>
@@ -301,7 +303,7 @@ const App = () => {
             />
           )}
           <div className="App">
-            <WowzaBanner />
+            {allowChangingPortfolioMethod && <WowzaBanner />}
             <Navbar />
             <AppBody />
           </div>
