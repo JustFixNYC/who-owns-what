@@ -6,7 +6,7 @@ import "styles/AddressToolbar.css";
 import { Trans } from "@lingui/macro";
 import { SearchAddress } from "./AddressSearch";
 import { useState } from "react";
-import { isLegacyPath, ToggleButtonBetweenPortfolioMethods } from "./WowzaToggle";
+import { isLegacyPath } from "./WowzaToggle";
 import { AddressRecord } from "./APIDataTypes";
 import ExportDataButton from "./ExportData";
 import { useLocation } from "react-router-dom";
@@ -18,8 +18,6 @@ export type AddressToolbarProps = {
 };
 
 const AddressToolbar: React.FC<AddressToolbarProps> = ({ searchAddr, assocAddrs }) => {
-  const allowChangingPortfolioMethod =
-    process.env.REACT_APP_ENABLE_NEW_WOWZA_PORTFOLIO_MAPPING === "1";
   const [showExportModal, setExportModalVisibility] = useState(false);
   const { pathname } = useLocation();
   const { home, legacy } = createWhoOwnsWhatRoutePaths();
@@ -28,7 +26,6 @@ const AddressToolbar: React.FC<AddressToolbarProps> = ({ searchAddr, assocAddrs 
   return (
     <div className="AddressToolbar">
       <div className="btn-group float-right">
-        {allowChangingPortfolioMethod && <ToggleButtonBetweenPortfolioMethods />}
         <Link
           className="btn btn-primary"
           onClick={() => {

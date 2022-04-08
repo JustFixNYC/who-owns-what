@@ -8,6 +8,7 @@ import ScrollToTop from "../components/ScrollToTop";
 import SocialShare from "../components/SocialShare";
 import Modal from "../components/Modal";
 import FeatureCalloutWidget from "../components/FeatureCalloutWidget";
+import classnames from "classnames";
 
 // import top-level containers (i.e. pages)
 import {
@@ -35,7 +36,7 @@ import { wowMachine } from "state-machine";
 import { NotFoundPage } from "./NotFoundPage";
 import widont from "widont";
 import { Dropdown } from "components/Dropdown";
-import { isLegacyPath } from "components/WowzaToggle";
+import { isLegacyPath, ToggleLinkBetweenPortfolioMethods } from "components/WowzaToggle";
 
 const HomeLink = withI18n()((props: withI18nProps) => {
   const { i18n } = props;
@@ -197,8 +198,16 @@ const Navbar = () => {
   const [isEngageModalVisible, setEngageModalVisibility] = useState(false);
   const addFeatureCalloutWidget = process.env.REACT_APP_ENABLE_FEATURE_CALLOUT_WIDGET === "1";
   const isDemoSite = process.env.REACT_APP_DEMO_SITE === "1";
+  const allowChangingPortfolioMethod =
+    process.env.REACT_APP_ENABLE_NEW_WOWZA_PORTFOLIO_MAPPING === "1";
   return (
-    <div className="App__header navbar">
+    <div
+      className={classnames(
+        "App__header",
+        "navbar",
+        allowChangingPortfolioMethod && !isLegacyPath(pathname) && "wowza-styling"
+      )}
+    >
       <HomeLink />
       {isDemoSite && (
         <span className="label label-warning ml-2 text-uppercase">
@@ -242,8 +251,46 @@ const Navbar = () => {
   );
 };
 
+const AppBody = () => {
+  const { pathname } = useLocation();
+  const allowChangingPortfolioMethod =
+    process.env.REACT_APP_ENABLE_NEW_WOWZA_PORTFOLIO_MAPPING === "1";
+  return (
+    <div
+      className={classnames(
+        "App__body",
+        allowChangingPortfolioMethod && !isLegacyPath(pathname) && "wowza-styling"
+      )}
+    >
+      <WhoOwnsWhatRoutes />
+    </div>
+  );
+};
+
+const WowzaBanner = () => {
+  const [isBannerOpen, setBannerVisibility] = useState(true);
+  const { pathname } = useLocation();
+  return (
+    <div className={"App__banner " + (!isBannerOpen ? "d-hide" : "")}>
+      <div className="close-button float-right" onClick={() => setBannerVisibility(false)}>
+        ✕
+      </div>
+      <div className="content">
+        {isLegacyPath(pathname) ? (
+          <Trans>You are viewing the old version of Who Owns What.</Trans>
+        ) : (
+          <Trans>You are viewing the new version of Who Owns What.</Trans>
+        )}{" "}
+        <ToggleLinkBetweenPortfolioMethods />
+      </div>
+    </div>
+  );
+};
+
 const App = () => {
   const version = process.env.REACT_APP_VERSION;
+  const allowChangingPortfolioMethod =
+    process.env.REACT_APP_ENABLE_NEW_WOWZA_PORTFOLIO_MAPPING === "1";
   return (
     <Router>
       <I18n>
@@ -256,10 +303,9 @@ const App = () => {
             />
           )}
           <div className="App">
+            {allowChangingPortfolioMethod && <WowzaBanner />}
             <Navbar />
-            <div className="App__body">
-              <WhoOwnsWhatRoutes />
-            </div>
+            <AppBody />
           </div>
         </ScrollToTop>
       </I18n>
