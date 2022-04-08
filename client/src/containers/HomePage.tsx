@@ -83,7 +83,7 @@ const HomePage: React.FC<HomePageProps> = ({ useNewPortfolioMethod }) => {
     if (error) {
       window.gtag("event", "search-error");
     } else {
-      const addressPage = createRouteForAddressPage(searchAddress, useNewPortfolioMethod);
+      const addressPage = createRouteForAddressPage(searchAddress, !useNewPortfolioMethod);
       history.push(addressPage);
     }
   };
@@ -95,7 +95,7 @@ const HomePage: React.FC<HomePageProps> = ({ useNewPortfolioMethod }) => {
         housenumber: "89",
         streetname: "HICKS STREET",
       },
-      useNewPortfolioMethod
+      !useNewPortfolioMethod
     ),
     createRouteForAddressPage(
       {
@@ -103,7 +103,7 @@ const HomePage: React.FC<HomePageProps> = ({ useNewPortfolioMethod }) => {
         housenumber: "4125",
         streetname: "CASE STREET",
       },
-      useNewPortfolioMethod
+      !useNewPortfolioMethod
     ),
     createRouteForAddressPage(
       {
@@ -111,7 +111,7 @@ const HomePage: React.FC<HomePageProps> = ({ useNewPortfolioMethod }) => {
         housenumber: "196",
         streetname: "RALPH AVENUE",
       },
-      useNewPortfolioMethod
+      !useNewPortfolioMethod
     ),
   ];
 

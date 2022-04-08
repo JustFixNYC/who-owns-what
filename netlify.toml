@@ -10,6 +10,12 @@
   status = 301
   force = true
 
+[[redirects]]
+  from = "https://demo-whoownswhat.justfix.nyc/en/wowza/*"
+  to = "https://demo-whoownswhat.justfix.nyc/en/"
+  status = 301
+  force = true
+
 # Settings in the [build] context are global and are applied to all contexts
 # unless otherwise overridden by more specific contexts.
 [build]

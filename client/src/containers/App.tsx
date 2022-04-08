@@ -35,12 +35,13 @@ import { wowMachine } from "state-machine";
 import { NotFoundPage } from "./NotFoundPage";
 import widont from "widont";
 import { Dropdown } from "components/Dropdown";
-import { isWowzaPath } from "components/WowzaToggle";
+import { isLegacyPath } from "components/WowzaToggle";
 
 const HomeLink = withI18n()((props: withI18nProps) => {
   const { i18n } = props;
   const title = i18n._(t`Who owns what in nyc?`);
 
+  const { home, legacy } = createWhoOwnsWhatRoutePaths();
   const { pathname } = useLocation();
 
   return (
@@ -50,7 +51,7 @@ const HomeLink = withI18n()((props: withI18nProps) => {
       onClick={() => {
         window.gtag("event", "site-title");
       }}
-      to={isWowzaPath(pathname) ? "/wowza" : "/"}
+      to={isLegacyPath(pathname) ? legacy.home : home}
     >
       <h4>{widont(title)}</h4>
     </Link>
@@ -61,67 +62,102 @@ const WhoOwnsWhatRoutes: React.FC<{}> = () => {
   const paths = createWhoOwnsWhatRoutePaths("/:locale");
   const [state, send] = useMachine(wowMachine);
   const machineProps = { state, send };
+  const allowChangingPortfolioMethod =
+    process.env.REACT_APP_ENABLE_NEW_WOWZA_PORTFOLIO_MAPPING === "1";
   return (
     <Switch>
-      <Route exact path={paths.home} component={HomePage} />
+      <Route exact path={paths.legacy.home} component={HomePage} />
       <Route
         exact
-        path={paths.wowzaHome}
-        render={(props) => <HomePage useNewPortfolioMethod {...machineProps} {...props} />}
+        path={paths.home}
+        render={(props) => (
+          <HomePage
+            useNewPortfolioMethod={allowChangingPortfolioMethod}
+            {...machineProps}
+            {...props}
+          />
+        )}
       />
       <Route
-        path={paths.addressPage.overview}
+        path={paths.legacy.addressPage.overview}
         render={(props) => <AddressPage currentTab={0} {...machineProps} {...props} />}
         exact
       />
       <Route
-        path={paths.addressPage.timeline}
+        path={paths.legacy.addressPage.timeline}
         render={(props) => <AddressPage currentTab={1} {...machineProps} {...props} />}
       />
       <Route
-        path={paths.addressPage.portfolio}
+        path={paths.legacy.addressPage.portfolio}
         render={(props) => <AddressPage currentTab={2} {...machineProps} {...props} />}
       />
       <Route
-        path={paths.addressPage.summary}
+        path={paths.legacy.addressPage.summary}
         render={(props) => <AddressPage currentTab={3} {...machineProps} {...props} />}
       />
       <Route
-        path={paths.wowzaAddressPage.overview}
+        path={paths.addressPage.overview}
         render={(props) => (
-          <AddressPage currentTab={0} {...machineProps} {...props} useNewPortfolioMethod />
+          <AddressPage
+            currentTab={0}
+            {...machineProps}
+            {...props}
+            useNewPortfolioMethod={allowChangingPortfolioMethod}
+          />
         )}
         exact
       />
       <Route
-        path={paths.wowzaAddressPage.timeline}
+        path={paths.addressPage.timeline}
         render={(props) => (
-          <AddressPage currentTab={1} {...machineProps} {...props} useNewPortfolioMethod />
+          <AddressPage
+            currentTab={1}
+            {...machineProps}
+            {...props}
+            useNewPortfolioMethod={allowChangingPortfolioMethod}
+          />
         )}
       />
       <Route
-        path={paths.wowzaAddressPage.portfolio}
+        path={paths.addressPage.portfolio}
         render={(props) => (
-          <AddressPage currentTab={2} {...machineProps} {...props} useNewPortfolioMethod />
+          <AddressPage
+            currentTab={2}
+            {...machineProps}
+            {...props}
+            useNewPortfolioMethod={allowChangingPortfolioMethod}
+          />
         )}
       />
       <Route
-        path={paths.wowzaAddressPage.summary}
+        path={paths.addressPage.summary}
         render={(props) => (
-          <AddressPage currentTab={3} {...machineProps} {...props} useNewPortfolioMethod />
+          <AddressPage
+            currentTab={3}
+            {...machineProps}
+            {...props}
+            useNewPortfolioMethod={allowChangingPortfolioMethod}
+          />
         )}
       />
       <Route path={paths.bblSeparatedIntoParts} component={BBLPage} />
-      <Route path={paths.bbl} component={BBLPage} />
+      <Route path={paths.legacy.bbl} component={BBLPage} />
       <Route
-        path={paths.wowzaBbl}
-        render={(props) => <BBLPage {...props} useNewPortfolioMethod />}
+        path={paths.bbl}
+        render={(props) => (
+          <BBLPage {...props} useNewPortfolioMethod={allowChangingPortfolioMethod} />
+        )}
       />
       <Route path={paths.about} component={AboutPage} />
+      <Route path={paths.legacy.about} component={AboutPage} />
       <Route path={paths.howToUse} component={HowToUsePage} />
+      <Route path={paths.legacy.howToUse} component={HowToUsePage} />
       <Route path={paths.methodology} component={MethodologyPage} />
+      <Route path={paths.legacy.methodology} component={MethodologyPage} />
       <Route path={paths.termsOfUse} component={TermsOfUsePage} />
+      <Route path={paths.legacy.termsOfUse} component={TermsOfUsePage} />
       <Route path={paths.privacyPolicy} component={PrivacyPolicyPage} />
+      <Route path={paths.legacy.privacyPolicy} component={PrivacyPolicyPage} />
       <Route path={paths.dev} component={DevPage} />
       <Route component={NotFoundPage} />
     </Switch>
@@ -130,8 +166,8 @@ const WhoOwnsWhatRoutes: React.FC<{}> = () => {
 
 const SearchLink = () => {
   const { pathname } = useLocation();
-  const { home, wowzaHome } = createWhoOwnsWhatRoutePaths();
-  const searchRoute = isWowzaPath(pathname) ? wowzaHome : home;
+  const { home, legacy } = createWhoOwnsWhatRoutePaths();
+  const searchRoute = isLegacyPath(pathname) ? legacy.home : home;
 
   return (
     <LocaleNavLink exact to={searchRoute} key={1}>
@@ -140,14 +176,14 @@ const SearchLink = () => {
   );
 };
 
-const getMainNavLinks = () => {
-  const paths = createWhoOwnsWhatRoutePaths();
+const getMainNavLinks = (isLegacyPath?: boolean) => {
+  const { about, howToUse, legacy } = createWhoOwnsWhatRoutePaths();
   return [
     <SearchLink />,
-    <LocaleNavLink to={paths.about} key={2}>
+    <LocaleNavLink to={isLegacyPath ? legacy.about : about} key={2}>
       <Trans>About</Trans>
     </LocaleNavLink>,
-    <LocaleNavLink to={paths.howToUse} key={3}>
+    <LocaleNavLink to={isLegacyPath ? legacy.howToUse : howToUse} key={3}>
       <Trans>How to use</Trans>
     </LocaleNavLink>,
     <a href="https://www.justfix.nyc/donate" key={4}>
@@ -156,13 +192,58 @@ const getMainNavLinks = () => {
   ];
 };
 
-const App = () => {
+const Navbar = () => {
+  const { pathname } = useLocation();
   const [isEngageModalVisible, setEngageModalVisibility] = useState(false);
-
-  const isDemoSite = process.env.REACT_APP_DEMO_SITE === "1";
   const addFeatureCalloutWidget = process.env.REACT_APP_ENABLE_FEATURE_CALLOUT_WIDGET === "1";
-  const version = process.env.REACT_APP_VERSION;
+  const isDemoSite = process.env.REACT_APP_DEMO_SITE === "1";
+  return (
+    <div className="App__header navbar">
+      <HomeLink />
+      {isDemoSite && (
+        <span className="label label-warning ml-2 text-uppercase">
+          <Trans>Demo Site</Trans>
+        </span>
+      )}
+      <nav className="inline">
+        {addFeatureCalloutWidget && <FeatureCalloutWidget />}
+        <span className="hide-lg">
+          {getMainNavLinks(isLegacyPath(pathname))}
+          {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+          <a href="#" onClick={() => setEngageModalVisibility(true)}>
+            <Trans>Share</Trans>
+          </a>
+          <LocaleSwitcher />
+        </span>
+        <Dropdown>
+          {getMainNavLinks(isLegacyPath(pathname)).map((link, i) => (
+            <li className="menu-item" key={i}>
+              {link}
+            </li>
+          ))}
+          <li className="menu-item">
+            {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+            <a href="#" onClick={() => setEngageModalVisibility(true)}>
+              <Trans>Share</Trans>
+            </a>
+          </li>
+          <li className="menu-item">
+            <LocaleSwitcherWithFullLanguageName />
+          </li>
+        </Dropdown>
+      </nav>
+      <Modal showModal={isEngageModalVisible} onClose={() => setEngageModalVisibility(false)}>
+        <h5 className="first-header">
+          <Trans>Share this page with your neighbors</Trans>
+        </h5>
+        <SocialShare location="share-modal" />
+      </Modal>
+    </div>
+  );
+};
 
+const App = () => {
+  const version = process.env.REACT_APP_VERSION;
   return (
     <Router>
       <I18n>
@@ -175,51 +256,7 @@ const App = () => {
             />
           )}
           <div className="App">
-            <div className="App__header navbar">
-              <HomeLink />
-              {isDemoSite && (
-                <span className="label label-warning ml-2 text-uppercase">
-                  <Trans>Demo Site</Trans>
-                </span>
-              )}
-              <nav className="inline">
-                {addFeatureCalloutWidget && <FeatureCalloutWidget />}
-                <span className="hide-lg">
-                  {getMainNavLinks()}
-                  {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-                  <a href="#" onClick={() => setEngageModalVisibility(true)}>
-                    <Trans>Share</Trans>
-                  </a>
-                  <LocaleSwitcher />
-                </span>
-                <Dropdown>
-                  {getMainNavLinks().map((link, i) => (
-                    <li className="menu-item" key={i}>
-                      {link}
-                    </li>
-                  ))}
-                  <li className="menu-item">
-                    {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-                    <a href="#" onClick={() => setEngageModalVisibility(true)}>
-                      <Trans>Share</Trans>
-                    </a>
-                  </li>
-                  <li className="menu-item">
-                    <LocaleSwitcherWithFullLanguageName />
-                  </li>
-                </Dropdown>
-              </nav>
-
-              <Modal
-                showModal={isEngageModalVisible}
-                onClose={() => setEngageModalVisibility(false)}
-              >
-                <h5 className="first-header">
-                  <Trans>Share this page with your neighbors</Trans>
-                </h5>
-                <SocialShare location="share-modal" />
-              </Modal>
-            </div>
+            <Navbar />
             <div className="App__body">
               <WhoOwnsWhatRoutes />
             </div>
