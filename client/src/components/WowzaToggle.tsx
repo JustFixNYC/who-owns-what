@@ -41,3 +41,22 @@ export const ToggleButtonBetweenPortfolioMethods = () => {
     </button>
   );
 };
+
+export const ToggleLinkBetweenPortfolioMethods = () => {
+  const history = useHistory();
+  const { pathname } = useLocation();
+  return (
+    <button
+      onClick={() => {
+        history.push(getPathForOtherPortfolioMethod(pathname));
+        history.go(0);
+      }}
+    >
+      {isLegacyPath(pathname) ? (
+        <Trans>Switch to new version</Trans>
+      ) : (
+        <Trans>Switch to old version</Trans>
+      )}
+    </button>
+  );
+};

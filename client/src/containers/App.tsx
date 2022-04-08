@@ -36,7 +36,7 @@ import { wowMachine } from "state-machine";
 import { NotFoundPage } from "./NotFoundPage";
 import widont from "widont";
 import { Dropdown } from "components/Dropdown";
-import { isLegacyPath } from "components/WowzaToggle";
+import { isLegacyPath, ToggleLinkBetweenPortfolioMethods } from "components/WowzaToggle";
 
 const HomeLink = withI18n()((props: withI18nProps) => {
   const { i18n } = props;
@@ -267,6 +267,26 @@ const AppBody = () => {
   );
 };
 
+const WowzaBanner = () => {
+  const [isBannerOpen, setBannerVisibility] = useState(true);
+  const { pathname } = useLocation();
+  return (
+    <div className={"App__banner " + (!isBannerOpen ? "d-hide" : "")}>
+      <div className="close-button float-right" onClick={() => setBannerVisibility(false)}>
+        ✕
+      </div>
+      <div className="content">
+        {isLegacyPath(pathname) ? (
+          <Trans>You are viewing the old version of Who Owns What.</Trans>
+        ) : (
+          <Trans>You are viewing the new version of Who Owns What.</Trans>
+        )}{" "}
+        <ToggleLinkBetweenPortfolioMethods />
+      </div>
+    </div>
+  );
+};
+
 const App = () => {
   const version = process.env.REACT_APP_VERSION;
   return (
@@ -281,6 +301,7 @@ const App = () => {
             />
           )}
           <div className="App">
+            <WowzaBanner />
             <Navbar />
             <AppBody />
           </div>
