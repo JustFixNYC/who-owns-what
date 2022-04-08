@@ -46,7 +46,7 @@
   }
 
   &.wowza-styling {
-    background-color: #242323;
+    background-color: $wowza-dark;
     & > a h4,
     button.btn.btn-link.dropdown-toggle {
       color: #ffffff;

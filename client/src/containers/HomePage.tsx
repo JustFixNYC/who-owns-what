@@ -151,6 +151,9 @@ const HomePage: React.FC<HomePageProps> = ({ useNewPortfolioMethod }) => {
                     onChange={() => setSearchType("landlord")}
                   />
                   <i className="form-icon" /> <Trans>Landlord name</Trans>
+                  <span className="chip">
+                    <Trans>New</Trans>
+                  </span>
                 </label>
               </div>
               {searchType === "landlord" ? (
