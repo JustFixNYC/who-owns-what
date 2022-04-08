@@ -8,6 +8,7 @@ import ScrollToTop from "../components/ScrollToTop";
 import SocialShare from "../components/SocialShare";
 import Modal from "../components/Modal";
 import FeatureCalloutWidget from "../components/FeatureCalloutWidget";
+import classnames from "classnames";
 
 // import top-level containers (i.e. pages)
 import {
@@ -36,6 +37,7 @@ import { NotFoundPage } from "./NotFoundPage";
 import widont from "widont";
 import { Dropdown } from "components/Dropdown";
 import { isLegacyPath } from "components/WowzaToggle";
+import classNames from "classnames";
 
 const HomeLink = withI18n()((props: withI18nProps) => {
   const { i18n } = props;
@@ -198,7 +200,9 @@ const Navbar = () => {
   const addFeatureCalloutWidget = process.env.REACT_APP_ENABLE_FEATURE_CALLOUT_WIDGET === "1";
   const isDemoSite = process.env.REACT_APP_DEMO_SITE === "1";
   return (
-    <div className="App__header navbar">
+    <div
+      className={classnames("App__header", "navbar", !isLegacyPath(pathname) && "wowza-styling")}
+    >
       <HomeLink />
       {isDemoSite && (
         <span className="label label-warning ml-2 text-uppercase">
@@ -242,6 +246,15 @@ const Navbar = () => {
   );
 };
 
+const AppBody = () => {
+  const { pathname } = useLocation();
+  return (
+    <div className={classnames("App__body", !isLegacyPath(pathname) && "wowza-styling")}>
+      <WhoOwnsWhatRoutes />
+    </div>
+  );
+};
+
 const App = () => {
   const version = process.env.REACT_APP_VERSION;
   return (
@@ -257,9 +270,7 @@ const App = () => {
           )}
           <div className="App">
             <Navbar />
-            <div className="App__body">
-              <WhoOwnsWhatRoutes />
-            </div>
+            <AppBody />
           </div>
         </ScrollToTop>
       </I18n>

@@ -45,6 +45,20 @@
     padding: 10px 8px 8px;
   }
 
+  &.wowza-styling {
+    background-color: #242323;
+    & > a h4,
+    button.btn.btn-link.dropdown-toggle {
+      color: #ffffff;
+    }
+    @include for-tablet-landscape-up() {
+      color: #ffffff;
+      nav a {
+        color: #ffffff;
+      }
+    }
+  }
+
   .label.label-warning {
     color: $dark;
     transform: rotate(-4deg);
