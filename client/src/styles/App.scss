@@ -181,7 +181,8 @@
   display: flex;
 
   &.wowza-styling,
-  &.wowza-styling .Loader-map {
+  &.wowza-styling .Loader-map,
+  &.wowza-styling .EngagementPanel {
     color: $wowza-dark;
     background-color: $wowza-background;
     border-color: $wowza-dark;
