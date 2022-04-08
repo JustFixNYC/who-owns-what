@@ -1,7 +1,7 @@
 @import "_vars.scss";
 
 .wowza-styling .HomePage {
-  background-color: #e5e5e5;
+  background-color: #faf8f4;
   height: fit-content;
 }
 
@@ -67,6 +67,60 @@
     @include for-phone-only() {
       margin: 40px auto 15vh auto;
       padding: 20px;
+    }
+
+    &.wowza-styling {
+      background-color: transparent;
+      border: none;
+      color: #000;
+
+      h1 {
+        text-align: left;
+        font-size: 3.6rem;
+        font-weight: 600;
+      }
+      h2 {
+        font-size: 1.6rem;
+        margin-bottom: 1.2rem;
+      }
+
+      label {
+        margin-left: 0.7rem;
+      }
+
+      i.form-icon {
+        transform: scale(1.5);
+        background: transparent;
+        border-color: #000;
+        margin-left: -0.2rem;
+
+        &::before {
+          background: #000;
+          border-radius: 1rem;
+          transform: scale(2);
+        }
+      }
+
+      .AddressSearch,
+      .LandlordSearch {
+        margin-top: 1.5rem;
+        margin-bottom: 1.5rem;
+        input.form-input {
+          background: inherit;
+          color: #000;
+          border-radius: 0.5rem;
+          height: 4.5rem;
+          border: 1px solid #242323;
+
+          &:focus {
+            box-shadow: 0 0 0 0.2rem $dark;
+          }
+
+          &::placeholder {
+            color: transparent;
+          }
+        }
+      }
     }
   }
 

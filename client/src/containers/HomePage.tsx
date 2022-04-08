@@ -21,7 +21,6 @@ import { documentToReactComponents } from "@contentful/rich-text-react-renderer"
 import { ContentfulCommonStrings } from "@justfixnyc/contentful-common-strings";
 import _commonStrings from "../data/common-strings.json";
 import LandlordSearch, { algoliaAppId, algoliaSearchKey } from "components/LandlordSearch";
-import { ToggleButtonBetweenPortfolioMethods } from "components/WowzaToggle";
 
 const commonStrings = new ContentfulCommonStrings(_commonStrings as any);
 
@@ -74,9 +73,6 @@ type HomePageProps = {
 } & withMachineProps;
 
 const HomePage: React.FC<HomePageProps> = ({ useNewPortfolioMethod }) => {
-  const allowChangingPortfolioMethod =
-    process.env.REACT_APP_ENABLE_NEW_WOWZA_PORTFOLIO_MAPPING === "1";
-
   const handleFormSubmit = (searchAddress: SearchAddress, error: any) => {
     window.gtag("event", "search");
 
@@ -131,54 +127,54 @@ const HomePage: React.FC<HomePageProps> = ({ useNewPortfolioMethod }) => {
       <div className="HomePage Page">
         <MoratoriumBanner />
         <div className="HomePage__content">
-          <div className="HomePage__search">
-            {useNewPortfolioMethod && algoliaAppId && algoliaSearchKey ? (
+          {useNewPortfolioMethod && algoliaAppId && algoliaSearchKey ? (
+            <div className="HomePage__search wowza-styling">
+              <h1 className="text-center">{wowzaLabelText}</h1>
               <div>
-                <h1 className="text-center">{wowzaLabelText}</h1>
-                <div>
+                <h2 className="text-uppercase">
                   <Trans>Search by:</Trans>
-                  <br />
-                  <label className={"form-radio" + (searchType === "address" ? " active" : "")}>
-                    <input
-                      type="radio"
-                      name="Address"
-                      checked={searchType === "address"}
-                      onChange={() => setSearchType("address")}
-                    />
-                    <i className="form-icon" /> <Trans>Address</Trans>
-                  </label>
-                  <label className={"form-radio" + (searchType === "landlord" ? " active" : "")}>
-                    <input
-                      type="radio"
-                      name="Landlord name"
-                      checked={searchType === "landlord"}
-                      onChange={() => setSearchType("landlord")}
-                    />
-                    <i className="form-icon" /> <Trans>Landlord name</Trans>
-                  </label>
-                </div>
-                {searchType === "landlord" ? (
-                  <LandlordSearch />
-                ) : (
-                  <AddressSearch
-                    labelText={labelText}
-                    labelClass="text-assistive"
-                    onFormSubmit={handleFormSubmit}
+                </h2>
+                <label className={"form-radio" + (searchType === "address" ? " active" : "")}>
+                  <input
+                    type="radio"
+                    name="Address"
+                    checked={searchType === "address"}
+                    onChange={() => setSearchType("address")}
                   />
-                )}
-                <br />
+                  <i className="form-icon" /> <Trans>Address</Trans>
+                </label>
+                <label className={"form-radio" + (searchType === "landlord" ? " active" : "")}>
+                  <input
+                    type="radio"
+                    name="Landlord name"
+                    checked={searchType === "landlord"}
+                    onChange={() => setSearchType("landlord")}
+                  />
+                  <i className="form-icon" /> <Trans>Landlord name</Trans>
+                </label>
               </div>
-            ) : (
-              <div>
-                <h1 className="text-center">{labelText}</h1>
+              {searchType === "landlord" ? (
+                <LandlordSearch />
+              ) : (
                 <AddressSearch
                   labelText={labelText}
                   labelClass="text-assistive"
                   onFormSubmit={handleFormSubmit}
                 />
-              </div>
-            )}
-          </div>
+              )}
+              <br />
+            </div>
+          ) : (
+            <div className="HomePage__search">
+              <h1 className="text-center">{labelText}</h1>
+              <AddressSearch
+                labelText={labelText}
+                labelClass="text-assistive"
+                onFormSubmit={handleFormSubmit}
+              />
+            </div>
+          )}
+
           <div className="HomePage__samples">
             <h5 className="text-center">
               <Trans>... or view some sample portfolios:</Trans>
