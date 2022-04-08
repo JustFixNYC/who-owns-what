@@ -8,7 +8,7 @@ import "styles/HomePage.css";
 import { LocaleLink as Link } from "../i18n";
 import westminsterLogo from "../assets/img/westminster.svg";
 import allyearLogo from "../assets/img/allyear.png";
-import aeLogo from "../assets/img/aande.jpeg";
+import aeLogo from "../assets/img/aande.svg";
 import AddressSearch, { SearchAddress } from "../components/AddressSearch";
 import { Trans } from "@lingui/macro";
 import Page from "../components/Page";
