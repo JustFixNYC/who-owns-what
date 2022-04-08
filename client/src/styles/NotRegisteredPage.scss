@@ -126,3 +126,13 @@
     }
   }
 }
+
+.wowza-styling {
+  .NotRegisteredPage,
+  .NotRegisteredPage .HomePage__search,
+  .NotRegisteredPage .HomePage__content {
+    color: $wowza-dark;
+    background-color: $wowza-background;
+    border-color: $wowza-dark;
+  }
+}

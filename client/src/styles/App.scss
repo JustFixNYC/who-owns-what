@@ -88,12 +88,12 @@
     background-color: $wowza-dark;
     & > a h4,
     button.btn.btn-link.dropdown-toggle {
-      color: #ffffff;
+      color: $wowza-background;
     }
     @include for-tablet-landscape-up() {
-      color: #ffffff;
+      color: $wowza-background;
       nav a {
-        color: #ffffff;
+        color: $wowza-background;
       }
     }
   }
@@ -179,6 +179,13 @@
   overflow: auto;
 
   display: flex;
+
+  &.wowza-styling,
+  &.wowza-styling .Loader-map {
+    color: $wowza-dark;
+    background-color: $wowza-background;
+    border-color: $wowza-dark;
+  }
 }
 
 div.Page {

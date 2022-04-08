@@ -1,10 +1,5 @@
 @import "_vars.scss";
 
-.wowza-styling .HomePage {
-  background: $wowza-background;
-  height: fit-content;
-}
-
 .HomePage {
   .HomePage__banner {
     padding: 1rem 1.5rem;
@@ -72,7 +67,7 @@
     &.wowza-styling {
       background-color: transparent;
       border: none;
-      color: #000;
+      color: $wowza-dark;
 
       h1 {
         text-align: left;
@@ -91,11 +86,11 @@
       i.form-icon {
         transform: scale(1.5);
         background: transparent;
-        border-color: #000;
+        border-color: $wowza-dark;
         margin-left: -0.2rem;
 
         &::before {
-          background: #000;
+          background: $wowza-dark;
           border-radius: 1rem;
           transform: scale(2);
         }
@@ -120,7 +115,7 @@
         margin-bottom: 1.5rem;
         input.form-input {
           background: inherit;
-          color: #000;
+          color: $wowza-dark;
           border-radius: 0.5rem;
           height: 4.5rem;
           border: 1px solid $wowza-dark;
@@ -174,4 +169,23 @@
       }
     }
   }
+}
+
+// Special WOWZA Styling:
+
+.wowza-styling .HomePage {
+  background: $wowza-background;
+  color: $wowza-dark;
+  a:not(.btn-justfix),
+  h6 a,
+  .HomePage__samples .HomePage__sample,
+  .HomePage__samples .HomePage__sample h6 a,
+  a .btn,
+  .EngagementPanel,
+  .EngagementPanel input {
+    color: $wowza-dark;
+    background-color: $wowza-background;
+    border-color: $wowza-dark;
+  }
+  height: fit-content;
 }
