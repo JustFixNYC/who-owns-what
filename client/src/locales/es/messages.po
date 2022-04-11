@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2021-10-25 13:45\n"
+"PO-Revision-Date: 2022-04-11 18:07\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -90,7 +90,7 @@ msgstr "Según los datos del HPD disponibles, este portafolio de edificios ha re
 
 #: src/components/PropertiesSummary.tsx:72
 msgid "Across owners and management staff, the most common {0, plural, one {name that appears in this portfolio is} other {names that appear in this portfolio are}} <0/>."
-msgstr ""
+msgstr "En todos los dueños y administradores, {0, plural, one {el nombre más común que aparece en esta cartera de edificios es} other {los nombres más comunes que aparecen en esta cartera de edificios son}} <0/>."
 
 #: src/components/PropertiesSummary.tsx:126
 msgid "Additional links"
@@ -161,7 +161,7 @@ msgstr "Permisos de Construcción Solicitados"
 
 #: src/components/PropertiesSummary.tsx:97
 msgid "Building info"
-msgstr ""
+msgstr "Información de edificios"
 
 #: src/containers/NotRegisteredPage.tsx:153
 msgid "Buildings without valid property registration are subject to the following:"
@@ -369,7 +369,7 @@ msgstr "Si no se registra un edificio con el HPD"
 
 #: src/containers/HomePage.tsx:79
 msgid "Find other buildings your landlord might own:"
-msgstr ""
+msgstr "Encuentra otros edificios que tu propietario podría poseer:"
 
 #: src/util/helpers.ts:39
 msgid "GARBAGE/RECYCLING STORAGE"
@@ -481,7 +481,7 @@ msgstr "Dueño del edificio"
 
 #: src/containers/HomePage.tsx:97
 msgid "Landlord name"
-msgstr ""
+msgstr "Nombre del dueño"
 
 #: src/components/Page.tsx:8
 msgid "Landlord, Portfolio, Tenant, Displacement, Map, JustFix, NYC, New York, Housing, Who Owns What"
@@ -607,11 +607,11 @@ msgstr "Directorio de NYCHA"
 
 #: src/components/PropertiesSummary.tsx:68
 msgid "Network of Landlords"
-msgstr ""
+msgstr "Red de Dueños"
 
 #: src/containers/HomePage.tsx:99
 msgid "New"
-msgstr ""
+msgstr "Nuevo"
 
 #: src/components/AddressToolbar.tsx:21
 msgid "New Search"
@@ -704,7 +704,7 @@ msgstr "General"
 
 #: src/components/PortfolioGraph.tsx:100
 msgid "Owner Names"
-msgstr ""
+msgstr "Dueños"
 
 #: src/components/IndicatorsDatasets.tsx:73
 msgid "Owners submit Building Permit Applications to the Department of Buildings before any construction project to get necessary approval. The number of applications filed can indicate how much construction the owner was planning.<0/><1/>Read more about DOB Building Applications/Permits at the <2>official NYC Buildings page</2>."
@@ -791,7 +791,7 @@ msgstr "Busca por el nombre de tu dueño"
 
 #: src/containers/HomePage.tsx:89
 msgid "Search by:"
-msgstr ""
+msgstr "Buscar por:"
 
 #: src/containers/NotRegisteredPage.tsx:148
 #: src/containers/NychaPage.tsx:190
@@ -878,11 +878,11 @@ msgstr "Resúmen"
 
 #: src/components/WowzaToggle.tsx:44
 msgid "Switch to new version"
-msgstr ""
+msgstr "Cambiar a la nueva versión"
 
 #: src/components/WowzaToggle.tsx:44
 msgid "Switch to old version"
-msgstr ""
+msgstr "Cambiar a la versión anterior"
 
 #: src/util/helpers.ts:41
 msgid "TENANT HARASSMENT"
@@ -1203,11 +1203,11 @@ msgstr "La entidad \"All Year Management\" perteneciente a Yoel Goldman, está e
 
 #: src/containers/App.tsx:157
 msgid "You are viewing the new version of Who Owns What."
-msgstr ""
+msgstr "Estás viendo la nueva versión de Quién es el Dueño."
 
 #: src/containers/App.tsx:157
 msgid "You are viewing the old version of Who Owns What."
-msgstr ""
+msgstr "Estás viendo la versión anterior de Quién es el Dueño."
 
 #: src/components/PropertiesList.tsx:142
 #: src/components/PropertiesList.tsx:147
@@ -1216,11 +1216,11 @@ msgstr "Código postal"
 
 #: src/components/PortfolioGraph.tsx:109
 msgid "Zoom in"
-msgstr ""
+msgstr "Aumentar"
 
 #: src/components/PortfolioGraph.tsx:116
 msgid "Zoom out"
-msgstr ""
+msgstr "Alejar"
 
 #: src/components/StringifyList.tsx:18
 msgid "and"
@@ -1277,3 +1277,4 @@ msgstr "{value, plural, one {Una Queja del HPD emitida desde el 2014} other {# Q
 #: src/components/IndicatorsDatasets.tsx:35
 msgid "{value, plural, one {One HPD Violation Issued since 2010} other {# HPD Violations Issued since 2010}}"
 msgstr "{value, plural, one {Una Violación del HPD emitida desde el 2010} other {# Violaciones del HPD emitidas desde el 2010}}"
+
