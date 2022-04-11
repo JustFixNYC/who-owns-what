@@ -169,7 +169,7 @@ msgstr "Built"
 
 #: src/components/DetailView.tsx:313
 #: src/components/DetailView.tsx:322
-#: src/components/PortfolioGraph.tsx:101
+#: src/components/PortfolioGraph.tsx:105
 msgid "Business Addresses"
 msgstr "Business Addresses"
 
@@ -695,7 +695,7 @@ msgstr "Open Violations"
 msgid "Overview"
 msgstr "Overview"
 
-#: src/components/PortfolioGraph.tsx:96
+#: src/components/PortfolioGraph.tsx:100
 msgid "Owner Names"
 msgstr "Owner Names"
 
@@ -1206,6 +1206,14 @@ msgstr "You are viewing the old version of Who Owns What."
 #: src/components/PropertiesList.tsx:147
 msgid "Zipcode"
 msgstr "Zipcode"
+
+#: src/components/PortfolioGraph.tsx:109
+msgid "Zoom in"
+msgstr "Zoom in"
+
+#: src/components/PortfolioGraph.tsx:116
+msgid "Zoom out"
+msgstr "Zoom out"
 
 #: src/components/StringifyList.tsx:18
 msgid "and"

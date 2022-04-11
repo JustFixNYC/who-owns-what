@@ -174,7 +174,7 @@ msgstr "Construido"
 
 #: src/components/DetailView.tsx:313
 #: src/components/DetailView.tsx:322
-#: src/components/PortfolioGraph.tsx:101
+#: src/components/PortfolioGraph.tsx:105
 msgid "Business Addresses"
 msgstr "Dirección Comercial"
 
@@ -700,7 +700,7 @@ msgstr "Violaciones Actuales"
 msgid "Overview"
 msgstr "General"
 
-#: src/components/PortfolioGraph.tsx:96
+#: src/components/PortfolioGraph.tsx:100
 msgid "Owner Names"
 msgstr ""
 
@@ -1211,6 +1211,14 @@ msgstr ""
 #: src/components/PropertiesList.tsx:147
 msgid "Zipcode"
 msgstr "Código postal"
+
+#: src/components/PortfolioGraph.tsx:109
+msgid "Zoom in"
+msgstr ""
+
+#: src/components/PortfolioGraph.tsx:116
+msgid "Zoom out"
+msgstr ""
 
 #: src/components/StringifyList.tsx:18
 msgid "and"
