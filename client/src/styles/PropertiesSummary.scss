@@ -50,22 +50,38 @@
           margin-left: 0;
         }
       }
-      .warning {
-        span, a {
-          color: #000000 !important; // this doesn't work for some reason
-          font-family: 'Inconsolata';
-          font-style: normal;
-          font-weight: 400;
-          font-size: 14px;
-          line-height: 100%;
-          margin-bottom: 2.4rem;
+      .warning-banner {
+        position: absolute;
+        z-index: 1000;
+        // rounding error causes bottom=0 to be off by 1px at some zoom levels, 
+        // this hack seems to fix it https://stackoverflow.com/a/66623955/7051239
+        bottom: -0.4px; 
+        background-color: #FFBA33;
+        border-radius: 0.2rem;
+        padding: 0.7rem 2rem 0.7rem 1rem;
+        display: flex;
+        
+        .float-left {
+          display: flex;
+          align-items: center;
         }
-  
+        
+        .icon {
+          width: 3rem; 
+          height: 3rem;
+          margin-right: 1rem;
+        }
+
+        span, a {
+          color: black;
+        }
+
         a {
-          text-decoration: underline;
-    
           &:hover {
             text-decoration: none;
+          }
+        }
+      }
     }
   }
 
