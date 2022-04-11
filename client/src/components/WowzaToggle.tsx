@@ -27,11 +27,13 @@ export const ToggleLinkBetweenPortfolioMethods = () => {
   const history = useHistory();
   const { pathname } = useLocation();
 
-  return isAddressPageRoute(pathname) ? (
+  return (
     <button
       onClick={() => {
         history.push(getPathForOtherPortfolioMethod(pathname));
-        history.go(0);
+        if (isAddressPageRoute(pathname)) {
+          history.go(0);
+        }
       }}
     >
       {isLegacyPath(pathname) ? (
@@ -40,13 +42,5 @@ export const ToggleLinkBetweenPortfolioMethods = () => {
         <Trans>Switch to old version</Trans>
       )}
     </button>
-  ) : (
-    <Link to={getPathForOtherPortfolioMethod(pathname)}>
-      {isLegacyPath(pathname) ? (
-        <Trans>Switch to new version</Trans>
-      ) : (
-        <Trans>Switch to old version</Trans>
-      )}
-    </Link>
   );
 };
