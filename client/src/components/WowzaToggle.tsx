@@ -2,6 +2,7 @@ import { Trans } from "@lingui/macro";
 import { parseLocaleFromPath, removeLocalePrefix } from "i18n";
 import React from "react";
 import { useHistory, useLocation } from "react-router-dom";
+import { isAddressPageRoute } from "routes";
 
 /**
  * Determines whether a url corresponds to a new WOWZA portfolio mapping page vs an old legacy page.
@@ -25,11 +26,14 @@ export const getPathForOtherPortfolioMethod = (pathname: string) => {
 export const ToggleLinkBetweenPortfolioMethods = () => {
   const history = useHistory();
   const { pathname } = useLocation();
+
   return (
     <button
       onClick={() => {
         history.push(getPathForOtherPortfolioMethod(pathname));
-        history.go(0);
+        if (isAddressPageRoute(pathname)) {
+          history.go(0);
+        }
       }}
     >
       {isLegacyPath(pathname) ? (
