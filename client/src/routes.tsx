@@ -96,6 +96,10 @@ export const createWhoOwnsWhatRoutePaths = (prefix?: string) => {
      * pattern that we want to support so as not to break any old links that exist out in the web.
      */
     bblSeparatedIntoParts: `${pathPrefix}/bbl/:boro/:block/:lot`,
+    /** Some user testers have been accessing WOW via this pathname which we have since deprecated.
+     * Let's make sure all routes with this path structure redirect back to the homepage.
+     * See App.tsx and the `WowzaRedirectPage` component in WowzaToggle.tsx for more info.
+     */
     oldWowzaPath: `${pathPrefix}/wowza`,
     dev: `${pathPrefix}/dev`,
   };
