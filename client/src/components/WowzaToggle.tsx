@@ -2,7 +2,9 @@ import { Trans } from "@lingui/macro";
 import { parseLocaleFromPath, removeLocalePrefix } from "i18n";
 import React from "react";
 import { useHistory, useLocation } from "react-router-dom";
-import { isAddressPageRoute } from "routes";
+import { createWhoOwnsWhatRoutePaths, isAddressPageRoute } from "routes";
+import Loader from "./Loader";
+import Page from "./Page";
 
 /**
  * Determines whether a url corresponds to a new WOWZA portfolio mapping page vs an old legacy page.
@@ -22,6 +24,18 @@ export const getPathForOtherPortfolioMethod = (pathname: string) => {
     return `/${locale}/legacy${removeLocalePrefix(pathname)}`;
   }
 };
+
+export const WowzaRedirectPage = () => {
+  const history = useHistory();
+  const { home } = createWhoOwnsWhatRoutePaths();
+  history.replace(home);
+  return (
+    <Page>
+      <Loader loading={true} classNames="Loader-map">
+        <Trans>Loading</Trans>
+      </Loader>
+    </Page>)
+}
 
 export const ToggleLinkBetweenPortfolioMethods = () => {
   const history = useHistory();
