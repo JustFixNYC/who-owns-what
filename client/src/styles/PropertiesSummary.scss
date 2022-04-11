@@ -38,6 +38,20 @@
         margin-bottom: 0;
       }
     }
+
+    .portfolio-graph {
+      position: relative;
+      .btn-group {
+        position: absolute;
+        flex-direction: column;
+        margin-top: 3.5rem;
+        z-index: 1000;
+        .btn {
+          flex-grow: 0;
+          margin-left: 0;
+        }
+      }
+    }
   }
 
   .PropertiesSummary__links {
