@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Cytoscape from "cytoscape";
 import CytoscapeComponent from "react-cytoscapejs";
 // @ts-ignore
