@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2022-04-11 17:16\n"
+"PO-Revision-Date: 2022-04-11 17:43\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -790,7 +790,7 @@ msgstr "Busca por el nombre de tu dueño"
 
 #: src/containers/HomePage.tsx:89
 msgid "Search by:"
-msgstr ""
+msgstr "Buscar por:"
 
 #: src/containers/NotRegisteredPage.tsx:148
 #: src/containers/NychaPage.tsx:190
@@ -877,11 +877,11 @@ msgstr "Resúmen"
 
 #: src/components/WowzaToggle.tsx:32
 msgid "Switch to new version"
-msgstr ""
+msgstr "Cambiar a la nueva versión"
 
 #: src/components/WowzaToggle.tsx:32
 msgid "Switch to old version"
-msgstr ""
+msgstr "Cambiar a la versión anterior"
 
 #: src/util/helpers.ts:41
 msgid "TENANT HARASSMENT"
@@ -1215,11 +1215,11 @@ msgstr "Código postal"
 
 #: src/components/PortfolioGraph.tsx:109
 msgid "Zoom in"
-msgstr ""
+msgstr "Aumentar"
 
 #: src/components/PortfolioGraph.tsx:116
 msgid "Zoom out"
-msgstr ""
+msgstr "Alejar"
 
 #: src/components/StringifyList.tsx:18
 msgid "and"
@@ -1276,3 +1276,4 @@ msgstr "{value, plural, one {Una Queja del HPD emitida desde el 2014} other {# Q
 #: src/components/IndicatorsDatasets.tsx:35
 msgid "{value, plural, one {One HPD Violation Issued since 2010} other {# HPD Violations Issued since 2010}}"
 msgstr "{value, plural, one {Una Violación del HPD emitida desde el 2010} other {# Violaciones del HPD emitidas desde el 2010}}"
+
