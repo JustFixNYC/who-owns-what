@@ -75,7 +75,7 @@ msgid "APPLIANCE"
 msgstr "APPLIANCE"
 
 #: src/containers/AboutPage.tsx:13
-#: src/containers/App.tsx:89
+#: src/containers/App.tsx:90
 msgid "About"
 msgstr "About"
 
@@ -228,7 +228,7 @@ msgstr "Click here to learn more."
 
 #: src/components/DetailView.tsx:57
 #: src/components/FeatureCalloutWidget.tsx:60
-#: src/containers/App.tsx:159
+#: src/containers/App.tsx:160
 msgid "Close"
 msgstr "Close"
 
@@ -277,7 +277,7 @@ msgstr "DOORS"
 msgid "Date"
 msgstr "Date"
 
-#: src/containers/App.tsx:108
+#: src/containers/App.tsx:109
 msgid "Demo Site"
 msgstr "Demo Site"
 
@@ -291,7 +291,7 @@ msgid "Display:"
 msgstr "Display:"
 
 #: src/components/LegalFooter.tsx:35
-#: src/containers/App.tsx:95
+#: src/containers/App.tsx:96
 msgid "Donate"
 msgstr "Donate"
 
@@ -417,7 +417,7 @@ msgstr "Head Officer"
 msgid "How is this building associated to this portfolio?"
 msgstr "How is this building associated to this portfolio?"
 
-#: src/containers/App.tsx:92
+#: src/containers/App.tsx:93
 #: src/containers/HowToUsePage.tsx:13
 msgid "How to use"
 msgstr "How to use"
@@ -525,6 +525,7 @@ msgstr "Link to Deed"
 #: src/components/PropertiesList.tsx:92
 #: src/components/PropertiesMap.tsx:156
 #: src/components/PropertiesSummary.tsx:61
+#: src/components/WowzaToggle.tsx:31
 #: src/containers/AddressPage.tsx:161
 #: src/containers/BBLPage.tsx:58
 msgid "Loading"
@@ -775,7 +776,7 @@ msgstr "SIGNAGE MISSING"
 msgid "STAIRS"
 msgstr "STAIRS"
 
-#: src/containers/App.tsx:81
+#: src/containers/App.tsx:82
 msgid "Search"
 msgstr "Search"
 
@@ -804,15 +805,15 @@ msgstr "See the most common complaints reported by tenants to 311, now on the Ov
 msgid "Send us a data request"
 msgstr "Send us a data request"
 
-#: src/containers/App.tsx:116
-#: src/containers/App.tsx:127
+#: src/containers/App.tsx:117
+#: src/containers/App.tsx:128
 msgid "Share"
 msgstr "Share"
 
 #: src/components/DetailView.tsx:263
 #: src/components/EngagementPanel.tsx:18
 #: src/components/PropertiesSummary.tsx:136
-#: src/containers/App.tsx:137
+#: src/containers/App.tsx:138
 #: src/containers/NotRegisteredPage.tsx:14
 msgid "Share this page with your neighbors"
 msgstr "Share this page with your neighbors"
@@ -870,11 +871,11 @@ msgstr "Starts {year}"
 msgid "Summary"
 msgstr "Summary"
 
-#: src/components/WowzaToggle.tsx:32
+#: src/components/WowzaToggle.tsx:44
 msgid "Switch to new version"
 msgstr "Switch to new version"
 
-#: src/components/WowzaToggle.tsx:32
+#: src/components/WowzaToggle.tsx:44
 msgid "Switch to old version"
 msgstr "Switch to old version"
 
@@ -1195,11 +1196,11 @@ msgstr "Yes"
 msgid "Yoel Goldman's All Year Management has been at the <0>forefront of gentrification</0> in Brooklyn. Tenants in his buidlings in Williamsburg, Bushwick, and Crown Heights have been forced to live in horrendous and often dangerous conditions."
 msgstr "Yoel Goldman's All Year Management has been at the <0>forefront of gentrification</0> in Brooklyn. Tenants in his buidlings in Williamsburg, Bushwick, and Crown Heights have been forced to live in horrendous and often dangerous conditions."
 
-#: src/containers/App.tsx:156
+#: src/containers/App.tsx:157
 msgid "You are viewing the new version of Who Owns What."
 msgstr "You are viewing the new version of Who Owns What."
 
-#: src/containers/App.tsx:156
+#: src/containers/App.tsx:157
 msgid "You are viewing the old version of Who Owns What."
 msgstr "You are viewing the old version of Who Owns What."
 
