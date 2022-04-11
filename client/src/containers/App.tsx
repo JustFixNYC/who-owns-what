@@ -36,7 +36,11 @@ import { wowMachine } from "state-machine";
 import { NotFoundPage } from "./NotFoundPage";
 import widont from "widont";
 import { Dropdown } from "components/Dropdown";
-import { isLegacyPath, ToggleLinkBetweenPortfolioMethods } from "components/WowzaToggle";
+import {
+  isLegacyPath,
+  ToggleLinkBetweenPortfolioMethods,
+  WowzaRedirectPage,
+} from "components/WowzaToggle";
 
 const HomeLink = withI18n()((props: withI18nProps) => {
   const { i18n } = props;
@@ -160,6 +164,7 @@ const WhoOwnsWhatRoutes: React.FC<{}> = () => {
       <Route path={paths.privacyPolicy} component={PrivacyPolicyPage} />
       <Route path={paths.legacy.privacyPolicy} component={PrivacyPolicyPage} />
       <Route path={paths.dev} component={DevPage} />
+      <Route path={paths.oldWowzaPath} component={WowzaRedirectPage} />
       <Route component={NotFoundPage} />
     </Switch>
   );
