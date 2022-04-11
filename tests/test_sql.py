@@ -5,6 +5,12 @@ from psycopg2.extras import DictCursor
 import freezegun
 import pytest
 
+from portfoliograph.landlord_index import (
+    get_corpname_data_for_algolia,
+    get_landlord_data_for_algolia,
+    dict_hash,
+)
+
 from .factories.hpd_contacts import HpdContacts
 from .factories.hpd_registrations import HpdRegistrations
 from .factories.hpd_complaints import HpdComplaints
@@ -313,6 +319,7 @@ class TestSQL:
             assert len(list(nx.connected_components(g))) == 3
 
     def test_portfolio_graph_works(self):
+        # This test has side effect from populate_portfolios_table
         with self.db.connect() as conn:
             with freezegun.freeze_time("2018-01-01"):
                 populate_portfolios_table(conn)
@@ -322,6 +329,91 @@ class TestSQL:
             + "' = any(bbls)"
         )
         assert set(r[0]) == {"LANDLORDO CALRISSIAN", "LOBOT JONES"}
+
+    def test_getting_landlord_names_for_algolia_index(self):
+        with self.db.connect() as conn:
+            with freezegun.freeze_time("2018-01-01"):
+                r = get_landlord_data_for_algolia(conn, 20)
+                assert len(r) == 4
+
+                # The result is a list of dicts, and each dict includes the ObjectID, which
+                # is the hash of the rest of the dict. To simplify the expected data testing
+                # we remove all those objectIDs and test those separately first before checking
+                # the rest of the contents
+                r_hashes = []
+                for row in r:
+                    r_hashes.append(row.pop("objectID"))
+                assert r_hashes[0] == dict_hash(r[0])
+
+                assert {
+                    "portfolio_bbl": "1000010002",
+                    "landlord_names": "BOOP JONES",
+                } in r
+                assert {
+                    "portfolio_bbl": "3000040006",
+                    "landlord_names": "LANDLORDO CALRISIAN",
+                } in r
+                assert {
+                    "portfolio_bbl": "3000010002",
+                    "landlord_names": "LOBOT JONES",
+                } in r
+                assert {
+                    "portfolio_bbl": "3000010002",
+                    "landlord_names": "LANDLORDO CALRISSIAN",
+                } in r
+
+                r2 = get_landlord_data_for_algolia(conn)
+                assert len(r2) == 3
+
+                r2_hashes = []
+                for row in r2:
+                    r2_hashes.append(row.pop("objectID"))
+                assert r2_hashes[0] == dict_hash(r2[0])
+
+                assert {
+                    "portfolio_bbl": "1000010002",
+                    "landlord_names": "BOOP JONES",
+                } in r2
+                assert {
+                    "portfolio_bbl": "3000040006",
+                    "landlord_names": "LANDLORDO CALRISIAN",
+                } in r2
+                assert {
+                    "portfolio_bbl": "3000010002",
+                    "landlord_names": "LANDLORDO CALRISSIAN, LOBOT JONES",
+                } in r2
+
+    def test_getting_corporation_names_for_algolia_index(self):
+        with self.db.connect() as conn:
+            with freezegun.freeze_time("2018-01-01"):
+                r = get_corpname_data_for_algolia(conn)
+                assert len(r) == 4
+
+                # The result is a list of dicts, and each dict includes the ObjectID, which
+                # is the hash of the rest of the dict. To simplify the expected data testing
+                # we remove all those objectIDs and test those separately first before checking
+                # the rest of the contents
+                r_hashes = []
+                for row in r:
+                    r_hashes.append(row.pop("objectID"))
+                assert r_hashes[0] == dict_hash(r[0])
+
+                assert {
+                    "portfolio_bbl": "1000010002",
+                    "landlord_names": "THE UNRELATED COMPANIES, L.P.",
+                } in r
+                assert {
+                    "portfolio_bbl": "3000010002",
+                    "landlord_names": "1 FUNKY STREET LLC",
+                } in r
+                assert {
+                    "portfolio_bbl": "3000040005",
+                    "landlord_names": "CLOUD CITY MEGAPROPERTIES",
+                } in r
+                assert {
+                    "portfolio_bbl": "3000040006",
+                    "landlord_names": "4 SPUNKY STREET LLC",
+                } in r
 
     def test_portfolio_graph_json_works(self):
         with self.db.connect() as conn:

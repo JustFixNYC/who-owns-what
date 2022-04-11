@@ -21,12 +21,10 @@ $BODY$
         END;
 $BODY$ LANGUAGE plpgsql;
 
-DROP TABLE IF EXISTS hpd_registrations_with_contacts;
-
 -- This is mainly used as an easy way to provide contact info on request, not a replacement
 -- for cross-table analysis. Hence why the corpnames, businessaddrs, and ownernames are simplified
 -- with JSON and such.
-CREATE TABLE hpd_registrations_with_contacts
+CREATE TABLE hpd_registrations_with_contacts_temporary
 as SELECT
   registrations.housenumber,
   registrations.streetname,
@@ -126,5 +124,8 @@ LEFT JOIN (
   FROM hpd_contacts
   GROUP BY registrationid
 ) contacts ON (registrations.registrationid = contacts.registrationid);
+
+DROP TABLE IF EXISTS hpd_registrations_with_contacts;
+alter table hpd_registrations_with_contacts_temporary rename to hpd_registrations_with_contacts;
 
 create index on hpd_registrations_with_contacts (registrationid);

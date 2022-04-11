@@ -30,6 +30,53 @@
   }
 }
 
+.App__banner {
+  padding: 0.5rem 1.5rem;
+  color: $wowza-dark;
+  position: relative;
+
+  .close-button {
+    color: $wowza-dark;
+    position: absolute;
+    top: 0.5rem;
+    right: 1.5rem;
+    cursor: pointer;
+    &:hover {
+      opacity: 0.7;
+    }
+  }
+
+  button:focus {
+    outline: 2px solid $dark;
+    outline-offset: 2px;
+  }
+
+  .content {
+    text-align: center;
+    @include for-phone-only {
+      text-align: left;
+    }
+
+    // Override default <p> styling:
+    p {
+      margin-bottom: 0;
+    }
+
+    button:not(.close-button) {
+      color: $wowza-dark;
+      text-decoration: underline;
+      font-weight: 700;
+
+      &:hover,
+      &:focus {
+        text-decoration: none;
+      }
+    }
+  }
+
+  background-color: $wowza-warning;
+}
+
 .App__header {
   padding: 15px;
   border-bottom: 1px solid $gray-light;
@@ -43,6 +90,24 @@
 
   @include for-phone-only {
     padding: 10px 8px 8px;
+  }
+
+  &.wowza-styling {
+    background-color: $wowza-dark;
+    & > a h4,
+    button.btn.btn-link.dropdown-toggle {
+      color: $wowza-background;
+    }
+    @include for-tablet-landscape-up() {
+      color: $wowza-background;
+      nav a {
+        color: $wowza-background;
+      }
+    }
+    .menu {
+      background-color: $wowza-background;
+      color: $wowza-dark;
+    }
   }
 
   .label.label-warning {
@@ -126,6 +191,14 @@
   overflow: auto;
 
   display: flex;
+
+  &.wowza-styling,
+  &.wowza-styling .Loader-map,
+  &.wowza-styling .EngagementPanel {
+    color: $wowza-dark;
+    background-color: $wowza-background;
+    border-color: $wowza-dark;
+  }
 }
 
 div.Page {

@@ -126,7 +126,7 @@ export default class AddressPage extends Component<AddressPageProps, State> {
       const { assocAddrs, searchAddr } = state.context.portfolioData;
       const routes = createAddressPageRoutes(
         validateRouteParams(this.props.match.params),
-        useNewPortfolioMethod
+        !useNewPortfolioMethod
       );
 
       return (

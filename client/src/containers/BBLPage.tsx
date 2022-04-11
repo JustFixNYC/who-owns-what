@@ -64,7 +64,7 @@ const BBLPage: React.FC<BBLPageProps> = (props) => {
               ...results.result[0],
               locale,
             },
-            props.useNewPortfolioMethod
+            !props.useNewPortfolioMethod
           );
           history.replace(addressPage);
         })
