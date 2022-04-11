@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2022-04-08 20:07\n"
+"PO-Revision-Date: 2022-04-11 14:36\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -174,7 +174,7 @@ msgstr "Construido"
 
 #: src/components/DetailView.tsx:313
 #: src/components/DetailView.tsx:322
-#: src/components/PortfolioGraph.tsx:101
+#: src/components/PortfolioGraph.tsx:105
 msgid "Business Addresses"
 msgstr "Dirección Comercial"
 
@@ -233,6 +233,7 @@ msgstr "HaZ clic aquí para obtener más información."
 
 #: src/components/DetailView.tsx:57
 #: src/components/FeatureCalloutWidget.tsx:60
+#: src/containers/App.tsx:159
 msgid "Close"
 msgstr "Cerrar"
 
@@ -700,7 +701,7 @@ msgstr "Violaciones Actuales"
 msgid "Overview"
 msgstr "General"
 
-#: src/components/PortfolioGraph.tsx:96
+#: src/components/PortfolioGraph.tsx:100
 msgid "Owner Names"
 msgstr ""
 
@@ -874,11 +875,11 @@ msgstr "Comienza {year}"
 msgid "Summary"
 msgstr "Resúmen"
 
-#: src/components/WowzaToggle.tsx:29
+#: src/components/WowzaToggle.tsx:32
 msgid "Switch to new version"
 msgstr ""
 
-#: src/components/WowzaToggle.tsx:29
+#: src/components/WowzaToggle.tsx:32
 msgid "Switch to old version"
 msgstr ""
 
@@ -1199,11 +1200,11 @@ msgstr "Sí"
 msgid "Yoel Goldman's All Year Management has been at the <0>forefront of gentrification</0> in Brooklyn. Tenants in his buidlings in Williamsburg, Bushwick, and Crown Heights have been forced to live in horrendous and often dangerous conditions."
 msgstr "La entidad \"All Year Management\" perteneciente a Yoel Goldman, está en la <0>vanguardia de la gentrificación</0> de Brooklyn. Los inquilinos en sus edificios de Williamsburg, Bushwick, y las Crown Heights se han visto obligados a vivir en condiciones horrendas y a menudo peligrosas."
 
-#: src/containers/App.tsx:158
+#: src/containers/App.tsx:156
 msgid "You are viewing the new version of Who Owns What."
 msgstr ""
 
-#: src/containers/App.tsx:158
+#: src/containers/App.tsx:156
 msgid "You are viewing the old version of Who Owns What."
 msgstr ""
 
@@ -1211,6 +1212,14 @@ msgstr ""
 #: src/components/PropertiesList.tsx:147
 msgid "Zipcode"
 msgstr "Código postal"
+
+#: src/components/PortfolioGraph.tsx:109
+msgid "Zoom in"
+msgstr ""
+
+#: src/components/PortfolioGraph.tsx:116
+msgid "Zoom out"
+msgstr ""
 
 #: src/components/StringifyList.tsx:18
 msgid "and"
