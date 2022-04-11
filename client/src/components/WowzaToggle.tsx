@@ -34,8 +34,9 @@ export const WowzaRedirectPage = () => {
       <Loader loading={true} classNames="Loader-map">
         <Trans>Loading</Trans>
       </Loader>
-    </Page>)
-}
+    </Page>
+  );
+};
 
 export const ToggleLinkBetweenPortfolioMethods = () => {
   const history = useHistory();

@@ -80,7 +80,7 @@ msgid "APPLIANCE"
 msgstr "MEDIO DOMÉSTICO"
 
 #: src/containers/AboutPage.tsx:13
-#: src/containers/App.tsx:89
+#: src/containers/App.tsx:90
 msgid "About"
 msgstr "Acerca de"
 
@@ -233,7 +233,7 @@ msgstr "HaZ clic aquí para obtener más información."
 
 #: src/components/DetailView.tsx:57
 #: src/components/FeatureCalloutWidget.tsx:60
-#: src/containers/App.tsx:159
+#: src/containers/App.tsx:160
 msgid "Close"
 msgstr "Cerrar"
 
@@ -282,7 +282,7 @@ msgstr "PUERTAS"
 msgid "Date"
 msgstr "Fecha"
 
-#: src/containers/App.tsx:108
+#: src/containers/App.tsx:109
 msgid "Demo Site"
 msgstr "Sitio Demo"
 
@@ -296,7 +296,7 @@ msgid "Display:"
 msgstr "Mostrar:"
 
 #: src/components/LegalFooter.tsx:35
-#: src/containers/App.tsx:95
+#: src/containers/App.tsx:96
 msgid "Donate"
 msgstr "Donar"
 
@@ -422,7 +422,7 @@ msgstr "Oficial Principal"
 msgid "How is this building associated to this portfolio?"
 msgstr "¿Cómo se asocia este edificio a este portafolio de edificios?"
 
-#: src/containers/App.tsx:92
+#: src/containers/App.tsx:93
 #: src/containers/HowToUsePage.tsx:13
 msgid "How to use"
 msgstr "Cómo se usa"
@@ -530,6 +530,7 @@ msgstr "Enlace a la Escritura"
 #: src/components/PropertiesList.tsx:92
 #: src/components/PropertiesMap.tsx:156
 #: src/components/PropertiesSummary.tsx:61
+#: src/components/WowzaToggle.tsx:31
 #: src/containers/AddressPage.tsx:161
 #: src/containers/BBLPage.tsx:58
 msgid "Loading"
@@ -780,7 +781,7 @@ msgstr "FALTA DE SEÑALIZACIÓN"
 msgid "STAIRS"
 msgstr "ESCALERAS"
 
-#: src/containers/App.tsx:81
+#: src/containers/App.tsx:82
 msgid "Search"
 msgstr "Buscar"
 
@@ -809,15 +810,15 @@ msgstr "Vea las quejas más comunes reportadas por inquilinos al 311, ahora en l
 msgid "Send us a data request"
 msgstr "Envíanos una solicitud de datos"
 
-#: src/containers/App.tsx:116
-#: src/containers/App.tsx:127
+#: src/containers/App.tsx:117
+#: src/containers/App.tsx:128
 msgid "Share"
 msgstr "Compartir"
 
 #: src/components/DetailView.tsx:263
 #: src/components/EngagementPanel.tsx:18
 #: src/components/PropertiesSummary.tsx:136
-#: src/containers/App.tsx:137
+#: src/containers/App.tsx:138
 #: src/containers/NotRegisteredPage.tsx:14
 msgid "Share this page with your neighbors"
 msgstr "Comparte esta página con tus vecinos"
@@ -875,11 +876,11 @@ msgstr "Comienza {year}"
 msgid "Summary"
 msgstr "Resúmen"
 
-#: src/components/WowzaToggle.tsx:32
+#: src/components/WowzaToggle.tsx:44
 msgid "Switch to new version"
 msgstr ""
 
-#: src/components/WowzaToggle.tsx:32
+#: src/components/WowzaToggle.tsx:44
 msgid "Switch to old version"
 msgstr ""
 
@@ -1200,11 +1201,11 @@ msgstr "Sí"
 msgid "Yoel Goldman's All Year Management has been at the <0>forefront of gentrification</0> in Brooklyn. Tenants in his buidlings in Williamsburg, Bushwick, and Crown Heights have been forced to live in horrendous and often dangerous conditions."
 msgstr "La entidad \"All Year Management\" perteneciente a Yoel Goldman, está en la <0>vanguardia de la gentrificación</0> de Brooklyn. Los inquilinos en sus edificios de Williamsburg, Bushwick, y las Crown Heights se han visto obligados a vivir en condiciones horrendas y a menudo peligrosas."
 
-#: src/containers/App.tsx:156
+#: src/containers/App.tsx:157
 msgid "You are viewing the new version of Who Owns What."
 msgstr ""
 
-#: src/containers/App.tsx:156
+#: src/containers/App.tsx:157
 msgid "You are viewing the old version of Who Owns What."
 msgstr ""
 

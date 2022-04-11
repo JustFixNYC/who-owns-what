@@ -36,7 +36,11 @@ import { wowMachine } from "state-machine";
 import { NotFoundPage } from "./NotFoundPage";
 import widont from "widont";
 import { Dropdown } from "components/Dropdown";
-import { isLegacyPath, ToggleLinkBetweenPortfolioMethods, WowzaRedirectPage } from "components/WowzaToggle";
+import {
+  isLegacyPath,
+  ToggleLinkBetweenPortfolioMethods,
+  WowzaRedirectPage,
+} from "components/WowzaToggle";
 
 const HomeLink = withI18n()((props: withI18nProps) => {
   const { i18n } = props;
