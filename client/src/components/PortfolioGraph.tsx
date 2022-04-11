@@ -6,8 +6,9 @@ import fcose from "cytoscape-fcose";
 import { AddressRecord, PortfolioGraphNode, RawPortfolioGraphJson } from "./APIDataTypes";
 import { withMachineInStateProps } from "state-machine";
 import helpers from "util/helpers";
+import { t, Trans } from "@lingui/macro";
+import { withI18n, withI18nProps } from "@lingui/react";
 import warning from "../assets/img/icon-warning.svg";
-
 
 Cytoscape.use(fcose);
 
@@ -128,11 +129,12 @@ const formatGraphJSON = (
   return nodes.concat(edges);
 };
 
-type PortfolioGraphProps = Pick<withMachineInStateProps<"portfolioFound">, "state"> & {
-  graphJSON: RawPortfolioGraphJson;
-};
+type PortfolioGraphProps = withI18nProps &
+  Pick<withMachineInStateProps<"portfolioFound">, "state"> & {
+    graphJSON: RawPortfolioGraphJson;
+  };
 
-export const PortfolioGraph: React.FC<PortfolioGraphProps> = ({ graphJSON, state }) => {
+const PortfolioGraphWithoutI18: React.FC<PortfolioGraphProps> = ({ graphJSON, state, i18n }) => {
   const { searchAddr, detailAddr } = state.context.portfolioData;
   const distinctDetailAddr = !helpers.addrsAreEqual(searchAddr, detailAddr)
     ? detailAddr
@@ -140,28 +142,72 @@ export const PortfolioGraph: React.FC<PortfolioGraphProps> = ({ graphJSON, state
   const additionalNodes = generateAdditionalNodes(searchAddr, distinctDetailAddr);
   const additionalEdges = generateAdditionalEdges(graphJSON.nodes, searchAddr, distinctDetailAddr);
 
+  const ZOOM_LEVEL_INCREMENT = 0.2;
+  const ZOOM_ANIMATION_DURATION = 100;
+
+  let myCyRef: Cytoscape.Core;
+
   return (
-    <div style={{position: "relative"}}>
+    <div className="portfolio-graph" >
       <div className="float-left">
         <span
           style={{
             color: "red",
           }}
         >
-          ● Landlords
+          ● <Trans>Owner Names</Trans>
         </span>{" "}
         <span
           style={{
             color: "gray",
           }}
         >
-          ● Business Addresses
+          ● <Trans>Business Addresses</Trans>
         </span>
+      </div>
+      <div className="btn-group btn-group-block">
+        <button
+          className="btn btn-action"
+          aria-label={i18n._(t`Zoom in`)}
+          onClick={() =>
+            myCyRef.animate(
+              {
+                zoom: myCyRef.zoom() + ZOOM_LEVEL_INCREMENT * myCyRef.zoom(),
+              },
+              {
+                duration: ZOOM_ANIMATION_DURATION,
+              }
+            )
+          }
+        >
+          +
+        </button>
+        <button
+          className="btn btn-action"
+          aria-label={i18n._(t`Zoom out`)}
+          onClick={() =>
+            myCyRef.animate(
+              {
+                zoom: myCyRef.zoom() - ZOOM_LEVEL_INCREMENT * myCyRef.zoom(),
+              },
+              {
+                duration: ZOOM_ANIMATION_DURATION,
+              }
+            )
+          }
+        >
+          -
+        </button>
       </div>
       <CytoscapeComponent
         elements={formatGraphJSON(graphJSON, additionalNodes, additionalEdges)}
         style={{ width: "100%", height: "60vh"}}
         layout={layout}
+        cy={(cy) => {
+          // Get a reference to the Cytoscape object:
+          // https://github.com/plotly/react-cytoscapejs#cy-1
+          myCyRef = cy;
+        }}
         stylesheet={[
           {
             selector: "node",
@@ -229,6 +275,8 @@ export const PortfolioGraph: React.FC<PortfolioGraphProps> = ({ graphJSON, state
     </div>
   );
 };
+
+export const PortfolioGraph = withI18n()(PortfolioGraphWithoutI18);
 
 const NODE_TYPE_TO_COLOR: Record<string, string> = {
   name: "red",

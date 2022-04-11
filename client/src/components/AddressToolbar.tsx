@@ -6,9 +6,11 @@ import "styles/AddressToolbar.css";
 import { Trans } from "@lingui/macro";
 import { SearchAddress } from "./AddressSearch";
 import { useState } from "react";
-import { ToggleButtonBetweenPortfolioMethods } from "./WowzaToggle";
+import { isLegacyPath } from "./WowzaToggle";
 import { AddressRecord } from "./APIDataTypes";
 import ExportDataButton from "./ExportData";
+import { useLocation } from "react-router-dom";
+import { createWhoOwnsWhatRoutePaths } from "routes";
 
 export type AddressToolbarProps = {
   searchAddr: SearchAddress;
@@ -16,22 +18,20 @@ export type AddressToolbarProps = {
 };
 
 const AddressToolbar: React.FC<AddressToolbarProps> = ({ searchAddr, assocAddrs }) => {
-  const allowChangingPortfolioMethod =
-    process.env.REACT_APP_ENABLE_NEW_WOWZA_PORTFOLIO_MAPPING === "1";
   const [showExportModal, setExportModalVisibility] = useState(false);
-
+  const { pathname } = useLocation();
+  const { home, legacy } = createWhoOwnsWhatRoutePaths();
   const userAddrStr = `${searchAddr.housenumber} ${searchAddr.streetname}, ${searchAddr.boro}`;
 
   return (
     <div className="AddressToolbar">
       <div className="btn-group float-right">
-        {allowChangingPortfolioMethod && <ToggleButtonBetweenPortfolioMethods />}
         <Link
           className="btn btn-primary"
           onClick={() => {
             window.gtag("event", "new-search");
           }}
-          to="/"
+          to={isLegacyPath(pathname) ? legacy.home : home}
         >
           <Trans>New Search</Trans>
         </Link>

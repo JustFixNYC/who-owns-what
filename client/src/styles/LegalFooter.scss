@@ -52,3 +52,13 @@
     margin-bottom: 0;
   }
 }
+
+.wowza-styling {
+  .LegalFooter,
+  .LegalFooter .Disclaimer,
+  .LegalFooter .Links {
+    color: $wowza-dark;
+    background-color: $wowza-background;
+    border-color: $wowza-dark;
+  }
+}

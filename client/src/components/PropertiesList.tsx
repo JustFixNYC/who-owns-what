@@ -439,7 +439,11 @@ const TableOfData = React.memo(
                   var owner =
                     d.ownernames &&
                     d.ownernames.find(
-                      (o) => o.title === "HeadOfficer" || o.title === "IndividualOwner"
+                      (o) =>
+                        o.title === "HeadOfficer" ||
+                        o.title === "IndividualOwner" ||
+                        o.title === "CorporateOwner" ||
+                        o.title === "JointOwner"
                     );
                   return owner ? owner.value : "";
                 },

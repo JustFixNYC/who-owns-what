@@ -19,6 +19,10 @@
       margin-bottom: 0.6rem;
       text-decoration: underline;
       font-weight: bold;
+      // Override default styling in App.scss
+      &:first-child {
+        width: 100%;
+      }
     }
 
     p {
@@ -34,24 +38,34 @@
         margin-bottom: 0;
       }
     }
-    .warning {
-      span, a {
-        color: #000000 !important; // this doesn't work for some reason
-        font-family: 'Inconsolata';
-        font-style: normal;
-        font-weight: 400;
-        font-size: 14px;
-        line-height: 100%;
-        margin-bottom: 2.4rem;
-      }
-
-      a {
-        text-decoration: underline;
-  
-        &:hover {
-          text-decoration: none;
+    .portfolio-graph {
+      position: relative;
+      .btn-group {
+        position: absolute;
+        flex-direction: column;
+        margin-top: 3.5rem;
+        z-index: 1000;
+        .btn {
+          flex-grow: 0;
+          margin-left: 0;
         }
       }
+      .warning {
+        span, a {
+          color: #000000 !important; // this doesn't work for some reason
+          font-family: 'Inconsolata';
+          font-style: normal;
+          font-weight: 400;
+          font-size: 14px;
+          line-height: 100%;
+          margin-bottom: 2.4rem;
+        }
+  
+        a {
+          text-decoration: underline;
+    
+          &:hover {
+            text-decoration: none;
     }
   }
 
