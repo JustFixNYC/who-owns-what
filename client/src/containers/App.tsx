@@ -267,14 +267,12 @@ const AppBody = () => {
   );
 };
 
-const WowzaBanner = () => {
+const WowzaBanner = withI18n()((props: withI18nProps) => {
   const [isBannerOpen, setBannerVisibility] = useState(true);
   const { pathname } = useLocation();
+  const { i18n } = props;
   return (
     <div className={"App__banner " + (!isBannerOpen ? "d-hide" : "")}>
-      <div className="close-button float-right" onClick={() => setBannerVisibility(false)}>
-        ✕
-      </div>
       <div className="content">
         {isLegacyPath(pathname) ? (
           <Trans>You are viewing the old version of Who Owns What.</Trans>
@@ -283,9 +281,16 @@ const WowzaBanner = () => {
         )}{" "}
         <ToggleLinkBetweenPortfolioMethods />
       </div>
+      <button
+        className="close-button"
+        onClick={() => setBannerVisibility(false)}
+        aria-label={i18n._(t`Close`)}
+      >
+        ✕
+      </button>
     </div>
   );
-};
+});
 
 const App = () => {
   const version = process.env.REACT_APP_VERSION;

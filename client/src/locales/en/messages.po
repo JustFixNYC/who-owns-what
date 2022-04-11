@@ -228,6 +228,7 @@ msgstr "Click here to learn more."
 
 #: src/components/DetailView.tsx:57
 #: src/components/FeatureCalloutWidget.tsx:60
+#: src/containers/App.tsx:159
 msgid "Close"
 msgstr "Close"
 
@@ -869,11 +870,11 @@ msgstr "Starts {year}"
 msgid "Summary"
 msgstr "Summary"
 
-#: src/components/WowzaToggle.tsx:29
+#: src/components/WowzaToggle.tsx:32
 msgid "Switch to new version"
 msgstr "Switch to new version"
 
-#: src/components/WowzaToggle.tsx:29
+#: src/components/WowzaToggle.tsx:32
 msgid "Switch to old version"
 msgstr "Switch to old version"
 
@@ -1194,11 +1195,11 @@ msgstr "Yes"
 msgid "Yoel Goldman's All Year Management has been at the <0>forefront of gentrification</0> in Brooklyn. Tenants in his buidlings in Williamsburg, Bushwick, and Crown Heights have been forced to live in horrendous and often dangerous conditions."
 msgstr "Yoel Goldman's All Year Management has been at the <0>forefront of gentrification</0> in Brooklyn. Tenants in his buidlings in Williamsburg, Bushwick, and Crown Heights have been forced to live in horrendous and often dangerous conditions."
 
-#: src/containers/App.tsx:158
+#: src/containers/App.tsx:156
 msgid "You are viewing the new version of Who Owns What."
 msgstr "You are viewing the new version of Who Owns What."
 
-#: src/containers/App.tsx:158
+#: src/containers/App.tsx:156
 msgid "You are viewing the old version of Who Owns What."
 msgstr "You are viewing the old version of Who Owns What."
 
