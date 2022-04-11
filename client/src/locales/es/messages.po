@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2022-04-11 14:36\n"
+"PO-Revision-Date: 2022-04-11 17:16\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -161,7 +161,7 @@ msgstr "Permisos de Construcción Solicitados"
 
 #: src/components/PropertiesSummary.tsx:97
 msgid "Building info"
-msgstr ""
+msgstr "Información de edificios"
 
 #: src/containers/NotRegisteredPage.tsx:153
 msgid "Buildings without valid property registration are subject to the following:"
@@ -481,7 +481,7 @@ msgstr "Dueño del edificio"
 
 #: src/containers/HomePage.tsx:97
 msgid "Landlord name"
-msgstr ""
+msgstr "Nombre del dueño"
 
 #: src/components/Page.tsx:8
 msgid "Landlord, Portfolio, Tenant, Displacement, Map, JustFix, NYC, New York, Housing, Who Owns What"
@@ -610,7 +610,7 @@ msgstr ""
 
 #: src/containers/HomePage.tsx:99
 msgid "New"
-msgstr ""
+msgstr "Nuevo"
 
 #: src/components/AddressToolbar.tsx:21
 msgid "New Search"
