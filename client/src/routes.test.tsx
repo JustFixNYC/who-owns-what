@@ -1,4 +1,22 @@
-import { createAddressPageRoutes } from "routes";
+import { createAddressPageRoutes, isAddressPageRoute } from "routes";
+
+describe("isAddressPageRoute()", () => {
+  it("correctly identifies a regular address page", () => {
+    expect(isAddressPageRoute("/es/address/QUEENS/4125/CASE%20STREET")).toBe(true);
+  });
+
+  it("correctly identifies a legacy address page", () => {
+    expect(isAddressPageRoute("/es/legacy/address/QUEENS/4125/CASE%20STREET")).toBe(true);
+  });
+
+  it("correctly identifies a regular page as not an address page", () => {
+    expect(isAddressPageRoute("/en/legacy/how-to-use")).toBe(false);
+  });
+
+  it("handles cases where 'address' happens to be in the url somewhere", () => {
+    expect(isAddressPageRoute("/en/find-my-address")).toBe(false);
+  });
+});
 
 describe("createAddressPageRoutes()", () => {
   const OLD_ENV = process.env;

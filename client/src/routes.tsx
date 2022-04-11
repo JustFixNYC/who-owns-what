@@ -1,11 +1,21 @@
 import { SearchAddressWithoutBbl } from "components/APIDataTypes";
 import { reportError } from "error-reporting";
+import { removeLocalePrefix } from "i18n";
 
 export type AddressPageUrlParams = SearchAddressWithoutBbl & {
   locale?: string;
 };
 
 export type AddressPageRoutes = ReturnType<typeof createAddressPageRoutes>;
+
+/**
+ * Determines whether a url corresponds to an Address Page.
+ */
+export const isAddressPageRoute = (pathname: string) => {
+  let path = removeLocalePrefix(pathname);
+  if (path.startsWith("/legacy")) path = path.replace("/legacy", "");
+  return path.startsWith("/address");
+};
 
 export const createRouteForAddressPage = (
   params: AddressPageUrlParams,
