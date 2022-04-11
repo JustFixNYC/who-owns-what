@@ -201,7 +201,7 @@ const PortfolioGraphWithoutI18: React.FC<PortfolioGraphProps> = ({ graphJSON, st
       </div>
       <CytoscapeComponent
         elements={formatGraphJSON(graphJSON, additionalNodes, additionalEdges)}
-        style={{ width: "100%", height: "60vh"}}
+        style={{ width: "100%", height: "60vh" }}
         layout={layout}
         cy={(cy) => {
           // Get a reference to the Cytoscape object:
