@@ -17,6 +17,7 @@ import { I18n } from "@lingui/core/i18n";
 import { I18n as I18nComponent } from "@lingui/react";
 import { PortfolioGraph } from "./PortfolioGraph";
 import { ComplaintsSummary } from "./ComplaintsSummary";
+import { BigPortfolioWarning } from "./BigPortfolioWarning";
 
 type Props = withMachineInStateProps<"portfolioFound"> & {
   isVisible: boolean;
@@ -96,13 +97,15 @@ export default class PropertiesSummary extends Component<Props, {}> {
           <div className="PropertiesSummary__content Page__content">
             <div>
               <Trans render="h6">Network of Landlords</Trans>
-              {state.context.useNewPortfolioMethod &&
-                state.context.portfolioData.portfolioGraph && (
+              {state.context.useNewPortfolioMethod && state.context.portfolioData.portfolioGraph && (
+                <>
                   <PortfolioGraph
                     graphJSON={state.context.portfolioData.portfolioGraph}
                     state={state}
                   />
-                )}
+                  <BigPortfolioWarning sizeOfPortfolio={agg.bldgs} />
+                </>
+              )}
               <p>
                 <Trans>
                   Across owners and management staff, the most common

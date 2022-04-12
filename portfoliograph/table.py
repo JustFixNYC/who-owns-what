@@ -45,7 +45,13 @@ def iter_portfolio_rows(conn) -> Iterable[PortfolioRow]:
                 if reginfo.reg_id in reg_bbl_map:
                     bbls = bbls.union(reg_bbl_map[reginfo.reg_id])
                 else:
-                    print(f"WARNING: HPD registration {reginfo.reg_id} not found.")
+                    # TODO: Clarify that this is not an error, but expected for older regs
+                    print(
+                        f"""
+                        HPD registration {reginfo.reg_id} skipped in portfolio generation.
+                        Likely that a newer registration exists for the same building.
+                        """
+                    )
         yield PortfolioRow(
             bbls=list(bbls), landlord_names=names, graph=induced_subgraph
         )
