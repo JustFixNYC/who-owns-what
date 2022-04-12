@@ -8,7 +8,6 @@ import { withMachineInStateProps } from "state-machine";
 import helpers from "util/helpers";
 import { t, Trans } from "@lingui/macro";
 import { withI18n, withI18nProps } from "@lingui/react";
-import { BigPortfolioWarning } from "./BigPortfolioWarning";
 
 Cytoscape.use(fcose);
 
@@ -239,7 +238,6 @@ const PortfolioGraphWithoutI18: React.FC<PortfolioGraphProps> = ({ graphJSON, st
           },
         ]}
       />
-      <BigPortfolioWarning size={assocAddrs.length} />
       <br />
     </div>
   );

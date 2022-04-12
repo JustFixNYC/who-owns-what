@@ -3,6 +3,7 @@
 @import "_button.scss";
 
 .PropertiesSummary {
+  position: relative;
   // @include for-phone-only() {
   //   padding-right: 30px;
   // };
@@ -50,40 +51,42 @@
           margin-left: 0;
         }
       }
-      .warning-banner {
-        position: absolute;
-        z-index: 1000;
-        // rounding error causes bottom=0 to be off by 1px at some zoom levels,
-        // this hack seems to fix it https://stackoverflow.com/a/66623955/7051239
-        bottom: -0.4px;
-        background-color: $wowza-warning;
-        border-radius: 0.2rem;
-        padding: 0.911rem 2.1rem 1.012rem 1.08rem;
+    }
+
+    .warning-banner {
+      // position: absolute;
+      // z-index: 1000;
+      // rounding error causes bottom=0 to be off by 1px at some zoom levels,
+      // this hack seems to fix it https://stackoverflow.com/a/66623955/7051239
+      // bottom: -0.4px;
+      background-color: $wowza-warning;
+      border-radius: 0.2rem;
+      padding: 0.911rem 2.1rem 1.012rem 1.08rem;
+      display: flex;
+      font-size: 1.4rem;
+      max-width: 47.5rem;
+
+      .float-left {
         display: flex;
-        font-size: 1.4rem;
+        align-items: center;
+        padding: 0;
+      }
 
-        .float-left {
-          display: flex;
-          align-items: center;
-          padding: 0;
-        }
+      .icon {
+        width: 2.536rem;
+        height: 2.277rem;
+        margin-right: 1.012rem;
+      }
 
-        .icon {
-          width: 2.536rem;
-          height: 2.277rem;
-          margin-right: 1.012rem;
-        }
+      span,
+      button {
+        color: black;
+      }
 
-        span,
-        button {
-          color: black;
-        }
-
-        button {
-          text-decoration: underline;
-          &:hover {
-            text-decoration: none;
-          }
+      button {
+        text-decoration: underline;
+        &:hover {
+          text-decoration: none;
         }
       }
     }
