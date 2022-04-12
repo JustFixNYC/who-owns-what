@@ -135,7 +135,7 @@ type PortfolioGraphProps = withI18nProps &
   };
 
 const PortfolioGraphWithoutI18: React.FC<PortfolioGraphProps> = ({ graphJSON, state, i18n }) => {
-  const { searchAddr, detailAddr } = state.context.portfolioData;
+  const { assocAddrs, searchAddr, detailAddr } = state.context.portfolioData;
   const distinctDetailAddr = !helpers.addrsAreEqual(searchAddr, detailAddr)
     ? detailAddr
     : undefined;
@@ -239,7 +239,7 @@ const PortfolioGraphWithoutI18: React.FC<PortfolioGraphProps> = ({ graphJSON, st
           },
         ]}
       />
-      <BigPortfolioWarning />
+      <BigPortfolioWarning size={assocAddrs.length} />
       <br />
     </div>
   );
