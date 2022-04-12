@@ -3,7 +3,7 @@ import { t, Trans } from "@lingui/macro";
 import { withI18n, withI18nProps } from "@lingui/react";
 import warning from "../assets/img/icon-warning.svg";
 
-export const PORTFOLIO_SIZE_THRESHOLD = 500;
+export const PORTFOLIO_SIZE_THRESHOLD = 300;
 
 type BigPortfolioWarningProps = withI18nProps & {
   size: number;
