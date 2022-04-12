@@ -6,7 +6,7 @@ import PropertiesList from "../components/PropertiesList";
 import PropertiesSummary from "../components/PropertiesSummary";
 import Indicators from "../components/Indicators";
 import DetailView from "../components/DetailView";
-import Loader from "../components/Loader";
+import { LoadingPage } from "../components/Loader";
 
 import "styles/AddressPage.css";
 import NychaPage from "./NychaPage";
@@ -21,6 +21,7 @@ import { AddrNotFoundPage } from "./NotFoundPage";
 import { searchAddrsAreEqual } from "util/helpers";
 import { NetworkErrorMessage } from "components/NetworkErrorMessage";
 import { createAddressPageRoutes } from "routes";
+import { isLegacyPath } from "../components/WowzaToggle";
 
 type RouteParams = {
   locale?: string;
@@ -110,7 +111,7 @@ export default class AddressPage extends Component<AddressPageProps, State> {
   };
 
   render() {
-    const { state, send, useNewPortfolioMethod } = this.props;
+    const { state, send, useNewPortfolioMethod, location } = this.props;
 
     if (state.matches("bblNotFound")) {
       window.gtag("event", "bbl-not-found-page");
@@ -123,11 +124,22 @@ export default class AddressPage extends Component<AddressPageProps, State> {
       return <NotRegisteredPage state={state} send={send} />;
     } else if (state.matches("portfolioFound")) {
       window.gtag("event", "portfolio-found-page");
-      const { assocAddrs, searchAddr } = state.context.portfolioData;
+      const { assocAddrs, searchAddr, portfolioGraph } = state.context.portfolioData;
       const routes = createAddressPageRoutes(
         validateRouteParams(this.props.match.params),
         !useNewPortfolioMethod
       );
+
+      /**
+       * When switching between the legacy and new versions of Who Owns What,
+       * there is a delay period after clicking the `ToggleLinkBetweenPortfolioMethods` link
+       * where the url has changed but the new portfolio data hasn't yet loaded via API call.
+       *
+       * This check makes sure that we show the Loading Page while the url and data are mismatched:
+       */
+      if (!!portfolioGraph === isLegacyPath(location.pathname)) {
+        return <LoadingPage />;
+      }
 
       return (
         <Page
@@ -251,13 +263,7 @@ export default class AddressPage extends Component<AddressPageProps, State> {
         </Page>
       );
     } else {
-      return (
-        <Page>
-          <Loader loading={true} classNames="Loader-map">
-            <Trans>Loading</Trans>
-          </Loader>
-        </Page>
-      );
+      return <LoadingPage />;
     }
   }
 }

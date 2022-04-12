@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Trans, Plural, t } from "@lingui/macro";
 
-import Loader from "../components/Loader";
+import { FixedLoadingLabel } from "../components/Loader";
 import LegalFooter from "../components/LegalFooter";
 
 import "styles/PropertiesSummary.css";
@@ -90,11 +90,7 @@ export default class PropertiesSummary extends Component<Props, {}> {
     let agg = state.context.summaryData;
     let searchAddr = state.context.portfolioData.searchAddr;
     if (!agg) {
-      return (
-        <Loader loading={true} classNames="Loader-map">
-          <Trans>Loading</Trans>
-        </Loader>
-      );
+      return <FixedLoadingLabel />;
     } else {
       return (
         <div className="Page PropertiesSummary">

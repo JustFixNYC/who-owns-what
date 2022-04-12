@@ -3,8 +3,7 @@ import { parseLocaleFromPath, removeLocalePrefix } from "i18n";
 import React from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import { createWhoOwnsWhatRoutePaths, isAddressPageRoute } from "routes";
-import Loader from "./Loader";
-import Page from "./Page";
+import { LoadingPage } from "./Loader";
 
 /**
  * Determines whether a url corresponds to a new WOWZA portfolio mapping page vs an old legacy page.
@@ -29,13 +28,7 @@ export const WowzaRedirectPage = () => {
   const history = useHistory();
   const { home } = createWhoOwnsWhatRoutePaths();
   history.replace(home);
-  return (
-    <Page>
-      <Loader loading={true} classNames="Loader-map">
-        <Trans>Loading</Trans>
-      </Loader>
-    </Page>
-  );
+  return <LoadingPage />;
 };
 
 export const ToggleLinkBetweenPortfolioMethods = () => {
