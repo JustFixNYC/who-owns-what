@@ -52,7 +52,7 @@ def build_graph(dict_cursor) -> nx.Graph:
     dict_cursor.execute(
         f"""
         WITH landlord_contacts AS (
-            SELECT DISTINCT 
+            SELECT DISTINCT
                 firstname,
                 lastname,
                 businesshousenumber,
@@ -72,22 +72,22 @@ def build_graph(dict_cursor) -> nx.Graph:
                 AND LENGTH(CONCAT(businesshousenumber, businessstreetname)) > 2
                 AND (firstname IS NOT NULL OR lastname IS NOT NULL)
         ),
-        
+
         landlord_contacts_ordered AS (
             SELECT *
             FROM landlord_contacts
             ORDER BY (
                 -- First, we prioritize certain owner types over others:
                 ARRAY_POSITION(
-                    ARRAY['IndividualOwner','HeadOfficer','JointOwner','CorporateOwner'], 
+                    ARRAY['IndividualOwner','HeadOfficer','JointOwner','CorporateOwner'],
                     landlord_contacts.type
-                ), 
+                ),
                 -- Then, we order by landlord name, just to make sure our sorting is deterministic:
                 concat(firstname,' ',lastname)
             )
         )
 
-        SELECT 
+        SELECT
             registrationid,
             FIRST(firstname) AS firstname,
             FIRST(lastname) AS lastname,

@@ -48,7 +48,7 @@ def iter_portfolio_rows(conn) -> Iterable[PortfolioRow]:
                     # TODO: Clarify that this is not an error, but expected for older regs
                     print(
                         f"""
-                        HPD registration {reginfo.reg_id} skipped in portfolio generation. 
+                        HPD registration {reginfo.reg_id} skipped in portfolio generation.
                         Likely that a newer registration exists for the same building.
                         """
                     )
