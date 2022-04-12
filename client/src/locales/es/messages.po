@@ -471,6 +471,10 @@ msgstr "Dueño Conjunto"
 msgid "JustFix, Inc is a registered 501(c)(3) nonprofit organization."
 msgstr "JustFix, Inc es una organización registrada 501(c)(3) sin fines de lucro."
 
+#: src/containers/HomePage.tsx:207
+msgid "Known his pattern of <0>unscrupulously deregulating rent stabilized apartments</0>, Larry Gluck’s Stellar Management has also secured a prominent place as one of <1>New York City’s Worst Evictors</1>. A force of gentrification, particularly in upper Manhattan where he operates the majority of his X-number of properties, Stellar has gained a reputation for displacing long-term tenants, renovating their units while vacant, and skyrocketing rents to market rate."
+msgstr ""
+
 #: src/util/helpers.ts:58
 msgid "LOCKS"
 msgstr "CERRADURAS"
@@ -1108,7 +1112,7 @@ msgstr "Ver leyenda"
 
 #: src/containers/HomePage.tsx:146
 #: src/containers/HomePage.tsx:188
-#: src/containers/HomePage.tsx:218
+#: src/containers/HomePage.tsx:225
 msgid "View portfolio"
 msgstr "Ver portafolio de edificios"
 
@@ -1197,10 +1201,6 @@ msgstr "Año de construcción"
 msgid "Yes"
 msgstr "Sí"
 
-#: src/containers/HomePage.tsx:207
-msgid "Yoel Goldman's All Year Management has been at the <0>forefront of gentrification</0> in Brooklyn. Tenants in his buidlings in Williamsburg, Bushwick, and Crown Heights have been forced to live in horrendous and often dangerous conditions."
-msgstr "La entidad \"All Year Management\" perteneciente a Yoel Goldman, está en la <0>vanguardia de la gentrificación</0> de Brooklyn. Los inquilinos en sus edificios de Williamsburg, Bushwick, y las Crown Heights se han visto obligados a vivir en condiciones horrendas y a menudo peligrosas."
-
 #: src/containers/App.tsx:157
 msgid "You are viewing the new version of Who Owns What."
 msgstr "Estás viendo la nueva versión de Quién es el Dueño."
@@ -1277,4 +1277,3 @@ msgstr "{value, plural, one {Una Queja del HPD emitida desde el 2014} other {# Q
 #: src/components/IndicatorsDatasets.tsx:35
 msgid "{value, plural, one {One HPD Violation Issued since 2010} other {# HPD Violations Issued since 2010}}"
 msgstr "{value, plural, one {Una Violación del HPD emitida desde el 2010} other {# Violaciones del HPD emitidas desde el 2010}}"
-

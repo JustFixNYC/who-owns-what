@@ -466,6 +466,10 @@ msgstr "Joint Owner"
 msgid "JustFix, Inc is a registered 501(c)(3) nonprofit organization."
 msgstr "JustFix, Inc is a registered 501(c)(3) nonprofit organization."
 
+#: src/containers/HomePage.tsx:207
+msgid "Known his pattern of <0>unscrupulously deregulating rent stabilized apartments</0>, Larry Gluck’s Stellar Management has also secured a prominent place as one of <1>New York City’s Worst Evictors</1>. A force of gentrification, particularly in upper Manhattan where he operates the majority of his X-number of properties, Stellar has gained a reputation for displacing long-term tenants, renovating their units while vacant, and skyrocketing rents to market rate."
+msgstr "Known his pattern of <0>unscrupulously deregulating rent stabilized apartments</0>, Larry Gluck’s Stellar Management has also secured a prominent place as one of <1>New York City’s Worst Evictors</1>. A force of gentrification, particularly in upper Manhattan where he operates the majority of his X-number of properties, Stellar has gained a reputation for displacing long-term tenants, renovating their units while vacant, and skyrocketing rents to market rate."
+
 #: src/util/helpers.ts:58
 msgid "LOCKS"
 msgstr "LOCKS"
@@ -1103,7 +1107,7 @@ msgstr "View legend"
 
 #: src/containers/HomePage.tsx:146
 #: src/containers/HomePage.tsx:188
-#: src/containers/HomePage.tsx:218
+#: src/containers/HomePage.tsx:225
 msgid "View portfolio"
 msgstr "View portfolio"
 
@@ -1191,10 +1195,6 @@ msgstr "Year Built"
 #: src/components/PropertiesList.tsx:402
 msgid "Yes"
 msgstr "Yes"
-
-#: src/containers/HomePage.tsx:207
-msgid "Yoel Goldman's All Year Management has been at the <0>forefront of gentrification</0> in Brooklyn. Tenants in his buidlings in Williamsburg, Bushwick, and Crown Heights have been forced to live in horrendous and often dangerous conditions."
-msgstr "Yoel Goldman's All Year Management has been at the <0>forefront of gentrification</0> in Brooklyn. Tenants in his buidlings in Williamsburg, Bushwick, and Crown Heights have been forced to live in horrendous and often dangerous conditions."
 
 #: src/containers/App.tsx:157
 msgid "You are viewing the new version of Who Owns What."
