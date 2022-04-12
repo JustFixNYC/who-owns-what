@@ -43,7 +43,7 @@
       position: relative;
       padding: 1rem;
       margin-bottom: 2rem;
-      box-shadow: 1px 1px 10px -2px #00000044;
+      border: 1px dashed $wowza-dark;
       .btn-group {
         position: absolute;
         flex-direction: column;
