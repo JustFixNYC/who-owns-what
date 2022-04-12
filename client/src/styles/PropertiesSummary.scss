@@ -58,26 +58,29 @@
         bottom: -0.4px;
         background-color: $wowza-warning;
         border-radius: 0.2rem;
-        padding: 0.7rem 2rem 0.7rem 1rem;
+        padding: 0.911rem 2.1rem 1.012rem 1.08rem;
         display: flex;
+        font-size: 1.4rem;
 
         .float-left {
           display: flex;
           align-items: center;
+          padding: 0;
         }
 
         .icon {
-          width: 3rem;
-          height: 3rem;
-          margin-right: 1rem;
+          width: 2.536rem;
+          height: 2.277rem;
+          margin-right: 1.012rem;
         }
 
         span,
-        a {
+        button {
           color: black;
         }
 
-        a {
+        button {
+          text-decoration: underline;
           &:hover {
             text-decoration: none;
           }
