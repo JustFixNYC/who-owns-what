@@ -134,7 +134,7 @@ type PortfolioGraphProps = withI18nProps &
   };
 
 const PortfolioGraphWithoutI18: React.FC<PortfolioGraphProps> = ({ graphJSON, state, i18n }) => {
-  const { assocAddrs, searchAddr, detailAddr } = state.context.portfolioData;
+  const { searchAddr, detailAddr } = state.context.portfolioData;
   const distinctDetailAddr = !helpers.addrsAreEqual(searchAddr, detailAddr)
     ? detailAddr
     : undefined;
