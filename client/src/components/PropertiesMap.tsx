@@ -265,7 +265,7 @@ export default class PropertiesMap extends Component<Props, State> {
                 left: "10px",
               }}
             />
-            <BigPortfolioWarning size={this.state.addrsPoints.length} />
+            <BigPortfolioWarning sizeOfPortfolio={this.state.addrsPoints.length} />
             {this.state.addrsPoints.length ? (
               <Layer id="assoc" type="circle" paint={DYNAMIC_ASSOC_PAINT}>
                 {this.state.addrsPoints}

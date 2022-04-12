@@ -107,7 +107,7 @@ export default class PropertiesSummary extends Component<Props, {}> {
                     graphJSON={state.context.portfolioData.portfolioGraph}
                     state={state}
                   />
-                  <BigPortfolioWarning size={agg.bldgs} />
+                  <BigPortfolioWarning sizeOfPortfolio={agg.bldgs} />
                 </>
               )}
               <p>
