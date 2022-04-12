@@ -41,6 +41,9 @@
 
     .portfolio-graph {
       position: relative;
+      padding: 1rem;
+      margin-bottom: 2rem;
+      border: 1px dashed $gray;
       .btn-group {
         position: absolute;
         flex-direction: column;
