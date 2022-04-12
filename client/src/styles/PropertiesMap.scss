@@ -39,6 +39,43 @@
         }
       }
     }
+
+    .warning-banner {
+      position: absolute;
+      z-index: 1000;
+      top: 0;
+      margin: 1.1rem 1.1rem 0 4.5rem;
+      height: 5.4rem;
+      background-color: $wowza-warning;
+      border-radius: 0.2rem;
+      padding: 0.911rem 2.1rem 1.012rem 1.08rem;
+      display: flex;
+      font-size: 1.4rem;
+
+      .float-left {
+        display: flex;
+        align-items: center;
+        padding: 0;
+      }
+
+      .icon {
+        width: 2.536rem;
+        height: 2.277rem;
+        margin-right: 1.012rem;
+      }
+
+      span,
+      button {
+        color: black;
+      }
+
+      button {
+        text-decoration: underline;
+        &:hover {
+          text-decoration: none;
+        }
+      }
+    }
   }
 
   .PropertiesMap__error {
