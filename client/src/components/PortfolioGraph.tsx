@@ -244,7 +244,9 @@ const PortfolioGraphWithoutI18: React.FC<PortfolioGraphProps> = ({ graphJSON, st
           <img src={warning} className="icon" alt="Warning" />
           <span className="warning">
             {/* eslint-disable-next-line */}
-            <Trans>This diagram may show a network of portfolios. <button>Learn more.</button></Trans>
+            <Trans>
+              This diagram may show a network of portfolios. <button>Learn more.</button>
+            </Trans>
           </span>
         </div>
       </div>
