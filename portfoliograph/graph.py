@@ -51,24 +51,54 @@ def build_graph(dict_cursor) -> nx.Graph:
     # TODO: process synonyms (e.g. folks in pinnacle)
     dict_cursor.execute(
         f"""
-        SELECT DISTINCT
-            firstname,
-            lastname,
-            businesshousenumber,
-            businessstreetname,
-            businessapartment,
-            businesscity,
-            businessstate,
-            hpd_contacts.registrationid,
-            hpd_contacts.registrationcontactid
-        FROM hpd_contacts
-        INNER JOIN hpd_registrations
-            ON hpd_contacts.registrationid = hpd_registrations.registrationid
-        WHERE
-            type = ANY('{{HeadOfficer, IndividualOwner, CorporateOwner, JointOwner}}')
-            AND (businesshousenumber IS NOT NULL OR businessstreetname IS NOT NULL)
-            AND LENGTH(CONCAT(businesshousenumber, businessstreetname)) > 2
-            AND (firstname IS NOT NULL OR lastname IS NOT NULL)
+        WITH landlord_contacts AS (
+            SELECT DISTINCT 
+                firstname,
+                lastname,
+                businesshousenumber,
+                businessstreetname,
+                businessapartment,
+                businesscity,
+                businessstate,
+                hpd_contacts.registrationid,
+                hpd_contacts.registrationcontactid,
+                hpd_contacts.type
+            FROM hpd_contacts
+            INNER JOIN hpd_registrations
+                ON hpd_contacts.registrationid = hpd_registrations.registrationid
+            WHERE
+                type = ANY('{{HeadOfficer, IndividualOwner, CorporateOwner, JointOwner}}')
+                AND (businesshousenumber IS NOT NULL OR businessstreetname IS NOT NULL)
+                AND LENGTH(CONCAT(businesshousenumber, businessstreetname)) > 2
+                AND (firstname IS NOT NULL OR lastname IS NOT NULL)
+        ),
+        
+        landlord_contacts_ordered AS (
+            SELECT *
+            FROM landlord_contacts
+            ORDER BY (
+                -- First, we prioritize certain owner types over others:
+                ARRAY_POSITION(
+                    ARRAY['IndividualOwner','HeadOfficer','JointOwner','CorporateOwner'], 
+                    landlord_contacts.type
+                ), 
+                -- Then, we order by landlord name, just to make sure our sorting is deterministic:
+                concat(firstname,' ',lastname)
+            )
+        )
+
+        SELECT 
+            registrationid,
+            FIRST(firstname) AS firstname,
+            FIRST(lastname) AS lastname,
+            FIRST(businesshousenumber) AS businesshousenumber,
+            FIRST(businessstreetname) AS businessstreetname,
+            FIRST(businessapartment) AS businessapartment,
+            FIRST(businesscity) AS businesscity,
+            FIRST(businessstate) AS businessstate,
+            FIRST(registrationcontactid) AS registrationcontactid
+        FROM landlord_contacts_ordered
+        GROUP BY registrationid;
     """
     )
     for row in dict_cursor.fetchall():
