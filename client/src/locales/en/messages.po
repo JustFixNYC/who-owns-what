@@ -169,7 +169,7 @@ msgstr "Built"
 
 #: src/components/DetailView.tsx:313
 #: src/components/DetailView.tsx:322
-#: src/components/PortfolioGraph.tsx:105
+#: src/components/PortfolioGraph.tsx:106
 msgid "Business Addresses"
 msgstr "Business Addresses"
 
@@ -697,7 +697,7 @@ msgstr "Open Violations"
 msgid "Overview"
 msgstr "Overview"
 
-#: src/components/PortfolioGraph.tsx:100
+#: src/components/PortfolioGraph.tsx:101
 msgid "Owner Names"
 msgstr "Owner Names"
 
@@ -965,6 +965,10 @@ msgstr "This building seems like it should be registered with HPD!"
 msgid "This data is in <0>CSV file format</0>, which can easily be used in Excel, Google Sheets, or any other spreadsheet program."
 msgstr "This data is in <0>CSV file format</0>, which can easily be used in Excel, Google Sheets, or any other spreadsheet program."
 
+#: src/components/PortfolioGraph.tsx:161
+msgid "This diagram may show a network of portfolios. <0>Learn more.</0>"
+msgstr "This diagram may show a network of portfolios. <0>Learn more.</0>"
+
 #: src/components/ViolationsSummary.tsx:17
 msgid "This is <0>about the same</0> as the citywide average."
 msgstr "This is <0>about the same</0> as the citywide average."
@@ -1209,11 +1213,11 @@ msgstr "You are viewing the old version of Who Owns What."
 msgid "Zipcode"
 msgstr "Zipcode"
 
-#: src/components/PortfolioGraph.tsx:109
+#: src/components/PortfolioGraph.tsx:110
 msgid "Zoom in"
 msgstr "Zoom in"
 
-#: src/components/PortfolioGraph.tsx:116
+#: src/components/PortfolioGraph.tsx:117
 msgid "Zoom out"
 msgstr "Zoom out"
 

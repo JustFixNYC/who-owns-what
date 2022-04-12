@@ -174,7 +174,7 @@ msgstr "Construido"
 
 #: src/components/DetailView.tsx:313
 #: src/components/DetailView.tsx:322
-#: src/components/PortfolioGraph.tsx:105
+#: src/components/PortfolioGraph.tsx:106
 msgid "Business Addresses"
 msgstr "Dirección Comercial"
 
@@ -702,7 +702,7 @@ msgstr "Violaciones Actuales"
 msgid "Overview"
 msgstr "General"
 
-#: src/components/PortfolioGraph.tsx:100
+#: src/components/PortfolioGraph.tsx:101
 msgid "Owner Names"
 msgstr "Dueños"
 
@@ -970,6 +970,10 @@ msgstr "¡Parece que este edificio debería estar registrado con el HPD!"
 msgid "This data is in <0>CSV file format</0>, which can easily be used in Excel, Google Sheets, or any other spreadsheet program."
 msgstr "Estos datos están en <0>formato de archivo CSV</0>, que puede utilizarse fácilmente en Excel, Google Sheets o cualquier otro programa de hoja de cálculo."
 
+#: src/components/PortfolioGraph.tsx:161
+msgid "This diagram may show a network of portfolios. <0>Learn more.</0>"
+msgstr ""
+
 #: src/components/ViolationsSummary.tsx:17
 msgid "This is <0>about the same</0> as the citywide average."
 msgstr "Esto es <0>parecido</0> al promedio de toda la ciudad."
@@ -1214,11 +1218,11 @@ msgstr "Estás viendo la versión anterior de Quién es el Dueño."
 msgid "Zipcode"
 msgstr "Código postal"
 
-#: src/components/PortfolioGraph.tsx:109
+#: src/components/PortfolioGraph.tsx:110
 msgid "Zoom in"
 msgstr "Aumentar"
 
-#: src/components/PortfolioGraph.tsx:116
+#: src/components/PortfolioGraph.tsx:117
 msgid "Zoom out"
 msgstr "Alejar"
 
@@ -1277,4 +1281,3 @@ msgstr "{value, plural, one {Una Queja del HPD emitida desde el 2014} other {# Q
 #: src/components/IndicatorsDatasets.tsx:35
 msgid "{value, plural, one {One HPD Violation Issued since 2010} other {# HPD Violations Issued since 2010}}"
 msgstr "{value, plural, one {Una Violación del HPD emitida desde el 2010} other {# Violaciones del HPD emitidas desde el 2010}}"
-
