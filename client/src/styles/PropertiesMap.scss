@@ -45,10 +45,10 @@
       z-index: 1000;
       top: 0;
       margin: 1.1rem 1.1rem 0 4.5rem;
-      height: 5.4rem;
       background-color: $wowza-warning;
       border-radius: 0.2rem;
-      padding: 0.911rem 2.1rem 1.012rem 1.08rem;
+      padding: 0.5rem 2.1rem 0.5rem 1.08rem;
+      min-height: 5.4rem;
       display: flex;
       font-size: 1.4rem;
 
