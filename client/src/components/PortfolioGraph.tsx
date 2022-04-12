@@ -8,7 +8,7 @@ import { withMachineInStateProps } from "state-machine";
 import helpers from "util/helpers";
 import { t, Trans } from "@lingui/macro";
 import { withI18n, withI18nProps } from "@lingui/react";
-import warning from "../assets/img/icon-warning.svg";
+import { BigPortfolioWarning } from "./BigPortfolioWarning";
 
 Cytoscape.use(fcose);
 
@@ -239,17 +239,7 @@ const PortfolioGraphWithoutI18: React.FC<PortfolioGraphProps> = ({ graphJSON, st
           },
         ]}
       />
-      <div className="warning-banner">
-        <div className="float-left">
-          <img src={warning} className="icon" alt="Warning" />
-          <span className="warning">
-            {/* eslint-disable-next-line */}
-            <Trans>
-              This diagram may show a network of portfolios. <button>Learn more.</button>
-            </Trans>
-          </span>
-        </div>
-      </div>
+      <BigPortfolioWarning />
       <br />
     </div>
   );
