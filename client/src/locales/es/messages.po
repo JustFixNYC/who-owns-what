@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2022-04-11 18:07\n"
+"PO-Revision-Date: 2022-04-12 20:49\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -18,7 +18,7 @@ msgstr ""
 "X-Crowdin-File: /master/client/src/locales/en/messages.po\n"
 "X-Crowdin-File-ID: 31\n"
 
-#: src/components/PropertiesSummary.tsx:140
+#: src/components/PropertiesSummary.tsx:143
 msgid "#WhoOwnsWhat via @JustFixNYC"
 msgstr "#QuiénEsElDueño por @JustFixNYC"
 
@@ -46,7 +46,7 @@ msgstr "(pase el cursor sobre una casilla para aprender más)"
 msgid "(this may take a while)"
 msgstr "(esto puede tardar un rato)"
 
-#: src/components/PropertiesMap.tsx:205
+#: src/components/PropertiesMap.tsx:207
 msgid "({browserType, select, mobile {tap} other {click}} to view details)"
 msgstr "({browserType, select, mobile {pulsa} other {haz clic}} para ver detalles)"
 
@@ -88,11 +88,11 @@ msgstr "Acerca de"
 msgid "According to available HPD data, this portfolio has received <0>{totalviolations}</0> total violations."
 msgstr "Según los datos del HPD disponibles, este portafolio de edificios ha recibido un total de <0>{totalviolations}</0> violaciones."
 
-#: src/components/PropertiesSummary.tsx:72
+#: src/components/PropertiesSummary.tsx:75
 msgid "Across owners and management staff, the most common {0, plural, one {name that appears in this portfolio is} other {names that appear in this portfolio are}} <0/>."
 msgstr "En todos los dueños y administradores, {0, plural, one {el nombre más común que aparece en esta cartera de edificios es} other {los nombres más comunes que aparecen en esta cartera de edificios son}} <0/>."
 
-#: src/components/PropertiesSummary.tsx:126
+#: src/components/PropertiesSummary.tsx:129
 msgid "Additional links"
 msgstr "Enlaces adicionales"
 
@@ -159,7 +159,7 @@ msgstr "Solicitudes de Permisos de Construcción"
 msgid "Building Permits Applied For"
 msgstr "Permisos de Construcción Solicitados"
 
-#: src/components/PropertiesSummary.tsx:97
+#: src/components/PropertiesSummary.tsx:100
 msgid "Building info"
 msgstr "Información de edificios"
 
@@ -237,7 +237,7 @@ msgstr "HaZ clic aquí para obtener más información."
 msgid "Close"
 msgstr "Cerrar"
 
-#: src/components/PropertiesMap.tsx:193
+#: src/components/PropertiesMap.tsx:195
 msgid "Close legend"
 msgstr "Cerrar leyenda"
 
@@ -334,7 +334,7 @@ msgstr "Introducir email"
 
 #: src/components/BuildingStatsTable.tsx:71
 #: src/components/PropertiesList.tsx:290
-#: src/components/PropertiesSummary.tsx:119
+#: src/components/PropertiesSummary.tsx:122
 #: src/containers/NychaPage.tsx:87
 msgid "Evictions"
 msgstr "Desalojos"
@@ -435,7 +435,7 @@ msgstr "Justo busqué este edificio en Quién Es El Dueño, una herramienta grat
 msgid "I used #WhoOwnsWhat (built by @JustFixNYC) to see not only the open violations in this building, but also rent stabilized losses, evictions, and more. This website is a wealth of info and costs nothing to use. Savvy New Yorkers need this info:"
 msgstr "Usé #QuiénEsElDueño (construido por @JustFixNYC) para ver no solo las violaciones del código de vivienda, sino también cuántos apartamentos con renta estabilizada se han perdido, desalojos, y más. Este sitio web no cuesta nada para usar. Ojo, neoyorquinos:"
 
-#: src/components/PropertiesSummary.tsx:142
+#: src/components/PropertiesSummary.tsx:145
 msgid "I was checking out this building on Who Owns What, a free landlord research tool from JustFix.nyc. It’s a remarkable website that every tenant and housing advocate should know about! Can you guess how many total violations this landlord portfolio has? Check it out here: {url}"
 msgstr "Estaba revisando este edificio en Quién Es El Dueño, una herramienta gratuita construida por JustFix.nyc. ¡Es un sitio web extraordinario que cada inquilino y defensor de viviendas debería saber sobre! ¿Puedes adivinar cuántas violaciones totales tiene este portafolio de este dueño? Míralo aquí: {url}"
 
@@ -512,7 +512,7 @@ msgstr "Vendido por última vez:"
 msgid "Learn more"
 msgstr "Aprende más"
 
-#: src/components/PropertiesMap.tsx:193
+#: src/components/PropertiesMap.tsx:195
 msgid "Legend"
 msgstr "Leyenda"
 
@@ -528,8 +528,8 @@ msgstr "Enlace a la Escritura"
 
 #: src/components/Indicators.tsx:135
 #: src/components/PropertiesList.tsx:92
-#: src/components/PropertiesMap.tsx:156
-#: src/components/PropertiesSummary.tsx:61
+#: src/components/PropertiesMap.tsx:157
+#: src/components/PropertiesSummary.tsx:62
 #: src/components/WowzaToggle.tsx:31
 #: src/containers/AddressPage.tsx:161
 #: src/containers/BBLPage.tsx:58
@@ -544,7 +544,7 @@ msgstr "Cargando {0} filas"
 msgid "Location"
 msgstr "Ubicación"
 
-#: src/components/PropertiesSummary.tsx:130
+#: src/components/PropertiesSummary.tsx:133
 msgid "Looking for more information?"
 msgstr "¿Buscas más información?"
 
@@ -605,7 +605,7 @@ msgstr "NO CONSTRUCCIÓN"
 msgid "NYCHA Directory"
 msgstr "Directorio de NYCHA"
 
-#: src/components/PropertiesSummary.tsx:68
+#: src/components/PropertiesSummary.tsx:69
 msgid "Network of Landlords"
 msgstr "Red de Dueños"
 
@@ -761,7 +761,7 @@ msgstr "Complejo de Vivienda Pública"
 msgid "RS Units"
 msgstr "Unidades RS"
 
-#: src/components/PropertiesSummary.tsx:121
+#: src/components/PropertiesSummary.tsx:124
 msgid "Rent stabilization"
 msgstr "Renta estabilizada"
 
@@ -806,7 +806,7 @@ msgstr "Buscar dueños"
 msgid "See the most common complaints reported by tenants to 311, now on the Overview and Portfolio tabs."
 msgstr "Vea las quejas más comunes reportadas por inquilinos al 311, ahora en las pestañas General y Portafolio."
 
-#: src/components/PropertiesSummary.tsx:37
+#: src/components/PropertiesSummary.tsx:38
 msgid "Send us a data request"
 msgstr "Envíanos una solicitud de datos"
 
@@ -817,7 +817,7 @@ msgstr "Compartir"
 
 #: src/components/DetailView.tsx:263
 #: src/components/EngagementPanel.tsx:18
-#: src/components/PropertiesSummary.tsx:136
+#: src/components/PropertiesSummary.tsx:139
 #: src/containers/App.tsx:138
 #: src/containers/NotRegisteredPage.tsx:14
 msgid "Share this page with your neighbors"
@@ -856,7 +856,7 @@ msgstr "Administrador del Sitio"
 msgid "Sold to Current Owner"
 msgstr "Vendido al Propietario Actual"
 
-#: src/components/PropertiesMap.tsx:161
+#: src/components/PropertiesMap.tsx:162
 msgid "Sorry, it looks like there's an error on the map. Try again on a different browser or <0>enable WebGL</0>."
 msgstr "Lo sentimos, parece que hay un error en el mapa. Inténtalo de nuevo con un navegador diferente o <0>habilita WebGL</0>."
 
@@ -926,7 +926,7 @@ msgstr "El municipio donde se encuentra la dirección que has buscado"
 msgid "The city’s fifth <0>worst evictor</0> in 2018, A&E is a prime example of a landlord who engages in <1>aggressive eviction strategies</1> to displace low-income tenants. Besides lack of repairs and frivolous evictions in housing court, A&E has also been known to use <2>MCIs</2> to <3>double rents</3> in rent-stabilized buildings."
 msgstr "A&E fue el quinto <0>\"peor desalojador\"</0> de la ciudad en el 2018, y es un excelente ejemplo de un propietario que participa en <1>estrategias agresivas de desalojo</1> para desplazar a inquilinos de bajos ingresos. Además de usar la falta de arreglos y los desalojos frívolos en la corte de viviendas, se sabe que A&E también utiliza los <2>IMCs</2> para <3>alquileres dobles</3> en edificios de resta estabilizada."
 
-#: src/components/PropertiesSummary.tsx:78
+#: src/components/PropertiesSummary.tsx:81
 msgid "The most common corporate entity is <0>{0}</0> and the most common business address is <1>{1}</1>."
 msgstr "La entidad corporativa más común es <0>{0}</0> y la dirección administrativa más común es <1>{1}</1>."
 
@@ -950,11 +950,11 @@ msgstr "El número de unidades residenciales en este edificio, según el Departa
 msgid "The year that this building was originally constructed, according to the Dept. of City Planning."
 msgstr "El año en que este edificio fue construido, según el Departamento de Planificación de la Ciudad."
 
-#: src/components/PropertiesSummary.tsx:110
+#: src/components/PropertiesSummary.tsx:113
 msgid "The {0, plural, one {} other {average}} age of {1, plural, one {this building} other {these buildings}} is <0>{2}</0> years old."
 msgstr "La {0, plural, one {edad} other {edad media}} de {1, plural, one {este edificio} other {estos edificios}} es de <0>{2}</0> años."
 
-#: src/components/PropertiesSummary.tsx:99
+#: src/components/PropertiesSummary.tsx:102
 msgid "There {0, plural, one {<0>is <1>1</1> building</0>} other {<2>are <3>{1}</3> buildings</2>}} in this portfolio with a total of {2, plural, one {1 unit} other {# units}}."
 msgstr "Hay {0, plural, one {<0><1>1</1> edificio</0>} other {<2><3>{1}</3> edificios</2>}} en este portafolio de edificios, con un total de {2, plural, one {una unidad residencial} other {# unidades residenciales}}."
 
@@ -969,6 +969,10 @@ msgstr "¡Parece que este edificio debería estar registrado con el HPD!"
 #: src/components/AddressToolbar.tsx:32
 msgid "This data is in <0>CSV file format</0>, which can easily be used in Excel, Google Sheets, or any other spreadsheet program."
 msgstr "Estos datos están en <0>formato de archivo CSV</0>, que puede utilizarse fácilmente en Excel, Google Sheets o cualquier otro programa de hoja de cálculo."
+
+#: src/components/BigPortfolioWarning.tsx:11
+msgid "This diagram may show a network of portfolios. <0>Learn more.</0>"
+msgstr ""
 
 #: src/components/ViolationsSummary.tsx:17
 msgid "This is <0>about the same</0> as the citywide average."
@@ -986,11 +990,11 @@ msgstr "Esto es <0>peor</0> que el promedio de la ciudad de {VIOLATIONS_AVG} por
 msgid "This is the official identifer for the building according to the Dept. of Finance tax records."
 msgstr "El identificador oficial del edificio según los registros del Departamento de Finanzas."
 
-#: src/components/PropertiesSummary.tsx:139
+#: src/components/PropertiesSummary.tsx:142
 msgid "This landlord owns {0} buildings, and according to @NYCHousing, has received a total of {1} violations. Can you guess which landlord it is? Find their name and more data analysis here:"
 msgstr "Este dueño de edificio posee {0} edificios, y según @NYCHousing, ha recibido un total de {1} violaciones del código de vivienda. ¿Puedes adivinar como se llama el dueño? Encuentra su nombre y ve más estadísticas aquí:"
 
-#: src/components/PropertiesSummary.tsx:141
+#: src/components/PropertiesSummary.tsx:144
 msgid "This landlord’s buildings average {0} open HPD violations per apartment"
 msgstr "Los edificios de este dueño tienen un promedio de {0} violaciones abiertas de HPD por cada apartamento"
 
@@ -1102,7 +1106,7 @@ msgstr "Ver detalles"
 msgid "View documents on <0>ACRIS</0>"
 msgstr "Ver documentos en <0>ACRIS</0>"
 
-#: src/components/PropertiesMap.tsx:193
+#: src/components/PropertiesMap.tsx:195
 msgid "View legend"
 msgstr "Ver leyenda"
 
@@ -1136,6 +1140,10 @@ msgstr "PROTECTORES DE VENTANA"
 #: src/util/helpers.ts:37
 msgid "WINDOWS"
 msgstr "VENTANAS"
+
+#: src/components/BigPortfolioWarning.tsx:9
+msgid "Warning"
+msgstr ""
 
 #: src/components/DetailView.tsx:210
 msgid "Warning: This building has an expired registration and was sold after the expiration date. The landlord info listed here may be outdated."
@@ -1226,7 +1234,7 @@ msgstr "Alejar"
 msgid "and"
 msgstr "y"
 
-#: src/components/PropertiesMap.tsx:200
+#: src/components/PropertiesMap.tsx:202
 msgid "associated building"
 msgstr "edificio asociado"
 
@@ -1242,7 +1250,7 @@ msgstr "mes"
 msgid "quarter"
 msgstr "trimestre"
 
-#: src/components/PropertiesMap.tsx:199
+#: src/components/PropertiesMap.tsx:201
 msgid "search address"
 msgstr "dirección de búsqueda"
 
@@ -1254,7 +1262,7 @@ msgstr "año"
 msgid "{0} of {numberOfEntries}"
 msgstr "{0} de {numberOfEntries}"
 
-#: src/components/PropertiesSummary.tsx:88
+#: src/components/PropertiesSummary.tsx:91
 msgid "{0} {1}, {2} currently has {3, plural, one {one open HPD violation} other {# open HPD violations}} - the most in this portfolio."
 msgstr "{0} {1}, {2} tiene {3, plural, one {una violación del HPD actual} other {# violaciones del HPD actuales}} - la major cantidad en este portafolio de edificios."
 
