@@ -439,6 +439,10 @@ msgstr "Usé #QuiénEsElDueño (construido por @JustFixNYC) para ver no solo las
 msgid "I was checking out this building on Who Owns What, a free landlord research tool from JustFix.nyc. It’s a remarkable website that every tenant and housing advocate should know about! Can you guess how many total violations this landlord portfolio has? Check it out here: {url}"
 msgstr "Estaba revisando este edificio en Quién Es El Dueño, una herramienta gratuita construida por JustFix.nyc. ¡Es un sitio web extraordinario que cada inquilino y defensor de viviendas debería saber sobre! ¿Puedes adivinar cuántas violaciones totales tiene este portafolio de este dueño? Míralo aquí: {url}"
 
+#: src/containers/NotRegisteredPage.tsx:123
+msgid "Incomplete registration for {usersInputAddressFragment}!"
+msgstr ""
+
 #: src/util/helpers.ts:63
 msgid "Individual Owner"
 msgstr "Dueño Individual"

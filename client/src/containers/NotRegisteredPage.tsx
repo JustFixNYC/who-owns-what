@@ -176,7 +176,11 @@ export default class NotRegisteredPage extends Component<Props, State> {
             <div className="HomePage__search">
               <h5 className="mt-10 text-danger text-center text-bold text-large">
                 {usersInputAddress ? (
-                  <Trans>No registration found for {usersInputAddressFragment}!</Trans>
+                  buildingInfo.has_hpd_reg ? (
+                    <Trans>Incomplete registration for {usersInputAddressFragment}!</Trans>
+                  ) : (
+                    <Trans>No registration found for {usersInputAddressFragment}!</Trans>
+                  )
                 ) : (
                   <Trans>No registration found!</Trans>
                 )}
