@@ -61,6 +61,7 @@
 
       .warning-banner {
         background-color: $wowza-orange;
+        color: $wowza-dark;
         border-radius: 0.2rem;
         padding: 0.911rem 2.1rem 1.012rem 1.08rem;
         margin-bottom: 1.5rem;
@@ -86,11 +87,6 @@
           width: 2.536rem;
           height: 2.277rem;
           margin-right: 1.012rem;
-        }
-
-        span,
-        button {
-          color: black;
         }
 
         button {
