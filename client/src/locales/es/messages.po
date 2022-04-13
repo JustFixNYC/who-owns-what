@@ -46,7 +46,7 @@ msgstr "(pase el cursor sobre una casilla para aprender más)"
 msgid "(this may take a while)"
 msgstr "(esto puede tardar un rato)"
 
-#: src/components/PropertiesMap.tsx:207
+#: src/components/PropertiesMap.tsx:208
 msgid "({browserType, select, mobile {tap} other {click}} to view details)"
 msgstr "({browserType, select, mobile {pulsa} other {haz clic}} para ver detalles)"
 
@@ -237,7 +237,7 @@ msgstr "HaZ clic aquí para obtener más información."
 msgid "Close"
 msgstr "Cerrar"
 
-#: src/components/PropertiesMap.tsx:195
+#: src/components/PropertiesMap.tsx:196
 msgid "Close legend"
 msgstr "Cerrar leyenda"
 
@@ -512,7 +512,7 @@ msgstr "Vendido por última vez:"
 msgid "Learn more"
 msgstr "Aprende más"
 
-#: src/components/PropertiesMap.tsx:195
+#: src/components/PropertiesMap.tsx:196
 msgid "Legend"
 msgstr "Leyenda"
 
@@ -528,7 +528,7 @@ msgstr "Enlace a la Escritura"
 
 #: src/components/Loader.tsx:19
 #: src/components/PropertiesList.tsx:92
-#: src/components/PropertiesMap.tsx:157
+#: src/components/PropertiesMap.tsx:158
 msgid "Loading"
 msgstr "Cargando"
 
@@ -694,6 +694,10 @@ msgstr "Actuales"
 msgid "Open Violations"
 msgstr "Violaciones Actuales"
 
+#: src/components/BigPortfolioWarning.tsx:27
+msgid "Our new version of Who Owns What digs deeper to find all possible entities associated with the landlord of your building. When two landlords share the same business address, we group them as part of the same portfolio. Some large corporations, however, are a bit more complicated and may share personnel and financial stake with other related companies, which all will show up on Who Owns What as one large portfolio."
+msgstr ""
+
 #: src/containers/AddressPage.tsx:121
 msgid "Overview"
 msgstr "General"
@@ -756,6 +760,10 @@ msgstr "Complejo de Vivienda Pública"
 #: src/components/PropertiesList.tsx:199
 msgid "RS Units"
 msgstr "Unidades RS"
+
+#: src/components/BigPortfolioWarning.tsx:38
+msgid "Read more on our Methodology page"
+msgstr ""
 
 #: src/components/PropertiesSummary.tsx:122
 msgid "Rent stabilization"
@@ -852,7 +860,7 @@ msgstr "Administrador del Sitio"
 msgid "Sold to Current Owner"
 msgstr "Vendido al Propietario Actual"
 
-#: src/components/PropertiesMap.tsx:162
+#: src/components/PropertiesMap.tsx:163
 msgid "Sorry, it looks like there's an error on the map. Try again on a different browser or <0>enable WebGL</0>."
 msgstr "Lo sentimos, parece que hay un error en el mapa. Inténtalo de nuevo con un navegador diferente o <0>habilita WebGL</0>."
 
@@ -966,10 +974,6 @@ msgstr "¡Parece que este edificio debería estar registrado con el HPD!"
 msgid "This data is in <0>CSV file format</0>, which can easily be used in Excel, Google Sheets, or any other spreadsheet program."
 msgstr "Estos datos están en <0>formato de archivo CSV</0>, que puede utilizarse fácilmente en Excel, Google Sheets o cualquier otro programa de hoja de cálculo."
 
-#: src/components/BigPortfolioWarning.tsx:11
-msgid "This diagram may show a network of portfolios. <0>Learn more.</0>"
-msgstr ""
-
 #: src/components/ViolationsSummary.tsx:17
 msgid "This is <0>about the same</0> as the citywide average."
 msgstr "Esto es <0>parecido</0> al promedio de toda la ciudad."
@@ -1001,6 +1005,10 @@ msgstr "Este portafolio de edificios tuvo una <0>{changeType, select, gain {gana
 #: src/components/ViolationsSummary.tsx:12
 msgid "This portfolio has an average of <0>{0}</0> open HPD violations per residential unit."
 msgstr "Esta cartera de edificios tiene un promedio de <0>{0}</0> infracciones del HPD Actuales por cada unidad residencial."
+
+#: src/components/BigPortfolioWarning.tsx:16
+msgid "This portfolio may consist of several related companies. <0>Learn more</0>"
+msgstr ""
 
 #: src/containers/HomePage.tsx:131
 msgid "This property management company owned by the Kushner family is notorious for <0>violating rent regulations</0> and <1>harassing tenants</1>. The stake currently held by Jared Kushner and Ivanka Trump is worth as much as $761 million."
@@ -1102,7 +1110,7 @@ msgstr "Ver detalles"
 msgid "View documents on <0>ACRIS</0>"
 msgstr "Ver documentos en <0>ACRIS</0>"
 
-#: src/components/PropertiesMap.tsx:195
+#: src/components/PropertiesMap.tsx:196
 msgid "View legend"
 msgstr "Ver leyenda"
 
@@ -1137,7 +1145,7 @@ msgstr "PROTECTORES DE VENTANA"
 msgid "WINDOWS"
 msgstr "VENTANAS"
 
-#: src/components/BigPortfolioWarning.tsx:9
+#: src/components/BigPortfolioWarning.tsx:14
 msgid "Warning"
 msgstr ""
 
@@ -1193,6 +1201,10 @@ msgstr "¿Quién es responsable por los problemas en tu apartamento y edificio? 
 msgid "Who’s the landlord of this building?"
 msgstr "¿Quién es el dueño de este edificio?"
 
+#: src/components/BigPortfolioWarning.tsx:24
+msgid "Why am I seeing such a big portfolio?"
+msgstr ""
+
 #: src/components/BuildingStatsTable.tsx:35
 msgid "Year Built"
 msgstr "Año de construcción"
@@ -1230,7 +1242,7 @@ msgstr "Alejar"
 msgid "and"
 msgstr "y"
 
-#: src/components/PropertiesMap.tsx:202
+#: src/components/PropertiesMap.tsx:203
 msgid "associated building"
 msgstr "edificio asociado"
 
@@ -1246,7 +1258,7 @@ msgstr "mes"
 msgid "quarter"
 msgstr "trimestre"
 
-#: src/components/PropertiesMap.tsx:201
+#: src/components/PropertiesMap.tsx:202
 msgid "search address"
 msgstr "dirección de búsqueda"
 
