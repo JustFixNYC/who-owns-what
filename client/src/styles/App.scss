@@ -55,6 +55,7 @@
     text-align: center;
     @include for-phone-only {
       text-align: left;
+      max-width: 95%;
     }
 
     // Override default <p> styling:
