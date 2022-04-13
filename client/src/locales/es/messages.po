@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2022-04-12 23:10\n"
+"PO-Revision-Date: 2022-04-13 20:44\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -174,7 +174,7 @@ msgstr "Construido"
 
 #: src/components/DetailView.tsx:313
 #: src/components/DetailView.tsx:322
-#: src/components/PortfolioGraph.tsx:105
+#: src/components/PortfolioGraph.tsx:107
 msgid "Business Addresses"
 msgstr "Dirección Comercial"
 
@@ -698,7 +698,7 @@ msgstr "Violaciones Actuales"
 msgid "Overview"
 msgstr "General"
 
-#: src/components/PortfolioGraph.tsx:100
+#: src/components/PortfolioGraph.tsx:102
 msgid "Owner Names"
 msgstr "Dueños"
 
@@ -760,6 +760,10 @@ msgstr "Unidades RS"
 #: src/components/PropertiesSummary.tsx:122
 msgid "Rent stabilization"
 msgstr "Renta estabilizada"
+
+#: src/components/PortfolioGraph.tsx:125
+msgid "Reset diagram"
+msgstr ""
 
 #: src/util/helpers.ts:55
 msgid "SAFETY"
@@ -1218,11 +1222,11 @@ msgstr "Estás viendo la versión anterior de Quién es el Dueño."
 msgid "Zipcode"
 msgstr "Código postal"
 
-#: src/components/PortfolioGraph.tsx:109
+#: src/components/PortfolioGraph.tsx:111
 msgid "Zoom in"
 msgstr "Aumentar"
 
-#: src/components/PortfolioGraph.tsx:116
+#: src/components/PortfolioGraph.tsx:118
 msgid "Zoom out"
 msgstr "Alejar"
 
