@@ -169,7 +169,7 @@ msgstr "Built"
 
 #: src/components/DetailView.tsx:313
 #: src/components/DetailView.tsx:322
-#: src/components/PortfolioGraph.tsx:105
+#: src/components/PortfolioGraph.tsx:107
 msgid "Business Addresses"
 msgstr "Business Addresses"
 
@@ -697,7 +697,7 @@ msgstr "Our new version of Who Owns What digs deeper to find all possible entiti
 msgid "Overview"
 msgstr "Overview"
 
-#: src/components/PortfolioGraph.tsx:100
+#: src/components/PortfolioGraph.tsx:102
 msgid "Owner Names"
 msgstr "Owner Names"
 
@@ -763,6 +763,10 @@ msgstr "Read more on our Methodology page"
 #: src/components/PropertiesSummary.tsx:122
 msgid "Rent stabilization"
 msgstr "Rent stabilization"
+
+#: src/components/PortfolioGraph.tsx:125
+msgid "Reset diagram"
+msgstr "Reset diagram"
 
 #: src/util/helpers.ts:55
 msgid "SAFETY"
@@ -1225,11 +1229,11 @@ msgstr "You are viewing the old version of Who Owns What."
 msgid "Zipcode"
 msgstr "Zipcode"
 
-#: src/components/PortfolioGraph.tsx:109
+#: src/components/PortfolioGraph.tsx:111
 msgid "Zoom in"
 msgstr "Zoom in"
 
-#: src/components/PortfolioGraph.tsx:116
+#: src/components/PortfolioGraph.tsx:118
 msgid "Zoom out"
 msgstr "Zoom out"
 

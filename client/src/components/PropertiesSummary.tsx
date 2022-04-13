@@ -98,13 +98,13 @@ export default class PropertiesSummary extends Component<Props, {}> {
             <div>
               <Trans render="h6">Network of Landlords</Trans>
               {state.context.useNewPortfolioMethod && state.context.portfolioData.portfolioGraph && (
-                <>
+                <div className="portfolio-graph-container">
                   <PortfolioGraph
                     graphJSON={state.context.portfolioData.portfolioGraph}
                     state={state}
                   />
                   <BigPortfolioWarning sizeOfPortfolio={agg.bldgs} />
-                </>
+                </div>
               )}
               <p>
                 <Trans>
