@@ -689,9 +689,9 @@ msgstr "Open"
 msgid "Open Violations"
 msgstr "Open Violations"
 
-#: src/components/BigPortfolioWarning.tsx:27
-msgid "Our new version of Who Owns What digs deeper to find all possible entities associated with the landlord of your building. When two landlords share the same business address, we group them as part of the same portfolio. Some large corporations, however, are a bit more complicated and may share personnel and financial stake with other related companies, which all will show up on Who Owns What as one large portfolio."
-msgstr "Our new version of Who Owns What digs deeper to find all possible entities associated with the landlord of your building. When two landlords share the same business address, we group them as part of the same portfolio. Some large corporations, however, are a bit more complicated and may share personnel and financial stake with other related companies, which all will show up on Who Owns What as one large portfolio."
+#: src/components/BigPortfolioWarning.tsx:28
+msgid "Our new version of Who Owns What digs deeper to find a more complete picture of your landlord's network. When two parties share the same business address, we group them as part of the same portfolio."
+msgstr "Our new version of Who Owns What digs deeper to find a more complete picture of your landlord's network. When two parties share the same business address, we group them as part of the same portfolio."
 
 #: src/containers/AddressPage.tsx:121
 msgid "Overview"
@@ -756,7 +756,7 @@ msgstr "Public Housing Development"
 msgid "RS Units"
 msgstr "RS Units"
 
-#: src/components/BigPortfolioWarning.tsx:38
+#: src/components/BigPortfolioWarning.tsx:47
 msgid "Read more on our Methodology page"
 msgstr "Read more on our Methodology page"
 
@@ -858,6 +858,10 @@ msgstr "Site Manager"
 #: src/components/IndicatorsViz.tsx:375
 msgid "Sold to Current Owner"
 msgstr "Sold to Current Owner"
+
+#: src/components/BigPortfolioWarning.tsx:38
+msgid "Some large corporations, however, are a bit more complicated and may share personnel and financial stake with other related companies, which all will show up on Who Owns What as one large portfolio."
+msgstr "Some large corporations, however, are a bit more complicated and may share personnel and financial stake with other related companies, which all will show up on Who Owns What as one large portfolio."
 
 #: src/components/PropertiesMap.tsx:163
 msgid "Sorry, it looks like there's an error on the map. Try again on a different browser or <0>enable WebGL</0>."
@@ -1005,7 +1009,7 @@ msgstr "This portfolio also had an estimated <0>net {changeType, select, gain {g
 msgid "This portfolio has an average of <0>{0}</0> open HPD violations per residential unit."
 msgstr "This portfolio has an average of <0>{0}</0> open HPD violations per residential unit."
 
-#: src/components/BigPortfolioWarning.tsx:16
+#: src/components/BigPortfolioWarning.tsx:17
 msgid "This portfolio may consist of several related companies. <0>Learn more</0>"
 msgstr "This portfolio may consist of several related companies. <0>Learn more</0>"
 
@@ -1144,7 +1148,7 @@ msgstr "WINDOW GUARDS"
 msgid "WINDOWS"
 msgstr "WINDOWS"
 
-#: src/components/BigPortfolioWarning.tsx:14
+#: src/components/BigPortfolioWarning.tsx:15
 msgid "Warning"
 msgstr "Warning"
 
@@ -1200,7 +1204,7 @@ msgstr "Who’s responsible for issues in your apartment & building? #WhoOwnsWha
 msgid "Who’s the landlord of this building?"
 msgstr "Who’s the landlord of this building?"
 
-#: src/components/BigPortfolioWarning.tsx:24
+#: src/components/BigPortfolioWarning.tsx:25
 msgid "Why am I seeing such a big portfolio?"
 msgstr "Why am I seeing such a big portfolio?"
 

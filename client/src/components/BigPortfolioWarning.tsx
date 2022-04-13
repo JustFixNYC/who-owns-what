@@ -6,6 +6,8 @@ import Modal from "./Modal";
 import { createWhoOwnsWhatRoutePaths } from "routes";
 import { Link } from "react-router-dom";
 
+import networkDiagram from "../assets/img/network-diagram.png";
+
 export const PORTFOLIO_SIZE_THRESHOLD = 300;
 
 type BigPortfolioWarningProps = withI18nProps & {
@@ -33,14 +35,22 @@ export const BigPortfolioWarning = withI18n()(
           </h5>
           <p>
             <Trans>
-              Our new version of Who Owns What digs deeper to find all possible entities associated
-              with the landlord of your building. When two landlords share the same business
-              address, we group them as part of the same portfolio. Some large corporations,
-              however, are a bit more complicated and may share personnel and financial stake with
-              other related companies, which all will show up on Who Owns What as one large
-              portfolio.
+              Our new version of Who Owns What digs deeper to find a more complete picture of your
+              landlord's network. When two parties share the same business address, we group them as
+              part of the same portfolio.
             </Trans>
           </p>
+          <br />
+          <img className="img-responsive" src={networkDiagram} alt="" />
+          <br />
+          <p>
+            <Trans>
+              Some large corporations, however, are a bit more complicated and may share personnel
+              and financial stake with other related companies, which all will show up on Who Owns
+              What as one large portfolio.
+            </Trans>
+          </p>
+
           <p>
             <Link to={methodology}>
               <Trans>Read more on our Methodology page</Trans>
