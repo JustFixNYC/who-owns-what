@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import Helpers from "../util/helpers";
 
 import IndicatorsViz from "../components/IndicatorsViz";
-import Loader from "../components/Loader";
+import { FixedLoadingLabel } from "../components/Loader";
 import LegalFooter from "../components/LegalFooter";
 import { UsefulLinks } from "./UsefulLinks";
 import { withI18n } from "@lingui/react";
@@ -185,9 +185,7 @@ class IndicatorsWithoutI18n extends Component<IndicatorsProps, IndicatorsState> 
       return this.props.state.matches({ portfolioFound: { timeline: "error" } }) ? (
         <NetworkErrorMessage />
       ) : (
-        <Loader loading={true} classNames="Loader-map">
-          <Trans>Loading</Trans>
-        </Loader>
+        <FixedLoadingLabel />
       );
     } else {
       const { state, send } = this.props;

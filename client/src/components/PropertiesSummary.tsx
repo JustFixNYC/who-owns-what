@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Trans, Plural, t } from "@lingui/macro";
 
-import Loader from "../components/Loader";
+import { FixedLoadingLabel } from "../components/Loader";
 import LegalFooter from "../components/LegalFooter";
 
 import "styles/PropertiesSummary.css";
@@ -17,6 +17,7 @@ import { I18n } from "@lingui/core/i18n";
 import { I18n as I18nComponent } from "@lingui/react";
 import { PortfolioGraph } from "./PortfolioGraph";
 import { ComplaintsSummary } from "./ComplaintsSummary";
+import { BigPortfolioWarning } from "./BigPortfolioWarning";
 
 type Props = withMachineInStateProps<"portfolioFound"> & {
   isVisible: boolean;
@@ -89,24 +90,22 @@ export default class PropertiesSummary extends Component<Props, {}> {
     let agg = state.context.summaryData;
     let searchAddr = state.context.portfolioData.searchAddr;
     if (!agg) {
-      return (
-        <Loader loading={true} classNames="Loader-map">
-          <Trans>Loading</Trans>
-        </Loader>
-      );
+      return <FixedLoadingLabel />;
     } else {
       return (
         <div className="Page PropertiesSummary">
           <div className="PropertiesSummary__content Page__content">
             <div>
               <Trans render="h6">Network of Landlords</Trans>
-              {state.context.useNewPortfolioMethod &&
-                state.context.portfolioData.portfolioGraph && (
+              {state.context.useNewPortfolioMethod && state.context.portfolioData.portfolioGraph && (
+                <div className="portfolio-graph-container">
                   <PortfolioGraph
                     graphJSON={state.context.portfolioData.portfolioGraph}
                     state={state}
                   />
-                )}
+                  <BigPortfolioWarning sizeOfPortfolio={agg.bldgs} />
+                </div>
+              )}
               <p>
                 <Trans>
                   Across owners and management staff, the most common
