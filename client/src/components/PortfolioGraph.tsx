@@ -134,6 +134,11 @@ type PortfolioGraphProps = withI18nProps &
     graphJSON: RawPortfolioGraphJson;
   };
 
+const LANDLORD_NAME_COLOR = "#FF3A0E";
+const BIZ_ADDRESS_COLOR = "#808080";
+const SEARCH_ADDRESS_COLOR = "#FFBA33";
+const DETAIL_ADDRESS_COLOR = "#FFA0C7";
+
 const PortfolioGraphWithoutI18: React.FC<PortfolioGraphProps> = ({ graphJSON, state, i18n }) => {
   const { searchAddr, detailAddr } = state.context.portfolioData;
   const distinctDetailAddr = !helpers.addrsAreEqual(searchAddr, detailAddr)
@@ -154,14 +159,14 @@ const PortfolioGraphWithoutI18: React.FC<PortfolioGraphProps> = ({ graphJSON, st
       <div className="float-left">
         <span
           style={{
-            color: "red",
+            color: LANDLORD_NAME_COLOR,
           }}
         >
           ● <Trans>Owner Names</Trans>
         </span>{" "}
         <span
           style={{
-            color: "gray",
+            color: BIZ_ADDRESS_COLOR,
           }}
         >
           ● <Trans>Business Addresses</Trans>
@@ -244,9 +249,9 @@ const PortfolioGraphWithoutI18: React.FC<PortfolioGraphProps> = ({ graphJSON, st
             style: {
               "line-color": (ele: Cytoscape.EdgeSingular) =>
                 ele.data("target") === "searchaddr"
-                  ? "orange"
+                  ? SEARCH_ADDRESS_COLOR
                   : ele.data("target") === "detailaddr"
-                  ? "yellow"
+                  ? DETAIL_ADDRESS_COLOR
                   : "default",
             },
           },
@@ -260,8 +265,8 @@ const PortfolioGraphWithoutI18: React.FC<PortfolioGraphProps> = ({ graphJSON, st
 export const PortfolioGraph = withI18n()(PortfolioGraphWithoutI18);
 
 const NODE_TYPE_TO_COLOR: Record<string, string> = {
-  name: "red",
-  bizaddr: "gray",
-  searchaddr: "orange",
-  detailaddr: "yellow",
+  name: LANDLORD_NAME_COLOR,
+  bizaddr: BIZ_ADDRESS_COLOR,
+  searchaddr: SEARCH_ADDRESS_COLOR,
+  detailaddr: DETAIL_ADDRESS_COLOR,
 };
