@@ -689,10 +689,6 @@ msgstr "Open"
 msgid "Open Violations"
 msgstr "Open Violations"
 
-#: src/components/BigPortfolioWarning.tsx:28
-msgid "Our new version of Who Owns What digs deeper to find a more complete picture of your landlord's network. When two parties share the same business address, we group them as part of the same portfolio."
-msgstr "Our new version of Who Owns What digs deeper to find a more complete picture of your landlord's network. When two parties share the same business address, we group them as part of the same portfolio."
-
 #: src/containers/AddressPage.tsx:121
 msgid "Overview"
 msgstr "Overview"
@@ -755,10 +751,6 @@ msgstr "Public Housing Development"
 #: src/components/PropertiesList.tsx:199
 msgid "RS Units"
 msgstr "RS Units"
-
-#: src/components/BigPortfolioWarning.tsx:47
-msgid "Read more on our Methodology page"
-msgstr "Read more on our Methodology page"
 
 #: src/components/PropertiesSummary.tsx:122
 msgid "Rent stabilization"
@@ -859,7 +851,7 @@ msgstr "Site Manager"
 msgid "Sold to Current Owner"
 msgstr "Sold to Current Owner"
 
-#: src/components/BigPortfolioWarning.tsx:38
+#: src/components/BigPortfolioWarning.tsx:34
 msgid "Some large corporations, however, are a bit more complicated and may share personnel and financial stake with other related companies, which all will show up on Who Owns What as one large portfolio."
 msgstr "Some large corporations, however, are a bit more complicated and may share personnel and financial stake with other related companies, which all will show up on Who Owns What as one large portfolio."
 
@@ -1168,6 +1160,10 @@ msgstr "We overhauled the Portfolio tab to help make navigating this large table
 msgid "We reorganized the contact details for each individual and corporate entities associated with a property on the Overview tab."
 msgstr "We reorganized the contact details for each individual and corporate entities associated with a property on the Overview tab."
 
+#: src/components/BigPortfolioWarning.tsx:44
+msgid "We’ve been making improvements to Who Owns What to dig deeper and find a more complete picture of your landlord's network. <0>Read more on our Methodology page</0>"
+msgstr "We’ve been making improvements to Who Owns What to dig deeper and find a more complete picture of your landlord's network. <0>Read more on our Methodology page</0>"
+
 #: src/components/Indicators.tsx:222
 msgid "What are {0}?"
 msgstr "What are {0}?"
@@ -1180,6 +1176,10 @@ msgstr "What happens if the landlord has failed to register?"
 #: src/components/FeatureCalloutWidget.tsx:58
 msgid "What's New"
 msgstr "What's New"
+
+#: src/components/BigPortfolioWarning.tsx:28
+msgid "When two parties share the same business address, we group them as part of the same portfolio."
+msgstr "When two parties share the same business address, we group them as part of the same portfolio."
 
 #: src/components/SocialShare.tsx:14
 msgid "Who Owns What is a free tool built by JustFix.nyc to research property owners in NYC. It has helped over 200,000 New Yorkers find out who really owns their building, what other buildings that their landlord or management company owns, and other critical information about code violations, evictions, rent stabilized units, and so much more in any given building. You can look up any residential building located in NYC, even public housing (NYCHA) buildings! Search your address here: {url}"

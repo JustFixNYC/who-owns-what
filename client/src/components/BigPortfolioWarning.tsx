@@ -35,9 +35,15 @@ export const BigPortfolioWarning = withI18n()(
           </h5>
           <p>
             <Trans>
-              Our new version of Who Owns What digs deeper to find a more complete picture of your
-              landlord's network. When two parties share the same business address, we group them as
-              part of the same portfolio.
+              When two parties share the same business address, we group them as part of the same
+              portfolio.
+            </Trans>
+          </p>
+          <p className="is-marginless">
+            <Trans>
+              Some large corporations, however, are a bit more complicated and may share personnel
+              and financial stake with other related companies, which all will show up on Who Owns
+              What as one large portfolio.
             </Trans>
           </p>
           <br />
@@ -45,16 +51,16 @@ export const BigPortfolioWarning = withI18n()(
           <br />
           <p>
             <Trans>
-              Some large corporations, however, are a bit more complicated and may share personnel
-              and financial stake with other related companies, which all will show up on Who Owns
-              What as one large portfolio.
+              We’ve been making improvements to Who Owns What to dig deeper and find a more complete
+              picture of your landlord's network.{" "}
+              <Link
+                to={
+                  methodology // TODO: Replace link with medium article
+                }
+              >
+                Read more on our Methodology page
+              </Link>
             </Trans>
-          </p>
-
-          <p>
-            <Link to={methodology}>
-              <Trans>Read more on our Methodology page</Trans>
-            </Link>
           </p>
         </Modal>
       </div>

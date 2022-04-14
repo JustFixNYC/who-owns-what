@@ -694,10 +694,6 @@ msgstr "Actuales"
 msgid "Open Violations"
 msgstr "Violaciones Actuales"
 
-#: src/components/BigPortfolioWarning.tsx:28
-msgid "Our new version of Who Owns What digs deeper to find a more complete picture of your landlord's network. When two parties share the same business address, we group them as part of the same portfolio."
-msgstr ""
-
 #: src/containers/AddressPage.tsx:121
 msgid "Overview"
 msgstr "General"
@@ -760,10 +756,6 @@ msgstr "Complejo de Vivienda Pública"
 #: src/components/PropertiesList.tsx:199
 msgid "RS Units"
 msgstr "Unidades RS"
-
-#: src/components/BigPortfolioWarning.tsx:47
-msgid "Read more on our Methodology page"
-msgstr ""
 
 #: src/components/PropertiesSummary.tsx:122
 msgid "Rent stabilization"
@@ -864,7 +856,7 @@ msgstr "Administrador del Sitio"
 msgid "Sold to Current Owner"
 msgstr "Vendido al Propietario Actual"
 
-#: src/components/BigPortfolioWarning.tsx:38
+#: src/components/BigPortfolioWarning.tsx:34
 msgid "Some large corporations, however, are a bit more complicated and may share personnel and financial stake with other related companies, which all will show up on Who Owns What as one large portfolio."
 msgstr ""
 
@@ -1173,6 +1165,10 @@ msgstr "Revisamos la pestaña Portafolio para ayudarle navegar por esta gran tab
 msgid "We reorganized the contact details for each individual and corporate entities associated with a property on the Overview tab."
 msgstr "Reorganizamos los datos de contacto de cada entidad individual y corporativa asociada con una propiedad en la pestaña General."
 
+#: src/components/BigPortfolioWarning.tsx:44
+msgid "We’ve been making improvements to Who Owns What to dig deeper and find a more complete picture of your landlord's network. <0>Read more on our Methodology page</0>"
+msgstr ""
+
 #: src/components/Indicators.tsx:222
 msgid "What are {0}?"
 msgstr "¿Qué son {0}?"
@@ -1185,6 +1181,10 @@ msgstr "¿Qué pasa si el propietario no ha registrado el edificio?"
 #: src/components/FeatureCalloutWidget.tsx:58
 msgid "What's New"
 msgstr "Qué hay de nuevo"
+
+#: src/components/BigPortfolioWarning.tsx:28
+msgid "When two parties share the same business address, we group them as part of the same portfolio."
+msgstr ""
 
 #: src/components/SocialShare.tsx:14
 msgid "Who Owns What is a free tool built by JustFix.nyc to research property owners in NYC. It has helped over 200,000 New Yorkers find out who really owns their building, what other buildings that their landlord or management company owns, and other critical information about code violations, evictions, rent stabilized units, and so much more in any given building. You can look up any residential building located in NYC, even public housing (NYCHA) buildings! Search your address here: {url}"
