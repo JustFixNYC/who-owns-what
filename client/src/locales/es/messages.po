@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2022-04-11 18:07\n"
+"PO-Revision-Date: 2022-04-14 11:33\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -763,7 +763,7 @@ msgstr "Renta estabilizada"
 
 #: src/components/PortfolioGraph.tsx:125
 msgid "Reset diagram"
-msgstr ""
+msgstr "Restablecer diagrama"
 
 #: src/util/helpers.ts:55
 msgid "SAFETY"
@@ -1143,7 +1143,7 @@ msgstr "VENTANAS"
 
 #: src/components/BigPortfolioWarning.tsx:9
 msgid "Warning"
-msgstr ""
+msgstr "Aviso"
 
 #: src/components/DetailView.tsx:210
 msgid "Warning: This building has an expired registration and was sold after the expiration date. The landlord info listed here may be outdated."
@@ -1285,3 +1285,4 @@ msgstr "{value, plural, one {Una Queja del HPD emitida desde el 2014} other {# Q
 #: src/components/IndicatorsDatasets.tsx:35
 msgid "{value, plural, one {One HPD Violation Issued since 2010} other {# HPD Violations Issued since 2010}}"
 msgstr "{value, plural, one {Una Violación del HPD emitida desde el 2010} other {# Violaciones del HPD emitidas desde el 2010}}"
+
