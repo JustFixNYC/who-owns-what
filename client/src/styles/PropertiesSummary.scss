@@ -46,6 +46,17 @@
         padding: 1rem;
         margin-bottom: 2rem;
         border: 1px dashed $wowza-dark;
+
+        div:not(.float-left) {
+          cursor: pointer;
+        }
+
+        .float-left {
+          position: relative;
+          z-index: 10;
+          cursor: inherit;
+        }
+
         .btn-group {
           position: absolute;
           flex-direction: column;
