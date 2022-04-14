@@ -5,18 +5,22 @@ import "styles/NotRegisteredPage.css";
 import { Trans } from "@lingui/macro";
 import Modal from "../components/Modal";
 import LegalFooter from "../components/LegalFooter";
-import Helpers from "../util/helpers";
+import { withI18n, withI18nProps } from "@lingui/react";
+import Helpers, { longDateOptions } from "../util/helpers";
+import { defaultLocale, SupportedLocale } from "../i18n-base";
 import SocialShare from "../components/SocialShare";
 import { Nobr } from "../components/Nobr";
 import { withMachineInStateProps } from "state-machine";
 import Page from "components/Page";
 import { UsefulLinks } from "components/UsefulLinks";
 
-type Props = withMachineInStateProps<"unregisteredFound">;
+type Props = withI18nProps & withMachineInStateProps<"unregisteredFound">;
 
 type State = {
   showModal: boolean;
 };
+
+const getTodaysDate = () => new Date();
 
 export const SocialShareForNotRegisteredPage = () => (
   <div className="social-share">
@@ -27,7 +31,7 @@ export const SocialShareForNotRegisteredPage = () => (
   </div>
 );
 
-export default class NotRegisteredPage extends Component<Props, State> {
+class NotRegisteredPageWithoutI18n extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
 
@@ -37,10 +41,23 @@ export default class NotRegisteredPage extends Component<Props, State> {
   }
 
   render() {
-    const { state } = this.props;
+    const { state, i18n } = this.props;
     const { searchAddrParams, searchAddrBbl, buildingInfo } = state.context;
 
     const { boro, block, lot } = Helpers.splitBBL(searchAddrBbl);
+
+    const locale = (i18n.language as SupportedLocale) || defaultLocale;
+
+    const formattedLastRegDate = Helpers.formatDate(
+      buildingInfo.lastregistrationdate,
+      longDateOptions,
+      locale
+    );
+    const formattedRegEndDate = Helpers.formatDate(
+      buildingInfo.registrationenddate,
+      longDateOptions,
+      locale
+    );
 
     /**
      * This is the address that will show up in the top header of the page.
@@ -70,102 +87,89 @@ export default class NotRegisteredPage extends Component<Props, State> {
       </span>
     );
 
-    let buildingTypeMessage;
-
-    const generalBldgCat = buildingInfo && buildingInfo.bldgclass.replace(/[0-9]/g, "");
-    switch (generalBldgCat) {
-      case "B":
-        buildingTypeMessage = (
-          <div>
-            <h6 className="mt-10 text-center text-bold text-large">
-              <p className="text-center">
-                <Trans>
-                  This seems like a smaller residential building. If the landlord doesn't reside
-                  there, it should be registered with HPD.
-                </Trans>{" "}
-                <Nobr>
-                  (
-                  <i>
-                    <a
-                      href={`http://www1.nyc.gov/assets/finance/jump/hlpbldgcode.html#${generalBldgCat.charAt(
-                        0
-                      )}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <Trans>Building Classification</Trans>
-                    </a>
-                    : {buildingInfo.bldgclass}
-                  </i>
-                  )
-                </Nobr>
-              </p>
-            </h6>
-            {failedToRegisterLink}
-          </div>
-        );
-        break;
-      case "C":
-        buildingTypeMessage = (
-          <div>
-            <h6 className="mt-10 text-center text-bold text-large">
-              <p className="text-center">
-                <Trans render="b">This building seems like it should be registered with HPD!</Trans>{" "}
-                <Nobr>
-                  (
-                  <i>
-                    <a
-                      href={`http://www1.nyc.gov/assets/finance/jump/hlpbldgcode.html#${generalBldgCat.charAt(
-                        0
-                      )}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <Trans>Building Classification</Trans>
-                    </a>
-                    : {buildingInfo.bldgclass}
-                  </i>
-                  )
-                </Nobr>
-              </p>
-            </h6>
-            {failedToRegisterLink}
-          </div>
-        );
-        break;
-      default:
-        buildingTypeMessage = (
-          <h6 className="mt-10 text-center text-bold text-large">
-            <p className="text-center">
-              <Trans>It doesn't seem like this property is required to register with HPD.</Trans>{" "}
-              <Nobr>
-                (
-                <i>
-                  <a
-                    href={`http://www1.nyc.gov/assets/finance/jump/hlpbldgcode.html#${generalBldgCat.charAt(
-                      0
-                    )}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <Trans render="u">Building Classification</Trans>
-                  </a>
-                  : {buildingInfo.bldgclass}
-                </i>
-                )
-              </Nobr>
-            </p>
-          </h6>
-        );
-        break;
-    }
-
     const usersInputAddressFragment = usersInputAddress ? (
       <>
         {usersInputAddress.housenumber === " " ? "" : usersInputAddress.housenumber + " "}
         {usersInputAddress.streetname !== " " && usersInputAddress.streetname}
       </>
     ) : null;
+
+    const lastRegisteredCard = (
+      <div className="card-body-registration text-center">
+        <p>
+          <b>
+            <Trans>Last registered:</Trans>
+          </b>{" "}
+          {formattedLastRegDate}
+          {getTodaysDate() > new Date(buildingInfo.registrationenddate) ? (
+            <span className="text-danger">
+              {" "}
+              <Trans>(expired {formattedRegEndDate})</Trans>
+            </span>
+          ) : (
+            <span>
+              {" "}
+              <Trans>(expires {formattedRegEndDate})</Trans>
+            </span>
+          )}
+        </p>
+      </div>
+    );
+
+    let registrationMessage;
+
+    if (!usersInputAddress) {
+      registrationMessage = <Trans>No registration found!</Trans>;
+    } else if (buildingInfo.lastregistrationdate) {
+      registrationMessage = <Trans>Incomplete registration for {usersInputAddressFragment}!</Trans>;
+    } else {
+      registrationMessage = <Trans>No registration found for {usersInputAddressFragment}!</Trans>;
+    }
+
+    let buildingTypeMessage;
+
+    if (buildingInfo.unitsres === 0) {
+      buildingTypeMessage = (
+        <h6 className="mt-10 text-center text-bold text-large">
+          <p className="text-center">
+            <Trans>
+              This property doesn't have any residential units, so it is not required to register
+              with HPD.
+            </Trans>
+          </p>
+        </h6>
+      );
+    } else if (buildingInfo.unitsres < 3) {
+      buildingTypeMessage = (
+        <div>
+          <h6 className="mt-10 text-center text-bold text-large">
+            <p className="text-center">
+              <Trans>
+                This property has fewer than 3 residential units. If the landlord doesn't reside
+                there, it should be registered with HPD.
+              </Trans>
+            </p>
+          </h6>
+          {lastRegisteredCard}
+          {failedToRegisterLink}
+        </div>
+      );
+    } else if (buildingInfo.unitsres >= 3) {
+      buildingTypeMessage = (
+        <div>
+          <h6 className="mt-10 text-center text-bold text-large">
+            <p className="text-center">
+              <Trans render="b">
+                This property has more than 2 residential units, so it should be registered with
+                HPD!
+              </Trans>
+            </p>
+          </h6>
+          {lastRegisteredCard}
+          {failedToRegisterLink}
+        </div>
+      );
+    }
 
     return (
       <Page
@@ -175,16 +179,18 @@ export default class NotRegisteredPage extends Component<Props, State> {
           <div className="HomePage__content">
             <div className="HomePage__search">
               <h5 className="mt-10 text-danger text-center text-bold text-large">
-                {usersInputAddress ? (
-                  buildingInfo.has_hpd_reg ? (
-                    <Trans>Incomplete registration for {usersInputAddressFragment}!</Trans>
-                  ) : (
-                    <Trans>No registration found for {usersInputAddressFragment}!</Trans>
-                  )
-                ) : (
-                  <Trans>No registration found!</Trans>
-                )}
+                {registrationMessage}
               </h5>
+              {buildingInfo.lastregistrationdate ? (
+                <p>
+                  <Trans>
+                    The registration for this property is missing details for owner name or
+                    businesses address, which are required to link to a portfolio.
+                  </Trans>
+                </p>
+              ) : (
+                <></>
+              )}
               {buildingTypeMessage}
               <div className="wrapper">
                 {buildingInfo && buildingInfo.latitude && buildingInfo.longitude && (
@@ -258,3 +264,7 @@ export default class NotRegisteredPage extends Component<Props, State> {
     );
   }
 }
+
+const NotRegisteredPage = withI18n()(NotRegisteredPageWithoutI18n);
+
+export default NotRegisteredPage;
