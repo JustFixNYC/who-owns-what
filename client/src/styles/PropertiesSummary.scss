@@ -46,6 +46,17 @@
         padding: 1rem;
         margin-bottom: 2rem;
         border: 1px dashed $wowza-dark;
+
+        div:not(.float-left) {
+          cursor: pointer;
+        }
+
+        .float-left {
+          position: relative;
+          z-index: 10;
+          cursor: inherit;
+        }
+
         .btn-group {
           position: absolute;
           flex-direction: column;
@@ -71,7 +82,7 @@
 
         @include for-tablet-portrait-up {
           position: absolute;
-          z-index: 1000;
+          z-index: 100;
           bottom: 1rem;
           left: 1rem;
           margin-bottom: 0;
