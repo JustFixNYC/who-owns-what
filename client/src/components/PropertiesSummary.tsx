@@ -18,6 +18,7 @@ import { I18n as I18nComponent } from "@lingui/react";
 import { PortfolioGraph } from "./PortfolioGraph";
 import { ComplaintsSummary } from "./ComplaintsSummary";
 import { BigPortfolioWarning } from "./BigPortfolioWarning";
+import { LazyLoadWhenVisible } from "./LazyLoadWhenVisible";
 
 type Props = withMachineInStateProps<"portfolioFound"> & {
   isVisible: boolean;
@@ -99,11 +100,13 @@ export default class PropertiesSummary extends Component<Props, {}> {
               <Trans render="h6">Network of Landlords</Trans>
               {state.context.useNewPortfolioMethod && state.context.portfolioData.portfolioGraph && (
                 <div className="portfolio-graph-container">
-                  <PortfolioGraph
-                    graphJSON={state.context.portfolioData.portfolioGraph}
-                    state={state}
-                  />
-                  <BigPortfolioWarning sizeOfPortfolio={agg.bldgs} />
+                  <LazyLoadWhenVisible showLoader>
+                    <PortfolioGraph
+                      graphJSON={state.context.portfolioData.portfolioGraph}
+                      state={state}
+                    />
+                    <BigPortfolioWarning sizeOfPortfolio={agg.bldgs} />
+                  </LazyLoadWhenVisible>
                 </div>
               )}
               <p>
