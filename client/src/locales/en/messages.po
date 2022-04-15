@@ -41,7 +41,7 @@ msgstr "(hover over a box to learn more)"
 msgid "(this may take a while)"
 msgstr "(this may take a while)"
 
-#: src/components/PropertiesMap.tsx:207
+#: src/components/PropertiesMap.tsx:208
 msgid "({browserType, select, mobile {tap} other {click}} to view details)"
 msgstr "({browserType, select, mobile {tap} other {click}} to view details)"
 
@@ -232,7 +232,7 @@ msgstr "Click here to learn more."
 msgid "Close"
 msgstr "Close"
 
-#: src/components/PropertiesMap.tsx:195
+#: src/components/PropertiesMap.tsx:196
 msgid "Close legend"
 msgstr "Close legend"
 
@@ -507,7 +507,7 @@ msgstr "Last sold:"
 msgid "Learn more"
 msgstr "Learn more"
 
-#: src/components/PropertiesMap.tsx:195
+#: src/components/PropertiesMap.tsx:196
 msgid "Legend"
 msgstr "Legend"
 
@@ -523,7 +523,7 @@ msgstr "Link to Deed"
 
 #: src/components/Loader.tsx:19
 #: src/components/PropertiesList.tsx:92
-#: src/components/PropertiesMap.tsx:157
+#: src/components/PropertiesMap.tsx:158
 msgid "Loading"
 msgstr "Loading"
 
@@ -851,7 +851,11 @@ msgstr "Site Manager"
 msgid "Sold to Current Owner"
 msgstr "Sold to Current Owner"
 
-#: src/components/PropertiesMap.tsx:162
+#: src/components/BigPortfolioWarning.tsx:34
+msgid "Some large corporations, however, are a bit more complicated and may share personnel and financial stake with other related companies, which all will show up on Who Owns What as one large portfolio."
+msgstr "Some large corporations, however, are a bit more complicated and may share personnel and financial stake with other related companies, which all will show up on Who Owns What as one large portfolio."
+
+#: src/components/PropertiesMap.tsx:163
 msgid "Sorry, it looks like there's an error on the map. Try again on a different browser or <0>enable WebGL</0>."
 msgstr "Sorry, it looks like there's an error on the map. Try again on a different browser or <0>enable WebGL</0>."
 
@@ -965,10 +969,6 @@ msgstr "This building seems like it should be registered with HPD!"
 msgid "This data is in <0>CSV file format</0>, which can easily be used in Excel, Google Sheets, or any other spreadsheet program."
 msgstr "This data is in <0>CSV file format</0>, which can easily be used in Excel, Google Sheets, or any other spreadsheet program."
 
-#: src/components/BigPortfolioWarning.tsx:11
-msgid "This diagram may show a network of portfolios. <0>Learn more.</0>"
-msgstr "This diagram may show a network of portfolios. <0>Learn more.</0>"
-
 #: src/components/ViolationsSummary.tsx:17
 msgid "This is <0>about the same</0> as the citywide average."
 msgstr "This is <0>about the same</0> as the citywide average."
@@ -1000,6 +1000,10 @@ msgstr "This portfolio also had an estimated <0>net {changeType, select, gain {g
 #: src/components/ViolationsSummary.tsx:12
 msgid "This portfolio has an average of <0>{0}</0> open HPD violations per residential unit."
 msgstr "This portfolio has an average of <0>{0}</0> open HPD violations per residential unit."
+
+#: src/components/BigPortfolioWarning.tsx:17
+msgid "This portfolio may consist of several related companies. <0>Learn more</0>"
+msgstr "This portfolio may consist of several related companies. <0>Learn more</0>"
 
 #: src/containers/HomePage.tsx:131
 msgid "This property management company owned by the Kushner family is notorious for <0>violating rent regulations</0> and <1>harassing tenants</1>. The stake currently held by Jared Kushner and Ivanka Trump is worth as much as $761 million."
@@ -1101,7 +1105,7 @@ msgstr "View detail"
 msgid "View documents on <0>ACRIS</0>"
 msgstr "View documents on <0>ACRIS</0>"
 
-#: src/components/PropertiesMap.tsx:195
+#: src/components/PropertiesMap.tsx:196
 msgid "View legend"
 msgstr "View legend"
 
@@ -1136,7 +1140,7 @@ msgstr "WINDOW GUARDS"
 msgid "WINDOWS"
 msgstr "WINDOWS"
 
-#: src/components/BigPortfolioWarning.tsx:9
+#: src/components/BigPortfolioWarning.tsx:15
 msgid "Warning"
 msgstr "Warning"
 
@@ -1156,6 +1160,10 @@ msgstr "We overhauled the Portfolio tab to help make navigating this large table
 msgid "We reorganized the contact details for each individual and corporate entities associated with a property on the Overview tab."
 msgstr "We reorganized the contact details for each individual and corporate entities associated with a property on the Overview tab."
 
+#: src/components/BigPortfolioWarning.tsx:44
+msgid "We’ve been making improvements to Who Owns What to dig deeper and find a more complete picture of your landlord's network. <0>Read more on our Methodology page</0>"
+msgstr "We’ve been making improvements to Who Owns What to dig deeper and find a more complete picture of your landlord's network. <0>Read more on our Methodology page</0>"
+
 #: src/components/Indicators.tsx:222
 msgid "What are {0}?"
 msgstr "What are {0}?"
@@ -1168,6 +1176,10 @@ msgstr "What happens if the landlord has failed to register?"
 #: src/components/FeatureCalloutWidget.tsx:58
 msgid "What's New"
 msgstr "What's New"
+
+#: src/components/BigPortfolioWarning.tsx:28
+msgid "When two parties share the same business address, we group them as part of the same portfolio."
+msgstr "When two parties share the same business address, we group them as part of the same portfolio."
 
 #: src/components/SocialShare.tsx:14
 msgid "Who Owns What is a free tool built by JustFix.nyc to research property owners in NYC. It has helped over 200,000 New Yorkers find out who really owns their building, what other buildings that their landlord or management company owns, and other critical information about code violations, evictions, rent stabilized units, and so much more in any given building. You can look up any residential building located in NYC, even public housing (NYCHA) buildings! Search your address here: {url}"
@@ -1191,6 +1203,10 @@ msgstr "Who’s responsible for issues in your apartment & building? #WhoOwnsWha
 #: src/components/DetailView.tsx:193
 msgid "Who’s the landlord of this building?"
 msgstr "Who’s the landlord of this building?"
+
+#: src/components/BigPortfolioWarning.tsx:25
+msgid "Why am I seeing such a big portfolio?"
+msgstr "Why am I seeing such a big portfolio?"
 
 #: src/components/BuildingStatsTable.tsx:35
 msgid "Year Built"
@@ -1229,7 +1245,7 @@ msgstr "Zoom out"
 msgid "and"
 msgstr "and"
 
-#: src/components/PropertiesMap.tsx:202
+#: src/components/PropertiesMap.tsx:203
 msgid "associated building"
 msgstr "associated building"
 
@@ -1245,7 +1261,7 @@ msgstr "month"
 msgid "quarter"
 msgstr "quarter"
 
-#: src/components/PropertiesMap.tsx:201
+#: src/components/PropertiesMap.tsx:202
 msgid "search address"
 msgstr "search address"
 
