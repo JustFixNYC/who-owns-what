@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { t, Trans } from "@lingui/macro";
 import { withI18n, withI18nProps } from "@lingui/react";
 import warning from "../assets/img/icon-warning.svg";
@@ -18,6 +18,12 @@ export const BigPortfolioWarning = withI18n()(
   ({ i18n, sizeOfPortfolio }: BigPortfolioWarningProps) => {
     const { methodology } = createWhoOwnsWhatRoutePaths();
     const [isLearnMoreModalVisible, setModalVisibility] = useState(false);
+
+    // Preload modal image when BigPortfolioWarning mounts:
+    useEffect(() => {
+      new Image().src = networkDiagram;
+    }, []);
+
     return sizeOfPortfolio > PORTFOLIO_SIZE_THRESHOLD ? (
       <div className="warning-banner">
         <div className="float-left">

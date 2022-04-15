@@ -41,6 +41,9 @@
     }
     .portfolio-graph-container {
       position: relative;
+      .Loader-map {
+        height: calc(55vh + 6.25rem);
+      }
       .portfolio-graph {
         position: relative;
         padding: 1rem;
