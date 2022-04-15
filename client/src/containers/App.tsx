@@ -185,7 +185,7 @@ const SearchLink = () => {
 const getMainNavLinks = (isLegacyPath?: boolean) => {
   const { about, howToUse, legacy } = createWhoOwnsWhatRoutePaths();
   return [
-    <SearchLink />,
+    <SearchLink key={1} />,
     <LocaleNavLink to={isLegacyPath ? legacy.about : about} key={2}>
       <Trans>About</Trans>
     </LocaleNavLink>,

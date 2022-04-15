@@ -8,6 +8,7 @@ import { withMachineInStateProps } from "state-machine";
 import helpers from "util/helpers";
 import { t, Trans } from "@lingui/macro";
 import { withI18n, withI18nProps } from "@lingui/react";
+import browser from "util/browser";
 
 Cytoscape.use(fcose);
 
@@ -141,7 +142,9 @@ const PortfolioGraphWithoutI18: React.FC<PortfolioGraphProps> = ({ graphJSON, st
   const additionalNodes = generateAdditionalNodes(searchAddr, distinctDetailAddr);
   const additionalEdges = generateAdditionalEdges(graphJSON.nodes, searchAddr, distinctDetailAddr);
 
-  const ZOOM_LEVEL_INCREMENT = 0.2;
+  const isMobile = browser.isMobile();
+
+  const ZOOM_LEVEL_INCREMENT = 2;
   const ZOOM_ANIMATION_DURATION = 100;
 
   let myCyRef: Cytoscape.Core;
@@ -171,7 +174,7 @@ const PortfolioGraphWithoutI18: React.FC<PortfolioGraphProps> = ({ graphJSON, st
           onClick={() =>
             myCyRef.animate(
               {
-                zoom: myCyRef.zoom() + ZOOM_LEVEL_INCREMENT * myCyRef.zoom(),
+                zoom: myCyRef.zoom() * ZOOM_LEVEL_INCREMENT,
               },
               {
                 duration: ZOOM_ANIMATION_DURATION,
@@ -187,7 +190,7 @@ const PortfolioGraphWithoutI18: React.FC<PortfolioGraphProps> = ({ graphJSON, st
           onClick={() =>
             myCyRef.animate(
               {
-                zoom: myCyRef.zoom() - ZOOM_LEVEL_INCREMENT * myCyRef.zoom(),
+                zoom: myCyRef.zoom() / ZOOM_LEVEL_INCREMENT,
               },
               {
                 duration: ZOOM_ANIMATION_DURATION,
@@ -197,11 +200,22 @@ const PortfolioGraphWithoutI18: React.FC<PortfolioGraphProps> = ({ graphJSON, st
         >
           -
         </button>
+        <button
+          className="btn btn-action"
+          aria-label={i18n._(t`Reset diagram`)}
+          onClick={() => {
+            myCyRef.fit();
+          }}
+        >
+          ⟳
+        </button>
       </div>
       <CytoscapeComponent
         elements={formatGraphJSON(graphJSON, additionalNodes, additionalEdges)}
-        style={{ width: "100%", height: "60vh" }}
+        style={{ width: "100%", height: isMobile ? "40vh" : "55vh" }}
         layout={layout}
+        // Enable scroll zoom only on mobile devices:
+        userZoomingEnabled={isMobile}
         cy={(cy) => {
           // Get a reference to the Cytoscape object:
           // https://github.com/plotly/react-cytoscapejs#cy-1

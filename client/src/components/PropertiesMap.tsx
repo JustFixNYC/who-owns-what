@@ -225,6 +225,7 @@ export default class PropertiesMap extends Component<Props, State> {
 
   render() {
     const browserType = Browser.isMobile() ? "mobile" : "other";
+    const { useNewPortfolioMethod } = this.props.state.context;
 
     const { detailAddr } = this.getPortfolioData();
 
@@ -265,7 +266,11 @@ export default class PropertiesMap extends Component<Props, State> {
                 left: "10px",
               }}
             />
-            <BigPortfolioWarning sizeOfPortfolio={this.state.addrsPoints.length} />
+            {useNewPortfolioMethod ? (
+              <BigPortfolioWarning sizeOfPortfolio={this.state.addrsPoints.length} />
+            ) : (
+              <></>
+            )}
             {this.state.addrsPoints.length ? (
               <Layer id="assoc" type="circle" paint={DYNAMIC_ASSOC_PAINT}>
                 {this.state.addrsPoints}

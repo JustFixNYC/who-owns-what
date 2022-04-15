@@ -1,6 +1,8 @@
+import { Trans } from "@lingui/macro";
 import React from "react";
 
 import "styles/Loader.css";
+import Page from "./Page";
 
 const Loader: React.FC<{
   classNames?: string;
@@ -19,4 +21,17 @@ const Loader: React.FC<{
   if (!props.loading) return null;
   else return loader;
 };
+
+export const FixedLoadingLabel = () => (
+  <Loader loading={true} classNames="Loader-map">
+    <Trans>Loading</Trans>
+  </Loader>
+);
+
+export const LoadingPage = () => (
+  <Page>
+    <FixedLoadingLabel />
+  </Page>
+);
+
 export default Loader;

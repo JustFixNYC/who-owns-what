@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Trans, Plural, t } from "@lingui/macro";
 
-import Loader from "../components/Loader";
+import { FixedLoadingLabel } from "../components/Loader";
 import LegalFooter from "../components/LegalFooter";
 
 import "styles/PropertiesSummary.css";
@@ -18,6 +18,7 @@ import { I18n as I18nComponent } from "@lingui/react";
 import { PortfolioGraph } from "./PortfolioGraph";
 import { ComplaintsSummary } from "./ComplaintsSummary";
 import { BigPortfolioWarning } from "./BigPortfolioWarning";
+import { LazyLoadWhenVisible } from "./LazyLoadWhenVisible";
 
 type Props = withMachineInStateProps<"portfolioFound"> & {
   isVisible: boolean;
@@ -90,11 +91,7 @@ export default class PropertiesSummary extends Component<Props, {}> {
     let agg = state.context.summaryData;
     let searchAddr = state.context.portfolioData.searchAddr;
     if (!agg) {
-      return (
-        <Loader loading={true} classNames="Loader-map">
-          <Trans>Loading</Trans>
-        </Loader>
-      );
+      return <FixedLoadingLabel />;
     } else {
       return (
         <div className="Page PropertiesSummary">
@@ -102,13 +99,15 @@ export default class PropertiesSummary extends Component<Props, {}> {
             <div>
               <Trans render="h6">Network of Landlords</Trans>
               {state.context.useNewPortfolioMethod && state.context.portfolioData.portfolioGraph && (
-                <>
-                  <PortfolioGraph
-                    graphJSON={state.context.portfolioData.portfolioGraph}
-                    state={state}
-                  />
-                  <BigPortfolioWarning sizeOfPortfolio={agg.bldgs} />
-                </>
+                <div className="portfolio-graph-container">
+                  <LazyLoadWhenVisible showLoader>
+                    <PortfolioGraph
+                      graphJSON={state.context.portfolioData.portfolioGraph}
+                      state={state}
+                    />
+                    <BigPortfolioWarning sizeOfPortfolio={agg.bldgs} />
+                  </LazyLoadWhenVisible>
+                </div>
               )}
               <p>
                 <Trans>

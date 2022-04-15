@@ -42,10 +42,11 @@
 
     .warning-banner {
       position: absolute;
-      z-index: 1000;
+      z-index: 100;
       top: 0;
       margin: 1rem 1.1rem 0 4.5rem;
-      background-color: $wowza-warning;
+      background-color: $wowza-orange;
+      color: $wowza-dark;
       border-radius: 0.2rem;
       padding: 0.5rem 2.1rem 0.5rem 1.08rem;
       min-height: 5.4rem;
@@ -62,11 +63,6 @@
         width: 2.536rem;
         height: 2.277rem;
         margin-right: 1.012rem;
-      }
-
-      span,
-      button {
-        color: black;
       }
 
       button {

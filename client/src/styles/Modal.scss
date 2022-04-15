@@ -28,6 +28,10 @@
       white-space: normal;
     }
 
+    .img-responsive {
+      border: 1px solid $dark;
+    }
+
     @include for-phone-only() {
       // Force override on custom styling defined in Modal.tsx
       padding: 30px 20px !important;
