@@ -31,12 +31,11 @@ msgid "(as part of a group sale)"
 msgstr "(como parte de una venta en grupo)"
 
 #: src/components/DetailView.tsx:223
-#: src/containers/NotRegisteredPage.tsx:68
+#: src/containers/NotRegisteredPage.tsx:70
 msgid "(expired {formattedRegEndDate})"
 msgstr "(caducado {formattedRegEndDate})"
 
 #: src/components/DetailView.tsx:226
-#: src/containers/NotRegisteredPage.tsx:71
 msgid "(expires {formattedRegEndDate})"
 msgstr "(caduca {formattedRegEndDate})"
 
@@ -435,7 +434,7 @@ msgstr "Usé #QuiénEsElDueño (construido por @JustFixNYC) para ver no solo las
 msgid "I was checking out this building on Who Owns What, a free landlord research tool from JustFix.nyc. It’s a remarkable website that every tenant and housing advocate should know about! Can you guess how many total violations this landlord portfolio has? Check it out here: {url}"
 msgstr "Estaba revisando este edificio en Quién Es El Dueño, una herramienta gratuita construida por JustFix.nyc. ¡Es un sitio web extraordinario que cada inquilino y defensor de viviendas debería saber sobre! ¿Puedes adivinar cuántas violaciones totales tiene este portafolio de este dueño? Míralo aquí: {url}"
 
-#: src/containers/NotRegisteredPage.tsx:80
+#: src/containers/NotRegisteredPage.tsx:79
 msgid "Incomplete registration for {usersInputAddressFragment}!"
 msgstr ""
 
@@ -497,7 +496,7 @@ msgid "Last Sale Unknown"
 msgstr "Última venta desconocida"
 
 #: src/components/DetailView.tsx:218
-#: src/containers/NotRegisteredPage.tsx:63
+#: src/containers/NotRegisteredPage.tsx:65
 msgid "Last registered:"
 msgstr "Registrado por última vez:"
 
@@ -639,11 +638,11 @@ msgstr "No hay datos disponibles"
 msgid "No landlords match your search."
 msgstr "No hay nombres de dueños coincidan con su búsqueda."
 
-#: src/containers/NotRegisteredPage.tsx:83
+#: src/containers/NotRegisteredPage.tsx:82
 msgid "No registration found for {usersInputAddressFragment}!"
 msgstr "¡No se ha encontrado ningún registro para {usersInputAddressFragment}!"
 
-#: src/containers/NotRegisteredPage.tsx:77
+#: src/containers/NotRegisteredPage.tsx:76
 msgid "No registration found!"
 msgstr "¡No se ha encontrado nigún registro!"
 
@@ -943,8 +942,8 @@ msgstr "El número de unidades residenciales en todos los edificios de este comp
 msgid "The number of residential units in this building, according to the Dept. of City Planning."
 msgstr "El número de unidades residenciales en este edificio, según el Departamento de Planificación de la Ciudad."
 
-#: src/containers/NotRegisteredPage.tsx:132
-msgid "The registration for this property is missing details for owner name or businesses address, which are required to link to a portfolio."
+#: src/containers/NotRegisteredPage.tsx:127
+msgid "The registration for this property is missing details for owner name or businesses address, which are required to link the property to a portfolio."
 msgstr ""
 
 #: src/components/BuildingStatsTable.tsx:34
@@ -1003,15 +1002,15 @@ msgstr "Este portafolio de edificios tuvo una <0>{changeType, select, gain {gana
 msgid "This portfolio has an average of <0>{0}</0> open HPD violations per residential unit."
 msgstr "Esta cartera de edificios tiene un promedio de <0>{0}</0> infracciones del HPD Actuales por cada unidad residencial."
 
-#: src/containers/NotRegisteredPage.tsx:89
+#: src/containers/NotRegisteredPage.tsx:88
 msgid "This property doesn't have any residential units, so it is not required to register with HPD."
 msgstr ""
 
-#: src/containers/NotRegisteredPage.tsx:100
+#: src/containers/NotRegisteredPage.tsx:99
 msgid "This property has fewer than 3 residential units. If the landlord doesn't reside there, it should be registered with HPD."
 msgstr ""
 
-#: src/containers/NotRegisteredPage.tsx:114
+#: src/containers/NotRegisteredPage.tsx:111
 msgid "This property has more than 2 residential units, so it should be registered with HPD!"
 msgstr ""
 
@@ -1170,7 +1169,7 @@ msgstr "Reorganizamos los datos de contacto de cada entidad individual y corpora
 msgid "What are {0}?"
 msgstr "¿Qué son {0}?"
 
-#: src/containers/NotRegisteredPage.tsx:50
+#: src/containers/NotRegisteredPage.tsx:48
 msgid "What happens if the landlord has failed to register?"
 msgstr "¿Qué pasa si el propietario no ha registrado el edificio?"
 

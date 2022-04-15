@@ -48,17 +48,6 @@ class NotRegisteredPageWithoutI18n extends Component<Props, State> {
 
     const locale = (i18n.language as SupportedLocale) || defaultLocale;
 
-    const formattedLastRegDate = Helpers.formatDate(
-      buildingInfo.lastregistrationdate,
-      longDateOptions,
-      locale
-    );
-    const formattedRegEndDate = Helpers.formatDate(
-      buildingInfo.registrationenddate,
-      longDateOptions,
-      locale
-    );
-
     /**
      * This is the address that will show up in the top header of the page.
      * If the user didn't enter an address themselves (i.e. they are redirected to this page
@@ -94,26 +83,37 @@ class NotRegisteredPageWithoutI18n extends Component<Props, State> {
       </>
     ) : null;
 
-    const lastRegisteredCard = (
+    const registrationMissingOrExpired =
+      buildingInfo.registrationenddate === "" ||
+      getTodaysDate() > new Date(buildingInfo.registrationenddate);
+
+    const formattedLastRegDate = Helpers.formatDate(
+      buildingInfo.lastregistrationdate,
+      longDateOptions,
+      locale
+    );
+
+    const formattedRegEndDate = Helpers.formatDate(
+      buildingInfo.registrationenddate,
+      longDateOptions,
+      locale
+    );
+
+    const lastRegisteredCard = buildingInfo.lastregistrationdate ? (
       <div className="card-body-registration text-center">
         <p>
           <b>
             <Trans>Last registered:</Trans>
           </b>{" "}
           {formattedLastRegDate}
-          {getTodaysDate() > new Date(buildingInfo.registrationenddate) ? (
-            <span className="text-danger">
-              {" "}
-              <Trans>(expired {formattedRegEndDate})</Trans>
-            </span>
-          ) : (
-            <span>
-              {" "}
-              <Trans>(expires {formattedRegEndDate})</Trans>
-            </span>
-          )}
+          <span className="text-danger">
+            {" "}
+            <Trans>(expired {formattedRegEndDate})</Trans>
+          </span>
         </p>
       </div>
+    ) : (
+      <></>
     );
 
     let registrationMessage;
@@ -150,8 +150,6 @@ class NotRegisteredPageWithoutI18n extends Component<Props, State> {
               </Trans>
             </p>
           </h6>
-          {lastRegisteredCard}
-          {failedToRegisterLink}
         </div>
       );
     } else if (buildingInfo.unitsres >= 3) {
@@ -165,8 +163,6 @@ class NotRegisteredPageWithoutI18n extends Component<Props, State> {
               </Trans>
             </p>
           </h6>
-          {lastRegisteredCard}
-          {failedToRegisterLink}
         </div>
       );
     }
@@ -182,16 +178,29 @@ class NotRegisteredPageWithoutI18n extends Component<Props, State> {
                 {registrationMessage}
               </h5>
               {buildingInfo.lastregistrationdate ? (
-                <p>
+                <p className="text-center">
                   <Trans>
                     The registration for this property is missing details for owner name or
-                    businesses address, which are required to link to a portfolio.
+                    businesses address, which are required to link the property to a portfolio.
                   </Trans>
                 </p>
               ) : (
                 <></>
               )}
-              {buildingTypeMessage}
+              {buildingInfo.unitsres > 0 && registrationMissingOrExpired ? (
+                <>
+                  {buildingTypeMessage}
+                  {lastRegisteredCard}
+                  {failedToRegisterLink}
+                </>
+              ) : (
+                <></>
+              )}
+              {buildingInfo.unitsres === 0 && registrationMissingOrExpired ? (
+                <>{buildingTypeMessage}</>
+              ) : (
+                <></>
+              )}
               <div className="wrapper">
                 {buildingInfo && buildingInfo.latitude && buildingInfo.longitude && (
                   <img
