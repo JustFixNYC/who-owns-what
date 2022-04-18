@@ -38,8 +38,11 @@
   .close-button {
     color: $wowza-dark;
     position: absolute;
-    top: 0.5rem;
-    right: 1.5rem;
+    right: 0.5rem;
+    top: 0rem;
+    padding: 0 1rem;
+    font-size: 2rem;
+    height: 100%;
     cursor: pointer;
     &:hover {
       opacity: 0.7;
