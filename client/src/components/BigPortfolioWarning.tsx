@@ -29,10 +29,10 @@ export const BigPortfolioWarning = withI18n()(
         <div className="float-left">
           <img src={warning} className="icon" alt={i18n._(t`Warning`)} />
           <span className="warning">
-            <Trans>
-              This portfolio may consist of several related companies.{" "}
-              <button onClick={() => setModalVisibility(true)}>Learn more</button>
-            </Trans>
+            <Trans>Why am I seeing such a big portfolio?</Trans>{" "}
+            <button onClick={() => setModalVisibility(true)}>
+              <Trans>Learn more</Trans>
+            </button>
           </span>
         </div>
         <Modal showModal={isLearnMoreModalVisible} onClose={() => setModalVisibility(false)}>
