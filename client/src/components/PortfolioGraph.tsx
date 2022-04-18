@@ -134,6 +134,10 @@ const formatGraphJSON = (
   return nodes.concat(edges);
 };
 
+const LANDLORD_NAME_COLOR = "#FF3A0E";
+const BIZ_ADDRESS_COLOR = "#808080";
+const ANNOTATION_COLOR = "#E79B07";
+
 type PortfolioGraphProps = withI18nProps &
   Pick<withMachineInStateProps<"portfolioFound">, "state"> & {
     graphJSON: RawPortfolioGraphJson;
@@ -159,14 +163,14 @@ const PortfolioGraphWithoutI18: React.FC<PortfolioGraphProps> = ({ graphJSON, st
       <div className="float-left">
         <span
           style={{
-            color: "red",
+            color: LANDLORD_NAME_COLOR,
           }}
         >
           ● <Trans>Owner Names</Trans>
         </span>{" "}
         <span
           style={{
-            color: "gray",
+            color: BIZ_ADDRESS_COLOR,
           }}
         >
           ● <Trans>Business Addresses</Trans>
@@ -245,7 +249,7 @@ const PortfolioGraphWithoutI18: React.FC<PortfolioGraphProps> = ({ graphJSON, st
               "font-family": "Inconsolata, monospace",
               backgroundColor: (ele) => NODE_TYPE_TO_COLOR[ele.data("type")],
               color: (ele: Cytoscape.NodeSingular) =>
-                ["searchaddr", "detailaddr"].includes(ele.data("type")) ? "orange" : "",
+                ["searchaddr", "detailaddr"].includes(ele.data("type")) ? ANNOTATION_COLOR : "",
               "background-opacity": (ele: Cytoscape.NodeSingular) =>
                 ["searchaddr", "detailaddr"].includes(ele.data("type")) ? 0 : 1,
               "min-zoomed-font-size": 16,
@@ -255,7 +259,9 @@ const PortfolioGraphWithoutI18: React.FC<PortfolioGraphProps> = ({ graphJSON, st
             selector: "edge",
             style: {
               "line-color": (ele: Cytoscape.EdgeSingular) =>
-                ["searchaddr", "detailaddr"].includes(ele.data("target")) ? "orange" : "default",
+                ["searchaddr", "detailaddr"].includes(ele.data("target"))
+                  ? ANNOTATION_COLOR
+                  : "default",
               "line-style": (ele: Cytoscape.EdgeSingular) =>
                 ["searchaddr", "detailaddr"].includes(ele.data("target")) ? "dashed" : "solid",
             },
@@ -270,8 +276,8 @@ const PortfolioGraphWithoutI18: React.FC<PortfolioGraphProps> = ({ graphJSON, st
 export const PortfolioGraph = withI18n()(PortfolioGraphWithoutI18);
 
 const NODE_TYPE_TO_COLOR: Record<string, string> = {
-  name: "red",
-  bizaddr: "gray",
-  searchaddr: "orange",
-  detailaddr: "orange",
+  name: LANDLORD_NAME_COLOR,
+  bizaddr: BIZ_ADDRESS_COLOR,
+  searchaddr: ANNOTATION_COLOR,
+  detailaddr: ANNOTATION_COLOR,
 };
