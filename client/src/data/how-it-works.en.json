@@ -82,7 +82,7 @@
           {
             "data": {},
             "marks": [],
-            "value": "To group together landlord portfolios, our database:",
+            "value": "When you search an address on Who Owns What, our database:",
             "nodeType": "text"
           }
         ],
@@ -110,13 +110,13 @@
                         "type": "bold"
                       }
                     ],
-                    "value": "\"Head Officer\", \"Individual Owner\", \"Corporate Owner\", and \"Joint Owner\" contact names ",
+                    "value": "business addresses ",
                     "nodeType": "text"
                   },
                   {
                     "data": {},
                     "marks": [],
-                    "value": "registered on HPD.",
+                    "value": "of entities registered with your property on HPD and finds other properties in the city with a matching address.",
                     "nodeType": "text"
                   }
                 ],
@@ -144,55 +144,13 @@
                         "type": "bold"
                       }
                     ],
-                    "value": "business addresses ",
+                    "value": "“Head Officer”, “Individual Owner”, and “Corporate Owner” contact names ",
                     "nodeType": "text"
                   },
                   {
                     "data": {},
                     "marks": [],
-                    "value": "registered with these contact names.",
-                    "nodeType": "text"
-                  }
-                ],
-                "nodeType": "paragraph"
-              }
-            ],
-            "nodeType": "list-item"
-          },
-          {
-            "data": {},
-            "content": [
-              {
-                "data": {},
-                "content": [
-                  {
-                    "data": {},
-                    "marks": [],
-                    "value": "uses the ",
-                    "nodeType": "text"
-                  },
-                  {
-                    "data": {
-                      "uri": "https://networkx.org/"
-                    },
-                    "content": [
-                      {
-                        "data": {},
-                        "marks": [
-                          {
-                            "type": "underline"
-                          }
-                        ],
-                        "value": "networkx Python package",
-                        "nodeType": "text"
-                      }
-                    ],
-                    "nodeType": "hyperlink"
-                  },
-                  {
-                    "data": {},
-                    "marks": [],
-                    "value": " to group owner contact names together that share the same registered business address, which also generates an aggregated list of buildings for each grouping of owner names.",
+                    "value": "registered with your property on HPD and finds other properties in the city with a matching contact name, using “fuzzy matching” to account for misspellings.",
                     "nodeType": "text"
                   }
                 ],
@@ -441,6 +399,34 @@
               {
                 "data": {},
                 "content": [
+                  {
+                    "data": {},
+                    "marks": [
+                      {
+                        "type": "bold"
+                      }
+                    ],
+                    "value": "",
+                    "nodeType": "text"
+                  },
+                  {
+                    "data": {
+                      "uri": "https://www1.nyc.gov/site/planning/data-maps/open-data.page"
+                    },
+                    "content": [
+                      {
+                        "data": {},
+                        "marks": [
+                          {
+                            "type": "bold"
+                          }
+                        ],
+                        "value": "",
+                        "nodeType": "text"
+                      }
+                    ],
+                    "nodeType": "hyperlink"
+                  },
                   {
                     "data": {},
                     "marks": [
@@ -835,7 +821,7 @@
           },
           {
             "data": {
-              "uri": "https://github.com/JustFixNYC/who-owns-what"
+              "uri": "https://github.com/JustFixNYC/who-owns-what/blob/master/sql/search_function.sql"
             },
             "content": [
               {

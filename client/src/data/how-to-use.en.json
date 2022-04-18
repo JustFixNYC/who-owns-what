@@ -2,71 +2,69 @@
   "title": "How to use",
   "slug": "how-to-use",
   "content": {
-    "nodeType": "document",
     "data": {},
     "content": [
       {
-        "nodeType": "heading-4",
         "data": {},
         "content": [
           {
-            "nodeType": "text",
+            "data": {},
+            "marks": [],
             "value": "The Most Important Things You Can Do With Who Owns What:",
-            "marks": [],
-            "data": {}
+            "nodeType": "text"
           }
-        ]
+        ],
+        "nodeType": "heading-4"
       },
       {
-        "nodeType": "paragraph",
         "data": {},
         "content": [
           {
-            "nodeType": "text",
+            "data": {},
+            "marks": [],
             "value": "",
-            "marks": [],
-            "data": {}
+            "nodeType": "text"
           }
-        ]
+        ],
+        "nodeType": "paragraph"
       },
       {
-        "nodeType": "paragraph",
         "data": {},
         "content": [
           {
-            "nodeType": "text",
+            "data": {},
+            "marks": [],
             "value": "Here are a few ways to get the most out of the powerful tool you’re about to use. ",
-            "marks": [],
-            "data": {}
+            "nodeType": "text"
           }
-        ]
+        ],
+        "nodeType": "paragraph"
       },
       {
-        "nodeType": "paragraph",
         "data": {},
         "content": [
           {
-            "nodeType": "text",
+            "data": {},
+            "marks": [],
             "value": "",
-            "marks": [],
-            "data": {}
+            "nodeType": "text"
           }
-        ]
+        ],
+        "nodeType": "paragraph"
       },
       {
-        "nodeType": "heading-5",
         "data": {},
         "content": [
           {
-            "nodeType": "text",
-            "value": "Learn more about your building’s issues—and how you may be able to get them fixed. ",
+            "data": {},
             "marks": [],
-            "data": {}
+            "value": "Learn more about your building’s issues—and how you may be able to get them fixed. ",
+            "nodeType": "text"
           }
-        ]
+        ],
+        "nodeType": "heading-5"
       },
       {
-        "nodeType": "embedded-asset-block",
         "data": {
           "target": {
             "metadata": {
@@ -112,208 +110,208 @@
             }
           }
         },
-        "content": []
+        "content": [],
+        "nodeType": "embedded-asset-block"
       },
       {
-        "nodeType": "ordered-list",
         "data": {},
         "content": [
           {
-            "nodeType": "list-item",
             "data": {},
             "content": [
               {
-                "nodeType": "paragraph",
                 "data": {},
                 "content": [
                   {
-                    "nodeType": "text",
+                    "data": {},
+                    "marks": [],
                     "value": "Check out the violation history for your building. ",
-                    "marks": [],
-                    "data": {}
+                    "nodeType": "text"
                   }
-                ]
+                ],
+                "nodeType": "paragraph"
               },
               {
-                "nodeType": "ordered-list",
                 "data": {},
                 "content": [
                   {
-                    "nodeType": "list-item",
                     "data": {},
                     "content": [
                       {
-                        "nodeType": "paragraph",
                         "data": {},
                         "content": [
                           {
-                            "nodeType": "text",
+                            "data": {},
+                            "marks": [],
                             "value": "Any complaints verified by the Department of Housing Preservation and Development (HPD) inspector (but not yet taken care of) will show up as “Open Violations” in your building’s profile in the “Overview” tab. These violations have different categories - A (non-hazardous), B, (hazardous), and C (immediately hazardous) and you can find more detailed information about these violation classes on the Timeline tab.",
-                            "marks": [],
-                            "data": {}
+                            "nodeType": "text"
                           }
-                        ]
+                        ],
+                        "nodeType": "paragraph"
                       }
-                    ]
+                    ],
+                    "nodeType": "list-item"
                   },
                   {
-                    "nodeType": "list-item",
                     "data": {},
                     "content": [
                       {
-                        "nodeType": "paragraph",
                         "data": {},
                         "content": [
                           {
-                            "nodeType": "text",
+                            "data": {},
+                            "marks": [],
                             "value": "Use the “Timeline” tab to see a recent history of 311 complaints reported by tenants and official violations issued by HPD. ",
-                            "marks": [],
-                            "data": {}
+                            "nodeType": "text"
                           }
-                        ]
+                        ],
+                        "nodeType": "paragraph"
                       }
-                    ]
+                    ],
+                    "nodeType": "list-item"
                   },
                   {
-                    "nodeType": "list-item",
                     "data": {},
                     "content": [
                       {
-                        "nodeType": "paragraph",
                         "data": {},
                         "content": [
                           {
-                            "nodeType": "text",
-                            "value": "Dig deeper into the violations by checking out the HPD Building Profile or by going to the Displacement Alert Portal (DAP) from the Association for Neighborhood and Housing Development (ANHD).",
+                            "data": {},
                             "marks": [],
-                            "data": {}
+                            "value": "Dig deeper into the violations by checking out the HPD Building Profile or by going to the Displacement Alert Portal (DAP) from the Association for Neighborhood and Housing Development (ANHD).",
+                            "nodeType": "text"
                           }
-                        ]
+                        ],
+                        "nodeType": "paragraph"
                       }
-                    ]
+                    ],
+                    "nodeType": "list-item"
                   }
-                ]
+                ],
+                "nodeType": "ordered-list"
               },
               {
-                "nodeType": "paragraph",
                 "data": {},
                 "content": [
                   {
-                    "nodeType": "text",
-                    "value": "",
+                    "data": {},
                     "marks": [],
-                    "data": {}
+                    "value": "",
+                    "nodeType": "text"
                   }
-                ]
+                ],
+                "nodeType": "paragraph"
               }
-            ]
+            ],
+            "nodeType": "list-item"
           },
           {
-            "nodeType": "list-item",
             "data": {},
             "content": [
               {
-                "nodeType": "paragraph",
                 "data": {},
                 "content": [
                   {
-                    "nodeType": "text",
-                    "value": "See if the number of rent stabilized apartments in your building has changed. ",
+                    "data": {},
                     "marks": [],
-                    "data": {}
+                    "value": "See if the number of rent stabilized apartments in your building has changed. ",
+                    "nodeType": "text"
                   }
-                ]
+                ],
+                "nodeType": "paragraph"
               },
               {
-                "nodeType": "ordered-list",
                 "data": {},
                 "content": [
                   {
-                    "nodeType": "list-item",
                     "data": {},
                     "content": [
                       {
-                        "nodeType": "paragraph",
                         "data": {},
                         "content": [
                           {
-                            "nodeType": "text",
-                            "value": "If there is a decrease in rent stabilized units, there may be illegal deregulation of units, rent overcharges, or potential harassment of tenants occurring. Request your rent history via our ",
+                            "data": {},
                             "marks": [],
-                            "data": {}
+                            "value": "If there is a decrease in rent stabilized units, there may be illegal deregulation of units, rent overcharges, or potential harassment of tenants occurring. Request your rent history via our ",
+                            "nodeType": "text"
                           },
                           {
-                            "nodeType": "hyperlink",
                             "data": {
                               "uri": "https://app.justfix.nyc/rh/splash?utm_source=who_owns_what"
                             },
                             "content": [
                               {
-                                "nodeType": "text",
-                                "value": "Online Form",
+                                "data": {},
                                 "marks": [
                                   {
                                     "type": "underline"
                                   }
                                 ],
-                                "data": {}
+                                "value": "Online Form",
+                                "nodeType": "text"
                               }
-                            ]
+                            ],
+                            "nodeType": "hyperlink"
                           },
                           {
-                            "nodeType": "text",
-                            "value": " or by texting “RENT HISTORY” to (646) 783-0627 to find out more. ",
+                            "data": {},
                             "marks": [],
-                            "data": {}
+                            "value": " or by texting “RENT HISTORY” to (646) 783-0627 to find out more. ",
+                            "nodeType": "text"
                           }
-                        ]
+                        ],
+                        "nodeType": "paragraph"
                       }
-                    ]
+                    ],
+                    "nodeType": "list-item"
                   }
-                ]
+                ],
+                "nodeType": "ordered-list"
               }
-            ]
+            ],
+            "nodeType": "list-item"
           }
-        ]
+        ],
+        "nodeType": "ordered-list"
       },
       {
-        "nodeType": "paragraph",
         "data": {},
         "content": [
           {
-            "nodeType": "text",
-            "value": "",
+            "data": {},
             "marks": [],
-            "data": {}
-          }
-        ]
-      },
-      {
-        "nodeType": "paragraph",
-        "data": {},
-        "content": [
-          {
-            "nodeType": "text",
             "value": "",
-            "marks": [],
-            "data": {}
+            "nodeType": "text"
           }
-        ]
+        ],
+        "nodeType": "paragraph"
       },
       {
-        "nodeType": "heading-5",
         "data": {},
         "content": [
           {
-            "nodeType": "text",
+            "data": {},
+            "marks": [],
+            "value": "",
+            "nodeType": "text"
+          }
+        ],
+        "nodeType": "paragraph"
+      },
+      {
+        "data": {},
+        "content": [
+          {
+            "data": {},
+            "marks": [],
             "value": "See who else your landlord or property manager may be harming— and determine if it’s possible to build a tenant association (TA). ",
-            "marks": [],
-            "data": {}
+            "nodeType": "text"
           }
-        ]
+        ],
+        "nodeType": "heading-5"
       },
       {
-        "nodeType": "embedded-asset-block",
         "data": {
           "target": {
             "metadata": {
@@ -359,112 +357,154 @@
             }
           }
         },
-        "content": []
+        "content": [],
+        "nodeType": "embedded-asset-block"
       },
       {
-        "nodeType": "ordered-list",
         "data": {},
         "content": [
           {
-            "nodeType": "list-item",
             "data": {},
             "content": [
               {
-                "nodeType": "paragraph",
                 "data": {},
                 "content": [
                   {
-                    "nodeType": "text",
-                    "value": "Check the “Complaint History” list in the “HPD Building Profile” for full details on the issues and to see which one of your neighbors is constantly calling 311 with complaints. If you have their contact info, send them their building profile via Facebook, Twitter, email, or text by using the share buttons, or give them an immediate list of actions to take by sharing the “",
+                    "data": {},
                     "marks": [],
-                    "data": {}
+                    "value": "Check the “Complaint History” list in the “HPD Building Profile” for full details on the issues and to see which one of your neighbors is constantly calling 311 with complaints. If you have their contact info, send them their building profile via Facebook, Twitter, email, or text by using the share buttons, or give them an immediate list of actions to take by sharing the “",
+                    "nodeType": "text"
                   },
                   {
-                    "nodeType": "hyperlink",
                     "data": {
                       "uri": "https://www.justfix.nyc"
                     },
                     "content": [
                       {
-                        "nodeType": "text",
-                        "value": "Take Action on JustFix.nyc",
+                        "data": {},
                         "marks": [
                           {
                             "type": "underline"
                           }
                         ],
-                        "data": {}
+                        "value": "Take Action on JustFix.nyc",
+                        "nodeType": "text"
                       }
-                    ]
+                    ],
+                    "nodeType": "hyperlink"
                   },
                   {
-                    "nodeType": "text",
-                    "value": "” page on the “Overview” tab.",
+                    "data": {},
                     "marks": [],
-                    "data": {}
+                    "value": "” page on the “Overview” tab.",
+                    "nodeType": "text"
                   }
-                ]
+                ],
+                "nodeType": "paragraph"
               }
-            ]
+            ],
+            "nodeType": "list-item"
           },
           {
-            "nodeType": "list-item",
             "data": {},
             "content": [
               {
-                "nodeType": "paragraph",
                 "data": {},
                 "content": [
                   {
-                    "nodeType": "text",
-                    "value": "Use the “Portfolio” tab to see information about other buildings that are associated with your address due to similar management. If other buildings in your landlord’s portfolio also have issues, you may be able to connect with even more tenants like you to build a TA across multiple buildings, and take action together!",
+                    "data": {},
                     "marks": [],
-                    "data": {}
+                    "value": "If you see that the issues in your building have gone unresolved for too long, you and your neighbors may have grounds to start an HP (Housing Part) Action. Consider making time in your first TA meeting to walk through our free HP Action tool so that you can generate the paperwork to ",
+                    "nodeType": "text"
+                  },
+                  {
+                    "data": {
+                      "uri": "https://app.justfix.nyc/ehp"
+                    },
+                    "content": [
+                      {
+                        "data": {},
+                        "marks": [
+                          {
+                            "type": "underline"
+                          }
+                        ],
+                        "value": "sue your landlord for repairs",
+                        "nodeType": "text"
+                      }
+                    ],
+                    "nodeType": "hyperlink"
+                  },
+                  {
+                    "data": {},
+                    "marks": [],
+                    "value": " and/or harassment as a collective. ",
+                    "nodeType": "text"
                   }
-                ]
+                ],
+                "nodeType": "paragraph"
               }
-            ]
+            ],
+            "nodeType": "list-item"
+          },
+          {
+            "data": {},
+            "content": [
+              {
+                "data": {},
+                "content": [
+                  {
+                    "data": {},
+                    "marks": [],
+                    "value": "Use the “Portfolio” tab to see information about other buildings that are associated with your address due to similar management. If other buildings in your landlord’s portfolio also have issues, you may be able to connect with even more tenants like you to build a TA across multiple buildings, and take action together!",
+                    "nodeType": "text"
+                  }
+                ],
+                "nodeType": "paragraph"
+              }
+            ],
+            "nodeType": "list-item"
           }
-        ]
+        ],
+        "nodeType": "ordered-list"
       },
       {
-        "nodeType": "paragraph",
         "data": {},
         "content": [
           {
-            "nodeType": "text",
-            "value": "",
+            "data": {},
             "marks": [],
-            "data": {}
-          }
-        ]
-      },
-      {
-        "nodeType": "paragraph",
-        "data": {},
-        "content": [
-          {
-            "nodeType": "text",
             "value": "",
-            "marks": [],
-            "data": {}
+            "nodeType": "text"
           }
-        ]
+        ],
+        "nodeType": "paragraph"
       },
       {
-        "nodeType": "heading-5",
         "data": {},
         "content": [
           {
-            "nodeType": "text",
+            "data": {},
+            "marks": [],
+            "value": "",
+            "nodeType": "text"
+          }
+        ],
+        "nodeType": "paragraph"
+      },
+      {
+        "data": {},
+        "content": [
+          {
+            "data": {},
+            "marks": [],
             "value": "Scout out a new building before you move in.",
-            "marks": [],
-            "data": {}
+            "nodeType": "text"
           }
-        ]
+        ],
+        "nodeType": "heading-5"
       },
       {
-        "nodeType": "embedded-asset-block",
         "data": {
           "target": {
             "metadata": {
@@ -510,370 +550,384 @@
             }
           }
         },
-        "content": []
+        "content": [],
+        "nodeType": "embedded-asset-block"
       },
       {
-        "nodeType": "ordered-list",
         "data": {},
         "content": [
           {
-            "nodeType": "list-item",
             "data": {},
             "content": [
               {
-                "nodeType": "paragraph",
                 "data": {},
                 "content": [
                   {
-                    "nodeType": "text",
-                    "value": "See who you’ll be dealing with: Due to the ways that real estate companies disguise themselves, it can be difficult to know who’s ",
+                    "data": {},
                     "marks": [],
-                    "data": {}
+                    "value": "See who you’ll be dealing with: Due to the ways that real estate companies disguise themselves, it can be difficult to know who’s ",
+                    "nodeType": "text"
                   },
                   {
-                    "nodeType": "text",
-                    "value": "really ",
+                    "data": {},
                     "marks": [
                       {
                         "type": "italic"
                       }
                     ],
-                    "data": {}
+                    "value": "really ",
+                    "nodeType": "text"
                   },
                   {
-                    "nodeType": "text",
-                    "value": "involved with your property. Take note of the business addresses and names that come up on the profile of your prospective building. Googling them can provide helpful insight on what their reputation is like. ",
+                    "data": {},
                     "marks": [],
-                    "data": {}
+                    "value": "involved with your property. Take note of the business addresses and names that come up on the profile of your prospective building. Googling them can provide helpful insight on what their reputation is like. ",
+                    "nodeType": "text"
                   }
-                ]
-              }
-            ]
-          },
-          {
-            "nodeType": "list-item",
-            "data": {},
-            "content": [
+                ],
+                "nodeType": "paragraph"
+              },
               {
-                "nodeType": "paragraph",
                 "data": {},
                 "content": [
                   {
-                    "nodeType": "text",
-                    "value": "Keep an eye on what kinds of problems others have had, and how long it has taken for them to get resolved. The data on Who Owns What gets updated every day.",
+                    "data": {},
                     "marks": [],
-                    "data": {}
+                    "value": "",
+                    "nodeType": "text"
                   }
-                ]
+                ],
+                "nodeType": "paragraph"
               }
-            ]
+            ],
+            "nodeType": "list-item"
+          },
+          {
+            "data": {},
+            "content": [
+              {
+                "data": {},
+                "content": [
+                  {
+                    "data": {},
+                    "marks": [],
+                    "value": "Keep an eye on what kinds of problems others have had, and how long it has taken for them to get resolved. The data on Who Owns What gets updated every day.",
+                    "nodeType": "text"
+                  }
+                ],
+                "nodeType": "paragraph"
+              }
+            ],
+            "nodeType": "list-item"
           }
-        ]
+        ],
+        "nodeType": "ordered-list"
       },
       {
-        "nodeType": "paragraph",
         "data": {},
         "content": [
           {
-            "nodeType": "text",
-            "value": "",
+            "data": {},
             "marks": [],
-            "data": {}
-          }
-        ]
-      },
-      {
-        "nodeType": "paragraph",
-        "data": {},
-        "content": [
-          {
-            "nodeType": "text",
             "value": "",
-            "marks": [],
-            "data": {}
+            "nodeType": "text"
           }
-        ]
+        ],
+        "nodeType": "paragraph"
       },
       {
-        "nodeType": "paragraph",
         "data": {},
         "content": [
           {
-            "nodeType": "text",
+            "data": {},
+            "marks": [],
             "value": "",
-            "marks": [],
-            "data": {}
+            "nodeType": "text"
           }
-        ]
+        ],
+        "nodeType": "paragraph"
       },
       {
-        "nodeType": "paragraph",
         "data": {},
         "content": [
           {
-            "nodeType": "text",
+            "data": {},
+            "marks": [],
             "value": "",
-            "marks": [],
-            "data": {}
+            "nodeType": "text"
           }
-        ]
+        ],
+        "nodeType": "paragraph"
       },
       {
-        "nodeType": "paragraph",
         "data": {},
         "content": [
           {
-            "nodeType": "text",
+            "data": {},
+            "marks": [],
             "value": "",
-            "marks": [],
-            "data": {}
+            "nodeType": "text"
           }
-        ]
+        ],
+        "nodeType": "paragraph"
       },
       {
-        "nodeType": "paragraph",
         "data": {},
         "content": [
           {
-            "nodeType": "text",
+            "data": {},
+            "marks": [],
             "value": "",
-            "marks": [],
-            "data": {}
+            "nodeType": "text"
           }
-        ]
+        ],
+        "nodeType": "paragraph"
       },
       {
-        "nodeType": "heading-4",
         "data": {},
         "content": [
           {
-            "nodeType": "text",
+            "data": {},
+            "marks": [],
+            "value": "",
+            "nodeType": "text"
+          }
+        ],
+        "nodeType": "paragraph"
+      },
+      {
+        "data": {},
+        "content": [
+          {
+            "data": {},
+            "marks": [],
             "value": "A few more helpful tips and terms:",
-            "marks": [],
-            "data": {}
+            "nodeType": "text"
           }
-        ]
+        ],
+        "nodeType": "heading-4"
       },
       {
-        "nodeType": "paragraph",
         "data": {},
         "content": [
           {
-            "nodeType": "text",
-            "value": "Building Registration",
+            "data": {},
             "marks": [
               {
                 "type": "bold"
               }
             ],
-            "data": {}
+            "value": "Building Registration",
+            "nodeType": "text"
           },
           {
-            "nodeType": "text",
-            "value": " - If your building has more than two units or your landlord (or immediate family) doesn’t live there, your landlord has a duty to register their building. If their registration has lapsed, they can get fined, and may be trying to illegally raise your rent. Report the lack of building registration using our free ",
+            "data": {},
             "marks": [],
-            "data": {}
+            "value": " - If your building has more than two units or your landlord (or immediate family) doesn’t live there, your landlord has a duty to register their building. If their registration has lapsed, they can get fined, and may be trying to illegally raise your rent. Report the lack of building registration using our free ",
+            "nodeType": "text"
           },
           {
-            "nodeType": "hyperlink",
             "data": {
               "uri": "https://app.justfix.nyc/loc/splash"
             },
             "content": [
               {
-                "nodeType": "text",
-                "value": "Letter of Complaint tool",
+                "data": {},
                 "marks": [
                   {
                     "type": "underline"
                   }
                 ],
-                "data": {}
+                "value": "Letter of Complaint tool",
+                "nodeType": "text"
               }
-            ]
+            ],
+            "nodeType": "hyperlink"
           },
           {
-            "nodeType": "text",
-            "value": ", and while you're at it, request your rent history via our ",
+            "data": {},
             "marks": [],
-            "data": {}
+            "value": ", and while you're at it, request your rent history via our ",
+            "nodeType": "text"
           },
           {
-            "nodeType": "hyperlink",
             "data": {
               "uri": "https://app.justfix.nyc/rh/splash?utm_source=who_owns_what"
             },
             "content": [
               {
-                "nodeType": "text",
-                "value": "Online Form",
+                "data": {},
                 "marks": [
                   {
                     "type": "underline"
                   }
                 ],
-                "data": {}
+                "value": "Online Form",
+                "nodeType": "text"
               }
-            ]
+            ],
+            "nodeType": "hyperlink"
           },
           {
-            "nodeType": "text",
+            "data": {},
+            "marks": [],
             "value": " or by texting “RENT HISTORY” to (646) 783-0627, to check if your apartment is rent stabilized and/or if you’re being overcharged.",
-            "marks": [],
-            "data": {}
+            "nodeType": "text"
           }
-        ]
+        ],
+        "nodeType": "paragraph"
       },
       {
-        "nodeType": "paragraph",
         "data": {},
         "content": [
           {
-            "nodeType": "text",
+            "data": {},
+            "marks": [
+              {
+                "type": "bold"
+              }
+            ],
             "value": "“How Is This Building Associated?”",
-            "marks": [
-              {
-                "type": "bold"
-              }
-            ],
-            "data": {}
+            "nodeType": "text"
           },
           {
-            "nodeType": "text",
+            "data": {},
+            "marks": [],
             "value": " Clicking this link when exploring a portfolio will let you compare the owner names and addresses that two buildings have in common.",
-            "marks": [],
-            "data": {}
+            "nodeType": "text"
           }
-        ]
+        ],
+        "nodeType": "paragraph"
       },
       {
-        "nodeType": "paragraph",
         "data": {},
         "content": [
           {
-            "nodeType": "text",
+            "data": {},
+            "marks": [
+              {
+                "type": "bold"
+              }
+            ],
             "value": "Δ Rent Stabilized Units:",
-            "marks": [
-              {
-                "type": "bold"
-              }
-            ],
-            "data": {}
+            "nodeType": "text"
           },
           {
-            "nodeType": "text",
+            "data": {},
+            "marks": [],
             "value": " Rent stabilized units are apartments that require the landlord to provide a 1 or 2 year lease, and where the rent increase is controlled annually by the Rent Guidelines Board. If the number of rent stabilized units on the right is smaller than the number on the left and appears in red, it means that units have lost their rent stabilized status (have been deregulated), and may mean that the landlord is attempting to push out rent-stabilized tenants.",
-            "marks": [],
-            "data": {}
+            "nodeType": "text"
           }
-        ]
+        ],
+        "nodeType": "paragraph"
       },
       {
-        "nodeType": "paragraph",
         "data": {},
         "content": [
           {
-            "nodeType": "text",
-            "value": "Open Violations, Total Violations, HPD, and 311: ",
+            "data": {},
             "marks": [
               {
                 "type": "bold"
               }
             ],
-            "data": {}
+            "value": "Open Violations, Total Violations, HPD, and 311: ",
+            "nodeType": "text"
           }
-        ]
+        ],
+        "nodeType": "paragraph"
       },
       {
-        "nodeType": "unordered-list",
         "data": {},
         "content": [
           {
-            "nodeType": "list-item",
             "data": {},
             "content": [
               {
-                "nodeType": "paragraph",
                 "data": {},
                 "content": [
                   {
-                    "nodeType": "text",
+                    "data": {},
+                    "marks": [],
                     "value": "Building complaints are reported to Housing Preservation and Development (HPD) by calling 311. ",
-                    "marks": [],
-                    "data": {}
+                    "nodeType": "text"
                   }
-                ]
+                ],
+                "nodeType": "paragraph"
               }
-            ]
+            ],
+            "nodeType": "list-item"
           },
           {
-            "nodeType": "list-item",
             "data": {},
             "content": [
               {
-                "nodeType": "paragraph",
                 "data": {},
                 "content": [
                   {
-                    "nodeType": "text",
+                    "data": {},
+                    "marks": [],
                     "value": "Then, HPD sends an inspector to the building to check things out. ",
-                    "marks": [],
-                    "data": {}
+                    "nodeType": "text"
                   }
-                ]
+                ],
+                "nodeType": "paragraph"
               }
-            ]
+            ],
+            "nodeType": "list-item"
           },
           {
-            "nodeType": "list-item",
             "data": {},
             "content": [
               {
-                "nodeType": "paragraph",
                 "data": {},
                 "content": [
                   {
-                    "nodeType": "text",
+                    "data": {},
+                    "marks": [],
                     "value": "Anything the inspector notices is wrong then becomes an “Open Violation” until steps are taken to fix it. ",
-                    "marks": [],
-                    "data": {}
+                    "nodeType": "text"
                   }
-                ]
+                ],
+                "nodeType": "paragraph"
               }
-            ]
+            ],
+            "nodeType": "list-item"
           },
           {
-            "nodeType": "list-item",
             "data": {},
             "content": [
               {
-                "nodeType": "paragraph",
                 "data": {},
                 "content": [
                   {
-                    "nodeType": "text",
-                    "value": "“Total Violations” is a historical count of all Open and Closed Violations. ",
+                    "data": {},
                     "marks": [],
-                    "data": {}
+                    "value": "“Total Violations” is a historical count of all Open and Closed Violations. ",
+                    "nodeType": "text"
                   }
-                ]
+                ],
+                "nodeType": "paragraph"
               }
-            ]
+            ],
+            "nodeType": "list-item"
           }
-        ]
+        ],
+        "nodeType": "unordered-list"
       },
       {
-        "nodeType": "paragraph",
         "data": {},
         "content": [
           {
-            "nodeType": "text",
-            "value": "",
+            "data": {},
             "marks": [],
-            "data": {}
+            "value": "",
+            "nodeType": "text"
           }
-        ]
+        ],
+        "nodeType": "paragraph"
       }
-    ]
+    ],
+    "nodeType": "document"
   }
 }
