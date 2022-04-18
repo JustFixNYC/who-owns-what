@@ -98,21 +98,22 @@ class NotRegisteredPageWithoutI18n extends Component<Props, State> {
     if (buildingInfo.unitsres === 0) {
       buildingTypeMessageText = (
         <Trans>
-          This property doesn't have any residential units, so it is not required to register with
-          HPD.
+          <b>This property is not required to register with HPD</b> because it doesn't have any
+          residential units.
         </Trans>
       );
     } else if (buildingInfo.unitsres < 3) {
       buildingTypeMessageText = (
         <Trans>
-          This property has fewer than 3 residential units. If the landlord doesn't reside there, it
-          should be registered with HPD.
+          <b>If the landlord doesn't reside here, this property should be registered with HPD</b>{" "}
+          because it has fewer than 3 residential units.
         </Trans>
       );
     } else if (buildingInfo.unitsres >= 3) {
       buildingTypeMessageText = (
         <Trans>
-          This property has more than 2 residential units, so it should be registered with HPD.
+          <b>This property should be registered with HPD</b> because it has more than 2 residential
+          units.
         </Trans>
       );
     }
@@ -147,10 +148,7 @@ class NotRegisteredPageWithoutI18n extends Component<Props, State> {
             <b>
               <Trans>Registration expired:</Trans>
             </b>{" "}
-            <span className="text-danger">
-              {" "}
-              <Trans>{formattedRegEndDate}</Trans>
-            </span>
+            <span className="text-danger"> {formattedRegEndDate}</span>
           </p>
         )}
       </div>
@@ -184,12 +182,10 @@ class NotRegisteredPageWithoutI18n extends Component<Props, State> {
               )}
               {registrationMissingOrExpired && (
                 <div>
-                  <h6 className="mt-10 text-center text-bold text-large">
-                    <p className="text-center">{buildingTypeMessageText}</p>
-                  </h6>
+                  <p className="text-center">{buildingTypeMessageText}</p>
                 </div>
               )}
-              {buildingInfo.unitsres > 0 && registrationMissingOrExpired && (
+              {registrationMissingOrExpired && buildingInfo.unitsres > 0 && (
                 <>
                   {lastRegisteredDates}
                   {failedToRegisterLink}

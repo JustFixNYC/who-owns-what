@@ -31,7 +31,7 @@ msgid "(as part of a group sale)"
 msgstr "(como parte de una venta en grupo)"
 
 #: src/components/DetailView.tsx:223
-#: src/containers/NotRegisteredPage.tsx:93
+#: src/containers/NotRegisteredPage.tsx:94
 msgid "(expired {formattedRegEndDate})"
 msgstr "(caducado {formattedRegEndDate})"
 
@@ -58,6 +58,18 @@ msgstr "... o descubre ejemplos de portafolios de edificios:"
 #: src/components/FeatureCalloutContent.ts:8
 msgid "311 Complaints Data"
 msgstr "Datos de quejas al 311"
+
+#: src/containers/NotRegisteredPage.tsx:73
+msgid "<0>If the landlord doesn't reside here, this property should be registered with HPD</0> because it has fewer than 3 residential units."
+msgstr ""
+
+#: src/containers/NotRegisteredPage.tsx:67
+msgid "<0>This property is not required to register with HPD</0> because it doesn't have any residential units."
+msgstr ""
+
+#: src/containers/NotRegisteredPage.tsx:79
+msgid "<0>This property should be registered with HPD</0> because it has more than 2 residential units."
+msgstr ""
 
 #: src/components/DetailView.tsx:59
 msgid "<0>While the legal owner of a building is often a company (usually called an “LLC”), these names and business addresses registered with HPD offer a clearer picture of who really controls the building.</0><1>People listed here as “Head Officer” or “Owner” usually have ties to building ownership, while “Site Managers” are part of management. That being said, these names are self reported by the landlord, so they can be misleading.</1><2>Learn more about HPD registrations and how this information powers this tool on the <3>About page</3>.</2>"
@@ -158,7 +170,7 @@ msgstr "Permisos de Construcción Solicitados"
 msgid "Building info"
 msgstr "Información de edificios"
 
-#: src/containers/NotRegisteredPage.tsx:157
+#: src/containers/NotRegisteredPage.tsx:153
 msgid "Buildings without valid property registration are subject to the following:"
 msgstr "Edificios sin registro de propiedad válido están sujetos a las siguientes obligaciones:"
 
@@ -169,7 +181,7 @@ msgstr "Construido"
 
 #: src/components/DetailView.tsx:313
 #: src/components/DetailView.tsx:322
-#: src/components/PortfolioGraph.tsx:107
+#: src/components/PortfolioGraph.tsx:110
 msgid "Business Addresses"
 msgstr "Dirección Comercial"
 
@@ -198,7 +210,7 @@ msgstr "GAS DE COCINA"
 msgid "Check out the issues in this building"
 msgstr "Mira los problemas en este edificio"
 
-#: src/containers/NotRegisteredPage.tsx:161
+#: src/containers/NotRegisteredPage.tsx:157
 msgid "Civil penalties of $250-$500"
 msgstr "Sanciones civiles de $250-$500"
 
@@ -222,7 +234,7 @@ msgstr "Clase I"
 msgid "Clearer Landlord Contact Info"
 msgstr "Información de contacto del dueño más clara"
 
-#: src/containers/NotRegisteredPage.tsx:170
+#: src/containers/NotRegisteredPage.tsx:166
 msgid "Click here to learn more."
 msgstr "HaZ clic aquí para obtener más información."
 
@@ -358,7 +370,7 @@ msgstr "PISO"
 msgid "FLOORING/STAIRS"
 msgstr "PISO/ESCALERAS"
 
-#: src/containers/NotRegisteredPage.tsx:156
+#: src/containers/NotRegisteredPage.tsx:152
 msgid "Failure to register a building with HPD"
 msgstr "Si no se registra un edificio con el HPD"
 
@@ -442,7 +454,7 @@ msgstr ""
 msgid "Individual Owner"
 msgstr "Dueño Individual"
 
-#: src/containers/NotRegisteredPage.tsx:163
+#: src/containers/NotRegisteredPage.tsx:159
 msgid "Ineligible to certify violations"
 msgstr "Inelegible para certificar violaciones"
 
@@ -496,7 +508,7 @@ msgid "Last Sale Unknown"
 msgstr "Última venta desconocida"
 
 #: src/components/DetailView.tsx:218
-#: src/containers/NotRegisteredPage.tsx:88
+#: src/containers/NotRegisteredPage.tsx:89
 msgid "Last registered:"
 msgstr "Registrado por última vez:"
 
@@ -504,7 +516,7 @@ msgstr "Registrado por última vez:"
 msgid "Last sold:"
 msgstr "Vendido por última vez:"
 
-#: src/components/BigPortfolioWarning.tsx:23
+#: src/components/BigPortfolioWarning.tsx:22
 #: src/components/DetailView.tsx:57
 msgid "Learn more"
 msgstr "Aprende más"
@@ -557,7 +569,7 @@ msgstr "Hecho en NYC con ♥ por el equipo de <0>JustFix.nyc</0>"
 msgid "Maintenance code violations"
 msgstr "Violaciones del código de mantenimiento"
 
-#: src/containers/NotRegisteredPage.tsx:162
+#: src/containers/NotRegisteredPage.tsx:158
 msgid "May be issued official Orders"
 msgstr "Pueden emitirse órdenes oficiales"
 
@@ -700,7 +712,7 @@ msgstr "Violaciones Actuales"
 msgid "Overview"
 msgstr "General"
 
-#: src/components/PortfolioGraph.tsx:102
+#: src/components/PortfolioGraph.tsx:105
 msgid "Owner Names"
 msgstr "Dueños"
 
@@ -759,7 +771,7 @@ msgstr "Complejo de Vivienda Pública"
 msgid "RS Units"
 msgstr "Unidades RS"
 
-#: src/containers/NotRegisteredPage.tsx:97
+#: src/containers/NotRegisteredPage.tsx:98
 msgid "Registration expired:"
 msgstr ""
 
@@ -767,7 +779,7 @@ msgstr ""
 msgid "Rent stabilization"
 msgstr "Renta estabilizada"
 
-#: src/components/PortfolioGraph.tsx:125
+#: src/components/PortfolioGraph.tsx:128
 msgid "Reset diagram"
 msgstr "Restablecer diagrama"
 
@@ -799,7 +811,7 @@ msgstr "Busca por el nombre de tu dueño"
 msgid "Search by:"
 msgstr "Buscar por:"
 
-#: src/containers/NotRegisteredPage.tsx:152
+#: src/containers/NotRegisteredPage.tsx:148
 #: src/containers/NychaPage.tsx:190
 msgid "Search for a different address"
 msgstr "Buscar otra dirección"
@@ -862,7 +874,7 @@ msgstr "Administrador del Sitio"
 msgid "Sold to Current Owner"
 msgstr "Vendido al Propietario Actual"
 
-#: src/components/BigPortfolioWarning.tsx:38
+#: src/components/BigPortfolioWarning.tsx:37
 msgid "Some large corporations, however, are a bit more complicated and may share personnel and financial stake with other related companies, which all will show up on Who Owns What as one large portfolio."
 msgstr ""
 
@@ -956,7 +968,7 @@ msgstr "El número de unidades residenciales en todos los edificios de este comp
 msgid "The number of residential units in this building, according to the Dept. of City Planning."
 msgstr "El número de unidades residenciales en este edificio, según el Departamento de Planificación de la Ciudad."
 
-#: src/containers/NotRegisteredPage.tsx:116
+#: src/containers/NotRegisteredPage.tsx:114
 msgid "The registration for this property is missing details for owner name or businesses address, which are required to link the property to a portfolio."
 msgstr ""
 
@@ -1012,22 +1024,6 @@ msgstr "Este portafolio de edificios tuvo una <0>{changeType, select, gain {gana
 msgid "This portfolio has an average of <0>{0}</0> open HPD violations per residential unit."
 msgstr "Esta cartera de edificios tiene un promedio de <0>{0}</0> infracciones del HPD Actuales por cada unidad residencial."
 
-#: src/components/BigPortfolioWarning.tsx:21
-msgid "This portfolio may consist of several related companies. <0>Learn more</0>"
-msgstr ""
-
-#: src/containers/NotRegisteredPage.tsx:67
-msgid "This property doesn't have any residential units, so it is not required to register with HPD."
-msgstr ""
-
-#: src/containers/NotRegisteredPage.tsx:73
-msgid "This property has fewer than 3 residential units. If the landlord doesn't reside there, it should be registered with HPD."
-msgstr ""
-
-#: src/containers/NotRegisteredPage.tsx:79
-msgid "This property has more than 2 residential units, so it should be registered with HPD."
-msgstr ""
-
 #: src/containers/HomePage.tsx:131
 msgid "This property management company owned by the Kushner family is notorious for <0>violating rent regulations</0> and <1>harassing tenants</1>. The stake currently held by Jared Kushner and Ivanka Trump is worth as much as $761 million."
 msgstr "Esta empresa de gestión inmobiliaria es propiedad de la familia Kushner y es notoria por <0>violar las normas de vivienda</0> y por <1>comportamientos abusivos</1>. La participación financiera actualmente sostenida por Jared Kushner e Ivanka Trump asciende a 761 millones de dólares."
@@ -1069,11 +1065,11 @@ msgstr "Total"
 msgid "Total Violations"
 msgstr "Violaciones Totales"
 
-#: src/containers/NotRegisteredPage.tsx:165
+#: src/containers/NotRegisteredPage.tsx:161
 msgid "Unable to initiate a court action for nonpayment of rent."
 msgstr "No es possible iniciar una acción judicial por falta de pago del alquiler."
 
-#: src/containers/NotRegisteredPage.tsx:164
+#: src/containers/NotRegisteredPage.tsx:160
 msgid "Unable to request Code Violation Dismissals"
 msgstr "Imposible solicitar el despido de una Infracción del Código de Vivienda"
 
@@ -1159,7 +1155,7 @@ msgstr "PROTECTORES DE VENTANA"
 msgid "WINDOWS"
 msgstr "VENTANAS"
 
-#: src/components/BigPortfolioWarning.tsx:19
+#: src/components/BigPortfolioWarning.tsx:18
 msgid "Warning"
 msgstr "Aviso"
 
@@ -1179,7 +1175,7 @@ msgstr "Revisamos la pestaña Portafolio para ayudarle navegar por esta gran tab
 msgid "We reorganized the contact details for each individual and corporate entities associated with a property on the Overview tab."
 msgstr "Reorganizamos los datos de contacto de cada entidad individual y corporativa asociada con una propiedad en la pestaña General."
 
-#: src/components/BigPortfolioWarning.tsx:48
+#: src/components/BigPortfolioWarning.tsx:47
 msgid "We’ve been making improvements to Who Owns What to dig deeper and find a more complete picture of your landlord's network. <0>Read more on our Methodology page</0>"
 msgstr ""
 
@@ -1187,7 +1183,7 @@ msgstr ""
 msgid "What are {0}?"
 msgstr "¿Qué son {0}?"
 
-#: src/containers/NotRegisteredPage.tsx:107
+#: src/containers/NotRegisteredPage.tsx:105
 msgid "What happens if the landlord has failed to register?"
 msgstr "¿Qué pasa si el propietario no ha registrado el edificio?"
 
@@ -1196,7 +1192,7 @@ msgstr "¿Qué pasa si el propietario no ha registrado el edificio?"
 msgid "What's New"
 msgstr "Qué hay de nuevo"
 
-#: src/components/BigPortfolioWarning.tsx:32
+#: src/components/BigPortfolioWarning.tsx:31
 msgid "When two parties share the same business address, we group them as part of the same portfolio."
 msgstr ""
 
@@ -1223,7 +1219,8 @@ msgstr "¿Quién es responsable por los problemas en tu apartamento y edificio? 
 msgid "Who’s the landlord of this building?"
 msgstr "¿Quién es el dueño de este edificio?"
 
-#: src/components/BigPortfolioWarning.tsx:29
+#: src/components/BigPortfolioWarning.tsx:20
+#: src/components/BigPortfolioWarning.tsx:28
 msgid "Why am I seeing such a big portfolio?"
 msgstr ""
 
@@ -1252,11 +1249,11 @@ msgstr "Estás viendo la versión anterior de Quién es el Dueño."
 msgid "Zipcode"
 msgstr "Código postal"
 
-#: src/components/PortfolioGraph.tsx:111
+#: src/components/PortfolioGraph.tsx:114
 msgid "Zoom in"
 msgstr "Aumentar"
 
-#: src/components/PortfolioGraph.tsx:118
+#: src/components/PortfolioGraph.tsx:121
 msgid "Zoom out"
 msgstr "Alejar"
 
@@ -1295,10 +1292,6 @@ msgstr "{0} de {numberOfEntries}"
 #: src/components/PropertiesSummary.tsx:92
 msgid "{0} {1}, {2} currently has {3, plural, one {one open HPD violation} other {# open HPD violations}} - the most in this portfolio."
 msgstr "{0} {1}, {2} tiene {3, plural, one {una violación del HPD actual} other {# violaciones del HPD actuales}} - la major cantidad en este portafolio de edificios."
-
-#: src/containers/NotRegisteredPage.tsx:101
-msgid "{formattedRegEndDate}"
-msgstr ""
 
 #: src/components/LandlordSearch.tsx:54
 msgid "{numberOfHits} {numberOfHits, plural, one {search result} other {search results}}."
