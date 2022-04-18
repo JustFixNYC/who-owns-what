@@ -8,6 +8,7 @@ import { withMachineInStateProps } from "state-machine";
 import helpers from "util/helpers";
 import { t, Trans } from "@lingui/macro";
 import { withI18n, withI18nProps } from "@lingui/react";
+import { I18n } from "@lingui/core";
 import browser from "util/browser";
 
 Cytoscape.use(fcose);
@@ -50,12 +51,16 @@ function createEdge(
 /**
  * Generates one node for the search BBL and one for the detail BBL to show on the portfolio graph.
  */
-function generateAdditionalNodes(searchAddr: AddressRecord, detailAddr?: AddressRecord) {
+function generateAdditionalNodes(
+  i18n: I18n,
+  searchAddr: AddressRecord,
+  detailAddr?: AddressRecord
+) {
   var additionalNodes = [];
   const searchBBLNode = createNode(
     "searchaddr",
     "searchaddr",
-    `OWNS ${searchAddr.housenumber}\n${searchAddr.streetname}`
+    i18n._(t`OWNS`) + ` ${searchAddr.housenumber}\n${searchAddr.streetname}`
   );
   additionalNodes.push(searchBBLNode);
 
@@ -63,7 +68,7 @@ function generateAdditionalNodes(searchAddr: AddressRecord, detailAddr?: Address
     const detailBBLNode = createNode(
       "detailaddr",
       "detailaddr",
-      `OWNS ${detailAddr.housenumber}\n${detailAddr.streetname}`
+      i18n._(t`OWNS`) + ` ${detailAddr.housenumber}\n${detailAddr.streetname}`
     );
     additionalNodes.push(detailBBLNode);
   }
@@ -139,7 +144,7 @@ const PortfolioGraphWithoutI18: React.FC<PortfolioGraphProps> = ({ graphJSON, st
   const distinctDetailAddr = !helpers.addrsAreEqual(searchAddr, detailAddr)
     ? detailAddr
     : undefined;
-  const additionalNodes = generateAdditionalNodes(searchAddr, distinctDetailAddr);
+  const additionalNodes = generateAdditionalNodes(i18n, searchAddr, distinctDetailAddr);
   const additionalEdges = generateAdditionalEdges(graphJSON.nodes, searchAddr, distinctDetailAddr);
 
   const isMobile = browser.isMobile();

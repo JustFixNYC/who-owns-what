@@ -662,6 +662,11 @@ msgstr "Not found"
 msgid "OUTSIDE BUILDING"
 msgstr "OUTSIDE BUILDING"
 
+#: src/components/PortfolioGraph.tsx:44
+#: src/components/PortfolioGraph.tsx:47
+msgid "OWNS"
+msgstr "OWNS"
+
 #: src/util/helpers.ts:68
 msgid "Officer"
 msgstr "Officer"
