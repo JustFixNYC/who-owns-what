@@ -62,14 +62,6 @@ class NotRegisteredPageWithoutI18n extends Component<Props, State> {
         }
       : null;
 
-    const failedToRegisterLink = (
-      <div className="text-center">
-        <button className="is-link" onClick={() => this.setState({ showModal: true })}>
-          <Trans>What happens if the landlord has failed to register?</Trans>
-        </button>
-      </div>
-    );
-
     const bblDash = (
       <span className="unselectable" unselectable="on">
         -
@@ -84,8 +76,46 @@ class NotRegisteredPageWithoutI18n extends Component<Props, State> {
     ) : null;
 
     const registrationMissingOrExpired =
-      buildingInfo.registrationenddate === "" ||
+      !buildingInfo.registrationenddate ||
       getTodaysDate() > new Date(buildingInfo.registrationenddate);
+
+    let registrationMessageText;
+
+    if (!usersInputAddress) {
+      registrationMessageText = <Trans>No registration found.</Trans>;
+    } else if (buildingInfo.registrationenddate) {
+      registrationMessageText = (
+        <Trans>Incomplete registration for {usersInputAddressFragment}.</Trans>
+      );
+    } else {
+      registrationMessageText = (
+        <Trans>No registration found for {usersInputAddressFragment}.</Trans>
+      );
+    }
+
+    let buildingTypeMessageText;
+
+    if (buildingInfo.unitsres === 0) {
+      buildingTypeMessageText = (
+        <Trans>
+          This property doesn't have any residential units, so it is not required to register with
+          HPD.
+        </Trans>
+      );
+    } else if (buildingInfo.unitsres < 3) {
+      buildingTypeMessageText = (
+        <Trans>
+          This property has fewer than 3 residential units. If the landlord doesn't reside there, it
+          should be registered with HPD.
+        </Trans>
+      );
+    } else if (buildingInfo.unitsres >= 3) {
+      buildingTypeMessageText = (
+        <Trans>
+          This property has more than 2 residential units, so it should be registered with HPD.
+        </Trans>
+      );
+    }
 
     const formattedLastRegDate = Helpers.formatDate(
       buildingInfo.lastregistrationdate,
@@ -99,73 +129,42 @@ class NotRegisteredPageWithoutI18n extends Component<Props, State> {
       locale
     );
 
-    const lastRegisteredCard = buildingInfo.lastregistrationdate ? (
+    const lastRegisteredDates = buildingInfo.registrationenddate ? (
       <div className="card-body-registration text-center">
-        <p>
-          <b>
-            <Trans>Last registered:</Trans>
-          </b>{" "}
-          {formattedLastRegDate}
-          <span className="text-danger">
-            {" "}
-            <Trans>(expired {formattedRegEndDate})</Trans>
-          </span>
-        </p>
+        {buildingInfo.lastregistrationdate ? (
+          <p>
+            <b>
+              <Trans>Last registered:</Trans>
+            </b>{" "}
+            {formattedLastRegDate}
+            <span className="text-danger">
+              {" "}
+              <Trans>(expired {formattedRegEndDate})</Trans>
+            </span>
+          </p>
+        ) : (
+          <p>
+            <b>
+              <Trans>Registration expired:</Trans>
+            </b>{" "}
+            <span className="text-danger">
+              {" "}
+              <Trans>{formattedRegEndDate}</Trans>
+            </span>
+          </p>
+        )}
       </div>
     ) : (
       <></>
     );
 
-    let registrationMessage;
-
-    if (!usersInputAddress) {
-      registrationMessage = <Trans>No registration found!</Trans>;
-    } else if (buildingInfo.lastregistrationdate) {
-      registrationMessage = <Trans>Incomplete registration for {usersInputAddressFragment}!</Trans>;
-    } else {
-      registrationMessage = <Trans>No registration found for {usersInputAddressFragment}!</Trans>;
-    }
-
-    let buildingTypeMessage;
-
-    if (buildingInfo.unitsres === 0) {
-      buildingTypeMessage = (
-        <h6 className="mt-10 text-center text-bold text-large">
-          <p className="text-center">
-            <Trans>
-              This property doesn't have any residential units, so it is not required to register
-              with HPD.
-            </Trans>
-          </p>
-        </h6>
-      );
-    } else if (buildingInfo.unitsres < 3) {
-      buildingTypeMessage = (
-        <div>
-          <h6 className="mt-10 text-center text-bold text-large">
-            <p className="text-center">
-              <Trans>
-                This property has fewer than 3 residential units. If the landlord doesn't reside
-                there, it should be registered with HPD.
-              </Trans>
-            </p>
-          </h6>
-        </div>
-      );
-    } else if (buildingInfo.unitsres >= 3) {
-      buildingTypeMessage = (
-        <div>
-          <h6 className="mt-10 text-center text-bold text-large">
-            <p className="text-center">
-              <Trans render="b">
-                This property has more than 2 residential units, so it should be registered with
-                HPD!
-              </Trans>
-            </p>
-          </h6>
-        </div>
-      );
-    }
+    const failedToRegisterLink = (
+      <div className="text-center">
+        <button className="is-link" onClick={() => this.setState({ showModal: true })}>
+          <Trans>What happens if the landlord has failed to register?</Trans>
+        </button>
+      </div>
+    );
 
     return (
       <Page
@@ -174,32 +173,27 @@ class NotRegisteredPageWithoutI18n extends Component<Props, State> {
         <div className="NotRegisteredPage Page">
           <div className="HomePage__content">
             <div className="HomePage__search">
-              <h5 className="mt-10 text-danger text-center text-bold text-large">
-                {registrationMessage}
-              </h5>
-              {buildingInfo.lastregistrationdate ? (
+              <h5 className="mt-10 text-center text-bold text-large">{registrationMessageText}</h5>
+              {buildingInfo.registrationenddate && (
                 <p className="text-center">
                   <Trans>
                     The registration for this property is missing details for owner name or
                     businesses address, which are required to link the property to a portfolio.
                   </Trans>
                 </p>
-              ) : (
-                <></>
               )}
-              {buildingInfo.unitsres > 0 && registrationMissingOrExpired ? (
+              {registrationMissingOrExpired && (
+                <div>
+                  <h6 className="mt-10 text-center text-bold text-large">
+                    <p className="text-center">{buildingTypeMessageText}</p>
+                  </h6>
+                </div>
+              )}
+              {buildingInfo.unitsres > 0 && registrationMissingOrExpired && (
                 <>
-                  {buildingTypeMessage}
-                  {lastRegisteredCard}
+                  {lastRegisteredDates}
                   {failedToRegisterLink}
                 </>
-              ) : (
-                <></>
-              )}
-              {buildingInfo.unitsres === 0 && registrationMissingOrExpired ? (
-                <>{buildingTypeMessage}</>
-              ) : (
-                <></>
               )}
               <div className="wrapper">
                 {buildingInfo && buildingInfo.latitude && buildingInfo.longitude && (

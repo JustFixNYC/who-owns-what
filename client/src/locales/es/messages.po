@@ -31,7 +31,7 @@ msgid "(as part of a group sale)"
 msgstr "(como parte de una venta en grupo)"
 
 #: src/components/DetailView.tsx:223
-#: src/containers/NotRegisteredPage.tsx:70
+#: src/containers/NotRegisteredPage.tsx:93
 msgid "(expired {formattedRegEndDate})"
 msgstr "(caducado {formattedRegEndDate})"
 
@@ -158,7 +158,7 @@ msgstr "Permisos de Construcción Solicitados"
 msgid "Building info"
 msgstr "Información de edificios"
 
-#: src/containers/NotRegisteredPage.tsx:165
+#: src/containers/NotRegisteredPage.tsx:157
 msgid "Buildings without valid property registration are subject to the following:"
 msgstr "Edificios sin registro de propiedad válido están sujetos a las siguientes obligaciones:"
 
@@ -198,7 +198,7 @@ msgstr "GAS DE COCINA"
 msgid "Check out the issues in this building"
 msgstr "Mira los problemas en este edificio"
 
-#: src/containers/NotRegisteredPage.tsx:169
+#: src/containers/NotRegisteredPage.tsx:161
 msgid "Civil penalties of $250-$500"
 msgstr "Sanciones civiles de $250-$500"
 
@@ -222,7 +222,7 @@ msgstr "Clase I"
 msgid "Clearer Landlord Contact Info"
 msgstr "Información de contacto del dueño más clara"
 
-#: src/containers/NotRegisteredPage.tsx:178
+#: src/containers/NotRegisteredPage.tsx:170
 msgid "Click here to learn more."
 msgstr "HaZ clic aquí para obtener más información."
 
@@ -358,7 +358,7 @@ msgstr "PISO"
 msgid "FLOORING/STAIRS"
 msgstr "PISO/ESCALERAS"
 
-#: src/containers/NotRegisteredPage.tsx:164
+#: src/containers/NotRegisteredPage.tsx:156
 msgid "Failure to register a building with HPD"
 msgstr "Si no se registra un edificio con el HPD"
 
@@ -434,15 +434,15 @@ msgstr "Usé #QuiénEsElDueño (construido por @JustFixNYC) para ver no solo las
 msgid "I was checking out this building on Who Owns What, a free landlord research tool from JustFix.nyc. It’s a remarkable website that every tenant and housing advocate should know about! Can you guess how many total violations this landlord portfolio has? Check it out here: {url}"
 msgstr "Estaba revisando este edificio en Quién Es El Dueño, una herramienta gratuita construida por JustFix.nyc. ¡Es un sitio web extraordinario que cada inquilino y defensor de viviendas debería saber sobre! ¿Puedes adivinar cuántas violaciones totales tiene este portafolio de este dueño? Míralo aquí: {url}"
 
-#: src/containers/NotRegisteredPage.tsx:79
-msgid "Incomplete registration for {usersInputAddressFragment}!"
+#: src/containers/NotRegisteredPage.tsx:60
+msgid "Incomplete registration for {usersInputAddressFragment}."
 msgstr ""
 
 #: src/util/helpers.ts:63
 msgid "Individual Owner"
 msgstr "Dueño Individual"
 
-#: src/containers/NotRegisteredPage.tsx:171
+#: src/containers/NotRegisteredPage.tsx:163
 msgid "Ineligible to certify violations"
 msgstr "Inelegible para certificar violaciones"
 
@@ -496,7 +496,7 @@ msgid "Last Sale Unknown"
 msgstr "Última venta desconocida"
 
 #: src/components/DetailView.tsx:218
-#: src/containers/NotRegisteredPage.tsx:65
+#: src/containers/NotRegisteredPage.tsx:88
 msgid "Last registered:"
 msgstr "Registrado por última vez:"
 
@@ -556,7 +556,7 @@ msgstr "Hecho en NYC con ♥ por el equipo de <0>JustFix.nyc</0>"
 msgid "Maintenance code violations"
 msgstr "Violaciones del código de mantenimiento"
 
-#: src/containers/NotRegisteredPage.tsx:170
+#: src/containers/NotRegisteredPage.tsx:162
 msgid "May be issued official Orders"
 msgstr "Pueden emitirse órdenes oficiales"
 
@@ -634,13 +634,13 @@ msgstr "No hay datos disponibles"
 msgid "No landlords match your search."
 msgstr "No hay nombres de dueños coincidan con su búsqueda."
 
-#: src/containers/NotRegisteredPage.tsx:82
-msgid "No registration found for {usersInputAddressFragment}!"
-msgstr "¡No se ha encontrado ningún registro para {usersInputAddressFragment}!"
+#: src/containers/NotRegisteredPage.tsx:63
+msgid "No registration found for {usersInputAddressFragment}."
+msgstr ""
 
-#: src/containers/NotRegisteredPage.tsx:76
-msgid "No registration found!"
-msgstr "¡No se ha encontrado nigún registro!"
+#: src/containers/NotRegisteredPage.tsx:57
+msgid "No registration found."
+msgstr ""
 
 #: src/components/IndicatorsViz.tsx:201
 msgid "Non-ECB"
@@ -753,6 +753,10 @@ msgstr "Complejo de Vivienda Pública"
 msgid "RS Units"
 msgstr "Unidades RS"
 
+#: src/containers/NotRegisteredPage.tsx:97
+msgid "Registration expired:"
+msgstr ""
+
 #: src/components/PropertiesSummary.tsx:125
 msgid "Rent stabilization"
 msgstr "Renta estabilizada"
@@ -789,7 +793,7 @@ msgstr "Busca por el nombre de tu dueño"
 msgid "Search by:"
 msgstr "Buscar por:"
 
-#: src/containers/NotRegisteredPage.tsx:160
+#: src/containers/NotRegisteredPage.tsx:152
 #: src/containers/NychaPage.tsx:190
 msgid "Search for a different address"
 msgstr "Buscar otra dirección"
@@ -946,7 +950,7 @@ msgstr "El número de unidades residenciales en todos los edificios de este comp
 msgid "The number of residential units in this building, according to the Dept. of City Planning."
 msgstr "El número de unidades residenciales en este edificio, según el Departamento de Planificación de la Ciudad."
 
-#: src/containers/NotRegisteredPage.tsx:127
+#: src/containers/NotRegisteredPage.tsx:116
 msgid "The registration for this property is missing details for owner name or businesses address, which are required to link the property to a portfolio."
 msgstr ""
 
@@ -1006,16 +1010,16 @@ msgstr "Esta cartera de edificios tiene un promedio de <0>{0}</0> infracciones d
 msgid "This portfolio may consist of several related companies. <0>Learn more</0>"
 msgstr ""
 
-#: src/containers/NotRegisteredPage.tsx:88
+#: src/containers/NotRegisteredPage.tsx:67
 msgid "This property doesn't have any residential units, so it is not required to register with HPD."
 msgstr ""
 
-#: src/containers/NotRegisteredPage.tsx:99
+#: src/containers/NotRegisteredPage.tsx:73
 msgid "This property has fewer than 3 residential units. If the landlord doesn't reside there, it should be registered with HPD."
 msgstr ""
 
-#: src/containers/NotRegisteredPage.tsx:111
-msgid "This property has more than 2 residential units, so it should be registered with HPD!"
+#: src/containers/NotRegisteredPage.tsx:79
+msgid "This property has more than 2 residential units, so it should be registered with HPD."
 msgstr ""
 
 #: src/containers/HomePage.tsx:131
@@ -1059,11 +1063,11 @@ msgstr "Total"
 msgid "Total Violations"
 msgstr "Violaciones Totales"
 
-#: src/containers/NotRegisteredPage.tsx:173
+#: src/containers/NotRegisteredPage.tsx:165
 msgid "Unable to initiate a court action for nonpayment of rent."
 msgstr "No es possible iniciar una acción judicial por falta de pago del alquiler."
 
-#: src/containers/NotRegisteredPage.tsx:172
+#: src/containers/NotRegisteredPage.tsx:164
 msgid "Unable to request Code Violation Dismissals"
 msgstr "Imposible solicitar el despido de una Infracción del Código de Vivienda"
 
@@ -1177,7 +1181,7 @@ msgstr ""
 msgid "What are {0}?"
 msgstr "¿Qué son {0}?"
 
-#: src/containers/NotRegisteredPage.tsx:48
+#: src/containers/NotRegisteredPage.tsx:107
 msgid "What happens if the landlord has failed to register?"
 msgstr "¿Qué pasa si el propietario no ha registrado el edificio?"
 
@@ -1285,6 +1289,10 @@ msgstr "{0} de {numberOfEntries}"
 #: src/components/PropertiesSummary.tsx:92
 msgid "{0} {1}, {2} currently has {3, plural, one {one open HPD violation} other {# open HPD violations}} - the most in this portfolio."
 msgstr "{0} {1}, {2} tiene {3, plural, one {una violación del HPD actual} other {# violaciones del HPD actuales}} - la major cantidad en este portafolio de edificios."
+
+#: src/containers/NotRegisteredPage.tsx:101
+msgid "{formattedRegEndDate}"
+msgstr ""
 
 #: src/components/LandlordSearch.tsx:54
 msgid "{numberOfHits} {numberOfHits, plural, one {search result} other {search results}}."
