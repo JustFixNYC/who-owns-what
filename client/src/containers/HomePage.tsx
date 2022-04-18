@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 
 import EngagementPanel from "../components/EngagementPanel";
 import LegalFooter from "../components/LegalFooter";
@@ -8,7 +8,7 @@ import "styles/HomePage.css";
 import { LocaleLink as Link } from "../i18n";
 import westminsterLogo from "../assets/img/westminster.svg";
 import allyearLogo from "../assets/img/allyear.png";
-import aeLogo from "../assets/img/aande.jpeg";
+import aeLogo from "../assets/img/aande.svg";
 import AddressSearch, { SearchAddress } from "../components/AddressSearch";
 import { Trans } from "@lingui/macro";
 import Page from "../components/Page";
@@ -21,7 +21,6 @@ import { documentToReactComponents } from "@contentful/rich-text-react-renderer"
 import { ContentfulCommonStrings } from "@justfixnyc/contentful-common-strings";
 import _commonStrings from "../data/common-strings.json";
 import LandlordSearch, { algoliaAppId, algoliaSearchKey } from "components/LandlordSearch";
-import { ToggleButtonBetweenPortfolioMethods } from "components/WowzaToggle";
 
 const commonStrings = new ContentfulCommonStrings(_commonStrings as any);
 
@@ -74,16 +73,13 @@ type HomePageProps = {
 } & withMachineProps;
 
 const HomePage: React.FC<HomePageProps> = ({ useNewPortfolioMethod }) => {
-  const allowChangingPortfolioMethod =
-    process.env.REACT_APP_ENABLE_NEW_WOWZA_PORTFOLIO_MAPPING === "1";
-
   const handleFormSubmit = (searchAddress: SearchAddress, error: any) => {
     window.gtag("event", "search");
 
     if (error) {
       window.gtag("event", "search-error");
     } else {
-      const addressPage = createRouteForAddressPage(searchAddress, useNewPortfolioMethod);
+      const addressPage = createRouteForAddressPage(searchAddress, !useNewPortfolioMethod);
       history.push(addressPage);
     }
   };
@@ -95,7 +91,7 @@ const HomePage: React.FC<HomePageProps> = ({ useNewPortfolioMethod }) => {
         housenumber: "89",
         streetname: "HICKS STREET",
       },
-      useNewPortfolioMethod
+      !useNewPortfolioMethod
     ),
     createRouteForAddressPage(
       {
@@ -103,7 +99,7 @@ const HomePage: React.FC<HomePageProps> = ({ useNewPortfolioMethod }) => {
         housenumber: "4125",
         streetname: "CASE STREET",
       },
-      useNewPortfolioMethod
+      !useNewPortfolioMethod
     ),
     createRouteForAddressPage(
       {
@@ -111,7 +107,7 @@ const HomePage: React.FC<HomePageProps> = ({ useNewPortfolioMethod }) => {
         housenumber: "196",
         streetname: "RALPH AVENUE",
       },
-      useNewPortfolioMethod
+      !useNewPortfolioMethod
     ),
   ];
 
@@ -121,31 +117,67 @@ const HomePage: React.FC<HomePageProps> = ({ useNewPortfolioMethod }) => {
     <Trans>Enter an NYC address and find other buildings your landlord might own:</Trans>
   );
 
+  const wowzaLabelText = <Trans>Find other buildings your landlord might own:</Trans>;
+
+  type SearchType = "address" | "landlord";
+  const [searchType, setSearchType] = useState("address" as SearchType);
+
   return (
     <Page>
       <div className="HomePage Page">
         <MoratoriumBanner />
         <div className="HomePage__content">
-          <div className="HomePage__search">
-            <div>
+          {useNewPortfolioMethod && algoliaAppId && algoliaSearchKey ? (
+            <div className="HomePage__search wowza-styling">
+              <h1 className="text-center">{wowzaLabelText}</h1>
+              <div>
+                <h2 className="text-uppercase">
+                  <Trans>Search by:</Trans>
+                </h2>
+                <label className={"form-radio" + (searchType === "address" ? " active" : "")}>
+                  <input
+                    type="radio"
+                    name="Address"
+                    checked={searchType === "address"}
+                    onChange={() => setSearchType("address")}
+                  />
+                  <i className="form-icon" /> <Trans>Address</Trans>
+                </label>
+                <label className={"form-radio" + (searchType === "landlord" ? " active" : "")}>
+                  <input
+                    type="radio"
+                    name="Landlord name"
+                    checked={searchType === "landlord"}
+                    onChange={() => setSearchType("landlord")}
+                  />
+                  <i className="form-icon" /> <Trans>Landlord name</Trans>
+                  <span className="chip">
+                    <Trans>New</Trans>
+                  </span>
+                </label>
+              </div>
+              {searchType === "landlord" ? (
+                <LandlordSearch />
+              ) : (
+                <AddressSearch
+                  labelText={labelText}
+                  labelClass="text-assistive"
+                  onFormSubmit={handleFormSubmit}
+                />
+              )}
+              <br />
+            </div>
+          ) : (
+            <div className="HomePage__search">
               <h1 className="text-center">{labelText}</h1>
               <AddressSearch
                 labelText={labelText}
                 labelClass="text-assistive"
                 onFormSubmit={handleFormSubmit}
               />
-              {useNewPortfolioMethod && algoliaAppId && algoliaSearchKey && (
-                <>
-                  <h1 className="text-center">
-                    <Trans>Or search by your landlord's name:</Trans>
-                  </h1>
-                  <LandlordSearch />
-                  <br />
-                </>
-              )}
             </div>
-            {allowChangingPortfolioMethod && <ToggleButtonBetweenPortfolioMethods />}
-          </div>
+          )}
+
           <div className="HomePage__samples">
             <h5 className="text-center">
               <Trans>... or view some sample portfolios:</Trans>

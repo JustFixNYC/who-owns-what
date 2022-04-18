@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Trans, Plural, t } from "@lingui/macro";
 
-import Loader from "../components/Loader";
+import { FixedLoadingLabel } from "../components/Loader";
 import LegalFooter from "../components/LegalFooter";
 
 import "styles/PropertiesSummary.css";
@@ -17,6 +17,8 @@ import { I18n } from "@lingui/core/i18n";
 import { I18n as I18nComponent } from "@lingui/react";
 import { PortfolioGraph } from "./PortfolioGraph";
 import { ComplaintsSummary } from "./ComplaintsSummary";
+import { BigPortfolioWarning } from "./BigPortfolioWarning";
+import { LazyLoadWhenVisible } from "./LazyLoadWhenVisible";
 
 type Props = withMachineInStateProps<"portfolioFound"> & {
   isVisible: boolean;
@@ -89,23 +91,70 @@ export default class PropertiesSummary extends Component<Props, {}> {
     let agg = state.context.summaryData;
     let searchAddr = state.context.portfolioData.searchAddr;
     if (!agg) {
-      return (
-        <Loader loading={true} classNames="Loader-map">
-          <Trans>Loading</Trans>
-        </Loader>
-      );
+      return <FixedLoadingLabel />;
     } else {
       return (
         <div className="Page PropertiesSummary">
           <div className="PropertiesSummary__content Page__content">
-            {state.context.useNewPortfolioMethod && state.context.portfolioData.portfolioGraph && (
-              <PortfolioGraph
-                graphJSON={state.context.portfolioData.portfolioGraph}
-                state={state}
-              />
-            )}
             <div>
-              <Trans render="h6">General info</Trans>
+              <Trans render="h6">Network of Landlords</Trans>
+              {state.context.useNewPortfolioMethod && state.context.portfolioData.portfolioGraph && (
+                <div className="portfolio-graph-container">
+                  <LazyLoadWhenVisible showLoader>
+                    <PortfolioGraph
+                      graphJSON={state.context.portfolioData.portfolioGraph}
+                      state={state}
+                    />
+                    <BigPortfolioWarning sizeOfPortfolio={agg.bldgs} />
+                  </LazyLoadWhenVisible>
+                </div>
+              )}
+              <p>
+                <Trans>
+                  Across owners and management staff, the most common
+                  <Plural
+                    value={agg.topowners.length}
+                    one="name that appears in this portfolio is"
+                    other="names that appear in this portfolio are"
+                  />{" "}
+                  <StringifyListWithConjunction
+                    values={agg.topowners}
+                    renderItem={(item) => <strong>{item}</strong>}
+                  />
+                  .
+                </Trans>{" "}
+                {agg.topcorp && agg.topbusinessaddr && (
+                  <Trans>
+                    {" "}
+                    The most common corporate entity is <b>{agg.topcorp}</b> and the most common
+                    business address is <b>{agg.topbusinessaddr}</b>.
+                  </Trans>
+                )}
+              </p>
+              <aside>
+                {agg.violationsaddr.lat && agg.violationsaddr.lng && (
+                  <figure className="figure">
+                    <img
+                      src={`https://maps.googleapis.com/maps/api/streetview?size=800x500&location=${agg.violationsaddr.lat},${agg.violationsaddr.lng}&key=${process.env.REACT_APP_STREETVIEW_API_KEY}`}
+                      alt="Google Street View"
+                      className="img-responsive"
+                    />
+                    <figcaption className="figure-caption text-center text-italic">
+                      <Trans>
+                        {agg.violationsaddr.housenumber} {agg.violationsaddr.streetname},{" "}
+                        {agg.violationsaddr.boro} currently has{" "}
+                        <Plural
+                          value={agg.violationsaddr.openviolations || 0}
+                          one="one open HPD violation"
+                          other="# open HPD violations"
+                        />{" "}
+                        - the most in this portfolio.
+                      </Trans>
+                    </figcaption>
+                  </figure>
+                )}
+              </aside>
+              <Trans render="h6">Building info</Trans>
               <p>
                 <Trans>
                   There{" "}
@@ -134,52 +183,7 @@ export default class PropertiesSummary extends Component<Props, {}> {
                   </Trans>
                 )}
               </p>
-              <aside>
-                {agg.violationsaddr.lat && agg.violationsaddr.lng && (
-                  <figure className="figure">
-                    <img
-                      src={`https://maps.googleapis.com/maps/api/streetview?size=800x500&location=${agg.violationsaddr.lat},${agg.violationsaddr.lng}&key=${process.env.REACT_APP_STREETVIEW_API_KEY}`}
-                      alt="Google Street View"
-                      className="img-responsive"
-                    />
-                    <figcaption className="figure-caption text-center text-italic">
-                      <Trans>
-                        {agg.violationsaddr.housenumber} {agg.violationsaddr.streetname},{" "}
-                        {agg.violationsaddr.boro} currently has{" "}
-                        <Plural
-                          value={agg.violationsaddr.openviolations || 0}
-                          one="one open HPD violation"
-                          other="# open HPD violations"
-                        />{" "}
-                        - the most in this portfolio.
-                      </Trans>
-                    </figcaption>
-                  </figure>
-                )}
-              </aside>
-              <Trans render="h6">Landlord</Trans>
-              <p>
-                <Trans>
-                  The most common
-                  <Plural
-                    value={agg.topowners.length}
-                    one="name that appears in this portfolio is"
-                    other="names that appear in this portfolio are"
-                  />{" "}
-                  <StringifyListWithConjunction
-                    values={agg.topowners}
-                    renderItem={(item) => <strong>{item}</strong>}
-                  />
-                  .
-                </Trans>{" "}
-                {agg.topcorp && agg.topbusinessaddr && (
-                  <Trans>
-                    {" "}
-                    The most common corporate entity is <b>{agg.topcorp}</b> and the most common
-                    business address is <b>{agg.topbusinessaddr}</b>.
-                  </Trans>
-                )}
-              </p>
+
               <ComplaintsSummary {...agg} />
               <ViolationsSummary {...agg} />
               <Trans render="h6">Evictions</Trans>

@@ -83,7 +83,7 @@ const SearchHits = ({ hits }: SearchHitsProps) => {
             .map((hit: Hit) => (
               <Link
                 key={hit.portfolio_bbl}
-                to={createRouteForFullBbl(hit.portfolio_bbl, i18n.language, true)}
+                to={createRouteForFullBbl(hit.portfolio_bbl, i18n.language)}
                 className="algolia__item"
                 aria-hidden="true" // Make sure search results don't get announced until user is focused on them
               >
