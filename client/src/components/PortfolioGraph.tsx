@@ -55,7 +55,7 @@ function generateAdditionalNodes(searchAddr: AddressRecord, detailAddr?: Address
   const searchBBLNode = createNode(
     "searchaddr",
     "searchaddr",
-    `SEARCH ADDRESS: ${searchAddr.housenumber} ${searchAddr.streetname}`
+    `OWNS ${searchAddr.housenumber}\n${searchAddr.streetname}`
   );
   additionalNodes.push(searchBBLNode);
 
@@ -63,7 +63,7 @@ function generateAdditionalNodes(searchAddr: AddressRecord, detailAddr?: Address
     const detailBBLNode = createNode(
       "detailaddr",
       "detailaddr",
-      `SELECTED ADDRESS: ${detailAddr.housenumber} ${detailAddr.streetname}`
+      `OWNS ${detailAddr.housenumber}\n${detailAddr.streetname}`
     );
     additionalNodes.push(detailBBLNode);
   }
@@ -227,8 +227,10 @@ const PortfolioGraphWithoutI18: React.FC<PortfolioGraphProps> = ({ graphJSON, st
             selector: "node",
             style: {
               label: "data(value)",
-              width: (ele: Cytoscape.NodeSingular) => (ele.data("type") === "bizaddr" ? 20 : 30),
-              height: (ele: Cytoscape.NodeSingular) => (ele.data("type") === "bizaddr" ? 20 : 30),
+              width: (ele: Cytoscape.NodeSingular) =>
+                ele.data("type") === "name" ? 30 : ele.data("type") === "bizaddr" ? 20 : 5,
+              height: (ele: Cytoscape.NodeSingular) =>
+                ele.data("type") === "name" ? 30 : ele.data("type") === "bizaddr" ? 20 : 5,
               "text-wrap": "wrap",
               "text-max-width": "200px",
               "font-size": (ele: Cytoscape.NodeSingular) =>
@@ -237,6 +239,10 @@ const PortfolioGraphWithoutI18: React.FC<PortfolioGraphProps> = ({ graphJSON, st
                 ["searchaddr", "detailaddr"].includes(ele.data("type")) ? 700 : 400,
               "font-family": "Inconsolata, monospace",
               backgroundColor: (ele) => NODE_TYPE_TO_COLOR[ele.data("type")],
+              color: (ele: Cytoscape.NodeSingular) =>
+                ["searchaddr", "detailaddr"].includes(ele.data("type")) ? "orange" : "",
+              "background-opacity": (ele: Cytoscape.NodeSingular) =>
+                ["searchaddr", "detailaddr"].includes(ele.data("type")) ? 0 : 1,
               "min-zoomed-font-size": 16,
             },
           },
@@ -244,11 +250,9 @@ const PortfolioGraphWithoutI18: React.FC<PortfolioGraphProps> = ({ graphJSON, st
             selector: "edge",
             style: {
               "line-color": (ele: Cytoscape.EdgeSingular) =>
-                ele.data("target") === "searchaddr"
-                  ? "orange"
-                  : ele.data("target") === "detailaddr"
-                  ? "yellow"
-                  : "default",
+                ["searchaddr", "detailaddr"].includes(ele.data("target")) ? "orange" : "default",
+              "line-style": (ele: Cytoscape.EdgeSingular) =>
+                ["searchaddr", "detailaddr"].includes(ele.data("target")) ? "dashed" : "solid",
             },
           },
         ]}
@@ -264,5 +268,5 @@ const NODE_TYPE_TO_COLOR: Record<string, string> = {
   name: "red",
   bizaddr: "gray",
   searchaddr: "orange",
-  detailaddr: "yellow",
+  detailaddr: "orange",
 };
