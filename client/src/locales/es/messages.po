@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2022-04-18 19:22\n"
+"PO-Revision-Date: 2022-04-18 19:51\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -670,7 +670,7 @@ msgstr "AFUERA DEL EDIFICIO"
 #: src/components/PortfolioGraph.tsx:44
 #: src/components/PortfolioGraph.tsx:47
 msgid "OWNS"
-msgstr ""
+msgstr "POSEE"
 
 #: src/util/helpers.ts:68
 msgid "Officer"
