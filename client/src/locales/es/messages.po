@@ -504,6 +504,7 @@ msgstr "Registrado por última vez:"
 msgid "Last sold:"
 msgstr "Vendido por última vez:"
 
+#: src/components/BigPortfolioWarning.tsx:23
 #: src/components/DetailView.tsx:57
 msgid "Learn more"
 msgstr "Aprende más"
@@ -661,6 +662,11 @@ msgstr "No encontrado"
 #: src/util/helpers.ts:30
 msgid "OUTSIDE BUILDING"
 msgstr "AFUERA DEL EDIFICIO"
+
+#: src/components/PortfolioGraph.tsx:44
+#: src/components/PortfolioGraph.tsx:47
+msgid "OWNS"
+msgstr ""
 
 #: src/util/helpers.ts:68
 msgid "Officer"
