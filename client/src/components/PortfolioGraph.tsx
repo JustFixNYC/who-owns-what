@@ -8,6 +8,8 @@ import { withMachineInStateProps } from "state-machine";
 import helpers from "util/helpers";
 import { t, Trans } from "@lingui/macro";
 import { withI18n, withI18nProps } from "@lingui/react";
+import { I18n } from "@lingui/core";
+import browser from "util/browser";
 
 Cytoscape.use(fcose);
 
@@ -49,12 +51,16 @@ function createEdge(
 /**
  * Generates one node for the search BBL and one for the detail BBL to show on the portfolio graph.
  */
-function generateAdditionalNodes(searchAddr: AddressRecord, detailAddr?: AddressRecord) {
+function generateAdditionalNodes(
+  i18n: I18n,
+  searchAddr: AddressRecord,
+  detailAddr?: AddressRecord
+) {
   var additionalNodes = [];
   const searchBBLNode = createNode(
     "searchaddr",
     "searchaddr",
-    `SEARCH ADDRESS: ${searchAddr.housenumber} ${searchAddr.streetname}`
+    i18n._(t`OWNS`) + ` ${searchAddr.housenumber}\n${searchAddr.streetname}`
   );
   additionalNodes.push(searchBBLNode);
 
@@ -62,7 +68,7 @@ function generateAdditionalNodes(searchAddr: AddressRecord, detailAddr?: Address
     const detailBBLNode = createNode(
       "detailaddr",
       "detailaddr",
-      `SELECTED ADDRESS: ${detailAddr.housenumber} ${detailAddr.streetname}`
+      i18n._(t`OWNS`) + ` ${detailAddr.housenumber}\n${detailAddr.streetname}`
     );
     additionalNodes.push(detailBBLNode);
   }
@@ -128,6 +134,10 @@ const formatGraphJSON = (
   return nodes.concat(edges);
 };
 
+const LANDLORD_NAME_COLOR = "#FF3A0E";
+const BIZ_ADDRESS_COLOR = "#808080";
+const ANNOTATION_COLOR = "#E79B07";
+
 type PortfolioGraphProps = withI18nProps &
   Pick<withMachineInStateProps<"portfolioFound">, "state"> & {
     graphJSON: RawPortfolioGraphJson;
@@ -138,10 +148,12 @@ const PortfolioGraphWithoutI18: React.FC<PortfolioGraphProps> = ({ graphJSON, st
   const distinctDetailAddr = !helpers.addrsAreEqual(searchAddr, detailAddr)
     ? detailAddr
     : undefined;
-  const additionalNodes = generateAdditionalNodes(searchAddr, distinctDetailAddr);
+  const additionalNodes = generateAdditionalNodes(i18n, searchAddr, distinctDetailAddr);
   const additionalEdges = generateAdditionalEdges(graphJSON.nodes, searchAddr, distinctDetailAddr);
 
-  const ZOOM_LEVEL_INCREMENT = 0.2;
+  const isMobile = browser.isMobile();
+
+  const ZOOM_LEVEL_INCREMENT = 2;
   const ZOOM_ANIMATION_DURATION = 100;
 
   let myCyRef: Cytoscape.Core;
@@ -151,14 +163,14 @@ const PortfolioGraphWithoutI18: React.FC<PortfolioGraphProps> = ({ graphJSON, st
       <div className="float-left">
         <span
           style={{
-            color: "red",
+            color: LANDLORD_NAME_COLOR,
           }}
         >
           ● <Trans>Owner Names</Trans>
         </span>{" "}
         <span
           style={{
-            color: "gray",
+            color: BIZ_ADDRESS_COLOR,
           }}
         >
           ● <Trans>Business Addresses</Trans>
@@ -171,7 +183,7 @@ const PortfolioGraphWithoutI18: React.FC<PortfolioGraphProps> = ({ graphJSON, st
           onClick={() =>
             myCyRef.animate(
               {
-                zoom: myCyRef.zoom() + ZOOM_LEVEL_INCREMENT * myCyRef.zoom(),
+                zoom: myCyRef.zoom() * ZOOM_LEVEL_INCREMENT,
               },
               {
                 duration: ZOOM_ANIMATION_DURATION,
@@ -187,7 +199,7 @@ const PortfolioGraphWithoutI18: React.FC<PortfolioGraphProps> = ({ graphJSON, st
           onClick={() =>
             myCyRef.animate(
               {
-                zoom: myCyRef.zoom() - ZOOM_LEVEL_INCREMENT * myCyRef.zoom(),
+                zoom: myCyRef.zoom() / ZOOM_LEVEL_INCREMENT,
               },
               {
                 duration: ZOOM_ANIMATION_DURATION,
@@ -197,23 +209,38 @@ const PortfolioGraphWithoutI18: React.FC<PortfolioGraphProps> = ({ graphJSON, st
         >
           -
         </button>
+        <button
+          className="btn btn-action"
+          aria-label={i18n._(t`Reset diagram`)}
+          onClick={() => {
+            myCyRef.fit();
+          }}
+        >
+          ⟳
+        </button>
       </div>
       <CytoscapeComponent
         elements={formatGraphJSON(graphJSON, additionalNodes, additionalEdges)}
-        style={{ width: "100%", height: "60vh" }}
+        style={{ width: "100%", height: isMobile ? "40vh" : "55vh" }}
         layout={layout}
+        // Enable scroll zoom only on mobile devices:
+        userZoomingEnabled={isMobile}
         cy={(cy) => {
           // Get a reference to the Cytoscape object:
           // https://github.com/plotly/react-cytoscapejs#cy-1
           myCyRef = cy;
+          // Let's fit the graph to the viewport on render:
+          myCyRef.fit();
         }}
         stylesheet={[
           {
             selector: "node",
             style: {
               label: "data(value)",
-              width: (ele: Cytoscape.NodeSingular) => (ele.data("type") === "bizaddr" ? 20 : 30),
-              height: (ele: Cytoscape.NodeSingular) => (ele.data("type") === "bizaddr" ? 20 : 30),
+              width: (ele: Cytoscape.NodeSingular) =>
+                ele.data("type") === "name" ? 30 : ele.data("type") === "bizaddr" ? 20 : 5,
+              height: (ele: Cytoscape.NodeSingular) =>
+                ele.data("type") === "name" ? 30 : ele.data("type") === "bizaddr" ? 20 : 5,
               "text-wrap": "wrap",
               "text-max-width": "200px",
               "font-size": (ele: Cytoscape.NodeSingular) =>
@@ -222,6 +249,10 @@ const PortfolioGraphWithoutI18: React.FC<PortfolioGraphProps> = ({ graphJSON, st
                 ["searchaddr", "detailaddr"].includes(ele.data("type")) ? 700 : 400,
               "font-family": "Inconsolata, monospace",
               backgroundColor: (ele) => NODE_TYPE_TO_COLOR[ele.data("type")],
+              color: (ele: Cytoscape.NodeSingular) =>
+                ["searchaddr", "detailaddr"].includes(ele.data("type")) ? ANNOTATION_COLOR : "",
+              "background-opacity": (ele: Cytoscape.NodeSingular) =>
+                ["searchaddr", "detailaddr"].includes(ele.data("type")) ? 0 : 1,
               "min-zoomed-font-size": 16,
             },
           },
@@ -229,11 +260,11 @@ const PortfolioGraphWithoutI18: React.FC<PortfolioGraphProps> = ({ graphJSON, st
             selector: "edge",
             style: {
               "line-color": (ele: Cytoscape.EdgeSingular) =>
-                ele.data("target") === "searchaddr"
-                  ? "orange"
-                  : ele.data("target") === "detailaddr"
-                  ? "yellow"
+                ["searchaddr", "detailaddr"].includes(ele.data("target"))
+                  ? ANNOTATION_COLOR
                   : "default",
+              "line-style": (ele: Cytoscape.EdgeSingular) =>
+                ["searchaddr", "detailaddr"].includes(ele.data("target")) ? "dashed" : "solid",
             },
           },
         ]}
@@ -246,8 +277,8 @@ const PortfolioGraphWithoutI18: React.FC<PortfolioGraphProps> = ({ graphJSON, st
 export const PortfolioGraph = withI18n()(PortfolioGraphWithoutI18);
 
 const NODE_TYPE_TO_COLOR: Record<string, string> = {
-  name: "red",
-  bizaddr: "gray",
-  searchaddr: "orange",
-  detailaddr: "yellow",
+  name: LANDLORD_NAME_COLOR,
+  bizaddr: BIZ_ADDRESS_COLOR,
+  searchaddr: ANNOTATION_COLOR,
+  detailaddr: ANNOTATION_COLOR,
 };

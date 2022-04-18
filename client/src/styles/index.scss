@@ -66,6 +66,10 @@ a[href^="https://maps.google.com/maps"]
   user-select: none; /* Standard */
 }
 
+.is-marginless {
+  margin: 0;
+}
+
 .hover_img a {
   position: relative;
 }
