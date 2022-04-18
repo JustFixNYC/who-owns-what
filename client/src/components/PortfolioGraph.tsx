@@ -229,6 +229,7 @@ const PortfolioGraphWithoutI18: React.FC<PortfolioGraphProps> = ({ graphJSON, st
           // Get a reference to the Cytoscape object:
           // https://github.com/plotly/react-cytoscapejs#cy-1
           myCyRef = cy;
+          // Let's fit the graph to the viewport on render:
           myCyRef.fit();
         }}
         stylesheet={[
