@@ -995,11 +995,11 @@ msgstr "This portfolio also had an estimated <0>net {changeType, select, gain {g
 
 #: src/components/ViolationsSummary.tsx:12
 msgid "This portfolio has an average of <0>{0}</0> open HPD violations per residential unit."
-msgstr "This portfolio has an average of <0>{0}</0> open HPD violations per residential unit.<<<<<<< HEAD"
+msgstr "This portfolio has an average of <0>{0}</0> open HPD violations per residential unit."
 
 #: src/components/BigPortfolioWarning.tsx:21
 msgid "This portfolio may consist of several related companies. <0>Learn more</0>"
-msgstr "This portfolio may consist of several related companies. <0>Learn more</0>>>>>>>> master"
+msgstr "This portfolio may consist of several related companies. <0>Learn more</0"
 
 #: src/containers/NotRegisteredPage.tsx:88
 msgid "This property doesn't have any residential units, so it is not required to register with HPD."
@@ -1011,7 +1011,7 @@ msgstr "This property has fewer than 3 residential units. If the landlord doesn'
 
 #: src/containers/NotRegisteredPage.tsx:111
 msgid "This property has more than 2 residential units, so it should be registered with HPD!"
-msgstr "This property has more than 2 residential units, so it should be registered with HPD!======="
+msgstr "This property has more than 2 residential units, so it should be registered with HPD!"
 
 #: src/containers/HomePage.tsx:131
 msgid "This property management company owned by the Kushner family is notorious for <0>violating rent regulations</0> and <1>harassing tenants</1>. The stake currently held by Jared Kushner and Ivanka Trump is worth as much as $761 million."

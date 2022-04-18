@@ -1000,7 +1000,7 @@ msgstr "Este portafolio de edificios tuvo una <0>{changeType, select, gain {gana
 
 #: src/components/ViolationsSummary.tsx:12
 msgid "This portfolio has an average of <0>{0}</0> open HPD violations per residential unit."
-msgstr "Esta cartera de edificios tiene un promedio de <0>{0}</0> infracciones del HPD Actuales por cada unidad residencial.<<<<<<< HEAD"
+msgstr "Esta cartera de edificios tiene un promedio de <0>{0}</0> infracciones del HPD Actuales por cada unidad residencial."
 
 #: src/components/BigPortfolioWarning.tsx:21
 msgid "This portfolio may consist of several related companies. <0>Learn more</0>"
