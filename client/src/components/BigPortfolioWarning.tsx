@@ -4,7 +4,6 @@ import { withI18n, withI18nProps } from "@lingui/react";
 import warning from "../assets/img/icon-warning.svg";
 import Modal from "./Modal";
 import { createWhoOwnsWhatRoutePaths } from "routes";
-import { Link } from "react-router-dom";
 
 import networkDiagram from "../assets/img/network-diagram.png";
 
@@ -59,13 +58,15 @@ export const BigPortfolioWarning = withI18n()(
             <Trans>
               We’ve been making improvements to Who Owns What to dig deeper and find a more complete
               picture of your landlord's network.{" "}
-              <Link
-                to={
+              <a
+                href={
                   methodology // TODO: Replace link with medium article
                 }
+                target="_blank"
+                rel="noopener noreferrer"
               >
                 Read more on our Methodology page
-              </Link>
+              </a>
             </Trans>
           </p>
         </Modal>
