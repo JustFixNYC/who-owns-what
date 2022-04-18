@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2022-04-18 19:51\n"
+"PO-Revision-Date: 2022-04-18 19:58\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -1169,7 +1169,7 @@ msgstr "Reorganizamos los datos de contacto de cada entidad individual y corpora
 
 #: src/components/BigPortfolioWarning.tsx:48
 msgid "We’ve been making improvements to Who Owns What to dig deeper and find a more complete picture of your landlord's network. <0>Read more on our Methodology page</0>"
-msgstr ""
+msgstr "Hemos estado haciendo mejoras en Quién es el Dueño para investigar más y encontrar una idea más completa de la red de tu dueño. <0>Obtiene más información en nuestra metodología</0>"
 
 #: src/components/Indicators.tsx:222
 msgid "What are {0}?"
