@@ -5,18 +5,23 @@ import "styles/NotRegisteredPage.css";
 import { Trans } from "@lingui/macro";
 import Modal from "../components/Modal";
 import LegalFooter from "../components/LegalFooter";
-import Helpers from "../util/helpers";
+import { withI18n, withI18nProps } from "@lingui/react";
+import Helpers, { longDateOptions } from "../util/helpers";
+import { defaultLocale, SupportedLocale } from "../i18n-base";
 import SocialShare from "../components/SocialShare";
 import { Nobr } from "../components/Nobr";
 import { withMachineInStateProps } from "state-machine";
 import Page from "components/Page";
 import { UsefulLinks } from "components/UsefulLinks";
+import { logAmplitudeEvent } from "components/Amplitude";
 
-type Props = withMachineInStateProps<"unregisteredFound">;
+type Props = withI18nProps & withMachineInStateProps<"unregisteredFound">;
 
 type State = {
   showModal: boolean;
 };
+
+const getTodaysDate = () => new Date();
 
 export const SocialShareForNotRegisteredPage = () => (
   <div className="social-share">
@@ -27,7 +32,7 @@ export const SocialShareForNotRegisteredPage = () => (
   </div>
 );
 
-export default class NotRegisteredPage extends Component<Props, State> {
+class NotRegisteredPageWithoutI18n extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
 
@@ -37,10 +42,12 @@ export default class NotRegisteredPage extends Component<Props, State> {
   }
 
   render() {
-    const { state } = this.props;
+    const { state, i18n } = this.props;
     const { searchAddrParams, searchAddrBbl, buildingInfo } = state.context;
 
     const { boro, block, lot } = Helpers.splitBBL(searchAddrBbl);
+
+    const locale = (i18n.language as SupportedLocale) || defaultLocale;
 
     /**
      * This is the address that will show up in the top header of the page.
@@ -56,109 +63,11 @@ export default class NotRegisteredPage extends Component<Props, State> {
         }
       : null;
 
-    const failedToRegisterLink = (
-      <div className="text-center">
-        <button className="is-link" onClick={() => this.setState({ showModal: true })}>
-          <Trans>What happens if the landlord has failed to register?</Trans>
-        </button>
-      </div>
-    );
-
     const bblDash = (
       <span className="unselectable" unselectable="on">
         -
       </span>
     );
-
-    let buildingTypeMessage;
-
-    const generalBldgCat = buildingInfo && buildingInfo.bldgclass.replace(/[0-9]/g, "");
-    switch (generalBldgCat) {
-      case "B":
-        buildingTypeMessage = (
-          <div>
-            <h6 className="mt-10 text-center text-bold text-large">
-              <p className="text-center">
-                <Trans>
-                  This seems like a smaller residential building. If the landlord doesn't reside
-                  there, it should be registered with HPD.
-                </Trans>{" "}
-                <Nobr>
-                  (
-                  <i>
-                    <a
-                      href={`http://www1.nyc.gov/assets/finance/jump/hlpbldgcode.html#${generalBldgCat.charAt(
-                        0
-                      )}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <Trans>Building Classification</Trans>
-                    </a>
-                    : {buildingInfo.bldgclass}
-                  </i>
-                  )
-                </Nobr>
-              </p>
-            </h6>
-            {failedToRegisterLink}
-          </div>
-        );
-        break;
-      case "C":
-        buildingTypeMessage = (
-          <div>
-            <h6 className="mt-10 text-center text-bold text-large">
-              <p className="text-center">
-                <Trans render="b">This building seems like it should be registered with HPD!</Trans>{" "}
-                <Nobr>
-                  (
-                  <i>
-                    <a
-                      href={`http://www1.nyc.gov/assets/finance/jump/hlpbldgcode.html#${generalBldgCat.charAt(
-                        0
-                      )}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <Trans>Building Classification</Trans>
-                    </a>
-                    : {buildingInfo.bldgclass}
-                  </i>
-                  )
-                </Nobr>
-              </p>
-            </h6>
-            {failedToRegisterLink}
-          </div>
-        );
-        break;
-      default:
-        buildingTypeMessage = (
-          <h6 className="mt-10 text-center text-bold text-large">
-            <p className="text-center">
-              <Trans>It doesn't seem like this property is required to register with HPD.</Trans>{" "}
-              <Nobr>
-                (
-                <i>
-                  <a
-                    href={`http://www1.nyc.gov/assets/finance/jump/hlpbldgcode.html#${generalBldgCat.charAt(
-                      0
-                    )}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <Trans render="u">Building Classification</Trans>
-                  </a>
-                  : {buildingInfo.bldgclass}
-                </i>
-                )
-              </Nobr>
-            </p>
-          </h6>
-        );
-        break;
-    }
 
     const usersInputAddressFragment = usersInputAddress ? (
       <>
@@ -167,6 +76,107 @@ export default class NotRegisteredPage extends Component<Props, State> {
       </>
     ) : null;
 
+    const registrationMissingOrExpired =
+      !buildingInfo.registrationenddate ||
+      getTodaysDate() > new Date(buildingInfo.registrationenddate);
+
+    let registrationMessageText;
+
+    if (!usersInputAddress) {
+      registrationMessageText = <Trans>No registration found.</Trans>;
+    } else if (buildingInfo.registrationenddate) {
+      window.gtag("event", "hpd-registration-incomplete");
+      logAmplitudeEvent("hpdRegistrationIsIncomplete");
+
+      registrationMessageText = (
+        <Trans>Incomplete registration for {usersInputAddressFragment}.</Trans>
+      );
+    } else {
+      registrationMessageText = (
+        <Trans>No registration found for {usersInputAddressFragment}.</Trans>
+      );
+    }
+
+    let buildingTypeMessageText;
+
+    if (buildingInfo.unitsres === 0) {
+      window.gtag("event", "hpd-registration-not-required");
+      logAmplitudeEvent("hpdRegistrationNotRequired");
+
+      buildingTypeMessageText = (
+        <Trans>
+          <b>This property is not required to register with HPD</b> because it doesn't have any
+          residential units.
+        </Trans>
+      );
+    } else if (buildingInfo.unitsres < 3) {
+      window.gtag("event", "hpd-registration-maybe-required");
+      logAmplitudeEvent("hpdRegistrationMaybeRequired");
+
+      buildingTypeMessageText = (
+        <Trans>
+          <b>If the landlord doesn't reside here, this property should be registered with HPD</b>{" "}
+          because it has fewer than 3 residential units.
+        </Trans>
+      );
+    } else if (buildingInfo.unitsres >= 3) {
+      window.gtag("event", "hpd-registration-required-and-not-there");
+      logAmplitudeEvent("hpdRegistrationRequiredAndNotThere");
+
+      buildingTypeMessageText = (
+        <Trans>
+          <b>This property should be registered with HPD</b> because it has more than 2 residential
+          units.
+        </Trans>
+      );
+    }
+
+    const formattedLastRegDate = Helpers.formatDate(
+      buildingInfo.lastregistrationdate,
+      longDateOptions,
+      locale
+    );
+
+    const formattedRegEndDate = Helpers.formatDate(
+      buildingInfo.registrationenddate,
+      longDateOptions,
+      locale
+    );
+
+    const lastRegisteredDates = buildingInfo.registrationenddate ? (
+      <div className="card-body-registration text-center">
+        {buildingInfo.lastregistrationdate ? (
+          <p>
+            <b>
+              <Trans>Last registered:</Trans>
+            </b>{" "}
+            {formattedLastRegDate}
+            <span className="text-danger">
+              {" "}
+              <Trans>(expired {formattedRegEndDate})</Trans>
+            </span>
+          </p>
+        ) : (
+          <p>
+            <b>
+              <Trans>Registration expired:</Trans>
+            </b>{" "}
+            <span className="text-danger"> {formattedRegEndDate}</span>
+          </p>
+        )}
+      </div>
+    ) : (
+      <></>
+    );
+
+    const failedToRegisterLink = (
+      <div className="text-center">
+        <button className="is-link" onClick={() => this.setState({ showModal: true })}>
+          <Trans>What happens if the landlord has failed to register?</Trans>
+        </button>
+      </div>
+    );
+
     return (
       <Page
         title={searchAddrParams && `${searchAddrParams.housenumber} ${searchAddrParams.streetname}`}
@@ -174,14 +184,26 @@ export default class NotRegisteredPage extends Component<Props, State> {
         <div className="NotRegisteredPage Page">
           <div className="HomePage__content">
             <div className="HomePage__search">
-              <h5 className="mt-10 text-danger text-center text-bold text-large">
-                {usersInputAddress ? (
-                  <Trans>No registration found for {usersInputAddressFragment}!</Trans>
-                ) : (
-                  <Trans>No registration found!</Trans>
-                )}
-              </h5>
-              {buildingTypeMessage}
+              <h5 className="mt-10 text-center text-bold text-large">{registrationMessageText}</h5>
+              {buildingInfo.registrationenddate && (
+                <p className="text-center">
+                  <Trans>
+                    The registration for this property is missing details for owner name or
+                    businesses address, which are required to link the property to a portfolio.
+                  </Trans>
+                </p>
+              )}
+              {registrationMissingOrExpired && (
+                <div>
+                  <p className="text-center">{buildingTypeMessageText}</p>
+                </div>
+              )}
+              {registrationMissingOrExpired && buildingInfo.unitsres > 0 && (
+                <>
+                  {lastRegisteredDates}
+                  {failedToRegisterLink}
+                </>
+              )}
               <div className="wrapper">
                 {buildingInfo && buildingInfo.latitude && buildingInfo.longitude && (
                   <img
@@ -254,3 +276,7 @@ export default class NotRegisteredPage extends Component<Props, State> {
     );
   }
 }
+
+const NotRegisteredPage = withI18n()(NotRegisteredPageWithoutI18n);
+
+export default NotRegisteredPage;

@@ -26,6 +26,7 @@ msgid "(as part of a group sale)"
 msgstr "(as part of a group sale)"
 
 #: src/components/DetailView.tsx:223
+#: src/containers/NotRegisteredPage.tsx:94
 msgid "(expired {formattedRegEndDate})"
 msgstr "(expired {formattedRegEndDate})"
 
@@ -52,6 +53,18 @@ msgstr "... or view some sample portfolios:"
 #: src/components/FeatureCalloutContent.ts:8
 msgid "311 Complaints Data"
 msgstr "311 Complaints Data"
+
+#: src/containers/NotRegisteredPage.tsx:73
+msgid "<0>If the landlord doesn't reside here, this property should be registered with HPD</0> because it has fewer than 3 residential units."
+msgstr "<0>If the landlord doesn't reside here, this property should be registered with HPD</0> because it has fewer than 3 residential units."
+
+#: src/containers/NotRegisteredPage.tsx:67
+msgid "<0>This property is not required to register with HPD</0> because it doesn't have any residential units."
+msgstr "<0>This property is not required to register with HPD</0> because it doesn't have any residential units."
+
+#: src/containers/NotRegisteredPage.tsx:79
+msgid "<0>This property should be registered with HPD</0> because it has more than 2 residential units."
+msgstr "<0>This property should be registered with HPD</0> because it has more than 2 residential units."
 
 #: src/components/DetailView.tsx:59
 msgid "<0>While the legal owner of a building is often a company (usually called an “LLC”), these names and business addresses registered with HPD offer a clearer picture of who really controls the building.</0><1>People listed here as “Head Officer” or “Owner” usually have ties to building ownership, while “Site Managers” are part of management. That being said, these names are self reported by the landlord, so they can be misleading.</1><2>Learn more about HPD registrations and how this information powers this tool on the <3>About page</3>.</2>"
@@ -139,12 +152,6 @@ msgstr "Borough"
 msgid "Borough Management Office:"
 msgstr "Borough Management Office:"
 
-#: src/containers/NotRegisteredPage.tsx:65
-#: src/containers/NotRegisteredPage.tsx:85
-#: src/containers/NotRegisteredPage.tsx:104
-msgid "Building Classification"
-msgstr "Building Classification"
-
 #: src/components/IndicatorsDatasets.tsx:66
 msgid "Building Permit Applications"
 msgstr "Building Permit Applications"
@@ -169,7 +176,7 @@ msgstr "Built"
 
 #: src/components/DetailView.tsx:313
 #: src/components/DetailView.tsx:322
-#: src/components/PortfolioGraph.tsx:107
+#: src/components/PortfolioGraph.tsx:110
 msgid "Business Addresses"
 msgstr "Business Addresses"
 
@@ -434,6 +441,10 @@ msgstr "I used #WhoOwnsWhat (built by @JustFixNYC) to see not only the open viol
 msgid "I was checking out this building on Who Owns What, a free landlord research tool from JustFix.nyc. It’s a remarkable website that every tenant and housing advocate should know about! Can you guess how many total violations this landlord portfolio has? Check it out here: {url}"
 msgstr "I was checking out this building on Who Owns What, a free landlord research tool from JustFix.nyc. It’s a remarkable website that every tenant and housing advocate should know about! Can you guess how many total violations this landlord portfolio has? Check it out here: {url}"
 
+#: src/containers/NotRegisteredPage.tsx:60
+msgid "Incomplete registration for {usersInputAddressFragment}."
+msgstr "Incomplete registration for {usersInputAddressFragment}."
+
 #: src/util/helpers.ts:63
 msgid "Individual Owner"
 msgstr "Individual Owner"
@@ -445,10 +456,6 @@ msgstr "Ineligible to certify violations"
 #: src/components/PropertiesList.tsx:176
 msgid "Information"
 msgstr "Information"
-
-#: src/containers/NotRegisteredPage.tsx:99
-msgid "It doesn't seem like this property is required to register with HPD."
-msgstr "It doesn't seem like this property is required to register with HPD."
 
 #: src/util/helpers.ts:29
 msgid "JANITOR/SUPER"
@@ -500,6 +507,7 @@ msgid "Last Sale Unknown"
 msgstr "Last Sale Unknown"
 
 #: src/components/DetailView.tsx:218
+#: src/containers/NotRegisteredPage.tsx:89
 msgid "Last registered:"
 msgstr "Last registered:"
 
@@ -507,7 +515,7 @@ msgstr "Last registered:"
 msgid "Last sold:"
 msgstr "Last sold:"
 
-#: src/components/BigPortfolioWarning.tsx:23
+#: src/components/BigPortfolioWarning.tsx:22
 #: src/components/DetailView.tsx:57
 msgid "Learn more"
 msgstr "Learn more"
@@ -638,13 +646,13 @@ msgstr "No data available"
 msgid "No landlords match your search."
 msgstr "No landlords match your search."
 
-#: src/containers/NotRegisteredPage.tsx:123
-msgid "No registration found for {usersInputAddressFragment}!"
-msgstr "No registration found for {usersInputAddressFragment}!"
+#: src/containers/NotRegisteredPage.tsx:63
+msgid "No registration found for {usersInputAddressFragment}."
+msgstr "No registration found for {usersInputAddressFragment}."
 
-#: src/containers/NotRegisteredPage.tsx:123
-msgid "No registration found!"
-msgstr "No registration found!"
+#: src/containers/NotRegisteredPage.tsx:57
+msgid "No registration found."
+msgstr "No registration found."
 
 #: src/components/IndicatorsViz.tsx:201
 msgid "Non-ECB"
@@ -703,7 +711,7 @@ msgstr "Open Violations"
 msgid "Overview"
 msgstr "Overview"
 
-#: src/components/PortfolioGraph.tsx:102
+#: src/components/PortfolioGraph.tsx:105
 msgid "Owner Names"
 msgstr "Owner Names"
 
@@ -762,11 +770,15 @@ msgstr "Public Housing Development"
 msgid "RS Units"
 msgstr "RS Units"
 
+#: src/containers/NotRegisteredPage.tsx:98
+msgid "Registration expired:"
+msgstr "Registration expired:"
+
 #: src/components/PropertiesSummary.tsx:125
 msgid "Rent stabilization"
 msgstr "Rent stabilization"
 
-#: src/components/PortfolioGraph.tsx:125
+#: src/components/PortfolioGraph.tsx:128
 msgid "Reset diagram"
 msgstr "Reset diagram"
 
@@ -824,7 +836,7 @@ msgstr "Share"
 #: src/components/EngagementPanel.tsx:18
 #: src/components/PropertiesSummary.tsx:140
 #: src/containers/App.tsx:138
-#: src/containers/NotRegisteredPage.tsx:14
+#: src/containers/NotRegisteredPage.tsx:17
 msgid "Share this page with your neighbors"
 msgstr "Share this page with your neighbors"
 
@@ -861,7 +873,7 @@ msgstr "Site Manager"
 msgid "Sold to Current Owner"
 msgstr "Sold to Current Owner"
 
-#: src/components/BigPortfolioWarning.tsx:38
+#: src/components/BigPortfolioWarning.tsx:37
 msgid "Some large corporations, however, are a bit more complicated and may share personnel and financial stake with other related companies, which all will show up on Who Owns What as one large portfolio."
 msgstr "Some large corporations, however, are a bit more complicated and may share personnel and financial stake with other related companies, which all will show up on Who Owns What as one large portfolio."
 
@@ -955,6 +967,10 @@ msgstr "The number of residential units across all buildings in this development
 msgid "The number of residential units in this building, according to the Dept. of City Planning."
 msgstr "The number of residential units in this building, according to the Dept. of City Planning."
 
+#: src/containers/NotRegisteredPage.tsx:114
+msgid "The registration for this property is missing details for owner name or businesses address, which are required to link the property to a portfolio."
+msgstr "The registration for this property is missing details for owner name or businesses address, which are required to link the property to a portfolio."
+
 #: src/components/BuildingStatsTable.tsx:34
 msgid "The year that this building was originally constructed, according to the Dept. of City Planning."
 msgstr "The year that this building was originally constructed, according to the Dept. of City Planning."
@@ -970,10 +986,6 @@ msgstr "There {0, plural, one {<0>is <1>1</1> building</0>} other {<2>are <3>{1}
 #: src/containers/NychaPage.tsx:72
 msgid "This building is owned by the NYC Housing Authority (NYCHA)"
 msgstr "This building is owned by the NYC Housing Authority (NYCHA)"
-
-#: src/containers/NotRegisteredPage.tsx:80
-msgid "This building seems like it should be registered with HPD!"
-msgstr "This building seems like it should be registered with HPD!"
 
 #: src/components/AddressToolbar.tsx:32
 msgid "This data is in <0>CSV file format</0>, which can easily be used in Excel, Google Sheets, or any other spreadsheet program."
@@ -1022,10 +1034,6 @@ msgstr "This represents <0>{0}%</0> of the total size of this portfolio."
 #: src/components/BuildingStatsTable.tsx:61
 msgid "This represents the total number of HPD Violations (both open & closed) recorded by the city."
 msgstr "This represents the total number of HPD Violations (both open & closed) recorded by the city."
-
-#: src/containers/NotRegisteredPage.tsx:57
-msgid "This seems like a smaller residential building. If the landlord doesn't reside there, it should be registered with HPD."
-msgstr "This seems like a smaller residential building. If the landlord doesn't reside there, it should be registered with HPD."
 
 #: src/components/BuildingStatsTable.tsx:79
 msgid "This tracks how rent stabilized units in the building have changed (i.e. \"{delta}\") from 2007 to {0}. If the number for {1} is red, this means there has been a loss in stabilzied units! These counts are estimated from the DOF Property Tax Bills."
@@ -1146,7 +1154,7 @@ msgstr "WINDOW GUARDS"
 msgid "WINDOWS"
 msgstr "WINDOWS"
 
-#: src/components/BigPortfolioWarning.tsx:19
+#: src/components/BigPortfolioWarning.tsx:18
 msgid "Warning"
 msgstr "Warning"
 
@@ -1166,7 +1174,7 @@ msgstr "We overhauled the Portfolio tab to help make navigating this large table
 msgid "We reorganized the contact details for each individual and corporate entities associated with a property on the Overview tab."
 msgstr "We reorganized the contact details for each individual and corporate entities associated with a property on the Overview tab."
 
-#: src/components/BigPortfolioWarning.tsx:48
+#: src/components/BigPortfolioWarning.tsx:47
 msgid "We’ve been making improvements to Who Owns What to dig deeper and find a more complete picture of your landlord's network. <0>Read more on our Methodology page</0>"
 msgstr "We’ve been making improvements to Who Owns What to dig deeper and find a more complete picture of your landlord's network. <0>Read more on our Methodology page</0>"
 
@@ -1174,7 +1182,7 @@ msgstr "We’ve been making improvements to Who Owns What to dig deeper and find
 msgid "What are {0}?"
 msgstr "What are {0}?"
 
-#: src/containers/NotRegisteredPage.tsx:44
+#: src/containers/NotRegisteredPage.tsx:105
 msgid "What happens if the landlord has failed to register?"
 msgstr "What happens if the landlord has failed to register?"
 
@@ -1183,7 +1191,7 @@ msgstr "What happens if the landlord has failed to register?"
 msgid "What's New"
 msgstr "What's New"
 
-#: src/components/BigPortfolioWarning.tsx:32
+#: src/components/BigPortfolioWarning.tsx:31
 msgid "When two parties share the same business address, we group them as part of the same portfolio."
 msgstr "When two parties share the same business address, we group them as part of the same portfolio."
 
@@ -1210,8 +1218,8 @@ msgstr "Who’s responsible for issues in your apartment & building? #WhoOwnsWha
 msgid "Who’s the landlord of this building?"
 msgstr "Who’s the landlord of this building?"
 
-#: src/components/BigPortfolioWarning.tsx:21
-#: src/components/BigPortfolioWarning.tsx:29
+#: src/components/BigPortfolioWarning.tsx:20
+#: src/components/BigPortfolioWarning.tsx:28
 msgid "Why am I seeing such a big portfolio?"
 msgstr "Why am I seeing such a big portfolio?"
 
@@ -1236,11 +1244,11 @@ msgstr "You are viewing the old version of Who Owns What."
 msgid "Zipcode"
 msgstr "Zipcode"
 
-#: src/components/PortfolioGraph.tsx:111
+#: src/components/PortfolioGraph.tsx:114
 msgid "Zoom in"
 msgstr "Zoom in"
 
-#: src/components/PortfolioGraph.tsx:118
+#: src/components/PortfolioGraph.tsx:121
 msgid "Zoom out"
 msgstr "Zoom out"
 

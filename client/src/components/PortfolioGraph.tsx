@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Cytoscape from "cytoscape";
 import CytoscapeComponent from "react-cytoscapejs";
 // @ts-ignore
@@ -10,6 +10,7 @@ import { t, Trans } from "@lingui/macro";
 import { withI18n, withI18nProps } from "@lingui/react";
 import { I18n } from "@lingui/core";
 import browser from "util/browser";
+import { logAmplitudeEventWithData } from "./Amplitude";
 
 Cytoscape.use(fcose);
 
@@ -17,9 +18,10 @@ const layout = {
   name: "fcose",
   nodeDimensionsIncludeLabels: true,
   animate: false,
-  quality: "proof",
+  quality: "default",
   idealEdgeLength: 100,
   nodeSeparation: 300,
+  nodeRepulsion: () => 45000,
 };
 
 function createNode(id: string, type: string, value: string): cytoscape.NodeDefinition {
@@ -144,7 +146,8 @@ type PortfolioGraphProps = withI18nProps &
   };
 
 const PortfolioGraphWithoutI18: React.FC<PortfolioGraphProps> = ({ graphJSON, state, i18n }) => {
-  const { searchAddr, detailAddr } = state.context.portfolioData;
+  const { searchAddr, detailAddr, assocAddrs } = state.context.portfolioData;
+  const portfolioSize = assocAddrs.length;
   const distinctDetailAddr = !helpers.addrsAreEqual(searchAddr, detailAddr)
     ? detailAddr
     : undefined;
@@ -157,6 +160,23 @@ const PortfolioGraphWithoutI18: React.FC<PortfolioGraphProps> = ({ graphJSON, st
   const ZOOM_ANIMATION_DURATION = 100;
 
   let myCyRef: Cytoscape.Core;
+  /**
+   * This function resets the layout of our Cytoscape graph.
+   * Until we have our graph initialized, this is defined as an empty function.
+   */
+  let resetLayout: () => void = () => {
+    return;
+  };
+
+  /**
+   * Every time we update the detail address, let's rerun our graph layout so make sure
+   * the new node for the detail address fits in nicely with the other existing nodes.
+   */
+  useEffect(() => {
+    if (searchAddr.bbl !== detailAddr.bbl) {
+      resetLayout();
+    }
+  }, [searchAddr.bbl, detailAddr.bbl]);
 
   return (
     <div className="portfolio-graph">
@@ -180,7 +200,11 @@ const PortfolioGraphWithoutI18: React.FC<PortfolioGraphProps> = ({ graphJSON, st
         <button
           className="btn btn-action"
           aria-label={i18n._(t`Zoom in`)}
-          onClick={() =>
+          onClick={() => {
+            logAmplitudeEventWithData("zoomInNetworkViz", {
+              portfolioSize: portfolioSize,
+            });
+            window.gtag("event", "zoom-in-network-viz");
             myCyRef.animate(
               {
                 zoom: myCyRef.zoom() * ZOOM_LEVEL_INCREMENT,
@@ -188,15 +212,19 @@ const PortfolioGraphWithoutI18: React.FC<PortfolioGraphProps> = ({ graphJSON, st
               {
                 duration: ZOOM_ANIMATION_DURATION,
               }
-            )
-          }
+            );
+          }}
         >
           +
         </button>
         <button
           className="btn btn-action"
           aria-label={i18n._(t`Zoom out`)}
-          onClick={() =>
+          onClick={() => {
+            logAmplitudeEventWithData("zoomOutNetworkViz", {
+              portfolioSize: portfolioSize,
+            });
+            window.gtag("event", "zoom-out-network-viz");
             myCyRef.animate(
               {
                 zoom: myCyRef.zoom() / ZOOM_LEVEL_INCREMENT,
@@ -204,8 +232,8 @@ const PortfolioGraphWithoutI18: React.FC<PortfolioGraphProps> = ({ graphJSON, st
               {
                 duration: ZOOM_ANIMATION_DURATION,
               }
-            )
-          }
+            );
+          }}
         >
           -
         </button>
@@ -213,6 +241,10 @@ const PortfolioGraphWithoutI18: React.FC<PortfolioGraphProps> = ({ graphJSON, st
           className="btn btn-action"
           aria-label={i18n._(t`Reset diagram`)}
           onClick={() => {
+            logAmplitudeEventWithData("resetNetworkViz", {
+              portfolioSize: portfolioSize,
+            });
+            window.gtag("event", "reset-network-viz");
             myCyRef.fit();
           }}
         >
@@ -231,6 +263,10 @@ const PortfolioGraphWithoutI18: React.FC<PortfolioGraphProps> = ({ graphJSON, st
           myCyRef = cy;
           // Let's fit the graph to the viewport on render:
           myCyRef.fit();
+          // Let's define a function to reset our graph layout, used above:
+          resetLayout = () => {
+            myCyRef.makeLayout(layout).run();
+          };
         }}
         stylesheet={[
           {
@@ -244,7 +280,7 @@ const PortfolioGraphWithoutI18: React.FC<PortfolioGraphProps> = ({ graphJSON, st
               "text-wrap": "wrap",
               "text-max-width": "200px",
               "font-size": (ele: Cytoscape.NodeSingular) =>
-                ele.data("type") === "bizaddr" ? "12px" : "15px",
+                ele.data("type") === "bizaddr" ? "16px" : "18px",
               "font-weight": (ele: Cytoscape.NodeSingular) =>
                 ["searchaddr", "detailaddr"].includes(ele.data("type")) ? 700 : 400,
               "font-family": "Inconsolata, monospace",
@@ -253,7 +289,7 @@ const PortfolioGraphWithoutI18: React.FC<PortfolioGraphProps> = ({ graphJSON, st
                 ["searchaddr", "detailaddr"].includes(ele.data("type")) ? ANNOTATION_COLOR : "",
               "background-opacity": (ele: Cytoscape.NodeSingular) =>
                 ["searchaddr", "detailaddr"].includes(ele.data("type")) ? 0 : 1,
-              "min-zoomed-font-size": 16,
+              "min-zoomed-font-size": 10,
             },
           },
           {
