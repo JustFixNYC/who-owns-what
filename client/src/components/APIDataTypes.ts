@@ -164,6 +164,9 @@ export type BuildingInfoRecord = {
   longitude: number;
   streetname: string;
   bldgclass: string;
+  unitsres: number;
+  lastregistrationdate: string;
+  registrationenddate: string;
   formatted_address: string;
   /** The name of the NYCHA development (e.g. "SOTOMAYOR HOUSES").
    * NULL if building is not part of NYCHA */

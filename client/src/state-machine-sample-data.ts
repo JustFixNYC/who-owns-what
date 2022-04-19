@@ -6,15 +6,19 @@ import {
 } from "components/APIDataTypes";
 
 export const SAMPLE_BUILDING_INFO_RESULTS: BuildingInfoResults = {
+  // bbl:3002920026
   result: [
     {
       formatted_address: "144 COURT STREET",
       housenumber: "144",
       streetname: "COURT STREET",
       bldgclass: "O5",
+      unitsres: 0,
       boro: "BROOKLYN",
       latitude: 40.6889099948209,
       longitude: -73.99302988771,
+      lastregistrationdate: "",
+      registrationenddate: "",
       nycha_development: null,
       nycha_dev_evictions: null,
       nycha_dev_unitsres: null,
@@ -23,15 +27,19 @@ export const SAMPLE_BUILDING_INFO_RESULTS: BuildingInfoResults = {
 };
 
 export const SAMPLE_NYCHA_BUILDING_INFO_RESULTS: BuildingInfoResults = {
+  // bbl:2037250001
   result: [
     {
       formatted_address: "1755 BRUCKNER BOULEVARD",
       housenumber: "1755",
       streetname: "BRUCKNER BOULEVARD",
       bldgclass: "D3",
+      unitsres: 534,
       boro: "BRONX",
       latitude: 40.826506542075805,
       longitude: -73.86649903642933,
+      lastregistrationdate: "",
+      registrationenddate: "",
       nycha_development: "SOTOMAYOR HOUSES",
       nycha_dev_evictions: 14,
       nycha_dev_unitsres: 1506,
