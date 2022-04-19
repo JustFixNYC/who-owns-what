@@ -123,12 +123,12 @@
           {
             "data": {},
             "marks": [],
-            "value": "By searching and comparing names and addresses within the registration listings for over 200,000 buildings in NYC, it’s able to build and map your landlord’s “portfolio.” Curious? ",
+            "value": "By searching and comparing names and addresses within the registration listings for over 200,000 buildings in NYC, it’s able to build and map your landlord’s “portfolio.” Curious? ",
             "nodeType": "text"
           },
           {
             "data": {
-              "uri": "https://whoownswhat.justfix.nyc/how-it-works"
+              "uri": "https://whoownswhat.justfix.nyc/en/how-it-works"
             },
             "content": [
               {
@@ -201,7 +201,7 @@
           },
           {
             "data": {
-              "uri": "https://www.justfix.nyc"
+              "uri": "https://www.justfix.nyc/en/"
             },
             "content": [
               {
@@ -315,13 +315,13 @@
                   },
                   {
                     "data": {
-                      "uri": "https://github.com/aepyornis/nyc-db"
+                      "uri": "https://github.com/nycdb/nycdb"
                     },
                     "content": [
                       {
                         "data": {},
                         "marks": [],
-                        "value": "nyc-db",
+                        "value": "nycdb",
                         "nodeType": "text"
                       }
                     ],
@@ -368,27 +368,7 @@
                   {
                     "data": {},
                     "marks": [],
-                    "value": ", creator of ",
-                    "nodeType": "text"
-                  },
-                  {
-                    "data": {
-                      "uri": "http://reports.dapmapnyc.org/"
-                    },
-                    "content": [
-                      {
-                        "data": {},
-                        "marks": [],
-                        "value": "DAP district reports",
-                        "nodeType": "text"
-                      }
-                    ],
-                    "nodeType": "hyperlink"
-                  },
-                  {
-                    "data": {},
-                    "marks": [],
-                    "value": " ",
+                    "value": "",
                     "nodeType": "text"
                   }
                 ],
@@ -525,7 +505,7 @@
                   },
                   {
                     "data": {
-                      "uri": "https://casapower.org/"
+                      "uri": "https://www.instagram.com/casabronx"
                     },
                     "content": [
                       {

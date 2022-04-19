@@ -9,15 +9,12 @@ def dictfetchall(cursor):
     # https://docs.djangoproject.com/en/3.0/topics/db/sql/#executing-custom-sql-directly
     "Return all rows from a cursor as a dict"
     columns = [col[0] for col in cursor.description]
-    return [
-        dict(zip(columns, row))
-        for row in cursor.fetchall()
-    ]
+    return [dict(zip(columns, row)) for row in cursor.fetchall()]
 
 
 @contextmanager
 def get_wow_cursor():
-    with connections['wow'].cursor() as cursor:
+    with connections["wow"].cursor() as cursor:
         # This is a workaround for https://code.djangoproject.com/ticket/31991.
         psycopg2.extras.register_default_jsonb(cursor.cursor)
 

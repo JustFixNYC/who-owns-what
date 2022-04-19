@@ -264,7 +264,7 @@ const NychaPageWithoutI18n: React.FC<NychaPageProps> = (props) => {
                 </a>
               </div>
 
-              <SocialShareForNotRegisteredPage addr={usersInputAddress} />
+              <SocialShareForNotRegisteredPage />
 
               <br />
               {/* <div className="toast toast-error">

@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from "react";
 
-import Loader from "../components/Loader";
+import { LoadingPage } from "../components/Loader";
 import APIClient from "../components/APIClient";
 import { RouteComponentProps, useHistory } from "react-router";
-import { Trans } from "@lingui/macro";
-import Page from "../components/Page";
 import { createRouteForAddressPage } from "../routes";
 import { AddrNotFoundPage } from "./NotFoundPage";
 import { reportError } from "error-reporting";
@@ -18,7 +16,9 @@ export type BBLPageParams = {
   lot?: string;
 };
 
-type BBLPageProps = RouteComponentProps<BBLPageParams>;
+type BBLPageProps = RouteComponentProps<BBLPageParams> & {
+  useNewPortfolioMethod?: boolean;
+};
 
 export const getFullBblFromPageParams = (params: BBLPageParams) => {
   var fullBBL: string;
@@ -57,10 +57,13 @@ const BBLPage: React.FC<BBLPageProps> = (props) => {
             setIsNotFound(true);
             return;
           }
-          const addressPage = createRouteForAddressPage({
-            ...results.result[0],
-            locale,
-          });
+          const addressPage = createRouteForAddressPage(
+            {
+              ...results.result[0],
+              locale,
+            },
+            !props.useNewPortfolioMethod
+          );
           history.replace(addressPage);
         })
         .catch(reportError);
@@ -69,17 +72,9 @@ const BBLPage: React.FC<BBLPageProps> = (props) => {
         isMounted = false;
       };
     }
-  }, [fullBBL, history, locale]);
+  }, [fullBBL, history, locale, props.useNewPortfolioMethod]);
 
-  return isNotFound ? (
-    <AddrNotFoundPage />
-  ) : (
-    <Page>
-      <Loader loading={true} classNames="Loader-map">
-        <Trans>Loading</Trans>
-      </Loader>
-    </Page>
-  );
+  return isNotFound ? <AddrNotFoundPage /> : <LoadingPage />;
 };
 
 export default BBLPage;

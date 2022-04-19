@@ -11,16 +11,17 @@ import { withI18n, withI18nProps, I18n } from "@lingui/react";
 import { t, Trans } from "@lingui/macro";
 import { SocialShareAddressPage } from "./SocialShare";
 import { isPartOfGroupSale } from "./PropertiesList";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { LocaleLink } from "../i18n";
 import BuildingStatsTable from "./BuildingStatsTable";
 import { createWhoOwnsWhatRoutePaths, AddressPageRoutes } from "../routes";
-import { SupportedLocale } from "../i18n-base";
+import { defaultLocale, SupportedLocale } from "../i18n-base";
 import { withMachineInStateProps } from "state-machine";
 import { Accordion } from "./Accordion";
 import { UsefulLinks } from "./UsefulLinks";
 import _groupBy from "lodash/groupBy";
 import { HpdContactAddress, HpdFullContact } from "./APIDataTypes";
+import { isLegacyPath } from "./WowzaToggle";
 
 type Props = withI18nProps &
   withMachineInStateProps<"portfolioFound"> & {
@@ -95,40 +96,62 @@ const HpdContactCard: React.FC<{ contact: GroupedContact }> = ({ contact }) => (
   </I18n>
 );
 
-const LearnMoreAccordion = () => (
-  <I18n>
-    {({ i18n }) => (
-      <Accordion title={i18n._(t`Learn more`)} titleOnOpen={i18n._(t`Close`)}>
-        <br />
-        <Trans>
-          <p>
-            While the legal owner of a building is often a company (usually called an “LLC”), these
-            names and business addresses registered with HPD offer a clearer picture of who the
-            landlord really is.
-          </p>
-          <p>
-            People listed here as “Head Officer” or “Owner” usually have ties to building ownership,
-            while “Site Managers” are part of management. That being said, these names are self
-            reported by the landlord, so they can be misleading.
-          </p>
-          <p>
-            Learn more about HPD registrations and how this information powers this tool on the{" "}
-            <LocaleLink
-              to={createWhoOwnsWhatRoutePaths().about}
-              onClick={() => {
-                window.gtag("event", "about-page-overview-tab");
-              }}
-            >
-              About page
-            </LocaleLink>
-            .
-          </p>
-        </Trans>
-      </Accordion>
-    )}
-  </I18n>
+const LearnMoreAccordion = () => {
+  const { pathname } = useLocation();
+  const { about, legacy } = createWhoOwnsWhatRoutePaths();
+  return (
+    <I18n>
+      {({ i18n }) => (
+        <Accordion title={i18n._(t`Learn more`)} titleOnOpen={i18n._(t`Close`)}>
+          <br />
+          <Trans>
+            <p>
+              While the legal owner of a building is often a company (usually called an “LLC”),
+              these names and business addresses registered with HPD offer a clearer picture of who
+              really controls the building.
+            </p>
+            <p>
+              People listed here as “Head Officer” or “Owner” usually have ties to building
+              ownership, while “Site Managers” are part of management. That being said, these names
+              are self reported by the landlord, so they can be misleading.
+            </p>
+            <p>
+              Learn more about HPD registrations and how this information powers this tool on the{" "}
+              <LocaleLink
+                to={isLegacyPath(pathname) ? legacy.about : about}
+                onClick={() => {
+                  window.gtag("event", "about-page-overview-tab");
+                }}
+              >
+                About page
+              </LocaleLink>
+              .
+            </p>
+          </Trans>
+        </Accordion>
+      )}
+    </I18n>
+  );
+};
+
+const HowIsBldgAssociatedHeader = () => (
+  <Trans>How is this building associated to this portfolio?</Trans>
 );
 
+const HowIsBldgAssociatedDescription = () => {
+  const { pathname } = useLocation();
+  const { methodology, legacy } = createWhoOwnsWhatRoutePaths();
+  return (
+    <Trans render="p">
+      We compare your search address with a database of over 200k buildings to identify a landlord
+      or management company's portfolio. To learn more, check out{" "}
+      <LocaleLink to={isLegacyPath(pathname) ? legacy.methodology : methodology}>
+        our methodology
+      </LocaleLink>
+      .
+    </Trans>
+  );
+};
 class DetailViewWithoutI18n extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
@@ -151,8 +174,9 @@ class DetailViewWithoutI18n extends Component<Props, State> {
   render() {
     const isMobile = Browser.isMobile();
     const { i18n } = this.props;
-    const locale = (i18n.language as SupportedLocale) || "en";
-    const { assocAddrs, detailAddr, searchAddr } = this.props.state.context.portfolioData;
+    const locale = (i18n.language as SupportedLocale) || defaultLocale;
+    const { useNewPortfolioMethod, portfolioData } = this.props.state.context;
+    const { assocAddrs, detailAddr, searchAddr } = portfolioData;
 
     // Let's save some variables that will be helpful in rendering the front-end component
     let takeActionURL, formattedRegEndDate, streetViewAddr, ownernames, userOwnernames;
@@ -207,15 +231,22 @@ class DetailViewWithoutI18n extends Component<Props, State> {
                         {Helpers.titleCase(detailAddr.streetname)},{" "}
                         {Helpers.titleCase(detailAddr.boro)}
                       </h4>
-                      {!Helpers.addrsAreEqual(detailAddr, searchAddr) && (
-                        <a // eslint-disable-line jsx-a11y/anchor-is-valid
-                          onClick={() => this.setState({ showCompareModal: true })}
-                        >
-                          <Trans render="i">
-                            How is this building associated to this portfolio?
-                          </Trans>
-                        </a>
-                      )}
+                      {!Helpers.addrsAreEqual(detailAddr, searchAddr) &&
+                        (useNewPortfolioMethod ? (
+                          <Link to={this.props.addressPageRoutes.summary}>
+                            <i>
+                              <HowIsBldgAssociatedHeader />
+                            </i>
+                          </Link>
+                        ) : (
+                          <a // eslint-disable-line jsx-a11y/anchor-is-valid
+                            onClick={() => this.setState({ showCompareModal: true })}
+                          >
+                            <i>
+                              <HowIsBldgAssociatedHeader />
+                            </i>
+                          </a>
+                        ))}
                     </div>
                     <div className="card-body">
                       <BuildingStatsTable addr={detailAddr} />
@@ -277,6 +308,15 @@ class DetailViewWithoutI18n extends Component<Props, State> {
                           </div>
                         </div>
                       )}
+                      {detailAddr.lastsaledate &&
+                        detailAddr.lastsaledate > detailAddr.registrationenddate && (
+                          <p className="text-danger text-italic">
+                            <Trans>
+                              Warning: This building has an expired registration and was sold after
+                              the expiration date. The landlord info listed here may be outdated.
+                            </Trans>
+                          </p>
+                        )}
                       <div className="card-body-registration">
                         <p>
                           <b>
@@ -357,16 +397,11 @@ class DetailViewWithoutI18n extends Component<Props, State> {
               onClose={() => this.setState({ showCompareModal: false })}
             >
               <h6>
-                <Trans render="b">How is this building associated to this portfolio?</Trans>
+                <b>
+                  <HowIsBldgAssociatedHeader />
+                </b>
               </h6>
-              <Trans render="p">
-                We compare your search address with a database of over 200k buildings to identify a
-                landlord or management company's portfolio. To learn more, check out{" "}
-                <LocaleLink to={createWhoOwnsWhatRoutePaths().methodology}>
-                  our methodology
-                </LocaleLink>
-                .
-              </Trans>
+              <HowIsBldgAssociatedDescription />
               <table className="DetailView__compareTable">
                 <thead>
                   <tr>

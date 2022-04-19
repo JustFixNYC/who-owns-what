@@ -5,18 +5,6 @@
   display: flex;
   flex-direction: column;
 
-  .dropdown-overlay {
-    &.hidden {
-      display: none;
-    }
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    background-color: $dark;
-    opacity: 0.6;
-    z-index: 100;
-  }
-
   & > div {
     box-sizing: border-box;
   }
@@ -42,6 +30,57 @@
   }
 }
 
+.App__banner {
+  padding: 0.5rem 1.5rem;
+  color: $wowza-dark;
+  position: relative;
+
+  .close-button {
+    color: $wowza-dark;
+    position: absolute;
+    right: 0.5rem;
+    top: 0rem;
+    padding: 0 1rem;
+    font-size: 2rem;
+    height: 100%;
+    cursor: pointer;
+    &:hover {
+      opacity: 0.7;
+    }
+  }
+
+  button:focus {
+    outline: 2px solid $dark;
+    outline-offset: 2px;
+  }
+
+  .content {
+    text-align: center;
+    @include for-phone-only {
+      text-align: left;
+      max-width: 95%;
+    }
+
+    // Override default <p> styling:
+    p {
+      margin-bottom: 0;
+    }
+
+    button:not(.close-button) {
+      color: $wowza-dark;
+      text-decoration: underline;
+      font-weight: 700;
+
+      &:hover,
+      &:focus {
+        text-decoration: none;
+      }
+    }
+  }
+
+  background-color: $wowza-warning;
+}
+
 .App__header {
   padding: 15px;
   border-bottom: 1px solid $gray-light;
@@ -56,32 +95,22 @@
   @include for-phone-only {
     padding: 10px 8px 8px;
   }
-  .dropdown.dropdown-right {
-    z-index: 110;
-    // Remove default border on focus:
-    button.dropdown-toggle:focus {
-      border: none;
+
+  &.wowza-styling {
+    background-color: $wowza-dark;
+    & > a h4,
+    button.btn.btn-link.dropdown-toggle {
+      color: $wowza-background;
+    }
+    @include for-tablet-landscape-up() {
+      color: $wowza-background;
+      nav a {
+        color: $wowza-background;
+      }
     }
     .menu {
-      padding: 0.25rem 0.5rem;
-      font-size: 1.6rem;
-
-      .menu-item a {
-        &:focus {
-          outline-offset: 0px;
-        }
-        &:active,
-        &.active {
-          background: $gray-light;
-        }
-      }
-
-      &.d-block {
-        display: block;
-      }
-      &.d-none {
-        display: none;
-      }
+      background-color: $wowza-background;
+      color: $wowza-dark;
     }
   }
 
@@ -125,9 +154,14 @@
   }
 
   nav {
+    display: inline-flex;
+    flex-wrap: nowrap;
     margin-left: auto;
-    flex-wrap: wrap;
     text-align: end;
+
+    @include for-tablet-landscape-down {
+      align-items: center;
+    }
 
     @include for-desktop-down {
       max-width: 250px;
@@ -136,7 +170,7 @@
     a {
       display: inline-block;
       margin-left: 10px;
-      color: #454d5d;
+      color: $dark;
 
       &.active {
         text-decoration: none;
@@ -161,6 +195,14 @@
   overflow: auto;
 
   display: flex;
+
+  &.wowza-styling,
+  &.wowza-styling .Loader-map,
+  &.wowza-styling .EngagementPanel {
+    color: $wowza-dark;
+    background-color: $wowza-background;
+    border-color: $wowza-dark;
+  }
 }
 
 div.Page {

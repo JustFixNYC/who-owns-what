@@ -10,7 +10,7 @@
   width: 85vw;
 
   @include for-tablet-portrait-up() {
-    width: 65vw;
+    max-width: 700px;
     padding: 35px;
     margin: 4rem auto;
   }
@@ -94,6 +94,17 @@
       }
     }
 
+    .card-body-links {
+      ul,
+      ol {
+        margin: 1rem 0.5rem;
+
+        li {
+          margin-top: 0.5rem;
+          line-height: 1.8rem;
+        }
+      }
+    }
     .justfix-cta,
     .social-share {
       margin-top: 2rem;
@@ -113,5 +124,15 @@
         }
       }
     }
+  }
+}
+
+.wowza-styling {
+  .NotRegisteredPage,
+  .NotRegisteredPage .HomePage__search,
+  .NotRegisteredPage .HomePage__content {
+    color: $wowza-dark;
+    background-color: $wowza-background;
+    border-color: $wowza-dark;
   }
 }

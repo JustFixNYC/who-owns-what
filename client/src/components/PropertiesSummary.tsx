@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Trans, Plural, t } from "@lingui/macro";
 
-import Loader from "../components/Loader";
+import { FixedLoadingLabel } from "../components/Loader";
 import LegalFooter from "../components/LegalFooter";
 
 import "styles/PropertiesSummary.css";
@@ -11,11 +11,14 @@ import { ViolationsSummary } from "./ViolationsSummary";
 import { StringifyListWithConjunction } from "./StringifyList";
 import { SocialShareAddressPage } from "./SocialShare";
 import { withMachineInStateProps } from "state-machine";
-import { NetworkErrorMessage } from "./NetworkErrorMessage";
 import { AddressRecord } from "./APIDataTypes";
 import { defaultLocale, isSupportedLocale } from "i18n-base";
 import { I18n } from "@lingui/core/i18n";
 import { I18n as I18nComponent } from "@lingui/react";
+import { PortfolioGraph } from "./PortfolioGraph";
+import { ComplaintsSummary } from "./ComplaintsSummary";
+import { BigPortfolioWarning } from "./BigPortfolioWarning";
+import { LazyLoadWhenVisible } from "./LazyLoadWhenVisible";
 
 type Props = withMachineInStateProps<"portfolioFound"> & {
   isVisible: boolean;
@@ -87,48 +90,49 @@ export default class PropertiesSummary extends Component<Props, {}> {
     const { state } = this.props;
     let agg = state.context.summaryData;
     let searchAddr = state.context.portfolioData.searchAddr;
-
-    if (state.matches({ portfolioFound: { summary: "error" } })) return <NetworkErrorMessage />;
-    else if (!agg) {
-      return (
-        <Loader loading={true} classNames="Loader-map">
-          <Trans>Loading</Trans>
-        </Loader>
-      );
+    if (!agg) {
+      return <FixedLoadingLabel />;
     } else {
       return (
         <div className="Page PropertiesSummary">
           <div className="PropertiesSummary__content Page__content">
             <div>
-              <Trans render="h6">General info</Trans>
+              <Trans render="h6">Network of Landlords</Trans>
+              {state.context.useNewPortfolioMethod && state.context.portfolioData.portfolioGraph && (
+                <div className="portfolio-graph-container">
+                  <LazyLoadWhenVisible showLoader>
+                    <PortfolioGraph
+                      graphJSON={state.context.portfolioData.portfolioGraph}
+                      state={state}
+                    />
+                    <BigPortfolioWarning sizeOfPortfolio={agg.bldgs} />
+                  </LazyLoadWhenVisible>
+                </div>
+              )}
               <p>
                 <Trans>
-                  There{" "}
+                  Across owners and management staff, the most common
                   <Plural
-                    value={agg.bldgs}
-                    one={
-                      <span>
-                        is <b>1</b> building
-                      </span>
-                    }
-                    other={
-                      <span>
-                        are <b>{agg.bldgs}</b> buildings
-                      </span>
-                    }
+                    value={agg.topowners.length}
+                    one="name that appears in this portfolio is"
+                    other="names that appear in this portfolio are"
                   />{" "}
-                  in this portfolio with a total of{" "}
-                  <Plural value={agg.units} one="1 unit" other="# units" />.
-                </Trans>
-                {` `}
-                <Trans>
-                  The <Plural value={agg.bldgs} one="" other="average" /> age of{" "}
-                  <Plural value={agg.bldgs} one="this building" other="these buildings" /> is{" "}
-                  <b>{agg.age}</b> years old.
-                </Trans>
+                  <StringifyListWithConjunction
+                    values={agg.topowners}
+                    renderItem={(item) => <strong>{item}</strong>}
+                  />
+                  .
+                </Trans>{" "}
+                {agg.topcorp && agg.topbusinessaddr && (
+                  <Trans>
+                    {" "}
+                    The most common corporate entity is <b>{agg.topcorp}</b> and the most common
+                    business address is <b>{agg.topbusinessaddr}</b>.
+                  </Trans>
+                )}
               </p>
               <aside>
-                {agg.violationsaddr && (
+                {agg.violationsaddr.lat && agg.violationsaddr.lng && (
                   <figure className="figure">
                     <img
                       src={`https://maps.googleapis.com/maps/api/streetview?size=800x500&location=${agg.violationsaddr.lat},${agg.violationsaddr.lng}&key=${process.env.REACT_APP_STREETVIEW_API_KEY}`}
@@ -150,29 +154,37 @@ export default class PropertiesSummary extends Component<Props, {}> {
                   </figure>
                 )}
               </aside>
-              <Trans render="h6">Landlord</Trans>
+              <Trans render="h6">Building info</Trans>
               <p>
                 <Trans>
-                  The most common
+                  There{" "}
                   <Plural
-                    value={agg.topowners.length}
-                    one="name that appears in this portfolio is"
-                    other="names that appear in this portfolio are"
+                    value={agg.bldgs}
+                    one={
+                      <span>
+                        is <b>1</b> building
+                      </span>
+                    }
+                    other={
+                      <span>
+                        are <b>{agg.bldgs}</b> buildings
+                      </span>
+                    }
                   />{" "}
-                  <StringifyListWithConjunction
-                    values={agg.topowners}
-                    renderItem={(item) => <strong>{item}</strong>}
-                  />
-                  .
-                </Trans>{" "}
-                {agg.topcorp && agg.topbusinessaddr && (
+                  in this portfolio with a total of{" "}
+                  <Plural value={agg.units} one="1 unit" other="# units" />.
+                </Trans>
+                {` `}
+                {agg.age && (
                   <Trans>
-                    {" "}
-                    The most common corporate entity is <b>{agg.topcorp}</b> and the most common
-                    business address is <b>{agg.topbusinessaddr}</b>.
+                    The <Plural value={agg.bldgs} one="" other="average" /> age of{" "}
+                    <Plural value={agg.bldgs} one="this building" other="these buildings" /> is{" "}
+                    <b>{Math.round(agg.age)}</b> years old.
                   </Trans>
                 )}
               </p>
+
+              <ComplaintsSummary {...agg} />
               <ViolationsSummary {...agg} />
               <Trans render="h6">Evictions</Trans>
               <EvictionsSummary {...agg} />

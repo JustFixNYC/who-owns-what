@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 
 import EngagementPanel from "../components/EngagementPanel";
 import LegalFooter from "../components/LegalFooter";
@@ -7,16 +7,24 @@ import "styles/HomePage.css";
 
 import { LocaleLink as Link } from "../i18n";
 import westminsterLogo from "../assets/img/westminster.svg";
-import allyearLogo from "../assets/img/allyear.png";
-import aeLogo from "../assets/img/aande.jpeg";
+import stellarLogo from "../assets/img/stellar.png";
+import aeLogo from "../assets/img/aande.svg";
 import AddressSearch, { SearchAddress } from "../components/AddressSearch";
 import { Trans } from "@lingui/macro";
 import Page from "../components/Page";
 import { createRouteForAddressPage } from "../routes";
 import { withMachineProps } from "state-machine";
-import { useHistory } from "react-router-dom";
-import { CovidMoratoriumBanner } from "@justfixnyc/react-common";
+import { parseLocaleFromPath } from "i18n";
+import { useHistory, useLocation } from "react-router-dom";
 import { withI18n, withI18nProps } from "@lingui/react";
+import { INLINES } from "@contentful/rich-text-types";
+import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
+import { ContentfulCommonStrings } from "@justfixnyc/contentful-common-strings";
+import _commonStrings from "../data/common-strings.json";
+import LandlordSearch, { algoliaAppId, algoliaSearchKey } from "components/LandlordSearch";
+import { logAmplitudeEvent } from "components/Amplitude";
+
+const commonStrings = new ContentfulCommonStrings(_commonStrings as any);
 
 type BannerState = {
   isHidden: boolean;
@@ -35,50 +43,88 @@ class MoratoriumBannerWithoutI18n extends Component<withI18nProps, BannerState> 
 
   render() {
     const locale = this.props.i18n.language;
+    const content = commonStrings.get("covidMoratoriumBanner", locale);
+
     return (
-      <div className={"HomePage__banner " + (this.state.isHidden ? "d-hide" : "")}>
-        <div className="close-button float-right" onClick={this.closeBanner}>
-          ✕
+      content && (
+        <div className={"HomePage__banner " + (this.state.isHidden ? "d-hide" : "")}>
+          <div className="close-button float-right" onClick={this.closeBanner}>
+            ✕
+          </div>
+          <div className="content">
+            {documentToReactComponents(content, {
+              renderNode: {
+                [INLINES.HYPERLINK]: (node, children) => (
+                  <a rel="noreferrer noopener" target="_blank" href={node.data.uri}>
+                    {children}
+                  </a>
+                ),
+              },
+            })}
+          </div>
         </div>
-        <div className="content">
-          <CovidMoratoriumBanner locale={locale} />
-        </div>
-      </div>
+      )
     );
   }
 }
 
 const MoratoriumBanner = withI18n()(MoratoriumBannerWithoutI18n);
 
-const getSampleUrls = () => [
-  createRouteForAddressPage({
-    boro: "BROOKLYN",
-    housenumber: "89",
-    streetname: "HICKS STREET",
-  }),
-  createRouteForAddressPage({
-    boro: "QUEENS",
-    housenumber: "4125",
-    streetname: "CASE STREET",
-  }),
-  createRouteForAddressPage({
-    boro: "BROOKLYN",
-    housenumber: "196",
-    streetname: "RALPH AVENUE",
-  }),
-];
+type HomePageProps = {
+  useNewPortfolioMethod?: boolean;
+} & withMachineProps;
 
-const HomePage: React.FC<withMachineProps> = (props) => {
+const HomePage: React.FC<HomePageProps> = ({ useNewPortfolioMethod }) => {
+  const { pathname } = useLocation();
+  const locale = parseLocaleFromPath(pathname) || undefined;
+
   const handleFormSubmit = (searchAddress: SearchAddress, error: any) => {
+    logAmplitudeEvent("searchByAddress");
     window.gtag("event", "search");
 
     if (error) {
       window.gtag("event", "search-error");
     } else {
-      const addressPage = createRouteForAddressPage(searchAddress);
+      const addressPage = createRouteForAddressPage(
+        { ...searchAddress, locale },
+        !useNewPortfolioMethod
+      );
       history.push(addressPage);
     }
   };
+
+  /**
+   * Returns the set of links to the 3 sample portfolios we show on the HomePage.
+   * Note: since these urls will be referenced inside `<Link>` components,
+   * we do not need to include the locale parameter as the url path should be relative
+   * to the current path, which on the HomePage already has a locale parameter.
+   */
+  const getSampleUrls = () => [
+    createRouteForAddressPage(
+      {
+        boro: "BROOKLYN",
+        housenumber: "89",
+        streetname: "HICKS STREET",
+      },
+      !useNewPortfolioMethod
+    ),
+    createRouteForAddressPage(
+      {
+        boro: "QUEENS",
+        housenumber: "4125",
+        streetname: "CASE STREET",
+      },
+      !useNewPortfolioMethod
+    ),
+    createRouteForAddressPage(
+      {
+        boro: "BRONX",
+        housenumber: "801",
+        streetname: "NEILL AVENUE",
+      },
+      !useNewPortfolioMethod
+    ),
+  ];
 
   const history = useHistory();
 
@@ -86,21 +132,67 @@ const HomePage: React.FC<withMachineProps> = (props) => {
     <Trans>Enter an NYC address and find other buildings your landlord might own:</Trans>
   );
 
+  const wowzaLabelText = <Trans>Find other buildings your landlord might own:</Trans>;
+
+  type SearchType = "address" | "landlord";
+  const [searchType, setSearchType] = useState("address" as SearchType);
+
   return (
     <Page>
       <div className="HomePage Page">
         <MoratoriumBanner />
         <div className="HomePage__content">
-          <div className="HomePage__search">
-            <div>
+          {useNewPortfolioMethod && algoliaAppId && algoliaSearchKey ? (
+            <div className="HomePage__search wowza-styling">
+              <h1 className="text-center">{wowzaLabelText}</h1>
+              <div>
+                <h2 className="text-uppercase">
+                  <Trans>Search by:</Trans>
+                </h2>
+                <label className={"form-radio" + (searchType === "address" ? " active" : "")}>
+                  <input
+                    type="radio"
+                    name="Address"
+                    checked={searchType === "address"}
+                    onChange={() => setSearchType("address")}
+                  />
+                  <i className="form-icon" /> <Trans>Address</Trans>
+                </label>
+                <label className={"form-radio" + (searchType === "landlord" ? " active" : "")}>
+                  <input
+                    type="radio"
+                    name="Landlord name"
+                    checked={searchType === "landlord"}
+                    onChange={() => setSearchType("landlord")}
+                  />
+                  <i className="form-icon" /> <Trans>Landlord name</Trans>
+                  <span className="chip">
+                    <Trans>New</Trans>
+                  </span>
+                </label>
+              </div>
+              {searchType === "landlord" ? (
+                <LandlordSearch />
+              ) : (
+                <AddressSearch
+                  labelText={labelText}
+                  labelClass="text-assistive"
+                  onFormSubmit={handleFormSubmit}
+                />
+              )}
+              <br />
+            </div>
+          ) : (
+            <div className="HomePage__search">
               <h1 className="text-center">{labelText}</h1>
               <AddressSearch
                 labelText={labelText}
                 labelClass="text-assistive"
                 onFormSubmit={handleFormSubmit}
               />
-            </div>{" "}
-          </div>
+            </div>
+          )}
+
           <div className="HomePage__samples">
             <h5 className="text-center">
               <Trans>... or view some sample portfolios:</Trans>
@@ -242,7 +334,7 @@ const HomePage: React.FC<withMachineProps> = (props) => {
                           window.gtag("event", "example-portfolio-3-homepage");
                         }}
                       >
-                        All Year Management
+                        Stellar Management
                       </Link>
                     </h6>
                     <Link
@@ -253,19 +345,30 @@ const HomePage: React.FC<withMachineProps> = (props) => {
                         window.gtag("event", "example-portfolio-3-homepage");
                       }}
                     >
-                      <img className="img-responsive" src={allyearLogo} alt="All Year" />
+                      <img className="img-responsive" src={stellarLogo} alt="Stellar Management" />
                     </Link>
                     <Trans render="p">
-                      Yoel Goldman's All Year Management has been at the{" "}
+                      Known for{" "}
                       <a
-                        href="https://commercialobserver.com/2017/09/yoel-goldman-all-year-management-brooklyn-real-estate/"
+                        href="https://gothamist.com/news/dozens-of-tenants-sue-big-time-landlord-over-alleged-systematic-illegal-rent-increases"
                         target="_blank"
                         rel="noopener noreferrer"
                       >
-                        forefront of gentrification
-                      </a>{" "}
-                      in Brooklyn. Tenants in his buidlings in Williamsburg, Bushwick, and Crown
-                      Heights have been forced to live in horrendous and often dangerous conditions.
+                        unscrupulously deregulating rent stabilized apartments
+                      </a>
+                      , Larry Gluck’s Stellar Management has also secured a prominent place as one
+                      of{" "}
+                      <a
+                        href="https://www.worstevictorsnyc.org/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        New York City’s Worst Evictors
+                      </a>
+                      . Stellar is a gentrifying force, particularly in upper Manhattan where Gluck
+                      operates the majority of his properties. Stellar has a reputation for
+                      displacing long-term tenants, renovating their units while vacant, and
+                      skyrocketing rents to market rate.
                     </Trans>
                     <Link
                       className="btn block text-center"

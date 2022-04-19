@@ -4,13 +4,14 @@ import {
   AddressRecord,
   BuildingInfoRecord,
   SummaryStatsRecord,
-  SummaryResults,
+  RawPortfolioGraphJson,
 } from "components/APIDataTypes";
 import APIClient from "components/APIClient";
 import { assertNotUndefined } from "@justfixnyc/util";
 import _find from "lodash/find";
 import { IndicatorsDataFromAPI } from "components/IndicatorsTypes";
 import { reportError } from "error-reporting";
+import { calculateAggDataFromAddressList } from "components/SummaryCalculation";
 
 export type WowState =
   | { value: "noData"; context: {} }
@@ -67,14 +68,6 @@ export type WowState =
       context: WowPortfolioFoundContext;
     }
   | {
-      value: { portfolioFound: { summary: "pending" } };
-      context: WowPortfolioFoundContext;
-    }
-  | {
-      value: { portfolioFound: { summary: "error" } };
-      context: WowPortfolioFoundContext;
-    }
-  | {
       value: { portfolioFound: { summary: "success" } };
       context: WowPortfolioFoundContext & {
         summaryData: SummaryStatsRecord;
@@ -92,7 +85,7 @@ export type WowPortfolioFoundContext = WowContext & {
 };
 
 export type WowEvent =
-  | { type: "SEARCH"; address: SearchAddressWithoutBbl }
+  | { type: "SEARCH"; address: SearchAddressWithoutBbl; useNewPortfolioMethod: boolean }
   | { type: "SELECT_DETAIL_ADDR"; bbl: string }
   | { type: "VIEW_SUMMARY" }
   | { type: "VIEW_TIMELINE" };
@@ -107,11 +100,19 @@ type PortfolioData = {
   assocAddrs: AddressRecord[];
   /** The address in focus on the Overview Tab and Timeline Tab */
   detailAddr: AddressRecord;
+  /** A Json object encoding the graphical representation of the portfolio.
+   * Only present when the new WOWZA graph-based portfolio mapping algorithm is
+   * used to generate the landlord portfolio.
+   */
+  portfolioGraph?: RawPortfolioGraphJson;
 };
 
 export interface WowContext {
   /** The original parameters that a user inputs to locate their building on WOW */
   searchAddrParams?: SearchAddressWithoutBbl;
+  /** Whether or not we want to use the new WOWZA graph-based portfolio mapping algorithm
+   * to generate the landlord portfolio. */
+  useNewPortfolioMethod?: boolean;
   /** The BBL code found by GeoSearch corresponding with the search address parameters */
   searchAddrBbl?: string;
   /**
@@ -157,8 +158,11 @@ export type withMachineInStateProps<TSV extends WowState["value"]> = {
   send: (event: WowEvent) => WowMachineEverything;
 };
 
-async function getSearchResult(addr: SearchAddressWithoutBbl): Promise<WowState> {
-  const apiResults = await APIClient.searchForAddressWithGeosearch(addr);
+async function getSearchResult(
+  addr: SearchAddressWithoutBbl,
+  useNewPortfolioMethod: boolean
+): Promise<WowState> {
+  const apiResults = await APIClient.searchForAddressWithGeosearch(addr, useNewPortfolioMethod);
   if (!apiResults.geosearch) {
     return {
       value: "bblNotFound",
@@ -204,6 +208,7 @@ async function getSearchResult(addr: SearchAddressWithoutBbl): Promise<WowState>
           searchAddr,
           detailAddr: searchAddr,
           assocAddrs: apiResults.addrs,
+          portfolioGraph: apiResults.graph,
         },
       },
     };
@@ -219,7 +224,12 @@ const handleSearchEvent: TransitionsConfig<WowContext, WowEvent> = {
     target: "searchInProgress",
     cond: (ctx, event) => !!event.address.boro && !!event.address.streetname,
     actions: assign((ctx, event) => {
-      return { searchAddrParams: event.address, summaryData: undefined, timelineData: undefined };
+      return {
+        searchAddrParams: event.address,
+        useNewPortfolioMethod: event.useNewPortfolioMethod,
+        summaryData: undefined,
+        timelineData: undefined,
+      };
     }),
   },
 };
@@ -244,7 +254,11 @@ export const wowMachine = createMachine<WowContext, WowEvent, WowState>({
       },
       invoke: {
         id: "geosearch",
-        src: (ctx, event) => getSearchResult(assertNotUndefined(ctx.searchAddrParams)),
+        src: (ctx, event) =>
+          getSearchResult(
+            assertNotUndefined(ctx.searchAddrParams),
+            ctx.useNewPortfolioMethod || false
+          ),
         onDone: [
           {
             target: "bblNotFound",
@@ -325,26 +339,6 @@ export const wowMachine = createMachine<WowContext, WowEvent, WowState>({
           initial: "noData",
           states: {
             noData: {},
-            pending: {
-              invoke: {
-                id: "summary",
-                src: (ctx, event) =>
-                  APIClient.getAggregate(assertNotUndefined(ctx.portfolioData).detailAddr.bbl),
-                onDone: {
-                  target: "success",
-                  actions: assign({
-                    summaryData: (ctx, event: DoneInvokeEvent<SummaryResults>) => {
-                      return event.data.result[0];
-                    },
-                  }),
-                },
-                onError: {
-                  target: "error",
-                  actions: [reportEventError],
-                },
-              },
-            },
-            error: {},
             success: {},
           },
         },
@@ -355,7 +349,13 @@ export const wowMachine = createMachine<WowContext, WowEvent, WowState>({
           target: [".timeline.pending"],
         },
         VIEW_SUMMARY: {
-          target: [".summary.pending"],
+          target: [".summary.success"],
+          actions: assign((ctx, event) => {
+            const summaryData = calculateAggDataFromAddressList(
+              assertNotUndefined(ctx.portfolioData?.assocAddrs)
+            );
+            return { summaryData };
+          }),
         },
         SELECT_DETAIL_ADDR: {
           target: [".timeline.noData"],

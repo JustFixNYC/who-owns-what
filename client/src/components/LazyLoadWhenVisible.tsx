@@ -1,8 +1,18 @@
 import React, { useRef, useState, useEffect } from "react";
+import { FixedLoadingLabel } from "./Loader";
 
-export const LazyLoadWhenVisible: React.FC = (props) => {
+type LazyLoadProps = {
+  children?: React.ReactNode;
+  showLoader?: boolean;
+};
+
+export const LazyLoadWhenVisible: React.FC<LazyLoadProps> = (props) => {
+  const { children, showLoader } = props;
+
   const ref = useRef<HTMLDivElement>(null);
   const [hasBeenVisible, setHasBeenVisible] = useState(false);
+
+  const componentBeforeVisible = showLoader ? <FixedLoadingLabel /> : <></>;
 
   useEffect(() => {
     const { current } = ref;
@@ -23,8 +33,8 @@ export const LazyLoadWhenVisible: React.FC = (props) => {
   }, [ref]);
 
   if (!("IntersectionObserver" in window)) {
-    return <div>{props.children}</div>;
+    return <div>{children}</div>;
   }
 
-  return <div ref={ref}>{hasBeenVisible && props.children}</div>;
+  return <div ref={ref}>{hasBeenVisible ? children : componentBeforeVisible}</div>;
 };

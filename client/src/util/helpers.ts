@@ -1,13 +1,10 @@
-// import _clone from 'lodash/clone';
-// import _xor from 'lodash/xor';
-// import _keys from 'lodash/keys';
-import _pickBy from "lodash/pickBy";
-import { deepEqual as assertDeepEqual } from "assert";
-import { SupportedLocale } from "../i18n-base";
-import { HpdContactAddress, SearchAddressWithoutBbl } from "components/APIDataTypes";
+import { defaultLocale, SupportedLocale } from "../i18n-base";
+import { AddressRecord, HpdContactAddress, SearchAddressWithoutBbl } from "components/APIDataTypes";
 import { reportError } from "error-reporting";
 import { t } from "@lingui/macro";
 import { I18n, MessageDescriptor } from "@lingui/core";
+import React, { useEffect, useState } from "react";
+import _ from "lodash";
 
 /**
  * An array consisting of Who Owns What's standard enumerations for street names,
@@ -82,6 +79,27 @@ export const longDateOptions = { year: "numeric", month: "short", day: "numeric"
 export const mediumDateOptions = { year: "numeric", month: "long" };
 export const shortDateOptions = { month: "short" };
 
+/**
+ * Delay the action of a certian function by a set amount of time.
+ *
+ * Originally copied from:
+ * https://gist.github.com/gragland/4e3d9b1c934a18dc76f585350f97e321#gistcomment-3073492
+ */
+const debounce = (delay: number, fn: any) => {
+  let timerId: any;
+
+  return function (...args: any[]) {
+    if (timerId) {
+      clearTimeout(timerId);
+    }
+
+    timerId = setTimeout(() => {
+      fn(...args);
+      timerId = null;
+    }, delay);
+  };
+};
+
 const createTranslationFunctionFromMap = (
   map: Map<string, MessageDescriptor>,
   description: string,
@@ -146,6 +164,39 @@ export default {
     return max;
   },
 
+  /**
+   * Same functionality as the built-in Array.prototype.flat() function,
+   * but with greater support across older browsers.
+   */
+  flattenArray(array: any[]): any[] {
+    return array.reduce((arr, elem) => arr.concat(elem), []);
+  },
+
+  getMostCommonElementsInArray(array: string[], numberOfResults: number): string[] {
+    const elementsByFrequency = _.countBy(array);
+    const sortedElementsByFrequency = Object.entries(elementsByFrequency).sort(
+      (a, b) => b[1] - a[1]
+    );
+    // Let's discard the frequency number and just return a simple array of strings, in order:
+    return sortedElementsByFrequency.slice(0, numberOfResults).map((a) => a[0]);
+  },
+
+  /**
+   * Note: while almost all address records will just have one landlord listed, there is a rare
+   * edge case where more than one distinct landlord name might be listed, so we return an array
+   * of names here to accommodate that edge case.
+   */
+  getLandlordNameFromAddress(addr: AddressRecord): string[] {
+    const { ownernames } = addr;
+    if (!ownernames) return [];
+    const landlords = ownernames.filter((owner) =>
+      ["HeadOfficer", "IndividualOwner", "CorporateOwner", "JointOwner"].includes(owner.title)
+    );
+    const landlordNames = landlords.map((landlord) => landlord.value);
+    // Remove duplicate names:
+    return Array.from(new Set(landlordNames));
+  },
+
   splitBBL(bbl: string) {
     const bblArr = bbl.split("");
     const boro = bblArr.slice(0, 1).join("");
@@ -158,17 +209,8 @@ export default {
     return a.bbl === b.bbl;
   },
 
-  jsonEqual(a: any, b: any): boolean {
-    try {
-      assertDeepEqual(a, b);
-      return true;
-    } catch (e) {
-      return false;
-    }
-  },
-
   formatPrice(amount: number, locale?: SupportedLocale): string {
-    const formatPrice = new Intl.NumberFormat(locale || "en");
+    const formatPrice = new Intl.NumberFormat(locale || defaultLocale);
     return formatPrice.format(amount);
   },
 
@@ -197,12 +239,6 @@ export default {
     }
   },
 
-  intersectAddrObjects(a: any, b: any) {
-    return _pickBy(a, function (v, k) {
-      return b[k] === v;
-    });
-  },
-
   capitalize(string: string): string {
     return string.charAt(0).toUpperCase() + string.slice(1);
   },
@@ -219,7 +255,7 @@ export default {
 
   formatDate(dateString: string, options: object, locale?: SupportedLocale): string {
     var date = new Date(dateString);
-    return this.capitalize(date.toLocaleDateString(locale || "en", options));
+    return this.capitalize(date.toLocaleDateString(locale || defaultLocale, options));
   },
 
   /** The quarter number written out as it's range of months (ex: "1" becomes "Jan - Mar")  */
@@ -304,5 +340,71 @@ export default {
       const translationSuffix = i18n._(t`("${textInEnglish}" in English)`);
       return translation + " " + translationSuffix;
     }
+  },
+
+  /**
+   * Detects whether a given DOM element is visible on screen.
+   *
+   * Note: for older browsers that do not support IntersectionObserver, this
+   * hook will always return FALSE by default.
+   *
+   * Borrowed from https://stackoverflow.com/questions/45514676/react-check-if-element-is-visible-in-dom
+   */
+  useOnScreen(ref: React.RefObject<any>) {
+    const isIntersectionObserverSupported = typeof IntersectionObserver !== "undefined";
+
+    const [isIntersecting, setIntersecting] = useState(false);
+    const observer =
+      isIntersectionObserverSupported &&
+      new IntersectionObserver(([entry]) => setIntersecting(entry.isIntersecting));
+
+    useEffect(() => {
+      if (observer && ref.current) {
+        observer.observe(ref.current);
+        // Remove the observer as soon as the component is unmounted
+        return () => {
+          observer.disconnect();
+        };
+      }
+    }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+    return isIntersecting;
+  },
+
+  /**
+   * Detects whether a user's viewport window has changed dimensions.
+   *
+   * Adapted from https://usehooks.com/useWindowSize/
+   */
+  useWindowSize() {
+    // Initialize state with undefined width/height so server and client renders match
+    // Learn more here: https://joshwcomeau.com/react/the-perils-of-rehydration/
+    const [windowSize, setWindowSize] = useState<{
+      width: number | undefined;
+      height: number | undefined;
+    }>({
+      width: undefined,
+      height: undefined,
+    });
+
+    // How long we should wait before handling a window resize
+    const DEBOUNCE_TIME_IN_MS = 250;
+    useEffect(() => {
+      // Handler to call on window resize
+      function handleResize() {
+        // Set window width/height to state
+        setWindowSize({
+          width: window.innerWidth,
+          height: window.innerHeight,
+        });
+      }
+      // Add event listener
+      window.addEventListener("resize", debounce(DEBOUNCE_TIME_IN_MS, handleResize));
+      // Call handler right away so state gets updated with initial window size
+      handleResize();
+      // Remove event listener on cleanup
+      return () => window.removeEventListener("resize", handleResize);
+    }, []); // Empty array ensures that effect is only run on mount
+    return windowSize;
   },
 };

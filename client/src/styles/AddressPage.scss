@@ -81,12 +81,24 @@
     width: 100%;
   }
 
-  .AddressPage__table {
-    overflow-x: scroll;
-  }
-
   .AddressPage__summary {
     overflow-y: scroll;
     @include scrollbar();
+  }
+}
+
+.wowza-styling .AddressPage {
+  .AddressPage__info,
+  .AddressPage__content,
+  .DetailView,
+  .card,
+  .PropertiesSummary__linksTitle,
+  .NotRegisteredPage {
+    color: $wowza-dark;
+    background-color: $wowza-background;
+    border-color: $wowza-dark;
+  }
+  .text-dark {
+    color: $wowza-dark;
   }
 }

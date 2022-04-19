@@ -13,10 +13,11 @@ import * as ChartAnnotation from "chartjs-plugin-annotation";
 import Helpers, { mediumDateOptions, shortDateOptions } from "../util/helpers";
 
 import "styles/Indicators.css";
-import { IndicatorsState } from "./IndicatorsTypes";
-import { SupportedLocale } from "../i18n-base";
+import { indicatorsDatasetIds, IndicatorsState } from "./IndicatorsTypes";
+import { defaultLocale, SupportedLocale } from "../i18n-base";
 import { ChartOptions } from "chart.js";
 import { withMachineInStateProps } from "state-machine";
+import { INDICATORS_DATASETS } from "./IndicatorsDatasets";
 
 const DEFAULT_ANIMATION_MS = 1000;
 const MONTH_ANIMATION_MS = 2500;
@@ -144,7 +145,6 @@ class IndicatorsVizImplementation extends Component<IndicatorVizImplementationPr
   }
 
   /** Returns grouped data to match selected time span */
-
   groupData(dataArray: number[] | null) {
     if (dataArray && this.props.activeTimeSpan === "quarter") {
       var dataByQuarter = [];
@@ -168,7 +168,7 @@ class IndicatorsVizImplementation extends Component<IndicatorVizImplementationPr
   /** Returns maximum y-value across all datasets, grouped by selected timespan */
   getDataMaximum() {
     var { timelineData } = this.props.state.context;
-    var dataMaximums = this.props.indicatorList.map((datasetName) => {
+    var dataMaximums = indicatorsDatasetIds.map((datasetName) => {
       const { total } = timelineData[datasetName].values;
       return total ? Helpers.maxArray(this.groupData(total) || [0]) : 0;
     });
@@ -182,59 +182,84 @@ class IndicatorsVizImplementation extends Component<IndicatorVizImplementationPr
     var { timelineData } = this.props.state.context;
 
     const { i18n } = this.props;
-    const locale = (i18n.language || "en") as SupportedLocale;
+    const locale = (i18n.language || defaultLocale) as SupportedLocale;
 
     switch (this.props.activeVis) {
-      case "viols":
+      case "hpdviolations":
         datasets = [
           {
+            label: i18n._(t`Class I`),
+            data: this.groupData(timelineData.hpdviolations.values.class_i) || [],
+            backgroundColor: "rgba(87, 0, 83, 0.6)",
+            borderColor: "rgba(87, 0, 83, 1)",
+            borderWidth: 1,
+          },
+          {
             label: i18n._(t`Class C`),
-            data: this.groupData(timelineData.viols.values.class_c) || [],
-            backgroundColor: "rgba(136,65,157, 0.6)",
-            borderColor: "rgba(136,65,157,1)",
+            data: this.groupData(timelineData.hpdviolations.values.class_c) || [],
+            backgroundColor: "rgba(136, 65, 157, 0.6)",
+            borderColor: "rgba(136, 65, 157, 1)",
             borderWidth: 1,
           },
           {
             label: i18n._(t`Class B`),
-            data: this.groupData(timelineData.viols.values.class_b) || [],
-            backgroundColor: "rgba(140,150,198, 0.6)",
+            data: this.groupData(timelineData.hpdviolations.values.class_b) || [],
+            backgroundColor: "rgba(140, 150, 198, 0.6)",
             borderColor: "rgba(140,150,198,1)",
             borderWidth: 1,
           },
           {
             label: i18n._(t`Class A`),
-            data: this.groupData(timelineData.viols.values.class_a) || [],
+            data: this.groupData(timelineData.hpdviolations.values.class_a) || [],
             backgroundColor: "rgba(157, 194, 227, 0.6)",
             borderColor: "rgba(157, 194, 227,1)",
             borderWidth: 1,
           },
         ];
         break;
-      case "complaints":
+      case "hpdcomplaints":
         datasets = [
           {
             label: i18n._(t`Emergency`),
-            data: this.groupData(timelineData.complaints.values.emergency) || [],
+            data: this.groupData(timelineData.hpdcomplaints.values.emergency) || [],
             backgroundColor: "rgba(227,74,51, 0.6)",
             borderColor: "rgba(227,74,51,1)",
             borderWidth: 1,
           },
           {
             label: i18n._(t`Non-Emergency`),
-            data: this.groupData(timelineData.complaints.values.nonemergency) || [],
+            data: this.groupData(timelineData.hpdcomplaints.values.nonemergency) || [],
             backgroundColor: "rgba(255, 219, 170, 0.6)",
             borderColor: "rgba(255, 219, 170,1)",
             borderWidth: 1,
           },
         ];
         break;
-      case "permits":
+      case "dobpermits":
         datasets = [
           {
             label: i18n._(t`Building Permits Applied For`),
-            data: this.groupData(timelineData.permits.values.total) || [],
+            data: this.groupData(timelineData.dobpermits.values.total) || [],
             backgroundColor: "rgba(73, 192, 179, 0.6)",
             borderColor: "rgb(73, 192, 179)",
+            borderWidth: 1,
+          },
+        ];
+        break;
+      case "dobviolations":
+        datasets = [
+          {
+            label: i18n._(t`ECB`),
+            data: this.groupData(timelineData.dobviolations.values.ecb) || [],
+            backgroundColor: "rgba(217,95,14, 0.6)",
+            borderColor: "rgba(217,95,14,1)",
+            borderWidth: 1,
+          },
+          {
+            label: i18n._(t`Non-ECB`),
+            data: this.groupData(timelineData.dobviolations.values.regular) || [],
+            backgroundColor: "rgba(254,217,142, 0.6)",
+            borderColor: "rgba(254,217,142,1)",
             borderWidth: 1,
           },
         ];
@@ -274,7 +299,31 @@ class IndicatorsVizImplementation extends Component<IndicatorVizImplementationPr
     }
 
     var dataMaximum = this.getDataMaximum();
+    var suggestedYAxisMax =
+      this.props.activeVis !== "hpdcomplaints" && this.props.activeVis !== "hpdviolations"
+        ? Math.max(
+            12,
+            Helpers.maxArray(this.groupData(timelineData.dobpermits.values.total) || [0]) * 1.25
+          )
+        : Math.max(12, dataMaximum * 1.25);
+
     var timeSpan = this.props.activeTimeSpan;
+
+    const formatXAxisTicks = (dateValue: string): string => {
+      if (timeSpan === "month") {
+        var fullDate = dateValue.concat("-15"); // Make date value include a day so it can be parsed
+        return (
+          (dateValue.slice(5, 7) === "01" ? dateValue.slice(0, 4) + "  " : "") + // Include special year label for January
+          Helpers.formatDate(fullDate, shortDateOptions, locale)
+        );
+      } else if (timeSpan === "quarter") {
+        return (
+          (dateValue.slice(-2) === "Q1" ? dateValue.slice(0, 4) + "  " : "") + dateValue.slice(-2) // Include special year label for Q1
+        );
+      } else {
+        return dateValue;
+      }
+    };
 
     var acrisURL =
       this.props.lastSale && this.props.lastSale.documentid
@@ -295,14 +344,7 @@ class IndicatorsVizImplementation extends Component<IndicatorVizImplementationPr
           {
             ticks: {
               beginAtZero: true,
-              suggestedMax:
-                this.props.activeVis === "permits"
-                  ? Math.max(
-                      12,
-                      Helpers.maxArray(this.groupData(timelineData.permits.values.total) || [0]) *
-                        1.25
-                    )
-                  : Math.max(12, dataMaximum * 1.25),
+              suggestedMax: suggestedYAxisMax,
             },
             scaleLabel: {
               display: true,
@@ -310,12 +352,7 @@ class IndicatorsVizImplementation extends Component<IndicatorVizImplementationPr
               fontColor: "rgb(69, 77, 93)",
               fontSize: 14,
               padding: 8,
-              labelString:
-                this.props.activeVis === "complaints"
-                  ? i18n._(t`Complaints Issued`)
-                  : this.props.activeVis === "viols"
-                  ? i18n._(t`Violations Issued`)
-                  : i18n._(t`Building Permits Applied For`),
+              labelString: INDICATORS_DATASETS[activeVis].yAxisLabel(i18n),
             },
             stacked: true,
           },
@@ -329,21 +366,7 @@ class IndicatorsVizImplementation extends Component<IndicatorVizImplementationPr
                 : null,
               maxRotation: 45,
               minRotation: 45,
-              callback: function (value: any, index: any, values: any) {
-                if (timeSpan === "month") {
-                  var fullDate = value.concat("-15"); // Make date value include a day so it can be parsed
-                  return (
-                    (value.slice(5, 7) === "01" ? value.slice(0, 4) + "  " : "") + // Include special year label for January
-                    Helpers.formatDate(fullDate, shortDateOptions, locale)
-                  );
-                } else if (timeSpan === "quarter") {
-                  return (
-                    (value.slice(-2) === "Q1" ? value.slice(0, 4) + "  " : "") + value.slice(-2) // Include special year label for Q1
-                  );
-                } else {
-                  return value;
-                }
-              },
+              callback: formatXAxisTicks,
             },
             stacked: true,
           },
@@ -475,7 +498,7 @@ class IndicatorsVizImplementation extends Component<IndicatorVizImplementationPr
               window.open(acrisURL, "_blank");
             },
           },
-          this.props.activeVis === "complaints" && {
+          this.props.activeVis === "hpdcomplaints" && {
             drawTime: "beforeDatasetsDraw",
             type: "line",
             mode: "vertical",

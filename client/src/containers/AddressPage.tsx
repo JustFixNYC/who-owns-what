@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import FileSaver from "file-saver";
 
 import AddressToolbar from "../components/AddressToolbar";
 import PropertiesMap from "../components/PropertiesMap";
@@ -7,8 +6,7 @@ import PropertiesList from "../components/PropertiesList";
 import PropertiesSummary from "../components/PropertiesSummary";
 import Indicators from "../components/Indicators";
 import DetailView from "../components/DetailView";
-import APIClient from "../components/APIClient";
-import Loader from "../components/Loader";
+import { LoadingPage } from "../components/Loader";
 
 import "styles/AddressPage.css";
 import NychaPage from "./NychaPage";
@@ -23,6 +21,8 @@ import { AddrNotFoundPage } from "./NotFoundPage";
 import { searchAddrsAreEqual } from "util/helpers";
 import { NetworkErrorMessage } from "components/NetworkErrorMessage";
 import { createAddressPageRoutes } from "routes";
+import { isLegacyPath } from "../components/WowzaToggle";
+import { logAmplitudeEventWithData } from "components/Amplitude";
 
 type RouteParams = {
   locale?: string;
@@ -38,6 +38,7 @@ type RouteState = {
 type AddressPageProps = RouteComponentProps<RouteParams, {}, RouteState> &
   withMachineProps & {
     currentTab: number;
+    useNewPortfolioMethod?: boolean;
   };
 
 type State = {
@@ -78,7 +79,11 @@ export default class AddressPage extends Component<AddressPageProps, State> {
       searchAddrsAreEqual(state.context.portfolioData.searchAddr, validateRouteParams(match.params))
     )
       return;
-    send({ type: "SEARCH", address: validateRouteParams(match.params) });
+    send({
+      type: "SEARCH",
+      address: validateRouteParams(match.params),
+      useNewPortfolioMethod: this.props.useNewPortfolioMethod || false,
+    });
     /* When searching for user's address, let's reset the DetailView to the "closed" state 
     so it can pop into view once the address is found */
     this.handleCloseDetail();
@@ -106,15 +111,8 @@ export default class AddressPage extends Component<AddressPageProps, State> {
     this.handleOpenDetail();
   };
 
-  // should this properly live in AddressToolbar? you tell me
-  handleExportClick = (bbl: string) => {
-    APIClient.getAddressExport(bbl)
-      .then((response) => response.blob())
-      .then((blob) => FileSaver.saveAs(blob, "export.csv"));
-  };
-
   render() {
-    const { state, send } = this.props;
+    const { state, send, useNewPortfolioMethod, location } = this.props;
 
     if (state.matches("bblNotFound")) {
       window.gtag("event", "bbl-not-found-page");
@@ -126,9 +124,31 @@ export default class AddressPage extends Component<AddressPageProps, State> {
       window.gtag("event", "unregistered-page");
       return <NotRegisteredPage state={state} send={send} />;
     } else if (state.matches("portfolioFound")) {
+      const { assocAddrs, searchAddr, portfolioGraph } = state.context.portfolioData;
+      logAmplitudeEventWithData("portfolioFound", {
+        portfolioSize: assocAddrs.length,
+        portfolioMappingMethod: !!useNewPortfolioMethod ? "wowza" : "legacy",
+      });
       window.gtag("event", "portfolio-found-page");
-      const { assocAddrs, searchAddr } = state.context.portfolioData;
-      const routes = createAddressPageRoutes(validateRouteParams(this.props.match.params));
+
+      const routes = createAddressPageRoutes(
+        validateRouteParams(this.props.match.params),
+        !useNewPortfolioMethod
+      );
+
+      /**
+       * When switching between the legacy and new versions of Who Owns What,
+       * there is a delay period after clicking the `ToggleLinkBetweenPortfolioMethods` link
+       * where the url has changed but the new portfolio data hasn't yet loaded via API call.
+       *
+       * This check makes sure that we show the Loading Page while the url and data are mismatched:
+       */
+      if (
+        process.env.REACT_APP_ENABLE_NEW_WOWZA_PORTFOLIO_MAPPING === "1" &&
+        !!portfolioGraph === isLegacyPath(location.pathname)
+      ) {
+        return <LoadingPage />;
+      }
 
       return (
         <Page
@@ -136,11 +156,7 @@ export default class AddressPage extends Component<AddressPageProps, State> {
         >
           <div className="AddressPage">
             <div className="AddressPage__info">
-              <AddressToolbar
-                onExportClick={() => this.handleExportClick(searchAddr.bbl)}
-                searchAddr={searchAddr}
-                numOfAssocAddrs={assocAddrs.length}
-              />
+              <AddressToolbar searchAddr={searchAddr} assocAddrs={assocAddrs} />
               <div className="float-left">
                 <h1 className="primary">
                   <Trans>
@@ -256,13 +272,7 @@ export default class AddressPage extends Component<AddressPageProps, State> {
         </Page>
       );
     } else {
-      return (
-        <Page>
-          <Loader loading={true} classNames="Loader-map">
-            <Trans>Loading</Trans>
-          </Loader>
-        </Page>
-      );
+      return <LoadingPage />;
     }
   }
 }

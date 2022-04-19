@@ -1,13 +1,14 @@
 ---
 dependencies:
   # These are NYCDB datasets needed by the SQL scripts.
-  - pluto_19v2
+  - pluto_20v8
   - rentstab_summary
   - rentstab_v2
   - marshal_evictions
   - hpd_registrations
   - hpd_violations
   - hpd_complaints
+  - dof_exemptions
   - acris
   - nycha_bbls
 api_dependencies:
@@ -15,6 +16,8 @@ api_dependencies:
   # SQL scripts, but which the Django server uses
   # for the WoW API.
   - hpd_complaints
+  - dob_violations
+  - ecb_violations
   - dobjobs
 sql:
   # These SQL scripts must be executed in order, as
@@ -25,8 +28,9 @@ sql:
   - search_function.sql
   - agg_function.sql
   - landlord_contact.sql
+  - create_portfolios_table.sql
 extra_nycdb_test_data:
   # This is extra data our tests need that we don't
   # create ourselves via factories.
   - "tests/data/acris_*.csv"
-  - "tests/data/rentstab_counts_from_doffer_2019.csv"
+  - "tests/data/rentstab_counts_from_doffer_2020.csv"
