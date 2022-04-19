@@ -63,8 +63,8 @@ export const BigPortfolioWarning = withI18n()(
           <br />
           <p>
             <Trans>
-              We’ve been making improvements to Who Owns What to dig deeper and find a more complete
-              picture of your landlord's network.{" "}
+              We’ve improved Who Owns What to dig deeper into the data and offer you a more complete
+              picture of buildings associated with your landlord.{" "}
               <a
                 href={
                   methodology // TODO: Replace link with medium article
