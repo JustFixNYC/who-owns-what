@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Cytoscape from "cytoscape";
 import CytoscapeComponent from "react-cytoscapejs";
 // @ts-ignore
@@ -17,9 +17,10 @@ const layout = {
   name: "fcose",
   nodeDimensionsIncludeLabels: true,
   animate: false,
-  quality: "proof",
+  quality: "default",
   idealEdgeLength: 100,
   nodeSeparation: 300,
+  nodeRepulsion: () => 45000,
 };
 
 function createNode(id: string, type: string, value: string): cytoscape.NodeDefinition {
@@ -157,6 +158,15 @@ const PortfolioGraphWithoutI18: React.FC<PortfolioGraphProps> = ({ graphJSON, st
   const ZOOM_ANIMATION_DURATION = 100;
 
   let myCyRef: Cytoscape.Core;
+  let myCyLayout: Cytoscape.Layouts;
+
+  /**
+   * Every time we update the detail address, let's rerun our graph layout so make sure
+   * the new node for the detail address fits in nicely with the other existing nodes.
+   */
+  useEffect(() => {
+    myCyLayout.run();
+  }, [detailAddr.bbl]);
 
   return (
     <div className="portfolio-graph">
@@ -226,9 +236,10 @@ const PortfolioGraphWithoutI18: React.FC<PortfolioGraphProps> = ({ graphJSON, st
         // Enable scroll zoom only on mobile devices:
         userZoomingEnabled={isMobile}
         cy={(cy) => {
-          // Get a reference to the Cytoscape object:
+          // Get a reference to the Cytoscape object and layout:
           // https://github.com/plotly/react-cytoscapejs#cy-1
           myCyRef = cy;
+          myCyLayout = myCyRef.makeLayout(layout);
           // Let's fit the graph to the viewport on render:
           myCyRef.fit();
         }}
@@ -244,7 +255,7 @@ const PortfolioGraphWithoutI18: React.FC<PortfolioGraphProps> = ({ graphJSON, st
               "text-wrap": "wrap",
               "text-max-width": "200px",
               "font-size": (ele: Cytoscape.NodeSingular) =>
-                ele.data("type") === "bizaddr" ? "12px" : "15px",
+                ele.data("type") === "bizaddr" ? "16px" : "18px",
               "font-weight": (ele: Cytoscape.NodeSingular) =>
                 ["searchaddr", "detailaddr"].includes(ele.data("type")) ? 700 : 400,
               "font-family": "Inconsolata, monospace",
@@ -253,7 +264,7 @@ const PortfolioGraphWithoutI18: React.FC<PortfolioGraphProps> = ({ graphJSON, st
                 ["searchaddr", "detailaddr"].includes(ele.data("type")) ? ANNOTATION_COLOR : "",
               "background-opacity": (ele: Cytoscape.NodeSingular) =>
                 ["searchaddr", "detailaddr"].includes(ele.data("type")) ? 0 : 1,
-              "min-zoomed-font-size": 16,
+              "min-zoomed-font-size": 10,
             },
           },
           {
