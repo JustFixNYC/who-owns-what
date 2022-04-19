@@ -23,7 +23,11 @@ type AmplitudeEvent =
   | "learnWhyPortfolioSoBig"
   | "zoomInNetworkViz"
   | "zoomOutNetworkViz"
-  | "resetNetworkViz";
+  | "resetNetworkViz"
+  | "hpdRegistrationIsIncomplete"
+  | "hpdRegistrationNotRequired"
+  | "hpdRegistrationMaybeRequired"
+  | "hpdRegistrationRequiredAndNotThere";
 
 type AmplitudeEventData = {
   portfolioSize?: number;
