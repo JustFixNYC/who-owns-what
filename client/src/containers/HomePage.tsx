@@ -7,7 +7,7 @@ import "styles/HomePage.css";
 
 import { LocaleLink as Link } from "../i18n";
 import westminsterLogo from "../assets/img/westminster.svg";
-import allyearLogo from "../assets/img/allyear.png";
+import stellarLogo from "../assets/img/stellar.png";
 import aeLogo from "../assets/img/aande.svg";
 import AddressSearch, { SearchAddress } from "../components/AddressSearch";
 import { Trans } from "@lingui/macro";
@@ -118,9 +118,9 @@ const HomePage: React.FC<HomePageProps> = ({ useNewPortfolioMethod }) => {
     ),
     createRouteForAddressPage(
       {
-        boro: "BROOKLYN",
-        housenumber: "196",
-        streetname: "RALPH AVENUE",
+        boro: "BRONX",
+        housenumber: "801",
+        streetname: "NEILL AVENUE",
       },
       !useNewPortfolioMethod
     ),
@@ -334,7 +334,7 @@ const HomePage: React.FC<HomePageProps> = ({ useNewPortfolioMethod }) => {
                           window.gtag("event", "example-portfolio-3-homepage");
                         }}
                       >
-                        All Year Management
+                        Stellar Management
                       </Link>
                     </h6>
                     <Link
@@ -345,19 +345,30 @@ const HomePage: React.FC<HomePageProps> = ({ useNewPortfolioMethod }) => {
                         window.gtag("event", "example-portfolio-3-homepage");
                       }}
                     >
-                      <img className="img-responsive" src={allyearLogo} alt="All Year" />
+                      <img className="img-responsive" src={stellarLogo} alt="Stellar Management" />
                     </Link>
                     <Trans render="p">
-                      Yoel Goldman's All Year Management has been at the{" "}
+                      Known for{" "}
                       <a
-                        href="https://commercialobserver.com/2017/09/yoel-goldman-all-year-management-brooklyn-real-estate/"
+                        href="https://gothamist.com/news/dozens-of-tenants-sue-big-time-landlord-over-alleged-systematic-illegal-rent-increases"
                         target="_blank"
                         rel="noopener noreferrer"
                       >
-                        forefront of gentrification
-                      </a>{" "}
-                      in Brooklyn. Tenants in his buidlings in Williamsburg, Bushwick, and Crown
-                      Heights have been forced to live in horrendous and often dangerous conditions.
+                        unscrupulously deregulating rent stabilized apartments
+                      </a>
+                      , Larry Gluck’s Stellar Management has also secured a prominent place as one
+                      of{" "}
+                      <a
+                        href="https://www.worstevictorsnyc.org/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        New York City’s Worst Evictors
+                      </a>
+                      . Stellar is a gentrifying force, particularly in upper Manhattan where Gluck
+                      operates the majority of his properties. Stellar has a reputation for
+                      displacing long-term tenants, renovating their units while vacant, and
+                      skyrocketing rents to market rate.
                     </Trans>
                     <Link
                       className="btn block text-center"
