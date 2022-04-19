@@ -14,7 +14,8 @@ import { Trans } from "@lingui/macro";
 import Page from "../components/Page";
 import { createRouteForAddressPage } from "../routes";
 import { withMachineProps } from "state-machine";
-import { useHistory } from "react-router-dom";
+import { parseLocaleFromPath } from "i18n";
+import { useHistory, useLocation } from "react-router-dom";
 import { withI18n, withI18nProps } from "@lingui/react";
 import { INLINES } from "@contentful/rich-text-types";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
@@ -74,6 +75,9 @@ type HomePageProps = {
 } & withMachineProps;
 
 const HomePage: React.FC<HomePageProps> = ({ useNewPortfolioMethod }) => {
+  const { pathname } = useLocation();
+  const locale = parseLocaleFromPath(pathname) || undefined;
+
   const handleFormSubmit = (searchAddress: SearchAddress, error: any) => {
     logAmplitudeEvent("searchByAddress");
     window.gtag("event", "search");
@@ -81,11 +85,20 @@ const HomePage: React.FC<HomePageProps> = ({ useNewPortfolioMethod }) => {
     if (error) {
       window.gtag("event", "search-error");
     } else {
-      const addressPage = createRouteForAddressPage(searchAddress, !useNewPortfolioMethod);
+      const addressPage = createRouteForAddressPage(
+        { ...searchAddress, locale },
+        !useNewPortfolioMethod
+      );
       history.push(addressPage);
     }
   };
 
+  /**
+   * Returns the set of links to the 3 sample portfolios we show on the HomePage.
+   * Note: since these urls will be referenced inside `<Link>` components,
+   * we do not need to include the locale parameter as the url path should be relative
+   * to the current path, which on the HomePage already has a locale parameter.
+   */
   const getSampleUrls = () => [
     createRouteForAddressPage(
       {
