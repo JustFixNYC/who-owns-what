@@ -14,7 +14,11 @@ type AmplitudeEvent =
   | "closeFeatureCalloutWidget"
   | "openFeatureCalloutWidget"
   | "viewPreviousEntryOnFeatureCalloutWidget"
-  | "viewNextEntryOnFeatureCalloutWidget";
+  | "viewNextEntryOnFeatureCalloutWidget"
+  | "switchToNewVersion"
+  | "switchToOldVersion"
+  | "searchByAddress"
+  | "searchByLandlordName";
 
 const logAmplitudeEvent = (e: AmplitudeEvent) => amplitude.getInstance().logEvent(e);
 

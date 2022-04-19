@@ -16,6 +16,7 @@ import classnames from "classnames";
 
 import "../styles/LandlordSearch.css";
 import FocusTrap from "focus-trap-react";
+import { logAmplitudeEvent } from "./Amplitude";
 
 export const algoliaAppId = process.env.REACT_APP_ALGOLIA_APP_ID;
 export const algoliaSearchKey = process.env.REACT_APP_ALGOLIA_SEARCH_KEY;
@@ -84,6 +85,10 @@ const SearchHits = ({ hits }: SearchHitsProps) => {
               <Link
                 key={hit.portfolio_bbl}
                 to={createRouteForFullBbl(hit.portfolio_bbl, i18n.language)}
+                onClick={() => {
+                  logAmplitudeEvent("searchByLandlordName");
+                  window.gtag("event", "search-landlord-name");
+                }}
                 className="algolia__item"
                 aria-hidden="true" // Make sure search results don't get announced until user is focused on them
               >
