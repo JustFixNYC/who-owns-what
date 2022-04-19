@@ -158,15 +158,23 @@ const PortfolioGraphWithoutI18: React.FC<PortfolioGraphProps> = ({ graphJSON, st
   const ZOOM_ANIMATION_DURATION = 100;
 
   let myCyRef: Cytoscape.Core;
-  let myCyLayout: Cytoscape.Layouts;
+  /**
+   * This function resets the layout of our Cytoscape graph.
+   * Until we have our graph initialized, this is defined as an empty function.
+   */
+  let resetLayout: () => void = () => {
+    return;
+  };
 
   /**
    * Every time we update the detail address, let's rerun our graph layout so make sure
    * the new node for the detail address fits in nicely with the other existing nodes.
    */
   useEffect(() => {
-    myCyLayout.run();
-  }, [detailAddr.bbl]);
+    if (searchAddr.bbl !== detailAddr.bbl) {
+      resetLayout();
+    }
+  }, [searchAddr.bbl, detailAddr.bbl]);
 
   return (
     <div className="portfolio-graph">
@@ -239,9 +247,11 @@ const PortfolioGraphWithoutI18: React.FC<PortfolioGraphProps> = ({ graphJSON, st
           // Get a reference to the Cytoscape object and layout:
           // https://github.com/plotly/react-cytoscapejs#cy-1
           myCyRef = cy;
-          myCyLayout = myCyRef.makeLayout(layout);
           // Let's fit the graph to the viewport on render:
           myCyRef.fit();
+          resetLayout = () => {
+            myCyRef.makeLayout(layout).run();
+          };
         }}
         stylesheet={[
           {
