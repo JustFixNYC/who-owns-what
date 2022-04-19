@@ -21,6 +21,7 @@ import { documentToReactComponents } from "@contentful/rich-text-react-renderer"
 import { ContentfulCommonStrings } from "@justfixnyc/contentful-common-strings";
 import _commonStrings from "../data/common-strings.json";
 import LandlordSearch, { algoliaAppId, algoliaSearchKey } from "components/LandlordSearch";
+import { logAmplitudeEvent } from "components/Amplitude";
 
 const commonStrings = new ContentfulCommonStrings(_commonStrings as any);
 
@@ -74,6 +75,7 @@ type HomePageProps = {
 
 const HomePage: React.FC<HomePageProps> = ({ useNewPortfolioMethod }) => {
   const handleFormSubmit = (searchAddress: SearchAddress, error: any) => {
+    logAmplitudeEvent("searchByAddress");
     window.gtag("event", "search");
 
     if (error) {

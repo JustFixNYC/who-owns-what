@@ -13,6 +13,7 @@ import { Nobr } from "../components/Nobr";
 import { withMachineInStateProps } from "state-machine";
 import Page from "components/Page";
 import { UsefulLinks } from "components/UsefulLinks";
+import { logAmplitudeEvent } from "components/Amplitude";
 
 type Props = withI18nProps & withMachineInStateProps<"unregisteredFound">;
 
@@ -84,6 +85,9 @@ class NotRegisteredPageWithoutI18n extends Component<Props, State> {
     if (!usersInputAddress) {
       registrationMessageText = <Trans>No registration found.</Trans>;
     } else if (buildingInfo.registrationenddate) {
+      window.gtag("event", "hpd-registration-incomplete");
+      logAmplitudeEvent("hpdRegistrationIsIncomplete");
+
       registrationMessageText = (
         <Trans>Incomplete registration for {usersInputAddressFragment}.</Trans>
       );
@@ -96,6 +100,9 @@ class NotRegisteredPageWithoutI18n extends Component<Props, State> {
     let buildingTypeMessageText;
 
     if (buildingInfo.unitsres === 0) {
+      window.gtag("event", "hpd-registration-not-required");
+      logAmplitudeEvent("hpdRegistrationNotRequired");
+
       buildingTypeMessageText = (
         <Trans>
           <b>This property is not required to register with HPD</b> because it doesn't have any
@@ -103,6 +110,9 @@ class NotRegisteredPageWithoutI18n extends Component<Props, State> {
         </Trans>
       );
     } else if (buildingInfo.unitsres < 3) {
+      window.gtag("event", "hpd-registration-maybe-required");
+      logAmplitudeEvent("hpdRegistrationMaybeRequired");
+
       buildingTypeMessageText = (
         <Trans>
           <b>If the landlord doesn't reside here, this property should be registered with HPD</b>{" "}
@@ -110,6 +120,9 @@ class NotRegisteredPageWithoutI18n extends Component<Props, State> {
         </Trans>
       );
     } else if (buildingInfo.unitsres >= 3) {
+      window.gtag("event", "hpd-registration-required-and-not-there");
+      logAmplitudeEvent("hpdRegistrationRequiredAndNotThere");
+
       buildingTypeMessageText = (
         <Trans>
           <b>This property should be registered with HPD</b> because it has more than 2 residential
