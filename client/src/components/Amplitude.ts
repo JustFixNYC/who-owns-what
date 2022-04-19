@@ -19,7 +19,8 @@ type AmplitudeEvent =
   | "switchToOldVersion"
   | "searchByAddress"
   | "searchByLandlordName"
-  | "portfolioFound";
+  | "portfolioFound"
+  | "learnWhyPortfolioSoBig";
 
 type AmplitudeEventData = {
   portfolioSize?: number;
