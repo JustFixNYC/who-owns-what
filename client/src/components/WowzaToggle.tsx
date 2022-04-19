@@ -40,7 +40,7 @@ export const ToggleLinkBetweenPortfolioMethods = () => {
     <button
       onClick={() => {
         window.gtag("event", `switch-to-${isLegacyPath(pathname) ? "new" : "old"}-version`);
-        logAmplitudeEvent(`switchTo${isLegacyPath(pathname) ? "New" : "Old"}Version`);
+        logAmplitudeEvent(isLegacyPath(pathname) ? "switchToNewVersion" : "switchToOldVersion");
 
         history.push(getPathForOtherPortfolioMethod(pathname));
         if (isAddressPageRoute(pathname)) {
