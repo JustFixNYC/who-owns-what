@@ -143,7 +143,10 @@ export default class AddressPage extends Component<AddressPageProps, State> {
        *
        * This check makes sure that we show the Loading Page while the url and data are mismatched:
        */
-      if (!!portfolioGraph === isLegacyPath(location.pathname)) {
+      if (
+        process.env.REACT_APP_ENABLE_NEW_WOWZA_PORTFOLIO_MAPPING === "1" &&
+        !!portfolioGraph === isLegacyPath(location.pathname)
+      ) {
         return <LoadingPage />;
       }
 
