@@ -6,6 +6,7 @@ import Modal from "./Modal";
 import { createWhoOwnsWhatRoutePaths } from "routes";
 
 import networkDiagram from "../assets/img/network-diagram.png";
+import { logAmplitudeEvent } from "./Amplitude";
 
 export const PORTFOLIO_SIZE_THRESHOLD = 300;
 
@@ -29,7 +30,13 @@ export const BigPortfolioWarning = withI18n()(
           <img src={warning} className="icon" alt={i18n._(t`Warning`)} />
           <span className="warning">
             <Trans>Why am I seeing such a big portfolio?</Trans>{" "}
-            <button onClick={() => setModalVisibility(true)}>
+            <button
+              onClick={() => {
+                logAmplitudeEvent("learnWhyPortfolioSoBig");
+                window.gtag("event", "learn-why-portfolio-so-big");
+                setModalVisibility(true);
+              }}
+            >
               <Trans>Learn more</Trans>
             </button>
           </span>

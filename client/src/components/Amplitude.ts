@@ -14,8 +14,28 @@ type AmplitudeEvent =
   | "closeFeatureCalloutWidget"
   | "openFeatureCalloutWidget"
   | "viewPreviousEntryOnFeatureCalloutWidget"
-  | "viewNextEntryOnFeatureCalloutWidget";
+  | "viewNextEntryOnFeatureCalloutWidget"
+  | "switchToNewVersion"
+  | "switchToOldVersion"
+  | "searchByAddress"
+  | "searchByLandlordName"
+  | "portfolioFound"
+  | "learnWhyPortfolioSoBig"
+  | "zoomInNetworkViz"
+  | "zoomOutNetworkViz"
+  | "resetNetworkViz"
+  | "hpdRegistrationIsIncomplete"
+  | "hpdRegistrationNotRequired"
+  | "hpdRegistrationMaybeRequired"
+  | "hpdRegistrationRequiredAndNotThere";
+
+type AmplitudeEventData = {
+  portfolioSize?: number;
+  portfolioMappingMethod?: "wowza" | "legacy";
+};
 
 const logAmplitudeEvent = (e: AmplitudeEvent) => amplitude.getInstance().logEvent(e);
+const logAmplitudeEventWithData = (e: AmplitudeEvent, data: AmplitudeEventData) =>
+  amplitude.getInstance().logEvent(e, data);
 
-export { amplitude, logAmplitudeEvent };
+export { amplitude, logAmplitudeEvent, logAmplitudeEventWithData };
