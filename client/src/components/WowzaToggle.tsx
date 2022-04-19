@@ -3,6 +3,7 @@ import { parseLocaleFromPath, removeLocalePrefix } from "i18n";
 import React from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import { createWhoOwnsWhatRoutePaths, isAddressPageRoute } from "routes";
+import { logAmplitudeEvent } from "./Amplitude";
 import { LoadingPage } from "./Loader";
 
 /**
@@ -38,6 +39,9 @@ export const ToggleLinkBetweenPortfolioMethods = () => {
   return (
     <button
       onClick={() => {
+        window.gtag("event", `switch-to-${isLegacyPath(pathname) ? "new" : "old"}-version`);
+        logAmplitudeEvent(`switchTo${isLegacyPath(pathname) ? "New" : "Old"}Version`);
+
         history.push(getPathForOtherPortfolioMethod(pathname));
         if (isAddressPageRoute(pathname)) {
           history.go(0);
