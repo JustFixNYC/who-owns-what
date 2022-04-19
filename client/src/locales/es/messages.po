@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2022-04-19 21:11\n"
+"PO-Revision-Date: 2022-04-19 21:15\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -480,7 +480,7 @@ msgstr "JustFix, Inc es una organización registrada 501(c)(3) sin fines de lucr
 
 #: src/containers/HomePage.tsx:218
 msgid "Known for <0>unscrupulously deregulating rent stabilized apartments</0>, Larry Gluck’s Stellar Management has also secured a prominent place as one of <1>New York City’s Worst Evictors</1>. Stellar is a gentrifying force, particularly in upper Manhattan where Gluck operates the majority of his properties. Stellar has a reputation for displacing long-term tenants, renovating their units while vacant, and skyrocketing rents to market rate."
-msgstr ""
+msgstr "Conocido por <0>desregulando apartamentos de renta estabilizada sin escrúpulos</0>, Larry Gluck de Stellar Management ha asegurado un lugar prominente como unos de los <1>peores desalojadores en la Cuidad de Nueva York</1>. Stellar es una fuerza de gentrificación, especialmente en el Norte de Manhattan, en donde Gluck opera la mayoría de sus propiedades. Stellar tiene fama de desplazar inquilinos a largo plazo, renovando sus apartamentos mientras están vacantes, y aumentando rápidamente las rentas a la tasa de mercado."
 
 #: src/util/helpers.ts:58
 msgid "LOCKS"
@@ -1181,7 +1181,7 @@ msgstr "Reorganizamos los datos de contacto de cada entidad individual y corpora
 
 #: src/components/BigPortfolioWarning.tsx:52
 msgid "We’ve improved Who Owns What to dig deeper into the data and offer you a more complete picture of buildings associated with your landlord. <0>Read more on our Methodology page</0>"
-msgstr ""
+msgstr "Hemos mejorado Quien es el Dueño para mirar más profundamente en los datos y ofrecerte una imagen más clara de los edificios asociados con tu dueño. <0>Obtiene más información en nuestra metodología</0>"
 
 #: src/components/Indicators.tsx:222
 msgid "What are {0}?"
