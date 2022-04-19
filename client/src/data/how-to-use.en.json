@@ -245,7 +245,7 @@
                           {
                             "nodeType": "hyperlink",
                             "data": {
-                              "uri": "https://app.justfix.nyc/rh/splash?utm_source=who_owns_what"
+                              "uri": "https://app.justfix.nyc/en/rh/splash?utm_source=who_owns_what"
                             },
                             "content": [
                               {
@@ -375,31 +375,7 @@
                 "content": [
                   {
                     "nodeType": "text",
-                    "value": "Check the “Complaint History” list in the “HPD Building Profile” for full details on the issues and to see which one of your neighbors is constantly calling 311 with complaints. If you have their contact info, send them their building profile via Facebook, Twitter, email, or text by using the share buttons, or give them an immediate list of actions to take by sharing the “",
-                    "marks": [],
-                    "data": {}
-                  },
-                  {
-                    "nodeType": "hyperlink",
-                    "data": {
-                      "uri": "https://www.justfix.nyc"
-                    },
-                    "content": [
-                      {
-                        "nodeType": "text",
-                        "value": "Take Action on JustFix.nyc",
-                        "marks": [
-                          {
-                            "type": "underline"
-                          }
-                        ],
-                        "data": {}
-                      }
-                    ]
-                  },
-                  {
-                    "nodeType": "text",
-                    "value": "” page on the “Overview” tab.",
+                    "value": "Check the “Complaint History” list in the “HPD Building Profile” for full details on the issues and to see which one of your neighbors is constantly calling 311 with complaints. If you have their contact info, send them their building profile via Facebook, Twitter, email, or text by using the share buttons, or give them an immediate list of actions to take by sharing the “Take Action on JustFix.nyc” page on the “Overview” tab.",
                     "marks": [],
                     "data": {}
                   }
@@ -677,7 +653,7 @@
           {
             "nodeType": "hyperlink",
             "data": {
-              "uri": "https://app.justfix.nyc/loc/splash"
+              "uri": "https://app.justfix.nyc/en/loc/splash?utm_source=who_owns_what"
             },
             "content": [
               {
@@ -701,7 +677,7 @@
           {
             "nodeType": "hyperlink",
             "data": {
-              "uri": "https://app.justfix.nyc/rh/splash?utm_source=who_owns_what"
+              "uri": "https://app.justfix.nyc/en/rh/splash?utm_source=who_owns_what"
             },
             "content": [
               {
