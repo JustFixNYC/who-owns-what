@@ -18,8 +18,16 @@ type AmplitudeEvent =
   | "switchToNewVersion"
   | "switchToOldVersion"
   | "searchByAddress"
-  | "searchByLandlordName";
+  | "searchByLandlordName"
+  | "portfolioFound";
+
+type AmplitudeEventData = {
+  portfolioSize?: number;
+  portfolioMappingMethod?: "wowza" | "legacy";
+};
 
 const logAmplitudeEvent = (e: AmplitudeEvent) => amplitude.getInstance().logEvent(e);
+const logAmplitudeEventWithData = (e: AmplitudeEvent, data: AmplitudeEventData) =>
+  amplitude.getInstance().logEvent(e, data);
 
-export { amplitude, logAmplitudeEvent };
+export { amplitude, logAmplitudeEvent, logAmplitudeEventWithData };

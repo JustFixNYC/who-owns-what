@@ -22,6 +22,7 @@ import { searchAddrsAreEqual } from "util/helpers";
 import { NetworkErrorMessage } from "components/NetworkErrorMessage";
 import { createAddressPageRoutes } from "routes";
 import { isLegacyPath } from "../components/WowzaToggle";
+import { logAmplitudeEventWithData } from "components/Amplitude";
 
 type RouteParams = {
   locale?: string;
@@ -123,8 +124,13 @@ export default class AddressPage extends Component<AddressPageProps, State> {
       window.gtag("event", "unregistered-page");
       return <NotRegisteredPage state={state} send={send} />;
     } else if (state.matches("portfolioFound")) {
-      window.gtag("event", "portfolio-found-page");
       const { assocAddrs, searchAddr, portfolioGraph } = state.context.portfolioData;
+      logAmplitudeEventWithData("portfolioFound", {
+        portfolioSize: assocAddrs.length,
+        portfolioMappingMethod: !!useNewPortfolioMethod ? "wowza" : "legacy",
+      });
+      window.gtag("event", "portfolio-found-page");
+
       const routes = createAddressPageRoutes(
         validateRouteParams(this.props.match.params),
         !useNewPortfolioMethod
