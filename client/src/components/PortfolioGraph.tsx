@@ -10,6 +10,7 @@ import { t, Trans } from "@lingui/macro";
 import { withI18n, withI18nProps } from "@lingui/react";
 import { I18n } from "@lingui/core";
 import browser from "util/browser";
+import { logAmplitudeEventWithData } from "./Amplitude";
 
 Cytoscape.use(fcose);
 
@@ -144,7 +145,8 @@ type PortfolioGraphProps = withI18nProps &
   };
 
 const PortfolioGraphWithoutI18: React.FC<PortfolioGraphProps> = ({ graphJSON, state, i18n }) => {
-  const { searchAddr, detailAddr } = state.context.portfolioData;
+  const { searchAddr, detailAddr, assocAddrs } = state.context.portfolioData;
+  const portfolioSize = assocAddrs.length;
   const distinctDetailAddr = !helpers.addrsAreEqual(searchAddr, detailAddr)
     ? detailAddr
     : undefined;
@@ -180,7 +182,11 @@ const PortfolioGraphWithoutI18: React.FC<PortfolioGraphProps> = ({ graphJSON, st
         <button
           className="btn btn-action"
           aria-label={i18n._(t`Zoom in`)}
-          onClick={() =>
+          onClick={() => {
+            logAmplitudeEventWithData("zoomInNetworkViz", {
+              portfolioSize: portfolioSize,
+            });
+            window.gtag("event", "zoom-in-network-viz");
             myCyRef.animate(
               {
                 zoom: myCyRef.zoom() * ZOOM_LEVEL_INCREMENT,
@@ -188,15 +194,19 @@ const PortfolioGraphWithoutI18: React.FC<PortfolioGraphProps> = ({ graphJSON, st
               {
                 duration: ZOOM_ANIMATION_DURATION,
               }
-            )
-          }
+            );
+          }}
         >
           +
         </button>
         <button
           className="btn btn-action"
           aria-label={i18n._(t`Zoom out`)}
-          onClick={() =>
+          onClick={() => {
+            logAmplitudeEventWithData("zoomOutNetworkViz", {
+              portfolioSize: portfolioSize,
+            });
+            window.gtag("event", "zoom-out-network-viz");
             myCyRef.animate(
               {
                 zoom: myCyRef.zoom() / ZOOM_LEVEL_INCREMENT,
@@ -204,8 +214,8 @@ const PortfolioGraphWithoutI18: React.FC<PortfolioGraphProps> = ({ graphJSON, st
               {
                 duration: ZOOM_ANIMATION_DURATION,
               }
-            )
-          }
+            );
+          }}
         >
           -
         </button>
@@ -213,6 +223,10 @@ const PortfolioGraphWithoutI18: React.FC<PortfolioGraphProps> = ({ graphJSON, st
           className="btn btn-action"
           aria-label={i18n._(t`Reset diagram`)}
           onClick={() => {
+            logAmplitudeEventWithData("resetNetworkViz", {
+              portfolioSize: portfolioSize,
+            });
+            window.gtag("event", "reset-network-viz");
             myCyRef.fit();
           }}
         >
