@@ -2,28 +2,30 @@
   "title": "Sobre este proyecto",
   "slug": "about",
   "content": {
+    "nodeType": "document",
     "data": {},
     "content": [
       {
+        "nodeType": "heading-4",
         "data": {},
         "content": [
           {
-            "data": {},
-            "marks": [],
+            "nodeType": "text",
             "value": "Sobre este Proyecto",
-            "nodeType": "text"
+            "marks": [],
+            "data": {}
           }
-        ],
-        "nodeType": "heading-4"
+        ]
       },
       {
+        "nodeType": "paragraph",
         "data": {},
         "content": [
           {
-            "data": {},
-            "marks": [],
+            "nodeType": "text",
             "value": "Quién Es El Dueño existe para ayudar a ",
-            "nodeType": "text"
+            "marks": [],
+            "data": {}
           },
           {
             "nodeType": "text",
@@ -35,11 +37,11 @@
             ],
             "data": {}
           }
-        ],
-        "nodeType": "paragraph"
+        ]
       },
       {
         "nodeType": "paragraph",
+        "data": {},
         "content": [
           {
             "nodeType": "text",
@@ -47,12 +49,10 @@
             "marks": [],
             "data": {}
           }
-        ],
-        "data": {}
+        ]
       },
       {
         "nodeType": "embedded-asset-block",
-        "content": [],
         "data": {
           "target": {
             "metadata": {
@@ -97,10 +97,12 @@
               }
             }
           }
-        }
+        },
+        "content": []
       },
       {
         "nodeType": "heading-4",
+        "data": {},
         "content": [
           {
             "nodeType": "text",
@@ -108,11 +110,11 @@
             "marks": [],
             "data": {}
           }
-        ],
-        "data": {}
+        ]
       },
       {
         "nodeType": "paragraph",
+        "data": {},
         "content": [
           {
             "nodeType": "text",
@@ -122,6 +124,9 @@
           },
           {
             "nodeType": "hyperlink",
+            "data": {
+              "uri": "https://whoownswhat.justfix.nyc/es/how-it-works"
+            },
             "content": [
               {
                 "nodeType": "text",
@@ -129,10 +134,7 @@
                 "marks": [],
                 "data": {}
               }
-            ],
-            "data": {
-              "uri": "https://whoownswhat.justfix.nyc/how-it-works"
-            }
+            ]
           },
           {
             "nodeType": "text",
@@ -140,48 +142,28 @@
             "marks": [],
             "data": {}
           }
-        ],
-        "data": {}
+        ]
       },
       {
         "nodeType": "paragraph",
+        "data": {},
         "content": [
           {
             "nodeType": "text",
-            "data": {},
-            "value": "¡Úsala para conocer a tus vecinos, crear una asociación de inquilinos y aumentar el poder del inquilino!\n\nHecho en NYC con ♥ por el equipo de ",
-            "marks": []
-          },
-          {
-            "nodeType": "hyperlink",
-            "content": [
-              {
-                "nodeType": "text",
-                "value": "JustFix.nyc",
-                "marks": [],
-                "data": {}
-              }
-            ],
-            "data": {
-              "uri": "https://www.justfix.nyc"
-            }
-          },
-          {
-            "nodeType": "text",
-            "value": "",
+            "value": "¡Úsala para conocer a tus vecinos, crear una asociación de inquilinos y aumentar el poder del inquilino!\n\nHecho en NYC con ♥ por el equipo de JustFix.nyc",
             "marks": [],
             "data": {}
           }
-        ],
-        "data": {}
+        ]
       },
       {
         "nodeType": "hr",
-        "content": [],
-        "data": {}
+        "data": {},
+        "content": []
       },
       {
         "nodeType": "heading-6",
+        "data": {},
         "content": [
           {
             "nodeType": "text",
@@ -189,11 +171,11 @@
             "marks": [],
             "data": {}
           }
-        ],
-        "data": {}
+        ]
       },
       {
         "nodeType": "paragraph",
+        "data": {},
         "content": [
           {
             "nodeType": "text",
@@ -203,6 +185,9 @@
           },
           {
             "nodeType": "hyperlink",
+            "data": {
+              "uri": "https://www.justfix.nyc/es/"
+            },
             "content": [
               {
                 "nodeType": "text",
@@ -210,10 +195,7 @@
                 "marks": [],
                 "data": {}
               }
-            ],
-            "data": {
-              "uri": "https://www.justfix.nyc"
-            }
+            ]
           },
           {
             "nodeType": "text",
@@ -221,11 +203,11 @@
             "marks": [],
             "data": {}
           }
-        ],
-        "data": {}
+        ]
       },
       {
         "nodeType": "paragraph",
+        "data": {},
         "content": [
           {
             "nodeType": "text",
@@ -235,6 +217,9 @@
           },
           {
             "nodeType": "hyperlink",
+            "data": {
+              "uri": "https://www.justfix.nyc/donate"
+            },
             "content": [
               {
                 "nodeType": "text",
@@ -242,10 +227,7 @@
                 "marks": [],
                 "data": {}
               }
-            ],
-            "data": {
-              "uri": "https://www.justfix.nyc/donate"
-            }
+            ]
           },
           {
             "nodeType": "text",
@@ -253,11 +235,11 @@
             "marks": [],
             "data": {}
           }
-        ],
-        "data": {}
+        ]
       },
       {
         "nodeType": "paragraph",
+        "data": {},
         "content": [
           {
             "nodeType": "text",
@@ -271,9 +253,9 @@
           },
           {
             "nodeType": "text",
-            "data": {},
             "value": "La Housing Data Coalition (HDC por sus siglas en inglés) es un grupo de personas y organizaciones que usan datos públicos para promover la justicia de vivienda en la ciudad de Nueva York. La HDC tiene como objetivo hacer que los datos públicos sean más accesibles para los grupos de justicia de la vivienda y así lucha contra la creciente explotación de datos de la industria inmobiliaria que impulsa la especulación y el desplazamiento. Los miembros de la HDC se  brindan ayuda y apoyo mutuo para propulsar una variedad de proyectos que emplean datos de vivienda. Para obtener más información sobre nuestros grupos de trabajo y reuniones mensuales, envía un correo electrónico a ",
-            "marks": []
+            "marks": [],
+            "data": {}
           },
           {
             "nodeType": "hyperlink",
@@ -295,11 +277,11 @@
             "marks": [],
             "data": {}
           }
-        ],
-        "data": {}
+        ]
       },
       {
         "nodeType": "heading-6",
+        "data": {},
         "content": [
           {
             "nodeType": "text",
@@ -307,23 +289,23 @@
             "marks": [],
             "data": {}
           }
-        ],
-        "data": {}
+        ]
       },
       {
         "nodeType": "heading-6",
+        "data": {},
         "content": [
           {
             "nodeType": "text",
-            "data": {},
             "value": "Acreditaciones",
-            "marks": []
+            "marks": [],
+            "data": {}
           }
-        ],
-        "data": {}
+        ]
       },
       {
         "nodeType": "unordered-list",
+        "data": {},
         "content": [
           {
             "nodeType": "list-item",
@@ -331,6 +313,7 @@
             "content": [
               {
                 "nodeType": "paragraph",
+                "data": {},
                 "content": [
                   {
                     "nodeType": "text",
@@ -340,17 +323,17 @@
                   },
                   {
                     "nodeType": "hyperlink",
+                    "data": {
+                      "uri": "https://github.com/nycdb/nycdb"
+                    },
                     "content": [
                       {
                         "nodeType": "text",
-                        "value": "nyc-db",
+                        "value": "nycdb",
                         "marks": [],
                         "data": {}
                       }
-                    ],
-                    "data": {
-                      "uri": "https://github.com/aepyornis/nyc-db"
-                    }
+                    ]
                   },
                   {
                     "nodeType": "text",
@@ -358,16 +341,17 @@
                     "marks": [],
                     "data": {}
                   }
-                ],
-                "data": {}
+                ]
               }
             ]
           },
           {
             "nodeType": "list-item",
+            "data": {},
             "content": [
               {
                 "nodeType": "paragraph",
+                "data": {},
                 "content": [
                   {
                     "nodeType": "text",
@@ -377,6 +361,9 @@
                   },
                   {
                     "nodeType": "hyperlink",
+                    "data": {
+                      "uri": "https://anhd.org/"
+                    },
                     "content": [
                       {
                         "nodeType": "text",
@@ -384,48 +371,25 @@
                         "marks": [],
                         "data": {}
                       }
-                    ],
-                    "data": {
-                      "uri": "https://anhd.org/"
-                    }
+                    ]
                   },
                   {
                     "nodeType": "text",
-                    "value": ", creadora de los ",
-                    "marks": [],
-                    "data": {}
-                  },
-                  {
-                    "nodeType": "hyperlink",
-                    "content": [
-                      {
-                        "nodeType": "text",
-                        "value": "DAP district reports",
-                        "marks": [],
-                        "data": {}
-                      }
-                    ],
-                    "data": {
-                      "uri": "http://reports.dapmapnyc.org/"
-                    }
-                  },
-                  {
-                    "nodeType": "text",
-                    "value": " ",
+                    "value": "",
                     "marks": [],
                     "data": {}
                   }
-                ],
-                "data": {}
+                ]
               }
-            ],
-            "data": {}
+            ]
           },
           {
             "nodeType": "list-item",
+            "data": {},
             "content": [
               {
                 "nodeType": "paragraph",
+                "data": {},
                 "content": [
                   {
                     "nodeType": "text",
@@ -435,6 +399,9 @@
                   },
                   {
                     "nodeType": "hyperlink",
+                    "data": {
+                      "uri": "http://nycommunities.org/"
+                    },
                     "content": [
                       {
                         "nodeType": "text",
@@ -442,10 +409,7 @@
                         "marks": [],
                         "data": {}
                       }
-                    ],
-                    "data": {
-                      "uri": "http://nycommunities.org/"
-                    }
+                    ]
                   },
                   {
                     "nodeType": "text",
@@ -453,17 +417,17 @@
                     "marks": [],
                     "data": {}
                   }
-                ],
-                "data": {}
+                ]
               }
-            ],
-            "data": {}
+            ]
           },
           {
             "nodeType": "list-item",
+            "data": {},
             "content": [
               {
                 "nodeType": "paragraph",
+                "data": {},
                 "content": [
                   {
                     "nodeType": "text",
@@ -473,6 +437,9 @@
                   },
                   {
                     "nodeType": "hyperlink",
+                    "data": {
+                      "uri": "http://housingrightsny.org/"
+                    },
                     "content": [
                       {
                         "nodeType": "text",
@@ -480,10 +447,7 @@
                         "marks": [],
                         "data": {}
                       }
-                    ],
-                    "data": {
-                      "uri": "http://housingrightsny.org/"
-                    }
+                    ]
                   },
                   {
                     "nodeType": "text",
@@ -491,17 +455,17 @@
                     "marks": [],
                     "data": {}
                   }
-                ],
-                "data": {}
+                ]
               }
-            ],
-            "data": {}
+            ]
           },
           {
             "nodeType": "list-item",
+            "data": {},
             "content": [
               {
                 "nodeType": "paragraph",
+                "data": {},
                 "content": [
                   {
                     "nodeType": "text",
@@ -511,6 +475,9 @@
                   },
                   {
                     "nodeType": "hyperlink",
+                    "data": {
+                      "uri": "https://unhp.org/"
+                    },
                     "content": [
                       {
                         "nodeType": "text",
@@ -518,10 +485,7 @@
                         "marks": [],
                         "data": {}
                       }
-                    ],
-                    "data": {
-                      "uri": "https://unhp.org/"
-                    }
+                    ]
                   },
                   {
                     "nodeType": "text",
@@ -529,17 +493,17 @@
                     "marks": [],
                     "data": {}
                   }
-                ],
-                "data": {}
+                ]
               }
-            ],
-            "data": {}
+            ]
           },
           {
             "nodeType": "list-item",
+            "data": {},
             "content": [
               {
                 "nodeType": "paragraph",
+                "data": {},
                 "content": [
                   {
                     "nodeType": "text",
@@ -549,6 +513,9 @@
                   },
                   {
                     "nodeType": "hyperlink",
+                    "data": {
+                      "uri": "https://www.instagram.com/casabronx"
+                    },
                     "content": [
                       {
                         "nodeType": "text",
@@ -556,10 +523,7 @@
                         "marks": [],
                         "data": {}
                       }
-                    ],
-                    "data": {
-                      "uri": "https://casapower.org/"
-                    }
+                    ]
                   },
                   {
                     "nodeType": "text",
@@ -567,17 +531,17 @@
                     "marks": [],
                     "data": {}
                   }
-                ],
-                "data": {}
+                ]
               }
-            ],
-            "data": {}
+            ]
           },
           {
             "nodeType": "list-item",
+            "data": {},
             "content": [
               {
                 "nodeType": "paragraph",
+                "data": {},
                 "content": [
                   {
                     "nodeType": "text",
@@ -587,6 +551,9 @@
                   },
                   {
                     "nodeType": "hyperlink",
+                    "data": {
+                      "uri": "https://impacctbrooklyn.org/"
+                    },
                     "content": [
                       {
                         "nodeType": "text",
@@ -594,10 +561,7 @@
                         "marks": [],
                         "data": {}
                       }
-                    ],
-                    "data": {
-                      "uri": "https://impacctbrooklyn.org/"
-                    }
+                    ]
                   },
                   {
                     "nodeType": "text",
@@ -605,17 +569,17 @@
                     "marks": [],
                     "data": {}
                   }
-                ],
-                "data": {}
+                ]
               }
-            ],
-            "data": {}
+            ]
           },
           {
             "nodeType": "list-item",
+            "data": {},
             "content": [
               {
                 "nodeType": "paragraph",
+                "data": {},
                 "content": [
                   {
                     "nodeType": "text",
@@ -625,6 +589,9 @@
                   },
                   {
                     "nodeType": "hyperlink",
+                    "data": {
+                      "uri": "http://metcouncilonhousing.org/"
+                    },
                     "content": [
                       {
                         "nodeType": "text",
@@ -632,10 +599,7 @@
                         "marks": [],
                         "data": {}
                       }
-                    ],
-                    "data": {
-                      "uri": "http://metcouncilonhousing.org/"
-                    }
+                    ]
                   },
                   {
                     "nodeType": "text",
@@ -643,28 +607,24 @@
                     "marks": [],
                     "data": {}
                   }
-                ],
-                "data": {}
+                ]
               }
-            ],
-            "data": {}
+            ]
           }
-        ],
-        "data": {}
+        ]
       },
       {
         "nodeType": "paragraph",
+        "data": {},
         "content": [
           {
             "nodeType": "text",
-            "data": {},
             "value": "",
-            "marks": []
+            "marks": [],
+            "data": {}
           }
-        ],
-        "data": {}
+        ]
       }
-    ],
-    "nodeType": "document"
+    ]
   }
 }
