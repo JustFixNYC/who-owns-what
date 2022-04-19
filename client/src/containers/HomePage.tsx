@@ -348,7 +348,7 @@ const HomePage: React.FC<HomePageProps> = ({ useNewPortfolioMethod }) => {
                       <img className="img-responsive" src={stellarLogo} alt="Stellar Management" />
                     </Link>
                     <Trans render="p">
-                      Known his pattern of{" "}
+                      Known for{" "}
                       <a
                         href="https://gothamist.com/news/dozens-of-tenants-sue-big-time-landlord-over-alleged-systematic-illegal-rent-increases"
                         target="_blank"
@@ -365,9 +365,9 @@ const HomePage: React.FC<HomePageProps> = ({ useNewPortfolioMethod }) => {
                       >
                         New York City’s Worst Evictors
                       </a>
-                      . A force of gentrification, particularly in upper Manhattan where he operates
-                      the majority of his X-number of properties, Stellar has gained a reputation
-                      for displacing long-term tenants, renovating their units while vacant, and
+                      . Stellar is a gentrifying force, particularly in upper Manhattan where Gluck
+                      operates the majority of his properties. Stellar has a reputation for
+                      displacing long-term tenants, renovating their units while vacant, and
                       skyrocketing rents to market rate.
                     </Trans>
                     <Link
