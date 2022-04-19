@@ -244,11 +244,12 @@ const PortfolioGraphWithoutI18: React.FC<PortfolioGraphProps> = ({ graphJSON, st
         // Enable scroll zoom only on mobile devices:
         userZoomingEnabled={isMobile}
         cy={(cy) => {
-          // Get a reference to the Cytoscape object and layout:
+          // Get a reference to the Cytoscape object:
           // https://github.com/plotly/react-cytoscapejs#cy-1
           myCyRef = cy;
           // Let's fit the graph to the viewport on render:
           myCyRef.fit();
+          // Let's define a function to reset our graph layout, used above:
           resetLayout = () => {
             myCyRef.makeLayout(layout).run();
           };
