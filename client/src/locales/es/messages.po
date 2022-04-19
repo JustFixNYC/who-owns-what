@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2022-04-14 11:33\n"
+"PO-Revision-Date: 2022-04-19 14:39\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -61,15 +61,15 @@ msgstr "Datos de quejas al 311"
 
 #: src/containers/NotRegisteredPage.tsx:73
 msgid "<0>If the landlord doesn't reside here, this property should be registered with HPD</0> because it has fewer than 3 residential units."
-msgstr ""
+msgstr "<0>Si el dueño no reside aquí, esta propiedad debería estar registrado con el HPD</0> porque tiene menos de 3 unidades residenciales."
 
 #: src/containers/NotRegisteredPage.tsx:67
 msgid "<0>This property is not required to register with HPD</0> because it doesn't have any residential units."
-msgstr ""
+msgstr "<0>Esta propiedad no necesita estar registrada con en HPD</0> porque no tiene ninguna unidad residencial."
 
 #: src/containers/NotRegisteredPage.tsx:79
 msgid "<0>This property should be registered with HPD</0> because it has more than 2 residential units."
-msgstr ""
+msgstr "<0>Esta propiedad debe estar registrada con en HPD</0> porque tiene más de 2 unidades residenciales."
 
 #: src/components/DetailView.tsx:59
 msgid "<0>While the legal owner of a building is often a company (usually called an “LLC”), these names and business addresses registered with HPD offer a clearer picture of who really controls the building.</0><1>People listed here as “Head Officer” or “Owner” usually have ties to building ownership, while “Site Managers” are part of management. That being said, these names are self reported by the landlord, so they can be misleading.</1><2>Learn more about HPD registrations and how this information powers this tool on the <3>About page</3>.</2>"
@@ -448,7 +448,7 @@ msgstr "Estaba revisando este edificio en Quién Es El Dueño, una herramienta g
 
 #: src/containers/NotRegisteredPage.tsx:60
 msgid "Incomplete registration for {usersInputAddressFragment}."
-msgstr ""
+msgstr "Registro incompleto para {usersInputAddressFragment}."
 
 #: src/util/helpers.ts:63
 msgid "Individual Owner"
@@ -649,11 +649,11 @@ msgstr "No hay nombres de dueños coincidan con su búsqueda."
 
 #: src/containers/NotRegisteredPage.tsx:63
 msgid "No registration found for {usersInputAddressFragment}."
-msgstr ""
+msgstr "No se ha encontrado ningún registro para {usersInputAddressFragment}."
 
 #: src/containers/NotRegisteredPage.tsx:57
 msgid "No registration found."
-msgstr ""
+msgstr "No se ha encontrado nigún registro."
 
 #: src/components/IndicatorsViz.tsx:201
 msgid "Non-ECB"
@@ -678,7 +678,7 @@ msgstr "AFUERA DEL EDIFICIO"
 #: src/components/PortfolioGraph.tsx:44
 #: src/components/PortfolioGraph.tsx:47
 msgid "OWNS"
-msgstr ""
+msgstr "POSEE"
 
 #: src/util/helpers.ts:68
 msgid "Officer"
@@ -773,7 +773,7 @@ msgstr "Unidades RS"
 
 #: src/containers/NotRegisteredPage.tsx:98
 msgid "Registration expired:"
-msgstr ""
+msgstr "El registro ha caducado:"
 
 #: src/components/PropertiesSummary.tsx:125
 msgid "Rent stabilization"
@@ -876,7 +876,7 @@ msgstr "Vendido al Propietario Actual"
 
 #: src/components/BigPortfolioWarning.tsx:37
 msgid "Some large corporations, however, are a bit more complicated and may share personnel and financial stake with other related companies, which all will show up on Who Owns What as one large portfolio."
-msgstr ""
+msgstr "Sin embargo, algunas grandes corporaciones son un poco más complicadas y pueden compartir personal y participación financiera con otras compañías relacionadas, que todos se mostrarán en Quién es el Dueño como un gran portafolio."
 
 #: src/components/PropertiesMap.tsx:163
 msgid "Sorry, it looks like there's an error on the map. Try again on a different browser or <0>enable WebGL</0>."
@@ -970,7 +970,7 @@ msgstr "El número de unidades residenciales en este edificio, según el Departa
 
 #: src/containers/NotRegisteredPage.tsx:114
 msgid "The registration for this property is missing details for owner name or businesses address, which are required to link the property to a portfolio."
-msgstr ""
+msgstr "El registro de esta propiedad faltan detalles sobre el nombre del dueño o la dirección comercial, que son necesarios a vincular la propiedad a un portafolio."
 
 #: src/components/BuildingStatsTable.tsx:34
 msgid "The year that this building was originally constructed, according to the Dept. of City Planning."
@@ -1177,7 +1177,7 @@ msgstr "Reorganizamos los datos de contacto de cada entidad individual y corpora
 
 #: src/components/BigPortfolioWarning.tsx:47
 msgid "We’ve been making improvements to Who Owns What to dig deeper and find a more complete picture of your landlord's network. <0>Read more on our Methodology page</0>"
-msgstr ""
+msgstr "Hemos estado haciendo mejoras en Quién es el Dueño para investigar más y encontrar una idea más completa de la red de tu dueño. <0>Obtiene más información en nuestra metodología</0>"
 
 #: src/components/Indicators.tsx:222
 msgid "What are {0}?"
@@ -1194,7 +1194,7 @@ msgstr "Qué hay de nuevo"
 
 #: src/components/BigPortfolioWarning.tsx:31
 msgid "When two parties share the same business address, we group them as part of the same portfolio."
-msgstr ""
+msgstr "Cuando dos partes comparten la misma dirección comercial, los agrupamos como parte del mismo portafolio."
 
 #: src/components/SocialShare.tsx:14
 msgid "Who Owns What is a free tool built by JustFix.nyc to research property owners in NYC. It has helped over 200,000 New Yorkers find out who really owns their building, what other buildings that their landlord or management company owns, and other critical information about code violations, evictions, rent stabilized units, and so much more in any given building. You can look up any residential building located in NYC, even public housing (NYCHA) buildings! Search your address here: {url}"
@@ -1222,7 +1222,7 @@ msgstr "¿Quién es el dueño de este edificio?"
 #: src/components/BigPortfolioWarning.tsx:20
 #: src/components/BigPortfolioWarning.tsx:28
 msgid "Why am I seeing such a big portfolio?"
-msgstr ""
+msgstr "¿Por qué estoy viendo un portafolio tan grande?"
 
 #: src/components/BuildingStatsTable.tsx:35
 msgid "Year Built"
@@ -1312,3 +1312,4 @@ msgstr "{value, plural, one {Una Queja del HPD emitida desde el 2014} other {# Q
 #: src/components/IndicatorsDatasets.tsx:35
 msgid "{value, plural, one {One HPD Violation Issued since 2010} other {# HPD Violations Issued since 2010}}"
 msgstr "{value, plural, one {Una Violación del HPD emitida desde el 2010} other {# Violaciones del HPD emitidas desde el 2010}}"
+
