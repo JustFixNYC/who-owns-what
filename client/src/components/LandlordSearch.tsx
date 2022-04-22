@@ -45,8 +45,11 @@ const SearchBox = ({ currentRefinement, refine, updateSearchQuery }: SearchBoxPr
           aria-label={i18n._(t`Search by your landlord's name`)}
           value={currentRefinement}
           onChange={(event) => {
-            refine(event.currentTarget.value);
-            updateSearchQuery(event.currentTarget.value);
+            const searchText = event.currentTarget.value;
+            refine(searchText);
+            if (searchText.length > 3) {
+              updateSearchQuery(searchText);
+            }
           }}
         />
       </form>
