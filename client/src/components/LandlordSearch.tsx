@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState } from "react";
 import algoliasearch from "algoliasearch/lite";
 import {
   InstantSearch,
@@ -12,7 +12,6 @@ import { I18n } from "@lingui/react";
 import { t, Trans, Plural } from "@lingui/macro";
 import { Link } from "react-router-dom";
 import { createRouteForFullBbl } from "routes";
-import classnames from "classnames";
 
 import "../styles/LandlordSearch.css";
 import FocusTrap from "focus-trap-react";
@@ -31,10 +30,10 @@ type SearchBoxProps = SearchBoxProvided & {
    * This function allows us to set the global search query state of the parent
    * `<LandlordSearch>` component from within this child `<SearchBox>` component
    */
-  updateSearchQuery: (q: string) => void;
+  setIfUserTypedInput: (q: boolean) => void;
 };
 
-const SearchBox = ({ currentRefinement, refine, updateSearchQuery }: SearchBoxProps) => (
+const SearchBox = ({ currentRefinement, refine, setIfUserTypedInput }: SearchBoxProps) => (
   <I18n>
     {({ i18n }) => (
       <form noValidate action="" role="search">
@@ -45,78 +44,14 @@ const SearchBox = ({ currentRefinement, refine, updateSearchQuery }: SearchBoxPr
           aria-label={i18n._(t`Search by your landlord's name`)}
           value={currentRefinement}
           onChange={(event) => {
-            refine(event.currentTarget.value);
-            updateSearchQuery(event.currentTarget.value);
+            const searchText = event.currentTarget.value;
+            refine(searchText);
+            setIfUserTypedInput(searchText.length > 0);
           }}
         />
       </form>
     )}
   </I18n>
-);
-
-type Hit = {
-  landlord_names: string;
-  portfolio_bbl: string;
-};
-
-type SearchHitsProps = {
-  hits?: Hit[];
-};
-
-const NumberOfHitsContext = React.createContext({
-  numberOfHits: 0,
-  setNumberOfHits: (n: number) => {},
-});
-
-const SearchHits = ({ hits }: SearchHitsProps) => {
-  const numberOfHits = hits ? hits.length : 0;
-  const { setNumberOfHits } = useContext(NumberOfHitsContext);
-
-  useEffect(() => {
-    setNumberOfHits(Math.min(numberOfHits, SEARCH_RESULTS_LIMIT));
-  }, [numberOfHits, setNumberOfHits]);
-
-  return hits && numberOfHits > 0 ? (
-    <I18n>
-      {({ i18n }) => (
-        <div className="algolia__suggests">
-          {hits
-            .map((hit: Hit) => (
-              <Link
-                key={hit.portfolio_bbl}
-                to={createRouteForFullBbl(hit.portfolio_bbl, i18n.language)}
-                onClick={() => {
-                  logAmplitudeEvent("searchByLandlordName");
-                  window.gtag("event", "search-landlord-name");
-                }}
-                className="algolia__item"
-                aria-hidden="true" // Make sure search results don't get announced until user is focused on them
-              >
-                <div className="result__snippet">
-                  <Snippet attribute="landlord_names" hit={hit} tagName="b" />
-                </div>
-              </Link>
-            ))
-            .slice(0, SEARCH_RESULTS_LIMIT)}
-        </div>
-      )}
-    </I18n>
-  ) : (
-    <div className="label">
-      <br />
-      <Trans>No landlords match your search.</Trans>
-    </div>
-  );
-};
-
-const CustomSearchBox = connectSearchBox(SearchBox);
-const CustomHits = connectHits(SearchHits);
-
-const AlgoliaAPIConfiguration = () => (
-  <Configure
-    attributesToSnippet={["landlord_names"]}
-    analytics={enableAnalytics === "1" || false}
-  />
 );
 
 const ScreenReaderAnnouncementOfSearchHits: React.FC<{ numberOfHits: number }> = ({
@@ -134,15 +69,74 @@ const ScreenReaderAnnouncementOfSearchHits: React.FC<{ numberOfHits: number }> =
   </p>
 );
 
+type Hit = {
+  landlord_names: string;
+  portfolio_bbl: string;
+};
+
+type SearchHitsProps = {
+  hits?: Hit[];
+};
+
+const SearchHits = ({ hits }: SearchHitsProps) => {
+  const numberOfHits = Math.min(hits ? hits.length : 0, SEARCH_RESULTS_LIMIT);
+
+  return (
+    <>
+      {hits && numberOfHits > 0 ? (
+        <I18n>
+          {({ i18n }) => (
+            <div className="algolia__suggests">
+              {hits
+                .map((hit: Hit) => (
+                  <Link
+                    key={hit.portfolio_bbl}
+                    to={createRouteForFullBbl(hit.portfolio_bbl, i18n.language)}
+                    onClick={() => {
+                      logAmplitudeEvent("searchByLandlordName");
+                      window.gtag("event", "search-landlord-name");
+                    }}
+                    className="algolia__item"
+                    aria-hidden="true" // Make sure search results don't get announced until user is focused on them
+                  >
+                    <div className="result__snippet">
+                      <Snippet attribute="landlord_names" hit={hit} tagName="b" />
+                    </div>
+                  </Link>
+                ))
+                .slice(0, SEARCH_RESULTS_LIMIT)}
+            </div>
+          )}
+        </I18n>
+      ) : (
+        <div className="label">
+          <br />
+          <Trans>No landlords match your search.</Trans>
+        </div>
+      )}
+      <ScreenReaderAnnouncementOfSearchHits numberOfHits={numberOfHits} />
+    </>
+  );
+};
+
+const CustomSearchBox = connectSearchBox(SearchBox);
+const CustomHits = connectHits(SearchHits);
+
+const AlgoliaAPIConfiguration = () => (
+  <Configure
+    attributesToSnippet={["landlord_names"]}
+    analytics={enableAnalytics === "1" || false}
+  />
+);
+
 const LandlordSearch = () => {
-  const [query, setQuery] = useState("");
-  const [numberOfHits, setNumberOfHits] = useState(0);
   const [searchIsInFocus, setSearchFocus] = useState(true);
-  const updateSearchQuery = (newQuery: string) => {
+  const [userTypedInput, setIfUserTypedInput] = useState(false);
+  const setIfUserTypedInputAndFocus = (userTypedSomethingIn: boolean) => {
     // Whenever the user changes their search query,
     // let's make our search bar in focus.
     setSearchFocus(true);
-    setQuery(newQuery);
+    setIfUserTypedInput(userTypedSomethingIn);
   };
 
   /**
@@ -150,7 +144,7 @@ const LandlordSearch = () => {
    * - the search bar is in focus
    * - they have typed in at least one character into the search bar
    */
-  const userIsCurrentlySearching = searchIsInFocus && query.length > 0;
+  const userIsCurrentlySearching = searchIsInFocus && userTypedInput;
 
   return algoliaAppId && algoliaSearchKey ? (
     <FocusTrap
@@ -169,34 +163,27 @@ const LandlordSearch = () => {
           searchClient={algoliasearch(algoliaAppId, algoliaSearchKey)}
           indexName={ALGOLIA_INDEX_NAME}
         >
-          <CustomSearchBox updateSearchQuery={updateSearchQuery} />
+          <CustomSearchBox setIfUserTypedInput={setIfUserTypedInputAndFocus} />
 
-          <div
-            // hide the search results when the user is not currently searching a name here
-            className={classnames(!userIsCurrentlySearching && "d-hide")}
-            role="region"
-            aria-live="polite"
-            aria-atomic={true}
-          >
-            <AlgoliaAPIConfiguration />
+          {userIsCurrentlySearching && (
+            <div
+              // hide the search results when the user is not currently searching a name here
+              role="region"
+              aria-live="polite"
+              aria-atomic={true}
+            >
+              <AlgoliaAPIConfiguration />
 
-            <NumberOfHitsContext.Provider value={{ numberOfHits, setNumberOfHits }}>
               <CustomHits />
-            </NumberOfHitsContext.Provider>
-
-            <ScreenReaderAnnouncementOfSearchHits numberOfHits={numberOfHits} />
-          </div>
+            </div>
+          )}
         </InstantSearch>
 
-        <div
-          className={classnames(
-            "search-by",
-            "is-pulled-right",
-            !userIsCurrentlySearching && "d-hide"
-          )}
-        >
-          <img width="140" height="20" alt="Algolia" src={require("../assets/img/algolia.svg")} />
-        </div>
+        {userIsCurrentlySearching && (
+          <div className="search-by is-pulled-right">
+            <img width="140" height="20" alt="Algolia" src={require("../assets/img/algolia.svg")} />
+          </div>
+        )}
       </div>
     </FocusTrap>
   ) : (
