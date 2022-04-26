@@ -54,71 +54,6 @@ const SearchBox = ({ currentRefinement, refine, setIfUserTypedInput }: SearchBox
   </I18n>
 );
 
-type Hit = {
-  landlord_names: string;
-  portfolio_bbl: string;
-};
-
-type SearchHitsProps = {
-  hits?: Hit[];
-};
-
-const NumberOfHitsContext = React.createContext({
-  numberOfHits: 0,
-  setNumberOfHits: (n: number) => {},
-});
-
-const SearchHits = ({ hits }: SearchHitsProps) => {
-  const numberOfHits = hits ? hits.length : 0;
-  const { setNumberOfHits } = useContext(NumberOfHitsContext);
-
-  useEffect(() => {
-    setNumberOfHits(Math.min(numberOfHits, SEARCH_RESULTS_LIMIT));
-  }, [numberOfHits, setNumberOfHits]);
-
-  return hits && numberOfHits > 0 ? (
-    <I18n>
-      {({ i18n }) => (
-        <div className="algolia__suggests">
-          {hits
-            .map((hit: Hit) => (
-              <Link
-                key={hit.portfolio_bbl}
-                to={createRouteForFullBbl(hit.portfolio_bbl, i18n.language)}
-                onClick={() => {
-                  logAmplitudeEvent("searchByLandlordName");
-                  window.gtag("event", "search-landlord-name");
-                }}
-                className="algolia__item"
-                aria-hidden="true" // Make sure search results don't get announced until user is focused on them
-              >
-                <div className="result__snippet">
-                  <Snippet attribute="landlord_names" hit={hit} tagName="b" />
-                </div>
-              </Link>
-            ))
-            .slice(0, SEARCH_RESULTS_LIMIT)}
-        </div>
-      )}
-    </I18n>
-  ) : (
-    <div className="label">
-      <br />
-      <Trans>No landlords match your search.</Trans>
-    </div>
-  );
-};
-
-const CustomSearchBox = connectSearchBox(SearchBox);
-const CustomHits = connectHits(SearchHits);
-
-const AlgoliaAPIConfiguration = () => (
-  <Configure
-    attributesToSnippet={["landlord_names"]}
-    analytics={enableAnalytics === "1" || false}
-  />
-);
-
 const ScreenReaderAnnouncementOfSearchHits: React.FC<{ numberOfHits: number }> = ({
   numberOfHits,
 }) => (
@@ -134,8 +69,67 @@ const ScreenReaderAnnouncementOfSearchHits: React.FC<{ numberOfHits: number }> =
   </p>
 );
 
+type Hit = {
+  landlord_names: string;
+  portfolio_bbl: string;
+};
+
+type SearchHitsProps = {
+  hits?: Hit[];
+};
+
+const SearchHits = ({ hits }: SearchHitsProps) => {
+  const numberOfHits = Math.min(hits ? hits.length : 0, SEARCH_RESULTS_LIMIT);
+
+  return (
+    <>
+      {hits && numberOfHits > 0 ? (
+        <I18n>
+          {({ i18n }) => (
+            <div className="algolia__suggests">
+              {hits
+                .map((hit: Hit) => (
+                  <Link
+                    key={hit.portfolio_bbl}
+                    to={createRouteForFullBbl(hit.portfolio_bbl, i18n.language)}
+                    onClick={() => {
+                      logAmplitudeEvent("searchByLandlordName");
+                      window.gtag("event", "search-landlord-name");
+                    }}
+                    className="algolia__item"
+                    aria-hidden="true" // Make sure search results don't get announced until user is focused on them
+                  >
+                    <div className="result__snippet">
+                      <Snippet attribute="landlord_names" hit={hit} tagName="b" />
+                    </div>
+                  </Link>
+                ))
+                .slice(0, SEARCH_RESULTS_LIMIT)}
+            </div>
+          )}
+        </I18n>
+      ) : (
+        <div className="label">
+          <br />
+          <Trans>No landlords match your search.</Trans>
+        </div>
+      )}
+      <ScreenReaderAnnouncementOfSearchHits numberOfHits={numberOfHits} />
+    </>
+  );
+};
+
+const CustomSearchBox = connectSearchBox(SearchBox);
+const CustomHits = connectHits(SearchHits);
+
+const AlgoliaAPIConfiguration = () => (
+  <Configure
+    attributesToSnippet={["landlord_names"]}
+    analytics={enableAnalytics === "1" || false}
+  />
+);
+
 const LandlordSearch = () => {
-  const [numberOfHits, setNumberOfHits] = useState(0);
   const [searchIsInFocus, setSearchFocus] = useState(true);
   const [userTypedInput, setIfUserTypedInput] = useState(false);
   const setIfUserTypedInputAndFocus = (userTypedSomethingIn: boolean) => {
@@ -180,11 +174,7 @@ const LandlordSearch = () => {
             >
               <AlgoliaAPIConfiguration />
 
-              <NumberOfHitsContext.Provider value={{ numberOfHits, setNumberOfHits }}>
-                <CustomHits />
-              </NumberOfHitsContext.Provider>
-
-              <ScreenReaderAnnouncementOfSearchHits numberOfHits={numberOfHits} />
+              <CustomHits />
             </div>
           )}
         </InstantSearch>
