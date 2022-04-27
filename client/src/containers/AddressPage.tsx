@@ -165,7 +165,7 @@ export default class AddressPage extends Component<AddressPageProps, State> {
                       to={routes.portfolio}
                       tabIndex={this.props.currentTab === 2 ? -1 : 0}
                       onClick={() => {
-                        window.gtag("event", "portfolio-tab");
+                        window.gtag("event", "num-addrs-click");
                       }}
                     >
                       {assocAddrs.length}
