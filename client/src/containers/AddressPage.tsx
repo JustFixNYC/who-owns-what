@@ -160,7 +160,16 @@ export default class AddressPage extends Component<AddressPageProps, State> {
               <div className="float-left">
                 <h1 className="primary">
                   <Trans>
-                    PORTFOLIO: Your search address is associated with <u>{assocAddrs.length}</u>{" "}
+                    PORTFOLIO: Your search address is associated with{" "}
+                    <Link
+                      to={routes.portfolio}
+                      tabIndex={this.props.currentTab === 2 ? -1 : 0}
+                      onClick={() => {
+                        window.gtag("event", "num-addrs-click");
+                      }}
+                    >
+                      {assocAddrs.length}
+                    </Link>{" "}
                     <Plural value={assocAddrs.length} one="building" other="buildings" />
                   </Trans>
                 </h1>
