@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import algoliasearch from "algoliasearch/lite";
 import {
   InstantSearch,
@@ -23,11 +23,28 @@ export const algoliaSearchKey = process.env.REACT_APP_ALGOLIA_SEARCH_KEY;
 const enableAnalytics = process.env.REACT_APP_ENABLE_ALGOLIA_ANALYTICS;
 
 const ALGOLIA_INDEX_NAME = "wow_landlords";
+/**
+ * The maximum number of search results to show underneath the search bar
+ * after a user as typed in an input.
+ */
 const SEARCH_RESULTS_LIMIT = 5;
+/**
+ * The minimum number of characters a user has to type in before any search results pop up.
+ */
+const SEARCH_INPUT_MINIMUM_LENGTH = 2;
 
 const SearchBox = ({ currentRefinement, refine }: SearchBoxProvided) => {
   const [searchIsInFocus, setSearchFocus] = useState(true);
-  const userIsCurrentlySearching = searchIsInFocus && currentRefinement.length > 0;
+  const [searchQuery, setSearchQuery] = useState("");
+  const userIsCurrentlySearching = searchIsInFocus && !!currentRefinement;
+
+  useEffect(() => {
+    if (searchQuery.length >= SEARCH_INPUT_MINIMUM_LENGTH) {
+      refine(searchQuery);
+    } else {
+      refine("");
+    }
+  }, [searchQuery, refine]);
   return (
     <FocusTrap
       active={userIsCurrentlySearching}
@@ -49,9 +66,9 @@ const SearchBox = ({ currentRefinement, refine }: SearchBoxProvided) => {
                 type="search"
                 placeholder={i18n._(t`Search landlords`)}
                 aria-label={i18n._(t`Search by your landlord's name`)}
-                value={currentRefinement}
+                value={searchQuery}
                 onChange={(event) => {
-                  refine(event.currentTarget.value);
+                  setSearchQuery(event.currentTarget.value);
                   setSearchFocus(true);
                 }}
               />
