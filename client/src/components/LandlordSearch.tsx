@@ -25,34 +25,64 @@ const enableAnalytics = process.env.REACT_APP_ENABLE_ALGOLIA_ANALYTICS;
 const ALGOLIA_INDEX_NAME = "wow_landlords";
 const SEARCH_RESULTS_LIMIT = 5;
 
-type SearchBoxProps = SearchBoxProvided & {
-  /**
-   * This function allows us to set the global search query state of the parent
-   * `<LandlordSearch>` component from within this child `<SearchBox>` component
-   */
-  setIfUserTypedInput: (q: boolean) => void;
-};
+const SearchBox = ({ currentRefinement, refine }: SearchBoxProvided) => {
+  const [searchIsInFocus, setSearchFocus] = useState(true);
+  const userIsCurrentlySearching = searchIsInFocus && currentRefinement.length > 0;
+  return (
+    <FocusTrap
+      active={userIsCurrentlySearching}
+      focusTrapOptions={{
+        clickOutsideDeactivates: true,
+        onDeactivate: () => setSearchFocus(false),
+      }}
+    >
+      <div
+        className="LandlordSearch"
+        onFocus={() => setSearchFocus(true)}
+        onClick={() => setSearchFocus(true)}
+      >
+        <I18n>
+          {({ i18n }) => (
+            <form noValidate action="" role="search">
+              <input
+                className="form-input"
+                type="search"
+                placeholder={i18n._(t`Search landlords`)}
+                aria-label={i18n._(t`Search by your landlord's name`)}
+                value={currentRefinement}
+                onChange={(event) => {
+                  refine(event.currentTarget.value);
+                  setSearchFocus(true);
+                }}
+              />
+            </form>
+          )}
+        </I18n>
 
-const SearchBox = ({ currentRefinement, refine, setIfUserTypedInput }: SearchBoxProps) => (
-  <I18n>
-    {({ i18n }) => (
-      <form noValidate action="" role="search">
-        <input
-          className="form-input"
-          type="search"
-          placeholder={i18n._(t`Search landlords`)}
-          aria-label={i18n._(t`Search by your landlord's name`)}
-          value={currentRefinement}
-          onChange={(event) => {
-            const searchText = event.currentTarget.value;
-            refine(searchText);
-            setIfUserTypedInput(searchText.length > 0);
-          }}
-        />
-      </form>
-    )}
-  </I18n>
-);
+        {userIsCurrentlySearching && (
+          <>
+            <div
+              // hide the search results when the user is not currently searching a name here
+              role="region"
+              aria-live="polite"
+              aria-atomic={true}
+            >
+              <CustomHits />
+            </div>
+            <div className="search-by is-pulled-right">
+              <img
+                width="140"
+                height="20"
+                alt="Algolia"
+                src={require("../assets/img/algolia.svg")}
+              />
+            </div>
+          </>
+        )}
+      </div>
+    </FocusTrap>
+  );
+};
 
 const ScreenReaderAnnouncementOfSearchHits: React.FC<{ numberOfHits: number }> = ({
   numberOfHits,
@@ -130,62 +160,14 @@ const AlgoliaAPIConfiguration = () => (
 );
 
 const LandlordSearch = () => {
-  const [searchIsInFocus, setSearchFocus] = useState(true);
-  const [userTypedInput, setIfUserTypedInput] = useState(false);
-  const setIfUserTypedInputAndFocus = (userTypedSomethingIn: boolean) => {
-    // Whenever the user changes their search query,
-    // let's make our search bar in focus.
-    setSearchFocus(true);
-    setIfUserTypedInput(userTypedSomethingIn);
-  };
-
-  /**
-   * We infer that the user is currently utilizing the search bar when:
-   * - the search bar is in focus
-   * - they have typed in at least one character into the search bar
-   */
-  const userIsCurrentlySearching = searchIsInFocus && userTypedInput;
-
   return algoliaAppId && algoliaSearchKey ? (
-    <FocusTrap
-      active={userIsCurrentlySearching}
-      focusTrapOptions={{
-        clickOutsideDeactivates: true,
-        onDeactivate: () => setSearchFocus(false),
-      }}
+    <InstantSearch
+      searchClient={algoliasearch(algoliaAppId, algoliaSearchKey)}
+      indexName={ALGOLIA_INDEX_NAME}
     >
-      <div
-        className="LandlordSearch"
-        onFocus={() => setSearchFocus(true)}
-        onClick={() => setSearchFocus(true)}
-      >
-        <InstantSearch
-          searchClient={algoliasearch(algoliaAppId, algoliaSearchKey)}
-          indexName={ALGOLIA_INDEX_NAME}
-        >
-          <CustomSearchBox setIfUserTypedInput={setIfUserTypedInputAndFocus} />
-
-          {userIsCurrentlySearching && (
-            <div
-              // hide the search results when the user is not currently searching a name here
-              role="region"
-              aria-live="polite"
-              aria-atomic={true}
-            >
-              <AlgoliaAPIConfiguration />
-
-              <CustomHits />
-            </div>
-          )}
-        </InstantSearch>
-
-        {userIsCurrentlySearching && (
-          <div className="search-by is-pulled-right">
-            <img width="140" height="20" alt="Algolia" src={require("../assets/img/algolia.svg")} />
-          </div>
-        )}
-      </div>
-    </FocusTrap>
+      <AlgoliaAPIConfiguration />
+      <CustomSearchBox />
+    </InstantSearch>
   ) : (
     <React.Fragment />
   );
