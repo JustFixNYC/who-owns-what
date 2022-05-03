@@ -3,6 +3,7 @@ import { Trans } from "@lingui/macro";
 import { CSVDownloader } from "react-papaparse";
 import { AddressRecord, HpdComplaintCount, HpdFullContact, HpdOwnerContact } from "./APIDataTypes";
 import helpers from "util/helpers";
+import { logAmplitudeEvent } from "./Amplitude";
 
 export const formatOwnerNames = (names: HpdOwnerContact[] | null) => {
   return names ? names.map(({ title, value }) => `${value} (${title})`).join(", ") : "";
@@ -46,7 +47,8 @@ const ExportDataButton: React.FC<{ data: AddressRecord[] }> = ({ data }) => {
       <button
         className="btn centered"
         onClick={() => {
-          window.gtag("event", "export-data");
+          logAmplitudeEvent("downloadPortfolioData");
+          window.gtag("event", "download-portfolio-data");
         }}
       >
         <Trans>Download</Trans>

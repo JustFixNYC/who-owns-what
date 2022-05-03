@@ -24,6 +24,7 @@ import {
 } from "./IndicatorsTypes";
 import { NetworkErrorMessage } from "./NetworkErrorMessage";
 import { Dropdown } from "./Dropdown";
+import { AmplitudeEvent, logAmplitudeEvent } from "./Amplitude";
 
 type TimeSpanTranslationsMap = {
   [K in IndicatorsTimeSpan]: (i18n: I18n) => string;
@@ -103,6 +104,9 @@ class IndicatorsWithoutI18n extends Component<IndicatorsProps, IndicatorsState> 
   /** Changes viewing timespan to be by 'year', 'quarter', or 'month' */
   handleTimeSpanChange(selectedTimeSpan: IndicatorsTimeSpan) {
     var monthsInGroup = selectedTimeSpan === "quarter" ? 3 : selectedTimeSpan === "year" ? 12 : 1;
+
+    logAmplitudeEvent(`${selectedTimeSpan}TimelineTab` as AmplitudeEvent);
+    window.gtag("event", `${selectedTimeSpan}-timeline-tab`);
 
     this.setState({
       activeTimeSpan: selectedTimeSpan,
@@ -279,9 +283,6 @@ class IndicatorsWithoutI18n extends Component<IndicatorsProps, IndicatorsState> 
                               "form-radio" +
                               (this.state.activeTimeSpan === timespan ? " active" : "")
                             }
-                            onClick={() => {
-                              window.gtag("event", "month-timeline-tab");
-                            }}
                           >
                             <input
                               type="radio"

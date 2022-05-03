@@ -19,6 +19,7 @@ import { AddressRecord, HpdComplaintCount } from "./APIDataTypes";
 import { withMachineInStateProps } from "state-machine";
 import { AddressPageRoutes } from "routes";
 import classnames from "classnames";
+import { logAmplitudeEvent } from "../components/Amplitude";
 
 export const isPartOfGroupSale = (saleId: string, addrs: AddressRecord[]) => {
   const addrsWithMatchingSale = addrs.filter((addr) => addr.lastsaleacrisid === saleId);
@@ -525,6 +526,10 @@ const TableOfData = React.memo(
                 Cell: (row) =>
                   row.original.lastsaleacrisid ? (
                     <a
+                      onClick={() => {
+                        logAmplitudeEvent("portfolioLinktoDeed");
+                        window.gtag("event", "portfolio-link-to-deed");
+                      }}
                       href={`https://a836-acris.nyc.gov/DS/DocumentSearch/DocumentImageView?doc_id=${row.original.lastsaleacrisid}`}
                       className="btn"
                       target="_blank"
@@ -576,7 +581,11 @@ const TableOfData = React.memo(
                       to={props.addressPageRoutes.overview}
                       className="btn"
                       aria-label={i18n._(t`View detail`)}
-                      onClick={() => props.onOpenDetail(row.original.bbl)}
+                      onClick={() => {
+                        props.onOpenDetail(row.original.bbl);
+                        logAmplitudeEvent("portfolioViewDetail");
+                        window.gtag("event", "portfolio-view-detail");
+                      }}
                     >
                       <span style={{ padding: "0 3px" }}>&#10142;</span>
                     </Link>

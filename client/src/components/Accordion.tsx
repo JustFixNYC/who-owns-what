@@ -10,12 +10,13 @@ type AccordionProps = {
    * once it has been opened.
    */
   titleOnOpen?: string;
+  onClick?: () => void;
   children: React.ReactNode;
 };
 
-export const Accordion: React.FC<AccordionProps> = ({ title, titleOnOpen, children }) => {
+export const Accordion: React.FC<AccordionProps> = ({ title, onClick, titleOnOpen, children }) => {
   return (
-    <details className="accordion">
+    <details className="accordion" onClick={onClick}>
       <summary>
         {titleOnOpen ? (
           <>

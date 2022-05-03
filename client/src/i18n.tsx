@@ -16,6 +16,7 @@ import catalogEn from "./locales/en/messages";
 import catalogEs from "./locales/es/messages";
 import { LocationDescriptorObject, History } from "history";
 import { SupportedLocale, defaultLocale, isSupportedLocale } from "./i18n-base";
+import { logAmplitudeEvent } from "./components/Amplitude";
 
 /** The structure for message catalogs that lingui expects. */
 type LocaleCatalog = {
@@ -144,7 +145,25 @@ export const LocaleSwitcher = withRouter(function LocaleSwitcher(props: RouteCom
 
   return (
     <span className="language-toggle">
-      <NavLink to={to("en")}>EN</NavLink>/<NavLink to={to("es")}>ES</NavLink>
+      <NavLink
+        to={to("en")}
+        onClick={() => {
+          logAmplitudeEvent("switchToEnglish");
+          window.gtag("event", "switch-to-english");
+        }}
+      >
+        EN
+      </NavLink>
+      /
+      <NavLink
+        to={to("es")}
+        onClick={() => {
+          logAmplitudeEvent("switchToSpanish");
+          window.gtag("event", "switch-to-spanish");
+        }}
+      >
+        ES
+      </NavLink>
     </span>
   );
 });
@@ -163,9 +182,25 @@ export const LocaleSwitcherWithFullLanguageName = withRouter(function LocaleSwit
   const currentLocale = localeFromRouter(props);
 
   return currentLocale === "en" ? (
-    <NavLink to={to("es")}>Español</NavLink>
+    <NavLink
+      to={to("es")}
+      onClick={() => {
+        logAmplitudeEvent("switchToSpanish");
+        window.gtag("event", "switch-to-spanish");
+      }}
+    >
+      Español
+    </NavLink>
   ) : (
-    <NavLink to={to("en")}>English</NavLink>
+    <NavLink
+      to={to("en")}
+      onClick={() => {
+        logAmplitudeEvent("switchToEnglish");
+        window.gtag("event", "switch-to-english");
+      }}
+    >
+      English
+    </NavLink>
   );
 });
 

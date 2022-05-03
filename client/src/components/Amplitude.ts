@@ -10,7 +10,7 @@ if (!API_KEY) throw new Error("No Amplitude API key defined!");
 
 amplitude.getInstance().init(API_KEY);
 
-type AmplitudeEvent =
+export type AmplitudeEvent =
   | "closeFeatureCalloutWidget"
   | "openFeatureCalloutWidget"
   | "viewPreviousEntryOnFeatureCalloutWidget"
@@ -27,7 +27,44 @@ type AmplitudeEvent =
   | "hpdRegistrationIsIncomplete"
   | "hpdRegistrationNotRequired"
   | "hpdRegistrationMaybeRequired"
-  | "hpdRegistrationRequiredAndNotThere";
+  | "hpdRegistrationRequiredAndNotThere"
+  | "navbarHowToUse"
+  | "switchToEnglish"
+  | "switchToSpanish"
+  | "emailSignUp"
+  | "newSearch"
+  | "acris-overview-tab"
+  | "hpd-overview-tab"
+  | "dob-overview-tab"
+  | "dof-overview-tab"
+  | "dap-overview-tab"
+  | "acris-timeline-tab"
+  | "hpd-timeline-tab"
+  | "dob-timeline-tab"
+  | "dof-timeline-tab"
+  | "dap-timeline-tab"
+  | "acris-not-registered-page"
+  | "hpd-not-registered-page"
+  | "dob-not-registered-page"
+  | "dof-not-registered-page"
+  | "dap-not-registered-page"
+  | "numAddrsClick"
+  | "timelineTab"
+  | "portfolioTab"
+  | "summaryTab"
+  | "whoIsLandlordAccordian"
+  | "detailsOpenContactCard"
+  | "clickExportData"
+  | "downloadPortfolioData"
+  | "hpdcomplaintsTimelineTab"
+  | "hpdviolationsTimelineTab"
+  | "dobpermitsTimelineTab"
+  | "dobviolationsTimelineTab"
+  | "monthTimelineTab"
+  | "quarterTimelineTab"
+  | "yearTimelineTab"
+  | "portfolioLinktoDeed"
+  | "portfolioViewDetail";
 
 type AmplitudeEventData = {
   portfolioSize?: number;
