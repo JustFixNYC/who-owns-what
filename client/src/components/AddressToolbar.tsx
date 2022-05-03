@@ -11,6 +11,7 @@ import { AddressRecord } from "./APIDataTypes";
 import ExportDataButton from "./ExportData";
 import { useLocation } from "react-router-dom";
 import { createWhoOwnsWhatRoutePaths } from "routes";
+import { logAmplitudeEvent } from "./Amplitude";
 
 export type AddressToolbarProps = {
   searchAddr: SearchAddress;
@@ -29,13 +30,21 @@ const AddressToolbar: React.FC<AddressToolbarProps> = ({ searchAddr, assocAddrs 
         <Link
           className="btn btn-primary"
           onClick={() => {
+            logAmplitudeEvent("newSearch");
             window.gtag("event", "new-search");
           }}
           to={isLegacyPath(pathname) ? legacy.home : home}
         >
           <Trans>New Search</Trans>
         </Link>
-        <button className="btn" onClick={() => setExportModalVisibility(true)}>
+        <button
+          className="btn"
+          onClick={() => {
+            setExportModalVisibility(true);
+            logAmplitudeEvent("clickExportData");
+            window.gtag("event", "click-export-data");
+          }}
+        >
           <Trans>Export Data</Trans>
         </button>
       </div>

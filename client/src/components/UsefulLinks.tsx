@@ -2,6 +2,7 @@ import React from "react";
 import { Trans } from "@lingui/macro";
 import Helpers from "../util/helpers";
 import { AddressRecord } from "./APIDataTypes";
+import { AmplitudeEvent, logAmplitudeEvent } from "components/Amplitude";
 
 type UsefulLinksProps = {
   addrForLinks: Pick<AddressRecord, "bbl" | "housenumber" | "streetname">;
@@ -20,6 +21,7 @@ export const UsefulLinks: React.FC<UsefulLinksProps> = ({ addrForLinks, location
             View documents on{" "}
             <a
               onClick={() => {
+                logAmplitudeEvent(`acris-${location}` as AmplitudeEvent);
                 window.gtag("event", `acris-${location}`);
               }}
               href={`http://a836-acris.nyc.gov/bblsearch/bblsearch.asp?borough=${boro}&block=${block}&lot=${lot}`}
@@ -33,6 +35,7 @@ export const UsefulLinks: React.FC<UsefulLinksProps> = ({ addrForLinks, location
         <li>
           <a
             onClick={() => {
+              logAmplitudeEvent(`hpd-${location}` as AmplitudeEvent);
               window.gtag("event", `hpd-${location}`);
             }}
             href={`https://hpdonline.hpdnyc.org/HPDonline/Provide_address.aspx?p1=${boro}&p2=${housenumber}&p3=${Helpers.formatStreetNameForHpdLink(
@@ -47,6 +50,7 @@ export const UsefulLinks: React.FC<UsefulLinksProps> = ({ addrForLinks, location
         <li>
           <a
             onClick={() => {
+              logAmplitudeEvent(`dob-${location}` as AmplitudeEvent);
               window.gtag("event", `dob-${location}`);
             }}
             href={`http://a810-bisweb.nyc.gov/bisweb/PropertyProfileOverviewServlet?boro=${boro}&block=${block}&lot=${lot}`}
@@ -59,6 +63,7 @@ export const UsefulLinks: React.FC<UsefulLinksProps> = ({ addrForLinks, location
         <li>
           <a
             onClick={() => {
+              logAmplitudeEvent(`dof-${location}` as AmplitudeEvent);
               window.gtag("event", `dof-${location}`);
             }}
             href={`https://a836-pts-access.nyc.gov/care/search/commonsearch.aspx?mode=persprop`}
@@ -71,6 +76,7 @@ export const UsefulLinks: React.FC<UsefulLinksProps> = ({ addrForLinks, location
         <li>
           <a
             onClick={() => {
+              logAmplitudeEvent(`dap-${location}` as AmplitudeEvent);
               window.gtag("event", `dap-${location}`);
             }}
             href={`https://portal.displacementalert.org/property/${boro}${block}${lot}`}

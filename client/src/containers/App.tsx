@@ -41,6 +41,7 @@ import {
   ToggleLinkBetweenPortfolioMethods,
   WowzaRedirectPage,
 } from "components/WowzaToggle";
+import { logAmplitudeEvent } from "../components/Amplitude";
 
 const HomeLink = withI18n()((props: withI18nProps) => {
   const { i18n } = props;
@@ -189,7 +190,14 @@ const getMainNavLinks = (isLegacyPath?: boolean) => {
     <LocaleNavLink to={isLegacyPath ? legacy.about : about} key={2}>
       <Trans>About</Trans>
     </LocaleNavLink>,
-    <LocaleNavLink to={isLegacyPath ? legacy.howToUse : howToUse} key={3}>
+    <LocaleNavLink
+      to={isLegacyPath ? legacy.howToUse : howToUse}
+      key={3}
+      onClick={() => {
+        logAmplitudeEvent("navbarHowToUse");
+        window.gtag("event", "navbar-how-to-use");
+      }}
+    >
       <Trans>How to use</Trans>
     </LocaleNavLink>,
     <a href="https://www.justfix.nyc/donate" key={4}>

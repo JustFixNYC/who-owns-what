@@ -22,7 +22,7 @@ import { searchAddrsAreEqual } from "util/helpers";
 import { NetworkErrorMessage } from "components/NetworkErrorMessage";
 import { createAddressPageRoutes } from "routes";
 import { isLegacyPath } from "../components/WowzaToggle";
-import { logAmplitudeEventWithData } from "components/Amplitude";
+import { logAmplitudeEvent, logAmplitudeEventWithData } from "components/Amplitude";
 
 type RouteParams = {
   locale?: string;
@@ -165,6 +165,7 @@ export default class AddressPage extends Component<AddressPageProps, State> {
                       to={routes.portfolio}
                       tabIndex={this.props.currentTab === 2 ? -1 : 0}
                       onClick={() => {
+                        logAmplitudeEvent("numAddrsClick");
                         window.gtag("event", "num-addrs-click");
                       }}
                     >
@@ -184,6 +185,7 @@ export default class AddressPage extends Component<AddressPageProps, State> {
                       to={routes.timeline}
                       tabIndex={this.props.currentTab === 1 ? -1 : 0}
                       onClick={() => {
+                        logAmplitudeEvent("timelineTab");
                         window.gtag("event", "timeline-tab");
                       }}
                     >
@@ -195,6 +197,7 @@ export default class AddressPage extends Component<AddressPageProps, State> {
                       to={routes.portfolio}
                       tabIndex={this.props.currentTab === 2 ? -1 : 0}
                       onClick={() => {
+                        logAmplitudeEvent("portfolioTab");
                         window.gtag("event", "portfolio-tab");
                       }}
                     >
@@ -206,6 +209,7 @@ export default class AddressPage extends Component<AddressPageProps, State> {
                       to={routes.summary}
                       tabIndex={this.props.currentTab === 3 ? -1 : 0}
                       onClick={() => {
+                        logAmplitudeEvent("summaryTab");
                         window.gtag("event", "summary-tab");
                       }}
                     >
