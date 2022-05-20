@@ -52,6 +52,7 @@ export type AddressRecord = {
   businessaddrs: string[] | null;
   corpnames: string[] | null;
   evictions: number | null;
+  evictionfilings: number | null;
   housenumber: string;
   lastregistrationdate: APIDate;
   lastsaleacrisid: string | null;
@@ -136,6 +137,7 @@ export type SummaryStatsRecord = {
   avgevictions: number | null;
   bldgs: number;
   evictionsaddr: EvictionAddress;
+  evictionfilingsaddr: EvictionAddress;
   openviolationsperbldg: number;
   openviolationsperresunit: number;
   rslossaddr: RentStabilizedAddress;
@@ -147,6 +149,7 @@ export type SummaryStatsRecord = {
   totalrecenthpdcomplaints: number;
   recenthpdcomplaintsbytype: HpdComplaintCount[];
   totalevictions: number | null;
+  totalevictionfilings: number | null;
   totalopenviolations: number;
   totalrsdiff: number | null;
   totalrsgain: number;

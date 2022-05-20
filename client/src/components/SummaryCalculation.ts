@@ -66,6 +66,7 @@ export const calculateAggDataFromAddressList = (addrs: AddressRecord[]): Summary
   const totalrecentcomplaints = _.sumBy(addrs, (a) => a.recentcomplaints);
 
   const totalevictions = _.sumBy(addrs, (a) => a.evictions || 0);
+  const totalevictionfilings = _.sumBy(addrs, (a) => a.evictionfilings || 0);
 
   /**
    * Sum of all cases in the portfolio where a building's RS unit count _increased_
@@ -90,6 +91,10 @@ export const calculateAggDataFromAddressList = (addrs: AddressRecord[]): Summary
     (a1.evictions || 0) > (a2.evictions || 0) ? a1 : a2
   );
 
+  const addrWithMostEvictionFilings = addrs.reduce((a1, a2) =>
+    (a1.evictionfilings || 0) > (a2.evictionfilings || 0) ? a1 : a2
+  );
+
   const addrWithMostOpenViolations = addrs.reduce((a1, a2) =>
     (a1.openviolations || 0) > (a2.openviolations || 0) ? a1 : a2
   );
@@ -112,6 +117,7 @@ export const calculateAggDataFromAddressList = (addrs: AddressRecord[]): Summary
     openviolationsperbldg: totalopenviolations / bldgs,
     openviolationsperresunit: totalopenviolations / units,
     totalevictions,
+    totalevictionfilings,
     avgevictions: totalevictions / bldgs,
     totalrsgain,
     totalrsloss,
@@ -124,6 +130,10 @@ export const calculateAggDataFromAddressList = (addrs: AddressRecord[]): Summary
     evictionsaddr: {
       evictions: addrWithMostEvictions.evictions,
       ...extractLocationDataFromAddr(addrWithMostEvictions),
+    },
+    evictionfilingsaddr: {
+      evictions: addrWithMostEvictionFilings.evictionfilings,
+      ...extractLocationDataFromAddr(addrWithMostEvictionFilings),
     },
     violationsaddr: {
       openviolations: addrWithMostOpenViolations.openviolations,

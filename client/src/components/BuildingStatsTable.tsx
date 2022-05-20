@@ -141,6 +141,25 @@ const Evictions = () => {
   );
 };
 
+
+const EvictionFilings = () => {
+  const addr = useContext(AddrContext).getBuildingStats();
+  return (
+    <I18n>
+      {({ i18n }) => (
+        <div
+          title={i18n._(
+            t`Evictions cases filed in Housing Court since since 2017. This data comes from the Office of Court Administration via the Housing Data Coalition.`
+          )}
+        >
+          <Trans render="label">Eviction Filings</Trans>
+          {addr.evictionfilings !== null ? addr.evictionfilings : "N/A"}
+        </div>
+      )}
+    </I18n>
+  );
+};
+
 const RsUnits = () => {
   const addr = useContext(AddrContext).getBuildingStats();
   return (
@@ -182,12 +201,13 @@ const BuildingStatsTableWithoutI18n = (props: { addr: AddressRecord }) => (
         <BBL />
         <YearBuilt />
         <UnitsRes />
+        <RsUnits />
       </div>
       <div className="table-row">
         <OpenViolations />
         <TotalViolations />
         <Evictions />
-        <RsUnits />
+        <EvictionFilings />
       </div>
     </div>
     <div className="card-body-table show-sm">

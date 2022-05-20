@@ -12,9 +12,9 @@ WITH PORTFOLIO_GRAPH AS (
 -- Select a subset of WOW_BLDGS that only contains
 -- BBLs within the same portfolio
 SELECT 
-	WOW_BLDGS.*,
+	WOW_BLDGS_new_temp.*,
 	GRAPH
-FROM WOW_BLDGS
+FROM WOW_BLDGS_new_temp
 LEFT JOIN PORTFOLIO_GRAPH USING(BBL)
 WHERE BBL = ANY(
 	SELECT UNNEST(BBLS)

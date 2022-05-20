@@ -411,18 +411,29 @@ const TableOfData = React.memo(
             ],
           },
           {
-            Header: i18n._(t`Evictions`),
+            Header: i18n._(t`Evictions Since 2017`),
             columns: [
               {
                 Header: (
                   <>
-                    <Trans>Since 2017</Trans>
+                    <Trans>Filied</Trans>
+                    <ArrowIcon />
+                  </>
+                ),
+                accessor: (d) => d.evictionfilings || null,
+                id: "evictionsfilings",
+                width: getWidthFromLabel(i18n._(t`Filied`)),
+              },
+              {
+                Header: (
+                  <>
+                    <Trans>Executed</Trans>
                     <ArrowIcon />
                   </>
                 ),
                 accessor: (d) => d.evictions || null,
                 id: "evictions",
-                width: getWidthFromLabel(i18n._(t`Since 2017`)),
+                width: getWidthFromLabel(i18n._(t`Executed`)),
               },
             ],
           },
