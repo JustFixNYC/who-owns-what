@@ -90,7 +90,7 @@ class TestAddressDapPortfolioSize(ApiTest):
         assert res.status_code == 200
         assert len(res.json()["result"]) == 1
         assert res.json()["result"]["portfolio_size"] > 0
-    
+
     def test_it_returns_none_for_unregistered_bbl(self, db, client):
         # Using the BBL for the Hudson River!
         res = client.get("/api/address/dap-portfoliosize?bbl=1011100001")
