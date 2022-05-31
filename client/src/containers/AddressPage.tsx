@@ -22,7 +22,7 @@ import { searchAddrsAreEqual } from "util/helpers";
 import { NetworkErrorMessage } from "components/NetworkErrorMessage";
 import { createAddressPageRoutes } from "routes";
 import { isLegacyPath } from "../components/WowzaToggle";
-import { logAmplitudeEventWithData } from "components/Amplitude";
+import { logAmplitudeEvent, logAmplitudeEventWithData } from "components/Amplitude";
 
 type RouteParams = {
   locale?: string;
@@ -160,7 +160,17 @@ export default class AddressPage extends Component<AddressPageProps, State> {
               <div className="float-left">
                 <h1 className="primary">
                   <Trans>
-                    PORTFOLIO: Your search address is associated with <u>{assocAddrs.length}</u>{" "}
+                    PORTFOLIO: Your search address is associated with{" "}
+                    <Link
+                      to={routes.portfolio}
+                      tabIndex={this.props.currentTab === 2 ? -1 : 0}
+                      onClick={() => {
+                        logAmplitudeEvent("numAddrsClick");
+                        window.gtag("event", "num-addrs-click");
+                      }}
+                    >
+                      {assocAddrs.length}
+                    </Link>{" "}
                     <Plural value={assocAddrs.length} one="building" other="buildings" />
                   </Trans>
                 </h1>
@@ -175,6 +185,7 @@ export default class AddressPage extends Component<AddressPageProps, State> {
                       to={routes.timeline}
                       tabIndex={this.props.currentTab === 1 ? -1 : 0}
                       onClick={() => {
+                        logAmplitudeEvent("timelineTab");
                         window.gtag("event", "timeline-tab");
                       }}
                     >
@@ -186,6 +197,7 @@ export default class AddressPage extends Component<AddressPageProps, State> {
                       to={routes.portfolio}
                       tabIndex={this.props.currentTab === 2 ? -1 : 0}
                       onClick={() => {
+                        logAmplitudeEvent("portfolioTab");
                         window.gtag("event", "portfolio-tab");
                       }}
                     >
@@ -197,6 +209,7 @@ export default class AddressPage extends Component<AddressPageProps, State> {
                       to={routes.summary}
                       tabIndex={this.props.currentTab === 3 ? -1 : 0}
                       onClick={() => {
+                        logAmplitudeEvent("summaryTab");
                         window.gtag("event", "summary-tab");
                       }}
                     >

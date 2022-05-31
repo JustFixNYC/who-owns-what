@@ -22,6 +22,7 @@ import { UsefulLinks } from "./UsefulLinks";
 import _groupBy from "lodash/groupBy";
 import { HpdContactAddress, HpdFullContact } from "./APIDataTypes";
 import { isLegacyPath } from "./WowzaToggle";
+import { logAmplitudeEvent } from "./Amplitude";
 
 type Props = withI18nProps &
   withMachineInStateProps<"portfolioFound"> & {
@@ -79,10 +80,13 @@ const FormattedContactAddress: React.FC<{ address: HpdContactAddress }> = ({ add
   );
 };
 
-const HpdContactCard: React.FC<{ contact: GroupedContact }> = ({ contact }) => (
+const HpdContactCard: React.FC<{ contact: GroupedContact; onClick?: () => void }> = ({
+  contact,
+  onClick,
+}) => (
   <I18n>
     {({ i18n }) => (
-      <Accordion title={contact[0]}>
+      <Accordion title={contact[0]} onClick={onClick}>
         {contact[1].map((info, j) => (
           <div className="landlord-contact-info" key={j}>
             <span className="text-bold text-dark">
@@ -102,7 +106,14 @@ const LearnMoreAccordion = () => {
   return (
     <I18n>
       {({ i18n }) => (
-        <Accordion title={i18n._(t`Learn more`)} titleOnOpen={i18n._(t`Close`)}>
+        <Accordion
+          title={i18n._(t`Learn more`)}
+          titleOnOpen={i18n._(t`Close`)}
+          onClick={() => {
+            logAmplitudeEvent("whoIsLandlordAccordian");
+            window.gtag("event", "who-is-landlord-accordian");
+          }}
+        >
           <br />
           <Trans>
             <p>
@@ -299,7 +310,14 @@ class DetailViewWithoutI18n extends Component<Props, State> {
                               Object.entries(_groupBy(detailAddr.allcontacts, "value"))
                                 .sort(sortContactsByImportance)
                                 .map((contact, i) => (
-                                  <HpdContactCard contact={contact} key={i} />
+                                  <HpdContactCard
+                                    contact={contact}
+                                    key={i}
+                                    onClick={() => {
+                                      logAmplitudeEvent("detailsOpenContactCard");
+                                      window.gtag("event", "details-open-contact-card");
+                                    }}
+                                  />
                                 ))
                             }
                           </div>

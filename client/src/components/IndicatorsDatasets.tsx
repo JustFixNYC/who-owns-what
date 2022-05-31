@@ -3,6 +3,7 @@ import { I18n } from "@lingui/core";
 import { t, Trans, plural } from "@lingui/macro";
 import { withI18n } from "@lingui/react";
 import { IndicatorsDatasetId } from "./IndicatorsTypes";
+import { AmplitudeEvent, logAmplitudeEvent } from "./Amplitude";
 
 /**
  * This interface encapsulates metadata about an Indicators dataset.
@@ -12,9 +13,10 @@ export interface IndicatorsDataset {
   name: (i18n: I18n) => string;
 
   /**
-   * The name to use for the dataset in analytics. This defaults to the dataset ID but
-   * can be overridden by defining this property. */
-  analyticsName?: string;
+   * The name to use for the dataset in analytics. The type options must be defined here
+   * for it to recognize the template strings as valid values for the AmplitudeEvent type
+   */
+  analyticsName: "hpdcomplaints" | "hpdviolations" | "dobpermits" | "dobviolations";
 
   /**
    * The localized name for a particular "quantity" of the dataset, e.g.
@@ -40,6 +42,7 @@ type IndicatorsDatasetMap = {
 export const INDICATORS_DATASETS: IndicatorsDatasetMap = {
   hpdcomplaints: {
     name: (i18n) => i18n._(t`HPD Complaints`),
+    analyticsName: "hpdcomplaints",
     quantity: (i18n, value) =>
       i18n._(
         plural({
@@ -77,7 +80,7 @@ export const INDICATORS_DATASETS: IndicatorsDatasetMap = {
 
   hpdviolations: {
     name: (i18n) => i18n._(t`HPD Violations`),
-    analyticsName: "violations",
+    analyticsName: "hpdviolations",
     quantity: (i18n, value) =>
       i18n._(
         plural({
@@ -119,6 +122,7 @@ export const INDICATORS_DATASETS: IndicatorsDatasetMap = {
   },
   dobpermits: {
     name: (i18n) => i18n._(t`Building Permit Applications`),
+    analyticsName: "dobpermits",
     quantity: (i18n, value) =>
       i18n._(
         plural({
@@ -149,6 +153,7 @@ export const INDICATORS_DATASETS: IndicatorsDatasetMap = {
   },
   dobviolations: {
     name: (i18n) => i18n._(t`DOB/ECB Violations`),
+    analyticsName: "dobviolations",
     quantity: (i18n, value) =>
       i18n._(
         plural({
@@ -211,7 +216,7 @@ const IndicatorsDatasetRadioWithoutI18n: React.FC<{
 }> = ({ i18n, id, activeId, onChange }) => {
   const dataset = INDICATORS_DATASETS[id];
   const isActive = activeId === id;
-  const analyticsName = dataset.analyticsName || id;
+  const analyticsName = dataset.analyticsName;
   const name = dataset.name(i18n);
 
   return (
@@ -219,6 +224,7 @@ const IndicatorsDatasetRadioWithoutI18n: React.FC<{
       <label
         className={"form-radio" + (isActive ? " active" : "")}
         onClick={() => {
+          logAmplitudeEvent(`${analyticsName}TimelineTab` as AmplitudeEvent);
           window.gtag("event", `${analyticsName}-timeline-tab`);
         }}
       >

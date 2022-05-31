@@ -7,6 +7,7 @@ import { withI18n } from "@lingui/react";
 import { t } from "@lingui/macro";
 import { reportError } from "error-reporting";
 import { getDataLayer } from "google-tag-manager";
+import { logAmplitudeEvent } from "./Amplitude";
 
 //import 'styles/Subscribe.css';
 
@@ -36,6 +37,9 @@ class SubscribeWithoutI18n extends React.Component<SubscribeProps, State> {
 
   handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    logAmplitudeEvent("emailSignUp");
+    window.gtag("event", "email-sign-up");
 
     const email = this.state.email || null;
     const { i18n } = this.props;
