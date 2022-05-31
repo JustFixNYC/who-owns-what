@@ -297,8 +297,8 @@ msgstr "Sitio Demo"
 msgid "Disclaimer: The information in JustFix.nyc does not constitute legal advice and must not be used as a substitute for the advice of a lawyer qualified to give advice on legal issues pertaining to housing. We can help direct you to free legal services if necessary."
 msgstr "Descargo de responsabilidad: La información en JustFix.nyc no constituye asesoramiento jurídico y no debe ser utilizado como sustituto del asesoramiento de un abogado cualificado para asesorar sobre cuestiones jurídicas relativas a la vivienda. Nosotros podemos ayudarte a dirigirte a servicios legales gratuitos si es necesario."
 
-#: src/components/Indicators.tsx:167
-#: src/components/Indicators.tsx:170
+#: src/components/Indicators.tsx:169
+#: src/components/Indicators.tsx:172
 msgid "Display:"
 msgstr "Mostrar:"
 
@@ -354,7 +354,7 @@ msgstr "Desalojos ejecutados en este edificio por el Mariscal de NYC desde el 20
 msgid "Evictions executed in this development by NYC Marshals since 2017. ANHD and the Housing Data Coalition cleaned, geocoded, and validated the data, originally sourced from DOI."
 msgstr "Desalojos ejecutados en este complejo por el Mariscal de NYC desde el 2017. ANHD y la Coalición de Datos de Vivienda limpiaron, codificaron y validaron los datos, originalmente provenientes del DOI."
 
-#: src/components/AddressToolbar.tsx:29
+#: src/components/AddressToolbar.tsx:30
 msgid "Export Data"
 msgstr "Exportar datos"
 
@@ -594,11 +594,11 @@ msgstr "Más útil para dispositivos móviles"
 msgid "Most Common 311 Complaints, Last 3 Years"
 msgstr "Las quejas más comunes de 311, los últimos 3 años"
 
-#: src/components/Indicators.tsx:201
+#: src/components/Indicators.tsx:200
 msgid "Move chart data left."
 msgstr "Mover datos del gráfico a la izquierda."
 
-#: src/components/Indicators.tsx:210
+#: src/components/Indicators.tsx:209
 msgid "Move chart data right."
 msgstr "Mover datos del gráfico a la derecha."
 
@@ -622,7 +622,7 @@ msgstr "Red de Dueños"
 msgid "New"
 msgstr "Nuevo"
 
-#: src/components/AddressToolbar.tsx:22
+#: src/components/AddressToolbar.tsx:23
 msgid "New Search"
 msgstr "Nueva búsqueda"
 
@@ -647,7 +647,7 @@ msgstr "No se encontraron direcciones"
 msgid "No data available"
 msgstr "No hay datos disponibles"
 
-#: src/components/LandlordSearch.tsx:71
+#: src/components/LandlordSearch.tsx:88
 msgid "No landlords match your search."
 msgstr "No hay nombres de dueños coincidan con su búsqueda."
 
@@ -807,7 +807,7 @@ msgstr "ESCALERAS"
 msgid "Search"
 msgstr "Buscar"
 
-#: src/components/LandlordSearch.tsx:26
+#: src/components/LandlordSearch.tsx:43
 msgid "Search by your landlord's name"
 msgstr "Busca por el nombre de tu dueño"
 
@@ -820,7 +820,7 @@ msgstr "Buscar por:"
 msgid "Search for a different address"
 msgstr "Buscar otra dirección"
 
-#: src/components/LandlordSearch.tsx:26
+#: src/components/LandlordSearch.tsx:43
 msgid "Search landlords"
 msgstr "Buscar dueños"
 
@@ -992,7 +992,7 @@ msgstr "Hay {0, plural, one {<0><1>1</1> edificio</0>} other {<2><3>{1}</3> edif
 msgid "This building is owned by the NYC Housing Authority (NYCHA)"
 msgstr "Este edificio es propiedad de la NYC Housing Authority (NYCHA)"
 
-#: src/components/AddressToolbar.tsx:37
+#: src/components/AddressToolbar.tsx:38
 msgid "This data is in <0>CSV file format</0>, which can easily be used in Excel, Google Sheets, or any other spreadsheet program."
 msgstr "Estos datos están en <0>formato de archivo CSV</0>, que puede utilizarse fácilmente en Excel, Google Sheets o cualquier otro programa de hoja de cálculo."
 
@@ -1044,7 +1044,7 @@ msgstr "Esto representa el número total de violaciones del HPD (tanto actuales 
 msgid "This tracks how rent stabilized units in the building have changed (i.e. \"{delta}\") from 2007 to {0}. If the number for {1} is red, this means there has been a loss in stabilzied units! These counts are estimated from the DOF Property Tax Bills."
 msgstr "El cambio en apartamentos de renta estabilizada que hay en el edificio (es decir, \"{delta}\") del 2007 al {0}. Si el número en {1} está en rojo, ¡esto significa que ha habido una pérdida en las cantidad de apartamentos de renta estabilizada! Estos recuentos se calculan a partir de las facturas de impuestos del Departamento de Finanzas."
 
-#: src/components/AddressToolbar.tsx:33
+#: src/components/AddressToolbar.tsx:34
 msgid "This will export <0>{0}</0> addresses associated with the landlord at <1>{userAddrStr}</1>!"
 msgstr "¡Esto exportará <0>{0}</0> direcciones asociadas al propietario de <1>{userAddrStr}</1>!"
 
@@ -1084,11 +1084,11 @@ msgstr "Imposible solicitar el despido de una Infracción del Código de Viviend
 msgid "Units"
 msgstr "Unidades"
 
-#: src/components/LandlordSearch.tsx:50
+#: src/components/LandlordSearch.tsx:67
 msgid "Use the escape key to quit searching."
 msgstr "Utilice la clave de escape para salir de la búsqueda."
 
-#: src/components/LandlordSearch.tsx:50
+#: src/components/LandlordSearch.tsx:67
 msgid "Use the tab key to navigate. Press the enter key to select."
 msgstr "Utilice la tecla de pestaña para navegar. Pulse la tecla Intro para seleccionar."
 
@@ -1105,8 +1105,8 @@ msgstr "Enlaces útiles"
 msgid "VENTILATION SYSTEM"
 msgstr "SISTEMA DE VENTILACIÓN"
 
-#: src/components/Indicators.tsx:178
-#: src/components/Indicators.tsx:181
+#: src/components/Indicators.tsx:180
+#: src/components/Indicators.tsx:183
 msgid "View by:"
 msgstr "Visualizar por:"
 
@@ -1183,7 +1183,7 @@ msgstr "Reorganizamos los datos de contacto de cada entidad individual y corpora
 msgid "We’ve improved Who Owns What to dig deeper into the data and offer you a more complete picture of buildings associated with your landlord. <0>Read more on our Methodology page</0>"
 msgstr "Hemos mejorado Quien es el Dueño para investigar más profundamente en los datos y ofrecerte una imagen más clara de los edificios asociados con tu dueño. <0>Obtiene más información en nuestra metodología</0>"
 
-#: src/components/Indicators.tsx:224
+#: src/components/Indicators.tsx:223
 msgid "What are {0}?"
 msgstr "¿Qué son {0}?"
 
@@ -1293,7 +1293,7 @@ msgstr "{0} de {numberOfEntries}"
 msgid "{0} {1}, {2} currently has {3, plural, one {one open HPD violation} other {# open HPD violations}} - the most in this portfolio."
 msgstr "{0} {1}, {2} tiene {3, plural, one {una violación del HPD actual} other {# violaciones del HPD actuales}} - la major cantidad en este portafolio de edificios."
 
-#: src/components/LandlordSearch.tsx:47
+#: src/components/LandlordSearch.tsx:64
 msgid "{numberOfHits} {numberOfHits, plural, one {search result} other {search results}}."
 msgstr "{numberOfHits} {numberOfHits, plural, one {resultado de búsqueda} other {resultados de búsqueda}}."
 
@@ -1312,4 +1312,3 @@ msgstr "{value, plural, one {Una Queja del HPD emitida desde el 2014} other {# Q
 #: src/components/IndicatorsDatasets.tsx:37
 msgid "{value, plural, one {One HPD Violation Issued since 2010} other {# HPD Violations Issued since 2010}}"
 msgstr "{value, plural, one {Una Violación del HPD emitida desde el 2010} other {# Violaciones del HPD emitidas desde el 2010}}"
-
