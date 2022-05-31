@@ -292,8 +292,8 @@ msgstr "Demo Site"
 msgid "Disclaimer: The information in JustFix.nyc does not constitute legal advice and must not be used as a substitute for the advice of a lawyer qualified to give advice on legal issues pertaining to housing. We can help direct you to free legal services if necessary."
 msgstr "Disclaimer: The information in JustFix.nyc does not constitute legal advice and must not be used as a substitute for the advice of a lawyer qualified to give advice on legal issues pertaining to housing. We can help direct you to free legal services if necessary."
 
-#: src/components/Indicators.tsx:169
-#: src/components/Indicators.tsx:172
+#: src/components/Indicators.tsx:167
+#: src/components/Indicators.tsx:170
 msgid "Display:"
 msgstr "Display:"
 
@@ -349,7 +349,7 @@ msgstr "Evictions executed by NYC Marshals since 2017. ANHD and the Housing Data
 msgid "Evictions executed in this development by NYC Marshals since 2017. ANHD and the Housing Data Coalition cleaned, geocoded, and validated the data, originally sourced from DOI."
 msgstr "Evictions executed in this development by NYC Marshals since 2017. ANHD and the Housing Data Coalition cleaned, geocoded, and validated the data, originally sourced from DOI."
 
-#: src/components/AddressToolbar.tsx:30
+#: src/components/AddressToolbar.tsx:29
 msgid "Export Data"
 msgstr "Export Data"
 
@@ -589,11 +589,11 @@ msgstr "More Mobile Friendly"
 msgid "Most Common 311 Complaints, Last 3 Years"
 msgstr "Most Common 311 Complaints, Last 3 Years"
 
-#: src/components/Indicators.tsx:200
+#: src/components/Indicators.tsx:201
 msgid "Move chart data left."
 msgstr "Move chart data left."
 
-#: src/components/Indicators.tsx:209
+#: src/components/Indicators.tsx:210
 msgid "Move chart data right."
 msgstr "Move chart data right."
 
@@ -617,7 +617,7 @@ msgstr "Network of Landlords"
 msgid "New"
 msgstr "New"
 
-#: src/components/AddressToolbar.tsx:23
+#: src/components/AddressToolbar.tsx:22
 msgid "New Search"
 msgstr "New Search"
 
@@ -642,7 +642,7 @@ msgstr "No address found"
 msgid "No data available"
 msgstr "No data available"
 
-#: src/components/LandlordSearch.tsx:88
+#: src/components/LandlordSearch.tsx:71
 msgid "No landlords match your search."
 msgstr "No landlords match your search."
 
@@ -802,7 +802,7 @@ msgstr "STAIRS"
 msgid "Search"
 msgstr "Search"
 
-#: src/components/LandlordSearch.tsx:43
+#: src/components/LandlordSearch.tsx:26
 msgid "Search by your landlord's name"
 msgstr "Search by your landlord's name"
 
@@ -815,7 +815,7 @@ msgstr "Search by:"
 msgid "Search for a different address"
 msgstr "Search for a different address"
 
-#: src/components/LandlordSearch.tsx:43
+#: src/components/LandlordSearch.tsx:26
 msgid "Search landlords"
 msgstr "Search landlords"
 
@@ -987,7 +987,7 @@ msgstr "There {0, plural, one {<0>is <1>1</1> building</0>} other {<2>are <3>{1}
 msgid "This building is owned by the NYC Housing Authority (NYCHA)"
 msgstr "This building is owned by the NYC Housing Authority (NYCHA)"
 
-#: src/components/AddressToolbar.tsx:38
+#: src/components/AddressToolbar.tsx:37
 msgid "This data is in <0>CSV file format</0>, which can easily be used in Excel, Google Sheets, or any other spreadsheet program."
 msgstr "This data is in <0>CSV file format</0>, which can easily be used in Excel, Google Sheets, or any other spreadsheet program."
 
@@ -1039,7 +1039,7 @@ msgstr "This represents the total number of HPD Violations (both open & closed) 
 msgid "This tracks how rent stabilized units in the building have changed (i.e. \"{delta}\") from 2007 to {0}. If the number for {1} is red, this means there has been a loss in stabilzied units! These counts are estimated from the DOF Property Tax Bills."
 msgstr "This tracks how rent stabilized units in the building have changed (i.e. \"{delta}\") from 2007 to {0}. If the number for {1} is red, this means there has been a loss in stabilzied units! These counts are estimated from the DOF Property Tax Bills."
 
-#: src/components/AddressToolbar.tsx:34
+#: src/components/AddressToolbar.tsx:33
 msgid "This will export <0>{0}</0> addresses associated with the landlord at <1>{userAddrStr}</1>!"
 msgstr "This will export <0>{0}</0> addresses associated with the landlord at <1>{userAddrStr}</1>!"
 
@@ -1079,11 +1079,11 @@ msgstr "Unable to request Code Violation Dismissals"
 msgid "Units"
 msgstr "Units"
 
-#: src/components/LandlordSearch.tsx:67
+#: src/components/LandlordSearch.tsx:50
 msgid "Use the escape key to quit searching."
 msgstr "Use the escape key to quit searching."
 
-#: src/components/LandlordSearch.tsx:67
+#: src/components/LandlordSearch.tsx:50
 msgid "Use the tab key to navigate. Press the enter key to select."
 msgstr "Use the tab key to navigate. Press the enter key to select."
 
@@ -1100,8 +1100,8 @@ msgstr "Useful links"
 msgid "VENTILATION SYSTEM"
 msgstr "VENTILATION SYSTEM"
 
-#: src/components/Indicators.tsx:180
-#: src/components/Indicators.tsx:183
+#: src/components/Indicators.tsx:178
+#: src/components/Indicators.tsx:181
 msgid "View by:"
 msgstr "View by:"
 
@@ -1178,7 +1178,7 @@ msgstr "We reorganized the contact details for each individual and corporate ent
 msgid "We’ve improved Who Owns What to dig deeper into the data and offer you a more complete picture of buildings associated with your landlord. <0>Read more on our Methodology page</0>"
 msgstr "We’ve improved Who Owns What to dig deeper into the data and offer you a more complete picture of buildings associated with your landlord. <0>Read more on our Methodology page</0>"
 
-#: src/components/Indicators.tsx:223
+#: src/components/Indicators.tsx:224
 msgid "What are {0}?"
 msgstr "What are {0}?"
 
@@ -1288,7 +1288,7 @@ msgstr "{0} of {numberOfEntries}"
 msgid "{0} {1}, {2} currently has {3, plural, one {one open HPD violation} other {# open HPD violations}} - the most in this portfolio."
 msgstr "{0} {1}, {2} currently has {3, plural, one {one open HPD violation} other {# open HPD violations}} - the most in this portfolio."
 
-#: src/components/LandlordSearch.tsx:64
+#: src/components/LandlordSearch.tsx:47
 msgid "{numberOfHits} {numberOfHits, plural, one {search result} other {search results}}."
 msgstr "{numberOfHits} {numberOfHits, plural, one {search result} other {search results}}."
 
