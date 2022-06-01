@@ -102,6 +102,28 @@ def address_dap_aggregate(request):
     return address_aggregate(request)
 
 
+@api
+def address_dap_portfoliosize(request):
+    """
+    This API endpoint receives requests with a 10-digit BBL and
+    responds with:
+    - the size of the portfolio associated with the BBL
+    OR
+    - None, if the BBL is not registered with HPD
+
+    This endpoint is used specifically by the DAP Portal:
+
+        https://portal.displacementalert.org/
+
+    We should make sure we don't change its behavior without
+    notifying them.
+    """
+
+    bbl = get_request_bbl(request)
+    result = exec_db_query(SQL_DIR / "address_portfoliosize.sql", {"bbl": bbl})
+    return JsonResponse({"result": (result[0] if result else None)})
+
+
 def get_request_bbl(request) -> str:
     return get_validated_form_data(PaddedBBLForm, request.GET)["bbl"]
 
