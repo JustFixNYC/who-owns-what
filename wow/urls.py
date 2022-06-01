@@ -18,6 +18,11 @@ urlpatterns = [
         name="address_dap_aggregate",
     ),
     path(
+        "address/dap-portfoliosize",
+        views.address_dap_portfoliosize,
+        name="address_dap_portfoliosize",
+    ),
+    path(
         "address/buildinginfo", views.address_buildinginfo, name="address_buildinginfo"
     ),
     path(

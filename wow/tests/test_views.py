@@ -79,6 +79,25 @@ class TestAddressDapAggregate(ApiTest):
         assert len(res.json()["result"]) > 0
 
 
+class TestAddressDapPortfolioSize(ApiTest):
+    HTTP_400_URLS = [
+        "/api/address/dap-portfoliosize",
+        "/api/address/dap-portfoliosize?bbl=1",
+    ]
+
+    def test_it_returns_portfolio_size_given_bbl(self, db, client):
+        res = client.get("/api/address/dap-portfoliosize?bbl=3016780054")
+        assert res.status_code == 200
+        assert len(res.json()["result"]) == 1
+        assert res.json()["result"]["portfolio_size"] > 0
+
+    def test_it_returns_none_for_unregistered_bbl(self, db, client):
+        # Using the BBL for the Hudson River!
+        res = client.get("/api/address/dap-portfoliosize?bbl=1011100001")
+        assert res.status_code == 200
+        assert res.json()["result"] is None
+
+
 class TestAddressBuildingInfo(ApiTest):
     HTTP_400_URLS = [
         "/api/address/buildinginfo",
