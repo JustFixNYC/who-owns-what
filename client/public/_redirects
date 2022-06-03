@@ -1,3 +1,3 @@
 /static/* /not-found.html 404
 /*        /index.html     200
-https://whoownswhat.nyc/* https://whoownswhat.justfix.nyc 301!
+https://demo-whoownswhat.justfix.nyc https://demo-whoownswhat.justfix.org 301!
