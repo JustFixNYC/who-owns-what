@@ -12,7 +12,13 @@
 
 [[redirects]]
   from = "https://demo-whoownswhat.justfix.nyc/en/wowza/*"
-  to = "https://demo-whoownswhat.justfix.nyc/en/"
+  to = "https://demo-whoownswhat.justfix.org/en/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "https://demo-whoownswhat.justfix.nyc/*"
+  to = "https://demo-whoownswhat.justfix.org/:splat"
   status = 301
   force = true
 
