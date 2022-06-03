@@ -1,10 +1,4 @@
 [[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
-  force = true
-
-[[redirects]]
   from = "https://whoownswhat.nyc/*"
   to = "https://whoownswhat.justfix.nyc"
   status = 301
