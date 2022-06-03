@@ -1,3 +1,2 @@
 /static/* /not-found.html 404
 /*        /index.html     200
-/boop     /               301
