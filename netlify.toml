@@ -1,6 +1,6 @@
 [[redirects]]
   from = "/static/*"
-  to = "/not-found.htmlc"
+  to = "/not-found.html"
   status = 404
   force = true
 
