@@ -733,7 +733,7 @@ const TermsOfUsePage = withI18n()((props: withI18nProps) => {
             of Representations and Warranties and Limitations of Liability provisions set forth in
             these Terms at Section 3(b) and (c).{" "}
           </p>
-          <p> © JustFix.nyc 2018. All Rights Reserved. </p>
+          <p> © JustFix 2018. All Rights Reserved. </p>
         </div>
         <LegalFooter />
       </div>
