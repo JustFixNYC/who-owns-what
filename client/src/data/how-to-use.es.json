@@ -2,57 +2,59 @@
   "title": "Cómo utilizar",
   "slug": "how-to-use",
   "content": {
+    "nodeType": "document",
     "data": {},
     "content": [
       {
+        "nodeType": "heading-4",
         "data": {},
         "content": [
           {
-            "data": {},
-            "marks": [],
+            "nodeType": "text",
             "value": "Las Cosas Más Importantes Que Puedes Hacer con Quién Es El Dueño",
-            "nodeType": "text"
+            "marks": [],
+            "data": {}
           }
-        ],
-        "nodeType": "heading-4"
+        ]
       },
       {
+        "nodeType": "paragraph",
         "data": {},
         "content": [
           {
-            "data": {},
-            "marks": [],
+            "nodeType": "text",
             "value": "",
-            "nodeType": "text"
+            "marks": [],
+            "data": {}
           }
-        ],
-        "nodeType": "paragraph"
+        ]
       },
       {
+        "nodeType": "paragraph",
         "data": {},
         "content": [
           {
-            "data": {},
-            "marks": [],
+            "nodeType": "text",
             "value": "Para sacarle todo el partido posible a esta herramienta, pon en práctica las siguientes estrategias.",
-            "nodeType": "text"
+            "marks": [],
+            "data": {}
           }
-        ],
-        "nodeType": "paragraph"
+        ]
       },
       {
+        "nodeType": "heading-5",
         "data": {},
         "content": [
           {
-            "data": {},
-            "marks": [],
+            "nodeType": "text",
             "value": "Obtenga más información sobre los problemas de su edificio y cómo puede solucionarlos.\n",
-            "nodeType": "text"
+            "marks": [],
+            "data": {}
           }
-        ],
-        "nodeType": "heading-5"
+        ]
       },
       {
+        "nodeType": "embedded-asset-block",
         "data": {
           "target": {
             "metadata": {
@@ -98,192 +100,192 @@
             }
           }
         },
-        "content": [],
-        "nodeType": "embedded-asset-block"
+        "content": []
       },
       {
+        "nodeType": "ordered-list",
         "data": {},
         "content": [
           {
+            "nodeType": "list-item",
             "data": {},
             "content": [
               {
+                "nodeType": "paragraph",
                 "data": {},
                 "content": [
                   {
-                    "data": {},
-                    "marks": [],
+                    "nodeType": "text",
                     "value": "Consulte el historial de infracciones de su edificio.",
-                    "nodeType": "text"
-                  }
-                ],
-                "nodeType": "paragraph"
-              },
-              {
-                "data": {},
-                "content": [
-                  {
-                    "data": {},
-                    "content": [
-                      {
-                        "data": {},
-                        "content": [
-                          {
-                            "data": {},
-                            "marks": [],
-                            "value": "Las Quejas verificadas por el inspector del Departamento de Preservación y Desarrollo de la Vivienda (HPD por sus siglas en inglés) que aún no se hayan corregido, aparecerán como \"Infracciones Abiertas\" en el perfil de tu edificio en la pestaña \"Vista General\". Estas infracciones tienen diferentes categorías: A (no peligrosas), B, (peligrosas) y C (de peligro inmediato). Encontrarás información más detallada sobre estas clases de infracciones en la pestaña \"Cronología\".",
-                            "nodeType": "text"
-                          }
-                        ],
-                        "nodeType": "paragraph"
-                      }
-                    ],
-                    "nodeType": "list-item"
-                  },
-                  {
-                    "data": {},
-                    "content": [
-                      {
-                        "data": {},
-                        "content": [
-                          {
-                            "data": {},
-                            "marks": [],
-                            "value": "Use la pestaña \"Cronología\" para ver un historial reciente de quejas reportadas por inquilinos al 311 y de infracciones oficiales emitidas por HPD.",
-                            "nodeType": "text"
-                          }
-                        ],
-                        "nodeType": "paragraph"
-                      }
-                    ],
-                    "nodeType": "list-item"
-                  },
-                  {
-                    "data": {},
-                    "content": [
-                      {
-                        "data": {},
-                        "content": [
-                          {
-                            "data": {},
-                            "marks": [],
-                            "value": "Indaga aún más analizando las infracciones en el Perfil de Edificio del sitio web del HPD o visitando el Portal de Alerta de Desplazamiento (DAP por sus siglas en inglés) de la Asociación para el Desarrollo del Vecindario y la Vivienda (ANHD por sus siglas en inglés).",
-                            "nodeType": "text"
-                          }
-                        ],
-                        "nodeType": "paragraph"
-                      }
-                    ],
-                    "nodeType": "list-item"
-                  }
-                ],
-                "nodeType": "ordered-list"
-              },
-              {
-                "data": {},
-                "content": [
-                  {
-                    "data": {},
                     "marks": [],
-                    "value": "",
-                    "nodeType": "text"
+                    "data": {}
                   }
-                ],
-                "nodeType": "paragraph"
+                ]
+              },
+              {
+                "nodeType": "ordered-list",
+                "data": {},
+                "content": [
+                  {
+                    "nodeType": "list-item",
+                    "data": {},
+                    "content": [
+                      {
+                        "nodeType": "paragraph",
+                        "data": {},
+                        "content": [
+                          {
+                            "nodeType": "text",
+                            "value": "Las Quejas verificadas por el inspector del Departamento de Preservación y Desarrollo de la Vivienda (HPD por sus siglas en inglés) que aún no se hayan corregido, aparecerán como \"Infracciones Abiertas\" en el perfil de tu edificio en la pestaña \"Vista General\". Estas infracciones tienen diferentes categorías: A (no peligrosas), B, (peligrosas) y C (de peligro inmediato). Encontrarás información más detallada sobre estas clases de infracciones en la pestaña \"Cronología\".",
+                            "marks": [],
+                            "data": {}
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "nodeType": "list-item",
+                    "data": {},
+                    "content": [
+                      {
+                        "nodeType": "paragraph",
+                        "data": {},
+                        "content": [
+                          {
+                            "nodeType": "text",
+                            "value": "Use la pestaña \"Cronología\" para ver un historial reciente de quejas reportadas por inquilinos al 311 y de infracciones oficiales emitidas por HPD.",
+                            "marks": [],
+                            "data": {}
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "nodeType": "list-item",
+                    "data": {},
+                    "content": [
+                      {
+                        "nodeType": "paragraph",
+                        "data": {},
+                        "content": [
+                          {
+                            "nodeType": "text",
+                            "value": "Indaga aún más analizando las infracciones en el Perfil de Edificio del sitio web del HPD o visitando el Portal de Alerta de Desplazamiento (DAP por sus siglas en inglés) de la Asociación para el Desarrollo del Vecindario y la Vivienda (ANHD por sus siglas en inglés).",
+                            "marks": [],
+                            "data": {}
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "nodeType": "paragraph",
+                "data": {},
+                "content": [
+                  {
+                    "nodeType": "text",
+                    "value": "",
+                    "marks": [],
+                    "data": {}
+                  }
+                ]
               }
-            ],
-            "nodeType": "list-item"
+            ]
           },
           {
+            "nodeType": "list-item",
             "data": {},
             "content": [
               {
+                "nodeType": "paragraph",
                 "data": {},
                 "content": [
                   {
-                    "data": {},
-                    "marks": [],
+                    "nodeType": "text",
                     "value": "Comprueba si ha habido cambios en la cantidad de apartamentos de renta estabilizada en tu edificio.",
-                    "nodeType": "text"
+                    "marks": [],
+                    "data": {}
                   }
-                ],
-                "nodeType": "paragraph"
+                ]
               },
               {
+                "nodeType": "ordered-list",
                 "data": {},
                 "content": [
                   {
+                    "nodeType": "list-item",
                     "data": {},
                     "content": [
                       {
+                        "nodeType": "paragraph",
                         "data": {},
                         "content": [
                           {
-                            "data": {},
-                            "marks": [],
+                            "nodeType": "text",
                             "value": "Si la cantidad de apartamentos de renta estabilizada ha disminuido, puede ser que los apartamentos se hayan desregulado ilegalmente, que el dueño esté cobrando renta de más o que esté hostigando a los inquilinos. Puedes solicitar tu historial de renta a través de nuestro ",
-                            "nodeType": "text"
+                            "marks": [],
+                            "data": {}
                           },
                           {
+                            "nodeType": "hyperlink",
                             "data": {
-                              "uri": "https://app.justfix.nyc/es/rh/splash?utm_source=who_owns_what"
+                              "uri": "https://app.justfix.org/es/rh/splash?utm_source=who_owns_what"
                             },
                             "content": [
                               {
-                                "data": {},
-                                "marks": [],
+                                "nodeType": "text",
                                 "value": "Formulario en Línea",
-                                "nodeType": "text"
+                                "marks": [],
+                                "data": {}
                               }
-                            ],
-                            "nodeType": "hyperlink"
+                            ]
                           },
                           {
-                            "data": {},
-                            "marks": [],
+                            "nodeType": "text",
                             "value": " o enviando un mensaje de texto con el texto \"HISTORIAL DE ALQUILER\" al (646) 783-0627 para obtener más información, comprobar si tu apartamento es de renta estabilizada y calcular si te están cobrando de más.",
-                            "nodeType": "text"
+                            "marks": [],
+                            "data": {}
                           }
-                        ],
-                        "nodeType": "paragraph"
+                        ]
                       }
-                    ],
-                    "nodeType": "list-item"
+                    ]
                   }
-                ],
-                "nodeType": "ordered-list"
+                ]
               }
-            ],
-            "nodeType": "list-item"
+            ]
           }
-        ],
-        "nodeType": "ordered-list"
+        ]
       },
       {
+        "nodeType": "paragraph",
         "data": {},
         "content": [
           {
-            "data": {},
-            "marks": [],
+            "nodeType": "text",
             "value": "",
-            "nodeType": "text"
+            "marks": [],
+            "data": {}
           }
-        ],
-        "nodeType": "paragraph"
+        ]
       },
       {
+        "nodeType": "heading-5",
         "data": {},
         "content": [
           {
-            "data": {},
-            "marks": [],
+            "nodeType": "text",
             "value": "Comprueba a quién más puede estar perjudicando el dueño o manager de tu edificio, y determina si es posible crear una asociación de inquilinos.\n",
-            "nodeType": "text"
+            "marks": [],
+            "data": {}
           }
-        ],
-        "nodeType": "heading-5"
+        ]
       },
       {
+        "nodeType": "embedded-asset-block",
         "data": {
           "target": {
             "metadata": {
@@ -329,76 +331,76 @@
             }
           }
         },
-        "content": [],
-        "nodeType": "embedded-asset-block"
+        "content": []
       },
       {
+        "nodeType": "ordered-list",
         "data": {},
         "content": [
           {
+            "nodeType": "list-item",
             "data": {},
             "content": [
               {
+                "nodeType": "paragraph",
                 "data": {},
                 "content": [
                   {
-                    "data": {},
+                    "nodeType": "text",
+                    "value": "Para obtener detalles sobre los problemas que hay en tu edificio y para ver si alguno de tus vecinos llama repetidamente al 311 para reportar Quejas, consulte la lista de \"Historial de Quejas\" en el \"Perfil de Edificio del HPD\". Si tienes la información de contacto de tus vecinos, envíales el perfil de edificio de Quién Es El Dueño a través de Facebook, Twitter, correo electrónico o mensaje de texto usando los botones para compartir. También le puedes proporcionar una lista inmediata de acciones a tomar compartiendo la página \"Actúe en JustFix.org\" en la pestaña \"Vista General\".",
                     "marks": [],
-                    "value": "Para obtener detalles sobre los problemas que hay en tu edificio y para ver si alguno de tus vecinos llama repetidamente al 311 para reportar Quejas, consulte la lista de \"Historial de Quejas\" en el \"Perfil de Edificio del HPD\". Si tienes la información de contacto de tus vecinos, envíales el perfil de edificio de Quién Es El Dueño a través de Facebook, Twitter, correo electrónico o mensaje de texto usando los botones para compartir. También le puedes proporcionar una lista inmediata de acciones a tomar compartiendo la página \"Actúe en JustFix.nyc\" en la pestaña \"Vista General\".",
-                    "nodeType": "text"
+                    "data": {}
                   }
-                ],
-                "nodeType": "paragraph"
+                ]
               }
-            ],
-            "nodeType": "list-item"
+            ]
           },
           {
+            "nodeType": "list-item",
             "data": {},
             "content": [
               {
+                "nodeType": "paragraph",
                 "data": {},
                 "content": [
                   {
-                    "data": {},
-                    "marks": [],
+                    "nodeType": "text",
                     "value": "Con la pestaña \"Cartera de Edificio\" encontrarás información sobre otros edificios asociados con el tuyo a través de la misma entidad administrativa. Si otros edificios que figuran en la cartera de edificios perteneciente al dueño de tu edificio también tienen problemas, puedes conectarte con aún más inquilinos para formar una Asociación de Inquilinos juntando varios edificios y así ¡actuar juntos!",
-                    "nodeType": "text"
+                    "marks": [],
+                    "data": {}
                   }
-                ],
-                "nodeType": "paragraph"
+                ]
               }
-            ],
-            "nodeType": "list-item"
+            ]
           }
-        ],
-        "nodeType": "ordered-list"
+        ]
       },
       {
+        "nodeType": "paragraph",
         "data": {},
         "content": [
           {
-            "data": {},
-            "marks": [],
+            "nodeType": "text",
             "value": "",
-            "nodeType": "text"
+            "marks": [],
+            "data": {}
           }
-        ],
-        "nodeType": "paragraph"
+        ]
       },
       {
+        "nodeType": "heading-5",
         "data": {},
         "content": [
           {
-            "data": {},
-            "marks": [],
+            "nodeType": "text",
             "value": "Investiga los detalles de un edificio antes de mudarte.",
-            "nodeType": "text"
+            "marks": [],
+            "data": {}
           }
-        ],
-        "nodeType": "heading-5"
+        ]
       },
       {
+        "nodeType": "embedded-asset-block",
         "data": {
           "target": {
             "metadata": {
@@ -444,532 +446,530 @@
             }
           }
         },
-        "content": [],
-        "nodeType": "embedded-asset-block"
+        "content": []
       },
       {
+        "nodeType": "ordered-list",
         "data": {},
         "content": [
           {
+            "nodeType": "list-item",
             "data": {},
             "content": [
               {
+                "nodeType": "paragraph",
                 "data": {},
                 "content": [
                   {
-                    "data": {},
-                    "marks": [],
+                    "nodeType": "text",
                     "value": "Aprende con quién te enfrentarás: debido a cómo se disfrazan las empresas inmobiliarias, puede resultar difícil saber quién está realmente involucrado en la administración de tu edificio. Toma nota de las direcciones comerciales y los nombres que aparecen en el perfil del edificio que estés investigando. Una búsqueda de Google puede proporcionarte información muy útil sobre la reputación de las entidades que lo administren.",
-                    "nodeType": "text"
+                    "marks": [],
+                    "data": {}
                   }
-                ],
-                "nodeType": "paragraph"
+                ]
               }
-            ],
-            "nodeType": "list-item"
+            ]
           },
           {
+            "nodeType": "list-item",
             "data": {},
             "content": [
               {
+                "nodeType": "paragraph",
                 "data": {},
                 "content": [
                   {
-                    "data": {},
-                    "marks": [],
+                    "nodeType": "text",
                     "value": "Presta atención a los tipos de problemas que hayan tenido otros inquilinos y cuánto tiempo les ha llevado resolverlos. Los datos de Quién Es El Dueño se actualizan todos los días.",
-                    "nodeType": "text"
+                    "marks": [],
+                    "data": {}
                   }
-                ],
-                "nodeType": "paragraph"
+                ]
               }
-            ],
-            "nodeType": "list-item"
+            ]
           }
-        ],
-        "nodeType": "ordered-list"
+        ]
       },
       {
+        "nodeType": "paragraph",
         "data": {},
         "content": [
           {
-            "data": {},
-            "marks": [],
+            "nodeType": "text",
             "value": "",
-            "nodeType": "text"
+            "marks": [],
+            "data": {}
           }
-        ],
-        "nodeType": "paragraph"
+        ]
       },
       {
+        "nodeType": "paragraph",
         "data": {},
         "content": [
           {
-            "data": {},
-            "marks": [],
+            "nodeType": "text",
             "value": "",
-            "nodeType": "text"
+            "marks": [],
+            "data": {}
           }
-        ],
-        "nodeType": "paragraph"
+        ]
       },
       {
+        "nodeType": "paragraph",
         "data": {},
         "content": [
           {
-            "data": {},
-            "marks": [],
+            "nodeType": "text",
             "value": "",
-            "nodeType": "text"
+            "marks": [],
+            "data": {}
           }
-        ],
-        "nodeType": "paragraph"
+        ]
       },
       {
+        "nodeType": "paragraph",
         "data": {},
         "content": [
           {
-            "data": {},
-            "marks": [],
+            "nodeType": "text",
             "value": "",
-            "nodeType": "text"
+            "marks": [],
+            "data": {}
           }
-        ],
-        "nodeType": "paragraph"
+        ]
       },
       {
+        "nodeType": "paragraph",
         "data": {},
         "content": [
           {
-            "data": {},
-            "marks": [],
+            "nodeType": "text",
             "value": "",
-            "nodeType": "text"
+            "marks": [],
+            "data": {}
           }
-        ],
-        "nodeType": "paragraph"
+        ]
       },
       {
+        "nodeType": "heading-4",
         "data": {},
         "content": [
           {
-            "data": {},
-            "marks": [],
+            "nodeType": "text",
             "value": "Más sugerencias y definiciones de terminología:",
-            "nodeType": "text"
+            "marks": [],
+            "data": {}
           }
-        ],
-        "nodeType": "heading-4"
+        ]
       },
       {
+        "nodeType": "paragraph",
         "data": {},
         "content": [
           {
-            "data": {},
-            "marks": [
-              {
-                "type": "bold"
-              }
-            ],
+            "nodeType": "text",
             "value": "Registro del Edificio",
-            "nodeType": "text"
+            "marks": [
+              {
+                "type": "bold"
+              }
+            ],
+            "data": {}
           },
           {
-            "data": {},
-            "marks": [],
+            "nodeType": "text",
             "value": ": si tu edificio tiene más de dos unidades o si el dueño (o su familia inmediata) no vive allí, el dueño tiene el deber de registrar el edificio formalmente en los registros de la ciudad. Si el certificado de registro del edificio ha caducado, el dueño puede recibir una multa. Esto puede ser un indicio de que el dueño vaya a intentar aumentar la renta ilegalmente. Con nuestra ",
-            "nodeType": "text"
+            "marks": [],
+            "data": {}
           },
           {
+            "nodeType": "hyperlink",
             "data": {
-              "uri": "https://app.justfix.nyc/es/loc/splash?utm_source=who_owns_what"
+              "uri": "https://app.justfix.org/es/loc/splash?utm_source=who_owns_what"
             },
             "content": [
               {
-                "data": {},
-                "marks": [],
+                "nodeType": "text",
                 "value": "herramienta Carta de Queja",
-                "nodeType": "text"
+                "marks": [],
+                "data": {}
               }
-            ],
-            "nodeType": "hyperlink"
+            ]
           },
           {
-            "data": {},
-            "marks": [],
+            "nodeType": "text",
             "value": " te puedes quejar a tu dueño por la falta de registro. Además, puedes solicitar tu historial de renta a través de nuestro ",
-            "nodeType": "text"
+            "marks": [],
+            "data": {}
           },
           {
+            "nodeType": "hyperlink",
             "data": {
-              "uri": "https://app.justfix.nyc/es/rh/splash?utm_source=who_owns_what"
+              "uri": "https://app.justfix.org/es/rh/splash?utm_source=who_owns_what"
             },
             "content": [
               {
-                "data": {},
-                "marks": [],
+                "nodeType": "text",
                 "value": "Formulario en Línea",
-                "nodeType": "text"
+                "marks": [],
+                "data": {}
               }
-            ],
-            "nodeType": "hyperlink"
+            ]
           },
           {
-            "data": {},
-            "marks": [],
+            "nodeType": "text",
             "value": " o enviando un mensaje de texto con el texto \"HISTORIAL DE ALQUILER\" al (646) 783-0627 para obtener más información, comprobar si su apartamento es de renta estabilizada y calcular si te están cobrando de más.",
-            "nodeType": "text"
+            "marks": [],
+            "data": {}
           }
-        ],
-        "nodeType": "paragraph"
+        ]
       },
       {
+        "nodeType": "paragraph",
         "data": {},
         "content": [
           {
-            "data": {},
-            "marks": [
-              {
-                "type": "bold"
-              }
-            ],
+            "nodeType": "text",
             "value": "\"¿Cómo se asocia este edificio?\"",
-            "nodeType": "text"
+            "marks": [
+              {
+                "type": "bold"
+              }
+            ],
+            "data": {}
           },
           {
-            "data": {},
-            "marks": [],
+            "nodeType": "text",
             "value": " Al seleccionar este enlace cuando estés explorando la pestaña \"Cartera de Edificios\", podrás comparar los nombres y las direcciones comerciales de las entidades administrativas que tengan en común dos edificios distintos.",
-            "nodeType": "text"
-          }
-        ],
-        "nodeType": "paragraph"
-      },
-      {
-        "data": {},
-        "content": [
-          {
-            "data": {},
-            "marks": [
-              {
-                "type": "bold"
-              }
-            ],
-            "value": "Δ Apartamentos de Renta Estabilizada:",
-            "nodeType": "text"
-          },
-          {
-            "data": {},
             "marks": [],
+            "data": {}
+          }
+        ]
+      },
+      {
+        "nodeType": "paragraph",
+        "data": {},
+        "content": [
+          {
+            "nodeType": "text",
+            "value": "Δ Apartamentos de Renta Estabilizada:",
+            "marks": [
+              {
+                "type": "bold"
+              }
+            ],
+            "data": {}
+          },
+          {
+            "nodeType": "text",
             "value": " Los Apartamentos de Renta Estabilizada son apartamentos que están sujetos a reglas específicas, una de las cuales es que el dueño tiene que proporcionar un contrato de renta de 1 o 2 años, con un aumento máximo de renta que fija la Junta de Pautas de Alquiler (RGB por sus siglas en inglés). En el indicador de la pestaña \"Vista General\", si el número de apartamentos de renta estabilizada a la derecha es menor que el número de la izquierda y aparece en rojo, significa que algunos apartamentos han perdido su estatus de renta estabilizada (es decir, han sido desregulados), y puede significar que el dueño esté intentando echar a los inquilinos que vivan en los apartamentos de renta estabilizada.",
-            "nodeType": "text"
+            "marks": [],
+            "data": {}
           }
-        ],
-        "nodeType": "paragraph"
+        ]
       },
       {
+        "nodeType": "paragraph",
         "data": {},
         "content": [
           {
-            "data": {},
-            "marks": [
-              {
-                "type": "bold"
-              }
-            ],
+            "nodeType": "text",
             "value": "Infracciones Actuales, Infracciones Totales, HPD y 311:",
-            "nodeType": "text"
-          }
-        ],
-        "nodeType": "paragraph"
-      },
-      {
-        "data": {},
-        "content": [
-          {
-            "data": {},
-            "content": [
-              {
-                "data": {},
-                "content": [
-                  {
-                    "data": {},
-                    "marks": [],
-                    "value": "Las quejas se reportan al HPD llamando al 311.",
-                    "nodeType": "text"
-                  }
-                ],
-                "nodeType": "paragraph"
-              }
-            ],
-            "nodeType": "list-item"
-          },
-          {
-            "data": {},
-            "content": [
-              {
-                "data": {},
-                "content": [
-                  {
-                    "data": {},
-                    "marks": [],
-                    "value": "Luego, el HPD envía un inspector al edificio para verificar lo que ocurre.",
-                    "nodeType": "text"
-                  }
-                ],
-                "nodeType": "paragraph"
-              }
-            ],
-            "nodeType": "list-item"
-          },
-          {
-            "data": {},
-            "content": [
-              {
-                "data": {},
-                "content": [
-                  {
-                    "data": {},
-                    "marks": [],
-                    "value": "Lo que el inspector diga que está en mal estado, se convierte en una \"Infracción Actual\" hasta que se tomen medidas para solucionarlo.",
-                    "nodeType": "text"
-                  }
-                ],
-                "nodeType": "paragraph"
-              }
-            ],
-            "nodeType": "list-item"
-          },
-          {
-            "data": {},
-            "content": [
-              {
-                "data": {},
-                "content": [
-                  {
-                    "data": {},
-                    "marks": [],
-                    "value": "La cantidad de \"Infracciones Totales\" es un recuento histórico de todas las infracciones abiertas y cerradas.",
-                    "nodeType": "text"
-                  }
-                ],
-                "nodeType": "paragraph"
-              }
-            ],
-            "nodeType": "list-item"
-          }
-        ],
-        "nodeType": "unordered-list"
-      },
-      {
-        "data": {},
-        "content": [
-          {
-            "data": {},
             "marks": [
               {
                 "type": "bold"
               }
             ],
-            "value": "Tipos de personas asociadas al edificio:",
-            "nodeType": "text"
+            "data": {}
           }
-        ],
-        "nodeType": "paragraph"
+        ]
       },
       {
+        "nodeType": "unordered-list",
         "data": {},
         "content": [
           {
+            "nodeType": "list-item",
             "data": {},
             "content": [
               {
+                "nodeType": "paragraph",
                 "data": {},
                 "content": [
                   {
-                    "data": {},
+                    "nodeType": "text",
+                    "value": "Las quejas se reportan al HPD llamando al 311.",
                     "marks": [],
+                    "data": {}
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "nodeType": "list-item",
+            "data": {},
+            "content": [
+              {
+                "nodeType": "paragraph",
+                "data": {},
+                "content": [
+                  {
+                    "nodeType": "text",
+                    "value": "Luego, el HPD envía un inspector al edificio para verificar lo que ocurre.",
+                    "marks": [],
+                    "data": {}
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "nodeType": "list-item",
+            "data": {},
+            "content": [
+              {
+                "nodeType": "paragraph",
+                "data": {},
+                "content": [
+                  {
+                    "nodeType": "text",
+                    "value": "Lo que el inspector diga que está en mal estado, se convierte en una \"Infracción Actual\" hasta que se tomen medidas para solucionarlo.",
+                    "marks": [],
+                    "data": {}
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "nodeType": "list-item",
+            "data": {},
+            "content": [
+              {
+                "nodeType": "paragraph",
+                "data": {},
+                "content": [
+                  {
+                    "nodeType": "text",
+                    "value": "La cantidad de \"Infracciones Totales\" es un recuento histórico de todas las infracciones abiertas y cerradas.",
+                    "marks": [],
+                    "data": {}
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "nodeType": "paragraph",
+        "data": {},
+        "content": [
+          {
+            "nodeType": "text",
+            "value": "Tipos de personas asociadas al edificio:",
+            "marks": [
+              {
+                "type": "bold"
+              }
+            ],
+            "data": {}
+          }
+        ]
+      },
+      {
+        "nodeType": "unordered-list",
+        "data": {},
+        "content": [
+          {
+            "nodeType": "list-item",
+            "data": {},
+            "content": [
+              {
+                "nodeType": "paragraph",
+                "data": {},
+                "content": [
+                  {
+                    "nodeType": "text",
                     "value": "\"Head Officer\" — Oficial Principal",
-                    "nodeType": "text"
+                    "marks": [],
+                    "data": {}
                   }
-                ],
-                "nodeType": "paragraph"
+                ]
               }
-            ],
-            "nodeType": "list-item"
+            ]
           },
           {
+            "nodeType": "list-item",
             "data": {},
             "content": [
               {
+                "nodeType": "paragraph",
                 "data": {},
                 "content": [
                   {
-                    "data": {},
-                    "marks": [],
+                    "nodeType": "text",
                     "value": "\"Corporate Owner\" — Dueño Corporativo",
-                    "nodeType": "text"
+                    "marks": [],
+                    "data": {}
                   }
-                ],
-                "nodeType": "paragraph"
+                ]
               }
-            ],
-            "nodeType": "list-item"
+            ]
           },
           {
+            "nodeType": "list-item",
             "data": {},
             "content": [
               {
+                "nodeType": "paragraph",
                 "data": {},
                 "content": [
                   {
-                    "data": {},
-                    "marks": [],
+                    "nodeType": "text",
                     "value": "\"Individual Owner\" — Dueño Individual",
-                    "nodeType": "text"
+                    "marks": [],
+                    "data": {}
                   }
-                ],
-                "nodeType": "paragraph"
+                ]
               }
-            ],
-            "nodeType": "list-item"
+            ]
           },
           {
+            "nodeType": "list-item",
             "data": {},
             "content": [
               {
+                "nodeType": "paragraph",
                 "data": {},
                 "content": [
                   {
-                    "data": {},
-                    "marks": [],
+                    "nodeType": "text",
                     "value": "\"Joint Owner\" — Dueño Conjunto",
-                    "nodeType": "text"
+                    "marks": [],
+                    "data": {}
                   }
-                ],
-                "nodeType": "paragraph"
+                ]
               }
-            ],
-            "nodeType": "list-item"
+            ]
           },
           {
+            "nodeType": "list-item",
             "data": {},
             "content": [
               {
+                "nodeType": "paragraph",
                 "data": {},
                 "content": [
                   {
-                    "data": {},
-                    "marks": [],
+                    "nodeType": "text",
                     "value": "\"Site Manager\" — Manager del Propiedad",
-                    "nodeType": "text"
+                    "marks": [],
+                    "data": {}
                   }
-                ],
-                "nodeType": "paragraph"
+                ]
               }
-            ],
-            "nodeType": "list-item"
+            ]
           },
           {
+            "nodeType": "list-item",
             "data": {},
             "content": [
               {
+                "nodeType": "paragraph",
                 "data": {},
                 "content": [
                   {
-                    "data": {},
-                    "marks": [],
+                    "nodeType": "text",
                     "value": "\"Agent\" — Agente",
-                    "nodeType": "text"
+                    "marks": [],
+                    "data": {}
                   }
-                ],
-                "nodeType": "paragraph"
+                ]
               }
-            ],
-            "nodeType": "list-item"
+            ]
           },
           {
+            "nodeType": "list-item",
             "data": {},
             "content": [
               {
+                "nodeType": "paragraph",
                 "data": {},
                 "content": [
                   {
-                    "data": {},
-                    "marks": [],
+                    "nodeType": "text",
                     "value": "\"Lessee\" — Arrendatario",
-                    "nodeType": "text"
+                    "marks": [],
+                    "data": {}
                   }
-                ],
-                "nodeType": "paragraph"
+                ]
               }
-            ],
-            "nodeType": "list-item"
+            ]
           },
           {
+            "nodeType": "list-item",
             "data": {},
             "content": [
               {
+                "nodeType": "paragraph",
                 "data": {},
                 "content": [
                   {
-                    "data": {},
-                    "marks": [],
+                    "nodeType": "text",
                     "value": "\"Officer\" — Oficial",
-                    "nodeType": "text"
+                    "marks": [],
+                    "data": {}
                   }
-                ],
-                "nodeType": "paragraph"
+                ]
               }
-            ],
-            "nodeType": "list-item"
+            ]
           },
           {
+            "nodeType": "list-item",
             "data": {},
             "content": [
               {
+                "nodeType": "paragraph",
                 "data": {},
                 "content": [
                   {
-                    "data": {},
-                    "marks": [],
+                    "nodeType": "text",
                     "value": "\"Shareholder\" — Accionista",
-                    "nodeType": "text"
+                    "marks": [],
+                    "data": {}
                   }
-                ],
-                "nodeType": "paragraph"
+                ]
               },
               {
+                "nodeType": "paragraph",
                 "data": {},
                 "content": [
                   {
-                    "data": {},
-                    "marks": [],
+                    "nodeType": "text",
                     "value": "",
-                    "nodeType": "text"
+                    "marks": [],
+                    "data": {}
                   }
-                ],
-                "nodeType": "paragraph"
+                ]
               }
-            ],
-            "nodeType": "list-item"
+            ]
           }
-        ],
-        "nodeType": "unordered-list"
+        ]
       },
       {
+        "nodeType": "paragraph",
         "data": {},
         "content": [
           {
-            "data": {},
-            "marks": [],
+            "nodeType": "text",
             "value": "",
-            "nodeType": "text"
+            "marks": [],
+            "data": {}
           }
-        ],
-        "nodeType": "paragraph"
+        ]
       }
-    ],
-    "nodeType": "document"
+    ]
   }
 }

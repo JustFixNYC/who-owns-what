@@ -125,7 +125,7 @@
           {
             "nodeType": "hyperlink",
             "data": {
-              "uri": "https://whoownswhat.justfix.nyc/es/how-it-works"
+              "uri": "https://whoownswhat.justfix.org/es/how-it-works"
             },
             "content": [
               {
@@ -150,7 +150,7 @@
         "content": [
           {
             "nodeType": "text",
-            "value": "¡Úsala para conocer a tus vecinos, crear una asociación de inquilinos y aumentar el poder del inquilino!\n\nHecho en NYC con ♥ por el equipo de JustFix.nyc",
+            "value": "¡Úsala para conocer a tus vecinos, crear una asociación de inquilinos y aumentar el poder del inquilino!\n\nHecho en NYC con ♥ por el equipo de JustFix",
             "marks": [],
             "data": {}
           }
@@ -167,7 +167,7 @@
         "content": [
           {
             "nodeType": "text",
-            "value": "A cerca JustFix.nyc",
+            "value": "A cerca JustFix",
             "marks": [],
             "data": {}
           }
@@ -186,12 +186,12 @@
           {
             "nodeType": "hyperlink",
             "data": {
-              "uri": "https://www.justfix.nyc/es/"
+              "uri": "https://www.justfix.org/es/"
             },
             "content": [
               {
                 "nodeType": "text",
-                "value": "www.justfix.nyc",
+                "value": "www.justfix.org",
                 "marks": [],
                 "data": {}
               }
@@ -211,14 +211,14 @@
         "content": [
           {
             "nodeType": "text",
-            "value": "JustFix.nyc es una entidad sin ánimo de lucro con clasificación 501(c)3. Por favor, si te es posible, considera ",
+            "value": "JustFix es una entidad sin ánimo de lucro con clasificación 501(c)3. Por favor, si te es posible, considera ",
             "marks": [],
             "data": {}
           },
           {
             "nodeType": "hyperlink",
             "data": {
-              "uri": "https://www.justfix.nyc/donate"
+              "uri": "https://donorbox.org/donate-to-justfix-nyc"
             },
             "content": [
               {
