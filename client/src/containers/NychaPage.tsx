@@ -260,7 +260,7 @@ const NychaPageWithoutI18n: React.FC<NychaPageProps> = (props) => {
                   rel="noopener noreferrer"
                   className="btn btn-justfix btn-block"
                 >
-                  <Trans>Take action on JustFix.nyc!</Trans>
+                  <Trans>Take action on JustFix.org!</Trans>
                 </a>
               </div>
 

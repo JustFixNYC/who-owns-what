@@ -14,10 +14,10 @@ const PrivacyPolicyPage = withI18n()((props: withI18nProps) => {
           <p>Effective Date: October 18th, 2018 </p>
           <h4> Introduction </h4>
           <p>
-            Welcome! You have arrived at 
-            <a href="https://whoownswhat.justfix.nyc">https://whoownswhat.justfix.nyc</a>
-             and/or are otherwise interacting with our Service (defined below), which is owned and
-            operated by JustFix.nyc d/b/a WhoOwnsWhat (“WhoOwnsWhat” or “we,” “our” or “us”). This
+            Welcome! You have arrived at
+            <a href="https://whoownswhat.justfix.org">https://whoownswhat.justfix.org</a>
+            and/or are otherwise interacting with our Service (defined below), which is owned and
+            operated by JustFix d/b/a WhoOwnsWhat (“WhoOwnsWhat” or “we,” “our” or “us”). This
             Privacy Policy governs your use of any online service location (e.g., web site) that
             posts a link to this Privacy Policy (each a “Site” (including, without limitation, both
             mobile and online versions), and also applies to your use of interactive features,
@@ -37,14 +37,14 @@ const PrivacyPolicyPage = withI18n()((props: withI18nProps) => {
           <p>
             To the extent we provide you notice on our Service of different or additional privacy
             policies or practices (e.g., at the point of our collection), those additional terms
-            shall govern such data collection and use. 
+            shall govern such data collection and use.
           </p>
           <p>
             {" "}
             In addition, please review the Service’s Terms of Use, which govern your use of the
             Service, and include, among other things, grants of rights from you, limits on our
             liability and your remedies, mandatory arbitration, and waiver of jury trial and class
-            actions. 
+            actions.
             <em>
               By using our Service, you agree to our Terms of Use and consent to our collection, use
               and sharing of your information and data, and other activities, as described below.

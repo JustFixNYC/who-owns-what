@@ -212,7 +212,7 @@ export default class PropertiesSummary extends Component<Props, {}> {
                         tweetCloseout: t`#WhoOwnsWhat via @JustFixNYC`,
                         emailSubject: t` This landlord’s buildings average ${agg.openviolationsperresunit} open HPD violations per apartment`,
                         getEmailBody: (url: string) =>
-                          t`I was checking out this building on Who Owns What, a free landlord research tool from JustFix.nyc. It’s a remarkable website that every tenant and housing advocate should know about! Can you guess how many total violations this landlord portfolio has? Check it out here: ${url}`,
+                          t`I was checking out this building on Who Owns What, a free landlord research tool from JustFix. It’s a remarkable website that every tenant and housing advocate should know about! Can you guess how many total violations this landlord portfolio has? Check it out here: ${url}`,
                       }}
                     />
                   </div>

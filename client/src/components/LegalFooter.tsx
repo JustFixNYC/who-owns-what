@@ -16,9 +16,9 @@ const LegalFooter = () => {
         <div className="Disclaimer column col-8 col-md-12">
           <p>
             <Trans>
-              Disclaimer: The information in JustFix.nyc does not constitute legal advice and must
-              not be used as a substitute for the advice of a lawyer qualified to give advice on
-              legal issues pertaining to housing. We can help direct you to free legal services if
+              Disclaimer: The information in JustFix does not constitute legal advice and must not
+              be used as a substitute for the advice of a lawyer qualified to give advice on legal
+              issues pertaining to housing. We can help direct you to free legal services if
               necessary.
             </Trans>
           </p>
@@ -30,7 +30,7 @@ const LegalFooter = () => {
           <div className="d-flex">
             <p>
               <Trans>
-                Made with NYC ♥ by the team at <a href="https://www.justfix.nyc/">JustFix.nyc</a>
+                Made with NYC ♥ by the team at <a href="https://www.justfix.org/">JustFix.org</a>
               </Trans>
             </p>
             <nav className="inline">

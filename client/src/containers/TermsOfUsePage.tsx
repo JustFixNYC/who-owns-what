@@ -26,9 +26,9 @@ const TermsOfUsePage = withI18n()((props: withI18nProps) => {
           <p>
             {" "}
             Welcome! You have arrived at{" "}
-            <a href="https://whoownswhat.justfix.nyc">https://whoownswhat.justfix.nyc</a> and/or are
+            <a href="https://whoownswhat.justfix.org">https://whoownswhat.justfix.org</a> and/or are
             otherwise interacting with our Service (defined below), which is owned and operated by
-            JustFix.nyc d/b/a WhoOwnsWhat (collectively, “WhoOwnsWhat,” “we,” “our,” or “us”). These
+            JustFix d/b/a WhoOwnsWhat (collectively, “WhoOwnsWhat,” “we,” “our,” or “us”). These
             Terms govern your use of any online service location (e.g., website) that posts a link
             to these Terms (“Site”) (including both mobile and online versions). It also applies to
             your use of all features, widgets, plug-ins, applications, content, downloads and/or
@@ -48,7 +48,7 @@ const TermsOfUsePage = withI18n()((props: withI18nProps) => {
             and collectively “Additional Terms”). To the extent there is a conflict between these
             Terms and any Additional Terms, the Additional Terms will control unless the Additional
             Terms expressly state otherwise. Please also review the Service’s{" "}
-            <a href="https://whoownswhat.justfix.nyc/privacy-policy">Privacy Policy</a> which you
+            <a href="https://whoownswhat.justfix.org/privacy-policy">Privacy Policy</a> which you
             accept by using the Service.{" "}
           </p>
           <h4> 1. Rights And Responsibilities Terms </h4>

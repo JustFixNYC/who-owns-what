@@ -294,8 +294,8 @@ msgid "Demo Site"
 msgstr "Sitio Demo"
 
 #: src/components/LegalFooter.tsx:15
-msgid "Disclaimer: The information in JustFix.nyc does not constitute legal advice and must not be used as a substitute for the advice of a lawyer qualified to give advice on legal issues pertaining to housing. We can help direct you to free legal services if necessary."
-msgstr "Descargo de responsabilidad: La información en JustFix.nyc no constituye asesoramiento jurídico y no debe ser utilizado como sustituto del asesoramiento de un abogado cualificado para asesorar sobre cuestiones jurídicas relativas a la vivienda. Nosotros podemos ayudarte a dirigirte a servicios legales gratuitos si es necesario."
+msgid "Disclaimer: The information in JustFix does not constitute legal advice and must not be used as a substitute for the advice of a lawyer qualified to give advice on legal issues pertaining to housing. We can help direct you to free legal services if necessary."
+msgstr ""
 
 #: src/components/Indicators.tsx:169
 #: src/components/Indicators.tsx:172
@@ -435,16 +435,16 @@ msgid "How to use"
 msgstr "Cómo se usa"
 
 #: src/components/DetailView.tsx:28
-msgid "I just looked up this building on Who Owns What, a free tool built by JustFix.nyc to make data on landlords and evictors more transparent to tenants. You might want to look up your building. Check it out here: {url}"
-msgstr "Justo busqué este edificio en Quién Es El Dueño, una herramienta gratuita construida por JustFix.nyc que hace que la información sobre los dueños de edificios sea más transparente para los inquilinos. Sería bueno si buscaras tu edificio también. Míralo aquí: {url}"
+msgid "I just looked up this building on Who Owns What, a free tool built by JustFix to make data on landlords and evictors more transparent to tenants. You might want to look up your building. Check it out here: {url}"
+msgstr ""
 
 #: src/components/DetailView.tsx:26
 msgid "I used #WhoOwnsWhat (built by @JustFixNYC) to see not only the open violations in this building, but also rent stabilized losses, evictions, and more. This website is a wealth of info and costs nothing to use. Savvy New Yorkers need this info:"
 msgstr "Usé #QuiénEsElDueño (construido por @JustFixNYC) para ver no solo las violaciones del código de vivienda, sino también cuántos apartamentos con renta estabilizada se han perdido, desalojos, y más. Este sitio web no cuesta nada para usar. Ojo, neoyorquinos:"
 
 #: src/components/PropertiesSummary.tsx:146
-msgid "I was checking out this building on Who Owns What, a free landlord research tool from JustFix.nyc. It’s a remarkable website that every tenant and housing advocate should know about! Can you guess how many total violations this landlord portfolio has? Check it out here: {url}"
-msgstr "Estaba revisando este edificio en Quién Es El Dueño, una herramienta gratuita construida por JustFix.nyc. ¡Es un sitio web extraordinario que cada inquilino y defensor de viviendas debería saber sobre! ¿Puedes adivinar cuántas violaciones totales tiene este portafolio de este dueño? Míralo aquí: {url}"
+msgid "I was checking out this building on Who Owns What, a free landlord research tool from JustFix. It’s a remarkable website that every tenant and housing advocate should know about! Can you guess how many total violations this landlord portfolio has? Check it out here: {url}"
+msgstr ""
 
 #: src/containers/NotRegisteredPage.tsx:63
 msgid "Incomplete registration for {usersInputAddressFragment}."
@@ -566,8 +566,8 @@ msgid "MOLD"
 msgstr "MOHO"
 
 #: src/components/LegalFooter.tsx:29
-msgid "Made with NYC ♥ by the team at <0>JustFix.nyc</0>"
-msgstr "Hecho en NYC con ♥ por el equipo de <0>JustFix.nyc</0>"
+msgid "Made with NYC ♥ by the team at <0>JustFix.org</0>"
+msgstr ""
 
 #: src/components/ViolationsSummary.tsx:8
 msgid "Maintenance code violations"
@@ -916,8 +916,8 @@ msgstr "ACOSO DE INQUILINO"
 
 #: src/components/DetailView.tsx:264
 #: src/containers/NychaPage.tsx:179
-msgid "Take action on JustFix.nyc!"
-msgstr "¡Toma acción en JustFix.nyc!"
+msgid "Take action on JustFix.org!"
+msgstr ""
 
 #: src/components/PropertiesList.tsx:329
 msgid "Tax Exemptions"
@@ -1093,8 +1093,8 @@ msgid "Use the tab key to navigate. Press the enter key to select."
 msgstr "Utilice la tecla de pestaña para navegar. Pulse la tecla Intro para seleccionar."
 
 #: src/components/Page.tsx:9
-msgid "Use this free tool from JustFix.nyc to research your building and investigate landlords! We use property ownership mapping to identify a landlord's portfolio and provide data to indicate potential tenant harassment and displacement."
-msgstr "Utilice esta herramienta gratuita de JustFix.nyc para investigar tu edificio e investigar a los arrendadores de Nueva York! Utilizamos el mapeo de propiedad para identificar el portafolio de edificios de un arrendador y proporcionar datos para revelar posibles casos de hostigamiento y desplazamiento de inquilinos."
+msgid "Use this free tool from JustFix to research your building and investigate landlords! We use property ownership mapping to identify a landlord's portfolio and provide data to indicate potential tenant harassment and displacement."
+msgstr ""
 
 #: src/components/UsefulLinks.tsx:9
 #: src/containers/NychaPage.tsx:153
@@ -1201,8 +1201,8 @@ msgid "When two parties share the same business address, we group them as part o
 msgstr "Cuando dos partes comparten la misma dirección comercial, los agrupamos como parte del mismo portafolio."
 
 #: src/components/SocialShare.tsx:14
-msgid "Who Owns What is a free tool built by JustFix.nyc to research property owners in NYC. It has helped over 200,000 New Yorkers find out who really owns their building, what other buildings that their landlord or management company owns, and other critical information about code violations, evictions, rent stabilized units, and so much more in any given building. You can look up any residential building located in NYC, even public housing (NYCHA) buildings! Search your address here: {url}"
-msgstr "Quién Es El Dueño es una herramienta gratis construida por JustFix.nyc para investigar los dueños de edificios en NYC. Ha asistido más de 200.000 neoyorquinos a enterarse quien realmente son los responsables por su edificio, cuáles otros edificios su dueño o compañía de administración poseen, y otra información crítica sobre violaciones del código de vivienda, desalojos, apartamentos con renta estabilizada y mucho más en cualquier edificio. Puedes buscar información sobre cualquier edificio residencial, también incluyen viviendas públicas (NYCHA). Busca tu dirección aquí: {url}"
+msgid "Who Owns What is a free tool built by JustFix to research property owners in NYC. It has helped over 200,000 New Yorkers find out who really owns their building, what other buildings that their landlord or management company owns, and other critical information about code violations, evictions, rent stabilized units, and so much more in any given building. You can look up any residential building located in NYC, even public housing (NYCHA) buildings! Search your address here: {url}"
+msgstr ""
 
 #: src/containers/App.tsx:38
 msgid "Who owns what in n y c?"
