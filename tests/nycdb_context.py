@@ -81,6 +81,8 @@ class NycdbContext:
         for dataset in dbtool.get_dataset_dependencies(for_api=False):
             self.load_dataset(dataset)
 
+        # TODO: create and populate OCA tables
+
         all_sql = "\n".join(
             [sqlpath.read_text() for sqlpath in dbtool.get_sqlfile_paths()]
         )
