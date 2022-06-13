@@ -13,3 +13,4 @@ black== 21.9b0
 # warnings when we use nycdb; let's use the minimum supported version
 # so we don't get those warnings, at least.
 pyproj==2.1.3
+sshtunnel==0.4.0
