@@ -3,14 +3,13 @@
 
 SELECT
     a.bbl,
-    date_trunc('month', i.fileddate)::date AS filedmonth,
-    count(distinct indexnumberid) AS evictionfilings
+    count(distinct indexnumberid) AS eviction_filings_since_2017
 FROM oca_index AS i
 LEFT JOIN oca_addresses AS a USING(indexnumberid)
 LEFT JOIN pluto_21v4 AS p USING(bbl)
 WHERE i.fileddate < '2017-01-01'
-AND i.classification = any('{Holdover,Non-Payment}') 
-AND i.propertytype = 'Residential'
-AND a.bbl IS NOT NULL
-AND p.unitsres > 10
-GROUP BY a.bbl, filedmonth;
+    AND i.classification = any('{Holdover,Non-Payment}') 
+    AND i.propertytype = 'Residential'
+    AND a.bbl IS NOT NULL
+    AND p.unitsres > 10
+GROUP BY a.bbl;

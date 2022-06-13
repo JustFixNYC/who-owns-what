@@ -9,4 +9,3 @@ CREATE TABLE oca_evictions_monthly (
     PRIMARY KEY (bbl, month)
 );
 CREATE INDEX ON oca_evictions_monthly (bbl);
-CREATE INDEX ON oca_evictions_monthly (bbl, month);
