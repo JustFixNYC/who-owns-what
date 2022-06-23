@@ -305,8 +305,8 @@ const TermsOfUsePage = withI18n()((props: withI18nProps) => {
             premium rate for text messages, that will be explained in the applicable subscription
             consent. Not all phones and/or carriers are supported. We are the sponsor of our text
             messages and may be contacted regarding them at:{" "}
-            <a href="mailto:hello@justfix.nyc" target="_blank" rel="noopener noreferrer">
-              hello@justfix.nyc
+            <a href="mailto:hello@justfix.org" target="_blank" rel="noopener noreferrer">
+              hello@justfix.org
             </a>
             .
           </p>
@@ -333,8 +333,8 @@ const TermsOfUsePage = withI18n()((props: withI18nProps) => {
             {" "}
             If you have a question regarding using the Service, you may contact WhoOwnsWhat Customer
             Support by sending an email to{" "}
-            <a href="mailto:hello@justfix.nyc" target="_blank" rel="noopener noreferrer">
-              hello@justfix.nyc
+            <a href="mailto:hello@justfix.org" target="_blank" rel="noopener noreferrer">
+              hello@justfix.org
             </a>
             . You acknowledge that the provision of customer support is at WhoOwnsWhat’s sole
             discretion and that we have no obligation to provide you with customer support of any
