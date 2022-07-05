@@ -9,13 +9,11 @@ from nycdb.utility import list_wrap
 from urllib.parse import urlparse
 from typing import NamedTuple, Any, Tuple, Dict, List
 from pathlib import Path
-from ocaevictions.table import create_and_populate_oca_tables
 
 from portfoliograph.table import (
     export_portfolios_table_json,
     populate_portfolios_table,
 )
-
 from ocaevictions.table import OcaConfig, create_and_populate_oca_tables
 
 try:
@@ -212,7 +210,9 @@ class NycDbBuilder:
         for dataset in get_dataset_dependencies(for_api=True):
             self.ensure_dataset(dataset, force_refresh=force_refresh)
 
-        create_and_populate_oca_tables(wow_conn=self.conn, config = self.oca_config)
+        create_and_populate_oca_tables(
+            wow_conn=self.conn, config=self.oca_config, is_testing=self.is_testing
+        )
 
         for sqlpath in get_sqlfile_paths():
             print(f"Running {sqlpath.name}...")
@@ -244,7 +244,6 @@ def loadtestdata(db: DbContext, oca_config: OcaConfig):
     Loads test data previously created from the 'exporttestdata' command into
     the database.
     """
-    oca_config.is_testing = True
 
     sqlfile = ROOT_DIR / "tests" / "exported_test_data.sql"
     sql = sqlfile.read_text()
@@ -447,7 +446,9 @@ if __name__ == "__main__":
         sys.exit(1)
 
     # TODO: if no ssh args, warn that those tables will be empty and wow_bldgs values null
-    if not all(args.oca_db_url, args.oca_ssh_host, args.oca_ssh_user, args.oca_ssh_pkey):
+    if not all(
+        [args.oca_db_url, args.oca_ssh_host, args.oca_ssh_user, args.oca_ssh_pkey]
+    ):
         print(
             "OCA database and ssh credentials are missing. The WOW database\n"
             "will still be built but eviction filings data will be missing.\n"
@@ -465,14 +466,13 @@ if __name__ == "__main__":
         sys.exit(1)
 
     oca_config = OcaConfig(
-        oca_table_names = WOW_YML["oca_tables"],
-        is_testing = args.use_test_data,
-        test_dir = ROOT_DIR / "tests" / "data",
-        sql_dir = SQL_DIR,
-        oca_db_url = args.oca_db_url,
-        oca_ssh_host = args.oca_ssh_host,
-        oca_ssh_user = args.oca_ssh_user,
-        oca_ssh_pkey = args.oca_ssh_pkey
+        oca_table_names=WOW_YML["oca_tables"],
+        test_dir=ROOT_DIR / "tests" / "data",
+        sql_dir=SQL_DIR,
+        oca_db_url=args.oca_db_url,
+        oca_ssh_host=args.oca_ssh_host,
+        oca_ssh_user=args.oca_ssh_user,
+        oca_ssh_pkey=args.oca_ssh_pkey,
     )
 
     db = DbContext.from_url(args.database_url)
@@ -486,7 +486,9 @@ if __name__ == "__main__":
     elif cmd == "dbshell":
         dbshell(db)
     elif cmd == "builddb":
-        NycDbBuilder(db, oca_config, is_testing=args.use_test_data).build(force_refresh=args.update)
+        NycDbBuilder(db, oca_config, is_testing=args.use_test_data).build(
+            force_refresh=args.update
+        )
     elif cmd == "exportgraph":
         with open(args.outfile, "w") as f:
             with db.connection() as conn:

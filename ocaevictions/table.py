@@ -140,7 +140,9 @@ def populate_oca_table(
             wow_cur.execute(f"INSERT INTO {oca_table.table_name} VALUES {args_str}")
 
 
-def create_and_populate_oca_tables(wow_conn, config: OcaConfig, is_testing: bool = False):
+def create_and_populate_oca_tables(
+    wow_conn, config: OcaConfig, is_testing: bool = False
+):
     for oca_table in config.tables:
         print(f"Creating {oca_table.table_name}...")
         create_oca_table(wow_conn, oca_table)
@@ -152,6 +154,4 @@ def create_and_populate_oca_tables(wow_conn, config: OcaConfig, is_testing: bool
     with oca_db_connect(config) as oca_conn:
         for oca_table in config.tables:
             print(f"Populating {oca_table.table_name}...")
-            populate_oca_table(
-                oca_conn, wow_conn, oca_table, is_testing=is_testing
-            )
+            populate_oca_table(oca_conn, wow_conn, oca_table, is_testing=is_testing)
