@@ -9,6 +9,7 @@ import nycdb
 
 import dbtool
 from .generate_factory_from_csv import unmunge_colname
+from ocaevictions.table import OcaConfig, create_oca_tables, populate_oca_tables
 
 if "TEST_DATABASE_URL" in os.environ:
     TEST_DB_URL = os.environ["TEST_DATABASE_URL"]
@@ -32,6 +33,13 @@ class NycdbContext:
             port=TEST_DB.port,
             root_dir=root_dir,
             hide_progress=False,
+        )
+        self.oca_config = OcaConfig(
+            oca_table_names=dbtool.WOW_YML["oca_tables"],
+            data_dir=Path(root_dir),
+            # using main location since test files are copied there
+            test_dir=Path(root_dir),
+            sql_dir=dbtool.SQL_DIR,
         )
         self.root_dir = Path(root_dir)
         self.get_cursor = get_cursor
@@ -80,6 +88,10 @@ class NycdbContext:
 
         for dataset in dbtool.get_dataset_dependencies(for_api=False):
             self.load_dataset(dataset)
+
+        with self.get_cursor() as cur:
+            create_oca_tables(cur, self.oca_config)
+            populate_oca_tables(cur, self.oca_config, is_testing=True)
 
         all_sql = "\n".join(
             [sqlpath.read_text() for sqlpath in dbtool.get_sqlfile_paths()]

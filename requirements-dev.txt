@@ -1,5 +1,5 @@
 -r requirements.txt
-https://github.com/nycdb/nycdb/archive/ce576305303caae017ec17434c830f2b86ca6c20.zip#subdirectory=src
+https://github.com/nycdb/nycdb/archive/e65c87f872c719edf3a17edddeeae417e1625dc8.zip#subdirectory=src
 mypy==0.782
 PyYAML>=5.1
 pytest==4.4.0
@@ -13,3 +13,4 @@ black== 21.9b0
 # warnings when we use nycdb; let's use the minimum supported version
 # so we don't get those warnings, at least.
 pyproj==2.1.3
+sshtunnel==0.4.0
