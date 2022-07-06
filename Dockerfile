@@ -19,6 +19,8 @@ RUN apt-get update \
     nodejs \
     unzip \
     postgresql-client \
+    rust \
+    cargo \
   && rm -rf /var/lib/apt/lists/* \
   && rm -rf /src/*.deb
 
