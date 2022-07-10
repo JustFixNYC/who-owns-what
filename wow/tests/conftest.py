@@ -38,5 +38,6 @@ def django_db_setup(django_db_setup, django_db_blocker):
                 data_dir=dbtool.ROOT_DIR / "nycdb" / "data",
                 test_dir=dbtool.ROOT_DIR / "tests" / "data",
                 sql_dir=dbtool.ROOT_DIR / "sql",
+                is_testing=True,
             )
             dbtool.loadtestdata(db, oca_config)

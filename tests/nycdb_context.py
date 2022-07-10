@@ -40,6 +40,7 @@ class NycdbContext:
             # using main location since test files are copied there
             test_dir=Path(root_dir),
             sql_dir=dbtool.SQL_DIR,
+            is_testing=True,
         )
         self.root_dir = Path(root_dir)
         self.get_cursor = get_cursor
@@ -91,7 +92,7 @@ class NycdbContext:
 
         with self.get_cursor() as cur:
             create_oca_tables(cur, self.oca_config)
-            populate_oca_tables(cur, self.oca_config, is_testing=True)
+            populate_oca_tables(cur, self.oca_config)
 
         all_sql = "\n".join(
             [sqlpath.read_text() for sqlpath in dbtool.get_sqlfile_paths()]

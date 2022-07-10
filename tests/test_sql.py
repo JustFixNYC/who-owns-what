@@ -150,12 +150,15 @@ class TestOcaTableBuild:
         config = OcaConfig(
             oca_table_names=["oca_evictions_bldgs"],
             sql_dir=dbtool.SQL_DIR,
+            # Confusingly, we need to say we aren't testing and use the test
+            # data directory to properly test that a user can still do a real
+            # build even without OCA creds
             data_dir=dbtool.ROOT_DIR / "tests" / "data",
             test_dir=dbtool.ROOT_DIR / "tests" / "data",
+            is_testing=False,
         )
         with db.cursor() as cur:
             create_oca_tables(cur, config)
-            # with pytest.warns(UserWarning, match="Leaving tables empty"):
             populate_oca_tables(cur, config)
             captured = capsys.readouterr()
             assert "Leaving tables empty" in captured.out

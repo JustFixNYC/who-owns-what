@@ -4,6 +4,7 @@ import subprocess
 import argparse
 import time
 import yaml
+import copy
 import nycdb.dataset
 from nycdb.utility import list_wrap
 from urllib.parse import urlparse
@@ -245,10 +246,13 @@ def loadtestdata(db: DbContext, oca_config: OcaConfig):
     the database.
     """
 
+    oca_config_testing = copy.deepcopy(oca_config)
+    oca_config_testing.is_testing = True
+
     sqlfile = ROOT_DIR / "tests" / "exported_test_data.sql"
     sql = sqlfile.read_text()
 
-    NycDbBuilder(db, oca_config, is_testing=True).build(force_refresh=False)
+    NycDbBuilder(db, oca_config_testing, is_testing=True).build(force_refresh=False)
 
     print(f"Loading test data from {sqlfile}...")
     with db.connection() as conn:
@@ -476,6 +480,7 @@ if __name__ == "__main__":
         oca_ssh_host=args.oca_ssh_host,
         oca_ssh_user=args.oca_ssh_user,
         oca_ssh_pkey=args.oca_ssh_pkey,
+        is_testing=args.use_test_data,
     )
 
     db = DbContext.from_url(args.database_url)
