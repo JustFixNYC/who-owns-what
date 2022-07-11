@@ -88,7 +88,7 @@ select distinct on (registrations.bbl)
   firstdeeds.docdate as lastsaledate,
   firstdeeds.docamount as lastsaleamount,
   case
-    when coalesce(pluto.unitsres, 0) < 11 then NULL
+    when coalesce(pluto.unitsres, 0) <= 11 then NULL
     else coalesce(oca.eviction_filings_since_2017, 0) 
   end as evictionfilings
 from hpd_registrations_with_contacts as registrations
