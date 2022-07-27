@@ -12,6 +12,7 @@ const metadata = {
 };
 
 export const FB_APP_ID = "247990609143668";
+const FB_DOMAIN_VERIFY_ID = "dn4u7xf2nukszna3ivhu5xowcnj27x";
 const TWITTER_HANDLE = "@JustFixNYC";
 const ORIGIN_URL = getSiteOrigin();
 const SHARE_IMAGE_URL = "https://i.imgur.com/6WL74DZ.png";
@@ -81,6 +82,7 @@ const Page = withI18n()((props: PageProps & withI18nProps) => {
         <meta name="twitter:url" content={ORIGIN_URL} />
         <meta name="twitter:image" content={SHARE_IMAGE_URL} />
         <meta name="twitter:image:alt" content={i18n._(metadata.siteName)} />
+        <meta name="facebook-domain-verification" content={FB_DOMAIN_VERIFY_ID} />
       </Helmet>
       {props.children}
     </>
