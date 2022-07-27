@@ -43,7 +43,7 @@ const ExportDataButton: React.FC<{ data: AddressRecord[] }> = ({ data }) => {
   });
 
   return (
-    <CSVDownloader data={formattedData} filename="who_owns_what_export.csv">
+    <CSVDownloader data={formattedData} filename="who_owns_what_export">
       <button
         className="btn centered"
         onClick={() => {

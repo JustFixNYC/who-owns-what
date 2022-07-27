@@ -12,3 +12,4 @@ docker-compose.override.yml
 __pycache__/
 db.sqlite3
 *.log
+.ssh/
