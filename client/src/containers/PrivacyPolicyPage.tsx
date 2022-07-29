@@ -419,8 +419,8 @@ const PrivacyPolicyPage = withI18n()((props: withI18nProps) => {
             {" "}
             If you submitted personal information to WhoOwnsWhat, such as an e-mail or physical
             address, you may revise such personal information we have retained by emailing us at{" "}
-            <a href="mailto:hello@justfix.org" target="_blank" rel="noopener noreferrer">
-              hello@justfix.org
+            <a href="mailto:hello@justfix.nyc" target="_blank" rel="noopener noreferrer">
+              hello@justfix.nyc
             </a>
             .{" "}
           </p>
@@ -537,8 +537,8 @@ const PrivacyPolicyPage = withI18n()((props: withI18nProps) => {
             {" "}
             If you have any questions regarding this Privacy Policy or our privacy and data security
             practices, please contact us at{" "}
-            <a href="mailto:hello@justfix.org" target="_blank" rel="noopener noreferrer">
-              hello@justfix.org
+            <a href="mailto:hello@justfix.nyc" target="_blank" rel="noopener noreferrer">
+              hello@justfix.nyc
             </a>
             .{" "}
           </p>
