@@ -1,12 +1,12 @@
 [[redirects]]
   from = "https://whoownswhat.nyc/*"
-  to = "https://whoownswhat.justfix.nyc"
+  to = "https://whoownswhat.justfix.org"
   status = 301
   force = true
 
 [[redirects]]
   from = "https://wow-django.netlify.app/*"
-  to = "https://whoownswhat.justfix.nyc"
+  to = "https://whoownswhat.justfix.org"
   status = 301
   force = true
 
@@ -19,6 +19,12 @@
 [[redirects]]
   from = "https://demo-whoownswhat.justfix.nyc/*"
   to = "https://demo-whoownswhat.justfix.org/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "https://whoownswhat.justfix.nyc/*"
+  to = "https://whoownswhat.justfix.org/:splat"
   status = 301
   force = true
 
