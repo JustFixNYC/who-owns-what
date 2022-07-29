@@ -175,7 +175,7 @@ test("createTakeActionURL() works", () => {
   expect(
     helpers.createTakeActionURL({ boro: "QUEENS", streetname: "BOOP RD", housenumber: "1" }, "boop")
   ).toBe(
-    "https://app.justfix.nyc/ddo?address=1%20BOOP%20RD&borough=QUEENS&utm_source=whoownswhat&utm_content=take_action&utm_medium=boop"
+    "https://app.justfix.org/ddo?address=1%20BOOP%20RD&borough=QUEENS&utm_source=whoownswhat&utm_content=take_action&utm_medium=boop"
   );
 });
 

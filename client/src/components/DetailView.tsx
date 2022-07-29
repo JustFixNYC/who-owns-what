@@ -47,7 +47,7 @@ const SocialShareDetailView = () => (
       tweet: t`I used #WhoOwnsWhat (built by @JustFixNYC) to see not only the open violations in this building, but also rent stabilized losses, evictions, and more. This website is a wealth of info and costs nothing to use. Savvy New Yorkers need this info: `,
       emailSubject: t`Check out the issues in this building`,
       getEmailBody: (url: string) =>
-        t`I just looked up this building on Who Owns What, a free tool built by JustFix.nyc to make data on landlords and evictors more transparent to tenants. You might want to look up your building. Check it out here: ${url}`,
+        t`I just looked up this building on Who Owns What, a free tool built by JustFix to make data on landlords and evictors more transparent to tenants. You might want to look up your building. Check it out here: ${url}`,
     }}
   />
 );
@@ -394,7 +394,7 @@ class DetailViewWithoutI18n extends Component<Props, State> {
                           rel="noopener noreferrer"
                           className="btn btn-justfix btn-block"
                         >
-                          <Trans>Take action on JustFix.nyc!</Trans>
+                          <Trans>Take action on JustFix.org!</Trans>
                         </a>
                       </div>
 

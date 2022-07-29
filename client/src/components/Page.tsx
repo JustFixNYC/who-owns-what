@@ -7,7 +7,7 @@ import { getSiteOrigin } from "../routes";
 
 const metadata = {
   keywords: t`Landlord, Portfolio, Tenant, Displacement, Map, JustFix, NYC, New York, Housing, Who Owns What`,
-  description: t`Use this free tool from JustFix.nyc to research your building and investigate landlords! We use property ownership mapping to identify a landlord's portfolio and provide data to indicate potential tenant harassment and displacement.`,
+  description: t`Use this free tool from JustFix to research your building and investigate landlords! We use property ownership mapping to identify a landlord's portfolio and provide data to indicate potential tenant harassment and displacement.`,
   siteName: t`Who owns what in nyc?`,
 };
 
@@ -67,7 +67,7 @@ const Page = withI18n()((props: PageProps & withI18nProps) => {
         <meta name="twitter:title" content={title} />
         <meta name="description" content={i18n._(metadata.description)} />
         <meta name="keywords" content={i18n._(metadata.keywords)} />
-        <meta name="author" content="JustFix.nyc" />
+        <meta name="author" content="JustFix" />
         <meta property="fb:app_id" content={FB_APP_ID} />
         <meta property="og:site_name" content={i18n._(metadata.siteName)} />
         <meta property="og:description" content={i18n._(metadata.description)} />

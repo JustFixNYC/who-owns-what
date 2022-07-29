@@ -106,6 +106,6 @@ export const createWhoOwnsWhatRoutePaths = (prefix?: string) => {
 };
 
 /**
- * In other words, get the current site url without its url paths, i.e. `https://whoownswhat.justfix.nyc`
+ * In other words, get the current site url without its url paths, i.e. `https://whoownswhat.justfix.org`
  */
 export const getSiteOrigin = () => `${window.location.protocol}//${window.location.host}`;

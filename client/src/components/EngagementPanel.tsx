@@ -28,8 +28,8 @@ const EngagementPanel: React.FC<{
           <p>
             <Trans>Visit our website</Trans>
           </p>
-          <a href="https://www.justfix.nyc/" className="btn btn-block btn-justfix">
-            www.JustFix.nyc
+          <a href="https://www.justfix.org/" className="btn btn-block btn-justfix">
+            www.JustFix.org
           </a>
         </div>
       </div>
