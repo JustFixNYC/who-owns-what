@@ -4,6 +4,7 @@ import networkx as nx
 from psycopg2.extras import DictCursor
 import freezegun
 import pytest
+import dbtool
 
 from portfoliograph.landlord_index import (
     get_corpname_data_for_algolia,
@@ -23,6 +24,8 @@ from .factories.marshal_evictions_17 import MarshalEvictions17
 from .factories.marshal_evictions_18 import MarshalEvictions18
 from .factories.marshal_evictions_19 import MarshalEvictions19
 from .factories.marshal_evictions_all import MarshalEvictionsAll
+from .factories.oca_evictions_bldgs import OcaEvictionsBldgs
+from .factories.oca_evictions_monthly import OcaEvictionsMonthly
 from .factories.nycha_bbls_18 import NychaBbls18
 from .factories.changes_summary import ChangesSummary
 from .factories.hpd_violations import HpdViolations
@@ -38,6 +41,7 @@ from portfoliograph.graph import (
     NodeKind,
 )
 from portfoliograph.table import populate_portfolios_table, export_portfolios_table_json
+from ocaevictions.table import OcaConfig, create_oca_tables, populate_oca_tables
 
 # This test suite defines two landlords:
 #
@@ -140,6 +144,30 @@ UNRELATED_CONTACT = HpdContacts(
 )
 
 
+class TestOcaTableBuild:
+    def test_oca_table_empty_if_no_creds(self, db, capsys):
+
+        config = OcaConfig(
+            oca_table_names=["oca_evictions_bldgs"],
+            sql_dir=dbtool.SQL_DIR,
+            # Confusingly, we need to say we aren't testing and use the test
+            # data directory to properly test that a user can still do a real
+            # build even without OCA creds
+            data_dir=dbtool.ROOT_DIR / "tests" / "data",
+            test_dir=dbtool.ROOT_DIR / "tests" / "data",
+            is_testing=False,
+        )
+        with db.cursor() as cur:
+            create_oca_tables(cur, config)
+            populate_oca_tables(cur, config)
+            captured = capsys.readouterr()
+            assert "Leaving tables empty" in captured.out
+            cur.execute("select count(*) as rows from oca_evictions_bldgs")
+            r = cur.fetchone()
+            cur.execute("drop table oca_evictions_bldgs")
+        assert r["rows"] == 0
+
+
 class TestSQL:
     @pytest.fixture(autouse=True, scope="class")
     def setup_class_fixture(self, db, nycdb_ctx):
@@ -161,6 +189,8 @@ class TestSQL:
         nycdb_ctx.write_csv("marshal_evictions_18.csv", [MarshalEvictions18()])
         nycdb_ctx.write_csv("marshal_evictions_19.csv", [MarshalEvictions19()])
         nycdb_ctx.write_csv("marshal_evictions_all.csv", [MarshalEvictionsAll()])
+        nycdb_ctx.write_csv("oca_evictions_bldgs.csv", [OcaEvictionsBldgs()])
+        nycdb_ctx.write_csv("oca_evictions_monthly.csv", [OcaEvictionsMonthly()])
         nycdb_ctx.write_csv("nycha_bbls_18.csv", [NychaBbls18()])
         nycdb_ctx.write_csv("real_property_master.csv", [RealPropertyMaster()])
         nycdb_ctx.write_csv("real_property_legals.csv", [RealPropertyLegals()])
@@ -201,6 +231,17 @@ class TestSQL:
         if expected_bbls is not None:
             assert set(results_by_bbl.keys()) == set(expected_bbls)
         return results_by_bbl
+
+    def test_oca_bldg_table_populated(self):
+        r = self.query_one(f"SELECT * FROM oca_evictions_bldgs WHERE bbl='1000087501'")
+        assert r["eviction_filings_since_2017"] == 10
+
+    def test_oca_monthly_table_populated(self):
+        r = self.query_one(
+            f"SELECT * FROM oca_evictions_monthly WHERE bbl='1000087501'"
+        )
+        assert r["month"] == "2016-02"
+        assert r["evictionfilings"] == 1
 
     def test_wow_bldgs_is_populated(self):
         r = self.query_one(f"SELECT * FROM wow_bldgs WHERE bbl='{FUNKY_BBL}'")

@@ -200,7 +200,7 @@ const getMainNavLinks = (isLegacyPath?: boolean) => {
     >
       <Trans>How to use</Trans>
     </LocaleNavLink>,
-    <a href="https://www.justfix.nyc/donate" key={4}>
+    <a href="https://donorbox.org/donate-to-justfix-nyc" key={4}>
       <Trans>Donate</Trans>
     </a>,
   ];

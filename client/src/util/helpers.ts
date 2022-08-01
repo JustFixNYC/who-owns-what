@@ -227,7 +227,7 @@ export default {
           (addr.housenumber && addr.streetname && " ") +
           addr.streetname
         ).trim();
-        return `https://${subdomain}.justfix.nyc/ddo?address=${encodeURIComponent(
+        return `https://${subdomain}.justfix.org/ddo?address=${encodeURIComponent(
           fullAddress
         )}&borough=${encodeURIComponent(
           formattedBoro
@@ -235,7 +235,7 @@ export default {
       }
     } else {
       reportError(`Address improperly formatted for DDO: ${addr || "<falsy value>"}`);
-      return `https://${subdomain}.justfix.nyc/?utm_source=whoownswhat&utm_content=take_action_failed_attempt&utm_medium=${utm_medium}`;
+      return `https://${subdomain}.justfix.org/?utm_source=whoownswhat&utm_content=take_action_failed_attempt&utm_medium=${utm_medium}`;
     }
   },
 

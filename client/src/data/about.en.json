@@ -128,7 +128,7 @@
           },
           {
             "data": {
-              "uri": "https://whoownswhat.justfix.nyc/en/how-it-works"
+              "uri": "https://whoownswhat.justfix.org/en/how-it-works"
             },
             "content": [
               {
@@ -167,7 +167,7 @@
           {
             "data": {},
             "marks": [],
-            "value": "With NYC ♥ from the team at JustFix.nyc",
+            "value": "With NYC ♥ from the team at JustFix",
             "nodeType": "text"
           }
         ],
@@ -184,7 +184,7 @@
           {
             "data": {},
             "marks": [],
-            "value": "About JustFix.nyc",
+            "value": "About JustFix",
             "nodeType": "text"
           }
         ],
@@ -201,13 +201,13 @@
           },
           {
             "data": {
-              "uri": "https://www.justfix.nyc/en/"
+              "uri": "https://www.justfix.org/en/"
             },
             "content": [
               {
                 "data": {},
                 "marks": [],
-                "value": "www.justfix.nyc",
+                "value": "www.justfix.org",
                 "nodeType": "text"
               }
             ],
@@ -216,12 +216,12 @@
           {
             "data": {},
             "marks": [],
-            "value": ".\n\nJustFix.nyc is a registered 501(c)3 non-profit organization. If you have the capacity, please consider ",
+            "value": ".\n\nJustFix is a registered 501(c)3 non-profit organization. If you have the capacity, please consider ",
             "nodeType": "text"
           },
           {
             "data": {
-              "uri": "https://www.justfix.nyc/donate"
+              "uri": "https://donorbox.org/donate-to-justfix-nyc"
             },
             "content": [
               {

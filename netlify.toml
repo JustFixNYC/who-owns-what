@@ -1,20 +1,46 @@
 [[redirects]]
   from = "https://whoownswhat.nyc/*"
-  to = "https://whoownswhat.justfix.nyc"
+  to = "https://whoownswhat.justfix.org"
   status = 301
   force = true
 
 [[redirects]]
   from = "https://wow-django.netlify.app/*"
-  to = "https://whoownswhat.justfix.nyc"
+  to = "https://whoownswhat.justfix.org"
   status = 301
   force = true
 
 [[redirects]]
   from = "https://demo-whoownswhat.justfix.nyc/en/wowza/*"
-  to = "https://demo-whoownswhat.justfix.nyc/en/"
+  to = "https://demo-whoownswhat.justfix.org/en/"
   status = 301
   force = true
+
+[[redirects]]
+  from = "https://demo-whoownswhat.justfix.nyc/*"
+  to = "https://demo-whoownswhat.justfix.org/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "https://whoownswhat.justfix.nyc/*"
+  to = "https://whoownswhat.justfix.org/:splat"
+  status = 301
+  force = true
+
+# Make sure accessing static files returns a 404
+[[redirects]]
+  from = "/static/*"
+  to = "/not-found.html"
+  status = 404
+
+# Prevent default Netlify 404 page from appearing on page refresh.
+# Note: this redirect rule must come AFTER any other rule to prevent overriding 
+# See https://stackoverflow.com/a/64842020 for more details
+[[redirects]]
+  from = "/*"
+  to = "/"
+  status = 200
 
 # Settings in the [build] context are global and are applied to all contexts
 # unless otherwise overridden by more specific contexts.
