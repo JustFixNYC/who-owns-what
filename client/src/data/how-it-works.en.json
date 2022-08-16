@@ -855,13 +855,13 @@
           },
           {
             "data": {
-              "uri": "mailto:support@justfix.nyc"
+              "uri": "mailto:support@justfix.org"
             },
             "content": [
               {
                 "data": {},
                 "marks": [],
-                "value": "support@justfix.nyc",
+                "value": "support@justfix.org",
                 "nodeType": "text"
               }
             ],

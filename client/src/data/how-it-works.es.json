@@ -838,12 +838,12 @@
           {
             "nodeType": "hyperlink",
             "data": {
-              "uri": "mailto:support@justfix.nyc"
+              "uri": "mailto:support@justfix.org"
             },
             "content": [
               {
                 "nodeType": "text",
-                "value": "support@justfix.nyc",
+                "value": "support@justfix.org",
                 "marks": [],
                 "data": {}
               }
