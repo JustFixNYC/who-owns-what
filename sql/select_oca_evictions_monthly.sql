@@ -8,8 +8,7 @@ SELECT
 FROM oca_index AS i
 LEFT JOIN oca_addresses AS a USING(indexnumberid)
 LEFT JOIN pluto_21v4 AS p USING(bbl)
-WHERE i.fileddate < '2017-01-01'
-    AND i.classification = any('{Holdover,Non-Payment}') 
+WHERE i.classification = any('{Holdover,Non-Payment}') 
     AND i.propertytype = 'Residential'
     AND a.bbl IS NOT NULL
     AND p.unitsres > 10
