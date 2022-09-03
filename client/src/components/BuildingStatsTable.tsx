@@ -123,7 +123,7 @@ const TotalViolations = () => {
   );
 };
 
-const Evictions = () => {
+const EvictionsExecuted = () => {
   const addr = useContext(AddrContext).getBuildingStats();
   return (
     <I18n>
@@ -133,8 +133,26 @@ const Evictions = () => {
             t`Evictions executed by NYC Marshals since 2017. ANHD and the Housing Data Coalition cleaned, geocoded, and validated the data, originally sourced from DOI.`
           )}
         >
-          <Trans render="label">Evictions</Trans>
+          <Trans render="label">Evictions Executed</Trans>
           {addr.evictions !== null ? addr.evictions : "N/A"}
+        </div>
+      )}
+    </I18n>
+  );
+};
+
+const EvictionFilings = () => {
+  const addr = useContext(AddrContext).getBuildingStats();
+  return (
+    <I18n>
+      {({ i18n }) => (
+        <div
+          title={i18n._(
+            t`Evictions cases filed in Housing Court since 2017. This data comes from the Office of Court Administration via the Housing Data Coalition.`
+          )}
+        >
+          <Trans render="label">Eviction Filings</Trans>
+          {addr.evictionfilings !== null ? addr.evictionfilings : "N/A"}
         </div>
       )}
     </I18n>
@@ -182,12 +200,13 @@ const BuildingStatsTableWithoutI18n = (props: { addr: AddressRecord }) => (
         <BBL />
         <YearBuilt />
         <UnitsRes />
+        <RsUnits />
       </div>
       <div className="table-row">
         <OpenViolations />
         <TotalViolations />
-        <Evictions />
-        <RsUnits />
+        <EvictionFilings />
+        <EvictionsExecuted />
       </div>
     </div>
     <div className="card-body-table show-sm">
@@ -202,7 +221,7 @@ const BuildingStatsTableWithoutI18n = (props: { addr: AddressRecord }) => (
       <div className="table-row">
         <OpenViolations />
         <TotalViolations />
-        <Evictions />
+        <EvictionsExecuted />
       </div>
     </div>
     <span className="card-body-table-prompt float-right">

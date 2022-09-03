@@ -31,10 +31,9 @@ export const RentstabSummary: React.FC<RentstabSummaryData> = (props) => {
       </Trans>{" "}
       <Trans>
         This represents <b>{rsProportion.toFixed(1)}%</b> of the total size of this portfolio.
-      </Trans>
+      </Trans>{" "}
       {rsLossAddr && rsLossAddrDiff < 0 && (
         <Trans>
-          {" "}
           The building that has lost the most units is{" "}
           <b>
             {rsLossAddr.housenumber} {rsLossAddr.streetname}, {rsLossAddr.boro}

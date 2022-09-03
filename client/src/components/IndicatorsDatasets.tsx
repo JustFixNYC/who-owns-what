@@ -16,7 +16,12 @@ export interface IndicatorsDataset {
    * The name to use for the dataset in analytics. The type options must be defined here
    * for it to recognize the template strings as valid values for the AmplitudeEvent type
    */
-  analyticsName: "hpdcomplaints" | "hpdviolations" | "dobpermits" | "dobviolations";
+  analyticsName:
+    | "hpdcomplaints"
+    | "hpdviolations"
+    | "dobpermits"
+    | "dobviolations"
+    | "evictionfilings";
 
   /**
    * The localized name for a particular "quantity" of the dataset, e.g.
@@ -195,6 +200,55 @@ export const INDICATORS_DATASETS: IndicatorsDatasetMap = {
           rel="noopener noreferrer"
         >
           official DOB page
+        </a>
+        .
+      </Trans>
+    ),
+  },
+  evictionfilings: {
+    name: (i18n) => i18n._(t`Eviction Filings`),
+    analyticsName: "evictionfilings",
+    quantity: (i18n, value) =>
+      i18n._(
+        plural({
+          value,
+          one: "One Eviction Filing since 2017",
+          other: "# Eviction Filings since 2017",
+        })
+      ),
+    yAxisLabel: (i18n) => i18n._(t`Eviction Filings`),
+    explanation: () => (
+      <Trans render="span">
+        An “eviction filing” is a legal case for eviction commenced by a landlord against a tenant.
+        Such a case can be commenced for nonpayment of rent (most commonly) or for a violation of
+        the lease (such as a nuisance). Once an eviction case is filed, the tenant may respond to
+        the claims in the case by filing an “answer.” After that, the tenant will have opportunities
+        to settle the case by agreement or go before a judge for a trial on the facts of the case.
+        If a tenant does not answer or appear in court, a default judgment is entered against the
+        tenant. If a judgment is entered against a tenant (whether in an agreement or by decision of
+        the judge) that judgment is “executed” (carried out) by a City Marshal, who is licensed by
+        the City. In executing on a judgment, the Marshal changes the locks and transfers “legal
+        possession” of the apartment from the tenant to the landlord. This is what counts as an
+        “Eviction.” Note that there are also illegal evictions, which occur outside of the legal
+        process and involve the landlord or their agents acting on their own. There are also
+        situations in which a tenant may “self evict,” or leave an apartment prior to the
+        commencement of a legal proceeding because of harassment or unlivable housing conditions.
+        <br />
+        Due to privacy restrictions on the use of these data, eviction filings cannot be
+        shown for buildings with fewer than 11 units.
+        <br />
+        <br />
+        Data from the New York State Office of Court Administration{" "}
+        <a
+          href="https://github.com/housing-data-coalition/oca"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          via the Housing Data Coalition
+        </a>
+        in collaboration with the{" "}
+        <a href="https://www.righttocounselnyc.org/" target="_blank" rel="noopener noreferrer">
+          Right to Counsel Coalition
         </a>
         .
       </Trans>

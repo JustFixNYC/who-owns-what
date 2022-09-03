@@ -52,6 +52,7 @@ export type AddressRecord = {
   businessaddrs: string[] | null;
   corpnames: string[] | null;
   evictions: number | null;
+  evictionfilings: number | null;
   housenumber: string;
   lastregistrationdate: APIDate;
   lastsaleacrisid: string | null;
@@ -123,6 +124,10 @@ type EvictionAddress = AddressLocation & {
   evictions: number | null;
 };
 
+type EvictionFilingsAddress = AddressLocation & {
+  filings: number | null;
+};
+
 type RentStabilizedAddress = AddressLocation & {
   rsdiff: number | null;
 };
@@ -136,6 +141,7 @@ export type SummaryStatsRecord = {
   avgevictions: number | null;
   bldgs: number;
   evictionsaddr: EvictionAddress;
+  evictionfilingsaddr: EvictionFilingsAddress;
   openviolationsperbldg: number;
   openviolationsperresunit: number;
   rslossaddr: RentStabilizedAddress;
@@ -147,6 +153,7 @@ export type SummaryStatsRecord = {
   totalrecenthpdcomplaints: number;
   recenthpdcomplaintsbytype: HpdComplaintCount[];
   totalevictions: number | null;
+  totalevictionfilings: number | null;
   totalopenviolations: number;
   totalrsdiff: number | null;
   totalrsgain: number;
@@ -198,6 +205,7 @@ export type MonthlyTimelineData = {
   dobviolations_regular: number;
   dobviolations_ecb: number;
   dobviolations_total: number;
+  evictionfilings_total: number;
 };
 
 export type IndicatorsHistoryResults = {
