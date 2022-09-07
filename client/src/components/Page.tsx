@@ -15,6 +15,7 @@ export const FB_APP_ID = "247990609143668";
 const TWITTER_HANDLE = "@JustFixNYC";
 const ORIGIN_URL = getSiteOrigin();
 const SHARE_IMAGE_URL = "https://i.imgur.com/6WL74DZ.png";
+const FB_PIXEL_CODE = "o2zqsblxwru6hs8nojpihj5l7lacv4";
 
 type PageProps = {
   title?: string;
@@ -69,6 +70,7 @@ const Page = withI18n()((props: PageProps & withI18nProps) => {
         <meta name="keywords" content={i18n._(metadata.keywords)} />
         <meta name="author" content="JustFix" />
         <meta property="fb:app_id" content={FB_APP_ID} />
+        <meta name="facebook-domain-verification" content={FB_PIXEL_CODE} />
         <meta property="og:site_name" content={i18n._(metadata.siteName)} />
         <meta property="og:description" content={i18n._(metadata.description)} />
         <meta property="og:url" content={ORIGIN_URL} />
