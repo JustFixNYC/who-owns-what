@@ -25,6 +25,7 @@ import {
 import { NetworkErrorMessage } from "./NetworkErrorMessage";
 import { Dropdown } from "./Dropdown";
 import { AmplitudeEvent, logAmplitudeEvent } from "./Amplitude";
+import { PopupButton } from "@typeform/embed-react";
 
 type TimeSpanTranslationsMap = {
   [K in IndicatorsTimeSpan]: (i18n: I18n) => string;
@@ -360,6 +361,22 @@ class IndicatorsWithoutI18n extends Component<IndicatorsProps, IndicatorsState> 
                 </div>
 
                 <UsefulLinks addrForLinks={detailAddr} location="timeline-tab" />
+
+                <div className="card-body-prompt">
+                  <h6 className="DetailView__survey">
+                    <Trans>Take a short survey</Trans>
+                  </h6>
+                  <PopupButton
+                    id="nWm8ea4L"
+                    autoClose={1}
+                    open={"time"}
+                    openValue={2000}
+                    hidden={{ bbl: detailAddr.bbl }}
+                    className="btn btn-justfix btn-block"
+                  >
+                    Take Survey
+                  </PopupButton>
+                </div>
               </div>
             </div>
           </div>

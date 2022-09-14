@@ -19,6 +19,7 @@ import { PortfolioGraph } from "./PortfolioGraph";
 import { ComplaintsSummary } from "./ComplaintsSummary";
 import { BigPortfolioWarning } from "./BigPortfolioWarning";
 import { LazyLoadWhenVisible } from "./LazyLoadWhenVisible";
+import { Sidetab } from "@typeform/embed-react";
 
 type Props = withMachineInStateProps<"portfolioFound"> & {
   isVisible: boolean;
@@ -216,6 +217,15 @@ export default class PropertiesSummary extends Component<Props, {}> {
                       }}
                     />
                   </div>
+                  <Sidetab
+                    id="nWm8ea4L"
+                    autoClose={1}
+                    open={"time"}
+                    openValue={2000}
+                    hidden={{ bbl: searchAddr.bbl }}
+                  >
+                    Take Survey
+                  </Sidetab>
                 </div>
               </aside>
             </div>

@@ -23,6 +23,7 @@ import _groupBy from "lodash/groupBy";
 import { HpdContactAddress, HpdFullContact } from "./APIDataTypes";
 import { isLegacyPath } from "./WowzaToggle";
 import { logAmplitudeEvent } from "./Amplitude";
+import { SliderButton } from "@typeform/embed-react";
 
 type Props = withI18nProps &
   withMachineInStateProps<"portfolioFound"> & {
@@ -403,6 +404,22 @@ class DetailViewWithoutI18n extends Component<Props, State> {
                           <Trans>Share this page with your neighbors</Trans>
                         </h6>
                         <SocialShareDetailView />
+                      </div>
+
+                      <div className="card-body-prompt">
+                        <h6 className="DetailView__survey">
+                          <Trans>Take a short survey</Trans>
+                        </h6>
+                        <SliderButton
+                          id="nWm8ea4L"
+                          autoClose={1}
+                          open={"time"}
+                          openValue={2000}
+                          hidden={{ bbl: detailAddr.bbl }}
+                          className="btn btn-justfix btn-block"
+                        >
+                          Take Survey
+                        </SliderButton>
                       </div>
                     </div>
                   </div>

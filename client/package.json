@@ -11,6 +11,7 @@
     "@lingui/cli": "^2.9.1",
     "@lingui/macro": "^2.9.1",
     "@lingui/react": "^2.9.1",
+    "@typeform/embed-react": "^1.20.0",
     "@types/amplitude-js": "^8.0.1",
     "@types/chartjs-plugin-annotation": "^0.5.0",
     "@types/file-saver": "^2.0.1",
