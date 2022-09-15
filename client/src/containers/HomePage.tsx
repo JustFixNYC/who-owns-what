@@ -23,6 +23,9 @@ import { ContentfulCommonStrings } from "@justfixnyc/contentful-common-strings";
 import _commonStrings from "../data/common-strings.json";
 import LandlordSearch, { algoliaAppId, algoliaSearchKey } from "components/LandlordSearch";
 import { logAmplitudeEvent } from "components/Amplitude";
+import browser from "util/browser";
+
+import { SliderButton } from "@typeform/embed-react";
 
 const commonStrings = new ContentfulCommonStrings(_commonStrings as any);
 
@@ -137,11 +140,24 @@ const HomePage: React.FC<HomePageProps> = ({ useNewPortfolioMethod }) => {
   type SearchType = "address" | "landlord";
   const [searchType, setSearchType] = useState("address" as SearchType);
 
+  const surveyEncountered = browser.getCookieValue(browser.WOAU_COOKIE_NAME);
+
   return (
     <Page>
       <div className="HomePage Page">
         <MoratoriumBanner />
         <div className="HomePage__content">
+          <SliderButton
+            id="nWm8ea4L"
+            autoClose={1}
+            open={surveyEncountered ? undefined : "time"}
+            openValue={surveyEncountered ? undefined : 2000}
+            // hidden={{ bbl: detailAddr.bbl }}
+            className="btn btn-justfix btn-block"
+            onClose={() => browser.setCookie(browser.WOAU_COOKIE_NAME, "1", 30)}
+          >
+            Take Survey
+          </SliderButton>
           {useNewPortfolioMethod && algoliaAppId && algoliaSearchKey ? (
             <div className="HomePage__search wowza-styling">
               <h1 className="text-center">{wowzaLabelText}</h1>
