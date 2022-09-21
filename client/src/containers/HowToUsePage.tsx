@@ -10,6 +10,8 @@ import { withI18n, withI18nProps } from "@lingui/react";
 import { t } from "@lingui/macro";
 import Page from "../components/Page";
 
+import { Sidetab } from "@typeform/embed-react";
+
 const HowToUsePage = withI18n()((props: withI18nProps) => {
   const { i18n } = props;
   return (
@@ -18,6 +20,15 @@ const HowToUsePage = withI18n()((props: withI18nProps) => {
         <div className="Page__content">
           <ContentfulPage locales={{ en, es }} />
         </div>
+        <Sidetab
+          id="nWm8ea4L"
+          autoClose={1}
+          open={"time"}
+          openValue={2000}
+          buttonText="Take Survey"
+        >
+          Take Survey
+        </Sidetab>
         <EngagementPanel location="how-to-use" />
         <LegalFooter />
       </div>
