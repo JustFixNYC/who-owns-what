@@ -1,5 +1,6 @@
 from .factories.hpd_violations import HpdViolations
 from .factories.pluto_20v8 import Pluto20v8
+from .factories.pluto_latest import PlutoLatest
 from .factories.changes_summary import ChangesSummary
 
 
@@ -13,7 +14,18 @@ def test_loading_violations_works(db, nycdb_ctx):
         assert cur.fetchone()["novdescription"] == "boop"
 
 
-def test_loading_pluto_works(db, nycdb_ctx):
+def test_loading_pluto_latest_works(db, nycdb_ctx):
+    # note: some fields, like census tract, are renamed in the nycdb sql
+    nycdb_ctx.write_csv(
+        "pluto_latest.csv", [PlutoLatest(bbl="4116700053", censustract2010="176")]
+    )
+    nycdb_ctx.load_dataset("pluto_latest")
+    with db.cursor() as cur:
+        cur.execute("select * from pluto_latest where bbl='4116700053'")
+        assert cur.fetchone()["ct2010"] == "176"
+
+
+def test_loading_pluto_zip_works(db, nycdb_ctx):
     nycdb_ctx.write_zip(
         "pluto_20v8.zip",
         {

@@ -1,3 +1,5 @@
+import helpers from "util/helpers";
+
 /* eslint-disable */
 
 // left: 37, up: 38, right: 39, down: 40,
@@ -63,5 +65,19 @@ export default {
     if (!results) return null;
     if (!results[2]) return "";
     return decodeURIComponent(results[2].replace(/\+/g, " "));
+  },
+
+  WOAU_COOKIE_NAME: "woau",
+
+  setCookie(name: string, value: string, days: number = 30) {
+    const expiration = new Date();
+    expiration.setTime(expiration.getTime() + days * 24 * 60 * 60 * 1000);
+    document.cookie = `${name}=${value}; expires=${expiration.toUTCString()}; path=/`;
+  },
+
+  getCookieValue(name: string) {
+    const regex = new RegExp(`${helpers.regexEscape(name)}=(.*?)(?:;|$)`);
+    const value = regex.exec(document.cookie);
+    return (value && value[1]) || null;
   },
 };

@@ -407,4 +407,8 @@ export default {
     }, []); // Empty array ensures that effect is only run on mount
     return windowSize;
   },
+
+  regexEscape(str: string) {
+    return str?.replace(/[-[\]/{}()*+?.\\^$|]/g, "\\$&");
+  },
 };

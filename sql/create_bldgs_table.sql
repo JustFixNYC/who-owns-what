@@ -106,7 +106,7 @@ left join (
     yearbuilt,
     latitude as lat,
     longitude as lng
-  from pluto_20v8
+  from pluto_latest
 ) pluto on (registrations.bbl = pluto.bbl)
 left join (
   select

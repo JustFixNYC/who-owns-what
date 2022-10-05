@@ -187,10 +187,11 @@ We use BrowserStack Live to make sure that our sites work across browsers, opera
 
 ## Updating data
 
-Updating WoW's data is straighforward for about a year, at which point it eventually needs to look at
-different datasets in order to be up-to-date. For example, because it uses the PLUTO dataset, it needs
-to always look at a reasonably recent version, which can be non-trivial because that dataset's schema
-changes from one revision to another.
+Updating WoW's data is straighforward, unless a new dataset is needed or the schema 
+of an existing dataset changes. Previously this was necessary every year with new 
+versions of the PLUTO dataset (now there is a version on Open Data with automatic 
+updates and a stable schema), but can also happen unpredicitably when an agency 
+decides to change the schema of an existing dataset.
 
 To use new data, you'll need to update a few things:
 
