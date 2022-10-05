@@ -209,13 +209,15 @@ export const INDICATORS_DATASETS: IndicatorsDatasetMap = {
     name: (i18n) => i18n._(t`Eviction Filings`),
     analyticsName: "evictionfilings",
     quantity: (i18n, value) =>
-      i18n._(
-        plural({
-          value,
-          one: "One Eviction Filing since 2017",
-          other: "# Eviction Filings since 2017",
-        })
-      ),
+      isNaN(value)
+        ? i18n._(t`No Eviction Filings Data Available for Properties with Fewer than 11 Units`)
+        : i18n._(
+            plural({
+              value,
+              one: "One Eviction Filing since 2017",
+              other: "# Eviction Filings since 2017",
+            })
+          ),
     yAxisLabel: (i18n) => i18n._(t`Eviction Filings`),
     explanation: () => (
       <Trans render="span">
