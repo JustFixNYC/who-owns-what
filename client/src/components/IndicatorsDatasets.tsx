@@ -234,8 +234,8 @@ export const INDICATORS_DATASETS: IndicatorsDatasetMap = {
         situations in which a tenant may “self evict,” or leave an apartment prior to the
         commencement of a legal proceeding because of harassment or unlivable housing conditions.
         <br />
-        Due to privacy restrictions on the use of these data, eviction filings cannot be
-        shown for buildings with fewer than 11 units.
+        Due to privacy restrictions on the use of these data, eviction filings cannot be shown for
+        buildings with fewer than 11 units.
         <br />
         <br />
         Data from the New York State Office of Court Administration{" "}

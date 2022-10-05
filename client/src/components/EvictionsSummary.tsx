@@ -21,12 +21,8 @@ export const EvictionsSummary: React.FC<EvictionsSummaryData> = (props) => {
     <p>
       <Trans>
         Since 2017, landlords filed{" "}
-        <Plural
-          value={totalEvictionFilings}
-          one="one eviction case"
-          other="# eviction cases"
-        />{" "}
-        and NYC Marshals executed{" "}
+        <Plural value={totalEvictionFilings} one="one eviction case" other="# eviction cases" /> and
+        NYC Marshals executed{" "}
         <Plural value={totalEvictions} one="one eviction" other="# evictions" /> across this
         portfolio.
       </Trans>{" "}
