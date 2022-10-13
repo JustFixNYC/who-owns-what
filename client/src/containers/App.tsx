@@ -43,6 +43,10 @@ import {
 } from "components/WowzaToggle";
 import { logAmplitudeEvent } from "../components/Amplitude";
 
+import browser from "util/browser";
+import { SliderButton } from "@typeform/embed-react";
+import { StickyModal } from "components/StickyModal";
+
 const HomeLink = withI18n()((props: withI18nProps) => {
   const { i18n } = props;
   const title = i18n._(t`Who owns what in nyc?`);
@@ -309,6 +313,7 @@ const App = () => {
   const version = process.env.REACT_APP_VERSION;
   const allowChangingPortfolioMethod =
     process.env.REACT_APP_ENABLE_NEW_WOWZA_PORTFOLIO_MAPPING === "1";
+  const surveyEncountered = browser.getCookieValue(browser.WOAU_COOKIE_NAME);
   return (
     <Router>
       <I18n>
@@ -324,6 +329,22 @@ const App = () => {
             {allowChangingPortfolioMethod && <WowzaBanner />}
             <Navbar />
             <AppBody />
+            <StickyModal
+              label={"Help us build tenant power in NYC"}
+              verticalPosition="bottom"
+              horizontalPosition="right"
+            >
+              <SliderButton
+                id="ISlk1i96"
+                redirectTarget="_self"
+                open={surveyEncountered ? undefined : "time"}
+                openValue={surveyEncountered ? undefined : 5000}
+                className="woau-survey-button"
+                onClose={() => browser.setCookie(browser.WOAU_COOKIE_NAME, "1", 30)}
+              >
+                Take our short survey
+              </SliderButton>
+            </StickyModal>
           </div>
         </ScrollToTop>
       </I18n>
