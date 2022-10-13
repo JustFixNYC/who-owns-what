@@ -124,3 +124,18 @@
 .icon-mail:before {
   border-radius: 0.1rem;
 }
+
+// WHO ARE OUR USERS SURVEY BUTTON
+.woau-survey-button {
+  flex: 1;
+  padding: $spacing-04 $spacing-06;
+  text-align: center;
+  color: $justfix-black;
+  background-color: $justfix-pink;
+}
+
+.woau-survey-button:hover,
+.woau-survey-button:active,
+.woau-survey-button:focus {
+  opacity: 0.7;
+}
