@@ -339,7 +339,7 @@ const App = () => {
                 redirectTarget="_self"
                 open={surveyEncountered ? undefined : "time"}
                 openValue={surveyEncountered ? undefined : 5000}
-                className="woau-survey-button"
+                className="waou-survey-button"
                 onClose={() => browser.setCookie(browser.WOAU_COOKIE_NAME, "1", 30)}
               >
                 Take our short survey
