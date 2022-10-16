@@ -148,7 +148,7 @@ const EvictionFilings = () => {
       {({ i18n }) => (
         <div
           title={i18n._(
-            t`Evictions cases filed in Housing Court since 2017. This data comes from the Office of Court Administration via the Housing Data Coalition.`
+            t`Eviction cases filed in Housing Court since 2017. This data comes from the Office of Court Administration via the Housing Data Coalition.`
           )}
         >
           <Trans render="label">Eviction Filings</Trans>

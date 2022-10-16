@@ -221,38 +221,36 @@ export const INDICATORS_DATASETS: IndicatorsDatasetMap = {
     yAxisLabel: (i18n) => i18n._(t`Eviction Filings`),
     explanation: () => (
       <Trans render="span">
-        An “eviction filing” is a legal case for eviction commenced by a landlord against a tenant.
-        Such a case can be commenced for nonpayment of rent (most commonly) or for a violation of
-        the lease (such as a nuisance). Once an eviction case is filed, the tenant may respond to
-        the claims in the case by filing an “answer.” After that, the tenant will have opportunities
-        to settle the case by agreement or go before a judge for a trial on the facts of the case.
-        If a tenant does not answer or appear in court, a default judgment is entered against the
-        tenant. If a judgment is entered against a tenant (whether in an agreement or by decision of
-        the judge) that judgment is “executed” (carried out) by a City Marshal, who is licensed by
-        the City. In executing on a judgment, the Marshal changes the locks and transfers “legal
-        possession” of the apartment from the tenant to the landlord. This is what counts as an
-        “Eviction.” Note that there are also illegal evictions, which occur outside of the legal
-        process and involve the landlord or their agents acting on their own. There are also
-        situations in which a tenant may “self evict,” or leave an apartment prior to the
-        commencement of a legal proceeding because of harassment or unlivable housing conditions.
-        <br />
-        Due to privacy restrictions on the use of these data, eviction filings cannot be shown for
-        buildings with fewer than 11 units.
-        <br />
-        <br />
-        Data from the New York State Office of Court Administration{" "}
+        An “eviction filing” is a legal case for eviction commenced by a landlord against a tenant
+        in Housing Court. Such a case can be commenced for nonpayment of rent (most commonly) or for
+        a violation of the lease (such as a nuisance). The eviction filings number only represents
+        cases filed in Housing Court (data from the New York State Office of Court Administration
         <a
           href="https://github.com/housing-data-coalition/oca"
           target="_blank"
           rel="noopener noreferrer"
         >
           via the Housing Data Coalition
-        </a>
+        </a>{" "}
         in collaboration with the{" "}
         <a href="https://www.righttocounselnyc.org/" target="_blank" rel="noopener noreferrer">
           Right to Counsel Coalition
         </a>
+        ) and not evictions carried out by NYC Marshals.
+        <br />
+        If you or someone you know is facing eviction and want to learn more about your rights, head
+        over to{" "}
+        <a
+          href="https://housingcourtanswers.org/answers/for-tenants/housing-court-tenants/court-process/eviction-notice/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Housing Court Answers for more information
+        </a>
         .
+        <br />
+        Due to privacy restrictions on the use of these data, eviction filings cannot be shown for
+        buildings with fewer than 11 units.
       </Trans>
     ),
   },
