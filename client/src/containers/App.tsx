@@ -146,8 +146,13 @@ const WhoOwnsWhatRoutes: React.FC<{}> = () => {
           />
         )}
       />
-      <Route path={paths.bblSeparatedIntoParts} component={BBLPage} />
       <Route path={paths.legacy.bbl} component={BBLPage} />
+      <Route
+        path={paths.bblSeparatedIntoParts}
+        render={(props) => (
+          <BBLPage {...props} useNewPortfolioMethod={allowChangingPortfolioMethod} />
+        )}
+      />
       <Route
         path={paths.bbl}
         render={(props) => (
