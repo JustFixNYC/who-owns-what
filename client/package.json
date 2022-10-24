@@ -32,6 +32,7 @@
     "@types/react-router-dom": "5.1.5",
     "@types/react-table": "^6.8.5",
     "@types/react-transition-group": "^4.4.0",
+    "@typeform/embed-react": "^1.20.0",
     "@xstate/react": "^0.8.1",
     "algoliasearch": "^4.10.5",
     "amplitude-js": "^8.4.0",
