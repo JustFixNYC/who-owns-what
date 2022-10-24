@@ -33,7 +33,7 @@ export const StickyModal: React.FC<StickyModalProps> = ({
           ✕
         </div>
       </div>
-      <div className="sticky-modal-body">{children}</div>
+      <div className="sticky-modal-body2">{children}</div>
     </div>
   );
 };
