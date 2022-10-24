@@ -9,6 +9,7 @@ import SocialShare from "../components/SocialShare";
 import Modal from "../components/Modal";
 import FeatureCalloutWidget from "../components/FeatureCalloutWidget";
 import classnames from "classnames";
+import browser from "util/browser";
 
 // import top-level containers (i.e. pages)
 import {
@@ -42,6 +43,8 @@ import {
   WowzaRedirectPage,
 } from "components/WowzaToggle";
 import { logAmplitudeEvent } from "../components/Amplitude";
+import { SliderButton } from "@typeform/embed-react";
+import { StickyModal } from "components/StickyModal";
 
 const HomeLink = withI18n()((props: withI18nProps) => {
   const { i18n } = props;
@@ -309,6 +312,8 @@ const App = () => {
   const version = process.env.REACT_APP_VERSION;
   const allowChangingPortfolioMethod =
     process.env.REACT_APP_ENABLE_NEW_WOWZA_PORTFOLIO_MAPPING === "1";
+  const surveyEncountered = browser.getCookieValue(browser.WOAU_COOKIE_NAME);
+  const surveyId = process.env.REACT_APP_WOAU_SURVEY_ID;
   return (
     <Router>
       <I18n>
@@ -324,6 +329,25 @@ const App = () => {
             {allowChangingPortfolioMethod && <WowzaBanner />}
             <Navbar />
             <AppBody />
+            {surveyId && surveyEncountered !== "2" && (
+              <StickyModal
+                label={"Help us build tenant power in NYC"}
+                verticalPosition="bottom"
+                horizontalPosition="right"
+                onClose={() => browser.setCookie(browser.WOAU_COOKIE_NAME, "2", 30)}
+              >
+                <SliderButton
+                  id={surveyId}
+                  redirectTarget="_self"
+                  open={surveyEncountered ? undefined : "time"}
+                  openValue={surveyEncountered ? undefined : 5000}
+                  className="waou-survey-button"
+                  onClose={() => browser.setCookie(browser.WOAU_COOKIE_NAME, "1", 30)}
+                >
+                  Take our short survey
+                </SliderButton>
+              </StickyModal>
+            )}
           </div>
         </ScrollToTop>
       </I18n>
