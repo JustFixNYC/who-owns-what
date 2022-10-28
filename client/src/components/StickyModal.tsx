@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 
-import "styles/Accordion.scss";
-
 type StickyModalProps = {
   label?: string;
   verticalPosition?: "top" | "bottom";
