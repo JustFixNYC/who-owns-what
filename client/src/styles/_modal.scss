@@ -53,7 +53,7 @@ $sticky-modal-zindex: 20;
 }
 
 .App__body:has(.AddressPage__viz.AddressPage__content-active) + .sticky-modal,
-.App__body:has(.AddressPage__table.AddressPage__content-active) + .sticky-modal  {
+.App__body:has(.AddressPage__table.AddressPage__content-active) + .sticky-modal {
   margin-bottom: 5rem;
 }
 
