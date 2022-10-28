@@ -1,6 +1,7 @@
 @import "_vars.scss";
 
 $sticky-modal-padding: $spacing-07;
+$sticky-modal-zindex: 20;
 
 .sticky-modal {
   @include desktop-h4();
@@ -14,6 +15,7 @@ $sticky-modal-padding: $spacing-07;
   color: $justfix-white;
   background-color: $justfix-black;
   box-shadow: 1px 4px 4px 0px $justfix-black;
+  z-index: $sticky-modal-zindex;
 
   &.top {
     top: 0;
@@ -48,6 +50,11 @@ $sticky-modal-padding: $spacing-07;
 .sticky-modal-body {
   display: flex;
   justify-content: center;
+}
+
+.App__body:has(.AddressPage__viz.AddressPage__content-active) + .sticky-modal,
+.App__body:has(.AddressPage__table.AddressPage__content-active) + .sticky-modal {
+  margin-bottom: 5rem;
 }
 
 @include for-tablet-landscape-up() {
