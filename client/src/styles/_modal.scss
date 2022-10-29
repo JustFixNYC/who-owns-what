@@ -1,0 +1,65 @@
+@import "_vars.scss";
+
+$sticky-modal-padding: $spacing-07;
+$sticky-modal-zindex: 20;
+
+.sticky-modal {
+  @include desktop-h4();
+
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  padding: $spacing-06;
+  margin: $spacing-08 $sticky-modal-padding;
+  width: calc(100% - #{$sticky-modal-padding * 2});
+  color: $justfix-white;
+  background-color: $justfix-black;
+  box-shadow: 1px 4px 4px 0px $justfix-black;
+  z-index: $sticky-modal-zindex;
+
+  &.top {
+    top: 0;
+  }
+  &.bottom {
+    bottom: 0;
+  }
+  &.left {
+    left: 0;
+  }
+  &.right {
+    right: 0;
+  }
+}
+
+.sticky-modal-header {
+  display: flex;
+  margin-bottom: $spacing-06;
+}
+
+.sticky-modal-label {
+  flex: 1;
+}
+
+.sticky-modal-close {
+  width: 2rem;
+  line-height: $spacing-05;
+  text-align: right;
+  cursor: pointer;
+}
+
+.sticky-modal-body {
+  display: flex;
+  justify-content: center;
+}
+
+.App__body:has(.AddressPage__viz.AddressPage__content-active) + .sticky-modal,
+.App__body:has(.AddressPage__table.AddressPage__content-active) + .sticky-modal {
+  margin-bottom: 5rem;
+}
+
+@include for-tablet-landscape-up() {
+  .sticky-modal {
+    width: 31rem;
+    margin-right: $spacing-05;
+  }
+}
