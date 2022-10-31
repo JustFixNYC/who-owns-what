@@ -343,6 +343,7 @@ const App = () => {
               >
                 <SliderButton
                   id={surveyId}
+                  autoClose={true}
                   redirectTarget="_self"
                   open={surveyEncountered ? undefined : "time"}
                   openValue={surveyEncountered ? undefined : 5000}
