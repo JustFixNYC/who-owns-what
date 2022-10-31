@@ -336,7 +336,7 @@ const App = () => {
             <AppBody />
             {surveyId && surveyEncountered !== "2" && (
               <StickyModal
-                label={"Help us build tenant power in NYC"}
+                label={"Help us build tenant power in NYC!"}
                 verticalPosition="bottom"
                 horizontalPosition="right"
                 onClose={() => browser.setCookie(browser.WOAU_COOKIE_NAME, "2", 30)}
