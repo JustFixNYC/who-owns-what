@@ -93,7 +93,7 @@ msgid "APPLIANCE"
 msgstr "MEDIO DOMÉSTICO"
 
 #: src/containers/AboutPage.tsx:13
-#: src/containers/App.tsx:91
+#: src/containers/App.tsx:94
 msgid "About"
 msgstr "Acerca de"
 
@@ -244,7 +244,7 @@ msgstr "HaZ clic aquí para obtener más información."
 
 #: src/components/DetailView.tsx:58
 #: src/components/FeatureCalloutWidget.tsx:60
-#: src/containers/App.tsx:164
+#: src/containers/App.tsx:167
 msgid "Close"
 msgstr "Cerrar"
 
@@ -293,7 +293,7 @@ msgstr "PUERTAS"
 msgid "Date"
 msgstr "Fecha"
 
-#: src/containers/App.tsx:113
+#: src/containers/App.tsx:116
 msgid "Demo Site"
 msgstr "Sitio Demo"
 
@@ -307,7 +307,7 @@ msgid "Display:"
 msgstr "Mostrar:"
 
 #: src/components/LegalFooter.tsx:35
-#: src/containers/App.tsx:100
+#: src/containers/App.tsx:103
 msgid "Donate"
 msgstr "Donar"
 
@@ -460,7 +460,7 @@ msgstr "Oficial Principal"
 msgid "How is this building associated to this portfolio?"
 msgstr "¿Cómo se asocia este edificio a este portafolio de edificios?"
 
-#: src/containers/App.tsx:97
+#: src/containers/App.tsx:100
 #: src/containers/HowToUsePage.tsx:13
 msgid "How to use"
 msgstr "Cómo se usa"
@@ -838,7 +838,7 @@ msgstr "FALTA DE SEÑALIZACIÓN"
 msgid "STAIRS"
 msgstr "ESCALERAS"
 
-#: src/containers/App.tsx:83
+#: src/containers/App.tsx:86
 msgid "Search"
 msgstr "Buscar"
 
@@ -867,15 +867,15 @@ msgstr "Vea las quejas más comunes reportadas por inquilinos al 311, ahora en l
 msgid "Send us a data request"
 msgstr "Envíanos una solicitud de datos"
 
-#: src/containers/App.tsx:121
-#: src/containers/App.tsx:132
+#: src/containers/App.tsx:124
+#: src/containers/App.tsx:135
 msgid "Share"
 msgstr "Compartir"
 
 #: src/components/DetailView.tsx:270
 #: src/components/EngagementPanel.tsx:18
 #: src/components/PropertiesSummary.tsx:140
-#: src/containers/App.tsx:142
+#: src/containers/App.tsx:145
 #: src/containers/NotRegisteredPage.tsx:18
 msgid "Share this page with your neighbors"
 msgstr "Comparte esta página con tus vecinos"
@@ -1251,14 +1251,14 @@ msgstr "Cuando dos partes comparten la misma dirección comercial, los agrupamos
 msgid "Who Owns What is a free tool built by JustFix to research property owners in NYC. It has helped over 200,000 New Yorkers find out who really owns their building, what other buildings that their landlord or management company owns, and other critical information about code violations, evictions, rent stabilized units, and so much more in any given building. You can look up any residential building located in NYC, even public housing (NYCHA) buildings! Search your address here: {url}"
 msgstr "Quién Es El Dueño es una herramienta gratis construida por JustFix para investigar los dueños de edificios en NYC. Ha asistido más de 200.000 neoyorquinos a enterarse quien realmente son los responsables por su edificio, cuáles otros edificios su dueño o compañía de administración poseen, y otra información crítica sobre violaciones del código de vivienda, desalojos, apartamentos con renta estabilizada y mucho más en cualquier edificio. Puedes buscar información sobre cualquier edificio residencial, también incluyen viviendas públicas (NYCHA). Busca tu dirección aquí: {url}"
 
-#: src/containers/App.tsx:38
+#: src/containers/App.tsx:41
 msgid "Who owns what in n y c?"
 msgstr "¿Quién Es El Dueño en Nueva York?"
 
 #: src/components/Page.tsx:10
 #: src/components/Page.tsx:21
 #: src/components/Page.tsx:22
-#: src/containers/App.tsx:33
+#: src/containers/App.tsx:36
 msgid "Who owns what in nyc?"
 msgstr "¿Quién Es El Dueño en Nueva York?"
 
@@ -1283,11 +1283,11 @@ msgstr "Año de construcción"
 msgid "Yes"
 msgstr "Sí"
 
-#: src/containers/App.tsx:161
+#: src/containers/App.tsx:164
 msgid "You are viewing the new version of Who Owns What."
 msgstr "Estás viendo la nueva versión de Quién es el Dueño."
 
-#: src/containers/App.tsx:161
+#: src/containers/App.tsx:164
 msgid "You are viewing the old version of Who Owns What."
 msgstr "Estás viendo la versión anterior de Quién es el Dueño."
 

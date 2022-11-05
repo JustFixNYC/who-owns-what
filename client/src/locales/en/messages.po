@@ -88,7 +88,7 @@ msgid "APPLIANCE"
 msgstr "APPLIANCE"
 
 #: src/containers/AboutPage.tsx:13
-#: src/containers/App.tsx:91
+#: src/containers/App.tsx:94
 msgid "About"
 msgstr "About"
 
@@ -239,7 +239,7 @@ msgstr "Click here to learn more."
 
 #: src/components/DetailView.tsx:58
 #: src/components/FeatureCalloutWidget.tsx:60
-#: src/containers/App.tsx:164
+#: src/containers/App.tsx:167
 msgid "Close"
 msgstr "Close"
 
@@ -288,7 +288,7 @@ msgstr "DOORS"
 msgid "Date"
 msgstr "Date"
 
-#: src/containers/App.tsx:113
+#: src/containers/App.tsx:116
 msgid "Demo Site"
 msgstr "Demo Site"
 
@@ -302,7 +302,7 @@ msgid "Display:"
 msgstr "Display:"
 
 #: src/components/LegalFooter.tsx:35
-#: src/containers/App.tsx:100
+#: src/containers/App.tsx:103
 msgid "Donate"
 msgstr "Donate"
 
@@ -455,7 +455,7 @@ msgstr "Head Officer"
 msgid "How is this building associated to this portfolio?"
 msgstr "How is this building associated to this portfolio?"
 
-#: src/containers/App.tsx:97
+#: src/containers/App.tsx:100
 #: src/containers/HowToUsePage.tsx:13
 msgid "How to use"
 msgstr "How to use"
@@ -833,7 +833,7 @@ msgstr "SIGNAGE MISSING"
 msgid "STAIRS"
 msgstr "STAIRS"
 
-#: src/containers/App.tsx:83
+#: src/containers/App.tsx:86
 msgid "Search"
 msgstr "Search"
 
@@ -862,15 +862,15 @@ msgstr "See the most common complaints reported by tenants to 311, now on the Ov
 msgid "Send us a data request"
 msgstr "Send us a data request"
 
-#: src/containers/App.tsx:121
-#: src/containers/App.tsx:132
+#: src/containers/App.tsx:124
+#: src/containers/App.tsx:135
 msgid "Share"
 msgstr "Share"
 
 #: src/components/DetailView.tsx:270
 #: src/components/EngagementPanel.tsx:18
 #: src/components/PropertiesSummary.tsx:140
-#: src/containers/App.tsx:142
+#: src/containers/App.tsx:145
 #: src/containers/NotRegisteredPage.tsx:18
 msgid "Share this page with your neighbors"
 msgstr "Share this page with your neighbors"
@@ -1246,14 +1246,14 @@ msgstr "When two parties share the same business address, we group them as part 
 msgid "Who Owns What is a free tool built by JustFix to research property owners in NYC. It has helped over 200,000 New Yorkers find out who really owns their building, what other buildings that their landlord or management company owns, and other critical information about code violations, evictions, rent stabilized units, and so much more in any given building. You can look up any residential building located in NYC, even public housing (NYCHA) buildings! Search your address here: {url}"
 msgstr "Who Owns What is a free tool built by JustFix to research property owners in NYC. It has helped over 200,000 New Yorkers find out who really owns their building, what other buildings that their landlord or management company owns, and other critical information about code violations, evictions, rent stabilized units, and so much more in any given building. You can look up any residential building located in NYC, even public housing (NYCHA) buildings! Search your address here: {url}"
 
-#: src/containers/App.tsx:38
+#: src/containers/App.tsx:41
 msgid "Who owns what in n y c?"
 msgstr "Who owns what in n y c?"
 
 #: src/components/Page.tsx:10
 #: src/components/Page.tsx:21
 #: src/components/Page.tsx:22
-#: src/containers/App.tsx:33
+#: src/containers/App.tsx:36
 msgid "Who owns what in nyc?"
 msgstr "Who owns what in nyc?"
 
@@ -1278,11 +1278,11 @@ msgstr "Year Built"
 msgid "Yes"
 msgstr "Yes"
 
-#: src/containers/App.tsx:161
+#: src/containers/App.tsx:164
 msgid "You are viewing the new version of Who Owns What."
 msgstr "You are viewing the new version of Who Owns What."
 
-#: src/containers/App.tsx:161
+#: src/containers/App.tsx:164
 msgid "You are viewing the old version of Who Owns What."
 msgstr "You are viewing the old version of Who Owns What."
 
