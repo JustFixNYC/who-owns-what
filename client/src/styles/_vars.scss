@@ -151,7 +151,8 @@ $eyebrow-font: "Suisse Int'l Mono", "Courier New", Courier, monospace;
 
 @mixin desktop-h4 {
   @include body-standard();
-  font-size: 1.5rem;
+  font-weight: 600;
+  font-size: 1.8rem;
   line-height: 120%;
 }
 

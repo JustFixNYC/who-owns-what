@@ -14,7 +14,7 @@ $sticky-modal-zindex: 20;
   width: calc(100% - #{$sticky-modal-padding * 2});
   color: $justfix-white;
   background-color: $justfix-black;
-  box-shadow: 1px 4px 4px 0px $justfix-black;
+  box-shadow: 1px 4px 4px 0px rgba(36, 35, 35, 0.25);
   z-index: $sticky-modal-zindex;
 
   &.top {
@@ -41,10 +41,16 @@ $sticky-modal-zindex: 20;
 }
 
 .sticky-modal-close {
-  width: 2rem;
-  line-height: $spacing-05;
-  text-align: right;
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 3.5rem;
+  width: 3.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   cursor: pointer;
+  font-size: 1.8rem;
 }
 
 .sticky-modal-body {
@@ -59,7 +65,8 @@ $sticky-modal-zindex: 20;
 
 @include for-tablet-landscape-up() {
   .sticky-modal {
+    font-weight: 400;
     width: 31rem;
-    margin-right: $spacing-05;
+    margin-right: $spacing-07;
   }
 }
