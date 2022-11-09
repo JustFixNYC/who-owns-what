@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Switch, Route, useLocation } from "react-router-dom";
 import { Trans, t } from "@lingui/macro";
 
@@ -317,8 +317,23 @@ const App = () => {
   const version = process.env.REACT_APP_VERSION;
   const allowChangingPortfolioMethod =
     process.env.REACT_APP_ENABLE_NEW_WOWZA_PORTFOLIO_MAPPING === "1";
-  const surveyEncountered = browser.getCookieValue(browser.WOAU_COOKIE_NAME);
   const surveyId = process.env.REACT_APP_WOAU_SURVEY_ID;
+
+  const [surveyCookie, setSurveyCookie] = useState(
+    browser.getCookieValue(browser.WOAU_COOKIE_NAME)
+  );
+
+  useEffect(() => {
+    if (surveyCookie) {
+      browser.setCookie(browser.WOAU_COOKIE_NAME, surveyCookie, 30);
+    }
+  }, [surveyCookie]);
+
+  // On submission or close set the cookie to "2" to hide the button permanently
+  const hideSurveyButton = () => setSurveyCookie("2");
+  // If the survey has not been submitted (cookie == "0"), set cookie to "1"
+  const closeSurvey = () => !surveyCookie && setSurveyCookie("1");
+
   return (
     <Router>
       <I18n>
@@ -334,20 +349,21 @@ const App = () => {
             {allowChangingPortfolioMethod && <WowzaBanner />}
             <Navbar />
             <AppBody />
-            {surveyId && surveyEncountered !== "2" && (
+            {surveyId && surveyCookie !== "2" && (
               <StickyModal
                 label={"Help us build tenant power in NYC!"}
                 verticalPosition="bottom"
                 horizontalPosition="right"
-                onClose={() => browser.setCookie(browser.WOAU_COOKIE_NAME, "2", 30)}
+                onClose={hideSurveyButton}
               >
                 <SliderButton
                   id={surveyId}
                   redirectTarget="_self"
-                  open={surveyEncountered ? undefined : "time"}
-                  openValue={surveyEncountered ? undefined : 5000}
+                  open={surveyCookie ? undefined : "time"}
+                  openValue={surveyCookie ? undefined : 5000}
                   className="waou-survey-button"
-                  onClose={() => browser.setCookie(browser.WOAU_COOKIE_NAME, "1", 30)}
+                  onClose={closeSurvey}
+                  onSubmit={hideSurveyButton}
                 >
                   Take our short survey
                 </SliderButton>
