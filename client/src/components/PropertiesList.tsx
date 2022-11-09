@@ -416,13 +416,13 @@ const TableOfData = React.memo(
               {
                 Header: (
                   <>
-                    <Trans>Filied</Trans>
+                    <Trans>Filed</Trans>
                     <ArrowIcon />
                   </>
                 ),
                 accessor: (d) => d.evictionfilings || null,
                 id: "evictionsfilings",
-                width: getWidthFromLabel(i18n._(t`Filied`)),
+                width: getWidthFromLabel(i18n._(t`Filed`)),
               },
               {
                 Header: (

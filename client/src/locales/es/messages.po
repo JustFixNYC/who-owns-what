@@ -402,8 +402,12 @@ msgstr "Si no se registra un edificio con el HPD"
 
 #: src/components/PropertiesList.tsx:295
 #: src/components/PropertiesList.tsx:300
-msgid "Filied"
+msgid "Filed"
 msgstr ""
+
+#: src/components/PropertiesList.tsx:295
+#~ msgid "Filied"
+#~ msgstr ""
 
 #: src/containers/HomePage.tsx:90
 msgid "Find other buildings your landlord might own:"
