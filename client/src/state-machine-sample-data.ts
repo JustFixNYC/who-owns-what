@@ -114,6 +114,7 @@ export const SAMPLE_ADDRESS_RECORDS: AddressRecord[] = [
     lat: 40.6737974139504,
     lng: -73.9562781322538,
     evictions: null,
+    evictionfilings: null,
     rsunits2007: 11,
     rsunitslatest: 12,
     rsunitslatestyear: 2017,
@@ -205,6 +206,7 @@ export const SAMPLE_ADDRESS_RECORDS: AddressRecord[] = [
     lat: 40.6825213771841,
     lng: -73.9352559095722,
     evictions: null,
+    evictionfilings: null,
     rsunits2007: 8,
     rsunitslatest: 0,
     rsunitslatestyear: 2017,
@@ -231,6 +233,7 @@ export const SAMPLE_TIMELINE_DATA: IndicatorsHistoryResults = {
       dobviolations_regular: 1,
       dobviolations_ecb: 1,
       dobviolations_total: 2,
+      evictionfilings_total: 0,
     },
   ],
 };

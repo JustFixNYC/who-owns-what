@@ -16,7 +16,12 @@ export interface IndicatorsDataset {
    * The name to use for the dataset in analytics. The type options must be defined here
    * for it to recognize the template strings as valid values for the AmplitudeEvent type
    */
-  analyticsName: "hpdcomplaints" | "hpdviolations" | "dobpermits" | "dobviolations";
+  analyticsName:
+    | "hpdcomplaints"
+    | "hpdviolations"
+    | "dobpermits"
+    | "dobviolations"
+    | "evictionfilings";
 
   /**
    * The localized name for a particular "quantity" of the dataset, e.g.
@@ -197,6 +202,55 @@ export const INDICATORS_DATASETS: IndicatorsDatasetMap = {
           official DOB page
         </a>
         .
+      </Trans>
+    ),
+  },
+  evictionfilings: {
+    name: (i18n) => i18n._(t`Eviction Filings`),
+    analyticsName: "evictionfilings",
+    quantity: (i18n, value) =>
+      isNaN(value)
+        ? i18n._(t`No Eviction Filings Data Available for Properties with Fewer than 11 Units`)
+        : i18n._(
+            plural({
+              value,
+              one: "One Eviction Filing since 2017",
+              other: "# Eviction Filings since 2017",
+            })
+          ),
+    yAxisLabel: (i18n) => i18n._(t`Eviction Filings`),
+    explanation: () => (
+      <Trans render="span">
+        An “eviction filing” is a legal case for eviction commenced by a landlord against a tenant
+        in Housing Court. Such a case can be commenced for nonpayment of rent (most commonly) or for
+        a violation of the lease (such as a nuisance). The eviction filings number only represents
+        cases filed in Housing Court (data from the New York State Office of Court Administration
+        <a
+          href="https://github.com/housing-data-coalition/oca"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          via the Housing Data Coalition
+        </a>{" "}
+        in collaboration with the{" "}
+        <a href="https://www.righttocounselnyc.org/" target="_blank" rel="noopener noreferrer">
+          Right to Counsel Coalition
+        </a>
+        ) and not evictions carried out by NYC Marshals.
+        <br />
+        If you or someone you know is facing eviction and want to learn more about your rights, head
+        over to{" "}
+        <a
+          href="https://housingcourtanswers.org/answers/for-tenants/housing-court-tenants/court-process/eviction-notice/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Housing Court Answers for more information
+        </a>
+        .
+        <br />
+        Due to privacy restrictions on the use of these data, eviction filings cannot be shown for
+        buildings with fewer than 11 units.
       </Trans>
     ),
   },

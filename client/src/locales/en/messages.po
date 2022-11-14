@@ -34,7 +34,7 @@ msgstr "(expired {formattedRegEndDate})"
 msgid "(expires {formattedRegEndDate})"
 msgstr "(expires {formattedRegEndDate})"
 
-#: src/components/BuildingStatsTable.tsx:125
+#: src/components/BuildingStatsTable.tsx:135
 msgid "(hover over a box to learn more)"
 msgstr "(hover over a box to learn more)"
 
@@ -88,7 +88,7 @@ msgid "APPLIANCE"
 msgstr "APPLIANCE"
 
 #: src/containers/AboutPage.tsx:13
-#: src/containers/App.tsx:91
+#: src/containers/App.tsx:94
 msgid "About"
 msgstr "About"
 
@@ -121,10 +121,14 @@ msgstr "All set! Thanks for subscribing!"
 msgid "All the public info on your landlord"
 msgstr "All the public info on your landlord"
 
-#: src/components/PropertiesList.tsx:372
-#: src/components/PropertiesList.tsx:380
+#: src/components/PropertiesList.tsx:381
+#: src/components/PropertiesList.tsx:389
 msgid "Amount"
 msgstr "Amount"
+
+#: src/components/IndicatorsDatasets.tsx:136
+msgid "An “eviction filing” is a legal case for eviction commenced by a landlord against a tenant in Housing Court. Such a case can be commenced for nonpayment of rent (most commonly) or for a violation of the lease (such as a nuisance). The eviction filings number only represents cases filed in Housing Court (data from the New York State Office of Court Administration<0>via the Housing Data Coalition</0> in collaboration with the <1>Right to Counsel Coalition</1>) and not evictions carried out by NYC Marshals.<2/>If you or someone you know is facing eviction and want to learn more about your rights, head over to <3>Housing Court Answers for more information</3>.<4/>Due to privacy restrictions on the use of these data, eviction filings cannot be shown for buildings with fewer than 11 units."
+msgstr "An “eviction filing” is a legal case for eviction commenced by a landlord against a tenant in Housing Court. Such a case can be commenced for nonpayment of rent (most commonly) or for a violation of the lease (such as a nuisance). The eviction filings number only represents cases filed in Housing Court (data from the New York State Office of Court Administration<0>via the Housing Data Coalition</0> in collaboration with the <1>Right to Counsel Coalition</1>) and not evictions carried out by NYC Marshals.<2/>If you or someone you know is facing eviction and want to learn more about your rights, head over to <3>Housing Court Answers for more information</3>.<4/>Due to privacy restrictions on the use of these data, eviction filings cannot be shown for buildings with fewer than 11 units."
 
 #: src/components/DetailView.tsx:261
 msgid "Are you having issues in this building?"
@@ -235,7 +239,7 @@ msgstr "Click here to learn more."
 
 #: src/components/DetailView.tsx:58
 #: src/components/FeatureCalloutWidget.tsx:60
-#: src/containers/App.tsx:164
+#: src/containers/App.tsx:167
 msgid "Close"
 msgstr "Close"
 
@@ -279,12 +283,12 @@ msgstr "DOOR/WINDOW"
 msgid "DOORS"
 msgstr "DOORS"
 
-#: src/components/PropertiesList.tsx:360
-#: src/components/PropertiesList.tsx:368
+#: src/components/PropertiesList.tsx:369
+#: src/components/PropertiesList.tsx:377
 msgid "Date"
 msgstr "Date"
 
-#: src/containers/App.tsx:113
+#: src/containers/App.tsx:116
 msgid "Demo Site"
 msgstr "Demo Site"
 
@@ -298,7 +302,7 @@ msgid "Display:"
 msgstr "Display:"
 
 #: src/components/LegalFooter.tsx:35
-#: src/containers/App.tsx:100
+#: src/containers/App.tsx:103
 msgid "Donate"
 msgstr "Donate"
 
@@ -334,12 +338,29 @@ msgstr "Enter an NYC address and find other buildings your landlord might own:"
 msgid "Enter email"
 msgstr "Enter email"
 
-#: src/components/BuildingStatsTable.tsx:71
-#: src/components/PropertiesList.tsx:291
+#: src/components/BuildingStatsTable.tsx:80
+#: src/components/IndicatorsDatasets.tsx:126
+#: src/components/IndicatorsDatasets.tsx:135
+#: src/components/IndicatorsViz.tsx:212
+msgid "Eviction Filings"
+msgstr "Eviction Filings"
+
+#: src/components/BuildingStatsTable.tsx:79
+msgid "Eviction cases filed in Housing Court since 2017. This data comes from the Office of Court Administration via the Housing Data Coalition."
+msgstr "Eviction cases filed in Housing Court since 2017. This data comes from the Office of Court Administration via the Housing Data Coalition."
+
 #: src/components/PropertiesSummary.tsx:123
 #: src/containers/NychaPage.tsx:87
 msgid "Evictions"
 msgstr "Evictions"
+
+#: src/components/BuildingStatsTable.tsx:71
+msgid "Evictions Executed"
+msgstr "Evictions Executed"
+
+#: src/components/PropertiesList.tsx:291
+msgid "Evictions Since 2017"
+msgstr "Evictions Since 2017"
 
 #: src/components/BuildingStatsTable.tsx:70
 msgid "Evictions executed by NYC Marshals since 2017. ANHD and the Housing Data Coalition cleaned, geocoded, and validated the data, originally sourced from DOI."
@@ -348,6 +369,11 @@ msgstr "Evictions executed by NYC Marshals since 2017. ANHD and the Housing Data
 #: src/containers/NychaPage.tsx:86
 msgid "Evictions executed in this development by NYC Marshals since 2017. ANHD and the Housing Data Coalition cleaned, geocoded, and validated the data, originally sourced from DOI."
 msgstr "Evictions executed in this development by NYC Marshals since 2017. ANHD and the Housing Data Coalition cleaned, geocoded, and validated the data, originally sourced from DOI."
+
+#: src/components/PropertiesList.tsx:304
+#: src/components/PropertiesList.tsx:309
+msgid "Executed"
+msgstr "Executed"
 
 #: src/components/AddressToolbar.tsx:30
 msgid "Export Data"
@@ -369,6 +395,15 @@ msgstr "FLOORING/STAIRS"
 msgid "Failure to register a building with HPD"
 msgstr "Failure to register a building with HPD"
 
+#: src/components/PropertiesList.tsx:295
+#: src/components/PropertiesList.tsx:300
+msgid "Filed"
+msgstr "Filed"
+
+#: src/components/PropertiesList.tsx:295
+#~ msgid "Filied"
+#~ msgstr "Filied"
+
 #: src/containers/HomePage.tsx:90
 msgid "Find other buildings your landlord might own:"
 msgstr "Find other buildings your landlord might own:"
@@ -377,8 +412,8 @@ msgstr "Find other buildings your landlord might own:"
 msgid "GARBAGE/RECYCLING STORAGE"
 msgstr "GARBAGE/RECYCLING STORAGE"
 
-#: src/components/PropertiesList.tsx:396
-#: src/components/PropertiesList.tsx:410
+#: src/components/PropertiesList.tsx:405
+#: src/components/PropertiesList.tsx:419
 msgid "Group Sale?"
 msgstr "Group Sale?"
 
@@ -424,7 +459,7 @@ msgstr "Head Officer"
 msgid "How is this building associated to this portfolio?"
 msgstr "How is this building associated to this portfolio?"
 
-#: src/containers/App.tsx:97
+#: src/containers/App.tsx:100
 #: src/containers/HowToUsePage.tsx:13
 msgid "How to use"
 msgstr "How to use"
@@ -481,7 +516,7 @@ msgstr "Known for <0>unscrupulously deregulating rent stabilized apartments</0>,
 msgid "LOCKS"
 msgstr "LOCKS"
 
-#: src/components/PropertiesList.tsx:305
+#: src/components/PropertiesList.tsx:314
 msgid "Landlord"
 msgstr "Landlord"
 
@@ -498,11 +533,11 @@ msgstr "Landlord, Portfolio, Tenant, Displacement, Map, JustFix, NYC, New York, 
 msgid "Last 3 Years"
 msgstr "Last 3 Years"
 
-#: src/components/PropertiesList.tsx:356
+#: src/components/PropertiesList.tsx:365
 msgid "Last Sale"
 msgstr "Last Sale"
 
-#: src/components/IndicatorsViz.tsx:376
+#: src/components/IndicatorsViz.tsx:387
 msgid "Last Sale Unknown"
 msgstr "Last Sale Unknown"
 
@@ -528,9 +563,9 @@ msgstr "Legend"
 msgid "Lessee"
 msgstr "Lessee"
 
-#: src/components/PropertiesList.tsx:383
-#: src/components/PropertiesList.tsx:388
 #: src/components/PropertiesList.tsx:392
+#: src/components/PropertiesList.tsx:397
+#: src/components/PropertiesList.tsx:401
 msgid "Link to Deed"
 msgstr "Link to Deed"
 
@@ -629,16 +664,20 @@ msgstr "New York Regional Office:"
 msgid "Next"
 msgstr "Next"
 
-#: src/components/PropertiesList.tsx:407
+#: src/components/PropertiesList.tsx:416
 msgid "No"
 msgstr "No"
+
+#: src/components/IndicatorsDatasets.tsx:129
+msgid "No Eviction Filings Data Available for Properties with Fewer than 11 Units"
+msgstr "No Eviction Filings Data Available for Properties with Fewer than 11 Units"
 
 #: src/containers/NotFoundPage.tsx:14
 #: src/containers/NotFoundPage.tsx:16
 msgid "No address found"
 msgstr "No address found"
 
-#: src/components/IndicatorsViz.tsx:430
+#: src/components/IndicatorsViz.tsx:441
 msgid "No data available"
 msgstr "No data available"
 
@@ -683,8 +722,8 @@ msgstr "OWNS"
 msgid "Officer"
 msgstr "Officer"
 
-#: src/components/PropertiesList.tsx:309
-#: src/components/PropertiesList.tsx:321
+#: src/components/PropertiesList.tsx:318
+#: src/components/PropertiesList.tsx:330
 msgid "Officer/Owner"
 msgstr "Officer/Owner"
 
@@ -765,7 +804,7 @@ msgstr "Privacy policy"
 msgid "Public Housing Development"
 msgstr "Public Housing Development"
 
-#: src/components/BuildingStatsTable.tsx:81
+#: src/components/BuildingStatsTable.tsx:90
 #: src/components/PropertiesList.tsx:200
 msgid "RS Units"
 msgstr "RS Units"
@@ -798,7 +837,7 @@ msgstr "SIGNAGE MISSING"
 msgid "STAIRS"
 msgstr "STAIRS"
 
-#: src/containers/App.tsx:83
+#: src/containers/App.tsx:86
 msgid "Search"
 msgstr "Search"
 
@@ -827,15 +866,15 @@ msgstr "See the most common complaints reported by tenants to 311, now on the Ov
 msgid "Send us a data request"
 msgstr "Send us a data request"
 
-#: src/containers/App.tsx:121
-#: src/containers/App.tsx:132
+#: src/containers/App.tsx:124
+#: src/containers/App.tsx:135
 msgid "Share"
 msgstr "Share"
 
 #: src/components/DetailView.tsx:270
 #: src/components/EngagementPanel.tsx:18
 #: src/components/PropertiesSummary.tsx:140
-#: src/containers/App.tsx:142
+#: src/containers/App.tsx:145
 #: src/containers/NotRegisteredPage.tsx:18
 msgid "Share this page with your neighbors"
 msgstr "Share this page with your neighbors"
@@ -854,12 +893,16 @@ msgstr "Sign up for email updates"
 
 #: src/components/PropertiesList.tsx:295
 #: src/components/PropertiesList.tsx:300
-msgid "Since 2017"
-msgstr "Since 2017"
+#~ msgid "Since 2017"
+#~ msgstr "Since 2017"
 
 #: src/components/EvictionsSummary.tsx:8
-msgid "Since 2017, NYC Marshals executed {totalEvictions, plural, one {one eviction} other {# evictions}} across this portfolio."
-msgstr "Since 2017, NYC Marshals executed {totalEvictions, plural, one {one eviction} other {# evictions}} across this portfolio."
+#~ msgid "Since 2017, NYC Marshals executed {totalEvictions, plural, one {one eviction} other {# evictions}} across this portfolio."
+#~ msgstr "Since 2017, NYC Marshals executed {totalEvictions, plural, one {one eviction} other {# evictions}} across this portfolio."
+
+#: src/components/EvictionsSummary.tsx:11
+msgid "Since 2017, landlords filed {totalEvictionFilings, plural, one {one eviction case} other {# eviction cases}} and NYC Marshals executed {totalEvictions, plural, one {one eviction} other {# evictions}} across this portfolio."
+msgstr "Since 2017, landlords filed {totalEvictionFilings, plural, one {one eviction case} other {# eviction cases}} and NYC Marshals executed {totalEvictions, plural, one {one eviction} other {# evictions}} across this portfolio."
 
 #: src/components/PropertiesList.tsx:24
 msgid "Since {year}"
@@ -869,7 +912,7 @@ msgstr "Since {year}"
 msgid "Site Manager"
 msgstr "Site Manager"
 
-#: src/components/IndicatorsViz.tsx:375
+#: src/components/IndicatorsViz.tsx:386
 msgid "Sold to Current Owner"
 msgstr "Sold to Current Owner"
 
@@ -914,7 +957,7 @@ msgstr "TENANT HARASSMENT"
 msgid "Take action on JustFix.org!"
 msgstr "Take action on JustFix.org!"
 
-#: src/components/PropertiesList.tsx:329
+#: src/components/PropertiesList.tsx:338
 msgid "Tax Exemptions"
 msgstr "Tax Exemptions"
 
@@ -935,9 +978,17 @@ msgstr "The NYCHA office overseeing your borough. Some experts suggest reaching 
 msgid "The building that has lost the most units is <0>{0} {1}, {2}</0>, which has lost <1>{absRsLossAddrDiff}</1> {absRsLossAddrDiff, plural, one {unit} other {units}} in the past 10 years."
 msgstr "The building that has lost the most units is <0>{0} {1}, {2}</0>, which has lost <1>{absRsLossAddrDiff}</1> {absRsLossAddrDiff, plural, one {unit} other {units}} in the past 10 years."
 
+#: src/components/EvictionsSummary.tsx:18
+msgid "The building with the most eviction cases filed is <0>{0} {1}, {2}</0> with {buildingTotalEvictionFilings, plural, one {one filing} other {# filings}}."
+msgstr "The building with the most eviction cases filed is <0>{0} {1}, {2}</0> with {buildingTotalEvictionFilings, plural, one {one filing} other {# filings}}."
+
 #: src/components/EvictionsSummary.tsx:13
-msgid "The building with the most evictions is <0>{0} {1}, {2}</0> with {buildingTotalEvictions, plural, one {one eviction} other {# evictions}}."
-msgstr "The building with the most evictions is <0>{0} {1}, {2}</0> with {buildingTotalEvictions, plural, one {one eviction} other {# evictions}}."
+#~ msgid "The building with the most evictions is <0>{0} {1}, {2}</0> with {buildingTotalEvictions, plural, one {one eviction} other {# evictions}}."
+#~ msgstr "The building with the most evictions is <0>{0} {1}, {2}</0> with {buildingTotalEvictions, plural, one {one eviction} other {# evictions}}."
+
+#: src/components/EvictionsSummary.tsx:26
+msgid "The building with the most executed evictions is <0>{0} {1}, {2}</0> with {buildingTotalEvictions, plural, one {one eviction} other {# evictions}}."
+msgstr "The building with the most executed evictions is <0>{0} {1}, {2}</0> with {buildingTotalEvictions, plural, one {one eviction} other {# evictions}}."
 
 #: src/containers/NychaPage.tsx:78
 msgid "The city borough where your search address is located"
@@ -1035,7 +1086,7 @@ msgstr "This represents <0>{0}%</0> of the total size of this portfolio."
 msgid "This represents the total number of HPD Violations (both open & closed) recorded by the city."
 msgstr "This represents the total number of HPD Violations (both open & closed) recorded by the city."
 
-#: src/components/BuildingStatsTable.tsx:79
+#: src/components/BuildingStatsTable.tsx:88
 msgid "This tracks how rent stabilized units in the building have changed (i.e. \"{delta}\") from 2007 to {0}. If the number for {1} is red, this means there has been a loss in stabilzied units! These counts are estimated from the DOF Property Tax Bills."
 msgstr "This tracks how rent stabilized units in the building have changed (i.e. \"{delta}\") from 2007 to {0}. If the number for {1} is red, this means there has been a loss in stabilzied units! These counts are estimated from the DOF Property Tax Bills."
 
@@ -1052,7 +1103,7 @@ msgstr "Timeline"
 msgid "Top Complaint"
 msgstr "Top Complaint"
 
-#: src/components/IndicatorsViz.tsx:338
+#: src/components/IndicatorsViz.tsx:349
 #: src/components/PropertiesList.tsx:232
 #: src/components/PropertiesList.tsx:237
 #: src/components/PropertiesList.tsx:281
@@ -1109,9 +1160,9 @@ msgstr "View by:"
 msgid "View data over time ↗︎"
 msgstr "View data over time ↗︎"
 
-#: src/components/PropertiesList.tsx:416
-#: src/components/PropertiesList.tsx:422
-#: src/components/PropertiesList.tsx:430
+#: src/components/PropertiesList.tsx:425
+#: src/components/PropertiesList.tsx:431
+#: src/components/PropertiesList.tsx:439
 msgid "View detail"
 msgstr "View detail"
 
@@ -1199,14 +1250,14 @@ msgstr "When two parties share the same business address, we group them as part 
 msgid "Who Owns What is a free tool built by JustFix to research property owners in NYC. It has helped over 200,000 New Yorkers find out who really owns their building, what other buildings that their landlord or management company owns, and other critical information about code violations, evictions, rent stabilized units, and so much more in any given building. You can look up any residential building located in NYC, even public housing (NYCHA) buildings! Search your address here: {url}"
 msgstr "Who Owns What is a free tool built by JustFix to research property owners in NYC. It has helped over 200,000 New Yorkers find out who really owns their building, what other buildings that their landlord or management company owns, and other critical information about code violations, evictions, rent stabilized units, and so much more in any given building. You can look up any residential building located in NYC, even public housing (NYCHA) buildings! Search your address here: {url}"
 
-#: src/containers/App.tsx:38
+#: src/containers/App.tsx:41
 msgid "Who owns what in n y c?"
 msgstr "Who owns what in n y c?"
 
 #: src/components/Page.tsx:10
-#: src/components/Page.tsx:20
 #: src/components/Page.tsx:21
-#: src/containers/App.tsx:33
+#: src/components/Page.tsx:22
+#: src/containers/App.tsx:36
 msgid "Who owns what in nyc?"
 msgstr "Who owns what in nyc?"
 
@@ -1227,15 +1278,15 @@ msgstr "Why am I seeing such a big portfolio?"
 msgid "Year Built"
 msgstr "Year Built"
 
-#: src/components/PropertiesList.tsx:406
+#: src/components/PropertiesList.tsx:415
 msgid "Yes"
 msgstr "Yes"
 
-#: src/containers/App.tsx:161
+#: src/containers/App.tsx:164
 msgid "You are viewing the new version of Who Owns What."
 msgstr "You are viewing the new version of Who Owns What."
 
-#: src/containers/App.tsx:161
+#: src/containers/App.tsx:164
 msgid "You are viewing the old version of Who Owns What."
 msgstr "You are viewing the old version of Who Owns What."
 
@@ -1299,6 +1350,10 @@ msgstr "{value, plural, one {One Building Permit Application since 2010} other {
 #: src/components/IndicatorsDatasets.tsx:92
 msgid "{value, plural, one {One DOB/ECB Violation Issued since 2010} other {# DOB/ECB Violations Issued since 2010}}"
 msgstr "{value, plural, one {One DOB/ECB Violation Issued since 2010} other {# DOB/ECB Violations Issued since 2010}}"
+
+#: src/components/IndicatorsDatasets.tsx:130
+msgid "{value, plural, one {One Eviction Filing since 2017} other {# Eviction Filings since 2017}}"
+msgstr "{value, plural, one {One Eviction Filing since 2017} other {# Eviction Filings since 2017}}"
 
 #: src/components/IndicatorsDatasets.tsx:9
 msgid "{value, plural, one {One HPD Complaint Issued since 2014} other {# HPD Complaints Issued since 2014}}"
