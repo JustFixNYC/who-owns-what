@@ -89,7 +89,7 @@ select distinct on (registrations.bbl)
   firstdeeds.docamount as lastsaleamount,
   case
     when coalesce(pluto.unitsres, 0) < 11 then NULL
-    else coalesce(oca.eviction_filings_since_2017, 0) 
+    else coalesce(eviction_filings_since_2017, 0) 
   end as evictionfilings
 from hpd_registrations_with_contacts as registrations
 left join (
@@ -106,7 +106,7 @@ left join (
     yearbuilt,
     latitude as lat,
     longitude as lng
-  from pluto_20v8
+  from pluto_latest
 ) pluto on (registrations.bbl = pluto.bbl)
 left join (
   select

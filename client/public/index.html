@@ -23,6 +23,15 @@
     -->
 
     <!-- 
+      Facebook Pixel Domain Verification.
+      Facebook scraping tool used to verify is not navigating the location
+      redirect (.org to .org/en) so adding it here as well. Once we get to the
+      bottom of the verification we can clean this up so it isn't duplicated
+      here and in Page.tsx  
+    -->
+    <meta name="facebook-domain-verification" content="o2zqsblxwru6hs8nojpihj5l7lacv4" />
+
+    <!-- 
       Google Tag Manager
        
       Note that we insert the GTM script tag from JS to ensure that
@@ -31,8 +40,11 @@
     -->
     <meta name="jf-gtm-id" content="GTM-NMPT5JP">
     <script>
-      window.dataLayer = window.dataLayer || [];
-      window.dataLayer.push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+      (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+      })(window,document,'script','dataLayer','GTM-NMPT5JP');
     </script>
     <!-- End Google Tag Manager -->
 

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Switch, Route, useLocation } from "react-router-dom";
 import { Trans, t } from "@lingui/macro";
 
@@ -9,6 +9,7 @@ import SocialShare from "../components/SocialShare";
 import Modal from "../components/Modal";
 import FeatureCalloutWidget from "../components/FeatureCalloutWidget";
 import classnames from "classnames";
+import browser from "util/browser";
 
 // import top-level containers (i.e. pages)
 import {
@@ -42,6 +43,8 @@ import {
   WowzaRedirectPage,
 } from "components/WowzaToggle";
 import { logAmplitudeEvent } from "../components/Amplitude";
+import { SliderButton } from "@typeform/embed-react";
+import { StickyModal } from "components/StickyModal";
 
 const HomeLink = withI18n()((props: withI18nProps) => {
   const { i18n } = props;
@@ -146,8 +149,13 @@ const WhoOwnsWhatRoutes: React.FC<{}> = () => {
           />
         )}
       />
-      <Route path={paths.bblSeparatedIntoParts} component={BBLPage} />
       <Route path={paths.legacy.bbl} component={BBLPage} />
+      <Route
+        path={paths.bblSeparatedIntoParts}
+        render={(props) => (
+          <BBLPage {...props} useNewPortfolioMethod={allowChangingPortfolioMethod} />
+        )}
+      />
       <Route
         path={paths.bbl}
         render={(props) => (
@@ -309,6 +317,23 @@ const App = () => {
   const version = process.env.REACT_APP_VERSION;
   const allowChangingPortfolioMethod =
     process.env.REACT_APP_ENABLE_NEW_WOWZA_PORTFOLIO_MAPPING === "1";
+  const surveyId = process.env.REACT_APP_WOAU_SURVEY_ID;
+
+  const [surveyCookie, setSurveyCookie] = useState(
+    browser.getCookieValue(browser.WOAU_COOKIE_NAME)
+  );
+
+  useEffect(() => {
+    if (surveyCookie) {
+      browser.setCookie(browser.WOAU_COOKIE_NAME, surveyCookie, 30);
+    }
+  }, [surveyCookie]);
+
+  // On submission or close set the cookie to "2" to hide the button permanently
+  const hideSurveyButton = () => setSurveyCookie("2");
+  // If the survey has not been submitted (cookie == "0"), set cookie to "1"
+  const closeSurvey = () => !surveyCookie && setSurveyCookie("1");
+
   return (
     <Router>
       <I18n>
@@ -324,6 +349,26 @@ const App = () => {
             {allowChangingPortfolioMethod && <WowzaBanner />}
             <Navbar />
             <AppBody />
+            {surveyId && surveyCookie !== "2" && (
+              <StickyModal
+                label={"Help us build tenant power in NYC!"}
+                verticalPosition="bottom"
+                horizontalPosition="right"
+                onClose={hideSurveyButton}
+              >
+                <SliderButton
+                  id={surveyId}
+                  redirectTarget="_self"
+                  open={surveyCookie ? undefined : "time"}
+                  openValue={surveyCookie ? undefined : 5000}
+                  className="waou-survey-button"
+                  onClose={closeSurvey}
+                  onSubmit={hideSurveyButton}
+                >
+                  Take our short survey
+                </SliderButton>
+              </StickyModal>
+            )}
           </div>
         </ScrollToTop>
       </I18n>

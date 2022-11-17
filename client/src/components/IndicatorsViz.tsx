@@ -264,6 +264,17 @@ class IndicatorsVizImplementation extends Component<IndicatorVizImplementationPr
           },
         ];
         break;
+      case "evictionfilings":
+        datasets = [
+          {
+            label: i18n._(t`Eviction Filings`),
+            data: this.groupData(timelineData.evictionfilings.values.total) || [],
+            backgroundColor: "rgba(227,74,51, 0.6)",
+            borderColor: "rgba(227,74,51,1)",
+            borderWidth: 1,
+          },
+        ];
+        break;
       default:
         datasets = [];
         break;

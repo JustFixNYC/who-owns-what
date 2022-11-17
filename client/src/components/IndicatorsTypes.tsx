@@ -13,6 +13,7 @@ export const indicatorsDatasetIds = [
   "hpdviolations",
   "dobpermits",
   "dobviolations",
+  "evictionfilings",
 ] as const;
 export type IndicatorsDatasetId = typeof indicatorsDatasetIds[number];
 
@@ -70,6 +71,12 @@ interface DobViolationsData extends IndicatorsData {
   };
 }
 
+interface EvictionFilingsData extends IndicatorsData {
+  values: {
+    total: number[] | null;
+  };
+}
+
 export type IndicatorsDataIndex = {
   [k in IndicatorsDatasetId]: IndicatorsData;
 };
@@ -79,6 +86,7 @@ export type IndicatorsDataFromAPI = IndicatorsDataIndex & {
   hpdcomplaints: HpdComplaintsData;
   dobpermits: DobPermitsData;
   dobviolations: DobViolationsData;
+  evictionfilings: EvictionFilingsData;
 };
 
 export const indicatorsInitialDataStructure: IndicatorsDataFromAPI = {
@@ -114,6 +122,13 @@ export const indicatorsInitialDataStructure: IndicatorsDataFromAPI = {
     values: {
       regular: null,
       ecb: null,
+      total: null,
+    },
+  },
+
+  evictionfilings: {
+    labels: null,
+    values: {
       total: null,
     },
   },
