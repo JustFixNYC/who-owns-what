@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2022-05-03 22:14\n"
+"PO-Revision-Date: 2022-11-17 18:56\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -133,11 +133,7 @@ msgstr "Importe"
 
 #: src/components/IndicatorsDatasets.tsx:136
 msgid "An “eviction filing” is a legal case for eviction commenced by a landlord against a tenant in Housing Court. Such a case can be commenced for nonpayment of rent (most commonly) or for a violation of the lease (such as a nuisance). The eviction filings number only represents cases filed in Housing Court (data from the New York State Office of Court Administration <0>via the Housing Data Coalition</0> in collaboration with the <1>Right to Counsel Coalition</1>) and not evictions carried out by NYC Marshals.<2/>If you or someone you know is facing eviction and want to learn more about your rights, head over to <3>Housing Court Answers for more information</3>.<4/>Due to privacy restrictions on the use of these data, eviction filings cannot be shown for buildings with fewer than 11 units."
-msgstr ""
-
-#: src/components/IndicatorsDatasets.tsx:136
-#~ msgid "An “eviction filing” is a legal case for eviction commenced by a landlord against a tenant in Housing Court. Such a case can be commenced for nonpayment of rent (most commonly) or for a violation of the lease (such as a nuisance). The eviction filings number only represents cases filed in Housing Court (data from the New York State Office of Court Administration<0>via the Housing Data Coalition</0> in collaboration with the <1>Right to Counsel Coalition</1>) and not evictions carried out by NYC Marshals.<2/>If you or someone you know is facing eviction and want to learn more about your rights, head over to <3>Housing Court Answers for more information</3>.<4/>Due to privacy restrictions on the use of these data, eviction filings cannot be shown for buildings with fewer than 11 units."
-#~ msgstr ""
+msgstr "Una \"demanda de desalojo\" es un caso legal de desalojo iniciado por un dueño contra un inquilino en la Corte de Vivienda. Este caso puede iniciarse por falta de pago de la renta (lo más común) o por una violación del contrato de alquiler (como una molestia). La cifra de desalojos sólo representa los casos presentados ante la Corte de Vivienda (datos de la Oficina de Administración de la Corte del Estado de Nueva York <0>a través de la Coalición de Datos de Vivienda</0> en colaboración con la <1>Coalición del Derecho a la Defensa o RTC</1>) y no los desalojos llevados a cabo por los Alguaciles de la Ciudad de Nueva York.<2/>Si usted o alguien que conoce se enfrenta a un desalojo y quiere saber más sobre sus derechos, diríjase a <3>Housing Court Answers para obtener más información</3>.<4/>Debido a las restricciones de privacidad en el uso de estos datos, no se pueden mostrar los desalojos de edificios con menos de 11 unidades."
 
 #: src/components/DetailView.tsx:261
 msgid "Are you having issues in this building?"
@@ -352,11 +348,11 @@ msgstr "Introducir email"
 #: src/components/IndicatorsDatasets.tsx:135
 #: src/components/IndicatorsViz.tsx:212
 msgid "Eviction Filings"
-msgstr ""
+msgstr "Demandas de desalojo"
 
 #: src/components/BuildingStatsTable.tsx:79
 msgid "Eviction cases filed in Housing Court since 2017. This data comes from the Office of Court Administration via the Housing Data Coalition."
-msgstr ""
+msgstr "Casos de desalojo presentados en la Corte de Vivienda desde 2017. Estos datos proceden de la Oficina de Administración Judicial a través del la Coalición de Datos de Vivienda."
 
 #: src/components/PropertiesSummary.tsx:123
 #: src/containers/NychaPage.tsx:87
@@ -365,11 +361,11 @@ msgstr "Desalojos"
 
 #: src/components/BuildingStatsTable.tsx:71
 msgid "Evictions Executed"
-msgstr ""
+msgstr "Desalojos ejecutados"
 
 #: src/components/PropertiesList.tsx:291
 msgid "Evictions Since 2017"
-msgstr ""
+msgstr "Desalojos desde 2017"
 
 #: src/components/BuildingStatsTable.tsx:70
 msgid "Evictions executed by NYC Marshals since 2017. ANHD and the Housing Data Coalition cleaned, geocoded, and validated the data, originally sourced from DOI."
@@ -382,7 +378,7 @@ msgstr "Desalojos ejecutados en este complejo por el Mariscal de NYC desde el 20
 #: src/components/PropertiesList.tsx:304
 #: src/components/PropertiesList.tsx:309
 msgid "Executed"
-msgstr ""
+msgstr "Ejecutado"
 
 #: src/components/AddressToolbar.tsx:30
 msgid "Export Data"
@@ -407,11 +403,7 @@ msgstr "Si no se registra un edificio con el HPD"
 #: src/components/PropertiesList.tsx:295
 #: src/components/PropertiesList.tsx:300
 msgid "Filed"
-msgstr ""
-
-#: src/components/PropertiesList.tsx:295
-#~ msgid "Filied"
-#~ msgstr ""
+msgstr "Presentado"
 
 #: src/containers/HomePage.tsx:90
 msgid "Find other buildings your landlord might own:"
@@ -679,7 +671,7 @@ msgstr "No"
 
 #: src/components/IndicatorsDatasets.tsx:129
 msgid "No Eviction Filings Data Available for Properties with Fewer than 11 Units"
-msgstr ""
+msgstr "No hay datos disponibles de demandas de desalojos en propiedades con menos de 11 unidades"
 
 #: src/containers/NotFoundPage.tsx:14
 #: src/containers/NotFoundPage.tsx:16
@@ -1362,7 +1354,7 @@ msgstr "{value, plural, one {Una Violación del DOB/ECB emitida desde el 2010} o
 
 #: src/components/IndicatorsDatasets.tsx:130
 msgid "{value, plural, one {One Eviction Filing since 2017} other {# Eviction Filings since 2017}}"
-msgstr ""
+msgstr "{value, plural, one {Una demanda de desalojo desde 2017} other {# Demandas de desalojo desde 2017}}"
 
 #: src/components/IndicatorsDatasets.tsx:9
 msgid "{value, plural, one {One HPD Complaint Issued since 2014} other {# HPD Complaints Issued since 2014}}"
@@ -1371,3 +1363,4 @@ msgstr "{value, plural, one {Una Queja del HPD emitida desde el 2014} other {# Q
 #: src/components/IndicatorsDatasets.tsx:37
 msgid "{value, plural, one {One HPD Violation Issued since 2010} other {# HPD Violations Issued since 2010}}"
 msgstr "{value, plural, one {Una Violación del HPD emitida desde el 2010} other {# Violaciones del HPD emitidas desde el 2010}}"
+
