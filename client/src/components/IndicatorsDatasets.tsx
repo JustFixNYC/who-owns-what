@@ -224,7 +224,7 @@ export const INDICATORS_DATASETS: IndicatorsDatasetMap = {
         An “eviction filing” is a legal case for eviction commenced by a landlord against a tenant
         in Housing Court. Such a case can be commenced for nonpayment of rent (most commonly) or for
         a violation of the lease (such as a nuisance). The eviction filings number only represents
-        cases filed in Housing Court (data from the New York State Office of Court Administration
+        cases filed in Housing Court (data from the New York State Office of Court Administration{" "}
         <a
           href="https://github.com/housing-data-coalition/oca"
           target="_blank"
