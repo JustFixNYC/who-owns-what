@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2022-11-17 18:56\n"
+"PO-Revision-Date: 2022-11-17 23:53\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -134,6 +134,10 @@ msgstr "Importe"
 #: src/components/IndicatorsDatasets.tsx:136
 msgid "An “eviction filing” is a legal case for eviction commenced by a landlord against a tenant in Housing Court. Such a case can be commenced for nonpayment of rent (most commonly) or for a violation of the lease (such as a nuisance). The eviction filings number only represents cases filed in Housing Court (data from the New York State Office of Court Administration <0>via the Housing Data Coalition</0> in collaboration with the <1>Right to Counsel Coalition</1>) and not evictions carried out by NYC Marshals.<2/>If you or someone you know is facing eviction and want to learn more about your rights, head over to <3>Housing Court Answers for more information</3>.<4/>Due to privacy restrictions on the use of these data, eviction filings cannot be shown for buildings with fewer than 11 units."
 msgstr "Una \"demanda de desalojo\" es un caso legal de desalojo iniciado por un dueño contra un inquilino en la Corte de Vivienda. Este caso puede iniciarse por falta de pago de la renta (lo más común) o por una violación del contrato de alquiler (como una molestia). La cifra de desalojos sólo representa los casos presentados ante la Corte de Vivienda (datos de la Oficina de Administración de la Corte del Estado de Nueva York <0>a través de la Coalición de Datos de Vivienda</0> en colaboración con la <1>Coalición del Derecho a la Defensa o RTC</1>) y no los desalojos llevados a cabo por los Alguaciles de la Ciudad de Nueva York.<2/>Si usted o alguien que conoce se enfrenta a un desalojo y quiere saber más sobre sus derechos, diríjase a <3>Housing Court Answers para obtener más información</3>.<4/>Debido a las restricciones de privacidad en el uso de estos datos, no se pueden mostrar los desalojos de edificios con menos de 11 unidades."
+
+#: src/components/IndicatorsDatasets.tsx:136
+#~ msgid "An “eviction filing” is a legal case for eviction commenced by a landlord against a tenant in Housing Court. Such a case can be commenced for nonpayment of rent (most commonly) or for a violation of the lease (such as a nuisance). The eviction filings number only represents cases filed in Housing Court (data from the New York State Office of Court Administration<0>via the Housing Data Coalition</0> in collaboration with the <1>Right to Counsel Coalition</1>) and not evictions carried out by NYC Marshals.<2/>If you or someone you know is facing eviction and want to learn more about your rights, head over to <3>Housing Court Answers for more information</3>.<4/>Due to privacy restrictions on the use of these data, eviction filings cannot be shown for buildings with fewer than 11 units."
+#~ msgstr "An “eviction filing” is a legal case for eviction commenced by a landlord against a tenant in Housing Court. Such a case can be commenced for nonpayment of rent (most commonly) or for a violation of the lease (such as a nuisance). The eviction filings number only represents cases filed in Housing Court (data from the New York State Office of Court Administration<0>via the Housing Data Coalition</0> in collaboration with the <1>Right to Counsel Coalition</1>) and not evictions carried out by NYC Marshals.<2/>If you or someone you know is facing eviction and want to learn more about your rights, head over to <3>Housing Court Answers for more information</3>.<4/>Due to privacy restrictions on the use of these data, eviction filings cannot be shown for buildings with fewer than 11 units."
 
 #: src/components/DetailView.tsx:261
 msgid "Are you having issues in this building?"
@@ -404,6 +408,10 @@ msgstr "Si no se registra un edificio con el HPD"
 #: src/components/PropertiesList.tsx:300
 msgid "Filed"
 msgstr "Presentado"
+
+#: src/components/PropertiesList.tsx:295
+#~ msgid "Filied"
+#~ msgstr "Filied"
 
 #: src/containers/HomePage.tsx:90
 msgid "Find other buildings your landlord might own:"
@@ -895,15 +903,15 @@ msgstr "Regístrate para recibir noticias por email"
 #: src/components/PropertiesList.tsx:295
 #: src/components/PropertiesList.tsx:300
 #~ msgid "Since 2017"
-#~ msgstr "Desde 2017"
+#~ msgstr "Since 2017"
 
 #: src/components/EvictionsSummary.tsx:8
 #~ msgid "Since 2017, NYC Marshals executed {totalEvictions, plural, one {one eviction} other {# evictions}} across this portfolio."
-#~ msgstr "Desde el 2017, los Mariscales de NYC ejecutaron {totalEvictions, plural, one {un desalojo} other {# desalojos}} en este portafolio de edificios."
+#~ msgstr "Since 2017, NYC Marshals executed {totalEvictions, plural, one {one eviction} other {# evictions}} across this portfolio."
 
 #: src/components/EvictionsSummary.tsx:11
 msgid "Since 2017, landlords filed {totalEvictionFilings, plural, one {one eviction case} other {# eviction cases}} and NYC Marshals executed {totalEvictions, plural, one {one eviction} other {# evictions}} across this portfolio."
-msgstr ""
+msgstr "Desde 2017, los dueños presentaron {totalEvictionFilings, plural, one {un caso de desalojo} other {# casos de desalojo}} y los alguaciles de la ciudad de Nueva York ejecutaron {totalEvictions, plural, one {un desalojo} other {# desalojos}} en toda esta cartera."
 
 #: src/components/PropertiesList.tsx:24
 msgid "Since {year}"
@@ -981,15 +989,15 @@ msgstr "El edificio con la major pérdida de unidades residencial de renta estab
 
 #: src/components/EvictionsSummary.tsx:18
 msgid "The building with the most eviction cases filed is <0>{0} {1}, {2}</0> with {buildingTotalEvictionFilings, plural, one {one filing} other {# filings}}."
-msgstr ""
+msgstr "El edificio con más casos de desalojo presentados es <0>{0} {1}, {2}</0> con {buildingTotalEvictionFilings, plural, one {una presentación} other {# presentaciones}}."
 
 #: src/components/EvictionsSummary.tsx:13
 #~ msgid "The building with the most evictions is <0>{0} {1}, {2}</0> with {buildingTotalEvictions, plural, one {one eviction} other {# evictions}}."
-#~ msgstr "El edificio con la major cantidad de desalojos es <0>{0} {1}, {2}</0> con {buildingTotalEvictions, plural, one {un desalojo} other {# desalojos}}."
+#~ msgstr "The building with the most evictions is <0>{0} {1}, {2}</0> with {buildingTotalEvictions, plural, one {one eviction} other {# evictions}}."
 
 #: src/components/EvictionsSummary.tsx:26
 msgid "The building with the most executed evictions is <0>{0} {1}, {2}</0> with {buildingTotalEvictions, plural, one {one eviction} other {# evictions}}."
-msgstr ""
+msgstr "El edificio con más desalojos ejecutados es <0>{0} {1}, {2}</0> con {buildingTotalEvictions, plural, one {un desalojo} other {# desalojos}}."
 
 #: src/containers/NychaPage.tsx:78
 msgid "The city borough where your search address is located"
