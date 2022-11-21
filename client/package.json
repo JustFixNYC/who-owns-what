@@ -74,8 +74,6 @@
     "react-router-dom": "^5.1.2",
     "react-scripts": "^4.0.3",
     "react-social": "^1.10.0",
-    "react-table": "^6.5.3",
-    "react-table-hoc-fixed-columns": "^2.3.3",
     "react-transition-group": "^2.2.1",
     "rollbar": "^2.14.4",
     "spectre.scss": "0.0.2",
