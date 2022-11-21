@@ -322,6 +322,7 @@ const App = () => {
   const [surveyCookie, setSurveyCookie] = useState(
     browser.getCookieValue(browser.WOAU_COOKIE_NAME)
   );
+  let surveySubmitted = surveyCookie === "2";
 
   useEffect(() => {
     if (surveyCookie) {
@@ -331,8 +332,15 @@ const App = () => {
 
   // On submission or close set the cookie to "2" to hide the button permanently
   const hideSurveyButton = () => setSurveyCookie("2");
-  // If the survey has not been submitted (cookie == "0"), set cookie to "1"
-  const closeSurvey = () => !surveyCookie && setSurveyCookie("1");
+  // If the survey has never been submitted (cookie == "0"), set cookie to "1"
+  // If the survey has just been submitted, set the cookie to "2"
+  const closeSurvey = () => {
+    if (surveySubmitted) {
+      setSurveyCookie("2");
+    } else if (!surveyCookie) {
+      setSurveyCookie("1");
+    }
+  }
 
   return (
     <Router>
@@ -363,7 +371,7 @@ const App = () => {
                   openValue={surveyCookie ? undefined : 5000}
                   className="waou-survey-button"
                   onClose={closeSurvey}
-                  onSubmit={hideSurveyButton}
+                  onSubmit={() => surveySubmitted = true}
                 >
                   Take our short survey
                 </SliderButton>
