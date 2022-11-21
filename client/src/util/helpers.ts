@@ -277,7 +277,7 @@ export default {
 
   formatStreetNameForHpdLink(streetName: string): string {
     var arr = streetName.split(" ");
-    if (arr === []) {
+    if (Array.isArray(arr) && !arr.length) {
       return "";
     }
     // Reformat street name directional prefix

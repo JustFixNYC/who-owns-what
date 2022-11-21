@@ -124,7 +124,11 @@ const friendlyFetch: typeof fetch = async (input, init) => {
   try {
     response = await fetch(input, init);
   } catch (e) {
-    throw new NetworkError(e.message);
+    if (e instanceof Error) {
+      throw new NetworkError(e.message);
+    } else {
+      throw new Error("Unexpected error");
+    }
   }
   if (!response.ok) {
     throw new HTTPError(response);
@@ -153,7 +157,11 @@ async function getApiJson(url: string): Promise<any> {
   try {
     return await res.json();
   } catch (e) {
-    throw new NetworkError(e.message);
+    if (e instanceof Error) {
+      throw new NetworkError(e.message);
+    } else {
+      throw new Error("Unexpected error");
+    }
   }
 }
 

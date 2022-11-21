@@ -20,6 +20,8 @@ type Props = withMachineInStateProps<"portfolioFound"> & {
   isVisible: boolean;
 };
 
+const isRentStab = (addrs: AddressRecord): boolean => !!addrs.rsunitslatest;
+
 type State = {
   mapLoading: boolean;
   hasWebGLContext: boolean;
@@ -27,6 +29,8 @@ type State = {
   mobileLegendSlide: boolean;
   addrsBounds: FitBounds;
   addrsPoints: JSX.Element[];
+  filterFn: (addrs: AddressRecord) => boolean;
+  filterIsOn: boolean;
   mapProps: MapboxMapProps & MapboxMapEvents;
 };
 
@@ -72,6 +76,7 @@ const DYNAMIC_ASSOC_PAINT = {
     stops: [
       ["base", "#FF9800"],
       ["search", "#FF5722"],
+      ["highlight", "#32B643"],
     ],
   },
 };
@@ -101,6 +106,8 @@ export default class PropertiesMap extends Component<Props, State> {
       mobileLegendSlide: false,
       addrsBounds: DEFAULT_FIT_BOUNDS, // bounds are represented as a 2d array of lnglats
       addrsPoints: [], // array of Features
+      filterFn: isRentStab,
+      filterIsOn: false,
       mapProps: {
         onStyleLoad: (map, _) => this.setState({ mapLoading: false, mapRef: map }),
         onMouseMove: (map, e) => this.handleMouseMove(map, e),
@@ -110,39 +117,8 @@ export default class PropertiesMap extends Component<Props, State> {
   }
 
   componentDidMount() {
-    let addrsPos = new Set();
-    let newAssocAddrs: JSX.Element[] = [];
 
-    const { assocAddrs, searchAddr } = this.props.state.context.portfolioData;
-
-    // cycle through addrs, adding them to the set and categorizing them
-    assocAddrs.forEach((addr, i) => {
-      const pos: LatLng = [addr.lng || NaN, addr.lat || NaN];
-
-      if (!MapHelpers.latLngIsNull(pos)) {
-        addrsPos.add(pos);
-
-        // presuming that nextProps.userAddr is in sync with nextProps.addrs
-        if (Helpers.addrsAreEqual(addr, searchAddr)) {
-          addr.mapType = "search";
-        } else {
-          addr.mapType = "base";
-        }
-      }
-
-      // push a new Feature for the map
-      newAssocAddrs.push(
-        <Feature
-          key={i}
-          coordinates={pos}
-          properties={{ mapType: addr.mapType }}
-          onClick={(e) => this.handleAddrSelect(addr, e)}
-        />
-      );
-    });
-    // see getBoundingBox() for deets
-    const pointsArray = Array.from(addrsPos) as LatLng[];
-    const newAddrsBounds = MapHelpers.getBoundingBox(pointsArray, DEFAULT_FIT_BOUNDS);
+    const { newAssocAddrs, newAddrsBounds } = this.getAddrsPointsBounds()
 
     // sets things up, including initial portfolio level map view
     this.setState(
@@ -197,6 +173,19 @@ export default class PropertiesMap extends Component<Props, State> {
         },
       });
     }
+
+    /**
+     * If filter has changed re style the points
+     */
+    const didFilterChange =
+      prevState.filterIsOn !== this.state.filterIsOn || prevState.filterFn !== this.state.filterFn;
+
+    if (didFilterChange) {
+      const { newAssocAddrs } = this.getAddrsPointsBounds()
+      this.setState({
+        addrsPoints: newAssocAddrs,
+      });
+    }
   }
 
   handleMouseMove = (map: any, e: any) => {
@@ -219,9 +208,56 @@ export default class PropertiesMap extends Component<Props, State> {
 
   getMapTypeForAddr = (addr: AddressRecord) => {
     const { assocAddrs } = this.getPortfolioData();
+    const { filterIsOn, filterFn } = this.state;
     const matchingAddr = assocAddrs.find((a) => Helpers.addrsAreEqual(a, addr));
-    return matchingAddr ? matchingAddr.mapType : "base";
+    return matchingAddr
+      ? matchingAddr.mapType
+      : filterIsOn && filterFn(addr)
+      ? "highlight"
+      : "base";
   };
+
+  getAddrsPointsBounds = () => {
+    let addrsPos = new Set();
+    let newAssocAddrs: JSX.Element[] = [];
+
+    const { assocAddrs, searchAddr } = this.props.state.context.portfolioData;
+    const { filterIsOn, filterFn } = this.state;
+
+    // cycle through addrs, adding them to the set and categorizing them
+    assocAddrs.forEach((addr, i) => {
+      const pos: LatLng = [addr.lng || NaN, addr.lat || NaN];
+
+      if (!MapHelpers.latLngIsNull(pos)) {
+        addrsPos.add(pos);
+
+        // presuming that nextProps.userAddr is in sync with nextProps.addrs
+        if (Helpers.addrsAreEqual(addr, searchAddr)) {
+          addr.mapType = "search";
+        } else if (filterIsOn && filterFn(addr)) {
+          addr.mapType = "highlight";
+        } else {
+          addr.mapType = "base";
+        }
+      }
+
+      // push a new Feature for the map
+      newAssocAddrs.push(
+        <Feature
+          key={i}
+          coordinates={pos}
+          properties={{ mapType: addr.mapType }}
+          onClick={(e) => this.handleAddrSelect(addr, e)}
+        />
+      );
+    });
+
+    // see getBoundingBox() for deets
+    const pointsArray = Array.from(addrsPos) as LatLng[];
+    const newAddrsBounds = MapHelpers.getBoundingBox(pointsArray, DEFAULT_FIT_BOUNDS);
+
+    return { newAssocAddrs, newAddrsBounds };
+  }
 
   render() {
     const browserType = Browser.isMobile() ? "mobile" : "other";
@@ -271,6 +307,19 @@ export default class PropertiesMap extends Component<Props, State> {
             ) : (
               <></>
             )}
+
+            <div className="filter-button btn btn-primary">
+              <button
+                onClick={() =>
+                  this.setState({
+                    filterFn: isRentStab,
+                    filterIsOn: !this.state.filterIsOn,
+                  })
+                }
+              >
+                <Trans>Show Rent Stabilized</Trans>
+              </button>
+            </div>
             {this.state.addrsPoints.length ? (
               <Layer id="assoc" type="circle" paint={DYNAMIC_ASSOC_PAINT}>
                 {this.state.addrsPoints}

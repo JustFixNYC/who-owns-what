@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 import AddressToolbar from "../components/AddressToolbar";
 import PropertiesMap from "../components/PropertiesMap";
-import PropertiesList from "../components/PropertiesList";
+import PropertiesList from "../components/PropertiesListFilter";
 import PropertiesSummary from "../components/PropertiesSummary";
 import Indicators from "../components/Indicators";
 import DetailView from "../components/DetailView";
