@@ -137,6 +137,7 @@ export function searchAddrsAreEqual(
   );
 }
 
+// eslint-disable-next-line
 export default {
   // filter repeated values in rbas and owners
   // uses Set which enforces uniqueness

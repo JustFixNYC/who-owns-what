@@ -611,6 +611,7 @@ const TableOfData = React.memo(
           table.setSorting([{ id: "ownernames", desc: false }]);
         }
       }
+    //   eslint-disable-next-line
     }, [table.getState().columnFilters[0]?.id]);
 
     return (
@@ -744,6 +745,7 @@ const TableOfData = React.memo(
 function MultiSelectFilter({ column, table }: { column: Column<any, unknown>; table: Table<any> }) {
   const sortedUniqueValues = React.useMemo(
     () => Array.from(column.getFacetedUniqueValues().keys()).sort(),
+    //   eslint-disable-next-line
     [column.getFacetedUniqueValues()]
   );
 
@@ -821,6 +823,7 @@ function DebouncedInput({
     }, debounce);
 
     return () => clearTimeout(timeout);
+    //   eslint-disable-next-line
   }, [value]);
 
   return <input {...props} value={value} onChange={(e) => setValue(e.target.value)} />;

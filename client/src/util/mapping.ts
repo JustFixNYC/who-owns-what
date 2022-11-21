@@ -2,6 +2,7 @@ export type LatLng = [number, number];
 
 export type BoundingBox = [LatLng, LatLng];
 
+// eslint-disable-next-line
 export default {
   // need to check if either lat or lng is NaN. Occurs for ~0.5% of addresses
   latLngIsNull(latlng: LatLng): boolean {
