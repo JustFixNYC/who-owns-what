@@ -340,7 +340,7 @@ const App = () => {
     } else if (!surveyCookie) {
       setSurveyCookie("1");
     }
-  }
+  };
 
   return (
     <Router>
@@ -371,7 +371,7 @@ const App = () => {
                   openValue={surveyCookie ? undefined : 5000}
                   className="waou-survey-button"
                   onClose={closeSurvey}
-                  onSubmit={() => surveySubmitted = true}
+                  onSubmit={() => (surveySubmitted = true)}
                 >
                   Take our short survey
                 </SliderButton>
