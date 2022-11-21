@@ -117,8 +117,7 @@ export default class PropertiesMap extends Component<Props, State> {
   }
 
   componentDidMount() {
-
-    const { newAssocAddrs, newAddrsBounds } = this.getAddrsPointsBounds()
+    const { newAssocAddrs, newAddrsBounds } = this.getAddrsPointsBounds();
 
     // sets things up, including initial portfolio level map view
     this.setState(
@@ -181,7 +180,7 @@ export default class PropertiesMap extends Component<Props, State> {
       prevState.filterIsOn !== this.state.filterIsOn || prevState.filterFn !== this.state.filterFn;
 
     if (didFilterChange) {
-      const { newAssocAddrs } = this.getAddrsPointsBounds()
+      const { newAssocAddrs } = this.getAddrsPointsBounds();
       this.setState({
         addrsPoints: newAssocAddrs,
       });
@@ -257,7 +256,7 @@ export default class PropertiesMap extends Component<Props, State> {
     const newAddrsBounds = MapHelpers.getBoundingBox(pointsArray, DEFAULT_FIT_BOUNDS);
 
     return { newAssocAddrs, newAddrsBounds };
-  }
+  };
 
   render() {
     const browserType = Browser.isMobile() ? "mobile" : "other";

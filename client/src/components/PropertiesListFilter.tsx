@@ -611,7 +611,7 @@ const TableOfData = React.memo(
           table.setSorting([{ id: "ownernames", desc: false }]);
         }
       }
-    //   eslint-disable-next-line
+      //   eslint-disable-next-line
     }, [table.getState().columnFilters[0]?.id]);
 
     return (
