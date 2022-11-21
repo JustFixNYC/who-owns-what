@@ -1,6 +1,6 @@
 import React from "react";
 import Downshift, {
-  DownshiftInterface,
+  // DownshiftInterface,
   GetInputPropsOptions,
   ControllerStateAndHelpers,
 } from "downshift";
@@ -9,7 +9,7 @@ import { GeoSearchRequester, GeoSearchResults } from "@justfixnyc/geosearch-requ
 import "../styles/AddressSearch.css";
 import { Borough } from "./APIDataTypes";
 
-const GeoDownshift = Downshift as DownshiftInterface<SearchAddress>;
+// const GeoDownshift = Downshift as DownshiftInterface<SearchAddress>;
 
 const KEY_ENTER = 13;
 
@@ -175,7 +175,7 @@ export default class AddressSearch extends React.Component<AddressSearchProps, S
 
   render() {
     return (
-      <GeoDownshift
+      <Downshift
         stateReducer={(state, changes) => {
           switch (changes.type) {
             case Downshift.stateChangeTypes.mouseUp:
@@ -256,7 +256,7 @@ export default class AddressSearch extends React.Component<AddressSearchProps, S
             </div>
           );
         }}
-      </GeoDownshift>
+      </Downshift>
     );
   }
 }

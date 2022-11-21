@@ -250,7 +250,7 @@ class DetailViewWithoutI18n extends Component<Props, State> {
                             </i>
                           </Link>
                         ) : (
-                          <a // eslint-disable-line jsx-a11y/anchor-is-valid
+                          <a // eslint-disable-line 
                             onClick={() => this.setState({ showCompareModal: true })}
                           >
                             <i>

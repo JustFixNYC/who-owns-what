@@ -239,7 +239,7 @@ const Navbar = () => {
         {addFeatureCalloutWidget && <FeatureCalloutWidget />}
         <span className="hide-lg">
           {getMainNavLinks(isLegacyPath(pathname))}
-          {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+          {/* eslint-disable-next-line */}
           <a href="#" onClick={() => setEngageModalVisibility(true)}>
             <Trans>Share</Trans>
           </a>
@@ -252,7 +252,7 @@ const Navbar = () => {
             </li>
           ))}
           <li className="menu-item">
-            {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+            {/* eslint-disable-next-line */}
             <a href="#" onClick={() => setEngageModalVisibility(true)}>
               <Trans>Share</Trans>
             </a>

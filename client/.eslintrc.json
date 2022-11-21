@@ -1,0 +1,7 @@
+{
+    "parser": "@typescript-eslint/parser",
+    "rules": {
+        "jsx-a11y/anchor-is-valid": 0
+    },
+    "plugins": ["react", "react-hooks"]
+}
