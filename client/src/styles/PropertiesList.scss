@@ -20,6 +20,8 @@ $table-border-dark: 1px solid $dark;
       width: 200px;
 
       #multiselectContainerReact {
+        background-color: #fff;
+
         .search-wrapper {
           border: 1px solid $gray-dark;
         }
@@ -45,6 +47,41 @@ $table-border-dark: 1px solid $dark;
     .filter-unitsres {
       input {
         margin-right: 5px;
+      }
+    }
+
+    .filter-rsunitslatest {
+      .toggle {
+        background-color: #fff;
+        border-radius: 0.5rem;
+        padding: 2px;
+        border-width: 1px;
+        border-color: $gray-dark;
+        width: 50px;
+        height: 25px;
+
+        div {
+          height: 100%;
+          width: 20px;
+          border-radius: 0.5rem;
+          transition: transform 100ms ease-in-out;
+          transition: background-color 100ms;
+        }
+
+        &[aria-pressed="false"] {
+          border-style: dashed;
+          div {
+            background-color: $gray-light;
+          }
+        }
+
+        &[aria-pressed="true"] {
+          border-style: solid;
+          div {
+            background-color: $gray-dark;
+            transform: translateX(24px);
+          }
+        }
       }
     }
   }

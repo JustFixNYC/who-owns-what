@@ -90,6 +90,7 @@ declare module "@tanstack/table-core" {
   interface FilterFns {
     arrIncludesSome: FilterFn<unknown>;
     inNumberRange: FilterFn<unknown>;
+    isNonZero: FilterFn<unknown>;
   }
   interface FilterMeta {
     itemRank: RankingInfo;
@@ -110,6 +111,9 @@ const fuzzySort: SortingFn<any> = (rowA, rowB, columnId) => {
   // Provide an alphanumeric fallback for when the item ranks are equal
   return dir === 0 ? sortingFns.alphanumeric(rowA, rowB, columnId) : dir;
 };
+
+const isNonZero: FilterFn<any> = (row, columnId, value, addMeta) =>
+  value ? !!row.getValue(columnId) : true;
 
 const PropertiesListWithoutI18n: React.FC<
   withMachineInStateProps<"portfolioFound"> & {
@@ -340,6 +344,7 @@ const TableOfData = React.memo(
               footer: (props) => props.column.id,
               size: getWidthFromLabel("XXXX"),
               enableColumnFilter: false,
+              filterFn: "isNonZero",
             },
           ],
         },
@@ -587,6 +592,7 @@ const TableOfData = React.memo(
       filterFns: {
         arrIncludesSome: filterFns.arrIncludesSome,
         inNumberRange: filterFns.inNumberRange,
+        isNonZero: isNonZero,
       },
       state: {
         columnFilters,
@@ -628,6 +634,10 @@ const TableOfData = React.memo(
           <div className="filter-box filter-unitsres">
             <Trans>Units</Trans>
             <MinMaxFilter column={table.getColumn("unitsres")} table={table} />
+          </div>
+          <div className="filter-box filter-rsunitslatest">
+            <Trans>Some Rent Stabilized Units</Trans>
+            <ToggleFilter column={table.getColumn("rsunitslatest")} table={table} />
           </div>
         </div>
 
@@ -778,8 +788,6 @@ function MultiSelectFilter({ column, table }: { column: Column<any, unknown>; ta
 }
 
 function MinMaxFilter({ column, table }: { column: Column<any, unknown>; table: Table<any> }) {
-  console.log(column.getFilterValue());
-
   return (
     <div>
       <DebouncedInput
@@ -802,6 +810,23 @@ function MinMaxFilter({ column, table }: { column: Column<any, unknown>; table: 
           column.getFacetedMinMaxValues()?.[1] ? `(${column.getFacetedMinMaxValues()?.[1]})` : ""
         }`}
       />
+    </div>
+  );
+}
+
+function ToggleFilter({ column, table }: { column: Column<any, unknown>; table: Table<any> }) {
+  let [isPressed, setIsPressed] = useState(false);
+
+  const toggleIsPressed = () => {
+    column.setFilterValue(!isPressed);
+    setIsPressed(!isPressed);
+  };
+
+  return (
+    <div>
+      <button aria-pressed={isPressed} onClick={toggleIsPressed} className="toggle">
+        <div />
+      </button>
     </div>
   );
 }
