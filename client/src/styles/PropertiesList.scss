@@ -6,130 +6,156 @@ $table-border-light: 1px solid $gray-light;
 $table-border-dark: 1px solid $dark;
 
 .PropertiesList {
-  height: 100%;
-  width: 100%;
-  // These next 2 items ensure that the fade effect from the "::after"
-  // component doesn't overflow past the edge of the PropertiesList container
-  position: relative;
-  overflow: auto;
+  .filters-bar {
+    display: flex;
+    padding: 5px 10px;
 
-  #multiselectContainerReact {
-    ul {
-      list-style-type: none;
+    // padding-left: 150px;
+
+    .filter-box {
+      padding: 0 10px;
     }
-    .chip {
-      color: $wowza-dark;
+
+    .filter-ownernames {
+      width: 200px;
+
+      #multiselectContainerReact {
+        .search-wrapper {
+          border: 1px solid $gray-dark;
+        }
+        ul {
+          list-style-type: none;
+        }
+        .chip {
+          color: $wowza-dark;
+        }
+        .close-button {
+          color: $wowza-dark;
+          padding-left: 0.5rem;
+          font-style: normal;
+          height: 100%;
+          cursor: pointer;
+          &:hover {
+            opacity: 0.7;
+          }
+        }
+      }
     }
-    .close-button {
-      color: $wowza-dark;
-      padding-left: 0.5rem;
-      font-style: normal;
-      height: 100%;
-      cursor: pointer;
-      &:hover {
-        opacity: 0.7;
+
+    .filter-unitsres {
+      input {
+        margin-right: 5px;
       }
     }
   }
 
-  table {
-    border-top: none;
-    border-left: none;
-    border-color: $gray-dark;
-    border-collapse: collapse;
+  .portfolio-table-container {
+    height: 100%;
+    width: 100%;
+    // These next 2 items ensure that the fade effect from the "::after"
+    // component doesn't overflow past the edge of the PropertiesList container
+    position: relative;
+    overflow: auto;
 
-    .arrow-icon {
-      display: inline-block;
-      margin-left: 0.5rem;
-      span {
-        // This small adjustment aligns second arrow in icon with first
+    table {
+      border-top: 1px solid $gray-dark;
+      border-left: none;
+      border-color: $gray-dark;
+      border-collapse: collapse;
+
+      .arrow-icon {
         display: inline-block;
-        transform: translateY(0.5px);
+        margin-left: 0.5rem;
+        span {
+          // This small adjustment aligns second arrow in icon with first
+          display: inline-block;
+          transform: translateY(0.5px);
+        }
       }
-    }
 
-    .col-address {
-      position: sticky;
-      left: 0px;
-      z-index: 40;
-      background-color: inherit;
-      box-shadow: inset -2px 0 2px -1px #ccc !important;
-    }
-
-    tr {
-      padding: 0px 5px;
-    }
-
-    td {
-      text-align: center;
-      text-overflow: ellipsis;
-      overflow: hidden;
-      transition: 0.3s ease;
-      transition-property: width, min-width, padding, opacity;
-    }
-
-    th,
-    td {
-      border-right: $table-border-light;
-    }
-
-    thead {
-      max-height: 30px;
+      .col-address {
+        position: sticky;
+        left: 0px;
+        z-index: 40;
+        background-color: inherit;
+        box-shadow: inset -2px 0 2px -1px #ccc !important;
+      }
 
       tr {
-        height: 30px;
-      }
-
-      tr:first-child th {
-        border-color: $gray-light;
-        border-bottom: $table-border-light;
-        font-weight: bold;
-        color: #000;
-        background-color: #f7f7f7;
-      }
-
-      tr:last-child th {
-        background-color: #fff;
-        border-bottom: $table-border-dark;
-        box-shadow: none;
-        vertical-align: top;
-      }
-
-      th {
-        padding: 7px 5px;
-      }
-    }
-
-    tbody {
-      tr {
-        border-bottom: $table-border-light;
-
-        &.row-odd {
-          background-color: #f7f7f7;
-          &:hover {
-            background-color: #f2f2f2ff;
-          }
-        }
-        &.row-even {
-          background-color: #fff;
-          &:hover {
-            background-color: #f0f0f0;
-          }
-        }
+        padding: 0px 5px;
       }
 
       td {
-        &.col-address {
-          text-align: left;
-          padding: 0.75rem;
+        text-align: center;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        transition: 0.3s ease;
+        transition-property: width, min-width, padding, opacity;
+      }
+
+      th,
+      td {
+        border-right: $table-border-light;
+      }
+
+      thead {
+        max-height: 30px;
+
+        tr {
+          height: 30px;
         }
-        &.col-address,
-        &.col-recentcomplaintsbytype,
-        &.col-ownernames,
-        &.col-yearstartedj51,
-        &.col-yearstarted421a,
-        &.col-detail {
-          white-space: unset;
+
+        tr:first-child th {
+          border-color: $gray-light;
+          border-bottom: $table-border-light;
+          font-weight: bold;
+          color: #000;
+          background-color: #f7f7f7;
+        }
+
+        tr:last-child th {
+          background-color: #fff;
+          border-bottom: $table-border-dark;
+          box-shadow: none;
+          vertical-align: top;
+        }
+
+        th {
+          padding: 7px 5px;
+        }
+      }
+
+      tbody {
+        tr {
+          border-bottom: $table-border-light;
+
+          &.row-odd {
+            background-color: #f7f7f7;
+            &:hover {
+              background-color: #f2f2f2ff;
+            }
+          }
+          &.row-even {
+            background-color: #fff;
+            &:hover {
+              background-color: #f0f0f0;
+            }
+          }
+        }
+
+        td {
+          &.col-address {
+            text-align: left;
+            padding: 0.75rem;
+          }
+          &.col-address,
+          &.col-recentcomplaintsbytype,
+          &.col-ownernames,
+          &.col-yearstartedj51,
+          &.col-yearstarted421a,
+          &.col-detail {
+            white-space: unset;
+          }
         }
       }
     }

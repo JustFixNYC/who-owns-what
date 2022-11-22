@@ -616,78 +616,85 @@ const TableOfData = React.memo(
     }, [table.getState().columnFilters[0]?.id]);
 
     return (
-      <>
-        <table>
-          <thead>
-            {table.getHeaderGroups().map((headerGroup) => (
-              <tr key={headerGroup.id}>
-                {headerGroup.headers.map((header) => {
-                  return (
-                    <th
-                      key={header.id}
-                      colSpan={header.colSpan}
-                      className={`col-${header.column.id}`}
-                      style={{ minWidth: header.getSize() }}
-                    >
-                      {header.isPlaceholder ? null : (
-                        <>
-                          <div
-                            {...{
-                              className: header.column.getCanSort()
-                                ? "cursor-pointer select-none"
-                                : "",
-                              onClick: header.column.getToggleSortingHandler(),
-                            }}
-                          >
-                            {flexRender(header.column.columnDef.header, header.getContext())}
-                            {headerGroup.depth === 1
-                              ? {
-                                  asc: <ArrowIcon dir={"up"} />,
-                                  desc: <ArrowIcon dir={"down"} />,
-                                }[header.column.getIsSorted() as string] ?? (
-                                  <ArrowIcon dir={"both"} />
-                                )
-                              : null}
-                          </div>
-                          {header.column.id === "ownernames" ? (
-                            <div>
-                              <MultiSelectFilter column={header.column} table={table} />
-                            </div>
-                          ) : header.column.id === "unitsres" ? (
-                            <div>
-                              <MinMaxFilter column={header.column} table={table} />
-                            </div>
-                          ) : null}
-                        </>
-                      )}
-                    </th>
-                  );
-                })}
-              </tr>
-            ))}
-          </thead>
-          <tbody>
-            {table.getRowModel().rows.map((row, i) => {
-              return (
-                <tr key={row.id} className={`row-${i % 2 ? "even" : "odd"}`}>
-                  {row.getVisibleCells().map((cell) => {
+      <div>
+        <div className="filters-bar">
+          <div>
+            <Trans>View Buildings With:</Trans>
+          </div>
+          <div className="filter-box filter-ownernames">
+            <Trans>Officers/Owners</Trans>
+            <MultiSelectFilter column={table.getColumn("ownernames")} table={table} />
+          </div>
+          <div className="filter-box filter-unitsres">
+            <Trans>Units</Trans>
+            <MinMaxFilter column={table.getColumn("unitsres")} table={table} />
+          </div>
+        </div>
+
+        <div className="portfolio-table-container">
+          <table>
+            <thead>
+              {table.getHeaderGroups().map((headerGroup) => (
+                <tr key={headerGroup.id}>
+                  {headerGroup.headers.map((header) => {
                     return (
-                      <td
-                        key={cell.id}
-                        className={`col-${cell.column.id}`}
-                        style={{
-                          width: cell.column.getSize() !== 0 ? cell.column.getSize() : undefined,
-                        }}
+                      <th
+                        key={header.id}
+                        colSpan={header.colSpan}
+                        className={`col-${header.column.id}`}
+                        style={{ minWidth: header.getSize() }}
                       >
-                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                      </td>
+                        {header.isPlaceholder ? null : (
+                          <>
+                            <div
+                              {...{
+                                className: header.column.getCanSort()
+                                  ? "cursor-pointer select-none"
+                                  : "",
+                                onClick: header.column.getToggleSortingHandler(),
+                              }}
+                            >
+                              {flexRender(header.column.columnDef.header, header.getContext())}
+                              {headerGroup.depth === 1
+                                ? {
+                                    asc: <ArrowIcon dir={"up"} />,
+                                    desc: <ArrowIcon dir={"down"} />,
+                                  }[header.column.getIsSorted() as string] ?? (
+                                    <ArrowIcon dir={"both"} />
+                                  )
+                                : null}
+                            </div>
+                          </>
+                        )}
+                      </th>
                     );
                   })}
                 </tr>
-              );
-            })}
-          </tbody>
-        </table>
+              ))}
+            </thead>
+            <tbody>
+              {table.getRowModel().rows.map((row, i) => {
+                return (
+                  <tr key={row.id} className={`row-${i % 2 ? "even" : "odd"}`}>
+                    {row.getVisibleCells().map((cell) => {
+                      return (
+                        <td
+                          key={cell.id}
+                          className={`col-${cell.column.id}`}
+                          style={{
+                            width: cell.column.getSize() !== 0 ? cell.column.getSize() : undefined,
+                          }}
+                        >
+                          {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                        </td>
+                      );
+                    })}
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
         <div className="pagination">
           <div className="prev">
             <button
@@ -738,7 +745,7 @@ const TableOfData = React.memo(
             </button>
           </div>
         </div>
-      </>
+      </div>
     );
   })
 );
@@ -784,7 +791,6 @@ function MinMaxFilter({ column, table }: { column: Column<any, unknown>; table: 
         placeholder={`Min ${
           column.getFacetedMinMaxValues()?.[0] ? `(${column.getFacetedMinMaxValues()?.[0]})` : ""
         }`}
-        className="w-24 border shadow rounded"
       />
       <DebouncedInput
         type="number"
@@ -795,7 +801,6 @@ function MinMaxFilter({ column, table }: { column: Column<any, unknown>; table: 
         placeholder={`Max ${
           column.getFacetedMinMaxValues()?.[1] ? `(${column.getFacetedMinMaxValues()?.[1]})` : ""
         }`}
-        className="w-24 border shadow rounded"
       />
     </div>
   );
