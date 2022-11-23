@@ -84,7 +84,7 @@ const getWidthFromLabel = (label: string, customDefaultWidth?: number) => {
 };
 
 const FIRST_COLUMN_WIDTH = 130;
-const MAX_TABLE_ROWS_PER_PAGE = 10; // was 500, but that seems like a lot
+const MAX_TABLE_ROWS_PER_PAGE = 100; // was 500, but that seems like a lot
 
 declare module "@tanstack/table-core" {
   interface FilterFns {
@@ -219,7 +219,7 @@ const TableOfData = React.memo(
 
     const [{ pageIndex, pageSize }, setPagination] = React.useState<PaginationState>({
       pageIndex: 0,
-      pageSize: 10,
+      pageSize: MAX_TABLE_ROWS_PER_PAGE,
     });
 
     const pagination = React.useMemo(
@@ -622,7 +622,7 @@ const TableOfData = React.memo(
     }, [table.getState().columnFilters[0]?.id]);
 
     return (
-      <div>
+      <>
         <div className="filters-bar">
           <div>
             <Trans>View Buildings With:</Trans>
@@ -723,7 +723,7 @@ const TableOfData = React.memo(
               <div>
                 <input
                   type="number"
-                  defaultValue={String(table.getState().pagination.pageIndex + 1)}
+                  value={String(table.getState().pagination.pageIndex + 1)}
                   onChange={(e) => {
                     const page = e.target.value ? Number(e.target.value) - 1 : 0;
                     table.setPageIndex(page);
@@ -738,8 +738,12 @@ const TableOfData = React.memo(
                 table.setPageSize(Number(e.target.value));
               }}
             >
-              {[10, 20, 30, 40, 50].map((pageSize) => (
-                <option key={pageSize} value={pageSize}>
+              {[10, 20, 50, 100, 500].map((pageSize) => (
+                <option
+                  key={pageSize}
+                  value={pageSize}
+                  selected={pageSize === table.getState().pagination.pageSize}
+                >
                   Show {pageSize}
                 </option>
               ))}
@@ -755,7 +759,7 @@ const TableOfData = React.memo(
             </button>
           </div>
         </div>
-      </div>
+      </>
     );
   })
 );

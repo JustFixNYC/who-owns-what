@@ -6,11 +6,13 @@ $table-border-light: 1px solid $gray-light;
 $table-border-dark: 1px solid $dark;
 
 .PropertiesList {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
   .filters-bar {
     display: flex;
     padding: 5px 10px;
-
-    // padding-left: 150px;
 
     .filter-box {
       padding: 0 10px;
@@ -87,8 +89,6 @@ $table-border-dark: 1px solid $dark;
   }
 
   .portfolio-table-container {
-    position: relative;
-    max-height: 650px;
     overflow-y: auto;
 
     table {
@@ -198,12 +198,15 @@ $table-border-dark: 1px solid $dark;
   }
 
   .pagination {
-    z-index: 1;
+    z-index: 50;
     display: flex;
     justify-content: space-between;
     align-items: stretch;
     flex-wrap: wrap;
     padding: 3px;
+    position: sticky;
+    bottom: 0;
+    background-color: $wowza-background;
 
     div {
       display: block;
