@@ -621,6 +621,9 @@ const TableOfData = React.memo(
       //   eslint-disable-next-line
     }, [table.getState().columnFilters[0]?.id]);
 
+    const totalBuildings = table.getCoreRowModel().flatRows.length;
+    const filteredBuildings = table.getFilteredRowModel().flatRows.length;
+
     return (
       <>
         <div className="filters-bar">
@@ -640,11 +643,10 @@ const TableOfData = React.memo(
             <ToggleFilter column={table.getColumn("rsunitslatest")} table={table} />
           </div>
           <div className="filter-rows">
-            {table.getCoreRowModel().flatRows.length ===
-            table.getFilteredRowModel().flatRows.length ? (
-              <Trans>Showing all {table.getCoreRowModel().flatRows.length} buildings</Trans>
+            {totalBuildings === filteredBuildings ? (
+              <Trans>Showing all {totalBuildings} buildings</Trans>
             ) : (
-              <Trans>Narrowed to {table.getFilteredRowModel().flatRows.length} buildings</Trans>
+              <Trans>Narrowed to {filteredBuildings} buildings</Trans>
             )}
           </div>
         </div>
