@@ -621,10 +621,13 @@ const TableOfData = React.memo(
       //   eslint-disable-next-line
     }, [table.getState().columnFilters[0]?.id]);
 
+    const totalBuildings = table.getCoreRowModel().flatRows.length;
+    const filteredBuildings = table.getFilteredRowModel().flatRows.length;
+
     return (
       <>
         <div className="filters-bar">
-          <div>
+          <div className="view-buildings">
             <Trans>View Buildings With:</Trans>
           </div>
           <div className="filter-box filter-ownernames">
@@ -638,6 +641,13 @@ const TableOfData = React.memo(
           <div className="filter-box filter-rsunitslatest">
             <Trans>Some Rent Stabilized Units</Trans>
             <ToggleFilter column={table.getColumn("rsunitslatest")} table={table} />
+          </div>
+          <div className="filter-rows">
+            {totalBuildings === filteredBuildings ? (
+              <Trans>Showing all {totalBuildings} buildings</Trans>
+            ) : (
+              <Trans>Narrowed to {filteredBuildings} buildings</Trans>
+            )}
           </div>
         </div>
 
@@ -739,11 +749,7 @@ const TableOfData = React.memo(
               }}
             >
               {[10, 20, 50, 100, 500].map((pageSize) => (
-                <option
-                  key={pageSize}
-                  value={pageSize}
-                  selected={pageSize === table.getState().pagination.pageSize}
-                >
+                <option key={pageSize} value={pageSize}>
                   Show {pageSize}
                 </option>
               ))}

@@ -18,6 +18,10 @@ $table-border-dark: 1px solid $dark;
       padding: 0 10px;
     }
 
+    .view-buildings {
+      font-weight: bold;
+    }
+
     .filter-ownernames {
       width: 200px;
 
@@ -85,6 +89,11 @@ $table-border-dark: 1px solid $dark;
           }
         }
       }
+    }
+
+    .filter-rows {
+      font-weight: bold;
+      padding-left: 20px;
     }
   }
 
