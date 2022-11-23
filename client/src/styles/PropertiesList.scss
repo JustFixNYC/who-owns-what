@@ -27,6 +27,7 @@ $table-border-dark: 1px solid $dark;
 
       #multiselectContainerReact {
         background-color: #fff;
+        z-index: 60;
 
         .search-wrapper {
           border: 1px solid $gray-dark;
