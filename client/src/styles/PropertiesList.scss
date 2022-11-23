@@ -37,6 +37,8 @@ $table-border-dark: 1px solid $dark;
         }
         .chip {
           color: $wowza-dark;
+          background-color: $gray-light;
+          border-radius: 5px;
         }
         .close-button {
           color: $wowza-dark;
