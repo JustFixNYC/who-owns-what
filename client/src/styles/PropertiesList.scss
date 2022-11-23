@@ -87,18 +87,15 @@ $table-border-dark: 1px solid $dark;
   }
 
   .portfolio-table-container {
-    height: 100%;
-    width: 100%;
-    // These next 2 items ensure that the fade effect from the "::after"
-    // component doesn't overflow past the edge of the PropertiesList container
     position: relative;
-    overflow: auto;
+    max-height: 650px;
+    overflow-y: auto;
 
     table {
-      border-top: 1px solid $gray-dark;
       border-left: none;
       border-color: $gray-dark;
-      border-collapse: collapse;
+      border-collapse: separate;
+      border-spacing: 0;
 
       .arrow-icon {
         display: inline-block;
@@ -115,7 +112,6 @@ $table-border-dark: 1px solid $dark;
         left: 0px;
         z-index: 40;
         background-color: inherit;
-        box-shadow: inset -2px 0 2px -1px #ccc !important;
       }
 
       tr {
@@ -137,14 +133,17 @@ $table-border-dark: 1px solid $dark;
 
       thead {
         max-height: 30px;
+        position: sticky;
+        top: 0;
+        z-index: 50;
 
         tr {
           height: 30px;
         }
 
         tr:first-child th {
-          border-color: $gray-light;
-          border-bottom: $table-border-light;
+          border-bottom: 1px solid $table-border-light;
+          border-top: 1px solid $gray-dark;
           font-weight: bold;
           color: #000;
           background-color: #f7f7f7;
