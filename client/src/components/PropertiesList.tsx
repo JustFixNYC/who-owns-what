@@ -621,8 +621,11 @@ const TableOfData = React.memo(
       //   eslint-disable-next-line
     }, [table.getState().columnFilters[0]?.id]);
 
-    const totalBuildings = table.getCoreRowModel().flatRows.length;
-    const filteredBuildings = table.getFilteredRowModel().flatRows.length;
+    // For some reason showing the total/filter row count works as expected
+    // locally but on the live demo site it should up with the literal curly
+    // brace and variable name, no idea why...
+    // const totalBuildings = table.getCoreRowModel().flatRows.length;
+    // const filteredBuildings = table.getFilteredRowModel().flatRows.length;
 
     return (
       <>
@@ -642,13 +645,13 @@ const TableOfData = React.memo(
             <Trans>Some Rent Stabilized Units</Trans>
             <ToggleFilter column={table.getColumn("rsunitslatest")} table={table} />
           </div>
-          <div className="filter-rows">
+          {/* <div className="filter-rows">
             {totalBuildings === filteredBuildings ? (
               <Trans>Showing all {totalBuildings} buildings</Trans>
             ) : (
               <Trans>Narrowed to {filteredBuildings} buildings</Trans>
             )}
-          </div>
+          </div> */}
         </div>
 
         <div className="portfolio-table-container">
