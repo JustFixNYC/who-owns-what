@@ -2375,10 +2375,10 @@
     cross-fetch "^3.1.4"
     yargs "^17.0.1"
 
-"@justfixnyc/geosearch-requester@0.0.6":
-  version "0.0.6"
-  resolved "https://registry.yarnpkg.com/@justfixnyc/geosearch-requester/-/geosearch-requester-0.0.6.tgz#af3144a8b599e45ad3ce5c2190fc60da81106475"
-  integrity sha512-wHsY9DbiQUp7H/KiQ4+ejTShR6lY3iagiFhw4VoP1kljyem+WIwEkiZNnvUHkOAQIkTtPulLaiKHEMpzaw9xZQ==
+"@justfixnyc/geosearch-requester@1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@justfixnyc/geosearch-requester/-/geosearch-requester-1.0.0.tgz#7677fdde3e80eb1b4fcffacfa1621fbff783705d"
+  integrity sha512-apPtPi1U78ac59bw2PrC84JaTXQJxNyWBfq3g8BcjdQ0RQ1L0Hd4WEL79ctjjYsRYHE1wY5qSa6JNvEgWRvKYg==
 
 "@justfixnyc/util@0.3.0":
   version "0.3.0"

@@ -6,7 +6,7 @@
     "@babel/core": "^7.7.2",
     "@contentful/rich-text-react-renderer": "^15.0.0",
     "@justfixnyc/contentful-common-strings": "^0.1.0",
-    "@justfixnyc/geosearch-requester": "0.0.6",
+    "@justfixnyc/geosearch-requester": "1.0.0",
     "@justfixnyc/util": "0.3.0",
     "@lingui/cli": "^2.9.1",
     "@lingui/macro": "^2.9.1",

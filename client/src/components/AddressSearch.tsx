@@ -73,7 +73,7 @@ function toSearchAddresses(results: GeoSearchResults): SearchAddress[] {
       housenumber: feature.properties.housenumber,
       streetname: feature.properties.street,
       boro: formattedBoroName,
-      bbl: feature.properties.pad_bbl,
+      bbl: feature.properties.addendum.pad.bbl,
     };
     return sa;
   });
