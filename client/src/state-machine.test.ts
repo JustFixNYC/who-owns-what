@@ -39,7 +39,7 @@ const SEARCH_EVENT_WITH_NEW_PORTFOLIO_METHOD: WowEvent = {
 function generateMockRequestStuff(bbl: string) {
   const bblBits = helpers.splitBBL(bbl);
   const newGeocodingExample = JSON.parse(JSON.stringify(GEOCODING_EXAMPLE_SEARCH));
-  newGeocodingExample.features[0].properties.pad_bbl = bbl;
+  newGeocodingExample.features[0].properties.addendum.pad.bbl = bbl;
   return {
     GEOCODING_EXAMPLE_SEARCH: newGeocodingExample,
     ADDRESS_URL: `https://wowapi/api/address?block=${bblBits.block}&lot=${bblBits.lot}&borough=${bblBits.boro}`,
