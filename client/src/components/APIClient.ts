@@ -43,7 +43,10 @@ function searchForAddressWithGeosearch(
             geosearch: undefined,
           });
         resolve(
-          searchForBBL(helpers.splitBBL(firstResult.properties.pad_bbl), useNewPortfolioMethod)
+          searchForBBL(
+            helpers.splitBBL(firstResult.properties.addendum.pad.bbl),
+            useNewPortfolioMethod
+          )
         );
       },
       throttleMs: 0,
