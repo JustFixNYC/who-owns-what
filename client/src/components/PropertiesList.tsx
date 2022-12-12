@@ -261,6 +261,7 @@ const TableOfData = React.memo(
               footer: (props) => props.column.id,
               size: getWidthFromLabel(i18n._(t`Zipcode`)),
               enableColumnFilter: false,
+              filterFn: "arrIncludesSome",
             },
             {
               accessorKey: "boro",
@@ -641,6 +642,10 @@ const TableOfData = React.memo(
           <div className="filter-box filter-rsunitslatest">
             <Trans>Some Rent Stabilized Units</Trans>
             <ToggleFilter column={table.getColumn("rsunitslatest")} table={table} />
+          </div>
+          <div className="filter-box filter-rsunitslatest">
+            <Trans>Zipcode</Trans>
+            <MultiSelectFilter column={table.getColumn("zip")} table={table} />
           </div>
           <div className="filter-rows">
             {/* When using trans tags here it works locally but not in the netlify preview */}

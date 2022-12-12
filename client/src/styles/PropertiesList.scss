@@ -24,33 +24,6 @@ $table-border-dark: 1px solid $dark;
 
     .filter-ownernames {
       width: 200px;
-
-      #multiselectContainerReact {
-        background-color: #fff;
-        z-index: 60;
-
-        .search-wrapper {
-          border: 1px solid $gray-dark;
-        }
-        ul {
-          list-style-type: none;
-        }
-        .chip {
-          color: $wowza-dark;
-          background-color: $gray-light;
-          border-radius: 5px;
-        }
-        .close-button {
-          color: $wowza-dark;
-          padding-left: 0.5rem;
-          font-style: normal;
-          height: 100%;
-          cursor: pointer;
-          &:hover {
-            opacity: 0.7;
-          }
-        }
-      }
     }
 
     .filter-unitsres {
@@ -97,6 +70,33 @@ $table-border-dark: 1px solid $dark;
     .filter-rows {
       font-weight: bold;
       padding-left: 20px;
+    }
+
+    .multiselect-container {
+      background-color: #fff;
+      z-index: 60;
+
+      .search-wrapper {
+        border: 1px solid $gray-dark;
+      }
+      ul {
+        list-style-type: none;
+      }
+      .chip {
+        color: $wowza-dark;
+        background-color: $gray-light;
+        border-radius: 5px;
+      }
+      .close-button {
+        color: $wowza-dark;
+        padding-left: 0.5rem;
+        font-style: normal;
+        height: 100%;
+        cursor: pointer;
+        &:hover {
+          opacity: 0.7;
+        }
+      }
     }
   }
 
