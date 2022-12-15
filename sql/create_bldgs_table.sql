@@ -74,6 +74,7 @@ select distinct on (registrations.bbl)
   complaints.recentcomplaintsbytype,
   pluto.unitsres,
   pluto.yearbuilt,
+  pluto.council,
   pluto.lat,
   pluto.lng,
   evictions.evictions,
