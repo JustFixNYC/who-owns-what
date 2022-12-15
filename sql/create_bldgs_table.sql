@@ -66,7 +66,19 @@ complaints as (
 )
 
 select distinct on (registrations.bbl)
-  registrations.*,
+  registrations.housenumber,
+  registrations.streetname,
+  registrations.zip,
+  registrations.boro,
+  registrations.registrationid,
+  registrations.lastregistrationdate,
+  registrations.registrationenddate,
+  registrations.bbl,
+  registrations.bin,
+  registrations.corpnames,
+  registrations.businessaddrs,
+  registrations.ownernames,
+  registrations.allcontacts,
   coalesce(violations.total, 0)::int as totalviolations,
   coalesce(violations.opentotal, 0)::int as openviolations,
   coalesce(complaints.totalcomplaints, 0)::int as totalcomplaints,
