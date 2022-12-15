@@ -105,6 +105,7 @@ left join (
     bbl,
     unitsres,
     yearbuilt,
+    council,
     latitude as lat,
     longitude as lng
   from pluto_latest
