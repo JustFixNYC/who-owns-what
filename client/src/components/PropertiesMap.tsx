@@ -14,6 +14,7 @@ import { FitBounds, Props as MapboxMapProps } from "react-mapbox-gl/lib/map";
 import { Events as MapboxMapEvents } from "react-mapbox-gl/lib/map-events";
 import { withMachineInStateProps } from "state-machine";
 import { BigPortfolioWarning } from "./BigPortfolioWarning";
+import { ToggleButton } from "./ToggleButton";
 
 type Props = withMachineInStateProps<"portfolioFound"> & {
   onAddrChange: (bbl: string) => void;
@@ -262,7 +263,7 @@ export default class PropertiesMap extends Component<Props, State> {
     const browserType = Browser.isMobile() ? "mobile" : "other";
     const { useNewPortfolioMethod } = this.props.state.context;
 
-    const { detailAddr } = this.getPortfolioData();
+    const { detailAddr, assocAddrs } = this.getPortfolioData();
 
     return (
       <div className="PropertiesMap">
@@ -307,18 +308,18 @@ export default class PropertiesMap extends Component<Props, State> {
               <></>
             )}
 
-            <div className="filter-button btn btn-primary">
-              <button
-                onClick={() =>
-                  this.setState({
-                    filterFn: isRentStab,
-                    filterIsOn: !this.state.filterIsOn,
-                  })
-                }
-              >
-                <Trans>Show Rent Stabilized</Trans>
-              </button>
-            </div>
+            <ToggleButton
+              onClick={() =>
+                this.setState({
+                  filterFn: isRentStab,
+                  filterIsOn: !this.state.filterIsOn,
+                })
+              }
+              badgeValue={assocAddrs.filter(isRentStab).length}
+              customClasses="filter-button"
+            >
+              <Trans>Rent Stabilized Units</Trans>
+            </ToggleButton>
             {this.state.addrsPoints.length ? (
               <Layer id="assoc" type="circle" paint={DYNAMIC_ASSOC_PAINT}>
                 {this.state.addrsPoints}

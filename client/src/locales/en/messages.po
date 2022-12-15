@@ -42,7 +42,7 @@ msgstr "(hover over a box to learn more)"
 msgid "(this may take a while)"
 msgstr "(this may take a while)"
 
-#: src/components/PropertiesMap.tsx:252
+#: src/components/PropertiesMap.tsx:251
 msgid "({browserType, select, mobile {tap} other {click}} to view details)"
 msgstr "({browserType, select, mobile {tap} other {click}} to view details)"
 
@@ -247,7 +247,7 @@ msgstr "Click here to learn more."
 msgid "Close"
 msgstr "Close"
 
-#: src/components/PropertiesMap.tsx:240
+#: src/components/PropertiesMap.tsx:239
 msgid "Close legend"
 msgstr "Close legend"
 
@@ -560,7 +560,7 @@ msgstr "Last sold:"
 msgid "Learn more"
 msgstr "Learn more"
 
-#: src/components/PropertiesMap.tsx:240
+#: src/components/PropertiesMap.tsx:239
 msgid "Legend"
 msgstr "Legend"
 
@@ -576,7 +576,7 @@ msgstr "Link to Deed"
 
 #: src/components/Loader.tsx:19
 #: src/components/PropertiesList.tsx:108
-#: src/components/PropertiesMap.tsx:185
+#: src/components/PropertiesMap.tsx:186
 msgid "Loading"
 msgstr "Loading"
 
@@ -828,6 +828,10 @@ msgstr "RS Units"
 msgid "Registration expired:"
 msgstr "Registration expired:"
 
+#: src/components/PropertiesMap.tsx:220
+msgid "Rent Stabilized Units"
+msgstr "Rent Stabilized Units"
+
 #: src/components/PropertiesSummary.tsx:125
 msgid "Rent stabilization"
 msgstr "Rent stabilization"
@@ -899,8 +903,8 @@ msgid "Shareholder"
 msgstr "Shareholder"
 
 #: src/components/PropertiesMap.tsx:220
-msgid "Show Rent Stabilized"
-msgstr "Show Rent Stabilized"
+#~ msgid "Show Rent Stabilized"
+#~ msgstr "Show Rent Stabilized"
 
 #: src/components/Subscribe.tsx:80
 msgid "Sign up"
@@ -943,7 +947,7 @@ msgstr "Some Rent Stabilized Units"
 msgid "Some large corporations, however, are a bit more complicated and may share personnel and financial stake with other related companies, which all will show up on Who Owns What as one large portfolio."
 msgstr "Some large corporations, however, are a bit more complicated and may share personnel and financial stake with other related companies, which all will show up on Who Owns What as one large portfolio."
 
-#: src/components/PropertiesMap.tsx:195
+#: src/components/PropertiesMap.tsx:196
 msgid "Sorry, it looks like there's an error on the map. Try again on a different browser or <0>enable WebGL</0>."
 msgstr "Sorry, it looks like there's an error on the map. Try again on a different browser or <0>enable WebGL</0>."
 
@@ -1198,7 +1202,7 @@ msgstr "View detail"
 msgid "View documents on <0>ACRIS</0>"
 msgstr "View documents on <0>ACRIS</0>"
 
-#: src/components/PropertiesMap.tsx:240
+#: src/components/PropertiesMap.tsx:239
 msgid "View legend"
 msgstr "View legend"
 
@@ -1336,7 +1340,7 @@ msgstr "Zoom out"
 msgid "and"
 msgstr "and"
 
-#: src/components/PropertiesMap.tsx:247
+#: src/components/PropertiesMap.tsx:246
 msgid "associated building"
 msgstr "associated building"
 
@@ -1356,7 +1360,7 @@ msgstr "of"
 msgid "quarter"
 msgstr "quarter"
 
-#: src/components/PropertiesMap.tsx:246
+#: src/components/PropertiesMap.tsx:245
 msgid "search address"
 msgstr "search address"
 

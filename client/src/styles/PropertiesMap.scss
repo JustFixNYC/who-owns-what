@@ -1,4 +1,5 @@
 @import "_vars.scss";
+@import "_togglebutton.scss";
 
 .PropertiesMap {
   display: inline-block;
@@ -45,13 +46,6 @@
       bottom: 125px;
       right: 10px;
       z-index: 100;
-      background-color: $success;
-
-      &:hover,
-      &:active,
-      &:focus {
-        background-color: $success;
-      }
     }
 
     .warning-banner {

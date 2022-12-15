@@ -47,7 +47,7 @@ msgstr "(pase el cursor sobre una casilla para aprender más)"
 msgid "(this may take a while)"
 msgstr "(esto puede tardar un rato)"
 
-#: src/components/PropertiesMap.tsx:252
+#: src/components/PropertiesMap.tsx:251
 msgid "({browserType, select, mobile {tap} other {click}} to view details)"
 msgstr "({browserType, select, mobile {pulsa} other {haz clic}} para ver detalles)"
 
@@ -252,7 +252,7 @@ msgstr "HaZ clic aquí para obtener más información."
 msgid "Close"
 msgstr "Cerrar"
 
-#: src/components/PropertiesMap.tsx:240
+#: src/components/PropertiesMap.tsx:239
 msgid "Close legend"
 msgstr "Cerrar leyenda"
 
@@ -565,7 +565,7 @@ msgstr "Vendido por última vez:"
 msgid "Learn more"
 msgstr "Aprende más"
 
-#: src/components/PropertiesMap.tsx:240
+#: src/components/PropertiesMap.tsx:239
 msgid "Legend"
 msgstr "Leyenda"
 
@@ -581,7 +581,7 @@ msgstr "Enlace a la Escritura"
 
 #: src/components/Loader.tsx:19
 #: src/components/PropertiesList.tsx:108
-#: src/components/PropertiesMap.tsx:185
+#: src/components/PropertiesMap.tsx:186
 msgid "Loading"
 msgstr "Cargando"
 
@@ -833,6 +833,10 @@ msgstr "Unidades RS"
 msgid "Registration expired:"
 msgstr "El registro ha caducado:"
 
+#: src/components/PropertiesMap.tsx:220
+msgid "Rent Stabilized Units"
+msgstr ""
+
 #: src/components/PropertiesSummary.tsx:125
 msgid "Rent stabilization"
 msgstr "Renta estabilizada"
@@ -904,8 +908,8 @@ msgid "Shareholder"
 msgstr "Accionista"
 
 #: src/components/PropertiesMap.tsx:220
-msgid "Show Rent Stabilized"
-msgstr ""
+#~ msgid "Show Rent Stabilized"
+#~ msgstr ""
 
 #: src/components/Subscribe.tsx:80
 msgid "Sign up"
@@ -948,7 +952,7 @@ msgstr ""
 msgid "Some large corporations, however, are a bit more complicated and may share personnel and financial stake with other related companies, which all will show up on Who Owns What as one large portfolio."
 msgstr "Sin embargo, algunas grandes corporaciones son un poco más complicadas y pueden compartir personal y participación financiera con otras compañías relacionadas, que todos se mostrarán en Quién es el Dueño como un gran portafolio."
 
-#: src/components/PropertiesMap.tsx:195
+#: src/components/PropertiesMap.tsx:196
 msgid "Sorry, it looks like there's an error on the map. Try again on a different browser or <0>enable WebGL</0>."
 msgstr "Lo sentimos, parece que hay un error en el mapa. Inténtalo de nuevo con un navegador diferente o <0>habilita WebGL</0>."
 
@@ -1203,7 +1207,7 @@ msgstr "Ver detalles"
 msgid "View documents on <0>ACRIS</0>"
 msgstr "Ver documentos en <0>ACRIS</0>"
 
-#: src/components/PropertiesMap.tsx:240
+#: src/components/PropertiesMap.tsx:239
 msgid "View legend"
 msgstr "Ver leyenda"
 
@@ -1341,7 +1345,7 @@ msgstr "Alejar"
 msgid "and"
 msgstr "y"
 
-#: src/components/PropertiesMap.tsx:247
+#: src/components/PropertiesMap.tsx:246
 msgid "associated building"
 msgstr "edificio asociado"
 
@@ -1361,7 +1365,7 @@ msgstr ""
 msgid "quarter"
 msgstr "trimestre"
 
-#: src/components/PropertiesMap.tsx:246
+#: src/components/PropertiesMap.tsx:245
 msgid "search address"
 msgstr "dirección de búsqueda"
 
