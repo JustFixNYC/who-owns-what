@@ -42,6 +42,17 @@ import "styles/PropertiesList.css";
 
 // TODO: add column resizing (check with team if that's still useful)
 
+const currencyFormater = new Intl.NumberFormat("en-us", {
+  currency: "USD",
+  style: "currency",
+  minimumFractionDigits: 0,
+  maximumFractionDigits: 0,
+});
+
+const formatCurrency = (x: number | null): string | null => {
+  return x == null ? null : currencyFormater.format(x);
+};
+
 export const isPartOfGroupSale = (saleId: string, addrs: AddressRecord[]) => {
   const addrsWithMatchingSale = addrs.filter((addr) => addr.lastsaleacrisid === saleId);
   return addrsWithMatchingSale.length > 1;
@@ -288,6 +299,15 @@ const TableOfData = React.memo(
               size: getWidthFromLabel("BBL", 100),
               enableColumnFilter: false,
             },
+            {
+              accessorKey: "council",
+              header: i18n._(t`City Council District`),
+              cell: (info) => info.getValue(),
+              footer: (props) => props.column.id,
+              size: getWidthFromLabel(i18n._(t`City Council District`)),
+              enableColumnFilter: false,
+              filterFn: "arrIncludesSome",
+            },
           ],
         },
         {
@@ -505,7 +525,7 @@ const TableOfData = React.memo(
               enableColumnFilter: false,
             },
             {
-              accessorFn: (row) => row.lastsaleamount || null,
+              accessorFn: (row) => formatCurrency(row.lastsaleamount),
               id: "lastsaleamount",
               header: i18n._(t`Amount`),
               cell: (info) => info.getValue(),
@@ -646,6 +666,10 @@ const TableOfData = React.memo(
           <div className="filter-box filter-rsunitslatest">
             <Trans>Zipcode</Trans>
             <MultiSelectFilter column={table.getColumn("zip")} table={table} />
+          </div>
+          <div className="filter-box filter-rsunitslatest">
+            <Trans>City Council District</Trans>
+            <MultiSelectFilter column={table.getColumn("council")} table={table} />
           </div>
           <div className="filter-rows">
             {/* When using trans tags here it works locally but not in the netlify preview */}
