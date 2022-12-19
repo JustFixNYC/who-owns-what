@@ -83,6 +83,7 @@ export type AddressRecord = {
   /** Note: in some rare cases, the year listed as the start of this abatement program is actually in the future! */
   yearstarted421a: number | null;
   zip: string | null;
+  council: number | null;
 };
 
 export type PortfolioGraphNode = {
