@@ -301,10 +301,10 @@ const TableOfData = React.memo(
             },
             {
               accessorKey: "council",
-              header: i18n._(t`City Council District`),
+              header: i18n._(t`Council`),
               cell: (info) => info.getValue(),
               footer: (props) => props.column.id,
-              size: getWidthFromLabel(i18n._(t`City Council District`)),
+              size: getWidthFromLabel(i18n._(t`Council`)),
               enableColumnFilter: false,
               filterFn: "arrIncludesSome",
             },
