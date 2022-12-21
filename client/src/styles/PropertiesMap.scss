@@ -44,31 +44,40 @@
       position: absolute;
       z-index: 100;
       top: 0;
-      margin: 1rem 1.1rem 0 4.5rem;
+      left: 0;
+      right: 0;
+      margin: 1rem 2.2rem 0 4.5rem;
       background-color: $wowza-orange;
       color: $wowza-dark;
       border-radius: 0.2rem;
-      padding: 0.5rem 2.1rem 0.5rem 1.08rem;
+      padding: 0.5rem 1.7rem 0.5rem 4.2rem;
       min-height: 5.4rem;
       display: flex;
       font-size: 1.4rem;
+      font-family: "Inconsolata", monospace;
 
-      .float-left {
+      .warning-banner-inner {
         display: flex;
-        align-items: center;
-        padding: 0;
-      }
+        width: 100%;
 
-      .icon {
-        width: 2.536rem;
-        height: 2.277rem;
-        margin-right: 1.012rem;
-      }
+        .float-left {
+          display: flex;
+          align-items: center;
+          padding: 0;
+          margin-right: auto;
+        }
 
-      button {
-        text-decoration: underline;
-        &:hover {
-          text-decoration: none;
+        .icon {
+          width: 2.536rem;
+          height: 2.277rem;
+          margin-right: 1.012rem;
+        }
+
+        button {
+          text-decoration: underline;
+          &:hover {
+            text-decoration: none;
+          }
         }
       }
     }
