@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Trans } from "@lingui/macro";
 import { withI18n, withI18nProps } from "@lingui/react";
 import Modal from "./Modal";
-import { createWhoOwnsWhatRoutePaths } from "routes";
 import networkDiagram from "../assets/img/network-diagram.png";
 import { logAmplitudeEvent } from "./Amplitude";
 import { CloseButton } from "./CloseButton";
