@@ -246,7 +246,7 @@ msgstr "Información de contacto del dueño más clara"
 msgid "Click here to learn more."
 msgstr "HaZ clic aquí para obtener más información."
 
-#: src/components/BigPortfolioWarning.tsx:34
+#: src/components/CloseButton.tsx:10
 #: src/components/DetailView.tsx:58
 #: src/components/FeatureCalloutWidget.tsx:60
 #: src/containers/App.tsx:167
@@ -926,7 +926,7 @@ msgstr "Administrador del Sitio"
 msgid "Sold to Current Owner"
 msgstr "Vendido al Propietario Actual"
 
-#: src/components/BigPortfolioWarning.tsx:51
+#: src/components/BigPortfolioWarning.tsx:47
 msgid "Some large corporations, however, are a bit more complicated and may share personnel and financial stake with other related companies, which all will show up on Who Owns What as one large portfolio."
 msgstr "Sin embargo, algunas grandes corporaciones son un poco más complicadas y pueden compartir personal y participación financiera con otras compañías relacionadas, que todos se mostrarán en Quién es el Dueño como un gran portafolio."
 
@@ -1240,7 +1240,11 @@ msgid "We reorganized the contact details for each individual and corporate enti
 msgstr "Reorganizamos los datos de contacto de cada entidad individual y corporativa asociada con una propiedad en la pestaña General."
 
 #: src/components/BigPortfolioWarning.tsx:61
-msgid "We’ve improved Who Owns What to dig deeper into the data and offer you a more complete picture of buildings associated with your landlord. <0>Read more in our Medium article</0>"
+#~ msgid "We’ve improved Who Owns What to dig deeper into the data and offer you a more complete picture of buildings associated with your landlord. <0>Read more in our Medium article</0>"
+#~ msgstr ""
+
+#: src/components/BigPortfolioWarning.tsx:57
+msgid "We’ve improved Who Owns What to dig deeper into the data and offer you a more complete picture of buildings associated with your landlord. <0>Read more in our methodology article</0>"
 msgstr ""
 
 #: src/components/BigPortfolioWarning.tsx:52
@@ -1260,7 +1264,7 @@ msgstr "¿Qué pasa si el propietario no ha registrado el edificio?"
 msgid "What's New"
 msgstr "Qué hay de nuevo"
 
-#: src/components/BigPortfolioWarning.tsx:45
+#: src/components/BigPortfolioWarning.tsx:41
 msgid "When two parties share the same business address, we group them as part of the same portfolio."
 msgstr "Cuando dos partes comparten la misma dirección comercial, los agrupamos como parte del mismo portafolio."
 
@@ -1288,7 +1292,7 @@ msgid "Who’s the landlord of this building?"
 msgstr "¿Quién es el dueño de este edificio?"
 
 #: src/components/BigPortfolioWarning.tsx:22
-#: src/components/BigPortfolioWarning.tsx:42
+#: src/components/BigPortfolioWarning.tsx:38
 msgid "Why am I seeing such a big portfolio?"
 msgstr "¿Por qué estoy viendo un portafolio tan grande?"
 

@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { t, Trans } from "@lingui/macro";
+import { Trans } from "@lingui/macro";
 import { withI18n, withI18nProps } from "@lingui/react";
-import warning from "../assets/img/icon-warning.svg";
 import Modal from "./Modal";
 import { createWhoOwnsWhatRoutePaths } from "routes";
-import { I18n } from "@lingui/react";
-
 import networkDiagram from "../assets/img/network-diagram.png";
 import { logAmplitudeEvent } from "./Amplitude";
+import { CloseButton } from "./CloseButton";
 
 export const PORTFOLIO_SIZE_THRESHOLD = 300;
 
@@ -44,19 +42,7 @@ export const BigPortfolioWarning = withI18n()(
             </span>
           </div>
           <div>
-            <I18n>
-              {({ i18n }) => (
-                <button
-                  role="button"
-                  className="button"
-                  aria-label={i18n._(t`Close`)}
-                  aria-expanded="false"
-                  onClick={() => setWarningClosed(true)}
-                >
-                  <img src={require("../assets/img/close.svg")} width="16px" height="16px" alt="" />
-                </button>
-              )}
-            </I18n>
+            <CloseButton onClick={() => setWarningClosed(true)} />
           </div>
         </div>
         <Modal showModal={isLearnMoreModalVisible} onClose={() => setModalVisibility(false)}>
@@ -88,7 +74,7 @@ export const BigPortfolioWarning = withI18n()(
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Read more in our Medium article
+                Read more in our methodology article
               </a>
             </Trans>
           </p>
