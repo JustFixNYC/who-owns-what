@@ -38,7 +38,6 @@ export const CloseButton = ({
   <I18n>
     {({ i18n }) => (
       <button
-        role="button"
         className="button"
         aria-label={i18n._(t`Close`)}
         aria-expanded="false"

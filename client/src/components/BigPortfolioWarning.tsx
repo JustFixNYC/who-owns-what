@@ -15,7 +15,6 @@ type BigPortfolioWarningProps = withI18nProps & {
 
 export const BigPortfolioWarning = withI18n()(
   ({ i18n, sizeOfPortfolio }: BigPortfolioWarningProps) => {
-    const { methodology } = createWhoOwnsWhatRoutePaths();
     const [isLearnMoreModalVisible, setModalVisibility] = useState(false);
     const [isWarningClosed, setWarningClosed] = useState(false);
 
