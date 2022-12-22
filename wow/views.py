@@ -176,9 +176,9 @@ def address_latestdeed(request):
     """
     This API endpoint receives requests with a 10-digit BBL and
     responds with the most recent deed document from ACRIS (includes
-    all BBLS, not just included in WOW tables).
+    all BBLS, not just those included in WOW tables).
 
-    This endpoint is used specifically by Unlock NYC.
+    This endpoint is used exclusively by Unlock NYC.
 
     We should make sure we don't change its behavior without
     notifying them.
