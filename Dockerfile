@@ -29,3 +29,6 @@ COPY requirements.txt requirements-dev.txt /
 RUN pip install -r requirements-dev.txt
 
 ENV PATH /wow/client/node_modules/.bin:$PATH
+
+COPY .devcontainer/library-scripts/git-lfs-debian.sh /tmp/library-scripts/
+RUN apt-get update && bash /tmp/library-scripts/git-lfs-debian.sh
