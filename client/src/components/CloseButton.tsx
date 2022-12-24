@@ -1,5 +1,4 @@
 import React from "react";
-import { I18n } from "@lingui/react";
 import { t } from "@lingui/macro";
 import { withI18n, withI18nProps } from "@lingui/react";
 import { ReactComponent as CloseIcon } from "../assets/img/close.svg";
