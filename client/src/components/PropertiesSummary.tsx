@@ -17,7 +17,7 @@ import { I18n } from "@lingui/core/i18n";
 import { I18n as I18nComponent } from "@lingui/react";
 import { PortfolioGraph } from "./PortfolioGraph";
 import { ComplaintsSummary } from "./ComplaintsSummary";
-import { BigPortfolioWarning } from "./BigPortfolioWarning";
+import { BigPortfolioBanner } from "./MapBanner";
 import { LazyLoadWhenVisible } from "./LazyLoadWhenVisible";
 
 type Props = withMachineInStateProps<"portfolioFound"> & {
@@ -105,7 +105,7 @@ export default class PropertiesSummary extends Component<Props, {}> {
                       graphJSON={state.context.portfolioData.portfolioGraph}
                       state={state}
                     />
-                    <BigPortfolioWarning sizeOfPortfolio={agg.bldgs} />
+                    <BigPortfolioBanner sizeOfPortfolio={agg.bldgs} />
                   </LazyLoadWhenVisible>
                 </div>
               )}

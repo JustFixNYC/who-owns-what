@@ -13,7 +13,7 @@ import { AddressRecord } from "./APIDataTypes";
 import { FitBounds, Props as MapboxMapProps } from "react-mapbox-gl/lib/map";
 import { Events as MapboxMapEvents } from "react-mapbox-gl/lib/map-events";
 import { withMachineInStateProps } from "state-machine";
-import { BigPortfolioWarning } from "./BigPortfolioWarning";
+import { MapBanner, BigPortfolioBanner } from "./MapBanner";
 
 type Props = withMachineInStateProps<"portfolioFound"> & {
   onAddrChange: (bbl: string) => void;
@@ -266,11 +266,13 @@ export default class PropertiesMap extends Component<Props, State> {
                 left: "10px",
               }}
             />
-            {useNewPortfolioMethod ? (
-              <BigPortfolioWarning sizeOfPortfolio={this.state.addrsPoints.length} />
-            ) : (
-              <></>
-            )}
+            <div className="MapBanner__container">
+              {useNewPortfolioMethod ? (
+                <BigPortfolioBanner sizeOfPortfolio={this.state.addrsPoints.length} />
+              ) : (
+                <></>
+              )}
+            </div>
             {this.state.addrsPoints.length ? (
               <Layer id="assoc" type="circle" paint={DYNAMIC_ASSOC_PAINT}>
                 {this.state.addrsPoints}

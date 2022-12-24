@@ -73,15 +73,15 @@
         }
       }
 
-      .warning-banner {
-        background-color: $wowza-orange;
-        color: $wowza-dark;
-        border-radius: 0.2rem;
+      .MapBanner {
+        display: flex;
+        position: relative;
+        min-height: 5.4rem;
         padding: 0.911rem 2.1rem 1.012rem 1.08rem;
         margin-bottom: 1.5rem;
-        display: flex;
+        border-radius: 0.2rem;
+        font-family: "Inconsolata", monospace;
         font-size: 1.4rem;
-        max-width: 47.5rem;
 
         @include for-tablet-portrait-up {
           position: absolute;
@@ -89,25 +89,26 @@
           bottom: 1rem;
           left: 1rem;
           margin-bottom: 0;
+          width: 37.5rem;
         }
 
-        .float-left {
-          display: flex;
-          align-items: center;
-          padding: 0;
-        }
-
-        .icon {
-          width: 2.536rem;
-          height: 2.277rem;
-          margin-right: 1.012rem;
-        }
-
-        button {
-          text-decoration: underline;
-          &:hover {
-            text-decoration: none;
+        .MapBanner__message {
+          margin-right: auto;
+          padding-right: 1rem;
+          button {
+            text-decoration: underline;
+            &:hover {
+              text-decoration: none;
+            }
           }
+        }
+      }
+
+      .BigPortfolioBanner {
+        background-color: $justfix-orange;
+        color: $justfix-black;
+        .CloseIcon {
+          stroke: $justfix-black;
         }
       }
     }

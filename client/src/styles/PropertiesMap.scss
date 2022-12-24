@@ -40,38 +40,61 @@
       }
     }
 
-    .warning-banner {
+    .MapBanner__container {
       position: absolute;
       z-index: 100;
       top: 0;
       left: 0;
       right: 0;
       margin: 1rem 2.2rem 0 4.5rem;
-      background-color: $wowza-orange;
-      color: $wowza-dark;
-      border-radius: 0.2rem;
-      padding: 0.5rem 1.7rem 0.5rem 4.2rem;
-      min-height: 5.4rem;
       display: flex;
-      font-size: 1.4rem;
-      font-family: "Inconsolata", monospace;
+      flex-direction: column;
 
-      .warning-banner-inner {
+      .MapBanner {
         display: flex;
-        width: 100%;
+        position: relative;
+        min-height: 5.4rem;
+        padding: 0.5rem 1.7rem 0.5rem 4.2rem;
+        margin-bottom: 0.5rem;
+        border-radius: 0.2rem;
+        font-family: "Inconsolata", monospace;
+        font-size: 1.4rem;
 
-        .float-left {
-          display: flex;
-          align-items: center;
-          padding: 0;
+        .MapBanner__message {
           margin-right: auto;
-        }
-
-        button {
-          text-decoration: underline;
-          &:hover {
-            text-decoration: none;
+          padding-right: 1rem;
+          button {
+            text-decoration: underline;
+            &:hover {
+              text-decoration: none;
+            }
           }
+        }
+      }
+
+      .BigPortfolioBanner {
+        background-color: $justfix-orange;
+        color: $justfix-black;
+        .CloseIcon {
+          stroke: $justfix-black;
+        }
+      }
+
+      .MapFilterBanner {
+        background-color: $justfix-black;
+        color: $justfix-white;
+        border: 0.1rem solid $justfix-white;
+        .CloseIcon {
+          stroke: $justfix-white;
+        }
+        &::before {
+          content: "";
+          background-color: $justfix-green;
+          width: 1.5rem;
+          position: absolute;
+          top: 0;
+          left: 0;
+          bottom: 0;
         }
       }
     }
