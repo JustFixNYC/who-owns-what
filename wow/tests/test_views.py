@@ -122,6 +122,18 @@ class TestAddressIndicatorHistory(ApiTest):
         assert res.json()["result"] is not None
 
 
+class TestAddressLatestDeed(ApiTest):
+    HTTP_400_URLS = [
+        "/api/address/latestdeed",
+        "/api/address/latestdeed?bbl=bop",
+    ]
+
+    def test_it_works(self, db, client):
+        res = client.get("/api/address/latestdeed?bbl=3016780054")
+        assert res.status_code == 200
+        assert res.json()["result"] is not None
+
+
 class TestAddressExport(ApiTest):
     HTTP_400_URLS = [
         "/api/address/export",

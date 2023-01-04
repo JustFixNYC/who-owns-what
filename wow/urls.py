@@ -31,4 +31,5 @@ urlpatterns = [
         name="address_indicatorhistory",
     ),
     path("address/export", views.address_export, name="address_export"),
+    path("address/latestdeed", views.address_latestdeed, name="address_latestdeed"),
 ]

@@ -171,6 +171,23 @@ def address_indicatorhistory(request):
     return JsonResponse({"result": list(result)})
 
 
+@api
+def address_latestdeed(request):
+    """
+    This API endpoint receives requests with a 10-digit BBL and
+    responds with the most recent deed document from ACRIS (includes
+    all BBLS, not just those included in WOW tables).
+
+    This endpoint is used exclusively by Unlock NYC.
+
+    We should make sure we don't change its behavior without
+    notifying them.
+    """
+    bbl = get_request_bbl(request)
+    result = exec_db_query(SQL_DIR / "address_latestdeed.sql", {"bbl": bbl})
+    return JsonResponse({"result": list(result)})
+
+
 def _fixup_addr_for_csv(addr: Dict[str, Any]):
     addr["ownernames"] = csvutil.stringify_owners(addr["ownernames"] or [])
     addr["recentcomplaintsbytype"] = csvutil.stringify_complaints(
