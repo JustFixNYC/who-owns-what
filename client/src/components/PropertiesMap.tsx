@@ -266,13 +266,13 @@ export default class PropertiesMap extends Component<Props, State> {
                 left: "10px",
               }}
             />
-            <div className="MapBanner__container">
-              {useNewPortfolioMethod ? (
+            {useNewPortfolioMethod ? (
+              <div className="MapBanner__container">
                 <BigPortfolioBanner sizeOfPortfolio={this.state.addrsPoints.length} />
-              ) : (
-                <></>
-              )}
-            </div>
+              </div>
+            ) : (
+              <></>
+            )}
             {this.state.addrsPoints.length ? (
               <Layer id="assoc" type="circle" paint={DYNAMIC_ASSOC_PAINT}>
                 {this.state.addrsPoints}

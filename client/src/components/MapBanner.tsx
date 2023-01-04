@@ -41,12 +41,10 @@ export const MapBanner = ({
   );
 };
 
-type BigPortfolioBannerProps = Omit<
-  MapBannerProps & {
-    sizeOfPortfolio: number;
-  },
-  "message"
->;
+type BigPortfolioBannerProps = {
+  sizeOfPortfolio: number;
+  className?: number;
+};
 
 export const BigPortfolioBanner = ({ sizeOfPortfolio, className }: BigPortfolioBannerProps) => {
   const [isLearnMoreModalVisible, setModalVisibility] = useState(false);

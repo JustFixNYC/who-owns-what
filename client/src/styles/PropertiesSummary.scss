@@ -1,6 +1,7 @@
 @import "_vars.scss";
 @import "_scrollbar.scss";
 @import "_button.scss";
+@import "_mapbanner.scss";
 
 .PropertiesSummary {
   position: relative;
@@ -74,15 +75,6 @@
       }
 
       .MapBanner {
-        display: flex;
-        position: relative;
-        min-height: 5.4rem;
-        padding: 0.911rem 2.1rem 1.012rem 1.08rem;
-        margin-bottom: 1.5rem;
-        border-radius: 0.2rem;
-        font-family: "Inconsolata", monospace;
-        font-size: 1.4rem;
-
         @include for-tablet-portrait-up {
           position: absolute;
           z-index: 100;
@@ -90,25 +82,6 @@
           left: 1rem;
           margin-bottom: 0;
           width: 37.5rem;
-        }
-
-        .MapBanner__message {
-          margin-right: auto;
-          padding-right: 1rem;
-          button {
-            text-decoration: underline;
-            &:hover {
-              text-decoration: none;
-            }
-          }
-        }
-      }
-
-      .BigPortfolioBanner {
-        background-color: $justfix-orange;
-        color: $justfix-black;
-        .CloseIcon {
-          stroke: $justfix-black;
         }
       }
     }
