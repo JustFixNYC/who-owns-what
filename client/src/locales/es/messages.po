@@ -47,7 +47,7 @@ msgstr "(pase el cursor sobre una casilla para aprender más)"
 msgid "(this may take a while)"
 msgstr "(esto puede tardar un rato)"
 
-#: src/components/PropertiesMap.tsx:208
+#: src/components/PropertiesMap.tsx:210
 msgid "({browserType, select, mobile {tap} other {click}} to view details)"
 msgstr "({browserType, select, mobile {pulsa} other {haz clic}} para ver detalles)"
 
@@ -246,13 +246,14 @@ msgstr "Información de contacto del dueño más clara"
 msgid "Click here to learn more."
 msgstr "HaZ clic aquí para obtener más información."
 
+#: src/components/CloseButton.tsx:9
 #: src/components/DetailView.tsx:58
 #: src/components/FeatureCalloutWidget.tsx:60
 #: src/containers/App.tsx:167
 msgid "Close"
 msgstr "Cerrar"
 
-#: src/components/PropertiesMap.tsx:196
+#: src/components/PropertiesMap.tsx:198
 msgid "Close legend"
 msgstr "Cerrar leyenda"
 
@@ -559,12 +560,12 @@ msgstr "Registrado por última vez:"
 msgid "Last sold:"
 msgstr "Vendido por última vez:"
 
-#: src/components/BigPortfolioWarning.tsx:27
 #: src/components/DetailView.tsx:58
+#: src/components/MapBanner.tsx:28
 msgid "Learn more"
 msgstr "Aprende más"
 
-#: src/components/PropertiesMap.tsx:196
+#: src/components/PropertiesMap.tsx:198
 msgid "Legend"
 msgstr "Leyenda"
 
@@ -925,7 +926,7 @@ msgstr "Administrador del Sitio"
 msgid "Sold to Current Owner"
 msgstr "Vendido al Propietario Actual"
 
-#: src/components/BigPortfolioWarning.tsx:42
+#: src/components/MapBanner.tsx:44
 msgid "Some large corporations, however, are a bit more complicated and may share personnel and financial stake with other related companies, which all will show up on Who Owns What as one large portfolio."
 msgstr "Sin embargo, algunas grandes corporaciones son un poco más complicadas y pueden compartir personal y participación financiera con otras compañías relacionadas, que todos se mostrarán en Quién es el Dueño como un gran portafolio."
 
@@ -1183,7 +1184,7 @@ msgstr "Ver detalles"
 msgid "View documents on <0>ACRIS</0>"
 msgstr "Ver documentos en <0>ACRIS</0>"
 
-#: src/components/PropertiesMap.tsx:196
+#: src/components/PropertiesMap.tsx:198
 msgid "View legend"
 msgstr "Ver leyenda"
 
@@ -1219,8 +1220,8 @@ msgid "WINDOWS"
 msgstr "VENTANAS"
 
 #: src/components/BigPortfolioWarning.tsx:19
-msgid "Warning"
-msgstr "Aviso"
+#~ msgid "Warning"
+#~ msgstr "Aviso"
 
 #: src/components/DetailView.tsx:217
 msgid "Warning: This building has an expired registration and was sold after the expiration date. The landlord info listed here may be outdated."
@@ -1238,9 +1239,17 @@ msgstr "Revisamos la pestaña Portafolio para ayudarle navegar por esta gran tab
 msgid "We reorganized the contact details for each individual and corporate entities associated with a property on the Overview tab."
 msgstr "Reorganizamos los datos de contacto de cada entidad individual y corporativa asociada con una propiedad en la pestaña General."
 
+#: src/components/BigPortfolioWarning.tsx:61
+#~ msgid "We’ve improved Who Owns What to dig deeper into the data and offer you a more complete picture of buildings associated with your landlord. <0>Read more in our Medium article</0>"
+#~ msgstr ""
+
+#: src/components/MapBanner.tsx:54
+msgid "We’ve improved Who Owns What to dig deeper into the data and offer you a more complete picture of buildings associated with your landlord. <0>Read more in our methodology article</0>"
+msgstr ""
+
 #: src/components/BigPortfolioWarning.tsx:52
-msgid "We’ve improved Who Owns What to dig deeper into the data and offer you a more complete picture of buildings associated with your landlord. <0>Read more on our Methodology page</0>"
-msgstr "Hemos mejorado Quien es el Dueño para investigar más profundamente en los datos y ofrecerte una imagen más clara de los edificios asociados con tu dueño. <0>Obtiene más información en nuestra metodología</0>"
+#~ msgid "We’ve improved Who Owns What to dig deeper into the data and offer you a more complete picture of buildings associated with your landlord. <0>Read more on our Methodology page</0>"
+#~ msgstr "Hemos mejorado Quien es el Dueño para investigar más profundamente en los datos y ofrecerte una imagen más clara de los edificios asociados con tu dueño. <0>Obtiene más información en nuestra metodología</0>"
 
 #: src/components/Indicators.tsx:223
 msgid "What are {0}?"
@@ -1255,7 +1264,7 @@ msgstr "¿Qué pasa si el propietario no ha registrado el edificio?"
 msgid "What's New"
 msgstr "Qué hay de nuevo"
 
-#: src/components/BigPortfolioWarning.tsx:36
+#: src/components/MapBanner.tsx:38
 msgid "When two parties share the same business address, we group them as part of the same portfolio."
 msgstr "Cuando dos partes comparten la misma dirección comercial, los agrupamos como parte del mismo portafolio."
 
@@ -1282,8 +1291,8 @@ msgstr "¿Quién es responsable por los problemas en tu apartamento y edificio? 
 msgid "Who’s the landlord of this building?"
 msgstr "¿Quién es el dueño de este edificio?"
 
-#: src/components/BigPortfolioWarning.tsx:21
-#: src/components/BigPortfolioWarning.tsx:33
+#: src/components/MapBanner.tsx:28
+#: src/components/MapBanner.tsx:35
 msgid "Why am I seeing such a big portfolio?"
 msgstr "¿Por qué estoy viendo un portafolio tan grande?"
 
@@ -1320,7 +1329,7 @@ msgstr "Alejar"
 msgid "and"
 msgstr "y"
 
-#: src/components/PropertiesMap.tsx:203
+#: src/components/PropertiesMap.tsx:205
 msgid "associated building"
 msgstr "edificio asociado"
 
@@ -1336,7 +1345,7 @@ msgstr "mes"
 msgid "quarter"
 msgstr "trimestre"
 
-#: src/components/PropertiesMap.tsx:202
+#: src/components/PropertiesMap.tsx:204
 msgid "search address"
 msgstr "dirección de búsqueda"
 

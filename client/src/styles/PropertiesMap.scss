@@ -1,4 +1,5 @@
 @import "_vars.scss";
+@import "_mapbanner.scss";
 
 .PropertiesMap {
   display: inline-block;
@@ -40,37 +41,15 @@
       }
     }
 
-    .warning-banner {
+    .MapBanner__container {
       position: absolute;
       z-index: 100;
       top: 0;
-      margin: 1rem 1.1rem 0 4.5rem;
-      background-color: $wowza-orange;
-      color: $wowza-dark;
-      border-radius: 0.2rem;
-      padding: 0.5rem 2.1rem 0.5rem 1.08rem;
-      min-height: 5.4rem;
+      left: 0;
+      right: 0;
+      margin: 1rem 2.2rem 0 4.5rem;
       display: flex;
-      font-size: 1.4rem;
-
-      .float-left {
-        display: flex;
-        align-items: center;
-        padding: 0;
-      }
-
-      .icon {
-        width: 2.536rem;
-        height: 2.277rem;
-        margin-right: 1.012rem;
-      }
-
-      button {
-        text-decoration: underline;
-        &:hover {
-          text-decoration: none;
-        }
-      }
+      flex-direction: column;
     }
   }
 

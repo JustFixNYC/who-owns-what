@@ -42,7 +42,7 @@ msgstr "(hover over a box to learn more)"
 msgid "(this may take a while)"
 msgstr "(this may take a while)"
 
-#: src/components/PropertiesMap.tsx:208
+#: src/components/PropertiesMap.tsx:210
 msgid "({browserType, select, mobile {tap} other {click}} to view details)"
 msgstr "({browserType, select, mobile {tap} other {click}} to view details)"
 
@@ -241,13 +241,14 @@ msgstr "Clearer Landlord Contact Info"
 msgid "Click here to learn more."
 msgstr "Click here to learn more."
 
+#: src/components/CloseButton.tsx:9
 #: src/components/DetailView.tsx:58
 #: src/components/FeatureCalloutWidget.tsx:60
 #: src/containers/App.tsx:167
 msgid "Close"
 msgstr "Close"
 
-#: src/components/PropertiesMap.tsx:196
+#: src/components/PropertiesMap.tsx:198
 msgid "Close legend"
 msgstr "Close legend"
 
@@ -554,12 +555,12 @@ msgstr "Last registered:"
 msgid "Last sold:"
 msgstr "Last sold:"
 
-#: src/components/BigPortfolioWarning.tsx:27
 #: src/components/DetailView.tsx:58
+#: src/components/MapBanner.tsx:28
 msgid "Learn more"
 msgstr "Learn more"
 
-#: src/components/PropertiesMap.tsx:196
+#: src/components/PropertiesMap.tsx:198
 msgid "Legend"
 msgstr "Legend"
 
@@ -920,7 +921,7 @@ msgstr "Site Manager"
 msgid "Sold to Current Owner"
 msgstr "Sold to Current Owner"
 
-#: src/components/BigPortfolioWarning.tsx:42
+#: src/components/MapBanner.tsx:44
 msgid "Some large corporations, however, are a bit more complicated and may share personnel and financial stake with other related companies, which all will show up on Who Owns What as one large portfolio."
 msgstr "Some large corporations, however, are a bit more complicated and may share personnel and financial stake with other related companies, which all will show up on Who Owns What as one large portfolio."
 
@@ -1178,7 +1179,7 @@ msgstr "View detail"
 msgid "View documents on <0>ACRIS</0>"
 msgstr "View documents on <0>ACRIS</0>"
 
-#: src/components/PropertiesMap.tsx:196
+#: src/components/PropertiesMap.tsx:198
 msgid "View legend"
 msgstr "View legend"
 
@@ -1214,8 +1215,8 @@ msgid "WINDOWS"
 msgstr "WINDOWS"
 
 #: src/components/BigPortfolioWarning.tsx:19
-msgid "Warning"
-msgstr "Warning"
+#~ msgid "Warning"
+#~ msgstr "Warning"
 
 #: src/components/DetailView.tsx:217
 msgid "Warning: This building has an expired registration and was sold after the expiration date. The landlord info listed here may be outdated."
@@ -1233,9 +1234,17 @@ msgstr "We overhauled the Portfolio tab to help make navigating this large table
 msgid "We reorganized the contact details for each individual and corporate entities associated with a property on the Overview tab."
 msgstr "We reorganized the contact details for each individual and corporate entities associated with a property on the Overview tab."
 
+#: src/components/BigPortfolioWarning.tsx:61
+#~ msgid "We’ve improved Who Owns What to dig deeper into the data and offer you a more complete picture of buildings associated with your landlord. <0>Read more in our Medium article</0>"
+#~ msgstr "We’ve improved Who Owns What to dig deeper into the data and offer you a more complete picture of buildings associated with your landlord. <0>Read more in our Medium article</0>"
+
+#: src/components/MapBanner.tsx:54
+msgid "We’ve improved Who Owns What to dig deeper into the data and offer you a more complete picture of buildings associated with your landlord. <0>Read more in our methodology article</0>"
+msgstr "We’ve improved Who Owns What to dig deeper into the data and offer you a more complete picture of buildings associated with your landlord. <0>Read more in our methodology article</0>"
+
 #: src/components/BigPortfolioWarning.tsx:52
-msgid "We’ve improved Who Owns What to dig deeper into the data and offer you a more complete picture of buildings associated with your landlord. <0>Read more on our Methodology page</0>"
-msgstr "We’ve improved Who Owns What to dig deeper into the data and offer you a more complete picture of buildings associated with your landlord. <0>Read more on our Methodology page</0>"
+#~ msgid "We’ve improved Who Owns What to dig deeper into the data and offer you a more complete picture of buildings associated with your landlord. <0>Read more on our Methodology page</0>"
+#~ msgstr "We’ve improved Who Owns What to dig deeper into the data and offer you a more complete picture of buildings associated with your landlord. <0>Read more on our Methodology page</0>"
 
 #: src/components/Indicators.tsx:223
 msgid "What are {0}?"
@@ -1250,7 +1259,7 @@ msgstr "What happens if the landlord has failed to register?"
 msgid "What's New"
 msgstr "What's New"
 
-#: src/components/BigPortfolioWarning.tsx:36
+#: src/components/MapBanner.tsx:38
 msgid "When two parties share the same business address, we group them as part of the same portfolio."
 msgstr "When two parties share the same business address, we group them as part of the same portfolio."
 
@@ -1277,8 +1286,8 @@ msgstr "Who’s responsible for issues in your apartment & building? #WhoOwnsWha
 msgid "Who’s the landlord of this building?"
 msgstr "Who’s the landlord of this building?"
 
-#: src/components/BigPortfolioWarning.tsx:21
-#: src/components/BigPortfolioWarning.tsx:33
+#: src/components/MapBanner.tsx:28
+#: src/components/MapBanner.tsx:35
 msgid "Why am I seeing such a big portfolio?"
 msgstr "Why am I seeing such a big portfolio?"
 
@@ -1315,7 +1324,7 @@ msgstr "Zoom out"
 msgid "and"
 msgstr "and"
 
-#: src/components/PropertiesMap.tsx:203
+#: src/components/PropertiesMap.tsx:205
 msgid "associated building"
 msgstr "associated building"
 
@@ -1331,7 +1340,7 @@ msgstr "month"
 msgid "quarter"
 msgstr "quarter"
 
-#: src/components/PropertiesMap.tsx:202
+#: src/components/PropertiesMap.tsx:204
 msgid "search address"
 msgstr "search address"
 
