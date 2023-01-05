@@ -51,4 +51,7 @@
 		"source=who-owns-what_node-modules,target=/workspaces/who-owns-what/node_modules/,type=volume",
 		"source=who-owns-what_client-node-modules,target=/workspaces/who-owns-what/client/node_modules/,type=volume",
 	],
+	"features": {
+		"ghcr.io/devcontainers/features/git-lfs:1": {}
+	},
 }
