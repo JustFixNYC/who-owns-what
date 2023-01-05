@@ -1,4 +1,4 @@
-FROM python:3.6
+FROM python:3.9.16
 
 # This Dockerfile is for development purposes only; we don't use it
 # for production.
@@ -26,6 +26,6 @@ RUN npm install -g yarn
 
 COPY requirements.txt requirements-dev.txt /
 
-RUN pip install -r requirements-dev.txt
+RUN pip install -r requirements-dev.txt --no-cache-dir
 
 ENV PATH /wow/client/node_modules/.bin:$PATH

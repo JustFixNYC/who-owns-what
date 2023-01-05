@@ -2,8 +2,8 @@
 https://github.com/nycdb/nycdb/archive/e65c87f872c719edf3a17edddeeae417e1625dc8.zip#subdirectory=src
 mypy==0.782
 PyYAML>=5.1
-pytest==4.4.0
-pytest-django==3.4.5
+pytest==6.2.5
+pytest-django==4.2.0
 python-dotenv==0.9.1
 flake8==3.8.3
 networkx==2.5.1
