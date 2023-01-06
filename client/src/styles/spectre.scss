@@ -5,8 +5,8 @@
 @import "styles/_button.scss";
 @import "styles/_modal.scss";
 
-@import "node_modules/spectre.scss/spectre.scss";
-@import "node_modules/spectre.scss/spectre-icons.scss";
+@import "spectre.scss/spectre.scss";
+@import "spectre.scss/spectre-icons.scss";
 
 // various overwrites
 a {
@@ -105,48 +105,48 @@ sup .tooltip:after {
 }
 
 // Core variables and mixins
-// @import 'node_modules/spectre.scss/src/_variables.scss';
+// @import 'spectre.scss/src/_variables.scss';
 //
-// @import 'node_modules/spectre.scss/src/_mixins.scss';
+// @import 'spectre.scss/src/_mixins.scss';
 //
 // // Reset and dependencies
-// @import 'node_modules/spectre.scss/src/_normalize.scss';
-// @import 'node_modules/spectre.scss/src/_base.scss';
+// @import 'spectre.scss/src/_normalize.scss';
+// @import 'spectre.scss/src/_base.scss';
 //
 // // Core classes
-// @import 'node_modules/spectre.scss/src/_typography.scss';
-// // @import 'node_modules/spectre.scss/src/_asian.scss';
-// @import 'node_modules/spectre.scss/src/_tables.scss';
-// @import 'node_modules/spectre.scss/src/_buttons.scss';
-// @import 'node_modules/spectre.scss/src/_forms.scss';
-// @import 'node_modules/spectre.scss/src/_labels.scss';
-// @import 'node_modules/spectre.scss/src/_codes.scss';
-// @import 'node_modules/spectre.scss/src/_media.scss';
+// @import 'spectre.scss/src/_typography.scss';
+// // @import 'spectre.scss/src/_asian.scss';
+// @import 'spectre.scss/src/_tables.scss';
+// @import 'spectre.scss/src/_buttons.scss';
+// @import 'spectre.scss/src/_forms.scss';
+// @import 'spectre.scss/src/_labels.scss';
+// @import 'spectre.scss/src/_codes.scss';
+// @import 'spectre.scss/src/_media.scss';
 //
 // // Layout
-@import "node_modules/spectre.scss/src/_layout.scss";
-// @import 'node_modules/spectre.scss/src/_navbar.scss';
-// @import 'node_modules/spectre.scss/src/_panels.scss';
-// @import 'node_modules/spectre.scss/src/_empty.scss';
+@import "spectre.scss/src/_layout.scss";
+// @import 'spectre.scss/src/_navbar.scss';
+// @import 'spectre.scss/src/_panels.scss';
+// @import 'spectre.scss/src/_empty.scss';
 //
 // // Components
-// @import 'node_modules/spectre.scss/src/_autocomplete.scss';
-// @import 'node_modules/spectre.scss/src/_avatars.scss';
-// @import 'node_modules/spectre.scss/src/_badges.scss';
-// @import 'node_modules/spectre.scss/src/_bars.scss';
-// @import 'node_modules/spectre.scss/src/_cards.scss';
-// @import 'node_modules/spectre.scss/src/_chips.scss';
-// @import 'node_modules/spectre.scss/src/_dropdowns.scss';
-// @import 'node_modules/spectre.scss/src/_menus.scss';
-// @import 'node_modules/spectre.scss/src/_modals.scss';
-// @import 'node_modules/spectre.scss/src/_navigation.scss';
-// @import 'node_modules/spectre.scss/src/_popovers.scss';
-// @import 'node_modules/spectre.scss/src/_steps.scss';
-// @import 'node_modules/spectre.scss/src/_tiles.scss';
-// @import 'node_modules/spectre.scss/src/_toasts.scss';
-// @import 'node_modules/spectre.scss/src/_tooltips.scss';
-// @import 'node_modules/spectre.scss/src/_icons.scss';
+// @import 'spectre.scss/src/_autocomplete.scss';
+// @import 'spectre.scss/src/_avatars.scss';
+// @import 'spectre.scss/src/_badges.scss';
+// @import 'spectre.scss/src/_bars.scss';
+// @import 'spectre.scss/src/_cards.scss';
+// @import 'spectre.scss/src/_chips.scss';
+// @import 'spectre.scss/src/_dropdowns.scss';
+// @import 'spectre.scss/src/_menus.scss';
+// @import 'spectre.scss/src/_modals.scss';
+// @import 'spectre.scss/src/_navigation.scss';
+// @import 'spectre.scss/src/_popovers.scss';
+// @import 'spectre.scss/src/_steps.scss';
+// @import 'spectre.scss/src/_tiles.scss';
+// @import 'spectre.scss/src/_toasts.scss';
+// @import 'spectre.scss/src/_tooltips.scss';
+// @import 'spectre.scss/src/_icons.scss';
 //
 // // Utility classes
-// @import 'node_modules/spectre.scss/src/_animations.scss';
-@import "node_modules/spectre.scss/src/_utilities.scss";
+// @import 'spectre.scss/src/_animations.scss';
+@import "spectre.scss/src/_utilities.scss";

@@ -1,4 +1,4 @@
-FROM python:3.6
+FROM python:3.9.16
 
 # This Dockerfile is for development purposes only; we don't use it
 # for production.
