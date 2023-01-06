@@ -26,6 +26,6 @@ RUN npm install -g yarn
 
 COPY requirements.txt requirements-dev.txt /
 
-RUN pip install -r requirements-dev.txt --no-cache-dir
+RUN pip install -r requirements-dev.txt
 
 ENV PATH /wow/client/node_modules/.bin:$PATH
