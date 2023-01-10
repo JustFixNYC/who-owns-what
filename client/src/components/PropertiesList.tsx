@@ -20,6 +20,16 @@ import { withMachineInStateProps } from "state-machine";
 import { AddressPageRoutes } from "routes";
 import classnames from "classnames";
 import { logAmplitudeEvent } from "../components/Amplitude";
+import fscreen from "fscreen";
+
+function toggleFullScreen() {
+  if (fscreen.fullscreenElement) {
+    fscreen.exitFullscreen();
+  } else {
+    const element = document.querySelector(".PropertiesList")!;
+    fscreen.requestFullscreen(element);
+  }
+}
 
 export const isPartOfGroupSale = (saleId: string, addrs: AddressRecord[]) => {
   const addrsWithMatchingSale = addrs.filter((addr) => addr.lastsaleacrisid === saleId);
@@ -121,19 +131,11 @@ const PropertiesListWithoutI18n: React.FC<
       className={classnames("PropertiesList", hideScrollFade && "hide-scroll-fade")}
       ref={tableRef}
     >
-      <button
-        type="button"
-        onClick={() => {
-          if (document.fullscreenElement) {
-            document.exitFullscreen();
-          } else {
-            document.querySelector(".PropertiesList")?.requestFullscreen();
-          }
-        }}
-        style={{ position: "fixed", zIndex: 100 }}
-      >
-        {document.fullscreenElement ? "Exit Fullscreen" : "View Fullscreen"}
-      </button>
+      {fscreen.fullscreenEnabled && (
+        <button type="button" onClick={toggleFullScreen} style={{ position: "fixed", zIndex: 100 }}>
+          {document.fullscreenElement ? "Exit Fullscreen" : "View Fullscreen"}
+        </button>
+      )}
       {isTableVisible ? (
         <TableOfData
           addrs={addrs}
