@@ -5,7 +5,12 @@ import "styles/Modal.css";
 
 type ModalProps = {
   showModal: boolean;
-  onClose: (event: React.MouseEvent) => void;
+  // temp patch to get things to build
+  onClose: (event: any) => void;
+  // original
+  // onClose: (event: React.MouseEvent) => void;
+  // what error message says it needs to be assignable to, but doesn't work still
+  // onClose: (event: React.MouseEvent<Element, MouseEvent> | React.KeyboardEvent<Element>) => void;
   children: any;
   width?: number;
 };

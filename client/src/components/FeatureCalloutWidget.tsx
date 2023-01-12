@@ -86,6 +86,7 @@ const FeatureCalloutWidget = withI18n()((props: withI18nProps) => {
         >
           <div className="widget-container" id="widget">
             <div className="widget-header">
+              {/* eslint-disable-next-line */}
               <span className="widget-title focusable" role="heading" tabIndex={0}>
                 {i18n._(t`What's New`)}
               </span>
