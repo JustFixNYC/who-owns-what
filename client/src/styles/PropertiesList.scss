@@ -6,129 +6,332 @@ $table-border-light: 1px solid $gray-light;
 $table-border-dark: 1px solid $dark;
 
 .PropertiesList {
+  display: flex;
+  flex-direction: column;
   height: 100%;
-  width: 100%;
-  // These next 2 items ensure that the fade effect from the "::after"
-  // component doesn't overflow past the edge of the PropertiesList container
-  position: relative;
-  overflow: auto;
 
-  .ReactTable {
-    border-top: none;
-    border-left: none;
-    border-color: $gray-dark;
+  .filters-bar {
+    display: flex;
+    padding: 5px 10px;
 
-    .arrow-icon {
-      display: inline-block;
-      margin-left: 0.5rem;
-      span {
-        // This small adjustment aligns second arrow in icon with first
-        display: inline-block;
-        transform: translateY(0.5px);
-      }
+    .filter-box {
+      padding: 0 10px;
     }
 
-    // These three props fix our top left cells of the table in place.
-    // This area is within two nested sticky containers and
-    // therefore has laggin issues on mobile devices without these new css rules.
-    &.-sp .rt-thead .rt-tr .rthfc-th-fixed.rthfc-th-fixed-left {
-      position: fixed;
-      // This display prop makes sure that the fixed table cells
-      // fill up their entire allotted spaces
-      display: list-item;
-      z-index: 5;
-    }
-
-    // The "react-table-hoc-fixed-columns" package has a built-in fallback for fixing columns using the
-    // `transform` property for older browsers that don't support `position: sticky`. These following rules
-    // remove conflicts with some custom CSS when this fallback is present (when the "-se" class is attached).
-    &.-se {
-      .rt-thead .rt-tr .rthfc-th-fixed.rthfc-th-fixed-left {
-        position: static;
-      }
-      .rt-th {
-        // This property is set as an inline style in PropertiesList.tsx, so we need the `!important` flag to override it
-        margin-left: 0px !important;
-      }
-    }
-
-    .rt-thead {
-      max-height: 30px;
-
-      &.-headerGroups .rthfc-th-fixed {
-        border-bottom: $table-border-light;
-      }
-
-      &.-header .rt-tr {
-        border-bottom: $table-border-dark;
-      }
-
-      .rt-th {
-        padding: 7px 5px;
-      }
-    }
-
-    .rt-thead.-headerGroups {
-      background-color: #fff;
-      border-color: $gray-light;
+    .view-buildings {
       font-weight: bold;
-      color: #000;
     }
 
-    .rt-thead.-header {
-      box-shadow: none;
-      border-bottom: $table-border-dark;
+    .filter-ownernames {
+      width: 200px;
     }
 
-    .rt-td {
-      text-align: center;
+    .filter-unitsres {
+      input {
+        margin-right: 5px;
+      }
     }
 
-    .rt-tbody {
-      .rt-tr-group {
-        border-bottom: $table-border-light;
-        .rt-td {
-          border-right: $table-border-light;
+    .filter-rsunitslatest {
+      .toggle {
+        background-color: #fff;
+        border-radius: 0.5rem;
+        padding: 2px;
+        border-width: 1px;
+        border-color: $gray-dark;
+        width: 50px;
+        height: 25px;
+
+        div {
+          height: 100%;
+          width: 20px;
+          border-radius: 0.5rem;
+          transition: transform 100ms ease-in-out;
+          transition: background-color 100ms;
+        }
+
+        &[aria-pressed="false"] {
+          border-style: dashed;
+          div {
+            background-color: $gray-light;
+          }
+        }
+
+        &[aria-pressed="true"] {
+          border-style: solid;
+          div {
+            background-color: $gray-dark;
+            transform: translateX(24px);
+          }
+        }
+      }
+    }
+
+    .filter-rows {
+      font-weight: bold;
+      padding-left: 20px;
+    }
+
+    .multiselect-container {
+      background-color: #fff;
+      z-index: 60;
+
+      .search-wrapper {
+        border: 1px solid $gray-dark;
+      }
+      ul {
+        list-style-type: none;
+      }
+      .chip {
+        color: $wowza-dark;
+        background-color: $gray-light;
+        border-radius: 5px;
+      }
+      .close-button {
+        color: $wowza-dark;
+        padding-left: 0.5rem;
+        font-style: normal;
+        height: 100%;
+        cursor: pointer;
+        &:hover {
+          opacity: 0.7;
         }
       }
     }
   }
 
-  // Add right-side fade out when list is scrollable:
-  &::after {
-    content: "";
-    display: block;
-    position: absolute;
-    pointer-events: none;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    width: 50px;
-    z-index: 10;
-    background: -moz-linear-gradient(
-      left,
-      rgba(255, 255, 255, 0) 0%,
-      rgba(255, 255, 255, 1) 100%
-    ); /* FF3.6-15 */
-    background: -webkit-linear-gradient(
-      left,
-      rgba(255, 255, 255, 0) 0%,
-      rgba(255, 255, 255, 1) 100%
-    ); /* Chrome10-25,Safari5.1-6 */
-    background: linear-gradient(
-      to right,
-      rgba(255, 255, 255, 0) 0%,
-      rgba(255, 255, 255, 1) 100%
-    ); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#ffffff',GradientType=1 ); /* IE6-9 */
-    visibility: visible;
-    opacity: 1;
-    transition: opacity 0.5s linear;
+  .portfolio-table-container {
+    overflow-y: auto;
+
+    table {
+      border-left: none;
+      border-color: $gray-dark;
+      border-collapse: separate;
+      border-spacing: 0;
+
+      .arrow-icon {
+        display: inline-block;
+        margin-left: 0.5rem;
+        span {
+          // This small adjustment aligns second arrow in icon with first
+          display: inline-block;
+          transform: translateY(0.5px);
+        }
+      }
+
+      .col-address {
+        position: sticky;
+        left: 0px;
+        z-index: 40;
+        background-color: inherit;
+      }
+
+      tr {
+        padding: 0px 5px;
+      }
+
+      td {
+        text-align: center;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        transition: 0.3s ease;
+        transition-property: width, min-width, padding, opacity;
+      }
+
+      th,
+      td {
+        border-right: $table-border-light;
+      }
+
+      thead {
+        max-height: 30px;
+        position: sticky;
+        top: 0;
+        z-index: 50;
+
+        tr {
+          height: 30px;
+        }
+
+        tr:first-child th {
+          border-bottom: 1px solid $table-border-light;
+          border-top: 1px solid $gray-dark;
+          font-weight: bold;
+          color: #000;
+          background-color: #f7f7f7;
+        }
+
+        tr:last-child th {
+          background-color: #fff;
+          border-bottom: $table-border-dark;
+          box-shadow: none;
+          vertical-align: top;
+        }
+
+        th {
+          padding: 7px 5px;
+        }
+      }
+
+      tbody {
+        tr {
+          border-bottom: $table-border-light;
+
+          &.row-odd {
+            background-color: #f7f7f7;
+            &:hover {
+              background-color: #f2f2f2ff;
+            }
+          }
+          &.row-even {
+            background-color: #fff;
+            &:hover {
+              background-color: #f0f0f0;
+            }
+          }
+        }
+
+        td {
+          &.col-address {
+            text-align: left;
+            padding: 0.75rem;
+          }
+          &.col-address,
+          &.col-recentcomplaintsbytype,
+          &.col-ownernames,
+          &.col-yearstartedj51,
+          &.col-yearstarted421a,
+          &.col-detail {
+            white-space: unset;
+          }
+        }
+      }
+    }
   }
 
-  &.hide-scroll-fade::after {
-    visibility: hidden;
-    opacity: 0;
-    transition: visibility 0s 0.5s, opacity 0.5s linear;
+  .pagination {
+    z-index: 50;
+    justify-content: space-between;
+    align-items: stretch;
+    flex-wrap: wrap;
+    padding: 3px;
+    background-color: $wowza-background;
+
+    div {
+      display: block;
+      flex: 1 1;
+      text-align: center;
+    }
+
+    .center {
+      flex: 1.5 1;
+      text-align: center;
+      margin-bottom: 0;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-around;
+
+      .page-info {
+        display: flex;
+        align-items: center;
+        margin: 3px 10px;
+        white-space: nowrap;
+
+        input {
+          width: 70px;
+          text-align: center;
+          display: inline-block;
+          border: 1px solid rgba(0, 0, 0, 0.1);
+          background: #fff;
+          padding: 5px 7px;
+          margin: 5px 7px;
+          font-size: inherit;
+          border-radius: 3px;
+          font-weight: 400;
+          outline: none;
+        }
+        .total-pages {
+          margin-left: 5px;
+        }
+      }
+    }
+
+    .next,
+    .prev {
+      .page-btn[disabled] {
+        opacity: 0.5;
+        cursor: default;
+      }
+
+      .page-btn {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        display: block;
+        width: 100%;
+        height: 100%;
+        border: 0;
+        border-radius: 3px;
+        padding: 6px;
+        font-size: 1em;
+        color: rgba(0, 0, 0, 0.6);
+        background: rgba(0, 0, 0, 0.1);
+        transition: all 0.1s ease;
+        cursor: pointer;
+        outline: none;
+      }
+    }
+
+    select {
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      background: #fff;
+      padding: 5px 7px;
+      font-size: inherit;
+      border-radius: 3px;
+      font-weight: 400;
+      outline: none;
+    }
   }
+
+  // TODO: this doesn't stay on the side of the screen anymore, but gets fixed to the spot on the table that at the edge of the screen at first render
+
+  // right-side fade out when list is scrollable:
+  // &::after {
+  //   content: "";
+  //   display: block;
+  //   position: absolute;
+  //   pointer-events: none;
+  //   top: 0;
+  //   bottom: 0;
+  //   right: 0;
+  //   width: 50px;
+  //   z-index: 10;
+  //   background: -moz-linear-gradient(
+  //     left,
+  //     rgba(255, 255, 255, 0) 0%,
+  //     rgba(255, 255, 255, 1) 100%
+  //   ); /* FF3.6-15 */
+  //   background: -webkit-linear-gradient(
+  //     left,
+  //     rgba(255, 255, 255, 0) 0%,
+  //     rgba(255, 255, 255, 1) 100%
+  //   ); /* Chrome10-25,Safari5.1-6 */
+  //   background: linear-gradient(
+  //     to right,
+  //     rgba(255, 255, 255, 0) 0%,
+  //     rgba(255, 255, 255, 1) 100%
+  //   ); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  //   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#ffffff',GradientType=1 ); /* IE6-9 */
+  //   visibility: visible;
+  //   opacity: 1;
+  //   transition: opacity 0.5s linear;
+  // }
+
+  // &.hide-scroll-fade::after {
+  //   visibility: hidden;
+  //   opacity: 0;
+  //   transition: visibility 0s 0.5s, opacity 0.5s linear;
+  // }
 }

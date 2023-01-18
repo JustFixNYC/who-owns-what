@@ -721,7 +721,6 @@ const TableOfData = React.memo(
               })}
             </tbody>
           </table>
-        </div>
         <div className="pagination">
           <div className="prev">
             <button
@@ -771,6 +770,7 @@ const TableOfData = React.memo(
               {i18n._(t`Next`)}
             </button>
           </div>
+        </div>
         </div>
       </>
     );
