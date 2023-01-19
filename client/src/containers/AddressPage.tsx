@@ -22,7 +22,7 @@ import { searchAddrsAreEqual } from "util/helpers";
 import { NetworkErrorMessage } from "components/NetworkErrorMessage";
 import { createAddressPageRoutes } from "routes";
 import { isLegacyPath } from "../components/WowzaToggle";
-import { logAmplitudeEvent, logAmplitudeEventWithData } from "components/Amplitude";
+import { logAmplitudeEvent } from "components/Amplitude";
 
 type RouteParams = {
   locale?: string;
@@ -125,10 +125,11 @@ export default class AddressPage extends Component<AddressPageProps, State> {
       return <NotRegisteredPage state={state} send={send} />;
     } else if (state.matches("portfolioFound")) {
       const { assocAddrs, searchAddr, portfolioGraph } = state.context.portfolioData;
-      logAmplitudeEventWithData("portfolioFound", {
+      const analyticsEventData = {
         portfolioSize: assocAddrs.length,
         portfolioMappingMethod: !!useNewPortfolioMethod ? "wowza" : "legacy",
-      });
+      };
+      logAmplitudeEvent("portfolioFound", analyticsEventData);
       window.gtag("event", "portfolio-found-page");
 
       const routes = createAddressPageRoutes(
@@ -227,7 +228,11 @@ export default class AddressPage extends Component<AddressPageProps, State> {
               <PropertiesMap
                 state={state}
                 send={send}
-                onAddrChange={this.handleAddrChange}
+                onAddrChange={(bbl: string) => {
+                  this.handleAddrChange(bbl);
+                  logAmplitudeEvent("addressChangeMap", analyticsEventData);
+                  window.gtag("event", "address-change-map");
+                }}
                 isVisible={this.props.currentTab === 0}
               />
               <DetailView
@@ -260,7 +265,11 @@ export default class AddressPage extends Component<AddressPageProps, State> {
               <PropertiesList
                 state={state}
                 send={send}
-                onOpenDetail={this.handleAddrChange}
+                onOpenDetail={(bbl: string) => {
+                  this.handleAddrChange(bbl);
+                  logAmplitudeEvent("addressChangePortfolio", analyticsEventData);
+                  window.gtag("event", "address-change-portfolio");
+                }}
                 addressPageRoutes={routes}
               />
             </div>

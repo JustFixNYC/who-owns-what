@@ -19,7 +19,7 @@ import { AddressRecord, HpdComplaintCount } from "./APIDataTypes";
 import { withMachineInStateProps } from "state-machine";
 import { AddressPageRoutes } from "routes";
 import classnames from "classnames";
-import { logAmplitudeEvent } from "../components/Amplitude";
+import { EventProperties, logAmplitudeEvent } from "../components/Amplitude";
 
 export const isPartOfGroupSale = (saleId: string, addrs: AddressRecord[]) => {
   const addrsWithMatchingSale = addrs.filter((addr) => addr.lastsaleacrisid === saleId);
@@ -82,6 +82,11 @@ const PropertiesListWithoutI18n: React.FC<
   const addrs = props.state.context.portfolioData.assocAddrs;
   const rsunitslatestyear = props.state.context.portfolioData.searchAddr.rsunitslatestyear;
 
+  const analyticsEventData = {
+    portfolioSize: addrs.length,
+    portfolioMappingMethod: !!props.state.context.useNewPortfolioMethod ? "wowza" : "legacy",
+  };
+
   const lastColumnRef = useRef<HTMLDivElement>(null);
   const isLastColumnVisible = Helpers.useOnScreen(lastColumnRef);
   /**
@@ -130,6 +135,7 @@ const PropertiesListWithoutI18n: React.FC<
           rsunitslatestyear={rsunitslatestyear}
           onOpenDetail={props.onOpenDetail}
           addressPageRoutes={props.addressPageRoutes}
+          analyticsEventData={analyticsEventData}
           ref={lastColumnRef}
         />
       ) : (
@@ -157,6 +163,7 @@ type TableOfDataProps = {
   rsunitslatestyear: number;
   onOpenDetail: (bbl: string) => void;
   addressPageRoutes: AddressPageRoutes;
+  analyticsEventData: EventProperties;
 };
 
 /**
@@ -165,7 +172,15 @@ type TableOfDataProps = {
  */
 const TableOfData = React.memo(
   React.forwardRef<HTMLDivElement, TableOfDataProps>((props, lastColumnRef) => {
-    const { addrs, headerTopSpacing, i18n, locale, rsunitslatestyear } = props;
+    const { addrs, headerTopSpacing, i18n, locale, rsunitslatestyear, analyticsEventData } = props;
+
+    const logAnalyticsColumnSort = (columnName: string) => {
+      logAmplitudeEvent("portfolioColumnSort", {
+        ...analyticsEventData,
+        portfolioColumn: columnName,
+      });
+      window.gtag("event", "portfolio-column-sort");
+    };
 
     return (
       <ReactTableFixedColumns
@@ -176,6 +191,7 @@ const TableOfData = React.memo(
         pageSize={MAX_TABLE_ROWS_PER_PAGE}
         showPageSizeOptions={false}
         resizable={!Browser.isMobile()}
+        onSortedChange={(newSorted, column, additive) => logAnalyticsColumnSort(column.id)}
         columns={[
           {
             fixed: "left",
