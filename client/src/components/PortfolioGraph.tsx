@@ -10,7 +10,7 @@ import { t, Trans } from "@lingui/macro";
 import { withI18n, withI18nProps } from "@lingui/react";
 import { I18n } from "@lingui/core";
 import browser from "util/browser";
-import { logAmplitudeEventWithData } from "./Amplitude";
+import { logAmplitudeEvent } from "./Amplitude";
 
 Cytoscape.use(fcose);
 
@@ -201,7 +201,7 @@ const PortfolioGraphWithoutI18: React.FC<PortfolioGraphProps> = ({ graphJSON, st
           className="btn btn-action"
           aria-label={i18n._(t`Zoom in`)}
           onClick={() => {
-            logAmplitudeEventWithData("zoomInNetworkViz", {
+            logAmplitudeEvent("zoomInNetworkViz", {
               portfolioSize: portfolioSize,
             });
             window.gtag("event", "zoom-in-network-viz");
@@ -221,7 +221,7 @@ const PortfolioGraphWithoutI18: React.FC<PortfolioGraphProps> = ({ graphJSON, st
           className="btn btn-action"
           aria-label={i18n._(t`Zoom out`)}
           onClick={() => {
-            logAmplitudeEventWithData("zoomOutNetworkViz", {
+            logAmplitudeEvent("zoomOutNetworkViz", {
               portfolioSize: portfolioSize,
             });
             window.gtag("event", "zoom-out-network-viz");
@@ -241,7 +241,7 @@ const PortfolioGraphWithoutI18: React.FC<PortfolioGraphProps> = ({ graphJSON, st
           className="btn btn-action"
           aria-label={i18n._(t`Reset diagram`)}
           onClick={() => {
-            logAmplitudeEventWithData("resetNetworkViz", {
+            logAmplitudeEvent("resetNetworkViz", {
               portfolioSize: portfolioSize,
             });
             window.gtag("event", "reset-network-viz");

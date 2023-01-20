@@ -1,7 +1,7 @@
 import React from "react";
 import { t } from "@lingui/macro";
 import { withI18n, withI18nProps } from "@lingui/react";
-import { ReactComponent as CloseIcon } from "../assets/img/close.svg";
+import CloseIcon from "../assets/img/CloseIcon";
 
 type CloseButtonProps = withI18nProps & {
   onClick: () => void;

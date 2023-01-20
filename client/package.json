@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@amplitude/analytics-browser": "^1.2.3",
     "@babel/core": "^7.7.2",
     "@contentful/rich-text-react-renderer": "^15.0.0",
     "@justfixnyc/contentful-common-strings": "^0.1.0",
@@ -12,7 +13,6 @@
     "@lingui/macro": "^2.9.1",
     "@lingui/react": "^2.9.1",
     "@tanstack/react-table": "8.5.30",
-    "@types/amplitude-js": "^8.0.1",
     "@types/chartjs-plugin-annotation": "^0.5.0",
     "@types/file-saver": "^2.0.1",
     "@types/googlemaps": "^3.0.0",
@@ -36,7 +36,6 @@
     "@typeform/embed-react": "^1.20.0",
     "@xstate/react": "^0.8.1",
     "algoliasearch": "^4.10.5",
-    "amplitude-js": "^8.4.0",
     "babel-core": "^7.0.0-bridge.0",
     "babel-plugin-macros": "^2.7.1",
     "babel-polyfill": "^6.26.0",
