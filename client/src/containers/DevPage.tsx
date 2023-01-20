@@ -4,11 +4,11 @@ import { SearchAddressWithoutBbl } from "components/APIDataTypes";
 import { Link } from "react-router-dom";
 import { createRouteForAddressPage, createRouteForFullBbl } from "routes";
 
-type AddressExample = SearchAddressWithoutBbl & {
+type AddressExampleProps = SearchAddressWithoutBbl & {
   desc: string;
 };
 
-const ADDRESS_EXAMPLES: AddressExample[] = [
+const ADDRESS_EXAMPLES: AddressExampleProps[] = [
   {
     desc: "HPD registered",
     housenumber: "654",
@@ -41,7 +41,7 @@ const ADDRESS_EXAMPLES: AddressExample[] = [
   },
 ];
 
-const AddressExample: React.FC<AddressExample> = (props) => {
+const AddressExample: React.FC<AddressExampleProps> = (props: AddressExampleProps) => {
   return (
     <p>
       <strong>{props.desc}</strong> -{" "}

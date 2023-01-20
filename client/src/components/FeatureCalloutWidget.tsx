@@ -87,7 +87,7 @@ const FeatureCalloutWidget = withI18n()((props: withI18nProps) => {
         >
           <div className="widget-container" id="widget">
             <div className="widget-header">
-              <span className="widget-title focusable" role="heading" tabIndex={0}>
+              <span className="widget-title focusable" role="heading" aria-level={1} tabIndex={0}>
                 {i18n._(t`What's New`)}
               </span>
               <button

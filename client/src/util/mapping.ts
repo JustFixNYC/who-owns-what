@@ -2,7 +2,7 @@ export type LatLng = [number, number];
 
 export type BoundingBox = [LatLng, LatLng];
 
-export default {
+const mapping = {
   // need to check if either lat or lng is NaN. Occurs for ~0.5% of addresses
   latLngIsNull(latlng: LatLng): boolean {
     return latlng.filter(isNaN).length > 0;
@@ -52,3 +52,5 @@ export default {
     }
   },
 };
+
+export default mapping;
