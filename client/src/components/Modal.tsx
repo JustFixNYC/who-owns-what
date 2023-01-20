@@ -5,7 +5,7 @@ import "styles/Modal.css";
 
 type ModalProps = {
   showModal: boolean;
-  onClose: (event: React.MouseEvent) => void;
+  onClose: (event: React.MouseEvent<Element, MouseEvent>) => void;
   children: any;
   width?: number;
 };
