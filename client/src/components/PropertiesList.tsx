@@ -1,13 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
-import ReactTable from "react-table";
-import Browser from "../util/browser";
-import Loader from "../components/Loader";
-
-import "react-table/react-table.css";
-import "styles/PropertiesList.css";
-
-import withFixedColumns, { TablePropsColumnFixed } from "react-table-hoc-fixed-columns";
-import "react-table-hoc-fixed-columns/lib/styles.css"; // important: this line must be placed after react-table css import
+// import Browser from "../util/browser";
+import Loader from "./Loader";
 
 import { I18n } from "@lingui/core";
 import { withI18n } from "@lingui/react";
@@ -19,7 +12,42 @@ import { AddressRecord, HpdComplaintCount } from "./APIDataTypes";
 import { withMachineInStateProps } from "state-machine";
 import { AddressPageRoutes } from "routes";
 import classnames from "classnames";
-import { EventProperties, logAmplitudeEvent } from "../components/Amplitude";
+import { logAmplitudeEvent } from "./Amplitude";
+import Multiselect from "multiselect-react-dropdown";
+
+import {
+  Column,
+  Table,
+  useReactTable,
+  ColumnFiltersState,
+  getCoreRowModel,
+  getFilteredRowModel,
+  getFacetedRowModel,
+  getFacetedUniqueValues,
+  getFacetedMinMaxValues,
+  getPaginationRowModel,
+  getSortedRowModel,
+  FilterFn,
+  ColumnDef,
+  flexRender,
+  filterFns,
+  PaginationState,
+} from "@tanstack/react-table";
+
+import "styles/PropertiesList.css";
+
+// TODO: add column resizing (check with team if that's still useful)
+
+const currencyFormater = new Intl.NumberFormat("en-us", {
+  currency: "USD",
+  style: "currency",
+  minimumFractionDigits: 0,
+  maximumFractionDigits: 0,
+});
+
+const formatCurrency = (x: number | null): string | null => {
+  return x == null ? null : currencyFormater.format(x);
+};
 
 export const isPartOfGroupSale = (saleId: string, addrs: AddressRecord[]) => {
   const addrsWithMatchingSale = addrs.filter((addr) => addr.lastsaleacrisid === saleId);
@@ -35,18 +63,21 @@ const formatAbatementStartYear = (year: number | null, i18n: I18n) => {
 const findMostCommonType = (complaints: HpdComplaintCount[] | null) =>
   complaints && complaints.length > 0 && complaints[0].type;
 
-/**
- * By default, the `withFixedColumns` hook retypes the Column components within the table
- * as having data arrays of type `unknown`, so this recasting is necessary to make sure
- * we are tyepchecking the raw data as `AddressRecords`
- */
-const ReactTableFixedColumns = withFixedColumns(ReactTable) as React.ComponentType<
-  Partial<TablePropsColumnFixed<AddressRecord, AddressRecord>>
->;
+type ArrowIconProps = {
+  dir: "up" | "down" | "both";
+};
 
-const ArrowIcon = () => (
+const ArrowIcon = (props: ArrowIconProps) => (
   <span className="arrow-icon">
-    ↑<span>↓</span>
+    {props.dir === "up" ? (
+      <span>↑</span>
+    ) : props.dir === "down" ? (
+      <span>↓</span>
+    ) : (
+      <>
+        ↑<span>↓</span>
+      </>
+    )}
   </span>
 );
 
@@ -60,13 +91,18 @@ const getWidthFromLabel = (label: string, customDefaultWidth?: number) => {
 };
 
 const FIRST_COLUMN_WIDTH = 130;
-const HEADER_HEIGHT = 30;
+const MAX_TABLE_ROWS_PER_PAGE = 100; // was 500, but that seems like a lot
 
-const MAX_TABLE_ROWS_PER_PAGE = 500;
+declare module "@tanstack/table-core" {
+  interface FilterFns {
+    arrIncludesSome: FilterFn<unknown>;
+    inNumberRange: FilterFn<unknown>;
+    isNonZero: FilterFn<unknown>;
+  }
+}
 
-const secondColumnStyle = {
-  marginLeft: `${FIRST_COLUMN_WIDTH}px`,
-};
+const isNonZero: FilterFn<any> = (row, columnId, value, addMeta) =>
+  value ? !!row.getValue(columnId) : true;
 
 const PropertiesListWithoutI18n: React.FC<
   withMachineInStateProps<"portfolioFound"> & {
@@ -81,11 +117,6 @@ const PropertiesListWithoutI18n: React.FC<
 
   const addrs = props.state.context.portfolioData.assocAddrs;
   const rsunitslatestyear = props.state.context.portfolioData.searchAddr.rsunitslatestyear;
-
-  const analyticsEventData = {
-    portfolioSize: addrs.length,
-    portfolioMappingMethod: !!props.state.context.useNewPortfolioMethod ? "wowza" : "legacy",
-  };
 
   const lastColumnRef = useRef<HTMLDivElement>(null);
   const isLastColumnVisible = Helpers.useOnScreen(lastColumnRef);
@@ -109,6 +140,7 @@ const PropertiesListWithoutI18n: React.FC<
   // So, let's keep track of and also update this top spacing whenever the layout of the page changes.
   const [headerTopSpacing, setHeaderTopSpacing] = useState<number | undefined>();
 
+  // TODO: double check how this works with new v8 table
   // Make sure to setHeaderTopSpacing whenever
   // - the table comes into view
   // - the page's locale changes
@@ -128,14 +160,13 @@ const PropertiesListWithoutI18n: React.FC<
     >
       {isTableVisible ? (
         <TableOfData
-          addrs={addrs}
+          data={addrs}
           headerTopSpacing={headerTopSpacing}
           i18n={i18n}
           locale={locale}
           rsunitslatestyear={rsunitslatestyear}
           onOpenDetail={props.onOpenDetail}
           addressPageRoutes={props.addressPageRoutes}
-          analyticsEventData={analyticsEventData}
           ref={lastColumnRef}
         />
       ) : (
@@ -156,14 +187,13 @@ const PropertiesListWithoutI18n: React.FC<
 };
 
 type TableOfDataProps = {
-  addrs: AddressRecord[];
+  data: AddressRecord[];
   headerTopSpacing: number | undefined;
   i18n: I18n;
   locale: SupportedLocale;
   rsunitslatestyear: number;
   onOpenDetail: (bbl: string) => void;
   addressPageRoutes: AddressPageRoutes;
-  analyticsEventData: EventProperties;
 };
 
 /**
@@ -172,477 +202,678 @@ type TableOfDataProps = {
  */
 const TableOfData = React.memo(
   React.forwardRef<HTMLDivElement, TableOfDataProps>((props, lastColumnRef) => {
-    const { addrs, headerTopSpacing, i18n, locale, rsunitslatestyear, analyticsEventData } = props;
+    const { data, i18n, locale, rsunitslatestyear } = props;
 
-    const logAnalyticsColumnSort = (columnName: string) => {
-      logAmplitudeEvent("portfolioColumnSort", {
-        ...analyticsEventData,
-        portfolioColumn: columnName,
-      });
-      window.gtag("event", "portfolio-column-sort");
-    };
-    const logAnalyticsAddressClick = (columnName: string) => {
-      logAmplitudeEvent("addressChangePortfolio", {
-        ...analyticsEventData,
-        portfolioColumn: columnName,
-      });
-      window.gtag("event", "address-change-portfolio");
-    };
+    const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
+
+    const [{ pageIndex, pageSize }, setPagination] = React.useState<PaginationState>({
+      pageIndex: 0,
+      pageSize: MAX_TABLE_ROWS_PER_PAGE,
+    });
+
+    const pagination = React.useMemo(
+      () => ({
+        pageIndex,
+        pageSize,
+      }),
+      [pageIndex, pageSize]
+    );
+
+    const columns = React.useMemo<ColumnDef<AddressRecord, any>[]>(
+      () => [
+        {
+          accessorFn: (row) => `${row.housenumber} ${row.streetname}`,
+          id: "address",
+          header: () => i18n._(t`Address`),
+          cell: ({ row }) => {
+            return (
+              <Link
+                to={props.addressPageRoutes.overview}
+                onClick={() => props.onOpenDetail(row.original.bbl)}
+              >
+                {row.original.housenumber} {row.original.streetname}
+              </Link>
+            );
+          },
+          footer: (props) => props.column.id,
+          size: FIRST_COLUMN_WIDTH,
+          enableColumnFilter: false,
+        },
+        {
+          header: i18n._(t`Location`),
+          footer: (props) => props.column.id,
+          columns: [
+            {
+              accessorKey: "zip",
+              header: i18n._(t`Zipcode`),
+              cell: (info) => info.getValue(),
+              footer: (props) => props.column.id,
+              size: getWidthFromLabel(i18n._(t`Zipcode`)),
+              enableColumnFilter: false,
+              filterFn: "arrIncludesSome",
+            },
+            {
+              accessorKey: "boro",
+              header: i18n._(t`Borough`),
+              cell: (info) => info.getValue(),
+              footer: (props) => props.column.id,
+              size: getWidthFromLabel(i18n._(t`Borough`)),
+              enableColumnFilter: false,
+            },
+            {
+              accessorKey: "bbl",
+              header: "BBL",
+              cell: ({ row }) => {
+                return (
+                  <Link
+                    to={props.addressPageRoutes.overview}
+                    onClick={() => props.onOpenDetail(row.original.bbl)}
+                  >
+                    {row.original.bbl}
+                  </Link>
+                );
+              },
+              footer: (props) => props.column.id,
+              size: getWidthFromLabel("BBL", 100),
+              enableColumnFilter: false,
+            },
+            {
+              accessorKey: "council",
+              header: i18n._(t`Council`),
+              cell: (info) => info.getValue(),
+              footer: (props) => props.column.id,
+              size: getWidthFromLabel(i18n._(t`Council`)),
+              enableColumnFilter: false,
+              filterFn: "arrIncludesSome",
+            },
+          ],
+        },
+        {
+          header: i18n._(t`Information`),
+          footer: (props) => props.column.id,
+          columns: [
+            {
+              accessorKey: "yearbuilt",
+              header: i18n._(t`Built`),
+              cell: (info) => info.getValue(),
+              footer: (props) => props.column.id,
+              size: getWidthFromLabel(i18n._(t`Built`)),
+              enableColumnFilter: false,
+            },
+            {
+              accessorKey: "unitsres",
+              header: i18n._(t`Units`),
+              cell: (info) => info.getValue(),
+              footer: (props) => props.column.id,
+              size: getWidthFromLabel(i18n._(t`Units`)),
+              enableColumnFilter: false,
+              filterFn: "inNumberRange",
+            },
+          ],
+        },
+        {
+          header: i18n._(t`RS Units`),
+          footer: (props) => props.column.id,
+          columns: [
+            {
+              accessorKey: "rsunits2007",
+              header: "2007",
+              cell: (info) => info.getValue(),
+              footer: (props) => props.column.id,
+              size: getWidthFromLabel("2007"),
+              enableColumnFilter: false,
+            },
+            {
+              accessorKey: "rsunitslatest",
+              header: rsunitslatestyear,
+              cell: ({ row }) => {
+                return (
+                  <span
+                    className={`${
+                      // TODO: double check this works with nulls
+                      row.original.rsunitslatest! < row.original.rsunits2007! ?? false
+                        ? "text-danger"
+                        : ""
+                    }`}
+                  >
+                    {row.original.rsunitslatest}
+                  </span>
+                );
+              },
+              footer: (props) => props.column.id,
+              size: getWidthFromLabel("XXXX"),
+              enableColumnFilter: false,
+              filterFn: "isNonZero",
+            },
+          ],
+        },
+        {
+          header: i18n._(t`HPD Complaints`),
+          footer: (props) => props.column.id,
+          columns: [
+            {
+              accessorKey: "totalcomplaints",
+              header: i18n._(t`Total`),
+              cell: (info) => info.getValue(),
+              footer: (props) => props.column.id,
+              size: getWidthFromLabel(i18n._(t`Total`)),
+              enableColumnFilter: false,
+            },
+            {
+              accessorKey: "recentcomplaints",
+              header: i18n._(t`Last 3 Years`),
+              cell: (info) => info.getValue(),
+              footer: (props) => props.column.id,
+              size: getWidthFromLabel(i18n._(t`Last 3 Years`)),
+              enableColumnFilter: false,
+            },
+            {
+              accessorKey: "recentcomplaintsbytype",
+              header: i18n._(t`Top Complaint`),
+              cell: ({ row }) => {
+                const mostCommonType = findMostCommonType(row.original.recentcomplaintsbytype);
+                return mostCommonType ? Helpers.translateComplaintType(mostCommonType, i18n) : null;
+              },
+              footer: (props) => props.column.id,
+              size: getWidthFromLabel(i18n._(t`Top Complaint`)),
+              enableColumnFilter: false,
+            },
+          ],
+        },
+        {
+          header: i18n._(t`HPD Violations`),
+          footer: (props) => props.column.id,
+          columns: [
+            {
+              accessorKey: "openviolations",
+              header: i18n._(t`Open`),
+              cell: (info) => info.getValue(),
+              footer: (props) => props.column.id,
+              size: getWidthFromLabel(i18n._(t`Open`), 85),
+              enableColumnFilter: false,
+            },
+            {
+              accessorKey: "totalviolations",
+              header: i18n._(t`Total`),
+              cell: (info) => info.getValue(),
+              footer: (props) => props.column.id,
+              size: getWidthFromLabel(i18n._(t`Total`), 85),
+              enableColumnFilter: false,
+            },
+          ],
+        },
+        {
+          header: i18n._(t`Evictions Since 2017`),
+          footer: (props) => props.column.id,
+          size: getWidthFromLabel(i18n._(t`Evictions Since 2017`)),
+          columns: [
+            {
+              accessorFn: (row) => row.evictionfilings || null,
+              id: "evictionfilings",
+              header: i18n._(t`Filed`),
+              cell: (info) => info.getValue(),
+              footer: (props) => props.column.id,
+              size: getWidthFromLabel(i18n._(t`Filed`)),
+              enableColumnFilter: false,
+            },
+            {
+              accessorFn: (row) => row.evictions || null,
+              id: "evictions",
+              header: i18n._(t`Executed`),
+              cell: (info) => info.getValue(),
+              footer: (props) => props.column.id,
+              size: getWidthFromLabel(i18n._(t`Executed`)),
+              enableColumnFilter: false,
+            },
+          ],
+        },
+        {
+          header: i18n._(t`Landlord`),
+          footer: (props) => props.column.id,
+          columns: [
+            {
+              accessorFn: (row) => {
+                var owner =
+                  row.ownernames &&
+                  row.ownernames.find(
+                    (o) =>
+                      o.title === "HeadOfficer" ||
+                      o.title === "IndividualOwner" ||
+                      o.title === "CorporateOwner" ||
+                      o.title === "JointOwner"
+                  );
+                return owner ? owner.value : "";
+              },
+              id: "ownernames",
+              header: i18n._(t`Officer/Owner`),
+              cell: ({ row }) => {
+                var owner =
+                  row.original.ownernames &&
+                  row.original.ownernames.find(
+                    (o) =>
+                      o.title === "HeadOfficer" ||
+                      o.title === "IndividualOwner" ||
+                      o.title === "CorporateOwner" ||
+                      o.title === "JointOwner"
+                  );
+                return owner ? owner.value : "";
+              },
+              footer: (props) => props.column.id,
+              size: getWidthFromLabel(i18n._(t`Officer/Owner`), 100),
+              filterFn: "arrIncludesSome",
+            },
+          ],
+        },
+        {
+          header: i18n._(t`Tax Exemptions`),
+          footer: (props) => props.column.id,
+          columns: [
+            {
+              accessorKey: "yearstartedj51",
+              header: "J-51",
+              cell: ({ row }) => formatAbatementStartYear(row.original.yearstartedj51, i18n),
+              footer: (props) => props.column.id,
+              size: 100,
+              enableColumnFilter: false,
+            },
+            {
+              accessorKey: "yearstarted421a",
+              header: "421a",
+              cell: ({ row }) => formatAbatementStartYear(row.original.yearstarted421a, i18n),
+              footer: (props) => props.column.id,
+              size: 100,
+              enableColumnFilter: false,
+            },
+          ],
+        },
+        {
+          header: i18n._(t`Last Sale`),
+          footer: (props) => props.column.id,
+          columns: [
+            {
+              accessorKey: "lastsaledate",
+              header: i18n._(t`Date`),
+              cell: ({ row }) =>
+                row.original.lastsaledate
+                  ? Helpers.formatDate(row.original.lastsaledate, longDateOptions, locale)
+                  : null,
+              footer: (props) => props.column.id,
+              size: getWidthFromLabel(i18n._(t`Date`), 100),
+              enableColumnFilter: false,
+            },
+            {
+              accessorFn: (row) => formatCurrency(row.lastsaleamount),
+              id: "lastsaleamount",
+              header: i18n._(t`Amount`),
+              cell: (info) => info.getValue(),
+              footer: (props) => props.column.id,
+              size: getWidthFromLabel(i18n._(t`Amount`), 100),
+              enableColumnFilter: false,
+            },
+            {
+              accessorKey: "lastsaleacrisid",
+              header: i18n._(t`Link to Deed`),
+              cell: ({ row }) =>
+                row.original.lastsaleacrisid ? (
+                  <a
+                    onClick={() => {
+                      logAmplitudeEvent("portfolioLinktoDeed");
+                      window.gtag("event", "portfolio-link-to-deed");
+                    }}
+                    href={`https://a836-acris.nyc.gov/DS/DocumentSearch/DocumentImageView?doc_id=${row.original.lastsaleacrisid}`}
+                    className="btn"
+                    target="_blank"
+                    aria-label={i18n._(t`Link to Deed`)}
+                    rel="noopener noreferrer"
+                  >
+                    <span style={{ padding: "0 3px" }}>&#8599;&#xFE0E;</span>
+                  </a>
+                ) : null,
+              footer: (props) => props.column.id,
+              size: getWidthFromLabel(i18n._(t`Link to Deed`)),
+              enableColumnFilter: false,
+            },
+            {
+              accessorFn: (row) => {
+                // Make id's that are part of group sales show up first when sorted:
+                const idPrefix =
+                  row.lastsaleacrisid && isPartOfGroupSale(row.lastsaleacrisid, data) ? " " : "";
+                return `${idPrefix}${row.lastsaleacrisid}`;
+              },
+              id: "lastsaleisgroupsale",
+              header: i18n._(t`Group Sale?`),
+              cell: ({ row }) =>
+                row.original.lastsaleacrisid
+                  ? isPartOfGroupSale(row.original.lastsaleacrisid, data)
+                    ? i18n._(t`Yes`)
+                    : i18n._(t`No`)
+                  : null,
+              footer: (props) => props.column.id,
+              size: getWidthFromLabel(i18n._(t`Group Sale?`)),
+              enableColumnFilter: false,
+            },
+            {
+              accessorKey: "bbl",
+              id: "detail",
+              header: (
+                <div ref={lastColumnRef} style={{ float: "left" }}>
+                  <Trans>View detail</Trans>
+                </div>
+              ),
+              cell: ({ row }) => (
+                <Link
+                  to={props.addressPageRoutes.overview}
+                  className="btn"
+                  aria-label={i18n._(t`View detail`)}
+                  onClick={() => {
+                    props.onOpenDetail(row.original.bbl);
+                    logAmplitudeEvent("portfolioViewDetail");
+                    window.gtag("event", "portfolio-view-detail");
+                  }}
+                >
+                  <span style={{ padding: "0 3px" }}>&#10142;</span>
+                </Link>
+              ),
+              footer: (props) => props.column.id,
+              size: getWidthFromLabel(i18n._(t`View detail`)),
+              enableColumnFilter: false,
+            },
+          ],
+        },
+      ],
+      [data, i18n, lastColumnRef, locale, rsunitslatestyear, props]
+    );
+
+    const table = useReactTable({
+      data,
+      columns,
+      filterFns: {
+        arrIncludesSome: filterFns.arrIncludesSome,
+        inNumberRange: filterFns.inNumberRange,
+        isNonZero: isNonZero,
+      },
+      state: {
+        columnFilters,
+        pagination,
+      },
+      onPaginationChange: setPagination,
+      onColumnFiltersChange: setColumnFilters,
+      getCoreRowModel: getCoreRowModel(),
+      getFilteredRowModel: getFilteredRowModel(),
+      getSortedRowModel: getSortedRowModel(),
+      getPaginationRowModel: getPaginationRowModel(),
+      getFacetedRowModel: getFacetedRowModel(),
+      getFacetedUniqueValues: getFacetedUniqueValues(),
+      getFacetedMinMaxValues: getFacetedMinMaxValues(),
+      debugTable: true,
+      debugHeaders: true,
+      debugColumns: false,
+    });
+
+    React.useEffect(() => {
+      if (table.getState().columnFilters[0]?.id === "ownernames") {
+        if (table.getState().sorting[0]?.id !== "ownernames") {
+          table.setSorting([{ id: "ownernames", desc: false }]);
+        }
+      }
+      //   eslint-disable-next-line
+    }, [table.getState().columnFilters[0]?.id]);
+
+    const totalBuildings = table.getCoreRowModel().flatRows.length;
+    const filteredBuildings = table.getFilteredRowModel().flatRows.length;
 
     return (
-      <ReactTableFixedColumns
-        data={addrs}
-        minRows={10}
-        defaultPageSize={addrs.length}
-        showPagination={addrs.length > MAX_TABLE_ROWS_PER_PAGE}
-        pageSize={MAX_TABLE_ROWS_PER_PAGE}
-        showPageSizeOptions={false}
-        resizable={!Browser.isMobile()}
-        onSortedChange={(newSorted, column, additive) => logAnalyticsColumnSort(column.id)}
-        columns={[
-          {
-            fixed: "left",
-            headerStyle: {
-              height: `${HEADER_HEIGHT}px`,
-              ...(!!headerTopSpacing && {
-                top: `${headerTopSpacing}px`,
-              }),
-            },
-            columns: [
-              {
-                Header: (
-                  <div>
-                    <Trans>Address</Trans>
-                    <ArrowIcon />
-                  </div>
-                ),
-                headerStyle: {
-                  ...(!!headerTopSpacing && {
-                    top: `${headerTopSpacing + HEADER_HEIGHT}px`,
-                  }),
-                },
-                accessor: (d) => `${d.housenumber} ${d.streetname}`,
-                id: "address",
-                width: FIRST_COLUMN_WIDTH,
-                fixed: "left",
-                resizable: false,
-                Cell: (row) => {
-                  return (
-                    <Link
-                      to={props.addressPageRoutes.overview}
-                      onClick={() => {
-                        props.onOpenDetail(row.original.bbl);
-                        logAnalyticsAddressClick("address");
-                      }}
-                    >
-                      {row.original.housenumber} {row.original.streetname}
-                    </Link>
-                  );
-                },
-                style: {
-                  textAlign: "left",
-                  whiteSpace: "unset",
-                  paddingRight: "0.75rem",
-                },
-              },
-            ],
-          },
-          {
-            Header: i18n._(t`Location`),
-            headerStyle: secondColumnStyle,
-            style: secondColumnStyle,
-            columns: [
-              {
-                Header: (
-                  <>
-                    <Trans>Zipcode</Trans>
-                    <ArrowIcon />
-                  </>
-                ),
-                accessor: (d) => d.zip,
-                id: "zip",
-                width: getWidthFromLabel(i18n._(t`Zipcode`)),
-                headerStyle: secondColumnStyle,
-              },
-              {
-                Header: (
-                  <>
-                    <Trans>Borough</Trans>
-                    <ArrowIcon />
-                  </>
-                ),
-                accessor: (d) => d.boro,
-                id: "boro",
-                width: getWidthFromLabel(i18n._(t`Borough`)),
-              },
-              {
-                Header: (
-                  <>
-                    BBL
-                    <ArrowIcon />
-                  </>
-                ),
-                accessor: (d) => d.bbl,
-                id: "bbl",
-                width: getWidthFromLabel("BBL", 100),
-                Cell: (row) => {
-                  return (
-                    <Link
-                      to={props.addressPageRoutes.overview}
-                      onClick={() => {
-                        props.onOpenDetail(row.original.bbl);
-                        logAnalyticsAddressClick("bbl");
-                      }}
-                    >
-                      {row.original.bbl}
-                    </Link>
-                  );
-                },
-              },
-            ],
-          },
-          {
-            Header: i18n._(t`Information`),
-            columns: [
-              {
-                Header: (
-                  <>
-                    <Trans>Built</Trans>
-                    <ArrowIcon />
-                  </>
-                ),
-                accessor: (d) => d.yearbuilt,
-                id: "yearbuilt",
-                width: getWidthFromLabel(i18n._(t`Built`)),
-              },
-              {
-                Header: (
-                  <>
-                    <Trans>Units</Trans>
-                    <ArrowIcon />
-                  </>
-                ),
-                accessor: (d) => d.unitsres,
-                id: "unitsres",
-                width: getWidthFromLabel(i18n._(t`Units`)),
-              },
-            ],
-          },
-          {
-            Header: i18n._(t`RS Units`),
-            columns: [
-              {
-                Header: (
-                  <>
-                    2007
-                    <ArrowIcon />
-                  </>
-                ),
-                accessor: (d) => d.rsunits2007,
-                id: "rsunits2007",
-                width: getWidthFromLabel("2007"),
-              },
-              {
-                Header: (
-                  <>
-                    {rsunitslatestyear}
-                    <ArrowIcon />
-                  </>
-                ),
-                accessor: (d) => d.rsunitslatest,
-                id: "rsunitslatest",
-                Cell: (row) => {
-                  return (
-                    <span
-                      className={`${
-                        row.original.rsunitslatest < row.original.rsunits2007 ? "text-danger" : ""
-                      }`}
-                    >
-                      {row.original.rsunitslatest}
-                    </span>
-                  );
-                },
-                width: getWidthFromLabel("XXXX"),
-              },
-            ],
-          },
-          {
-            Header: i18n._(t`HPD Complaints`),
-            columns: [
-              {
-                Header: (
-                  <>
-                    <Trans>Total</Trans>
-                    <ArrowIcon />
-                  </>
-                ),
-                accessor: (d) => d.totalcomplaints,
-                id: "totalcomplaints",
-                width: getWidthFromLabel(i18n._(t`Total`)),
-              },
-              {
-                Header: (
-                  <>
-                    <Trans>Last 3 Years</Trans>
-                    <ArrowIcon />
-                  </>
-                ),
-                accessor: (d) => d.recentcomplaints,
-                id: "recentcomplaints",
-                width: getWidthFromLabel(i18n._(t`Last 3 Years`)),
-              },
-              {
-                Header: (
-                  <>
-                    <Trans>Top Complaint</Trans>
-                    <ArrowIcon />
-                  </>
-                ),
-                accessor: (d) => {
-                  const mostCommonType = findMostCommonType(d.recentcomplaintsbytype);
-                  return mostCommonType
-                    ? Helpers.translateComplaintType(mostCommonType, i18n)
-                    : null;
-                },
-                id: "recentcomplaintsbytype",
-                width: getWidthFromLabel(i18n._(t`Top Complaint`)),
-                style: {
-                  whiteSpace: "unset",
-                },
-              },
-            ],
-          },
-          {
-            Header: i18n._(t`HPD Violations`),
-            columns: [
-              {
-                Header: (
-                  <>
-                    <Trans>Open</Trans>
-                    <ArrowIcon />
-                  </>
-                ),
-                accessor: (d) => d.openviolations,
-                id: "openviolations",
-                width: getWidthFromLabel(i18n._(t`Open`), 85),
-              },
-              {
-                Header: (
-                  <>
-                    <Trans>Total</Trans>
-                    <ArrowIcon />
-                  </>
-                ),
-                accessor: (d) => d.totalviolations,
-                id: "totalviolations",
-                width: getWidthFromLabel(i18n._(t`Total`), 85),
-              },
-            ],
-          },
-          {
-            Header: i18n._(t`Evictions Since 2017`),
-            columns: [
-              {
-                Header: (
-                  <>
-                    <Trans>Filed</Trans>
-                    <ArrowIcon />
-                  </>
-                ),
-                accessor: (d) => d.evictionfilings || null,
-                id: "evictionsfilings",
-                width: getWidthFromLabel(i18n._(t`Filed`)),
-              },
-              {
-                Header: (
-                  <>
-                    <Trans>Executed</Trans>
-                    <ArrowIcon />
-                  </>
-                ),
-                accessor: (d) => d.evictions || null,
-                id: "evictions",
-                width: getWidthFromLabel(i18n._(t`Executed`)),
-              },
-            ],
-          },
-          {
-            Header: i18n._(t`Landlord`),
-            columns: [
-              {
-                Header: (
-                  <>
-                    <Trans>Officer/Owner</Trans>
-                    <ArrowIcon />
-                  </>
-                ),
-                accessor: (d) => {
-                  var owner =
-                    d.ownernames &&
-                    d.ownernames.find(
-                      (o) =>
-                        o.title === "HeadOfficer" ||
-                        o.title === "IndividualOwner" ||
-                        o.title === "CorporateOwner" ||
-                        o.title === "JointOwner"
+      <>
+        <div className="filters-bar">
+          <div className="view-buildings">
+            <Trans>View Buildings With:</Trans>
+          </div>
+          <div className="filter-box filter-ownernames">
+            <Trans>Officers/Owners</Trans>
+            <MultiSelectFilter column={table.getColumn("ownernames")} table={table} />
+          </div>
+          <div className="filter-box filter-unitsres">
+            <Trans>Units</Trans>
+            <MinMaxFilter column={table.getColumn("unitsres")} table={table} />
+          </div>
+          <div className="filter-box filter-rsunitslatest">
+            <Trans>Some Rent Stabilized Units</Trans>
+            <ToggleFilter column={table.getColumn("rsunitslatest")} table={table} />
+          </div>
+          <div className="filter-box filter-rsunitslatest">
+            <Trans>Zipcode</Trans>
+            <MultiSelectFilter column={table.getColumn("zip")} table={table} />
+          </div>
+          <div className="filter-box filter-rsunitslatest">
+            <Trans>City Council District</Trans>
+            <MultiSelectFilter column={table.getColumn("council")} table={table} />
+          </div>
+          <div className="filter-rows">
+            {/* When using trans tags here it works locally but not in the netlify preview */}
+            {totalBuildings === filteredBuildings ? (
+              <>Showing all {totalBuildings} buildings</>
+            ) : (
+              <>Narrowed to {filteredBuildings} buildings</>
+            )}
+          </div>
+        </div>
+
+        <div className="portfolio-table-container">
+          <table>
+            <thead>
+              {table.getHeaderGroups().map((headerGroup) => (
+                <tr key={headerGroup.id}>
+                  {headerGroup.headers.map((header) => {
+                    return (
+                      <th
+                        key={header.id}
+                        colSpan={header.colSpan}
+                        className={`col-${header.column.id}`}
+                        style={{ minWidth: header.getSize() }}
+                      >
+                        {header.isPlaceholder ? null : (
+                          <>
+                            <div
+                              {...{
+                                className: header.column.getCanSort()
+                                  ? "cursor-pointer select-none"
+                                  : "",
+                                onClick: header.column.getToggleSortingHandler(),
+                              }}
+                            >
+                              {flexRender(header.column.columnDef.header, header.getContext())}
+                              {headerGroup.depth === 1
+                                ? {
+                                    asc: <ArrowIcon dir={"up"} />,
+                                    desc: <ArrowIcon dir={"down"} />,
+                                  }[header.column.getIsSorted() as string] ?? (
+                                    <ArrowIcon dir={"both"} />
+                                  )
+                                : null}
+                            </div>
+                          </>
+                        )}
+                      </th>
                     );
-                  return owner ? owner.value : "";
-                },
-                id: "ownernames",
-                width: getWidthFromLabel(i18n._(t`Officer/Owner`), 100),
-                style: {
-                  whiteSpace: "unset",
-                },
-              },
-            ],
-          },
-          {
-            Header: i18n._(t`Tax Exemptions`),
-            columns: [
-              {
-                Header: (
-                  <>
-                    J-51
-                    <ArrowIcon />
-                  </>
-                ),
-                accessor: (d) => formatAbatementStartYear(d.yearstartedj51, i18n),
-                id: "yearstartedj51",
-                style: {
-                  whiteSpace: "unset",
-                },
-              },
-              {
-                Header: (
-                  <>
-                    421a
-                    <ArrowIcon />
-                  </>
-                ),
-                accessor: (d) => formatAbatementStartYear(d.yearstarted421a, i18n),
-                id: "yearstarted421a",
-                style: {
-                  whiteSpace: "unset",
-                },
-              },
-            ],
-          },
-          {
-            Header: i18n._(t`Last Sale`),
-            columns: [
-              {
-                Header: (
-                  <>
-                    <Trans>Date</Trans>
-                    <ArrowIcon />
-                  </>
-                ),
-                accessor: (d) => d.lastsaledate,
-                Cell: (row) =>
-                  row.original.lastsaledate
-                    ? Helpers.formatDate(row.original.lastsaledate, longDateOptions, locale)
-                    : null,
-                id: "lastsaledate",
-                width: getWidthFromLabel(i18n._(t`Date`), 100),
-              },
-              {
-                Header: (
-                  <>
-                    <Trans>Amount</Trans>
-                    <ArrowIcon />
-                  </>
-                ),
-                accessor: (d) => d.lastsaleamount || null,
-                Cell: (row) =>
-                  row.original.lastsaleamount
-                    ? "$" + Helpers.formatPrice(row.original.lastsaleamount, locale)
-                    : null,
-                id: "lastsaleamount",
-                width: getWidthFromLabel(i18n._(t`Amount`), 100),
-              },
-              {
-                Header: i18n._(t`Link to Deed`),
-                accessor: (d) => d.lastsaleacrisid,
-                Cell: (row) =>
-                  row.original.lastsaleacrisid ? (
-                    <a
-                      onClick={() => {
-                        logAmplitudeEvent("portfolioLinktoDeed");
-                        window.gtag("event", "portfolio-link-to-deed");
-                      }}
-                      href={`https://a836-acris.nyc.gov/DS/DocumentSearch/DocumentImageView?doc_id=${row.original.lastsaleacrisid}`}
-                      className="btn"
-                      target="_blank"
-                      aria-label={i18n._(t`Link to Deed`)}
-                      rel="noopener noreferrer"
-                    >
-                      <span style={{ padding: "0 3px" }}>&#8599;&#xFE0E;</span>
-                    </a>
-                  ) : null,
-                id: "lastsaleacrisid",
-                width: getWidthFromLabel(i18n._(t`Link to Deed`)),
-              },
-              {
-                Header: (
-                  <>
-                    <Trans>Group Sale?</Trans>
-                    <ArrowIcon />
-                  </>
-                ),
-                accessor: (d) => {
-                  // Make id's that are part of group sales show up first when sorted:
-                  const idPrefix =
-                    d.lastsaleacrisid && isPartOfGroupSale(d.lastsaleacrisid, addrs) ? " " : "";
-                  return `${idPrefix}${d.lastsaleacrisid}`;
-                },
-                Cell: (row) =>
-                  row.original.lastsaleacrisid
-                    ? isPartOfGroupSale(row.original.lastsaleacrisid, addrs)
-                      ? i18n._(t`Yes`)
-                      : i18n._(t`No`)
-                    : null,
-                id: "lastsaleisgroupsale",
-                width: getWidthFromLabel(i18n._(t`Group Sale?`)),
-              },
-            ],
-          },
-          {
-            Header: (
-              <div ref={lastColumnRef}>
-                <Trans>View detail</Trans>
-              </div>
-            ),
-            accessor: (d) => d.bbl,
-            columns: [
-              {
-                Cell: (row) => {
-                  return (
-                    <Link
-                      to={props.addressPageRoutes.overview}
-                      className="btn"
-                      aria-label={i18n._(t`View detail`)}
-                      onClick={() => {
-                        props.onOpenDetail(row.original.bbl);
-                        logAnalyticsAddressClick("detail");
-                      }}
-                    >
-                      <span style={{ padding: "0 3px" }}>&#10142;</span>
-                    </Link>
-                  );
-                },
-                width: getWidthFromLabel(i18n._(t`View detail`)),
-              },
-            ],
-          },
-        ]}
-        style={{
-          height: "100%",
-        }}
-        className="-striped -highlight"
-      />
+                  })}
+                </tr>
+              ))}
+            </thead>
+            <tbody>
+              {table.getRowModel().rows.map((row, i) => {
+                return (
+                  <tr key={row.id} className={`row-${i % 2 ? "even" : "odd"}`}>
+                    {row.getVisibleCells().map((cell) => {
+                      return (
+                        <td
+                          key={cell.id}
+                          className={`col-${cell.column.id}`}
+                          style={{
+                            width: cell.column.getSize() !== 0 ? cell.column.getSize() : undefined,
+                          }}
+                        >
+                          {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                        </td>
+                      );
+                    })}
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+          <div className="pagination">
+            <div className="prev">
+              <button
+                className="page-btn"
+                onClick={() => table.previousPage()}
+                disabled={!table.getCanPreviousPage()}
+              >
+                {i18n._(t`Previous`)}
+              </button>
+            </div>
+            <div className="center">
+              <span className="page-info">
+                <span>
+                  <Trans>Page</Trans>
+                </span>
+                <div>
+                  <input
+                    type="number"
+                    value={String(table.getState().pagination.pageIndex + 1)}
+                    onChange={(e) => {
+                      const page = e.target.value ? Number(e.target.value) - 1 : 0;
+                      table.setPageIndex(page);
+                    }}
+                  />
+                </div>
+                <Trans>of</Trans> <span className="total-pages">{table.getPageCount()}</span>
+              </span>
+              <select
+                value={table.getState().pagination.pageSize}
+                onChange={(e) => {
+                  table.setPageSize(Number(e.target.value));
+                }}
+              >
+                {[10, 20, 50, 100, 500].map((pageSize) => (
+                  <option key={pageSize} value={pageSize}>
+                    Show {pageSize}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="next">
+              <button
+                className="page-btn"
+                onClick={() => table.nextPage()}
+                disabled={!table.getCanNextPage()}
+              >
+                {i18n._(t`Next`)}
+              </button>
+            </div>
+          </div>
+        </div>
+      </>
     );
   })
 );
+
+function MultiSelectFilter({ column, table }: { column: Column<any, unknown>; table: Table<any> }) {
+  const sortedUniqueValues = React.useMemo(
+    () => Array.from(column.getFacetedUniqueValues().keys()).sort(),
+    [column.getFacetedUniqueValues()] // eslint-disable-line
+  );
+
+  return (
+    <Multiselect
+      options={sortedUniqueValues.slice(0, 5000).map((value: any) => ({ name: value, id: value }))}
+      displayValue="name"
+      placeholder={`Search... (${column.getFacetedUniqueValues().size})`}
+      onSelect={(selectedList: any) =>
+        column.setFilterValue(selectedList.map((item: any) => item.name))
+      }
+      onRemove={(selectedList: any) =>
+        column.setFilterValue(selectedList.map((item: any) => item.name))
+      }
+      customCloseIcon={
+        <button className="close-button" aria-label="Close">
+          ✕
+        </button>
+      }
+    />
+  );
+}
+
+function MinMaxFilter({ column, table }: { column: Column<any, unknown>; table: Table<any> }) {
+  return (
+    <div>
+      <DebouncedInput
+        type="number"
+        min={Number(column.getFacetedMinMaxValues()?.[0] ?? "")}
+        max={Number(column.getFacetedMinMaxValues()?.[1] ?? "")}
+        value={""}
+        onChange={(value) => column.setFilterValue((old: any) => [value, old?.[1]])}
+        placeholder={`Min ${
+          column.getFacetedMinMaxValues()?.[0] ? `(${column.getFacetedMinMaxValues()?.[0]})` : ""
+        }`}
+      />
+      <DebouncedInput
+        type="number"
+        min={Number(column.getFacetedMinMaxValues()?.[0] ?? "")}
+        max={Number(column.getFacetedMinMaxValues()?.[1] ?? "")}
+        value={""}
+        onChange={(value) => column.setFilterValue((old: any) => [old?.[0], value])}
+        placeholder={`Max ${
+          column.getFacetedMinMaxValues()?.[1] ? `(${column.getFacetedMinMaxValues()?.[1]})` : ""
+        }`}
+      />
+    </div>
+  );
+}
+
+function ToggleFilter({ column, table }: { column: Column<any, unknown>; table: Table<any> }) {
+  let [isPressed, setIsPressed] = useState(false);
+
+  const toggleIsPressed = () => {
+    column.setFilterValue(!isPressed);
+    setIsPressed(!isPressed);
+  };
+
+  return (
+    <div>
+      <button aria-pressed={isPressed} onClick={toggleIsPressed} className="toggle">
+        <div />
+      </button>
+    </div>
+  );
+}
+
+// A debounced input react component
+function DebouncedInput({
+  value: initialValue,
+  onChange,
+  debounce = 500,
+  ...props
+}: {
+  value: string | number;
+  onChange: (value: string | number) => void;
+  debounce?: number;
+} & Omit<React.InputHTMLAttributes<HTMLInputElement>, "onChange">) {
+  const [value, setValue] = React.useState(initialValue);
+
+  React.useEffect(() => {
+    setValue(initialValue);
+  }, [initialValue]);
+
+  React.useEffect(() => {
+    const timeout = setTimeout(() => {
+      onChange(value);
+    }, debounce);
+
+    return () => clearTimeout(timeout);
+  }, [value]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  return <input {...props} value={value} onChange={(e) => setValue(e.target.value)} />;
+}
 
 const PropertiesList = withI18n()(PropertiesListWithoutI18n);
 
