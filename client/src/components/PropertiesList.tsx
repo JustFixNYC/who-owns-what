@@ -181,6 +181,13 @@ const TableOfData = React.memo(
       });
       window.gtag("event", "portfolio-column-sort");
     };
+    const logAnalyticsAddressClick = (columnName: string) => {
+      logAmplitudeEvent("addressChangePortfolio", {
+        ...analyticsEventData,
+        portfolioColumn: columnName,
+      });
+      window.gtag("event", "address-change-portfolio");
+    };
 
     return (
       <ReactTableFixedColumns
@@ -223,7 +230,10 @@ const TableOfData = React.memo(
                   return (
                     <Link
                       to={props.addressPageRoutes.overview}
-                      onClick={() => props.onOpenDetail(row.original.bbl)}
+                      onClick={() => {
+                        props.onOpenDetail(row.original.bbl);
+                        logAnalyticsAddressClick("address");
+                      }}
                     >
                       {row.original.housenumber} {row.original.streetname}
                     </Link>
@@ -279,7 +289,10 @@ const TableOfData = React.memo(
                   return (
                     <Link
                       to={props.addressPageRoutes.overview}
-                      onClick={() => props.onOpenDetail(row.original.bbl)}
+                      onClick={() => {
+                        props.onOpenDetail(row.original.bbl);
+                        logAnalyticsAddressClick("bbl");
+                      }}
                     >
                       {row.original.bbl}
                     </Link>
@@ -610,8 +623,7 @@ const TableOfData = React.memo(
                       aria-label={i18n._(t`View detail`)}
                       onClick={() => {
                         props.onOpenDetail(row.original.bbl);
-                        logAmplitudeEvent("portfolioViewDetail");
-                        window.gtag("event", "portfolio-view-detail");
+                        logAnalyticsAddressClick("detail");
                       }}
                     >
                       <span style={{ padding: "0 3px" }}>&#10142;</span>

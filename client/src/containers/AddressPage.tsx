@@ -265,11 +265,7 @@ export default class AddressPage extends Component<AddressPageProps, State> {
               <PropertiesList
                 state={state}
                 send={send}
-                onOpenDetail={(bbl: string) => {
-                  this.handleAddrChange(bbl);
-                  logAmplitudeEvent("addressChangePortfolio", analyticsEventData);
-                  window.gtag("event", "address-change-portfolio");
-                }}
+                onOpenDetail={this.handleAddrChange}
                 addressPageRoutes={routes}
               />
             </div>
