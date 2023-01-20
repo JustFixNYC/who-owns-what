@@ -69,7 +69,7 @@
     "react-modal": "^3.0.0",
     "react-papaparse": "^3.17.1",
     "react-router-dom": "^5.1.2",
-    "react-scripts": "3.4.1",
+    "react-scripts": "^4.0.3",
     "react-social": "^1.10.0",
     "react-table": "^6.5.3",
     "react-table-hoc-fixed-columns": "^2.3.3",
@@ -114,5 +114,10 @@
     "not dead",
     "ie 11",
     "not op_mini all"
-  ]
+  ],
+  "eslintConfig": {
+    "extends": [
+      "react-app"
+    ]
+  }
 }
