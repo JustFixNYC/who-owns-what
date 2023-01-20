@@ -19,7 +19,7 @@ import { AddressRecord, HpdComplaintCount } from "./APIDataTypes";
 import { withMachineInStateProps } from "state-machine";
 import { AddressPageRoutes } from "routes";
 import classnames from "classnames";
-import { logAmplitudeEvent } from "../components/Amplitude";
+import { EventProperties, logAmplitudeEvent } from "../components/Amplitude";
 
 export const isPartOfGroupSale = (saleId: string, addrs: AddressRecord[]) => {
   const addrsWithMatchingSale = addrs.filter((addr) => addr.lastsaleacrisid === saleId);
@@ -82,6 +82,11 @@ const PropertiesListWithoutI18n: React.FC<
   const addrs = props.state.context.portfolioData.assocAddrs;
   const rsunitslatestyear = props.state.context.portfolioData.searchAddr.rsunitslatestyear;
 
+  const analyticsEventData = {
+    portfolioSize: addrs.length,
+    portfolioMappingMethod: !!props.state.context.useNewPortfolioMethod ? "wowza" : "legacy",
+  };
+
   const lastColumnRef = useRef<HTMLDivElement>(null);
   const isLastColumnVisible = Helpers.useOnScreen(lastColumnRef);
   /**
@@ -130,6 +135,7 @@ const PropertiesListWithoutI18n: React.FC<
           rsunitslatestyear={rsunitslatestyear}
           onOpenDetail={props.onOpenDetail}
           addressPageRoutes={props.addressPageRoutes}
+          analyticsEventData={analyticsEventData}
           ref={lastColumnRef}
         />
       ) : (
@@ -157,6 +163,7 @@ type TableOfDataProps = {
   rsunitslatestyear: number;
   onOpenDetail: (bbl: string) => void;
   addressPageRoutes: AddressPageRoutes;
+  analyticsEventData: EventProperties;
 };
 
 /**
@@ -165,7 +172,22 @@ type TableOfDataProps = {
  */
 const TableOfData = React.memo(
   React.forwardRef<HTMLDivElement, TableOfDataProps>((props, lastColumnRef) => {
-    const { addrs, headerTopSpacing, i18n, locale, rsunitslatestyear } = props;
+    const { addrs, headerTopSpacing, i18n, locale, rsunitslatestyear, analyticsEventData } = props;
+
+    const logAnalyticsColumnSort = (columnName: string) => {
+      logAmplitudeEvent("portfolioColumnSort", {
+        ...analyticsEventData,
+        portfolioColumn: columnName,
+      });
+      window.gtag("event", "portfolio-column-sort");
+    };
+    const logAnalyticsAddressClick = (columnName: string) => {
+      logAmplitudeEvent("addressChangePortfolio", {
+        ...analyticsEventData,
+        portfolioColumn: columnName,
+      });
+      window.gtag("event", "address-change-portfolio");
+    };
 
     return (
       <ReactTableFixedColumns
@@ -176,6 +198,7 @@ const TableOfData = React.memo(
         pageSize={MAX_TABLE_ROWS_PER_PAGE}
         showPageSizeOptions={false}
         resizable={!Browser.isMobile()}
+        onSortedChange={(newSorted, column, additive) => logAnalyticsColumnSort(column.id)}
         columns={[
           {
             fixed: "left",
@@ -207,7 +230,10 @@ const TableOfData = React.memo(
                   return (
                     <Link
                       to={props.addressPageRoutes.overview}
-                      onClick={() => props.onOpenDetail(row.original.bbl)}
+                      onClick={() => {
+                        props.onOpenDetail(row.original.bbl);
+                        logAnalyticsAddressClick("address");
+                      }}
                     >
                       {row.original.housenumber} {row.original.streetname}
                     </Link>
@@ -263,7 +289,10 @@ const TableOfData = React.memo(
                   return (
                     <Link
                       to={props.addressPageRoutes.overview}
-                      onClick={() => props.onOpenDetail(row.original.bbl)}
+                      onClick={() => {
+                        props.onOpenDetail(row.original.bbl);
+                        logAnalyticsAddressClick("bbl");
+                      }}
                     >
                       {row.original.bbl}
                     </Link>
@@ -594,8 +623,7 @@ const TableOfData = React.memo(
                       aria-label={i18n._(t`View detail`)}
                       onClick={() => {
                         props.onOpenDetail(row.original.bbl);
-                        logAmplitudeEvent("portfolioViewDetail");
-                        window.gtag("event", "portfolio-view-detail");
+                        logAnalyticsAddressClick("detail");
                       }}
                     >
                       <span style={{ padding: "0 3px" }}>&#10142;</span>

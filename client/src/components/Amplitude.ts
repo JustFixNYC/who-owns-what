@@ -1,14 +1,12 @@
-import amplitude from "amplitude-js";
-
-// Initiating Amplitude inside this helper file seems to work better with the Create React App framework than
-// adding a script tag to our index.html file.
-//
-// See https://javascript.plainenglish.io/adding-analytics-to-your-react-application-b584265f9fae for more details
+import { init, track } from "@amplitude/analytics-browser";
 
 const API_KEY = process.env.REACT_APP_AMPLITUDE_API_KEY;
-if (!API_KEY) throw new Error("No Amplitude API key defined!");
 
-amplitude.getInstance().init(API_KEY);
+if (!API_KEY) {
+  throw new Error("No Amplitude API key defined!");
+}
+
+init(API_KEY);
 
 export type AmplitudeEvent =
   | "closeFeatureCalloutWidget"
@@ -64,15 +62,16 @@ export type AmplitudeEvent =
   | "quarterTimelineTab"
   | "yearTimelineTab"
   | "portfolioLinktoDeed"
-  | "portfolioViewDetail";
+  | "portfolioViewDetail"
+  | "addressChangeMap"
+  | "addressChangePortfolio"
+  | "portfolioColumnSort";
 
-type AmplitudeEventData = {
-  portfolioSize?: number;
-  portfolioMappingMethod?: "wowza" | "legacy";
+export type EventProperties = {
+  [x: string]: unknown;
 };
 
-const logAmplitudeEvent = (e: AmplitudeEvent) => amplitude.getInstance().logEvent(e);
-const logAmplitudeEventWithData = (e: AmplitudeEvent, data: AmplitudeEventData) =>
-  amplitude.getInstance().logEvent(e, data);
-
-export { amplitude, logAmplitudeEvent, logAmplitudeEventWithData };
+export const logAmplitudeEvent = (name: AmplitudeEvent, eventProperties?: EventProperties) => {
+  if (!API_KEY) return;
+  track(name, eventProperties);
+};

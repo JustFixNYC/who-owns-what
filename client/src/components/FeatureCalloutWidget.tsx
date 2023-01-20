@@ -6,16 +6,17 @@ import { withI18n, withI18nProps } from "@lingui/react";
 import { getFeatureCalloutContent } from "./FeatureCalloutContent";
 import { useState } from "react";
 import { t } from "@lingui/macro";
-import { amplitude, logAmplitudeEvent } from "./Amplitude";
+import { identify, Identify } from "@amplitude/analytics-browser";
+import { logAmplitudeEvent } from "./Amplitude";
 
 const DEFAULT_WIDGET_VISIBILITY = false;
 
 const FeatureCalloutWidget = withI18n()((props: withI18nProps) => {
-  var identify = new amplitude.Identify().setOnce(
+  var identifyObj = new Identify().setOnce(
     "isFeatureCalloutWidgetOpenOnStart",
     DEFAULT_WIDGET_VISIBILITY ? "yes" : "no"
   );
-  amplitude.getInstance().identify(identify);
+  identify(identifyObj);
 
   const [isWidgetOpen, setWidgetVisibility] = useState(DEFAULT_WIDGET_VISIBILITY);
   const toggleWidget = () => {
