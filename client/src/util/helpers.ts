@@ -137,7 +137,7 @@ export function searchAddrsAreEqual(
   );
 }
 
-export default {
+const helpers = {
   // filter repeated values in rbas and owners
   // uses Set which enforces uniqueness
   // see: https://stackoverflow.com/a/44601543/991673
@@ -277,7 +277,7 @@ export default {
 
   formatStreetNameForHpdLink(streetName: string): string {
     var arr = streetName.split(" ");
-    if (arr === []) {
+    if (Array.isArray(arr) && !arr.length) {
       return "";
     }
     // Reformat street name directional prefix
@@ -412,3 +412,5 @@ export default {
     return str?.replace(/[-[\]/{}()*+?.\\^$|]/g, "\\$&");
   },
 };
+
+export default helpers;
