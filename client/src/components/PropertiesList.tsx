@@ -13,7 +13,7 @@ import { withMachineInStateProps } from "state-machine";
 import { AddressPageRoutes } from "routes";
 import classnames from "classnames";
 import { logAmplitudeEvent } from "./Amplitude";
-import Multiselect from "multiselect-react-dropdown";
+import { Multiselect } from "./multiselect-dropdown/multiselect/Multiselect";
 
 import {
   Column,
