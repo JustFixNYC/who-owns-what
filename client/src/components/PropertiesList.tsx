@@ -648,7 +648,7 @@ const TableOfData = React.memo(
                 <ChevronIcon />
               </summary>
               <div className="dropdown-container">
-                <span>
+                <span className="filter-subtitle">
                   <Trans>Officer/Owner</Trans>
                 </span>
                 <MultiSelectFilter column={table.getColumn("ownernames")} table={table} />

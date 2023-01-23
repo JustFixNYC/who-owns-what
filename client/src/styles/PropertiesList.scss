@@ -100,12 +100,25 @@ $table-border-dark: 1px solid $dark;
             transform: scaleY(-1);
           }
           .dropdown-container {
-            background-color: red;
-            padding: 5px;
             position: absolute;
+            top: -1;
+            left: -0.1rem;
+            right: -0.1rem;
             z-index: 100;
+            padding: 1rem;
+            background-color: $justfix-white;
+            box-sizing: border-box;
+            border: 0.1rem solid $justfix-black;
+            border-top: unset;
+            border-radius: 0 0 0.8rem 0.8rem;
+
+            .filter-subtitle {
+              font-size: 1.2rem;
+              color: $justfix-grey;
+            }
 
             .multiselect-container {
+              margin-top: 0.6rem;
               .optionListContainer {
                 position: static;
               }
