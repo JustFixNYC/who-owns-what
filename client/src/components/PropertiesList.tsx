@@ -14,6 +14,7 @@ import { AddressPageRoutes } from "routes";
 import classnames from "classnames";
 import { logAmplitudeEvent } from "./Amplitude";
 import { Multiselect } from "./multiselect-dropdown/multiselect/Multiselect";
+import { CheckIcon } from "./Icons";
 
 import {
   Column,
@@ -284,7 +285,6 @@ const TableOfData = React.memo(
               footer: (props) => props.column.id,
               size: getWidthFromLabel(i18n._(t`Council`)),
               enableColumnFilter: false,
-              filterFn: "arrIncludesSome",
             },
           ],
         },
@@ -624,10 +624,22 @@ const TableOfData = React.memo(
 
     return (
       <>
-        <div className="filters-bar">
-          <div className="view-buildings">
-            <Trans>View Buildings With:</Trans>
+        <div className="filter-bar">
+          <div className="filter-for">
+            <div className="pill-new">new</div>
+            <Trans>
+              Filter <br />
+              for
+            </Trans>
+            :
           </div>
+          <ToggleFilter
+            column={table.getColumn("rsunitslatest")}
+            table={table}
+            className="filter-toggle"
+          >
+            <Trans>Rent Stabilized Units</Trans>
+          </ToggleFilter>
           <div className="filter-box filter-ownernames">
             <Trans>Officers/Owners</Trans>
             <MultiSelectFilter column={table.getColumn("ownernames")} table={table} />
@@ -637,16 +649,8 @@ const TableOfData = React.memo(
             <MinMaxFilter column={table.getColumn("unitsres")} table={table} />
           </div>
           <div className="filter-box filter-rsunitslatest">
-            <Trans>Some Rent Stabilized Units</Trans>
-            <ToggleFilter column={table.getColumn("rsunitslatest")} table={table} />
-          </div>
-          <div className="filter-box filter-rsunitslatest">
             <Trans>Zipcode</Trans>
             <MultiSelectFilter column={table.getColumn("zip")} table={table} />
-          </div>
-          <div className="filter-box filter-rsunitslatest">
-            <Trans>City Council District</Trans>
-            <MultiSelectFilter column={table.getColumn("council")} table={table} />
           </div>
           <div className="filter-rows">
             {/* When using trans tags here it works locally but not in the netlify preview */}
@@ -830,7 +834,17 @@ function MinMaxFilter({ column, table }: { column: Column<any, unknown>; table: 
   );
 }
 
-function ToggleFilter({ column, table }: { column: Column<any, unknown>; table: Table<any> }) {
+function ToggleFilter({
+  column,
+  table,
+  children,
+  className,
+}: {
+  column: Column<any, unknown>;
+  table: Table<any>;
+  children: React.ReactNode;
+  className?: string;
+}) {
   let [isPressed, setIsPressed] = useState(false);
 
   const toggleIsPressed = () => {
@@ -839,11 +853,10 @@ function ToggleFilter({ column, table }: { column: Column<any, unknown>; table: 
   };
 
   return (
-    <div>
-      <button aria-pressed={isPressed} onClick={toggleIsPressed} className="toggle">
-        <div />
-      </button>
-    </div>
+    <button aria-pressed={isPressed} onClick={toggleIsPressed} className={className}>
+      <div>{isPressed && <CheckIcon />}</div>
+      {children}
+    </button>
   );
 }
 

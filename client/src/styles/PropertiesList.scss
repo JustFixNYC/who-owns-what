@@ -10,9 +10,64 @@ $table-border-dark: 1px solid $dark;
   flex-direction: column;
   height: 100%;
 
-  .filters-bar {
+  .filter-bar {
     display: flex;
-    padding: 5px 10px;
+    align-items: end;
+    gap: 1.8rem;
+    padding: 1rem 1.4rem 2.3rem;
+
+    font-family: "Inconsolata";
+    font-style: normal;
+    font-weight: 600;
+    font-size: 1.4rem;
+    line-height: 100%;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+
+    .filter-for {
+      text-align: right;
+      min-width: 102px;
+      .pill-new {
+        font-family: "Degular", Arial, Helvetica, sans-serif;
+        letter-spacing: 0.02em;
+        background: $justfix-yellow;
+        padding: 0.5rem 1rem;
+        gap: 0.625rem;
+        border-radius: 1.6rem;
+        transform: rotate(-10deg);
+        width: fit-content;
+      }
+    }
+
+    .filter-toggle {
+      border: 0.1rem solid $justfix-black;
+      border-radius: 0.8rem;
+      text-transform: uppercase;
+      padding: 1rem;
+      display: flex;
+      align-items: center;
+
+      div {
+        box-sizing: border-box;
+        border: 0.1rem solid $justfix-black;
+        border-radius: 0.4rem;
+        width: 2.4rem;
+        height: 2.4rem;
+        margin-right: 1rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: $justfix-white;
+      }
+
+      &[aria-pressed="true"] {
+        background-color: $justfix-black;
+        color: $justfix-white;
+        div {
+          border-color: $justfix-white;
+        }
+      }
+    }
 
     .filter-box {
       padding: 0 10px;
