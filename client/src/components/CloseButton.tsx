@@ -2,6 +2,7 @@ import React from "react";
 import { t } from "@lingui/macro";
 import { withI18n, withI18nProps } from "@lingui/react";
 import { CloseIcon } from "./Icons";
+import classNames from "classnames";
 
 type CloseButtonProps = withI18nProps & {
   onClick: () => void;
@@ -17,6 +18,7 @@ type CloseButtonProps = withI18nProps & {
    * Height for the X svg (Default: "1.6rem")
    */
   height?: number | string;
+  className?: string;
 };
 
 /**
@@ -30,14 +32,15 @@ export const CloseButton = withI18n()(
     strokeWidth = "0.1rem",
     height = "1.6rem",
     width = "1.6rem",
+    className,
   }: CloseButtonProps) => (
     <button
-      className="button"
+      className={classNames("button", className)}
       aria-label={i18n._(t`Close`)}
       aria-expanded="false"
       onClick={onClick}
     >
-      <CloseIcon className="CloseIcon" strokeWidth={strokeWidth} height={height} width={width} />
+      <CloseIcon className="closeIcon" strokeWidth={strokeWidth} height={height} width={width} />
     </button>
   )
 );

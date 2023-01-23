@@ -1,9 +1,16 @@
 import React, { SVGProps } from "react";
 
 export const CloseIcon = (props: SVGProps<SVGSVGElement>) => (
-  <svg fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
-    <path d="M2 2L14 14" fill="currentcolor" stroke-linecap="square" />
-    <path d="M14 2L2 14" fill="currentcolor" stroke-linecap="square" />
+  <svg
+    fill="none"
+    width="16"
+    height="16"
+    viewBox="0 0 16 16"
+    xmlns="http://www.w3.org/2000/svg"
+    {...props}
+  >
+    <path d="M2 2L14 14" stroke="currentcolor" strokeLinecap="square" />
+    <path d="M14 2L2 14" stroke="currentcolor" strokeLinecap="square" />
   </svg>
 );
 
@@ -26,10 +33,10 @@ export const CheckIcon = (props: SVGProps<SVGSVGElement>) => (
 
 export const ChevronIcon = (props: SVGProps<SVGSVGElement>) => (
   <svg
+    fill="none"
     width="10"
     height="6"
     viewBox="0 0 10 6"
-    fill="none"
     xmlns="http://www.w3.org/2000/svg"
     {...props}
   >
