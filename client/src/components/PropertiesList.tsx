@@ -14,7 +14,7 @@ import { AddressPageRoutes } from "routes";
 import classnames from "classnames";
 import { logAmplitudeEvent } from "./Amplitude";
 import { Multiselect } from "./multiselect-dropdown/multiselect/Multiselect";
-import { CheckIcon } from "./Icons";
+import { CheckIcon, ChevronIcon } from "./Icons";
 
 import {
   Column,
@@ -633,24 +633,41 @@ const TableOfData = React.memo(
             </Trans>
             :
           </div>
-          <ToggleFilter
-            column={table.getColumn("rsunitslatest")}
-            table={table}
-            className="filter-toggle"
-          >
-            <Trans>Rent Stabilized Units</Trans>
-          </ToggleFilter>
-          <div className="filter-box filter-ownernames">
-            <Trans>Officers/Owners</Trans>
-            <MultiSelectFilter column={table.getColumn("ownernames")} table={table} />
-          </div>
-          <div className="filter-box filter-unitsres">
-            <Trans>Units</Trans>
-            <MinMaxFilter column={table.getColumn("unitsres")} table={table} />
-          </div>
-          <div className="filter-box filter-rsunitslatest">
-            <Trans>Zipcode</Trans>
-            <MultiSelectFilter column={table.getColumn("zip")} table={table} />
+          <div className="filters">
+            <ToggleFilter
+              column={table.getColumn("rsunitslatest")}
+              table={table}
+              className="filter-toggle"
+            >
+              <Trans>Rent Stabilized Units</Trans>
+            </ToggleFilter>
+
+            <details className="filter-accordian">
+              <summary>
+                <Trans>Landlord</Trans>
+                <ChevronIcon />
+              </summary>
+              <span>
+                <Trans>Officer/Owner</Trans>
+              </span>
+              <MultiSelectFilter column={table.getColumn("ownernames")} table={table} />
+            </details>
+
+            <details className="filter-accordian">
+              <summary>
+                <Trans>Units</Trans>
+                <ChevronIcon />
+              </summary>
+              <MinMaxFilter column={table.getColumn("unitsres")} table={table} />
+            </details>
+
+            <details className="filter-accordian">
+              <summary>
+                <Trans>Zipcode</Trans>
+                <ChevronIcon />
+              </summary>
+              <MultiSelectFilter column={table.getColumn("zip")} table={table} />
+            </details>
           </div>
           <div className="filter-rows">
             {/* When using trans tags here it works locally but not in the netlify preview */}

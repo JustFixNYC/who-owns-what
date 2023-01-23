@@ -12,7 +12,6 @@ $table-border-dark: 1px solid $dark;
 
   .filter-bar {
     display: flex;
-    align-items: end;
     gap: 1.8rem;
     padding: 1rem 1.4rem 2.3rem;
 
@@ -39,32 +38,64 @@ $table-border-dark: 1px solid $dark;
       }
     }
 
-    .filter-toggle {
-      border: 0.1rem solid $justfix-black;
-      border-radius: 0.8rem;
-      text-transform: uppercase;
-      padding: 1rem;
+    .filters {
       display: flex;
-      align-items: center;
+      padding-top: 1.2rem;
+      gap: 1.8rem;
 
-      div {
-        box-sizing: border-box;
+      .filter-toggle {
         border: 0.1rem solid $justfix-black;
-        border-radius: 0.4rem;
-        width: 2.4rem;
-        height: 2.4rem;
-        margin-right: 1rem;
+        border-radius: 0.8rem;
+        text-transform: uppercase;
+        padding: 1rem;
         display: flex;
-        justify-content: center;
         align-items: center;
-        color: $justfix-white;
+
+        div {
+          box-sizing: border-box;
+          border: 0.1rem solid $justfix-black;
+          border-radius: 0.4rem;
+          width: 2.4rem;
+          height: 2.4rem;
+          margin-right: 1rem;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          color: $justfix-white;
+        }
+
+        &[aria-pressed="true"] {
+          background-color: $justfix-black;
+          color: $justfix-white;
+          div {
+            border-color: $justfix-white;
+          }
+        }
       }
 
-      &[aria-pressed="true"] {
-        background-color: $justfix-black;
-        color: $justfix-white;
-        div {
-          border-color: $justfix-white;
+      .filter-accordian {
+        border: 0.1rem solid $justfix-black;
+        border-radius: 0.8rem;
+        text-transform: uppercase;
+        padding: 1rem;
+        display: flex;
+        align-items: center;
+
+        summary {
+          // typical flex stretch doesn't seem to work in summary/details
+          height: 100%;
+          display: flex;
+          align-items: center;
+          gap: 6.8rem;
+
+          &::-webkit-details-marker {
+            display: none;
+          }
+        }
+        &[open] {
+          summary svg {
+            transform: scaleY(-1);
+          }
         }
       }
     }
