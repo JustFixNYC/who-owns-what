@@ -1,6 +1,6 @@
 .multiSelectContainer,
 .multiSelectContainer *,
-.multiSelectContainer ::after, 
+.multiSelectContainer ::after,
 .multiSelectContainer ::before {
   box-sizing: border-box;
 }
@@ -125,8 +125,8 @@ li.groupChildEle {
   transform: translateY(-50%);
   width: 14px;
 }
-.icon_down_dir:before { 
-  content: '\e803'; 
+.icon_down_dir:before {
+  content: "\e803";
 }
 .custom-close {
   display: flex;
