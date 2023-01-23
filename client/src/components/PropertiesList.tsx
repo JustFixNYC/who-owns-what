@@ -647,10 +647,12 @@ const TableOfData = React.memo(
                 <Trans>Landlord</Trans>
                 <ChevronIcon />
               </summary>
-              <span>
-                <Trans>Officer/Owner</Trans>
-              </span>
-              <MultiSelectFilter column={table.getColumn("ownernames")} table={table} />
+              <div className="dropdown-container">
+                <span>
+                  <Trans>Officer/Owner</Trans>
+                </span>
+                <MultiSelectFilter column={table.getColumn("ownernames")} table={table} />
+              </div>
             </details>
 
             <details className="filter-accordian">

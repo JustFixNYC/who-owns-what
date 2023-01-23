@@ -81,12 +81,15 @@ $table-border-dark: 1px solid $dark;
         display: flex;
         align-items: center;
 
+        position: relative;
+
         summary {
           // typical flex stretch doesn't seem to work in summary/details
           height: 100%;
           display: flex;
           align-items: center;
           gap: 6.8rem;
+          position: relative;
 
           &::-webkit-details-marker {
             display: none;
@@ -95,6 +98,18 @@ $table-border-dark: 1px solid $dark;
         &[open] {
           summary svg {
             transform: scaleY(-1);
+          }
+          .dropdown-container {
+            background-color: red;
+            padding: 5px;
+            position: absolute;
+            z-index: 100;
+
+            .multiselect-container {
+              .optionListContainer {
+                position: static;
+              }
+            }
           }
         }
       }
