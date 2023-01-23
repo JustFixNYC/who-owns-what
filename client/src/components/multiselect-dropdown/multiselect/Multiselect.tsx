@@ -2,7 +2,7 @@
 
 // @ts-nocheck
 import React, { useRef, useEffect } from "react";
-import "./styles.css";
+import "./styles.scss";
 import CloseCircle from "../assets/svg/closeCircle.svg";
 import CloseCircleDark from "../assets/svg/closeCircleDark.svg";
 import CloseLine from "../assets/svg/closeLine.svg";
