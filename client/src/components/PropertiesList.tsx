@@ -645,7 +645,7 @@ const TableOfData = React.memo(
             <details className="filter-accordian">
               <summary>
                 <Trans>Landlord</Trans>
-                <ChevronIcon />
+                <ChevronIcon className="chevonIcon" />
               </summary>
               <div className="dropdown-container">
                 <span className="filter-subtitle">
@@ -658,7 +658,7 @@ const TableOfData = React.memo(
             <details className="filter-accordian">
               <summary>
                 <Trans>Units</Trans>
-                <ChevronIcon />
+                <ChevronIcon className="chevonIcon" />
               </summary>
               <MinMaxFilter column={table.getColumn("unitsres")} table={table} />
             </details>
@@ -666,7 +666,7 @@ const TableOfData = React.memo(
             <details className="filter-accordian">
               <summary>
                 <Trans>Zipcode</Trans>
-                <ChevronIcon />
+                <ChevronIcon className="chevonIcon" />
               </summary>
               <MultiSelectFilter column={table.getColumn("zip")} table={table} />
             </details>

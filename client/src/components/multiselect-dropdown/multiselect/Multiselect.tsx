@@ -9,6 +9,11 @@ import CloseLine from "../assets/svg/closeLine.svg";
 import CloseSquare from "../assets/svg/closeSquare.svg";
 import DownArrow from "../assets/svg/downArrow.svg";
 import { IMultiselectProps } from "./interface";
+import { CloseButton } from "components/CloseButton";
+import { Trans } from "@lingui/macro";
+
+// How many selected value chips to display before "show more" button
+const SELECTED_PREVIEW_NUM = 5;
 
 const closeIconTypes = {
   circle: CloseCircleDark,
@@ -52,6 +57,7 @@ export class Multiselect extends React.Component<IMultiselectProps, any> {
       unfilteredOptions: props.options,
       selectedValues: Object.assign([], props.selectedValues),
       preSelectedValues: Object.assign([], props.selectedValues),
+      showAllSelected: false,
       toggleOptionsList: false,
       highlightOption: props.avoidHighlightFirstOption ? -1 : 0,
       showCheckbox: props.showCheckbox,
@@ -72,6 +78,7 @@ export class Multiselect extends React.Component<IMultiselectProps, any> {
     this.renderMultiselectContainer = this.renderMultiselectContainer.bind(this);
     this.renderSelectedList = this.renderSelectedList.bind(this);
     this.onRemoveSelectedItem = this.onRemoveSelectedItem.bind(this);
+    this.toggleShowAllSelected = this.toggleShowAllSelected.bind(this);
     this.toggelOptionList = this.toggelOptionList.bind(this);
     this.onArrowKeyNavigation = this.onArrowKeyNavigation.bind(this);
     this.onSelectItem = this.onSelectItem.bind(this);
@@ -452,35 +459,54 @@ export class Multiselect extends React.Component<IMultiselectProps, any> {
   }
 
   renderSelectedList() {
-    const { isObject = false, displayValue, style, singleSelect, customCloseIcon } = this.props;
-    const { selectedValues, closeIconType } = this.state;
-    return selectedValues.map((value, index) => (
-      <span
-        className={`chip  ${singleSelect && "singleChip"} ${
-          this.isDisablePreSelectedValues(value) && "disableSelection"
-        }`}
-        key={index}
-        style={style["chips"]}
-      >
-        {this.props.selectedValueDecorator(
-          !isObject ? (value || "").toString() : value[displayValue],
-          value
+    const { isObject = false, displayValue, style, singleSelect } = this.props;
+    const { selectedValues, showAllSelected } = this.state;
+
+    const selectedNum = showAllSelected ? selectedValues.length : SELECTED_PREVIEW_NUM;
+
+    return (
+      <>
+        {selectedValues.slice(0, selectedNum).map((value, index) => (
+          <span
+            className={`chip  ${singleSelect && "singleChip"} ${
+              this.isDisablePreSelectedValues(value) && "disableSelection"
+            }`}
+            key={index}
+            style={style["chips"]}
+          >
+            {this.props.selectedValueDecorator(
+              !isObject ? (value || "").toString() : value[displayValue],
+              value
+            )}
+            {!this.isDisablePreSelectedValues(value) && (
+              <CloseButton
+                className="icon_cancel closeIcon"
+                onClick={() => this.onRemoveSelectedItem(value)}
+              />
+            )}
+          </span>
+        ))}
+        {selectedValues.length > selectedNum && (
+          <button
+            className="chip chip-more"
+            key={SELECTED_PREVIEW_NUM + 1}
+            style={style["chips"]}
+            onClick={this.toggleShowAllSelected}
+          >
+            +{selectedValues.length - SELECTED_PREVIEW_NUM}
+          </button>
         )}
-        {!this.isDisablePreSelectedValues(value) &&
-          (!customCloseIcon ? (
-            <img
-              className="icon_cancel closeIcon"
-              src={closeIconType}
-              alt=""
-              onClick={() => this.onRemoveSelectedItem(value)}
-            />
-          ) : (
-            <i className="custom-close" onClick={() => this.onRemoveSelectedItem(value)}>
-              {customCloseIcon}
-            </i>
-          ))}
-      </span>
-    ));
+        {selectedNum > SELECTED_PREVIEW_NUM && (
+          <button
+            className="show-less text-button"
+            key={SELECTED_PREVIEW_NUM + 1}
+            onClick={this.toggleShowAllSelected}
+          >
+            <Trans>Show less</Trans>
+          </button>
+        )}
+      </>
+    );
   }
 
   isDisablePreSelectedValues(value) {
@@ -493,6 +519,12 @@ export class Multiselect extends React.Component<IMultiselectProps, any> {
       return preSelectedValues.filter((i) => i[displayValue] === value[displayValue]).length > 0;
     }
     return preSelectedValues.filter((i) => i === value).length > 0;
+  }
+
+  toggleShowAllSelected() {
+    this.setState({
+      showAllSelected: !this.state.showAllSelected,
+    });
   }
 
   fadeOutSelection(item) {
@@ -586,13 +618,18 @@ export class Multiselect extends React.Component<IMultiselectProps, any> {
         id={id || "multiselectContainerReact"}
         style={style["multiselectContainer"]}
       >
+        {!hideSelectedList && this.renderSelectedList()}
+        {selectedValues.length > 0 && (
+          <button className="clear-all text-button" key={2} onClick={this.resetSelectedValues}>
+            <Trans>Clear all</Trans>
+          </button>
+        )}
         <div
           className={`search-wrapper searchWrapper ${singleSelect ? "singleSelect" : ""}`}
           ref={this.searchWrapper}
           style={style["searchBox"]}
           onClick={singleSelect ? this.toggelOptionList : () => {}}
         >
-          {!hideSelectedList && this.renderSelectedList()}
           <input
             type="text"
             ref={this.searchBox}

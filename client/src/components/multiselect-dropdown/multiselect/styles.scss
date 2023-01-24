@@ -1,3 +1,5 @@
+@import "../../../styles/vars";
+
 .multiSelectContainer,
 .multiSelectContainer *,
 .multiSelectContainer ::after,
@@ -8,7 +10,6 @@
 .multiSelectContainer {
   position: relative;
   text-align: left;
-  width: 100%;
 }
 .disable_ms {
   pointer-events: none;
@@ -82,9 +83,8 @@
   padding: 10px 10px;
 }
 .multiSelectContainer li:hover {
-  background: #0096fb;
-  color: #fff;
   cursor: pointer;
+  text-decoration: underline;
 }
 .checkbox {
   margin-right: 10px;
@@ -94,8 +94,7 @@
   opacity: 0.5;
 }
 .highlightOption {
-  background: #0096fb;
-  color: #ffffff;
+  text-decoration: underline;
 }
 .displayBlock {
   display: block;
