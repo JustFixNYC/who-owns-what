@@ -52,3 +52,21 @@ def logout(request):
 
     # TODO shakao return a cleaner response
     return JsonResponse({"status": response.status_code})
+
+
+# TODO shakao ensure that this can't be hit programatically either....
+@api
+def register(request):
+    post_data = {
+        "username": request.POST.get("username"),
+        "email": request.POST.get("email"),
+        "password": request.POST.get("password"),
+    }
+
+    # TODO shakao change URL based on local/production
+    response = requests.post(
+        "http://host.docker.internal:8080/register/", data=post_data
+    )
+
+    # TODO shakao return a cleaner response
+    return JsonResponse(json.loads(response.content))

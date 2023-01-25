@@ -10,6 +10,32 @@ const setToken = (newToken: string) => {
 
 const getToken = () => token;
 
+const register = async (
+  username: string,
+  email: string,
+  password: string,
+  onSuccess: (result: any) => void,
+  onError?: (err: any) => void
+) => {
+  try {
+    const result = await friendlyFetch(`${BASE_URL}/auth/register`, {
+      method: "POST",
+      mode: "cors",
+      body: `username=${encodeURIComponent(username)}&email=${encodeURIComponent(
+        email
+      )}&password=${password}`,
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+    });
+    const json = await result.json();
+    token = json.access_token;
+    onSuccess(json);
+  } catch (err) {
+    onError?.(err);
+  }
+};
+
 const login = async (
   email: string,
   password: string,
@@ -71,6 +97,7 @@ const friendlyFetch: typeof fetch = async (input, init) => {
 const Client = {
   setToken,
   getToken,
+  register,
   login,
   logout,
 };
