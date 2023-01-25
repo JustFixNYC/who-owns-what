@@ -3,6 +3,7 @@
 // @ts-nocheck
 import React, { useRef, useEffect } from "react";
 import "./styles.scss";
+import "../../../styles/_button.scss";
 import CloseCircle from "../assets/svg/closeCircle.svg";
 import CloseCircleDark from "../assets/svg/closeCircleDark.svg";
 import CloseLine from "../assets/svg/closeLine.svg";
@@ -609,6 +610,7 @@ export class Multiselect extends React.Component<IMultiselectProps, any> {
       className,
       customArrow,
       hideSelectedList,
+      onApply,
     } = this.props;
     return (
       <div
@@ -669,6 +671,15 @@ export class Multiselect extends React.Component<IMultiselectProps, any> {
         >
           {this.renderOptionList()}
         </div>
+        <button
+          onClick={() => {
+            onApply(selectedValues);
+            this.onCloseOptionList();
+          }}
+          className="button is-primary"
+        >
+          <Trans>Apply</Trans>
+        </button>
       </div>
     );
   }
@@ -694,6 +705,7 @@ Multiselect.defaultProps = {
   groupBy: "",
   style: {},
   emptyRecordMsg: "No Options Available",
+  onApply: () => {},
   onSelect: () => {},
   onRemove: () => {},
   onKeyPressFn: () => {},

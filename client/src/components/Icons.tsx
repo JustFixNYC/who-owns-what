@@ -25,7 +25,7 @@ export const CheckIcon = (props: SVGProps<SVGSVGElement>) => (
   >
     <path
       stroke="currentcolor"
-      stroke-width="2"
+      strokeWidth="2"
       d="M1.66675 7.01497L6.33342 11.6816L16.3334 1.68164"
     />
   </svg>

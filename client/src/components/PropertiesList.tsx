@@ -633,50 +633,67 @@ const TableOfData = React.memo(
             </Trans>
             :
           </div>
-          <div className="filters">
-            <ToggleFilter
-              column={table.getColumn("rsunitslatest")}
-              table={table}
-              className="filter-toggle"
-            >
-              <Trans>Rent Stabilized Units</Trans>
-            </ToggleFilter>
-
-            <details className="filter-accordian">
-              <summary>
-                <Trans>Landlord</Trans>
-                <ChevronIcon className="chevonIcon" />
-              </summary>
-              <div className="dropdown-container">
-                <span className="filter-subtitle">
-                  <Trans>Officer/Owner</Trans>
+          <div className="filters-container">
+            <div className="filters">
+              <ToggleFilter
+                column={table.getColumn("rsunitslatest")}
+                table={table}
+                className="filter-toggle"
+              >
+                <Trans>Rent Stabilized Units</Trans>
+              </ToggleFilter>
+              <details className="filter-accordian" id="landlord-filter-accordian">
+                <summary>
+                  <Trans>Landlord</Trans>
+                  <ChevronIcon className="chevonIcon" />
+                </summary>
+                <div className="dropdown-container">
+                  <span className="filter-subtitle">
+                    <Trans>Officer/Owner</Trans>
+                  </span>
+                  <MultiSelectFilter
+                    column={table.getColumn("ownernames")}
+                    table={table}
+                    onApply={() =>
+                      document.querySelector("#landlord-filter-accordian")!.removeAttribute("open")
+                    }
+                  />
+                </div>
+              </details>
+              <details className="filter-accordian">
+                <summary>
+                  <Trans>Units</Trans>
+                  <ChevronIcon className="chevonIcon" />
+                </summary>
+                <MinMaxFilter column={table.getColumn("unitsres")} table={table} />
+              </details>
+              <details className="filter-accordian" id="zipcode-filter-accordian">
+                <summary>
+                  <Trans>Zipcode</Trans>
+                  <ChevronIcon className="chevonIcon" />
+                </summary>
+                <MultiSelectFilter
+                  column={table.getColumn("zip")}
+                  table={table}
+                  onApply={() =>
+                    document.querySelector("#zipcode-filter-accordian")!.removeAttribute("open")
+                  }
+                />
+              </details>
+            </div>
+            {/* TODO: what if all properties in portfolio are selected by applied filters? Need another way to know when filters are active */}
+            {totalBuildings !== filteredBuildings && (
+              <div className="filter-status">
+                <span className="results-count">
+                  <Trans>Showing {filteredBuildings} results</Trans>
                 </span>
-                <MultiSelectFilter column={table.getColumn("ownernames")} table={table} />
+                <button className="data-issue">
+                  <Trans>Notice an inaccuracy? Click here.</Trans>
+                </button>
+                <button className="clear-filters">
+                  <Trans>Clear Filters</Trans>
+                </button>
               </div>
-            </details>
-
-            <details className="filter-accordian">
-              <summary>
-                <Trans>Units</Trans>
-                <ChevronIcon className="chevonIcon" />
-              </summary>
-              <MinMaxFilter column={table.getColumn("unitsres")} table={table} />
-            </details>
-
-            <details className="filter-accordian">
-              <summary>
-                <Trans>Zipcode</Trans>
-                <ChevronIcon className="chevonIcon" />
-              </summary>
-              <MultiSelectFilter column={table.getColumn("zip")} table={table} />
-            </details>
-          </div>
-          <div className="filter-rows">
-            {/* When using trans tags here it works locally but not in the netlify preview */}
-            {totalBuildings === filteredBuildings ? (
-              <>Showing all {totalBuildings} buildings</>
-            ) : (
-              <>Narrowed to {filteredBuildings} buildings</>
             )}
           </div>
         </div>
@@ -800,7 +817,15 @@ const TableOfData = React.memo(
   })
 );
 
-function MultiSelectFilter({ column, table }: { column: Column<any, unknown>; table: Table<any> }) {
+function MultiSelectFilter({
+  column,
+  table,
+  onApply,
+}: {
+  column: Column<any, unknown>;
+  table: Table<any>;
+  onApply: () => void;
+}) {
   const sortedUniqueValues = React.useMemo(
     () => Array.from(column.getFacetedUniqueValues().keys()).sort(),
     [column.getFacetedUniqueValues()] // eslint-disable-line
@@ -811,17 +836,16 @@ function MultiSelectFilter({ column, table }: { column: Column<any, unknown>; ta
       options={sortedUniqueValues.slice(0, 5000).map((value: any) => ({ name: value, id: value }))}
       displayValue="name"
       placeholder={`Search... (${column.getFacetedUniqueValues().size})`}
-      onSelect={(selectedList: any) =>
-        column.setFilterValue(selectedList.map((item: any) => item.name))
-      }
-      onRemove={(selectedList: any) =>
-        column.setFilterValue(selectedList.map((item: any) => item.name))
-      }
-      customCloseIcon={
-        <button className="close-button" aria-label="Close">
-          ✕
-        </button>
-      }
+      // onSelect={(selectedList: any) =>
+      //   column.setFilterValue(selectedList.map((item: any) => item.name))
+      // }
+      // onRemove={(selectedList: any) =>
+      //   column.setFilterValue(selectedList.map((item: any) => item.name))
+      // }
+      onApply={(selectedList: any) => {
+        column.setFilterValue(selectedList.map((item: any) => item.name));
+        onApply();
+      }}
     />
   );
 }
@@ -873,7 +897,7 @@ function ToggleFilter({
 
   return (
     <button aria-pressed={isPressed} onClick={toggleIsPressed} className={className}>
-      <div>{isPressed && <CheckIcon />}</div>
+      <div className="checkbox">{isPressed && <CheckIcon />}</div>
       {children}
     </button>
   );

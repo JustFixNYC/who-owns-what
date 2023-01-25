@@ -39,142 +39,157 @@ $table-border-dark: 1px solid $dark;
       }
     }
 
-    .filters {
+    .filters-container {
       display: flex;
-      padding-top: 1.2rem;
-      gap: 1.8rem;
+      flex-direction: column;
 
-      .filter-toggle {
-        border: 0.1rem solid $justfix-black;
-        border-radius: 0.8rem;
-        text-transform: uppercase;
-        padding: 1rem;
+      .filters {
         display: flex;
-        align-items: center;
+        padding-top: 1.2rem;
+        gap: 1.8rem;
 
-        div {
-          box-sizing: border-box;
+        .filter-toggle {
           border: 0.1rem solid $justfix-black;
-          border-radius: 0.4rem;
-          width: 2.4rem;
-          height: 2.4rem;
-          margin-right: 1rem;
+          border-radius: 0.8rem;
+          text-transform: uppercase;
+          padding: 1rem;
           display: flex;
-          justify-content: center;
           align-items: center;
-          color: $justfix-white;
-        }
 
-        &[aria-pressed="true"] {
-          background-color: $justfix-black;
-          color: $justfix-white;
-          div {
-            border-color: $justfix-white;
+          .checkbox {
+            box-sizing: border-box;
+            border: 0.1rem solid $justfix-black;
+            border-radius: 0.4rem;
+            width: 2.4rem;
+            height: 2.4rem;
+            margin-right: 1rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: $justfix-white;
+          }
+
+          &[aria-pressed="true"] {
+            background-color: $justfix-black;
+            color: $justfix-white;
+            .checkbox {
+              border-color: $justfix-white;
+            }
           }
         }
-      }
 
-      .filter-accordian {
-        border: 0.1rem solid $justfix-black;
-        border-radius: 0.8rem;
-        text-transform: uppercase;
-        padding: 1rem;
-        display: flex;
-        align-items: center;
-        position: relative;
-        width: 22.8rem;
-
-        summary {
-          // typical flex stretch doesn't seem to work in summary/details
-          height: 100%;
+        .filter-accordian {
+          border: 0.1rem solid $justfix-black;
+          border-radius: 0.8rem;
+          text-transform: uppercase;
+          padding: 1rem;
           display: flex;
           align-items: center;
           position: relative;
+          width: 22.8rem;
+          cursor: pointer;
 
-          &::-webkit-details-marker {
-            display: none;
-          }
-          .chevonIcon {
-            margin-left: auto;
-          }
-        }
-        &[open] {
-          summary svg {
-            transform: scaleY(-1);
-          }
-          .dropdown-container {
-            position: absolute;
-            top: -1;
-            left: -0.1rem;
-            right: -0.1rem;
-            z-index: 100;
-            padding: 1rem;
-            background-color: #f2f2f2;
-            box-sizing: border-box;
-            border: 0.1rem solid $justfix-black;
-            border-top: unset;
-            border-radius: 0 0 0.8rem 0.8rem;
+          summary {
+            // typical flex stretch doesn't seem to work in summary/details
+            height: 100%;
+            display: flex;
+            align-items: center;
+            position: relative;
 
-            .filter-subtitle {
-              font-size: 1.2rem;
-              color: $justfix-grey;
+            &::-webkit-details-marker {
+              display: none;
             }
-
-            .multiselect-container {
-              display: flex;
-              flex-direction: column;
-              margin: 0.6rem 2rem 0 0;
-              .optionListContainer {
-                position: static;
-              }
+            .chevonIcon {
+              margin-left: auto;
             }
-            .search-wrapper {
-              border: 1px solid $justfix-black;
-              border-radius: 2px;
+          }
+          &[open] {
+            summary svg {
+              transform: scaleY(-1);
             }
-            .optionListContainer {
+            .dropdown-container {
+              position: absolute;
+              top: -1;
+              left: -0.1rem;
+              right: -0.1rem;
+              z-index: 100;
+              padding: 1rem;
               background-color: #f2f2f2;
-              border: 1px solid $gray-dark;
-              border-radius: 2px;
-              ul {
-                list-style-type: none;
-              }
-            }
-            .chip {
-              align-self: flex-start;
-              background-color: $justfix-black;
-              color: $justfix-white;
-              border-radius: 5rem;
-              padding: 0.8rem 1.4rem;
-              margin-bottom: 0.4rem;
+              box-sizing: border-box;
+              border: 0.1rem solid $justfix-black;
+              border-top: unset;
+              border-radius: 0 0 0.8rem 0.8rem;
 
-              .closeIcon {
-                height: 0.9rem;
-                width: 0.9rem;
-                stroke-width: 0.15rem;
-                margin-left: 1.6rem;
+              .filter-subtitle {
+                font-size: 1.2rem;
+                color: $justfix-grey;
               }
 
-              &.chip-more {
-                background-color: #f2f2f2;
-                color: $justfix-black;
+              .multiselect-container {
+                display: flex;
+                flex-direction: column;
+                margin: 0.6rem 2rem 0 0;
+                .optionListContainer {
+                  position: static;
+                }
+              }
+              .search-wrapper {
                 border: 1px solid $justfix-black;
-                margin-bottom: 1.1rem;
+                border-radius: 2px;
               }
-            }
-            .text-button {
-              text-decoration-line: underline;
-              color: #4e4b4b;
-              &.show-less {
-                margin-top: 1.1rem;
+              .optionListContainer {
+                background-color: #f2f2f2;
+                border: 1px solid $justfix-grey;
+                border-radius: 2px;
+                .optionsContainer,
+                ul {
+                  border: none;
+                  list-style-type: none;
+                }
               }
-              &.clear-all {
-                margin: 0.8rem 0 0.9rem 0;
-                align-self: flex-end;
+              .chip {
+                align-self: flex-start;
+                background-color: $justfix-black;
+                color: $justfix-white;
+                border-radius: 5rem;
+                padding: 0.8rem 1.4rem;
+                margin-bottom: 0.4rem;
+
+                .closeIcon {
+                  height: 0.9rem;
+                  width: 0.9rem;
+                  stroke-width: 0.15rem;
+                  margin-left: 1.6rem;
+                }
+
+                &.chip-more {
+                  background-color: #f2f2f2;
+                  color: $justfix-black;
+                  border: 1px solid $justfix-black;
+                  margin-bottom: 1.1rem;
+                }
+              }
+              .text-button {
+                text-decoration-line: underline;
+                color: #4e4b4b;
+                &.show-less {
+                  margin-top: 1.1rem;
+                }
+                &.clear-all {
+                  margin: 0.8rem 0 0.9rem 0;
+                  align-self: flex-end;
+                }
+              }
+              .button.is-primary {
+                align-self: center;
+                margin: 0.9rem 0 1rem 0;
               }
             }
           }
         }
+      }
+      .filter-status {
+        background-color: red;
       }
     }
 
