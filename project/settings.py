@@ -38,11 +38,37 @@ ALLOWED_HOSTS: List[str] = ["*"]
 ROOT_URLCONF = "project.urls"
 
 INSTALLED_APPS = [
+    "django.contrib.admin",
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.sessions",
+    "django.contrib.messages",
     "project.apps.DefaultConfig",
     "wow.apps.WowConfig",
 ]
 
-MIDDLEWARE: List[str] = ["django.middleware.gzip.GZipMiddleware"]
+MIDDLEWARE: List[str] = [
+    "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django.contrib.messages.middleware.MessageMiddleware",
+    "django.middleware.gzip.GZipMiddleware",
+]
+
+TEMPLATES = [
+    {
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
+        "DIRS": [],
+        "APP_DIRS": True,
+        "OPTIONS": {
+            "context_processors": [
+                "django.template.context_processors.debug",
+                "django.template.context_processors.request",
+                "django.contrib.auth.context_processors.auth",
+                "django.contrib.messages.context_processors.messages",
+            ],
+        },
+    },
+]
 
 DATABASES = {
     "default": {
@@ -124,3 +150,5 @@ if ROLLBAR_ACCESS_TOKEN:
     MIDDLEWARE.append(
         "rollbar.contrib.django.middleware.RollbarNotifierMiddlewareExcluding404"
     )
+
+AUTHENTICATION_BACKENDS = ("django.contrib.auth.backends.ModelBackend",)
