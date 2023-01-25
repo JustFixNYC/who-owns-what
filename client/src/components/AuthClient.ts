@@ -2,12 +2,19 @@ import { NetworkError, HTTPError } from "error-reporting";
 
 // TODO shakao update URL for development/prod
 const BASE_URL = "http://127.0.0.1:8000";
+let token: string | undefined;
+
+const setToken = (newToken: string) => {
+  token = newToken;
+};
+
+const getToken = () => token;
 
 const login = async (
   email: string,
   password: string,
   onSuccess: (result: any) => void,
-  onError: (err: any) => void
+  onError?: (err: any) => void
 ) => {
   try {
     const result = await friendlyFetch(`${BASE_URL}/auth/login`, {
@@ -19,9 +26,31 @@ const login = async (
       },
     });
     const json = await result.json();
+    token = json.access_token;
     onSuccess(json);
   } catch (err) {
-    onError(err);
+    onError?.(err);
+  }
+};
+
+// TODO shakao factor out try/catch, success/error?
+const logout = async (onSuccess: (result: any) => void, onError?: (err: any) => void) => {
+  try {
+    if (token) {
+      const result = await friendlyFetch(`${BASE_URL}/auth/logout`, {
+        method: "POST",
+        mode: "cors",
+        body: `token=${encodeURIComponent(token)}`,
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+      });
+      token = undefined;
+      const json = await result.json();
+      onSuccess(json);
+    }
+  } catch (err) {
+    onError?.(err);
   }
 };
 
@@ -40,7 +69,10 @@ const friendlyFetch: typeof fetch = async (input, init) => {
 };
 
 const Client = {
+  setToken,
+  getToken,
   login,
+  logout,
 };
 
 export default Client;

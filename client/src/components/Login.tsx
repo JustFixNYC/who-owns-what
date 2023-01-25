@@ -48,10 +48,13 @@ class SubscribeWithoutI18n extends React.Component<LoginProps, State> {
     }
 
     // TODO shakao cleanup with async/await instead of promises
+    // TODO shakao add type for login resp
     AuthClient.login(
       email,
       password,
-      (res) => console.log(res),
+      (res) => {
+        console.log(res);
+      },
       (err) => {
         this.setState({
           response: `Oops! A network error occurred. Try again later.`,
