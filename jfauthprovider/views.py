@@ -59,7 +59,6 @@ def logout(request):
 def register(request):
     post_data = {
         "username": request.POST.get("username"),
-        "email": request.POST.get("email"),
         "password": request.POST.get("password"),
     }
 
@@ -77,7 +76,6 @@ def authenticate(request):
     post_data = {
         "grant_type": "password",
         "username": request.POST.get("username"),
-        "email": request.POST.get("email"),
         "password": request.POST.get("password"),
         "client_id": CLIENT_ID,
         "client_secret": CLIENT_SECRET,

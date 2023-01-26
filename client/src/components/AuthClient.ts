@@ -16,7 +16,6 @@ const getToken = () => token;
  */
 const authenticate = async (
   username: string,
-  email: string,
   password: string,
   onSuccess: (result: any) => void,
   onError?: (err: any) => void
@@ -25,9 +24,7 @@ const authenticate = async (
     const result = await friendlyFetch(`${BASE_URL}/auth/authenticate`, {
       method: "POST",
       mode: "cors",
-      body: `username=${encodeURIComponent(username)}&email=${encodeURIComponent(
-        email
-      )}&password=${password}`,
+      body: `username=${encodeURIComponent(username)}&password=${password}`,
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
       },
@@ -46,7 +43,6 @@ const authenticate = async (
  */
 const register = async (
   username: string,
-  email: string,
   password: string,
   onSuccess: (result: any) => void,
   onError?: (err: any) => void
@@ -55,9 +51,7 @@ const register = async (
     const result = await friendlyFetch(`${BASE_URL}/auth/register`, {
       method: "POST",
       mode: "cors",
-      body: `username=${encodeURIComponent(username)}&email=${encodeURIComponent(
-        email
-      )}&password=${password}`,
+      body: `username=${encodeURIComponent(username)}&password=${password}`,
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
       },
@@ -75,7 +69,7 @@ const register = async (
  * and expiry time.
  */
 const login = async (
-  email: string,
+  username: string,
   password: string,
   onSuccess: (result: any) => void,
   onError?: (err: any) => void
@@ -84,7 +78,7 @@ const login = async (
     const result = await friendlyFetch(`${BASE_URL}/auth/login`, {
       method: "POST",
       mode: "cors",
-      body: `username=${encodeURIComponent(email)}&password=${password}`,
+      body: `username=${encodeURIComponent(username)}&password=${password}`,
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
       },

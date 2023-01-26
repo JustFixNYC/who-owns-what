@@ -10,7 +10,6 @@ type LoginProps = {
 };
 
 type State = {
-  email: string;
   username: string;
   password: string;
   success: boolean;
@@ -21,7 +20,6 @@ class SubscribeWithoutI18n extends React.Component<LoginProps, State> {
   constructor(props: LoginProps) {
     super(props);
     this.state = {
-      email: "",
       username: "",
       password: "",
       success: false,
@@ -29,9 +27,6 @@ class SubscribeWithoutI18n extends React.Component<LoginProps, State> {
     };
   }
 
-  handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({ email: e.target.value });
-  };
   handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({ username: e.target.value });
   };
@@ -42,11 +37,10 @@ class SubscribeWithoutI18n extends React.Component<LoginProps, State> {
   handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const email = this.state.email || null;
     const username = this.state.username || null;
     const password = this.state.password || null;
 
-    if (!email || !password || !username) {
+    if (!username || !password) {
       this.setState({
         response: `Please enter an email address and password!`,
       });
@@ -56,7 +50,6 @@ class SubscribeWithoutI18n extends React.Component<LoginProps, State> {
     // TODO shakao cleanup with async/await instead of promises
     // TODO shakao add type for login resp
     AuthClient.authenticate(
-      email,
       username,
       password,
       (res) => {
@@ -76,15 +69,8 @@ class SubscribeWithoutI18n extends React.Component<LoginProps, State> {
         <form onSubmit={this.handleSubmit} className="input-group">
           <input
             type="text"
-            className="form-input input-email"
-            placeholder={`Enter email`}
-            onChange={this.handleEmailChange}
-            value={this.state.email}
-          />
-          <input
-            type="text"
             className="form-input input-username"
-            placeholder={`Enter username`}
+            placeholder={`Enter email`}
             onChange={this.handleUsernameChange}
             value={this.state.username}
           />
