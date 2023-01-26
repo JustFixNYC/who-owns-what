@@ -499,7 +499,7 @@ export class Multiselect extends React.Component<IMultiselectProps, any> {
         )}
         {selectedNum > SELECTED_PREVIEW_NUM && (
           <button
-            className="show-less text-button"
+            className="show-less button is-text"
             key={SELECTED_PREVIEW_NUM + 1}
             onClick={this.toggleShowAllSelected}
           >
@@ -622,7 +622,7 @@ export class Multiselect extends React.Component<IMultiselectProps, any> {
       >
         {!hideSelectedList && this.renderSelectedList()}
         {selectedValues.length > 0 && (
-          <button className="clear-all text-button" key={2} onClick={this.resetSelectedValues}>
+          <button className="clear-all button is-text" key={2} onClick={this.resetSelectedValues}>
             <Trans>Clear all</Trans>
           </button>
         )}

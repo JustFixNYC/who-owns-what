@@ -221,6 +221,8 @@
 .button.is-text {
   padding: 0;
   color: $justfix-black;
+  text-decoration: underline;
+  text-underline-position: under;
 }
 
 .buttons.has-addons {

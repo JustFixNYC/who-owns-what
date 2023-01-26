@@ -15,6 +15,7 @@ import classnames from "classnames";
 import { logAmplitudeEvent } from "./Amplitude";
 import { Multiselect } from "./multiselect-dropdown/multiselect/Multiselect";
 import { CheckIcon, ChevronIcon } from "./Icons";
+// import FocusTrap from "focus-trap-react";
 
 import {
   Column,
@@ -628,7 +629,8 @@ const TableOfData = React.memo(
           <div className="filter-for">
             <div className="pill-new">new</div>
             <Trans>
-              Filter <br />
+              Filter&nbsp;
+              <br />
               for
             </Trans>
             :
@@ -642,6 +644,15 @@ const TableOfData = React.memo(
               >
                 <Trans>Rent Stabilized Units</Trans>
               </ToggleFilter>
+
+              {/* <FocusTrap
+                active={landlordFilterOpen}
+                focusTrapOptions={{
+                  clickOutsideDeactivates: true,
+                  returnFocusOnDeactivate: false,
+                  onDeactivate: () => setLandlordFilterOpen(false),
+                }}
+              > */}
               <details className="filter-accordian" id="landlord-filter-accordian">
                 <summary>
                   <Trans>Landlord</Trans>
@@ -660,6 +671,7 @@ const TableOfData = React.memo(
                   />
                 </div>
               </details>
+              {/* </FocusTrap> */}
               <details className="filter-accordian">
                 <summary>
                   <Trans>Units</Trans>
@@ -685,12 +697,12 @@ const TableOfData = React.memo(
             {totalBuildings !== filteredBuildings && (
               <div className="filter-status">
                 <span className="results-count">
-                  <Trans>Showing {filteredBuildings} results</Trans>
+                  <Trans>Showing {filteredBuildings} results.</Trans>
                 </span>
-                <button className="data-issue">
+                <button className="data-issue button is-text">
                   <Trans>Notice an inaccuracy? Click here.</Trans>
                 </button>
-                <button className="clear-filters">
+                <button className="clear-filters button is-text">
                   <Trans>Clear Filters</Trans>
                 </button>
               </div>
@@ -835,16 +847,11 @@ function MultiSelectFilter({
     <Multiselect
       options={sortedUniqueValues.slice(0, 5000).map((value: any) => ({ name: value, id: value }))}
       displayValue="name"
+      // TODO: localize "search"
       placeholder={`Search... (${column.getFacetedUniqueValues().size})`}
-      // onSelect={(selectedList: any) =>
-      //   column.setFilterValue(selectedList.map((item: any) => item.name))
-      // }
-      // onRemove={(selectedList: any) =>
-      //   column.setFilterValue(selectedList.map((item: any) => item.name))
-      // }
       onApply={(selectedList: any) => {
-        column.setFilterValue(selectedList.map((item: any) => item.name));
         onApply();
+        column.setFilterValue(selectedList.map((item: any) => item.name));
       }}
     />
   );
