@@ -10,6 +10,40 @@ const setToken = (newToken: string) => {
 
 const getToken = () => token;
 
+/**
+ * Authenticates a user with the given email and password.
+ * Creates an account for this user if one does not already exist.
+ */
+const authenticate = async (
+  username: string,
+  email: string,
+  password: string,
+  onSuccess: (result: any) => void,
+  onError?: (err: any) => void
+) => {
+  try {
+    const result = await friendlyFetch(`${BASE_URL}/auth/authenticate`, {
+      method: "POST",
+      mode: "cors",
+      body: `username=${encodeURIComponent(username)}&email=${encodeURIComponent(
+        email
+      )}&password=${password}`,
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+    });
+    const json = await result.json();
+    token = json.access_token;
+    onSuccess(json);
+  } catch (err) {
+    onError?.(err);
+  }
+};
+
+/**
+ * Creates an account with the given email and password, but does not
+ * authenticate.
+ */
 const register = async (
   username: string,
   email: string,
@@ -36,6 +70,10 @@ const register = async (
   }
 };
 
+/**
+ * Authenticates a user, returning an access token, a refresh token,
+ * and expiry time.
+ */
 const login = async (
   email: string,
   password: string,
@@ -59,6 +97,9 @@ const login = async (
   }
 };
 
+/**
+ * Revokes the current access token, if one is present
+ */
 // TODO shakao factor out try/catch, success/error?
 const logout = async (onSuccess: (result: any) => void, onError?: (err: any) => void) => {
   try {
@@ -100,6 +141,7 @@ const Client = {
   register,
   login,
   logout,
+  authenticate,
 };
 
 export default Client;

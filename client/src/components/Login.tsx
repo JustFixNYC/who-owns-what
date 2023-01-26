@@ -11,6 +11,7 @@ type LoginProps = {
 
 type State = {
   email: string;
+  username: string;
   password: string;
   success: boolean;
   response: string;
@@ -21,6 +22,7 @@ class SubscribeWithoutI18n extends React.Component<LoginProps, State> {
     super(props);
     this.state = {
       email: "",
+      username: "",
       password: "",
       success: false,
       response: "",
@@ -30,6 +32,9 @@ class SubscribeWithoutI18n extends React.Component<LoginProps, State> {
   handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({ email: e.target.value });
   };
+  handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({ username: e.target.value });
+  };
   handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({ password: e.target.value });
   };
@@ -38,9 +43,10 @@ class SubscribeWithoutI18n extends React.Component<LoginProps, State> {
     e.preventDefault();
 
     const email = this.state.email || null;
+    const username = this.state.username || null;
     const password = this.state.password || null;
 
-    if (!email || !password) {
+    if (!email || !password || !username) {
       this.setState({
         response: `Please enter an email address and password!`,
       });
@@ -49,8 +55,9 @@ class SubscribeWithoutI18n extends React.Component<LoginProps, State> {
 
     // TODO shakao cleanup with async/await instead of promises
     // TODO shakao add type for login resp
-    AuthClient.login(
+    AuthClient.authenticate(
       email,
+      username,
       password,
       (res) => {
         console.log(res);
@@ -73,6 +80,13 @@ class SubscribeWithoutI18n extends React.Component<LoginProps, State> {
             placeholder={`Enter email`}
             onChange={this.handleEmailChange}
             value={this.state.email}
+          />
+          <input
+            type="text"
+            className="form-input input-username"
+            placeholder={`Enter username`}
+            onChange={this.handleUsernameChange}
+            value={this.state.username}
           />
           <input
             type="text"

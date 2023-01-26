@@ -70,3 +70,23 @@ def register(request):
 
     # TODO shakao return a cleaner response
     return JsonResponse(json.loads(response.content))
+
+
+@api
+def authenticate(request):
+    post_data = {
+        "grant_type": "password",
+        "username": request.POST.get("username"),
+        "email": request.POST.get("email"),
+        "password": request.POST.get("password"),
+        "client_id": CLIENT_ID,
+        "client_secret": CLIENT_SECRET,
+    }
+
+    # TODO shakao change URL based on local/production
+    response = requests.post(
+        "http://host.docker.internal:8080/authenticate/", data=post_data
+    )
+
+    # TODO shakao return a cleaner response
+    return JsonResponse(json.loads(response.content))
