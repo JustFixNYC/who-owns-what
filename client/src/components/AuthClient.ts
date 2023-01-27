@@ -2,6 +2,7 @@ import { NetworkError, HTTPError } from "error-reporting";
 
 // TODO shakao update URL for development/prod
 const BASE_URL = "http://127.0.0.1:8000";
+const AUTH_SERVER_BASE_URL = "http://127.0.0.1:8080";
 let token: string | undefined;
 
 const setToken = (newToken: string) => {
@@ -88,6 +89,34 @@ const logout = async (onSuccess: (result: any) => void, onError?: (err: any) => 
   }
 };
 
+/**
+ * Sends an authenticated request to update the user email
+ */
+const updateEmail = async (
+  newEmail: string,
+  onSuccess: (result: any) => void,
+  onError?: (err: any) => void
+) => {
+  try {
+    if (token) {
+      const result = await friendlyFetch(`${AUTH_SERVER_BASE_URL}/user/update`, {
+        mode: "cors",
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+          // TODO shakao store entire token in memory, pull auth type as well
+          Authorization: `Bearer ${getToken()}`,
+        },
+        body: `new_email=${encodeURIComponent(newEmail)}`,
+      });
+      const json = await result.json();
+      onSuccess(json);
+    }
+  } catch (err) {
+    onError?.(err);
+  }
+};
+
 // TODO shakao Move shared APIClient functions to util
 const friendlyFetch: typeof fetch = async (input, init) => {
   let response: Response;
@@ -105,9 +134,9 @@ const friendlyFetch: typeof fetch = async (input, init) => {
 const Client = {
   setToken,
   getToken,
-  register,
   login,
   logout,
+  updateEmail,
   authenticate,
 };
 
