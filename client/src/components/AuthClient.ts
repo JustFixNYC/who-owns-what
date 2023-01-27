@@ -38,33 +38,6 @@ const authenticate = async (
 };
 
 /**
- * Creates an account with the given email and password, but does not
- * authenticate.
- */
-const register = async (
-  username: string,
-  password: string,
-  onSuccess: (result: any) => void,
-  onError?: (err: any) => void
-) => {
-  try {
-    const result = await friendlyFetch(`${BASE_URL}/auth/register`, {
-      method: "POST",
-      mode: "cors",
-      body: `username=${encodeURIComponent(username)}&password=${password}`,
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-      },
-    });
-    const json = await result.json();
-    token = json.access_token;
-    onSuccess(json);
-  } catch (err) {
-    onError?.(err);
-  }
-};
-
-/**
  * Authenticates a user, returning an access token, a refresh token,
  * and expiry time.
  */
