@@ -29,8 +29,8 @@ rentstab as (
   select
     ucbbl,
     coalesce(unitsstab2007, 0) rsunits2007,
-    coalesce(uc2020, 0) rsunitslatest,
-    coalesce(uc2020, 0) - coalesce(unitsstab2007, 0) rsdiff
+    coalesce(uc2021, 0) rsunitslatest,
+    coalesce(uc2021, 0) - coalesce(unitsstab2007, 0) rsdiff
   from rentstab_summary
   left join rentstab_v2 using(ucbbl)
 ),
@@ -93,7 +93,7 @@ select distinct on (registrations.bbl)
   rentstab.rsunits2007,
   rentstab.rsunitslatest,
   -- Year of most recent rent stab data:
-  2020 as rsunitslatestyear,
+  2021 as rsunitslatestyear,
   rentstab.rsdiff,
   exemptions.yearstartedj51::smallint,
   exemptions.yearstarted421a::smallint,
