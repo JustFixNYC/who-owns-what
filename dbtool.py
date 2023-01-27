@@ -29,6 +29,7 @@ except ModuleNotFoundError:
 ROOT_DIR = Path(__file__).parent.resolve()
 SQL_DIR = ROOT_DIR / "sql"
 WOW_YML = yaml.full_load((ROOT_DIR / "who-owns-what.yml").read_text())
+TESTS_DIR = ROOT_DIR / "tests"
 
 # Just an alias for our database connection.
 DbConnection = Any
@@ -290,6 +291,7 @@ def export_table_subset(db: DbContext, table_name: str, query: str) -> str:
             )
             .decode("ascii")
             .replace(temp_table_name, table_name)
+            .replace("wow.", "public.")
         )
         return f"DELETE FROM public.{table_name};\n\n{sql}"
     finally:
@@ -316,6 +318,10 @@ def exporttestdata(db: DbContext):
             f"SELECT DISTINCT registrationid FROM wow_bldgs WHERE bbl = '{bbl}'"
         )
         reg_id = cur.fetchone()[0]
+
+    # Some additional data for wow_portfolios is added manually
+    with open(TESTS_DIR / "manual_test_data.sql") as f:
+        extra_sql = f.read()
 
     sql = "\n".join(
         [
@@ -359,6 +365,7 @@ def exporttestdata(db: DbContext):
             ) assocregids ON (bldgs.registrationid = assocregids.regid)
             """,
             ),
+            extra_sql,
         ]
     )
 
@@ -471,6 +478,10 @@ if __name__ == "__main__":
             )
         sys.exit(1)
 
+    db = DbContext.from_url(args.database_url)
+
+    cmd = getattr(args, "cmd", "")
+
     oca_config = OcaConfig(
         oca_table_names=WOW_YML["oca_tables"],
         data_dir=ROOT_DIR / "nycdb" / "data",
@@ -480,12 +491,8 @@ if __name__ == "__main__":
         oca_ssh_host=args.oca_ssh_host,
         oca_ssh_user=args.oca_ssh_user,
         oca_ssh_pkey=args.oca_ssh_pkey,
-        is_testing=args.use_test_data,
+        is_testing=False if cmd == "exporttestdata" else args.use_test_data,
     )
-
-    db = DbContext.from_url(args.database_url)
-
-    cmd = getattr(args, "cmd", "")
 
     if cmd == "exporttestdata":
         exporttestdata(db)
