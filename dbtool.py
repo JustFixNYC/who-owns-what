@@ -420,15 +420,6 @@ if __name__ == "__main__":
 
     parser_builddb = subparsers.add_parser("builddb")
     parser_builddb.add_argument(
-        "-t",
-        "--use-test-data",
-        action="store_true",
-        help=(
-            "Load the database with a small amount of test data, "
-            "instead of downloading & installing the full data sets."
-        ),
-    )
-    parser_builddb.add_argument(
         "--update",
         action="store_true",
         help=(
@@ -482,17 +473,19 @@ if __name__ == "__main__":
 
     cmd = getattr(args, "cmd", "")
 
-    oca_config = OcaConfig(
-        oca_table_names=WOW_YML["oca_tables"],
-        data_dir=ROOT_DIR / "nycdb" / "data",
-        test_dir=ROOT_DIR / "tests" / "data",
-        sql_dir=SQL_DIR,
-        oca_db_url=args.oca_db_url,
-        oca_ssh_host=args.oca_ssh_host,
-        oca_ssh_user=args.oca_ssh_user,
-        oca_ssh_pkey=args.oca_ssh_pkey,
-        is_testing=False if cmd == "exporttestdata" else args.use_test_data,
-    )
+    if cmd in ["loadtestdata", "builddb"]:
+
+        oca_config = OcaConfig(
+            oca_table_names=WOW_YML["oca_tables"],
+            data_dir=ROOT_DIR / "nycdb" / "data",
+            test_dir=ROOT_DIR / "tests" / "data",
+            sql_dir=SQL_DIR,
+            oca_db_url=args.oca_db_url,
+            oca_ssh_host=args.oca_ssh_host,
+            oca_ssh_user=args.oca_ssh_user,
+            oca_ssh_pkey=args.oca_ssh_pkey,
+            is_testing=True if cmd == "loadtestdata" else False,
+        )
 
     if cmd == "exporttestdata":
         exporttestdata(db)
@@ -501,9 +494,7 @@ if __name__ == "__main__":
     elif cmd == "dbshell":
         dbshell(db)
     elif cmd == "builddb":
-        NycDbBuilder(db, oca_config, is_testing=args.use_test_data).build(
-            force_refresh=args.update
-        )
+        NycDbBuilder(db, oca_config, is_testing=False).build(force_refresh=args.update)
     elif cmd == "exportgraph":
         with open(args.outfile, "w") as f:
             with db.connection() as conn:
