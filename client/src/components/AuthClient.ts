@@ -1,11 +1,18 @@
 import { NetworkError, HTTPError } from "error-reporting";
 
+
+interface AuthToken {
+  accessToken: string;
+  refreshToken: string;
+  tokenType: string;
+}
+
 // TODO shakao update URL for development/prod
 const BASE_URL = "http://127.0.0.1:8000";
 const AUTH_SERVER_BASE_URL = "http://127.0.0.1:8080";
-let token: string | undefined;
+let token: AuthToken | undefined;
 
-const setToken = (newToken: string) => {
+const setToken = (newToken: AuthToken) => {
   token = newToken;
 };
 
@@ -31,7 +38,11 @@ const authenticate = async (
       },
     });
     const json = await result.json();
-    token = json.access_token;
+    token = {
+      accessToken: json.access_token,
+      refreshToken: json.refresh_token,
+      tokenType: json.token_type,
+    }
     onSuccess(json);
   } catch (err) {
     onError?.(err);
@@ -58,8 +69,40 @@ const login = async (
       },
     });
     const json = await result.json();
-    token = json.access_token;
+    token = {
+      accessToken: json.access_token,
+      refreshToken: json.refresh_token,
+      tokenType: json.token_type,
+    }
     onSuccess(json);
+  } catch (err) {
+    onError?.(err);
+  }
+};
+
+/**
+ * Sends a request to refresh the access token
+ */
+// TODO shakao factor out try/catch, success/error?
+const refresh = async (onSuccess: (result: any) => void, onError?: (err: any) => void) => {
+  try {
+    if (token?.refreshToken) {
+      const result = await friendlyFetch(`${BASE_URL}/auth/refresh`, {
+        method: "POST",
+        mode: "cors",
+        body: `refresh_token=${encodeURIComponent(token.refreshToken)}`,
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+      });
+      const json = await result.json();
+      token = {
+        accessToken: json.access_token,
+        refreshToken: json.refresh_token,
+        tokenType: json.token_type,
+      }
+      onSuccess(json);
+    }
   } catch (err) {
     onError?.(err);
   }
@@ -71,11 +114,11 @@ const login = async (
 // TODO shakao factor out try/catch, success/error?
 const logout = async (onSuccess: (result: any) => void, onError?: (err: any) => void) => {
   try {
-    if (token) {
+    if (token?.accessToken) {
       const result = await friendlyFetch(`${BASE_URL}/auth/logout`, {
         method: "POST",
         mode: "cors",
-        body: `token=${encodeURIComponent(token)}`,
+        body: `token=${encodeURIComponent(token.accessToken)}`,
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
         },
@@ -135,6 +178,7 @@ const Client = {
   setToken,
   getToken,
   login,
+  refresh,
   logout,
   updateEmail,
   authenticate,

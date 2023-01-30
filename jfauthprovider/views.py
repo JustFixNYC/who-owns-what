@@ -53,6 +53,23 @@ def logout(request):
     # TODO shakao return a cleaner response
     return JsonResponse({"status": response.status_code})
 
+@api
+def refresh(request):
+    refresh_token = request.POST.get("refresh_token")
+
+    post_data = {
+        "grant_type": "refresh_token",
+        "refresh_token": refresh_token,
+        "client_id": CLIENT_ID,
+        "client_secret": CLIENT_SECRET,
+    }
+
+    # TODO shakao change URL based on local/production
+    response = requests.post(
+        "http://host.docker.internal:8080/o/token/", data=post_data
+    )
+
+    return JsonResponse(json.loads(response.content))
 
 @api
 def authenticate(request):
