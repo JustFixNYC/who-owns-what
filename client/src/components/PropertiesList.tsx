@@ -37,6 +37,52 @@ import {
 } from "@tanstack/react-table";
 
 import "styles/PropertiesList.css";
+import { isConstructorDeclaration } from "typescript";
+
+// Pattern for context provider to update context from child components
+// https://stackoverflow.com/a/67710693/7051239
+
+type FilterValues = {
+  ownernames: string[];
+  unitsres: [number, number] | undefined;
+  zip: string[];
+};
+
+type IFilterContext = {
+  totalBuildings?: number | undefined;
+  filteredBuildings?: number | undefined;
+  filterSelections: FilterValues & { rsunitslatest?: boolean };
+  filterOptions: FilterValues;
+};
+
+const useValue = () => {
+  const [filterContext, setFilterContext] = React.useState<IFilterContext>({
+    totalBuildings: undefined,
+    filteredBuildings: undefined,
+    filterSelections: {
+      rsunitslatest: false,
+      ownernames: [],
+      unitsres: undefined,
+      zip: [],
+    },
+    filterOptions: {
+      ownernames: [],
+      unitsres: undefined,
+      zip: [],
+    },
+  });
+
+  return {
+    filterContext,
+    setFilterContext,
+  };
+};
+
+const FilterContext = React.createContext({} as ReturnType<typeof useValue>);
+
+const FilterContextProvider: React.FC<{}> = (props) => {
+  return <FilterContext.Provider value={useValue()}>{props.children}</FilterContext.Provider>;
+};
 
 // TODO: add column resizing (check with team if that's still useful)
 
@@ -64,24 +110,6 @@ const formatAbatementStartYear = (year: number | null, i18n: I18n) => {
 
 const findMostCommonType = (complaints: HpdComplaintCount[] | null) =>
   complaints && complaints.length > 0 && complaints[0].type;
-
-type ArrowIconProps = {
-  dir: "up" | "down" | "both";
-};
-
-const ArrowIcon = (props: ArrowIconProps) => (
-  <span className="arrow-icon">
-    {props.dir === "up" ? (
-      <span>↑</span>
-    ) : props.dir === "down" ? (
-      <span>↓</span>
-    ) : (
-      <>
-        ↑<span>↓</span>
-      </>
-    )}
-  </span>
-);
 
 const getWidthFromLabel = (label: string, customDefaultWidth?: number) => {
   const MIN_WIDTH = customDefaultWidth || 70;
@@ -142,6 +170,10 @@ const PropertiesListWithoutI18n: React.FC<
   // So, let's keep track of and also update this top spacing whenever the layout of the page changes.
   const [headerTopSpacing, setHeaderTopSpacing] = useState<number | undefined>();
 
+  // The possible options for filter UI component selections
+  // const [filterOptions, setFilterOptions] = useState<FilterOptions>();
+  // const [buildingCounts, setBuildingCounts] = useState<BuildingCounts>();
+
   // TODO: double check how this works with new v8 table
   // Make sure to setHeaderTopSpacing whenever
   // - the table comes into view
@@ -161,16 +193,19 @@ const PropertiesListWithoutI18n: React.FC<
       ref={tableRef}
     >
       {isTableVisible ? (
-        <TableOfData
-          data={addrs}
-          headerTopSpacing={headerTopSpacing}
-          i18n={i18n}
-          locale={locale}
-          rsunitslatestyear={rsunitslatestyear}
-          onOpenDetail={props.onOpenDetail}
-          addressPageRoutes={props.addressPageRoutes}
-          ref={lastColumnRef}
-        />
+        <FilterContextProvider>
+          <PortfolioFilters />
+          <TableOfData
+            data={addrs}
+            headerTopSpacing={headerTopSpacing}
+            i18n={i18n}
+            locale={locale}
+            rsunitslatestyear={rsunitslatestyear}
+            onOpenDetail={props.onOpenDetail}
+            addressPageRoutes={props.addressPageRoutes}
+            ref={lastColumnRef}
+          />
+        </FilterContextProvider>
       ) : (
         <Loader loading={true} classNames="Loader-map">
           {addrs.length > MAX_TABLE_ROWS_PER_PAGE ? (
@@ -205,6 +240,8 @@ type TableOfDataProps = {
 const TableOfData = React.memo(
   React.forwardRef<HTMLDivElement, TableOfDataProps>((props, lastColumnRef) => {
     const { data, i18n, locale, rsunitslatestyear } = props;
+
+    const { filterContext, setFilterContext } = React.useContext(FilterContext);
 
     const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
 
@@ -612,6 +649,38 @@ const TableOfData = React.memo(
     });
 
     React.useEffect(() => {
+      // TODO: previously we were using useMemo within the multiselect table filter component, can/should we memoize these here now too?
+      setFilterContext({
+        ...filterContext,
+        filterOptions: {
+          ownernames: Array.from(
+            table.getColumn("ownernames").getFacetedUniqueValues().keys()
+          ).sort(),
+          unitsres: table.getColumn("unitsres").getFacetedMinMaxValues(),
+          zip: Array.from(table.getColumn("zip").getFacetedUniqueValues().keys()).sort(),
+        },
+      });
+
+      console.log("filter options updated");
+    }, [
+      table.getColumn("ownernames").getFacetedUniqueValues(),
+      table.getColumn("unitsres").getFacetedMinMaxValues(),
+      table.getColumn("zip").getFacetedUniqueValues(),
+    ]);
+
+    React.useEffect(() => {
+      const { rsunitslatest, ownernames, unitsres, zip } = filterContext.filterSelections;
+      table.getColumn("rsunitslatest").setFilterValue(rsunitslatest);
+      table.getColumn("ownernames").setFilterValue(ownernames!.map((item: any) => item.name));
+
+      console.log({ selection_updater: unitsres });
+      table.getColumn("unitsres").setFilterValue(unitsres);
+      table.getColumn("zip").setFilterValue(zip!.map((item: any) => item.name));
+      console.log("table updated with filters");
+    }, [filterContext.filterSelections]);
+
+    // TODO: is this necessary?
+    React.useEffect(() => {
       if (table.getState().columnFilters[0]?.id === "ownernames") {
         if (table.getState().sorting[0]?.id !== "ownernames") {
           table.setSorting([{ id: "ownernames", desc: false }]);
@@ -620,32 +689,196 @@ const TableOfData = React.memo(
       //   eslint-disable-next-line
     }, [table.getState().columnFilters[0]?.id]);
 
-    const totalBuildings = table.getCoreRowModel().flatRows.length;
-    const filteredBuildings = table.getFilteredRowModel().flatRows.length;
+    return (
+      <div className="portfolio-table-container">
+        <table>
+          <thead>
+            {table.getHeaderGroups().map((headerGroup) => (
+              <tr key={headerGroup.id}>
+                {headerGroup.headers.map((header) => {
+                  return (
+                    <th
+                      key={header.id}
+                      colSpan={header.colSpan}
+                      className={`col-${header.column.id}`}
+                      style={{ minWidth: header.getSize() }}
+                    >
+                      {header.isPlaceholder ? null : (
+                        <>
+                          <div
+                            {...{
+                              className: header.column.getCanSort()
+                                ? "cursor-pointer select-none"
+                                : "",
+                              onClick: header.column.getToggleSortingHandler(),
+                            }}
+                          >
+                            {flexRender(header.column.columnDef.header, header.getContext())}
+                            {headerGroup.depth === 1
+                              ? {
+                                  asc: <ArrowIcon dir={"up"} />,
+                                  desc: <ArrowIcon dir={"down"} />,
+                                }[header.column.getIsSorted() as string] ?? (
+                                  <ArrowIcon dir={"both"} />
+                                )
+                              : null}
+                          </div>
+                        </>
+                      )}
+                    </th>
+                  );
+                })}
+              </tr>
+            ))}
+          </thead>
+          <tbody>
+            {table.getRowModel().rows.map((row, i) => {
+              return (
+                <tr key={row.id} className={`row-${i % 2 ? "even" : "odd"}`}>
+                  {row.getVisibleCells().map((cell) => {
+                    return (
+                      <td
+                        key={cell.id}
+                        className={`col-${cell.column.id}`}
+                        style={{
+                          width: cell.column.getSize() !== 0 ? cell.column.getSize() : undefined,
+                        }}
+                      >
+                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                      </td>
+                    );
+                  })}
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+        <div className="pagination">
+          <div className="prev">
+            <button
+              className="page-btn"
+              onClick={() => table.previousPage()}
+              disabled={!table.getCanPreviousPage()}
+            >
+              {i18n._(t`Previous`)}
+            </button>
+          </div>
+          <div className="center">
+            <span className="page-info">
+              <span>
+                <Trans>Page</Trans>
+              </span>
+              <div>
+                <input
+                  type="number"
+                  value={String(table.getState().pagination.pageIndex + 1)}
+                  onChange={(e) => {
+                    const page = e.target.value ? Number(e.target.value) - 1 : 0;
+                    table.setPageIndex(page);
+                  }}
+                />
+              </div>
+              <Trans>of</Trans> <span className="total-pages">{table.getPageCount()}</span>
+            </span>
+            <select
+              value={table.getState().pagination.pageSize}
+              onChange={(e) => {
+                table.setPageSize(Number(e.target.value));
+              }}
+            >
+              {[10, 20, 50, 100, 500].map((pageSize) => (
+                <option key={pageSize} value={pageSize}>
+                  Show {pageSize}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="next">
+            <button
+              className="page-btn"
+              onClick={() => table.nextPage()}
+              disabled={!table.getCanNextPage()}
+            >
+              {i18n._(t`Next`)}
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  })
+);
+
+const PortfolioFilters = React.memo(
+  React.forwardRef<HTMLDivElement>((props, ref) => {
+    const { filterContext, setFilterContext } = React.useContext(FilterContext);
+
+    const { totalBuildings, filteredBuildings } = filterContext;
+
+    const updateRsunitslatest = () => {
+      setFilterContext({
+        ...filterContext,
+        filterSelections: {
+          ...filterContext.filterSelections,
+          rsunitslatest: !filterContext.filterSelections.rsunitslatest,
+        },
+      });
+      console.log("rs toggled");
+    };
+
+    const updateOwnernames = (selectedList: any) => {
+      setFilterContext({
+        ...filterContext,
+        filterSelections: {
+          ...filterContext.filterSelections,
+          ownernames: selectedList,
+        },
+      });
+      console.log("ownernames selected");
+    };
+
+    const updateUnitsRes = (selectedList: any) => {
+      console.log({ filter_ui_selection: selectedList });
+      setFilterContext({
+        ...filterContext,
+        filterSelections: {
+          ...filterContext.filterSelections,
+          unitsres: selectedList,
+        },
+      });
+      console.log("unitsres selected");
+    };
+
+    const updateZip = (selectedList: any) => {
+      setFilterContext({
+        ...filterContext,
+        filterSelections: {
+          ...filterContext.filterSelections,
+          zip: selectedList,
+        },
+      });
+      console.log("zip selected");
+    };
 
     return (
-      <>
-        <div className="filter-bar">
-          <div className="filter-for">
-            <div className="pill-new">new</div>
-            <Trans>
-              Filter&nbsp;
-              <br />
-              for
-            </Trans>
-            :
+      <div className="filter-bar" ref={ref}>
+        <div className="filter-for">
+          <div className="pill-new">
+            <Trans>New</Trans>
           </div>
-          <div className="filters-container">
-            <div className="filters">
-              <ToggleFilter
-                column={table.getColumn("rsunitslatest")}
-                table={table}
-                className="filter-toggle"
-              >
-                <Trans>Rent Stabilized Units</Trans>
-              </ToggleFilter>
+          <Trans>
+            Filter&nbsp;
+            <br />
+            for
+          </Trans>
+          :
+        </div>
+        <div className="filters-container">
+          <div className="filters">
+            <ToggleFilter onClick={updateRsunitslatest} className="filter-toggle">
+              <Trans>Rent Stabilized Units</Trans>
+            </ToggleFilter>
 
-              {/* <FocusTrap
+            {/* <FocusTrap
                 active={landlordFilterOpen}
                 focusTrapOptions={{
                   clickOutsideDeactivates: true,
@@ -653,257 +886,158 @@ const TableOfData = React.memo(
                   onDeactivate: () => setLandlordFilterOpen(false),
                 }}
               > */}
-              <details className="filter-accordian" id="landlord-filter-accordian">
-                <summary>
-                  <Trans>Landlord</Trans>
-                  <ChevronIcon className="chevonIcon" />
-                </summary>
-                <div className="dropdown-container">
-                  <span className="filter-subtitle">
-                    <Trans>Officer/Owner</Trans>
-                  </span>
-                  <MultiSelectFilter
-                    column={table.getColumn("ownernames")}
-                    table={table}
-                    onApply={() =>
-                      document.querySelector("#landlord-filter-accordian")!.removeAttribute("open")
-                    }
-                  />
-                </div>
-              </details>
-              {/* </FocusTrap> */}
-              <details className="filter-accordian">
-                <summary>
-                  <Trans>Units</Trans>
-                  <ChevronIcon className="chevonIcon" />
-                </summary>
-                <MinMaxFilter column={table.getColumn("unitsres")} table={table} />
-              </details>
-              <details className="filter-accordian" id="zipcode-filter-accordian">
-                <summary>
-                  <Trans>Zipcode</Trans>
-                  <ChevronIcon className="chevonIcon" />
-                </summary>
+            <details className="filter-accordian" id="landlord-filter-accordian">
+              <summary>
+                <Trans>Landlord</Trans>
+                <ChevronIcon className="chevonIcon" />
+              </summary>
+              <div className="dropdown-container">
+                <span className="filter-subtitle">
+                  <Trans>Officer/Owner</Trans>
+                </span>
                 <MultiSelectFilter
-                  column={table.getColumn("zip")}
-                  table={table}
-                  onApply={() =>
-                    document.querySelector("#zipcode-filter-accordian")!.removeAttribute("open")
-                  }
+                  options={filterContext.filterOptions.ownernames}
+                  onApply={(selectedList) => {
+                    document.querySelector("#landlord-filter-accordian")!.removeAttribute("open");
+                    updateOwnernames(selectedList);
+                  }}
                 />
-              </details>
-            </div>
-            {/* TODO: what if all properties in portfolio are selected by applied filters? Need another way to know when filters are active */}
-            {totalBuildings !== filteredBuildings && (
-              <div className="filter-status">
-                <span className="results-count">
-                  <Trans>Showing {filteredBuildings} results.</Trans>
-                </span>
-                <button className="data-issue button is-text">
-                  <Trans>Notice an inaccuracy? Click here.</Trans>
-                </button>
-                <button className="clear-filters button is-text">
-                  <Trans>Clear Filters</Trans>
-                </button>
               </div>
-            )}
-          </div>
-        </div>
-
-        <div className="portfolio-table-container">
-          <table>
-            <thead>
-              {table.getHeaderGroups().map((headerGroup) => (
-                <tr key={headerGroup.id}>
-                  {headerGroup.headers.map((header) => {
-                    return (
-                      <th
-                        key={header.id}
-                        colSpan={header.colSpan}
-                        className={`col-${header.column.id}`}
-                        style={{ minWidth: header.getSize() }}
-                      >
-                        {header.isPlaceholder ? null : (
-                          <>
-                            <div
-                              {...{
-                                className: header.column.getCanSort()
-                                  ? "cursor-pointer select-none"
-                                  : "",
-                                onClick: header.column.getToggleSortingHandler(),
-                              }}
-                            >
-                              {flexRender(header.column.columnDef.header, header.getContext())}
-                              {headerGroup.depth === 1
-                                ? {
-                                    asc: <ArrowIcon dir={"up"} />,
-                                    desc: <ArrowIcon dir={"down"} />,
-                                  }[header.column.getIsSorted() as string] ?? (
-                                    <ArrowIcon dir={"both"} />
-                                  )
-                                : null}
-                            </div>
-                          </>
-                        )}
-                      </th>
-                    );
-                  })}
-                </tr>
-              ))}
-            </thead>
-            <tbody>
-              {table.getRowModel().rows.map((row, i) => {
-                return (
-                  <tr key={row.id} className={`row-${i % 2 ? "even" : "odd"}`}>
-                    {row.getVisibleCells().map((cell) => {
-                      return (
-                        <td
-                          key={cell.id}
-                          className={`col-${cell.column.id}`}
-                          style={{
-                            width: cell.column.getSize() !== 0 ? cell.column.getSize() : undefined,
-                          }}
-                        >
-                          {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                        </td>
-                      );
-                    })}
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-          <div className="pagination">
-            <div className="prev">
-              <button
-                className="page-btn"
-                onClick={() => table.previousPage()}
-                disabled={!table.getCanPreviousPage()}
-              >
-                {i18n._(t`Previous`)}
-              </button>
-            </div>
-            <div className="center">
-              <span className="page-info">
-                <span>
-                  <Trans>Page</Trans>
+            </details>
+            {/* </FocusTrap> */}
+            <details className="filter-accordian" id="unitsres-filter-accordian">
+              <summary>
+                <Trans>Building Size</Trans>
+                <ChevronIcon className="chevonIcon" />
+              </summary>
+              <div className="dropdown-container">
+                <span className="filter-subtitle">
+                  <Trans>Number of Units</Trans>
                 </span>
-                <div>
-                  <input
-                    type="number"
-                    value={String(table.getState().pagination.pageIndex + 1)}
-                    onChange={(e) => {
-                      const page = e.target.value ? Number(e.target.value) - 1 : 0;
-                      table.setPageIndex(page);
-                    }}
-                  />
-                </div>
-                <Trans>of</Trans> <span className="total-pages">{table.getPageCount()}</span>
+                <MinMaxFilter
+                  options={filterContext.filterOptions.unitsres}
+                  onApply={(selectedList) => {
+                    document.querySelector("#unitsres-filter-accordian")!.removeAttribute("open");
+                    updateUnitsRes(selectedList);
+                  }}
+                />
+              </div>
+            </details>
+            <details className="filter-accordian" id="zipcode-filter-accordian">
+              <summary>
+                <Trans>Zipcode</Trans>
+                <ChevronIcon className="chevonIcon" />
+              </summary>
+              <div className="dropdown-container">
+                <MultiSelectFilter
+                  options={filterContext.filterOptions.zip}
+                  onApply={(selectedList) => {
+                    document.querySelector("#zipcode-filter-accordian")!.removeAttribute("open");
+                    updateZip(selectedList);
+                  }}
+                />
+              </div>
+            </details>
+          </div>
+          {/* TODO: what if all properties in portfolio are selected by applied filters? Need another way to know when filters are active */}
+          {totalBuildings !== filteredBuildings && (
+            <div className="filter-status">
+              <span className="results-count">
+                <Trans>Showing {filteredBuildings} results.</Trans>
               </span>
-              <select
-                value={table.getState().pagination.pageSize}
-                onChange={(e) => {
-                  table.setPageSize(Number(e.target.value));
-                }}
-              >
-                {[10, 20, 50, 100, 500].map((pageSize) => (
-                  <option key={pageSize} value={pageSize}>
-                    Show {pageSize}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div className="next">
-              <button
-                className="page-btn"
-                onClick={() => table.nextPage()}
-                disabled={!table.getCanNextPage()}
-              >
-                {i18n._(t`Next`)}
+              <button className="data-issue button is-text">
+                <Trans>Notice an inaccuracy? Click here.</Trans>
+              </button>
+              <button className="clear-filters button is-text">
+                <Trans>Clear Filters</Trans>
               </button>
             </div>
-          </div>
+          )}
         </div>
-      </>
+      </div>
     );
   })
 );
 
+// TODO: for this to work with map as well, we'll need to change this up
 function MultiSelectFilter({
-  column,
-  table,
+  options,
   onApply,
 }: {
-  column: Column<any, unknown>;
-  table: Table<any>;
-  onApply: () => void;
+  options: any[];
+  onApply: (selectedList: any) => void;
 }) {
-  const sortedUniqueValues = React.useMemo(
-    () => Array.from(column.getFacetedUniqueValues().keys()).sort(),
-    [column.getFacetedUniqueValues()] // eslint-disable-line
-  );
-
   return (
     <Multiselect
-      options={sortedUniqueValues.slice(0, 5000).map((value: any) => ({ name: value, id: value }))}
+      options={options.map((value: any) => ({ name: value, id: value }))}
       displayValue="name"
-      // TODO: localize "search"
-      placeholder={`Search... (${column.getFacetedUniqueValues().size})`}
-      onApply={(selectedList: any) => {
-        onApply();
-        column.setFilterValue(selectedList.map((item: any) => item.name));
-      }}
+      // TODO: localize
+      placeholder={`Search... (${options.length})`}
+      onApply={onApply}
     />
   );
 }
 
-function MinMaxFilter({ column, table }: { column: Column<any, unknown>; table: Table<any> }) {
+function MinMaxFilter({
+  options,
+  onApply,
+}: {
+  options: [number, number] | undefined;
+  onApply: (selectedList: [number, number] | undefined) => void;
+}) {
+  const [minMax, setMinMax] = useState(options);
+
+  console.log({ units_filter: minMax, options: options });
+
   return (
     <div>
       <DebouncedInput
         type="number"
-        min={Number(column.getFacetedMinMaxValues()?.[0] ?? "")}
-        max={Number(column.getFacetedMinMaxValues()?.[1] ?? "")}
+        min={options ? options[0] : 0}
+        max={options ? options[1] : ""}
         value={""}
-        onChange={(value) => column.setFilterValue((old: any) => [value, old?.[1]])}
-        placeholder={`Min ${
-          column.getFacetedMinMaxValues()?.[0] ? `(${column.getFacetedMinMaxValues()?.[0]})` : ""
-        }`}
+        // TODO: deal with default max when undefined
+        onChange={(value) => setMinMax([Number(value), minMax ? minMax[1] : 99999])}
+        // TODO: localize
+        placeholder="MIN"
+        className="min-input"
       />
+      <Trans>and</Trans>
       <DebouncedInput
         type="number"
-        min={Number(column.getFacetedMinMaxValues()?.[0] ?? "")}
-        max={Number(column.getFacetedMinMaxValues()?.[1] ?? "")}
+        min={options ? options[0] : 0}
+        max={options ? options[1] : ""}
         value={""}
-        onChange={(value) => column.setFilterValue((old: any) => [old?.[0], value])}
-        placeholder={`Max ${
-          column.getFacetedMinMaxValues()?.[1] ? `(${column.getFacetedMinMaxValues()?.[1]})` : ""
-        }`}
+        onChange={(value) => setMinMax([minMax ? minMax[0] : 0, Number(value || 99999)])}
+        // TODO: localize
+        placeholder="MAX"
+        className="max-input"
       />
+      <button onClick={() => onApply(minMax)} className="button is-primary">
+        <Trans>Apply</Trans>
+      </button>
     </div>
   );
 }
 
 function ToggleFilter({
-  column,
-  table,
+  onClick,
   children,
   className,
 }: {
-  column: Column<any, unknown>;
-  table: Table<any>;
+  onClick: () => void;
   children: React.ReactNode;
   className?: string;
 }) {
   let [isPressed, setIsPressed] = useState(false);
 
-  const toggleIsPressed = () => {
-    column.setFilterValue(!isPressed);
+  const handleToggle = () => {
+    onClick();
     setIsPressed(!isPressed);
   };
 
   return (
-    <button aria-pressed={isPressed} onClick={toggleIsPressed} className={className}>
+    <button aria-pressed={isPressed} onClick={handleToggle} className={className}>
       <div className="checkbox">{isPressed && <CheckIcon />}</div>
       {children}
     </button>
@@ -936,6 +1070,26 @@ function DebouncedInput({
   }, [value]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return <input {...props} value={value} onChange={(e) => setValue(e.target.value)} />;
+}
+
+type ArrowIconProps = {
+  dir: "up" | "down" | "both";
+};
+
+function ArrowIcon(props: ArrowIconProps) {
+  return (
+    <span className="arrow-icon">
+      {props.dir === "up" ? (
+        <span>↑</span>
+      ) : props.dir === "down" ? (
+        <span>↓</span>
+      ) : (
+        <>
+          ↑<span>↓</span>
+        </>
+      )}
+    </span>
+  );
 }
 
 const PropertiesList = withI18n()(PropertiesListWithoutI18n);
