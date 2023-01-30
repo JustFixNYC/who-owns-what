@@ -53,6 +53,7 @@ def logout(request):
     # TODO shakao return a cleaner response
     return JsonResponse({"status": response.status_code})
 
+
 @api
 def refresh(request):
     refresh_token = request.POST.get("refresh_token")
@@ -70,6 +71,7 @@ def refresh(request):
     )
 
     return JsonResponse(json.loads(response.content))
+
 
 @api
 def authenticate(request):
