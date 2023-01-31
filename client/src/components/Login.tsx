@@ -7,6 +7,7 @@ import AuthClient from "./AuthClient";
 
 type LoginProps = {
   i18n: I18n;
+  onSuccess?: (email: string) => void;
 };
 
 type State = {
@@ -36,9 +37,8 @@ class SubscribeWithoutI18n extends React.Component<LoginProps, State> {
 
   handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    const username = this.state.username || null;
-    const password = this.state.password || null;
+    const { onSuccess } = this.props;
+    const { username, password } = this.state;
 
     if (!username || !password) {
       this.setState({
@@ -50,6 +50,9 @@ class SubscribeWithoutI18n extends React.Component<LoginProps, State> {
     // TODO shakao cleanup with async/await instead of promises
     // TODO shakao add type for login resp
     let token = await AuthClient.authenticate(username, password);
+    if (token?.access_token && onSuccess) {
+      onSuccess(username);
+    }
   };
 
   render() {
@@ -57,14 +60,14 @@ class SubscribeWithoutI18n extends React.Component<LoginProps, State> {
       <div className={`Login ${this.state.success ? "Login--success" : ""}`}>
         <form onSubmit={this.handleSubmit} className="input-group">
           <input
-            type="text"
+            type="email"
             className="form-input input-username"
             placeholder={`Enter email`}
             onChange={this.handleUsernameChange}
             value={this.state.username}
           />
           <input
-            type="text"
+            type="password"
             className="form-input input-password"
             placeholder={`Enter password`}
             onChange={this.handlePasswordChange}

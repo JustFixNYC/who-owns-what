@@ -5,7 +5,7 @@ sys.path.append("..")
 from wow.apiutil import api  # noqa: E402
 
 # TODO shakao change URL based on local/production
-BASE_URL = "http://host.docker.internal:8080"
+BASE_URL = "https://jf-auth-dev.herokuapp.com"
 
 
 @api

@@ -21,6 +21,10 @@ const setToken = (json: any) => {
 
 const getToken = () => token;
 
+let userEmail: string | undefined;
+const getUserEmail = () => userEmail;
+const setUserEmail = (email: string) => userEmail = email;
+
 /**
  * Authenticates a user with the given email and password.
  * Creates an account for this user if one does not already exist.
@@ -28,6 +32,7 @@ const getToken = () => token;
 const authenticate = async (username: string, password: string) => {
   const json = await postAuthRequest(`${BASE_URL}/auth/authenticate`, { username, password });
   setToken(json);
+  setUserEmail(username);
   return json;
 };
 
@@ -61,6 +66,7 @@ const logout = async () => {
   if (token?.accessToken) {
     const json = await postAuthRequest(`${BASE_URL}/auth/logout`, { token: token.accessToken });
     token = undefined;
+    userEmail = undefined;
     return json;
   }
 };
@@ -120,11 +126,12 @@ const friendlyFetch: typeof fetch = async (input, init) => {
 const Client = {
   setToken,
   getToken,
-  login,
-  refresh,
-  logout,
-  updateEmail,
+  getUserEmail,
   authenticate,
+  login,
+  logout,
+  refresh,
+  updateEmail,
 };
 
 export default Client;
