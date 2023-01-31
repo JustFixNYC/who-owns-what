@@ -10,7 +10,7 @@ import "styles/DetailView.css";
 import { withI18n, withI18nProps, I18n } from "@lingui/react";
 import { t, Trans } from "@lingui/macro";
 import { SocialShareAddressPage } from "./SocialShare";
-import { isPartOfGroupSale } from "./PropertiesList";
+import { isPartOfGroupSale } from "./PortfolioTable";
 import { Link, useLocation } from "react-router-dom";
 import { LocaleLink } from "../i18n";
 import BuildingStatsTable from "./BuildingStatsTable";
