@@ -11,8 +11,12 @@ const BASE_URL = "http://127.0.0.1:8000";
 const AUTH_SERVER_BASE_URL = "http://127.0.0.1:8080";
 let token: AuthToken | undefined;
 
-const setToken = (newToken: AuthToken) => {
-  token = newToken;
+const setToken = (json: any) => {
+  token = {
+    accessToken: json.access_token,
+    refreshToken: json.refresh_token,
+    tokenType: json.token_type,
+  };
 };
 
 const getToken = () => token;
@@ -23,11 +27,7 @@ const getToken = () => token;
  */
 const authenticate = async (username: string, password: string) => {
   const json = await postAuthRequest(`${BASE_URL}/auth/authenticate`, { username, password });
-  token = {
-    accessToken: json.access_token,
-    refreshToken: json.refresh_token,
-    tokenType: json.token_type,
-  };
+  setToken(json);
   return json;
 };
 
@@ -37,11 +37,7 @@ const authenticate = async (username: string, password: string) => {
  */
 const login = async (username: string, password: string) => {
   const json = await postAuthRequest(`${BASE_URL}/auth/login`, { username, password });
-  token = {
-    accessToken: json.access_token,
-    refreshToken: json.refresh_token,
-    tokenType: json.token_type,
-  };
+  setToken(json);
   return json;
 };
 
@@ -53,11 +49,7 @@ const refresh = async () => {
     const json = await postAuthRequest(`${BASE_URL}/auth/refresh`, {
       refresh_token: token.refreshToken,
     });
-    token = {
-      accessToken: json.access_token,
-      refreshToken: json.refresh_token,
-      tokenType: json.token_type,
-    };
+    setToken(json);
     return json;
   }
 };
@@ -107,7 +99,8 @@ const postAuthRequest = async (
       ...headers,
     },
   });
-  return await result.json();
+  const json = await result.json();
+  return json;
 };
 
 // TODO shakao Move shared APIClient functions to util

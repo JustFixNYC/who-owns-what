@@ -34,7 +34,7 @@ class SubscribeWithoutI18n extends React.Component<LoginProps, State> {
     this.setState({ password: e.target.value });
   };
 
-  handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const username = this.state.username || null;
@@ -49,18 +49,7 @@ class SubscribeWithoutI18n extends React.Component<LoginProps, State> {
 
     // TODO shakao cleanup with async/await instead of promises
     // TODO shakao add type for login resp
-    AuthClient.authenticate(
-      username,
-      password,
-      (res) => {
-        console.log(res);
-      },
-      (err) => {
-        this.setState({
-          response: `Oops! A network error occurred. Try again later.`,
-        });
-      }
-    );
+    let token = await AuthClient.authenticate(username, password);
   };
 
   render() {
