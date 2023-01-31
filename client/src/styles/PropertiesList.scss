@@ -89,11 +89,7 @@ $table-border-dark: 1px solid $dark;
           position: relative;
           width: 22.8rem;
 
-          &[open="false"] {
-            cursor: pointer;
-          }
-
-          &.active {
+          &.active:not([open]) {
             background-color: $justfix-black;
             color: $justfix-white;
           }
@@ -104,6 +100,7 @@ $table-border-dark: 1px solid $dark;
             display: flex;
             align-items: center;
             position: relative;
+            cursor: pointer;
 
             &::-webkit-details-marker {
               display: none;

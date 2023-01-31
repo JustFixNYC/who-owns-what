@@ -1,12 +1,18 @@
-import { Trans } from "@lingui/macro";
+import { I18n } from "@lingui/core";
+import { t, Trans } from "@lingui/macro";
+import classnames from "classnames";
 import React from "react";
 import { CheckIcon, ChevronIcon } from "./Icons";
 import { Multiselect } from "./multiselect-dropdown/multiselect/Multiselect";
-import { FilterContext } from "./PropertiesList";
+import { FilterContext, FilterNumberRange } from "./PropertiesList";
 // import FocusTrap from "focus-trap-react";
 
+type PortfolioFiltersProps = {
+  i18n: I18n;
+};
 export const PortfolioFilters = React.memo(
-  React.forwardRef<HTMLDivElement>((props, ref) => {
+  React.forwardRef<HTMLDivElement, PortfolioFiltersProps>((props, ref) => {
+    const { i18n } = props;
     const { filterContext, setFilterContext } = React.useContext(FilterContext);
 
     const { totalBuildings, filteredBuildings } = filterContext;
@@ -21,7 +27,9 @@ export const PortfolioFilters = React.memo(
       });
     };
 
-    const updateOwnernames = (selectedList: any) => {
+    const [ownernamesActive, setOwnernamesActive] = React.useState(false);
+    const onOwnernamesApply = (selectedList: any) => {
+      setOwnernamesActive(!!selectedList.length);
       setFilterContext({
         ...filterContext,
         filterSelections: {
@@ -31,7 +39,9 @@ export const PortfolioFilters = React.memo(
       });
     };
 
-    const updateUnitsRes = (selectedList: any) => {
+    const [unitsresActive, setUnitsresActive] = React.useState(false);
+    const onUnitsresApply = (selectedList: any) => {
+      setUnitsresActive(!!selectedList.length);
       setFilterContext({
         ...filterContext,
         filterSelections: {
@@ -41,7 +51,9 @@ export const PortfolioFilters = React.memo(
       });
     };
 
-    const updateZip = (selectedList: any) => {
+    const [zipActive, setZipActive] = React.useState(false);
+    const onZipApply = (selectedList: any) => {
+      setZipActive(!!selectedList.length);
       setFilterContext({
         ...filterContext,
         filterSelections: {
@@ -69,67 +81,43 @@ export const PortfolioFilters = React.memo(
             <ToggleFilter onClick={updateRsunitslatest} className="filter-toggle">
               <Trans>Rent Stabilized Units</Trans>
             </ToggleFilter>
-
-            {/* <FocusTrap
-                active={landlordFilterOpen}
-                focusTrapOptions={{
-                  clickOutsideDeactivates: true,
-                  returnFocusOnDeactivate: false,
-                  onDeactivate: () => setLandlordFilterOpen(false),
+            <FilterAccordion
+              title={i18n._(t`Landlord`)}
+              subtitle={i18n._(t`Officer/Owner`)}
+              isActive={ownernamesActive}
+              id="ownernames-accordion"
+            >
+              <MultiSelectFilter
+                options={filterContext.filterOptions.ownernames}
+                onApply={(selectedList) => {
+                  closeAccordion("#ownernames-accordion");
+                  onOwnernamesApply(selectedList);
                 }}
-              > */}
-            <details className="filter-accordian" id="landlord-filter-accordian">
-              <summary>
-                <Trans>Landlord</Trans>
-                <ChevronIcon className="chevonIcon" />
-              </summary>
-              <div className="dropdown-container">
-                <span className="filter-subtitle">
-                  <Trans>Officer/Owner</Trans>
-                </span>
-                <MultiSelectFilter
-                  options={filterContext.filterOptions.ownernames}
-                  onApply={(selectedList) => {
-                    document.querySelector("#landlord-filter-accordian")!.removeAttribute("open");
-                    updateOwnernames(selectedList);
-                  }}
-                />
-              </div>
-            </details>
-            {/* </FocusTrap> */}
-            <details className="filter-accordian" id="unitsres-filter-accordian">
-              <summary>
-                <Trans>Building Size</Trans>
-                <ChevronIcon className="chevonIcon" />
-              </summary>
-              <div className="dropdown-container">
-                <span className="filter-subtitle">
-                  <Trans>Number of Units</Trans>
-                </span>
-                <MinMaxFilter
-                  options={filterContext.filterOptions.unitsres}
-                  onApply={(selectedList) => {
-                    document.querySelector("#unitsres-filter-accordian")!.removeAttribute("open");
-                    updateUnitsRes(selectedList);
-                  }}
-                />
-              </div>
-            </details>
-            <details className="filter-accordian" id="zipcode-filter-accordian">
-              <summary>
-                <Trans>Zipcode</Trans>
-                <ChevronIcon className="chevonIcon" />
-              </summary>
-              <div className="dropdown-container">
-                <MultiSelectFilter
-                  options={filterContext.filterOptions.zip}
-                  onApply={(selectedList) => {
-                    document.querySelector("#zipcode-filter-accordian")!.removeAttribute("open");
-                    updateZip(selectedList);
-                  }}
-                />
-              </div>
-            </details>
+              />
+            </FilterAccordion>
+            <FilterAccordion
+              title={i18n._(t`Building Size`)}
+              subtitle={i18n._(t`Number of Units`)}
+              isActive={unitsresActive}
+              id="unitsres-accordion"
+            >
+              <MinMaxFilter
+                options={filterContext.filterOptions.unitsres}
+                onApply={(selectedList) => {
+                  closeAccordion("#unitsres-accordion");
+                  onUnitsresApply(selectedList);
+                }}
+              />
+            </FilterAccordion>
+            <FilterAccordion title={i18n._(t`Zipcode`)} isActive={zipActive} id="zip-accordion">
+              <MultiSelectFilter
+                options={filterContext.filterOptions.zip}
+                onApply={(selectedList) => {
+                  closeAccordion("#zip-accordion");
+                  onZipApply(selectedList);
+                }}
+              />
+            </FilterAccordion>
           </div>
           {/* TODO: what if all properties in portfolio are selected by applied filters? Need another way to know when filters are active */}
           {totalBuildings !== filteredBuildings && (
@@ -151,7 +139,39 @@ export const PortfolioFilters = React.memo(
   })
 );
 
-// TODO: for this to work with map as well, we'll need to change this up
+function FilterAccordion(props: {
+  title: string;
+  subtitle?: string;
+  children: React.ReactNode;
+  isActive: boolean;
+  className?: string;
+  id: string;
+}) {
+  const { title, subtitle, children, isActive, className, id } = props;
+
+  return (
+    //  <FocusTrap
+    //     active={landlordFilterOpen}
+    //     focusTrapOptions={{
+    //       clickOutsideDeactivates: true,
+    //       returnFocusOnDeactivate: false,
+    //       onDeactivate: () => setLandlordFilterOpen(false),
+    //     }}
+    //   >
+    <details className={classnames("filter-accordian", className, { active: isActive })} id={id}>
+      <summary>
+        {title}
+        <ChevronIcon className="chevonIcon" />
+      </summary>
+      <div className="dropdown-container">
+        {subtitle && <span className="filter-subtitle">{subtitle}</span>}
+        {children}
+      </div>
+    </details>
+    //  </FocusTrap>
+  );
+}
+
 function MultiSelectFilter({
   options,
   onApply,
@@ -174,8 +194,8 @@ function MinMaxFilter({
   options,
   onApply,
 }: {
-  options: [number, number] | undefined;
-  onApply: (selectedList: [number, number] | undefined) => void;
+  options: FilterNumberRange;
+  onApply: (selectedList: FilterNumberRange) => void;
 }) {
   const [minMax, setMinMax] = React.useState(options);
 
@@ -186,8 +206,7 @@ function MinMaxFilter({
         min={options ? options[0] : 0}
         max={options ? options[1] : ""}
         value={""}
-        // TODO: deal with default max when undefined
-        onChange={(value) => setMinMax([Number(value), minMax ? minMax[1] : 99999])}
+        onChange={(value) => setMinMax([Number(value) || undefined, minMax?.[1] ?? undefined])}
         // TODO: localize
         placeholder="MIN"
         className="min-input"
@@ -198,7 +217,7 @@ function MinMaxFilter({
         min={options ? options[0] : 0}
         max={options ? options[1] : ""}
         value={""}
-        onChange={(value) => setMinMax([minMax ? minMax[0] : 0, Number(value || 99999)])}
+        onChange={(value) => setMinMax([minMax?.[0] ?? undefined, Number(value) || undefined])}
         // TODO: localize
         placeholder="MAX"
         className="max-input"
@@ -260,4 +279,8 @@ function DebouncedInput({
   }, [value]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return <input {...props} value={value} onChange={(e) => setValue(e.target.value)} />;
+}
+
+function closeAccordion(selectors: string) {
+  document.querySelector(selectors)!.removeAttribute("open");
 }

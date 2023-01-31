@@ -15,9 +15,11 @@ import { MAX_TABLE_ROWS_PER_PAGE, TableOfData } from "./PortfolioTable";
 // Pattern for context provider to update context from child components
 // https://stackoverflow.com/a/67710693/7051239
 
+export type FilterNumberRange = [number | undefined, number | undefined] | undefined;
+
 type FilterValues = {
   ownernames: string[];
-  unitsres: [number, number] | undefined;
+  unitsres: FilterNumberRange;
   zip: string[];
 };
 
@@ -118,7 +120,7 @@ const PropertiesListWithoutI18n: React.FC<
     >
       {isTableVisible ? (
         <FilterContextProvider>
-          <PortfolioFilters />
+          <PortfolioFilters i18n={i18n} />
           <TableOfData
             data={addrs}
             headerTopSpacing={headerTopSpacing}
