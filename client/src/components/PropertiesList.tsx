@@ -10,7 +10,7 @@ import { defaultLocale, SupportedLocale } from "../i18n-base";
 import Helpers from "../util/helpers";
 import Loader from "./Loader";
 import { PortfolioFilters } from "./PortfolioFilters";
-import { MAX_TABLE_ROWS_PER_PAGE, TableOfData } from "./PortfolioTable";
+import { MAX_TABLE_ROWS_PER_PAGE, PortfolioTable } from "./PortfolioTable";
 
 // Pattern for context provider to update context from child components
 // https://stackoverflow.com/a/67710693/7051239
@@ -121,7 +121,7 @@ const PropertiesListWithoutI18n: React.FC<
       {isTableVisible ? (
         <FilterContextProvider>
           <PortfolioFilters i18n={i18n} />
-          <TableOfData
+          <PortfolioTable
             data={addrs}
             headerTopSpacing={headerTopSpacing}
             i18n={i18n}

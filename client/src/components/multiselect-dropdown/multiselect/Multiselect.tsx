@@ -622,7 +622,14 @@ export class Multiselect extends React.Component<IMultiselectProps, any> {
       >
         {!hideSelectedList && this.renderSelectedList()}
         {selectedValues.length > 0 && (
-          <button className="clear-all button is-text" key={2} onClick={this.resetSelectedValues}>
+          <button
+            className="clear-all button is-text"
+            key={2}
+            onClick={() => {
+              this.resetSelectedValues();
+              onApply([]);
+            }}
+          >
             <Trans>Clear all</Trans>
           </button>
         )}

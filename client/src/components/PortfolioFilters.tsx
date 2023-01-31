@@ -5,6 +5,7 @@ import React from "react";
 import { CheckIcon, ChevronIcon } from "./Icons";
 import { Multiselect } from "./multiselect-dropdown/multiselect/Multiselect";
 import { FilterContext, FilterNumberRange } from "./PropertiesList";
+import "styles/PortfolioFilters.scss";
 // import FocusTrap from "focus-trap-react";
 
 type PortfolioFiltersProps = {
@@ -17,6 +18,7 @@ export const PortfolioFilters = React.memo(
 
     const { totalBuildings, filteredBuildings } = filterContext;
 
+    // TODO: need to follow usestate patter for active
     const updateRsunitslatest = () => {
       setFilterContext({
         ...filterContext,
@@ -63,8 +65,20 @@ export const PortfolioFilters = React.memo(
       });
     };
 
+    const clearFilters = () => {
+      setFilterContext({
+        ...filterContext,
+        filterSelections: {
+          rsunitslatest: false,
+          ownernames: [],
+          unitsres: undefined,
+          zip: [],
+        },
+      });
+    };
+
     return (
-      <div className="filter-bar" ref={ref}>
+      <div className="PortfolioFilters" ref={ref}>
         <div className="filter-for">
           <div className="pill-new">
             <Trans>New</Trans>
@@ -128,7 +142,7 @@ export const PortfolioFilters = React.memo(
               <button className="data-issue button is-text">
                 <Trans>Notice an inaccuracy? Click here.</Trans>
               </button>
-              <button className="clear-filters button is-text">
+              <button className="clear-filters button is-text" onClick={clearFilters}>
                 <Trans>Clear Filters</Trans>
               </button>
             </div>
@@ -139,6 +153,7 @@ export const PortfolioFilters = React.memo(
   })
 );
 
+// TODO: add click outside to close details, copy multiselect approach
 function FilterAccordion(props: {
   title: string;
   subtitle?: string;

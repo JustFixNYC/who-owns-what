@@ -25,6 +25,7 @@ import Helpers, { longDateOptions } from "../util/helpers";
 import { logAmplitudeEvent } from "./Amplitude";
 import { AddressRecord, HpdComplaintCount } from "./APIDataTypes";
 import { FilterContext } from "./PropertiesList";
+import "styles/PortfolioTable.scss";
 
 const FIRST_COLUMN_WIDTH = 130;
 export const MAX_TABLE_ROWS_PER_PAGE = 100; // was 500, but that seems like a lot
@@ -47,7 +48,7 @@ const currencyFormater = new Intl.NumberFormat("en-us", {
 const isNonZero: FilterFn<any> = (row, columnId, value, addMeta) =>
   value ? !!row.getValue(columnId) : true;
 
-type TableOfDataProps = {
+type PortfolioTableProps = {
   data: AddressRecord[];
   headerTopSpacing: number | undefined;
   i18n: I18n;
@@ -61,8 +62,8 @@ type TableOfDataProps = {
  * This component memoizes the portfolio table via React.memo
  * in an attempt to improve performance, particularly on IE11.
  */
-export const TableOfData = React.memo(
-  React.forwardRef<HTMLDivElement, TableOfDataProps>((props, lastColumnRef) => {
+export const PortfolioTable = React.memo(
+  React.forwardRef<HTMLDivElement, PortfolioTableProps>((props, lastColumnRef) => {
     const { data, i18n, locale, rsunitslatestyear } = props;
 
     const { filterContext, setFilterContext } = React.useContext(FilterContext);
@@ -501,6 +502,15 @@ export const TableOfData = React.memo(
       console.log("table filters updated");
     }, [filterContext.filterSelections]);
 
+    React.useEffect(() => {
+      setFilterContext({
+        ...filterContext,
+        totalBuildings: table.getCoreRowModel().flatRows.length,
+        filteredBuildings: table.getFilteredRowModel().flatRows.length,
+      });
+      console.log("building counts updated");
+    }, [table.getCoreRowModel().flatRows.length, table.getFilteredRowModel().flatRows.length]);
+
     // TODO: is this necessary?
     React.useEffect(() => {
       if (table.getState().columnFilters[0]?.id === "ownernames") {
@@ -512,7 +522,7 @@ export const TableOfData = React.memo(
     }, [table.getState().columnFilters[0]?.id]);
 
     return (
-      <div className="portfolio-table-container">
+      <div className="PortfolioTable">
         <table>
           <thead>
             {table.getHeaderGroups().map((headerGroup) => (
@@ -672,7 +682,7 @@ function findMostCommonType(complaints: HpdComplaintCount[] | null) {
 function getWidthFromLabel(label: string, customDefaultWidth?: number) {
   const MIN_WIDTH = customDefaultWidth || 70;
   const LETTER_WIDTH = 7;
-  const ARROW_ICON_WIDTH = 20;
+  const ARROW_ICON_WIDTH = 25;
   const MARGIN_OFFSET = 10;
 
   return Math.max(label.length * LETTER_WIDTH + ARROW_ICON_WIDTH + MARGIN_OFFSET, MIN_WIDTH);
