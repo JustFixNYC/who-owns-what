@@ -23,7 +23,7 @@ const getToken = () => token;
 
 let userEmail: string | undefined;
 const getUserEmail = () => userEmail;
-const setUserEmail = (email: string) => userEmail = email;
+const setUserEmail = (email: string) => (userEmail = email);
 
 /**
  * Authenticates a user with the given email and password.
