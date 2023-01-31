@@ -6,6 +6,7 @@ import { CheckIcon, ChevronIcon } from "./Icons";
 import { Multiselect } from "./multiselect-dropdown/multiselect/Multiselect";
 import { FilterContext, FilterNumberRange } from "./PropertiesList";
 import "styles/PortfolioFilters.scss";
+import FocusTrap from "focus-trap-react";
 // import FocusTrap from "focus-trap-react";
 
 type PortfolioFiltersProps = {
@@ -18,8 +19,9 @@ export const PortfolioFilters = React.memo(
 
     const { totalBuildings, filteredBuildings } = filterContext;
 
-    // TODO: need to follow usestate patter for active
+    const [rsunitslatestActive, setRsunitslatestActive] = React.useState(false);
     const updateRsunitslatest = () => {
+      setRsunitslatestActive(!rsunitslatestActive);
       setFilterContext({
         ...filterContext,
         filterSelections: {
@@ -30,8 +32,10 @@ export const PortfolioFilters = React.memo(
     };
 
     const [ownernamesActive, setOwnernamesActive] = React.useState(false);
+    const [ownernamesIsOpen, setOwnernamesIsOpen] = React.useState(false);
     const onOwnernamesApply = (selectedList: any) => {
       setOwnernamesActive(!!selectedList.length);
+      setOwnernamesIsOpen(false);
       setFilterContext({
         ...filterContext,
         filterSelections: {
@@ -42,8 +46,10 @@ export const PortfolioFilters = React.memo(
     };
 
     const [unitsresActive, setUnitsresActive] = React.useState(false);
+    const [unitsresIsOpen, setUnitsresIsOpen] = React.useState(false);
     const onUnitsresApply = (selectedList: any) => {
       setUnitsresActive(!!selectedList.length);
+      setUnitsresIsOpen(false);
       setFilterContext({
         ...filterContext,
         filterSelections: {
@@ -54,8 +60,10 @@ export const PortfolioFilters = React.memo(
     };
 
     const [zipActive, setZipActive] = React.useState(false);
+    const [zipIsOpen, setZipIsOpen] = React.useState(false);
     const onZipApply = (selectedList: any) => {
       setZipActive(!!selectedList.length);
+      setZipIsOpen(false);
       setFilterContext({
         ...filterContext,
         filterSelections: {
@@ -66,6 +74,10 @@ export const PortfolioFilters = React.memo(
     };
 
     const clearFilters = () => {
+      setRsunitslatestActive(false);
+      setOwnernamesActive(false);
+      setUnitsresActive(false);
+      setZipActive(false);
       setFilterContext({
         ...filterContext,
         filterSelections: {
@@ -92,19 +104,26 @@ export const PortfolioFilters = React.memo(
         </div>
         <div className="filters-container">
           <div className="filters">
-            <ToggleFilter onClick={updateRsunitslatest} className="filter-toggle">
+            <ToggleFilter
+              onClick={updateRsunitslatest}
+              className="filter-toggle"
+              isActive={rsunitslatestActive}
+              setIsActive={setRsunitslatestActive}
+            >
               <Trans>Rent Stabilized Units</Trans>
             </ToggleFilter>
             <FilterAccordion
               title={i18n._(t`Landlord`)}
               subtitle={i18n._(t`Officer/Owner`)}
               isActive={ownernamesActive}
+              isOpen={ownernamesIsOpen}
+              setIsOpen={setOwnernamesIsOpen}
               id="ownernames-accordion"
             >
               <MultiSelectFilter
                 options={filterContext.filterOptions.ownernames}
                 onApply={(selectedList) => {
-                  closeAccordion("#ownernames-accordion");
+                  // closeAccordion("#ownernames-accordion");
                   onOwnernamesApply(selectedList);
                 }}
               />
@@ -113,21 +132,29 @@ export const PortfolioFilters = React.memo(
               title={i18n._(t`Building Size`)}
               subtitle={i18n._(t`Number of Units`)}
               isActive={unitsresActive}
+              isOpen={unitsresIsOpen}
+              setIsOpen={setUnitsresIsOpen}
               id="unitsres-accordion"
             >
               <MinMaxFilter
                 options={filterContext.filterOptions.unitsres}
                 onApply={(selectedList) => {
-                  closeAccordion("#unitsres-accordion");
+                  // closeAccordion("#unitsres-accordion");
                   onUnitsresApply(selectedList);
                 }}
               />
             </FilterAccordion>
-            <FilterAccordion title={i18n._(t`Zipcode`)} isActive={zipActive} id="zip-accordion">
+            <FilterAccordion
+              title={i18n._(t`Zipcode`)}
+              isActive={zipActive}
+              isOpen={zipIsOpen}
+              setIsOpen={setZipIsOpen}
+              id="zip-accordion"
+            >
               <MultiSelectFilter
                 options={filterContext.filterOptions.zip}
                 onApply={(selectedList) => {
-                  closeAccordion("#zip-accordion");
+                  // closeAccordion("#zip-accordion");
                   onZipApply(selectedList);
                 }}
               />
@@ -153,37 +180,54 @@ export const PortfolioFilters = React.memo(
   })
 );
 
-// TODO: add click outside to close details, copy multiselect approach
+/**
+ * We use state to make this a controled component that mimics the original
+ * details/summary behaviour. Some helpful info on how/why to do this:
+ * https://github.com/facebook/react/issues/15486. Also, because we need to be
+ * able to open/close this from outside of the component (eg. via onApply that's
+ * passed to the multiselect child component)
+ */
 function FilterAccordion(props: {
   title: string;
   subtitle?: string;
   children: React.ReactNode;
   isActive: boolean;
+  isOpen: boolean;
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
   className?: string;
   id: string;
 }) {
-  const { title, subtitle, children, isActive, className, id } = props;
+  const { title, subtitle, children, isActive, isOpen, setIsOpen, className, id } = props;
 
   return (
-    //  <FocusTrap
-    //     active={landlordFilterOpen}
-    //     focusTrapOptions={{
-    //       clickOutsideDeactivates: true,
-    //       returnFocusOnDeactivate: false,
-    //       onDeactivate: () => setLandlordFilterOpen(false),
-    //     }}
-    //   >
-    <details className={classnames("filter-accordian", className, { active: isActive })} id={id}>
-      <summary>
-        {title}
-        <ChevronIcon className="chevonIcon" />
-      </summary>
-      <div className="dropdown-container">
-        {subtitle && <span className="filter-subtitle">{subtitle}</span>}
-        {children}
-      </div>
-    </details>
-    //  </FocusTrap>
+    <FocusTrap
+      active={isOpen} //isAccordionOpen(`#${id}`)
+      focusTrapOptions={{
+        clickOutsideDeactivates: true,
+        returnFocusOnDeactivate: false,
+        onDeactivate: () => setIsOpen(false), // closeAccordion(`#${id}`)
+      }}
+    >
+      <details
+        className={classnames("filter-accordion", className, { active: isActive })}
+        id={id}
+        open={isOpen}
+      >
+        <summary
+          onClick={(e) => {
+            e.preventDefault();
+            setIsOpen(!isOpen);
+          }}
+        >
+          {title}
+          <ChevronIcon className="chevonIcon" />
+        </summary>
+        <div className="dropdown-container">
+          {subtitle && <span className="filter-subtitle">{subtitle}</span>}
+          {children}
+        </div>
+      </details>
+    </FocusTrap>
   );
 }
 
@@ -244,25 +288,22 @@ function MinMaxFilter({
   );
 }
 
-function ToggleFilter({
-  onClick,
-  children,
-  className,
-}: {
+function ToggleFilter(props: {
   onClick: () => void;
   children: React.ReactNode;
   className?: string;
+  isActive: boolean;
+  setIsActive: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
-  let [isPressed, setIsPressed] = React.useState(false);
-
+  const { onClick, children, className, isActive, setIsActive } = props;
   const handleToggle = () => {
     onClick();
-    setIsPressed(!isPressed);
+    setIsActive(!isActive);
   };
 
   return (
-    <button aria-pressed={isPressed} onClick={handleToggle} className={className}>
-      <div className="checkbox">{isPressed && <CheckIcon />}</div>
+    <button aria-pressed={isActive} onClick={handleToggle} className={className}>
+      <div className="checkbox">{isActive && <CheckIcon />}</div>
       {children}
     </button>
   );
@@ -294,8 +335,4 @@ function DebouncedInput({
   }, [value]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return <input {...props} value={value} onChange={(e) => setValue(e.target.value)} />;
-}
-
-function closeAccordion(selectors: string) {
-  document.querySelector(selectors)!.removeAttribute("open");
 }
