@@ -1,5 +1,5 @@
 import { I18n } from "@lingui/core";
-import { t, Trans } from "@lingui/macro";
+import { t, Trans, Plural } from "@lingui/macro";
 import classnames from "classnames";
 import React from "react";
 import { CheckIcon, ChevronIcon } from "./Icons";
@@ -160,20 +160,23 @@ export const PortfolioFilters = React.memo(
               />
             </FilterAccordion>
           </div>
-          {/* TODO: what if all properties in portfolio are selected by applied filters? Need another way to know when filters are active */}
-          {totalBuildings !== filteredBuildings && (
-            <div className="filter-status">
-              <span className="results-count">
-                <Trans>Showing</Trans> {filteredBuildings} <Trans>results.</Trans>
-              </span>
-              <button className="data-issue button is-text">
-                <Trans>Notice an inaccuracy? Click here.</Trans>
-              </button>
-              <button className="clear-filters button is-text" onClick={clearFilters}>
-                <Trans>Clear Filters</Trans>
-              </button>
-            </div>
-          )}
+          {filteredBuildings &&
+            [rsunitslatestActive, ownernamesActive, unitsresActive, zipActive].includes(true) && (
+              <div className="filter-status">
+                <span className="results-count">
+                  <Trans>
+                    Showing {filteredBuildings}{" "}
+                    <Plural value={filteredBuildings} one="result" other="results" />.
+                  </Trans>
+                </span>
+                <button className="data-issue button is-text">
+                  <Trans>Notice an inaccuracy? Click here.</Trans>
+                </button>
+                <button className="clear-filters button is-text" onClick={clearFilters}>
+                  <Trans>Clear Filters</Trans>
+                </button>
+              </div>
+            )}
         </div>
       </div>
     );
