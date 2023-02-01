@@ -23,7 +23,7 @@ type FilterValues = {
   zip: string[];
 };
 
-type IFilterContext = {
+export type IFilterContext = {
   totalBuildings?: number | undefined;
   filteredBuildings?: number | undefined;
   filterSelections: FilterValues & { rsunitslatest?: boolean };

@@ -15,6 +15,7 @@ import {
   getPaginationRowModel,
   getSortedRowModel,
   PaginationState,
+  Table,
   useReactTable,
 } from "@tanstack/react-table";
 import React from "react";
@@ -24,7 +25,7 @@ import { SupportedLocale } from "../i18n-base";
 import Helpers, { longDateOptions } from "../util/helpers";
 import { logAmplitudeEvent } from "./Amplitude";
 import { AddressRecord, HpdComplaintCount } from "./APIDataTypes";
-import { FilterContext } from "./PropertiesList";
+import { FilterContext, IFilterContext } from "./PropertiesList";
 import "styles/PortfolioTable.scss";
 
 const FIRST_COLUMN_WIDTH = 130;
@@ -473,43 +474,9 @@ export const PortfolioTable = React.memo(
       debugColumns: false,
     });
 
-    React.useEffect(() => {
-      // TODO: previously we were using useMemo within the multiselect table filter component, can/should we memoize these here now too?
-      setFilterContext({
-        ...filterContext,
-        filterOptions: {
-          ownernames: Array.from(
-            table.getColumn("ownernames").getFacetedUniqueValues().keys()
-          ).sort(),
-          unitsres: table.getColumn("unitsres").getFacetedMinMaxValues(),
-          zip: Array.from(table.getColumn("zip").getFacetedUniqueValues().keys()).sort(),
-        },
-      });
-
-      console.log("filter options updated");
-    }, [
-      table.getColumn("ownernames").getFacetedUniqueValues(),
-      table.getColumn("unitsres").getFacetedMinMaxValues(),
-      table.getColumn("zip").getFacetedUniqueValues(),
-    ]);
-
-    React.useEffect(() => {
-      const { rsunitslatest, ownernames, unitsres, zip } = filterContext.filterSelections;
-      table.getColumn("rsunitslatest").setFilterValue(rsunitslatest);
-      table.getColumn("ownernames").setFilterValue(ownernames!.map((item: any) => item.name));
-      table.getColumn("unitsres").setFilterValue(unitsres);
-      table.getColumn("zip").setFilterValue(zip!.map((item: any) => item.name));
-      console.log("table filters updated");
-    }, [filterContext.filterSelections]);
-
-    React.useEffect(() => {
-      setFilterContext({
-        ...filterContext,
-        totalBuildings: table.getCoreRowModel().flatRows.length,
-        filteredBuildings: table.getFilteredRowModel().flatRows.length,
-      });
-      console.log("building counts updated");
-    }, [table.getCoreRowModel().flatRows.length, table.getFilteredRowModel().flatRows.length]);
+    useFilterOptionsUpdater(filterContext, setFilterContext, table);
+    useFilterSelectionsUpdater(filterContext, table);
+    useBuildingCountsUpdater(filterContext, setFilterContext, table);
 
     // TODO: is this necessary?
     React.useEffect(() => {
@@ -686,4 +653,56 @@ function getWidthFromLabel(label: string, customDefaultWidth?: number) {
   const MARGIN_OFFSET = 10;
 
   return Math.max(label.length * LETTER_WIDTH + ARROW_ICON_WIDTH + MARGIN_OFFSET, MIN_WIDTH);
+}
+
+function useFilterOptionsUpdater(
+  filterContext: IFilterContext,
+  setFilterContext: React.Dispatch<React.SetStateAction<IFilterContext>>,
+  table: Table<AddressRecord>
+) {
+  const ownernamesOptionValues = table.getColumn("ownernames").getFacetedUniqueValues();
+  const unitsresOptionValues = table.getColumn("unitsres").getFacetedMinMaxValues();
+  const zipOptionValues = table.getColumn("zip").getFacetedUniqueValues();
+
+  React.useEffect(() => {
+    // TODO: previously we were using useMemo within the multiselect table filter component, can/should we memoize these here now too?
+    setFilterContext({
+      ...filterContext,
+      filterOptions: {
+        ownernames: Array.from(ownernamesOptionValues.keys()).sort(),
+        unitsres: unitsresOptionValues,
+        zip: Array.from(zipOptionValues.keys()).sort(),
+      },
+    });
+
+    console.log("filter options updated");
+  }, [ownernamesOptionValues, unitsresOptionValues, zipOptionValues]);
+}
+
+function useFilterSelectionsUpdater(filterContext: IFilterContext, table: Table<AddressRecord>) {
+  React.useEffect(() => {
+    const { rsunitslatest, ownernames, unitsres, zip } = filterContext.filterSelections;
+    table.getColumn("rsunitslatest").setFilterValue(rsunitslatest);
+    table.getColumn("ownernames").setFilterValue(ownernames!.map((item: any) => item.name));
+    table.getColumn("unitsres").setFilterValue(unitsres);
+    table.getColumn("zip").setFilterValue(zip!.map((item: any) => item.name));
+    console.log("table filters updated");
+  }, [filterContext.filterSelections]);
+}
+
+function useBuildingCountsUpdater(
+  filterContext: IFilterContext,
+  setFilterContext: React.Dispatch<React.SetStateAction<IFilterContext>>,
+  table: Table<AddressRecord>
+) {
+  const totalBuildings = table.getCoreRowModel().flatRows.length;
+  const filteredBuildings = table.getFilteredRowModel().flatRows.length;
+  React.useEffect(() => {
+    setFilterContext({
+      ...filterContext,
+      totalBuildings: totalBuildings,
+      filteredBuildings: filteredBuildings,
+    });
+    console.log("building counts updated");
+  }, [totalBuildings, filteredBuildings]);
 }
