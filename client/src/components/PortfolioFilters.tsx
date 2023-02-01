@@ -164,7 +164,7 @@ export const PortfolioFilters = React.memo(
           {totalBuildings !== filteredBuildings && (
             <div className="filter-status">
               <span className="results-count">
-                <Trans>Showing {filteredBuildings} results.</Trans>
+                <Trans>Showing</Trans> {filteredBuildings} <Trans>results.</Trans>
               </span>
               <button className="data-issue button is-text">
                 <Trans>Notice an inaccuracy? Click here.</Trans>
@@ -201,11 +201,11 @@ function FilterAccordion(props: {
 
   return (
     <FocusTrap
-      active={isOpen} //isAccordionOpen(`#${id}`)
+      active={isOpen}
       focusTrapOptions={{
         clickOutsideDeactivates: true,
         returnFocusOnDeactivate: false,
-        onDeactivate: () => setIsOpen(false), // closeAccordion(`#${id}`)
+        onDeactivate: () => setIsOpen(false),
       }}
     >
       <details
