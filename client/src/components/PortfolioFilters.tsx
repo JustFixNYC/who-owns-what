@@ -17,7 +17,7 @@ export const PortfolioFilters = React.memo(
     const { i18n } = props;
     const { filterContext, setFilterContext } = React.useContext(FilterContext);
 
-    const { totalBuildings, filteredBuildings } = filterContext;
+    const { filteredBuildings } = filterContext;
 
     const [rsunitslatestActive, setRsunitslatestActive] = React.useState(false);
     const updateRsunitslatest = () => {
