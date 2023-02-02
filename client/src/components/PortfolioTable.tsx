@@ -25,7 +25,7 @@ import { SupportedLocale } from "../i18n-base";
 import Helpers, { longDateOptions } from "../util/helpers";
 import { logAmplitudeEvent } from "./Amplitude";
 import { AddressRecord, HpdComplaintCount } from "./APIDataTypes";
-import { FilterContext, IFilterContext } from "./PropertiesList";
+import { FilterContext, IFilterContext, MINMAX_DEFAULT } from "./PropertiesList";
 import "styles/PortfolioTable.scss";
 
 const FIRST_COLUMN_WIDTH = 130;
@@ -661,7 +661,8 @@ function useFilterOptionsUpdater(
   table: Table<AddressRecord>
 ) {
   const ownernamesOptionValues = table.getColumn("ownernames").getFacetedUniqueValues();
-  const unitsresOptionValues = table.getColumn("unitsres").getFacetedMinMaxValues();
+  const unitsresOptionValues =
+    table.getColumn("unitsres").getFacetedMinMaxValues() || MINMAX_DEFAULT;
   const zipOptionValues = table.getColumn("zip").getFacetedUniqueValues();
 
   React.useEffect(() => {

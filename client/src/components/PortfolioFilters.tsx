@@ -4,7 +4,7 @@ import classnames from "classnames";
 import React from "react";
 import { CheckIcon, ChevronIcon } from "./Icons";
 import { Multiselect } from "./multiselect-dropdown/multiselect/Multiselect";
-import { FilterContext, FilterNumberRange } from "./PropertiesList";
+import { FilterContext, FilterNumberRange, MINMAX_DEFAULT } from "./PropertiesList";
 import "styles/PortfolioFilters.scss";
 import FocusTrap from "focus-trap-react";
 
@@ -47,7 +47,7 @@ export const PortfolioFilters = React.memo(
     const [unitsresActive, setUnitsresActive] = React.useState(false);
     const [unitsresIsOpen, setUnitsresIsOpen] = React.useState(false);
     const onUnitsresApply = (selectedList: any) => {
-      setUnitsresActive(!!selectedList.length);
+      setUnitsresActive(selectedList !== MINMAX_DEFAULT);
       setUnitsresIsOpen(false);
       setFilterContext({
         ...filterContext,
@@ -82,7 +82,7 @@ export const PortfolioFilters = React.memo(
         filterSelections: {
           rsunitslatest: false,
           ownernames: [],
-          unitsres: undefined,
+          unitsres: MINMAX_DEFAULT,
           zip: [],
         },
       });
@@ -261,28 +261,32 @@ function MinMaxFilter({
   const [minMax, setMinMax] = React.useState(options);
 
   return (
-    <div>
-      <DebouncedInput
-        type="number"
-        min={options ? options[0] : 0}
-        max={options ? options[1] : ""}
-        value={""}
-        onChange={(value) => setMinMax([Number(value) || undefined, minMax?.[1] ?? undefined])}
-        // TODO: localize
-        placeholder="MIN"
-        className="min-input"
-      />
-      <Trans>and</Trans>
-      <DebouncedInput
-        type="number"
-        min={options ? options[0] : 0}
-        max={options ? options[1] : ""}
-        value={""}
-        onChange={(value) => setMinMax([minMax?.[0] ?? undefined, Number(value) || undefined])}
-        // TODO: localize
-        placeholder="MAX"
-        className="max-input"
-      />
+    <div className="minmax-container">
+      <div className="inputs-container">
+        <input
+          type="number"
+          min={options[0]}
+          max={options[1]}
+          value={minMax[0]}
+          onChange={(value) => setMinMax([Number(value) || undefined, minMax[1]])}
+          // TODO: localize
+          placeholder="MIN"
+          aria-label="Minimum"
+          className="min-input"
+        />
+        <Trans>and</Trans>
+        <input
+          type="number"
+          min={options[0]}
+          max={options[1]}
+          value={minMax[1]}
+          onChange={(value) => setMinMax([minMax[0], Number(value) || undefined])}
+          // TODO: localize
+          placeholder="MAX"
+          aria-label="Maximum"
+          className="max-input"
+        />
+      </div>
       <button onClick={() => onApply(minMax)} className="button is-primary">
         <Trans>Apply</Trans>
       </button>
@@ -309,32 +313,4 @@ function ToggleFilter(props: {
       {children}
     </button>
   );
-}
-
-// A debounced input react component
-function DebouncedInput({
-  value: initialValue,
-  onChange,
-  debounce = 500,
-  ...props
-}: {
-  value: string | number;
-  onChange: (value: string | number) => void;
-  debounce?: number;
-} & Omit<React.InputHTMLAttributes<HTMLInputElement>, "onChange">) {
-  const [value, setValue] = React.useState(initialValue);
-
-  React.useEffect(() => {
-    setValue(initialValue);
-  }, [initialValue]);
-
-  React.useEffect(() => {
-    const timeout = setTimeout(() => {
-      onChange(value);
-    }, debounce);
-
-    return () => clearTimeout(timeout);
-  }, [value]); // eslint-disable-line react-hooks/exhaustive-deps
-
-  return <input {...props} value={value} onChange={(e) => setValue(e.target.value)} />;
 }

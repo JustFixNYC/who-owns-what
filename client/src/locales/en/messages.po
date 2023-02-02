@@ -38,7 +38,7 @@ msgstr "(expires {formattedRegEndDate})"
 msgid "(hover over a box to learn more)"
 msgstr "(hover over a box to learn more)"
 
-#: src/components/PropertiesList.tsx:87
+#: src/components/PropertiesList.tsx:88
 msgid "(this may take a while)"
 msgstr "(this may take a while)"
 
@@ -134,7 +134,7 @@ msgstr "An “eviction filing” is a legal case for eviction commenced by a lan
 #~ msgid "An “eviction filing” is a legal case for eviction commenced by a landlord against a tenant in Housing Court. Such a case can be commenced for nonpayment of rent (most commonly) or for a violation of the lease (such as a nuisance). The eviction filings number only represents cases filed in Housing Court (data from the New York State Office of Court Administration<0>via the Housing Data Coalition</0> in collaboration with the <1>Right to Counsel Coalition</1>) and not evictions carried out by NYC Marshals.<2/>If you or someone you know is facing eviction and want to learn more about your rights, head over to <3>Housing Court Answers for more information</3>.<4/>Due to privacy restrictions on the use of these data, eviction filings cannot be shown for buildings with fewer than 11 units."
 #~ msgstr "An “eviction filing” is a legal case for eviction commenced by a landlord against a tenant in Housing Court. Such a case can be commenced for nonpayment of rent (most commonly) or for a violation of the lease (such as a nuisance). The eviction filings number only represents cases filed in Housing Court (data from the New York State Office of Court Administration<0>via the Housing Data Coalition</0> in collaboration with the <1>Right to Counsel Coalition</1>) and not evictions carried out by NYC Marshals.<2/>If you or someone you know is facing eviction and want to learn more about your rights, head over to <3>Housing Court Answers for more information</3>.<4/>Due to privacy restrictions on the use of these data, eviction filings cannot be shown for buildings with fewer than 11 units."
 
-#: src/components/PortfolioFilters.tsx:161
+#: src/components/PortfolioFilters.tsx:152
 #: src/components/multiselect-dropdown/multiselect/Multiselect.tsx:507
 msgid "Apply"
 msgstr "Apply"
@@ -174,7 +174,7 @@ msgstr "Building Permit Applications"
 msgid "Building Permits Applied For"
 msgstr "Building Permits Applied For"
 
-#: src/components/PortfolioFilters.tsx:85
+#: src/components/PortfolioFilters.tsx:74
 msgid "Building Size"
 msgstr "Building Size"
 
@@ -242,7 +242,7 @@ msgstr "Class C"
 msgid "Class I"
 msgstr "Class I"
 
-#: src/components/PortfolioFilters.tsx:110
+#: src/components/PortfolioFilters.tsx:99
 msgid "Clear Filters"
 msgstr "Clear Filters"
 
@@ -432,7 +432,7 @@ msgstr "Filed"
 #~ msgid "Filied"
 #~ msgstr "Filied"
 
-#: src/components/PortfolioFilters.tsx:67
+#: src/components/PortfolioFilters.tsx:56
 msgid "Filter <0/>for"
 msgstr "Filter <0/>for"
 
@@ -548,7 +548,7 @@ msgstr "Known for <0>unscrupulously deregulating rent stabilized apartments</0>,
 msgid "LOCKS"
 msgstr "LOCKS"
 
-#: src/components/PortfolioFilters.tsx:79
+#: src/components/PortfolioFilters.tsx:68
 #: src/components/PortfolioTable.tsx:228
 msgid "Landlord"
 msgstr "Landlord"
@@ -603,12 +603,12 @@ msgid "Link to Deed"
 msgstr "Link to Deed"
 
 #: src/components/Loader.tsx:19
-#: src/components/PropertiesList.tsx:88
+#: src/components/PropertiesList.tsx:89
 #: src/components/PropertiesMap.tsx:158
 msgid "Loading"
 msgstr "Loading"
 
-#: src/components/PropertiesList.tsx:85
+#: src/components/PropertiesList.tsx:86
 msgid "Loading {0} rows"
 msgstr "Loading {0} rows"
 
@@ -681,7 +681,7 @@ msgstr "NYCHA Directory"
 msgid "Network of Landlords"
 msgstr "Network of Landlords"
 
-#: src/components/PortfolioFilters.tsx:65
+#: src/components/PortfolioFilters.tsx:54
 #: src/containers/HomePage.tsx:110
 msgid "New"
 msgstr "New"
@@ -744,11 +744,11 @@ msgstr "None"
 msgid "Not found"
 msgstr "Not found"
 
-#: src/components/PortfolioFilters.tsx:107
+#: src/components/PortfolioFilters.tsx:96
 msgid "Notice an inaccuracy? Click here."
 msgstr "Notice an inaccuracy? Click here."
 
-#: src/components/PortfolioFilters.tsx:85
+#: src/components/PortfolioFilters.tsx:74
 msgid "Number of Units"
 msgstr "Number of Units"
 
@@ -765,7 +765,7 @@ msgstr "OWNS"
 msgid "Officer"
 msgstr "Officer"
 
-#: src/components/PortfolioFilters.tsx:79
+#: src/components/PortfolioFilters.tsx:68
 #: src/components/PortfolioTable.tsx:241
 #: src/components/PortfolioTable.tsx:251
 msgid "Officer/Owner"
@@ -862,7 +862,7 @@ msgstr "RS Units"
 msgid "Registration expired:"
 msgstr "Registration expired:"
 
-#: src/components/PortfolioFilters.tsx:77
+#: src/components/PortfolioFilters.tsx:66
 msgid "Rent Stabilized Units"
 msgstr "Rent Stabilized Units"
 
@@ -940,7 +940,7 @@ msgstr "Shareholder"
 msgid "Show less"
 msgstr "Show less"
 
-#: src/components/PortfolioFilters.tsx:101
+#: src/components/PortfolioFilters.tsx:90
 msgid "Showing {filteredBuildings} {filteredBuildings, plural, one {result} other {results}}."
 msgstr "Showing {filteredBuildings} {filteredBuildings, plural, one {result} other {results}}."
 
@@ -1363,7 +1363,7 @@ msgstr "You are viewing the new version of Who Owns What."
 msgid "You are viewing the old version of Who Owns What."
 msgstr "You are viewing the old version of Who Owns What."
 
-#: src/components/PortfolioFilters.tsx:91
+#: src/components/PortfolioFilters.tsx:80
 #: src/components/PortfolioTable.tsx:55
 #: src/components/PortfolioTable.tsx:58
 msgid "Zipcode"
@@ -1377,7 +1377,7 @@ msgstr "Zoom in"
 msgid "Zoom out"
 msgstr "Zoom out"
 
-#: src/components/PortfolioFilters.tsx:156
+#: src/components/PortfolioFilters.tsx:146
 #: src/components/StringifyList.tsx:18
 msgid "and"
 msgstr "and"

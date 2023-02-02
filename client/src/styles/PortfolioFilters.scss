@@ -125,12 +125,30 @@
               color: $justfix-grey;
             }
 
-            .multiselect-container {
+            .multiselect-container,
+            .minmax-container {
               display: flex;
               flex-direction: column;
-              margin: 0.6rem 2rem 0 0;
+              margin-top: 0.8rem;
               .optionListContainer {
                 position: static;
+              }
+              .inputs-container {
+                align-self: center;
+                input {
+                  background: $justfix-white;
+                  border: 0.1rem solid $justfix-black;
+                  border-radius: 0.8rem;
+                  padding: 1rem 1.2rem;
+                  margin: 0 0.9rem;
+                  // remove increment arrows
+                  &::-webkit-outer-spin-button,
+                  &::-webkit-inner-spin-button {
+                    -webkit-appearance: none;
+                    margin: 0;
+                  }
+                  -moz-appearance: textfield;
+                }
               }
             }
             .search-wrapper {
@@ -205,63 +223,5 @@
         color: $justfix-grey-700;
       }
     }
-  }
-
-  .filter-box {
-    padding: 0 10px;
-  }
-
-  .view-buildings {
-    font-weight: bold;
-  }
-
-  .filter-ownernames {
-    width: 200px;
-  }
-
-  .filter-unitsres {
-    input {
-      margin-right: 5px;
-    }
-  }
-
-  .filter-rsunitslatest {
-    .toggle {
-      background-color: #fff;
-      border-radius: 0.5rem;
-      padding: 2px;
-      border-width: 1px;
-      border-color: $gray-dark;
-      width: 50px;
-      height: 25px;
-
-      div {
-        height: 100%;
-        width: 20px;
-        border-radius: 0.5rem;
-        transition: transform 100ms ease-in-out;
-        transition: background-color 100ms;
-      }
-
-      &[aria-pressed="false"] {
-        border-style: dashed;
-        div {
-          background-color: $gray-light;
-        }
-      }
-
-      &[aria-pressed="true"] {
-        border-style: solid;
-        div {
-          background-color: $gray-dark;
-          transform: translateX(24px);
-        }
-      }
-    }
-  }
-
-  .filter-rows {
-    font-weight: bold;
-    padding-left: 20px;
   }
 }
