@@ -1,0 +1,57 @@
+@import "_vars.scss";
+
+// TODO: refactor this using mixin for variant/type when we move to component-library
+
+.jf-alert {
+  display: flex;
+  position: relative;
+  padding: 1.15rem 1.15rem 1.15rem 4rem;
+  border-radius: 0.4rem;
+  font-family: "Inconsolata", monospace;
+  font-size: 1.4rem;
+
+  &::before {
+    content: "";
+    width: 1.5rem;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    border-radius: 0.4rem 0 0 0.4rem;
+  }
+
+  div.jf-alert__content {
+    margin-right: auto;
+    padding-right: 1rem;
+  }
+
+  button.jf-alert__close {
+    align-self: flex-start;
+  }
+
+  &.is-primary {
+    background-color: $justfix-black;
+    color: $justfix-white;
+    .closeIcon {
+      stroke: $justfix-white;
+    }
+  }
+
+  &.is-secondary {
+    background-color: $justfix-white;
+    color: $justfix-black;
+    .closeIcon {
+      stroke: $justfix-black;
+    }
+  }
+
+  &.is-error::before {
+    background-color: $justfix-orange;
+  }
+  &.is-success::before {
+    background-color: $justfix-green;
+  }
+  &.is-info::before {
+    background-color: $justfix-blue;
+  }
+}

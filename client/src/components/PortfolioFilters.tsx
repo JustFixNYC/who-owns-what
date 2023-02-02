@@ -7,7 +7,6 @@ import { Multiselect } from "./multiselect-dropdown/multiselect/Multiselect";
 import { FilterContext, FilterNumberRange } from "./PropertiesList";
 import "styles/PortfolioFilters.scss";
 import FocusTrap from "focus-trap-react";
-// import FocusTrap from "focus-trap-react";
 
 type PortfolioFiltersProps = {
   i18n: I18n;

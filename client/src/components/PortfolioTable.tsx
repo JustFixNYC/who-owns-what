@@ -29,7 +29,7 @@ import { FilterContext, IFilterContext } from "./PropertiesList";
 import "styles/PortfolioTable.scss";
 
 const FIRST_COLUMN_WIDTH = 130;
-export const MAX_TABLE_ROWS_PER_PAGE = 100; // was 500, but that seems like a lot
+export const MAX_TABLE_ROWS_PER_PAGE = 100;
 
 declare module "@tanstack/table-core" {
   interface FilterFns {

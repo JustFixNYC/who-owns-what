@@ -2660,10 +2660,10 @@
   resolved "https://registry.yarnpkg.com/@justfixnyc/geosearch-requester/-/geosearch-requester-1.0.0.tgz#7677fdde3e80eb1b4fcffacfa1621fbff783705d"
   integrity sha512-apPtPi1U78ac59bw2PrC84JaTXQJxNyWBfq3g8BcjdQ0RQ1L0Hd4WEL79ctjjYsRYHE1wY5qSa6JNvEgWRvKYg==
 
-"@justfixnyc/util@0.3.0":
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/@justfixnyc/util/-/util-0.3.0.tgz#ff436d64ef5cb1b8a069b9c51ec418952a0bcc1a"
-  integrity sha512-Iuj6x5PPhtaHFNLYfZoIOFIwV4ysPGt7EapgfO8hYlQprHRcZfxBXb51ZHmWx3I7Ak5VZLgOLc8/HLFkZjWKlw==
+"@justfixnyc/util@^0.4.1":
+  version "0.4.1"
+  resolved "https://registry.yarnpkg.com/@justfixnyc/util/-/util-0.4.1.tgz#98e9036f9c751520c79f7d59eaaa95d7c0619d8f"
+  integrity sha512-97eqofWvJ6jopBFhCPOKRHHChjE2XB38qCxA4SPkv8GWSc2CvUAghcQJGtPmHfKAwnhPdiv5Hlv+jZBe73ob0Q==
 
 "@lingui/babel-plugin-extract-messages@2.9.2":
   version "2.9.2"
