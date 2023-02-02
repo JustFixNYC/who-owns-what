@@ -7,6 +7,7 @@ import { Multiselect } from "./multiselect-dropdown/multiselect/Multiselect";
 import { FilterContext, FilterNumberRange, MINMAX_DEFAULT } from "./PropertiesList";
 import "styles/PortfolioFilters.scss";
 import FocusTrap from "focus-trap-react";
+import { Alert } from "./Alert";
 
 type PortfolioFiltersProps = {
   i18n: I18n;
@@ -17,6 +18,7 @@ export const PortfolioFilters = React.memo(
     const { filterContext, setFilterContext } = React.useContext(FilterContext);
 
     const { filteredBuildings } = filterContext;
+    const { ownernames: ownernamesOptions, zip: zipOptions } = filterContext.filterOptions;
 
     const [rsunitslatestActive, setRsunitslatestActive] = React.useState(false);
     const updateRsunitslatest = () => {
@@ -47,6 +49,7 @@ export const PortfolioFilters = React.memo(
     const [unitsresActive, setUnitsresActive] = React.useState(false);
     const [unitsresIsOpen, setUnitsresIsOpen] = React.useState(false);
     const onUnitsresApply = (selectedList: any) => {
+      console.log({ onUnitsresApply: selectedList });
       setUnitsresActive(selectedList !== MINMAX_DEFAULT);
       setUnitsresIsOpen(false);
       setFilterContext({
@@ -103,14 +106,14 @@ export const PortfolioFilters = React.memo(
         </div>
         <div className="filters-container">
           <div className="filters">
-            <ToggleFilter
+            <button
+              aria-pressed={rsunitslatestActive}
               onClick={updateRsunitslatest}
               className="filter-toggle"
-              isActive={rsunitslatestActive}
-              setIsActive={setRsunitslatestActive}
             >
+              <div className="checkbox">{rsunitslatestActive && <CheckIcon />}</div>
               <Trans>Rent Stabilized Units</Trans>
-            </ToggleFilter>
+            </button>
             <FilterAccordion
               title={i18n._(t`Landlord`)}
               subtitle={i18n._(t`Officer/Owner`)}
@@ -119,12 +122,12 @@ export const PortfolioFilters = React.memo(
               setIsOpen={setOwnernamesIsOpen}
               id="ownernames-accordion"
             >
-              <MultiSelectFilter
-                options={filterContext.filterOptions.ownernames}
-                onApply={(selectedList) => {
-                  // closeAccordion("#ownernames-accordion");
-                  onOwnernamesApply(selectedList);
-                }}
+              <Multiselect
+                options={ownernamesOptions.map((value: any) => ({ name: value, id: value }))}
+                displayValue="name"
+                // TODO: localize
+                placeholder={i18n._(t`Search`) + `... (${ownernamesOptions.length})`}
+                onApply={onOwnernamesApply}
               />
             </FilterAccordion>
             <FilterAccordion
@@ -135,12 +138,10 @@ export const PortfolioFilters = React.memo(
               setIsOpen={setUnitsresIsOpen}
               id="unitsres-accordion"
             >
-              <MinMaxFilter
+              <MinMaxSelect
                 options={filterContext.filterOptions.unitsres}
-                onApply={(selectedList) => {
-                  // closeAccordion("#unitsres-accordion");
-                  onUnitsresApply(selectedList);
-                }}
+                onApply={onUnitsresApply}
+                i18n={i18n}
               />
             </FilterAccordion>
             <FilterAccordion
@@ -150,12 +151,11 @@ export const PortfolioFilters = React.memo(
               setIsOpen={setZipIsOpen}
               id="zip-accordion"
             >
-              <MultiSelectFilter
-                options={filterContext.filterOptions.zip}
-                onApply={(selectedList) => {
-                  // closeAccordion("#zip-accordion");
-                  onZipApply(selectedList);
-                }}
+              <Multiselect
+                options={zipOptions.map((value: any) => ({ name: value, id: value }))}
+                displayValue="name"
+                placeholder={i18n._(t`Search`) + `... (${zipOptions.length})`}
+                onApply={onZipApply}
               />
             </FilterAccordion>
           </div>
@@ -233,45 +233,29 @@ function FilterAccordion(props: {
   );
 }
 
-function MultiSelectFilter({
-  options,
-  onApply,
-}: {
-  options: any[];
-  onApply: (selectedList: any) => void;
-}) {
-  return (
-    <Multiselect
-      options={options.map((value: any) => ({ name: value, id: value }))}
-      displayValue="name"
-      // TODO: localize
-      placeholder={`Search... (${options.length})`}
-      onApply={onApply}
-    />
-  );
-}
-
-function MinMaxFilter({
-  options,
-  onApply,
-}: {
+function MinMaxSelect(props: {
   options: FilterNumberRange;
   onApply: (selectedList: FilterNumberRange) => void;
+  i18n: I18n;
 }) {
+  const { options, onApply, i18n } = props;
   const [minMax, setMinMax] = React.useState(options);
+  const [hasError, setHasError] = React.useState(false);
 
   return (
-    <div className="minmax-container">
+    <form className="minmax-container">
       <div className="inputs-container">
         <input
           type="number"
           min={options[0]}
           max={options[1]}
-          value={minMax[0]}
-          onChange={(value) => setMinMax([Number(value) || undefined, minMax[1]])}
-          // TODO: localize
-          placeholder="MIN"
-          aria-label="Minimum"
+          value={minMax[0] == null ? "" : minMax[0]}
+          onChange={(e) => {
+            setHasError(false);
+            setMinMax([cleanNumberInput(e.target.value), minMax[1]]);
+          }}
+          placeholder={i18n._(t`MIN`)}
+          aria-label={i18n._(t`Minimum`)}
           className="min-input"
         />
         <Trans>and</Trans>
@@ -279,38 +263,52 @@ function MinMaxFilter({
           type="number"
           min={options[0]}
           max={options[1]}
-          value={minMax[1]}
-          onChange={(value) => setMinMax([minMax[0], Number(value) || undefined])}
-          // TODO: localize
-          placeholder="MAX"
-          aria-label="Maximum"
+          value={minMax[1] == null ? "" : minMax[1]}
+          onChange={(e) => {
+            setHasError(false);
+            setMinMax([minMax[0], cleanNumberInput(e.target.value)]);
+          }}
+          placeholder={i18n._(t`MAX`)}
+          aria-label={i18n._(t`Maximum`)}
           className="max-input"
         />
       </div>
-      <button onClick={() => onApply(minMax)} className="button is-primary">
+      {hasError ? (
+        <Alert type="error" variant="primary" closeType="none">
+          Error
+        </Alert>
+      ) : (
+        <></>
+      )}
+      <button
+        onClick={(e) => {
+          e.preventDefault();
+          if (!minMaxIsValid(minMax, options)) {
+            setHasError(true);
+          } else {
+            onApply(minMax);
+          }
+        }}
+        className="button is-primary"
+      >
         <Trans>Apply</Trans>
       </button>
-    </div>
+    </form>
   );
 }
 
-function ToggleFilter(props: {
-  onClick: () => void;
-  children: React.ReactNode;
-  className?: string;
-  isActive: boolean;
-  setIsActive: React.Dispatch<React.SetStateAction<boolean>>;
-}) {
-  const { onClick, children, className, isActive, setIsActive } = props;
-  const handleToggle = () => {
-    onClick();
-    setIsActive(!isActive);
-  };
+function cleanNumberInput(value: string): number | undefined {
+  if (!new RegExp("[0-9+]").test(value)) return undefined;
+  return Number(value);
+}
 
-  return (
-    <button aria-pressed={isActive} onClick={handleToggle} className={className}>
-      <div className="checkbox">{isActive && <CheckIcon />}</div>
-      {children}
-    </button>
-  );
+function minMaxIsValid(values: FilterNumberRange, options: FilterNumberRange): boolean {
+  if (typeof options[0] === "undefined" || typeof options[1] === "undefined") {
+    return true;
+  }
+
+  const minValid = typeof values[0] === "undefined" || values[0] >= options[0];
+  const maxValid = typeof values[1] === "undefined" || values[1] <= options[1];
+
+  return minValid && maxValid;
 }

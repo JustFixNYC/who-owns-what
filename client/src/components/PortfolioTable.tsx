@@ -655,6 +655,7 @@ function getWidthFromLabel(label: string, customDefaultWidth?: number) {
   return Math.max(label.length * LETTER_WIDTH + ARROW_ICON_WIDTH + MARGIN_OFFSET, MIN_WIDTH);
 }
 
+// TODO: This is getting triggered by sorts on these columns
 function useFilterOptionsUpdater(
   filterContext: IFilterContext,
   setFilterContext: React.Dispatch<React.SetStateAction<IFilterContext>>,
@@ -666,7 +667,6 @@ function useFilterOptionsUpdater(
   const zipOptionValues = table.getColumn("zip").getFacetedUniqueValues();
 
   React.useEffect(() => {
-    // TODO: previously we were using useMemo within the multiselect table filter component, can/should we memoize these here now too?
     setFilterContext({
       ...filterContext,
       filterOptions: {
