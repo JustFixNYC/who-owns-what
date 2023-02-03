@@ -3,7 +3,6 @@ from django.http import JsonResponse
 import requests
 import os
 
-# TODO shakao set up development flow to automatically populate local values
 CLIENT_ID = os.environ.get("CLIENT_ID")
 CLIENT_SECRET = os.environ.get("CLIENT_SECRET")
 

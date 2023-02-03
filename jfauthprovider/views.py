@@ -1,12 +1,11 @@
 import sys
+import os
 from .authutil import authenticated_request
 
 sys.path.append("..")
 from wow.apiutil import api  # noqa: E402
 
-# TODO shakao change URL based on local/production
-BASE_URL = "https://jf-auth-dev.herokuapp.com"
-
+AUTH_BASE_URL = os.environ.get("AUTH_BASE_URL")
 
 @api
 def login(request):
@@ -16,7 +15,7 @@ def login(request):
         "password": request.POST.get("password"),
     }
 
-    return authenticated_request(BASE_URL + "/o/token/", post_data)
+    return authenticated_request(AUTH_BASE_URL + "/o/token/", post_data)
 
 
 @api
@@ -25,7 +24,7 @@ def logout(request):
         "token": request.POST.get("token"),
     }
 
-    return authenticated_request(BASE_URL + "/o/revoke_token/", post_data)
+    return authenticated_request(AUTH_BASE_URL + "/o/revoke_token/", post_data)
 
 
 @api
@@ -35,7 +34,7 @@ def refresh(request):
         "refresh_token": request.POST.get("refresh_token"),
     }
 
-    return authenticated_request(BASE_URL + "/o/token/", post_data)
+    return authenticated_request(AUTH_BASE_URL + "/o/token/", post_data)
 
 
 @api
@@ -46,4 +45,4 @@ def authenticate(request):
         "password": request.POST.get("password"),
     }
 
-    return authenticated_request(BASE_URL + "/authenticate/", post_data)
+    return authenticated_request(AUTH_BASE_URL + "/authenticate/", post_data)
