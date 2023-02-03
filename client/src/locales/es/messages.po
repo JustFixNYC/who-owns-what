@@ -139,8 +139,8 @@ msgstr "Una \"demanda de desalojo\" es un caso legal de desalojo iniciado por un
 #~ msgid "An “eviction filing” is a legal case for eviction commenced by a landlord against a tenant in Housing Court. Such a case can be commenced for nonpayment of rent (most commonly) or for a violation of the lease (such as a nuisance). The eviction filings number only represents cases filed in Housing Court (data from the New York State Office of Court Administration<0>via the Housing Data Coalition</0> in collaboration with the <1>Right to Counsel Coalition</1>) and not evictions carried out by NYC Marshals.<2/>If you or someone you know is facing eviction and want to learn more about your rights, head over to <3>Housing Court Answers for more information</3>.<4/>Due to privacy restrictions on the use of these data, eviction filings cannot be shown for buildings with fewer than 11 units."
 #~ msgstr "An “eviction filing” is a legal case for eviction commenced by a landlord against a tenant in Housing Court. Such a case can be commenced for nonpayment of rent (most commonly) or for a violation of the lease (such as a nuisance). The eviction filings number only represents cases filed in Housing Court (data from the New York State Office of Court Administration<0>via the Housing Data Coalition</0> in collaboration with the <1>Right to Counsel Coalition</1>) and not evictions carried out by NYC Marshals.<2/>If you or someone you know is facing eviction and want to learn more about your rights, head over to <3>Housing Court Answers for more information</3>.<4/>Due to privacy restrictions on the use of these data, eviction filings cannot be shown for buildings with fewer than 11 units."
 
+#: src/components/Multiselect.tsx:455
 #: src/components/PortfolioFilters.tsx:159
-#: src/components/multiselect-dropdown/multiselect/Multiselect.tsx:507
 msgid "Apply"
 msgstr ""
 
@@ -251,7 +251,7 @@ msgstr "Clase I"
 msgid "Clear Filters"
 msgstr ""
 
-#: src/components/multiselect-dropdown/multiselect/Multiselect.tsx:488
+#: src/components/Multiselect.tsx:441
 msgid "Clear all"
 msgstr ""
 
@@ -959,7 +959,7 @@ msgstr "Comparte esta página con tus vecinos"
 msgid "Shareholder"
 msgstr "Accionista"
 
-#: src/components/multiselect-dropdown/multiselect/Multiselect.tsx:396
+#: src/components/Multiselect.tsx:352
 msgid "Show less"
 msgstr ""
 

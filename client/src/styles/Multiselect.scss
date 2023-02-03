@@ -1,5 +1,6 @@
-@import "../../../styles/vars";
+@import "./vars";
 
+// Styles copied from 'multiselect-react-dropdown' (and a few edits)
 .multiSelectContainer,
 .multiSelectContainer *,
 .multiSelectContainer ::after,
@@ -129,3 +130,5 @@ li.groupChildEle {
 .custom-close {
   display: flex;
 }
+
+// JF custom styles

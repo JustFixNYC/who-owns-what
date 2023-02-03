@@ -2,37 +2,45 @@
 
 // @ts-nocheck
 import React, { useRef, useEffect } from "react";
-import "./styles.scss";
-import "../../../styles/_button.scss";
-import { IMultiselectProps } from "./interface";
-import { CloseButton } from "components/CloseButton";
+import "../styles/Multiselect.scss";
+import "../styles/_button.scss";
+import { CloseButton } from "./CloseButton";
 import { Trans } from "@lingui/macro";
 
 // How many selected value chips to display before "show more" button
 const SELECTED_PREVIEW_NUM = 5;
 
-function useOutsideAlerter(ref, clickEvent) {
-  useEffect(() => {
-    function handleClickOutside(event) {
-      if (ref.current && !ref.current.contains(event.target)) {
-        clickEvent();
-      }
-    }
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [ref]); // eslint-disable-line react-hooks/exhaustive-deps
-}
-
-/**
- * Component that alerts if you click outside of it
- */
-function OutsideAlerter(props) {
-  const wrapperRef = useRef(null);
-  useOutsideAlerter(wrapperRef, props.outsideClick);
-  return <div ref={wrapperRef}>{props.children}</div>;
+export interface IMultiselectProps {
+  options: any;
+  disablePreSelectedValues?: boolean;
+  selectedValues?: any;
+  isObject?: boolean;
+  displayValue?: string;
+  showCheckbox?: boolean;
+  selectionLimit?: any;
+  placeholder?: string;
+  groupBy?: string;
+  loading?: boolean;
+  style?: object;
+  emptyRecordMsg?: string;
+  onSelect?: (selectedList: any, selectedItem: any) => void;
+  onRemove?: (selectedList: any, selectedItem: any) => void;
+  onSearch?: (value: string) => void;
+  onKeyPressFn?: (event: any, value: string) => void;
+  onApply: (selectedList: any) => void;
+  caseSensitiveSearch?: boolean;
+  id?: string;
+  closeOnSelect?: boolean;
+  avoidHighlightFirstOption?: boolean;
+  hidePlaceholder?: boolean;
+  showArrow?: boolean;
+  keepSearchTerm?: boolean;
+  customArrow?: any;
+  disable?: boolean;
+  className?: string;
+  selectedValueDecorator?: (v: string, option: any) => React.ReactNode | string;
+  optionValueDecorator?: (v: string, option: any) => React.ReactNode | string;
+  hideSelectedList?: boolean;
 }
 
 export class Multiselect extends React.Component<IMultiselectProps, any> {
@@ -652,6 +660,30 @@ export class Multiselect extends React.Component<IMultiselectProps, any> {
       </OutsideAlerter>
     );
   }
+}
+
+function useOutsideAlerter(ref, clickEvent) {
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (ref.current && !ref.current.contains(event.target)) {
+        clickEvent();
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [ref]); // eslint-disable-line react-hooks/exhaustive-deps
+}
+
+/**
+ * Component that alerts if you click outside of it
+ */
+function OutsideAlerter(props) {
+  const wrapperRef = useRef(null);
+  useOutsideAlerter(wrapperRef, props.outsideClick);
+  return <div ref={wrapperRef}>{props.children}</div>;
 }
 
 Multiselect.defaultProps = {

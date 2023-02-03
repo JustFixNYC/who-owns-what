@@ -3,7 +3,7 @@ import { t, Trans, Plural } from "@lingui/macro";
 import classnames from "classnames";
 import React from "react";
 import { CheckIcon, ChevronIcon } from "./Icons";
-import { Multiselect } from "./multiselect-dropdown/multiselect/Multiselect";
+import { Multiselect } from "./Multiselect";
 import { FilterContext, FilterNumberRange, MINMAX_DEFAULT } from "./PropertiesList";
 import "styles/PortfolioFilters.scss";
 import FocusTrap from "focus-trap-react";
