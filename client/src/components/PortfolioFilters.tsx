@@ -19,6 +19,7 @@ export const PortfolioFilters = React.memo(
 
     const { filteredBuildings } = filterContext;
     const { ownernames: ownernamesOptions, zip: zipOptions } = filterContext.filterOptions;
+    const { ownernames: ownernamesSelections, zip: zipSelections } = filterContext.filterSelections;
 
     const [rsunitslatestActive, setRsunitslatestActive] = React.useState(false);
     const updateRsunitslatest = () => {
@@ -124,6 +125,7 @@ export const PortfolioFilters = React.memo(
             >
               <Multiselect
                 options={ownernamesOptions.map((value: any) => ({ name: value, id: value }))}
+                selectedValues={ownernamesSelections}
                 displayValue="name"
                 // TODO: localize
                 placeholder={i18n._(t`Search`) + `... (${ownernamesOptions.length})`}
@@ -153,29 +155,29 @@ export const PortfolioFilters = React.memo(
             >
               <Multiselect
                 options={zipOptions.map((value: any) => ({ name: value, id: value }))}
+                selectedValues={zipSelections}
                 displayValue="name"
                 placeholder={i18n._(t`Search`) + `... (${zipOptions.length})`}
                 onApply={onZipApply}
               />
             </FilterAccordion>
           </div>
-          {filteredBuildings &&
-            [rsunitslatestActive, ownernamesActive, unitsresActive, zipActive].includes(true) && (
-              <div className="filter-status">
-                <span className="results-count">
-                  <Trans>
-                    Showing {filteredBuildings}{" "}
-                    <Plural value={filteredBuildings} one="result" other="results" />.
-                  </Trans>
-                </span>
-                <button className="data-issue button is-text">
-                  <Trans>Notice an inaccuracy? Click here.</Trans>
-                </button>
-                <button className="clear-filters button is-text" onClick={clearFilters}>
-                  <Trans>Clear Filters</Trans>
-                </button>
-              </div>
-            )}
+          {[rsunitslatestActive, ownernamesActive, unitsresActive, zipActive].includes(true) && (
+            <div className="filter-status">
+              <span className="results-count">
+                <Trans>
+                  Showing {filteredBuildings || 0}{" "}
+                  <Plural value={filteredBuildings || 0} one="result" other="results" />.
+                </Trans>
+              </span>
+              <button className="data-issue button is-text">
+                <Trans>Notice an inaccuracy? Click here.</Trans>
+              </button>
+              <button className="clear-filters button is-text" onClick={clearFilters}>
+                <Trans>Clear Filters</Trans>
+              </button>
+            </div>
+          )}
         </div>
       </div>
     );

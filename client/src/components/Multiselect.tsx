@@ -6,6 +6,7 @@ import "../styles/Multiselect.scss";
 import "../styles/_button.scss";
 import { CloseButton } from "./CloseButton";
 import { Trans } from "@lingui/macro";
+import { Alert } from "./Alert";
 
 // How many selected value chips to display before "show more" button
 const SELECTED_PREVIEW_NUM = 5;
@@ -60,6 +61,7 @@ export class Multiselect extends React.Component<IMultiselectProps, any> {
       showCheckbox: props.showCheckbox,
       keepSearchTerm: props.keepSearchTerm,
       groupedObject: [],
+      hasError: false,
     };
     // @ts-ignore
     this.optionTimeout = null;
@@ -217,7 +219,14 @@ export class Multiselect extends React.Component<IMultiselectProps, any> {
 
   onChange(event) {
     const { onSearch } = this.props;
-    this.setState({ inputValue: event.target.value }, this.filterOptionsByInput);
+    console.log({ resetError: this.state.hasError && event.target.value === "" });
+    this.setState(
+      {
+        inputValue: event.target.value,
+        hasError: this.state.hasError && event.target.value === "",
+      },
+      this.filterOptionsByInput
+    );
     if (onSearch) {
       onSearch(event.target.value);
     }
@@ -316,6 +325,7 @@ export class Multiselect extends React.Component<IMultiselectProps, any> {
   onSelectItem(item) {
     const { selectedValues } = this.state;
     const { selectionLimit, onSelect, showCheckbox } = this.props;
+    this.setState({ hasError: false });
     if (!this.state.keepSearchTerm) {
       this.setState({
         inputValue: "",
@@ -541,7 +551,7 @@ export class Multiselect extends React.Component<IMultiselectProps, any> {
     this.setState({
       toggleOptionsList: false,
       highlightOption: this.props.avoidHighlightFirstOption ? -1 : 0,
-      inputValue: "",
+      // inputValue: "",
     });
   }
 
@@ -555,7 +565,7 @@ export class Multiselect extends React.Component<IMultiselectProps, any> {
   }
 
   onBlur() {
-    this.setState({ inputValue: "" }, this.filterOptionsByInput);
+    // this.setState({ inputValue: "" }, this.filterOptionsByInput);
     // @ts-ignore
     this.optionTimeout = setTimeout(this.onCloseOptionList, 250);
   }
@@ -575,7 +585,7 @@ export class Multiselect extends React.Component<IMultiselectProps, any> {
   }
 
   renderMultiselectContainer() {
-    const { inputValue, toggleOptionsList, selectedValues } = this.state;
+    const { inputValue, toggleOptionsList, selectedValues, hasError } = this.state;
     const {
       placeholder,
       style,
@@ -587,6 +597,7 @@ export class Multiselect extends React.Component<IMultiselectProps, any> {
       hideSelectedList,
       onApply,
     } = this.props;
+    console.log({ inputValue, selectedValues, hasError });
     return (
       <div
         className={`multiselect-container multiSelectContainer ${disable ? `disable_ms` : ""} ${
@@ -607,6 +618,11 @@ export class Multiselect extends React.Component<IMultiselectProps, any> {
           >
             <Trans>Clear all</Trans>
           </button>
+        )}
+        {hasError && (
+          <Alert type="error" variant="primary" closeType="none">
+            <Trans>Make a selection.</Trans>
+          </Alert>
         )}
         <div
           className="search-wrapper searchWrapper"
@@ -642,8 +658,12 @@ export class Multiselect extends React.Component<IMultiselectProps, any> {
         </div>
         <button
           onClick={() => {
-            onApply(selectedValues);
-            this.onCloseOptionList();
+            if (!selectedValues.length && !!inputValue) {
+              this.setState({ hasError: true });
+            } else {
+              onApply(selectedValues);
+              this.onCloseOptionList();
+            }
           }}
           className="button is-primary"
         >
