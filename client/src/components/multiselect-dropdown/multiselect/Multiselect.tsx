@@ -4,24 +4,12 @@
 import React, { useRef, useEffect } from "react";
 import "./styles.scss";
 import "../../../styles/_button.scss";
-import CloseCircle from "../assets/svg/closeCircle.svg";
-import CloseCircleDark from "../assets/svg/closeCircleDark.svg";
-import CloseLine from "../assets/svg/closeLine.svg";
-import CloseSquare from "../assets/svg/closeSquare.svg";
-import DownArrow from "../assets/svg/downArrow.svg";
 import { IMultiselectProps } from "./interface";
 import { CloseButton } from "components/CloseButton";
 import { Trans } from "@lingui/macro";
 
 // How many selected value chips to display before "show more" button
 const SELECTED_PREVIEW_NUM = 5;
-
-const closeIconTypes = {
-  circle: CloseCircleDark,
-  circle2: CloseCircle,
-  close: CloseSquare,
-  cancel: CloseLine,
-};
 
 function useOutsideAlerter(ref, clickEvent) {
   useEffect(() => {
@@ -64,7 +52,6 @@ export class Multiselect extends React.Component<IMultiselectProps, any> {
       showCheckbox: props.showCheckbox,
       keepSearchTerm: props.keepSearchTerm,
       groupedObject: [],
-      closeIconType: closeIconTypes[props.closeIcon] || closeIconTypes["circle"],
     };
     // @ts-ignore
     this.optionTimeout = null;
@@ -100,14 +87,11 @@ export class Multiselect extends React.Component<IMultiselectProps, any> {
   }
 
   initialSetValue() {
-    const { showCheckbox, groupBy, singleSelect } = this.props;
+    const { showCheckbox, groupBy } = this.props;
     const { options } = this.state;
-    if (!showCheckbox && !singleSelect) {
+    if (!showCheckbox) {
       this.removeSelectedValuesFromOptions(false);
     }
-    // if (singleSelect) {
-    //   this.hideOnClickOutside();
-    // }
     if (groupBy) {
       this.groupByOptions(options);
     }
@@ -323,16 +307,11 @@ export class Multiselect extends React.Component<IMultiselectProps, any> {
 
   onSelectItem(item) {
     const { selectedValues } = this.state;
-    const { selectionLimit, onSelect, singleSelect, showCheckbox } = this.props;
+    const { selectionLimit, onSelect, showCheckbox } = this.props;
     if (!this.state.keepSearchTerm) {
       this.setState({
         inputValue: "",
       });
-    }
-    if (singleSelect) {
-      this.onSingleSelect(item);
-      onSelect([item], item);
-      return;
     }
     if (this.isSelectedValue(item)) {
       this.onRemoveSelectedItem(item);
@@ -354,10 +333,6 @@ export class Multiselect extends React.Component<IMultiselectProps, any> {
       // @ts-ignore
       this.searchBox.current.focus();
     }
-  }
-
-  onSingleSelect(item) {
-    this.setState({ selectedValues: [item], toggleOptionsList: false });
   }
 
   isSelectedValue(item) {
@@ -397,7 +372,7 @@ export class Multiselect extends React.Component<IMultiselectProps, any> {
   }
 
   renderGroupByOptions() {
-    const { isObject = false, displayValue, showCheckbox, style, singleSelect } = this.props;
+    const { isObject = false, displayValue, showCheckbox, style } = this.props;
     const { groupedObject } = this.state;
     return Object.keys(groupedObject).map((obj) => {
       return (
@@ -416,7 +391,7 @@ export class Multiselect extends React.Component<IMultiselectProps, any> {
                 } ${this.isDisablePreSelectedValues(option) ? "disableSelection" : ""}`}
                 onClick={() => this.onSelectItem(option)}
               >
-                {showCheckbox && !singleSelect && (
+                {showCheckbox && (
                   <input type="checkbox" className={"checkbox"} readOnly checked={isSelected} />
                 )}
                 {this.props.optionValueDecorator(
@@ -432,7 +407,7 @@ export class Multiselect extends React.Component<IMultiselectProps, any> {
   }
 
   renderNormalOption() {
-    const { isObject = false, displayValue, showCheckbox, style, singleSelect } = this.props;
+    const { isObject = false, displayValue, showCheckbox, style } = this.props;
     const { highlightOption } = this.state;
     return this.state.options.map((option, i) => {
       const isSelected = this.isSelectedValue(option);
@@ -447,7 +422,7 @@ export class Multiselect extends React.Component<IMultiselectProps, any> {
           }`}
           onClick={() => this.onSelectItem(option)}
         >
-          {showCheckbox && !singleSelect && (
+          {showCheckbox && (
             <input type="checkbox" readOnly className={`checkbox`} checked={isSelected} />
           )}
           {this.props.optionValueDecorator(
@@ -460,7 +435,7 @@ export class Multiselect extends React.Component<IMultiselectProps, any> {
   }
 
   renderSelectedList() {
-    const { isObject = false, displayValue, style, singleSelect } = this.props;
+    const { isObject = false, displayValue, style } = this.props;
     const { selectedValues, showAllSelected } = this.state;
 
     const selectedNum = showAllSelected ? selectedValues.length : SELECTED_PREVIEW_NUM;
@@ -469,9 +444,7 @@ export class Multiselect extends React.Component<IMultiselectProps, any> {
       <>
         {selectedValues.slice(0, selectedNum).map((value, index) => (
           <span
-            className={`chip  ${singleSelect && "singleChip"} ${
-              this.isDisablePreSelectedValues(value) && "disableSelection"
-            }`}
+            className={`chip ${this.isDisablePreSelectedValues(value) && "disableSelection"}`}
             key={index}
             style={style["chips"]}
           >
@@ -529,10 +502,7 @@ export class Multiselect extends React.Component<IMultiselectProps, any> {
   }
 
   fadeOutSelection(item) {
-    const { selectionLimit, showCheckbox, singleSelect } = this.props;
-    if (singleSelect) {
-      return;
-    }
+    const { selectionLimit, showCheckbox } = this.props;
     const { selectedValues } = this.state;
     if (selectionLimit === -1) {
       return false;
@@ -601,14 +571,11 @@ export class Multiselect extends React.Component<IMultiselectProps, any> {
     const {
       placeholder,
       style,
-      singleSelect,
       id,
       name,
       hidePlaceholder,
       disable,
-      showArrow,
       className,
-      customArrow,
       hideSelectedList,
       onApply,
     } = this.props;
@@ -634,15 +601,15 @@ export class Multiselect extends React.Component<IMultiselectProps, any> {
           </button>
         )}
         <div
-          className={`search-wrapper searchWrapper ${singleSelect ? "singleSelect" : ""}`}
+          className="search-wrapper searchWrapper"
           ref={this.searchWrapper}
           style={style["searchBox"]}
-          onClick={singleSelect ? this.toggelOptionList : () => {}}
+          onClick={() => {}}
         >
           <input
             type="text"
             ref={this.searchBox}
-            className={`searchBox ${singleSelect && selectedValues.length ? "display-none" : ""}`}
+            className="searchBox"
             id={`${id || "search"}_input`}
             name={`${name || "search_name"}_input`}
             onChange={this.onChange}
@@ -650,25 +617,12 @@ export class Multiselect extends React.Component<IMultiselectProps, any> {
             value={inputValue}
             onFocus={this.onFocus}
             onBlur={this.onBlur}
-            placeholder={
-              (singleSelect && selectedValues.length) || (hidePlaceholder && selectedValues.length)
-                ? ""
-                : placeholder
-            }
+            placeholder={hidePlaceholder && selectedValues.length ? "" : placeholder}
             onKeyDown={this.onArrowKeyNavigation}
             style={style["inputField"]}
             autoComplete="off"
-            disabled={singleSelect || disable}
+            disabled={disable}
           />
-          {(singleSelect || showArrow) && (
-            <>
-              {customArrow ? (
-                <span className="icon_down_dir">{customArrow}</span>
-              ) : (
-                <img src={DownArrow} alt="" className={`icon_cancel icon_down_dir`} />
-              )}
-            </>
-          )}
         </div>
         <div
           className={`optionListContainer ${toggleOptionsList ? "displayBlock" : "displayNone"}`}
@@ -716,8 +670,6 @@ Multiselect.defaultProps = {
   onSelect: () => {},
   onRemove: () => {},
   onKeyPressFn: () => {},
-  closeIcon: "circle2",
-  singleSelect: false,
   caseSensitiveSearch: false,
   id: "",
   name: "",
@@ -726,7 +678,6 @@ Multiselect.defaultProps = {
   hidePlaceholder: false,
   showArrow: false,
   keepSearchTerm: false,
-  customCloseIcon: "",
   className: "",
   customArrow: undefined,
   selectedValueDecorator: (v) => v,

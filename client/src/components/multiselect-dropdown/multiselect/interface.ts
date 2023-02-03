@@ -18,8 +18,6 @@ export interface IMultiselectProps {
   onSearch?: (value: string) => void;
   onKeyPressFn?: (event: any, value: string) => void;
   onApply: (selectedList: any) => void;
-  closeIcon?: string;
-  singleSelect?: boolean;
   caseSensitiveSearch?: boolean;
   id?: string;
   closeOnSelect?: boolean;
@@ -27,7 +25,6 @@ export interface IMultiselectProps {
   hidePlaceholder?: boolean;
   showArrow?: boolean;
   keepSearchTerm?: boolean;
-  customCloseIcon?: React.ReactNode | string;
   customArrow?: any;
   disable?: boolean;
   className?: string;
