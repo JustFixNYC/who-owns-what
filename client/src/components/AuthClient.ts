@@ -72,6 +72,18 @@ const logout = async () => {
 };
 
 /**
+ * Checks to see if a user account with this email exists
+ */
+const userExists = async (username: string) => {
+  try {
+    const response = await fetch(`${AUTH_SERVER_BASE_URL}/user/?email=${username}`);
+    return !!response.ok;
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+/**
  * Sends an authenticated request to update the user email
  */
 const updateEmail = async (newEmail: string) => {
@@ -126,6 +138,7 @@ const friendlyFetch: typeof fetch = async (input, init) => {
 const Client = {
   setToken,
   getToken,
+  userExists,
   getUserEmail,
   authenticate,
   login,

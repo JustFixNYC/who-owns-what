@@ -1,6 +1,6 @@
 import React from "react";
 
-import "styles/Subscribe.css";
+import "styles/Login.css";
 import { I18n } from "@lingui/core";
 import { withI18n } from "@lingui/react";
 import AuthClient from "./AuthClient";
@@ -15,9 +15,10 @@ type State = {
   password: string;
   success: boolean;
   response: string;
+  formState: "check_email" | "login" | "register";
 };
 
-class SubscribeWithoutI18n extends React.Component<LoginProps, State> {
+class LoginWithoutI18n extends React.Component<LoginProps, State> {
   constructor(props: LoginProps) {
     super(props);
     this.state = {
@@ -25,6 +26,7 @@ class SubscribeWithoutI18n extends React.Component<LoginProps, State> {
       password: "",
       success: false,
       response: "",
+      formState: "check_email",
     };
   }
 
@@ -33,6 +35,16 @@ class SubscribeWithoutI18n extends React.Component<LoginProps, State> {
   };
   handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({ password: e.target.value });
+  };
+
+  handleCheckUser = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (await AuthClient.userExists(this.state.username)) {
+      this.setState({ formState: "login" });
+    } else {
+      this.setState({ formState: "register" });
+    }
   };
 
   handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -47,40 +59,56 @@ class SubscribeWithoutI18n extends React.Component<LoginProps, State> {
       return;
     }
 
-    // TODO shakao cleanup with async/await instead of promises
-    // TODO shakao add type for login resp
-    let token = await AuthClient.authenticate(username, password);
-    if (token?.access_token && onSuccess) {
+    const response = await AuthClient.authenticate(username, password);
+    if (!response.error && onSuccess) {
       onSuccess(username);
+    } else {
+      this.setState({
+        response: response.error_description,
+      });
     }
   };
 
   render() {
+    const { username, password, success, response, formState } = this.state;
+
     return (
-      <div className={`Login ${this.state.success ? "Login--success" : ""}`}>
-        <form onSubmit={this.handleSubmit} className="input-group">
+      <div className={`Login ${success ? "Login--success" : ""}`}>
+        <form
+          onSubmit={formState !== "check_email" ? this.handleSubmit : this.handleCheckUser}
+          className="input-group"
+        >
           <input
             type="email"
             className="form-input input-username"
             placeholder={`Enter email`}
             onChange={this.handleUsernameChange}
-            value={this.state.username}
+            value={username}
           />
+          {formState !== "check_email" && (
+            <>
+              <input
+                type="password"
+                className="form-input input-password"
+                placeholder={`Enter password`}
+                onChange={this.handlePasswordChange}
+                value={password}
+              />
+              <p>{formState === "login" ? "Welcome back!" : "Create an account"}</p>
+            </>
+          )}
           <input
-            type="password"
-            className="form-input input-password"
-            placeholder={`Enter password`}
-            onChange={this.handlePasswordChange}
-            value={this.state.password}
+            type="submit"
+            className="btn btn-white input-group-btn"
+            value={formState !== "check_email" ? `Get updates` : `Login`}
           />
-          <input type="submit" className="btn btn-white input-group-btn" value={`Get updates`} />
         </form>
-        {this.state.response && <p className="response-text">{this.state.response}</p>}
+        {response && <p className="response-text">{response}</p>}
       </div>
     );
   }
 }
 
-const Login = withI18n()(SubscribeWithoutI18n);
+const Login = withI18n()(LoginWithoutI18n);
 
 export default Login;
