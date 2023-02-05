@@ -219,7 +219,6 @@ export class Multiselect extends React.Component<IMultiselectProps, any> {
 
   onChange(event) {
     const { onSearch } = this.props;
-    console.log({ resetError: this.state.hasError && event.target.value === "" });
     this.setState(
       {
         inputValue: event.target.value,
@@ -597,7 +596,6 @@ export class Multiselect extends React.Component<IMultiselectProps, any> {
       hideSelectedList,
       onApply,
     } = this.props;
-    console.log({ inputValue, selectedValues, hasError });
     return (
       <div
         className={`multiselect-container multiSelectContainer ${disable ? `disable_ms` : ""} ${

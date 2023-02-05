@@ -15,6 +15,7 @@ $table-border-dark: 1px solid $dark;
     border-spacing: 0;
 
     .arrow-icon {
+      cursor: pointer;
       display: inline-block;
       margin-left: 0.5rem;
       span {
