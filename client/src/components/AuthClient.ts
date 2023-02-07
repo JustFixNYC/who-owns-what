@@ -25,8 +25,10 @@ let userEmail: string | undefined;
 const getUserEmail = () => userEmail;
 const fetchUserEmail = async () => {
   if (!userEmail) {
-    const authCheck = await userAuthenticated();
-    userEmail = authCheck?.["email"];
+    try {
+      const authCheck = await userAuthenticated();
+      userEmail = authCheck?.["email"];
+    } catch {}
   }
   return userEmail;
 };

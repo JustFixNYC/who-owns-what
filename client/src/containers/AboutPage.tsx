@@ -17,7 +17,7 @@ const AboutPage = withI18n()((props: withI18nProps) => {
   const { i18n } = props;
   const [userEmail, setUserEmail] = React.useState(AuthClient.getUserEmail());
   React.useEffect(() => {
-    AuthClient.fetchUserEmail().then(email => !!email && setUserEmail(email));
+    AuthClient.fetchUserEmail().then((email) => !!email && setUserEmail(email));
   }, []);
 
   return (
@@ -30,8 +30,7 @@ const AboutPage = withI18n()((props: withI18nProps) => {
             <div>{`Welcome ${userEmail}`}</div>
             <button
               onClick={() => {
-                AuthClient.logout();
-                setUserEmail(undefined);
+                AuthClient.logout().then(() => setUserEmail(undefined));
               }}
             >
               Log out
