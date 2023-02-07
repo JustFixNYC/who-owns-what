@@ -1,25 +1,8 @@
 import { NetworkError, HTTPError } from "error-reporting";
 
-interface AuthToken {
-  accessToken: string;
-  refreshToken: string;
-  tokenType: string;
-}
-
 // TODO shakao update URL for development/prod
 const BASE_URL = "http://127.0.0.1:8000";
 const AUTH_SERVER_BASE_URL = "http://127.0.0.1:8080";
-let token: AuthToken | undefined;
-
-const setToken = (json: any) => {
-  token = {
-    accessToken: json.access_token,
-    refreshToken: json.refresh_token,
-    tokenType: json.token_type,
-  };
-};
-
-const getToken = () => token;
 
 let userEmail: string | undefined;
 const getUserEmail = () => userEmail;
@@ -40,7 +23,6 @@ const setUserEmail = (email: string) => (userEmail = email);
  */
 const authenticate = async (username: string, password: string) => {
   const json = await postAuthRequest(`${BASE_URL}/auth/authenticate`, { username, password });
-  setToken(json);
   setUserEmail(username);
   return json;
 };
@@ -51,33 +33,16 @@ const authenticate = async (username: string, password: string) => {
  */
 const login = async (username: string, password: string) => {
   const json = await postAuthRequest(`${BASE_URL}/auth/login`, { username, password });
-  setToken(json);
   return json;
-};
-
-/**
- * Sends a request to refresh the access token
- */
-const refresh = async () => {
-  if (token?.refreshToken) {
-    const json = await postAuthRequest(`${BASE_URL}/auth/refresh`, {
-      refresh_token: token.refreshToken,
-    });
-    setToken(json);
-    return json;
-  }
 };
 
 /**
  * Revokes the current access token, if one is present
  */
 const logout = async () => {
-  if (token?.accessToken) {
-    const json = await postAuthRequest(`${BASE_URL}/auth/logout`, { token: token.accessToken });
-    token = undefined;
-    userEmail = undefined;
-    return json;
-  }
+  const json = await postAuthRequest(`${BASE_URL}/auth/logout`);
+  userEmail = undefined;
+  return json;
 };
 
 /**
@@ -103,13 +68,7 @@ const userAuthenticated = async () => {
  * Sends an authenticated request to update the user email
  */
 const updateEmail = async (newEmail: string) => {
-  if (token) {
-    return await postAuthRequest(
-      `${AUTH_SERVER_BASE_URL}/user/update`,
-      { new_email: newEmail },
-      { Authorization: `${token.tokenType} ${token.accessToken}` }
-    );
-  }
+  return await postAuthRequest(`${BASE_URL}/user/update`, { new_email: newEmail });
 };
 
 /**
@@ -155,8 +114,6 @@ const friendlyFetch: typeof fetch = async (input, init) => {
 };
 
 const Client = {
-  setToken,
-  getToken,
   userExists,
   userAuthenticated,
   getUserEmail,
@@ -164,7 +121,6 @@ const Client = {
   authenticate,
   login,
   logout,
-  refresh,
   updateEmail,
 };
 
