@@ -2,6 +2,7 @@ import os
 from pathlib import Path
 from typing import List, Optional, Dict, Any
 from django.core.exceptions import ImproperlyConfigured
+from corsheaders.defaults import default_headers
 import dj_database_url
 
 try:
@@ -45,6 +46,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "project.apps.DefaultConfig",
     "wow.apps.WowConfig",
+    "corsheaders",
 ]
 
 MIDDLEWARE: List[str] = [
@@ -52,6 +54,7 @@ MIDDLEWARE: List[str] = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.gzip.GZipMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
 ]
 
 TEMPLATES = [
@@ -80,6 +83,11 @@ DATABASES = {
     },
     "wow": dj_database_url.parse(get_required_env("DATABASE_URL")),
 }
+
+CORS_ALLOW_HEADERS = default_headers + ("Access-Control-Allow-Origin", "Set-Cookie")
+CORS_ALLOW_ALL_ORIGINS = False
+CORS_ALLOW_CREDENTIALS = True
+CORS_ORIGIN_WHITELIST = ("http://localhost:3000",)
 
 # This is based off the default Django logging configuration:
 # https://github.com/django/django/blob/master/django/utils/log.py

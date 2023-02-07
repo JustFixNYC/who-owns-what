@@ -17,7 +17,18 @@ def authenticated_request(url, data):
         post_data[k] = v
 
     response = requests.post(url, data=post_data)
+
     try:
-        return JsonResponse(json.loads(response.content))
+        auth_data = response.json()
+        json_response = JsonResponse(json.loads(response.content))
+        json_response.set_signed_cookie(
+            key="access_token",
+            value=auth_data["access_token"],
+            samesite="None",
+            max_age=auth_data["expires_in"],
+            secure=True,
+            httponly=True,
+        )
+        return json_response
     except ValueError:
         return JsonResponse({})

@@ -116,6 +116,7 @@ const postAuthRequest = async (
       "Content-Type": "application/x-www-form-urlencoded",
       ...headers,
     },
+    credentials: "include",
   });
   const json = await result.json();
   return json;

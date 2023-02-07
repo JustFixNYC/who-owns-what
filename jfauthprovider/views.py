@@ -7,6 +7,7 @@ from wow.apiutil import api  # noqa: E402
 
 AUTH_BASE_URL = os.environ.get("AUTH_BASE_URL")
 
+
 @api
 def login(request):
     post_data = {
@@ -21,7 +22,7 @@ def login(request):
 @api
 def logout(request):
     post_data = {
-        "token": request.POST.get("token"),
+        "token": request.get_signed_cookie("access_token"),
     }
 
     return authenticated_request(AUTH_BASE_URL + "/o/revoke_token/", post_data)
