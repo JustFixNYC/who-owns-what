@@ -67,6 +67,10 @@ export default {
     return decodeURIComponent(results[2].replace(/\+/g, " "));
   },
 
+  addTrailingSlash(url?: string) {
+    return url?.endsWith("/") ? url : url + "/";
+  },
+
   WOAU_COOKIE_NAME: "woau",
   DEPRECATION_MODAL_COOKIE_NAME: "deprecationmodal",
 

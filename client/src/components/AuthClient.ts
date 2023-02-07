@@ -1,7 +1,8 @@
 import { NetworkError, HTTPError } from "error-reporting";
+import browser from "../util/browser";
 
-const BASE_URL = process.env.REACT_APP_API_BASE_URL;
-const AUTH_SERVER_BASE_URL = process.env.REACT_APP_AUTH_SERVER_BASE_URL;
+const BASE_URL = browser.addTrailingSlash(process.env.REACT_APP_API_BASE_URL);
+const AUTH_SERVER_BASE_URL = browser.addTrailingSlash(process.env.REACT_APP_AUTH_SERVER_BASE_URL);
 
 let userEmail: string | undefined;
 const getUserEmail = () => userEmail;
@@ -21,7 +22,7 @@ const setUserEmail = (email: string) => (userEmail = email);
  * Creates an account for this user if one does not already exist.
  */
 const authenticate = async (username: string, password: string) => {
-  const json = await postAuthRequest(`${BASE_URL}/auth/authenticate`, { username, password });
+  const json = await postAuthRequest(`${BASE_URL}auth/authenticate`, { username, password });
   setUserEmail(username);
   return json;
 };
@@ -31,7 +32,7 @@ const authenticate = async (username: string, password: string) => {
  * and expiry time.
  */
 const login = async (username: string, password: string) => {
-  const json = await postAuthRequest(`${BASE_URL}/auth/login`, { username, password });
+  const json = await postAuthRequest(`${BASE_URL}auth/login`, { username, password });
   return json;
 };
 
@@ -39,7 +40,7 @@ const login = async (username: string, password: string) => {
  * Revokes the current access token, if one is present
  */
 const logout = async () => {
-  const json = await postAuthRequest(`${BASE_URL}/auth/logout`);
+  const json = await postAuthRequest(`${BASE_URL}auth/logout`);
   userEmail = undefined;
   return json;
 };
@@ -49,7 +50,7 @@ const logout = async () => {
  */
 const userExists = async (username: string) => {
   try {
-    const response = await fetch(`${AUTH_SERVER_BASE_URL}/user/?email=${username}`);
+    const response = await fetch(`${AUTH_SERVER_BASE_URL}user/?email=${username}`);
     return !!response.ok;
   } catch (e) {
     console.log(e);
@@ -60,14 +61,14 @@ const userExists = async (username: string) => {
  * Checks to see if a user is currently authenticated (via httponly cookie)
  */
 const userAuthenticated = async () => {
-  return await postAuthRequest(`${BASE_URL}/auth/auth_check`);
+  return await postAuthRequest(`${BASE_URL}auth/auth_check`);
 };
 
 /**
  * Sends an authenticated request to update the user email
  */
 const updateEmail = async (newEmail: string) => {
-  return await postAuthRequest(`${BASE_URL}/user/update`, { new_email: newEmail });
+  return await postAuthRequest(`${BASE_URL}user/update`, { new_email: newEmail });
 };
 
 /**
