@@ -17,8 +17,8 @@ class InvalidFormError(Exception):
         )
 
 
-def apply_cors_policy(request, response):
-    response["Access-Control-Allow-Origin"] = "*"
+def apply_cors_policy(request, response, policy="*"):
+    response["Access-Control-Allow-Origin"] = policy
     return response
 
 

@@ -16,6 +16,9 @@ import AuthClient from "../components/AuthClient";
 const AboutPage = withI18n()((props: withI18nProps) => {
   const { i18n } = props;
   const [userEmail, setUserEmail] = React.useState(AuthClient.getUserEmail());
+  React.useEffect(() => {
+    AuthClient.fetchUserEmail().then(email => !!email && setUserEmail(email));
+  }, []);
 
   return (
     <Page title={i18n._(t`About`)}>
@@ -28,7 +31,7 @@ const AboutPage = withI18n()((props: withI18nProps) => {
             <button
               onClick={() => {
                 AuthClient.logout();
-                setUserEmail(AuthClient.getUserEmail());
+                setUserEmail(undefined);
               }}
             >
               Log out

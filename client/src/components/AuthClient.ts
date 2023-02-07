@@ -23,6 +23,13 @@ const getToken = () => token;
 
 let userEmail: string | undefined;
 const getUserEmail = () => userEmail;
+const fetchUserEmail = async () => {
+  if (!userEmail) {
+    const authCheck = await userAuthenticated();
+    userEmail = authCheck?.["email"];
+  }
+  return userEmail;
+};
 const setUserEmail = (email: string) => (userEmail = email);
 
 /**
@@ -84,6 +91,13 @@ const userExists = async (username: string) => {
 };
 
 /**
+ * Checks to see if a user is currently authenticated (via httponly cookie)
+ */
+const userAuthenticated = async () => {
+  return await postAuthRequest(`${BASE_URL}/auth/auth_check`);
+};
+
+/**
  * Sends an authenticated request to update the user email
  */
 const updateEmail = async (newEmail: string) => {
@@ -102,12 +116,14 @@ const updateEmail = async (newEmail: string) => {
 
 const postAuthRequest = async (
   url: string,
-  params: { [key: string]: string },
+  params?: { [key: string]: string },
   headers?: { [key: string]: string }
 ) => {
-  const body = Object.keys(params)
-    .map((k) => `${k}=${params[k]}`)
-    .join("&");
+  const body = params
+    ? Object.keys(params)
+        .map((k) => `${k}=${params[k]}`)
+        .join("&")
+    : "";
   const result = await friendlyFetch(url, {
     method: "POST",
     mode: "cors",
@@ -140,7 +156,9 @@ const Client = {
   setToken,
   getToken,
   userExists,
+  userAuthenticated,
   getUserEmail,
+  fetchUserEmail,
   authenticate,
   login,
   logout,

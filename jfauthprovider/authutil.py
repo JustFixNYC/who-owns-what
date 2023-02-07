@@ -7,7 +7,7 @@ CLIENT_ID = os.environ.get("CLIENT_ID")
 CLIENT_SECRET = os.environ.get("CLIENT_SECRET")
 
 
-def authenticated_request(url, data):
+def client_secret_request(url, data={}):
     post_data = {
         "client_id": CLIENT_ID,
         "client_secret": CLIENT_SECRET,
@@ -16,12 +16,12 @@ def authenticated_request(url, data):
     for k, v in data.items():
         post_data[k] = v
 
-    response = requests.post(url, data=post_data)
+    auth_response = requests.post(url, data=post_data)
 
     try:
-        auth_data = response.json()
-        json_response = JsonResponse(json.loads(response.content))
-        json_response.set_signed_cookie(
+        auth_data = auth_response.json()
+        response = JsonResponse(json.loads(auth_response.content))
+        response.set_signed_cookie(
             key="access_token",
             value=auth_data["access_token"],
             samesite="None",
@@ -29,6 +29,16 @@ def authenticated_request(url, data):
             secure=True,
             httponly=True,
         )
-        return json_response
+        return response
+    except ValueError:
+        return JsonResponse({})
+
+
+def authenticated_request(url, access_token, data={}):
+    headers = {"Authorization": "Bearer " + access_token}
+
+    try:
+        auth_response = requests.post(url, data=data, headers=headers)
+        return JsonResponse(json.loads(auth_response.content))
     except ValueError:
         return JsonResponse({})
