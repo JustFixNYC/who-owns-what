@@ -295,36 +295,78 @@ export const PortfolioTable = React.memo(
           header: i18n._(t`Landlord`),
           footer: (props) => props.column.id,
           columns: [
+            // This first landlord column is what we use for the filter, so the
+            // accessor will include all the types of HPD contacts, but only
+            // displays head officer
             {
               accessorFn: (row) => {
-                var owner =
-                  row.ownernames &&
-                  row.ownernames.find(
-                    (o) =>
-                      o.title === "HeadOfficer" ||
-                      o.title === "IndividualOwner" ||
-                      o.title === "CorporateOwner" ||
-                      o.title === "JointOwner"
-                  );
-                return owner ? owner.value : "";
+                var ownerList = row.ownernames && row.ownernames.map((o) => o.value);
+                return ownerList || [];
               },
               id: "ownernames",
-              header: i18n._(t`Officer/Owner`),
+              header: i18n._(t`Head Officer`),
               cell: ({ row }) => {
                 var owner =
                   row.original.ownernames &&
-                  row.original.ownernames.find(
-                    (o) =>
-                      o.title === "HeadOfficer" ||
-                      o.title === "IndividualOwner" ||
-                      o.title === "CorporateOwner" ||
-                      o.title === "JointOwner"
-                  );
+                  row.original.ownernames.find((o) => o.title === "HeadOfficer");
                 return owner ? owner.value : "";
               },
               footer: (props) => props.column.id,
-              size: getWidthFromLabel(i18n._(t`Officer/Owner`), 100),
+              size: getWidthFromLabel(i18n._(t`Head Officer`), 100),
               filterFn: "arrIncludesSome",
+            },
+            {
+              accessorFn: (row) => {
+                var owner =
+                  row.ownernames && row.ownernames.find((o) => o.title === "IndividualOwner");
+                return owner ? owner.value : "";
+              },
+              id: "indivowner",
+              header: i18n._(t`Individual Owner`),
+              cell: ({ row }) => {
+                var owner =
+                  row.original.ownernames &&
+                  row.original.ownernames.find((o) => o.title === "IndividualOwner");
+                return owner ? owner.value : "";
+              },
+              footer: (props) => props.column.id,
+              size: getWidthFromLabel(i18n._(t`Individual Owner`), 100),
+              enableColumnFilter: false,
+            },
+            {
+              accessorFn: (row) => {
+                var owner =
+                  row.allcontacts && row.allcontacts.find((o) => o.title === "Corporation");
+                return owner ? owner.value : "";
+              },
+              id: "cropowner",
+              header: i18n._(t`Corporate Owner`),
+              cell: ({ row }) => {
+                var owner =
+                  row.original.allcontacts &&
+                  row.original.allcontacts.find((o) => o.title === "Corporation");
+                return owner ? owner.value : "";
+              },
+              footer: (props) => props.column.id,
+              size: getWidthFromLabel(i18n._(t`Corporate Owner`), 100),
+              enableColumnFilter: false,
+            },
+            {
+              accessorFn: (row) => {
+                var owner = row.ownernames && row.ownernames.find((o) => o.title === "JointOwner");
+                return owner ? owner.value : "";
+              },
+              id: "jointowner",
+              header: i18n._(t`Joint Owner`),
+              cell: ({ row }) => {
+                var owner =
+                  row.original.ownernames &&
+                  row.original.ownernames.find((o) => o.title === "JointOwner");
+                return owner ? owner.value : "";
+              },
+              footer: (props) => props.column.id,
+              size: getWidthFromLabel(i18n._(t`Joint Owner`), 100),
+              enableColumnFilter: false,
             },
           ],
         },
@@ -670,12 +712,11 @@ function useFilterOptionsUpdater(
     setFilterContext({
       ...filterContext,
       filterOptions: {
-        ownernames: Array.from(ownernamesOptionValues.keys()).sort(),
+        ownernames: Array.from(new Set(Array.from(ownernamesOptionValues.keys()).flat())).sort(),
         unitsres: unitsresOptionValues,
         zip: Array.from(zipOptionValues.keys()).sort(),
       },
     });
-
     console.log("filter options updated");
   }, [ownernamesOptionValues, unitsresOptionValues, zipOptionValues]);
 }
