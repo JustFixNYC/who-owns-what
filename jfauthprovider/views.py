@@ -7,7 +7,7 @@ from .authutil import client_secret_request, authenticated_request
 sys.path.append("..")
 from wow.apiutil import api  # noqa: E402
 
-AUTH_BASE_URL = os.environ.get("AUTH_BASE_URL")
+AUTH_BASE_URL = os.environ.get("AUTH_BASE_URL") or ""
 
 
 @api
