@@ -125,6 +125,8 @@ $table-border-dark: 1px solid $dark;
 }
 
 .pagination {
+  position: sticky;
+  left: 0px;
   z-index: 50;
   justify-content: space-between;
   align-items: stretch;
