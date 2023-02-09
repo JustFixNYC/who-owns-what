@@ -95,6 +95,15 @@ $table-border-dark: 1px solid $dark;
             background-color: #f0f0f0;
           }
         }
+
+        .contacts-expand {
+          cursor: pointer;
+          color: $justfix-green;
+          margin-left: 0.5rem;
+        }
+        .contacts-list {
+          color: $justfix-green;
+        }
       }
 
       td {

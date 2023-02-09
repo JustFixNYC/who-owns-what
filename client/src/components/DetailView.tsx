@@ -65,7 +65,7 @@ type GroupedContact = [
  * This comparison function, to be used inside the Array.sort() method,
  * prioritizes head officers and owners when sorting an array of grouped HPD contacts
  */
-const sortContactsByImportance = (contact: GroupedContact) =>
+export const sortContactsByImportance = (contact: GroupedContact) =>
   contact[1].find((o) => o.title === "HeadOfficer" || o.title.includes("Owner")) ? -1 : 0;
 
 const FormattedContactAddress: React.FC<{ address: HpdContactAddress }> = ({ address }) => {

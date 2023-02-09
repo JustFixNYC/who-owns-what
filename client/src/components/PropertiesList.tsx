@@ -130,6 +130,7 @@ const PropertiesListWithoutI18n: React.FC<
             rsunitslatestyear={rsunitslatestyear}
             onOpenDetail={props.onOpenDetail}
             addressPageRoutes={props.addressPageRoutes}
+            getRowCanExpand={() => true}
             ref={lastColumnRef}
           />
         </FilterContextProvider>

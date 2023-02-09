@@ -8,6 +8,7 @@ import {
   filterFns,
   flexRender,
   getCoreRowModel,
+  getExpandedRowModel,
   getFacetedMinMaxValues,
   getFacetedRowModel,
   getFacetedUniqueValues,
@@ -15,10 +16,12 @@ import {
   getPaginationRowModel,
   getSortedRowModel,
   PaginationState,
+  Row,
   Table,
   useReactTable,
 } from "@tanstack/react-table";
-import React from "react";
+import _groupBy from "lodash/groupBy";
+import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
 import { AddressPageRoutes } from "routes";
 import { SupportedLocale } from "../i18n-base";
@@ -27,6 +30,7 @@ import { logAmplitudeEvent } from "./Amplitude";
 import { AddressRecord, HpdComplaintCount } from "./APIDataTypes";
 import { FilterContext, IFilterContext, MINMAX_DEFAULT } from "./PropertiesList";
 import "styles/PortfolioTable.scss";
+import { sortContactsByImportance } from "./DetailView";
 
 const FIRST_COLUMN_WIDTH = 130;
 export const MAX_TABLE_ROWS_PER_PAGE = 100;
@@ -57,6 +61,7 @@ type PortfolioTableProps = {
   rsunitslatestyear: number;
   onOpenDetail: (bbl: string) => void;
   addressPageRoutes: AddressPageRoutes;
+  getRowCanExpand: (row: Row<AddressRecord>) => boolean;
 };
 
 /**
@@ -65,7 +70,7 @@ type PortfolioTableProps = {
  */
 export const PortfolioTable = React.memo(
   React.forwardRef<HTMLDivElement, PortfolioTableProps>((props, lastColumnRef) => {
-    const { data, i18n, locale, rsunitslatestyear } = props;
+    const { data, i18n, locale, rsunitslatestyear, getRowCanExpand } = props;
 
     const { filterContext, setFilterContext } = React.useContext(FilterContext);
 
@@ -295,78 +300,39 @@ export const PortfolioTable = React.memo(
           header: i18n._(t`Landlord`),
           footer: (props) => props.column.id,
           columns: [
-            // This first landlord column is what we use for the filter, so the
-            // accessor will include all the types of HPD contacts, but only
-            // displays head officer
             {
               accessorFn: (row) => {
-                var ownerList = row.ownernames && row.ownernames.map((o) => o.value);
+                // Group all contact info by the name of each person/corporate entity (same as on overview tab)
+                var ownerList =
+                  row.allcontacts &&
+                  Object.entries(_groupBy(row.allcontacts, "value"))
+                    .sort(sortContactsByImportance)
+                    .map((contact) => contact[0]);
                 return ownerList || [];
               },
               id: "ownernames",
-              header: i18n._(t`Head Officer`),
+              header: i18n._(t`Contacts`),
               cell: ({ row }) => {
-                var owner =
-                  row.original.ownernames &&
-                  row.original.ownernames.find((o) => o.title === "HeadOfficer");
-                return owner ? owner.value : "";
-              },
-              footer: (props) => props.column.id,
-              size: getWidthFromLabel(i18n._(t`Head Officer`), 100),
-              filterFn: "arrIncludesSome",
-            },
-            {
-              accessorFn: (row) => {
-                var owner =
-                  row.ownernames && row.ownernames.find((o) => o.title === "IndividualOwner");
-                return owner ? owner.value : "";
-              },
-              id: "indivowner",
-              header: i18n._(t`Individual Owner`),
-              cell: ({ row }) => {
-                var owner =
-                  row.original.ownernames &&
-                  row.original.ownernames.find((o) => o.title === "IndividualOwner");
-                return owner ? owner.value : "";
-              },
-              footer: (props) => props.column.id,
-              size: getWidthFromLabel(i18n._(t`Individual Owner`), 100),
-              enableColumnFilter: false,
-            },
-            {
-              accessorFn: (row) => {
-                var owner =
-                  row.allcontacts && row.allcontacts.find((o) => o.title === "Corporation");
-                return owner ? owner.value : "";
-              },
-              id: "cropowner",
-              header: i18n._(t`Corporate Owner`),
-              cell: ({ row }) => {
-                var owner =
+                var contacts =
                   row.original.allcontacts &&
-                  row.original.allcontacts.find((o) => o.title === "Corporation");
-                return owner ? owner.value : "";
+                  Object.entries(_groupBy(row.original.allcontacts, "value")).sort(
+                    sortContactsByImportance
+                  );
+                // TODO: later we'll add an expandable list of all contacts
+                return (
+                  <>
+                    {contacts ? contacts[0][0] : ""}
+                    {row.getCanExpand() && contacts && contacts.length > 1 && (
+                      <button className="contacts-expand" onClick={row.getToggleExpandedHandler()}>
+                        +{contacts.length - 1}
+                      </button>
+                    )}
+                  </>
+                );
               },
               footer: (props) => props.column.id,
-              size: getWidthFromLabel(i18n._(t`Corporate Owner`), 100),
-              enableColumnFilter: false,
-            },
-            {
-              accessorFn: (row) => {
-                var owner = row.ownernames && row.ownernames.find((o) => o.title === "JointOwner");
-                return owner ? owner.value : "";
-              },
-              id: "jointowner",
-              header: i18n._(t`Joint Owner`),
-              cell: ({ row }) => {
-                var owner =
-                  row.original.ownernames &&
-                  row.original.ownernames.find((o) => o.title === "JointOwner");
-                return owner ? owner.value : "";
-              },
-              footer: (props) => props.column.id,
-              size: getWidthFromLabel(i18n._(t`Joint Owner`), 100),
-              enableColumnFilter: false,
+              size: getWidthFromLabel(i18n._(t`Contacts`), 100),
+              filterFn: "arrIncludesSome",
             },
           ],
         },
@@ -505,6 +471,8 @@ export const PortfolioTable = React.memo(
       onPaginationChange: setPagination,
       onColumnFiltersChange: setColumnFilters,
       getCoreRowModel: getCoreRowModel(),
+      getRowCanExpand,
+      getExpandedRowModel: getExpandedRowModel(),
       getFilteredRowModel: getFilteredRowModel(),
       getSortedRowModel: getSortedRowModel(),
       getPaginationRowModel: getPaginationRowModel(),
@@ -575,21 +543,29 @@ export const PortfolioTable = React.memo(
           <tbody>
             {table.getRowModel().rows.map((row, i) => {
               return (
-                <tr key={row.id} className={`row-${i % 2 ? "even" : "odd"}`}>
-                  {row.getVisibleCells().map((cell) => {
-                    return (
-                      <td
-                        key={cell.id}
-                        className={`col-${cell.column.id}`}
-                        style={{
-                          width: cell.column.getSize() !== 0 ? cell.column.getSize() : undefined,
-                        }}
-                      >
-                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                      </td>
-                    );
-                  })}
-                </tr>
+                <Fragment key={row.id}>
+                  <tr className={`row-${i % 2 ? "even" : "odd"}`}>
+                    {row.getVisibleCells().map((cell) => {
+                      return (
+                        <td
+                          key={cell.id}
+                          className={`col-${cell.column.id}`}
+                          style={{
+                            width: cell.column.getSize() !== 0 ? cell.column.getSize() : undefined,
+                          }}
+                        >
+                          {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                        </td>
+                      );
+                    })}
+                  </tr>
+                  {row.getIsExpanded() && (
+                    <tr>
+                      {/* 2nd row is a custom 1 cell row */}
+                      <td colSpan={row.getVisibleCells().length}>{renderContacts({ row })}</td>
+                    </tr>
+                  )}
+                </Fragment>
               );
             })}
           </tbody>
@@ -648,6 +624,21 @@ export const PortfolioTable = React.memo(
     );
   })
 );
+
+const renderContacts = ({ row }: { row: Row<AddressRecord> }) => {
+  return (
+    <ul className="contacts-list">
+      {Object.entries(_groupBy(row.original.allcontacts, "value"))
+        .sort(sortContactsByImportance)
+        .map((group) => group[1][0])
+        .map((contact, i) => (
+          <li key={i}>
+            {contact.title}: {contact.value}
+          </li>
+        ))}
+    </ul>
+  );
+};
 
 type ArrowIconProps = {
   dir: "up" | "down" | "both";
