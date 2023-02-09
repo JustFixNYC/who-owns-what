@@ -118,17 +118,17 @@ export const PortfolioTable = React.memo(
               header: i18n._(t`Zipcode`),
               cell: (info) => info.getValue(),
               footer: (props) => props.column.id,
-              size: getWidthFromLabel(i18n._(t`Zipcode`)),
               enableColumnFilter: false,
               filterFn: "arrIncludesSome",
+              size: "auto",
             },
             {
               accessorKey: "boro",
               header: i18n._(t`Borough`),
               cell: (info) => info.getValue(),
               footer: (props) => props.column.id,
-              size: getWidthFromLabel(i18n._(t`Borough`)),
               enableColumnFilter: false,
+              size: "auto",
             },
             {
               accessorKey: "bbl",
@@ -144,16 +144,16 @@ export const PortfolioTable = React.memo(
                 );
               },
               footer: (props) => props.column.id,
-              size: getWidthFromLabel("BBL", 100),
               enableColumnFilter: false,
+              size: 100,
             },
             {
               accessorKey: "council",
               header: i18n._(t`Council`),
               cell: (info) => info.getValue(),
               footer: (props) => props.column.id,
-              size: getWidthFromLabel(i18n._(t`Council`)),
               enableColumnFilter: false,
+              size: "auto",
             },
           ],
         },
@@ -166,16 +166,16 @@ export const PortfolioTable = React.memo(
               header: i18n._(t`Built`),
               cell: (info) => info.getValue(),
               footer: (props) => props.column.id,
-              size: getWidthFromLabel(i18n._(t`Built`)),
               enableColumnFilter: false,
+              size: "auto",
             },
             {
               accessorKey: "unitsres",
               header: i18n._(t`Units`),
               cell: (info) => info.getValue(),
               footer: (props) => props.column.id,
-              size: getWidthFromLabel(i18n._(t`Units`)),
               enableColumnFilter: false,
+              size: "auto",
               filterFn: "inNumberRange",
             },
           ],
@@ -189,8 +189,8 @@ export const PortfolioTable = React.memo(
               header: "2007",
               cell: (info) => info.getValue(),
               footer: (props) => props.column.id,
-              size: getWidthFromLabel("2007"),
               enableColumnFilter: false,
+              size: "auto",
             },
             {
               accessorKey: "rsunitslatest",
@@ -210,8 +210,8 @@ export const PortfolioTable = React.memo(
                 );
               },
               footer: (props) => props.column.id,
-              size: getWidthFromLabel("XXXX"),
               enableColumnFilter: false,
+              size: "auto",
               filterFn: "isNonZero",
             },
           ],
@@ -225,16 +225,16 @@ export const PortfolioTable = React.memo(
               header: i18n._(t`Total`),
               cell: (info) => info.getValue(),
               footer: (props) => props.column.id,
-              size: getWidthFromLabel(i18n._(t`Total`)),
               enableColumnFilter: false,
+              size: "auto",
             },
             {
               accessorKey: "recentcomplaints",
               header: i18n._(t`Last 3 Years`),
               cell: (info) => info.getValue(),
               footer: (props) => props.column.id,
-              size: getWidthFromLabel(i18n._(t`Last 3 Years`)),
               enableColumnFilter: false,
+              size: "auto",
             },
             {
               accessorKey: "recentcomplaintsbytype",
@@ -244,8 +244,8 @@ export const PortfolioTable = React.memo(
                 return mostCommonType ? Helpers.translateComplaintType(mostCommonType, i18n) : null;
               },
               footer: (props) => props.column.id,
-              size: getWidthFromLabel(i18n._(t`Top Complaint`)),
               enableColumnFilter: false,
+              size: "auto",
             },
           ],
         },
@@ -258,23 +258,22 @@ export const PortfolioTable = React.memo(
               header: i18n._(t`Open`),
               cell: (info) => info.getValue(),
               footer: (props) => props.column.id,
-              size: getWidthFromLabel(i18n._(t`Open`), 85),
               enableColumnFilter: false,
+              size: "auto",
             },
             {
               accessorKey: "totalviolations",
               header: i18n._(t`Total`),
               cell: (info) => info.getValue(),
               footer: (props) => props.column.id,
-              size: getWidthFromLabel(i18n._(t`Total`), 85),
               enableColumnFilter: false,
+              size: "auto",
             },
           ],
         },
         {
           header: i18n._(t`Evictions Since 2017`),
           footer: (props) => props.column.id,
-          size: getWidthFromLabel(i18n._(t`Evictions Since 2017`)),
           columns: [
             {
               accessorFn: (row) => row.evictionfilings || null,
@@ -282,8 +281,8 @@ export const PortfolioTable = React.memo(
               header: i18n._(t`Filed`),
               cell: (info) => info.getValue(),
               footer: (props) => props.column.id,
-              size: getWidthFromLabel(i18n._(t`Filed`)),
               enableColumnFilter: false,
+              size: "auto",
             },
             {
               accessorFn: (row) => row.evictions || null,
@@ -291,8 +290,8 @@ export const PortfolioTable = React.memo(
               header: i18n._(t`Executed`),
               cell: (info) => info.getValue(),
               footer: (props) => props.column.id,
-              size: getWidthFromLabel(i18n._(t`Executed`)),
               enableColumnFilter: false,
+              size: "auto",
             },
           ],
         },
@@ -331,8 +330,8 @@ export const PortfolioTable = React.memo(
                 );
               },
               footer: (props) => props.column.id,
-              size: getWidthFromLabel(i18n._(t`Contacts`), 100),
               filterFn: "arrIncludesSome",
+              minSize: 100,
             },
           ],
         },
@@ -345,16 +344,16 @@ export const PortfolioTable = React.memo(
               header: "J-51",
               cell: ({ row }) => formatAbatementStartYear(row.original.yearstartedj51, i18n),
               footer: (props) => props.column.id,
-              size: 100,
               enableColumnFilter: false,
+              size: 100,
             },
             {
               accessorKey: "yearstarted421a",
               header: "421a",
               cell: ({ row }) => formatAbatementStartYear(row.original.yearstarted421a, i18n),
               footer: (props) => props.column.id,
-              size: 100,
               enableColumnFilter: false,
+              size: 100,
             },
           ],
         },
@@ -370,8 +369,8 @@ export const PortfolioTable = React.memo(
                   ? Helpers.formatDate(row.original.lastsaledate, longDateOptions, locale)
                   : null,
               footer: (props) => props.column.id,
-              size: getWidthFromLabel(i18n._(t`Date`), 100),
               enableColumnFilter: false,
+              size: 100,
             },
             {
               accessorFn: (row) => formatCurrency(row.lastsaleamount),
@@ -379,8 +378,8 @@ export const PortfolioTable = React.memo(
               header: i18n._(t`Amount`),
               cell: (info) => info.getValue(),
               footer: (props) => props.column.id,
-              size: getWidthFromLabel(i18n._(t`Amount`), 100),
               enableColumnFilter: false,
+              size: 100,
             },
             {
               accessorKey: "lastsaleacrisid",
@@ -402,8 +401,8 @@ export const PortfolioTable = React.memo(
                   </a>
                 ) : null,
               footer: (props) => props.column.id,
-              size: getWidthFromLabel(i18n._(t`Link to Deed`)),
               enableColumnFilter: false,
+              size: "auto",
             },
             {
               accessorFn: (row) => {
@@ -421,17 +420,19 @@ export const PortfolioTable = React.memo(
                     : i18n._(t`No`)
                   : null,
               footer: (props) => props.column.id,
-              size: getWidthFromLabel(i18n._(t`Group Sale?`)),
               enableColumnFilter: false,
+              size: "auto",
             },
+          ],
+        },
+        {
+          header: i18n._(t`View detail`),
+          footer: (props) => props.column.id,
+          columns: [
             {
               accessorKey: "bbl",
               id: "detail",
-              header: (
-                <div ref={lastColumnRef} style={{ float: "left" }}>
-                  <Trans>View detail</Trans>
-                </div>
-              ),
+              header: null,
               cell: ({ row }) => (
                 <Link
                   to={props.addressPageRoutes.overview}
@@ -447,8 +448,8 @@ export const PortfolioTable = React.memo(
                 </Link>
               ),
               footer: (props) => props.column.id,
-              size: getWidthFromLabel(i18n._(t`View detail`)),
               enableColumnFilter: false,
+              size: 100,
             },
           ],
         },
@@ -523,7 +524,7 @@ export const PortfolioTable = React.memo(
                             }}
                           >
                             {flexRender(header.column.columnDef.header, header.getContext())}
-                            {headerGroup.depth === 1
+                            {headerGroup.depth === 1 && header.column.id !== "detail"
                               ? {
                                   asc: <ArrowIcon dir={"up"} />,
                                   desc: <ArrowIcon dir={"down"} />,
@@ -677,15 +678,6 @@ function formatAbatementStartYear(year: number | null, i18n: I18n) {
 
 function findMostCommonType(complaints: HpdComplaintCount[] | null) {
   return complaints && complaints.length > 0 && complaints[0].type;
-}
-
-function getWidthFromLabel(label: string, customDefaultWidth?: number) {
-  const MIN_WIDTH = customDefaultWidth || 70;
-  const LETTER_WIDTH = 7;
-  const ARROW_ICON_WIDTH = 25;
-  const MARGIN_OFFSET = 10;
-
-  return Math.max(label.length * LETTER_WIDTH + ARROW_ICON_WIDTH + MARGIN_OFFSET, MIN_WIDTH);
 }
 
 // TODO: This is getting triggered by sorts on these columns

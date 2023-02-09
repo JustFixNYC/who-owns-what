@@ -72,6 +72,10 @@ $table-border-dark: 1px solid $dark;
         border-bottom: $table-border-dark;
         box-shadow: none;
         vertical-align: top;
+        div {
+          width: max-content;
+          margin: auto;
+        }
       }
 
       th {
