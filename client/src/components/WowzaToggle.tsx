@@ -1,4 +1,3 @@
-import { Trans } from "@lingui/macro";
 import { parseLocaleFromPath, removeLocalePrefix } from "i18n";
 import React from "react";
 import { useHistory, useLocation } from "react-router-dom";
@@ -32,7 +31,7 @@ export const WowzaRedirectPage = () => {
   return <LoadingPage />;
 };
 
-export const ToggleLinkBetweenPortfolioMethods = () => {
+export const ToggleLinkBetweenPortfolioMethods = ({ children }: { children: React.ReactNode }) => {
   const history = useHistory();
   const { pathname } = useLocation();
 
@@ -48,11 +47,7 @@ export const ToggleLinkBetweenPortfolioMethods = () => {
         }
       }}
     >
-      {isLegacyPath(pathname) ? (
-        <Trans>Switch to new version</Trans>
-      ) : (
-        <Trans>Switch to old version</Trans>
-      )}
+      {children}
     </button>
   );
 };
