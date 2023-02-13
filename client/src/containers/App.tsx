@@ -296,11 +296,19 @@ const WowzaBanner = withI18n()((props: withI18nProps) => {
     <div className={"App__banner " + (!isBannerOpen ? "d-hide" : "")}>
       <div className="content">
         {isLegacyPath(pathname) ? (
-          <Trans>You are viewing the old version of Who Owns What.</Trans>
+          <Trans>
+            In March 2023 this version of Who Owns What will no longer be available.{" "}
+            <ToggleLinkBetweenPortfolioMethods>
+              Switch to new version.
+            </ToggleLinkBetweenPortfolioMethods>
+          </Trans>
         ) : (
-          <Trans>You are viewing the new version of Who Owns What.</Trans>
-        )}{" "}
-        <ToggleLinkBetweenPortfolioMethods />
+          <Trans>
+            Starting March 2023{" "}
+            <ToggleLinkBetweenPortfolioMethods>the old version</ToggleLinkBetweenPortfolioMethods>{" "}
+            of Who Owns What will no longer be available.
+          </Trans>
+        )}
       </div>
       <button
         className="close-button"
