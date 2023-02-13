@@ -487,8 +487,16 @@ msgid "I was checking out this building on Who Owns What, a free landlord resear
 msgstr "Estaba revisando este edificio en Quién Es El Dueño, una herramienta gratuita construida por JustFix. ¡Es un sitio web extraordinario que cada inquilino y defensor de viviendas debería saber sobre! ¿Puedes adivinar cuántas violaciones totales tiene este portafolio de este dueño? Míralo aquí: {url}"
 
 #: src/containers/App.tsx:164
-msgid "In March 2023 this version of Who Owns What will no longer be available. <0>Switch to new version</0>"
+#~ msgid "In March 2023 this version of Who Owns What will no longer be available <0>Switch to new version</0>"
+#~ msgstr ""
+
+#: src/containers/App.tsx:164
+msgid "In March 2023 this version of Who Owns What will no longer be available. <0>Switch to new version.</0>"
 msgstr ""
+
+#: src/containers/App.tsx:164
+#~ msgid "In March 2023 this version of Who Owns What will no longer be available. <0>Switch to new version</0>"
+#~ msgstr ""
 
 #: src/containers/NotRegisteredPage.tsx:63
 msgid "Incomplete registration for {usersInputAddressFragment}."
@@ -945,6 +953,10 @@ msgstr "Lo sentimos, la página que estás buscando no existe."
 #: src/components/LegalFooter.tsx:48
 msgid "Source code"
 msgstr "Código fuente"
+
+#: src/containers/App.tsx:169
+#~ msgid "Starting March 2023 <0>the old version</0> of Who Owns What will no longer be available"
+#~ msgstr ""
 
 #: src/containers/App.tsx:169
 msgid "Starting March 2023 <0>the old version</0> of Who Owns What will no longer be available."

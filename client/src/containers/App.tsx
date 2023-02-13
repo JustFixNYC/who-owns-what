@@ -299,7 +299,7 @@ const WowzaBanner = withI18n()((props: withI18nProps) => {
           <Trans>
             In March 2023 this version of Who Owns What will no longer be available.{" "}
             <ToggleLinkBetweenPortfolioMethods>
-              Switch to new version
+              Switch to new version.
             </ToggleLinkBetweenPortfolioMethods>
           </Trans>
         ) : (
