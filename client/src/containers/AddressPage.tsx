@@ -262,12 +262,7 @@ export default class AddressPage extends Component<AddressPageProps, State> {
                 this.props.currentTab === 2 ? "AddressPage__content-active" : ""
               }`}
             >
-              <PropertiesList
-                state={state}
-                send={send}
-                onOpenDetail={this.handleAddrChange}
-                addressPageRoutes={routes}
-              />
+              <PropertiesList state={state} send={send} />
             </div>
             <div
               className={`AddressPage__content AddressPage__summary ${

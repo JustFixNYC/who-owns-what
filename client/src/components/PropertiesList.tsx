@@ -3,7 +3,6 @@ import { Trans } from "@lingui/macro";
 import { withI18n } from "@lingui/react";
 import classnames from "classnames";
 import React from "react";
-import { AddressPageRoutes } from "routes";
 import { withMachineInStateProps } from "state-machine";
 import "styles/PropertiesList.css";
 import { defaultLocale, SupportedLocale } from "../i18n-base";
@@ -64,8 +63,6 @@ const FilterContextProvider: React.FC<{}> = (props) => {
 const PropertiesListWithoutI18n: React.FC<
   withMachineInStateProps<"portfolioFound"> & {
     i18n: I18n;
-    onOpenDetail: (bbl: string) => void;
-    addressPageRoutes: AddressPageRoutes;
   }
 > = (props) => {
   const { i18n } = props;
@@ -128,8 +125,6 @@ const PropertiesListWithoutI18n: React.FC<
             i18n={i18n}
             locale={locale}
             rsunitslatestyear={rsunitslatestyear}
-            onOpenDetail={props.onOpenDetail}
-            addressPageRoutes={props.addressPageRoutes}
             getRowCanExpand={() => true}
             ref={lastColumnRef}
           />

@@ -23,7 +23,7 @@ import {
 import _groupBy from "lodash/groupBy";
 import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
-import { AddressPageRoutes } from "routes";
+import { createRouteForFullBbl } from "routes";
 import { SupportedLocale } from "../i18n-base";
 import Helpers, { longDateOptions } from "../util/helpers";
 import { logAmplitudeEvent } from "./Amplitude";
@@ -59,8 +59,6 @@ type PortfolioTableProps = {
   i18n: I18n;
   locale: SupportedLocale;
   rsunitslatestyear: number;
-  onOpenDetail: (bbl: string) => void;
-  addressPageRoutes: AddressPageRoutes;
   getRowCanExpand: (row: Row<AddressRecord>) => boolean;
 };
 
@@ -97,10 +95,7 @@ export const PortfolioTable = React.memo(
           header: () => i18n._(t`Address`),
           cell: ({ row }) => {
             return (
-              <Link
-                to={props.addressPageRoutes.overview}
-                onClick={() => props.onOpenDetail(row.original.bbl)}
-              >
+              <Link to={createRouteForFullBbl(row.original.bbl, locale)}>
                 {row.original.housenumber} {row.original.streetname}
               </Link>
             );
@@ -135,10 +130,7 @@ export const PortfolioTable = React.memo(
               header: "BBL",
               cell: ({ row }) => {
                 return (
-                  <Link
-                    to={props.addressPageRoutes.overview}
-                    onClick={() => props.onOpenDetail(row.original.bbl)}
-                  >
+                  <Link to={createRouteForFullBbl(row.original.bbl, locale)}>
                     {row.original.bbl}
                   </Link>
                 );
@@ -317,7 +309,6 @@ export const PortfolioTable = React.memo(
                   Object.entries(_groupBy(row.original.allcontacts, "value")).sort(
                     sortContactsByImportance
                   );
-                // TODO: later we'll add an expandable list of all contacts
                 return (
                   <>
                     {contacts ? contacts[0][0] : ""}
@@ -435,11 +426,10 @@ export const PortfolioTable = React.memo(
               header: null,
               cell: ({ row }) => (
                 <Link
-                  to={props.addressPageRoutes.overview}
+                  to={createRouteForFullBbl(row.original.bbl, locale)}
                   className="btn"
                   aria-label={i18n._(t`View detail`)}
                   onClick={() => {
-                    props.onOpenDetail(row.original.bbl);
                     logAmplitudeEvent("portfolioViewDetail");
                     window.gtag("event", "portfolio-view-detail");
                   }}
