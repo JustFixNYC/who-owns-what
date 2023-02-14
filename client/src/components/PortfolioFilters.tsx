@@ -144,7 +144,6 @@ export const PortfolioFilters = React.memo(
               <MinMaxSelect
                 options={filterContext.filterOptions.unitsres}
                 onApply={onUnitsresApply}
-                i18n={i18n}
               />
             </FilterAccordion>
             <FilterAccordion
@@ -257,9 +256,8 @@ function FilterAccordion(props: {
 function MinMaxSelect(props: {
   options: FilterNumberRange;
   onApply: (selectedList: FilterNumberRange) => void;
-  i18n: I18n;
 }) {
-  const { options, onApply, i18n } = props;
+  const { options, onApply } = props;
   const [minMax, setMinMax] = React.useState(options);
   const [hasError, setHasError] = React.useState(false);
 
