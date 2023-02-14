@@ -101,9 +101,12 @@ $table-border-dark: 1px solid $dark;
         }
 
         .contacts-expand {
-          cursor: pointer;
-          color: $justfix-green;
+          border-radius: 5rem;
+          padding: 0.1rem 0.4rem;
           margin-left: 0.5rem;
+          background-color: #f2f2f2;
+          color: $justfix-black;
+          border: 1px solid $justfix-black;
         }
         .contacts-list {
           color: $justfix-green;
