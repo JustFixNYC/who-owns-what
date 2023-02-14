@@ -265,8 +265,26 @@ function MinMaxSelect(props: {
 
   return (
     <form className="minmax-container">
+      <div className="labels-container">
+        <label htmlFor="min-input">
+          <Trans>MIN</Trans>
+        </label>
+        <label htmlFor="max-input">
+          <Trans>MAX</Trans>
+        </label>
+      </div>
+      {hasError ? (
+        <div className="alerts-container">
+          <Alert type="error" variant="primary" closeType="none">
+            Error
+          </Alert>
+        </div>
+      ) : (
+        <></>
+      )}
       <div className="inputs-container">
         <input
+          id="min-input"
           type="number"
           min={options[0]}
           max={options[1]}
@@ -281,6 +299,7 @@ function MinMaxSelect(props: {
         />
         <Trans>and</Trans>
         <input
+          id="max-input"
           type="number"
           min={options[0]}
           max={options[1]}
@@ -294,13 +313,6 @@ function MinMaxSelect(props: {
           className="max-input"
         />
       </div>
-      {hasError ? (
-        <Alert type="error" variant="primary" closeType="none">
-          Error
-        </Alert>
-      ) : (
-        <></>
-      )}
       <button
         onClick={(e) => {
           e.preventDefault();

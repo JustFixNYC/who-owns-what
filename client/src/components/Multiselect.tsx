@@ -604,6 +604,11 @@ export class Multiselect extends React.Component<IMultiselectProps, any> {
         id={id || "multiselectContainerReact"}
         style={style["multiselectContainer"]}
       >
+        {hasError && (
+          <Alert type="error" variant="primary" closeType="none">
+            <Trans>Error</Trans>
+          </Alert>
+        )}
         {!hideSelectedList && this.renderSelectedList()}
         {selectedValues.length > 0 && (
           <button
@@ -616,11 +621,6 @@ export class Multiselect extends React.Component<IMultiselectProps, any> {
           >
             <Trans>Clear all</Trans>
           </button>
-        )}
-        {hasError && (
-          <Alert type="error" variant="primary" closeType="none">
-            <Trans>Make a selection.</Trans>
-          </Alert>
         )}
         <div
           className="search-wrapper searchWrapper"

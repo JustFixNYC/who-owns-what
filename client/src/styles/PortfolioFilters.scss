@@ -137,12 +137,28 @@
               }
               .jf-alert {
                 margin: 0.9rem 0 0.5rem 0;
+                width: fit-content;
+                text-transform: none;
+                .jf-alert__content {
+                  padding-right: 0;
+                }
+              }
+              .labels-container {
+                display: flex;
+                color: $justfix-grey-700;
+                label:first-child {
+                  margin-right: auto;
+                }
               }
               .inputs-container {
                 display: flex;
                 gap: 1rem;
                 align-items: center;
                 justify-content: center;
+                .flex-break {
+                  flex-basis: 100%;
+                  height: 0;
+                }
                 input {
                   background: $justfix-white;
                   border: 0.1rem solid $justfix-black;
