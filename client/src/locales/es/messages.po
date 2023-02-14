@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2022-12-07 18:00\n"
+"PO-Revision-Date: 2023-02-14 15:10\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -488,15 +488,15 @@ msgstr "Estaba revisando este edificio en Quién Es El Dueño, una herramienta g
 
 #: src/containers/App.tsx:164
 #~ msgid "In March 2023 this version of Who Owns What will no longer be available <0>Switch to new version</0>"
-#~ msgstr ""
+#~ msgstr "In March 2023 this version of Who Owns What will no longer be available <0>Switch to new version</0>"
 
 #: src/containers/App.tsx:164
 msgid "In March 2023 this version of Who Owns What will no longer be available. <0>Switch to new version.</0>"
-msgstr ""
+msgstr "En marzo de 2023, esta versión de ¿Quién es el Dueño en NY? dejará de estar disponible. <0>Cambie a la nueva versión.</0>"
 
 #: src/containers/App.tsx:164
 #~ msgid "In March 2023 this version of Who Owns What will no longer be available. <0>Switch to new version</0>"
-#~ msgstr ""
+#~ msgstr "In March 2023 this version of Who Owns What will no longer be available. <0>Switch to new version</0>"
 
 #: src/containers/NotRegisteredPage.tsx:63
 msgid "Incomplete registration for {usersInputAddressFragment}."
@@ -956,11 +956,11 @@ msgstr "Código fuente"
 
 #: src/containers/App.tsx:169
 #~ msgid "Starting March 2023 <0>the old version</0> of Who Owns What will no longer be available"
-#~ msgstr ""
+#~ msgstr "Starting March 2023 <0>the old version</0> of Who Owns What will no longer be available"
 
 #: src/containers/App.tsx:169
 msgid "Starting March 2023 <0>the old version</0> of Who Owns What will no longer be available."
-msgstr ""
+msgstr "A partir de marzo de 2023 dejará de estar disponible <0>la versión antigua</0> de ¿Quién es el Dueño en NY?"
 
 #: src/components/PropertiesList.tsx:24
 msgid "Starts {year}"
@@ -972,11 +972,11 @@ msgstr "Resúmen"
 
 #: src/components/WowzaToggle.tsx:42
 #~ msgid "Switch to new version"
-#~ msgstr "Cambiar a la nueva versión"
+#~ msgstr "Switch to new version"
 
 #: src/components/WowzaToggle.tsx:42
 #~ msgid "Switch to old version"
-#~ msgstr "Cambiar a la versión anterior"
+#~ msgstr "Switch to old version"
 
 #: src/util/helpers.ts:41
 msgid "TENANT HARASSMENT"
@@ -1241,7 +1241,7 @@ msgstr "VENTANAS"
 
 #: src/components/BigPortfolioWarning.tsx:19
 #~ msgid "Warning"
-#~ msgstr "Aviso"
+#~ msgstr "Warning"
 
 #: src/components/DetailView.tsx:217
 msgid "Warning: This building has an expired registration and was sold after the expiration date. The landlord info listed here may be outdated."
@@ -1261,15 +1261,15 @@ msgstr "Reorganizamos los datos de contacto de cada entidad individual y corpora
 
 #: src/components/BigPortfolioWarning.tsx:61
 #~ msgid "We’ve improved Who Owns What to dig deeper into the data and offer you a more complete picture of buildings associated with your landlord. <0>Read more in our Medium article</0>"
-#~ msgstr ""
+#~ msgstr "We’ve improved Who Owns What to dig deeper into the data and offer you a more complete picture of buildings associated with your landlord. <0>Read more in our Medium article</0>"
 
 #: src/components/MapBanner.tsx:54
 msgid "We’ve improved Who Owns What to dig deeper into the data and offer you a more complete picture of buildings associated with your landlord. <0>Read more in our methodology article</0>"
-msgstr ""
+msgstr "Hemos mejorado ¿Quién es el Dueño en NY? para profundizar en los datos y ofrecerle una imagen más completa de los edificios asociados a su dueño. <0>Más información en nuestro artículo sobre metodología</0>"
 
 #: src/components/BigPortfolioWarning.tsx:52
 #~ msgid "We’ve improved Who Owns What to dig deeper into the data and offer you a more complete picture of buildings associated with your landlord. <0>Read more on our Methodology page</0>"
-#~ msgstr "Hemos mejorado Quien es el Dueño para investigar más profundamente en los datos y ofrecerte una imagen más clara de los edificios asociados con tu dueño. <0>Obtiene más información en nuestra metodología</0>"
+#~ msgstr "We’ve improved Who Owns What to dig deeper into the data and offer you a more complete picture of buildings associated with your landlord. <0>Read more on our Methodology page</0>"
 
 #: src/components/Indicators.tsx:223
 msgid "What are {0}?"
@@ -1326,11 +1326,11 @@ msgstr "Sí"
 
 #: src/containers/App.tsx:164
 #~ msgid "You are viewing the new version of Who Owns What."
-#~ msgstr "Estás viendo la nueva versión de Quién es el Dueño."
+#~ msgstr "You are viewing the new version of Who Owns What."
 
 #: src/containers/App.tsx:164
 #~ msgid "You are viewing the old version of Who Owns What."
-#~ msgstr "Estás viendo la versión anterior de Quién es el Dueño."
+#~ msgstr "You are viewing the old version of Who Owns What."
 
 #: src/components/PropertiesList.tsx:158
 #: src/components/PropertiesList.tsx:163
@@ -1404,3 +1404,4 @@ msgstr "{value, plural, one {Una Queja del HPD emitida desde el 2014} other {# Q
 #: src/components/IndicatorsDatasets.tsx:37
 msgid "{value, plural, one {One HPD Violation Issued since 2010} other {# HPD Violations Issued since 2010}}"
 msgstr "{value, plural, one {Una Violación del HPD emitida desde el 2010} other {# Violaciones del HPD emitidas desde el 2010}}"
+
