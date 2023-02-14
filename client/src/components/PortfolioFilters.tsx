@@ -293,8 +293,6 @@ function MinMaxSelect(props: {
             setHasError(false);
             setMinMax([cleanNumberInput(e.target.value), minMax[1]]);
           }}
-          placeholder={i18n._(t`MIN`)}
-          aria-label={i18n._(t`Minimum`)}
           className="min-input"
         />
         <Trans>and</Trans>
@@ -308,8 +306,6 @@ function MinMaxSelect(props: {
             setHasError(false);
             setMinMax([minMax[0], cleanNumberInput(e.target.value)]);
           }}
-          placeholder={i18n._(t`MAX`)}
-          aria-label={i18n._(t`Maximum`)}
           className="max-input"
         />
       </div>
