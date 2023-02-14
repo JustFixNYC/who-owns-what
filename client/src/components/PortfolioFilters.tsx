@@ -118,6 +118,7 @@ export const PortfolioFilters = React.memo(
             <FilterAccordion
               title={i18n._(t`Landlord`)}
               subtitle={i18n._(t`Officer/Owner`)}
+              infoOnClick={() => {}}
               isActive={ownernamesActive}
               isOpen={ownernamesIsOpen}
               setIsOpen={setOwnernamesIsOpen}
@@ -194,6 +195,7 @@ export const PortfolioFilters = React.memo(
 function FilterAccordion(props: {
   title: string;
   subtitle?: string;
+  infoOnClick?: () => void;
   children: React.ReactNode;
   isActive: boolean;
   isOpen: boolean;
@@ -201,7 +203,17 @@ function FilterAccordion(props: {
   className?: string;
   id: string;
 }) {
-  const { title, subtitle, children, isActive, isOpen, setIsOpen, className, id } = props;
+  const {
+    title,
+    subtitle,
+    infoOnClick,
+    children,
+    isActive,
+    isOpen,
+    setIsOpen,
+    className,
+    id,
+  } = props;
 
   return (
     <FocusTrap
@@ -227,7 +239,14 @@ function FilterAccordion(props: {
           <ChevronIcon className="chevonIcon" />
         </summary>
         <div className="dropdown-container">
-          {subtitle && <span className="filter-subtitle">{subtitle}</span>}
+          <div className="filter-subtitle-container">
+            {subtitle && <span className="filter-subtitle">{subtitle}</span>}
+            {infoOnClick && (
+              <button className="filter-info button is-text" onClick={infoOnClick}>
+                <Trans>What's this?</Trans>
+              </button>
+            )}
+          </div>
           {children}
         </div>
       </details>

@@ -79,7 +79,6 @@
         display: flex;
         align-items: center;
         position: relative;
-        width: 22.8rem;
 
         &.active:not([open]) {
           background-color: $justfix-black;
@@ -99,30 +98,33 @@
             display: none;
           }
           .chevonIcon {
-            margin-left: auto;
+            margin-left: 0.8rem;
           }
         }
         &[open] {
-          border-radius: 0.8rem 0.8rem 0 0;
           summary svg {
             transform: scaleY(-1);
           }
           .dropdown-container {
             position: absolute;
-            top: -1;
+            top: 5rem;
             left: -0.1rem;
-            right: -0.1rem;
+            // TODO: need to specify for each filter separately
+            width: 25rem;
             z-index: 100;
-            padding: 0 1rem 1rem 1rem;
+            padding: 0.6rem 1.2rem 1.2rem 1.2rem;
             background-color: #f2f2f2;
             box-sizing: border-box;
             border: 0.1rem solid $justfix-black;
-            border-top: unset;
-            border-radius: 0 0 0.8rem 0.8rem;
+            border-radius: 0.8rem;
 
-            .filter-subtitle {
+            .filter-subtitle-container {
               font-size: 1.2rem;
-              color: $justfix-grey;
+              color: $justfix-grey-700;
+              display: flex;
+              .filter-subtitle {
+                margin-right: auto;
+              }
             }
 
             .multiselect-container,
