@@ -501,7 +501,7 @@ export const PortfolioTable = React.memo(
                       key={header.id}
                       colSpan={header.colSpan}
                       className={`col-${header.column.id}`}
-                      style={{ minWidth: header.getSize() }}
+                      style={{ minWidth: header.getSize() || undefined }}
                     >
                       {header.isPlaceholder ? null : (
                         <>
@@ -542,7 +542,10 @@ export const PortfolioTable = React.memo(
                           key={cell.id}
                           className={`col-${cell.column.id}`}
                           style={{
-                            width: cell.column.getSize() !== 0 ? cell.column.getSize() : undefined,
+                            width:
+                              cell.column.getSize() !== 0
+                                ? cell.column.getSize() || undefined
+                                : undefined,
                           }}
                         >
                           {flexRender(cell.column.columnDef.cell, cell.getContext())}
