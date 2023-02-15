@@ -208,9 +208,11 @@
               align-self: flex-start;
               background-color: $justfix-black;
               color: $justfix-white;
-              border-radius: 5rem;
+              border-radius: 0.8rem;
               padding: 0.8rem 1.4rem;
               margin-bottom: 0.4rem;
+              white-space: pre-line;
+              height: unset;
 
               .closeIcon {
                 height: 0.9rem;

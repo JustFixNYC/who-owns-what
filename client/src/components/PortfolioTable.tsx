@@ -302,7 +302,7 @@ export const PortfolioTable = React.memo(
                 return ownerList || [];
               },
               id: "ownernames",
-              header: i18n._(t`Contacts`),
+              header: i18n._(t`Owner/Manager`),
               cell: ({ row }) => {
                 var contacts =
                   row.original.allcontacts &&

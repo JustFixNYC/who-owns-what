@@ -275,8 +275,8 @@ msgid "Complaints to 311"
 msgstr "Complaints to 311"
 
 #: src/components/PortfolioTable.tsx:243
-msgid "Contacts"
-msgstr "Contacts"
+#~ msgid "Contacts"
+#~ msgstr "Contacts"
 
 #: src/util/helpers.ts:62
 msgid "Corporate Owner"
@@ -815,6 +815,10 @@ msgstr "Overview"
 #: src/components/PortfolioGraph.tsx:124
 msgid "Owner Names"
 msgstr "Owner Names"
+
+#: src/components/PortfolioTable.tsx:243
+msgid "Owner/Manager"
+msgstr "Owner/Manager"
 
 #: src/components/IndicatorsDatasets.tsx:76
 msgid "Owners submit Building Permit Applications to the Department of Buildings before any construction project to get necessary approval. The number of applications filed can indicate how much construction the owner was planning.<0/><1/>Read more about DOB Building Applications/Permits at the <2>official NYC Buildings page</2>."
