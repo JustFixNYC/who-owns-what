@@ -139,7 +139,7 @@ msgstr "Una \"demanda de desalojo\" es un caso legal de desalojo iniciado por un
 #~ msgstr "An “eviction filing” is a legal case for eviction commenced by a landlord against a tenant in Housing Court. Such a case can be commenced for nonpayment of rent (most commonly) or for a violation of the lease (such as a nuisance). The eviction filings number only represents cases filed in Housing Court (data from the New York State Office of Court Administration<0>via the Housing Data Coalition</0> in collaboration with the <1>Right to Counsel Coalition</1>) and not evictions carried out by NYC Marshals.<2/>If you or someone you know is facing eviction and want to learn more about your rights, head over to <3>Housing Court Answers for more information</3>.<4/>Due to privacy restrictions on the use of these data, eviction filings cannot be shown for buildings with fewer than 11 units."
 
 #: src/components/Multiselect.tsx:469
-#: src/components/PortfolioFilters.tsx:159
+#: src/components/PortfolioFilters.tsx:169
 msgid "Apply"
 msgstr ""
 
@@ -177,7 +177,7 @@ msgstr "Solicitudes de Permisos de Construcción"
 msgid "Building Permits Applied For"
 msgstr "Permisos de Construcción Solicitados"
 
-#: src/components/PortfolioFilters.tsx:78
+#: src/components/PortfolioFilters.tsx:73
 msgid "Building Size"
 msgstr ""
 
@@ -244,11 +244,11 @@ msgstr "Clase C"
 msgid "Class I"
 msgstr "Clase I"
 
-#: src/components/PortfolioFilters.tsx:96
+#: src/components/PortfolioFilters.tsx:91
 msgid "Clear Filters"
 msgstr ""
 
-#: src/components/Multiselect.tsx:447
+#: src/components/Multiselect.tsx:450
 msgid "Clear all"
 msgstr ""
 
@@ -369,6 +369,10 @@ msgstr "Introduce una dirección de NYC para encontrar otros edificios que tu pr
 msgid "Enter email"
 msgstr "Introducir email"
 
+#: src/components/Multiselect.tsx:443
+msgid "Error"
+msgstr ""
+
 #: src/components/BuildingStatsTable.tsx:80
 #: src/components/IndicatorsDatasets.tsx:126
 #: src/components/IndicatorsDatasets.tsx:135
@@ -434,8 +438,12 @@ msgstr "Presentado"
 #~ msgstr "Filied"
 
 #: src/components/PortfolioFilters.tsx:60
-msgid "Filter <0/>for"
+msgid "Filters"
 msgstr ""
+
+#: src/components/PortfolioFilters.tsx:60
+#~ msgid "Filter <0/>for"
+#~ msgstr ""
 
 #: src/containers/HomePage.tsx:90
 msgid "Find other buildings your landlord might own:"
@@ -548,7 +556,7 @@ msgstr "Conocido por <0>desregulando apartamentos de renta estabilizada sin escr
 msgid "LOCKS"
 msgstr "CERRADURAS"
 
-#: src/components/PortfolioFilters.tsx:73
+#: src/components/PortfolioFilters.tsx:68
 #: src/components/PortfolioTable.tsx:230
 msgid "Landlord"
 msgstr "Dueño del edificio"
@@ -622,11 +630,11 @@ msgstr "¿Buscas más información?"
 msgid "MAILBOX"
 msgstr "BUZÓN"
 
-#: src/components/PortfolioFilters.tsx:145
+#: src/components/PortfolioFilters.tsx:141
 msgid "MAX"
 msgstr ""
 
-#: src/components/PortfolioFilters.tsx:140
+#: src/components/PortfolioFilters.tsx:138
 msgid "MIN"
 msgstr ""
 
@@ -643,12 +651,12 @@ msgid "Maintenance code violations"
 msgstr "Violaciones del código de mantenimiento"
 
 #: src/components/Multiselect.tsx:450
-msgid "Make a selection."
-msgstr ""
+#~ msgid "Make a selection."
+#~ msgstr ""
 
 #: src/components/PortfolioFilters.tsx:145
-msgid "Maximum"
-msgstr ""
+#~ msgid "Maximum"
+#~ msgstr ""
 
 #: src/containers/NotRegisteredPage.tsx:167
 msgid "May be issued official Orders"
@@ -664,8 +672,8 @@ msgid "Methodology"
 msgstr "Metodología"
 
 #: src/components/PortfolioFilters.tsx:140
-msgid "Minimum"
-msgstr ""
+#~ msgid "Minimum"
+#~ msgstr ""
 
 #: src/components/FeatureCalloutContent.ts:18
 msgid "More Mobile Friendly"
@@ -713,7 +721,7 @@ msgid "New York Regional Office:"
 msgstr "Oficina Regional de Nueva York:"
 
 #: src/components/FeatureCalloutWidget.tsx:81
-#: src/components/PortfolioTable.tsx:474
+#: src/components/PortfolioTable.tsx:476
 msgid "Next"
 msgstr "Siguiente"
 
@@ -762,11 +770,11 @@ msgstr "Ninguna"
 msgid "Not found"
 msgstr "No encontrado"
 
-#: src/components/PortfolioFilters.tsx:93
+#: src/components/PortfolioFilters.tsx:88
 msgid "Notice an inaccuracy? Click here."
 msgstr ""
 
-#: src/components/PortfolioFilters.tsx:78
+#: src/components/PortfolioFilters.tsx:73
 msgid "Number of Units"
 msgstr ""
 
@@ -783,7 +791,7 @@ msgstr "POSEE"
 msgid "Officer"
 msgstr "Oficial"
 
-#: src/components/PortfolioFilters.tsx:73
+#: src/components/PortfolioFilters.tsx:68
 msgid "Officer/Owner"
 msgstr "Oficial/Propietario"
 
@@ -833,7 +841,7 @@ msgstr "PLOMERÍA"
 msgid "PORTFOLIO: Your search address is associated with <0>{0}</0> {1, plural, one {building} other {buildings}}"
 msgstr "PORTAFOLIO DE EDIFICIOS: La dirección que has buscado está asociada con <0>{0}</0> {1, plural, one {construyendo} other {edificios}}"
 
-#: src/components/PortfolioTable.tsx:454
+#: src/components/PortfolioTable.tsx:456
 msgid "Page"
 msgstr ""
 
@@ -855,7 +863,7 @@ msgid "Portfolio Table Redesign"
 msgstr "Rediseño de la tabla del portafolio"
 
 #: src/components/FeatureCalloutWidget.tsx:74
-#: src/components/PortfolioTable.tsx:448
+#: src/components/PortfolioTable.tsx:450
 msgid "Previous"
 msgstr "Anterior"
 
@@ -877,7 +885,7 @@ msgstr "Unidades RS"
 msgid "Registration expired:"
 msgstr "El registro ha caducado:"
 
-#: src/components/PortfolioFilters.tsx:71
+#: src/components/PortfolioFilters.tsx:66
 msgid "Rent Stabilized Units"
 msgstr ""
 
@@ -905,8 +913,8 @@ msgstr "FALTA DE SEÑALIZACIÓN"
 msgid "STAIRS"
 msgstr "ESCALERAS"
 
-#: src/components/PortfolioFilters.tsx:76
-#: src/components/PortfolioFilters.tsx:82
+#: src/components/PortfolioFilters.tsx:71
+#: src/components/PortfolioFilters.tsx:77
 #: src/containers/App.tsx:86
 msgid "Search"
 msgstr "Buscar"
@@ -957,7 +965,7 @@ msgstr "Accionista"
 msgid "Show less"
 msgstr ""
 
-#: src/components/PortfolioFilters.tsx:87
+#: src/components/PortfolioFilters.tsx:82
 msgid "Showing {0} {1, plural, one {result} other {results}}."
 msgstr ""
 
@@ -986,7 +994,7 @@ msgstr "Regístrate para recibir noticias por email"
 msgid "Since 2017, landlords filed {totalEvictionFilings, plural, one {one eviction case} other {# eviction cases}} and NYC Marshals executed {totalEvictions, plural, one {one eviction} other {# evictions}} across this portfolio."
 msgstr "Desde 2017, los dueños presentaron {totalEvictionFilings, plural, one {un caso de desalojo} other {# casos de desalojo}} y los alguaciles de la ciudad de Nueva York ejecutaron {totalEvictions, plural, one {un desalojo} other {# desalojos}} en toda esta cartera."
 
-#: src/components/PortfolioTable.tsx:508
+#: src/components/PortfolioTable.tsx:510
 msgid "Since {year}"
 msgstr "Desde {year}"
 
@@ -1014,7 +1022,7 @@ msgstr "Lo sentimos, la página que estás buscando no existe."
 msgid "Source code"
 msgstr "Código fuente"
 
-#: src/components/PortfolioTable.tsx:508
+#: src/components/PortfolioTable.tsx:510
 msgid "Starts {year}"
 msgstr "Comienza {year}"
 
@@ -1331,6 +1339,10 @@ msgstr "¿Qué pasa si el propietario no ha registrado el edificio?"
 msgid "What's New"
 msgstr "Qué hay de nuevo"
 
+#: src/components/PortfolioFilters.tsx:123
+msgid "What's this?"
+msgstr ""
+
 #: src/components/MapBanner.tsx:38
 msgid "When two parties share the same business address, we group them as part of the same portfolio."
 msgstr "Cuando dos partes comparten la misma dirección comercial, los agrupamos como parte del mismo portafolio."
@@ -1379,7 +1391,7 @@ msgstr "Estás viendo la nueva versión de Quién es el Dueño."
 msgid "You are viewing the old version of Who Owns What."
 msgstr "Estás viendo la versión anterior de Quién es el Dueño."
 
-#: src/components/PortfolioFilters.tsx:81
+#: src/components/PortfolioFilters.tsx:76
 #: src/components/PortfolioTable.tsx:58
 msgid "Zipcode"
 msgstr "Código postal"
@@ -1392,7 +1404,7 @@ msgstr "Aumentar"
 msgid "Zoom out"
 msgstr "Alejar"
 
-#: src/components/PortfolioFilters.tsx:141
+#: src/components/PortfolioFilters.tsx:154
 #: src/components/StringifyList.tsx:18
 msgid "and"
 msgstr "y"
@@ -1409,7 +1421,7 @@ msgstr "por ${0}"
 msgid "month"
 msgstr "mes"
 
-#: src/components/PortfolioTable.tsx:462
+#: src/components/PortfolioTable.tsx:464
 msgid "of"
 msgstr ""
 

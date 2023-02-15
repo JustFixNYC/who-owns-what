@@ -134,7 +134,7 @@ msgstr "An “eviction filing” is a legal case for eviction commenced by a lan
 #~ msgstr "An “eviction filing” is a legal case for eviction commenced by a landlord against a tenant in Housing Court. Such a case can be commenced for nonpayment of rent (most commonly) or for a violation of the lease (such as a nuisance). The eviction filings number only represents cases filed in Housing Court (data from the New York State Office of Court Administration<0>via the Housing Data Coalition</0> in collaboration with the <1>Right to Counsel Coalition</1>) and not evictions carried out by NYC Marshals.<2/>If you or someone you know is facing eviction and want to learn more about your rights, head over to <3>Housing Court Answers for more information</3>.<4/>Due to privacy restrictions on the use of these data, eviction filings cannot be shown for buildings with fewer than 11 units."
 
 #: src/components/Multiselect.tsx:469
-#: src/components/PortfolioFilters.tsx:159
+#: src/components/PortfolioFilters.tsx:169
 msgid "Apply"
 msgstr "Apply"
 
@@ -172,7 +172,7 @@ msgstr "Building Permit Applications"
 msgid "Building Permits Applied For"
 msgstr "Building Permits Applied For"
 
-#: src/components/PortfolioFilters.tsx:78
+#: src/components/PortfolioFilters.tsx:73
 msgid "Building Size"
 msgstr "Building Size"
 
@@ -239,11 +239,11 @@ msgstr "Class C"
 msgid "Class I"
 msgstr "Class I"
 
-#: src/components/PortfolioFilters.tsx:96
+#: src/components/PortfolioFilters.tsx:91
 msgid "Clear Filters"
 msgstr "Clear Filters"
 
-#: src/components/Multiselect.tsx:447
+#: src/components/Multiselect.tsx:450
 msgid "Clear all"
 msgstr "Clear all"
 
@@ -364,6 +364,10 @@ msgstr "Enter an NYC address and find other buildings your landlord might own:"
 msgid "Enter email"
 msgstr "Enter email"
 
+#: src/components/Multiselect.tsx:443
+msgid "Error"
+msgstr "Error"
+
 #: src/components/BuildingStatsTable.tsx:80
 #: src/components/IndicatorsDatasets.tsx:126
 #: src/components/IndicatorsDatasets.tsx:135
@@ -429,8 +433,12 @@ msgstr "Filed"
 #~ msgstr "Filied"
 
 #: src/components/PortfolioFilters.tsx:60
-msgid "Filter <0/>for"
-msgstr "Filter <0/>for"
+msgid "Filters"
+msgstr "Filters"
+
+#: src/components/PortfolioFilters.tsx:60
+#~ msgid "Filter <0/>for"
+#~ msgstr "Filter <0/>for"
 
 #: src/containers/HomePage.tsx:90
 msgid "Find other buildings your landlord might own:"
@@ -543,7 +551,7 @@ msgstr "Known for <0>unscrupulously deregulating rent stabilized apartments</0>,
 msgid "LOCKS"
 msgstr "LOCKS"
 
-#: src/components/PortfolioFilters.tsx:73
+#: src/components/PortfolioFilters.tsx:68
 #: src/components/PortfolioTable.tsx:230
 msgid "Landlord"
 msgstr "Landlord"
@@ -617,11 +625,11 @@ msgstr "Looking for more information?"
 msgid "MAILBOX"
 msgstr "MAILBOX"
 
-#: src/components/PortfolioFilters.tsx:145
+#: src/components/PortfolioFilters.tsx:141
 msgid "MAX"
 msgstr "MAX"
 
-#: src/components/PortfolioFilters.tsx:140
+#: src/components/PortfolioFilters.tsx:138
 msgid "MIN"
 msgstr "MIN"
 
@@ -638,12 +646,12 @@ msgid "Maintenance code violations"
 msgstr "Maintenance code violations"
 
 #: src/components/Multiselect.tsx:450
-msgid "Make a selection."
-msgstr "Make a selection."
+#~ msgid "Make a selection."
+#~ msgstr "Make a selection."
 
 #: src/components/PortfolioFilters.tsx:145
-msgid "Maximum"
-msgstr "Maximum"
+#~ msgid "Maximum"
+#~ msgstr "Maximum"
 
 #: src/containers/NotRegisteredPage.tsx:167
 msgid "May be issued official Orders"
@@ -659,8 +667,8 @@ msgid "Methodology"
 msgstr "Methodology"
 
 #: src/components/PortfolioFilters.tsx:140
-msgid "Minimum"
-msgstr "Minimum"
+#~ msgid "Minimum"
+#~ msgstr "Minimum"
 
 #: src/components/FeatureCalloutContent.ts:18
 msgid "More Mobile Friendly"
@@ -708,7 +716,7 @@ msgid "New York Regional Office:"
 msgstr "New York Regional Office:"
 
 #: src/components/FeatureCalloutWidget.tsx:81
-#: src/components/PortfolioTable.tsx:474
+#: src/components/PortfolioTable.tsx:476
 msgid "Next"
 msgstr "Next"
 
@@ -757,11 +765,11 @@ msgstr "None"
 msgid "Not found"
 msgstr "Not found"
 
-#: src/components/PortfolioFilters.tsx:93
+#: src/components/PortfolioFilters.tsx:88
 msgid "Notice an inaccuracy? Click here."
 msgstr "Notice an inaccuracy? Click here."
 
-#: src/components/PortfolioFilters.tsx:78
+#: src/components/PortfolioFilters.tsx:73
 msgid "Number of Units"
 msgstr "Number of Units"
 
@@ -778,7 +786,7 @@ msgstr "OWNS"
 msgid "Officer"
 msgstr "Officer"
 
-#: src/components/PortfolioFilters.tsx:73
+#: src/components/PortfolioFilters.tsx:68
 msgid "Officer/Owner"
 msgstr "Officer/Owner"
 
@@ -828,7 +836,7 @@ msgstr "PLUMBING"
 msgid "PORTFOLIO: Your search address is associated with <0>{0}</0> {1, plural, one {building} other {buildings}}"
 msgstr "PORTFOLIO: Your search address is associated with <0>{0}</0> {1, plural, one {building} other {buildings}}"
 
-#: src/components/PortfolioTable.tsx:454
+#: src/components/PortfolioTable.tsx:456
 msgid "Page"
 msgstr "Page"
 
@@ -850,7 +858,7 @@ msgid "Portfolio Table Redesign"
 msgstr "Portfolio Table Redesign"
 
 #: src/components/FeatureCalloutWidget.tsx:74
-#: src/components/PortfolioTable.tsx:448
+#: src/components/PortfolioTable.tsx:450
 msgid "Previous"
 msgstr "Previous"
 
@@ -872,7 +880,7 @@ msgstr "RS Units"
 msgid "Registration expired:"
 msgstr "Registration expired:"
 
-#: src/components/PortfolioFilters.tsx:71
+#: src/components/PortfolioFilters.tsx:66
 msgid "Rent Stabilized Units"
 msgstr "Rent Stabilized Units"
 
@@ -900,8 +908,8 @@ msgstr "SIGNAGE MISSING"
 msgid "STAIRS"
 msgstr "STAIRS"
 
-#: src/components/PortfolioFilters.tsx:76
-#: src/components/PortfolioFilters.tsx:82
+#: src/components/PortfolioFilters.tsx:71
+#: src/components/PortfolioFilters.tsx:77
 #: src/containers/App.tsx:86
 msgid "Search"
 msgstr "Search"
@@ -952,7 +960,7 @@ msgstr "Shareholder"
 msgid "Show less"
 msgstr "Show less"
 
-#: src/components/PortfolioFilters.tsx:87
+#: src/components/PortfolioFilters.tsx:82
 msgid "Showing {0} {1, plural, one {result} other {results}}."
 msgstr "Showing {0} {1, plural, one {result} other {results}}."
 
@@ -981,7 +989,7 @@ msgstr "Sign up for email updates"
 msgid "Since 2017, landlords filed {totalEvictionFilings, plural, one {one eviction case} other {# eviction cases}} and NYC Marshals executed {totalEvictions, plural, one {one eviction} other {# evictions}} across this portfolio."
 msgstr "Since 2017, landlords filed {totalEvictionFilings, plural, one {one eviction case} other {# eviction cases}} and NYC Marshals executed {totalEvictions, plural, one {one eviction} other {# evictions}} across this portfolio."
 
-#: src/components/PortfolioTable.tsx:508
+#: src/components/PortfolioTable.tsx:510
 msgid "Since {year}"
 msgstr "Since {year}"
 
@@ -1009,7 +1017,7 @@ msgstr "Sorry, the page you are looking for doesn't seem to exist."
 msgid "Source code"
 msgstr "Source code"
 
-#: src/components/PortfolioTable.tsx:508
+#: src/components/PortfolioTable.tsx:510
 msgid "Starts {year}"
 msgstr "Starts {year}"
 
@@ -1326,6 +1334,10 @@ msgstr "What happens if the landlord has failed to register?"
 msgid "What's New"
 msgstr "What's New"
 
+#: src/components/PortfolioFilters.tsx:123
+msgid "What's this?"
+msgstr "What's this?"
+
 #: src/components/MapBanner.tsx:38
 msgid "When two parties share the same business address, we group them as part of the same portfolio."
 msgstr "When two parties share the same business address, we group them as part of the same portfolio."
@@ -1374,7 +1386,7 @@ msgstr "You are viewing the new version of Who Owns What."
 msgid "You are viewing the old version of Who Owns What."
 msgstr "You are viewing the old version of Who Owns What."
 
-#: src/components/PortfolioFilters.tsx:81
+#: src/components/PortfolioFilters.tsx:76
 #: src/components/PortfolioTable.tsx:58
 msgid "Zipcode"
 msgstr "Zipcode"
@@ -1387,7 +1399,7 @@ msgstr "Zoom in"
 msgid "Zoom out"
 msgstr "Zoom out"
 
-#: src/components/PortfolioFilters.tsx:141
+#: src/components/PortfolioFilters.tsx:154
 #: src/components/StringifyList.tsx:18
 msgid "and"
 msgstr "and"
@@ -1404,7 +1416,7 @@ msgstr "for ${0}"
 msgid "month"
 msgstr "month"
 
-#: src/components/PortfolioTable.tsx:462
+#: src/components/PortfolioTable.tsx:464
 msgid "of"
 msgstr "of"
 

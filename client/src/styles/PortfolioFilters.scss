@@ -5,7 +5,7 @@
 .PortfolioFilters {
   display: flex;
   gap: 1.8rem;
-  padding: 1rem 1.4rem 2.3rem;
+  padding: 1.4rem;
   background-color: #f2f2f2;
   text-transform: uppercase;
 
@@ -21,15 +21,18 @@
     text-align: right;
     min-width: 102px;
     letter-spacing: 0.04em;
+    display: flex;
+    flex-direction: column;
+
     .pill-new {
+      align-self: flex-end;
       font-family: "Degular", Arial, Helvetica, sans-serif;
       letter-spacing: 0.02em;
       background: $justfix-yellow;
       padding: 0.5rem 1rem;
-      gap: 0.625rem;
       border-radius: 1.6rem;
-      transform: rotate(-10deg);
       width: fit-content;
+      margin-bottom: 1rem;
     }
   }
 
@@ -39,7 +42,6 @@
 
     .filters {
       display: flex;
-      padding-top: 1.2rem;
       gap: 1.8rem;
 
       .filter-toggle {

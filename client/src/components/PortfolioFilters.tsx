@@ -95,15 +95,10 @@ export const PortfolioFilters = React.memo(
     return (
       <div className="PortfolioFilters" ref={ref}>
         <div className="filter-for">
-          <div className="pill-new">
+          <span className="pill-new">
             <Trans>New</Trans>
-          </div>
-          <Trans>
-            Filter&nbsp;
-            <br />
-            for
-          </Trans>
-          :
+          </span>
+          <Trans>Filters</Trans>:
         </div>
         <div className="filters-container">
           <div className="filters">
