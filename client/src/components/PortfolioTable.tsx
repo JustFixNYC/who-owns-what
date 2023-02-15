@@ -690,7 +690,9 @@ function useFilterOptionsUpdater(
       filterOptions: {
         ownernames: Array.from(new Set(Array.from(ownernamesOptionValues.keys()).flat())).sort(),
         unitsres: unitsresOptionValues,
-        zip: Array.from(zipOptionValues.keys()).sort(),
+        zip: Array.from(zipOptionValues.keys())
+          .filter((zip) => zip != null)
+          .sort(),
       },
     });
     console.log("filter options updated");
