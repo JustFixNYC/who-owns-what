@@ -68,6 +68,7 @@ export default {
   },
 
   WOAU_COOKIE_NAME: "woau",
+  DEPRECATION_MODAL_COOKIE_NAME: "deprecationmodal",
 
   setCookie(name: string, value: string, days: number = 30) {
     const expiration = new Date();
