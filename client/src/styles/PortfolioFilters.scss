@@ -82,6 +82,11 @@
         align-items: center;
         position: relative;
 
+        &:not([open]):hover {
+          text-decoration: underline;
+          text-underline-position: under;
+        }
+
         &.active:not([open]) {
           background-color: $justfix-black;
           color: $justfix-white;
@@ -101,11 +106,17 @@
           }
           .chevonIcon {
             margin-left: 0.8rem;
+            stroke-width: 2px;
+            stroke-linejoin: miter;
           }
         }
         &[open] {
-          summary svg {
-            transform: scaleY(-1);
+          summary {
+            text-decoration: underline;
+            text-underline-position: under;
+            svg {
+              transform: scaleY(-1);
+            }
           }
 
           &#ownernames-accordion {

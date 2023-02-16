@@ -33,13 +33,13 @@ export const CheckIcon = (props: SVGProps<SVGSVGElement>) => (
 
 export const ChevronIcon = (props: SVGProps<SVGSVGElement>) => (
   <svg
+    width="11"
+    height="7"
+    viewBox="0 0 11 7"
     fill="none"
-    width="10"
-    height="6"
-    viewBox="0 0 10 6"
     xmlns="http://www.w3.org/2000/svg"
     {...props}
   >
-    <path stroke="currentcolor" d="M9 5.125L4.75 0.875L0.5 5.125" />
+    <path d="M9.5 1L5.25 5.25L1 1" stroke="currentcolor" />
   </svg>
 );
