@@ -117,13 +117,13 @@ export const PortfolioFilters = React.memo(
               isActive={ownernamesActive}
               isOpen={ownernamesIsOpen}
               setIsOpen={setOwnernamesIsOpen}
+              selectionsCount={filterContext.filterSelections.ownernames.length}
               id="ownernames-accordion"
             >
               <Multiselect
                 options={ownernamesOptions.map((value: any) => ({ name: value, id: value }))}
                 selectedValues={ownernamesSelections}
                 displayValue="name"
-                // TODO: localize
                 placeholder={i18n._(t`Search`) + `... (${ownernamesOptions.length})`}
                 onApply={onOwnernamesApply}
               />
@@ -146,6 +146,7 @@ export const PortfolioFilters = React.memo(
               isActive={zipActive}
               isOpen={zipIsOpen}
               setIsOpen={setZipIsOpen}
+              selectionsCount={filterContext.filterSelections.zip.length}
               id="zip-accordion"
             >
               <Multiselect
@@ -194,6 +195,7 @@ function FilterAccordion(props: {
   isActive: boolean;
   isOpen: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  selectionsCount?: number;
   className?: string;
   id: string;
 }) {
@@ -205,6 +207,7 @@ function FilterAccordion(props: {
     isActive,
     isOpen,
     setIsOpen,
+    selectionsCount,
     className,
     id,
   } = props;
@@ -230,6 +233,7 @@ function FilterAccordion(props: {
           }}
         >
           {title}
+          {!isOpen && isActive && selectionsCount && <> ({selectionsCount})</>}
           <ChevronIcon className="chevonIcon" />
         </summary>
         <div className="dropdown-container">
