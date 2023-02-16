@@ -688,7 +688,9 @@ function useFilterOptionsUpdater(
     setFilterContext({
       ...filterContext,
       filterOptions: {
-        ownernames: Array.from(new Set(Array.from(ownernamesOptionValues.keys()).flat())).sort(),
+        ownernames: Array.from(new Set(Array.from(ownernamesOptionValues.keys()).flat())).sort(
+          compareAlphaNumLast
+        ),
         unitsres: unitsresOptionValues,
         zip: Array.from(zipOptionValues.keys())
           .filter((zip) => zip != null)
@@ -725,4 +727,15 @@ function useBuildingCountsUpdater(
     });
     console.log("building counts updated");
   }, [totalBuildings, filteredBuildings]);
+}
+
+function startsNumeric(x: string) {
+  return /^\d/.test(x);
+}
+
+function compareAlphaNumLast(a: string, b: string) {
+  if (startsNumeric(a) === startsNumeric(b)) {
+    return a.localeCompare(b, undefined, { numeric: true, sensitivity: "base" });
+  }
+  return startsNumeric(a) ? 1 : -1;
 }
