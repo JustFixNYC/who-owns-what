@@ -22,7 +22,7 @@ export const PortfolioFilters = React.memo(
     const { i18n } = props;
 
     const [showInfoModal, setShowInfoModal] = React.useState(false);
-    const [showLandlordModal, setShowLandlordModal] = React.useState(false);
+    const [showOwnerModal, setShowOwnerModal] = React.useState(false);
     const { pathname } = useLocation();
     const { about, methodology, legacy } = createWhoOwnsWhatRoutePaths();
 
@@ -123,7 +123,7 @@ export const PortfolioFilters = React.memo(
             <FilterAccordion
               title={i18n._(t`Landlord`)}
               subtitle={i18n._(t`Officer/Owner`)}
-              infoOnClick={() => setShowLandlordModal(true)}
+              infoOnClick={() => setShowOwnerModal(true)}
               isActive={ownernamesActive}
               isOpen={ownernamesIsOpen}
               setIsOpen={setOwnernamesIsOpen}
@@ -136,6 +136,7 @@ export const PortfolioFilters = React.memo(
                 displayValue="name"
                 placeholder={i18n._(t`Search`) + `... (${ownernamesOptions.length})`}
                 onApply={onOwnernamesApply}
+                infoAlert={OwnerInfoAlert}
               />
             </FilterAccordion>
             <FilterAccordion
@@ -204,9 +205,9 @@ export const PortfolioFilters = React.memo(
         </Modal>
         <Modal
           key={2}
-          showModal={showLandlordModal}
+          showModal={showOwnerModal}
           width={20}
-          onClose={() => setShowLandlordModal(false)}
+          onClose={() => setShowOwnerModal(false)}
         >
           <h4>
             <Trans>What’s the difference between a landlord, an owner, and head officer?</Trans>
@@ -219,9 +220,7 @@ export const PortfolioFilters = React.memo(
               have ties to building ownership, while “Site Managers” are part of management. That
               being said, these names are self reported by the landlord, so they can be misleading.
               Learn more about HPD registrations and how this information powers this tool on the{" "}
-              <LocaleLink to={isLegacyPath(pathname) ? legacy.about : about}>
-                <Trans>About page</Trans>
-              </LocaleLink>
+              <LocaleLink to={isLegacyPath(pathname) ? legacy.about : about}>About page</LocaleLink>
               .
             </Trans>
           </p>
@@ -232,6 +231,21 @@ export const PortfolioFilters = React.memo(
       </div>
     );
   })
+);
+
+const OwnerInfoAlert = (
+  <Alert
+    className="owner-info-alert"
+    type="info"
+    variant="secondary"
+    closeType="session"
+    storageId="owner-info-alert-close"
+  >
+    <Trans>
+      Look out for multiple spellings for the same person/entity. Names can be spelled multiple ways
+      in official documents.
+    </Trans>
+  </Alert>
 );
 
 /**

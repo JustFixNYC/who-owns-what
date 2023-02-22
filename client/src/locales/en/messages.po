@@ -133,8 +133,8 @@ msgstr "An “eviction filing” is a legal case for eviction commenced by a lan
 #~ msgid "An “eviction filing” is a legal case for eviction commenced by a landlord against a tenant in Housing Court. Such a case can be commenced for nonpayment of rent (most commonly) or for a violation of the lease (such as a nuisance). The eviction filings number only represents cases filed in Housing Court (data from the New York State Office of Court Administration<0>via the Housing Data Coalition</0> in collaboration with the <1>Right to Counsel Coalition</1>) and not evictions carried out by NYC Marshals.<2/>If you or someone you know is facing eviction and want to learn more about your rights, head over to <3>Housing Court Answers for more information</3>.<4/>Due to privacy restrictions on the use of these data, eviction filings cannot be shown for buildings with fewer than 11 units."
 #~ msgstr "An “eviction filing” is a legal case for eviction commenced by a landlord against a tenant in Housing Court. Such a case can be commenced for nonpayment of rent (most commonly) or for a violation of the lease (such as a nuisance). The eviction filings number only represents cases filed in Housing Court (data from the New York State Office of Court Administration<0>via the Housing Data Coalition</0> in collaboration with the <1>Right to Counsel Coalition</1>) and not evictions carried out by NYC Marshals.<2/>If you or someone you know is facing eviction and want to learn more about your rights, head over to <3>Housing Court Answers for more information</3>.<4/>Due to privacy restrictions on the use of these data, eviction filings cannot be shown for buildings with fewer than 11 units."
 
-#: src/components/Multiselect.tsx:469
-#: src/components/PortfolioFilters.tsx:216
+#: src/components/Multiselect.tsx:470
+#: src/components/PortfolioFilters.tsx:220
 msgid "Apply"
 msgstr "Apply"
 
@@ -637,6 +637,10 @@ msgstr "Loading {0} rows"
 msgid "Location"
 msgstr "Location"
 
+#: src/components/PortfolioFilters.tsx:142
+msgid "Look out for multiple spellings for the same person/entity. Names can be spelled multiple ways in official documents."
+msgstr "Look out for multiple spellings for the same person/entity. Names can be spelled multiple ways in official documents."
+
 #: src/components/PropertiesSummary.tsx:134
 msgid "Looking for more information?"
 msgstr "Looking for more information?"
@@ -645,11 +649,11 @@ msgstr "Looking for more information?"
 msgid "MAILBOX"
 msgstr "MAILBOX"
 
-#: src/components/PortfolioFilters.tsx:188
+#: src/components/PortfolioFilters.tsx:192
 msgid "MAX"
 msgstr "MAX"
 
-#: src/components/PortfolioFilters.tsx:185
+#: src/components/PortfolioFilters.tsx:189
 msgid "MIN"
 msgstr "MIN"
 
@@ -901,7 +905,7 @@ msgid "RS Units"
 msgstr "RS Units"
 
 #: src/components/PortfolioFilters.tsx:116
-#: src/components/PortfolioFilters.tsx:138
+#: src/components/PortfolioFilters.tsx:136
 msgid "Read more in our Methodology section"
 msgstr "Read more in our Methodology section"
 
@@ -1371,7 +1375,7 @@ msgstr "What happens if the landlord has failed to register?"
 msgid "What's New"
 msgstr "What's New"
 
-#: src/components/PortfolioFilters.tsx:170
+#: src/components/PortfolioFilters.tsx:174
 msgid "What's this?"
 msgstr "What's this?"
 
@@ -1448,7 +1452,7 @@ msgstr "Zoom in"
 msgid "Zoom out"
 msgstr "Zoom out"
 
-#: src/components/PortfolioFilters.tsx:201
+#: src/components/PortfolioFilters.tsx:205
 #: src/components/StringifyList.tsx:18
 msgid "and"
 msgstr "and"
