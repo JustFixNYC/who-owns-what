@@ -22,8 +22,9 @@ export const PortfolioFilters = React.memo(
     const { i18n } = props;
 
     const [showInfoModal, setShowInfoModal] = React.useState(false);
+    const [showLandlordModal, setShowLandlordModal] = React.useState(false);
     const { pathname } = useLocation();
-    const { methodology, legacy } = createWhoOwnsWhatRoutePaths();
+    const { about, methodology, legacy } = createWhoOwnsWhatRoutePaths();
 
     const { filterContext, setFilterContext } = React.useContext(FilterContext);
     const { filteredBuildings } = filterContext;
@@ -122,7 +123,7 @@ export const PortfolioFilters = React.memo(
             <FilterAccordion
               title={i18n._(t`Landlord`)}
               subtitle={i18n._(t`Officer/Owner`)}
-              infoOnClick={() => {}}
+              infoOnClick={() => setShowLandlordModal(true)}
               isActive={ownernamesActive}
               isOpen={ownernamesIsOpen}
               setIsOpen={setOwnernamesIsOpen}
@@ -184,7 +185,7 @@ export const PortfolioFilters = React.memo(
             </div>
           )}
         </div>
-        <Modal showModal={showInfoModal} width={20} onClose={() => setShowInfoModal(false)}>
+        <Modal key={1} showModal={showInfoModal} width={20} onClose={() => setShowInfoModal(false)}>
           <h4>
             <Trans>How are the results calculated?</Trans>
           </h4>
@@ -195,6 +196,33 @@ export const PortfolioFilters = React.memo(
               <a href="https://www.nyc.gov/site/hpd/about/open-data.page">HPD registration data</a>{" "}
               for residential buildings, which contains self-reported landlord contact information
               on about 170,000 properties across the city.
+            </Trans>
+          </p>
+          <LocaleLink to={isLegacyPath(pathname) ? legacy.methodology : methodology}>
+            <Trans>Read more in our Methodology section</Trans>
+          </LocaleLink>
+        </Modal>
+        <Modal
+          key={2}
+          showModal={showLandlordModal}
+          width={20}
+          onClose={() => setShowLandlordModal(false)}
+        >
+          <h4>
+            <Trans>What’s the difference between a landlord, an owner, and head officer?</Trans>
+          </h4>
+          <p>
+            <Trans>
+              While the legal owner of a building is often a company (usually called an “LLC”),
+              these names and business addresses registered with HPD offer a clearer picture of who
+              really controls the building. People listed here as “Head Officer” or “Owner” usually
+              have ties to building ownership, while “Site Managers” are part of management. That
+              being said, these names are self reported by the landlord, so they can be misleading.
+              Learn more about HPD registrations and how this information powers this tool on the{" "}
+              <LocaleLink to={isLegacyPath(pathname) ? legacy.about : about}>
+                <Trans>About page</Trans>
+              </LocaleLink>
+              .
             </Trans>
           </p>
           <LocaleLink to={isLegacyPath(pathname) ? legacy.methodology : methodology}>
