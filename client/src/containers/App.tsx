@@ -45,6 +45,7 @@ import {
 import { logAmplitudeEvent } from "../components/Amplitude";
 import { SliderButton } from "@typeform/embed-react";
 import { StickyModal } from "components/StickyModal";
+import { DeprecationModal } from "components/DeprecationModal";
 
 const HomeLink = withI18n()((props: withI18nProps) => {
   const { i18n } = props;
@@ -296,11 +297,19 @@ const WowzaBanner = withI18n()((props: withI18nProps) => {
     <div className={"App__banner " + (!isBannerOpen ? "d-hide" : "")}>
       <div className="content">
         {isLegacyPath(pathname) ? (
-          <Trans>You are viewing the old version of Who Owns What.</Trans>
+          <Trans>
+            In March 2023 this version of Who Owns What will no longer be available.{" "}
+            <ToggleLinkBetweenPortfolioMethods>
+              Switch to new version.
+            </ToggleLinkBetweenPortfolioMethods>
+          </Trans>
         ) : (
-          <Trans>You are viewing the new version of Who Owns What.</Trans>
-        )}{" "}
-        <ToggleLinkBetweenPortfolioMethods />
+          <Trans>
+            Starting March 2023{" "}
+            <ToggleLinkBetweenPortfolioMethods>the old version</ToggleLinkBetweenPortfolioMethods>{" "}
+            of Who Owns What will no longer be available.
+          </Trans>
+        )}
       </div>
       <button
         className="close-button"
@@ -318,6 +327,7 @@ const App = () => {
   const allowChangingPortfolioMethod =
     process.env.REACT_APP_ENABLE_NEW_WOWZA_PORTFOLIO_MAPPING === "1";
   const surveyId = process.env.REACT_APP_WOAU_SURVEY_ID;
+  const deprecationModalEnabled = process.env.REACT_APP_DEPRECATION_MODAL_ENABLED;
 
   const [surveyCookie, setSurveyCookie] = useState(
     browser.getCookieValue(browser.WOAU_COOKIE_NAME)
@@ -356,6 +366,7 @@ const App = () => {
           <div className="App">
             {allowChangingPortfolioMethod && <WowzaBanner />}
             <Navbar />
+            {deprecationModalEnabled && <DeprecationModal />}
             <AppBody />
             {surveyId && surveyCookie !== "2" && (
               <StickyModal

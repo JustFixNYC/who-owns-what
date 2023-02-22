@@ -88,7 +88,7 @@ msgid "APPLIANCE"
 msgstr "APPLIANCE"
 
 #: src/containers/AboutPage.tsx:13
-#: src/containers/App.tsx:94
+#: src/containers/App.tsx:95
 msgid "About"
 msgstr "About"
 
@@ -258,7 +258,7 @@ msgstr "Click here to learn more."
 #: src/components/CloseButton.tsx:10
 #: src/components/DetailView.tsx:58
 #: src/components/FeatureCalloutWidget.tsx:61
-#: src/containers/App.tsx:167
+#: src/containers/App.tsx:176
 msgid "Close"
 msgstr "Close"
 
@@ -314,7 +314,7 @@ msgstr "DOORS"
 msgid "Date"
 msgstr "Date"
 
-#: src/containers/App.tsx:116
+#: src/containers/App.tsx:117
 msgid "Demo Site"
 msgstr "Demo Site"
 
@@ -328,7 +328,7 @@ msgid "Display:"
 msgstr "Display:"
 
 #: src/components/LegalFooter.tsx:35
-#: src/containers/App.tsx:103
+#: src/containers/App.tsx:104
 msgid "Donate"
 msgstr "Donate"
 
@@ -498,7 +498,7 @@ msgstr "How are the results calculated?"
 msgid "How is this building associated to this portfolio?"
 msgstr "How is this building associated to this portfolio?"
 
-#: src/containers/App.tsx:100
+#: src/containers/App.tsx:101
 #: src/containers/HowToUsePage.tsx:13
 msgid "How to use"
 msgstr "How to use"
@@ -514,6 +514,22 @@ msgstr "I used #WhoOwnsWhat (built by @JustFixNYC) to see not only the open viol
 #: src/components/PropertiesSummary.tsx:146
 msgid "I was checking out this building on Who Owns What, a free landlord research tool from JustFix. It’s a remarkable website that every tenant and housing advocate should know about! Can you guess how many total violations this landlord portfolio has? Check it out here: {url}"
 msgstr "I was checking out this building on Who Owns What, a free landlord research tool from JustFix. It’s a remarkable website that every tenant and housing advocate should know about! Can you guess how many total violations this landlord portfolio has? Check it out here: {url}"
+
+#: src/containers/App.tsx:164
+#~ msgid "In March 2023 this version of Who Owns What will no longer be available <0>Switch to new version</0>"
+#~ msgstr "In March 2023 this version of Who Owns What will no longer be available <0>Switch to new version</0>"
+
+#: src/containers/App.tsx:165
+msgid "In March 2023 this version of Who Owns What will no longer be available. <0>Switch to new version.</0>"
+msgstr "In March 2023 this version of Who Owns What will no longer be available. <0>Switch to new version.</0>"
+
+#: src/containers/App.tsx:164
+#~ msgid "In March 2023 this version of Who Owns What will no longer be available. <0>Switch to new version</0>"
+#~ msgstr "In March 2023 this version of Who Owns What will no longer be available. <0>Switch to new version</0>"
+
+#: src/components/DeprecationModal.tsx:19
+msgid "In March 2023 this version will be discontinued. Switch to the new version or learn more."
+msgstr "In March 2023 this version will be discontinued. Switch to the new version or learn more."
 
 #: src/containers/NotRegisteredPage.tsx:63
 msgid "Incomplete registration for {usersInputAddressFragment}."
@@ -923,7 +939,7 @@ msgstr "STAIRS"
 
 #: src/components/PortfolioFilters.tsx:78
 #: src/components/PortfolioFilters.tsx:84
-#: src/containers/App.tsx:86
+#: src/containers/App.tsx:87
 msgid "Search"
 msgstr "Search"
 
@@ -952,15 +968,15 @@ msgstr "See the most common complaints reported by tenants to 311, now on the Ov
 msgid "Send us a data request"
 msgstr "Send us a data request"
 
-#: src/containers/App.tsx:124
-#: src/containers/App.tsx:135
+#: src/containers/App.tsx:125
+#: src/containers/App.tsx:136
 msgid "Share"
 msgstr "Share"
 
 #: src/components/DetailView.tsx:270
 #: src/components/EngagementPanel.tsx:18
 #: src/components/PropertiesSummary.tsx:140
-#: src/containers/App.tsx:145
+#: src/containers/App.tsx:146
 #: src/containers/NotRegisteredPage.tsx:18
 msgid "Share this page with your neighbors"
 msgstr "Share this page with your neighbors"
@@ -1030,6 +1046,10 @@ msgstr "Sorry, the page you are looking for doesn't seem to exist."
 msgid "Source code"
 msgstr "Source code"
 
+#: src/containers/App.tsx:170
+msgid "Starting March 2023 <0>the old version</0> of Who Owns What will no longer be available."
+msgstr "Starting March 2023 <0>the old version</0> of Who Owns What will no longer be available."
+
 #: src/components/PortfolioTable.tsx:510
 msgid "Starts {year}"
 msgstr "Starts {year}"
@@ -1039,12 +1059,12 @@ msgid "Summary"
 msgstr "Summary"
 
 #: src/components/WowzaToggle.tsx:42
-msgid "Switch to new version"
-msgstr "Switch to new version"
+#~ msgid "Switch to new version"
+#~ msgstr "Switch to new version"
 
 #: src/components/WowzaToggle.tsx:42
-msgid "Switch to old version"
-msgstr "Switch to old version"
+#~ msgid "Switch to old version"
+#~ msgstr "Switch to old version"
 
 #: src/util/helpers.ts:41
 msgid "TENANT HARASSMENT"
@@ -1371,14 +1391,14 @@ msgstr "While the legal owner of a building is often a company (usually called a
 msgid "Who Owns What is a free tool built by JustFix to research property owners in NYC. It has helped over 200,000 New Yorkers find out who really owns their building, what other buildings that their landlord or management company owns, and other critical information about code violations, evictions, rent stabilized units, and so much more in any given building. You can look up any residential building located in NYC, even public housing (NYCHA) buildings! Search your address here: {url}"
 msgstr "Who Owns What is a free tool built by JustFix to research property owners in NYC. It has helped over 200,000 New Yorkers find out who really owns their building, what other buildings that their landlord or management company owns, and other critical information about code violations, evictions, rent stabilized units, and so much more in any given building. You can look up any residential building located in NYC, even public housing (NYCHA) buildings! Search your address here: {url}"
 
-#: src/containers/App.tsx:41
+#: src/containers/App.tsx:42
 msgid "Who owns what in n y c?"
 msgstr "Who owns what in n y c?"
 
 #: src/components/Page.tsx:10
 #: src/components/Page.tsx:21
 #: src/components/Page.tsx:22
-#: src/containers/App.tsx:36
+#: src/containers/App.tsx:37
 msgid "Who owns what in nyc?"
 msgstr "Who owns what in nyc?"
 
@@ -1403,13 +1423,17 @@ msgstr "Year Built"
 msgid "Yes"
 msgstr "Yes"
 
-#: src/containers/App.tsx:164
-msgid "You are viewing the new version of Who Owns What."
-msgstr "You are viewing the new version of Who Owns What."
+#: src/components/DeprecationModal.tsx:16
+msgid "You are viewing a legacy version of Who Owns What"
+msgstr "You are viewing a legacy version of Who Owns What"
 
 #: src/containers/App.tsx:164
-msgid "You are viewing the old version of Who Owns What."
-msgstr "You are viewing the old version of Who Owns What."
+#~ msgid "You are viewing the new version of Who Owns What."
+#~ msgstr "You are viewing the new version of Who Owns What."
+
+#: src/containers/App.tsx:164
+#~ msgid "You are viewing the old version of Who Owns What."
+#~ msgstr "You are viewing the old version of Who Owns What."
 
 #: src/components/PortfolioFilters.tsx:83
 #: src/components/PortfolioTable.tsx:58

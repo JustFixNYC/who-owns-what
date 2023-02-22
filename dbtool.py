@@ -29,6 +29,7 @@ except ModuleNotFoundError:
 ROOT_DIR = Path(__file__).parent.resolve()
 SQL_DIR = ROOT_DIR / "sql"
 WOW_YML = yaml.full_load((ROOT_DIR / "who-owns-what.yml").read_text())
+TESTS_DIR = ROOT_DIR / "tests"
 
 # Just an alias for our database connection.
 DbConnection = Any
@@ -290,6 +291,7 @@ def export_table_subset(db: DbContext, table_name: str, query: str) -> str:
             )
             .decode("ascii")
             .replace(temp_table_name, table_name)
+            .replace("wow.", "public.")
         )
         return f"DELETE FROM public.{table_name};\n\n{sql}"
     finally:
@@ -316,6 +318,10 @@ def exporttestdata(db: DbContext):
             f"SELECT DISTINCT registrationid FROM wow_bldgs WHERE bbl = '{bbl}'"
         )
         reg_id = cur.fetchone()[0]
+
+    # Some additional data for wow_portfolios is added manually
+    with open(TESTS_DIR / "manual_test_data.sql") as f:
+        extra_sql = f.read()
 
     sql = "\n".join(
         [
@@ -359,6 +365,7 @@ def exporttestdata(db: DbContext):
             ) assocregids ON (bldgs.registrationid = assocregids.regid)
             """,
             ),
+            extra_sql,
         ]
     )
 
@@ -413,15 +420,6 @@ if __name__ == "__main__":
 
     parser_builddb = subparsers.add_parser("builddb")
     parser_builddb.add_argument(
-        "-t",
-        "--use-test-data",
-        action="store_true",
-        help=(
-            "Load the database with a small amount of test data, "
-            "instead of downloading & installing the full data sets."
-        ),
-    )
-    parser_builddb.add_argument(
         "--update",
         action="store_true",
         help=(
@@ -471,21 +469,23 @@ if __name__ == "__main__":
             )
         sys.exit(1)
 
-    oca_config = OcaConfig(
-        oca_table_names=WOW_YML["oca_tables"],
-        data_dir=ROOT_DIR / "nycdb" / "data",
-        test_dir=ROOT_DIR / "tests" / "data",
-        sql_dir=SQL_DIR,
-        oca_db_url=args.oca_db_url,
-        oca_ssh_host=args.oca_ssh_host,
-        oca_ssh_user=args.oca_ssh_user,
-        oca_ssh_pkey=args.oca_ssh_pkey,
-        is_testing=args.use_test_data,
-    )
-
     db = DbContext.from_url(args.database_url)
 
     cmd = getattr(args, "cmd", "")
+
+    if cmd in ["loadtestdata", "builddb"]:
+
+        oca_config = OcaConfig(
+            oca_table_names=WOW_YML["oca_tables"],
+            data_dir=ROOT_DIR / "nycdb" / "data",
+            test_dir=ROOT_DIR / "tests" / "data",
+            sql_dir=SQL_DIR,
+            oca_db_url=args.oca_db_url,
+            oca_ssh_host=args.oca_ssh_host,
+            oca_ssh_user=args.oca_ssh_user,
+            oca_ssh_pkey=args.oca_ssh_pkey,
+            is_testing=True if cmd == "loadtestdata" else False,
+        )
 
     if cmd == "exporttestdata":
         exporttestdata(db)
@@ -494,9 +494,7 @@ if __name__ == "__main__":
     elif cmd == "dbshell":
         dbshell(db)
     elif cmd == "builddb":
-        NycDbBuilder(db, oca_config, is_testing=args.use_test_data).build(
-            force_refresh=args.update
-        )
+        NycDbBuilder(db, oca_config, is_testing=False).build(force_refresh=args.update)
     elif cmd == "exportgraph":
         with open(args.outfile, "w") as f:
             with db.connection() as conn:
