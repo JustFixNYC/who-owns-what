@@ -43,3 +43,21 @@ export const ChevronIcon = (props: SVGProps<SVGSVGElement>) => (
     <path d="M9.5 1L5.25 5.25L1 1" stroke="currentcolor" />
   </svg>
 );
+
+export const InfoIcon = (props: SVGProps<SVGSVGElement>) => (
+  <svg
+    width="17"
+    height="18"
+    viewBox="0 0 17 18"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    {...props}
+  >
+    <rect x="0.5" y="0.5" width="16" height="17" rx="8" fill="none" />
+    <path
+      d="M6.84 12V11.11H7.98V8.24H6.9V7.35H9.12V11.11H10.16V12H6.84ZM8.5 6.58C8.30667 6.58 8.14 6.51333 8 6.38C7.86 6.24667 7.79 6.08667 7.79 5.9C7.79 5.7 7.85667 5.53667 7.99 5.41C8.12333 5.28333 8.29333 5.22 8.5 5.22C8.68667 5.22 8.85 5.28667 8.99 5.42C9.13667 5.55333 9.21 5.71333 9.21 5.9C9.21 6.08667 9.13667 6.24667 8.99 6.38C8.85 6.51333 8.68667 6.58 8.5 6.58Z"
+      fill="currentcolor"
+    />
+    <rect x="0.5" y="0.5" width="16" height="17" rx="8" stroke="currentcolor" />
+  </svg>
+);

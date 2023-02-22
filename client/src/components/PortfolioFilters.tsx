@@ -2,12 +2,17 @@ import { I18n } from "@lingui/core";
 import { t, Trans, Plural } from "@lingui/macro";
 import classnames from "classnames";
 import React from "react";
-import { CheckIcon, ChevronIcon } from "./Icons";
+import { CheckIcon, ChevronIcon, InfoIcon } from "./Icons";
 import { Multiselect } from "./Multiselect";
 import { FilterContext, FilterNumberRange, MINMAX_DEFAULT } from "./PropertiesList";
 import "styles/PortfolioFilters.scss";
 import FocusTrap from "focus-trap-react";
 import { Alert } from "./Alert";
+import Modal from "./Modal";
+import { LocaleLink } from "i18n";
+import { createWhoOwnsWhatRoutePaths } from "routes";
+import { isLegacyPath } from "./WowzaToggle";
+import { useLocation } from "react-router-dom";
 
 type PortfolioFiltersProps = {
   i18n: I18n;
@@ -15,8 +20,12 @@ type PortfolioFiltersProps = {
 export const PortfolioFilters = React.memo(
   React.forwardRef<HTMLDivElement, PortfolioFiltersProps>((props, ref) => {
     const { i18n } = props;
-    const { filterContext, setFilterContext } = React.useContext(FilterContext);
 
+    const [showInfoModal, setShowInfoModal] = React.useState(false);
+    const { pathname } = useLocation();
+    const { methodology, legacy } = createWhoOwnsWhatRoutePaths();
+
+    const { filterContext, setFilterContext } = React.useContext(FilterContext);
     const { filteredBuildings } = filterContext;
     const { ownernames: ownernamesOptions, zip: zipOptions } = filterContext.filterOptions;
     const { ownernames: ownernamesSelections, zip: zipSelections } = filterContext.filterSelections;
@@ -166,8 +175,8 @@ export const PortfolioFilters = React.memo(
                   <Plural value={filteredBuildings || 0} one="result" other="results" />.
                 </Trans>
               </span>
-              <button className="data-issue button is-text">
-                <Trans>Notice an inaccuracy? Click here.</Trans>
+              <button className="results-info" onClick={() => setShowInfoModal(true)}>
+                <InfoIcon />
               </button>
               <button className="clear-filters button is-text" onClick={clearFilters}>
                 <Trans>Clear Filters</Trans>
@@ -175,6 +184,23 @@ export const PortfolioFilters = React.memo(
             </div>
           )}
         </div>
+        <Modal showModal={showInfoModal} width={20} onClose={() => setShowInfoModal(false)}>
+          <h4>
+            <Trans>How are the results calculated?</Trans>
+          </h4>
+          <p>
+            <Trans>
+              We pull data from public records to calculate these results. Our algorithm relies on
+              public{" "}
+              <a href="https://www.nyc.gov/site/hpd/about/open-data.page">HPD registration data</a>{" "}
+              for residential buildings, which contains self-reported landlord contact information
+              on about 170,000 properties across the city.
+            </Trans>
+          </p>
+          <LocaleLink to={isLegacyPath(pathname) ? legacy.methodology : methodology}>
+            <Trans>Read more in our Methodology section</Trans>
+          </LocaleLink>
+        </Modal>
       </div>
     );
   })

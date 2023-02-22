@@ -268,12 +268,19 @@
         font-size: 1.6rem;
         color: $justfix-grey-600;
       }
-      .data-issue {
+      .results-info {
         color: $justfix-grey-600;
       }
       .clear-filters {
         color: $justfix-grey-700;
       }
+    }
+  }
+}
+.ReactModal__Content {
+  p {
+    a {
+      color: $justfix-black;
     }
   }
 }
