@@ -370,6 +370,7 @@ msgid "Enter email"
 msgstr "Introducir email"
 
 #: src/components/Multiselect.tsx:443
+#: src/components/PortfolioFilters.tsx:197
 msgid "Error"
 msgstr ""
 

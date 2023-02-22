@@ -341,7 +341,7 @@ function MinMaxSelect(props: {
       {hasError ? (
         <div className="alerts-container">
           <Alert type="error" variant="primary" closeType="none">
-            Error
+            <Trans>Error</Trans>
           </Alert>
         </div>
       ) : (
