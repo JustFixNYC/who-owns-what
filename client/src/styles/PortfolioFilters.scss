@@ -52,6 +52,12 @@
         display: flex;
         align-items: center;
 
+        &:focus-visible {
+          box-shadow: none;
+          outline: 2px solid #727e96;
+          outline-offset: 2px;
+        }
+
         .checkbox {
           box-sizing: border-box;
           border: 0.1rem solid $justfix-black;
@@ -153,6 +159,11 @@
               display: flex;
               .filter-subtitle {
                 margin-right: auto;
+              }
+              .filter-info:focus-visible {
+                box-shadow: none;
+                outline: 2px solid #727e96;
+                outline-offset: 2px;
               }
             }
 
