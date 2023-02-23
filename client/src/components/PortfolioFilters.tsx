@@ -60,7 +60,6 @@ export const PortfolioFilters = React.memo(
     const [unitsresActive, setUnitsresActive] = React.useState(false);
     const [unitsresIsOpen, setUnitsresIsOpen] = React.useState(false);
     const onUnitsresApply = (selectedList: any) => {
-      console.log({ onUnitsresApply: selectedList });
       setUnitsresActive(selectedList !== MINMAX_DEFAULT);
       setUnitsresIsOpen(false);
       setFilterContext({
