@@ -1,0 +1,134 @@
+@import "./vars";
+
+// Styles copied from 'multiselect-react-dropdown' (and a few edits)
+.multiSelectContainer,
+.multiSelectContainer *,
+.multiSelectContainer ::after,
+.multiSelectContainer ::before {
+  box-sizing: border-box;
+}
+
+.multiSelectContainer {
+  position: relative;
+  text-align: left;
+}
+.disable_ms {
+  pointer-events: none;
+  opacity: 0.5;
+}
+.display-none {
+  display: none;
+}
+.searchWrapper {
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+  padding: 5px;
+  min-height: 22px;
+  position: relative;
+}
+.multiSelectContainer input {
+  border: none;
+  margin-top: 3px;
+  background: transparent;
+}
+.multiSelectContainer input:focus {
+  outline: none;
+}
+.chip {
+  padding: 4px 10px;
+  background: #0096fb;
+  margin-right: 5px;
+  margin-bottom: 5px;
+  border-radius: 11px;
+  display: inline-flex;
+  align-items: center;
+  font-size: 13px;
+  line-height: 19px;
+  color: #fff;
+  white-space: nowrap;
+}
+.singleChip {
+  background: none;
+  border-radius: none;
+  color: inherit;
+  white-space: nowrap;
+}
+.singleChip i {
+  display: none;
+}
+.closeIcon {
+  height: 13px;
+  width: 13px;
+  float: right;
+  margin-left: 5px;
+  cursor: pointer;
+}
+.optionListContainer {
+  position: absolute;
+  width: 100%;
+  background: #fff;
+  border-radius: 4px;
+  z-index: 2;
+}
+.multiSelectContainer ul {
+  display: block;
+  padding: 0;
+  margin: 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  max-height: 250px;
+  overflow-y: auto;
+}
+.multiSelectContainer li {
+  padding: 10px 10px;
+}
+.multiSelectContainer li:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+.checkbox {
+  margin-right: 10px;
+}
+.disableSelection {
+  pointer-events: none;
+  opacity: 0.5;
+}
+.highlightOption {
+  text-decoration: underline;
+}
+.displayBlock {
+  display: block;
+}
+.displayNone {
+  display: none;
+}
+.notFound {
+  padding: 10px;
+  display: block;
+}
+.singleSelect {
+  padding-right: 20px;
+}
+li.groupHeading {
+  color: #908e8e;
+  pointer-events: none;
+  padding: 5px 15px;
+}
+li.groupChildEle {
+  padding-left: 30px;
+}
+.icon_down_dir {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 14px;
+}
+.icon_down_dir:before {
+  content: "\e803";
+}
+.custom-close {
+  display: flex;
+}
+
+// JF custom styles

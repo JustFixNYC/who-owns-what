@@ -26,7 +26,7 @@
 .BigPortfolioBanner {
   background-color: $justfix-orange;
   color: $justfix-black;
-  .CloseIcon {
+  .closeIcon {
     stroke: $justfix-black;
   }
 }
@@ -35,7 +35,7 @@
   background-color: $justfix-black;
   color: $justfix-white;
   border: 0.1rem solid $justfix-white;
-  .CloseIcon {
+  .closeIcon {
     stroke: $justfix-white;
   }
   &::before {

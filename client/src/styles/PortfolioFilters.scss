@@ -1,0 +1,286 @@
+@import "_vars.scss";
+@import "_scrollbar.scss";
+@import "_button.scss";
+
+.PortfolioFilters {
+  display: flex;
+  gap: 1.8rem;
+  padding: 1.4rem;
+  background-color: #f2f2f2;
+  text-transform: uppercase;
+
+  // TODO: design system typography
+  font-family: "Inconsolata";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 1.4rem;
+  line-height: 100%;
+  letter-spacing: 0.02em;
+
+  .filter-for {
+    text-align: right;
+    min-width: 102px;
+    letter-spacing: 0.04em;
+    display: flex;
+    flex-direction: column;
+
+    .pill-new {
+      align-self: flex-end;
+      font-family: "Degular", Arial, Helvetica, sans-serif;
+      letter-spacing: 0.02em;
+      background: $justfix-yellow;
+      padding: 0.5rem 1rem;
+      border-radius: 1.6rem;
+      width: fit-content;
+      margin-bottom: 1rem;
+    }
+  }
+
+  .filters-container {
+    display: flex;
+    flex-direction: column;
+
+    .filters {
+      display: flex;
+      gap: 1.8rem;
+
+      .filter-toggle {
+        border: 0.1rem solid $justfix-black;
+        border-radius: 0.8rem;
+        text-transform: uppercase;
+        padding: 1rem;
+        display: flex;
+        align-items: center;
+
+        .checkbox {
+          box-sizing: border-box;
+          border: 0.1rem solid $justfix-black;
+          border-radius: 0.4rem;
+          width: 2.4rem;
+          height: 2.4rem;
+          margin-right: 1rem;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          color: $justfix-white;
+        }
+
+        &[aria-pressed="true"] {
+          background-color: $justfix-black;
+          color: $justfix-white;
+          .checkbox {
+            border-color: $justfix-white;
+          }
+        }
+      }
+
+      .filter-accordion {
+        border: 0.1rem solid $justfix-black;
+        border-radius: 0.8rem;
+        text-transform: uppercase;
+        display: flex;
+        align-items: center;
+        position: relative;
+
+        &:not([open]):hover {
+          text-decoration: underline;
+          text-underline-position: under;
+        }
+
+        &.active:not([open]) {
+          background-color: $justfix-black;
+          color: $justfix-white;
+        }
+
+        summary {
+          // typical flex stretch doesn't seem to work in summary/details
+          height: 100%;
+          display: flex;
+          align-items: center;
+          position: relative;
+          padding: 0 1rem;
+          cursor: pointer;
+
+          &::-webkit-details-marker {
+            display: none;
+          }
+          .chevonIcon {
+            margin-left: 0.8rem;
+            stroke-width: 2px;
+            stroke-linejoin: miter;
+          }
+        }
+        &[open] {
+          summary {
+            text-decoration: underline;
+            text-underline-position: under;
+            svg {
+              transform: scaleY(-1);
+            }
+          }
+
+          &#ownernames-accordion {
+            .dropdown-container {
+              width: 25.2rem;
+            }
+          }
+
+          &#unitsres-accordion {
+            .dropdown-container {
+              width: 14.1rem;
+            }
+          }
+          &#zip-accordion {
+            .dropdown-container {
+              width: 14.1rem;
+            }
+          }
+
+          .dropdown-container {
+            position: absolute;
+            top: 5rem;
+            left: -0.1rem;
+            z-index: 100;
+            padding: 0.6rem 1.2rem 1.2rem 1.2rem;
+            background-color: #f2f2f2;
+            box-sizing: border-box;
+            border: 0.1rem solid $justfix-black;
+            border-radius: 0.8rem;
+
+            .filter-subtitle-container {
+              font-size: 1.2rem;
+              color: $justfix-grey-700;
+              display: flex;
+              .filter-subtitle {
+                margin-right: auto;
+              }
+            }
+
+            .multiselect-container,
+            .minmax-container {
+              display: flex;
+              flex-direction: column;
+              margin-top: 0.8rem;
+              .optionListContainer {
+                position: static;
+              }
+              .jf-alert {
+                margin: 0.9rem 0 0.5rem 0;
+                width: fit-content;
+                text-transform: none;
+                .jf-alert__content {
+                  padding-right: 0;
+                }
+              }
+              .labels-container {
+                display: flex;
+                color: $justfix-grey-700;
+                label:first-child {
+                  margin-right: auto;
+                }
+              }
+              .inputs-container {
+                display: flex;
+                gap: 1rem;
+                align-items: center;
+                justify-content: center;
+                input {
+                  // background: $justfix-white;
+                  width: 4.4rem;
+                  height: 4.4rem;
+                  border: 0.1rem solid $justfix-black;
+                  border-radius: 0.2rem;
+                  padding: 1rem 1.2rem;
+                  // remove increment arrows
+                  &::-webkit-outer-spin-button,
+                  &::-webkit-inner-spin-button {
+                    -webkit-appearance: none;
+                    margin: 0;
+                  }
+                  -moz-appearance: textfield;
+                }
+              }
+            }
+            .search-wrapper {
+              border: 1px solid $justfix-black;
+              border-radius: 2px;
+            }
+            .optionListContainer {
+              background-color: #f2f2f2;
+              border: 1px solid $justfix-grey;
+              border-radius: 2px;
+              .optionsContainer,
+              ul {
+                border: none;
+                list-style-type: none;
+              }
+            }
+            .chip {
+              align-self: flex-start;
+              background-color: $justfix-black;
+              color: $justfix-white;
+              border-radius: 0.8rem;
+              padding: 0.8rem 1.4rem;
+              margin-bottom: 0.4rem;
+              white-space: pre-line;
+              height: unset;
+
+              .closeIcon {
+                height: 0.9rem;
+                width: 0.9rem;
+                stroke-width: 0.15rem;
+                margin-left: 1.6rem;
+              }
+
+              &.chip-more {
+                background-color: #f2f2f2;
+                color: $justfix-black;
+                border: 1px solid $justfix-black;
+                margin-bottom: 1.1rem;
+              }
+            }
+            .button.is-text {
+              color: $justfix-grey-700;
+              &.show-less {
+                margin-top: 1.1rem;
+                align-self: flex-start;
+              }
+              &.clear-all {
+                margin: 0.8rem 0 0.9rem 0;
+                align-self: flex-end;
+              }
+            }
+            .button.is-primary {
+              align-self: center;
+              margin: 0.9rem 0 1rem 0;
+            }
+          }
+        }
+      }
+    }
+    .filter-status {
+      display: flex;
+      gap: 0.85rem;
+      margin-top: 1.5rem;
+      text-transform: none;
+
+      .results-count {
+        font-size: 1.6rem;
+        color: $justfix-grey-600;
+      }
+      .results-info {
+        color: $justfix-grey-600;
+      }
+      .clear-filters {
+        color: $justfix-grey-700;
+      }
+    }
+  }
+}
+.ReactModal__Content {
+  p {
+    a {
+      color: $justfix-black;
+    }
+  }
+}
