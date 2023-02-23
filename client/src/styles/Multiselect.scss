@@ -25,6 +25,10 @@
   padding: 5px;
   min-height: 22px;
   position: relative;
+  &.hasError {
+    outline: 2px $justfix-orange solid;
+    outline-offset: -2px;
+  }
 }
 .multiSelectContainer input {
   border: none;

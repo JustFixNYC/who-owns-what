@@ -202,6 +202,11 @@ $justfix-table-grey: #f2f2f2;
                     margin: 0;
                   }
                   -moz-appearance: textfield;
+
+                  &.hasError {
+                    outline: 2px $justfix-orange solid;
+                    outline-offset: -2px;
+                  }
                 }
               }
             }
