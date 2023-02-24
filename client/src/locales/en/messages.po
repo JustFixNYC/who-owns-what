@@ -46,7 +46,7 @@ msgstr "(this may take a while)"
 msgid "({browserType, select, mobile {tap} other {click}} to view details)"
 msgstr "({browserType, select, mobile {tap} other {click}} to view details)"
 
-#: src/containers/HomePage.tsx:123
+#: src/containers/HomePage.tsx:120
 msgid "... or view some sample portfolios:"
 msgstr "... or view some sample portfolios:"
 
@@ -88,7 +88,7 @@ msgid "APPLIANCE"
 msgstr "APPLIANCE"
 
 #: src/containers/AboutPage.tsx:13
-#: src/containers/App.tsx:94
+#: src/containers/App.tsx:95
 msgid "About"
 msgstr "About"
 
@@ -244,7 +244,7 @@ msgstr "Click here to learn more."
 #: src/components/CloseButton.tsx:9
 #: src/components/DetailView.tsx:58
 #: src/components/FeatureCalloutWidget.tsx:61
-#: src/containers/App.tsx:175
+#: src/containers/App.tsx:176
 msgid "Close"
 msgstr "Close"
 
@@ -293,7 +293,7 @@ msgstr "DOORS"
 msgid "Date"
 msgstr "Date"
 
-#: src/containers/App.tsx:116
+#: src/containers/App.tsx:117
 msgid "Demo Site"
 msgstr "Demo Site"
 
@@ -307,7 +307,7 @@ msgid "Display:"
 msgstr "Display:"
 
 #: src/components/LegalFooter.tsx:35
-#: src/containers/App.tsx:103
+#: src/containers/App.tsx:104
 msgid "Donate"
 msgstr "Donate"
 
@@ -464,7 +464,7 @@ msgstr "Head Officer"
 msgid "How is this building associated to this portfolio?"
 msgstr "How is this building associated to this portfolio?"
 
-#: src/containers/App.tsx:100
+#: src/containers/App.tsx:101
 #: src/containers/HowToUsePage.tsx:13
 msgid "How to use"
 msgstr "How to use"
@@ -481,17 +481,29 @@ msgstr "I used #WhoOwnsWhat (built by @JustFixNYC) to see not only the open viol
 msgid "I was checking out this building on Who Owns What, a free landlord research tool from JustFix. It’s a remarkable website that every tenant and housing advocate should know about! Can you guess how many total violations this landlord portfolio has? Check it out here: {url}"
 msgstr "I was checking out this building on Who Owns What, a free landlord research tool from JustFix. It’s a remarkable website that every tenant and housing advocate should know about! Can you guess how many total violations this landlord portfolio has? Check it out here: {url}"
 
+#: src/containers/App.tsx:170
+msgid "In April 2023, this link to <0>the old version</0> of Who Owns What will will move to the About Page."
+msgstr "In April 2023, this link to <0>the old version</0> of Who Owns What will will move to the About Page."
+
+#: src/containers/App.tsx:165
+msgid "In July 2023 this version of Who Owns What will no longer be available. <0>Switch to new version.</0>"
+msgstr "In July 2023 this version of Who Owns What will no longer be available. <0>Switch to new version.</0>"
+
 #: src/containers/App.tsx:164
 #~ msgid "In March 2023 this version of Who Owns What will no longer be available <0>Switch to new version</0>"
 #~ msgstr "In March 2023 this version of Who Owns What will no longer be available <0>Switch to new version</0>"
 
 #: src/containers/App.tsx:164
-msgid "In March 2023 this version of Who Owns What will no longer be available. <0>Switch to new version.</0>"
-msgstr "In March 2023 this version of Who Owns What will no longer be available. <0>Switch to new version.</0>"
+#~ msgid "In March 2023 this version of Who Owns What will no longer be available. <0>Switch to new version.</0>"
+#~ msgstr "In March 2023 this version of Who Owns What will no longer be available. <0>Switch to new version.</0>"
 
 #: src/containers/App.tsx:164
 #~ msgid "In March 2023 this version of Who Owns What will no longer be available. <0>Switch to new version</0>"
 #~ msgstr "In March 2023 this version of Who Owns What will no longer be available. <0>Switch to new version</0>"
+
+#: src/components/DeprecationModal.tsx:19
+msgid "In March 2023 this version will be discontinued. Switch to the new version or learn more."
+msgstr "In March 2023 this version will be discontinued. Switch to the new version or learn more."
 
 #: src/containers/NotRegisteredPage.tsx:63
 msgid "Incomplete registration for {usersInputAddressFragment}."
@@ -525,7 +537,7 @@ msgstr "Joint Owner"
 msgid "JustFix, Inc is a registered 501(c)(3) nonprofit organization."
 msgstr "JustFix, Inc is a registered 501(c)(3) nonprofit organization."
 
-#: src/containers/HomePage.tsx:218
+#: src/containers/HomePage.tsx:215
 msgid "Known for <0>unscrupulously deregulating rent stabilized apartments</0>, Larry Gluck’s Stellar Management has also secured a prominent place as one of <1>New York City’s Worst Evictors</1>. Stellar is a gentrifying force, particularly in upper Manhattan where Gluck operates the majority of his properties. Stellar has a reputation for displacing long-term tenants, renovating their units while vacant, and skyrocketing rents to market rate."
 msgstr "Known for <0>unscrupulously deregulating rent stabilized apartments</0>, Larry Gluck’s Stellar Management has also secured a prominent place as one of <1>New York City’s Worst Evictors</1>. Stellar is a gentrifying force, particularly in upper Manhattan where Gluck operates the majority of his properties. Stellar has a reputation for displacing long-term tenants, renovating their units while vacant, and skyrocketing rents to market rate."
 
@@ -666,8 +678,8 @@ msgid "Network of Landlords"
 msgstr "Network of Landlords"
 
 #: src/containers/HomePage.tsx:110
-msgid "New"
-msgstr "New"
+#~ msgid "New"
+#~ msgstr "New"
 
 #: src/components/AddressToolbar.tsx:23
 msgid "New Search"
@@ -854,7 +866,7 @@ msgstr "SIGNAGE MISSING"
 msgid "STAIRS"
 msgstr "STAIRS"
 
-#: src/containers/App.tsx:86
+#: src/containers/App.tsx:87
 msgid "Search"
 msgstr "Search"
 
@@ -883,15 +895,15 @@ msgstr "See the most common complaints reported by tenants to 311, now on the Ov
 msgid "Send us a data request"
 msgstr "Send us a data request"
 
-#: src/containers/App.tsx:124
-#: src/containers/App.tsx:135
+#: src/containers/App.tsx:125
+#: src/containers/App.tsx:136
 msgid "Share"
 msgstr "Share"
 
 #: src/components/DetailView.tsx:270
 #: src/components/EngagementPanel.tsx:18
 #: src/components/PropertiesSummary.tsx:140
-#: src/containers/App.tsx:145
+#: src/containers/App.tsx:146
 #: src/containers/NotRegisteredPage.tsx:18
 msgid "Share this page with your neighbors"
 msgstr "Share this page with your neighbors"
@@ -954,8 +966,8 @@ msgstr "Source code"
 #~ msgstr "Starting March 2023 <0>the old version</0> of Who Owns What will no longer be available"
 
 #: src/containers/App.tsx:169
-msgid "Starting March 2023 <0>the old version</0> of Who Owns What will no longer be available."
-msgstr "Starting March 2023 <0>the old version</0> of Who Owns What will no longer be available."
+#~ msgid "Starting March 2023 <0>the old version</0> of Who Owns What will no longer be available."
+#~ msgstr "Starting March 2023 <0>the old version</0> of Who Owns What will no longer be available."
 
 #: src/components/PropertiesList.tsx:24
 msgid "Starts {year}"
@@ -1019,7 +1031,7 @@ msgstr "The building with the most executed evictions is <0>{0} {1}, {2}</0> wit
 msgid "The city borough where your search address is located"
 msgstr "The city borough where your search address is located"
 
-#: src/containers/HomePage.tsx:176
+#: src/containers/HomePage.tsx:173
 msgid "The city’s fifth <0>worst evictor</0> in 2018, A&E is a prime example of a landlord who engages in <1>aggressive eviction strategies</1> to displace low-income tenants. Besides lack of repairs and frivolous evictions in housing court, A&E has also been known to use <2>MCIs</2> to <3>double rents</3> in rent-stabilized buildings."
 msgstr "The city’s fifth <0>worst evictor</0> in 2018, A&E is a prime example of a landlord who engages in <1>aggressive eviction strategies</1> to displace low-income tenants. Besides lack of repairs and frivolous evictions in housing court, A&E has also been known to use <2>MCIs</2> to <3>double rents</3> in rent-stabilized buildings."
 
@@ -1099,7 +1111,7 @@ msgstr "This portfolio also had an estimated <0>net {changeType, select, gain {g
 msgid "This portfolio has an average of <0>{0}</0> open HPD violations per residential unit."
 msgstr "This portfolio has an average of <0>{0}</0> open HPD violations per residential unit."
 
-#: src/containers/HomePage.tsx:142
+#: src/containers/HomePage.tsx:139
 msgid "This property management company owned by the Kushner family is notorious for <0>violating rent regulations</0> and <1>harassing tenants</1>. The stake currently held by Jared Kushner and Ivanka Trump is worth as much as $761 million."
 msgstr "This property management company owned by the Kushner family is notorious for <0>violating rent regulations</0> and <1>harassing tenants</1>. The stake currently held by Jared Kushner and Ivanka Trump is worth as much as $761 million."
 
@@ -1203,9 +1215,9 @@ msgstr "View documents on <0>ACRIS</0>"
 msgid "View legend"
 msgstr "View legend"
 
-#: src/containers/HomePage.tsx:157
-#: src/containers/HomePage.tsx:199
-#: src/containers/HomePage.tsx:236
+#: src/containers/HomePage.tsx:154
+#: src/containers/HomePage.tsx:196
+#: src/containers/HomePage.tsx:233
 msgid "View portfolio"
 msgstr "View portfolio"
 
@@ -1287,14 +1299,14 @@ msgstr "When two parties share the same business address, we group them as part 
 msgid "Who Owns What is a free tool built by JustFix to research property owners in NYC. It has helped over 200,000 New Yorkers find out who really owns their building, what other buildings that their landlord or management company owns, and other critical information about code violations, evictions, rent stabilized units, and so much more in any given building. You can look up any residential building located in NYC, even public housing (NYCHA) buildings! Search your address here: {url}"
 msgstr "Who Owns What is a free tool built by JustFix to research property owners in NYC. It has helped over 200,000 New Yorkers find out who really owns their building, what other buildings that their landlord or management company owns, and other critical information about code violations, evictions, rent stabilized units, and so much more in any given building. You can look up any residential building located in NYC, even public housing (NYCHA) buildings! Search your address here: {url}"
 
-#: src/containers/App.tsx:41
+#: src/containers/App.tsx:42
 msgid "Who owns what in n y c?"
 msgstr "Who owns what in n y c?"
 
 #: src/components/Page.tsx:10
 #: src/components/Page.tsx:21
 #: src/components/Page.tsx:22
-#: src/containers/App.tsx:36
+#: src/containers/App.tsx:37
 msgid "Who owns what in nyc?"
 msgstr "Who owns what in nyc?"
 
@@ -1318,6 +1330,10 @@ msgstr "Year Built"
 #: src/components/PropertiesList.tsx:433
 msgid "Yes"
 msgstr "Yes"
+
+#: src/components/DeprecationModal.tsx:16
+msgid "You are viewing a legacy version of Who Owns What"
+msgstr "You are viewing a legacy version of Who Owns What"
 
 #: src/containers/App.tsx:164
 #~ msgid "You are viewing the new version of Who Owns What."
