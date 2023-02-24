@@ -2,11 +2,13 @@
 @import "_scrollbar.scss";
 @import "_button.scss";
 
+$justfix-table-grey: #f2f2f2;
+
 .PortfolioFilters {
   display: flex;
   gap: 1.8rem;
   padding: 1.4rem;
-  background-color: #f2f2f2;
+  background-color: $justfix-table-grey;
   text-transform: uppercase;
 
   // TODO: design system typography
@@ -142,7 +144,7 @@
             left: -0.1rem;
             z-index: 100;
             padding: 0.6rem 0 1.2rem 0;
-            background-color: #f2f2f2;
+            background-color: $justfix-table-grey;
             box-sizing: border-box;
             border: 0.1rem solid $justfix-black;
             border-radius: 0.8rem;
@@ -171,11 +173,12 @@
             }
             .minmax-container {
               padding: 1.2rem;
-              border-top: 1px solid black;
+              border-top: 1px solid $justfix-grey;
 
               .labels-container {
                 display: flex;
                 color: $justfix-grey-700;
+                margin-bottom: 0.4rem;
                 label:first-child {
                   margin-right: auto;
                 }
@@ -186,7 +189,7 @@
                 align-items: center;
                 justify-content: center;
                 input {
-                  // background: $justfix-white;
+                  background-color: $justfix-table-grey;
                   width: 4.4rem;
                   height: 4.4rem;
                   border: 0.1rem solid $justfix-black;
@@ -247,7 +250,7 @@
               }
 
               &.chip-more {
-                background-color: #f2f2f2;
+                background-color: $justfix-table-grey;
                 color: $justfix-black;
                 border: 1px solid $justfix-black;
                 margin-bottom: 1.1rem;

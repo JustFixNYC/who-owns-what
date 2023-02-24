@@ -2,6 +2,7 @@
 @import "_scrollbar.scss";
 @import "_button.scss";
 
+$justfix-table-grey: #f2f2f2;
 $table-border-light: 1px solid $gray-light;
 $table-border-dark: 1px solid $dark;
 
@@ -90,7 +91,7 @@ $table-border-dark: 1px solid $dark;
         &.row-odd {
           background-color: #f7f7f7;
           &:hover {
-            background-color: #f2f2f2ff;
+            background-color: $justfix-table-grey;
           }
         }
         &.row-even {
@@ -104,7 +105,7 @@ $table-border-dark: 1px solid $dark;
           border-radius: 5rem;
           padding: 0.1rem 0.4rem;
           margin-left: 0.5rem;
-          background-color: #f2f2f2;
+          background-color: $justfix-table-grey;
           color: $justfix-black;
           border: 1px solid $justfix-black;
         }
