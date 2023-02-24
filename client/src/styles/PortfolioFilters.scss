@@ -243,7 +243,7 @@ $justfix-table-grey: #f2f2f2;
               color: $justfix-white;
               border-radius: 0.8rem;
               padding: 0.8rem 1.4rem;
-              margin-bottom: 0.4rem;
+              margin: 0 1.2rem 0.6rem 1.2rem;
               white-space: pre-line;
               height: unset;
 
@@ -268,7 +268,7 @@ $justfix-table-grey: #f2f2f2;
                 align-self: flex-start;
               }
               &.clear-all {
-                margin: 0.8rem 0 0.9rem 0;
+                margin: 0.8rem 1.2rem 0.9rem 0;
                 align-self: flex-end;
               }
             }
