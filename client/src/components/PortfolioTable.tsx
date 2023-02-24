@@ -688,6 +688,7 @@ function useFilterOptionsUpdater(
     setFilterContext({
       ...filterContext,
       filterOptions: {
+        // put corporations like "123 Fake St, LLC" at the end so real names are shown first
         ownernames: Array.from(new Set(Array.from(ownernamesOptionValues.keys()).flat())).sort(
           compareAlphaNumLast
         ),
@@ -697,7 +698,6 @@ function useFilterOptionsUpdater(
           .sort(),
       },
     });
-    console.log("filter options updated");
   }, [ownernamesOptionValues, unitsresOptionValues, zipOptionValues]);
 }
 
@@ -708,7 +708,6 @@ function useFilterSelectionsUpdater(filterContext: IFilterContext, table: Table<
     table.getColumn("ownernames").setFilterValue(ownernames!.map((item: any) => item.name));
     table.getColumn("unitsres").setFilterValue(unitsres);
     table.getColumn("zip").setFilterValue(zip!.map((item: any) => item.name));
-    console.log("table filters updated");
   }, [filterContext.filterSelections]);
 }
 
@@ -725,7 +724,6 @@ function useBuildingCountsUpdater(
       totalBuildings: totalBuildings,
       filteredBuildings: filteredBuildings,
     });
-    console.log("building counts updated");
   }, [totalBuildings, filteredBuildings]);
 }
 
