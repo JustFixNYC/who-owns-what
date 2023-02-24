@@ -307,7 +307,7 @@ const WowzaBanner = withI18n()((props: withI18nProps) => {
           <Trans>
             In April 2023, this link to{" "}
             <ToggleLinkBetweenPortfolioMethods>the old version</ToggleLinkBetweenPortfolioMethods>{" "}
-            of Who Owns What will will move to the About Page.
+            of Who Owns What will move to the About Page.
           </Trans>
         )}
       </div>

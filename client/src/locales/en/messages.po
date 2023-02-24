@@ -482,8 +482,12 @@ msgid "I was checking out this building on Who Owns What, a free landlord resear
 msgstr "I was checking out this building on Who Owns What, a free landlord research tool from JustFix. It’s a remarkable website that every tenant and housing advocate should know about! Can you guess how many total violations this landlord portfolio has? Check it out here: {url}"
 
 #: src/containers/App.tsx:170
-msgid "In April 2023, this link to <0>the old version</0> of Who Owns What will will move to the About Page."
-msgstr "In April 2023, this link to <0>the old version</0> of Who Owns What will will move to the About Page."
+msgid "In April 2023, this link to <0>the old version</0> of Who Owns What will move to the About Page."
+msgstr "In April 2023, this link to <0>the old version</0> of Who Owns What will move to the About Page."
+
+#: src/containers/App.tsx:170
+#~ msgid "In April 2023, this link to <0>the old version</0> of Who Owns What will will move to the About Page."
+#~ msgstr "In April 2023, this link to <0>the old version</0> of Who Owns What will will move to the About Page."
 
 #: src/containers/App.tsx:165
 msgid "In July 2023 this version of Who Owns What will no longer be available. <0>Switch to new version.</0>"
