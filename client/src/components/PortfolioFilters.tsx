@@ -325,7 +325,7 @@ function MinMaxSelect(props: {
 }) {
   const { options, onApply } = props;
   const [minMax, setMinMax] = React.useState(options);
-  const [hasError, setHasError] = React.useState(false);
+  const [minMaxErrors, setMinMaxErrors] = React.useState([false, false]);
 
   return (
     <form className="minmax-container">
@@ -337,7 +337,7 @@ function MinMaxSelect(props: {
           <Trans>MAX</Trans>
         </label>
       </div>
-      {hasError ? (
+      {minMaxErrors[0] || minMaxErrors[1] ? (
         <div className="alerts-container">
           <Alert type="error" variant="primary" closeType="none">
             <Trans>Error</Trans>
@@ -354,10 +354,10 @@ function MinMaxSelect(props: {
           max={options[1]}
           value={minMax[0] == null ? "" : minMax[0]}
           onChange={(e) => {
-            setHasError(false);
+            setMinMaxErrors([false, false]);
             setMinMax([cleanNumberInput(e.target.value), minMax[1]]);
           }}
-          className="min-input"
+          className={classnames("min-input", { hasError: minMaxErrors[0] })}
         />
         <Trans>and</Trans>
         <input
@@ -367,17 +367,18 @@ function MinMaxSelect(props: {
           max={options[1]}
           value={minMax[1] == null ? "" : minMax[1]}
           onChange={(e) => {
-            setHasError(false);
+            setMinMaxErrors([false, false]);
             setMinMax([minMax[0], cleanNumberInput(e.target.value)]);
           }}
-          className="max-input"
+          className={classnames("max-input", { hasError: minMaxErrors[1] })}
         />
       </div>
       <button
         onClick={(e) => {
           e.preventDefault();
-          if (!minMaxIsValid(minMax, options)) {
-            setHasError(true);
+          const errors = minMaxHasError(minMax, options);
+          if (errors[0] || errors[1]) {
+            setMinMaxErrors(errors);
           } else {
             onApply(minMax);
           }
@@ -395,13 +396,13 @@ function cleanNumberInput(value: string): number | undefined {
   return Number(value);
 }
 
-function minMaxIsValid(values: FilterNumberRange, options: FilterNumberRange): boolean {
+function minMaxHasError(values: FilterNumberRange, options: FilterNumberRange): [boolean, boolean] {
   if (typeof options[0] === "undefined" || typeof options[1] === "undefined") {
-    return true;
+    return [true, true];
   }
 
-  const minValid = typeof values[0] === "undefined" || values[0] >= options[0];
-  const maxValid = typeof values[1] === "undefined" || values[1] <= options[1];
+  const minHasError = typeof values[0] === "undefined" ? false : values[0] < options[0];
+  const maxHasError = typeof values[1] === "undefined" ? false : values[1] > options[1];
 
-  return minValid && maxValid;
+  return [minHasError, maxHasError];
 }

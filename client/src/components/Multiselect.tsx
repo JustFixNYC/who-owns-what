@@ -7,6 +7,7 @@ import "../styles/_button.scss";
 import { CloseButton } from "./CloseButton";
 import { Trans } from "@lingui/macro";
 import { Alert } from "./Alert";
+import classnames from "classnames";
 
 // How many selected value chips to display before "show more" button
 const SELECTED_PREVIEW_NUM = 5;
@@ -625,7 +626,7 @@ export class Multiselect extends React.Component<IMultiselectProps, any> {
           </button>
         )}
         <div
-          className="search-wrapper searchWrapper"
+          className={classnames("search-wrapper searchWrapper", { hasError: hasError })}
           ref={this.searchWrapper}
           style={style["searchBox"]}
           onClick={() => {}}
