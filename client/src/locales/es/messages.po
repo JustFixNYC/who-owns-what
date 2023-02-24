@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-02-24 22:27\n"
+"PO-Revision-Date: 2023-02-24 22:30\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -488,7 +488,7 @@ msgstr "Estaba revisando este edificio en Quién Es El Dueño, una herramienta g
 
 #: src/containers/App.tsx:170
 msgid "In April 2023, this link to <0>the old version</0> of Who Owns What will move to the About Page."
-msgstr ""
+msgstr "En abril de 2023, este enlace a <0>la versión antigua</0> de ¿Quién Es El Dueño en Nueva York? se moverá a la página Acerca de."
 
 #: src/containers/App.tsx:170
 #~ msgid "In April 2023, this link to <0>the old version</0> of Who Owns What will will move to the About Page."
@@ -496,7 +496,7 @@ msgstr ""
 
 #: src/containers/App.tsx:165
 msgid "In July 2023 this version of Who Owns What will no longer be available. <0>Switch to new version.</0>"
-msgstr ""
+msgstr "En julio de 2023, esta versión de ¿Quién es el Dueño en NY? dejará de estar disponible. <0>Cambie a la nueva versión.</0>"
 
 #: src/containers/App.tsx:164
 #~ msgid "In March 2023 this version of Who Owns What will no longer be available <0>Switch to new version</0>"
