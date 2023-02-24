@@ -130,11 +130,6 @@
             }
           }
 
-          &#unitsres-accordion {
-            .dropdown-container {
-              width: 14.1rem;
-            }
-          }
           &#zip-accordion {
             .dropdown-container {
               width: 14.1rem;
@@ -146,13 +141,14 @@
             top: 5rem;
             left: -0.1rem;
             z-index: 100;
-            padding: 0.6rem 1.2rem 1.2rem 1.2rem;
+            padding: 0.6rem 0 1.2rem 0;
             background-color: #f2f2f2;
             box-sizing: border-box;
             border: 0.1rem solid $justfix-black;
             border-radius: 0.8rem;
 
             .filter-subtitle-container {
+              padding: 0 1.2rem;
               font-size: 1.2rem;
               color: $justfix-grey-700;
               display: flex;
@@ -172,24 +168,11 @@
               display: flex;
               flex-direction: column;
               margin-top: 0.8rem;
-              .optionListContainer {
-                position: static;
-              }
-              .jf-alert {
-                margin: 0.9rem 0 0.5rem 0;
-                width: fit-content;
-                text-transform: none;
-                .jf-alert__content {
-                  padding-right: 0;
-                }
-              }
-              .owner-info-alert {
-                color: $justfix-grey-600;
-                outline: $justfix-grey-400 solid 1px;
-                button {
-                  outline: none;
-                }
-              }
+            }
+            .minmax-container {
+              padding: 1.2rem;
+              border-top: 1px solid black;
+
               .labels-container {
                 display: flex;
                 color: $justfix-grey-700;
@@ -219,14 +202,27 @@
                 }
               }
             }
+            .multiselect-container {
+              .optionListContainer {
+                position: static;
+              }
+              .owner-info-alert {
+                color: $justfix-grey-600;
+                outline: $justfix-grey-400 solid 1px;
+                button {
+                  outline: none;
+                }
+              }
+            }
             .search-wrapper {
-              border: 1px solid $justfix-black;
-              border-radius: 2px;
+              border-top: 1px solid $justfix-grey;
+              border-bottom: 1px solid $justfix-grey;
+              border-radius: unset;
             }
             .optionListContainer {
               background-color: #f2f2f2;
-              border: 1px solid $justfix-grey;
-              border-radius: 2px;
+              border-bottom: 1px solid $justfix-grey;
+              border-radius: unset;
               .optionsContainer,
               ul {
                 border: none;
