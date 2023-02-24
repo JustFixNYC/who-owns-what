@@ -13,11 +13,11 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-#: src/components/Multiselect.tsx:512
+#: src/components/Multiselect.tsx:513
 msgid "\"No Options Available\""
 msgstr "\"No Options Available\""
 
-#: src/components/Multiselect.tsx:509
+#: src/components/Multiselect.tsx:510
 msgid "\"Select\""
 msgstr "\"Select\""
 
@@ -141,8 +141,8 @@ msgstr "An “eviction filing” is a legal case for eviction commenced by a lan
 #~ msgid "An “eviction filing” is a legal case for eviction commenced by a landlord against a tenant in Housing Court. Such a case can be commenced for nonpayment of rent (most commonly) or for a violation of the lease (such as a nuisance). The eviction filings number only represents cases filed in Housing Court (data from the New York State Office of Court Administration<0>via the Housing Data Coalition</0> in collaboration with the <1>Right to Counsel Coalition</1>) and not evictions carried out by NYC Marshals.<2/>If you or someone you know is facing eviction and want to learn more about your rights, head over to <3>Housing Court Answers for more information</3>.<4/>Due to privacy restrictions on the use of these data, eviction filings cannot be shown for buildings with fewer than 11 units."
 #~ msgstr "An “eviction filing” is a legal case for eviction commenced by a landlord against a tenant in Housing Court. Such a case can be commenced for nonpayment of rent (most commonly) or for a violation of the lease (such as a nuisance). The eviction filings number only represents cases filed in Housing Court (data from the New York State Office of Court Administration<0>via the Housing Data Coalition</0> in collaboration with the <1>Right to Counsel Coalition</1>) and not evictions carried out by NYC Marshals.<2/>If you or someone you know is facing eviction and want to learn more about your rights, head over to <3>Housing Court Answers for more information</3>.<4/>Due to privacy restrictions on the use of these data, eviction filings cannot be shown for buildings with fewer than 11 units."
 
-#: src/components/Multiselect.tsx:470
-#: src/components/PortfolioFilters.tsx:219
+#: src/components/Multiselect.tsx:471
+#: src/components/PortfolioFilters.tsx:220
 msgid "Apply"
 msgstr "Apply"
 
@@ -247,13 +247,17 @@ msgstr "Class C"
 msgid "Class I"
 msgstr "Class I"
 
+#: src/components/Multiselect.tsx:451
+msgid "Clear"
+msgstr "Clear"
+
 #: src/components/PortfolioFilters.tsx:97
 msgid "Clear Filters"
 msgstr "Clear Filters"
 
 #: src/components/Multiselect.tsx:450
-msgid "Clear all"
-msgstr "Clear all"
+#~ msgid "Clear all"
+#~ msgstr "Clear all"
 
 #: src/components/FeatureCalloutContent.ts:13
 msgid "Clearer Landlord Contact Info"
@@ -372,7 +376,7 @@ msgstr "Enter an NYC address and find other buildings your landlord might own:"
 msgid "Enter email"
 msgstr "Enter email"
 
-#: src/components/Multiselect.tsx:443
+#: src/components/Multiselect.tsx:444
 #: src/components/PortfolioFilters.tsx:196
 msgid "Error"
 msgstr "Error"
@@ -998,7 +1002,7 @@ msgstr "Share this page with your neighbors"
 msgid "Shareholder"
 msgstr "Shareholder"
 
-#: src/components/Multiselect.tsx:358
+#: src/components/Multiselect.tsx:359
 msgid "Show less"
 msgstr "Show less"
 

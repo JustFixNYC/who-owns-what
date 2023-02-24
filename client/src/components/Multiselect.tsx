@@ -622,7 +622,7 @@ export class Multiselect extends React.Component<IMultiselectProps, any> {
               onApply([]);
             }}
           >
-            <Trans>Clear all</Trans>
+            <Trans>Clear</Trans>
           </button>
         )}
         <div
