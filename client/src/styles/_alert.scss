@@ -9,6 +9,7 @@
   border-radius: 0.4rem;
   font-family: "Inconsolata", monospace;
   font-size: 1.4rem;
+  font-weight: 500;
 
   &::before {
     content: "";
@@ -27,6 +28,10 @@
 
   button.jf-alert__close {
     align-self: flex-start;
+  }
+
+  .closeIcon {
+    stroke-width: 2px;
   }
 
   &.is-primary {

@@ -29,6 +29,7 @@ export interface IMultiselectProps {
   onSearch?: (value: string) => void;
   onKeyPressFn?: (event: any, value: string) => void;
   onApply: (selectedList: any) => void;
+  infoAlert: React.ReactNode;
   caseSensitiveSearch?: boolean;
   id?: string;
   closeOnSelect?: boolean;
@@ -595,6 +596,7 @@ export class Multiselect extends React.Component<IMultiselectProps, any> {
       className,
       hideSelectedList,
       onApply,
+      infoAlert,
     } = this.props;
     return (
       <div
@@ -654,6 +656,7 @@ export class Multiselect extends React.Component<IMultiselectProps, any> {
         >
           {this.renderOptionList()}
         </div>
+        {infoAlert}
         <button
           onClick={() => {
             if (!selectedValues.length && !!inputValue) {

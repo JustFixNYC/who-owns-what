@@ -183,6 +183,13 @@
                   padding-right: 0;
                 }
               }
+              .owner-info-alert {
+                color: $justfix-grey-600;
+                outline: $justfix-grey-400 solid 1px;
+                button {
+                  outline: none;
+                }
+              }
               .labels-container {
                 display: flex;
                 color: $justfix-grey-700;
