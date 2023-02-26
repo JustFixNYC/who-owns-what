@@ -31,6 +31,7 @@ import { AddressRecord, HpdComplaintCount } from "./APIDataTypes";
 import { FilterContext, IFilterContext, MINMAX_DEFAULT } from "./PropertiesList";
 import "styles/PortfolioTable.scss";
 import { sortContactsByImportance } from "./DetailView";
+import { ArrowIcon } from "./Icons";
 
 const FIRST_COLUMN_WIDTH = 130;
 export const MAX_TABLE_ROWS_PER_PAGE = 100;
@@ -516,11 +517,9 @@ export const PortfolioTable = React.memo(
                             {flexRender(header.column.columnDef.header, header.getContext())}
                             {headerGroup.depth === 1 && header.column.id !== "detail"
                               ? {
-                                  asc: <ArrowIcon dir={"up"} />,
-                                  desc: <ArrowIcon dir={"down"} />,
-                                }[header.column.getIsSorted() as string] ?? (
-                                  <ArrowIcon dir={"both"} />
-                                )
+                                  asc: <ArrowIcon dir="up" />,
+                                  desc: <ArrowIcon dir="down" />,
+                                }[header.column.getIsSorted() as string] ?? <ArrowIcon dir="both" />
                               : null}
                           </div>
                         </>
@@ -633,26 +632,6 @@ const renderContacts = ({ row }: { row: Row<AddressRecord> }) => {
     </ul>
   );
 };
-
-type ArrowIconProps = {
-  dir: "up" | "down" | "both";
-};
-
-function ArrowIcon(props: ArrowIconProps) {
-  return (
-    <span className="arrow-icon">
-      {props.dir === "up" ? (
-        <span>↑</span>
-      ) : props.dir === "down" ? (
-        <span>↓</span>
-      ) : (
-        <>
-          ↑<span>↓</span>
-        </>
-      )}
-    </span>
-  );
-}
 
 function formatCurrency(x: number | null): string | null {
   return x == null ? null : currencyFormater.format(x);

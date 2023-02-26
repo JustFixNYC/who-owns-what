@@ -61,3 +61,23 @@ export const InfoIcon = (props: SVGProps<SVGSVGElement>) => (
     <rect x="0.5" y="0.5" width="16" height="17" rx="8" stroke="currentcolor" />
   </svg>
 );
+
+type ArrowIconProps = {
+  dir: "up" | "down" | "both";
+};
+
+export const ArrowIcon = (props: ArrowIconProps) => {
+  return (
+    <span className="arrow-icon">
+      {props.dir === "up" ? (
+        <span>↑</span>
+      ) : props.dir === "down" ? (
+        <span>↓</span>
+      ) : (
+        <>
+          ↑<span>↓</span>
+        </>
+      )}
+    </span>
+  );
+};
