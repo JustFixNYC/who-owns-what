@@ -105,9 +105,8 @@ $table-border-dark: 1px solid $dark;
           border-radius: 5rem;
           padding: 0.1rem 0.4rem;
           margin-left: 0.5rem;
-          background-color: $justfix-table-grey;
-          color: $justfix-black;
-          border: 1px solid $justfix-black;
+          color: $justfix-grey-700;
+          border: 1px solid $justfix-grey-700;
         }
         .contacts-list {
           color: $justfix-green;
@@ -118,6 +117,13 @@ $table-border-dark: 1px solid $dark;
         &.col-address {
           text-align: left;
           padding: 0.75rem;
+        }
+        &.col-ownernames {
+          text-align: left;
+          padding: 0 0.5rem;
+          .col-ownernames-last-word {
+            white-space: nowrap;
+          }
         }
         &.col-address,
         &.col-recentcomplaintsbytype,

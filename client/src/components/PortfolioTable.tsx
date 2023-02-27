@@ -310,13 +310,30 @@ export const PortfolioTable = React.memo(
                   Object.entries(_groupBy(row.original.allcontacts, "value")).sort(
                     sortContactsByImportance
                   );
+
+                if (!contacts) return "";
+
+                // to ensure "+ #" contacts button sticks to last word in name with the rest wraping,
+                // they need to be in span together. 
+                var displayContactParts = contacts && contacts[0][0].match(/(.*)\s(.*)/);
+
                 return (
                   <>
-                    {contacts ? contacts[0][0] : ""}
-                    {row.getCanExpand() && contacts && contacts.length > 1 && (
-                      <button className="contacts-expand" onClick={row.getToggleExpandedHandler()}>
-                        +{contacts.length - 1}
-                      </button>
+                    {displayContactParts && displayContactParts[1] + " "}
+                    {row.getCanExpand() && contacts && contacts.length > 1 ? (
+                      <span className="col-ownernames-last-word">
+                        {displayContactParts ? displayContactParts[2] : contacts[0][0]}
+                        <button
+                          className="contacts-expand"
+                          onClick={row.getToggleExpandedHandler()}
+                        >
+                          +{contacts.length - 1}
+                        </button>
+                      </span>
+                    ) : displayContactParts ? (
+                      displayContactParts[2]
+                    ) : (
+                      contacts[0][0]
                     )}
                   </>
                 );
