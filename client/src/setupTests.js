@@ -1,4 +1,5 @@
 process.env.REACT_APP_API_BASE_URL = "https://wowapi";
+process.env.REACT_APP_AUTH_SERVER_BASE_URL = "https://jfauth";
 
 require("jest-fetch-mock").enableMocks();
 
