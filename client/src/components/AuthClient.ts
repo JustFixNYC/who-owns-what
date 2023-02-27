@@ -53,7 +53,11 @@ const userExists = async (username: string) => {
     const response = await fetch(`${AUTH_SERVER_BASE_URL}user/?email=${username}`);
     return !!response.ok;
   } catch (e) {
-    console.log(e);
+    if (e instanceof Error) {
+      throw new NetworkError(e.message);
+    } else {
+      throw new Error("Unexpected error");
+    }
   }
 };
 
@@ -105,7 +109,11 @@ const friendlyFetch: typeof fetch = async (input, init) => {
   try {
     response = await fetch(input, init);
   } catch (e) {
-    throw new NetworkError(e.message);
+    if (e instanceof Error) {
+      throw new NetworkError(e.message);
+    } else {
+      throw new Error("Unexpected error");
+    }
   }
   if (!response.ok) {
     throw new HTTPError(response);
