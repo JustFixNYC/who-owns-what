@@ -30,16 +30,6 @@ def logout(request):
 
 
 @api
-def refresh(request):
-    post_data = {
-        "grant_type": "refresh_token",
-        "refresh_token": request.POST.get("refresh_token"),
-    }
-
-    return client_secret_request("o/token/", post_data)
-
-
-@api
 def authenticate(request):
     post_data = {
         "grant_type": "password",
