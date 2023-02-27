@@ -59,6 +59,10 @@ $justfix-table-grey: #f2f2f2;
           outline: 2px solid #727e96;
           outline-offset: 2px;
         }
+        &:hover {
+          text-decoration: underline;
+          text-underline-position: under;
+        }
         .checkbox {
           box-sizing: border-box;
           border: 0.1rem solid $justfix-black;
