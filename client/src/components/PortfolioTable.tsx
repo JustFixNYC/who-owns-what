@@ -314,7 +314,7 @@ export const PortfolioTable = React.memo(
                 if (!contacts) return "";
 
                 // to ensure "+ #" contacts button sticks to last word in name with the rest wraping,
-                // they need to be in span together. 
+                // they need to be in span together.
                 var displayContactParts = contacts && contacts[0][0].match(/(.*)\s(.*)/);
 
                 return (
