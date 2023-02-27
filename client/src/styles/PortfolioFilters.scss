@@ -207,6 +207,9 @@ $justfix-table-grey: #f2f2f2;
                     outline: 2px $justfix-orange solid;
                     outline-offset: -2px;
                   }
+                  &:focus-visible {
+                    outline: none;
+                  }
                 }
               }
             }
