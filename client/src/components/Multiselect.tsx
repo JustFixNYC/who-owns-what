@@ -473,7 +473,7 @@ export class Multiselect extends React.Component<IMultiselectProps, any> {
             )}
             {!this.isDisablePreSelectedValues(value) && (
               <CloseButton
-                className="icon_cancel closeIcon"
+                className="icon_cancel"
                 onClick={() => this.onRemoveSelectedItem(value)}
               />
             )}
