@@ -298,9 +298,9 @@ const WowzaBanner = withI18n()((props: withI18nProps) => {
       <div className="content">
         {isLegacyPath(pathname) ? (
           <Trans>
-            In July 2023 this version of Who Owns What will no longer be available.{" "}
+            You are viewing the old version of Who Owns What.{" "}
             <ToggleLinkBetweenPortfolioMethods>
-              Switch to new version.
+              Switch to the new version.
             </ToggleLinkBetweenPortfolioMethods>
           </Trans>
         ) : (

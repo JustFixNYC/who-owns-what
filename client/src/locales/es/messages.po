@@ -495,8 +495,8 @@ msgstr "En abril de 2023, este enlace a <0>la versión antigua</0> de ¿Quién E
 #~ msgstr "In April 2023, this link to <0>the old version</0> of Who Owns What will will move to the About Page."
 
 #: src/containers/App.tsx:165
-msgid "In July 2023 this version of Who Owns What will no longer be available. <0>Switch to new version.</0>"
-msgstr "En julio de 2023, esta versión de ¿Quién es el Dueño en NY? dejará de estar disponible. <0>Cambie a la nueva versión.</0>"
+#~ msgid "In July 2023 this version of Who Owns What will no longer be available. <0>Switch to new version.</0>"
+#~ msgstr "En julio de 2023, esta versión de ¿Quién es el Dueño en NY? dejará de estar disponible. <0>Cambie a la nueva versión.</0>"
 
 #: src/containers/App.tsx:164
 #~ msgid "In March 2023 this version of Who Owns What will no longer be available <0>Switch to new version</0>"
@@ -1352,6 +1352,10 @@ msgstr ""
 #~ msgid "You are viewing the old version of Who Owns What."
 #~ msgstr "You are viewing the old version of Who Owns What."
 
+#: src/containers/App.tsx:165
+msgid "You are viewing the old version of Who Owns What. <0>Switch to the new version.</0>"
+msgstr ""
+
 #: src/components/PropertiesList.tsx:158
 #: src/components/PropertiesList.tsx:163
 msgid "Zipcode"
@@ -1424,4 +1428,3 @@ msgstr "{value, plural, one {Una Queja del HPD emitida desde el 2014} other {# Q
 #: src/components/IndicatorsDatasets.tsx:37
 msgid "{value, plural, one {One HPD Violation Issued since 2010} other {# HPD Violations Issued since 2010}}"
 msgstr "{value, plural, one {Una Violación del HPD emitida desde el 2010} other {# Violaciones del HPD emitidas desde el 2010}}"
-
