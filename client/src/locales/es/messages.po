@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-02-24 22:30\n"
+"PO-Revision-Date: 2023-02-28 20:35\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -496,7 +496,7 @@ msgstr "En abril de 2023, este enlace a <0>la versión antigua</0> de ¿Quién E
 
 #: src/containers/App.tsx:165
 #~ msgid "In July 2023 this version of Who Owns What will no longer be available. <0>Switch to new version.</0>"
-#~ msgstr "En julio de 2023, esta versión de ¿Quién es el Dueño en NY? dejará de estar disponible. <0>Cambie a la nueva versión.</0>"
+#~ msgstr "In July 2023 this version of Who Owns What will no longer be available. <0>Switch to new version.</0>"
 
 #: src/containers/App.tsx:164
 #~ msgid "In March 2023 this version of Who Owns What will no longer be available <0>Switch to new version</0>"
@@ -1428,3 +1428,4 @@ msgstr "{value, plural, one {Una Queja del HPD emitida desde el 2014} other {# Q
 #: src/components/IndicatorsDatasets.tsx:37
 msgid "{value, plural, one {One HPD Violation Issued since 2010} other {# HPD Violations Issued since 2010}}"
 msgstr "{value, plural, one {Una Violación del HPD emitida desde el 2010} other {# Violaciones del HPD emitidas desde el 2010}}"
+
