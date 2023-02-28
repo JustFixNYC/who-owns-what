@@ -136,6 +136,7 @@ export const PortfolioFilters = React.memo(
                 placeholder={i18n._(t`Search`) + `... (${ownernamesOptions.length})`}
                 onApply={onOwnernamesApply}
                 infoAlert={OwnerInfoAlert}
+                avoidHighlightFirstOption={true}
               />
             </FilterAccordion>
             <FilterAccordion
@@ -165,6 +166,7 @@ export const PortfolioFilters = React.memo(
                 displayValue="name"
                 placeholder={i18n._(t`Search`) + `... (${zipOptions.length})`}
                 onApply={onZipApply}
+                avoidHighlightFirstOption={true}
               />
             </FilterAccordion>
           </div>

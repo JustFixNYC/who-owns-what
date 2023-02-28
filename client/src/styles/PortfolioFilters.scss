@@ -147,6 +147,8 @@ $justfix-table-grey: #f2f2f2;
             top: 5rem;
             left: -0.1rem;
             z-index: 100;
+            overflow-y: scroll;
+            max-height: calc(100vh - 25rem);
             padding: 0.6rem 0 1.2rem 0;
             background-color: $justfix-table-grey;
             box-sizing: border-box;
@@ -224,6 +226,7 @@ $justfix-table-grey: #f2f2f2;
               .owner-info-alert {
                 color: $justfix-grey-600;
                 outline: $justfix-grey-400 solid 1px;
+                margin: 1.2rem 1.2rem 0 1.2rem;
                 button {
                   outline: none;
                 }
@@ -271,7 +274,7 @@ $justfix-table-grey: #f2f2f2;
             .button.is-text {
               color: $justfix-grey-700;
               &.show-less {
-                margin-top: 1.1rem;
+                margin: 1.2rem 0 0 1.2rem;
                 align-self: flex-start;
               }
               &.clear-all {

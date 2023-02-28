@@ -46,8 +46,8 @@
   border-radius: 11px;
   display: inline-flex;
   align-items: center;
-  font-size: 13px;
-  line-height: 19px;
+  font-size: 1.4rem;
+  line-height: 100%;
   color: #fff;
   white-space: nowrap;
 }
@@ -84,7 +84,7 @@
   overflow-y: auto;
 }
 .multiSelectContainer li {
-  padding: 10px 10px;
+  padding: 0.6rem 1.2rem;
 }
 .multiSelectContainer li:hover {
   cursor: pointer;
