@@ -313,28 +313,24 @@ export const PortfolioTable = React.memo(
 
                 if (!contacts) return "";
 
-                // to ensure "+ #" contacts button sticks to last word in name with the rest wraping,
-                // they need to be in span together.
-                var displayContactParts = contacts && contacts[0][0].match(/(.*)\s(.*)/);
+                const contactWords = contacts[0][0].trim().split(/\s+/) || [contacts[0][0]];
 
                 return (
                   <>
-                    {displayContactParts && displayContactParts[1] + " "}
-                    {row.getCanExpand() && contacts && contacts.length > 1 ? (
-                      <span className="col-ownernames-last-word">
-                        {displayContactParts ? displayContactParts[2] : contacts[0][0]}
+                    {contactWords.length > 1 && contactWords.slice(0, 1).join(" ") + " "}
+                    <span className="col-ownernames-last-word">
+                      {contactWords.slice(-1)}
+                      {row.getCanExpand() && contacts && contacts.length > 1 ? (
                         <button
                           className="contacts-expand"
                           onClick={row.getToggleExpandedHandler()}
                         >
                           +{contacts.length - 1}
                         </button>
-                      </span>
-                    ) : displayContactParts ? (
-                      displayContactParts[2]
-                    ) : (
-                      contacts[0][0]
-                    )}
+                      ) : (
+                        <></>
+                      )}
+                    </span>
                   </>
                 );
               },
