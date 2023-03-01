@@ -61,3 +61,25 @@ export const InfoIcon = (props: SVGProps<SVGSVGElement>) => (
     <rect x="0.5" y="0.5" width="16" height="17" rx="8" stroke="currentcolor" />
   </svg>
 );
+
+type ArrowIconProps = {
+  dir: "up" | "down" | "both";
+};
+
+export const ArrowIcon = (props: ArrowIconProps) => {
+  // TODO: we should make and SVG for this arrow to ensure it looks the same across fonts, has the same baseline up or down
+  return (
+    <span className="arrow-icon">
+      {props.dir === "up" ? (
+        <span className="arrow-1">↑</span>
+      ) : props.dir === "down" ? (
+        <span className="arrow-1">↓</span>
+      ) : (
+        <>
+          <span className="arrow-1">↑</span>
+          <span className="arrow-2">↓</span>
+        </>
+      )}
+    </span>
+  );
+};

@@ -2,11 +2,13 @@
 @import "_scrollbar.scss";
 @import "_button.scss";
 
+$justfix-table-grey: #f2f2f2;
+
 .PortfolioFilters {
   display: flex;
   gap: 1.8rem;
   padding: 1.4rem;
-  background-color: #f2f2f2;
+  background-color: $justfix-table-grey;
   text-transform: uppercase;
 
   // TODO: design system typography
@@ -19,7 +21,7 @@
 
   .filter-for {
     text-align: right;
-    min-width: 102px;
+    min-width: 10.2rem;
     letter-spacing: 0.04em;
     display: flex;
     flex-direction: column;
@@ -52,6 +54,15 @@
         display: flex;
         align-items: center;
 
+        &:focus-visible {
+          box-shadow: none;
+          outline: 2px solid #727e96;
+          outline-offset: 2px;
+        }
+        &:hover {
+          text-decoration: underline;
+          text-underline-position: under;
+        }
         .checkbox {
           box-sizing: border-box;
           border: 0.1rem solid $justfix-black;
@@ -125,11 +136,6 @@
             }
           }
 
-          &#unitsres-accordion {
-            .dropdown-container {
-              width: 14.1rem;
-            }
-          }
           &#zip-accordion {
             .dropdown-container {
               width: 14.1rem;
@@ -141,18 +147,27 @@
             top: 5rem;
             left: -0.1rem;
             z-index: 100;
-            padding: 0.6rem 1.2rem 1.2rem 1.2rem;
-            background-color: #f2f2f2;
+            overflow-y: scroll;
+            max-height: calc(100vh - 25rem);
+            padding: 0.6rem 0 1.2rem 0;
+            background-color: $justfix-table-grey;
             box-sizing: border-box;
             border: 0.1rem solid $justfix-black;
             border-radius: 0.8rem;
 
             .filter-subtitle-container {
+              padding: 0 1.2rem;
               font-size: 1.2rem;
               color: $justfix-grey-700;
               display: flex;
               .filter-subtitle {
                 margin-right: auto;
+              }
+
+              .filter-info:focus-visible {
+                box-shadow: none;
+                outline: 2px solid #727e96;
+                outline-offset: 2px;
               }
             }
 
@@ -161,20 +176,15 @@
               display: flex;
               flex-direction: column;
               margin-top: 0.8rem;
-              .optionListContainer {
-                position: static;
-              }
-              .jf-alert {
-                margin: 0.9rem 0 0.5rem 0;
-                width: fit-content;
-                text-transform: none;
-                .jf-alert__content {
-                  padding-right: 0;
-                }
-              }
+            }
+            .minmax-container {
+              padding: 1.2rem;
+              border-top: 1px solid $justfix-grey;
+
               .labels-container {
                 display: flex;
                 color: $justfix-grey-700;
+                margin-bottom: 0.4rem;
                 label:first-child {
                   margin-right: auto;
                 }
@@ -185,7 +195,7 @@
                 align-items: center;
                 justify-content: center;
                 input {
-                  // background: $justfix-white;
+                  background-color: $justfix-table-grey;
                   width: 4.4rem;
                   height: 4.4rem;
                   border: 0.1rem solid $justfix-black;
@@ -198,17 +208,39 @@
                     margin: 0;
                   }
                   -moz-appearance: textfield;
+
+                  &.hasError {
+                    outline: 2px $justfix-orange solid;
+                    outline-offset: -2px;
+                  }
+                  &:focus-visible {
+                    outline: none;
+                  }
+                }
+              }
+            }
+            .multiselect-container {
+              .optionListContainer {
+                position: static;
+              }
+              .owner-info-alert {
+                color: $justfix-grey-600;
+                outline: $justfix-grey-400 solid 1px;
+                margin: 1.2rem 1.2rem 0 1.2rem;
+                button {
+                  outline: none;
                 }
               }
             }
             .search-wrapper {
-              border: 1px solid $justfix-black;
-              border-radius: 2px;
+              border-top: 1px solid $justfix-grey;
+              border-bottom: 1px solid $justfix-grey;
+              border-radius: unset;
             }
             .optionListContainer {
               background-color: #f2f2f2;
-              border: 1px solid $justfix-grey;
-              border-radius: 2px;
+              border-bottom: 1px solid $justfix-grey;
+              border-radius: unset;
               .optionsContainer,
               ul {
                 border: none;
@@ -220,33 +252,37 @@
               background-color: $justfix-black;
               color: $justfix-white;
               border-radius: 0.8rem;
-              padding: 0.8rem 1.4rem;
-              margin-bottom: 0.4rem;
+              padding: 0 0 0 1.4rem;
+              margin: 0 1.2rem 0.6rem 1.2rem;
               white-space: pre-line;
               height: unset;
 
-              .closeIcon {
-                height: 0.9rem;
-                width: 0.9rem;
-                stroke-width: 0.15rem;
-                margin-left: 1.6rem;
+              button {
+                margin-left: 1.2rem;
+                padding: 1.25rem;
+                .closeIcon {
+                  height: 1rem;
+                  width: 1rem;
+                  stroke-width: 0.2rem;
+                }
               }
 
               &.chip-more {
-                background-color: #f2f2f2;
+                background-color: $justfix-table-grey;
                 color: $justfix-black;
                 border: 1px solid $justfix-black;
+                padding: 0.8rem 0.6rem;
                 margin-bottom: 1.1rem;
               }
             }
             .button.is-text {
               color: $justfix-grey-700;
               &.show-less {
-                margin-top: 1.1rem;
+                margin: 1.2rem 0 0 1.2rem;
                 align-self: flex-start;
               }
               &.clear-all {
-                margin: 0.8rem 0 0.9rem 0;
+                margin: 0.8rem 1.2rem 0.9rem 0;
                 align-self: flex-end;
               }
             }

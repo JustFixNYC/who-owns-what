@@ -31,6 +31,7 @@ import { AddressRecord, HpdComplaintCount } from "./APIDataTypes";
 import { FilterContext, IFilterContext, MINMAX_DEFAULT } from "./PropertiesList";
 import "styles/PortfolioTable.scss";
 import { sortContactsByImportance } from "./DetailView";
+import { ArrowIcon } from "./Icons";
 
 const FIRST_COLUMN_WIDTH = 130;
 export const MAX_TABLE_ROWS_PER_PAGE = 100;
@@ -309,14 +310,27 @@ export const PortfolioTable = React.memo(
                   Object.entries(_groupBy(row.original.allcontacts, "value")).sort(
                     sortContactsByImportance
                   );
+
+                if (!contacts) return "";
+
+                const contactWords = contacts[0][0].trim().split(/\s+/) || [contacts[0][0]];
+
                 return (
                   <>
-                    {contacts ? contacts[0][0] : ""}
-                    {row.getCanExpand() && contacts && contacts.length > 1 && (
-                      <button className="contacts-expand" onClick={row.getToggleExpandedHandler()}>
-                        +{contacts.length - 1}
-                      </button>
-                    )}
+                    {contactWords.length > 1 && contactWords.slice(0, 1).join(" ") + " "}
+                    <span className="col-ownernames-last-word">
+                      {contactWords.slice(-1)}
+                      {row.getCanExpand() && contacts && contacts.length > 1 ? (
+                        <button
+                          className="contacts-expand"
+                          onClick={row.getToggleExpandedHandler()}
+                        >
+                          +{contacts.length - 1}
+                        </button>
+                      ) : (
+                        <></>
+                      )}
+                    </span>
                   </>
                 );
               },
@@ -516,11 +530,9 @@ export const PortfolioTable = React.memo(
                             {flexRender(header.column.columnDef.header, header.getContext())}
                             {headerGroup.depth === 1 && header.column.id !== "detail"
                               ? {
-                                  asc: <ArrowIcon dir={"up"} />,
-                                  desc: <ArrowIcon dir={"down"} />,
-                                }[header.column.getIsSorted() as string] ?? (
-                                  <ArrowIcon dir={"both"} />
-                                )
+                                  asc: <ArrowIcon dir="up" />,
+                                  desc: <ArrowIcon dir="down" />,
+                                }[header.column.getIsSorted() as string] ?? <ArrowIcon dir="both" />
                               : null}
                           </div>
                         </>
@@ -634,26 +646,6 @@ const renderContacts = ({ row }: { row: Row<AddressRecord> }) => {
   );
 };
 
-type ArrowIconProps = {
-  dir: "up" | "down" | "both";
-};
-
-function ArrowIcon(props: ArrowIconProps) {
-  return (
-    <span className="arrow-icon">
-      {props.dir === "up" ? (
-        <span>↑</span>
-      ) : props.dir === "down" ? (
-        <span>↓</span>
-      ) : (
-        <>
-          ↑<span>↓</span>
-        </>
-      )}
-    </span>
-  );
-}
-
 function formatCurrency(x: number | null): string | null {
   return x == null ? null : currencyFormater.format(x);
 }
@@ -688,6 +680,7 @@ function useFilterOptionsUpdater(
     setFilterContext({
       ...filterContext,
       filterOptions: {
+        // put corporations like "123 Fake St, LLC" at the end so real names are shown first
         ownernames: Array.from(new Set(Array.from(ownernamesOptionValues.keys()).flat())).sort(
           compareAlphaNumLast
         ),
@@ -697,7 +690,6 @@ function useFilterOptionsUpdater(
           .sort(),
       },
     });
-    console.log("filter options updated");
   }, [ownernamesOptionValues, unitsresOptionValues, zipOptionValues]);
 }
 
@@ -708,7 +700,6 @@ function useFilterSelectionsUpdater(filterContext: IFilterContext, table: Table<
     table.getColumn("ownernames").setFilterValue(ownernames!.map((item: any) => item.name));
     table.getColumn("unitsres").setFilterValue(unitsres);
     table.getColumn("zip").setFilterValue(zip!.map((item: any) => item.name));
-    console.log("table filters updated");
   }, [filterContext.filterSelections]);
 }
 
@@ -725,7 +716,6 @@ function useBuildingCountsUpdater(
       totalBuildings: totalBuildings,
       filteredBuildings: filteredBuildings,
     });
-    console.log("building counts updated");
   }, [totalBuildings, filteredBuildings]);
 }
 

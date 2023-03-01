@@ -2,6 +2,7 @@
 @import "_scrollbar.scss";
 @import "_button.scss";
 
+$justfix-table-grey: #f2f2f2;
 $table-border-light: 1px solid $gray-light;
 $table-border-dark: 1px solid $dark;
 
@@ -18,9 +19,8 @@ $table-border-dark: 1px solid $dark;
       cursor: pointer;
       display: inline-block;
       margin-left: 0.5rem;
-      span {
+      .arrow-2 {
         // This small adjustment aligns second arrow in icon with first
-        display: inline-block;
         transform: translateY(0.5px);
       }
     }
@@ -90,7 +90,7 @@ $table-border-dark: 1px solid $dark;
         &.row-odd {
           background-color: #f7f7f7;
           &:hover {
-            background-color: #f2f2f2ff;
+            background-color: $justfix-table-grey;
           }
         }
         &.row-even {
@@ -104,9 +104,8 @@ $table-border-dark: 1px solid $dark;
           border-radius: 5rem;
           padding: 0.1rem 0.4rem;
           margin-left: 0.5rem;
-          background-color: #f2f2f2;
-          color: $justfix-black;
-          border: 1px solid $justfix-black;
+          color: $justfix-grey-700;
+          border: 1px solid $justfix-grey-700;
         }
         .contacts-list {
           color: $justfix-green;
@@ -117,6 +116,13 @@ $table-border-dark: 1px solid $dark;
         &.col-address {
           text-align: left;
           padding: 0.75rem;
+        }
+        &.col-ownernames {
+          text-align: left;
+          padding: 0 0.5rem;
+          .col-ownernames-last-word {
+            white-space: nowrap;
+          }
         }
         &.col-address,
         &.col-recentcomplaintsbytype,

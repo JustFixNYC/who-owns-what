@@ -13,6 +13,14 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
+#: src/components/Multiselect.tsx:513
+msgid "\"No Options Available\""
+msgstr "\"No Options Available\""
+
+#: src/components/Multiselect.tsx:510
+msgid "\"Select\""
+msgstr "\"Select\""
+
 #: src/components/PropertiesSummary.tsx:144
 msgid "#WhoOwnsWhat via @JustFixNYC"
 msgstr "#WhoOwnsWhat via @JustFixNYC"
@@ -133,8 +141,8 @@ msgstr "An “eviction filing” is a legal case for eviction commenced by a lan
 #~ msgid "An “eviction filing” is a legal case for eviction commenced by a landlord against a tenant in Housing Court. Such a case can be commenced for nonpayment of rent (most commonly) or for a violation of the lease (such as a nuisance). The eviction filings number only represents cases filed in Housing Court (data from the New York State Office of Court Administration<0>via the Housing Data Coalition</0> in collaboration with the <1>Right to Counsel Coalition</1>) and not evictions carried out by NYC Marshals.<2/>If you or someone you know is facing eviction and want to learn more about your rights, head over to <3>Housing Court Answers for more information</3>.<4/>Due to privacy restrictions on the use of these data, eviction filings cannot be shown for buildings with fewer than 11 units."
 #~ msgstr "An “eviction filing” is a legal case for eviction commenced by a landlord against a tenant in Housing Court. Such a case can be commenced for nonpayment of rent (most commonly) or for a violation of the lease (such as a nuisance). The eviction filings number only represents cases filed in Housing Court (data from the New York State Office of Court Administration<0>via the Housing Data Coalition</0> in collaboration with the <1>Right to Counsel Coalition</1>) and not evictions carried out by NYC Marshals.<2/>If you or someone you know is facing eviction and want to learn more about your rights, head over to <3>Housing Court Answers for more information</3>.<4/>Due to privacy restrictions on the use of these data, eviction filings cannot be shown for buildings with fewer than 11 units."
 
-#: src/components/Multiselect.tsx:469
-#: src/components/PortfolioFilters.tsx:216
+#: src/components/Multiselect.tsx:471
+#: src/components/PortfolioFilters.tsx:220
 msgid "Apply"
 msgstr "Apply"
 
@@ -172,7 +180,7 @@ msgstr "Building Permit Applications"
 msgid "Building Permits Applied For"
 msgstr "Building Permits Applied For"
 
-#: src/components/PortfolioFilters.tsx:80
+#: src/components/PortfolioFilters.tsx:79
 msgid "Building Size"
 msgstr "Building Size"
 
@@ -239,13 +247,17 @@ msgstr "Class C"
 msgid "Class I"
 msgstr "Class I"
 
-#: src/components/PortfolioFilters.tsx:98
+#: src/components/Multiselect.tsx:451
+msgid "Clear"
+msgstr "Clear"
+
+#: src/components/PortfolioFilters.tsx:97
 msgid "Clear Filters"
 msgstr "Clear Filters"
 
 #: src/components/Multiselect.tsx:450
-msgid "Clear all"
-msgstr "Clear all"
+#~ msgid "Clear all"
+#~ msgstr "Clear all"
 
 #: src/components/FeatureCalloutContent.ts:13
 msgid "Clearer Landlord Contact Info"
@@ -364,7 +376,8 @@ msgstr "Enter an NYC address and find other buildings your landlord might own:"
 msgid "Enter email"
 msgstr "Enter email"
 
-#: src/components/Multiselect.tsx:443
+#: src/components/Multiselect.tsx:444
+#: src/components/PortfolioFilters.tsx:196
 msgid "Error"
 msgstr "Error"
 
@@ -432,7 +445,7 @@ msgstr "Filed"
 #~ msgid "Filied"
 #~ msgstr "Filied"
 
-#: src/components/PortfolioFilters.tsx:69
+#: src/components/PortfolioFilters.tsx:68
 msgid "Filters"
 msgstr "Filters"
 
@@ -490,7 +503,7 @@ msgstr "HUD Complaint Form 958"
 msgid "Head Officer"
 msgstr "Head Officer"
 
-#: src/components/PortfolioFilters.tsx:104
+#: src/components/PortfolioFilters.tsx:103
 msgid "How are the results calculated?"
 msgstr "How are the results calculated?"
 
@@ -571,7 +584,7 @@ msgstr "Known for <0>unscrupulously deregulating rent stabilized apartments</0>,
 msgid "LOCKS"
 msgstr "LOCKS"
 
-#: src/components/PortfolioFilters.tsx:77
+#: src/components/PortfolioFilters.tsx:76
 #: src/components/PortfolioTable.tsx:230
 msgid "Landlord"
 msgstr "Landlord"
@@ -637,6 +650,10 @@ msgstr "Loading {0} rows"
 msgid "Location"
 msgstr "Location"
 
+#: src/components/PortfolioFilters.tsx:141
+msgid "Look out for multiple spellings for the same person/entity. Names can be spelled multiple ways in official documents."
+msgstr "Look out for multiple spellings for the same person/entity. Names can be spelled multiple ways in official documents."
+
 #: src/components/PropertiesSummary.tsx:134
 msgid "Looking for more information?"
 msgstr "Looking for more information?"
@@ -645,11 +662,11 @@ msgstr "Looking for more information?"
 msgid "MAILBOX"
 msgstr "MAILBOX"
 
-#: src/components/PortfolioFilters.tsx:188
+#: src/components/PortfolioFilters.tsx:191
 msgid "MAX"
 msgstr "MAX"
 
-#: src/components/PortfolioFilters.tsx:185
+#: src/components/PortfolioFilters.tsx:188
 msgid "MIN"
 msgstr "MIN"
 
@@ -722,7 +739,7 @@ msgstr "NYCHA Directory"
 msgid "Network of Landlords"
 msgstr "Network of Landlords"
 
-#: src/components/PortfolioFilters.tsx:67
+#: src/components/PortfolioFilters.tsx:66
 #: src/containers/HomePage.tsx:110
 msgid "New"
 msgstr "New"
@@ -789,7 +806,7 @@ msgstr "Not found"
 #~ msgid "Notice an inaccuracy? Click here."
 #~ msgstr "Notice an inaccuracy? Click here."
 
-#: src/components/PortfolioFilters.tsx:80
+#: src/components/PortfolioFilters.tsx:79
 msgid "Number of Units"
 msgstr "Number of Units"
 
@@ -806,7 +823,7 @@ msgstr "OWNS"
 msgid "Officer"
 msgstr "Officer"
 
-#: src/components/PortfolioFilters.tsx:77
+#: src/components/PortfolioFilters.tsx:76
 msgid "Officer/Owner"
 msgstr "Officer/Owner"
 
@@ -900,8 +917,8 @@ msgstr "Public Housing Development"
 msgid "RS Units"
 msgstr "RS Units"
 
-#: src/components/PortfolioFilters.tsx:116
-#: src/components/PortfolioFilters.tsx:138
+#: src/components/PortfolioFilters.tsx:115
+#: src/components/PortfolioFilters.tsx:135
 msgid "Read more in our Methodology section"
 msgstr "Read more in our Methodology section"
 
@@ -909,7 +926,7 @@ msgstr "Read more in our Methodology section"
 msgid "Registration expired:"
 msgstr "Registration expired:"
 
-#: src/components/PortfolioFilters.tsx:75
+#: src/components/PortfolioFilters.tsx:74
 msgid "Rent Stabilized Units"
 msgstr "Rent Stabilized Units"
 
@@ -937,8 +954,8 @@ msgstr "SIGNAGE MISSING"
 msgid "STAIRS"
 msgstr "STAIRS"
 
-#: src/components/PortfolioFilters.tsx:78
-#: src/components/PortfolioFilters.tsx:84
+#: src/components/PortfolioFilters.tsx:77
+#: src/components/PortfolioFilters.tsx:83
 #: src/containers/App.tsx:87
 msgid "Search"
 msgstr "Search"
@@ -985,11 +1002,11 @@ msgstr "Share this page with your neighbors"
 msgid "Shareholder"
 msgstr "Shareholder"
 
-#: src/components/Multiselect.tsx:358
+#: src/components/Multiselect.tsx:359
 msgid "Show less"
 msgstr "Show less"
 
-#: src/components/PortfolioFilters.tsx:89
+#: src/components/PortfolioFilters.tsx:88
 msgid "Showing {0} {1, plural, one {result} other {results}}."
 msgstr "Showing {0} {1, plural, one {result} other {results}}."
 
@@ -1338,7 +1355,7 @@ msgstr "We compare your search address with a database of over 200k buildings to
 msgid "We overhauled the Portfolio tab to help make navigating this large table of data easier, especially for mobile phones."
 msgstr "We overhauled the Portfolio tab to help make navigating this large table of data easier, especially for mobile phones."
 
-#: src/components/PortfolioFilters.tsx:107
+#: src/components/PortfolioFilters.tsx:106
 msgid "We pull data from public records to calculate these results. Our algorithm relies on public <0>HPD registration data</0> for residential buildings, which contains self-reported landlord contact information on about 170,000 properties across the city."
 msgstr "We pull data from public records to calculate these results. Our algorithm relies on public <0>HPD registration data</0> for residential buildings, which contains self-reported landlord contact information on about 170,000 properties across the city."
 
@@ -1371,11 +1388,11 @@ msgstr "What happens if the landlord has failed to register?"
 msgid "What's New"
 msgstr "What's New"
 
-#: src/components/PortfolioFilters.tsx:170
+#: src/components/PortfolioFilters.tsx:173
 msgid "What's this?"
 msgstr "What's this?"
 
-#: src/components/PortfolioFilters.tsx:121
+#: src/components/PortfolioFilters.tsx:120
 msgid "What’s the difference between a landlord, an owner, and head officer?"
 msgstr "What’s the difference between a landlord, an owner, and head officer?"
 
@@ -1383,7 +1400,7 @@ msgstr "What’s the difference between a landlord, an owner, and head officer?"
 msgid "When two parties share the same business address, we group them as part of the same portfolio."
 msgstr "When two parties share the same business address, we group them as part of the same portfolio."
 
-#: src/components/PortfolioFilters.tsx:124
+#: src/components/PortfolioFilters.tsx:123
 msgid "While the legal owner of a building is often a company (usually called an “LLC”), these names and business addresses registered with HPD offer a clearer picture of who really controls the building. People listed here as “Head Officer” or “Owner” usually have ties to building ownership, while “Site Managers” are part of management. That being said, these names are self reported by the landlord, so they can be misleading. Learn more about HPD registrations and how this information powers this tool on the <0>About page</0>."
 msgstr "While the legal owner of a building is often a company (usually called an “LLC”), these names and business addresses registered with HPD offer a clearer picture of who really controls the building. People listed here as “Head Officer” or “Owner” usually have ties to building ownership, while “Site Managers” are part of management. That being said, these names are self reported by the landlord, so they can be misleading. Learn more about HPD registrations and how this information powers this tool on the <0>About page</0>."
 
@@ -1435,7 +1452,7 @@ msgstr "You are viewing a legacy version of Who Owns What"
 #~ msgid "You are viewing the old version of Who Owns What."
 #~ msgstr "You are viewing the old version of Who Owns What."
 
-#: src/components/PortfolioFilters.tsx:83
+#: src/components/PortfolioFilters.tsx:82
 #: src/components/PortfolioTable.tsx:58
 msgid "Zipcode"
 msgstr "Zipcode"
@@ -1448,7 +1465,7 @@ msgstr "Zoom in"
 msgid "Zoom out"
 msgstr "Zoom out"
 
-#: src/components/PortfolioFilters.tsx:201
+#: src/components/PortfolioFilters.tsx:204
 #: src/components/StringifyList.tsx:18
 msgid "and"
 msgstr "and"

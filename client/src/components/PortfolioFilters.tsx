@@ -22,7 +22,7 @@ export const PortfolioFilters = React.memo(
     const { i18n } = props;
 
     const [showInfoModal, setShowInfoModal] = React.useState(false);
-    const [showLandlordModal, setShowLandlordModal] = React.useState(false);
+    const [showOwnerModal, setShowOwnerModal] = React.useState(false);
     const { pathname } = useLocation();
     const { about, methodology, legacy } = createWhoOwnsWhatRoutePaths();
 
@@ -60,7 +60,6 @@ export const PortfolioFilters = React.memo(
     const [unitsresActive, setUnitsresActive] = React.useState(false);
     const [unitsresIsOpen, setUnitsresIsOpen] = React.useState(false);
     const onUnitsresApply = (selectedList: any) => {
-      console.log({ onUnitsresApply: selectedList });
       setUnitsresActive(selectedList !== MINMAX_DEFAULT);
       setUnitsresIsOpen(false);
       setFilterContext({
@@ -123,7 +122,7 @@ export const PortfolioFilters = React.memo(
             <FilterAccordion
               title={i18n._(t`Landlord`)}
               subtitle={i18n._(t`Officer/Owner`)}
-              infoOnClick={() => setShowLandlordModal(true)}
+              infoOnClick={() => setShowOwnerModal(true)}
               isActive={ownernamesActive}
               isOpen={ownernamesIsOpen}
               setIsOpen={setOwnernamesIsOpen}
@@ -136,6 +135,8 @@ export const PortfolioFilters = React.memo(
                 displayValue="name"
                 placeholder={i18n._(t`Search`) + `... (${ownernamesOptions.length})`}
                 onApply={onOwnernamesApply}
+                infoAlert={OwnerInfoAlert}
+                avoidHighlightFirstOption={true}
               />
             </FilterAccordion>
             <FilterAccordion
@@ -165,6 +166,7 @@ export const PortfolioFilters = React.memo(
                 displayValue="name"
                 placeholder={i18n._(t`Search`) + `... (${zipOptions.length})`}
                 onApply={onZipApply}
+                avoidHighlightFirstOption={true}
               />
             </FilterAccordion>
           </div>
@@ -204,9 +206,9 @@ export const PortfolioFilters = React.memo(
         </Modal>
         <Modal
           key={2}
-          showModal={showLandlordModal}
+          showModal={showOwnerModal}
           width={20}
-          onClose={() => setShowLandlordModal(false)}
+          onClose={() => setShowOwnerModal(false)}
         >
           <h4>
             <Trans>What’s the difference between a landlord, an owner, and head officer?</Trans>
@@ -219,9 +221,7 @@ export const PortfolioFilters = React.memo(
               have ties to building ownership, while “Site Managers” are part of management. That
               being said, these names are self reported by the landlord, so they can be misleading.
               Learn more about HPD registrations and how this information powers this tool on the{" "}
-              <LocaleLink to={isLegacyPath(pathname) ? legacy.about : about}>
-                <Trans>About page</Trans>
-              </LocaleLink>
+              <LocaleLink to={isLegacyPath(pathname) ? legacy.about : about}>About page</LocaleLink>
               .
             </Trans>
           </p>
@@ -232,6 +232,21 @@ export const PortfolioFilters = React.memo(
       </div>
     );
   })
+);
+
+const OwnerInfoAlert = (
+  <Alert
+    className="owner-info-alert"
+    type="info"
+    variant="secondary"
+    closeType="session"
+    storageId="owner-info-alert-close"
+  >
+    <Trans>
+      Look out for multiple spellings for the same person/entity. Names can be spelled multiple ways
+      in official documents.
+    </Trans>
+  </Alert>
 );
 
 /**
@@ -312,7 +327,7 @@ function MinMaxSelect(props: {
 }) {
   const { options, onApply } = props;
   const [minMax, setMinMax] = React.useState(options);
-  const [hasError, setHasError] = React.useState(false);
+  const [minMaxErrors, setMinMaxErrors] = React.useState([false, false]);
 
   return (
     <form className="minmax-container">
@@ -324,10 +339,10 @@ function MinMaxSelect(props: {
           <Trans>MAX</Trans>
         </label>
       </div>
-      {hasError ? (
+      {minMaxErrors[0] || minMaxErrors[1] ? (
         <div className="alerts-container">
           <Alert type="error" variant="primary" closeType="none">
-            Error
+            <Trans>Error</Trans>
           </Alert>
         </div>
       ) : (
@@ -341,10 +356,10 @@ function MinMaxSelect(props: {
           max={options[1]}
           value={minMax[0] == null ? "" : minMax[0]}
           onChange={(e) => {
-            setHasError(false);
+            setMinMaxErrors([false, false]);
             setMinMax([cleanNumberInput(e.target.value), minMax[1]]);
           }}
-          className="min-input"
+          className={classnames("min-input", { hasError: minMaxErrors[0] })}
         />
         <Trans>and</Trans>
         <input
@@ -354,17 +369,18 @@ function MinMaxSelect(props: {
           max={options[1]}
           value={minMax[1] == null ? "" : minMax[1]}
           onChange={(e) => {
-            setHasError(false);
+            setMinMaxErrors([false, false]);
             setMinMax([minMax[0], cleanNumberInput(e.target.value)]);
           }}
-          className="max-input"
+          className={classnames("max-input", { hasError: minMaxErrors[1] })}
         />
       </div>
       <button
         onClick={(e) => {
           e.preventDefault();
-          if (!minMaxIsValid(minMax, options)) {
-            setHasError(true);
+          const errors = minMaxHasError(minMax, options);
+          if (errors[0] || errors[1]) {
+            setMinMaxErrors(errors);
           } else {
             onApply(minMax);
           }
@@ -382,13 +398,13 @@ function cleanNumberInput(value: string): number | undefined {
   return Number(value);
 }
 
-function minMaxIsValid(values: FilterNumberRange, options: FilterNumberRange): boolean {
+function minMaxHasError(values: FilterNumberRange, options: FilterNumberRange): [boolean, boolean] {
   if (typeof options[0] === "undefined" || typeof options[1] === "undefined") {
-    return true;
+    return [true, true];
   }
 
-  const minValid = typeof values[0] === "undefined" || values[0] >= options[0];
-  const maxValid = typeof values[1] === "undefined" || values[1] <= options[1];
+  const minHasError = typeof values[0] === "undefined" ? false : values[0] < options[0];
+  const maxHasError = typeof values[1] === "undefined" ? false : values[1] > options[1];
 
-  return minValid && maxValid;
+  return [minHasError, maxHasError];
 }

@@ -7,6 +7,7 @@ import "../styles/_button.scss";
 import { CloseButton } from "./CloseButton";
 import { Trans } from "@lingui/macro";
 import { Alert } from "./Alert";
+import classnames from "classnames";
 
 // How many selected value chips to display before "show more" button
 const SELECTED_PREVIEW_NUM = 5;
@@ -29,6 +30,7 @@ export interface IMultiselectProps {
   onSearch?: (value: string) => void;
   onKeyPressFn?: (event: any, value: string) => void;
   onApply: (selectedList: any) => void;
+  infoAlert?: React.ReactNode;
   caseSensitiveSearch?: boolean;
   id?: string;
   closeOnSelect?: boolean;
@@ -471,7 +473,7 @@ export class Multiselect extends React.Component<IMultiselectProps, any> {
             )}
             {!this.isDisablePreSelectedValues(value) && (
               <CloseButton
-                className="icon_cancel closeIcon"
+                className="icon_cancel"
                 onClick={() => this.onRemoveSelectedItem(value)}
               />
             )}
@@ -595,6 +597,7 @@ export class Multiselect extends React.Component<IMultiselectProps, any> {
       className,
       hideSelectedList,
       onApply,
+      infoAlert,
     } = this.props;
     return (
       <div
@@ -619,11 +622,11 @@ export class Multiselect extends React.Component<IMultiselectProps, any> {
               onApply([]);
             }}
           >
-            <Trans>Clear all</Trans>
+            <Trans>Clear</Trans>
           </button>
         )}
         <div
-          className="search-wrapper searchWrapper"
+          className={classnames("search-wrapper searchWrapper", { hasError: hasError })}
           ref={this.searchWrapper}
           style={style["searchBox"]}
           onClick={() => {}}
@@ -654,6 +657,7 @@ export class Multiselect extends React.Component<IMultiselectProps, any> {
         >
           {this.renderOptionList()}
         </div>
+        {infoAlert ? infoAlert : <></>}
         <button
           onClick={() => {
             if (!selectedValues.length && !!inputValue) {
@@ -712,10 +716,10 @@ Multiselect.defaultProps = {
   displayValue: "model",
   showCheckbox: false,
   selectionLimit: -1,
-  placeholder: "Select",
+  placeholder: <Trans>"Select"</Trans>,
   groupBy: "",
   style: {},
-  emptyRecordMsg: "No Options Available",
+  emptyRecordMsg: <Trans>"No Options Available"</Trans>,
   onApply: () => {},
   onSelect: () => {},
   onRemove: () => {},
