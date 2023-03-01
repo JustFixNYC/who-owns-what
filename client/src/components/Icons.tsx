@@ -67,15 +67,17 @@ type ArrowIconProps = {
 };
 
 export const ArrowIcon = (props: ArrowIconProps) => {
+  // TODO: we should make and SVG for this arrow to ensure it looks the same across fonts, has the same baseline up or down
   return (
     <span className="arrow-icon">
       {props.dir === "up" ? (
-        <span>↑</span>
+        <span className="arrow-1">↑</span>
       ) : props.dir === "down" ? (
-        <span>↓</span>
+        <span className="arrow-1">↓</span>
       ) : (
         <>
-          ↑<span>↓</span>
+          <span className="arrow-1">↑</span>
+          <span className="arrow-2">↓</span>
         </>
       )}
     </span>

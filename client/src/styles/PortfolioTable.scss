@@ -19,9 +19,8 @@ $table-border-dark: 1px solid $dark;
       cursor: pointer;
       display: inline-block;
       margin-left: 0.5rem;
-      span {
+      .arrow-2 {
         // This small adjustment aligns second arrow in icon with first
-        display: inline-block;
         transform: translateY(0.5px);
       }
     }
