@@ -189,7 +189,6 @@
     transform: translateX(0.7rem);
   }
 
-  // TODO: review in design system - current figma focus state is too subtle
   &:focus-visible {
     box-shadow: none;
     outline: 2px solid #727e96;

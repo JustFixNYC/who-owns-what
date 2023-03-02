@@ -130,3 +130,55 @@ $eyebrow-font: "Suisse Int'l Mono", "Courier New", Courier, monospace;
   @include desktop-eyebrow();
   font-size: 1rem;
 }
+
+// TYPOGRAPHY-MOBILE:
+@mixin mobile-body-standard {
+  @include body-standard();
+  line-height: 125%;
+  font-size: 2rem;
+}
+
+@mixin mobile-h1 {
+  @include body-standard();
+  font-weight: 600;
+  font-size: 3.6rem;
+}
+
+@mixin mobile-h2 {
+  @include body-standard();
+  font-weight: 600;
+  font-size: 1.8rem;
+  letter-spacing: 0.02em;
+  font-variant: all-small-caps;
+}
+
+@mixin mobile-h3 {
+  @include body-standard();
+  font-size: 2.4rem;
+  line-height: 110%;
+}
+
+@mixin mobile-eyebrow {
+  @include body-standard();
+  font-family: $eyebrow-font;
+  font-size: 1.4rem;
+  line-height: 115%;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+@mixin mobile-text-small {
+  @include body-standard();
+  font-size: 1.4rem;
+}
+
+@mixin mobile-text-small-bold {
+  @include mobile-text-small();
+  font-weight: 600;
+}
+
+@mixin mobile-text-small-link {
+  @include mobile-text-small();
+  @include link();
+  line-height: 115%;
+}
