@@ -114,7 +114,7 @@ export const PortfolioFilters = React.memo(
             <button
               aria-pressed={rsunitslatestActive}
               onClick={updateRsunitslatest}
-              className="filter-toggle"
+              className="filter filter-toggle"
             >
               <div className="checkbox">{rsunitslatestActive && <CheckIcon />}</div>
               <Trans>Rent Stabilized Units</Trans>
@@ -127,7 +127,7 @@ export const PortfolioFilters = React.memo(
               isOpen={ownernamesIsOpen}
               setIsOpen={setOwnernamesIsOpen}
               selectionsCount={filterContext.filterSelections.ownernames.length}
-              id="ownernames-accordion"
+              className="ownernames-accordion"
             >
               <Multiselect
                 options={ownernamesOptions.map((value: any) => ({ name: value, id: value }))}
@@ -145,7 +145,7 @@ export const PortfolioFilters = React.memo(
               isActive={unitsresActive}
               isOpen={unitsresIsOpen}
               setIsOpen={setUnitsresIsOpen}
-              id="unitsres-accordion"
+              className="unitsres-accordion"
             >
               <MinMaxSelect
                 options={filterContext.filterOptions.unitsres}
@@ -158,7 +158,7 @@ export const PortfolioFilters = React.memo(
               isOpen={zipIsOpen}
               setIsOpen={setZipIsOpen}
               selectionsCount={filterContext.filterSelections.zip.length}
-              id="zip-accordion"
+              className="zip-accordion"
             >
               <Multiselect
                 options={zipOptions.map((value: any) => ({ name: value, id: value }))}
@@ -266,7 +266,6 @@ function FilterAccordion(props: {
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
   selectionsCount?: number;
   className?: string;
-  id: string;
 }) {
   const {
     title,
@@ -278,7 +277,6 @@ function FilterAccordion(props: {
     setIsOpen,
     selectionsCount,
     className,
-    id,
   } = props;
 
   return (
@@ -291,8 +289,7 @@ function FilterAccordion(props: {
       }}
     >
       <details
-        className={classnames("filter-accordion", className, { active: isActive })}
-        id={id}
+        className={classnames("filter filter-accordion", className, { active: isActive })}
         open={isOpen}
       >
         <summary
