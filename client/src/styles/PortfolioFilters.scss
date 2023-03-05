@@ -466,6 +466,19 @@
             margin-left: 1em;
             @include wrap-with-parentheses();
           }
+          &.scroll-gradient {
+            // https://css-scroll-shadows.vercel.app/
+            --clear: rgba(0, 0, 0, 0);
+            --dark: rgba(140, 140, 140, 0.5);
+            background: linear-gradient($justfix-table-grey 10%, var(--clear)),
+              linear-gradient(var(--clear), $justfix-table-grey 90%) 0 100%,
+              linear-gradient(var(--dark) 10%, var(--clear)),
+              linear-gradient(var(--clear), var(--dark) 90%) 0 100%;
+            background-color: $justfix-table-grey;
+            background-repeat: no-repeat;
+            background-attachment: local, local, scroll, scroll;
+            background-size: 100% 6rem, 100% 6rem, 100% 2rem, 100% 2rem;
+          }
         }
       }
     }

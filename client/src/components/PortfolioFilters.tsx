@@ -291,7 +291,7 @@ const FiltersWrapper = (props: {
             )}
             {isOpen ? <CloseIcon className="closeIcon" /> : <ChevronIcon className="chevronIcon" />}
           </summary>
-          <div className="dropdown-container">
+          <div className="dropdown-container scroll-gradient">
             {children}
             {!!activeFilters && (
               <button onClick={() => setIsOpen(!isOpen)} className="button is-primary">
