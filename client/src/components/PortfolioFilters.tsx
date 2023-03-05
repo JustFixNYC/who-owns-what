@@ -113,7 +113,11 @@ export const PortfolioFilters = React.memo(
           <span className="pill-new">
             <Trans>New</Trans>
           </span>
-          {isMobile ? <></> : <Trans>Filters:</Trans>}
+          {!isMobile && (
+            <span>
+              <Trans>Filters:</Trans>
+            </span>
+          )}
         </div>
         <FiltersWrapper
           isMobile={isMobile}

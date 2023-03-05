@@ -54,7 +54,7 @@
       padding: 0.5rem 1rem;
       border-radius: 1.6rem;
       width: fit-content;
-      margin-bottom: 1rem;
+      margin-bottom: auto;
     }
 
     @include for-phone-only() {
@@ -224,6 +224,7 @@
             border-top: 1px solid $justfix-grey;
             @include for-phone-only {
               border-top: none;
+              padding-left: 0;
             }
 
             .labels-container {
@@ -341,6 +342,11 @@
             align-self: center;
             margin: 0.9rem 0 1rem 0;
           }
+          @include for-phone-only() {
+            .minmax-container .button.is-primary {
+              align-self: flex-start;
+            }
+          }
         }
       }
     }
@@ -401,6 +407,7 @@
             }
             @include for-phone-only {
               .dropdown-container {
+                align-items: flex-start;
                 padding: 2.4rem;
                 .filter-subtitle-container {
                   padding: 0;
