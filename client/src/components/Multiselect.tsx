@@ -612,19 +612,23 @@ export class Multiselect extends React.Component<IMultiselectProps, any> {
             <Trans>Error</Trans>
           </Alert>
         )}
-        {!hideSelectedList && this.renderSelectedList()}
-        {selectedValues.length > 0 && (
-          <button
-            className="clear-all button is-text"
-            key={2}
-            onClick={() => {
-              this.resetSelectedValues();
-              onApply([]);
-            }}
-          >
-            <Trans>Clear</Trans>
-          </button>
-        )}
+        <div className="selectedListContainer">
+          {!hideSelectedList && this.renderSelectedList()}
+        </div>
+        <div className="clear-all-container">
+          {selectedValues.length > 0 && (
+            <button
+              className="clear-all button is-text"
+              key={2}
+              onClick={() => {
+                this.resetSelectedValues();
+                onApply([]);
+              }}
+            >
+              <Trans>Clear</Trans>
+            </button>
+          )}
+        </div>
         <div
           className={classnames("search-wrapper searchWrapper", { hasError: hasError })}
           ref={this.searchWrapper}
