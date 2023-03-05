@@ -109,100 +109,98 @@ export const PortfolioFilters = React.memo(
 
     return (
       <div className="PortfolioFilters" ref={ref}>
-        <div className="filter-for">
+        <div className="new-container">
           <span className="pill-new">
             <Trans>New</Trans>
           </span>
           {isMobile ? <></> : <Trans>Filters:</Trans>}
         </div>
-        <div className="filters-container">
-          <FiltersWrapper
-            isMobile={isMobile}
-            activeFilters={activeFilters}
-            resultsCount={filteredBuildings}
+        <FiltersWrapper
+          isMobile={isMobile}
+          activeFilters={activeFilters}
+          resultsCount={filteredBuildings}
+        >
+          {" "}
+          <button
+            aria-pressed={rsunitslatestActive}
+            onClick={updateRsunitslatest}
+            className="filter filter-toggle"
           >
-            {" "}
-            <button
-              aria-pressed={rsunitslatestActive}
-              onClick={updateRsunitslatest}
-              className="filter filter-toggle"
-            >
-              <div className="checkbox">{rsunitslatestActive && <CheckIcon />}</div>
-              <span>
-                <Trans>Rent Stabilized Units</Trans>
-              </span>
+            <div className="checkbox">{rsunitslatestActive && <CheckIcon />}</div>
+            <span>
+              <Trans>Rent Stabilized Units</Trans>
+            </span>
+          </button>
+          <FilterAccordion
+            title={i18n._(t`Landlord`)}
+            subtitle={i18n._(t`Officer/Owner`)}
+            infoOnClick={() => setShowOwnerModal(true)}
+            isMobile={isMobile}
+            isActive={ownernamesActive}
+            isOpen={ownernamesIsOpen}
+            setIsOpen={setOwnernamesIsOpen}
+            selectionsCount={filterContext.filterSelections.ownernames.length}
+            className="ownernames-accordion"
+          >
+            <Multiselect
+              options={ownernamesOptions.map((value: any) => ({ name: value, id: value }))}
+              selectedValues={ownernamesSelections}
+              displayValue="name"
+              placeholder={i18n._(t`Search`) + `... (${ownernamesOptions.length})`}
+              onApply={onOwnernamesApply}
+              infoAlert={OwnerInfoAlert}
+              avoidHighlightFirstOption={true}
+            />
+          </FilterAccordion>
+          <FilterAccordion
+            title={i18n._(t`Building Size`)}
+            subtitle={i18n._(t`Number of Units`)}
+            isMobile={isMobile}
+            isActive={unitsresActive}
+            isOpen={unitsresIsOpen}
+            setIsOpen={setUnitsresIsOpen}
+            className="unitsres-accordion"
+          >
+            <MinMaxSelect
+              options={filterContext.filterOptions.unitsres}
+              onApply={onUnitsresApply}
+            />
+          </FilterAccordion>
+          <FilterAccordion
+            title={i18n._(t`Zipcode`)}
+            isMobile={isMobile}
+            isActive={zipActive}
+            isOpen={zipIsOpen}
+            setIsOpen={setZipIsOpen}
+            selectionsCount={filterContext.filterSelections.zip.length}
+            className="zip-accordion"
+          >
+            <Multiselect
+              options={zipOptions.map((value: any) => ({ name: value, id: value }))}
+              selectedValues={zipSelections}
+              displayValue="name"
+              placeholder={i18n._(t`Search`) + `... (${zipOptions.length})`}
+              onApply={onZipApply}
+              avoidHighlightFirstOption={true}
+            />
+          </FilterAccordion>
+        </FiltersWrapper>
+        {[rsunitslatestActive, ownernamesActive, unitsresActive, zipActive].includes(true) && (
+          <div className="filter-status">
+            <span className="results-count">
+              <Trans>
+                Showing {filteredBuildings || 0}{" "}
+                <Plural value={filteredBuildings || 0} one="result" other="results" />.
+              </Trans>
+            </span>
+            <button className="results-info" onClick={() => setShowInfoModal(true)}>
+              <InfoIcon />
             </button>
-            <FilterAccordion
-              title={i18n._(t`Landlord`)}
-              subtitle={i18n._(t`Officer/Owner`)}
-              infoOnClick={() => setShowOwnerModal(true)}
-              isMobile={isMobile}
-              isActive={ownernamesActive}
-              isOpen={ownernamesIsOpen}
-              setIsOpen={setOwnernamesIsOpen}
-              selectionsCount={filterContext.filterSelections.ownernames.length}
-              className="ownernames-accordion"
-            >
-              <Multiselect
-                options={ownernamesOptions.map((value: any) => ({ name: value, id: value }))}
-                selectedValues={ownernamesSelections}
-                displayValue="name"
-                placeholder={i18n._(t`Search`) + `... (${ownernamesOptions.length})`}
-                onApply={onOwnernamesApply}
-                infoAlert={OwnerInfoAlert}
-                avoidHighlightFirstOption={true}
-              />
-            </FilterAccordion>
-            <FilterAccordion
-              title={i18n._(t`Building Size`)}
-              subtitle={i18n._(t`Number of Units`)}
-              isMobile={isMobile}
-              isActive={unitsresActive}
-              isOpen={unitsresIsOpen}
-              setIsOpen={setUnitsresIsOpen}
-              className="unitsres-accordion"
-            >
-              <MinMaxSelect
-                options={filterContext.filterOptions.unitsres}
-                onApply={onUnitsresApply}
-              />
-            </FilterAccordion>
-            <FilterAccordion
-              title={i18n._(t`Zipcode`)}
-              isMobile={isMobile}
-              isActive={zipActive}
-              isOpen={zipIsOpen}
-              setIsOpen={setZipIsOpen}
-              selectionsCount={filterContext.filterSelections.zip.length}
-              className="zip-accordion"
-            >
-              <Multiselect
-                options={zipOptions.map((value: any) => ({ name: value, id: value }))}
-                selectedValues={zipSelections}
-                displayValue="name"
-                placeholder={i18n._(t`Search`) + `... (${zipOptions.length})`}
-                onApply={onZipApply}
-                avoidHighlightFirstOption={true}
-              />
-            </FilterAccordion>
-          </FiltersWrapper>
-          {[rsunitslatestActive, ownernamesActive, unitsresActive, zipActive].includes(true) && (
-            <div className="filter-status">
-              <span className="results-count">
-                <Trans>
-                  Showing {filteredBuildings || 0}{" "}
-                  <Plural value={filteredBuildings || 0} one="result" other="results" />.
-                </Trans>
-              </span>
-              <button className="results-info" onClick={() => setShowInfoModal(true)}>
-                <InfoIcon />
-              </button>
-              <button className="clear-filters button is-text" onClick={clearFilters}>
-                <Trans>Clear Filters</Trans>
-              </button>
-            </div>
-          )}
-        </div>
+            <button className="clear-filters button is-text" onClick={clearFilters}>
+              <Trans>Clear Filters</Trans>
+            </button>
+          </div>
+        )}
         <Modal key={1} showModal={showInfoModal} width={20} onClose={() => setShowInfoModal(false)}>
           <h4>
             <Trans>How are the results calculated?</Trans>
