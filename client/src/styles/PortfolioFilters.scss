@@ -3,6 +3,21 @@
 @import "_button.scss";
 @import "_typography.scss";
 
+@mixin white-on-black {
+  background-color: $justfix-black;
+  color: $justfix-white;
+  border-color: $justfix-white;
+}
+
+@mixin wrap-with-parentheses {
+  &::before {
+    content: "(";
+  }
+  &::after {
+    content: ")";
+  }
+}
+
 .PortfolioFilters {
   display: flex;
   gap: 1.8rem;
@@ -16,6 +31,10 @@
   font-size: 1.4rem;
   line-height: 100%;
   letter-spacing: 0.02em;
+
+  @include for-phone-only() {
+    gap: 1.2rem;
+  }
 
   .filter-for {
     text-align: right;
@@ -33,6 +52,14 @@
       border-radius: 1.6rem;
       width: fit-content;
       margin-bottom: 1rem;
+    }
+
+    @include for-phone-only() {
+      min-width: unset;
+      justify-content: center;
+      .pill-new {
+        margin: 0;
+      }
     }
   }
 
@@ -58,12 +85,10 @@
 
         &.active:not([open]),
         &[aria-pressed="true"] {
-          background-color: $justfix-black;
-          color: $justfix-white;
-          border-color: $justfix-white;
+          @include white-on-black();
         }
         &:not([open]):hover,
-        &[open] summary {
+        [open] summary {
           text-decoration: underline;
           text-underline-position: under;
         }
@@ -75,17 +100,21 @@
       }
 
       .filter-toggle {
+        gap: 1rem;
         .checkbox {
           box-sizing: border-box;
           border: 0.1rem solid $justfix-black;
           border-radius: 0.4rem;
           width: var(--checkbox-height);
           height: var(--checkbox-height);
-          margin-right: 1rem;
           display: flex;
           justify-content: center;
           align-items: center;
           color: $justfix-white;
+          @include for-phone-only {
+            order: 1;
+            margin-left: auto;
+          }
         }
         &[aria-pressed="true"] {
           .checkbox {
@@ -108,22 +137,51 @@
           &::-webkit-details-marker {
             display: none;
           }
-          .chevonIcon {
-            margin-left: 0.8rem;
+          .chevronIcon,
+          .closeIcon {
             stroke-width: 2px;
+            margin-left: 0.8rem;
+          }
+        }
+        &:not([open]) {
+          .filter-selection-count {
+            @include for-tablet-portrait-up() {
+              margin-left: 1em;
+              @include wrap-with-parentheses();
+            }
+            @include for-phone-only() {
+              @include white-on-black();
+              padding: 0.25rem 0.5rem;
+              border-radius: 1rem;
+              margin-left: 0.8rem;
+            }
           }
         }
         &[open] {
-          summary svg {
-            transform: scaleY(-1);
+          > summary {
+            svg {
+              transform: scaleY(-1);
+            }
+            @include for-phone-only() {
+              .chevronIcon,
+              .closeIcon {
+                margin-left: auto;
+              }
+            }
           }
 
           &.ownernames-accordion .dropdown-container {
             width: 25.2rem;
+            @include for-phone-only {
+              width: unset;
+            }
           }
 
           &.zip-accordion .dropdown-container {
             width: 14.1rem;
+            @include for-phone-only {
+              width: unset;
+            }
           }
 
           .dropdown-container {
@@ -132,7 +190,7 @@
             left: -0.1rem;
             z-index: 100;
             overflow-y: scroll;
-            max-height: calc(100vh - 25rem);
+            max-height: calc(100dvh - 25rem);
             padding: 0.6rem 0 1.2rem 0;
             background-color: $justfix-table-grey;
             box-sizing: border-box;
@@ -164,6 +222,9 @@
             .minmax-container {
               padding: 1.2rem;
               border-top: 1px solid $justfix-grey;
+              @include for-phone-only {
+                border-top: none;
+              }
 
               .labels-container {
                 display: flex;
@@ -193,12 +254,12 @@
                   }
                   -moz-appearance: textfield;
 
+                  &:focus-visible {
+                    outline: none;
+                  }
                   &.hasError {
                     outline: 2px $justfix-orange solid;
                     outline-offset: -2px;
-                  }
-                  &:focus-visible {
-                    outline: none;
                   }
                 }
               }
@@ -216,21 +277,27 @@
                 }
               }
             }
-            .search-wrapper {
-              border-top: 1px solid $justfix-grey;
-              border-bottom: 1px solid $justfix-grey;
-              border-radius: unset;
-            }
+
+            .search-wrapper,
             .optionListContainer {
               background-color: $justfix-table-grey;
-              border-bottom: 1px solid $justfix-grey;
+              outline: 1px solid $justfix-grey;
               border-radius: unset;
-              .optionsContainer,
-              ul {
-                border: none;
-                list-style-type: none;
+              border: none;
+            }
+            .search-wrapper {
+              &.hasError {
+                outline: 2px $justfix-orange solid;
+                outline-offset: -2px;
               }
             }
+
+            .optionsContainer,
+            ul {
+              border: none;
+              list-style-type: none;
+            }
+
             .chip {
               align-self: flex-start;
               background-color: $justfix-black;
@@ -273,6 +340,95 @@
             .button.is-primary {
               align-self: center;
               margin: 0.9rem 0 1rem 0;
+            }
+          }
+        }
+      }
+      .filters-mobile-wrapper {
+        &.active:not([open]) {
+          @include white-on-black();
+          .active-filter-count {
+            margin-left: 1em;
+            @include wrap-with-parentheses();
+          }
+        }
+        &[open] {
+          --filter-bar-top-height: 4.6rem;
+          --filter-bar-height: 6.6rem;
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          height: var(--filter-bar-top-height);
+          z-index: 100;
+          background-color: $justfix-table-grey;
+          border-radius: 0.8rem 0.8rem 0 0;
+          box-sizing: border-box;
+          border: none;
+          border-bottom: 0.2rem solid $justfix-grey-700;
+          outline: 1rem solid $justfix-grey-700;
+          .dropdown-container {
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            top: calc(var(--filter-bar-top-height)); // borders
+            left: 0;
+            max-height: none;
+            height: calc(100vh - var(--filter-bar-top-height));
+            height: calc(100dvh - var(--filter-bar-top-height));
+            width: 100%;
+            padding: 0;
+            background-color: $justfix-table-grey;
+            border-radius: 0;
+            border: none;
+            .filter {
+              height: var(--filter-bar-height);
+              border-radius: 0;
+              box-sizing: border-box;
+              border: none;
+              border-bottom: 0.1rem solid $justfix-grey-400;
+              &.active:not(.filter-toggle) {
+                background-color: $justfix-table-grey;
+                color: $justfix-black;
+                text-decoration: none;
+              }
+              &.filter-toggle[aria-pressed="true"] {
+                text-decoration: none;
+              }
+              &[open] {
+                outline: none;
+                text-decoration: none;
+              }
+              @include for-phone-only {
+                .dropdown-container {
+                  padding: 2.4rem;
+                  .filter-subtitle-container {
+                    padding: 0;
+                    .filter-subtitle {
+                      font-size: 1.6rem;
+                    }
+                    .filter-info {
+                      font-size: 1.4rem;
+                    }
+                  }
+                  .jf-alert {
+                    margin-left: 0;
+                    margin-right: 0;
+                  }
+                }
+              }
+            }
+            .filter-accordion summary {
+              position: relative;
+              .chevronIcon {
+                @include for-phone-only() {
+                  margin-left: auto;
+                }
+              }
+            }
+            .view-results-count {
+              margin-left: 1em;
+              @include wrap-with-parentheses();
             }
           }
         }
