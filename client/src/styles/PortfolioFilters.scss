@@ -1,8 +1,7 @@
 @import "_vars.scss";
 @import "_scrollbar.scss";
 @import "_button.scss";
-
-$justfix-table-grey: #f2f2f2;
+@import "_typography.scss";
 
 .PortfolioFilters {
   display: flex;
@@ -11,8 +10,7 @@ $justfix-table-grey: #f2f2f2;
   background-color: $justfix-table-grey;
   text-transform: uppercase;
 
-  // TODO: design system typography
-  font-family: "Inconsolata";
+  font-family: $wow-font;
   font-style: normal;
   font-weight: 600;
   font-size: 1.4rem;
@@ -28,7 +26,7 @@ $justfix-table-grey: #f2f2f2;
 
     .pill-new {
       align-self: flex-end;
-      font-family: "Degular", Arial, Helvetica, sans-serif;
+      font-family: $body-font;
       letter-spacing: 0.02em;
       background: $justfix-yellow;
       padding: 0.5rem 1rem;
@@ -43,42 +41,53 @@ $justfix-table-grey: #f2f2f2;
     flex-direction: column;
 
     .filters {
+      --checkbox-height: 2.4rem;
+
       display: flex;
       gap: 1.8rem;
 
-      .filter-toggle {
+      .filter {
         border: 0.1rem solid $justfix-black;
         border-radius: 0.8rem;
         text-transform: uppercase;
         padding: 1rem;
         display: flex;
         align-items: center;
+        // height based on toggle toggle checkbox plus 1rem padding
+        height: calc(var(--checkbox-height) + 1rem * 2);
 
-        &:focus-visible {
-          box-shadow: none;
-          outline: 2px solid #727e96;
-          outline-offset: 2px;
+        &.active:not([open]),
+        &[aria-pressed="true"] {
+          background-color: $justfix-black;
+          color: $justfix-white;
+          border-color: $justfix-white;
         }
-        &:hover {
+        &:not([open]):hover,
+        &[open] summary {
           text-decoration: underline;
           text-underline-position: under;
         }
+        &:focus-visible {
+          box-shadow: none;
+          outline: 2px solid $focus-outline-color;
+          outline-offset: 2px;
+        }
+      }
+
+      .filter-toggle {
         .checkbox {
           box-sizing: border-box;
           border: 0.1rem solid $justfix-black;
           border-radius: 0.4rem;
-          width: 2.4rem;
-          height: 2.4rem;
+          width: var(--checkbox-height);
+          height: var(--checkbox-height);
           margin-right: 1rem;
           display: flex;
           justify-content: center;
           align-items: center;
           color: $justfix-white;
         }
-
         &[aria-pressed="true"] {
-          background-color: $justfix-black;
-          color: $justfix-white;
           .checkbox {
             border-color: $justfix-white;
           }
@@ -86,22 +95,7 @@ $justfix-table-grey: #f2f2f2;
       }
 
       .filter-accordion {
-        border: 0.1rem solid $justfix-black;
-        border-radius: 0.8rem;
-        text-transform: uppercase;
-        display: flex;
-        align-items: center;
         position: relative;
-
-        &:not([open]):hover {
-          text-decoration: underline;
-          text-underline-position: under;
-        }
-
-        &.active:not([open]) {
-          background-color: $justfix-black;
-          color: $justfix-white;
-        }
 
         summary {
           // typical flex stretch doesn't seem to work in summary/details
@@ -109,7 +103,6 @@ $justfix-table-grey: #f2f2f2;
           display: flex;
           align-items: center;
           position: relative;
-          padding: 0 1rem;
           cursor: pointer;
 
           &::-webkit-details-marker {
@@ -118,28 +111,19 @@ $justfix-table-grey: #f2f2f2;
           .chevonIcon {
             margin-left: 0.8rem;
             stroke-width: 2px;
-            stroke-linejoin: miter;
           }
         }
         &[open] {
-          summary {
-            text-decoration: underline;
-            text-underline-position: under;
-            svg {
-              transform: scaleY(-1);
-            }
+          summary svg {
+            transform: scaleY(-1);
           }
 
-          &#ownernames-accordion {
-            .dropdown-container {
-              width: 25.2rem;
-            }
+          &.ownernames-accordion .dropdown-container {
+            width: 25.2rem;
           }
 
-          &#zip-accordion {
-            .dropdown-container {
-              width: 14.1rem;
-            }
+          &.zip-accordion .dropdown-container {
+            width: 14.1rem;
           }
 
           .dropdown-container {
@@ -166,7 +150,7 @@ $justfix-table-grey: #f2f2f2;
 
               .filter-info:focus-visible {
                 box-shadow: none;
-                outline: 2px solid #727e96;
+                outline: 2px solid $focus-outline-color;
                 outline-offset: 2px;
               }
             }
@@ -238,7 +222,7 @@ $justfix-table-grey: #f2f2f2;
               border-radius: unset;
             }
             .optionListContainer {
-              background-color: #f2f2f2;
+              background-color: $justfix-table-grey;
               border-bottom: 1px solid $justfix-grey;
               border-radius: unset;
               .optionsContainer,

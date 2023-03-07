@@ -1,0 +1,184 @@
+// Copied/adapted from https://github.com/JustFixNYC/justfix-website/blob/master/src/styles/_design-system.scss
+// NOTE: wow using root 10px, org-site uses 16px. All rem units here have been adjusted
+
+// FONTS:
+
+@font-face {
+  font-family: "Degular";
+  font-weight: normal;
+  font-style: normal;
+  src: url("../fonts/Degular-Medium.woff2") format("woff2"),
+    url("../fonts/Degular-Medium.woff") format("woff");
+}
+
+@font-face {
+  font-family: "Degular";
+  font-weight: 600;
+  font-style: normal;
+  src: url("../fonts/Degular-Semibold.woff2") format("woff2"),
+    url("../fonts/Degular-Semibold.woff") format("woff");
+}
+
+@font-face {
+  font-family: "Degular Display";
+  font-weight: normal;
+  font-style: normal;
+  src: url("../fonts/Degular_Display-Medium.woff2") format("woff2"),
+    url("../fonts/Degular_Display-Medium.woff") format("woff");
+}
+
+@font-face {
+  font-family: "Suisse Int'l Mono";
+  font-weight: normal;
+  font-style: normal;
+  src: url("../fonts/SuisseIntlMono-Regular-WebS.woff2") format("woff2"),
+    url("../fonts/SuisseIntlMono-Regular-WebS.woff") format("woff");
+}
+
+$wow-font: "Inconsolata", monospace;
+$body-font: "Degular", Arial, Helvetica, sans-serif;
+$title-font: "Degular Display", Arial, Helvetica, sans-serif;
+$eyebrow-font: "Suisse Int'l Mono", "Courier New", Courier, monospace;
+
+// FONTS:
+@font-face {
+  font-family: "Degular";
+  font-weight: normal;
+  font-style: normal;
+  src: url("../fonts/Degular-Medium.woff2") format("woff2"),
+    url("../fonts/Degular-Medium.woff") format("woff");
+}
+
+@font-face {
+  font-family: "Degular Display";
+  font-weight: normal;
+  font-style: normal;
+  src: url("../fonts/Degular_Display-Medium.woff2") format("woff2"),
+    url("../fonts/Degular_Display-Medium.woff") format("woff");
+}
+
+@font-face {
+  font-family: "Suisse Int'l Mono";
+  font-weight: normal;
+  font-style: normal;
+  src: url("../fonts/SuisseIntlMono-Regular-WebS.woff2") format("woff2"),
+    url("../fonts/SuisseIntlMono-Regular-WebS.woff") format("woff");
+}
+
+$body-font: "Degular", Arial, Helvetica, sans-serif;
+$title-font: "Degular Display", Arial, Helvetica, sans-serif;
+$eyebrow-font: "Suisse Int'l Mono", "Courier New", Courier, monospace;
+
+@mixin body-standard {
+  font-family: $body-font;
+  font-size: 1.125rem;
+  line-height: 100%;
+  font-weight: 400;
+  font-style: normal;
+  letter-spacing: 0.01rem;
+}
+
+// TYPOGRAPHY-DESKTOP:
+@mixin desktop-h1 {
+  @include body-standard();
+  font-family: $title-font;
+  font-size: 6rem;
+  letter-spacing: 0.03em;
+}
+
+@mixin desktop-h2 {
+  @include body-standard();
+  font-family: $title-font;
+  font-size: 4rem;
+  line-height: 90%;
+  letter-spacing: 0.03em;
+}
+
+@mixin desktop-h3 {
+  @include body-standard();
+  font-weight: 600;
+  font-size: 2.25rem;
+}
+
+@mixin desktop-h4 {
+  @include body-standard();
+  font-weight: 600;
+  font-size: 1.8rem;
+  line-height: 120%;
+}
+
+@mixin desktop-text-small {
+  @include body-standard();
+  font-size: 0.875rem;
+}
+
+@mixin desktop-text-small-bold {
+  @include body-standard();
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+@mixin desktop-eyebrow {
+  @include body-standard();
+  font-family: $eyebrow-font;
+  line-height: 115%;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+@mixin desktop-eyebrow-small {
+  @include desktop-eyebrow();
+  font-size: 1rem;
+}
+
+// TYPOGRAPHY-MOBILE:
+@mixin mobile-body-standard {
+  @include body-standard();
+  line-height: 125%;
+  font-size: 2rem;
+}
+
+@mixin mobile-h1 {
+  @include body-standard();
+  font-weight: 600;
+  font-size: 3.6rem;
+}
+
+@mixin mobile-h2 {
+  @include body-standard();
+  font-weight: 600;
+  font-size: 1.8rem;
+  letter-spacing: 0.02em;
+  font-variant: all-small-caps;
+}
+
+@mixin mobile-h3 {
+  @include body-standard();
+  font-size: 2.4rem;
+  line-height: 110%;
+}
+
+@mixin mobile-eyebrow {
+  @include body-standard();
+  font-family: $eyebrow-font;
+  font-size: 1.4rem;
+  line-height: 115%;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+@mixin mobile-text-small {
+  @include body-standard();
+  font-size: 1.4rem;
+}
+
+@mixin mobile-text-small-bold {
+  @include mobile-text-small();
+  font-weight: 600;
+}
+
+@mixin mobile-text-small-link {
+  @include mobile-text-small();
+  @include link();
+  line-height: 115%;
+}
