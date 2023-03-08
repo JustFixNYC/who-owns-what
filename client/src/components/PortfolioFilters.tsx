@@ -405,7 +405,7 @@ function MinMaxSelect(props: {
   onFocusInput?: () => void;
 }) {
   const { options, onApply, onFocusInput } = props;
-  const [minMax, setMinMax] = React.useState(options);
+  const [minMax, setMinMax] = React.useState<FilterNumberRange>(MINMAX_DEFAULT);
   const [minMaxErrors, setMinMaxErrors] = React.useState([false, false]);
 
   return (
