@@ -14,6 +14,7 @@ import { createWhoOwnsWhatRoutePaths } from "routes";
 import { isLegacyPath } from "./WowzaToggle";
 import { useLocation } from "react-router-dom";
 import Browser from "../util/browser";
+import helpers from "util/helpers";
 
 type PortfolioFiltersProps = {
   i18n: I18n;
@@ -152,6 +153,7 @@ export const PortfolioFilters = React.memo(
               displayValue="name"
               placeholder={i18n._(t`Search`) + `... (${ownernamesOptions.length})`}
               onApply={onOwnernamesApply}
+              onFocusInput={() => helpers.scrollToBottom(".mobile-wrapper-dropdown")}
               infoAlert={OwnerInfoAlert}
               avoidHighlightFirstOption={true}
             />
@@ -168,6 +170,7 @@ export const PortfolioFilters = React.memo(
             <MinMaxSelect
               options={filterContext.filterOptions.unitsres}
               onApply={onUnitsresApply}
+              onFocusInput={() => helpers.scrollToBottom(".mobile-wrapper-dropdown")}
             />
           </FilterAccordion>
           <FilterAccordion
@@ -185,6 +188,7 @@ export const PortfolioFilters = React.memo(
               displayValue="name"
               placeholder={i18n._(t`Search`) + `... (${zipOptions.length})`}
               onApply={onZipApply}
+              onFocusInput={() => helpers.scrollToBottom(".mobile-wrapper-dropdown")}
               avoidHighlightFirstOption={true}
             />
           </FilterAccordion>
@@ -291,7 +295,7 @@ const FiltersWrapper = (props: {
             )}
             {isOpen ? <CloseIcon className="closeIcon" /> : <ChevronIcon className="chevronIcon" />}
           </summary>
-          <div className="dropdown-container scroll-gradient">
+          <div className="dropdown-container scroll-gradient mobile-wrapper-dropdown">
             {children}
             {!!activeFilters && (
               <button onClick={() => setIsOpen(!isOpen)} className="button is-primary">
@@ -398,8 +402,9 @@ function FilterAccordion(props: {
 function MinMaxSelect(props: {
   options: FilterNumberRange;
   onApply: (selectedList: FilterNumberRange) => void;
+  onFocusInput?: () => void;
 }) {
-  const { options, onApply } = props;
+  const { options, onApply, onFocusInput } = props;
   const [minMax, setMinMax] = React.useState(options);
   const [minMaxErrors, setMinMaxErrors] = React.useState([false, false]);
 
@@ -433,6 +438,7 @@ function MinMaxSelect(props: {
             setMinMaxErrors([false, false]);
             setMinMax([cleanNumberInput(e.target.value), minMax[1]]);
           }}
+          onFocus={onFocusInput}
           className={classnames("min-input", { hasError: minMaxErrors[0] })}
         />
         <Trans>and</Trans>
@@ -446,6 +452,7 @@ function MinMaxSelect(props: {
             setMinMaxErrors([false, false]);
             setMinMax([minMax[0], cleanNumberInput(e.target.value)]);
           }}
+          onFocus={onFocusInput}
           className={classnames("max-input", { hasError: minMaxErrors[1] })}
         />
       </div>

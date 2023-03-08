@@ -30,6 +30,7 @@ export interface IMultiselectProps {
   onSearch?: (value: string) => void;
   onKeyPressFn?: (event: any, value: string) => void;
   onApply: (selectedList: any) => void;
+  onFocusInput: () => void;
   infoAlert?: React.ReactNode;
   caseSensitiveSearch?: boolean;
   id?: string;
@@ -563,6 +564,7 @@ export class Multiselect extends React.Component<IMultiselectProps, any> {
     } else {
       this.toggelOptionList();
     }
+    this.props.onFocusInput();
   }
 
   onBlur() {
@@ -728,6 +730,7 @@ Multiselect.defaultProps = {
   onSelect: () => {},
   onRemove: () => {},
   onKeyPressFn: () => {},
+  onFocusInput: () => {},
   caseSensitiveSearch: false,
   id: "",
   name: "",

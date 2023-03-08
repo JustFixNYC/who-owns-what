@@ -411,6 +411,11 @@ const helpers = {
   regexEscape(str: string) {
     return str?.replace(/[-[\]/{}()*+?.\\^$|]/g, "\\$&");
   },
+
+  scrollToBottom(selectors: string) {
+    const elem = document.querySelector(selectors);
+    elem?.scroll(0, elem?.scrollHeight);
+  },
 };
 
 export default helpers;
