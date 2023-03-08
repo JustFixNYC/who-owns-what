@@ -2,7 +2,7 @@ import { I18n } from "@lingui/core";
 import { t, Trans, Plural } from "@lingui/macro";
 import classnames from "classnames";
 import React from "react";
-import { CheckIcon, ChevronIcon, InfoIcon } from "./Icons";
+import { CheckIcon, ChevronIcon, CloseIcon, InfoIcon } from "./Icons";
 import { Multiselect } from "./Multiselect";
 import { FilterContext, FilterNumberRange, MINMAX_DEFAULT } from "./PropertiesList";
 import "styles/PortfolioFilters.scss";
@@ -13,6 +13,8 @@ import { LocaleLink } from "i18n";
 import { createWhoOwnsWhatRoutePaths } from "routes";
 import { isLegacyPath } from "./WowzaToggle";
 import { useLocation } from "react-router-dom";
+import Browser from "../util/browser";
+import helpers from "util/helpers";
 
 type PortfolioFiltersProps = {
   i18n: I18n;
@@ -20,6 +22,7 @@ type PortfolioFiltersProps = {
 export const PortfolioFilters = React.memo(
   React.forwardRef<HTMLDivElement, PortfolioFiltersProps>((props, ref) => {
     const { i18n } = props;
+    const isMobile = Browser.isMobile();
 
     const [showInfoModal, setShowInfoModal] = React.useState(false);
     const [showOwnerModal, setShowOwnerModal] = React.useState(false);
@@ -101,92 +104,110 @@ export const PortfolioFilters = React.memo(
       });
     };
 
+    const activeFilters = [rsunitslatestActive, ownernamesActive, unitsresActive, zipActive].filter(
+      Boolean
+    ).length;
+
     return (
       <div className="PortfolioFilters" ref={ref}>
-        <div className="filter-for">
+        <div className="filter-new-container">
           <span className="pill-new">
             <Trans>New</Trans>
           </span>
-          <Trans>Filters</Trans>:
-        </div>
-        <div className="filters-container">
-          <div className="filters">
-            <button
-              aria-pressed={rsunitslatestActive}
-              onClick={updateRsunitslatest}
-              className="filter filter-toggle"
-            >
-              <div className="checkbox">{rsunitslatestActive && <CheckIcon />}</div>
-              <Trans>Rent Stabilized Units</Trans>
-            </button>
-            <FilterAccordion
-              title={i18n._(t`Landlord`)}
-              subtitle={i18n._(t`Officer/Owner`)}
-              infoOnClick={() => setShowOwnerModal(true)}
-              isActive={ownernamesActive}
-              isOpen={ownernamesIsOpen}
-              setIsOpen={setOwnernamesIsOpen}
-              selectionsCount={filterContext.filterSelections.ownernames.length}
-              className="ownernames-accordion"
-            >
-              <Multiselect
-                options={ownernamesOptions.map((value: any) => ({ name: value, id: value }))}
-                selectedValues={ownernamesSelections}
-                displayValue="name"
-                placeholder={i18n._(t`Search`) + `... (${ownernamesOptions.length})`}
-                onApply={onOwnernamesApply}
-                infoAlert={OwnerInfoAlert}
-                avoidHighlightFirstOption={true}
-              />
-            </FilterAccordion>
-            <FilterAccordion
-              title={i18n._(t`Building Size`)}
-              subtitle={i18n._(t`Number of Units`)}
-              isActive={unitsresActive}
-              isOpen={unitsresIsOpen}
-              setIsOpen={setUnitsresIsOpen}
-              className="unitsres-accordion"
-            >
-              <MinMaxSelect
-                options={filterContext.filterOptions.unitsres}
-                onApply={onUnitsresApply}
-              />
-            </FilterAccordion>
-            <FilterAccordion
-              title={i18n._(t`Zipcode`)}
-              isActive={zipActive}
-              isOpen={zipIsOpen}
-              setIsOpen={setZipIsOpen}
-              selectionsCount={filterContext.filterSelections.zip.length}
-              className="zip-accordion"
-            >
-              <Multiselect
-                options={zipOptions.map((value: any) => ({ name: value, id: value }))}
-                selectedValues={zipSelections}
-                displayValue="name"
-                placeholder={i18n._(t`Search`) + `... (${zipOptions.length})`}
-                onApply={onZipApply}
-                avoidHighlightFirstOption={true}
-              />
-            </FilterAccordion>
-          </div>
-          {[rsunitslatestActive, ownernamesActive, unitsresActive, zipActive].includes(true) && (
-            <div className="filter-status">
-              <span className="results-count">
-                <Trans>
-                  Showing {filteredBuildings || 0}{" "}
-                  <Plural value={filteredBuildings || 0} one="result" other="results" />.
-                </Trans>
-              </span>
-              <button className="results-info" onClick={() => setShowInfoModal(true)}>
-                <InfoIcon />
-              </button>
-              <button className="clear-filters button is-text" onClick={clearFilters}>
-                <Trans>Clear Filters</Trans>
-              </button>
-            </div>
+          {!isMobile && (
+            <span>
+              <Trans>Filters:</Trans>
+            </span>
           )}
         </div>
+        <FiltersWrapper
+          isMobile={isMobile}
+          activeFilters={activeFilters}
+          resultsCount={filteredBuildings}
+        >
+          <button
+            aria-pressed={rsunitslatestActive}
+            onClick={updateRsunitslatest}
+            className="filter filter-toggle"
+          >
+            <div className="checkbox">{rsunitslatestActive && <CheckIcon />}</div>
+            <span>
+              <Trans>Rent Stabilized Units</Trans>
+            </span>
+          </button>
+          <FilterAccordion
+            title={i18n._(t`Landlord`)}
+            subtitle={i18n._(t`Officer/Owner`)}
+            infoOnClick={() => setShowOwnerModal(true)}
+            isMobile={isMobile}
+            isActive={ownernamesActive}
+            isOpen={ownernamesIsOpen}
+            setIsOpen={setOwnernamesIsOpen}
+            selectionsCount={filterContext.filterSelections.ownernames.length}
+            className="ownernames-accordion"
+          >
+            <Multiselect
+              options={ownernamesOptions.map((value: any) => ({ name: value, id: value }))}
+              selectedValues={ownernamesSelections}
+              displayValue="name"
+              placeholder={i18n._(t`Search`) + `... (${ownernamesOptions.length})`}
+              onApply={onOwnernamesApply}
+              onFocusInput={() => helpers.scrollToBottom(".mobile-wrapper-dropdown")}
+              infoAlert={OwnerInfoAlert}
+              avoidHighlightFirstOption={true}
+            />
+          </FilterAccordion>
+          <FilterAccordion
+            title={i18n._(t`Building Size`)}
+            subtitle={i18n._(t`Number of Units`)}
+            isMobile={isMobile}
+            isActive={unitsresActive}
+            isOpen={unitsresIsOpen}
+            setIsOpen={setUnitsresIsOpen}
+            className="unitsres-accordion"
+          >
+            <MinMaxSelect
+              options={filterContext.filterOptions.unitsres}
+              onApply={onUnitsresApply}
+              onFocusInput={() => helpers.scrollToBottom(".mobile-wrapper-dropdown")}
+            />
+          </FilterAccordion>
+          <FilterAccordion
+            title={i18n._(t`Zipcode`)}
+            isMobile={isMobile}
+            isActive={zipActive}
+            isOpen={zipIsOpen}
+            setIsOpen={setZipIsOpen}
+            selectionsCount={filterContext.filterSelections.zip.length}
+            className="zip-accordion"
+          >
+            <Multiselect
+              options={zipOptions.map((value: any) => ({ name: value, id: value }))}
+              selectedValues={zipSelections}
+              displayValue="name"
+              placeholder={i18n._(t`Search`) + `... (${zipOptions.length})`}
+              onApply={onZipApply}
+              onFocusInput={() => helpers.scrollToBottom(".mobile-wrapper-dropdown")}
+              avoidHighlightFirstOption={true}
+            />
+          </FilterAccordion>
+        </FiltersWrapper>
+        {(rsunitslatestActive || ownernamesActive || unitsresActive || zipActive) && (
+          <div className="filter-status">
+            <span className="results-count">
+              <Trans>
+                Showing {filteredBuildings || 0}{" "}
+                <Plural value={filteredBuildings || 0} one="result" other="results" />.
+              </Trans>
+            </span>
+            <button className="results-info" onClick={() => setShowInfoModal(true)}>
+              <InfoIcon />
+            </button>
+            <button className="clear-filters button is-text" onClick={clearFilters}>
+              <Trans>Clear Filters</Trans>
+            </button>
+          </div>
+        )}
         <Modal key={1} showModal={showInfoModal} width={20} onClose={() => setShowInfoModal(false)}>
           <h4>
             <Trans>How are the results calculated?</Trans>
@@ -234,6 +255,60 @@ export const PortfolioFilters = React.memo(
   })
 );
 
+const FiltersWrapper = (props: {
+  isMobile: boolean;
+  activeFilters: number;
+  resultsCount?: number;
+  children: React.ReactNode;
+}) => {
+  const { isMobile, activeFilters, resultsCount, children } = props;
+  const [isOpen, setIsOpen] = React.useState(false);
+
+  return !isMobile ? (
+    <div className="filters">{children}</div>
+  ) : (
+    <FocusTrap
+      active={isOpen}
+      focusTrapOptions={{
+        clickOutsideDeactivates: true,
+        returnFocusOnDeactivate: false,
+        onDeactivate: () => setIsOpen(false),
+      }}
+    >
+      <div className="filters">
+        <details
+          className={classnames("filter filter-accordion filters-mobile-wrapper", {
+            active: !!activeFilters,
+          })}
+          open={isOpen}
+        >
+          <summary
+            onClick={(e) => {
+              e.preventDefault();
+              setIsOpen(!isOpen);
+            }}
+          >
+            <Trans>Filters</Trans>
+            {!isOpen && !!activeFilters && (
+              <span className="active-filter-count">{activeFilters}</span>
+            )}
+            {isOpen ? <CloseIcon className="closeIcon" /> : <ChevronIcon className="chevronIcon" />}
+          </summary>
+          <div className="dropdown-container scroll-gradient mobile-wrapper-dropdown">
+            {children}
+            {!!activeFilters && (
+              <button onClick={() => setIsOpen(!isOpen)} className="button is-primary">
+                <Trans>View Results</Trans>
+                {resultsCount != null && <span className="view-results-count">{resultsCount}</span>}
+              </button>
+            )}
+          </div>
+        </details>
+      </div>
+    </FocusTrap>
+  );
+};
+
 const OwnerInfoAlert = (
   <Alert
     className="owner-info-alert"
@@ -261,6 +336,7 @@ function FilterAccordion(props: {
   subtitle?: string;
   infoOnClick?: () => void;
   children: React.ReactNode;
+  isMobile: boolean;
   isActive: boolean;
   isOpen: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -272,6 +348,7 @@ function FilterAccordion(props: {
     subtitle,
     infoOnClick,
     children,
+    isMobile,
     isActive,
     isOpen,
     setIsOpen,
@@ -297,10 +374,13 @@ function FilterAccordion(props: {
             e.preventDefault();
             setIsOpen(!isOpen);
           }}
+          data-selections={selectionsCount}
         >
           {title}
-          {!isOpen && isActive && selectionsCount && <> ({selectionsCount})</>}
-          <ChevronIcon className="chevonIcon" />
+          {isActive && selectionsCount && (!isOpen || isMobile) && (
+            <span className="filter-selection-count">{selectionsCount}</span>
+          )}
+          <ChevronIcon className="chevronIcon" />
         </summary>
         <div className="dropdown-container">
           <div className="filter-subtitle-container">
@@ -321,9 +401,10 @@ function FilterAccordion(props: {
 function MinMaxSelect(props: {
   options: FilterNumberRange;
   onApply: (selectedList: FilterNumberRange) => void;
+  onFocusInput?: () => void;
 }) {
-  const { options, onApply } = props;
-  const [minMax, setMinMax] = React.useState(options);
+  const { options, onApply, onFocusInput } = props;
+  const [minMax, setMinMax] = React.useState<FilterNumberRange>(MINMAX_DEFAULT);
   const [minMaxErrors, setMinMaxErrors] = React.useState([false, false]);
 
   return (
@@ -356,6 +437,7 @@ function MinMaxSelect(props: {
             setMinMaxErrors([false, false]);
             setMinMax([cleanNumberInput(e.target.value), minMax[1]]);
           }}
+          onFocus={onFocusInput}
           className={classnames("min-input", { hasError: minMaxErrors[0] })}
         />
         <Trans>and</Trans>
@@ -369,6 +451,7 @@ function MinMaxSelect(props: {
             setMinMaxErrors([false, false]);
             setMinMax([minMax[0], cleanNumberInput(e.target.value)]);
           }}
+          onFocus={onFocusInput}
           className={classnames("max-input", { hasError: minMaxErrors[1] })}
         />
       </div>
@@ -396,12 +479,12 @@ function cleanNumberInput(value: string): number | undefined {
 }
 
 function minMaxHasError(values: FilterNumberRange, options: FilterNumberRange): [boolean, boolean] {
-  if (typeof options[0] === "undefined" || typeof options[1] === "undefined") {
-    return [true, true];
-  }
+  const minHasError =
+    values[0] == null
+      ? false
+      : values[0] < 0 || (options[1] == null ? false : values[0] >= options[1]);
 
-  const minHasError = typeof values[0] === "undefined" ? false : values[0] < options[0];
-  const maxHasError = typeof values[1] === "undefined" ? false : values[1] > options[1];
+  const maxHasError = values[1] == null || options[0] == null ? false : values[1] <= options[0];
 
   return [minHasError, maxHasError];
 }
