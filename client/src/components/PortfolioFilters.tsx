@@ -480,12 +480,12 @@ function cleanNumberInput(value: string): number | undefined {
 }
 
 function minMaxHasError(values: FilterNumberRange, options: FilterNumberRange): [boolean, boolean] {
-  if (typeof options[0] === "undefined" || typeof options[1] === "undefined") {
-    return [true, true];
-  }
+  const minHasError =
+    values[0] == null
+      ? false
+      : values[0] < 0 || (options[1] == null ? false : values[0] >= options[1]);
 
-  const minHasError = typeof values[0] === "undefined" ? false : values[0] < options[0];
-  const maxHasError = typeof values[1] === "undefined" ? false : values[1] > options[1];
+  const maxHasError = values[1] == null || options[0] == null ? false : values[1] <= options[0];
 
   return [minHasError, maxHasError];
 }
