@@ -190,7 +190,7 @@
           left: -0.1rem;
           z-index: 100;
           overflow-y: scroll;
-          max-height: calc(100dvh - 25rem);
+          max-height: calc(100vh - 25rem);
           padding: 0.6rem 0 1.2rem 0;
           background-color: $justfix-table-grey;
           box-sizing: border-box;
@@ -392,7 +392,6 @@
           left: 0;
           max-height: none;
           height: calc(100vh - var(--filter-bar-top-height));
-          height: calc(100dvh - var(--filter-bar-top-height));
           width: 100%;
           padding: 0;
           background-color: $justfix-table-grey;
