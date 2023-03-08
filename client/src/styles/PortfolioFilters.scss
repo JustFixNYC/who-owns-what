@@ -143,18 +143,16 @@
           margin-left: 0.8rem;
         }
       }
-      &:not([open]) {
-        .filter-selection-count {
-          @include for-tablet-portrait-up() {
-            margin-left: 1em;
-            @include wrap-with-parentheses();
-          }
-          @include for-phone-only() {
-            @include white-on-black();
-            padding: 0.25rem 0.5rem;
-            border-radius: 1rem;
-            margin-left: 0.8rem;
-          }
+      .filter-selection-count {
+        @include for-tablet-portrait-up() {
+          margin-left: 1em;
+          @include wrap-with-parentheses();
+        }
+        @include for-phone-only() {
+          @include white-on-black();
+          padding: 0.25rem 0.5rem;
+          border-radius: 1rem;
+          margin-left: 0.8rem;
         }
       }
       &[open] {
@@ -178,7 +176,7 @@
         }
 
         &.zip-accordion .dropdown-container {
-          width: 14.1rem;
+          width: 15rem;
           @include for-phone-only {
             width: unset;
           }
@@ -196,6 +194,10 @@
           box-sizing: border-box;
           border: 0.1rem solid $justfix-black;
           border-radius: 0.8rem;
+
+          & > div {
+            width: 100%;
+          }
 
           .filter-subtitle-container {
             font-size: 1.2rem;
@@ -302,9 +304,6 @@
             display: flex;
             flex-wrap: wrap;
             gap: 0.4rem;
-            @include for-tablet-portrait-up() {
-              padding: 0 1.2rem;
-            }
 
             .chip {
               align-self: flex-start;
@@ -340,11 +339,9 @@
               color: $justfix-grey-700;
               &.show-less {
                 margin: 1.2rem 0 0 1.2rem;
-                // align-self: flex-start;
               }
               &.clear-all {
-                margin: 0.8rem 1.2rem 0.9rem auto;
-                // align-self: flex-end;
+                margin: 0.8rem 0 0.9rem auto;
               }
             }
           }
