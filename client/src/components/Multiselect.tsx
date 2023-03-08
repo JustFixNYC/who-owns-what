@@ -30,7 +30,7 @@ export interface IMultiselectProps {
   onSearch?: (value: string) => void;
   onKeyPressFn?: (event: any, value: string) => void;
   onApply: (selectedList: any) => void;
-  onFocusInput: () => void;
+  onFocusInput?: () => void;
   infoAlert?: React.ReactNode;
   caseSensitiveSearch?: boolean;
   id?: string;

@@ -110,7 +110,7 @@ export const PortfolioFilters = React.memo(
 
     return (
       <div className="PortfolioFilters" ref={ref}>
-        <div className="new-container">
+        <div className="filter-new-container">
           <span className="pill-new">
             <Trans>New</Trans>
           </span>
@@ -125,7 +125,6 @@ export const PortfolioFilters = React.memo(
           activeFilters={activeFilters}
           resultsCount={filteredBuildings}
         >
-          {" "}
           <button
             aria-pressed={rsunitslatestActive}
             onClick={updateRsunitslatest}
@@ -193,7 +192,7 @@ export const PortfolioFilters = React.memo(
             />
           </FilterAccordion>
         </FiltersWrapper>
-        {[rsunitslatestActive, ownernamesActive, unitsresActive, zipActive].includes(true) && (
+        {(rsunitslatestActive || ownernamesActive || unitsresActive || zipActive) && (
           <div className="filter-status">
             <span className="results-count">
               <Trans>
@@ -300,7 +299,7 @@ const FiltersWrapper = (props: {
             {!!activeFilters && (
               <button onClick={() => setIsOpen(!isOpen)} className="button is-primary">
                 <Trans>View Results</Trans>
-                {resultsCount && <span className="view-results-count">{resultsCount}</span>}
+                {resultsCount != null && <span className="view-results-count">{resultsCount}</span>}
               </button>
             )}
           </div>
