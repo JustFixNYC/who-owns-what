@@ -104,9 +104,7 @@ export const PortfolioFilters = React.memo(
       });
     };
 
-    const activeFilters = [rsunitslatestActive, ownernamesActive, unitsresActive, zipActive].filter(
-      Boolean
-    ).length;
+    const activeFilters = { rsunitslatestActive, ownernamesActive, unitsresActive, zipActive };
 
     return (
       <div className="PortfolioFilters" ref={ref}>
@@ -153,7 +151,7 @@ export const PortfolioFilters = React.memo(
               placeholder={i18n._(t`Search`) + `... (${ownernamesOptions.length})`}
               onApply={onOwnernamesApply}
               onFocusInput={() => helpers.scrollToBottom(".mobile-wrapper-dropdown")}
-              infoAlert={OwnerInfoAlert}
+              infoAlert={OwnernamesInfoAlert}
               avoidHighlightFirstOption={true}
             />
           </FilterAccordion>
@@ -193,21 +191,25 @@ export const PortfolioFilters = React.memo(
           </FilterAccordion>
         </FiltersWrapper>
         {(rsunitslatestActive || ownernamesActive || unitsresActive || zipActive) && (
-          <div className="filter-status">
-            <span className="results-count">
-              <Trans>
-                Showing {filteredBuildings || 0}{" "}
-                <Plural value={filteredBuildings || 0} one="result" other="results" />.
-              </Trans>
-            </span>
-            <button className="results-info" onClick={() => setShowInfoModal(true)}>
-              <InfoIcon />
-            </button>
-            <button className="clear-filters button is-text" onClick={clearFilters}>
-              <Trans>Clear Filters</Trans>
-            </button>
-          </div>
+          <>
+            <div className="filter-status">
+              <span className="results-count" role="status">
+                <Trans>
+                  Showing {filteredBuildings || 0}{" "}
+                  <Plural value={filteredBuildings || 0} one="result" other="results" />.
+                </Trans>
+              </span>
+              <button className="results-info" onClick={() => setShowInfoModal(true)}>
+                <InfoIcon />
+              </button>
+              <button className="clear-filters button is-text" onClick={clearFilters}>
+                <Trans>Clear Filters</Trans>
+              </button>
+            </div>
+            {filteredBuildings === 0 ? ZeroResultsAlert : <></>}
+          </>
         )}
+
         <Modal key={1} showModal={showInfoModal} width={20} onClose={() => setShowInfoModal(false)}>
           <h4>
             <Trans>How are the results calculated?</Trans>
@@ -255,67 +257,139 @@ export const PortfolioFilters = React.memo(
   })
 );
 
+type ActiveFilters = {
+  rsunitslatestActive: boolean;
+  ownernamesActive: boolean;
+  unitsresActive: boolean;
+  zipActive: boolean;
+};
+
 const FiltersWrapper = (props: {
   isMobile: boolean;
-  activeFilters: number;
-  resultsCount?: number;
+  activeFilters: ActiveFilters;
+  resultsCount: number | undefined;
   children: React.ReactNode;
 }) => {
   const { isMobile, activeFilters, resultsCount, children } = props;
+  const numActiveFilters = Object.values(activeFilters).filter(Boolean).length;
   const [isOpen, setIsOpen] = React.useState(false);
 
-  return !isMobile ? (
-    <div className="filters">{children}</div>
-  ) : (
-    <FocusTrap
-      active={isOpen}
-      focusTrapOptions={{
-        clickOutsideDeactivates: true,
-        returnFocusOnDeactivate: false,
-        onDeactivate: () => setIsOpen(false),
-      }}
-    >
-      <div className="filters">
-        <details
-          className={classnames("filter filter-accordion filters-mobile-wrapper", {
-            active: !!activeFilters,
-          })}
-          open={isOpen}
+  return (
+    <>
+      {!isMobile ? (
+        <div className="filters">{children}</div>
+      ) : (
+        <FocusTrap
+          active={isOpen}
+          focusTrapOptions={{
+            clickOutsideDeactivates: true,
+            returnFocusOnDeactivate: false,
+            onDeactivate: () => setIsOpen(false),
+          }}
         >
-          <summary
-            onClick={(e) => {
-              e.preventDefault();
-              setIsOpen(!isOpen);
-            }}
-          >
-            <Trans>Filters</Trans>
-            {!isOpen && !!activeFilters && (
-              <span className="active-filter-count">{activeFilters}</span>
-            )}
-            {isOpen ? <CloseIcon className="closeIcon" /> : <ChevronIcon className="chevronIcon" />}
-          </summary>
-          <div className="dropdown-container scroll-gradient mobile-wrapper-dropdown">
-            {children}
-            {!!activeFilters && (
-              <button onClick={() => setIsOpen(!isOpen)} className="button is-primary">
-                <Trans>View Results</Trans>
-                {resultsCount != null && <span className="view-results-count">{resultsCount}</span>}
-              </button>
-            )}
+          <div className="filters">
+            <details
+              className={classnames("filter filter-accordion filters-mobile-wrapper", {
+                active: !!numActiveFilters,
+              })}
+              open={isOpen}
+            >
+              <summary
+                onClick={(e) => {
+                  e.preventDefault();
+                  setIsOpen(!isOpen);
+                }}
+              >
+                <Trans>Filters</Trans>
+                {!isOpen && !!numActiveFilters && (
+                  <span className="active-filter-count">{numActiveFilters}</span>
+                )}
+                {isOpen ? (
+                  <CloseIcon className="closeIcon" />
+                ) : (
+                  <ChevronIcon className="chevronIcon" />
+                )}
+              </summary>
+              <div className="dropdown-container scroll-gradient mobile-wrapper-dropdown">
+                {children}
+                {!!activeFilters && (
+                  <button onClick={() => setIsOpen(!isOpen)} className="button is-primary">
+                    <Trans>View Results</Trans>
+                    {resultsCount != null && (
+                      <span className="view-results-count">{resultsCount}</span>
+                    )}
+                  </button>
+                )}
+                {resultsCount === 0 ? ZeroResultsAlert : <></>}
+              </div>
+            </details>
           </div>
-        </details>
-      </div>
-    </FocusTrap>
+        </FocusTrap>
+      )}
+      {activeFilters.rsunitslatestActive && (!isOpen || !isMobile) && resultsCount ? (
+        RsUnitsToastAlert
+      ) : (
+        <></>
+      )}
+      {activeFilters.ownernamesActive && (!isOpen || !isMobile) && resultsCount ? (
+        OwnernamesToastAlert
+      ) : (
+        <></>
+      )}
+    </>
   );
 };
 
-const OwnerInfoAlert = (
+const OwnernamesToastAlert = (
+  <Alert
+    className="ownernames-toast-alert filter-toast-alert"
+    type="info"
+    variant="secondary"
+    closeType="none"
+    role="status"
+  >
+    <Trans>
+      Expand the the Owner/Manager column in Table view to see all contacts associated with that
+      building.
+    </Trans>
+  </Alert>
+);
+
+const RsUnitsToastAlert = (
+  <Alert
+    className="ownernames-toast-alert filter-toast-alert"
+    type="info"
+    variant="secondary"
+    closeType="none"
+    role="status"
+  >
+    <Trans>
+      Rent stabilized units are self-reported in yearly tax statements by building owners. As a
+      result, many buildings with rent stabilized units may not be documented.
+    </Trans>
+  </Alert>
+);
+
+const ZeroResultsAlert = (
+  <Alert
+    className="zero-results-alert"
+    type="info"
+    variant="secondary"
+    closeType="none"
+    role="status"
+  >
+    <Trans>Try adjusting or clearing the filters to yield more than 0 results.</Trans>
+  </Alert>
+);
+
+const OwnernamesInfoAlert = (
   <Alert
     className="owner-info-alert"
     type="info"
     variant="secondary"
     closeType="session"
     storageId="owner-info-alert-close"
+    role="status"
   >
     <Trans>
       Look out for multiple spellings for the same person/entity. Names can be spelled multiple ways
@@ -419,7 +493,7 @@ function MinMaxSelect(props: {
       </div>
       {minMaxErrors[0] || minMaxErrors[1] ? (
         <div className="alerts-container">
-          <Alert type="error" variant="primary" closeType="none">
+          <Alert type="error" variant="primary" closeType="none" role="status">
             <Trans>Error</Trans>
           </Alert>
         </div>
