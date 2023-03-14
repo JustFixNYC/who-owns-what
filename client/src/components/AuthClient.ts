@@ -50,7 +50,7 @@ const logout = async () => {
  */
 const userExists = async (username: string) => {
   try {
-    const response = await fetch(`${AUTH_SERVER_BASE_URL}user/?email=${username}`);
+    const response = await fetch(`${AUTH_SERVER_BASE_URL}user/exists/?email=${username}`);
     return !!response.ok;
   } catch (e) {
     if (e instanceof Error) {
