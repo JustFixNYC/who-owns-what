@@ -44,12 +44,9 @@ def set_response_cookies(response, json_data):
 
 def client_secret_request(url, data={}):
     try:
-        print("client secret req")
         auth_response = requests.post(
             os.path.join(AUTH_BASE_URL, url), data=add_client_secret(data)
         )
-        print("got resp")
-        print(auth_response)
         return set_response_cookies(auth_response, auth_response.json())
     except ValueError as e:
         return JsonResponse({
@@ -57,12 +54,17 @@ def client_secret_request(url, data={}):
         }, status=500)
 
 
-def authenticated_request(url, access_token, refresh_token, data={}):
+def authenticated_request(url, access_token, refresh_token, data={}, method="POST"):
     try:
         headers = {"Authorization": "Bearer " + access_token}
-        auth_response = requests.post(
-            os.path.join(AUTH_BASE_URL, url), data=data, headers=headers
-        )
+        if (method == "GET"):
+            auth_response = requests.get(
+                os.path.join(AUTH_BASE_URL, url), data=data, headers=headers
+            )
+        else :
+            auth_response = requests.post(
+                os.path.join(AUTH_BASE_URL, url), data=data, headers=headers
+            )
 
         # Attempt to automatically refresh token if expired
         if auth_response.status_code == 403:

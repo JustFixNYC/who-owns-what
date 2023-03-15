@@ -36,8 +36,6 @@ def authenticate(request):
         "username": request.POST.get("username"),
         "password": request.POST.get("password"),
     }
-    print("authenticating")
-    print(post_data)
 
     return client_secret_request("user/authenticate/", post_data)
 
@@ -47,6 +45,6 @@ def auth_check(request):
     try:
         access_token = request.get_signed_cookie("access_token")
         refresh_token = request.get_signed_cookie("refresh_token")
-        return authenticated_request("user/", access_token, refresh_token)
+        return authenticated_request("user/", access_token, refresh_token, method="GET")
     except KeyError:
         return HttpResponse(content_type="application/json", status=401)
