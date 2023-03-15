@@ -49,10 +49,12 @@ def client_secret_request(url, data={}):
             os.path.join(AUTH_BASE_URL, url), data=add_client_secret(data)
         )
         print("got resp")
-        print(auth_response.json())
+        print(auth_response)
         return set_response_cookies(auth_response, auth_response.json())
-    except ValueError:
-        return JsonResponse({})
+    except ValueError as e:
+        return JsonResponse({
+            "msg": str(e)
+        }, status=500)
 
 
 def authenticated_request(url, access_token, refresh_token, data={}):
