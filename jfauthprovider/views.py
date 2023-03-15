@@ -36,6 +36,8 @@ def authenticate(request):
         "username": request.POST.get("username"),
         "password": request.POST.get("password"),
     }
+    print("authenticating")
+    print(post_data)
 
     return client_secret_request("user/authenticate/", post_data)
 

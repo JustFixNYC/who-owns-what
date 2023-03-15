@@ -44,9 +44,12 @@ def set_response_cookies(response, json_data):
 
 def client_secret_request(url, data={}):
     try:
+        print("client secret req")
         auth_response = requests.post(
             os.path.join(AUTH_BASE_URL, url), data=add_client_secret(data)
         )
+        print("got resp")
+        print(auth_response.json())
         return set_response_cookies(auth_response, auth_response.json())
     except ValueError:
         return JsonResponse({})
