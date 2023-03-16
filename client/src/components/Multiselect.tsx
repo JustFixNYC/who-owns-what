@@ -610,7 +610,7 @@ export class Multiselect extends React.Component<IMultiselectProps, any> {
         style={style["multiselectContainer"]}
       >
         {hasError && (
-          <Alert type="error" variant="primary" closeType="none">
+          <Alert type="error" variant="primary" closeType="none" role="status">
             <Trans>Error</Trans>
           </Alert>
         )}

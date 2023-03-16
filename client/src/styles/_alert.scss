@@ -29,6 +29,9 @@
 
   button.jf-alert__close {
     align-self: flex-start;
+    &:focus-visible {
+      outline: 2px solid $focus-outline-color;
+    }
   }
 
   .closeIcon {
