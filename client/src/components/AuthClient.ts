@@ -50,7 +50,7 @@ const logout = async () => {
  */
 const userExists = async (username: string) => {
   try {
-    const response = await fetch(`${AUTH_SERVER_BASE_URL}user/exists/?email=${username}`);
+    const response = await fetch(`${AUTH_SERVER_BASE_URL}user/exists/?email=${encodeURIComponent(username)}`);
     return !!response.ok;
   } catch (e) {
     if (e instanceof Error) {
@@ -60,6 +60,10 @@ const userExists = async (username: string) => {
     }
   }
 };
+
+const resetPasswordRequest = async (username: string) => {
+  return await postAuthRequest(`${BASE_URL}auth/reset_password`, { username });
+}
 
 /**
  * Checks to see if a user is currently authenticated (via httponly cookie)
@@ -86,7 +90,7 @@ const postAuthRequest = async (
 ) => {
   const body = params
     ? Object.keys(params)
-        .map((k) => `${k}=${params[k]}`)
+        .map((k) => `${k}=${encodeURIComponent(params[k])}`)
         .join("&")
     : "";
   const result = await friendlyFetch(url, {
@@ -130,6 +134,7 @@ const Client = {
   login,
   logout,
   updateEmail,
+  resetPasswordRequest
 };
 
 export default Client;

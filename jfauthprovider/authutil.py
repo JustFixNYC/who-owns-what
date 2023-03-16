@@ -25,7 +25,7 @@ def set_response_cookies(response, json_data):
 
     response_with_cookies.set_signed_cookie(
         key="access_token",
-        value=json_data["access_token"],
+        value=json_data.get("access_token", None),
         samesite="None",
         max_age=json_data["expires_in"],
         secure=True,
@@ -33,19 +33,38 @@ def set_response_cookies(response, json_data):
     )
     response_with_cookies.set_signed_cookie(
         key="refresh_token",
-        value=json_data["refresh_token"],
+        value=json_data.get("refresh_token", None),
         samesite="None",
         secure=True,
         httponly=True,
     )
 
+    response_with_cookies.headers = response.headers
+
     return response_with_cookies
 
+def auth_server_request(url, data={}, headers={}):
+    try:
+        response = requests.post(
+            os.path.join(AUTH_BASE_URL, url),
+            data=data,
+            headers=headers,
+        )
+        json_response = JsonResponse(json.loads(response.content))
+        json_response.headers = response.headers
+        return json_response
+    except ValueError as e:
+        return JsonResponse({
+            "msg": str(e)
+        }, status=500)
 
-def client_secret_request(url, data={}):
+
+def client_secret_request(url, data={}, headers={}):
     try:
         auth_response = requests.post(
-            os.path.join(AUTH_BASE_URL, url), data=add_client_secret(data)
+            os.path.join(AUTH_BASE_URL, url),
+            data=add_client_secret(data),
+            headers=headers,
         )
         return set_response_cookies(auth_response, auth_response.json())
     except ValueError as e:
