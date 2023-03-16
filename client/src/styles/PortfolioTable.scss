@@ -107,7 +107,13 @@ $table-border-dark: 1px solid $dark;
           border: 1px solid $justfix-grey-700;
         }
         .contacts-list {
-          color: $justfix-green;
+          text-align: left;
+          position: relative;
+          list-style-type: none;
+          left: 130.5rem;
+          &.lang-es {
+            left: 152.5rem;
+          }
         }
       }
 
