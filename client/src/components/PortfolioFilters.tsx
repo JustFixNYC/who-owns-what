@@ -7,6 +7,7 @@ import { Multiselect } from "./Multiselect";
 import { FilterContext, FilterNumberRange, MINMAX_DEFAULT } from "./PropertiesList";
 import "styles/PortfolioFilters.scss";
 import FocusTrap from "focus-trap-react";
+import { FocusTarget } from "focus-trap";
 import { Alert } from "./Alert";
 import Modal from "./Modal";
 import { LocaleLink } from "i18n";
@@ -141,6 +142,7 @@ export const PortfolioFilters = React.memo(
             isActive={ownernamesActive}
             isOpen={ownernamesIsOpen}
             setIsOpen={setOwnernamesIsOpen}
+            initialFocus="#filter-ownernames-multiselect_input"
             selectionsCount={filterContext.filterSelections.ownernames.length}
             className="ownernames-accordion"
           >
@@ -151,6 +153,7 @@ export const PortfolioFilters = React.memo(
               placeholder={i18n._(t`Search`) + `... (${ownernamesOptions.length})`}
               onApply={onOwnernamesApply}
               onFocusInput={() => helpers.scrollToBottom(".mobile-wrapper-dropdown")}
+              id="filter-ownernames-multiselect"
               infoAlert={OwnernamesInfoAlert}
               avoidHighlightFirstOption={true}
             />
@@ -161,12 +164,14 @@ export const PortfolioFilters = React.memo(
             isMobile={isMobile}
             isActive={unitsresActive}
             isOpen={unitsresIsOpen}
+            initialFocus="#filter-unitsres-minmax_min-input"
             setIsOpen={setUnitsresIsOpen}
             className="unitsres-accordion"
           >
             <MinMaxSelect
               options={filterContext.filterOptions.unitsres}
               onApply={onUnitsresApply}
+              id="filter-unitsres-minmax"
               onFocusInput={() => helpers.scrollToBottom(".mobile-wrapper-dropdown")}
             />
           </FilterAccordion>
@@ -176,6 +181,7 @@ export const PortfolioFilters = React.memo(
             isActive={zipActive}
             isOpen={zipIsOpen}
             setIsOpen={setZipIsOpen}
+            initialFocus="#filter-zip-multiselect_input"
             selectionsCount={filterContext.filterSelections.zip.length}
             className="zip-accordion"
           >
@@ -185,6 +191,7 @@ export const PortfolioFilters = React.memo(
               displayValue="name"
               placeholder={i18n._(t`Search`) + `... (${zipOptions.length})`}
               onApply={onZipApply}
+              id="filter-zip-multiselect"
               onFocusInput={() => helpers.scrollToBottom(".mobile-wrapper-dropdown")}
               avoidHighlightFirstOption={true}
             />
@@ -417,6 +424,7 @@ function FilterAccordion(props: {
   isActive: boolean;
   isOpen: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  initialFocus?: FocusTarget;
   selectionsCount?: number;
   className?: string;
 }) {
@@ -429,6 +437,7 @@ function FilterAccordion(props: {
     isActive,
     isOpen,
     setIsOpen,
+    initialFocus,
     selectionsCount,
     className,
   } = props;
@@ -440,6 +449,7 @@ function FilterAccordion(props: {
         clickOutsideDeactivates: true,
         returnFocusOnDeactivate: false,
         onDeactivate: () => setIsOpen(false),
+        initialFocus: initialFocus,
       }}
     >
       <details
@@ -478,14 +488,15 @@ function FilterAccordion(props: {
 function MinMaxSelect(props: {
   options: FilterNumberRange;
   onApply: (selectedList: FilterNumberRange) => void;
+  id?: string;
   onFocusInput?: () => void;
 }) {
-  const { options, onApply, onFocusInput } = props;
+  const { options, onApply, id, onFocusInput } = props;
   const [minMax, setMinMax] = React.useState<FilterNumberRange>(MINMAX_DEFAULT);
   const [minMaxErrors, setMinMaxErrors] = React.useState([false, false]);
 
   return (
-    <form className="minmax-container">
+    <form id={id} className="minmax-container">
       <div className="labels-container">
         <label htmlFor="min-input">
           <Trans>MIN</Trans>
@@ -505,7 +516,7 @@ function MinMaxSelect(props: {
       )}
       <div className="inputs-container">
         <input
-          id="min-input"
+          id={`${id || "minmax-select"}_min-input`}
           type="number"
           min={options[0]}
           max={options[1]}
@@ -519,7 +530,7 @@ function MinMaxSelect(props: {
         />
         <Trans>and</Trans>
         <input
-          id="max-input"
+          id={`${id || "minmax-select"}_max-input`}
           type="number"
           min={options[0]}
           max={options[1]}
