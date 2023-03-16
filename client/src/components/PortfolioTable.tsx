@@ -32,6 +32,7 @@ import { FilterContext, IFilterContext, MINMAX_DEFAULT } from "./PropertiesList"
 import "styles/PortfolioTable.scss";
 import { sortContactsByImportance } from "./DetailView";
 import { ArrowIcon } from "./Icons";
+import classNames from "classnames";
 
 const FIRST_COLUMN_WIDTH = 130;
 export const MAX_TABLE_ROWS_PER_PAGE = 100;
@@ -568,7 +569,9 @@ export const PortfolioTable = React.memo(
                   {row.getIsExpanded() && (
                     <tr>
                       {/* 2nd row is a custom 1 cell row */}
-                      <td colSpan={row.getVisibleCells().length}>{renderContacts({ row })}</td>
+                      <td colSpan={row.getVisibleCells().length}>
+                        {renderContacts({ row, i18n })}
+                      </td>
                     </tr>
                   )}
                 </Fragment>
@@ -631,15 +634,15 @@ export const PortfolioTable = React.memo(
   })
 );
 
-const renderContacts = ({ row }: { row: Row<AddressRecord> }) => {
+const renderContacts = ({ row, i18n }: { row: Row<AddressRecord>; i18n: I18n }) => {
   return (
-    <ul className="contacts-list">
+    <ul className={classNames("contacts-list", `lang-${i18n.language}`)}>
       {Object.entries(_groupBy(row.original.allcontacts, "value"))
         .sort(sortContactsByImportance)
         .map((group) => group[1][0])
         .map((contact, i) => (
           <li key={i}>
-            {contact.title}: {contact.value}
+            {Helpers.translateContactTitleAndIncludeEnglish(contact.title, i18n)}: {contact.value}
           </li>
         ))}
     </ul>
