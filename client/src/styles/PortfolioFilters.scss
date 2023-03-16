@@ -218,7 +218,7 @@
           .minmax-container {
             display: flex;
             flex-direction: column;
-            margin-top: 0.8rem;
+            margin: 0.8rem 0;
           }
           .minmax-container {
             padding: 1.2rem;
@@ -381,6 +381,9 @@
         border: none;
         border-bottom: 0.2rem solid $justfix-grey-700;
         outline: 1rem solid $justfix-grey-700;
+        & > summary {
+          padding: 0 2.4rem;
+        }
         .dropdown-container {
           display: flex;
           flex-direction: column;
