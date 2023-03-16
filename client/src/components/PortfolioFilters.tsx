@@ -190,9 +190,10 @@ export const PortfolioFilters = React.memo(
             />
           </FilterAccordion>
         </FiltersWrapper>
+
         {(rsunitslatestActive || ownernamesActive || unitsresActive || zipActive) && (
-          <>
-            <div className="filter-status">
+          <div className="filter-status">
+            <div className="filter-status-info">
               <span className="results-count" role="status">
                 <Trans>
                   Showing {filteredBuildings || 0}{" "}
@@ -207,7 +208,7 @@ export const PortfolioFilters = React.memo(
               </button>
             </div>
             {filteredBuildings === 0 ? ZeroResultsAlert : <></>}
-          </>
+          </div>
         )}
 
         <Modal key={1} showModal={showInfoModal} width={20} onClose={() => setShowInfoModal(false)}>
@@ -290,7 +291,7 @@ const FiltersWrapper = (props: {
           <div className="filters">
             <details
               className={classnames("filter filter-accordion filters-mobile-wrapper", {
-                active: !!numActiveFilters,
+                active: numActiveFilters > 0,
               })}
               open={isOpen}
             >
@@ -312,7 +313,7 @@ const FiltersWrapper = (props: {
               </summary>
               <div className="dropdown-container scroll-gradient mobile-wrapper-dropdown">
                 {children}
-                {!!activeFilters && (
+                {numActiveFilters > 0 && (
                   <button onClick={() => setIsOpen(!isOpen)} className="button is-primary">
                     <Trans>View Results</Trans>
                     {resultsCount != null && (
@@ -326,23 +327,25 @@ const FiltersWrapper = (props: {
           </div>
         </FocusTrap>
       )}
-      {activeFilters.rsunitslatestActive && (!isOpen || !isMobile) && resultsCount ? (
-        RsUnitsToastAlert
-      ) : (
-        <></>
-      )}
-      {activeFilters.ownernamesActive && (!isOpen || !isMobile) && resultsCount ? (
-        OwnernamesToastAlert
-      ) : (
-        <></>
-      )}
+      <div className="filter-toast-container">
+        {activeFilters.rsunitslatestActive && (!isOpen || !isMobile) && resultsCount ? (
+          RsUnitsToastAlert
+        ) : (
+          <></>
+        )}
+        {activeFilters.ownernamesActive && (!isOpen || !isMobile) && resultsCount ? (
+          OwnernamesToastAlert
+        ) : (
+          <></>
+        )}
+      </div>
     </>
   );
 };
 
 const OwnernamesToastAlert = (
   <Alert
-    className="ownernames-toast-alert filter-toast-alert"
+    className="filter-toast-alert"
     type="info"
     variant="secondary"
     closeType="none"
@@ -357,7 +360,7 @@ const OwnernamesToastAlert = (
 
 const RsUnitsToastAlert = (
   <Alert
-    className="ownernames-toast-alert filter-toast-alert"
+    className="filter-toast-alert"
     type="info"
     variant="secondary"
     closeType="none"

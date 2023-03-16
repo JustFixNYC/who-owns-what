@@ -486,76 +486,88 @@
   }
   .filter-status {
     display: flex;
-    align-items: center;
-    gap: 0.85rem;
-    text-transform: none;
-    margin-left: calc(var(--new-container-width) + var(--filter-bar-gap));
-
-    @include for-phone-only() {
-      margin-left: unset;
+    flex-direction: column;
+    width: 100%;
+    gap: 1rem;
+    @include for-tablet-portrait-up() {
+      margin-left: calc(var(--new-container-width) + var(--filter-bar-gap));
     }
 
-    .results-count {
-      font-size: 1.6rem;
-      color: $justfix-grey-600;
+    .filter-status-info {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      text-transform: none;
+
+      .results-count {
+        font-size: 1.6rem;
+        color: $justfix-grey-600;
+      }
+      .results-info {
+        color: $justfix-grey-600;
+      }
+      .clear-filters {
+        color: $justfix-grey-700;
+      }
     }
-    .results-info {
-      color: $justfix-grey-600;
-    }
-    .clear-filters {
-      color: $justfix-grey-700;
+
+    .zero-results-alert {
+      width: fit-content;
+      outline: $justfix-grey-400 solid 1px;
+      @include for-phone-only() {
+        margin-left: unset;
+      }
     }
   }
-  .zero-results-alert {
-    width: fit-content;
-    outline: $justfix-grey-400 solid 1px;
-    margin-left: calc(var(--new-container-width) + var(--filter-bar-gap));
-    @include for-phone-only() {
-      margin-left: unset;
-    }
-  }
 
-  .filter-toast-alert {
+  .filter-toast-container {
     position: fixed;
-    right: 0;
-    bottom: -100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: fit-content;
+    bottom: 0;
     left: 50%;
     transform: translateX(-50%);
-    outline: $justfix-grey-400 solid 1px;
-    z-index: 100;
-    width: 45.4rem;
-    @include for-phone-only() {
-      width: calc(100% - 2.4rem);
+    z-index: 101;
+
+    .filter-toast-alert {
+      position: relative;
+      transform: translateY(100%);
+      outline: $justfix-grey-400 solid 1px;
+      width: 45.4rem;
+      @include for-phone-only() {
+        width: calc(100vw - 2.8rem);
+      }
+
+      @keyframes toast-up-down {
+        0% {
+          transform: translateY(100%);
+        }
+        25% {
+          transform: translateY(0%);
+        }
+        75% {
+          transform: translateY(0%);
+        }
+        100% {
+          transform: translateY(100%);
+        }
+      }
+
+      animation-name: toast-up-down;
+      animation-delay: 0.3s;
+      animation-duration: 7s;
+      animation-timing-function: ease-in-out;
+      animation-fill-mode: forwards;
+
+      &:hover {
+        animation-play-state: paused;
+      }
     }
 
-    @keyframes toast-up-down {
-      0% {
-        bottom: -100%;
-      }
-      25% {
-        bottom: 4.4rem;
-      }
-      75% {
-        bottom: 4.4rem;
-      }
-      100% {
-        bottom: -100%;
-        display: none;
-      }
-    }
-
-    animation-name: toast-up-down;
-    animation-delay: 0.3s;
-    animation-duration: 7s;
-    animation-timing-function: ease-in-out;
-    animation-fill-mode: forwards;
-
-    &:hover {
-      animation-play-state: paused;
-    }
-
-    &.rsunits-toast-alert {
-      z-index: 101;
+    :not(:first-child) {
+      display: none;
     }
   }
 }
