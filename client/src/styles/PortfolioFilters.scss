@@ -77,11 +77,8 @@
       border: 0.1rem solid $justfix-black;
       border-radius: 0.8rem;
       text-transform: uppercase;
-      padding: 1rem;
       display: flex;
       align-items: center;
-      // height based on toggle toggle checkbox plus 1rem padding
-      height: calc(var(--checkbox-height) + 1rem * 2);
 
       &.active:not([open]),
       &[aria-pressed="true"] {
@@ -101,6 +98,7 @@
 
     .filter-toggle {
       gap: 1rem;
+      padding: 1rem;
       .checkbox {
         box-sizing: border-box;
         border: 0.1rem solid $justfix-black;
@@ -127,8 +125,9 @@
       position: relative;
 
       summary {
-        // typical flex stretch doesn't seem to work in summary/details
-        height: 100%;
+        // height based on toggle toggle checkbox plus 1rem padding
+        height: calc(var(--checkbox-height) + 1rem * 2);
+        padding: 0 1rem 0 1rem;
         display: flex;
         align-items: center;
         position: relative;
@@ -219,7 +218,7 @@
           .minmax-container {
             display: flex;
             flex-direction: column;
-            margin-top: 0.8rem;
+            margin: 0.8rem 0;
           }
           .minmax-container {
             padding: 1.2rem;
@@ -292,6 +291,9 @@
             &.hasError {
               outline: 2px $justfix-orange solid;
               outline-offset: -2px;
+            }
+            input {
+              width: -webkit-fill-available;
             }
           }
 
@@ -379,19 +381,25 @@
         border: none;
         border-bottom: 0.2rem solid $justfix-grey-700;
         outline: 1rem solid $justfix-grey-700;
+        & > summary {
+          padding: 0 2.4rem;
+        }
         .dropdown-container {
-          position: absolute;
           display: flex;
           flex-direction: column;
-          top: calc(var(--filter-bar-top-height)); // borders
-          left: 0;
-          max-height: none;
-          height: calc(100vh - var(--filter-bar-top-height));
           width: 100%;
           padding: 0;
           background-color: $justfix-table-grey;
           border-radius: 0;
           border: none;
+          top: unset;
+        }
+        & > .dropdown-container {
+          position: absolute;
+          top: calc(var(--filter-bar-top-height)); // borders
+          left: 0;
+          max-height: none;
+          height: calc(100vh - var(--filter-bar-top-height));
 
           &.scroll-gradient {
             // https://css-scroll-shadows.vercel.app/
@@ -408,11 +416,18 @@
           }
 
           .filter {
-            height: var(--filter-bar-height);
             border-radius: 0;
             box-sizing: border-box;
             border: none;
             border-bottom: 0.1rem solid $justfix-grey-400;
+            &.filter-toggle {
+              height: var(--filter-bar-height);
+              padding: 0 2.4rem;
+            }
+            &.filter-accordion > summary {
+              height: var(--filter-bar-height);
+              padding: 0 2.4rem;
+            }
             &.active:not(.filter-toggle) {
               background-color: $justfix-table-grey;
               color: $justfix-black;
@@ -429,7 +444,7 @@
               .dropdown-container {
                 align-items: flex-start;
                 width: 100%;
-                padding: 2.4rem;
+                padding: 0 2.4rem;
                 .filter-subtitle-container {
                   padding: 0;
                   .filter-subtitle {
@@ -446,12 +461,18 @@
               }
             }
           }
-          .filter-accordion summary {
-            position: relative;
-            .chevronIcon {
-              @include for-phone-only() {
-                margin-left: auto;
+
+          .filter-accordion {
+            summary {
+              position: relative;
+              .chevronIcon {
+                @include for-phone-only() {
+                  margin-left: auto;
+                }
               }
+            }
+            .dropdown-container {
+              position: relative;
             }
           }
           .zip-accordion {
