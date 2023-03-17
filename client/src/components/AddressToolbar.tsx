@@ -28,7 +28,7 @@ const AddressToolbar: React.FC<AddressToolbarProps> = ({ searchAddr, assocAddrs 
     <div className="AddressToolbar">
       <div className="btn-group float-right">
         <Link
-          className="btn btn-primary"
+          className="btn"
           onClick={() => {
             logAmplitudeEvent("newSearch");
             window.gtag("event", "new-search");
