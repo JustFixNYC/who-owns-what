@@ -43,6 +43,7 @@ def set_response_cookies(response, json_data):
 
     return response_with_cookies
 
+
 def auth_server_request(url, data={}, headers={}):
     try:
         response = requests.post(
@@ -54,9 +55,7 @@ def auth_server_request(url, data={}, headers={}):
         json_response.headers = response.headers
         return json_response
     except ValueError as e:
-        return JsonResponse({
-            "msg": str(e)
-        }, status=500)
+        return JsonResponse({"msg": str(e)}, status=500)
 
 
 def client_secret_request(url, data={}, headers={}):
@@ -68,19 +67,17 @@ def client_secret_request(url, data={}, headers={}):
         )
         return set_response_cookies(auth_response, auth_response.json())
     except ValueError as e:
-        return JsonResponse({
-            "msg": str(e)
-        }, status=500)
+        return JsonResponse({"msg": str(e)}, status=500)
 
 
 def authenticated_request(url, access_token, refresh_token, data={}, method="POST"):
     try:
         headers = {"Authorization": "Bearer " + access_token}
-        if (method == "GET"):
+        if method == "GET":
             auth_response = requests.get(
                 os.path.join(AUTH_BASE_URL, url), data=data, headers=headers
             )
-        else :
+        else:
             auth_response = requests.post(
                 os.path.join(AUTH_BASE_URL, url), data=data, headers=headers
             )

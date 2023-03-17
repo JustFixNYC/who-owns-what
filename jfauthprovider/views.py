@@ -56,7 +56,10 @@ def password_reset_request(request):
     post_data = {
         "username": request.POST.get("username"),
     }
-    return auth_server_request("user/password_reset/request/", post_data, request.headers)
+    return auth_server_request(
+        "user/password_reset/request/", post_data, request.headers
+    )
+
 
 @api
 def password_reset(request):

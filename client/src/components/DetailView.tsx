@@ -23,6 +23,7 @@ import _groupBy from "lodash/groupBy";
 import { HpdContactAddress, HpdFullContact } from "./APIDataTypes";
 import { isLegacyPath } from "./WowzaToggle";
 import { logAmplitudeEvent } from "./Amplitude";
+import EmailAlertSignup from "./EmailAlertSignup";
 
 type Props = withI18nProps &
   withMachineInStateProps<"portfolioFound"> & {
@@ -261,6 +262,7 @@ class DetailViewWithoutI18n extends Component<Props, State> {
                     </div>
                     <div className="card-body">
                       <BuildingStatsTable addr={detailAddr} />
+                      <EmailAlertSignup />
                       <div className="card-body-timeline-link">
                         <Link
                           to={this.props.addressPageRoutes.timeline}

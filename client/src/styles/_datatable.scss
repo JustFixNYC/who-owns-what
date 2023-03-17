@@ -13,7 +13,7 @@
         border-bottom: 1px solid $gray-dark;
       }
 
-      div {
+      > div {
         flex: 1;
         padding-bottom: 3px;
         // width: 25%;
@@ -71,6 +71,13 @@
         span {
           margin: 0 3px;
         }
+      }
+
+      .table-content {
+        margin: 1rem 0.75rem;
+        text-align: left;
+        font-size: 1.3rem;
+        line-height: 1.3rem;
       }
     }
   }
