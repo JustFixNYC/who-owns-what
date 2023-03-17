@@ -1,8 +1,11 @@
 import React from "react";
 
 import "styles/Login.css";
+import "styles/_input.scss";
+
 import { I18n } from "@lingui/core";
 import { withI18n } from "@lingui/react";
+import { Trans } from "@lingui/macro";
 import AuthClient from "./AuthClient";
 
 type LoginProps = {
@@ -78,30 +81,27 @@ class LoginWithoutI18n extends React.Component<LoginProps, State> {
           onSubmit={formState !== "check_email" ? this.handleSubmit : this.handleCheckUser}
           className="input-group"
         >
+          <Trans render="label">Email address</Trans>
           <input
             type="email"
-            className="form-input input-username"
+            className="input"
             placeholder={`Enter email`}
             onChange={this.handleUsernameChange}
             value={username}
           />
           {formState !== "check_email" && (
             <>
+              <Trans render="label">Enter password</Trans>
               <input
                 type="password"
-                className="form-input input-password"
+                className="input"
                 placeholder={`Enter password`}
                 onChange={this.handlePasswordChange}
                 value={password}
               />
-              <p>{formState === "login" ? "Welcome back!" : "Create an account"}</p>
             </>
           )}
-          <input
-            type="submit"
-            className="btn btn-white input-group-btn"
-            value={formState !== "check_email" ? `Get updates` : `Login`}
-          />
+          <input type="submit" className="button is-primary" value={`Get updates`} />
         </form>
         {response && <p className="response-text">{response}</p>}
       </div>

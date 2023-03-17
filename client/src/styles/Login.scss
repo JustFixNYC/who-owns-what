@@ -1,15 +1,23 @@
 @import "_vars.scss";
+@import "_typography.scss";
 
 .Login {
   .input-group {
     display: flex;
     flex-direction: column;
-    max-width: 20rem;
+    margin: 1rem 0.75rem;
+  }
 
-    .input-email {
-      margin-right: 5px;
-      height: auto;
-    }
+  label {
+    @include desktop-eyebrow();
+
+    text-align: left;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .button {
+    margin-top: 1rem;
   }
 
   .response-text {
