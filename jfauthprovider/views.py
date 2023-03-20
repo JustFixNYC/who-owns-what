@@ -36,6 +36,7 @@ def authenticate(request):
         "grant_type": "password",
         "username": request.POST.get("username"),
         "password": request.POST.get("password"),
+        "origin": request.headers["Origin"],
     }
 
     return client_secret_request("user/authenticate/", post_data, request.headers)
@@ -47,6 +48,22 @@ def auth_check(request):
         access_token = request.get_signed_cookie("access_token")
         refresh_token = request.get_signed_cookie("refresh_token")
         return authenticated_request("user/", access_token, refresh_token, method="GET")
+    except KeyError:
+        return HttpResponse(content_type="application/json", status=401)
+
+
+@api
+def verify_email(request):
+    try:
+        access_token = request.get_signed_cookie("access_token")
+        refresh_token = request.get_signed_cookie("refresh_token")
+        code = request.GET.get("code")
+
+        return authenticated_request(
+            "user/verify_email/?code=" + code,
+            access_token,
+            refresh_token,
+        )
     except KeyError:
         return HttpResponse(content_type="application/json", status=401)
 

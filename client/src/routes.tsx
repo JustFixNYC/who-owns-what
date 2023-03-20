@@ -66,11 +66,24 @@ export const createAddressPageRoutes = (
   };
 };
 
+export const createAccountRoutePaths = (prefix?: string) => {
+  // TODO shakao handle legacy routes
+  // if (typeof prefix === "object") {
+  //   prefix = createRouteForAddressPage(prefix, isLegacyRoute);
+  // }
+  return {
+    settings: `${prefix}/settings`,
+    verifyEmail: `${prefix}/verify-email`,
+    resetPassword: `${prefix}/reset-password`,
+  };
+};
+
 export const createCoreRoutePaths = (prefix?: string) => {
   const pathPrefix = prefix || "";
   return {
     home: `${pathPrefix}/`,
     addressPage: createAddressPageRoutes(`${pathPrefix}/address/:boro/:housenumber/:streetname`),
+    account: createAccountRoutePaths(`${pathPrefix}/account`),
     /** Note: this path doesn't correspond to a stable page on the site. It simply provides an entry point that
      * immediately redirects to an addressPageOverview. This path is helpful for folks who, say, have a list of
      * bbl values in a spreadsheet and want to easily generate direct links to WhoOwnsWhat.

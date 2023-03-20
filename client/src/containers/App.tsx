@@ -32,6 +32,7 @@ import HowToUsePage from "./HowToUsePage";
 import MethodologyPage from "./Methodology";
 import TermsOfUsePage from "./TermsOfUsePage";
 import PrivacyPolicyPage from "./PrivacyPolicyPage";
+import VerifyEmailPage from "./VerifyEmailPage";
 import { DevPage } from "./DevPage";
 import { wowMachine } from "state-machine";
 import { NotFoundPage } from "./NotFoundPage";
@@ -163,6 +164,7 @@ const WhoOwnsWhatRoutes: React.FC<{}> = () => {
           <BBLPage {...props} useNewPortfolioMethod={allowChangingPortfolioMethod} />
         )}
       />
+      <Route path={paths.account.verifyEmail} component={VerifyEmailPage} />
       <Route path={paths.about} component={AboutPage} />
       <Route path={paths.legacy.about} component={AboutPage} />
       <Route path={paths.howToUse} component={HowToUsePage} />

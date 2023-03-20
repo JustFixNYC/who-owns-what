@@ -75,6 +75,14 @@ const userAuthenticated = async () => {
 };
 
 /**
+ * Sends an authenticated request to verify the user email
+ */
+const verifyEmail = async () => {
+  const params = new URLSearchParams(window.location.search);
+  return await postAuthRequest(`${BASE_URL}auth/verify_email?code=${params.get("code")}`);
+};
+
+/**
  * Sends an authenticated request to update the user email
  */
 const updateEmail = async (newEmail: string) => {
@@ -135,6 +143,7 @@ const Client = {
   authenticate,
   login,
   logout,
+  verifyEmail,
   updateEmail,
   resetPasswordRequest,
 };
