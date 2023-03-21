@@ -33,6 +33,7 @@ import "styles/PortfolioTable.scss";
 import { sortContactsByImportance } from "./DetailView";
 import { ArrowIcon } from "./Icons";
 import classNames from "classnames";
+import classnames from "classnames";
 
 const FIRST_COLUMN_WIDTH = 130;
 export const MAX_TABLE_ROWS_PER_PAGE = 100;
@@ -68,444 +69,453 @@ type PortfolioTableProps = {
  * This component memoizes the portfolio table via React.memo
  * in an attempt to improve performance, particularly on IE11.
  */
-export const PortfolioTable = React.memo(
-  React.forwardRef<HTMLDivElement, PortfolioTableProps>((props, lastColumnRef) => {
-    const { data, i18n, locale, rsunitslatestyear, getRowCanExpand } = props;
+export const PortfolioTable = React.memo((props: PortfolioTableProps) => {
+  const { data, i18n, locale, rsunitslatestyear, getRowCanExpand } = props;
 
-    const { filterContext, setFilterContext } = React.useContext(FilterContext);
+  const { filterContext, setFilterContext } = React.useContext(FilterContext);
 
-    const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
+  const lastColumnRef = React.useRef<HTMLDivElement>(null);
+  const isLastColumnVisible = Helpers.useOnScreen(lastColumnRef);
+  /**
+   * For older browsers that do not support the `useOnScreen` hook,
+   * let's hide the dynamic scroll fade by default.
+   */
+  const isOlderBrowser = typeof IntersectionObserver === "undefined";
+  /**
+   * Let's hide the fade out on the right edge of the table if:
+   * - We've scrolled to the last column OR
+   * - We're using an older browser that cannot detect where we've scrolled
+   */
+  const hideScrollFade = isOlderBrowser || isLastColumnVisible;
 
-    const [{ pageIndex, pageSize }, setPagination] = React.useState<PaginationState>({
-      pageIndex: 0,
-      pageSize: MAX_TABLE_ROWS_PER_PAGE,
-    });
+  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
 
-    const pagination = React.useMemo(
-      () => ({
-        pageIndex,
-        pageSize,
-      }),
-      [pageIndex, pageSize]
-    );
+  const [{ pageIndex, pageSize }, setPagination] = React.useState<PaginationState>({
+    pageIndex: 0,
+    pageSize: MAX_TABLE_ROWS_PER_PAGE,
+  });
 
-    const columns = React.useMemo<ColumnDef<AddressRecord, any>[]>(
-      () => [
-        {
-          accessorFn: (row) => `${row.housenumber} ${row.streetname}`,
-          id: "address",
-          header: () => i18n._(t`Address`),
-          cell: ({ row }) => {
-            return (
-              <Link to={createRouteForFullBbl(row.original.bbl, locale)}>
-                {row.original.housenumber} {row.original.streetname}
-              </Link>
-            );
+  const pagination = React.useMemo(
+    () => ({
+      pageIndex,
+      pageSize,
+    }),
+    [pageIndex, pageSize]
+  );
+
+  const columns = React.useMemo<ColumnDef<AddressRecord, any>[]>(
+    () => [
+      {
+        accessorFn: (row) => `${row.housenumber} ${row.streetname}`,
+        id: "address",
+        header: () => i18n._(t`Address`),
+        cell: ({ row }) => {
+          return (
+            <Link to={createRouteForFullBbl(row.original.bbl, locale)}>
+              {row.original.housenumber} {row.original.streetname}
+            </Link>
+          );
+        },
+        footer: (props) => props.column.id,
+        size: FIRST_COLUMN_WIDTH,
+        enableColumnFilter: false,
+      },
+      {
+        header: i18n._(t`Location`),
+        footer: (props) => props.column.id,
+        columns: [
+          {
+            accessorKey: "zip",
+            header: i18n._(t`Zipcode`),
+            cell: (info) => info.getValue(),
+            footer: (props) => props.column.id,
+            enableColumnFilter: false,
+            filterFn: "arrIncludesSome",
+            size: "auto",
           },
-          footer: (props) => props.column.id,
-          size: FIRST_COLUMN_WIDTH,
-          enableColumnFilter: false,
-        },
-        {
-          header: i18n._(t`Location`),
-          footer: (props) => props.column.id,
-          columns: [
-            {
-              accessorKey: "zip",
-              header: i18n._(t`Zipcode`),
-              cell: (info) => info.getValue(),
-              footer: (props) => props.column.id,
-              enableColumnFilter: false,
-              filterFn: "arrIncludesSome",
-              size: "auto",
+          {
+            accessorKey: "boro",
+            header: i18n._(t`Borough`),
+            cell: (info) => info.getValue(),
+            footer: (props) => props.column.id,
+            enableColumnFilter: false,
+            size: "auto",
+          },
+          {
+            accessorKey: "bbl",
+            header: "BBL",
+            cell: ({ row }) => {
+              return (
+                <Link to={createRouteForFullBbl(row.original.bbl, locale)}>{row.original.bbl}</Link>
+              );
             },
-            {
-              accessorKey: "boro",
-              header: i18n._(t`Borough`),
-              cell: (info) => info.getValue(),
-              footer: (props) => props.column.id,
-              enableColumnFilter: false,
-              size: "auto",
-            },
-            {
-              accessorKey: "bbl",
-              header: "BBL",
-              cell: ({ row }) => {
-                return (
-                  <Link to={createRouteForFullBbl(row.original.bbl, locale)}>
-                    {row.original.bbl}
-                  </Link>
-                );
-              },
-              footer: (props) => props.column.id,
-              enableColumnFilter: false,
-              size: 100,
-            },
-            {
-              accessorKey: "council",
-              header: i18n._(t`Council`),
-              cell: (info) => info.getValue(),
-              footer: (props) => props.column.id,
-              enableColumnFilter: false,
-              size: "auto",
-            },
-          ],
-        },
-        {
-          header: i18n._(t`Information`),
-          footer: (props) => props.column.id,
-          columns: [
-            {
-              accessorKey: "yearbuilt",
-              header: i18n._(t`Built`),
-              cell: (info) => info.getValue(),
-              footer: (props) => props.column.id,
-              enableColumnFilter: false,
-              size: "auto",
-            },
-            {
-              accessorKey: "unitsres",
-              header: i18n._(t`Units`),
-              cell: (info) => info.getValue(),
-              footer: (props) => props.column.id,
-              enableColumnFilter: false,
-              size: "auto",
-              filterFn: "inNumberRange",
-            },
-          ],
-        },
-        {
-          header: i18n._(t`RS Units`),
-          footer: (props) => props.column.id,
-          columns: [
-            {
-              accessorKey: "rsunits2007",
-              header: "2007",
-              cell: (info) => info.getValue(),
-              footer: (props) => props.column.id,
-              enableColumnFilter: false,
-              size: "auto",
-            },
-            {
-              accessorKey: "rsunitslatest",
-              header: rsunitslatestyear,
-              cell: ({ row }) => {
-                return (
-                  <span
-                    className={`${
-                      // TODO: double check this works with nulls
-                      row.original.rsunitslatest! < row.original.rsunits2007! ?? false
-                        ? "text-danger"
-                        : ""
-                    }`}
-                  >
-                    {row.original.rsunitslatest}
-                  </span>
-                );
-              },
-              footer: (props) => props.column.id,
-              enableColumnFilter: false,
-              size: "auto",
-              filterFn: "isNonZero",
-            },
-          ],
-        },
-        {
-          header: i18n._(t`HPD Complaints`),
-          footer: (props) => props.column.id,
-          columns: [
-            {
-              accessorKey: "totalcomplaints",
-              header: i18n._(t`Total`),
-              cell: (info) => info.getValue(),
-              footer: (props) => props.column.id,
-              enableColumnFilter: false,
-              size: "auto",
-            },
-            {
-              accessorKey: "recentcomplaints",
-              header: i18n._(t`Last 3 Years`),
-              cell: (info) => info.getValue(),
-              footer: (props) => props.column.id,
-              enableColumnFilter: false,
-              size: "auto",
-            },
-            {
-              accessorKey: "recentcomplaintsbytype",
-              header: i18n._(t`Top Complaint`),
-              cell: ({ row }) => {
-                const mostCommonType = findMostCommonType(row.original.recentcomplaintsbytype);
-                return mostCommonType ? Helpers.translateComplaintType(mostCommonType, i18n) : null;
-              },
-              footer: (props) => props.column.id,
-              enableColumnFilter: false,
-              size: "auto",
-            },
-          ],
-        },
-        {
-          header: i18n._(t`HPD Violations`),
-          footer: (props) => props.column.id,
-          columns: [
-            {
-              accessorKey: "openviolations",
-              header: i18n._(t`Open`),
-              cell: (info) => info.getValue(),
-              footer: (props) => props.column.id,
-              enableColumnFilter: false,
-              size: "auto",
-            },
-            {
-              accessorKey: "totalviolations",
-              header: i18n._(t`Total`),
-              cell: (info) => info.getValue(),
-              footer: (props) => props.column.id,
-              enableColumnFilter: false,
-              size: "auto",
-            },
-          ],
-        },
-        {
-          header: i18n._(t`Evictions Since 2017`),
-          footer: (props) => props.column.id,
-          columns: [
-            {
-              accessorFn: (row) => row.evictionfilings || null,
-              id: "evictionfilings",
-              header: i18n._(t`Filed`),
-              cell: (info) => info.getValue(),
-              footer: (props) => props.column.id,
-              enableColumnFilter: false,
-              size: "auto",
-            },
-            {
-              accessorFn: (row) => row.evictions || null,
-              id: "evictions",
-              header: i18n._(t`Executed`),
-              cell: (info) => info.getValue(),
-              footer: (props) => props.column.id,
-              enableColumnFilter: false,
-              size: "auto",
-            },
-          ],
-        },
-        {
-          header: i18n._(t`Landlord`),
-          footer: (props) => props.column.id,
-          columns: [
-            {
-              accessorFn: (row) => {
-                // Group all contact info by the name of each person/corporate entity (same as on overview tab)
-                var ownerList =
-                  row.allcontacts &&
-                  Object.entries(_groupBy(row.allcontacts, "value"))
-                    .sort(sortContactsByImportance)
-                    .map((contact) => contact[0]);
-                return ownerList || [];
-              },
-              id: "ownernames",
-              header: i18n._(t`Owner/Manager`),
-              cell: ({ row }) => {
-                var contacts =
-                  row.original.allcontacts &&
-                  Object.entries(_groupBy(row.original.allcontacts, "value")).sort(
-                    sortContactsByImportance
-                  );
-
-                if (!contacts) return "";
-
-                const contactWords = contacts[0][0].trim().split(/\s+/) || [contacts[0][0]];
-
-                return (
-                  <>
-                    {contactWords.length > 1 && contactWords.slice(0, 1).join(" ") + " "}
-                    <span className="col-ownernames-last-word">
-                      {contactWords.slice(-1)}
-                      {row.getCanExpand() && contacts && contacts.length > 1 ? (
-                        <button
-                          className="contacts-expand"
-                          onClick={row.getToggleExpandedHandler()}
-                        >
-                          +{contacts.length - 1}
-                        </button>
-                      ) : (
-                        <></>
-                      )}
-                    </span>
-                  </>
-                );
-              },
-              footer: (props) => props.column.id,
-              filterFn: "arrIncludesSome",
-              minSize: 100,
-            },
-          ],
-        },
-        {
-          header: i18n._(t`Tax Exemptions`),
-          footer: (props) => props.column.id,
-          columns: [
-            {
-              accessorKey: "yearstartedj51",
-              header: "J-51",
-              cell: ({ row }) => formatAbatementStartYear(row.original.yearstartedj51, i18n),
-              footer: (props) => props.column.id,
-              enableColumnFilter: false,
-              size: 100,
-            },
-            {
-              accessorKey: "yearstarted421a",
-              header: "421a",
-              cell: ({ row }) => formatAbatementStartYear(row.original.yearstarted421a, i18n),
-              footer: (props) => props.column.id,
-              enableColumnFilter: false,
-              size: 100,
-            },
-          ],
-        },
-        {
-          header: i18n._(t`Last Sale`),
-          footer: (props) => props.column.id,
-          columns: [
-            {
-              accessorKey: "lastsaledate",
-              header: i18n._(t`Date`),
-              cell: ({ row }) =>
-                row.original.lastsaledate
-                  ? Helpers.formatDate(row.original.lastsaledate, longDateOptions, locale)
-                  : null,
-              footer: (props) => props.column.id,
-              enableColumnFilter: false,
-              size: 100,
-            },
-            {
-              accessorFn: (row) => formatCurrency(row.lastsaleamount),
-              id: "lastsaleamount",
-              header: i18n._(t`Amount`),
-              cell: (info) => info.getValue(),
-              footer: (props) => props.column.id,
-              enableColumnFilter: false,
-              size: 100,
-            },
-            {
-              accessorKey: "lastsaleacrisid",
-              header: i18n._(t`Link to Deed`),
-              cell: ({ row }) =>
-                row.original.lastsaleacrisid ? (
-                  <a
-                    onClick={() => {
-                      logAmplitudeEvent("portfolioLinktoDeed");
-                      window.gtag("event", "portfolio-link-to-deed");
-                    }}
-                    href={`https://a836-acris.nyc.gov/DS/DocumentSearch/DocumentImageView?doc_id=${row.original.lastsaleacrisid}`}
-                    className="btn"
-                    target="_blank"
-                    aria-label={i18n._(t`Link to Deed`)}
-                    rel="noopener noreferrer"
-                  >
-                    <span style={{ padding: "0 3px" }}>&#8599;&#xFE0E;</span>
-                  </a>
-                ) : null,
-              footer: (props) => props.column.id,
-              enableColumnFilter: false,
-              size: "auto",
-            },
-            {
-              accessorFn: (row) => {
-                // Make id's that are part of group sales show up first when sorted:
-                const idPrefix =
-                  row.lastsaleacrisid && isPartOfGroupSale(row.lastsaleacrisid, data) ? " " : "";
-                return `${idPrefix}${row.lastsaleacrisid}`;
-              },
-              id: "lastsaleisgroupsale",
-              header: i18n._(t`Group Sale?`),
-              cell: ({ row }) =>
-                row.original.lastsaleacrisid
-                  ? isPartOfGroupSale(row.original.lastsaleacrisid, data)
-                    ? i18n._(t`Yes`)
-                    : i18n._(t`No`)
-                  : null,
-              footer: (props) => props.column.id,
-              enableColumnFilter: false,
-              size: "auto",
-            },
-          ],
-        },
-        {
-          header: i18n._(t`View detail`),
-          footer: (props) => props.column.id,
-          columns: [
-            {
-              accessorKey: "bbl",
-              id: "detail",
-              header: null,
-              cell: ({ row }) => (
-                <Link
-                  to={createRouteForFullBbl(row.original.bbl, locale)}
-                  className="btn"
-                  aria-label={i18n._(t`View detail`)}
-                  onClick={() => {
-                    logAmplitudeEvent("portfolioViewDetail");
-                    window.gtag("event", "portfolio-view-detail");
-                  }}
+            footer: (props) => props.column.id,
+            enableColumnFilter: false,
+            size: 100,
+          },
+          {
+            accessorKey: "council",
+            header: i18n._(t`Council`),
+            cell: (info) => info.getValue(),
+            footer: (props) => props.column.id,
+            enableColumnFilter: false,
+            size: "auto",
+          },
+        ],
+      },
+      {
+        header: i18n._(t`Information`),
+        footer: (props) => props.column.id,
+        columns: [
+          {
+            accessorKey: "yearbuilt",
+            header: i18n._(t`Built`),
+            cell: (info) => info.getValue(),
+            footer: (props) => props.column.id,
+            enableColumnFilter: false,
+            size: "auto",
+          },
+          {
+            accessorKey: "unitsres",
+            header: i18n._(t`Units`),
+            cell: (info) => info.getValue(),
+            footer: (props) => props.column.id,
+            enableColumnFilter: false,
+            size: "auto",
+            filterFn: "inNumberRange",
+          },
+        ],
+      },
+      {
+        header: i18n._(t`RS Units`),
+        footer: (props) => props.column.id,
+        columns: [
+          {
+            accessorKey: "rsunits2007",
+            header: "2007",
+            cell: (info) => info.getValue(),
+            footer: (props) => props.column.id,
+            enableColumnFilter: false,
+            size: "auto",
+          },
+          {
+            accessorKey: "rsunitslatest",
+            header: rsunitslatestyear,
+            cell: ({ row }) => {
+              return (
+                <span
+                  className={`${
+                    // TODO: double check this works with nulls
+                    row.original.rsunitslatest! < row.original.rsunits2007! ?? false
+                      ? "text-danger"
+                      : ""
+                  }`}
                 >
-                  <span style={{ padding: "0 3px" }}>&#10142;</span>
-                </Link>
-              ),
-              footer: (props) => props.column.id,
-              enableColumnFilter: false,
-              size: 100,
+                  {row.original.rsunitslatest}
+                </span>
+              );
             },
-          ],
-        },
-      ],
-      [data, i18n, lastColumnRef, locale, rsunitslatestyear, props]
-    );
-
-    const table = useReactTable({
-      data,
-      columns,
-      filterFns: {
-        arrIncludesSome: filterFns.arrIncludesSome,
-        inNumberRange: filterFns.inNumberRange,
-        isNonZero: isNonZero,
+            footer: (props) => props.column.id,
+            enableColumnFilter: false,
+            size: "auto",
+            filterFn: "isNonZero",
+          },
+        ],
       },
-      state: {
-        columnFilters,
-        pagination,
+      {
+        header: i18n._(t`HPD Complaints`),
+        footer: (props) => props.column.id,
+        columns: [
+          {
+            accessorKey: "totalcomplaints",
+            header: i18n._(t`Total`),
+            cell: (info) => info.getValue(),
+            footer: (props) => props.column.id,
+            enableColumnFilter: false,
+            size: "auto",
+          },
+          {
+            accessorKey: "recentcomplaints",
+            header: i18n._(t`Last 3 Years`),
+            cell: (info) => info.getValue(),
+            footer: (props) => props.column.id,
+            enableColumnFilter: false,
+            size: "auto",
+          },
+          {
+            accessorKey: "recentcomplaintsbytype",
+            header: i18n._(t`Top Complaint`),
+            cell: ({ row }) => {
+              const mostCommonType = findMostCommonType(row.original.recentcomplaintsbytype);
+              return mostCommonType ? Helpers.translateComplaintType(mostCommonType, i18n) : null;
+            },
+            footer: (props) => props.column.id,
+            enableColumnFilter: false,
+            size: "auto",
+          },
+        ],
       },
-      onPaginationChange: setPagination,
-      onColumnFiltersChange: setColumnFilters,
-      getCoreRowModel: getCoreRowModel(),
-      getRowCanExpand,
-      getExpandedRowModel: getExpandedRowModel(),
-      getFilteredRowModel: getFilteredRowModel(),
-      getSortedRowModel: getSortedRowModel(),
-      getPaginationRowModel: getPaginationRowModel(),
-      getFacetedRowModel: getFacetedRowModel(),
-      getFacetedUniqueValues: getFacetedUniqueValues(),
-      getFacetedMinMaxValues: getFacetedMinMaxValues(),
-      debugTable: true,
-      debugHeaders: true,
-      debugColumns: false,
-    });
+      {
+        header: i18n._(t`HPD Violations`),
+        footer: (props) => props.column.id,
+        columns: [
+          {
+            accessorKey: "openviolations",
+            header: i18n._(t`Open`),
+            cell: (info) => info.getValue(),
+            footer: (props) => props.column.id,
+            enableColumnFilter: false,
+            size: "auto",
+          },
+          {
+            accessorKey: "totalviolations",
+            header: i18n._(t`Total`),
+            cell: (info) => info.getValue(),
+            footer: (props) => props.column.id,
+            enableColumnFilter: false,
+            size: "auto",
+          },
+        ],
+      },
+      {
+        header: i18n._(t`Evictions Since 2017`),
+        footer: (props) => props.column.id,
+        columns: [
+          {
+            accessorFn: (row) => row.evictionfilings || null,
+            id: "evictionfilings",
+            header: i18n._(t`Filed`),
+            cell: (info) => info.getValue(),
+            footer: (props) => props.column.id,
+            enableColumnFilter: false,
+            size: "auto",
+          },
+          {
+            accessorFn: (row) => row.evictions || null,
+            id: "evictions",
+            header: i18n._(t`Executed`),
+            cell: (info) => info.getValue(),
+            footer: (props) => props.column.id,
+            enableColumnFilter: false,
+            size: "auto",
+          },
+        ],
+      },
+      {
+        header: i18n._(t`Landlord`),
+        footer: (props) => props.column.id,
+        columns: [
+          {
+            accessorFn: (row) => {
+              // Group all contact info by the name of each person/corporate entity (same as on overview tab)
+              var ownerList =
+                row.allcontacts &&
+                Object.entries(_groupBy(row.allcontacts, "value"))
+                  .sort(sortContactsByImportance)
+                  .map((contact) => contact[0]);
+              return ownerList || [];
+            },
+            id: "ownernames",
+            header: i18n._(t`Owner/Manager`),
+            cell: ({ row }) => {
+              var contacts =
+                row.original.allcontacts &&
+                Object.entries(_groupBy(row.original.allcontacts, "value")).sort(
+                  sortContactsByImportance
+                );
 
-    useFilterOptionsUpdater(filterContext, setFilterContext, table);
-    useFilterSelectionsUpdater(filterContext, table);
-    useBuildingCountsUpdater(filterContext, setFilterContext, table);
+              if (!contacts) return "";
 
-    // TODO: is this necessary?
-    React.useEffect(() => {
-      if (table.getState().columnFilters[0]?.id === "ownernames") {
-        if (table.getState().sorting[0]?.id !== "ownernames") {
-          table.setSorting([{ id: "ownernames", desc: false }]);
-        }
+              const contactWords = contacts[0][0].trim().split(/\s+/) || [contacts[0][0]];
+
+              return (
+                <>
+                  {contactWords.length > 1 && contactWords.slice(0, 1).join(" ") + " "}
+                  <span className="col-ownernames-last-word">
+                    {contactWords.slice(-1)}
+                    {row.getCanExpand() && contacts && contacts.length > 1 ? (
+                      <button className="contacts-expand" onClick={row.getToggleExpandedHandler()}>
+                        +{contacts.length - 1}
+                      </button>
+                    ) : (
+                      <></>
+                    )}
+                  </span>
+                </>
+              );
+            },
+            footer: (props) => props.column.id,
+            filterFn: "arrIncludesSome",
+            minSize: 100,
+          },
+        ],
+      },
+      {
+        header: i18n._(t`Tax Exemptions`),
+        footer: (props) => props.column.id,
+        columns: [
+          {
+            accessorKey: "yearstartedj51",
+            header: "J-51",
+            cell: ({ row }) => formatAbatementStartYear(row.original.yearstartedj51, i18n),
+            footer: (props) => props.column.id,
+            enableColumnFilter: false,
+            size: 100,
+          },
+          {
+            accessorKey: "yearstarted421a",
+            header: "421a",
+            cell: ({ row }) => formatAbatementStartYear(row.original.yearstarted421a, i18n),
+            footer: (props) => props.column.id,
+            enableColumnFilter: false,
+            size: 100,
+          },
+        ],
+      },
+      {
+        header: i18n._(t`Last Sale`),
+        footer: (props) => props.column.id,
+        columns: [
+          {
+            accessorKey: "lastsaledate",
+            header: i18n._(t`Date`),
+            cell: ({ row }) =>
+              row.original.lastsaledate
+                ? Helpers.formatDate(row.original.lastsaledate, longDateOptions, locale)
+                : null,
+            footer: (props) => props.column.id,
+            enableColumnFilter: false,
+            size: 100,
+          },
+          {
+            accessorFn: (row) => formatCurrency(row.lastsaleamount),
+            id: "lastsaleamount",
+            header: i18n._(t`Amount`),
+            cell: (info) => info.getValue(),
+            footer: (props) => props.column.id,
+            enableColumnFilter: false,
+            size: 100,
+          },
+          {
+            accessorKey: "lastsaleacrisid",
+            header: i18n._(t`Link to Deed`),
+            cell: ({ row }) =>
+              row.original.lastsaleacrisid ? (
+                <a
+                  onClick={() => {
+                    logAmplitudeEvent("portfolioLinktoDeed");
+                    window.gtag("event", "portfolio-link-to-deed");
+                  }}
+                  href={`https://a836-acris.nyc.gov/DS/DocumentSearch/DocumentImageView?doc_id=${row.original.lastsaleacrisid}`}
+                  className="btn"
+                  target="_blank"
+                  aria-label={i18n._(t`Link to Deed`)}
+                  rel="noopener noreferrer"
+                >
+                  <span style={{ padding: "0 3px" }}>&#8599;&#xFE0E;</span>
+                </a>
+              ) : null,
+            footer: (props) => props.column.id,
+            enableColumnFilter: false,
+            size: "auto",
+          },
+          {
+            accessorFn: (row) => {
+              // Make id's that are part of group sales show up first when sorted:
+              const idPrefix =
+                row.lastsaleacrisid && isPartOfGroupSale(row.lastsaleacrisid, data) ? " " : "";
+              return `${idPrefix}${row.lastsaleacrisid}`;
+            },
+            id: "lastsaleisgroupsale",
+            header: i18n._(t`Group Sale?`),
+            cell: ({ row }) =>
+              row.original.lastsaleacrisid
+                ? isPartOfGroupSale(row.original.lastsaleacrisid, data)
+                  ? i18n._(t`Yes`)
+                  : i18n._(t`No`)
+                : null,
+            footer: (props) => props.column.id,
+            enableColumnFilter: false,
+            size: "auto",
+          },
+        ],
+      },
+      {
+        header: i18n._(t`View Detail`),
+        footer: (props) => props.column.id,
+        columns: [
+          {
+            accessorKey: "bbl",
+            id: "detail",
+            header: null,
+            cell: ({ row }) => (
+              <Link
+                to={createRouteForFullBbl(row.original.bbl, locale)}
+                className="btn"
+                aria-label={i18n._(t`View Detail`)}
+                onClick={() => {
+                  logAmplitudeEvent("portfolioViewDetail");
+                  window.gtag("event", "portfolio-view-detail");
+                }}
+              >
+                <span style={{ padding: "0 3px" }}>&#10142;</span>
+              </Link>
+            ),
+            footer: (props) => props.column.id,
+            enableColumnFilter: false,
+            size: 100,
+          },
+        ],
+      },
+    ],
+    [data, i18n, lastColumnRef, locale, rsunitslatestyear, props]
+  );
+
+  const table = useReactTable({
+    data,
+    columns,
+    filterFns: {
+      arrIncludesSome: filterFns.arrIncludesSome,
+      inNumberRange: filterFns.inNumberRange,
+      isNonZero: isNonZero,
+    },
+    state: {
+      columnFilters,
+      pagination,
+    },
+    onPaginationChange: setPagination,
+    onColumnFiltersChange: setColumnFilters,
+    getCoreRowModel: getCoreRowModel(),
+    getRowCanExpand,
+    getExpandedRowModel: getExpandedRowModel(),
+    getFilteredRowModel: getFilteredRowModel(),
+    getSortedRowModel: getSortedRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
+    getFacetedRowModel: getFacetedRowModel(),
+    getFacetedUniqueValues: getFacetedUniqueValues(),
+    getFacetedMinMaxValues: getFacetedMinMaxValues(),
+    debugTable: true,
+    debugHeaders: true,
+    debugColumns: false,
+  });
+
+  useFilterOptionsUpdater(filterContext, setFilterContext, table);
+  useFilterSelectionsUpdater(filterContext, table);
+  useBuildingCountsUpdater(filterContext, setFilterContext, table);
+
+  // TODO: is this necessary?
+  React.useEffect(() => {
+    if (table.getState().columnFilters[0]?.id === "ownernames") {
+      if (table.getState().sorting[0]?.id !== "ownernames") {
+        table.setSorting([{ id: "ownernames", desc: false }]);
       }
-      //   eslint-disable-next-line
-    }, [table.getState().columnFilters[0]?.id]);
+    }
+    //   eslint-disable-next-line
+  }, [table.getState().columnFilters[0]?.id]);
 
-    return (
-      <div className="PortfolioTable">
+  return (
+    <div className="PortfolioTable">
+      <div className={classnames("table-container", hideScrollFade && "hide-scroll-fade")}>
         <table>
           <thead>
             {table.getHeaderGroups().map((headerGroup) => (
@@ -527,6 +537,7 @@ export const PortfolioTable = React.memo(
                                 : "",
                               onClick: header.column.getToggleSortingHandler(),
                             }}
+                            ref={header.column.id === "detail" ? lastColumnRef : undefined}
                           >
                             {flexRender(header.column.columnDef.header, header.getContext())}
                             {headerGroup.depth === 1 && header.column.id !== "detail"
@@ -569,9 +580,7 @@ export const PortfolioTable = React.memo(
                   {row.getIsExpanded() && (
                     <tr>
                       {/* 2nd row is a custom 1 cell row */}
-                      <td colSpan={row.getVisibleCells().length}>
-                        {renderContacts({ row, i18n })}
-                      </td>
+                      <td colSpan={row.getVisibleCells().length}>{renderContacts({ row, i18n })}</td>
                     </tr>
                   )}
                 </Fragment>
@@ -579,60 +588,61 @@ export const PortfolioTable = React.memo(
             })}
           </tbody>
         </table>
-        <div className="pagination">
-          <div className="prev">
-            <button
-              className="page-btn"
-              onClick={() => table.previousPage()}
-              disabled={!table.getCanPreviousPage()}
-            >
-              {i18n._(t`Previous`)}
-            </button>
-          </div>
-          <div className="center">
-            <span className="page-info">
-              <span>
-                <Trans>Page</Trans>
-              </span>
-              <div>
-                <input
-                  type="number"
-                  value={String(table.getState().pagination.pageIndex + 1)}
-                  onChange={(e) => {
-                    const page = e.target.value ? Number(e.target.value) - 1 : 0;
-                    table.setPageIndex(page);
-                  }}
-                />
-              </div>
-              <Trans>of</Trans> <span className="total-pages">{table.getPageCount()}</span>
+      </div>
+
+      <div className="pagination">
+        <div className="prev">
+          <button
+            className="page-btn"
+            onClick={() => table.previousPage()}
+            disabled={!table.getCanPreviousPage()}
+          >
+            {i18n._(t`Previous`)}
+          </button>
+        </div>
+        <div className="center">
+          <span className="page-info">
+            <span>
+              <Trans>Page</Trans>
             </span>
-            <select
-              value={table.getState().pagination.pageSize}
-              onChange={(e) => {
-                table.setPageSize(Number(e.target.value));
-              }}
-            >
-              {[10, 20, 50, 100, 500].map((pageSize) => (
-                <option key={pageSize} value={pageSize}>
-                  Show {pageSize}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div className="next">
-            <button
-              className="page-btn"
-              onClick={() => table.nextPage()}
-              disabled={!table.getCanNextPage()}
-            >
-              {i18n._(t`Next`)}
-            </button>
-          </div>
+            <div>
+              <input
+                type="number"
+                value={String(table.getState().pagination.pageIndex + 1)}
+                onChange={(e) => {
+                  const page = e.target.value ? Number(e.target.value) - 1 : 0;
+                  table.setPageIndex(page);
+                }}
+              />
+            </div>
+            <Trans>of</Trans> <span className="total-pages">{table.getPageCount()}</span>
+          </span>
+          <select
+            value={table.getState().pagination.pageSize}
+            onChange={(e) => {
+              table.setPageSize(Number(e.target.value));
+            }}
+          >
+            {[10, 20, 50, 100, 500].map((pageSize) => (
+              <option key={pageSize} value={pageSize}>
+                Show {pageSize}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div className="next">
+          <button
+            className="page-btn"
+            onClick={() => table.nextPage()}
+            disabled={!table.getCanNextPage()}
+          >
+            {i18n._(t`Next`)}
+          </button>
         </div>
       </div>
-    );
-  })
-);
+    </div>
+  );
+});
 
 const renderContacts = ({ row, i18n }: { row: Row<AddressRecord>; i18n: I18n }) => {
   return (

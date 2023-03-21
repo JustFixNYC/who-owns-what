@@ -6,226 +6,271 @@ $table-border-light: 1px solid $gray-light;
 $table-border-dark: 1px solid $dark;
 
 .PortfolioTable {
-  overflow-y: auto;
+  overflow: auto;
+  position: relative;
 
-  table {
-    border-left: none;
-    border-color: $gray-dark;
-    border-collapse: separate;
-    border-spacing: 0;
+  .table-container {
+    // These next 2 items ensure that the fade effect from the "::after"
+    // component doesn't overflow past the edge of the PropertiesList container
+    position: relative;
+    overflow: auto;
 
-    .arrow-icon {
-      cursor: pointer;
-      display: inline-block;
-      margin-left: 0.5rem;
-      .arrow-2 {
-        // This small adjustment aligns second arrow in icon with first
-        transform: translateY(0.5px);
-      }
-    }
-
-    .col-address {
-      position: sticky;
-      left: 0px;
-      z-index: 40;
-      background-color: inherit;
-    }
-
-    tr {
-      padding: 0px 5px;
-    }
-
-    td {
-      text-align: center;
-      text-overflow: ellipsis;
-      overflow: hidden;
-      transition: 0.3s ease;
-      transition-property: width, min-width, padding, opacity;
-    }
-
-    th,
-    td {
-      border-right: $table-border-light;
-    }
-
-    thead {
-      max-height: 30px;
-      position: sticky;
+    // Add right-side fade out when list is scrollable:
+    &::after {
+      content: "";
+      display: block;
+      position: absolute;
+      pointer-events: none;
       top: 0;
-      z-index: 50;
-
-      tr {
-        height: 30px;
-      }
-
-      tr:first-child th {
-        border-bottom: 1px solid $table-border-light;
-        border-top: 1px solid $gray-dark;
-        font-weight: bold;
-        color: #000;
-        background-color: $justfix-table-white;
-      }
-
-      tr:last-child th {
-        background-color: #fff;
-        border-bottom: $table-border-dark;
-        box-shadow: none;
-        vertical-align: top;
-        div {
-          width: max-content;
-          margin: auto;
-        }
-      }
-
-      th {
-        padding: 7px 5px;
-      }
+      bottom: 0;
+      right: 0;
+      width: 50px;
+      z-index: 100;
+      background: -moz-linear-gradient(
+        left,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 1) 100%
+      ); /* FF3.6-15 */
+      background: -webkit-linear-gradient(
+        left,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 1) 100%
+      ); /* Chrome10-25,Safari5.1-6 */
+      background: linear-gradient(
+        to right,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 1) 100%
+      ); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#ffffff',GradientType=1 ); /* IE6-9 */
+      visibility: visible;
+      opacity: 1;
+      transition: opacity 0.5s linear;
     }
 
-    tbody {
+    &.hide-scroll-fade::after {
+      visibility: hidden;
+      opacity: 0;
+      transition: visibility 0s 0.5s, opacity 0.5s linear;
+    }
+
+    table {
+      border-left: none;
+      border-color: $gray-dark;
+      border-collapse: separate;
+      border-spacing: 0;
+
+      .arrow-icon {
+        cursor: pointer;
+        display: inline-block;
+        margin-left: 0.5rem;
+        .arrow-2 {
+          // This small adjustment aligns second arrow in icon with first
+          transform: translateY(0.5px);
+        }
+      }
+
+      .col-address {
+        position: sticky;
+        left: 0px;
+        z-index: 40;
+        background-color: inherit;
+      }
+
       tr {
-        border-bottom: $table-border-light;
-
-        &.row-odd {
-          background-color: $justfix-table-white;
-          &:hover {
-            background-color: $justfix-table-grey;
-          }
-        }
-        &.row-even {
-          background-color: #fff;
-          &:hover {
-            background-color: #f0f0f0;
-          }
-        }
-
-        .contacts-expand {
-          border-radius: 5rem;
-          padding: 0.1rem 0.4rem;
-          margin-left: 0.5rem;
-          color: $justfix-grey-700;
-          border: 1px solid $justfix-grey-700;
-        }
-        .contacts-list {
-          text-align: left;
-          position: relative;
-          list-style-type: none;
-          left: 130.5rem;
-          &.lang-es {
-            left: 152.5rem;
-          }
-        }
+        padding: 0px 5px;
       }
 
       td {
-        &.col-address {
-          text-align: left;
-          padding: 0.75rem;
+        text-align: center;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        transition: 0.3s ease;
+        transition-property: width, min-width, padding, opacity;
+      }
+
+      th,
+      td {
+        border-right: $table-border-light;
+      }
+
+      thead {
+        max-height: 30px;
+        position: sticky;
+        top: 0;
+        z-index: 50;
+
+        tr {
+          height: 30px;
         }
-        &.col-ownernames {
-          text-align: left;
-          padding: 0 0.5rem;
-          .col-ownernames-last-word {
-            white-space: nowrap;
+
+        tr:first-child th {
+          border-bottom: 1px solid $table-border-light;
+          border-top: 1px solid $gray-dark;
+          font-weight: bold;
+          color: #000;
+          background-color: $justfix-table-white;
+        }
+
+        tr:last-child th {
+          background-color: #fff;
+          border-bottom: $table-border-dark;
+          box-shadow: none;
+          vertical-align: top;
+          div {
+            width: max-content;
+            margin: auto;
           }
         }
-        &.col-address,
-        &.col-recentcomplaintsbytype,
-        &.col-ownernames,
-        &.col-yearstartedj51,
-        &.col-yearstarted421a,
-        &.col-detail {
-          white-space: unset;
+
+        th {
+          padding: 7px 5px;
+        }
+      }
+
+      tbody {
+        tr {
+          border-bottom: $table-border-light;
+
+          &.row-odd {
+            background-color: $justfix-table-white;
+            &:hover {
+              background-color: $justfix-table-grey;
+            }
+          }
+          &.row-even {
+            background-color: #fff;
+            &:hover {
+              background-color: #f0f0f0;
+            }
+          }
+
+          .contacts-expand {
+            border-radius: 5rem;
+            padding: 0.1rem 0.4rem;
+            margin-left: 0.5rem;
+            color: $justfix-grey-700;
+            border: 1px solid $justfix-grey-700;
+          }
+          .contacts-list {
+            text-align: left;
+            position: relative;
+            list-style-type: none;
+            left: 130.5rem;
+            &.lang-es {
+              left: 152.5rem;
+            }
+          }
+        }
+
+        td {
+          &.col-address {
+            text-align: left;
+            padding: 0.75rem;
+          }
+          &.col-ownernames {
+            text-align: left;
+            padding: 0 0.5rem;
+            .col-ownernames-last-word {
+              white-space: nowrap;
+            }
+          }
+          &.col-address,
+          &.col-recentcomplaintsbytype,
+          &.col-ownernames,
+          &.col-yearstartedj51,
+          &.col-yearstarted421a,
+          &.col-detail {
+            white-space: unset;
+          }
         }
       }
     }
   }
-}
-
-.pagination {
-  position: sticky;
-  left: 0px;
-  z-index: 50;
-  justify-content: space-between;
-  align-items: stretch;
-  flex-wrap: wrap;
-  padding: 3px;
-  background-color: $wowza-background;
-
-  div {
-    display: block;
-    flex: 1 1;
-    text-align: center;
-  }
-
-  .center {
-    flex: 1.5 1;
-    text-align: center;
-    margin-bottom: 0;
-    display: flex;
-    flex-direction: row;
+  .pagination {
+    position: sticky;
+    left: 0px;
+    z-index: 50;
+    justify-content: space-between;
+    align-items: stretch;
     flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-around;
+    padding: 3px;
+    background-color: $wowza-background;
 
-    .page-info {
+    div {
+      display: block;
+      flex: 1 1;
+      text-align: center;
+    }
+
+    .center {
+      flex: 1.5 1;
+      text-align: center;
+      margin-bottom: 0;
       display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
       align-items: center;
-      margin: 3px 10px;
-      white-space: nowrap;
+      justify-content: space-around;
 
-      input {
-        width: 70px;
-        text-align: center;
-        display: inline-block;
-        border: 1px solid rgba(0, 0, 0, 0.1);
-        background: #fff;
-        padding: 5px 7px;
-        margin: 5px 7px;
-        font-size: inherit;
+      .page-info {
+        display: flex;
+        align-items: center;
+        margin: 3px 10px;
+        white-space: nowrap;
+
+        input {
+          width: 70px;
+          text-align: center;
+          display: inline-block;
+          border: 1px solid rgba(0, 0, 0, 0.1);
+          background: #fff;
+          padding: 5px 7px;
+          margin: 5px 7px;
+          font-size: inherit;
+          border-radius: 3px;
+          font-weight: 400;
+          outline: none;
+        }
+        .total-pages {
+          margin-left: 5px;
+        }
+      }
+    }
+
+    .next,
+    .prev {
+      .page-btn[disabled] {
+        opacity: 0.5;
+        cursor: default;
+      }
+
+      .page-btn {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        display: block;
+        width: 100%;
+        height: 100%;
+        border: 0;
         border-radius: 3px;
-        font-weight: 400;
+        padding: 6px;
+        font-size: 1em;
+        color: rgba(0, 0, 0, 0.6);
+        background: rgba(0, 0, 0, 0.1);
+        transition: all 0.1s ease;
+        cursor: pointer;
         outline: none;
       }
-      .total-pages {
-        margin-left: 5px;
-      }
-    }
-  }
-
-  .next,
-  .prev {
-    .page-btn[disabled] {
-      opacity: 0.5;
-      cursor: default;
     }
 
-    .page-btn {
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      appearance: none;
-      display: block;
-      width: 100%;
-      height: 100%;
-      border: 0;
+    select {
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      background: #fff;
+      padding: 5px 7px;
+      font-size: inherit;
       border-radius: 3px;
-      padding: 6px;
-      font-size: 1em;
-      color: rgba(0, 0, 0, 0.6);
-      background: rgba(0, 0, 0, 0.1);
-      transition: all 0.1s ease;
-      cursor: pointer;
+      font-weight: 400;
       outline: none;
     }
-  }
-
-  select {
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    background: #fff;
-    padding: 5px 7px;
-    font-size: inherit;
-    border-radius: 3px;
-    font-weight: 400;
-    outline: none;
   }
 }
