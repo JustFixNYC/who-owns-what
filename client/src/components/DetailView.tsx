@@ -262,7 +262,7 @@ class DetailViewWithoutI18n extends Component<Props, State> {
                     </div>
                     <div className="card-body">
                       <BuildingStatsTable addr={detailAddr} />
-                      <EmailAlertSignup />
+                      <EmailAlertSignup bbl={detailAddr.bbl} />
                       <div className="card-body-timeline-link">
                         <Link
                           to={this.props.addressPageRoutes.timeline}

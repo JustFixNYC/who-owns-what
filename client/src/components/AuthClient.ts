@@ -95,6 +95,13 @@ const updateEmail = async (newEmail: string) => {
 };
 
 /**
+ * Sends an authenticated request to update the user email
+ */
+const buildingSubscribe = async (bbl: string) => {
+  return await postAuthRequest(`${BASE_URL}auth/subscription/${bbl}`);
+};
+
+/**
  * Wrapper function for authentication POST requests
  */
 
@@ -151,6 +158,7 @@ const Client = {
   verifyEmail,
   updateEmail,
   resetPasswordRequest,
+  buildingSubscribe,
 };
 
 export default Client;

@@ -8,11 +8,16 @@ import AuthClient from "./AuthClient";
 
 import "styles/EmailAlertSignup.css";
 
-const BuildingSubscribeWithoutI18n = () => {
+type EmailAlertProps = {
+  bbl: string;
+};
+
+const BuildingSubscribeWithoutI18n = (props: { bbl: string }) => {
+  const { bbl } = props;
   // TODO subscribe routes
   return (
     <div>
-      <button className="button is-primary" onClick={() => {}}>
+      <button className="button is-primary" onClick={() => AuthClient.buildingSubscribe(bbl)}>
         <Trans>Get updates</Trans>
       </button>
     </div>
@@ -21,10 +26,15 @@ const BuildingSubscribeWithoutI18n = () => {
 
 const BuildingSubscribe = withI18n()(BuildingSubscribeWithoutI18n);
 
-const EmailAlertSignupWithoutI18n = () => {
+const EmailAlertSignupWithoutI18n = (props: EmailAlertProps) => {
+  const { bbl } = props;
   const [userEmail, setUserEmail] = React.useState(AuthClient.getUserEmail());
   React.useEffect(() => {
-    AuthClient.fetchUserEmail().then((email: string) => !!email && setUserEmail(email));
+    const updateUserEmail = async () => {
+      const email = await AuthClient.fetchUserEmail();
+      if (email) setUserEmail(email);
+    };
+    updateUserEmail();
   }, []);
 
   return (
@@ -45,7 +55,7 @@ const EmailAlertSignupWithoutI18n = () => {
                     </ul>
                   </Trans>
                 </div>
-                {!userEmail ? <Login onSuccess={setUserEmail} /> : <BuildingSubscribe />}
+                {!userEmail ? <Login onSuccess={setUserEmail} /> : <BuildingSubscribe bbl={bbl} />}
               </div>
             )}
           </I18n>

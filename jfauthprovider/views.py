@@ -85,3 +85,18 @@ def password_reset(request):
         "new_password": request.POST.get("new_password"),
     }
     return auth_server_request("user/password_reset/", post_data, request.headers)
+
+
+@api
+def subscribe_bbl(request, bbl):
+    try:
+        access_token = request.get_signed_cookie("access_token")
+        refresh_token = request.get_signed_cookie("refresh_token")
+
+        return authenticated_request(
+            "user/subscription/" + str(bbl) + "/",
+            access_token,
+            refresh_token,
+        )
+    except KeyError:
+        return HttpResponse(content_type="application/json", status=401)
