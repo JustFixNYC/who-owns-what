@@ -103,10 +103,7 @@ const PropertiesListWithoutI18n: React.FC<
       setHeaderTopSpacing(tableRef.current.offsetTop);
   }, [isTableVisible, locale, windowWidth, windowHeight, isOlderBrowser]);
   return (
-    <div
-      className="PropertiesList"
-      ref={tableRef}
-    >
+    <div className="PropertiesList" ref={tableRef}>
       {isTableVisible ? (
         <FilterContextProvider>
           <PortfolioFilters i18n={i18n} />
