@@ -580,7 +580,9 @@ export const PortfolioTable = React.memo((props: PortfolioTableProps) => {
                   {row.getIsExpanded() && (
                     <tr>
                       {/* 2nd row is a custom 1 cell row */}
-                      <td colSpan={row.getVisibleCells().length}>{renderContacts({ row, i18n })}</td>
+                      <td colSpan={row.getVisibleCells().length}>
+                        {renderContacts({ row, i18n })}
+                      </td>
                     </tr>
                   )}
                 </Fragment>
