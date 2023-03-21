@@ -105,6 +105,8 @@ def authenticated_request(url, access_token, refresh_token, data={}, method="POS
             # Set updated token for user
             return set_response_cookies(auth_response, refresh_response_json)
 
-        return JsonResponse(json.loads(auth_response.content))
+        return JsonResponse(
+            json.loads(auth_response.content), status=auth_response.status_code
+        )
     except ValueError:
-        return JsonResponse({})
+        return JsonResponse({}, status=auth_response.status_code)

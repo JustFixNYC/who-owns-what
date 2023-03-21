@@ -79,7 +79,12 @@ const userAuthenticated = async () => {
  */
 const verifyEmail = async () => {
   const params = new URLSearchParams(window.location.search);
-  return await postAuthRequest(`${BASE_URL}auth/verify_email?code=${params.get("code")}`);
+  try {
+    await postAuthRequest(`${BASE_URL}auth/verify_email?code=${params.get("code")}`);
+    return true;
+  } catch {
+    return false;
+  }
 };
 
 /**
