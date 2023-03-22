@@ -185,9 +185,9 @@ class DetailViewWithoutI18n extends Component<Props, State> {
 
   render() {
     const isMobile = Browser.isMobile();
-    const { i18n } = this.props;
+    const { i18n, state, send } = this.props;
     const locale = (i18n.language as SupportedLocale) || defaultLocale;
-    const { useNewPortfolioMethod, portfolioData } = this.props.state.context;
+    const { useNewPortfolioMethod, portfolioData } = state.context;
     const { assocAddrs, detailAddr, searchAddr } = portfolioData;
 
     // Let's save some variables that will be helpful in rendering the front-end component
@@ -262,7 +262,7 @@ class DetailViewWithoutI18n extends Component<Props, State> {
                     </div>
                     <div className="card-body">
                       <BuildingStatsTable addr={detailAddr} />
-                      <EmailAlertSignup bbl={detailAddr.bbl} />
+                      <EmailAlertSignup state={state} send={send} bbl={detailAddr.bbl} />
                       <div className="card-body-timeline-link">
                         <Link
                           to={this.props.addressPageRoutes.timeline}

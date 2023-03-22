@@ -1,20 +1,23 @@
 import React from "react";
 
-import { withI18n, I18n } from "@lingui/react";
+import { withI18n, withI18nProps, I18n } from "@lingui/react";
 import { t } from "@lingui/macro";
 import { Trans } from "@lingui/macro";
+import { withMachineInStateProps } from "state-machine";
 import Login from "./Login";
 import AuthClient from "./AuthClient";
 
 import "styles/EmailAlertSignup.css";
 
-type EmailAlertProps = {
-  bbl: string;
-};
+type EmailAlertProps = withI18nProps &
+  withMachineInStateProps<"portfolioFound"> & {
+    bbl: string;
+  };
 
 const BuildingSubscribeWithoutI18n = (props: { bbl: string }) => {
   const { bbl } = props;
   // TODO subscribe routes
+  // add on success, pass in send function to update
   return (
     <div>
       <button className="button is-primary" onClick={() => AuthClient.buildingSubscribe(bbl)}>
@@ -27,15 +30,20 @@ const BuildingSubscribeWithoutI18n = (props: { bbl: string }) => {
 const BuildingSubscribe = withI18n()(BuildingSubscribeWithoutI18n);
 
 const EmailAlertSignupWithoutI18n = (props: EmailAlertProps) => {
-  const { bbl } = props;
-  const [userEmail, setUserEmail] = React.useState(AuthClient.getUserEmail());
+  const { state, send, bbl } = props;
+  const [user, setUser] = React.useState(AuthClient.user());
+  let subscriptions = state.context?.userData?.subscriptions;
+
   React.useEffect(() => {
-    const updateUserEmail = async () => {
-      const email = await AuthClient.fetchUserEmail();
-      if (email) setUserEmail(email);
+    const updateUser = async () => {
+      const user = await AuthClient.fetchUser();
+      if (user) {
+        send({ type: "USER_LOGIN", email: user.email, subscriptions: [...user.subscriptions] });
+        setUser(user);
+      }
     };
-    updateUserEmail();
-  }, []);
+    updateUser();
+  }, [user, send]);
 
   return (
     <>
@@ -55,7 +63,15 @@ const EmailAlertSignupWithoutI18n = (props: EmailAlertProps) => {
                     </ul>
                   </Trans>
                 </div>
-                {!userEmail ? <Login onSuccess={setUserEmail} /> : <BuildingSubscribe bbl={bbl} />}
+                {!(subscriptions && subscriptions?.indexOf(bbl) >= 0) ? (
+                  !user?.email ? (
+                    <Login onSuccess={setUser} />
+                  ) : (
+                    <BuildingSubscribe bbl={bbl} />
+                  )
+                ) : (
+                  <Trans>Email updates will be sent to {user?.email}</Trans>
+                )}
               </div>
             )}
           </I18n>

@@ -94,7 +94,22 @@ def subscribe_bbl(request, bbl):
         refresh_token = request.get_signed_cookie("refresh_token")
 
         return authenticated_request(
-            "user/subscription/" + str(bbl) + "/",
+            "user/subscriptions/" + str(bbl) + "/",
+            access_token,
+            refresh_token,
+        )
+    except KeyError:
+        return HttpResponse(content_type="application/json", status=401)
+
+
+@api
+def user_subscriptions(request):
+    try:
+        access_token = request.get_signed_cookie("access_token")
+        refresh_token = request.get_signed_cookie("refresh_token")
+
+        return authenticated_request(
+            "user/subscriptions/",
             access_token,
             refresh_token,
         )

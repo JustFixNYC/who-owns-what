@@ -7,10 +7,11 @@ import { I18n } from "@lingui/core";
 import { withI18n } from "@lingui/react";
 import { Trans } from "@lingui/macro";
 import AuthClient from "./AuthClient";
+import { JustfixUser } from "state-machine";
 
 type LoginProps = {
   i18n: I18n;
-  onSuccess?: (email: string) => void;
+  onSuccess?: (user?: JustfixUser) => void;
 };
 
 type State = {
@@ -64,7 +65,8 @@ class LoginWithoutI18n extends React.Component<LoginProps, State> {
 
     const response = await AuthClient.authenticate(username, password);
     if (!response.error && onSuccess) {
-      onSuccess(username);
+      const user = await AuthClient.fetchUser();
+      onSuccess(user);
     } else {
       this.setState({
         response: response.error_description,

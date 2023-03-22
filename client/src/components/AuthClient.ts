@@ -1,21 +1,25 @@
 import { NetworkError, HTTPError } from "error-reporting";
+import { JustfixUser } from "state-machine";
 import browser from "../util/browser";
 
 const BASE_URL = browser.addTrailingSlash(process.env.REACT_APP_API_BASE_URL);
 const AUTH_SERVER_BASE_URL = browser.addTrailingSlash(process.env.REACT_APP_AUTH_SERVER_BASE_URL);
 
-let userEmail: string | undefined;
-const getUserEmail = () => userEmail;
-const fetchUserEmail = async () => {
-  if (!userEmail) {
+let _user: JustfixUser | undefined;
+const user = () => _user;
+const fetchUser = async () => {
+  if (!_user) {
     try {
       const authCheck = await userAuthenticated();
-      userEmail = authCheck?.["email"];
+      _user = {
+        email: authCheck?.["email"],
+        subscriptions: authCheck?.["subscriptions"],
+      };
     } catch {}
   }
-  return userEmail;
+  return _user;
 };
-const setUserEmail = (email: string) => (userEmail = email);
+const setUser = (user: JustfixUser) => (_user = user);
 
 /**
  * Authenticates a user with the given email and password.
@@ -23,7 +27,7 @@ const setUserEmail = (email: string) => (userEmail = email);
  */
 const authenticate = async (username: string, password: string) => {
   const json = await postAuthRequest(`${BASE_URL}auth/authenticate`, { username, password });
-  setUserEmail(username);
+  fetchUser();
   return json;
 };
 
@@ -41,7 +45,7 @@ const login = async (username: string, password: string) => {
  */
 const logout = async () => {
   const json = await postAuthRequest(`${BASE_URL}auth/logout`);
-  userEmail = undefined;
+  _user = undefined;
   return json;
 };
 
@@ -98,7 +102,14 @@ const updateEmail = async (newEmail: string) => {
  * Sends an authenticated request to update the user email
  */
 const buildingSubscribe = async (bbl: string) => {
-  return await postAuthRequest(`${BASE_URL}auth/subscription/${bbl}`);
+  return await postAuthRequest(`${BASE_URL}auth/subscriptions/${bbl}`);
+};
+
+/**
+ * Fetches the list of all subscriptions associated with a user
+ */
+const userSubscriptions = async () => {
+  return await postAuthRequest(`${BASE_URL}auth/subscriptions`);
 };
 
 /**
@@ -150,8 +161,9 @@ const friendlyFetch: typeof fetch = async (input, init) => {
 const Client = {
   userExists,
   userAuthenticated,
-  getUserEmail,
-  fetchUserEmail,
+  user,
+  fetchUser,
+  setUser,
   authenticate,
   login,
   logout,
@@ -159,6 +171,7 @@ const Client = {
   updateEmail,
   resetPasswordRequest,
   buildingSubscribe,
+  userSubscriptions,
 };
 
 export default Client;
