@@ -47,6 +47,7 @@ import { logAmplitudeEvent } from "../components/Amplitude";
 import { SliderButton } from "@typeform/embed-react";
 import { StickyModal } from "components/StickyModal";
 import { DeprecationModal } from "components/DeprecationModal";
+import AuthClient from "components/AuthClient";
 
 const HomeLink = withI18n()((props: withI18nProps) => {
   const { i18n } = props;
@@ -75,6 +76,14 @@ const WhoOwnsWhatRoutes: React.FC<{}> = () => {
   const machineProps = { state, send };
   const allowChangingPortfolioMethod =
     process.env.REACT_APP_ENABLE_NEW_WOWZA_PORTFOLIO_MAPPING === "1";
+
+  AuthClient.fetchUser().then(user => {
+    if (user && state.context?.userData?.email !== user.email) {
+      send({ type: "USER_LOGIN", email: user.email, subscriptions: user.subscriptions });
+    }
+  })
+
+
   return (
     <Switch>
       <Route exact path={paths.legacy.home} component={HomePage} />

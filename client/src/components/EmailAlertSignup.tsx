@@ -31,19 +31,14 @@ const BuildingSubscribe = withI18n()(BuildingSubscribeWithoutI18n);
 
 const EmailAlertSignupWithoutI18n = (props: EmailAlertProps) => {
   const { state, send, bbl } = props;
-  const [user, setUser] = React.useState(AuthClient.user());
   let subscriptions = state.context?.userData?.subscriptions;
+  let userEmail = state.context?.userData?.email;
 
-  React.useEffect(() => {
-    const updateUser = async () => {
-      const user = await AuthClient.fetchUser();
-      if (user) {
-        send({ type: "USER_LOGIN", email: user.email, subscriptions: [...user.subscriptions] });
-        setUser(user);
-      }
-    };
-    updateUser();
-  }, [user, send]);
+  const onLogin = (user) => {
+    if (user && state.context?.userData?.email !== user.email) {
+      send({ type: "USER_LOGIN", email: user.email, subscriptions: user.subscriptions });
+    }
+  }
 
   return (
     <>
@@ -64,13 +59,13 @@ const EmailAlertSignupWithoutI18n = (props: EmailAlertProps) => {
                   </Trans>
                 </div>
                 {!(subscriptions && subscriptions?.indexOf(bbl) >= 0) ? (
-                  !user?.email ? (
-                    <Login onSuccess={setUser} />
+                  !userEmail ? (
+                    <Login onSuccess={onLogin} />
                   ) : (
                     <BuildingSubscribe bbl={bbl} />
                   )
                 ) : (
-                  <Trans>Email updates will be sent to {user?.email}</Trans>
+                  <Trans>Email updates will be sent to {userEmail}</Trans>
                 )}
               </div>
             )}
