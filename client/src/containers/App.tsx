@@ -77,12 +77,11 @@ const WhoOwnsWhatRoutes: React.FC<{}> = () => {
   const allowChangingPortfolioMethod =
     process.env.REACT_APP_ENABLE_NEW_WOWZA_PORTFOLIO_MAPPING === "1";
 
-  AuthClient.fetchUser().then(user => {
+  AuthClient.fetchUser().then((user) => {
     if (user && state.context?.userData?.email !== user.email) {
       send({ type: "USER_LOGIN", email: user.email, subscriptions: user.subscriptions });
     }
-  })
-
+  });
 
   return (
     <Switch>

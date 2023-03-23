@@ -64,9 +64,8 @@ class LoginWithoutI18n extends React.Component<LoginProps, State> {
     }
 
     const response = await AuthClient.authenticate(username, password);
-    if (!response.error && onSuccess) {
-      const user = await AuthClient.fetchUser();
-      onSuccess(user);
+    if (!response.error && onSuccess && response.user) {
+      onSuccess(response.user);
     } else {
       this.setState({
         response: response.error_description,

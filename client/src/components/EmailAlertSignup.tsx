@@ -38,7 +38,7 @@ const EmailAlertSignupWithoutI18n = (props: EmailAlertProps) => {
     if (user && state.context?.userData?.email !== user.email) {
       send({ type: "USER_LOGIN", email: user.email, subscriptions: user.subscriptions });
     }
-  }
+  };
 
   return (
     <>
