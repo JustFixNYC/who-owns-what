@@ -15,7 +15,7 @@ def login(request):
         "password": request.POST.get("password"),
     }
 
-    return client_secret_request("o/token/", post_data, request.headers)
+    return client_secret_request("o/token/", post_data)
 
 
 @api
@@ -24,7 +24,7 @@ def logout(request):
         "token": request.get_signed_cookie("access_token"),
     }
 
-    response = auth_server_request("o/revoke_token/", post_data, request.headers)
+    response = auth_server_request("o/revoke_token/", post_data)
     response.delete_cookie("access_token")
     response.delete_cookie("refresh_token")
     return response
@@ -39,7 +39,7 @@ def authenticate(request):
         "origin": request.headers["Origin"],
     }
 
-    return client_secret_request("user/authenticate/", post_data, request.headers)
+    return client_secret_request("user/authenticate/", post_data)
 
 
 @api
@@ -73,9 +73,7 @@ def password_reset_request(request):
     post_data = {
         "username": request.POST.get("username"),
     }
-    return auth_server_request(
-        "user/password_reset/request/", post_data, request.headers
-    )
+    return auth_server_request("user/password_reset/request/", post_data)
 
 
 @api
@@ -84,7 +82,7 @@ def password_reset(request):
         "token": request.GET.get("token"),
         "new_password": request.POST.get("new_password"),
     }
-    return auth_server_request("user/password_reset/", post_data, request.headers)
+    return auth_server_request("user/password_reset/", post_data)
 
 
 @api
