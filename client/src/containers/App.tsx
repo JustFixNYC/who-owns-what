@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { BrowserRouter as Router, Switch, Route, useLocation } from "react-router-dom";
 import { Trans, t } from "@lingui/macro";
 
@@ -47,7 +47,7 @@ import { logAmplitudeEvent } from "../components/Amplitude";
 import { SliderButton } from "@typeform/embed-react";
 import { StickyModal } from "components/StickyModal";
 import { DeprecationModal } from "components/DeprecationModal";
-import AuthClient from "components/AuthClient";
+import { UserContext, UserContextProvider } from "components/UserContext";
 
 const HomeLink = withI18n()((props: withI18nProps) => {
   const { i18n } = props;
@@ -76,13 +76,6 @@ const WhoOwnsWhatRoutes: React.FC<{}> = () => {
   const machineProps = { state, send };
   const allowChangingPortfolioMethod =
     process.env.REACT_APP_ENABLE_NEW_WOWZA_PORTFOLIO_MAPPING === "1";
-
-  AuthClient.fetchUser().then((user) => {
-    if (user && state.context?.userData?.email !== user.email) {
-      send({ type: "USER_LOGIN", email: user.email, subscriptions: user.subscriptions });
-    }
-  });
-
   return (
     <Switch>
       <Route exact path={paths.legacy.home} component={HomePage} />
@@ -232,6 +225,10 @@ const Navbar = () => {
   const isDemoSite = process.env.REACT_APP_DEMO_SITE === "1";
   const allowChangingPortfolioMethod =
     process.env.REACT_APP_ENABLE_NEW_WOWZA_PORTFOLIO_MAPPING === "1";
+
+  const userContext = useContext(UserContext);
+  console.log(userContext); // TODO shakao remove after
+
   return (
     <div
       className={classnames(
@@ -373,32 +370,34 @@ const App = () => {
               checkIntervalSecs={300}
             />
           )}
-          <div className="App">
-            {allowChangingPortfolioMethod && <WowzaBanner />}
-            <Navbar />
-            {deprecationModalEnabled && <DeprecationModal />}
-            <AppBody />
-            {surveyId && surveyCookie !== "2" && (
-              <StickyModal
-                label={"Help us build tenant power in NYC!"}
-                verticalPosition="bottom"
-                horizontalPosition="right"
-                onClose={hideSurveyButton}
-              >
-                <SliderButton
-                  id={surveyId}
-                  redirectTarget="_self"
-                  open={surveyCookie ? undefined : "time"}
-                  openValue={surveyCookie ? undefined : 5000}
-                  className="waou-survey-button"
-                  onClose={closeSurvey}
-                  onSubmit={() => (surveySubmitted = true)}
+          <UserContextProvider>
+            <div className="App">
+              {allowChangingPortfolioMethod && <WowzaBanner />}
+              <Navbar />
+              {deprecationModalEnabled && <DeprecationModal />}
+              <AppBody />
+              {surveyId && surveyCookie !== "2" && (
+                <StickyModal
+                  label={"Help us build tenant power in NYC!"}
+                  verticalPosition="bottom"
+                  horizontalPosition="right"
+                  onClose={hideSurveyButton}
                 >
-                  Take our short survey
-                </SliderButton>
-              </StickyModal>
-            )}
-          </div>
+                  <SliderButton
+                    id={surveyId}
+                    redirectTarget="_self"
+                    open={surveyCookie ? undefined : "time"}
+                    openValue={surveyCookie ? undefined : 5000}
+                    className="waou-survey-button"
+                    onClose={closeSurvey}
+                    onSubmit={() => (surveySubmitted = true)}
+                  >
+                    Take our short survey
+                  </SliderButton>
+                </StickyModal>
+              )}
+            </div>
+          </UserContextProvider>
         </ScrollToTop>
       </I18n>
     </Router>

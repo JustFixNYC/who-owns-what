@@ -1,18 +1,18 @@
-import React from "react";
+import React, { useContext } from "react";
 
 import { withI18n, withI18nProps, I18n } from "@lingui/react";
 import { t } from "@lingui/macro";
 import { Trans } from "@lingui/macro";
-import { withMachineInStateProps } from "state-machine";
+import { JustfixUser } from "state-machine";
 import Login from "./Login";
 import AuthClient from "./AuthClient";
+import { UserContext } from "./UserContext";
 
 import "styles/EmailAlertSignup.css";
 
-type EmailAlertProps = withI18nProps &
-  withMachineInStateProps<"portfolioFound"> & {
-    bbl: string;
-  };
+type EmailAlertProps = withI18nProps & {
+  bbl: string;
+};
 
 const BuildingSubscribeWithoutI18n = (props: { bbl: string }) => {
   const { bbl } = props;
@@ -30,13 +30,15 @@ const BuildingSubscribeWithoutI18n = (props: { bbl: string }) => {
 const BuildingSubscribe = withI18n()(BuildingSubscribeWithoutI18n);
 
 const EmailAlertSignupWithoutI18n = (props: EmailAlertProps) => {
-  const { state, send, bbl } = props;
-  let subscriptions = state.context?.userData?.subscriptions;
-  let userEmail = state.context?.userData?.email;
+  const { bbl } = props;
+  const userContext = useContext(UserContext);
 
-  const onLogin = (user) => {
-    if (user && state.context?.userData?.email !== user.email) {
-      send({ type: "USER_LOGIN", email: user.email, subscriptions: user.subscriptions });
+  let subscriptions = userContext.user?.subscriptions;
+  let userEmail = userContext.user?.email;
+
+  const onLogin = (user?: JustfixUser) => {
+    if (user && userContext.user?.email !== user.email) {
+      userContext.login(user);
     }
   };
 

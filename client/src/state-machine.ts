@@ -88,8 +88,7 @@ export type WowEvent =
   | { type: "SEARCH"; address: SearchAddressWithoutBbl; useNewPortfolioMethod: boolean }
   | { type: "SELECT_DETAIL_ADDR"; bbl: string }
   | { type: "VIEW_SUMMARY" }
-  | { type: "VIEW_TIMELINE" }
-  | { type: "USER_LOGIN"; email: string; subscriptions: string[] };
+  | { type: "VIEW_TIMELINE" };
 
 type PortfolioData = {
   /** The full set of data for the original search address */
@@ -138,8 +137,6 @@ export interface WowContext {
   timelineData?: IndicatorsDataFromAPI;
   /** All data used to render the "Summary tab" of the Address Page. Updates on any change to `searchAddr` */
   summaryData?: SummaryStatsRecord;
-  /** All data associated with the currently signed-in user. Updates on `USER_LOGIN` event */
-  userData?: JustfixUser;
 }
 
 type WowMachineEverything = State<WowContext, WowEvent, any, WowState>;
@@ -229,7 +226,7 @@ const assignWowStateContext = assign((ctx: WowContext, event: DoneInvokeEvent<Wo
   return { ...event.data.context };
 });
 
-const handleGlobalEvents: TransitionsConfig<WowContext, WowEvent> = {
+const handleSearchEvent: TransitionsConfig<WowContext, WowEvent> = {
   SEARCH: {
     target: "searchInProgress",
     cond: (ctx, event) => !!event.address.boro && !!event.address.streetname,
@@ -239,16 +236,6 @@ const handleGlobalEvents: TransitionsConfig<WowContext, WowEvent> = {
         useNewPortfolioMethod: event.useNewPortfolioMethod,
         summaryData: undefined,
         timelineData: undefined,
-      };
-    }),
-  },
-  USER_LOGIN: {
-    actions: assign((ctx, event) => {
-      return {
-        userData: {
-          email: event.email,
-          subscriptions: event.subscriptions,
-        },
       };
     }),
   },
@@ -265,12 +252,12 @@ export const wowMachine = createMachine<WowContext, WowEvent, WowState>({
   states: {
     noData: {
       on: {
-        ...handleGlobalEvents,
+        ...handleSearchEvent,
       },
     },
     searchInProgress: {
       on: {
-        ...handleGlobalEvents,
+        ...handleSearchEvent,
       },
       invoke: {
         id: "geosearch",
@@ -310,17 +297,17 @@ export const wowMachine = createMachine<WowContext, WowEvent, WowState>({
     },
     bblNotFound: {
       on: {
-        ...handleGlobalEvents,
+        ...handleSearchEvent,
       },
     },
     nychaFound: {
       on: {
-        ...handleGlobalEvents,
+        ...handleSearchEvent,
       },
     },
     unregisteredFound: {
       on: {
-        ...handleGlobalEvents,
+        ...handleSearchEvent,
       },
     },
     portfolioFound: {
@@ -364,7 +351,7 @@ export const wowMachine = createMachine<WowContext, WowEvent, WowState>({
         },
       },
       on: {
-        ...handleGlobalEvents,
+        ...handleSearchEvent,
         VIEW_TIMELINE: {
           target: [".timeline.pending"],
         },
