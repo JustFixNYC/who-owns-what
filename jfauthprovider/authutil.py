@@ -1,5 +1,5 @@
 import json
-from django.http import JsonResponse
+from django.http import HttpResponse, JsonResponse
 import requests
 import os
 
@@ -72,6 +72,9 @@ def client_secret_request(url, data={}, headers={}):
 
 def authenticated_request(url, access_token, refresh_token, data={}, method="POST"):
     try:
+        if access_token is None:
+            return HttpResponse(content_type="application/json", status=401)
+
         headers = {"Authorization": "Bearer " + access_token}
         if method == "GET":
             auth_response = requests.get(
