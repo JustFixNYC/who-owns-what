@@ -195,6 +195,20 @@ const SearchLink = () => {
   );
 };
 
+const getAccountNavLinks = (isLegacyPath?: boolean) => {
+  const { account } = createWhoOwnsWhatRoutePaths();
+  const { settings } = account;
+
+  return [
+    <LocaleNavLink to={settings} key={1}>
+      <Trans>Account settings</Trans>
+    </LocaleNavLink>,
+    <LocaleNavLink to={"/"} key={2} onClick={() => {}}>
+      <Trans>Sign out</Trans>
+    </LocaleNavLink>,
+  ];
+};
+
 const getMainNavLinks = (isLegacyPath?: boolean) => {
   const { about, howToUse, legacy } = createWhoOwnsWhatRoutePaths();
   return [
@@ -227,7 +241,6 @@ const Navbar = () => {
     process.env.REACT_APP_ENABLE_NEW_WOWZA_PORTFOLIO_MAPPING === "1";
 
   const userContext = useContext(UserContext);
-  console.log(userContext); // TODO shakao remove after
 
   return (
     <div
@@ -252,6 +265,7 @@ const Navbar = () => {
             <Trans>Share</Trans>
           </a>
           <LocaleSwitcher />
+          {userContext?.user?.email && getAccountNavLinks(isLegacyPath(pathname))}
         </span>
         <Dropdown>
           {getMainNavLinks(isLegacyPath(pathname)).map((link, i) => (
@@ -268,6 +282,12 @@ const Navbar = () => {
           <li className="menu-item">
             <LocaleSwitcherWithFullLanguageName />
           </li>
+          {userContext?.user?.email &&
+            getAccountNavLinks(isLegacyPath(pathname)).map((link, i) => (
+              <li className="menu-item" key={`account-${i}`}>
+                {link}
+              </li>
+            ))}
         </Dropdown>
       </nav>
       <Modal showModal={isEngageModalVisible} onClose={() => setEngageModalVisibility(false)}>
