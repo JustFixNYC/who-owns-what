@@ -219,6 +219,9 @@
             display: flex;
             flex-direction: column;
             margin: 0.8rem 0;
+            input {
+              font-size: 1.6rem;
+            }
           }
           .minmax-container {
             padding: 1.2rem;
@@ -422,6 +425,7 @@
             border-bottom: 0.1rem solid $justfix-grey-400;
             &.filter-toggle {
               height: var(--filter-bar-height);
+              min-height: var(--filter-bar-height);
               padding: 0 2.4rem;
             }
             &.filter-accordion > summary {

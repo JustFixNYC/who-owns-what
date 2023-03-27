@@ -9,8 +9,7 @@ import { Trans } from "@lingui/macro";
 import { Alert } from "./Alert";
 import classnames from "classnames";
 
-// How many selected value chips to display before "show more" button
-const SELECTED_PREVIEW_NUM = 5;
+const KEY_ESC = 27;
 
 export interface IMultiselectProps {
   options: any;
@@ -45,6 +44,10 @@ export interface IMultiselectProps {
   selectedValueDecorator?: (v: string, option: any) => React.ReactNode | string;
   optionValueDecorator?: (v: string, option: any) => React.ReactNode | string;
   hideSelectedList?: boolean;
+  /**
+   * How many selected value chips to display before "show more" button
+   */
+  previewSelectedNum?: number;
 }
 
 export class Multiselect extends React.Component<IMultiselectProps, any> {
@@ -75,13 +78,13 @@ export class Multiselect extends React.Component<IMultiselectProps, any> {
     this.onChange = this.onChange.bind(this);
     this.onKeyPress = this.onKeyPress.bind(this);
     this.onFocus = this.onFocus.bind(this);
-    this.onBlur = this.onBlur.bind(this);
     this.renderMultiselectContainer = this.renderMultiselectContainer.bind(this);
     this.renderSelectedList = this.renderSelectedList.bind(this);
     this.onRemoveSelectedItem = this.onRemoveSelectedItem.bind(this);
     this.toggleShowAllSelected = this.toggleShowAllSelected.bind(this);
     this.toggelOptionList = this.toggelOptionList.bind(this);
     this.onArrowKeyNavigation = this.onArrowKeyNavigation.bind(this);
+    this.onEscKeyCloseOptionList = this.onEscKeyCloseOptionList.bind(this);
     this.onSelectItem = this.onSelectItem.bind(this);
     this.filterOptionsByInput = this.filterOptionsByInput.bind(this);
     this.removeSelectedValuesFromOptions = this.removeSelectedValuesFromOptions.bind(this);
@@ -294,13 +297,14 @@ export class Multiselect extends React.Component<IMultiselectProps, any> {
       }
       this.onSelectItem(options[highlightOption]);
     }
-    // TODO: Instead of scrollIntoView need to find better soln for scroll the dropwdown container.
-    // setTimeout(() => {
-    //   const element = document.querySelector("ul.optionContainer .highlight");
-    //   if (element) {
-    //     element.scrollIntoView();
-    //   }
-    // });
+  }
+
+  onEscKeyCloseOptionList(e) {
+    if (e.keyCode === KEY_ESC) {
+      e.preventDefault();
+      this.onCloseOptionList();
+      this.searchBox.current.focus();
+    }
   }
 
   onRemoveSelectedItem(item) {
@@ -365,8 +369,15 @@ export class Multiselect extends React.Component<IMultiselectProps, any> {
   }
 
   renderOptionList() {
-    const { groupBy, style, emptyRecordMsg, loading, loadingMessage = "loading..." } = this.props;
-    const { options } = this.state;
+    const {
+      id,
+      groupBy,
+      style,
+      emptyRecordMsg,
+      loading,
+      loadingMessage = "loading...",
+    } = this.props;
+    const { options, highlightOption } = this.state;
     if (loading) {
       return (
         <ul className={`optionContainer`} style={style["optionContainer"]}>
@@ -380,7 +391,13 @@ export class Multiselect extends React.Component<IMultiselectProps, any> {
       );
     }
     return (
-      <ul className={`optionContainer`} style={style["optionContainer"]}>
+      <ul
+        tabIndex="-1"
+        role="listbox"
+        className={`optionContainer`}
+        style={style["optionContainer"]}
+        aria-activedescendant={`${id || "option"}-item-${highlightOption}`}
+      >
         {options.length === 0 && (
           <span style={style["notFound"]} className={`notFound`}>
             {emptyRecordMsg}
@@ -410,14 +427,23 @@ export class Multiselect extends React.Component<IMultiselectProps, any> {
                   this.fadeOutSelection(option) ? "disableSelection" : ""
                 } ${this.isDisablePreSelectedValues(option) ? "disableSelection" : ""}`}
                 onClick={() => this.onSelectItem(option)}
+                onKeyDown={this.onEscKeyCloseOptionList}
               >
                 {showCheckbox && (
-                  <input type="checkbox" className={"checkbox"} readOnly checked={isSelected} />
+                  <input
+                    type="checkbox"
+                    className={"checkbox"}
+                    readOnly
+                    checked={isSelected}
+                    onKeyDown={this.onEscKeyCloseOptionList}
+                  />
                 )}
-                {this.props.optionValueDecorator(
-                  isObject ? option[displayValue] : (option || "").toString(),
-                  option
-                )}
+                <span>
+                  {this.props.optionValueDecorator(
+                    isObject ? option[displayValue] : (option || "").toString(),
+                    option
+                  )}
+                </span>
               </li>
             );
           })}
@@ -427,13 +453,14 @@ export class Multiselect extends React.Component<IMultiselectProps, any> {
   }
 
   renderNormalOption() {
-    const { isObject = false, displayValue, showCheckbox, style } = this.props;
+    const { isObject = false, id, displayValue, showCheckbox, style } = this.props;
     const { highlightOption } = this.state;
     return this.state.options.map((option, i) => {
       const isSelected = this.isSelectedValue(option);
       return (
         <li
           key={`option${i}`}
+          id={`${id || "option"}-item-${i}`}
           style={style["option"]}
           className={`option ${isSelected ? "selected" : ""} ${
             highlightOption === i ? `highlightOption highlight` : ""
@@ -441,24 +468,37 @@ export class Multiselect extends React.Component<IMultiselectProps, any> {
             this.isDisablePreSelectedValues(option) ? "disableSelection" : ""
           }`}
           onClick={() => this.onSelectItem(option)}
+          onKeyDown={this.onEscKeyCloseOptionList}
+          role="option"
+          aria-selected={isSelected}
+          aria-label={isObject ? option[displayValue] : (option || "").toString()}
         >
           {showCheckbox && (
-            <input type="checkbox" readOnly className={`checkbox`} checked={isSelected} />
+            <input
+              id={`option-check-${i}`}
+              type="checkbox"
+              readOnly
+              className="checkbox"
+              checked={isSelected}
+              onKeyDown={this.onEscKeyCloseOptionList}
+            />
           )}
-          {this.props.optionValueDecorator(
-            isObject ? option[displayValue] : (option || "").toString(),
-            option
-          )}
+          <span>
+            {this.props.optionValueDecorator(
+              isObject ? option[displayValue] : (option || "").toString(),
+              option
+            )}
+          </span>
         </li>
       );
     });
   }
 
   renderSelectedList() {
-    const { isObject = false, displayValue, style } = this.props;
+    const { isObject = false, displayValue, style, previewSelectedNum } = this.props;
     const { selectedValues, showAllSelected } = this.state;
 
-    const selectedNum = showAllSelected ? selectedValues.length : SELECTED_PREVIEW_NUM;
+    const selectedNum = showAllSelected ? selectedValues.length : previewSelectedNum;
 
     return (
       <>
@@ -483,17 +523,17 @@ export class Multiselect extends React.Component<IMultiselectProps, any> {
         {selectedValues.length > selectedNum && (
           <button
             className="chip chip-more"
-            key={SELECTED_PREVIEW_NUM + 1}
+            key={previewSelectedNum + 1}
             style={style["chips"]}
             onClick={this.toggleShowAllSelected}
           >
-            +{selectedValues.length - SELECTED_PREVIEW_NUM}
+            +{selectedValues.length - previewSelectedNum}
           </button>
         )}
-        {selectedNum > SELECTED_PREVIEW_NUM && (
+        {selectedNum > previewSelectedNum && (
           <button
             className="show-less button is-text"
-            key={SELECTED_PREVIEW_NUM + 1}
+            key={previewSelectedNum + 1}
             onClick={this.toggleShowAllSelected}
           >
             <Trans>Show less</Trans>
@@ -565,12 +605,6 @@ export class Multiselect extends React.Component<IMultiselectProps, any> {
       this.toggelOptionList();
     }
     this.props.onFocusInput();
-  }
-
-  onBlur() {
-    // this.setState({ inputValue: "" }, this.filterOptionsByInput);
-    // @ts-ignore
-    this.optionTimeout = setTimeout(this.onCloseOptionList, 250);
   }
 
   isVisible(elem) {
@@ -647,7 +681,6 @@ export class Multiselect extends React.Component<IMultiselectProps, any> {
             onKeyPress={this.onKeyPress}
             value={inputValue}
             onFocus={this.onFocus}
-            onBlur={this.onBlur}
             placeholder={hidePlaceholder && selectedValues.length ? "" : placeholder}
             onKeyDown={this.onArrowKeyNavigation}
             style={style["inputField"]}
@@ -743,4 +776,5 @@ Multiselect.defaultProps = {
   customArrow: undefined,
   selectedValueDecorator: (v) => v,
   optionValueDecorator: (v) => v,
+  previewSelectedNum: 5,
 } as IMultiselectProps;
