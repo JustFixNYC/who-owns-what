@@ -195,17 +195,17 @@ const SearchLink = () => {
   );
 };
 
-const getAccountNavLinks = (isLegacyPath?: boolean) => {
+const getAccountNavLinks = (handleLogout: () => void) => {
   const { account } = createWhoOwnsWhatRoutePaths();
   const { settings } = account;
 
   return [
-    <LocaleNavLink to={settings} key={1}>
+    <LocaleNavLink to={settings} key="account-1">
       <Trans>Account settings</Trans>
     </LocaleNavLink>,
-    <LocaleNavLink to={"/"} key={2} onClick={() => {}}>
+    <button onClick={() => handleLogout()} key="account-2">
       <Trans>Sign out</Trans>
-    </LocaleNavLink>,
+    </button>,
   ];
 };
 
@@ -265,7 +265,7 @@ const Navbar = () => {
             <Trans>Share</Trans>
           </a>
           <LocaleSwitcher />
-          {userContext?.user?.email && getAccountNavLinks(isLegacyPath(pathname))}
+          {userContext?.user?.email && getAccountNavLinks(userContext.logout)}
         </span>
         <Dropdown>
           {getMainNavLinks(isLegacyPath(pathname)).map((link, i) => (
@@ -283,7 +283,7 @@ const Navbar = () => {
             <LocaleSwitcherWithFullLanguageName />
           </li>
           {userContext?.user?.email &&
-            getAccountNavLinks(isLegacyPath(pathname)).map((link, i) => (
+            getAccountNavLinks(userContext.logout).map((link, i) => (
               <li className="menu-item" key={`account-${i}`}>
                 {link}
               </li>

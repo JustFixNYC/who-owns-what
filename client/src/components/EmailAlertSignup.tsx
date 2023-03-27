@@ -3,7 +3,6 @@ import React, { useContext } from "react";
 import { withI18n, withI18nProps, I18n } from "@lingui/react";
 import { t } from "@lingui/macro";
 import { Trans } from "@lingui/macro";
-import { JustfixUser } from "state-machine";
 import Login from "./Login";
 import AuthClient from "./AuthClient";
 import { UserContext } from "./UserContext";
@@ -36,12 +35,6 @@ const EmailAlertSignupWithoutI18n = (props: EmailAlertProps) => {
   let subscriptions = userContext.user?.subscriptions;
   let userEmail = userContext.user?.email;
 
-  const onLogin = (user?: JustfixUser) => {
-    if (user && userContext.user?.email !== user.email) {
-      userContext.login(user);
-    }
-  };
-
   return (
     <>
       <div className="EmailAlertSignup card-body-table">
@@ -62,7 +55,7 @@ const EmailAlertSignupWithoutI18n = (props: EmailAlertProps) => {
                 </div>
                 {!(subscriptions && subscriptions?.indexOf(bbl) >= 0) ? (
                   !userEmail ? (
-                    <Login onSuccess={onLogin} />
+                    <Login />
                   ) : (
                     <BuildingSubscribe bbl={bbl} />
                   )

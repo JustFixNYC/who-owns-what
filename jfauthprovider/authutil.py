@@ -60,12 +60,11 @@ def auth_server_request(url, data={}, headers={}):
 
 def client_secret_request(url, data={}, headers={}):
     try:
-        auth_response = requests.post(
+        return requests.post(
             os.path.join(AUTH_BASE_URL, url),
             data=add_client_secret(data),
             headers=headers,
         )
-        return set_response_cookies(auth_response, auth_response.json())
     except ValueError as e:
         return JsonResponse({"msg": str(e)}, status=500)
 

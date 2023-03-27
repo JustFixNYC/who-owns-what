@@ -44,9 +44,8 @@ const login = async (username: string, password: string) => {
  * Revokes the current access token, if one is present
  */
 const logout = async () => {
-  const json = await postAuthRequest(`${BASE_URL}auth/logout`);
+  await postAuthRequest(`${BASE_URL}auth/logout`);
   _user = undefined;
-  return json;
 };
 
 /**
@@ -136,8 +135,12 @@ const postAuthRequest = async (
     },
     credentials: "include",
   });
-  const json = await result.json();
-  return json;
+  try {
+    const json = await result.json();
+    return json;
+  } catch {
+    return result;
+  }
 };
 
 // TODO shakao Move shared APIClient functions to util

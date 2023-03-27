@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useContext } from "react";
 
 import "styles/Login.css";
 import "styles/_input.scss";
@@ -6,109 +6,80 @@ import "styles/_input.scss";
 import { I18n } from "@lingui/core";
 import { withI18n } from "@lingui/react";
 import { Trans } from "@lingui/macro";
-import AuthClient from "./AuthClient";
-import { JustfixUser } from "state-machine";
+import { UserContext } from "./UserContext";
 
 type LoginProps = {
   i18n: I18n;
-  onSuccess?: (user?: JustfixUser) => void;
 };
 
-type State = {
-  username: string;
-  password: string;
-  success: boolean;
-  response: string;
-  formState: "check_email" | "login" | "register";
-};
+// class LoginWithoutI18n extends React.Component<LoginProps, State> {
+const LoginWithoutI18n = (props: LoginProps) => {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [message, setMessage] = useState("");
+  const [formState, setFormState] = useState<"username" | "password">("username");
+  const userContext = useContext(UserContext);
 
-class LoginWithoutI18n extends React.Component<LoginProps, State> {
-  constructor(props: LoginProps) {
-    super(props);
-    this.state = {
-      username: "",
-      password: "",
-      success: false,
-      response: "",
-      formState: "check_email",
-    };
-  }
-
-  handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({ username: e.target.value });
+  const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setUsername(e.target.value);
   };
-  handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({ password: e.target.value });
+  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPassword(e.target.value);
   };
 
-  handleCheckUser = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleEmailEntry = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    if (await AuthClient.userExists(this.state.username)) {
-      this.setState({ formState: "login" });
-    } else {
-      this.setState({ formState: "register" });
+    if (formState === "username") {
+      setFormState("password");
     }
   };
 
-  handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const { onSuccess } = this.props;
-    const { username, password } = this.state;
 
     if (!username || !password) {
-      this.setState({
-        response: `Please enter an email address and password!`,
-      });
+      setMessage(`Please enter an email address and password!`);
       return;
     }
 
-    const response = await AuthClient.authenticate(username, password);
-    if (!response.error && onSuccess && response.user) {
-      onSuccess(response.user);
-    } else {
-      this.setState({
-        response: response.error_description,
-      });
+    const loginMessage = await userContext.login(username, password);
+    if (!!loginMessage) {
+      setMessage(loginMessage);
     }
   };
 
-  render() {
-    const { username, password, success, response, formState } = this.state;
-
-    return (
-      <div className={`Login ${success ? "Login--success" : ""}`}>
-        <form
-          onSubmit={formState !== "check_email" ? this.handleSubmit : this.handleCheckUser}
-          className="input-group"
-        >
-          <Trans render="label">Email address</Trans>
-          <input
-            type="email"
-            className="input"
-            placeholder={`Enter email`}
-            onChange={this.handleUsernameChange}
-            value={username}
-          />
-          {formState !== "check_email" && (
-            <>
-              <Trans render="label">Enter password</Trans>
-              <input
-                type="password"
-                className="input"
-                placeholder={`Enter password`}
-                onChange={this.handlePasswordChange}
-                value={password}
-              />
-            </>
-          )}
-          <input type="submit" className="button is-primary" value={`Get updates`} />
-        </form>
-        {response && <p className="response-text">{response}</p>}
-      </div>
-    );
-  }
-}
+  return (
+    <div className={`Login`}>
+      <form
+        onSubmit={formState === "password" ? handleSubmit : handleEmailEntry}
+        className="input-group"
+      >
+        <Trans render="label">Email address</Trans>
+        <input
+          type="email"
+          className="input"
+          placeholder={`Enter email`}
+          onChange={handleUsernameChange}
+          value={username}
+        />
+        {formState === "password" && (
+          <>
+            <Trans render="label">Enter password</Trans>
+            <input
+              type="password"
+              className="input"
+              placeholder={`Enter password`}
+              onChange={handlePasswordChange}
+              value={password}
+            />
+          </>
+        )}
+        <input type="submit" className="button is-primary" value={`Get updates`} />
+      </form>
+      {message && <p className="response-text">{message}</p>}
+    </div>
+  );
+};
 
 const Login = withI18n()(LoginWithoutI18n);
 

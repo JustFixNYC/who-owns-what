@@ -1,7 +1,12 @@
 import sys
 from django.http import HttpResponse
 
-from .authutil import client_secret_request, authenticated_request, auth_server_request
+from .authutil import (
+    client_secret_request,
+    authenticated_request,
+    auth_server_request,
+    set_response_cookies,
+)
 
 sys.path.append("..")
 from wow.apiutil import api  # noqa: E402
@@ -15,19 +20,33 @@ def login(request):
         "password": request.POST.get("password"),
     }
 
-    return client_secret_request("o/token/", post_data)
+    response = client_secret_request("o/token/", post_data)
+    return set_response_cookies(response, response.json())
 
 
 @api
 def logout(request):
-    post_data = {
-        "token": request.get_signed_cookie("access_token"),
-    }
-
-    response = auth_server_request("o/revoke_token/", post_data)
-    response.delete_cookie("access_token")
-    response.delete_cookie("refresh_token")
-    return response
+    access_token = request.get_signed_cookie("access_token")
+    refresh_token = request.get_signed_cookie("refresh_token")
+    response = client_secret_request(
+        "o/revoke_token/",
+        {
+            "token": access_token,
+        },
+    )
+    client_secret_request(
+        "o/revoke_token/",
+        {
+            "token": refresh_token,
+            "token_type_hint": "refresh_token",
+        },
+    )
+    http_response = HttpResponse(
+        content_type="application/json", status=response.status_code
+    )
+    http_response.delete_cookie("access_token")
+    http_response.delete_cookie("refresh_token")
+    return http_response
 
 
 @api
@@ -39,7 +58,8 @@ def authenticate(request):
         "origin": request.headers["Origin"],
     }
 
-    return client_secret_request("user/authenticate/", post_data)
+    response = client_secret_request("user/authenticate/", post_data)
+    return set_response_cookies(response, response.json())
 
 
 @api
