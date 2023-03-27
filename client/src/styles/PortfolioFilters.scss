@@ -297,6 +297,7 @@
             }
             input {
               width: -webkit-fill-available;
+              height: -webkit-fill-available;
             }
           }
 
@@ -425,7 +426,6 @@
             border-bottom: 0.1rem solid $justfix-grey-400;
             &.filter-toggle {
               height: var(--filter-bar-height);
-              min-height: var(--filter-bar-height);
               padding: 0 2.4rem;
             }
             &.filter-accordion > summary {
@@ -478,6 +478,9 @@
             .dropdown-container {
               position: relative;
             }
+          }
+          .search-wrapper {
+            height: 5rem;
           }
           .zip-accordion {
             .clear-all-container,
