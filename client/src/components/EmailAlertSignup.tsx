@@ -4,7 +4,6 @@ import { withI18n, withI18nProps, I18n } from "@lingui/react";
 import { t } from "@lingui/macro";
 import { Trans } from "@lingui/macro";
 import Login from "./Login";
-import AuthClient from "./AuthClient";
 import { UserContext } from "./UserContext";
 
 import "styles/EmailAlertSignup.css";
@@ -15,11 +14,12 @@ type EmailAlertProps = withI18nProps & {
 
 const BuildingSubscribeWithoutI18n = (props: { bbl: string }) => {
   const { bbl } = props;
+  const userContext = useContext(UserContext);
   // TODO subscribe routes
   // add on success, pass in send function to update
   return (
     <div>
-      <button className="button is-primary" onClick={() => AuthClient.buildingSubscribe(bbl)}>
+      <button className="button is-primary" onClick={() => userContext.subscribe(bbl)}>
         <Trans>Get updates</Trans>
       </button>
     </div>

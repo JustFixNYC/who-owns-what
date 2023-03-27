@@ -6,11 +6,13 @@ type UserContextProps = {
   user?: JustfixUser;
   login: (username: string, password: string) => Promise<string | void>;
   logout: () => void;
+  subscribe: (bbl: string) => void;
 };
 
 const initialState: UserContextProps = {
   login: async (username: string, password: string) => {},
   logout: () => {},
+  subscribe: (bbl: string) => {},
 };
 
 export const UserContext = createContext<UserContextProps>(initialState);
@@ -43,13 +45,27 @@ export const UserContextProvider = ({ children }: { children: React.ReactNode })
     asyncLogout();
   }, []);
 
+  const subscribe = useCallback(
+    (bbl: string) => {
+      if (user) {
+        const asyncSubscribe = async () => {
+          const response = await AuthClient.buildingSubscribe(bbl);
+          setUser({ ...user, subscriptions: response.subscriptions });
+        };
+        asyncSubscribe();
+      }
+    },
+    [user]
+  );
+
   const providerValue = useMemo(
     () => ({
       user,
       login,
       logout,
+      subscribe,
     }),
-    [user, login, logout]
+    [user, login, logout, subscribe]
   );
 
   return <UserContext.Provider value={providerValue}>{children}</UserContext.Provider>;
