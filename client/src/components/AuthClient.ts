@@ -105,6 +105,18 @@ const buildingSubscribe = async (bbl: string) => {
 };
 
 /**
+ * Sends an authenticated request to update the user email
+ */
+const buildingUnsubscribe = async (bbl: string) => {
+  return await postAuthRequest(
+    `${BASE_URL}auth/subscriptions/${bbl}`,
+    undefined,
+    undefined,
+    "DELETE"
+  );
+};
+
+/**
  * Fetches the list of all subscriptions associated with a user
  */
 const userSubscriptions = async () => {
@@ -118,7 +130,8 @@ const userSubscriptions = async () => {
 const postAuthRequest = async (
   url: string,
   params?: { [key: string]: string },
-  headers?: { [key: string]: string }
+  headers?: { [key: string]: string },
+  method: string = "POST"
 ) => {
   const body = params
     ? Object.keys(params)
@@ -126,7 +139,7 @@ const postAuthRequest = async (
         .join("&")
     : "";
   const result = await friendlyFetch(url, {
-    method: "POST",
+    method,
     mode: "cors",
     body,
     headers: {
@@ -174,6 +187,7 @@ const Client = {
   updateEmail,
   resetPasswordRequest,
   buildingSubscribe,
+  buildingUnsubscribe,
   userSubscriptions,
 };
 

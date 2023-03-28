@@ -7,6 +7,7 @@ type UserContextProps = {
   login: (username: string, password: string) => Promise<string | void>;
   logout: () => void;
   subscribe: (bbl: string) => void;
+  unsubscribe: (bbl: string) => void;
   updateEmail: (newEmail: string) => void;
 };
 
@@ -14,6 +15,7 @@ const initialState: UserContextProps = {
   login: async (username: string, password: string) => {},
   logout: () => {},
   subscribe: (bbl: string) => {},
+  unsubscribe: (bbl: string) => {},
   updateEmail: (newEmail: string) => {},
 };
 
@@ -60,6 +62,19 @@ export const UserContextProvider = ({ children }: { children: React.ReactNode })
     [user]
   );
 
+  const unsubscribe = useCallback(
+    (bbl: string) => {
+      if (user) {
+        const asyncUnsubscribe = async () => {
+          const response = await AuthClient.buildingUnsubscribe(bbl);
+          setUser({ ...user, subscriptions: response.subscriptions });
+        };
+        asyncUnsubscribe();
+      }
+    },
+    [user]
+  );
+
   const updateEmail = useCallback(
     (email: string) => {
       if (user) {
@@ -79,9 +94,10 @@ export const UserContextProvider = ({ children }: { children: React.ReactNode })
       login,
       logout,
       subscribe,
+      unsubscribe,
       updateEmail,
     }),
-    [user, login, logout, subscribe, updateEmail]
+    [user, login, logout, subscribe, unsubscribe, updateEmail]
   );
 
   return <UserContext.Provider value={providerValue}>{children}</UserContext.Provider>;

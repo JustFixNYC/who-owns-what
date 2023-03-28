@@ -1,5 +1,7 @@
 import sys
 from django.http import HttpResponse
+from django.utils.decorators import method_decorator
+from django.views import View
 
 from .authutil import (
     client_secret_request,
@@ -122,19 +124,34 @@ def password_reset(request):
     return auth_server_request("user/password_reset/", post_data)
 
 
-@api
-def subscribe_bbl(request, bbl):
-    try:
-        access_token = request.get_signed_cookie("access_token")
-        refresh_token = request.get_signed_cookie("refresh_token")
+@method_decorator(api, name="dispatch")
+class SubscriptionView(View):
+    def post(self, request, *args, **kwargs):
+        try:
+            bbl = kwargs["bbl"]
+            access_token = request.get_signed_cookie("access_token")
+            refresh_token = request.get_signed_cookie("refresh_token")
+            return authenticated_request(
+                "user/subscriptions/" + str(bbl) + "/",
+                access_token,
+                refresh_token,
+            )
+        except KeyError:
+            return HttpResponse(content_type="application/json", status=401)
 
-        return authenticated_request(
-            "user/subscriptions/" + str(bbl) + "/",
-            access_token,
-            refresh_token,
-        )
-    except KeyError:
-        return HttpResponse(content_type="application/json", status=401)
+    def delete(self, request, *args, **kwargs):
+        try:
+            bbl = kwargs["bbl"]
+            access_token = request.get_signed_cookie("access_token")
+            refresh_token = request.get_signed_cookie("refresh_token")
+            return authenticated_request(
+                "user/subscriptions/" + str(bbl) + "/",
+                access_token,
+                refresh_token,
+                method="DELETE",
+            )
+        except KeyError:
+            return HttpResponse(content_type="application/json", status=401)
 
 
 @api

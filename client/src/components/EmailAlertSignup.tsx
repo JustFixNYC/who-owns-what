@@ -60,7 +60,12 @@ const EmailAlertSignupWithoutI18n = (props: EmailAlertProps) => {
                     <BuildingSubscribe bbl={bbl} />
                   )
                 ) : (
-                  <Trans>Email updates will be sent to {userEmail}</Trans>
+                  <div>
+                    <Trans>Email updates will be sent to {userEmail}</Trans>
+                    <button onClick={() => userContext.unsubscribe(bbl)}>
+                      <Trans>Unsubscribe</Trans>
+                    </button>
+                  </div>
                 )}
               </div>
             )}

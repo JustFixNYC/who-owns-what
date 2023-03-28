@@ -79,6 +79,10 @@ def authenticated_request(url, access_token, refresh_token, data={}, method="POS
             auth_response = requests.get(
                 os.path.join(AUTH_BASE_URL, url), data=data, headers=headers
             )
+        elif method == "DELETE":
+            auth_response = requests.delete(
+                os.path.join(AUTH_BASE_URL, url), data=data, headers=headers
+            )
         else:
             auth_response = requests.post(
                 os.path.join(AUTH_BASE_URL, url), data=data, headers=headers
