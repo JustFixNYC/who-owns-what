@@ -422,7 +422,12 @@
             border-bottom: 0.1rem solid $justfix-grey-400;
             &.filter-toggle {
               height: var(--filter-bar-height);
+              min-height: var(--filter-bar-height);
               padding: 0 2.4rem;
+              &[aria-pressed="false"]:hover,
+              &[aria-pressed="true"] {
+                text-decoration: none;
+              }
             }
             &.filter-accordion > summary {
               height: var(--filter-bar-height);
@@ -431,9 +436,6 @@
             &.active:not(.filter-toggle) {
               background-color: $justfix-table-grey;
               color: $justfix-black;
-              text-decoration: none;
-            }
-            &.filter-toggle[aria-pressed="true"] {
               text-decoration: none;
             }
             &[open] {
