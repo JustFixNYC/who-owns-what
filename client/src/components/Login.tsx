@@ -34,6 +34,7 @@ const LoginWithoutI18n = (props: LoginProps) => {
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
   const [formState, setFormState] = useState<"username" | "password">("username");
+  const [showPassword, setShowPassword] = useState(false);
   const userContext = useContext(UserContext);
 
   const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -81,13 +82,18 @@ const LoginWithoutI18n = (props: LoginProps) => {
         {formState === "password" && (
           <>
             <Trans render="label">Enter password</Trans>
-            <input
-              type="password"
-              className="input login-password"
-              placeholder={`Enter password`}
-              onChange={handlePasswordChange}
-              value={password}
-            />
+            <div className="login-password">
+              <input
+                type={showPassword ? "text" : "password"}
+                className="input"
+                placeholder={`Enter password`}
+                onChange={handlePasswordChange}
+                value={password}
+              />
+              <button type="button" onClick={() => setShowPassword(!showPassword)}>
+                Show
+              </button>
+            </div>
             {passwordRules.map((rule, i) => {
               return (
                 <span

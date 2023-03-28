@@ -104,7 +104,8 @@
     }
     @include for-tablet-landscape-up() {
       color: $wowza-background;
-      nav a {
+      nav a,
+      nav button {
         color: $wowza-background;
       }
     }
@@ -167,15 +168,26 @@
       max-width: 250px;
     }
 
-    a {
+    a,
+    button {
       display: inline-block;
       margin-left: 10px;
       color: $dark;
+      text-decoration: underline;
 
-      &.active {
+      &.active,
+      &:hover {
         text-decoration: none;
         cursor: default;
       }
+    }
+
+    .menu .menu-item > button {
+      text-decoration: none;
+      color: inherit;
+      display: inline;
+      margin: 0 -0.8rem;
+      padding: 0.6rem 0.8rem;
     }
 
     .language-toggle a {

@@ -19,20 +19,28 @@ const BuildingSubscribeWithoutI18n = (props: BuildingSubscribeProps) => {
   const { email, subscriptions, verified } = user!;
 
   return (
-    <div>
+    <div className="table-content building-subscribe">
       {!(subscriptions && subscriptions?.indexOf(bbl) >= 0) ? (
         <button className="button is-primary" onClick={() => subscribe(bbl)}>
           <Trans>Get updates</Trans>
         </button>
-      ) : verified ? (
-        <>
-          <Trans>Email updates will be sent to {email}</Trans>
-          <button onClick={() => unsubscribe(bbl)}>
-            <Trans>Unsubscribe</Trans>
-          </button>
-        </>
       ) : (
-        <Trans>Please verify your email</Trans>
+        <div className="building-subscribe-status">
+          <div className={`building-subscribe-icon ${verified ? "verified" : ""}`}></div>
+          {verified ? (
+            <div>
+              <Trans>Email updates will be sent to {email}.</Trans>{" "}
+              <button onClick={() => unsubscribe(bbl)}>
+                <Trans>Unsubscribe</Trans>
+              </button>
+            </div>
+          ) : (
+            <Trans render="div">
+              Check your email inbox {email} to verify your email address. Once you’ve done that,
+              you’ll start getting email updates.
+            </Trans>
+          )}
+        </div>
       )}
     </div>
   );
@@ -60,7 +68,7 @@ const EmailAlertSignupWithoutI18n = (props: EmailAlertProps) => {
                 className="table-small-font"
               >
                 <Trans render="label">Get email updates for this building</Trans>
-                <div className="table-content">
+                <div className="table-content email-alert-content">
                   <Trans>
                     In each weekly email are updates for:
                     <ul>
