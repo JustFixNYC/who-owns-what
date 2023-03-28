@@ -8,10 +8,6 @@ import { UserContext } from "./UserContext";
 
 import "styles/EmailAlertSignup.css";
 
-type EmailAlertProps = withI18nProps & {
-  bbl: string;
-};
-
 const BuildingSubscribeWithoutI18n = (props: { bbl: string }) => {
   const { bbl } = props;
   const userContext = useContext(UserContext);
@@ -27,6 +23,10 @@ const BuildingSubscribeWithoutI18n = (props: { bbl: string }) => {
 };
 
 const BuildingSubscribe = withI18n()(BuildingSubscribeWithoutI18n);
+
+type EmailAlertProps = withI18nProps & {
+  bbl: string;
+};
 
 const EmailAlertSignupWithoutI18n = (props: EmailAlertProps) => {
   const { bbl } = props;
