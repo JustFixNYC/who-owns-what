@@ -94,7 +94,7 @@ const verifyEmail = async () => {
  * Sends an authenticated request to update the user email
  */
 const updateEmail = async (newEmail: string) => {
-  return await postAuthRequest(`${BASE_URL}user/update`, { new_email: newEmail });
+  return await postAuthRequest(`${BASE_URL}auth/update`, { new_email: newEmail });
 };
 
 /**

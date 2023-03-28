@@ -50,6 +50,23 @@ def logout(request):
 
 
 @api
+def update(request):
+    try:
+        access_token = request.get_signed_cookie("access_token")
+        refresh_token = request.get_signed_cookie("refresh_token")
+        post_data = {"new_email": request.POST.get("new_email")}
+
+        return authenticated_request(
+            "user/",
+            access_token,
+            refresh_token,
+            data=post_data,
+        )
+    except KeyError:
+        return HttpResponse(content_type="application/json", status=401)
+
+
+@api
 def authenticate(request):
     post_data = {
         "grant_type": "password",

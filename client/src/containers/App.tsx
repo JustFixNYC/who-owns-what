@@ -48,6 +48,7 @@ import { SliderButton } from "@typeform/embed-react";
 import { StickyModal } from "components/StickyModal";
 import { DeprecationModal } from "components/DeprecationModal";
 import { UserContext, UserContextProvider } from "components/UserContext";
+import AccountSettingsPage from "./AccountSettingsPage";
 
 const HomeLink = withI18n()((props: withI18nProps) => {
   const { i18n } = props;
@@ -166,6 +167,7 @@ const WhoOwnsWhatRoutes: React.FC<{}> = () => {
         )}
       />
       <Route path={paths.account.verifyEmail} component={VerifyEmailPage} />
+      <Route path={paths.account.settings} component={AccountSettingsPage} />
       <Route path={paths.about} component={AboutPage} />
       <Route path={paths.legacy.about} component={AboutPage} />
       <Route path={paths.howToUse} component={HowToUsePage} />

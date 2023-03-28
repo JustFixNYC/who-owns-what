@@ -7,6 +7,7 @@ app_name = "jfauth"
 urlpatterns = [
     path("login", views.login, name="login"),
     path("logout", views.logout, name="logout"),
+    path("update", views.update, name="update"),
     path("authenticate", views.authenticate, name="authenticate"),
     path("auth_check", views.auth_check, name="auth_check"),
     path("verify_email", views.verify_email, name="verify_email"),
