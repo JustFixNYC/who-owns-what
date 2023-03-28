@@ -8,6 +8,22 @@ import { withI18n } from "@lingui/react";
 import { Trans } from "@lingui/macro";
 import { UserContext } from "./UserContext";
 
+type PasswordRule = {
+  regex: RegExp;
+  label: string;
+};
+
+const passwordRules: PasswordRule[] = [
+  { regex: /.{8}/, label: "Must be 8 characters" },
+  { regex: /^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$/, label: "Must include letters and numbers" },
+];
+
+const validatePassword = (password: string) => {
+  let valid = true;
+  passwordRules.forEach((rule) => (valid = valid && !!password.match(rule.regex)));
+  return valid;
+};
+
 type LoginProps = {
   i18n: I18n;
 };
@@ -67,16 +83,33 @@ const LoginWithoutI18n = (props: LoginProps) => {
             <Trans render="label">Enter password</Trans>
             <input
               type="password"
-              className="input"
+              className="input login-password"
               placeholder={`Enter password`}
               onChange={handlePasswordChange}
               value={password}
             />
+            {passwordRules.map((rule, i) => {
+              return (
+                <span
+                  className={`login-password-rule ${
+                    password.match(rule.regex) ? "valid" : "invalid"
+                  }`}
+                  key={`rule-${i}`}
+                >
+                  {rule.label}
+                </span>
+              );
+            })}
           </>
         )}
-        <input type="submit" className="button is-primary" value={`Get updates`} />
+        <input
+          type="submit"
+          className="button is-primary"
+          value={`Get updates`}
+          disabled={!validatePassword(password) && formState === "password"}
+        />
       </form>
-      {message && <p className="response-text">{message}</p>}
+      {message && <p className="login-response-text">{message}</p>}
     </div>
   );
 };

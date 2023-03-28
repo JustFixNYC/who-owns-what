@@ -41,7 +41,10 @@ const EmailAlertSignupWithoutI18n = (props: EmailAlertProps) => {
         <div className="table-row">
           <I18n>
             {({ i18n }) => (
-              <div title={i18n._(t`Get email updates for this building`)}>
+              <div
+                title={i18n._(t`Get email updates for this building`)}
+                className="table-small-font"
+              >
                 <Trans render="label">Get email updates for this building</Trans>
                 <div className="table-content">
                   <Trans>

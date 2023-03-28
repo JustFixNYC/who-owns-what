@@ -20,7 +20,30 @@
     margin-top: 1rem;
   }
 
-  .response-text {
+  .login-response-text {
     margin: 1rem 0 1rem;
+  }
+
+  .login-password {
+    margin-bottom: 1rem;
+  }
+
+  .login-password-rule {
+    color: $justfix-orange;
+    text-align: left;
+
+    &::before {
+      content: "•";
+      display: inline-block;
+      margin-right: 0.5rem;
+    }
+
+    &.valid {
+      color: $justfix-grey-400;
+    }
+
+    &.valid::before {
+      content: "✓";
+    }
   }
 }
