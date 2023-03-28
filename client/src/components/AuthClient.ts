@@ -13,6 +13,7 @@ const fetchUser = async () => {
       const authCheck = await userAuthenticated();
       _user = {
         email: authCheck?.["email"],
+        verified: authCheck?.["verified"],
         subscriptions: authCheck?.["subscriptions"],
       };
     } catch {}

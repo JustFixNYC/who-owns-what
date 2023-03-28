@@ -110,6 +110,8 @@ type PortfolioData = {
 export type JustfixUser = {
   /** The email address associated with this account */
   email: string;
+  /** Whether the user's email address has been verified */
+  verified: boolean;
   /** All buildings the user is subscribed to (email alerts) */
   subscriptions: string[];
 };

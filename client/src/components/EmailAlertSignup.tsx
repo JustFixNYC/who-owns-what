@@ -8,16 +8,32 @@ import { UserContext } from "./UserContext";
 
 import "styles/EmailAlertSignup.css";
 
-const BuildingSubscribeWithoutI18n = (props: { bbl: string }) => {
+type BuildingSubscribeProps = {
+  bbl: string;
+};
+
+const BuildingSubscribeWithoutI18n = (props: BuildingSubscribeProps) => {
   const { bbl } = props;
   const userContext = useContext(UserContext);
-  // TODO subscribe routes
-  // add on success, pass in send function to update
+  const { user, subscribe, unsubscribe } = userContext;
+  const { email, subscriptions, verified } = user!;
+
   return (
     <div>
-      <button className="button is-primary" onClick={() => userContext.subscribe(bbl)}>
-        <Trans>Get updates</Trans>
-      </button>
+      {!(subscriptions && subscriptions?.indexOf(bbl) >= 0) ? (
+        <button className="button is-primary" onClick={() => subscribe(bbl)}>
+          <Trans>Get updates</Trans>
+        </button>
+      ) : verified ? (
+        <>
+          <Trans>Email updates will be sent to {email}</Trans>
+          <button onClick={() => unsubscribe(bbl)}>
+            <Trans>Unsubscribe</Trans>
+          </button>
+        </>
+      ) : (
+        <Trans>Please verify your email</Trans>
+      )}
     </div>
   );
 };
@@ -31,9 +47,7 @@ type EmailAlertProps = withI18nProps & {
 const EmailAlertSignupWithoutI18n = (props: EmailAlertProps) => {
   const { bbl } = props;
   const userContext = useContext(UserContext);
-
-  let subscriptions = userContext.user?.subscriptions;
-  let userEmail = userContext.user?.email;
+  const { user } = userContext;
 
   return (
     <>
@@ -56,20 +70,7 @@ const EmailAlertSignupWithoutI18n = (props: EmailAlertProps) => {
                     </ul>
                   </Trans>
                 </div>
-                {!(subscriptions && subscriptions?.indexOf(bbl) >= 0) ? (
-                  !userEmail ? (
-                    <Login />
-                  ) : (
-                    <BuildingSubscribe bbl={bbl} />
-                  )
-                ) : (
-                  <div>
-                    <Trans>Email updates will be sent to {userEmail}</Trans>
-                    <button onClick={() => userContext.unsubscribe(bbl)}>
-                      <Trans>Unsubscribe</Trans>
-                    </button>
-                  </div>
-                )}
+                {!user ? <Login /> : <BuildingSubscribe bbl={bbl} />}
               </div>
             )}
           </I18n>
