@@ -28,8 +28,8 @@ $table-border-dark: 1px solid $dark;
       z-index: 100;
       background: -moz-linear-gradient(
         left,
-        rgba(250, 248, 244, 0) 0%,  /* $justfix-white rgba */
-        rgba(250, 248, 244, 1) 100% 
+        rgba(250, 248, 244, 0) 0%,
+        rgba(250, 248, 244, 1) 100% /* $justfix-white rgba */
       ); /* FF3.6-15 */
       background: -webkit-linear-gradient(
         left,
