@@ -8,6 +8,7 @@ import { t, Trans } from "@lingui/macro";
 import "styles/AccountSettingsPage.css";
 import { UserContext } from "components/UserContext";
 import UserSettingField from "components/UserSettingField";
+import { JustfixUser } from "state-machine";
 
 const SubscriptionFieldWithoutI18n = (props: { bbl: string }) => {
   const { bbl } = props;
@@ -29,7 +30,7 @@ const AccountSettingsPage = withI18n()((props: withI18nProps) => {
   const userContext = useContext(UserContext);
   if (!userContext.user) return <div />;
 
-  const { email, subscriptions } = userContext.user;
+  const { email, subscriptions } = userContext.user as JustfixUser;
 
   return (
     <Page title={i18n._(t`Account settings`)}>
@@ -50,8 +51,8 @@ const AccountSettingsPage = withI18n()((props: withI18nProps) => {
             <Trans>You’re signed up for email updates from these buildings:</Trans>
           </h4>
           <div>
-            {subscriptions.map((bbl: string) => (
-              <SubscriptionField bbl={bbl} key={bbl} />
+            {subscriptions.map((s) => (
+              <SubscriptionField bbl={s.bbl} key={s.bbl} />
             ))}
           </div>
           <div className="settings-contact">

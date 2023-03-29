@@ -7,21 +7,29 @@ import Login from "./Login";
 import { UserContext } from "./UserContext";
 
 import "styles/EmailAlertSignup.css";
+import { JustfixUser } from "state-machine";
 
 type BuildingSubscribeProps = {
   bbl: string;
+  housenumber: string;
+  streetname: string;
+  boro: string;
+  zip: string;
 };
 
 const BuildingSubscribeWithoutI18n = (props: BuildingSubscribeProps) => {
-  const { bbl } = props;
+  const { bbl, housenumber, streetname, zip, boro } = props;
   const userContext = useContext(UserContext);
   const { user, subscribe, unsubscribe } = userContext;
-  const { email, subscriptions, verified } = user!;
+  const { email, subscriptions, verified } = user! as JustfixUser;
 
   return (
     <div className="table-content building-subscribe">
-      {!(subscriptions && subscriptions?.indexOf(bbl) >= 0) ? (
-        <button className="button is-primary" onClick={() => subscribe(bbl)}>
+      {!(subscriptions && !!subscriptions?.find((s) => s.bbl === bbl)) ? (
+        <button
+          className="button is-primary"
+          onClick={() => subscribe(bbl, housenumber, streetname, zip, boro)}
+        >
           <Trans>Get updates</Trans>
         </button>
       ) : (
@@ -48,12 +56,9 @@ const BuildingSubscribeWithoutI18n = (props: BuildingSubscribeProps) => {
 
 const BuildingSubscribe = withI18n()(BuildingSubscribeWithoutI18n);
 
-type EmailAlertProps = withI18nProps & {
-  bbl: string;
-};
+type EmailAlertProps = withI18nProps & BuildingSubscribeProps;
 
 const EmailAlertSignupWithoutI18n = (props: EmailAlertProps) => {
-  const { bbl } = props;
   const userContext = useContext(UserContext);
   const { user } = userContext;
 
@@ -78,7 +83,7 @@ const EmailAlertSignupWithoutI18n = (props: EmailAlertProps) => {
                     </ul>
                   </Trans>
                 </div>
-                {!user ? <Login /> : <BuildingSubscribe bbl={bbl} />}
+                {!user ? <Login /> : <BuildingSubscribe {...props} />}
               </div>
             )}
           </I18n>

@@ -2,11 +2,17 @@ import React, { createContext, useState, useEffect, useMemo, useCallback } from 
 import { JustfixUser } from "state-machine";
 import AuthClient from "./AuthClient";
 
-type UserContextProps = {
+export type UserContextProps = {
   user?: JustfixUser;
   login: (username: string, password: string) => Promise<string | void>;
   logout: () => void;
-  subscribe: (bbl: string) => void;
+  subscribe: (
+    bbl: string,
+    housenumber: string,
+    streetname: string,
+    zip: string,
+    boro: string
+  ) => void;
   unsubscribe: (bbl: string) => void;
   updateEmail: (newEmail: string) => void;
 };
@@ -14,7 +20,13 @@ type UserContextProps = {
 const initialState: UserContextProps = {
   login: async (username: string, password: string) => {},
   logout: () => {},
-  subscribe: (bbl: string) => {},
+  subscribe: (
+    bbl: string,
+    housenumber: string,
+    streetname: string,
+    zip: string,
+    boro: string
+  ) => {},
   unsubscribe: (bbl: string) => {},
   updateEmail: (newEmail: string) => {},
 };
@@ -26,7 +38,14 @@ export const UserContextProvider = ({ children }: { children: React.ReactNode })
   useEffect(() => {
     const asyncFetchUser = async () => {
       const _user = await AuthClient.fetchUser();
-      setUser(_user);
+      if (_user) {
+        setUser({
+          ..._user,
+          subscriptions: _user.subscriptions.map((s: any) => {
+            return { ...s };
+          }),
+        });
+      }
     };
     asyncFetchUser();
   }, []);
@@ -34,7 +53,12 @@ export const UserContextProvider = ({ children }: { children: React.ReactNode })
   const login = useCallback(async (username: string, password: string) => {
     const response = await AuthClient.authenticate(username, password);
     if (!response.error && response.user) {
-      setUser(response.user);
+      setUser({
+        ...response.user,
+        subscriptions: response.user.subscriptions.map((s: any) => {
+          return { ...s };
+        }),
+      });
       return;
     } else {
       return response.error_description;
@@ -50,10 +74,16 @@ export const UserContextProvider = ({ children }: { children: React.ReactNode })
   }, []);
 
   const subscribe = useCallback(
-    (bbl: string) => {
+    (bbl: string, housenumber: string, streetname: string, zip: string, boro: string) => {
       if (user) {
         const asyncSubscribe = async () => {
-          const response = await AuthClient.buildingSubscribe(bbl);
+          const response = await AuthClient.buildingSubscribe(
+            bbl,
+            housenumber,
+            streetname,
+            zip,
+            boro
+          );
           setUser({ ...user, subscriptions: response.subscriptions });
         };
         asyncSubscribe();

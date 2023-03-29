@@ -11,10 +11,13 @@ const fetchUser = async () => {
   if (!_user) {
     try {
       const authCheck = await userAuthenticated();
+      const subscriptions = authCheck?.["subscriptions"].map((s: any) => {
+        return { ...s };
+      });
       _user = {
         email: authCheck?.["email"],
         verified: authCheck?.["verified"],
-        subscriptions: authCheck?.["subscriptions"],
+        subscriptions,
       };
     } catch {}
   }
@@ -101,8 +104,20 @@ const updateEmail = async (newEmail: string) => {
 /**
  * Sends an authenticated request to update the user email
  */
-const buildingSubscribe = async (bbl: string) => {
-  return await postAuthRequest(`${BASE_URL}auth/subscriptions/${bbl}`);
+const buildingSubscribe = async (
+  bbl: string,
+  housenumber: string,
+  streetname: string,
+  zip: string,
+  boro: string
+) => {
+  const post_data = {
+    housenumber,
+    streetname,
+    zip,
+    boro,
+  };
+  return await postAuthRequest(`${BASE_URL}auth/subscriptions/${bbl}`, post_data);
 };
 
 /**

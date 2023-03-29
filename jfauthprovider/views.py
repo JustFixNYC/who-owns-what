@@ -131,10 +131,17 @@ class SubscriptionView(View):
             bbl = kwargs["bbl"]
             access_token = request.get_signed_cookie("access_token")
             refresh_token = request.get_signed_cookie("refresh_token")
+            post_data = {
+                "housenumber": request.POST.get("housenumber"),
+                "streetname": request.POST.get("streetname"),
+                "zip": request.POST.get("zip"),
+                "boro": request.POST.get("boro"),
+            }
             return authenticated_request(
                 "user/subscriptions/" + str(bbl) + "/",
                 access_token,
                 refresh_token,
+                post_data,
             )
         except KeyError:
             return HttpResponse(content_type="application/json", status=401)
