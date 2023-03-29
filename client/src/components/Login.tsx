@@ -7,6 +7,7 @@ import { I18n } from "@lingui/core";
 import { withI18n } from "@lingui/react";
 import { Trans } from "@lingui/macro";
 import { UserContext } from "./UserContext";
+import PasswordInput from "./PasswordInput";
 
 type PasswordRule = {
   regex: RegExp;
@@ -34,14 +35,10 @@ const LoginWithoutI18n = (props: LoginProps) => {
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
   const [formState, setFormState] = useState<"username" | "password">("username");
-  const [showPassword, setShowPassword] = useState(false);
   const userContext = useContext(UserContext);
 
   const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUsername(e.target.value);
-  };
-  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPassword(e.target.value);
   };
 
   const handleEmailEntry = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -81,31 +78,7 @@ const LoginWithoutI18n = (props: LoginProps) => {
         />
         {formState === "password" && (
           <>
-            <Trans render="label">Enter password</Trans>
-            <div className="login-password">
-              <input
-                type={showPassword ? "text" : "password"}
-                className="input"
-                placeholder={`Enter password`}
-                onChange={handlePasswordChange}
-                value={password}
-              />
-              <button type="button" onClick={() => setShowPassword(!showPassword)}>
-                Show
-              </button>
-            </div>
-            {passwordRules.map((rule, i) => {
-              return (
-                <span
-                  className={`login-password-rule ${
-                    password.match(rule.regex) ? "valid" : "invalid"
-                  }`}
-                  key={`rule-${i}`}
-                >
-                  {rule.label}
-                </span>
-              );
-            })}
+            <Trans render="label">Enter password</Trans> <PasswordInput onChange={setPassword} />
           </>
         )}
         <input

@@ -7,7 +7,7 @@ import { t, Trans } from "@lingui/macro";
 
 import "styles/AccountSettingsPage.css";
 import { UserContext } from "components/UserContext";
-import UserSettingField from "components/UserSettingField";
+import { EmailSettingField, PasswordSettingField } from "components/UserSettingField";
 import { JustfixUser } from "state-machine";
 import { createRouteForAddressPage } from "routes";
 import { Borough } from "components/APIDataTypes";
@@ -63,11 +63,11 @@ const AccountSettingsPage = withI18n()((props: withI18nProps) => {
           <h4 className="settings-section">
             <Trans>Login details</Trans>
           </h4>
-          <UserSettingField
-            label={i18n._(t`Email`)}
+          <EmailSettingField
             currentValue={email}
             onSubmit={(newEmail: string) => userContext.updateEmail(newEmail)}
           />
+          <PasswordSettingField onSubmit={(currentPassword: string, newPassword: string) => {}} />
           <h4 className="settings-section">
             <Trans>You’re signed up for email updates from these buildings:</Trans>
           </h4>
