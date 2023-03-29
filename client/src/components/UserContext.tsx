@@ -43,9 +43,10 @@ export const UserContextProvider = ({ children }: { children: React.ReactNode })
       if (_user) {
         setUser({
           ..._user,
-          subscriptions: _user.subscriptions.map((s: any) => {
-            return { ...s };
-          }),
+          subscriptions:
+            _user.subscriptions?.map((s: any) => {
+              return { ...s };
+            }) || [],
         });
       }
     };
@@ -57,9 +58,10 @@ export const UserContextProvider = ({ children }: { children: React.ReactNode })
     if (!response.error && response.user) {
       setUser({
         ...response.user,
-        subscriptions: response.user.subscriptions.map((s: any) => {
-          return { ...s };
-        }),
+        subscriptions:
+          response.user.subscriptions?.map((s: any) => {
+            return { ...s };
+          }) || [],
       });
       return;
     } else {

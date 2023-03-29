@@ -11,9 +11,10 @@ const fetchUser = async () => {
   if (!_user) {
     try {
       const authCheck = await userAuthenticated();
-      const subscriptions = authCheck?.["subscriptions"].map((s: any) => {
-        return { ...s };
-      });
+      const subscriptions =
+        authCheck?.["subscriptions"]?.map((s: any) => {
+          return { ...s };
+        }) || [];
       _user = {
         email: authCheck?.["email"],
         verified: authCheck?.["verified"],
