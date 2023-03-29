@@ -9,7 +9,7 @@ import { UserContext } from "./UserContext";
 import "styles/EmailAlertSignup.css";
 import { JustfixUser } from "state-machine";
 
-type BuildingSubscribeProps = {
+type BuildingSubscribeProps = withI18nProps & {
   bbl: string;
   housenumber: string;
   streetname: string;
@@ -18,7 +18,7 @@ type BuildingSubscribeProps = {
 };
 
 const BuildingSubscribeWithoutI18n = (props: BuildingSubscribeProps) => {
-  const { bbl, housenumber, streetname, zip, boro } = props;
+  const { i18n, bbl, housenumber, streetname, zip, boro } = props;
   const userContext = useContext(UserContext);
   const { user, subscribe, unsubscribe } = userContext;
   const { email, subscriptions, verified } = user! as JustfixUser;
@@ -37,16 +37,17 @@ const BuildingSubscribeWithoutI18n = (props: BuildingSubscribeProps) => {
           <div className={`building-subscribe-icon ${verified ? "verified" : ""}`}></div>
           {verified ? (
             <div>
-              <Trans>Email updates will be sent to {email}.</Trans>{" "}
+              {i18n._(t`Email updates will be sent to ${email}`)}{" "}
               <button onClick={() => unsubscribe(bbl)}>
                 <Trans>Unsubscribe</Trans>
               </button>
             </div>
           ) : (
-            <Trans render="div">
-              Check your email inbox {email} to verify your email address. Once you’ve done that,
-              you’ll start getting email updates.
-            </Trans>
+            <div>
+              {i18n._(
+                t`Check your email inbox {email} to verify your email address. Once you’ve done that, you’ll start getting email updates.`
+              )}
+            </div>
           )}
         </div>
       )}
@@ -56,7 +57,7 @@ const BuildingSubscribeWithoutI18n = (props: BuildingSubscribeProps) => {
 
 const BuildingSubscribe = withI18n()(BuildingSubscribeWithoutI18n);
 
-type EmailAlertProps = withI18nProps & BuildingSubscribeProps;
+type EmailAlertProps = BuildingSubscribeProps;
 
 const EmailAlertSignupWithoutI18n = (props: EmailAlertProps) => {
   const userContext = useContext(UserContext);

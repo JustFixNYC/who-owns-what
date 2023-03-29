@@ -9,13 +9,34 @@ import "styles/AccountSettingsPage.css";
 import { UserContext } from "components/UserContext";
 import UserSettingField from "components/UserSettingField";
 import { JustfixUser } from "state-machine";
+import { createRouteForAddressPage } from "routes";
+import { Borough } from "components/APIDataTypes";
 
-const SubscriptionFieldWithoutI18n = (props: { bbl: string }) => {
-  const { bbl } = props;
+type SubscriptionFieldProps = {
+  bbl: string;
+  housenumber: string;
+  streetname: string;
+  boro: string;
+};
+
+const SubscriptionFieldWithoutI18n = (props: SubscriptionFieldProps) => {
+  const { bbl, housenumber, streetname, boro } = props;
   const userContext = useContext(UserContext);
   return (
     <div className="subscription-field">
-      <span>{bbl}</span>
+      <a
+        className="subscription-address"
+        href={createRouteForAddressPage({
+          housenumber,
+          streetname,
+          boro: boro.toUpperCase() as Borough,
+        })}
+        target="_blank"
+        rel="noreferrer noopener"
+      >
+        <span>{`${housenumber} ${streetname},`}</span>
+        <span>{`${boro}, NY`}</span>
+      </a>
       <button className="button is-secondary" onClick={() => userContext.unsubscribe(bbl)}>
         <Trans>Remove</Trans>
       </button>
@@ -52,7 +73,7 @@ const AccountSettingsPage = withI18n()((props: withI18nProps) => {
           </h4>
           <div>
             {subscriptions.map((s) => (
-              <SubscriptionField bbl={s.bbl} key={s.bbl} />
+              <SubscriptionField key={s.bbl} {...s} />
             ))}
           </div>
           <div className="settings-contact">
