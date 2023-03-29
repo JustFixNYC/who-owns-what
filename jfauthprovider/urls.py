@@ -13,6 +13,7 @@ urlpatterns = [
     path("verify_email", views.verify_email, name="verify_email"),
     path("reset_password", views.password_reset_request, name="password_reset_request"),
     path("set_password", views.password_reset, name="password_reset"),
+    path("change_password", views.password_change, name="password_change"),
     path(
         "subscriptions/<int:bbl>",
         views.SubscriptionView.as_view(),

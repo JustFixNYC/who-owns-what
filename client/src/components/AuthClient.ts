@@ -102,6 +102,16 @@ const updateEmail = async (newEmail: string) => {
 };
 
 /**
+ * Sends an authenticated request to change the user password
+ */
+const updatePassword = async (currentPassword: string, newPassword: string) => {
+  return await postAuthRequest(`${BASE_URL}auth/change_password`, {
+    current_password: currentPassword,
+    new_password: newPassword,
+  });
+};
+
+/**
  * Sends an authenticated request to update the user email
  */
 const buildingSubscribe = async (
@@ -201,6 +211,7 @@ const Client = {
   logout,
   verifyEmail,
   updateEmail,
+  updatePassword,
   resetPasswordRequest,
   buildingSubscribe,
   buildingUnsubscribe,

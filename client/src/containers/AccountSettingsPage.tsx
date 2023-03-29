@@ -67,7 +67,11 @@ const AccountSettingsPage = withI18n()((props: withI18nProps) => {
             currentValue={email}
             onSubmit={(newEmail: string) => userContext.updateEmail(newEmail)}
           />
-          <PasswordSettingField onSubmit={(currentPassword: string, newPassword: string) => {}} />
+          <PasswordSettingField
+            onSubmit={(currentPassword: string, newPassword: string) =>
+              userContext.updatePassword(currentPassword, newPassword)
+            }
+          />
           <h4 className="settings-section">
             <Trans>You’re signed up for email updates from these buildings:</Trans>
           </h4>

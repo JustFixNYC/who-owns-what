@@ -124,6 +124,19 @@ def password_reset(request):
     return auth_server_request("user/password_reset/", post_data)
 
 
+@api
+def password_change(request):
+    access_token = request.get_signed_cookie("access_token")
+    refresh_token = request.get_signed_cookie("refresh_token")
+    post_data = {
+        "current_password": request.POST.get("current_password"),
+        "new_password": request.POST.get("new_password"),
+    }
+    return authenticated_request(
+        "user/password_change/", access_token, refresh_token, post_data
+    )
+
+
 @method_decorator(api, name="dispatch")
 class SubscriptionView(View):
     def post(self, request, *args, **kwargs):

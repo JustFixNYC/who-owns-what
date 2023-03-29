@@ -15,6 +15,7 @@ export type UserContextProps = {
   ) => void;
   unsubscribe: (bbl: string) => void;
   updateEmail: (newEmail: string) => void;
+  updatePassword: (currentPassword: string, newPassword: string) => void;
 };
 
 const initialState: UserContextProps = {
@@ -29,6 +30,7 @@ const initialState: UserContextProps = {
   ) => {},
   unsubscribe: (bbl: string) => {},
   updateEmail: (newEmail: string) => {},
+  updatePassword: (currentPassword: string, newPassword: string) => {},
 };
 
 export const UserContext = createContext<UserContextProps>(initialState);
@@ -118,6 +120,17 @@ export const UserContextProvider = ({ children }: { children: React.ReactNode })
     [user]
   );
 
+  const updatePassword = useCallback(
+    (currentPassword: string, newPassword: string) => {
+      if (user) {
+        const asyncUpdatePassword = async () => {
+          await AuthClient.updatePassword(currentPassword, newPassword);
+        };
+        asyncUpdatePassword();
+      }
+    },
+    [user]
+  );
   const providerValue = useMemo(
     () => ({
       user,
@@ -126,8 +139,9 @@ export const UserContextProvider = ({ children }: { children: React.ReactNode })
       subscribe,
       unsubscribe,
       updateEmail,
+      updatePassword,
     }),
-    [user, login, logout, subscribe, unsubscribe, updateEmail]
+    [user, login, logout, subscribe, unsubscribe, updateEmail, updatePassword]
   );
 
   return <UserContext.Provider value={providerValue}>{children}</UserContext.Provider>;

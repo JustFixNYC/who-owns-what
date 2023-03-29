@@ -87,7 +87,7 @@ export const EmailSettingField = withI18n()(EmailSettingFieldWithoutI18n);
 type UserSettingFieldProps = withI18nProps & {
   title: string;
   preview: string;
-  onSubmit: (value: string) => void;
+  onSubmit: () => void;
   children: React.ReactNode;
 };
 
