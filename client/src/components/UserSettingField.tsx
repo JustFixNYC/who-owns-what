@@ -33,15 +33,17 @@ const UserSettingFieldWithoutI18n = (props: UserSettingFieldProps) => {
               onChange={handleValueChange}
               value={value}
             />
-            <input type="submit" className="button is-primary" value={`Save`} />
-            <button className="button is-secondary" onClick={() => setEditing(false)}>
-              <Trans>Cancel</Trans>
-            </button>
+            <div className="user-setting-actions">
+              <input type="submit" className="button is-primary" value={`Save`} />
+              <button className="button is-secondary" onClick={() => setEditing(false)}>
+                <Trans>Cancel</Trans>
+              </button>
+            </div>
           </>
         ) : (
           <div>
             <span>{currentValue}</span>
-            <button onClick={() => setEditing(true)}>
+            <button className="link-button" onClick={() => setEditing(true)}>
               <Trans>Edit</Trans>
             </button>
           </div>
