@@ -5,6 +5,12 @@
     display: none;
   }
 
+  .btn-group {
+    flex-wrap: nowrap;
+    min-width: 190px;
+    padding-left: 8px;
+  }
+
   ul.menu {
     border: 1px solid $gray-dark;
     padding: 0;

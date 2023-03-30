@@ -26,7 +26,7 @@ const AddressToolbar: React.FC<AddressToolbarProps> = ({ searchAddr, assocAddrs 
 
   return (
     <div className="AddressToolbar">
-      <div className="btn-group float-right">
+      <div className="btn-group">
         <Link
           className="btn"
           onClick={() => {
