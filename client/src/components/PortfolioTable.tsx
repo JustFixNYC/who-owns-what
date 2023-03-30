@@ -73,7 +73,7 @@ type PortfolioTableProps = {
 export const PortfolioTable = React.memo((props: PortfolioTableProps) => {
   const { data, i18n, locale, rsunitslatestyear, getRowCanExpand } = props;
 
-    const { pathname } = useLocation();
+  const { pathname } = useLocation();
 
   const { filterContext, setFilterContext } = React.useContext(FilterContext);
 
@@ -106,230 +106,228 @@ export const PortfolioTable = React.memo((props: PortfolioTableProps) => {
     [pageIndex, pageSize]
   );
 
-    const columns = React.useMemo<ColumnDef<AddressRecord, any>[]>(
-      () => [
-        {
-          accessorFn: (row) => `${row.housenumber} ${row.streetname}`,
-          id: "address",
-          header: () => i18n._(t`Address`),
-          cell: ({ row }) => {
-            return (
-              <Link to={createRouteForFullBbl(row.original.bbl, locale, isLegacyPath(pathname))}>
-                {row.original.housenumber} {row.original.streetname}
-              </Link>
-            );
+  const columns = React.useMemo<ColumnDef<AddressRecord, any>[]>(
+    () => [
+      {
+        accessorFn: (row) => `${row.housenumber} ${row.streetname}`,
+        id: "address",
+        header: () => i18n._(t`Address`),
+        cell: ({ row }) => {
+          return (
+            <Link to={createRouteForFullBbl(row.original.bbl, locale, isLegacyPath(pathname))}>
+              {row.original.housenumber} {row.original.streetname}
+            </Link>
+          );
+        },
+        footer: (props) => props.column.id,
+        size: FIRST_COLUMN_WIDTH,
+        enableColumnFilter: false,
+      },
+      {
+        header: i18n._(t`Location`),
+        footer: (props) => props.column.id,
+        columns: [
+          {
+            accessorKey: "zip",
+            header: i18n._(t`Zipcode`),
+            cell: (info) => info.getValue(),
+            footer: (props) => props.column.id,
+            enableColumnFilter: false,
+            filterFn: "arrIncludesSome",
+            size: "auto",
           },
-          footer: (props) => props.column.id,
-          size: FIRST_COLUMN_WIDTH,
-          enableColumnFilter: false,
-        },
-        {
-          header: i18n._(t`Location`),
-          footer: (props) => props.column.id,
-          columns: [
-            {
-              accessorKey: "zip",
-              header: i18n._(t`Zipcode`),
-              cell: (info) => info.getValue(),
-              footer: (props) => props.column.id,
-              enableColumnFilter: false,
-              filterFn: "arrIncludesSome",
-              size: "auto",
+          {
+            accessorKey: "boro",
+            header: i18n._(t`Borough`),
+            cell: (info) => info.getValue(),
+            footer: (props) => props.column.id,
+            enableColumnFilter: false,
+            size: "auto",
+          },
+          {
+            accessorKey: "bbl",
+            header: "BBL",
+            cell: ({ row }) => {
+              return (
+                <Link to={createRouteForFullBbl(row.original.bbl, locale, isLegacyPath(pathname))}>
+                  {row.original.bbl}
+                </Link>
+              );
             },
-            {
-              accessorKey: "boro",
-              header: i18n._(t`Borough`),
-              cell: (info) => info.getValue(),
-              footer: (props) => props.column.id,
-              enableColumnFilter: false,
-              size: "auto",
+            footer: (props) => props.column.id,
+            enableColumnFilter: false,
+            size: 100,
+          },
+          {
+            accessorKey: "council",
+            header: i18n._(t`Council`),
+            cell: (info) => info.getValue(),
+            footer: (props) => props.column.id,
+            enableColumnFilter: false,
+            size: "auto",
+          },
+        ],
+      },
+      {
+        header: i18n._(t`Information`),
+        footer: (props) => props.column.id,
+        columns: [
+          {
+            accessorKey: "yearbuilt",
+            header: i18n._(t`Built`),
+            cell: (info) => info.getValue(),
+            footer: (props) => props.column.id,
+            enableColumnFilter: false,
+            size: "auto",
+          },
+          {
+            accessorKey: "unitsres",
+            header: i18n._(t`Units`),
+            cell: (info) => info.getValue(),
+            footer: (props) => props.column.id,
+            enableColumnFilter: false,
+            size: "auto",
+            filterFn: "inNumberRange",
+          },
+        ],
+      },
+      {
+        header: i18n._(t`RS Units`),
+        footer: (props) => props.column.id,
+        columns: [
+          {
+            accessorKey: "rsunits2007",
+            header: "2007",
+            cell: (info) => info.getValue(),
+            footer: (props) => props.column.id,
+            enableColumnFilter: false,
+            size: "auto",
+          },
+          {
+            accessorKey: "rsunitslatest",
+            header: rsunitslatestyear,
+            cell: ({ row }) => {
+              return (
+                <span
+                  className={`${
+                    // TODO: double check this works with nulls
+                    row.original.rsunitslatest! < row.original.rsunits2007! ?? false
+                      ? "text-danger"
+                      : ""
+                  }`}
+                >
+                  {row.original.rsunitslatest}
+                </span>
+              );
             },
-            {
-              accessorKey: "bbl",
-              header: "BBL",
-              cell: ({ row }) => {
-                return (
-                  <Link
-                    to={createRouteForFullBbl(row.original.bbl, locale, isLegacyPath(pathname))}
-                  >
-                    {row.original.bbl}
-                  </Link>
+            footer: (props) => props.column.id,
+            enableColumnFilter: false,
+            size: "auto",
+            filterFn: "isNonZero",
+          },
+        ],
+      },
+      {
+        header: i18n._(t`HPD Complaints`),
+        footer: (props) => props.column.id,
+        columns: [
+          {
+            accessorKey: "totalcomplaints",
+            header: i18n._(t`Total`),
+            cell: (info) => info.getValue(),
+            footer: (props) => props.column.id,
+            enableColumnFilter: false,
+            size: "auto",
+          },
+          {
+            accessorKey: "recentcomplaints",
+            header: i18n._(t`Last 3 Years`),
+            cell: (info) => info.getValue(),
+            footer: (props) => props.column.id,
+            enableColumnFilter: false,
+            size: "auto",
+          },
+          {
+            accessorKey: "recentcomplaintsbytype",
+            header: i18n._(t`Top Complaint`),
+            cell: ({ row }) => {
+              const mostCommonType = findMostCommonType(row.original.recentcomplaintsbytype);
+              return mostCommonType ? Helpers.translateComplaintType(mostCommonType, i18n) : null;
+            },
+            footer: (props) => props.column.id,
+            enableColumnFilter: false,
+            size: "auto",
+          },
+        ],
+      },
+      {
+        header: i18n._(t`HPD Violations`),
+        footer: (props) => props.column.id,
+        columns: [
+          {
+            accessorKey: "openviolations",
+            header: i18n._(t`Open`),
+            cell: (info) => info.getValue(),
+            footer: (props) => props.column.id,
+            enableColumnFilter: false,
+            size: "auto",
+          },
+          {
+            accessorKey: "totalviolations",
+            header: i18n._(t`Total`),
+            cell: (info) => info.getValue(),
+            footer: (props) => props.column.id,
+            enableColumnFilter: false,
+            size: "auto",
+          },
+        ],
+      },
+      {
+        header: i18n._(t`Evictions Since 2017`),
+        footer: (props) => props.column.id,
+        columns: [
+          {
+            accessorFn: (row) => row.evictionfilings || null,
+            id: "evictionfilings",
+            header: i18n._(t`Filed`),
+            cell: (info) => info.getValue(),
+            footer: (props) => props.column.id,
+            enableColumnFilter: false,
+            size: "auto",
+          },
+          {
+            accessorFn: (row) => row.evictions || null,
+            id: "evictions",
+            header: i18n._(t`Executed`),
+            cell: (info) => info.getValue(),
+            footer: (props) => props.column.id,
+            enableColumnFilter: false,
+            size: "auto",
+          },
+        ],
+      },
+      {
+        header: i18n._(t`Landlord`),
+        footer: (props) => props.column.id,
+        columns: [
+          {
+            accessorFn: (row) => {
+              // Group all contact info by the name of each person/corporate entity (same as on overview tab)
+              var ownerList =
+                row.allcontacts &&
+                Object.entries(_groupBy(row.allcontacts, "value"))
+                  .sort(sortContactsByImportance)
+                  .map((contact) => contact[0]);
+              return ownerList || [];
+            },
+            id: "ownernames",
+            header: i18n._(t`Owner/Manager`),
+            cell: ({ row }) => {
+              var contacts =
+                row.original.allcontacts &&
+                Object.entries(_groupBy(row.original.allcontacts, "value")).sort(
+                  sortContactsByImportance
                 );
-              },
-              footer: (props) => props.column.id,
-              enableColumnFilter: false,
-              size: 100,
-            },
-            {
-              accessorKey: "council",
-              header: i18n._(t`Council`),
-              cell: (info) => info.getValue(),
-              footer: (props) => props.column.id,
-              enableColumnFilter: false,
-              size: "auto",
-            },
-          ],
-        },
-        {
-          header: i18n._(t`Information`),
-          footer: (props) => props.column.id,
-          columns: [
-            {
-              accessorKey: "yearbuilt",
-              header: i18n._(t`Built`),
-              cell: (info) => info.getValue(),
-              footer: (props) => props.column.id,
-              enableColumnFilter: false,
-              size: "auto",
-            },
-            {
-              accessorKey: "unitsres",
-              header: i18n._(t`Units`),
-              cell: (info) => info.getValue(),
-              footer: (props) => props.column.id,
-              enableColumnFilter: false,
-              size: "auto",
-              filterFn: "inNumberRange",
-            },
-          ],
-        },
-        {
-          header: i18n._(t`RS Units`),
-          footer: (props) => props.column.id,
-          columns: [
-            {
-              accessorKey: "rsunits2007",
-              header: "2007",
-              cell: (info) => info.getValue(),
-              footer: (props) => props.column.id,
-              enableColumnFilter: false,
-              size: "auto",
-            },
-            {
-              accessorKey: "rsunitslatest",
-              header: rsunitslatestyear,
-              cell: ({ row }) => {
-                return (
-                  <span
-                    className={`${
-                      // TODO: double check this works with nulls
-                      row.original.rsunitslatest! < row.original.rsunits2007! ?? false
-                        ? "text-danger"
-                        : ""
-                    }`}
-                  >
-                    {row.original.rsunitslatest}
-                  </span>
-                );
-              },
-              footer: (props) => props.column.id,
-              enableColumnFilter: false,
-              size: "auto",
-              filterFn: "isNonZero",
-            },
-          ],
-        },
-        {
-          header: i18n._(t`HPD Complaints`),
-          footer: (props) => props.column.id,
-          columns: [
-            {
-              accessorKey: "totalcomplaints",
-              header: i18n._(t`Total`),
-              cell: (info) => info.getValue(),
-              footer: (props) => props.column.id,
-              enableColumnFilter: false,
-              size: "auto",
-            },
-            {
-              accessorKey: "recentcomplaints",
-              header: i18n._(t`Last 3 Years`),
-              cell: (info) => info.getValue(),
-              footer: (props) => props.column.id,
-              enableColumnFilter: false,
-              size: "auto",
-            },
-            {
-              accessorKey: "recentcomplaintsbytype",
-              header: i18n._(t`Top Complaint`),
-              cell: ({ row }) => {
-                const mostCommonType = findMostCommonType(row.original.recentcomplaintsbytype);
-                return mostCommonType ? Helpers.translateComplaintType(mostCommonType, i18n) : null;
-              },
-              footer: (props) => props.column.id,
-              enableColumnFilter: false,
-              size: "auto",
-            },
-          ],
-        },
-        {
-          header: i18n._(t`HPD Violations`),
-          footer: (props) => props.column.id,
-          columns: [
-            {
-              accessorKey: "openviolations",
-              header: i18n._(t`Open`),
-              cell: (info) => info.getValue(),
-              footer: (props) => props.column.id,
-              enableColumnFilter: false,
-              size: "auto",
-            },
-            {
-              accessorKey: "totalviolations",
-              header: i18n._(t`Total`),
-              cell: (info) => info.getValue(),
-              footer: (props) => props.column.id,
-              enableColumnFilter: false,
-              size: "auto",
-            },
-          ],
-        },
-        {
-          header: i18n._(t`Evictions Since 2017`),
-          footer: (props) => props.column.id,
-          columns: [
-            {
-              accessorFn: (row) => row.evictionfilings || null,
-              id: "evictionfilings",
-              header: i18n._(t`Filed`),
-              cell: (info) => info.getValue(),
-              footer: (props) => props.column.id,
-              enableColumnFilter: false,
-              size: "auto",
-            },
-            {
-              accessorFn: (row) => row.evictions || null,
-              id: "evictions",
-              header: i18n._(t`Executed`),
-              cell: (info) => info.getValue(),
-              footer: (props) => props.column.id,
-              enableColumnFilter: false,
-              size: "auto",
-            },
-          ],
-        },
-        {
-          header: i18n._(t`Landlord`),
-          footer: (props) => props.column.id,
-          columns: [
-            {
-              accessorFn: (row) => {
-                // Group all contact info by the name of each person/corporate entity (same as on overview tab)
-                var ownerList =
-                  row.allcontacts &&
-                  Object.entries(_groupBy(row.allcontacts, "value"))
-                    .sort(sortContactsByImportance)
-                    .map((contact) => contact[0]);
-                return ownerList || [];
-              },
-              id: "ownernames",
-              header: i18n._(t`Owner/Manager`),
-              cell: ({ row }) => {
-                var contacts =
-                  row.original.allcontacts &&
-                  Object.entries(_groupBy(row.original.allcontacts, "value")).sort(
-                    sortContactsByImportance
-                  );
 
               if (!contacts) return "";
 
