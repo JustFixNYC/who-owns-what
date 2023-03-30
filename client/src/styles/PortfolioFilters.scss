@@ -370,17 +370,63 @@
       &[open] {
         --filter-bar-top-height: 4.6rem;
         --filter-bar-height: 6.6rem;
-        position: absolute;
+        position: fixed;
         top: 0;
         left: 0;
         right: 0;
+        z-index: 101;
         height: var(--filter-bar-top-height);
         background-color: $justfix-table-grey;
         border-radius: 0.8rem 0.8rem 0 0;
         box-sizing: border-box;
         border: none;
         border-bottom: 0.2rem solid $justfix-grey-700;
-        outline: 1rem solid $justfix-grey-700;
+
+        @keyframes slide-up {
+          0% {
+            transform: translateY(100vh);
+          }
+          100% {
+            transform: translateY(0);
+          }
+        }
+
+        animation-name: slide-up;
+        animation-duration: 0.5s;
+        animation-timing-function: ease-in-out;
+        animation-fill-mode: forwards;
+
+        // Hide page from showing through around corners
+        &::before {
+          --border-size: 0.5rem;
+          content: "";
+          position: absolute;
+          top: calc(0rem - var(--border-size));
+          right: calc(0rem - var(--border-size));
+          bottom: calc(0rem - var(--border-size));
+          left: calc(0rem - var(--border-size));
+          border: var(--border-size) solid $justfix-black;
+          border-bottom: none;
+          border-radius: 1.25rem 1.25rem 0 0;
+
+          @keyframes fade-in {
+            0% {
+              opacity: 0;
+            }
+            90% {
+              opacity: 0;
+            }
+            100% {
+              opacity: 1;
+            }
+          }
+
+          animation-name: fade-in;
+          animation-duration: 0.5s;
+          animation-timing-function: ease-in-out;
+          animation-fill-mode: forwards;
+        }
+
         & > summary {
           padding: 0 2.4rem;
         }
@@ -400,19 +446,19 @@
           left: 0;
           max-height: none;
           height: calc(100vh - var(--filter-bar-top-height));
+          z-index: 102;
 
           &.scroll-gradient {
             // https://css-scroll-shadows.vercel.app/
             --clear: rgba(0, 0, 0, 0);
-            --dark: rgba(140, 140, 140, 0.5);
+            --dark: rgba(100, 100, 100, 0.65);
             background: linear-gradient($justfix-table-grey 10%, var(--clear)),
               linear-gradient(var(--clear), $justfix-table-grey 90%) 0 100%,
-              linear-gradient(var(--dark) 10%, var(--clear)),
-              linear-gradient(var(--clear), var(--dark) 90%) 0 100%;
+              linear-gradient(var(--dark) 10%, var(--clear));
             background-color: $justfix-table-grey;
             background-repeat: no-repeat;
-            background-attachment: local, local, scroll, scroll;
-            background-size: 100% 6rem, 100% 6rem, 100% 2rem, 100% 2rem;
+            background-attachment: local, local, scroll;
+            background-size: 100% 6rem, 100% 6rem, 100% 1rem, 100% 1rem;
           }
 
           .filter {
@@ -475,6 +521,7 @@
             }
             .dropdown-container {
               position: relative;
+              max-height: none;
             }
           }
           .zip-accordion {
