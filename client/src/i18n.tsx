@@ -90,11 +90,11 @@ export function localeFromRouter(routerProps: RouteComponentProps): SupportedLoc
 export const I18n = withRouter(function I18nWithoutRouter(
   props: { children: any } & RouteComponentProps
 ): JSX.Element {
-  const { pathname } = props.location;
+  const { pathname, search } = props.location;
   const locale = parseLocaleFromPath(pathname);
 
   if (!locale) {
-    return <Redirect to={`/${getBestDefaultLocale()}${pathname}`} />;
+    return <Redirect to={`/${getBestDefaultLocale()}${pathname}${search}`} />;
   }
 
   return (
