@@ -22,7 +22,7 @@ import {
 } from "@tanstack/react-table";
 import _groupBy from "lodash/groupBy";
 import React, { Fragment } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { createRouteForFullBbl } from "routes";
 import { SupportedLocale } from "../i18n-base";
 import Helpers, { longDateOptions } from "../util/helpers";
@@ -33,6 +33,7 @@ import "styles/PortfolioTable.scss";
 import { sortContactsByImportance } from "./DetailView";
 import { ArrowIcon } from "./Icons";
 import classNames from "classnames";
+import { isLegacyPath } from "./WowzaToggle";
 
 const FIRST_COLUMN_WIDTH = 130;
 export const MAX_TABLE_ROWS_PER_PAGE = 100;
@@ -72,6 +73,8 @@ export const PortfolioTable = React.memo(
   React.forwardRef<HTMLDivElement, PortfolioTableProps>((props, lastColumnRef) => {
     const { data, i18n, locale, rsunitslatestyear, getRowCanExpand } = props;
 
+    const { pathname } = useLocation();
+
     const { filterContext, setFilterContext } = React.useContext(FilterContext);
 
     const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
@@ -97,7 +100,7 @@ export const PortfolioTable = React.memo(
           header: () => i18n._(t`Address`),
           cell: ({ row }) => {
             return (
-              <Link to={createRouteForFullBbl(row.original.bbl, locale)}>
+              <Link to={createRouteForFullBbl(row.original.bbl, locale, isLegacyPath(pathname))}>
                 {row.original.housenumber} {row.original.streetname}
               </Link>
             );
@@ -132,7 +135,9 @@ export const PortfolioTable = React.memo(
               header: "BBL",
               cell: ({ row }) => {
                 return (
-                  <Link to={createRouteForFullBbl(row.original.bbl, locale)}>
+                  <Link
+                    to={createRouteForFullBbl(row.original.bbl, locale, isLegacyPath(pathname))}
+                  >
                     {row.original.bbl}
                   </Link>
                 );
@@ -441,7 +446,7 @@ export const PortfolioTable = React.memo(
               header: null,
               cell: ({ row }) => (
                 <Link
-                  to={createRouteForFullBbl(row.original.bbl, locale)}
+                  to={createRouteForFullBbl(row.original.bbl, locale, isLegacyPath(pathname))}
                   className="btn"
                   aria-label={i18n._(t`View detail`)}
                   onClick={() => {
