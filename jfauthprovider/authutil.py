@@ -51,7 +51,12 @@ def auth_server_request(url, data={}, headers={}):
             data=data,
             headers=headers,
         )
-        json_response = JsonResponse(json.loads(response.content))
+        if response.content:
+            content = json.loads(response.content)
+        else:
+            content = {}
+
+        json_response = JsonResponse(content)
         json_response.headers = response.headers
         return json_response
     except ValueError as e:

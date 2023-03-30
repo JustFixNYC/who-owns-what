@@ -49,6 +49,8 @@ import { StickyModal } from "components/StickyModal";
 import { DeprecationModal } from "components/DeprecationModal";
 import { UserContext, UserContextProvider } from "components/UserContext";
 import AccountSettingsPage from "./AccountSettingsPage";
+import ResetPasswordPage from "./ResetPasswordPage";
+import ForgotPasswordPage from "./ForgotPasswordPage";
 
 const HomeLink = withI18n()((props: withI18nProps) => {
   const { i18n } = props;
@@ -168,6 +170,8 @@ const WhoOwnsWhatRoutes: React.FC<{}> = () => {
       />
       <Route path={paths.account.verifyEmail} component={VerifyEmailPage} />
       <Route path={paths.account.settings} component={AccountSettingsPage} />
+      <Route path={paths.account.forgotPassword} component={ForgotPasswordPage} />
+      <Route path={paths.account.resetPassword} component={ResetPasswordPage} />
       <Route path={paths.about} component={AboutPage} />
       <Route path={paths.legacy.about} component={AboutPage} />
       <Route path={paths.howToUse} component={HowToUsePage} />

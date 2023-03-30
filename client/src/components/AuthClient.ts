@@ -75,6 +75,12 @@ const resetPasswordRequest = async (username: string) => {
   return await postAuthRequest(`${BASE_URL}auth/reset_password`, { username });
 };
 
+const resetPassword = async (token: string, newPassword: string) => {
+  return await postAuthRequest(`${BASE_URL}auth/set_password?token=${token}`, {
+    new_password: newPassword,
+  });
+};
+
 /**
  * Checks to see if a user is currently authenticated (via httponly cookie)
  */
@@ -214,6 +220,7 @@ const Client = {
   updateEmail,
   updatePassword,
   resetPasswordRequest,
+  resetPassword,
   buildingSubscribe,
   buildingUnsubscribe,
   userSubscriptions,

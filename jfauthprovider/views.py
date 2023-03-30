@@ -112,7 +112,11 @@ def password_reset_request(request):
     post_data = {
         "username": request.POST.get("username"),
     }
-    return auth_server_request("user/password_reset/request/", post_data)
+    return auth_server_request(
+        "user/password_reset/request/",
+        post_data,
+        {"Cookie": request.headers.get("Cookie")},
+    )
 
 
 @api
@@ -121,7 +125,9 @@ def password_reset(request):
         "token": request.GET.get("token"),
         "new_password": request.POST.get("new_password"),
     }
-    return auth_server_request("user/password_reset/", post_data)
+    return auth_server_request(
+        "user/password_reset/", post_data, {"Cookie": request.headers.get("Cookie")}
+    )
 
 
 @api

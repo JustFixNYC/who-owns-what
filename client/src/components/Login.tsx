@@ -8,6 +8,8 @@ import { withI18n } from "@lingui/react";
 import { Trans } from "@lingui/macro";
 import { UserContext } from "./UserContext";
 import PasswordInput from "./PasswordInput";
+import { LocaleLink } from "i18n";
+import { createWhoOwnsWhatRoutePaths } from "routes";
 
 type PasswordRule = {
   regex: RegExp;
@@ -31,6 +33,8 @@ type LoginProps = {
 
 // class LoginWithoutI18n extends React.Component<LoginProps, State> {
 const LoginWithoutI18n = (props: LoginProps) => {
+  const { account } = createWhoOwnsWhatRoutePaths();
+
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
@@ -78,7 +82,13 @@ const LoginWithoutI18n = (props: LoginProps) => {
         />
         {formState === "password" && (
           <>
-            <Trans render="label">Enter password</Trans> <PasswordInput onChange={setPassword} />
+            <div className="login-password-label">
+              <Trans render="label">Enter password</Trans>
+              <LocaleLink to={`${account.forgotPassword}?email=${encodeURIComponent(username)}`}>
+                Forgot your password?
+              </LocaleLink>
+            </div>
+            <PasswordInput onChange={setPassword} />
           </>
         )}
         <input

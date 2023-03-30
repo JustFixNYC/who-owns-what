@@ -251,3 +251,13 @@
     }
   }
 }
+
+// Custom WOW style
+.link-button {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.link-button:hover {
+  text-decoration: none;
+}

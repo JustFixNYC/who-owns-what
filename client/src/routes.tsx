@@ -74,6 +74,7 @@ export const createAccountRoutePaths = (prefix?: string) => {
   return {
     settings: `${prefix}/settings`,
     verifyEmail: `${prefix}/verify-email`,
+    forgotPassword: `${prefix}/forgot-password`,
     resetPassword: `${prefix}/reset-password`,
   };
 };
