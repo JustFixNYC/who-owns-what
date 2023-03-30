@@ -524,6 +524,13 @@
               max-height: none;
             }
           }
+          .ownernames-accordion {
+            .clear-all-container,
+            .search-wrapper,
+            .optionListContainer {
+              width: 75%;
+            }
+          }
           .zip-accordion {
             .clear-all-container,
             .search-wrapper,
