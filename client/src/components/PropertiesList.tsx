@@ -1,7 +1,6 @@
 import { I18n } from "@lingui/core";
 import { Trans } from "@lingui/macro";
 import { withI18n } from "@lingui/react";
-import classnames from "classnames";
 import React from "react";
 import { withMachineInStateProps } from "state-machine";
 import "styles/PropertiesList.css";
@@ -73,19 +72,11 @@ const PropertiesListWithoutI18n: React.FC<
   const addrs = props.state.context.portfolioData.assocAddrs;
   const rsunitslatestyear = props.state.context.portfolioData.searchAddr.rsunitslatestyear;
 
-  const lastColumnRef = React.useRef<HTMLDivElement>(null);
-  const isLastColumnVisible = Helpers.useOnScreen(lastColumnRef);
   /**
    * For older browsers that do not support the `useOnScreen` hook,
    * let's hide the dynamic scroll fade by default.
    */
   const isOlderBrowser = typeof IntersectionObserver === "undefined";
-  /**
-   * Let's hide the fade out on the right edge of the table if:
-   * - We've scrolled to the last column OR
-   * - We're using an older browser that cannot detect where we've scrolled
-   */
-  const hideScrollFade = isOlderBrowser || isLastColumnVisible;
 
   const tableRef = React.useRef<HTMLDivElement>(null);
   const isTableVisible = Helpers.useOnScreen(tableRef);
@@ -113,10 +104,7 @@ const PropertiesListWithoutI18n: React.FC<
       setHeaderTopSpacing(tableRef.current.offsetTop);
   }, [isTableVisible, locale, windowWidth, windowHeight, isOlderBrowser]);
   return (
-    <div
-      className={classnames("PropertiesList", hideScrollFade && "hide-scroll-fade")}
-      ref={tableRef}
-    >
+    <div className="PropertiesList" ref={tableRef}>
       {isTableVisible ? (
         <FilterContextProvider>
           {useNewPortfolioMethod ? <PortfolioFilters i18n={i18n} /> : <></>}
@@ -127,7 +115,6 @@ const PropertiesListWithoutI18n: React.FC<
             locale={locale}
             rsunitslatestyear={rsunitslatestyear}
             getRowCanExpand={() => true}
-            ref={lastColumnRef}
           />
         </FilterContextProvider>
       ) : (
