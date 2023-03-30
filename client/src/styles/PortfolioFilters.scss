@@ -84,10 +84,12 @@
       &[aria-pressed="true"] {
         @include white-on-black();
       }
-      &:not([open]):hover,
-      [open] summary {
-        text-decoration: underline;
-        text-underline-position: under;
+      @include for-tablet-portrait-up() {
+        &:not([open]):hover,
+        [open] summary {
+          text-decoration: underline;
+          text-underline-position: under;
+        }
       }
       &:focus-visible {
         box-shadow: none;
@@ -188,7 +190,6 @@
           z-index: 100;
           overflow-y: scroll;
           max-height: calc(100vh - 25rem);
-          padding: 0.6rem 1.2rem 1.2rem 1.2rem;
           background-color: $justfix-table-grey;
           box-sizing: border-box;
           border: 0.1rem solid $justfix-black;
@@ -201,16 +202,26 @@
           .filter-subtitle-container {
             font-size: 1.2rem;
             color: $justfix-grey-700;
+            @include for-tablet-portrait-up {
+              padding: 1.2rem;
+              margin-bottom: 1.2rem;
+            }
             display: flex;
             width: 100%;
+            @include for-tablet-portrait-up() {
+              border-bottom: 0.1rem solid $justfix-grey;
+            }
             .filter-subtitle {
               margin-right: auto;
             }
 
-            .filter-info:focus-visible {
-              box-shadow: none;
-              outline: 2px solid $focus-outline-color;
-              outline-offset: 2px;
+            .filter-info {
+              color: $justfix-grey-700;
+              &:focus-visible {
+                box-shadow: none;
+                outline: 2px solid $focus-outline-color;
+                outline-offset: 2px;
+              }
             }
           }
 
@@ -218,50 +229,61 @@
           .minmax-container {
             display: flex;
             flex-direction: column;
-            margin: 0.8rem 0;
+            .jf-alert {
+              margin-top: 0.6rem;
+              margin-bottom: 0.4rem;
+            }
           }
           .minmax-container {
-            padding: 1.2rem;
-            border-top: 1px solid $justfix-grey;
             @include for-phone-only {
               border-top: none;
-              padding-left: 0;
             }
 
-            .labels-container {
-              display: flex;
-              color: $justfix-grey-700;
-              margin-bottom: 0.4rem;
-              label:first-child {
-                margin-right: auto;
+            .label-input-container {
+              width: fit-content;
+              padding: 0 1.2rem 1.2rem 1.2rem;
+              @include for-phone-only {
+                padding: 1.2rem 0;
               }
-            }
-            .inputs-container {
-              display: flex;
-              gap: 1rem;
-              align-items: center;
-              justify-content: center;
-              input {
-                background-color: $justfix-white;
-                width: 4.4rem;
-                height: 4.4rem;
-                border: 0.1rem solid $justfix-black;
-                border-radius: 0.2rem;
-                padding: 0.5rem;
-                // remove increment arrows
-                &::-webkit-outer-spin-button,
-                &::-webkit-inner-spin-button {
-                  -webkit-appearance: none;
-                  margin: 0;
+              @include for-tablet-portrait-up() {
+                border-bottom: 0.1rem solid $justfix-grey;
+              }
+              .labels-container {
+                display: flex;
+                color: $justfix-grey-600;
+                font-size: 1.2rem;
+                margin-bottom: 0.4rem;
+                label:first-child {
+                  margin-right: auto;
                 }
-                -moz-appearance: textfield;
+              }
+              .inputs-container {
+                display: flex;
+                gap: 1rem;
+                align-items: center;
+                color: $justfix-grey-600;
+                input {
+                  background-color: $justfix-white;
+                  width: 4.4rem;
+                  height: 4.4rem;
+                  border: 0.1rem solid $justfix-grey-600;
+                  border-radius: 0.2rem;
+                  padding: 0.5rem;
+                  // remove increment arrows
+                  &::-webkit-outer-spin-button,
+                  &::-webkit-inner-spin-button {
+                    -webkit-appearance: none;
+                    margin: 0;
+                  }
+                  -moz-appearance: textfield;
 
-                &:focus-visible {
-                  outline: none;
-                }
-                &.hasError {
-                  outline: 2px $justfix-orange solid;
-                  outline-offset: -2px;
+                  &:focus-visible {
+                    outline: none;
+                  }
+                  &.hasError {
+                    outline: 3px $justfix-orange solid;
+                    outline-offset: -3px;
+                  }
                 }
               }
             }
@@ -280,11 +302,21 @@
             }
           }
 
+          @include for-tablet-portrait-up() {
+            .selectedListContainer,
+            .clear-all-container {
+              padding: 0 1.2rem;
+            }
+            .search-wrapper,
+            .optionListContainer,
+            .jf-alert {
+              margin: 0 1.2rem;
+            }
+          }
           .search-wrapper,
           .optionListContainer {
             background-color: $justfix-white;
             outline: 1px solid $justfix-grey;
-            border-radius: unset;
             border: none;
           }
           .search-wrapper {
@@ -424,6 +456,7 @@
               height: var(--filter-bar-height);
               min-height: var(--filter-bar-height);
               padding: 0 2.4rem;
+              font-size: 1.8rem;
               &[aria-pressed="false"]:hover,
               &[aria-pressed="true"] {
                 text-decoration: none;
@@ -432,6 +465,7 @@
             &.filter-accordion > summary {
               height: var(--filter-bar-height);
               padding: 0 2.4rem;
+              font-size: 1.8rem;
             }
             &.active:not(.filter-toggle) {
               background-color: $justfix-table-grey;
@@ -448,7 +482,6 @@
                 width: 100%;
                 padding: 0 2.4rem;
                 .filter-subtitle-container {
-                  padding: 0;
                   .filter-subtitle {
                     font-size: 1.6rem;
                   }
@@ -475,6 +508,15 @@
             }
             .dropdown-container {
               position: relative;
+              padding-bottom: 1.2rem;
+              .labels-container {
+                font-size: 1.6rem;
+              }
+              .labels-container,
+              .inputs-container {
+                padding-right: 0;
+                padding-left: 0;
+              }
             }
           }
           .zip-accordion {

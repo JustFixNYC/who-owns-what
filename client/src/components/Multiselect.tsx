@@ -611,7 +611,7 @@ export class Multiselect extends React.Component<IMultiselectProps, any> {
       >
         {hasError && (
           <Alert type="error" variant="primary" closeType="none" role="status">
-            <Trans>Error</Trans>
+            <Trans>Make a selection from the list or clear search text</Trans>
           </Alert>
         )}
         <div className="selectedListContainer">

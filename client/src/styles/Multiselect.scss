@@ -21,7 +21,6 @@
 }
 .searchWrapper {
   border: 1px solid #cccccc;
-  border-radius: 4px;
   padding: 5px;
   min-height: 22px;
   position: relative;
@@ -62,9 +61,7 @@
 }
 .optionListContainer {
   position: absolute;
-  width: 100%;
   background: #fff;
-  border-radius: 4px;
   z-index: 2;
 }
 .multiSelectContainer ul {
