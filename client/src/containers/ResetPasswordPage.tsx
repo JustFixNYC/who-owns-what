@@ -28,21 +28,25 @@ const ResetPasswordPage = withI18n()((props: withI18nProps) => {
   return (
     <Page title={i18n._(t`Reset your password`)}>
       <div className="ResetPasswordPage Page">
-        {!requestSent ? (
-          <>
-            <Trans render="h4">Reset your password</Trans>
-            <form onSubmit={handleSubmit}>
-              <Trans render="label">Create a password</Trans>
-              <PasswordInput onChange={setValue} />
-              <input type="submit" className="button is-primary" value={`Reset password`} />
-            </form>
-          </>
-        ) : (
-          <>
-            <Trans render="h4">Your password has been successfully reset</Trans>
-            <Trans>You will be redirected back to Who Owns What in X seconds.</Trans>
-          </>
-        )}
+        <div className="page-container">
+          {!requestSent ? (
+            <>
+              <Trans render="h4">Reset your password</Trans>
+              <form onSubmit={handleSubmit}>
+                <Trans render="label" className="form-label">
+                  Create a password
+                </Trans>
+                <PasswordInput onChange={setValue} />
+                <input type="submit" className="button is-primary" value={`Reset password`} />
+              </form>
+            </>
+          ) : (
+            <>
+              <Trans render="h4">Your password has been successfully reset</Trans>
+              <Trans>You will be redirected back to Who Owns What in X seconds.</Trans>
+            </>
+          )}
+        </div>
         <LegalFooter />
       </div>
     </Page>

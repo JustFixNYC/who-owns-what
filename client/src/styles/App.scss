@@ -1,4 +1,5 @@
 @import "_vars.scss";
+@import "_typography.scss";
 
 .App {
   height: 100%;
@@ -229,6 +230,30 @@ div.Page {
   p {
     // line-height: 1.6;
     margin-bottom: 1.25rem;
+  }
+
+  .page-container {
+    h4 {
+      text-decoration: none;
+      text-align: center;
+    }
+
+    width: min(calc(100vw - 4rem), 50rem);
+    max-width: 50rem;
+    margin: 2rem auto;
+
+    form {
+      display: flex;
+      flex-direction: column;
+
+      .form-label {
+        @include desktop-eyebrow();
+      }
+
+      input[type="submit"] {
+        margin: 1rem auto;
+      }
+    }
   }
 }
 

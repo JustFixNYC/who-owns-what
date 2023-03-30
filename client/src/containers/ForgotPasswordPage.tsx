@@ -31,33 +31,39 @@ const ForgotPasswordPage = withI18n()((props: withI18nProps) => {
   return (
     <Page title={i18n._(t`Forgot your password?`)}>
       <div className="ForgotPasswordPage Page">
-        <Trans render="h4">Forgot your password?</Trans>
-        {!requestSent ? (
-          <>
-            <Trans render="span">
-              Review your email address below. You’ll receive a "Reset password" email to this
-              address.
-            </Trans>
-            <form onSubmit={handleSubmit}>
-              <Trans render="label">Email address</Trans>
-              <input
-                type="email"
-                className="input"
-                placeholder={`Enter email`}
-                onChange={handleValueChange}
-                value={value}
-              />
-              <input type="submit" className="button is-primary" value={`Reset password`} />
-            </form>
-          </>
-        ) : (
-          <>
-            <Trans>
-              An email has been sent to your email address {`${value}`}. Please check your inbox and
-              spam.
-            </Trans>
-          </>
-        )}
+        <div className="page-container">
+          <Trans render="h4">Forgot your password?</Trans>
+          {!requestSent ? (
+            <>
+              <Trans render="span">
+                Review your email address below. You’ll receive a "Reset password" email to this
+                address.
+              </Trans>
+              <br />
+              <br />
+              <form onSubmit={handleSubmit}>
+                <Trans render="label" className="form-label">
+                  Email address
+                </Trans>
+                <input
+                  type="email"
+                  className="input"
+                  placeholder={`Enter email`}
+                  onChange={handleValueChange}
+                  value={value}
+                />
+                <input type="submit" className="button is-primary" value={`Reset password`} />
+              </form>
+            </>
+          ) : (
+            <>
+              <Trans>
+                An email has been sent to your email address {`${value}`}. Please check your inbox
+                and spam.
+              </Trans>
+            </>
+          )}
+        </div>
         <LegalFooter />
       </div>
     </Page>

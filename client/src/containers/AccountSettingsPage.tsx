@@ -56,7 +56,7 @@ const AccountSettingsPage = withI18n()((props: withI18nProps) => {
   return (
     <Page title={i18n._(t`Account settings`)}>
       <div className="AccountSettingsPage Page">
-        <div className="settings-container">
+        <div className="page-container">
           <h4>
             <Trans>Account settings</Trans>
           </h4>
