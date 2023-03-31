@@ -494,9 +494,12 @@
               align-self: unset;
             }
           }
-          .view-results-count {
-            margin-left: 1em;
-            @include wrap-with-parentheses();
+          .button.is-primary {
+            padding: 1.6rem 3.2rem;
+            .view-results-count {
+              margin-left: 1em;
+              @include wrap-with-parentheses();
+            }
           }
           .zero-results-alert {
             margin: 1.4rem 2.45rem 0 2.45rem;
