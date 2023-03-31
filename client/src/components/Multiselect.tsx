@@ -343,13 +343,7 @@ export class Multiselect extends React.Component<IMultiselectProps, any> {
   }
 
   renderOptionList() {
-    const {
-      id,
-      style,
-      emptyRecordMsg,
-      loading,
-      loadingMessage = "loading...",
-    } = this.props;
+    const { id, style, emptyRecordMsg, loading, loadingMessage = "loading..." } = this.props;
     const { options, highlightOption } = this.state;
     if (loading) {
       return (
