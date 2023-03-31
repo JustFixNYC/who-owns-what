@@ -63,7 +63,7 @@ const HomeLink = withI18n()((props: withI18nProps) => {
       }}
       to={isLegacyPath(pathname) ? legacy.home : home}
     >
-      <h4>{widont(title)}</h4>
+      <h1 className="page-title">{widont(title)}</h1>
     </Link>
   );
 });

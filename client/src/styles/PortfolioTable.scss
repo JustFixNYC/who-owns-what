@@ -15,6 +15,14 @@ $table-border-dark: 1px solid $dark;
     position: relative;
     overflow: auto;
 
+    th[class^="col-Evictions"] div {
+      min-width: 15rem;
+    }
+
+    tr {
+      padding: 0rem 0.5rem;
+    }
+
     // Add right-side fade out when list is scrollable:
     &::after {
       content: "";
