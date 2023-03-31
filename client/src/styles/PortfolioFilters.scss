@@ -219,6 +219,9 @@
             display: flex;
             flex-direction: column;
             margin: 0.8rem 0;
+            input {
+              font-size: 1.6rem;
+            }
           }
           .minmax-container {
             padding: 1.2rem;
@@ -294,6 +297,7 @@
             }
             input {
               width: -webkit-fill-available;
+              height: -webkit-fill-available;
             }
           }
 
@@ -476,6 +480,9 @@
             .dropdown-container {
               position: relative;
             }
+          }
+          .search-wrapper {
+            height: 5rem;
           }
           .zip-accordion {
             .clear-all-container,

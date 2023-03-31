@@ -156,6 +156,8 @@ export const PortfolioFilters = React.memo(
               id="filter-ownernames-multiselect"
               infoAlert={OwnernamesInfoAlert}
               avoidHighlightFirstOption={true}
+              showCheckbox={true}
+              keepSearchTerm={true}
             />
           </FilterAccordion>
           <FilterAccordion
@@ -194,6 +196,8 @@ export const PortfolioFilters = React.memo(
               id="filter-zip-multiselect"
               onFocusInput={() => helpers.scrollToBottom(".mobile-wrapper-dropdown")}
               avoidHighlightFirstOption={true}
+              showCheckbox={true}
+              keepSearchTerm={true}
             />
           </FilterAccordion>
         </FiltersWrapper>
@@ -450,6 +454,7 @@ function FilterAccordion(props: {
         returnFocusOnDeactivate: false,
         onDeactivate: () => setIsOpen(false),
         initialFocus: initialFocus,
+        escapeDeactivates: false,
       }}
     >
       <details
