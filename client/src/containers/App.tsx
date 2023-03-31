@@ -51,6 +51,8 @@ import { UserContext, UserContextProvider } from "components/UserContext";
 import AccountSettingsPage from "./AccountSettingsPage";
 import ResetPasswordPage from "./ResetPasswordPage";
 import ForgotPasswordPage from "./ForgotPasswordPage";
+import UnsubscribePage from "./UnsubscribePage";
+import Login from "components/Login";
 
 const HomeLink = withI18n()((props: withI18nProps) => {
   const { i18n } = props;
@@ -168,10 +170,12 @@ const WhoOwnsWhatRoutes: React.FC<{}> = () => {
           <BBLPage {...props} useNewPortfolioMethod={allowChangingPortfolioMethod} />
         )}
       />
+      <Route path={paths.account.login} component={Login} />
       <Route path={paths.account.verifyEmail} component={VerifyEmailPage} />
       <Route path={paths.account.settings} component={AccountSettingsPage} />
       <Route path={paths.account.forgotPassword} component={ForgotPasswordPage} />
       <Route path={paths.account.resetPassword} component={ResetPasswordPage} />
+      <Route path={paths.account.unsubscribe} component={UnsubscribePage} />
       <Route path={paths.about} component={AboutPage} />
       <Route path={paths.legacy.about} component={AboutPage} />
       <Route path={paths.howToUse} component={HowToUsePage} />

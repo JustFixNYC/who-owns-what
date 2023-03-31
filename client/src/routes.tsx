@@ -72,10 +72,12 @@ export const createAccountRoutePaths = (prefix?: string) => {
   //   prefix = createRouteForAddressPage(prefix, isLegacyRoute);
   // }
   return {
+    login: `${prefix}/login`,
     settings: `${prefix}/settings`,
     verifyEmail: `${prefix}/verify-email`,
     forgotPassword: `${prefix}/forgot-password`,
     resetPassword: `${prefix}/reset-password`,
+    unsubscribe: `${prefix}/unsubscribe`,
   };
 };
 

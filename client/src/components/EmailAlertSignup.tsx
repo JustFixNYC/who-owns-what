@@ -54,10 +54,13 @@ const BuildingSubscribeWithoutI18n = (props: BuildingSubscribeProps) => {
               </div>
             )}
           </div>
-          <br />
-          <button className="button is-primary" onClick={() => AuthClient.resendVerifyEmail()}>
-            Resend verification email
-          </button>
+          {!verified && (
+            <p>
+              <button className="button is-primary" onClick={() => AuthClient.resendVerifyEmail()}>
+                Resend verification email
+              </button>
+            </p>
+          )}
         </>
       )}
     </div>

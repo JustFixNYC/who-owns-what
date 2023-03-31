@@ -203,13 +203,24 @@ class SubscriptionView(View):
 @api
 def user_subscriptions(request):
     try:
-        access_token = request.get_signed_cookie("access_token")
-        refresh_token = request.get_signed_cookie("refresh_token")
+        post_data = {"token": request.GET.get("u")}
 
-        return authenticated_request(
+        return auth_server_request(
             "user/subscriptions/",
-            access_token,
-            refresh_token,
+            post_data,
+        )
+    except KeyError:
+        return HttpResponse(content_type="application/json", status=401)
+
+
+@api
+def email_unsubscribe(request, bbl):
+    try:
+        post_data = {"token": request.GET.get("u")}
+
+        return auth_server_request(
+            "user/unsubscribe/" + str(bbl) + "/",
+            post_data,
         )
     except KeyError:
         return HttpResponse(content_type="application/json", status=401)

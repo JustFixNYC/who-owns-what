@@ -131,7 +131,7 @@ const updatePassword = async (currentPassword: string, newPassword: string) => {
 };
 
 /**
- * Sends an authenticated request to update the user email
+ * Sends an authenticated request to subscribe the user to the building
  */
 const buildingSubscribe = async (
   bbl: string,
@@ -150,7 +150,7 @@ const buildingSubscribe = async (
 };
 
 /**
- * Sends an authenticated request to update the user email
+ * Sends an authenticated request to unsubscribe the user from the building
  */
 const buildingUnsubscribe = async (bbl: string) => {
   return await postAuthRequest(
@@ -162,10 +162,17 @@ const buildingUnsubscribe = async (bbl: string) => {
 };
 
 /**
+ * Sends an unauthenticated request to unsubscribe the user from the building
+ */
+const emailBuildingUnsubscribe = async (bbl: string, token: string) => {
+  return await postAuthRequest(`${BASE_URL}auth/unsubscribe/${bbl}?u=${token}`);
+};
+
+/**
  * Fetches the list of all subscriptions associated with a user
  */
-const userSubscriptions = async () => {
-  return await postAuthRequest(`${BASE_URL}auth/subscriptions`);
+const userSubscriptions = async (token: string) => {
+  return await postAuthRequest(`${BASE_URL}auth/subscriptions?u=${token}`);
 };
 
 /**
@@ -237,6 +244,7 @@ const Client = {
   buildingSubscribe,
   buildingUnsubscribe,
   userSubscriptions,
+  emailBuildingUnsubscribe,
 };
 
 export default Client;

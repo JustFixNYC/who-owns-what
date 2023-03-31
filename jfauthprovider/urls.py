@@ -21,4 +21,5 @@ urlpatterns = [
         name="subscriptions",
     ),
     path("subscriptions", views.user_subscriptions, name="user_subscriptions"),
+    path("unsubscribe/<int:bbl>", views.email_unsubscribe, name="email_unsubscribe"),
 ]

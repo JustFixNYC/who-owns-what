@@ -6,6 +6,7 @@ import { withI18n, withI18nProps } from "@lingui/react";
 import { t, Trans } from "@lingui/macro";
 
 import "styles/AccountSettingsPage.css";
+import "styles/UserSetting.css";
 import { UserContext } from "components/UserContext";
 import { EmailSettingField, PasswordSettingField } from "components/UserSettingField";
 import { JustfixUser } from "state-machine";
@@ -17,11 +18,11 @@ type SubscriptionFieldProps = {
   housenumber: string;
   streetname: string;
   boro: string;
+  onRemoveClick: (bbl: string) => void;
 };
 
 const SubscriptionFieldWithoutI18n = (props: SubscriptionFieldProps) => {
-  const { bbl, housenumber, streetname, boro } = props;
-  const userContext = useContext(UserContext);
+  const { bbl, housenumber, streetname, boro, onRemoveClick } = props;
   return (
     <div className="subscription-field">
       <a
@@ -37,14 +38,14 @@ const SubscriptionFieldWithoutI18n = (props: SubscriptionFieldProps) => {
         <span>{`${housenumber} ${streetname},`}</span>
         <span>{`${boro}, NY`}</span>
       </a>
-      <button className="button is-secondary" onClick={() => userContext.unsubscribe(bbl)}>
+      <button className="button is-secondary" onClick={() => onRemoveClick(bbl)}>
         <Trans>Remove</Trans>
       </button>
     </div>
   );
 };
 
-const SubscriptionField = withI18n()(SubscriptionFieldWithoutI18n);
+export const SubscriptionField = withI18n()(SubscriptionFieldWithoutI18n);
 
 const AccountSettingsPage = withI18n()((props: withI18nProps) => {
   const { i18n } = props;
@@ -77,7 +78,7 @@ const AccountSettingsPage = withI18n()((props: withI18nProps) => {
           </h4>
           <div>
             {subscriptions.map((s) => (
-              <SubscriptionField key={s.bbl} {...s} />
+              <SubscriptionField key={s.bbl} {...s} onRemoveClick={userContext.unsubscribe} />
             ))}
           </div>
           <div className="settings-contact">
