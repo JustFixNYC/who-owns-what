@@ -20,7 +20,6 @@ export interface IMultiselectProps {
   showCheckbox?: boolean;
   selectionLimit?: any;
   placeholder?: string;
-  groupBy?: string;
   loading?: boolean;
   style?: object;
   emptyRecordMsg?: string;
@@ -66,7 +65,6 @@ export class Multiselect extends React.Component<IMultiselectProps, any> {
       highlightOption: props.avoidHighlightFirstOption ? -1 : 0,
       showCheckbox: props.showCheckbox,
       keepSearchTerm: props.keepSearchTerm,
-      groupedObject: [],
       hasError: false,
     };
     // @ts-ignore
@@ -91,7 +89,6 @@ export class Multiselect extends React.Component<IMultiselectProps, any> {
     this.isSelectedValue = this.isSelectedValue.bind(this);
     this.fadeOutSelection = this.fadeOutSelection.bind(this);
     this.isDisablePreSelectedValues = this.isDisablePreSelectedValues.bind(this);
-    this.renderGroupByOptions = this.renderGroupByOptions.bind(this);
     this.renderNormalOption = this.renderNormalOption.bind(this);
     this.listenerCallback = this.listenerCallback.bind(this);
     this.resetSelectedValues = this.resetSelectedValues.bind(this);
@@ -103,13 +100,9 @@ export class Multiselect extends React.Component<IMultiselectProps, any> {
   }
 
   initialSetValue() {
-    const { showCheckbox, groupBy } = this.props;
-    const { options } = this.state;
+    const { showCheckbox } = this.props;
     if (!showCheckbox) {
       this.removeSelectedValuesFromOptions(false);
-    }
-    if (groupBy) {
-      this.groupByOptions(options);
     }
   }
 
@@ -183,11 +176,8 @@ export class Multiselect extends React.Component<IMultiselectProps, any> {
 
   // Skipcheck flag - value will be true when the func called from on deselect anything.
   removeSelectedValuesFromOptions(skipCheck) {
-    const { isObject, displayValue, groupBy } = this.props;
-    const { selectedValues = [], unfilteredOptions, options } = this.state;
-    if (!skipCheck && groupBy) {
-      this.groupByOptions(options);
-    }
+    const { isObject, displayValue } = this.props;
+    const { selectedValues = [], unfilteredOptions } = this.state;
     if (!selectedValues.length && !skipCheck) {
       return;
     }
@@ -197,9 +187,6 @@ export class Multiselect extends React.Component<IMultiselectProps, any> {
           ? true
           : false;
       });
-      if (groupBy) {
-        this.groupByOptions(optionList);
-      }
       this.setState(
         { options: optionList, filteredOptions: optionList },
         this.filterOptionsByInput
@@ -209,18 +196,6 @@ export class Multiselect extends React.Component<IMultiselectProps, any> {
     let optionList = unfilteredOptions.filter((item) => selectedValues.indexOf(item) === -1);
 
     this.setState({ options: optionList, filteredOptions: optionList }, this.filterOptionsByInput);
-  }
-
-  groupByOptions(options) {
-    const { groupBy } = this.props;
-    const groupedObject = options.reduce(function (r, a) {
-      const key = a[groupBy] || "Others";
-      r[key] = r[key] || [];
-      r[key].push(a);
-      return r;
-    }, Object.create({}));
-
-    this.setState({ groupedObject });
   }
 
   onChange(event) {
@@ -252,7 +227,6 @@ export class Multiselect extends React.Component<IMultiselectProps, any> {
     } else {
       options = filteredOptions.filter((i) => this.matchValues(i, inputValue));
     }
-    this.groupByOptions(options);
     this.setState({ options });
   }
 
@@ -371,7 +345,6 @@ export class Multiselect extends React.Component<IMultiselectProps, any> {
   renderOptionList() {
     const {
       id,
-      groupBy,
       style,
       emptyRecordMsg,
       loading,
@@ -403,53 +376,9 @@ export class Multiselect extends React.Component<IMultiselectProps, any> {
             {emptyRecordMsg}
           </span>
         )}
-        {!groupBy ? this.renderNormalOption() : this.renderGroupByOptions()}
+        {this.renderNormalOption()}
       </ul>
     );
-  }
-
-  renderGroupByOptions() {
-    const { isObject = false, displayValue, showCheckbox, style } = this.props;
-    const { groupedObject } = this.state;
-    return Object.keys(groupedObject).map((obj) => {
-      return (
-        <React.Fragment key={obj}>
-          <li className="groupHeading" style={style["groupHeading"]}>
-            {obj}
-          </li>
-          {groupedObject[obj].map((option, i) => {
-            const isSelected = this.isSelectedValue(option);
-            return (
-              <li
-                key={`option${i}`}
-                style={style["option"]}
-                className={`groupChildEle option ${isSelected ? "selected" : ""} ${
-                  this.fadeOutSelection(option) ? "disableSelection" : ""
-                } ${this.isDisablePreSelectedValues(option) ? "disableSelection" : ""}`}
-                onClick={() => this.onSelectItem(option)}
-                onKeyDown={this.onEscKeyCloseOptionList}
-              >
-                {showCheckbox && (
-                  <input
-                    type="checkbox"
-                    className={"checkbox"}
-                    readOnly
-                    checked={isSelected}
-                    onKeyDown={this.onEscKeyCloseOptionList}
-                  />
-                )}
-                <span>
-                  {this.props.optionValueDecorator(
-                    isObject ? option[displayValue] : (option || "").toString(),
-                    option
-                  )}
-                </span>
-              </li>
-            );
-          })}
-        </React.Fragment>
-      );
-    });
   }
 
   renderNormalOption() {
@@ -756,7 +685,6 @@ Multiselect.defaultProps = {
   showCheckbox: false,
   selectionLimit: -1,
   placeholder: <Trans>"Select"</Trans>,
-  groupBy: "",
   style: {},
   emptyRecordMsg: <Trans>"No Options Available"</Trans>,
   onApply: () => {},
