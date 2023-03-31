@@ -399,6 +399,7 @@ export class Multiselect extends React.Component<IMultiselectProps, any> {
           {showCheckbox && (
             <input
               id={`option-check-${i}`}
+              aria-labelledby={`option-label-${i}`}
               type="checkbox"
               readOnly
               className="checkbox"
@@ -406,12 +407,12 @@ export class Multiselect extends React.Component<IMultiselectProps, any> {
               onKeyDown={this.onEscKeyCloseOptionList}
             />
           )}
-          <span>
+          <label id={`option-label-${i}`} htmlFor={`option-check-${i}`}>
             {this.props.optionValueDecorator(
               isObject ? option[displayValue] : (option || "").toString(),
               option
             )}
-          </span>
+          </label>
         </li>
       );
     });
