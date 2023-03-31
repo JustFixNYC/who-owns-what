@@ -22,6 +22,7 @@ def add_client_secret(data={}):
 
 def set_response_cookies(response, json_data):
     response_with_cookies = JsonResponse(json.loads(response.content))
+    response_with_cookies.headers = response.headers
 
     response_with_cookies.set_signed_cookie(
         key="access_token",
@@ -38,8 +39,6 @@ def set_response_cookies(response, json_data):
         secure=True,
         httponly=True,
     )
-
-    response_with_cookies.headers = response.headers
 
     return response_with_cookies
 

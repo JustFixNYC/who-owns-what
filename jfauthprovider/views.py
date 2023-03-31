@@ -111,6 +111,7 @@ def verify_email(request):
 def password_reset_request(request):
     post_data = {
         "username": request.POST.get("username"),
+        "origin": request.headers["Origin"],
     }
     return auth_server_request(
         "user/password_reset/request/",
@@ -155,6 +156,7 @@ class SubscriptionView(View):
                 "streetname": request.POST.get("streetname"),
                 "zip": request.POST.get("zip"),
                 "boro": request.POST.get("boro"),
+                "origin": request.headers["Origin"],
             }
             return authenticated_request(
                 "user/subscriptions/" + str(bbl) + "/",
