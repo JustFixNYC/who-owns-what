@@ -61,6 +61,15 @@ const ForgotPasswordPage = withI18n()((props: withI18nProps) => {
                 An email has been sent to your email address {`${value}`}. Please check your inbox
                 and spam.
               </Trans>
+              <br />
+              <br />
+              <button className="link-button is-centered" onClick={() => setRequestSent(false)}>
+                <Trans>
+                  Didn’t receive an email?
+                  <br />
+                  Click here to try again.
+                </Trans>
+              </button>
             </>
           )}
         </div>

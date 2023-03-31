@@ -108,6 +108,24 @@ def verify_email(request):
 
 
 @api
+def resend_verify_email(request):
+    try:
+        access_token = request.get_signed_cookie("access_token")
+        refresh_token = request.get_signed_cookie("refresh_token")
+
+        return authenticated_request(
+            "user/resend_verify_email/",
+            access_token,
+            refresh_token,
+            {
+                "origin": request.headers["Origin"],
+            },
+        )
+    except KeyError:
+        return HttpResponse(content_type="application/json", status=401)
+
+
+@api
 def password_reset_request(request):
     post_data = {
         "username": request.POST.get("username"),

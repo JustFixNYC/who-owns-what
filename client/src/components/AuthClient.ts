@@ -102,6 +102,18 @@ const verifyEmail = async () => {
 };
 
 /**
+ * Sends request to resend the account verification link to the user's email
+ */
+const resendVerifyEmail = async () => {
+  try {
+    await postAuthRequest(`${BASE_URL}auth/resend_verify_email`);
+    return true;
+  } catch {
+    return false;
+  }
+};
+
+/**
  * Sends an authenticated request to update the user email
  */
 const updateEmail = async (newEmail: string) => {
@@ -217,6 +229,7 @@ const Client = {
   login,
   logout,
   verifyEmail,
+  resendVerifyEmail,
   updateEmail,
   updatePassword,
   resetPasswordRequest,

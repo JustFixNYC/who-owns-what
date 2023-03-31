@@ -258,6 +258,11 @@
   text-decoration: underline;
 }
 
+.link-button.is-centered {
+  display: flex;
+  margin: auto;
+}
+
 .link-button:hover {
   text-decoration: none;
 }

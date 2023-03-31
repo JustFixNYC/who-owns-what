@@ -8,6 +8,7 @@ import { UserContext } from "./UserContext";
 
 import "styles/EmailAlertSignup.css";
 import { JustfixUser } from "state-machine";
+import AuthClient from "./AuthClient";
 
 type BuildingSubscribeProps = withI18nProps & {
   bbl: string;
@@ -33,23 +34,31 @@ const BuildingSubscribeWithoutI18n = (props: BuildingSubscribeProps) => {
           <Trans>Get updates</Trans>
         </button>
       ) : (
-        <div className="building-subscribe-status">
-          <div className={`building-subscribe-icon ${verified ? "verified" : ""}`}></div>
-          {verified ? (
-            <div>
-              {i18n._(t`Email updates will be sent to ${email}`)}{" "}
-              <button onClick={() => unsubscribe(bbl)}>
-                <Trans>Unsubscribe</Trans>
-              </button>
-            </div>
-          ) : (
-            <div>
-              {i18n._(
-                t`Check your email inbox {email} to verify your email address. Once you’ve done that, you’ll start getting email updates.`
-              )}
-            </div>
-          )}
-        </div>
+        <>
+          <div className="building-subscribe-status">
+            <div className={`building-subscribe-icon ${verified ? "verified" : ""}`}></div>
+            {verified ? (
+              <div>
+                {i18n._(t`Email updates will be sent to ${email}`)}{" "}
+                <button onClick={() => unsubscribe(bbl)}>
+                  <Trans>Unsubscribe</Trans>
+                </button>
+              </div>
+            ) : (
+              <div>
+                <div>
+                  {i18n._(
+                    t`Check your email inbox ${email} to verify your email address. Once you’ve done that, you’ll start getting email updates.`
+                  )}
+                </div>
+              </div>
+            )}
+          </div>
+          <br />
+          <button className="button is-primary" onClick={() => AuthClient.resendVerifyEmail()}>
+            Resend verification email
+          </button>
+        </>
       )}
     </div>
   );
