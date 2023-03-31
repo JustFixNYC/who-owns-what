@@ -29,11 +29,13 @@ const validatePassword = (password: string) => {
 
 type LoginProps = {
   i18n: I18n;
+  onSuccess?: () => void;
 };
 
 // class LoginWithoutI18n extends React.Component<LoginProps, State> {
 const LoginWithoutI18n = (props: LoginProps) => {
   const { account } = createWhoOwnsWhatRoutePaths();
+  const { onSuccess } = props;
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -63,6 +65,8 @@ const LoginWithoutI18n = (props: LoginProps) => {
     const loginMessage = await userContext.login(username, password);
     if (!!loginMessage) {
       setMessage(loginMessage);
+    } else if (onSuccess) {
+      onSuccess();
     }
   };
 

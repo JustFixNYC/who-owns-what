@@ -1,20 +1,30 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 import LegalFooter from "../components/LegalFooter";
 
 import Page from "../components/Page";
 import { withI18n, withI18nProps } from "@lingui/react";
 import { Trans, t } from "@lingui/macro";
 import Login from "components/Login";
+import { createWhoOwnsWhatRoutePaths } from "routes";
 
 const LoginPage = withI18n()((props: withI18nProps) => {
   const { i18n } = props;
+  const history = useHistory();
+  const { account } = createWhoOwnsWhatRoutePaths();
+
+  const redirect = () => {
+    window.setTimeout(() => {
+      history.push(account.settings);
+    }, 1000);
+  };
 
   return (
     <Page title={i18n._(t`Verify your email address`)}>
-      <div className="VerifyEmailPage Page">
+      <div className="LoginPage Page">
         <div className="page-container">
           <Trans render="h4">Login to your account</Trans>
-          <Login />
+          <Login onSuccess={redirect} />
         </div>
         <LegalFooter />
       </div>

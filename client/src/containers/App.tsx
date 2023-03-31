@@ -52,7 +52,7 @@ import AccountSettingsPage from "./AccountSettingsPage";
 import ResetPasswordPage from "./ResetPasswordPage";
 import ForgotPasswordPage from "./ForgotPasswordPage";
 import UnsubscribePage from "./UnsubscribePage";
-import Login from "components/Login";
+import LoginPage from "./LoginPage";
 
 const HomeLink = withI18n()((props: withI18nProps) => {
   const { i18n } = props;
@@ -170,7 +170,7 @@ const WhoOwnsWhatRoutes: React.FC<{}> = () => {
           <BBLPage {...props} useNewPortfolioMethod={allowChangingPortfolioMethod} />
         )}
       />
-      <Route path={paths.account.login} component={Login} />
+      <Route path={paths.account.login} component={LoginPage} />
       <Route path={paths.account.verifyEmail} component={VerifyEmailPage} />
       <Route path={paths.account.settings} component={AccountSettingsPage} />
       <Route path={paths.account.forgotPassword} component={ForgotPasswordPage} />
@@ -205,18 +205,24 @@ const SearchLink = () => {
   );
 };
 
-const getAccountNavLinks = (handleLogout: () => void) => {
+const getAccountNavLinks = (handleLogout: () => void, isSignedIn?: boolean) => {
   const { account } = createWhoOwnsWhatRoutePaths();
-  const { settings } = account;
+  const { settings, login } = account;
 
-  return [
-    <LocaleNavLink to={settings} key="account-1">
-      <Trans>Account settings</Trans>
-    </LocaleNavLink>,
-    <button onClick={() => handleLogout()} key="account-2">
-      <Trans>Sign out</Trans>
-    </button>,
-  ];
+  return isSignedIn
+    ? [
+        <LocaleNavLink to={settings} key="account-1">
+          <Trans>Account settings</Trans>
+        </LocaleNavLink>,
+        <button onClick={() => handleLogout()} key="account-2">
+          <Trans>Sign out</Trans>
+        </button>,
+      ]
+    : [
+        <LocaleNavLink to={login} key="account-3">
+          <Trans>Sign in</Trans>
+        </LocaleNavLink>,
+      ];
 };
 
 const getMainNavLinks = (isLegacyPath?: boolean) => {
@@ -275,7 +281,7 @@ const Navbar = () => {
             <Trans>Share</Trans>
           </a>
           <LocaleSwitcher />
-          {userContext?.user?.email && getAccountNavLinks(userContext.logout)}
+          {getAccountNavLinks(userContext.logout, !!userContext?.user?.email)}
         </span>
         <Dropdown>
           {getMainNavLinks(isLegacyPath(pathname)).map((link, i) => (
@@ -292,12 +298,11 @@ const Navbar = () => {
           <li className="menu-item">
             <LocaleSwitcherWithFullLanguageName />
           </li>
-          {userContext?.user?.email &&
-            getAccountNavLinks(userContext.logout).map((link, i) => (
-              <li className="menu-item" key={`account-${i}`}>
-                {link}
-              </li>
-            ))}
+          {getAccountNavLinks(userContext.logout, !!userContext?.user?.email).map((link, i) => (
+            <li className="menu-item" key={`account-${i}`}>
+              {link}
+            </li>
+          ))}
         </Dropdown>
       </nav>
       <Modal showModal={isEngageModalVisible} onClose={() => setEngageModalVisibility(false)}>
