@@ -19,51 +19,58 @@ type BuildingSubscribeProps = withI18nProps & {
 };
 
 const BuildingSubscribeWithoutI18n = (props: BuildingSubscribeProps) => {
-  const { i18n, bbl, housenumber, streetname, zip, boro } = props;
+  const { bbl, housenumber, streetname, zip, boro } = props;
   const userContext = useContext(UserContext);
   const { user, subscribe, unsubscribe } = userContext;
   const { email, subscriptions, verified } = user! as JustfixUser;
 
   return (
-    <div className="table-content building-subscribe">
-      {!(subscriptions && !!subscriptions?.find((s) => s.bbl === bbl)) ? (
-        <button
-          className="button is-primary"
-          onClick={() => subscribe(bbl, housenumber, streetname, zip, boro)}
-        >
-          <Trans>Get updates</Trans>
-        </button>
-      ) : (
-        <>
-          <div className="building-subscribe-status">
-            <div className={`building-subscribe-icon ${verified ? "verified" : ""}`}></div>
-            {verified ? (
-              <div>
-                {i18n._(t`Email updates will be sent to ${email}`)}{" "}
-                <button onClick={() => unsubscribe(bbl)}>
-                  <Trans>Unsubscribe</Trans>
-                </button>
+    <I18n>
+      {({ i18n }) => (
+        <div className="table-content building-subscribe">
+          {!(subscriptions && !!subscriptions?.find((s) => s.bbl === bbl)) ? (
+            <button
+              className="button is-primary"
+              onClick={() => subscribe(bbl, housenumber, streetname, zip, boro)}
+            >
+              <Trans>Get updates</Trans>
+            </button>
+          ) : (
+            <>
+              <div className="building-subscribe-status">
+                <div className={`building-subscribe-icon ${verified ? "verified" : ""}`}></div>
+                {verified ? (
+                  <div>
+                    {i18n._(t`Email updates will be sent to ${email}`)}{" "}
+                    <button onClick={() => unsubscribe(bbl)}>
+                      <Trans>Unsubscribe</Trans>
+                    </button>
+                  </div>
+                ) : (
+                  <div>
+                    <div>
+                      {i18n._(
+                        t`Check your email inbox ${email} to verify your email address. Once you’ve done that, you’ll start getting email updates.`
+                      )}
+                    </div>
+                  </div>
+                )}
               </div>
-            ) : (
-              <div>
-                <div>
-                  {i18n._(
-                    t`Check your email inbox ${email} to verify your email address. Once you’ve done that, you’ll start getting email updates.`
-                  )}
-                </div>
-              </div>
-            )}
-          </div>
-          {!verified && (
-            <p>
-              <button className="button is-primary" onClick={() => AuthClient.resendVerifyEmail()}>
-                Resend verification email
-              </button>
-            </p>
+              {!verified && (
+                <p>
+                  <button
+                    className="button is-primary"
+                    onClick={() => AuthClient.resendVerifyEmail()}
+                  >
+                    Resend verification email
+                  </button>
+                </p>
+              )}
+            </>
           )}
-        </>
+        </div>
       )}
-    </div>
+    </I18n>
   );
 };
 
