@@ -374,8 +374,12 @@ msgid "Emergency"
 msgstr "Emergencia"
 
 #: src/components/PortfolioFilters.tsx:90
-msgid "Enter NYC zip code"
+msgid "Enter NYC Zip Code"
 msgstr ""
+
+#: src/components/PortfolioFilters.tsx:90
+#~ msgid "Enter NYC zip code"
+#~ msgstr ""
 
 #: src/containers/HomePage.tsx:89
 msgid "Enter an NYC address and find other buildings your landlord might own:"
