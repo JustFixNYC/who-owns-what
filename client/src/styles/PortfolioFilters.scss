@@ -625,19 +625,16 @@
 
     .filter-status-info {
       display: flex;
-      align-items: center;
-      gap: 0.85rem;
       text-transform: none;
-
+      color: $justfix-grey-700;
       .results-count {
         font-size: 1.6rem;
-        color: $justfix-grey-600;
-      }
-      .results-info {
-        color: $justfix-grey-600;
+        padding-right: 0.5rem;
       }
       .clear-filters {
         color: $justfix-grey-700;
+        align-self: start;
+        margin-left: 1.8rem;
       }
     }
 
