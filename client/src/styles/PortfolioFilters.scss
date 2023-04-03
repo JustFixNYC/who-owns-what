@@ -386,6 +386,7 @@
           .button.is-primary {
             align-self: center;
             margin: 0.9rem 0 1rem 0;
+            letter-spacing: 0.02em;
           }
           @include for-phone-only() {
             .minmax-container .button.is-primary {
