@@ -12,6 +12,9 @@ body {
   padding: 0;
   color: $dark !important;
   font-family: "Inconsolata", monospace !important;
+  -webkit-font-smoothing: antialiased !important; 
+  text-rendering: optimizeLegibility !important;
+  font-feature-settings: "kern" !important;
 }
 
 #root {
