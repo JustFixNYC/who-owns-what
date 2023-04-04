@@ -178,7 +178,7 @@ export const PortfolioFilters = React.memo(
             />
           </FilterAccordion>
           <FilterAccordion
-            title={i18n._(t`Zipcode`)}
+            title={i18n._(t`ZIP CODE`)}
             isMobile={isMobile}
             isActive={zipActive}
             isOpen={zipIsOpen}
@@ -198,7 +198,7 @@ export const PortfolioFilters = React.memo(
               avoidHighlightFirstOption={true}
               showCheckbox={true}
               keepSearchTerm={true}
-              emptyRecordMsg={i18n._(t`Enter NYC Zip Code`)}
+              emptyRecordMsg={i18n._(t`Enter NYC ZIP CODE`)}
               preventNonNumericalInput={true}
             />
           </FilterAccordion>

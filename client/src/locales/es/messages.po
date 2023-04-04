@@ -374,8 +374,12 @@ msgid "Emergency"
 msgstr "Emergencia"
 
 #: src/components/PortfolioFilters.tsx:90
-msgid "Enter NYC Zip Code"
+msgid "Enter NYC ZIP CODE"
 msgstr ""
+
+#: src/components/PortfolioFilters.tsx:90
+#~ msgid "Enter NYC Zip Code"
+#~ msgstr ""
 
 #: src/components/PortfolioFilters.tsx:90
 #~ msgid "Enter NYC zip code"
@@ -1514,13 +1518,18 @@ msgstr ""
 #~ msgid "You are viewing the old version of Who Owns What."
 #~ msgstr "You are viewing the old version of Who Owns What."
 
+#: src/components/PortfolioFilters.tsx:89
 #: src/components/PortfolioTable.tsx:76
-msgid "Zip Code"
+msgid "ZIP CODE"
 msgstr ""
 
+#: src/components/PortfolioTable.tsx:76
+#~ msgid "Zip Code"
+#~ msgstr ""
+
 #: src/components/PortfolioFilters.tsx:89
-msgid "Zipcode"
-msgstr "Código postal"
+#~ msgid "Zipcode"
+#~ msgstr "Código postal"
 
 #: src/components/PortfolioGraph.tsx:133
 msgid "Zoom in"

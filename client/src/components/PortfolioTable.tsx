@@ -129,7 +129,7 @@ export const PortfolioTable = React.memo((props: PortfolioTableProps) => {
         columns: [
           {
             accessorKey: "zip",
-            header: i18n._(t`Zip Code`),
+            header: i18n._(t`ZIP CODE`),
             cell: (info) => info.getValue(),
             footer: (props) => props.column.id,
             enableColumnFilter: false,
