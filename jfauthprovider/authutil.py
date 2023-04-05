@@ -73,8 +73,14 @@ def client_secret_request(url, data={}, headers={}):
         return JsonResponse({"msg": str(e)}, status=500)
 
 
-def authenticated_request(url, access_token, refresh_token, data={}, method="POST"):
+def authenticated_request(url, request, data={}, method="POST"):
     try:
+        if request.COOKIES.get("access_token") is not None:
+            access_token = request.get_signed_cookie("access_token")
+        else:
+            access_token = None
+        refresh_token = request.get_signed_cookie("refresh_token")
+
         if access_token is not None:
             headers = {"Authorization": "Bearer " + access_token}
             auth_response = base_request(os.path.join(AUTH_BASE_URL, url), data, headers, method)

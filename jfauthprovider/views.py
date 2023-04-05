@@ -54,14 +54,11 @@ def logout(request):
 @api
 def update(request):
     try:
-        access_token = request.get_signed_cookie("access_token")
-        refresh_token = request.get_signed_cookie("refresh_token")
         post_data = {"new_email": request.POST.get("new_email")}
 
         return authenticated_request(
             "user/",
-            access_token,
-            refresh_token,
+            request,
             data=post_data,
         )
     except KeyError:
@@ -84,12 +81,7 @@ def authenticate(request):
 @api
 def auth_check(request):
     try:
-        if request.COOKIES.get("access_token") is not None:
-            access_token = request.get_signed_cookie("access_token")
-        else:
-            access_token = None
-        refresh_token = request.get_signed_cookie("refresh_token")
-        return authenticated_request("user/", access_token, refresh_token, method="GET")
+        return authenticated_request("user/", request, method="GET")
     except KeyError:
         return HttpResponse(content_type="application/json", status=401)
 
@@ -97,14 +89,11 @@ def auth_check(request):
 @api
 def verify_email(request):
     try:
-        access_token = request.get_signed_cookie("access_token")
-        refresh_token = request.get_signed_cookie("refresh_token")
         code = request.GET.get("code")
 
         return authenticated_request(
             "user/verify_email/?code=" + code,
-            access_token,
-            refresh_token,
+            request,
         )
     except KeyError:
         return HttpResponse(content_type="application/json", status=401)
@@ -113,13 +102,9 @@ def verify_email(request):
 @api
 def resend_verify_email(request):
     try:
-        access_token = request.get_signed_cookie("access_token")
-        refresh_token = request.get_signed_cookie("refresh_token")
-
         return authenticated_request(
             "user/resend_verify_email/",
-            access_token,
-            refresh_token,
+            request,
             {
                 "origin": request.headers["Origin"],
             },
@@ -154,14 +139,12 @@ def password_reset(request):
 
 @api
 def password_change(request):
-    access_token = request.get_signed_cookie("access_token")
-    refresh_token = request.get_signed_cookie("refresh_token")
     post_data = {
         "current_password": request.POST.get("current_password"),
         "new_password": request.POST.get("new_password"),
     }
     return authenticated_request(
-        "user/password_change/", access_token, refresh_token, post_data
+        "user/password_change/", request, post_data
     )
 
 
@@ -170,8 +153,6 @@ class SubscriptionView(View):
     def post(self, request, *args, **kwargs):
         try:
             bbl = kwargs["bbl"]
-            access_token = request.get_signed_cookie("access_token")
-            refresh_token = request.get_signed_cookie("refresh_token")
             post_data = {
                 "housenumber": request.POST.get("housenumber"),
                 "streetname": request.POST.get("streetname"),
@@ -181,8 +162,7 @@ class SubscriptionView(View):
             }
             return authenticated_request(
                 "user/subscriptions/" + str(bbl) + "/",
-                access_token,
-                refresh_token,
+                request,
                 post_data,
             )
         except KeyError:
@@ -191,12 +171,9 @@ class SubscriptionView(View):
     def delete(self, request, *args, **kwargs):
         try:
             bbl = kwargs["bbl"]
-            access_token = request.get_signed_cookie("access_token")
-            refresh_token = request.get_signed_cookie("refresh_token")
             return authenticated_request(
                 "user/subscriptions/" + str(bbl) + "/",
-                access_token,
-                refresh_token,
+                request,
                 method="DELETE",
             )
         except KeyError:
