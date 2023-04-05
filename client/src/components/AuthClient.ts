@@ -3,7 +3,6 @@ import { JustfixUser } from "state-machine";
 import browser from "../util/browser";
 
 const BASE_URL = browser.addTrailingSlash(process.env.REACT_APP_API_BASE_URL);
-const AUTH_SERVER_BASE_URL = browser.addTrailingSlash(process.env.REACT_APP_AUTH_SERVER_BASE_URL);
 
 let _user: JustfixUser | undefined;
 const user = () => _user;
@@ -51,24 +50,6 @@ const login = async (username: string, password: string) => {
 const logout = async () => {
   await postAuthRequest(`${BASE_URL}auth/logout`);
   _user = undefined;
-};
-
-/**
- * Checks to see if a user account with this email exists
- */
-const userExists = async (username: string) => {
-  try {
-    const response = await fetch(
-      `${AUTH_SERVER_BASE_URL}user/exists/?email=${encodeURIComponent(username)}`
-    );
-    return !!response.ok;
-  } catch (e) {
-    if (e instanceof Error) {
-      throw new NetworkError(e.message);
-    } else {
-      throw new Error("Unexpected error");
-    }
-  }
 };
 
 const resetPasswordRequest = async (username: string) => {
@@ -227,7 +208,6 @@ const friendlyFetch: typeof fetch = async (input, init) => {
 };
 
 const Client = {
-  userExists,
   userAuthenticated,
   user,
   fetchUser,
