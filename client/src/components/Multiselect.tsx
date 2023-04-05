@@ -8,6 +8,7 @@ import { CloseButton } from "./CloseButton";
 import { Trans } from "@lingui/macro";
 import { Alert } from "./Alert";
 import classnames from "classnames";
+import helpers from "util/helpers";
 
 const KEY_ESC = 27;
 
@@ -31,6 +32,7 @@ export interface IMultiselectProps {
   onFocusInput?: () => void;
   infoAlert?: React.ReactNode;
   caseSensitiveSearch?: boolean;
+  preventNonNumericalInput?: boolean;
   id?: string;
   closeOnSelect?: boolean;
   avoidHighlightFirstOption?: boolean;
@@ -558,6 +560,7 @@ export class Multiselect extends React.Component<IMultiselectProps, any> {
       hideSelectedList,
       onApply,
       infoAlert,
+      preventNonNumericalInput,
     } = this.props;
     return (
       <div
@@ -606,7 +609,12 @@ export class Multiselect extends React.Component<IMultiselectProps, any> {
             value={inputValue}
             onFocus={this.onFocus}
             placeholder={hidePlaceholder && selectedValues.length ? "" : placeholder}
-            onKeyDown={this.onArrowKeyNavigation}
+            onKeyDown={(e) => {
+              if (preventNonNumericalInput) {
+                helpers.preventNonNumericalInput(e);
+              }
+              this.onArrowKeyNavigation(e);
+            }}
             style={style["inputField"]}
             autoComplete="off"
             disabled={disable}
@@ -688,6 +696,7 @@ Multiselect.defaultProps = {
   onKeyPressFn: () => {},
   onFocusInput: () => {},
   caseSensitiveSearch: false,
+  preventNonNumericalInput: false,
   id: "",
   name: "",
   closeOnSelect: true,

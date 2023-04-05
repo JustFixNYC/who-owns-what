@@ -416,6 +416,17 @@ const helpers = {
     const elem = document.querySelector(selectors);
     elem?.scroll(0, elem?.scrollHeight);
   },
+
+  /**
+   * Prevents user from typing non-numeric characters in an input field. Necessary
+   * because Firefox doesn't do this by default with type="numeric" inputs.
+   * See https://stackoverflow.com/a/49924215/7051239
+   */
+  preventNonNumericalInput(e: React.KeyboardEvent) {
+    e = e || window.event;
+    // Control keys (tab, delete, arrows, etc.) are length > 1
+    if (!/^\d$/.test(e.key) && e.key.length === 1) e.preventDefault();
+  },
 };
 
 export default helpers;
