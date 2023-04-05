@@ -75,25 +75,12 @@ def client_secret_request(url, data={}, headers={}):
 
 def authenticated_request(url, access_token, refresh_token, data={}, method="POST"):
     try:
-        if access_token is None:
-            return HttpResponse(content_type="application/json", status=401)
-
-        headers = {"Authorization": "Bearer " + access_token}
-        if method == "GET":
-            auth_response = requests.get(
-                os.path.join(AUTH_BASE_URL, url), data=data, headers=headers
-            )
-        elif method == "DELETE":
-            auth_response = requests.delete(
-                os.path.join(AUTH_BASE_URL, url), data=data, headers=headers
-            )
-        else:
-            auth_response = requests.post(
-                os.path.join(AUTH_BASE_URL, url), data=data, headers=headers
-            )
+        if access_token is not None:
+            headers = {"Authorization": "Bearer " + access_token}
+            auth_response = base_request(os.path.join(AUTH_BASE_URL, url), data, headers, method)
 
         # Attempt to automatically refresh token if expired
-        if auth_response.status_code == 403:
+        if access_token is None or auth_response.status_code == 403:
             # Request to /o/token with refresh_token
             refresh_data = {
                 "grant_type": "refresh_token",
@@ -109,9 +96,7 @@ def authenticated_request(url, access_token, refresh_token, data={}, method="POS
             headers = {
                 "Authorization": "Bearer " + refresh_response_json["access_token"]
             }
-            auth_response = requests.post(
-                os.path.join(AUTH_BASE_URL, url), data=data, headers=headers
-            )
+            auth_response = base_request(os.path.join(AUTH_BASE_URL, url), data, headers, method)
             # Set updated token for user
             return set_response_cookies(auth_response, refresh_response_json)
 
@@ -120,3 +105,18 @@ def authenticated_request(url, access_token, refresh_token, data={}, method="POS
         )
     except ValueError:
         return JsonResponse({}, status=auth_response.status_code)
+
+
+def base_request(url, data, headers, method):
+    if method == "GET":
+        return requests.get(
+            os.path.join(url), data=data, headers=headers
+        )
+    elif method == "DELETE":
+        return requests.delete(
+            os.path.join(url), data=data, headers=headers
+        )
+    else:
+        return requests.post(
+            os.path.join(url), data=data, headers=headers
+        )

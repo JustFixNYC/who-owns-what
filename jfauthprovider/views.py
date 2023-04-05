@@ -84,7 +84,10 @@ def authenticate(request):
 @api
 def auth_check(request):
     try:
-        access_token = request.get_signed_cookie("access_token")
+        if request.COOKIES.get("access_token") is not None:
+            access_token = request.get_signed_cookie("access_token")
+        else:
+            access_token = None
         refresh_token = request.get_signed_cookie("refresh_token")
         return authenticated_request("user/", access_token, refresh_token, method="GET")
     except KeyError:
