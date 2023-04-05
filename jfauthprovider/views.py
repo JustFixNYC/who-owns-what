@@ -143,9 +143,7 @@ def password_change(request):
         "current_password": request.POST.get("current_password"),
         "new_password": request.POST.get("new_password"),
     }
-    return authenticated_request(
-        "user/password_change/", request, post_data
-    )
+    return authenticated_request("user/password_change/", request, post_data)
 
 
 @method_decorator(api, name="dispatch")

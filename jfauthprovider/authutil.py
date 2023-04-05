@@ -1,5 +1,5 @@
 import json
-from django.http import HttpResponse, JsonResponse
+from django.http import JsonResponse
 import requests
 import os
 
@@ -83,7 +83,9 @@ def authenticated_request(url, request, data={}, method="POST"):
 
         if access_token is not None:
             headers = {"Authorization": "Bearer " + access_token}
-            auth_response = base_request(os.path.join(AUTH_BASE_URL, url), data, headers, method)
+            auth_response = base_request(
+                os.path.join(AUTH_BASE_URL, url), data, headers, method
+            )
 
         # Attempt to automatically refresh token if expired
         if access_token is None or auth_response.status_code == 403:
@@ -102,7 +104,9 @@ def authenticated_request(url, request, data={}, method="POST"):
             headers = {
                 "Authorization": "Bearer " + refresh_response_json["access_token"]
             }
-            auth_response = base_request(os.path.join(AUTH_BASE_URL, url), data, headers, method)
+            auth_response = base_request(
+                os.path.join(AUTH_BASE_URL, url), data, headers, method
+            )
             # Set updated token for user
             return set_response_cookies(auth_response, refresh_response_json)
 
@@ -115,14 +119,8 @@ def authenticated_request(url, request, data={}, method="POST"):
 
 def base_request(url, data, headers, method):
     if method == "GET":
-        return requests.get(
-            os.path.join(url), data=data, headers=headers
-        )
+        return requests.get(os.path.join(url), data=data, headers=headers)
     elif method == "DELETE":
-        return requests.delete(
-            os.path.join(url), data=data, headers=headers
-        )
+        return requests.delete(os.path.join(url), data=data, headers=headers)
     else:
-        return requests.post(
-            os.path.join(url), data=data, headers=headers
-        )
+        return requests.post(os.path.join(url), data=data, headers=headers)
