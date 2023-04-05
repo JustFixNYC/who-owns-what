@@ -210,7 +210,7 @@ export const PortfolioFilters = React.memo(
               <span className="results-count" role="status">
                 <Trans>
                   Showing {filteredBuildings || 0}{" "}
-                  <Plural value={filteredBuildings || 0} one="result" other="results" />.
+                  <Plural value={filteredBuildings || 0} one="result" other="results" />
                 </Trans>
               </span>
               <button className="results-info" onClick={() => setShowInfoModal(true)}>

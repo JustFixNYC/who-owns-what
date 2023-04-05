@@ -372,17 +372,8 @@ msgstr "Email"
 #: src/components/IndicatorsViz.tsx:165
 msgid "Emergency"
 msgstr "Emergencia"
-
-#: src/components/PortfolioFilters.tsx:90
-msgid "Enter NYC ZIP CODE"
-msgstr ""
-
 #: src/components/PortfolioFilters.tsx:90
 #~ msgid "Enter NYC Zip Code"
-#~ msgstr ""
-
-#: src/components/PortfolioFilters.tsx:90
-#~ msgid "Enter NYC zip code"
 #~ msgstr ""
 
 #: src/containers/HomePage.tsx:89
@@ -1060,8 +1051,12 @@ msgid "Show less"
 msgstr ""
 
 #: src/components/PortfolioFilters.tsx:97
-msgid "Showing {0} {1, plural, one {result} other {results}}."
+msgid "Showing {0} {1, plural, one {result} other {results}}"
 msgstr ""
+
+#: src/components/PortfolioFilters.tsx:97
+#~ msgid "Showing {0} {1, plural, one {result} other {results}}."
+#~ msgstr ""
 
 #: src/components/PortfolioFilters.tsx:87
 #~ msgid "Showing {filteredBuildings} {filteredBuildings, plural, one {result} other {results}}."
@@ -1519,10 +1514,8 @@ msgstr ""
 #~ msgstr "You are viewing the old version of Who Owns What."
 
 #: src/components/PortfolioFilters.tsx:89
+#: src/components/PortfolioFilters.tsx:89
 #: src/components/PortfolioTable.tsx:76
-msgid "ZIP CODE"
-msgstr ""
-
 #: src/components/PortfolioTable.tsx:76
 #~ msgid "Zip Code"
 #~ msgstr ""
