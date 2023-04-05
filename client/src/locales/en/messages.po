@@ -13,11 +13,11 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-#: src/components/Multiselect.tsx:472
+#: src/components/Multiselect.tsx:478
 msgid "\"No Options Available\""
 msgstr "\"No Options Available\""
 
-#: src/components/Multiselect.tsx:470
+#: src/components/Multiselect.tsx:476
 msgid "\"Select\""
 msgstr "\"Select\""
 
@@ -141,7 +141,7 @@ msgstr "An “eviction filing” is a legal case for eviction commenced by a lan
 #~ msgid "An “eviction filing” is a legal case for eviction commenced by a landlord against a tenant in Housing Court. Such a case can be commenced for nonpayment of rent (most commonly) or for a violation of the lease (such as a nuisance). The eviction filings number only represents cases filed in Housing Court (data from the New York State Office of Court Administration<0>via the Housing Data Coalition</0> in collaboration with the <1>Right to Counsel Coalition</1>) and not evictions carried out by NYC Marshals.<2/>If you or someone you know is facing eviction and want to learn more about your rights, head over to <3>Housing Court Answers for more information</3>.<4/>Due to privacy restrictions on the use of these data, eviction filings cannot be shown for buildings with fewer than 11 units."
 #~ msgstr "An “eviction filing” is a legal case for eviction commenced by a landlord against a tenant in Housing Court. Such a case can be commenced for nonpayment of rent (most commonly) or for a violation of the lease (such as a nuisance). The eviction filings number only represents cases filed in Housing Court (data from the New York State Office of Court Administration<0>via the Housing Data Coalition</0> in collaboration with the <1>Right to Counsel Coalition</1>) and not evictions carried out by NYC Marshals.<2/>If you or someone you know is facing eviction and want to learn more about your rights, head over to <3>Housing Court Answers for more information</3>.<4/>Due to privacy restrictions on the use of these data, eviction filings cannot be shown for buildings with fewer than 11 units."
 
-#: src/components/Multiselect.tsx:431
+#: src/components/Multiselect.tsx:437
 #: src/components/PortfolioFilters.tsx:289
 msgid "Apply"
 msgstr "Apply"
@@ -247,7 +247,7 @@ msgstr "Class C"
 msgid "Class I"
 msgstr "Class I"
 
-#: src/components/Multiselect.tsx:410
+#: src/components/Multiselect.tsx:411
 msgid "Clear"
 msgstr "Clear"
 
@@ -367,6 +367,10 @@ msgstr "Email"
 #: src/components/IndicatorsViz.tsx:165
 msgid "Emergency"
 msgstr "Emergency"
+
+#: src/components/PortfolioFilters.tsx:90
+msgid "Enter NYC ZIP CODE"
+msgstr "Enter NYC ZIP CODE"
 
 #: src/containers/HomePage.tsx:89
 msgid "Enter an NYC address and find other buildings your landlord might own:"
@@ -690,7 +694,7 @@ msgstr "Made with NYC ♥ by the team at <0>JustFix.org</0>"
 msgid "Maintenance code violations"
 msgstr "Maintenance code violations"
 
-#: src/components/Multiselect.tsx:400
+#: src/components/Multiselect.tsx:401
 msgid "Make a selection from the list or clear search text"
 msgstr "Make a selection from the list or clear search text"
 
@@ -1038,7 +1042,7 @@ msgstr "Share this page with your neighbors"
 msgid "Shareholder"
 msgstr "Shareholder"
 
-#: src/components/Multiselect.tsx:319
+#: src/components/Multiselect.tsx:320
 msgid "Show less"
 msgstr "Show less"
 
@@ -1507,8 +1511,13 @@ msgstr "You are viewing a legacy version of Who Owns What"
 
 #: src/components/PortfolioFilters.tsx:89
 #: src/components/PortfolioTable.tsx:76
-msgid "Zipcode"
-msgstr "Zipcode"
+msgid "ZIP CODE"
+msgstr "ZIP CODE"
+
+#: src/components/PortfolioFilters.tsx:89
+#: src/components/PortfolioTable.tsx:76
+#~ msgid "Zipcode"
+#~ msgstr "Zipcode"
 
 #: src/components/PortfolioGraph.tsx:133
 msgid "Zoom in"

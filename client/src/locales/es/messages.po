@@ -18,11 +18,11 @@ msgstr ""
 "X-Crowdin-File: /master/client/src/locales/en/messages.po\n"
 "X-Crowdin-File-ID: 31\n"
 
-#: src/components/Multiselect.tsx:472
+#: src/components/Multiselect.tsx:478
 msgid "\"No Options Available\""
 msgstr ""
 
-#: src/components/Multiselect.tsx:470
+#: src/components/Multiselect.tsx:476
 msgid "\"Select\""
 msgstr ""
 
@@ -146,7 +146,7 @@ msgstr "Una \"demanda de desalojo\" es un caso legal de desalojo iniciado por un
 #~ msgid "An “eviction filing” is a legal case for eviction commenced by a landlord against a tenant in Housing Court. Such a case can be commenced for nonpayment of rent (most commonly) or for a violation of the lease (such as a nuisance). The eviction filings number only represents cases filed in Housing Court (data from the New York State Office of Court Administration<0>via the Housing Data Coalition</0> in collaboration with the <1>Right to Counsel Coalition</1>) and not evictions carried out by NYC Marshals.<2/>If you or someone you know is facing eviction and want to learn more about your rights, head over to <3>Housing Court Answers for more information</3>.<4/>Due to privacy restrictions on the use of these data, eviction filings cannot be shown for buildings with fewer than 11 units."
 #~ msgstr "An “eviction filing” is a legal case for eviction commenced by a landlord against a tenant in Housing Court. Such a case can be commenced for nonpayment of rent (most commonly) or for a violation of the lease (such as a nuisance). The eviction filings number only represents cases filed in Housing Court (data from the New York State Office of Court Administration<0>via the Housing Data Coalition</0> in collaboration with the <1>Right to Counsel Coalition</1>) and not evictions carried out by NYC Marshals.<2/>If you or someone you know is facing eviction and want to learn more about your rights, head over to <3>Housing Court Answers for more information</3>.<4/>Due to privacy restrictions on the use of these data, eviction filings cannot be shown for buildings with fewer than 11 units."
 
-#: src/components/Multiselect.tsx:431
+#: src/components/Multiselect.tsx:437
 #: src/components/PortfolioFilters.tsx:289
 msgid "Apply"
 msgstr ""
@@ -252,7 +252,7 @@ msgstr "Clase C"
 msgid "Class I"
 msgstr "Clase I"
 
-#: src/components/Multiselect.tsx:410
+#: src/components/Multiselect.tsx:411
 msgid "Clear"
 msgstr ""
 
@@ -372,6 +372,10 @@ msgstr "Email"
 #: src/components/IndicatorsViz.tsx:165
 msgid "Emergency"
 msgstr "Emergencia"
+
+#: src/components/PortfolioFilters.tsx:90
+msgid "Enter NYC ZIP CODE"
+msgstr ""
 
 #: src/containers/HomePage.tsx:89
 msgid "Enter an NYC address and find other buildings your landlord might own:"
@@ -695,7 +699,7 @@ msgstr "Hecho en NYC con ♥ por el equipo de <0>JustFix.org</0>"
 msgid "Maintenance code violations"
 msgstr "Violaciones del código de mantenimiento"
 
-#: src/components/Multiselect.tsx:400
+#: src/components/Multiselect.tsx:401
 msgid "Make a selection from the list or clear search text"
 msgstr ""
 
@@ -1043,7 +1047,7 @@ msgstr "Comparte esta página con tus vecinos"
 msgid "Shareholder"
 msgstr "Accionista"
 
-#: src/components/Multiselect.tsx:319
+#: src/components/Multiselect.tsx:320
 msgid "Show less"
 msgstr ""
 
@@ -1512,8 +1516,13 @@ msgstr ""
 
 #: src/components/PortfolioFilters.tsx:89
 #: src/components/PortfolioTable.tsx:76
-msgid "Zipcode"
-msgstr "Código postal"
+msgid "ZIP CODE"
+msgstr ""
+
+#: src/components/PortfolioFilters.tsx:89
+#: src/components/PortfolioTable.tsx:76
+#~ msgid "Zipcode"
+#~ msgstr "Código postal"
 
 #: src/components/PortfolioGraph.tsx:133
 msgid "Zoom in"
