@@ -329,8 +329,9 @@
               outline-offset: -2px;
             }
             input {
-              width: -webkit-fill-available;
-              height: -webkit-fill-available;
+              &::placeholder {
+                color: $justfix-grey-600;
+              }
             }
           }
 
