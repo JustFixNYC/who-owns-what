@@ -178,7 +178,7 @@ export const PortfolioFilters = React.memo(
             />
           </FilterAccordion>
           <FilterAccordion
-            title={i18n._(t`Zipcode`)}
+            title={i18n._(t`ZIP CODE`)}
             isMobile={isMobile}
             isActive={zipActive}
             isOpen={zipIsOpen}
@@ -198,6 +198,8 @@ export const PortfolioFilters = React.memo(
               avoidHighlightFirstOption={true}
               showCheckbox={true}
               keepSearchTerm={true}
+              emptyRecordMsg={i18n._(t`Enter NYC ZIP CODE`)}
+              preventNonNumericalInput={true}
             />
           </FilterAccordion>
         </FiltersWrapper>
@@ -527,7 +529,7 @@ function MinMaxSelect(props: {
             min={options[0]}
             max={options[1]}
             value={minMax[0] == null ? "" : minMax[0]}
-            onKeyDown={preventNonNumericalInput}
+            onKeyDown={helpers.preventNonNumericalInput}
             onChange={(e) => {
               setMinMaxErrors([false, false, undefined]);
               setMinMax([cleanNumberInput(e.target.value), minMax[1]]);
@@ -542,7 +544,7 @@ function MinMaxSelect(props: {
             min={options[0]}
             max={options[1]}
             value={minMax[1] == null ? "" : minMax[1]}
-            onKeyDown={preventNonNumericalInput}
+            onKeyDown={helpers.preventNonNumericalInput}
             onChange={(e) => {
               setMinMaxErrors([false, false, undefined]);
               setMinMax([minMax[0], cleanNumberInput(e.target.value)]);
@@ -606,11 +608,4 @@ function minMaxHasError(values: FilterNumberRange, options: FilterNumberRange): 
   }
 
   return [minHasError, maxHasError, errorMessage];
-}
-
-// Firefox doesn't prevent typing non-numeric characters
-// https://stackoverflow.com/a/49924215/7051239
-function preventNonNumericalInput(e: React.KeyboardEvent) {
-  e = e || window.event;
-  if (!/^\d*$/.test(e.key) && e.key in ["Enter", "Delete"]) e.preventDefault();
 }
