@@ -8,8 +8,6 @@ import { withI18n } from "@lingui/react";
 import { Trans } from "@lingui/macro";
 import { UserContext } from "./UserContext";
 import PasswordInput from "./PasswordInput";
-import { LocaleLink } from "i18n";
-import { createWhoOwnsWhatRoutePaths } from "routes";
 import { JustfixUser } from "state-machine";
 
 type PasswordRule = {
@@ -36,13 +34,13 @@ type LoginProps = {
 
 // class LoginWithoutI18n extends React.Component<LoginProps, State> {
 const LoginWithoutI18n = (props: LoginProps) => {
-  const { account } = createWhoOwnsWhatRoutePaths();
   const { onSuccess, handleLoginRedirect } = props;
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
   const [formState, setFormState] = useState<"username" | "password">("username");
+  const [loginState, setLoginState] = useState<"login" | "register">("register");
   const userContext = useContext(UserContext);
 
   const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -64,7 +62,10 @@ const LoginWithoutI18n = (props: LoginProps) => {
       return;
     }
 
-    const loginMessage = await userContext.login(username, password, onSuccess);
+    const loginMessage =
+      loginState === "login"
+        ? await userContext.login(username, password, onSuccess)
+        : await userContext.register(username, password, onSuccess);
     if (!!loginMessage) {
       setMessage(loginMessage);
     } else if (handleLoginRedirect) {
@@ -87,23 +88,41 @@ const LoginWithoutI18n = (props: LoginProps) => {
           value={username}
         />
         {formState === "password" && (
-          <>
-            <div className="login-password-label">
-              <Trans render="label">Enter password</Trans>
-              <LocaleLink to={`${account.forgotPassword}?email=${encodeURIComponent(username)}`}>
-                Forgot your password?
-              </LocaleLink>
-            </div>
-            <PasswordInput onChange={setPassword} />
-          </>
+          <PasswordInput
+            username={username}
+            showForgotPassword={loginState === "login"}
+            showPasswordRules={loginState === "register"}
+            onChange={setPassword}
+          />
         )}
         <input
           type="submit"
           className="button is-primary"
-          value={`Get updates`}
+          value={
+            formState === "username" ? `Get updates` : loginState === "login" ? "Log in" : "Sign up"
+          }
           disabled={!validatePassword(password) && formState === "password"}
         />
       </form>
+      {formState === "password" && (
+        <p>
+          {loginState === "login" ? (
+            <>
+              <span>Don't have an account? </span>
+              <button className="link-button" onClick={() => setLoginState("register")}>
+                Sign Up
+              </button>
+            </>
+          ) : (
+            <>
+              <span>Already have an account?</span>
+              <button className="link-button" onClick={() => setLoginState("login")}>
+                Log in
+              </button>
+            </>
+          )}
+        </p>
+      )}
       {message && <p className="login-response-text">{message}</p>}
     </div>
   );

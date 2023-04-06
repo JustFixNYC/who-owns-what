@@ -29,8 +29,8 @@ const setUser = (user: JustfixUser) => (_user = user);
  * Authenticates a user with the given email and password.
  * Creates an account for this user if one does not already exist.
  */
-const authenticate = async (username: string, password: string) => {
-  const json = await postAuthRequest(`${BASE_URL}auth/authenticate`, { username, password });
+const register = async (username: string, password: string) => {
+  const json = await postAuthRequest(`${BASE_URL}auth/register`, { username, password });
   fetchUser();
   return json;
 };
@@ -212,7 +212,7 @@ const Client = {
   user,
   fetchUser,
   setUser,
-  authenticate,
+  register,
   login,
   logout,
   verifyEmail,
