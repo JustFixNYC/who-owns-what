@@ -4,6 +4,11 @@ import AuthClient from "./AuthClient";
 
 export type UserContextProps = {
   user?: JustfixUser;
+  register: (
+    username: string,
+    password: string,
+    onSuccess?: (user: JustfixUser) => void
+  ) => Promise<string | void>;
   login: (
     username: string,
     password: string,
@@ -26,6 +31,11 @@ export type UserContextProps = {
 };
 
 const initialState: UserContextProps = {
+  register: async (
+    username: string,
+    password: string,
+    onSuccess?: (user: JustfixUser) => void
+  ) => {},
   login: async (username: string, password: string, onSuccess?: (user: JustfixUser) => void) => {},
   logout: () => {},
   subscribe: (
@@ -63,9 +73,29 @@ export const UserContextProvider = ({ children }: { children: React.ReactNode })
     asyncFetchUser();
   }, []);
 
+  const register = useCallback(
+    async (username: string, password: string, onSuccess?: (user: JustfixUser) => void) => {
+      const response = await AuthClient.register(username, password);
+      if (!response.error && response.user) {
+        const _user = {
+          ...response.user,
+          subscriptions:
+            response.user.subscriptions?.map((s: any) => {
+              return { ...s };
+            }) || [],
+        };
+        setUser(_user);
+        if (onSuccess) onSuccess(_user);
+      } else {
+        return response.error_description;
+      }
+    },
+    []
+  );
+
   const login = useCallback(
     async (username: string, password: string, onSuccess?: (user: JustfixUser) => void) => {
-      const response = await AuthClient.authenticate(username, password);
+      const response = await AuthClient.login(username, password);
       if (!response.error && response.user) {
         const _user = {
           ...response.user,
@@ -173,6 +203,7 @@ export const UserContextProvider = ({ children }: { children: React.ReactNode })
   const providerValue = useMemo(
     () => ({
       user,
+      register,
       login,
       logout,
       subscribe,
@@ -184,6 +215,7 @@ export const UserContextProvider = ({ children }: { children: React.ReactNode })
     }),
     [
       user,
+      register,
       login,
       logout,
       subscribe,

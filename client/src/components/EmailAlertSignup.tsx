@@ -96,12 +96,7 @@ const EmailAlertSignupWithoutI18n = (props: EmailAlertProps) => {
                 <Trans render="label">Get email updates for this building</Trans>
                 <div className="table-content email-alert-content">
                   <Trans>
-                    In each weekly email are updates for:
-                    <ul>
-                      <li>HPD Complaints</li>
-                      <li>HPD Violations</li>
-                      <li>Eviction filings</li>
-                    </ul>
+                    Each weekly email includes HPD Complaints, HPD Violations, and Eviction Filings.
                   </Trans>
                 </div>
                 {!user ? (

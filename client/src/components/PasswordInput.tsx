@@ -4,6 +4,9 @@ import "styles/Password.css";
 import "styles/_input.scss";
 
 import { withI18n } from "@lingui/react";
+import { Trans } from "@lingui/macro";
+import { LocaleLink } from "i18n";
+import { createWhoOwnsWhatRoutePaths } from "routes";
 
 type PasswordRule = {
   regex: RegExp;
@@ -22,11 +25,16 @@ export const validatePassword = (password: string) => {
 };
 
 type PasswordInputProps = {
+  username?: string;
+  showForgotPassword?: boolean;
+  showPasswordRules?: boolean;
   onChange?: (password: string) => void;
 };
 
 const PasswordInputWithoutI18n = (props: PasswordInputProps) => {
-  const { onChange } = props;
+  const { account } = createWhoOwnsWhatRoutePaths();
+
+  const { username, showForgotPassword, showPasswordRules, onChange } = props;
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
@@ -37,6 +45,25 @@ const PasswordInputWithoutI18n = (props: PasswordInputProps) => {
 
   return (
     <>
+      <div className="login-password-label">
+        <Trans render="label">Enter password</Trans>
+        {showForgotPassword && (
+          <LocaleLink to={`${account.forgotPassword}?email=${encodeURIComponent(username || "")}`}>
+            Forgot your password?
+          </LocaleLink>
+        )}
+      </div>
+      {showPasswordRules &&
+        passwordRules.map((rule, i) => {
+          return (
+            <span
+              className={`password-input-rule ${password.match(rule.regex) ? "valid" : "invalid"}`}
+              key={`rule-${i}`}
+            >
+              {rule.label}
+            </span>
+          );
+        })}
       <div className="password-input">
         <input
           type={showPassword ? "text" : "password"}
@@ -46,19 +73,9 @@ const PasswordInputWithoutI18n = (props: PasswordInputProps) => {
           value={password}
         />
         <button type="button" onClick={() => setShowPassword(!showPassword)}>
-          Show
+          {showPassword ? "Hide" : "Show"}
         </button>
       </div>
-      {passwordRules.map((rule, i) => {
-        return (
-          <span
-            className={`password-input-rule ${password.match(rule.regex) ? "valid" : "invalid"}`}
-            key={`rule-${i}`}
-          >
-            {rule.label}
-          </span>
-        );
-      })}
     </>
   );
 };

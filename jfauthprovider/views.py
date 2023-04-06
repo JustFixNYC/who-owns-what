@@ -22,7 +22,7 @@ def login(request):
         "password": request.POST.get("password"),
     }
 
-    response = client_secret_request("o/token/", post_data)
+    response = client_secret_request("user/login/", post_data)
     return set_response_cookies(response, response.json())
 
 
@@ -66,7 +66,7 @@ def update(request):
 
 
 @api
-def authenticate(request):
+def register(request):
     post_data = {
         "grant_type": "password",
         "username": request.POST.get("username"),
@@ -74,7 +74,7 @@ def authenticate(request):
         "origin": request.headers["Origin"],
     }
 
-    response = client_secret_request("user/authenticate/", post_data)
+    response = client_secret_request("user/register/", post_data)
     return set_response_cookies(response, response.json())
 
 
