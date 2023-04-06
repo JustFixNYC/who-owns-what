@@ -79,6 +79,7 @@ const BuildingSubscribe = withI18n()(BuildingSubscribeWithoutI18n);
 type EmailAlertProps = BuildingSubscribeProps;
 
 const EmailAlertSignupWithoutI18n = (props: EmailAlertProps) => {
+  const { bbl, housenumber, streetname, zip, boro } = props;
   const userContext = useContext(UserContext);
   const { user } = userContext;
 
@@ -103,7 +104,15 @@ const EmailAlertSignupWithoutI18n = (props: EmailAlertProps) => {
                     </ul>
                   </Trans>
                 </div>
-                {!user ? <Login /> : <BuildingSubscribe {...props} />}
+                {!user ? (
+                  <Login
+                    onSuccess={(user: JustfixUser) =>
+                      userContext.subscribe(bbl, housenumber, streetname, zip, boro, user)
+                    }
+                  />
+                ) : (
+                  <BuildingSubscribe {...props} />
+                )}
               </div>
             )}
           </I18n>

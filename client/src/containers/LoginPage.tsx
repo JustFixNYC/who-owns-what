@@ -24,7 +24,7 @@ const LoginPage = withI18n()((props: withI18nProps) => {
       <div className="LoginPage Page">
         <div className="page-container">
           <Trans render="h4">Login to your account</Trans>
-          <Login onSuccess={redirect} />
+          <Login handleLoginRedirect={redirect} />
         </div>
         <LegalFooter />
       </div>

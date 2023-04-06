@@ -10,6 +10,7 @@ import { UserContext } from "./UserContext";
 import PasswordInput from "./PasswordInput";
 import { LocaleLink } from "i18n";
 import { createWhoOwnsWhatRoutePaths } from "routes";
+import { JustfixUser } from "state-machine";
 
 type PasswordRule = {
   regex: RegExp;
@@ -29,13 +30,14 @@ const validatePassword = (password: string) => {
 
 type LoginProps = {
   i18n: I18n;
-  onSuccess?: () => void;
+  onSuccess?: (user: JustfixUser) => void;
+  handleLoginRedirect?: () => void;
 };
 
 // class LoginWithoutI18n extends React.Component<LoginProps, State> {
 const LoginWithoutI18n = (props: LoginProps) => {
   const { account } = createWhoOwnsWhatRoutePaths();
-  const { onSuccess } = props;
+  const { onSuccess, handleLoginRedirect } = props;
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -62,11 +64,11 @@ const LoginWithoutI18n = (props: LoginProps) => {
       return;
     }
 
-    const loginMessage = await userContext.login(username, password);
+    const loginMessage = await userContext.login(username, password, onSuccess);
     if (!!loginMessage) {
       setMessage(loginMessage);
-    } else if (onSuccess) {
-      onSuccess();
+    } else if (handleLoginRedirect) {
+      handleLoginRedirect();
     }
   };
 
