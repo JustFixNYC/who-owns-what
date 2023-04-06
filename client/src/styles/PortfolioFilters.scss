@@ -178,6 +178,8 @@
 
         &.zip-accordion .dropdown-container {
           width: 15rem;
+          height: 500px;
+          width: 200px;
           @include for-phone-only {
             width: unset;
           }
@@ -703,3 +705,4 @@
     color: $justfix-black;
   }
 }
+

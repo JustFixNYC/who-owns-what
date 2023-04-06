@@ -1,0 +1,95 @@
+@import "./vars";
+@import "./typography";
+
+.multiselect-container2 {
+  display: flex;
+  flex-direction: column;
+  font-family: $wow-font;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 100%;
+  letter-spacing: 0.02em;
+  padding: 0 1.2rem;
+
+  &.hasError .multiselect__input-container {
+    border: 0.2rem $justfix-orange solid;
+  }
+
+  .multiselect__control {
+    background: none;
+    border: none;
+    box-shadow: none;
+    min-height: unset;
+
+    .multiselect__value-container,
+    .multiselect__input-container {
+      flex: 1 1 100%;
+    }
+
+    .multiselect__value-container {
+      gap: 0.6rem;
+      padding: 0;
+      margin: 0;
+
+      .multiselect__multi-value {
+        background-color: $justfix-black;
+        border-radius: 0.8rem;
+        padding: 0.8rem 1.4rem;
+        margin: 0;
+        white-space: pre-line;
+        gap: 0.5rem;
+
+        .multiselect__multi-value__label,
+        .multiselect__multi-value__remove {
+          color: $justfix-grey-50;
+        }
+        .multiselect__multi-value__label {
+          text-transform: uppercase;
+          font-size: 1.4rem;
+          padding: 0;
+        }
+
+        .multiselect__multi-value__remove {
+          padding: 0;
+        }
+      }
+
+      .multiselect__input-container,
+      .multiselect__placeholder {
+        padding: 0.5rem;
+        margin: 0;
+      }
+    //   .multiselect__placeholder {
+    //     height: 100%;
+    //     display: flex;
+    //     align-items: center;
+    //   }
+
+      .multiselect__input-container {
+        background-color: $justfix-white;
+        border: 0.1rem $justfix-black solid;
+        border-radius: 0.2rem 0.2rem 0 0;
+        font-size: 1.6rem;
+
+        &::placeholder,
+        &::-moz-placeholder,
+        &::-webkit-input-placeholder {
+          color: $justfix-grey-600;
+          text-transform: uppercase;
+        }
+        // &::after {
+        //   content: none;
+        // }
+      }
+    }
+  }
+  .multiselect__menu {
+    margin: 0;
+    border-radius: 0 0 0.2rem 0.2rem;
+    position: relative;
+    border: 0.1rem $justfix-grey-400 solid;
+    border-top: none;
+    box-shadow: none;
+    background-color: $justfix-white;
+  }
+}

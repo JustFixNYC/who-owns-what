@@ -16,6 +16,7 @@ import { isLegacyPath } from "./WowzaToggle";
 import { useLocation } from "react-router-dom";
 import Browser from "../util/browser";
 import helpers from "util/helpers";
+import MultiSelect, {Option } from "./MultiSelect2";
 
 type PortfolioFiltersProps = {
   i18n: I18n;
@@ -105,6 +106,33 @@ export const PortfolioFilters = React.memo(
       });
     };
 
+    const zipOptionsSelect: Option[] = zipOptions
+      ? zipOptions.map((val: string) => ({ value: val, label: val }))
+      : [];
+
+    // interface ColourOption {
+    //   readonly value: string;
+    //   readonly label: string;
+    // }
+
+    // const colourOptions: readonly ColourOption[] = [
+    //   { value: "ocean", label: "Ocean" },
+    //   { value: "blue", label: "Blue" },
+    //   { value: "purple", label: "Purple" },
+    //   { value: "red", label: "Red" },
+    //   { value: "orange", label: "Orange" },
+    //   { value: "yellow", label: "Yellow" },
+    //   { value: "green", label: "Green" },
+    //   { value: "forest", label: "Forest" },
+    //   { value: "slate", label: "Slate" },
+    //   { value: "silver", label: "Silver" },
+    // ];
+
+    // console.log(zipOptionsSelect);
+    // console.log(colourOptions);
+    console.log(filterContext);
+
+
     const activeFilters = { rsunitslatestActive, ownernamesActive, unitsresActive, zipActive };
 
     return (
@@ -183,11 +211,11 @@ export const PortfolioFilters = React.memo(
             isActive={zipActive}
             isOpen={zipIsOpen}
             setIsOpen={setZipIsOpen}
-            initialFocus={isMobile ? undefined : "#filter-zip-multiselect_input"}
+            // initialFocus={isMobile ? undefined : "#filter-zip-multiselect_input"}
             selectionsCount={filterContext.filterSelections.zip.length}
             className="zip-accordion"
           >
-            <Multiselect
+            {/* <Multiselect
               options={zipOptions.map((value: any) => ({ name: value, id: value }))}
               selectedValues={zipSelections}
               displayValue="name"
@@ -200,6 +228,27 @@ export const PortfolioFilters = React.memo(
               keepSearchTerm={true}
               emptyRecordMsg={i18n._(t`Enter NYC ZIP CODE`)}
               preventNonNumericalInput={true}
+            /> */}
+            {/* <Select
+              isMulti
+              options={zipOptionsSelect}
+              // value={zipSelections.map((val: string) => ({value: val, label: val}))}
+              onChange={(newValue, actionMeta) => {
+                console.log({ newValue, actionMeta });
+              }}
+              hideSelectedOptions={false}
+              closeMenuOnSelect={false}
+              backspaceRemovesValue={false}
+              tabSelectsValue={false}
+              placeholder={i18n._(t`Search`) + `... (${zipOptions.length})`}
+              autoFocus={!isMobile}
+              noOptionsMessage={() => i18n._(t`ZIP CODE is not applicable`)}
+            /> */}
+            <MultiSelect 
+              id="filter-zip-multiselect"
+              options={zipOptionsSelect}
+              onApply={onZipApply}
+              i18n={i18n}
             />
           </FilterAccordion>
         </FiltersWrapper>
