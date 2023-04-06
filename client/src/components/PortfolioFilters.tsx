@@ -198,7 +198,7 @@ export const PortfolioFilters = React.memo(
               avoidHighlightFirstOption={true}
               showCheckbox={true}
               keepSearchTerm={true}
-              emptyRecordMsg={i18n._(t`Enter NYC ZIP CODE`)}
+              emptyRecordMsg={i18n._(t`ZIP CODE is not applicable`)}
               preventNonNumericalInput={true}
             />
           </FilterAccordion>
