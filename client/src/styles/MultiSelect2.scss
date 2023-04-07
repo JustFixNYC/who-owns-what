@@ -50,6 +50,11 @@
         &:hover {
           background-color: inherit;
         }
+        svg {
+          width: 1rem;
+          height: 1rem;
+          stroke-width: 0.3rem;
+        }
       }
     }
 
@@ -101,6 +106,7 @@
         border: 0.1rem solid $justfix-black;
         border-radius: 0.2rem 0.2rem 0 0;
         font-size: 1.6rem;
+        color: $justfix-black;
 
         &::placeholder,
         &::-moz-placeholder,

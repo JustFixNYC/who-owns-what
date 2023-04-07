@@ -226,6 +226,7 @@ export const PortfolioFilters = React.memo(
               options={zipOptionsSelect}
               onApply={onZipApply}
               i18n={i18n}
+              noOptionsMessage={() => i18n._(t`ZIP code is not applicable`)}
             />
           </FilterAccordion>
         </FiltersWrapper>

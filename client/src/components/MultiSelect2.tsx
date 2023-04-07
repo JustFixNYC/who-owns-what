@@ -1,9 +1,16 @@
 import React, { useCallback, useState } from "react";
-import Select, { components, Props, ContainerProps, GroupBase } from "react-select";
+import Select, {
+  components,
+  Props,
+  ContainerProps,
+  GroupBase,
+  MultiValueRemoveProps,
+} from "react-select";
 import { I18n } from "@lingui/core";
 import { t, Trans } from "@lingui/macro";
 import { Alert } from "./Alert";
 import "../styles/MultiSelect2.scss";
+import { CloseIcon } from "./Icons";
 
 // Example of separating out selected values (sadly with many typescript errors, which I've tried to address)
 // https://github.com/JedWatson/react-select/discussions/4850
@@ -112,8 +119,8 @@ function MultiSelect<
           IndicatorSeparator: () => null,
           IndicatorsContainer: () => null,
           ClearIndicator: () => null,
-          // @ts-ignore
-          SelectContainer,
+          SelectContainer: SelectContainer,
+          // MultiValueRemove: CustomMultiValueRemove,
         }}
         // Custom props passed through SelectProps to composable components
         removeValue={removeValue}
@@ -173,7 +180,7 @@ function SelectedValuesContainer<
         components={{
           Container: components.MultiValueContainer,
           Label: components.MultiValueLabel,
-          Remove: components.MultiValueRemove,
+          Remove: CustomMultiValueRemove,
         }}
         // TODO: Can't know when it's "focused" via arrow key navigation, it's not using ::focus,
         // and the classes don't change. The screen-reader works though, and can close with curosr.
@@ -246,7 +253,7 @@ function SelectContainer<
     >
       {/* @ts-ignore (TODO: wants extra props defined like above, but I'm not sure what to use, and in the sample it works correctly) */}
       <SelectedValuesContainer {...commonProps} />
-      <div className={`${classNamePrefix}__selected-value-control-container`} tabIndex={0}>
+      <div className={`${classNamePrefix}__selected-value-control-container`}>
         {showAllSelections && getValue().length > previewSelectedNum && (
           <button
             className={`${classNamePrefix}__show-less-button button is-text`}
@@ -269,6 +276,18 @@ function SelectContainer<
       </div>
       {children}
     </components.SelectContainer>
+  );
+}
+
+function CustomMultiValueRemove<
+  Option,
+  IsMulti extends boolean = true,
+  GroupType extends GroupBase<Option> = GroupBase<Option>
+>(props: MultiValueRemoveProps<Option, IsMulti, GroupType>) {
+  return (
+    <components.MultiValueRemove {...props}>
+      <CloseIcon />
+    </components.MultiValueRemove>
   );
 }
 
