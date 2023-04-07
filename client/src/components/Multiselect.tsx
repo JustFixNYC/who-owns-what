@@ -26,7 +26,7 @@ interface CustomMultiselectProps {
   onApply: (selectedList: any) => void;
   i18n: I18n;
   previewSelectedNum?: number;
-  infoAlert?: React.ReactNode;
+  infoAlert?: JSX.Element;
 }
 
 interface CustomSelectProps {
@@ -132,7 +132,9 @@ function MultiSelect<
         previewSelectedNum={previewSelectedNum || 5}
         {...props}
       />
-      {infoAlert && infoAlert}
+
+      {infoAlert}
+
       <button
         className="button is-primary"
         onClick={() => {

@@ -5,7 +5,7 @@
 .jf-alert {
   display: flex;
   position: relative;
-  padding: 1.15rem 0.6rem 1.15rem 2.3rem;
+  padding: 0 0 1rem 2.5rem;
   width: fit-content;
   border-radius: 0.4rem;
   font-family: "Inconsolata", monospace;
@@ -20,22 +20,25 @@
     top: 0;
     left: 0;
     bottom: 0;
-    border-radius: 0.4rem 0 0 0.4rem;
+    border-radius: 0.3rem 0 0 0.3rem;
   }
 
   div.jf-alert__content {
     margin-right: auto;
+    padding-top: 1rem;
   }
 
   button.jf-alert__close {
     align-self: flex-start;
+    padding: 1rem 1rem 1.2rem 1.2rem;
     &:focus-visible {
       outline: 2px solid $focus-outline-color;
     }
-  }
-
-  .closeIcon {
-    stroke-width: 2px;
+    .closeIcon {
+      height: 1.2rem;
+      width: 1.2rem;
+      stroke-width: 0.2rem;
+    }
   }
 
   &.is-primary {

@@ -124,6 +124,7 @@
     background-color: $justfix-white;
 
     .multiselect__menu-list {
+      max-height: 25rem;
       .multiselect__option {
         background-color: unset;
         display: flex;

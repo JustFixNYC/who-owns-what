@@ -226,6 +226,13 @@
             }
           }
 
+          .multiselect-container2 {
+            .ownernames-info-alert {
+              color: $justfix-grey-600;
+              border: 0.1rem solid $justfix-grey-400;
+            }
+          }
+
           .multiselect-container,
           .minmax-container {
             display: flex;

@@ -34,7 +34,6 @@ export const PortfolioFilters = React.memo(
     const { filterContext, setFilterContext } = React.useContext(FilterContext);
     const { filteredBuildings } = filterContext;
     const { ownernames: ownernamesOptions, zip: zipOptions } = filterContext.filterOptions;
-    const { ownernames: ownernamesSelections, zip: zipSelections } = filterContext.filterSelections;
 
     const [rsunitslatestActive, setRsunitslatestActive] = React.useState(false);
     const updateRsunitslatest = () => {
@@ -425,7 +424,7 @@ const ZeroResultsAlert = (
 
 const OwnernamesInfoAlert = (
   <Alert
-    className="owner-info-alert"
+    className="ownernames-info-alert"
     type="info"
     variant="secondary"
     closeType="session"
