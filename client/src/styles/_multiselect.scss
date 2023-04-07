@@ -14,10 +14,6 @@
   padding: 1.2rem;
   gap: 1.2rem;
 
-  &.hasError .multiselect__input-container {
-    border: 0.2rem solid $justfix-orange;
-  }
-
   .multiselect__selected-value-container {
     display: flex;
     flex-wrap: wrap;
@@ -165,4 +161,11 @@
       }
     }
   }
+}
+
+.multiselect-container2.has-error
+  .multiselect__control
+  .multiselect__value-container
+  .multiselect__input-container {
+  border: 0.2rem solid $justfix-orange;
 }

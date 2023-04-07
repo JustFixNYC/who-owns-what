@@ -11,6 +11,7 @@ import { I18n } from "@lingui/core";
 import { t, Trans } from "@lingui/macro";
 import { Alert } from "./Alert";
 import { CloseIcon, CheckIcon } from "./Icons";
+import classnames from "classnames";
 
 // Example of separating out selected values (sadly with many typescript errors, which I've tried to address)
 // https://github.com/JedWatson/react-select/discussions/4850
@@ -75,6 +76,7 @@ function MultiSelect<
   const handleInputChange = useCallback(
     (newValue, actionMeta) => {
       if (onInputChange) onInputChange(newValue, actionMeta);
+      if (!newValue) setHasError(false);
       if (actionMeta.action !== "input-blur" && actionMeta.action !== "menu-close") {
         setInputValue(newValue);
       }
@@ -90,7 +92,12 @@ function MultiSelect<
   );
 
   return (
-    <div className="multiselect-container2">
+    <div className={classnames("multiselect-container2", { "has-error": hasError })}>
+      {hasError && (
+        <Alert type="error" variant="primary" closeType="none" role="status">
+          <Trans>Make a selection from the list or clear search text</Trans>
+        </Alert>
+      )}
       <CustomSelect
         isMulti={true as IsMulti}
         classNamePrefix="multiselect"
@@ -125,11 +132,6 @@ function MultiSelect<
         previewSelectedNum={previewSelectedNum || 5}
         {...props}
       />
-      {hasError && (
-        <Alert type="error" variant="primary" closeType="none" role="status">
-          <Trans>Make a selection from the list or clear search text</Trans>
-        </Alert>
-      )}
       {infoAlert && infoAlert}
       <button
         className="button is-primary"
@@ -138,9 +140,9 @@ function MultiSelect<
           const selectedValues = selections.map((v) => ({ name: v.value || "", id: v.label }));
           if (!selectedValues.length && !!inputValue) {
             setHasError(true);
-            return;
+          } else {
+            onApply(selectedValues);
           }
-          onApply(selectedValues);
         }}
       >
         <Trans>Apply</Trans>
