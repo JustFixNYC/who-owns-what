@@ -4,7 +4,6 @@ import { I18n } from "@lingui/core";
 import { t, Trans } from "@lingui/macro";
 import { Alert } from "./Alert";
 import "../styles/MultiSelect2.scss";
-import classNames from "classnames";
 
 // Example of separating out selected values (sadly with many typescript errors, which I've tried to address)
 // https://github.com/JedWatson/react-select/discussions/4850
@@ -24,6 +23,19 @@ interface CustomMultiselectProps {
 
 interface CustomSelectProps {
   removeValue: (removed: any) => void;
+  onApply: (selectedList: any) => void;
+  setSelections: (x: any) => void;
+  previewSelectedNum: number;
+  showAllSelections: boolean;
+  setShowAllSelections: (x: any) => void;
+}
+
+function CustomSelect<
+  Option,
+  IsMulti extends boolean = true,
+  GroupType extends GroupBase<Option> = GroupBase<Option>
+>(props: Props<Option, IsMulti, GroupType> & CustomSelectProps) {
+  return <Select {...props} />;
 }
 
 function MultiSelect<
@@ -36,17 +48,19 @@ function MultiSelect<
   infoAlert,
   onChange,
   onInputChange,
+  previewSelectedNum,
   i18n,
   ...props
 }: Props<Option, IsMulti, GroupType> & CustomMultiselectProps) {
-  const [selections, setValue] = useState<Option[]>([]);
+  const [selections, setSelections] = useState<Option[]>([]);
   const [hasError, setHasError] = useState(false);
+  const [showAllSelections, setShowAllSelections] = useState(false);
   const [inputValue, setInputValue] = useState<string | undefined>(undefined);
 
   const handleChange = useCallback(
     (newValue, actionMeta) => {
       if (onChange) onChange(newValue, actionMeta);
-      setValue(newValue);
+      setSelections(newValue);
     },
     [onChange]
   );
@@ -63,7 +77,7 @@ function MultiSelect<
   // Passing custom prop to make accessible to child compnents via selectProps
   const removeValue = useCallback(
     // @ts-ignore (TODO: says property 'value' doesn't exist on type Option)
-    (removed) => setValue(selections.filter((v) => v.value !== removed.value)),
+    (removed) => setSelections(selections.filter((v) => v.value !== removed.value)),
     [selections]
   );
 
@@ -77,14 +91,13 @@ function MultiSelect<
 
   return (
     <div className="multiselect-container2">
-      <Select
+      <CustomSelect
         isMulti={true as IsMulti}
         classNamePrefix="multiselect"
         options={options}
         value={selections}
         onChange={handleChange}
         inputValue={inputValue}
-        removeValue={removeValue}
         onInputChange={handleInputChange}
         placeholder={i18n._(t`Search`) + `... (${options!.length})`}
         controlShouldRenderValue={false}
@@ -93,15 +106,22 @@ function MultiSelect<
         escapeClearsValue={true}
         backspaceRemovesValue={false}
         tabSelectsValue={false}
+        styles={styles}
         components={{
           DropdownIndicator: () => null,
           IndicatorSeparator: () => null,
-          IndicatorContainer: () => null,
+          IndicatorsContainer: () => null,
           ClearIndicator: () => null,
           // @ts-ignore
           SelectContainer,
         }}
-        style={styles}
+        // Custom props passed through SelectProps to composable components
+        removeValue={removeValue}
+        onApply={onApply}
+        setSelections={setSelections}
+        showAllSelections={showAllSelections}
+        setShowAllSelections={setShowAllSelections}
+        previewSelectedNum={previewSelectedNum || 5}
         {...props}
       />
       {hasError && (
@@ -133,12 +153,14 @@ function SelectedValuesContainer<
   IsMulti extends boolean = true,
   GroupType extends GroupBase<Option> = GroupBase<Option>
 >({ isDisabled, getValue, ...props }: ContainerProps<Option, IsMulti, GroupType>) {
-  const { getOptionValue, removeValue, classNamePrefix } = props.selectProps as Props<
-    Option,
-    IsMulti,
-    GroupType
-  > &
-    CustomSelectProps;
+  const {
+    getOptionValue,
+    removeValue,
+    classNamePrefix,
+    showAllSelections,
+    setShowAllSelections,
+    previewSelectedNum,
+  } = props.selectProps as Props<Option, IsMulti, GroupType> & CustomSelectProps;
 
   const getKey = (opt: Option, index: number) =>
     `${getOptionValue ? getOptionValue(opt) : "option"}-${index}`;
@@ -177,25 +199,43 @@ function SelectedValuesContainer<
   };
 
   return (
-    <div
-      className={`${classNamePrefix}__selected-value-container`}
-      style={{ margin: ".5rem 0", display: "flex", flexFlow: "row wrap" }}
-    >
-      {getValue().map(toMultiValue)}
+    <div className={`${classNamePrefix}__selected-value-container`}>
+      {getValue()
+        .map(toMultiValue)
+        .filter((_value, i) => showAllSelections || i < previewSelectedNum)}
+      {!showAllSelections && getValue().length > previewSelectedNum && (
+        <button
+          className={`${classNamePrefix}__show-more-button`}
+          onClick={() => setShowAllSelections((prev: boolean) => !prev)}
+        >
+          +{getValue().length - previewSelectedNum}
+        </button>
+      )}
     </div>
   );
 }
 
-const SelectContainer = ({
+function SelectContainer<
+  Option,
+  IsMulti extends boolean = true,
+  GroupType extends GroupBase<Option> = GroupBase<Option>
+>({
   children,
   className,
   innerProps,
   isFocused,
   ...commonProps
-}: ContainerProps) => {
-  const selectContainerProps = {
-    ...commonProps,
-  };
+}: ContainerProps<Option, IsMulti, GroupType>) {
+  const selectContainerProps = { ...commonProps };
+  const { getValue } = commonProps;
+  const {
+    classNamePrefix,
+    onApply,
+    setSelections,
+    previewSelectedNum,
+    showAllSelections,
+    setShowAllSelections,
+  } = commonProps.selectProps as Props<Option, IsMulti, GroupType> & CustomSelectProps;
 
   return (
     <components.SelectContainer
@@ -206,10 +246,30 @@ const SelectContainer = ({
     >
       {/* @ts-ignore (TODO: wants extra props defined like above, but I'm not sure what to use, and in the sample it works correctly) */}
       <SelectedValuesContainer {...commonProps} />
-      <div tabIndex={0}>clear</div>
+      <div className={`${classNamePrefix}__selected-value-control-container`} tabIndex={0}>
+        {showAllSelections && getValue().length > previewSelectedNum && (
+          <button
+            className={`${classNamePrefix}__show-less-button button is-text`}
+            onClick={() => setShowAllSelections((prev: boolean) => !prev)}
+          >
+            <Trans>Show less</Trans>
+          </button>
+        )}
+        {getValue().length > 0 && (
+          <button
+            className={`${classNamePrefix}__clear-value-button button is-text`}
+            onClick={() => {
+              setSelections([]);
+              onApply([]);
+            }}
+          >
+            <Trans>Clear</Trans>
+          </button>
+        )}
+      </div>
       {children}
     </components.SelectContainer>
   );
-};
+}
 
 export default MultiSelect;

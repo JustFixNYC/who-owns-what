@@ -110,29 +110,6 @@ export const PortfolioFilters = React.memo(
       ? zipOptions.map((val: string) => ({ value: val, label: val }))
       : [];
 
-    // interface ColourOption {
-    //   readonly value: string;
-    //   readonly label: string;
-    // }
-
-    // const colourOptions: readonly ColourOption[] = [
-    //   { value: "ocean", label: "Ocean" },
-    //   { value: "blue", label: "Blue" },
-    //   { value: "purple", label: "Purple" },
-    //   { value: "red", label: "Red" },
-    //   { value: "orange", label: "Orange" },
-    //   { value: "yellow", label: "Yellow" },
-    //   { value: "green", label: "Green" },
-    //   { value: "forest", label: "Forest" },
-    //   { value: "slate", label: "Slate" },
-    //   { value: "silver", label: "Silver" },
-    // ];
-
-    // console.log(zipOptionsSelect);
-    // console.log(colourOptions);
-    console.log(filterContext);
-
-
     const activeFilters = { rsunitslatestActive, ownernamesActive, unitsresActive, zipActive };
 
     return (
