@@ -11,7 +11,8 @@
   font-weight: 600;
   line-height: 100%;
   letter-spacing: 0.02em;
-  padding: 0 1.2rem;
+  padding: 1.2rem;
+  gap: 1.2rem;
 
   &.hasError .multiselect__input-container {
     border: 0.2rem solid $justfix-orange;
@@ -20,6 +21,7 @@
   .multiselect__selected-value-container {
     display: flex;
     flex-wrap: wrap;
+    // TODO: in filters styles "flex-direction: column" for desktop
     gap: 0.6rem;
     padding: 0;
     margin: 0;
@@ -65,9 +67,9 @@
   }
   .multiselect__selected-value-control-container {
     display: flex;
-    padding: 0.8rem 0;
     .button.is-text {
       color: $justfix-grey-700;
+      padding: 0.8rem 0;
       &.multiselect__clear-value-button {
         margin-left: auto;
       }
@@ -86,7 +88,6 @@
     }
 
     .multiselect__value-container {
-      // gap: 0.6rem;
       padding: 0;
       margin: 0;
 
@@ -125,5 +126,43 @@
     border-top: none;
     box-shadow: none;
     background-color: $justfix-white;
+
+    .multiselect__menu-list {
+      .multiselect__option {
+        background-color: unset;
+        display: flex;
+        align-items: center;
+        gap: 1.6rem;
+
+        &.multiselect__option--is-focused {
+          text-decoration: underline;
+        }
+
+        &.multiselect__option--is-selected {
+          background-color: unset;
+          color: inherit;
+          .multiselect__option-checkbox {
+            background-color: $justfix-black;
+            color: $justfix-white;
+          }
+        }
+        .multiselect__option-checkbox {
+          --box-size: 1.8rem;
+          height: var(--box-size);
+          width: var(--box-size);
+          min-height: var(--box-size);
+          min-width: var(--box-size);
+          border-radius: 0.4rem;
+          border: 0.1rem solid $justfix-black;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          svg {
+            height: 1rem;
+            width: 1.4rem;
+          }
+        }
+      }
+    }
   }
 }

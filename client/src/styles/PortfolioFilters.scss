@@ -2,6 +2,7 @@
 @import "_scrollbar.scss";
 @import "_button.scss";
 @import "_typography.scss";
+@import "_multiselect.scss";
 
 @mixin white-on-black {
   background-color: $justfix-black;
@@ -178,8 +179,6 @@
 
         &.zip-accordion .dropdown-container {
           width: 15rem;
-          height: 500px;
-          width: 200px;
           @include for-phone-only {
             width: unset;
           }
@@ -206,7 +205,7 @@
             color: $justfix-grey-700;
             @include for-tablet-portrait-up {
               padding: 1.2rem;
-              margin-bottom: 1.2rem;
+              // margin-bottom: 1.2rem;
             }
             display: flex;
             width: 100%;
@@ -240,6 +239,7 @@
             }
           }
           .minmax-container {
+            padding: 1.2rem;
             @include for-phone-only {
               border-top: none;
             }
@@ -387,7 +387,7 @@
           }
           .button.is-primary {
             align-self: center;
-            margin: 0.9rem 0 1rem 0;
+            // margin: 0.9rem 0 1rem 0;
           }
           @include for-phone-only() {
             .minmax-container .button.is-primary {
@@ -705,4 +705,3 @@
     color: $justfix-black;
   }
 }
-

@@ -1,712 +1,308 @@
-// This component is slightly adapted from https://github.com/srigar/multiselect-react-dropdown
-
-// @ts-nocheck
-import React, { useRef, useEffect } from "react";
-import "../styles/Multiselect.scss";
-import "../styles/_button.scss";
-import { CloseButton } from "./CloseButton";
-import { Trans } from "@lingui/macro";
+import React, { useCallback, useState } from "react";
+import Select, {
+  components,
+  Props,
+  ContainerProps,
+  GroupBase,
+  MultiValueRemoveProps,
+  OptionProps,
+} from "react-select";
+import { I18n } from "@lingui/core";
+import { t, Trans } from "@lingui/macro";
 import { Alert } from "./Alert";
-import classnames from "classnames";
-import helpers from "util/helpers";
+import { CloseIcon, CheckIcon } from "./Icons";
 
-const KEY_ESC = 27;
+// Example of separating out selected values (sadly with many typescript errors, which I've tried to address)
+// https://github.com/JedWatson/react-select/discussions/4850
 
-export interface IMultiselectProps {
-  options: any;
-  disablePreSelectedValues?: boolean;
-  selectedValues?: any;
-  isObject?: boolean;
-  displayValue?: string;
-  showCheckbox?: boolean;
-  selectionLimit?: any;
-  placeholder?: string;
-  loading?: boolean;
-  style?: object;
-  emptyRecordMsg?: string;
-  onSelect?: (selectedList: any, selectedItem: any) => void;
-  onRemove?: (selectedList: any, selectedItem: any) => void;
-  onSearch?: (value: string) => void;
-  onKeyPressFn?: (event: any, value: string) => void;
+export type Option = {
+  value: string;
+  label: string;
+  [key: string]: string;
+};
+
+interface CustomMultiselectProps {
   onApply: (selectedList: any) => void;
-  onFocusInput?: () => void;
-  infoAlert?: React.ReactNode;
-  caseSensitiveSearch?: boolean;
-  preventNonNumericalInput?: boolean;
-  id?: string;
-  closeOnSelect?: boolean;
-  avoidHighlightFirstOption?: boolean;
-  hidePlaceholder?: boolean;
-  showArrow?: boolean;
-  keepSearchTerm?: boolean;
-  customArrow?: any;
-  disable?: boolean;
-  className?: string;
-  selectedValueDecorator?: (v: string, option: any) => React.ReactNode | string;
-  optionValueDecorator?: (v: string, option: any) => React.ReactNode | string;
-  hideSelectedList?: boolean;
-  /**
-   * How many selected value chips to display before "show more" button
-   */
+  i18n: I18n;
   previewSelectedNum?: number;
+  infoAlert?: React.ReactNode;
 }
 
-export class Multiselect extends React.Component<IMultiselectProps, any> {
-  static defaultProps: IMultiselectProps;
-  constructor(props) {
-    super(props);
-    this.state = {
-      inputValue: "",
-      options: props.options,
-      filteredOptions: props.options,
-      unfilteredOptions: props.options,
-      selectedValues: Object.assign([], props.selectedValues),
-      preSelectedValues: Object.assign([], props.selectedValues),
-      showAllSelected: false,
-      toggleOptionsList: false,
-      highlightOption: props.avoidHighlightFirstOption ? -1 : 0,
-      showCheckbox: props.showCheckbox,
-      keepSearchTerm: props.keepSearchTerm,
-      hasError: false,
-    };
-    // @ts-ignore
-    this.optionTimeout = null;
-    // @ts-ignore
-    this.searchWrapper = React.createRef();
-    // @ts-ignore
-    this.searchBox = React.createRef();
-    this.onChange = this.onChange.bind(this);
-    this.onKeyPress = this.onKeyPress.bind(this);
-    this.onFocus = this.onFocus.bind(this);
-    this.renderMultiselectContainer = this.renderMultiselectContainer.bind(this);
-    this.renderSelectedList = this.renderSelectedList.bind(this);
-    this.onRemoveSelectedItem = this.onRemoveSelectedItem.bind(this);
-    this.toggleShowAllSelected = this.toggleShowAllSelected.bind(this);
-    this.toggelOptionList = this.toggelOptionList.bind(this);
-    this.onArrowKeyNavigation = this.onArrowKeyNavigation.bind(this);
-    this.onEscKeyCloseOptionList = this.onEscKeyCloseOptionList.bind(this);
-    this.onSelectItem = this.onSelectItem.bind(this);
-    this.filterOptionsByInput = this.filterOptionsByInput.bind(this);
-    this.removeSelectedValuesFromOptions = this.removeSelectedValuesFromOptions.bind(this);
-    this.isSelectedValue = this.isSelectedValue.bind(this);
-    this.fadeOutSelection = this.fadeOutSelection.bind(this);
-    this.isDisablePreSelectedValues = this.isDisablePreSelectedValues.bind(this);
-    this.renderNormalOption = this.renderNormalOption.bind(this);
-    this.listenerCallback = this.listenerCallback.bind(this);
-    this.resetSelectedValues = this.resetSelectedValues.bind(this);
-    this.getSelectedItems = this.getSelectedItems.bind(this);
-    this.getSelectedItemsCount = this.getSelectedItemsCount.bind(this);
-    this.hideOnClickOutside = this.hideOnClickOutside.bind(this);
-    this.onCloseOptionList = this.onCloseOptionList.bind(this);
-    this.isVisible = this.isVisible.bind(this);
-  }
+interface CustomSelectProps {
+  removeValue: (removed: any) => void;
+  onApply: (selectedList: any) => void;
+  setSelections: (x: any) => void;
+  previewSelectedNum: number;
+  showAllSelections: boolean;
+  setShowAllSelections: (x: any) => void;
+}
 
-  initialSetValue() {
-    const { showCheckbox } = this.props;
-    if (!showCheckbox) {
-      this.removeSelectedValuesFromOptions(false);
-    }
-  }
+function CustomSelect<
+  Option,
+  IsMulti extends boolean = true,
+  GroupType extends GroupBase<Option> = GroupBase<Option>
+>(props: Props<Option, IsMulti, GroupType> & CustomSelectProps) {
+  return <Select {...props} />;
+}
 
-  resetSelectedValues() {
-    const { unfilteredOptions } = this.state;
-    return new Promise((resolve) => {
-      this.setState(
-        {
-          selectedValues: [],
-          preSelectedValues: [],
-          options: unfilteredOptions,
-          filteredOptions: unfilteredOptions,
-        },
-        () => {
-          // @ts-ignore
-          resolve();
-          this.initialSetValue();
-        }
-      );
-    });
-  }
+function MultiSelect<
+  Option,
+  IsMulti extends boolean = true,
+  GroupType extends GroupBase<Option> = GroupBase<Option>
+>({
+  options,
+  onApply,
+  infoAlert,
+  onChange,
+  onInputChange,
+  previewSelectedNum,
+  i18n,
+  ...props
+}: Props<Option, IsMulti, GroupType> & CustomMultiselectProps) {
+  const [selections, setSelections] = useState<Option[]>([]);
+  const [hasError, setHasError] = useState(false);
+  const [showAllSelections, setShowAllSelections] = useState(false);
+  const [inputValue, setInputValue] = useState<string | undefined>(undefined);
 
-  getSelectedItems() {
-    return this.state.selectedValues;
-  }
+  const handleChange = useCallback(
+    (newValue, actionMeta) => {
+      if (onChange) onChange(newValue, actionMeta);
+      setSelections(newValue);
+    },
+    [onChange]
+  );
 
-  getSelectedItemsCount() {
-    return this.state.selectedValues.length;
-  }
-
-  componentDidMount() {
-    this.initialSetValue();
-    // @ts-ignore
-    this.searchWrapper.current.addEventListener("click", this.listenerCallback);
-  }
-
-  componentDidUpdate(prevProps) {
-    const { options, selectedValues } = this.props;
-    const { options: prevOptions, selectedValues: prevSelectedvalues } = prevProps;
-    if (JSON.stringify(prevOptions) !== JSON.stringify(options)) {
-      this.setState(
-        { options, filteredOptions: options, unfilteredOptions: options },
-        this.initialSetValue
-      );
-    }
-    if (JSON.stringify(prevSelectedvalues) !== JSON.stringify(selectedValues)) {
-      this.setState(
-        {
-          selectedValues: Object.assign([], selectedValues),
-          preSelectedValues: Object.assign([], selectedValues),
-        },
-        this.initialSetValue
-      );
-    }
-  }
-
-  listenerCallback() {
-    // @ts-ignore
-    this.searchBox.current.focus();
-  }
-
-  componentWillUnmount() {
-    // @ts-ignore
-    if (this.optionTimeout) {
-      // @ts-ignore
-      clearTimeout(this.optionTimeout);
-    }
-    // @ts-ignore
-    this.searchWrapper.current.removeEventListener("click", this.listenerCallback);
-  }
-
-  // Skipcheck flag - value will be true when the func called from on deselect anything.
-  removeSelectedValuesFromOptions(skipCheck) {
-    const { isObject, displayValue } = this.props;
-    const { selectedValues = [], unfilteredOptions } = this.state;
-    if (!selectedValues.length && !skipCheck) {
-      return;
-    }
-    if (isObject) {
-      let optionList = unfilteredOptions.filter((item) => {
-        return selectedValues.findIndex((v) => v[displayValue] === item[displayValue]) === -1
-          ? true
-          : false;
-      });
-      this.setState(
-        { options: optionList, filteredOptions: optionList },
-        this.filterOptionsByInput
-      );
-      return;
-    }
-    let optionList = unfilteredOptions.filter((item) => selectedValues.indexOf(item) === -1);
-
-    this.setState({ options: optionList, filteredOptions: optionList }, this.filterOptionsByInput);
-  }
-
-  onChange(event) {
-    const { onSearch } = this.props;
-    this.setState(
-      {
-        inputValue: event.target.value,
-        hasError: this.state.hasError && event.target.value === "",
-      },
-      this.filterOptionsByInput
-    );
-    if (onSearch) {
-      onSearch(event.target.value);
-    }
-  }
-
-  onKeyPress(event) {
-    const { onKeyPressFn } = this.props;
-    if (onKeyPressFn) {
-      onKeyPressFn(event, event.target.value);
-    }
-  }
-
-  filterOptionsByInput() {
-    let { options, filteredOptions, inputValue } = this.state;
-    const { isObject, displayValue } = this.props;
-    if (isObject) {
-      options = filteredOptions.filter((i) => this.matchValues(i[displayValue], inputValue));
-    } else {
-      options = filteredOptions.filter((i) => this.matchValues(i, inputValue));
-    }
-    this.setState({ options });
-  }
-
-  matchValues(value, search) {
-    if (this.props.caseSensitiveSearch) {
-      return value.indexOf(search) > -1;
-    }
-    if (value.toLowerCase) {
-      return value.toLowerCase().indexOf(search.toLowerCase()) > -1;
-    }
-    return value.toString().indexOf(search) > -1;
-  }
-
-  onArrowKeyNavigation(e) {
-    const { options, highlightOption, toggleOptionsList, inputValue, selectedValues } = this.state;
-    const { disablePreSelectedValues } = this.props;
-    if (e.keyCode === 8 && !inputValue && !disablePreSelectedValues && selectedValues.length) {
-      this.onRemoveSelectedItem(selectedValues.length - 1);
-    }
-    if (!options.length) {
-      return;
-    }
-    if (e.keyCode === 38) {
-      if (highlightOption > 0) {
-        this.setState((previousState) => ({
-          highlightOption: previousState.highlightOption - 1,
-        }));
-      } else {
-        this.setState({ highlightOption: options.length - 1 });
+  const handleInputChange = useCallback(
+    (newValue, actionMeta) => {
+      if (onInputChange) onInputChange(newValue, actionMeta);
+      if (actionMeta.action !== "input-blur" && actionMeta.action !== "menu-close") {
+        setInputValue(newValue);
       }
-    } else if (e.keyCode === 40) {
-      if (highlightOption < options.length - 1) {
-        this.setState((previousState) => ({
-          highlightOption: previousState.highlightOption + 1,
-        }));
-      } else {
-        this.setState({ highlightOption: 0 });
-      }
-    } else if (e.key === "Enter" && options.length && toggleOptionsList) {
-      if (highlightOption === -1) {
-        return;
-      }
-      this.onSelectItem(options[highlightOption]);
-    }
-  }
+    },
+    [onInputChange]
+  );
 
-  onEscKeyCloseOptionList(e) {
-    if (e.keyCode === KEY_ESC) {
-      e.preventDefault();
-      this.onCloseOptionList();
-      this.searchBox.current.focus();
-    }
-  }
+  // Passing custom prop to make accessible to child compnents via selectProps
+  const removeValue = useCallback(
+    // @ts-ignore (TODO: says property 'value' doesn't exist on type Option)
+    (removed) => setSelections(selections.filter((v) => v.value !== removed.value)),
+    [selections]
+  );
 
-  onRemoveSelectedItem(item) {
-    let { selectedValues, index = 0 } = this.state;
-    const { onRemove, showCheckbox, displayValue, isObject } = this.props;
-    if (isObject) {
-      index = selectedValues.findIndex((i) => i[displayValue] === item[displayValue]);
-    } else {
-      index = selectedValues.indexOf(item);
-    }
-    selectedValues.splice(index, 1);
-    onRemove(selectedValues, item);
-    this.setState({ selectedValues }, () => {
-      if (!showCheckbox) {
-        this.removeSelectedValuesFromOptions(true);
-      }
-    });
-    if (!this.props.closeOnSelect) {
-      // @ts-ignore
-      this.searchBox.current.focus();
-    }
-  }
-
-  onSelectItem(item) {
-    const { selectedValues } = this.state;
-    const { selectionLimit, onSelect, showCheckbox } = this.props;
-    this.setState({ hasError: false });
-    if (!this.state.keepSearchTerm) {
-      this.setState({
-        inputValue: "",
-      });
-    }
-    if (this.isSelectedValue(item)) {
-      this.onRemoveSelectedItem(item);
-      return;
-    }
-    if (selectionLimit === selectedValues.length) {
-      return;
-    }
-    selectedValues.push(item);
-    onSelect(selectedValues, item);
-    this.setState({ selectedValues }, () => {
-      if (!showCheckbox) {
-        this.removeSelectedValuesFromOptions(true);
-      } else {
-        this.filterOptionsByInput();
-      }
-    });
-    if (!this.props.closeOnSelect) {
-      // @ts-ignore
-      this.searchBox.current.focus();
-    }
-  }
-
-  isSelectedValue(item) {
-    const { isObject, displayValue } = this.props;
-    const { selectedValues } = this.state;
-    if (isObject) {
-      return selectedValues.filter((i) => i[displayValue] === item[displayValue]).length > 0;
-    }
-    return selectedValues.filter((i) => i === item).length > 0;
-  }
-
-  renderOptionList() {
-    const { id, style, emptyRecordMsg, loading, loadingMessage = "loading..." } = this.props;
-    const { options, highlightOption } = this.state;
-    if (loading) {
-      return (
-        <ul className={`optionContainer`} style={style["optionContainer"]}>
-          {typeof loadingMessage === "string" && (
-            <span style={style["loadingMessage"]} className={`notFound`}>
-              {loadingMessage}
-            </span>
-          )}
-          {typeof loadingMessage !== "string" && loadingMessage}
-        </ul>
-      );
-    }
-    return (
-      <ul
-        tabIndex="-1"
-        role="listbox"
-        className={`optionContainer`}
-        style={style["optionContainer"]}
-        aria-activedescendant={`${id || "option"}-item-${highlightOption}`}
+  return (
+    <div className="multiselect-container2">
+      <CustomSelect
+        isMulti={true as IsMulti}
+        classNamePrefix="multiselect"
+        className="multiselect__select-container"
+        options={options}
+        value={selections}
+        onChange={handleChange}
+        inputValue={inputValue}
+        onInputChange={handleInputChange}
+        placeholder={i18n._(t`Search`) + `... (${options!.length})`}
+        controlShouldRenderValue={false}
+        hideSelectedOptions={false}
+        openMenuOnFocus={true}
+        closeMenuOnSelect={false}
+        blurInputOnSelect={false}
+        backspaceRemovesValue={false}
+        tabSelectsValue={false}
+        components={{
+          DropdownIndicator: () => null,
+          IndicatorSeparator: () => null,
+          IndicatorsContainer: () => null,
+          ClearIndicator: () => null,
+          SelectContainer: SelectContainer,
+          Option: CustomOption,
+        }}
+        // Custom props passed through SelectProps to composable components
+        removeValue={removeValue}
+        onApply={onApply}
+        setSelections={setSelections}
+        showAllSelections={showAllSelections}
+        setShowAllSelections={setShowAllSelections}
+        previewSelectedNum={previewSelectedNum || 5}
+        {...props}
+      />
+      {hasError && (
+        <Alert type="error" variant="primary" closeType="none" role="status">
+          <Trans>Make a selection from the list or clear search text</Trans>
+        </Alert>
+      )}
+      {infoAlert && infoAlert}
+      <button
+        className="button is-primary"
+        onClick={() => {
+          // @ts-ignore (TODO: says properties 'value' & 'label' don't exist on type Option)
+          const selectedValues = selections.map((v) => ({ name: v.value || "", id: v.label }));
+          if (!selectedValues.length && !!inputValue) {
+            setHasError(true);
+            return;
+          }
+          onApply(selectedValues);
+        }}
       >
-        {options.length === 0 && (
-          <span style={style["notFound"]} className={`notFound`}>
-            {emptyRecordMsg}
-          </span>
-        )}
-        {this.renderNormalOption()}
-      </ul>
-    );
-  }
+        <Trans>Apply</Trans>
+      </button>
+    </div>
+  );
+}
 
-  renderNormalOption() {
-    const { isObject = false, id, displayValue, showCheckbox, style } = this.props;
-    const { highlightOption } = this.state;
-    return this.state.options.map((option, i) => {
-      const isSelected = this.isSelectedValue(option);
-      return (
-        <li
-          key={`option${i}`}
-          id={`${id || "option"}-item-${i}`}
-          style={style["option"]}
-          className={`option ${isSelected ? "selected" : ""} ${
-            highlightOption === i ? `highlightOption highlight` : ""
-          } ${this.fadeOutSelection(option) ? "disableSelection" : ""} ${
-            this.isDisablePreSelectedValues(option) ? "disableSelection" : ""
-          }`}
-          onClick={() => this.onSelectItem(option)}
-          onKeyDown={this.onEscKeyCloseOptionList}
-          role="option"
-          aria-selected={isSelected}
-          aria-label={isObject ? option[displayValue] : (option || "").toString()}
-        >
-          {showCheckbox && (
-            <input
-              id={`option-check-${i}`}
-              aria-labelledby={`option-label-${i}`}
-              type="checkbox"
-              readOnly
-              className="checkbox"
-              checked={isSelected}
-              onKeyDown={this.onEscKeyCloseOptionList}
-            />
-          )}
-          <label id={`option-label-${i}`} htmlFor={`option-check-${i}`}>
-            {this.props.optionValueDecorator(
-              isObject ? option[displayValue] : (option || "").toString(),
-              option
-            )}
-          </label>
-        </li>
-      );
-    });
-  }
+function SelectedValuesContainer<
+  Option,
+  IsMulti extends boolean = true,
+  GroupType extends GroupBase<Option> = GroupBase<Option>
+>({ isDisabled, getValue, ...props }: ContainerProps<Option, IsMulti, GroupType>) {
+  const {
+    getOptionValue,
+    removeValue,
+    classNamePrefix,
+    showAllSelections,
+    setShowAllSelections,
+    previewSelectedNum,
+  } = props.selectProps as Props<Option, IsMulti, GroupType> & CustomSelectProps;
 
-  renderSelectedList() {
-    const { isObject = false, displayValue, style, previewSelectedNum } = this.props;
-    const { selectedValues, showAllSelected } = this.state;
+  const getKey = (opt: Option, index: number) =>
+    `${getOptionValue ? getOptionValue(opt) : "option"}-${index}`;
 
-    const selectedNum = showAllSelected ? selectedValues.length : previewSelectedNum;
-
+  const toMultiValue = (opt: Option, index: number) => {
     return (
-      <>
-        {selectedValues.slice(0, selectedNum).map((value, index) => (
-          <span
-            className={`chip ${this.isDisablePreSelectedValues(value) && "disableSelection"}`}
-            key={index}
-            style={style["chips"]}
-          >
-            {this.props.selectedValueDecorator(
-              !isObject ? (value || "").toString() : value[displayValue],
-              value
-            )}
-            {!this.isDisablePreSelectedValues(value) && (
-              <CloseButton
-                className="icon_cancel"
-                onClick={() => this.onRemoveSelectedItem(value)}
-              />
-            )}
-          </span>
-        ))}
-        {selectedValues.length > selectedNum && (
+      <components.MultiValue
+        getValue={getValue}
+        {...props}
+        components={{
+          Container: components.MultiValueContainer,
+          Label: components.MultiValueLabel,
+          Remove: CustomMultiValueRemove,
+        }}
+        // TODO: Can't know when it's "focused" via arrow key navigation, it's not using ::focus,
+        // and the classes don't change. The screen-reader works though, and can close with curosr.
+        // https://github.com/JedWatson/react-select/issues/4017
+        // isFocused={?}
+        isDisabled={isDisabled}
+        key={getKey(opt, index)}
+        index={index}
+        removeProps={{
+          onClick: () => removeValue(opt),
+          onTouchEnd: () => removeValue(opt),
+          onMouseDown: (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+          },
+        }}
+        data={opt}
+      >
+        {/* @ts-ignore (TODO: says properties 'value' & 'label' don't exist on type Option) */}
+        {opt.label}
+      </components.MultiValue>
+    );
+  };
+
+  return (
+    <div className={`${classNamePrefix}__selected-value-container`}>
+      {getValue()
+        .map(toMultiValue)
+        .filter((_value, i) => showAllSelections || i < previewSelectedNum)}
+      {!showAllSelections && getValue().length > previewSelectedNum && (
+        <button
+          className={`${classNamePrefix}__show-more-button`}
+          onClick={() => setShowAllSelections((prev: boolean) => !prev)}
+        >
+          +{getValue().length - previewSelectedNum}
+        </button>
+      )}
+    </div>
+  );
+}
+
+function SelectContainer<
+  Option,
+  IsMulti extends boolean = true,
+  GroupType extends GroupBase<Option> = GroupBase<Option>
+>({
+  children,
+  className,
+  innerProps,
+  isFocused,
+  ...commonProps
+}: ContainerProps<Option, IsMulti, GroupType>) {
+  const selectContainerProps = { ...commonProps };
+  const { getValue } = commonProps;
+  const {
+    classNamePrefix,
+    onApply,
+    setSelections,
+    previewSelectedNum,
+    showAllSelections,
+    setShowAllSelections,
+  } = commonProps.selectProps as Props<Option, IsMulti, GroupType> & CustomSelectProps;
+
+  return (
+    <components.SelectContainer
+      className={className}
+      innerProps={innerProps}
+      isFocused={isFocused}
+      {...selectContainerProps}
+    >
+      {/* @ts-ignore (TODO: wants extra props defined like above, but I'm not sure what to use, and in the sample it works correctly) */}
+      <SelectedValuesContainer {...commonProps} />
+      <div className={`${classNamePrefix}__selected-value-control-container`}>
+        {showAllSelections && getValue().length > previewSelectedNum && (
           <button
-            className="chip chip-more"
-            key={previewSelectedNum + 1}
-            style={style["chips"]}
-            onClick={this.toggleShowAllSelected}
-          >
-            +{selectedValues.length - previewSelectedNum}
-          </button>
-        )}
-        {selectedNum > previewSelectedNum && (
-          <button
-            className="show-less button is-text"
-            key={previewSelectedNum + 1}
-            onClick={this.toggleShowAllSelected}
+            className={`${classNamePrefix}__show-less-button button is-text`}
+            onClick={() => setShowAllSelections((prev: boolean) => !prev)}
           >
             <Trans>Show less</Trans>
           </button>
         )}
-      </>
-    );
-  }
-
-  isDisablePreSelectedValues(value) {
-    const { isObject, disablePreSelectedValues, displayValue } = this.props;
-    const { preSelectedValues } = this.state;
-    if (!disablePreSelectedValues || !preSelectedValues.length) {
-      return false;
-    }
-    if (isObject) {
-      return preSelectedValues.filter((i) => i[displayValue] === value[displayValue]).length > 0;
-    }
-    return preSelectedValues.filter((i) => i === value).length > 0;
-  }
-
-  toggleShowAllSelected() {
-    this.setState({
-      showAllSelected: !this.state.showAllSelected,
-    });
-  }
-
-  fadeOutSelection(item) {
-    const { selectionLimit, showCheckbox } = this.props;
-    const { selectedValues } = this.state;
-    if (selectionLimit === -1) {
-      return false;
-    }
-    if (selectionLimit !== selectedValues.length) {
-      return false;
-    }
-    if (selectionLimit === selectedValues.length) {
-      if (!showCheckbox) {
-        return true;
-      } else {
-        if (this.isSelectedValue(item)) {
-          return false;
-        }
-        return true;
-      }
-    }
-  }
-
-  toggelOptionList() {
-    this.setState({
-      toggleOptionsList: !this.state.toggleOptionsList,
-      highlightOption: this.props.avoidHighlightFirstOption ? -1 : 0,
-    });
-  }
-
-  onCloseOptionList() {
-    this.setState({
-      toggleOptionsList: false,
-      highlightOption: this.props.avoidHighlightFirstOption ? -1 : 0,
-      // inputValue: "",
-    });
-  }
-
-  onFocus() {
-    if (this.state.toggleOptionsList) {
-      // @ts-ignore
-      clearTimeout(this.optionTimeout);
-    } else {
-      this.toggelOptionList();
-    }
-    this.props.onFocusInput();
-  }
-
-  isVisible(elem) {
-    return !!elem && !!(elem.offsetWidth || elem.offsetHeight || elem.getClientRects().length);
-  }
-
-  hideOnClickOutside() {
-    const element = document.getElementsByClassName("multiselect-container")[0];
-    const outsideClickListener = (event) => {
-      if (element && !element.contains(event.target) && this.isVisible(element)) {
-        this.toggelOptionList();
-      }
-    };
-    document.addEventListener("click", outsideClickListener);
-  }
-
-  renderMultiselectContainer() {
-    const { inputValue, toggleOptionsList, selectedValues, hasError } = this.state;
-    const {
-      placeholder,
-      style,
-      id,
-      name,
-      hidePlaceholder,
-      disable,
-      className,
-      hideSelectedList,
-      onApply,
-      infoAlert,
-      preventNonNumericalInput,
-    } = this.props;
-    return (
-      <div
-        className={`multiselect-container multiSelectContainer ${disable ? `disable_ms` : ""} ${
-          className || ""
-        }`}
-        id={id || "multiselectContainerReact"}
-        style={style["multiselectContainer"]}
-      >
-        {hasError && (
-          <Alert type="error" variant="primary" closeType="none" role="status">
-            <Trans>Make a selection from the list or clear search text</Trans>
-          </Alert>
-        )}
-        <div className="selectedListContainer">
-          {!hideSelectedList && this.renderSelectedList()}
-        </div>
-        <div className="clear-all-container">
-          {selectedValues.length > 0 && (
-            <button
-              className="clear-all button is-text"
-              key={2}
-              onClick={() => {
-                this.resetSelectedValues();
-                onApply([]);
-              }}
-            >
-              <Trans>Clear</Trans>
-            </button>
-          )}
-        </div>
-        <div
-          className={classnames("search-wrapper searchWrapper", { hasError: hasError })}
-          ref={this.searchWrapper}
-          style={style["searchBox"]}
-          onClick={() => {}}
-        >
-          <input
-            type="text"
-            ref={this.searchBox}
-            className="searchBox"
-            id={`${id || "search"}_input`}
-            name={`${name || "search_name"}_input`}
-            onChange={this.onChange}
-            onKeyPress={this.onKeyPress}
-            value={inputValue}
-            onFocus={this.onFocus}
-            placeholder={hidePlaceholder && selectedValues.length ? "" : placeholder}
-            onKeyDown={(e) => {
-              if (preventNonNumericalInput) {
-                helpers.preventNonNumericalInput(e);
-              }
-              this.onArrowKeyNavigation(e);
+        {getValue().length > 0 && (
+          <button
+            className={`${classNamePrefix}__clear-value-button button is-text`}
+            onClick={() => {
+              setSelections([]);
+              onApply([]);
             }}
-            style={style["inputField"]}
-            autoComplete="off"
-            disabled={disable}
-          />
-        </div>
-        <div
-          className={`optionListContainer ${toggleOptionsList ? "displayBlock" : "displayNone"}`}
-          onMouseDown={(e) => {
-            e.preventDefault();
-          }}
-        >
-          {this.renderOptionList()}
-        </div>
-        {infoAlert ? infoAlert : <></>}
-        <button
-          onClick={() => {
-            if (!selectedValues.length && !!inputValue) {
-              this.setState({ hasError: true });
-            } else {
-              onApply(selectedValues);
-              this.onCloseOptionList();
-            }
-          }}
-          className="button is-primary"
-        >
-          <Trans>Apply</Trans>
-        </button>
+          >
+            <Trans>Clear</Trans>
+          </button>
+        )}
       </div>
-    );
-  }
-
-  render() {
-    return (
-      <OutsideAlerter outsideClick={this.onCloseOptionList}>
-        {this.renderMultiselectContainer()}
-      </OutsideAlerter>
-    );
-  }
+      {children}
+    </components.SelectContainer>
+  );
 }
 
-function useOutsideAlerter(ref, clickEvent) {
-  useEffect(() => {
-    function handleClickOutside(event) {
-      if (ref.current && !ref.current.contains(event.target)) {
-        clickEvent();
-      }
-    }
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [ref]); // eslint-disable-line react-hooks/exhaustive-deps
+function CustomMultiValueRemove<
+  Option,
+  IsMulti extends boolean = true,
+  GroupType extends GroupBase<Option> = GroupBase<Option>
+>(props: MultiValueRemoveProps<Option, IsMulti, GroupType>) {
+  return (
+    <components.MultiValueRemove {...props}>
+      <CloseIcon />
+    </components.MultiValueRemove>
+  );
 }
 
-/**
- * Component that alerts if you click outside of it
- */
-function OutsideAlerter(props) {
-  const wrapperRef = useRef(null);
-  useOutsideAlerter(wrapperRef, props.outsideClick);
-  return <div ref={wrapperRef}>{props.children}</div>;
+function CustomOption<
+  Option,
+  IsMulti extends boolean = true,
+  GroupType extends GroupBase<Option> = GroupBase<Option>
+>(props: OptionProps<Option, IsMulti, GroupType>) {
+  const { classNamePrefix } = props.selectProps;
+  const { data, isSelected } = props;
+  return (
+    <components.Option {...props}>
+      <div className={`${classNamePrefix}__option-checkbox`} role="presentation" tabIndex={-1}>
+        {isSelected && <CheckIcon />}
+      </div>
+      <div className={`${classNamePrefix}__option-label`} tabIndex={-1}>
+        {/* @ts-ignore (TODO: says properties 'value' & 'label' don't exist on type Option) */}
+        {data.label}
+      </div>
+    </components.Option>
+  );
 }
 
-Multiselect.defaultProps = {
-  options: [],
-  disablePreSelectedValues: false,
-  selectedValues: [],
-  isObject: true,
-  displayValue: "model",
-  showCheckbox: false,
-  selectionLimit: -1,
-  placeholder: <Trans>"Select"</Trans>,
-  style: {},
-  emptyRecordMsg: <Trans>"No Options Available"</Trans>,
-  onApply: () => {},
-  onSelect: () => {},
-  onRemove: () => {},
-  onKeyPressFn: () => {},
-  onFocusInput: () => {},
-  caseSensitiveSearch: false,
-  preventNonNumericalInput: false,
-  id: "",
-  name: "",
-  closeOnSelect: true,
-  avoidHighlightFirstOption: false,
-  hidePlaceholder: false,
-  showArrow: false,
-  keepSearchTerm: false,
-  className: "",
-  customArrow: undefined,
-  selectedValueDecorator: (v) => v,
-  optionValueDecorator: (v) => v,
-  previewSelectedNum: 5,
-} as IMultiselectProps;
+export default MultiSelect;

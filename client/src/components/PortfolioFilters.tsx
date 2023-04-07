@@ -3,9 +3,7 @@ import { t, Trans, Plural } from "@lingui/macro";
 import classnames from "classnames";
 import React from "react";
 import { CheckIcon, ChevronIcon, CloseIcon, InfoIcon } from "./Icons";
-import { Multiselect } from "./Multiselect";
 import { FilterContext, FilterNumberRange, MINMAX_DEFAULT } from "./PropertiesList";
-import "styles/PortfolioFilters.scss";
 import FocusTrap from "focus-trap-react";
 import { FocusTarget } from "focus-trap";
 import { Alert } from "./Alert";
@@ -16,7 +14,9 @@ import { isLegacyPath } from "./WowzaToggle";
 import { useLocation } from "react-router-dom";
 import Browser from "../util/browser";
 import helpers from "util/helpers";
-import MultiSelect, {Option } from "./MultiSelect2";
+import MultiSelect, { Option } from "./MultiSelect";
+
+import "styles/PortfolioFilters.scss";
 
 type PortfolioFiltersProps = {
   i18n: I18n;
@@ -110,6 +110,10 @@ export const PortfolioFilters = React.memo(
       ? zipOptions.map((val: string) => ({ value: val, label: val }))
       : [];
 
+    const ownernamesOptionsSelect: Option[] = ownernamesOptions
+      ? ownernamesOptions.map((val: string) => ({ value: val, label: val }))
+      : [];
+
     const activeFilters = { rsunitslatestActive, ownernamesActive, unitsresActive, zipActive };
 
     return (
@@ -147,11 +151,11 @@ export const PortfolioFilters = React.memo(
             isActive={ownernamesActive}
             isOpen={ownernamesIsOpen}
             setIsOpen={setOwnernamesIsOpen}
-            initialFocus={isMobile ? undefined : "#filter-ownernames-multiselect_input"}
+            initialFocus={isMobile ? undefined : "#filter-ownernames-multiselect input"}
             selectionsCount={filterContext.filterSelections.ownernames.length}
             className="ownernames-accordion"
           >
-            <Multiselect
+            {/* <Multiselect
               options={ownernamesOptions.map((value: any) => ({ name: value, id: value }))}
               selectedValues={ownernamesSelections}
               displayValue="name"
@@ -163,6 +167,14 @@ export const PortfolioFilters = React.memo(
               avoidHighlightFirstOption={true}
               showCheckbox={true}
               keepSearchTerm={true}
+            /> */}
+            <MultiSelect
+              id="filter-ownernames-multiselect"
+              options={ownernamesOptionsSelect}
+              onApply={onOwnernamesApply}
+              i18n={i18n}
+              infoAlert={OwnernamesInfoAlert}
+              // noOptionsMessage={() => i18n._(t`ZIP code is not applicable`)}
             />
           </FilterAccordion>
           <FilterAccordion
@@ -188,7 +200,7 @@ export const PortfolioFilters = React.memo(
             isActive={zipActive}
             isOpen={zipIsOpen}
             setIsOpen={setZipIsOpen}
-            // initialFocus={isMobile ? undefined : "#filter-zip-multiselect_input"}
+            initialFocus={isMobile ? undefined : "#filter-zip-multiselect input"}
             selectionsCount={filterContext.filterSelections.zip.length}
             className="zip-accordion"
           >
@@ -206,27 +218,13 @@ export const PortfolioFilters = React.memo(
               emptyRecordMsg={i18n._(t`Enter NYC ZIP CODE`)}
               preventNonNumericalInput={true}
             /> */}
-            {/* <Select
-              isMulti
-              options={zipOptionsSelect}
-              // value={zipSelections.map((val: string) => ({value: val, label: val}))}
-              onChange={(newValue, actionMeta) => {
-                console.log({ newValue, actionMeta });
-              }}
-              hideSelectedOptions={false}
-              closeMenuOnSelect={false}
-              backspaceRemovesValue={false}
-              tabSelectsValue={false}
-              placeholder={i18n._(t`Search`) + `... (${zipOptions.length})`}
-              autoFocus={!isMobile}
-              noOptionsMessage={() => i18n._(t`ZIP CODE is not applicable`)}
-            /> */}
-            <MultiSelect 
+            <MultiSelect
               id="filter-zip-multiselect"
               options={zipOptionsSelect}
               onApply={onZipApply}
               i18n={i18n}
               noOptionsMessage={() => i18n._(t`ZIP code is not applicable`)}
+              onKeyDown={helpers.preventNonNumericalInput}
             />
           </FilterAccordion>
         </FiltersWrapper>
@@ -483,7 +481,7 @@ function FilterAccordion(props: {
         returnFocusOnDeactivate: false,
         onDeactivate: () => setIsOpen(false),
         initialFocus: initialFocus,
-        escapeDeactivates: false,
+        // escapeDeactivates: false,
       }}
     >
       <details
@@ -504,14 +502,16 @@ function FilterAccordion(props: {
           <ChevronIcon className="chevronIcon" />
         </summary>
         <div className="dropdown-container">
-          <div className="filter-subtitle-container">
-            {subtitle && <span className="filter-subtitle">{subtitle}</span>}
-            {infoOnClick && (
-              <button className="filter-info button is-text" onClick={infoOnClick}>
-                <Trans>What's this?</Trans>
-              </button>
-            )}
-          </div>
+          {subtitle && (
+            <div className="filter-subtitle-container">
+              {subtitle && <span className="filter-subtitle">{subtitle}</span>}
+              {infoOnClick && (
+                <button className="filter-info button is-text" onClick={infoOnClick}>
+                  <Trans>What's this?</Trans>
+                </button>
+              )}
+            </div>
+          )}
           {children}
         </div>
       </details>
