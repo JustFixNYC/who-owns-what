@@ -116,6 +116,7 @@
     .filter-toggle {
       gap: 1rem;
       padding: 1rem;
+      letter-spacing: 0.02em;
       @include for-phone-only {
         height: var(--filter-bar-height);
         min-height: var(--filter-bar-height);
@@ -158,6 +159,7 @@
         display: flex;
         align-items: center;
         position: relative;
+        letter-spacing: 0.02em;
         cursor: pointer;
 
         &::-webkit-details-marker {
@@ -410,6 +412,7 @@
             align-self: center;
             padding: 1.6rem 3.2rem;
             margin: 2.4rem 0;
+            letter-spacing: 0.02em;
             .view-results-count {
               margin-left: 1em;
               @include wrap-with-parentheses();
