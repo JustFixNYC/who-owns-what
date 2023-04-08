@@ -91,6 +91,23 @@ $size-lg: 899px;
   }
 }
 
+// user-agent is added as attribute to html so we can look for browsers from scss files
+// https://aslanbakan.com/en/blog/browser-and-device-specific-css-styles-with-sass-and-less-mixins/
+@mixin browser($browsers) {
+  @each $browser in $browsers {
+    html[data-browser*="#{$browser}"] & {
+      @content;
+    }
+  }
+}
+@mixin browser-not($browsers) {
+  @each $browser in $browsers {
+    :not(html[data-browser*="#{$browser}"]) & {
+      @content;
+    }
+  }
+}
+
 // REBRAND VARIABLES
 
 // COLORS:

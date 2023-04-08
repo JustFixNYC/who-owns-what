@@ -367,9 +367,10 @@ msgstr "Email"
 #: src/components/IndicatorsViz.tsx:165
 msgid "Emergency"
 msgstr "Emergency"
+
 #: src/components/PortfolioFilters.tsx:90
-msgid "Enter NYC ZIP CODE"
-msgstr "Enter NYC ZIP CODE"
+#~ msgid "Enter NYC ZIP CODE"
+#~ msgstr "Enter NYC ZIP CODE"
 
 #: src/containers/HomePage.tsx:89
 msgid "Enter an NYC address and find other buildings your landlord might own:"
@@ -1507,6 +1508,15 @@ msgstr "You are viewing a legacy version of Who Owns What"
 #: src/containers/App.tsx:164
 #~ msgid "You are viewing the old version of Who Owns What."
 #~ msgstr "You are viewing the old version of Who Owns What."
+
+#: src/components/PortfolioFilters.tsx:89
+#: src/components/PortfolioTable.tsx:76
+msgid "ZIP CODE"
+msgstr "ZIP CODE"
+
+#: src/components/PortfolioFilters.tsx:90
+msgid "ZIP CODE is not applicable"
+msgstr "ZIP CODE is not applicable"
 
 #: src/components/PortfolioFilters.tsx:89
 #: src/components/PortfolioFilters.tsx:89

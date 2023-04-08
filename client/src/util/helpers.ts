@@ -79,6 +79,20 @@ export const longDateOptions = { year: "numeric", month: "short", day: "numeric"
 export const mediumDateOptions = { year: "numeric", month: "long" };
 export const shortDateOptions = { month: "short" };
 
+// https://www.geeksforgeeks.org/how-to-detect-the-user-browser-safari-chrome-ie-firefox-and-opera-using-javascript/
+export const getBrowserName = () => {
+  const userAgentString = navigator.userAgent;
+  let browserName = "";
+  if (userAgentString.indexOf("OP") > -1) browserName = "Opera";
+  else if (userAgentString.indexOf("Chrome") > -1) browserName = "Chrome";
+  else if (userAgentString.indexOf("Firefox") > -1) browserName = "Firefox";
+  else if (userAgentString.indexOf("Safari") > -1) browserName = "Safari";
+  else if (userAgentString.indexOf("MSIE") > -1 || userAgentString.indexOf("rv:") > -1)
+    browserName = "Internet Explorer";
+
+  return browserName;
+};
+
 /**
  * Delay the action of a certian function by a set amount of time.
  *

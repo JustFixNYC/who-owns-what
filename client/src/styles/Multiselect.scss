@@ -30,20 +30,19 @@
       outline: 2px $justfix-orange solid;
       outline-offset: -2px;
     }
-  }
-  input {
-    border: none;
-    margin-top: 3px;
-    background: transparent;
-    &:focus {
-      outline: none;
+    input {
+      border: none;
+      background: transparent;
+      height: 100%;
+      width: 100%;
+      &:focus {
+        outline: none;
+      }
     }
   }
   .chip {
     padding: 4px 10px;
     background: #0096fb;
-    margin-right: 5px;
-    margin-bottom: 5px;
     border-radius: 11px;
     display: inline-flex;
     align-items: center;
