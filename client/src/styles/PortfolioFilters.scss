@@ -243,105 +243,11 @@
               border: 0.1rem solid $justfix-grey-400;
             }
           }
-
-          .multiselect-container {
-            .optionListContainer {
-              position: static;
-            }
-            .owner-info-alert {
-              color: $justfix-grey-600;
-              outline: $justfix-grey-400 solid 1px;
-              margin-top: 1.2rem;
-              button:not(:focus-visible) {
-                outline: none;
+          .minmax-container {
+            .label-input-container {
+              @include for-phone-only {
+                padding: 1.2rem 0;
               }
-            }
-          }
-
-          @include for-tablet-portrait-up() {
-            .selectedListContainer,
-            .clear-all-container {
-              padding: 0 1.2rem;
-            }
-            .search-wrapper,
-            .optionListContainer {
-              margin: 0 1.2rem;
-            }
-          }
-          .search-wrapper,
-          .optionListContainer {
-            background-color: $justfix-white;
-            outline: 1px solid $justfix-grey;
-            border: none;
-          }
-          .search-wrapper {
-            &.hasError {
-              outline: 2px $justfix-orange solid;
-              outline-offset: -2px;
-            }
-            input {
-              width: -webkit-fill-available;
-              height: -webkit-fill-available;
-            }
-          }
-
-          .optionsContainer,
-          ul {
-            border: none;
-            list-style-type: none;
-          }
-          .selectedListContainer {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.4rem;
-
-            .chip {
-              align-self: flex-start;
-              background-color: $justfix-black;
-              color: $justfix-white;
-              border-radius: 0.8rem;
-              padding: 0 0 0 1.4rem;
-              white-space: pre-line;
-              height: unset;
-
-              button {
-                margin-left: 1.2rem;
-                padding: 1.25rem;
-                .closeIcon {
-                  height: 1rem;
-                  width: 1rem;
-                  stroke-width: 0.2rem;
-                }
-              }
-
-              &.chip-more {
-                background-color: $justfix-table-grey;
-                color: $justfix-black;
-                border: 1px solid $justfix-black;
-                padding: 0.8rem 0.6rem;
-                margin-bottom: 1.1rem;
-              }
-            }
-          }
-          .clear-all-container {
-            display: flex;
-            .button.is-text {
-              color: $justfix-grey-700;
-              &.show-less {
-                margin: 1.2rem 0 0 1.2rem;
-              }
-              &.clear-all {
-                margin: 0.8rem 0 0.9rem auto;
-              }
-            }
-          }
-          .button.is-primary {
-            align-self: center;
-            // margin: 0.9rem 0 1rem 0;
-          }
-          @include for-phone-only() {
-            .minmax-container .button.is-primary {
-              align-self: flex-start;
             }
           }
         }

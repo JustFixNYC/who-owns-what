@@ -3,9 +3,10 @@
 // TODO: refactor this using mixin for variant/type when we move to component-library
 
 .jf-alert {
+  --color-bar-width: 1.5rem;
   display: flex;
   position: relative;
-  padding: 0 0 1rem 2.5rem;
+  padding: 0 0 1rem calc(var(--color-bar-width) + 1rem);
   width: fit-content;
   border-radius: 0.4rem;
   font-family: "Inconsolata", monospace;
@@ -15,7 +16,7 @@
 
   &::before {
     content: "";
-    width: 1.5rem;
+    width: var(--color-bar-width);
     position: absolute;
     top: 0;
     left: 0;
@@ -23,13 +24,17 @@
     border-radius: 0.3rem 0 0 0.3rem;
   }
 
-  div.jf-alert__content {
+  .jf-alert__content {
     margin-right: auto;
     padding-top: 1rem;
+    &:last-child {
+      padding-right: 1rem;
+    }
   }
 
-  button.jf-alert__close {
+  .jf-alert__close {
     align-self: flex-start;
+    // TODO: target area of button is still less than 44x44 px for a11y
     padding: 1rem 1rem 1.2rem 1.2rem;
     &:focus-visible {
       outline: 2px solid $focus-outline-color;
@@ -57,8 +62,17 @@
     }
   }
 
-  &.is-error::before {
-    background-color: $justfix-orange;
+  &.is-error {
+    padding: 0 0 0.7rem calc(var(--color-bar-width) + 0.8rem);
+    &::before {
+      background-color: $justfix-orange;
+    }
+    .jf-alert__content {
+      padding-top: 0.7rem;
+      &:last-child {
+        padding-right: 0.6rem;
+      }
+    }
   }
   &.is-success::before {
     background-color: $justfix-green;

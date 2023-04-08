@@ -163,11 +163,14 @@
       }
     }
   }
+  .button.is-primary {
+    align-self: center;
+  }
 }
 
 .multiselect-container2.has-error
   .multiselect__control
   .multiselect__value-container
   .multiselect__input-container {
-  border: 0.2rem solid $justfix-orange;
+  border: 0.3rem solid $justfix-orange;
 }

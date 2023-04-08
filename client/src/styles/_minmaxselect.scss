@@ -15,12 +15,6 @@
   .label-input-container {
     width: fit-content;
     padding: 0 1.2rem 1.2rem 1.2rem;
-    @include for-phone-only {
-      padding: 1.2rem 0;
-    }
-    @include for-tablet-portrait-up() {
-      border-bottom: 0.1rem solid $justfix-grey;
-    }
     .labels-container {
       display: flex;
       color: $justfix-grey-600;
@@ -42,22 +36,23 @@
         border: 0.1rem solid $justfix-grey-600;
         border-radius: 0.2rem;
         padding: 0.5rem;
+        appearance: textfield;
         // remove increment arrows
         &::-webkit-outer-spin-button,
         &::-webkit-inner-spin-button {
           -webkit-appearance: none;
           margin: 0;
         }
-        appearance: textfield;
-
         &:focus-visible {
           outline: none;
         }
         &.hasError {
-          outline: 3px $justfix-orange solid;
-          outline-offset: -3px;
+          outline: 0.3rem solid $justfix-orange;
         }
       }
     }
+  }
+  .button.is-primary {
+    align-self: center;
   }
 }
