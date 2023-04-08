@@ -91,8 +91,18 @@ function MultiSelect<
     [selections]
   );
 
+  const handleApply = () => {
+    // @ts-ignore (TODO: says properties 'value' & 'label' don't exist on type Option)
+    const selectedValues = selections.map((v) => ({ name: v.value || "", id: v.label }));
+    if (!selectedValues.length && !!inputValue) {
+      setHasError(true);
+    } else {
+      onApply(selectedValues);
+    }
+  };
+
   return (
-    <div className={classnames("multiselect-container2", { "has-error": hasError })}>
+    <div className={classnames("multiselect-container", { "has-error": hasError })}>
       {hasError && (
         <Alert type="error" variant="primary" closeType="none" role="status">
           <Trans>Make a selection from the list or clear search text</Trans>
@@ -137,15 +147,12 @@ function MultiSelect<
 
       <button
         className="button is-primary"
-        onClick={() => {
-          // @ts-ignore (TODO: says properties 'value' & 'label' don't exist on type Option)
-          const selectedValues = selections.map((v) => ({ name: v.value || "", id: v.label }));
-          if (!selectedValues.length && !!inputValue) {
-            setHasError(true);
-          } else {
-            onApply(selectedValues);
-          }
-        }}
+        onClick={handleApply}
+        // By default, when multiselect option list is open mouseDown outside
+        // closes the list, so because the Apply button is below, if you try to
+        // click apply while it's open it moves on you before you can mouseUp.
+        onMouseDown={handleApply}
+        onTouchStart={handleApply}
       >
         <Trans>Apply</Trans>
       </button>

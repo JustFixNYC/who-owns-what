@@ -77,7 +77,11 @@
   &.is-success::before {
     background-color: $justfix-green;
   }
-  &.is-info::before {
-    background-color: $justfix-blue;
+  &.is-info {
+    color: $justfix-grey-600;
+    border: 0.1rem solid $justfix-grey-400;
+    &::before {
+      background-color: $justfix-blue;
+    }
   }
 }

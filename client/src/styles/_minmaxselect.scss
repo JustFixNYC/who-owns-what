@@ -6,20 +6,18 @@
   display: flex;
   flex-direction: column;
   padding: 1.2rem;
-  @include for-phone-only {
-    border-top: none;
-  }
+  gap: 1.2rem;
   input {
     font-size: 1.6rem;
   }
   .label-input-container {
-    width: fit-content;
-    padding: 0 1.2rem 1.2rem 1.2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
     .labels-container {
       display: flex;
       color: $justfix-grey-600;
       font-size: 1.2rem;
-      margin-bottom: 0.4rem;
       label:first-child {
         margin-right: auto;
       }

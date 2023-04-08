@@ -3,7 +3,7 @@
 @import "_scrollbar.scss";
 @import "_button.scss";
 
-.multiselect-container2 {
+.multiselect-container {
   display: flex;
   flex-direction: column;
   font-family: $wow-font;
@@ -168,7 +168,7 @@
   }
 }
 
-.multiselect-container2.has-error
+.multiselect-container.has-error
   .multiselect__control
   .multiselect__value-container
   .multiselect__input-container {
