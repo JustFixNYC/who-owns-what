@@ -1,0 +1,63 @@
+@import "_vars";
+@import "_typography";
+@import "_button.scss";
+
+.minmax-container {
+  display: flex;
+  flex-direction: column;
+  padding: 1.2rem;
+  @include for-phone-only {
+    border-top: none;
+  }
+  input {
+    font-size: 1.6rem;
+  }
+  .label-input-container {
+    width: fit-content;
+    padding: 0 1.2rem 1.2rem 1.2rem;
+    @include for-phone-only {
+      padding: 1.2rem 0;
+    }
+    @include for-tablet-portrait-up() {
+      border-bottom: 0.1rem solid $justfix-grey;
+    }
+    .labels-container {
+      display: flex;
+      color: $justfix-grey-600;
+      font-size: 1.2rem;
+      margin-bottom: 0.4rem;
+      label:first-child {
+        margin-right: auto;
+      }
+    }
+    .inputs-container {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      color: $justfix-grey-600;
+      input {
+        background-color: $justfix-white;
+        width: 4.4rem;
+        height: 4.4rem;
+        border: 0.1rem solid $justfix-grey-600;
+        border-radius: 0.2rem;
+        padding: 0.5rem;
+        // remove increment arrows
+        &::-webkit-outer-spin-button,
+        &::-webkit-inner-spin-button {
+          -webkit-appearance: none;
+          margin: 0;
+        }
+        appearance: textfield;
+
+        &:focus-visible {
+          outline: none;
+        }
+        &.hasError {
+          outline: 3px $justfix-orange solid;
+          outline-offset: -3px;
+        }
+      }
+    }
+  }
+}
