@@ -17,7 +17,6 @@
   .multiselect__selected-value-container {
     display: flex;
     flex-wrap: wrap;
-    // TODO: in filters styles "flex-direction: column" for desktop
     gap: 0.6rem;
     padding: 0;
     margin: 0;
@@ -29,6 +28,7 @@
       margin: 0;
       white-space: pre-line;
       gap: 0.5rem;
+      width: fit-content;
     }
 
     .multiselect__multi-value {
@@ -41,6 +41,7 @@
         text-transform: uppercase;
         font-size: 1.4rem;
         padding: 0;
+        white-space: normal;
       }
 
       .multiselect__multi-value__remove {

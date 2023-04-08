@@ -170,17 +170,12 @@
           }
         }
 
-        &.ownernames-accordion .dropdown-container {
-          width: 25.2rem;
-          @include for-phone-only {
-            width: unset;
+        @include for-tablet-portrait-up {
+          &.ownernames-accordion .dropdown-container {
+            width: 25.2rem;
           }
-        }
-
-        &.zip-accordion .dropdown-container {
-          width: 15rem;
-          @include for-phone-only {
-            width: unset;
+          &.zip-accordion .dropdown-container {
+            width: 15rem;
           }
         }
 
@@ -195,62 +190,69 @@
           box-sizing: border-box;
           border: 0.1rem solid $justfix-black;
           border-radius: 0.8rem;
-
-          & > div {
-            width: 100%;
+          @include for-phone-only {
+            padding: 0 2.4rem 2.4rem 2.4rem;
           }
 
           .filter-subtitle-container {
             font-size: 1.2rem;
-            color: $justfix-grey-700;
-            @include for-tablet-portrait-up {
-              padding: 1.2rem;
-              // margin-bottom: 1.2rem;
-            }
             display: flex;
             width: 100%;
+            padding: 1.2rem;
+            @include for-phone-only {
+              padding: 0 0 1.2rem 0;
+            }
             @include for-tablet-portrait-up() {
               border-bottom: 0.1rem solid $justfix-grey;
+            }
+            &,
+            .filter-info {
+              color: $justfix-grey-700;
             }
             .filter-subtitle {
               margin-right: auto;
             }
-
-            .filter-info {
-              color: $justfix-grey-700;
-              &:focus-visible {
-                box-shadow: none;
-                outline: 2px solid $focus-outline-color;
-                outline-offset: 2px;
-              }
-            }
           }
 
           .multiselect-container2 {
+            width: 100%;
+            @include for-phone-only {
+              padding: 0;
+
+              .multiselect__input-container,
+              .multiselect__placeholder {
+                height: 5rem;
+                padding-left: 1.2rem;
+              }
+              .multiselect__input-container,
+              .multiselect__placeholder,
+              .multiselect__menu {
+                width: 75%;
+                font-size: 1.8rem;
+                line-height: 100%;
+              }
+            }
+            .multiselect__selected-value-container {
+              @include for-tablet-portrait-up {
+                flex-direction: column;
+              }
+            }
             .ownernames-info-alert {
               color: $justfix-grey-600;
               border: 0.1rem solid $justfix-grey-400;
             }
           }
 
-          .multiselect-container,
           .minmax-container {
             display: flex;
             flex-direction: column;
-            .jf-alert {
-              margin-top: 0.6rem;
-              margin-bottom: 0.4rem;
-            }
-            input {
-              font-size: 1.6rem;
-            }
-          }
-          .minmax-container {
             padding: 1.2rem;
             @include for-phone-only {
               border-top: none;
             }
-
+            input {
+              font-size: 1.6rem;
+            }
             .label-input-container {
               width: fit-content;
               padding: 0 1.2rem 1.2rem 1.2rem;
@@ -478,7 +480,7 @@
           display: flex;
           flex-direction: column;
           width: 100%;
-          padding: 0;
+          // padding: 0;
           background-color: $justfix-table-grey;
           border-radius: 0;
           border: none;
@@ -491,6 +493,7 @@
           max-height: none;
           height: calc(100vh - var(--filter-bar-top-height));
           z-index: 102;
+          padding: 0;
 
           &.scroll-gradient {
             // https://css-scroll-shadows.vercel.app/
@@ -538,9 +541,8 @@
               .dropdown-container {
                 align-items: flex-start;
                 width: 100%;
-                padding: 0 2.4rem;
+                // padding: 0 2.4rem;
                 .filter-subtitle-container {
-                  margin-bottom: 1.2rem;
                   .filter-subtitle {
                     font-size: 1.6rem;
                   }
@@ -568,7 +570,7 @@
             .dropdown-container {
               position: relative;
               max-height: none;
-              padding-bottom: 1.2rem;
+              // padding-bottom: 1.2rem;
             }
           }
           .ownernames-accordion {
