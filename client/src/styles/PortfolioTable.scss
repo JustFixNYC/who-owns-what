@@ -68,6 +68,7 @@ $table-border-dark: 1px solid $dark;
       @include browser-not("Chrome") {
         letter-spacing: normal;
       }
+      font-weight: 500;
       @include browser("Firefox") {
         font-weight: 400;
       }
