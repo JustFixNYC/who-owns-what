@@ -155,26 +155,13 @@ export const PortfolioFilters = React.memo(
             selectionsCount={filterContext.filterSelections.ownernames.length}
             className="ownernames-accordion"
           >
-            {/* <Multiselect
-              options={ownernamesOptions.map((value: any) => ({ name: value, id: value }))}
-              selectedValues={ownernamesSelections}
-              displayValue="name"
-              placeholder={i18n._(t`Search`) + `... (${ownernamesOptions.length})`}
-              onApply={onOwnernamesApply}
-              onFocusInput={() => helpers.scrollToBottom(".mobile-wrapper-dropdown")}
-              id="filter-ownernames-multiselect"
-              infoAlert={OwnernamesInfoAlert}
-              avoidHighlightFirstOption={true}
-              showCheckbox={true}
-              keepSearchTerm={true}
-            /> */}
             <MultiSelect
               id="filter-ownernames-multiselect"
               options={ownernamesOptionsSelect}
               onApply={onOwnernamesApply}
               i18n={i18n}
               infoAlert={OwnernamesInfoAlert}
-              // noOptionsMessage={() => i18n._(t`ZIP code is not applicable`)}
+              noOptionsMessage={() => i18n._(t`Zip code is not applicable`)}
             />
           </FilterAccordion>
           <FilterAccordion
@@ -195,7 +182,7 @@ export const PortfolioFilters = React.memo(
             />
           </FilterAccordion>
           <FilterAccordion
-            title={i18n._(t`ZIP CODE`)}
+            title={i18n._(t`Zip Code`)}
             isMobile={isMobile}
             isActive={zipActive}
             isOpen={zipIsOpen}
@@ -204,20 +191,6 @@ export const PortfolioFilters = React.memo(
             selectionsCount={filterContext.filterSelections.zip.length}
             className="zip-accordion"
           >
-            {/* <Multiselect
-              options={zipOptions.map((value: any) => ({ name: value, id: value }))}
-              selectedValues={zipSelections}
-              displayValue="name"
-              placeholder={i18n._(t`Search`) + `... (${zipOptions.length})`}
-              onApply={onZipApply}
-              id="filter-zip-multiselect"
-              onFocusInput={() => helpers.scrollToBottom(".mobile-wrapper-dropdown")}
-              avoidHighlightFirstOption={true}
-              showCheckbox={true}
-              keepSearchTerm={true}
-              emptyRecordMsg={i18n._(t`ZIP CODE is not applicable`)}
-              preventNonNumericalInput={true}
-            /> */}
             <MultiSelect
               id="filter-zip-multiselect"
               options={zipOptionsSelect}
