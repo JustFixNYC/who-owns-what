@@ -8,6 +8,9 @@
   padding: 1.2rem;
   gap: 1.2rem;
   font-weight: 600;
+  @include browser("Firefox") {
+    font-weight: 500;
+  }
   .label-input-container {
     display: flex;
     flex-direction: column;
