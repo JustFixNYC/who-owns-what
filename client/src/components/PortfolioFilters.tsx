@@ -14,7 +14,7 @@ import { isLegacyPath } from "./WowzaToggle";
 import { useLocation } from "react-router-dom";
 import Browser from "../util/browser";
 import helpers from "util/helpers";
-import MultiSelect, { Option } from "./MultiSelect";
+import MultiSelect, { Option } from "./Multiselect";
 import MinMaxSelect from "./MinMaxSelect";
 
 import "styles/PortfolioFilters.scss";
