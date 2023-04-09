@@ -7,17 +7,15 @@
   flex-direction: column;
   padding: 1.2rem;
   gap: 1.2rem;
-  input {
-    font-size: 1.6rem;
-  }
+  font-weight: 600;
   .label-input-container {
     display: flex;
     flex-direction: column;
     gap: 0.4rem;
+    color: $justfix-grey-700;
+    font-size: 1.2rem;
     .labels-container {
       display: flex;
-      color: $justfix-grey-600;
-      font-size: 1.2rem;
       label:first-child {
         margin-right: auto;
       }
@@ -26,9 +24,10 @@
       display: flex;
       gap: 1rem;
       align-items: center;
-      color: $justfix-grey-600;
       input {
         background-color: $justfix-white;
+        color: $justfix-black;
+        font-size: 1.4rem;
         width: 4.4rem;
         height: 4.4rem;
         border: 0.1rem solid $justfix-grey-600;

@@ -50,7 +50,9 @@ function MinMaxSelect(props: {
             onFocus={onFocusInput}
             className={classnames("min-input", { hasError: minMaxErrors[0] })}
           />
-          <Trans>to</Trans>
+          <span>
+            <Trans>and</Trans>
+          </span>
           <input
             id={`${id || "minmax-select"}_max-input`}
             type="number"
