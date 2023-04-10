@@ -142,9 +142,13 @@ msgstr "An “eviction filing” is a legal case for eviction commenced by a lan
 #~ msgstr "An “eviction filing” is a legal case for eviction commenced by a landlord against a tenant in Housing Court. Such a case can be commenced for nonpayment of rent (most commonly) or for a violation of the lease (such as a nuisance). The eviction filings number only represents cases filed in Housing Court (data from the New York State Office of Court Administration<0>via the Housing Data Coalition</0> in collaboration with the <1>Right to Counsel Coalition</1>) and not evictions carried out by NYC Marshals.<2/>If you or someone you know is facing eviction and want to learn more about your rights, head over to <3>Housing Court Answers for more information</3>.<4/>Due to privacy restrictions on the use of these data, eviction filings cannot be shown for buildings with fewer than 11 units."
 
 #: src/components/MinMaxSelect.tsx:50
-#: src/components/MultiSelect.tsx:77
+#: src/components/Multiselect.tsx:83
 msgid "Apply"
 msgstr "Apply"
+
+#: src/components/Multiselect.tsx:78
+msgid "Apply selections and get results"
+msgstr "Apply selections and get results"
 
 #: src/components/DetailView.tsx:261
 msgid "Are you having issues in this building?"
@@ -247,7 +251,7 @@ msgstr "Class C"
 msgid "Class I"
 msgstr "Class I"
 
-#: src/components/MultiSelect.tsx:132
+#: src/components/Multiselect.tsx:139
 msgid "Clear"
 msgstr "Clear"
 
@@ -258,6 +262,10 @@ msgstr "Clear Filters"
 #: src/components/Multiselect.tsx:450
 #~ msgid "Clear all"
 #~ msgstr "Clear all"
+
+#: src/components/Multiselect.tsx:135
+msgid "Clear all selections"
+msgstr "Clear all selections"
 
 #: src/components/FeatureCalloutContent.ts:13
 msgid "Clearer Landlord Contact Info"
@@ -453,6 +461,10 @@ msgstr "Filed"
 #~ msgid "Filied"
 #~ msgstr "Filied"
 
+#: src/components/PortfolioFilters.tsx:236
+msgid "Filter"
+msgstr "Filter"
+
 #: src/components/PortfolioAlerts.tsx:78
 msgid "Filter through this portfolio in <0>the Portfolio tab.</0>"
 msgstr "Filter through this portfolio in <0>the Portfolio tab.</0>"
@@ -605,6 +617,10 @@ msgstr "LOCKS"
 msgid "Landlord"
 msgstr "Landlord"
 
+#: src/components/PortfolioFilters.tsx:90
+msgid "Landlord filter"
+msgstr "Landlord filter"
+
 #: src/containers/HomePage.tsx:108
 msgid "Landlord name"
 msgstr "Landlord name"
@@ -701,7 +717,7 @@ msgstr "Made with NYC ♥ by the team at <0>JustFix.org</0>"
 msgid "Maintenance code violations"
 msgstr "Maintenance code violations"
 
-#: src/components/MultiSelect.tsx:57
+#: src/components/Multiselect.tsx:62
 msgid "Make a selection from the list or clear search text"
 msgstr "Make a selection from the list or clear search text"
 
@@ -973,6 +989,10 @@ msgstr "Registration expired:"
 msgid "Rent Stabilized Units"
 msgstr "Rent Stabilized Units"
 
+#: src/components/PortfolioFilters.tsx:83
+msgid "Rent Stabilized Units filter"
+msgstr "Rent Stabilized Units filter"
+
 #: src/components/PropertiesSummary.tsx:125
 msgid "Rent stabilization"
 msgstr "Rent stabilization"
@@ -1001,7 +1021,7 @@ msgstr "SIGNAGE MISSING"
 msgid "STAIRS"
 msgstr "STAIRS"
 
-#: src/components/MultiSelect.tsx:59
+#: src/components/Multiselect.tsx:64
 #: src/containers/App.tsx:87
 msgid "Search"
 msgstr "Search"
@@ -1048,9 +1068,17 @@ msgstr "Share this page with your neighbors"
 msgid "Shareholder"
 msgstr "Shareholder"
 
-#: src/components/MultiSelect.tsx:126
+#: src/components/Multiselect.tsx:118
+msgid "Show all {numSelections} selections"
+msgstr "Show all {numSelections} selections"
+
+#: src/components/Multiselect.tsx:133
 msgid "Show less"
 msgstr "Show less"
+
+#: src/components/Multiselect.tsx:132
+msgid "Show only {previewSelectedNum} selections"
+msgstr "Show only {previewSelectedNum} selections"
 
 #: src/components/PortfolioFilters.tsx:103
 msgid "Showing {0} {1, plural, one {result} other {results}}"
@@ -1451,7 +1479,7 @@ msgstr "What happens if the landlord has failed to register?"
 msgid "What's New"
 msgstr "What's New"
 
-#: src/components/PortfolioFilters.tsx:246
+#: src/components/PortfolioFilters.tsx:245
 msgid "What's this?"
 msgstr "What's this?"
 
@@ -1533,9 +1561,13 @@ msgstr "ZIP code is not applicable"
 msgid "Zip Code"
 msgstr "Zip Code"
 
+#: src/components/PortfolioFilters.tsx:96
+msgid "Zip code filter"
+msgstr "Zip code filter"
+
 #: src/components/PortfolioFilters.tsx:90
-msgid "Zip code is not applicable"
-msgstr "Zip code is not applicable"
+#~ msgid "Zip code is not applicable"
+#~ msgstr "Zip code is not applicable"
 
 #: src/components/PortfolioGraph.tsx:133
 msgid "Zoom in"

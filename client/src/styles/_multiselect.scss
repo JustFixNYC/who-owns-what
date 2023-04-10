@@ -1,6 +1,5 @@
 @import "_vars";
 @import "_typography";
-@import "_scrollbar.scss";
 @import "_button.scss";
 
 .multiselect-container {
@@ -9,6 +8,9 @@
   font-family: $wow-font;
   font-style: normal;
   font-weight: 600;
+  @include browser("Firefox") {
+    font-weight: 500;
+  }
   line-height: 100%;
   letter-spacing: 0.02em;
   padding: 1.2rem;

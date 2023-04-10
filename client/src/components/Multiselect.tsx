@@ -6,14 +6,15 @@ import Select, {
   GroupBase,
   MultiValueRemoveProps,
   OptionProps,
+  InputProps,
 } from "react-select";
-import { I18n } from "@lingui/core";
+import { I18n, i18n } from "@lingui/core";
 import { t, Trans } from "@lingui/macro";
 import { Alert } from "./Alert";
 import { CloseIcon, CheckIcon } from "./Icons";
 import classnames from "classnames";
 
-// Example of separating out selected values (sadly with many typescript errors, which I've tried to address)
+// Example of separating out selected values
 // https://github.com/JedWatson/react-select/discussions/4850
 
 export type Option = {
@@ -37,6 +38,11 @@ interface CustomSelectProps {
   showAllSelections: boolean;
   setShowAllSelections: (x: any) => void;
 }
+
+const ariaLiveGuidanceGeneral = `Type to refine list of options. Use Up and Down to choose options, 
+  press Enter to select the currently focused option, press Escape to exit the menu. 
+  Use Left and Right to toggle between selected values, 
+  press Backspace to remove the currently focused value`;
 
 function CustomSelect<
   Option,
@@ -132,6 +138,7 @@ function MultiSelect<
           ClearIndicator: () => null,
           SelectContainer: SelectContainer,
           Option: CustomOption,
+          Input: CustomInput,
         }}
         // Custom props passed through SelectProps to composable components
         removeValue={removeValue}
@@ -147,6 +154,7 @@ function MultiSelect<
 
       <button
         className="button is-primary"
+        aria-label={i18n._(t`Apply selections and get results`)}
         onClick={handleApply}
         // By default, when multiselect option list is open mouseDown outside
         // closes the list, so because the Apply button is below, if you try to
@@ -210,17 +218,20 @@ function SelectedValuesContainer<
     );
   };
 
+  const numSelections = getValue().length;
+
   return (
     <div className={`${classNamePrefix}__selected-value-container`}>
       {getValue()
         .map(toMultiValue)
         .filter((_value, i) => showAllSelections || i < previewSelectedNum)}
-      {!showAllSelections && getValue().length > previewSelectedNum && (
+      {!showAllSelections && numSelections > previewSelectedNum && (
         <button
           className={`${classNamePrefix}__show-more-button`}
+          aria-label={i18n._(t`Show all ${numSelections} selections`)}
           onClick={() => setShowAllSelections((prev: boolean) => !prev)}
         >
-          +{getValue().length - previewSelectedNum}
+          +{numSelections - previewSelectedNum}
         </button>
       )}
     </div>
@@ -263,6 +274,7 @@ function SelectContainer<
           <button
             className={`${classNamePrefix}__show-less-button button is-text`}
             onClick={() => setShowAllSelections((prev: boolean) => !prev)}
+            aria-label={i18n._(t`Show only ${previewSelectedNum} selections`)}
           >
             <Trans>Show less</Trans>
           </button>
@@ -270,6 +282,7 @@ function SelectContainer<
         {getValue().length > 0 && (
           <button
             className={`${classNamePrefix}__clear-value-button button is-text`}
+            aria-label={i18n._(t`Clear all selections`)}
             onClick={() => {
               setSelections([]);
               onApply([]);
@@ -293,6 +306,22 @@ function CustomMultiValueRemove<
     <components.MultiValueRemove {...props}>
       <CloseIcon />
     </components.MultiValueRemove>
+  );
+}
+
+function CustomInput<
+  Option,
+  IsMulti extends boolean = true,
+  GroupType extends GroupBase<Option> = GroupBase<Option>
+>(props: InputProps<Option, IsMulti, GroupType>) {
+  const id = "test-123456789";
+  return (
+    <>
+      <components.Input {...props} aria-describedby={id}></components.Input>
+      <span hidden id={id}>
+        {ariaLiveGuidanceGeneral}
+      </span>
+    </>
   );
 }
 

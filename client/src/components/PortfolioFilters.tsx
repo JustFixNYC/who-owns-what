@@ -14,7 +14,7 @@ import { isLegacyPath } from "./WowzaToggle";
 import { useLocation } from "react-router-dom";
 import Browser from "../util/browser";
 import helpers from "util/helpers";
-import MultiSelect, { Option } from "./MultiSelect";
+import MultiSelect, { Option } from "./Multiselect";
 import MinMaxSelect from "./MinMaxSelect";
 
 import "styles/PortfolioFilters.scss";
@@ -137,6 +137,7 @@ export const PortfolioFilters = React.memo(
             aria-pressed={rsunitslatestActive}
             onClick={updateRsunitslatest}
             className="filter filter-toggle"
+            aria-label={i18n._(t`Rent Stabilized Units filter`)}
           >
             <div className="checkbox">{rsunitslatestActive && <CheckIcon />}</div>
             <span>
@@ -154,6 +155,7 @@ export const PortfolioFilters = React.memo(
             initialFocus={isMobile ? undefined : "#filter-ownernames-multiselect input"}
             selectionsCount={filterContext.filterSelections.ownernames.length}
             className="ownernames-accordion"
+            i18n={i18n}
           >
             <MultiSelect
               id="filter-ownernames-multiselect"
@@ -161,7 +163,7 @@ export const PortfolioFilters = React.memo(
               onApply={onOwnernamesApply}
               i18n={i18n}
               infoAlert={OwnernamesInfoAlert}
-              noOptionsMessage={() => i18n._(t`Zip code is not applicable`)}
+              aria-label={i18n._(t`Landlord filter`)}
             />
           </FilterAccordion>
           <FilterAccordion
@@ -173,6 +175,7 @@ export const PortfolioFilters = React.memo(
             initialFocus={isMobile ? undefined : "#filter-unitsres-minmax_min-input"}
             setIsOpen={setUnitsresIsOpen}
             className="unitsres-accordion"
+            i18n={i18n}
           >
             <MinMaxSelect
               options={filterContext.filterOptions.unitsres}
@@ -190,6 +193,7 @@ export const PortfolioFilters = React.memo(
             initialFocus={isMobile ? undefined : "#filter-zip-multiselect input"}
             selectionsCount={filterContext.filterSelections.zip.length}
             className="zip-accordion"
+            i18n={i18n}
           >
             <MultiSelect
               id="filter-zip-multiselect"
@@ -197,6 +201,7 @@ export const PortfolioFilters = React.memo(
               onApply={onZipApply}
               i18n={i18n}
               noOptionsMessage={() => i18n._(t`ZIP code is not applicable`)}
+              aria-label={i18n._(t`Zip code filter`)}
               onKeyDown={helpers.preventNonNumericalInput}
             />
           </FilterAccordion>
@@ -431,6 +436,7 @@ function FilterAccordion(props: {
   initialFocus?: FocusTarget;
   selectionsCount?: number;
   className?: string;
+  i18n: I18n;
 }) {
   const {
     title,
@@ -444,6 +450,7 @@ function FilterAccordion(props: {
     initialFocus,
     selectionsCount,
     className,
+    i18n,
   } = props;
 
   return (
@@ -454,7 +461,6 @@ function FilterAccordion(props: {
         returnFocusOnDeactivate: false,
         onDeactivate: () => setIsOpen(false),
         initialFocus: initialFocus,
-        // escapeDeactivates: false,
       }}
     >
       <details
@@ -467,6 +473,7 @@ function FilterAccordion(props: {
             setIsOpen(!isOpen);
           }}
           data-selections={selectionsCount}
+          aria-label={i18n._(t`Filter`)}
         >
           {title}
           {isActive && selectionsCount && (!isOpen || isMobile) && (

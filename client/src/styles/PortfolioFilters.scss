@@ -214,7 +214,7 @@
             width: 25.2rem;
           }
           &.zip-accordion .dropdown-container {
-            width: 15rem;
+            width: 16.5rem;
           }
         }
 
@@ -224,11 +224,13 @@
           left: -0.1rem;
           z-index: 100;
           overflow-y: scroll;
-          max-height: calc(100vh - 25rem);
           background-color: $justfix-table-grey;
           box-sizing: border-box;
           border: 0.1rem solid $justfix-black;
           border-radius: 0.8rem;
+          @include for-tablet-portrait-up {
+            max-height: 65vh;
+          }
           @include for-phone-only {
             padding: 0 2.4rem 2.4rem 2.4rem;
             display: flex;
