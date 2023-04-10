@@ -270,8 +270,14 @@ export default class PropertiesMap extends Component<Props, State> {
             />
             {useNewPortfolioMethod ? (
               <div className="MapAlert__container">
-                <BigPortfolioAlert portfolioSize={this.state.addrsPoints.length} />
+                <BigPortfolioAlert
+                  closeType="session"
+                  storageId="map-big-portfolio-alert"
+                  portfolioSize={this.state.addrsPoints.length}
+                />
                 <FilterPortfolioAlert
+                  closeType="session"
+                  storageId="map-filter-portfolio-alert"
                   portfolioSize={this.state.addrsPoints.length}
                   addressPageRoutes={this.props.addressPageRoutes}
                 />

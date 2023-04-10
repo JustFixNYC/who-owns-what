@@ -32,7 +32,6 @@ export const BigPortfolioAlert = ({ portfolioSize, className, ...props }: Portfo
   return !isLegacyPath(pathname) && portfolioSize > BIG_PORTFOLIO_THRESHOLD ? (
     <Alert
       className={classNames("big-portfolio-alert", className)}
-      closeType="state"
       variant="secondary"
       type="info"
       {...props}
@@ -101,7 +100,6 @@ export const FilterPortfolioAlert = ({
   return !isLegacyPath(pathname) && portfolioSize >= FILTER_PORTFOLIO_THRESHOLD ? (
     <Alert
       className={classNames("big-portfolio-alert", className)}
-      closeType="state"
       variant="secondary"
       type="info"
       {...props}

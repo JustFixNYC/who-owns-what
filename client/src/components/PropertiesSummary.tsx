@@ -105,7 +105,11 @@ export default class PropertiesSummary extends Component<Props, {}> {
                       graphJSON={state.context.portfolioData.portfolioGraph}
                       state={state}
                     />
-                    <BigPortfolioAlert portfolioSize={agg.bldgs} />
+                    <BigPortfolioAlert
+                      closeType="session"
+                      storageId="summary-big-portfolio-alert"
+                      portfolioSize={agg.bldgs}
+                    />
                   </LazyLoadWhenVisible>
                 </div>
               )}
