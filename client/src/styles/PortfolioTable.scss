@@ -186,6 +186,7 @@ $table-border-dark: 1px solid $dark;
           &.filter-table-alert-container {
             background-color: #fff;
             .filter-result-alert {
+              text-align: left;
               margin: 1.2rem 3.2rem;
               max-width: 50rem;
               @include for-phone-only {

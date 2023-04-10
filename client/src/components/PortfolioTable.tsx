@@ -35,7 +35,6 @@ import { ArrowIcon } from "./Icons";
 import classNames from "classnames";
 import classnames from "classnames";
 import { isLegacyPath } from "./WowzaToggle";
-import { Alert } from "./Alert";
 import { OwnernamesResultAlert, RsUnitsResultAlert } from "./PortfolioFilters";
 
 const FIRST_COLUMN_WIDTH = 130;
