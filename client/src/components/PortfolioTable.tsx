@@ -571,23 +571,18 @@ export const PortfolioTable = React.memo((props: PortfolioTableProps) => {
             ))}
           </thead>
           <tbody>
-            <tr>
-              <td
-                className="filter-table-alert-container"
-                colSpan={table.getVisibleFlatColumns().length}
-              >
-                {activeFilters.rsunitslatestActive && table.getRowModel().rows.length ? (
-                  RsUnitsResultAlert
-                ) : (
-                  <></>
-                )}
-                {activeFilters.ownernamesActive && table.getRowModel().rows.length ? (
-                  OwnernamesResultAlert
-                ) : (
-                  <></>
-                )}
-              </td>
-            </tr>
+            {table.getRowModel().rows.length &&
+              (activeFilters.rsunitslatestActive || activeFilters.ownernamesActive) && (
+                <tr>
+                  <td
+                    className="filter-table-alert-container"
+                    colSpan={table.getVisibleFlatColumns().length}
+                  >
+                    {activeFilters.rsunitslatestActive && RsUnitsResultAlert}
+                    {activeFilters.ownernamesActive && OwnernamesResultAlert}
+                  </td>
+                </tr>
+              )}
             {table.getRowModel().rows.map((row, i) => {
               return (
                 <Fragment key={row.id}>
