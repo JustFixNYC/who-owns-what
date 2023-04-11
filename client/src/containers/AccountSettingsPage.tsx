@@ -76,7 +76,11 @@ const AccountSettingsPage = withI18n()((props: withI18nProps) => {
             }
           />
           <h4 className="settings-section">
-            <Trans>You’re signed up for email updates from these buildings:</Trans>
+            {subscriptions?.length ? (
+              <Trans>You’re signed up for email updates from these buildings:</Trans>
+            ) : (
+              <Trans>Sign up for email updates on the buildings you choose:</Trans>
+            )}
           </h4>
           <div>
             {subscriptions?.length ? (
