@@ -25,6 +25,7 @@ export const validatePassword = (password: string) => {
 };
 
 type PasswordInputProps = {
+  label?: string;
   username?: string;
   showForgotPassword?: boolean;
   showPasswordRules?: boolean;
@@ -34,7 +35,7 @@ type PasswordInputProps = {
 const PasswordInputWithoutI18n = (props: PasswordInputProps) => {
   const { account } = createWhoOwnsWhatRoutePaths();
 
-  const { username, showForgotPassword, showPasswordRules, onChange } = props;
+  const { label, username, showForgotPassword, showPasswordRules, onChange } = props;
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
@@ -46,7 +47,7 @@ const PasswordInputWithoutI18n = (props: PasswordInputProps) => {
   return (
     <>
       <div className="login-password-label">
-        <Trans render="label">Enter password</Trans>
+        {label && <label>{label}</label>}
         {showForgotPassword && (
           <LocaleLink to={`${account.forgotPassword}?email=${encodeURIComponent(username || "")}`}>
             Forgot your password?

@@ -39,8 +39,7 @@ const PasswordSettingFieldWithoutI18n = (props: PasswordSettingFieldProps) => {
           Show
         </button>
       </div>
-      <Trans render="label">Create a new password</Trans>
-      <PasswordInput onChange={setNewPassword} />
+      <PasswordInput label={i18n._(t`Create a new password`)} onChange={setNewPassword} />
     </UserSettingField>
   );
 };
