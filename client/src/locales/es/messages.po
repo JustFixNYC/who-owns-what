@@ -21,8 +21,12 @@ msgstr ""
 #: src/components/Multiselect.tsx:478
 #~ msgid "\"No Options Available\""
 #~ msgstr ""
+#~ msgid "\"No Options Available\""
+#~ msgstr ""
 
 #: src/components/Multiselect.tsx:476
+#~ msgid "\"Select\""
+#~ msgstr ""
 #~ msgid "\"Select\""
 #~ msgstr ""
 
@@ -267,6 +271,10 @@ msgstr ""
 #: src/components/Multiselect.tsx:450
 #~ msgid "Clear all"
 #~ msgstr ""
+
+#: src/components/Multiselect.tsx:135
+msgid "Clear all selections"
+msgstr ""
 
 #: src/components/Multiselect.tsx:135
 msgid "Clear all selections"

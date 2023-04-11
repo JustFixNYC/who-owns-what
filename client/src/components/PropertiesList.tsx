@@ -1,6 +1,5 @@
-import { I18n } from "@lingui/core";
 import { Trans } from "@lingui/macro";
-import { withI18n } from "@lingui/react";
+import { withI18n, withI18nProps } from "@lingui/react";
 import React from "react";
 import { withMachineInStateProps } from "state-machine";
 import "styles/PropertiesList.css";
@@ -60,9 +59,7 @@ const FilterContextProvider: React.FC<{}> = (props) => {
 };
 
 const PropertiesListWithoutI18n: React.FC<
-  withMachineInStateProps<"portfolioFound"> & {
-    i18n: I18n;
-  }
+  withMachineInStateProps<"portfolioFound"> & withI18nProps
 > = (props) => {
   const { i18n } = props;
   const { width: windowWidth, height: windowHeight } = Helpers.useWindowSize();
@@ -86,10 +83,6 @@ const PropertiesListWithoutI18n: React.FC<
   // So, let's keep track of and also update this top spacing whenever the layout of the page changes.
   const [headerTopSpacing, setHeaderTopSpacing] = React.useState<number | undefined>();
 
-  // The possible options for filter UI component selections
-  // const [filterOptions, setFilterOptions] = useState<FilterOptions>();
-  // const [buildingCounts, setBuildingCounts] = useState<BuildingCounts>();
-
   // TODO: double check how this works with new v8 table
   // Make sure to setHeaderTopSpacing whenever
   // - the table comes into view
@@ -107,11 +100,10 @@ const PropertiesListWithoutI18n: React.FC<
     <div className="PropertiesList" ref={tableRef}>
       {isTableVisible ? (
         <FilterContextProvider>
-          {useNewPortfolioMethod ? <PortfolioFilters i18n={i18n} /> : <></>}
+          {useNewPortfolioMethod ? <PortfolioFilters /> : <></>}
           <PortfolioTable
             data={addrs}
             headerTopSpacing={headerTopSpacing}
-            i18n={i18n}
             locale={locale}
             rsunitslatestyear={rsunitslatestyear}
             getRowCanExpand={() => true}
