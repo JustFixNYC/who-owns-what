@@ -1,7 +1,5 @@
 @import "_vars.scss";
 
-// TODO: refactor this using mixin for variant/type when we move to component-library
-
 .jf-alert {
   --color-bar-width: 1.5rem;
   display: flex;
@@ -34,7 +32,6 @@
 
   .jf-alert__close {
     align-self: flex-start;
-    // TODO: target area of button is still less than 44x44 px for a11y
     padding: 1rem 1rem 1.2rem 1.2rem;
     &:focus-visible {
       outline: 2px solid $focus-outline-color;
