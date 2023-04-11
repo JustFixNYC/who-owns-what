@@ -55,11 +55,9 @@ const PasswordInputWithoutI18n = (props: PasswordInputProps) => {
       </div>
       {showPasswordRules &&
         passwordRules.map((rule, i) => {
+          const ruleClass = !!password ? (password.match(rule.regex) ? "valid" : "invalid") : "";
           return (
-            <span
-              className={`password-input-rule ${password.match(rule.regex) ? "valid" : "invalid"}`}
-              key={`rule-${i}`}
-            >
+            <span className={`password-input-rule ${ruleClass}`} key={`rule-${i}`}>
               {rule.label}
             </span>
           );
