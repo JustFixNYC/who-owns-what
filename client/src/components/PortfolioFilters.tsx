@@ -1,11 +1,9 @@
-import { I18n } from "@lingui/core";
+import { i18n } from "@lingui/core";
 import { t, Trans, Plural } from "@lingui/macro";
 import classnames from "classnames";
 import React from "react";
 import { CheckIcon, ChevronIcon, CloseIcon, InfoIcon } from "./Icons";
-import { Multiselect } from "./Multiselect";
-import { FilterContext, FilterNumberRange, MINMAX_DEFAULT } from "./PropertiesList";
-import "styles/PortfolioFilters.scss";
+import { FilterContext, MINMAX_DEFAULT } from "./PropertiesList";
 import FocusTrap from "focus-trap-react";
 import { FocusTarget } from "focus-trap";
 import { Alert } from "./Alert";
@@ -16,13 +14,13 @@ import { isLegacyPath } from "./WowzaToggle";
 import { useLocation } from "react-router-dom";
 import Browser from "../util/browser";
 import helpers from "util/helpers";
+import MultiSelect, { Option } from "./Multiselect";
+import MinMaxSelect from "./MinMaxSelect";
 
-type PortfolioFiltersProps = {
-  i18n: I18n;
-};
+import "styles/PortfolioFilters.scss";
+
 export const PortfolioFilters = React.memo(
-  React.forwardRef<HTMLDivElement, PortfolioFiltersProps>((props, ref) => {
-    const { i18n } = props;
+  React.forwardRef<HTMLDivElement>((props, ref) => {
     const isMobile = Browser.isMobile();
 
     const [showInfoModal, setShowInfoModal] = React.useState(false);
@@ -33,7 +31,6 @@ export const PortfolioFilters = React.memo(
     const { filterContext, setFilterContext } = React.useContext(FilterContext);
     const { filteredBuildings } = filterContext;
     const { ownernames: ownernamesOptions, zip: zipOptions } = filterContext.filterOptions;
-    const { ownernames: ownernamesSelections, zip: zipSelections } = filterContext.filterSelections;
 
     const [rsunitslatestActive, setRsunitslatestActive] = React.useState(false);
     const updateRsunitslatest = () => {
@@ -105,6 +102,14 @@ export const PortfolioFilters = React.memo(
       });
     };
 
+    const zipOptionsSelect: Option[] = zipOptions
+      ? zipOptions.map((val: string) => ({ value: val, label: val }))
+      : [];
+
+    const ownernamesOptionsSelect: Option[] = ownernamesOptions
+      ? ownernamesOptions.map((val: string) => ({ value: val, label: val }))
+      : [];
+
     const activeFilters = { rsunitslatestActive, ownernamesActive, unitsresActive, zipActive };
 
     return (
@@ -128,6 +133,7 @@ export const PortfolioFilters = React.memo(
             aria-pressed={rsunitslatestActive}
             onClick={updateRsunitslatest}
             className="filter filter-toggle"
+            aria-label={i18n._(t`Rent Stabilized Units filter`)}
           >
             <div className="checkbox">{rsunitslatestActive && <CheckIcon />}</div>
             <span>
@@ -142,22 +148,16 @@ export const PortfolioFilters = React.memo(
             isActive={ownernamesActive}
             isOpen={ownernamesIsOpen}
             setIsOpen={setOwnernamesIsOpen}
-            initialFocus={isMobile ? undefined : "#filter-ownernames-multiselect_input"}
+            initialFocus={isMobile ? undefined : "#filter-ownernames-multiselect input"}
             selectionsCount={filterContext.filterSelections.ownernames.length}
             className="ownernames-accordion"
           >
-            <Multiselect
-              options={ownernamesOptions.map((value: any) => ({ name: value, id: value }))}
-              selectedValues={ownernamesSelections}
-              displayValue="name"
-              placeholder={i18n._(t`Search`) + `... (${ownernamesOptions.length})`}
-              onApply={onOwnernamesApply}
-              onFocusInput={() => helpers.scrollToBottom(".mobile-wrapper-dropdown")}
+            <MultiSelect
               id="filter-ownernames-multiselect"
+              options={ownernamesOptionsSelect}
+              onApply={onOwnernamesApply}
               infoAlert={OwnernamesInfoAlert}
-              avoidHighlightFirstOption={true}
-              showCheckbox={true}
-              keepSearchTerm={true}
+              aria-label={i18n._(t`Landlord filter`)}
             />
           </FilterAccordion>
           <FilterAccordion
@@ -178,28 +178,22 @@ export const PortfolioFilters = React.memo(
             />
           </FilterAccordion>
           <FilterAccordion
-            title={i18n._(t`ZIP CODE`)}
+            title={i18n._(t`Zip Code`)}
             isMobile={isMobile}
             isActive={zipActive}
             isOpen={zipIsOpen}
             setIsOpen={setZipIsOpen}
-            initialFocus={isMobile ? undefined : "#filter-zip-multiselect_input"}
+            initialFocus={isMobile ? undefined : "#filter-zip-multiselect input"}
             selectionsCount={filterContext.filterSelections.zip.length}
             className="zip-accordion"
           >
-            <Multiselect
-              options={zipOptions.map((value: any) => ({ name: value, id: value }))}
-              selectedValues={zipSelections}
-              displayValue="name"
-              placeholder={i18n._(t`Search`) + `... (${zipOptions.length})`}
-              onApply={onZipApply}
+            <MultiSelect
               id="filter-zip-multiselect"
-              onFocusInput={() => helpers.scrollToBottom(".mobile-wrapper-dropdown")}
-              avoidHighlightFirstOption={true}
-              showCheckbox={true}
-              keepSearchTerm={true}
-              emptyRecordMsg={i18n._(t`ZIP CODE is not applicable`)}
-              preventNonNumericalInput={true}
+              options={zipOptionsSelect}
+              onApply={onZipApply}
+              noOptionsMessage={() => i18n._(t`ZIP code is not applicable`)}
+              aria-label={i18n._(t`Zip code filter`)}
+              onKeyDown={helpers.preventNonNumericalInput}
             />
           </FilterAccordion>
         </FiltersWrapper>
@@ -400,7 +394,7 @@ const ZeroResultsAlert = (
 
 const OwnernamesInfoAlert = (
   <Alert
-    className="owner-info-alert"
+    className="ownernames-info-alert"
     type="info"
     variant="secondary"
     closeType="session"
@@ -456,7 +450,6 @@ function FilterAccordion(props: {
         returnFocusOnDeactivate: false,
         onDeactivate: () => setIsOpen(false),
         initialFocus: initialFocus,
-        escapeDeactivates: false,
       }}
     >
       <details
@@ -469,6 +462,7 @@ function FilterAccordion(props: {
             setIsOpen(!isOpen);
           }}
           data-selections={selectionsCount}
+          aria-label={i18n._(t`Filter`)}
         >
           {title}
           {isActive && selectionsCount && (!isOpen || isMobile) && (
@@ -477,135 +471,19 @@ function FilterAccordion(props: {
           <ChevronIcon className="chevronIcon" />
         </summary>
         <div className="dropdown-container">
-          <div className="filter-subtitle-container">
-            {subtitle && <span className="filter-subtitle">{subtitle}</span>}
-            {infoOnClick && (
-              <button className="filter-info button is-text" onClick={infoOnClick}>
-                <Trans>What's this?</Trans>
-              </button>
-            )}
-          </div>
+          {subtitle && (
+            <div className="filter-subtitle-container">
+              {subtitle && <span className="filter-subtitle">{subtitle}</span>}
+              {infoOnClick && (
+                <button className="filter-info button is-text" onClick={infoOnClick}>
+                  <Trans>What's this?</Trans>
+                </button>
+              )}
+            </div>
+          )}
           {children}
         </div>
       </details>
     </FocusTrap>
   );
-}
-
-function MinMaxSelect(props: {
-  options: FilterNumberRange;
-  onApply: (selectedList: FilterNumberRange) => void;
-  id?: string;
-  onFocusInput?: () => void;
-}) {
-  const { options, onApply, id, onFocusInput } = props;
-  const [minMax, setMinMax] = React.useState<FilterNumberRange>(MINMAX_DEFAULT);
-  const [minMaxErrors, setMinMaxErrors] = React.useState<MinMaxErrors>([false, false, undefined]);
-
-  return (
-    <form id={id} className="minmax-container">
-      {minMaxErrors[0] || minMaxErrors[1] ? (
-        <div className="alerts-container">
-          <Alert type="error" variant="primary" closeType="none" role="status">
-            {minMaxErrors[2]}
-          </Alert>
-        </div>
-      ) : (
-        <></>
-      )}
-      <div className="label-input-container">
-        <div className="labels-container">
-          <label htmlFor="min-input">
-            <Trans>MIN</Trans>
-          </label>
-          <label htmlFor="max-input">
-            <Trans>MAX</Trans>
-          </label>
-        </div>
-        <div className="inputs-container">
-          <input
-            id={`${id || "minmax-select"}_min-input`}
-            type="number"
-            min={options[0]}
-            max={options[1]}
-            value={minMax[0] == null ? "" : minMax[0]}
-            onKeyDown={helpers.preventNonNumericalInput}
-            onChange={(e) => {
-              setMinMaxErrors([false, false, undefined]);
-              setMinMax([cleanNumberInput(e.target.value), minMax[1]]);
-            }}
-            onFocus={onFocusInput}
-            className={classnames("min-input", { hasError: minMaxErrors[0] })}
-          />
-          <Trans>to</Trans>
-          <input
-            id={`${id || "minmax-select"}_max-input`}
-            type="number"
-            min={options[0]}
-            max={options[1]}
-            value={minMax[1] == null ? "" : minMax[1]}
-            onKeyDown={helpers.preventNonNumericalInput}
-            onChange={(e) => {
-              setMinMaxErrors([false, false, undefined]);
-              setMinMax([minMax[0], cleanNumberInput(e.target.value)]);
-            }}
-            onFocus={onFocusInput}
-            className={classnames("max-input", { hasError: minMaxErrors[1] })}
-          />
-        </div>
-      </div>
-      <button
-        onClick={(e) => {
-          e.preventDefault();
-          const errors = minMaxHasError(minMax, options);
-          if (errors[0] || errors[1]) {
-            setMinMaxErrors(errors);
-          } else {
-            onApply(minMax);
-          }
-        }}
-        className="button is-primary"
-      >
-        <Trans>Apply</Trans>
-      </button>
-    </form>
-  );
-}
-
-function cleanNumberInput(value: string): number | undefined {
-  if (!new RegExp("[0-9+]").test(value)) return undefined;
-  return Number(value);
-}
-
-type MinMaxErrors = [boolean, boolean, JSX.Element | undefined];
-function minMaxHasError(values: FilterNumberRange, options: FilterNumberRange): MinMaxErrors {
-  const [minValue, maxValue] = values;
-  const [minOption, maxOption] = options;
-  let minHasError = false;
-  let maxHasError = false;
-  let errorMessage: JSX.Element | undefined;
-
-  if (minValue != null && maxValue != null && minValue > maxValue) {
-    minHasError = true;
-    maxHasError = true;
-    errorMessage = <Trans>Min must be less than or equal to Max</Trans>;
-  }
-  if (minValue != null && minValue < 0) {
-    minHasError = true;
-    errorMessage = <Trans>Min must be greater than 0</Trans>;
-  }
-  if (maxValue != null && maxValue < 0) {
-    minHasError = true;
-    errorMessage = <Trans>Max must be greater than 0</Trans>;
-  }
-  if (maxValue != null && minOption != null && maxValue < minOption) {
-    maxHasError = true;
-    errorMessage = <Trans>Max must be greater than {minOption}</Trans>;
-  }
-  if (minValue != null && maxOption != null && minValue > maxOption) {
-    minHasError = true;
-    errorMessage = <Trans>Min must be less than {maxOption}</Trans>;
-  }
-
-  return [minHasError, maxHasError, errorMessage];
 }

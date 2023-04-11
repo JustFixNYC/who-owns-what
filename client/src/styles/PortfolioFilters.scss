@@ -2,6 +2,8 @@
 @import "_scrollbar.scss";
 @import "_button.scss";
 @import "_typography.scss";
+@import "_multiselect.scss";
+@import "_minmaxselect.scss";
 
 @mixin white-on-black {
   background-color: $justfix-black;
@@ -82,6 +84,19 @@
       text-transform: uppercase;
       display: flex;
       align-items: center;
+      @include for-phone-only {
+        &:not(.filters-mobile-wrapper) {
+          border-radius: 0;
+          box-sizing: border-box;
+          border: none;
+          border-bottom: 0.1rem solid $justfix-grey-400;
+        }
+        &.active:not([open]):not(.filter-toggle):not(.filters-mobile-wrapper) {
+          background-color: $justfix-table-grey;
+          color: $justfix-black;
+          border-color: $justfix-grey-400;
+        }
+      }
 
       &.active:not([open]),
       &[aria-pressed="true"] {
@@ -105,6 +120,16 @@
       gap: 1rem;
       padding: 1rem;
       letter-spacing: 0.02em;
+      @include for-phone-only {
+        height: var(--filter-bar-height);
+        min-height: var(--filter-bar-height);
+        padding: 0 2.4rem;
+        font-size: 1.8rem;
+        &[aria-pressed="false"]:hover,
+        &[aria-pressed="true"] {
+          text-decoration: none;
+        }
+      }
       .checkbox {
         box-sizing: border-box;
         border: 0.1rem solid $justfix-black;
@@ -137,6 +162,7 @@
         display: flex;
         align-items: center;
         position: relative;
+        letter-spacing: 0.02em;
         cursor: pointer;
 
         &::-webkit-details-marker {
@@ -145,7 +171,22 @@
         .chevronIcon,
         .closeIcon {
           stroke-width: 2px;
+        }
+        .chevronIcon {
           margin-left: 0.8rem;
+        }
+        .closeIcon {
+          margin-left: auto;
+        }
+      }
+      &:not(.filters-mobile-wrapper) summary {
+        @include for-phone-only {
+          height: var(--filter-bar-height);
+          padding: 0 2.4rem;
+          font-size: 1.8rem;
+          .chevronIcon {
+            margin-left: auto;
+          }
         }
       }
       .filter-selection-count {
@@ -155,9 +196,10 @@
         }
         @include for-phone-only() {
           @include white-on-black();
-          padding: 0.25rem 0.5rem;
-          border-radius: 1rem;
+          padding: 0.4rem 0.8rem;
+          border-radius: 1.5rem;
           margin-left: 0.8rem;
+          font-size: 1.4rem;
         }
       }
       &[open] {
@@ -165,25 +207,14 @@
           svg {
             transform: scaleY(-1);
           }
-          @include for-phone-only() {
-            .chevronIcon,
-            .closeIcon {
-              margin-left: auto;
-            }
-          }
         }
 
-        &.ownernames-accordion .dropdown-container {
-          width: 25.2rem;
-          @include for-phone-only {
-            width: unset;
+        @include for-tablet-portrait-up {
+          &.ownernames-accordion .dropdown-container {
+            width: 25.2rem;
           }
-        }
-
-        &.zip-accordion .dropdown-container {
-          width: 15rem;
-          @include for-phone-only {
-            width: unset;
+          &.zip-accordion .dropdown-container {
+            width: 16.5rem;
           }
         }
 
@@ -193,210 +224,96 @@
           left: -0.1rem;
           z-index: 100;
           overflow-y: scroll;
-          max-height: calc(100vh - 25rem);
           background-color: $justfix-table-grey;
           box-sizing: border-box;
           border: 0.1rem solid $justfix-black;
           border-radius: 0.8rem;
-
-          & > div {
+          @include for-tablet-portrait-up {
+            max-height: 65vh;
+          }
+          @include for-phone-only {
+            padding: 0 2.4rem 2.4rem 2.4rem;
+            display: flex;
+            flex-direction: column;
             width: 100%;
+            background-color: $justfix-table-grey;
+            border-radius: 0;
+            border: none;
+            top: unset;
+            position: relative;
+            max-height: none;
           }
 
           .filter-subtitle-container {
-            font-size: 1.2rem;
-            color: $justfix-grey-700;
-            @include for-tablet-portrait-up {
-              padding: 1.2rem;
-              margin-bottom: 1.2rem;
-            }
             display: flex;
             width: 100%;
+            font-size: 1.2rem;
+            padding: 1.2rem;
+            @include for-phone-only {
+              padding: 0 0 1.2rem 0;
+              font-size: 1.6rem;
+              .filter-info {
+                font-size: 1.4rem;
+              }
+            }
             @include for-tablet-portrait-up() {
               border-bottom: 0.1rem solid $justfix-grey;
+            }
+            &,
+            .filter-info {
+              color: $justfix-grey-700;
             }
             .filter-subtitle {
               margin-right: auto;
             }
+          }
 
-            .filter-info {
-              color: $justfix-grey-700;
-              &:focus-visible {
-                box-shadow: none;
-                outline: 2px solid $focus-outline-color;
-                outline-offset: 2px;
+          @include for-phone-only {
+            .multiselect-container,
+            .minmax-container {
+              padding: 0;
+
+              .button.is-primary {
+                padding: 1.6rem 3.2rem;
               }
             }
           }
 
-          .multiselect-container,
-          .minmax-container {
-            display: flex;
-            flex-direction: column;
-            .jf-alert {
-              margin-top: 0.6rem;
-              margin-bottom: 0.4rem;
+          .multiselect-container {
+            width: 100%;
+            @include for-phone-only {
+              padding: 0;
+
+              .multiselect__input-container,
+              .multiselect__placeholder {
+                height: 5rem;
+                padding-left: 1.2rem;
+              }
+              .multiselect__input-container,
+              .multiselect__placeholder,
+              .multiselect__menu {
+                width: 75%;
+                font-size: 1.8rem;
+                line-height: 100%;
+              }
             }
-            input {
-              font-size: 1.6rem;
+            .multiselect__selected-value-container {
+              @include for-tablet-portrait-up {
+                flex-direction: column;
+              }
             }
           }
           .minmax-container {
             @include for-phone-only {
-              border-top: none;
-            }
-
-            .label-input-container {
-              width: fit-content;
-              padding: 0 1.2rem 1.2rem 1.2rem;
-              @include for-phone-only {
-                padding: 1.2rem 0;
-              }
-              @include for-tablet-portrait-up() {
-                border-bottom: 0.1rem solid $justfix-grey;
-              }
-              .labels-container {
-                display: flex;
-                color: $justfix-grey-600;
-                font-size: 1.2rem;
-                margin-bottom: 0.4rem;
-                label:first-child {
-                  margin-right: auto;
-                }
-              }
-              .inputs-container {
-                display: flex;
-                gap: 1rem;
-                align-items: center;
-                color: $justfix-grey-600;
+              .label-input-container {
+                width: fit-content;
+                font-size: 1.6rem;
                 input {
-                  background-color: $justfix-white;
-                  width: 4.4rem;
-                  height: 4.4rem;
-                  border: 0.1rem solid $justfix-grey-600;
-                  border-radius: 0.2rem;
-                  padding: 0.5rem;
-                  // remove increment arrows
-                  &::-webkit-outer-spin-button,
-                  &::-webkit-inner-spin-button {
-                    -webkit-appearance: none;
-                    margin: 0;
-                  }
-                  -moz-appearance: textfield;
-
-                  &:focus-visible {
-                    outline: none;
-                  }
-                  &.hasError {
-                    outline: 3px $justfix-orange solid;
-                    outline-offset: -3px;
-                  }
+                  font-size: 1.8rem;
+                  width: 4.8rem;
+                  height: 4.8rem;
                 }
               }
-            }
-          }
-          .multiselect-container {
-            .optionListContainer {
-              position: static;
-            }
-            .owner-info-alert {
-              color: $justfix-grey-600;
-              outline: $justfix-grey-400 solid 1px;
-              margin-top: 1.2rem;
-              button:not(:focus-visible) {
-                outline: none;
-              }
-            }
-          }
-
-          @include for-tablet-portrait-up() {
-            .selectedListContainer,
-            .clear-all-container {
-              padding: 0 1.2rem;
-            }
-            .search-wrapper,
-            .optionListContainer,
-            .jf-alert {
-              margin: 0 1.2rem;
-            }
-          }
-          .search-wrapper,
-          .optionListContainer {
-            background-color: $justfix-white;
-            outline: 1px solid $justfix-grey;
-            border: none;
-          }
-          .search-wrapper {
-            &.hasError {
-              outline: 2px $justfix-orange solid;
-              outline-offset: -2px;
-            }
-            input {
-              &::placeholder {
-                color: $justfix-grey-600;
-              }
-            }
-          }
-
-          .optionsContainer,
-          ul {
-            border: none;
-            list-style-type: none;
-          }
-          .selectedListContainer {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.6rem;
-
-            .chip {
-              align-self: flex-start;
-              background-color: $justfix-black;
-              color: $justfix-white;
-              border-radius: 0.8rem;
-              padding: 0 0 0 1.4rem;
-              white-space: pre-line;
-              height: unset;
-
-              button {
-                margin-left: 1.2rem;
-                padding: 1.25rem;
-                .closeIcon {
-                  height: 1rem;
-                  width: 1rem;
-                  stroke-width: 0.2rem;
-                }
-              }
-
-              &.chip-more {
-                background-color: $justfix-table-grey;
-                color: $justfix-black;
-                border: 1px solid $justfix-black;
-                padding: 0.8rem 0.6rem;
-                margin-bottom: 1.1rem;
-                letter-spacing: 0.02em;
-              }
-            }
-          }
-          .clear-all-container {
-            display: flex;
-            .button.is-text {
-              color: $justfix-grey-700;
-              &.show-less {
-                margin: 1.2rem 0 0 1.2rem;
-              }
-              &.clear-all {
-                margin: 0.8rem 0 0.9rem auto;
-              }
-            }
-          }
-          .button.is-primary {
-            align-self: center;
-            margin: 0.9rem 0 1rem 0;
-            letter-spacing: 0.02em;
-          }
-          @include for-phone-only() {
-            .minmax-container .button.is-primary {
-              align-self: flex-start;
             }
           }
         }
@@ -439,7 +356,8 @@
         animation-timing-function: ease-in-out;
         animation-fill-mode: forwards;
 
-        // Hide page from showing through around corners
+        // Hide page from showing through around rounded corners
+        // Sadly outline+offset doesn't work since in safari is doesn't follow border-radius
         &::before {
           --border-size: 0.5rem;
           content: "";
@@ -473,23 +391,14 @@
         & > summary {
           padding: 0 2.4rem;
         }
-        .dropdown-container {
-          display: flex;
-          flex-direction: column;
-          width: 100%;
-          padding: 0;
-          background-color: $justfix-table-grey;
-          border-radius: 0;
-          border: none;
-          top: unset;
-        }
         & > .dropdown-container {
           position: absolute;
-          top: calc(var(--filter-bar-top-height)); // borders
+          top: var(--filter-bar-top-height);
           left: 0;
           max-height: none;
           height: calc(100vh - var(--filter-bar-top-height));
           z-index: 102;
+          padding: 0;
 
           &.scroll-gradient {
             // https://css-scroll-shadows.vercel.app/
@@ -504,118 +413,19 @@
             background-size: 100% 6rem, 100% 6rem, 100% 1rem, 100% 1rem;
           }
 
-          .filter {
-            border-radius: 0;
-            box-sizing: border-box;
-            border: none;
-            border-bottom: 0.1rem solid $justfix-grey-400;
-            &.filter-toggle {
-              height: var(--filter-bar-height);
-              min-height: var(--filter-bar-height);
-              padding: 0 2.4rem;
-              font-size: 1.8rem;
-              &[aria-pressed="false"]:hover,
-              &[aria-pressed="true"] {
-                text-decoration: none;
-              }
-            }
-            &.filter-accordion > summary {
-              height: var(--filter-bar-height);
-              padding: 0 2.4rem;
-              font-size: 1.8rem;
-            }
-            &.active:not(.filter-toggle) {
-              background-color: $justfix-table-grey;
-              color: $justfix-black;
-              text-decoration: none;
-            }
-            &[open] {
-              outline: none;
-              text-decoration: none;
-            }
-            @include for-phone-only {
-              .dropdown-container {
-                align-items: flex-start;
-                width: 100%;
-                padding: 0 2.4rem;
-                .filter-subtitle-container {
-                  margin-bottom: 1.2rem;
-                  .filter-subtitle {
-                    font-size: 1.6rem;
-                  }
-                  .filter-info {
-                    font-size: 1.4rem;
-                  }
-                }
-                .jf-alert {
-                  margin-left: 0;
-                  margin-right: 0;
-                }
-              }
-            }
-          }
-
-          .filter-accordion {
-            summary {
-              position: relative;
-              .chevronIcon {
-                @include for-phone-only() {
-                  margin-left: auto;
-                }
-              }
-            }
-            .dropdown-container {
-              position: relative;
-              max-height: none;
-              padding-bottom: 1.2rem;
-            }
-          }
-          .ownernames-accordion {
-            .clear-all-container,
-            .search-wrapper,
-            .optionListContainer {
-              width: 75%;
-              .labels-container {
-                font-size: 1.6rem;
-              }
-              .labels-container,
-              .inputs-container {
-                padding-right: 0;
-                padding-left: 0;
-              }
-            }
-          }
-          .search-wrapper {
-            height: 5rem;
-          }
-          .zip-accordion {
-            .clear-all-container,
-            .search-wrapper,
-            .optionListContainer {
-              width: 18.8rem;
-            }
-          }
-          .zip-accordion,
-          .ownernames-accordion {
-            .clear-all.button.is-text {
-              margin-left: auto;
-              margin-right: 0;
-            }
-            .button.is-primary {
-              align-self: unset;
-            }
-          }
-          .button.is-primary {
+          & > .button.is-primary {
+            align-self: center;
             padding: 1.6rem 3.2rem;
+            margin: 2.4rem 0;
+            letter-spacing: 0.02em;
             .view-results-count {
               margin-left: 1em;
               @include wrap-with-parentheses();
             }
           }
           .zero-results-alert {
-            margin: 1.4rem 2.45rem 0 2.45rem;
-            width: fit-content;
-            outline: $justfix-grey-400 solid 1px;
+            align-self: center;
+            margin: 0 2.45rem;
           }
         }
       }
@@ -642,14 +452,6 @@
         color: $justfix-grey-700;
         align-self: start;
         margin-left: 1.8rem;
-      }
-    }
-
-    .zero-results-alert {
-      width: fit-content;
-      outline: $justfix-grey-400 solid 1px;
-      @include for-phone-only() {
-        margin-left: unset;
       }
     }
   }

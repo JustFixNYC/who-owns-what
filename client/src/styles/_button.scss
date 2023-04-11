@@ -224,6 +224,11 @@
   color: $justfix-black;
   text-decoration: underline;
   text-underline-position: under;
+  &:focus,
+  &:focus-visible {
+    outline: 0.2rem solid $justfix-grey;
+    outline-offset: 0.2rem;
+  }
 }
 
 .buttons.has-addons {
