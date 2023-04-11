@@ -1,4 +1,4 @@
-import { I18n } from "@lingui/core";
+import { i18n } from "@lingui/core";
 import { t, Trans, Plural } from "@lingui/macro";
 import classnames from "classnames";
 import React from "react";
@@ -19,12 +19,8 @@ import MinMaxSelect from "./MinMaxSelect";
 
 import "styles/PortfolioFilters.scss";
 
-type PortfolioFiltersProps = {
-  i18n: I18n;
-};
 export const PortfolioFilters = React.memo(
-  React.forwardRef<HTMLDivElement, PortfolioFiltersProps>((props, ref) => {
-    const { i18n } = props;
+  React.forwardRef<HTMLDivElement>((props, ref) => {
     const isMobile = Browser.isMobile();
 
     const [showInfoModal, setShowInfoModal] = React.useState(false);
@@ -155,13 +151,11 @@ export const PortfolioFilters = React.memo(
             initialFocus={isMobile ? undefined : "#filter-ownernames-multiselect input"}
             selectionsCount={filterContext.filterSelections.ownernames.length}
             className="ownernames-accordion"
-            i18n={i18n}
           >
             <MultiSelect
               id="filter-ownernames-multiselect"
               options={ownernamesOptionsSelect}
               onApply={onOwnernamesApply}
-              i18n={i18n}
               infoAlert={OwnernamesInfoAlert}
               aria-label={i18n._(t`Landlord filter`)}
             />
@@ -175,7 +169,6 @@ export const PortfolioFilters = React.memo(
             initialFocus={isMobile ? undefined : "#filter-unitsres-minmax_min-input"}
             setIsOpen={setUnitsresIsOpen}
             className="unitsres-accordion"
-            i18n={i18n}
           >
             <MinMaxSelect
               options={filterContext.filterOptions.unitsres}
@@ -193,13 +186,11 @@ export const PortfolioFilters = React.memo(
             initialFocus={isMobile ? undefined : "#filter-zip-multiselect input"}
             selectionsCount={filterContext.filterSelections.zip.length}
             className="zip-accordion"
-            i18n={i18n}
           >
             <MultiSelect
               id="filter-zip-multiselect"
               options={zipOptionsSelect}
               onApply={onZipApply}
-              i18n={i18n}
               noOptionsMessage={() => i18n._(t`ZIP code is not applicable`)}
               aria-label={i18n._(t`Zip code filter`)}
               onKeyDown={helpers.preventNonNumericalInput}
@@ -416,7 +407,6 @@ function FilterAccordion(props: {
   initialFocus?: FocusTarget;
   selectionsCount?: number;
   className?: string;
-  i18n: I18n;
 }) {
   const {
     title,
@@ -430,7 +420,6 @@ function FilterAccordion(props: {
     initialFocus,
     selectionsCount,
     className,
-    i18n,
   } = props;
 
   return (

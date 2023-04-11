@@ -91,7 +91,7 @@
           border: none;
           border-bottom: 0.1rem solid $justfix-grey-400;
         }
-        &.active:not([open]):not(.filter-toggle) {
+        &.active:not([open]):not(.filter-toggle):not(.filters-mobile-wrapper) {
           background-color: $justfix-table-grey;
           color: $justfix-black;
           border-color: $justfix-grey-400;
@@ -274,7 +274,6 @@
               padding: 0;
 
               .button.is-primary {
-                align-self: start;
                 padding: 1.6rem 3.2rem;
               }
             }

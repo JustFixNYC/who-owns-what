@@ -465,11 +465,11 @@ msgstr "Filed"
 #~ msgid "Filied"
 #~ msgstr "Filied"
 
-#: src/components/PortfolioFilters.tsx:230
+#: src/components/PortfolioFilters.tsx:236
 msgid "Filter"
 msgstr "Filter"
 
-#: src/components/PortfolioFilters.tsx:174
+#: src/components/PortfolioFilters.tsx:175
 msgid "Filters"
 msgstr "Filters"
 
@@ -682,7 +682,7 @@ msgstr "Loading {0} rows"
 msgid "Location"
 msgstr "Location"
 
-#: src/components/PortfolioFilters.tsx:206
+#: src/components/PortfolioFilters.tsx:212
 msgid "Look out for multiple spellings for the same person/entity. Names can be spelled multiple ways in official documents."
 msgstr "Look out for multiple spellings for the same person/entity. Names can be spelled multiple ways in official documents."
 
@@ -1330,7 +1330,7 @@ msgstr "Total"
 msgid "Total Violations"
 msgstr "Total Violations"
 
-#: src/components/PortfolioFilters.tsx:203
+#: src/components/PortfolioFilters.tsx:209
 msgid "Try adjusting or clearing the filters to yield more than 0 results."
 msgstr "Try adjusting or clearing the filters to yield more than 0 results."
 

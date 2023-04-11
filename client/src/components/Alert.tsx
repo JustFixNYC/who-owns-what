@@ -5,8 +5,6 @@ import React, { forwardRef, useLayoutEffect, useState } from "react";
 import { CloseButton } from "./CloseButton";
 import "styles/_alert.scss";
 
-// TODO: Check with design if we are going to want the icons matching type
-
 export interface AlertProps extends React.ComponentPropsWithoutRef<"div"> {
   children: React.ReactNode;
   type?: "error" | "success" | "info";

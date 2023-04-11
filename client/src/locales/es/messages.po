@@ -687,7 +687,7 @@ msgstr "Cargando {0} filas"
 msgid "Location"
 msgstr "Ubicación"
 
-#: src/components/PortfolioFilters.tsx:206
+#: src/components/PortfolioFilters.tsx:212
 msgid "Look out for multiple spellings for the same person/entity. Names can be spelled multiple ways in official documents."
 msgstr ""
 
@@ -1335,7 +1335,7 @@ msgstr "Total"
 msgid "Total Violations"
 msgstr "Violaciones Totales"
 
-#: src/components/PortfolioFilters.tsx:203
+#: src/components/PortfolioFilters.tsx:209
 msgid "Try adjusting or clearing the filters to yield more than 0 results."
 msgstr ""
 
