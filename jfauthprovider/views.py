@@ -23,7 +23,12 @@ def login(request):
     }
 
     response = client_secret_request("user/login/", post_data)
-    return set_response_cookies(response, response.json())
+    if response.status_code == 200:
+        return set_response_cookies(response, response.json())
+    else:
+        return HttpResponse(
+            content_type="application/json", status=response.status_code
+        )
 
 
 @api
@@ -75,7 +80,12 @@ def register(request):
     }
 
     response = client_secret_request("user/register/", post_data)
-    return set_response_cookies(response, response.json())
+    if response.status_code == 200:
+        return set_response_cookies(response, response.json())
+    else:
+        return HttpResponse(
+            content_type="application/json", status=response.status_code
+        )
 
 
 @api
