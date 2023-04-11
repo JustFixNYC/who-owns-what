@@ -90,7 +90,7 @@ const LoginWithoutI18n = (props: LoginProps) => {
         {formState === "password" && (
           <PasswordInput
             username={username}
-            label={loginState == "login" ? "Enter password" : "Create a new password"}
+            label={loginState === "login" ? "Enter password" : "Create a new password"}
             showForgotPassword={loginState === "login"}
             showPasswordRules={loginState === "register"}
             onChange={setPassword}

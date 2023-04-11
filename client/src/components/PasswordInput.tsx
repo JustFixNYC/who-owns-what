@@ -4,7 +4,6 @@ import "styles/Password.css";
 import "styles/_input.scss";
 
 import { withI18n } from "@lingui/react";
-import { Trans } from "@lingui/macro";
 import { LocaleLink } from "i18n";
 import { createWhoOwnsWhatRoutePaths } from "routes";
 
