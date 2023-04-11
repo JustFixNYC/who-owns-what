@@ -185,7 +185,7 @@
 
   &:hover {
     transition: all 0.1s linear;
-    box-shadow: 0rem 0.7rem 0rem 0rem $justfix-grey-light;
+    box-shadow: 0rem 0.7rem 0rem 0rem #d4d5d0; // changed from org-site
     transform: translateX(0.7rem);
   }
 

@@ -33,10 +33,7 @@ const ResetPasswordPage = withI18n()((props: withI18nProps) => {
             <>
               <Trans render="h4">Reset your password</Trans>
               <form onSubmit={handleSubmit}>
-                <Trans render="label" className="form-label">
-                  Create a password
-                </Trans>
-                <PasswordInput onChange={setValue} />
+                <PasswordInput label={i18n._(t`Create a password`)} onChange={setValue} />
                 <input type="submit" className="button is-primary" value={`Reset password`} />
               </form>
             </>

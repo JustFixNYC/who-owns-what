@@ -228,7 +228,7 @@ msgstr "CONSTRUCCIÓN"
 msgid "COOKING GAS"
 msgstr "GAS DE COCINA"
 
-#: src/components/UserSettingField.tsx:55
+#: src/components/UserSettingField.tsx:54
 msgid "Cancel"
 msgstr ""
 
@@ -370,7 +370,11 @@ msgstr "ELÉCTRICO"
 msgid "ELEVATOR"
 msgstr "ASCENSOR"
 
-#: src/components/UserSettingField.tsx:63
+#: src/components/EmailAlertSignup.tsx:53
+msgid "Each weekly email includes HPD Complaints, HPD Violations, and Eviction Filings."
+msgstr ""
+
+#: src/components/UserSettingField.tsx:62
 msgid "Edit"
 msgstr ""
 
@@ -379,8 +383,8 @@ msgid "Email"
 msgstr "Email"
 
 #: src/components/Login.tsx:62
+#: src/components/UserSettingField.tsx:38
 #: src/components/UserSettingField.tsx:39
-#: src/components/UserSettingField.tsx:40
 #: src/containers/ForgotPasswordPage.tsx:44
 msgid "Email address"
 msgstr ""
@@ -401,13 +405,13 @@ msgstr "Introduce una dirección de NYC para encontrar otros edificios que tu pr
 msgid "Enter email"
 msgstr "Introducir email"
 
-#: src/components/UserSettingField.tsx:41
+#: src/components/UserSettingField.tsx:40
 msgid "Enter new email address"
 msgstr ""
 
 #: src/components/Login.tsx:66
-msgid "Enter password"
-msgstr ""
+#~ msgid "Enter password"
+#~ msgstr ""
 
 #: src/components/UserSettingField.tsx:18
 msgid "Enter your old password"
@@ -492,8 +496,8 @@ msgstr ""
 msgid "GARBAGE/RECYCLING STORAGE"
 msgstr "ALMACENAMIENTO DE BASURA/RECICLAJE"
 
-#: src/components/EmailAlertSignup.tsx:49
 #: src/components/EmailAlertSignup.tsx:50
+#: src/components/EmailAlertSignup.tsx:51
 msgid "Get email updates for this building"
 msgstr ""
 
@@ -586,8 +590,8 @@ msgid "In March 2023 this version will be discontinued. Switch to the new versio
 msgstr ""
 
 #: src/components/EmailAlertSignup.tsx:52
-msgid "In each weekly email are updates for:<0><1>HPD Complaints</1><2>HPD Violations</2><3>Eviction filings</3></0>"
-msgstr ""
+#~ msgid "In each weekly email are updates for:<0><1>HPD Complaints</1><2>HPD Violations</2><3>Eviction filings</3></0>"
+#~ msgstr ""
 
 #: src/containers/NotRegisteredPage.tsx:63
 msgid "Incomplete registration for {usersInputAddressFragment}."
@@ -1481,11 +1485,11 @@ msgstr ""
 #~ msgid "You are viewing the old version of Who Owns What."
 #~ msgstr "You are viewing the old version of Who Owns What."
 
-#: src/containers/ResetPasswordPage.tsx:44
+#: src/containers/ResetPasswordPage.tsx:41
 msgid "You will be redirected back to Who Owns What in X seconds."
 msgstr ""
 
-#: src/containers/ResetPasswordPage.tsx:43
+#: src/containers/ResetPasswordPage.tsx:40
 msgid "Your password has been successfully reset"
 msgstr ""
 
@@ -1546,7 +1550,7 @@ msgstr "{0} {1}, {2} tiene {3, plural, one {una violación del HPD actual} other
 msgid "{numberOfHits} {numberOfHits, plural, one {search result} other {search results}}."
 msgstr "{numberOfHits} {numberOfHits, plural, one {resultado de búsqueda} other {resultados de búsqueda}}."
 
-#: src/components/UserSettingField.tsx:59
+#: src/components/UserSettingField.tsx:58
 msgid "{title}"
 msgstr ""
 

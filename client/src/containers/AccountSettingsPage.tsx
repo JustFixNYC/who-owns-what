@@ -10,8 +10,9 @@ import "styles/UserSetting.css";
 import { UserContext } from "components/UserContext";
 import { EmailSettingField, PasswordSettingField } from "components/UserSettingField";
 import { JustfixUser } from "state-machine";
-import { createRouteForAddressPage } from "routes";
+import { createRouteForAddressPage, createWhoOwnsWhatRoutePaths } from "routes";
 import { Borough } from "components/APIDataTypes";
+import { LocaleNavLink } from "i18n";
 
 type SubscriptionFieldProps = {
   bbl: string;
@@ -53,6 +54,7 @@ const AccountSettingsPage = withI18n()((props: withI18nProps) => {
   if (!userContext.user) return <div />;
 
   const { email, subscriptions } = userContext.user as JustfixUser;
+  const { home } = createWhoOwnsWhatRoutePaths();
 
   return (
     <Page title={i18n._(t`Account settings`)}>
@@ -77,9 +79,18 @@ const AccountSettingsPage = withI18n()((props: withI18nProps) => {
             <Trans>You’re signed up for email updates from these buildings:</Trans>
           </h4>
           <div>
-            {subscriptions.map((s) => (
-              <SubscriptionField key={s.bbl} {...s} onRemoveClick={userContext.unsubscribe} />
-            ))}
+            {subscriptions?.length ? (
+              subscriptions.map((s) => (
+                <SubscriptionField key={s.bbl} {...s} onRemoveClick={userContext.unsubscribe} />
+              ))
+            ) : (
+              <Trans render="div" className="settings-no-subscriptions">
+                <LocaleNavLink exact to={home}>
+                  Search an address
+                </LocaleNavLink>{" "}
+                to sign up for email alerts for that building.
+              </Trans>
+            )}
           </div>
           <div className="settings-contact">
             <Trans>If you’d like to delete your account, contact support@justfix.org</Trans>

@@ -223,7 +223,7 @@ msgstr "CONSTRUCTION"
 msgid "COOKING GAS"
 msgstr "COOKING GAS"
 
-#: src/components/UserSettingField.tsx:55
+#: src/components/UserSettingField.tsx:54
 msgid "Cancel"
 msgstr "Cancel"
 
@@ -365,7 +365,11 @@ msgstr "ELECTRIC"
 msgid "ELEVATOR"
 msgstr "ELEVATOR"
 
-#: src/components/UserSettingField.tsx:63
+#: src/components/EmailAlertSignup.tsx:53
+msgid "Each weekly email includes HPD Complaints, HPD Violations, and Eviction Filings."
+msgstr "Each weekly email includes HPD Complaints, HPD Violations, and Eviction Filings."
+
+#: src/components/UserSettingField.tsx:62
 msgid "Edit"
 msgstr "Edit"
 
@@ -374,8 +378,8 @@ msgid "Email"
 msgstr "Email"
 
 #: src/components/Login.tsx:62
+#: src/components/UserSettingField.tsx:38
 #: src/components/UserSettingField.tsx:39
-#: src/components/UserSettingField.tsx:40
 #: src/containers/ForgotPasswordPage.tsx:44
 msgid "Email address"
 msgstr "Email address"
@@ -396,13 +400,13 @@ msgstr "Enter an NYC address and find other buildings your landlord might own:"
 msgid "Enter email"
 msgstr "Enter email"
 
-#: src/components/UserSettingField.tsx:41
+#: src/components/UserSettingField.tsx:40
 msgid "Enter new email address"
 msgstr "Enter new email address"
 
 #: src/components/Login.tsx:66
-msgid "Enter password"
-msgstr "Enter password"
+#~ msgid "Enter password"
+#~ msgstr "Enter password"
 
 #: src/components/UserSettingField.tsx:18
 msgid "Enter your old password"
@@ -487,8 +491,8 @@ msgstr "Forgot your password?"
 msgid "GARBAGE/RECYCLING STORAGE"
 msgstr "GARBAGE/RECYCLING STORAGE"
 
-#: src/components/EmailAlertSignup.tsx:49
 #: src/components/EmailAlertSignup.tsx:50
+#: src/components/EmailAlertSignup.tsx:51
 msgid "Get email updates for this building"
 msgstr "Get email updates for this building"
 
@@ -581,8 +585,8 @@ msgid "In March 2023 this version will be discontinued. Switch to the new versio
 msgstr "In March 2023 this version will be discontinued. Switch to the new version or learn more."
 
 #: src/components/EmailAlertSignup.tsx:52
-msgid "In each weekly email are updates for:<0><1>HPD Complaints</1><2>HPD Violations</2><3>Eviction filings</3></0>"
-msgstr "In each weekly email are updates for:<0><1>HPD Complaints</1><2>HPD Violations</2><3>Eviction filings</3></0>"
+#~ msgid "In each weekly email are updates for:<0><1>HPD Complaints</1><2>HPD Violations</2><3>Eviction filings</3></0>"
+#~ msgstr "In each weekly email are updates for:<0><1>HPD Complaints</1><2>HPD Violations</2><3>Eviction filings</3></0>"
 
 #: src/containers/NotRegisteredPage.tsx:63
 msgid "Incomplete registration for {usersInputAddressFragment}."
@@ -1476,11 +1480,11 @@ msgstr "You are viewing a legacy version of Who Owns What"
 #~ msgid "You are viewing the old version of Who Owns What."
 #~ msgstr "You are viewing the old version of Who Owns What."
 
-#: src/containers/ResetPasswordPage.tsx:44
+#: src/containers/ResetPasswordPage.tsx:41
 msgid "You will be redirected back to Who Owns What in X seconds."
 msgstr "You will be redirected back to Who Owns What in X seconds."
 
-#: src/containers/ResetPasswordPage.tsx:43
+#: src/containers/ResetPasswordPage.tsx:40
 msgid "Your password has been successfully reset"
 msgstr "Your password has been successfully reset"
 
@@ -1541,7 +1545,7 @@ msgstr "{0} {1}, {2} currently has {3, plural, one {one open HPD violation} othe
 msgid "{numberOfHits} {numberOfHits, plural, one {search result} other {search results}}."
 msgstr "{numberOfHits} {numberOfHits, plural, one {search result} other {search results}}."
 
-#: src/components/UserSettingField.tsx:59
+#: src/components/UserSettingField.tsx:58
 msgid "{title}"
 msgstr "{title}"
 
