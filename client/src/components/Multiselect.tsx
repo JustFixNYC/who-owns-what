@@ -92,13 +92,13 @@ function MultiSelect<
 
   // Passing custom prop to make accessible to child compnents via selectProps
   const removeValue = useCallback(
-    // @ts-ignore (TODO: says property 'value' doesn't exist on type Option)
+    // @ts-ignore (value isn't recognizing the available properties of Option type)
     (removed) => setSelections(selections.filter((v) => v.value !== removed.value)),
     [selections]
   );
 
   const handleApply = () => {
-    // @ts-ignore (TODO: says properties 'value' & 'label' don't exist on type Option)
+    // @ts-ignore (value isn't recognizing the available properties of Option type)
     const selectedValues = selections.map((v) => ({ name: v.value || "", id: v.label }));
     if (!selectedValues.length && !!inputValue) {
       setHasError(true);
@@ -195,10 +195,6 @@ function SelectedValuesContainer<
           Label: components.MultiValueLabel,
           Remove: CustomMultiValueRemove,
         }}
-        // TODO: Can't know when it's "focused" via arrow key navigation, it's not using ::focus,
-        // and the classes don't change. The screen-reader works though, and can close with curosr.
-        // https://github.com/JedWatson/react-select/issues/4017
-        // isFocused={?}
         isDisabled={isDisabled}
         key={getKey(opt, index)}
         index={index}
@@ -212,7 +208,7 @@ function SelectedValuesContainer<
         }}
         data={opt}
       >
-        {/* @ts-ignore (TODO: says properties 'value' & 'label' don't exist on type Option) */}
+        {/* @ts-ignore (value isn't recognizing the available properties of Option type) */}
         {opt.label}
       </components.MultiValue>
     );
@@ -267,7 +263,7 @@ function SelectContainer<
       isFocused={isFocused}
       {...selectContainerProps}
     >
-      {/* @ts-ignore (TODO: wants extra props defined like above, but I'm not sure what to use, and in the sample it works correctly) */}
+      {/* @ts-ignore (wants extra props defined like above, but since were an extra level nested it's unclear what they should be) */}
       <SelectedValuesContainer {...commonProps} />
       <div className={`${classNamePrefix}__selected-value-control-container`}>
         {showAllSelections && getValue().length > previewSelectedNum && (
@@ -338,7 +334,7 @@ function CustomOption<
         {isSelected && <CheckIcon />}
       </div>
       <div className={`${classNamePrefix}__option-label`} tabIndex={-1}>
-        {/* @ts-ignore (TODO: says properties 'value' & 'label' don't exist on type Option) */}
+        {/* @ts-ignore (value isn't recognizing the available properties of Option type) */}
         {data.label}
       </div>
     </components.Option>
