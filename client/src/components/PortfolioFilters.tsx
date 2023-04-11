@@ -1,4 +1,4 @@
-import { I18n, i18n } from "@lingui/core";
+import { i18n } from "@lingui/core";
 import { t, Trans, Plural } from "@lingui/macro";
 import classnames from "classnames";
 import React from "react";
