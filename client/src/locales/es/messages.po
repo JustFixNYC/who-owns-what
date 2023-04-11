@@ -189,7 +189,7 @@ msgstr "Solicitudes de Permisos de Construcción"
 msgid "Building Permits Applied For"
 msgstr "Permisos de Construcción Solicitados"
 
-#: src/components/PortfolioFilters.tsx:92
+#: src/components/PortfolioFilters.tsx:115
 msgid "Building Size"
 msgstr ""
 
@@ -260,7 +260,7 @@ msgstr "Clase I"
 msgid "Clear"
 msgstr ""
 
-#: src/components/PortfolioFilters.tsx:112
+#: src/components/PortfolioFilters.tsx:135
 msgid "Clear Filters"
 msgstr ""
 
@@ -434,7 +434,7 @@ msgstr "Desalojos ejecutados en este complejo por el Mariscal de NYC desde el 20
 msgid "Executed"
 msgstr "Ejecutado"
 
-#: src/components/PortfolioFilters.tsx:197
+#: src/components/PortfolioFilters.tsx:200
 msgid "Expand the the Owner/Manager column in Table view to see all contacts associated with that building."
 msgstr ""
 
@@ -466,15 +466,15 @@ msgstr "Presentado"
 #~ msgid "Filied"
 #~ msgstr "Filied"
 
-#: src/components/PortfolioFilters.tsx:236
+#: src/components/PortfolioFilters.tsx:241
 msgid "Filter"
 msgstr ""
 
-#: src/components/PortfolioFilters.tsx:175
+#: src/components/PortfolioFilters.tsx:178
 msgid "Filters"
 msgstr ""
 
-#: src/components/PortfolioFilters.tsx:79
+#: src/components/PortfolioFilters.tsx:100
 msgid "Filters:"
 msgstr ""
 
@@ -532,7 +532,7 @@ msgstr "Formulario de queja HUD 958"
 msgid "Head Officer"
 msgstr "Oficial Principal"
 
-#: src/components/PortfolioFilters.tsx:120
+#: src/components/PortfolioFilters.tsx:143
 msgid "How are the results calculated?"
 msgstr ""
 
@@ -613,12 +613,12 @@ msgstr "Conocido por <0>desregulando apartamentos de renta estabilizada sin escr
 msgid "LOCKS"
 msgstr "CERRADURAS"
 
-#: src/components/PortfolioFilters.tsx:89
+#: src/components/PortfolioFilters.tsx:110
 #: src/components/PortfolioTable.tsx:248
 msgid "Landlord"
 msgstr "Dueño del edificio"
 
-#: src/components/PortfolioFilters.tsx:90
+#: src/components/PortfolioFilters.tsx:113
 msgid "Landlord filter"
 msgstr ""
 
@@ -684,7 +684,11 @@ msgid "Location"
 msgstr "Ubicación"
 
 #: src/components/PortfolioFilters.tsx:212
-msgid "Look out for multiple spellings for the same person/entity. Names can be spelled multiple ways in official documents."
+#~ msgid "Look out for multiple spellings for the same person/entity. Names can be spelled multiple ways in official documents."
+#~ msgstr ""
+
+#: src/components/PortfolioFilters.tsx:215
+msgid "Look out for multiple spellings of the same person/entity. Names can be spelled multiple ways in official documents."
 msgstr ""
 
 #: src/components/PropertiesSummary.tsx:134
@@ -796,7 +800,7 @@ msgstr "Directorio de NYCHA"
 msgid "Network of Landlords"
 msgstr "Red de Dueños"
 
-#: src/components/PortfolioFilters.tsx:76
+#: src/components/PortfolioFilters.tsx:97
 #: src/containers/HomePage.tsx:110
 msgid "New"
 msgstr "Nuevo"
@@ -863,7 +867,7 @@ msgstr "No encontrado"
 #~ msgid "Notice an inaccuracy? Click here."
 #~ msgstr ""
 
-#: src/components/PortfolioFilters.tsx:92
+#: src/components/PortfolioFilters.tsx:115
 msgid "Number of Units"
 msgstr ""
 
@@ -881,8 +885,8 @@ msgid "Officer"
 msgstr "Oficial"
 
 #: src/components/PortfolioFilters.tsx:89
-msgid "Officer/Owner"
-msgstr "Oficial/Propietario"
+#~ msgid "Officer/Owner"
+#~ msgstr "Oficial/Propietario"
 
 #: src/components/NetworkErrorMessage.tsx:5
 #: src/components/Subscribe.tsx:57
@@ -943,6 +947,10 @@ msgstr ""
 msgid "People"
 msgstr "Personas"
 
+#: src/components/PortfolioFilters.tsx:110
+msgid "Person/Entity"
+msgstr ""
+
 #: src/components/Subscribe.tsx:25
 msgid "Please enter an email address!"
 msgstr "Por favor, ¡introduzca una dirección de correo electrónico!"
@@ -974,8 +982,11 @@ msgstr "Complejo de Vivienda Pública"
 msgid "RS Units"
 msgstr "Unidades RS"
 
-#: src/components/PortfolioFilters.tsx:132
-#: src/components/PortfolioFilters.tsx:152
+#: src/components/PortfolioFilters.tsx:90
+msgid "Read more about our Methodology"
+msgstr ""
+
+#: src/components/PortfolioFilters.tsx:155
 msgid "Read more in our Methodology section"
 msgstr ""
 
@@ -983,11 +994,11 @@ msgstr ""
 msgid "Registration expired:"
 msgstr "El registro ha caducado:"
 
-#: src/components/PortfolioFilters.tsx:86
+#: src/components/PortfolioFilters.tsx:107
 msgid "Rent Stabilized Units"
 msgstr ""
 
-#: src/components/PortfolioFilters.tsx:83
+#: src/components/PortfolioFilters.tsx:104
 msgid "Rent Stabilized Units filter"
 msgstr ""
 
@@ -995,7 +1006,7 @@ msgstr ""
 msgid "Rent stabilization"
 msgstr "Renta estabilizada"
 
-#: src/components/PortfolioFilters.tsx:203
+#: src/components/PortfolioFilters.tsx:206
 msgid "Rent stabilized units are self-reported in yearly tax statements by building owners. As a result, many buildings with rent stabilized units may not be documented."
 msgstr ""
 
@@ -1078,7 +1089,7 @@ msgstr ""
 msgid "Show only {previewSelectedNum} selections"
 msgstr ""
 
-#: src/components/PortfolioFilters.tsx:103
+#: src/components/PortfolioFilters.tsx:126
 msgid "Showing {0} {1, plural, one {result} other {results}}"
 msgstr ""
 
@@ -1327,7 +1338,7 @@ msgstr "Total"
 msgid "Total Violations"
 msgstr "Violaciones Totales"
 
-#: src/components/PortfolioFilters.tsx:209
+#: src/components/PortfolioFilters.tsx:212
 msgid "Try adjusting or clearing the filters to yield more than 0 results."
 msgstr ""
 
@@ -1371,7 +1382,7 @@ msgstr "SISTEMA DE VENTILACIÓN"
 msgid "View Detail"
 msgstr ""
 
-#: src/components/PortfolioFilters.tsx:182
+#: src/components/PortfolioFilters.tsx:185
 msgid "View Results"
 msgstr ""
 
@@ -1444,7 +1455,7 @@ msgstr "Comparamos la dirección que buscaste con una base de datos de más de 2
 msgid "We overhauled the Portfolio tab to help make navigating this large table of data easier, especially for mobile phones."
 msgstr "Revisamos la pestaña Portafolio para ayudarle navegar por esta gran tabla de datos, especialmente para dispositivos móviles."
 
-#: src/components/PortfolioFilters.tsx:123
+#: src/components/PortfolioFilters.tsx:146
 msgid "We pull data from public records to calculate these results. Our algorithm relies on public <0>HPD registration data</0> for residential buildings, which contains self-reported landlord contact information on about 170,000 properties across the city."
 msgstr ""
 
@@ -1478,10 +1489,10 @@ msgid "What's New"
 msgstr "Qué hay de nuevo"
 
 #: src/components/PortfolioFilters.tsx:245
-msgid "What's this?"
-msgstr ""
+#~ msgid "What's this?"
+#~ msgstr ""
 
-#: src/components/PortfolioFilters.tsx:137
+#: src/components/PortfolioFilters.tsx:74
 msgid "What’s the difference between a landlord, an owner, and head officer?"
 msgstr ""
 
@@ -1490,12 +1501,20 @@ msgid "When two parties share the same business address, we group them as part o
 msgstr "Cuando dos partes comparten la misma dirección comercial, los agrupamos como parte del mismo portafolio."
 
 #: src/components/PortfolioFilters.tsx:140
-msgid "While the legal owner of a building is often a company (usually called an “LLC”), these names and business addresses registered with HPD offer a clearer picture of who really controls the building. People listed here as “Head Officer” or “Owner” usually have ties to building ownership, while “Site Managers” are part of management. That being said, these names are self reported by the landlord, so they can be misleading. Learn more about HPD registrations and how this information powers this tool on the <0>About page</0>."
+#~ msgid "While the legal owner of a building is often a company (usually called an “LLC”), these names and business addresses registered with HPD offer a clearer picture of who really controls the building. People listed here as “Head Officer” or “Owner” usually have ties to building ownership, while “Site Managers” are part of management. That being said, these names are self reported by the landlord, so they can be misleading. Learn more about HPD registrations and how this information powers this tool on the <0>About page</0>."
+#~ msgstr ""
+
+#: src/components/PortfolioFilters.tsx:77
+msgid "While the legal owner of a building is often a company (usually called an “LLC”), these names and business addresses registered with the Department of Housing Preservation (“HPD”) offer a clearer picture of who really controls the building. People listed here as “Head Officer” or “Owner” usually have ties to building ownership, while “Site Managers” are part of management. That being said, these names are self reported by the landlord, so they can be misleading. Learn more about HPD registrations and how this information powers this tool on the <0>About page</0>."
 msgstr ""
 
 #: src/components/SocialShare.tsx:14
 msgid "Who Owns What is a free tool built by JustFix to research property owners in NYC. It has helped over 200,000 New Yorkers find out who really owns their building, what other buildings that their landlord or management company owns, and other critical information about code violations, evictions, rent stabilized units, and so much more in any given building. You can look up any residential building located in NYC, even public housing (NYCHA) buildings! Search your address here: {url}"
 msgstr "Quién Es El Dueño es una herramienta gratis construida por JustFix para investigar los dueños de edificios en NYC. Ha asistido más de 200.000 neoyorquinos a enterarse quien realmente son los responsables por su edificio, cuáles otros edificios su dueño o compañía de administración poseen, y otra información crítica sobre violaciones del código de vivienda, desalojos, apartamentos con renta estabilizada y mucho más en cualquier edificio. Puedes buscar información sobre cualquier edificio residencial, también incluyen viviendas públicas (NYCHA). Busca tu dirección aquí: {url}"
+
+#: src/components/PortfolioFilters.tsx:110
+msgid "Who are they?"
+msgstr ""
 
 #: src/containers/App.tsx:42
 msgid "Who owns what in n y c?"
@@ -1550,16 +1569,16 @@ msgstr ""
 #~ msgid "ZIP CODE is not applicable"
 #~ msgstr ""
 
-#: src/components/PortfolioFilters.tsx:96
+#: src/components/PortfolioFilters.tsx:119
 msgid "ZIP code is not applicable"
 msgstr ""
 
-#: src/components/PortfolioFilters.tsx:95
+#: src/components/PortfolioFilters.tsx:118
 #: src/components/PortfolioTable.tsx:76
 msgid "Zip Code"
 msgstr ""
 
-#: src/components/PortfolioFilters.tsx:96
+#: src/components/PortfolioFilters.tsx:119
 msgid "Zip code filter"
 msgstr ""
 
