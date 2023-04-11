@@ -8,7 +8,7 @@ import Select, {
   OptionProps,
   InputProps,
 } from "react-select";
-import { I18n, i18n } from "@lingui/core";
+import { i18n } from "@lingui/core";
 import { t, Trans } from "@lingui/macro";
 import { Alert } from "./Alert";
 import { CloseIcon, CheckIcon } from "./Icons";
@@ -25,7 +25,6 @@ export type Option = {
 
 interface CustomMultiselectProps {
   onApply: (selectedList: any) => void;
-  i18n: I18n;
   previewSelectedNum?: number;
   infoAlert?: JSX.Element;
 }
@@ -63,7 +62,6 @@ function MultiSelect<
   onChange,
   onInputChange,
   previewSelectedNum,
-  i18n,
   ...props
 }: Props<Option, IsMulti, GroupType> & CustomMultiselectProps) {
   const [selections, setSelections] = useState<Option[]>([]);
