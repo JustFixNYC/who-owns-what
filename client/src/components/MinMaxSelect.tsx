@@ -1,4 +1,4 @@
-import React from "react";
+import React, { InputHTMLAttributes } from "react";
 import { Trans, t } from "@lingui/macro";
 import { i18n } from "@lingui/core";
 import classnames from "classnames";
@@ -57,6 +57,19 @@ function MinMaxSelect(props: {
     onApply(selections || [NUMBER_RANGE_DEFAULT]);
   };
 
+  const commonInputProps: InputHTMLAttributes<HTMLInputElement> = {
+    type: "text",
+    inputMode: "numeric",
+    pattern: "[0-9]*",
+    "aria-autocomplete": "none",
+    autoComplete: "off",
+    "aria-describedby": `${id || "minmax-select"}__custom-a11y-text`,
+    min: options.min,
+    max: options.min,
+    onKeyDown: helpers.preventNonNumericalInput,
+    onFocus: onFocusInput,
+  };
+
   return (
     <div id={id} className="minmaxselect-container">
       <fieldset className="minmaxselect__presets-container">
@@ -66,6 +79,7 @@ function MinMaxSelect(props: {
               type="checkbox"
               id={`minmaxselect__preset-${i}`}
               name={`minmaxselect__preset-${i}`}
+              aria-describedby={`${id || "minmax-select"}__preset-a11y-text`}
               onChange={() => handlePresetChange(i)}
               disabled={isFinite(minMax.min) || isFinite(minMax.max)}
             />
@@ -75,6 +89,16 @@ function MinMaxSelect(props: {
             </label>
           </div>
         ))}
+        <span
+          id={`${id || "minmax-select"}__preset-a11y-text`}
+          className="minmaxselect__a11y-text"
+          hidden
+        >
+          <Trans>
+            Select one or more ranges of building units, or set a custom range, then apply
+            selections to filter the list of portfolio properties.
+          </Trans>
+        </span>
       </fieldset>
       <details>
         <summary className="minmaxselect__custom-range-summary">
@@ -103,14 +127,7 @@ function MinMaxSelect(props: {
               <input
                 id={`${id || "minmax-select"}_min-input`}
                 className={classnames("minmaxselect__min-input", { hasError: minMaxErrors.min })}
-                type="text"
-                inputMode="numeric"
-                pattern="[0-9]*"
-                aria-describedby={`${id || "minmax-select"}__a11y-text`}
-                min={options.min}
-                max={options.min}
                 value={isFinite(minMax.min) ? minMax.min : ""}
-                onKeyDown={helpers.preventNonNumericalInput}
                 onChange={(e) => {
                   setMinMaxErrors(MIN_MAX_ERRORS_DEFAULT);
                   setMinMax({
@@ -118,7 +135,7 @@ function MinMaxSelect(props: {
                     max: minMax.max,
                   });
                 }}
-                onFocus={onFocusInput}
+                {...commonInputProps}
               />
               <span>
                 <Trans>and</Trans>
@@ -126,28 +143,22 @@ function MinMaxSelect(props: {
               <input
                 id={`${id || "minmax-select"}_max-input`}
                 className={classnames("minmaxselect__max-input", { hasError: minMaxErrors.max })}
-                type="text"
-                inputMode="numeric"
-                pattern="[0-9]*"
-                aria-describedby={`${id || "minmax-select"}__a11y-text`}
-                min={options.max}
-                max={options.max}
                 value={isFinite(minMax.max) ? minMax.max : ""}
-                onKeyDown={helpers.preventNonNumericalInput}
                 onChange={(e) => {
                   setMinMaxErrors(MIN_MAX_ERRORS_DEFAULT);
                   setMinMax({ min: minMax.min, max: cleanNumberInput(e.target.value) || Infinity });
                 }}
-                onFocus={onFocusInput}
+                {...commonInputProps}
               />
               <span
-                id={`${id || "minmax-select"}__a11y-text`}
+                id={`${id || "minmax-select"}__custom-a11y-text`}
                 className="minmaxselect__a11y-text"
                 hidden
               >
                 <Trans>
-                  Enter minimum and maximum number of units, or leave either blank. Set both to
-                  blank to clear filter.
+                  Enter minimum and maximum number of units, or leave either blank, then apply
+                  selections to filter the list of portfolio properties. Set both to blank and apply
+                  to clear filter.
                 </Trans>
               </span>
             </div>
