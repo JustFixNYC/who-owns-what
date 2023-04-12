@@ -39,6 +39,7 @@ import { sortContactsByImportance } from "./DetailView";
 import { ArrowIcon } from "./Icons";
 import classnames from "classnames";
 import { isLegacyPath } from "./WowzaToggle";
+import { OwnernamesResultAlert, RsUnitsResultAlert } from "./PortfolioFilters";
 
 const FIRST_COLUMN_WIDTH = 130;
 export const MAX_TABLE_ROWS_PER_PAGE = 100;
@@ -92,6 +93,14 @@ export const PortfolioTable = React.memo((props: PortfolioTableProps) => {
   const { pathname } = useLocation();
 
   const { filterContext, setFilterContext } = React.useContext(FilterContext);
+
+  const { filterSelections } = filterContext;
+  const activeFilters = {
+    rsunitslatestActive: filterSelections.rsunitslatest,
+    ownernamesActive: !!filterSelections.ownernames.length,
+    unitsresActive: filterSelections.unitsres !== MINMAX_DEFAULT,
+    zipActive: !!filterSelections.zip.length,
+  };
 
   const lastColumnRef = React.useRef<HTMLDivElement>(null);
   const isLastColumnVisible = Helpers.useOnScreen(lastColumnRef);
@@ -577,6 +586,18 @@ export const PortfolioTable = React.memo((props: PortfolioTableProps) => {
             ))}
           </thead>
           <tbody>
+            {table.getRowModel().rows.length &&
+              (activeFilters.rsunitslatestActive || activeFilters.ownernamesActive) && (
+                <tr>
+                  <td
+                    className="filter-table-alert-container"
+                    colSpan={table.getVisibleFlatColumns().length}
+                  >
+                    {activeFilters.rsunitslatestActive && RsUnitsResultAlert}
+                    {activeFilters.ownernamesActive && OwnernamesResultAlert}
+                  </td>
+                </tr>
+              )}
             {table.getRowModel().rows.map((row, i) => {
               return (
                 <Fragment key={row.id}>

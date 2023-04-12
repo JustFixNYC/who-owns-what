@@ -1,5 +1,4 @@
 @import "_vars.scss";
-@import "_mapbanner.scss";
 
 .PropertiesMap {
   display: inline-block;
@@ -41,7 +40,7 @@
       }
     }
 
-    .MapBanner__container {
+    .MapAlert__container {
       position: absolute;
       z-index: 100;
       top: 0;
@@ -50,6 +49,7 @@
       margin: 1rem 2.2rem 0 4.5rem;
       display: flex;
       flex-direction: column;
+      gap: 0.4rem;
     }
   }
 
