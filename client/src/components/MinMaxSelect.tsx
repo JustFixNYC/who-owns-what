@@ -51,12 +51,13 @@ function MinMaxSelect(props: {
       }
       onApply([customRange]);
     } else {
-      const selections = presets
+      const presetSelections = presets
         .filter((preset) => preset.checked)
         .map((preset) => {
           const { checked, ...range } = preset;
           return range;
-        }) || [NUMBER_RANGE_DEFAULT];
+        });
+      const selections = presetSelections.length ? presetSelections : [NUMBER_RANGE_DEFAULT];
       onApply(selections);
     }
   };
