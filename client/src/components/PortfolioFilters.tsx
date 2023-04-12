@@ -171,7 +171,6 @@ export const PortfolioFilters = React.memo(
             title={i18n._(t`Landlord`)}
             subtitle={i18n._(t`Person/Entity`)}
             infoLabel={i18n._(t`Who are they?`)}
-            // TODO: add analytics event for onInfoClick
             infoModalContents={ownernamesInfoModalContents}
             isMobile={isMobile}
             isActive={ownernamesActive}
