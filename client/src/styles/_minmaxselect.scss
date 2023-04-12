@@ -2,7 +2,7 @@
 @import "_typography";
 @import "_button.scss";
 
-.minmax-container {
+.minmaxselect-container {
   display: flex;
   flex-direction: column;
   padding: 1.2rem;
@@ -11,43 +11,107 @@
   @include browser("Firefox") {
     font-weight: 500;
   }
-  .label-input-container {
-    display: flex;
-    flex-direction: column;
-    gap: 0.4rem;
-    color: $justfix-grey-700;
-    font-size: 1.2rem;
-    .labels-container {
+  .minmaxselect__presets-container {
+    display: grid;
+    grid-template-columns: 7rem 7rem 7rem;
+    grid-template-rows: 4rem 4rem;
+    gap: 0.1rem;
+    .minmaxselect__preset-value {
+      position: relative;
       display: flex;
-      label:first-child {
-        margin-right: auto;
+      box-shadow: 0 0 0 0.1rem $justfix-grey-700;
+      background-color: $justfix-white;
+      border-radius: 0.1rem;
+      cursor: pointer;
+      &:has(> input[disabled]) {
+        opacity: 0.5;
+        background-color: lightgrey;
+      }
+      &:has(> input.checked) {
+        background-color: $justfix-black;
+        color: $justfix-white;
+      }
+      &:focus-within {
+        outline: 0.2rem solid $justfix-black;
+        z-index: 1;
+      }
+      input[type="checkbox"] {
+        // hide in a11y-friendly way
+        position: absolute;
+        opacity: 0;
+        width: 1em;
+        height: 1em;
+        top: 0.5rem;
+        left: 1.5rem;
+      }
+      label {
+        display: flex;
+        flex: 1;
+        align-items: center;
+        justify-content: center;
       }
     }
-    .inputs-container {
+  }
+
+  .minmaxselect__custom-range-summary {
+    display: flex;
+    font-size: 1.2rem;
+    text-transform: capitalize;
+    text-decoration: underline;
+    text-underline-position: under;
+    color: $justfix-grey-700;
+    width: fit-content;
+    cursor: pointer;
+    &::-webkit-details-marker {
+      display: none;
+    }
+  }
+  .minmaxselect__custom-range-container {
+    display: flex;
+    flex-direction: column;
+    padding-top: 1.2rem;
+    gap: 1.2rem;
+    .minmaxselect__label-input-container {
       display: flex;
-      gap: 1rem;
-      align-items: center;
-      input {
-        background-color: $justfix-white;
-        color: $justfix-black;
-        font-size: 1.4rem;
-        width: 4.4rem;
-        height: 4.4rem;
-        border: 0.1rem solid $justfix-grey-600;
-        border-radius: 0.2rem;
-        padding: 0.5rem;
-        appearance: textfield;
-        // remove increment arrows
-        &::-webkit-outer-spin-button,
-        &::-webkit-inner-spin-button {
-          -webkit-appearance: none;
-          margin: 0;
+      flex-direction: column;
+      width: fit-content;
+      gap: 0.4rem;
+      color: $justfix-grey-700;
+      font-size: 1.2rem;
+      .minmaxselect__labels-container {
+        display: flex;
+        label:first-child {
+          margin-right: auto;
         }
-        &:focus-visible {
-          outline: none;
-        }
-        &.hasError {
-          outline: 0.3rem solid $justfix-orange;
+      }
+      .minmaxselect__inputs-container {
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+        input {
+          --input-size: 4.4rem;
+          --input-padding: 0.8rem;
+          width: calc(var(--input-size) - (var(--input-padding) * 2));
+          height: calc(var(--input-size) - (var(--input-padding) * 2));
+          padding: var(--input-padding);
+          background-color: $justfix-white;
+          color: $justfix-black;
+          font-size: 1.6rem;
+          border: 0.1rem solid $justfix-grey-600;
+          border-radius: 0.2rem;
+          appearance: textfield;
+          // remove increment arrows
+          &::-webkit-outer-spin-button,
+          &::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+          }
+          &:focus-visible {
+            outline: none;
+          }
+          &.hasError {
+            outline: 0.3rem solid $justfix-orange;
+          }
         }
       }
     }

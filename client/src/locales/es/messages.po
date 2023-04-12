@@ -51,7 +51,7 @@ msgstr "(caduca {formattedRegEndDate})"
 msgid "(hover over a box to learn more)"
 msgstr "(pase el cursor sobre una casilla para aprender más)"
 
-#: src/components/PropertiesList.tsx:80
+#: src/components/PropertiesList.tsx:77
 msgid "(this may take a while)"
 msgstr "(esto puede tardar un rato)"
 
@@ -146,11 +146,12 @@ msgstr "Una \"demanda de desalojo\" es un caso legal de desalojo iniciado por un
 #~ msgid "An “eviction filing” is a legal case for eviction commenced by a landlord against a tenant in Housing Court. Such a case can be commenced for nonpayment of rent (most commonly) or for a violation of the lease (such as a nuisance). The eviction filings number only represents cases filed in Housing Court (data from the New York State Office of Court Administration<0>via the Housing Data Coalition</0> in collaboration with the <1>Right to Counsel Coalition</1>) and not evictions carried out by NYC Marshals.<2/>If you or someone you know is facing eviction and want to learn more about your rights, head over to <3>Housing Court Answers for more information</3>.<4/>Due to privacy restrictions on the use of these data, eviction filings cannot be shown for buildings with fewer than 11 units."
 #~ msgstr "An “eviction filing” is a legal case for eviction commenced by a landlord against a tenant in Housing Court. Such a case can be commenced for nonpayment of rent (most commonly) or for a violation of the lease (such as a nuisance). The eviction filings number only represents cases filed in Housing Court (data from the New York State Office of Court Administration<0>via the Housing Data Coalition</0> in collaboration with the <1>Right to Counsel Coalition</1>) and not evictions carried out by NYC Marshals.<2/>If you or someone you know is facing eviction and want to learn more about your rights, head over to <3>Housing Court Answers for more information</3>.<4/>Due to privacy restrictions on the use of these data, eviction filings cannot be shown for buildings with fewer than 11 units."
 
-#: src/components/MinMaxSelect.tsx:50
+#: src/components/MinMaxSelect.tsx:62
 #: src/components/Multiselect.tsx:83
 msgid "Apply"
 msgstr ""
 
+#: src/components/MinMaxSelect.tsx:52
 #: src/components/Multiselect.tsx:78
 msgid "Apply selections and get results"
 msgstr ""
@@ -256,7 +257,7 @@ msgstr "Clase C"
 msgid "Class I"
 msgstr "Clase I"
 
-#: src/components/Multiselect.tsx:139
+#: src/components/Multiselect.tsx:134
 msgid "Clear"
 msgstr ""
 
@@ -268,7 +269,7 @@ msgstr ""
 #~ msgid "Clear all"
 #~ msgstr ""
 
-#: src/components/Multiselect.tsx:135
+#: src/components/Multiselect.tsx:130
 msgid "Clear all selections"
 msgstr ""
 
@@ -392,6 +393,10 @@ msgstr "Introduce una dirección de NYC para encontrar otros edificios que tu pr
 #: src/components/Subscribe.tsx:79
 msgid "Enter email"
 msgstr "Introducir email"
+
+#: src/components/MinMaxSelect.tsx:45
+msgid "Enter minimum and maximum number of units, or leave either blank. Set both to blank to clear filter."
+msgstr ""
 
 #: src/components/Multiselect.tsx:445
 #: src/components/PortfolioFilters.tsx:261
@@ -681,12 +686,12 @@ msgid "Link to Deed"
 msgstr "Enlace a la Escritura"
 
 #: src/components/Loader.tsx:19
-#: src/components/PropertiesList.tsx:81
+#: src/components/PropertiesList.tsx:78
 #: src/components/PropertiesMap.tsx:158
 msgid "Loading"
 msgstr "Cargando"
 
-#: src/components/PropertiesList.tsx:78
+#: src/components/PropertiesList.tsx:75
 msgid "Loading {0} rows"
 msgstr "Cargando {0} filas"
 
@@ -706,11 +711,11 @@ msgstr "¿Buscas más información?"
 msgid "MAILBOX"
 msgstr "BUZÓN"
 
-#: src/components/MinMaxSelect.tsx:23
+#: src/components/MinMaxSelect.tsx:25
 msgid "MAX"
 msgstr ""
 
-#: src/components/MinMaxSelect.tsx:20
+#: src/components/MinMaxSelect.tsx:22
 msgid "MIN"
 msgstr ""
 
@@ -734,11 +739,11 @@ msgstr ""
 #~ msgid "Make a selection."
 #~ msgstr ""
 
-#: src/components/MinMaxSelect.tsx:76
+#: src/components/MinMaxSelect.tsx:88
 msgid "Max must be greater than 0"
 msgstr ""
 
-#: src/components/MinMaxSelect.tsx:80
+#: src/components/MinMaxSelect.tsx:92
 msgid "Max must be greater than {minOption}"
 msgstr ""
 
@@ -759,15 +764,15 @@ msgstr "Menu"
 msgid "Methodology"
 msgstr "Metodología"
 
-#: src/components/MinMaxSelect.tsx:72
+#: src/components/MinMaxSelect.tsx:84
 msgid "Min must be greater than 0"
 msgstr ""
 
-#: src/components/MinMaxSelect.tsx:68
+#: src/components/MinMaxSelect.tsx:80
 msgid "Min must be less than or equal to Max"
 msgstr ""
 
-#: src/components/MinMaxSelect.tsx:84
+#: src/components/MinMaxSelect.tsx:96
 msgid "Min must be less than {maxOption}"
 msgstr ""
 
@@ -1081,15 +1086,15 @@ msgstr "Comparte esta página con tus vecinos"
 msgid "Shareholder"
 msgstr "Accionista"
 
-#: src/components/Multiselect.tsx:118
+#: src/components/Multiselect.tsx:113
 msgid "Show all {numSelections} selections"
 msgstr ""
 
-#: src/components/Multiselect.tsx:133
+#: src/components/Multiselect.tsx:128
 msgid "Show less"
 msgstr ""
 
-#: src/components/Multiselect.tsx:132
+#: src/components/Multiselect.tsx:127
 msgid "Show only {previewSelectedNum} selections"
 msgstr ""
 
@@ -1594,7 +1599,7 @@ msgstr "Aumentar"
 msgid "Zoom out"
 msgstr "Alejar"
 
-#: src/components/MinMaxSelect.tsx:32
+#: src/components/MinMaxSelect.tsx:36
 #: src/components/StringifyList.tsx:18
 msgid "and"
 msgstr "y"
