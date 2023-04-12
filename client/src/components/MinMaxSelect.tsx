@@ -3,24 +3,27 @@ import { Trans } from "@lingui/macro";
 import classnames from "classnames";
 import helpers from "util/helpers";
 import { Alert } from "./Alert";
-import { FilterNumberRange, MINMAX_DEFAULT } from "./PropertiesList";
+import { FilterNumberRange, NUMBER_RANGE_DEFAULT } from "./PropertiesList";
+
+type MinMaxErrors = { min: boolean; max: boolean; msg: JSX.Element | undefined };
+const MIN_MAX_ERRORS_DEFAULT = { min: false, max: false, msg: undefined };
 
 function MinMaxSelect(props: {
   options: FilterNumberRange;
-  onApply: (selectedList: FilterNumberRange) => void;
+  onApply: (selections: FilterNumberRange[]) => void;
   id?: string;
   onFocusInput?: () => void;
 }) {
   const { options, onApply, id, onFocusInput } = props;
-  const [minMax, setMinMax] = React.useState<FilterNumberRange>(MINMAX_DEFAULT);
-  const [minMaxErrors, setMinMaxErrors] = React.useState<MinMaxErrors>([false, false, undefined]);
+  const [minMax, setMinMax] = React.useState<FilterNumberRange[]>([NUMBER_RANGE_DEFAULT]);
+  const [minMaxErrors, setMinMaxErrors] = React.useState<MinMaxErrors>(MIN_MAX_ERRORS_DEFAULT);
 
   return (
     <form id={id} className="minmax-container">
-      {minMaxErrors[0] || minMaxErrors[1] ? (
+      {minMaxErrors.min || minMaxErrors.max ? (
         <div className="alerts-container">
           <Alert type="error" variant="primary" closeType="none" role="status">
-            {minMaxErrors[2]}
+            {minMaxErrors.msg}
           </Alert>
         </div>
       ) : (
@@ -39,16 +42,18 @@ function MinMaxSelect(props: {
           <input
             id={`${id || "minmax-select"}_min-input`}
             type="number"
-            min={options[0]}
-            max={options[1]}
-            value={minMax[0] == null ? "" : minMax[0]}
+            min={options.min}
+            max={options.min}
+            value={isFinite(minMax[0].min) ? minMax[0].min : ""}
             onKeyDown={helpers.preventNonNumericalInput}
             onChange={(e) => {
-              setMinMaxErrors([false, false, undefined]);
-              setMinMax([cleanNumberInput(e.target.value), minMax[1]]);
+              setMinMaxErrors(MIN_MAX_ERRORS_DEFAULT);
+              setMinMax([
+                { min: cleanNumberInput(e.target.value) || -Infinity, max: minMax[0].max },
+              ]);
             }}
             onFocus={onFocusInput}
-            className={classnames("min-input", { hasError: minMaxErrors[0] })}
+            className={classnames("min-input", { hasError: minMaxErrors.min })}
           />
           <span>
             <Trans>and</Trans>
@@ -56,24 +61,26 @@ function MinMaxSelect(props: {
           <input
             id={`${id || "minmax-select"}_max-input`}
             type="number"
-            min={options[0]}
-            max={options[1]}
-            value={minMax[1] == null ? "" : minMax[1]}
+            min={options.max}
+            max={options.max}
+            value={isFinite(minMax[0].max) ? minMax[0].max : ""}
             onKeyDown={helpers.preventNonNumericalInput}
             onChange={(e) => {
-              setMinMaxErrors([false, false, undefined]);
-              setMinMax([minMax[0], cleanNumberInput(e.target.value)]);
+              setMinMaxErrors(MIN_MAX_ERRORS_DEFAULT);
+              setMinMax([
+                { min: minMax[0].min, max: cleanNumberInput(e.target.value) || Infinity },
+              ]);
             }}
             onFocus={onFocusInput}
-            className={classnames("max-input", { hasError: minMaxErrors[1] })}
+            className={classnames("max-input", { hasError: minMaxErrors.max })}
           />
         </div>
       </div>
       <button
         onClick={(e) => {
           e.preventDefault();
-          const errors = minMaxHasError(minMax, options);
-          if (errors[0] || errors[1]) {
+          const errors = minMaxHasError(minMax[0], options);
+          if (errors.min || errors.max) {
             setMinMaxErrors(errors);
           } else {
             onApply(minMax);
@@ -92,37 +99,36 @@ function cleanNumberInput(value: string): number | undefined {
   return Number(value);
 }
 
-type MinMaxErrors = [boolean, boolean, JSX.Element | undefined];
 function minMaxHasError(values: FilterNumberRange, options: FilterNumberRange): MinMaxErrors {
-  const [minValue, maxValue] = values;
-  const [minOption, maxOption] = options;
+  const { min: minValue, max: maxValue } = values;
+  const { min: minOption, max: maxOption } = options;
   let minHasError = false;
   let maxHasError = false;
   let errorMessage: JSX.Element | undefined;
 
-  if (minValue != null && maxValue != null && minValue > maxValue) {
+  if (isFinite(minValue) && isFinite(maxValue) && minValue > maxValue) {
     minHasError = true;
     maxHasError = true;
     errorMessage = <Trans>Min must be less than or equal to Max</Trans>;
   }
-  if (minValue != null && minValue < 0) {
+  if (isFinite(minValue) && minValue < 0) {
     minHasError = true;
     errorMessage = <Trans>Min must be greater than 0</Trans>;
   }
-  if (maxValue != null && maxValue < 0) {
+  if (isFinite(maxValue) && maxValue < 0) {
     minHasError = true;
     errorMessage = <Trans>Max must be greater than 0</Trans>;
   }
-  if (maxValue != null && minOption != null && maxValue < minOption) {
+  if (isFinite(maxValue) && isFinite(minOption) && maxValue < minOption) {
     maxHasError = true;
     errorMessage = <Trans>Max must be greater than {minOption}</Trans>;
   }
-  if (minValue != null && maxOption != null && minValue > maxOption) {
+  if (isFinite(minValue) && isFinite(maxOption) && minValue > maxOption) {
     minHasError = true;
     errorMessage = <Trans>Min must be less than {maxOption}</Trans>;
   }
 
-  return [minHasError, maxHasError, errorMessage];
+  return { min: minHasError, max: maxHasError, msg: errorMessage };
 }
 
 export default MinMaxSelect;

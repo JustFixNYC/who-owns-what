@@ -3,7 +3,7 @@ import { t, Trans, Plural } from "@lingui/macro";
 import classnames from "classnames";
 import React from "react";
 import { CheckIcon, ChevronIcon, CloseIcon, InfoIcon } from "./Icons";
-import { FilterContext, MINMAX_DEFAULT } from "./PropertiesList";
+import { FilterContext, FilterNumberRange, NUMBER_RANGE_DEFAULT } from "./PropertiesList";
 import FocusTrap from "focus-trap-react";
 import { FocusTarget } from "focus-trap";
 import { Alert } from "./Alert";
@@ -60,14 +60,14 @@ export const PortfolioFilters = React.memo(
 
     const [unitsresActive, setUnitsresActive] = React.useState(false);
     const [unitsresIsOpen, setUnitsresIsOpen] = React.useState(false);
-    const onUnitsresApply = (selectedList: any) => {
-      setUnitsresActive(selectedList !== MINMAX_DEFAULT);
+    const onUnitsresApply = (selections: FilterNumberRange[]) => {
+      setUnitsresActive(isFinite(selections[0].min) || isFinite(selections[0].max));
       setUnitsresIsOpen(false);
       setFilterContext({
         ...filterContext,
         filterSelections: {
           ...filterContext.filterSelections,
-          unitsres: selectedList,
+          unitsres: selections,
         },
       });
     };
@@ -96,7 +96,7 @@ export const PortfolioFilters = React.memo(
         filterSelections: {
           rsunitslatest: false,
           ownernames: [],
-          unitsres: MINMAX_DEFAULT,
+          unitsres: [NUMBER_RANGE_DEFAULT],
           zip: [],
         },
       });

@@ -12,20 +12,23 @@ import { MAX_TABLE_ROWS_PER_PAGE, PortfolioTable } from "./PortfolioTable";
 // Pattern for context provider to update context from child components
 // https://stackoverflow.com/a/67710693/7051239
 
-export type FilterNumberRange = [number | undefined, number | undefined] | undefined[];
-export const MINMAX_DEFAULT = [undefined, undefined];
-
-type FilterValues = {
-  ownernames: string[];
-  unitsres: FilterNumberRange;
-  zip: string[];
-};
+export type FilterNumberRange = { min: number; max: number };
+export const NUMBER_RANGE_DEFAULT = { min: -Infinity, max: Infinity };
 
 export type IFilterContext = {
   totalBuildings?: number | undefined;
   filteredBuildings?: number | undefined;
-  filterSelections: FilterValues & { rsunitslatest?: boolean };
-  filterOptions: FilterValues;
+  filterSelections: {
+    ownernames: string[];
+    unitsres: FilterNumberRange[];
+    zip: string[];
+    rsunitslatest?: boolean;
+  };
+  filterOptions: {
+    ownernames: string[];
+    unitsres: FilterNumberRange;
+    zip: string[];
+  };
 };
 
 const useValue = () => {
@@ -35,12 +38,12 @@ const useValue = () => {
     filterSelections: {
       rsunitslatest: false,
       ownernames: [],
-      unitsres: MINMAX_DEFAULT,
+      unitsres: [NUMBER_RANGE_DEFAULT],
       zip: [],
     },
     filterOptions: {
       ownernames: [],
-      unitsres: MINMAX_DEFAULT,
+      unitsres: NUMBER_RANGE_DEFAULT,
       zip: [],
     },
   };
