@@ -75,8 +75,13 @@
     background-color: $justfix-green;
   }
   &.is-info {
-    color: $justfix-grey-600;
     border: 0.1rem solid $justfix-grey-400;
+    &,
+    p,
+    a,
+    .button.is-text {
+      color: $justfix-grey-600;
+    }
     &::before {
       background-color: $justfix-blue;
     }

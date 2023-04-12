@@ -234,6 +234,7 @@ export default class AddressPage extends Component<AddressPageProps, State> {
                   window.gtag("event", "address-change-map");
                 }}
                 isVisible={this.props.currentTab === 0}
+                addressPageRoutes={routes}
               />
               <DetailView
                 state={state}
