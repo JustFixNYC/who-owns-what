@@ -24,7 +24,7 @@ export const PortfolioFilters = React.memo(
     const isMobile = Browser.isMobile();
 
     const [showInfoModal, setShowInfoModal] = React.useState(false);
-    const [showOwnerModal, setShowOwnerModal] = React.useState(false);
+
     const { pathname } = useLocation();
     const { about, methodology, legacy } = createWhoOwnsWhatRoutePaths();
 
@@ -112,6 +112,33 @@ export const PortfolioFilters = React.memo(
 
     const activeFilters = { rsunitslatestActive, ownernamesActive, unitsresActive, zipActive };
 
+    const ownernamesInfoModalContents = React.useMemo(
+      () => (
+        <>
+          <h4>
+            <Trans>What’s the difference between a landlord, an owner, and head officer?</Trans>
+          </h4>
+          <p>
+            <Trans>
+              While the legal owner of a building is often a company (usually called an “LLC”),
+              these names and business addresses registered with the Department of Housing
+              Preservation (“HPD”) offer a clearer picture of who really controls the building.
+              People listed here as “Head Officer” or “Owner” usually have ties to building
+              ownership, while “Site Managers” are part of management. That being said, these names
+              are self reported by the landlord, so they can be misleading. Learn more about HPD
+              registrations and how this information powers this tool on the{" "}
+              <LocaleLink to={isLegacyPath(pathname) ? legacy.about : about}>About page</LocaleLink>
+              .
+            </Trans>
+          </p>
+          <LocaleLink to={isLegacyPath(pathname) ? legacy.methodology : methodology}>
+            <Trans>Read more about our Methodology</Trans>
+          </LocaleLink>
+        </>
+      ),
+      [] // eslint-disable-line react-hooks/exhaustive-deps
+    );
+
     return (
       <div className="PortfolioFilters" ref={ref}>
         <div className="filter-new-container">
@@ -142,8 +169,9 @@ export const PortfolioFilters = React.memo(
           </button>
           <FilterAccordion
             title={i18n._(t`Landlord`)}
-            subtitle={i18n._(t`Officer/Owner`)}
-            infoOnClick={() => setShowOwnerModal(true)}
+            subtitle={i18n._(t`Person/Entity`)}
+            infoLabel={i18n._(t`Who are they?`)}
+            infoModalContents={ownernamesInfoModalContents}
             isMobile={isMobile}
             isActive={ownernamesActive}
             isOpen={ownernamesIsOpen}
@@ -229,31 +257,6 @@ export const PortfolioFilters = React.memo(
               <a href="https://www.nyc.gov/site/hpd/about/open-data.page">HPD registration data</a>{" "}
               for residential buildings, which contains self-reported landlord contact information
               on about 170,000 properties across the city.
-            </Trans>
-          </p>
-          <LocaleLink to={isLegacyPath(pathname) ? legacy.methodology : methodology}>
-            <Trans>Read more in our Methodology section</Trans>
-          </LocaleLink>
-        </Modal>
-        <Modal
-          key={2}
-          showModal={showOwnerModal}
-          width={20}
-          onClose={() => setShowOwnerModal(false)}
-        >
-          <h4>
-            <Trans>What’s the difference between a landlord, an owner, and head officer?</Trans>
-          </h4>
-          <p>
-            <Trans>
-              While the legal owner of a building is often a company (usually called an “LLC”),
-              these names and business addresses registered with HPD offer a clearer picture of who
-              really controls the building. People listed here as “Head Officer” or “Owner” usually
-              have ties to building ownership, while “Site Managers” are part of management. That
-              being said, these names are self reported by the landlord, so they can be misleading.
-              Learn more about HPD registrations and how this information powers this tool on the{" "}
-              <LocaleLink to={isLegacyPath(pathname) ? legacy.about : about}>About page</LocaleLink>
-              .
             </Trans>
           </p>
           <LocaleLink to={isLegacyPath(pathname) ? legacy.methodology : methodology}>
@@ -382,7 +385,7 @@ const OwnernamesInfoAlert = (
     role="status"
   >
     <Trans>
-      Look out for multiple spellings for the same person/entity. Names can be spelled multiple ways
+      Look out for multiple spellings of the same person/entity. Names can be spelled multiple ways
       in official documents.
     </Trans>
   </Alert>
@@ -398,7 +401,9 @@ const OwnernamesInfoAlert = (
 function FilterAccordion(props: {
   title: string;
   subtitle?: string;
-  infoOnClick?: () => void;
+  infoLabel?: string;
+  onInfoClick?: () => void;
+  infoModalContents?: JSX.Element;
   children: React.ReactNode;
   isMobile: boolean;
   isActive: boolean;
@@ -411,7 +416,9 @@ function FilterAccordion(props: {
   const {
     title,
     subtitle,
-    infoOnClick,
+    infoLabel,
+    onInfoClick,
+    infoModalContents,
     children,
     isMobile,
     isActive,
@@ -421,49 +428,64 @@ function FilterAccordion(props: {
     selectionsCount,
     className,
   } = props;
+  const [showInfoModal, setShowInfoModal] = React.useState(false);
 
   return (
-    <FocusTrap
-      active={isOpen}
-      focusTrapOptions={{
-        clickOutsideDeactivates: true,
-        returnFocusOnDeactivate: false,
-        onDeactivate: () => setIsOpen(false),
-        initialFocus: initialFocus,
-      }}
-    >
-      <details
-        className={classnames("filter filter-accordion", className, { active: isActive })}
-        open={isOpen}
+    <>
+      <FocusTrap
+        active={isOpen}
+        paused={showInfoModal}
+        focusTrapOptions={{
+          clickOutsideDeactivates: true,
+          returnFocusOnDeactivate: false,
+          onDeactivate: () => setIsOpen(false),
+          initialFocus: initialFocus,
+        }}
       >
-        <summary
-          onClick={(e) => {
-            e.preventDefault();
-            setIsOpen(!isOpen);
-          }}
-          data-selections={selectionsCount}
-          aria-label={i18n._(t`Filter`)}
+        <details
+          className={classnames("filter filter-accordion", className, { active: isActive })}
+          open={isOpen}
         >
-          {title}
-          {isActive && selectionsCount && (!isOpen || isMobile) && (
-            <span className="filter-selection-count">{selectionsCount}</span>
-          )}
-          <ChevronIcon className="chevronIcon" />
-        </summary>
-        <div className="dropdown-container">
-          {subtitle && (
-            <div className="filter-subtitle-container">
-              {subtitle && <span className="filter-subtitle">{subtitle}</span>}
-              {infoOnClick && (
-                <button className="filter-info button is-text" onClick={infoOnClick}>
-                  <Trans>What's this?</Trans>
-                </button>
-              )}
-            </div>
-          )}
-          {children}
-        </div>
-      </details>
-    </FocusTrap>
+          <summary
+            onClick={(e) => {
+              e.preventDefault();
+              setIsOpen(!isOpen);
+            }}
+            data-selections={selectionsCount}
+            aria-label={i18n._(t`Filter`)}
+          >
+            {title}
+            {isActive && selectionsCount && (!isOpen || isMobile) && (
+              <span className="filter-selection-count">{selectionsCount}</span>
+            )}
+            <ChevronIcon className="chevronIcon" />
+          </summary>
+          <div className="dropdown-container">
+            {subtitle && (
+              <div className="filter-subtitle-container">
+                {subtitle && <span className="filter-subtitle">{subtitle}</span>}
+                {infoLabel && (
+                  <button
+                    className="filter-info button is-text"
+                    onClick={() => {
+                      setShowInfoModal(true);
+                      onInfoClick && onInfoClick();
+                    }}
+                  >
+                    {infoLabel}
+                  </button>
+                )}
+              </div>
+            )}
+            {children}
+          </div>
+        </details>
+      </FocusTrap>
+      {infoModalContents && (
+        <Modal showModal={showInfoModal} width={20} onClose={() => setShowInfoModal(false)}>
+          {infoModalContents}
+        </Modal>
+      )}
+    </>
   );
 }

@@ -46,7 +46,7 @@
     "cytoscape": "^3.19.1",
     "cytoscape-fcose": "^2.1.0",
     "downshift": "^3.2.2",
-    "focus-trap-react": "^8.6.0",
+    "focus-trap-react": "^10.1.1",
     "leaflet": "^1.1.0",
     "lodash": "^4.17.21",
     "mapbox-gl": "^1.12.0",
