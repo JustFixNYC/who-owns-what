@@ -104,7 +104,7 @@
       }
       @include for-tablet-portrait-up() {
         &:not([open]):hover,
-        [open] summary {
+        [open] summary:not(.minmaxselect__custom-range-summary) {
           text-decoration: underline;
           text-underline-position: under;
         }
@@ -155,7 +155,7 @@
     .filter-accordion {
       position: relative;
 
-      summary {
+      summary:not(.minmaxselect__custom-range-summary) {
         // height based on toggle toggle checkbox plus 1rem padding
         height: calc(var(--checkbox-height) + 1rem * 2);
         padding: 0 1rem 0 1rem;
