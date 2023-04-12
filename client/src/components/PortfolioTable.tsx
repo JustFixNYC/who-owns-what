@@ -98,7 +98,8 @@ export const PortfolioTable = React.memo((props: PortfolioTableProps) => {
   const activeFilters = {
     rsunitslatestActive: filterSelections.rsunitslatest,
     ownernamesActive: !!filterSelections.ownernames.length,
-    unitsresActive: filterSelections.unitsres !== MINMAX_DEFAULT,
+    unitsresActive:
+      isFinite(filterSelections.unitsres[0].min) || isFinite(filterSelections.unitsres[0].max),
     zipActive: !!filterSelections.zip.length,
   };
 
