@@ -32,31 +32,31 @@ function MinMaxSelect(props: {
 
   const hasCustomInputs = isFinite(minMax.min) || isFinite(minMax.max);
 
-  const handlePresetChange = (i: number) => {
-    const updatedPresets = presets;
-    updatedPresets[i].checked = !updatedPresets[i].checked;
-    setPresets(updatedPresets);
+  const handlePresetChange = (preset: Preset, i: number) => {
+    setPresets((prev) => {
+      prev.splice(i, 1, { ...preset, checked: !preset.checked });
+      return [...prev];
+    });
   };
 
   const handleApply = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
-    let selections: FilterNumberRange[];
     if (isFinite(minMax.min) || isFinite(minMax.max)) {
       const errors = minMaxHasError(minMax, options);
       if (errors.min || errors.max) {
         setMinMaxErrors(errors);
         return;
       }
-      selections = [minMax];
+      onApply([minMax]);
     } else {
-      selections = presets
+      const selections = presets
         .filter((preset) => preset.checked)
         .map((preset) => {
           const { checked, ...range } = preset;
           return range;
-        });
+        }) || [NUMBER_RANGE_DEFAULT];
+      onApply(selections);
     }
-    onApply(selections || [NUMBER_RANGE_DEFAULT]);
   };
 
   const commonInputProps: InputHTMLAttributes<HTMLInputElement> = {
@@ -79,20 +79,22 @@ function MinMaxSelect(props: {
         aria-labelledby={`${id || "minmax-select"}__preset-a11y-text`}
         tabIndex={hasCustomInputs ? 0 : -1}
       >
-        {PRESETS_DEFAULT.map((rng, i) => (
+        {presets.map((preset, i) => (
           <div className="minmaxselect__preset-value" key={i}>
             <input
               type="checkbox"
               id={`minmaxselect__preset-${i}`}
               name={`minmaxselect__preset-${i}`}
+              className={classnames({ checked: preset.checked })}
               aria-describedby={`${id || "minmax-select"}__preset-a11y-text`}
-              onChange={() => handlePresetChange(i)}
+              onChange={() => handlePresetChange(preset, i)}
               disabled={hasCustomInputs}
               aria-hidden={hasCustomInputs}
+              checked={preset.checked}
             />
             <label htmlFor={`minmaxselect__preset-${i}`}>
-              {rng.min}
-              {isFinite(rng.max) ? `-${rng.max}` : "+"}
+              {preset.min}
+              {isFinite(preset.max) ? `-${preset.max}` : "+"}
             </label>
           </div>
         ))}
@@ -118,7 +120,7 @@ function MinMaxSelect(props: {
         <form id={`${id || "minmaxselect"}__form`} className="minmaxselect__custom-range-container">
           {minMaxErrors.min || minMaxErrors.max ? (
             <div className="minmaxselect__alerts-container">
-              <Alert type="error" variant="primary" closeType="none" role="status">
+              <Alert type="error" variant="primary" closeType="none" role="alert">
                 {minMaxErrors.msg}
               </Alert>
             </div>

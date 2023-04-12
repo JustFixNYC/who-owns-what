@@ -27,7 +27,7 @@
         opacity: 0.5;
         background-color: lightgrey;
       }
-      &:has(> input:checked) {
+      &:has(> input.checked) {
         background-color: $justfix-black;
         color: $justfix-white;
       }
