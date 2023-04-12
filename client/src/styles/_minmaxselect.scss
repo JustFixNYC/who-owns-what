@@ -23,12 +23,13 @@
       background-color: $justfix-white;
       border-radius: 0.1rem;
       cursor: pointer;
+      &:has(> input[disabled]) {
+        opacity: 0.5;
+        background-color: lightgrey;
+      }
       &:has(> input:checked) {
         background-color: $justfix-black;
         color: $justfix-white;
-      }
-      &:has(> input[disabled]) {
-        opacity: 0.5;
       }
       &:focus-within {
         outline: 0.2rem solid $justfix-black;

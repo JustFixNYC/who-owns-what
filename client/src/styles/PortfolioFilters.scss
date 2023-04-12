@@ -179,7 +179,7 @@
           margin-left: auto;
         }
       }
-      &:not(.filters-mobile-wrapper) summary {
+      &:not(.filters-mobile-wrapper) summary:not(.minmaxselect__custom-range-summary) {
         @include for-phone-only {
           height: var(--filter-bar-height);
           padding: 0 2.4rem;
@@ -270,7 +270,7 @@
 
           @include for-phone-only {
             .multiselect-container,
-            .minmax-container {
+            .minmaxselect-container {
               padding: 0;
 
               .button.is-primary {
@@ -303,9 +303,19 @@
               }
             }
           }
-          .minmax-container {
+          .minmaxselect-container {
             @include for-phone-only {
-              .label-input-container {
+              .minmaxselect__presets-container {
+                grid-template-columns: 8rem 8rem 8rem;
+                grid-template-rows: 4.5rem 4.5rem;
+                .minmaxselect__preset-value {
+                  font-size: 1.6rem;
+                }
+              }
+              .minmaxselect__custom-range-summary {
+                font-size: 1.6rem;
+              }
+              .minmaxselect__label-input-container {
                 width: fit-content;
                 font-size: 1.6rem;
                 input {
