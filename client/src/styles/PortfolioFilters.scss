@@ -455,57 +455,6 @@
       }
     }
   }
-
-  .filter-toast-container {
-    position: fixed;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    width: fit-content;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 101;
-
-    .filter-toast-alert {
-      position: relative;
-      transform: translateY(100%);
-      outline: $justfix-grey-400 solid 1px;
-      width: 45.4rem;
-      @include for-phone-only() {
-        width: calc(100vw - 2.8rem);
-      }
-
-      @keyframes toast-up-down {
-        0% {
-          transform: translateY(100%);
-        }
-        25% {
-          transform: translateY(0%);
-        }
-        75% {
-          transform: translateY(0%);
-        }
-        100% {
-          transform: translateY(100%);
-        }
-      }
-
-      animation-name: toast-up-down;
-      animation-delay: 0.3s;
-      animation-duration: 7s;
-      animation-timing-function: ease-in-out;
-      animation-fill-mode: forwards;
-
-      &:hover {
-        animation-play-state: paused;
-      }
-    }
-
-    :not(:first-child) {
-      display: none;
-    }
-  }
 }
 .ReactModal__Content {
   p a {

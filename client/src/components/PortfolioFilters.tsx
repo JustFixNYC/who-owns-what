@@ -286,100 +286,80 @@ const FiltersWrapper = (props: {
   const numActiveFilters = Object.values(activeFilters).filter(Boolean).length;
   const [isOpen, setIsOpen] = React.useState(false);
 
-  return (
-    <>
-      {!isMobile ? (
-        <div className="filters">{children}</div>
-      ) : (
-        <FocusTrap
-          active={isOpen}
-          focusTrapOptions={{
-            clickOutsideDeactivates: true,
-            returnFocusOnDeactivate: false,
-            onDeactivate: () => setIsOpen(false),
-          }}
+  return !isMobile ? (
+    <div className="filters">{children}</div>
+  ) : (
+    <FocusTrap
+      active={isOpen}
+      focusTrapOptions={{
+        clickOutsideDeactivates: true,
+        returnFocusOnDeactivate: false,
+        onDeactivate: () => setIsOpen(false),
+      }}
+    >
+      <div className="filters">
+        <details
+          className={classnames("filter filter-accordion filters-mobile-wrapper", {
+            active: numActiveFilters > 0,
+          })}
+          open={isOpen}
         >
-          <div className="filters">
-            <details
-              className={classnames("filter filter-accordion filters-mobile-wrapper", {
-                active: numActiveFilters > 0,
-              })}
-              open={isOpen}
-            >
-              <summary
-                onClick={(e) => {
-                  e.preventDefault();
-                  setIsOpen(!isOpen);
-                }}
-              >
-                <Trans>Filters</Trans>
-                {!isOpen && !!numActiveFilters && (
-                  <span className="active-filter-count">{numActiveFilters}</span>
-                )}
-                {isOpen ? (
-                  <CloseIcon className="closeIcon" />
-                ) : (
-                  <ChevronIcon className="chevronIcon" />
-                )}
-              </summary>
-              <div className="dropdown-container scroll-gradient mobile-wrapper-dropdown">
-                {children}
-                {numActiveFilters > 0 && (
-                  <button onClick={() => setIsOpen(!isOpen)} className="button is-primary">
-                    <Trans>View Results</Trans>
-                    {resultsCount != null && (
-                      <span className="view-results-count">{resultsCount}</span>
-                    )}
-                  </button>
-                )}
-                {resultsCount === 0 ? ZeroResultsAlert : <></>}
-              </div>
-            </details>
+          <summary
+            onClick={(e) => {
+              e.preventDefault();
+              setIsOpen(!isOpen);
+            }}
+          >
+            <Trans>Filters</Trans>
+            {!isOpen && !!numActiveFilters && (
+              <span className="active-filter-count">{numActiveFilters}</span>
+            )}
+            {isOpen ? <CloseIcon className="closeIcon" /> : <ChevronIcon className="chevronIcon" />}
+          </summary>
+          <div className="dropdown-container scroll-gradient mobile-wrapper-dropdown">
+            {children}
+            {numActiveFilters > 0 && (
+              <button onClick={() => setIsOpen(!isOpen)} className="button is-primary">
+                <Trans>View Results</Trans>
+                {resultsCount != null && <span className="view-results-count">{resultsCount}</span>}
+              </button>
+            )}
+            {resultsCount === 0 ? ZeroResultsAlert : <></>}
           </div>
-        </FocusTrap>
-      )}
-      <div className="filter-toast-container">
-        {activeFilters.rsunitslatestActive && (!isOpen || !isMobile) && resultsCount ? (
-          RsUnitsToastAlert
-        ) : (
-          <></>
-        )}
-        {activeFilters.ownernamesActive && (!isOpen || !isMobile) && resultsCount ? (
-          OwnernamesToastAlert
-        ) : (
-          <></>
-        )}
+        </details>
       </div>
-    </>
+    </FocusTrap>
   );
 };
 
-const OwnernamesToastAlert = (
+export const OwnernamesResultAlert = (
   <Alert
-    className="filter-toast-alert"
+    className="filter-result-alert"
     type="info"
     variant="secondary"
-    closeType="none"
+    closeType="session"
+    storageId="filter-ownernames-results-alert"
     role="status"
   >
     <Trans>
-      Expand the the Owner/Manager column in Table view to see all contacts associated with that
+      Expand the Person/ Entity column in the Table to see all contacts associated with that
       building.
     </Trans>
   </Alert>
 );
 
-const RsUnitsToastAlert = (
+export const RsUnitsResultAlert = (
   <Alert
-    className="filter-toast-alert"
+    className="filter-result-alert"
     type="info"
     variant="secondary"
-    closeType="none"
+    closeType="session"
+    storageId="filter-rsunits-results-alert"
     role="status"
   >
     <Trans>
       Rent stabilized units are self-reported in yearly tax statements by building owners. As a
-      result, many buildings with rent stabilized units may not be documented.
+      result, many buildings with rent stabilized units may appear to be deregulated.
     </Trans>
   </Alert>
 );

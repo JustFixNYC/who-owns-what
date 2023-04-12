@@ -121,7 +121,7 @@ msgstr "En todos los dueños y administradores, {0, plural, one {el nombre más 
 msgid "Additional links"
 msgstr "Enlaces adicionales"
 
-#: src/components/PortfolioTable.tsx:60
+#: src/components/PortfolioTable.tsx:68
 #: src/containers/HomePage.tsx:104
 msgid "Address"
 msgstr "Dirección"
@@ -138,7 +138,7 @@ msgstr "¡Todo listo! ¡Gracias por suscribirte!"
 msgid "All the public info on your landlord"
 msgstr "Toda la información pública sobre el dueño/a de tu edificio"
 
-#: src/components/PortfolioTable.tsx:323
+#: src/components/PortfolioTable.tsx:331
 msgid "Amount"
 msgstr "Importe"
 
@@ -175,7 +175,7 @@ msgstr "TIMBRE/INTERCOMUNICADOR"
 msgid "BUILDING:"
 msgstr "EDIFICIO:"
 
-#: src/components/PortfolioTable.tsx:85
+#: src/components/PortfolioTable.tsx:93
 #: src/containers/NychaPage.tsx:79
 msgid "Borough"
 msgstr "Municipio"
@@ -205,7 +205,7 @@ msgstr "Información de edificios"
 msgid "Buildings without valid property registration are subject to the following:"
 msgstr "Edificios sin registro de propiedad válido están sujetos a las siguientes obligaciones:"
 
-#: src/components/PortfolioTable.tsx:119
+#: src/components/PortfolioTable.tsx:127
 msgid "Built"
 msgstr "Construido"
 
@@ -319,7 +319,7 @@ msgstr "Dueño Corporativo"
 msgid "Corporation"
 msgstr "Corporación"
 
-#: src/components/PortfolioTable.tsx:105
+#: src/components/PortfolioTable.tsx:113
 msgid "Council"
 msgstr ""
 
@@ -343,7 +343,7 @@ msgstr "PUERTA/VENTANA"
 msgid "DOORS"
 msgstr "PUERTAS"
 
-#: src/components/PortfolioTable.tsx:312
+#: src/components/PortfolioTable.tsx:320
 msgid "Date"
 msgstr "Fecha"
 
@@ -426,7 +426,7 @@ msgstr "Desalojos"
 msgid "Evictions Executed"
 msgstr "Desalojos ejecutados"
 
-#: src/components/PortfolioTable.tsx:224
+#: src/components/PortfolioTable.tsx:232
 msgid "Evictions Since 2017"
 msgstr "Desalojos desde 2017"
 
@@ -438,13 +438,17 @@ msgstr "Desalojos ejecutados en este edificio por el Mariscal de NYC desde el 20
 msgid "Evictions executed in this development by NYC Marshals since 2017. ANHD and the Housing Data Coalition cleaned, geocoded, and validated the data, originally sourced from DOI."
 msgstr "Desalojos ejecutados en este complejo por el Mariscal de NYC desde el 2017. ANHD y la Coalición de Datos de Vivienda limpiaron, codificaron y validaron los datos, originalmente provenientes del DOI."
 
-#: src/components/PortfolioTable.tsx:239
+#: src/components/PortfolioTable.tsx:247
 msgid "Executed"
 msgstr "Ejecutado"
 
-#: src/components/PortfolioFilters.tsx:200
-msgid "Expand the the Owner/Manager column in Table view to see all contacts associated with that building."
+#: src/components/PortfolioFilters.tsx:191
+msgid "Expand the Person/ Entity column in the Table to see all contacts associated with that building."
 msgstr ""
+
+#: src/components/PortfolioFilters.tsx:197
+#~ msgid "Expand the the Owner/Manager column in Table view to see all contacts associated with that building."
+#~ msgstr ""
 
 #: src/components/AddressToolbar.tsx:30
 msgid "Export Data"
@@ -466,7 +470,7 @@ msgstr "PISO/ESCALERAS"
 msgid "Failure to register a building with HPD"
 msgstr "Si no se registra un edificio con el HPD"
 
-#: src/components/PortfolioTable.tsx:230
+#: src/components/PortfolioTable.tsx:238
 msgid "Filed"
 msgstr "Presentado"
 
@@ -474,7 +478,7 @@ msgstr "Presentado"
 #~ msgid "Filied"
 #~ msgstr "Filied"
 
-#: src/components/PortfolioFilters.tsx:241
+#: src/components/PortfolioFilters.tsx:230
 msgid "Filter"
 msgstr ""
 
@@ -502,7 +506,7 @@ msgstr "Encuentra otros edificios que tu propietario podría poseer:"
 msgid "GARBAGE/RECYCLING STORAGE"
 msgstr "ALMACENAMIENTO DE BASURA/RECICLAJE"
 
-#: src/components/PortfolioTable.tsx:349
+#: src/components/PortfolioTable.tsx:357
 msgid "Group Sale?"
 msgstr "¿Venta en grupo?"
 
@@ -519,7 +523,7 @@ msgid "HPD Building Profile"
 msgstr "Perfil de edificio del HPD"
 
 #: src/components/IndicatorsDatasets.tsx:7
-#: src/components/PortfolioTable.tsx:169
+#: src/components/PortfolioTable.tsx:177
 msgid "HPD Complaints"
 msgstr "Quejas del HPD"
 
@@ -528,7 +532,7 @@ msgid "HPD Complaints are housing issues reported to the City <0>by a tenant cal
 msgstr "Las quejas de HPD son problemas de vivienda presentados a la Ciudad <0>por un inquilino al llamar al 311</0>. Cuando alguien presenta una queja, el Departamento de Preservación y Desarrollo de la Vivienda, DHCR por sus siglas en inglés, inicia un proceso de investigación que puede conducir a la emisión de una infracción oficial por parte de la Ciudad. Las quejas se pueden identificar como:<1/><2/><3>Emergencia</3> — se ha informado de que son peligrosas<4/><5>No-Emergencia</5> — todas las demás<6/><7/> Encontrarás más información sobre las quejas de HPD y cómo presentarlas en la página <8>oficial del HPD</8>."
 
 #: src/components/IndicatorsDatasets.tsx:35
-#: src/components/PortfolioTable.tsx:202
+#: src/components/PortfolioTable.tsx:210
 msgid "HPD Violations"
 msgstr "Violaciones del HPD"
 
@@ -597,7 +601,7 @@ msgstr "Dueño Individual"
 msgid "Ineligible to certify violations"
 msgstr "Inelegible para certificar violaciones"
 
-#: src/components/PortfolioTable.tsx:114
+#: src/components/PortfolioTable.tsx:122
 msgid "Information"
 msgstr "Información"
 
@@ -625,8 +629,8 @@ msgstr "Conocido por <0>desregulando apartamentos de renta estabilizada sin escr
 msgid "LOCKS"
 msgstr "CERRADURAS"
 
-#: src/components/PortfolioFilters.tsx:110
-#: src/components/PortfolioTable.tsx:248
+#: src/components/PortfolioFilters.tsx:89
+#: src/components/PortfolioTable.tsx:256
 msgid "Landlord"
 msgstr "Dueño del edificio"
 
@@ -642,11 +646,11 @@ msgstr "Nombre del dueño"
 msgid "Landlord, Portfolio, Tenant, Displacement, Map, JustFix, NYC, New York, Housing, Who Owns What"
 msgstr "Arrendador, Portafolio, Inquilino, Desalojo, Mapa, JustFix, NYC, Nueva York, Vivienda, Quién es el Dueño"
 
-#: src/components/PortfolioTable.tsx:182
+#: src/components/PortfolioTable.tsx:190
 msgid "Last 3 Years"
 msgstr "Últimos 3 años"
 
-#: src/components/PortfolioTable.tsx:307
+#: src/components/PortfolioTable.tsx:315
 msgid "Last Sale"
 msgstr "Última venta"
 
@@ -679,8 +683,8 @@ msgstr "Leyenda"
 msgid "Lessee"
 msgstr "Arrendatario"
 
-#: src/components/PortfolioTable.tsx:331
-#: src/components/PortfolioTable.tsx:335
+#: src/components/PortfolioTable.tsx:339
+#: src/components/PortfolioTable.tsx:343
 msgid "Link to Deed"
 msgstr "Enlace a la Escritura"
 
@@ -694,7 +698,7 @@ msgstr "Cargando"
 msgid "Loading {0} rows"
 msgstr "Cargando {0} filas"
 
-#: src/components/PortfolioTable.tsx:71
+#: src/components/PortfolioTable.tsx:79
 msgid "Location"
 msgstr "Ubicación"
 
@@ -829,11 +833,11 @@ msgid "New York Regional Office:"
 msgstr "Oficina Regional de Nueva York:"
 
 #: src/components/FeatureCalloutWidget.tsx:81
-#: src/components/PortfolioTable.tsx:505
+#: src/components/PortfolioTable.tsx:519
 msgid "Next"
 msgstr "Siguiente"
 
-#: src/components/PortfolioTable.tsx:353
+#: src/components/PortfolioTable.tsx:361
 msgid "No"
 msgstr "No"
 
@@ -913,7 +917,7 @@ msgstr "¡Vaya! Hubo un error en la red. Inténtalo más tarde."
 msgid "Oops! That email is invalid."
 msgstr "¡Vaya! Ese correo electrónico no es válido."
 
-#: src/components/PortfolioTable.tsx:207
+#: src/components/PortfolioTable.tsx:215
 msgid "Open"
 msgstr "Actuales"
 
@@ -929,7 +933,7 @@ msgstr "General"
 msgid "Owner Names"
 msgstr "Dueños"
 
-#: src/components/PortfolioTable.tsx:261
+#: src/components/PortfolioTable.tsx:269
 msgid "Owner/Manager"
 msgstr ""
 
@@ -953,7 +957,7 @@ msgstr "PLOMERÍA"
 msgid "PORTFOLIO: Your search address is associated with <0>{0}</0> {1, plural, one {building} other {buildings}}"
 msgstr "PORTAFOLIO DE EDIFICIOS: La dirección que has buscado está asociada con <0>{0}</0> {1, plural, one {construyendo} other {edificios}}"
 
-#: src/components/PortfolioTable.tsx:485
+#: src/components/PortfolioTable.tsx:499
 msgid "Page"
 msgstr ""
 
@@ -979,7 +983,7 @@ msgid "Portfolio Table Redesign"
 msgstr "Rediseño de la tabla del portafolio"
 
 #: src/components/FeatureCalloutWidget.tsx:74
-#: src/components/PortfolioTable.tsx:479
+#: src/components/PortfolioTable.tsx:493
 msgid "Previous"
 msgstr "Anterior"
 
@@ -993,7 +997,7 @@ msgid "Public Housing Development"
 msgstr "Complejo de Vivienda Pública"
 
 #: src/components/BuildingStatsTable.tsx:90
-#: src/components/PortfolioTable.tsx:137
+#: src/components/PortfolioTable.tsx:145
 msgid "RS Units"
 msgstr "Unidades RS"
 
@@ -1021,9 +1025,13 @@ msgstr ""
 msgid "Rent stabilization"
 msgstr "Renta estabilizada"
 
-#: src/components/PortfolioFilters.tsx:206
-msgid "Rent stabilized units are self-reported in yearly tax statements by building owners. As a result, many buildings with rent stabilized units may not be documented."
+#: src/components/PortfolioFilters.tsx:197
+msgid "Rent stabilized units are self-reported in yearly tax statements by building owners. As a result, many buildings with rent stabilized units may appear to be deregulated."
 msgstr ""
+
+#: src/components/PortfolioFilters.tsx:203
+#~ msgid "Rent stabilized units are self-reported in yearly tax statements by building owners. As a result, many buildings with rent stabilized units may not be documented."
+#~ msgstr ""
 
 #: src/components/PortfolioGraph.tsx:159
 msgid "Reset diagram"
@@ -1137,7 +1145,7 @@ msgstr "Regístrate para recibir noticias por email"
 msgid "Since 2017, landlords filed {totalEvictionFilings, plural, one {one eviction case} other {# eviction cases}} and NYC Marshals executed {totalEvictions, plural, one {one eviction} other {# evictions}} across this portfolio."
 msgstr "Desde 2017, los dueños presentaron {totalEvictionFilings, plural, one {un caso de desalojo} other {# casos de desalojo}} y los alguaciles de la ciudad de Nueva York ejecutaron {totalEvictions, plural, one {un desalojo} other {# desalojos}} en toda esta cartera."
 
-#: src/components/PortfolioTable.tsx:532
+#: src/components/PortfolioTable.tsx:546
 msgid "Since {year}"
 msgstr "Desde {year}"
 
@@ -1169,7 +1177,7 @@ msgstr "Código fuente"
 msgid "Starting March 2023 <0>the old version</0> of Who Owns What will no longer be available."
 msgstr ""
 
-#: src/components/PortfolioTable.tsx:532
+#: src/components/PortfolioTable.tsx:546
 msgid "Starts {year}"
 msgstr "Comienza {year}"
 
@@ -1194,7 +1202,7 @@ msgstr "ACOSO DE INQUILINO"
 msgid "Take action on JustFix.org!"
 msgstr "¡Toma acción en JustFix.org!"
 
-#: src/components/PortfolioTable.tsx:285
+#: src/components/PortfolioTable.tsx:293
 msgid "Tax Exemptions"
 msgstr "Exenciones de impuestos"
 
@@ -1339,13 +1347,13 @@ msgstr "¡Esto exportará <0>{0}</0> direcciones asociadas al propietario de <1>
 msgid "Timeline"
 msgstr "Cronología"
 
-#: src/components/PortfolioTable.tsx:190
+#: src/components/PortfolioTable.tsx:198
 msgid "Top Complaint"
 msgstr "Queja principal"
 
 #: src/components/IndicatorsViz.tsx:349
-#: src/components/PortfolioTable.tsx:174
-#: src/components/PortfolioTable.tsx:215
+#: src/components/PortfolioTable.tsx:182
+#: src/components/PortfolioTable.tsx:223
 msgid "Total"
 msgstr "Total"
 
@@ -1366,7 +1374,7 @@ msgid "Unable to request Code Violation Dismissals"
 msgstr "Imposible solicitar el despido de una Infracción del Código de Vivienda"
 
 #: src/components/BuildingStatsTable.tsx:44
-#: src/components/PortfolioTable.tsx:127
+#: src/components/PortfolioTable.tsx:135
 #: src/containers/NychaPage.tsx:83
 msgid "Units"
 msgstr "Unidades"
@@ -1392,12 +1400,12 @@ msgstr "Enlaces útiles"
 msgid "VENTILATION SYSTEM"
 msgstr "SISTEMA DE VENTILACIÓN"
 
-#: src/components/PortfolioTable.tsx:362
-#: src/components/PortfolioTable.tsx:369
+#: src/components/PortfolioTable.tsx:370
+#: src/components/PortfolioTable.tsx:377
 msgid "View Detail"
 msgstr ""
 
-#: src/components/PortfolioFilters.tsx:185
+#: src/components/PortfolioFilters.tsx:181
 msgid "View Results"
 msgstr ""
 
@@ -1559,7 +1567,7 @@ msgstr "¿Por qué estoy viendo un portafolio tan grande?"
 msgid "Year Built"
 msgstr "Año de construcción"
 
-#: src/components/PortfolioTable.tsx:352
+#: src/components/PortfolioTable.tsx:360
 msgid "Yes"
 msgstr "Sí"
 
@@ -1588,8 +1596,8 @@ msgstr ""
 msgid "ZIP code is not applicable"
 msgstr ""
 
-#: src/components/PortfolioFilters.tsx:118
-#: src/components/PortfolioTable.tsx:76
+#: src/components/PortfolioFilters.tsx:95
+#: src/components/PortfolioTable.tsx:84
 msgid "Zip Code"
 msgstr ""
 
@@ -1630,7 +1638,7 @@ msgstr "por ${0}"
 msgid "month"
 msgstr "mes"
 
-#: src/components/PortfolioTable.tsx:493
+#: src/components/PortfolioTable.tsx:507
 msgid "of"
 msgstr ""
 
