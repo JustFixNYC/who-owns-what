@@ -50,7 +50,7 @@ msgstr "(hover over a box to learn more)"
 msgid "(this may take a while)"
 msgstr "(this may take a while)"
 
-#: src/components/PropertiesMap.tsx:218
+#: src/components/PropertiesMap.tsx:219
 msgid "({browserType, select, mobile {tap} other {click}} to view details)"
 msgstr "({browserType, select, mobile {tap} other {click}} to view details)"
 
@@ -282,7 +282,7 @@ msgstr "Click here to learn more."
 msgid "Close"
 msgstr "Close"
 
-#: src/components/PropertiesMap.tsx:206
+#: src/components/PropertiesMap.tsx:207
 msgid "Close legend"
 msgstr "Close legend"
 
@@ -469,6 +469,10 @@ msgstr "Filed"
 msgid "Filter"
 msgstr "Filter"
 
+#: src/components/PortfolioAlerts.tsx:78
+msgid "Filter through this portfolio in <0>the Portfolio tab.</0>"
+msgstr "Filter through this portfolio in <0>the Portfolio tab.</0>"
+
 #: src/components/PortfolioFilters.tsx:175
 msgid "Filters"
 msgstr "Filters"
@@ -651,11 +655,14 @@ msgid "Last sold:"
 msgstr "Last sold:"
 
 #: src/components/DetailView.tsx:58
-#: src/components/MapBanner.tsx:28
 msgid "Learn more"
 msgstr "Learn more"
 
-#: src/components/PropertiesMap.tsx:206
+#: src/components/PortfolioAlerts.tsx:39
+msgid "Learn more."
+msgstr "Learn more."
+
+#: src/components/PropertiesMap.tsx:207
 msgid "Legend"
 msgstr "Legend"
 
@@ -1126,7 +1133,7 @@ msgstr "Site Manager"
 msgid "Sold to Current Owner"
 msgstr "Sold to Current Owner"
 
-#: src/components/MapBanner.tsx:44
+#: src/components/PortfolioAlerts.tsx:52
 msgid "Some large corporations, however, are a bit more complicated and may share personnel and financial stake with other related companies, which all will show up on Who Owns What as one large portfolio."
 msgstr "Some large corporations, however, are a bit more complicated and may share personnel and financial stake with other related companies, which all will show up on Who Owns What as one large portfolio."
 
@@ -1396,7 +1403,7 @@ msgstr "View data over time ↗︎"
 msgid "View documents on <0>ACRIS</0>"
 msgstr "View documents on <0>ACRIS</0>"
 
-#: src/components/PropertiesMap.tsx:206
+#: src/components/PropertiesMap.tsx:207
 msgid "View legend"
 msgstr "View legend"
 
@@ -1459,7 +1466,7 @@ msgstr "We reorganized the contact details for each individual and corporate ent
 #~ msgid "We’ve improved Who Owns What to dig deeper into the data and offer you a more complete picture of buildings associated with your landlord. <0>Read more in our Medium article</0>"
 #~ msgstr "We’ve improved Who Owns What to dig deeper into the data and offer you a more complete picture of buildings associated with your landlord. <0>Read more in our Medium article</0>"
 
-#: src/components/MapBanner.tsx:54
+#: src/components/PortfolioAlerts.tsx:62
 msgid "We’ve improved Who Owns What to dig deeper into the data and offer you a more complete picture of buildings associated with your landlord. <0>Read more in our methodology article</0>"
 msgstr "We’ve improved Who Owns What to dig deeper into the data and offer you a more complete picture of buildings associated with your landlord. <0>Read more in our methodology article</0>"
 
@@ -1488,7 +1495,7 @@ msgstr "What's this?"
 msgid "What’s the difference between a landlord, an owner, and head officer?"
 msgstr "What’s the difference between a landlord, an owner, and head officer?"
 
-#: src/components/MapBanner.tsx:38
+#: src/components/PortfolioAlerts.tsx:46
 msgid "When two parties share the same business address, we group them as part of the same portfolio."
 msgstr "When two parties share the same business address, we group them as part of the same portfolio."
 
@@ -1519,8 +1526,8 @@ msgstr "Who’s responsible for issues in your apartment & building? #WhoOwnsWha
 msgid "Who’s the landlord of this building?"
 msgstr "Who’s the landlord of this building?"
 
-#: src/components/MapBanner.tsx:28
-#: src/components/MapBanner.tsx:35
+#: src/components/PortfolioAlerts.tsx:33
+#: src/components/PortfolioAlerts.tsx:43
 msgid "Why am I seeing such a big portfolio?"
 msgstr "Why am I seeing such a big portfolio?"
 
@@ -1583,7 +1590,7 @@ msgstr "Zoom out"
 msgid "and"
 msgstr "and"
 
-#: src/components/PropertiesMap.tsx:213
+#: src/components/PropertiesMap.tsx:214
 msgid "associated building"
 msgstr "associated building"
 
@@ -1603,7 +1610,7 @@ msgstr "of"
 msgid "quarter"
 msgstr "quarter"
 
-#: src/components/PropertiesMap.tsx:212
+#: src/components/PropertiesMap.tsx:213
 msgid "search address"
 msgstr "search address"
 
