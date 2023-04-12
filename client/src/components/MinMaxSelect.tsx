@@ -30,6 +30,8 @@ function MinMaxSelect(props: {
   const [minMaxErrors, setMinMaxErrors] = React.useState<MinMaxErrors>(MIN_MAX_ERRORS_DEFAULT);
   const [presets, setPresets] = React.useState<Preset[]>(PRESETS_DEFAULT);
 
+  const hasCustomInputs = isFinite(minMax.min) || isFinite(minMax.max);
+
   const handlePresetChange = (i: number) => {
     const updatedPresets = presets;
     updatedPresets[i].checked = !updatedPresets[i].checked;
@@ -72,7 +74,11 @@ function MinMaxSelect(props: {
 
   return (
     <div id={id} className="minmaxselect-container">
-      <fieldset className="minmaxselect__presets-container">
+      <fieldset
+        className="minmaxselect__presets-container"
+        aria-labelledby={`${id || "minmax-select"}__preset-a11y-text`}
+        tabIndex={hasCustomInputs ? 0 : -1}
+      >
         {PRESETS_DEFAULT.map((rng, i) => (
           <div className="minmaxselect__preset-value" key={i}>
             <input
@@ -81,7 +87,8 @@ function MinMaxSelect(props: {
               name={`minmaxselect__preset-${i}`}
               aria-describedby={`${id || "minmax-select"}__preset-a11y-text`}
               onChange={() => handlePresetChange(i)}
-              disabled={isFinite(minMax.min) || isFinite(minMax.max)}
+              disabled={hasCustomInputs}
+              aria-hidden={hasCustomInputs}
             />
             <label htmlFor={`minmaxselect__preset-${i}`}>
               {rng.min}
@@ -94,10 +101,14 @@ function MinMaxSelect(props: {
           className="minmaxselect__a11y-text"
           hidden
         >
-          <Trans>
-            Select one or more ranges of building units, or set a custom range, then apply
-            selections to filter the list of portfolio properties.
-          </Trans>
+          {hasCustomInputs ? (
+            <Trans>Clear custom range inputs to use preset ranges.</Trans>
+          ) : (
+            <Trans>
+              Select one or more ranges of building units, or set a custom range, then apply
+              selections to filter the list of portfolio properties.
+            </Trans>
+          )}
         </span>
       </fieldset>
       <details>
