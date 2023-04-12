@@ -6,8 +6,8 @@ import helpers from "util/helpers";
 import { Alert } from "./Alert";
 import { FilterNumberRange, NUMBER_RANGE_DEFAULT } from "./PropertiesList";
 
-type MinMaxErrors = { min: boolean; max: boolean; msg: JSX.Element | undefined };
-const MIN_MAX_ERRORS_DEFAULT = { min: false, max: false, msg: undefined };
+type CustomRangeErrors = { min: boolean; max: boolean; msg: JSX.Element | undefined };
+const CUSTOM_RANGE_ERRORS_DEFAULT = { min: false, max: false, msg: undefined };
 
 type Preset = FilterNumberRange & { checked: boolean };
 const PRESETS_DEFAULT = [
@@ -26,11 +26,13 @@ function MinMaxSelect(props: {
   onFocusInput?: () => void;
 }) {
   const { options, onApply, id, onFocusInput } = props;
-  const [minMax, setMinMax] = React.useState<FilterNumberRange>(NUMBER_RANGE_DEFAULT);
-  const [minMaxErrors, setMinMaxErrors] = React.useState<MinMaxErrors>(MIN_MAX_ERRORS_DEFAULT);
+  const [customRange, setCustomRange] = React.useState<FilterNumberRange>(NUMBER_RANGE_DEFAULT);
+  const [customRangeErrors, setCustomRangeErrors] = React.useState<CustomRangeErrors>(
+    CUSTOM_RANGE_ERRORS_DEFAULT
+  );
   const [presets, setPresets] = React.useState<Preset[]>(PRESETS_DEFAULT);
 
-  const hasCustomInputs = isFinite(minMax.min) || isFinite(minMax.max);
+  const hasCustomInputs = isFinite(customRange.min) || isFinite(customRange.max);
 
   const handlePresetChange = (preset: Preset, i: number) => {
     setPresets((prev) => {
@@ -41,13 +43,13 @@ function MinMaxSelect(props: {
 
   const handleApply = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
-    if (isFinite(minMax.min) || isFinite(minMax.max)) {
-      const errors = minMaxHasError(minMax, options);
+    if (isFinite(customRange.min) || isFinite(customRange.max)) {
+      const errors = minMaxHasError(customRange, options);
       if (errors.min || errors.max) {
-        setMinMaxErrors(errors);
+        setCustomRangeErrors(errors);
         return;
       }
-      onApply([minMax]);
+      onApply([customRange]);
     } else {
       const selections = presets
         .filter((preset) => preset.checked)
@@ -118,10 +120,10 @@ function MinMaxSelect(props: {
           <Trans>Custom Range</Trans>
         </summary>
         <form id={`${id || "minmaxselect"}__form`} className="minmaxselect__custom-range-container">
-          {minMaxErrors.min || minMaxErrors.max ? (
+          {customRangeErrors.min || customRangeErrors.max ? (
             <div className="minmaxselect__alerts-container">
               <Alert type="error" variant="primary" closeType="none" role="alert">
-                {minMaxErrors.msg}
+                {customRangeErrors.msg}
               </Alert>
             </div>
           ) : (
@@ -139,13 +141,15 @@ function MinMaxSelect(props: {
             <div className="minmaxselect__inputs-container">
               <input
                 id={`${id || "minmax-select"}_min-input`}
-                className={classnames("minmaxselect__min-input", { hasError: minMaxErrors.min })}
-                value={isFinite(minMax.min) ? minMax.min : ""}
+                className={classnames("minmaxselect__min-input", {
+                  hasError: customRangeErrors.min,
+                })}
+                value={isFinite(customRange.min) ? customRange.min : ""}
                 onChange={(e) => {
-                  setMinMaxErrors(MIN_MAX_ERRORS_DEFAULT);
-                  setMinMax({
+                  setCustomRangeErrors(CUSTOM_RANGE_ERRORS_DEFAULT);
+                  setCustomRange({
                     min: cleanNumberInput(e.target.value) || -Infinity,
-                    max: minMax.max,
+                    max: customRange.max,
                   });
                 }}
                 {...commonInputProps}
@@ -155,11 +159,16 @@ function MinMaxSelect(props: {
               </span>
               <input
                 id={`${id || "minmax-select"}_max-input`}
-                className={classnames("minmaxselect__max-input", { hasError: minMaxErrors.max })}
-                value={isFinite(minMax.max) ? minMax.max : ""}
+                className={classnames("minmaxselect__max-input", {
+                  hasError: customRangeErrors.max,
+                })}
+                value={isFinite(customRange.max) ? customRange.max : ""}
                 onChange={(e) => {
-                  setMinMaxErrors(MIN_MAX_ERRORS_DEFAULT);
-                  setMinMax({ min: minMax.min, max: cleanNumberInput(e.target.value) || Infinity });
+                  setCustomRangeErrors(CUSTOM_RANGE_ERRORS_DEFAULT);
+                  setCustomRange({
+                    min: customRange.min,
+                    max: cleanNumberInput(e.target.value) || Infinity,
+                  });
                 }}
                 {...commonInputProps}
               />
@@ -196,7 +205,7 @@ function cleanNumberInput(value: string): number | undefined {
   return Number(value);
 }
 
-function minMaxHasError(values: FilterNumberRange, options: FilterNumberRange): MinMaxErrors {
+function minMaxHasError(values: FilterNumberRange, options: FilterNumberRange): CustomRangeErrors {
   const { min: minValue, max: maxValue } = values;
   const { min: minOption, max: maxOption } = options;
   let minHasError = false;
