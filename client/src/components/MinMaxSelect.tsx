@@ -1,5 +1,6 @@
 import React from "react";
-import { Trans } from "@lingui/macro";
+import { Trans, t } from "@lingui/macro";
+import { i18n } from "@lingui/core";
 import classnames from "classnames";
 import helpers from "util/helpers";
 import { Alert } from "./Alert";
@@ -31,17 +32,20 @@ function MinMaxSelect(props: {
       )}
       <div className="label-input-container">
         <div className="labels-container">
-          <label htmlFor="min-input">
+          <label htmlFor={`${id || "minmax-select"}_min-input`}>
             <Trans>MIN</Trans>
           </label>
-          <label htmlFor="max-input">
+          <label htmlFor={`${id || "minmax-select"}_max-input`}>
             <Trans>MAX</Trans>
           </label>
         </div>
         <div className="inputs-container">
           <input
             id={`${id || "minmax-select"}_min-input`}
-            type="number"
+            type="text"
+            inputMode="numeric"
+            pattern="[0-9]*"
+            aria-describedby={`${id || "minmax-select"}__a11y-text`}
             min={options.min}
             max={options.min}
             value={isFinite(minMax[0].min) ? minMax[0].min : ""}
@@ -60,7 +64,10 @@ function MinMaxSelect(props: {
           </span>
           <input
             id={`${id || "minmax-select"}_max-input`}
-            type="number"
+            type="text"
+            inputMode="numeric"
+            pattern="[0-9]*"
+            aria-describedby={`${id || "minmax-select"}__a11y-text`}
             min={options.max}
             max={options.max}
             value={isFinite(minMax[0].max) ? minMax[0].max : ""}
@@ -74,9 +81,21 @@ function MinMaxSelect(props: {
             onFocus={onFocusInput}
             className={classnames("max-input", { hasError: minMaxErrors.max })}
           />
+          <span
+            id={`${id || "minmax-select"}__a11y-text`}
+            className="minmaxselect__a11y-text"
+            hidden
+          >
+            <Trans>
+              Enter minimum and maximum number of units, or leave either blank. Set both to blank to
+              clear filter.
+            </Trans>
+          </span>
         </div>
       </div>
       <button
+        className="button is-primary"
+        aria-label={i18n._(t`Apply selections and get results`)}
         onClick={(e) => {
           e.preventDefault();
           const errors = minMaxHasError(minMax[0], options);
@@ -86,7 +105,6 @@ function MinMaxSelect(props: {
             onApply(minMax);
           }
         }}
-        className="button is-primary"
       >
         <Trans>Apply</Trans>
       </button>
