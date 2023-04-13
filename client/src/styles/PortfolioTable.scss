@@ -85,7 +85,6 @@ $table-border-dark: 1px solid $dark;
       .col-address {
         position: sticky;
         left: 0px;
-        // z-index: 40;
         background-color: inherit;
       }
 
@@ -224,7 +223,7 @@ $table-border-dark: 1px solid $dark;
   .pagination {
     position: sticky;
     left: 0px;
-    z-index: 100;
+    z-index: 2;
     justify-content: space-between;
     align-items: stretch;
     flex-wrap: wrap;
