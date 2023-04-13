@@ -311,7 +311,12 @@ function CustomInput<
   const id = "test-123456789";
   return (
     <>
-      <components.Input {...props} aria-describedby={id}></components.Input>
+      <components.Input
+        {...props}
+        aria-autocomplete="none"
+        autoComplete="off"
+        aria-describedby={id}
+      ></components.Input>
       <span hidden id={id}>
         {ariaLiveGuidanceGeneral}
       </span>
