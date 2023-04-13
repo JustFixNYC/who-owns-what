@@ -296,6 +296,9 @@
                 font-size: 1.8rem;
                 line-height: 100%;
               }
+              .multiselect__menu {
+                font-size: 1.6rem;
+              }
             }
             .multiselect__selected-value-container {
               @include for-tablet-portrait-up {
