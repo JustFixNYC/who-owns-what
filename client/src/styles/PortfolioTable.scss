@@ -9,7 +9,9 @@ $table-border-dark: 1px solid $dark;
   overflow: auto;
 
   // Add right-side fade out when list is scrollable:
-  .table-blur {
+  &::before {
+    content: "";
+    display: block;
     pointer-events: none;
     position: absolute;
     right: 0;
@@ -35,12 +37,12 @@ $table-border-dark: 1px solid $dark;
     visibility: visible;
     opacity: 1;
     transition: opacity 0.5s linear;
+  }
 
-    &.hide-scroll-fade {
-      visibility: hidden;
-      opacity: 0;
-      transition: visibility 0s 0.5s, opacity 0.5s linear;
-    }
+  &.hide-scroll-fade::before {
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s 0.5s, opacity 0.5s linear;
   }
 
   .portfolio-table-container {
