@@ -8,6 +8,7 @@ import Helpers from "../util/helpers";
 import Loader from "./Loader";
 import { PortfolioFilters } from "./PortfolioFilters";
 import { MAX_TABLE_ROWS_PER_PAGE, PortfolioTable } from "./PortfolioTable";
+import { EventProperties } from "./Amplitude";
 
 // Pattern for context provider to update context from child components
 // https://stackoverflow.com/a/67710693/7051239
@@ -72,6 +73,11 @@ const PropertiesListWithoutI18n: React.FC<
   const addrs = props.state.context.portfolioData.assocAddrs;
   const rsunitslatestyear = props.state.context.portfolioData.searchAddr.rsunitslatestyear;
 
+  const analyticsEventData: EventProperties = {
+    portfolioSize: addrs.length,
+    portfolioMappingMethod: useNewPortfolioMethod ? "wowza" : "legacy",
+  };
+
   /**
    * For older browsers that do not support the `useOnScreen` hook,
    * let's hide the dynamic scroll fade by default.
@@ -110,6 +116,7 @@ const PropertiesListWithoutI18n: React.FC<
             locale={locale}
             rsunitslatestyear={rsunitslatestyear}
             getRowCanExpand={() => true}
+            analyticsEventData={analyticsEventData}
           />
         </FilterContextProvider>
       ) : (

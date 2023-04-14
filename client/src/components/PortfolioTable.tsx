@@ -26,7 +26,7 @@ import { createRouteForFullBbl } from "routes";
 import { I18n, i18n } from "@lingui/core";
 import { SupportedLocale } from "../i18n-base";
 import Helpers, { longDateOptions } from "../util/helpers";
-import { logAmplitudeEvent } from "./Amplitude";
+import { EventProperties, logAmplitudeEvent } from "./Amplitude";
 import { AddressRecord, HpdComplaintCount } from "./APIDataTypes";
 import {
   FilterContext,
@@ -81,6 +81,7 @@ type PortfolioTableProps = {
   locale: SupportedLocale;
   rsunitslatestyear: number;
   getRowCanExpand: (row: Row<AddressRecord>) => boolean;
+  analyticsEventData: EventProperties;
 };
 
 /**
@@ -88,7 +89,7 @@ type PortfolioTableProps = {
  * in an attempt to improve performance, particularly on IE11.
  */
 export const PortfolioTable = React.memo((props: PortfolioTableProps) => {
-  const { data, locale, rsunitslatestyear, getRowCanExpand } = props;
+  const { data, locale, rsunitslatestyear, getRowCanExpand, analyticsEventData } = props;
 
   const { pathname } = useLocation();
 
@@ -101,6 +102,19 @@ export const PortfolioTable = React.memo((props: PortfolioTableProps) => {
     unitsresActive:
       isFinite(filterSelections.unitsres[0].min) || isFinite(filterSelections.unitsres[0].max),
     zipActive: !!filterSelections.zip.length,
+  };
+
+  const logAnalyticsEventWithColumn = (
+    amplitudeEventName: "portfolioColumnSort" | "addressChangePortfolio",
+    columnName: string
+  ) => {
+    const gtagEventName = amplitudeEventName.replace(/([a-zA-Z])(?=[A-Z])/g, "$1-").toLowerCase();
+    const eventParams = {
+      ...analyticsEventData,
+      portfolioColumn: columnName,
+    };
+    logAmplitudeEvent(amplitudeEventName, eventParams);
+    window.gtag("event", gtagEventName, eventParams);
   };
 
   const lastColumnRef = React.useRef<HTMLDivElement>(null);
@@ -140,7 +154,10 @@ export const PortfolioTable = React.memo((props: PortfolioTableProps) => {
         header: () => i18n._(t`Address`),
         cell: ({ row }) => {
           return (
-            <Link to={createRouteForFullBbl(row.original.bbl, locale, isLegacyPath(pathname))}>
+            <Link
+              to={createRouteForFullBbl(row.original.bbl, locale, isLegacyPath(pathname))}
+              onClick={() => logAnalyticsEventWithColumn("addressChangePortfolio", "address")}
+            >
               {row.original.housenumber} {row.original.streetname}
             </Link>
           );
@@ -175,7 +192,10 @@ export const PortfolioTable = React.memo((props: PortfolioTableProps) => {
             header: "BBL",
             cell: ({ row }) => {
               return (
-                <Link to={createRouteForFullBbl(row.original.bbl, locale, isLegacyPath(pathname))}>
+                <Link
+                  to={createRouteForFullBbl(row.original.bbl, locale, isLegacyPath(pathname))}
+                  onClick={() => logAnalyticsEventWithColumn("addressChangePortfolio", "bbl")}
+                >
                   {row.original.bbl}
                 </Link>
               );
@@ -434,8 +454,8 @@ export const PortfolioTable = React.memo((props: PortfolioTableProps) => {
               row.original.lastsaleacrisid ? (
                 <a
                   onClick={() => {
-                    logAmplitudeEvent("portfolioLinktoDeed");
-                    window.gtag("event", "portfolio-link-to-deed");
+                    logAmplitudeEvent("portfolioLinktoDeed", analyticsEventData);
+                    window.gtag("event", "portfolio-link-to-deed", analyticsEventData);
                   }}
                   href={`https://a836-acris.nyc.gov/DS/DocumentSearch/DocumentImageView?doc_id=${row.original.lastsaleacrisid}`}
                   className="btn"
@@ -484,10 +504,7 @@ export const PortfolioTable = React.memo((props: PortfolioTableProps) => {
                 to={createRouteForFullBbl(row.original.bbl, locale, isLegacyPath(pathname))}
                 className="btn"
                 aria-label={i18n._(t`View Detail`)}
-                onClick={() => {
-                  logAmplitudeEvent("portfolioViewDetail");
-                  window.gtag("event", "portfolio-view-detail");
-                }}
+                onClick={() => logAnalyticsEventWithColumn("addressChangePortfolio", "detail")}
               >
                 <span style={{ padding: "0 3px" }}>&#10142;</span>
               </Link>
@@ -566,7 +583,13 @@ export const PortfolioTable = React.memo((props: PortfolioTableProps) => {
                               className: header.column.getCanSort()
                                 ? "cursor-pointer select-none"
                                 : "",
-                              onClick: header.column.getToggleSortingHandler(),
+                              onClick: () => {
+                                header.column.getToggleSortingHandler();
+                                logAnalyticsEventWithColumn(
+                                  "portfolioColumnSort",
+                                  header.column.id
+                                );
+                              },
                             }}
                             ref={header.column.id === "detail" ? lastColumnRef : undefined}
                           >
