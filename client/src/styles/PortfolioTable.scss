@@ -6,6 +6,11 @@ $table-border-light: 1px solid $gray-light;
 $table-border-dark: 1px solid $dark;
 
 #PortfolioTable {
+  // This "overflow: auto" and "position: relative" on
+  // ".portfolio-table-container" together ensure that the fade effect from the
+  // "::before" component doesn't overflow past the edge of the PropertiesTable
+  // container, and the z-indexes ensure it doesn't cover the pagignation
+  // controls
   overflow: auto;
 
   // Add right-side fade out when list is scrollable:
@@ -46,10 +51,7 @@ $table-border-dark: 1px solid $dark;
   }
 
   .portfolio-table-container {
-    // These next 2 items ensure that the fade effect from the "::after"
-    // component doesn't overflow past the edge of the PropertiesList container
     position: relative;
-    // overflow: auto;
 
     th[class^="col-Evictions"] div {
       min-width: 15rem;

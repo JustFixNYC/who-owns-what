@@ -316,7 +316,7 @@ function CustomInput<
         aria-autocomplete="none"
         autoComplete="off"
         aria-describedby={id}
-      ></components.Input>
+      />
       <span hidden id={id}>
         {ariaLiveGuidanceGeneral}
       </span>
