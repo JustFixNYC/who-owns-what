@@ -545,8 +545,8 @@ export const PortfolioTable = React.memo((props: PortfolioTableProps) => {
   }, [table.getState().columnFilters[0]?.id]);
 
   return (
-    <div id="PortfolioTable">
-      <div className={classnames("table-container", hideScrollFade && "hide-scroll-fade")}>
+    <div id="PortfolioTable" className={classnames(hideScrollFade && "hide-scroll-fade")}>
+      <div className="portfolio-table-container">
         <table>
           <thead>
             {table.getHeaderGroups().map((headerGroup) => (

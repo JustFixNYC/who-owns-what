@@ -6,14 +6,52 @@ $table-border-light: 1px solid $gray-light;
 $table-border-dark: 1px solid $dark;
 
 #PortfolioTable {
+  // This "overflow: auto" and "position: relative" on
+  // ".portfolio-table-container" together ensure that the fade effect from the
+  // "::before" component doesn't overflow past the edge of the PropertiesTable
+  // container, and the z-indexes ensure it doesn't cover the pagignation
+  // controls
   overflow: auto;
-  position: relative;
 
-  .table-container {
-    // These next 2 items ensure that the fade effect from the "::after"
-    // component doesn't overflow past the edge of the PropertiesList container
+  // Add right-side fade out when list is scrollable:
+  &::before {
+    content: "";
+    display: block;
+    pointer-events: none;
+    position: absolute;
+    right: 0;
+    height: 100%;
+    width: 50px;
+    z-index: 2;
+
+    background: -moz-linear-gradient(
+      left,
+      rgba(250, 248, 244, 0) 0%,
+      rgba(250, 248, 244, 1) 100% /* $justfix-white rgba */
+    ); /* FF3.6-15 */
+    background: -webkit-linear-gradient(
+      left,
+      rgba(250, 248, 244, 0) 0%,
+      rgba(250, 248, 244, 1) 100%
+    ); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(
+      to right,
+      rgba(250, 248, 244, 0) 0%,
+      rgba(250, 248, 244, 1) 100%
+    ); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    visibility: visible;
+    opacity: 1;
+    transition: opacity 0.5s linear;
+  }
+
+  &.hide-scroll-fade::before {
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s 0.5s, opacity 0.5s linear;
+  }
+
+  .portfolio-table-container {
     position: relative;
-    overflow: auto;
 
     th[class^="col-Evictions"] div {
       min-width: 15rem;
@@ -21,43 +59,6 @@ $table-border-dark: 1px solid $dark;
 
     tr {
       padding: 0rem 0.5rem;
-    }
-
-    // Add right-side fade out when list is scrollable:
-    &::after {
-      content: "";
-      display: block;
-      position: fixed;
-      pointer-events: none;
-      top: 30%;
-      bottom: 0;
-      right: 0;
-      width: 50px;
-      z-index: 100;
-      background: -moz-linear-gradient(
-        left,
-        rgba(250, 248, 244, 0) 0%,
-        rgba(250, 248, 244, 1) 100% /* $justfix-white rgba */
-      ); /* FF3.6-15 */
-      background: -webkit-linear-gradient(
-        left,
-        rgba(250, 248, 244, 0) 0%,
-        rgba(250, 248, 244, 1) 100%
-      ); /* Chrome10-25,Safari5.1-6 */
-      background: linear-gradient(
-        to right,
-        rgba(250, 248, 244, 0) 0%,
-        rgba(250, 248, 244, 1) 100%
-      ); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-      visibility: visible;
-      opacity: 1;
-      transition: opacity 0.5s linear;
-    }
-
-    &.hide-scroll-fade::after {
-      visibility: hidden;
-      opacity: 0;
-      transition: visibility 0s 0.5s, opacity 0.5s linear;
     }
 
     table {
@@ -86,7 +87,6 @@ $table-border-dark: 1px solid $dark;
       .col-address {
         position: sticky;
         left: 0px;
-        z-index: 40;
         background-color: inherit;
       }
 
@@ -111,7 +111,7 @@ $table-border-dark: 1px solid $dark;
         max-height: 30px;
         position: sticky;
         top: 0;
-        z-index: 50;
+        z-index: 1;
         white-space: nowrap;
 
         tr {
@@ -148,6 +148,7 @@ $table-border-dark: 1px solid $dark;
       }
 
       tbody {
+        overflow: auto;
         tr {
           border-bottom: $table-border-light;
 
@@ -224,12 +225,13 @@ $table-border-dark: 1px solid $dark;
   .pagination {
     position: sticky;
     left: 0px;
-    z-index: 50;
+    z-index: 2;
     justify-content: space-between;
     align-items: stretch;
     flex-wrap: wrap;
     padding: 3px;
     background-color: $wowza-background;
+    margin: 0;
 
     div {
       display: block;
