@@ -663,7 +663,9 @@ export const PortfolioTable = React.memo((props: PortfolioTableProps) => {
             className="page-btn"
             onClick={() => {
               table.previousPage();
-              logPortfolioAnalytics("portfolioPagination", { extraParams: { type: "previous" } });
+              logPortfolioAnalytics("portfolioPagination", {
+                extraParams: { paginationType: "previous" },
+              });
             }}
             disabled={!table.getCanPreviousPage()}
           >
@@ -682,7 +684,9 @@ export const PortfolioTable = React.memo((props: PortfolioTableProps) => {
                 onChange={(e) => {
                   const page = e.target.value ? Number(e.target.value) - 1 : 0;
                   table.setPageIndex(page);
-                  logPortfolioAnalytics("portfolioPagination", { extraParams: { type: "custom" } });
+                  logPortfolioAnalytics("portfolioPagination", {
+                    extraParams: { paginationType: "custom" },
+                  });
                 }}
               />
             </div>
@@ -692,7 +696,9 @@ export const PortfolioTable = React.memo((props: PortfolioTableProps) => {
             value={table.getState().pagination.pageSize}
             onChange={(e) => {
               table.setPageSize(Number(e.target.value));
-              logPortfolioAnalytics("portfolioPagination", { extraParams: { type: "size" } });
+              logPortfolioAnalytics("portfolioPagination", {
+                extraParams: { paginationType: "size" },
+              });
             }}
           >
             {[10, 20, 50, 100, 500].map((pageSize) => (
@@ -707,7 +713,9 @@ export const PortfolioTable = React.memo((props: PortfolioTableProps) => {
             className="page-btn"
             onClick={() => {
               table.nextPage();
-              logPortfolioAnalytics("portfolioPagination", { extraParams: { type: "next" } });
+              logPortfolioAnalytics("portfolioPagination", {
+                extraParams: { paginationType: "next" },
+              });
             }}
             disabled={!table.getCanNextPage()}
           >
