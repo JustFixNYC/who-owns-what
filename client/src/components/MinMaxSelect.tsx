@@ -22,10 +22,11 @@ const PRESETS_DEFAULT = [
 function MinMaxSelect(props: {
   options: FilterNumberRange;
   onApply: (selections: FilterNumberRange[]) => void;
+  onError?: () => void;
   id?: string;
   onFocusInput?: () => void;
 }) {
-  const { options, onApply, id, onFocusInput } = props;
+  const { options, onApply, onError, id, onFocusInput } = props;
   const [customRange, setCustomRange] = React.useState<FilterNumberRange>(NUMBER_RANGE_DEFAULT);
   const [customRangeErrors, setCustomRangeErrors] = React.useState<CustomRangeErrors>(
     CUSTOM_RANGE_ERRORS_DEFAULT
@@ -46,6 +47,7 @@ function MinMaxSelect(props: {
     if (isFinite(customRange.min) || isFinite(customRange.max)) {
       const errors = minMaxHasError(customRange, options);
       if (errors.min || errors.max) {
+        onError && onError();
         setCustomRangeErrors(errors);
         return;
       }

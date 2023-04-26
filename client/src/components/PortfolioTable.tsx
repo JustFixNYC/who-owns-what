@@ -26,12 +26,12 @@ import { createRouteForFullBbl } from "routes";
 import { I18n, i18n } from "@lingui/core";
 import { SupportedLocale } from "../i18n-base";
 import Helpers, { longDateOptions } from "../util/helpers";
-import { EventProperties, logAmplitudeEvent } from "./Amplitude";
 import { AddressRecord, HpdComplaintCount } from "./APIDataTypes";
 import {
   FilterContext,
   FilterNumberRange,
   IFilterContext,
+  LogPortfolioAnalytics,
   NUMBER_RANGE_DEFAULT,
 } from "./PropertiesList";
 import "styles/PortfolioTable.scss";
@@ -81,7 +81,7 @@ type PortfolioTableProps = {
   locale: SupportedLocale;
   rsunitslatestyear: number;
   getRowCanExpand: (row: Row<AddressRecord>) => boolean;
-  analyticsEventData: EventProperties;
+  logPortfolioAnalytics: LogPortfolioAnalytics;
 };
 
 /**
@@ -89,7 +89,7 @@ type PortfolioTableProps = {
  * in an attempt to improve performance, particularly on IE11.
  */
 export const PortfolioTable = React.memo((props: PortfolioTableProps) => {
-  const { data, locale, rsunitslatestyear, getRowCanExpand, analyticsEventData } = props;
+  const { data, locale, rsunitslatestyear, getRowCanExpand, logPortfolioAnalytics } = props;
 
   const { pathname } = useLocation();
 
@@ -102,19 +102,6 @@ export const PortfolioTable = React.memo((props: PortfolioTableProps) => {
     unitsresActive:
       isFinite(filterSelections.unitsres[0].min) || isFinite(filterSelections.unitsres[0].max),
     zipActive: !!filterSelections.zip.length,
-  };
-
-  const logAnalyticsEventWithColumn = (
-    amplitudeEventName: "portfolioColumnSort" | "addressChangePortfolio",
-    columnName: string
-  ) => {
-    const gtagEventName = amplitudeEventName.replace(/([a-zA-Z])(?=[A-Z])/g, "$1-").toLowerCase();
-    const eventParams = {
-      ...analyticsEventData,
-      portfolioColumn: columnName,
-    };
-    logAmplitudeEvent(amplitudeEventName, eventParams);
-    window.gtag("event", gtagEventName, eventParams);
   };
 
   const lastColumnRef = React.useRef<HTMLDivElement>(null);
@@ -156,7 +143,7 @@ export const PortfolioTable = React.memo((props: PortfolioTableProps) => {
           return (
             <Link
               to={createRouteForFullBbl(row.original.bbl, locale, isLegacyPath(pathname))}
-              onClick={() => logAnalyticsEventWithColumn("addressChangePortfolio", "address")}
+              onClick={() => logPortfolioAnalytics("addressChangePortfolio", { column: "address" })}
             >
               {row.original.housenumber} {row.original.streetname}
             </Link>
@@ -194,7 +181,7 @@ export const PortfolioTable = React.memo((props: PortfolioTableProps) => {
               return (
                 <Link
                   to={createRouteForFullBbl(row.original.bbl, locale, isLegacyPath(pathname))}
-                  onClick={() => logAnalyticsEventWithColumn("addressChangePortfolio", "bbl")}
+                  onClick={() => logPortfolioAnalytics("addressChangePortfolio", { column: "bbl" })}
                 >
                   {row.original.bbl}
                 </Link>
@@ -385,7 +372,14 @@ export const PortfolioTable = React.memo((props: PortfolioTableProps) => {
                   <span className="col-ownernames-last-word">
                     {contactWords.slice(-1)}
                     {row.getCanExpand() && contacts && contacts.length > 1 ? (
-                      <button className="contacts-expand" onClick={row.getToggleExpandedHandler()}>
+                      <button
+                        className="contacts-expand"
+                        onClick={() => {
+                          row.getToggleExpandedHandler()();
+                          !row.getIsExpanded() &&
+                            logPortfolioAnalytics("portfolioRowExpanded", { column: "ownernames" });
+                        }}
+                      >
                         +{contacts.length - 1}
                       </button>
                     ) : (
@@ -454,8 +448,9 @@ export const PortfolioTable = React.memo((props: PortfolioTableProps) => {
               row.original.lastsaleacrisid ? (
                 <a
                   onClick={() => {
-                    logAmplitudeEvent("portfolioLinktoDeed", analyticsEventData);
-                    window.gtag("event", "portfolio-link-to-deed", analyticsEventData);
+                    logPortfolioAnalytics("portfolioLinktoDeed", {
+                      gtmEvent: "portfolio-link-to-deed",
+                    });
                   }}
                   href={`https://a836-acris.nyc.gov/DS/DocumentSearch/DocumentImageView?doc_id=${row.original.lastsaleacrisid}`}
                   className="btn"
@@ -504,7 +499,9 @@ export const PortfolioTable = React.memo((props: PortfolioTableProps) => {
                 to={createRouteForFullBbl(row.original.bbl, locale, isLegacyPath(pathname))}
                 className="btn"
                 aria-label={i18n._(t`View Detail`)}
-                onClick={() => logAnalyticsEventWithColumn("addressChangePortfolio", "detail")}
+                onClick={() =>
+                  logPortfolioAnalytics("addressChangePortfolio", { column: "detail" })
+                }
               >
                 <span style={{ padding: "0 3px" }}>&#10142;</span>
               </Link>
@@ -585,10 +582,9 @@ export const PortfolioTable = React.memo((props: PortfolioTableProps) => {
                                 : "",
                               onClick: () => {
                                 header.column.getToggleSortingHandler();
-                                logAnalyticsEventWithColumn(
-                                  "portfolioColumnSort",
-                                  header.column.id
-                                );
+                                logPortfolioAnalytics("portfolioColumnSort", {
+                                  column: header.column.id,
+                                });
                               },
                             }}
                             ref={header.column.id === "detail" ? lastColumnRef : undefined}
@@ -610,7 +606,7 @@ export const PortfolioTable = React.memo((props: PortfolioTableProps) => {
             ))}
           </thead>
           <tbody>
-            {table.getRowModel().rows.length &&
+            {table.getRowModel().rows.length ? (
               (activeFilters.rsunitslatestActive || activeFilters.ownernamesActive) && (
                 <tr>
                   <td
@@ -621,7 +617,10 @@ export const PortfolioTable = React.memo((props: PortfolioTableProps) => {
                     {activeFilters.ownernamesActive && OwnernamesResultAlert}
                   </td>
                 </tr>
-              )}
+              )
+            ) : (
+              <></>
+            )}
             {table.getRowModel().rows.map((row, i) => {
               return (
                 <Fragment key={row.id}>
@@ -662,7 +661,10 @@ export const PortfolioTable = React.memo((props: PortfolioTableProps) => {
         <div className="prev">
           <button
             className="page-btn"
-            onClick={() => table.previousPage()}
+            onClick={() => {
+              table.previousPage();
+              logPortfolioAnalytics("portfolioPagination", { extraParams: { type: "previous" } });
+            }}
             disabled={!table.getCanPreviousPage()}
           >
             {i18n._(t`Previous`)}
@@ -680,6 +682,7 @@ export const PortfolioTable = React.memo((props: PortfolioTableProps) => {
                 onChange={(e) => {
                   const page = e.target.value ? Number(e.target.value) - 1 : 0;
                   table.setPageIndex(page);
+                  logPortfolioAnalytics("portfolioPagination", { extraParams: { type: "custom" } });
                 }}
               />
             </div>
@@ -689,6 +692,7 @@ export const PortfolioTable = React.memo((props: PortfolioTableProps) => {
             value={table.getState().pagination.pageSize}
             onChange={(e) => {
               table.setPageSize(Number(e.target.value));
+              logPortfolioAnalytics("portfolioPagination", { extraParams: { type: "size" } });
             }}
           >
             {[10, 20, 50, 100, 500].map((pageSize) => (
@@ -701,7 +705,10 @@ export const PortfolioTable = React.memo((props: PortfolioTableProps) => {
         <div className="next">
           <button
             className="page-btn"
-            onClick={() => table.nextPage()}
+            onClick={() => {
+              table.nextPage();
+              logPortfolioAnalytics("portfolioPagination", { extraParams: { type: "next" } });
+            }}
             disabled={!table.getCanNextPage()}
           >
             {i18n._(t`Next`)}
