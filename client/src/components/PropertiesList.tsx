@@ -175,18 +175,20 @@ const TableOfData = React.memo(
     const { addrs, headerTopSpacing, i18n, locale, rsunitslatestyear, analyticsEventData } = props;
 
     const logAnalyticsColumnSort = (columnName: string) => {
-      logAmplitudeEvent("portfolioColumnSort", {
+      const extraParams = {
         ...analyticsEventData,
         portfolioColumn: columnName,
-      });
-      window.gtag("event", "portfolio-column-sort");
+      };
+      logAmplitudeEvent("portfolioColumnSort", extraParams);
+      window.gtag("event", "portfolio-column-sort", extraParams);
     };
     const logAnalyticsAddressClick = (columnName: string) => {
-      logAmplitudeEvent("addressChangePortfolio", {
+      const extraParams = {
         ...analyticsEventData,
         portfolioColumn: columnName,
-      });
-      window.gtag("event", "address-change-portfolio");
+      };
+      logAmplitudeEvent("addressChangePortfolio", extraParams);
+      window.gtag("event", "address-change-portfolio", extraParams);
     };
 
     return (
