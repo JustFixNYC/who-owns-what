@@ -1,5 +1,5 @@
-import { i18n } from "@lingui/core";
 import { t, Trans, Plural } from "@lingui/macro";
+import { withI18n, withI18nProps } from "@lingui/react";
 import classnames from "classnames";
 import React from "react";
 import { CheckIcon, ChevronIcon, CloseIcon, InfoIcon } from "./Icons";
@@ -24,11 +24,11 @@ import MinMaxSelect from "./MinMaxSelect";
 
 import "styles/PortfolioFilters.scss";
 
-type PortfolioFilterProps = {
+type PortfolioFilterProps = withI18nProps & {
   logPortfolioAnalytics: LogPortfolioAnalytics;
 };
 
-export const PortfolioFilters = React.memo(
+const PortfolioFiltersWithoutI18n = React.memo(
   React.forwardRef<HTMLDivElement, PortfolioFilterProps>((props, ref) => {
     const isMobile = Browser.isMobile();
 
@@ -41,7 +41,7 @@ export const PortfolioFilters = React.memo(
     const { filteredBuildings } = filterContext;
     const { ownernames: ownernamesOptions, zip: zipOptions } = filterContext.filterOptions;
 
-    const { logPortfolioAnalytics } = props;
+    const { i18n, logPortfolioAnalytics } = props;
 
     const [rsunitslatestActive, setRsunitslatestActive] = React.useState(false);
     const updateRsunitslatest = () => {
@@ -422,14 +422,7 @@ const OwnernamesInfoAlert = (
   </Alert>
 );
 
-/**
- * We use state to make this a controled component that mimics the original
- * details/summary behaviour. Some helpful info on how/why to do this:
- * https://github.com/facebook/react/issues/15486. Also, because we need to be
- * able to open/close this from outside of the component (eg. via onApply that's
- * passed to the multiselect child component)
- */
-function FilterAccordion(props: {
+type FilterAccordionProps = withI18nProps & {
   title: string;
   subtitle?: string;
   infoLabel?: string;
@@ -444,7 +437,16 @@ function FilterAccordion(props: {
   initialFocus?: FocusTarget;
   selectionsCount?: number;
   className?: string;
-}) {
+};
+
+/**
+ * We use state to make this a controled component that mimics the original
+ * details/summary behaviour. Some helpful info on how/why to do this:
+ * https://github.com/facebook/react/issues/15486. Also, because we need to be
+ * able to open/close this from outside of the component (eg. via onApply that's
+ * passed to the multiselect child component)
+ */
+const FilterAccordion = withI18n()((props: FilterAccordionProps) => {
   const {
     title,
     subtitle,
@@ -460,6 +462,7 @@ function FilterAccordion(props: {
     initialFocus,
     selectionsCount,
     className,
+    i18n,
   } = props;
   const [showInfoModal, setShowInfoModal] = React.useState(false);
 
@@ -522,4 +525,8 @@ function FilterAccordion(props: {
       )}
     </>
   );
-}
+});
+
+const PortfolioFilters = withI18n()(PortfolioFiltersWithoutI18n);
+
+export default PortfolioFilters;

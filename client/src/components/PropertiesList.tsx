@@ -6,8 +6,8 @@ import "styles/PropertiesList.css";
 import { defaultLocale, SupportedLocale } from "../i18n-base";
 import Helpers from "../util/helpers";
 import Loader from "./Loader";
-import { PortfolioFilters } from "./PortfolioFilters";
-import { MAX_TABLE_ROWS_PER_PAGE, PortfolioTable } from "./PortfolioTable";
+import PortfolioFilters from "./PortfolioFilters";
+import PortfolioTable, { MAX_TABLE_ROWS_PER_PAGE } from "./PortfolioTable";
 import { AmplitudeEvent, EventProperties, logAmplitudeEvent } from "./Amplitude";
 
 // Pattern for context provider to update context from child components

@@ -1,6 +1,6 @@
 import React, { InputHTMLAttributes } from "react";
 import { Trans, t } from "@lingui/macro";
-import { i18n } from "@lingui/core";
+import { I18n } from "@lingui/react";
 import classnames from "classnames";
 import helpers from "util/helpers";
 import { Alert } from "./Alert";
@@ -190,15 +190,19 @@ function MinMaxSelect(props: {
           </div>
         </form>
       </details>
-      <button
-        type="submit"
-        form={`${id || "minmaxselect"}__form`}
-        className="button is-primary"
-        aria-label={i18n._(t`Apply selections and get results`)}
-        onClick={handleApply}
-      >
-        <Trans>Apply</Trans>
-      </button>
+      <I18n>
+        {({ i18n }) => (
+          <button
+            type="submit"
+            form={`${id || "minmaxselect"}__form`}
+            className="button is-primary"
+            aria-label={i18n._(t`Apply selections and get results`)}
+            onClick={handleApply}
+          >
+            <Trans>Apply</Trans>
+          </button>
+        )}
+      </I18n>
     </div>
   );
 }

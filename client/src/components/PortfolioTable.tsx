@@ -23,7 +23,8 @@ import _groupBy from "lodash/groupBy";
 import React, { Fragment } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { createRouteForFullBbl } from "routes";
-import { I18n, i18n } from "@lingui/core";
+import { I18n } from "@lingui/core";
+import { withI18n, withI18nProps } from "@lingui/react";
 import { SupportedLocale } from "../i18n-base";
 import Helpers, { longDateOptions } from "../util/helpers";
 import { AddressRecord, HpdComplaintCount } from "./APIDataTypes";
@@ -75,7 +76,7 @@ const inNumberRanges: FilterFn<any> = (
   );
 };
 
-type PortfolioTableProps = {
+type PortfolioTableProps = withI18nProps & {
   data: AddressRecord[];
   headerTopSpacing: number | undefined;
   locale: SupportedLocale;
@@ -88,8 +89,8 @@ type PortfolioTableProps = {
  * This component memoizes the portfolio table via React.memo
  * in an attempt to improve performance, particularly on IE11.
  */
-export const PortfolioTable = React.memo((props: PortfolioTableProps) => {
-  const { data, locale, rsunitslatestyear, getRowCanExpand, logPortfolioAnalytics } = props;
+const PortfolioTableWithoutI18n = React.memo((props: PortfolioTableProps) => {
+  const { data, locale, rsunitslatestyear, getRowCanExpand, logPortfolioAnalytics, i18n } = props;
 
   const { pathname } = useLocation();
 
@@ -826,3 +827,7 @@ function compareAlphaNumLast(a: string, b: string) {
   }
   return startsNumeric(a) ? 1 : -1;
 }
+
+const PortfolioTable = withI18n()(PortfolioTableWithoutI18n);
+
+export default PortfolioTable;
