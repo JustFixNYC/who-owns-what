@@ -354,6 +354,7 @@
         box-sizing: border-box;
         border: none;
         border-bottom: 0.2rem solid $justfix-grey-700;
+        transform: translateY(100vh);
 
         @keyframes slide-up {
           0% {
