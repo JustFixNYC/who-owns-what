@@ -185,7 +185,7 @@ msgstr "Building Permit Applications"
 msgid "Building Permits Applied For"
 msgstr "Building Permits Applied For"
 
-#: src/components/PortfolioFilters.tsx:115
+#: src/components/PortfolioFilters.tsx:92
 msgid "Building Size"
 msgstr "Building Size"
 
@@ -256,7 +256,7 @@ msgstr "Class I"
 msgid "Clear"
 msgstr "Clear"
 
-#: src/components/PortfolioFilters.tsx:135
+#: src/components/PortfolioFilters.tsx:112
 msgid "Clear Filters"
 msgstr "Clear Filters"
 
@@ -470,7 +470,7 @@ msgstr "Filed"
 #~ msgid "Filied"
 #~ msgstr "Filied"
 
-#: src/components/PortfolioFilters.tsx:241
+#: src/components/PortfolioFilters.tsx:236
 msgid "Filter"
 msgstr "Filter"
 
@@ -482,7 +482,7 @@ msgstr "Filter through this portfolio in <0>the Portfolio tab.</0>"
 msgid "Filters"
 msgstr "Filters"
 
-#: src/components/PortfolioFilters.tsx:100
+#: src/components/PortfolioFilters.tsx:79
 msgid "Filters:"
 msgstr "Filters:"
 
@@ -540,7 +540,7 @@ msgstr "HUD Complaint Form 958"
 msgid "Head Officer"
 msgstr "Head Officer"
 
-#: src/components/PortfolioFilters.tsx:143
+#: src/components/PortfolioFilters.tsx:120
 msgid "How are the results calculated?"
 msgstr "How are the results calculated?"
 
@@ -626,7 +626,7 @@ msgstr "LOCKS"
 msgid "Landlord"
 msgstr "Landlord"
 
-#: src/components/PortfolioFilters.tsx:113
+#: src/components/PortfolioFilters.tsx:90
 msgid "Landlord filter"
 msgstr "Landlord filter"
 
@@ -695,12 +695,8 @@ msgid "Location"
 msgstr "Location"
 
 #: src/components/PortfolioFilters.tsx:212
-#~ msgid "Look out for multiple spellings for the same person/entity. Names can be spelled multiple ways in official documents."
-#~ msgstr "Look out for multiple spellings for the same person/entity. Names can be spelled multiple ways in official documents."
-
-#: src/components/PortfolioFilters.tsx:215
-msgid "Look out for multiple spellings of the same person/entity. Names can be spelled multiple ways in official documents."
-msgstr "Look out for multiple spellings of the same person/entity. Names can be spelled multiple ways in official documents."
+msgid "Look out for multiple spellings for the same person/entity. Names can be spelled multiple ways in official documents."
+msgstr "Look out for multiple spellings for the same person/entity. Names can be spelled multiple ways in official documents."
 
 #: src/components/PropertiesSummary.tsx:134
 msgid "Looking for more information?"
@@ -811,7 +807,7 @@ msgstr "NYCHA Directory"
 msgid "Network of Landlords"
 msgstr "Network of Landlords"
 
-#: src/components/PortfolioFilters.tsx:97
+#: src/components/PortfolioFilters.tsx:76
 #: src/containers/HomePage.tsx:110
 msgid "New"
 msgstr "New"
@@ -878,7 +874,7 @@ msgstr "Not found"
 #~ msgid "Notice an inaccuracy? Click here."
 #~ msgstr "Notice an inaccuracy? Click here."
 
-#: src/components/PortfolioFilters.tsx:115
+#: src/components/PortfolioFilters.tsx:92
 msgid "Number of Units"
 msgstr "Number of Units"
 
@@ -896,8 +892,8 @@ msgid "Officer"
 msgstr "Officer"
 
 #: src/components/PortfolioFilters.tsx:89
-#~ msgid "Officer/Owner"
-#~ msgstr "Officer/Owner"
+msgid "Officer/Owner"
+msgstr "Officer/Owner"
 
 #: src/components/NetworkErrorMessage.tsx:5
 #: src/components/Subscribe.tsx:57
@@ -958,10 +954,6 @@ msgstr "Page"
 msgid "People"
 msgstr "People"
 
-#: src/components/PortfolioFilters.tsx:110
-msgid "Person/Entity"
-msgstr "Person/Entity"
-
 #: src/components/Subscribe.tsx:25
 msgid "Please enter an email address!"
 msgstr "Please enter an email address!"
@@ -993,11 +985,8 @@ msgstr "Public Housing Development"
 msgid "RS Units"
 msgstr "RS Units"
 
-#: src/components/PortfolioFilters.tsx:90
-msgid "Read more about our Methodology"
-msgstr "Read more about our Methodology"
-
-#: src/components/PortfolioFilters.tsx:155
+#: src/components/PortfolioFilters.tsx:132
+#: src/components/PortfolioFilters.tsx:152
 msgid "Read more in our Methodology section"
 msgstr "Read more in our Methodology section"
 
@@ -1005,11 +994,11 @@ msgstr "Read more in our Methodology section"
 msgid "Registration expired:"
 msgstr "Registration expired:"
 
-#: src/components/PortfolioFilters.tsx:107
+#: src/components/PortfolioFilters.tsx:86
 msgid "Rent Stabilized Units"
 msgstr "Rent Stabilized Units"
 
-#: src/components/PortfolioFilters.tsx:104
+#: src/components/PortfolioFilters.tsx:83
 msgid "Rent Stabilized Units filter"
 msgstr "Rent Stabilized Units filter"
 
@@ -1104,7 +1093,7 @@ msgstr "Show less"
 msgid "Show only {previewSelectedNum} selections"
 msgstr "Show only {previewSelectedNum} selections"
 
-#: src/components/PortfolioFilters.tsx:126
+#: src/components/PortfolioFilters.tsx:103
 msgid "Showing {0} {1, plural, one {result} other {results}}"
 msgstr "Showing {0} {1, plural, one {result} other {results}}"
 
@@ -1353,7 +1342,7 @@ msgstr "Total"
 msgid "Total Violations"
 msgstr "Total Violations"
 
-#: src/components/PortfolioFilters.tsx:212
+#: src/components/PortfolioFilters.tsx:209
 msgid "Try adjusting or clearing the filters to yield more than 0 results."
 msgstr "Try adjusting or clearing the filters to yield more than 0 results."
 
@@ -1470,7 +1459,7 @@ msgstr "We compare your search address with a database of over 200k buildings to
 msgid "We overhauled the Portfolio tab to help make navigating this large table of data easier, especially for mobile phones."
 msgstr "We overhauled the Portfolio tab to help make navigating this large table of data easier, especially for mobile phones."
 
-#: src/components/PortfolioFilters.tsx:146
+#: src/components/PortfolioFilters.tsx:123
 msgid "We pull data from public records to calculate these results. Our algorithm relies on public <0>HPD registration data</0> for residential buildings, which contains self-reported landlord contact information on about 170,000 properties across the city."
 msgstr "We pull data from public records to calculate these results. Our algorithm relies on public <0>HPD registration data</0> for residential buildings, which contains self-reported landlord contact information on about 170,000 properties across the city."
 
@@ -1503,11 +1492,11 @@ msgstr "What happens if the landlord has failed to register?"
 msgid "What's New"
 msgstr "What's New"
 
-#: src/components/PortfolioFilters.tsx:245
-#~ msgid "What's this?"
-#~ msgstr "What's this?"
+#: src/components/PortfolioFilters.tsx:239
+msgid "What's this?"
+msgstr "What's this?"
 
-#: src/components/PortfolioFilters.tsx:74
+#: src/components/PortfolioFilters.tsx:137
 msgid "What’s the difference between a landlord, an owner, and head officer?"
 msgstr "What’s the difference between a landlord, an owner, and head officer?"
 
@@ -1516,20 +1505,12 @@ msgid "When two parties share the same business address, we group them as part o
 msgstr "When two parties share the same business address, we group them as part of the same portfolio."
 
 #: src/components/PortfolioFilters.tsx:140
-#~ msgid "While the legal owner of a building is often a company (usually called an “LLC”), these names and business addresses registered with HPD offer a clearer picture of who really controls the building. People listed here as “Head Officer” or “Owner” usually have ties to building ownership, while “Site Managers” are part of management. That being said, these names are self reported by the landlord, so they can be misleading. Learn more about HPD registrations and how this information powers this tool on the <0>About page</0>."
-#~ msgstr "While the legal owner of a building is often a company (usually called an “LLC”), these names and business addresses registered with HPD offer a clearer picture of who really controls the building. People listed here as “Head Officer” or “Owner” usually have ties to building ownership, while “Site Managers” are part of management. That being said, these names are self reported by the landlord, so they can be misleading. Learn more about HPD registrations and how this information powers this tool on the <0>About page</0>."
-
-#: src/components/PortfolioFilters.tsx:77
-msgid "While the legal owner of a building is often a company (usually called an “LLC”), these names and business addresses registered with the Department of Housing Preservation (“HPD”) offer a clearer picture of who really controls the building. People listed here as “Head Officer” or “Owner” usually have ties to building ownership, while “Site Managers” are part of management. That being said, these names are self reported by the landlord, so they can be misleading. Learn more about HPD registrations and how this information powers this tool on the <0>About page</0>."
-msgstr "While the legal owner of a building is often a company (usually called an “LLC”), these names and business addresses registered with the Department of Housing Preservation (“HPD”) offer a clearer picture of who really controls the building. People listed here as “Head Officer” or “Owner” usually have ties to building ownership, while “Site Managers” are part of management. That being said, these names are self reported by the landlord, so they can be misleading. Learn more about HPD registrations and how this information powers this tool on the <0>About page</0>."
+msgid "While the legal owner of a building is often a company (usually called an “LLC”), these names and business addresses registered with HPD offer a clearer picture of who really controls the building. People listed here as “Head Officer” or “Owner” usually have ties to building ownership, while “Site Managers” are part of management. That being said, these names are self reported by the landlord, so they can be misleading. Learn more about HPD registrations and how this information powers this tool on the <0>About page</0>."
+msgstr "While the legal owner of a building is often a company (usually called an “LLC”), these names and business addresses registered with HPD offer a clearer picture of who really controls the building. People listed here as “Head Officer” or “Owner” usually have ties to building ownership, while “Site Managers” are part of management. That being said, these names are self reported by the landlord, so they can be misleading. Learn more about HPD registrations and how this information powers this tool on the <0>About page</0>."
 
 #: src/components/SocialShare.tsx:14
 msgid "Who Owns What is a free tool built by JustFix to research property owners in NYC. It has helped over 200,000 New Yorkers find out who really owns their building, what other buildings that their landlord or management company owns, and other critical information about code violations, evictions, rent stabilized units, and so much more in any given building. You can look up any residential building located in NYC, even public housing (NYCHA) buildings! Search your address here: {url}"
 msgstr "Who Owns What is a free tool built by JustFix to research property owners in NYC. It has helped over 200,000 New Yorkers find out who really owns their building, what other buildings that their landlord or management company owns, and other critical information about code violations, evictions, rent stabilized units, and so much more in any given building. You can look up any residential building located in NYC, even public housing (NYCHA) buildings! Search your address here: {url}"
-
-#: src/components/PortfolioFilters.tsx:110
-msgid "Who are they?"
-msgstr "Who are they?"
 
 #: src/containers/App.tsx:42
 msgid "Who owns what in n y c?"
@@ -1584,7 +1565,7 @@ msgstr "You are viewing a legacy version of Who Owns What"
 #~ msgid "ZIP CODE is not applicable"
 #~ msgstr "ZIP CODE is not applicable"
 
-#: src/components/PortfolioFilters.tsx:119
+#: src/components/PortfolioFilters.tsx:96
 msgid "ZIP code is not applicable"
 msgstr "ZIP code is not applicable"
 
@@ -1593,7 +1574,7 @@ msgstr "ZIP code is not applicable"
 msgid "Zip Code"
 msgstr "Zip Code"
 
-#: src/components/PortfolioFilters.tsx:119
+#: src/components/PortfolioFilters.tsx:96
 msgid "Zip code filter"
 msgstr "Zip code filter"
 
