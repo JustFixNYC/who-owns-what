@@ -354,7 +354,9 @@
         box-sizing: border-box;
         border: none;
         border-bottom: 0.2rem solid $justfix-grey-700;
-        transform: translateY(100vh);
+        // prevents flickering of menu before animation in chrome/safari
+        -webkit-perspective: 1000;
+        -webkit-backface-visibility: hidden;
 
         @keyframes slide-up {
           0% {
