@@ -1,4 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+import { I18n } from "@lingui/core";
 import { t, Trans } from "@lingui/macro";
 import {
   ColumnDef,
@@ -23,7 +24,6 @@ import _groupBy from "lodash/groupBy";
 import React, { Fragment } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { createRouteForFullBbl } from "routes";
-import { I18n, i18n } from "@lingui/core";
 import { SupportedLocale } from "../i18n-base";
 import Helpers, { longDateOptions } from "../util/helpers";
 import { logAmplitudeEvent } from "./Amplitude";
@@ -32,6 +32,7 @@ import { FilterContext, IFilterContext, MINMAX_DEFAULT } from "./PropertiesList"
 import "styles/PortfolioTable.scss";
 import { sortContactsByImportance } from "./DetailView";
 import { ArrowIcon } from "./Icons";
+import classNames from "classnames";
 import classnames from "classnames";
 import { isLegacyPath } from "./WowzaToggle";
 
@@ -59,6 +60,7 @@ const isNonZero: FilterFn<any> = (row, columnId, value, addMeta) =>
 type PortfolioTableProps = {
   data: AddressRecord[];
   headerTopSpacing: number | undefined;
+  i18n: I18n;
   locale: SupportedLocale;
   rsunitslatestyear: number;
   getRowCanExpand: (row: Row<AddressRecord>) => boolean;
@@ -69,7 +71,7 @@ type PortfolioTableProps = {
  * in an attempt to improve performance, particularly on IE11.
  */
 export const PortfolioTable = React.memo((props: PortfolioTableProps) => {
-  const { data, locale, rsunitslatestyear, getRowCanExpand } = props;
+  const { data, i18n, locale, rsunitslatestyear, getRowCanExpand } = props;
 
   const { pathname } = useLocation();
 
@@ -127,7 +129,7 @@ export const PortfolioTable = React.memo((props: PortfolioTableProps) => {
         columns: [
           {
             accessorKey: "zip",
-            header: i18n._(t`Zip Code`),
+            header: i18n._(t`ZIP CODE`),
             cell: (info) => info.getValue(),
             footer: (props) => props.column.id,
             enableColumnFilter: false,
@@ -651,7 +653,7 @@ export const PortfolioTable = React.memo((props: PortfolioTableProps) => {
 
 const renderContacts = ({ row, i18n }: { row: Row<AddressRecord>; i18n: I18n }) => {
   return (
-    <ul className={classnames("contacts-list", `lang-${i18n.language}`)}>
+    <ul className={classNames("contacts-list", `lang-${i18n.language}`)}>
       {Object.entries(_groupBy(row.original.allcontacts, "value"))
         .sort(sortContactsByImportance)
         .map((group) => group[1][0])

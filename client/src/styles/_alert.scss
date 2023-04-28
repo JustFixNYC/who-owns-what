@@ -1,10 +1,11 @@
 @import "_vars.scss";
 
+// TODO: refactor this using mixin for variant/type when we move to component-library
+
 .jf-alert {
-  --color-bar-width: 1.5rem;
   display: flex;
   position: relative;
-  padding: 0 0 1rem calc(var(--color-bar-width) + 1rem);
+  padding: 1.15rem 0.6rem 1.15rem 2.3rem;
   width: fit-content;
   border-radius: 0.4rem;
   font-family: "Inconsolata", monospace;
@@ -14,33 +15,27 @@
 
   &::before {
     content: "";
-    width: var(--color-bar-width);
+    width: 1.5rem;
     position: absolute;
     top: 0;
     left: 0;
     bottom: 0;
-    border-radius: 0.3rem 0 0 0.3rem;
+    border-radius: 0.4rem 0 0 0.4rem;
   }
 
-  .jf-alert__content {
+  div.jf-alert__content {
     margin-right: auto;
-    padding-top: 1rem;
-    &:last-child {
-      padding-right: 1rem;
-    }
   }
 
-  .jf-alert__close {
+  button.jf-alert__close {
     align-self: flex-start;
-    padding: 1rem 1rem 1.2rem 1.2rem;
     &:focus-visible {
       outline: 2px solid $focus-outline-color;
     }
-    .closeIcon {
-      height: 1.2rem;
-      width: 1.2rem;
-      stroke-width: 0.2rem;
-    }
+  }
+
+  .closeIcon {
+    stroke-width: 2px;
   }
 
   &.is-primary {
@@ -59,26 +54,13 @@
     }
   }
 
-  &.is-error {
-    padding: 0 0 0.7rem calc(var(--color-bar-width) + 0.8rem);
-    &::before {
-      background-color: $justfix-orange;
-    }
-    .jf-alert__content {
-      padding-top: 0.7rem;
-      &:last-child {
-        padding-right: 0.6rem;
-      }
-    }
+  &.is-error::before {
+    background-color: $justfix-orange;
   }
   &.is-success::before {
     background-color: $justfix-green;
   }
-  &.is-info {
-    color: $justfix-grey-600;
-    border: 0.1rem solid $justfix-grey-400;
-    &::before {
-      background-color: $justfix-blue;
-    }
+  &.is-info::before {
+    background-color: $justfix-blue;
   }
 }
