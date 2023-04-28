@@ -28,12 +28,7 @@ import { SupportedLocale } from "../i18n-base";
 import Helpers, { longDateOptions } from "../util/helpers";
 import { logAmplitudeEvent } from "./Amplitude";
 import { AddressRecord, HpdComplaintCount } from "./APIDataTypes";
-import {
-  FilterContext,
-  FilterNumberRange,
-  IFilterContext,
-  NUMBER_RANGE_DEFAULT,
-} from "./PropertiesList";
+import { FilterContext, IFilterContext, MINMAX_DEFAULT } from "./PropertiesList";
 import "styles/PortfolioTable.scss";
 import { sortContactsByImportance } from "./DetailView";
 import { ArrowIcon } from "./Icons";
@@ -47,7 +42,7 @@ export const MAX_TABLE_ROWS_PER_PAGE = 100;
 declare module "@tanstack/table-core" {
   interface FilterFns {
     arrIncludesSome: FilterFn<unknown>;
-    inNumberRanges: FilterFn<unknown>;
+    inNumberRange: FilterFn<unknown>;
     isNonZero: FilterFn<unknown>;
   }
 }
@@ -61,19 +56,6 @@ const currencyFormater = new Intl.NumberFormat("en-us", {
 
 const isNonZero: FilterFn<any> = (row, columnId, value, addMeta) =>
   value ? !!row.getValue(columnId) : true;
-
-const inNumberRanges: FilterFn<any> = (
-  row,
-  columnId,
-  filterValue: FilterNumberRange[],
-  addMeta
-) => {
-  const rowValue = row.getValue<number>(columnId);
-  return filterValue.reduce(
-    (acc, rng) => acc || (rowValue >= rng.min && rowValue <= rng.max),
-    false
-  );
-};
 
 type PortfolioTableProps = {
   data: AddressRecord[];
@@ -98,8 +80,7 @@ export const PortfolioTable = React.memo((props: PortfolioTableProps) => {
   const activeFilters = {
     rsunitslatestActive: filterSelections.rsunitslatest,
     ownernamesActive: !!filterSelections.ownernames.length,
-    unitsresActive:
-      isFinite(filterSelections.unitsres[0].min) || isFinite(filterSelections.unitsres[0].max),
+    unitsresActive: filterSelections.unitsres !== MINMAX_DEFAULT,
     zipActive: !!filterSelections.zip.length,
   };
 
@@ -213,7 +194,7 @@ export const PortfolioTable = React.memo((props: PortfolioTableProps) => {
             footer: (props) => props.column.id,
             enableColumnFilter: false,
             size: "auto",
-            filterFn: "inNumberRanges",
+            filterFn: "inNumberRange",
           },
         ],
       },
@@ -507,7 +488,7 @@ export const PortfolioTable = React.memo((props: PortfolioTableProps) => {
     columns,
     filterFns: {
       arrIncludesSome: filterFns.arrIncludesSome,
-      inNumberRanges: inNumberRanges,
+      inNumberRange: filterFns.inNumberRange,
       isNonZero: isNonZero,
     },
     state: {
@@ -730,7 +711,8 @@ function useFilterOptionsUpdater(
   table: Table<AddressRecord>
 ) {
   const ownernamesOptionValues = table.getColumn("ownernames").getFacetedUniqueValues();
-  const unitsresOptionValues = table.getColumn("unitsres").getFacetedMinMaxValues();
+  const unitsresOptionValues =
+    table.getColumn("unitsres").getFacetedMinMaxValues() || MINMAX_DEFAULT;
   const zipOptionValues = table.getColumn("zip").getFacetedUniqueValues();
 
   React.useEffect(() => {
@@ -741,9 +723,7 @@ function useFilterOptionsUpdater(
         ownernames: Array.from(new Set(Array.from(ownernamesOptionValues.keys()).flat())).sort(
           compareAlphaNumLast
         ),
-        unitsres: unitsresOptionValues
-          ? { min: unitsresOptionValues[0], max: unitsresOptionValues[1] }
-          : NUMBER_RANGE_DEFAULT,
+        unitsres: unitsresOptionValues,
         zip: Array.from(zipOptionValues.keys())
           .filter((zip) => zip != null)
           .sort(),
