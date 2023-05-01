@@ -358,19 +358,19 @@
         -webkit-perspective: 1000;
         -webkit-backface-visibility: hidden;
 
-        @keyframes slide-up {
-          0% {
-            transform: translateY(100vh);
-          }
-          100% {
-            transform: translateY(0);
-          }
-        }
+        // @keyframes slide-up {
+        //   0% {
+        //     transform: translateY(100vh);
+        //   }
+        //   100% {
+        //     transform: translateY(0);
+        //   }
+        // }
 
-        animation-name: slide-up;
-        animation-duration: 0.5s;
-        animation-timing-function: ease-in-out;
-        animation-fill-mode: forwards;
+        // animation-name: slide-up;
+        // animation-duration: 0.5s;
+        // animation-timing-function: ease-in-out;
+        // animation-fill-mode: forwards;
 
         // Hide page from showing through around rounded corners
         // Sadly outline+offset doesn't work since in safari is doesn't follow border-radius
