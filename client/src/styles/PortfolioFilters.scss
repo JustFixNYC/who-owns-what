@@ -386,22 +386,22 @@
           border-bottom: none;
           border-radius: 1.25rem 1.25rem 0 0;
 
-          @keyframes fade-in {
-            0% {
-              opacity: 0;
-            }
-            90% {
-              opacity: 0;
-            }
-            100% {
-              opacity: 1;
-            }
-          }
+          // @keyframes fade-in {
+          //   0% {
+          //     opacity: 0;
+          //   }
+          //   90% {
+          //     opacity: 0;
+          //   }
+          //   100% {
+          //     opacity: 1;
+          //   }
+          // }
 
-          animation-name: fade-in;
-          animation-duration: 0.5s;
-          animation-timing-function: ease-in-out;
-          animation-fill-mode: forwards;
+          // animation-name: fade-in;
+          // animation-duration: 0.5s;
+          // animation-timing-function: ease-in-out;
+          // animation-fill-mode: forwards;
         }
 
         & > summary {
