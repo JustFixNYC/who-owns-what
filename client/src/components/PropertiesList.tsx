@@ -8,6 +8,7 @@ import Helpers from "../util/helpers";
 import Loader from "./Loader";
 import { PortfolioFilters } from "./PortfolioFilters";
 import { MAX_TABLE_ROWS_PER_PAGE, PortfolioTable } from "./PortfolioTable";
+import { AmplitudeEvent, EventProperties, logAmplitudeEvent } from "./Amplitude";
 
 // Pattern for context provider to update context from child components
 // https://stackoverflow.com/a/67710693/7051239
@@ -61,6 +62,16 @@ const FilterContextProvider: React.FC<{}> = (props) => {
   return <FilterContext.Provider value={useValue()}>{props.children}</FilterContext.Provider>;
 };
 
+export type PortfolioAnalyticsEvent = (
+  event: AmplitudeEvent,
+  extraProps: {
+    column?: string;
+    extraParams?: EventProperties;
+    /** In case the corresponding event name for google isn't a straight case change from amplitude */
+    gtmEvent?: string;
+  }
+) => void;
+
 const PropertiesListWithoutI18n: React.FC<
   withMachineInStateProps<"portfolioFound"> & withI18nProps
 > = (props) => {
@@ -71,6 +82,20 @@ const PropertiesListWithoutI18n: React.FC<
 
   const addrs = props.state.context.portfolioData.assocAddrs;
   const rsunitslatestyear = props.state.context.portfolioData.searchAddr.rsunitslatestyear;
+
+  const logPortfolioAnalytics: PortfolioAnalyticsEvent = (event, extraProps) => {
+    const { column, extraParams, gtmEvent } = extraProps;
+    const portfolioColumn = !!column && { portfolioColumn: column };
+    const eventParams = {
+      portfolioSize: addrs.length,
+      portfolioMappingMethod: useNewPortfolioMethod ? "wowza" : "legacy",
+      ...portfolioColumn,
+      ...extraParams,
+    };
+    logAmplitudeEvent(event, eventParams);
+    const gtagEvent = gtmEvent || event.replace(/([a-zA-Z])(?=[A-Z])/g, "$1-").toLowerCase();
+    window.gtag("event", gtagEvent, eventParams);
+  };
 
   /**
    * For older browsers that do not support the `useOnScreen` hook,
@@ -103,13 +128,16 @@ const PropertiesListWithoutI18n: React.FC<
     <div className="PropertiesList" ref={tableRef}>
       {isTableVisible ? (
         <FilterContextProvider>
-          {useNewPortfolioMethod ? <PortfolioFilters /> : <></>}
+          {useNewPortfolioMethod && (
+            <PortfolioFilters logPortfolioAnalytics={logPortfolioAnalytics} />
+          )}
           <PortfolioTable
             data={addrs}
             headerTopSpacing={headerTopSpacing}
             locale={locale}
             rsunitslatestyear={rsunitslatestyear}
             getRowCanExpand={() => true}
+            logPortfolioAnalytics={logPortfolioAnalytics}
           />
         </FilterContextProvider>
       ) : (

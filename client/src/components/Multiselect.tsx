@@ -25,6 +25,7 @@ export type Option = {
 
 interface CustomMultiselectProps {
   onApply: (selectedList: any) => void;
+  onError?: () => void;
   previewSelectedNum?: number;
   infoAlert?: JSX.Element;
 }
@@ -61,6 +62,7 @@ function MultiSelect<
   infoAlert,
   onChange,
   onInputChange,
+  onError,
   previewSelectedNum,
   ...props
 }: Props<Option, IsMulti, GroupType> & CustomMultiselectProps) {
@@ -99,6 +101,7 @@ function MultiSelect<
     // @ts-ignore (value isn't recognizing the available properties of Option type)
     const selectedValues = selections.map((v) => ({ name: v.value || "", id: v.label }));
     if (!selectedValues.length && !!inputValue) {
+      onError && onError();
       setHasError(true);
     } else {
       onApply(selectedValues);

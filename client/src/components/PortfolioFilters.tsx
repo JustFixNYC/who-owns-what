@@ -3,7 +3,12 @@ import { t, Trans, Plural } from "@lingui/macro";
 import classnames from "classnames";
 import React from "react";
 import { CheckIcon, ChevronIcon, CloseIcon, InfoIcon } from "./Icons";
-import { FilterContext, FilterNumberRange, NUMBER_RANGE_DEFAULT } from "./PropertiesList";
+import {
+  FilterContext,
+  FilterNumberRange,
+  PortfolioAnalyticsEvent,
+  NUMBER_RANGE_DEFAULT,
+} from "./PropertiesList";
 import FocusTrap from "focus-trap-react";
 import { FocusTarget } from "focus-trap";
 import { Alert } from "./Alert";
@@ -19,8 +24,12 @@ import MinMaxSelect from "./MinMaxSelect";
 
 import "styles/PortfolioFilters.scss";
 
+type PortfolioFilterProps = {
+  logPortfolioAnalytics: PortfolioAnalyticsEvent;
+};
+
 export const PortfolioFilters = React.memo(
-  React.forwardRef<HTMLDivElement>((props, ref) => {
+  React.forwardRef<HTMLDivElement, PortfolioFilterProps>((props, ref) => {
     const isMobile = Browser.isMobile();
 
     const [showInfoModal, setShowInfoModal] = React.useState(false);
@@ -32,8 +41,13 @@ export const PortfolioFilters = React.memo(
     const { filteredBuildings } = filterContext;
     const { ownernames: ownernamesOptions, zip: zipOptions } = filterContext.filterOptions;
 
+    const { logPortfolioAnalytics } = props;
+
     const [rsunitslatestActive, setRsunitslatestActive] = React.useState(false);
     const updateRsunitslatest = () => {
+      logPortfolioAnalytics(rsunitslatestActive ? "filterCleared" : "filterApplied", {
+        column: "rsunitslatest",
+      });
       setRsunitslatestActive(!rsunitslatestActive);
       setFilterContext({
         ...filterContext,
@@ -47,6 +61,9 @@ export const PortfolioFilters = React.memo(
     const [ownernamesActive, setOwnernamesActive] = React.useState(false);
     const [ownernamesIsOpen, setOwnernamesIsOpen] = React.useState(false);
     const onOwnernamesApply = (selectedList: any) => {
+      logPortfolioAnalytics(!selectedList.length ? "filterCleared" : "filterApplied", {
+        column: "ownernames",
+      });
       setOwnernamesActive(!!selectedList.length);
       setOwnernamesIsOpen(false);
       setFilterContext({
@@ -61,7 +78,11 @@ export const PortfolioFilters = React.memo(
     const [unitsresActive, setUnitsresActive] = React.useState(false);
     const [unitsresIsOpen, setUnitsresIsOpen] = React.useState(false);
     const onUnitsresApply = (selections: FilterNumberRange[]) => {
-      setUnitsresActive(isFinite(selections[0].min) || isFinite(selections[0].max));
+      const updatedIsActive = isFinite(selections[0].min) || isFinite(selections[0].max);
+      logPortfolioAnalytics(!updatedIsActive ? "filterCleared" : "filterApplied", {
+        column: "unitsres",
+      });
+      setUnitsresActive(updatedIsActive);
       setUnitsresIsOpen(false);
       setFilterContext({
         ...filterContext,
@@ -75,6 +96,9 @@ export const PortfolioFilters = React.memo(
     const [zipActive, setZipActive] = React.useState(false);
     const [zipIsOpen, setZipIsOpen] = React.useState(false);
     const onZipApply = (selectedList: any) => {
+      logPortfolioAnalytics(!selectedList.length ? "filterCleared" : "filterApplied", {
+        column: "zip",
+      });
       setZipActive(!!selectedList.length);
       setZipIsOpen(false);
       setFilterContext({
@@ -87,6 +111,7 @@ export const PortfolioFilters = React.memo(
     };
 
     const clearFilters = () => {
+      logPortfolioAnalytics("filterCleared", { column: "_all" });
       setRsunitslatestActive(false);
       setOwnernamesActive(false);
       setUnitsresActive(false);
@@ -176,6 +201,7 @@ export const PortfolioFilters = React.memo(
             isActive={ownernamesActive}
             isOpen={ownernamesIsOpen}
             setIsOpen={setOwnernamesIsOpen}
+            onOpen={() => logPortfolioAnalytics("filterOpened", { column: "ownernames" })}
             initialFocus={isMobile ? undefined : "#filter-ownernames-multiselect input"}
             selectionsCount={filterContext.filterSelections.ownernames.length}
             className="ownernames-accordion"
@@ -184,6 +210,7 @@ export const PortfolioFilters = React.memo(
               id="filter-ownernames-multiselect"
               options={ownernamesOptionsSelect}
               onApply={onOwnernamesApply}
+              onError={() => logPortfolioAnalytics("filterError", { column: "ownernames" })}
               infoAlert={OwnernamesInfoAlert}
               aria-label={i18n._(t`Landlord filter`)}
             />
@@ -194,6 +221,7 @@ export const PortfolioFilters = React.memo(
             isMobile={isMobile}
             isActive={unitsresActive}
             isOpen={unitsresIsOpen}
+            onOpen={() => logPortfolioAnalytics("filterOpened", { column: "unitsres" })}
             initialFocus={isMobile ? undefined : "#filter-unitsres-minmax_min-input"}
             setIsOpen={setUnitsresIsOpen}
             className="unitsres-accordion"
@@ -201,6 +229,7 @@ export const PortfolioFilters = React.memo(
             <MinMaxSelect
               options={filterContext.filterOptions.unitsres}
               onApply={onUnitsresApply}
+              onError={() => logPortfolioAnalytics("filterError", { column: "unitsres" })}
               id="filter-unitsres-minmax"
               onFocusInput={() => helpers.scrollToBottom(".mobile-wrapper-dropdown")}
             />
@@ -211,6 +240,7 @@ export const PortfolioFilters = React.memo(
             isActive={zipActive}
             isOpen={zipIsOpen}
             setIsOpen={setZipIsOpen}
+            onOpen={() => logPortfolioAnalytics("filterOpened", { column: "zip" })}
             initialFocus={isMobile ? undefined : "#filter-zip-multiselect input"}
             selectionsCount={filterContext.filterSelections.zip.length}
             className="zip-accordion"
@@ -220,6 +250,7 @@ export const PortfolioFilters = React.memo(
               options={zipOptionsSelect}
               onApply={onZipApply}
               noOptionsMessage={() => i18n._(t`ZIP code is not applicable`)}
+              onError={() => logPortfolioAnalytics("filterError", { column: "zip" })}
               aria-label={i18n._(t`Zip code filter`)}
               onKeyDown={helpers.preventNonNumericalInput}
             />
@@ -409,6 +440,7 @@ function FilterAccordion(props: {
   isActive: boolean;
   isOpen: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  onOpen?: () => void;
   initialFocus?: FocusTarget;
   selectionsCount?: number;
   className?: string;
@@ -424,6 +456,7 @@ function FilterAccordion(props: {
     isActive,
     isOpen,
     setIsOpen,
+    onOpen,
     initialFocus,
     selectionsCount,
     className,
@@ -449,6 +482,7 @@ function FilterAccordion(props: {
           <summary
             onClick={(e) => {
               e.preventDefault();
+              !isOpen && onOpen && onOpen();
               setIsOpen(!isOpen);
             }}
             data-selections={selectionsCount}
