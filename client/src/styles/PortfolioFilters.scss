@@ -22,10 +22,10 @@
 
 .PortfolioFilters {
   --new-container-width: 10.2rem;
-  --filter-bar-gap: 1.8rem;
+  --filter-bar-row-gap: 1.2rem;
   display: flex;
   flex-wrap: wrap;
-  gap: var(--filter-bar-gap);
+  gap: var(--filter-bar-row-gap) 1.8rem;
   padding: 1.4rem;
   background-color: $justfix-table-grey;
   text-transform: uppercase;
@@ -296,6 +296,9 @@
                 font-size: 1.8rem;
                 line-height: 100%;
               }
+              .multiselect__menu {
+                font-size: 1.6rem;
+              }
             }
             .multiselect__selected-value-container {
               @include for-tablet-portrait-up {
@@ -312,7 +315,7 @@
                   font-size: 1.6rem;
                 }
               }
-              .minmaxselect__custom-range-summary {
+              .minmaxselect__custom-range-summary span {
                 font-size: 1.6rem;
               }
               .minmaxselect__label-input-container {
@@ -447,7 +450,7 @@
     width: 100%;
     gap: 1rem;
     @include for-tablet-portrait-up() {
-      margin-left: calc(var(--new-container-width) + var(--filter-bar-gap));
+      margin-left: calc(var(--new-container-width) + var(--filter-bar-row-gap));
     }
 
     .filter-status-info {

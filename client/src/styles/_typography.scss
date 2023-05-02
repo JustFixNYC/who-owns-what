@@ -1,39 +1,8 @@
-// Copied/adapted from https://github.com/JustFixNYC/justfix-website/blob/master/src/styles/_design-system.scss
-// NOTE: wow using root 10px, org-site uses 16px. All rem units here have been adjusted
-
-// FONTS:
-
-@font-face {
-  font-family: "Degular";
-  font-weight: 400;
-  font-style: normal;
-  src: url("../fonts/Degular-Medium.woff2") format("woff2"),
-    url("../fonts/Degular-Medium.woff") format("woff");
-}
-
-@font-face {
-  font-family: "Degular";
-  font-weight: 600;
-  font-style: normal;
-  src: url("../fonts/Degular-Semibold.woff2") format("woff2"),
-    url("../fonts/Degular-Semibold.woff") format("woff");
-}
-
-@font-face {
-  font-family: "Degular Display";
-  font-weight: 400;
-  font-style: normal;
-  src: url("../fonts/Degular_Display-Medium.woff2") format("woff2"),
-    url("../fonts/Degular_Display-Medium.woff") format("woff");
-}
-
-@font-face {
-  font-family: "Suisse Int'l Mono";
-  font-weight: 400;
-  font-style: normal;
-  src: url("../fonts/SuisseIntlMono-Regular-WebS.woff2") format("woff2"),
-    url("../fonts/SuisseIntlMono-Regular-WebS.woff") format("woff");
-}
+/* 
+  Copied/adapted from https://github.com/JustFixNYC/justfix-website/blob/master/src/styles/_design-system.scss
+  - wow uses root 10px, org-site uses 16px. All rem units here have been adjusted
+  - font files have been relocated to '/public/fonts' and are preloaded/initialized in index.html
+ */
 
 $wow-font: "Inconsolata", monospace;
 $body-font: "Degular", Arial, Helvetica, sans-serif;

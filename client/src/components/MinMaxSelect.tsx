@@ -120,7 +120,9 @@ function MinMaxSelect(props: {
       </fieldset>
       <details>
         <summary className="minmaxselect__custom-range-summary">
-          <Trans>Custom Range</Trans>
+          <span>
+            <Trans>Custom Range</Trans>
+          </span>
         </summary>
         <form id={`${id || "minmaxselect"}__form`} className="minmaxselect__custom-range-container">
           {customRangeErrors.min || customRangeErrors.max ? (

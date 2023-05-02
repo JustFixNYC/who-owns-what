@@ -55,15 +55,17 @@
 
   .minmaxselect__custom-range-summary {
     display: flex;
-    font-size: 1.2rem;
-    text-transform: capitalize;
-    text-decoration: underline;
-    text-underline-position: under;
-    color: $justfix-grey-700;
     width: fit-content;
     cursor: pointer;
     &::-webkit-details-marker {
       display: none;
+    }
+    span {
+      font-size: 1.2rem;
+      text-transform: capitalize;
+      text-decoration: underline;
+      text-underline-position: under;
+      color: $justfix-grey-700;
     }
   }
   .minmaxselect__custom-range-container {

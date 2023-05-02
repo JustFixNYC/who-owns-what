@@ -133,6 +133,49 @@
         src="https://www.facebook.com/tr?id=2758942167460891&ev=PageView&noscript=1" /></noscript>
     <!-- End Facebook Pixel Code -->
 
+    <link rel="preload" href="%PUBLIC_URL%/fonts/Degular-Semibold.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="%PUBLIC_URL%/fonts/Degular-Semibold.woff" as="font" type="font/woff" crossorigin>
+    <link rel="preload" href="%PUBLIC_URL%/fonts/SuisseIntlMono-Regular-WebS.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="%PUBLIC_URL%/fonts/SuisseIntlMono-Regular-WebS.woff" as="font" type="font/woff" crossorigin>
+
+    <style>
+      @font-face {
+        font-family: "Degular";
+        font-weight: 400;
+        font-style: normal;
+        src: url("%PUBLIC_URL%/fonts/Degular-Medium.woff2") format("woff2"),
+          url("%PUBLIC_URL%/fonts/Degular-Medium.woff") format("woff");
+        unicode-range: U+00-7F, U+80-FF;  
+      }
+
+      @font-face {
+        font-family: "Degular";
+        font-weight: 600;
+        font-style: normal;
+        src: url("%PUBLIC_URL%/fonts/Degular-Semibold.woff2") format("woff2"),
+          url("%PUBLIC_URL%/fonts/Degular-Semibold.woff") format("woff");
+        unicode-range: U+00-7F, U+80-FF;  
+      }
+
+      @font-face {
+        font-family: "Degular Display";
+        font-weight: 400;
+        font-style: normal;
+        src: url("%PUBLIC_URL%/fonts/Degular_Display-Medium.woff2") format("woff2"),
+          url("%PUBLIC_URL%/fonts/Degular_Display-Medium.woff") format("woff");
+        unicode-range: U+00-7F, U+80-FF;  
+      }
+
+      @font-face {
+        font-family: "Suisse Int'l Mono";
+        font-weight: 400;
+        font-style: normal;
+        src: url("%PUBLIC_URL%/fonts/SuisseIntlMono-Regular-WebS.woff2") format("woff2"),
+          url("%PUBLIC_URL%/fonts/SuisseIntlMono-Regular-WebS.woff") format("woff");
+        unicode-range: U+00-7F, U+80-FF;  
+      }
+    </style>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;500;600&display=swap" rel="stylesheet">
