@@ -607,7 +607,7 @@ const PortfolioTableWithoutI18n = React.memo((props: PortfolioTableProps) => {
             ))}
           </thead>
           <tbody>
-            {table.getRowModel().rows.length ? (
+            {!!table.getRowModel().rows.length &&
               (activeFilters.rsunitslatestActive || activeFilters.ownernamesActive) && (
                 <tr>
                   <td
@@ -618,10 +618,7 @@ const PortfolioTableWithoutI18n = React.memo((props: PortfolioTableProps) => {
                     {activeFilters.ownernamesActive && OwnernamesResultAlert}
                   </td>
                 </tr>
-              )
-            ) : (
-              <></>
-            )}
+              )}
             {table.getRowModel().rows.map((row, i) => {
               return (
                 <Fragment key={row.id}>
