@@ -51,7 +51,7 @@ $table-border-dark: 1px solid $dark;
   }
 
   .portfolio-table-container {
-    position: relative;
+    position: absolute;
 
     th[class^="col-Evictions"] div {
       min-width: 15rem;
