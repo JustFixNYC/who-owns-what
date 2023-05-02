@@ -128,11 +128,8 @@ const PropertiesListWithoutI18n: React.FC<
     <div className="PropertiesList" ref={tableRef}>
       {isTableVisible ? (
         <FilterContextProvider>
-          {useNewPortfolioMethod ? (
-            <PortfolioFilters logPortfolioAnalytics={logPortfolioAnalytics} />
-          ) : (
-            <></>
-          )}
+          {useNewPortfolioMethod && (
+            <PortfolioFilters logPortfolioAnalytics={logPortfolioAnalytics} /> )} 
           <PortfolioTable
             data={addrs}
             headerTopSpacing={headerTopSpacing}
