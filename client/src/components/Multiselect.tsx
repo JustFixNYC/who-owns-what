@@ -8,7 +8,7 @@ import Select, {
   OptionProps,
   InputProps,
 } from "react-select";
-import { i18n } from "@lingui/core";
+import { I18n } from "@lingui/react";
 import { t, Trans } from "@lingui/macro";
 import { Alert } from "./Alert";
 import { CloseIcon, CheckIcon } from "./Icons";
@@ -109,63 +109,67 @@ function MultiSelect<
   };
 
   return (
-    <div className={classnames("multiselect-container", { "has-error": hasError })}>
-      {hasError && (
-        <Alert type="error" variant="primary" closeType="none" role="status">
-          <Trans>Make a selection from the list or clear search text</Trans>
-        </Alert>
+    <I18n>
+      {({ i18n }) => (
+        <div className={classnames("multiselect-container", { "has-error": hasError })}>
+          {hasError && (
+            <Alert type="error" variant="primary" closeType="none" role="status">
+              <Trans>Make a selection from the list or clear search text</Trans>
+            </Alert>
+          )}
+          <CustomSelect
+            isMulti={true as IsMulti}
+            classNamePrefix="multiselect"
+            className="multiselect__select-container"
+            options={options}
+            value={selections}
+            onChange={handleChange}
+            inputValue={inputValue}
+            onInputChange={handleInputChange}
+            placeholder={i18n._(t`Search`) + `... (${options!.length})`}
+            controlShouldRenderValue={false}
+            hideSelectedOptions={false}
+            openMenuOnFocus={true}
+            closeMenuOnSelect={false}
+            blurInputOnSelect={false}
+            backspaceRemovesValue={false}
+            tabSelectsValue={false}
+            components={{
+              DropdownIndicator: () => null,
+              IndicatorSeparator: () => null,
+              IndicatorsContainer: () => null,
+              ClearIndicator: () => null,
+              SelectContainer: SelectContainer,
+              Option: CustomOption,
+              Input: CustomInput,
+            }}
+            // Custom props passed through SelectProps to composable components
+            removeValue={removeValue}
+            onApply={onApply}
+            setSelections={setSelections}
+            showAllSelections={showAllSelections}
+            setShowAllSelections={setShowAllSelections}
+            previewSelectedNum={previewSelectedNum || 5}
+            {...props}
+          />
+
+          {infoAlert}
+
+          <button
+            className="button is-primary"
+            aria-label={i18n._(t`Apply selections and get results`)}
+            onClick={handleApply}
+            // By default, when multiselect option list is open mouseDown outside
+            // closes the list, so because the Apply button is below, if you try to
+            // click apply while it's open it moves on you before you can mouseUp.
+            onMouseDown={handleApply}
+            onTouchStart={handleApply}
+          >
+            <Trans>Apply</Trans>
+          </button>
+        </div>
       )}
-      <CustomSelect
-        isMulti={true as IsMulti}
-        classNamePrefix="multiselect"
-        className="multiselect__select-container"
-        options={options}
-        value={selections}
-        onChange={handleChange}
-        inputValue={inputValue}
-        onInputChange={handleInputChange}
-        placeholder={i18n._(t`Search`) + `... (${options!.length})`}
-        controlShouldRenderValue={false}
-        hideSelectedOptions={false}
-        openMenuOnFocus={true}
-        closeMenuOnSelect={false}
-        blurInputOnSelect={false}
-        backspaceRemovesValue={false}
-        tabSelectsValue={false}
-        components={{
-          DropdownIndicator: () => null,
-          IndicatorSeparator: () => null,
-          IndicatorsContainer: () => null,
-          ClearIndicator: () => null,
-          SelectContainer: SelectContainer,
-          Option: CustomOption,
-          Input: CustomInput,
-        }}
-        // Custom props passed through SelectProps to composable components
-        removeValue={removeValue}
-        onApply={onApply}
-        setSelections={setSelections}
-        showAllSelections={showAllSelections}
-        setShowAllSelections={setShowAllSelections}
-        previewSelectedNum={previewSelectedNum || 5}
-        {...props}
-      />
-
-      {infoAlert}
-
-      <button
-        className="button is-primary"
-        aria-label={i18n._(t`Apply selections and get results`)}
-        onClick={handleApply}
-        // By default, when multiselect option list is open mouseDown outside
-        // closes the list, so because the Apply button is below, if you try to
-        // click apply while it's open it moves on you before you can mouseUp.
-        onMouseDown={handleApply}
-        onTouchStart={handleApply}
-      >
-        <Trans>Apply</Trans>
-      </button>
-    </div>
+    </I18n>
   );
 }
 
@@ -218,20 +222,24 @@ function SelectedValuesContainer<
   const numSelections = getValue().length;
 
   return (
-    <div className={`${classNamePrefix}__selected-value-container`}>
-      {getValue()
-        .map(toMultiValue)
-        .filter((_value, i) => showAllSelections || i < previewSelectedNum)}
-      {!showAllSelections && numSelections > previewSelectedNum && (
-        <button
-          className={`${classNamePrefix}__show-more-button`}
-          aria-label={i18n._(t`Show all ${numSelections} selections`)}
-          onClick={() => setShowAllSelections((prev: boolean) => !prev)}
-        >
-          +{numSelections - previewSelectedNum}
-        </button>
+    <I18n>
+      {({ i18n }) => (
+        <div className={`${classNamePrefix}__selected-value-container`}>
+          {getValue()
+            .map(toMultiValue)
+            .filter((_value, i) => showAllSelections || i < previewSelectedNum)}
+          {!showAllSelections && numSelections > previewSelectedNum && (
+            <button
+              className={`${classNamePrefix}__show-more-button`}
+              aria-label={i18n._(t`Show all ${numSelections} selections`)}
+              onClick={() => setShowAllSelections((prev: boolean) => !prev)}
+            >
+              +{numSelections - previewSelectedNum}
+            </button>
+          )}
+        </div>
       )}
-    </div>
+    </I18n>
   );
 }
 
@@ -266,29 +274,34 @@ function SelectContainer<
     >
       {/* @ts-ignore (wants extra props defined like above, but since were an extra level nested it's unclear what they should be) */}
       <SelectedValuesContainer {...commonProps} />
-      <div className={`${classNamePrefix}__selected-value-control-container`}>
-        {showAllSelections && getValue().length > previewSelectedNum && (
-          <button
-            className={`${classNamePrefix}__show-less-button button is-text`}
-            onClick={() => setShowAllSelections((prev: boolean) => !prev)}
-            aria-label={i18n._(t`Show only ${previewSelectedNum} selections`)}
-          >
-            <Trans>Show less</Trans>
-          </button>
+
+      <I18n>
+        {({ i18n }) => (
+          <div className={`${classNamePrefix}__selected-value-control-container`}>
+            {showAllSelections && getValue().length > previewSelectedNum && (
+              <button
+                className={`${classNamePrefix}__show-less-button button is-text`}
+                onClick={() => setShowAllSelections((prev: boolean) => !prev)}
+                aria-label={i18n._(t`Show only ${previewSelectedNum} selections`)}
+              >
+                <Trans>Show less</Trans>
+              </button>
+            )}
+            {getValue().length > 0 && (
+              <button
+                className={`${classNamePrefix}__clear-value-button button is-text`}
+                aria-label={i18n._(t`Clear all selections`)}
+                onClick={() => {
+                  setSelections([]);
+                  onApply([]);
+                }}
+              >
+                <Trans>Clear</Trans>
+              </button>
+            )}
+          </div>
         )}
-        {getValue().length > 0 && (
-          <button
-            className={`${classNamePrefix}__clear-value-button button is-text`}
-            aria-label={i18n._(t`Clear all selections`)}
-            onClick={() => {
-              setSelections([]);
-              onApply([]);
-            }}
-          >
-            <Trans>Clear</Trans>
-          </button>
-        )}
-      </div>
+      </I18n>
       {children}
     </components.SelectContainer>
   );
