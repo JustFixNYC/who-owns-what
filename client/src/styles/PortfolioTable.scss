@@ -11,7 +11,8 @@ $table-border-dark: 1px solid $dark;
   // "::before" component doesn't overflow past the edge of the PropertiesTable
   // container, and the z-indexes ensure it doesn't cover the pagignation
   // controls
-  overflow: auto;
+  overflow: scroll;
+  position: sticky;
 
   // Add right-side fade out when list is scrollable:
   &::before {
@@ -62,7 +63,6 @@ $table-border-dark: 1px solid $dark;
     }
 
     table {
-      table-layout: fixed;
       border-left: none;
       border-color: $gray-dark;
       border-collapse: separate;
