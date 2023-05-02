@@ -202,7 +202,6 @@ const PortfolioFiltersWithoutI18n = React.memo(
             isOpen={ownernamesIsOpen}
             setIsOpen={setOwnernamesIsOpen}
             onOpen={() => logPortfolioAnalytics("filterOpened", { column: "ownernames" })}
-            initialFocus={isMobile ? undefined : "#filter-ownernames-multiselect input"}
             selectionsCount={filterContext.filterSelections.ownernames.length}
             className="ownernames-accordion"
           >
@@ -222,7 +221,6 @@ const PortfolioFiltersWithoutI18n = React.memo(
             isActive={unitsresActive}
             isOpen={unitsresIsOpen}
             onOpen={() => logPortfolioAnalytics("filterOpened", { column: "unitsres" })}
-            initialFocus={isMobile ? undefined : "#filter-unitsres-minmax_min-input"}
             setIsOpen={setUnitsresIsOpen}
             className="unitsres-accordion"
           >
@@ -241,7 +239,6 @@ const PortfolioFiltersWithoutI18n = React.memo(
             isOpen={zipIsOpen}
             setIsOpen={setZipIsOpen}
             onOpen={() => logPortfolioAnalytics("filterOpened", { column: "zip" })}
-            initialFocus={isMobile ? undefined : "#filter-zip-multiselect input"}
             selectionsCount={filterContext.filterSelections.zip.length}
             className="zip-accordion"
           >
