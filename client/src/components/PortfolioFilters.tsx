@@ -6,7 +6,7 @@ import { CheckIcon, ChevronIcon, CloseIcon, InfoIcon } from "./Icons";
 import {
   FilterContext,
   FilterNumberRange,
-  LogPortfolioAnalytics,
+  PortfolioAnalyticsEvent,
   NUMBER_RANGE_DEFAULT,
 } from "./PropertiesList";
 import FocusTrap from "focus-trap-react";
@@ -25,7 +25,7 @@ import MinMaxSelect from "./MinMaxSelect";
 import "styles/PortfolioFilters.scss";
 
 type PortfolioFilterProps = withI18nProps & {
-  logPortfolioAnalytics: LogPortfolioAnalytics;
+  logPortfolioAnalytics: PortfolioAnalyticsEvent;
 };
 
 const PortfolioFiltersWithoutI18n = React.memo(
