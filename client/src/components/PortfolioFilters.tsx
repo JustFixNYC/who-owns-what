@@ -176,7 +176,6 @@ export const PortfolioFilters = React.memo(
             isActive={ownernamesActive}
             isOpen={ownernamesIsOpen}
             setIsOpen={setOwnernamesIsOpen}
-            initialFocus={isMobile ? undefined : "#filter-ownernames-multiselect input"}
             selectionsCount={filterContext.filterSelections.ownernames.length}
             className="ownernames-accordion"
           >
@@ -194,7 +193,6 @@ export const PortfolioFilters = React.memo(
             isMobile={isMobile}
             isActive={unitsresActive}
             isOpen={unitsresIsOpen}
-            initialFocus={isMobile ? undefined : "#filter-unitsres-minmax_min-input"}
             setIsOpen={setUnitsresIsOpen}
             className="unitsres-accordion"
           >
@@ -211,7 +209,6 @@ export const PortfolioFilters = React.memo(
             isActive={zipActive}
             isOpen={zipIsOpen}
             setIsOpen={setZipIsOpen}
-            initialFocus={isMobile ? undefined : "#filter-zip-multiselect input"}
             selectionsCount={filterContext.filterSelections.zip.length}
             className="zip-accordion"
           >
