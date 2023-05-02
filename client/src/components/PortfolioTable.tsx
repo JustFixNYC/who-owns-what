@@ -23,15 +23,16 @@ import _groupBy from "lodash/groupBy";
 import React, { Fragment } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { createRouteForFullBbl } from "routes";
-import { I18n, i18n } from "@lingui/core";
+import { I18n } from "@lingui/core";
+import { withI18n, withI18nProps } from "@lingui/react";
 import { SupportedLocale } from "../i18n-base";
 import Helpers, { longDateOptions } from "../util/helpers";
-import { logAmplitudeEvent } from "./Amplitude";
 import { AddressRecord, HpdComplaintCount } from "./APIDataTypes";
 import {
   FilterContext,
   FilterNumberRange,
   IFilterContext,
+  PortfolioAnalyticsEvent,
   NUMBER_RANGE_DEFAULT,
 } from "./PropertiesList";
 import "styles/PortfolioTable.scss";
@@ -75,20 +76,21 @@ const inNumberRanges: FilterFn<any> = (
   );
 };
 
-type PortfolioTableProps = {
+type PortfolioTableProps = withI18nProps & {
   data: AddressRecord[];
   headerTopSpacing: number | undefined;
   locale: SupportedLocale;
   rsunitslatestyear: number;
   getRowCanExpand: (row: Row<AddressRecord>) => boolean;
+  logPortfolioAnalytics: PortfolioAnalyticsEvent;
 };
 
 /**
  * This component memoizes the portfolio table via React.memo
  * in an attempt to improve performance, particularly on IE11.
  */
-export const PortfolioTable = React.memo((props: PortfolioTableProps) => {
-  const { data, locale, rsunitslatestyear, getRowCanExpand } = props;
+const PortfolioTableWithoutI18n = React.memo((props: PortfolioTableProps) => {
+  const { data, locale, rsunitslatestyear, getRowCanExpand, logPortfolioAnalytics, i18n } = props;
 
   const { pathname } = useLocation();
 
@@ -140,7 +142,10 @@ export const PortfolioTable = React.memo((props: PortfolioTableProps) => {
         header: () => i18n._(t`Address`),
         cell: ({ row }) => {
           return (
-            <Link to={createRouteForFullBbl(row.original.bbl, locale, isLegacyPath(pathname))}>
+            <Link
+              to={createRouteForFullBbl(row.original.bbl, locale, isLegacyPath(pathname))}
+              onClick={() => logPortfolioAnalytics("addressChangePortfolio", { column: "address" })}
+            >
               {row.original.housenumber} {row.original.streetname}
             </Link>
           );
@@ -175,7 +180,10 @@ export const PortfolioTable = React.memo((props: PortfolioTableProps) => {
             header: "BBL",
             cell: ({ row }) => {
               return (
-                <Link to={createRouteForFullBbl(row.original.bbl, locale, isLegacyPath(pathname))}>
+                <Link
+                  to={createRouteForFullBbl(row.original.bbl, locale, isLegacyPath(pathname))}
+                  onClick={() => logPortfolioAnalytics("addressChangePortfolio", { column: "bbl" })}
+                >
                   {row.original.bbl}
                 </Link>
               );
@@ -365,7 +373,14 @@ export const PortfolioTable = React.memo((props: PortfolioTableProps) => {
                   <span className="col-ownernames-last-word">
                     {contactWords.slice(-1)}
                     {row.getCanExpand() && contacts && contacts.length > 1 ? (
-                      <button className="contacts-expand" onClick={row.getToggleExpandedHandler()}>
+                      <button
+                        className="contacts-expand"
+                        onClick={() => {
+                          row.getToggleExpandedHandler()();
+                          !row.getIsExpanded() &&
+                            logPortfolioAnalytics("portfolioRowExpanded", { column: "ownernames" });
+                        }}
+                      >
                         +{contacts.length - 1}
                       </button>
                     ) : (
@@ -434,8 +449,9 @@ export const PortfolioTable = React.memo((props: PortfolioTableProps) => {
               row.original.lastsaleacrisid ? (
                 <a
                   onClick={() => {
-                    logAmplitudeEvent("portfolioLinktoDeed");
-                    window.gtag("event", "portfolio-link-to-deed");
+                    logPortfolioAnalytics("portfolioLinktoDeed", {
+                      gtmEvent: "portfolio-link-to-deed",
+                    });
                   }}
                   href={`https://a836-acris.nyc.gov/DS/DocumentSearch/DocumentImageView?doc_id=${row.original.lastsaleacrisid}`}
                   className="btn"
@@ -484,10 +500,9 @@ export const PortfolioTable = React.memo((props: PortfolioTableProps) => {
                 to={createRouteForFullBbl(row.original.bbl, locale, isLegacyPath(pathname))}
                 className="btn"
                 aria-label={i18n._(t`View Detail`)}
-                onClick={() => {
-                  logAmplitudeEvent("portfolioViewDetail");
-                  window.gtag("event", "portfolio-view-detail");
-                }}
+                onClick={() =>
+                  logPortfolioAnalytics("addressChangePortfolio", { column: "detail" })
+                }
               >
                 <span style={{ padding: "0 3px" }}>&#10142;</span>
               </Link>
@@ -566,7 +581,12 @@ export const PortfolioTable = React.memo((props: PortfolioTableProps) => {
                               className: header.column.getCanSort()
                                 ? "cursor-pointer select-none"
                                 : "",
-                              onClick: header.column.getToggleSortingHandler(),
+                              onClick: () => {
+                                header.column.getToggleSortingHandler();
+                                logPortfolioAnalytics("portfolioColumnSort", {
+                                  column: header.column.id,
+                                });
+                              },
                             }}
                             ref={header.column.id === "detail" ? lastColumnRef : undefined}
                           >
@@ -587,7 +607,7 @@ export const PortfolioTable = React.memo((props: PortfolioTableProps) => {
             ))}
           </thead>
           <tbody>
-            {table.getRowModel().rows.length &&
+            {!!table.getRowModel().rows.length &&
               (activeFilters.rsunitslatestActive || activeFilters.ownernamesActive) && (
                 <tr>
                   <td
@@ -639,7 +659,12 @@ export const PortfolioTable = React.memo((props: PortfolioTableProps) => {
         <div className="prev">
           <button
             className="page-btn"
-            onClick={() => table.previousPage()}
+            onClick={() => {
+              table.previousPage();
+              logPortfolioAnalytics("portfolioPagination", {
+                extraParams: { paginationType: "previous" },
+              });
+            }}
             disabled={!table.getCanPreviousPage()}
           >
             {i18n._(t`Previous`)}
@@ -657,6 +682,9 @@ export const PortfolioTable = React.memo((props: PortfolioTableProps) => {
                 onChange={(e) => {
                   const page = e.target.value ? Number(e.target.value) - 1 : 0;
                   table.setPageIndex(page);
+                  logPortfolioAnalytics("portfolioPagination", {
+                    extraParams: { paginationType: "custom" },
+                  });
                 }}
               />
             </div>
@@ -666,6 +694,9 @@ export const PortfolioTable = React.memo((props: PortfolioTableProps) => {
             value={table.getState().pagination.pageSize}
             onChange={(e) => {
               table.setPageSize(Number(e.target.value));
+              logPortfolioAnalytics("portfolioPagination", {
+                extraParams: { paginationType: "size" },
+              });
             }}
           >
             {[10, 20, 50, 100, 500].map((pageSize) => (
@@ -678,7 +709,12 @@ export const PortfolioTable = React.memo((props: PortfolioTableProps) => {
         <div className="next">
           <button
             className="page-btn"
-            onClick={() => table.nextPage()}
+            onClick={() => {
+              table.nextPage();
+              logPortfolioAnalytics("portfolioPagination", {
+                extraParams: { paginationType: "next" },
+              });
+            }}
             disabled={!table.getCanNextPage()}
           >
             {i18n._(t`Next`)}
@@ -788,3 +824,7 @@ function compareAlphaNumLast(a: string, b: string) {
   }
   return startsNumeric(a) ? 1 : -1;
 }
+
+const PortfolioTable = withI18n()(PortfolioTableWithoutI18n);
+
+export default PortfolioTable;

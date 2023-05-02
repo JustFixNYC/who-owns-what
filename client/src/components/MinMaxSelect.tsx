@@ -1,6 +1,6 @@
 import React, { InputHTMLAttributes } from "react";
 import { Trans, t } from "@lingui/macro";
-import { i18n } from "@lingui/core";
+import { I18n } from "@lingui/react";
 import classnames from "classnames";
 import helpers from "util/helpers";
 import { Alert } from "./Alert";
@@ -22,10 +22,11 @@ const PRESETS_DEFAULT = [
 function MinMaxSelect(props: {
   options: FilterNumberRange;
   onApply: (selections: FilterNumberRange[]) => void;
+  onError?: () => void;
   id?: string;
   onFocusInput?: () => void;
 }) {
-  const { options, onApply, id, onFocusInput } = props;
+  const { options, onApply, onError, id, onFocusInput } = props;
   const [customRange, setCustomRange] = React.useState<FilterNumberRange>(NUMBER_RANGE_DEFAULT);
   const [customRangeErrors, setCustomRangeErrors] = React.useState<CustomRangeErrors>(
     CUSTOM_RANGE_ERRORS_DEFAULT
@@ -46,6 +47,7 @@ function MinMaxSelect(props: {
     if (isFinite(customRange.min) || isFinite(customRange.max)) {
       const errors = minMaxHasError(customRange, options);
       if (errors.min || errors.max) {
+        onError && onError();
         setCustomRangeErrors(errors);
         return;
       }
@@ -190,15 +192,19 @@ function MinMaxSelect(props: {
           </div>
         </form>
       </details>
-      <button
-        type="submit"
-        form={`${id || "minmaxselect"}__form`}
-        className="button is-primary"
-        aria-label={i18n._(t`Apply selections and get results`)}
-        onClick={handleApply}
-      >
-        <Trans>Apply</Trans>
-      </button>
+      <I18n>
+        {({ i18n }) => (
+          <button
+            type="submit"
+            form={`${id || "minmaxselect"}__form`}
+            className="button is-primary"
+            aria-label={i18n._(t`Apply selections and get results`)}
+            onClick={handleApply}
+          >
+            <Trans>Apply</Trans>
+          </button>
+        )}
+      </I18n>
     </div>
   );
 }
