@@ -62,7 +62,7 @@ const FilterContextProvider: React.FC<{}> = (props) => {
   return <FilterContext.Provider value={useValue()}>{props.children}</FilterContext.Provider>;
 };
 
-export type LogPortfolioAnalytics = (
+export type PortfolioAnalyticsEvent = (
   event: AmplitudeEvent,
   extraProps: {
     column?: string;
@@ -83,7 +83,7 @@ const PropertiesListWithoutI18n: React.FC<
   const addrs = props.state.context.portfolioData.assocAddrs;
   const rsunitslatestyear = props.state.context.portfolioData.searchAddr.rsunitslatestyear;
 
-  const logPortfolioAnalytics: LogPortfolioAnalytics = (event, extraProps) => {
+  const logPortfolioAnalytics: PortfolioAnalyticsEvent = (event, extraProps) => {
     const { column, extraParams, gtmEvent } = extraProps;
     const portfolioColumn = !!column && { portfolioColumn: column };
     const eventParams = {
@@ -129,7 +129,8 @@ const PropertiesListWithoutI18n: React.FC<
       {isTableVisible ? (
         <FilterContextProvider>
           {useNewPortfolioMethod && (
-            <PortfolioFilters logPortfolioAnalytics={logPortfolioAnalytics} /> )} 
+            <PortfolioFilters logPortfolioAnalytics={logPortfolioAnalytics} />
+          )}
           <PortfolioTable
             data={addrs}
             headerTopSpacing={headerTopSpacing}

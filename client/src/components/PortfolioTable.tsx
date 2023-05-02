@@ -31,7 +31,7 @@ import {
   FilterContext,
   FilterNumberRange,
   IFilterContext,
-  LogPortfolioAnalytics,
+  PortfolioAnalyticsEvent,
   NUMBER_RANGE_DEFAULT,
 } from "./PropertiesList";
 import "styles/PortfolioTable.scss";
@@ -81,7 +81,7 @@ type PortfolioTableProps = {
   locale: SupportedLocale;
   rsunitslatestyear: number;
   getRowCanExpand: (row: Row<AddressRecord>) => boolean;
-  logPortfolioAnalytics: LogPortfolioAnalytics;
+  logPortfolioAnalytics: PortfolioAnalyticsEvent;
 };
 
 /**
