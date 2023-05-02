@@ -230,7 +230,7 @@ class DetailViewWithoutI18n extends Component<Props, State> {
               <div className="DetailView__card card">
                 <div className="DetailView__mobilePortfolioView">
                   <button onClick={() => this.props.onCloseDetail()}>
-                    &#10229; <Trans render="span">View portfolio map</Trans>
+                    <Trans render="span">View portfolio map</Trans>
                   </button>
                 </div>
                 <div className="card-image show-lg">{streetView}</div>
