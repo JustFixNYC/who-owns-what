@@ -284,6 +284,12 @@
             @include for-phone-only {
               padding: 0;
 
+              .multiselect__menu,
+              .multiselect__control,
+              .multiselect__selected-value-control-container {
+                width: 75%;
+              }
+
               .multiselect__input-container,
               .multiselect__placeholder {
                 height: 5rem;
@@ -292,7 +298,6 @@
               .multiselect__input-container,
               .multiselect__placeholder,
               .multiselect__menu {
-                width: 75%;
                 font-size: 1.8rem;
                 line-height: 100%;
               }
