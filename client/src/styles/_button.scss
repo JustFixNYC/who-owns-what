@@ -222,6 +222,7 @@
 .button.is-text {
   padding: 0;
   color: $justfix-black;
+  display: flex; // needed for IOS issue with hidden underline position under
   text-decoration: underline;
   text-underline-position: under;
   &:focus,
