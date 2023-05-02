@@ -63,6 +63,7 @@ $table-border-dark: 1px solid $dark;
     }
 
     table {
+      table-layout: fixed;
       border-left: none;
       border-color: $gray-dark;
       border-collapse: separate;
