@@ -50,23 +50,25 @@ function MinMaxSelect({
 
   const hasCustomInputs = isFinite(customRange.min) || isFinite(customRange.max);
 
-  // React.useEffect(() => {
-  //   if (!isOpen) {
-  //     console.log({defaultSelections})
-  //     if (defaultSelections[0].min !== -Infinity) {
-  //       setCustomRange(defaultSelections[0]);
-  //       setPresets(PRESETS_DEFAULT);
-  //     } else if (defaultSelections.length > 1) {
-  //       setCustomRange(NUMBER_RANGE_DEFAULT);
-  //       const selectionMinValues = defaultSelections.map((rng) => rng.min);
-  //       const presetSelections = PRESETS_DEFAULT.map((preset) => {
-  //         return { ...preset, checked: selectionMinValues.includes(preset.min) };
-  //       });
-  //       console.log({selectionMinValues, presetSelections})
-  //       setPresets(presetSelections);
-  //     }
-  //   }
-  // }, [isOpen, defaultSelections]); // eslint-disable-line react-hooks/exhaustive-deps
+  React.useEffect(() => {
+    if (!isOpen) {
+      if (defaultSelections.type === "custom") {
+        setCustomRange(defaultSelections.values[0]);
+        setPresets((prev) => prev.map((preset) => ({ ...preset, checked: false })));
+      } else if (defaultSelections.type === "presets") {
+        setCustomRange(NUMBER_RANGE_DEFAULT);
+        const selectionMinValues = defaultSelections.values.map((rng) => rng.min);
+        const presetSelections = PRESETS_DEFAULT.map((preset) => {
+          return { ...preset, checked: selectionMinValues.includes(preset.min) };
+        });
+        setPresets(presetSelections);
+        console.log({ defaultSelections, selectionMinValues, presetSelections });
+      } else {
+        setCustomRange(NUMBER_RANGE_DEFAULT);
+        setPresets((prev) => prev.map((preset) => ({ ...preset, checked: false })));
+      }
+    }
+  }, [isOpen, defaultSelections]);
 
   const handlePresetChange = (preset: Preset, i: number) => {
     setPresets((prev) => {
@@ -119,25 +121,28 @@ function MinMaxSelect({
         aria-labelledby={`${id || "minmax-select"}__preset-a11y-text`}
         tabIndex={hasCustomInputs ? 0 : -1}
       >
-        {presets.map((preset, i) => (
-          <div className="minmaxselect__preset-value" key={i}>
-            <input
-              type="checkbox"
-              id={`minmaxselect__preset-${i}`}
-              name={`minmaxselect__preset-${i}`}
-              className={classnames({ checked: preset.checked })}
-              aria-describedby={`${id || "minmax-select"}__preset-a11y-text`}
-              onChange={() => handlePresetChange(preset, i)}
-              disabled={hasCustomInputs}
-              aria-hidden={hasCustomInputs}
-              checked={preset.checked}
-            />
-            <label htmlFor={`minmaxselect__preset-${i}`}>
-              {preset.min}
-              {isFinite(preset.max) ? `-${preset.max}` : "+"}
-            </label>
-          </div>
-        ))}
+        {presets.map((preset, i) => {
+          console.log({ presets });
+          return (
+            <div className="minmaxselect__preset-value" key={i}>
+              <input
+                type="checkbox"
+                id={`minmaxselect__preset-${i}`}
+                name={`minmaxselect__preset-${i}`}
+                className={classnames({ checked: preset.checked })}
+                aria-describedby={`${id || "minmax-select"}__preset-a11y-text`}
+                onChange={() => handlePresetChange(preset, i)}
+                disabled={hasCustomInputs}
+                aria-hidden={hasCustomInputs}
+                checked={preset.checked}
+              />
+              <label htmlFor={`minmaxselect__preset-${i}`}>
+                {preset.min}
+                {isFinite(preset.max) ? `-${preset.max}` : "+"}
+              </label>
+            </div>
+          );
+        })}
         <span
           id={`${id || "minmax-select"}__preset-a11y-text`}
           className="minmaxselect__a11y-text"
