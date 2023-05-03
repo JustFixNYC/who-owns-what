@@ -217,6 +217,11 @@
             width: 16.5rem;
           }
         }
+        @include for-phone-only {
+          &:not(.filters-mobile-wrapper) .dropdown-container {
+            overflow-y: hidden;
+          }
+        }
 
         .dropdown-container {
           position: absolute;
