@@ -217,6 +217,10 @@
             width: 16.5rem;
           }
         }
+
+        .dropdown-container {
+          overflow-y: scroll;
+        }
         @include for-phone-only {
           &:not(.filters-mobile-wrapper) .dropdown-container {
             overflow-y: hidden;
@@ -228,7 +232,6 @@
           top: 5rem;
           left: -0.1rem;
           z-index: 10;
-          overflow-y: scroll;
           background-color: $justfix-table-grey;
           box-sizing: border-box;
           border: 0.1rem solid $justfix-black;
