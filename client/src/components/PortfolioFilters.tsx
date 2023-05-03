@@ -5,9 +5,9 @@ import React from "react";
 import { CheckIcon, ChevronIcon, CloseIcon, InfoIcon } from "./Icons";
 import {
   FilterContext,
-  FilterNumberRange,
   PortfolioAnalyticsEvent,
   NUMBER_RANGE_DEFAULT,
+  FilterNumberRangeSelections,
 } from "./PropertiesList";
 import FocusTrap from "focus-trap-react";
 import { FocusTarget } from "focus-trap";
@@ -40,7 +40,11 @@ const PortfolioFiltersWithoutI18n = React.memo(
     const { filterContext, setFilterContext } = React.useContext(FilterContext);
     const { filteredBuildings } = filterContext;
     const { ownernames: ownernamesOptions, zip: zipOptions } = filterContext.filterOptions;
-    const { ownernames: ownernamesSelections, zip: zipSelections } = filterContext.filterSelections;
+    const {
+      ownernames: ownernamesSelections,
+      unitsres: unitsresSelections,
+      zip: zipSelections,
+    } = filterContext.filterSelections;
 
     const { i18n, logPortfolioAnalytics } = props;
 
@@ -66,6 +70,7 @@ const PortfolioFiltersWithoutI18n = React.memo(
         column: "ownernames",
       });
       setOwnernamesActive(!!selectedList.length);
+      setOwnernamesIsOpen(false);
       setFilterContext({
         ...filterContext,
         filterSelections: {
@@ -73,13 +78,12 @@ const PortfolioFiltersWithoutI18n = React.memo(
           ownernames: selectedList,
         },
       });
-      setOwnernamesIsOpen(false);
     };
 
     const [unitsresActive, setUnitsresActive] = React.useState(false);
     const [unitsresIsOpen, setUnitsresIsOpen] = React.useState(false);
-    const onUnitsresApply = (selections: FilterNumberRange[]) => {
-      const updatedIsActive = isFinite(selections[0].min) || isFinite(selections[0].max);
+    const onUnitsresApply = (selections: FilterNumberRangeSelections) => {
+      const updatedIsActive = selections.type !== "default";
       logPortfolioAnalytics(!updatedIsActive ? "filterCleared" : "filterApplied", {
         column: "unitsres",
       });
@@ -122,7 +126,7 @@ const PortfolioFiltersWithoutI18n = React.memo(
         filterSelections: {
           rsunitslatest: false,
           ownernames: [],
-          unitsres: [NUMBER_RANGE_DEFAULT],
+          unitsres: { type: "default", values: [NUMBER_RANGE_DEFAULT] },
           zip: [],
         },
       });
@@ -225,6 +229,8 @@ const PortfolioFiltersWithoutI18n = React.memo(
               onError={() => logPortfolioAnalytics("filterError", { column: "unitsres" })}
               id="filter-unitsres-minmax"
               onFocusInput={() => helpers.scrollToBottom(".mobile-wrapper-dropdown")}
+              isOpen={unitsresIsOpen}
+              defaultSelections={unitsresSelections}
             />
           </FilterAccordion>
           <FilterAccordion

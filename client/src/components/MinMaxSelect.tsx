@@ -4,7 +4,11 @@ import { I18n } from "@lingui/react";
 import classnames from "classnames";
 import helpers from "util/helpers";
 import { Alert } from "./Alert";
-import { FilterNumberRange, NUMBER_RANGE_DEFAULT } from "./PropertiesList";
+import {
+  FilterNumberRange,
+  FilterNumberRangeSelections,
+  NUMBER_RANGE_DEFAULT,
+} from "./PropertiesList";
 
 type CustomRangeErrors = { min: boolean; max: boolean; msg: JSX.Element | undefined };
 const CUSTOM_RANGE_ERRORS_DEFAULT = { min: false, max: false, msg: undefined };
@@ -19,14 +23,25 @@ const PRESETS_DEFAULT = [
   { min: 200, max: Infinity, checked: false },
 ];
 
-function MinMaxSelect(props: {
+type MinMaxSelectProps = {
   options: FilterNumberRange;
-  onApply: (selections: FilterNumberRange[]) => void;
+  onApply: (selections: FilterNumberRangeSelections) => void;
+  isOpen: boolean;
+  defaultSelections: FilterNumberRangeSelections;
   onError?: () => void;
   id?: string;
   onFocusInput?: () => void;
-}) {
-  const { options, onApply, onError, id, onFocusInput } = props;
+};
+
+function MinMaxSelect({
+  options,
+  onApply,
+  isOpen,
+  defaultSelections,
+  onError,
+  id,
+  onFocusInput,
+}: MinMaxSelectProps) {
   const [customRange, setCustomRange] = React.useState<FilterNumberRange>(NUMBER_RANGE_DEFAULT);
   const [customRangeErrors, setCustomRangeErrors] = React.useState<CustomRangeErrors>(
     CUSTOM_RANGE_ERRORS_DEFAULT
@@ -34,6 +49,24 @@ function MinMaxSelect(props: {
   const [presets, setPresets] = React.useState<Preset[]>(PRESETS_DEFAULT);
 
   const hasCustomInputs = isFinite(customRange.min) || isFinite(customRange.max);
+
+  // React.useEffect(() => {
+  //   if (!isOpen) {
+  //     console.log({defaultSelections})
+  //     if (defaultSelections[0].min !== -Infinity) {
+  //       setCustomRange(defaultSelections[0]);
+  //       setPresets(PRESETS_DEFAULT);
+  //     } else if (defaultSelections.length > 1) {
+  //       setCustomRange(NUMBER_RANGE_DEFAULT);
+  //       const selectionMinValues = defaultSelections.map((rng) => rng.min);
+  //       const presetSelections = PRESETS_DEFAULT.map((preset) => {
+  //         return { ...preset, checked: selectionMinValues.includes(preset.min) };
+  //       });
+  //       console.log({selectionMinValues, presetSelections})
+  //       setPresets(presetSelections);
+  //     }
+  //   }
+  // }, [isOpen, defaultSelections]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handlePresetChange = (preset: Preset, i: number) => {
     setPresets((prev) => {
@@ -51,17 +84,19 @@ function MinMaxSelect(props: {
         setCustomRangeErrors(errors);
         return;
       }
-      onApply([customRange]);
-    } else {
-      const presetSelections = presets
-        .filter((preset) => preset.checked)
-        .map((preset) => {
-          const { checked, ...range } = preset;
-          return range;
-        });
-      const selections = presetSelections.length ? presetSelections : [NUMBER_RANGE_DEFAULT];
-      onApply(selections);
+      onApply({ type: "custom", values: [customRange] });
+      return;
     }
+
+    const presetSelections = presets
+      .filter((preset) => preset.checked)
+      .map((preset) => {
+        const { checked, ...range } = preset;
+        return range;
+      });
+    !!presetSelections.length
+      ? onApply({ type: "presets", values: presetSelections })
+      : onApply({ type: "default", values: [NUMBER_RANGE_DEFAULT] });
   };
 
   const commonInputProps: InputHTMLAttributes<HTMLInputElement> = {
