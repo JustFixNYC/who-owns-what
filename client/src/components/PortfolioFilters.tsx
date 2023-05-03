@@ -40,6 +40,7 @@ const PortfolioFiltersWithoutI18n = React.memo(
     const { filterContext, setFilterContext } = React.useContext(FilterContext);
     const { filteredBuildings } = filterContext;
     const { ownernames: ownernamesOptions, zip: zipOptions } = filterContext.filterOptions;
+    const { ownernames: ownernamesSelections, zip: zipSelections } = filterContext.filterSelections;
 
     const { i18n, logPortfolioAnalytics } = props;
 
@@ -60,12 +61,11 @@ const PortfolioFiltersWithoutI18n = React.memo(
 
     const [ownernamesActive, setOwnernamesActive] = React.useState(false);
     const [ownernamesIsOpen, setOwnernamesIsOpen] = React.useState(false);
-    const onOwnernamesApply = (selectedList: any) => {
+    const onOwnernamesApply = (selectedList: string[]) => {
       logPortfolioAnalytics(!selectedList.length ? "filterCleared" : "filterApplied", {
         column: "ownernames",
       });
       setOwnernamesActive(!!selectedList.length);
-      setOwnernamesIsOpen(false);
       setFilterContext({
         ...filterContext,
         filterSelections: {
@@ -73,6 +73,7 @@ const PortfolioFiltersWithoutI18n = React.memo(
           ownernames: selectedList,
         },
       });
+      setOwnernamesIsOpen(false);
     };
 
     const [unitsresActive, setUnitsresActive] = React.useState(false);
@@ -95,7 +96,7 @@ const PortfolioFiltersWithoutI18n = React.memo(
 
     const [zipActive, setZipActive] = React.useState(false);
     const [zipIsOpen, setZipIsOpen] = React.useState(false);
-    const onZipApply = (selectedList: any) => {
+    const onZipApply = (selectedList: string[]) => {
       logPortfolioAnalytics(!selectedList.length ? "filterCleared" : "filterApplied", {
         column: "zip",
       });
@@ -126,14 +127,6 @@ const PortfolioFiltersWithoutI18n = React.memo(
         },
       });
     };
-
-    const zipOptionsSelect: Option[] = zipOptions
-      ? zipOptions.map((val: string) => ({ value: val, label: val }))
-      : [];
-
-    const ownernamesOptionsSelect: Option[] = ownernamesOptions
-      ? ownernamesOptions.map((val: string) => ({ value: val, label: val }))
-      : [];
 
     const activeFilters = { rsunitslatestActive, ownernamesActive, unitsresActive, zipActive };
 
@@ -207,11 +200,13 @@ const PortfolioFiltersWithoutI18n = React.memo(
           >
             <MultiSelect
               id="filter-ownernames-multiselect"
-              options={ownernamesOptionsSelect}
+              options={valuesAsMultiselectOptions(ownernamesOptions)}
               onApply={onOwnernamesApply}
               onError={() => logPortfolioAnalytics("filterError", { column: "ownernames" })}
               infoAlert={OwnernamesInfoAlert}
               aria-label={i18n._(t`Landlord filter`)}
+              isOpen={ownernamesIsOpen}
+              defaultSelections={valuesAsMultiselectOptions(ownernamesSelections)}
             />
           </FilterAccordion>
           <FilterAccordion
@@ -244,12 +239,14 @@ const PortfolioFiltersWithoutI18n = React.memo(
           >
             <MultiSelect
               id="filter-zip-multiselect"
-              options={zipOptionsSelect}
+              options={valuesAsMultiselectOptions(zipOptions)}
               onApply={onZipApply}
               noOptionsMessage={() => i18n._(t`ZIP code is not applicable`)}
               onError={() => logPortfolioAnalytics("filterError", { column: "zip" })}
               aria-label={i18n._(t`Zip code filter`)}
               onKeyDown={helpers.preventNonNumericalInput}
+              isOpen={zipIsOpen}
+              defaultSelections={valuesAsMultiselectOptions(zipSelections)}
             />
           </FilterAccordion>
         </FiltersWrapper>
@@ -523,6 +520,13 @@ const FilterAccordion = withI18n()((props: FilterAccordionProps) => {
     </>
   );
 });
+
+function valuesAsMultiselectOptions(values: string[]): Option[] {
+  const formattedOptions: Option[] = values
+    ? values.map((val: string) => ({ value: val, label: val }))
+    : [];
+  return formattedOptions;
+}
 
 const PortfolioFilters = withI18n()(PortfolioFiltersWithoutI18n);
 

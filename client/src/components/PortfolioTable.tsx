@@ -792,9 +792,9 @@ function useFilterSelectionsUpdater(filterContext: IFilterContext, table: Table<
   React.useEffect(() => {
     const { rsunitslatest, ownernames, unitsres, zip } = filterContext.filterSelections;
     table.getColumn("rsunitslatest").setFilterValue(rsunitslatest);
-    table.getColumn("ownernames").setFilterValue(ownernames!.map((item: any) => item.name));
+    table.getColumn("ownernames").setFilterValue(ownernames);
     table.getColumn("unitsres").setFilterValue(unitsres);
-    table.getColumn("zip").setFilterValue(zip!.map((item: any) => item.name));
+    table.getColumn("zip").setFilterValue(zip);
   }, [filterContext.filterSelections]);
 }
 
