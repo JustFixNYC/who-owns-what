@@ -8,7 +8,7 @@ import Loader from "../components/Loader";
 
 import "styles/PropertiesMap.css";
 import "mapbox-gl/src/css/mapbox-gl.css";
-import { Trans, Select } from "@lingui/macro";
+import { Trans } from "@lingui/macro";
 import { AddressRecord } from "./APIDataTypes";
 import { FitBounds, Props as MapboxMapProps } from "react-mapbox-gl/lib/map";
 import { Events as MapboxMapEvents } from "react-mapbox-gl/lib/map-events";
@@ -226,7 +226,6 @@ export default class PropertiesMap extends Component<Props, State> {
   };
 
   render() {
-    const browserType = Browser.isMobile() ? "mobile" : "other";
     const { useNewPortfolioMethod } = this.props.state.context;
 
     const { detailAddr } = this.getPortfolioData();
@@ -334,13 +333,6 @@ export default class PropertiesMap extends Component<Props, State> {
             <Trans render="li">search address</Trans>
             <Trans render="li">associated building</Trans>
           </ul>
-        </div>
-        <div className="PropertiesMap__prompt">
-          <p>
-            <Trans render="i">
-              (<Select value={browserType} mobile="tap" other="click" /> to view details)
-            </Trans>
-          </p>
         </div>
       </div>
     );
