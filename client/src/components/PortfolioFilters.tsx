@@ -489,7 +489,7 @@ const FilterAccordion = withI18n()((props: FilterAccordionProps) => {
             aria-label={i18n._(t`Filter`)}
           >
             {title}
-            {isActive && selectionsCount && (!isOpen || isMobile) && (
+            {((isActive && selectionsCount) || isMobile) && (
               <span className="filter-selection-count">{selectionsCount}</span>
             )}
             <ChevronIcon className="chevronIcon" />

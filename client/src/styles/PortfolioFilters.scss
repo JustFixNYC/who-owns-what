@@ -98,7 +98,7 @@
         }
       }
 
-      &.active:not([open]),
+      &.active,
       &[aria-pressed="true"] {
         @include white-on-black();
       }
@@ -191,14 +191,14 @@
       }
       .filter-selection-count {
         @include for-tablet-portrait-up() {
-          margin-left: 1em;
+          margin-left: 0.5rem;
           @include wrap-with-parentheses();
         }
         @include for-phone-only() {
           @include white-on-black();
           padding: 0.4rem 0.8rem;
           border-radius: 1.5rem;
-          margin-left: 0.8rem;
+          margin-left: 0.5rem;
           font-size: 1.4rem;
         }
       }
