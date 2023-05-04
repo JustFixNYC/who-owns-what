@@ -62,7 +62,6 @@ function MinMaxSelect({
           return { ...preset, checked: selectionMinValues.includes(preset.min) };
         });
         setPresets(presetSelections);
-        console.log({ defaultSelections, selectionMinValues, presetSelections });
       } else {
         setCustomRange(NUMBER_RANGE_DEFAULT);
         setPresets((prev) => prev.map((preset) => ({ ...preset, checked: false })));
@@ -122,7 +121,6 @@ function MinMaxSelect({
         tabIndex={hasCustomInputs ? 0 : -1}
       >
         {presets.map((preset, i) => {
-          console.log({ presets });
           return (
             <div className="minmaxselect__preset-value" key={i}>
               <input
