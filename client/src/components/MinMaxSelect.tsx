@@ -52,19 +52,23 @@ function MinMaxSelect({
 
   React.useEffect(() => {
     if (!isOpen) {
-      if (defaultSelections.type === "custom") {
-        setCustomRange(defaultSelections.values[0]);
-        setPresets((prev) => prev.map((preset) => ({ ...preset, checked: false })));
-      } else if (defaultSelections.type === "presets") {
-        setCustomRange(NUMBER_RANGE_DEFAULT);
-        const selectionMinValues = defaultSelections.values.map((rng) => rng.min);
-        const presetSelections = PRESETS_DEFAULT.map((preset) => {
-          return { ...preset, checked: selectionMinValues.includes(preset.min) };
-        });
-        setPresets(presetSelections);
-      } else {
-        setCustomRange(NUMBER_RANGE_DEFAULT);
-        setPresets((prev) => prev.map((preset) => ({ ...preset, checked: false })));
+      switch (defaultSelections.type) {
+        case "custom":
+          setCustomRange(defaultSelections.values[0]);
+          setPresets((prev) => prev.map((preset) => ({ ...preset, checked: false })));
+          break;
+        case "presets":
+          setCustomRange(NUMBER_RANGE_DEFAULT);
+          const selectionMinValues = defaultSelections.values.map((rng) => rng.min);
+          const presetSelections = PRESETS_DEFAULT.map((preset) => {
+            return { ...preset, checked: selectionMinValues.includes(preset.min) };
+          });
+          setPresets(presetSelections);
+          break;
+        default:
+          setCustomRange(NUMBER_RANGE_DEFAULT);
+          setPresets((prev) => prev.map((preset) => ({ ...preset, checked: false })));
+          break;
       }
     }
   }, [isOpen, defaultSelections]);
