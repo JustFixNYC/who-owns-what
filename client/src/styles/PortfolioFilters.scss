@@ -71,6 +71,39 @@
     }
   }
 
+  .filter-status {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 1rem;
+    @include for-tablet-portrait-up() {
+      margin-left: calc(var(--new-container-width) + var(--filter-bar-row-gap));
+    }
+
+    .filter-status-info {
+      display: flex;
+      text-transform: none;
+      color: $justfix-grey-700;
+      .results-count {
+        font-size: 1.6rem;
+        padding-right: 0.5rem;
+      }
+      .clear-filters {
+        color: $justfix-grey-700;
+        align-self: start;
+        margin-left: 1.8rem;
+      }
+    }
+  }
+}
+.ReactModal__Content {
+  p a {
+    color: $justfix-black;
+  }
+}
+
+.PortfolioFilters,
+.ReactModal__Content {
   .filters {
     --checkbox-height: 2.4rem;
 
@@ -443,34 +476,5 @@
         }
       }
     }
-  }
-  .filter-status {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    gap: 1rem;
-    @include for-tablet-portrait-up() {
-      margin-left: calc(var(--new-container-width) + var(--filter-bar-row-gap));
-    }
-
-    .filter-status-info {
-      display: flex;
-      text-transform: none;
-      color: $justfix-grey-700;
-      .results-count {
-        font-size: 1.6rem;
-        padding-right: 0.5rem;
-      }
-      .clear-filters {
-        color: $justfix-grey-700;
-        align-self: start;
-        margin-left: 1.8rem;
-      }
-    }
-  }
-}
-.ReactModal__Content {
-  p a {
-    color: $justfix-black;
   }
 }

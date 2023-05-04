@@ -319,46 +319,74 @@ const FiltersWrapper = (props: {
   return !isMobile ? (
     <div className="filters">{children}</div>
   ) : (
-    <FocusTrap
-      active={isOpen}
-      focusTrapOptions={{
-        clickOutsideDeactivates: true,
-        returnFocusOnDeactivate: false,
-        onDeactivate: () => setIsOpen(false),
-      }}
-    >
+    <>
       <div className="filters">
-        <details
+        <button
           className={classnames("filter filter-accordion filters-mobile-wrapper", {
             active: numActiveFilters > 0,
           })}
-          open={isOpen}
+          onClick={() => setIsOpen(true)}
         >
-          <summary
-            onClick={(e) => {
-              e.preventDefault();
-              setIsOpen(!isOpen);
-            }}
-          >
-            <Trans>Filters</Trans>
-            {!isOpen && !!numActiveFilters && (
-              <span className="active-filter-count">{numActiveFilters}</span>
-            )}
-            {isOpen ? <CloseIcon className="closeIcon" /> : <ChevronIcon className="chevronIcon" />}
-          </summary>
-          <div className="dropdown-container scroll-gradient mobile-wrapper-dropdown">
-            {children}
-            {numActiveFilters > 0 && (
-              <button onClick={() => setIsOpen(!isOpen)} className="button is-primary">
-                <Trans>View Results</Trans>
-                {resultsCount != null && <span className="view-results-count">{resultsCount}</span>}
-              </button>
-            )}
-            {resultsCount === 0 ? ZeroResultsAlert : <></>}
-          </div>
-        </details>
+          <Trans>Filters</Trans>
+          {!isOpen && !!numActiveFilters && (
+            <span className="active-filter-count">{numActiveFilters}</span>
+          )}
+          {isOpen ? <CloseIcon className="closeIcon" /> : <ChevronIcon className="chevronIcon" />}
+        </button>
       </div>
-    </FocusTrap>
+      <Modal
+        showModal={isOpen}
+        onClose={() => setIsOpen(false)}
+        style={{ content: { top: 0, left: 0, height: "100vh", width: "100vh", transform: "none" } }}
+      >
+        <FocusTrap
+          active={isOpen}
+          focusTrapOptions={{
+            clickOutsideDeactivates: true,
+            returnFocusOnDeactivate: false,
+            onDeactivate: () => setIsOpen(false),
+          }}
+        >
+          <div className="filters">
+            <details
+              className={classnames("filter filter-accordion filters-mobile-wrapper", {
+                active: numActiveFilters > 0,
+              })}
+              open={isOpen}
+            >
+              <summary
+                onClick={(e) => {
+                  e.preventDefault();
+                  setIsOpen(!isOpen);
+                }}
+              >
+                <Trans>Filters</Trans>
+                {!isOpen && !!numActiveFilters && (
+                  <span className="active-filter-count">{numActiveFilters}</span>
+                )}
+                {isOpen ? (
+                  <CloseIcon className="closeIcon" />
+                ) : (
+                  <ChevronIcon className="chevronIcon" />
+                )}
+              </summary>
+              <div className="dropdown-container scroll-gradient mobile-wrapper-dropdown">
+                {children}
+                {numActiveFilters > 0 && (
+                  <button onClick={() => setIsOpen(!isOpen)} className="button is-primary">
+                    <Trans>View Results</Trans>
+                    {resultsCount != null && (
+                      <span className="view-results-count">{resultsCount}</span>
+                    )}
+                  </button>
+                )}
+                {resultsCount === 0 ? ZeroResultsAlert : <></>}
+              </div>
+            </details>
+          </div>
+        </FocusTrap>
+      </Modal>
+    </>
   );
 };
 
