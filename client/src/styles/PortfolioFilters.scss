@@ -416,9 +416,6 @@
           padding: 0 2.4rem;
         }
         & > .dropdown-container {
-          position: absolute;
-          top: var(--filter-bar-top-height);
-          left: 0;
           max-height: none;
           height: 100%;
           z-index: 12;
