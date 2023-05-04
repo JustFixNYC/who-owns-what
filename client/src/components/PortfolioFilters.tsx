@@ -5,9 +5,9 @@ import React from "react";
 import { CheckIcon, ChevronIcon, CloseIcon, InfoIcon } from "./Icons";
 import {
   FilterContext,
-  FilterNumberRange,
   PortfolioAnalyticsEvent,
   NUMBER_RANGE_DEFAULT,
+  FilterNumberRangeSelections,
 } from "./PropertiesList";
 import FocusTrap from "focus-trap-react";
 import { FocusTarget } from "focus-trap";
@@ -40,6 +40,11 @@ const PortfolioFiltersWithoutI18n = React.memo(
     const { filterContext, setFilterContext } = React.useContext(FilterContext);
     const { filteredBuildings } = filterContext;
     const { ownernames: ownernamesOptions, zip: zipOptions } = filterContext.filterOptions;
+    const {
+      ownernames: ownernamesSelections,
+      unitsres: unitsresSelections,
+      zip: zipSelections,
+    } = filterContext.filterSelections;
 
     const { i18n, logPortfolioAnalytics } = props;
 
@@ -60,7 +65,7 @@ const PortfolioFiltersWithoutI18n = React.memo(
 
     const [ownernamesActive, setOwnernamesActive] = React.useState(false);
     const [ownernamesIsOpen, setOwnernamesIsOpen] = React.useState(false);
-    const onOwnernamesApply = (selectedList: any) => {
+    const onOwnernamesApply = (selectedList: string[]) => {
       logPortfolioAnalytics(!selectedList.length ? "filterCleared" : "filterApplied", {
         column: "ownernames",
       });
@@ -77,8 +82,8 @@ const PortfolioFiltersWithoutI18n = React.memo(
 
     const [unitsresActive, setUnitsresActive] = React.useState(false);
     const [unitsresIsOpen, setUnitsresIsOpen] = React.useState(false);
-    const onUnitsresApply = (selections: FilterNumberRange[]) => {
-      const updatedIsActive = isFinite(selections[0].min) || isFinite(selections[0].max);
+    const onUnitsresApply = (selections: FilterNumberRangeSelections) => {
+      const updatedIsActive = selections.type !== "default";
       logPortfolioAnalytics(!updatedIsActive ? "filterCleared" : "filterApplied", {
         column: "unitsres",
       });
@@ -95,7 +100,7 @@ const PortfolioFiltersWithoutI18n = React.memo(
 
     const [zipActive, setZipActive] = React.useState(false);
     const [zipIsOpen, setZipIsOpen] = React.useState(false);
-    const onZipApply = (selectedList: any) => {
+    const onZipApply = (selectedList: string[]) => {
       logPortfolioAnalytics(!selectedList.length ? "filterCleared" : "filterApplied", {
         column: "zip",
       });
@@ -121,19 +126,11 @@ const PortfolioFiltersWithoutI18n = React.memo(
         filterSelections: {
           rsunitslatest: false,
           ownernames: [],
-          unitsres: [NUMBER_RANGE_DEFAULT],
+          unitsres: { type: "default", values: [NUMBER_RANGE_DEFAULT] },
           zip: [],
         },
       });
     };
-
-    const zipOptionsSelect: Option[] = zipOptions
-      ? zipOptions.map((val: string) => ({ value: val, label: val }))
-      : [];
-
-    const ownernamesOptionsSelect: Option[] = ownernamesOptions
-      ? ownernamesOptions.map((val: string) => ({ value: val, label: val }))
-      : [];
 
     const activeFilters = { rsunitslatestActive, ownernamesActive, unitsresActive, zipActive };
 
@@ -207,11 +204,13 @@ const PortfolioFiltersWithoutI18n = React.memo(
           >
             <MultiSelect
               id="filter-ownernames-multiselect"
-              options={ownernamesOptionsSelect}
+              options={valuesAsMultiselectOptions(ownernamesOptions)}
               onApply={onOwnernamesApply}
               onError={() => logPortfolioAnalytics("filterError", { column: "ownernames" })}
               infoAlert={OwnernamesInfoAlert}
               aria-label={i18n._(t`Landlord filter`)}
+              isOpen={ownernamesIsOpen}
+              defaultSelections={valuesAsMultiselectOptions(ownernamesSelections)}
             />
           </FilterAccordion>
           <FilterAccordion
@@ -230,6 +229,8 @@ const PortfolioFiltersWithoutI18n = React.memo(
               onError={() => logPortfolioAnalytics("filterError", { column: "unitsres" })}
               id="filter-unitsres-minmax"
               onFocusInput={() => helpers.scrollToBottom(".mobile-wrapper-dropdown")}
+              isOpen={unitsresIsOpen}
+              defaultSelections={unitsresSelections}
             />
           </FilterAccordion>
           <FilterAccordion
@@ -244,12 +245,14 @@ const PortfolioFiltersWithoutI18n = React.memo(
           >
             <MultiSelect
               id="filter-zip-multiselect"
-              options={zipOptionsSelect}
+              options={valuesAsMultiselectOptions(zipOptions)}
               onApply={onZipApply}
               noOptionsMessage={() => i18n._(t`ZIP code is not applicable`)}
               onError={() => logPortfolioAnalytics("filterError", { column: "zip" })}
               aria-label={i18n._(t`Zip code filter`)}
               onKeyDown={helpers.preventNonNumericalInput}
+              isOpen={zipIsOpen}
+              defaultSelections={valuesAsMultiselectOptions(zipSelections)}
             />
           </FilterAccordion>
         </FiltersWrapper>
@@ -523,6 +526,13 @@ const FilterAccordion = withI18n()((props: FilterAccordionProps) => {
     </>
   );
 });
+
+function valuesAsMultiselectOptions(values: string[]): Option[] {
+  const formattedOptions: Option[] = values
+    ? values.map((val: string) => ({ value: val, label: val }))
+    : [];
+  return formattedOptions;
+}
 
 const PortfolioFilters = withI18n()(PortfolioFiltersWithoutI18n);
 
