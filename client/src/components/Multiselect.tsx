@@ -306,7 +306,7 @@ function SelectContainer<
                   onApply([]);
                 }}
               >
-                <Trans>Clear</Trans>
+                <Trans>Clear selections</Trans>
               </button>
             )}
           </div>

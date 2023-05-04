@@ -354,7 +354,7 @@ const PortfolioTableWithoutI18n = React.memo((props: PortfolioTableProps) => {
               return ownerList || [];
             },
             id: "ownernames",
-            header: i18n._(t`Owner/Manager`),
+            header: i18n._(t`Person/Entity`),
             cell: ({ row }) => {
               var contacts =
                 row.original.allcontacts &&

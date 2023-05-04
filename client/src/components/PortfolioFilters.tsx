@@ -144,11 +144,11 @@ const PortfolioFiltersWithoutI18n = React.memo(
             <Trans>
               While the legal owner of a building is often a company (usually called an “LLC”),
               these names and business addresses registered with the Department of Housing
-              Preservation (“HPD”) offer a clearer picture of who really controls the building.
-              People listed here as “Head Officer” or “Owner” usually have ties to building
-              ownership, while “Site Managers” are part of management. That being said, these names
-              are self reported by the landlord, so they can be misleading. Learn more about HPD
-              registrations and how this information powers this tool on the{" "}
+              Preservation and Development (“HPD”) offer a clearer picture of who really controls
+              the building. People listed here as “Head Officer” or “Owner” usually have ties to
+              building ownership, while “Site Managers” are part of management. That being said,
+              these names are self reported by the landlord, so they can be misleading. Learn more
+              about HPD registrations and how this information powers this tool on the{" "}
               <LocaleLink to={isLegacyPath(pathname) ? legacy.about : about}>About page</LocaleLink>
               .
             </Trans>
@@ -266,7 +266,11 @@ const PortfolioFiltersWithoutI18n = React.memo(
                   <Plural value={filteredBuildings || 0} one="result" other="results" />
                 </Trans>
               </span>
-              <button className="results-info" onClick={() => setShowInfoModal(true)}>
+              <button
+                className="results-info"
+                onClick={() => setShowInfoModal(true)}
+                aria-label={i18n._(t`Learn more about how the results are calculated`)}
+              >
                 <InfoIcon />
               </button>
               <button className="clear-filters button is-text" onClick={clearFilters}>
@@ -291,7 +295,7 @@ const PortfolioFiltersWithoutI18n = React.memo(
             </Trans>
           </p>
           <LocaleLink to={isLegacyPath(pathname) ? legacy.methodology : methodology}>
-            <Trans>Read more in our Methodology section</Trans>
+            <Trans>Read more about our Methodology</Trans>
           </LocaleLink>
         </Modal>
       </div>
@@ -402,7 +406,7 @@ const ZeroResultsAlert = (
     closeType="none"
     role="status"
   >
-    <Trans>Try adjusting or clearing the filters to yield more than 0 results.</Trans>
+    <Trans>Try adjusting or clearing the filters to show more than 0 results.</Trans>
   </Alert>
 );
 
