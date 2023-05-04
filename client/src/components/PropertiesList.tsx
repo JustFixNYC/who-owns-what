@@ -15,13 +15,17 @@ import { AmplitudeEvent, EventProperties, logAmplitudeEvent } from "./Amplitude"
 
 export type FilterNumberRange = { min: number; max: number };
 export const NUMBER_RANGE_DEFAULT = { min: -Infinity, max: Infinity };
+export type FilterNumberRangeSelections = {
+  type: "default" | "presets" | "custom";
+  values: FilterNumberRange[];
+};
 
 export type IFilterContext = {
   totalBuildings?: number | undefined;
   filteredBuildings?: number | undefined;
   filterSelections: {
     ownernames: string[];
-    unitsres: FilterNumberRange[];
+    unitsres: FilterNumberRangeSelections;
     zip: string[];
     rsunitslatest?: boolean;
   };
@@ -33,13 +37,13 @@ export type IFilterContext = {
 };
 
 const useValue = () => {
-  const defaultContext = {
+  const defaultContext: IFilterContext = {
     totalBuildings: undefined,
     filteredBuildings: undefined,
     filterSelections: {
       rsunitslatest: false,
       ownernames: [],
-      unitsres: [NUMBER_RANGE_DEFAULT],
+      unitsres: { type: "default", values: [NUMBER_RANGE_DEFAULT] },
       zip: [],
     },
     filterOptions: {
@@ -48,7 +52,7 @@ const useValue = () => {
       zip: [],
     },
   };
-  const [filterContext, setFilterContext] = React.useState<IFilterContext>(defaultContext);
+  const [filterContext, setFilterContext] = React.useState(defaultContext);
 
   return {
     filterContext,

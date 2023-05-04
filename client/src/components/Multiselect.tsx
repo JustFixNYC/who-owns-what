@@ -25,6 +25,8 @@ export type Option = {
 
 interface CustomMultiselectProps {
   onApply: (selectedList: any) => void;
+  defaultSelections?: Option[];
+  isOpen: boolean;
   onError?: () => void;
   previewSelectedNum?: number;
   infoAlert?: JSX.Element;
@@ -58,6 +60,8 @@ function MultiSelect<
   GroupType extends GroupBase<Option> = GroupBase<Option>
 >({
   options,
+  defaultSelections,
+  isOpen,
   onApply,
   infoAlert,
   onChange,
@@ -70,6 +74,12 @@ function MultiSelect<
   const [hasError, setHasError] = useState(false);
   const [showAllSelections, setShowAllSelections] = useState(false);
   const [inputValue, setInputValue] = useState<string | undefined>(undefined);
+
+  React.useEffect(() => {
+    if (!isOpen) {
+      setSelections(defaultSelections as Option[]);
+    }
+  }, [isOpen, defaultSelections]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleChange = useCallback(
     (newValue, actionMeta) => {
@@ -99,7 +109,7 @@ function MultiSelect<
 
   const handleApply = () => {
     // @ts-ignore (value isn't recognizing the available properties of Option type)
-    const selectedValues = selections.map((v) => ({ name: v.value || "", id: v.label }));
+    const selectedValues: string[] = selections.map((v) => (v.value || v.label).toString());
     if (!selectedValues.length && !!inputValue) {
       onError && onError();
       setHasError(true);
