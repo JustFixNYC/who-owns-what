@@ -228,7 +228,13 @@ const PortfolioFiltersWithoutI18n = React.memo(
               onApply={onUnitsresApply}
               onError={() => logPortfolioAnalytics("filterError", { column: "unitsres" })}
               id="filter-unitsres-minmax"
-              onFocusInput={() => helpers.scrollToBottom(".mobile-wrapper-dropdown")}
+              onFocusInput={() => {
+                helpers.scrollToBottom(".mobile-wrapper-dropdown");
+                console.log("FOCUS INPUT FROM OUTER MINMAX SELECT")
+                window.scrollTo(0, 0);
+                document.body.scrollTop = 0;
+          
+              }}
               isOpen={unitsresIsOpen}
               defaultSelections={unitsresSelections}
             />
