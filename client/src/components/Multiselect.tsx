@@ -81,6 +81,7 @@ function MultiSelect<
     }
   }, [isOpen, defaultSelections]); // eslint-disable-line react-hooks/exhaustive-deps
 
+
   const handleChange = useCallback(
     (newValue, actionMeta) => {
       if (onChange) onChange(newValue, actionMeta);
@@ -96,6 +97,9 @@ function MultiSelect<
       if (actionMeta.action !== "input-blur" && actionMeta.action !== "menu-close") {
         setInputValue(newValue);
       }
+      console.log("---- in handleInputChange ----")
+    window.scrollTo(0, 0);
+    document.body.scrollTop = 0;
     },
     [onInputChange]
   );
