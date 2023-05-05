@@ -320,7 +320,10 @@ const FiltersWrapper = (props: {
   const numActiveFilters = Object.values(activeFilters).filter(Boolean).length;
   const [isOpen, setIsOpen] = React.useState(false);
 
-  // iOS only
+  /* iOS specific issue
+    focus inputs w/ keyboard shifts up the entire HTML tag. 
+    on keyboard close, HTML doesn't revert to previous position. 
+    this force scrolls the background to the top. */
   const handlePageShift = () => {
     window.scrollTo(0, 0);
     document.body.scrollTop = 0;
