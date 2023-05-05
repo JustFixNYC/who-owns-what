@@ -96,6 +96,10 @@ const PortfolioFiltersWithoutI18n = React.memo(
           unitsres: selections,
         },
       });
+      console.log("!!onUnitsresApply!! FROM OUTER MINMAX SELECT")
+      window.scrollTo(0, 0);
+      document.body.scrollTop = 0;
+
     };
 
     const [zipActive, setZipActive] = React.useState(false);
@@ -230,7 +234,7 @@ const PortfolioFiltersWithoutI18n = React.memo(
               id="filter-unitsres-minmax"
               onFocusInput={() => {
                 helpers.scrollToBottom(".mobile-wrapper-dropdown");
-                console.log("FOCUS INPUT FROM OUTER MINMAX SELECT")
+                console.log("PUT FROM OUTER MINMAX SELECT")
                 window.scrollTo(0, 0);
                 document.body.scrollTop = 0;
           
