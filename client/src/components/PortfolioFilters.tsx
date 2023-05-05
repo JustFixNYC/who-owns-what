@@ -352,6 +352,10 @@ const FiltersWrapper = (props: {
             onClick={(e) => {
               e.preventDefault();
               setIsOpen(!isOpen);
+              console.log("___ FROM CLOSE ____")
+              window.scrollTo(0, 0);
+              document.body.scrollTop = 0;
+
             }}
           >
             <Trans>Filters</Trans>
