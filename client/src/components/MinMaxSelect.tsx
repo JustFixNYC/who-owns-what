@@ -78,7 +78,6 @@ function MinMaxSelect({
       prev.splice(i, 1, { ...preset, checked: !preset.checked });
       return [...prev];
     });
-    console.log("------preset change here");
   };
 
   const handleApply = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
@@ -199,11 +198,6 @@ function MinMaxSelect({
                     min: cleanNumberInput(e.target.value) || -Infinity,
                     max: customRange.max,
                   });
-                  window.scrollTo(0, 0);
-                  document.body.scrollTop = 0;
-            
-                  console.log("------custom input change here")
-
                 }}
                 {...commonInputProps}
               />

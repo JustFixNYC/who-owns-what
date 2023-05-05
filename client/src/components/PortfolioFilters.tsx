@@ -96,10 +96,6 @@ const PortfolioFiltersWithoutI18n = React.memo(
           unitsres: selections,
         },
       });
-      console.log("!!onUnitsresApply!! FROM OUTER MINMAX SELECT")
-      window.scrollTo(0, 0);
-      document.body.scrollTop = 0;
-
     };
 
     const [zipActive, setZipActive] = React.useState(false);
@@ -234,10 +230,6 @@ const PortfolioFiltersWithoutI18n = React.memo(
               id="filter-unitsres-minmax"
               onFocusInput={() => {
                 helpers.scrollToBottom(".mobile-wrapper-dropdown");
-                console.log("PUT FROM OUTER MINMAX SELECT")
-                window.scrollTo(0, 0);
-                document.body.scrollTop = 0;
-          
               }}
               isOpen={unitsresIsOpen}
               defaultSelections={unitsresSelections}
@@ -329,6 +321,12 @@ const FiltersWrapper = (props: {
   const { isMobile, activeFilters, resultsCount, children } = props;
   const numActiveFilters = Object.values(activeFilters).filter(Boolean).length;
   const [isOpen, setIsOpen] = React.useState(false);
+  
+  // iOS only 
+  const handlePageShift = () =>{
+    window.scrollTo(0, 0);
+    document.body.scrollTop = 0;
+  };
 
   return !isMobile ? (
     <div className="filters">{children}</div>
@@ -352,10 +350,7 @@ const FiltersWrapper = (props: {
             onClick={(e) => {
               e.preventDefault();
               setIsOpen(!isOpen);
-              console.log("___ FROM CLOSE ____")
-              window.scrollTo(0, 0);
-              document.body.scrollTop = 0;
-
+              handlePageShift();
             }}
           >
             <Trans>Filters</Trans>
@@ -367,7 +362,13 @@ const FiltersWrapper = (props: {
           <div className="dropdown-container scroll-gradient mobile-wrapper-dropdown">
             {children}
             {numActiveFilters > 0 && (
-              <button onClick={() => setIsOpen(!isOpen)} className="button is-primary">
+              <button 
+                className="button is-primary" 
+                onClick={() => { 
+                  setIsOpen(!isOpen); 
+                  handlePageShift();
+                }} 
+              >
                 <Trans>View Results</Trans>
                 {resultsCount != null && <span className="view-results-count">{resultsCount}</span>}
               </button>
