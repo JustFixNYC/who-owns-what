@@ -228,9 +228,7 @@ const PortfolioFiltersWithoutI18n = React.memo(
               onApply={onUnitsresApply}
               onError={() => logPortfolioAnalytics("filterError", { column: "unitsres" })}
               id="filter-unitsres-minmax"
-              onFocusInput={() => {
-                helpers.scrollToBottom(".mobile-wrapper-dropdown");
-              }}
+              onFocusInput={() => helpers.scrollToBottom(".mobile-wrapper-dropdown")}
               isOpen={unitsresIsOpen}
               defaultSelections={unitsresSelections}
             />
@@ -321,9 +319,9 @@ const FiltersWrapper = (props: {
   const { isMobile, activeFilters, resultsCount, children } = props;
   const numActiveFilters = Object.values(activeFilters).filter(Boolean).length;
   const [isOpen, setIsOpen] = React.useState(false);
-  
-  // iOS only 
-  const handlePageShift = () =>{
+
+  // iOS only
+  const handlePageShift = () => {
     window.scrollTo(0, 0);
     document.body.scrollTop = 0;
   };
@@ -362,12 +360,12 @@ const FiltersWrapper = (props: {
           <div className="dropdown-container scroll-gradient mobile-wrapper-dropdown">
             {children}
             {numActiveFilters > 0 && (
-              <button 
-                className="button is-primary" 
-                onClick={() => { 
-                  setIsOpen(!isOpen); 
+              <button
+                className="button is-primary"
+                onClick={() => {
+                  setIsOpen(!isOpen);
                   handlePageShift();
-                }} 
+                }}
               >
                 <Trans>View Results</Trans>
                 {resultsCount != null && <span className="view-results-count">{resultsCount}</span>}
