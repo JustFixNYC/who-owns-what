@@ -96,6 +96,9 @@ function MultiSelect<
       if (actionMeta.action !== "input-blur" && actionMeta.action !== "menu-close") {
         setInputValue(newValue);
       }
+      console.log("---- in handleInputChange ----")
+      window.scrollTo(0, 0);
+      document.body.scrollTop = 0;
     },
     [onInputChange]
   );
