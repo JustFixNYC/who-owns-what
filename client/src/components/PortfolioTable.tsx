@@ -580,8 +580,8 @@ const PortfolioTableWithoutI18n = React.memo((props: PortfolioTableProps) => {
                               className: header.column.getCanSort()
                                 ? "cursor-pointer select-none"
                                 : "",
-                              onClick: () => {
-                                header.column.getToggleSortingHandler();
+                              onClick: (e) => {
+                                header.column.getToggleSortingHandler()?.(e);
                                 logPortfolioAnalytics("portfolioColumnSort", {
                                   column: header.column.id,
                                 });
