@@ -213,6 +213,9 @@
           &.ownernames-accordion .dropdown-container {
             width: 25.2rem;
           }
+          &.unitsres-accordion .dropdown-container {
+            width: 26rem;
+          }
           &.zip-accordion .dropdown-container {
             width: 16.5rem;
           }
@@ -300,9 +303,12 @@
                 font-size: 1.6rem;
               }
             }
-            .multiselect__selected-value-container {
-              @include for-tablet-portrait-up {
+            @include for-tablet-portrait-up {
+              .multiselect__selected-value-container {
                 flex-direction: column;
+              }
+              .multiselect__selected-value-control-container {
+                font-size: 1.2rem;
               }
             }
           }
@@ -315,8 +321,16 @@
                   font-size: 1.6rem;
                 }
               }
-              .minmaxselect__custom-range-summary span {
-                font-size: 1.6rem;
+              .minmaxselect__custom-range-summary {
+                span {
+                  font-size: 1.6rem;
+                }
+                svg {
+                  stroke-width: 0.2rem;
+                }
+              }
+              .minmaxselect__clear-value-button {
+                font-size: 1.4rem;
               }
               .minmaxselect__label-input-container {
                 width: fit-content;
