@@ -217,7 +217,7 @@
             width: 26rem;
           }
           &.zip-accordion .dropdown-container {
-            width: 16.5rem;
+            width: 24rem;
           }
         }
 
@@ -304,9 +304,6 @@
               }
             }
             @include for-tablet-portrait-up {
-              .multiselect__selected-value-container {
-                flex-direction: column;
-              }
               .multiselect__selected-value-control-container {
                 font-size: 1.2rem;
               }
