@@ -50,6 +50,7 @@ function MinMaxSelect({
   const [presets, setPresets] = React.useState<Preset[]>(PRESETS_DEFAULT);
 
   const hasCustomInputs = isFinite(customRange.min) || isFinite(customRange.max);
+  const hasPresetSelections = presets.reduce((prev, preset) => prev || preset.checked, false);
 
   React.useEffect(() => {
     if (!isOpen) {
@@ -240,19 +241,21 @@ function MinMaxSelect({
             </div>
           </form>
         </details>
-        <I18n>
-          {({ i18n }) => (
-            <button
-              className={`minmaxselect__clear-value-button button is-text`}
-              aria-label={i18n._(t`Clear all selections`)}
-              onClick={() => {
-                onApply({ type: "default", values: [NUMBER_RANGE_DEFAULT] });
-              }}
-            >
-              <Trans>Clear selections</Trans>
-            </button>
-          )}
-        </I18n>
+        {(hasCustomInputs || hasPresetSelections) && (
+          <I18n>
+            {({ i18n }) => (
+              <button
+                className={`minmaxselect__clear-value-button button is-text`}
+                aria-label={i18n._(t`Clear all selections`)}
+                onClick={() => {
+                  onApply({ type: "default", values: [NUMBER_RANGE_DEFAULT] });
+                }}
+              >
+                <Trans>Clear selections</Trans>
+              </button>
+            )}
+          </I18n>
+        )}
       </div>
       <I18n>
         {({ i18n }) => (
