@@ -275,32 +275,28 @@ const helpers = {
     )} - ${this.formatDate(endDate, { month: "short" }, locale).slice(0, 3)}`;
   },
 
-  formatStreetNameForHpdLink(streetName: string): string {
-    var arr = streetName.split(" ");
-    if (Array.isArray(arr) && !arr.length) {
-      return "";
+  formatBoroughNameForHpdLink(boroCode: string): string {
+    var boroughName: string;
+    switch (boroCode) {
+      case "1":
+        boroughName = "Manhattan";
+        break;
+      case "2":
+        boroughName = "Bronx";
+        break;
+      case "3":
+        boroughName = "Brooklym";
+        break;
+      case "4":
+        boroughName = "Queens";
+        break;
+      case "5":
+        boroughName = "Staten%20Island";
+        break;
+      default:
+        throw new Error(`Boro Code must be string value of 1-5`);
     }
-    // Reformat street name directional prefix
-    const newStreetNamePrefix =
-      arr[0].toUpperCase() === "NORTH"
-        ? "N"
-        : arr[0].toUpperCase() === "SOUTH"
-        ? "S"
-        : arr[0].toUpperCase() === "EAST"
-        ? "E"
-        : arr[0].toUpperCase() === "WEST"
-        ? "W"
-        : arr[0];
-    arr[0] = newStreetNamePrefix;
-
-    // Reformat street name enumeration
-    hpdNumberTransformations.forEach((numberPair) => {
-      const index = arr.findIndex((e) => e.toUpperCase() === numberPair[0]);
-      if (index > -1) {
-        arr[index] = numberPair[1];
-      }
-    });
-    return arr.join(" ");
+    return boroughName;
   },
 
   formatHpdContactAddress(

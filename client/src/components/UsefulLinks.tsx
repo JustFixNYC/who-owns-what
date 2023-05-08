@@ -5,12 +5,12 @@ import { AddressRecord } from "./APIDataTypes";
 import { AmplitudeEvent, logAmplitudeEvent } from "components/Amplitude";
 
 type UsefulLinksProps = {
-  addrForLinks: Pick<AddressRecord, "bbl" | "housenumber" | "streetname">;
+  addrForLinks: Pick<AddressRecord, "bbl"> & Partial<Pick<AddressRecord, "buildingid">>;
   location: "overview-tab" | "timeline-tab" | "not-registered-page";
 };
 
 export const UsefulLinks: React.FC<UsefulLinksProps> = ({ addrForLinks, location }) => {
-  const { bbl, housenumber, streetname } = addrForLinks;
+  const { bbl, buildingid } = addrForLinks;
   const { boro, block, lot } = Helpers.splitBBL(bbl);
   return (
     <div className="card-body-links">
@@ -38,9 +38,13 @@ export const UsefulLinks: React.FC<UsefulLinksProps> = ({ addrForLinks, location
               logAmplitudeEvent(`hpd-${location}` as AmplitudeEvent);
               window.gtag("event", `hpd-${location}`);
             }}
-            href={`https://hpdonline.hpdnyc.org/HPDonline/Provide_address.aspx?p1=${boro}&p2=${housenumber}&p3=${Helpers.formatStreetNameForHpdLink(
-              streetname
-            )}&SearchButton=Search`}
+            href={
+              !!buildingid
+                ? `https://hpdonline.nyc.gov/hpdonline/building/${buildingid}/overview`
+                : `https://hpdonline.nyc.gov/hpdonline/building/search-results?boro=${Helpers.formatBoroughNameForHpdLink(
+                    boro
+                  )}&block=${Number(block)}&lot=${Number(lot)}`
+            }
             target="_blank"
             rel="noopener noreferrer"
           >
