@@ -65,6 +65,7 @@ UNRELATED_BBL = "1000010002"
 
 FUNKY_REGISTRATION = HpdRegistrations(
     RegistrationID="1",
+    BuildingID="1",
     HouseNumber="1",
     StreetName="FUNKY STREET",
     BoroID="3",
@@ -74,6 +75,7 @@ FUNKY_REGISTRATION = HpdRegistrations(
 
 MONKEY_REGISTRATION = HpdRegistrations(
     RegistrationID="2",
+    BuildingID="2",
     HouseNumber="2",
     StreetName="MONKEY STREET",
     BoroID="3",
@@ -83,6 +85,7 @@ MONKEY_REGISTRATION = HpdRegistrations(
 
 SPUNKY_REGISTRATION = HpdRegistrations(
     RegistrationID="4",
+    BuildingID="4",
     HouseNumber="4",
     StreetName="SPUNKY STREET",
     BoroID="3",
@@ -92,6 +95,7 @@ SPUNKY_REGISTRATION = HpdRegistrations(
 
 UNRELATED_REGISTRATION = HpdRegistrations(
     RegistrationID="3",
+    BuildingID="3",
     HouseNumber="3",
     StreetName="UNRELATED STREET",
     BoroID="1",
@@ -304,6 +308,7 @@ class TestSQL:
             f"SELECT * FROM hpd_registrations_with_contacts WHERE bbl='{FUNKY_BBL}'"
         )
         assert r["registrationid"] == 1
+        assert r["buildingid"] == 1
         assert r["housenumber"] == "1"
         assert r["streetname"] == "FUNKY STREET"
         assert r["corpnames"] == ["1 FUNKY STREET LLC"]

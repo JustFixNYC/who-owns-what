@@ -52,6 +52,7 @@ RETURNS TABLE (
     bldgs.registrationenddate,
     bldgs.bbl,
     bldgs.bin,
+    bldgs.buildingid,
     bldgs.corpnames,
     bldgs.businessaddrs,
     bldgs.ownernames,
