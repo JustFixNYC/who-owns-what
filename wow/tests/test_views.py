@@ -86,7 +86,7 @@ class TestAddressDapPortfolioSize(ApiTest):
     ]
 
     def test_it_returns_portfolio_size_given_bbl(self, db, client):
-        res = client.get("/api/address/dap-portfoliosize?bbl=3012380016")
+        res = client.get("/api/address/dap-portfoliosize?bbl=3016780054")
         assert res.status_code == 200
         assert len(res.json()["result"]) == 1
         assert res.json()["result"]["portfolio_size"] > 0
