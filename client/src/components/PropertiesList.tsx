@@ -83,6 +83,7 @@ const PropertiesListWithoutI18n: React.FC<
   const { width: windowWidth, height: windowHeight } = Helpers.useWindowSize();
   const locale = (i18n.language as SupportedLocale) || defaultLocale;
   const useNewPortfolioMethod = props.state.context.useNewPortfolioMethod || false;
+  const portfolioFiltersEnabled = process.env.REACT_APP_PORTFOLIO_FILTERS_ENABLED === "1";
 
   const addrs = props.state.context.portfolioData.assocAddrs;
   const rsunitslatestyear = props.state.context.portfolioData.searchAddr.rsunitslatestyear;
@@ -132,7 +133,7 @@ const PropertiesListWithoutI18n: React.FC<
     <div className="PropertiesList" ref={tableRef}>
       {isTableVisible ? (
         <FilterContextProvider>
-          {useNewPortfolioMethod && (
+          {useNewPortfolioMethod && portfolioFiltersEnabled && (
             <PortfolioFilters logPortfolioAnalytics={logPortfolioAnalytics} />
           )}
           <PortfolioTable
