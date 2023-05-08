@@ -320,6 +320,15 @@ const FiltersWrapper = (props: {
   const numActiveFilters = Object.values(activeFilters).filter(Boolean).length;
   const [isOpen, setIsOpen] = React.useState(false);
 
+  /* iOS specific issue
+    focus inputs w/ keyboard shifts up the entire HTML tag. 
+    on keyboard close, HTML doesn't revert to previous position. 
+    this force scrolls the background to the top. */
+  const handlePageShift = () => {
+    window.scrollTo(0, 0);
+    document.body.scrollTop = 0;
+  };
+
   return !isMobile ? (
     <div className="filters">{children}</div>
   ) : (
@@ -342,6 +351,7 @@ const FiltersWrapper = (props: {
             onClick={(e) => {
               e.preventDefault();
               setIsOpen(!isOpen);
+              handlePageShift();
             }}
           >
             <Trans>Filters</Trans>
@@ -353,7 +363,13 @@ const FiltersWrapper = (props: {
           <div className="dropdown-container scroll-gradient mobile-wrapper-dropdown">
             {children}
             {numActiveFilters > 0 && (
-              <button onClick={() => setIsOpen(!isOpen)} className="button is-primary">
+              <button
+                className="button is-primary"
+                onClick={() => {
+                  setIsOpen(!isOpen);
+                  handlePageShift();
+                }}
+              >
                 <Trans>View Results</Trans>
                 {resultsCount != null && <span className="view-results-count">{resultsCount}</span>}
               </button>
