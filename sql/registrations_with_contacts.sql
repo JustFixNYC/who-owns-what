@@ -35,6 +35,7 @@ as SELECT
   registrations.registrationenddate,
   registrations.bbl,
   registrations.bin,
+  registrations.buildingid,
   contacts.corpnames,
   contacts.businessaddrs,
   contacts.ownernames,

@@ -75,6 +75,7 @@ select distinct on (registrations.bbl)
   registrations.registrationenddate,
   registrations.bbl,
   registrations.bin,
+  registrations.buildingid,
   registrations.corpnames,
   registrations.businessaddrs,
   registrations.ownernames,
