@@ -16,6 +16,7 @@ RETURNS TABLE (
   registrationenddate date,
   bbl char(10),
   bin char(7),
+  buildingid integer,
   corpnames text[],
   businessaddrs text[],
   ownernames json,
