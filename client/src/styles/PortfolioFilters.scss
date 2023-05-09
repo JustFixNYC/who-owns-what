@@ -318,16 +318,12 @@
                   font-size: 1.6rem;
                 }
               }
-              .minmaxselect__custom-range-summary {
-                span {
-                  font-size: 1.6rem;
-                }
-                svg {
-                  stroke-width: 0.2rem;
-                }
-              }
+              .minmaxselect__custom-range-summary span,
               .minmaxselect__clear-value-button {
                 font-size: 1.4rem;
+              }
+              .chevronIcon {
+                stroke-width: 0.2rem;
               }
               .minmaxselect__label-input-container {
                 width: fit-content;
