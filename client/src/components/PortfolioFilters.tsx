@@ -194,7 +194,6 @@ const PortfolioFiltersWithoutI18n = React.memo(
             subtitle={i18n._(t`Person/Entity`)}
             infoLabel={i18n._(t`Who are they?`)}
             infoModalContents={ownernamesInfoModalContents}
-            isMobile={isMobile}
             isActive={ownernamesActive}
             isOpen={ownernamesIsOpen}
             setIsOpen={setOwnernamesIsOpen}
@@ -216,7 +215,6 @@ const PortfolioFiltersWithoutI18n = React.memo(
           <FilterAccordion
             title={i18n._(t`Building Size`)}
             subtitle={i18n._(t`Number of Units`)}
-            isMobile={isMobile}
             isActive={unitsresActive}
             isOpen={unitsresIsOpen}
             onOpen={() => logPortfolioAnalytics("filterOpened", { column: "unitsres" })}
@@ -235,7 +233,6 @@ const PortfolioFiltersWithoutI18n = React.memo(
           </FilterAccordion>
           <FilterAccordion
             title={i18n._(t`Zip Code`)}
-            isMobile={isMobile}
             isActive={zipActive}
             isOpen={zipIsOpen}
             setIsOpen={setZipIsOpen}
@@ -320,6 +317,15 @@ const FiltersWrapper = (props: {
   const numActiveFilters = Object.values(activeFilters).filter(Boolean).length;
   const [isOpen, setIsOpen] = React.useState(false);
 
+  /* iOS specific issue
+    focus inputs w/ keyboard shifts up the entire HTML tag. 
+    on keyboard close, HTML doesn't revert to previous position. 
+    this force scrolls the background to the top. */
+  const handlePageShift = () => {
+    window.scrollTo(0, 0);
+    document.body.scrollTop = 0;
+  };
+
   return !isMobile ? (
     <div className="filters">{children}</div>
   ) : (
@@ -342,6 +348,7 @@ const FiltersWrapper = (props: {
             onClick={(e) => {
               e.preventDefault();
               setIsOpen(!isOpen);
+              handlePageShift();
             }}
           >
             <Trans>Filters</Trans>
@@ -353,7 +360,13 @@ const FiltersWrapper = (props: {
           <div className="dropdown-container scroll-gradient mobile-wrapper-dropdown">
             {children}
             {numActiveFilters > 0 && (
-              <button onClick={() => setIsOpen(!isOpen)} className="button is-primary">
+              <button
+                className="button is-primary"
+                onClick={() => {
+                  setIsOpen(!isOpen);
+                  handlePageShift();
+                }}
+              >
                 <Trans>View Results</Trans>
                 {resultsCount != null && <span className="view-results-count">{resultsCount}</span>}
               </button>
@@ -433,7 +446,6 @@ type FilterAccordionProps = withI18nProps & {
   onInfoClick?: () => void;
   infoModalContents?: JSX.Element;
   children: React.ReactNode;
-  isMobile: boolean;
   isActive: boolean;
   isOpen: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -458,7 +470,6 @@ const FilterAccordion = withI18n()((props: FilterAccordionProps) => {
     onInfoClick,
     infoModalContents,
     children,
-    isMobile,
     isActive,
     isOpen,
     setIsOpen,
@@ -496,7 +507,7 @@ const FilterAccordion = withI18n()((props: FilterAccordionProps) => {
             aria-label={i18n._(t`Filter`)}
           >
             {title}
-            {isActive && selectionsCount && (!isOpen || isMobile) && (
+            {isActive && selectionsCount && (
               <span className="filter-selection-count">{selectionsCount}</span>
             )}
             <ChevronIcon className="chevronIcon" />

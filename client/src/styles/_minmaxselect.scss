@@ -20,8 +20,10 @@
       position: relative;
       display: flex;
       box-shadow: 0 0 0 0.1rem $justfix-grey-700;
+      color: $justfix-black;
       background-color: $justfix-white;
       border-radius: 0.1rem;
+      cursor: pointer;
       &:has(> input[disabled]) {
         opacity: 0.5;
         background-color: lightgrey;
