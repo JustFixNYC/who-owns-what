@@ -115,7 +115,7 @@ select distinct on (registrations.bbl)
     else coalesce(eviction_filings_since_2017, 0) 
   end as evictionfilings
 from hpd_registrations_with_contacts as registrations
-left join hpd_reg_multibuilding as hpd_reg_bldgs on (registrations.bbl = hpd_reg_bldgs.bbl)
+left join hpd_reg_bldgs on (registrations.bbl = hpd_reg_bldgs.bbl)
 left join (
   select bbl,
     count(case when violationstatus = 'Open' then 1 end) as opentotal,
