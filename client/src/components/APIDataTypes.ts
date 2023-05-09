@@ -70,6 +70,7 @@ export type AddressRecord = {
   registrationenddate: APIDate;
   registrationid: string;
   buildingid: number;
+  hpdbuildings: number;
   rsdiff: number | null;
   rsunits2007: number | null;
   rsunitslatest: number | null;
