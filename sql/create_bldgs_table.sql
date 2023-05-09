@@ -83,7 +83,7 @@ select distinct on (registrations.bbl)
   registrations.registrationenddate,
   registrations.bbl,
   registrations.bin,
-  registrations.buildingid,
+  registrations.buildingid as hpdbuildingid,
   hpd_reg_bldgs.hpdbuildings,
   registrations.corpnames,
   registrations.businessaddrs,
