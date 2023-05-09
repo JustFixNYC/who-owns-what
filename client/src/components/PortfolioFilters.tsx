@@ -194,7 +194,6 @@ const PortfolioFiltersWithoutI18n = React.memo(
             subtitle={i18n._(t`Person/Entity`)}
             infoLabel={i18n._(t`Who are they?`)}
             infoModalContents={ownernamesInfoModalContents}
-            isMobile={isMobile}
             isActive={ownernamesActive}
             isOpen={ownernamesIsOpen}
             setIsOpen={setOwnernamesIsOpen}
@@ -216,7 +215,6 @@ const PortfolioFiltersWithoutI18n = React.memo(
           <FilterAccordion
             title={i18n._(t`Building Size`)}
             subtitle={i18n._(t`Number of Units`)}
-            isMobile={isMobile}
             isActive={unitsresActive}
             isOpen={unitsresIsOpen}
             onOpen={() => logPortfolioAnalytics("filterOpened", { column: "unitsres" })}
@@ -235,7 +233,6 @@ const PortfolioFiltersWithoutI18n = React.memo(
           </FilterAccordion>
           <FilterAccordion
             title={i18n._(t`Zip Code`)}
-            isMobile={isMobile}
             isActive={zipActive}
             isOpen={zipIsOpen}
             setIsOpen={setZipIsOpen}
@@ -449,7 +446,6 @@ type FilterAccordionProps = withI18nProps & {
   onInfoClick?: () => void;
   infoModalContents?: JSX.Element;
   children: React.ReactNode;
-  isMobile: boolean;
   isActive: boolean;
   isOpen: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -474,7 +470,6 @@ const FilterAccordion = withI18n()((props: FilterAccordionProps) => {
     onInfoClick,
     infoModalContents,
     children,
-    isMobile,
     isActive,
     isOpen,
     setIsOpen,
@@ -512,7 +507,7 @@ const FilterAccordion = withI18n()((props: FilterAccordionProps) => {
             aria-label={i18n._(t`Filter`)}
           >
             {title}
-            {isActive && selectionsCount && (!isOpen || isMobile) && (
+            {isActive && selectionsCount && (
               <span className="filter-selection-count">{selectionsCount}</span>
             )}
             <ChevronIcon className="chevronIcon" />

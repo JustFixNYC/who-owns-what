@@ -84,6 +84,7 @@
       text-transform: uppercase;
       display: flex;
       align-items: center;
+
       @include for-phone-only {
         &:not(.filters-mobile-wrapper) {
           border-radius: 0;
@@ -98,11 +99,12 @@
         }
       }
 
-      &.active:not([open]),
-      &[aria-pressed="true"] {
-        @include white-on-black();
-      }
       @include for-tablet-portrait-up() {
+        &.active,
+        &[aria-pressed="true"] {
+          @include white-on-black();
+        }
+
         &:not([open]):hover,
         [open] summary:not(.minmaxselect__custom-range-summary) {
           text-decoration: underline;
@@ -125,9 +127,12 @@
         min-height: var(--filter-bar-height);
         padding: 0 2.4rem;
         font-size: 1.8rem;
-        &[aria-pressed="false"]:hover,
+        &[aria-pressed="false"]:hover {
+          text-decoration: none;
+        }
         &[aria-pressed="true"] {
           text-decoration: none;
+          @include white-on-black();
         }
       }
       .checkbox {
@@ -191,14 +196,14 @@
       }
       .filter-selection-count {
         @include for-tablet-portrait-up() {
-          margin-left: 1em;
+          margin-left: 0.5rem;
           @include wrap-with-parentheses();
         }
         @include for-phone-only() {
           @include white-on-black();
           padding: 0.4rem 0.8rem;
           border-radius: 1.5rem;
-          margin-left: 0.8rem;
+          margin-left: 0.5rem;
           font-size: 1.4rem;
         }
       }
@@ -331,7 +336,7 @@
       &.active:not([open]) {
         @include white-on-black();
         .active-filter-count {
-          margin-left: 1em;
+          margin-left: 0.5rem;
           @include wrap-with-parentheses();
         }
       }
