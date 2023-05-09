@@ -46,12 +46,12 @@ class TestAddressQuery(ApiTest):
     ]
 
     def test_it_works(self, db, client):
-        res = client.get("/api/address?block=01678&lot=0054&borough=3")
+        res = client.get("/api/address?block=01238&lot=0016&borough=3")
         assert res.status_code == 200
         json = res.json()
         assert len(json["addrs"]) > 0
         assert json["geosearch"] == {
-            "bbl": "3016780054",
+            "bbl": "3012380016",
         }
 
 
@@ -62,7 +62,7 @@ class TestAddressAggregate(ApiTest):
     ]
 
     def test_it_works(self, db, client):
-        res = client.get("/api/address/aggregate?bbl=3016780054")
+        res = client.get("/api/address/aggregate?bbl=3012380016")
         assert res.status_code == 200
         assert len(res.json()["result"]) > 0
 
@@ -74,7 +74,7 @@ class TestAddressDapAggregate(ApiTest):
     ]
 
     def test_it_works(self, db, client):
-        res = client.get("/api/address/dap-aggregate?bbl=3016780054")
+        res = client.get("/api/address/dap-aggregate?bbl=3012380016")
         assert res.status_code == 200
         assert len(res.json()["result"]) > 0
 
@@ -105,7 +105,7 @@ class TestAddressBuildingInfo(ApiTest):
     ]
 
     def test_it_works(self, db, client):
-        res = client.get("/api/address/buildinginfo?bbl=3016780054")
+        res = client.get("/api/address/buildinginfo?bbl=3012380016")
         assert res.status_code == 200
         assert res.json()["result"] is not None
 
@@ -117,7 +117,7 @@ class TestAddressIndicatorHistory(ApiTest):
     ]
 
     def test_it_works(self, db, client):
-        res = client.get("/api/address/indicatorhistory?bbl=3016780054")
+        res = client.get("/api/address/indicatorhistory?bbl=3012380016")
         assert res.status_code == 200
         assert res.json()["result"] is not None
 
@@ -129,7 +129,7 @@ class TestAddressLatestDeed(ApiTest):
     ]
 
     def test_it_works(self, db, client):
-        res = client.get("/api/address/latestdeed?bbl=3016780054")
+        res = client.get("/api/address/latestdeed?bbl=3012380016")
         assert res.status_code == 200
         assert res.json()["result"] is not None
 
@@ -141,7 +141,7 @@ class TestAddressExport(ApiTest):
     ]
 
     def test_it_works(self, db, client):
-        res = client.get("/api/address/export?bbl=3016780054")
+        res = client.get("/api/address/export?bbl=3012380016")
         assert res.status_code == 200
         assert res["Content-Type"] == "text/csv"
 

@@ -223,32 +223,6 @@ describe("getMonthRangeFromQuarter()", () => {
   });
 });
 
-describe("formatStreetNameForHpdLink()", () => {
-  it("works for directional prefixes", () => {
-    expect(helpers.formatStreetNameForHpdLink("East 21st Street")).toBe("E 21st Street");
-  });
-
-  it("works for enumerations", () => {
-    expect(helpers.formatStreetNameForHpdLink("Eighth Avenue")).toBe("8 Avenue");
-  });
-
-  it("works for both prefixes and enumerations at once", () => {
-    expect(helpers.formatStreetNameForHpdLink("North Second Street")).toBe("N 2 Street");
-  });
-
-  it("doesn't change directionals or enumerations within names", () => {
-    expect(helpers.formatStreetNameForHpdLink("Eastonfirst Avenue")).toBe("Eastonfirst Avenue");
-  });
-
-  it("still works for one-word streetnames", () => {
-    expect(helpers.formatStreetNameForHpdLink("Broadway")).toBe("Broadway");
-  });
-
-  it("still works for empty streetnames", () => {
-    expect(helpers.formatStreetNameForHpdLink("")).toBe("");
-  });
-});
-
 describe("formatHpdContactAddress(), ()", () => {
   it("works with fully populated addresses", () => {
     expect(
