@@ -223,22 +223,6 @@ describe("getMonthRangeFromQuarter()", () => {
   });
 });
 
-describe("formatBoroughNameForHpdLink()", () => {
-  it("works for Manhattan", () => {
-    expect(helpers.formatBoroughNameForHpdLink("1")).toBe("Manhattan");
-  });
-
-  it("works for Staten Island", () => {
-    expect(helpers.formatBoroughNameForHpdLink("5")).toBe("Staten%20Island");
-  });
-
-  it("works throws error for invalid boro code", () => {
-    expect(helpers.formatBoroughNameForHpdLink("6")).toThrowError(
-      "Boro Code must be string value of 1-5"
-    );
-  });
-});
-
 describe("formatHpdContactAddress(), ()", () => {
   it("works with fully populated addresses", () => {
     expect(

@@ -256,30 +256,6 @@ const helpers = {
     )} - ${this.formatDate(endDate, { month: "short" }, locale).slice(0, 3)}`;
   },
 
-  formatBoroughNameForHpdLink(boroCode: string): string {
-    var boroughName: string;
-    switch (boroCode) {
-      case "1":
-        boroughName = "Manhattan";
-        break;
-      case "2":
-        boroughName = "Bronx";
-        break;
-      case "3":
-        boroughName = "Brooklym";
-        break;
-      case "4":
-        boroughName = "Queens";
-        break;
-      case "5":
-        boroughName = "Staten%20Island";
-        break;
-      default:
-        throw new Error(`Boro Code must be string value of 1-5`);
-    }
-    return boroughName;
-  },
-
   formatHpdContactAddress(
     address: HpdContactAddress
   ): { addressLine1: string; addressLine2: string } {
