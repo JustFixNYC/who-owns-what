@@ -6,25 +6,6 @@ import { I18n, MessageDescriptor } from "@lingui/core";
 import React, { useEffect, useState } from "react";
 import _ from "lodash";
 
-/**
- * An array consisting of Who Owns What's standard enumerations for street names,
- * (which come from the PLUTO dataset fron NYC's Dept. of City Planning)
- * and the corresponding format preferred by HPD as a url parameter.
- * NOTE: seems HPD only cares about these formats for numbers 1 to 10
- */
-const hpdNumberTransformations = [
-  ["FIRST", "1"],
-  ["SECOND", "2"],
-  ["THIRD", "3"],
-  ["FOURTH", "4"],
-  ["FIFTH", "5"],
-  ["SIXTH", "6"],
-  ["SEVENTH", "7"],
-  ["EIGHTH", "8"],
-  ["NINTH", "9"],
-  ["TENTH", "10"],
-];
-
 const hpdComplaintTypeTranslations = new Map([
   ["DOOR/WINDOW", t`DOOR/WINDOW`],
   ["HEATING", t`HEATING`],
