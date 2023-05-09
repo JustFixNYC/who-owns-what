@@ -9,6 +9,7 @@ import {
   FilterNumberRangeSelections,
   NUMBER_RANGE_DEFAULT,
 } from "./PropertiesList";
+import { ChevronIcon } from "./Icons";
 
 type CustomRangeErrors = { min: boolean; max: boolean; msg: JSX.Element | undefined };
 const CUSTOM_RANGE_ERRORS_DEFAULT = { min: false, max: false, msg: undefined };
@@ -49,6 +50,7 @@ function MinMaxSelect({
   const [presets, setPresets] = React.useState<Preset[]>(PRESETS_DEFAULT);
 
   const hasCustomInputs = isFinite(customRange.min) || isFinite(customRange.max);
+  const hasPresetSelections = presets.reduce((prev, preset) => prev || preset.checked, false);
 
   React.useEffect(() => {
     if (!isOpen) {
@@ -160,80 +162,101 @@ function MinMaxSelect({
           )}
         </span>
       </fieldset>
-      <details>
-        <summary className="minmaxselect__custom-range-summary">
-          <span>
-            <Trans>Custom Range</Trans>
-          </span>
-        </summary>
-        <form id={`${id || "minmaxselect"}__form`} className="minmaxselect__custom-range-container">
-          {customRangeErrors.min || customRangeErrors.max ? (
-            <div className="minmaxselect__alerts-container">
-              <Alert type="error" variant="primary" closeType="none" role="alert">
-                {customRangeErrors.msg}
-              </Alert>
+      <div className="minmaxselect__controls-container">
+        <details>
+          <summary className="minmaxselect__custom-range-summary">
+            <span>
+              <Trans>Custom range</Trans>
+            </span>
+            <ChevronIcon className="chevronIcon" />
+          </summary>
+          <form
+            id={`${id || "minmaxselect"}__form`}
+            className="minmaxselect__custom-range-container"
+          >
+            {customRangeErrors.min || customRangeErrors.max ? (
+              <div className="minmaxselect__alerts-container">
+                <Alert type="error" variant="primary" closeType="none" role="alert">
+                  {customRangeErrors.msg}
+                </Alert>
+              </div>
+            ) : (
+              <></>
+            )}
+            <div className="minmaxselect__label-input-container">
+              <div className="minmaxselect__labels-container">
+                <label htmlFor={`${id || "minmax-select"}_min-input`}>
+                  <Trans>MIN</Trans>
+                </label>
+                <label htmlFor={`${id || "minmax-select"}_max-input`}>
+                  <Trans>MAX</Trans>
+                </label>
+              </div>
+              <div className="minmaxselect__inputs-container">
+                <input
+                  id={`${id || "minmax-select"}_min-input`}
+                  className={classnames("minmaxselect__min-input", {
+                    hasError: customRangeErrors.min,
+                  })}
+                  value={isFinite(customRange.min) ? customRange.min : ""}
+                  onChange={(e) => {
+                    setCustomRangeErrors(CUSTOM_RANGE_ERRORS_DEFAULT);
+                    setCustomRange({
+                      min: cleanNumberInput(e.target.value) || -Infinity,
+                      max: customRange.max,
+                    });
+                  }}
+                  {...commonInputProps}
+                />
+                <span>
+                  <Trans>and</Trans>
+                </span>
+                <input
+                  id={`${id || "minmax-select"}_max-input`}
+                  className={classnames("minmaxselect__max-input", {
+                    hasError: customRangeErrors.max,
+                  })}
+                  value={isFinite(customRange.max) ? customRange.max : ""}
+                  onChange={(e) => {
+                    setCustomRangeErrors(CUSTOM_RANGE_ERRORS_DEFAULT);
+                    setCustomRange({
+                      min: customRange.min,
+                      max: cleanNumberInput(e.target.value) || Infinity,
+                    });
+                  }}
+                  {...commonInputProps}
+                />
+                <span
+                  id={`${id || "minmax-select"}__custom-a11y-text`}
+                  className="minmaxselect__a11y-text"
+                  hidden
+                >
+                  <Trans>
+                    Enter minimum and maximum number of units, or leave either blank, then apply
+                    selections to filter the list of portfolio properties. Set both to blank and
+                    apply to clear filter.
+                  </Trans>
+                </span>
+              </div>
             </div>
-          ) : (
-            <></>
-          )}
-          <div className="minmaxselect__label-input-container">
-            <div className="minmaxselect__labels-container">
-              <label htmlFor={`${id || "minmax-select"}_min-input`}>
-                <Trans>MIN</Trans>
-              </label>
-              <label htmlFor={`${id || "minmax-select"}_max-input`}>
-                <Trans>MAX</Trans>
-              </label>
-            </div>
-            <div className="minmaxselect__inputs-container">
-              <input
-                id={`${id || "minmax-select"}_min-input`}
-                className={classnames("minmaxselect__min-input", {
-                  hasError: customRangeErrors.min,
-                })}
-                value={isFinite(customRange.min) ? customRange.min : ""}
-                onChange={(e) => {
-                  setCustomRangeErrors(CUSTOM_RANGE_ERRORS_DEFAULT);
-                  setCustomRange({
-                    min: cleanNumberInput(e.target.value) || -Infinity,
-                    max: customRange.max,
-                  });
+          </form>
+        </details>
+        {(hasCustomInputs || hasPresetSelections) && (
+          <I18n>
+            {({ i18n }) => (
+              <button
+                className={`minmaxselect__clear-value-button button is-text`}
+                aria-label={i18n._(t`Clear all selections`)}
+                onClick={() => {
+                  onApply({ type: "default", values: [NUMBER_RANGE_DEFAULT] });
                 }}
-                {...commonInputProps}
-              />
-              <span>
-                <Trans>and</Trans>
-              </span>
-              <input
-                id={`${id || "minmax-select"}_max-input`}
-                className={classnames("minmaxselect__max-input", {
-                  hasError: customRangeErrors.max,
-                })}
-                value={isFinite(customRange.max) ? customRange.max : ""}
-                onChange={(e) => {
-                  setCustomRangeErrors(CUSTOM_RANGE_ERRORS_DEFAULT);
-                  setCustomRange({
-                    min: customRange.min,
-                    max: cleanNumberInput(e.target.value) || Infinity,
-                  });
-                }}
-                {...commonInputProps}
-              />
-              <span
-                id={`${id || "minmax-select"}__custom-a11y-text`}
-                className="minmaxselect__a11y-text"
-                hidden
               >
-                <Trans>
-                  Enter minimum and maximum number of units, or leave either blank, then apply
-                  selections to filter the list of portfolio properties. Set both to blank and apply
-                  to clear filter.
-                </Trans>
-              </span>
-            </div>
-          </div>
-        </form>
-      </details>
+                <Trans>Clear selections</Trans>
+              </button>
+            )}
+          </I18n>
+        )}
+      </div>
       <I18n>
         {({ i18n }) => (
           <button
