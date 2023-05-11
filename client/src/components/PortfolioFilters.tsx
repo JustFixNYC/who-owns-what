@@ -481,6 +481,16 @@ const FilterAccordion = withI18n()((props: FilterAccordionProps) => {
   } = props;
   const [showInfoModal, setShowInfoModal] = React.useState(false);
 
+
+  /* iOS specific issue
+    focus inputs w/ keyboard shifts up the entire HTML tag. 
+    on keyboard close, HTML doesn't revert to previous position. 
+    this force scrolls the background to the top. */
+    const handlePageShift = () => {
+      window.scrollTo(0, 0);
+      document.body.scrollTop = 0;
+    };
+
   return (
     <>
       <FocusTrap
@@ -502,6 +512,7 @@ const FilterAccordion = withI18n()((props: FilterAccordionProps) => {
               e.preventDefault();
               !isOpen && onOpen && onOpen();
               setIsOpen(!isOpen);
+              handlePageShift();
             }}
             data-selections={selectionsCount}
             aria-label={i18n._(t`Filter`)}
