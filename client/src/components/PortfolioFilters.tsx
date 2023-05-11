@@ -206,6 +206,7 @@ const PortfolioFiltersWithoutI18n = React.memo(
               options={valuesAsMultiselectOptions(ownernamesOptions)}
               onApply={onOwnernamesApply}
               onError={() => logPortfolioAnalytics("filterError", { column: "ownernames" })}
+              onBlur={handlePageShift}
               infoAlert={OwnernamesInfoAlert}
               aria-label={i18n._(t`Landlord filter`)}
               isOpen={ownernamesIsOpen}
@@ -227,6 +228,7 @@ const PortfolioFiltersWithoutI18n = React.memo(
               onError={() => logPortfolioAnalytics("filterError", { column: "unitsres" })}
               id="filter-unitsres-minmax"
               onFocusInput={() => helpers.scrollToBottom(".mobile-wrapper-dropdown")}
+              onBlurInput={handlePageShift}
               isOpen={unitsresIsOpen}
               defaultSelections={unitsresSelections}
             />
@@ -246,6 +248,7 @@ const PortfolioFiltersWithoutI18n = React.memo(
               onApply={onZipApply}
               noOptionsMessage={() => i18n._(t`ZIP code is not applicable`)}
               onError={() => logPortfolioAnalytics("filterError", { column: "zip" })}
+              onBlur={handlePageShift}
               aria-label={i18n._(t`Zip code filter`)}
               onKeyDown={helpers.preventNonNumericalInput}
               isOpen={zipIsOpen}
@@ -316,15 +319,6 @@ const FiltersWrapper = (props: {
   const { isMobile, activeFilters, resultsCount, children } = props;
   const numActiveFilters = Object.values(activeFilters).filter(Boolean).length;
   const [isOpen, setIsOpen] = React.useState(false);
-
-  /* iOS specific issue
-    focus inputs w/ keyboard shifts up the entire HTML tag. 
-    on keyboard close, HTML doesn't revert to previous position. 
-    this force scrolls the background to the top. */
-  const handlePageShift = () => {
-    window.scrollTo(0, 0);
-    document.body.scrollTop = 0;
-  };
 
   return !isMobile ? (
     <div className="filters">{children}</div>
@@ -481,7 +475,6 @@ const FilterAccordion = withI18n()((props: FilterAccordionProps) => {
   } = props;
   const [showInfoModal, setShowInfoModal] = React.useState(false);
 
-
   return (
     <>
       <FocusTrap
@@ -549,6 +542,15 @@ function valuesAsMultiselectOptions(values: string[]): Option[] {
     : [];
   return formattedOptions;
 }
+
+/* iOS specific issue
+focus inputs w/ keyboard shifts up the entire HTML tag. 
+on keyboard close, HTML doesn't revert to previous position. 
+this force scrolls the background to the top. */
+const handlePageShift = () => {
+  window.scrollTo(0, 0);
+  document.body.scrollTop = 0;
+};
 
 const PortfolioFilters = withI18n()(PortfolioFiltersWithoutI18n);
 

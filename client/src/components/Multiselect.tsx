@@ -68,6 +68,7 @@ function MultiSelect<
   onInputChange,
   onError,
   previewSelectedNum,
+  onBlur,
   ...props
 }: Props<Option, IsMulti, GroupType> & CustomMultiselectProps) {
   const [selections, setSelections] = useState<Option[]>([]);
@@ -118,15 +119,6 @@ function MultiSelect<
     }
   };
 
-  /* iOS specific issue
-    focus inputs w/ keyboard shifts up the entire HTML tag. 
-    on keyboard close, HTML doesn't revert to previous position. 
-    this force scrolls the background to the top. */
-  const handlePageShift = () => {
-    window.scrollTo(0, 0);
-    document.body.scrollTop = 0;
-  };
-
   return (
     <I18n>
       {({ i18n }) => (
@@ -143,7 +135,7 @@ function MultiSelect<
             options={options}
             value={selections}
             onChange={handleChange}
-            onBlur={handlePageShift}
+            onBlur={onBlur}
             inputValue={inputValue}
             onInputChange={handleInputChange}
             placeholder={i18n._(t`Search`) + `... (${options!.length})`}

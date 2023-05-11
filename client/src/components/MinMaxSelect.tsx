@@ -32,6 +32,7 @@ type MinMaxSelectProps = {
   onError?: () => void;
   id?: string;
   onFocusInput?: () => void;
+  onBlurInput?: () => void;
 };
 
 function MinMaxSelect({
@@ -42,6 +43,7 @@ function MinMaxSelect({
   onError,
   id,
   onFocusInput,
+  onBlurInput,
 }: MinMaxSelectProps) {
   const [customRange, setCustomRange] = React.useState<FilterNumberRange>(NUMBER_RANGE_DEFAULT);
   const [customRangeErrors, setCustomRangeErrors] = React.useState<CustomRangeErrors>(
@@ -106,15 +108,6 @@ function MinMaxSelect({
       : onApply({ type: "default", values: [NUMBER_RANGE_DEFAULT] });
   };
 
-  /* iOS specific issue
-    focus inputs w/ keyboard shifts up the entire HTML tag. 
-    on keyboard close, HTML doesn't revert to previous position. 
-    this force scrolls the background to the top. */
-  const handlePageShift = () => {
-    window.scrollTo(0, 0);
-    document.body.scrollTop = 0;
-  };
-
   const commonInputProps: InputHTMLAttributes<HTMLInputElement> = {
     type: "text",
     inputMode: "numeric",
@@ -126,7 +119,7 @@ function MinMaxSelect({
     max: options.min,
     onKeyDown: helpers.preventNonNumericalInput,
     onFocus: onFocusInput,
-    onBlur: handlePageShift,
+    onBlur: onBlurInput,
   };
 
   return (
