@@ -355,6 +355,7 @@
       &[open] {
         --filter-bar-top-height: 4.6rem;
         --filter-bar-height: 6.6rem;
+        overflow: auto;
         position: absolute;
         top: 0;
         left: 0;
@@ -383,46 +384,46 @@
 
         // Hide page from showing through around rounded corners
         // Sadly outline+offset doesn't work since in safari is doesn't follow border-radius
-        &::before {
-          --border-size: 0.5rem;
-          content: "";
-          position: absolute;
-          top: calc(0rem - var(--border-size));
-          right: calc(0rem - var(--border-size));
-          bottom: calc(0rem - var(--border-size));
-          left: calc(0rem - var(--border-size));
-          border: var(--border-size) solid $justfix-black;
-          border-bottom: none;
-          border-radius: 1.25rem 1.25rem 0 0;
+        // &::before {
+        //   --border-size: 0.5rem;
+        //   content: "";
+        //   position: absolute;
+        //   top: calc(0rem - var(--border-size));
+        //   right: calc(0rem - var(--border-size));
+        //   bottom: calc(0rem - var(--border-size));
+        //   left: calc(0rem - var(--border-size));
+        //   border: var(--border-size) solid $justfix-black;
+        //   border-bottom: none;
+        //   border-radius: 1.25rem 1.25rem 0 0;
 
-          @keyframes fade-in {
-            0% {
-              opacity: 0;
-            }
-            90% {
-              opacity: 0;
-            }
-            100% {
-              opacity: 1;
-            }
-          }
+        //   @keyframes fade-in {
+        //     0% {
+        //       opacity: 0;
+        //     }
+        //     90% {
+        //       opacity: 0;
+        //     }
+        //     100% {
+        //       opacity: 1;
+        //     }
+        //   }
 
-          animation-name: fade-in;
-          animation-duration: 0.5s;
-          animation-timing-function: ease-in-out;
-          animation-fill-mode: forwards;
-        }
+        //   animation-name: fade-in;
+        //   animation-duration: 0.5s;
+        //   animation-timing-function: ease-in-out;
+        //   animation-fill-mode: forwards;
+        // }
 
         & > summary {
           padding: 0 2.4rem;
           border-bottom: 0.2rem solid $justfix-grey-700;
         }
         & > .dropdown-container {
-          position: absolute;
-          top: var(--filter-bar-top-height);
-          left: 0;
-          max-height: none;
-          height: calc(100vh - var(--filter-bar-top-height));
+          // position: absolute;
+          // top: var(--filter-bar-top-height);
+          // left: 0;
+          // max-height: none;
+          // height: calc(100vh - var(--filter-bar-top-height));
           z-index: 102;
           padding: 0;
 
