@@ -227,7 +227,8 @@ const PortfolioFiltersWithoutI18n = React.memo(
               onApply={onUnitsresApply}
               onError={() => logPortfolioAnalytics("filterError", { column: "unitsres" })}
               id="filter-unitsres-minmax"
-              // onFocusInput={handlePageShift}
+              // onFocusInput={() => helpers.scrollToBottom(".mobile-wrapper-dropdown")}
+              onFocusInput={handlePageShift}
               // onBlurInput={handlePageShift}
               isOpen={unitsresIsOpen}
               defaultSelections={unitsresSelections}
