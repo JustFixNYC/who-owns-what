@@ -68,7 +68,6 @@ function MultiSelect<
   onInputChange,
   onError,
   previewSelectedNum,
-  onBlur,
   ...props
 }: Props<Option, IsMulti, GroupType> & CustomMultiselectProps) {
   const [selections, setSelections] = useState<Option[]>([]);
@@ -135,7 +134,6 @@ function MultiSelect<
             options={options}
             value={selections}
             onChange={handleChange}
-            onBlur={onBlur}
             inputValue={inputValue}
             onInputChange={handleInputChange}
             placeholder={i18n._(t`Search`) + `... (${options!.length})`}
