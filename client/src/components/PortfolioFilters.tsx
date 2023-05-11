@@ -229,7 +229,7 @@ const PortfolioFiltersWithoutI18n = React.memo(
               id="filter-unitsres-minmax"
               // onFocusInput={() => helpers.scrollToBottom(".mobile-wrapper-dropdown")}
               onFocusInput={handlePageShift}
-              // onBlurInput={handlePageShift}
+              onBlurInput={handlePageShift}
               isOpen={unitsresIsOpen}
               defaultSelections={unitsresSelections}
             />
