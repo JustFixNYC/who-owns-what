@@ -382,35 +382,35 @@
 
         // Hide page from showing through around rounded corners
         // Sadly outline+offset doesn't work since in safari is doesn't follow border-radius
-        // &::before {
-        //   --border-size: 0.5rem;
-        //   content: "";
-        //   position: absolute;
-        //   top: calc(0rem - var(--border-size));
-        //   right: calc(0rem - var(--border-size));
-        //   bottom: calc(0rem - var(--border-size));
-        //   left: calc(0rem - var(--border-size));
-        //   border: var(--border-size) solid $justfix-black;
-        //   border-bottom: none;
-        //   border-radius: 1.25rem 1.25rem 0 0;
+        &::before {
+          --border-size: 0.5rem;
+          content: "";
+          position: absolute;
+          top: calc(0rem - var(--border-size));
+          right: calc(0rem - var(--border-size));
+          bottom: calc(0rem - var(--border-size));
+          left: calc(0rem - var(--border-size));
+          border: var(--border-size) solid $justfix-black;
+          border-bottom: none;
+          border-radius: 1.25rem 1.25rem 0 0;
 
-        //   @keyframes fade-in {
-        //     0% {
-        //       opacity: 0;
-        //     }
-        //     90% {
-        //       opacity: 0;
-        //     }
-        //     100% {
-        //       opacity: 1;
-        //     }
-        //   }
+          @keyframes fade-in {
+            0% {
+              opacity: 0;
+            }
+            90% {
+              opacity: 0;
+            }
+            100% {
+              opacity: 1;
+            }
+          }
 
-        //   animation-name: fade-in;
-        //   animation-duration: 0.5s;
-        //   animation-timing-function: ease-in-out;
-        //   animation-fill-mode: forwards;
-        // }
+          animation-name: fade-in;
+          animation-duration: 0.5s;
+          animation-timing-function: ease-in-out;
+          animation-fill-mode: forwards;
+        }
 
         & > summary {
           padding: 0 2.4rem;
