@@ -206,7 +206,7 @@ const PortfolioFiltersWithoutI18n = React.memo(
               options={valuesAsMultiselectOptions(ownernamesOptions)}
               onApply={onOwnernamesApply}
               onError={() => logPortfolioAnalytics("filterError", { column: "ownernames" })}
-              onBlur={handlePageShift}
+              // onBlur={handlePageShift}
               infoAlert={OwnernamesInfoAlert}
               aria-label={i18n._(t`Landlord filter`)}
               isOpen={ownernamesIsOpen}
@@ -228,8 +228,8 @@ const PortfolioFiltersWithoutI18n = React.memo(
               onError={() => logPortfolioAnalytics("filterError", { column: "unitsres" })}
               id="filter-unitsres-minmax"
               // onFocusInput={() => helpers.scrollToBottom(".mobile-wrapper-dropdown")}
-              onFocusInput={handlePageShift}
-              onBlurInput={handlePageShift}
+              // onFocusInput={handlePageShift}
+              // onBlurInput={handlePageShift}
               isOpen={unitsresIsOpen}
               defaultSelections={unitsresSelections}
             />
@@ -249,7 +249,7 @@ const PortfolioFiltersWithoutI18n = React.memo(
               onApply={onZipApply}
               noOptionsMessage={() => i18n._(t`ZIP code is not applicable`)}
               onError={() => logPortfolioAnalytics("filterError", { column: "zip" })}
-              onBlur={handlePageShift}
+              // onBlur={handlePageShift}
               aria-label={i18n._(t`Zip code filter`)}
               onKeyDown={helpers.preventNonNumericalInput}
               isOpen={zipIsOpen}
@@ -343,7 +343,7 @@ const FiltersWrapper = (props: {
             onClick={(e) => {
               e.preventDefault();
               setIsOpen(!isOpen);
-              handlePageShift();
+              // handlePageShift();
             }}
           >
             <Trans>Filters</Trans>
@@ -359,7 +359,7 @@ const FiltersWrapper = (props: {
                 className="button is-primary"
                 onClick={() => {
                   setIsOpen(!isOpen);
-                  handlePageShift();
+                  // handlePageShift();
                 }}
               >
                 <Trans>View Results</Trans>
