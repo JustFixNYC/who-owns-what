@@ -230,7 +230,7 @@
           position: absolute;
           top: 5rem;
           left: -0.1rem;
-          z-index: 100;
+          z-index: 10;
           overflow-y: scroll;
           background-color: $justfix-table-grey;
           box-sizing: border-box;
@@ -359,7 +359,7 @@
         top: 0;
         left: 0;
         right: 0;
-        z-index: 101;
+        z-index: 11;
         height: 100%;
         background-color: $justfix-table-grey;
         border-radius: 0.8rem 0.8rem 0 0;
@@ -417,12 +417,8 @@
           border-bottom: 0.2rem solid $justfix-grey-700;
         }
         & > .dropdown-container {
-          // position: absolute;
-          // top: var(--filter-bar-top-height);
-          // left: 0;
-          // max-height: none;
           height: calc(100% - var(--filter-bar-top-height));
-          z-index: 102;
+          z-index: 12;
           padding: 0;
           overflow: auto;
 
