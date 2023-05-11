@@ -106,6 +106,15 @@ function MinMaxSelect({
       : onApply({ type: "default", values: [NUMBER_RANGE_DEFAULT] });
   };
 
+  /* iOS specific issue
+    focus inputs w/ keyboard shifts up the entire HTML tag. 
+    on keyboard close, HTML doesn't revert to previous position. 
+    this force scrolls the background to the top. */
+  const handlePageShift = () => {
+    window.scrollTo(0, 0);
+    document.body.scrollTop = 0;
+  };
+
   const commonInputProps: InputHTMLAttributes<HTMLInputElement> = {
     type: "text",
     inputMode: "numeric",
@@ -117,6 +126,7 @@ function MinMaxSelect({
     max: options.min,
     onKeyDown: helpers.preventNonNumericalInput,
     onFocus: onFocusInput,
+    onBlur: handlePageShift,
   };
 
   return (
