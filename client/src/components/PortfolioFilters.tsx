@@ -226,7 +226,6 @@ const PortfolioFiltersWithoutI18n = React.memo(
               onApply={onUnitsresApply}
               onError={() => logPortfolioAnalytics("filterError", { column: "unitsres" })}
               id="filter-unitsres-minmax"
-              onFocusInput={() => helpers.scrollToBottom(".mobile-wrapper-dropdown")}
               isOpen={unitsresIsOpen}
               defaultSelections={unitsresSelections}
             />
@@ -317,15 +316,6 @@ const FiltersWrapper = (props: {
   const numActiveFilters = Object.values(activeFilters).filter(Boolean).length;
   const [isOpen, setIsOpen] = React.useState(false);
 
-  /* iOS specific issue
-    focus inputs w/ keyboard shifts up the entire HTML tag. 
-    on keyboard close, HTML doesn't revert to previous position. 
-    this force scrolls the background to the top. */
-  const handlePageShift = () => {
-    window.scrollTo(0, 0);
-    document.body.scrollTop = 0;
-  };
-
   return !isMobile ? (
     <div className="filters">{children}</div>
   ) : (
@@ -348,7 +338,6 @@ const FiltersWrapper = (props: {
             onClick={(e) => {
               e.preventDefault();
               setIsOpen(!isOpen);
-              handlePageShift();
             }}
           >
             <Trans>Filters</Trans>
@@ -364,7 +353,6 @@ const FiltersWrapper = (props: {
                 className="button is-primary"
                 onClick={() => {
                   setIsOpen(!isOpen);
-                  handlePageShift();
                 }}
               >
                 <Trans>View Results</Trans>

@@ -31,7 +31,6 @@ type MinMaxSelectProps = {
   defaultSelections: FilterNumberRangeSelections;
   onError?: () => void;
   id?: string;
-  onFocusInput?: () => void;
 };
 
 function MinMaxSelect({
@@ -41,7 +40,6 @@ function MinMaxSelect({
   defaultSelections,
   onError,
   id,
-  onFocusInput,
 }: MinMaxSelectProps) {
   const [customRange, setCustomRange] = React.useState<FilterNumberRange>(NUMBER_RANGE_DEFAULT);
   const [customRangeErrors, setCustomRangeErrors] = React.useState<CustomRangeErrors>(
@@ -116,7 +114,6 @@ function MinMaxSelect({
     min: options.min,
     max: options.min,
     onKeyDown: helpers.preventNonNumericalInput,
-    onFocus: onFocusInput,
   };
 
   return (
