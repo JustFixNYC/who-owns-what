@@ -355,12 +355,12 @@
       &[open] {
         --filter-bar-top-height: 4.6rem;
         --filter-bar-height: 6.6rem;
-        position: fixed;
+        position: absolute;
         top: 0;
         left: 0;
         right: 0;
         z-index: 101;
-        height: var(--filter-bar-top-height);
+        height: 100%;
         background-color: $justfix-table-grey;
         border-radius: 0.8rem 0.8rem 0 0;
         box-sizing: border-box;
