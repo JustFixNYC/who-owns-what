@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-05-15 20:45\n"
+"PO-Revision-Date: 2023-05-15 20:49\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -324,7 +324,7 @@ msgstr "Corporación"
 
 #: src/components/PortfolioTable.tsx:117
 msgid "Council"
-msgstr ""
+msgstr "Concejo"
 
 #: src/components/MinMaxSelect.tsx:118
 msgid "Custom range"
@@ -848,7 +848,7 @@ msgstr "Directorio de NYCHA"
 
 #: src/components/PortfolioAlerts.tsx:78
 msgid "Narrow down this portfolio using filters in <0>the Portfolio tab.</0>"
-msgstr ""
+msgstr "Restrinja esta cartera utilizando los filtros de la <0>pestaña Cartera.</0>"
 
 #: src/components/PropertiesSummary.tsx:68
 msgid "Network of Landlords"
@@ -993,7 +993,7 @@ msgstr "PORTAFOLIO DE EDIFICIOS: La dirección que has buscado está asociada co
 
 #: src/components/PortfolioTable.tsx:517
 msgid "Page"
-msgstr ""
+msgstr "Página"
 
 #: src/components/DetailView.tsx:340
 #: src/components/DetailView.tsx:350
@@ -1044,7 +1044,7 @@ msgstr "Unidades RS"
 #: src/components/PortfolioFilters.tsx:100
 #: src/components/PortfolioFilters.tsx:163
 msgid "Read more in our Methodology section"
-msgstr ""
+msgstr "Más información sobre nuestra metodología"
 
 #: src/containers/NotRegisteredPage.tsx:107
 msgid "Registration expired:"
@@ -1068,7 +1068,7 @@ msgstr "Renta estabilizada"
 
 #: src/components/PortfolioFilters.tsx:210
 msgid "Rent stabilized units are self-reported in yearly tax statements by building owners. As a result, many buildings with rent stabilized units may not be documented."
-msgstr ""
+msgstr "Las unidades de renta estabilizada son declaradas por los dueños de los edificios en sus declaraciones fiscales anuales. Como resultado, muchos edificios con unidades de renta estabilizada pueden parecer desregulados."
 
 #: src/components/PortfolioGraph.tsx:159
 msgid "Reset diagram"
@@ -1147,7 +1147,7 @@ msgstr "Mostrar todas las {numSelections} selecciones"
 
 #: src/components/Multiselect.tsx:140
 msgid "Show less"
-msgstr ""
+msgstr "Mostrar menos"
 
 #: src/components/Multiselect.tsx:139
 msgid "Show only {previewSelectedNum} selections"
@@ -1456,7 +1456,7 @@ msgstr "Ver detalles"
 
 #: src/components/PortfolioFilters.tsx:194
 msgid "View Results"
-msgstr ""
+msgstr "Ver resultados"
 
 #: src/components/Indicators.tsx:180
 #: src/components/Indicators.tsx:183
@@ -1590,7 +1590,7 @@ msgstr "Quién Es El Dueño es una herramienta gratis construida por JustFix par
 
 #: src/components/PortfolioFilters.tsx:120
 msgid "Who are they?"
-msgstr ""
+msgstr "¿Quiénes son?"
 
 #: src/containers/App.tsx:42
 msgid "Who owns what in n y c?"
@@ -1651,7 +1651,7 @@ msgstr "Está viendo la versión antigua de ¿Quién es el Dueño en NY? <0>Camb
 
 #: src/components/PortfolioFilters.tsx:127
 msgid "ZIP code is not applicable"
-msgstr ""
+msgstr "Código postal no aplicable"
 
 #: src/components/PortfolioFilters.tsx:126
 #: src/components/PortfolioTable.tsx:88
