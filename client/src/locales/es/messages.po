@@ -296,7 +296,7 @@ msgstr "HaZ clic aquí para obtener más información."
 msgid "Close"
 msgstr "Cerrar"
 
-#: src/components/PropertiesMap.tsx:206
+#: src/components/PropertiesMap.tsx:207
 msgid "Close legend"
 msgstr "Cerrar leyenda"
 
@@ -704,7 +704,7 @@ msgstr ""
 msgid "Learn more."
 msgstr ""
 
-#: src/components/PropertiesMap.tsx:206
+#: src/components/PropertiesMap.tsx:207
 msgid "Legend"
 msgstr "Leyenda"
 
@@ -719,7 +719,7 @@ msgstr "Enlace a la Escritura"
 
 #: src/components/Loader.tsx:19
 #: src/components/PropertiesList.tsx:88
-#: src/components/PropertiesMap.tsx:157
+#: src/components/PropertiesMap.tsx:158
 msgid "Loading"
 msgstr "Cargando"
 
@@ -1195,7 +1195,7 @@ msgstr "Vendido al Propietario Actual"
 msgid "Some large corporations, however, are a bit more complicated and may share personnel and financial stake with other related companies, which all will show up on Who Owns What as one large portfolio."
 msgstr "Sin embargo, algunas grandes corporaciones son un poco más complicadas y pueden compartir personal y participación financiera con otras compañías relacionadas, que todos se mostrarán en Quién es el Dueño como un gran portafolio."
 
-#: src/components/PropertiesMap.tsx:167
+#: src/components/PropertiesMap.tsx:168
 msgid "Sorry, it looks like there's an error on the map. Try again on a different browser or <0>enable WebGL</0>."
 msgstr "Lo sentimos, parece que hay un error en el mapa. Inténtalo de nuevo con un navegador diferente o <0>habilita WebGL</0>."
 
@@ -1469,7 +1469,7 @@ msgstr "Ver datos a lo largo del tiempo ↗︎"
 msgid "View documents on <0>ACRIS</0>"
 msgstr "Ver documentos en <0>ACRIS</0>"
 
-#: src/components/PropertiesMap.tsx:206
+#: src/components/PropertiesMap.tsx:207
 msgid "View legend"
 msgstr "Ver leyenda"
 
@@ -1676,7 +1676,7 @@ msgstr "Alejar"
 msgid "and"
 msgstr "y"
 
-#: src/components/PropertiesMap.tsx:213
+#: src/components/PropertiesMap.tsx:214
 msgid "associated building"
 msgstr "edificio asociado"
 
@@ -1696,7 +1696,7 @@ msgstr ""
 msgid "quarter"
 msgstr "trimestre"
 
-#: src/components/PropertiesMap.tsx:212
+#: src/components/PropertiesMap.tsx:213
 msgid "search address"
 msgstr "dirección de búsqueda"
 

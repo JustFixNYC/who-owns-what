@@ -293,7 +293,7 @@ msgstr "Click here to learn more."
 msgid "Close"
 msgstr "Close"
 
-#: src/components/PropertiesMap.tsx:206
+#: src/components/PropertiesMap.tsx:207
 msgid "Close legend"
 msgstr "Close legend"
 
@@ -701,7 +701,7 @@ msgstr "Learn more about how the results are calculated"
 msgid "Learn more."
 msgstr "Learn more."
 
-#: src/components/PropertiesMap.tsx:206
+#: src/components/PropertiesMap.tsx:207
 msgid "Legend"
 msgstr "Legend"
 
@@ -716,7 +716,7 @@ msgstr "Link to Deed"
 
 #: src/components/Loader.tsx:19
 #: src/components/PropertiesList.tsx:88
-#: src/components/PropertiesMap.tsx:157
+#: src/components/PropertiesMap.tsx:158
 msgid "Loading"
 msgstr "Loading"
 
@@ -1192,7 +1192,7 @@ msgstr "Sold to Current Owner"
 msgid "Some large corporations, however, are a bit more complicated and may share personnel and financial stake with other related companies, which all will show up on Who Owns What as one large portfolio."
 msgstr "Some large corporations, however, are a bit more complicated and may share personnel and financial stake with other related companies, which all will show up on Who Owns What as one large portfolio."
 
-#: src/components/PropertiesMap.tsx:167
+#: src/components/PropertiesMap.tsx:168
 msgid "Sorry, it looks like there's an error on the map. Try again on a different browser or <0>enable WebGL</0>."
 msgstr "Sorry, it looks like there's an error on the map. Try again on a different browser or <0>enable WebGL</0>."
 
@@ -1466,7 +1466,7 @@ msgstr "View data over time ↗︎"
 msgid "View documents on <0>ACRIS</0>"
 msgstr "View documents on <0>ACRIS</0>"
 
-#: src/components/PropertiesMap.tsx:206
+#: src/components/PropertiesMap.tsx:207
 msgid "View legend"
 msgstr "View legend"
 
@@ -1669,7 +1669,7 @@ msgstr "Zoom out"
 msgid "and"
 msgstr "and"
 
-#: src/components/PropertiesMap.tsx:213
+#: src/components/PropertiesMap.tsx:214
 msgid "associated building"
 msgstr "associated building"
 
@@ -1689,7 +1689,7 @@ msgstr "of"
 msgid "quarter"
 msgstr "quarter"
 
-#: src/components/PropertiesMap.tsx:212
+#: src/components/PropertiesMap.tsx:213
 msgid "search address"
 msgstr "search address"
 
