@@ -493,8 +493,8 @@ msgid "Filter"
 msgstr "Filter"
 
 #: src/components/PortfolioAlerts.tsx:78
-msgid "Filter through this portfolio in <0>the Portfolio tab.</0>"
-msgstr "Filter through this portfolio in <0>the Portfolio tab.</0>"
+#~ msgid "Filter through this portfolio in <0>the Portfolio tab.</0>"
+#~ msgstr "Filter through this portfolio in <0>the Portfolio tab.</0>"
 
 #: src/components/PortfolioFilters.tsx:185
 msgid "Filters"
@@ -841,6 +841,10 @@ msgstr "NON-CONSTRUCTION"
 msgid "NYCHA Directory"
 msgstr "NYCHA Directory"
 
+#: src/components/PortfolioAlerts.tsx:78
+msgid "Narrow down this portfolio using filters in <0>the Portfolio tab.</0>"
+msgstr "Narrow down this portfolio using filters in <0>the Portfolio tab.</0>"
+
 #: src/components/PropertiesSummary.tsx:68
 msgid "Network of Landlords"
 msgstr "Network of Landlords"
@@ -1029,12 +1033,13 @@ msgstr "RS Units"
 
 #: src/components/PortfolioFilters.tsx:100
 #: src/components/PortfolioFilters.tsx:163
-msgid "Read more about our Methodology"
-msgstr "Read more about our Methodology"
+#~ msgid "Read more about our Methodology"
+#~ msgstr "Read more about our Methodology"
 
-#: src/components/PortfolioFilters.tsx:155
-#~ msgid "Read more in our Methodology section"
-#~ msgstr "Read more in our Methodology section"
+#: src/components/PortfolioFilters.tsx:100
+#: src/components/PortfolioFilters.tsx:163
+msgid "Read more in our Methodology section"
+msgstr "Read more in our Methodology section"
 
 #: src/containers/NotRegisteredPage.tsx:107
 msgid "Registration expired:"
@@ -1053,12 +1058,12 @@ msgid "Rent stabilization"
 msgstr "Rent stabilization"
 
 #: src/components/PortfolioFilters.tsx:210
-msgid "Rent stabilized units are self-reported in yearly tax statements by building owners. As a result, many buildings with rent stabilized units may appear to be deregulated."
-msgstr "Rent stabilized units are self-reported in yearly tax statements by building owners. As a result, many buildings with rent stabilized units may appear to be deregulated."
+#~ msgid "Rent stabilized units are self-reported in yearly tax statements by building owners. As a result, many buildings with rent stabilized units may appear to be deregulated."
+#~ msgstr "Rent stabilized units are self-reported in yearly tax statements by building owners. As a result, many buildings with rent stabilized units may appear to be deregulated."
 
-#: src/components/PortfolioFilters.tsx:203
-#~ msgid "Rent stabilized units are self-reported in yearly tax statements by building owners. As a result, many buildings with rent stabilized units may not be documented."
-#~ msgstr "Rent stabilized units are self-reported in yearly tax statements by building owners. As a result, many buildings with rent stabilized units may not be documented."
+#: src/components/PortfolioFilters.tsx:210
+msgid "Rent stabilized units are self-reported in yearly tax statements by building owners. As a result, many buildings with rent stabilized units may not be documented."
+msgstr "Rent stabilized units are self-reported in yearly tax statements by building owners. As a result, many buildings with rent stabilized units may not be documented."
 
 #: src/components/PortfolioGraph.tsx:159
 msgid "Reset diagram"

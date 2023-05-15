@@ -154,7 +154,7 @@ const PortfolioFiltersWithoutI18n = React.memo(
             </Trans>
           </p>
           <LocaleLink to={isLegacyPath(pathname) ? legacy.methodology : methodology}>
-            <Trans>Read more about our Methodology</Trans>
+            <Trans>Read more in our Methodology section</Trans>
           </LocaleLink>
         </>
       ),
@@ -291,7 +291,7 @@ const PortfolioFiltersWithoutI18n = React.memo(
             </Trans>
           </p>
           <LocaleLink to={isLegacyPath(pathname) ? legacy.methodology : methodology}>
-            <Trans>Read more about our Methodology</Trans>
+            <Trans>Read more in our Methodology section</Trans>
           </LocaleLink>
         </Modal>
       </div>
@@ -394,7 +394,7 @@ export const RsUnitsResultAlert = (
   >
     <Trans>
       Rent stabilized units are self-reported in yearly tax statements by building owners. As a
-      result, many buildings with rent stabilized units may appear to be deregulated.
+      result, many buildings with rent stabilized units may not be documented.
     </Trans>
   </Alert>
 );

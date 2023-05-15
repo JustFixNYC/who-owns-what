@@ -105,7 +105,7 @@ export const FilterPortfolioAlert = ({
       {...props}
     >
       <Trans>
-        Filter through this portfolio in{" "}
+        Narrow down this portfolio using filters in{" "}
         <Link
           to={addressPageRoutes.portfolio}
           onClick={() => {
