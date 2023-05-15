@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-05-15 20:08\n"
+"PO-Revision-Date: 2023-05-15 20:45\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -499,7 +499,7 @@ msgstr "Filtro"
 
 #: src/components/PortfolioAlerts.tsx:78
 #~ msgid "Filter through this portfolio in <0>the Portfolio tab.</0>"
-#~ msgstr ""
+#~ msgstr "Filter through this portfolio in <0>the Portfolio tab.</0>"
 
 #: src/components/PortfolioFilters.tsx:185
 msgid "Filters"
@@ -1039,12 +1039,12 @@ msgstr "Unidades RS"
 #: src/components/PortfolioFilters.tsx:100
 #: src/components/PortfolioFilters.tsx:163
 #~ msgid "Read more about our Methodology"
-#~ msgstr ""
+#~ msgstr "Read more about our Methodology"
 
 #: src/components/PortfolioFilters.tsx:100
 #: src/components/PortfolioFilters.tsx:163
 msgid "Read more in our Methodology section"
-msgstr "Read more in our Methodology section"
+msgstr ""
 
 #: src/containers/NotRegisteredPage.tsx:107
 msgid "Registration expired:"
@@ -1064,11 +1064,11 @@ msgstr "Renta estabilizada"
 
 #: src/components/PortfolioFilters.tsx:210
 #~ msgid "Rent stabilized units are self-reported in yearly tax statements by building owners. As a result, many buildings with rent stabilized units may appear to be deregulated."
-#~ msgstr ""
+#~ msgstr "Rent stabilized units are self-reported in yearly tax statements by building owners. As a result, many buildings with rent stabilized units may appear to be deregulated."
 
 #: src/components/PortfolioFilters.tsx:210
 msgid "Rent stabilized units are self-reported in yearly tax statements by building owners. As a result, many buildings with rent stabilized units may not be documented."
-msgstr "Rent stabilized units are self-reported in yearly tax statements by building owners. As a result, many buildings with rent stabilized units may not be documented."
+msgstr ""
 
 #: src/components/PortfolioGraph.tsx:159
 msgid "Reset diagram"
@@ -1742,3 +1742,4 @@ msgstr "{value, plural, one {Una Queja del HPD emitida desde el 2014} other {# Q
 #: src/components/IndicatorsDatasets.tsx:37
 msgid "{value, plural, one {One HPD Violation Issued since 2010} other {# HPD Violations Issued since 2010}}"
 msgstr "{value, plural, one {Una Violación del HPD emitida desde el 2010} other {# Violaciones del HPD emitidas desde el 2010}}"
+
