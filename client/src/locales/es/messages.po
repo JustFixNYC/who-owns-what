@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-05-15 19:13\n"
+"PO-Revision-Date: 2023-05-15 20:08\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -149,12 +149,12 @@ msgstr "Una \"demanda de desalojo\" es un caso legal de desalojo iniciado por un
 #: src/components/MinMaxSelect.tsx:180
 #: src/components/Multiselect.tsx:90
 msgid "Apply"
-msgstr ""
+msgstr "Aplique"
 
 #: src/components/MinMaxSelect.tsx:179
 #: src/components/Multiselect.tsx:85
 msgid "Apply selections and get results"
-msgstr ""
+msgstr "Aplicar selecciones y obtener resultados"
 
 #: src/components/DetailView.tsx:261
 msgid "Are you having issues in this building?"
@@ -192,7 +192,7 @@ msgstr "Permisos de Construcción Solicitados"
 
 #: src/components/PortfolioFilters.tsx:123
 msgid "Building Size"
-msgstr ""
+msgstr "Tamaño del Edificio"
 
 #: src/components/PropertiesSummary.tsx:101
 msgid "Building info"
@@ -263,7 +263,7 @@ msgstr "Clase I"
 
 #: src/components/PortfolioFilters.tsx:143
 msgid "Clear Filters"
-msgstr ""
+msgstr "Borrar filtros"
 
 #: src/components/Multiselect.tsx:450
 #~ msgid "Clear all"
@@ -272,16 +272,16 @@ msgstr ""
 #: src/components/MinMaxSelect.tsx:171
 #: src/components/Multiselect.tsx:142
 msgid "Clear all selections"
-msgstr ""
+msgstr "Eliminar todas las selecciones"
 
 #: src/components/MinMaxSelect.tsx:108
 msgid "Clear custom range inputs to use preset ranges."
-msgstr ""
+msgstr "Borrar entradas de rango personalizadas para utilizar rangos preestablecidos."
 
 #: src/components/MinMaxSelect.tsx:174
 #: src/components/Multiselect.tsx:146
 msgid "Clear selections"
-msgstr ""
+msgstr "Eliminar selecciones"
 
 #: src/components/FeatureCalloutContent.ts:13
 msgid "Clearer Landlord Contact Info"
@@ -328,7 +328,7 @@ msgstr ""
 
 #: src/components/MinMaxSelect.tsx:118
 msgid "Custom range"
-msgstr ""
+msgstr "Rango personalizadas"
 
 #: src/components/UsefulLinks.tsx:37
 msgid "DOB Building Profile"
@@ -410,7 +410,7 @@ msgstr "Introducir email"
 
 #: src/components/MinMaxSelect.tsx:160
 msgid "Enter minimum and maximum number of units, or leave either blank, then apply selections to filter the list of portfolio properties. Set both to blank and apply to clear filter."
-msgstr ""
+msgstr "Anote el número mínimo y máximo de unidades, o deje cualquiera de los dos en blanco, y luego aplique las selecciones para filtrar la lista de propiedades de la cartera. Deje ambos en blanco y aplique para borrar el filtro."
 
 #: src/components/MinMaxSelect.tsx:45
 #~ msgid "Enter minimum and maximum number of units, or leave either blank. Set both to blank to clear filter."
@@ -459,7 +459,7 @@ msgstr "Ejecutado"
 
 #: src/components/PortfolioFilters.tsx:204
 msgid "Expand the Person/ Entity column in the Table to see all contacts associated with that building."
-msgstr ""
+msgstr "Expanda la columna Persona/Entidad en la Tabla para ver todos los contactos asociados a ese edificio."
 
 #: src/components/PortfolioFilters.tsx:197
 #~ msgid "Expand the the Owner/Manager column in Table view to see all contacts associated with that building."
@@ -495,7 +495,7 @@ msgstr "Presentado"
 
 #: src/components/PortfolioFilters.tsx:246
 msgid "Filter"
-msgstr ""
+msgstr "Filtro"
 
 #: src/components/PortfolioAlerts.tsx:78
 msgid "Filter through this portfolio in <0>the Portfolio tab.</0>"
@@ -503,11 +503,11 @@ msgstr ""
 
 #: src/components/PortfolioFilters.tsx:185
 msgid "Filters"
-msgstr ""
+msgstr "Filtros"
 
 #: src/components/PortfolioFilters.tsx:110
 msgid "Filters:"
-msgstr ""
+msgstr "Filtros:"
 
 #: src/components/PortfolioFilters.tsx:60
 #~ msgid "Filter <0/>for"
@@ -565,7 +565,7 @@ msgstr "Oficial Principal"
 
 #: src/components/PortfolioFilters.tsx:151
 msgid "How are the results calculated?"
-msgstr ""
+msgstr "¿Cómo se calculan los resultados?"
 
 #: src/components/DetailView.tsx:87
 msgid "How is this building associated to this portfolio?"
@@ -663,7 +663,7 @@ msgstr "Dueño del edificio"
 
 #: src/components/PortfolioFilters.tsx:121
 msgid "Landlord filter"
-msgstr ""
+msgstr "Filtro de dueño"
 
 #: src/containers/HomePage.tsx:108
 msgid "Landlord name"
@@ -700,11 +700,11 @@ msgstr "Aprende más"
 
 #: src/components/PortfolioFilters.tsx:139
 msgid "Learn more about how the results are calculated"
-msgstr ""
+msgstr "Más información sobre cómo se calculan los resultados"
 
 #: src/components/PortfolioAlerts.tsx:39
 msgid "Learn more."
-msgstr ""
+msgstr "Aprende más."
 
 #: src/components/PropertiesMap.tsx:207
 msgid "Legend"
@@ -739,7 +739,7 @@ msgstr "Ubicación"
 
 #: src/components/PortfolioFilters.tsx:219
 msgid "Look out for multiple spellings of the same person/entity. Names can be spelled multiple ways in official documents."
-msgstr ""
+msgstr "Preste atención a las múltiples formas de escribir una misma persona o entidad. Los nombres pueden escribirse de varias maneras en los documentos oficiales."
 
 #: src/components/PropertiesSummary.tsx:134
 msgid "Looking for more information?"
@@ -751,11 +751,11 @@ msgstr "BUZÓN"
 
 #: src/components/MinMaxSelect.tsx:134
 msgid "MAX"
-msgstr ""
+msgstr "MÁX"
 
 #: src/components/MinMaxSelect.tsx:131
 msgid "MIN"
-msgstr ""
+msgstr "MÍN"
 
 #: src/util/helpers.ts:28
 msgid "MOLD"
@@ -771,7 +771,7 @@ msgstr "Violaciones del código de mantenimiento"
 
 #: src/components/Multiselect.tsx:69
 msgid "Make a selection from the list or clear search text"
-msgstr ""
+msgstr "Hacer una selección de la lista o borrar el texto de búsqueda"
 
 #: src/components/Multiselect.tsx:450
 #~ msgid "Make a selection."
@@ -779,11 +779,11 @@ msgstr ""
 
 #: src/components/MinMaxSelect.tsx:207
 msgid "Max must be greater than 0"
-msgstr ""
+msgstr "Máx debe ser mayor que 0"
 
 #: src/components/MinMaxSelect.tsx:211
 msgid "Max must be greater than {minOption}"
-msgstr ""
+msgstr "Máx debe ser mayor que {minOption}"
 
 #: src/components/PortfolioFilters.tsx:145
 #~ msgid "Maximum"
@@ -804,15 +804,15 @@ msgstr "Metodología"
 
 #: src/components/MinMaxSelect.tsx:203
 msgid "Min must be greater than 0"
-msgstr ""
+msgstr "Mín debe ser mayor que 0"
 
 #: src/components/MinMaxSelect.tsx:199
 msgid "Min must be less than or equal to Max"
-msgstr ""
+msgstr "Mín debe ser menor o igual que Máx"
 
 #: src/components/MinMaxSelect.tsx:215
 msgid "Min must be less than {maxOption}"
-msgstr ""
+msgstr "Mín debe ser menor que {maxOption}"
 
 #: src/components/PortfolioFilters.tsx:140
 #~ msgid "Minimum"
@@ -852,7 +852,7 @@ msgstr "Red de Dueños"
 
 #: src/components/PortfolioFilters.tsx:107
 msgid "New"
-msgstr ""
+msgstr "Nuevo"
 
 #: src/components/AddressToolbar.tsx:23
 msgid "New Search"
@@ -918,7 +918,7 @@ msgstr "No encontrado"
 
 #: src/components/PortfolioFilters.tsx:123
 msgid "Number of Units"
-msgstr ""
+msgstr "Número de unidades"
 
 #: src/util/helpers.ts:12
 msgid "OUTSIDE BUILDING"
@@ -999,7 +999,7 @@ msgstr "Personas"
 #: src/components/PortfolioFilters.tsx:120
 #: src/components/PortfolioTable.tsx:273
 msgid "Person/Entity"
-msgstr ""
+msgstr "Persona/Entidad"
 
 #: src/components/Subscribe.tsx:25
 msgid "Please enter an email address!"
@@ -1047,11 +1047,11 @@ msgstr "El registro ha caducado:"
 
 #: src/components/PortfolioFilters.tsx:117
 msgid "Rent Stabilized Units"
-msgstr ""
+msgstr "Unidades con renta estabilizada"
 
 #: src/components/PortfolioFilters.tsx:114
 msgid "Rent Stabilized Units filter"
-msgstr ""
+msgstr "Filtro de Unidades con renta estabilizada"
 
 #: src/components/PropertiesSummary.tsx:125
 msgid "Rent stabilization"
@@ -1113,7 +1113,7 @@ msgstr "Vea las quejas más comunes reportadas por inquilinos al 311, ahora en l
 
 #: src/components/MinMaxSelect.tsx:108
 msgid "Select one or more ranges of building units, or set a custom range, then apply selections to filter the list of portfolio properties."
-msgstr ""
+msgstr "Seleccione uno o varios rangos de unidades de edificios o establezca un rango personalizado y, a continuación, aplique las selecciones para filtrar la lista de propiedades de la cartera."
 
 #: src/components/PropertiesSummary.tsx:39
 msgid "Send us a data request"
@@ -1138,7 +1138,7 @@ msgstr "Accionista"
 
 #: src/components/Multiselect.tsx:122
 msgid "Show all {numSelections} selections"
-msgstr ""
+msgstr "Mostrar todas las {numSelections} selecciones"
 
 #: src/components/Multiselect.tsx:140
 msgid "Show less"
@@ -1146,11 +1146,11 @@ msgstr ""
 
 #: src/components/Multiselect.tsx:139
 msgid "Show only {previewSelectedNum} selections"
-msgstr ""
+msgstr "Mostrar sólo {previewSelectedNum} selecciones"
 
 #: src/components/PortfolioFilters.tsx:134
 msgid "Showing {0} {1, plural, one {result} other {results}}"
-msgstr ""
+msgstr "Mostrar {0} {1, plural, one {resultado} other {resultados}}"
 
 #: src/components/PortfolioFilters.tsx:97
 #~ msgid "Showing {0} {1, plural, one {result} other {results}}."
@@ -1403,7 +1403,7 @@ msgstr "Violaciones Totales"
 
 #: src/components/PortfolioFilters.tsx:216
 msgid "Try adjusting or clearing the filters to show more than 0 results."
-msgstr ""
+msgstr "Intente ajustar o borrar los filtros para mostrar más de 0 resultados."
 
 #: src/components/PortfolioFilters.tsx:212
 #~ msgid "Try adjusting or clearing the filters to yield more than 0 results."
@@ -1447,7 +1447,7 @@ msgstr "SISTEMA DE VENTILACIÓN"
 #: src/components/PortfolioTable.tsx:379
 #: src/components/PortfolioTable.tsx:386
 msgid "View Detail"
-msgstr ""
+msgstr "Ver detalles"
 
 #: src/components/PortfolioFilters.tsx:194
 msgid "View Results"
@@ -1524,7 +1524,7 @@ msgstr "Revisamos la pestaña Portafolio para ayudarle navegar por esta gran tab
 
 #: src/components/PortfolioFilters.tsx:154
 msgid "We pull data from public records to calculate these results. Our algorithm relies on public <0>HPD registration data</0> for residential buildings, which contains self-reported landlord contact information on about 170,000 properties across the city."
-msgstr ""
+msgstr "Extraemos datos de registros públicos para calcular estos resultados. Nuestro algoritmo se basa en los <0>datos públicos de registro de la HPD</0> para edificios residenciales, que contiene información de contacto de los dueños de alrededor de 170.000 propiedades en toda la ciudad."
 
 #: src/components/FeatureCalloutContent.ts:14
 msgid "We reorganized the contact details for each individual and corporate entities associated with a property on the Overview tab."
@@ -1561,7 +1561,7 @@ msgstr "Qué hay de nuevo"
 
 #: src/components/PortfolioFilters.tsx:84
 msgid "What’s the difference between a landlord, an owner, and head officer?"
-msgstr ""
+msgstr "¿Cuál es la diferencia entre un dueño, un propietario y oficial principal?"
 
 #: src/components/PortfolioAlerts.tsx:46
 msgid "When two parties share the same business address, we group them as part of the same portfolio."
@@ -1577,7 +1577,7 @@ msgstr "Cuando dos partes comparten la misma dirección comercial, los agrupamos
 
 #: src/components/PortfolioFilters.tsx:87
 msgid "While the legal owner of a building is often a company (usually called an “LLC”), these names and business addresses registered with the Department of Housing Preservation and Development (“HPD”) offer a clearer picture of who really controls the building. People listed here as “Head Officer” or “Owner” usually have ties to building ownership, while “Site Managers” are part of management. That being said, these names are self reported by the landlord, so they can be misleading. Learn more about HPD registrations and how this information powers this tool on the <0>About page</0>."
-msgstr ""
+msgstr "Aunque el propietario legal de un edificio suele ser una empresa (normalmente denominada \"LLC\"), estos nombres y direcciones comerciales registrados en el Departamento de Conservación de la Vivienda (\"HPD\") ofrecen una imagen más clara de quién controla realmente el edificio. Las personas que figuran aquí como \" Oficial Principal\" o \"Propietario\" suelen estar vinculadas a la propiedad del edificio, mientras que los \" Gerentes de Sitio\" forman parte de la administración. Dicho esto, estos nombres son autodeclarados por el dueño, por lo que pueden inducir a error. Obtenga más información sobre los registros de la HPD y cómo esta información alimenta esta herramienta en la <0>página Acerca de</0>."
 
 #: src/components/SocialShare.tsx:14
 msgid "Who Owns What is a free tool built by JustFix to research property owners in NYC. It has helped over 200,000 New Yorkers find out who really owns their building, what other buildings that their landlord or management company owns, and other critical information about code violations, evictions, rent stabilized units, and so much more in any given building. You can look up any residential building located in NYC, even public housing (NYCHA) buildings! Search your address here: {url}"
@@ -1651,11 +1651,11 @@ msgstr ""
 #: src/components/PortfolioFilters.tsx:126
 #: src/components/PortfolioTable.tsx:88
 msgid "Zip Code"
-msgstr ""
+msgstr "Código postal"
 
 #: src/components/PortfolioFilters.tsx:127
 msgid "Zip code filter"
-msgstr ""
+msgstr "Filtro de código postal"
 
 #: src/components/PortfolioFilters.tsx:90
 #~ msgid "Zip code is not applicable"
@@ -1688,7 +1688,7 @@ msgstr "mes"
 
 #: src/components/PortfolioTable.tsx:528
 msgid "of"
-msgstr ""
+msgstr "de"
 
 #: src/components/Indicators.tsx:17
 msgid "quarter"
