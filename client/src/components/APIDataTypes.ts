@@ -69,6 +69,8 @@ export type AddressRecord = {
   recentcomplaintsbytype: HpdComplaintCount[] | null;
   registrationenddate: APIDate;
   registrationid: string;
+  hpdbuildingid: number;
+  hpdbuildings: number;
   rsdiff: number | null;
   rsunits2007: number | null;
   rsunitslatest: number | null;

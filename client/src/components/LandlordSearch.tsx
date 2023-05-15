@@ -12,6 +12,7 @@ import { I18n } from "@lingui/react";
 import { t, Trans, Plural } from "@lingui/macro";
 import { Link } from "react-router-dom";
 import { createRouteForFullBbl } from "routes";
+import algoliaIcon from "../assets/img/algolia.svg";
 
 import "../styles/LandlordSearch.css";
 import FocusTrap from "focus-trap-react";
@@ -87,12 +88,7 @@ const SearchBox = ({ currentRefinement, refine }: SearchBoxProvided) => {
               <CustomHits />
             </div>
             <div className="search-by is-pulled-right">
-              <img
-                width="140"
-                height="20"
-                alt="Algolia"
-                src={require("../assets/img/algolia.svg")}
-              />
+              <img width="140" height="20" alt="Algolia" src={algoliaIcon} />
             </div>
           </>
         )}

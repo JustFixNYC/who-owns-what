@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-02-14 15:10\n"
+"PO-Revision-Date: 2023-02-28 21:17\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -63,7 +63,7 @@ msgstr "(esto puede tardar un rato)"
 msgid "({browserType, select, mobile {tap} other {click}} to view details)"
 msgstr "({browserType, select, mobile {pulsa} other {haz clic}} para ver detalles)"
 
-#: src/containers/HomePage.tsx:123
+#: src/containers/HomePage.tsx:120
 msgid "... or view some sample portfolios:"
 msgstr "... o descubre ejemplos de portafolios de edificios:"
 
@@ -105,6 +105,7 @@ msgid "APPLIANCE"
 msgstr "MEDIO DOMÉSTICO"
 
 #: src/containers/AboutPage.tsx:13
+#: src/containers/App.tsx:95
 #: src/containers/App.tsx:95
 msgid "About"
 msgstr "Acerca de"
@@ -578,13 +579,25 @@ msgstr "Usé #QuiénEsElDueño (construido por @JustFixNYC) para ver no solo las
 msgid "I was checking out this building on Who Owns What, a free landlord research tool from JustFix. It’s a remarkable website that every tenant and housing advocate should know about! Can you guess how many total violations this landlord portfolio has? Check it out here: {url}"
 msgstr "Estaba revisando este edificio en Quién Es El Dueño, una herramienta gratuita construida por JustFix. ¡Es un sitio web extraordinario que cada inquilino y defensor de viviendas debería saber sobre! ¿Puedes adivinar cuántas violaciones totales tiene este portafolio de este dueño? Míralo aquí: {url}"
 
+#: src/containers/App.tsx:170
+msgid "In April 2023, this link to <0>the old version</0> of Who Owns What will move to the About Page."
+msgstr "En abril de 2023, este enlace a <0>la versión antigua</0> de ¿Quién Es El Dueño en Nueva York? se moverá a la página Acerca de."
+
+#: src/containers/App.tsx:170
+#~ msgid "In April 2023, this link to <0>the old version</0> of Who Owns What will will move to the About Page."
+#~ msgstr "In April 2023, this link to <0>the old version</0> of Who Owns What will will move to the About Page."
+
+#: src/containers/App.tsx:165
+#~ msgid "In July 2023 this version of Who Owns What will no longer be available. <0>Switch to new version.</0>"
+#~ msgstr "In July 2023 this version of Who Owns What will no longer be available. <0>Switch to new version.</0>"
+
 #: src/containers/App.tsx:164
 #~ msgid "In March 2023 this version of Who Owns What will no longer be available <0>Switch to new version</0>"
 #~ msgstr "In March 2023 this version of Who Owns What will no longer be available <0>Switch to new version</0>"
 
-#: src/containers/App.tsx:165
-msgid "In March 2023 this version of Who Owns What will no longer be available. <0>Switch to new version.</0>"
-msgstr "En marzo de 2023, esta versión de ¿Quién es el Dueño en NY? dejará de estar disponible. <0>Cambie a la nueva versión.</0>"
+#: src/containers/App.tsx:164
+#~ msgid "In March 2023 this version of Who Owns What will no longer be available. <0>Switch to new version.</0>"
+#~ msgstr "In March 2023 this version of Who Owns What will no longer be available. <0>Switch to new version.</0>"
 
 #: src/containers/App.tsx:164
 #~ msgid "In March 2023 this version of Who Owns What will no longer be available. <0>Switch to new version</0>"
@@ -626,7 +639,7 @@ msgstr "Dueño Conjunto"
 msgid "JustFix, Inc is a registered 501(c)(3) nonprofit organization."
 msgstr "JustFix, Inc es una organización registrada 501(c)(3) sin fines de lucro."
 
-#: src/containers/HomePage.tsx:218
+#: src/containers/HomePage.tsx:215
 msgid "Known for <0>unscrupulously deregulating rent stabilized apartments</0>, Larry Gluck’s Stellar Management has also secured a prominent place as one of <1>New York City’s Worst Evictors</1>. Stellar is a gentrifying force, particularly in upper Manhattan where Gluck operates the majority of his properties. Stellar has a reputation for displacing long-term tenants, renovating their units while vacant, and skyrocketing rents to market rate."
 msgstr "Conocido por <0>desregulando apartamentos de renta estabilizada sin escrúpulos</0>, Larry Gluck de Stellar Management ha asegurado un lugar prominente como unos de los <1>peores desalojadores en la Cuidad de Nueva York</1>. Stellar es una fuerza de gentrificación, especialmente en el Norte de Manhattan, en donde Gluck opera la mayoría de sus propiedades. Stellar tiene fama de desplazar inquilinos a largo plazo, renovando sus apartamentos mientras están vacantes, y aumentando rápidamente las rentas a la tasa de mercado."
 
@@ -826,8 +839,8 @@ msgstr "Red de Dueños"
 
 #: src/components/PortfolioFilters.tsx:97
 #: src/containers/HomePage.tsx:110
-msgid "New"
-msgstr "Nuevo"
+#~ msgid "New"
+#~ msgstr "New"
 
 #: src/components/AddressToolbar.tsx:23
 msgid "New Search"
@@ -1178,9 +1191,13 @@ msgstr "Lo sentimos, la página que estás buscando no existe."
 msgid "Source code"
 msgstr "Código fuente"
 
-#: src/containers/App.tsx:170
-msgid "Starting March 2023 <0>the old version</0> of Who Owns What will no longer be available."
-msgstr ""
+#: src/containers/App.tsx:169
+#~ msgid "Starting March 2023 <0>the old version</0> of Who Owns What will no longer be available"
+#~ msgstr "Starting March 2023 <0>the old version</0> of Who Owns What will no longer be available"
+
+#: src/containers/App.tsx:169
+#~ msgid "Starting March 2023 <0>the old version</0> of Who Owns What will no longer be available."
+#~ msgstr "Starting March 2023 <0>the old version</0> of Who Owns What will no longer be available."
 
 #: src/components/PortfolioTable.tsx:546
 msgid "Starts {year}"
@@ -1244,7 +1261,7 @@ msgstr "El edificio con más desalojos ejecutados es <0>{0} {1}, {2}</0> con {bu
 msgid "The city borough where your search address is located"
 msgstr "El municipio donde se encuentra la dirección que has buscado"
 
-#: src/containers/HomePage.tsx:176
+#: src/containers/HomePage.tsx:173
 msgid "The city’s fifth <0>worst evictor</0> in 2018, A&E is a prime example of a landlord who engages in <1>aggressive eviction strategies</1> to displace low-income tenants. Besides lack of repairs and frivolous evictions in housing court, A&E has also been known to use <2>MCIs</2> to <3>double rents</3> in rent-stabilized buildings."
 msgstr "A&E fue el quinto <0>\"peor desalojador\"</0> de la ciudad en el 2018, y es un excelente ejemplo de un propietario que participa en <1>estrategias agresivas de desalojo</1> para desplazar a inquilinos de bajos ingresos. Además de usar la falta de arreglos y los desalojos frívolos en la corte de viviendas, se sabe que A&E también utiliza los <2>IMCs</2> para <3>alquileres dobles</3> en edificios de resta estabilizada."
 
@@ -1324,7 +1341,7 @@ msgstr "Este portafolio de edificios tuvo una <0>{changeType, select, gain {gana
 msgid "This portfolio has an average of <0>{0}</0> open HPD violations per residential unit."
 msgstr "Esta cartera de edificios tiene un promedio de <0>{0}</0> infracciones del HPD Actuales por cada unidad residencial."
 
-#: src/containers/HomePage.tsx:142
+#: src/containers/HomePage.tsx:139
 msgid "This property management company owned by the Kushner family is notorious for <0>violating rent regulations</0> and <1>harassing tenants</1>. The stake currently held by Jared Kushner and Ivanka Trump is worth as much as $761 million."
 msgstr "Esta empresa de gestión inmobiliaria es propiedad de la familia Kushner y es notoria por <0>violar las normas de vivienda</0> y por <1>comportamientos abusivos</1>. La participación financiera actualmente sostenida por Jared Kushner e Ivanka Trump asciende a 761 millones de dólares."
 
@@ -1436,9 +1453,9 @@ msgstr "Ver documentos en <0>ACRIS</0>"
 msgid "View legend"
 msgstr "Ver leyenda"
 
-#: src/containers/HomePage.tsx:157
-#: src/containers/HomePage.tsx:199
-#: src/containers/HomePage.tsx:236
+#: src/containers/HomePage.tsx:154
+#: src/containers/HomePage.tsx:196
+#: src/containers/HomePage.tsx:233
 msgid "View portfolio"
 msgstr "Ver portafolio de edificios"
 
