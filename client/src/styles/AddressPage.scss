@@ -3,12 +3,7 @@
 @import "_scrollbar.scss";
 
 .AddressPage {
-  // height: calc(100vh - 68px);
-  // height: calc(100vh - 49px);
-  // height: 100%;
-
   flex: 1;
-
   display: flex;
   flex-direction: column;
   max-width: 100%;
@@ -17,7 +12,8 @@
     width: 100%;
     padding: 15px 15px 0 15px;
     background-color: $background;
-    // margin-bottom: 15px;
+    display: flex;
+    justify-content: space-between;
 
     p.small {
       margin-bottom: 0;
@@ -30,14 +26,6 @@
       &.primary {
         line-height: 20px;
         margin-bottom: 20px;
-
-        @include for-desktop-down() {
-          max-width: 630px;
-        }
-
-        @include for-tablet-landscape-down() {
-          max-width: 385px;
-        }
 
         @include for-phone-only() {
           font-size: 1.8rem;
@@ -66,15 +54,12 @@
 
   .AddressPage__content {
     flex: 1;
-    // flex-grow: 1;
-    // height: 100%;
     overflow: hidden;
 
     border-top: 1px solid $gray-dark;
 
     &:not(.AddressPage__content-active) {
       display: none;
-      // visibility: hidden;
     }
 
     // Make content of page extend a bit beyond the edge of the viewport

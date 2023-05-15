@@ -157,8 +157,7 @@ export default class AddressPage extends Component<AddressPageProps, State> {
         >
           <div className="AddressPage">
             <div className="AddressPage__info">
-              <AddressToolbar searchAddr={searchAddr} assocAddrs={assocAddrs} />
-              <div className="float-left">
+              <div>
                 <h1 className="primary">
                   <Trans>
                     PORTFOLIO: Your search address is associated with{" "}
@@ -219,6 +218,7 @@ export default class AddressPage extends Component<AddressPageProps, State> {
                   </li>
                 </ul>
               </div>
+              <AddressToolbar searchAddr={searchAddr} assocAddrs={assocAddrs} />
             </div>
             <div
               className={`AddressPage__content AddressPage__viz ${
@@ -234,6 +234,7 @@ export default class AddressPage extends Component<AddressPageProps, State> {
                   window.gtag("event", "address-change-map");
                 }}
                 isVisible={this.props.currentTab === 0}
+                addressPageRoutes={routes}
               />
               <DetailView
                 state={state}
@@ -262,12 +263,7 @@ export default class AddressPage extends Component<AddressPageProps, State> {
                 this.props.currentTab === 2 ? "AddressPage__content-active" : ""
               }`}
             >
-              <PropertiesList
-                state={state}
-                send={send}
-                onOpenDetail={this.handleAddrChange}
-                addressPageRoutes={routes}
-              />
+              <PropertiesList state={state} send={send} />
             </div>
             <div
               className={`AddressPage__content AddressPage__summary ${

@@ -65,7 +65,14 @@ export type AmplitudeEvent =
   | "portfolioViewDetail"
   | "addressChangeMap"
   | "addressChangePortfolio"
-  | "portfolioColumnSort";
+  | "portfolioColumnSort"
+  | "portfolioPagination"
+  | "portfolioRowExpanded"
+  | "alertToFilterPortfolio"
+  | "filterOpened"
+  | "filterError"
+  | "filterApplied"
+  | "filterCleared";
 
 export type EventProperties = {
   [x: string]: unknown;

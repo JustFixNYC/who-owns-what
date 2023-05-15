@@ -1,0 +1,89 @@
+@import "_vars.scss";
+
+.jf-alert {
+  --color-bar-width: 1.5rem;
+  display: flex;
+  position: relative;
+  padding: 0 0 1rem calc(var(--color-bar-width) + 1rem);
+  width: fit-content;
+  border-radius: 0.4rem;
+  font-family: "Inconsolata", monospace;
+  font-size: 1.4rem;
+  font-weight: 500;
+  text-transform: none;
+
+  &::before {
+    content: "";
+    width: var(--color-bar-width);
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    border-radius: 0.3rem 0 0 0.3rem;
+  }
+
+  .jf-alert__content {
+    margin-right: auto;
+    padding-top: 1rem;
+    &:last-child {
+      padding-right: 1rem;
+    }
+  }
+
+  .jf-alert__close {
+    align-self: flex-start;
+    padding: 1rem 1rem 1.2rem 1.2rem;
+    &:focus-visible {
+      outline: 2px solid $focus-outline-color;
+    }
+    .closeIcon {
+      height: 1.2rem;
+      width: 1.2rem;
+      stroke-width: 0.2rem;
+    }
+  }
+
+  &.is-primary {
+    background-color: $justfix-black;
+    color: $justfix-white;
+    .closeIcon {
+      stroke: $justfix-white;
+    }
+  }
+
+  &.is-secondary {
+    background-color: $justfix-white;
+    color: $justfix-black;
+    .closeIcon {
+      stroke: $justfix-black;
+    }
+  }
+
+  &.is-error {
+    padding: 0 0 0.7rem calc(var(--color-bar-width) + 0.8rem);
+    &::before {
+      background-color: $justfix-orange;
+    }
+    .jf-alert__content {
+      padding-top: 0.7rem;
+      &:last-child {
+        padding-right: 0.6rem;
+      }
+    }
+  }
+  &.is-success::before {
+    background-color: $justfix-green;
+  }
+  &.is-info {
+    border: 0.1rem solid $justfix-grey-400;
+    &,
+    p,
+    a,
+    .button.is-text {
+      color: $justfix-grey-600;
+    }
+    &::before {
+      background-color: $justfix-blue;
+    }
+  }
+}

@@ -8,16 +8,18 @@ import Loader from "../components/Loader";
 
 import "styles/PropertiesMap.css";
 import "mapbox-gl/src/css/mapbox-gl.css";
-import { Trans, Select } from "@lingui/macro";
+import { Trans } from "@lingui/macro";
 import { AddressRecord } from "./APIDataTypes";
 import { FitBounds, Props as MapboxMapProps } from "react-mapbox-gl/lib/map";
 import { Events as MapboxMapEvents } from "react-mapbox-gl/lib/map-events";
 import { withMachineInStateProps } from "state-machine";
-import { BigPortfolioBanner } from "./MapBanner";
+import { BigPortfolioAlert, FilterPortfolioAlert } from "./PortfolioAlerts";
+import { AddressPageRoutes } from "routes";
 
 type Props = withMachineInStateProps<"portfolioFound"> & {
   onAddrChange: (bbl: string) => void;
   isVisible: boolean;
+  addressPageRoutes: AddressPageRoutes;
 };
 
 type State = {
@@ -224,7 +226,6 @@ export default class PropertiesMap extends Component<Props, State> {
   };
 
   render() {
-    const browserType = Browser.isMobile() ? "mobile" : "other";
     const { useNewPortfolioMethod } = this.props.state.context;
 
     const { detailAddr } = this.getPortfolioData();
@@ -267,8 +268,18 @@ export default class PropertiesMap extends Component<Props, State> {
               }}
             />
             {useNewPortfolioMethod ? (
-              <div className="MapBanner__container">
-                <BigPortfolioBanner sizeOfPortfolio={this.state.addrsPoints.length} />
+              <div className="MapAlert__container">
+                <BigPortfolioAlert
+                  closeType="session"
+                  storageId="map-big-portfolio-alert"
+                  portfolioSize={this.state.addrsPoints.length}
+                />
+                <FilterPortfolioAlert
+                  closeType="session"
+                  storageId="map-filter-portfolio-alert"
+                  portfolioSize={this.state.addrsPoints.length}
+                  addressPageRoutes={this.props.addressPageRoutes}
+                />
               </div>
             ) : (
               <></>
@@ -322,13 +333,6 @@ export default class PropertiesMap extends Component<Props, State> {
             <Trans render="li">search address</Trans>
             <Trans render="li">associated building</Trans>
           </ul>
-        </div>
-        <div className="PropertiesMap__prompt">
-          <p>
-            <Trans render="i">
-              (<Select value={browserType} mobile="tap" other="click" /> to view details)
-            </Trans>
-          </p>
         </div>
       </div>
     );

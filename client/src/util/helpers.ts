@@ -60,6 +60,20 @@ export const longDateOptions = { year: "numeric", month: "short", day: "numeric"
 export const mediumDateOptions = { year: "numeric", month: "long" };
 export const shortDateOptions = { month: "short" };
 
+// https://www.geeksforgeeks.org/how-to-detect-the-user-browser-safari-chrome-ie-firefox-and-opera-using-javascript/
+export const getBrowserName = () => {
+  const userAgentString = navigator.userAgent;
+  let browserName = "";
+  if (userAgentString.indexOf("OP") > -1) browserName = "Opera";
+  else if (userAgentString.indexOf("Chrome") > -1) browserName = "Chrome";
+  else if (userAgentString.indexOf("Firefox") > -1) browserName = "Firefox";
+  else if (userAgentString.indexOf("Safari") > -1) browserName = "Safari";
+  else if (userAgentString.indexOf("MSIE") > -1 || userAgentString.indexOf("rv:") > -1)
+    browserName = "Internet Explorer";
+
+  return browserName;
+};
+
 /**
  * Delay the action of a certian function by a set amount of time.
  *
@@ -363,6 +377,22 @@ const helpers = {
 
   regexEscape(str: string) {
     return str?.replace(/[-[\]/{}()*+?.\\^$|]/g, "\\$&");
+  },
+
+  scrollToBottom(selectors: string) {
+    const elem = document.querySelector(selectors);
+    elem?.scroll(0, elem?.scrollHeight);
+  },
+
+  /**
+   * Prevents user from typing non-numeric characters in an input field. Necessary
+   * because Firefox doesn't do this by default with type="numeric" inputs.
+   * See https://stackoverflow.com/a/49924215/7051239
+   */
+  preventNonNumericalInput(e: React.KeyboardEvent) {
+    e = e || window.event;
+    // Control keys (tab, delete, arrows, etc.) are length > 1
+    if (!/^\d$/.test(e.key) && e.key.length === 1) e.preventDefault();
   },
 };
 

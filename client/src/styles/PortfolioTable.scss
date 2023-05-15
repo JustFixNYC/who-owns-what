@@ -1,0 +1,315 @@
+@import "_vars.scss";
+@import "_scrollbar.scss";
+@import "_button.scss";
+
+$table-border-light: 1px solid $gray-light;
+$table-border-dark: 1px solid $dark;
+
+#PortfolioTable {
+  // This "overflow: auto" and "position: relative" on
+  // ".portfolio-table-container" together ensure that the fade effect from the
+  // "::before" component doesn't overflow past the edge of the PropertiesTable
+  // container, and the z-indexes ensure it doesn't cover the pagignation
+  // controls
+  overflow: auto;
+
+  overscroll-behavior: none;
+
+  // Add right-side fade out when list is scrollable:
+  &::before {
+    content: "";
+    display: block;
+    pointer-events: none;
+    position: absolute;
+    right: 0;
+    height: 100%;
+    width: 50px;
+    z-index: 2;
+
+    background: -moz-linear-gradient(
+      left,
+      rgba(250, 248, 244, 0) 0%,
+      rgba(250, 248, 244, 1) 100% /* $justfix-white rgba */
+    ); /* FF3.6-15 */
+    background: -webkit-linear-gradient(
+      left,
+      rgba(250, 248, 244, 0) 0%,
+      rgba(250, 248, 244, 1) 100%
+    ); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(
+      to right,
+      rgba(250, 248, 244, 0) 0%,
+      rgba(250, 248, 244, 1) 100%
+    ); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    visibility: visible;
+    opacity: 1;
+    transition: opacity 0.5s linear;
+  }
+
+  &.hide-scroll-fade::before {
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s 0.5s, opacity 0.5s linear;
+  }
+
+  .portfolio-table-container {
+    position: relative;
+
+    th[class^="col-Evictions"] div {
+      min-width: 15rem;
+    }
+
+    tr {
+      padding: 0rem 0.5rem;
+    }
+
+    table {
+      border-left: none;
+      border-color: $gray-dark;
+      border-collapse: separate;
+      border-spacing: 0;
+      @include browser-not("Chrome") {
+        letter-spacing: normal;
+      }
+      font-weight: 500;
+      @include browser("Firefox") {
+        font-weight: 400;
+      }
+
+      .arrow-icon {
+        cursor: pointer;
+        display: inline-block;
+        margin-left: 0.5rem;
+        .arrow-2 {
+          // This small adjustment aligns second arrow in icon with first
+          transform: translateY(0.5px);
+        }
+      }
+
+      .col-address {
+        position: sticky;
+        left: 0px;
+        background-color: inherit;
+      }
+
+      tr {
+        padding: 0px 5px;
+      }
+
+      td {
+        text-align: center;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        transition: 0.3s ease;
+        transition-property: width, min-width, padding, opacity;
+      }
+
+      th,
+      td {
+        border-right: $table-border-light;
+      }
+
+      thead {
+        max-height: 30px;
+        position: sticky;
+        top: 0;
+        z-index: 1;
+        white-space: nowrap;
+
+        tr {
+          height: 30px;
+          div {
+            font-weight: 600 !important;
+            @include browser("Firefox") {
+              font-weight: 500 !important;
+            }
+          }
+        }
+
+        tr:first-child th {
+          border-bottom: 1px solid $table-border-light;
+          border-top: 1px solid $gray-dark;
+          color: #000;
+          background-color: $justfix-table-white;
+        }
+
+        tr:last-child th {
+          background-color: #fff;
+          border-bottom: $table-border-dark;
+          box-shadow: none;
+          vertical-align: top;
+          div {
+            width: max-content;
+            margin: auto;
+          }
+        }
+
+        th {
+          padding: 7px 5px;
+        }
+      }
+
+      tbody {
+        overflow: auto;
+        tr {
+          border-bottom: $table-border-light;
+
+          &.row-odd {
+            background-color: $justfix-table-white;
+            &:hover {
+              background-color: $justfix-table-grey;
+            }
+          }
+          &.row-even {
+            background-color: #fff;
+            &:hover {
+              background-color: #f0f0f0;
+            }
+          }
+
+          .contacts-expand {
+            border-radius: 5rem;
+            padding: 0.1rem 0.4rem;
+            margin-left: 0.5rem;
+            color: $justfix-grey-700;
+            border: 1px solid $justfix-grey-700;
+          }
+          .contacts-list {
+            text-align: left;
+            position: relative;
+            list-style-type: none;
+            left: 130.5rem;
+            &.lang-es {
+              left: 152.5rem;
+            }
+          }
+        }
+
+        td {
+          &.filter-table-alert-container {
+            background-color: #fff;
+            .filter-result-alert {
+              text-align: left;
+              margin: 1.2rem 3.2rem;
+              max-width: 50rem;
+              @include for-phone-only {
+                margin: 1.2rem;
+                width: calc(100vw - 1.2rem * 2);
+              }
+              &:not(:first-child) {
+                margin-top: 0;
+              }
+            }
+          }
+          &.col-address {
+            text-align: left;
+            padding: 0.75rem;
+          }
+          &.col-ownernames {
+            text-align: left;
+            padding: 0 0.5rem;
+            .col-ownernames-last-word {
+              white-space: nowrap;
+            }
+          }
+          &.col-address,
+          &.col-recentcomplaintsbytype,
+          &.col-ownernames,
+          &.col-yearstartedj51,
+          &.col-yearstarted421a,
+          &.col-detail {
+            white-space: unset;
+          }
+        }
+      }
+    }
+  }
+  .pagination {
+    position: sticky;
+    left: 0px;
+    z-index: 2;
+    justify-content: space-between;
+    align-items: stretch;
+    flex-wrap: wrap;
+    padding: 3px;
+    background-color: $wowza-background;
+    margin: 0;
+
+    div {
+      display: block;
+      flex: 1 1;
+      text-align: center;
+    }
+
+    .center {
+      flex: 1.5 1;
+      text-align: center;
+      margin-bottom: 0;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-around;
+
+      .page-info {
+        display: flex;
+        align-items: center;
+        margin: 3px 10px;
+        white-space: nowrap;
+
+        input {
+          width: 70px;
+          text-align: center;
+          display: inline-block;
+          border: 1px solid rgba(0, 0, 0, 0.1);
+          background: #fff;
+          padding: 5px 7px;
+          margin: 5px 7px;
+          font-size: inherit;
+          border-radius: 3px;
+          font-weight: 400;
+          outline: none;
+        }
+        .total-pages {
+          margin-left: 5px;
+        }
+      }
+    }
+
+    .next,
+    .prev {
+      .page-btn[disabled] {
+        opacity: 0.5;
+        cursor: default;
+      }
+
+      .page-btn {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        display: block;
+        width: 100%;
+        height: 100%;
+        border: 0;
+        border-radius: 3px;
+        padding: 6px;
+        font-size: 1em;
+        color: rgba(0, 0, 0, 0.6);
+        background: rgba(0, 0, 0, 0.1);
+        transition: all 0.1s ease;
+        cursor: pointer;
+        outline: none;
+      }
+    }
+
+    select {
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      background: #fff;
+      padding: 5px 7px;
+      font-size: inherit;
+      border-radius: 3px;
+      font-weight: 400;
+      outline: none;
+    }
+  }
+}
