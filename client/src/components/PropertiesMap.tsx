@@ -227,7 +227,7 @@ export default class PropertiesMap extends Component<Props, State> {
 
   render() {
     const { useNewPortfolioMethod } = this.props.state.context;
-
+    const portfolioFiltersEnabled = process.env.REACT_APP_PORTFOLIO_FILTERS_ENABLED === "1";
     const { detailAddr } = this.getPortfolioData();
 
     return (
@@ -274,12 +274,14 @@ export default class PropertiesMap extends Component<Props, State> {
                   storageId="map-big-portfolio-alert"
                   portfolioSize={this.state.addrsPoints.length}
                 />
-                <FilterPortfolioAlert
-                  closeType="session"
-                  storageId="map-filter-portfolio-alert"
-                  portfolioSize={this.state.addrsPoints.length}
-                  addressPageRoutes={this.props.addressPageRoutes}
-                />
+                {portfolioFiltersEnabled && (
+                  <FilterPortfolioAlert
+                    closeType="session"
+                    storageId="map-filter-portfolio-alert"
+                    portfolioSize={this.state.addrsPoints.length}
+                    addressPageRoutes={this.props.addressPageRoutes}
+                  />
+                )}
               </div>
             ) : (
               <></>
