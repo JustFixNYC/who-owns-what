@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-05-15 20:49\n"
+"PO-Revision-Date: 2023-05-16 16:02\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -515,7 +515,7 @@ msgstr "Filtros:"
 
 #: src/containers/HomePage.tsx:90
 msgid "Find other buildings your landlord might own:"
-msgstr "Encuentra otros edificios que tu propietario podría poseer:"
+msgstr "Encuentra otros edificios que su dueño podría poseer:"
 
 #: src/util/helpers.ts:21
 msgid "GARBAGE/RECYCLING STORAGE"
