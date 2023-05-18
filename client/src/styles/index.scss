@@ -8,10 +8,17 @@ body {
 }
 
 body {
+  position: relative;
   margin: 0;
   padding: 0;
   color: $dark !important;
   font-family: "Inconsolata", monospace !important;
+}
+
+body * {
+  @include browser("Safari") {
+    -webkit-font-smoothing: antialiased !important;
+  }
 }
 
 #root {

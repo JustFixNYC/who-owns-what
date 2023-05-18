@@ -45,7 +45,55 @@
         "content": [
           {
             "nodeType": "text",
-            "value": "Cuando un dueño compra un edificio, a menudo utiliza Sociedades de Responsabilidad Limitada (LLC por sus siglas en inglés). Estas entidades ficticias se usan para ocultar quien es el dueño, y así crear un enredo de asociaciones administrativas. Así se consigue que sea muy complicado demostrar con precisión qué dueño o entidad administrativa es responsable de que se den condiciones peligrosas o insalubres, de que se cobre de más y de que se empleen otras prácticas discriminatorias.\n",
+            "value": "Cuando un dueño compra un edificio, a menudo utiliza Sociedades de Responsabilidad Limitada (LLC por sus siglas en inglés). Estas entidades ficticias se usan para ocultar quien es el dueño, y así crear un enredo de asociaciones administrativas. Así se consigue que sea muy complicado demostrar con precisión qué dueño o entidad administrativa es responsable de que se den condiciones peligrosas o insalubres, de que se cobre de más y de que se empleen otras prácticas discriminatorias.",
+            "marks": [],
+            "data": {}
+          }
+        ]
+      },
+      {
+        "nodeType": "paragraph",
+        "data": {},
+        "content": [
+          {
+            "nodeType": "text",
+            "value": "Nota:",
+            "marks": [
+              {
+                "type": "bold"
+              }
+            ],
+            "data": {}
+          },
+          {
+            "nodeType": "text",
+            "value": " Está viendo ",
+            "marks": [],
+            "data": {}
+          },
+          {
+            "nodeType": "hyperlink",
+            "data": {
+              "uri": "https://whoownswhat.justfix.org/es/legacy/"
+            },
+            "content": [
+              {
+                "nodeType": "text",
+                "value": "la nueva versión",
+                "marks": [],
+                "data": {}
+              }
+            ]
+          },
+          {
+            "nodeType": "text",
+            "value": " de ¿Quién Es El Dueño en Nueva York?. Aquí tiene el enlace a la versión antigua por si necesita acceder a ella como referencia.",
+            "marks": [],
+            "data": {}
+          },
+          {
+            "nodeType": "text",
+            "value": "\n",
             "marks": [],
             "data": {}
           }

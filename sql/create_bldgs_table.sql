@@ -63,6 +63,14 @@ complaints as (
     ) subtable
     -- ----------
   group by bbl
+),
+
+hpd_reg_bldgs as (
+  select 
+    bbl, 
+    count(distinct buildingid)::int as hpdbuildings
+  from hpd_registrations_with_contacts
+  group by bbl
 )
 
 select distinct on (registrations.bbl)
@@ -75,6 +83,8 @@ select distinct on (registrations.bbl)
   registrations.registrationenddate,
   registrations.bbl,
   registrations.bin,
+  registrations.buildingid as hpdbuildingid,
+  hpd_reg_bldgs.hpdbuildings,
   registrations.corpnames,
   registrations.businessaddrs,
   registrations.ownernames,
@@ -105,6 +115,7 @@ select distinct on (registrations.bbl)
     else coalesce(eviction_filings_since_2017, 0) 
   end as evictionfilings
 from hpd_registrations_with_contacts as registrations
+left join hpd_reg_bldgs on (registrations.bbl = hpd_reg_bldgs.bbl)
 left join (
   select bbl,
     count(case when violationstatus = 'Open' then 1 end) as opentotal,

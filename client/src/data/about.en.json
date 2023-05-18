@@ -57,6 +57,48 @@
         "nodeType": "paragraph"
       },
       {
+        "data": {},
+        "content": [
+          {
+            "data": {},
+            "marks": [
+              {
+                "type": "bold"
+              }
+            ],
+            "value": "Note:",
+            "nodeType": "text"
+          },
+          {
+            "data": {},
+            "marks": [],
+            "value": " You are viewing the new version of Who Owns What. Here’s the link to ",
+            "nodeType": "text"
+          },
+          {
+            "data": {
+              "uri": "https://whoownswhat.justfix.org/en/legacy/"
+            },
+            "content": [
+              {
+                "data": {},
+                "marks": [],
+                "value": "the old version",
+                "nodeType": "text"
+              }
+            ],
+            "nodeType": "hyperlink"
+          },
+          {
+            "data": {},
+            "marks": [],
+            "value": " if you need to access it for reference.",
+            "nodeType": "text"
+          }
+        ],
+        "nodeType": "paragraph"
+      },
+      {
         "data": {
           "target": {
             "metadata": {
