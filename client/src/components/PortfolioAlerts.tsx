@@ -110,7 +110,7 @@ export const FilterPortfolioAlert = ({
           to={addressPageRoutes.portfolio}
           onClick={() => {
             logAmplitudeEvent("alertToFilterPortfolio", { portfolioSize });
-            window.gtag("event", "alert-topfilter-portfolio", { portfolioSize });
+            window.gtag("event", "alert-to-filter-portfolio", { portfolioSize });
           }}
         >
           the Portfolio tab.
