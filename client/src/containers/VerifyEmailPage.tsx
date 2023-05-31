@@ -13,9 +13,9 @@ const VerifyEmailPage = withI18n()((props: withI18nProps) => {
   const userContext = useContext(UserContext);
   const [verified, setVerified] = React.useState(false);
 
-  const delaySeconds = 5; 
+  const delaySeconds = 5;
   const baseUrl = window.location.origin;
-  const redirectUrl = `${baseUrl}/${i18n.language}/account/settings`
+  const redirectUrl = `${baseUrl}/${i18n.language}/account/settings`;
 
   const updateCountdown = () => {
     let timeLeft = delaySeconds;
@@ -24,7 +24,7 @@ const VerifyEmailPage = withI18n()((props: withI18nProps) => {
     setInterval(() => {
       timeLeft--;
       document.getElementById("countdown")!.textContent = timeLeft.toString();
-      if(timeLeft <= 0) {
+      if (timeLeft <= 0) {
         document.location.href = redirectUrl;
       }
     }, delayInterval);
@@ -36,7 +36,9 @@ const VerifyEmailPage = withI18n()((props: withI18nProps) => {
         <br />
         <Trans render="h3"> Verify this email: </Trans>
         <br />
-        <Trans className="text-center" render="h3"> {userContext.user?.email} </Trans>
+        <Trans className="text-center" render="h3">
+          {userContext.user?.email}
+        </Trans>
         <br />
         <Trans render="h3"> to receive Data Updates from Who Owns What. </Trans>
         <br />
@@ -66,12 +68,16 @@ const VerifyEmailPage = withI18n()((props: withI18nProps) => {
         <div className="text-center">
           <Trans className="text-center">You will be redirected back to Who Owns What in:</Trans>
           <br>{updateCountdown()}</br>
-          
-          <Trans className="d-flex justify-content-center"><span id="countdown">{delaySeconds}</span> seconds</Trans>
+
+          <Trans className="d-flex justify-content-center">
+            <span id="countdown">{delaySeconds}</span> seconds
+          </Trans>
           <br />
           <br />
-          <Trans className="text-center">If you are not redirected, please click <a href={redirectUrl}>[here]</a></Trans>
-          </div>
+          <Trans className="text-center">
+            If you are not redirected, please click <a href={redirectUrl}>[here]</a>
+          </Trans>
+        </div>
       </Fragment>
     );
   };
@@ -80,7 +86,7 @@ const VerifyEmailPage = withI18n()((props: withI18nProps) => {
     <Page title={i18n._(t`Verify your email address`)}>
       <div className="VerifyEmailPage Page">
         <div className="page-container">
-          {!verified ? renderPreVerificationPage() : renderPostVerificationPage() }
+          {!verified ? renderPreVerificationPage() : renderPostVerificationPage()}
         </div>
         <LegalFooter />
       </div>
