@@ -92,7 +92,7 @@ CORS_ORIGIN_WHITELIST = (
     "http://localhost:3000",
     "http://demo-wowserver.justfix.org",
     "https://deploy-preview-703--wow-django-dev.netlify.app",
-    "https://deploy-preview-784--wow-django-dev.netlify.app"
+    "https://deploy-preview-784--wow-django-dev.netlify.app",
 )
 
 # This is based off the default Django logging configuration:
