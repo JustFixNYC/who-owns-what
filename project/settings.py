@@ -50,11 +50,12 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE: List[str] = [
+    "corsheaders.middleware.CorsMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
+    "django.middleware.common.CommonMiddleware",
     "django.middleware.gzip.GZipMiddleware",
-    "corsheaders.middleware.CorsMiddleware",
 ]
 
 TEMPLATES = [
@@ -87,13 +88,13 @@ DATABASES = {
 CORS_ALLOW_HEADERS = default_headers + ("Access-Control-Allow-Origin", "Set-Cookie")
 CORS_ALLOW_ALL_ORIGINS = False
 CORS_ALLOW_CREDENTIALS = True
-CORS_ORIGIN_WHITELIST = (
+CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:3000",
     "http://localhost:3000",
     "http://demo-wowserver.justfix.org",
     "https://deploy-preview-703--wow-django-dev.netlify.app",
     "https://deploy-preview-784--wow-django-dev.netlify.app",
-)
+]
 CORS_ALLOWED_ORIGIN_REGEXES = [
     r"https://\w+\.deploy-preview-(?:\d{1,4})--wow-django-dev\.netlify\.app"
 ]
