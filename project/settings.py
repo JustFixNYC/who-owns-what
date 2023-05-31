@@ -86,7 +86,7 @@ DATABASES = {
 }
 
 CORS_ALLOW_HEADERS = default_headers + ("Access-Control-Allow-Origin", "Set-Cookie")
-CORS_ALLOW_ALL_ORIGINS = False
+CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:3000",
