@@ -70,7 +70,7 @@ const VerifyEmailPage = withI18n()((props: withI18nProps) => {
           <br>{updateCountdown()}</br>
 
           <Trans className="d-flex justify-content-center">
-            <span id="countdown">{delaySeconds}</span> seconds
+            <span id="countdown">5</span> seconds
           </Trans>
           <br />
           <br />
