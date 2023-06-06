@@ -115,7 +115,8 @@ const DYNAMIC_FILTER_PAINT = {
 const DYNAMIC_SELECTED_PAINT = {
   ...DYNAMIC_FILTER_PAINT,
   "circle-stroke-opacity": 1,
-  "circle-stroke-width": 3,
+  "circle-radius": 5,
+  "circle-stroke-width": 5,
   "circle-stroke-color": "#F2F2F2",
   "circle-color": "#5188FF",
 };
@@ -426,7 +427,11 @@ export default class PropertiesMap extends Component<Props, State> {
                 />
               )}
             </Layer>
-            <Layer id="detail" type="circle" paint={DYNAMIC_SELECTED_PAINT}>
+            <Layer
+              id="selected"
+              type="circle"
+              paint={this.filtersAreActive() ? DYNAMIC_SELECTED_PAINT : DYNAMIC_DETAIL_PAINT}
+            >
               {!this.isOnOverview() && !!selectedAddr && selectedAddr.lng && selectedAddr.lat && (
                 <Feature
                   properties={{
