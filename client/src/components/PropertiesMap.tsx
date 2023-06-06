@@ -3,7 +3,6 @@ import ReactMapboxGl, { Layer, Feature, ZoomControl } from "react-mapbox-gl";
 import Helpers from "../util/helpers";
 import Browser from "../util/browser";
 import MapHelpers, { LatLng, BoundingBox } from "../util/mapping";
-
 import Loader from "../components/Loader";
 
 import "styles/PropertiesMap.css";
@@ -93,7 +92,6 @@ const DYNAMIC_ASSOC_PAINT = {
     stops: [
       ["base", "#FF9800"],
       ["search", "#FF5722"],
-      ["filter", "#5188FF"],
     ],
   },
 };
@@ -119,6 +117,18 @@ const DYNAMIC_SELECTED_PAINT = {
   "circle-stroke-width": 5,
   "circle-stroke-color": "#F2F2F2",
   "circle-color": "#5188FF",
+};
+
+const ASSOC_LAYOUT = {
+  "circle-sort-key": {
+    property: "mapType",
+    type: "categorical",
+    default: 0,
+    stops: [
+      ["base", 0],
+      ["search", 1],
+    ],
+  },
 };
 
 // due to the wonky way react-mapboxgl works, we can't just specify a center/zoom combo
@@ -273,8 +283,6 @@ export default class PropertiesMap extends Component<Props, State> {
         // presuming that nextProps.userAddr is in sync with nextProps.addrs
         if (Helpers.addrsAreEqual(addr, searchAddr)) {
           addr.mapType = "search";
-        } else if (this.filtersAreActive()) {
-          addr.mapType = "filter";
         } else {
           addr.mapType = "base";
         }
@@ -406,6 +414,7 @@ export default class PropertiesMap extends Component<Props, State> {
               <Layer
                 id="assoc"
                 type="circle"
+                layout={ASSOC_LAYOUT}
                 paint={this.filtersAreActive() ? DYNAMIC_FILTER_PAINT : DYNAMIC_ASSOC_PAINT}
               >
                 {this.state.addrsPoints}
