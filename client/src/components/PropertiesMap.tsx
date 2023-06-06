@@ -285,7 +285,7 @@ export default class PropertiesMap extends Component<Props, State> {
         <Feature
           key={i}
           coordinates={pos}
-          properties={{ mapType: addr.mapType}}
+          properties={{ mapType: addr.mapType }}
           onClick={(e) => this.handleAddrSelect(addr, e)}
         />
       );
