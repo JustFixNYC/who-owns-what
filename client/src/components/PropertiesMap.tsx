@@ -94,7 +94,7 @@ const DYNAMIC_ASSOC_PAINT = {
     stops: [
       ["base", "#FF9800"],
       ["search", "#FF5722"],
-      ["filter", "#5188FF"]
+      ["filter", "#5188FF"],
     ],
   },
 };
@@ -285,7 +285,7 @@ export default class PropertiesMap extends Component<Props, State> {
         <Feature
           key={i}
           coordinates={pos}
-          properties={{ mapType: addr.mapType }}
+          properties={{ mapType: addr.mapType}}
           onClick={(e) => this.handleAddrSelect(addr, e)}
         />
       );
@@ -441,7 +441,7 @@ export default class PropertiesMap extends Component<Props, State> {
                 />
               )}
             </Layer>
-            <Layer id="selected" type="marker" paint={DYNAMIC_SELECTED_PAINT}>
+            <Layer id="detail" type="circle" paint={DYNAMIC_SELECTED_PAINT}>
               {!this.isOnOverview() && !!selectedAddr && selectedAddr.lng && selectedAddr.lat && (
                 <Feature
                   properties={{
