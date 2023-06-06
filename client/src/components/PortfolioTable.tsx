@@ -16,7 +16,6 @@ import {
   getSortedRowModel,
   PaginationState,
   Row,
-  Table,
   useReactTable,
 } from "@tanstack/react-table";
 import _groupBy from "lodash/groupBy";
@@ -28,13 +27,7 @@ import { withI18n, withI18nProps } from "@lingui/react";
 import { SupportedLocale } from "../i18n-base";
 import Helpers, { longDateOptions } from "../util/helpers";
 import { AddressRecord, HpdComplaintCount } from "./APIDataTypes";
-import {
-  FilterContext,
-  FilterNumberRange,
-  IFilterContext,
-  PortfolioAnalyticsEvent,
-  NUMBER_RANGE_DEFAULT,
-} from "./PropertiesList";
+import { FilterContext, FilterNumberRange, PortfolioAnalyticsEvent } from "./PropertiesList";
 import "styles/PortfolioTable.scss";
 import { sortContactsByImportance } from "./DetailView";
 import { ArrowIcon } from "./Icons";
@@ -83,6 +76,7 @@ type PortfolioTableProps = withI18nProps & {
   rsunitslatestyear: number;
   getRowCanExpand: (row: Row<AddressRecord>) => boolean;
   logPortfolioAnalytics: PortfolioAnalyticsEvent;
+  isVisible: boolean;
 };
 
 /**
@@ -90,11 +84,19 @@ type PortfolioTableProps = withI18nProps & {
  * in an attempt to improve performance, particularly on IE11.
  */
 const PortfolioTableWithoutI18n = React.memo((props: PortfolioTableProps) => {
-  const { data, locale, rsunitslatestyear, getRowCanExpand, logPortfolioAnalytics, i18n } = props;
+  const {
+    data,
+    locale,
+    rsunitslatestyear,
+    getRowCanExpand,
+    logPortfolioAnalytics,
+    i18n,
+    isVisible,
+  } = props;
 
   const { pathname } = useLocation();
 
-  const { filterContext, setFilterContext } = React.useContext(FilterContext);
+  const { filterContext } = React.useContext(FilterContext);
 
   const { filterSelections } = filterContext;
   const activeFilters = {
@@ -544,9 +546,13 @@ const PortfolioTableWithoutI18n = React.memo((props: PortfolioTableProps) => {
     debugColumns: false,
   });
 
-  useFilterOptionsUpdater(filterContext, setFilterContext, table);
-  useFilterSelectionsUpdater(filterContext, table);
-  useBuildingCountsUpdater(filterContext, setFilterContext, table);
+  React.useEffect(() => {
+    const { rsunitslatest, ownernames, unitsres, zip } = filterSelections;
+    table.getColumn("rsunitslatest").setFilterValue(rsunitslatest);
+    table.getColumn("ownernames").setFilterValue(ownernames);
+    table.getColumn("unitsres").setFilterValue(unitsres.values);
+    table.getColumn("zip").setFilterValue(zip);
+  }, [filterSelections]);
 
   // TODO: is this necessary?
   React.useEffect(() => {
@@ -559,7 +565,10 @@ const PortfolioTableWithoutI18n = React.memo((props: PortfolioTableProps) => {
   }, [table.getState().columnFilters[0]?.id]);
 
   return (
-    <div id="PortfolioTable" className={classnames(hideScrollFade && "hide-scroll-fade")}>
+    <div
+      id="PortfolioTable"
+      className={classnames(hideScrollFade && "hide-scroll-fade", !isVisible && "is-hidden")}
+    >
       <div className="portfolio-table-container">
         <table>
           <thead>
@@ -613,8 +622,8 @@ const PortfolioTableWithoutI18n = React.memo((props: PortfolioTableProps) => {
                     className="filter-table-alert-container"
                     colSpan={table.getVisibleFlatColumns().length}
                   >
-                    {activeFilters.rsunitslatestActive && RsUnitsResultAlert}
-                    {activeFilters.ownernamesActive && OwnernamesResultAlert}
+                    {activeFilters.rsunitslatestActive && <RsUnitsResultAlert />}
+                    {activeFilters.ownernamesActive && <OwnernamesResultAlert />}
                   </td>
                 </tr>
               )}
@@ -756,72 +765,6 @@ function formatAbatementStartYear(year: number | null, i18n: I18n) {
 
 function findMostCommonType(complaints: HpdComplaintCount[] | null) {
   return complaints && complaints.length > 0 && complaints[0].type;
-}
-
-// TODO: This is getting triggered by sorts on these columns
-function useFilterOptionsUpdater(
-  filterContext: IFilterContext,
-  setFilterContext: React.Dispatch<React.SetStateAction<IFilterContext>>,
-  table: Table<AddressRecord>
-) {
-  const ownernamesOptionValues = table.getColumn("ownernames").getFacetedUniqueValues();
-  const unitsresOptionValues = table.getColumn("unitsres").getFacetedMinMaxValues();
-  const zipOptionValues = table.getColumn("zip").getFacetedUniqueValues();
-
-  React.useEffect(() => {
-    setFilterContext({
-      ...filterContext,
-      filterOptions: {
-        // put corporations like "123 Fake St, LLC" at the end so real names are shown first
-        ownernames: Array.from(new Set(Array.from(ownernamesOptionValues.keys()).flat())).sort(
-          compareAlphaNumLast
-        ),
-        unitsres: unitsresOptionValues
-          ? { min: unitsresOptionValues[0], max: unitsresOptionValues[1] }
-          : NUMBER_RANGE_DEFAULT,
-        zip: Array.from(zipOptionValues.keys())
-          .filter((zip) => zip != null)
-          .sort(),
-      },
-    });
-  }, [ownernamesOptionValues, unitsresOptionValues, zipOptionValues]);
-}
-
-function useFilterSelectionsUpdater(filterContext: IFilterContext, table: Table<AddressRecord>) {
-  React.useEffect(() => {
-    const { rsunitslatest, ownernames, unitsres, zip } = filterContext.filterSelections;
-    table.getColumn("rsunitslatest").setFilterValue(rsunitslatest);
-    table.getColumn("ownernames").setFilterValue(ownernames);
-    table.getColumn("unitsres").setFilterValue(unitsres.values);
-    table.getColumn("zip").setFilterValue(zip);
-  }, [filterContext.filterSelections]);
-}
-
-function useBuildingCountsUpdater(
-  filterContext: IFilterContext,
-  setFilterContext: React.Dispatch<React.SetStateAction<IFilterContext>>,
-  table: Table<AddressRecord>
-) {
-  const totalBuildings = table.getCoreRowModel().flatRows.length;
-  const filteredBuildings = table.getFilteredRowModel().flatRows.length;
-  React.useEffect(() => {
-    setFilterContext({
-      ...filterContext,
-      totalBuildings: totalBuildings,
-      filteredBuildings: filteredBuildings,
-    });
-  }, [totalBuildings, filteredBuildings]);
-}
-
-function startsNumeric(x: string) {
-  return /^\d/.test(x);
-}
-
-function compareAlphaNumLast(a: string, b: string) {
-  if (startsNumeric(a) === startsNumeric(b)) {
-    return a.localeCompare(b, undefined, { numeric: true, sensitivity: "base" });
-  }
-  return startsNumeric(a) ? 1 : -1;
 }
 
 const PortfolioTable = withI18n()(PortfolioTableWithoutI18n);

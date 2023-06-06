@@ -8,18 +8,37 @@ import Loader from "../components/Loader";
 
 import "styles/PropertiesMap.css";
 import "mapbox-gl/src/css/mapbox-gl.css";
-import { Trans } from "@lingui/macro";
+import { Plural, Trans } from "@lingui/macro";
 import { AddressRecord } from "./APIDataTypes";
 import { FitBounds, Props as MapboxMapProps } from "react-mapbox-gl/lib/map";
 import { Events as MapboxMapEvents } from "react-mapbox-gl/lib/map-events";
 import { withMachineInStateProps } from "state-machine";
 import { BigPortfolioAlert, FilterPortfolioAlert } from "./PortfolioAlerts";
-import { AddressPageRoutes } from "routes";
+import { AddressPageRoutes, createRouteForFullBbl } from "routes";
+import {
+  FilterContext,
+  IFilterContext,
+  PortfolioAnalyticsEvent,
+  defaultFilterContext,
+  filterAddrs,
+} from "./PropertiesList";
+import { isEqual } from "lodash";
+import { Alert } from "./Alert";
+import { Link, useLocation } from "react-router-dom";
+import { SupportedLocale, defaultLocale } from "i18n-base";
+import { isLegacyPath } from "./WowzaToggle";
+import { sortContactsByImportance } from "./DetailView";
+import _groupBy from "lodash/groupBy";
+import { RsUnitsResultAlert, ZeroResultsAlert } from "./PortfolioFilters";
+import classnames from "classnames";
 
 type Props = withMachineInStateProps<"portfolioFound"> & {
   onAddrChange: (bbl: string) => void;
   isVisible: boolean;
   addressPageRoutes: AddressPageRoutes;
+  location: "overview" | "portfolio";
+  locale?: SupportedLocale;
+  logPortfolioAnalytics?: PortfolioAnalyticsEvent;
 };
 
 type State = {
@@ -30,6 +49,7 @@ type State = {
   addrsBounds: FitBounds;
   addrsPoints: JSX.Element[];
   mapProps: MapboxMapProps & MapboxMapEvents;
+  selectedAddr?: AddressRecord;
 };
 
 const MAPBOX_ACCESS_TOKEN =
@@ -74,14 +94,31 @@ const DYNAMIC_ASSOC_PAINT = {
     stops: [
       ["base", "#FF9800"],
       ["search", "#FF5722"],
+      ["filter", "#5188FF"]
     ],
   },
 };
 
-const DYNAMIC_SELECTED_PAINT = {
+const DYNAMIC_DETAIL_PAINT = {
   ...DYNAMIC_ASSOC_PAINT,
   "circle-stroke-color": "#d6d6d6",
   "circle-opacity": 1,
+};
+
+const DYNAMIC_FILTER_PAINT = {
+  ...DYNAMIC_ASSOC_PAINT,
+  "circle-stroke-width": 2,
+  "circle-stroke-color": "#5188FF",
+  "circle-color": "#F2F2F2",
+  "circle-opacity": 1,
+};
+
+const DYNAMIC_SELECTED_PAINT = {
+  ...DYNAMIC_FILTER_PAINT,
+  "circle-stroke-opacity": 1,
+  "circle-stroke-width": 3,
+  "circle-stroke-color": "#F2F2F2",
+  "circle-color": "#5188FF",
 };
 
 // due to the wonky way react-mapboxgl works, we can't just specify a center/zoom combo
@@ -91,6 +128,11 @@ const DYNAMIC_SELECTED_PAINT = {
 const DETAIL_OFFSET = 0.0015;
 
 export default class PropertiesMap extends Component<Props, State> {
+  static contextType = FilterContext;
+  context!: React.ContextType<typeof FilterContext>;
+
+  private prevFilterContext: IFilterContext = defaultFilterContext;
+
   constructor(props: Props) {
     super(props);
 
@@ -112,39 +154,7 @@ export default class PropertiesMap extends Component<Props, State> {
   }
 
   componentDidMount() {
-    let addrsPos = new Set();
-    let newAssocAddrs: JSX.Element[] = [];
-
-    const { assocAddrs, searchAddr } = this.props.state.context.portfolioData;
-
-    // cycle through addrs, adding them to the set and categorizing them
-    assocAddrs.forEach((addr, i) => {
-      const pos: LatLng = [addr.lng || NaN, addr.lat || NaN];
-
-      if (!MapHelpers.latLngIsNull(pos)) {
-        addrsPos.add(pos);
-
-        // presuming that nextProps.userAddr is in sync with nextProps.addrs
-        if (Helpers.addrsAreEqual(addr, searchAddr)) {
-          addr.mapType = "search";
-        } else {
-          addr.mapType = "base";
-        }
-      }
-
-      // push a new Feature for the map
-      newAssocAddrs.push(
-        <Feature
-          key={i}
-          coordinates={pos}
-          properties={{ mapType: addr.mapType }}
-          onClick={(e) => this.handleAddrSelect(addr, e)}
-        />
-      );
-    });
-    // see getBoundingBox() for deets
-    const pointsArray = Array.from(addrsPos) as LatLng[];
-    const newAddrsBounds = MapHelpers.getBoundingBox(pointsArray, DEFAULT_FIT_BOUNDS);
+    const { newAssocAddrs, newAddrsBounds } = this.getAddrsPointsAndBounds();
 
     // sets things up, including initial portfolio level map view
     this.setState(
@@ -181,7 +191,7 @@ export default class PropertiesMap extends Component<Props, State> {
       prevProps.state.context.portfolioData.detailAddr.bbl !==
         this.getPortfolioData().detailAddr.bbl;
 
-    if (didDetailAddrUpdate) {
+    if (this.isOnOverview() && didDetailAddrUpdate) {
       const { detailAddr } = this.getPortfolioData();
       const { lat, lng } = detailAddr;
 
@@ -199,6 +209,19 @@ export default class PropertiesMap extends Component<Props, State> {
         },
       });
     }
+
+    const { filterContext } = this.context;
+
+    if (typeof filterContext === "undefined") return;
+
+    if (this.filtersDidChange()) {
+      const { newAssocAddrs } = this.getAddrsPointsAndBounds();
+      this.setState({
+        addrsPoints: newAssocAddrs,
+      });
+    }
+
+    this.prevFilterContext = filterContext;
   }
 
   handleMouseMove = (map: any, e: any) => {
@@ -211,12 +234,21 @@ export default class PropertiesMap extends Component<Props, State> {
   };
 
   handleAddrSelect = (addr: AddressRecord, e: any) => {
-    // updates state with new detail address
+    // On Overview page, this updates global context/state with new detail address. On Portfolio this just has telemetry.
     this.props.onAddrChange(addr.bbl);
+
+    // TODO: when on portfolio page, update state for selected address
+    if (!this.isOnOverview()) {
+      this.setState({ selectedAddr: addr });
+    }
   };
 
   getPortfolioData() {
     return this.props.state.context.portfolioData;
+  }
+
+  isOnOverview() {
+    return this.props.location === "overview";
   }
 
   getMapTypeForAddr = (addr: AddressRecord) => {
@@ -225,13 +257,102 @@ export default class PropertiesMap extends Component<Props, State> {
     return matchingAddr ? matchingAddr.mapType : "base";
   };
 
-  render() {
-    const { useNewPortfolioMethod } = this.props.state.context;
-    const portfolioFiltersEnabled = process.env.REACT_APP_PORTFOLIO_FILTERS_ENABLED === "1";
-    const { detailAddr } = this.getPortfolioData();
+  getAddrsPointsAndBounds = () => {
+    let addrsPos = new Set();
+    let newAssocAddrs: JSX.Element[] = [];
+
+    const { assocAddrs, searchAddr } = this.getPortfolioData();
+
+    // cycle through addrs, adding them to the set and categorizing them
+    this.filterAddrs(assocAddrs).forEach((addr, i) => {
+      const pos: LatLng = [addr.lng || NaN, addr.lat || NaN];
+
+      if (!MapHelpers.latLngIsNull(pos)) {
+        addrsPos.add(pos);
+
+        // presuming that nextProps.userAddr is in sync with nextProps.addrs
+        if (Helpers.addrsAreEqual(addr, searchAddr)) {
+          addr.mapType = "search";
+        } else if (this.filtersAreActive()) {
+          addr.mapType = "filter";
+        } else {
+          addr.mapType = "base";
+        }
+      }
+
+      // push a new Feature for the map
+      newAssocAddrs.push(
+        <Feature
+          key={i}
+          coordinates={pos}
+          properties={{ mapType: addr.mapType }}
+          onClick={(e) => this.handleAddrSelect(addr, e)}
+        />
+      );
+    });
+
+    const pointsArray = Array.from(addrsPos) as LatLng[];
+    const newAddrsBounds = MapHelpers.getBoundingBox(pointsArray, DEFAULT_FIT_BOUNDS);
+
+    return { newAssocAddrs, newAddrsBounds };
+  };
+
+  filterAddrs(addrs: AddressRecord[]) {
+    const { filterContext } = this.context;
+
+    if (typeof filterContext === "undefined") return addrs;
+
+    return filterAddrs(addrs, filterContext.filterSelections);
+  }
+
+  filtersDidChange(): boolean {
+    const { filterSelections: curr } = this.context.filterContext;
+    const { filterSelections: prev } = this.prevFilterContext;
 
     return (
-      <div className="PropertiesMap">
+      prev.rsunitslatest !== curr.rsunitslatest ||
+      ((prev.ownernames.length || curr.ownernames.length) &&
+        !isEqual(prev.ownernames, curr.ownernames)) ||
+      !isEqual(prev.unitsres, curr.unitsres) ||
+      !isEqual(prev.zip, curr.zip)
+    );
+  }
+
+  filtersAreActive(): boolean {
+    if (this.isOnOverview()) return false;
+
+    const { filterSelections } = this.context.filterContext;
+    const { filterSelections: defaultfilterSelections } = defaultFilterContext;
+
+    return !isEqual(filterSelections, defaultfilterSelections);
+  }
+
+  toastAlert(): JSX.Element | undefined {
+    if (this.isOnOverview()) return undefined;
+
+    const { filterSelections, filteredBuildings } = this.context.filterContext;
+
+    if (filteredBuildings === 0) {
+      return <ZeroResultsAlert variant="primary" />;
+    } else if (filterSelections.rsunitslatest) {
+      return <RsUnitsResultAlert variant="primary" />;
+    }
+
+    return undefined;
+  }
+
+  render() {
+    const { useNewPortfolioMethod } = this.props.state.context;
+    const portfolioFiltersEnabled = process.env.REACT_APP_PORTFOLIO_FILTERS_ENABLED === "1" || true;
+    const { detailAddr } = this.getPortfolioData();
+    const { locale, logPortfolioAnalytics } = this.props;
+    const isMobile = Browser.isMobile();
+    const { selectedAddr } = this.state;
+
+    return (
+      <div
+        className={classnames("PropertiesMap", this.props.isVisible ? "is-visible" : "is-hidden")}
+      >
         <Loader loading={this.state.mapLoading} classNames="Loader-map">
           <Trans>Loading</Trans>
         </Loader>
@@ -267,43 +388,66 @@ export default class PropertiesMap extends Component<Props, State> {
                 left: "10px",
               }}
             />
-            {useNewPortfolioMethod ? (
-              <div className="MapAlert__container">
-                <BigPortfolioAlert
-                  closeType="session"
-                  storageId="map-big-portfolio-alert"
-                  portfolioSize={this.state.addrsPoints.length}
-                />
-                {portfolioFiltersEnabled && (
-                  <FilterPortfolioAlert
+            <div className="MapAlert__container">
+              {this.isOnOverview() && useNewPortfolioMethod && (
+                <>
+                  <BigPortfolioAlert
                     closeType="session"
-                    storageId="map-filter-portfolio-alert"
+                    storageId="map-big-portfolio-alert"
                     portfolioSize={this.state.addrsPoints.length}
-                    addressPageRoutes={this.props.addressPageRoutes}
                   />
-                )}
-              </div>
-            ) : (
-              <></>
-            )}
+                  {portfolioFiltersEnabled && (
+                    <FilterPortfolioAlert
+                      closeType="session"
+                      storageId="map-filter-portfolio-alert"
+                      portfolioSize={this.state.addrsPoints.length}
+                      addressPageRoutes={this.props.addressPageRoutes}
+                    />
+                  )}
+                </>
+              )}
+              {!this.isOnOverview() && !!selectedAddr && (
+                <SelectedAddrAlert
+                  addr={selectedAddr}
+                  isMobile={isMobile}
+                  locale={locale}
+                  logPortfolioAnalytics={logPortfolioAnalytics}
+                  onClose={() => this.setState({ selectedAddr: undefined })}
+                />
+              )}
+            </div>
             {this.state.addrsPoints.length ? (
-              <Layer id="assoc" type="circle" paint={DYNAMIC_ASSOC_PAINT}>
+              <Layer
+                id="assoc"
+                type="circle"
+                paint={this.filtersAreActive() ? DYNAMIC_FILTER_PAINT : DYNAMIC_ASSOC_PAINT}
+              >
                 {this.state.addrsPoints}
               </Layer>
             ) : (
               <></>
             )}
-            <Layer id="selected" type="circle" paint={DYNAMIC_SELECTED_PAINT}>
+            <Layer id="detail" type="circle" paint={DYNAMIC_DETAIL_PAINT}>
               {/*
                   we need to lookup the property pe of this feature from the main addrs array
                   this affects the color of the marker while still outlining it as "selected"
                   */}
-              {detailAddr.lng && detailAddr.lat && (
+              {this.isOnOverview() && detailAddr.lng && detailAddr.lat && (
                 <Feature
                   properties={{
                     mapType: this.getMapTypeForAddr(detailAddr),
                   }}
                   coordinates={[detailAddr.lng, detailAddr.lat]}
+                />
+              )}
+            </Layer>
+            <Layer id="selected" type="marker" paint={DYNAMIC_SELECTED_PAINT}>
+              {!this.isOnOverview() && !!selectedAddr && selectedAddr.lng && selectedAddr.lat && (
+                <Feature
+                  properties={{
+                    mapType: this.getMapTypeForAddr(selectedAddr),
+                  }}
+                  coordinates={[selectedAddr.lng, selectedAddr.lat]}
                 />
               )}
             </Layer>
@@ -332,11 +476,77 @@ export default class PropertiesMap extends Component<Props, State> {
           </p>
 
           <ul>
-            <Trans render="li">search address</Trans>
-            <Trans render="li">associated building</Trans>
+            <Trans render="li" className="addr-search">
+              search address
+            </Trans>
+            <Trans render="li" className={`addr-${this.filtersAreActive() ? "filter" : "assoc"}`}>
+              {this.filtersAreActive()
+                ? "building associated with selected filter(s)"
+                : "associated building"}
+            </Trans>
           </ul>
         </div>
+        <div className="filter-toast-container">{this.toastAlert()}</div>
       </div>
     );
   }
 }
+
+const SelectedAddrAlert = ({
+  addr,
+  isMobile,
+  locale,
+  logPortfolioAnalytics,
+  onClose,
+}: {
+  addr: AddressRecord;
+  isMobile: boolean;
+  locale?: SupportedLocale;
+  logPortfolioAnalytics?: PortfolioAnalyticsEvent;
+  onClose?: () => void;
+}) => {
+  const { pathname } = useLocation();
+  const numberFormatter = new Intl.NumberFormat(locale || defaultLocale);
+
+  return (
+    <Alert closeType="state" variant="secondary" type="info" onClose={onClose}>
+      <p>{`${addr.housenumber} ${addr.streetname}`}</p>
+
+      {!isMobile && (
+        <>
+          <Trans render="p">
+            Rent stabilized units ({addr.rsunitslatestyear}):{" "}
+            {numberFormatter.format(addr.rsunitslatest || 0)}
+          </Trans>
+          <Trans render="p">
+            Associated names/entities:{" "}
+            {!!addr.allcontacts &&
+              Object.entries(_groupBy(addr.allcontacts, "value"))
+                .sort(sortContactsByImportance)
+                .map((contact) => contact[0])
+                .join("; ")}
+          </Trans>
+          <Trans render="p">
+            Building size:{" "}
+            {!!addr.unitsres && (
+              <>
+                {addr.unitsres} <Plural value={addr.unitsres} one="unit" other="units" />
+              </>
+            )}
+          </Trans>
+        </>
+      )}
+
+      <Link
+        to={createRouteForFullBbl(addr.bbl, locale || defaultLocale, isLegacyPath(pathname))}
+        // TODO: decide on "map" gtm property format
+        onClick={() =>
+          !!logPortfolioAnalytics &&
+          logPortfolioAnalytics("addressChangePortfolio", { extraParams: { from: "map" } })
+        }
+      >
+        <Trans>See Building Profile</Trans>
+      </Link>
+    </Alert>
+  );
+};

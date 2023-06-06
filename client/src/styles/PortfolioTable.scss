@@ -313,3 +313,7 @@ $table-border-dark: 1px solid $dark;
     }
   }
 }
+
+#PortfolioTable.is-hidden {
+  display: none !important;
+}

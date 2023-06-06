@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 import AddressToolbar from "../components/AddressToolbar";
 import PropertiesMap from "../components/PropertiesMap";
-import PropertiesList from "../components/PropertiesList";
+import PropertiesList, { FilterContextProvider } from "../components/PropertiesList";
 import PropertiesSummary from "../components/PropertiesSummary";
 import Indicators from "../components/Indicators";
 import DetailView from "../components/DetailView";
@@ -43,6 +43,7 @@ type AddressPageProps = RouteComponentProps<RouteParams, {}, RouteState> &
 
 type State = {
   detailMobileSlide: boolean;
+  overviewEverVisible: boolean;
 };
 
 const validateRouteParams = (params: RouteParams) => {
@@ -69,6 +70,7 @@ export default class AddressPage extends Component<AddressPageProps, State> {
 
     this.state = {
       detailMobileSlide: false,
+      overviewEverVisible: false,
     };
   }
 
@@ -87,6 +89,13 @@ export default class AddressPage extends Component<AddressPageProps, State> {
     /* When searching for user's address, let's reset the DetailView to the "closed" state 
     so it can pop into view once the address is found */
     this.handleCloseDetail();
+  }
+
+  componentDidUpdate(prevProps: AddressPageProps, prevState: State) {
+    const overviewIsVisible = this.props.currentTab === 0;
+    if (!prevState.overviewEverVisible && overviewIsVisible) {
+      this.setState({ overviewEverVisible: true });
+    }
   }
 
   handleOpenDetail = () => {
@@ -225,17 +234,20 @@ export default class AddressPage extends Component<AddressPageProps, State> {
                 this.props.currentTab === 0 ? "AddressPage__content-active" : ""
               }`}
             >
-              <PropertiesMap
-                state={state}
-                send={send}
-                onAddrChange={(bbl: string) => {
-                  this.handleAddrChange(bbl);
-                  logAmplitudeEvent("addressChangeMap", analyticsEventData);
-                  window.gtag("event", "address-change-map");
-                }}
-                isVisible={this.props.currentTab === 0}
-                addressPageRoutes={routes}
-              />
+              {this.state.overviewEverVisible && (
+                <PropertiesMap
+                  location="overview"
+                  state={state}
+                  send={send}
+                  onAddrChange={(bbl: string) => {
+                    this.handleAddrChange(bbl);
+                    logAmplitudeEvent("addressChangeMap", analyticsEventData);
+                    window.gtag("event", "address-change-map");
+                  }}
+                  isVisible={this.props.currentTab === 0}
+                  addressPageRoutes={routes}
+                />
+              )}
               <DetailView
                 state={state}
                 send={send}
@@ -263,7 +275,14 @@ export default class AddressPage extends Component<AddressPageProps, State> {
                 this.props.currentTab === 2 ? "AddressPage__content-active" : ""
               }`}
             >
-              <PropertiesList state={state} send={send} />
+              <FilterContextProvider>
+                <PropertiesList
+                  state={state}
+                  send={send}
+                  addressPageRoutes={routes}
+                  isVisible={this.props.currentTab === 2}
+                />
+              </FilterContextProvider>
             </div>
             <div
               className={`AddressPage__content AddressPage__summary ${

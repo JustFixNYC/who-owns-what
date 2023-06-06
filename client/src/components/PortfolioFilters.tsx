@@ -8,10 +8,11 @@ import {
   PortfolioAnalyticsEvent,
   NUMBER_RANGE_DEFAULT,
   FilterNumberRangeSelections,
+  filterAddrs,
 } from "./PropertiesList";
 import FocusTrap from "focus-trap-react";
 import { FocusTarget } from "focus-trap";
-import { Alert } from "./Alert";
+import { Alert, AlertProps } from "./Alert";
 import Modal from "./Modal";
 import { LocaleLink } from "i18n";
 import { createWhoOwnsWhatRoutePaths } from "routes";
@@ -21,12 +22,17 @@ import Browser from "../util/browser";
 import helpers from "util/helpers";
 import MultiSelect, { Option } from "./Multiselect";
 import MinMaxSelect from "./MinMaxSelect";
+import _groupBy from "lodash/groupBy";
+import { withMachineInStateProps } from "state-machine";
 
 import "styles/PortfolioFilters.scss";
+import { AddressRecord } from "./APIDataTypes";
+import { sortContactsByImportance } from "./DetailView";
 
-type PortfolioFilterProps = withI18nProps & {
-  logPortfolioAnalytics: PortfolioAnalyticsEvent;
-};
+type PortfolioFilterProps = withMachineInStateProps<"portfolioFound"> &
+  withI18nProps & {
+    logPortfolioAnalytics: PortfolioAnalyticsEvent;
+  };
 
 const PortfolioFiltersWithoutI18n = React.memo(
   React.forwardRef<HTMLDivElement, PortfolioFilterProps>((props, ref) => {
@@ -38,15 +44,43 @@ const PortfolioFiltersWithoutI18n = React.memo(
     const { about, methodology, legacy } = createWhoOwnsWhatRoutePaths();
 
     const { filterContext, setFilterContext } = React.useContext(FilterContext);
-    const { filteredBuildings } = filterContext;
-    const { ownernames: ownernamesOptions, zip: zipOptions } = filterContext.filterOptions;
+    const { filterSelections, filteredBuildings, viewType } = filterContext;
+    const {
+      ownernames: ownernamesOptions,
+      zip: zipOptions,
+      unitsres: unitsresOptions,
+    } = filterContext.filterOptions;
     const {
       ownernames: ownernamesSelections,
       unitsres: unitsresSelections,
       zip: zipSelections,
-    } = filterContext.filterSelections;
+    } = filterSelections;
 
     const { i18n, logPortfolioAnalytics } = props;
+
+    const { assocAddrs } = props.state.context.portfolioData;
+
+    React.useEffect(() => {
+      setFilterContext({
+        ...filterContext,
+        filterOptions: {
+          // put corporations like "123 Fake St, LLC" at the end so real names are shown first
+          ownernames: getOwnernamesOptions(assocAddrs),
+          unitsres: getUnitsresOptions(assocAddrs),
+          zip: getZipOptions(assocAddrs),
+        },
+      });
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [assocAddrs]);
+
+    React.useEffect(() => {
+      setFilterContext((prevContext) => ({
+        ...prevContext,
+        totalBuildings: assocAddrs.length,
+        filteredBuildings: filterAddrs(assocAddrs, filterSelections).length,
+      }));
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [assocAddrs, filterSelections]);
 
     const [rsunitslatestActive, setRsunitslatestActive] = React.useState(false);
     const updateRsunitslatest = () => {
@@ -178,6 +212,22 @@ const PortfolioFiltersWithoutI18n = React.memo(
           activeFilters={activeFilters}
           resultsCount={filteredBuildings}
         >
+          <div className="view-type-toggle-container">
+            <button
+              aria-pressed={viewType === "table"}
+              className="view-type-toggle"
+              onClick={() => setFilterContext((prev) => ({ ...prev, viewType: "table" }))}
+            >
+              <Trans>Table</Trans>
+            </button>
+            <button
+              aria-pressed={viewType === "map"}
+              className="view-type-toggle"
+              onClick={() => setFilterContext((prev) => ({ ...prev, viewType: "map" }))}
+            >
+              <Trans>Map</Trans>
+            </button>
+          </div>
           <button
             aria-pressed={rsunitslatestActive}
             onClick={updateRsunitslatest}
@@ -222,7 +272,7 @@ const PortfolioFiltersWithoutI18n = React.memo(
             className="unitsres-accordion"
           >
             <MinMaxSelect
-              options={filterContext.filterOptions.unitsres}
+              options={unitsresOptions}
               onApply={onUnitsresApply}
               onError={() => logPortfolioAnalytics("filterError", { column: "unitsres" })}
               id="filter-unitsres-minmax"
@@ -273,7 +323,7 @@ const PortfolioFiltersWithoutI18n = React.memo(
                 <Trans>Clear Filters</Trans>
               </button>
             </div>
-            {filteredBuildings === 0 ? ZeroResultsAlert : <></>}
+            {filteredBuildings === 0 ? <ZeroResultsAlert /> : <></>}
           </div>
         )}
 
@@ -359,7 +409,7 @@ const FiltersWrapper = (props: {
                 {resultsCount != null && <span className="view-results-count">{resultsCount}</span>}
               </button>
             )}
-            {resultsCount === 0 ? ZeroResultsAlert : <></>}
+            {resultsCount === 0 ? <ZeroResultsAlert /> : <></>}
           </div>
         </details>
       </div>
@@ -367,7 +417,7 @@ const FiltersWrapper = (props: {
   );
 };
 
-export const OwnernamesResultAlert = (
+export const OwnernamesResultAlert = () => (
   <Alert
     className="filter-result-alert"
     type="info"
@@ -383,7 +433,7 @@ export const OwnernamesResultAlert = (
   </Alert>
 );
 
-export const RsUnitsResultAlert = (
+export const RsUnitsResultAlert = (props: Omit<AlertProps, "children">) => (
   <Alert
     className="filter-result-alert"
     type="info"
@@ -391,6 +441,7 @@ export const RsUnitsResultAlert = (
     closeType="session"
     storageId="filter-rsunits-results-alert"
     role="status"
+    {...props}
   >
     <Trans>
       Rent stabilized units are self-reported in yearly tax statements by building owners. As a
@@ -399,7 +450,7 @@ export const RsUnitsResultAlert = (
   </Alert>
 );
 
-const ZeroResultsAlert = (
+export const ZeroResultsAlert = (props: Omit<AlertProps, "children">) => (
   <Alert
     className="zero-results-alert"
     type="info"
@@ -535,6 +586,44 @@ function valuesAsMultiselectOptions(values: string[]): Option[] {
     ? values.map((val: string) => ({ value: val, label: val }))
     : [];
   return formattedOptions;
+}
+
+function getOwnernamesOptions(addrs: AddressRecord[]) {
+  const allContactNames = addrs.map((addr) => {
+    // Group all contact info by the name of each person/corporate entity (same as on overview tab)
+    var ownerList =
+      addr.allcontacts &&
+      Object.entries(_groupBy(addr.allcontacts, "value"))
+        .sort(sortContactsByImportance)
+        .map((contact) => contact[0]);
+    return ownerList || [];
+  });
+
+  // put corporations like "123 Fake St, LLC" at the end so real names are shown first
+  return Array.from(new Set(allContactNames.flat())).sort(compareAlphaNumLast);
+}
+
+function compareAlphaNumLast(a: string, b: string) {
+  if (startsNumeric(a) === startsNumeric(b)) {
+    return a.localeCompare(b, undefined, { numeric: true, sensitivity: "base" });
+  }
+  return startsNumeric(a) ? 1 : -1;
+}
+
+function startsNumeric(x: string) {
+  return /^\d/.test(x);
+}
+
+function getUnitsresOptions(addrs: AddressRecord[]) {
+  const allUnitsres = addrs.map((addr) => addr.unitsres || 0);
+  return allUnitsres.length
+    ? { min: Math.min(...allUnitsres), max: Math.max(...allUnitsres) }
+    : NUMBER_RANGE_DEFAULT;
+}
+
+function getZipOptions(addrs: AddressRecord[]) {
+  const allZips = addrs.map((addr) => addr.zip).filter((zip) => zip != null) as string[];
+  return Array.from(new Set(allZips)).sort();
 }
 
 const PortfolioFilters = withI18n()(PortfolioFiltersWithoutI18n);

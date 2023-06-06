@@ -61,7 +61,7 @@ export type AddressRecord = {
   lat: number | null;
   lng: number | null;
   /** This property gets assigned in the PropertiesMap component, not from our API */
-  mapType?: "base" | "search";
+  mapType?: "base" | "search" | "filter";
   openviolations: number;
   ownernames: HpdOwnerContact[] | null;
   recentcomplaints: number;

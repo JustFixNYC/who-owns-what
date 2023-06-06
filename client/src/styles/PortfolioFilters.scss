@@ -78,13 +78,35 @@
     flex-grow: 1;
     gap: 1.8rem;
 
-    .filter {
+    .view-type-toggle-container {
+      display: flex;
+    }
+
+    .filter,
+    .view-type-toggle {
       border: 0.1rem solid $justfix-black;
       border-radius: 0.8rem;
       text-transform: uppercase;
       display: flex;
       align-items: center;
+    }
 
+    .view-type-toggle {
+      width: 6.1rem;
+      justify-content: center;
+      &[aria-pressed="true"] {
+        @include white-on-black();
+        border-color: $justfix-black;
+      }
+      &:nth-child(1) {
+        border-radius: 0.8rem 0 0 0.8rem;
+      }
+      &:nth-child(2) {
+        border-radius: 0 0.8rem 0.8rem 0;
+      }
+    }
+
+    .filter {
       @include for-phone-only {
         &:not(.filters-mobile-wrapper) {
           border-radius: 0;

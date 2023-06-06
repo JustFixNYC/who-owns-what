@@ -11,11 +11,12 @@ export interface AlertProps extends React.ComponentPropsWithoutRef<"div"> {
   variant?: "primary" | "secondary";
   closeType?: "none" | "state" | "session" | "local";
   storageId?: string;
+  onClose?: () => void;
   className?: string;
 }
 
 export const Alert = forwardRef<HTMLDivElement, AlertProps>(
-  ({ type, variant, closeType, storageId, className, children, ...props }, ref) => {
+  ({ type, variant, closeType, storageId, onClose, className, children, ...props }, ref) => {
     const usingStorage = closeType && ["session", "local"].includes(closeType);
 
     // TODO: see if there's a way to do this that works with intellisense.
@@ -42,6 +43,7 @@ export const Alert = forwardRef<HTMLDivElement, AlertProps>(
         store.setItem(storageId!, "true");
       }
       setClosed(true);
+      !!onClose && onClose();
     };
 
     const alertClassNames = classNames("jf-alert", `is-${variant}`, `is-${type}`, className);
@@ -68,6 +70,7 @@ Alert.propTypes = {
   variant: PropTypes.oneOf(["primary", "secondary"]),
   closeType: PropTypes.oneOf(["none", "state", "session", "local"]),
   storageId: PropTypes.string,
+  onClose: PropTypes.func,
   className: PropTypes.string,
 };
 
