@@ -29,7 +29,6 @@ import { SupportedLocale, defaultLocale } from "i18n-base";
 import { isLegacyPath } from "./WowzaToggle";
 import { sortContactsByImportance } from "./DetailView";
 import _groupBy from "lodash/groupBy";
-import { RsUnitsResultAlert, ZeroResultsAlert } from "./PortfolioFilters";
 import classnames from "classnames";
 
 type Props = withMachineInStateProps<"portfolioFound"> & {
@@ -327,20 +326,6 @@ export default class PropertiesMap extends Component<Props, State> {
     return !isEqual(filterSelections, defaultfilterSelections);
   }
 
-  toastAlert(): JSX.Element | undefined {
-    if (this.isOnOverview()) return undefined;
-
-    const { filterSelections, filteredBuildings } = this.context.filterContext;
-
-    if (filteredBuildings === 0) {
-      return <ZeroResultsAlert variant="primary" />;
-    } else if (filterSelections.rsunitslatest) {
-      return <RsUnitsResultAlert variant="primary" />;
-    }
-
-    return undefined;
-  }
-
   render() {
     const { useNewPortfolioMethod } = this.props.state.context;
     const portfolioFiltersEnabled = process.env.REACT_APP_PORTFOLIO_FILTERS_ENABLED === "1" || true;
@@ -486,7 +471,6 @@ export default class PropertiesMap extends Component<Props, State> {
             </Trans>
           </ul>
         </div>
-        <div className="filter-toast-container">{this.toastAlert()}</div>
       </div>
     );
   }

@@ -12,7 +12,7 @@ import {
 } from "./PropertiesList";
 import FocusTrap from "focus-trap-react";
 import { FocusTarget } from "focus-trap";
-import { Alert, AlertProps } from "./Alert";
+import { Alert } from "./Alert";
 import Modal from "./Modal";
 import { LocaleLink } from "i18n";
 import { createWhoOwnsWhatRoutePaths } from "routes";
@@ -323,7 +323,9 @@ const PortfolioFiltersWithoutI18n = React.memo(
                 <Trans>Clear Filters</Trans>
               </button>
             </div>
-            {filteredBuildings === 0 ? <ZeroResultsAlert /> : <></>}
+            {filteredBuildings === 0 && ZeroResultsAlert}
+            {!!filteredBuildings && RsUnitsResultAlert}
+            {!!filteredBuildings && viewType === "table" && OwnernamesResultAlert}
           </div>
         )}
 
@@ -409,7 +411,7 @@ const FiltersWrapper = (props: {
                 {resultsCount != null && <span className="view-results-count">{resultsCount}</span>}
               </button>
             )}
-            {resultsCount === 0 ? <ZeroResultsAlert /> : <></>}
+            {resultsCount === 0 && ZeroResultsAlert}
           </div>
         </details>
       </div>
@@ -417,9 +419,9 @@ const FiltersWrapper = (props: {
   );
 };
 
-export const OwnernamesResultAlert = () => (
+const OwnernamesResultAlert = (
   <Alert
-    className="filter-result-alert"
+    className="filter-results-alert"
     type="info"
     variant="secondary"
     closeType="session"
@@ -433,15 +435,14 @@ export const OwnernamesResultAlert = () => (
   </Alert>
 );
 
-export const RsUnitsResultAlert = (props: Omit<AlertProps, "children">) => (
+const RsUnitsResultAlert = (
   <Alert
-    className="filter-result-alert"
+    className="filter-results-alert"
     type="info"
     variant="secondary"
     closeType="session"
     storageId="filter-rsunits-results-alert"
     role="status"
-    {...props}
   >
     <Trans>
       Rent stabilized units are self-reported in yearly tax statements by building owners. As a
@@ -450,7 +451,7 @@ export const RsUnitsResultAlert = (props: Omit<AlertProps, "children">) => (
   </Alert>
 );
 
-export const ZeroResultsAlert = (props: Omit<AlertProps, "children">) => (
+const ZeroResultsAlert = (
   <Alert
     className="zero-results-alert"
     type="info"

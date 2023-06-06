@@ -483,7 +483,6 @@
     @include for-tablet-portrait-up() {
       margin-left: calc(var(--new-container-width) + var(--filter-bar-row-gap));
     }
-
     .filter-status-info {
       display: flex;
       text-transform: none;
@@ -497,6 +496,9 @@
         align-self: start;
         margin-left: 1.8rem;
       }
+    }
+    .filter-results-alert {
+      max-width: 50rem;
     }
   }
 }
