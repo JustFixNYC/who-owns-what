@@ -207,27 +207,27 @@ const PortfolioFiltersWithoutI18n = React.memo(
             </span>
           )}
         </div>
+        <div className="view-type-toggle-container">
+          <button
+            aria-pressed={viewType === "table"}
+            className="view-type-toggle"
+            onClick={() => setFilterContext((prev) => ({ ...prev, viewType: "table" }))}
+          >
+            <Trans>Table</Trans>
+          </button>
+          <button
+            aria-pressed={viewType === "map"}
+            className="view-type-toggle"
+            onClick={() => setFilterContext((prev) => ({ ...prev, viewType: "map" }))}
+          >
+            <Trans>Map</Trans>
+          </button>
+        </div>
         <FiltersWrapper
           isMobile={isMobile}
           activeFilters={activeFilters}
           resultsCount={filteredBuildings}
         >
-          <div className="view-type-toggle-container">
-            <button
-              aria-pressed={viewType === "table"}
-              className="view-type-toggle"
-              onClick={() => setFilterContext((prev) => ({ ...prev, viewType: "table" }))}
-            >
-              <Trans>Table</Trans>
-            </button>
-            <button
-              aria-pressed={viewType === "map"}
-              className="view-type-toggle"
-              onClick={() => setFilterContext((prev) => ({ ...prev, viewType: "map" }))}
-            >
-              <Trans>Map</Trans>
-            </button>
-          </div>
           <button
             aria-pressed={rsunitslatestActive}
             onClick={updateRsunitslatest}

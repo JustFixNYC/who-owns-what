@@ -71,27 +71,14 @@
     }
   }
 
-  .filters {
-    --checkbox-height: 2.4rem;
-
+  .view-type-toggle-container {
     display: flex;
-    flex-grow: 1;
-    gap: 1.8rem;
-
-    .view-type-toggle-container {
-      display: flex;
-    }
-
-    .filter,
     .view-type-toggle {
-      border: 0.1rem solid $justfix-black;
-      border-radius: 0.8rem;
-      text-transform: uppercase;
       display: flex;
       align-items: center;
-    }
-
-    .view-type-toggle {
+      text-transform: uppercase;
+      border: 0.1rem solid $justfix-black;
+      border-radius: 0.8rem;
       width: 6.1rem;
       justify-content: center;
       &[aria-pressed="true"] {
@@ -105,8 +92,22 @@
         border-radius: 0 0.8rem 0.8rem 0;
       }
     }
+  }
+
+  .filters {
+    --checkbox-height: 2.4rem;
+
+    display: flex;
+    flex-grow: 1;
+    gap: 1.8rem;
 
     .filter {
+      border: 0.1rem solid $justfix-black;
+      border-radius: 0.8rem;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+
       @include for-phone-only {
         &:not(.filters-mobile-wrapper) {
           border-radius: 0;
