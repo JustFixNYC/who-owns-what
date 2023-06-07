@@ -69,8 +69,6 @@
   }
 
   .PropertiesMap__legend {
-    // background: $primary-color;
-    // color: $background;
     width: 180px;
     background: #fff;
     position: absolute;
@@ -79,20 +77,18 @@
     bottom: 0;
     border-left: 1px solid #000;
     border-top: 1px solid #000;
-    padding: 5px;
-    padding-top: 0;
+    padding: 1.2rem 0.5rem 0 0.5rem;
     font-size: 13px;
 
     p {
-      font-size: 1.5rem;
-      line-height: 34px;
+      font-size: 1.4rem;
+      line-height: 100%;
 
       text-align: center;
-      margin-bottom: 0;
+      margin-bottom: 1rem;
 
       span {
-        text-decoration: underline;
-        font-weight: bold;
+        text-transform: uppercase;
       }
 
       i {
@@ -106,29 +102,32 @@
       }
     }
 
-    ul {
-      margin: 0.5rem;
-      margin-top: 0;
-      list-style-type: none;
+    .legend-entry-container {
+      display: flex;
+      gap: 0.5rem;
 
-      li {
-        margin-top: 0.5rem;
+      @include for-tablet-portrait-up() {
+        flex-direction: column;
+      }
+
+      div {
+        display: flex;
+        align-items: center;
 
         &:before {
           content: "";
           display: inline-block;
+          flex: none;
           height: 11px;
           width: 11px;
           border-radius: 11px;
           position: relative;
-          top: 2px;
-          margin-right: 7px;
+          margin-right: 0.9rem;
           background-color: black;
           border: 1px solid #111;
         }
 
         &.addr-search {
-          margin-top: 0;
           &:before {
             background-color: $search-marker;
           }
@@ -148,7 +147,8 @@
     @include for-phone-only() {
       width: 100%;
       border-right: 1px solid #000;
-      padding-bottom: 10px;
+      padding: 1.2rem 0.5rem 1rem 0.5rem;
+      gap: 1.5rem;
 
       transform: translateY(28px);
       transition: transform 250ms ease-in-out;
@@ -157,18 +157,41 @@
         transform: translateY(1px);
       }
 
-      ul li {
-        float: left;
-
-        &:nth-child(2) {
-          margin-top: 0;
-          margin-left: 15px;
-        }
+      p span {
+        font-weight: 700;
+        text-decoration: underline;
       }
     }
   }
 }
 
-.PropertiesMap.is-hidden {
-  display: none !important;
+.PropertiesList {
+  .PropertiesMap {
+    height: 100%;
+    width: 100%;
+
+    &.is-hidden {
+      display: none !important;
+    }
+
+    @include for-tablet-portrait-up() {
+      .mapboxgl-control-container > .mapboxgl-ctrl-bottom-right {
+        bottom: 0;
+      }
+
+      .PropertiesMap__legend {
+        padding: 1.6rem;
+        margin: 0 4.4rem 2.9rem 0;
+        width: 22.5rem;
+
+        p {
+          margin-bottom: 2rem;
+        }
+        .legend-entry-container div::before {
+          height: 16.5px;
+          width: 16.5px;
+        }
+      }
+    }
+  }
 }

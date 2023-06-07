@@ -474,16 +474,16 @@ export default class PropertiesMap extends Component<Props, State> {
             <i>{this.state.mobileLegendSlide ? "\u2b07\uFE0E" : "\u2b06\uFE0E"}</i>
           </p>
 
-          <ul>
-            <Trans render="li" className="addr-search">
+          <div className="legend-entry-container">
+            <Trans render="div" className="addr-search">
               search address
             </Trans>
-            <Trans render="li" className={`addr-${this.filtersAreActive() ? "filter" : "assoc"}`}>
+            <Trans render="div" className={`addr-${this.filtersAreActive() ? "filter" : "assoc"}`}>
               {this.filtersAreActive()
                 ? "building associated with selected filter(s)"
                 : "associated building"}
             </Trans>
-          </ul>
+          </div>
         </div>
       </div>
     );
