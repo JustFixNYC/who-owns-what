@@ -324,8 +324,11 @@ const PortfolioFiltersWithoutI18n = React.memo(
               </button>
             </div>
             {filteredBuildings === 0 && ZeroResultsAlert}
-            {!!filteredBuildings && RsUnitsResultAlert}
-            {!!filteredBuildings && viewType === "table" && OwnernamesResultAlert}
+            {!!filteredBuildings && rsunitslatestActive && RsUnitsResultAlert}
+            {!!filteredBuildings &&
+              ownernamesActive &&
+              viewType === "table" &&
+              OwnernamesResultAlert}
           </div>
         )}
 
