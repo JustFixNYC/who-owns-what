@@ -52,9 +52,9 @@ const VerifyEmailPage = withI18n()((props: withI18nProps) => {
         <br />
         <Trans render="h3"> Verify this email: </Trans>
         <br />
-        <Trans className="text-center" render="h3">
-          {user?.email}
-        </Trans>
+        <h3 className="text-center">
+          {!!user && user.email}
+        </h3>
         <br />
         <Trans render="h3"> to receive Data Updates from Who Owns What. </Trans>
         <br />
