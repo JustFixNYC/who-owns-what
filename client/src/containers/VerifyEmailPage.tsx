@@ -10,8 +10,10 @@ import { UserContext } from "components/UserContext";
 
 const VerifyEmailPage = withI18n()((props: withI18nProps) => {
   const { i18n } = props;
-  const userContext = useContext(UserContext);
   const [verified, setVerified] = React.useState(false);
+
+  const userContext = useContext(UserContext);
+  const { user } = userContext;
 
   const delaySeconds = 5;
   const baseUrl = window.location.origin;
@@ -32,12 +34,13 @@ const VerifyEmailPage = withI18n()((props: withI18nProps) => {
 
   const renderPreVerificationPage = () => {
     return (
+      user && (
       <Fragment>
         <br />
         <Trans render="h3"> Verify this email: </Trans>
         <br />
         <Trans className="text-center" render="h3">
-          {userContext.user?.email}
+          {user.email}
         </Trans>
         <br />
         <Trans render="h3"> to receive Data Updates from Who Owns What. </Trans>
@@ -53,7 +56,7 @@ const VerifyEmailPage = withI18n()((props: withI18nProps) => {
             <Trans>Verify email</Trans>
           </button>
         </div>
-      </Fragment>
+      </Fragment>)
     );
   };
 
