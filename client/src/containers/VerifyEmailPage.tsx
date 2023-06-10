@@ -1,4 +1,4 @@
-import React, { Fragment, useContext } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import LegalFooter from "../components/LegalFooter";
 
 import Page from "../components/Page";
@@ -6,14 +6,28 @@ import { withI18n, withI18nProps } from "@lingui/react";
 import { Trans, t } from "@lingui/macro";
 
 import AuthClient from "../components/AuthClient";
-import { UserContext } from "components/UserContext";
+import { JustfixUser } from "state-machine";
 
 const VerifyEmailPage = withI18n()((props: withI18nProps) => {
   const { i18n } = props;
-  const [verified, setVerified] = React.useState(false);
+  const [verified, setVerified] = useState(false);
+  const [user, setUser] = useState<JustfixUser>();
 
-  const userContext = useContext(UserContext);
-  const { user } = userContext;
+  useEffect(() => {
+    const asyncFetchUser = async () => {
+      const _user = await AuthClient.fetchUser();
+      if (_user) {
+        setUser({
+          ..._user,
+          subscriptions:
+            _user.subscriptions?.map((s: any) => {
+              return { ...s };
+            }) || [],
+        });
+      }
+    };
+    asyncFetchUser();
+  }, []);
 
   const delaySeconds = 5;
   const baseUrl = window.location.origin;
@@ -34,13 +48,12 @@ const VerifyEmailPage = withI18n()((props: withI18nProps) => {
 
   const renderPreVerificationPage = () => {
     return (
-      user && (
       <Fragment>
         <br />
         <Trans render="h3"> Verify this email: </Trans>
         <br />
         <Trans className="text-center" render="h3">
-          {user.email}
+          {user?.email}
         </Trans>
         <br />
         <Trans render="h3"> to receive Data Updates from Who Owns What. </Trans>
@@ -56,7 +69,7 @@ const VerifyEmailPage = withI18n()((props: withI18nProps) => {
             <Trans>Verify email</Trans>
           </button>
         </div>
-      </Fragment>)
+      </Fragment>
     );
   };
 
