@@ -102,6 +102,7 @@ const VerifyEmailPage = withI18n()((props: withI18nProps) => {
     <Page title={i18n._(t`Verify your email address`)}>
       <div className="VerifyEmailPage Page">
         <div className="page-container">
+          {console.log(user)}
           {!verified ? renderPreVerificationPage() : renderPostVerificationPage()}
         </div>
         <LegalFooter />
