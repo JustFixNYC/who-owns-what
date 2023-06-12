@@ -28,15 +28,6 @@
 
       @include for-phone-only() {
         bottom: 60px;
-
-        .mapboxgl-ctrl-attrib.mapboxgl-compact {
-          margin: 0 5px 10px 10px;
-
-          &:after {
-            width: 20px;
-            height: 20px;
-          }
-        }
       }
     }
 
@@ -104,11 +95,9 @@
 
     .legend-entry-container {
       display: flex;
+      flex-direction: column;
       gap: 0.5rem;
-
-      @include for-tablet-portrait-up() {
-        flex-direction: column;
-      }
+      padding: 0 1rem;
 
       div {
         display: flex;
@@ -147,7 +136,7 @@
       padding: 1.2rem 0.5rem 1rem 0.5rem;
       gap: 1.5rem;
 
-      transform: translateY(28px);
+      transform: translateY(calc(100% - 3.5rem));
       transition: transform 250ms ease-in-out;
 
       &.PropertiesMap__legend--slide {
@@ -171,7 +160,22 @@
       display: none !important;
     }
 
+    @include for-phone-only() {
+      .mapboxgl-control-container > .mapboxgl-ctrl-bottom-right {
+        bottom: 90px;
+      }
+    }
+
     @include for-tablet-portrait-up() {
+      .selected-addr-alert {
+        text-transform: uppercase;
+        .selected-addr-alert__address {
+          font-size: 1.6rem;
+        }
+        a {
+          text-underline-position: under;
+        }
+      }
       .mapboxgl-control-container > .mapboxgl-ctrl-bottom-right {
         bottom: 0;
       }

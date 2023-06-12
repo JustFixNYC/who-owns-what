@@ -521,8 +521,14 @@ const SelectedAddrAlert = ({
   const numberFormatter = new Intl.NumberFormat(locale || defaultLocale);
 
   return (
-    <Alert closeType="state" variant="secondary" type="info" onClose={onClose}>
-      <p>{`${addr.housenumber} ${addr.streetname}`}</p>
+    <Alert
+      closeType="state"
+      variant="secondary"
+      type="info"
+      onClose={onClose}
+      className="selected-addr-alert"
+    >
+      <p className="selected-addr-alert__address">{`${addr.housenumber} ${addr.streetname}`}</p>
 
       {!isMobile && (
         <>
