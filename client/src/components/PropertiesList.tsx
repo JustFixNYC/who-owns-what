@@ -44,7 +44,7 @@ export type IFilterContext = {
 };
 
 export const defaultFilterContext: IFilterContext = {
-  viewType: "table",
+  viewType: "map",
   totalBuildings: undefined,
   filteredBuildings: undefined,
   filterSelections: {

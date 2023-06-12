@@ -468,18 +468,18 @@ export default class PropertiesMap extends Component<Props, State> {
         )}
 
         <div
-          className={`PropertiesMap__legend ${
-            this.state.mobileLegendSlide ? "PropertiesMap__legend--slide" : ""
-          }`}
+          className={classnames("PropertiesMap__legend", {
+            "PropertiesMap__legend--slide": this.state.mobileLegendSlide,
+          })}
           onClick={() => this.setState({ mobileLegendSlide: !this.state.mobileLegendSlide })}
         >
           <p>
             <span>
               {Browser.isMobile() ? (
                 this.state.mobileLegendSlide ? (
-                  <Trans>Close legend</Trans>
+                  <Trans>Hide legend</Trans>
                 ) : (
-                  <Trans>View legend</Trans>
+                  <Trans>Show legend</Trans>
                 )
               ) : (
                 <Trans>Legend</Trans>

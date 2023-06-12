@@ -68,15 +68,14 @@
     bottom: 0;
     border-left: 1px solid #000;
     border-top: 1px solid #000;
-    padding: 1.2rem 0.5rem 0 0.5rem;
     font-size: 13px;
 
     p {
       font-size: 1.4rem;
       line-height: 100%;
-
       text-align: center;
-      margin-bottom: 1rem;
+      padding: 1rem;
+      margin: 0;
 
       span {
         text-transform: uppercase;
@@ -97,7 +96,7 @@
       display: flex;
       flex-direction: column;
       gap: 0.5rem;
-      padding: 0 1rem;
+      padding: 0.6rem;
 
       div {
         display: flex;
@@ -107,9 +106,9 @@
           content: "";
           display: inline-block;
           flex: none;
-          height: 11px;
-          width: 11px;
-          border-radius: 11px;
+          height: 19px;
+          width: 19px;
+          border-radius: 29px;
           position: relative;
           margin-right: 0.9rem;
           background-color: black;
@@ -133,19 +132,31 @@
     @include for-phone-only() {
       width: 100%;
       border-right: 1px solid #000;
-      padding: 1.2rem 0.5rem 1rem 0.5rem;
       gap: 1.5rem;
 
-      transform: translateY(calc(100% - 3.5rem));
+      transform: translateY(calc(100% - 4.8rem));
       transition: transform 250ms ease-in-out;
+
+      p {
+        padding: 1.7rem;
+        span {
+          font-weight: 700;
+          text-decoration: underline;
+        }
+      }
+
+      .legend-entry-container {
+        align-items: center;
+      }
 
       &.PropertiesMap__legend--slide {
         transform: translateY(1px);
-      }
-
-      p span {
-        font-weight: 700;
-        text-decoration: underline;
+        p {
+          padding: 0.6rem 1.2rem 0 1.2rem;
+        }
+        .legend-entry-container {
+          padding: 0.6rem 1.2rem;
+        }
       }
     }
   }
@@ -160,6 +171,16 @@
       display: none !important;
     }
 
+    .selected-addr-alert {
+      text-transform: uppercase;
+      .selected-addr-alert__address {
+        font-size: 1.6rem;
+      }
+      a {
+        text-underline-position: under;
+      }
+    }
+
     @include for-phone-only() {
       .mapboxgl-control-container > .mapboxgl-ctrl-bottom-right {
         bottom: 90px;
@@ -167,31 +188,13 @@
     }
 
     @include for-tablet-portrait-up() {
-      .selected-addr-alert {
-        text-transform: uppercase;
-        .selected-addr-alert__address {
-          font-size: 1.6rem;
-        }
-        a {
-          text-underline-position: under;
-        }
-      }
       .mapboxgl-control-container > .mapboxgl-ctrl-bottom-right {
         bottom: 0;
       }
 
       .PropertiesMap__legend {
-        padding: 1.6rem;
         margin: 0 1rem 2.9rem 0;
-        width: 22.5rem;
-
-        p {
-          margin-bottom: 2rem;
-        }
-        .legend-entry-container div::before {
-          height: 16.5px;
-          width: 16.5px;
-        }
+        width: unset;
       }
     }
   }
