@@ -60,7 +60,6 @@
   }
 
   .PropertiesMap__legend {
-    width: 180px;
     background: #fff;
     position: absolute;
     z-index: 10;
@@ -69,12 +68,13 @@
     border-left: 1px solid #000;
     border-top: 1px solid #000;
     font-size: 13px;
+    padding: 1.6rem;
 
     p {
       font-size: 1.4rem;
       line-height: 100%;
       text-align: center;
-      padding: 1rem;
+      padding: 0 0 2rem 0;
       margin: 0;
 
       span {
@@ -95,8 +95,8 @@
     .legend-entry-container {
       display: flex;
       flex-direction: column;
-      gap: 0.5rem;
-      padding: 0.6rem;
+      gap: 1rem;
+      padding: 0;
 
       div {
         display: flex;
@@ -133,9 +133,14 @@
       width: 100%;
       border-right: 1px solid #000;
       gap: 1.5rem;
+      padding: 0;
 
       transform: translateY(calc(100% - 4.8rem));
       transition: transform 250ms ease-in-out;
+
+      &.PropertiesMap__legend--slide {
+        transform: translateY(1px);
+      }
 
       p {
         padding: 1.7rem;
@@ -146,17 +151,7 @@
       }
 
       .legend-entry-container {
-        align-items: center;
-      }
-
-      &.PropertiesMap__legend--slide {
-        transform: translateY(1px);
-        p {
-          padding: 0.6rem 1.2rem 0 1.2rem;
-        }
-        .legend-entry-container {
-          padding: 0.6rem 1.2rem;
-        }
+        padding: 0 1rem 1rem 1rem;
       }
     }
   }
@@ -194,7 +189,6 @@
 
       .PropertiesMap__legend {
         margin: 0 1rem 2.9rem 0;
-        width: unset;
       }
     }
   }

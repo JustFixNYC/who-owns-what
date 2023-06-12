@@ -493,9 +493,7 @@ export default class PropertiesMap extends Component<Props, State> {
               search address
             </Trans>
             <Trans render="div" className={`addr-${this.filtersAreActive() ? "filter" : "assoc"}`}>
-              {this.filtersAreActive()
-                ? "building associated with selected filter(s)"
-                : "associated building"}
+              associated building
             </Trans>
           </div>
         </div>
