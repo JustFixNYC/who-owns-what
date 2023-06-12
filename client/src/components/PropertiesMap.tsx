@@ -109,8 +109,17 @@ const DYNAMIC_FILTER_PAINT = {
     type: "categorical",
     default: "#acb3c2",
     stops: [
-      ["base", "#5188FF"],
+      ["base", "#d6d6d6"],
       ["search", "#FF5722"],
+    ],
+  },
+  "circle-stroke-color": {
+    property: "mapType",
+    type: "categorical",
+    default: "#000000",
+    stops: [
+      ["base", "#5188FF"],
+      ["search", "#000000"],
     ],
   },
 };
@@ -120,7 +129,15 @@ const DYNAMIC_SELECTED_PAINT = {
   "circle-opacity": 1,
   "circle-stroke-opacity": 1,
   "circle-stroke-width": 2,
-  "circle-stroke-color": "#d6d6d6",
+  "circle-stroke-color": {
+    property: "mapType",
+    type: "categorical",
+    default: "#000000",
+    stops: [
+      ["base", "#000000"],
+      ["search", "#d6d6d6"],
+    ],
+  },
 };
 
 const ASSOC_LAYOUT = {
