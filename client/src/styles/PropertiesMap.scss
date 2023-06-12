@@ -167,7 +167,14 @@
     }
 
     .selected-addr-alert {
+      width: 36.4rem;
       text-transform: uppercase;
+      .jf-alert__content {
+        p,
+        a {
+          color: $justfix-black;
+        }
+      }
       .selected-addr-alert__address {
         font-size: 1.6rem;
       }
@@ -177,6 +184,9 @@
     }
 
     @include for-phone-only() {
+      .selected-addr-alert {
+        width: 100%;
+      }
       .mapboxgl-control-container > .mapboxgl-ctrl-bottom-right {
         bottom: 90px;
       }

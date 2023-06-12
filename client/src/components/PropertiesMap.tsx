@@ -542,7 +542,7 @@ const SelectedAddrAlert = ({
       onClose={onClose}
       className="selected-addr-alert"
     >
-      <p className="selected-addr-alert__address">{`${addr.housenumber} ${addr.streetname}`}</p>
+      <p className="selected-addr-alert__address">{`${addr.housenumber} ${addr.streetname}, ${addr.boro}`}</p>
 
       {!isMobile && (
         <>
