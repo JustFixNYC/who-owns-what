@@ -128,7 +128,6 @@ const DYNAMIC_SELECTED_PAINT = {
   ...DYNAMIC_FILTER_PAINT,
   "circle-opacity": 1,
   "circle-stroke-opacity": 1,
-  "circle-stroke-width": 2,
   "circle-stroke-color": {
     property: "mapType",
     type: "categorical",
