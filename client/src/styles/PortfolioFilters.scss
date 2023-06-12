@@ -23,6 +23,7 @@
 .PortfolioFilters {
   --new-container-width: 10.2rem;
   --filter-bar-row-gap: 1.2rem;
+  --checkbox-height: 2.4rem;
   display: flex;
   flex-wrap: wrap;
   gap: var(--filter-bar-row-gap) 1.8rem;
@@ -73,6 +74,8 @@
 
   .view-type-toggle-container {
     display: flex;
+    // height based on filter toggle checkbox plus padding
+    height: calc(var(--checkbox-height) + 1rem * 2);
     .view-type-toggle {
       display: flex;
       align-items: center;
@@ -95,8 +98,6 @@
   }
 
   .filters {
-    --checkbox-height: 2.4rem;
-
     display: flex;
     flex-grow: 1;
     gap: 1.8rem;
