@@ -127,10 +127,8 @@
           border: 1px solid #111;
         }
 
-        &.addr-search {
-          &:before {
-            background-color: $search-marker;
-          }
+        &.addr-search:before {
+          background-color: $search-marker;
         }
 
         &.addr-assoc:before {
@@ -138,8 +136,7 @@
         }
 
         &.addr-filter:before {
-          background-color: $justfix-grey-50;
-          border: 2px solid $justfix-blue;
+          background-color: $justfix-blue;
         }
       }
     }

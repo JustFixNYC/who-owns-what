@@ -104,19 +104,23 @@ const DYNAMIC_DETAIL_PAINT = {
 
 const DYNAMIC_FILTER_PAINT = {
   ...DYNAMIC_ASSOC_PAINT,
-  "circle-stroke-width": 2,
-  "circle-stroke-color": "#5188FF",
-  "circle-color": "#F2F2F2",
-  "circle-opacity": 1,
+  "circle-color": {
+    property: "mapType",
+    type: "categorical",
+    default: "#acb3c2",
+    stops: [
+      ["base", "#5188FF"],
+      ["search", "#FF5722"],
+    ],
+  },
 };
 
 const DYNAMIC_SELECTED_PAINT = {
   ...DYNAMIC_FILTER_PAINT,
+  "circle-opacity": 1,
   "circle-stroke-opacity": 1,
-  "circle-radius": 5,
-  "circle-stroke-width": 5,
-  "circle-stroke-color": "#F2F2F2",
-  "circle-color": "#5188FF",
+  "circle-stroke-width": 2,
+  "circle-stroke-color": "#d6d6d6",
 };
 
 const ASSOC_LAYOUT = {
@@ -189,8 +193,8 @@ export default class PropertiesMap extends Component<Props, State> {
   componentDidUpdate(prevProps: Props, prevState: State) {
     // is this necessary?
     // meant to reconfigure after bring the tab back in focus
-    if (!prevProps.isVisible && this.props.isVisible) {
-      if (this.state.mapRef) this.state.mapRef.resize();
+    if (!prevProps.isVisible && this.props.isVisible && this.state.mapRef) {
+      this.state.mapRef.resize();
     }
 
     /**
@@ -274,7 +278,7 @@ export default class PropertiesMap extends Component<Props, State> {
     const { assocAddrs, searchAddr } = this.getPortfolioData();
 
     // cycle through addrs, adding them to the set and categorizing them
-    this.filterAddrs(assocAddrs).forEach((addr, i) => {
+    this.filterAddrs(assocAddrs, searchAddr).forEach((addr, i) => {
       const pos: LatLng = [addr.lng || NaN, addr.lat || NaN];
 
       if (!MapHelpers.latLngIsNull(pos)) {
@@ -305,12 +309,18 @@ export default class PropertiesMap extends Component<Props, State> {
     return { newAssocAddrs, newAddrsBounds };
   };
 
-  filterAddrs(addrs: AddressRecord[]) {
+  filterAddrs(addrs: AddressRecord[], searchAddr: AddressRecord) {
     const { filterContext } = this.context;
 
     if (typeof filterContext === "undefined") return addrs;
 
-    return filterAddrs(addrs, filterContext.filterSelections);
+    const filteredAddrs = filterAddrs(addrs, filterContext.filterSelections).filter(
+      (addr) => addr.bbl !== searchAddr.bbl
+    );
+
+    filteredAddrs.push(searchAddr);
+
+    return filteredAddrs;
   }
 
   filtersDidChange(): boolean {
