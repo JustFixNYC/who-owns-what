@@ -197,32 +197,7 @@ export default class PropertiesMap extends Component<Props, State> {
       this.state.mapRef.resize();
     }
 
-    /**
-     * Either we are receiving detailAddr for the first time, or it has been updated to a new address.
-     */
-    const didDetailAddrUpdate =
-      (!prevProps.state.context.portfolioData && this.props.state.context.portfolioData) ||
-      prevProps.state.context.portfolioData.detailAddr.bbl !==
-        this.getPortfolioData().detailAddr.bbl;
-
-    if (this.isOnOverview() && didDetailAddrUpdate) {
-      const { detailAddr } = this.getPortfolioData();
-      const { lat, lng } = detailAddr;
-
-      // build a bounding box around our new detail addr
-      const newBounds = !!(lat && lng)
-        ? ([
-            [lng - DETAIL_OFFSET, lat - DETAIL_OFFSET],
-            [lng + DETAIL_OFFSET, lat + DETAIL_OFFSET],
-          ] as FitBounds)
-        : this.state.mapProps.fitBounds;
-      this.setState({
-        mapProps: {
-          ...this.state.mapProps,
-          fitBounds: newBounds,
-        },
-      });
-    }
+    // this.isOnOverview() && this.zoomToNewDetailAddr(prevProps);
 
     const { filterContext } = this.context;
 
@@ -343,6 +318,35 @@ export default class PropertiesMap extends Component<Props, State> {
     const { filterSelections: defaultfilterSelections } = defaultFilterContext;
 
     return !isEqual(filterSelections, defaultfilterSelections);
+  }
+
+  zoomToNewDetailAddr(prevProps: Props) {
+    /**
+     * Either we are receiving detailAddr for the first time, or it has been updated to a new address.
+     */
+    const didDetailAddrUpdate =
+      (!prevProps.state.context.portfolioData && this.props.state.context.portfolioData) ||
+      prevProps.state.context.portfolioData.detailAddr.bbl !==
+        this.getPortfolioData().detailAddr.bbl;
+
+    if (this.isOnOverview() && didDetailAddrUpdate) {
+      const { detailAddr } = this.getPortfolioData();
+      const { lat, lng } = detailAddr;
+
+      // build a bounding box around our new detail addr
+      const newBounds = !!(lat && lng)
+        ? ([
+            [lng - DETAIL_OFFSET, lat - DETAIL_OFFSET],
+            [lng + DETAIL_OFFSET, lat + DETAIL_OFFSET],
+          ] as FitBounds)
+        : this.state.mapProps.fitBounds;
+      this.setState({
+        mapProps: {
+          ...this.state.mapProps,
+          fitBounds: newBounds,
+        },
+      });
+    }
   }
 
   render() {
