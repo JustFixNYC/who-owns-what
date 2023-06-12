@@ -207,7 +207,6 @@ export default class PropertiesMap extends Component<Props, State> {
   }
 
   componentDidUpdate(prevProps: Props, prevState: State) {
-
     this.state.mapRef?.resize();
 
     // this.isOnOverview() && this.zoomToNewDetailAddr(prevProps);
