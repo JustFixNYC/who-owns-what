@@ -207,11 +207,8 @@ export default class PropertiesMap extends Component<Props, State> {
   }
 
   componentDidUpdate(prevProps: Props, prevState: State) {
-    // is this necessary?
-    // meant to reconfigure after bring the tab back in focus
-    if (!prevProps.isVisible && this.props.isVisible && this.state.mapRef) {
-      this.state.mapRef.resize();
-    }
+
+    this.state.mapRef?.resize();
 
     // this.isOnOverview() && this.zoomToNewDetailAddr(prevProps);
 
