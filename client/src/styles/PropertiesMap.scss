@@ -73,10 +73,7 @@
   }
 
   .PropertiesMap__legend {
-    background: rgb(255, 255, 255);
-    @include for-tablet-portrait-up() {
-      background: rgb(255, 255, 255, 0.8);
-    }
+    background: #ffffff;
     position: absolute;
     z-index: 10;
     right: 0;
