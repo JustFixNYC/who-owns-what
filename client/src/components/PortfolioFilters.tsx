@@ -242,7 +242,9 @@ const PortfolioFiltersWithoutI18n = React.memo(
           <FilterAccordion
             title={i18n._(t`Landlord`)}
             subtitle={i18n._(t`Person/Entity`)}
-            infoLabel={i18n._(t`Who are they?`)}
+            infoIconAria={i18n._(
+              t`Learn more about what it means for someone to be listed as a landlord`
+            )}
             infoModalContents={ownernamesInfoModalContents}
             isActive={ownernamesActive}
             isOpen={ownernamesIsOpen}
@@ -485,7 +487,7 @@ const OwnernamesInfoAlert = (
 type FilterAccordionProps = withI18nProps & {
   title: string;
   subtitle?: string;
-  infoLabel?: string;
+  infoIconAria?: string;
   onInfoClick?: () => void;
   infoModalContents?: JSX.Element;
   children: React.ReactNode;
@@ -509,7 +511,7 @@ const FilterAccordion = withI18n()((props: FilterAccordionProps) => {
   const {
     title,
     subtitle,
-    infoLabel,
+    infoIconAria,
     onInfoClick,
     infoModalContents,
     children,
@@ -559,15 +561,16 @@ const FilterAccordion = withI18n()((props: FilterAccordionProps) => {
             {subtitle && (
               <div className="filter-subtitle-container">
                 {subtitle && <span className="filter-subtitle">{subtitle}</span>}
-                {infoLabel && (
+                {infoModalContents && (
                   <button
-                    className="filter-info button is-text"
+                    className="filter-info"
+                    aria-label={infoIconAria}
                     onClick={() => {
                       setShowInfoModal(true);
                       onInfoClick && onInfoClick();
                     }}
                   >
-                    {infoLabel}
+                    <InfoIcon />
                   </button>
                 )}
               </div>

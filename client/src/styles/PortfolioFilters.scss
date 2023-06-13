@@ -278,6 +278,7 @@
 
           .filter-subtitle-container {
             display: flex;
+            align-items: center;
             width: 100%;
             font-size: 1.2rem;
             padding: 1.2rem;
@@ -296,7 +297,11 @@
               color: $justfix-grey-700;
             }
             .filter-subtitle {
-              margin-right: auto;
+              margin-right: 0.5rem;
+            }
+            .filter-info:focus-visible {
+              outline: 2px solid $focus-outline-color;
+              outline-offset: 2px;
             }
           }
 
@@ -492,6 +497,10 @@
       .results-count {
         font-size: 1.6rem;
         padding-right: 0.5rem;
+      }
+      .results-info:focus-visible {
+        outline: 2px solid $focus-outline-color;
+        outline-offset: 2px;
       }
       .clear-filters {
         color: $justfix-grey-700;
