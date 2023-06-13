@@ -94,11 +94,11 @@ const WhoOwnsWhatRoutes: React.FC<{}> = () => {
         exact
       />
       <Route
-        path={paths.legacy.addressPage.timeline}
+        path={paths.legacy.addressPage.portfolio}
         render={(props) => <AddressPage currentTab={1} {...machineProps} {...props} />}
       />
       <Route
-        path={paths.legacy.addressPage.portfolio}
+        path={paths.legacy.addressPage.timeline}
         render={(props) => <AddressPage currentTab={2} {...machineProps} {...props} />}
       />
       <Route
@@ -118,7 +118,7 @@ const WhoOwnsWhatRoutes: React.FC<{}> = () => {
         exact
       />
       <Route
-        path={paths.addressPage.timeline}
+        path={paths.addressPage.portfolio}
         render={(props) => (
           <AddressPage
             currentTab={1}
@@ -129,7 +129,7 @@ const WhoOwnsWhatRoutes: React.FC<{}> = () => {
         )}
       />
       <Route
-        path={paths.addressPage.portfolio}
+        path={paths.addressPage.timeline}
         render={(props) => (
           <AddressPage
             currentTab={2}

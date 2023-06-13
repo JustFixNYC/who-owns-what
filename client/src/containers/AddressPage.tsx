@@ -191,26 +191,26 @@ export default class AddressPage extends Component<AddressPageProps, State> {
                   </li>
                   <li className={`tab-item ${this.props.currentTab === 1 ? "active" : ""}`}>
                     <Link
-                      to={routes.timeline}
-                      tabIndex={this.props.currentTab === 1 ? -1 : 0}
-                      onClick={() => {
-                        logAmplitudeEvent("timelineTab");
-                        window.gtag("event", "timeline-tab");
-                      }}
-                    >
-                      <Trans>Timeline</Trans>
-                    </Link>
-                  </li>
-                  <li className={`tab-item ${this.props.currentTab === 2 ? "active" : ""}`}>
-                    <Link
                       to={routes.portfolio}
-                      tabIndex={this.props.currentTab === 2 ? -1 : 0}
+                      tabIndex={this.props.currentTab === 1 ? -1 : 0}
                       onClick={() => {
                         logAmplitudeEvent("portfolioTab");
                         window.gtag("event", "portfolio-tab");
                       }}
                     >
                       <Trans>Portfolio</Trans>
+                    </Link>
+                  </li>
+                  <li className={`tab-item ${this.props.currentTab === 2 ? "active" : ""}`}>
+                    <Link
+                      to={routes.timeline}
+                      tabIndex={this.props.currentTab === 2 ? -1 : 0}
+                      onClick={() => {
+                        logAmplitudeEvent("timelineTab");
+                        window.gtag("event", "timeline-tab");
+                      }}
+                    >
+                      <Trans>Timeline</Trans>
                     </Link>
                   </li>
                   <li className={`tab-item ${this.props.currentTab === 3 ? "active" : ""}`}>
@@ -258,21 +258,8 @@ export default class AddressPage extends Component<AddressPageProps, State> {
               />
             </div>
             <div
-              className={`AddressPage__content AddressPage__summary ${
-                this.props.currentTab === 1 ? "AddressPage__content-active" : ""
-              }`}
-            >
-              <Indicators
-                isVisible={this.props.currentTab === 1}
-                state={state}
-                send={send}
-                onBackToOverview={this.handleAddrChange}
-                addressPageRoutes={routes}
-              />
-            </div>
-            <div
               className={`AddressPage__content AddressPage__table ${
-                this.props.currentTab === 2 ? "AddressPage__content-active" : ""
+                this.props.currentTab === 1 ? "AddressPage__content-active" : ""
               }`}
             >
               <FilterContextProvider>
@@ -280,9 +267,22 @@ export default class AddressPage extends Component<AddressPageProps, State> {
                   state={state}
                   send={send}
                   addressPageRoutes={routes}
-                  isVisible={this.props.currentTab === 2}
+                  isVisible={this.props.currentTab === 1}
                 />
               </FilterContextProvider>
+            </div>
+            <div
+              className={`AddressPage__content AddressPage__summary ${
+                this.props.currentTab === 2 ? "AddressPage__content-active" : ""
+              }`}
+            >
+              <Indicators
+                isVisible={this.props.currentTab === 2}
+                state={state}
+                send={send}
+                onBackToOverview={this.handleAddrChange}
+                addressPageRoutes={routes}
+              />
             </div>
             <div
               className={`AddressPage__content AddressPage__summary ${
