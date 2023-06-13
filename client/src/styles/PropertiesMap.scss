@@ -166,20 +166,25 @@
       display: none !important;
     }
 
-    .selected-addr-alert {
-      width: 36.4rem;
-      text-transform: uppercase;
-      .jf-alert__content {
-        p,
-        a {
-          color: $justfix-black;
+    .MapAlert__container {
+      @include for-tablet-portrait-up() {
+        width: fit-content;
+      }
+      .selected-addr-alert {
+        width: 36.4rem;
+        text-transform: uppercase;
+        .jf-alert__content {
+          p,
+          a {
+            color: $justfix-black;
+          }
         }
-      }
-      .selected-addr-alert__address {
-        font-size: 1.6rem;
-      }
-      a {
-        text-underline-position: under;
+        .selected-addr-alert__address {
+          font-size: 1.6rem;
+        }
+        a {
+          text-underline-position: under;
+        }
       }
     }
 
