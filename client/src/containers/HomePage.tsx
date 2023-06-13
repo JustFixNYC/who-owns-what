@@ -6,8 +6,6 @@ import LegalFooter from "../components/LegalFooter";
 import "styles/HomePage.css";
 
 import { LocaleLink as Link } from "../i18n";
-import stellarLogo from "../assets/img/stellar.png";
-import aeLogo from "../assets/img/aande.svg";
 import AddressSearch, { SearchAddress } from "../components/AddressSearch";
 import { Trans } from "@lingui/macro";
 import Page from "../components/Page";
@@ -207,20 +205,6 @@ const HomePage: React.FC<HomePageProps> = ({ useNewPortfolioMethod }) => {
                         A&amp;E Real Estate
                       </Link>
                     </h6>
-                    <Link
-                      className="image"
-                      tabIndex={-1} // Since link is not necessary navigation, removing tab focus
-                      to={getSampleUrls()[1]}
-                      onClick={() => {
-                        window.gtag("event", "example-portfolio-2-homepage");
-                      }}
-                    >
-                      <img
-                        className="emassoc img-responsive"
-                        src={aeLogo}
-                        alt="A&amp;E Real Estate"
-                      />
-                    </Link>
                     <Trans render="p">
                       The city’s fifth{" "}
                       <a
@@ -280,16 +264,6 @@ const HomePage: React.FC<HomePageProps> = ({ useNewPortfolioMethod }) => {
                         Stellar Management
                       </Link>
                     </h6>
-                    <Link
-                      className="image"
-                      tabIndex={-1} // Since link is not necessary navigation, removing tab focus
-                      to={getSampleUrls()[2]}
-                      onClick={() => {
-                        window.gtag("event", "example-portfolio-3-homepage");
-                      }}
-                    >
-                      <img className="img-responsive" src={stellarLogo} alt="Stellar Management" />
-                    </Link>
                     <Trans render="p">
                       Known for{" "}
                       <a
@@ -297,21 +271,19 @@ const HomePage: React.FC<HomePageProps> = ({ useNewPortfolioMethod }) => {
                         target="_blank"
                         rel="noopener noreferrer"
                       >
-                        unscrupulously deregulating rent stabilized apartments
+                        deregulating rent stabilized apartments
                       </a>
-                      , Larry Gluck’s Stellar Management has also secured a prominent place as one
-                      of{" "}
+                      , Stellar Management is also one of the city’s of{" "}
                       <a
                         href="https://www.worstevictorsnyc.org/"
                         target="_blank"
                         rel="noopener noreferrer"
                       >
-                        New York City’s Worst Evictors
+                        Worst Evictors
                       </a>
-                      . Stellar is a gentrifying force, particularly in upper Manhattan where Gluck
-                      operates the majority of his properties. Stellar has a reputation for
-                      displacing long-term tenants, renovating their units while vacant, and
-                      skyrocketing rents to market rate.
+                      . Stellar is a gentrifying force, particularly in upper Manhattan where they
+                      have a reputation for displacing long-term tenants, renovating their units
+                      while vacant, and skyrocketing rents to market rate.
                     </Trans>
                     <Link
                       className="btn block text-center"
