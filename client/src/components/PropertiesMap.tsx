@@ -128,6 +128,15 @@ const DYNAMIC_SELECTED_PAINT = {
   ...DYNAMIC_FILTER_PAINT,
   "circle-opacity": 1,
   "circle-stroke-opacity": 1,
+  "circle-color": {
+    property: "mapType",
+    type: "categorical",
+    default: "#5188FF",
+    stops: [
+      ["base", "#5188FF"],
+      ["search", "#FF5722"],
+    ],
+  },
   "circle-stroke-color": {
     property: "mapType",
     type: "categorical",
