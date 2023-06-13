@@ -15,19 +15,23 @@
 
   // overrides spacing/sizing rules for MapBox attribution control
   @include for-tablet-portrait-up() {
-    .mapboxgl-control-container > .mapboxgl-ctrl-bottom-right {
+    .mapboxgl-ctrl-bottom-right {
       bottom: 112px;
     }
   }
   // slide up/down in sync with legend on mobile
   @include for-phone-only() {
-    .mapboxgl-control-container > .mapboxgl-ctrl-bottom-right {
+    .mapboxgl-ctrl-bottom-right,
+    .mapboxgl-ctrl-bottom-left {
       bottom: 98px;
       transform: translateY(5.2rem); // height of hidden part of legend
       transition: transform 250ms ease-in-out;
     }
-    &:has(.PropertiesMap__legend--slide) .mapboxgl-control-container > .mapboxgl-ctrl-bottom-right {
-      transform: translateY(0px);
+    &:has(.PropertiesMap__legend--slide) {
+      .mapboxgl-ctrl-bottom-right,
+      .mapboxgl-ctrl-bottom-left {
+        transform: translateY(0px);
+      }
     }
   }
 
@@ -69,7 +73,10 @@
   }
 
   .PropertiesMap__legend {
-    background: #fff;
+    background: rgb(255, 255, 255);
+    @include for-tablet-portrait-up() {
+      background: rgb(255, 255, 255, 0.8);
+    }
     position: absolute;
     z-index: 10;
     right: 0;
@@ -202,7 +209,8 @@
     }
 
     @include for-tablet-portrait-up() {
-      .mapboxgl-control-container > .mapboxgl-ctrl-bottom-right {
+      .mapboxgl-ctrl-bottom-right,
+      .mapboxgl-ctrl-bottom-left {
         bottom: 0;
       }
 
