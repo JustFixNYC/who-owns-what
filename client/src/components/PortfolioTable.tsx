@@ -33,9 +33,10 @@ import { sortContactsByImportance } from "./DetailView";
 import { ArrowIcon } from "./Icons";
 import classnames from "classnames";
 import { isLegacyPath } from "./WowzaToggle";
+import Loader from "./Loader";
 
 const FIRST_COLUMN_WIDTH = 130;
-export const MAX_TABLE_ROWS_PER_PAGE = 100;
+const MAX_TABLE_ROWS_PER_PAGE = 100;
 
 declare module "@tanstack/table-core" {
   interface FilterFns {
@@ -70,7 +71,6 @@ const inNumberRanges: FilterFn<any> = (
 
 type PortfolioTableProps = withI18nProps & {
   data: AddressRecord[];
-  headerTopSpacing: number | undefined;
   locale: SupportedLocale;
   rsunitslatestyear: number;
   getRowCanExpand: (row: Row<AddressRecord>) => boolean;
@@ -557,159 +557,181 @@ const PortfolioTableWithoutI18n = React.memo((props: PortfolioTableProps) => {
     //   eslint-disable-next-line
   }, [table.getState().columnFilters[0]?.id]);
 
+  const tableRef = React.useRef<HTMLDivElement>(null);
+  const isTableLoaded = Helpers.useOnScreen(tableRef);
+
   return (
     <div
       id="PortfolioTable"
+      ref={tableRef}
       className={classnames(hideScrollFade && "hide-scroll-fade", !isVisible && "is-hidden")}
     >
-      <div className="portfolio-table-container">
-        <table>
-          <thead>
-            {table.getHeaderGroups().map((headerGroup) => (
-              <tr key={headerGroup.id}>
-                {headerGroup.headers.map((header) => {
-                  return (
-                    <th
-                      key={header.id}
-                      colSpan={header.colSpan}
-                      className={`col-${header.column.id}`}
-                      style={{ minWidth: header.getSize() || undefined }}
-                    >
-                      {header.isPlaceholder ? null : (
-                        <>
-                          <div
-                            {...{
-                              className: header.column.getCanSort()
-                                ? "cursor-pointer select-none"
-                                : "",
-                              onClick: (e) => {
-                                header.column.getToggleSortingHandler()?.(e);
-                                logPortfolioAnalytics("portfolioColumnSort", {
-                                  column: header.column.id,
-                                });
-                              },
-                            }}
-                            ref={header.column.id === "detail" ? lastColumnRef : undefined}
-                          >
-                            {flexRender(header.column.columnDef.header, header.getContext())}
-                            {headerGroup.depth === 1 && header.column.id !== "detail"
-                              ? {
-                                  asc: <ArrowIcon dir="up" />,
-                                  desc: <ArrowIcon dir="down" />,
-                                }[header.column.getIsSorted() as string] ?? <ArrowIcon dir="both" />
-                              : null}
-                          </div>
-                        </>
-                      )}
-                    </th>
-                  );
-                })}
-              </tr>
-            ))}
-          </thead>
-          <tbody>
-            {table.getRowModel().rows.map((row, i) => {
-              return (
-                <Fragment key={row.id}>
-                  <tr className={`row-${i % 2 ? "even" : "odd"}`}>
-                    {row.getVisibleCells().map((cell) => {
+      {!isTableLoaded ? (
+        <Loader loading={true} classNames="Loader-table">
+          {data.length > MAX_TABLE_ROWS_PER_PAGE ? (
+            <>
+              <Trans>Loading {data.length} rows</Trans>
+              <br />
+              <Trans>(this may take a while)</Trans>
+            </>
+          ) : (
+            <Trans>Loading</Trans>
+          )}
+        </Loader>
+      ) : (
+        <>
+          <div className="portfolio-table-container">
+            <table>
+              <thead>
+                {table.getHeaderGroups().map((headerGroup) => (
+                  <tr key={headerGroup.id}>
+                    {headerGroup.headers.map((header) => {
                       return (
-                        <td
-                          key={cell.id}
-                          className={`col-${cell.column.id}`}
-                          style={{
-                            width:
-                              cell.column.getSize() !== 0
-                                ? cell.column.getSize() || undefined
-                                : undefined,
-                          }}
+                        <th
+                          key={header.id}
+                          colSpan={header.colSpan}
+                          className={`col-${header.column.id}`}
+                          style={{ minWidth: header.getSize() || undefined }}
                         >
-                          {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                        </td>
+                          {header.isPlaceholder ? null : (
+                            <>
+                              <div
+                                {...{
+                                  className: header.column.getCanSort()
+                                    ? "cursor-pointer select-none"
+                                    : "",
+                                  onClick: (e) => {
+                                    header.column.getToggleSortingHandler()?.(e);
+                                    logPortfolioAnalytics("portfolioColumnSort", {
+                                      column: header.column.id,
+                                    });
+                                  },
+                                }}
+                                ref={header.column.id === "detail" ? lastColumnRef : undefined}
+                              >
+                                {flexRender(header.column.columnDef.header, header.getContext())}
+                                {headerGroup.depth === 1 && header.column.id !== "detail"
+                                  ? {
+                                      asc: <ArrowIcon dir="up" />,
+                                      desc: <ArrowIcon dir="down" />,
+                                    }[header.column.getIsSorted() as string] ?? (
+                                      <ArrowIcon dir="both" />
+                                    )
+                                  : null}
+                              </div>
+                            </>
+                          )}
+                        </th>
                       );
                     })}
                   </tr>
-                  {row.getIsExpanded() && (
-                    <tr>
-                      {/* 2nd row is a custom 1 cell row */}
-                      <td colSpan={row.getVisibleCells().length}>
-                        {renderContacts({ row, i18n })}
-                      </td>
-                    </tr>
-                  )}
-                </Fragment>
-              );
-            })}
-          </tbody>
-        </table>
-      </div>
+                ))}
+              </thead>
+              <tbody>
+                {table.getRowModel().rows.map((row, i) => {
+                  return (
+                    <Fragment key={row.id}>
+                      <tr className={`row-${i % 2 ? "even" : "odd"}`}>
+                        {row.getVisibleCells().map((cell) => {
+                          return (
+                            <td
+                              key={cell.id}
+                              className={`col-${cell.column.id}`}
+                              style={{
+                                width:
+                                  cell.column.getSize() !== 0
+                                    ? cell.column.getSize() || undefined
+                                    : undefined,
+                              }}
+                            >
+                              {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                            </td>
+                          );
+                        })}
+                      </tr>
+                      {row.getIsExpanded() && (
+                        <tr>
+                          {/* 2nd row is a custom 1 cell row */}
+                          <td colSpan={row.getVisibleCells().length}>
+                            {renderContacts({ row, i18n })}
+                          </td>
+                        </tr>
+                      )}
+                    </Fragment>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
 
-      <div className="pagination">
-        <div className="prev">
-          <button
-            className="page-btn"
-            onClick={() => {
-              table.previousPage();
-              logPortfolioAnalytics("portfolioPagination", {
-                extraParams: { paginationType: "previous" },
-              });
-            }}
-            disabled={!table.getCanPreviousPage()}
-          >
-            {i18n._(t`Previous`)}
-          </button>
-        </div>
-        <div className="center">
-          <span className="page-info">
-            <span>
-              <Trans>Page</Trans>
-            </span>
-            <div>
-              <input
-                type="number"
-                value={String(table.getState().pagination.pageIndex + 1)}
-                onChange={(e) => {
-                  const page = e.target.value ? Number(e.target.value) - 1 : 0;
-                  table.setPageIndex(page);
+          <div className="pagination">
+            <div className="prev">
+              <button
+                className="page-btn"
+                onClick={() => {
+                  table.previousPage();
                   logPortfolioAnalytics("portfolioPagination", {
-                    extraParams: { paginationType: "custom" },
+                    extraParams: { paginationType: "previous" },
                   });
                 }}
-              />
+                disabled={!table.getCanPreviousPage()}
+              >
+                {i18n._(t`Previous`)}
+              </button>
             </div>
-            <Trans>of</Trans> <span className="total-pages">{table.getPageCount()}</span>
-          </span>
-          <select
-            value={table.getState().pagination.pageSize}
-            onChange={(e) => {
-              table.setPageSize(Number(e.target.value));
-              logPortfolioAnalytics("portfolioPagination", {
-                extraParams: { paginationType: "size" },
-              });
-            }}
-          >
-            {[10, 20, 50, 100, 500].map((pageSize) => (
-              <option key={pageSize} value={pageSize}>
-                Show {pageSize}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div className="next">
-          <button
-            className="page-btn"
-            onClick={() => {
-              table.nextPage();
-              logPortfolioAnalytics("portfolioPagination", {
-                extraParams: { paginationType: "next" },
-              });
-            }}
-            disabled={!table.getCanNextPage()}
-          >
-            {i18n._(t`Next`)}
-          </button>
-        </div>
-      </div>
+            <div className="center">
+              <span className="page-info">
+                <span>
+                  <Trans>Page</Trans>
+                </span>
+                <div>
+                  <input
+                    type="number"
+                    value={String(table.getState().pagination.pageIndex + 1)}
+                    onChange={(e) => {
+                      const page = e.target.value ? Number(e.target.value) - 1 : 0;
+                      table.setPageIndex(page);
+                      logPortfolioAnalytics("portfolioPagination", {
+                        extraParams: { paginationType: "custom" },
+                      });
+                    }}
+                  />
+                </div>
+                <Trans>of</Trans> <span className="total-pages">{table.getPageCount()}</span>
+              </span>
+              <select
+                value={table.getState().pagination.pageSize}
+                onChange={(e) => {
+                  table.setPageSize(Number(e.target.value));
+                  logPortfolioAnalytics("portfolioPagination", {
+                    extraParams: { paginationType: "size" },
+                  });
+                }}
+              >
+                {[10, 20, 50, 100, 500].map((pageSize) => (
+                  <option key={pageSize} value={pageSize}>
+                    Show {pageSize}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="next">
+              <button
+                className="page-btn"
+                onClick={() => {
+                  table.nextPage();
+                  logPortfolioAnalytics("portfolioPagination", {
+                    extraParams: { paginationType: "next" },
+                  });
+                }}
+                disabled={!table.getCanNextPage()}
+              >
+                {i18n._(t`Next`)}
+              </button>
+            </div>
+          </div>
+        </>
+      )}
     </div>
   );
 });

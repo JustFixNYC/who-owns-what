@@ -1,14 +1,12 @@
-import { Trans } from "@lingui/macro";
 import { withI18n, withI18nProps } from "@lingui/react";
 import React from "react";
 import { withMachineInStateProps } from "state-machine";
 import "styles/PropertiesList.css";
 import { defaultLocale, SupportedLocale } from "../i18n-base";
-import Helpers from "../util/helpers";
 import _groupBy from "lodash/groupBy";
-import Loader from "./Loader";
+import { FixedLoadingLabel } from "./Loader";
 import PortfolioFilters from "./PortfolioFilters";
-import PortfolioTable, { MAX_TABLE_ROWS_PER_PAGE } from "./PortfolioTable";
+import PortfolioTable from "./PortfolioTable";
 import { AmplitudeEvent, EventProperties, logAmplitudeEvent } from "./Amplitude";
 import PropertiesMap from "./PropertiesMap";
 import { AddressPageRoutes } from "routes";
@@ -44,7 +42,7 @@ export type IFilterContext = {
 };
 
 export const defaultFilterContext: IFilterContext = {
-  viewType: "map",
+  viewType: "table",
   totalBuildings: undefined,
   filteredBuildings: undefined,
   filterSelections: {
@@ -131,7 +129,6 @@ const PropertiesListWithoutI18n: React.FC<
     withI18nProps & { addressPageRoutes: AddressPageRoutes; isVisible: boolean }
 > = (props) => {
   const { i18n, isVisible } = props;
-  const { width: windowWidth, height: windowHeight } = Helpers.useWindowSize();
   const locale = (i18n.language as SupportedLocale) || defaultLocale;
   const useNewPortfolioMethod = props.state.context.useNewPortfolioMethod || false;
   const portfolioFiltersEnabled = process.env.REACT_APP_PORTFOLIO_FILTERS_ENABLED === "1" || true;
@@ -142,13 +139,18 @@ const PropertiesListWithoutI18n: React.FC<
   const { filterContext } = React.useContext(FilterContext);
   const { viewType } = filterContext;
 
+  // avoid loading any components until portfolio tab is viewed
   const [everVisible, setEverVisible] = React.useState(false);
 
   React.useEffect(() => {
     setEverVisible((prev) => prev || isVisible);
   }, [isVisible]);
 
-  const [viewsEverVisible, setViewsEverVisible] = React.useState({ table: false, map: false });
+  // only load the map or table when viewed, and avoid reloading when switching between
+  const [viewsEverVisible, setViewsEverVisible] = React.useState({
+    table: viewType === "table",
+    map: viewType === "map",
+  });
 
   React.useEffect(() => {
     setViewsEverVisible((prev) => ({
@@ -171,87 +173,40 @@ const PropertiesListWithoutI18n: React.FC<
     window.gtag("event", gtagEvent, eventParams);
   };
 
-  /**
-   * For older browsers that do not support the `useOnScreen` hook,
-   * let's hide the dynamic scroll fade by default.
-   */
-  const isOlderBrowser = typeof IntersectionObserver === "undefined";
+  return !everVisible ? (
+    <FixedLoadingLabel />
+  ) : (
+    <div className="PropertiesList">
+      {useNewPortfolioMethod && portfolioFiltersEnabled && (
+        <PortfolioFilters
+          state={props.state}
+          send={props.send}
+          logPortfolioAnalytics={logPortfolioAnalytics}
+        />
+      )}
 
-  const tableRef = React.useRef<HTMLDivElement>(null);
-  const isTableVisible = Helpers.useOnScreen(tableRef);
+      {viewsEverVisible.table && (
+        <PortfolioTable
+          data={addrs}
+          locale={locale}
+          rsunitslatestyear={rsunitslatestyear}
+          getRowCanExpand={() => true}
+          logPortfolioAnalytics={logPortfolioAnalytics}
+          isVisible={viewType === "table"}
+        />
+      )}
 
-  // On most browsers, the header has the `position: fixed` CSS property
-  // and needs a defined `top` property along with it.
-  // So, let's keep track of and also update this top spacing whenever the layout of the page changes.
-  const [headerTopSpacing, setHeaderTopSpacing] = React.useState<number | undefined>();
-
-  // TODO: double check how this works with new v8 table
-  // Make sure to setHeaderTopSpacing whenever
-  // - the table comes into view
-  // - the page's locale changes
-  // - the user resizes their viewport window
-  //
-  // For older browsers, let's not even bother setting the top spacing as
-  // we won't be able to detect when the table becomes visible. Luckily,
-  // the `react-table-hoc-fixed-columns` packages has fallback CSS for these browsers.
-  React.useEffect(() => {
-    if (!isOlderBrowser && tableRef?.current?.offsetTop)
-      setHeaderTopSpacing(tableRef.current.offsetTop);
-  }, [isTableVisible, locale, windowWidth, windowHeight, isOlderBrowser]);
-
-  return (
-    <div className="PropertiesList" ref={tableRef}>
-      {everVisible && (
-        <>
-          {useNewPortfolioMethod && portfolioFiltersEnabled && (
-            <PortfolioFilters
-              state={props.state}
-              send={props.send}
-              logPortfolioAnalytics={logPortfolioAnalytics}
-            />
-          )}
-
-          {viewsEverVisible.table && (
-            <>
-              {isTableVisible ? (
-                <PortfolioTable
-                  data={addrs}
-                  headerTopSpacing={headerTopSpacing}
-                  locale={locale}
-                  rsunitslatestyear={rsunitslatestyear}
-                  getRowCanExpand={() => true}
-                  logPortfolioAnalytics={logPortfolioAnalytics}
-                  isVisible={viewType === "table"}
-                />
-              ) : (
-                <Loader loading={true} classNames="Loader-map">
-                  {addrs.length > MAX_TABLE_ROWS_PER_PAGE ? (
-                    <>
-                      <Trans>Loading {addrs.length} rows</Trans>
-                      <br />
-                      <Trans>(this may take a while)</Trans>
-                    </>
-                  ) : (
-                    <Trans>Loading</Trans>
-                  )}
-                </Loader>
-              )}
-            </>
-          )}
-
-          {useNewPortfolioMethod && portfolioFiltersEnabled && viewsEverVisible.map && (
-            <PropertiesMap
-              location="portfolio"
-              state={props.state}
-              send={props.send}
-              onAddrChange={(bbl: string) => {}}
-              isVisible={viewType === "map"}
-              addressPageRoutes={props.addressPageRoutes}
-              locale={locale}
-              logPortfolioAnalytics={logPortfolioAnalytics}
-            />
-          )}
-        </>
+      {useNewPortfolioMethod && portfolioFiltersEnabled && viewsEverVisible.map && (
+        <PropertiesMap
+          location="portfolio"
+          state={props.state}
+          send={props.send}
+          onAddrChange={(bbl: string) => {}}
+          isVisible={viewType === "map"}
+          addressPageRoutes={props.addressPageRoutes}
+          locale={locale}
+          logPortfolioAnalytics={logPortfolioAnalytics}
+        />
       )}
     </div>
   );
