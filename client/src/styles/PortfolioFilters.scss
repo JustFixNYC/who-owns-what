@@ -311,6 +311,14 @@
             .minmaxselect-container {
               padding: 0;
 
+              .multiselect__menu,
+              .multiselect__control,
+              .multiselect__selected-value-control-container,
+              .minmaxselect__presets-container,
+              .jf-alert {
+                width: 75%;
+              }
+
               .button.is-primary {
                 padding: 1.6rem 3.2rem;
               }
@@ -322,11 +330,6 @@
             @include for-phone-only {
               padding: 0;
 
-              .multiselect__menu,
-              .multiselect__control,
-              .multiselect__selected-value-control-container {
-                width: 75%;
-              }
               .multiselect__input-container,
               .multiselect__placeholder {
                 font-size: 1.8rem;
@@ -347,7 +350,6 @@
           .minmaxselect-container {
             @include for-phone-only {
               .minmaxselect__presets-container {
-                grid-template-columns: 8rem 8rem 8rem;
                 grid-template-rows: 4.5rem 4.5rem;
                 .minmaxselect__preset-value {
                   font-size: 1.6rem;
