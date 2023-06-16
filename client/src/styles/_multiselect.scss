@@ -167,8 +167,9 @@
       }
     }
   }
-  .button.is-primary {
+  button.button.is-primary {
     align-self: center;
+    width: 100%;
     letter-spacing: 0.02em;
   }
 }
