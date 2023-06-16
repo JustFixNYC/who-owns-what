@@ -51,3 +51,22 @@ $scroll-body: darken($background, 15%);
       inset 2px 2px 0px 0px lighten($scroll-body, 10%);
   }
 }
+
+@mixin scrollbar_wowza($track-radius: inherit, $thumb-radius: inherit, $bg-color: $justfix-white) {
+  -webkit-overflow-scrolling: touch;
+  &::-webkit-scrollbar {
+    border-radius: $track-radius;
+    background-color: $bg-color;
+    width: 1.8rem;
+  }
+  &::-webkit-scrollbar-track {
+    border-radius: $track-radius;
+    background-color: $bg-color;
+  }
+  &::-webkit-scrollbar-thumb {
+    border-radius: $thumb-radius;
+    background-color: $justfix-grey;
+    border: 3px solid rgba(0, 0, 0, 0);
+    background-clip: padding-box;
+  }
+}
