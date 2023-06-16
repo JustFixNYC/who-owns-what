@@ -207,134 +207,136 @@ const PortfolioFiltersWithoutI18n = React.memo(
             </span>
           )}
         </div>
-        <div className="view-type-toggle-container">
-          <button
-            aria-pressed={viewType === "table"}
-            className="view-type-toggle"
-            onClick={() => setFilterContext((prev) => ({ ...prev, viewType: "table" }))}
-          >
-            <Trans>Table</Trans>
-          </button>
-          <button
-            aria-pressed={viewType === "map"}
-            className="view-type-toggle"
-            onClick={() => setFilterContext((prev) => ({ ...prev, viewType: "map" }))}
-          >
-            <Trans>Map</Trans>
-          </button>
-        </div>
-        <FiltersWrapper
-          isMobile={isMobile}
-          activeFilters={activeFilters}
-          resultsCount={filteredBuildings}
-        >
-          <button
-            aria-pressed={rsunitslatestActive}
-            onClick={updateRsunitslatest}
-            className="filter filter-toggle"
-            aria-label={i18n._(t`Rent Stabilized Units filter`)}
-          >
-            <div className="checkbox">{rsunitslatestActive && <CheckIcon />}</div>
-            <span>
-              <Trans>Rent Stabilized Units</Trans>
-            </span>
-          </button>
-          <FilterAccordion
-            title={i18n._(t`Landlord`)}
-            subtitle={i18n._(t`Person/Entity`)}
-            infoIconAria={i18n._(
-              t`Learn more about what it means for someone to be listed as a landlord`
-            )}
-            infoModalContents={ownernamesInfoModalContents}
-            isActive={ownernamesActive}
-            isOpen={ownernamesIsOpen}
-            setIsOpen={setOwnernamesIsOpen}
-            onOpen={() => logPortfolioAnalytics("filterOpened", { column: "ownernames" })}
-            selectionsCount={filterContext.filterSelections.ownernames.length}
-            className="ownernames-accordion"
-          >
-            <MultiSelect
-              id="filter-ownernames-multiselect"
-              options={valuesAsMultiselectOptions(ownernamesOptions)}
-              onApply={onOwnernamesApply}
-              onError={() => logPortfolioAnalytics("filterError", { column: "ownernames" })}
-              infoAlert={OwnernamesInfoAlert}
-              aria-label={i18n._(t`Landlord filter`)}
-              isOpen={ownernamesIsOpen}
-              defaultSelections={valuesAsMultiselectOptions(ownernamesSelections)}
-            />
-          </FilterAccordion>
-          <FilterAccordion
-            title={i18n._(t`Building Size`)}
-            subtitle={i18n._(t`Number of Units`)}
-            isActive={unitsresActive}
-            isOpen={unitsresIsOpen}
-            onOpen={() => logPortfolioAnalytics("filterOpened", { column: "unitsres" })}
-            setIsOpen={setUnitsresIsOpen}
-            className="unitsres-accordion"
-          >
-            <MinMaxSelect
-              options={unitsresOptions}
-              onApply={onUnitsresApply}
-              onError={() => logPortfolioAnalytics("filterError", { column: "unitsres" })}
-              id="filter-unitsres-minmax"
-              isOpen={unitsresIsOpen}
-              defaultSelections={unitsresSelections}
-            />
-          </FilterAccordion>
-          <FilterAccordion
-            title={i18n._(t`Zip Code`)}
-            isActive={zipActive}
-            isOpen={zipIsOpen}
-            setIsOpen={setZipIsOpen}
-            onOpen={() => logPortfolioAnalytics("filterOpened", { column: "zip" })}
-            selectionsCount={filterContext.filterSelections.zip.length}
-            className="zip-accordion"
-          >
-            <MultiSelect
-              id="filter-zip-multiselect"
-              options={valuesAsMultiselectOptions(zipOptions)}
-              onApply={onZipApply}
-              noOptionsMessage={() => i18n._(t`ZIP code is not applicable`)}
-              onError={() => logPortfolioAnalytics("filterError", { column: "zip" })}
-              aria-label={i18n._(t`Zip code filter`)}
-              onKeyDown={helpers.preventNonNumericalInput}
-              isOpen={zipIsOpen}
-              defaultSelections={valuesAsMultiselectOptions(zipSelections)}
-            />
-          </FilterAccordion>
-        </FiltersWrapper>
-
-        {(rsunitslatestActive || ownernamesActive || unitsresActive || zipActive) && (
-          <div className="filter-status">
-            <div className="filter-status-info">
-              <span className="results-count" role="status">
-                <Trans>
-                  Showing {filteredBuildings || 0}{" "}
-                  <Plural value={filteredBuildings || 0} one="result" other="results" />
-                </Trans>
-              </span>
-              <button
-                className="results-info"
-                onClick={() => setShowInfoModal(true)}
-                aria-label={i18n._(t`Learn more about how the results are calculated`)}
-              >
-                <InfoIcon />
-              </button>
-              <button className="clear-filters button is-text" onClick={clearFilters}>
-                <Trans>Clear Filters</Trans>
-              </button>
-            </div>
-            {filteredBuildings === 0 && ZeroResultsAlert}
-            {!!filteredBuildings && rsunitslatestActive && RsUnitsResultAlert}
-            {!!filteredBuildings &&
-              ownernamesActive &&
-              viewType === "table" &&
-              OwnernamesResultAlert}
+        <div className="filters-container">
+          <div className="view-type-toggle-container">
+            <button
+              aria-pressed={viewType === "table"}
+              className="view-type-toggle"
+              onClick={() => setFilterContext((prev) => ({ ...prev, viewType: "table" }))}
+            >
+              <Trans>Table</Trans>
+            </button>
+            <button
+              aria-pressed={viewType === "map"}
+              className="view-type-toggle"
+              onClick={() => setFilterContext((prev) => ({ ...prev, viewType: "map" }))}
+            >
+              <Trans>Map</Trans>
+            </button>
           </div>
-        )}
+          <FiltersWrapper
+            isMobile={isMobile}
+            activeFilters={activeFilters}
+            resultsCount={filteredBuildings}
+          >
+            <button
+              aria-pressed={rsunitslatestActive}
+              onClick={updateRsunitslatest}
+              className="filter filter-toggle"
+              aria-label={i18n._(t`Rent Stabilized Units filter`)}
+            >
+              <div className="checkbox">{rsunitslatestActive && <CheckIcon />}</div>
+              <span>
+                <Trans>Rent Stabilized Units</Trans>
+              </span>
+            </button>
+            <FilterAccordion
+              title={i18n._(t`Landlord`)}
+              subtitle={i18n._(t`Person/Entity`)}
+              infoIconAria={i18n._(
+                t`Learn more about what it means for someone to be listed as a landlord`
+              )}
+              infoModalContents={ownernamesInfoModalContents}
+              isActive={ownernamesActive}
+              isOpen={ownernamesIsOpen}
+              setIsOpen={setOwnernamesIsOpen}
+              onOpen={() => logPortfolioAnalytics("filterOpened", { column: "ownernames" })}
+              selectionsCount={filterContext.filterSelections.ownernames.length}
+              className="ownernames-accordion"
+            >
+              <MultiSelect
+                id="filter-ownernames-multiselect"
+                options={valuesAsMultiselectOptions(ownernamesOptions)}
+                onApply={onOwnernamesApply}
+                onError={() => logPortfolioAnalytics("filterError", { column: "ownernames" })}
+                infoAlert={OwnernamesInfoAlert}
+                aria-label={i18n._(t`Landlord filter`)}
+                isOpen={ownernamesIsOpen}
+                defaultSelections={valuesAsMultiselectOptions(ownernamesSelections)}
+              />
+            </FilterAccordion>
+            <FilterAccordion
+              title={i18n._(t`Building Size`)}
+              subtitle={i18n._(t`Number of Units`)}
+              isActive={unitsresActive}
+              isOpen={unitsresIsOpen}
+              onOpen={() => logPortfolioAnalytics("filterOpened", { column: "unitsres" })}
+              setIsOpen={setUnitsresIsOpen}
+              className="unitsres-accordion"
+            >
+              <MinMaxSelect
+                options={unitsresOptions}
+                onApply={onUnitsresApply}
+                onError={() => logPortfolioAnalytics("filterError", { column: "unitsres" })}
+                id="filter-unitsres-minmax"
+                isOpen={unitsresIsOpen}
+                defaultSelections={unitsresSelections}
+              />
+            </FilterAccordion>
+            <FilterAccordion
+              title={i18n._(t`Zip Code`)}
+              isActive={zipActive}
+              isOpen={zipIsOpen}
+              setIsOpen={setZipIsOpen}
+              onOpen={() => logPortfolioAnalytics("filterOpened", { column: "zip" })}
+              selectionsCount={filterContext.filterSelections.zip.length}
+              className="zip-accordion"
+            >
+              <MultiSelect
+                id="filter-zip-multiselect"
+                options={valuesAsMultiselectOptions(zipOptions)}
+                onApply={onZipApply}
+                noOptionsMessage={() => i18n._(t`ZIP code is not applicable`)}
+                onError={() => logPortfolioAnalytics("filterError", { column: "zip" })}
+                aria-label={i18n._(t`Zip code filter`)}
+                onKeyDown={helpers.preventNonNumericalInput}
+                isOpen={zipIsOpen}
+                defaultSelections={valuesAsMultiselectOptions(zipSelections)}
+              />
+            </FilterAccordion>
+          </FiltersWrapper>
 
-        <Modal key={1} showModal={showInfoModal} width={20} onClose={() => setShowInfoModal(false)}>
+          {(rsunitslatestActive || ownernamesActive || unitsresActive || zipActive) && (
+            <div className="filter-status">
+              <div className="filter-status-info">
+                <span className="results-count" role="status">
+                  <Trans>
+                    Showing {filteredBuildings || 0}{" "}
+                    <Plural value={filteredBuildings || 0} one="result" other="results" />
+                  </Trans>
+                </span>
+                <button
+                  className="results-info"
+                  onClick={() => setShowInfoModal(true)}
+                  aria-label={i18n._(t`Learn more about how the results are calculated`)}
+                >
+                  <InfoIcon />
+                </button>
+                <button className="clear-filters button is-text" onClick={clearFilters}>
+                  <Trans>Clear Filters</Trans>
+                </button>
+              </div>
+              {filteredBuildings === 0 && ZeroResultsAlert}
+              {!!filteredBuildings && rsunitslatestActive && RsUnitsResultAlert}
+              {!!filteredBuildings &&
+                ownernamesActive &&
+                viewType === "table" &&
+                OwnernamesResultAlert}
+            </div>
+          )}
+        </div>
+
+        <Modal key={1} showModal={showInfoModal} width={40} onClose={() => setShowInfoModal(false)}>
           <h4>
             <Trans>How are the results calculated?</Trans>
           </h4>
@@ -477,10 +479,7 @@ const OwnernamesInfoAlert = (
     storageId="owner-info-alert-close"
     role="status"
   >
-    <Trans>
-      Look out for multiple spellings of the same person/entity. Names can be spelled multiple ways
-      in official documents.
-    </Trans>
+    <Trans>The same owner may have spelled their name several ways in official documents.</Trans>
   </Alert>
 );
 
@@ -580,7 +579,7 @@ const FilterAccordion = withI18n()((props: FilterAccordionProps) => {
         </details>
       </FocusTrap>
       {infoModalContents && (
-        <Modal showModal={showInfoModal} width={20} onClose={() => setShowInfoModal(false)}>
+        <Modal showModal={showInfoModal} width={40} onClose={() => setShowInfoModal(false)}>
           {infoModalContents}
         </Modal>
       )}
