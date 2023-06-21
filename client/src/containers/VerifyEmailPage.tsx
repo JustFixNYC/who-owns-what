@@ -1,17 +1,17 @@
-import React, { Fragment, useState, useEffect } from "react";
+import { Fragment, useState, useEffect } from "react";
 import LegalFooter from "../components/LegalFooter";
-
 import Page from "../components/Page";
 import { withI18n, withI18nProps } from "@lingui/react";
 import { Trans, t } from "@lingui/macro";
-
-import AuthClient from "../components/AuthClient";
+import AuthClient, { VerifyStatusCode } from "../components/AuthClient";
 import { JustfixUser } from "state-machine";
 
 const VerifyEmailPage = withI18n()((props: withI18nProps) => {
   const { i18n } = props;
-  const [verified, setVerified] = useState(false);
   const [user, setUser] = useState<JustfixUser>();
+  const [isVerified, setIsVerified] = useState(false);
+  const [isLinkExpired, setIsLinkExpired] = useState(false);
+  const [showConfirmation, setShowConfirmation] = useState(false);
 
   useEffect(() => {
     const asyncFetchUser = async () => {
@@ -24,6 +24,7 @@ const VerifyEmailPage = withI18n()((props: withI18nProps) => {
               return { ...s };
             }) || [],
         });
+        setIsVerified(_user.verified);
       }
     };
     asyncFetchUser();
@@ -46,10 +47,28 @@ const VerifyEmailPage = withI18n()((props: withI18nProps) => {
     }, delayInterval);
   };
 
-  const renderPreVerificationPage = () => {
-    return (
+  const renderLandingPage = () => {
+    const expiredLinkPage = (
       <Fragment>
         <br />
+        <Trans render="h3" className="text-center"> The link sent to you has timed out. </Trans>
+        <br />
+        <div className="text-center">
+          <button
+            className="button is-secondary"
+            onClick={async () => {
+              setShowConfirmation(await AuthClient.resendVerifyEmail());
+            }}
+          >
+            <Trans>Resend verification email</Trans>
+          </button>
+        </div>
+        <br />
+      </Fragment>
+    );
+
+    const validLinkPage = (
+      <Fragment>
         <Trans render="h3"> Verify this email: </Trans>
         <br />
         <h3 className="text-center">
@@ -57,13 +76,13 @@ const VerifyEmailPage = withI18n()((props: withI18nProps) => {
         </h3>
         <br />
         <Trans render="h3"> to receive Data Updates from Who Owns What. </Trans>
-        <br />
         <div className="text-center">
           <button
             className="button is-primary"
             onClick={async () => {
-              // TODO shakao: error messaging and handling
-              setVerified(await AuthClient.verifyEmail());
+              const result = await AuthClient.verifyEmail();
+              setIsVerified(result.statusCode === VerifyStatusCode.Success);
+              setIsLinkExpired(result.statusCode === VerifyStatusCode.Expired);
             }}
           >
             <Trans>Verify email</Trans>
@@ -71,12 +90,24 @@ const VerifyEmailPage = withI18n()((props: withI18nProps) => {
         </div>
       </Fragment>
     );
+    return (isLinkExpired ? expiredLinkPage : validLinkPage)
   };
 
-  const renderPostVerificationPage = () => {
-    return (
+  const renderConfirmationPage = () => {
+    const resendEmailPage = (
       <Fragment>
+        <Trans render="h3" className="text-center"> Check your email inbox & spam </Trans>
         <br />
+        <Trans className="text-center">
+          Click the link we sent to verify your email address {!!user && user.email}.
+          It may take a few minutes to arrive. 
+          Once your email has been verified, you’ll be signed up for Data Updates.
+        </Trans>
+      </Fragment>
+    );
+
+    const verifyAndRedirectPage = () => (
+      <Fragment>
         <Trans className="text-center" render="h3">
           Your email is now verified
         </Trans>
@@ -84,9 +115,8 @@ const VerifyEmailPage = withI18n()((props: withI18nProps) => {
         <div className="text-center">
           <Trans className="text-center">You will be redirected back to Who Owns What in:</Trans>
           <br>{updateCountdown()}</br>
-
           <Trans className="d-flex justify-content-center">
-            <span id="countdown">5</span> seconds
+            <span id="countdown">{delaySeconds}</span> seconds
           </Trans>
           <br />
           <br />
@@ -96,14 +126,15 @@ const VerifyEmailPage = withI18n()((props: withI18nProps) => {
         </div>
       </Fragment>
     );
+
+    return (isVerified ? verifyAndRedirectPage : resendEmailPage) 
   };
 
   return (
     <Page title={i18n._(t`Verify your email address`)}>
       <div className="VerifyEmailPage Page">
         <div className="page-container">
-          {console.log(user)}
-          {!verified ? renderPreVerificationPage() : renderPostVerificationPage()}
+          {showConfirmation ? renderConfirmationPage() : renderLandingPage() }   
         </div>
         <LegalFooter />
       </div>
