@@ -6,25 +6,6 @@ import { I18n, MessageDescriptor } from "@lingui/core";
 import React, { useEffect, useState } from "react";
 import _ from "lodash";
 
-/**
- * An array consisting of Who Owns What's standard enumerations for street names,
- * (which come from the PLUTO dataset fron NYC's Dept. of City Planning)
- * and the corresponding format preferred by HPD as a url parameter.
- * NOTE: seems HPD only cares about these formats for numbers 1 to 10
- */
-const hpdNumberTransformations = [
-  ["FIRST", "1"],
-  ["SECOND", "2"],
-  ["THIRD", "3"],
-  ["FOURTH", "4"],
-  ["FIFTH", "5"],
-  ["SIXTH", "6"],
-  ["SEVENTH", "7"],
-  ["EIGHTH", "8"],
-  ["NINTH", "9"],
-  ["TENTH", "10"],
-];
-
 const hpdComplaintTypeTranslations = new Map([
   ["DOOR/WINDOW", t`DOOR/WINDOW`],
   ["HEATING", t`HEATING`],
@@ -78,6 +59,20 @@ const hpdContactTitleTranslations = new Map([
 export const longDateOptions = { year: "numeric", month: "short", day: "numeric" };
 export const mediumDateOptions = { year: "numeric", month: "long" };
 export const shortDateOptions = { month: "short" };
+
+// https://www.geeksforgeeks.org/how-to-detect-the-user-browser-safari-chrome-ie-firefox-and-opera-using-javascript/
+export const getBrowserName = () => {
+  const userAgentString = navigator.userAgent;
+  let browserName = "";
+  if (userAgentString.indexOf("OP") > -1) browserName = "Opera";
+  else if (userAgentString.indexOf("Chrome") > -1) browserName = "Chrome";
+  else if (userAgentString.indexOf("Firefox") > -1) browserName = "Firefox";
+  else if (userAgentString.indexOf("Safari") > -1) browserName = "Safari";
+  else if (userAgentString.indexOf("MSIE") > -1 || userAgentString.indexOf("rv:") > -1)
+    browserName = "Internet Explorer";
+
+  return browserName;
+};
 
 /**
  * Delay the action of a certian function by a set amount of time.
@@ -275,34 +270,6 @@ const helpers = {
     )} - ${this.formatDate(endDate, { month: "short" }, locale).slice(0, 3)}`;
   },
 
-  formatStreetNameForHpdLink(streetName: string): string {
-    var arr = streetName.split(" ");
-    if (Array.isArray(arr) && !arr.length) {
-      return "";
-    }
-    // Reformat street name directional prefix
-    const newStreetNamePrefix =
-      arr[0].toUpperCase() === "NORTH"
-        ? "N"
-        : arr[0].toUpperCase() === "SOUTH"
-        ? "S"
-        : arr[0].toUpperCase() === "EAST"
-        ? "E"
-        : arr[0].toUpperCase() === "WEST"
-        ? "W"
-        : arr[0];
-    arr[0] = newStreetNamePrefix;
-
-    // Reformat street name enumeration
-    hpdNumberTransformations.forEach((numberPair) => {
-      const index = arr.findIndex((e) => e.toUpperCase() === numberPair[0]);
-      if (index > -1) {
-        arr[index] = numberPair[1];
-      }
-    });
-    return arr.join(" ");
-  },
-
   formatHpdContactAddress(
     address: HpdContactAddress
   ): { addressLine1: string; addressLine2: string } {
@@ -410,6 +377,22 @@ const helpers = {
 
   regexEscape(str: string) {
     return str?.replace(/[-[\]/{}()*+?.\\^$|]/g, "\\$&");
+  },
+
+  scrollToBottom(selectors: string) {
+    const elem = document.querySelector(selectors);
+    elem?.scroll(0, elem?.scrollHeight);
+  },
+
+  /**
+   * Prevents user from typing non-numeric characters in an input field. Necessary
+   * because Firefox doesn't do this by default with type="numeric" inputs.
+   * See https://stackoverflow.com/a/49924215/7051239
+   */
+  preventNonNumericalInput(e: React.KeyboardEvent) {
+    e = e || window.event;
+    // Control keys (tab, delete, arrows, etc.) are length > 1
+    if (!/^\d$/.test(e.key) && e.key.length === 1) e.preventDefault();
   },
 };
 

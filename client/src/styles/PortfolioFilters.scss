@@ -1,0 +1,485 @@
+@import "_vars.scss";
+@import "_scrollbar.scss";
+@import "_button.scss";
+@import "_typography.scss";
+@import "_multiselect.scss";
+@import "_minmaxselect.scss";
+
+@mixin white-on-black {
+  background-color: $justfix-black;
+  color: $justfix-white;
+  border-color: $justfix-white;
+}
+
+@mixin wrap-with-parentheses {
+  &::before {
+    content: "(";
+  }
+  &::after {
+    content: ")";
+  }
+}
+
+.PortfolioFilters {
+  --new-container-width: 10.2rem;
+  --filter-bar-row-gap: 1.2rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--filter-bar-row-gap) 1.8rem;
+  padding: 1.4rem;
+  background-color: $justfix-table-grey;
+  text-transform: uppercase;
+
+  font-family: $wow-font;
+  font-style: normal;
+  font-weight: 600;
+  @include browser("Firefox") {
+    font-weight: 500;
+  }
+  font-size: 1.4rem;
+  line-height: 100%;
+  letter-spacing: 0.02em;
+
+  @include for-phone-only() {
+    gap: 1.2rem;
+  }
+
+  .filter-new-container {
+    text-align: right;
+    width: var(--new-container-width);
+    letter-spacing: 0.04em;
+    display: flex;
+    flex-direction: column;
+
+    .pill-new {
+      align-self: flex-end;
+      font-family: $body-font;
+      letter-spacing: 0.02em;
+      background: $justfix-yellow;
+      padding: 0.5rem 1rem;
+      border-radius: 1.6rem;
+      width: fit-content;
+      margin-bottom: 0.26rem;
+    }
+
+    @include for-phone-only() {
+      width: unset;
+      justify-content: center;
+      .pill-new {
+        margin: 0;
+      }
+    }
+  }
+
+  .filters {
+    --checkbox-height: 2.4rem;
+
+    display: flex;
+    flex-grow: 1;
+    gap: 1.8rem;
+
+    .filter {
+      border: 0.1rem solid $justfix-black;
+      border-radius: 0.8rem;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+
+      @include for-phone-only {
+        &:not(.filters-mobile-wrapper) {
+          border-radius: 0;
+          box-sizing: border-box;
+          border: none;
+          border-bottom: 0.1rem solid $justfix-grey-400;
+        }
+        &.active:not([open]):not(.filter-toggle):not(.filters-mobile-wrapper) {
+          background-color: $justfix-table-grey;
+          color: $justfix-black;
+          border-color: $justfix-grey-400;
+        }
+      }
+
+      @include for-tablet-portrait-up() {
+        &.active,
+        &[aria-pressed="true"] {
+          @include white-on-black();
+        }
+
+        &:not([open]):hover,
+        [open] summary:not(.minmaxselect__custom-range-summary) {
+          text-decoration: underline;
+          text-underline-position: under;
+        }
+      }
+      &:focus-visible {
+        box-shadow: none;
+        outline: 2px solid $focus-outline-color;
+        outline-offset: 2px;
+      }
+    }
+
+    .filter-toggle {
+      gap: 1rem;
+      padding: 1rem;
+      letter-spacing: 0.02em;
+      @include for-phone-only {
+        height: var(--filter-bar-height);
+        min-height: var(--filter-bar-height);
+        padding: 0 2.4rem;
+        font-size: 1.8rem;
+        &[aria-pressed="false"]:hover {
+          text-decoration: none;
+        }
+        &[aria-pressed="true"] {
+          text-decoration: none;
+          @include white-on-black();
+        }
+      }
+      .checkbox {
+        box-sizing: border-box;
+        border: 0.1rem solid $justfix-black;
+        border-radius: 0.4rem;
+        width: var(--checkbox-height);
+        height: var(--checkbox-height);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: $justfix-white;
+        @include for-phone-only {
+          order: 1;
+          margin-left: auto;
+        }
+      }
+      &[aria-pressed="true"] {
+        .checkbox {
+          border-color: $justfix-white;
+        }
+      }
+    }
+
+    .filter-accordion {
+      position: relative;
+
+      summary:not(.minmaxselect__custom-range-summary) {
+        // height based on toggle toggle checkbox plus 1rem padding
+        height: calc(var(--checkbox-height) + 1rem * 2);
+        padding: 0 1rem 0 1rem;
+        display: flex;
+        align-items: center;
+        position: relative;
+        letter-spacing: 0.02em;
+        cursor: pointer;
+
+        &::-webkit-details-marker {
+          display: none;
+        }
+        .chevronIcon,
+        .closeIcon {
+          stroke-width: 2px;
+        }
+        .chevronIcon {
+          margin-left: 0.8rem;
+        }
+        .closeIcon {
+          margin-left: auto;
+        }
+      }
+      &:not(.filters-mobile-wrapper) summary:not(.minmaxselect__custom-range-summary) {
+        @include for-phone-only {
+          height: var(--filter-bar-height);
+          padding: 0 2.4rem;
+          font-size: 1.8rem;
+          .chevronIcon {
+            margin-left: auto;
+          }
+        }
+      }
+      .filter-selection-count {
+        @include for-tablet-portrait-up() {
+          margin-left: 0.5rem;
+          @include wrap-with-parentheses();
+        }
+        @include for-phone-only() {
+          @include white-on-black();
+          padding: 0.4rem 0.8rem;
+          border-radius: 1.5rem;
+          margin-left: 0.5rem;
+          font-size: 1.4rem;
+        }
+      }
+      &[open] {
+        > summary {
+          svg {
+            transform: scaleY(-1);
+          }
+        }
+
+        @include for-tablet-portrait-up {
+          &.ownernames-accordion .dropdown-container {
+            width: 25.2rem;
+          }
+          &.unitsres-accordion .dropdown-container {
+            width: 26rem;
+          }
+          &.zip-accordion .dropdown-container {
+            width: 24rem;
+          }
+        }
+
+        .dropdown-container {
+          position: absolute;
+          top: 5rem;
+          left: -0.1rem;
+          z-index: 10;
+          overflow-y: scroll;
+          background-color: $justfix-table-grey;
+          box-sizing: border-box;
+          border: 0.1rem solid $justfix-black;
+          border-radius: 0.8rem;
+          @include for-tablet-portrait-up {
+            max-height: 65vh;
+          }
+          @include for-phone-only {
+            padding: 0 2.4rem 2.4rem 2.4rem;
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            background-color: $justfix-table-grey;
+            border-radius: 0;
+            border: none;
+            top: unset;
+            position: relative;
+            max-height: none;
+          }
+
+          .filter-subtitle-container {
+            display: flex;
+            width: 100%;
+            font-size: 1.2rem;
+            padding: 1.2rem;
+            @include for-phone-only {
+              padding: 0 0 1.2rem 0;
+              font-size: 1.6rem;
+              .filter-info {
+                font-size: 1.4rem;
+              }
+            }
+            @include for-tablet-portrait-up() {
+              border-bottom: 0.1rem solid $justfix-grey;
+            }
+            &,
+            .filter-info {
+              color: $justfix-grey-700;
+            }
+            .filter-subtitle {
+              margin-right: auto;
+            }
+          }
+
+          @include for-phone-only {
+            .multiselect-container,
+            .minmaxselect-container {
+              padding: 0;
+
+              .button.is-primary {
+                padding: 1.6rem 3.2rem;
+              }
+            }
+          }
+
+          .multiselect-container {
+            width: 100%;
+            @include for-phone-only {
+              padding: 0;
+
+              .multiselect__menu,
+              .multiselect__control,
+              .multiselect__selected-value-control-container {
+                width: 75%;
+              }
+              .multiselect__input-container,
+              .multiselect__placeholder {
+                font-size: 1.8rem;
+                line-height: 100%;
+                height: 5rem;
+                padding-left: 1.2rem;
+              }
+              .multiselect__menu {
+                font-size: 1.6rem;
+              }
+            }
+            @include for-tablet-portrait-up {
+              .multiselect__selected-value-control-container {
+                font-size: 1.2rem;
+              }
+            }
+          }
+          .minmaxselect-container {
+            @include for-phone-only {
+              .minmaxselect__presets-container {
+                grid-template-columns: 8rem 8rem 8rem;
+                grid-template-rows: 4.5rem 4.5rem;
+                .minmaxselect__preset-value {
+                  font-size: 1.6rem;
+                }
+              }
+              .minmaxselect__custom-range-summary span,
+              .minmaxselect__clear-value-button {
+                font-size: 1.4rem;
+              }
+              .chevronIcon {
+                stroke-width: 0.2rem;
+              }
+              .minmaxselect__label-input-container {
+                width: fit-content;
+                font-size: 1.6rem;
+                input {
+                  font-size: 1.8rem;
+                  width: 4.8rem;
+                  height: 4.8rem;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    .filters-mobile-wrapper {
+      &.active:not([open]) {
+        @include white-on-black();
+        .active-filter-count {
+          margin-left: 0.5rem;
+          @include wrap-with-parentheses();
+        }
+      }
+      &[open] {
+        --filter-bar-top-height: 4.6rem;
+        --filter-bar-height: 6.6rem;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 11;
+        height: 100%;
+        background-color: $justfix-table-grey;
+        border-radius: 0.8rem 0.8rem 0 0;
+        box-sizing: border-box;
+        border: none;
+
+        @keyframes slide-up {
+          0% {
+            transform: translateY(100vh);
+          }
+          100% {
+            transform: translateY(0);
+          }
+        }
+
+        animation-name: slide-up;
+        animation-duration: 0.5s;
+        animation-timing-function: ease-in-out;
+        animation-fill-mode: forwards;
+
+        // Hide page from showing through around rounded corners
+        // Sadly outline+offset doesn't work since in safari is doesn't follow border-radius
+        &::before {
+          --border-size: 0.5rem;
+          content: "";
+          position: absolute;
+          top: calc(0rem - var(--border-size));
+          right: calc(0rem - var(--border-size));
+          bottom: calc(0rem - var(--border-size));
+          left: calc(0rem - var(--border-size));
+          border: var(--border-size) solid $justfix-black;
+          border-bottom: none;
+          border-radius: 1.25rem 1.25rem 0 0;
+
+          @keyframes fade-in {
+            0% {
+              opacity: 0;
+            }
+            90% {
+              opacity: 0;
+            }
+            100% {
+              opacity: 1;
+            }
+          }
+
+          animation-name: fade-in;
+          animation-duration: 0.5s;
+          animation-timing-function: ease-in-out;
+          animation-fill-mode: forwards;
+        }
+
+        & > summary {
+          padding: 0 2.4rem;
+          border-bottom: 0.2rem solid $justfix-grey-700;
+        }
+        & > .dropdown-container {
+          height: calc(100% - var(--filter-bar-top-height));
+          z-index: 12;
+          padding: 0;
+          overflow: auto;
+
+          &.scroll-gradient {
+            // https://css-scroll-shadows.vercel.app/
+            --clear: rgba(0, 0, 0, 0);
+            --dark: rgba(100, 100, 100, 0.65);
+            background: linear-gradient($justfix-table-grey 10%, var(--clear)),
+              linear-gradient(var(--clear), $justfix-table-grey 90%) 0 100%,
+              linear-gradient(var(--dark) 10%, var(--clear));
+            background-color: $justfix-table-grey;
+            background-repeat: no-repeat;
+            background-attachment: local, local, scroll;
+            background-size: 100% 6rem, 100% 6rem, 100% 1rem, 100% 1rem;
+          }
+
+          & > .button.is-primary {
+            align-self: center;
+            padding: 1.6rem 3.2rem;
+            margin: 2.4rem 0;
+            letter-spacing: 0.02em;
+            .view-results-count {
+              margin-left: 1em;
+              @include wrap-with-parentheses();
+            }
+          }
+          .zero-results-alert {
+            align-self: center;
+            margin: 0 2.45rem;
+          }
+        }
+      }
+    }
+  }
+  .filter-status {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 1rem;
+    @include for-tablet-portrait-up() {
+      margin-left: calc(var(--new-container-width) + var(--filter-bar-row-gap));
+    }
+
+    .filter-status-info {
+      display: flex;
+      text-transform: none;
+      color: $justfix-grey-700;
+      .results-count {
+        font-size: 1.6rem;
+        padding-right: 0.5rem;
+      }
+      .clear-filters {
+        color: $justfix-grey-700;
+        align-self: start;
+        margin-left: 1.8rem;
+      }
+    }
+  }
+}
+.ReactModal__Content {
+  p a {
+    color: $justfix-black;
+  }
+}

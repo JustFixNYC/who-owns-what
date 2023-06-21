@@ -10,7 +10,7 @@ import "styles/DetailView.css";
 import { withI18n, withI18nProps, I18n } from "@lingui/react";
 import { t, Trans } from "@lingui/macro";
 import { SocialShareAddressPage } from "./SocialShare";
-import { isPartOfGroupSale } from "./PropertiesList";
+import { isPartOfGroupSale } from "./PortfolioTable";
 import { Link, useLocation } from "react-router-dom";
 import { LocaleLink } from "../i18n";
 import BuildingStatsTable from "./BuildingStatsTable";
@@ -66,7 +66,7 @@ type GroupedContact = [
  * This comparison function, to be used inside the Array.sort() method,
  * prioritizes head officers and owners when sorting an array of grouped HPD contacts
  */
-const sortContactsByImportance = (contact: GroupedContact) =>
+export const sortContactsByImportance = (contact: GroupedContact) =>
   contact[1].find((o) => o.title === "HeadOfficer" || o.title.includes("Owner")) ? -1 : 0;
 
 const FormattedContactAddress: React.FC<{ address: HpdContactAddress }> = ({ address }) => {
@@ -231,7 +231,7 @@ class DetailViewWithoutI18n extends Component<Props, State> {
               <div className="DetailView__card card">
                 <div className="DetailView__mobilePortfolioView">
                   <button onClick={() => this.props.onCloseDetail()}>
-                    &#10229; <Trans render="span">View portfolio map</Trans>
+                    <Trans render="span">View portfolio map</Trans>
                   </button>
                 </div>
                 <div className="card-image show-lg">{streetView}</div>
