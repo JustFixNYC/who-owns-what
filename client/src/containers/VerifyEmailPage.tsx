@@ -51,7 +51,9 @@ const VerifyEmailPage = withI18n()((props: withI18nProps) => {
     const expiredLinkPage = (
       <Fragment>
         <br />
-        <Trans render="h3" className="text-center"> The link sent to you has timed out. </Trans>
+        <Trans render="h3" className="text-center">
+          The link sent to you has timed out.
+        </Trans>
         <br />
         <div className="text-center">
           <button
@@ -71,18 +73,19 @@ const VerifyEmailPage = withI18n()((props: withI18nProps) => {
       <Fragment>
         <Trans render="h3"> Verify this email: </Trans>
         <br />
-        <h3 className="text-center">
-          {!!user && user.email}
-        </h3>
+        <h3 className="text-center">{!!user && user.email}</h3>
         <br />
         <Trans render="h3"> to receive Data Updates from Who Owns What. </Trans>
         <div className="text-center">
           <button
             className="button is-primary"
-            onClick={async () => {
-              const result = await AuthClient.verifyEmail();
-              setIsVerified(result.statusCode === VerifyStatusCode.Success);
-              setIsLinkExpired(result.statusCode === VerifyStatusCode.Expired);
+            onClick={() => {
+              asyncVerifyEmail().then((result) => {
+                const isVerified = result.statusCode === VerifyStatusCode.Success;
+                setIsVerified(isVerified);
+                setIsLinkExpired(result.statusCode === VerifyStatusCode.Expired);
+                setShowConfirmation(isVerified);
+              });
             }}
           >
             <Trans>Verify email</Trans>
@@ -90,18 +93,24 @@ const VerifyEmailPage = withI18n()((props: withI18nProps) => {
         </div>
       </Fragment>
     );
-    return (isLinkExpired ? expiredLinkPage : validLinkPage)
+    return isLinkExpired ? expiredLinkPage : validLinkPage;
+  };
+
+  const asyncVerifyEmail = async () => {
+    return await AuthClient.verifyEmail();
   };
 
   const renderConfirmationPage = () => {
     const resendEmailPage = (
       <Fragment>
-        <Trans render="h3" className="text-center"> Check your email inbox & spam </Trans>
+        <Trans render="h3" className="text-center">
+          Check your email inbox & spam
+        </Trans>
         <br />
         <Trans className="text-center">
-          Click the link we sent to verify your email address {!!user && user.email}.
-          It may take a few minutes to arrive. 
-          Once your email has been verified, you’ll be signed up for Data Updates.
+          Click the link we sent to verify your email address {!!user && user.email}. It may take a
+          few minutes to arrive. Once your email has been verified, you’ll be signed up for Data
+          Updates.
         </Trans>
       </Fragment>
     );
@@ -126,15 +135,14 @@ const VerifyEmailPage = withI18n()((props: withI18nProps) => {
         </div>
       </Fragment>
     );
-
-    return (isVerified ? verifyAndRedirectPage : resendEmailPage) 
+    return isVerified ? verifyAndRedirectPage() : resendEmailPage;
   };
 
   return (
     <Page title={i18n._(t`Verify your email address`)}>
       <div className="VerifyEmailPage Page">
         <div className="page-container">
-          {showConfirmation ? renderConfirmationPage() : renderLandingPage() }   
+          {showConfirmation ? renderConfirmationPage() : renderLandingPage()}
         </div>
         <LegalFooter />
       </div>

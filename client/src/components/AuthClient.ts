@@ -9,13 +9,13 @@ export enum VerifyStatusCode {
   AlreadyVerified = 208,
   Failure = 400,
   Expired = 404,
-  Unknown = 500
-};
+  Unknown = 500,
+}
 
 type VerifyEmailResponse = {
-  statusCode: VerifyStatusCode,
-  statusText: string,
-  error?: string,
+  statusCode: VerifyStatusCode;
+  statusText: string;
+  error?: string;
 };
 
 let _user: JustfixUser | undefined;
@@ -92,10 +92,12 @@ const verifyEmail = async () => {
   let result: VerifyEmailResponse = {
     statusCode: VerifyStatusCode.Unknown,
     statusText: "",
-  }
+  };
 
   try {
-    const response = await postAuthRequest(`${BASE_URL}auth/verify_email?code=${params.get("code")}`);
+    const response = await postAuthRequest(
+      `${BASE_URL}auth/verify_email?code=${params.get("code")}`
+    );
     result.statusCode = response.status_code;
     result.statusText = response.status_text;
   } catch (e) {
