@@ -334,7 +334,7 @@ function CustomInput<
   IsMulti extends boolean = true,
   GroupType extends GroupBase<Option> = GroupBase<Option>
 >(props: InputProps<Option, IsMulti, GroupType>) {
-  const id = "test-123456789";
+  const id = `aria-label-${Math.floor(Math.random() * 100)}`;
   return (
     <>
       <components.Input

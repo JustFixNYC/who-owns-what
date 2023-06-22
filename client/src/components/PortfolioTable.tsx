@@ -687,6 +687,7 @@ const PortfolioTableWithoutI18n = React.memo((props: PortfolioTableProps) => {
                 <div>
                   <input
                     type="number"
+                    aria-label={i18n._(t`page number`)}
                     value={String(table.getState().pagination.pageIndex + 1)}
                     onChange={(e) => {
                       const page = e.target.value ? Number(e.target.value) - 1 : 0;
@@ -701,6 +702,7 @@ const PortfolioTableWithoutI18n = React.memo((props: PortfolioTableProps) => {
               </span>
               <select
                 value={table.getState().pagination.pageSize}
+                aria-label={i18n._(t`number of records per page`)}
                 onChange={(e) => {
                   table.setPageSize(Number(e.target.value));
                   logPortfolioAnalytics("portfolioPagination", {
