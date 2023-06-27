@@ -197,17 +197,17 @@ const PortfolioFiltersWithoutI18n = React.memo(
 
     return (
       <div className="PortfolioFilters" ref={ref}>
-        <div className="filter-new-container">
-          <span className="pill-new">
-            <Trans>New</Trans>
-          </span>
-          {!isMobile && (
-            <span>
-              <Trans>Filters:</Trans>
-            </span>
-          )}
-        </div>
         <div className="filters-container">
+          <div className="filter-new-container">
+            <span className="pill-new">
+              <Trans>New</Trans>
+            </span>
+            {!isMobile && (
+              <span>
+                <Trans>Filters:</Trans>
+              </span>
+            )}
+          </div>
           <div className="view-type-toggle-container">
             <button
               aria-pressed={viewType === "table"}
