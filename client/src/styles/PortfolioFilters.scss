@@ -308,9 +308,12 @@
               .filter-subtitle {
                 margin-right: 0.5rem;
               }
-              .filter-info:focus-visible {
-                outline: 2px solid $focus-outline-color;
-                outline-offset: 2px;
+              .filter-info {
+                width: 18px;
+                &:focus-visible {
+                  outline: 2px solid $focus-outline-color;
+                  outline-offset: 2px;
+                }
               }
             }
 
@@ -506,9 +509,12 @@
           font-size: 1.6rem;
           padding-right: 0.5rem;
         }
-        .results-info:focus-visible {
-          outline: 2px solid $focus-outline-color;
-          outline-offset: 2px;
+        .results-info {
+          width: 18px;
+          &:focus-visible {
+            outline: 2px solid $focus-outline-color;
+            outline-offset: 2px;
+          }
         }
         .clear-filters {
           color: $justfix-grey-700;
