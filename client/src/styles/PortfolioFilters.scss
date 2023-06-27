@@ -132,7 +132,7 @@
         }
 
         @include for-tablet-portrait-up() {
-          &.active,
+          &.active > summary,
           &[aria-pressed="true"] {
             @include white-on-black();
           }
