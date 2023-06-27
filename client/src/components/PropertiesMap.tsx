@@ -29,7 +29,7 @@ import { isLegacyPath } from "./WowzaToggle";
 import { sortContactsByImportance } from "./DetailView";
 import _groupBy from "lodash/groupBy";
 import classnames from "classnames";
-import { withResizeDetector } from 'react-resize-detector';
+import { withResizeDetector } from "react-resize-detector";
 
 type Props = withMachineInStateProps<"portfolioFound"> & {
   onAddrChange: (bbl: string) => void;
