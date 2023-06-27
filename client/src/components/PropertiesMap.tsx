@@ -577,7 +577,7 @@ const SelectedAddrAlert = ({
 
       <Link
         to={createRouteForFullBbl(addr.bbl, locale || defaultLocale, isLegacyPath(pathname))}
-        // TODO: decide on "map" gtm property format
+        target="blank"
         onClick={() =>
           !!logPortfolioAnalytics &&
           logPortfolioAnalytics("addressChangePortfolio", { extraParams: { from: "map" } })
