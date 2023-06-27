@@ -46,7 +46,7 @@ msgstr "(expires {formattedRegEndDate})"
 msgid "(hover over a box to learn more)"
 msgstr "(hover over a box to learn more)"
 
-#: src/components/PropertiesList.tsx:125
+#: src/components/PortfolioTable.tsx:441
 msgid "(this may take a while)"
 msgstr "(this may take a while)"
 
@@ -54,7 +54,7 @@ msgstr "(this may take a while)"
 #~ msgid "({browserType, select, mobile {tap} other {click}} to view details)"
 #~ msgstr "({browserType, select, mobile {tap} other {click}} to view details)"
 
-#: src/containers/HomePage.tsx:120
+#: src/containers/HomePage.tsx:117
 msgid "... or view some sample portfolios:"
 msgstr "... or view some sample portfolios:"
 
@@ -112,8 +112,8 @@ msgstr "Across owners and management staff, the most common {0, plural, one {nam
 msgid "Additional links"
 msgstr "Additional links"
 
-#: src/components/PortfolioTable.tsx:72
-#: src/containers/HomePage.tsx:104
+#: src/components/PortfolioTable.tsx:66
+#: src/containers/HomePage.tsx:101
 msgid "Address"
 msgstr "Address"
 
@@ -129,7 +129,7 @@ msgstr "All set! Thanks for subscribing!"
 msgid "All the public info on your landlord"
 msgstr "All the public info on your landlord"
 
-#: src/components/PortfolioTable.tsx:339
+#: src/components/PortfolioTable.tsx:333
 msgid "Amount"
 msgstr "Amount"
 
@@ -159,7 +159,7 @@ msgstr "Are you having issues in this building?"
 msgid "Are you having issues in this development?"
 msgstr "Are you having issues in this development?"
 
-#: src/components/PropertiesMap.tsx:322
+#: src/components/PropertiesMap.tsx:348
 msgid "Associated names/entities: {0}"
 msgstr "Associated names/entities: {0}"
 
@@ -171,7 +171,7 @@ msgstr "BELL/BUZZER/INTERCOM"
 msgid "BUILDING:"
 msgstr "BUILDING:"
 
-#: src/components/PortfolioTable.tsx:97
+#: src/components/PortfolioTable.tsx:91
 #: src/containers/NychaPage.tsx:79
 msgid "Borough"
 msgstr "Borough"
@@ -189,7 +189,7 @@ msgstr "Building Permit Applications"
 msgid "Building Permits Applied For"
 msgstr "Building Permits Applied For"
 
-#: src/components/PortfolioFilters.tsx:147
+#: src/components/PortfolioFilters.tsx:148
 msgid "Building Size"
 msgstr "Building Size"
 
@@ -197,7 +197,7 @@ msgstr "Building Size"
 msgid "Building info"
 msgstr "Building info"
 
-#: src/components/PropertiesMap.tsx:330
+#: src/components/PropertiesMap.tsx:356
 msgid "Building size: {0}"
 msgstr "Building size: {0}"
 
@@ -205,7 +205,7 @@ msgstr "Building size: {0}"
 msgid "Buildings without valid property registration are subject to the following:"
 msgstr "Buildings without valid property registration are subject to the following:"
 
-#: src/components/PortfolioTable.tsx:131
+#: src/components/PortfolioTable.tsx:125
 msgid "Built"
 msgstr "Built"
 
@@ -264,7 +264,7 @@ msgstr "Class I"
 #~ msgid "Clear"
 #~ msgstr "Clear"
 
-#: src/components/PortfolioFilters.tsx:167
+#: src/components/PortfolioFilters.tsx:168
 msgid "Clear Filters"
 msgstr "Clear Filters"
 
@@ -302,8 +302,8 @@ msgid "Close"
 msgstr "Close"
 
 #: src/components/PropertiesMap.tsx:290
-msgid "Close legend"
-msgstr "Close legend"
+#~ msgid "Close legend"
+#~ msgstr "Close legend"
 
 #: src/components/IndicatorsDatasets.tsx:14
 msgid "Complaints Issued"
@@ -325,7 +325,7 @@ msgstr "Corporate Owner"
 msgid "Corporation"
 msgstr "Corporation"
 
-#: src/components/PortfolioTable.tsx:117
+#: src/components/PortfolioTable.tsx:111
 msgid "Council"
 msgstr "Council"
 
@@ -353,7 +353,7 @@ msgstr "DOOR/WINDOW"
 msgid "DOORS"
 msgstr "DOORS"
 
-#: src/components/PortfolioTable.tsx:328
+#: src/components/PortfolioTable.tsx:322
 msgid "Date"
 msgstr "Date"
 
@@ -403,7 +403,7 @@ msgstr "Emergency"
 #~ msgid "Enter NYC ZIP CODE"
 #~ msgstr "Enter NYC ZIP CODE"
 
-#: src/containers/HomePage.tsx:89
+#: src/containers/HomePage.tsx:86
 msgid "Enter an NYC address and find other buildings your landlord might own:"
 msgstr "Enter an NYC address and find other buildings your landlord might own:"
 
@@ -444,7 +444,7 @@ msgstr "Evictions"
 msgid "Evictions Executed"
 msgstr "Evictions Executed"
 
-#: src/components/PortfolioTable.tsx:236
+#: src/components/PortfolioTable.tsx:230
 msgid "Evictions Since 2017"
 msgstr "Evictions Since 2017"
 
@@ -456,11 +456,11 @@ msgstr "Evictions executed by NYC Marshals since 2017. ANHD and the Housing Data
 msgid "Evictions executed in this development by NYC Marshals since 2017. ANHD and the Housing Data Coalition cleaned, geocoded, and validated the data, originally sourced from DOI."
 msgstr "Evictions executed in this development by NYC Marshals since 2017. ANHD and the Housing Data Coalition cleaned, geocoded, and validated the data, originally sourced from DOI."
 
-#: src/components/PortfolioTable.tsx:251
+#: src/components/PortfolioTable.tsx:245
 msgid "Executed"
 msgstr "Executed"
 
-#: src/components/PortfolioFilters.tsx:228
+#: src/components/PortfolioFilters.tsx:235
 msgid "Expand the Person/ Entity column in the Table to see all contacts associated with that building."
 msgstr "Expand the Person/ Entity column in the Table to see all contacts associated with that building."
 
@@ -488,7 +488,7 @@ msgstr "FLOORING/STAIRS"
 msgid "Failure to register a building with HPD"
 msgstr "Failure to register a building with HPD"
 
-#: src/components/PortfolioTable.tsx:242
+#: src/components/PortfolioTable.tsx:236
 msgid "Filed"
 msgstr "Filed"
 
@@ -496,7 +496,7 @@ msgstr "Filed"
 #~ msgid "Filied"
 #~ msgstr "Filied"
 
-#: src/components/PortfolioFilters.tsx:270
+#: src/components/PortfolioFilters.tsx:274
 msgid "Filter"
 msgstr "Filter"
 
@@ -504,7 +504,7 @@ msgstr "Filter"
 #~ msgid "Filter through this portfolio in <0>the Portfolio tab.</0>"
 #~ msgstr "Filter through this portfolio in <0>the Portfolio tab.</0>"
 
-#: src/components/PortfolioFilters.tsx:209
+#: src/components/PortfolioFilters.tsx:216
 msgid "Filters"
 msgstr "Filters"
 
@@ -516,7 +516,7 @@ msgstr "Filters:"
 #~ msgid "Filter <0/>for"
 #~ msgstr "Filter <0/>for"
 
-#: src/containers/HomePage.tsx:90
+#: src/containers/HomePage.tsx:87
 msgid "Find other buildings your landlord might own:"
 msgstr "Find other buildings your landlord might own:"
 
@@ -524,7 +524,7 @@ msgstr "Find other buildings your landlord might own:"
 msgid "GARBAGE/RECYCLING STORAGE"
 msgstr "GARBAGE/RECYCLING STORAGE"
 
-#: src/components/PortfolioTable.tsx:366
+#: src/components/PortfolioTable.tsx:360
 msgid "Group Sale?"
 msgstr "Group Sale?"
 
@@ -541,7 +541,7 @@ msgid "HPD Building Profile"
 msgstr "HPD Building Profile"
 
 #: src/components/IndicatorsDatasets.tsx:7
-#: src/components/PortfolioTable.tsx:181
+#: src/components/PortfolioTable.tsx:175
 msgid "HPD Complaints"
 msgstr "HPD Complaints"
 
@@ -550,7 +550,7 @@ msgid "HPD Complaints are housing issues reported to the City <0>by a tenant cal
 msgstr "HPD Complaints are housing issues reported to the City <0>by a tenant calling 311</0>. When someone issues a complaint, the Department of Housing Preservation and Development begins a process of investigation that may lead to an official violation from the City. Complaints can be identified as:<1/><2/><3>Emergency</3> — reported to be hazardous/dire<4/><5>Non-Emergency</5> — all others<6/><7/>Read more about HPD Complaints and how to file them at the <8>official HPD page</8>."
 
 #: src/components/IndicatorsDatasets.tsx:35
-#: src/components/PortfolioTable.tsx:214
+#: src/components/PortfolioTable.tsx:208
 msgid "HPD Violations"
 msgstr "HPD Violations"
 
@@ -566,7 +566,11 @@ msgstr "HUD Complaint Form 958"
 msgid "Head Officer"
 msgstr "Head Officer"
 
-#: src/components/PortfolioFilters.tsx:175
+#: src/components/PropertiesMap.tsx:319
+msgid "Hide legend"
+msgstr "Hide legend"
+
+#: src/components/PortfolioFilters.tsx:182
 msgid "How are the results calculated?"
 msgstr "How are the results calculated?"
 
@@ -631,7 +635,7 @@ msgstr "Individual Owner"
 msgid "Ineligible to certify violations"
 msgstr "Ineligible to certify violations"
 
-#: src/components/PortfolioTable.tsx:126
+#: src/components/PortfolioTable.tsx:120
 msgid "Information"
 msgstr "Information"
 
@@ -651,24 +655,28 @@ msgstr "Joint Owner"
 msgid "JustFix, Inc is a registered 501(c)(3) nonprofit organization."
 msgstr "JustFix, Inc is a registered 501(c)(3) nonprofit organization."
 
+#: src/containers/HomePage.tsx:166
+msgid "Known for <0>deregulating rent stabilized apartments</0>, Stellar Management is also one of the city’s of <1>Worst Evictors</1>. Stellar is a gentrifying force, particularly in upper Manhattan where they have a reputation for displacing long-term tenants, renovating their units while vacant, and skyrocketing rents to market rate."
+msgstr "Known for <0>deregulating rent stabilized apartments</0>, Stellar Management is also one of the city’s of <1>Worst Evictors</1>. Stellar is a gentrifying force, particularly in upper Manhattan where they have a reputation for displacing long-term tenants, renovating their units while vacant, and skyrocketing rents to market rate."
+
 #: src/containers/HomePage.tsx:215
-msgid "Known for <0>unscrupulously deregulating rent stabilized apartments</0>, Larry Gluck’s Stellar Management has also secured a prominent place as one of <1>New York City’s Worst Evictors</1>. Stellar is a gentrifying force, particularly in upper Manhattan where Gluck operates the majority of his properties. Stellar has a reputation for displacing long-term tenants, renovating their units while vacant, and skyrocketing rents to market rate."
-msgstr "Known for <0>unscrupulously deregulating rent stabilized apartments</0>, Larry Gluck’s Stellar Management has also secured a prominent place as one of <1>New York City’s Worst Evictors</1>. Stellar is a gentrifying force, particularly in upper Manhattan where Gluck operates the majority of his properties. Stellar has a reputation for displacing long-term tenants, renovating their units while vacant, and skyrocketing rents to market rate."
+#~ msgid "Known for <0>unscrupulously deregulating rent stabilized apartments</0>, Larry Gluck’s Stellar Management has also secured a prominent place as one of <1>New York City’s Worst Evictors</1>. Stellar is a gentrifying force, particularly in upper Manhattan where Gluck operates the majority of his properties. Stellar has a reputation for displacing long-term tenants, renovating their units while vacant, and skyrocketing rents to market rate."
+#~ msgstr "Known for <0>unscrupulously deregulating rent stabilized apartments</0>, Larry Gluck’s Stellar Management has also secured a prominent place as one of <1>New York City’s Worst Evictors</1>. Stellar is a gentrifying force, particularly in upper Manhattan where Gluck operates the majority of his properties. Stellar has a reputation for displacing long-term tenants, renovating their units while vacant, and skyrocketing rents to market rate."
 
 #: src/util/helpers.ts:40
 msgid "LOCKS"
 msgstr "LOCKS"
 
-#: src/components/PortfolioFilters.tsx:144
-#: src/components/PortfolioTable.tsx:260
+#: src/components/PortfolioFilters.tsx:145
+#: src/components/PortfolioTable.tsx:254
 msgid "Landlord"
 msgstr "Landlord"
 
-#: src/components/PortfolioFilters.tsx:145
+#: src/components/PortfolioFilters.tsx:146
 msgid "Landlord filter"
 msgstr "Landlord filter"
 
-#: src/containers/HomePage.tsx:108
+#: src/containers/HomePage.tsx:105
 msgid "Landlord name"
 msgstr "Landlord name"
 
@@ -676,11 +684,11 @@ msgstr "Landlord name"
 msgid "Landlord, Portfolio, Tenant, Displacement, Map, JustFix, NYC, New York, Housing, Who Owns What"
 msgstr "Landlord, Portfolio, Tenant, Displacement, Map, JustFix, NYC, New York, Housing, Who Owns What"
 
-#: src/components/PortfolioTable.tsx:194
+#: src/components/PortfolioTable.tsx:188
 msgid "Last 3 Years"
 msgstr "Last 3 Years"
 
-#: src/components/PortfolioTable.tsx:323
+#: src/components/PortfolioTable.tsx:317
 msgid "Last Sale"
 msgstr "Last Sale"
 
@@ -701,15 +709,19 @@ msgstr "Last sold:"
 msgid "Learn more"
 msgstr "Learn more"
 
-#: src/components/PortfolioFilters.tsx:163
+#: src/components/PortfolioFilters.tsx:164
 msgid "Learn more about how the results are calculated"
 msgstr "Learn more about how the results are calculated"
+
+#: src/components/PortfolioFilters.tsx:145
+msgid "Learn more about what it means for someone to be listed as a landlord"
+msgstr "Learn more about what it means for someone to be listed as a landlord"
 
 #: src/components/PortfolioAlerts.tsx:39
 msgid "Learn more."
 msgstr "Learn more."
 
-#: src/components/PropertiesMap.tsx:290
+#: src/components/PropertiesMap.tsx:319
 msgid "Legend"
 msgstr "Legend"
 
@@ -717,22 +729,22 @@ msgstr "Legend"
 msgid "Lessee"
 msgstr "Lessee"
 
-#: src/components/PortfolioTable.tsx:347
-#: src/components/PortfolioTable.tsx:352
+#: src/components/PortfolioTable.tsx:341
+#: src/components/PortfolioTable.tsx:346
 msgid "Link to Deed"
 msgstr "Link to Deed"
 
 #: src/components/Loader.tsx:19
-#: src/components/PropertiesList.tsx:126
-#: src/components/PropertiesMap.tsx:233
+#: src/components/PortfolioTable.tsx:442
+#: src/components/PropertiesMap.tsx:260
 msgid "Loading"
 msgstr "Loading"
 
-#: src/components/PropertiesList.tsx:123
+#: src/components/PortfolioTable.tsx:439
 msgid "Loading {0} rows"
 msgstr "Loading {0} rows"
 
-#: src/components/PortfolioTable.tsx:83
+#: src/components/PortfolioTable.tsx:77
 msgid "Location"
 msgstr "Location"
 
@@ -741,8 +753,8 @@ msgstr "Location"
 #~ msgstr "Look out for multiple spellings for the same person/entity. Names can be spelled multiple ways in official documents."
 
 #: src/components/PortfolioFilters.tsx:243
-msgid "Look out for multiple spellings of the same person/entity. Names can be spelled multiple ways in official documents."
-msgstr "Look out for multiple spellings of the same person/entity. Names can be spelled multiple ways in official documents."
+#~ msgid "Look out for multiple spellings of the same person/entity. Names can be spelled multiple ways in official documents."
+#~ msgstr "Look out for multiple spellings of the same person/entity. Names can be spelled multiple ways in official documents."
 
 #: src/components/PropertiesSummary.tsx:134
 msgid "Looking for more information?"
@@ -874,11 +886,11 @@ msgid "New York Regional Office:"
 msgstr "New York Regional Office:"
 
 #: src/components/FeatureCalloutWidget.tsx:81
-#: src/components/PortfolioTable.tsx:552
+#: src/components/PortfolioTable.tsx:548
 msgid "Next"
 msgstr "Next"
 
-#: src/components/PortfolioTable.tsx:370
+#: src/components/PortfolioTable.tsx:364
 msgid "No"
 msgstr "No"
 
@@ -927,7 +939,7 @@ msgstr "Not found"
 #~ msgid "Notice an inaccuracy? Click here."
 #~ msgstr "Notice an inaccuracy? Click here."
 
-#: src/components/PortfolioFilters.tsx:147
+#: src/components/PortfolioFilters.tsx:148
 msgid "Number of Units"
 msgstr "Number of Units"
 
@@ -958,7 +970,7 @@ msgstr "Oops! A network error occurred. Try again later."
 msgid "Oops! That email is invalid."
 msgstr "Oops! That email is invalid."
 
-#: src/components/PortfolioTable.tsx:219
+#: src/components/PortfolioTable.tsx:213
 msgid "Open"
 msgstr "Open"
 
@@ -998,7 +1010,7 @@ msgstr "PLUMBING"
 msgid "PORTFOLIO: Your search address is associated with <0>{0}</0> {1, plural, one {building} other {buildings}}"
 msgstr "PORTFOLIO: Your search address is associated with <0>{0}</0> {1, plural, one {building} other {buildings}}"
 
-#: src/components/PortfolioTable.tsx:521
+#: src/components/PortfolioTable.tsx:517
 msgid "Page"
 msgstr "Page"
 
@@ -1007,8 +1019,8 @@ msgstr "Page"
 msgid "People"
 msgstr "People"
 
-#: src/components/PortfolioFilters.tsx:144
-#: src/components/PortfolioTable.tsx:273
+#: src/components/PortfolioFilters.tsx:145
+#: src/components/PortfolioTable.tsx:267
 msgid "Person/Entity"
 msgstr "Person/Entity"
 
@@ -1016,7 +1028,7 @@ msgstr "Person/Entity"
 msgid "Please enter an email address!"
 msgstr "Please enter an email address!"
 
-#: src/containers/AddressPage.tsx:156
+#: src/containers/AddressPage.tsx:148
 msgid "Portfolio"
 msgstr "Portfolio"
 
@@ -1025,7 +1037,7 @@ msgid "Portfolio Table Redesign"
 msgstr "Portfolio Table Redesign"
 
 #: src/components/FeatureCalloutWidget.tsx:74
-#: src/components/PortfolioTable.tsx:515
+#: src/components/PortfolioTable.tsx:511
 msgid "Previous"
 msgstr "Previous"
 
@@ -1039,7 +1051,7 @@ msgid "Public Housing Development"
 msgstr "Public Housing Development"
 
 #: src/components/BuildingStatsTable.tsx:90
-#: src/components/PortfolioTable.tsx:149
+#: src/components/PortfolioTable.tsx:143
 msgid "RS Units"
 msgstr "RS Units"
 
@@ -1049,7 +1061,7 @@ msgstr "RS Units"
 #~ msgstr "Read more about our Methodology"
 
 #: src/components/PortfolioFilters.tsx:116
-#: src/components/PortfolioFilters.tsx:187
+#: src/components/PortfolioFilters.tsx:194
 msgid "Read more in our Methodology section"
 msgstr "Read more in our Methodology section"
 
@@ -1057,11 +1069,11 @@ msgstr "Read more in our Methodology section"
 msgid "Registration expired:"
 msgstr "Registration expired:"
 
-#: src/components/PortfolioFilters.tsx:141
+#: src/components/PortfolioFilters.tsx:142
 msgid "Rent Stabilized Units"
 msgstr "Rent Stabilized Units"
 
-#: src/components/PortfolioFilters.tsx:138
+#: src/components/PortfolioFilters.tsx:139
 msgid "Rent Stabilized Units filter"
 msgstr "Rent Stabilized Units filter"
 
@@ -1069,7 +1081,7 @@ msgstr "Rent Stabilized Units filter"
 msgid "Rent stabilization"
 msgstr "Rent stabilization"
 
-#: src/components/PropertiesMap.tsx:318
+#: src/components/PropertiesMap.tsx:344
 msgid "Rent stabilized units ({0}): {1}"
 msgstr "Rent stabilized units ({0}): {1}"
 
@@ -1077,7 +1089,7 @@ msgstr "Rent stabilized units ({0}): {1}"
 #~ msgid "Rent stabilized units are self-reported in yearly tax statements by building owners. As a result, many buildings with rent stabilized units may appear to be deregulated."
 #~ msgstr "Rent stabilized units are self-reported in yearly tax statements by building owners. As a result, many buildings with rent stabilized units may appear to be deregulated."
 
-#: src/components/PortfolioFilters.tsx:234
+#: src/components/PortfolioFilters.tsx:241
 msgid "Rent stabilized units are self-reported in yearly tax statements by building owners. As a result, many buildings with rent stabilized units may not be documented."
 msgstr "Rent stabilized units are self-reported in yearly tax statements by building owners. As a result, many buildings with rent stabilized units may not be documented."
 
@@ -1110,7 +1122,7 @@ msgstr "Search"
 msgid "Search by your landlord's name"
 msgstr "Search by your landlord's name"
 
-#: src/containers/HomePage.tsx:100
+#: src/containers/HomePage.tsx:97
 msgid "Search by:"
 msgstr "Search by:"
 
@@ -1123,7 +1135,7 @@ msgstr "Search for a different address"
 msgid "Search landlords"
 msgstr "Search landlords"
 
-#: src/components/PropertiesMap.tsx:342
+#: src/components/PropertiesMap.tsx:368
 msgid "See Building Profile"
 msgstr "See Building Profile"
 
@@ -1160,6 +1172,10 @@ msgstr "Shareholder"
 msgid "Show all {numSelections} selections"
 msgstr "Show all {numSelections} selections"
 
+#: src/components/PropertiesMap.tsx:319
+msgid "Show legend"
+msgstr "Show legend"
+
 #: src/components/Multiselect.tsx:140
 msgid "Show less"
 msgstr "Show less"
@@ -1168,7 +1184,7 @@ msgstr "Show less"
 msgid "Show only {previewSelectedNum} selections"
 msgstr "Show only {previewSelectedNum} selections"
 
-#: src/components/PortfolioFilters.tsx:158
+#: src/components/PortfolioFilters.tsx:159
 msgid "Showing {0} {1, plural, one {result} other {results}}"
 msgstr "Showing {0} {1, plural, one {result} other {results}}"
 
@@ -1201,7 +1217,7 @@ msgstr "Sign up for email updates"
 msgid "Since 2017, landlords filed {totalEvictionFilings, plural, one {one eviction case} other {# eviction cases}} and NYC Marshals executed {totalEvictions, plural, one {one eviction} other {# evictions}} across this portfolio."
 msgstr "Since 2017, landlords filed {totalEvictionFilings, plural, one {one eviction case} other {# eviction cases}} and NYC Marshals executed {totalEvictions, plural, one {one eviction} other {# evictions}} across this portfolio."
 
-#: src/components/PortfolioTable.tsx:579
+#: src/components/PortfolioTable.tsx:576
 msgid "Since {year}"
 msgstr "Since {year}"
 
@@ -1217,7 +1233,7 @@ msgstr "Sold to Current Owner"
 msgid "Some large corporations, however, are a bit more complicated and may share personnel and financial stake with other related companies, which all will show up on Who Owns What as one large portfolio."
 msgstr "Some large corporations, however, are a bit more complicated and may share personnel and financial stake with other related companies, which all will show up on Who Owns What as one large portfolio."
 
-#: src/components/PropertiesMap.tsx:243
+#: src/components/PropertiesMap.tsx:270
 msgid "Sorry, it looks like there's an error on the map. Try again on a different browser or <0>enable WebGL</0>."
 msgstr "Sorry, it looks like there's an error on the map. Try again on a different browser or <0>enable WebGL</0>."
 
@@ -1237,7 +1253,7 @@ msgstr "Source code"
 #~ msgid "Starting March 2023 <0>the old version</0> of Who Owns What will no longer be available."
 #~ msgstr "Starting March 2023 <0>the old version</0> of Who Owns What will no longer be available."
 
-#: src/components/PortfolioTable.tsx:579
+#: src/components/PortfolioTable.tsx:576
 msgid "Starts {year}"
 msgstr "Starts {year}"
 
@@ -1266,7 +1282,7 @@ msgstr "Table"
 msgid "Take action on JustFix.org!"
 msgstr "Take action on JustFix.org!"
 
-#: src/components/PortfolioTable.tsx:301
+#: src/components/PortfolioTable.tsx:295
 msgid "Tax Exemptions"
 msgstr "Tax Exemptions"
 
@@ -1303,7 +1319,7 @@ msgstr "The building with the most executed evictions is <0>{0} {1}, {2}</0> wit
 msgid "The city borough where your search address is located"
 msgstr "The city borough where your search address is located"
 
-#: src/containers/HomePage.tsx:173
+#: src/containers/HomePage.tsx:130
 msgid "The city’s fifth <0>worst evictor</0> in 2018, A&E is a prime example of a landlord who engages in <1>aggressive eviction strategies</1> to displace low-income tenants. Besides lack of repairs and frivolous evictions in housing court, A&E has also been known to use <2>MCIs</2> to <3>double rents</3> in rent-stabilized buildings."
 msgstr "The city’s fifth <0>worst evictor</0> in 2018, A&E is a prime example of a landlord who engages in <1>aggressive eviction strategies</1> to displace low-income tenants. Besides lack of repairs and frivolous evictions in housing court, A&E has also been known to use <2>MCIs</2> to <3>double rents</3> in rent-stabilized buildings."
 
@@ -1330,6 +1346,10 @@ msgstr "The number of residential units in this building, according to the Dept.
 #: src/containers/NotRegisteredPage.tsx:123
 msgid "The registration for this property is missing details for owner name or businesses address, which are required to link the property to a portfolio."
 msgstr "The registration for this property is missing details for owner name or businesses address, which are required to link the property to a portfolio."
+
+#: src/components/PortfolioFilters.tsx:250
+msgid "The same owner may have spelled their name several ways in official documents."
+msgstr "The same owner may have spelled their name several ways in official documents."
 
 #: src/components/BuildingStatsTable.tsx:34
 msgid "The year that this building was originally constructed, according to the Dept. of City Planning."
@@ -1384,8 +1404,8 @@ msgid "This portfolio has an average of <0>{0}</0> open HPD violations per resid
 msgstr "This portfolio has an average of <0>{0}</0> open HPD violations per residential unit."
 
 #: src/containers/HomePage.tsx:139
-msgid "This property management company owned by the Kushner family is notorious for <0>violating rent regulations</0> and <1>harassing tenants</1>. The stake currently held by Jared Kushner and Ivanka Trump is worth as much as $761 million."
-msgstr "This property management company owned by the Kushner family is notorious for <0>violating rent regulations</0> and <1>harassing tenants</1>. The stake currently held by Jared Kushner and Ivanka Trump is worth as much as $761 million."
+#~ msgid "This property management company owned by the Kushner family is notorious for <0>violating rent regulations</0> and <1>harassing tenants</1>. The stake currently held by Jared Kushner and Ivanka Trump is worth as much as $761 million."
+#~ msgstr "This property management company owned by the Kushner family is notorious for <0>violating rent regulations</0> and <1>harassing tenants</1>. The stake currently held by Jared Kushner and Ivanka Trump is worth as much as $761 million."
 
 #: src/components/RentstabSummary.tsx:23
 msgid "This represents <0>{0}%</0> of the total size of this portfolio."
@@ -1407,17 +1427,17 @@ msgstr "This tracks how rent stabilized units in the building have changed (i.e.
 msgid "This will export <0>{0}</0> addresses associated with the landlord at <1>{userAddrStr}</1>!"
 msgstr "This will export <0>{0}</0> addresses associated with the landlord at <1>{userAddrStr}</1>!"
 
-#: src/containers/AddressPage.tsx:148
+#: src/containers/AddressPage.tsx:156
 msgid "Timeline"
 msgstr "Timeline"
 
-#: src/components/PortfolioTable.tsx:202
+#: src/components/PortfolioTable.tsx:196
 msgid "Top Complaint"
 msgstr "Top Complaint"
 
 #: src/components/IndicatorsViz.tsx:349
-#: src/components/PortfolioTable.tsx:186
-#: src/components/PortfolioTable.tsx:227
+#: src/components/PortfolioTable.tsx:180
+#: src/components/PortfolioTable.tsx:221
 msgid "Total"
 msgstr "Total"
 
@@ -1425,7 +1445,7 @@ msgstr "Total"
 msgid "Total Violations"
 msgstr "Total Violations"
 
-#: src/components/PortfolioFilters.tsx:240
+#: src/components/PortfolioFilters.tsx:247
 msgid "Try adjusting or clearing the filters to show more than 0 results."
 msgstr "Try adjusting or clearing the filters to show more than 0 results."
 
@@ -1442,7 +1462,7 @@ msgid "Unable to request Code Violation Dismissals"
 msgstr "Unable to request Code Violation Dismissals"
 
 #: src/components/BuildingStatsTable.tsx:44
-#: src/components/PortfolioTable.tsx:139
+#: src/components/PortfolioTable.tsx:133
 #: src/containers/NychaPage.tsx:83
 msgid "Units"
 msgstr "Units"
@@ -1468,12 +1488,12 @@ msgstr "Useful links"
 msgid "VENTILATION SYSTEM"
 msgstr "VENTILATION SYSTEM"
 
-#: src/components/PortfolioTable.tsx:379
-#: src/components/PortfolioTable.tsx:386
+#: src/components/PortfolioTable.tsx:373
+#: src/components/PortfolioTable.tsx:380
 msgid "View Detail"
 msgstr "View Detail"
 
-#: src/components/PortfolioFilters.tsx:218
+#: src/components/PortfolioFilters.tsx:225
 msgid "View Results"
 msgstr "View Results"
 
@@ -1496,18 +1516,21 @@ msgid "View documents on <0>ACRIS</0>"
 msgstr "View documents on <0>ACRIS</0>"
 
 #: src/components/PropertiesMap.tsx:290
-msgid "View legend"
-msgstr "View legend"
+#~ msgid "View legend"
+#~ msgstr "View legend"
 
-#: src/containers/HomePage.tsx:154
-#: src/containers/HomePage.tsx:196
-#: src/containers/HomePage.tsx:233
+#: src/components/DetailView.tsx:146
+msgid "View map"
+msgstr "View map"
+
+#: src/containers/HomePage.tsx:153
+#: src/containers/HomePage.tsx:182
 msgid "View portfolio"
 msgstr "View portfolio"
 
 #: src/components/DetailView.tsx:146
-msgid "View portfolio map"
-msgstr "View portfolio map"
+#~ msgid "View portfolio map"
+#~ msgstr "View portfolio map"
 
 #: src/components/IndicatorsDatasets.tsx:42
 #: src/components/IndicatorsDatasets.tsx:97
@@ -1546,7 +1569,7 @@ msgstr "We compare your search address with a database of over 200k buildings to
 msgid "We overhauled the Portfolio tab to help make navigating this large table of data easier, especially for mobile phones."
 msgstr "We overhauled the Portfolio tab to help make navigating this large table of data easier, especially for mobile phones."
 
-#: src/components/PortfolioFilters.tsx:178
+#: src/components/PortfolioFilters.tsx:185
 msgid "We pull data from public records to calculate these results. Our algorithm relies on public <0>HPD registration data</0> for residential buildings, which contains self-reported landlord contact information on about 170,000 properties across the city."
 msgstr "We pull data from public records to calculate these results. Our algorithm relies on public <0>HPD registration data</0> for residential buildings, which contains self-reported landlord contact information on about 170,000 properties across the city."
 
@@ -1608,8 +1631,8 @@ msgid "Who Owns What is a free tool built by JustFix to research property owners
 msgstr "Who Owns What is a free tool built by JustFix to research property owners in NYC. It has helped over 200,000 New Yorkers find out who really owns their building, what other buildings that their landlord or management company owns, and other critical information about code violations, evictions, rent stabilized units, and so much more in any given building. You can look up any residential building located in NYC, even public housing (NYCHA) buildings! Search your address here: {url}"
 
 #: src/components/PortfolioFilters.tsx:144
-msgid "Who are they?"
-msgstr "Who are they?"
+#~ msgid "Who are they?"
+#~ msgstr "Who are they?"
 
 #: src/containers/App.tsx:42
 msgid "Who owns what in n y c?"
@@ -1639,7 +1662,7 @@ msgstr "Why am I seeing such a big portfolio?"
 msgid "Year Built"
 msgstr "Year Built"
 
-#: src/components/PortfolioTable.tsx:369
+#: src/components/PortfolioTable.tsx:363
 msgid "Yes"
 msgstr "Yes"
 
@@ -1668,16 +1691,16 @@ msgstr "You are viewing the old version of Who Owns What. <0>Switch to the new v
 #~ msgid "ZIP CODE is not applicable"
 #~ msgstr "ZIP CODE is not applicable"
 
-#: src/components/PortfolioFilters.tsx:151
+#: src/components/PortfolioFilters.tsx:152
 msgid "ZIP code is not applicable"
 msgstr "ZIP code is not applicable"
 
-#: src/components/PortfolioFilters.tsx:150
-#: src/components/PortfolioTable.tsx:88
+#: src/components/PortfolioFilters.tsx:151
+#: src/components/PortfolioTable.tsx:82
 msgid "Zip Code"
 msgstr "Zip Code"
 
-#: src/components/PortfolioFilters.tsx:151
+#: src/components/PortfolioFilters.tsx:152
 msgid "Zip code filter"
 msgstr "Zip code filter"
 
@@ -1698,9 +1721,9 @@ msgstr "Zoom out"
 msgid "and"
 msgstr "and"
 
-#: src/components/PropertiesMap.tsx:214
-#~ msgid "associated building"
-#~ msgstr "associated building"
+#: src/components/PropertiesMap.tsx:328
+msgid "associated building"
+msgstr "associated building"
 
 #: src/components/DetailView.tsx:242
 msgid "for ${0}"
@@ -1710,15 +1733,23 @@ msgstr "for ${0}"
 msgid "month"
 msgstr "month"
 
-#: src/components/PortfolioTable.tsx:532
+#: src/components/PortfolioTable.tsx:530
+msgid "number of records per page"
+msgstr "number of records per page"
+
+#: src/components/PortfolioTable.tsx:528
 msgid "of"
 msgstr "of"
+
+#: src/components/PortfolioTable.tsx:520
+msgid "page number"
+msgstr "page number"
 
 #: src/components/Indicators.tsx:17
 msgid "quarter"
 msgstr "quarter"
 
-#: src/components/PropertiesMap.tsx:296
+#: src/components/PropertiesMap.tsx:325
 msgid "search address"
 msgstr "search address"
 
@@ -1730,13 +1761,13 @@ msgstr "search address"
 msgid "year"
 msgstr "year"
 
-#: src/components/PropertiesMap.tsx:333
+#: src/components/PropertiesMap.tsx:359
 msgid "{0, plural, one {unit} other {units}}"
 msgstr "{0, plural, one {unit} other {units}}"
 
 #: src/components/PropertiesMap.tsx:299
-msgid "{0}"
-msgstr "{0}"
+#~ msgid "{0}"
+#~ msgstr "{0}"
 
 #: src/components/FeatureCalloutWidget.tsx:26
 msgid "{0} of {numberOfEntries}"
