@@ -138,7 +138,8 @@
         }
 
         &.addr-filter:before {
-          background-color: $justfix-blue;
+          background-color: $justfix-white;
+          border: 2px solid $justfix-blue;
         }
       }
     }
