@@ -263,7 +263,7 @@ $table-border-dark: 1px solid $dark;
     .next,
     .prev {
       .page-btn[disabled] {
-        opacity: 0.5;
+        opacity: 0.65;
         cursor: default;
       }
 
@@ -278,7 +278,7 @@ $table-border-dark: 1px solid $dark;
         border-radius: 3px;
         padding: 6px;
         font-size: 1em;
-        color: rgba(0, 0, 0, 0.6);
+        color: $justfix-black;
         background: rgba(0, 0, 0, 0.1);
         transition: all 0.1s ease;
         cursor: pointer;
