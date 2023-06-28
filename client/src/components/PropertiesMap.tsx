@@ -19,7 +19,7 @@ import {
   IFilterContext,
   PortfolioAnalyticsEvent,
   defaultFilterContext,
-  filterAddrs,
+  filterAddresses,
 } from "./PropertiesList";
 import { isEqual } from "lodash";
 import { Alert } from "./Alert";
@@ -218,8 +218,6 @@ export default class PropertiesMap extends Component<Props, State> {
   componentDidUpdate(prevProps: Props, prevState: State) {
     this.state.mapRef?.resize();
 
-    // this.isOnOverview() && this.zoomToNewDetailAddr(prevProps);
-
     const { filterContext } = this.context;
 
     if (typeof filterContext === "undefined") return;
@@ -247,7 +245,6 @@ export default class PropertiesMap extends Component<Props, State> {
     // On Overview page, this updates global context/state with new detail address. On Portfolio this just has telemetry.
     this.props.onAddrChange(addr.bbl);
 
-    // TODO: when on portfolio page, update state for selected address
     if (!this.isOnOverview()) {
       this.setState({ selectedAddr: addr });
     }
@@ -274,7 +271,7 @@ export default class PropertiesMap extends Component<Props, State> {
     const { assocAddrs, searchAddr } = this.getPortfolioData();
 
     // cycle through addrs, adding them to the set and categorizing them
-    this.filterAddrs(assocAddrs, searchAddr).forEach((addr, i) => {
+    this.filterAddresses(assocAddrs, searchAddr).forEach((addr, i) => {
       const pos: LatLng = [addr.lng || NaN, addr.lat || NaN];
 
       if (!MapHelpers.latLngIsNull(pos)) {
@@ -305,12 +302,12 @@ export default class PropertiesMap extends Component<Props, State> {
     return { newAssocAddrs, newAddrsBounds };
   };
 
-  filterAddrs(addrs: AddressRecord[], searchAddr: AddressRecord) {
+  filterAddresses(addrs: AddressRecord[], searchAddr: AddressRecord) {
     const { filterContext } = this.context;
 
     if (typeof filterContext === "undefined") return addrs;
 
-    const filteredAddrs = filterAddrs(addrs, filterContext.filterSelections).filter(
+    const filteredAddrs = filterAddresses(addrs, filterContext.filterSelections).filter(
       (addr) => addr.bbl !== searchAddr.bbl
     );
 

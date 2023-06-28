@@ -8,7 +8,7 @@ import {
   PortfolioAnalyticsEvent,
   NUMBER_RANGE_DEFAULT,
   FilterNumberRangeSelections,
-  filterAddrs,
+  filterAddresses,
 } from "./PropertiesList";
 import FocusTrap from "focus-trap-react";
 import { FocusTarget } from "focus-trap";
@@ -64,23 +64,20 @@ const PortfolioFiltersWithoutI18n = React.memo(
       setFilterContext({
         ...filterContext,
         filterOptions: {
-          // put corporations like "123 Fake St, LLC" at the end so real names are shown first
           ownernames: getOwnernamesOptions(assocAddrs),
           unitsres: getUnitsresOptions(assocAddrs),
           zip: getZipOptions(assocAddrs),
         },
       });
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [assocAddrs]);
+    }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     React.useEffect(() => {
       setFilterContext((prevContext) => ({
         ...prevContext,
         totalBuildings: assocAddrs.length,
-        filteredBuildings: filterAddrs(assocAddrs, filterSelections).length,
+        filteredBuildings: filterAddresses(assocAddrs, filterSelections).length,
       }));
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [assocAddrs, filterSelections]);
+    }, [filterSelections]); // eslint-disable-line react-hooks/exhaustive-deps
 
     const [rsunitslatestActive, setRsunitslatestActive] = React.useState(false);
     const updateRsunitslatest = () => {
@@ -243,7 +240,7 @@ const PortfolioFiltersWithoutI18n = React.memo(
             <FilterAccordion
               title={i18n._(t`Landlord`)}
               subtitle={i18n._(t`Person/Entity`)}
-              infoIconAria={i18n._(
+              infoIconAriaLabel={i18n._(
                 t`Learn more about what it means for someone to be listed as a landlord`
               )}
               infoModalContents={ownernamesInfoModalContents}
@@ -486,7 +483,7 @@ const OwnernamesInfoAlert = (
 type FilterAccordionProps = withI18nProps & {
   title: string;
   subtitle?: string;
-  infoIconAria?: string;
+  infoIconAriaLabel?: string;
   onInfoClick?: () => void;
   infoModalContents?: JSX.Element;
   children: React.ReactNode;
@@ -510,7 +507,7 @@ const FilterAccordion = withI18n()((props: FilterAccordionProps) => {
   const {
     title,
     subtitle,
-    infoIconAria,
+    infoIconAriaLabel,
     onInfoClick,
     infoModalContents,
     children,
@@ -563,7 +560,7 @@ const FilterAccordion = withI18n()((props: FilterAccordionProps) => {
                 {infoModalContents && (
                   <button
                     className="filter-info"
-                    aria-label={infoIconAria}
+                    aria-label={infoIconAriaLabel}
                     onClick={() => {
                       setShowInfoModal(true);
                       onInfoClick && onInfoClick();

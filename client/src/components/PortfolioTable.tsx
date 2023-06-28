@@ -64,7 +64,7 @@ const inNumberRanges: FilterFn<any> = (
 ) => {
   const rowValue = row.getValue<number>(columnId);
   return filterValue.reduce(
-    (acc, rng) => acc || (rowValue >= rng.min && rowValue <= rng.max),
+    (acc, range) => acc || (rowValue >= range.min && rowValue <= range.max),
     false
   );
 };
@@ -547,14 +547,12 @@ const PortfolioTableWithoutI18n = React.memo((props: PortfolioTableProps) => {
     table.getColumn("zip").setFilterValue(zip);
   }, [filterSelections]);
 
-  // TODO: is this necessary?
   React.useEffect(() => {
     if (table.getState().columnFilters[0]?.id === "ownernames") {
       if (table.getState().sorting[0]?.id !== "ownernames") {
         table.setSorting([{ id: "ownernames", desc: false }]);
       }
     }
-    //   eslint-disable-next-line
   }, [table.getState().columnFilters[0]?.id]);
 
   const tableRef = React.useRef<HTMLDivElement>(null);
@@ -596,16 +594,14 @@ const PortfolioTableWithoutI18n = React.memo((props: PortfolioTableProps) => {
                           {header.isPlaceholder ? null : (
                             <>
                               <div
-                                {...{
-                                  className: header.column.getCanSort()
-                                    ? "cursor-pointer select-none"
-                                    : "",
-                                  onClick: (e) => {
-                                    header.column.getToggleSortingHandler()?.(e);
-                                    logPortfolioAnalytics("portfolioColumnSort", {
-                                      column: header.column.id,
-                                    });
-                                  },
+                                className={classnames(
+                                  !header.column.getCanSort() ?? "cursor-pointer select-none"
+                                )}
+                                onClick={(e) => {
+                                  header.column.getToggleSortingHandler()?.(e);
+                                  logPortfolioAnalytics("portfolioColumnSort", {
+                                    column: header.column.id,
+                                  });
                                 }}
                                 ref={header.column.id === "detail" ? lastColumnRef : undefined}
                               >

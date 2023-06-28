@@ -69,7 +69,7 @@ const useValue = () => {
 
 export const FilterContext = React.createContext({} as ReturnType<typeof useValue>);
 
-export const filterAddrs = (addrs: AddressRecord[], filterSelections: FilterSelections) => {
+export const filterAddresses = (addrs: AddressRecord[], filterSelections: FilterSelections) => {
   const {
     rsunitslatest: filterRsunitslatest,
     ownernames: filterOwnernames,
@@ -96,8 +96,9 @@ export const filterAddrs = (addrs: AddressRecord[], filterSelections: FilterSele
 
     if (keepAddr && filterUnitsres.type !== "default") {
       keepAddr = filterUnitsres.values.reduce(
-        (acc, rng) =>
-          acc || (addr.unitsres != null && addr.unitsres >= rng.min && addr.unitsres <= rng.max),
+        (acc, range) =>
+          acc ||
+          (addr.unitsres != null && addr.unitsres >= range.min && addr.unitsres <= range.max),
         false
       );
     }
