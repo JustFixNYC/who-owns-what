@@ -584,8 +584,8 @@ msgid "I was checking out this building on Who Owns What, a free landlord resear
 msgstr "I was checking out this building on Who Owns What, a free landlord research tool from JustFix. It’s a remarkable website that every tenant and housing advocate should know about! Can you guess how many total violations this landlord portfolio has? Check it out here: {url}"
 
 #: src/containers/App.tsx:170
-msgid "In April 2023, this link to <0>the old version</0> of Who Owns What will move to the About Page."
-msgstr "In April 2023, this link to <0>the old version</0> of Who Owns What will move to the About Page."
+#~ msgid "In April 2023, this link to <0>the old version</0> of Who Owns What will move to the About Page."
+#~ msgstr "In April 2023, this link to <0>the old version</0> of Who Owns What will move to the About Page."
 
 #: src/containers/App.tsx:170
 #~ msgid "In April 2023, this link to <0>the old version</0> of Who Owns What will will move to the About Page."
@@ -1339,9 +1339,17 @@ msgstr "This is <0>better</0> than the citywide average of {VIOLATIONS_AVG} per 
 msgid "This is <0>worse</0> than the citywide average of {VIOLATIONS_AVG} per residential unit."
 msgstr "This is <0>worse</0> than the citywide average of {VIOLATIONS_AVG} per residential unit."
 
+#: src/containers/App.tsx:171
+msgid "This is the new version of Who Owns What. To view the old version <0>visit the About Page.</0>"
+msgstr "This is the new version of Who Owns What. To view the old version <0>visit the About Page.</0>"
+
 #: src/components/BuildingStatsTable.tsx:19
 msgid "This is the official identifer for the building according to the Dept. of Finance tax records."
 msgstr "This is the official identifer for the building according to the Dept. of Finance tax records."
+
+#: src/containers/App.tsx:166
+msgid "This is the old version of Who Owns What. <0>Check out the new version here.</0>"
+msgstr "This is the old version of Who Owns What. <0>Check out the new version here.</0>"
 
 #: src/components/PropertiesSummary.tsx:143
 msgid "This landlord owns {0} buildings, and according to @NYCHousing, has received a total of {1} violations. Can you guess which landlord it is? Find their name and more data analysis here:"
@@ -1632,8 +1640,8 @@ msgstr "You are viewing a legacy version of Who Owns What"
 #~ msgstr "You are viewing the old version of Who Owns What."
 
 #: src/containers/App.tsx:165
-msgid "You are viewing the old version of Who Owns What. <0>Switch to the new version.</0>"
-msgstr "You are viewing the old version of Who Owns What. <0>Switch to the new version.</0>"
+#~ msgid "You are viewing the old version of Who Owns What. <0>Switch to the new version.</0>"
+#~ msgstr "You are viewing the old version of Who Owns What. <0>Switch to the new version.</0>"
 
 #: src/components/PortfolioFilters.tsx:108
 #: src/components/PortfolioTable.tsx:76
