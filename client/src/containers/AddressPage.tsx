@@ -234,6 +234,8 @@ export default class AddressPage extends Component<AddressPageProps, State> {
                 this.props.currentTab === 0 ? "AddressPage__content-active" : ""
               }`}
             >
+              {/* We are changed for each map load, which happens on render, so we want to
+              avoid rendering when it's not in view or rerendering which switching between tabs */}
               {this.state.overviewEverVisible && (
                 <PropertiesMap
                   location="overview"

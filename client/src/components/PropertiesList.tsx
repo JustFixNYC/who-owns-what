@@ -153,7 +153,14 @@ const PropertiesListWithoutI18n: React.FC<
     map: viewType === "map",
   });
 
+  // We keep trak of this since mapbox loads on render of the Map component (not
+  // instantiation of the Map object) and we're charged for each load, so we
+  // want to only render it when necessary and then not unmount when switching
+  // views back and forth
   React.useEffect(() => {
+    // Currently table will alsways be true, and map always start as false, but
+    // we have talked about adding the ability to link to the portfolio tab with
+    // the view type (map/table) specified, so this will help if/when we do that
     setViewsEverVisible((prev) => ({
       table: prev.table || viewType === "table",
       map: prev.map || viewType === "map",
