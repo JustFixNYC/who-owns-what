@@ -162,8 +162,6 @@ const ASSOC_LAYOUT = {
 
 // due to the wonky way react-mapboxgl works, we can't just specify a center/zoom combo
 // instead we use this offset value to create a fake bounding box around the detail center point
-// TODO: probably a non-hack way to do this?
-// const DETAIL_OFFSET = 0.0007;
 const DETAIL_OFFSET = 0.0015;
 
 export default class PropertiesMap extends Component<Props, State> {
