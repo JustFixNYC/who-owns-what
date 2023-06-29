@@ -16,7 +16,6 @@ import {
   getSortedRowModel,
   PaginationState,
   Row,
-  Table,
   useReactTable,
 } from "@tanstack/react-table";
 import _groupBy from "lodash/groupBy";
@@ -28,22 +27,16 @@ import { withI18n, withI18nProps } from "@lingui/react";
 import { SupportedLocale } from "../i18n-base";
 import Helpers, { longDateOptions } from "../util/helpers";
 import { AddressRecord, HpdComplaintCount } from "./APIDataTypes";
-import {
-  FilterContext,
-  FilterNumberRange,
-  IFilterContext,
-  PortfolioAnalyticsEvent,
-  NUMBER_RANGE_DEFAULT,
-} from "./PropertiesList";
+import { FilterContext, FilterNumberRange, PortfolioAnalyticsEvent } from "./PropertiesList";
 import "styles/PortfolioTable.scss";
 import { sortContactsByImportance } from "./DetailView";
 import { ArrowIcon } from "./Icons";
 import classnames from "classnames";
 import { isLegacyPath } from "./WowzaToggle";
-import { OwnernamesResultAlert, RsUnitsResultAlert } from "./PortfolioFilters";
+import Loader from "./Loader";
 
 const FIRST_COLUMN_WIDTH = 130;
-export const MAX_TABLE_ROWS_PER_PAGE = 100;
+const MAX_TABLE_ROWS_PER_PAGE = 100;
 
 declare module "@tanstack/table-core" {
   interface FilterFns {
@@ -71,18 +64,18 @@ const inNumberRanges: FilterFn<any> = (
 ) => {
   const rowValue = row.getValue<number>(columnId);
   return filterValue.reduce(
-    (acc, rng) => acc || (rowValue >= rng.min && rowValue <= rng.max),
+    (acc, range) => acc || (rowValue >= range.min && rowValue <= range.max),
     false
   );
 };
 
 type PortfolioTableProps = withI18nProps & {
   data: AddressRecord[];
-  headerTopSpacing: number | undefined;
   locale: SupportedLocale;
   rsunitslatestyear: number;
   getRowCanExpand: (row: Row<AddressRecord>) => boolean;
   logPortfolioAnalytics: PortfolioAnalyticsEvent;
+  isVisible: boolean;
 };
 
 /**
@@ -90,19 +83,21 @@ type PortfolioTableProps = withI18nProps & {
  * in an attempt to improve performance, particularly on IE11.
  */
 const PortfolioTableWithoutI18n = React.memo((props: PortfolioTableProps) => {
-  const { data, locale, rsunitslatestyear, getRowCanExpand, logPortfolioAnalytics, i18n } = props;
+  const {
+    data,
+    locale,
+    rsunitslatestyear,
+    getRowCanExpand,
+    logPortfolioAnalytics,
+    i18n,
+    isVisible,
+  } = props;
 
   const { pathname } = useLocation();
 
-  const { filterContext, setFilterContext } = React.useContext(FilterContext);
+  const { filterContext } = React.useContext(FilterContext);
 
   const { filterSelections } = filterContext;
-  const activeFilters = {
-    rsunitslatestActive: filterSelections.rsunitslatest,
-    ownernamesActive: !!filterSelections.ownernames.length,
-    unitsresActive: filterSelections.unitsres.type !== "default",
-    zipActive: !!filterSelections.zip.length,
-  };
 
   const lastColumnRef = React.useRef<HTMLDivElement>(null);
   const isLastColumnVisible = Helpers.useOnScreen(lastColumnRef);
@@ -544,182 +539,197 @@ const PortfolioTableWithoutI18n = React.memo((props: PortfolioTableProps) => {
     debugColumns: false,
   });
 
-  useFilterOptionsUpdater(filterContext, setFilterContext, table);
-  useFilterSelectionsUpdater(filterContext, table);
-  useBuildingCountsUpdater(filterContext, setFilterContext, table);
+  React.useEffect(() => {
+    const { rsunitslatest, ownernames, unitsres, zip } = filterSelections;
+    table.getColumn("rsunitslatest").setFilterValue(rsunitslatest);
+    table.getColumn("ownernames").setFilterValue(ownernames);
+    table.getColumn("unitsres").setFilterValue(unitsres.values);
+    table.getColumn("zip").setFilterValue(zip);
+  }, [filterSelections]);
 
-  // TODO: is this necessary?
   React.useEffect(() => {
     if (table.getState().columnFilters[0]?.id === "ownernames") {
       if (table.getState().sorting[0]?.id !== "ownernames") {
         table.setSorting([{ id: "ownernames", desc: false }]);
       }
     }
-    //   eslint-disable-next-line
   }, [table.getState().columnFilters[0]?.id]);
 
+  const tableRef = React.useRef<HTMLDivElement>(null);
+  const isTableLoaded = Helpers.useOnScreen(tableRef);
+
   return (
-    <div id="PortfolioTable" className={classnames(hideScrollFade && "hide-scroll-fade")}>
-      <div className="portfolio-table-container">
-        <table>
-          <thead>
-            {table.getHeaderGroups().map((headerGroup) => (
-              <tr key={headerGroup.id}>
-                {headerGroup.headers.map((header) => {
-                  return (
-                    <th
-                      key={header.id}
-                      colSpan={header.colSpan}
-                      className={`col-${header.column.id}`}
-                      style={{ minWidth: header.getSize() || undefined }}
-                    >
-                      {header.isPlaceholder ? null : (
-                        <>
-                          <div
-                            {...{
-                              className: header.column.getCanSort()
-                                ? "cursor-pointer select-none"
-                                : "",
-                              onClick: (e) => {
-                                header.column.getToggleSortingHandler()?.(e);
-                                logPortfolioAnalytics("portfolioColumnSort", {
-                                  column: header.column.id,
-                                });
-                              },
-                            }}
-                            ref={header.column.id === "detail" ? lastColumnRef : undefined}
-                          >
-                            {flexRender(header.column.columnDef.header, header.getContext())}
-                            {headerGroup.depth === 1 && header.column.id !== "detail"
-                              ? {
-                                  asc: <ArrowIcon dir="up" />,
-                                  desc: <ArrowIcon dir="down" />,
-                                }[header.column.getIsSorted() as string] ?? <ArrowIcon dir="both" />
-                              : null}
-                          </div>
-                        </>
-                      )}
-                    </th>
-                  );
-                })}
-              </tr>
-            ))}
-          </thead>
-          <tbody>
-            {!!table.getRowModel().rows.length &&
-              (activeFilters.rsunitslatestActive || activeFilters.ownernamesActive) && (
-                <tr>
-                  <td
-                    className="filter-table-alert-container"
-                    colSpan={table.getVisibleFlatColumns().length}
-                  >
-                    {activeFilters.rsunitslatestActive && RsUnitsResultAlert}
-                    {activeFilters.ownernamesActive && OwnernamesResultAlert}
-                  </td>
-                </tr>
-              )}
-            {table.getRowModel().rows.map((row, i) => {
-              return (
-                <Fragment key={row.id}>
-                  <tr className={`row-${i % 2 ? "even" : "odd"}`}>
-                    {row.getVisibleCells().map((cell) => {
+    <div
+      id="PortfolioTable"
+      ref={tableRef}
+      className={classnames(hideScrollFade && "hide-scroll-fade", !isVisible && "is-hidden")}
+    >
+      {!isTableLoaded ? (
+        <Loader loading={true} classNames="Loader-table">
+          {data.length > MAX_TABLE_ROWS_PER_PAGE ? (
+            <>
+              <Trans>Loading {data.length} rows</Trans>
+              <br />
+              <Trans>(this may take a while)</Trans>
+            </>
+          ) : (
+            <Trans>Loading</Trans>
+          )}
+        </Loader>
+      ) : (
+        <>
+          <div className="portfolio-table-container">
+            <table>
+              <thead>
+                {table.getHeaderGroups().map((headerGroup) => (
+                  <tr key={headerGroup.id}>
+                    {headerGroup.headers.map((header) => {
                       return (
-                        <td
-                          key={cell.id}
-                          className={`col-${cell.column.id}`}
-                          style={{
-                            width:
-                              cell.column.getSize() !== 0
-                                ? cell.column.getSize() || undefined
-                                : undefined,
-                          }}
+                        <th
+                          key={header.id}
+                          colSpan={header.colSpan}
+                          className={`col-${header.column.id}`}
+                          style={{ minWidth: header.getSize() || undefined }}
                         >
-                          {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                        </td>
+                          {header.isPlaceholder ? null : (
+                            <>
+                              <div
+                                className={classnames(
+                                  !header.column.getCanSort() ?? "cursor-pointer select-none"
+                                )}
+                                onClick={(e) => {
+                                  header.column.getToggleSortingHandler()?.(e);
+                                  logPortfolioAnalytics("portfolioColumnSort", {
+                                    column: header.column.id,
+                                  });
+                                }}
+                                ref={header.column.id === "detail" ? lastColumnRef : undefined}
+                              >
+                                {flexRender(header.column.columnDef.header, header.getContext())}
+                                {headerGroup.depth === 1 && header.column.id !== "detail"
+                                  ? {
+                                      asc: <ArrowIcon dir="up" />,
+                                      desc: <ArrowIcon dir="down" />,
+                                    }[header.column.getIsSorted() as string] ?? (
+                                      <ArrowIcon dir="both" />
+                                    )
+                                  : null}
+                              </div>
+                            </>
+                          )}
+                        </th>
                       );
                     })}
                   </tr>
-                  {row.getIsExpanded() && (
-                    <tr>
-                      {/* 2nd row is a custom 1 cell row */}
-                      <td colSpan={row.getVisibleCells().length}>
-                        {renderContacts({ row, i18n })}
-                      </td>
-                    </tr>
-                  )}
-                </Fragment>
-              );
-            })}
-          </tbody>
-        </table>
-      </div>
+                ))}
+              </thead>
+              <tbody>
+                {table.getRowModel().rows.map((row, i) => {
+                  return (
+                    <Fragment key={row.id}>
+                      <tr className={`row-${i % 2 ? "even" : "odd"}`}>
+                        {row.getVisibleCells().map((cell) => {
+                          return (
+                            <td
+                              key={cell.id}
+                              className={`col-${cell.column.id}`}
+                              style={{
+                                width:
+                                  cell.column.getSize() !== 0
+                                    ? cell.column.getSize() || undefined
+                                    : undefined,
+                              }}
+                            >
+                              {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                            </td>
+                          );
+                        })}
+                      </tr>
+                      {row.getIsExpanded() && (
+                        <tr>
+                          {/* 2nd row is a custom 1 cell row */}
+                          <td colSpan={row.getVisibleCells().length}>
+                            {renderContacts({ row, i18n })}
+                          </td>
+                        </tr>
+                      )}
+                    </Fragment>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
 
-      <div className="pagination">
-        <div className="prev">
-          <button
-            className="page-btn"
-            onClick={() => {
-              table.previousPage();
-              logPortfolioAnalytics("portfolioPagination", {
-                extraParams: { paginationType: "previous" },
-              });
-            }}
-            disabled={!table.getCanPreviousPage()}
-          >
-            {i18n._(t`Previous`)}
-          </button>
-        </div>
-        <div className="center">
-          <span className="page-info">
-            <span>
-              <Trans>Page</Trans>
-            </span>
-            <div>
-              <input
-                type="number"
-                value={String(table.getState().pagination.pageIndex + 1)}
-                onChange={(e) => {
-                  const page = e.target.value ? Number(e.target.value) - 1 : 0;
-                  table.setPageIndex(page);
+          <div className="pagination">
+            <div className="prev">
+              <button
+                className="page-btn"
+                onClick={() => {
+                  table.previousPage();
                   logPortfolioAnalytics("portfolioPagination", {
-                    extraParams: { paginationType: "custom" },
+                    extraParams: { paginationType: "previous" },
                   });
                 }}
-              />
+                disabled={!table.getCanPreviousPage()}
+              >
+                {i18n._(t`Previous`)}
+              </button>
             </div>
-            <Trans>of</Trans> <span className="total-pages">{table.getPageCount()}</span>
-          </span>
-          <select
-            value={table.getState().pagination.pageSize}
-            onChange={(e) => {
-              table.setPageSize(Number(e.target.value));
-              logPortfolioAnalytics("portfolioPagination", {
-                extraParams: { paginationType: "size" },
-              });
-            }}
-          >
-            {[10, 20, 50, 100, 500].map((pageSize) => (
-              <option key={pageSize} value={pageSize}>
-                Show {pageSize}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div className="next">
-          <button
-            className="page-btn"
-            onClick={() => {
-              table.nextPage();
-              logPortfolioAnalytics("portfolioPagination", {
-                extraParams: { paginationType: "next" },
-              });
-            }}
-            disabled={!table.getCanNextPage()}
-          >
-            {i18n._(t`Next`)}
-          </button>
-        </div>
-      </div>
+            <div className="center">
+              <span className="page-info">
+                <span>
+                  <Trans>Page</Trans>
+                </span>
+                <div>
+                  <input
+                    type="number"
+                    aria-label={i18n._(t`page number`)}
+                    value={String(table.getState().pagination.pageIndex + 1)}
+                    onChange={(e) => {
+                      const page = e.target.value ? Number(e.target.value) - 1 : 0;
+                      table.setPageIndex(page);
+                      logPortfolioAnalytics("portfolioPagination", {
+                        extraParams: { paginationType: "custom" },
+                      });
+                    }}
+                  />
+                </div>
+                <Trans>of</Trans> <span className="total-pages">{table.getPageCount()}</span>
+              </span>
+              <select
+                value={table.getState().pagination.pageSize}
+                aria-label={i18n._(t`number of records per page`)}
+                onChange={(e) => {
+                  table.setPageSize(Number(e.target.value));
+                  logPortfolioAnalytics("portfolioPagination", {
+                    extraParams: { paginationType: "size" },
+                  });
+                }}
+              >
+                {[10, 20, 50, 100, 500].map((pageSize) => (
+                  <option key={pageSize} value={pageSize}>
+                    Show {pageSize}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="next">
+              <button
+                className="page-btn"
+                onClick={() => {
+                  table.nextPage();
+                  logPortfolioAnalytics("portfolioPagination", {
+                    extraParams: { paginationType: "next" },
+                  });
+                }}
+                disabled={!table.getCanNextPage()}
+              >
+                {i18n._(t`Next`)}
+              </button>
+            </div>
+          </div>
+        </>
+      )}
     </div>
   );
 });
@@ -756,72 +766,6 @@ function formatAbatementStartYear(year: number | null, i18n: I18n) {
 
 function findMostCommonType(complaints: HpdComplaintCount[] | null) {
   return complaints && complaints.length > 0 && complaints[0].type;
-}
-
-// TODO: This is getting triggered by sorts on these columns
-function useFilterOptionsUpdater(
-  filterContext: IFilterContext,
-  setFilterContext: React.Dispatch<React.SetStateAction<IFilterContext>>,
-  table: Table<AddressRecord>
-) {
-  const ownernamesOptionValues = table.getColumn("ownernames").getFacetedUniqueValues();
-  const unitsresOptionValues = table.getColumn("unitsres").getFacetedMinMaxValues();
-  const zipOptionValues = table.getColumn("zip").getFacetedUniqueValues();
-
-  React.useEffect(() => {
-    setFilterContext({
-      ...filterContext,
-      filterOptions: {
-        // put corporations like "123 Fake St, LLC" at the end so real names are shown first
-        ownernames: Array.from(new Set(Array.from(ownernamesOptionValues.keys()).flat())).sort(
-          compareAlphaNumLast
-        ),
-        unitsres: unitsresOptionValues
-          ? { min: unitsresOptionValues[0], max: unitsresOptionValues[1] }
-          : NUMBER_RANGE_DEFAULT,
-        zip: Array.from(zipOptionValues.keys())
-          .filter((zip) => zip != null)
-          .sort(),
-      },
-    });
-  }, [ownernamesOptionValues, unitsresOptionValues, zipOptionValues]);
-}
-
-function useFilterSelectionsUpdater(filterContext: IFilterContext, table: Table<AddressRecord>) {
-  React.useEffect(() => {
-    const { rsunitslatest, ownernames, unitsres, zip } = filterContext.filterSelections;
-    table.getColumn("rsunitslatest").setFilterValue(rsunitslatest);
-    table.getColumn("ownernames").setFilterValue(ownernames);
-    table.getColumn("unitsres").setFilterValue(unitsres.values);
-    table.getColumn("zip").setFilterValue(zip);
-  }, [filterContext.filterSelections]);
-}
-
-function useBuildingCountsUpdater(
-  filterContext: IFilterContext,
-  setFilterContext: React.Dispatch<React.SetStateAction<IFilterContext>>,
-  table: Table<AddressRecord>
-) {
-  const totalBuildings = table.getCoreRowModel().flatRows.length;
-  const filteredBuildings = table.getFilteredRowModel().flatRows.length;
-  React.useEffect(() => {
-    setFilterContext({
-      ...filterContext,
-      totalBuildings: totalBuildings,
-      filteredBuildings: filteredBuildings,
-    });
-  }, [totalBuildings, filteredBuildings]);
-}
-
-function startsNumeric(x: string) {
-  return /^\d/.test(x);
-}
-
-function compareAlphaNumLast(a: string, b: string) {
-  if (startsNumeric(a) === startsNumeric(b)) {
-    return a.localeCompare(b, undefined, { numeric: true, sensitivity: "base" });
-  }
-  return startsNumeric(a) ? 1 : -1;
 }
 
 const PortfolioTable = withI18n()(PortfolioTableWithoutI18n);

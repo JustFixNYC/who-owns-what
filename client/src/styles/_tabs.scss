@@ -80,9 +80,8 @@
       height: 26px;
       max-width: 105px;
 
-      background: #ffffff
-        url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAHElEQVQYV2NMS0v7P2vWLEYGKIAzMARgKjFUAABWhQgF0A6r6AAAAABJRU5ErkJggg==)
-        repeat;
+      color: $justfix-grey-600;
+      background-color: $justfix-white;
 
       border: 1px solid $gray-dark;
       border-bottom: none;
@@ -128,7 +127,9 @@
         height: 27px;
         top: 1px;
         border-color: $dark;
-        background: #fff;
+        color: $justfix-black;
+        font-weight: 700;
+        background-color: $justfix-white;
         z-index: 3;
 
         &:before,

@@ -6,9 +6,6 @@ import LegalFooter from "../components/LegalFooter";
 import "styles/HomePage.css";
 
 import { LocaleLink as Link } from "../i18n";
-import westminsterLogo from "../assets/img/westminster.svg";
-import stellarLogo from "../assets/img/stellar.png";
-import aeLogo from "../assets/img/aande.svg";
 import AddressSearch, { SearchAddress } from "../components/AddressSearch";
 import { Trans } from "@lingui/macro";
 import Page from "../components/Page";
@@ -196,60 +193,7 @@ const HomePage: React.FC<HomePageProps> = ({ useNewPortfolioMethod }) => {
             </h5>
             <div className="container">
               <div className="columns">
-                <div className="column col-4 col-sm-12">
-                  <div className="HomePage__sample">
-                    <h6>
-                      <Link
-                        to={getSampleUrls()[0]}
-                        onClick={() => {
-                          window.gtag("event", "example-portfolio-1-homepage");
-                        }}
-                      >
-                        Kushner Companies / Westminster Management
-                      </Link>
-                    </h6>
-                    <Link
-                      className="image"
-                      tabIndex={-1} // Since link is not necessary navigation, removing tab focus
-                      to={getSampleUrls()[0]}
-                      onClick={() => {
-                        window.gtag("event", "example-portfolio-1-homepage");
-                      }}
-                    >
-                      <img className="img-responsive" src={westminsterLogo} alt="Westminster" />
-                    </Link>
-                    <Trans render="p">
-                      This property management company owned by the Kushner family is notorious for{" "}
-                      <a
-                        href="https://www.nytimes.com/2017/08/15/business/tenants-sue-kushner-companies-claiming-rent-rule-violations.html"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        violating rent regulations
-                      </a>{" "}
-                      and{" "}
-                      <a
-                        href="https://www.villagevoice.com/2017/01/12/jared-kushners-east-village-tenants-horrified-their-landlord-will-be-working-in-the-white-house/"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        harassing tenants
-                      </a>
-                      . The stake currently held by Jared Kushner and Ivanka Trump is worth as much
-                      as $761 million.
-                    </Trans>
-                    <Link
-                      className="btn block text-center"
-                      to={getSampleUrls()[0]}
-                      onClick={() => {
-                        window.gtag("event", "example-portfolio-1-homepage");
-                      }}
-                    >
-                      <Trans>View portfolio</Trans> &#10230;
-                    </Link>
-                  </div>
-                </div>
-                <div className="column col-4 col-sm-12">
+                <div className="column col-6 col-sm-12">
                   <div className="HomePage__sample">
                     <h6>
                       <Link
@@ -261,20 +205,6 @@ const HomePage: React.FC<HomePageProps> = ({ useNewPortfolioMethod }) => {
                         A&amp;E Real Estate
                       </Link>
                     </h6>
-                    <Link
-                      className="image"
-                      tabIndex={-1} // Since link is not necessary navigation, removing tab focus
-                      to={getSampleUrls()[1]}
-                      onClick={() => {
-                        window.gtag("event", "example-portfolio-2-homepage");
-                      }}
-                    >
-                      <img
-                        className="emassoc img-responsive"
-                        src={aeLogo}
-                        alt="A&amp;E Real Estate"
-                      />
-                    </Link>
                     <Trans render="p">
                       The city’s fifth{" "}
                       <a
@@ -322,7 +252,7 @@ const HomePage: React.FC<HomePageProps> = ({ useNewPortfolioMethod }) => {
                     </Link>
                   </div>
                 </div>
-                <div className="column col-4 col-sm-12">
+                <div className="column col-6 col-sm-12">
                   <div className="HomePage__sample">
                     <h6>
                       <Link
@@ -334,16 +264,6 @@ const HomePage: React.FC<HomePageProps> = ({ useNewPortfolioMethod }) => {
                         Stellar Management
                       </Link>
                     </h6>
-                    <Link
-                      className="image"
-                      tabIndex={-1} // Since link is not necessary navigation, removing tab focus
-                      to={getSampleUrls()[2]}
-                      onClick={() => {
-                        window.gtag("event", "example-portfolio-3-homepage");
-                      }}
-                    >
-                      <img className="img-responsive" src={stellarLogo} alt="Stellar Management" />
-                    </Link>
                     <Trans render="p">
                       Known for{" "}
                       <a
@@ -351,21 +271,19 @@ const HomePage: React.FC<HomePageProps> = ({ useNewPortfolioMethod }) => {
                         target="_blank"
                         rel="noopener noreferrer"
                       >
-                        unscrupulously deregulating rent stabilized apartments
+                        deregulating rent stabilized apartments
                       </a>
-                      , Larry Gluck’s Stellar Management has also secured a prominent place as one
-                      of{" "}
+                      , Stellar Management is also one of the city’s of{" "}
                       <a
                         href="https://www.worstevictorsnyc.org/"
                         target="_blank"
                         rel="noopener noreferrer"
                       >
-                        New York City’s Worst Evictors
+                        Worst Evictors
                       </a>
-                      . Stellar is a gentrifying force, particularly in upper Manhattan where Gluck
-                      operates the majority of his properties. Stellar has a reputation for
-                      displacing long-term tenants, renovating their units while vacant, and
-                      skyrocketing rents to market rate.
+                      . Stellar is a gentrifying force, particularly in upper Manhattan where they
+                      have a reputation for displacing long-term tenants, renovating their units
+                      while vacant, and skyrocketing rents to market rate.
                     </Trans>
                     <Link
                       className="btn block text-center"

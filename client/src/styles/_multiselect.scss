@@ -1,6 +1,7 @@
 @import "_vars";
 @import "_typography";
 @import "_button.scss";
+@import "_scrollbar.scss";
 
 .multiselect-container {
   display: flex;
@@ -129,6 +130,10 @@
 
     .multiselect__menu-list {
       max-height: 25rem;
+      @include for-tablet-portrait-up() {
+        @include scrollbar_wowza(inherit, 0.8rem, $justfix-grey-50);
+      }
+
       .multiselect__option {
         background-color: unset;
         display: flex;
@@ -167,8 +172,9 @@
       }
     }
   }
-  .button.is-primary {
+  button.button.is-primary {
     align-self: center;
+    width: 100%;
     letter-spacing: 0.02em;
   }
 }
