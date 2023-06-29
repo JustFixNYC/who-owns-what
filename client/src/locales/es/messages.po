@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-06-29 20:27\n"
+"PO-Revision-Date: 2023-06-29 20:35\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -166,7 +166,7 @@ msgstr "¿Tienes problemas en tu edificio?"
 
 #: src/components/PropertiesMap.tsx:345
 msgid "Associated names/entities: {0}"
-msgstr ""
+msgstr "Nombres/entidades asociados: {0}"
 
 #: src/util/helpers.ts:13
 msgid "BELL/BUZZER/INTERCOM"
@@ -204,7 +204,7 @@ msgstr "Información de edificios"
 
 #: src/components/PropertiesMap.tsx:353
 msgid "Building size: {0}"
-msgstr ""
+msgstr "Tamaño del edificio: {0}"
 
 #: src/containers/NotRegisteredPage.tsx:162
 msgid "Buildings without valid property registration are subject to the following:"
@@ -573,7 +573,7 @@ msgstr "Oficial Principal"
 
 #: src/components/PropertiesMap.tsx:316
 msgid "Hide legend"
-msgstr ""
+msgstr "Esconder leyenda"
 
 #: src/components/PortfolioFilters.tsx:179
 msgid "How are the results calculated?"
@@ -662,7 +662,7 @@ msgstr "JustFix, Inc es una organización registrada 501(c)(3) sin fines de lucr
 
 #: src/containers/HomePage.tsx:166
 msgid "Known for <0>deregulating rent stabilized apartments</0>, Stellar Management is also one of the city’s of <1>Worst Evictors</1>. Stellar is a gentrifying force, particularly in upper Manhattan where they have a reputation for displacing long-term tenants, renovating their units while vacant, and skyrocketing rents to market rate."
-msgstr ""
+msgstr "Conocida por <0>desregular apartamentos de renta estabilizada</0>, Stellar Management es también uno de los <1>peores desalojadores</1> de la ciudad. Stellar es una fuerza gentrificadora, sobre todo en la parte alta de Manhattan, donde tiene fama de desplazar a los inquilinos de largo plazo, renovar sus unidades mientras están vacías y disparar sus rentas al precio del mercado."
 
 #: src/containers/HomePage.tsx:215
 #~ msgid "Known for <0>unscrupulously deregulating rent stabilized apartments</0>, Larry Gluck’s Stellar Management has also secured a prominent place as one of <1>New York City’s Worst Evictors</1>. Stellar is a gentrifying force, particularly in upper Manhattan where Gluck operates the majority of his properties. Stellar has a reputation for displacing long-term tenants, renovating their units while vacant, and skyrocketing rents to market rate."
@@ -720,7 +720,7 @@ msgstr "Más información sobre cómo se calculan los resultados"
 
 #: src/components/PortfolioFilters.tsx:142
 msgid "Learn more about what it means for someone to be listed as a landlord"
-msgstr ""
+msgstr "Más información sobre lo que significa que alguien figure como dueño de una vivienda"
 
 #: src/components/PortfolioAlerts.tsx:39
 msgid "Learn more."
@@ -799,7 +799,7 @@ msgstr "Hacer una selección de la lista o borrar el texto de búsqueda"
 
 #: src/components/PortfolioFilters.tsx:132
 msgid "Map"
-msgstr ""
+msgstr "Mapa"
 
 #: src/components/MinMaxSelect.tsx:207
 msgid "Max must be greater than 0"
@@ -1088,7 +1088,7 @@ msgstr "Renta estabilizada"
 
 #: src/components/PropertiesMap.tsx:341
 msgid "Rent stabilized units ({0}): {1}"
-msgstr ""
+msgstr "Unidades con renta estabilizada ({0}): {1}"
 
 #: src/components/PortfolioFilters.tsx:210
 #~ msgid "Rent stabilized units are self-reported in yearly tax statements by building owners. As a result, many buildings with rent stabilized units may appear to be deregulated."
@@ -1142,7 +1142,7 @@ msgstr "Buscar dueños"
 
 #: src/components/PropertiesMap.tsx:363
 msgid "See Building Profile"
-msgstr ""
+msgstr "Ver perfil del edificio"
 
 #: src/components/FeatureCalloutContent.ts:9
 msgid "See the most common complaints reported by tenants to 311, now on the Overview and Portfolio tabs."
@@ -1179,7 +1179,7 @@ msgstr "Mostrar todas las {numSelections} selecciones"
 
 #: src/components/PropertiesMap.tsx:316
 msgid "Show legend"
-msgstr ""
+msgstr "Mostrar leyenda"
 
 #: src/components/Multiselect.tsx:140
 msgid "Show less"
@@ -1280,7 +1280,7 @@ msgstr "ACOSO DE INQUILINO"
 
 #: src/components/PortfolioFilters.tsx:129
 msgid "Table"
-msgstr ""
+msgstr "Tabla"
 
 #: src/components/DetailView.tsx:264
 #: src/containers/NychaPage.tsx:179
@@ -1354,7 +1354,7 @@ msgstr "El registro de esta propiedad faltan detalles sobre el nombre del dueño
 
 #: src/components/PortfolioFilters.tsx:247
 msgid "The same owner may have spelled their name several ways in official documents."
-msgstr ""
+msgstr "El mismo dueño puede haber escrito su nombre de varias maneras en los documentos oficiales."
 
 #: src/components/BuildingStatsTable.tsx:34
 msgid "The year that this building was originally constructed, according to the Dept. of City Planning."
@@ -1534,7 +1534,7 @@ msgstr "Ver documentos en <0>ACRIS</0>"
 
 #: src/components/DetailView.tsx:146
 msgid "View map"
-msgstr ""
+msgstr "Ver mapa"
 
 #: src/containers/HomePage.tsx:153
 #: src/containers/HomePage.tsx:182
@@ -1748,7 +1748,7 @@ msgstr "mes"
 
 #: src/components/PortfolioTable.tsx:523
 msgid "number of records per page"
-msgstr ""
+msgstr "número de registros por página"
 
 #: src/components/PortfolioTable.tsx:521
 msgid "of"
@@ -1756,7 +1756,7 @@ msgstr "de"
 
 #: src/components/PortfolioTable.tsx:513
 msgid "page number"
-msgstr ""
+msgstr "número de página"
 
 #: src/components/Indicators.tsx:17
 msgid "quarter"
@@ -1776,7 +1776,7 @@ msgstr "año"
 
 #: src/components/PropertiesMap.tsx:356
 msgid "{0, plural, one {unit} other {units}}"
-msgstr ""
+msgstr "{0, plural, one {unidad} other {unidades}}"
 
 #: src/components/PropertiesMap.tsx:299
 #~ msgid "{0}"
