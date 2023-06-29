@@ -29,6 +29,7 @@ import { isLegacyPath } from "./WowzaToggle";
 import { sortContactsByImportance } from "./DetailView";
 import _groupBy from "lodash/groupBy";
 import classnames from "classnames";
+import { withResizeDetector } from "react-resize-detector";
 
 type Props = withMachineInStateProps<"portfolioFound"> & {
   onAddrChange: (bbl: string) => void;
@@ -164,7 +165,7 @@ const ASSOC_LAYOUT = {
 // instead we use this offset value to create a fake bounding box around the detail center point
 const DETAIL_OFFSET = 0.0015;
 
-export default class PropertiesMap extends Component<Props, State> {
+class PropertiesMapWithoutResizeDetector extends Component<Props, State> {
   static contextType = FilterContext;
   context!: React.ContextType<typeof FilterContext>;
 
@@ -571,7 +572,7 @@ const SelectedAddrAlert = ({
 
       <Link
         to={createRouteForFullBbl(addr.bbl, locale || defaultLocale, isLegacyPath(pathname))}
-        // TODO: decide on "map" gtm property format
+        target="blank"
         onClick={() =>
           !!logPortfolioAnalytics &&
           logPortfolioAnalytics("addressChangePortfolio", { extraParams: { from: "map" } })
@@ -582,3 +583,10 @@ const SelectedAddrAlert = ({
     </Alert>
   );
 };
+
+// This adds width and height as props, and so will trigger the
+// comonentDidUpdate (which resizes the map) when the element height changes
+// even if other props don't change (like when filter alerts are closed in the
+// filters bar)
+const PropertiesMap = withResizeDetector(PropertiesMapWithoutResizeDetector);
+export default PropertiesMap;
