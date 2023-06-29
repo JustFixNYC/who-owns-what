@@ -21,7 +21,6 @@
 }
 
 .PortfolioFilters {
-  --new-container-width: 10.2rem;
   --filter-bar-row-gap: 1.2rem;
   --checkbox-height: 2.4rem;
   display: flex;
@@ -46,34 +45,37 @@
     gap: 1.2rem;
   }
 
-  .filter-new-container {
-    letter-spacing: 0.04em;
-    display: flex;
-    flex-direction: column;
-
-    .pill-new {
-      font-family: $body-font;
-      letter-spacing: 0.02em;
-      background: $justfix-yellow;
-      padding: 0.4rem 0.8rem;
-      border-radius: 1.6rem;
-      width: fit-content;
-      margin-bottom: 0.26rem;
-    }
-
-    @include for-phone-only() {
-      width: unset;
-      justify-content: center;
-      .pill-new {
-        margin: 0;
-      }
-    }
-  }
-
   .filters-container {
     display: flex;
     flex-wrap: wrap;
     gap: var(--filter-bar-row-gap) 1.8rem;
+    @include for-phone-only {
+      gap: var(--filter-bar-row-gap) 1.2rem;
+    }
+
+    .filter-new-container {
+      letter-spacing: 0.04em;
+      display: flex;
+      flex-direction: column;
+
+      .pill-new {
+        font-family: $body-font;
+        letter-spacing: 0.02em;
+        background: $justfix-yellow;
+        padding: 0.4rem 0.8rem;
+        border-radius: 1.6rem;
+        width: fit-content;
+        margin-bottom: 0.26rem;
+      }
+
+      @include for-phone-only() {
+        width: unset;
+        justify-content: center;
+        .pill-new {
+          margin: 0;
+        }
+      }
+    }
 
     .view-type-toggle-container {
       display: flex;
@@ -86,6 +88,9 @@
         border: 0.1rem solid $justfix-black;
         border-radius: 0.8rem;
         width: 6.1rem;
+        @include for-phone-only {
+          width: 5rem;
+        }
         justify-content: center;
         &[aria-pressed="true"] {
           @include white-on-black();
@@ -127,7 +132,7 @@
         }
 
         @include for-tablet-portrait-up() {
-          &.active,
+          &.active > summary,
           &[aria-pressed="true"] {
             @include white-on-black();
           }
@@ -259,7 +264,7 @@
             left: -0.1rem;
             z-index: 10;
             overflow-y: auto;
-            background-color: $justfix-table-grey;
+            background-color: $justfix-white;
             box-sizing: border-box;
             border: 0.1rem solid $justfix-black;
             border-radius: 0.8rem;
@@ -303,9 +308,12 @@
               .filter-subtitle {
                 margin-right: 0.5rem;
               }
-              .filter-info:focus-visible {
-                outline: 2px solid $focus-outline-color;
-                outline-offset: 2px;
+              .filter-info {
+                width: 18px;
+                &:focus-visible {
+                  outline: 2px solid $focus-outline-color;
+                  outline-offset: 2px;
+                }
               }
             }
 
@@ -501,9 +509,12 @@
           font-size: 1.6rem;
           padding-right: 0.5rem;
         }
-        .results-info:focus-visible {
-          outline: 2px solid $focus-outline-color;
-          outline-offset: 2px;
+        .results-info {
+          width: 18px;
+          &:focus-visible {
+            outline: 2px solid $focus-outline-color;
+            outline-offset: 2px;
+          }
         }
         .clear-filters {
           color: $justfix-grey-700;
@@ -515,10 +526,5 @@
         max-width: 50rem;
       }
     }
-  }
-}
-.ReactModal__Content {
-  p a {
-    color: $justfix-black;
   }
 }
