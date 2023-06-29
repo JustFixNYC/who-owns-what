@@ -164,7 +164,7 @@ msgstr "¿Tienes problemas en este edificio?"
 msgid "Are you having issues in this development?"
 msgstr "¿Tienes problemas en tu edificio?"
 
-#: src/components/PropertiesMap.tsx:344
+#: src/components/PropertiesMap.tsx:345
 msgid "Associated names/entities: {0}"
 msgstr ""
 
@@ -202,7 +202,7 @@ msgstr "Tamaño del Edificio"
 msgid "Building info"
 msgstr "Información de edificios"
 
-#: src/components/PropertiesMap.tsx:352
+#: src/components/PropertiesMap.tsx:353
 msgid "Building size: {0}"
 msgstr ""
 
@@ -513,7 +513,7 @@ msgstr "Filtro"
 msgid "Filters"
 msgstr "Filtros"
 
-#: src/components/PortfolioFilters.tsx:123
+#: src/components/PortfolioFilters.tsx:124
 msgid "Filters:"
 msgstr "Filtros:"
 
@@ -571,7 +571,7 @@ msgstr "Formulario de queja HUD 958"
 msgid "Head Officer"
 msgstr "Oficial Principal"
 
-#: src/components/PropertiesMap.tsx:315
+#: src/components/PropertiesMap.tsx:316
 msgid "Hide legend"
 msgstr ""
 
@@ -726,7 +726,7 @@ msgstr ""
 msgid "Learn more."
 msgstr "Aprende más."
 
-#: src/components/PropertiesMap.tsx:315
+#: src/components/PropertiesMap.tsx:316
 msgid "Legend"
 msgstr "Leyenda"
 
@@ -741,7 +741,7 @@ msgstr "Enlace a la Escritura"
 
 #: src/components/Loader.tsx:19
 #: src/components/PortfolioTable.tsx:440
-#: src/components/PropertiesMap.tsx:256
+#: src/components/PropertiesMap.tsx:257
 msgid "Loading"
 msgstr "Cargando"
 
@@ -878,7 +878,7 @@ msgstr "Restrinja esta cartera utilizando los filtros de la <0>pestaña Cartera.
 msgid "Network of Landlords"
 msgstr "Red de Dueños"
 
-#: src/components/PortfolioFilters.tsx:120
+#: src/components/PortfolioFilters.tsx:121
 msgid "New"
 msgstr "Nuevo"
 
@@ -1086,7 +1086,7 @@ msgstr "Filtro de Unidades con renta estabilizada"
 msgid "Rent stabilization"
 msgstr "Renta estabilizada"
 
-#: src/components/PropertiesMap.tsx:340
+#: src/components/PropertiesMap.tsx:341
 msgid "Rent stabilized units ({0}): {1}"
 msgstr ""
 
@@ -1140,7 +1140,7 @@ msgstr "Buscar otra dirección"
 msgid "Search landlords"
 msgstr "Buscar dueños"
 
-#: src/components/PropertiesMap.tsx:364
+#: src/components/PropertiesMap.tsx:363
 msgid "See Building Profile"
 msgstr ""
 
@@ -1177,7 +1177,7 @@ msgstr "Accionista"
 msgid "Show all {numSelections} selections"
 msgstr "Mostrar todas las {numSelections} selecciones"
 
-#: src/components/PropertiesMap.tsx:315
+#: src/components/PropertiesMap.tsx:316
 msgid "Show legend"
 msgstr ""
 
@@ -1238,7 +1238,7 @@ msgstr "Vendido al Propietario Actual"
 msgid "Some large corporations, however, are a bit more complicated and may share personnel and financial stake with other related companies, which all will show up on Who Owns What as one large portfolio."
 msgstr "Sin embargo, algunas grandes corporaciones son un poco más complicadas y pueden compartir personal y participación financiera con otras compañías relacionadas, que todos se mostrarán en Quién es el Dueño como un gran portafolio."
 
-#: src/components/PropertiesMap.tsx:266
+#: src/components/PropertiesMap.tsx:267
 msgid "Sorry, it looks like there's an error on the map. Try again on a different browser or <0>enable WebGL</0>."
 msgstr "Lo sentimos, parece que hay un error en el mapa. Inténtalo de nuevo con un navegador diferente o <0>habilita WebGL</0>."
 
@@ -1726,7 +1726,7 @@ msgstr "Alejar"
 msgid "and"
 msgstr "y"
 
-#: src/components/PropertiesMap.tsx:324
+#: src/components/PropertiesMap.tsx:325
 msgid "associated building"
 msgstr "edificio asociado"
 
@@ -1754,7 +1754,7 @@ msgstr ""
 msgid "quarter"
 msgstr "trimestre"
 
-#: src/components/PropertiesMap.tsx:321
+#: src/components/PropertiesMap.tsx:322
 msgid "search address"
 msgstr "dirección de búsqueda"
 
@@ -1766,7 +1766,7 @@ msgstr "dirección de búsqueda"
 msgid "year"
 msgstr "año"
 
-#: src/components/PropertiesMap.tsx:355
+#: src/components/PropertiesMap.tsx:356
 msgid "{0, plural, one {unit} other {units}}"
 msgstr ""
 
