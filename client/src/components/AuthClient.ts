@@ -1,8 +1,22 @@
-import { NetworkError, HTTPError } from "error-reporting";
+import { NetworkError } from "error-reporting";
 import { JustfixUser } from "state-machine";
 import browser from "../util/browser";
 
 const BASE_URL = browser.addTrailingSlash(process.env.REACT_APP_API_BASE_URL);
+
+export enum VerifyStatusCode {
+  Success = 200,
+  AlreadyVerified = 208,
+  Failure = 400,
+  Expired = 404,
+  Unknown = 500,
+}
+
+type VerifyEmailResponse = {
+  statusCode: VerifyStatusCode;
+  statusText: string;
+  error?: string;
+};
 
 let _user: JustfixUser | undefined;
 const user = () => _user;
@@ -74,12 +88,24 @@ const userAuthenticated = async () => {
  */
 const verifyEmail = async () => {
   const params = new URLSearchParams(window.location.search);
+
+  let result: VerifyEmailResponse = {
+    statusCode: VerifyStatusCode.Unknown,
+    statusText: "",
+  };
+
   try {
-    await postAuthRequest(`${BASE_URL}auth/verify_email?code=${params.get("code")}`);
-    return true;
-  } catch {
-    return false;
+    const response = await postAuthRequest(
+      `${BASE_URL}auth/verify_email?code=${params.get("code")}`
+    );
+    result.statusCode = response.status_code;
+    result.statusText = response.status_text;
+  } catch (e) {
+    if (e instanceof Error) {
+      result.error = e.message;
+    }
   }
+  return result;
 };
 
 /**
@@ -200,9 +226,6 @@ const friendlyFetch: typeof fetch = async (input, init) => {
     } else {
       throw new Error("Unexpected error");
     }
-  }
-  if (!response.ok) {
-    throw new HTTPError(response);
   }
   return response;
 };
