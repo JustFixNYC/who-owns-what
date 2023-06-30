@@ -23,6 +23,8 @@
 .PortfolioFilters {
   --filter-bar-row-gap: 1.2rem;
   --checkbox-height: 2.4rem;
+  // height based on filter toggle checkbox + border + padding
+  --filter-height: calc(var(--checkbox-height) + ((0.1rem + 1rem) * 2));
   display: flex;
   flex-wrap: wrap;
   padding: 1.4rem;
@@ -79,8 +81,8 @@
 
     .view-type-toggle-container {
       display: flex;
-      // height based on filter toggle checkbox plus padding
-      height: calc(var(--checkbox-height) + 1rem * 2);
+      // adjust for border difference with filters
+      height: calc(var(--filter-height) + (0.1rem * 2));
       .view-type-toggle {
         display: flex;
         align-items: center;
@@ -123,6 +125,7 @@
             box-sizing: border-box;
             border: none;
             border-bottom: 0.1rem solid $justfix-grey-400;
+            text-align: left;
           }
           &.active:not([open]):not(.filter-toggle):not(.filters-mobile-wrapper) {
             background-color: $justfix-table-grey;
@@ -193,8 +196,7 @@
         position: relative;
 
         summary:not(.minmaxselect__custom-range-summary) {
-          // height based on toggle toggle checkbox plus 1rem padding
-          height: calc(var(--checkbox-height) + 1rem * 2);
+          height: var(--filter-height);
           padding: 0 1rem 0 1rem;
           display: flex;
           align-items: center;
