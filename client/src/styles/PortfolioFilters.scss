@@ -125,6 +125,7 @@
             box-sizing: border-box;
             border: none;
             border-bottom: 0.1rem solid $justfix-grey-400;
+            text-align: left;
           }
           &.active:not([open]):not(.filter-toggle):not(.filters-mobile-wrapper) {
             background-color: $justfix-table-grey;
