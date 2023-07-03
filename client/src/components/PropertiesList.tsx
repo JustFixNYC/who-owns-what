@@ -1,14 +1,16 @@
-import { Trans } from "@lingui/macro";
 import { withI18n, withI18nProps } from "@lingui/react";
 import React from "react";
 import { withMachineInStateProps } from "state-machine";
 import "styles/PropertiesList.css";
 import { defaultLocale, SupportedLocale } from "../i18n-base";
-import Helpers from "../util/helpers";
-import Loader from "./Loader";
+import _groupBy from "lodash/groupBy";
+import { FixedLoadingLabel } from "./Loader";
 import PortfolioFilters from "./PortfolioFilters";
-import PortfolioTable, { MAX_TABLE_ROWS_PER_PAGE } from "./PortfolioTable";
+import PortfolioTable from "./PortfolioTable";
 import { AmplitudeEvent, EventProperties, logAmplitudeEvent } from "./Amplitude";
+import PropertiesMap from "./PropertiesMap";
+import { AddressPageRoutes } from "routes";
+import { AddressRecord } from "./APIDataTypes";
 
 // Pattern for context provider to update context from child components
 // https://stackoverflow.com/a/67710693/7051239
@@ -20,15 +22,18 @@ export type FilterNumberRangeSelections = {
   values: FilterNumberRange[];
 };
 
+export type FilterSelections = {
+  ownernames: string[];
+  unitsres: FilterNumberRangeSelections;
+  zip: string[];
+  rsunitslatest?: boolean;
+};
+
 export type IFilterContext = {
+  viewType: "table" | "map";
   totalBuildings?: number | undefined;
   filteredBuildings?: number | undefined;
-  filterSelections: {
-    ownernames: string[];
-    unitsres: FilterNumberRangeSelections;
-    zip: string[];
-    rsunitslatest?: boolean;
-  };
+  filterSelections: FilterSelections;
   filterOptions: {
     ownernames: string[];
     unitsres: FilterNumberRange;
@@ -36,23 +41,25 @@ export type IFilterContext = {
   };
 };
 
+export const defaultFilterContext: IFilterContext = {
+  viewType: "table",
+  totalBuildings: undefined,
+  filteredBuildings: undefined,
+  filterSelections: {
+    rsunitslatest: false,
+    ownernames: [],
+    unitsres: { type: "default", values: [NUMBER_RANGE_DEFAULT] },
+    zip: [],
+  },
+  filterOptions: {
+    ownernames: [],
+    unitsres: NUMBER_RANGE_DEFAULT,
+    zip: [],
+  },
+};
+
 const useValue = () => {
-  const defaultContext: IFilterContext = {
-    totalBuildings: undefined,
-    filteredBuildings: undefined,
-    filterSelections: {
-      rsunitslatest: false,
-      ownernames: [],
-      unitsres: { type: "default", values: [NUMBER_RANGE_DEFAULT] },
-      zip: [],
-    },
-    filterOptions: {
-      ownernames: [],
-      unitsres: NUMBER_RANGE_DEFAULT,
-      zip: [],
-    },
-  };
-  const [filterContext, setFilterContext] = React.useState(defaultContext);
+  const [filterContext, setFilterContext] = React.useState(defaultFilterContext);
 
   return {
     filterContext,
@@ -62,7 +69,49 @@ const useValue = () => {
 
 export const FilterContext = React.createContext({} as ReturnType<typeof useValue>);
 
-const FilterContextProvider: React.FC<{}> = (props) => {
+export const filterAddresses = (addrs: AddressRecord[], filterSelections: FilterSelections) => {
+  const {
+    rsunitslatest: filterRsunitslatest,
+    ownernames: filterOwnernames,
+    unitsres: filterUnitsres,
+    zip: filterZip,
+  } = filterSelections;
+
+  return addrs.filter((addr) => {
+    let keepAddr = true;
+
+    if (keepAddr && filterRsunitslatest) {
+      keepAddr = (addr.rsunitslatest || 0) > 0;
+    }
+
+    if (keepAddr && !!filterOwnernames.length) {
+      const addrOwnernames =
+        addr.allcontacts &&
+        Object.entries(_groupBy(addr.allcontacts, "value")).map((contact) => contact[0]);
+
+      keepAddr = filterOwnernames.some((filterOwnername) =>
+        addrOwnernames?.includes(filterOwnername)
+      );
+    }
+
+    if (keepAddr && filterUnitsres.type !== "default") {
+      keepAddr = filterUnitsres.values.reduce(
+        (acc, range) =>
+          acc ||
+          (addr.unitsres != null && addr.unitsres >= range.min && addr.unitsres <= range.max),
+        false
+      );
+    }
+
+    if (keepAddr && !!filterZip.length) {
+      keepAddr = addr.zip != null && filterZip.includes(addr.zip);
+    }
+
+    return keepAddr;
+  });
+};
+
+export const FilterContextProvider: React.FC<{}> = (props) => {
   return <FilterContext.Provider value={useValue()}>{props.children}</FilterContext.Provider>;
 };
 
@@ -77,16 +126,46 @@ export type PortfolioAnalyticsEvent = (
 ) => void;
 
 const PropertiesListWithoutI18n: React.FC<
-  withMachineInStateProps<"portfolioFound"> & withI18nProps
+  withMachineInStateProps<"portfolioFound"> &
+    withI18nProps & { addressPageRoutes: AddressPageRoutes; isVisible: boolean }
 > = (props) => {
-  const { i18n } = props;
-  const { width: windowWidth, height: windowHeight } = Helpers.useWindowSize();
+  const { i18n, isVisible } = props;
   const locale = (i18n.language as SupportedLocale) || defaultLocale;
   const useNewPortfolioMethod = props.state.context.useNewPortfolioMethod || false;
-  const portfolioFiltersEnabled = process.env.REACT_APP_PORTFOLIO_FILTERS_ENABLED === "1";
+  const portfolioFiltersEnabled = process.env.REACT_APP_PORTFOLIO_FILTERS_ENABLED === "1" || true;
 
   const addrs = props.state.context.portfolioData.assocAddrs;
   const rsunitslatestyear = props.state.context.portfolioData.searchAddr.rsunitslatestyear;
+
+  const { filterContext } = React.useContext(FilterContext);
+  const { viewType } = filterContext;
+
+  // avoid loading any components until portfolio tab is viewed
+  const [everVisible, setEverVisible] = React.useState(false);
+
+  React.useEffect(() => {
+    setEverVisible((prev) => prev || isVisible);
+  }, [isVisible]);
+
+  // only load the map or table when viewed, and avoid reloading when switching between
+  const [viewsEverVisible, setViewsEverVisible] = React.useState({
+    table: viewType === "table",
+    map: viewType === "map",
+  });
+
+  // We keep trak of this since mapbox loads on render of the Map component (not
+  // instantiation of the Map object) and we're charged for each load, so we
+  // want to only render it when necessary and then not unmount when switching
+  // views back and forth
+  React.useEffect(() => {
+    // Currently table will alsways be true, and map always start as false, but
+    // we have talked about adding the ability to link to the portfolio tab with
+    // the view type (map/table) specified, so this will help if/when we do that
+    setViewsEverVisible((prev) => ({
+      table: prev.table || viewType === "table",
+      map: prev.map || viewType === "map",
+    }));
+  }, [viewType]);
 
   const logPortfolioAnalytics: PortfolioAnalyticsEvent = (event, extraProps) => {
     const { column, extraParams, gtmEvent } = extraProps;
@@ -102,61 +181,40 @@ const PropertiesListWithoutI18n: React.FC<
     window.gtag("event", gtagEvent, eventParams);
   };
 
-  /**
-   * For older browsers that do not support the `useOnScreen` hook,
-   * let's hide the dynamic scroll fade by default.
-   */
-  const isOlderBrowser = typeof IntersectionObserver === "undefined";
+  return !everVisible ? (
+    <FixedLoadingLabel />
+  ) : (
+    <div className="PropertiesList">
+      {useNewPortfolioMethod && portfolioFiltersEnabled && (
+        <PortfolioFilters
+          state={props.state}
+          send={props.send}
+          logPortfolioAnalytics={logPortfolioAnalytics}
+        />
+      )}
 
-  const tableRef = React.useRef<HTMLDivElement>(null);
-  const isTableVisible = Helpers.useOnScreen(tableRef);
+      {viewsEverVisible.table && (
+        <PortfolioTable
+          data={addrs}
+          locale={locale}
+          rsunitslatestyear={rsunitslatestyear}
+          getRowCanExpand={() => true}
+          logPortfolioAnalytics={logPortfolioAnalytics}
+          isVisible={viewType === "table"}
+        />
+      )}
 
-  // On most browsers, the header has the `position: fixed` CSS property
-  // and needs a defined `top` property along with it.
-  // So, let's keep track of and also update this top spacing whenever the layout of the page changes.
-  const [headerTopSpacing, setHeaderTopSpacing] = React.useState<number | undefined>();
-
-  // TODO: double check how this works with new v8 table
-  // Make sure to setHeaderTopSpacing whenever
-  // - the table comes into view
-  // - the page's locale changes
-  // - the user resizes their viewport window
-  //
-  // For older browsers, let's not even bother setting the top spacing as
-  // we won't be able to detect when the table becomes visible. Luckily,
-  // the `react-table-hoc-fixed-columns` packages has fallback CSS for these browsers.
-  React.useEffect(() => {
-    if (!isOlderBrowser && tableRef?.current?.offsetTop)
-      setHeaderTopSpacing(tableRef.current.offsetTop);
-  }, [isTableVisible, locale, windowWidth, windowHeight, isOlderBrowser]);
-  return (
-    <div className="PropertiesList" ref={tableRef}>
-      {isTableVisible ? (
-        <FilterContextProvider>
-          {useNewPortfolioMethod && portfolioFiltersEnabled && (
-            <PortfolioFilters logPortfolioAnalytics={logPortfolioAnalytics} />
-          )}
-          <PortfolioTable
-            data={addrs}
-            headerTopSpacing={headerTopSpacing}
-            locale={locale}
-            rsunitslatestyear={rsunitslatestyear}
-            getRowCanExpand={() => true}
-            logPortfolioAnalytics={logPortfolioAnalytics}
-          />
-        </FilterContextProvider>
-      ) : (
-        <Loader loading={true} classNames="Loader-map">
-          {addrs.length > MAX_TABLE_ROWS_PER_PAGE ? (
-            <>
-              <Trans>Loading {addrs.length} rows</Trans>
-              <br />
-              <Trans>(this may take a while)</Trans>
-            </>
-          ) : (
-            <Trans>Loading</Trans>
-          )}
-        </Loader>
+      {useNewPortfolioMethod && portfolioFiltersEnabled && viewsEverVisible.map && (
+        <PropertiesMap
+          location="portfolio"
+          state={props.state}
+          send={props.send}
+          onAddrChange={(bbl: string) => {}}
+          isVisible={viewType === "map"}
+          addressPageRoutes={props.addressPageRoutes}
+          locale={locale}
+          logPortfolioAnalytics={logPortfolioAnalytics}
+        />
       )}
     </div>
   );

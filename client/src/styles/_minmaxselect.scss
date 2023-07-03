@@ -13,7 +13,8 @@
   }
   .minmaxselect__presets-container {
     display: grid;
-    grid-template-columns: 7rem 7rem 7rem;
+    width: 100%;
+    grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 4rem 4rem;
     gap: 0.1rem;
     .minmaxselect__preset-value {
@@ -133,8 +134,9 @@
       }
     }
   }
-  .button.is-primary {
+  button.button.is-primary {
     align-self: center;
+    width: 100%;
     letter-spacing: 0.02em;
   }
 }

@@ -8,6 +8,7 @@ import {
   PortfolioAnalyticsEvent,
   NUMBER_RANGE_DEFAULT,
   FilterNumberRangeSelections,
+  filterAddresses,
 } from "./PropertiesList";
 import FocusTrap from "focus-trap-react";
 import { FocusTarget } from "focus-trap";
@@ -21,12 +22,17 @@ import Browser from "../util/browser";
 import helpers from "util/helpers";
 import MultiSelect, { Option } from "./Multiselect";
 import MinMaxSelect from "./MinMaxSelect";
+import _groupBy from "lodash/groupBy";
+import { withMachineInStateProps } from "state-machine";
 
 import "styles/PortfolioFilters.scss";
+import { AddressRecord } from "./APIDataTypes";
+import { sortContactsByImportance } from "./DetailView";
 
-type PortfolioFilterProps = withI18nProps & {
-  logPortfolioAnalytics: PortfolioAnalyticsEvent;
-};
+type PortfolioFilterProps = withMachineInStateProps<"portfolioFound"> &
+  withI18nProps & {
+    logPortfolioAnalytics: PortfolioAnalyticsEvent;
+  };
 
 const PortfolioFiltersWithoutI18n = React.memo(
   React.forwardRef<HTMLDivElement, PortfolioFilterProps>((props, ref) => {
@@ -38,15 +44,40 @@ const PortfolioFiltersWithoutI18n = React.memo(
     const { about, methodology, legacy } = createWhoOwnsWhatRoutePaths();
 
     const { filterContext, setFilterContext } = React.useContext(FilterContext);
-    const { filteredBuildings } = filterContext;
-    const { ownernames: ownernamesOptions, zip: zipOptions } = filterContext.filterOptions;
+    const { filterSelections, filteredBuildings, viewType } = filterContext;
+    const {
+      ownernames: ownernamesOptions,
+      zip: zipOptions,
+      unitsres: unitsresOptions,
+    } = filterContext.filterOptions;
     const {
       ownernames: ownernamesSelections,
       unitsres: unitsresSelections,
       zip: zipSelections,
-    } = filterContext.filterSelections;
+    } = filterSelections;
 
     const { i18n, logPortfolioAnalytics } = props;
+
+    const { assocAddrs } = props.state.context.portfolioData;
+
+    React.useEffect(() => {
+      setFilterContext({
+        ...filterContext,
+        filterOptions: {
+          ownernames: getOwnernamesOptions(assocAddrs),
+          unitsres: getUnitsresOptions(assocAddrs),
+          zip: getZipOptions(assocAddrs),
+        },
+      });
+    }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+    React.useEffect(() => {
+      setFilterContext((prevContext) => ({
+        ...prevContext,
+        totalBuildings: assocAddrs.length,
+        filteredBuildings: filterAddresses(assocAddrs, filterSelections).length,
+      }));
+    }, [filterSelections]); // eslint-disable-line react-hooks/exhaustive-deps
 
     const [rsunitslatestActive, setRsunitslatestActive] = React.useState(false);
     const updateRsunitslatest = () => {
@@ -163,121 +194,146 @@ const PortfolioFiltersWithoutI18n = React.memo(
 
     return (
       <div className="PortfolioFilters" ref={ref}>
-        <div className="filter-new-container">
-          <span className="pill-new">
-            <Trans>New</Trans>
-          </span>
-          {!isMobile && (
-            <span>
-              <Trans>Filters:</Trans>
+        <div className="filters-container">
+          <div className="filter-new-container">
+            <span className="pill-new">
+              <Trans>New</Trans>
             </span>
+            {!isMobile && (
+              <span>
+                <Trans>Filters:</Trans>
+              </span>
+            )}
+          </div>
+          <div className="view-type-toggle-container">
+            <button
+              aria-pressed={viewType === "table"}
+              className="view-type-toggle"
+              onClick={() => setFilterContext((prev) => ({ ...prev, viewType: "table" }))}
+            >
+              <Trans>Table</Trans>
+            </button>
+            <button
+              aria-pressed={viewType === "map"}
+              className="view-type-toggle"
+              onClick={() => setFilterContext((prev) => ({ ...prev, viewType: "map" }))}
+            >
+              <Trans>Map</Trans>
+            </button>
+          </div>
+          <FiltersWrapper
+            isMobile={isMobile}
+            activeFilters={activeFilters}
+            resultsCount={filteredBuildings}
+          >
+            <button
+              aria-pressed={rsunitslatestActive}
+              onClick={updateRsunitslatest}
+              className="filter filter-toggle"
+              aria-label={i18n._(t`Rent Stabilized Units filter`)}
+            >
+              <div className="checkbox">{rsunitslatestActive && <CheckIcon />}</div>
+              <span>
+                <Trans>Rent Stabilized Units</Trans>
+              </span>
+            </button>
+            <FilterAccordion
+              title={i18n._(t`Landlord`)}
+              subtitle={i18n._(t`Person/Entity`)}
+              infoIconAriaLabel={i18n._(
+                t`Learn more about what it means for someone to be listed as a landlord`
+              )}
+              infoModalContents={ownernamesInfoModalContents}
+              isActive={ownernamesActive}
+              isOpen={ownernamesIsOpen}
+              setIsOpen={setOwnernamesIsOpen}
+              onOpen={() => logPortfolioAnalytics("filterOpened", { column: "ownernames" })}
+              selectionsCount={filterContext.filterSelections.ownernames.length}
+              className="ownernames-accordion"
+            >
+              <MultiSelect
+                id="filter-ownernames-multiselect"
+                options={valuesAsMultiselectOptions(ownernamesOptions)}
+                onApply={onOwnernamesApply}
+                onError={() => logPortfolioAnalytics("filterError", { column: "ownernames" })}
+                infoAlert={OwnernamesInfoAlert}
+                aria-label={i18n._(t`Landlord filter`)}
+                isOpen={ownernamesIsOpen}
+                defaultSelections={valuesAsMultiselectOptions(ownernamesSelections)}
+              />
+            </FilterAccordion>
+            <FilterAccordion
+              title={i18n._(t`Building Size`)}
+              subtitle={i18n._(t`Number of Units`)}
+              isActive={unitsresActive}
+              isOpen={unitsresIsOpen}
+              onOpen={() => logPortfolioAnalytics("filterOpened", { column: "unitsres" })}
+              setIsOpen={setUnitsresIsOpen}
+              className="unitsres-accordion"
+            >
+              <MinMaxSelect
+                options={unitsresOptions}
+                onApply={onUnitsresApply}
+                onError={() => logPortfolioAnalytics("filterError", { column: "unitsres" })}
+                id="filter-unitsres-minmax"
+                isOpen={unitsresIsOpen}
+                defaultSelections={unitsresSelections}
+              />
+            </FilterAccordion>
+            <FilterAccordion
+              title={i18n._(t`Zip Code`)}
+              isActive={zipActive}
+              isOpen={zipIsOpen}
+              setIsOpen={setZipIsOpen}
+              onOpen={() => logPortfolioAnalytics("filterOpened", { column: "zip" })}
+              selectionsCount={filterContext.filterSelections.zip.length}
+              className="zip-accordion"
+            >
+              <MultiSelect
+                id="filter-zip-multiselect"
+                options={valuesAsMultiselectOptions(zipOptions)}
+                onApply={onZipApply}
+                noOptionsMessage={() => i18n._(t`ZIP code is not applicable`)}
+                onError={() => logPortfolioAnalytics("filterError", { column: "zip" })}
+                aria-label={i18n._(t`Zip code filter`)}
+                onKeyDown={helpers.preventNonNumericalInput}
+                isOpen={zipIsOpen}
+                defaultSelections={valuesAsMultiselectOptions(zipSelections)}
+              />
+            </FilterAccordion>
+          </FiltersWrapper>
+
+          {(rsunitslatestActive || ownernamesActive || unitsresActive || zipActive) && (
+            <div className="filter-status">
+              <div className="filter-status-info">
+                <span className="results-count" role="status">
+                  <Trans>
+                    Showing {filteredBuildings || 0}{" "}
+                    <Plural value={filteredBuildings || 0} one="result" other="results" />
+                  </Trans>
+                </span>
+                <button
+                  className="results-info"
+                  onClick={() => setShowInfoModal(true)}
+                  aria-label={i18n._(t`Learn more about how the results are calculated`)}
+                >
+                  <InfoIcon />
+                </button>
+                <button className="clear-filters button is-text" onClick={clearFilters}>
+                  <Trans>Clear Filters</Trans>
+                </button>
+              </div>
+              {filteredBuildings === 0 && ZeroResultsAlert}
+              {!!filteredBuildings && rsunitslatestActive && RsUnitsResultAlert}
+              {!!filteredBuildings &&
+                ownernamesActive &&
+                viewType === "table" &&
+                OwnernamesResultAlert}
+            </div>
           )}
         </div>
-        <FiltersWrapper
-          isMobile={isMobile}
-          activeFilters={activeFilters}
-          resultsCount={filteredBuildings}
-        >
-          <button
-            aria-pressed={rsunitslatestActive}
-            onClick={updateRsunitslatest}
-            className="filter filter-toggle"
-            aria-label={i18n._(t`Rent Stabilized Units filter`)}
-          >
-            <div className="checkbox">{rsunitslatestActive && <CheckIcon />}</div>
-            <span>
-              <Trans>Rent Stabilized Units</Trans>
-            </span>
-          </button>
-          <FilterAccordion
-            title={i18n._(t`Landlord`)}
-            subtitle={i18n._(t`Person/Entity`)}
-            infoLabel={i18n._(t`Who are they?`)}
-            infoModalContents={ownernamesInfoModalContents}
-            isActive={ownernamesActive}
-            isOpen={ownernamesIsOpen}
-            setIsOpen={setOwnernamesIsOpen}
-            onOpen={() => logPortfolioAnalytics("filterOpened", { column: "ownernames" })}
-            selectionsCount={filterContext.filterSelections.ownernames.length}
-            className="ownernames-accordion"
-          >
-            <MultiSelect
-              id="filter-ownernames-multiselect"
-              options={valuesAsMultiselectOptions(ownernamesOptions)}
-              onApply={onOwnernamesApply}
-              onError={() => logPortfolioAnalytics("filterError", { column: "ownernames" })}
-              infoAlert={OwnernamesInfoAlert}
-              aria-label={i18n._(t`Landlord filter`)}
-              isOpen={ownernamesIsOpen}
-              defaultSelections={valuesAsMultiselectOptions(ownernamesSelections)}
-            />
-          </FilterAccordion>
-          <FilterAccordion
-            title={i18n._(t`Building Size`)}
-            subtitle={i18n._(t`Number of Units`)}
-            isActive={unitsresActive}
-            isOpen={unitsresIsOpen}
-            onOpen={() => logPortfolioAnalytics("filterOpened", { column: "unitsres" })}
-            setIsOpen={setUnitsresIsOpen}
-            className="unitsres-accordion"
-          >
-            <MinMaxSelect
-              options={filterContext.filterOptions.unitsres}
-              onApply={onUnitsresApply}
-              onError={() => logPortfolioAnalytics("filterError", { column: "unitsres" })}
-              id="filter-unitsres-minmax"
-              isOpen={unitsresIsOpen}
-              defaultSelections={unitsresSelections}
-            />
-          </FilterAccordion>
-          <FilterAccordion
-            title={i18n._(t`Zip Code`)}
-            isActive={zipActive}
-            isOpen={zipIsOpen}
-            setIsOpen={setZipIsOpen}
-            onOpen={() => logPortfolioAnalytics("filterOpened", { column: "zip" })}
-            selectionsCount={filterContext.filterSelections.zip.length}
-            className="zip-accordion"
-          >
-            <MultiSelect
-              id="filter-zip-multiselect"
-              options={valuesAsMultiselectOptions(zipOptions)}
-              onApply={onZipApply}
-              noOptionsMessage={() => i18n._(t`ZIP code is not applicable`)}
-              onError={() => logPortfolioAnalytics("filterError", { column: "zip" })}
-              aria-label={i18n._(t`Zip code filter`)}
-              onKeyDown={helpers.preventNonNumericalInput}
-              isOpen={zipIsOpen}
-              defaultSelections={valuesAsMultiselectOptions(zipSelections)}
-            />
-          </FilterAccordion>
-        </FiltersWrapper>
 
-        {(rsunitslatestActive || ownernamesActive || unitsresActive || zipActive) && (
-          <div className="filter-status">
-            <div className="filter-status-info">
-              <span className="results-count" role="status">
-                <Trans>
-                  Showing {filteredBuildings || 0}{" "}
-                  <Plural value={filteredBuildings || 0} one="result" other="results" />
-                </Trans>
-              </span>
-              <button
-                className="results-info"
-                onClick={() => setShowInfoModal(true)}
-                aria-label={i18n._(t`Learn more about how the results are calculated`)}
-              >
-                <InfoIcon />
-              </button>
-              <button className="clear-filters button is-text" onClick={clearFilters}>
-                <Trans>Clear Filters</Trans>
-              </button>
-            </div>
-            {filteredBuildings === 0 ? ZeroResultsAlert : <></>}
-          </div>
-        )}
-
-        <Modal key={1} showModal={showInfoModal} width={20} onClose={() => setShowInfoModal(false)}>
+        <Modal key={1} showModal={showInfoModal} width={40} onClose={() => setShowInfoModal(false)}>
           <h4>
             <Trans>How are the results calculated?</Trans>
           </h4>
@@ -359,7 +415,7 @@ const FiltersWrapper = (props: {
                 {resultsCount != null && <span className="view-results-count">{resultsCount}</span>}
               </button>
             )}
-            {resultsCount === 0 ? ZeroResultsAlert : <></>}
+            {resultsCount === 0 && ZeroResultsAlert}
           </div>
         </details>
       </div>
@@ -367,9 +423,9 @@ const FiltersWrapper = (props: {
   );
 };
 
-export const OwnernamesResultAlert = (
+const OwnernamesResultAlert = (
   <Alert
-    className="filter-result-alert"
+    className="filter-results-alert"
     type="info"
     variant="secondary"
     closeType="session"
@@ -383,9 +439,9 @@ export const OwnernamesResultAlert = (
   </Alert>
 );
 
-export const RsUnitsResultAlert = (
+const RsUnitsResultAlert = (
   <Alert
-    className="filter-result-alert"
+    className="filter-results-alert"
     type="info"
     variant="secondary"
     closeType="session"
@@ -420,17 +476,14 @@ const OwnernamesInfoAlert = (
     storageId="owner-info-alert-close"
     role="status"
   >
-    <Trans>
-      Look out for multiple spellings of the same person/entity. Names can be spelled multiple ways
-      in official documents.
-    </Trans>
+    <Trans>The same owner may have spelled their name several ways in official documents.</Trans>
   </Alert>
 );
 
 type FilterAccordionProps = withI18nProps & {
   title: string;
   subtitle?: string;
-  infoLabel?: string;
+  infoIconAriaLabel?: string;
   onInfoClick?: () => void;
   infoModalContents?: JSX.Element;
   children: React.ReactNode;
@@ -454,7 +507,7 @@ const FilterAccordion = withI18n()((props: FilterAccordionProps) => {
   const {
     title,
     subtitle,
-    infoLabel,
+    infoIconAriaLabel,
     onInfoClick,
     infoModalContents,
     children,
@@ -504,15 +557,16 @@ const FilterAccordion = withI18n()((props: FilterAccordionProps) => {
             {subtitle && (
               <div className="filter-subtitle-container">
                 {subtitle && <span className="filter-subtitle">{subtitle}</span>}
-                {infoLabel && (
+                {infoModalContents && (
                   <button
-                    className="filter-info button is-text"
+                    className="filter-info"
+                    aria-label={infoIconAriaLabel}
                     onClick={() => {
                       setShowInfoModal(true);
                       onInfoClick && onInfoClick();
                     }}
                   >
-                    {infoLabel}
+                    <InfoIcon />
                   </button>
                 )}
               </div>
@@ -522,7 +576,7 @@ const FilterAccordion = withI18n()((props: FilterAccordionProps) => {
         </details>
       </FocusTrap>
       {infoModalContents && (
-        <Modal showModal={showInfoModal} width={20} onClose={() => setShowInfoModal(false)}>
+        <Modal showModal={showInfoModal} width={40} onClose={() => setShowInfoModal(false)}>
           {infoModalContents}
         </Modal>
       )}
@@ -535,6 +589,44 @@ function valuesAsMultiselectOptions(values: string[]): Option[] {
     ? values.map((val: string) => ({ value: val, label: val }))
     : [];
   return formattedOptions;
+}
+
+function getOwnernamesOptions(addrs: AddressRecord[]) {
+  const allContactNames = addrs.map((addr) => {
+    // Group all contact info by the name of each person/corporate entity (same as on overview tab)
+    var ownerList =
+      addr.allcontacts &&
+      Object.entries(_groupBy(addr.allcontacts, "value"))
+        .sort(sortContactsByImportance)
+        .map((contact) => contact[0]);
+    return ownerList || [];
+  });
+
+  // put corporations like "123 Fake St, LLC" at the end so real names are shown first
+  return Array.from(new Set(allContactNames.flat())).sort(compareAlphaNumLast);
+}
+
+function compareAlphaNumLast(a: string, b: string) {
+  if (startsNumeric(a) === startsNumeric(b)) {
+    return a.localeCompare(b, undefined, { numeric: true, sensitivity: "base" });
+  }
+  return startsNumeric(a) ? 1 : -1;
+}
+
+function startsNumeric(x: string) {
+  return /^\d/.test(x);
+}
+
+function getUnitsresOptions(addrs: AddressRecord[]) {
+  const allUnitsres = addrs.map((addr) => addr.unitsres || 0);
+  return allUnitsres.length
+    ? { min: Math.min(...allUnitsres), max: Math.max(...allUnitsres) }
+    : NUMBER_RANGE_DEFAULT;
+}
+
+function getZipOptions(addrs: AddressRecord[]) {
+  const allZips = addrs.map((addr) => addr.zip).filter((zip) => zip != null) as string[];
+  return Array.from(new Set(allZips)).sort();
 }
 
 const PortfolioFilters = withI18n()(PortfolioFiltersWithoutI18n);

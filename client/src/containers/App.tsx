@@ -101,11 +101,11 @@ const WhoOwnsWhatRoutes: React.FC<{}> = () => {
         exact
       />
       <Route
-        path={paths.legacy.addressPage.timeline}
+        path={paths.legacy.addressPage.portfolio}
         render={(props) => <AddressPage currentTab={1} {...machineProps} {...props} />}
       />
       <Route
-        path={paths.legacy.addressPage.portfolio}
+        path={paths.legacy.addressPage.timeline}
         render={(props) => <AddressPage currentTab={2} {...machineProps} {...props} />}
       />
       <Route
@@ -125,7 +125,7 @@ const WhoOwnsWhatRoutes: React.FC<{}> = () => {
         exact
       />
       <Route
-        path={paths.addressPage.timeline}
+        path={paths.addressPage.portfolio}
         render={(props) => (
           <AddressPage
             currentTab={1}
@@ -136,7 +136,7 @@ const WhoOwnsWhatRoutes: React.FC<{}> = () => {
         )}
       />
       <Route
-        path={paths.addressPage.portfolio}
+        path={paths.addressPage.timeline}
         render={(props) => (
           <AddressPage
             currentTab={2}
@@ -335,21 +335,22 @@ const WowzaBanner = withI18n()((props: withI18nProps) => {
   const [isBannerOpen, setBannerVisibility] = useState(true);
   const { pathname } = useLocation();
   const { i18n } = props;
+  const { about } = createWhoOwnsWhatRoutePaths();
+
   return (
     <div className={"App__banner " + (!isBannerOpen ? "d-hide" : "")}>
       <div className="content">
         {isLegacyPath(pathname) ? (
           <Trans>
-            You are viewing the old version of Who Owns What.{" "}
+            This is the old version of Who Owns What.{" "}
             <ToggleLinkBetweenPortfolioMethods>
-              Switch to the new version.
+              Check out the new version here.
             </ToggleLinkBetweenPortfolioMethods>
           </Trans>
         ) : (
           <Trans>
-            In April 2023, this link to{" "}
-            <ToggleLinkBetweenPortfolioMethods>the old version</ToggleLinkBetweenPortfolioMethods>{" "}
-            of Who Owns What will move to the About Page.
+            This is the new version of Who Owns What. To view the old version{" "}
+            <LocaleNavLink to={about}>visit the About Page.</LocaleNavLink>
           </Trans>
         )}
       </div>

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 import AddressToolbar from "../components/AddressToolbar";
 import PropertiesMap from "../components/PropertiesMap";
-import PropertiesList from "../components/PropertiesList";
+import PropertiesList, { FilterContextProvider } from "../components/PropertiesList";
 import PropertiesSummary from "../components/PropertiesSummary";
 import Indicators from "../components/Indicators";
 import DetailView from "../components/DetailView";
@@ -43,6 +43,7 @@ type AddressPageProps = RouteComponentProps<RouteParams, {}, RouteState> &
 
 type State = {
   detailMobileSlide: boolean;
+  overviewEverVisible: boolean;
 };
 
 const validateRouteParams = (params: RouteParams) => {
@@ -69,6 +70,7 @@ export default class AddressPage extends Component<AddressPageProps, State> {
 
     this.state = {
       detailMobileSlide: false,
+      overviewEverVisible: false,
     };
   }
 
@@ -87,6 +89,13 @@ export default class AddressPage extends Component<AddressPageProps, State> {
     /* When searching for user's address, let's reset the DetailView to the "closed" state
     so it can pop into view once the address is found */
     this.handleCloseDetail();
+  }
+
+  componentDidUpdate(prevProps: AddressPageProps, prevState: State) {
+    const overviewIsVisible = this.props.currentTab === 0;
+    if (!prevState.overviewEverVisible && overviewIsVisible) {
+      this.setState({ overviewEverVisible: true });
+    }
   }
 
   handleOpenDetail = () => {
@@ -182,26 +191,26 @@ export default class AddressPage extends Component<AddressPageProps, State> {
                   </li>
                   <li className={`tab-item ${this.props.currentTab === 1 ? "active" : ""}`}>
                     <Link
-                      to={routes.timeline}
-                      tabIndex={this.props.currentTab === 1 ? -1 : 0}
-                      onClick={() => {
-                        logAmplitudeEvent("timelineTab");
-                        window.gtag("event", "timeline-tab");
-                      }}
-                    >
-                      <Trans>Timeline</Trans>
-                    </Link>
-                  </li>
-                  <li className={`tab-item ${this.props.currentTab === 2 ? "active" : ""}`}>
-                    <Link
                       to={routes.portfolio}
-                      tabIndex={this.props.currentTab === 2 ? -1 : 0}
+                      tabIndex={this.props.currentTab === 1 ? -1 : 0}
                       onClick={() => {
                         logAmplitudeEvent("portfolioTab");
                         window.gtag("event", "portfolio-tab");
                       }}
                     >
                       <Trans>Portfolio</Trans>
+                    </Link>
+                  </li>
+                  <li className={`tab-item ${this.props.currentTab === 2 ? "active" : ""}`}>
+                    <Link
+                      to={routes.timeline}
+                      tabIndex={this.props.currentTab === 2 ? -1 : 0}
+                      onClick={() => {
+                        logAmplitudeEvent("timelineTab");
+                        window.gtag("event", "timeline-tab");
+                      }}
+                    >
+                      <Trans>Timeline</Trans>
                     </Link>
                   </li>
                   <li className={`tab-item ${this.props.currentTab === 3 ? "active" : ""}`}>
@@ -225,17 +234,22 @@ export default class AddressPage extends Component<AddressPageProps, State> {
                 this.props.currentTab === 0 ? "AddressPage__content-active" : ""
               }`}
             >
-              <PropertiesMap
-                state={state}
-                send={send}
-                onAddrChange={(bbl: string) => {
-                  this.handleAddrChange(bbl);
-                  logAmplitudeEvent("addressChangeMap", analyticsEventData);
-                  window.gtag("event", "address-change-map");
-                }}
-                isVisible={this.props.currentTab === 0}
-                addressPageRoutes={routes}
-              />
+              {/* We are changed for each map load, which happens on render, so we want to
+              avoid rendering when it's not in view or rerendering which switching between tabs */}
+              {this.state.overviewEverVisible && (
+                <PropertiesMap
+                  location="overview"
+                  state={state}
+                  send={send}
+                  onAddrChange={(bbl: string) => {
+                    this.handleAddrChange(bbl);
+                    logAmplitudeEvent("addressChangeMap", analyticsEventData);
+                    window.gtag("event", "address-change-map");
+                  }}
+                  isVisible={this.props.currentTab === 0}
+                  addressPageRoutes={routes}
+                />
+              )}
               <DetailView
                 state={state}
                 send={send}
@@ -246,24 +260,31 @@ export default class AddressPage extends Component<AddressPageProps, State> {
               />
             </div>
             <div
-              className={`AddressPage__content AddressPage__summary ${
+              className={`AddressPage__content AddressPage__table ${
                 this.props.currentTab === 1 ? "AddressPage__content-active" : ""
               }`}
             >
+              <FilterContextProvider>
+                <PropertiesList
+                  state={state}
+                  send={send}
+                  addressPageRoutes={routes}
+                  isVisible={this.props.currentTab === 1}
+                />
+              </FilterContextProvider>
+            </div>
+            <div
+              className={`AddressPage__content AddressPage__summary ${
+                this.props.currentTab === 2 ? "AddressPage__content-active" : ""
+              }`}
+            >
               <Indicators
-                isVisible={this.props.currentTab === 1}
+                isVisible={this.props.currentTab === 2}
                 state={state}
                 send={send}
                 onBackToOverview={this.handleAddrChange}
                 addressPageRoutes={routes}
               />
-            </div>
-            <div
-              className={`AddressPage__content AddressPage__table ${
-                this.props.currentTab === 2 ? "AddressPage__content-active" : ""
-              }`}
-            >
-              <PropertiesList state={state} send={send} />
             </div>
             <div
               className={`AddressPage__content AddressPage__summary ${
