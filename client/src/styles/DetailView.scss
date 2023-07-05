@@ -123,7 +123,7 @@
     }
 
     .DetailView__mobilePortfolioView {
-      padding: 13px;
+      padding: 1.3rem 2rem;
 
       display: none;
       @include for-phone-only() {
@@ -141,6 +141,9 @@
 
     .card-header {
       padding-bottom: 1.5rem;
+      @include for-phone-only {
+        padding: 1.5rem 1rem;
+      }
 
       .card-title {
         margin-bottom: 0;
@@ -177,7 +180,7 @@
       figcaption {
         margin: 0;
         @include for-phone-only {
-          padding-left: 13px;
+          padding-left: 2rem;
         }
       }
     }
