@@ -183,6 +183,7 @@ class DetailViewWithoutI18n extends Component<Props, State> {
 
   render() {
     const isMobile = Browser.isMobile();
+    const screenSize = Browser.getScreenSize();
     const { i18n } = this.props;
     const locale = (i18n.language as SupportedLocale) || defaultLocale;
     const { useNewPortfolioMethod, portfolioData } = this.props.state.context;
@@ -229,7 +230,7 @@ class DetailViewWithoutI18n extends Component<Props, State> {
             <a href={`https://www.google.com/maps/place/${streetViewAddr}`} target="blank">
               <img
                 src={`https://maps.googleapis.com/maps/api/streetview?size=${
-                  isMobile ? "800x200" : "800x500"
+                  screenSize.width < 900 ? "800x300" : "800x500"
                 }&location=${streetViewCoords.lat},${streetViewCoords.lng}&key=${
                   process.env.REACT_APP_STREETVIEW_API_KEY
                 }`}
