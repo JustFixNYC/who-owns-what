@@ -226,7 +226,7 @@ class DetailViewWithoutI18n extends Component<Props, State> {
       streetViewAddr && streetViewCoords ? (
         <LazyLoadWhenVisible>
           <figure className="figure">
-            <a href={`https://www.google.com/maps/place/${streetViewAddr}`}>
+            <a href={`https://www.google.com/maps/place/${streetViewAddr}`} target="blank">
               <img
                 src={`https://maps.googleapis.com/maps/api/streetview?size=${
                   isMobile ? "800x200" : "800x500"
