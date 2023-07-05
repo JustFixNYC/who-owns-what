@@ -162,7 +162,24 @@
 
     .card-image {
       padding-top: 0;
-      border-bottom: 1px solid $dark;
+      figure {
+        display: inline-block;
+        width: 100%;
+        height: 300px;
+        @include for-phone-only {
+          height: 180px;
+        }
+        img {
+          width: 100%;
+          height: 100%;
+        }
+      }
+      figcaption {
+        margin: 0;
+        @include for-phone-only {
+          padding-left: 13px;
+        }
+      }
     }
 
     .card-body {

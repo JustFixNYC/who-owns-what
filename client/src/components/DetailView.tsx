@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { CSSTransition } from "react-transition-group";
-import { StreetView } from "./StreetView";
 import { LazyLoadWhenVisible } from "./LazyLoadWhenVisible";
 import Helpers, { longDateOptions } from "../util/helpers";
 import Browser from "../util/browser";
@@ -190,7 +189,12 @@ class DetailViewWithoutI18n extends Component<Props, State> {
     const { assocAddrs, detailAddr, searchAddr } = portfolioData;
 
     // Let's save some variables that will be helpful in rendering the front-end component
-    let takeActionURL, formattedRegEndDate, streetViewAddr, ownernames, userOwnernames;
+    let takeActionURL,
+      formattedRegEndDate,
+      streetViewCoords,
+      streetViewAddr,
+      ownernames,
+      userOwnernames;
 
     takeActionURL = Helpers.createTakeActionURL(detailAddr, "detail_view");
 
@@ -200,7 +204,7 @@ class DetailViewWithoutI18n extends Component<Props, State> {
       locale
     );
 
-    streetViewAddr =
+    streetViewCoords =
       detailAddr.lat && detailAddr.lng
         ? {
             lat: detailAddr.lat,
@@ -208,19 +212,41 @@ class DetailViewWithoutI18n extends Component<Props, State> {
           }
         : null;
 
+    streetViewAddr = encodeURIComponent(
+      `${detailAddr.housenumber} ${detailAddr.streetname}, ${detailAddr.boro}, NY ${detailAddr.zip}`
+    );
+
     if (detailAddr.ownernames && detailAddr.ownernames.length)
       ownernames = Helpers.uniq(detailAddr.ownernames);
 
     if (searchAddr.ownernames && searchAddr.ownernames.length)
       userOwnernames = Helpers.uniq(searchAddr.ownernames);
 
-    const streetView = streetViewAddr ? (
-      <LazyLoadWhenVisible>
-        <StreetView addr={streetViewAddr} />
-      </LazyLoadWhenVisible>
-    ) : (
-      <></>
-    );
+    const streetView =
+      streetViewAddr && streetViewCoords ? (
+        <LazyLoadWhenVisible>
+          <figure className="figure">
+            <a href={`https://www.google.com/maps/place/${streetViewAddr}`}>
+              <img
+                src={`https://maps.googleapis.com/maps/api/streetview?size=${
+                  isMobile ? "800x200" : "800x500"
+                }&location=${streetViewCoords.lat},${streetViewCoords.lng}&key=${
+                  process.env.REACT_APP_STREETVIEW_API_KEY
+                }`}
+                alt="Google Street View"
+                className="img-responsive"
+              />
+            </a>
+            <figcaption className="figure-caption">
+              <a href={`https://www.google.com/maps/place/${streetViewAddr}`} target="blank">
+                <Trans>View on Google Maps</Trans>
+              </a>
+            </figcaption>
+          </figure>
+        </LazyLoadWhenVisible>
+      ) : (
+        <></>
+      );
 
     return (
       <CSSTransition in={!isMobile || this.props.mobileShow} timeout={500} classNames="DetailView">

@@ -29,16 +29,16 @@ msgstr "#WhoOwnsWhat via @JustFixNYC"
 msgid "(\"{textInEnglish}\" in English)"
 msgstr "(\"{textInEnglish}\" in English)"
 
-#: src/components/DetailView.tsx:248
+#: src/components/DetailView.tsx:258
 msgid "(as part of a group sale)"
 msgstr "(as part of a group sale)"
 
-#: src/components/DetailView.tsx:230
+#: src/components/DetailView.tsx:240
 #: src/containers/NotRegisteredPage.tsx:103
 msgid "(expired {formattedRegEndDate})"
 msgstr "(expired {formattedRegEndDate})"
 
-#: src/components/DetailView.tsx:233
+#: src/components/DetailView.tsx:243
 msgid "(expires {formattedRegEndDate})"
 msgstr "(expires {formattedRegEndDate})"
 
@@ -151,7 +151,7 @@ msgstr "Apply"
 msgid "Apply selections and get results"
 msgstr "Apply selections and get results"
 
-#: src/components/DetailView.tsx:261
+#: src/components/DetailView.tsx:271
 msgid "Are you having issues in this building?"
 msgstr "Are you having issues in this building?"
 
@@ -167,7 +167,7 @@ msgstr "Associated names/entities: {0}"
 msgid "BELL/BUZZER/INTERCOM"
 msgstr "BELL/BUZZER/INTERCOM"
 
-#: src/components/DetailView.tsx:154
+#: src/components/DetailView.tsx:164
 msgid "BUILDING:"
 msgstr "BUILDING:"
 
@@ -209,14 +209,14 @@ msgstr "Buildings without valid property registration are subject to the followi
 msgid "Built"
 msgstr "Built"
 
-#: src/components/DetailView.tsx:320
-#: src/components/DetailView.tsx:329
+#: src/components/DetailView.tsx:330
+#: src/components/DetailView.tsx:339
 #: src/components/PortfolioGraph.tsx:129
 msgid "Business Addresses"
 msgstr "Business Addresses"
 
-#: src/components/DetailView.tsx:300
-#: src/components/DetailView.tsx:309
+#: src/components/DetailView.tsx:310
+#: src/components/DetailView.tsx:319
 msgid "Business Entities"
 msgstr "Business Entities"
 
@@ -696,12 +696,12 @@ msgstr "Last Sale"
 msgid "Last Sale Unknown"
 msgstr "Last Sale Unknown"
 
-#: src/components/DetailView.tsx:225
+#: src/components/DetailView.tsx:235
 #: src/containers/NotRegisteredPage.tsx:98
 msgid "Last registered:"
 msgstr "Last registered:"
 
-#: src/components/DetailView.tsx:238
+#: src/components/DetailView.tsx:248
 msgid "Last sold:"
 msgstr "Last sold:"
 
@@ -841,7 +841,7 @@ msgstr "Min must be less than {maxOption}"
 msgid "More Mobile Friendly"
 msgstr "More Mobile Friendly"
 
-#: src/components/DetailView.tsx:182
+#: src/components/DetailView.tsx:192
 msgid "Most Common 311 Complaints, Last 3 Years"
 msgstr "Most Common 311 Complaints, Last 3 Years"
 
@@ -927,7 +927,7 @@ msgstr "Non-ECB"
 msgid "Non-Emergency"
 msgstr "Non-Emergency"
 
-#: src/components/DetailView.tsx:190
+#: src/components/DetailView.tsx:200
 msgid "None"
 msgstr "None"
 
@@ -1014,8 +1014,8 @@ msgstr "PORTFOLIO: Your search address is associated with <0>{0}</0> {1, plural,
 msgid "Page"
 msgstr "Page"
 
-#: src/components/DetailView.tsx:340
 #: src/components/DetailView.tsx:350
+#: src/components/DetailView.tsx:360
 msgid "People"
 msgstr "People"
 
@@ -1156,7 +1156,7 @@ msgstr "Send us a data request"
 msgid "Share"
 msgstr "Share"
 
-#: src/components/DetailView.tsx:270
+#: src/components/DetailView.tsx:280
 #: src/components/EngagementPanel.tsx:18
 #: src/components/PropertiesSummary.tsx:140
 #: src/containers/App.tsx:146
@@ -1277,7 +1277,7 @@ msgstr "TENANT HARASSMENT"
 msgid "Table"
 msgstr "Table"
 
-#: src/components/DetailView.tsx:264
+#: src/components/DetailView.tsx:274
 #: src/containers/NychaPage.tsx:179
 msgid "Take action on JustFix.org!"
 msgstr "Take action on JustFix.org!"
@@ -1510,7 +1510,7 @@ msgstr "View Results"
 msgid "View by:"
 msgstr "View by:"
 
-#: src/components/DetailView.tsx:176
+#: src/components/DetailView.tsx:186
 msgid "View data over time ↗︎"
 msgstr "View data over time ↗︎"
 
@@ -1527,9 +1527,13 @@ msgstr "View documents on <0>ACRIS</0>"
 #~ msgid "View legend"
 #~ msgstr "View legend"
 
-#: src/components/DetailView.tsx:146
+#: src/components/DetailView.tsx:156
 msgid "View map"
 msgstr "View map"
+
+#: src/components/DetailView.tsx:145
+msgid "View on Google Maps"
+msgstr "View on Google Maps"
 
 #: src/containers/HomePage.tsx:153
 #: src/containers/HomePage.tsx:182
@@ -1565,7 +1569,7 @@ msgstr "WINDOWS"
 #~ msgid "Warning"
 #~ msgstr "Warning"
 
-#: src/components/DetailView.tsx:217
+#: src/components/DetailView.tsx:227
 msgid "Warning: This building has an expired registration and was sold after the expiration date. The landlord info listed here may be outdated."
 msgstr "Warning: This building has an expired registration and was sold after the expiration date. The landlord info listed here may be outdated."
 
@@ -1657,7 +1661,7 @@ msgstr "Who owns what in nyc?"
 msgid "Who’s responsible for issues in your apartment & building? #WhoOwnsWhat helps you research NYC property owners using public, open data. A free tool built by @JustFixNYC, it works on any device with an internet connection! Search your address here:"
 msgstr "Who’s responsible for issues in your apartment & building? #WhoOwnsWhat helps you research NYC property owners using public, open data. A free tool built by @JustFixNYC, it works on any device with an internet connection! Search your address here:"
 
-#: src/components/DetailView.tsx:197
+#: src/components/DetailView.tsx:207
 msgid "Who’s the landlord of this building?"
 msgstr "Who’s the landlord of this building?"
 
@@ -1733,7 +1737,7 @@ msgstr "and"
 msgid "associated building"
 msgstr "associated building"
 
-#: src/components/DetailView.tsx:242
+#: src/components/DetailView.tsx:252
 msgid "for ${0}"
 msgstr "for ${0}"
 
