@@ -168,13 +168,14 @@
       figure {
         display: inline-block;
         width: 100%;
-        max-height: 300px;
-        @include for-phone-only {
-          max-height: 180px;
-        }
         img {
+          object-fit: cover;
+          object-position: bottom;
           width: 100%;
-          height: auto;
+          max-height: 300px;
+          @include for-tablet-landscape-down {
+            max-height: 180px;
+          }
         }
       }
       figcaption {
@@ -183,7 +184,8 @@
           padding-left: 2.5rem;
         }
         @include for-phone-only {
-          padding-left: 2rem;
+          padding-right: 2rem;
+          text-align: right;
         }
       }
     }

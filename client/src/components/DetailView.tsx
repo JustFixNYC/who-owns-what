@@ -22,6 +22,7 @@ import _groupBy from "lodash/groupBy";
 import { HpdContactAddress, HpdFullContact } from "./APIDataTypes";
 import { isLegacyPath } from "./WowzaToggle";
 import { logAmplitudeEvent } from "./Amplitude";
+import { StreetViewStatic } from "./StreetView";
 
 type Props = withI18nProps &
   withMachineInStateProps<"portfolioFound"> & {
@@ -183,7 +184,6 @@ class DetailViewWithoutI18n extends Component<Props, State> {
 
   render() {
     const isMobile = Browser.isMobile();
-    const screenSize = Browser.getScreenSize();
     const { i18n } = this.props;
     const locale = (i18n.language as SupportedLocale) || defaultLocale;
     const { useNewPortfolioMethod, portfolioData } = this.props.state.context;
@@ -227,17 +227,12 @@ class DetailViewWithoutI18n extends Component<Props, State> {
       streetViewAddr && streetViewCoords ? (
         <LazyLoadWhenVisible>
           <figure className="figure">
-            <a href={`https://www.google.com/maps/place/${streetViewAddr}`} target="blank">
-              <img
-                src={`https://maps.googleapis.com/maps/api/streetview?size=${
-                  screenSize.width < 900 ? "800x300" : "800x500"
-                }&location=${streetViewCoords.lat},${streetViewCoords.lng}&key=${
-                  process.env.REACT_APP_STREETVIEW_API_KEY
-                }`}
-                alt="Google Street View"
-                className="img-responsive"
-              />
-            </a>
+            <StreetViewStatic
+              lat={streetViewCoords.lat}
+              lng={streetViewCoords.lng}
+              imgHeight={(width, _height) => ((width || 0) < 900 ? 200 : 400)}
+              imgWidth={(width, _height) => ((width || 0) < 900 ? 500 : 600)}
+            />
             <figcaption className="figure-caption">
               <a href={`https://www.google.com/maps/place/${streetViewAddr}`} target="blank">
                 <Trans>View on Google Maps</Trans>

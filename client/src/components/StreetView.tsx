@@ -1,6 +1,7 @@
 import React from "react";
 import { withGoogleMap, StreetViewPanorama } from "react-google-maps";
 import Browser from "../util/browser";
+import Helpers from "../util/helpers";
 
 export type StreetViewAddr = {
   lat: number;
@@ -121,3 +122,32 @@ export class StreetView extends React.Component<StreetViewProps, State> {
     );
   }
 }
+
+export const StreetViewStatic = ({
+  lat,
+  lng,
+  imgHeight,
+  imgWidth,
+}: {
+  lat: number;
+  lng: number;
+  imgHeight: (screenWidth?: number, screenHeight?: number) => number;
+  imgWidth: (screenWidth?: number, screenHeight?: number) => number;
+}) => {
+  const { width: screenWidth, height: screenHeight } = Helpers.useWindowSize();
+
+  const [imgSize, setImgSize] = React.useState(
+    `${imgWidth(screenWidth, screenHeight)}x${imgHeight(screenWidth, screenHeight)}`
+  );
+
+  React.useEffect(() => {
+    setImgSize(`${imgWidth(screenWidth, screenHeight)}x${imgHeight(screenWidth, screenHeight)}`);
+  }, [imgHeight, imgWidth, screenWidth, screenHeight]);
+
+  return (
+    <img
+      src={`https://maps.googleapis.com/maps/api/streetview?size=${imgSize}&location=${lat},${lng}&key=${process.env.REACT_APP_STREETVIEW_API_KEY}`}
+      alt="Google Street View"
+    />
+  );
+};
