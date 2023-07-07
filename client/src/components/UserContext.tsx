@@ -114,15 +114,12 @@ export const UserContextProvider = ({ children }: { children: React.ReactNode })
     []
   );
 
-  const logout = useCallback(
-    async (fromPath: string) => {
-      await AuthClient.logout();
-      if (authRequiredPaths().includes(fromPath)) {
-        document.location.href = `${window.location.origin}`;
-      }
-    },
-    []
-  )
+  const logout = useCallback(async (fromPath: string) => {
+    await AuthClient.logout();
+    if (authRequiredPaths().includes(fromPath)) {
+      document.location.href = `${window.location.origin}`;
+    }
+  }, []);
 
   const subscribe = useCallback(
     (

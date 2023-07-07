@@ -21,22 +21,22 @@ type VerifyEmailResponse = {
 let _user: JustfixUser | undefined;
 const user = () => _user;
 const fetchUser = async () => {
-  if (!_user) { 
+  if (!_user) {
     const authCheck = await userAuthenticated();
 
     if (!!authCheck) {
       const subscriptions =
-      authCheck["subscriptions"]?.map((s: any) => {
-        return { ...s };
-      }) || [];
+        authCheck["subscriptions"]?.map((s: any) => {
+          return { ...s };
+        }) || [];
       _user = {
         email: authCheck["email"],
         verified: authCheck["verified"],
         subscriptions,
       };
-    } else  {
+    } else {
       clearUser();
-    } 
+    }
   }
   return _user;
 };
@@ -214,7 +214,7 @@ const postAuthRequest = async (
 
   try {
     if (result.ok) {
-        return await result.json();
+      return await result.json();
     }
   } catch {
     return result;

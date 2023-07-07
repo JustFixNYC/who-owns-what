@@ -205,7 +205,11 @@ const SearchLink = () => {
   );
 };
 
-const getAccountNavLinks = (handleLogout: (fromPath: string) => void, fromPath: string, isSignedIn?: boolean ) => {
+const getAccountNavLinks = (
+  handleLogout: (fromPath: string) => void,
+  fromPath: string,
+  isSignedIn?: boolean
+) => {
   const { account } = createWhoOwnsWhatRoutePaths();
   const { settings, login } = account;
 
@@ -298,11 +302,13 @@ const Navbar = () => {
           <li className="menu-item">
             <LocaleSwitcherWithFullLanguageName />
           </li>
-          {getAccountNavLinks(userContext.logout, pathname, !!userContext?.user?.email).map((link, i) => (
-            <li className="menu-item" key={`account-${i}`}>
-              {link}
-            </li>
-          ))}
+          {getAccountNavLinks(userContext.logout, pathname, !!userContext?.user?.email).map(
+            (link, i) => (
+              <li className="menu-item" key={`account-${i}`}>
+                {link}
+              </li>
+            )
+          )}
         </Dropdown>
       </nav>
       <Modal showModal={isEngageModalVisible} onClose={() => setEngageModalVisibility(false)}>

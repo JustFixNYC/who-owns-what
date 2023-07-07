@@ -82,11 +82,11 @@ export const createAccountRoutePaths = (prefix?: string) => {
 };
 
 export const authRequiredPaths = () => {
-  const locales = ['en', 'es'];
+  const locales = ["en", "es"];
   let pathnames: string[] = [];
-  locales.forEach(locale => {
-    pathnames = pathnames.concat(Object.values(createAccountRoutePaths(`/${locale}/account`)))
-  })
+  locales.forEach((locale) => {
+    pathnames = pathnames.concat(Object.values(createAccountRoutePaths(`/${locale}/account`)));
+  });
   return pathnames;
 };
 
