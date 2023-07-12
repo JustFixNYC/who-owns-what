@@ -22,22 +22,26 @@ let _user: JustfixUser | undefined;
 const user = () => _user;
 const fetchUser = async () => {
   if (!_user) {
-    try {
-      const authCheck = await userAuthenticated();
+    const authCheck = await userAuthenticated();
+
+    if (!!authCheck) {
       const subscriptions =
-        authCheck?.["subscriptions"]?.map((s: any) => {
+        authCheck["subscriptions"]?.map((s: any) => {
           return { ...s };
         }) || [];
       _user = {
-        email: authCheck?.["email"],
-        verified: authCheck?.["verified"],
+        email: authCheck["email"],
+        verified: authCheck["verified"],
         subscriptions,
       };
-    } catch {}
+    } else {
+      clearUser();
+    }
   }
   return _user;
 };
 const setUser = (user: JustfixUser) => (_user = user);
+const clearUser = () => (_user = undefined);
 
 /**
  * Authenticates a user with the given email and password.
@@ -63,7 +67,7 @@ const login = async (username: string, password: string) => {
  */
 const logout = async () => {
   await postAuthRequest(`${BASE_URL}auth/logout`);
-  _user = undefined;
+  clearUser();
 };
 
 const resetPasswordRequest = async (username: string) => {
@@ -207,9 +211,11 @@ const postAuthRequest = async (
     },
     credentials: "include",
   });
+
   try {
-    const json = await result.json();
-    return json;
+    if (result.ok) {
+      return await result.json();
+    }
   } catch {
     return result;
   }

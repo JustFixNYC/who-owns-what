@@ -205,7 +205,11 @@ const SearchLink = () => {
   );
 };
 
-const getAccountNavLinks = (handleLogout: () => void, isSignedIn?: boolean) => {
+const getAccountNavLinks = (
+  handleLogout: (fromPath: string) => void,
+  fromPath: string,
+  isSignedIn?: boolean
+) => {
   const { account } = createWhoOwnsWhatRoutePaths();
   const { settings, login } = account;
 
@@ -214,7 +218,7 @@ const getAccountNavLinks = (handleLogout: () => void, isSignedIn?: boolean) => {
         <LocaleNavLink to={settings} key="account-1">
           <Trans>Account settings</Trans>
         </LocaleNavLink>,
-        <button onClick={() => handleLogout()} key="account-2">
+        <button onClick={() => handleLogout(fromPath)} key="account-2">
           <Trans>Sign out</Trans>
         </button>,
       ]
@@ -281,7 +285,7 @@ const Navbar = () => {
             <Trans>Share</Trans>
           </a>
           <LocaleSwitcher />
-          {getAccountNavLinks(userContext.logout, !!userContext?.user?.email)}
+          {getAccountNavLinks(userContext.logout, pathname, !!userContext?.user?.email)}
         </span>
         <Dropdown>
           {getMainNavLinks(isLegacyPath(pathname)).map((link, i) => (
@@ -298,11 +302,13 @@ const Navbar = () => {
           <li className="menu-item">
             <LocaleSwitcherWithFullLanguageName />
           </li>
-          {getAccountNavLinks(userContext.logout, !!userContext?.user?.email).map((link, i) => (
-            <li className="menu-item" key={`account-${i}`}>
-              {link}
-            </li>
-          ))}
+          {getAccountNavLinks(userContext.logout, pathname, !!userContext?.user?.email).map(
+            (link, i) => (
+              <li className="menu-item" key={`account-${i}`}>
+                {link}
+              </li>
+            )
+          )}
         </Dropdown>
       </nav>
       <Modal showModal={isEngageModalVisible} onClose={() => setEngageModalVisibility(false)}>

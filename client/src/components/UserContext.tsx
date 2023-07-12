@@ -1,6 +1,7 @@
 import React, { createContext, useState, useEffect, useMemo, useCallback } from "react";
 import { JustfixUser } from "state-machine";
 import AuthClient from "./AuthClient";
+import { authRequiredPaths } from "routes";
 
 export type UserContextProps = {
   user?: JustfixUser;
@@ -14,7 +15,7 @@ export type UserContextProps = {
     password: string,
     onSuccess?: (user: JustfixUser) => void
   ) => Promise<string | void>;
-  logout: () => void;
+  logout: (fromPath: string) => void;
   subscribe: (
     bbl: string,
     housenumber: string,
@@ -37,7 +38,7 @@ const initialState: UserContextProps = {
     onSuccess?: (user: JustfixUser) => void
   ) => {},
   login: async (username: string, password: string, onSuccess?: (user: JustfixUser) => void) => {},
-  logout: () => {},
+  logout: (fromPath: string) => {},
   subscribe: (
     bbl: string,
     housenumber: string,
@@ -113,12 +114,11 @@ export const UserContextProvider = ({ children }: { children: React.ReactNode })
     []
   );
 
-  const logout = useCallback(() => {
-    const asyncLogout = async () => {
-      await AuthClient.logout();
-      setUser(undefined);
-    };
-    asyncLogout();
+  const logout = useCallback(async (fromPath: string) => {
+    await AuthClient.logout();
+    if (authRequiredPaths().includes(fromPath)) {
+      document.location.href = `${window.location.origin}`;
+    }
   }, []);
 
   const subscribe = useCallback(
