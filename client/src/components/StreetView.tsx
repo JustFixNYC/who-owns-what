@@ -123,31 +123,32 @@ export class StreetView extends React.Component<StreetViewProps, State> {
   }
 }
 
-export const StreetViewStatic = ({
-  lat,
-  lng,
-  imgHeight,
-  imgWidth,
-}: {
+export interface StreetViewStaticProps extends React.ComponentPropsWithoutRef<"img"> {
   lat: number;
   lng: number;
   imgHeight: (screenWidth?: number, screenHeight?: number) => number;
   imgWidth: (screenWidth?: number, screenHeight?: number) => number;
-}) => {
-  const { width: screenWidth, height: screenHeight } = Helpers.useWindowSize();
+}
 
-  const [imgSize, setImgSize] = React.useState(
-    `${imgWidth(screenWidth, screenHeight)}x${imgHeight(screenWidth, screenHeight)}`
-  );
+export const StreetViewStatic = React.forwardRef<HTMLImageElement, StreetViewStaticProps>(
+  ({ lat, lng, imgHeight, imgWidth, ...props }, ref) => {
+    const { width: screenWidth, height: screenHeight } = Helpers.useWindowSize();
 
-  React.useEffect(() => {
-    setImgSize(`${imgWidth(screenWidth, screenHeight)}x${imgHeight(screenWidth, screenHeight)}`);
-  }, [imgHeight, imgWidth, screenWidth, screenHeight]);
+    const [imgSize, setImgSize] = React.useState(
+      `${imgWidth(screenWidth, screenHeight)}x${imgHeight(screenWidth, screenHeight)}`
+    );
 
-  return (
-    <img
-      src={`https://maps.googleapis.com/maps/api/streetview?size=${imgSize}&location=${lat},${lng}&key=${process.env.REACT_APP_STREETVIEW_API_KEY}`}
-      alt="Google Street View"
-    />
-  );
-};
+    React.useEffect(() => {
+      setImgSize(`${imgWidth(screenWidth, screenHeight)}x${imgHeight(screenWidth, screenHeight)}`);
+    }, [imgHeight, imgWidth, screenWidth, screenHeight]);
+
+    return (
+      <img
+        ref={ref}
+        src={`https://maps.googleapis.com/maps/api/streetview?size=${imgSize}&location=${lat},${lng}&key=${process.env.REACT_APP_STREETVIEW_API_KEY}`}
+        alt="Google Street View"
+        {...props}
+      />
+    );
+  }
+);

@@ -19,6 +19,7 @@ import { PortfolioGraph } from "./PortfolioGraph";
 import { ComplaintsSummary } from "./ComplaintsSummary";
 import { BigPortfolioAlert } from "./PortfolioAlerts";
 import { LazyLoadWhenVisible } from "./LazyLoadWhenVisible";
+import { StreetViewStatic } from "./StreetView";
 
 type Props = withMachineInStateProps<"portfolioFound"> & {
   isVisible: boolean;
@@ -138,9 +139,11 @@ export default class PropertiesSummary extends Component<Props, {}> {
               <aside>
                 {agg.violationsaddr.lat && agg.violationsaddr.lng && (
                   <figure className="figure">
-                    <img
-                      src={`https://maps.googleapis.com/maps/api/streetview?size=800x500&location=${agg.violationsaddr.lat},${agg.violationsaddr.lng}&key=${process.env.REACT_APP_STREETVIEW_API_KEY}`}
-                      alt="Google Street View"
+                    <StreetViewStatic
+                      lat={agg.violationsaddr.lat}
+                      lng={agg.violationsaddr.lng}
+                      imgHeight={() => 800}
+                      imgWidth={() => 500}
                       className="img-responsive"
                     />
                     <figcaption className="figure-caption text-center text-italic">
