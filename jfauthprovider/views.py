@@ -4,9 +4,9 @@ from django.utils.decorators import method_decorator
 from django.views import View
 
 from .authutil import (
+    auth_server_request,
     client_secret_request,
     authenticated_request,
-    auth_server_request,
     set_response_cookies,
 )
 
@@ -130,6 +130,7 @@ def password_reset_request(request):
         "origin": request.headers["Origin"],
     }
     return auth_server_request(
+        "POST",
         "user/password_reset/request/",
         post_data,
         {"Cookie": request.headers.get("Cookie")},
@@ -143,6 +144,7 @@ def password_reset(request):
         "new_password": request.POST.get("new_password"),
     }
     return auth_server_request(
+        "POST",
         "user/password_reset/", post_data, {"Cookie": request.headers.get("Cookie")}
     )
 
@@ -194,6 +196,7 @@ def user_subscriptions(request):
         post_data = {"token": request.GET.get("u")}
 
         return auth_server_request(
+            "POST",
             "user/subscriptions/",
             post_data,
         )
@@ -207,8 +210,16 @@ def email_unsubscribe(request, bbl):
         post_data = {"token": request.GET.get("u")}
 
         return auth_server_request(
+            "POST",
             "user/unsubscribe/" + str(bbl) + "/",
             post_data,
         )
     except KeyError:
         return HttpResponse(content_type="application/json", status=401)
+
+@api
+def account_exists(request, email):
+    try:
+        return auth_server_request("GET", "user/" + email, request)
+    except KeyError:
+        return HttpResponse(content_type="application/json", status=400)
