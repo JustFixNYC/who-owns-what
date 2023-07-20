@@ -72,6 +72,7 @@
     "react-select": "^5.7.2",
     "react-social": "^1.10.0",
     "react-transition-group": "^2.2.1",
+    "resize-observer-polyfill": "^1.5.1",
     "rollbar": "^2.14.4",
     "sass": "^1.49.9",
     "spectre.scss": "0.0.2",
