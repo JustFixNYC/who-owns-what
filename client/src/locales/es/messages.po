@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-07-19 13:49\n"
+"PO-Revision-Date: 2023-07-20 18:01\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -1538,7 +1538,7 @@ msgstr "Ver mapa"
 
 #: src/components/DetailView.tsx:143
 msgid "View on Google Maps"
-msgstr ""
+msgstr "Ver en Google Maps"
 
 #: src/containers/HomePage.tsx:153
 #: src/containers/HomePage.tsx:182
