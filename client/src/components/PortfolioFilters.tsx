@@ -18,7 +18,6 @@ import { LocaleLink } from "i18n";
 import { createWhoOwnsWhatRoutePaths } from "routes";
 import { isLegacyPath } from "./WowzaToggle";
 import { useLocation } from "react-router-dom";
-import Browser from "../util/browser";
 import helpers from "util/helpers";
 import MultiSelect, { Option } from "./Multiselect";
 import MinMaxSelect from "./MinMaxSelect";
@@ -36,7 +35,8 @@ type PortfolioFilterProps = withMachineInStateProps<"portfolioFound"> &
 
 const PortfolioFiltersWithoutI18n = React.memo(
   React.forwardRef<HTMLDivElement, PortfolioFilterProps>((props, ref) => {
-    const isMobile = Browser.isMobile();
+    const { width } = helpers.useWindowSize();
+    const isMobile = !!width && width <= 599;
 
     const [showInfoModal, setShowInfoModal] = React.useState(false);
 
