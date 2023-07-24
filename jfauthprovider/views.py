@@ -145,7 +145,9 @@ def password_reset(request):
     }
     return auth_server_request(
         "POST",
-        "user/password_reset/", post_data, {"Cookie": request.headers.get("Cookie")}
+        "user/password_reset/",
+        post_data,
+        {"Cookie": request.headers.get("Cookie")},
     )
 
 
@@ -216,6 +218,7 @@ def email_unsubscribe(request, bbl):
         )
     except KeyError:
         return HttpResponse(content_type="application/json", status=401)
+
 
 @api
 def account_exists(request, email):
