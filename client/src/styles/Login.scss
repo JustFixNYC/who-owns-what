@@ -16,9 +16,9 @@
     margin-bottom: 0.5rem;
   }
 
-  .button {
-    margin: auto;
-    margin-top: 1rem;
+  .login-type-toggle {
+    display: flex;
+    justify-content: flex-start;
   }
 
   .login-response-text {
@@ -27,9 +27,32 @@
 
   .login-password-label {
     display: flex;
+    justify-content: space-between;
+    align-items: center;
 
     label {
       flex: 1;
+    }
+  }
+
+  h4 {
+    font-size: 2.4rem;
+  }
+  h5 {
+    font-size: 1.6rem;
+  }
+
+  .jf-alert {
+    width: auto;
+    margin-bottom: 2rem;
+
+    .button.is-text {
+      display: block !important;
+      color: $justfix-white;
+    }
+
+    .jf-alert__content {
+      display: flex;
     }
   }
 }

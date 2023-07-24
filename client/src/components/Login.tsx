@@ -5,10 +5,12 @@ import "styles/_input.scss";
 
 import { I18n } from "@lingui/core";
 import { withI18n } from "@lingui/react";
-import { Trans } from "@lingui/macro";
+import { Trans, t } from "@lingui/macro";
 import { UserContext } from "./UserContext";
 import PasswordInput from "./PasswordInput";
 import { JustfixUser } from "state-machine";
+import AuthClient from "./AuthClient";
+import { Alert } from "./Alert";
 
 type PasswordRule = {
   regex: RegExp;
@@ -26,73 +28,108 @@ const validatePassword = (password: string) => {
   return valid;
 };
 
+export enum LoginState {
+  Default,
+  Login,
+  Register,
+}
+
 type LoginProps = {
   i18n: I18n;
   onSuccess?: (user: JustfixUser) => void;
-  handleLoginRedirect?: () => void;
+  handleRedirect?: () => void;
 };
 
-// class LoginWithoutI18n extends React.Component<LoginProps, State> {
 const LoginWithoutI18n = (props: LoginProps) => {
-  const { onSuccess, handleLoginRedirect } = props;
+  const { i18n, onSuccess, handleRedirect } = props;
+  const userContext = useContext(UserContext);
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
-  const [formState, setFormState] = useState<"username" | "password">("username");
-  const [loginState, setLoginState] = useState<"login" | "register">("register");
-  const userContext = useContext(UserContext);
+  const [loginState, setLoginState] = useState(LoginState.Default);
+  const [header, setHeader] = useState("Log in / sign up");
+  const [subheader, setSubheader] = useState("");
+  const [isExistingUser, setIsExistingUser] = useState(false);
 
-  const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setUsername(e.target.value);
+  const isDefaultState = loginState === LoginState.Default;
+  const isRegisterState = loginState === LoginState.Register;
+
+  const toggleLoginState = (endState: LoginState) => {
+    if (endState === LoginState.Register) {
+      setLoginState(LoginState.Register);
+      setHeader("Sign up");
+      setSubheader("With an account you can save buildings and get weekly updates");
+    } else if (endState === LoginState.Login) {
+      setLoginState(LoginState.Login);
+      setHeader("Log in");
+      setSubheader("");
+    }
   };
 
-  const handleEmailEntry = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleEmailSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (formState === "username") {
-      setFormState("password");
+    if (isDefaultState) {
+      const existingUser = await AuthClient.isEmailAlreadyUsed(username);
+
+      if (existingUser) {
+        setIsExistingUser(true);
+        toggleLoginState(LoginState.Login);
+      } else {
+        toggleLoginState(LoginState.Register);
+      }
     }
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    // TODO error messaging needs work, leaving it be for now
     if (!username || !password) {
       setMessage(`Please enter an email address and password!`);
       return;
     }
 
     const loginMessage =
-      loginState === "login"
+      loginState === LoginState.Login
         ? await userContext.login(username, password, onSuccess)
         : await userContext.register(username, password, onSuccess);
     if (!!loginMessage) {
       setMessage(loginMessage);
-    } else if (handleLoginRedirect) {
-      handleLoginRedirect();
+    } else if (handleRedirect) {
+      handleRedirect();
     }
   };
 
   return (
     <div className={`Login`}>
-      <form
-        onSubmit={formState === "password" ? handleSubmit : handleEmailEntry}
-        className="input-group"
-      >
+      {isExistingUser && isRegisterState && (
+        <Alert type="error" variant="primary" closeType="none" role="status">
+          <Trans>That email is already used.</Trans>
+          <button
+            className="button is-text ml-5"
+            onClick={() => toggleLoginState(LoginState.Login)}
+          >
+            <Trans>Log in</Trans>
+          </button>
+        </Alert>
+      )}
+      <h4 className="text-center">{i18n._(t`${header}`)}</h4>
+      <h5 className="text-left">{i18n._(t`${subheader}`)}</h5>
+      <form onSubmit={isDefaultState ? handleEmailSubmit : handleSubmit} className="input-group">
         <Trans render="label">Email address</Trans>
         <input
           type="email"
           className="input"
-          placeholder={`Enter email`}
-          onChange={handleUsernameChange}
+          placeholder={i18n._(t`Enter email`)}
+          onChange={(e) => setUsername(e.target.value)}
           value={username}
+          required={true}
         />
-        {formState === "password" && (
+        {!isDefaultState && (
           <PasswordInput
             username={username}
-            label={loginState === "login" ? "Enter password" : "Create a new password"}
-            showForgotPassword={loginState === "login"}
-            showPasswordRules={loginState === "register"}
+            validateInput={isRegisterState}
             onChange={setPassword}
           />
         )}
@@ -100,29 +137,35 @@ const LoginWithoutI18n = (props: LoginProps) => {
           type="submit"
           className="button is-primary"
           value={
-            formState === "username" ? `Get updates` : loginState === "login" ? "Log in" : "Sign up"
+            isDefaultState
+              ? i18n._(t`Submit`)
+              : isRegisterState
+              ? i18n._(t`Sign up`)
+              : i18n._(t`Log in`)
           }
-          disabled={!validatePassword(password) && formState === "password"}
+          disabled={!validatePassword(password) && isRegisterState}
         />
       </form>
-      {formState === "password" && (
-        <p>
-          {loginState === "login" ? (
-            <>
-              <span>Don't have an account? </span>
-              <button className="link-button" onClick={() => setLoginState("register")}>
-                Sign Up
-              </button>
-            </>
-          ) : (
-            <>
-              <span>Already have an account?</span>
-              <button className="link-button" onClick={() => setLoginState("login")}>
-                Log in
-              </button>
-            </>
-          )}
-        </p>
+      {isRegisterState ? (
+        <div className="login-type-toggle">
+          <Trans>Already have an account?</Trans>
+          <button
+            className="button is-text ml-5"
+            onClick={() => toggleLoginState(LoginState.Login)}
+          >
+            <Trans>Log in</Trans>
+          </button>
+        </div>
+      ) : (
+        <div className="login-type-toggle">
+          <Trans>Don't have an account?</Trans>
+          <button
+            className="button is-text ml-5 pt-20"
+            onClick={() => toggleLoginState(LoginState.Register)}
+          >
+            <Trans>Sign up</Trans>
+          </button>
+        </div>
       )}
       {message && <p className="login-response-text">{message}</p>}
     </div>

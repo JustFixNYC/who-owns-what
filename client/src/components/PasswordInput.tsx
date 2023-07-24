@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { Fragment, useState } from "react";
 
 import "styles/Password.css";
 import "styles/_input.scss";
@@ -6,6 +6,9 @@ import "styles/_input.scss";
 import { withI18n } from "@lingui/react";
 import { LocaleLink } from "i18n";
 import { createWhoOwnsWhatRoutePaths } from "routes";
+import { I18n } from "@lingui/core";
+import { t } from "@lingui/macro";
+import { HideIcon, ShowIcon } from "./Icons";
 
 type PasswordRule = {
   regex: RegExp;
@@ -24,19 +27,20 @@ export const validatePassword = (password: string) => {
 };
 
 type PasswordInputProps = {
-  label?: string;
+  i18n: I18n;
   username?: string;
-  showForgotPassword?: boolean;
-  showPasswordRules?: boolean;
   onChange?: (password: string) => void;
+  validateInput?: boolean;
 };
 
 const PasswordInputWithoutI18n = (props: PasswordInputProps) => {
   const { account } = createWhoOwnsWhatRoutePaths();
 
-  const { label, username, showForgotPassword, showPasswordRules, onChange } = props;
+  const { i18n, username, validateInput, onChange } = props;
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+
+  const labelText = validateInput ? "Create a new password" : "Password";
 
   const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
@@ -44,16 +48,16 @@ const PasswordInputWithoutI18n = (props: PasswordInputProps) => {
   };
 
   return (
-    <>
+    <Fragment>
       <div className="login-password-label">
-        {label && <label>{label}</label>}
-        {showForgotPassword && (
+        <label>{i18n._(t`${labelText}`)}</label>
+        {!validateInput && (
           <LocaleLink to={`${account.forgotPassword}?email=${encodeURIComponent(username || "")}`}>
             Forgot your password?
           </LocaleLink>
         )}
       </div>
-      {showPasswordRules &&
+      {validateInput &&
         passwordRules.map((rule, i) => {
           const ruleClass = !!password ? (password.match(rule.regex) ? "valid" : "invalid") : "";
           return (
@@ -70,12 +74,20 @@ const PasswordInputWithoutI18n = (props: PasswordInputProps) => {
           onChange={handlePasswordChange}
           value={password}
         />
-        <button type="button" onClick={() => setShowPassword(!showPassword)}>
-          {showPassword ? "Hide" : "Show"}
+        <button
+          type="button"
+          className="show-hide-toggle"
+          onClick={() => setShowPassword(!showPassword)}
+        >
+          {showPassword ? <HideIcon /> : <ShowIcon />}
         </button>
       </div>
-    </>
+    </Fragment>
   );
+};
+
+PasswordInputWithoutI18n.defaultProps = {
+  validateInput: false,
 };
 
 const PasswordInput = withI18n()(PasswordInputWithoutI18n);
