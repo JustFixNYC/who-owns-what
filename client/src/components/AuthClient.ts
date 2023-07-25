@@ -172,6 +172,18 @@ const buildingUnsubscribe = async (bbl: string) => {
   );
 };
 
+const isEmailAlreadyUsed = async (email: string) => {
+  const result = await friendlyFetch(`${BASE_URL}auth/account_exists/${email}`, {
+    method: "GET",
+    mode: "cors",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+  });
+
+  return result.ok;
+};
+
 /**
  * Sends an unauthenticated request to unsubscribe the user from the building
  */
@@ -238,6 +250,7 @@ const friendlyFetch: typeof fetch = async (input, init) => {
 
 const Client = {
   userAuthenticated,
+  isEmailAlreadyUsed,
   user,
   fetchUser,
   setUser,

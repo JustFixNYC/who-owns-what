@@ -43,13 +43,19 @@ def set_response_cookies(response, json_data):
     return response_with_cookies
 
 
-def auth_server_request(url, data={}, headers={}):
+def auth_server_request(method, url, data={}, headers={}):
     try:
-        response = requests.post(
-            os.path.join(AUTH_BASE_URL, url),
-            data=data,
-            headers=headers,
-        )
+        if method == "GET":
+            response = requests.get(
+                os.path.join(AUTH_BASE_URL, url), data=data, headers=headers
+            )
+        elif method == "POST":
+            response = requests.post(
+                os.path.join(AUTH_BASE_URL, url),
+                data=data,
+                headers=headers,
+            )
+
         if response.content:
             content = json.loads(response.content)
         else:

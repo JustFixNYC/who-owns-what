@@ -1,10 +1,9 @@
-import React from "react";
 import { useHistory } from "react-router-dom";
 import LegalFooter from "../components/LegalFooter";
 
 import Page from "../components/Page";
 import { withI18n, withI18nProps } from "@lingui/react";
-import { Trans, t } from "@lingui/macro";
+import { t } from "@lingui/macro";
 import Login from "components/Login";
 import { createWhoOwnsWhatRoutePaths } from "routes";
 
@@ -23,8 +22,7 @@ const LoginPage = withI18n()((props: withI18nProps) => {
     <Page title={i18n._(t`Verify your email address`)}>
       <div className="LoginPage Page">
         <div className="page-container">
-          <Trans render="h4">Login to your account</Trans>
-          <Login handleLoginRedirect={redirect} />
+          <Login handleRedirect={redirect} />
         </div>
         <LegalFooter />
       </div>
