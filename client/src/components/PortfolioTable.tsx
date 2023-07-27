@@ -138,7 +138,11 @@ const PortfolioTableWithoutI18n = React.memo((props: PortfolioTableProps) => {
           return (
             <Link
               to={createRouteForFullBbl(row.original.bbl, locale, isLegacyPath(pathname))}
-              onClick={() => logPortfolioAnalytics("addressChangePortfolio", { column: "address" })}
+              onClick={() =>
+                logPortfolioAnalytics("addressChangePortfolio", {
+                  extraParams: { from: "address column" },
+                })
+              }
             >
               {row.original.housenumber} {row.original.streetname}
             </Link>
@@ -176,7 +180,11 @@ const PortfolioTableWithoutI18n = React.memo((props: PortfolioTableProps) => {
               return (
                 <Link
                   to={createRouteForFullBbl(row.original.bbl, locale, isLegacyPath(pathname))}
-                  onClick={() => logPortfolioAnalytics("addressChangePortfolio", { column: "bbl" })}
+                  onClick={() =>
+                    logPortfolioAnalytics("addressChangePortfolio", {
+                      extraParams: { from: "bbl column" },
+                    })
+                  }
                 >
                   {row.original.bbl}
                 </Link>
@@ -495,7 +503,9 @@ const PortfolioTableWithoutI18n = React.memo((props: PortfolioTableProps) => {
                 className="btn"
                 aria-label={i18n._(t`View Detail`)}
                 onClick={() =>
-                  logPortfolioAnalytics("addressChangePortfolio", { column: "detail" })
+                  logPortfolioAnalytics("addressChangePortfolio", {
+                    extraParams: { from: "detail column" },
+                  })
                 }
               >
                 <span style={{ padding: "0 3px" }}>&#10142;</span>
