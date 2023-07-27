@@ -656,8 +656,12 @@ msgid "JustFix, Inc is a registered 501(c)(3) nonprofit organization."
 msgstr "JustFix, Inc is a registered 501(c)(3) nonprofit organization."
 
 #: src/containers/HomePage.tsx:166
-msgid "Known for <0>deregulating rent stabilized apartments</0>, Stellar Management is also one of the city’s of <1>Worst Evictors</1>. Stellar is a gentrifying force, particularly in upper Manhattan where they have a reputation for displacing long-term tenants, renovating their units while vacant, and skyrocketing rents to market rate."
-msgstr "Known for <0>deregulating rent stabilized apartments</0>, Stellar Management is also one of the city’s of <1>Worst Evictors</1>. Stellar is a gentrifying force, particularly in upper Manhattan where they have a reputation for displacing long-term tenants, renovating their units while vacant, and skyrocketing rents to market rate."
+msgid "Known for <0>deregulating rent stabilized apartments</0>, Stellar Management is also one of the city’s <1>Worst Evictors</1>. Stellar is a gentrifying force, particularly in upper Manhattan, where they have a reputation for displacing long-term tenants, renovating their units while vacant, and skyrocketing rents to market rate."
+msgstr "Known for <0>deregulating rent stabilized apartments</0>, Stellar Management is also one of the city’s <1>Worst Evictors</1>. Stellar is a gentrifying force, particularly in upper Manhattan, where they have a reputation for displacing long-term tenants, renovating their units while vacant, and skyrocketing rents to market rate."
+
+#: src/containers/HomePage.tsx:166
+#~ msgid "Known for <0>deregulating rent stabilized apartments</0>, Stellar Management is also one of the city’s of <1>Worst Evictors</1>. Stellar is a gentrifying force, particularly in upper Manhattan where they have a reputation for displacing long-term tenants, renovating their units while vacant, and skyrocketing rents to market rate."
+#~ msgstr "Known for <0>deregulating rent stabilized apartments</0>, Stellar Management is also one of the city’s of <1>Worst Evictors</1>. Stellar is a gentrifying force, particularly in upper Manhattan where they have a reputation for displacing long-term tenants, renovating their units while vacant, and skyrocketing rents to market rate."
 
 #: src/containers/HomePage.tsx:215
 #~ msgid "Known for <0>unscrupulously deregulating rent stabilized apartments</0>, Larry Gluck’s Stellar Management has also secured a prominent place as one of <1>New York City’s Worst Evictors</1>. Stellar is a gentrifying force, particularly in upper Manhattan where Gluck operates the majority of his properties. Stellar has a reputation for displacing long-term tenants, renovating their units while vacant, and skyrocketing rents to market rate."
@@ -1320,8 +1324,12 @@ msgid "The city borough where your search address is located"
 msgstr "The city borough where your search address is located"
 
 #: src/containers/HomePage.tsx:130
-msgid "The city’s fifth <0>worst evictor</0> in 2018, A&E is a prime example of a landlord who engages in <1>aggressive eviction strategies</1> to displace low-income tenants. Besides lack of repairs and frivolous evictions in housing court, A&E has also been known to use <2>MCIs</2> to <3>double rents</3> in rent-stabilized buildings."
-msgstr "The city’s fifth <0>worst evictor</0> in 2018, A&E is a prime example of a landlord who engages in <1>aggressive eviction strategies</1> to displace low-income tenants. Besides lack of repairs and frivolous evictions in housing court, A&E has also been known to use <2>MCIs</2> to <3>double rents</3> in rent-stabilized buildings."
+msgid "The city’s fifth <0>worst evictor</0> in 2018, A&E is a prime example of a landlord who engages in <1>aggressive eviction strategies</1> to displace low-income tenants. Aside from lack of repairs and frivolous evictions in housing court, A&E has also been known to use <2>MCIs</2> to <3>double rents</3> in rent-stabilized buildings."
+msgstr "The city’s fifth <0>worst evictor</0> in 2018, A&E is a prime example of a landlord who engages in <1>aggressive eviction strategies</1> to displace low-income tenants. Aside from lack of repairs and frivolous evictions in housing court, A&E has also been known to use <2>MCIs</2> to <3>double rents</3> in rent-stabilized buildings."
+
+#: src/containers/HomePage.tsx:130
+#~ msgid "The city’s fifth <0>worst evictor</0> in 2018, A&E is a prime example of a landlord who engages in <1>aggressive eviction strategies</1> to displace low-income tenants. Besides lack of repairs and frivolous evictions in housing court, A&E has also been known to use <2>MCIs</2> to <3>double rents</3> in rent-stabilized buildings."
+#~ msgstr "The city’s fifth <0>worst evictor</0> in 2018, A&E is a prime example of a landlord who engages in <1>aggressive eviction strategies</1> to displace low-income tenants. Besides lack of repairs and frivolous evictions in housing court, A&E has also been known to use <2>MCIs</2> to <3>double rents</3> in rent-stabilized buildings."
 
 #: src/components/PropertiesSummary.tsx:83
 msgid "The most common corporate entity is <0>{0}</0> and the most common business address is <1>{1}</1>."
