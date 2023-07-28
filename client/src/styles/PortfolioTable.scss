@@ -117,6 +117,7 @@ $table-border-dark: 1px solid $dark;
         white-space: nowrap;
 
         tr {
+          background-color: #fff;
           height: 30px;
           div {
             font-weight: 600 !important;
@@ -128,11 +129,9 @@ $table-border-dark: 1px solid $dark;
 
         tr:first-child th {
           color: #000;
-          background-color: $justfix-table-white;
         }
 
         tr:last-child th {
-          background-color: #fff;
           border-top: $table-border-light;
           border-bottom: $table-border-dark;
           box-shadow: none;
@@ -151,12 +150,12 @@ $table-border-dark: 1px solid $dark;
       tbody {
         overflow: auto;
         tr {
-          border-bottom: $table-border-light;
+          border-bottom: $gray-light;
 
           &.row-odd {
-            background-color: $justfix-table-white;
+            background-color: $justfix-white;
             &:hover {
-              background-color: $justfix-table-grey;
+              background-color: $gray-light;
             }
           }
           &.row-even {
@@ -212,78 +211,77 @@ $table-border-dark: 1px solid $dark;
     position: sticky;
     left: 0px;
     z-index: 2;
-    justify-content: space-between;
-    align-items: stretch;
+    align-items: center;
     flex-wrap: wrap;
-    padding: 3px;
-    background-color: $wowza-background;
+    padding: 1.4rem 1.7rem;
+    background-color: $justfix-white;
+    border-top: 0.1rem solid $gray-light;
+    text-align: center;
     margin: 0;
 
-    div {
-      display: block;
-      flex: 1 1;
-      text-align: center;
+    .page-size {
+      margin-right: auto;
+      select {
+        padding: 0.45rem 2.7rem 0.45rem 0.9rem;
+        cursor: pointer;
+        appearance: none;
+        // custom arrow, same as chevronIcon
+        background-image: url("data:image/svg+xml,%3Csvg width='11' height='7' viewBox='0 0 11 7' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M9.5 1L5.25 5.25L1 1' stroke='%23242323' stroke-width='2'/%3E%3C/svg%3E%0A");
+        background-repeat: no-repeat;
+        background-position: right 0.9rem top 50%;
+        background-size: 0.8rem auto;
+        &:focus,
+        &:focus-visible {
+          outline: 0.2rem solid $focus-outline-color;
+        }
+      }
     }
 
-    .center {
-      flex: 1.5 1;
-      text-align: center;
-      margin-bottom: 0;
-      display: flex;
-      flex-direction: row;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-around;
-
-      .page-info {
-        display: flex;
-        align-items: center;
-        margin: 3px 10px;
-        white-space: nowrap;
-
-        input {
-          width: 70px;
-          text-align: center;
-          display: inline-block;
-          border: 1px solid rgba(0, 0, 0, 0.1);
-          background: #fff;
-          padding: 5px 7px;
-          margin: 5px 7px;
-          font-size: inherit;
-          border-radius: 3px;
-          font-weight: 400;
-          outline: none;
-        }
-        .total-pages {
-          margin-left: 5px;
-        }
+    .page-info {
+      font-size: 1.2rem;
+      margin-right: 3.2rem;
+      @include for-phone-only {
+        margin-right: 1.6rem;
       }
     }
 
     .next,
     .prev {
-      .page-btn[disabled] {
-        opacity: 0.65;
-        cursor: default;
-      }
-
       .page-btn {
-        -webkit-appearance: none;
-        -moz-appearance: none;
-        appearance: none;
-        display: block;
-        width: 100%;
-        height: 100%;
-        border: 0;
-        border-radius: 3px;
-        padding: 6px;
-        font-size: 1em;
         color: $justfix-black;
-        background: rgba(0, 0, 0, 0.1);
-        transition: all 0.1s ease;
-        cursor: pointer;
-        outline: none;
+        width: 4.8rem;
+        height: 4.8rem;
+        border-radius: 4rem;
+
+        .chevronIcon {
+          height: 1.2rem;
+          &.left {
+            transform: rotate(90deg);
+          }
+          &.right {
+            transform: rotate(-90deg);
+          }
+        }
+
+        &[disabled] {
+          color: $justfix-grey-400;
+          cursor: default;
+        }
+        &:not([disabled]) {
+          &:hover,
+          &:active,
+          &:focus,
+          &:focus-visible {
+            background-color: $justfix-white-200;
+          }
+        }
       }
+    }
+    .prev .page-btn .chevronIcon {
+      transform: rotate(90deg);
+    }
+    .next .page-btn .chevronIcon {
+      transform: rotate(-90deg);
     }
 
     select {
