@@ -894,7 +894,7 @@ msgstr "Oficina Regional de Nueva York:"
 msgid "Next"
 msgstr "Siguiente"
 
-#: src/components/PortfolioTable.tsx:530
+#: src/components/PortfolioTable.tsx:529
 msgid "Next page"
 msgstr ""
 
@@ -1019,12 +1019,12 @@ msgid "PORTFOLIO: Your search address is associated with <0>{0}</0> {1, plural, 
 msgstr "PORTAFOLIO DE EDIFICIOS: La dirección que has buscado está asociada con <0>{0}</0> {1, plural, one {construyendo} other {edificios}}"
 
 #: src/components/PortfolioTable.tsx:510
-#~ msgid "Page"
-#~ msgstr "Página"
+msgid "Page"
+msgstr "Página"
 
 #: src/components/PortfolioTable.tsx:510
-msgid "Page {0} of {1}"
-msgstr ""
+#~ msgid "Page {0} of {1}"
+#~ msgstr ""
 
 #: src/components/DetailView.tsx:348
 #: src/components/DetailView.tsx:358
@@ -1052,7 +1052,7 @@ msgstr "Rediseño de la tabla del portafolio"
 msgid "Previous"
 msgstr "Anterior"
 
-#: src/components/PortfolioTable.tsx:520
+#: src/components/PortfolioTable.tsx:519
 msgid "Previous page"
 msgstr ""
 
@@ -1236,7 +1236,7 @@ msgstr "Regístrate para recibir noticias por email"
 msgid "Since 2017, landlords filed {totalEvictionFilings, plural, one {one eviction case} other {# eviction cases}} and NYC Marshals executed {totalEvictions, plural, one {one eviction} other {# evictions}} across this portfolio."
 msgstr "Desde 2017, los dueños presentaron {totalEvictionFilings, plural, one {un caso de desalojo} other {# casos de desalojo}} y los alguaciles de la ciudad de Nueva York ejecutaron {totalEvictions, plural, one {un desalojo} other {# desalojos}} en toda esta cartera."
 
-#: src/components/PortfolioTable.tsx:559
+#: src/components/PortfolioTable.tsx:558
 msgid "Since {year}"
 msgstr "Desde {year}"
 
@@ -1272,7 +1272,7 @@ msgstr "Código fuente"
 #~ msgid "Starting March 2023 <0>the old version</0> of Who Owns What will no longer be available."
 #~ msgstr "Starting March 2023 <0>the old version</0> of Who Owns What will no longer be available."
 
-#: src/components/PortfolioTable.tsx:559
+#: src/components/PortfolioTable.tsx:558
 msgid "Starts {year}"
 msgstr "Comienza {year}"
 
@@ -1768,9 +1768,9 @@ msgstr "mes"
 msgid "number of records per page"
 msgstr "número de registros por página"
 
-#: src/components/PortfolioTable.tsx:521
-#~ msgid "of"
-#~ msgstr "de"
+#: src/components/PortfolioTable.tsx:511
+msgid "of"
+msgstr "de"
 
 #: src/components/PortfolioTable.tsx:513
 #~ msgid "page number"

@@ -889,7 +889,7 @@ msgstr "New York Regional Office:"
 msgid "Next"
 msgstr "Next"
 
-#: src/components/PortfolioTable.tsx:530
+#: src/components/PortfolioTable.tsx:529
 msgid "Next page"
 msgstr "Next page"
 
@@ -1014,12 +1014,12 @@ msgid "PORTFOLIO: Your search address is associated with <0>{0}</0> {1, plural, 
 msgstr "PORTFOLIO: Your search address is associated with <0>{0}</0> {1, plural, one {building} other {buildings}}"
 
 #: src/components/PortfolioTable.tsx:510
-#~ msgid "Page"
-#~ msgstr "Page"
+msgid "Page"
+msgstr "Page"
 
 #: src/components/PortfolioTable.tsx:510
-msgid "Page {0} of {1}"
-msgstr "Page {0} of {1}"
+#~ msgid "Page {0} of {1}"
+#~ msgstr "Page {0} of {1}"
 
 #: src/components/DetailView.tsx:348
 #: src/components/DetailView.tsx:358
@@ -1047,7 +1047,7 @@ msgstr "Portfolio Table Redesign"
 msgid "Previous"
 msgstr "Previous"
 
-#: src/components/PortfolioTable.tsx:520
+#: src/components/PortfolioTable.tsx:519
 msgid "Previous page"
 msgstr "Previous page"
 
@@ -1231,7 +1231,7 @@ msgstr "Sign up for email updates"
 msgid "Since 2017, landlords filed {totalEvictionFilings, plural, one {one eviction case} other {# eviction cases}} and NYC Marshals executed {totalEvictions, plural, one {one eviction} other {# evictions}} across this portfolio."
 msgstr "Since 2017, landlords filed {totalEvictionFilings, plural, one {one eviction case} other {# eviction cases}} and NYC Marshals executed {totalEvictions, plural, one {one eviction} other {# evictions}} across this portfolio."
 
-#: src/components/PortfolioTable.tsx:559
+#: src/components/PortfolioTable.tsx:558
 msgid "Since {year}"
 msgstr "Since {year}"
 
@@ -1267,7 +1267,7 @@ msgstr "Source code"
 #~ msgid "Starting March 2023 <0>the old version</0> of Who Owns What will no longer be available."
 #~ msgstr "Starting March 2023 <0>the old version</0> of Who Owns What will no longer be available."
 
-#: src/components/PortfolioTable.tsx:559
+#: src/components/PortfolioTable.tsx:558
 msgid "Starts {year}"
 msgstr "Starts {year}"
 
@@ -1763,9 +1763,9 @@ msgstr "month"
 msgid "number of records per page"
 msgstr "number of records per page"
 
-#: src/components/PortfolioTable.tsx:521
-#~ msgid "of"
-#~ msgstr "of"
+#: src/components/PortfolioTable.tsx:511
+msgid "of"
+msgstr "of"
 
 #: src/components/PortfolioTable.tsx:513
 #~ msgid "page number"

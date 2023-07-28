@@ -223,6 +223,7 @@ $table-border-dark: 1px solid $dark;
       margin-right: auto;
       select {
         padding: 0.45rem 2.7rem 0.45rem 0.9rem;
+        color: $justfix-black;
         cursor: pointer;
         appearance: none;
         // custom arrow, same as chevronIcon
