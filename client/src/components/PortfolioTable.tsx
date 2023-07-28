@@ -578,7 +578,6 @@ const PortfolioTableWithoutI18n = React.memo((props: PortfolioTableProps) => {
         </Loader>
       ) : (
         <>
-        <div>{String(table.getState().pagination.pageIndex)}</div>
           <div className="portfolio-table-container">
             <table>
               <thead>
