@@ -238,8 +238,9 @@ $table-border-dark: 1px solid $dark;
     }
 
     .page-info {
+      display: flex;
+      justify-content: end;
       font-size: 1.2rem;
-      text-align: right;
       flex: 1;
       margin-right: 3.2rem;
       @include for-phone-only {
