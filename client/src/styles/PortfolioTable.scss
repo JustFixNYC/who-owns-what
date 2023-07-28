@@ -256,6 +256,7 @@ $table-border-dark: 1px solid $dark;
 
         .chevronIcon {
           height: 1.2rem;
+          stroke-width: 2px;
           &.left {
             transform: rotate(90deg);
           }
