@@ -680,8 +680,8 @@ const PortfolioTableWithoutI18n = React.memo((props: PortfolioTableProps) => {
               </select>
             </div>
             <div className="page-info">
-              <Trans>Page</Trans> {String(table.getState().pagination.pageIndex + 1)}{" "}
-              <Trans>of</Trans> {table.getPageCount()}
+              <Trans>Page</Trans> <span>{String(table.getState().pagination.pageIndex + 1)}</span>{" "}
+              <Trans>of</Trans> <span>{table.getPageCount()}</span>
             </div>
             <div className="prev">
               <button
