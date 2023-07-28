@@ -220,7 +220,6 @@ $table-border-dark: 1px solid $dark;
     margin: 0;
 
     .page-size {
-      margin-right: auto;
       select {
         padding: 0.45rem 2.7rem 0.45rem 0.9rem;
         color: $justfix-black;
@@ -240,6 +239,8 @@ $table-border-dark: 1px solid $dark;
 
     .page-info {
       font-size: 1.2rem;
+      text-align: right;
+      flex: 1;
       margin-right: 3.2rem;
       @include for-phone-only {
         margin-right: 1.6rem;
