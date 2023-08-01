@@ -2,6 +2,7 @@ import React from "react";
 import { withGoogleMap, StreetViewPanorama } from "react-google-maps";
 import Browser from "../util/browser";
 import Helpers from "../util/helpers";
+import { FixedLoadingLabel } from "./Loader";
 
 export type StreetViewAddr = {
   lat: number;
@@ -142,7 +143,9 @@ export const StreetViewStatic = React.forwardRef<HTMLImageElement, StreetViewSta
       setImgSize(`${imgWidth(screenWidth, screenHeight)}x${imgHeight(screenWidth, screenHeight)}`);
     }, [imgHeight, imgWidth, screenWidth, screenHeight]);
 
-    return (
+    return !screenWidth || !screenHeight ? (
+      <FixedLoadingLabel />
+    ) : (
       <img
         ref={ref}
         src={`https://maps.googleapis.com/maps/api/streetview?size=${imgSize}&location=${lat},${lng}&key=${process.env.REACT_APP_STREETVIEW_API_KEY}`}
