@@ -1028,7 +1028,7 @@ msgstr "Página"
 
 #: src/components/PortfolioTable.tsx:510
 #~ msgid "Page {0} of {1}"
-#~ msgstr "Page {0} of {1}"
+#~ msgstr "Página {0} of {1}"
 
 #: src/components/DetailView.tsx:348
 #: src/components/DetailView.tsx:358
@@ -1782,7 +1782,7 @@ msgstr "de"
 
 #: src/components/PortfolioTable.tsx:513
 #~ msgid "page number"
-#~ msgstr "page number"
+#~ msgstr "número de página"
 
 #: src/components/Indicators.tsx:17
 msgid "quarter"

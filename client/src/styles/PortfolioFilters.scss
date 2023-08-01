@@ -128,7 +128,7 @@
             text-align: left;
           }
           &.active:not([open]):not(.filter-toggle):not(.filters-mobile-wrapper) {
-            background-color: $justfix-table-grey;
+            background-color: $justfix-white;
             color: $justfix-black;
             border-color: $justfix-grey-400;
           }
@@ -212,6 +212,7 @@
             stroke-width: 2px;
           }
           .chevronIcon {
+            height: 1.1rem;
             margin-left: 0.8rem;
           }
           .closeIcon {
@@ -279,7 +280,7 @@
               display: flex;
               flex-direction: column;
               width: 100%;
-              background-color: $justfix-table-grey;
+              background-color: $justfix-white;
               border-radius: 0;
               border: none;
               top: unset;
@@ -373,6 +374,7 @@
                   font-size: 1.4rem;
                 }
                 .chevronIcon {
+                  height: 1.1rem;
                   stroke-width: 0.2rem;
                 }
                 .minmaxselect__label-input-container {
@@ -406,7 +408,7 @@
           right: 0;
           z-index: 11;
           height: 100%;
-          background-color: $justfix-table-grey;
+          background-color: $justfix-white;
           border-radius: 0.8rem 0.8rem 0 0;
           box-sizing: border-box;
           border: none;
@@ -471,10 +473,10 @@
               // https://css-scroll-shadows.vercel.app/
               --clear: rgba(0, 0, 0, 0);
               --dark: rgba(100, 100, 100, 0.65);
-              background: linear-gradient($justfix-table-grey 10%, var(--clear)),
-                linear-gradient(var(--clear), $justfix-table-grey 90%) 0 100%,
+              background: linear-gradient($justfix-white 10%, var(--clear)),
+                linear-gradient(var(--clear), $justfix-white 90%) 0 100%,
                 linear-gradient(var(--dark) 10%, var(--clear));
-              background-color: $justfix-table-grey;
+              background-color: $justfix-white;
               background-repeat: no-repeat;
               background-attachment: local, local, scroll;
               background-size: 100% 6rem, 100% 6rem, 100% 1rem, 100% 1rem;

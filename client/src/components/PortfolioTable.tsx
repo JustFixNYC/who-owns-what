@@ -30,7 +30,7 @@ import { AddressRecord, HpdComplaintCount } from "./APIDataTypes";
 import { FilterContext, FilterNumberRange, PortfolioAnalyticsEvent } from "./PropertiesList";
 import "styles/PortfolioTable.scss";
 import { sortContactsByImportance } from "./DetailView";
-import { ArrowIcon } from "./Icons";
+import { ArrowIcon, ChevronIcon } from "./Icons";
 import classnames from "classnames";
 import { isLegacyPath } from "./WowzaToggle";
 import Loader from "./Loader";
@@ -671,41 +671,7 @@ const PortfolioTableWithoutI18n = React.memo((props: PortfolioTableProps) => {
           </div>
 
           <div className="pagination">
-            <div className="prev">
-              <button
-                className="page-btn"
-                onClick={() => {
-                  table.previousPage();
-                  logPortfolioAnalytics("portfolioPagination", {
-                    extraParams: { paginationType: "previous" },
-                  });
-                }}
-                disabled={!table.getCanPreviousPage()}
-              >
-                {i18n._(t`Previous`)}
-              </button>
-            </div>
-            <div className="center">
-              <span className="page-info">
-                <span>
-                  <Trans>Page</Trans>
-                </span>
-                <div>
-                  <input
-                    type="number"
-                    aria-label={i18n._(t`page number`)}
-                    value={String(table.getState().pagination.pageIndex + 1)}
-                    onChange={(e) => {
-                      const page = e.target.value ? Number(e.target.value) - 1 : 0;
-                      table.setPageIndex(page);
-                      logPortfolioAnalytics("portfolioPagination", {
-                        extraParams: { paginationType: "custom" },
-                      });
-                    }}
-                  />
-                </div>
-                <Trans>of</Trans> <span className="total-pages">{table.getPageCount()}</span>
-              </span>
+            <div className="page-size">
               <select
                 value={table.getState().pagination.pageSize}
                 aria-label={i18n._(t`number of records per page`)}
@@ -718,10 +684,31 @@ const PortfolioTableWithoutI18n = React.memo((props: PortfolioTableProps) => {
               >
                 {[10, 20, 50, 100, 500].map((pageSize) => (
                   <option key={pageSize} value={pageSize}>
-                    Show {pageSize}
+                    {i18n._(t`Show`)} {pageSize}
                   </option>
                 ))}
               </select>
+            </div>
+            <div className="page-info">
+              <span>
+                <Trans>Page</Trans> <span>{String(table.getState().pagination.pageIndex + 1)}</span>{" "}
+                <Trans>of</Trans> <span>{table.getPageCount()}</span>
+              </span>
+            </div>
+            <div className="prev">
+              <button
+                className="page-btn"
+                onClick={() => {
+                  table.previousPage();
+                  logPortfolioAnalytics("portfolioPagination", {
+                    extraParams: { paginationType: "previous" },
+                  });
+                }}
+                disabled={!table.getCanPreviousPage()}
+                aria-label={i18n._(t`Previous page`)}
+              >
+                <ChevronIcon className="chevronIcon left" />
+              </button>
             </div>
             <div className="next">
               <button
@@ -733,8 +720,9 @@ const PortfolioTableWithoutI18n = React.memo((props: PortfolioTableProps) => {
                   });
                 }}
                 disabled={!table.getCanNextPage()}
+                aria-label={i18n._(t`Next page`)}
               >
-                {i18n._(t`Next`)}
+                <ChevronIcon className="chevronIcon right" />
               </button>
             </div>
           </div>
