@@ -185,7 +185,7 @@
 
   &:hover {
     transition: all 0.1s linear;
-    box-shadow: 0rem 0.7rem 0rem 0rem $justfix-grey-light;
+    box-shadow: 0rem 0.7rem 0rem 0rem $justfix-white-200;
     transform: translateX(0.7rem);
   }
 
@@ -205,7 +205,7 @@
 
     border-style: solid;
     background-color: $color;
-    box-shadow: inset 0rem 0.4rem 0rem $justfix-grey-light;
+    box-shadow: inset 0rem 0.4rem 0rem $justfix-white-200;
   }
 }
 

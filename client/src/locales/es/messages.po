@@ -895,9 +895,12 @@ msgid "New York Regional Office:"
 msgstr "Oficina Regional de Nueva York:"
 
 #: src/components/FeatureCalloutWidget.tsx:81
-#: src/components/PortfolioTable.tsx:541
 msgid "Next"
 msgstr "Siguiente"
+
+#: src/components/PortfolioTable.tsx:529
+msgid "Next page"
+msgstr ""
 
 #: src/components/PortfolioTable.tsx:364
 msgid "No"
@@ -1023,6 +1026,10 @@ msgstr "PORTAFOLIO DE EDIFICIOS: La dirección que has buscado está asociada co
 msgid "Page"
 msgstr "Página"
 
+#: src/components/PortfolioTable.tsx:510
+#~ msgid "Page {0} of {1}"
+#~ msgstr ""
+
 #: src/components/DetailView.tsx:348
 #: src/components/DetailView.tsx:358
 msgid "People"
@@ -1046,9 +1053,12 @@ msgid "Portfolio Table Redesign"
 msgstr "Rediseño de la tabla del portafolio"
 
 #: src/components/FeatureCalloutWidget.tsx:74
-#: src/components/PortfolioTable.tsx:504
 msgid "Previous"
 msgstr "Anterior"
+
+#: src/components/PortfolioTable.tsx:519
+msgid "Previous page"
+msgstr ""
 
 #: src/components/LegalFooter.tsx:41
 #: src/containers/PrivacyPolicyPage.tsx:8
@@ -1177,6 +1187,10 @@ msgstr "Comparte esta página con tus vecinos"
 msgid "Shareholder"
 msgstr "Accionista"
 
+#: src/components/PortfolioTable.tsx:505
+msgid "Show"
+msgstr ""
+
 #: src/components/Multiselect.tsx:122
 msgid "Show all {numSelections} selections"
 msgstr "Mostrar todas las {numSelections} selecciones"
@@ -1226,7 +1240,7 @@ msgstr "Regístrate para recibir noticias por email"
 msgid "Since 2017, landlords filed {totalEvictionFilings, plural, one {one eviction case} other {# eviction cases}} and NYC Marshals executed {totalEvictions, plural, one {one eviction} other {# evictions}} across this portfolio."
 msgstr "Desde 2017, los dueños presentaron {totalEvictionFilings, plural, one {un caso de desalojo} other {# casos de desalojo}} y los alguaciles de la ciudad de Nueva York ejecutaron {totalEvictions, plural, one {un desalojo} other {# desalojos}} en toda esta cartera."
 
-#: src/components/PortfolioTable.tsx:569
+#: src/components/PortfolioTable.tsx:558
 msgid "Since {year}"
 msgstr "Desde {year}"
 
@@ -1262,7 +1276,7 @@ msgstr "Código fuente"
 #~ msgid "Starting March 2023 <0>the old version</0> of Who Owns What will no longer be available."
 #~ msgstr "Starting March 2023 <0>the old version</0> of Who Owns What will no longer be available."
 
-#: src/components/PortfolioTable.tsx:569
+#: src/components/PortfolioTable.tsx:558
 msgid "Starts {year}"
 msgstr "Comienza {year}"
 
@@ -1758,17 +1772,17 @@ msgstr "por ${0}"
 msgid "month"
 msgstr "mes"
 
-#: src/components/PortfolioTable.tsx:523
+#: src/components/PortfolioTable.tsx:498
 msgid "number of records per page"
 msgstr "número de registros por página"
 
-#: src/components/PortfolioTable.tsx:521
+#: src/components/PortfolioTable.tsx:511
 msgid "of"
 msgstr "de"
 
 #: src/components/PortfolioTable.tsx:513
-msgid "page number"
-msgstr "número de página"
+#~ msgid "page number"
+#~ msgstr "número de página"
 
 #: src/components/Indicators.tsx:17
 msgid "quarter"
