@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-07-20 18:01\n"
+"PO-Revision-Date: 2023-08-01 20:24\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -662,11 +662,11 @@ msgstr "JustFix, Inc es una organización registrada 501(c)(3) sin fines de lucr
 
 #: src/containers/HomePage.tsx:166
 msgid "Known for <0>deregulating rent stabilized apartments</0>, Stellar Management is also one of the city’s <1>Worst Evictors</1>. Stellar is a gentrifying force, particularly in upper Manhattan, where they have a reputation for displacing long-term tenants, renovating their units while vacant, and skyrocketing rents to market rate."
-msgstr ""
+msgstr "Conocida por <0>desregular los apartamentos de renta estabilizada</0>, Stellar Management es también uno de los <1>peores desalojadores</1> de la ciudad. Stellar es una fuerza gentrificadora, sobre todo en la parte alta de Manhattan, donde tiene fama de desplazar a inquilinos de largo plazo, renovar sus unidades mientras están vacías y subir por las nubes las rentas a precio de mercado."
 
 #: src/containers/HomePage.tsx:166
 #~ msgid "Known for <0>deregulating rent stabilized apartments</0>, Stellar Management is also one of the city’s of <1>Worst Evictors</1>. Stellar is a gentrifying force, particularly in upper Manhattan where they have a reputation for displacing long-term tenants, renovating their units while vacant, and skyrocketing rents to market rate."
-#~ msgstr "Conocida por <0>desregular apartamentos de renta estabilizada</0>, Stellar Management es también uno de los <1>peores desalojadores</1> de la ciudad. Stellar es una fuerza gentrificadora, sobre todo en la parte alta de Manhattan, donde tiene fama de desplazar a los inquilinos de largo plazo, renovar sus unidades mientras están vacías y disparar sus rentas al precio del mercado."
+#~ msgstr "Known for <0>deregulating rent stabilized apartments</0>, Stellar Management is also one of the city’s of <1>Worst Evictors</1>. Stellar is a gentrifying force, particularly in upper Manhattan where they have a reputation for displacing long-term tenants, renovating their units while vacant, and skyrocketing rents to market rate."
 
 #: src/containers/HomePage.tsx:215
 #~ msgid "Known for <0>unscrupulously deregulating rent stabilized apartments</0>, Larry Gluck’s Stellar Management has also secured a prominent place as one of <1>New York City’s Worst Evictors</1>. Stellar is a gentrifying force, particularly in upper Manhattan where Gluck operates the majority of his properties. Stellar has a reputation for displacing long-term tenants, renovating their units while vacant, and skyrocketing rents to market rate."
@@ -900,7 +900,7 @@ msgstr "Siguiente"
 
 #: src/components/PortfolioTable.tsx:529
 msgid "Next page"
-msgstr ""
+msgstr "Página siguiente"
 
 #: src/components/PortfolioTable.tsx:364
 msgid "No"
@@ -1028,7 +1028,7 @@ msgstr "Página"
 
 #: src/components/PortfolioTable.tsx:510
 #~ msgid "Page {0} of {1}"
-#~ msgstr ""
+#~ msgstr "Página {0} of {1}"
 
 #: src/components/DetailView.tsx:348
 #: src/components/DetailView.tsx:358
@@ -1058,7 +1058,7 @@ msgstr "Anterior"
 
 #: src/components/PortfolioTable.tsx:519
 msgid "Previous page"
-msgstr ""
+msgstr "Página anterior"
 
 #: src/components/LegalFooter.tsx:41
 #: src/containers/PrivacyPolicyPage.tsx:8
@@ -1189,7 +1189,7 @@ msgstr "Accionista"
 
 #: src/components/PortfolioTable.tsx:505
 msgid "Show"
-msgstr ""
+msgstr "Mostrar"
 
 #: src/components/Multiselect.tsx:122
 msgid "Show all {numSelections} selections"
@@ -1344,11 +1344,11 @@ msgstr "El municipio donde se encuentra la dirección que has buscado"
 
 #: src/containers/HomePage.tsx:130
 msgid "The city’s fifth <0>worst evictor</0> in 2018, A&E is a prime example of a landlord who engages in <1>aggressive eviction strategies</1> to displace low-income tenants. Aside from lack of repairs and frivolous evictions in housing court, A&E has also been known to use <2>MCIs</2> to <3>double rents</3> in rent-stabilized buildings."
-msgstr ""
+msgstr "El quinto <0>peor desalojador</0> de la ciudad en 2018, A&E es un excelente ejemplo de un dueño que participa en <1>estrategias agresivas de desalojo</1> para desplazar a los inquilinos de bajos ingresos. Además de la falta de reparaciones y los desalojos frívolos en la corte de vivienda, A&E también ha sido conocido por utilizar <2>ICM</2> para <3>duplicar las rentas</3> en edificios de renta estabilizada."
 
 #: src/containers/HomePage.tsx:130
 #~ msgid "The city’s fifth <0>worst evictor</0> in 2018, A&E is a prime example of a landlord who engages in <1>aggressive eviction strategies</1> to displace low-income tenants. Besides lack of repairs and frivolous evictions in housing court, A&E has also been known to use <2>MCIs</2> to <3>double rents</3> in rent-stabilized buildings."
-#~ msgstr "A&E fue el quinto <0>\"peor desalojador\"</0> de la ciudad en el 2018, y es un excelente ejemplo de un propietario que participa en <1>estrategias agresivas de desalojo</1> para desplazar a inquilinos de bajos ingresos. Además de usar la falta de arreglos y los desalojos frívolos en la corte de viviendas, se sabe que A&E también utiliza los <2>IMCs</2> para <3>alquileres dobles</3> en edificios de resta estabilizada."
+#~ msgstr "The city’s fifth <0>worst evictor</0> in 2018, A&E is a prime example of a landlord who engages in <1>aggressive eviction strategies</1> to displace low-income tenants. Besides lack of repairs and frivolous evictions in housing court, A&E has also been known to use <2>MCIs</2> to <3>double rents</3> in rent-stabilized buildings."
 
 #: src/components/PropertiesSummary.tsx:83
 msgid "The most common corporate entity is <0>{0}</0> and the most common business address is <1>{1}</1>."
@@ -1839,3 +1839,4 @@ msgstr "{value, plural, one {Una Queja del HPD emitida desde el 2014} other {# Q
 #: src/components/IndicatorsDatasets.tsx:37
 msgid "{value, plural, one {One HPD Violation Issued since 2010} other {# HPD Violations Issued since 2010}}"
 msgstr "{value, plural, one {Una Violación del HPD emitida desde el 2010} other {# Violaciones del HPD emitidas desde el 2010}}"
+
