@@ -114,11 +114,25 @@ export const UserContextProvider = ({ children }: { children: React.ReactNode })
     []
   );
 
+  // const logout = useCallback(() => {
+  //   const asyncLogout = async () => {
+  //     await AuthClient.logout();
+  //     setUser(undefined);
+  //   };
+  //   asyncLogout();
+  // }, []);
+
+
+
   const logout = useCallback(async (fromPath: string) => {
-    await AuthClient.logout();
-    if (authRequiredPaths().includes(fromPath)) {
-      document.location.href = `${window.location.origin}`;
-    }
+    const asyncLogout = async () => {
+      await AuthClient.logout();
+      setUser(undefined);
+      if (authRequiredPaths().includes(fromPath)) {
+        document.location.href = `${window.location.origin}`;
+      } 
+    };
+    asyncLogout();
   }, []);
 
   const subscribe = useCallback(

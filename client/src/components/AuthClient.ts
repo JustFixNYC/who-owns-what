@@ -66,8 +66,7 @@ const login = async (username: string, password: string) => {
  * Revokes the current access token, if one is present
  */
 const logout = async () => {
-  await postAuthRequest(`${BASE_URL}auth/logout`);
-  clearUser();
+  return await postAuthRequest(`${BASE_URL}auth/logout`);
 };
 
 const resetPasswordRequest = async (username: string) => {
