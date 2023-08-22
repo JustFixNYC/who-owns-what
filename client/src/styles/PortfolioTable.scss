@@ -237,7 +237,7 @@ $table-border-dark: 1px solid $dark;
 
     .page-info {
       display: flex;
-      justify-content: end;
+      justify-content: flex-end;
       font-size: 1.2rem;
       flex: 1;
       margin-right: 3.2rem;
