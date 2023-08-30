@@ -4,6 +4,7 @@
 .AccountSettingsPage.Page {
   h4 {
     text-decoration: none;
+    text-align: left !important;
     font-weight: 700;
     padding-top: 0.5rem;
     margin: 5.5rem 1.6rem 2.6rem;
@@ -12,6 +13,16 @@
   h4.settings-section {
     font-weight: 400;
     border-top: 1px solid $justfix-grey-400;
+  }
+
+  label {
+    font-size: 1.3rem;
+    font-weight: 600;
+  }
+
+  p {
+    font-size: 1.3rem;
+    font-weight: 500;
   }
 
   .settings-contact {
@@ -30,7 +41,7 @@
   form {
     display: flex;
     flex-direction: column;
-    margin: 1.6rem;
+    margin: 3.2rem 1.6rem;
   }
 
   form > div {
@@ -41,13 +52,26 @@
     }
   }
 
+  .link-button{
+    text-decoration: underline;
+  }
+
   .user-setting-actions {
     display: flex;
-    justify-content: center;
+    justify-content: right;
     margin-top: 1.6rem;
 
+    @include for-phone-only() {
+      justify-content: center;
+    }
+
     input[type="submit"] {
-      margin-right: 1.6rem;
+      margin: 0 1.6rem 0 0 !important;
+      padding: 1.6rem 3.2rem;
+    }
+
+    .button.is-secondary{
+      padding: 1.6rem 3.2rem;
     }
   }
 

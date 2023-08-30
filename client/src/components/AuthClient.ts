@@ -58,7 +58,7 @@ const register = async (username: string, password: string) => {
  * and expiry time.
  */
 const login = async (username: string, password: string) => {
-  const json = await postAuthRequest(`${BASE_URL}auth/login`, { username, password });
+  const json = await postLoginCredentials(`${BASE_URL}auth/login`, { username, password });
   return json;
 };
 
@@ -232,11 +232,42 @@ const postAuthRequest = async (
   }
 };
 
+/**
+ * Wrapper function for POST requests returning JSON response body
+ */
+
+const postLoginCredentials = async (
+  url: string,
+  params?: { [key: string]: string },
+  headers?: { [key: string]: string },
+  method: string = "POST"
+) => {
+  const body = params
+    ? Object.keys(params)
+        .map((k) => `${k}=${encodeURIComponent(params[k])}`)
+        .join("&")
+    : "";
+  const result = await friendlyFetch(url, {
+    method,
+    mode: "cors",
+    body,
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+      ...headers,
+    },
+    credentials: "include",
+  });
+
+  return await result.json();  
+};
+
+
 // TODO shakao Move shared APIClient functions to util
 const friendlyFetch: typeof fetch = async (input, init) => {
   let response: Response;
   try {
     response = await fetch(input, init);
+    console.log(response)
   } catch (e) {
     if (e instanceof Error) {
       throw new NetworkError(e.message);

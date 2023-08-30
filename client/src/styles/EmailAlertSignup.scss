@@ -3,6 +3,12 @@
 .EmailAlertSignup {
   margin-top: 2rem;
 
+  // overrides datatable mixin
+  label:hover,
+  div:hover {
+    cursor: default !important;
+  }
+
   .email-alert-content {
     text-align: left;
   }

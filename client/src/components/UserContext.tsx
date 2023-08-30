@@ -97,6 +97,7 @@ export const UserContextProvider = ({ children }: { children: React.ReactNode })
   const login = useCallback(
     async (username: string, password: string, onSuccess?: (user: JustfixUser) => void) => {
       const response = await AuthClient.login(username, password);
+      console.log(response)
       if (!response.error && response.user) {
         const _user = {
           ...response.user,
@@ -108,21 +109,11 @@ export const UserContextProvider = ({ children }: { children: React.ReactNode })
         setUser(_user);
         if (onSuccess) onSuccess(_user);
       } else {
-        return response.error_description;
+        return response.error;
       }
     },
     []
   );
-
-  // const logout = useCallback(() => {
-  //   const asyncLogout = async () => {
-  //     await AuthClient.logout();
-  //     setUser(undefined);
-  //   };
-  //   asyncLogout();
-  // }, []);
-
-
 
   const logout = useCallback(async (fromPath: string) => {
     const asyncLogout = async () => {

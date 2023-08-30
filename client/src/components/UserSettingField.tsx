@@ -70,6 +70,7 @@ const EmailSettingFieldWithoutI18n = (props: EmailSettingFieldProps) => {
       onSubmit={handleSubmit}
     >
       <Trans render="label">Email address</Trans>
+      <Trans render="p">This is used for logging in and for receiving email alerts.</Trans>
       <input
         type="email"
         className="input"

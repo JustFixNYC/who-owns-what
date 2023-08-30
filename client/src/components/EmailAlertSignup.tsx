@@ -101,6 +101,7 @@ const EmailAlertSignupWithoutI18n = (props: EmailAlertProps) => {
                 </div>
                 {!user ? (
                   <Login
+                    fromBuildingPage={true}
                     onSuccess={(user: JustfixUser) =>
                       userContext.subscribe(bbl, housenumber, streetname, zip, boro, user)
                     }

@@ -1,3 +1,4 @@
+import json
 import sys
 from django.http import HttpResponse
 from django.utils.decorators import method_decorator
@@ -27,7 +28,8 @@ def login(request):
         return set_response_cookies(response, response.json())
     else:
         return HttpResponse(
-            content_type="application/json", status=response.status_code
+            content=json.dumps(response.json()),
+            status=response.status_code
         )
 
 
