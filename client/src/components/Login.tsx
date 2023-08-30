@@ -99,33 +99,33 @@ const LoginWithoutI18n = (props: LoginProps) => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    if (isRegisterState) {
-      const existingUser = await AuthClient.isEmailAlreadyUsed(username);
-      if (existingUser) {
-        setIsExistingUser(true);
-        setShowAlerts(true);
-      }
-      return;
-    }
-
     if (!username || !password) {
       setShowAlerts(true);
       setInvalidAuthError(true);
       return;
     }
-
-    const loginMessage =
-      loginState === LoginState.Login
-        ? await userContext.login(username, password, onSuccess)
-        : await userContext.register(username, password, onSuccess);
-
-    console.log(loginMessage);
-    if (!!loginMessage) {
-      setShowAlerts(true);
-      setInvalidAuthError(true);
-    } else if (handleRedirect) {
-      handleRedirect();
+    
+    if (isRegisterState) {
+      const existingUser = await AuthClient.isEmailAlreadyUsed(username);
+      if (existingUser) {
+        setIsExistingUser(true);
+        setShowAlerts(true);
+      } else {
+        const error = await userContext.register(username, password, onSuccess);
+        console.log(error);
+        if (!!error) {
+          setShowAlerts(true);
+        } else if (handleRedirect) {
+          handleRedirect();
+        }
+      }
+    } else {
+      const loginError = await userContext.login(username, password, onSuccess)
+      if (!!loginError) {
+        setShowAlerts(true);
+      } else if (handleRedirect) {
+        handleRedirect();
+      }
     }
   };
 
