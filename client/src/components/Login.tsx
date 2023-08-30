@@ -21,7 +21,10 @@ type PasswordRule = {
 const passwordRules: PasswordRule[] = [
   { regex: /.{8}/, label: "Must be 8 characters" },
   // eslint-disable-next-line no-useless-escape
-  { regex: /^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9!"`'#%&,:;<>=@{}\$\(\)\*\+\/\\\?\[\]\^\|]+)$/, label: "Must include letters and numbers" },
+  {
+    regex: /^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9!"`'#%&,:;<>=@{}\$\(\)\*\+\/\\\?\[\]\^\|]+)$/,
+    label: "Must include letters and numbers",
+  },
 ];
 
 const validatePassword = (password: string) => {
@@ -65,13 +68,13 @@ const LoginWithoutI18n = (props: LoginProps) => {
       setLoginState(LoginState.Register);
       if (!fromBuildingPage) {
         setHeader("Sign up");
-        setSubheader("With an account you can save buildings and get weekly updates");  
-      } 
+        setSubheader("With an account you can save buildings and get weekly updates");
+      }
     } else if (endState === LoginState.Login) {
       setLoginState(LoginState.Login);
       if (!fromBuildingPage) {
         setHeader("Log in");
-        setSubheader("");  
+        setSubheader("");
       }
     }
   };
@@ -90,7 +93,7 @@ const LoginWithoutI18n = (props: LoginProps) => {
         toggleLoginState(LoginState.Register);
       }
     } else {
-      console.log("enter a valid email")
+      console.log("enter a valid email");
     }
   };
 
@@ -102,7 +105,7 @@ const LoginWithoutI18n = (props: LoginProps) => {
       if (existingUser) {
         setIsExistingUser(true);
         setShowAlerts(true);
-      }  
+      }
       return;
     }
 
@@ -116,8 +119,8 @@ const LoginWithoutI18n = (props: LoginProps) => {
       loginState === LoginState.Login
         ? await userContext.login(username, password, onSuccess)
         : await userContext.register(username, password, onSuccess);
-    
-        console.log(loginMessage)
+
+    console.log(loginMessage);
     if (!!loginMessage) {
       setShowAlerts(true);
       setInvalidAuthError(true);
@@ -130,7 +133,7 @@ const LoginWithoutI18n = (props: LoginProps) => {
     type: "error" | "success" | "info",
     message: string,
     className?: string,
-    showLogin?: boolean,
+    showLogin?: boolean
   ) => {
     return (
       <Alert
@@ -138,27 +141,27 @@ const LoginWithoutI18n = (props: LoginProps) => {
         variant="primary"
         closeType="none"
         role="status"
-        type={type} 
+        type={type}
       >
         {message}
-        {showLogin && 
+        {showLogin && (
           <button
             className="button is-text ml-5"
             onClick={() => toggleLoginState(LoginState.Login)}
           >
-           <Trans>Log in</Trans>
+            <Trans>Log in</Trans>
           </button>
-        }
+        )}
       </Alert>
-    )
+    );
   };
 
-   const renderAlert = () => {
+  const renderAlert = () => {
     let alertMessage = "";
     if (invalidAuthError) {
       alertMessage = i18n._(t`The email and/or the password you entered is incorrect.`);
       if (!fromBuildingPage) {
-        return renderPageLevelAlert("error", alertMessage, "from-nav-bar");         
+        return renderPageLevelAlert("error", alertMessage, "from-nav-bar");
       }
       return renderPageLevelAlert("error", alertMessage);
     } else if (fromBuildingPage && showAlerts && isExistingUser) {
@@ -166,7 +169,7 @@ const LoginWithoutI18n = (props: LoginProps) => {
         alertMessage = i18n._(t`Your email is associated with an account. Log in below.`);
         return renderPageLevelAlert("info", alertMessage, "from-building-page");
       } else {
-        alertMessage = i18n._(t`That email is already used.`)
+        alertMessage = i18n._(t`That email is already used.`);
         return renderPageLevelAlert("error", alertMessage, "from-building-page");
       }
     } else if (!fromBuildingPage && showAlerts && isExistingUser && isRegisterState) {
@@ -175,36 +178,38 @@ const LoginWithoutI18n = (props: LoginProps) => {
     }
   };
 
-   const isBadEmailFormat = () => {
+  const isBadEmailFormat = () => {
     if (document.querySelectorAll("input:invalid").length > 0) {
       setEmailFormatError(true);
     } else {
       setEmailFormatError(false);
     }
-   };
+  };
 
   return (
     <div className={`Login`}>
       {renderAlert()}
-      {!fromBuildingPage && 
+      {!fromBuildingPage && (
         <>
           <h4 className="page-title text-center">{i18n._(t`${header}`)}</h4>
           <h5 className="text-left">{i18n._(t`${subheader}`)}</h5>
         </>
-      }
+      )}
       <form onSubmit={isDefaultState ? handleEmailSubmit : handleSubmit} className="input-group">
         <Trans render="label">Email address</Trans>
-        {emailFormatError && <span id="input-field-error">
-          <AlertIcon />
-          <Trans>Please enter a valid email address. </Trans>
-        </span>}
+        {emailFormatError && (
+          <span id="input-field-error">
+            <AlertIcon />
+            <Trans>Please enter a valid email address. </Trans>
+          </span>
+        )}
         <input
           type="email"
           id="email-input"
           className="input"
           placeholder={i18n._(t`Enter email`)}
           onChange={(e) => {
-            setUsername(e.target.value)
+            setUsername(e.target.value);
             setShowAlerts(false);
           }}
           onBlur={isBadEmailFormat}

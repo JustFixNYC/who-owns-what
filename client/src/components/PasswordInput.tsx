@@ -18,7 +18,10 @@ type PasswordRule = {
 const passwordRules: PasswordRule[] = [
   { regex: /.{8}/, label: "Must be 8 characters" },
   // eslint-disable-next-line no-useless-escape
-  { regex: /^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9!"`'#%&,:;<>=@{}\$\(\)\*\+\/\\\?\[\]\^\|]+)$/, label: "Must include letters and numbers" },
+  {
+    regex: /^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9!"`'#%&,:;<>=@{}\$\(\)\*\+\/\\\?\[\]\^\|]+)$/,
+    label: "Must include letters and numbers",
+  },
 ];
 
 export const validatePassword = (password: string) => {

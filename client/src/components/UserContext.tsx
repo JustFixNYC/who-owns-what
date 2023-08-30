@@ -97,7 +97,7 @@ export const UserContextProvider = ({ children }: { children: React.ReactNode })
   const login = useCallback(
     async (username: string, password: string, onSuccess?: (user: JustfixUser) => void) => {
       const response = await AuthClient.login(username, password);
-      console.log(response)
+      console.log(response);
       if (!response.error && response.user) {
         const _user = {
           ...response.user,
@@ -121,7 +121,7 @@ export const UserContextProvider = ({ children }: { children: React.ReactNode })
       setUser(undefined);
       if (authRequiredPaths().includes(fromPath)) {
         document.location.href = `${window.location.origin}`;
-      } 
+      }
     };
     asyncLogout();
   }, []);

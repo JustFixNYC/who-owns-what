@@ -28,8 +28,7 @@ def login(request):
         return set_response_cookies(response, response.json())
     else:
         return HttpResponse(
-            content=json.dumps(response.json()),
-            status=response.status_code
+            content=json.dumps(response.json()), status=response.status_code
         )
 
 

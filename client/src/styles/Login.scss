@@ -11,18 +11,18 @@
       display: flex;
       align-items: center;
       font-size: 1.3rem;
-      color: #BA4300;
-      margin-bottom: .5rem;
+      color: #ba4300;
+      margin-bottom: 0.5rem;
 
       svg {
-        margin-right: .75rem;
+        margin-right: 0.75rem;
       }
     }
 
     input[type="submit"] {
       padding: 1.6rem 3.2rem !important;
       align-self: center;
-      margin: 1.6rem auto .6rem auto;
+      margin: 1.6rem auto 0.6rem auto;
     }
 
     input:invalid {
@@ -30,13 +30,13 @@
     }
     input:focus:invalid {
       border-color: $justfix-black;
-    }    
+    }
   }
 
   .page-title {
     margin-top: 1.5rem;
   }
-  
+
   label {
     @include desktop-eyebrow();
 
@@ -48,7 +48,7 @@
   .login-type-toggle {
     display: flex;
     justify-content: flex-start;
-    margin: 1rem .75rem;
+    margin: 1rem 0.75rem;
   }
 
   .login-response-text {
@@ -75,7 +75,7 @@
   .jf-alert {
     width: auto;
     font-size: 1.3rem;
-    margin: 0 0.75rem;      
+    margin: 0 0.75rem;
 
     .button.is-text {
       display: block !important;

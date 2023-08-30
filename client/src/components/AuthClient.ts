@@ -258,16 +258,15 @@ const postLoginCredentials = async (
     credentials: "include",
   });
 
-  return await result.json();  
+  return await result.json();
 };
-
 
 // TODO shakao Move shared APIClient functions to util
 const friendlyFetch: typeof fetch = async (input, init) => {
   let response: Response;
   try {
     response = await fetch(input, init);
-    console.log(response)
+    console.log(response);
   } catch (e) {
     if (e instanceof Error) {
       throw new NetworkError(e.message);
