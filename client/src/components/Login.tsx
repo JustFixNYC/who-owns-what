@@ -14,25 +14,6 @@ import AuthClient from "./AuthClient";
 import { Alert } from "./Alert";
 import { AlertIcon } from "./Icons";
 
-type PasswordRule = {
-  regex: RegExp;
-  label: string;
-};
-
-const passwordRules: PasswordRule[] = [
-  { regex: /.{8}/, label: "Must be 8 characters" },
-  {
-    regex: /^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9!"`'#%&,:;<>=@{}\$\(\)\*\+\/\\\?\[\]\^\|]+)$/,
-    label: "Must include letters and numbers",
-  },
-];
-
-const validatePassword = (password: string) => {
-  let valid = true;
-  passwordRules.forEach((rule) => (valid = valid && !!password.match(rule.regex)));
-  return valid;
-};
-
 export enum LoginState {
   Default,
   Login,
@@ -52,16 +33,22 @@ const LoginWithoutI18n = (props: LoginProps) => {
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [loginState, setLoginState] = useState(LoginState.Default);
   const [header, setHeader] = useState("Log in / sign up");
   const [subheader, setSubheader] = useState("");
-  const [isExistingUser, setIsExistingUser] = useState(false);
-  const [showAlerts, setShowAlerts] = useState(false);
-  const [invalidAuthError, setInvalidAuthError] = useState(false);
-  const [emailFormatError, setEmailFormatError] = useState(false);
-
+  const [loginState, setLoginState] = useState(LoginState.Default);
   const isDefaultState = loginState === LoginState.Default;
   const isRegisterState = loginState === LoginState.Register;
+
+  const [emailFormatError, setEmailFormatError] = useState(false);
+  const [emptyAuthError, setEmptyAuthError] = useState(false);
+  const [invalidAuthError, setInvalidAuthError] = useState(false);
+  const [existingUserError, setExistingUserError] = useState(false);
+
+  const resetErrorStates = () => {
+    setEmptyAuthError(false);
+    setInvalidAuthError(false);
+    setExistingUserError(false);
+  };
 
   const toggleLoginState = (endState: LoginState) => {
     if (endState === LoginState.Register) {
@@ -83,61 +70,49 @@ const LoginWithoutI18n = (props: LoginProps) => {
     e.preventDefault();
     if (isDefaultState && !!username) {
       const existingUser = await AuthClient.isEmailAlreadyUsed(username);
-      if (fromBuildingPage) {
-        setShowAlerts(true);
-      }
+
       if (existingUser) {
-        setIsExistingUser(true);
+        setExistingUserError(true);
         toggleLoginState(LoginState.Login);
       } else {
         toggleLoginState(LoginState.Register);
       }
-    } else {
-      console.log("enter a valid email");
     }
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    if (isRegisterState) {
-      const existingUser = await AuthClient.isEmailAlreadyUsed(username);
-      if (existingUser) {
-        setIsExistingUser(true);
-        setShowAlerts(true);
-      }
-      return;
-    }
+    resetErrorStates();
 
     if (!username || !password) {
-      setShowAlerts(true);
-      setInvalidAuthError(true);
+      setEmptyAuthError(true);
       return;
     }
 
-    const loginMessage =
-      loginState === LoginState.Login
-        ? await userContext.login(username, password, onSuccess)
-        : await userContext.register(username, password, onSuccess);
+    const existingUser = await AuthClient.isEmailAlreadyUsed(username);
+    if (existingUser) {
+      setExistingUserError(true);
+    } else {
+      const error = isRegisterState
+        ? await userContext.register(username, password, onSuccess)
+        : await userContext.login(username, password, onSuccess);
 
-    console.log(loginMessage);
-    if (!!loginMessage) {
-      setShowAlerts(true);
-      setInvalidAuthError(true);
-    } else if (handleRedirect) {
-      handleRedirect();
+      if (!!error) {
+        setInvalidAuthError(true);
+      } else {
+        handleRedirect && handleRedirect();
+      }
     }
   };
 
   const renderPageLevelAlert = (
     type: "error" | "success" | "info",
     message: string,
-    className?: string,
     showLogin?: boolean
   ) => {
     return (
       <Alert
-        className={`page-level-alert ${className}`}
+        className={`page-level-alert`}
         variant="primary"
         closeType="none"
         role="status"
@@ -158,23 +133,23 @@ const LoginWithoutI18n = (props: LoginProps) => {
 
   const renderAlert = () => {
     let alertMessage = "";
-    if (invalidAuthError) {
-      alertMessage = i18n._(t`The email and/or the password you entered is incorrect.`);
-      if (!fromBuildingPage) {
-        return renderPageLevelAlert("error", alertMessage, "from-nav-bar");
-      }
-      return renderPageLevelAlert("error", alertMessage);
-    } else if (fromBuildingPage && showAlerts && isExistingUser) {
-      if (!isRegisterState) {
-        alertMessage = i18n._(t`Your email is associated with an account. Log in below.`);
-        return renderPageLevelAlert("info", alertMessage, "from-building-page");
-      } else {
-        alertMessage = i18n._(t`That email is already used.`);
-        return renderPageLevelAlert("error", alertMessage, "from-building-page");
-      }
-    } else if (!fromBuildingPage && showAlerts && isExistingUser && isRegisterState) {
-      alertMessage = i18n._(t`That email is already used.`);
-      return renderPageLevelAlert("error", alertMessage, "from-nav-bar", true);
+
+    switch (true) {
+      case invalidAuthError:
+        alertMessage = i18n._(t`The email and/or the password you entered is incorrect.`);
+        return renderPageLevelAlert("error", alertMessage);
+      case emptyAuthError:
+        alertMessage = i18n._(t`The email and/or the password cannot be blank.`);
+        return renderPageLevelAlert("error", alertMessage);
+      case existingUserError:
+        if (isRegisterState) {
+          alertMessage = i18n._(t`That email is already used.`);
+          // show login button in alert
+          return renderPageLevelAlert("error", alertMessage, !fromBuildingPage);
+        } else {
+          alertMessage = i18n._(t`Your email is associated with an account. Log in below.`);
+          return renderPageLevelAlert("info", alertMessage);
+        }
     }
   };
 
@@ -210,13 +185,11 @@ const LoginWithoutI18n = (props: LoginProps) => {
           placeholder={i18n._(t`Enter email`)}
           onChange={(e) => {
             setUsername(e.target.value);
-            setShowAlerts(false);
           }}
           onBlur={isBadEmailFormat}
           value={username}
           title="Email: the email contains '@'. Example: info@ros-bv.nl"
-
-          //required={true} // removing this bc any empty state registers as invalid state
+          // note: required={true} removed bc any empty state registers as invalid state
         />
         {!isDefaultState && (
           <PasswordInput
@@ -235,7 +208,8 @@ const LoginWithoutI18n = (props: LoginProps) => {
               ? i18n._(t`Sign up`)
               : i18n._(t`Log in`)
           }
-          disabled={!validatePassword(password) && isRegisterState}
+          // note: emabled vs. disabled state is not visually different. silently fails with below line in.
+          // disabled={!validatePassword(password) && isRegisterState}
         />
       </form>
       {isRegisterState ? (

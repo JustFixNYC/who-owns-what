@@ -22,7 +22,7 @@
     input[type="submit"] {
       padding: 1.6rem 3.2rem !important;
       align-self: center;
-      margin: 1.6rem auto 0.6rem auto;
+      margin: 1.6rem auto 0.6rem auto !important;
     }
 
     input:invalid {
@@ -47,7 +47,7 @@
 
   .login-type-toggle {
     display: flex;
-    justify-content: flex-start;
+    justify-content: center;
     margin: 1rem 0.75rem;
   }
 
@@ -70,6 +70,11 @@
   }
   h5 {
     font-size: 1.6rem;
+    margin-left: 0.75rem;
+  }
+
+  .password-input {
+    margin-top: 0.5rem;
   }
 
   .jf-alert {
@@ -84,6 +89,7 @@
 
     .jf-alert__content {
       display: flex;
+      text-align: left;
     }
   }
 }
