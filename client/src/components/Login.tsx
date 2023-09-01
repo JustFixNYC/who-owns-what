@@ -91,7 +91,16 @@ const LoginWithoutI18n = (props: LoginProps) => {
 
     const existingUser = await AuthClient.isEmailAlreadyUsed(username);
     if (existingUser) {
-      setExistingUserError(true);
+      if (isRegisterState) {
+        setExistingUserError(true);
+      } else {
+        const error = await userContext.login(username, password, onSuccess);
+        if (!!error) {
+          setInvalidAuthError(true);
+        } else {
+          handleRedirect && handleRedirect();
+        }
+      }
     } else {
       const error = isRegisterState
         ? await userContext.register(username, password, onSuccess)
@@ -146,7 +155,7 @@ const LoginWithoutI18n = (props: LoginProps) => {
           alertMessage = i18n._(t`That email is already used.`);
           // show login button in alert
           return renderPageLevelAlert("error", alertMessage, !fromBuildingPage);
-        } else {
+        } else if (fromBuildingPage) {
           alertMessage = i18n._(t`Your email is associated with an account. Log in below.`);
           return renderPageLevelAlert("info", alertMessage);
         }
