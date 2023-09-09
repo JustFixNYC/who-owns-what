@@ -104,7 +104,7 @@ def populate_oca_tables(wow_cur, config: OcaConfig):
     print(f"Populating OCA tables for WOW")
 
     for object in config.s3_objects:
-        csv_path = config.data_dir / Path(object)
+        csv_path = config.data_dir / Path(object).name
         print(f"- {csv_path.stem}")
         populate_table_from_csv(wow_cur, csv_path)
 
