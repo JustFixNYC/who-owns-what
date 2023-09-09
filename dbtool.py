@@ -15,7 +15,7 @@ from portfoliograph.table import (
     export_portfolios_table_json,
     populate_portfolios_table,
 )
-from ocaevictions.table import OcaConfig, create_oca_tables, populate_oca_tables
+from ocaevictions.table import OcaConfig, populate_oca_tables
 
 try:
     from dotenv import load_dotenv
@@ -213,7 +213,6 @@ class NycDbBuilder:
             self.ensure_dataset(dataset, force_refresh=force_refresh)
 
         with self.conn.cursor() as cur:
-            create_oca_tables(cur, self.oca_config)
             populate_oca_tables(cur, self.oca_config)
 
         for sqlpath in get_sqlfile_paths():
@@ -383,27 +382,19 @@ if __name__ == "__main__":
         default=os.environ.get("DATABASE_URL", ""),
     )
     parser.add_argument(
-        "--oca-db-url",
-        help="Set database URL for OCA. Defaults to OCA_DATABASE_URL environment variable.",
-        default=os.environ.get("OCA_DATABASE_URL", ""),
+        "--oca_s3_bucket",
+        help="S3 bucket for OCA files. Defaults to OCA_S3_BUCKET environment variable.",
+        default=os.environ.get("OCA_S3_BUCKET", ""),
     )
     parser.add_argument(
-        "--oca_ssh_host",
-        help="Set SSH host for OCA database. Defaults to OCA_SSH_HOST environment variable.",
-        default=os.environ.get("OCA_SSH_HOST", ""),
+        "--aws_access_key",
+        help="AWS Key for OCA S3 files. Defaults to AWS_ACCESS_KEY environment variable.",
+        default=os.environ.get("AWS_ACCESS_KEY", ""),
     )
     parser.add_argument(
-        "--oca_ssh_user",
-        help="Set SSH user for OCA database. Defaults to  OCA_SSH_USER environment variable.",
-        default=os.environ.get("OCA_SSH_USER", ""),
-    )
-    parser.add_argument(
-        "--oca_ssh_pkey",
-        help=(
-            "Set SSH private key path for OCA database. "
-            "Defaults to OCA_SSH_PKEY environment variable."
-        ),
-        default=os.environ.get("OCA_SSH_PKEY", ""),
+        "--aws_secret_key",
+        help="AWS Secret for OCA S3 files. Defaults to AWS_SECRET_KEY environment variable.",
+        default=os.environ.get("AWS_SECRET_KEY", ""),
     )
 
     parser_exportgraph = subparsers.add_parser("exportgraph")
@@ -450,15 +441,13 @@ if __name__ == "__main__":
             )
         sys.exit(1)
 
-    if not all(
-        [args.oca_db_url, args.oca_ssh_host, args.oca_ssh_user, args.oca_ssh_pkey]
-    ):
+    if not all([args.oca_s3_bucket, args.aws_access_key, args.aws_secret_key]):
         print(
-            "OCA database and ssh credentials are missing. The WOW database\n"
-            "will still be built but eviction filings data will be missing.\n"
-            "If you have access to the OCA database, please define the OCA_*\n"
-            "variables in the environment or pass them in via the follwing options:\n"
-            "--oca-db-url, --oca_ssh_host, --oca_ssh_user, --oca_ssh_pkey"
+            "AWS Access Keys and S3 Bucket name for private OCAfiles are missing.\n"
+            "The WOW database will still be built but eviction filings data will be missing.\n"
+            "If you have access to the OCA S3, please define the \n"
+            "variables in the environment or pass them in via the options:\n"
+            "--oca_s3_bucket, --aws_access_key, --aws_secret_key"
         )
         if dotenv_loaded:
             print("You can also define them in a .env file.")
@@ -476,14 +465,15 @@ if __name__ == "__main__":
     if cmd in ["loadtestdata", "builddb"]:
 
         oca_config = OcaConfig(
-            oca_table_names=WOW_YML["oca_tables"],
+            sql_pre_files=WOW_YML["oca_pre_sql"],
+            sql_post_files=WOW_YML["oca_post_sql"],
             data_dir=ROOT_DIR / "nycdb" / "data",
             test_dir=ROOT_DIR / "tests" / "data",
             sql_dir=SQL_DIR,
-            oca_db_url=args.oca_db_url,
-            oca_ssh_host=args.oca_ssh_host,
-            oca_ssh_user=args.oca_ssh_user,
-            oca_ssh_pkey=args.oca_ssh_pkey,
+            aws_key=args.aws_access_key,
+            aws_secret=args.aws_secret_key,
+            s3_bucket=args.oca_s3_bucket,
+            s3_objects=WOW_YML["oca_s3_objects"],
             is_testing=True if cmd == "loadtestdata" else False,
         )
 

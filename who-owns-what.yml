@@ -19,16 +19,16 @@ api_dependencies:
   - dob_violations
   - ecb_violations
   - dobjobs
-oca_tables:
-  # This is a list of table names we create for the OCA evictions data. Each 
-  # name corresponds to a "select_*.sql" script that extracts the data from 
-  # a separate DB with the private address-level OCA data, and a 
-  # "create_*.sql" script that creates an empty table on the main DB
-  # for WOW. In the nycdb-k8s-loader repo we automate the process
-  # of running these scripts and populating the tables with each weekly
-  # update of the data. These must be created before the WOW SQL scripts below.
-  - oca_evictions_bldgs
-  - oca_evictions_monthly
+oca_s3_objects:
+  - "public/oca_addresses_with_bbl.csv"
+oca_pre_sql:
+  # Create tables in the WOW/NYCDB DB to populate from CSVs via S3 as part of
+  # the private OCA level-2 process
+  - create_oca_addresses_with_bbl.sql
+oca_post_sql:
+  # Scripts for OCA data to run after the above tables have been created and populated
+  - oca_evictions_bldgs.sql
+  - oca_evictions_monthly.sql
 sql:
   # These SQL scripts must be executed in order, as
   # some of them depend on others.
