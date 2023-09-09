@@ -11,6 +11,8 @@
 
 -- TODO: ensure that access to this table is restricted in our database (not accessible by the 'anon' user we make available to all HDC members)
 
+DROP TABLE IF EXISTS oca_addresses_with_bbl cascade;
+
 CREATE TABLE oca_addresses_with_bbl (
 		indexnumberid text,
 		city text,
@@ -33,3 +35,6 @@ CREATE TABLE oca_addresses_with_bbl (
 		unitsres int,
         bbl char(10)
 );
+
+CREATE INDEX ON oca_addresses_with_bbl (indexnumberid);
+CREATE INDEX ON oca_addresses_with_bbl (bbl);
