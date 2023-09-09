@@ -32,7 +32,7 @@ CREATE TABLE oca_addresses_with_bbl (
 		grc2 text,
 		msg text,
 		msg2 text,
-		unitsres int,
+		unitsres text,
         bbl char(10)
 );
 
