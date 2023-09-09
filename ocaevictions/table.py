@@ -51,9 +51,8 @@ def download_oca_s3_objects(config: OcaConfig):
 
 
 def create_oca_s3_tables(wow_cur, config: OcaConfig):
-    for file_name in config.sql_pre_files:
-        sql_file = config.sql_dir / file_name
-        sql = sql_file.read_text()
+    for f in config.sql_pre_files:
+        sql = f.read_text()
         wow_cur.execute(sql)
 
 
@@ -84,9 +83,9 @@ def populate_table_from_csv(wow_cur, csv_path: Path, batch_size: int = 5000):
 
 
 def create_derived_oca_tables(wow_cur, config: OcaConfig):
-    for file_name in config.sql_post_files:
-        sql_file = config.sql_dir / file_name
-        sql = sql_file.read_text()
+    for f in config.sql_post_files:
+        print(f"- {f.stem}")
+        sql = f.read_text()
         wow_cur.execute(sql)
 
 
