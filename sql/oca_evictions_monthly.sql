@@ -19,7 +19,7 @@ INSERT INTO oca_evictions_monthly
     WHERE i.classification = any('{Holdover,Non-Payment}') 
         AND i.propertytype = 'Residential'
         AND a.bbl IS NOT NULL
-        AND a.unitsres::numeric > 10
+        AND nullif(a.unitsres, '')::numeric > 10
     GROUP BY a.bbl, month;
 
 CREATE INDEX ON oca_evictions_monthly (bbl);
