@@ -25,10 +25,13 @@
       margin: 1.6rem auto 0.6rem auto !important;
     }
 
-    input:invalid {
+    input:invalid,
+    .invalid {
       border-color: $justfix-orange;
     }
-    input:focus:invalid {
+
+    input:focus:invalid,
+    .invalid:focus {
       border-color: $justfix-black;
     }
   }
