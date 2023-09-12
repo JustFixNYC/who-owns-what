@@ -1,14 +1,5 @@
 -- Eviction filing counts for timeline
 
-DROP TABLE IF EXISTS oca_evictions_monthly cascade;
-
-CREATE TABLE oca_evictions_monthly (
-    bbl CHAR(10),
-    month TEXT,
-    evictionfilings INT,
-    PRIMARY KEY (bbl, month)
-);
-
 INSERT INTO oca_evictions_monthly
     SELECT
         a.bbl,
@@ -21,5 +12,3 @@ INSERT INTO oca_evictions_monthly
         AND a.bbl IS NOT NULL
         AND nullif(a.unitsres, '')::numeric > 10
     GROUP BY a.bbl, month;
-
-CREATE INDEX ON oca_evictions_monthly (bbl);

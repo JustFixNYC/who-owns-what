@@ -9,7 +9,6 @@
 -- privacy concerns. We only display a more aggregated/less detailed version on
 -- WOW and DAP Portal. 
 
--- TODO: ensure that access to this table is restricted in our database (not accessible by the 'anon' user we make available to all HDC members)
 
 DROP TABLE IF EXISTS oca_addresses_with_bbl cascade;
 
@@ -38,3 +37,25 @@ CREATE TABLE oca_addresses_with_bbl (
 
 CREATE INDEX ON oca_addresses_with_bbl (indexnumberid);
 CREATE INDEX ON oca_addresses_with_bbl (bbl);
+
+
+DROP TABLE IF EXISTS oca_evictions_bldgs cascade;
+
+CREATE TABLE oca_evictions_bldgs (
+    bbl CHAR(10) PRIMARY KEY,
+    eviction_filings_since_2017 INT
+);
+
+CREATE INDEX ON oca_evictions_bldgs (bbl);
+
+
+DROP TABLE IF EXISTS oca_evictions_monthly cascade;
+
+CREATE TABLE oca_evictions_monthly (
+    bbl CHAR(10),
+    month TEXT,
+    evictionfilings INT,
+    PRIMARY KEY (bbl, month)
+);
+
+CREATE INDEX ON oca_evictions_monthly (bbl);

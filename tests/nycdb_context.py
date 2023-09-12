@@ -9,7 +9,7 @@ import nycdb
 
 import dbtool
 from .generate_factory_from_csv import unmunge_colname
-from ocaevictions.table import OcaConfig, create_oca_tables, populate_oca_tables
+from ocaevictions.table import OcaConfig, populate_oca_tables
 
 if "TEST_DATABASE_URL" in os.environ:
     TEST_DB_URL = os.environ["TEST_DATABASE_URL"]
@@ -35,11 +35,16 @@ class NycdbContext:
             hide_progress=False,
         )
         self.oca_config = OcaConfig(
-            oca_table_names=dbtool.WOW_YML["oca_tables"],
+            sql_pre_files=dbtool.WOW_YML["oca_pre_sql"],
+            sql_post_files=dbtool.WOW_YML["oca_post_sql"],
             data_dir=Path(root_dir),
             # using main location since test files are copied there
             test_dir=Path(root_dir),
             sql_dir=dbtool.SQL_DIR,
+            aws_key=None,
+            aws_secret=None,
+            s3_bucket=None,
+            s3_objects=dbtool.WOW_YML["oca_s3_objects"],
             is_testing=True,
         )
         self.root_dir = Path(root_dir)
@@ -91,7 +96,6 @@ class NycdbContext:
             self.load_dataset(dataset)
 
         with self.get_cursor() as cur:
-            create_oca_tables(cur, self.oca_config)
             populate_oca_tables(cur, self.oca_config)
 
         all_sql = "\n".join(

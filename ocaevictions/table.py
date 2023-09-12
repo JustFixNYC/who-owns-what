@@ -93,19 +93,21 @@ def populate_oca_tables(wow_cur, config: OcaConfig):
     # Since OCA data is private, if you don't have access, the empty tables won't
     # be populated and the wow tables will have nulls for the OCA columns
 
+    print(f"Creating OCA tables for WOW")
+    create_oca_s3_tables(wow_cur, config)
+
     if not config.has_s3_creds and not config.is_testing:
         print("No AWS keys to access OCA files in S3. Leaving tables empty")
         return
 
-    if config.has_s3_creds and not config.is_testing:
+    if not config.is_testing:
         download_oca_s3_objects(config)
 
     print(f"Populating OCA tables for WOW")
 
-    create_oca_s3_tables(wow_cur, config)
-
     for object in config.s3_objects:
-        csv_path = config.data_dir / Path(object).name
+        csv_dir = config.test_dir if config.is_testing else config.data_dir
+        csv_path = csv_dir / Path(object).name
         print(f"- {csv_path.stem}")
         populate_table_from_csv(wow_cur, csv_path)
 
