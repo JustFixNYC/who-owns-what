@@ -166,7 +166,8 @@ const LoginWithoutI18n = (props: LoginProps) => {
       alpha numeric characters are ok, upper/lower case agnostic 
       username: leading \_ ok, chars \_\.\- ok in all other positions
       domain name: chars \.\- ok as long as not leading. must end in a \. and at least two alphabet chars */
-    const pattern = "^([a-zA-Z0-9_]+[a-zA-Z0-9_.-]+@[a-zA-Z0-9]+[a-zA-Z0-9.-]+[a-zA-Z0-9]+.[a-zA-Z]{2,})$";
+    const pattern =
+      "^([a-zA-Z0-9_]+[a-zA-Z0-9_.-]+@[a-zA-Z0-9]+[a-zA-Z0-9.-]+[a-zA-Z0-9]+.[a-zA-Z]{2,})$";
     const input = document.getElementById("email-input") as HTMLElement;
     const inputValue = (input as HTMLInputElement).value;
 
@@ -174,12 +175,12 @@ const LoginWithoutI18n = (props: LoginProps) => {
     const passStrictRegex = inputValue.match(pattern);
     const passAutoValidation = document.querySelectorAll("input:invalid").length === 0;
 
-    if (!passAutoValidation || !passStrictRegex){
+    if (!passAutoValidation || !passStrictRegex) {
       setEmailFormatError(true);
       input.className = input.className + " invalid";
     } else {
       setEmailFormatError(false);
-      input.className = input.className.split(' ')[0];
+      input.className = input.className.split(" ")[0];
     }
   };
 
