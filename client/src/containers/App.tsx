@@ -219,12 +219,12 @@ const getAccountNavLinks = (
           <Trans>Account settings</Trans>
         </LocaleNavLink>,
         <button onClick={() => handleLogout(fromPath)} key="account-2">
-          <Trans>Sign out</Trans>
+          <Trans>Log out</Trans>
         </button>,
       ]
     : [
         <LocaleNavLink to={login} key="account-3">
-          <Trans>Sign in</Trans>
+          <Trans>Log in</Trans>
         </LocaleNavLink>,
       ];
 };

@@ -32,19 +32,19 @@ export const validatePassword = (password: string) => {
 
 type PasswordInputProps = {
   i18n: I18n;
+  labelText: string;
   username?: string;
   onChange?: (password: string) => void;
-  validateInput?: boolean;
+  showPasswordRules?: boolean;
+  showForgotPassword?: boolean;
 };
 
 const PasswordInputWithoutI18n = (props: PasswordInputProps) => {
   const { account } = createWhoOwnsWhatRoutePaths();
 
-  const { i18n, username, validateInput, onChange } = props;
+  const { i18n, labelText, username, onChange, showPasswordRules, showForgotPassword} = props;
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-
-  const labelText = validateInput ? "Create a new password" : "Password";
 
   const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
@@ -53,28 +53,30 @@ const PasswordInputWithoutI18n = (props: PasswordInputProps) => {
 
   return (
     <Fragment>
-      <div className="login-password-label">
+      <div className="password-input-label">
         <label>{i18n._(t`${labelText}`)}</label>
-        {!validateInput && (
+        {showForgotPassword && (
           <LocaleLink to={`${account.forgotPassword}?email=${encodeURIComponent(username || "")}`}>
             Forgot your password?
           </LocaleLink>
         )}
       </div>
-      {validateInput &&
-        passwordRules.map((rule, i) => {
-          const ruleClass = !!password ? (password.match(rule.regex) ? "valid" : "invalid") : "";
-          return (
-            <span className={`password-input-rule ${ruleClass}`} key={`rule-${i}`}>
-              {rule.label}
-            </span>
-          );
-        })}
+      {showPasswordRules && 
+        <div className="password-input-rules">
+          { passwordRules.map((rule, i) => {
+            const ruleClass = !!password ? (password.match(rule.regex) ? "valid" : "invalid") : "";
+            return (
+              <span className={`password-input-rule ${ruleClass}`} key={`rule-${i}`}>
+                {rule.label}
+              </span>
+            );
+          })}
+        </div>
+      }
       <div className="password-input">
         <input
           type={showPassword ? "text" : "password"}
           className="input"
-          placeholder={`Enter password`}
           onChange={handlePasswordChange}
           value={password}
         />
@@ -91,7 +93,7 @@ const PasswordInputWithoutI18n = (props: PasswordInputProps) => {
 };
 
 PasswordInputWithoutI18n.defaultProps = {
-  validateInput: false,
+  showPasswordRules: false,
 };
 
 const PasswordInput = withI18n()(PasswordInputWithoutI18n);

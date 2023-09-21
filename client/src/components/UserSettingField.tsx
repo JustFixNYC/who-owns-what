@@ -26,20 +26,23 @@ const PasswordSettingFieldWithoutI18n = (props: PasswordSettingFieldProps) => {
 
   return (
     <UserSettingField title={i18n._(t`Password`)} preview="**********" onSubmit={handleSubmit}>
-      <Trans render="label">Enter your old password</Trans>
-      <div className="password-input">
+      <Trans render="label">Password</Trans>
+      <PasswordInput 
+        labelText="Enter your old password"
+        />
+
+      {/* <div className="password-input">
         <input
           type={showCurrentPassword ? "text" : "password"}
           className="input"
-          placeholder={`Enter your current password`}
           onChange={handleCurrentPasswordChange}
           value={currentPassword}
         />
         <button type="button" onClick={() => setShowCurrentPassword(!showCurrentPassword)}>
           Show
         </button>
-      </div>
-      <PasswordInput validateInput={true} onChange={setNewPassword} />
+      </div> */}
+      <PasswordInput labelText="Create a new password" showPasswordRules={true} onChange={setNewPassword} />
     </UserSettingField>
   );
 };
@@ -70,7 +73,7 @@ const EmailSettingFieldWithoutI18n = (props: EmailSettingFieldProps) => {
       onSubmit={handleSubmit}
     >
       <Trans render="label">Email address</Trans>
-      <Trans render="p">This is used for logging in and for receiving email alerts.</Trans>
+      <Trans render="p">This is used for logging in and for receiving weekly data updates.</Trans>
       <input
         type="email"
         className="input"

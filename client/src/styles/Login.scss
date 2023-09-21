@@ -1,11 +1,14 @@
 @import "_vars.scss";
 @import "_typography.scss";
 
-.Login {
+// TODO REFACTOR THIS PAGE
+.Login,
+.ForgotPasswordPage,
+.ResetPasswordPage {
   .input-group {
     display: flex;
     flex-direction: column;
-    margin: 1rem 0.75rem;
+    margin-top: 1rem;
 
     #input-field-error {
       display: flex;
@@ -19,10 +22,15 @@
       }
     }
 
+    input[type="email"],
+    .password-input {
+      margin-bottom: 1.5rem;
+    }
+
     input[type="submit"] {
       padding: 1.6rem 3.2rem !important;
       align-self: center;
-      margin: 1.6rem auto 0.6rem auto !important;
+      margin: 0.6rem auto !important;
     }
 
     input:invalid,
@@ -42,6 +50,10 @@
 
   label {
     @include desktop-eyebrow();
+    // vars marked !important bc typography mixin is not available for inconsolata
+    font-weight: 600 !important;
+    font-family: $wow-font !important;
+    font-size: 1.3rem !important;
 
     text-align: left;
     margin-top: 1rem;
@@ -73,7 +85,7 @@
   }
   h5 {
     font-size: 1.6rem;
-    margin-left: 0.75rem;
+    //margin-left: 0.75rem;
   }
 
   .password-input {
@@ -83,7 +95,7 @@
   .jf-alert {
     width: auto;
     font-size: 1.3rem;
-    margin: 0 0.75rem;
+    //margin: 0 0.75rem;
 
     .button.is-text {
       display: block !important;
@@ -95,4 +107,21 @@
       text-align: left;
     }
   }
+
+  .request-sent-success {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    svg {
+      margin: 1rem 0 2.5rem 0;
+    }
+
+    .button.is-text {
+      margin-top: 1rem;
+      display: block !important;
+      color: $justfix-black;
+    }
+  }
+
 }

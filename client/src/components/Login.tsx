@@ -21,13 +21,13 @@ export enum LoginState {
 
 type LoginProps = {
   i18n: I18n;
-  fromBuildingPage?: boolean;
+  onBuildingPage?: boolean;
   onSuccess?: (user: JustfixUser) => void;
   handleRedirect?: () => void;
 };
 
 const LoginWithoutI18n = (props: LoginProps) => {
-  const { i18n, fromBuildingPage, onSuccess, handleRedirect } = props;
+  const { i18n, onBuildingPage, onSuccess, handleRedirect } = props;
   const userContext = useContext(UserContext);
 
   const [username, setUsername] = useState("");
@@ -52,13 +52,13 @@ const LoginWithoutI18n = (props: LoginProps) => {
   const toggleLoginState = (endState: LoginState) => {
     if (endState === LoginState.Register) {
       setLoginState(LoginState.Register);
-      if (!fromBuildingPage) {
+      if (!onBuildingPage) {
         setHeader("Sign up");
         setSubheader("With an account you can save buildings and get weekly updates");
       }
     } else if (endState === LoginState.Login) {
       setLoginState(LoginState.Login);
-      if (!fromBuildingPage) {
+      if (!onBuildingPage) {
         setHeader("Log in");
         setSubheader("");
       }
@@ -144,17 +144,17 @@ const LoginWithoutI18n = (props: LoginProps) => {
 
     switch (true) {
       case invalidAuthError:
-        alertMessage = i18n._(t`The email and/or the password you entered is incorrect.`);
+        alertMessage = i18n._(t`The email and/or password you entered is incorrect.`);
         return renderPageLevelAlert("error", alertMessage);
       case emptyAuthError:
-        alertMessage = i18n._(t`The email and/or the password cannot be blank.`);
+        alertMessage = i18n._(t`The email and/or password cannot be blank.`);
         return renderPageLevelAlert("error", alertMessage);
       case existingUserError:
         if (isRegisterState) {
           alertMessage = i18n._(t`That email is already used.`);
           // show login button in alert
-          return renderPageLevelAlert("error", alertMessage, !fromBuildingPage);
-        } else if (fromBuildingPage) {
+          return renderPageLevelAlert("error", alertMessage, !onBuildingPage);
+        } else if (onBuildingPage) {
           alertMessage = i18n._(t`Your email is associated with an account. Log in below.`);
           return renderPageLevelAlert("info", alertMessage);
         }
@@ -185,9 +185,9 @@ const LoginWithoutI18n = (props: LoginProps) => {
   };
 
   return (
-    <div className={`Login`}>
+    <div className="Login">
       {renderAlert()}
-      {!fromBuildingPage && (
+      {!onBuildingPage && (
         <>
           <h4 className="page-title text-center">{i18n._(t`${header}`)}</h4>
           <h5 className="text-left">{i18n._(t`${subheader}`)}</h5>
@@ -211,13 +211,14 @@ const LoginWithoutI18n = (props: LoginProps) => {
           }}
           onBlur={isBadEmailFormat}
           value={username}
-          title="Email: the email contains '@'. Example: info@ros-bv.nl"
           // note: required={true} removed bc any empty state registers as invalid state
         />
         {!isDefaultState && (
           <PasswordInput
+            labelText={isRegisterState ? "Create a password" : "Password"}
             username={username}
-            validateInput={isRegisterState}
+            showPasswordRules={isRegisterState}
+            showForgotPassword={!isRegisterState}
             onChange={setPassword}
           />
         )}

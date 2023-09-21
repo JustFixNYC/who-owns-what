@@ -1,13 +1,13 @@
 @import "_vars.scss";
 @import "_typography.scss";
 
-.AccountSettingsPage.Page {
+.AccountSettingsPage {
   h4 {
     text-decoration: none;
     text-align: left !important;
     font-weight: 700;
-    padding-top: 0.5rem;
-    margin: 5.5rem 1.6rem 2.6rem;
+    padding-top: 0.6rem;
+    margin: 5.6rem 1.6rem 2.6rem;
   }
 
   h4.settings-section {
@@ -34,6 +34,7 @@
     padding: 1.6rem;
     background-color: $justfix-grey-light;
     border-radius: 4px;
+    margin: auto 1.6rem;
   }
 }
 
@@ -42,6 +43,10 @@
     display: flex;
     flex-direction: column;
     margin: 3.2rem 1.6rem;
+
+    p {
+      margin: -1rem 0 0.6rem 0;
+    }
   }
 
   form > div {
@@ -67,16 +72,29 @@
 
     input[type="submit"] {
       margin: 0 1.6rem 0 0 !important;
-      padding: 1.6rem 3.2rem;
-    }
-
-    .button.is-secondary {
-      padding: 1.6rem 3.2rem;
     }
   }
 
   label {
     @include desktop-eyebrow();
-    margin-bottom: 1.6rem;
+      // vars marked !important bc typography mixin is not available for inconsolata
+      font-weight: 600 !important;
+      font-family: $wow-font !important;
+      font-size: 1.3rem !important;
+
+      text-align: left;
+      margin-bottom: 1.6rem;
+  }
+
+  .password-input-label {
+    margin-bottom: -1rem !important;
+  }
+
+  .password-input-rules {
+    flex-direction: column;
+
+    span:last-child {
+      margin-bottom: 0.6rem  !important;
+    }
   }
 }
