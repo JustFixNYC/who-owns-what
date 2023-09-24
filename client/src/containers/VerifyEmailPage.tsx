@@ -78,7 +78,7 @@ const VerifyEmailPage = withI18n()((props: withI18nProps) => {
         <Trans render="h3"> to receive Data Updates from Who Owns What. </Trans>
         <div className="text-center">
           <button
-            className="button is-primary"
+            className="button is-prmary"
             onClick={() => {
               asyncVerifyEmail().then((result) => {
                 const isVerified = result.statusCode === VerifyStatusCode.Success;

@@ -24,13 +24,13 @@
 
     input[type="email"],
     .password-input {
-      margin-bottom: 1.5rem;
+      margin-bottom: 2rem;
     }
 
     input[type="submit"] {
       padding: 1.6rem 3.2rem !important;
       align-self: center;
-      margin: 0.6rem auto !important;
+      margin: 0 auto !important;
     }
 
     input:invalid,
@@ -60,11 +60,35 @@
     margin-bottom: 0.5rem;
   }
 
-  .login-type-toggle {
+  .building-page-footer {
     display: flex;
+    flex-direction: column;
     justify-content: center;
-    margin: 1rem 0.75rem;
+
+    .privacy-modal {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 2rem 0 2rem 0;
+
+      .info-icon {
+        margin-left: .4rem;
+        width: 18px;
+        &:focus-visible {
+          outline: 2px solid $focus-outline-color;
+          outline-offset: 2px;
+        }
+      }
+    
+    }
+    
+    .login-type-toggle {
+      display: flex;
+      justify-content: center;
+      font-size: 1.5rem;
+    }
   }
+
 
   .login-response-text {
     margin: 1rem 0 1rem;
@@ -85,7 +109,6 @@
   }
   h5 {
     font-size: 1.6rem;
-    //margin-left: 0.75rem;
   }
 
   .password-input {
@@ -95,7 +118,6 @@
   .jf-alert {
     width: auto;
     font-size: 1.3rem;
-    //margin: 0 0.75rem;
 
     .button.is-text {
       display: block !important;

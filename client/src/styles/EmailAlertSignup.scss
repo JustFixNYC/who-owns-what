@@ -1,4 +1,5 @@
 @import "_vars.scss";
+@import "_typography.scss";
 
 .EmailAlertSignup {
   margin-top: 2rem;
@@ -9,10 +10,48 @@
     cursor: default !important;
   }
 
-  .email-alert-content {
-    text-align: left;
+  .data-updates-label-container {
+    min-height: 3.8rem;
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+
+    .pill-new {
+      font-family: $body-font;
+      letter-spacing: 0.02em;
+      background: $justfix-yellow;
+      padding: 0.4rem 0.8rem;
+      border-radius: 1.6rem;
+      width: fit-content;
+      margin-right: 0.8rem !important;
+    }
+  
+    @include for-phone-only() {
+      width: unset;
+      justify-content: center;
+      .pill-new {
+        margin: 0;
+      }
+    }
+  
   }
 
+  .table-content {
+     margin: 1rem 1rem 1.7rem 1rem !important;
+  }
+
+  .email-description {
+    text-align: left;
+    margin: 1rem 0 !important;
+    line-height: 117%;
+  }
+
+  button.is-primary {
+    @include for-phone-only() {
+      width: -webkit-fill-available !important;
+    }
+  }
+  
   .building-subscribe-status {
     display: flex;
     text-align: left;

@@ -93,22 +93,30 @@ const EmailAlertSignupWithoutI18n = (props: EmailAlertProps) => {
                 title={i18n._(t`Get email updates for this building`)}
                 className="table-small-font"
               >
-                <Trans render="label">Get email updates for this building</Trans>
-                <div className="table-content email-alert-content">
-                  <Trans>
-                    Each weekly email includes HPD Complaints, HPD Violations, and Eviction Filings.
-                  </Trans>
+                
+                <label className="data-updates-label-container">
+                  <span className="pill-new">
+                  <Trans>NEW</Trans>
+                  </span>
+                  <Trans>Get Data Updates for this building</Trans>
+                </label>
+                <div className="table-content">
+                  <div className="email-description">
+                    <Trans>
+                      Each weekly email includes HPD Complaints, HPD Violations, and Eviction Filings.
+                    </Trans>
+                  </div>
+                  {!user ? (
+                    <Login
+                      onBuildingPage={true}
+                      onSuccess={(user: JustfixUser) =>
+                        userContext.subscribe(bbl, housenumber, streetname, zip, boro, user)
+                      }
+                    />
+                  ) : (
+                    <BuildingSubscribe {...props} />
+                  )}
                 </div>
-                {!user ? (
-                  <Login
-                    fromBuildingPage={true}
-                    onSuccess={(user: JustfixUser) =>
-                      userContext.subscribe(bbl, housenumber, streetname, zip, boro, user)
-                    }
-                  />
-                ) : (
-                  <BuildingSubscribe {...props} />
-                )}
               </div>
             )}
           </I18n>

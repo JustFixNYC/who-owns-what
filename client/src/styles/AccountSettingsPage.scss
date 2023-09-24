@@ -57,10 +57,6 @@
     }
   }
 
-  .link-button {
-    text-decoration: underline;
-  }
-
   .user-setting-actions {
     display: flex;
     justify-content: right;
@@ -91,6 +87,7 @@
   }
 
   .password-input-rules {
+    display: flex;
     flex-direction: column;
 
     span:last-child {

@@ -11,7 +11,8 @@ import PasswordInput from "./PasswordInput";
 import { JustfixUser } from "state-machine";
 import AuthClient from "./AuthClient";
 import { Alert } from "./Alert";
-import { AlertIcon } from "./Icons";
+import { AlertIcon, InfoIcon } from "./Icons";
+import Modal from "./Modal";
 
 export enum LoginState {
   Default,
@@ -38,6 +39,7 @@ const LoginWithoutI18n = (props: LoginProps) => {
   const isDefaultState = loginState === LoginState.Default;
   const isRegisterState = loginState === LoginState.Register;
 
+  const [showInfoModal, setShowInfoModal] = useState(false);
   const [emailFormatError, setEmailFormatError] = useState(false);
   const [emptyAuthError, setEmptyAuthError] = useState(false);
   const [invalidAuthError, setInvalidAuthError] = useState(false);
@@ -161,6 +163,66 @@ const LoginWithoutI18n = (props: LoginProps) => {
     }
   };
 
+  const renderHeader = () => {
+    return (
+      <>
+          <h4 className="page-title text-center">{i18n._(t`${header}`)}</h4>
+          <h5 className="text-left">{i18n._(t`${subheader}`)}</h5>
+      </>
+    )
+  }
+
+  const renderFooter = () => {
+    return (
+      <div className="building-page-footer">
+        <div className="privacy-modal">
+          <Trans>Your information is secure</Trans>
+          <button
+            className="info-icon"
+            onClick={() => setShowInfoModal(true)}
+            aria-label={i18n._(t`Learn more about how we use your data`)}
+          >
+            <InfoIcon />
+          </button>
+        </div>
+        <div className="login-type-toggle">
+          {isRegisterState ? (
+            <>
+            <Trans>Already have an account?</Trans>
+            <button
+              className="button is-text ml-5"
+              onClick={() => toggleLoginState(LoginState.Login)}
+            >
+              <Trans>Log in</Trans>
+            </button>
+            </>
+          ) : (
+            <>
+            <Trans>Don't have an account?</Trans>
+            <button
+              className="button is-text ml-5 pt-20"
+              onClick={() => toggleLoginState(LoginState.Register)}
+            >
+              <Trans>Sign up</Trans>
+            </button>
+            </>
+          )}
+        </div>
+        <Modal key={1} showModal={showInfoModal} width={40} onClose={() => setShowInfoModal(false)}>
+          <Trans render="h4">Your privacy is very important to us. Here are some important things to know:</Trans>
+          <ul>
+            <Trans render="li">Your personal information is secure.</Trans>
+            <Trans render="li">We don’t use your personal information for profit and will never give or sell it to third parties.</Trans>
+          </ul>
+          <Trans>
+            If you would like to read more about our mission, please visit <a href="https://www.justfix.org/">JustFix.org</a>. 
+            If you would like to read more about the data we collect, please review our full <a href="https://www.justfix.org/en/privacy-policy/">Privacy Policy</a> and <a href="https://www.justfix.org/en/terms-of-use/">Terms of Use</a>.
+          </Trans>
+        </Modal>
+      </div>
+    )
+  };
+
   const isBadEmailFormat = () => {
     /* valid email regex rules 
       alpha numeric characters are ok, upper/lower case agnostic 
@@ -187,12 +249,7 @@ const LoginWithoutI18n = (props: LoginProps) => {
   return (
     <div className="Login">
       {renderAlert()}
-      {!onBuildingPage && (
-        <>
-          <h4 className="page-title text-center">{i18n._(t`${header}`)}</h4>
-          <h5 className="text-left">{i18n._(t`${subheader}`)}</h5>
-        </>
-      )}
+      {!onBuildingPage && renderHeader()}
       <form onSubmit={isDefaultState ? handleEmailSubmit : handleSubmit} className="input-group">
         <Trans render="label">Email address</Trans>
         {emailFormatError && (
@@ -232,32 +289,10 @@ const LoginWithoutI18n = (props: LoginProps) => {
               ? i18n._(t`Sign up`)
               : i18n._(t`Log in`)
           }
-          // note: emabled vs. disabled state is not visually different. silently fails with below line in.
-          // disabled={!validatePassword(password) && isRegisterState}
-        />
+          />
       </form>
-      {isRegisterState ? (
-        <div className="login-type-toggle">
-          <Trans>Already have an account?</Trans>
-          <button
-            className="button is-text ml-5"
-            onClick={() => toggleLoginState(LoginState.Login)}
-          >
-            <Trans>Log in</Trans>
-          </button>
-        </div>
-      ) : (
-        <div className="login-type-toggle">
-          <Trans>Don't have an account?</Trans>
-          <button
-            className="button is-text ml-5 pt-20"
-            onClick={() => toggleLoginState(LoginState.Register)}
-          >
-            <Trans>Sign up</Trans>
-          </button>
-        </div>
-      )}
-    </div>
+      {onBuildingPage && renderFooter()}
+     </div>
   );
 };
 
