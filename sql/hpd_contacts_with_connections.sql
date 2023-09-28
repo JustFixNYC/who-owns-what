@@ -10,6 +10,8 @@ create temporary table if not exists single_registration_contacts as (
             )) as bizaddr,
 	        hpd_contacts.registrationid,
 			bbl,
+			registrationenddate,
+			lastregistrationdate,
 	        hpd_contacts.type
 	    FROM hpd_contacts
 	    INNER JOIN hpd_registrations
@@ -23,23 +25,27 @@ create temporary table if not exists single_registration_contacts as (
     landlord_contacts_ordered as (
         SELECT *
         FROM landlord_contacts
-        ORDER BY (
-            -- First, we prioritize certain owner types over others:
+        ORDER BY 
+	        bbl, 
+		    -- For each BBL, we grab the most recent registrationid we have on file.
+		    -- We define 'most recent' to mean a registration with the most recent
+		    -- expiration date and, if there is a tie, most recent non-null registration date
+		    registrationenddate DESC, lastregistrationdate DESC NULLS LAST,
+            -- Then, we prioritize certain owner types over others:
             ARRAY_POSITION(
                 ARRAY['IndividualOwner','HeadOfficer','JointOwner','CorporateOwner'],
                 landlord_contacts.type
             ),
-            -- Then, we order by landlord name, just to make sure our sorting is deterministic:
+            -- Finally, we order by landlord name, just to ensure sorting is deterministic:
             landlord_contacts.name
-        )
     )
     SELECT
-	    registrationid,
-	    FIRST(bbl) AS bbl,
+	    bbl,
+	    FIRST(registrationid) AS registrationid,
 	    FIRST(name) AS name,
 	    FIRST(bizaddr) as bizaddr
 	FROM landlord_contacts_ordered
-	GROUP BY registrationid
+	GROUP BY bbl
 
 );
 
