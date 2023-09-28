@@ -48,6 +48,7 @@
     "downshift": "^3.2.2",
     "focus-trap-react": "^10.1.1",
     "leaflet": "^1.1.0",
+    "loader-utils": "^2.0.4",
     "lodash": "^4.17.21",
     "mapbox-gl": "^1.12.0",
     "prop-types": "^15.7.2",
