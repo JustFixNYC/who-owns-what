@@ -68,7 +68,7 @@
     "react-papaparse": "^3.17.1",
     "react-resize-detector": "^9.1.0",
     "react-router-dom": "^5.1.2",
-    "react-scripts": "^4.0.3",
+    "react-scripts": "^5.0.1",
     "react-select": "^5.7.2",
     "react-social": "^1.10.0",
     "react-transition-group": "^2.2.1",
@@ -110,7 +110,7 @@
     "@svgr/webpack": "$@svgr/webpack"
   },
   "engines": {
-    "node": ">=12.0.0"
+    "node": ">=20.0.0"
   },
   "@comment browserslist": "Note that when changing browserslist, you need to delete `node_modules/.cache` for the changes to propagate! For more details, see https://github.com/JustFixNYC/who-owns-what/pull/335.",
   "browserslist": [
