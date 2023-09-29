@@ -112,7 +112,8 @@
   "resolutions": {
     "ejs": "^3.1.7",
     "shell-quote": "^1.7.2",
-    "loader-utils": "^2.0.4"
+    "loader-utils": "^2.0.4",
+    "set-value": "^2.0.1"
   },
   "engines": {
     "node": ">=12.0.0"
