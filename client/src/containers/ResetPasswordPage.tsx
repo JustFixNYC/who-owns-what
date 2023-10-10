@@ -18,6 +18,23 @@ const ResetPasswordPage = withI18n()((props: withI18nProps) => {
   const [value, setValue] = React.useState("");
   const userContext = useContext(UserContext);
 
+  const delaySeconds = 5;
+  const baseUrl = window.location.origin;
+  const redirectUrl = `${baseUrl}/${i18n.language}/account/login`;
+
+  const updateCountdown = () => {
+    let timeLeft = delaySeconds;
+    const delayInterval = delaySeconds * 100;
+
+    setInterval(() => {
+      timeLeft--;
+      document.getElementById("countdown")!.textContent = timeLeft.toString();
+      if (timeLeft <= 0) {
+        document.location.href = redirectUrl;
+      }
+    }, delayInterval);
+  };
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -39,12 +56,25 @@ const ResetPasswordPage = withI18n()((props: withI18nProps) => {
             </>
           ) : (
             <>
-              <Trans render="h4">Your password has been successfully reset</Trans>
-              <Trans>You will be redirected back to Who Owns What in X seconds.</Trans>
+              <Trans className="text-center" render="h4">
+                Your password has successfully been reset
+              </Trans>
+              <br />
+              <div className="text-center">
+                <Trans className="text-center">You will be redirected back to Who Owns What in</Trans>
+                <br>{updateCountdown()}</br>
+                <Trans className="d-flex justify-content-center">
+                  <span id="countdown"> {delaySeconds}</span> seconds
+                </Trans>
+                <br />
+                <br />
+                <Trans className="text-center">
+                  <a href={redirectUrl} style={{color: "#242323"}}>Click to log in</a> if you are not redirected
+                </Trans>
+              </div>
             </>
           )}
         </div>
-        <LegalFooter />
       </div>
     </Page>
   );
