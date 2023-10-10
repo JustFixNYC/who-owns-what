@@ -226,10 +226,10 @@ const LoginWithoutI18n = (props: LoginProps) => {
   const isBadEmailFormat = () => {
     /* valid email regex rules 
       alpha numeric characters are ok, upper/lower case agnostic 
-      username: leading \_ ok, chars \_\.\- ok in all other positions
+      username: leading \_ ok, chars \_\.\-\+ ok in all other positions
       domain name: chars \.\- ok as long as not leading. must end in a \. and at least two alphabet chars */
     const pattern =
-      "^([a-zA-Z0-9_]+[a-zA-Z0-9_.-]+@[a-zA-Z0-9]+[a-zA-Z0-9.-]+[a-zA-Z0-9]+.[a-zA-Z]{2,})$";
+      "^([a-zA-Z0-9_]+[a-zA-Z0-9+_.-]+@[a-zA-Z0-9]+[a-zA-Z0-9.-]+[a-zA-Z0-9]+.[a-zA-Z]{2,})$";
     const input = document.getElementById("email-input") as HTMLElement;
     const inputValue = (input as HTMLInputElement).value;
 
