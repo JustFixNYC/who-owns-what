@@ -113,6 +113,14 @@
   "overrides": {
     "@svgr/webpack": "$@svgr/webpack"
   },
+  "resolutions": {
+    "ejs": "^3.1.7",
+    "shell-quote": "^1.7.2",
+    "loader-utils": "^2.0.4",
+    "set-value": "^2.0.1",
+    "minimist": "^0.2.4",
+    "immer": "^9.0.6"
+  },
   "engines": {
     "node": ">=18.0.0"
   },
