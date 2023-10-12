@@ -114,7 +114,7 @@
     "@svgr/webpack": "$@svgr/webpack"
   },
   "engines": {
-    "node": ">=20.0.0"
+    "node": ">=18.0.0"
   },
   "@comment browserslist": "Note that when changing browserslist, you need to delete `node_modules/.cache` for the changes to propagate! For more details, see https://github.com/JustFixNYC/who-owns-what/pull/335.",
   "browserslist": [
