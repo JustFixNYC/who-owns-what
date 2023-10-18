@@ -8,7 +8,7 @@ from .dbutil import call_db_func, exec_db_query
 from .datautil import int_or_none, float_or_none
 from . import csvutil, apiutil
 from .apiutil import api, get_validated_form_data
-from .forms import PaddedBBLForm, SeparatedBBLForm
+from .forms import PaddedBBLForm, SeparatedBBLForm, EmailAlertForm
 
 
 MY_DIR = Path(__file__).parent.resolve()
@@ -185,6 +185,29 @@ def address_latestdeed(request):
     """
     bbl = get_request_bbl(request)
     result = exec_db_query(SQL_DIR / "address_latestdeed.sql", {"bbl": bbl})
+    return JsonResponse({"result": list(result)})
+
+
+def get_alert_params_from_request(request) -> dict:
+    return get_validated_form_data(EmailAlertForm, request.GET)
+
+
+@api
+def alerts_violations(request):
+    """
+    This API endpoint receives requests with a 10-digit BBL, start_date
+    and end_date (yyyy-mm-dd), and responds with the number of HPD violations
+    that the property recieved within that time period
+    """
+    args = get_alert_params_from_request(request)
+    result = exec_db_query(
+        SQL_DIR / "alerts_violations.sql",
+        {
+            "bbl": args["bbl"],
+            "start_date": args["start_date"],
+            "end_date": args["end_date"],
+        },
+    )
     return JsonResponse({"result": list(result)})
 
 
