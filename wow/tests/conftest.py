@@ -34,10 +34,15 @@ def django_db_setup(django_db_setup, django_db_blocker):
 
         if not is_already_built:
             oca_config = OcaConfig(
-                oca_table_names=dbtool.WOW_YML["oca_tables"],
+                sql_pre_files=dbtool.WOW_YML["oca_pre_sql"],
+                sql_post_files=dbtool.WOW_YML["oca_post_sql"],
                 data_dir=dbtool.ROOT_DIR / "nycdb" / "data",
                 test_dir=dbtool.ROOT_DIR / "tests" / "data",
                 sql_dir=dbtool.ROOT_DIR / "sql",
+                aws_key=None,
+                aws_secret=None,
+                s3_bucket=None,
+                s3_objects=dbtool.WOW_YML["oca_s3_objects"],
                 is_testing=True,
             )
             dbtool.loadtestdata(db, oca_config)

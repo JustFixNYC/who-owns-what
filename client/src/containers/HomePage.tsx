@@ -222,7 +222,7 @@ const HomePage: React.FC<HomePageProps> = ({ useNewPortfolioMethod }) => {
                       >
                         aggressive eviction strategies
                       </a>{" "}
-                      to displace low-income tenants. Besides lack of repairs and frivolous
+                      to displace low-income tenants. Aside from lack of repairs and frivolous
                       evictions in housing court, A&E has also been known to use{" "}
                       <a
                         href="https://hcr.ny.gov/faqs-major-capital-and-individual-apartment-improvements"
@@ -273,7 +273,7 @@ const HomePage: React.FC<HomePageProps> = ({ useNewPortfolioMethod }) => {
                       >
                         deregulating rent stabilized apartments
                       </a>
-                      , Stellar Management is also one of the city’s of{" "}
+                      , Stellar Management is also one of the city’s{" "}
                       <a
                         href="https://www.worstevictorsnyc.org/"
                         target="_blank"
@@ -281,7 +281,7 @@ const HomePage: React.FC<HomePageProps> = ({ useNewPortfolioMethod }) => {
                       >
                         Worst Evictors
                       </a>
-                      . Stellar is a gentrifying force, particularly in upper Manhattan where they
+                      . Stellar is a gentrifying force, particularly in upper Manhattan, where they
                       have a reputation for displacing long-term tenants, renovating their units
                       while vacant, and skyrocketing rents to market rate.
                     </Trans>

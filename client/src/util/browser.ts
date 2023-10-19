@@ -34,6 +34,26 @@ export default {
     return width <= 599;
   },
 
+  getScreenSize(): { width: number; height: number } {
+    let width = 0,
+      height = 0;
+    if (typeof window != "undefined") {
+      width =
+        window.innerWidth && document.documentElement.clientWidth
+          ? Math.min(window.innerWidth, document.documentElement.clientWidth)
+          : window.innerWidth ||
+            document.documentElement.clientWidth ||
+            document.getElementsByTagName("body")[0].clientWidth;
+      height =
+        window.innerHeight && document.documentElement.clientHeight
+          ? Math.min(window.innerHeight, document.documentElement.clientHeight)
+          : window.innerHeight ||
+            document.documentElement.clientHeight ||
+            document.getElementsByTagName("body")[0].clientHeight;
+    }
+    return { width, height };
+  },
+
   getMobileOperatingSystem(): string {
     var userAgent = navigator.userAgent || navigator.vendor;
 

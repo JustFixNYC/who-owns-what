@@ -72,6 +72,7 @@
     "react-select": "^5.7.2",
     "react-social": "^1.10.0",
     "react-transition-group": "^2.2.1",
+    "resize-observer-polyfill": "^1.5.1",
     "rollbar": "^2.14.4",
     "sass": "^1.49.9",
     "spectre.scss": "0.0.2",
@@ -107,6 +108,14 @@
   },
   "overrides": {
     "@svgr/webpack": "$@svgr/webpack"
+  },
+  "resolutions": {
+    "ejs": "^3.1.7",
+    "shell-quote": "^1.7.2",
+    "loader-utils": "^2.0.4",
+    "set-value": "^2.0.1",
+    "minimist": "^0.2.4",
+    "immer": "^9.0.6"
   },
   "engines": {
     "node": ">=12.0.0"
