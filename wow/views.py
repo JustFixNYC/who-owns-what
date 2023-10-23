@@ -3,8 +3,6 @@ import logging
 from pathlib import Path
 from typing import Any, Dict
 from django.http import HttpResponse, JsonResponse
-from rest_framework.decorators import api_view, permission_classes
-from rest_framework.permissions import IsAuthenticated
 
 from .dbutil import call_db_func, exec_db_query, exec_sql
 from .datautil import int_or_none, float_or_none
@@ -242,8 +240,6 @@ def email_alerts(request):
 
 
 @api
-@api_view(["GET"])
-@permission_classes([IsAuthenticated])
 def email_alerts_multi(request):
     """
     This API endpoint receives requests with a 10-digit BBL, start_date
