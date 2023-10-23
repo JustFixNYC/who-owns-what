@@ -40,7 +40,17 @@ ROOT_URLCONF = "project.urls"
 INSTALLED_APPS = [
     "project.apps.DefaultConfig",
     "wow.apps.WowConfig",
+    "django.contrib.contenttypes",
+    "django.contrib.auth",
+    "rest_framework",
+    "rest_framework.authtoken",
 ]
+
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework.authentication.TokenAuthentication",
+    ],
+}
 
 MIDDLEWARE: List[str] = ["django.middleware.gzip.GZipMiddleware"]
 
