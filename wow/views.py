@@ -7,7 +7,7 @@ from django.http import HttpResponse, JsonResponse
 from .dbutil import call_db_func, exec_db_query, exec_sql
 from .datautil import int_or_none, float_or_none
 from . import csvutil, apiutil
-from .apiutil import api, get_validated_form_data
+from .apiutil import api, get_validated_form_data, authorize_for_alerts
 from .forms import PaddedBBLForm, SeparatedBBLForm, EmailAlertForm
 
 
@@ -247,6 +247,7 @@ def email_alerts_multi(request):
     It responds with the value for each of those indicators for that
     property over the time period.
     """
+    authorize_for_alerts(request)
     args = get_alert_params_from_request(request)
     query_params = {
         "bbl": args["bbl"],
