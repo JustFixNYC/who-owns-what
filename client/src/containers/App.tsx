@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { BrowserRouter as Router, Switch, Route, useLocation } from "react-router-dom";
 import { Trans, t } from "@lingui/macro";
 
@@ -32,6 +32,7 @@ import HowToUsePage from "./HowToUsePage";
 import MethodologyPage from "./Methodology";
 import TermsOfUsePage from "./TermsOfUsePage";
 import PrivacyPolicyPage from "./PrivacyPolicyPage";
+import VerifyEmailPage from "./VerifyEmailPage";
 import { DevPage } from "./DevPage";
 import { wowMachine } from "state-machine";
 import { NotFoundPage } from "./NotFoundPage";
@@ -46,6 +47,12 @@ import { logAmplitudeEvent } from "../components/Amplitude";
 import { SliderButton } from "@typeform/embed-react";
 import { StickyModal } from "components/StickyModal";
 import { DeprecationModal } from "components/DeprecationModal";
+import { UserContext, UserContextProvider } from "components/UserContext";
+import AccountSettingsPage from "./AccountSettingsPage";
+import ResetPasswordPage from "./ResetPasswordPage";
+import ForgotPasswordPage from "./ForgotPasswordPage";
+import UnsubscribePage from "./UnsubscribePage";
+import LoginPage from "./LoginPage";
 
 const HomeLink = withI18n()((props: withI18nProps) => {
   const { i18n } = props;
@@ -163,6 +170,12 @@ const WhoOwnsWhatRoutes: React.FC<{}> = () => {
           <BBLPage {...props} useNewPortfolioMethod={allowChangingPortfolioMethod} />
         )}
       />
+      <Route path={paths.account.login} component={LoginPage} />
+      <Route path={paths.account.verifyEmail} component={VerifyEmailPage} />
+      <Route path={paths.account.settings} component={AccountSettingsPage} />
+      <Route path={paths.account.forgotPassword} component={ForgotPasswordPage} />
+      <Route path={paths.account.resetPassword} component={ResetPasswordPage} />
+      <Route path={paths.account.unsubscribe} component={UnsubscribePage} />
       <Route path={paths.about} component={AboutPage} />
       <Route path={paths.legacy.about} component={AboutPage} />
       <Route path={paths.howToUse} component={HowToUsePage} />
@@ -190,6 +203,30 @@ const SearchLink = () => {
       <Trans>Search</Trans>
     </LocaleNavLink>
   );
+};
+
+const getAccountNavLinks = (
+  handleLogout: (fromPath: string) => void,
+  fromPath: string,
+  isSignedIn?: boolean
+) => {
+  const { account } = createWhoOwnsWhatRoutePaths();
+  const { settings, login } = account;
+
+  return isSignedIn
+    ? [
+        <LocaleNavLink to={settings} key="account-1">
+          <Trans>Account settings</Trans>
+        </LocaleNavLink>,
+        <button onClick={() => handleLogout(fromPath)} key="account-2">
+          <Trans>Sign out</Trans>
+        </button>,
+      ]
+    : [
+        <LocaleNavLink to={login} key="account-3">
+          <Trans>Sign in</Trans>
+        </LocaleNavLink>,
+      ];
 };
 
 const getMainNavLinks = (isLegacyPath?: boolean) => {
@@ -222,6 +259,9 @@ const Navbar = () => {
   const isDemoSite = process.env.REACT_APP_DEMO_SITE === "1";
   const allowChangingPortfolioMethod =
     process.env.REACT_APP_ENABLE_NEW_WOWZA_PORTFOLIO_MAPPING === "1";
+
+  const userContext = useContext(UserContext);
+
   return (
     <div
       className={classnames(
@@ -245,6 +285,7 @@ const Navbar = () => {
             <Trans>Share</Trans>
           </a>
           <LocaleSwitcher />
+          {getAccountNavLinks(userContext.logout, pathname, !!userContext?.user?.email)}
         </span>
         <Dropdown>
           {getMainNavLinks(isLegacyPath(pathname)).map((link, i) => (
@@ -261,6 +302,13 @@ const Navbar = () => {
           <li className="menu-item">
             <LocaleSwitcherWithFullLanguageName />
           </li>
+          {getAccountNavLinks(userContext.logout, pathname, !!userContext?.user?.email).map(
+            (link, i) => (
+              <li className="menu-item" key={`account-${i}`}>
+                {link}
+              </li>
+            )
+          )}
         </Dropdown>
       </nav>
       <Modal showModal={isEngageModalVisible} onClose={() => setEngageModalVisibility(false)}>
@@ -364,32 +412,34 @@ const App = () => {
               checkIntervalSecs={300}
             />
           )}
-          <div className="App">
-            {allowChangingPortfolioMethod && <WowzaBanner />}
-            <Navbar />
-            {deprecationModalEnabled && <DeprecationModal />}
-            <AppBody />
-            {surveyId && surveyCookie !== "2" && (
-              <StickyModal
-                label={"Help us build tenant power in NYC!"}
-                verticalPosition="bottom"
-                horizontalPosition="right"
-                onClose={hideSurveyButton}
-              >
-                <SliderButton
-                  id={surveyId}
-                  redirectTarget="_self"
-                  open={surveyCookie ? undefined : "time"}
-                  openValue={surveyCookie ? undefined : 5000}
-                  className="waou-survey-button"
-                  onClose={closeSurvey}
-                  onSubmit={() => (surveySubmitted = true)}
+          <UserContextProvider>
+            <div className="App">
+              {allowChangingPortfolioMethod && <WowzaBanner />}
+              <Navbar />
+              {deprecationModalEnabled && <DeprecationModal />}
+              <AppBody />
+              {surveyId && surveyCookie !== "2" && (
+                <StickyModal
+                  label={"Help us build tenant power in NYC!"}
+                  verticalPosition="bottom"
+                  horizontalPosition="right"
+                  onClose={hideSurveyButton}
                 >
-                  Take our short survey
-                </SliderButton>
-              </StickyModal>
-            )}
-          </div>
+                  <SliderButton
+                    id={surveyId}
+                    redirectTarget="_self"
+                    open={surveyCookie ? undefined : "time"}
+                    openValue={surveyCookie ? undefined : 5000}
+                    className="waou-survey-button"
+                    onClose={closeSurvey}
+                    onSubmit={() => (surveySubmitted = true)}
+                  >
+                    Take our short survey
+                  </SliderButton>
+                </StickyModal>
+              )}
+            </div>
+          </UserContextProvider>
         </ScrollToTop>
       </I18n>
     </Router>

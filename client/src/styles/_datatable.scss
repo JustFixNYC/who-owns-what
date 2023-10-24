@@ -13,7 +13,7 @@
         border-bottom: 1px solid $gray-dark;
       }
 
-      div {
+      > div {
         flex: 1;
         padding-bottom: 3px;
         // width: 25%;
@@ -48,7 +48,7 @@
           font-size: 1.3rem;
         }
 
-        label {
+        > label {
           display: block;
           line-height: 1.1;
           font-size: 1.3rem;
@@ -71,6 +71,15 @@
         span {
           margin: 0 3px;
         }
+      }
+
+      .table-content {
+        margin: 1rem 0.75rem;
+        line-height: 1.3rem;
+      }
+
+      .table-small-font {
+        font-size: 1.3rem;
       }
     }
   }

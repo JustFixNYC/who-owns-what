@@ -1,4 +1,5 @@
 @import "_vars.scss";
+@import "_typography.scss";
 
 .App {
   height: 100%;
@@ -105,7 +106,8 @@
     }
     @include for-tablet-landscape-up() {
       color: $wowza-background;
-      nav a {
+      nav a,
+      nav button {
         color: $wowza-background;
       }
     }
@@ -170,15 +172,26 @@
       max-width: 250px;
     }
 
-    a {
+    a,
+    button {
       display: inline-block;
       margin-left: 10px;
       color: $dark;
+      text-decoration: underline;
 
-      &.active {
+      &.active,
+      &:hover {
         text-decoration: none;
         cursor: default;
       }
+    }
+
+    .menu .menu-item > button {
+      text-decoration: none;
+      color: inherit;
+      display: inline;
+      margin: 0 -0.8rem;
+      padding: 0.6rem 0.8rem;
     }
 
     .language-toggle a {
@@ -220,6 +233,30 @@ div.Page {
   p {
     // line-height: 1.6;
     margin-bottom: 1.25rem;
+  }
+
+  .page-container {
+    h4 {
+      text-decoration: none;
+      text-align: center;
+    }
+
+    width: min(calc(100vw - 4rem), 60rem);
+    max-width: 60rem;
+    margin: 4rem auto;
+
+    form {
+      display: flex;
+      flex-direction: column;
+
+      .form-label {
+        @include desktop-eyebrow();
+      }
+
+      input[type="submit"] {
+        margin: 1rem auto;
+      }
+    }
   }
 }
 

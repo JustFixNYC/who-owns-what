@@ -12,6 +12,7 @@ import { t } from "@lingui/macro";
 
 const AboutPage = withI18n()((props: withI18nProps) => {
   const { i18n } = props;
+
   return (
     <Page title={i18n._(t`About`)}>
       <div className="AboutPage Page">

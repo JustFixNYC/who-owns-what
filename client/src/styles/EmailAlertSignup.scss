@@ -1,0 +1,36 @@
+@import "_vars.scss";
+
+.EmailAlertSignup {
+  margin-top: 2rem;
+
+  .email-alert-content {
+    text-align: left;
+  }
+
+  .building-subscribe-status {
+    display: flex;
+    text-align: left;
+
+    button {
+      cursor: pointer;
+      text-decoration: underline;
+    }
+
+    button:hover {
+      text-decoration: none;
+    }
+  }
+
+  .building-subscribe-icon {
+    width: 3rem;
+    height: 3rem;
+    margin-right: 1rem;
+    flex-shrink: 0;
+    border: 1px solid $justfix-black;
+    border-radius: 50%;
+  }
+
+  .building-subscribe-icon.verified {
+    background-color: $justfix-black;
+  }
+}

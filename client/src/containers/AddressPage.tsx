@@ -86,7 +86,7 @@ export default class AddressPage extends Component<AddressPageProps, State> {
       address: validateRouteParams(match.params),
       useNewPortfolioMethod: this.props.useNewPortfolioMethod || false,
     });
-    /* When searching for user's address, let's reset the DetailView to the "closed" state 
+    /* When searching for user's address, let's reset the DetailView to the "closed" state
     so it can pop into view once the address is found */
     this.handleCloseDetail();
   }

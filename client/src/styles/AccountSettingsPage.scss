@@ -1,0 +1,58 @@
+@import "_vars.scss";
+@import "_typography.scss";
+
+.AccountSettingsPage.Page {
+  h4 {
+    text-decoration: none;
+    font-weight: 700;
+    padding-top: 0.5rem;
+    margin: 5.5rem 1.6rem 2.6rem;
+  }
+
+  h4.settings-section {
+    font-weight: 400;
+    border-top: 1px solid $justfix-grey-400;
+  }
+
+  .settings-contact {
+    margin: 6rem 2rem 5rem;
+    text-align: center;
+  }
+
+  .settings-no-subscriptions {
+    padding: 1.6rem;
+    background-color: $justfix-grey-light;
+    border-radius: 4px;
+  }
+}
+
+.UserSetting {
+  form {
+    display: flex;
+    flex-direction: column;
+    margin: 1.6rem;
+  }
+
+  form > div {
+    display: flex;
+
+    span {
+      flex: 1;
+    }
+  }
+
+  .user-setting-actions {
+    display: flex;
+    justify-content: center;
+    margin-top: 1.6rem;
+
+    input[type="submit"] {
+      margin-right: 1.6rem;
+    }
+  }
+
+  label {
+    @include desktop-eyebrow();
+    margin-bottom: 1.6rem;
+  }
+}

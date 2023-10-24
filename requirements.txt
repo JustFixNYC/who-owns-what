@@ -8,3 +8,5 @@ gunicorn==19.9.0
 numpy==1.19.5
 algoliasearch==2.6.1
 boto3==1.28.44
+requests==2.25.1
+django-cors-headers==4.3.0
