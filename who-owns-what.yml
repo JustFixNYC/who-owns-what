@@ -3,6 +3,7 @@ dependencies:
   # These are NYCDB datasets needed by the SQL scripts.
   - pluto_latest
   - rentstab_summary
+  - rentstab
   - rentstab_v2
   - marshal_evictions
   - hpd_registrations
@@ -45,4 +46,4 @@ extra_nycdb_test_data:
   # create ourselves via factories.
   - "tests/data/acris_*.csv"
   - "tests/data/oca_*.csv"
-  - "tests/data/rentstab_counts_from_doffer_2021.csv"
+  - "tests/data/rentstab_counts_from_doffer_2022.csv"

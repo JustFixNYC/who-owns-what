@@ -103,7 +103,7 @@ select distinct on (registrations.bbl)
   rentstab.rsunits2007,
   rentstab.rsunitslatest,
   -- Year of most recent rent stab data:
-  2021 as rsunitslatestyear,
+  2022 as rsunitslatestyear,
   rentstab.rsdiff,
   exemptions.yearstartedj51::smallint,
   exemptions.yearstarted421a::smallint,
