@@ -47,3 +47,5 @@ extra_nycdb_test_data:
   - "tests/data/acris_*.csv"
   - "tests/data/oca_*.csv"
   - "tests/data/rentstab_counts_from_doffer_2022.csv"
+  - "tests/data/taxbills_joined.csv"
+  - "tests/data/hpd_complaints_and_problems.csv"
