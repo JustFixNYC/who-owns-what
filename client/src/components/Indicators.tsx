@@ -25,6 +25,8 @@ import {
 import { NetworkErrorMessage } from "./NetworkErrorMessage";
 import { Dropdown } from "./Dropdown";
 import { AmplitudeEvent, logAmplitudeEvent } from "./Amplitude";
+import { withRouter } from "react-router-dom";
+import { RouteComponentProps } from "react-router";
 
 type TimeSpanTranslationsMap = {
   [K in IndicatorsTimeSpan]: (i18n: I18n) => string;
@@ -49,10 +51,19 @@ const getDropdownWidthFromLongestSelection = (selections: string[]) => {
   return Math.min(lengthOfLongestSelection * LETTER_WIDTH + MENU_BUFFER, MAX_WIDTH);
 };
 
-class IndicatorsWithoutI18n extends Component<IndicatorsProps, IndicatorsState> {
-  constructor(props: IndicatorsProps) {
+type TimelinePageParams = {
+  indicator?: IndicatorsDatasetId;
+};
+
+type IndicatorsWithRouterProps = RouteComponentProps<TimelinePageParams> & IndicatorsProps;
+
+class IndicatorsWithoutI18n extends Component<IndicatorsWithRouterProps, IndicatorsState> {
+  constructor(props: IndicatorsWithRouterProps) {
     super(props);
-    this.state = indicatorsInitialState;
+    this.state = {
+      ...indicatorsInitialState,
+      activeVis: props.match.params.indicator || indicatorsInitialState.defaultVis,
+    };
     this.handleVisChange = this.handleVisChange.bind(this);
   }
 
@@ -98,6 +109,9 @@ class IndicatorsWithoutI18n extends Component<IndicatorsProps, IndicatorsState> 
   handleVisChange(selectedVis: IndicatorsDatasetId) {
     this.setState({
       activeVis: selectedVis,
+    });
+    this.props.history.push(`${this.props.addressPageRoutes.timeline}/${selectedVis}`, {
+      shallow: true,
     });
   }
 
@@ -370,5 +384,5 @@ class IndicatorsWithoutI18n extends Component<IndicatorsProps, IndicatorsState> 
   }
 }
 
-const Indicators = withI18n()(IndicatorsWithoutI18n);
+const Indicators = withRouter(withI18n()(IndicatorsWithoutI18n));
 export default Indicators;
