@@ -52,19 +52,39 @@ const getDropdownWidthFromLongestSelection = (selections: string[]) => {
 };
 
 type TimelinePageParams = {
+  locale?: string;
+  boro?: string;
+  housenumber?: string;
+  streetname?: string;
   indicator?: IndicatorsDatasetId;
 };
 
 type IndicatorsWithRouterProps = RouteComponentProps<TimelinePageParams> & IndicatorsProps;
 
+const getIndicatorFromPageParams = (params: TimelinePageParams) => {
+  const indicatorParam = params.indicator as IndicatorsDatasetId;
+  if (indicatorsDatasetIds.includes(indicatorParam)) {
+    return indicatorParam;
+  }
+};
+
+const getTimlinePathFromRoute = (pathname: string) => {
+  return pathname.replace(/\/:indicator.*/, "");
+};
+
 class IndicatorsWithoutI18n extends Component<IndicatorsWithRouterProps, IndicatorsState> {
   constructor(props: IndicatorsWithRouterProps) {
     super(props);
+    const indicator =
+      getIndicatorFromPageParams(props.match.params) || indicatorsInitialState.defaultVis;
     this.state = {
       ...indicatorsInitialState,
-      activeVis: props.match.params.indicator || indicatorsInitialState.defaultVis,
+      activeVis: indicator,
+      defaultVis: indicator,
     };
     this.handleVisChange = this.handleVisChange.bind(this);
+    const timelinePath = getTimlinePathFromRoute(props.addressPageRoutes.timeline);
+    props.history.replace(`${timelinePath}/${indicator}`);
   }
 
   /** Shifts the X-axis 'left' or 'right', or 'reset' the X-axis to default */
@@ -110,9 +130,8 @@ class IndicatorsWithoutI18n extends Component<IndicatorsWithRouterProps, Indicat
     this.setState({
       activeVis: selectedVis,
     });
-    this.props.history.push(`${this.props.addressPageRoutes.timeline}/${selectedVis}`, {
-      shallow: true,
-    });
+    const timelinePath = getTimlinePathFromRoute(this.props.addressPageRoutes.timeline);
+    this.props.history.replace(`${timelinePath}/${selectedVis}`);
   }
 
   /** Changes viewing timespan to be by 'year', 'quarter', or 'month' */
