@@ -60,8 +60,8 @@ export const createAddressPageRoutes = (
   }
   return {
     overview: `${prefix}`,
-    timeline: `${prefix}/timeline`,
-    timeline_indicator: `${prefix}/timeline/:indicator`,
+    timeline: `${prefix}/timeline/:indicator?`,
+    // timeline_indicator: `${prefix}/timeline/:indicator?`,
     portfolio: `${prefix}/portfolio`,
     summary: `${prefix}/summary`,
   };
