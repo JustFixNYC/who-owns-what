@@ -27,6 +27,7 @@ import { Dropdown } from "./Dropdown";
 import { AmplitudeEvent, logAmplitudeEvent } from "./Amplitude";
 import { withRouter } from "react-router-dom";
 import { RouteComponentProps } from "react-router";
+import { AddressPageUrlParams, removeIndicatorSuffix } from "routes";
 
 type TimeSpanTranslationsMap = {
   [K in IndicatorsTimeSpan]: (i18n: I18n) => string;
@@ -51,40 +52,27 @@ const getDropdownWidthFromLongestSelection = (selections: string[]) => {
   return Math.min(lengthOfLongestSelection * LETTER_WIDTH + MENU_BUFFER, MAX_WIDTH);
 };
 
-type TimelinePageParams = {
-  locale?: string;
-  boro?: string;
-  housenumber?: string;
-  streetname?: string;
-  indicator?: IndicatorsDatasetId;
-};
+type IndicatorsWithRouterProps = RouteComponentProps<AddressPageUrlParams> & IndicatorsProps;
 
-type IndicatorsWithRouterProps = RouteComponentProps<TimelinePageParams> & IndicatorsProps;
-
-const getIndicatorFromPageParams = (params: TimelinePageParams) => {
-  const indicatorParam = params.indicator as IndicatorsDatasetId;
-  if (indicatorsDatasetIds.includes(indicatorParam)) {
-    return indicatorParam;
+export const validateIndicatorParam = (indicatorParam?: string) => {
+  const indicator = indicatorParam as IndicatorsDatasetId;
+  if (indicatorsDatasetIds.includes(indicator)) {
+    return indicator;
   }
-};
-
-const getTimlinePathFromRoute = (pathname: string) => {
-  return pathname.replace(/\/:indicator.*/, "");
 };
 
 class IndicatorsWithoutI18n extends Component<IndicatorsWithRouterProps, IndicatorsState> {
   constructor(props: IndicatorsWithRouterProps) {
     super(props);
+    console.log(props.match.params);
     const indicator =
-      getIndicatorFromPageParams(props.match.params) || indicatorsInitialState.defaultVis;
+      validateIndicatorParam(props.match.params.indicator) || indicatorsInitialState.defaultVis;
     this.state = {
       ...indicatorsInitialState,
       activeVis: indicator,
       defaultVis: indicator,
     };
     this.handleVisChange = this.handleVisChange.bind(this);
-    const timelinePath = getTimlinePathFromRoute(props.addressPageRoutes.timeline);
-    props.history.replace(`${timelinePath}/${indicator}`);
   }
 
   /** Shifts the X-axis 'left' or 'right', or 'reset' the X-axis to default */
@@ -130,7 +118,7 @@ class IndicatorsWithoutI18n extends Component<IndicatorsWithRouterProps, Indicat
     this.setState({
       activeVis: selectedVis,
     });
-    const timelinePath = getTimlinePathFromRoute(this.props.addressPageRoutes.timeline);
+    const timelinePath = removeIndicatorSuffix(this.props.addressPageRoutes.timeline);
     this.props.history.replace(`${timelinePath}/${selectedVis}`);
   }
 

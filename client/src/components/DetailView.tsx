@@ -13,7 +13,7 @@ import { isPartOfGroupSale } from "./PortfolioTable";
 import { Link, useLocation } from "react-router-dom";
 import { LocaleLink } from "../i18n";
 import BuildingStatsTable from "./BuildingStatsTable";
-import { createWhoOwnsWhatRoutePaths, AddressPageRoutes } from "../routes";
+import { createWhoOwnsWhatRoutePaths, AddressPageRoutes, removeIndicatorSuffix } from "../routes";
 import { defaultLocale, SupportedLocale } from "../i18n-base";
 import { withMachineInStateProps } from "state-machine";
 import { Accordion } from "./Accordion";
@@ -285,7 +285,7 @@ class DetailViewWithoutI18n extends Component<Props, State> {
                       <BuildingStatsTable addr={detailAddr} />
                       <div className="card-body-timeline-link">
                         <Link
-                          to={this.props.addressPageRoutes.timeline}
+                          to={removeIndicatorSuffix(this.props.addressPageRoutes.timeline)}
                           className="btn btn-primary btn-block"
                           onClick={() => {
                             window.gtag("event", "view-data-over-time-overview-tab");
