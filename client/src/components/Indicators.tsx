@@ -114,12 +114,16 @@ class IndicatorsWithoutI18n extends Component<IndicatorsWithRouterProps, Indicat
     }
   }
 
+  setUrlIndicator(indicator: IndicatorsDatasetId) {
+    const timelinePath = removeIndicatorSuffix(this.props.addressPageRoutes.timeline);
+    this.props.history.replace(`${timelinePath}/${indicator}`);
+  }
+
   handleVisChange(selectedVis: IndicatorsDatasetId) {
     this.setState({
       activeVis: selectedVis,
     });
-    const timelinePath = removeIndicatorSuffix(this.props.addressPageRoutes.timeline);
-    this.props.history.replace(`${timelinePath}/${selectedVis}`);
+    this.setUrlIndicator(selectedVis);
   }
 
   /** Changes viewing timespan to be by 'year', 'quarter', or 'month' */
@@ -154,6 +158,9 @@ class IndicatorsWithoutI18n extends Component<IndicatorsWithRouterProps, Indicat
 
     this.updateData();
 
+    if (this.props.isVisible && !this.props.location.pathname.includes(this.state.activeVis)) {
+      this.setUrlIndicator(this.state.activeVis);
+    }
     const newlyLoadedRawData =
       !prevProps.state.matches({ portfolioFound: { timeline: "success" } }) &&
       state.matches({ portfolioFound: { timeline: "success" } }) &&
