@@ -177,7 +177,9 @@ class TestSQL:
         nycdb_ctx.write_csv("pluto_latest.csv", [PlutoLatest()])
         nycdb_ctx.write_csv("hpd_violations.csv", [HpdViolations()])
         nycdb_ctx.write_csv("hpd_complaints.csv", [HpdComplaints()])
-        nycdb_ctx.write_csv("hpd_complaints_and_problems.csv", [HpdComplaintsAndProblems()])
+        nycdb_ctx.write_csv(
+            "hpd_complaints_and_problems.csv", [HpdComplaintsAndProblems()]
+        )
         nycdb_ctx.write_csv("dob_violations.csv", [DobViolations()])
         nycdb_ctx.write_csv("ecb_violations.csv", [EcbViolations()])
         nycdb_ctx.write_csv("dof_exemptions.csv", [DofExemptions()])
