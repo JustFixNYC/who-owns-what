@@ -28,4 +28,22 @@ COPY requirements.txt requirements-dev.txt /
 
 RUN pip install -r requirements-dev.txt
 
+# Setup Geosupport 
+# check the latest version here https://www.nyc.gov/site/planning/data-maps/open-data/dwn-gdelx.page
+ENV RELEASE=23c
+ENV MAJOR=23
+ENV MINOR=3
+ENV PATCH=0
+WORKDIR /geosupport
+
+RUN FILE_NAME=linux_geo${RELEASE}_${MAJOR}_${MINOR}.zip \
+  && echo ${FILE_NAME} \
+  && curl -O https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/$FILE_NAME \
+  && unzip *.zip \
+  && rm *.zip
+
+ENV GEOFILES=/geosupport/version-${RELEASE}_${MAJOR}.${MINOR}/fls/
+ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/geosupport/version-${RELEASE}_${MAJOR}.${MINOR}/lib/
+
+
 ENV PATH /wow/client/node_modules/.bin:$PATH

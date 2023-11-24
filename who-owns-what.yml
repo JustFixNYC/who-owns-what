@@ -40,6 +40,7 @@ sql:
   - agg_function.sql
   - landlord_contact.sql
   - create_portfolios_table.sql
+  - create_landlords_table.sql
 extra_nycdb_test_data:
   # This is extra data our tests need that we don't
   # create ourselves via factories.
