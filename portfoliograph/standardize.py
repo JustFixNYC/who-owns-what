@@ -12,8 +12,6 @@ from psycopg2.extras import DictCursor
 
 SQL_DIR = Path(__file__).parent.resolve() / "sql"
 
-G = Geosupport()
-
 
 class RawLandlordRow(NamedTuple):
     bbl: str
@@ -96,6 +94,7 @@ def standardize_record(record: RawLandlordRow):
     )
 
     try:
+        G = Geosupport()
         geo = G.address(**addr_args)
     except GeosupportError as e:
         geo = e.result
