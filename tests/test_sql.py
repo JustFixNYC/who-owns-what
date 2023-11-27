@@ -412,9 +412,7 @@ class TestSQL:
             with freezegun.freeze_time("2018-01-01"):
                 g = build_graph(cur)
             nodes_data = [node[1] for node in g.nodes(data=True)]
-            node_data = list(
-                filter(lambda x: "1000010002" in x[1]["bbls"], nodes_data)
-            )[0]
+            node_data = list(filter(lambda x: "1000010002" in x["bbls"], nodes_data))[0]
             assert node_data == {
                 "bbls": ["1000010002"],
                 "bizAddr": "6 UNRELATED AVENUE, BROOKLYN NY",
