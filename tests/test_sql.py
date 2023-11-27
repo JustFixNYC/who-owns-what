@@ -20,7 +20,6 @@ from portfoliograph.standardize import (
     StandardizedLandlordRow,
     get_raw_landlord_rows,
     populate_landlords_table,
-    standardize_record,
 )
 
 from .factories.hpd_contacts import HpdContacts
@@ -384,6 +383,8 @@ class TestSQL:
         bool(os.environ.get("CI")), reason="geosupport not installed on CI"
     )
     def test_standardize_with_geosupport_works(self):
+        from portfoliograph.standardize import standardize_record
+
         with self.db.connect() as conn:
             cur = conn.cursor(cursor_factory=DictCursor)
             raw = get_raw_landlord_rows(cur)
