@@ -392,13 +392,13 @@ class TestSQL:
         assert raw_row.name == "BOOP JONES"
 
         std_row = standardize_record(raw_row)
-        assert std_row.bizaddr == "6 UNRELATED AVENUE, BROOKLYN NY"
+        assert std_row.bizaddr == "6 UNRELATED AVENUE, BROKLYN NY"
 
         with multiprocessing.Pool(processes=multiprocessing.cpu_count()) as pool:
             std_rows = pool.map(standardize_record, raw_rows, 10000)
         std_row = list(filter(lambda x: x.bbl == "1000010002", std_rows))[0]
 
-        assert std_row.bizaddr == "6 UNRELATED AVENUE, BROOKLYN NY"
+        assert std_row.bizaddr == "6 UNRELATED AVENUE, BROKLYN NY"
 
         # This test has side effect from populate_landlords_table
         with self.db.connect() as conn:
