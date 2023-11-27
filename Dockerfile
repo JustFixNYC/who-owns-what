@@ -24,6 +24,9 @@ RUN apt-get update \
 
 RUN npm install -g yarn
 
+ENV PATH /wow/client/node_modules/.bin:$PATH
+
+
 COPY requirements.txt requirements-dev.txt /
 
 RUN pip install -r requirements-dev.txt
@@ -45,5 +48,4 @@ RUN FILE_NAME=linux_geo${RELEASE}_${MAJOR}_${MINOR}.zip \
 ENV GEOFILES=/geosupport/version-${RELEASE}_${MAJOR}.${MINOR}/fls/
 ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/geosupport/version-${RELEASE}_${MAJOR}.${MINOR}/lib/
 
-
-ENV PATH /wow/client/node_modules/.bin:$PATH
+WORKDIR /app
