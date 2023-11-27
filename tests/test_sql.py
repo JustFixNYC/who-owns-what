@@ -2,6 +2,7 @@ from io import StringIO
 import json
 import multiprocessing
 import os
+from typing import List
 import networkx as nx
 from psycopg2.extras import DictCursor
 from unittest.mock import patch
@@ -357,7 +358,7 @@ class TestSQL:
         not os.environ.get("CI"), reason="geosupport is installed locally"
     )
     def test_standardize_with_no_geosuport_works(self):
-        def fake_standardize_records(rows: RawLandlordRow):
+        def fake_standardize_records(rows: List[RawLandlordRow]):
             return [
                 StandardizedLandlordRow(
                     bbl=row.bbl,
@@ -379,7 +380,7 @@ class TestSQL:
             r = self.query_one(f"SELECT * FROM wow_landlords limit 1")
             assert r["bizaddr"] == "6 UNRELATED AVENUE, BROOKLYN NY"
 
-    @pytest.mark.skipif(os.environ.get("CI"), reason="geosupport not installed on CI")
+    @pytest.mark.skipif(bool(os.environ.get("CI")), reason="geosupport not installed on CI")
     def test_standardize_with_geosupport_works(self):
         with self.db.connect() as conn:
             cur = conn.cursor(cursor_factory=DictCursor)
