@@ -411,17 +411,16 @@ class TestSQL:
             cur = conn.cursor(cursor_factory=DictCursor)
             with freezegun.freeze_time("2018-01-01"):
                 g = build_graph(cur)
-            nodes = [node for node in g.nodes(data=True)]
-            node = list(filter(lambda x: "1000010002" in x[1]["bbls"], nodes))[0]
-            assert node == (
-                1,
-                {
-                    "bbls": ["1000010002"],
-                    "bizAddr": "6 UNRELATED AVENUE, BROOKLYN NY",
-                    "name": "BOOP JONES",
-                    "registrationids": [3],
-                },
-            )
+            nodes_data = [node[1] for node in g.nodes(data=True)]
+            node_data = list(
+                filter(lambda x: "1000010002" in x[1]["bbls"], nodes_data)
+            )[0]
+            assert node_data == {
+                "bbls": ["1000010002"],
+                "bizAddr": "6 UNRELATED AVENUE, BROOKLYN NY",
+                "name": "BOOP JONES",
+                "registrationids": [3],
+            }
 
             assert len(list(nx.connected_components(g))) == 3
 
