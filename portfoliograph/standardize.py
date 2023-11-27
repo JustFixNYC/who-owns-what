@@ -1,3 +1,4 @@
+import os
 import re
 import itertools
 import multiprocessing
@@ -11,6 +12,12 @@ from psycopg2.extras import DictCursor
 # https://medium.com/nyc-planning-digital/geosupport-%EF%B8%8Fpython-a094a2d30fbe
 
 SQL_DIR = Path(__file__).parent.resolve() / "sql"
+
+# TODO: find a better solution for this.
+# can't run this on CI since files are installed, and can't import within one of
+# the functions because of the multiprocessing
+if not os.environ.get("CI"):
+    G = Geosupport()
 
 
 class RawLandlordRow(NamedTuple):
@@ -94,7 +101,6 @@ def standardize_record(record: RawLandlordRow):
     )
 
     try:
-        G = Geosupport()
         geo = G.address(**addr_args)
     except GeosupportError as e:
         geo = e.result
