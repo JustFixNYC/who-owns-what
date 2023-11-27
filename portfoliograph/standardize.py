@@ -41,7 +41,7 @@ def get_raw_landlord_rows(dict_cursor) -> List[RawLandlordRow]:
 
 
 def str_squish(x: str) -> str:
-    return re.sub("\s+", " ", x.strip())
+    return re.sub(r"\s+", " ", x.strip())
 
 
 def standardize_apt(x: str) -> str:
@@ -99,7 +99,7 @@ def standardize_record(record: RawLandlordRow):
         geo = G.address(**addr_args)
     except GeosupportError as e:
         geo = e.result
-    except:
+    except Exception:
         print(addr_args)
         raise
 
