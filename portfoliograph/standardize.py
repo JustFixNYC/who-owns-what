@@ -122,6 +122,12 @@ def standardize_record(record: RawLandlordRow):
     )
 
 
+def standardize_records_multiprocessing(records: List[RawLandlordRow]):
+    # separate function for ease of mocking in tests
+    with multiprocessing.Pool(processes=multiprocessing.cpu_count()) as pool:
+        return pool.map(standardize_record, records, 10000)
+
+
 def grouper(
     n: int, iterable: Iterable[StandardizedLandlordRow]
 ) -> Iterable[List[StandardizedLandlordRow]]:
@@ -138,15 +144,13 @@ def populate_landlords_table(conn, batch_size=5000, table="wow_landlords"):
     with conn.cursor(cursor_factory=DictCursor) as dict_cursor:
         records_to_standardize = get_raw_landlord_rows(dict_cursor)
 
-    with multiprocessing.Pool(processes=multiprocessing.cpu_count()) as pool:
-        standardized_records = pool.map(
-            standardize_record, records_to_standardize, 10000
+        standardized_records = standardize_records_multiprocessing(
+            records_to_standardize
         )
 
-    with conn.cursor() as cursor:
         for chunk in grouper(batch_size, standardized_records):
             # https://stackoverflow.com/a/10147451
             args_str = b",".join(
-                cursor.mogrify("(%s,%s,%s,%s)", row) for row in chunk
+                dict_cursor.mogrify("(%s,%s,%s,%s)", row) for row in chunk
             ).decode()
-            cursor.execute(f"INSERT INTO {table} VALUES {args_str}")
+            dict_cursor.execute(f"INSERT INTO {table} VALUES {args_str}")

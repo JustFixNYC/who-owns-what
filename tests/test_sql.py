@@ -1,8 +1,10 @@
 from io import StringIO
 import json
 import multiprocessing
+import os
 import networkx as nx
 from psycopg2.extras import DictCursor
+from unittest.mock import Mock, patch
 import freezegun
 import pytest
 import dbtool
@@ -13,6 +15,8 @@ from portfoliograph.landlord_index import (
     dict_hash,
 )
 from portfoliograph.standardize import (
+    RawLandlordRow,
+    StandardizedLandlordRow,
     get_raw_landlord_rows,
     populate_landlords_table,
     standardize_record,
@@ -349,7 +353,34 @@ class TestSQL:
             },
         ]
 
-    def test_standardize_works(self):
+    @pytest.mark.skipif(
+        not os.environ.get("CI"), reason="geosupport is installed locally"
+    )
+    def test_standardize_with_no_geosuport_works(self):
+        def fake_standardize_records(rows: RawLandlordRow):
+            return [
+                StandardizedLandlordRow(
+                    bbl=row.bbl,
+                    registrationid=row.registrationid,
+                    name=row.name,
+                    # leaving out apt since not present in test data
+                    bizaddr=f"{row.housenumber} {row.streetname}, {row.city} {row.state}",
+                )
+                for row in rows
+            ]
+
+        with patch(
+            "portfoliograph.standardize.standardize_records_multiprocessing",
+            wraps=fake_standardize_records,
+        ):
+            # This test has side effect from populate_landlords_table
+            with self.db.connect() as conn:
+                populate_landlords_table(conn)
+            r = self.query_one(f"SELECT * FROM wow_landlords limit 1")
+            assert r["bizaddr"] == "6 UNRELATED AVENUE, BROOKLYN NY"
+
+    @pytest.mark.skipif(os.environ.get("CI"), reason="geosupport not installed on CI")
+    def test_standardize_with_geosupport_works(self):
         with self.db.connect() as conn:
             cur = conn.cursor(cursor_factory=DictCursor)
             raw = get_raw_landlord_rows(cur)
@@ -362,7 +393,6 @@ class TestSQL:
             std_all = pool.map(standardize_record, raw, 10000)
         assert std_all[0].bizaddr == "6 UNRELATED AVENUE, BROOKLYN NY"
 
-    def test_wow_landlords_populates(self):
         # This test has side effect from populate_landlords_table
         with self.db.connect() as conn:
             populate_landlords_table(conn)
