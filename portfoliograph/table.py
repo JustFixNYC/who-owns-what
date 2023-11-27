@@ -5,8 +5,6 @@ import itertools
 import networkx as nx
 
 from . import graph
-from .graph import RegistrationInfo, NodeKind
-from .hpd_regs import build_reg_bbl_map
 
 
 class PortfolioRow(NamedTuple):
@@ -25,35 +23,21 @@ class PortfolioRow(NamedTuple):
 def iter_portfolio_rows(conn) -> Iterable[PortfolioRow]:
     cur = conn.cursor(cursor_factory=DictCursor)
 
-    print("Building registration -> BBL mapping.")
-    reg_bbl_map = build_reg_bbl_map(cur)
-
     print("Building graph.")
     g = graph.build_graph(cur)
 
     print("Finding connected components.")
 
-    for c in nx.connected_components(g):
-        induced_subgraph = g.subgraph(c)
+    for portfolio_graph in graph.split_graph(g):
         bbls: Set[str] = set()
-        names: List[str] = [
-            node.value for node in induced_subgraph.nodes if node.kind == NodeKind.NAME
-        ]
-        for (_from, to, attrs) in induced_subgraph.edges.data():
-            hpd_regs: Set[RegistrationInfo] = attrs["hpd_regs"]
-            for reginfo in hpd_regs:
-                if reginfo.reg_id in reg_bbl_map:
-                    bbls = bbls.union(reg_bbl_map[reginfo.reg_id])
-                else:
-                    # TODO: Clarify that this is not an error, but expected for older regs
-                    print(
-                        f"""
-                        HPD registration {reginfo.reg_id} skipped in portfolio generation.
-                        Likely that a newer registration exists for the same building.
-                        """
-                    )
+        names: List[str] = []
+        for node in portfolio_graph.nodes(data=True):
+            bbls.union(node[1]["bbls"])
+            names.append(node[1]["name"])
         yield PortfolioRow(
-            bbls=list(bbls), landlord_names=names, graph=induced_subgraph
+            bbls=list(bbls),
+            landlord_names=names,
+            graph=portfolio_graph,
         )
 
 
