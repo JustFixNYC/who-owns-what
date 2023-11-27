@@ -50,7 +50,7 @@ SELECT
     bbl,
     FIRST(registrationid) AS registrationid,
     FIRST(name) AS name,
-    -- There are weird artifacts that break the geocoder
+    -- There are weird non-alphanumeric characters that break the geocoder
     regexp_replace(FIRST(businesshousenumber), '[^A-Z0-9\s]', '', 'g') as housenumber, 
     regexp_replace(FIRST(businessstreetname), '[^A-Z0-9\s]', '', 'g') as streetname, 
     regexp_replace(FIRST(businessapartment), '[^A-Z0-9\s]', '', 'g') as apartment,
