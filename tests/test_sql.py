@@ -387,15 +387,18 @@ class TestSQL:
 
         with self.db.connect() as conn:
             cur = conn.cursor(cursor_factory=DictCursor)
-            raw = get_raw_landlord_rows(cur)
-        assert raw[0].bbl == "1000010002"
+            raw_rows = get_raw_landlord_rows(cur)
+        raw_row = list(filter(lambda x: x.bbl == "1000010002", raw_rows))[0]
+        assert raw_row.name == "BOOP JONES"
 
-        std_1 = standardize_record(raw[0])
-        assert std_1.bizaddr == "6 UNRELATED AVENUE, BROOKLYN NY"
+        std_row = standardize_record(raw_row)
+        assert std_row.bizaddr == "6 UNRELATED AVENUE, BROOKLYN NY"
 
         with multiprocessing.Pool(processes=multiprocessing.cpu_count()) as pool:
-            std_all = pool.map(standardize_record, raw, 10000)
-        assert std_all[0].bizaddr == "6 UNRELATED AVENUE, BROOKLYN NY"
+            std_rows = pool.map(standardize_record, raw_rows, 10000)
+        std_row = list(filter(lambda x: x.bbl == "1000010002", std_rows))[0]
+
+        assert std_row.bizaddr == "6 UNRELATED AVENUE, BROOKLYN NY"
 
         # This test has side effect from populate_landlords_table
         with self.db.connect() as conn:
@@ -433,8 +436,8 @@ class TestSQL:
     def test_iter_portfolio_rows_works(self):
         with self.db.connect() as conn:
             rows = [row for row in iter_portfolio_rows(conn)]
-        print(rows)
-        assert rows[0].bbls == ["1000010002"]
+        row = list(filter(lambda x: "1000010002" in x.bbls, rows))
+        assert row[0].landlord_names == ["BOOP JONES"]
 
     def test_portfolio_graph_works(self):
         # This test has side effect from populate_portfolios_table
