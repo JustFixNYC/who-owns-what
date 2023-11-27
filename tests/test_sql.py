@@ -1,5 +1,6 @@
 from io import StringIO
 import json
+import multiprocessing
 import networkx as nx
 from psycopg2.extras import DictCursor
 import freezegun
@@ -10,6 +11,11 @@ from portfoliograph.landlord_index import (
     get_corpname_data_for_algolia,
     get_landlord_data_for_algolia,
     dict_hash,
+)
+from portfoliograph.standardize import (
+    get_raw_landlord_rows,
+    populate_landlords_table,
+    standardize_record,
 )
 
 from .factories.hpd_contacts import HpdContacts
@@ -33,12 +39,12 @@ from .factories.pluto_latest import PlutoLatest
 from .factories.real_property_master import RealPropertyMaster
 from .factories.real_property_legals import RealPropertyLegals
 
-from portfoliograph.graph import (
-    build_graph,
-    Node,
-    NodeKind,
+from portfoliograph.graph import build_graph, get_connected_component_subgraphs
+from portfoliograph.table import (
+    iter_portfolio_rows,
+    populate_portfolios_table,
+    export_portfolios_table_json,
 )
-from portfoliograph.table import populate_portfolios_table, export_portfolios_table_json
 from ocaevictions.table import OcaConfig, populate_oca_tables
 
 # This test suite defines two landlords:
@@ -343,21 +349,58 @@ class TestSQL:
             },
         ]
 
+    def test_standardize_works(self):
+        with self.db.connect() as conn:
+            cur = conn.cursor(cursor_factory=DictCursor)
+            raw = get_raw_landlord_rows(cur)
+        assert raw[0].bbl == "1000010002"
+
+        std_1 = standardize_record(raw[0])
+        assert std_1.bizaddr == "6 UNRELATED AVENUE, BROOKLYN NY"
+
+        with multiprocessing.Pool(processes=multiprocessing.cpu_count()) as pool:
+            std_all = pool.map(standardize_record, raw, 10000)
+        assert std_all[0].bizaddr == "6 UNRELATED AVENUE, BROOKLYN NY"
+
+    def test_wow_landlords_populates(self):
+        # This test has side effect from populate_landlords_table
+        with self.db.connect() as conn:
+            populate_landlords_table(conn)
+        r = self.query_one(f"SELECT * FROM wow_landlords limit 1")
+        assert r["bizaddr"] == "6 UNRELATED AVENUE, BROOKLYN NY"
+
     def test_built_graph_works(self):
         with self.db.connect() as conn:
             cur = conn.cursor(cursor_factory=DictCursor)
             with freezegun.freeze_time("2018-01-01"):
                 g = build_graph(cur)
-            assert set(g.nodes) == {
-                Node(kind=NodeKind.NAME, value="BOOP JONES"),
-                Node(kind=NodeKind.BIZADDR, value="6 UNRELATED AVENUE, BROKLYN NY"),
-                Node(kind=NodeKind.NAME, value="LANDLORDO CALRISIAN"),
-                Node(kind=NodeKind.NAME, value="LANDLORDO CALRISSIAN"),
-                Node(kind=NodeKind.BIZADDR, value="5 BESPIN AVENUE, BROKLYN NY"),
-                Node(kind=NodeKind.NAME, value="LOBOT JONES"),
-                Node(kind=NodeKind.BIZADDR, value="700 SUPERSPUNKY AVENUE, BROKLYN NY"),
-            }
+            nodes = [node for node in g.nodes(data=True)]
+            assert nodes[0] == (
+                1,
+                {
+                    "bbls": ["1000010002"],
+                    "bizAddr": "6 UNRELATED AVENUE, BROOKLYN NY",
+                    "name": "BOOP JONES",
+                    "registrationids": [3],
+                },
+            )
+
             assert len(list(nx.connected_components(g))) == 3
+
+    def test_getting_subgraph_works(self):
+        with self.db.connect() as conn:
+            cur = conn.cursor(cursor_factory=DictCursor)
+            with freezegun.freeze_time("2018-01-01"):
+                g = build_graph(cur)
+        subgraphs = [x for x in get_connected_component_subgraphs(g)]
+        assert len(subgraphs) == 3
+        assert type(subgraphs[0]) is nx.Graph
+
+    def test_iter_portfolio_rows_works(self):
+        with self.db.connect() as conn:
+            rows = [row for row in iter_portfolio_rows(conn)]
+        print(rows)
+        assert rows[0].bbls == ["1000010002"]
 
     def test_portfolio_graph_works(self):
         # This test has side effect from populate_portfolios_table

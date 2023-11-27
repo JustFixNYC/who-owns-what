@@ -10,4 +10,4 @@ CREATE TABLE wow_landlords (
     bizaddr text
 );
 
-create index on wow_landlords (name, bizaddr);
+CREATE INDEX ON wow_landlords (name, bizaddr);

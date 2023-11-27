@@ -136,17 +136,17 @@ def grouper(
 
 def populate_landlords_table(conn, batch_size=5000, table="wow_landlords"):
     with conn.cursor(cursor_factory=DictCursor) as dict_cursor:
-
         records_to_standardize = get_raw_landlord_rows(dict_cursor)
 
-        with multiprocessing.Pool(processes=multiprocessing.cpu_count()) as pool:
-            standardized_records = pool.map(
-                standardize_record, records_to_standardize, 10000
-            )
+    with multiprocessing.Pool(processes=multiprocessing.cpu_count()) as pool:
+        standardized_records = pool.map(
+            standardize_record, records_to_standardize, 10000
+        )
 
+    with conn.cursor() as cursor:
         for chunk in grouper(batch_size, standardized_records):
             # https://stackoverflow.com/a/10147451
             args_str = b",".join(
-                dict_cursor.mogrify("(%s,%s,%s,%s)", row) for row in chunk
+                cursor.mogrify("(%s,%s,%s,%s)", row) for row in chunk
             ).decode()
-            dict_cursor.execute(f"INSERT INTO {table} VALUES {args_str}")
+            cursor.execute(f"INSERT INTO {table} VALUES {args_str}")

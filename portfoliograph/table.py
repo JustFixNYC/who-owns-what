@@ -32,7 +32,7 @@ def iter_portfolio_rows(conn) -> Iterable[PortfolioRow]:
         bbls: Set[str] = set()
         names: List[str] = []
         for node in portfolio_graph.nodes(data=True):
-            bbls.union(node[1]["bbls"])
+            bbls = bbls.union(node[1]["bbls"])
             names.append(node[1]["name"])
         yield PortfolioRow(
             bbls=list(bbls),
