@@ -1,133 +1,84 @@
-from typing import Any, Dict, List, NamedTuple, Optional
-from enum import Enum
+from pathlib import Path
+from typing import Any, Dict, Iterable, List, NamedTuple
 import networkx as nx
 
 
-class NodeKind(Enum):
-    NAME = "name"
-    BIZADDR = "bizaddr"
+SQL_DIR = Path(__file__).parent.resolve() / "sql"
 
 
-class Node(NamedTuple):
-    kind: NodeKind
-    value: str
-
-    def to_json(self) -> Dict[str, str]:
-        return {
-            "kind": self.kind.value,
-            "value": self.value,
-        }
-
-
-class RegistrationInfo(NamedTuple):
-    reg_id: int
-    reg_contact_id: int
-
-
-def join_truthies(*items: Optional[str], sep=" ") -> str:
-    """
-    Joins the given arguments with a space (or provided separator),
-    filtering out anything that is falsy, e.g.:
-
-        >>> join_truthies('boop', 'jones')
-        'boop jones'
-
-        >>> join_truthies('boop', '')
-        'boop'
-
-        >>> join_truthies(None, 'jones')
-        'jones'
-
-        >>> join_truthies('New York', 'NY', sep=', ')
-        'New York, NY'
-    """
-
-    return sep.join(filter(None, items))
+class ConnectedLandlordRow(NamedTuple):
+    nodeid: int
+    name: str
+    bizaddr: str
+    registrationids: List[int]
+    bbls: List[str]
+    name_matches: List[int]
+    bizaddr_matches: List[int]
 
 
 def build_graph(dict_cursor) -> nx.Graph:
     g = nx.Graph()
 
-    # TODO: process synonyms (e.g. folks in pinnacle)
-    dict_cursor.execute(
-        f"""
-        WITH landlord_contacts AS (
-            SELECT DISTINCT
-                firstname,
-                lastname,
-                businesshousenumber,
-                businessstreetname,
-                businessapartment,
-                businesscity,
-                businessstate,
-                hpd_contacts.registrationid,
-                hpd_contacts.registrationcontactid,
-                hpd_contacts.type
-            FROM hpd_contacts
-            INNER JOIN hpd_registrations
-                ON hpd_contacts.registrationid = hpd_registrations.registrationid
-            WHERE
-                type = ANY('{{HeadOfficer, IndividualOwner, CorporateOwner, JointOwner}}')
-                AND (businesshousenumber IS NOT NULL OR businessstreetname IS NOT NULL)
-                AND LENGTH(CONCAT(businesshousenumber, businessstreetname)) > 2
-                AND (firstname IS NOT NULL OR lastname IS NOT NULL)
-        ),
+    landlords_with_connections = (
+        SQL_DIR / "landlords_with_connections.sql"
+    ).read_text()
+    dict_cursor.execute(landlords_with_connections)
+    contacts = [ConnectedLandlordRow(**row) for row in dict_cursor.fetchall()]
 
-        landlord_contacts_ordered AS (
-            SELECT *
-            FROM landlord_contacts
-            ORDER BY (
-                -- First, we prioritize certain owner types over others:
-                ARRAY_POSITION(
-                    ARRAY['IndividualOwner','HeadOfficer','JointOwner','CorporateOwner'],
-                    landlord_contacts.type
-                ),
-                -- Then, we order by landlord name, just to make sure our sorting is deterministic:
-                concat(firstname,' ',lastname)
-            )
+    for contact in contacts:
+        # TODO: cut back to only what's neded for the new vizualization
+        g.add_node(
+            contact.nodeid,
+            name=contact.name,
+            bizAddr=contact.bizaddr,
+            registrationids=contact.registrationids,
+            bbls=contact.bbls,
         )
 
-        SELECT
-            registrationid,
-            FIRST(firstname) AS firstname,
-            FIRST(lastname) AS lastname,
-            FIRST(businesshousenumber) AS businesshousenumber,
-            FIRST(businessstreetname) AS businessstreetname,
-            FIRST(businessapartment) AS businessapartment,
-            FIRST(businesscity) AS businesscity,
-            FIRST(businessstate) AS businessstate,
-            FIRST(registrationcontactid) AS registrationcontactid
-        FROM landlord_contacts_ordered
-        GROUP BY registrationid;
-    """
-    )
-    for row in dict_cursor.fetchall():
-        name = join_truthies(row["firstname"], row["lastname"]).upper()
-        street_addr = join_truthies(
-            row["businesshousenumber"],
-            row["businessstreetname"],
-            row["businessapartment"],
-        ).upper()
-        city_state = join_truthies(
-            row["businesscity"],
-            row["businessstate"],
-        ).upper()
-        bizaddr = join_truthies(street_addr, city_state, sep=", ")
-        name_node = Node(NodeKind.NAME, name)
-        bizaddr_node = Node(NodeKind.BIZADDR, bizaddr)
-        g.add_node(name_node)
-        g.add_node(bizaddr_node)
-        if not g.has_edge(name_node, bizaddr_node):
-            g.add_edge(name_node, bizaddr_node, hpd_regs=set())
-        edge_data = g[name_node][bizaddr_node]
-        edge_data["hpd_regs"].add(
-            RegistrationInfo(
-                reg_id=row["registrationid"],
-                reg_contact_id=row["registrationcontactid"],
-            )
-        )
+    for contact in contacts:
+        node1 = contact.nodeid
+        for node2 in contact.name_matches:
+            if not g.has_edge(node1, node2):
+                g.add_edge(node1, node2, type="name")
+        for node2 in contact.bizaddr_matches:
+            if not g.has_edge(node1, node2):
+                g.add_edge(node1, node2, type="bizaddr")
 
     return g
+
+
+def get_connected_component_subgraphs(graph: nx.Graph) -> Iterable[nx.Graph]:
+    # G.subgraph(component) is not actually the same as the original graph
+    # object type that we need to do splitting operations.
+    # https://networkx.org/documentation/stable/reference/classes/generated/networkx.Graph.subgraph.html
+    for component in nx.connected_components(graph):
+        subgraph = graph.__class__()
+        subgraph.add_nodes_from((n, graph.nodes[n]) for n in component)
+        if subgraph.is_multigraph():
+            subgraph.add_edges_from(
+                (n, nbr, key, d)
+                for n, nbrs in graph.adj.items()
+                if n in component
+                for nbr, keydict in nbrs.items()
+                if nbr in component
+                for key, d in keydict.items()
+            )
+        else:
+            subgraph.add_edges_from(
+                (n, nbr, d)
+                for n, nbrs in graph.adj.items()
+                if n in component
+                for nbr, d in nbrs.items()
+                if nbr in component
+            )
+        subgraph.graph.update(graph.graph)
+        yield subgraph
+
+
+def split_graph(graph: nx.Graph) -> Iterable[nx.Graph]:
+    for initial_portfolio_graph in get_connected_component_subgraphs(graph):
+        # TODO: split the graph when necessary
+        yield initial_portfolio_graph
 
 
 def to_json_graph(graph: nx.Graph) -> Dict[str, Any]:
@@ -137,25 +88,21 @@ def to_json_graph(graph: nx.Graph) -> Dict[str, Any]:
     https://github.com/JustFixNYC/hpd-graph-fun/blob/main/typescript/portfolio.d.ts
     """
 
-    node_indexes: Dict[Node, int] = {}
-    counter = 1
     nodes: List[Dict[str, Any]] = []
     edges: List[Dict[str, Any]] = []
-    for node in graph:
-        node_indexes[node] = counter
+    for node in graph.nodes(data=True):
         nodes.append(
             {
-                "id": counter,
-                "value": node.to_json(),
+                "id": node[0],
+                "value": node[1],
             }
         )
-        counter += 1
-    for (_from, to, attrs) in graph.edges.data():
+    for (_from, to, attrs) in graph.edges(data=True):
         edges.append(
             {
-                "from": node_indexes[_from],
-                "to": node_indexes[to],
-                "reg_contacts": len(attrs["hpd_regs"]),
+                "from": _from,
+                "to": to,
+                "type": attrs["type"],
             }
         )
     return {

@@ -1,6 +1,18 @@
-from typing import Dict, NamedTuple, Optional
 import re
+import itertools
+import multiprocessing
+from pathlib import Path
+from typing import Iterable, List, NamedTuple
 from geosupport import Geosupport, GeosupportError
+from psycopg2.extras import DictCursor
+
+# Use of NYC DCP's Geosupport desktop for geocoding addresses (to standardize
+# the address format) is based on this blog post from DCP's Planning Labs
+# https://medium.com/nyc-planning-digital/geosupport-%EF%B8%8Fpython-a094a2d30fbe
+
+SQL_DIR = Path(__file__).parent.resolve() / "sql"
+
+G = Geosupport()
 
 
 class RawLandlordRow(NamedTuple):
@@ -22,7 +34,10 @@ class StandardizedLandlordRow(NamedTuple):
     bizaddr: str
 
 
-g = Geosupport()
+def get_raw_landlord_rows(dict_cursor) -> List[RawLandlordRow]:
+    query = (SQL_DIR / "landlords_to_standardize.sql").read_text()
+    dict_cursor.execute(query)
+    return [RawLandlordRow(**row) for row in dict_cursor.fetchall()]
 
 
 def str_squish(x: str) -> str:
@@ -81,21 +96,18 @@ def standardize_record(record: RawLandlordRow):
     )
 
     try:
-        geo = g.address(**addr_args)
-        geo_success = True
+        geo = G.address(**addr_args)
     except GeosupportError as e:
         geo = e.result
-        geo_success = False
     except:
         print(addr_args)
         raise
 
     std_addr = parse_output(geo)
 
-    print(record)
-    print(std_addr)
-
-    housenumber = std_addr["housenumber"] if std_addr["housenumber"] else record.housenumber
+    housenumber = (
+        std_addr["housenumber"] if std_addr["housenumber"] else record.housenumber
+    )
     streetname = std_addr["streetname"] if std_addr["streetname"] else record.streetname
     apartment = standardize_apt(record.apartment)
     city_or_boro = std_addr["boro"] if std_addr["boro"] else record.city
@@ -108,3 +120,33 @@ def standardize_record(record: RawLandlordRow):
         name=record.name,
         bizaddr=bizaddr,
     )
+
+
+def grouper(
+    n: int, iterable: Iterable[StandardizedLandlordRow]
+) -> Iterable[List[StandardizedLandlordRow]]:
+    # https://stackoverflow.com/a/8991553
+    it = iter(iterable)
+    while True:
+        chunk = list(itertools.islice(it, n))
+        if not chunk:
+            return
+        yield chunk
+
+
+def populate_landlords_table(conn, batch_size=5000, table="wow_landlords"):
+    with conn.cursor(cursor_factory=DictCursor) as dict_cursor:
+
+        records_to_standardize = get_raw_landlord_rows(dict_cursor)
+
+        with multiprocessing.Pool(processes=multiprocessing.cpu_count()) as pool:
+            standardized_records = pool.map(
+                standardize_record, records_to_standardize, 10000
+            )
+
+        for chunk in grouper(batch_size, standardized_records):
+            # https://stackoverflow.com/a/10147451
+            args_str = b",".join(
+                dict_cursor.mogrify("(%s,%s,%s,%s)", row) for row in chunk
+            ).decode()
+            dict_cursor.execute(f"INSERT INTO {table} VALUES {args_str}")
