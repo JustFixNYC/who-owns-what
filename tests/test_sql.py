@@ -380,7 +380,9 @@ class TestSQL:
             r = self.query_one(f"SELECT * FROM wow_landlords limit 1")
             assert r["bizaddr"] == "6 UNRELATED AVENUE, BROOKLYN NY"
 
-    @pytest.mark.skipif(bool(os.environ.get("CI")), reason="geosupport not installed on CI")
+    @pytest.mark.skipif(
+        bool(os.environ.get("CI")), reason="geosupport not installed on CI"
+    )
     def test_standardize_with_geosupport_works(self):
         with self.db.connect() as conn:
             cur = conn.cursor(cursor_factory=DictCursor)
