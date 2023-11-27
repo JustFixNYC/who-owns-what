@@ -4,7 +4,7 @@ import multiprocessing
 import os
 import networkx as nx
 from psycopg2.extras import DictCursor
-from unittest.mock import Mock, patch
+from unittest.mock import patch
 import freezegun
 import pytest
 import dbtool
