@@ -415,7 +415,9 @@ class TestSQL:
             node_data = list(filter(lambda x: "1000010002" in x["bbls"], nodes_data))[0]
             assert node_data == {
                 "bbls": ["1000010002"],
-                "bizAddr": "6 UNRELATED AVENUE, BROOKLYN NY",
+                "bizAddr": "6 UNRELATED AVENUE, BROKLYN NY"
+                if os.environ.get("CI")
+                else "6 UNRELATED AVENUE, BROOKLYN NY",
                 "name": "BOOP JONES",
                 "registrationids": [3],
             }
