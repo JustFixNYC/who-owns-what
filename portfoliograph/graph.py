@@ -47,31 +47,40 @@ def build_graph(dict_cursor) -> nx.Graph:
     return g
 
 
-def get_connected_component_subgraphs(graph: nx.Graph) -> Iterable[nx.Graph]:
+def component_to_graph(graph: nx.Graph, component: Any) -> nx.Graph:
     # G.subgraph(component) is not actually the same as the original graph
     # object type that we need to do splitting operations.
     # https://networkx.org/documentation/stable/reference/classes/generated/networkx.Graph.subgraph.html
+
+    # It seems like this process is slow, so may want to only do this if we know we need to split the component
+    subgraph = graph.__class__()
+    subgraph.add_nodes_from((n, graph.nodes[n]) for n in component)
+    if subgraph.is_multigraph():
+        subgraph.add_edges_from(
+            (n, nbr, key, d)
+            for n, nbrs in graph.adj.items()
+            if n in component
+            for nbr, keydict in nbrs.items()
+            if nbr in component
+            for key, d in keydict.items()
+        )
+    else:
+        subgraph.add_edges_from(
+            (n, nbr, d)
+            for n, nbrs in graph.adj.items()
+            if n in component
+            for nbr, d in nbrs.items()
+            if nbr in component
+        )
+    subgraph.graph.update(graph.graph)
+    return subgraph
+
+
+def get_connected_component_subgraphs(graph: nx.Graph) -> Iterable[Any]:
     for component in nx.connected_components(graph):
-        subgraph = graph.__class__()
-        subgraph.add_nodes_from((n, graph.nodes[n]) for n in component)
-        if subgraph.is_multigraph():
-            subgraph.add_edges_from(
-                (n, nbr, key, d)
-                for n, nbrs in graph.adj.items()
-                if n in component
-                for nbr, keydict in nbrs.items()
-                if nbr in component
-                for key, d in keydict.items()
-            )
-        else:
-            subgraph.add_edges_from(
-                (n, nbr, d)
-                for n, nbrs in graph.adj.items()
-                if n in component
-                for nbr, d in nbrs.items()
-                if nbr in component
-            )
-        subgraph.graph.update(graph.graph)
+        # if "need-to-split":
+        #     subgraph = component_to_graph(graph, component)
+        subgraph = graph.subgraph(component)
         yield subgraph
 
 

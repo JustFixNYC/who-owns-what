@@ -146,6 +146,7 @@ def grouper(
 
 
 def populate_landlords_table(conn, batch_size=5000, table="wow_landlords"):
+    print("Standardizing landlord addresses.")
     with conn.cursor(cursor_factory=DictCursor) as dict_cursor:
         records_to_standardize = get_raw_landlord_rows(dict_cursor)
 
