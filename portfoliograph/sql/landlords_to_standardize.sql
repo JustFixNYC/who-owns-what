@@ -27,7 +27,6 @@ WITH landlord_contacts AS (
         AND (businesshousenumber IS NOT NULL OR businessstreetname IS NOT NULL)
         AND LENGTH(CONCAT(businesshousenumber, businessstreetname)) > 2
         AND (firstname IS NOT NULL OR lastname IS NOT NULL)
-    limit 100
 ),
 landlord_contacts_ordered as (
     SELECT *
