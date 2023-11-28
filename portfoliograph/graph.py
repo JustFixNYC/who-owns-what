@@ -52,7 +52,8 @@ def component_to_graph(graph: nx.Graph, component: Any) -> nx.Graph:
     # object type that we need to do splitting operations.
     # https://networkx.org/documentation/stable/reference/classes/generated/networkx.Graph.subgraph.html
 
-    # It seems like this process is slow, so may want to only do this if we know we need to split the component
+    # It seems like this process is slow, so may want to only do this if we know
+    # we need to split the component
     subgraph = graph.__class__()
     subgraph.add_nodes_from((n, graph.nodes[n]) for n in component)
     if subgraph.is_multigraph():
