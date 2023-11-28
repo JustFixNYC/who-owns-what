@@ -55,10 +55,9 @@ complaints as (
                 when majorcategory = any('{UNSANITARY CONDITION,GENERAL}') then minorcategory
                 else majorcategory end 
             as complainttype,
-            count(*) filter (where h.receiveddate > CURRENT_DATE - '3 YEARS'::INTERVAL) as countrecentcomplaints,
+            count(*) filter (where receiveddate > CURRENT_DATE - '3 YEARS'::INTERVAL) as countrecentcomplaints,
             count(*) counttotalcomplaints
-        from hpd_complaints h
-        left join hpd_complaint_problems using(complaintid)
+        from hpd_complaints_and_problems
         group by bbl, complainttype
     ) subtable
     -- ----------
