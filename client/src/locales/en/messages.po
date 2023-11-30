@@ -25,7 +25,7 @@ msgstr ""
 msgid "#WhoOwnsWhat via @JustFixNYC"
 msgstr "#WhoOwnsWhat via @JustFixNYC"
 
-#: src/util/helpers.ts:243
+#: src/util/helpers.ts:246
 msgid "(\"{textInEnglish}\" in English)"
 msgstr "(\"{textInEnglish}\" in English)"
 
@@ -46,7 +46,7 @@ msgstr "(expires {formattedRegEndDate})"
 msgid "(hover over a box to learn more)"
 msgstr "(hover over a box to learn more)"
 
-#: src/components/PortfolioTable.tsx:439
+#: src/components/PortfolioTable.tsx:445
 msgid "(this may take a while)"
 msgstr "(this may take a while)"
 
@@ -117,7 +117,7 @@ msgstr "Additional links"
 msgid "Address"
 msgstr "Address"
 
-#: src/util/helpers.ts:48
+#: src/util/helpers.ts:51
 msgid "Agent"
 msgstr "Agent"
 
@@ -129,7 +129,7 @@ msgstr "All set! Thanks for subscribing!"
 msgid "All the public info on your landlord"
 msgstr "All the public info on your landlord"
 
-#: src/components/PortfolioTable.tsx:333
+#: src/components/PortfolioTable.tsx:337
 msgid "Amount"
 msgstr "Amount"
 
@@ -171,7 +171,7 @@ msgstr "BELL/BUZZER/INTERCOM"
 msgid "BUILDING:"
 msgstr "BUILDING:"
 
-#: src/components/PortfolioTable.tsx:91
+#: src/components/PortfolioTable.tsx:93
 #: src/containers/NychaPage.tsx:79
 msgid "Borough"
 msgstr "Borough"
@@ -205,7 +205,7 @@ msgstr "Building size: {0}"
 msgid "Buildings without valid property registration are subject to the following:"
 msgstr "Buildings without valid property registration are subject to the following:"
 
-#: src/components/PortfolioTable.tsx:125
+#: src/components/PortfolioTable.tsx:129
 msgid "Built"
 msgstr "Built"
 
@@ -317,15 +317,15 @@ msgstr "Complaints to 311"
 #~ msgid "Contacts"
 #~ msgstr "Contacts"
 
-#: src/util/helpers.ts:44
+#: src/util/helpers.ts:47
 msgid "Corporate Owner"
 msgstr "Corporate Owner"
 
-#: src/util/helpers.ts:52
+#: src/util/helpers.ts:55
 msgid "Corporation"
 msgstr "Corporation"
 
-#: src/components/PortfolioTable.tsx:111
+#: src/components/PortfolioTable.tsx:115
 msgid "Council"
 msgstr "Council"
 
@@ -353,7 +353,7 @@ msgstr "DOOR/WINDOW"
 msgid "DOORS"
 msgstr "DOORS"
 
-#: src/components/PortfolioTable.tsx:322
+#: src/components/PortfolioTable.tsx:326
 msgid "Date"
 msgstr "Date"
 
@@ -444,7 +444,7 @@ msgstr "Evictions"
 msgid "Evictions Executed"
 msgstr "Evictions Executed"
 
-#: src/components/PortfolioTable.tsx:230
+#: src/components/PortfolioTable.tsx:234
 msgid "Evictions Since 2017"
 msgstr "Evictions Since 2017"
 
@@ -456,7 +456,7 @@ msgstr "Evictions executed by NYC Marshals since 2017. ANHD and the Housing Data
 msgid "Evictions executed in this development by NYC Marshals since 2017. ANHD and the Housing Data Coalition cleaned, geocoded, and validated the data, originally sourced from DOI."
 msgstr "Evictions executed in this development by NYC Marshals since 2017. ANHD and the Housing Data Coalition cleaned, geocoded, and validated the data, originally sourced from DOI."
 
-#: src/components/PortfolioTable.tsx:245
+#: src/components/PortfolioTable.tsx:249
 msgid "Executed"
 msgstr "Executed"
 
@@ -488,7 +488,7 @@ msgstr "FLOORING/STAIRS"
 msgid "Failure to register a building with HPD"
 msgstr "Failure to register a building with HPD"
 
-#: src/components/PortfolioTable.tsx:236
+#: src/components/PortfolioTable.tsx:240
 msgid "Filed"
 msgstr "Filed"
 
@@ -524,7 +524,7 @@ msgstr "Find other buildings your landlord might own:"
 msgid "GARBAGE/RECYCLING STORAGE"
 msgstr "GARBAGE/RECYCLING STORAGE"
 
-#: src/components/PortfolioTable.tsx:360
+#: src/components/PortfolioTable.tsx:364
 msgid "Group Sale?"
 msgstr "Group Sale?"
 
@@ -541,7 +541,7 @@ msgid "HPD Building Profile"
 msgstr "HPD Building Profile"
 
 #: src/components/IndicatorsDatasets.tsx:7
-#: src/components/PortfolioTable.tsx:175
+#: src/components/PortfolioTable.tsx:179
 msgid "HPD Complaints"
 msgstr "HPD Complaints"
 
@@ -550,7 +550,7 @@ msgid "HPD Complaints are housing issues reported to the City <0>by a tenant cal
 msgstr "HPD Complaints are housing issues reported to the City <0>by a tenant calling 311</0>. When someone issues a complaint, the Department of Housing Preservation and Development begins a process of investigation that may lead to an official violation from the City. Complaints can be identified as:<1/><2/><3>Emergency</3> — reported to be hazardous/dire<4/><5>Non-Emergency</5> — all others<6/><7/>Read more about HPD Complaints and how to file them at the <8>official HPD page</8>."
 
 #: src/components/IndicatorsDatasets.tsx:35
-#: src/components/PortfolioTable.tsx:208
+#: src/components/PortfolioTable.tsx:212
 msgid "HPD Violations"
 msgstr "HPD Violations"
 
@@ -562,7 +562,7 @@ msgstr "HPD Violations occur when an official City Inspector finds the condition
 msgid "HUD Complaint Form 958"
 msgstr "HUD Complaint Form 958"
 
-#: src/util/helpers.ts:43
+#: src/util/helpers.ts:46
 msgid "Head Officer"
 msgstr "Head Officer"
 
@@ -627,7 +627,7 @@ msgstr "In March 2023 this version will be discontinued. Switch to the new versi
 msgid "Incomplete registration for {usersInputAddressFragment}."
 msgstr "Incomplete registration for {usersInputAddressFragment}."
 
-#: src/util/helpers.ts:45
+#: src/util/helpers.ts:48
 msgid "Individual Owner"
 msgstr "Individual Owner"
 
@@ -635,7 +635,7 @@ msgstr "Individual Owner"
 msgid "Ineligible to certify violations"
 msgstr "Ineligible to certify violations"
 
-#: src/components/PortfolioTable.tsx:120
+#: src/components/PortfolioTable.tsx:124
 msgid "Information"
 msgstr "Information"
 
@@ -647,7 +647,7 @@ msgstr "JANITOR/SUPER"
 msgid "Join the fight for tenant rights!"
 msgstr "Join the fight for tenant rights!"
 
-#: src/util/helpers.ts:46
+#: src/util/helpers.ts:49
 msgid "Joint Owner"
 msgstr "Joint Owner"
 
@@ -667,12 +667,16 @@ msgstr "Known for <0>deregulating rent stabilized apartments</0>, Stellar Manage
 #~ msgid "Known for <0>unscrupulously deregulating rent stabilized apartments</0>, Larry Gluck’s Stellar Management has also secured a prominent place as one of <1>New York City’s Worst Evictors</1>. Stellar is a gentrifying force, particularly in upper Manhattan where Gluck operates the majority of his properties. Stellar has a reputation for displacing long-term tenants, renovating their units while vacant, and skyrocketing rents to market rate."
 #~ msgstr "Known for <0>unscrupulously deregulating rent stabilized apartments</0>, Larry Gluck’s Stellar Management has also secured a prominent place as one of <1>New York City’s Worst Evictors</1>. Stellar is a gentrifying force, particularly in upper Manhattan where Gluck operates the majority of his properties. Stellar has a reputation for displacing long-term tenants, renovating their units while vacant, and skyrocketing rents to market rate."
 
+#: src/util/helpers.ts:41
+msgid "LINE OF TRAVEL"
+msgstr "LINE OF TRAVEL"
+
 #: src/util/helpers.ts:40
 msgid "LOCKS"
 msgstr "LOCKS"
 
 #: src/components/PortfolioFilters.tsx:142
-#: src/components/PortfolioTable.tsx:254
+#: src/components/PortfolioTable.tsx:258
 msgid "Landlord"
 msgstr "Landlord"
 
@@ -688,11 +692,11 @@ msgstr "Landlord name"
 msgid "Landlord, Portfolio, Tenant, Displacement, Map, JustFix, NYC, New York, Housing, Who Owns What"
 msgstr "Landlord, Portfolio, Tenant, Displacement, Map, JustFix, NYC, New York, Housing, Who Owns What"
 
-#: src/components/PortfolioTable.tsx:188
+#: src/components/PortfolioTable.tsx:192
 msgid "Last 3 Years"
 msgstr "Last 3 Years"
 
-#: src/components/PortfolioTable.tsx:317
+#: src/components/PortfolioTable.tsx:321
 msgid "Last Sale"
 msgstr "Last Sale"
 
@@ -729,26 +733,26 @@ msgstr "Learn more."
 msgid "Legend"
 msgstr "Legend"
 
-#: src/util/helpers.ts:49
+#: src/util/helpers.ts:52
 msgid "Lessee"
 msgstr "Lessee"
 
-#: src/components/PortfolioTable.tsx:341
-#: src/components/PortfolioTable.tsx:346
+#: src/components/PortfolioTable.tsx:345
+#: src/components/PortfolioTable.tsx:350
 msgid "Link to Deed"
 msgstr "Link to Deed"
 
 #: src/components/Loader.tsx:19
-#: src/components/PortfolioTable.tsx:440
+#: src/components/PortfolioTable.tsx:446
 #: src/components/PropertiesMap.tsx:257
 msgid "Loading"
 msgstr "Loading"
 
-#: src/components/PortfolioTable.tsx:437
+#: src/components/PortfolioTable.tsx:443
 msgid "Loading {0} rows"
 msgstr "Loading {0} rows"
 
-#: src/components/PortfolioTable.tsx:77
+#: src/components/PortfolioTable.tsx:79
 msgid "Location"
 msgstr "Location"
 
@@ -893,11 +897,11 @@ msgstr "New York Regional Office:"
 msgid "Next"
 msgstr "Next"
 
-#: src/components/PortfolioTable.tsx:529
+#: src/components/PortfolioTable.tsx:537
 msgid "Next page"
 msgstr "Next page"
 
-#: src/components/PortfolioTable.tsx:364
+#: src/components/PortfolioTable.tsx:368
 msgid "No"
 msgstr "No"
 
@@ -959,7 +963,7 @@ msgstr "OUTSIDE BUILDING"
 msgid "OWNS"
 msgstr "OWNS"
 
-#: src/util/helpers.ts:50
+#: src/util/helpers.ts:53
 msgid "Officer"
 msgstr "Officer"
 
@@ -977,7 +981,7 @@ msgstr "Oops! A network error occurred. Try again later."
 msgid "Oops! That email is invalid."
 msgstr "Oops! That email is invalid."
 
-#: src/components/PortfolioTable.tsx:213
+#: src/components/PortfolioTable.tsx:217
 msgid "Open"
 msgstr "Open"
 
@@ -1013,11 +1017,15 @@ msgstr "PESTS"
 msgid "PLUMBING"
 msgstr "PLUMBING"
 
+#: src/util/helpers.ts:42
+msgid "PORCH/BALCONY"
+msgstr "PORCH/BALCONY"
+
 #: src/containers/AddressPage.tsx:126
 msgid "PORTFOLIO: Your search address is associated with <0>{0}</0> {1, plural, one {building} other {buildings}}"
 msgstr "PORTFOLIO: Your search address is associated with <0>{0}</0> {1, plural, one {building} other {buildings}}"
 
-#: src/components/PortfolioTable.tsx:510
+#: src/components/PortfolioTable.tsx:517
 msgid "Page"
 msgstr "Page"
 
@@ -1031,7 +1039,7 @@ msgid "People"
 msgstr "People"
 
 #: src/components/PortfolioFilters.tsx:142
-#: src/components/PortfolioTable.tsx:267
+#: src/components/PortfolioTable.tsx:271
 msgid "Person/Entity"
 msgstr "Person/Entity"
 
@@ -1051,7 +1059,7 @@ msgstr "Portfolio Table Redesign"
 msgid "Previous"
 msgstr "Previous"
 
-#: src/components/PortfolioTable.tsx:519
+#: src/components/PortfolioTable.tsx:527
 msgid "Previous page"
 msgstr "Previous page"
 
@@ -1065,7 +1073,7 @@ msgid "Public Housing Development"
 msgstr "Public Housing Development"
 
 #: src/components/BuildingStatsTable.tsx:90
-#: src/components/PortfolioTable.tsx:143
+#: src/components/PortfolioTable.tsx:147
 msgid "RS Units"
 msgstr "RS Units"
 
@@ -1178,11 +1186,11 @@ msgstr "Share"
 msgid "Share this page with your neighbors"
 msgstr "Share this page with your neighbors"
 
-#: src/util/helpers.ts:51
+#: src/util/helpers.ts:54
 msgid "Shareholder"
 msgstr "Shareholder"
 
-#: src/components/PortfolioTable.tsx:505
+#: src/components/PortfolioTable.tsx:511
 msgid "Show"
 msgstr "Show"
 
@@ -1235,11 +1243,11 @@ msgstr "Sign up for email updates"
 msgid "Since 2017, landlords filed {totalEvictionFilings, plural, one {one eviction case} other {# eviction cases}} and NYC Marshals executed {totalEvictions, plural, one {one eviction} other {# evictions}} across this portfolio."
 msgstr "Since 2017, landlords filed {totalEvictionFilings, plural, one {one eviction case} other {# eviction cases}} and NYC Marshals executed {totalEvictions, plural, one {one eviction} other {# evictions}} across this portfolio."
 
-#: src/components/PortfolioTable.tsx:558
+#: src/components/PortfolioTable.tsx:566
 msgid "Since {year}"
 msgstr "Since {year}"
 
-#: src/util/helpers.ts:47
+#: src/util/helpers.ts:50
 msgid "Site Manager"
 msgstr "Site Manager"
 
@@ -1271,7 +1279,7 @@ msgstr "Source code"
 #~ msgid "Starting March 2023 <0>the old version</0> of Who Owns What will no longer be available."
 #~ msgstr "Starting March 2023 <0>the old version</0> of Who Owns What will no longer be available."
 
-#: src/components/PortfolioTable.tsx:558
+#: src/components/PortfolioTable.tsx:566
 msgid "Starts {year}"
 msgstr "Starts {year}"
 
@@ -1300,7 +1308,7 @@ msgstr "Table"
 msgid "Take action on JustFix.org!"
 msgstr "Take action on JustFix.org!"
 
-#: src/components/PortfolioTable.tsx:295
+#: src/components/PortfolioTable.tsx:299
 msgid "Tax Exemptions"
 msgstr "Tax Exemptions"
 
@@ -1461,13 +1469,13 @@ msgstr "This will export <0>{0}</0> addresses associated with the landlord at <1
 msgid "Timeline"
 msgstr "Timeline"
 
-#: src/components/PortfolioTable.tsx:196
+#: src/components/PortfolioTable.tsx:200
 msgid "Top Complaint"
 msgstr "Top Complaint"
 
 #: src/components/IndicatorsViz.tsx:349
-#: src/components/PortfolioTable.tsx:180
-#: src/components/PortfolioTable.tsx:221
+#: src/components/PortfolioTable.tsx:184
+#: src/components/PortfolioTable.tsx:225
 msgid "Total"
 msgstr "Total"
 
@@ -1492,7 +1500,7 @@ msgid "Unable to request Code Violation Dismissals"
 msgstr "Unable to request Code Violation Dismissals"
 
 #: src/components/BuildingStatsTable.tsx:44
-#: src/components/PortfolioTable.tsx:133
+#: src/components/PortfolioTable.tsx:137
 #: src/containers/NychaPage.tsx:83
 msgid "Units"
 msgstr "Units"
@@ -1518,8 +1526,12 @@ msgstr "Useful links"
 msgid "VENTILATION SYSTEM"
 msgstr "VENTILATION SYSTEM"
 
-#: src/components/PortfolioTable.tsx:373
-#: src/components/PortfolioTable.tsx:380
+#: src/util/helpers.ts:43
+msgid "VENTILATORS"
+msgstr "VENTILATORS"
+
+#: src/components/PortfolioTable.tsx:377
+#: src/components/PortfolioTable.tsx:384
 msgid "View Detail"
 msgstr "View Detail"
 
@@ -1696,7 +1708,7 @@ msgstr "Why am I seeing such a big portfolio?"
 msgid "Year Built"
 msgstr "Year Built"
 
-#: src/components/PortfolioTable.tsx:363
+#: src/components/PortfolioTable.tsx:367
 msgid "Yes"
 msgstr "Yes"
 
@@ -1730,7 +1742,7 @@ msgid "ZIP code is not applicable"
 msgstr "ZIP code is not applicable"
 
 #: src/components/PortfolioFilters.tsx:148
-#: src/components/PortfolioTable.tsx:82
+#: src/components/PortfolioTable.tsx:84
 msgid "Zip Code"
 msgstr "Zip Code"
 
@@ -1767,11 +1779,11 @@ msgstr "for ${0}"
 msgid "month"
 msgstr "month"
 
-#: src/components/PortfolioTable.tsx:498
+#: src/components/PortfolioTable.tsx:504
 msgid "number of records per page"
 msgstr "number of records per page"
 
-#: src/components/PortfolioTable.tsx:511
+#: src/components/PortfolioTable.tsx:518
 msgid "of"
 msgstr "of"
 
