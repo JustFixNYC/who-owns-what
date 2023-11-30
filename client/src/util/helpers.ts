@@ -41,6 +41,9 @@ const hpdComplaintTypeTranslations = new Map([
   ["HEAT/HOT WATER", t`HEAT/HOT WATER`],
   ["DOORS", t`DOORS`],
   ["LOCKS", t`LOCKS`],
+  ["LINE OF TRAVEL", t`LINE OF TRAVEL`],
+  ["PORCH/BALCONY", t`PORCH/BALCONY`],
+  ["VENTILATORS", t`VENTILATORS`],
 ]);
 
 const hpdContactTitleTranslations = new Map([

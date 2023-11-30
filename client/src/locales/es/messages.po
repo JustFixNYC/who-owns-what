@@ -393,11 +393,11 @@ msgstr "Quejas al 311"
 #~ msgid "Contacts"
 #~ msgstr "Contacts"
 
-#: src/util/helpers.ts:44
+#: src/util/helpers.ts:47
 msgid "Corporate Owner"
 msgstr "Dueño Corporativo"
 
-#: src/util/helpers.ts:52
+#: src/util/helpers.ts:55
 msgid "Corporation"
 msgstr "Corporación"
 
@@ -723,7 +723,7 @@ msgstr "Infracciones del HPD se dan cuando un Inspector oficial de la Ciudad det
 msgid "HUD Complaint Form 958"
 msgstr "Formulario de queja HUD 958"
 
-#: src/util/helpers.ts:43
+#: src/util/helpers.ts:46
 msgid "Head Officer"
 msgstr "Oficial Principal"
 
@@ -800,7 +800,7 @@ msgstr ""
 msgid "Incomplete registration for {usersInputAddressFragment}."
 msgstr "Registro incompleto para {usersInputAddressFragment}."
 
-#: src/util/helpers.ts:45
+#: src/util/helpers.ts:48
 msgid "Individual Owner"
 msgstr "Dueño Individual"
 
@@ -820,7 +820,7 @@ msgstr "CONSERJE/SÚPER"
 msgid "Join the fight for tenant rights!"
 msgstr "¡Únete a la lucha por los derechos de los inquilinos!"
 
-#: src/util/helpers.ts:46
+#: src/util/helpers.ts:49
 msgid "Joint Owner"
 msgstr "Dueño Conjunto"
 
@@ -839,6 +839,10 @@ msgstr "Conocida por <0>desregular los apartamentos de renta estabilizada</0>, S
 #: src/containers/HomePage.tsx:215
 #~ msgid "Known for <0>unscrupulously deregulating rent stabilized apartments</0>, Larry Gluck’s Stellar Management has also secured a prominent place as one of <1>New York City’s Worst Evictors</1>. Stellar is a gentrifying force, particularly in upper Manhattan where Gluck operates the majority of his properties. Stellar has a reputation for displacing long-term tenants, renovating their units while vacant, and skyrocketing rents to market rate."
 #~ msgstr "Known for <0>unscrupulously deregulating rent stabilized apartments</0>, Larry Gluck’s Stellar Management has also secured a prominent place as one of <1>New York City’s Worst Evictors</1>. Stellar is a gentrifying force, particularly in upper Manhattan where Gluck operates the majority of his properties. Stellar has a reputation for displacing long-term tenants, renovating their units while vacant, and skyrocketing rents to market rate."
+
+#: src/util/helpers.ts:41
+msgid "LINE OF TRAVEL"
+msgstr ""
 
 #: src/util/helpers.ts:40
 msgid "LOCKS"
@@ -906,7 +910,7 @@ msgstr ""
 msgid "Legend"
 msgstr "Leyenda"
 
-#: src/util/helpers.ts:49
+#: src/util/helpers.ts:52
 msgid "Lessee"
 msgstr "Arrendatario"
 
@@ -1166,7 +1170,7 @@ msgstr "AFUERA DEL EDIFICIO"
 msgid "OWNS"
 msgstr "POSEE"
 
-#: src/util/helpers.ts:50
+#: src/util/helpers.ts:53
 msgid "Officer"
 msgstr "Oficial"
 
@@ -1231,6 +1235,10 @@ msgstr "PLAGAS"
 #: src/util/helpers.ts:26
 msgid "PLUMBING"
 msgstr "PLOMERÍA"
+
+#: src/util/helpers.ts:42
+msgid "PORCH/BALCONY"
+msgstr ""
 
 #: src/containers/AddressPage.tsx:126
 msgid "PORTFOLIO: Your search address is associated with <0>{0}</0> {1, plural, one {building} other {buildings}}"
@@ -1450,7 +1458,7 @@ msgstr "Envíanos una solicitud de datos"
 msgid "Share this page with your neighbors"
 msgstr "Comparte esta página con tus vecinos"
 
-#: src/util/helpers.ts:51
+#: src/util/helpers.ts:54
 msgid "Shareholder"
 msgstr "Accionista"
 
@@ -1529,7 +1537,7 @@ msgstr "Desde 2017, los dueños presentaron {totalEvictionFilings, plural, one {
 msgid "Since {year}"
 msgstr "Desde {year}"
 
-#: src/util/helpers.ts:47
+#: src/util/helpers.ts:50
 msgid "Site Manager"
 msgstr "Administrador del Sitio"
 
