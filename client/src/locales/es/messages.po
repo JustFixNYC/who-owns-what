@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-11-30 15:38\n"
+"PO-Revision-Date: 2023-11-30 15:41\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -674,7 +674,7 @@ msgstr "Conocida por <0>desregular los apartamentos de renta estabilizada</0>, S
 
 #: src/util/helpers.ts:41
 msgid "LINE OF TRAVEL"
-msgstr ""
+msgstr "LÍNEA DE VIAJE"
 
 #: src/util/helpers.ts:40
 msgid "LOCKS"
@@ -1024,7 +1024,7 @@ msgstr "PLOMERÍA"
 
 #: src/util/helpers.ts:42
 msgid "PORCH/BALCONY"
-msgstr ""
+msgstr "PORCHE/BALCÓN"
 
 #: src/containers/AddressPage.tsx:126
 msgid "PORTFOLIO: Your search address is associated with <0>{0}</0> {1, plural, one {building} other {buildings}}"
@@ -1533,7 +1533,7 @@ msgstr "SISTEMA DE VENTILACIÓN"
 
 #: src/util/helpers.ts:43
 msgid "VENTILATORS"
-msgstr ""
+msgstr "VENTILADORES"
 
 #: src/components/PortfolioTable.tsx:377
 #: src/components/PortfolioTable.tsx:384
