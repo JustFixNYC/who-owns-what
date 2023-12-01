@@ -91,15 +91,16 @@ export type AddressRecord = {
 export type PortfolioGraphNode = {
   id: number;
   value: {
-    kind: "name" | "bizaddr";
-    value: string;
+    name: string;
+    bizAddr: string;
+    bbls: string[];
   };
 };
 
 export type PortfolioGraphEdge = {
   from: number;
   to: number;
-  reg_contacts: number;
+  type: string;
 };
 
 export type RawPortfolioGraphJson = {
