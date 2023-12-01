@@ -6,22 +6,25 @@ const sampleNodes: PortfolioGraphNode[] = [
   {
     id: 1,
     value: {
-      kind: "name",
-      value: "MOSES GUTMAN",
+      name: "MOSES GUTMAN",
+      bizAddr: "101 MAIN ST QUEENS",
+      bbls: ["1000010001", "1000010002"]
     },
   },
   {
     id: 2,
     value: {
-      kind: "name",
-      value: "BOOP JONES",
+      name: "MOSES GUTMAN",
+      bizAddr: "101 MAIN ST 2FL QUEENS",
+      bbls: ["1000010003"]
     },
   },
   {
     id: 3,
     value: {
-      kind: "bizaddr",
-      value: "101 MAIN ST QUEENS",
+      name: "MOSES GUTTMAN",
+      bizAddr: "101 MAIN ST 2FL QUEENS",
+      bbls: ["1000010004", "1000010005", "1000010006"]
     },
   },
 ];
