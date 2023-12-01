@@ -8,7 +8,7 @@ const sampleNodes: PortfolioGraphNode[] = [
     value: {
       name: "MOSES GUTMAN",
       bizAddr: "101 MAIN ST QUEENS",
-      bbls: ["1000010001", "1000010002"]
+      bbls: ["1000010001", "1000010002"],
     },
   },
   {
@@ -16,7 +16,7 @@ const sampleNodes: PortfolioGraphNode[] = [
     value: {
       name: "MOSES GUTMAN",
       bizAddr: "101 MAIN ST 2FL QUEENS",
-      bbls: ["1000010003"]
+      bbls: ["1000010003"],
     },
   },
   {
@@ -24,7 +24,7 @@ const sampleNodes: PortfolioGraphNode[] = [
     value: {
       name: "MOSES GUTTMAN",
       bizAddr: "101 MAIN ST 2FL QUEENS",
-      bbls: ["1000010004", "1000010005", "1000010006"]
+      bbls: ["1000010004", "1000010005", "1000010006"],
     },
   },
 ];
