@@ -165,10 +165,15 @@ class IndicatorsVizImplementation extends Component<IndicatorVizImplementationPr
     }
   }
 
-  /** Returns maximum y-value across all datasets, grouped by selected timespan */
+  /** Returns maximum y-value across all datasets except Rent Stab, grouped by selected timespan */
   getDataMaximum() {
     var { timelineData } = this.props.state.context;
-    var dataMaximums = indicatorsDatasetIds.map((datasetName) => {
+    // Rent stabilized unit counts are usually an outlier and may skew the suggested Y axis calculation for other indicators
+    const indicatorsWithoutRentStab = indicatorsDatasetIds.filter(
+      (id) => id !== "rentstabilizedunits"
+    );
+
+    var dataMaximums = indicatorsWithoutRentStab.map((datasetName) => {
       const { total } = timelineData[datasetName].values;
       return total ? Helpers.maxArray(this.groupData(total) || [0]) : 0;
     });
@@ -183,6 +188,14 @@ class IndicatorsVizImplementation extends Component<IndicatorVizImplementationPr
 
     const { i18n } = this.props;
     const locale = (i18n.language || defaultLocale) as SupportedLocale;
+
+    const unitsres = this.props.state.context.portfolioData.searchAddr.unitsres ?? 0;
+    const rsunits = this.groupData(timelineData.rentstabilizedunits.values.total) ?? [];
+    let marketRateUnits = null;
+    if (unitsres) {
+      const temp = Array(rsunits.length).fill(unitsres);
+      marketRateUnits = temp.map((totalUnits, i) => totalUnits - rsunits[i]);
+    }
 
     switch (this.props.activeVis) {
       case "hpdviolations":
@@ -269,8 +282,26 @@ class IndicatorsVizImplementation extends Component<IndicatorVizImplementationPr
           {
             label: i18n._(t`Eviction Filings`),
             data: this.groupData(timelineData.evictionfilings.values.total) || [],
-            backgroundColor: "rgba(227,74,51, 0.6)",
+            backgroundColor: "rgba(227,74,51,0.6)",
             borderColor: "rgba(227,74,51,1)",
+            borderWidth: 1,
+          },
+        ];
+        break;
+      case "rentstabilizedunits":
+        datasets = [
+          {
+            label: i18n._(t`Rent Stabilized Units`),
+            data: rsunits,
+            backgroundColor: "rgba(175, 225, 175, 0.6)",
+            borderColor: "rgba(175, 225, 175, 1)",
+            borderWidth: 1,
+          },
+          {
+            label: i18n._(t`Market Rate Units`),
+            data: marketRateUnits || [],
+            backgroundColor: "rgba(9, 121, 105, 0.6)",
+            borderColor: "rgba(9, 121, 105, 1)",
             borderWidth: 1,
           },
         ];
@@ -312,10 +343,12 @@ class IndicatorsVizImplementation extends Component<IndicatorVizImplementationPr
     var dataMaximum = this.getDataMaximum();
     var suggestedYAxisMax =
       this.props.activeVis !== "hpdcomplaints" && this.props.activeVis !== "hpdviolations"
-        ? Math.max(
-            12,
-            Helpers.maxArray(this.groupData(timelineData.dobpermits.values.total) || [0]) * 1.25
-          )
+        ? this.props.activeVis !== "rentstabilizedunits"
+          ? Math.max(
+              12,
+              Helpers.maxArray(this.groupData(timelineData.dobpermits.values.total) || [0]) * 1.25
+            )
+          : unitsres + unitsres / 4
         : Math.max(12, dataMaximum * 1.25);
 
     var timeSpan = this.props.activeTimeSpan;

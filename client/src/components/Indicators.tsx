@@ -96,6 +96,10 @@ class IndicatorsWithoutI18n extends Component<IndicatorsProps, IndicatorsState> 
   }
 
   handleVisChange(selectedVis: IndicatorsDatasetId) {
+    if (selectedVis === "rentstabilizedunits") {
+      this.handleTimeSpanChange("year");
+    }
+
     this.setState({
       activeVis: selectedVis,
     });
@@ -289,6 +293,7 @@ class IndicatorsWithoutI18n extends Component<IndicatorsProps, IndicatorsState> 
                               name={timespan}
                               checked={this.state.activeTimeSpan === timespan ? true : false}
                               onChange={() => this.handleTimeSpanChange(timespan)}
+                              disabled={activeVis === "rentstabilizedunits" && timespan !== "year"}
                             />
                             <i className="form-icon" /> {timeSpanTranslations[timespan](i18n)}
                           </label>

@@ -21,6 +21,8 @@ api_dependencies:
   - dob_violations
   - ecb_violations
   - dobjobs
+  - rentstab
+  - rentstab_v2
 oca_s3_objects:
   - "public/oca_addresses_with_bbl.csv"
 oca_pre_sql:

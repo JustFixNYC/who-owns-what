@@ -21,7 +21,8 @@ export interface IndicatorsDataset {
     | "hpdviolations"
     | "dobpermits"
     | "dobviolations"
-    | "evictionfilings";
+    | "evictionfilings"
+    | "rentstabilizedunits";
 
   /**
    * The localized name for a particular "quantity" of the dataset, e.g.
@@ -238,6 +239,7 @@ export const INDICATORS_DATASETS: IndicatorsDatasetMap = {
         </a>
         ) and not evictions carried out by NYC Marshals.
         <br />
+        <br />
         If you or someone you know is facing eviction and want to learn more about your rights, head
         over to{" "}
         <a
@@ -251,6 +253,59 @@ export const INDICATORS_DATASETS: IndicatorsDatasetMap = {
         <br />
         Due to privacy restrictions on the use of these data, eviction filings cannot be shown for
         buildings with fewer than 11 units.
+      </Trans>
+    ),
+  },
+  rentstabilizedunits: {
+    name: (i18n) => i18n._(t`Rent Stabilized Units`),
+    analyticsName: "rentstabilizedunits",
+    quantity: (i18n, value) => i18n._("Rent Stabilized Unit Composition since 2010"),
+    yAxisLabel: (i18n) => i18n._(t`Total Units`),
+    explanation: () => (
+      <Trans render="span">
+        <a
+          href="https://rentguidelinesboard.cityofnewyork.us/resources/faqs/rent-stabilization/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Rent stabilization
+        </a>{" "}
+        protects tenants by limiting rent increases and providing the right to lease renewals.
+        Landlords register rent-stabilized units each year with NYS Homes and Community Renewal
+        (HCR). Though the agency does not directly make this data available, the number of
+        registered rent-stabilized units appears on public city property tax bills. JustFix and
+        open-source community projects have extracted these numbers to compile a
+        <a
+          href="https://github.com/nycdb/nycdb/wiki/Dataset:-Rent-Stabilized-Buildings#provenance"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          dataset of building-level counts of rent-stabilized units
+        </a>{" "}
+        from 2007 to 2022.
+        <br />
+        <br />A significant limitation of the data is that landlords will sometimes fail to register
+        the units or do so late, and in the tax bills, it appears there are no rent-stabilized
+        units. For this reason, you may see a sudden drop of registered units to zero, but this
+        doesn’t necessarily reflect an actual loss of stabilized units. If you see a gradual decline
+        in the number of stabilized units that is more likely to represent a true destabilization of
+        units, especially if before 2019 when the passage of the Housing Stability and Tenant
+        Protection Act of 2019 (HSTPA) greatly limited the ways units could be legally destabilized.
+        Even when units are actually destabilized by landlords it does not mean that this was done
+        legally. The only way to know for sure whether your apartment is rent stabilized, was
+        illegally destabilized, or if you are being overcharged is to{" "}
+        <a href="https://app.justfix.org/rh" target="_blank" rel="noopener noreferrer">
+          request your rent history
+        </a>{" "}
+        from HCR. Once you receive it, you can use{" "}
+        <a
+          href="https://www.justfix.org/en/learn/rent-history-101"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          this Learning Center article
+        </a>{" "}
+        to guide you in reading your rent history document.
       </Trans>
     ),
   },
