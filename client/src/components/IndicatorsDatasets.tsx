@@ -259,8 +259,8 @@ export const INDICATORS_DATASETS: IndicatorsDatasetMap = {
   rentstabilizedunits: {
     name: (i18n) => i18n._(t`Rent Stabilized Units`),
     analyticsName: "rentstabilizedunits",
-    quantity: (i18n, value) => i18n._("Rent Stabilized Unit Composition since 2010"),
-    yAxisLabel: (i18n) => i18n._(t`Total Units`),
+    quantity: (i18n, value) => i18n._("Rent Stabilized Units registered since 2010"),
+    yAxisLabel: (i18n) => i18n._(t`Rent Stabilized Units`),
     explanation: () => (
       <Trans render="span">
         <a
@@ -274,7 +274,7 @@ export const INDICATORS_DATASETS: IndicatorsDatasetMap = {
         Landlords register rent-stabilized units each year with NYS Homes and Community Renewal
         (HCR). Though the agency does not directly make this data available, the number of
         registered rent-stabilized units appears on public city property tax bills. JustFix and
-        open-source community projects have extracted these numbers to compile a
+        open-source community projects have extracted these numbers to compile a{" "}
         <a
           href="https://github.com/nycdb/nycdb/wiki/Dataset:-Rent-Stabilized-Buildings#provenance"
           target="_blank"

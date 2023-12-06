@@ -191,11 +191,6 @@ class IndicatorsVizImplementation extends Component<IndicatorVizImplementationPr
 
     const unitsres = this.props.state.context.portfolioData.searchAddr.unitsres ?? 0;
     const rsunits = this.groupData(timelineData.rentstabilizedunits.values.total) ?? [];
-    let marketRateUnits = null;
-    if (unitsres) {
-      const temp = Array(rsunits.length).fill(unitsres);
-      marketRateUnits = temp.map((totalUnits, i) => totalUnits - rsunits[i]);
-    }
 
     switch (this.props.activeVis) {
       case "hpdviolations":
@@ -293,13 +288,6 @@ class IndicatorsVizImplementation extends Component<IndicatorVizImplementationPr
           {
             label: i18n._(t`Rent Stabilized Units`),
             data: rsunits,
-            backgroundColor: "rgba(175, 225, 175, 0.6)",
-            borderColor: "rgba(175, 225, 175, 1)",
-            borderWidth: 1,
-          },
-          {
-            label: i18n._(t`Market Rate Units`),
-            data: marketRateUnits || [],
             backgroundColor: "rgba(9, 121, 105, 0.6)",
             borderColor: "rgba(9, 121, 105, 1)",
             borderWidth: 1,
@@ -348,7 +336,7 @@ class IndicatorsVizImplementation extends Component<IndicatorVizImplementationPr
               12,
               Helpers.maxArray(this.groupData(timelineData.dobpermits.values.total) || [0]) * 1.25
             )
-          : unitsres + unitsres / 4
+          : Math.max(12, unitsres + unitsres / 4)
         : Math.max(12, dataMaximum * 1.25);
 
     var timeSpan = this.props.activeTimeSpan;
@@ -565,6 +553,29 @@ class IndicatorsVizImplementation extends Component<IndicatorVizImplementationPr
               cornerRadius: 0,
             },
           },
+          this.props.activeVis === "rentstabilizedunits" &&
+            unitsres !== 0 && {
+              drawTime: "afterDatasetsDraw",
+              type: "line",
+              mode: "horizontal",
+              scaleID: "y-axis-0",
+              value: unitsres,
+              borderColor: "rgb(238, 75, 43)",
+              borderWidth: 2,
+              label: {
+                content: i18n._(t`${unitsres} units total in building (2022)`),
+                fontFamily: "Inconsolata, monospace",
+                fontColor: "#fff",
+                fontSize: 12,
+                xPadding: 10,
+                yPadding: 10,
+                backgroundColor: "rgb(238, 75, 43)",
+                position: "top",
+                yAdjust: -20,
+                enabled: true,
+                cornerRadius: 0,
+              },
+            },
         ]),
         drawTime: "afterDraw", // (default)
       },
