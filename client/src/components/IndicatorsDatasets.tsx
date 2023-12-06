@@ -251,6 +251,7 @@ export const INDICATORS_DATASETS: IndicatorsDatasetMap = {
         </a>
         .
         <br />
+        <br />
         Due to privacy restrictions on the use of these data, eviction filings cannot be shown for
         buildings with fewer than 11 units.
       </Trans>
@@ -284,8 +285,15 @@ export const INDICATORS_DATASETS: IndicatorsDatasetMap = {
         </a>{" "}
         from 2007 to 2022.
         <br />
-        <br />A significant limitation of the data is that landlords will sometimes fail to register
-        the units or do so late, and in the tax bills, it appears there are no rent-stabilized
+        <br />A significant limitation of the data is that{" "}
+        <a
+          href="https://projects.thecity.nyc/rent-stabilized-map/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          landlords will sometimes fail to register the units
+        </a>{" "}
+        or do so late, and in the tax bills, it appears there are no rent-stabilized
         units. For this reason, you may see a sudden drop of registered units to zero, but this
         doesn’t necessarily reflect an actual loss of stabilized units. If you see a gradual decline
         in the number of stabilized units that is more likely to represent a true destabilization of
