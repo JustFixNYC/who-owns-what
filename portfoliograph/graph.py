@@ -1,6 +1,7 @@
 from pathlib import Path
-from typing import Any, Dict, Iterable, List, NamedTuple
+from typing import Any, Dict, Callable, Iterator, List, NamedTuple
 import networkx as nx
+from networkx.algorithms import community
 
 
 SQL_DIR = Path(__file__).parent.resolve() / "sql"
@@ -47,48 +48,39 @@ def build_graph(dict_cursor) -> nx.Graph:
     return g
 
 
-def component_to_graph(graph: nx.Graph, component: Any) -> nx.Graph:
-    # G.subgraph(component) is not actually the same as the original graph
-    # object type that we need to do splitting operations.
-    # https://networkx.org/documentation/stable/reference/classes/generated/networkx.Graph.subgraph.html
+def portfolio_size(portfolio_subgraph):
+    n_bbls = sum([len(node[1]["bbls"]) for node in portfolio_subgraph.nodes(data=True)])
+    return n_bbls
 
-    # It seems like this process is slow, so may want to only do this if we know
-    # we need to split the component
-    subgraph = graph.__class__()
-    subgraph.add_nodes_from((n, graph.nodes[n]) for n in component)
-    if subgraph.is_multigraph():
-        subgraph.add_edges_from(
-            (n, nbr, key, d)
-            for n, nbrs in graph.adj.items()
-            if n in component
-            for nbr, keydict in nbrs.items()
-            if nbr in component
-            for key, d in keydict.items()
-        )
+def portfolio_is_too_big(portfolio_subgraph: Any) -> bool:
+    MAX_SIZE = 300
+    n_bbls = portfolio_size(portfolio_subgraph)
+    return n_bbls > MAX_SIZE
+
+
+def split_subgraph_if(graph: nx.Graph, subgraph: Any, predicate: Callable[[Any], bool]):
+    RESOLUTION = 0.1
+    print(subgraph)
+    if predicate(subgraph):
+        print("spliting")
+        for comm in community.louvain_communities(
+            subgraph, resolution=RESOLUTION
+        ):
+            comm_subgraph = graph.subgraph(comm)
+            print(f"{portfolio_size(comm_subgraph)} == {portfolio_size(subgraph)}")
+            if portfolio_size(comm_subgraph) == portfolio_size(subgraph):
+                yield comm_subgraph
+            else:
+                yield from split_subgraph_if(graph, comm_subgraph, predicate)
     else:
-        subgraph.add_edges_from(
-            (n, nbr, d)
-            for n, nbrs in graph.adj.items()
-            if n in component
-            for nbr, d in nbrs.items()
-            if nbr in component
-        )
-    subgraph.graph.update(graph.graph)
-    return subgraph
-
-
-def get_connected_component_subgraphs(graph: nx.Graph) -> Iterable[Any]:
-    for component in nx.connected_components(graph):
-        # if "need-to-split":
-        #     subgraph = component_to_graph(graph, component)
-        subgraph = graph.subgraph(component)
         yield subgraph
 
 
-def split_graph(graph: nx.Graph) -> Iterable[nx.Graph]:
-    for initial_portfolio_graph in get_connected_component_subgraphs(graph):
-        # TODO: split the graph when necessary
-        yield initial_portfolio_graph
+def iter_split_graph(graph: nx.Graph) -> Iterator[Any]:
+    for cc in nx.connected_components(graph):
+        portfolio_subgraph = graph.subgraph(cc)
+        yield from split_subgraph_if(graph, portfolio_subgraph, portfolio_is_too_big)
+
 
 
 def to_json_graph(graph: nx.Graph) -> Dict[str, Any]:

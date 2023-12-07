@@ -28,7 +28,7 @@ def iter_portfolio_rows(conn) -> Iterable[PortfolioRow]:
 
     print("Finding connected components.")
 
-    for portfolio_graph in graph.split_graph(g):
+    for portfolio_graph in graph.iter_split_graph(g):
         bbls: Set[str] = set()
         names: List[str] = []
         for node in portfolio_graph.nodes(data=True):
