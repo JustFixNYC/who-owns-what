@@ -52,7 +52,33 @@ SELECT
     -- There are weird non-alphanumeric characters that break the geocoder
     regexp_replace(FIRST(businesshousenumber), '[^A-Z0-9\s]', '', 'g') as housenumber, 
     regexp_replace(FIRST(businessstreetname), '[^A-Z0-9\s]', '', 'g') as streetname, 
-    regexp_replace(FIRST(businessapartment), '[^A-Z0-9\s]', '', 'g') as apartment,
+
+    -- Simple custom standardization of apt, since geocoder doesn't cover it
+	regexp_replace(
+	regexp_replace(
+	regexp_replace(
+	regexp_replace(
+	regexp_replace(
+	regexp_replace(
+	regexp_replace(
+	regexp_replace(
+	regexp_replace(
+	regexp_replace(
+	regexp_replace(
+		FIRST(businessapartment), 
+        '[^A-Z0-9\s]', '', 'g'),
+		'^(GRNDFL|GRFLO|GRDFLR|GRDFL|GDFL|GRFL|GFL)\s*(.*)$', 'GROUND FL \2'),
+		'^SUITE$', 'STE'),
+		'^(\d+)\s*(FLOOR|FLOO|FLR|FL)$', '\1 FL'),
+		'^(FLOOR|FLOO|FLR|FL)\s*(\d+)$', '\2 FL'),
+		'^(\d+)\s*(APART|APT)$', 'APT \1'),
+		'^(APART|APT)\s*(\d+)$', 'APT \2'),
+		'^(\d+)\s*(SUITE|STE)$', 'STE \1'),
+		'^(AUITE|STE)\s*(\d+)$', 'STE \2'),
+		'^(BASEMENT|BASEME|BASE|BSMNT|BSMT)\s*(\d*)$', 'BSMT \2'),
+		'^(\d*)\s*(BASEMENT|BASEME|BASE|BSMNT|BSMT)$', 'BSMT \1')
+	as apartment,
+
     regexp_replace(FIRST(businesscity), '[^A-Z0-9\s]', '', 'g') as city, 
     regexp_replace(FIRST(businesszip), '[^A-Z0-9\s]', '', 'g') as zip,
     regexp_replace(FIRST(businessstate), '[^A-Z0-9\s]', '', 'g') as state
