@@ -70,6 +70,7 @@ class IndicatorsWithoutI18n extends Component<IndicatorsWithRouterProps, Indicat
       ...indicatorsInitialState,
       activeVis: indicator,
       defaultVis: indicator,
+      activeTimeSpan: indicator === "rentstabilizedunits" ? "year" : "quarter",
     };
     this.handleVisChange = this.handleVisChange.bind(this);
   }

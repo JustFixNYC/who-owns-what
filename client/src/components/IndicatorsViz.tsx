@@ -10,7 +10,7 @@ import * as ChartAnnotation from "chartjs-plugin-annotation";
 // reference: https://github.com/chartjs/chartjs-plugin-annotation
 // why we're using this import format: https://stackoverflow.com/questions/51664741/chartjs-plugin-annotations-not-displayed-in-angular-5/53071497#53071497
 
-import Helpers, { mediumDateOptions, shortDateOptions } from "../util/helpers";
+import Helpers, { longDateOptions, mediumDateOptions, shortDateOptions } from "../util/helpers";
 
 import "styles/Indicators.css";
 import { indicatorsDatasetIds, IndicatorsState } from "./IndicatorsTypes";
@@ -288,8 +288,8 @@ class IndicatorsVizImplementation extends Component<IndicatorVizImplementationPr
           {
             label: i18n._(t`Rent Stabilized Units`),
             data: rsunits,
-            backgroundColor: "rgba(9, 121, 105, 0.6)",
-            borderColor: "rgba(9, 121, 105, 1)",
+            backgroundColor: "rgba(131, 207, 162, 0.6)",
+            borderColor: "rgba(131, 207, 162, 1)",
             borderWidth: 1,
           },
         ];
@@ -473,105 +473,78 @@ class IndicatorsVizImplementation extends Component<IndicatorVizImplementationPr
       annotation: {
         events: ["click"],
         annotations: makeAnnotations([
-          {
-            drawTime: "beforeDatasetsDraw",
-            type: "line",
-            mode: "vertical",
-            scaleID: "x-axis-0",
-            value: labelPosition,
-            borderColor: dateLocation === "current" ? "rgb(69, 77, 93)" : "rgba(0,0,0,0)",
-            borderWidth: 2,
-            label: {
-              content: this.props.lastSale.date
-                ? i18n._(t`Sold to Current Owner`)
-                : i18n._(t`Last Sale Unknown`),
-              fontFamily: "Inconsolata, monospace",
-              fontColor: "#fff",
-              fontSize: 12,
-              xPadding: 10,
-              yPadding: 10,
-              backgroundColor: "rgb(69, 77, 93)",
-              position: "top",
-              xAdjust: dateLocation === "past" ? -70 : dateLocation === "future" ? 70 : 0,
-              yAdjust: 10,
-              enabled: true,
-              cornerRadius: 0,
-            },
-            onClick: () => {
-              window.open(acrisURL, "_blank");
-            },
-          },
-          !!this.props.lastSale.date && {
-            drawTime: "beforeDatasetsDraw",
-            type: "line",
-            mode: "vertical",
-            scaleID: "x-axis-0",
-            value: labelPosition,
-            borderColor: "rgba(0,0,0,0)",
-            borderWidth: 0,
-            label: {
-              content:
-                (dateLocation === "past" ? "← " : "") +
-                Helpers.formatDate(this.props.lastSale.date, mediumDateOptions, locale) +
-                (dateLocation === "future" ? " →" : ""),
-              fontFamily: "Inconsolata, monospace",
-              fontColor: "#fff",
-              fontSize: 12,
-              xPadding: 10,
-              yPadding: 10,
-              backgroundColor: "rgb(69, 77, 93)",
-              position: "top",
-              xAdjust: dateLocation === "past" ? -70 : dateLocation === "future" ? 70 : 0,
-              yAdjust: 30,
-              enabled: true,
-              cornerRadius: 0,
-            },
-            onClick: () => {
-              window.open(acrisURL, "_blank");
-            },
-          },
-          this.props.activeVis === "hpdcomplaints" && {
-            drawTime: "beforeDatasetsDraw",
-            type: "line",
-            mode: "vertical",
-            scaleID: "x-axis-0",
-            value: timeSpan === "quarter" ? "2012-Q4" : timeSpan === "year" ? "2012" : "2013-10",
-            borderColor: "rgba(0,0,0,0)",
-            borderWidth: 0,
-            label: {
-              content: "← " + i18n._(t`No data available`),
-              fontFamily: "Inconsolata, monospace",
-              fontColor: "#e85600",
-              fontSize: 12,
-              xPadding: 10,
-              yPadding: 10,
-              backgroundColor: "rgba(0,0,0,0)",
-              position: "top",
-              xAdjust: 0,
-              yAdjust: 105,
-              enabled: true,
-              cornerRadius: 0,
-            },
-          },
+          !!this.props.lastSale.date
+            ? {
+                drawTime: "beforeDatasetsDraw",
+                type: "line",
+                mode: "vertical",
+                scaleID: "x-axis-0",
+                value: labelPosition,
+                borderColor: dateLocation === "current" ? "rgb(68, 77, 93)" : "rgba(0,0,0,0)",
+                borderWidth: 2,
+                label: {
+                  content:
+                    (dateLocation === "past" ? "← " : "") +
+                    i18n._(t`Sold`) +
+                    " " +
+                    Helpers.formatDate(this.props.lastSale.date, longDateOptions, locale) +
+                    (dateLocation === "future" ? " →" : ""),
+                  fontStyle: "normal",
+                  xPadding: 10,
+                  yPadding: 10,
+                  backgroundColor: "rgb(68, 77, 93)",
+                  position: "top",
+                  xAdjust: dateLocation === "past" ? -70 : dateLocation === "future" ? 70 : 0,
+                  yAdjust: 10,
+                  enabled: true,
+                  cornerRadius: 0,
+                },
+                onClick: () => {
+                  window.open(acrisURL, "_blank");
+                },
+              }
+            : {
+                drawTime: "beforeDatasetsDraw",
+                type: "line",
+                mode: "vertical",
+                scaleID: "x-axis-0",
+                value: labelPosition,
+                borderColor: dateLocation === "current" ? "rgb(68, 77, 93)" : "rgba(0,0,0,0)",
+                borderWidth: 2,
+                label: {
+                  content: i18n._(t`Last Sale Unknown`),
+                  fontStyle: "normal",
+                  xPadding: 10,
+                  yPadding: 10,
+                  backgroundColor: "rgb(68, 77, 93)",
+                  position: "top",
+                  xAdjust: dateLocation === "past" ? -70 : dateLocation === "future" ? 70 : 0,
+                  yAdjust: 10,
+                  enabled: true,
+                  cornerRadius: 0,
+                },
+                onClick: () => {
+                  window.open(acrisURL, "_blank");
+                },
+              },
           this.props.activeVis === "rentstabilizedunits" &&
-            unitsres !== 0 && {
+            !!unitsres && {
               drawTime: "afterDatasetsDraw",
               type: "line",
               mode: "horizontal",
               scaleID: "y-axis-0",
               value: unitsres,
-              borderColor: "rgb(238, 75, 43)",
+              borderColor: "rgb(81, 136, 255)",
               borderWidth: 2,
+              borderDash: [10, 10],
               label: {
-                content: i18n._(t`${unitsres} units total in building (2022)`),
-                fontFamily: "Inconsolata, monospace",
-                fontColor: "#fff",
-                fontSize: 12,
+                content: i18n._(t`${unitsres} units total`),
+                fontStyle: "normal",
+                fontColor: "#000",
                 xPadding: 10,
                 yPadding: 10,
-                backgroundColor: "rgb(238, 75, 43)",
-                position: "top",
-                yAdjust: -20,
+                backgroundColor: "rgb(81, 136, 255)",
+                position: "center",
                 enabled: true,
                 cornerRadius: 0,
               },
