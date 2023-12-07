@@ -213,10 +213,30 @@ def alerts_violations(request):
     return JsonResponse({"result": list(result)})
 
 
+def email_alerts_lagged_eviction_filings(request):
+    """
+    This API endpoint receives requests with a 10-digit BBL and prev_date
+    (yyyy-mm-dd) for the date of the previously sent email. It responds with a
+    count of eviction cases that were filed before the last email was sent but
+    have only appeared in the database after that date (ie. lagged filings).
+    """
+    authorize_for_alerts(request)
+    args = get_alert_params_from_request(request)
+    query_params = {
+        "bbl": args["bbl"],
+        "prev_date": args["prev_date"],
+    }
+    query_sql = SQL_DIR / "alerts_lagged_eviction_filings.sql"
+    result = exec_db_query(query_sql, query_params)
+    result[0].update(query_params)
+    return JsonResponse({"result": list(result)})
+
+
 ALERTS_QUERIES = {
     "violations": SQL_DIR / "alerts_violations.sql",
     "complaints": SQL_DIR / "alerts_complaints.sql",
     "eviction_filings": SQL_DIR / "alerts_eviction_filings.sql",
+    "lagged_eviction_filings": SQL_DIR / "alerts_lagged_eviction_filings.sql",
 }
 
 
@@ -253,6 +273,7 @@ def email_alerts_multi(request):
         "bbl": args["bbl"],
         "start_date": args["start_date"],
         "end_date": args["end_date"],
+        "prev_date": args["prev_date"],
     }
     sql_query = combine_alert_subqueries(args["indicators"])
     result = exec_sql(sql_query, query_params)

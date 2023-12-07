@@ -54,7 +54,12 @@ class CommaSeparatedField(forms.CharField):
 
 
 def validate_indicators(value):
-    valid_indicators = ["violations", "complaints", "eviction_filings"]
+    valid_indicators = [
+        "violations",
+        "complaints",
+        "eviction_filings",
+        "lagged_eviction_filings",
+    ]
     for i in value:
         if i not in valid_indicators:
             raise ValidationError(
@@ -67,8 +72,8 @@ class EmailAlertForm(PaddedBBLForm):
     indicator = forms.CharField(
         validators=[
             RegexValidator(
-                r"^(violations)|(complaints)|(eviction_filings)$",
-                message="This must be one of 'violations', 'complaints', 'eviction_filings'.",
+                r"^(violations)|(complaints)|(eviction_filings)|(lagged_eviction_filings)$",
+                message="This must be one of 'violations', 'complaints', 'eviction_filings', 'lagged_eviction_filings'.",
             )
         ],
         required=False,
@@ -76,3 +81,4 @@ class EmailAlertForm(PaddedBBLForm):
     indicators = CommaSeparatedField(validators=[validate_indicators], required=False)
     start_date = forms.DateField(input_formats=["%Y-%m-%d"])
     end_date = forms.DateField(input_formats=["%Y-%m-%d"])
+    prev_date = forms.DateField(input_formats=["%Y-%m-%d"])
