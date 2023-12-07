@@ -25,6 +25,9 @@ import {
 import { NetworkErrorMessage } from "./NetworkErrorMessage";
 import { Dropdown } from "./Dropdown";
 import { AmplitudeEvent, logAmplitudeEvent } from "./Amplitude";
+import { withRouter } from "react-router-dom";
+import { RouteComponentProps } from "react-router";
+import { AddressPageUrlParams, removeIndicatorSuffix } from "routes";
 
 type TimeSpanTranslationsMap = {
   [K in IndicatorsTimeSpan]: (i18n: I18n) => string;
@@ -49,10 +52,25 @@ const getDropdownWidthFromLongestSelection = (selections: string[]) => {
   return Math.min(lengthOfLongestSelection * LETTER_WIDTH + MENU_BUFFER, MAX_WIDTH);
 };
 
-class IndicatorsWithoutI18n extends Component<IndicatorsProps, IndicatorsState> {
-  constructor(props: IndicatorsProps) {
+type IndicatorsWithRouterProps = RouteComponentProps<AddressPageUrlParams> & IndicatorsProps;
+
+export const validateIndicatorParam = (indicatorParam?: string) => {
+  const indicator = indicatorParam as IndicatorsDatasetId;
+  if (indicatorsDatasetIds.includes(indicator)) {
+    return indicator;
+  }
+};
+
+class IndicatorsWithoutI18n extends Component<IndicatorsWithRouterProps, IndicatorsState> {
+  constructor(props: IndicatorsWithRouterProps) {
     super(props);
-    this.state = indicatorsInitialState;
+    const indicator =
+      validateIndicatorParam(props.match.params.indicator) || indicatorsInitialState.defaultVis;
+    this.state = {
+      ...indicatorsInitialState,
+      activeVis: indicator,
+      defaultVis: indicator,
+    };
     this.handleVisChange = this.handleVisChange.bind(this);
   }
 
@@ -95,10 +113,16 @@ class IndicatorsWithoutI18n extends Component<IndicatorsProps, IndicatorsState> 
     }
   }
 
+  setUrlIndicator(indicator: IndicatorsDatasetId) {
+    const timelinePath = removeIndicatorSuffix(this.props.addressPageRoutes.timeline);
+    this.props.history.replace(`${timelinePath}/${indicator}`);
+  }
+
   handleVisChange(selectedVis: IndicatorsDatasetId) {
     this.setState({
       activeVis: selectedVis,
     });
+    this.setUrlIndicator(selectedVis);
   }
 
   /** Changes viewing timespan to be by 'year', 'quarter', or 'month' */
@@ -133,6 +157,9 @@ class IndicatorsWithoutI18n extends Component<IndicatorsProps, IndicatorsState> 
 
     this.updateData();
 
+    if (this.props.isVisible && !this.props.location.pathname.includes(this.state.activeVis)) {
+      this.setUrlIndicator(this.state.activeVis);
+    }
     const newlyLoadedRawData =
       !prevProps.state.matches({ portfolioFound: { timeline: "success" } }) &&
       state.matches({ portfolioFound: { timeline: "success" } }) &&
@@ -370,5 +397,5 @@ class IndicatorsWithoutI18n extends Component<IndicatorsProps, IndicatorsState> 
   }
 }
 
-const Indicators = withI18n()(IndicatorsWithoutI18n);
+const Indicators = withRouter(withI18n()(IndicatorsWithoutI18n));
 export default Indicators;

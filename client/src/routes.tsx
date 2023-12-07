@@ -4,6 +4,7 @@ import { removeLocalePrefix } from "i18n";
 
 export type AddressPageUrlParams = SearchAddressWithoutBbl & {
   locale?: string;
+  indicator?: string;
 };
 
 export type AddressPageRoutes = ReturnType<typeof createAddressPageRoutes>;
@@ -16,6 +17,8 @@ export const isAddressPageRoute = (pathname: string) => {
   if (path.startsWith("/legacy")) path = path.replace("/legacy", "");
   return path.startsWith("/address");
 };
+
+export const removeIndicatorSuffix = (pathname: string) => pathname.replace(/\/:indicator.*/, "");
 
 export const createRouteForAddressPage = (
   params: AddressPageUrlParams,
@@ -60,7 +63,7 @@ export const createAddressPageRoutes = (
   }
   return {
     overview: `${prefix}`,
-    timeline: `${prefix}/timeline`,
+    timeline: `${prefix}/timeline/:indicator?`,
     portfolio: `${prefix}/portfolio`,
     summary: `${prefix}/summary`,
   };
