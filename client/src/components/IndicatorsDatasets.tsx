@@ -73,7 +73,7 @@ export const INDICATORS_DATASETS: IndicatorsDatasetMap = {
         <br />
         Read more about HPD Complaints and how to file them at the{" "}
         <a
-          href="https://www1.nyc.gov/site/hpd/renters/complaints-and-inspections.page"
+          href="https://www.nyc.gov/site/hpd/services-and-information/report-a-maintenance-issue.page"
           target="_blank"
           rel="noopener noreferrer"
         >
@@ -116,7 +116,7 @@ export const INDICATORS_DATASETS: IndicatorsDatasetMap = {
         <br />
         Read more about HPD Violations at the{" "}
         <a
-          href="https://www1.nyc.gov/site/hpd/owners/compliance-maintenance-requirements.page"
+          href="https://www.nyc.gov/site/hpd/services-and-information/report-a-maintenance-issue.page"
           target="_blank"
           rel="noopener noreferrer"
         >
@@ -147,7 +147,7 @@ export const INDICATORS_DATASETS: IndicatorsDatasetMap = {
         <br />
         Read more about DOB Building Applications/Permits at the{" "}
         <a
-          href="https://www1.nyc.gov/site/buildings/about/building-applications-and-permits.page"
+          href="https://www.nyc.gov/site/buildings/dob/building-applications-permits.page"
           target="_blank"
           rel="noopener noreferrer"
         >
