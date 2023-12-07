@@ -64,7 +64,6 @@ export const validateIndicatorParam = (indicatorParam?: string) => {
 class IndicatorsWithoutI18n extends Component<IndicatorsWithRouterProps, IndicatorsState> {
   constructor(props: IndicatorsWithRouterProps) {
     super(props);
-    console.log(props.match.params);
     const indicator =
       validateIndicatorParam(props.match.params.indicator) || indicatorsInitialState.defaultVis;
     this.state = {
