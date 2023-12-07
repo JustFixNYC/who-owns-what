@@ -529,7 +529,6 @@ class IndicatorsVizImplementation extends Component<IndicatorVizImplementationPr
               },
           this.props.activeVis === "rentstabilizedunits" &&
             !!unitsres && {
-              drawTime: "afterDatasetsDraw",
               type: "line",
               mode: "horizontal",
               scaleID: "y-axis-0",
