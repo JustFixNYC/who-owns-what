@@ -73,7 +73,8 @@ class EmailAlertForm(PaddedBBLForm):
         validators=[
             RegexValidator(
                 r"^(violations)|(complaints)|(eviction_filings)|(lagged_eviction_filings)$",
-                message="This must be one of 'violations', 'complaints', 'eviction_filings', 'lagged_eviction_filings'.",
+                message="This must be one of 'violations', 'complaints', 'eviction_filings', \
+                    'lagged_eviction_filings'.",
             )
         ],
         required=False,
