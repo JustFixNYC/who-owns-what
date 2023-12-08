@@ -43,7 +43,7 @@ from .factories.pluto_latest import PlutoLatest
 from .factories.real_property_master import RealPropertyMaster
 from .factories.real_property_legals import RealPropertyLegals
 
-from portfoliograph.graph import build_graph, get_connected_component_subgraphs
+from portfoliograph.graph import build_graph
 from portfoliograph.table import (
     iter_portfolio_rows,
     populate_portfolios_table,
