@@ -112,6 +112,7 @@ export type SearchResults = {
   addrs: AddressRecord[];
   geosearch?: GeoSearchData;
   graph?: RawPortfolioGraphJson;
+  relatedPortfoliosBbls?: string[];
 };
 
 // TYPES ASSOCIATED WITH SUMMARY AGGREGATION:

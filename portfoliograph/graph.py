@@ -52,35 +52,34 @@ def portfolio_size(portfolio_subgraph):
     n_bbls = sum([len(node[1]["bbls"]) for node in portfolio_subgraph.nodes(data=True)])
     return n_bbls
 
+
 def portfolio_is_too_big(portfolio_subgraph: Any) -> bool:
     MAX_SIZE = 300
     n_bbls = portfolio_size(portfolio_subgraph)
     return n_bbls > MAX_SIZE
 
 
-def split_subgraph_if(graph: nx.Graph, subgraph: Any, predicate: Callable[[Any], bool]):
+def split_subgraph_if(
+    graph: nx.Graph, subgraph: Any, predicate: Callable[[Any], bool], id: int
+):
     RESOLUTION = 0.1
-    print(subgraph)
     if predicate(subgraph):
-        print("spliting")
-        for comm in community.louvain_communities(
-            subgraph, resolution=RESOLUTION
-        ):
+        for comm in community.louvain_communities(subgraph, resolution=RESOLUTION):
             comm_subgraph = graph.subgraph(comm)
-            print(f"{portfolio_size(comm_subgraph)} == {portfolio_size(subgraph)}")
             if portfolio_size(comm_subgraph) == portfolio_size(subgraph):
-                yield comm_subgraph
+                yield (id, comm_subgraph)
             else:
-                yield from split_subgraph_if(graph, comm_subgraph, predicate)
+                yield from split_subgraph_if(graph, comm_subgraph, predicate, id)
     else:
-        yield subgraph
+        yield (id, subgraph)
 
 
 def iter_split_graph(graph: nx.Graph) -> Iterator[Any]:
-    for cc in nx.connected_components(graph):
+    for id, cc in enumerate(nx.connected_components(graph), 1):
         portfolio_subgraph = graph.subgraph(cc)
-        yield from split_subgraph_if(graph, portfolio_subgraph, portfolio_is_too_big)
-
+        yield from split_subgraph_if(
+            graph, portfolio_subgraph, portfolio_is_too_big, id
+        )
 
 
 def to_json_graph(graph: nx.Graph) -> Dict[str, Any]:

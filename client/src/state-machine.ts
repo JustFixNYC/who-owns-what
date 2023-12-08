@@ -105,6 +105,11 @@ type PortfolioData = {
    * used to generate the landlord portfolio.
    */
   portfolioGraph?: RawPortfolioGraphJson;
+  /** A list of bbls, each representing a related portfolio. That is, other
+   * portfolios that were created from splitting the same original connect component
+   * as this portfolio.
+   */
+  relatedPortfoliosBbls?: string[];
 };
 
 export interface WowContext {
@@ -163,6 +168,8 @@ async function getSearchResult(
   useNewPortfolioMethod: boolean
 ): Promise<WowState> {
   const apiResults = await APIClient.searchForAddressWithGeosearch(addr, useNewPortfolioMethod);
+  console.log(apiResults);
+  console.log(apiResults.relatedPortfoliosBbls);
   if (!apiResults.geosearch) {
     return {
       value: "bblNotFound",
@@ -209,6 +216,7 @@ async function getSearchResult(
           detailAddr: searchAddr,
           assocAddrs: apiResults.addrs,
           portfolioGraph: apiResults.graph,
+          relatedPortfoliosBbls: apiResults.relatedPortfoliosBbls,
         },
       },
     };

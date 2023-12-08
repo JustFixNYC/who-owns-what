@@ -91,6 +91,8 @@ export default class PropertiesSummary extends Component<Props, {}> {
     const { state } = this.props;
     let agg = state.context.summaryData;
     let searchAddr = state.context.portfolioData.searchAddr;
+    const { relatedPortfoliosBbls } = state.context.portfolioData;
+    console.log(state.context.portfolioData);
     if (!agg) {
       return <FixedLoadingLabel />;
     } else {
@@ -113,6 +115,25 @@ export default class PropertiesSummary extends Component<Props, {}> {
                     />
                   </LazyLoadWhenVisible>
                 </div>
+              )}
+              {!relatedPortfoliosBbls ? (
+                <p>This portfolio was never split</p>
+              ) : (
+                <>
+                  <p>
+                    An initial larger portfolio was split to create this one along with these
+                    others:
+                  </p>
+                  <ul>
+                    {relatedPortfoliosBbls?.map((bbl) => (
+                      <li key={bbl}>
+                        <a href={`/bbl/${bbl}`} target="_blank" rel="noopener noreferrer">
+                          {bbl}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </>
               )}
               <p>
                 <Trans>

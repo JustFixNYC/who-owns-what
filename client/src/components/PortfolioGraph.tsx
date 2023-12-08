@@ -29,12 +29,14 @@ function createNode(
   type: "searchaddr" | "detailaddr" | "owner",
   name: string,
   bizAddr: string,
-  bbls?: string[]
+  bbls?: string[],
+  parent?: string
 ): cytoscape.NodeDefinition {
   return {
     group: "nodes",
     data: {
       id,
+      parent,
       type,
       name,
       bizAddr,
@@ -42,6 +44,21 @@ function createNode(
     },
   };
 }
+
+// function createParentNode(
+//   id: string,
+//   type: "name" | "bizaddr",
+//   value: string
+// ): cytoscape.NodeDefinition {
+//   return {
+//     group: "nodes",
+//     data: {
+//       id,
+//       type,
+//       value,
+//     },
+//   };
+// }
 
 function createEdge(source: string, target: string, type: string): cytoscape.EdgeDefinition {
   return {
@@ -80,6 +97,19 @@ function generateAdditionalNodes(
     );
     additionalNodes.push(detailBBLNode);
   }
+
+  // const testParentNodeBizAddr = createParentNode(
+  //   "31-10 37 AVENUE 500, QUEENS NY",
+  //   "bizaddr",
+  //   "31-10 37 AVENUE 500, QUEENS NY"
+  // );
+  // const testParentNodeName = createParentNode(
+  //   "EFSTAHIOS VALIOTIS",
+  //   "name",
+  //   i18n._(t`EFSTAHIOS VALIOTIS`)
+  // );
+  // additionalNodes.push(testParentNodeBizAddr, testParentNodeName);
+
   return additionalNodes;
 }
 
@@ -134,6 +164,11 @@ const formatGraphJSON = (
       node.value.name,
       node.value.bizAddr,
       node.value.bbls
+      // node.value.bizAddr === "31-10 37 AVENUE 500, QUEENS NY"
+      //   ? "31-10 37 AVENUE 500, QUEENS NY"
+      //   : node.value.name === "EFSTAHIOS VALIOTIS"
+      //   ? "EFSTAHIOS VALIOTIS"
+      //   : undefined
     );
   });
   nodes = nodes.concat(additionalNodes);
@@ -324,6 +359,25 @@ const PortfolioGraphWithoutI18: React.FC<PortfolioGraphProps> = ({ graphJSON, st
                   : "dotted",
             },
           },
+          // {
+          //   selector: "node > node",
+          //   style: {
+          //     label: (ele: Cytoscape.NodeSingular) =>
+          //       ele.parent()[0].data("type") === "name"
+          //         ? ele.data("bizAddr")
+          //         : ele.data("name"),
+          //   },
+          // },
+          // {
+          //   selector: "$node > node",
+          //   style: {
+          //     label: (ele: Cytoscape.NodeSingular) => ele.data("value"),
+          //     backgroundColor: (ele) => NODE_TYPE_TO_COLOR[ele.data("type")],
+          //     "background-opacity": 0.3,
+          //     "border-width": 0,
+          //     "font-weight": 700,
+          //   },
+          // },
         ]}
       />
       <br />
@@ -337,6 +391,8 @@ const NODE_TYPE_TO_COLOR: Record<string, string> = {
   owner: OWNER_COLOR,
   searchaddr: SEARCH_ADDR_COLOR,
   detailaddr: SELECTED_ADDR_COLOR,
+  name: NAME_COLOR,
+  bizaddr: BIZADDR_COLOR,
 };
 
 const EDGE_TYPE_TO_COLOR: Record<string, string> = {

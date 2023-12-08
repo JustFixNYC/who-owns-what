@@ -1,3 +1,4 @@
+from pathlib import Path
 from typing import Iterable, Iterator, List, Set, NamedTuple, TextIO
 from psycopg2.extras import DictCursor, Json
 import json
@@ -7,13 +8,18 @@ import networkx as nx
 from . import graph
 
 
+SQL_DIR = Path(__file__).parent.resolve() / "sql"
+
+
 class PortfolioRow(NamedTuple):
+    orig_id: int
     bbls: List[str]
     landlord_names: List[str]
     graph: nx.Graph
 
     def to_json(self):
         return {
+            "orig_id": self.orig_id,
             "bbls": self.bbls,
             "landlord_names": self.landlord_names,
             "portfolio": graph.to_json_graph(self.graph),
@@ -28,13 +34,14 @@ def iter_portfolio_rows(conn) -> Iterable[PortfolioRow]:
 
     print("Finding connected components.")
 
-    for portfolio_graph in graph.iter_split_graph(g):
+    for id, portfolio_graph in graph.iter_split_graph(g):
         bbls: Set[str] = set()
         names: List[str] = []
         for node in portfolio_graph.nodes(data=True):
             bbls = bbls.union(node[1]["bbls"])
             names.append(node[1]["name"])
         yield PortfolioRow(
+            orig_id=id,
             bbls=list(bbls),
             landlord_names=names,
             graph=portfolio_graph,
@@ -72,8 +79,9 @@ def populate_portfolios_table(conn, batch_size=5000, table="wow_portfolios"):
             # why does it take so much work to put stuff in a table quickly
             args_str = b",".join(
                 cursor.mogrify(
-                    "(%s,%s,%s)",
+                    "(%s,%s,%s,%s)",
                     (
+                        row.orig_id,
                         row.bbls,
                         row.landlord_names,
                         Json(graph.to_json_graph(row.graph)),
@@ -81,4 +89,11 @@ def populate_portfolios_table(conn, batch_size=5000, table="wow_portfolios"):
                 )
                 for row in chunk
             ).decode()
-            cursor.execute(f"INSERT INTO {table} VALUES {args_str}")
+            cursor.execute(
+                f"""
+                INSERT INTO {table} (orig_id, bbls, landlord_names, graph) 
+                VALUES {args_str}"""
+            )
+
+        update_sql = (SQL_DIR / "update_related_portfolios.sql").read_text()
+        cursor.execute(update_sql)
