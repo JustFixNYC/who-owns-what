@@ -5,13 +5,13 @@
 -- component. We take just one bbls from each of the related ones (excluding the
 -- given portfolio itself) so that we can easily link to the portfolios on wow.
 
-update wow_portfolios_split_1_dec_ids as x
+update wow_portfolios as x
 set relatedportfoliosbbls = array_remove(y.relatedportfoliosbbls, x.bbls[1])
 from (
 	select 
         orig_id, 
         array_agg(bbls[1]) as relatedportfoliosbbls
-	from wow_portfolios_split_1_dec_ids
+	from wow_portfolios
 	group by orig_id
 ) as y
 where x.orig_id = y.orig_id;
