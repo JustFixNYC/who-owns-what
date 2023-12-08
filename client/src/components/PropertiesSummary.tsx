@@ -92,7 +92,6 @@ export default class PropertiesSummary extends Component<Props, {}> {
     let agg = state.context.summaryData;
     let searchAddr = state.context.portfolioData.searchAddr;
     const { relatedPortfoliosBbls } = state.context.portfolioData;
-    console.log(state.context.portfolioData);
     if (!agg) {
       return <FixedLoadingLabel />;
     } else {

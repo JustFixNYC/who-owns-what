@@ -168,8 +168,6 @@ async function getSearchResult(
   useNewPortfolioMethod: boolean
 ): Promise<WowState> {
   const apiResults = await APIClient.searchForAddressWithGeosearch(addr, useNewPortfolioMethod);
-  console.log(apiResults);
-  console.log(apiResults.relatedPortfoliosBbls);
   if (!apiResults.geosearch) {
     return {
       value: "bblNotFound",

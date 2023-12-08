@@ -91,7 +91,7 @@ def populate_portfolios_table(conn, batch_size=5000, table="wow_portfolios"):
             ).decode()
             cursor.execute(
                 f"""
-                INSERT INTO {table} (orig_id, bbls, landlord_names, graph) 
+                INSERT INTO {table} (orig_id, bbls, landlord_names, graph)
                 VALUES {args_str}"""
             )
 
