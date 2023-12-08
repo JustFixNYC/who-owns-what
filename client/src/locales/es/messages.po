@@ -71,6 +71,10 @@ msgstr "Datos de quejas al 311"
 msgid "<0>If the landlord doesn't reside here, this property should be registered with HPD</0> because it has fewer than 3 residential units."
 msgstr "<0>Si el dueño no reside aquí, esta propiedad debería estar registrado con el HPD</0> porque tiene menos de 3 unidades residenciales."
 
+#: src/components/IndicatorsDatasets.tsx:168
+msgid "<0>Rent stabilization</0> protects tenants by limiting rent increases and providing the right to lease renewals. Landlords register rent-stabilized units each year with NYS Homes and Community Renewal (HCR). Though the agency does not directly make this data available, the number of registered rent-stabilized units appears on public city property tax bills. JustFix and open-source community projects have extracted these numbers to compile a <1>dataset of building-level counts of rent-stabilized units</1> from 2007 to 2022.<2/><3/>A significant limitation of the data is that <4>landlords will sometimes fail to register the units</4> or do so late, and in the tax bills, it appears there are no rent-stabilized units. For this reason, you may see a sudden drop of registered units to zero, but this doesn’t necessarily reflect an actual loss of stabilized units. If you see a gradual decline in the number of stabilized units that is more likely to represent a true destabilization of units, especially if before 2019 when the passage of the Housing Stability and Tenant Protection Act of 2019 (HSTPA) greatly limited the ways units could be legally destabilized. Even when units are actually destabilized by landlords it does not mean that this was done legally. The only way to know for sure whether your apartment is rent stabilized, was illegally destabilized, or if you are being overcharged is to <5>request your rent history</5> from HCR. Once you receive it, you can use <6>this Learning Center article</6> to guide you in reading your rent history document."
+msgstr ""
+
 #: src/containers/NotRegisteredPage.tsx:72
 msgid "<0>This property is not required to register with HPD</0> because it doesn't have any residential units."
 msgstr "<0>Esta propiedad no necesita estar registrada con en HPD</0> porque no tiene ninguna unidad residencial."
@@ -139,8 +143,12 @@ msgid "Amount"
 msgstr "Importe"
 
 #: src/components/IndicatorsDatasets.tsx:136
-msgid "An “eviction filing” is a legal case for eviction commenced by a landlord against a tenant in Housing Court. Such a case can be commenced for nonpayment of rent (most commonly) or for a violation of the lease (such as a nuisance). The eviction filings number only represents cases filed in Housing Court (data from the New York State Office of Court Administration <0>via the Housing Data Coalition</0> in collaboration with the <1>Right to Counsel Coalition</1>) and not evictions carried out by NYC Marshals.<2/>If you or someone you know is facing eviction and want to learn more about your rights, head over to <3>Housing Court Answers for more information</3>.<4/>Due to privacy restrictions on the use of these data, eviction filings cannot be shown for buildings with fewer than 11 units."
-msgstr "Una \"demanda de desalojo\" es un caso legal de desalojo iniciado por un dueño contra un inquilino en la Corte de Vivienda. Este caso puede iniciarse por falta de pago de la renta (lo más común) o por una violación del contrato de alquiler (como una molestia). La cifra de desalojos sólo representa los casos presentados ante la Corte de Vivienda (datos de la Oficina de Administración de la Corte del Estado de Nueva York <0>a través de la Coalición de Datos de Vivienda</0> en colaboración con la <1>Coalición del Derecho a la Defensa o RTC</1>) y no los desalojos llevados a cabo por los Alguaciles de la Ciudad de Nueva York.<2/>Si usted o alguien que conoce se enfrenta a un desalojo y quiere saber más sobre sus derechos, diríjase a <3>Housing Court Answers para obtener más información</3>.<4/>Debido a las restricciones de privacidad en el uso de estos datos, no se pueden mostrar los desalojos de edificios con menos de 11 unidades."
+msgid "An “eviction filing” is a legal case for eviction commenced by a landlord against a tenant in Housing Court. Such a case can be commenced for nonpayment of rent (most commonly) or for a violation of the lease (such as a nuisance). The eviction filings number only represents cases filed in Housing Court (data from the New York State Office of Court Administration <0>via the Housing Data Coalition</0> in collaboration with the <1>Right to Counsel Coalition</1>) and not evictions carried out by NYC Marshals.<2/><3/>If you or someone you know is facing eviction and want to learn more about your rights, head over to <4>Housing Court Answers for more information</4>.<5/><6/>Due to privacy restrictions on the use of these data, eviction filings cannot be shown for buildings with fewer than 11 units."
+msgstr ""
+
+#: src/components/IndicatorsDatasets.tsx:136
+#~ msgid "An “eviction filing” is a legal case for eviction commenced by a landlord against a tenant in Housing Court. Such a case can be commenced for nonpayment of rent (most commonly) or for a violation of the lease (such as a nuisance). The eviction filings number only represents cases filed in Housing Court (data from the New York State Office of Court Administration <0>via the Housing Data Coalition</0> in collaboration with the <1>Right to Counsel Coalition</1>) and not evictions carried out by NYC Marshals.<2/>If you or someone you know is facing eviction and want to learn more about your rights, head over to <3>Housing Court Answers for more information</3>.<4/>Due to privacy restrictions on the use of these data, eviction filings cannot be shown for buildings with fewer than 11 units."
+#~ msgstr "Una \"demanda de desalojo\" es un caso legal de desalojo iniciado por un dueño contra un inquilino en la Corte de Vivienda. Este caso puede iniciarse por falta de pago de la renta (lo más común) o por una violación del contrato de alquiler (como una molestia). La cifra de desalojos sólo representa los casos presentados ante la Corte de Vivienda (datos de la Oficina de Administración de la Corte del Estado de Nueva York <0>a través de la Coalición de Datos de Vivienda</0> en colaboración con la <1>Coalición del Derecho a la Defensa o RTC</1>) y no los desalojos llevados a cabo por los Alguaciles de la Ciudad de Nueva York.<2/>Si usted o alguien que conoce se enfrenta a un desalojo y quiere saber más sobre sus derechos, diríjase a <3>Housing Court Answers para obtener más información</3>.<4/>Debido a las restricciones de privacidad en el uso de estos datos, no se pueden mostrar los desalojos de edificios con menos de 11 unidades."
 
 #: src/components/IndicatorsDatasets.tsx:136
 #~ msgid "An “eviction filing” is a legal case for eviction commenced by a landlord against a tenant in Housing Court. Such a case can be commenced for nonpayment of rent (most commonly) or for a violation of the lease (such as a nuisance). The eviction filings number only represents cases filed in Housing Court (data from the New York State Office of Court Administration<0>via the Housing Data Coalition</0> in collaboration with the <1>Right to Counsel Coalition</1>) and not evictions carried out by NYC Marshals.<2/>If you or someone you know is facing eviction and want to learn more about your rights, head over to <3>Housing Court Answers for more information</3>.<4/>Due to privacy restrictions on the use of these data, eviction filings cannot be shown for buildings with fewer than 11 units."
@@ -190,7 +198,7 @@ msgid "Building Permit Applications"
 msgstr "Solicitudes de Permisos de Construcción"
 
 #: src/components/IndicatorsDatasets.tsx:75
-#: src/components/IndicatorsViz.tsx:183
+#: src/components/IndicatorsViz.tsx:188
 msgid "Building Permits Applied For"
 msgstr "Permisos de Construcción Solicitados"
 
@@ -249,19 +257,19 @@ msgstr "Mira los problemas en este edificio"
 msgid "Civil penalties of $250-$500"
 msgstr "Sanciones civiles de $250-$500"
 
-#: src/components/IndicatorsViz.tsx:154
+#: src/components/IndicatorsViz.tsx:159
 msgid "Class A"
 msgstr "Clase A"
 
-#: src/components/IndicatorsViz.tsx:147
+#: src/components/IndicatorsViz.tsx:152
 msgid "Class B"
 msgstr "Clase B"
 
-#: src/components/IndicatorsViz.tsx:140
+#: src/components/IndicatorsViz.tsx:145
 msgid "Class C"
 msgstr "Clase C"
 
-#: src/components/IndicatorsViz.tsx:133
+#: src/components/IndicatorsViz.tsx:138
 msgid "Class I"
 msgstr "Clase I"
 
@@ -370,8 +378,8 @@ msgstr "Sitio Demo"
 msgid "Disclaimer: The information in JustFix does not constitute legal advice and must not be used as a substitute for the advice of a lawyer qualified to give advice on legal issues pertaining to housing. We can help direct you to free legal services if necessary."
 msgstr "Descargo de responsabilidad: La información en JustFix no constituye asesoramiento jurídico y no debe ser utilizado como sustituto del asesoramiento de un abogado cualificado para asesorar sobre cuestiones jurídicas relativas a la vivienda. Nosotros podemos ayudarte a dirigirte a servicios legales gratuitos si es necesario."
 
-#: src/components/Indicators.tsx:169
-#: src/components/Indicators.tsx:172
+#: src/components/Indicators.tsx:189
+#: src/components/Indicators.tsx:192
 msgid "Display:"
 msgstr "Mostrar:"
 
@@ -384,7 +392,7 @@ msgstr "Donar"
 msgid "Download"
 msgstr "Descargar"
 
-#: src/components/IndicatorsViz.tsx:194
+#: src/components/IndicatorsViz.tsx:199
 msgid "ECB"
 msgstr "ECB"
 
@@ -400,7 +408,7 @@ msgstr "ASCENSOR"
 msgid "Email"
 msgstr "Email"
 
-#: src/components/IndicatorsViz.tsx:165
+#: src/components/IndicatorsViz.tsx:170
 msgid "Emergency"
 msgstr "Emergencia"
 
@@ -432,7 +440,7 @@ msgstr "Anote el número mínimo y máximo de unidades, o deje cualquiera de los
 #: src/components/BuildingStatsTable.tsx:80
 #: src/components/IndicatorsDatasets.tsx:126
 #: src/components/IndicatorsDatasets.tsx:135
-#: src/components/IndicatorsViz.tsx:212
+#: src/components/IndicatorsViz.tsx:217
 msgid "Eviction Filings"
 msgstr "Demandas de desalojo"
 
@@ -705,7 +713,7 @@ msgstr "Últimos 3 años"
 msgid "Last Sale"
 msgstr "Última venta"
 
-#: src/components/IndicatorsViz.tsx:387
+#: src/components/IndicatorsViz.tsx:439
 msgid "Last Sale Unknown"
 msgstr "Última venta desconocida"
 
@@ -858,11 +866,11 @@ msgstr "Más útil para dispositivos móviles"
 msgid "Most Common 311 Complaints, Last 3 Years"
 msgstr "Las quejas más comunes de 311, los últimos 3 años"
 
-#: src/components/Indicators.tsx:200
+#: src/components/Indicators.tsx:220
 msgid "Move chart data left."
 msgstr "Mover datos del gráfico a la izquierda."
 
-#: src/components/Indicators.tsx:209
+#: src/components/Indicators.tsx:229
 msgid "Move chart data right."
 msgstr "Mover datos del gráfico a la derecha."
 
@@ -920,8 +928,8 @@ msgid "No address found"
 msgstr "No se encontraron direcciones"
 
 #: src/components/IndicatorsViz.tsx:441
-msgid "No data available"
-msgstr "No hay datos disponibles"
+#~ msgid "No data available"
+#~ msgstr "No hay datos disponibles"
 
 #: src/components/LandlordSearch.tsx:89
 msgid "No landlords match your search."
@@ -935,11 +943,11 @@ msgstr "No se ha encontrado ningún registro para {usersInputAddressFragment}."
 msgid "No registration found."
 msgstr "No se ha encontrado nigún registro."
 
-#: src/components/IndicatorsViz.tsx:201
+#: src/components/IndicatorsViz.tsx:206
 msgid "Non-ECB"
 msgstr "No ECB"
 
-#: src/components/IndicatorsViz.tsx:172
+#: src/components/IndicatorsViz.tsx:177
 msgid "Non-Emergency"
 msgstr "No Emergencia"
 
@@ -955,6 +963,7 @@ msgstr "No encontrado"
 #~ msgid "Notice an inaccuracy? Click here."
 #~ msgstr "Notice an inaccuracy? Click here."
 
+#: src/components/IndicatorsDatasets.tsx:167
 #: src/components/PortfolioFilters.tsx:145
 msgid "Number of Units"
 msgstr "Número de unidades"
@@ -1096,6 +1105,8 @@ msgstr "Más información sobre nuestra metodología"
 msgid "Registration expired:"
 msgstr "El registro ha caducado:"
 
+#: src/components/IndicatorsDatasets.tsx:164
+#: src/components/IndicatorsViz.tsx:228
 #: src/components/PortfolioFilters.tsx:139
 msgid "Rent Stabilized Units"
 msgstr "Unidades con renta estabilizada"
@@ -1103,6 +1114,10 @@ msgstr "Unidades con renta estabilizada"
 #: src/components/PortfolioFilters.tsx:136
 msgid "Rent Stabilized Units filter"
 msgstr "Filtro de Unidades con renta estabilizada"
+
+#: src/components/IndicatorsDatasets.tsx:166
+msgid "Rent Stabilized Units registered since 2010"
+msgstr ""
 
 #: src/components/PropertiesSummary.tsx:126
 msgid "Rent stabilization"
@@ -1256,9 +1271,13 @@ msgstr "Desde {year}"
 msgid "Site Manager"
 msgstr "Administrador del Sitio"
 
+#: src/components/IndicatorsViz.tsx:412
+msgid "Sold"
+msgstr ""
+
 #: src/components/IndicatorsViz.tsx:386
-msgid "Sold to Current Owner"
-msgstr "Vendido al Propietario Actual"
+#~ msgid "Sold to Current Owner"
+#~ msgstr "Vendido al Propietario Actual"
 
 #: src/components/PortfolioAlerts.tsx:52
 msgid "Some large corporations, however, are a bit more complicated and may share personnel and financial stake with other related companies, which all will show up on Who Owns What as one large portfolio."
@@ -1478,7 +1497,7 @@ msgstr "Cronología"
 msgid "Top Complaint"
 msgstr "Queja principal"
 
-#: src/components/IndicatorsViz.tsx:349
+#: src/components/IndicatorsViz.tsx:374
 #: src/components/PortfolioTable.tsx:184
 #: src/components/PortfolioTable.tsx:225
 msgid "Total"
@@ -1544,8 +1563,8 @@ msgstr "Ver detalles"
 msgid "View Results"
 msgstr "Ver resultados"
 
-#: src/components/Indicators.tsx:180
-#: src/components/Indicators.tsx:183
+#: src/components/Indicators.tsx:200
+#: src/components/Indicators.tsx:203
 msgid "View by:"
 msgstr "Visualizar por:"
 
@@ -1640,7 +1659,7 @@ msgstr "Hemos mejorado ¿Quién es el Dueño en NY? para profundizar en los dato
 #~ msgid "We’ve improved Who Owns What to dig deeper into the data and offer you a more complete picture of buildings associated with your landlord. <0>Read more on our Methodology page</0>"
 #~ msgstr "We’ve improved Who Owns What to dig deeper into the data and offer you a more complete picture of buildings associated with your landlord. <0>Read more on our Methodology page</0>"
 
-#: src/components/Indicators.tsx:223
+#: src/components/Indicators.tsx:243
 msgid "What are {0}?"
 msgstr "¿Qué son {0}?"
 
@@ -1780,7 +1799,7 @@ msgstr "edificio asociado"
 msgid "for ${0}"
 msgstr "por ${0}"
 
-#: src/components/Indicators.tsx:16
+#: src/components/Indicators.tsx:18
 msgid "month"
 msgstr "mes"
 
@@ -1796,7 +1815,7 @@ msgstr "de"
 #~ msgid "page number"
 #~ msgstr "page number"
 
-#: src/components/Indicators.tsx:17
+#: src/components/Indicators.tsx:19
 msgid "quarter"
 msgstr "trimestre"
 
@@ -1808,7 +1827,7 @@ msgstr "dirección de búsqueda"
 #~ msgid "to"
 #~ msgstr "to"
 
-#: src/components/Indicators.tsx:18
+#: src/components/Indicators.tsx:20
 msgid "year"
 msgstr "año"
 
@@ -1832,6 +1851,10 @@ msgstr "{0} {1}, {2} tiene {3, plural, one {una violación del HPD actual} other
 msgid "{numberOfHits} {numberOfHits, plural, one {search result} other {search results}}."
 msgstr "{numberOfHits} {numberOfHits, plural, one {resultado de búsqueda} other {resultados de búsqueda}}."
 
+#: src/components/IndicatorsViz.tsx:465
+msgid "{unitsres, plural, one {1 unit total} other {# units total}}"
+msgstr ""
+
 #: src/components/IndicatorsDatasets.tsx:70
 msgid "{value, plural, one {One Building Permit Application since 2010} other {# Building Permit Applications since 2010}}"
 msgstr "{value, plural, one {Una Solicitud de Permiso de Construcción desde el 2010} other {# Solicitudes de Permiso de Construcción desde el 2010}}"
@@ -1851,4 +1874,3 @@ msgstr "{value, plural, one {Una Queja del HPD emitida desde el 2014} other {# Q
 #: src/components/IndicatorsDatasets.tsx:37
 msgid "{value, plural, one {One HPD Violation Issued since 2010} other {# HPD Violations Issued since 2010}}"
 msgstr "{value, plural, one {Una Violación del HPD emitida desde el 2010} other {# Violaciones del HPD emitidas desde el 2010}}"
-
