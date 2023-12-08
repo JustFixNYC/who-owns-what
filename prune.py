@@ -18,6 +18,7 @@ import sys
 from typing import List
 import psycopg2
 from psycopg2.extras import DictCursor
+
 # import networkx as nx
 from portfoliograph.standardize import populate_landlords_table
 
