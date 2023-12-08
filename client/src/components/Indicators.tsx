@@ -70,6 +70,7 @@ class IndicatorsWithoutI18n extends Component<IndicatorsWithRouterProps, Indicat
       ...indicatorsInitialState,
       activeVis: indicator,
       defaultVis: indicator,
+      activeTimeSpan: indicator === "rentstabilizedunits" ? "year" : "quarter",
     };
     this.handleVisChange = this.handleVisChange.bind(this);
   }
@@ -119,6 +120,10 @@ class IndicatorsWithoutI18n extends Component<IndicatorsWithRouterProps, Indicat
   }
 
   handleVisChange(selectedVis: IndicatorsDatasetId) {
+    if (selectedVis === "rentstabilizedunits") {
+      this.handleTimeSpanChange("year");
+    }
+
     this.setState({
       activeVis: selectedVis,
     });
@@ -316,6 +321,7 @@ class IndicatorsWithoutI18n extends Component<IndicatorsWithRouterProps, Indicat
                               name={timespan}
                               checked={this.state.activeTimeSpan === timespan ? true : false}
                               onChange={() => this.handleTimeSpanChange(timespan)}
+                              disabled={activeVis === "rentstabilizedunits" && timespan !== "year"}
                             />
                             <i className="form-icon" /> {timeSpanTranslations[timespan](i18n)}
                           </label>
