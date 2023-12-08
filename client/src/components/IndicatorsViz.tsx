@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Bar, ChartData } from "react-chartjs-2";
 import { I18n, withI18nProps } from "@lingui/react";
-import { t } from "@lingui/macro";
+import { plural, t } from "@lingui/macro";
 import * as chartjs from "chart.js";
 
 // reference: https://github.com/jerairrest/react-chartjs-2
@@ -182,15 +182,15 @@ class IndicatorsVizImplementation extends Component<IndicatorVizImplementationPr
   }
 
   render() {
-    // Create "data" object according to Chart.js documentation
-    var datasets: chartjs.ChartDataSets[];
-    var { timelineData } = this.props.state.context;
-
     const { i18n } = this.props;
     const locale = (i18n.language || defaultLocale) as SupportedLocale;
 
+    var { timelineData } = this.props.state.context;
     const unitsres = this.props.state.context.portfolioData.searchAddr.unitsres ?? 0;
     const rsunits = this.groupData(timelineData.rentstabilizedunits.values.total) ?? [];
+
+    // Create "data" object according to Chart.js documentation
+    var datasets: chartjs.ChartDataSets[];
 
     switch (this.props.activeVis) {
       case "hpdviolations":
@@ -329,15 +329,22 @@ class IndicatorsVizImplementation extends Component<IndicatorVizImplementationPr
     }
 
     var dataMaximum = this.getDataMaximum();
-    var suggestedYAxisMax =
-      this.props.activeVis !== "hpdcomplaints" && this.props.activeVis !== "hpdviolations"
-        ? this.props.activeVis !== "rentstabilizedunits"
-          ? Math.max(
-              12,
-              Helpers.maxArray(this.groupData(timelineData.dobpermits.values.total) || [0]) * 1.25
-            )
-          : Math.max(12, unitsres + unitsres / 4)
-        : Math.max(12, dataMaximum * 1.25);
+    var suggestedYAxisMax: number;
+
+    switch (this.props.activeVis) {
+      case "hpdcomplaints":
+      case "hpdviolations":
+        suggestedYAxisMax = Math.max(12, dataMaximum * 1.25);
+        break;
+      case "rentstabilizedunits":
+        suggestedYAxisMax = Math.max(12, unitsres + unitsres / 4);
+        break;
+      default:
+        suggestedYAxisMax = Math.max(
+          12,
+          Helpers.maxArray(this.groupData(timelineData.dobpermits.values.total) || [0]) * 1.25
+        );
+    }
 
     var timeSpan = this.props.activeTimeSpan;
 
@@ -529,6 +536,7 @@ class IndicatorsVizImplementation extends Component<IndicatorVizImplementationPr
               },
           this.props.activeVis === "rentstabilizedunits" &&
             !!unitsres && {
+              drawTime: "afterDatasetsDraw",
               type: "line",
               mode: "horizontal",
               scaleID: "y-axis-0",
@@ -537,11 +545,15 @@ class IndicatorsVizImplementation extends Component<IndicatorVizImplementationPr
               borderWidth: 2,
               borderDash: [10, 10],
               label: {
-                content: i18n._(t`${unitsres} units total`),
+                content: i18n._(
+                  plural({
+                    value: unitsres,
+                    one: "1 unit total",
+                    other: "# units total",
+                  })
+                ),
                 fontStyle: "normal",
-                fontColor: "#000",
-                xPadding: 10,
-                yPadding: 10,
+                fontColor: "rgb(0,0,0)",
                 backgroundColor: "rgb(81, 136, 255)",
                 position: "center",
                 enabled: true,

@@ -261,7 +261,7 @@ export const INDICATORS_DATASETS: IndicatorsDatasetMap = {
     name: (i18n) => i18n._(t`Rent Stabilized Units`),
     analyticsName: "rentstabilizedunits",
     quantity: (i18n, value) => i18n._("Rent Stabilized Units registered since 2010"),
-    yAxisLabel: (i18n) => i18n._(t`Rent Stabilized Units`),
+    yAxisLabel: (i18n) => i18n._(t`Number of Units`),
     explanation: () => (
       <Trans render="span">
         <a
