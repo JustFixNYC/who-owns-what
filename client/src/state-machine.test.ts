@@ -175,7 +175,7 @@ describe("wowMachine", () => {
           edges: [],
           nodes: [],
         },
-        relatedPortfoliosBbls: []
+        relatedPortfoliosBbls: [],
       }),
     });
 
