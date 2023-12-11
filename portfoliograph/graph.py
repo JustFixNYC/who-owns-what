@@ -1,7 +1,6 @@
 from pathlib import Path
 from typing import Any, Dict, Callable, Iterator, List, NamedTuple
 import networkx as nx
-from networkx.algorithms import community
 
 
 SQL_DIR = Path(__file__).parent.resolve() / "sql"
@@ -64,7 +63,7 @@ def split_subgraph_if(
 ):
     RESOLUTION = 0.1
     if predicate(subgraph):
-        for comm in community.louvain_communities(subgraph, resolution=RESOLUTION):
+        for comm in nx.community.louvain_communities(subgraph, resolution=RESOLUTION):
             comm_subgraph = graph.subgraph(comm)
             if portfolio_size(comm_subgraph) == portfolio_size(subgraph):
                 yield (id, comm_subgraph)
