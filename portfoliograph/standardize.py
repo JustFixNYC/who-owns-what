@@ -49,11 +49,6 @@ def str_squish(x: str) -> str:
     return re.sub(r"\s+", " ", x.strip())
 
 
-def standardize_apt(x: str) -> str:
-    # TODO: custom standardization of apartment numbers
-    return x
-
-
 def parse_output(geo):
     """parse out desired variables from geosupport return dict
 
@@ -114,9 +109,8 @@ def standardize_record(record: RawLandlordRow):
         std_addr["housenumber"] if std_addr["housenumber"] else record.housenumber
     )
     streetname = std_addr["streetname"] if std_addr["streetname"] else record.streetname
-    apartment = standardize_apt(record.apartment)
     city_or_boro = std_addr["boro"] if std_addr["boro"] else record.city
-    street_addr = str_squish(f"{housenumber} {streetname} {apartment}")
+    street_addr = str_squish(f"{housenumber} {streetname} {record.apartment}")
     bizaddr = f"{street_addr}, {city_or_boro} {record.state}"
 
     return StandardizedLandlordRow(

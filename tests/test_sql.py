@@ -148,6 +148,7 @@ UNRELATED_CONTACT = HpdContacts(
     CorporationName="THE UNRELATED COMPANIES, L.P.",
     BusinessHouseNumber="6",
     BusinessStreetName="UNRELATED AVE",
+    BusinessApartment="2FLOOR",
     BusinessZip="11231",
 )
 
@@ -363,8 +364,8 @@ class TestSQL:
                     bbl=row.bbl,
                     registrationid=row.registrationid,
                     name=row.name,
-                    # leaving out apt since not present in test data
-                    bizaddr=f"{row.housenumber} {row.streetname}, {row.city} {row.state}",
+                    bizaddr=f"{row.housenumber} {row.streetname} {row.apartment}, "
+                    + f"{row.city} {row.state}",
                 )
                 for row in rows
             ]
@@ -376,8 +377,8 @@ class TestSQL:
             # This test has side effect from populate_landlords_table
             with self.db.connect() as conn:
                 populate_landlords_table(conn)
-            r = self.query_one(f"SELECT * FROM wow_landlords limit 1")
-            assert r["bizaddr"] == "6 UNRELATED AVENUE, BROKLYN NY"
+            r = self.query_one(f"SELECT * FROM wow_landlords where bbl = '1000010002'")
+            assert r["bizaddr"] == "6 UNRELATED AVENUE 2 FL, BROKLYN NY"
 
     @pytest.mark.skipif(
         bool(os.environ.get("CI")), reason="geosupport not installed on CI"
@@ -392,19 +393,19 @@ class TestSQL:
         assert raw_row.name == "BOOP JONES"
 
         std_row = standardize_record(raw_row)
-        assert std_row.bizaddr == "6 UNRELATED AVENUE, BROOKLYN NY"
+        assert std_row.bizaddr == "6 UNRELATED AVENUE 2 FL, BROOKLYN NY"
 
         with multiprocessing.Pool(processes=multiprocessing.cpu_count()) as pool:
             std_rows = pool.map(standardize_record, raw_rows, 10000)
         std_row = list(filter(lambda x: x.bbl == "1000010002", std_rows))[0]
 
-        assert std_row.bizaddr == "6 UNRELATED AVENUE, BROOKLYN NY"
+        assert std_row.bizaddr == "6 UNRELATED AVENUE 2 FL, BROOKLYN NY"
 
         # This test has side effect from populate_landlords_table
         with self.db.connect() as conn:
             populate_landlords_table(conn)
-        r = self.query_one(f"SELECT * FROM wow_landlords limit 1")
-        assert r["bizaddr"] == "6 UNRELATED AVENUE, BROOKLYN NY"
+        r = self.query_one(f"SELECT * FROM wow_landlords where bbl = '1000010002'")
+        assert r["bizaddr"] == "6 UNRELATED AVENUE 2 FL, BROOKLYN NY"
 
     def test_built_graph_works(self):
         with self.db.connect() as conn:
@@ -417,7 +418,7 @@ class TestSQL:
                 "bbls": ["1000010002"],
                 "bizAddr": "6 UNRELATED AVENUE, BROKLYN NY"
                 if os.environ.get("CI")
-                else "6 UNRELATED AVENUE, BROOKLYN NY",
+                else "6 UNRELATED AVENUE 2 FL, BROOKLYN NY",
                 "name": "BOOP JONES",
                 "registrationids": [3],
             }
@@ -445,9 +446,9 @@ class TestSQL:
             with freezegun.freeze_time("2018-01-01"):
                 populate_portfolios_table(conn)
         r = self.query_one(
-            "SELECT landlord_names FROM wow_portfolios WHERE '"
-            + FUNKY_BBL
-            + "' = any(bbls)"
+            f"""SELECT landlord_names 
+                FROM wow_portfolios 
+                WHERE '{FUNKY_BBL}' = any(bbls)"""
         )
         assert set(r[0]) == {"LANDLORDO CALRISSIAN", "LOBOT JONES"}
 

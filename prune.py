@@ -34,7 +34,7 @@ DB_URL = f"postgresql://\
 atul:blarg1234@nycdb-clone2-cluster.cluster-ckvyf7p6u5rl.us-east-1.rds.amazonaws.com/nycdb"
 
 
-def create_table(conn, table: str):
+def create_table_portfolios(conn, table: str):
     sql = f"DROP TABLE if exists {table} cascade; \
             CREATE TABLE {table} ( \
                 orig_id int, \
@@ -46,6 +46,19 @@ def create_table(conn, table: str):
             CREATE INDEX ON {table} (orig_id); \
             CREATE INDEX ON {table} USING GIN(bbls); \
             CREATE INDEX ON {table} USING GIN(landlord_names);"
+    with conn.cursor() as cur:
+        cur.execute(sql)
+
+
+def create_table_landlords(conn, table: str):
+    sql = f"DROP TABLE IF EXISTS {table} cascade; \
+            CREATE TABLE {table} ( \
+                bbl char(10), \
+                registrationid int, \
+                name text, \
+                bizaddr text \
+            ); \
+            CREATE INDEX ON {table} (name, bizaddr);"
     with conn.cursor() as cur:
         cur.execute(sql)
 
@@ -64,13 +77,14 @@ def build_graph(table, db_url):
 
 def build_table(table, db_url):
     with psycopg2.connect(db_url) as conn:
-        create_table(conn, table=table)
+        create_table_portfolios(conn, table=table)
         portfoliograph.table.populate_portfolios_table(conn, table=table)
         conn.commit()
 
 
 def standardize(db_url):
     with psycopg2.connect(db_url) as conn:
+        create_table_landlords(conn, table="wow_landlords")
         populate_landlords_table(conn)
         conn.commit()
 
