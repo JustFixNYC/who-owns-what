@@ -446,8 +446,8 @@ class TestSQL:
             with freezegun.freeze_time("2018-01-01"):
                 populate_portfolios_table(conn)
         r = self.query_one(
-            f"""SELECT landlord_names 
-                FROM wow_portfolios 
+            f"""SELECT landlord_names
+                FROM wow_portfolios
                 WHERE '{FUNKY_BBL}' = any(bbls)"""
         )
         assert set(r[0]) == {"LANDLORDO CALRISSIAN", "LOBOT JONES"}
