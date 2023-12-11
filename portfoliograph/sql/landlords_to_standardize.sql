@@ -77,7 +77,7 @@ SELECT
 		'^(AUITE|STE)\s*(\d+)$', 'STE \2'),
 		'^(BASEMENT|BASEME|BASE|BSMNT|BSMT)\s*(\d*)$', 'BSMT \2'),
 		'^(\d*)\s*(BASEMENT|BASEME|BASE|BSMNT|BSMT)$', 'BSMT \1')
-	as apartment,
+	as businessapartment,
 
     regexp_replace(FIRST(businesscity), '[^A-Z0-9\s]', '', 'g') as city, 
     regexp_replace(FIRST(businesszip), '[^A-Z0-9\s]', '', 'g') as zip,
