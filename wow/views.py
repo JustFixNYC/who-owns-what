@@ -80,7 +80,6 @@ def address_query_with_portfolio_graph(request):
         if addrs_with_graph:
             graph = addrs_with_graph[0]["graph"]
             relatedportfoliosbbls = addrs_with_graph[0]["relatedportfoliosbbls"]
-            print(relatedportfoliosbbls)
         addrs_without_graph = [
             {k: v for k, v in a.items() if k != "graph"} for a in addrs
         ]

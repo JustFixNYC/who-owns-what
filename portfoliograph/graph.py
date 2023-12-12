@@ -97,8 +97,8 @@ def to_json_graph(graph: nx.Graph) -> Dict[str, Any]:
     # Identify common names/addresses for "compound"/group nodes in viz
     all_names = [n[1]["name"] for n in raw_nodes]
     all_bizaddrs = [n[1]["bizAddr"] for n in raw_nodes]
-    parent_names = [x[0] for x in Counter(all_names).most_common() if x[1] > 5]
-    parent_bizaddrs = [x[0] for x in Counter(all_bizaddrs).most_common() if x[1] > 5]
+    parent_names = [x for x, n in Counter(all_names).most_common() if n > 4]
+    parent_bizaddrs = [x for x, n in Counter(all_bizaddrs).most_common() if n > 4]
     name_nodes = [{"id": name, "type": "name"} for name in parent_names]
     bizaddr_nodes = [{"id": bizaddr, "type": "bizAddr"} for bizaddr in parent_bizaddrs]
 
