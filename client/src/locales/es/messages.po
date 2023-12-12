@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-12-08 18:21\n"
+"PO-Revision-Date: 2023-12-12 02:42\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -1853,7 +1853,7 @@ msgstr "{numberOfHits} {numberOfHits, plural, one {resultado de búsqueda} other
 
 #: src/components/IndicatorsViz.tsx:465
 msgid "{unitsres, plural, one {1 unit total} other {# units total}}"
-msgstr "{unitsres, plural, one {unidad} other {unidades}}"
+msgstr "{unitsres, plural, one {1 unidad} other {# unidades}}"
 
 #: src/components/IndicatorsDatasets.tsx:70
 msgid "{value, plural, one {One Building Permit Application since 2010} other {# Building Permit Applications since 2010}}"
