@@ -30,17 +30,11 @@ const layout = {
 };
 
 function createNode(attrs: PortfolioGraphNode): cytoscape.NodeDefinition {
-  return {
-    group: "nodes",
-    data: attrs,
-  };
+  return { group: "nodes", data: attrs };
 }
 
 function createEdge(attrs: PortfolioGraphEdge): cytoscape.EdgeDefinition {
-  return {
-    group: "edges",
-    data: attrs,
-  };
+  return { group: "edges", data: attrs };
 }
 
 /**
@@ -51,7 +45,7 @@ function generatePropertyNodes(i18n: I18n, searchAddr: AddressRecord, detailAddr
   const searchBBLNode = createNode({
     id: "searchaddr",
     type: "searchaddr",
-    name: i18n._(t`Search Address`),
+    name: i18n._(t`Search Address:`),
     bizAddr: `${searchAddr.housenumber} ${searchAddr.streetname}`,
   });
   additionalNodes.push(searchBBLNode);
@@ -60,8 +54,8 @@ function generatePropertyNodes(i18n: I18n, searchAddr: AddressRecord, detailAddr
     const detailBBLNode = createNode({
       id: "detailaddr",
       type: "detailaddr",
-      name: i18n._(t`Selected Address`),
-      bizAddr: `${searchAddr.housenumber} ${searchAddr.streetname}`,
+      name: i18n._(t`Selected Address:`),
+      bizAddr: `${detailAddr.housenumber} ${detailAddr.streetname}`,
     });
     additionalNodes.push(detailBBLNode);
   }
@@ -303,15 +297,21 @@ const PortfolioGraphWithoutI18: React.FC<PortfolioGraphProps> = ({ graphJSON, st
             },
           },
           {
+            selector: 'node[type = "searchaddr"], node[type = "detailaddr"]',
+            style: {
+              "text-valign": "center",
+              "text-halign": "center",
+              "text-outline-width": 0,
+              width: (ele: Cytoscape.NodeSingular) => ele.data("bizAddr").length * 0.7 + "em",
+              height: 60,
+            },
+          },
+          {
             selector: "edge",
             style: {
               "line-color": (ele: Cytoscape.EdgeSingular) => EDGE_TYPE_TO_COLOR[ele.data("type")],
               "line-style": (ele: Cytoscape.EdgeSingular) =>
-                ["searchaddr", "detailaddr"].includes(ele.data("target"))
-                  ? "solid"
-                  : ele.data("type") === "bizaddr"
-                  ? "dashed"
-                  : "dotted",
+                ele.data("type") === "name" ? "dashed" : "solid",
             },
           },
           {
