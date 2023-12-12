@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-
+import Select from "react-select";
 import Helpers from "../util/helpers";
 
 import IndicatorsViz from "../components/IndicatorsViz";
@@ -11,7 +11,7 @@ import { I18n } from "@lingui/core";
 import { t, Trans } from "@lingui/macro";
 
 import "styles/Indicators.css";
-import { IndicatorsDatasetRadio, INDICATORS_DATASETS } from "./IndicatorsDatasets";
+import { INDICATORS_DATASETS } from "./IndicatorsDatasets";
 import {
   indicatorsInitialState,
   IndicatorsProps,
@@ -23,7 +23,6 @@ import {
   indicatorsDatasetIds,
 } from "./IndicatorsTypes";
 import { NetworkErrorMessage } from "./NetworkErrorMessage";
-import { Dropdown } from "./Dropdown";
 import { AmplitudeEvent, logAmplitudeEvent } from "./Amplitude";
 import { withRouter } from "react-router-dom";
 import { RouteComponentProps } from "react-router";
@@ -33,7 +32,7 @@ type TimeSpanTranslationsMap = {
   [K in IndicatorsTimeSpan]: (i18n: I18n) => string;
 };
 
-const timeSpanTranslations: TimeSpanTranslationsMap = {
+const TIMESPAN_TRANSLATIONS: TimeSpanTranslationsMap = {
   month: (i18n) => i18n._(t`month`),
   quarter: (i18n) => i18n._(t`quarter`),
   year: (i18n) => i18n._(t`year`),
@@ -73,6 +72,7 @@ class IndicatorsWithoutI18n extends Component<IndicatorsWithRouterProps, Indicat
       activeTimeSpan: indicator === "rentstabilizedunits" ? "year" : "quarter",
     };
     this.handleVisChange = this.handleVisChange.bind(this);
+    this.handleTimeSpanChange = this.handleTimeSpanChange.bind(this);
   }
 
   /** Shifts the X-axis 'left' or 'right', or 'reset' the X-axis to default */
@@ -119,28 +119,31 @@ class IndicatorsWithoutI18n extends Component<IndicatorsWithRouterProps, Indicat
     this.props.history.replace(`${timelinePath}/${indicator}`);
   }
 
-  handleVisChange(selectedVis: IndicatorsDatasetId) {
-    if (selectedVis === "rentstabilizedunits") {
-      this.handleTimeSpanChange("year");
-    }
+  handleVisChange(selectedOption: any) {
+    const activeVis = selectedOption.value;
 
-    this.setState({
-      activeVis: selectedVis,
-    });
-    this.setUrlIndicator(selectedVis);
+    logAmplitudeEvent(`${activeVis.analyticsName}TimelineTab` as AmplitudeEvent);
+    window.gtag("event", `${activeVis.analyticsName}-timeline-tab`);
+
+    if (activeVis === "rentstabilizedunits") {
+      this.setState({
+        activeTimeSpan: "year",
+        monthsInGroup: 12,
+      });
+      }
+
+    this.setState({ activeVis });
+    this.setUrlIndicator(activeVis);
   }
 
-  /** Changes viewing timespan to be by 'year', 'quarter', or 'month' */
-  handleTimeSpanChange(selectedTimeSpan: IndicatorsTimeSpan) {
-    var monthsInGroup = selectedTimeSpan === "quarter" ? 3 : selectedTimeSpan === "year" ? 12 : 1;
+  handleTimeSpanChange(selectedOption: any) {
+    const activeTimeSpan = selectedOption.value;
+    var monthsInGroup = activeTimeSpan === "quarter" ? 3 : activeTimeSpan === "year" ? 12 : 1;
 
-    logAmplitudeEvent(`${selectedTimeSpan}TimelineTab` as AmplitudeEvent);
-    window.gtag("event", `${selectedTimeSpan}-timeline-tab`);
+    logAmplitudeEvent(`${activeTimeSpan}TimelineTab` as AmplitudeEvent);
+    window.gtag("event", `${activeTimeSpan}-timeline-tab`);
 
-    this.setState({
-      activeTimeSpan: selectedTimeSpan,
-      monthsInGroup: monthsInGroup,
-    });
+    this.setState({ activeTimeSpan, monthsInGroup });
   }
 
   updateData() {
@@ -225,14 +228,12 @@ class IndicatorsWithoutI18n extends Component<IndicatorsWithRouterProps, Indicat
       );
     } else {
       const { state, send } = this.props;
-
       const { detailAddr } = state.context.portfolioData;
-
-      const { activeVis } = this.state;
+      const { defaultVis, activeVis, activeTimeSpan, monthsInGroup, xAxisStart, xAxisViewableColumns } = this.state;
       const activeData = state.context.timelineData[activeVis];
 
       const xAxisLength = activeData.labels
-        ? Math.floor(activeData.labels.length / this.state.monthsInGroup)
+        ? Math.floor(activeData.labels.length / monthsInGroup)
         : 0;
       const indicatorDataTotal = activeData.values.total
         ? activeData.values.total.reduce((total: number, sum: number) => total + sum)
@@ -244,15 +245,30 @@ class IndicatorsWithoutI18n extends Component<IndicatorsWithRouterProps, Indicat
         INDICATORS_DATASETS[datasetId].name(i18n)
       );
       const timeSpanSelectionNames = indicatorsTimeSpans.map((timeSpan) =>
-        timeSpanTranslations[timeSpan](i18n)
+        TIMESPAN_TRANSLATIONS[timeSpan](i18n)
       );
 
       const detailAddrStr = `${detailAddr.housenumber} ${Helpers.titleCase(
         detailAddr.streetname
       )}, ${Helpers.titleCase(detailAddr.boro)}`;
 
-      const datasetDescription = INDICATORS_DATASETS[this.state.activeVis];
+      const datasetDescription = INDICATORS_DATASETS[activeVis];
+      
+      const indicatorOptions = indicatorsDatasetIds.map((id) => {
+        return {
+            label: INDICATORS_DATASETS[id].name(i18n),
+            value: id, 
+        };
+      });
 
+      const timeSpanOptions = indicatorsTimeSpans.map((id) => {
+        return {
+          label: TIMESPAN_TRANSLATIONS[id](i18n),
+          value: id,
+          isDisabled: activeVis === "rentstabilizedunits" && id !== "year",
+        };
+      });
+        
       return (
         <div className="Page Indicators">
           <div className="Indicators__content Page__content">
@@ -272,25 +288,26 @@ class IndicatorsWithoutI18n extends Component<IndicatorsWithRouterProps, Indicat
                       width: `${getDropdownWidthFromLongestSelection(datasetSelectionNames)}px`,
                     }}
                   >
-                    <span className="Indicators__linksTitle text-uppercase">
-                      <Trans>Display:</Trans>
-                    </span>{" "}
-                    <br />
-                    <Dropdown
-                      buttonLabel={INDICATORS_DATASETS[activeVis].name(i18n)}
-                      buttonAriaLabel={`${i18n._(t`Display:`)} ${INDICATORS_DATASETS[
+                    <label 
+                      id="indicator-dropdown-title"
+                      className="Indicators__linksTitle text-uppercase"
+                      htmlFor="indicator-dropdown"
+                      aria-label={`${i18n._(t`Display:`)} ${INDICATORS_DATASETS[
                         activeVis
-                      ].name(i18n)}`}
-                    >
-                      {indicatorsDatasetIds.map((datasetKey, i) => (
-                        <IndicatorsDatasetRadio
-                          key={i}
-                          id={datasetKey}
-                          activeId={activeVis}
-                          onChange={this.handleVisChange}
-                        />
-                      ))}
-                    </Dropdown>
+                      ].name(i18n)}`}>
+                       <Trans>Display:</Trans>
+                    </label>
+                    <br />
+                    <Select
+                      id="indicator-dropdown"
+                      className="basic-single"
+                      classNamePrefix="select"
+                      aria-labelledby="indicator-dropdown-title"
+                      name="indicator-type"
+                      defaultValue={indicatorOptions.find((i) => i.value === defaultVis)}
+                      options={indicatorOptions}
+                      onChange={this.handleVisChange}   
+                    />
                   </div>
                   <div
                     className="Indicators__linksContainer"
@@ -298,36 +315,24 @@ class IndicatorsWithoutI18n extends Component<IndicatorsWithRouterProps, Indicat
                       width: `${getDropdownWidthFromLongestSelection(timeSpanSelectionNames)}px`,
                     }}
                   >
-                    <span className="Indicators__linksTitle text-uppercase">
-                      <Trans>View by:</Trans>
-                    </span>
+                    <label 
+                      id="timespan-dropdown-title"
+                      className="Indicators__linksTitle text-uppercase"
+                      htmlFor="timespan-dropdown"
+                      aria-label={`${i18n._(t`View by:`)} ${TIMESPAN_TRANSLATIONS[activeTimeSpan](i18n)}`}>
+                       <Trans>View by:</Trans>
+                    </label>
                     <br />
-                    <Dropdown
-                      buttonLabel={timeSpanTranslations[this.state.activeTimeSpan](i18n)}
-                      buttonAriaLabel={`${i18n._(t`View by:`)} ${timeSpanTranslations[
-                        this.state.activeTimeSpan
-                      ](i18n)}`}
-                    >
-                      {indicatorsTimeSpans.map((timespan, i) => (
-                        <li className="menu-item" key={i}>
-                          <label
-                            className={
-                              "form-radio" +
-                              (this.state.activeTimeSpan === timespan ? " active" : "")
-                            }
-                          >
-                            <input
-                              type="radio"
-                              name={timespan}
-                              checked={this.state.activeTimeSpan === timespan ? true : false}
-                              onChange={() => this.handleTimeSpanChange(timespan)}
-                              disabled={activeVis === "rentstabilizedunits" && timespan !== "year"}
-                            />
-                            <i className="form-icon" /> {timeSpanTranslations[timespan](i18n)}
-                          </label>
-                        </li>
-                      ))}
-                    </Dropdown>
+                    <Select
+                      id="timespan-dropdown"
+                      className="basic-single"
+                      classNamePrefix="select"
+                      aria-labelledby="timespan-dropdown-title"
+                      name="timespan"
+                      defaultValue={activeVis === "rentstabilizedunits" ? timeSpanOptions.find(i => i.value === "year") : timeSpanOptions.find(i => i.value === "quarter")}
+                      options={timeSpanOptions}
+                      onChange={this.handleTimeSpanChange}   
+                    />
                   </div>
                 </div>
                 <span className="title viz-title">
@@ -339,13 +344,13 @@ class IndicatorsWithoutI18n extends Component<IndicatorsWithRouterProps, Indicat
                   <button
                     aria-label={i18n._(t`Move chart data left.`)}
                     aria-hidden={
-                      this.state.xAxisStart === 0 || this.state.activeTimeSpan === "year"
+                      xAxisStart === 0 || activeTimeSpan === "year"
                     }
                     aria-disabled={
-                      this.state.xAxisStart === 0 || this.state.activeTimeSpan === "year"
+                      xAxisStart === 0 || activeTimeSpan === "year"
                     }
                     className={
-                      this.state.xAxisStart === 0 || this.state.activeTimeSpan === "year"
+                      xAxisStart === 0 || activeTimeSpan === "year"
                         ? "btn btn-off btn-axis-shift"
                         : "btn btn-axis-shift"
                     }
@@ -360,16 +365,16 @@ class IndicatorsWithoutI18n extends Component<IndicatorsWithRouterProps, Indicat
                   <button
                     aria-label={i18n._(t`Move chart data right.`)}
                     aria-hidden={
-                      this.state.xAxisStart + this.state.xAxisViewableColumns >= xAxisLength ||
-                      this.state.activeTimeSpan === "year"
+                      xAxisStart + xAxisViewableColumns >= xAxisLength ||
+                      activeTimeSpan === "year"
                     }
                     aria-disabled={
-                      this.state.xAxisStart + this.state.xAxisViewableColumns >= xAxisLength ||
-                      this.state.activeTimeSpan === "year"
+                      xAxisStart + xAxisViewableColumns >= xAxisLength ||
+                      activeTimeSpan === "year"
                     }
                     className={
-                      this.state.xAxisStart + this.state.xAxisViewableColumns >= xAxisLength ||
-                      this.state.activeTimeSpan === "year"
+                      xAxisStart + xAxisViewableColumns >= xAxisLength ||
+                      activeTimeSpan === "year"
                         ? "btn btn-off btn-axis-shift"
                         : "btn btn-axis-shift"
                     }

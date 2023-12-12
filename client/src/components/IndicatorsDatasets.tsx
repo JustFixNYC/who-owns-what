@@ -1,9 +1,7 @@
 import React from "react";
 import { I18n } from "@lingui/core";
 import { t, Trans, plural } from "@lingui/macro";
-import { withI18n } from "@lingui/react";
 import { IndicatorsDatasetId } from "./IndicatorsTypes";
-import { AmplitudeEvent, logAmplitudeEvent } from "./Amplitude";
 
 /**
  * This interface encapsulates metadata about an Indicators dataset.
@@ -318,41 +316,3 @@ export const INDICATORS_DATASETS: IndicatorsDatasetMap = {
     ),
   },
 };
-
-const IndicatorsDatasetRadioWithoutI18n: React.FC<{
-  i18n: I18n;
-
-  /** The dataset ID which this radio button will activate. */
-  id: IndicatorsDatasetId;
-
-  /** The dataset ID of the currently active dataset. */
-  activeId: IndicatorsDatasetId;
-
-  /** A handler called when this radio button is selected. */
-  onChange: (id: IndicatorsDatasetId) => void;
-}> = ({ i18n, id, activeId, onChange }) => {
-  const dataset = INDICATORS_DATASETS[id];
-  const isActive = activeId === id;
-  const analyticsName = dataset.analyticsName;
-  const name = dataset.name(i18n);
-
-  return (
-    <li className="menu-item">
-      <label
-        className={"form-radio" + (isActive ? " active" : "")}
-        onClick={() => {
-          logAmplitudeEvent(`${analyticsName}TimelineTab` as AmplitudeEvent);
-          window.gtag("event", `${analyticsName}-timeline-tab`);
-        }}
-      >
-        <input type="radio" name={name} checked={isActive} onChange={() => onChange(id)} />
-        <i className="form-icon"></i> {name}
-      </label>
-    </li>
-  );
-};
-
-/**
- * Render a radio button for the dataset with the given ID.
- */
-export const IndicatorsDatasetRadio = withI18n()(IndicatorsDatasetRadioWithoutI18n);
