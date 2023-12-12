@@ -32,7 +32,7 @@ def iter_portfolio_rows(conn) -> Iterable[PortfolioRow]:
     print("Building graph.")
     g = graph.build_graph(cur)
 
-    print("Finding connected components.")
+    print("Finding and splitting portfolios.")
 
     for id, portfolio_graph in graph.iter_split_graph(g):
         bbls: Set[str] = set()

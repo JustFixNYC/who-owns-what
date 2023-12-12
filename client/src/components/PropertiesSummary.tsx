@@ -115,7 +115,7 @@ export default class PropertiesSummary extends Component<Props, {}> {
                   </LazyLoadWhenVisible>
                 </div>
               )}
-              {!relatedPortfoliosBbls ? (
+              {!relatedPortfoliosBbls?.length ? (
                 <p>This portfolio was never split</p>
               ) : (
                 <>
@@ -124,7 +124,7 @@ export default class PropertiesSummary extends Component<Props, {}> {
                     others:
                   </p>
                   <ul>
-                    {relatedPortfoliosBbls?.map((bbl) => (
+                    {relatedPortfoliosBbls.map((bbl) => (
                       <li key={bbl}>
                         <a href={`/bbl/${bbl}`} target="_blank" rel="noopener noreferrer">
                           {bbl}

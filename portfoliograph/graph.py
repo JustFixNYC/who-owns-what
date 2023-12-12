@@ -1,5 +1,6 @@
 from pathlib import Path
 from typing import Any, Dict, Callable, Iterator, List, NamedTuple
+from collections import Counter
 import networkx as nx
 
 
@@ -88,24 +89,47 @@ def to_json_graph(graph: nx.Graph) -> Dict[str, Any]:
     https://github.com/JustFixNYC/hpd-graph-fun/blob/main/typescript/portfolio.d.ts
     """
 
-    nodes: List[Dict[str, Any]] = []
-    edges: List[Dict[str, Any]] = []
-    for node in graph.nodes(data=True):
-        nodes.append(
-            {
-                "id": node[0],
-                "value": node[1],
-            }
-        )
+    ret_nodes: List[Dict[str, Any]] = []
+    ret_edges: List[Dict[str, Any]] = []
+
+    raw_nodes = [n for n in graph.nodes(data=True)]
+
+    # Identify common names/addresses for "compound"/group nodes in viz
+    all_names = [n[1]["name"] for n in raw_nodes]
+    all_bizaddrs = [n[1]["bizAddr"] for n in raw_nodes]
+    parent_names = [x[0] for x in Counter(all_names).most_common() if x[1] > 5]
+    parent_bizaddrs = [x[0] for x in Counter(all_bizaddrs).most_common() if x[1] > 5]
+    name_nodes = [{"id": name, "type": "name"} for name in parent_names]
+    bizaddr_nodes = [{"id": bizaddr, "type": "bizAddr"} for bizaddr in parent_bizaddrs]
+
+    ret_nodes.extend(name_nodes + bizaddr_nodes)
+
+    for id, attrs in raw_nodes:
+        node_values = {
+            "id": id,
+            "type": "owner",
+            "name": attrs["name"],
+            "bizAddr": attrs["bizAddr"],
+            "bbls": attrs["bbls"],
+        }
+
+        # Can only have one parent, so prioritize bizaddr
+        if attrs["bizAddr"] in parent_bizaddrs:
+            node_values.update({"parent": attrs["bizAddr"]})
+        elif attrs["name"] in parent_names:
+            node_values.update({"parent": attrs["name"]})
+
+        ret_nodes.append(node_values)
+
     for (_from, to, attrs) in graph.edges(data=True):
-        edges.append(
+        ret_edges.append(
             {
-                "from": _from,
-                "to": to,
+                "source": _from,
+                "target": to,
                 "type": attrs["type"],
             }
         )
     return {
-        "nodes": nodes,
-        "edges": edges,
+        "nodes": ret_nodes,
+        "edges": ret_edges,
     }

@@ -89,18 +89,19 @@ export type AddressRecord = {
 };
 
 export type PortfolioGraphNode = {
-  id: number;
-  value: {
-    name: string;
-    bizAddr: string;
-    bbls: string[];
-  };
+  id: string;
+  type: "searchaddr" | "detailaddr" | "owner" | "name" | "bizaddr";
+  name: string;
+  bizAddr: string;
+  parent?: string;
+  value?: string;
+  bbls?: string[];
 };
 
 export type PortfolioGraphEdge = {
-  from: number;
-  to: number;
-  type: string;
+  source: string;
+  target: string;
+  type: "name" | "bizAddr" | "property";
 };
 
 export type RawPortfolioGraphJson = {
