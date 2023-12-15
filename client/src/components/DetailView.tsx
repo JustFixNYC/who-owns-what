@@ -255,7 +255,10 @@ class DetailViewWithoutI18n extends Component<Props, State> {
                     <Trans render="span">View map</Trans>
                   </button>
                 </div>
-                <div className="card-image show-lg">{streetView}</div>
+                <div className="card-image show-lg">
+                  <iframe src="https://roadview.planninglabs.nyc/view/-73.9930299/40.68891" title="streetview"/>
+                </div>
+
                 <div className="columns main-content-columns">
                   <div className="column col-lg-12 col-7">
                     <div className="card-header">
@@ -403,7 +406,9 @@ class DetailViewWithoutI18n extends Component<Props, State> {
                     </div>
                   </div>
                   <div className="column col-lg-12 col-5">
-                    <div className="card-image hide-lg">{streetView}</div>
+                    <div className="card-image hide-lg">
+                    <iframe src="https://roadview.planninglabs.nyc/view/-73.9930299/40.68891" title="streetview2"  sandbox=''/>
+                    </div>
                     <div className="card-body column-right">
                       <UsefulLinks addrForLinks={detailAddr} location="overview-tab" />
                       <div className="card-body-prompt">

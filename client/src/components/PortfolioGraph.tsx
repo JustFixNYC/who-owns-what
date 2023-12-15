@@ -90,12 +90,12 @@ function generatePropertyEdges(
 ) {
   let propertyEdges: Cytoscape.EdgeDefinition[] = [];
   const searchBBLEdges = getLandlordNodeIDFromAddress(existingNodes, searchAddr).map((id) =>
-    createEdge({ source: id, target: "searchaddr", type: "property" })
+    createEdge({ source: id, target: "searchaddr", type: "property", weight: 1 })
   );
   propertyEdges = propertyEdges.concat(searchBBLEdges);
   if (detailAddr) {
     const detailBBLEdges = getLandlordNodeIDFromAddress(existingNodes, detailAddr).map((id) =>
-      createEdge({ source: id, target: "detailaddr", type: "property" })
+      createEdge({ source: id, target: "detailaddr", type: "property", weight: 1 })
     );
     propertyEdges = propertyEdges.concat(detailBBLEdges);
   }
@@ -312,6 +312,7 @@ const PortfolioGraphWithoutI18: React.FC<PortfolioGraphProps> = ({ graphJSON, st
               "line-color": (ele: Cytoscape.EdgeSingular) => EDGE_TYPE_TO_COLOR[ele.data("type")],
               "line-style": (ele: Cytoscape.EdgeSingular) =>
                 ele.data("type") === "name" ? "dashed" : "solid",
+              "width": (ele: Cytoscape.EdgeSingular) => 0.5 + (5 - 0.5) * ele.data("weight"),
             },
           },
           {

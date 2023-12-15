@@ -102,6 +102,7 @@ export type PortfolioGraphEdge = {
   source: string;
   target: string;
   type: "name" | "bizAddr" | "property";
+  weight: number;
 };
 
 export type RawPortfolioGraphJson = {

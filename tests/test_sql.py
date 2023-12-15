@@ -424,7 +424,6 @@ class TestSQL:
                 if os.environ.get("CI")
                 else "6 UNRELATED AVENUE 2 FL, BROOKLYN NY",
                 "name": "BOOP JONES",
-                "registrationids": [3],
             }
 
             assert len(list(nx.connected_components(g))) == 3

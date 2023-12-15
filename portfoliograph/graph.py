@@ -11,10 +11,9 @@ class ConnectedLandlordRow(NamedTuple):
     nodeid: int
     name: str
     bizaddr: str
-    registrationids: List[int]
     bbls: List[str]
-    name_matches: List[int]
-    bizaddr_matches: List[int]
+    name_match_info: List[Dict[str, float]]
+    bizaddr_match_info: List[Dict[str, float]]
 
 
 def build_graph(dict_cursor) -> nx.Graph:
@@ -32,18 +31,25 @@ def build_graph(dict_cursor) -> nx.Graph:
             contact.nodeid,
             name=contact.name,
             bizAddr=contact.bizaddr,
-            registrationids=contact.registrationids,
             bbls=contact.bbls,
         )
 
     for contact in contacts:
-        node1 = contact.nodeid
-        for node2 in contact.name_matches:
-            if not g.has_edge(node1, node2):
-                g.add_edge(node1, node2, type="name")
-        for node2 in contact.bizaddr_matches:
-            if not g.has_edge(node1, node2):
-                g.add_edge(node1, node2, type="bizaddr")
+        nodeid = contact.nodeid
+
+        if contact.name_match_info:
+            for match in contact.name_match_info:
+                if not g.has_edge(nodeid, match["nodeid"]):
+                    g.add_edge(
+                        nodeid, match["nodeid"], type="name", weight=match["weight"]
+                    )
+
+        if contact.bizaddr_match_info:
+            for match in contact.bizaddr_match_info:
+                if not g.has_edge(nodeid, match["nodeid"]):
+                    g.add_edge(
+                        nodeid, match["nodeid"], type="bizaddr", weight=match["weight"]
+                    )
 
     return g
 
@@ -64,7 +70,9 @@ def split_subgraph_if(
 ):
     RESOLUTION = 0.1
     if predicate(subgraph):
-        for comm in nx.community.louvain_communities(subgraph, resolution=RESOLUTION):
+        for comm in nx.community.louvain_communities(
+            subgraph, resolution=RESOLUTION, weight="weight"
+        ):
             comm_subgraph = graph.subgraph(comm)
             if portfolio_size(comm_subgraph) == portfolio_size(subgraph):
                 yield (id, comm_subgraph)
@@ -127,6 +135,7 @@ def to_json_graph(graph: nx.Graph) -> Dict[str, Any]:
                 "source": _from,
                 "target": to,
                 "type": attrs["type"],
+                "weight": attrs["weight"],
             }
         )
     return {
