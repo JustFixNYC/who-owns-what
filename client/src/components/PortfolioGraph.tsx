@@ -312,7 +312,7 @@ const PortfolioGraphWithoutI18: React.FC<PortfolioGraphProps> = ({ graphJSON, st
               "line-color": (ele: Cytoscape.EdgeSingular) => EDGE_TYPE_TO_COLOR[ele.data("type")],
               "line-style": (ele: Cytoscape.EdgeSingular) =>
                 ele.data("type") === "name" ? "dashed" : "solid",
-              "width": (ele: Cytoscape.EdgeSingular) => 0.5 + (5 - 0.5) * ele.data("weight"),
+              width: (ele: Cytoscape.EdgeSingular) => 0.5 + (5 - 0.5) * ele.data("weight"),
             },
           },
           {
