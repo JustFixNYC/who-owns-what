@@ -24,14 +24,14 @@ export interface IndicatorsDataset {
   quantity: (i18n: I18n, value: number) => string;
 
   // Start year for the display data. Determined by several factors to ensure timelines are showing the most
-  // relevant and accurate yearly counts across different indicators. 
+  // relevant and accurate yearly counts across different indicators.
   // e.g. HPD Violations are confirmed to be reported starting Oct 2012.
   startYear: number;
 
   // The localized name for label on the Y-axis, when the given dataset is shown.
   yAxisLabel: (i18n: I18n) => string;
 
-  // A localized explanation for what the dataset means, and where to find more information. 
+  // A localized explanation for what the dataset means, and where to find more information.
   explanation: (i18n: I18n) => JSX.Element;
 }
 

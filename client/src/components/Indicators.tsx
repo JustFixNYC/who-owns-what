@@ -139,7 +139,7 @@ class IndicatorsWithoutI18n extends Component<IndicatorsWithRouterProps, Indicat
   handleTimeSpanChange(selectedOption: any) {
     const activeTimeSpan = selectedOption.value;
     var monthsInGroup = activeTimeSpan === "quarter" ? 3 : activeTimeSpan === "year" ? 12 : 1;
-    
+
     // if (activeTimeSpan === "year") {
     //   const startYear = INDICATORS_DATASETS[this.state.activeVis].startYear;
     //   console.log("here?")
@@ -365,12 +365,8 @@ class IndicatorsWithoutI18n extends Component<IndicatorsWithRouterProps, Indicat
                 <div className="Indicators__viz">
                   <button
                     aria-label={i18n._(t`Move chart data left.`)}
-                    aria-hidden={
-                      xAxisStart === 0 || activeTimeSpan === "year"
-                    }
-                    aria-disabled={
-                      xAxisStart === 0 || activeTimeSpan === "year"
-                    }
+                    aria-hidden={xAxisStart === 0 || activeTimeSpan === "year"}
+                    aria-disabled={xAxisStart === 0 || activeTimeSpan === "year"}
                     className={
                       xAxisStart === 0 || activeTimeSpan === "year"
                         ? "btn btn-off btn-axis-shift"
@@ -387,16 +383,13 @@ class IndicatorsWithoutI18n extends Component<IndicatorsWithRouterProps, Indicat
                   <button
                     aria-label={i18n._(t`Move chart data right.`)}
                     aria-hidden={
-                      xAxisStart + xAxisViewableColumns >= xAxisLength ||
-                      activeTimeSpan === "year"
+                      xAxisStart + xAxisViewableColumns >= xAxisLength || activeTimeSpan === "year"
                     }
                     aria-disabled={
-                      xAxisStart + xAxisViewableColumns >= xAxisLength ||
-                      activeTimeSpan === "year"
+                      xAxisStart + xAxisViewableColumns >= xAxisLength || activeTimeSpan === "year"
                     }
                     className={
-                      xAxisStart + xAxisViewableColumns >= xAxisLength ||
-                      activeTimeSpan === "year"
+                      xAxisStart + xAxisViewableColumns >= xAxisLength || activeTimeSpan === "year"
                         ? "btn btn-off btn-axis-shift"
                         : "btn btn-axis-shift"
                     }
