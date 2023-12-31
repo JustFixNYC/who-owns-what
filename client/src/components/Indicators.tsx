@@ -130,7 +130,7 @@ class IndicatorsWithoutI18n extends Component<IndicatorsWithRouterProps, Indicat
         activeTimeSpan: "year",
         monthsInGroup: 12,
       });
-      }
+    }
 
     this.setState({ activeVis });
     this.setUrlIndicator(activeVis);
@@ -139,6 +139,13 @@ class IndicatorsWithoutI18n extends Component<IndicatorsWithRouterProps, Indicat
   handleTimeSpanChange(selectedOption: any) {
     const activeTimeSpan = selectedOption.value;
     var monthsInGroup = activeTimeSpan === "quarter" ? 3 : activeTimeSpan === "year" ? 12 : 1;
+    
+    // if (activeTimeSpan === "year") {
+    //   const startYear = INDICATORS_DATASETS[this.state.activeVis].startYear;
+    //   console.log("here?")
+    //   console.log(startYear-2007)
+    //   this.setState({ xAxisStart: startYear - 2007})
+    // }
 
     logAmplitudeEvent(`${activeTimeSpan}TimelineTab` as AmplitudeEvent);
     window.gtag("event", `${activeTimeSpan}-timeline-tab`);
@@ -229,7 +236,14 @@ class IndicatorsWithoutI18n extends Component<IndicatorsWithRouterProps, Indicat
     } else {
       const { state, send } = this.props;
       const { detailAddr } = state.context.portfolioData;
-      const { defaultVis, activeVis, activeTimeSpan, monthsInGroup, xAxisStart, xAxisViewableColumns } = this.state;
+      const {
+        defaultVis,
+        activeVis,
+        activeTimeSpan,
+        monthsInGroup,
+        xAxisStart,
+        xAxisViewableColumns,
+      } = this.state;
       const activeData = state.context.timelineData[activeVis];
 
       const xAxisLength = activeData.labels
@@ -253,11 +267,11 @@ class IndicatorsWithoutI18n extends Component<IndicatorsWithRouterProps, Indicat
       )}, ${Helpers.titleCase(detailAddr.boro)}`;
 
       const datasetDescription = INDICATORS_DATASETS[activeVis];
-      
+
       const indicatorOptions = indicatorsDatasetIds.map((id) => {
         return {
-            label: INDICATORS_DATASETS[id].name(i18n),
-            value: id, 
+          label: INDICATORS_DATASETS[id].name(i18n),
+          value: id,
         };
       });
 
@@ -268,7 +282,7 @@ class IndicatorsWithoutI18n extends Component<IndicatorsWithRouterProps, Indicat
           isDisabled: activeVis === "rentstabilizedunits" && id !== "year",
         };
       });
-        
+
       return (
         <div className="Page Indicators">
           <div className="Indicators__content Page__content">
@@ -288,14 +302,15 @@ class IndicatorsWithoutI18n extends Component<IndicatorsWithRouterProps, Indicat
                       width: `${getDropdownWidthFromLongestSelection(datasetSelectionNames)}px`,
                     }}
                   >
-                    <label 
+                    <label
                       id="indicator-dropdown-title"
                       className="Indicators__linksTitle text-uppercase"
                       htmlFor="indicator-dropdown"
-                      aria-label={`${i18n._(t`Display:`)} ${INDICATORS_DATASETS[
-                        activeVis
-                      ].name(i18n)}`}>
-                       <Trans>Display:</Trans>
+                      aria-label={`${i18n._(t`Display:`)} ${INDICATORS_DATASETS[activeVis].name(
+                        i18n
+                      )}`}
+                    >
+                      <Trans>Display:</Trans>
                     </label>
                     <br />
                     <Select
@@ -306,7 +321,7 @@ class IndicatorsWithoutI18n extends Component<IndicatorsWithRouterProps, Indicat
                       name="indicator-type"
                       defaultValue={indicatorOptions.find((i) => i.value === defaultVis)}
                       options={indicatorOptions}
-                      onChange={this.handleVisChange}   
+                      onChange={this.handleVisChange}
                     />
                   </div>
                   <div
@@ -315,12 +330,15 @@ class IndicatorsWithoutI18n extends Component<IndicatorsWithRouterProps, Indicat
                       width: `${getDropdownWidthFromLongestSelection(timeSpanSelectionNames)}px`,
                     }}
                   >
-                    <label 
+                    <label
                       id="timespan-dropdown-title"
                       className="Indicators__linksTitle text-uppercase"
                       htmlFor="timespan-dropdown"
-                      aria-label={`${i18n._(t`View by:`)} ${TIMESPAN_TRANSLATIONS[activeTimeSpan](i18n)}`}>
-                       <Trans>View by:</Trans>
+                      aria-label={`${i18n._(t`View by:`)} ${TIMESPAN_TRANSLATIONS[activeTimeSpan](
+                        i18n
+                      )}`}
+                    >
+                      <Trans>View by:</Trans>
                     </label>
                     <br />
                     <Select
@@ -329,9 +347,13 @@ class IndicatorsWithoutI18n extends Component<IndicatorsWithRouterProps, Indicat
                       classNamePrefix="select"
                       aria-labelledby="timespan-dropdown-title"
                       name="timespan"
-                      defaultValue={activeVis === "rentstabilizedunits" ? timeSpanOptions.find(i => i.value === "year") : timeSpanOptions.find(i => i.value === "quarter")}
+                      defaultValue={
+                        activeVis === "rentstabilizedunits"
+                          ? timeSpanOptions.find((i) => i.value === "year")
+                          : timeSpanOptions.find((i) => i.value === "quarter")
+                      }
                       options={timeSpanOptions}
-                      onChange={this.handleTimeSpanChange}   
+                      onChange={this.handleTimeSpanChange}
                     />
                   </div>
                 </div>
