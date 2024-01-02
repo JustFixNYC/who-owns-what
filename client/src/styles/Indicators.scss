@@ -101,6 +101,26 @@
         font-size: 1.5rem;
         margin: 0 2rem 0.4rem 0;
       }
+
+      .select__control {
+        border-color: $justfix-black;
+      }
+
+      .select__control--is-focused,
+      .select__control--menu-is-open {
+        box-shadow: 0 0 0 1px $justfix-black;
+      }
+
+      .select__menu {
+        .select__option--is-focused {
+          background-color: $justfix-grey-50;
+        }
+
+        .select__option--is-selected {
+          background-color: $justfix-white-200;
+          color: $justfix-black;
+        }
+      }
     }
   }
 
