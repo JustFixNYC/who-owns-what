@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-01-02 23:09\n"
+"PO-Revision-Date: 2024-01-02 23:20\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -1117,7 +1117,7 @@ msgstr "Filtro de Unidades con renta estabilizada"
 
 #: src/components/IndicatorsDatasets.tsx:169
 msgid "Rent Stabilized Units registered since 2007"
-msgstr ""
+msgstr "Unidades de Renta Estabilizada registradas desde 2007"
 
 #: src/components/IndicatorsDatasets.tsx:166
 #~ msgid "Rent Stabilized Units registered since 2010"
@@ -1873,7 +1873,7 @@ msgstr "{value, plural, one {Una demanda de desalojo desde 2017} other {# Demand
 
 #: src/components/IndicatorsDatasets.tsx:7
 msgid "{value, plural, one {One HPD Complaint Issued since 2012} other {# HPD Complaints Issued since 2012}}"
-msgstr ""
+msgstr "{value, plural, one {Una Queja del HPD emitida desde el 2012} other {# Quejas del HPD emitidas desde el 2012}}"
 
 #: src/components/IndicatorsDatasets.tsx:9
 #~ msgid "{value, plural, one {One HPD Complaint Issued since 2014} other {# HPD Complaints Issued since 2014}}"
@@ -1885,5 +1885,5 @@ msgstr ""
 
 #: src/components/IndicatorsDatasets.tsx:36
 msgid "{value, plural, one {One HPD Violation Issued since 2012} other {# HPD Violations Issued since 2012}}"
-msgstr ""
+msgstr "{value, plural, one {Una Violación del HPD emitida desde el 2012} other {# Violaciones del HPD emitidas desde el 2012}}"
 
