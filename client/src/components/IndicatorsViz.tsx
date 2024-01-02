@@ -310,15 +310,17 @@ class IndicatorsVizImplementation extends Component<IndicatorVizImplementationPr
     var labelPosition: string = ""; // specific graph label value where we want to mark "Sold to Current Owner" (as YYYY-MM)
     var dateLocation = "current"; // last sale date is either in the 'past', 'future', or 'current' (default)
 
+    var xAxisStart =
+      this.props.activeTimeSpan === "year"
+        ? INDICATORS_DATASETS[this.props.activeVis].startYear - 2007
+        : this.props.xAxisStart;
+
     if (data.labels) {
       const lastColumnIndex =
-        Math.min(this.props.xAxisStart + this.props.xAxisViewableColumns, data.labels.length) - 1;
+        Math.min(xAxisStart + this.props.xAxisViewableColumns, data.labels.length) - 1;
 
-      if (
-        !this.props.lastSale.label ||
-        this.props.lastSale.label < data.labels[this.props.xAxisStart]
-      ) {
-        labelPosition = (data.labels[this.props.xAxisStart] || "").toString();
+      if (!this.props.lastSale.label || this.props.lastSale.label < data.labels[xAxisStart]) {
+        labelPosition = (data.labels[xAxisStart] || "").toString();
         dateLocation = "past";
       } else if (this.props.lastSale.label > data.labels[lastColumnIndex]) {
         labelPosition = (data.labels[lastColumnIndex] || "").toString();
@@ -399,9 +401,9 @@ class IndicatorsVizImplementation extends Component<IndicatorVizImplementationPr
         xAxes: [
           {
             ticks: {
-              min: data.labels ? data.labels[this.props.xAxisStart] : null,
+              min: data.labels ? data.labels[xAxisStart] : null,
               max: data.labels
-                ? data.labels[this.props.xAxisStart + this.props.xAxisViewableColumns - 1]
+                ? data.labels[xAxisStart + this.props.xAxisViewableColumns - 1]
                 : null,
               maxRotation: 45,
               minRotation: 45,
