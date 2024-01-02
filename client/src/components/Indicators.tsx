@@ -140,13 +140,6 @@ class IndicatorsWithoutI18n extends Component<IndicatorsWithRouterProps, Indicat
     const activeTimeSpan = selectedOption.value;
     var monthsInGroup = activeTimeSpan === "quarter" ? 3 : activeTimeSpan === "year" ? 12 : 1;
 
-    // if (activeTimeSpan === "year") {
-    //   const startYear = INDICATORS_DATASETS[this.state.activeVis].startYear;
-    //   console.log("here?")
-    //   console.log(startYear-2007)
-    //   this.setState({ xAxisStart: startYear - 2007})
-    // }
-
     logAmplitudeEvent(`${activeTimeSpan}TimelineTab` as AmplitudeEvent);
     window.gtag("event", `${activeTimeSpan}-timeline-tab`);
 
