@@ -1,21 +1,17 @@
 import React from "react";
 import { I18n } from "@lingui/core";
 import { t, Trans, plural } from "@lingui/macro";
-import { withI18n } from "@lingui/react";
 import { IndicatorsDatasetId } from "./IndicatorsTypes";
-import { AmplitudeEvent, logAmplitudeEvent } from "./Amplitude";
 
 /**
  * This interface encapsulates metadata about an Indicators dataset.
  */
 export interface IndicatorsDataset {
-  /** The localized name of the dataset, e.g. "HPD Complaints". */
+  // The localized name of the dataset, e.g. "HPD Complaints"
   name: (i18n: I18n) => string;
 
-  /**
-   * The name to use for the dataset in analytics. The type options must be defined here
-   * for it to recognize the template strings as valid values for the AmplitudeEvent type
-   */
+  // The name to use for the dataset in analytics. The type options must be defined here
+  // for it to recognize the template strings as valid values for the AmplitudeEvent type
   analyticsName:
     | "hpdcomplaints"
     | "hpdviolations"
@@ -24,20 +20,18 @@ export interface IndicatorsDataset {
     | "evictionfilings"
     | "rentstabilizedunits";
 
-  /**
-   * The localized name for a particular "quantity" of the dataset, e.g.
-   * "15 HPD Complaints issued since 2014".
-   */
+  // The localized name for a particular "quantity" of the dataset, e.g. "15 HPD Complaints issued since 2014".
   quantity: (i18n: I18n, value: number) => string;
 
-  /**
-   * The localized name for label on the Y-axis, when the given dataset is shown.
-   */
+  // Start year for the display data. Determined by several factors to ensure timelines are showing the most
+  // relevant and accurate yearly counts across different indicators.
+  // e.g. HPD Violations are confirmed to be reported starting Oct 2012.
+  startYear: number;
+
+  // The localized name for label on the Y-axis, when the given dataset is shown.
   yAxisLabel: (i18n: I18n) => string;
 
-  /**
-   * A localized explanation for what the dataset means, and where to find more information.
-   */
+  // A localized explanation for what the dataset means, and where to find more information.
   explanation: (i18n: I18n) => JSX.Element;
 }
 
@@ -53,10 +47,11 @@ export const INDICATORS_DATASETS: IndicatorsDatasetMap = {
       i18n._(
         plural({
           value,
-          one: "One HPD Complaint Issued since 2014",
-          other: "# HPD Complaints Issued since 2014",
+          one: "One HPD Complaint Issued since 2012",
+          other: "# HPD Complaints Issued since 2012",
         })
       ),
+    startYear: 2012, // set to match HPD Violations startYear
     yAxisLabel: (i18n) => i18n._(t`Complaints Issued`),
     explanation: () => (
       <Trans render="span">
@@ -91,10 +86,11 @@ export const INDICATORS_DATASETS: IndicatorsDatasetMap = {
       i18n._(
         plural({
           value,
-          one: "One HPD Violation Issued since 2010",
-          other: "# HPD Violations Issued since 2010",
+          one: "One HPD Violation Issued since 2012",
+          other: "# HPD Violations Issued since 2012",
         })
       ),
+    startYear: 2012, // HPD confirmed accuracy of violations data starting Oct 2012
     yAxisLabel: (i18n) => i18n._(t`Violations Issued`),
     explanation: () => (
       <Trans render="span">
@@ -137,6 +133,7 @@ export const INDICATORS_DATASETS: IndicatorsDatasetMap = {
           other: "# Building Permit Applications since 2010",
         })
       ),
+    startYear: 2010, // Noticed a significant drop in reported numbers before 2010
     yAxisLabel: (i18n) => i18n._(t`Building Permits Applied For`),
     explanation: () => (
       <Trans render="span">
@@ -168,6 +165,7 @@ export const INDICATORS_DATASETS: IndicatorsDatasetMap = {
           other: "# DOB/ECB Violations Issued since 2010",
         })
       ),
+    startYear: 2010, // Noticed a significant drop in reported numbers before 2010
     yAxisLabel: (i18n) => i18n._(t`Violations Issued`),
     explanation: () => (
       <Trans render="span">
@@ -219,6 +217,7 @@ export const INDICATORS_DATASETS: IndicatorsDatasetMap = {
               other: "# Eviction Filings since 2017",
             })
           ),
+    startYear: 2017, // Data begins at 2017
     yAxisLabel: (i18n) => i18n._(t`Eviction Filings`),
     explanation: () => (
       <Trans render="span">
@@ -260,7 +259,8 @@ export const INDICATORS_DATASETS: IndicatorsDatasetMap = {
   rentstabilizedunits: {
     name: (i18n) => i18n._(t`Rent Stabilized Units`),
     analyticsName: "rentstabilizedunits",
-    quantity: (i18n, value) => i18n._("Rent Stabilized Units registered since 2010"),
+    quantity: (i18n, value) => i18n._("Rent Stabilized Units registered since 2007"),
+    startYear: 2007, // Noticed a significant change in reported counts before 2007. Also, any older data may not be all that useful
     yAxisLabel: (i18n) => i18n._(t`Number of Units`),
     explanation: () => (
       <Trans render="span">
@@ -318,41 +318,3 @@ export const INDICATORS_DATASETS: IndicatorsDatasetMap = {
     ),
   },
 };
-
-const IndicatorsDatasetRadioWithoutI18n: React.FC<{
-  i18n: I18n;
-
-  /** The dataset ID which this radio button will activate. */
-  id: IndicatorsDatasetId;
-
-  /** The dataset ID of the currently active dataset. */
-  activeId: IndicatorsDatasetId;
-
-  /** A handler called when this radio button is selected. */
-  onChange: (id: IndicatorsDatasetId) => void;
-}> = ({ i18n, id, activeId, onChange }) => {
-  const dataset = INDICATORS_DATASETS[id];
-  const isActive = activeId === id;
-  const analyticsName = dataset.analyticsName;
-  const name = dataset.name(i18n);
-
-  return (
-    <li className="menu-item">
-      <label
-        className={"form-radio" + (isActive ? " active" : "")}
-        onClick={() => {
-          logAmplitudeEvent(`${analyticsName}TimelineTab` as AmplitudeEvent);
-          window.gtag("event", `${analyticsName}-timeline-tab`);
-        }}
-      >
-        <input type="radio" name={name} checked={isActive} onChange={() => onChange(id)} />
-        <i className="form-icon"></i> {name}
-      </label>
-    </li>
-  );
-};
-
-/**
- * Render a radio button for the dataset with the given ID.
- */
-export const IndicatorsDatasetRadio = withI18n()(IndicatorsDatasetRadioWithoutI18n);

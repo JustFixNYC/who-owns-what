@@ -71,7 +71,7 @@ msgstr "Datos de quejas al 311"
 msgid "<0>If the landlord doesn't reside here, this property should be registered with HPD</0> because it has fewer than 3 residential units."
 msgstr "<0>Si el dueño no reside aquí, esta propiedad debería estar registrado con el HPD</0> porque tiene menos de 3 unidades residenciales."
 
-#: src/components/IndicatorsDatasets.tsx:168
+#: src/components/IndicatorsDatasets.tsx:172
 msgid "<0>Rent stabilization</0> protects tenants by limiting rent increases and providing the right to lease renewals. Landlords register rent-stabilized units each year with NYS Homes and Community Renewal (HCR). Though the agency does not directly make this data available, the number of registered rent-stabilized units appears on public city property tax bills. JustFix and open-source community projects have extracted these numbers to compile a <1>dataset of building-level counts of rent-stabilized units</1> from 2007 to 2022.<2/><3/>A significant limitation of the data is that <4>landlords will sometimes fail to register the units</4> or do so late, and in the tax bills, it appears there are no rent-stabilized units. For this reason, you may see a sudden drop of registered units to zero, but this doesn’t necessarily reflect an actual loss of stabilized units. If you see a gradual decline in the number of stabilized units that is more likely to represent a true destabilization of units, especially if before 2019 when the passage of the Housing Stability and Tenant Protection Act of 2019 (HSTPA) greatly limited the ways units could be legally destabilized. Even when units are actually destabilized by landlords it does not mean that this was done legally. The only way to know for sure whether your apartment is rent stabilized, was illegally destabilized, or if you are being overcharged is to <5>request your rent history</5> from HCR. Once you receive it, you can use <6>this Learning Center article</6> to guide you in reading your rent history document."
 msgstr "<0>Renta estabilizada</0> protege a los inquilinos al limitar los aumentos de renta y el derecho a la renovación del contrato de arrendamiento. Los dueños registran las unidades de renta estabilizada cada año con NYS Homes and Community Renewal (HCR). Aunque la agencia no facilita directamente estos datos, el número de unidades de renta estabilizada registradas aparece en las facturas públicas de impuestos de la ciudad. JustFix y proyectos comunitarios de fuentes abiertas han extraído estas cifras para generar <1>un registro de datos a nivel de edificio de las unidades de renta estabilizada </1> desde 2007 hasta 2022.<2/><3/>Una limitación importante de los datos es que <4>los dueños a veces no registran las unidades</4> o lo hacen tarde y, en las facturas de impuestos, parece que no hay unidades de renta estabilizada. Por este motivo, es posible que se observe un descenso repentino de las unidades registradas hasta cero, pero esto no refleja necesariamente una pérdida real de unidades con renta estabilizada. Si observa una disminución gradual en el número de unidades de renta estabilizada, es más probable que represente una verdadera desestabilización de unidades, especialmente si es antes de 2019, cuando la aprobación de la Ley de Estabilidad de la Vivienda y Protección del Inquilino de 2019 (HSTPA) limitó en enormemente las formas en que las unidades podrían desestabilizarse legalmente. Incluso cuando las unidades son realmente desestabilizadas por los dueños, no significa que esto se haya hecho legalmente. La única manera de saber con certeza si su apartamento es de renta estabilizada, fue desestabilizado ilegalmente, o si se le está cobrando de más es <5>solicitar su historial de renta</5> a HCR. Una vez que lo reciba, puede utilizar <6>este artículo del Centro de Aprendizaje</6> para guiarse en la lectura de su documento de historial de renta."
 
@@ -87,7 +87,7 @@ msgstr "<0>Esta propiedad debe estar registrada con en HPD</0> porque tiene más
 msgid "<0>While the legal owner of a building is often a company (usually called an “LLC”), these names and business addresses registered with HPD offer a clearer picture of who really controls the building.</0><1>People listed here as “Head Officer” or “Owner” usually have ties to building ownership, while “Site Managers” are part of management. That being said, these names are self reported by the landlord, so they can be misleading.</1><2>Learn more about HPD registrations and how this information powers this tool on the <3>About page</3>.</2>"
 msgstr "<0>Mientras el dueño legal de un edificio es, con frecuencia, una compañía (se llama muchas veces un “LLC”), estos nombres y direcciones de negocio registrado con HPD se ofrecen una idea más clara de quién controla el edificio.</0><1>Las personas enumeradas aquí como “Oficial Principal” o “Dueño” normalmente tienen una conexión con la propiedad del edificio, mientras que los \"Administradores del Sitio\" formen parte de la gerencia. Dicho eso, estos nombres son autoinformados por el dueño, y entonces pueden ser engañosos.</1><2>Aprende más acerca de registros de HPD y cómo esta información impulsa la herramienta en la <3>página “Acerca de”</3>.</2>"
 
-#: src/components/IndicatorsDatasets.tsx:98
+#: src/components/IndicatorsDatasets.tsx:100
 msgid "A DOB Violation is a notice that a property is not in compliance with applicable law, usually a building code. DOB Violations typically relate to building-wide services (like elevators or boilers), the structural integrity of a property, or illegal construction. Owners must cure all DOB Violations before they can file a new or amended Certificate of Occupancy (\"CO\").<0/><1/><2>Non-ECB</2> — typical violation, no court hearing needed<3/><4>ECB (Environment Control Board)</4> — a specific violation of New York City Construction Codes or Zoning Resolution. These violations come with additional penalties and require an owner to attend an <5>OATH hearing</5>. They fall into three classes: Class I (immediately hazardous), Class II (major), and Class III (lesser).<6/><7/>Read more about DOB Violations at the <8>official DOB page</8>."
 msgstr "Una violación de DOB es un aviso de que una propiedad no cumple con la ley aplicable, generalmente un código de edificios. Las violaciones de DOB generalmente se relacionan con servicios en todo el edificio (como ascensores o calderas), la integridad estructural de una propiedad o la construcción ilegal. Los dueños deben arreglar todas las violaciones de DOB antes de poder presentar un Certificado de ocupación (\"CO\") nuevo o enmendado.<0/><1/><2>No ECB</2> — infracción típica, no se necesita audiencia judicial<3/><4>ECB (Junta de Control Medioambiental)</4> — una violación específica de los Códigos de Construcción de la Ciudad de Nueva York o la Resolución de Zonificación. Estas violaciones vienen con sanciones adicionales y requieren que el dueño asista a una <5>audiencia de OATH</5>. Se dividen en tres clases: Clase I (peligro inmediato), Clase II (mayor) y Clase III (menor).<6/><7/>Encontrarás más información sobre las violaciones del DOB en la <8>página oficial del DOB</8>."
 
@@ -142,7 +142,7 @@ msgstr "Toda la información pública sobre el dueño/a de tu edificio"
 msgid "Amount"
 msgstr "Importe"
 
-#: src/components/IndicatorsDatasets.tsx:136
+#: src/components/IndicatorsDatasets.tsx:139
 msgid "An “eviction filing” is a legal case for eviction commenced by a landlord against a tenant in Housing Court. Such a case can be commenced for nonpayment of rent (most commonly) or for a violation of the lease (such as a nuisance). The eviction filings number only represents cases filed in Housing Court (data from the New York State Office of Court Administration <0>via the Housing Data Coalition</0> in collaboration with the <1>Right to Counsel Coalition</1>) and not evictions carried out by NYC Marshals.<2/><3/>If you or someone you know is facing eviction and want to learn more about your rights, head over to <4>Housing Court Answers for more information</4>.<5/><6/>Due to privacy restrictions on the use of these data, eviction filings cannot be shown for buildings with fewer than 11 units."
 msgstr "Una \"demanda de desalojo\" es un caso legal de desalojo iniciado por un dueño contra un inquilino en la Corte de Vivienda. Este caso puede iniciarse por falta de pago de la renta (lo más común) o por una violación del contrato de alquiler (como una molestia). La cifra de desalojos sólo representa los casos presentados ante la Corte de Vivienda (datos de la Oficina de Administración de la Corte del Estado de Nueva York <0>a través de la Coalición de Datos de Vivienda</0> en colaboración con la <1>Coalición del Derecho a la Defensa o RTC</1>) y no los desalojos llevados a cabo por los Alguaciles de la Ciudad de Nueva York.<2/><3/>Si usted o alguien que conoce se enfrenta a un desalojo y quiere saber más sobre sus derechos, diríjase a <4>Housing Court Answers para obtener más información</4>.<5/><6/>Debido a las restricciones de privacidad en el uso de estos datos, no se pueden mostrar los desalojos de edificios con menos de 11 unidades."
 
@@ -197,7 +197,7 @@ msgstr "Oficina de Gestión Municipal:"
 msgid "Building Permit Applications"
 msgstr "Solicitudes de Permisos de Construcción"
 
-#: src/components/IndicatorsDatasets.tsx:75
+#: src/components/IndicatorsDatasets.tsx:76
 #: src/components/IndicatorsViz.tsx:188
 msgid "Building Permits Applied For"
 msgstr "Permisos de Construcción Solicitados"
@@ -318,7 +318,7 @@ msgstr "Cerrar"
 #~ msgid "Close legend"
 #~ msgstr "Close legend"
 
-#: src/components/IndicatorsDatasets.tsx:14
+#: src/components/IndicatorsDatasets.tsx:13
 msgid "Complaints Issued"
 msgstr "Quejas Emitidas"
 
@@ -350,7 +350,7 @@ msgstr "Rango personalizadas"
 msgid "DOB Building Profile"
 msgstr "Perfil de edificio en DOB"
 
-#: src/components/IndicatorsDatasets.tsx:90
+#: src/components/IndicatorsDatasets.tsx:91
 msgid "DOB/ECB Violations"
 msgstr "Violaciones del DOB/ECB"
 
@@ -378,8 +378,8 @@ msgstr "Sitio Demo"
 msgid "Disclaimer: The information in JustFix does not constitute legal advice and must not be used as a substitute for the advice of a lawyer qualified to give advice on legal issues pertaining to housing. We can help direct you to free legal services if necessary."
 msgstr "Descargo de responsabilidad: La información en JustFix no constituye asesoramiento jurídico y no debe ser utilizado como sustituto del asesoramiento de un abogado cualificado para asesorar sobre cuestiones jurídicas relativas a la vivienda. Nosotros podemos ayudarte a dirigirte a servicios legales gratuitos si es necesario."
 
-#: src/components/Indicators.tsx:189
-#: src/components/Indicators.tsx:192
+#: src/components/Indicators.tsx:209
+#: src/components/Indicators.tsx:210
 msgid "Display:"
 msgstr "Mostrar:"
 
@@ -438,8 +438,8 @@ msgstr "Anote el número mínimo y máximo de unidades, o deje cualquiera de los
 #~ msgstr "Error"
 
 #: src/components/BuildingStatsTable.tsx:80
-#: src/components/IndicatorsDatasets.tsx:126
-#: src/components/IndicatorsDatasets.tsx:135
+#: src/components/IndicatorsDatasets.tsx:128
+#: src/components/IndicatorsDatasets.tsx:138
 #: src/components/IndicatorsViz.tsx:217
 msgid "Eviction Filings"
 msgstr "Demandas de desalojo"
@@ -553,16 +553,16 @@ msgstr "CALEFACCIÓN"
 msgid "HPD Building Profile"
 msgstr "Perfil de edificio del HPD"
 
-#: src/components/IndicatorsDatasets.tsx:7
+#: src/components/IndicatorsDatasets.tsx:5
 #: src/components/PortfolioTable.tsx:179
 msgid "HPD Complaints"
 msgstr "Quejas del HPD"
 
-#: src/components/IndicatorsDatasets.tsx:15
+#: src/components/IndicatorsDatasets.tsx:14
 msgid "HPD Complaints are housing issues reported to the City <0>by a tenant calling 311</0>. When someone issues a complaint, the Department of Housing Preservation and Development begins a process of investigation that may lead to an official violation from the City. Complaints can be identified as:<1/><2/><3>Emergency</3> — reported to be hazardous/dire<4/><5>Non-Emergency</5> — all others<6/><7/>Read more about HPD Complaints and how to file them at the <8>official HPD page</8>."
 msgstr "Las quejas de HPD son problemas de vivienda presentados a la Ciudad <0>por un inquilino al llamar al 311</0>. Cuando alguien presenta una queja, el Departamento de Preservación y Desarrollo de la Vivienda, DHCR por sus siglas en inglés, inicia un proceso de investigación que puede conducir a la emisión de una infracción oficial por parte de la Ciudad. Las quejas se pueden identificar como:<1/><2/><3>Emergencia</3> — se ha informado de que son peligrosas<4/><5>No-Emergencia</5> — todas las demás<6/><7/> Encontrarás más información sobre las quejas de HPD y cómo presentarlas en la página <8>oficial del HPD</8>."
 
-#: src/components/IndicatorsDatasets.tsx:35
+#: src/components/IndicatorsDatasets.tsx:34
 #: src/components/PortfolioTable.tsx:212
 msgid "HPD Violations"
 msgstr "Violaciones del HPD"
@@ -713,7 +713,7 @@ msgstr "Últimos 3 años"
 msgid "Last Sale"
 msgstr "Última venta"
 
-#: src/components/IndicatorsViz.tsx:439
+#: src/components/IndicatorsViz.tsx:441
 msgid "Last Sale Unknown"
 msgstr "Última venta desconocida"
 
@@ -866,11 +866,11 @@ msgstr "Más útil para dispositivos móviles"
 msgid "Most Common 311 Complaints, Last 3 Years"
 msgstr "Las quejas más comunes de 311, los últimos 3 años"
 
-#: src/components/Indicators.tsx:220
+#: src/components/Indicators.tsx:233
 msgid "Move chart data left."
 msgstr "Mover datos del gráfico a la izquierda."
 
-#: src/components/Indicators.tsx:229
+#: src/components/Indicators.tsx:242
 msgid "Move chart data right."
 msgstr "Mover datos del gráfico a la derecha."
 
@@ -918,7 +918,7 @@ msgstr "Página siguiente"
 msgid "No"
 msgstr "No"
 
-#: src/components/IndicatorsDatasets.tsx:129
+#: src/components/IndicatorsDatasets.tsx:131
 msgid "No Eviction Filings Data Available for Properties with Fewer than 11 Units"
 msgstr "No hay datos disponibles de demandas de desalojos en propiedades con menos de 11 unidades"
 
@@ -963,7 +963,7 @@ msgstr "No encontrado"
 #~ msgid "Notice an inaccuracy? Click here."
 #~ msgstr "Notice an inaccuracy? Click here."
 
-#: src/components/IndicatorsDatasets.tsx:167
+#: src/components/IndicatorsDatasets.tsx:171
 #: src/components/PortfolioFilters.tsx:145
 msgid "Number of Units"
 msgstr "Número de unidades"
@@ -1015,7 +1015,7 @@ msgstr "Dueños"
 #~ msgid "Owner/Manager"
 #~ msgstr "Owner/Manager"
 
-#: src/components/IndicatorsDatasets.tsx:76
+#: src/components/IndicatorsDatasets.tsx:77
 msgid "Owners submit Building Permit Applications to the Department of Buildings before any construction project to get necessary approval. The number of applications filed can indicate how much construction the owner was planning.<0/><1/>Read more about DOB Building Applications/Permits at the <2>official NYC Buildings page</2>."
 msgstr "Antes de empezar cualquier proyecto de construcción, el propietario somete un solicitud para conseguir permisos de construcción al Departamento de Edificios para obtener la autorización necesaria. El número de solicitudes que asociadas a un edificio te puede dar una idea de cuánta construcción planea hacer el propietario. <0/><1/> Encontrarás más información sobre Permisos de Construcción del DOB en la <2>página oficial de Edificios de NYC</2>."
 
@@ -1105,7 +1105,7 @@ msgstr "Más información sobre nuestra metodología"
 msgid "Registration expired:"
 msgstr "El registro ha caducado:"
 
-#: src/components/IndicatorsDatasets.tsx:164
+#: src/components/IndicatorsDatasets.tsx:167
 #: src/components/IndicatorsViz.tsx:228
 #: src/components/PortfolioFilters.tsx:139
 msgid "Rent Stabilized Units"
@@ -1115,9 +1115,13 @@ msgstr "Unidades con renta estabilizada"
 msgid "Rent Stabilized Units filter"
 msgstr "Filtro de Unidades con renta estabilizada"
 
+#: src/components/IndicatorsDatasets.tsx:169
+msgid "Rent Stabilized Units registered since 2007"
+msgstr ""
+
 #: src/components/IndicatorsDatasets.tsx:166
-msgid "Rent Stabilized Units registered since 2010"
-msgstr "Unidades de Renta Estabilizada registradas desde 2010"
+#~ msgid "Rent Stabilized Units registered since 2010"
+#~ msgstr "Unidades de Renta Estabilizada registradas desde 2010"
 
 #: src/components/PropertiesSummary.tsx:126
 msgid "Rent stabilization"
@@ -1271,7 +1275,7 @@ msgstr "Desde {year}"
 msgid "Site Manager"
 msgstr "Administrador del Sitio"
 
-#: src/components/IndicatorsViz.tsx:412
+#: src/components/IndicatorsViz.tsx:414
 msgid "Sold"
 msgstr "Vendido"
 
@@ -1497,7 +1501,7 @@ msgstr "Cronología"
 msgid "Top Complaint"
 msgstr "Queja principal"
 
-#: src/components/IndicatorsViz.tsx:374
+#: src/components/IndicatorsViz.tsx:376
 #: src/components/PortfolioTable.tsx:184
 #: src/components/PortfolioTable.tsx:225
 msgid "Total"
@@ -1563,8 +1567,8 @@ msgstr "Ver detalles"
 msgid "View Results"
 msgstr "Ver resultados"
 
-#: src/components/Indicators.tsx:200
-#: src/components/Indicators.tsx:203
+#: src/components/Indicators.tsx:218
+#: src/components/Indicators.tsx:219
 msgid "View by:"
 msgstr "Visualizar por:"
 
@@ -1603,7 +1607,7 @@ msgstr "Ver portafolio de edificios"
 #~ msgstr "View portfolio map"
 
 #: src/components/IndicatorsDatasets.tsx:42
-#: src/components/IndicatorsDatasets.tsx:97
+#: src/components/IndicatorsDatasets.tsx:99
 msgid "Violations Issued"
 msgstr "Violaciones emitidas"
 
@@ -1659,7 +1663,7 @@ msgstr "Hemos mejorado ¿Quién es el Dueño en NY? para profundizar en los dato
 #~ msgid "We’ve improved Who Owns What to dig deeper into the data and offer you a more complete picture of buildings associated with your landlord. <0>Read more on our Methodology page</0>"
 #~ msgstr "We’ve improved Who Owns What to dig deeper into the data and offer you a more complete picture of buildings associated with your landlord. <0>Read more on our Methodology page</0>"
 
-#: src/components/Indicators.tsx:243
+#: src/components/Indicators.tsx:253
 msgid "What are {0}?"
 msgstr "¿Qué son {0}?"
 
@@ -1851,7 +1855,7 @@ msgstr "{0} {1}, {2} tiene {3, plural, one {una violación del HPD actual} other
 msgid "{numberOfHits} {numberOfHits, plural, one {search result} other {search results}}."
 msgstr "{numberOfHits} {numberOfHits, plural, one {resultado de búsqueda} other {resultados de búsqueda}}."
 
-#: src/components/IndicatorsViz.tsx:465
+#: src/components/IndicatorsViz.tsx:467
 msgid "{unitsres, plural, one {1 unit total} other {# units total}}"
 msgstr "{unitsres, plural, one {unidad} other {unidades}}"
 
@@ -1859,19 +1863,26 @@ msgstr "{unitsres, plural, one {unidad} other {unidades}}"
 msgid "{value, plural, one {One Building Permit Application since 2010} other {# Building Permit Applications since 2010}}"
 msgstr "{value, plural, one {Una Solicitud de Permiso de Construcción desde el 2010} other {# Solicitudes de Permiso de Construcción desde el 2010}}"
 
-#: src/components/IndicatorsDatasets.tsx:92
+#: src/components/IndicatorsDatasets.tsx:93
 msgid "{value, plural, one {One DOB/ECB Violation Issued since 2010} other {# DOB/ECB Violations Issued since 2010}}"
 msgstr "{value, plural, one {Una Violación del DOB/ECB emitida desde el 2010} other {# Violaciones del DOB/ECB emitidas desde el 2010}}"
 
-#: src/components/IndicatorsDatasets.tsx:130
+#: src/components/IndicatorsDatasets.tsx:132
 msgid "{value, plural, one {One Eviction Filing since 2017} other {# Eviction Filings since 2017}}"
 msgstr "{value, plural, one {Una demanda de desalojo desde 2017} other {# Demandas de desalojo desde 2017}}"
 
+#: src/components/IndicatorsDatasets.tsx:7
+msgid "{value, plural, one {One HPD Complaint Issued since 2012} other {# HPD Complaints Issued since 2012}}"
+msgstr ""
+
 #: src/components/IndicatorsDatasets.tsx:9
-msgid "{value, plural, one {One HPD Complaint Issued since 2014} other {# HPD Complaints Issued since 2014}}"
-msgstr "{value, plural, one {Una Queja del HPD emitida desde el 2014} other {# Quejas del HPD emitidas desde el 2014}}"
+#~ msgid "{value, plural, one {One HPD Complaint Issued since 2014} other {# HPD Complaints Issued since 2014}}"
+#~ msgstr "{value, plural, one {Una Queja del HPD emitida desde el 2014} other {# Quejas del HPD emitidas desde el 2014}}"
 
 #: src/components/IndicatorsDatasets.tsx:37
-msgid "{value, plural, one {One HPD Violation Issued since 2010} other {# HPD Violations Issued since 2010}}"
-msgstr "{value, plural, one {Una Violación del HPD emitida desde el 2010} other {# Violaciones del HPD emitidas desde el 2010}}"
+#~ msgid "{value, plural, one {One HPD Violation Issued since 2010} other {# HPD Violations Issued since 2010}}"
+#~ msgstr "{value, plural, one {Una Violación del HPD emitida desde el 2010} other {# Violaciones del HPD emitidas desde el 2010}}"
 
+#: src/components/IndicatorsDatasets.tsx:36
+msgid "{value, plural, one {One HPD Violation Issued since 2012} other {# HPD Violations Issued since 2012}}"
+msgstr ""
