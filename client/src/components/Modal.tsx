@@ -2,10 +2,11 @@ import React from "react";
 import ReactModal from "react-modal";
 
 import "styles/Modal.css";
+import { CloseButton } from "./CloseButton";
 
 type ModalProps = {
   showModal: boolean;
-  onClose: (event: any) => void;
+  onClose: () => void;
   children: any;
   width?: number;
 };
@@ -48,9 +49,10 @@ const Modal = (props: ModalProps) => {
       shouldCloseOnOverlayClick={true}
       shouldCloseOnEsc={true}
     >
-      <button className="ReactModal__Close btn btn-link" onClick={(e) => props.onClose(e)}>
-        [ x ]
-      </button>
+      <CloseButton 
+        onClick={props.onClose}
+        className="ReactModal__Close"
+      />
       {props.children}
     </ReactModal>
   );
