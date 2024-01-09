@@ -123,7 +123,7 @@
     }
 
     .DetailView__mobilePortfolioView {
-      padding: 13px;
+      padding: 1.3rem 2rem;
 
       display: none;
       @include for-phone-only() {
@@ -141,6 +141,9 @@
 
     .card-header {
       padding-bottom: 1.5rem;
+      @include for-phone-only {
+        padding: 1.5rem 1rem;
+      }
 
       .card-title {
         margin-bottom: 0;
@@ -162,7 +165,29 @@
 
     .card-image {
       padding-top: 0;
-      border-bottom: 1px solid $dark;
+      figure {
+        display: inline-block;
+        width: 100%;
+        img {
+          object-fit: cover;
+          object-position: bottom;
+          width: 100%;
+          max-height: 300px;
+          @include for-tablet-landscape-down {
+            max-height: 180px;
+          }
+        }
+      }
+      figcaption {
+        margin: 0;
+        @include for-tablet-landscape-down {
+          padding-left: 2.5rem;
+        }
+        @include for-phone-only {
+          padding-right: 2rem;
+          text-align: right;
+        }
+      }
     }
 
     .card-body {
