@@ -166,11 +166,11 @@ const LoginWithoutI18n = (props: LoginProps) => {
   const renderHeader = () => {
     return (
       <>
-          <h4 className="page-title text-center">{i18n._(t`${header}`)}</h4>
-          <h5 className="text-left">{i18n._(t`${subheader}`)}</h5>
+        <h4 className="page-title text-center">{i18n._(t`${header}`)}</h4>
+        <h5 className="text-left">{i18n._(t`${subheader}`)}</h5>
       </>
-    )
-  }
+    );
+  };
 
   const renderFooter = () => {
     return (
@@ -188,39 +188,47 @@ const LoginWithoutI18n = (props: LoginProps) => {
         <div className="login-type-toggle">
           {isRegisterState ? (
             <>
-            <Trans>Already have an account?</Trans>
-            <button
-              className="button is-text ml-5"
-              onClick={() => toggleLoginState(LoginState.Login)}
-            >
-              <Trans>Log in</Trans>
-            </button>
+              <Trans>Already have an account?</Trans>
+              <button
+                className="button is-text ml-5"
+                onClick={() => toggleLoginState(LoginState.Login)}
+              >
+                <Trans>Log in</Trans>
+              </button>
             </>
           ) : (
             <>
-            <Trans>Don't have an account?</Trans>
-            <button
-              className="button is-text ml-5 pt-20"
-              onClick={() => toggleLoginState(LoginState.Register)}
-            >
-              <Trans>Sign up</Trans>
-            </button>
+              <Trans>Don't have an account?</Trans>
+              <button
+                className="button is-text ml-5 pt-20"
+                onClick={() => toggleLoginState(LoginState.Register)}
+              >
+                <Trans>Sign up</Trans>
+              </button>
             </>
           )}
         </div>
         <Modal key={1} showModal={showInfoModal} width={40} onClose={() => setShowInfoModal(false)}>
-          <Trans render="h4">Your privacy is very important to us. Here are some important things to know:</Trans>
+          <Trans render="h4">
+            Your privacy is very important to us. Here are some important things to know:
+          </Trans>
           <ul>
             <Trans render="li">Your personal information is secure.</Trans>
-            <Trans render="li">We don’t use your personal information for profit and will never give or sell it to third parties.</Trans>
+            <Trans render="li">
+              We don’t use your personal information for profit and will never give or sell it to
+              third parties.
+            </Trans>
           </ul>
           <Trans>
-            If you would like to read more about our mission, please visit <a href="https://www.justfix.org/">JustFix.org</a>. 
-            If you would like to read more about the data we collect, please review our full <a href="https://www.justfix.org/en/privacy-policy/">Privacy Policy</a> and <a href="https://www.justfix.org/en/terms-of-use/">Terms of Use</a>.
+            If you would like to read more about our mission, please visit{" "}
+            <a href="https://www.justfix.org/">JustFix.org</a>. If you would like to read more about
+            the data we collect, please review our full{" "}
+            <a href="https://www.justfix.org/en/privacy-policy/">Privacy Policy</a> and{" "}
+            <a href="https://www.justfix.org/en/terms-of-use/">Terms of Use</a>.
           </Trans>
         </Modal>
       </div>
-    )
+    );
   };
 
   const isBadEmailFormat = () => {
@@ -289,10 +297,10 @@ const LoginWithoutI18n = (props: LoginProps) => {
               ? i18n._(t`Sign up`)
               : i18n._(t`Log in`)
           }
-          />
+        />
       </form>
       {onBuildingPage && renderFooter()}
-     </div>
+    </div>
   );
 };
 

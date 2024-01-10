@@ -32,7 +32,7 @@
 
   .settings-no-subscriptions {
     padding: 1.6rem;
-    background-color: $justfix-grey-light;
+    background-color: $justfix-grey-50;
     border-radius: 4px;
     margin: auto 1.6rem;
   }
@@ -73,13 +73,13 @@
 
   label {
     @include desktop-eyebrow();
-      // vars marked !important bc typography mixin is not available for inconsolata
-      font-weight: 600 !important;
-      font-family: $wow-font !important;
-      font-size: 1.3rem !important;
+    // vars marked !important bc typography mixin is not available for inconsolata
+    font-weight: 600 !important;
+    font-family: $wow-font !important;
+    font-size: 1.3rem !important;
 
-      text-align: left;
-      margin-bottom: 1.6rem;
+    text-align: left;
+    margin-bottom: 1.6rem;
   }
 
   .password-input-label {
@@ -91,7 +91,7 @@
     flex-direction: column;
 
     span:last-child {
-      margin-bottom: 0.6rem  !important;
+      margin-bottom: 0.6rem !important;
     }
   }
 }

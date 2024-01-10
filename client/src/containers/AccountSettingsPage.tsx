@@ -98,7 +98,7 @@ const AccountSettingsPage = withI18n()((props: withI18nProps) => {
           </div>
           <div className="settings-contact">
             <Trans>If you’d like to delete your account,</Trans>
-            <br/>
+            <br />
             <Trans>contact support@justfix.org </Trans>
           </div>
         </div>

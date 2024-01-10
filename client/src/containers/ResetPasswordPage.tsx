@@ -50,7 +50,11 @@ const ResetPasswordPage = withI18n()((props: withI18nProps) => {
             <>
               <Trans render="h4">Reset your password</Trans>
               <form onSubmit={handleSubmit}>
-                <PasswordInput labelText="Create a password" showPasswordRules={true} onChange={setValue} />
+                <PasswordInput
+                  labelText="Create a password"
+                  showPasswordRules={true}
+                  onChange={setValue}
+                />
                 <input type="submit" className="button is-primary" value={`Reset password`} />
               </form>
             </>
@@ -61,7 +65,9 @@ const ResetPasswordPage = withI18n()((props: withI18nProps) => {
               </Trans>
               <br />
               <div className="text-center">
-                <Trans className="text-center">You will be redirected back to Who Owns What in</Trans>
+                <Trans className="text-center">
+                  You will be redirected back to Who Owns What in
+                </Trans>
                 <br>{updateCountdown()}</br>
                 <Trans className="d-flex justify-content-center">
                   <span id="countdown"> {delaySeconds}</span> seconds
@@ -69,7 +75,10 @@ const ResetPasswordPage = withI18n()((props: withI18nProps) => {
                 <br />
                 <br />
                 <Trans className="text-center">
-                  <a href={redirectUrl} style={{color: "#242323"}}>Click to log in</a> if you are not redirected
+                  <a href={redirectUrl} style={{ color: "#242323" }}>
+                    Click to log in
+                  </a>{" "}
+                  if you are not redirected
                 </Trans>
               </div>
             </>

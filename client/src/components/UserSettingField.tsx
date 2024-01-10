@@ -27,9 +27,7 @@ const PasswordSettingFieldWithoutI18n = (props: PasswordSettingFieldProps) => {
   return (
     <UserSettingField title={i18n._(t`Password`)} preview="**********" onSubmit={handleSubmit}>
       <Trans render="label">Password</Trans>
-      <PasswordInput 
-        labelText="Enter your old password"
-        />
+      <PasswordInput labelText="Enter your old password" />
 
       {/* <div className="password-input">
         <input
@@ -42,7 +40,11 @@ const PasswordSettingFieldWithoutI18n = (props: PasswordSettingFieldProps) => {
           Show
         </button>
       </div> */}
-      <PasswordInput labelText="Create a new password" showPasswordRules={true} onChange={setNewPassword} />
+      <PasswordInput
+        labelText="Create a new password"
+        showPasswordRules={true}
+        onChange={setNewPassword}
+      />
     </UserSettingField>
   );
 };

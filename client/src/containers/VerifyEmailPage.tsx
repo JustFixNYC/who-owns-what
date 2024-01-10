@@ -4,7 +4,6 @@ import { withI18n, withI18nProps } from "@lingui/react";
 import { Trans, t } from "@lingui/macro";
 import AuthClient, { VerifyStatusCode } from "../components/AuthClient";
 import { JustfixUser } from "state-machine";
-import "styles/EmailAlerts.css";
 
 const VerifyEmailPage = withI18n()((props: withI18nProps) => {
   const { i18n } = props;
@@ -52,16 +51,24 @@ const VerifyEmailPage = withI18n()((props: withI18nProps) => {
 
     const validLinkPage = (
       <div className="text-center">
-        <Trans render="h4" className="text-left"> Verify this email: </Trans>
+        <Trans render="h4" className="text-left">
+          {" "}
+          Verify this email:{" "}
+        </Trans>
         <br />
         <h4>{!!user && user.email}</h4>
         <br />
-        <Trans render="h4" className="text-left"> to receive Data Updates from Who Owns What. </Trans>
+        <Trans render="h4" className="text-left">
+          {" "}
+          to receive Data Updates from Who Owns What.{" "}
+        </Trans>
         <button
           className="button is-primary"
           onClick={() => {
             asyncVerifyEmail().then((result) => {
-              const isVerified = result.statusCode === VerifyStatusCode.Success || result.statusCode === VerifyStatusCode.AlreadyVerified;
+              const isVerified =
+                result.statusCode === VerifyStatusCode.Success ||
+                result.statusCode === VerifyStatusCode.AlreadyVerified;
               setIsVerified(isVerified);
               setIsLinkExpired(result.statusCode === VerifyStatusCode.Expired);
               setShowConfirmation(isVerified);
@@ -78,9 +85,7 @@ const VerifyEmailPage = withI18n()((props: withI18nProps) => {
   const renderConfirmationPage = () => {
     const resendEmailPage = (
       <>
-        <Trans render="h4">
-          Check your email inbox & spam
-        </Trans>
+        <Trans render="h4">Check your email inbox & spam</Trans>
         <br />
         <Trans>
           Click the link we sent to verify your email address {!!user && user.email}. It may take a

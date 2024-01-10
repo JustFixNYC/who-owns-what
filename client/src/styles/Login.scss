@@ -72,23 +72,21 @@
       margin: 2rem 0 2rem 0;
 
       .info-icon {
-        margin-left: .4rem;
+        margin-left: 0.4rem;
         width: 18px;
         &:focus-visible {
           outline: 2px solid $focus-outline-color;
           outline-offset: 2px;
         }
       }
-    
     }
-    
+
     .login-type-toggle {
       display: flex;
       justify-content: center;
       font-size: 1.5rem;
     }
   }
-
 
   .login-response-text {
     margin: 1rem 0 1rem;
@@ -145,5 +143,4 @@
       color: $justfix-black;
     }
   }
-
 }

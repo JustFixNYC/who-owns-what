@@ -42,7 +42,7 @@ type PasswordInputProps = {
 const PasswordInputWithoutI18n = (props: PasswordInputProps) => {
   const { account } = createWhoOwnsWhatRoutePaths();
 
-  const { i18n, labelText, username, onChange, showPasswordRules, showForgotPassword} = props;
+  const { i18n, labelText, username, onChange, showPasswordRules, showForgotPassword } = props;
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
@@ -61,9 +61,9 @@ const PasswordInputWithoutI18n = (props: PasswordInputProps) => {
           </LocaleLink>
         )}
       </div>
-      {showPasswordRules && 
+      {showPasswordRules && (
         <div className="password-input-rules">
-          { passwordRules.map((rule, i) => {
+          {passwordRules.map((rule, i) => {
             const ruleClass = !!password ? (password.match(rule.regex) ? "valid" : "invalid") : "";
             return (
               <span className={`password-input-rule ${ruleClass}`} key={`rule-${i}`}>
@@ -72,7 +72,7 @@ const PasswordInputWithoutI18n = (props: PasswordInputProps) => {
             );
           })}
         </div>
-      }
+      )}
       <div className="password-input">
         <input
           type={showPassword ? "text" : "password"}
