@@ -49,10 +49,7 @@ const Modal = (props: ModalProps) => {
       shouldCloseOnOverlayClick={true}
       shouldCloseOnEsc={true}
     >
-      <CloseButton 
-        onClick={props.onClose}
-        className="ReactModal__Close"
-      />
+      <CloseButton onClick={props.onClose} className="ReactModal__Close" />
       {props.children}
     </ReactModal>
   );

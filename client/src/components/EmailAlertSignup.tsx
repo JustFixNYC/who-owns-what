@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { Fragment, useContext, useState } from "react";
 
 import { withI18n, withI18nProps, I18n } from "@lingui/react";
 import { t } from "@lingui/macro";
@@ -9,6 +9,8 @@ import { UserContext } from "./UserContext";
 import "styles/EmailAlertSignup.css";
 import { JustfixUser } from "state-machine";
 import AuthClient from "./AuthClient";
+import { AlertIconOutline, SubscribedIcon } from "./Icons";
+import Modal from "./Modal";
 
 type BuildingSubscribeProps = withI18nProps & {
   bbl: string;
@@ -24,6 +26,41 @@ const BuildingSubscribeWithoutI18n = (props: BuildingSubscribeProps) => {
   const { user, subscribe, unsubscribe } = userContext;
   const { email, subscriptions, verified } = user! as JustfixUser;
 
+  const showSubscribed = () => {
+    return (
+      <div className="building-subscribe-status">
+        <div className="status-title">
+          <SubscribedIcon />
+          <Trans>You’re signed up for Data Updates for this building.</Trans>
+        </div>
+        <button className="button is-text unsubscribe-button" onClick={() => unsubscribe(bbl)}>
+          <Trans>Unsubscribe</Trans>
+        </button>
+      </div>
+    );
+  };
+
+  const showEmailVerification = (i18n: any) => {
+    return (
+      <div className="building-subscribe-status">
+        <div>
+          <div className="status-title">
+            <AlertIconOutline />
+            <Trans>Email verification required</Trans>
+          </div>
+          <div className="status-description">
+            {i18n._(t`Click the link we sent to ${email}. It may take a few minutes to arrive.`)}
+          </div>
+          <button
+            className="button is-secondary is-full-width"
+            onClick={() => AuthClient.resendVerifyEmail()}
+          >
+            <Trans>Resend email</Trans>
+          </button>
+        </div>
+      </div>
+    );
+  };
   return (
     <I18n>
       {({ i18n }) => (
@@ -35,38 +72,10 @@ const BuildingSubscribeWithoutI18n = (props: BuildingSubscribeProps) => {
             >
               <Trans>Get updates</Trans>
             </button>
+          ) : verified ? (
+            showSubscribed()
           ) : (
-            <>
-              <div className="building-subscribe-status">
-                <div className={`building-subscribe-icon ${verified ? "verified" : ""}`}></div>
-                {verified ? (
-                  <div>
-                    {i18n._(t`Email updates will be sent to ${email}`)}{" "}
-                    <button onClick={() => unsubscribe(bbl)}>
-                      <Trans>Unsubscribe</Trans>
-                    </button>
-                  </div>
-                ) : (
-                  <div>
-                    <div>
-                      {i18n._(
-                        t`Check your email inbox ${email} to verify your email address. Once you’ve done that, you’ll start getting email updates.`
-                      )}
-                    </div>
-                  </div>
-                )}
-              </div>
-              {!verified && (
-                <p>
-                  <button
-                    className="button is-primary"
-                    onClick={() => AuthClient.resendVerifyEmail()}
-                  >
-                    Resend verification email
-                  </button>
-                </p>
-              )}
-            </>
+            showEmailVerification(i18n)
           )}
         </div>
       )}
@@ -82,6 +91,7 @@ const EmailAlertSignupWithoutI18n = (props: EmailAlertProps) => {
   const { bbl, housenumber, streetname, zip, boro } = props;
   const userContext = useContext(UserContext);
   const { user } = userContext;
+  const [showVerifyModal, setShowVerifyModal] = useState(false);
 
   return (
     <>
@@ -90,33 +100,64 @@ const EmailAlertSignupWithoutI18n = (props: EmailAlertProps) => {
           <I18n>
             {({ i18n }) => (
               <div
-                title={i18n._(t`Get email updates for this building`)}
+                title={i18n._(t`Get data updates for this building`)}
                 className="table-small-font"
               >
-                
                 <label className="data-updates-label-container">
                   <span className="pill-new">
-                  <Trans>NEW</Trans>
+                    <Trans>NEW</Trans>
                   </span>
-                  <Trans>Get Data Updates for this building</Trans>
+                  {!user ? (
+                    <Trans>Get Data Updates for this building</Trans>
+                  ) : (
+                    <Trans>Data Updates</Trans>
+                  )}
                 </label>
                 <div className="table-content">
-                  <div className="email-description">
-                    <Trans>
-                      Each weekly email includes HPD Complaints, HPD Violations, and Eviction Filings.
-                    </Trans>
-                  </div>
                   {!user ? (
-                    <Login
-                      onBuildingPage={true}
-                      onSuccess={(user: JustfixUser) =>
-                        userContext.subscribe(bbl, housenumber, streetname, zip, boro, user)
-                      }
-                    />
+                    <Fragment>
+                      <div className="email-description">
+                        <Trans>
+                          Each weekly email includes HPD Complaints, HPD Violations, and Eviction
+                          Filings.
+                        </Trans>
+                      </div>
+                      <Login
+                        onBuildingPage={true}
+                        onSuccess={(user: JustfixUser) => {
+                          userContext.subscribe(bbl, housenumber, streetname, zip, boro, user);
+                          !user.verified && setShowVerifyModal(true);
+                        }}
+                      />
+                    </Fragment>
                   ) : (
                     <BuildingSubscribe {...props} />
                   )}
                 </div>
+                <Modal
+                  key={1}
+                  showModal={showVerifyModal}
+                  width={40}
+                  onClose={() => setShowVerifyModal(false)}
+                >
+                  <Trans render="h4">Verify your email to start receiving updates</Trans>
+                  {i18n._(
+                    t`Click the link we sent to ${user?.email}. It may take a few minutes to arrive.`
+                  )}
+                  <br />
+                  <br />
+                  <Trans>
+                    Once your email has been verified, you’ll be signed up for Data Updates.
+                  </Trans>
+                  <br />
+                  <br />
+                  <button
+                    className="button is-secondary is-full-width"
+                    onClick={() => AuthClient.resendVerifyEmail()}
+                  >
+                    <Trans>Resend email</Trans>
+                  </button>
+                </Modal>
               </div>
             )}
           </I18n>

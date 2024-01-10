@@ -160,12 +160,12 @@
 
   $button-shadow: #d4d5d0;
   border-radius: 10rem;
-  padding: 2.2rem 3.2rem;
+  padding: 1.6rem 3.2rem;
   width: fit-content;
   height: fit-content;
   display: inline-block;
   flex: none;
-  box-shadow: 0.4rem 0.4rem 0rem $button-shadow; 
+  box-shadow: 0.4rem 0.4rem 0rem $button-shadow;
   max-width: 100%;
   white-space: normal;
   word-wrap: break-word;
@@ -222,6 +222,11 @@
 .button.is-secondary,
 .button.is-secondary:not(.is-outlined) {
   @include button-variant($justfix-white);
+}
+
+.button.is-full-width,
+.button.is-full-width:not(.is-outlined) {
+  width: 100%;
 }
 
 .button.is-text {
