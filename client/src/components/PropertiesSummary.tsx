@@ -99,7 +99,25 @@ export default class PropertiesSummary extends Component<Props, {}> {
         <div className="Page PropertiesSummary">
           <div className="PropertiesSummary__content Page__content">
             <div>
-              <Trans render="h6">Network of Landlords</Trans>
+              <Trans render="h6">Network Diagram of Portfolio</Trans>
+              <div className="network-legend">
+                <div className="network-legend-symbol symbol-owner" />
+                <div className="network-legend-label">
+                  <Trans render="span">Unique name and business address</Trans>
+                  <br />
+                  <Trans render="span" className="network-legend-sublabel">
+                    Size indicates number of buildings registered
+                  </Trans>
+                </div>
+                <div className="network-legend-symbol symbol-name" />
+                <div className="network-legend-label">
+                  <Trans render="span">Shared name</Trans>
+                </div>
+                <div className="network-legend-symbol symbol-bizaddr" />
+                <div className="network-legend-label">
+                  <Trans render="span">Shared business address</Trans>
+                </div>
+              </div>
               {state.context.useNewPortfolioMethod && state.context.portfolioData.portfolioGraph && (
                 <div className="portfolio-graph-container">
                   <LazyLoadWhenVisible showLoader>

@@ -11,7 +11,7 @@ import {
 } from "./APIDataTypes";
 import { withMachineInStateProps } from "state-machine";
 import helpers from "util/helpers";
-import { t, Trans } from "@lingui/macro";
+import { t } from "@lingui/macro";
 import { withI18n, withI18nProps } from "@lingui/react";
 import { I18n } from "@lingui/core";
 import browser from "util/browser";
@@ -177,22 +177,6 @@ const PortfolioGraphWithoutI18: React.FC<PortfolioGraphProps> = ({ graphJSON, st
 
   return (
     <div className="portfolio-graph">
-      <div className="float-left">
-        <span
-          style={{
-            color: NAME_COLOR,
-          }}
-        >
-          ● <Trans>Owner Names</Trans>
-        </span>{" "}
-        <span
-          style={{
-            color: BIZADDR_COLOR,
-          }}
-        >
-          ● <Trans>Business Addresses</Trans>
-        </span>
-      </div>
       <div className="btn-group btn-group-block">
         <button
           className="btn btn-action"
@@ -269,7 +253,8 @@ const PortfolioGraphWithoutI18: React.FC<PortfolioGraphProps> = ({ graphJSON, st
           {
             selector: "node",
             style: {
-              label: (ele: Cytoscape.NodeSingular) => `${ele.data("name")}\n${ele.data("bizAddr")}`,
+              label: (ele: Cytoscape.NodeSingular) =>
+                `${helpers.titleCase(ele.data("name"))}\n${ele.data("bizAddr")}`,
               "text-outline-color": JUSTFIX_WHITE,
               "text-outline-width": 3,
               "text-outline-opacity": 0.8,
@@ -312,20 +297,27 @@ const PortfolioGraphWithoutI18: React.FC<PortfolioGraphProps> = ({ graphJSON, st
               "line-color": (ele: Cytoscape.EdgeSingular) => EDGE_TYPE_TO_COLOR[ele.data("type")],
               "line-style": (ele: Cytoscape.EdgeSingular) =>
                 ele.data("type") === "name" ? "dashed" : "solid",
-              width: (ele: Cytoscape.EdgeSingular) => 0.5 + (5 - 0.5) * ele.data("weight"),
+              width: 3,
+              // width: (ele: Cytoscape.EdgeSingular) => 0.5 + (5 - 0.5) * ele.data("weight"),
             },
           },
           {
             selector: "node > node",
             style: {
               label: (ele: Cytoscape.NodeSingular) =>
-                ele.parent()[0].data("type") === "name" ? ele.data("bizAddr") : ele.data("name"),
+                ele.parent()[0].data("type") === "name"
+                  ? ele.data("bizAddr")
+                  : helpers.titleCase(ele.data("name")),
             },
           },
           {
             selector: "$node > node",
             style: {
-              label: (ele: Cytoscape.NodeSingular) => ele.data("id"),
+              label: (ele: Cytoscape.NodeSingular) =>
+                ele.data("type") === "name" ? helpers.titleCase(ele.data("id")) : ele.data("id"),
+              "text-outline-color": JUSTFIX_WHITE,
+              "text-outline-width": 3,
+              "text-outline-opacity": 0.8,
               backgroundColor: (ele) => NODE_TYPE_TO_COLOR[ele.data("type")],
               "background-opacity": 0.3,
               "border-width": 0,
