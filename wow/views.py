@@ -4,11 +4,11 @@ from pathlib import Path
 from typing import Any, Dict
 from django.http import HttpResponse, JsonResponse
 
-from .dbutil import call_db_func, exec_db_query
+from .dbutil import call_db_func, exec_db_query, exec_sql
 from .datautil import int_or_none, float_or_none
 from . import csvutil, apiutil
-from .apiutil import api, get_validated_form_data
-from .forms import PaddedBBLForm, SeparatedBBLForm
+from .apiutil import api, get_validated_form_data, authorize_for_alerts
+from .forms import PaddedBBLForm, SeparatedBBLForm, EmailAlertForm
 
 
 MY_DIR = Path(__file__).parent.resolve()
@@ -186,6 +186,108 @@ def address_latestdeed(request):
     bbl = get_request_bbl(request)
     result = exec_db_query(SQL_DIR / "address_latestdeed.sql", {"bbl": bbl})
     return JsonResponse({"result": list(result)})
+
+
+def get_alert_params_from_request(request) -> dict:
+    return get_validated_form_data(EmailAlertForm, request.GET)
+
+
+@api
+def alerts_violations(request):
+    """
+    This API endpoint receives requests with a 10-digit BBL, start_date
+    and end_date (yyyy-mm-dd), and responds with the number of HPD violations
+    that the property recieved within that time period.
+    """
+    args = get_alert_params_from_request(request)
+    query_params = {
+        "bbl": args["bbl"],
+        "start_date": args["start_date"],
+        "end_date": args["end_date"],
+    }
+    result = exec_db_query(
+        SQL_DIR / "alerts_violations.sql",
+        query_params,
+    )
+    result[0].update(query_params)
+    return JsonResponse({"result": list(result)})
+
+
+def email_alerts_lagged_eviction_filings(request):
+    """
+    This API endpoint receives requests with a 10-digit BBL and prev_date
+    (yyyy-mm-dd) for the date of the previously sent email. It responds with a
+    count of eviction cases that were filed before the last email was sent but
+    have only appeared in the database after that date (ie. lagged filings).
+    """
+    authorize_for_alerts(request)
+    args = get_alert_params_from_request(request)
+    query_params = {
+        "bbl": args["bbl"],
+        "prev_date": args["prev_date"],
+    }
+    query_sql = SQL_DIR / "alerts_lagged_eviction_filings.sql"
+    result = exec_db_query(query_sql, query_params)
+    result[0].update(query_params)
+    return JsonResponse({"result": list(result)})
+
+
+ALERTS_QUERIES = {
+    "violations": SQL_DIR / "alerts_violations.sql",
+    "complaints": SQL_DIR / "alerts_complaints.sql",
+    "eviction_filings": SQL_DIR / "alerts_eviction_filings.sql",
+    "lagged_eviction_filings": SQL_DIR / "alerts_lagged_eviction_filings.sql",
+}
+
+
+@api
+def email_alerts(request):
+    """
+    This API endpoint receives requests with a 10-digit BBL, start_date
+    and end_date (yyyy-mm-dd), and an indicator name. It responds with the
+    value for that indicator for the property over the time period.
+    """
+    args = get_alert_params_from_request(request)
+    sql_file = ALERTS_QUERIES[args["indicator"]]
+    query_params = {
+        "bbl": args["bbl"],
+        "start_date": args["start_date"],
+        "end_date": args["end_date"],
+    }
+    result = exec_db_query(sql_file, query_params)
+    result[0].update(query_params)
+    return JsonResponse({"result": list(result)})
+
+
+@api
+def email_alerts_multi(request):
+    """
+    This API endpoint receives requests with a 10-digit BBL, start_date
+    and end_date (yyyy-mm-dd), and a comma-separated list of indicator names.
+    It responds with the value for each of those indicators for that
+    property over the time period.
+    """
+    authorize_for_alerts(request)
+    args = get_alert_params_from_request(request)
+    query_params = {
+        "bbl": args["bbl"],
+        "start_date": args["start_date"],
+        "end_date": args["end_date"],
+        "prev_date": args["prev_date"],
+    }
+    sql_query = combine_alert_subqueries(args["indicators"])
+    result = exec_sql(sql_query, query_params)
+    result[0].update(query_params)
+    return JsonResponse({"result": list(result)})
+
+
+def combine_alert_subqueries(indicators):
+    cte_subqueries = [f"{i} as ( {ALERTS_QUERIES[i].read_text()} )" for i in indicators]
+    return f"""
+    with {",".join(cte_subqueries)}
+    select *
+    from {','.join(indicators)}
+    """
 
 
 def _fixup_addr_for_csv(addr: Dict[str, Any]):
