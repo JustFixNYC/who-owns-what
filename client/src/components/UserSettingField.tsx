@@ -13,6 +13,7 @@ type PasswordSettingFieldProps = withI18nProps & {
 const PasswordSettingFieldWithoutI18n = (props: PasswordSettingFieldProps) => {
   const { i18n, onSubmit } = props;
   const [newPassword, setNewPassword] = useState("");
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [currentPassword, setCurrentPassword] = useState("");
   // const [showCurrentPassword, setShowCurrentPassword] = useState(false);
 
