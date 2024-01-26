@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { useLocation } from "react-router-dom";
-import LegalFooter from "../components/LegalFooter";
+// import LegalFooter from "../components/LegalFooter";
 
 import Page from "../components/Page";
 import { withI18n, withI18nProps } from "@lingui/react";

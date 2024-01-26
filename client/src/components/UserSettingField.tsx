@@ -14,11 +14,11 @@ const PasswordSettingFieldWithoutI18n = (props: PasswordSettingFieldProps) => {
   const { i18n, onSubmit } = props;
   const [newPassword, setNewPassword] = useState("");
   const [currentPassword, setCurrentPassword] = useState("");
-  const [showCurrentPassword, setShowCurrentPassword] = useState(false);
+  // const [showCurrentPassword, setShowCurrentPassword] = useState(false);
 
-  const handleCurrentPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setCurrentPassword(e.target.value);
-  };
+  // const handleCurrentPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   setCurrentPassword(e.target.value);
+  // };
 
   const handleSubmit = () => {
     onSubmit(currentPassword, newPassword);
