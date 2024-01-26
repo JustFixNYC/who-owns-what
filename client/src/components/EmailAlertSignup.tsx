@@ -12,6 +12,8 @@ import AuthClient from "./AuthClient";
 import { AlertIconOutline, SubscribedIcon } from "./Icons";
 import Modal from "./Modal";
 
+const SUBCSCRIPTION_LIMIT = 15;
+
 type BuildingSubscribeProps = withI18nProps & {
   bbl: string;
   housenumber: string;
@@ -25,6 +27,7 @@ const BuildingSubscribeWithoutI18n = (props: BuildingSubscribeProps) => {
   const userContext = useContext(UserContext);
   const { user, subscribe, unsubscribe } = userContext;
   const { email, subscriptions, verified } = user! as JustfixUser;
+  const [showSubscriptionLimitModal, setShowSubscriptionLimitModal] = useState(false);
 
   const showSubscribed = () => {
     return (
@@ -64,20 +67,38 @@ const BuildingSubscribeWithoutI18n = (props: BuildingSubscribeProps) => {
   return (
     <I18n>
       {({ i18n }) => (
-        <div className="table-content building-subscribe">
-          {!(subscriptions && !!subscriptions?.find((s) => s.bbl === bbl)) ? (
-            <button
-              className="button is-primary"
-              onClick={() => subscribe(bbl, housenumber, streetname, zip, boro)}
-            >
-              <Trans>Get updates</Trans>
-            </button>
-          ) : verified ? (
-            showSubscribed()
-          ) : (
-            showEmailVerification(i18n)
-          )}
-        </div>
+        <>
+          <div className="table-content building-subscribe">
+            {!(subscriptions && !!subscriptions?.find((s) => s.bbl === bbl)) ? (
+              <button
+                className="button is-primary"
+                onClick={() =>
+                  subscriptions.length <= SUBCSCRIPTION_LIMIT
+                    ? subscribe(bbl, housenumber, streetname, zip, boro)
+                    : setShowSubscriptionLimitModal(true)
+                }
+              >
+                <Trans>Get updates</Trans>
+              </button>
+            ) : verified ? (
+              showSubscribed()
+            ) : (
+              showEmailVerification(i18n)
+            )}
+          </div>
+
+          <Modal
+            key={1}
+            showModal={showSubscriptionLimitModal}
+            width={40}
+            onClose={() => setShowSubscriptionLimitModal(false)}
+          >
+            <Trans render="h4">You have reached the maximum number of building subscriptions</Trans>
+            <Trans>
+              At this time we can only allow {SUBCSCRIPTION_LIMIT} building subscriptions.
+            </Trans>
+          </Modal>
+        </>
       )}
     </I18n>
   );
