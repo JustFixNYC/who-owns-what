@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import LegalFooter from "../components/LegalFooter";
+import { CSSTransition } from "react-transition-group";
 
 import Page from "../components/Page";
 import { withI18n, withI18nProps } from "@lingui/react";
@@ -64,6 +65,7 @@ const AccountSettingsPage = withI18n()((props: withI18nProps) => {
   const [removedSubscription, setRemovedSubscription] = React.useState<
     BuildingSubscription | undefined
   >(undefined);
+  const [showToast, setShowToast] = React.useState(false);
 
   return (
     <Page title={i18n._(t`Account settings`)}>
@@ -99,6 +101,7 @@ const AccountSettingsPage = withI18n()((props: withI18nProps) => {
                   {...s}
                   onRemoveClick={(bbl: string) => {
                     setRemovedSubscription(subscriptions.find((s) => s.bbl === bbl));
+                    setShowToast(true);
                     userContext.unsubscribe(bbl);
                   }}
                 />
@@ -120,26 +123,34 @@ const AccountSettingsPage = withI18n()((props: withI18nProps) => {
         </div>
         <LegalFooter />
         <div className="remove-bldg-toast-container">
-          {!!removedSubscription && (
+          <CSSTransition
+            in={!!removedSubscription && showToast}
+            timeout={3000}
+            classNames="remove-bldg-toast-alert"
+            onEntered={() => setShowToast(false)}
+          >
             <Alert
               className="remove-bldg-toast-alert"
               type="info"
               variant="secondary"
               closeType="state"
               role="status"
-              onClose={() => setRemovedSubscription(undefined)}
             >
-              <Trans>
-                You’ve removed{" "}
-                <a
-                  href={createRouteForFullBbl(removedSubscription.bbl)}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >{`${removedSubscription.housenumber} ${removedSubscription.streetname}, ${removedSubscription.boro}`}</a>{" "}
-                from your Data Updates.
-              </Trans>
+              {!!removedSubscription && (
+                <Trans>
+                  You’ve removed{" "}
+                  <a
+                    href={createRouteForFullBbl(removedSubscription!.bbl)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >{`${removedSubscription!.housenumber} ${removedSubscription!.streetname}, ${
+                    removedSubscription!.boro
+                  }`}</a>{" "}
+                  from your Data Updates.
+                </Trans>
+              )}
             </Alert>
-          )}
+          </CSSTransition>
         </div>
       </div>
     </Page>
