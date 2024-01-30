@@ -9,10 +9,15 @@ import "styles/AccountSettingsPage.css";
 import "styles/UserSetting.css";
 import { UserContext } from "components/UserContext";
 import { EmailSettingField, PasswordSettingField } from "components/UserSettingField";
-import { JustfixUser } from "state-machine";
-import { createRouteForAddressPage, createWhoOwnsWhatRoutePaths } from "routes";
+import { BuildingSubscription, JustfixUser } from "state-machine";
+import {
+  createRouteForAddressPage,
+  createRouteForFullBbl,
+  createWhoOwnsWhatRoutePaths,
+} from "routes";
 import { Borough } from "components/APIDataTypes";
 import { LocaleNavLink } from "i18n";
+import { Alert } from "components/Alert";
 
 type SubscriptionFieldProps = {
   bbl: string;
@@ -56,6 +61,10 @@ const AccountSettingsPage = withI18n()((props: withI18nProps) => {
   const { email, subscriptions } = userContext.user as JustfixUser;
   const { home } = createWhoOwnsWhatRoutePaths();
 
+  const [removedSubscription, setRemovedSubscription] = React.useState<
+    BuildingSubscription | undefined
+  >(undefined);
+
   return (
     <Page title={i18n._(t`Account settings`)}>
       <div className="AccountSettingsPage Page">
@@ -85,7 +94,14 @@ const AccountSettingsPage = withI18n()((props: withI18nProps) => {
           <div>
             {subscriptions?.length ? (
               subscriptions.map((s) => (
-                <SubscriptionField key={s.bbl} {...s} onRemoveClick={userContext.unsubscribe} />
+                <SubscriptionField
+                  key={s.bbl}
+                  {...s}
+                  onRemoveClick={(bbl: string) => {
+                    setRemovedSubscription(subscriptions.find((s) => s.bbl === bbl));
+                    userContext.unsubscribe(bbl);
+                  }}
+                />
               ))
             ) : (
               <Trans render="div" className="settings-no-subscriptions">
@@ -103,6 +119,28 @@ const AccountSettingsPage = withI18n()((props: withI18nProps) => {
           </div>
         </div>
         <LegalFooter />
+        <div className="remove-bldg-toast-container">
+          {!!removedSubscription && (
+            <Alert
+              className="remove-bldg-toast-alert"
+              type="info"
+              variant="secondary"
+              closeType="state"
+              role="status"
+              onClose={() => setRemovedSubscription(undefined)}
+            >
+              <Trans>
+                You’ve removed{" "}
+                <a
+                  href={createRouteForFullBbl(removedSubscription.bbl)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >{`${removedSubscription.housenumber} ${removedSubscription.streetname}, ${removedSubscription.boro}`}</a>{" "}
+                from your Data Updates.
+              </Trans>
+            </Alert>
+          )}
+        </div>
       </div>
     </Page>
   );

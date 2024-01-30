@@ -36,6 +36,56 @@
     border-radius: 4px;
     margin: auto 1.6rem;
   }
+
+  .remove-bldg-toast-container {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: fit-content;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+
+    .remove-bldg-toast-alert {
+      position: relative;
+      transform: translateY(100%);
+      outline: $justfix-grey-400 solid 1px;
+      width: 45.4rem;
+      @include for-phone-only() {
+        width: calc(100vw - 2.8rem);
+      }
+
+      @keyframes toast-up-down {
+        0% {
+          transform: translateY(100%);
+        }
+        20% {
+          transform: translateY(0%);
+        }
+        80% {
+          transform: translateY(0%);
+        }
+        100% {
+          transform: translateY(100%);
+        }
+      }
+
+      animation-name: toast-up-down;
+      animation-duration: 5s;
+      animation-timing-function: ease-in-out;
+      animation-fill-mode: forwards;
+
+      &:hover {
+        animation-play-state: paused;
+      }
+
+      .jf-alert__close {
+        outline: none;
+      }
+    }
+  }
 }
 
 .UserSetting {
