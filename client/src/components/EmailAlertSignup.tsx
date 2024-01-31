@@ -5,12 +5,16 @@ import { t } from "@lingui/macro";
 import { Trans } from "@lingui/macro";
 import Login from "./Login";
 import { UserContext } from "./UserContext";
+import { createWhoOwnsWhatRoutePaths } from "routes";
+import { LocaleLink as Link } from "../i18n";
 
 import "styles/EmailAlertSignup.css";
 import { JustfixUser } from "state-machine";
 import AuthClient from "./AuthClient";
 import { AlertIconOutline, SubscribedIcon } from "./Icons";
 import Modal from "./Modal";
+import { useLocation } from "react-router-dom";
+import { isLegacyPath } from "./WowzaToggle";
 
 const SUBCSCRIPTION_LIMIT = 15;
 
@@ -28,6 +32,8 @@ const BuildingSubscribeWithoutI18n = (props: BuildingSubscribeProps) => {
   const { user, subscribe, unsubscribe } = userContext;
   const { email, subscriptions, verified } = user! as JustfixUser;
   const [showSubscriptionLimitModal, setShowSubscriptionLimitModal] = useState(false);
+  const { pathname } = useLocation();
+  const { legacy, account } = createWhoOwnsWhatRoutePaths();
 
   const showSubscribed = () => {
     return (
@@ -93,10 +99,15 @@ const BuildingSubscribeWithoutI18n = (props: BuildingSubscribeProps) => {
             width={40}
             onClose={() => setShowSubscriptionLimitModal(false)}
           >
-            <Trans render="h4">You have reached the maximum number of building subscriptions</Trans>
+            <Trans render="h4">You have reached the maximum number of building updates</Trans>
             <Trans>
-              At this time we can only allow {SUBCSCRIPTION_LIMIT} building subscriptions. If you
-              would like to track more buildings, please let us know by submiting a{" "}
+              At this time we can only support {SUBCSCRIPTION_LIMIT} buildings in each email. Please
+              visit your{" "}
+              <Link to={isLegacyPath(pathname) ? legacy.account.settings : account.settings}>
+                account
+              </Link>{" "}
+              to manage the buildings in your email. If you would like to track more buildings,
+              please let us know by submiting a{" "}
               <a
                 href={`https://form.typeform.com/to/ChJMCNYN#email=${email}`}
                 target="_blank"
