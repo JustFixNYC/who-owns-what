@@ -84,6 +84,7 @@ const ResetPasswordPage = withI18n()((props: withI18nProps) => {
             </>
           )}
         </div>
+        <LegalFooter />
       </div>
     </Page>
   );
