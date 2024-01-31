@@ -11,11 +11,7 @@ import "styles/UserSetting.css";
 import { UserContext } from "components/UserContext";
 import { EmailSettingField, PasswordSettingField } from "components/UserSettingField";
 import { BuildingSubscription, JustfixUser } from "state-machine";
-import {
-  createRouteForAddressPage,
-  createRouteForFullBbl,
-  createWhoOwnsWhatRoutePaths,
-} from "routes";
+import { createRouteForAddressPage, createWhoOwnsWhatRoutePaths } from "routes";
 import { Borough } from "components/APIDataTypes";
 import { LocaleNavLink } from "i18n";
 import { Alert } from "components/Alert";
@@ -125,7 +121,7 @@ const AccountSettingsPage = withI18n()((props: withI18nProps) => {
         <div className="remove-bldg-toast-container">
           <CSSTransition
             in={!!removedSubscription && showToast}
-            timeout={3000}
+            timeout={5000}
             classNames="remove-bldg-toast-alert"
             onEntered={() => setShowToast(false)}
           >
@@ -133,19 +129,15 @@ const AccountSettingsPage = withI18n()((props: withI18nProps) => {
               className="remove-bldg-toast-alert"
               type="info"
               variant="secondary"
-              closeType="state"
+              closeType="none"
               role="status"
             >
               {!!removedSubscription && (
                 <Trans>
                   You’ve removed{" "}
-                  <a
-                    href={createRouteForFullBbl(removedSubscription!.bbl)}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >{`${removedSubscription!.housenumber} ${removedSubscription!.streetname}, ${
+                  {`${removedSubscription!.housenumber} ${removedSubscription!.streetname}, ${
                     removedSubscription!.boro
-                  }`}</a>{" "}
+                  }`}{" "}
                   from your Data Updates.
                 </Trans>
               )}

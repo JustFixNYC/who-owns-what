@@ -60,14 +60,14 @@
         transform: translateY(100%);
       }
       &-enter-active {
-        transform: translatey(0%);
+        transform: translatey(-15%);
         transition: transform 500ms ease-in-out;
       }
       &-enter-done {
-        transform: translateY(0%);
+        transform: translateY(-15%);
       }
       &-exit {
-        transform: translateY(0%);
+        transform: translateY(-15%);
       }
       &-exit-active {
         transform: translateY(100%);
