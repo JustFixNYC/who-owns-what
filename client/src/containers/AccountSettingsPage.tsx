@@ -15,6 +15,7 @@ import { createRouteForAddressPage, createWhoOwnsWhatRoutePaths } from "routes";
 import { Borough } from "components/APIDataTypes";
 import { LocaleNavLink } from "i18n";
 import { Alert } from "components/Alert";
+import { CheckIcon } from "components/Icons";
 
 type SubscriptionFieldProps = {
   bbl: string;
@@ -127,20 +128,13 @@ const AccountSettingsPage = withI18n()((props: withI18nProps) => {
           >
             <Alert
               className="remove-bldg-toast-alert"
-              type="info"
-              variant="secondary"
+              type="success"
+              variant="primary"
               closeType="none"
               role="status"
             >
-              {!!removedSubscription && (
-                <Trans>
-                  You’ve removed{" "}
-                  {`${removedSubscription!.housenumber} ${removedSubscription!.streetname}, ${
-                    removedSubscription!.boro
-                  }`}{" "}
-                  from your Data Updates.
-                </Trans>
-              )}
+              <CheckIcon />
+              <Trans render="span">Building removed</Trans>
             </Alert>
           </CSSTransition>
         </div>

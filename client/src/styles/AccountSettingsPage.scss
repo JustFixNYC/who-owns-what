@@ -50,10 +50,6 @@
 
     .remove-bldg-toast-alert {
       position: relative;
-      width: 45.4rem;
-      @include for-phone-only() {
-        width: calc(100vw - 2.8rem);
-      }
 
       transform: translateY(100%);
       &-enter {
@@ -72,6 +68,10 @@
       &-exit-active {
         transform: translateY(100%);
         transition: transform 500ms ease-in-out;
+      }
+
+      span {
+        padding: 0 1rem;
       }
 
       .jf-alert__close {
