@@ -15,7 +15,6 @@ const PasswordSettingFieldWithoutI18n = (props: PasswordSettingFieldProps) => {
   const [newPassword, setNewPassword] = useState("");
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [currentPassword, setCurrentPassword] = useState("");
-
   // const [showCurrentPassword, setShowCurrentPassword] = useState(false);
 
   // const handleCurrentPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
