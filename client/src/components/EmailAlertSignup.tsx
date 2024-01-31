@@ -95,7 +95,16 @@ const BuildingSubscribeWithoutI18n = (props: BuildingSubscribeProps) => {
           >
             <Trans render="h4">You have reached the maximum number of building subscriptions</Trans>
             <Trans>
-              At this time we can only allow {SUBCSCRIPTION_LIMIT} building subscriptions.
+              At this time we can only allow {SUBCSCRIPTION_LIMIT} building subscriptions. If you
+              would like to track more buildings, please let us know by submiting a{" "}
+              <a
+                href={`https://form.typeform.com/to/ChJMCNYN#email=${email}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                request form
+              </a>
+              .
             </Trans>
           </Modal>
         </>
