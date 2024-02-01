@@ -88,36 +88,3 @@ export const BigPortfolioAlert = ({ portfolioSize, className, ...props }: Portfo
     <></>
   );
 };
-
-export const FilterPortfolioAlert = ({
-  portfolioSize,
-  className,
-  addressPageRoutes,
-  ...props
-}: FilterPortfolioAlertProps) => {
-  const { pathname } = useLocation();
-
-  return !isLegacyPath(pathname) && portfolioSize >= FILTER_PORTFOLIO_THRESHOLD ? (
-    <Alert
-      className={classNames("big-portfolio-alert", className)}
-      variant="secondary"
-      type="info"
-      {...props}
-    >
-      <Trans>
-        Narrow down this portfolio using filters in{" "}
-        <Link
-          to={addressPageRoutes.portfolio}
-          onClick={() => {
-            logAmplitudeEvent("alertToFilterPortfolio", { portfolioSize });
-            window.gtag("event", "alert-to-filter-portfolio", { portfolioSize });
-          }}
-        >
-          the Portfolio tab.
-        </Link>
-      </Trans>
-    </Alert>
-  ) : (
-    <></>
-  );
-};

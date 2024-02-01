@@ -12,7 +12,7 @@ import { AddressRecord } from "./APIDataTypes";
 import { FitBounds, Props as MapboxMapProps } from "react-mapbox-gl/lib/map";
 import { Events as MapboxMapEvents } from "react-mapbox-gl/lib/map-events";
 import { withMachineInStateProps } from "state-machine";
-import { BigPortfolioAlert, FilterPortfolioAlert } from "./PortfolioAlerts";
+import { BigPortfolioAlert } from "./PortfolioAlerts";
 import { AddressPageRoutes, createRouteForFullBbl } from "routes";
 import {
   FilterContext,
@@ -421,14 +421,6 @@ class PropertiesMapWithoutResizeDetector extends Component<Props, State> {
                     storageId="map-big-portfolio-alert"
                     portfolioSize={this.state.addrsPoints.length}
                   />
-                  {portfolioFiltersEnabled && (
-                    <FilterPortfolioAlert
-                      closeType="session"
-                      storageId="map-filter-portfolio-alert"
-                      portfolioSize={this.state.addrsPoints.length}
-                      addressPageRoutes={this.props.addressPageRoutes}
-                    />
-                  )}
                 </>
               )}
               {!this.isOnOverview() && !!selectedAddr && (
