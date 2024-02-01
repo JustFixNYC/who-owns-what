@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Trans } from "@lingui/macro";
 import classNames from "classnames";
-import { Link, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import networkDiagram from "../assets/img/network-diagram.png";
 import { AddressPageRoutes } from "../routes";
 import { Alert, AlertProps } from "./Alert";
@@ -10,14 +10,9 @@ import Modal from "./Modal";
 import { isLegacyPath } from "./WowzaToggle";
 
 export const BIG_PORTFOLIO_THRESHOLD = 300;
-export const FILTER_PORTFOLIO_THRESHOLD = 15;
 
 type PortfolioAlertProps = Omit<AlertProps, "children"> & {
   portfolioSize: number;
-};
-
-type FilterPortfolioAlertProps = PortfolioAlertProps & {
-  addressPageRoutes: AddressPageRoutes;
 };
 
 export const BigPortfolioAlert = ({ portfolioSize, className, ...props }: PortfolioAlertProps) => {

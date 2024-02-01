@@ -368,7 +368,6 @@ class PropertiesMapWithoutResizeDetector extends Component<Props, State> {
 
   render() {
     const { useNewPortfolioMethod } = this.props.state.context;
-    const portfolioFiltersEnabled = process.env.REACT_APP_PORTFOLIO_FILTERS_ENABLED === "1" || true;
     const { detailAddr } = this.getPortfolioData();
     const { locale, logPortfolioAnalytics } = this.props;
     const isMobile = Browser.isMobile();
