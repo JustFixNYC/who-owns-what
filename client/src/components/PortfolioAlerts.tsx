@@ -3,7 +3,6 @@ import { Trans } from "@lingui/macro";
 import classNames from "classnames";
 import { useLocation } from "react-router-dom";
 import networkDiagram from "../assets/img/network-diagram.png";
-import { AddressPageRoutes } from "../routes";
 import { Alert, AlertProps } from "./Alert";
 import { logAmplitudeEvent } from "./Amplitude";
 import Modal from "./Modal";
