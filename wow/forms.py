@@ -64,11 +64,20 @@ def validate_indicators(value):
         if i not in valid_indicators:
             raise ValidationError(
                 "Indicators must be comma-separated list of: 'violations',\
-                'complaints', or 'eviction_filings'"
+                'complaints', 'eviction_filings', or 'lagged_eviction_filings'"
             )
 
 
-class EmailAlertForm(PaddedBBLForm):
+class EmailAlertViolationsForm(PaddedBBLForm):
+    start_date = forms.DateField(input_formats=["%Y-%m-%d"])
+    end_date = forms.DateField(input_formats=["%Y-%m-%d"])
+
+
+class EmailAlertLaggedEvictionFilingsForm(PaddedBBLForm):
+    prev_date = forms.DateField(input_formats=["%Y-%m-%d"])
+
+
+class EmailAlertSingleIndicatorForm(PaddedBBLForm):
     indicator = forms.CharField(
         validators=[
             RegexValidator(
@@ -76,10 +85,57 @@ class EmailAlertForm(PaddedBBLForm):
                 message="This must be one of 'violations', 'complaints', 'eviction_filings', \
                     'lagged_eviction_filings'.",
             )
-        ],
-        required=False,
+        ]
     )
-    indicators = CommaSeparatedField(validators=[validate_indicators], required=False)
-    start_date = forms.DateField(input_formats=["%Y-%m-%d"])
-    end_date = forms.DateField(input_formats=["%Y-%m-%d"])
-    prev_date = forms.DateField(input_formats=["%Y-%m-%d"])
+    start_date = forms.DateField(input_formats=["%Y-%m-%d"], required=False)
+    end_date = forms.DateField(input_formats=["%Y-%m-%d"], required=False)
+    prev_date = forms.DateField(input_formats=["%Y-%m-%d"], required=False)
+
+    def clean(self):
+        data = self.cleaned_data
+        indicator = data.get("indicator", None)
+
+        if indicator == "lagged_eviction_filings" and not data.get("prev_date", None):
+            raise forms.ValidationError(
+                "prev_date is required for lagged_eviction_filings"
+            )
+        elif indicator != "lagged_eviction_filings":
+            if not data.get("start_date", None):
+                raise forms.ValidationError(
+                    "start_date is required for violations, complaints, and eviction_filings"
+                )
+            if not data.get("end_date", None):
+                raise forms.ValidationError(
+                    "end_date is required for violations, complaints, and eviction_filings"
+                )
+        else:
+            return data
+
+
+class EmailAlertMultiIndicatorForm(PaddedBBLForm):
+    indicators = CommaSeparatedField(validators=[validate_indicators])
+    start_date = forms.DateField(input_formats=["%Y-%m-%d"], required=False)
+    end_date = forms.DateField(input_formats=["%Y-%m-%d"], required=False)
+    prev_date = forms.DateField(input_formats=["%Y-%m-%d"], required=False)
+
+    def clean(self):
+        data = self.cleaned_data
+        indicators = data.get("indicators", [])
+        start_end_indicators = ["violations", "complaints", "eviction_filings"]
+        
+        if "lagged_eviction_filings" in indicators:
+            if not data.get("prev_date", None):
+                raise forms.ValidationError(
+                    "prev_date is required for lagged_eviction_filings"
+                )
+        if not set(start_end_indicators).isdisjoint(indicators):
+            if not data.get("start_date", None):
+                raise forms.ValidationError(
+                    "start_date is required for violations, complaints, and eviction_filings"
+                )
+            if not data.get("end_date", None):
+                raise forms.ValidationError(
+                    "end_date is required for violations, complaints, and eviction_filings"
+                )
+        else:
+            return data
