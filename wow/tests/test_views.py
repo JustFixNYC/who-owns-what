@@ -185,11 +185,12 @@ class TestAlertsSingleIndicator(ApiTest):
     ]
 
     def test_it_works(self, db, client):
+        url_bbl_base = "/api/email_alerts?bbl=3012380016"
         urls = [
-            "/api/email_alerts?bbl=3012380016&indicator=lagged_eviction_filings&prev_date=2024-01-07",
-            "/api/email_alerts?bbl=3012380016&indicator=violations&start_date=2024-01-01&end_date=2024-01-07",
-            "/api/email_alerts?bbl=3012380016&indicator=complaints&start_date=2024-01-01&end_date=2024-01-07",
-            "/api/email_alerts?bbl=3012380016&indicator=eviction_filings&start_date=2024-01-01&end_date=2024-01-07",
+            f"{url_bbl_base}&indicator=lagged_eviction_filings&prev_date=2024-01-07",
+            f"{url_bbl_base}&indicator=violations&start_date=2024-01-01&end_date=2024-01-07",
+            f"{url_bbl_base}&indicator=complaints&start_date=2024-01-01&end_date=2024-01-07",
+            f"{url_bbl_base}&indicator=eviction_filings&start_date=2024-01-01&end_date=2024-01-07",
         ]
         for url in urls:
             res = client.get(url, **AUTH_ARG)
@@ -198,7 +199,8 @@ class TestAlertsSingleIndicator(ApiTest):
 
     def test_auth_works(self, db, client):
         res = client.get(
-            "/api/email_alerts?bbl=3012380016&indicator=lagged_eviction_filings&prev_date=2024-01-07"
+            "/api/email_alerts?bbl=3012380016&indicator=lagged_eviction_filings \
+                &prev_date=2024-01-07"
         )
         assert res.status_code == 401
 
@@ -208,18 +210,26 @@ class TestAlertsMultiIndicator(ApiTest):
         "/api/email_alerts_multi",
         "/api/email_alerts_multi?bbl=bop",
         "/api/email_alerts_multi?bbl=3012380016&indicators=bop",
-        "/api/email_alerts_multi?bbl=3012380016&indicators=violations,lagged_eviction_filings&start_date=2024-01-01&end_date=2024-01-01",
-        "/api/email_alerts_multi?bbl=3012380016&indicators=violations,complaints&prev_date=2024-01-01",
+        "/api/email_alerts_multi?bbl=3012380016&indicators=violations,lagged_eviction_filings \
+            &start_date=2024-01-01&end_date=2024-01-01",
+        "/api/email_alerts_multi?bbl=3012380016&indicators=violations,complaints \
+            &prev_date=2024-01-01",
     ]
 
     def test_it_works(self, db, client):
+        url_bbl_base = "/api/email_alerts_multi?bbl=3012380016"
+        start_date = "start_date=2024-01-01"
+        end_date = "end_date=2024-01-07"
         urls = [
-            "/api/email_alerts_multi?bbl=3012380016&indicators=lagged_eviction_filings&prev_date=2024-01-07",
-            "/api/email_alerts_multi?bbl=3012380016&indicators=violations&start_date=2024-01-01&end_date=2024-01-07",
-            "/api/email_alerts_multi?bbl=3012380016&indicators=complaints&start_date=2024-01-01&end_date=2024-01-07",
-            "/api/email_alerts_multi?bbl=3012380016&indicators=eviction_filings&start_date=2024-01-01&end_date=2024-01-07",
-            "/api/email_alerts_multi?bbl=3012380016&indicators=violations,complaints,eviction_filings&start_date=2024-01-01&end_date=2024-01-07",
-            "/api/email_alerts_multi?bbl=3012380016&indicators=violations,complaints,eviction_filings,lagged_eviction_filings&start_date=2024-01-01&end_date=2024-01-07&prev_date=2024-01-01",
+            f"{url_bbl_base}&indicators=lagged_eviction_filings&prev_date=2024-01-07",
+            f"{url_bbl_base}&indicators=violations&{start_date}&{end_date}",
+            f"{url_bbl_base}&indicators=complaints&{start_date}&{end_date}",
+            f"{url_bbl_base}&indicators=eviction_filings&{start_date}&{end_date}",
+            f"{url_bbl_base}&indicators=violations,complaints,eviction_filings \
+                &{start_date}&{end_date}",
+            f"{url_bbl_base} \
+                &indicators=violations,complaints,eviction_filings,lagged_eviction_filings \
+                &{start_date}&{end_date}&prev_date=2024-01-01",
         ]
         for url in urls:
             res = client.get(url, **AUTH_ARG)
@@ -229,7 +239,8 @@ class TestAlertsMultiIndicator(ApiTest):
 
     def test_auth_works(self, db, client):
         res = client.get(
-            "/api/email_alerts_multi?bbl=3012380016&indicator=lagged_eviction_filings&prev_date=2024-01-07"
+            "/api/email_alerts_multi?bbl=3012380016&indicator=lagged_eviction_filings \
+                &prev_date=2024-01-07"
         )
         assert res.status_code == 401
 
