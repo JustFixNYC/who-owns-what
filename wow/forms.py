@@ -122,7 +122,7 @@ class EmailAlertMultiIndicatorForm(PaddedBBLForm):
         data = self.cleaned_data
         indicators = data.get("indicators", [])
         start_end_indicators = ["violations", "complaints", "eviction_filings"]
-        
+
         if "lagged_eviction_filings" in indicators:
             if not data.get("prev_date", None):
                 raise forms.ValidationError(
