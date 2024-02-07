@@ -75,7 +75,7 @@
     @include desktop-eyebrow();
     // vars marked !important bc typography mixin is not available for inconsolata
     font-weight: 600 !important;
-    font-family: $wow-font !important;
+    // font-family: $wow-font !important;
     font-size: 1.3rem !important;
 
     text-align: left;

@@ -359,7 +359,7 @@ class IndicatorsVizImplementation extends Component<IndicatorVizImplementationPr
             },
             scaleLabel: {
               display: true,
-              fontFamily: "Inconsolata, monospace",
+              fontFamily: "Degular, Arial, Helvetica, sans-serif",
               fontColor: "rgb(69, 77, 93)",
               fontSize: 14,
               padding: 8,
@@ -432,7 +432,7 @@ class IndicatorsVizImplementation extends Component<IndicatorVizImplementationPr
       legend: {
         position: "bottom",
         labels: {
-          fontFamily: "Inconsolata, monospace",
+          fontFamily: "Degular, Arial, Helvetica, sans-serif",
           fontColor: "rgb(69, 77, 93)",
         },
         onHover(event, legendItem) {
@@ -464,7 +464,7 @@ class IndicatorsVizImplementation extends Component<IndicatorVizImplementationPr
               content: this.props.lastSale.date
                 ? i18n._(t`Sold to Current Owner`)
                 : i18n._(t`Last Sale Unknown`),
-              fontFamily: "Inconsolata, monospace",
+              fontFamily: "Degular, Arial, Helvetica, sans-serif",
               fontColor: "#fff",
               fontSize: 12,
               xPadding: 10,
@@ -493,7 +493,7 @@ class IndicatorsVizImplementation extends Component<IndicatorVizImplementationPr
                 (dateLocation === "past" ? "← " : "") +
                 Helpers.formatDate(this.props.lastSale.date, mediumDateOptions, locale) +
                 (dateLocation === "future" ? " →" : ""),
-              fontFamily: "Inconsolata, monospace",
+              fontFamily: "Degular, Arial, Helvetica, sans-serif",
               fontColor: "#fff",
               fontSize: 12,
               xPadding: 10,
@@ -519,7 +519,7 @@ class IndicatorsVizImplementation extends Component<IndicatorVizImplementationPr
             borderWidth: 0,
             label: {
               content: "← " + i18n._(t`No data available`),
-              fontFamily: "Inconsolata, monospace",
+              fontFamily: "Degular, Arial, Helvetica, sans-serif",
               fontColor: "#e85600",
               fontSize: 12,
               xPadding: 10,

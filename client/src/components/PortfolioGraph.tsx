@@ -283,7 +283,7 @@ const PortfolioGraphWithoutI18: React.FC<PortfolioGraphProps> = ({ graphJSON, st
                 ele.data("type") === "bizaddr" ? "16px" : "18px",
               "font-weight": (ele: Cytoscape.NodeSingular) =>
                 ["searchaddr", "detailaddr"].includes(ele.data("type")) ? 700 : 400,
-              "font-family": "Inconsolata, monospace",
+              "font-family": "Degular, Arial, Helvetica, sans-serif",
               backgroundColor: (ele) => NODE_TYPE_TO_COLOR[ele.data("type")],
               color: (ele: Cytoscape.NodeSingular) =>
                 ["searchaddr", "detailaddr"].includes(ele.data("type")) ? ANNOTATION_COLOR : "",
