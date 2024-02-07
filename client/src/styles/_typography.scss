@@ -9,7 +9,6 @@ $body-font: "Degular", Arial, Helvetica, sans-serif;
 $title-font: "Degular Display", Arial, Helvetica, sans-serif;
 $eyebrow-font: "Suisse Int'l Mono", "Courier New", Courier, monospace;
 
-
 @mixin link {
   color: inherit;
   font-size: inherit;
@@ -25,7 +24,6 @@ $eyebrow-font: "Suisse Int'l Mono", "Courier New", Courier, monospace;
     text-decoration: underline;
   }
 }
-
 
 @mixin body-standard {
   font-family: $body-font;
@@ -141,7 +139,6 @@ $eyebrow-font: "Suisse Int'l Mono", "Courier New", Courier, monospace;
   line-height: 115%;
 }
 
-
 @mixin mobile {
   @media screen and (max-width: 1199px) {
     @content;
@@ -204,7 +201,6 @@ $eyebrow-font: "Suisse Int'l Mono", "Courier New", Courier, monospace;
     }
   }
 }
-
 
 @mixin mobile-typography {
   body,
