@@ -9,6 +9,24 @@ $body-font: "Degular", Arial, Helvetica, sans-serif;
 $title-font: "Degular Display", Arial, Helvetica, sans-serif;
 $eyebrow-font: "Suisse Int'l Mono", "Courier New", Courier, monospace;
 
+
+@mixin link {
+  color: inherit;
+  font-size: inherit;
+  text-decoration: underline;
+
+  &.no-underline {
+    text-decoration: none;
+  }
+
+  &:hover,
+  &:focus,
+  &:active {
+    text-decoration: underline;
+  }
+}
+
+
 @mixin body-standard {
   font-family: $body-font;
   font-size: 1.125rem;
@@ -121,4 +139,128 @@ $eyebrow-font: "Suisse Int'l Mono", "Courier New", Courier, monospace;
   @include mobile-text-small();
   @include link();
   line-height: 115%;
+}
+
+
+@mixin mobile {
+  @media screen and (max-width: 1199px) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media screen and (min-width: 1199px) {
+    @content;
+  }
+}
+
+@mixin desktop-typography {
+  body,
+  p,
+  a,
+  span {
+    @include body-standard();
+
+    &.is-small {
+      @include desktop-text-small();
+    }
+
+    &.is-bold {
+      @include desktop-text-small-bold();
+    }
+  }
+
+  a,
+  .link {
+    @include link();
+  }
+
+  .title.is-1,
+  h1 {
+    @include desktop-h1();
+  }
+
+  .title.is-2,
+  h2 {
+    // LALOC uses mobile H2 styles on desktop
+    @include mobile-h2();
+  }
+
+  .title.is-3,
+  h3 {
+    @include desktop-h3();
+  }
+
+  .title.is-4,
+  h4 {
+    @include desktop-h4();
+  }
+
+  .eyebrow {
+    @include desktop-eyebrow();
+
+    &.is-small {
+      @include desktop-eyebrow-small();
+    }
+  }
+}
+
+
+@mixin mobile-typography {
+  body,
+  p,
+  a,
+  span {
+    @include body-standard();
+
+    &.is-small {
+      @include mobile-text-small();
+
+      &.is-bold {
+        @include mobile-text-small-bold();
+      }
+    }
+
+    &.is-large {
+      @include mobile-h3();
+    }
+  }
+
+  a,
+  .link {
+    @include link();
+  }
+
+  .title.is-1,
+  h1,
+  div.content h1.title {
+    @include mobile-h1();
+  }
+
+  .title.is-2,
+  h2 {
+    @include mobile-h2();
+  }
+
+  .title.is-3,
+  h3 {
+    @include mobile-h3();
+  }
+
+  .title.is-4,
+  h4 {
+    @include body-standard();
+  }
+
+  .eyebrow {
+    @include mobile-eyebrow();
+  }
+}
+
+@include desktop() {
+  @include desktop-typography();
+}
+
+@include mobile() {
+  @include mobile-typography();
 }
