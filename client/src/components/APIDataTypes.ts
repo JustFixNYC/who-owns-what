@@ -213,6 +213,7 @@ export type MonthlyTimelineData = {
   dobviolations_ecb: number;
   dobviolations_total: number;
   evictionfilings_total: number;
+  rentstabilizedunits_total: number;
 };
 
 export type IndicatorsHistoryResults = {

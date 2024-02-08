@@ -26,6 +26,7 @@ from .factories.hpd_contacts import HpdContacts
 from .factories.hpd_registrations import HpdRegistrations
 from .factories.hpd_complaints import HpdComplaints
 from .factories.hpd_complaint_problems import HpdComplaintProblems
+from .factories.hpd_complaints_and_problems import HpdComplaintsAndProblems
 from .factories.dof_exemptions import DofExemptions
 from .factories.dof_exemption_classification_codes import (
     DofExemptionClassificationCodes,
@@ -187,6 +188,9 @@ class TestSQL:
         nycdb_ctx.write_csv("pluto_latest.csv", [PlutoLatest()])
         nycdb_ctx.write_csv("hpd_violations.csv", [HpdViolations()])
         nycdb_ctx.write_csv("hpd_complaints.csv", [HpdComplaints()])
+        nycdb_ctx.write_csv(
+            "hpd_complaints_and_problems.csv", [HpdComplaintsAndProblems()]
+        )
         nycdb_ctx.write_csv("dob_violations.csv", [DobViolations()])
         nycdb_ctx.write_csv("ecb_violations.csv", [EcbViolations()])
         nycdb_ctx.write_csv("dof_exemptions.csv", [DofExemptions()])
