@@ -1,23 +1,31 @@
 import React, { useState, useContext } from "react";
-
-import "styles/Login.css";
-import "styles/_input.scss";
-
+import { Trans, t } from "@lingui/macro";
 import { I18n } from "@lingui/core";
 import { withI18n } from "@lingui/react";
-import { Trans, t } from "@lingui/macro";
-import { UserContext } from "./UserContext";
-import PasswordInput from "./PasswordInput";
-import { JustfixUser } from "state-machine";
+import classNames from "classnames";
+
 import AuthClient from "./AuthClient";
+import { JustfixUser } from "state-machine";
+import { UserContext } from "./UserContext";
+import { useInput } from "util/helpers";
+import PasswordInput from "./PasswordInput";
+import EmailInput from "./EmailInput";
+import UserTypeInput from "./UserTypeInput";
 import { Alert } from "./Alert";
-import { AlertIcon, InfoIcon } from "./Icons";
+import { InfoIcon } from "./Icons";
 import Modal from "./Modal";
 
-export enum LoginState {
-  Default,
+import "styles/Login.css";
+import "styles/UserTypeInput.css";
+import "styles/_input.scss";
+
+enum Step {
+  CheckEmail,
   Login,
-  Register,
+  RegisterAccount,
+  RegisterUserType,
+  VerifyEmail,
+  VerifyEmailReminder,
 }
 
 type LoginProps = {
@@ -25,22 +33,53 @@ type LoginProps = {
   onBuildingPage?: boolean;
   onSuccess?: (user: JustfixUser) => void;
   handleRedirect?: () => void;
+  registerInModal?: boolean;
+  setLoginRegisterInProgress?: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 const LoginWithoutI18n = (props: LoginProps) => {
-  const { i18n, onBuildingPage, onSuccess, handleRedirect } = props;
+  const {
+    i18n,
+    onBuildingPage,
+    onSuccess,
+    handleRedirect,
+    registerInModal,
+    setLoginRegisterInProgress,
+  } = props;
+
   const userContext = useContext(UserContext);
 
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [header, setHeader] = useState("Log in / sign up");
-  const [subheader, setSubheader] = useState("");
-  const [loginState, setLoginState] = useState(LoginState.Default);
-  const isDefaultState = loginState === LoginState.Default;
-  const isRegisterState = loginState === LoginState.Register;
-
+  const [showRegisterModal, setShowRegisterModal] = useState(false);
   const [showInfoModal, setShowInfoModal] = useState(false);
-  const [emailFormatError, setEmailFormatError] = useState(false);
+
+  const [step, setStep] = useState(Step.CheckEmail);
+  const isCheckEmailStep = step === Step.CheckEmail;
+  const isLoginStep = step === Step.Login;
+  const isRegisterAccountStep = step === Step.RegisterAccount;
+  const isRegisterUserTypeStep = step === Step.RegisterUserType;
+  const isVerifyEmailStep = step === Step.VerifyEmail;
+  const isVerifyEmailReminderStep = step === Step.VerifyEmailReminder;
+
+  const {
+    value: email,
+    error: emailError,
+    setError: setEmailError,
+    onChange: onChangeEmail,
+  } = useInput("");
+  const {
+    value: password,
+    error: passwordError,
+    setError: setPasswordError,
+    onChange: onChangePassword,
+  } = useInput("");
+  const {
+    value: userType,
+    error: userTypeError,
+    setError: setUserTypeError,
+    setValue: setUserType,
+    onChange: onChangeUserType,
+  } = useInput("");
+
   const [emptyAuthError, setEmptyAuthError] = useState(false);
   const [invalidAuthError, setInvalidAuthError] = useState(false);
   const [existingUserError, setExistingUserError] = useState(false);
@@ -49,70 +88,6 @@ const LoginWithoutI18n = (props: LoginProps) => {
     setEmptyAuthError(false);
     setInvalidAuthError(false);
     setExistingUserError(false);
-  };
-
-  const toggleLoginState = (endState: LoginState) => {
-    if (endState === LoginState.Register) {
-      setLoginState(LoginState.Register);
-      if (!onBuildingPage) {
-        setHeader("Sign up");
-        setSubheader("With an account you can save buildings and get weekly updates");
-      }
-    } else if (endState === LoginState.Login) {
-      setLoginState(LoginState.Login);
-      if (!onBuildingPage) {
-        setHeader("Log in");
-        setSubheader("");
-      }
-    }
-  };
-
-  const handleEmailSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (isDefaultState && !!username && !emailFormatError) {
-      const existingUser = await AuthClient.isEmailAlreadyUsed(username);
-
-      if (existingUser) {
-        setExistingUserError(true);
-        toggleLoginState(LoginState.Login);
-      } else {
-        toggleLoginState(LoginState.Register);
-      }
-    }
-  };
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    resetErrorStates();
-
-    if (!username || !password) {
-      setEmptyAuthError(true);
-      return;
-    }
-
-    const existingUser = await AuthClient.isEmailAlreadyUsed(username);
-    if (existingUser) {
-      if (isRegisterState) {
-        setExistingUserError(true);
-      } else {
-        const error = await userContext.login(username, password, onSuccess);
-        if (!!error) {
-          setInvalidAuthError(true);
-        } else {
-          handleRedirect && handleRedirect();
-        }
-      }
-    } else {
-      const error = isRegisterState
-        ? await userContext.register(username, password, onSuccess)
-        : await userContext.login(username, password, onSuccess);
-
-      if (!!error) {
-        setInvalidAuthError(true);
-      } else {
-        handleRedirect && handleRedirect();
-      }
-    }
   };
 
   const renderPageLevelAlert = (
@@ -130,10 +105,7 @@ const LoginWithoutI18n = (props: LoginProps) => {
       >
         {message}
         {showLogin && (
-          <button
-            className="button is-text ml-5"
-            onClick={() => toggleLoginState(LoginState.Login)}
-          >
+          <button className="button is-text ml-5" onClick={() => setStep(Step.Login)}>
             <Trans>Log in</Trans>
           </button>
         )}
@@ -152,24 +124,15 @@ const LoginWithoutI18n = (props: LoginProps) => {
         alertMessage = i18n._(t`The email and/or password cannot be blank.`);
         return renderPageLevelAlert("error", alertMessage);
       case existingUserError:
-        if (isRegisterState) {
+        if (isRegisterAccountStep) {
           alertMessage = i18n._(t`That email is already used.`);
           // show login button in alert
-          return renderPageLevelAlert("error", alertMessage, !onBuildingPage);
+          return renderPageLevelAlert("error", alertMessage, !onBuildingPage || showRegisterModal);
         } else if (onBuildingPage) {
           alertMessage = i18n._(t`Your email is associated with an account. Log in below.`);
           return renderPageLevelAlert("info", alertMessage);
         }
     }
-  };
-
-  const renderHeader = () => {
-    return (
-      <>
-        <h4 className="page-title text-center">{i18n._(t`${header}`)}</h4>
-        <h5 className="text-left">{i18n._(t`${subheader}`)}</h5>
-      </>
-    );
   };
 
   const renderFooter = () => {
@@ -186,13 +149,10 @@ const LoginWithoutI18n = (props: LoginProps) => {
           </button>
         </div>
         <div className="login-type-toggle">
-          {isRegisterState ? (
+          {isRegisterAccountStep ? (
             <>
               <Trans>Already have an account?</Trans>
-              <button
-                className="button is-text ml-5"
-                onClick={() => toggleLoginState(LoginState.Login)}
-              >
+              <button className="button is-text ml-5" onClick={() => setStep(Step.Login)}>
                 <Trans>Log in</Trans>
               </button>
             </>
@@ -201,7 +161,7 @@ const LoginWithoutI18n = (props: LoginProps) => {
               <Trans>Don't have an account?</Trans>
               <button
                 className="button is-text ml-5 pt-20"
-                onClick={() => toggleLoginState(LoginState.Register)}
+                onClick={() => setStep(Step.RegisterAccount)}
               >
                 <Trans>Sign up</Trans>
               </button>
@@ -231,79 +191,289 @@ const LoginWithoutI18n = (props: LoginProps) => {
     );
   };
 
-  const isBadEmailFormat = () => {
-    /* valid email regex rules 
-      alpha numeric characters are ok, upper/lower case agnostic 
-      username: leading \_ ok, chars \_\.\-\+ ok in all other positions
-      domain name: chars \.\- ok as long as not leading. must end in a \. and at least two alphabet chars */
-    const pattern =
-      "^([a-zA-Z0-9_]+[a-zA-Z0-9+_.-]+@[a-zA-Z0-9]+[a-zA-Z0-9.-]+[a-zA-Z0-9]+.[a-zA-Z]{2,})$";
-    const input = document.getElementById("email-input") as HTMLElement;
-    const inputValue = (input as HTMLInputElement).value;
+  const renderVerifyEmail = () => {
+    return (
+      <div className="verify-email-container">
+        <h4>✅</h4>
+        <p>
+          {i18n._(
+            t`We just sent an email verification link to ${email}. To complete signup, please click the link in your email.`
+          )}
+        </p>
+        <Trans render="span" className="resend-verify-label">
+          Didn’t receive the link?
+        </Trans>
+        <button
+          className="button is-secondary is-full-width"
+          onClick={() => AuthClient.resendVerifyEmail()}
+        >
+          <Trans>Send again</Trans>
+        </button>
+      </div>
+    );
+  };
 
-    // HTML input element has loose email validation requirements, so we check the input against a custom regex
-    const passStrictRegex = inputValue.match(pattern);
-    const passAutoValidation = document.querySelectorAll("input:invalid").length === 0;
+  const renderVerifyEmailReminder = () => {
+    return (
+      <>
+        <Trans render="h4">Verify your email to start receiving updates</Trans>
+        {i18n._(t`Click the link we sent to ${email}. It may take a few minutes to arrive.`)}
+        <br />
+        <br />
+        <Trans>Once your email has been verified, you’ll be signed up for Data Updates.</Trans>
+        <br />
+        <br />
+        <button
+          className="button is-secondary is-full-width"
+          onClick={() => AuthClient.resendVerifyEmail()}
+        >
+          <Trans>Resend email</Trans>
+        </button>
+      </>
+    );
+  };
 
-    if (!passAutoValidation || !passStrictRegex) {
-      setEmailFormatError(true);
-      input.className = input.className + " invalid";
-    } else {
-      setEmailFormatError(false);
-      input.className = input.className.split(" ")[0];
+  const onEmailSubmit = async () => {
+    !!setLoginRegisterInProgress && setLoginRegisterInProgress(true);
+
+    if (!email) {
+      // TODO: Make this specific to email only
+      // TODO: raise this error if showRegisterModal?
+      showRegisterModal && setEmptyAuthError(true);
+      registerInModal && setShowRegisterModal(true);
+      return;
+    }
+
+    if (!!email && emailError) {
+      // TODO Raise a new kind of bad email error, in addition to the input level one?
+      // in chrome the browser adds an alert on the textbox explaining the format error
+      // TODO: open modal if email error?
+      if (registerInModal && !showRegisterModal) {
+        setShowRegisterModal(true);
+      }
+      return;
+    }
+
+    if (!!email && !emailError) {
+      const existingUser = await AuthClient.isEmailAlreadyUsed(email);
+
+      if (existingUser) {
+        setExistingUserError(true);
+        setStep(Step.Login);
+      } else {
+        setStep(Step.RegisterAccount);
+        if (registerInModal && !showRegisterModal) {
+          setShowRegisterModal(true);
+        }
+      }
     }
   };
 
+  const onLoginSubmit = async () => {
+    resetErrorStates();
+
+    if (!email || !password) {
+      setEmptyAuthError(true);
+      return;
+    }
+
+    // context doesn't update immediately so can't check verified status within this onSubmit without returning the user
+    const resp = await userContext.login(email, password, onSuccess);
+
+    if (!!resp?.error) {
+      setInvalidAuthError(true);
+      return;
+    }
+
+    if (!!resp?.user && !resp.user.verified) {
+      setStep(Step.VerifyEmailReminder);
+      registerInModal && setShowRegisterModal(true);
+      return;
+    }
+
+    !!setLoginRegisterInProgress && setLoginRegisterInProgress(false);
+
+    handleRedirect && handleRedirect();
+  };
+
+  const onAccountSubmit = async () => {
+    if (!email) {
+      setEmptyAuthError(true);
+      return;
+    }
+
+    if (!!email && emailError) {
+      // TODO Raise a new kind of bad email error, in addition to the input level one?
+      // in chrome the browser adds an alert on the textbox explaining the format error
+      return;
+    }
+
+    const existingUser = await AuthClient.isEmailAlreadyUsed(email);
+    if (existingUser) {
+      setExistingUserError(true);
+      return;
+    }
+
+    if (!password) {
+      setEmptyAuthError(true);
+      return;
+    }
+
+    if (!!password && passwordError) {
+      // TODO: raise alert here, or ok with input level invalid pw note?
+      return;
+    }
+
+    setStep(Step.RegisterUserType);
+  };
+
+  const onUserTypeSubmit = async () => {
+    if (!userType || userTypeError) {
+      // TODO: raise alert here that this is required?
+      return;
+    }
+
+    const resp = await userContext.register(email, password, onSuccess);
+
+    if (!!resp?.error) {
+      setInvalidAuthError(true);
+      return;
+    }
+
+    if (!registerInModal) {
+      !!setLoginRegisterInProgress && setLoginRegisterInProgress(false);
+    }
+
+    setStep(Step.VerifyEmail);
+
+    // TODO: how to redirect when there is verify step?
+    // handleRedirect && handleRedirect();
+  };
+
+  let headerText = "";
+  let onSubmit = () => {};
+  let submitButtonText = "";
+  switch (step) {
+    case Step.CheckEmail:
+      headerText = onBuildingPage
+        ? i18n._(t`Get weekly Data Updates for complaints, violations, and evictions.`)
+        : i18n._(t`Log in / sign up`);
+      onSubmit = onEmailSubmit;
+      submitButtonText =
+        !onBuildingPage || showRegisterModal ? i18n._(t`Submit`) : i18n._(t`Get updates`);
+      break;
+    case Step.Login:
+      headerText = onBuildingPage ? "" : i18n._(t`Log in`);
+      onSubmit = onLoginSubmit;
+      submitButtonText = i18n._(t`Log in`);
+      break;
+    case Step.RegisterAccount:
+      headerText = onBuildingPage
+        ? i18n._(t`Create a password to start receiving Data Updates`)
+        : i18n._(t`Sign up`);
+      onSubmit = onAccountSubmit;
+      submitButtonText = i18n._(t`Next`);
+      break;
+    case Step.RegisterUserType:
+      headerText = i18n._(t`Which best describes you?`);
+      onSubmit = onUserTypeSubmit;
+      submitButtonText = "Sign up";
+      break;
+  }
+
+  const renderLoginFlow = () => {
+    return (
+      <div className="Login">
+        {!isVerifyEmailStep && !isVerifyEmailReminderStep && (
+          <>
+            {(!onBuildingPage || showRegisterModal) && (
+              <h4 className={classNames(!onBuildingPage && "page-title")}>{headerText}</h4>
+            )}
+            {renderAlert()}
+            <form
+              className="input-group"
+              onSubmit={(e) => {
+                e.preventDefault();
+                resetErrorStates();
+                onSubmit();
+              }}
+            >
+              {(isCheckEmailStep || isLoginStep || isRegisterAccountStep) && (
+                <EmailInput
+                  email={email}
+                  onChange={onChangeEmail}
+                  error={emailError}
+                  setError={setEmailError}
+                />
+              )}
+              {(isLoginStep || isRegisterAccountStep) && (
+                <PasswordInput
+                  labelText={isLoginStep ? i18n._(t`Password`) : i18n._(t`Create a password`)}
+                  password={password}
+                  username={email}
+                  setError={setPasswordError}
+                  onChange={onChangePassword}
+                  showPasswordRules={isRegisterAccountStep}
+                  showForgotPassword={!isRegisterAccountStep}
+                />
+              )}
+              {isRegisterUserTypeStep && (
+                <UserTypeInput
+                  userType={userType}
+                  setUserType={setUserType}
+                  error={userTypeError}
+                  setError={setUserTypeError}
+                  onChange={onChangeUserType}
+                />
+              )}
+              <div className="submit-button-group">
+                {/* {isRegisterUserTypeStep && (
+                <button
+                  type="button"
+                  className="button is-primary button-back"
+                  onClick={() => setLoginStep(LoginStep.RegisterAccount)}
+                >
+                  Back
+                </button>
+              )} */}
+                <button type="submit" className="button is-primary">
+                  {submitButtonText}
+                </button>
+              </div>
+            </form>
+          </>
+        )}
+        {isVerifyEmailStep && renderVerifyEmail()}
+        {isVerifyEmailReminderStep && renderVerifyEmailReminder()}
+        {/* {onBuildingPage && renderFooter()} */}
+      </div>
+    );
+  };
+
   return (
-    <div className="Login">
-      {renderAlert()}
-      {!onBuildingPage && renderHeader()}
-      <form onSubmit={isDefaultState ? handleEmailSubmit : handleSubmit} className="input-group">
-        <Trans render="label">Email address</Trans>
-        {emailFormatError && (
-          <span id="input-field-error">
-            <AlertIcon />
-            <Trans>Please enter a valid email address. </Trans>
-          </span>
-        )}
-        <input
-          type="email"
-          id="email-input"
-          className="input"
-          placeholder={i18n._(t`Enter email`)}
-          onChange={(e) => {
-            setUsername(e.target.value);
+    <>
+      {(!registerInModal || isCheckEmailStep || isLoginStep || isVerifyEmailStep) &&
+        renderLoginFlow()}
+      {registerInModal && (
+        <Modal
+          key={1}
+          showModal={showRegisterModal}
+          width={40}
+          onClose={() => {
+            resetErrorStates();
+            setShowRegisterModal(false);
+            if (isVerifyEmailStep || isVerifyEmailReminderStep) {
+              !!setLoginRegisterInProgress && setLoginRegisterInProgress(false);
+            }
           }}
-          onBlur={isBadEmailFormat}
-          value={username}
-          // note: required={true} removed bc any empty state registers as invalid state
-        />
-        {!isDefaultState && (
-          <PasswordInput
-            labelText={isRegisterState ? "Create a password" : "Password"}
-            username={username}
-            showPasswordRules={isRegisterState}
-            showForgotPassword={!isRegisterState}
-            onChange={setPassword}
-          />
-        )}
-        <input
-          type="submit"
-          className="button is-primary"
-          value={
-            isDefaultState
-              ? i18n._(t`Submit`)
-              : isRegisterState
-              ? i18n._(t`Sign up`)
-              : i18n._(t`Log in`)
-          }
-        />
-      </form>
-      {onBuildingPage && renderFooter()}
-    </div>
+        >
+          {renderLoginFlow()}
+        </Modal>
+      )}
+    </>
   );
 };
 
-const Login = withI18n()(LoginWithoutI18n);
+export const Login = withI18n()(LoginWithoutI18n);
 
 export default Login;
