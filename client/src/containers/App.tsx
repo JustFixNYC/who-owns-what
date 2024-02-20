@@ -38,11 +38,7 @@ import { wowMachine } from "state-machine";
 import { NotFoundPage } from "./NotFoundPage";
 import widont from "widont";
 import { Dropdown } from "components/Dropdown";
-import {
-  isLegacyPath,
-  ToggleLinkBetweenPortfolioMethods,
-  WowzaRedirectPage,
-} from "components/WowzaToggle";
+import { isLegacyPath, WowzaRedirectPage } from "components/WowzaToggle";
 import { logAmplitudeEvent } from "../components/Amplitude";
 import { SliderButton } from "@typeform/embed-react";
 import { StickyModal } from "components/StickyModal";
