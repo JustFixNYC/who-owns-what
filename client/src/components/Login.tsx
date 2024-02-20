@@ -135,6 +135,8 @@ const LoginWithoutI18n = (props: LoginProps) => {
     }
   };
 
+  // TODO: do we need this anymore?
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const renderFooter = () => {
     return (
       <div className="building-page-footer">
