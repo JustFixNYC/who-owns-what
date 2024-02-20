@@ -1,0 +1,69 @@
+@import "_vars.scss";
+@import "_typography.scss";
+
+.user-type-container {
+  .user-type-radio-group {
+    display: grid;
+    grid-template-columns: 2rem auto;
+    gap: 1rem 0.8rem;
+    align-items: center;
+
+    label {
+      margin: 0;
+    }
+
+    input[type="radio"] {
+      /* Remove most all native input styles */
+      appearance: none;
+      /* For iOS < 15 */
+      background-color: $justfix-white;
+      /* Not removed via appearance */
+      margin: 0;
+
+      font: inherit;
+      color: $justfix-black;
+      width: 2rem;
+      height: 2rem;
+      border: 0.15em solid $justfix-black;
+      border-radius: 50%;
+      transform: translateY(-0.075em);
+
+      display: grid;
+      place-content: center;
+
+      &::before {
+        content: "";
+        width: 1.2rem;
+        height: 1.2rem;
+        border-radius: 50%;
+        transform: scale(0);
+        transition: 120ms transform ease-in-out;
+        box-shadow: inset 1em 1em $justfix-black;
+        /* Windows High Contrast Mode */
+        background-color: CanvasText;
+      }
+
+      &:checked::before {
+        transform: scale(1);
+      }
+    }
+  }
+
+  .user-type-input-text-group {
+    display: flex;
+    flex-direction: column;
+    margin: 2.4rem 2.8rem 0 2.8rem;
+
+    #input-field-error {
+      display: flex;
+      align-items: center;
+      font-size: 1.3rem;
+      color: #ba4300;
+      margin-bottom: 0.5rem;
+
+      svg {
+        margin-right: 0.75rem;
+      }
+    }
+  }
+}

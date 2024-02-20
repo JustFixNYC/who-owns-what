@@ -10,54 +10,26 @@
     flex-direction: column;
     margin-top: 1rem;
 
-    #input-field-error {
-      display: flex;
-      align-items: center;
-      font-size: 1.3rem;
-      color: #ba4300;
-      margin-bottom: 0.5rem;
-
-      svg {
-        margin-right: 0.75rem;
-      }
-    }
-
-    input[type="email"],
-    .password-input {
+    .email-input,
+    .password-input,
+    .user-type-container {
       margin-bottom: 2rem;
     }
 
-    input[type="submit"] {
-      padding: 1.6rem 3.2rem !important;
-      align-self: center;
-      margin: 0 auto !important;
-    }
+    .submit-button-group {
+      display: flex;
 
-    input:invalid,
-    .invalid {
-      border-color: $justfix-orange;
-    }
-
-    input:focus:invalid,
-    .invalid:focus {
-      border-color: $justfix-black;
+      button[type="submit"],
+      input[type="submit"] {
+        padding: 1.6rem 3.2rem !important;
+        align-self: center;
+        margin: 0 auto !important;
+      }
     }
   }
 
   .page-title {
     margin-top: 1.5rem;
-  }
-
-  label {
-    @include desktop-eyebrow();
-    // vars marked !important bc typography mixin is not available for inconsolata
-    font-weight: 600 !important;
-    font-family: $wow-font !important;
-    font-size: 1.3rem !important;
-
-    text-align: left;
-    margin-top: 1rem;
-    margin-bottom: 0.5rem;
   }
 
   .building-page-footer {
@@ -111,6 +83,16 @@
 
   .password-input {
     margin-top: 0.5rem;
+  }
+
+  .verify-email-container {
+    h4,
+    .resend-verify-label {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 1.2rem;
+      margin-top: 1.4rem;
+    }
   }
 
   .jf-alert {

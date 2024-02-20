@@ -1,5 +1,5 @@
 /* eslint-disable no-useless-escape */
-import React, { Fragment, useState } from "react";
+import React, { ChangeEvent, Fragment, useState } from "react";
 
 import "styles/Password.css";
 import "styles/_input.scss";
@@ -33,22 +33,33 @@ export const validatePassword = (password: string) => {
 type PasswordInputProps = {
   i18n: I18n;
   labelText: string;
+  password: string;
   username?: string;
-  onChange?: (password: string) => void;
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  setError?: React.Dispatch<React.SetStateAction<boolean>>;
   showPasswordRules?: boolean;
   showForgotPassword?: boolean;
 };
 
 const PasswordInputWithoutI18n = (props: PasswordInputProps) => {
   const { account } = createWhoOwnsWhatRoutePaths();
-
-  const { i18n, labelText, username, onChange, showPasswordRules, showForgotPassword } = props;
-  const [password, setPassword] = useState("");
+  const {
+    i18n,
+    labelText,
+    username,
+    password,
+    setError,
+    onChange,
+    showPasswordRules,
+    showForgotPassword,
+  } = props;
   const [showPassword, setShowPassword] = useState(false);
 
-  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPassword(e.target.value);
-    if (onChange) onChange(e.target.value);
+  const badPasswordFormat = () => {
+    const input = document.getElementById("password-input") as HTMLElement;
+    const inputValue = (input as HTMLInputElement).value;
+    const isValid = validatePassword(inputValue);
+    setError && setError(!isValid);
   };
 
   return (
@@ -76,8 +87,10 @@ const PasswordInputWithoutI18n = (props: PasswordInputProps) => {
       <div className="password-input">
         <input
           type={showPassword ? "text" : "password"}
+          id="password-input"
           className="input"
-          onChange={handlePasswordChange}
+          onChange={onChange}
+          onBlur={badPasswordFormat}
           value={password}
         />
         <button

@@ -5,6 +5,7 @@ import { t, Trans } from "@lingui/macro";
 
 import "styles/EmailAlertSignup.css";
 import PasswordInput from "./PasswordInput";
+import { useInput } from "util/helpers";
 
 type PasswordSettingFieldProps = withI18nProps & {
   onSubmit: (currentPassword: string, newPassword: string) => void;
@@ -12,14 +13,9 @@ type PasswordSettingFieldProps = withI18nProps & {
 
 const PasswordSettingFieldWithoutI18n = (props: PasswordSettingFieldProps) => {
   const { i18n, onSubmit } = props;
-  const [newPassword, setNewPassword] = useState("");
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [currentPassword, setCurrentPassword] = useState("");
+  const { value: currentPassword, onChange: onChangeCurrentPassword } = useInput("");
+  const { value: newPassword, onChange: onChangeNewPassword } = useInput("");
   // const [showCurrentPassword, setShowCurrentPassword] = useState(false);
-
-  // const handleCurrentPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   setCurrentPassword(e.target.value);
-  // };
 
   const handleSubmit = () => {
     onSubmit(currentPassword, newPassword);
@@ -28,7 +24,11 @@ const PasswordSettingFieldWithoutI18n = (props: PasswordSettingFieldProps) => {
   return (
     <UserSettingField title={i18n._(t`Password`)} preview="**********" onSubmit={handleSubmit}>
       <Trans render="label">Password</Trans>
-      <PasswordInput labelText="Enter your old password" />
+      <PasswordInput
+        labelText={i18n._(t`Enter your old password`)}
+        password={currentPassword}
+        onChange={onChangeCurrentPassword}
+      />
 
       {/* <div className="password-input">
         <input
@@ -42,9 +42,10 @@ const PasswordSettingFieldWithoutI18n = (props: PasswordSettingFieldProps) => {
         </button>
       </div> */}
       <PasswordInput
-        labelText="Create a new password"
+        labelText={i18n._(t`Create a new password`)}
         showPasswordRules={true}
-        onChange={setNewPassword}
+        password={newPassword}
+        onChange={onChangeNewPassword}
       />
     </UserSettingField>
   );

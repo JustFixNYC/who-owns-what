@@ -10,7 +10,6 @@ import "styles/EmailAlertSignup.css";
 import { JustfixUser } from "state-machine";
 import AuthClient from "./AuthClient";
 import { AlertIconOutline, SubscribedIcon } from "./Icons";
-import Modal from "./Modal";
 
 type BuildingSubscribeProps = withI18nProps & {
   bbl: string;
@@ -91,7 +90,7 @@ const EmailAlertSignupWithoutI18n = (props: EmailAlertProps) => {
   const { bbl, housenumber, streetname, zip, boro } = props;
   const userContext = useContext(UserContext);
   const { user } = userContext;
-  const [showVerifyModal, setShowVerifyModal] = useState(false);
+  const [loginRegisterInProgress, setLoginRegisterInProgress] = useState(false);
 
   return (
     <>
@@ -114,8 +113,10 @@ const EmailAlertSignupWithoutI18n = (props: EmailAlertProps) => {
                   )}
                 </label>
                 <div className="table-content">
-                  {!user ? (
-                    <Fragment>
+                  {user && !loginRegisterInProgress ? (
+                    <BuildingSubscribe {...props} />
+                  ) : (
+                    <>
                       <div className="email-description">
                         <Trans>
                           Each weekly email includes HPD Complaints, HPD Violations, and Eviction
@@ -123,41 +124,16 @@ const EmailAlertSignupWithoutI18n = (props: EmailAlertProps) => {
                         </Trans>
                       </div>
                       <Login
-                        onBuildingPage={true}
+                        registerInModal
+                        onBuildingPage
+                        setLoginRegisterInProgress={setLoginRegisterInProgress}
                         onSuccess={(user: JustfixUser) => {
                           userContext.subscribe(bbl, housenumber, streetname, zip, boro, user);
-                          !user.verified && setShowVerifyModal(true);
                         }}
                       />
-                    </Fragment>
-                  ) : (
-                    <BuildingSubscribe {...props} />
+                    </>
                   )}
                 </div>
-                <Modal
-                  key={1}
-                  showModal={showVerifyModal}
-                  width={40}
-                  onClose={() => setShowVerifyModal(false)}
-                >
-                  <Trans render="h4">Verify your email to start receiving updates</Trans>
-                  {i18n._(
-                    t`Click the link we sent to ${user?.email}. It may take a few minutes to arrive.`
-                  )}
-                  <br />
-                  <br />
-                  <Trans>
-                    Once your email has been verified, you’ll be signed up for Data Updates.
-                  </Trans>
-                  <br />
-                  <br />
-                  <button
-                    className="button is-secondary is-full-width"
-                    onClick={() => AuthClient.resendVerifyEmail()}
-                  >
-                    <Trans>Resend email</Trans>
-                  </button>
-                </Modal>
               </div>
             )}
           </I18n>
