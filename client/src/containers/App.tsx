@@ -5,8 +5,6 @@ import { Trans, t } from "@lingui/macro";
 import "styles/App.css";
 
 import ScrollToTop from "../components/ScrollToTop";
-import SocialShare from "../components/SocialShare";
-import Modal from "../components/Modal";
 import FeatureCalloutWidget from "../components/FeatureCalloutWidget";
 import classnames from "classnames";
 import browser from "util/browser";
@@ -254,7 +252,6 @@ const getMainNavLinks = (isLegacyPath?: boolean) => {
 
 const Navbar = () => {
   const { pathname } = useLocation();
-  const [isEngageModalVisible, setEngageModalVisibility] = useState(false);
   const addFeatureCalloutWidget = process.env.REACT_APP_ENABLE_FEATURE_CALLOUT_WIDGET === "1";
   const isDemoSite = process.env.REACT_APP_DEMO_SITE === "1";
   const allowChangingPortfolioMethod =
@@ -280,10 +277,6 @@ const Navbar = () => {
         {addFeatureCalloutWidget && <FeatureCalloutWidget />}
         <span className="hide-lg">
           {getMainNavLinks(isLegacyPath(pathname))}
-          {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-          <a href="#" onClick={() => setEngageModalVisibility(true)}>
-            <Trans>Share</Trans>
-          </a>
           <LocaleSwitcher />
           {getAccountNavLinks(userContext.logout, pathname, !!userContext?.user?.email)}
         </span>
@@ -293,12 +286,6 @@ const Navbar = () => {
               {link}
             </li>
           ))}
-          <li className="menu-item">
-            {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-            <a href="#" onClick={() => setEngageModalVisibility(true)}>
-              <Trans>Share</Trans>
-            </a>
-          </li>
           <li className="menu-item">
             <LocaleSwitcherWithFullLanguageName />
           </li>
@@ -311,12 +298,6 @@ const Navbar = () => {
           )}
         </Dropdown>
       </nav>
-      <Modal showModal={isEngageModalVisible} onClose={() => setEngageModalVisibility(false)}>
-        <h5 className="first-header">
-          <Trans>Share this page with your neighbors</Trans>
-        </h5>
-        <SocialShare location="share-modal" />
-      </Modal>
     </div>
   );
 };
