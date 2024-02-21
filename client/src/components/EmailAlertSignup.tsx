@@ -63,7 +63,7 @@ const BuildingSubscribeWithoutI18n = (props: BuildingSubscribeProps) => {
   return (
     <I18n>
       {({ i18n }) => (
-        <div className="table-content building-subscribe">
+        <div className="building-subscribe">
           {!(subscriptions && !!subscriptions?.find((s) => s.bbl === bbl)) ? (
             <button
               className="button is-primary"
