@@ -273,7 +273,7 @@ const LoginWithoutI18n = (props: LoginProps) => {
     }
 
     !!setLoginRegisterInProgress && setLoginRegisterInProgress(false);
-    
+
     if (!onBuildingPage) {
       handleRedirect && handleRedirect();
       return;
