@@ -91,13 +91,13 @@ CORS_ORIGIN_WHITELIST = (
     "http://127.0.0.1:3000",
     "http://localhost:3000",
     "http://demo-wowserver.justfix.org",
-    "https://deploy-preview-703--wow-django-dev.netlify.app",
-    "https://deploy-preview-785--wow-django-dev.netlify.app",
     "https://deploy-preview-811--wow-django-dev.netlify.app",
-    "https://deploy-preview-843--wow-django-dev.netlify.app",
     "https://deploy-preview-849--wow-django-dev.netlify.app",
+    "https://email-alerts-account-signup--wow-django-dev.netlify.app",
 )
-
+CORS_ALLOWED_ORIGIN_REGEXES = [
+    r"https://\w+\.deploy-preview-(?:\d{1,4})--wow-django-dev\.netlify\.app"
+]
 # This is based off the default Django logging configuration:
 # https://github.com/django/django/blob/master/django/utils/log.py
 LOGGING = {
