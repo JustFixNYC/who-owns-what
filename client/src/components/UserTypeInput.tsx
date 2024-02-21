@@ -3,6 +3,7 @@ import { Trans, t } from "@lingui/macro";
 import { I18n } from "@lingui/core";
 import { withI18n } from "@lingui/react";
 import { AlertIcon } from "./Icons";
+import classNames from "classnames";
 
 type UserTypeInputProps = {
   i18n: I18n;
@@ -31,15 +32,10 @@ const UserTypeInputWithoutI18n = (props: UserTypeInputProps) => {
   };
 
   const missingOtherText = () => {
-    const input = document.getElementById("user-type-input-other-text") as HTMLElement;
-    const inputValue = (input as HTMLInputElement).value;
-
-    if (!inputValue) {
+    if (!userType) {
       setError(true);
-      input.className = input.className + " invalid";
     } else {
       setError(false);
-      input.className = input.className.split(" ")[0];
     }
   };
 
@@ -54,6 +50,12 @@ const UserTypeInputWithoutI18n = (props: UserTypeInputProps) => {
 
   return (
     <div className="user-type-container">
+      {error && activeRadio !== USER_TYPES.other && (
+        <span id="input-field-error">
+          <AlertIcon />
+          <Trans>Please select an option.</Trans>
+        </span>
+      )}
       <div className="user-type-radio-group">
         <input
           id="user-type-input-tenant"
@@ -134,7 +136,7 @@ const UserTypeInputWithoutI18n = (props: UserTypeInputProps) => {
             required={required}
             autoFocus
             id="user-type-input-other-text"
-            className="input"
+            className={classNames("input", { invalid: error })}
             type="text"
             name="user-type"
             value={userType}

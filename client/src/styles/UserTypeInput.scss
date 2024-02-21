@@ -54,16 +54,26 @@
     flex-direction: column;
     margin: 2.4rem 2.8rem 0 2.8rem;
 
-    #input-field-error {
-      display: flex;
-      align-items: center;
-      font-size: 1.3rem;
-      color: #ba4300;
-      margin-bottom: 0.5rem;
-
-      svg {
-        margin-right: 0.75rem;
+    input {
+      &.invalid {
+        border-color: $justfix-orange;
       }
+
+      &.invalid:focus {
+        border-color: $justfix-black;
+      }
+    }
+  }
+
+  #input-field-error {
+    display: flex;
+    align-items: center;
+    font-size: 1.3rem;
+    color: #ba4300;
+    margin-bottom: 0.5rem;
+
+    svg {
+      margin-right: 0.75rem;
     }
   }
 }

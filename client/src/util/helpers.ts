@@ -136,6 +136,7 @@ export function searchAddrsAreEqual(
 export const useInput = (initialValue: string) => {
   const [value, setValue] = useState(initialValue);
   const [error, setError] = useState(false);
+  const [showError, setShowError] = useState(false);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
@@ -144,9 +145,11 @@ export const useInput = (initialValue: string) => {
   return {
     value,
     error,
-    onChange: handleChange,
-    setError,
+    showError,
     setValue,
+    setError,
+    setShowError,
+    onChange: handleChange,
   };
 };
 

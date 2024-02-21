@@ -32,12 +32,10 @@
     input {
       flex: 1;
 
-      &:invalid,
       &.invalid {
         border-color: $justfix-orange;
       }
 
-      &:focus:invalid,
       &.invalid:focus {
         border-color: $justfix-black;
       }

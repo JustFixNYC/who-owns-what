@@ -63,7 +63,9 @@ const LoginWithoutI18n = (props: LoginProps) => {
   const {
     value: email,
     error: emailError,
+    showError: showEmailError,
     setError: setEmailError,
+    setShowError: setShowEmailError,
     onChange: onChangeEmail,
   } = useInput("");
   const {
@@ -80,12 +82,10 @@ const LoginWithoutI18n = (props: LoginProps) => {
     onChange: onChangeUserType,
   } = useInput("");
 
-  const [emptyAuthError, setEmptyAuthError] = useState(false);
   const [invalidAuthError, setInvalidAuthError] = useState(false);
   const [existingUserError, setExistingUserError] = useState(false);
 
   const resetErrorStates = () => {
-    setEmptyAuthError(false);
     setInvalidAuthError(false);
     setExistingUserError(false);
   };
@@ -120,23 +120,13 @@ const LoginWithoutI18n = (props: LoginProps) => {
       case invalidAuthError:
         alertMessage = i18n._(t`The email and/or password you entered is incorrect.`);
         return renderPageLevelAlert("error", alertMessage);
-      case emptyAuthError:
-        alertMessage = i18n._(t`The email and/or password cannot be blank.`);
-        return renderPageLevelAlert("error", alertMessage);
-      case existingUserError:
-        if (isRegisterAccountStep) {
-          alertMessage = i18n._(t`That email is already used.`);
-          // show login button in alert
-          return renderPageLevelAlert("error", alertMessage, !onBuildingPage || showRegisterModal);
-        } else if (onBuildingPage) {
-          alertMessage = i18n._(t`Your email is associated with an account. Log in below.`);
-          return renderPageLevelAlert("info", alertMessage);
-        }
+      case existingUserError && isRegisterAccountStep:
+        alertMessage = i18n._(t`That email is already used.`);
+        // show login button in alert
+        return renderPageLevelAlert("error", alertMessage, !onBuildingPage || showRegisterModal);
     }
   };
 
-  // TODO: do we need this anymore?
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const renderFooter = () => {
     return (
       <div className="building-page-footer">
@@ -239,20 +229,17 @@ const LoginWithoutI18n = (props: LoginProps) => {
     !!setLoginRegisterInProgress && setLoginRegisterInProgress(true);
 
     if (!email) {
-      // TODO: Make this specific to email only
-      // TODO: raise this error if showRegisterModal?
-      showRegisterModal && setEmptyAuthError(true);
+      if (!onBuildingPage || showRegisterModal) {
+        setEmailError(true);
+        setShowEmailError(true);
+      }
       registerInModal && setShowRegisterModal(true);
       return;
     }
 
     if (!!email && emailError) {
-      // TODO Raise a new kind of bad email error, in addition to the input level one?
-      // in chrome the browser adds an alert on the textbox explaining the format error
-      // TODO: open modal if email error?
-      if (registerInModal && !showRegisterModal) {
-        setShowRegisterModal(true);
-      }
+      setEmailError(true);
+      setShowEmailError(true);
       return;
     }
 
@@ -260,7 +247,6 @@ const LoginWithoutI18n = (props: LoginProps) => {
       const existingUser = await AuthClient.isEmailAlreadyUsed(email);
 
       if (existingUser) {
-        setExistingUserError(true);
         setStep(Step.Login);
       } else {
         setStep(Step.RegisterAccount);
@@ -274,16 +260,21 @@ const LoginWithoutI18n = (props: LoginProps) => {
   const onLoginSubmit = async () => {
     resetErrorStates();
 
-    if (!email || !password) {
-      setEmptyAuthError(true);
+    if (!email || emailError || !password || passwordError) {
       return;
     }
 
-    // context doesn't update immediately so can't check verified status within this onSubmit without returning the user
+    // context doesn't update immediately so need to reurn user to check verified status
     const resp = await userContext.login(email, password, onSuccess);
 
     if (!!resp?.error) {
       setInvalidAuthError(true);
+      return;
+    }
+
+    if (!onBuildingPage) {
+      !!setLoginRegisterInProgress && setLoginRegisterInProgress(false);
+      handleRedirect && handleRedirect();
       return;
     }
 
@@ -292,21 +283,10 @@ const LoginWithoutI18n = (props: LoginProps) => {
       registerInModal && setShowRegisterModal(true);
       return;
     }
-
-    !!setLoginRegisterInProgress && setLoginRegisterInProgress(false);
-
-    handleRedirect && handleRedirect();
   };
 
   const onAccountSubmit = async () => {
-    if (!email) {
-      setEmptyAuthError(true);
-      return;
-    }
-
-    if (!!email && emailError) {
-      // TODO Raise a new kind of bad email error, in addition to the input level one?
-      // in chrome the browser adds an alert on the textbox explaining the format error
+    if (!email || emailError) {
       return;
     }
 
@@ -316,13 +296,7 @@ const LoginWithoutI18n = (props: LoginProps) => {
       return;
     }
 
-    if (!password) {
-      setEmptyAuthError(true);
-      return;
-    }
-
-    if (!!password && passwordError) {
-      // TODO: raise alert here, or ok with input level invalid pw note?
+    if (!password || passwordError) {
       return;
     }
 
@@ -332,6 +306,7 @@ const LoginWithoutI18n = (props: LoginProps) => {
   const onUserTypeSubmit = async () => {
     if (!userType || userTypeError) {
       // TODO: raise alert here that this is required?
+      setUserTypeError(true);
       return;
     }
 
@@ -342,14 +317,17 @@ const LoginWithoutI18n = (props: LoginProps) => {
       return;
     }
 
+    if (!onBuildingPage) {
+      !!setLoginRegisterInProgress && setLoginRegisterInProgress(false);
+      handleRedirect && handleRedirect();
+      return;
+    }
+
     if (!registerInModal) {
       !!setLoginRegisterInProgress && setLoginRegisterInProgress(false);
     }
 
     setStep(Step.VerifyEmail);
-
-    // TODO: how to redirect when there is verify step?
-    // handleRedirect && handleRedirect();
   };
 
   let headerText = "";
@@ -406,6 +384,8 @@ const LoginWithoutI18n = (props: LoginProps) => {
                   onChange={onChangeEmail}
                   error={emailError}
                   setError={setEmailError}
+                  showError={showEmailError}
+                  // note: required={true} removed bc any empty state registers as invalid state
                 />
               )}
               {(isLoginStep || isRegisterAccountStep) && (
@@ -447,14 +427,14 @@ const LoginWithoutI18n = (props: LoginProps) => {
         )}
         {isVerifyEmailStep && renderVerifyEmail()}
         {isVerifyEmailReminderStep && renderVerifyEmailReminder()}
-        {/* {onBuildingPage && renderFooter()} */}
+        {isRegisterAccountStep && renderFooter()}
       </div>
     );
   };
 
   return (
     <>
-      {(!registerInModal || isCheckEmailStep || isLoginStep || isVerifyEmailStep) &&
+      {(!showRegisterModal || isCheckEmailStep || isLoginStep || isVerifyEmailStep) &&
         renderLoginFlow()}
       {registerInModal && (
         <Modal
@@ -463,10 +443,10 @@ const LoginWithoutI18n = (props: LoginProps) => {
           width={40}
           onClose={() => {
             resetErrorStates();
+            setShowEmailError(false);
             setShowRegisterModal(false);
-            if (isVerifyEmailStep || isVerifyEmailReminderStep) {
-              !!setLoginRegisterInProgress && setLoginRegisterInProgress(false);
-            }
+            setStep(Step.CheckEmail);
+            !!setLoginRegisterInProgress && setLoginRegisterInProgress(false);
           }}
         >
           {renderLoginFlow()}
