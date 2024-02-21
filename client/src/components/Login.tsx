@@ -272,15 +272,10 @@ const LoginWithoutI18n = (props: LoginProps) => {
       return;
     }
 
+    !!setLoginRegisterInProgress && setLoginRegisterInProgress(false);
+    
     if (!onBuildingPage) {
-      !!setLoginRegisterInProgress && setLoginRegisterInProgress(false);
       handleRedirect && handleRedirect();
-      return;
-    }
-
-    if (!!resp?.user && !resp.user.verified) {
-      setStep(Step.VerifyEmailReminder);
-      registerInModal && setShowRegisterModal(true);
       return;
     }
   };
@@ -390,7 +385,7 @@ const LoginWithoutI18n = (props: LoginProps) => {
               )}
               {(isLoginStep || isRegisterAccountStep) && (
                 <PasswordInput
-                  labelText={isLoginStep ? i18n._(t`Password`) : i18n._(t`Create a password`)}
+                  labelText={i18n._(t`Password`)}
                   password={password}
                   username={email}
                   setError={setPasswordError}
