@@ -43,7 +43,7 @@ const EmailInputWithoutI18n = (props: EmailInputProps) => {
   };
 
   return (
-    <>
+    <div className="email-input-field">
       <div className="email-input-label">
         <label htmlFor="email-input">
           <Trans>Email address</Trans>
@@ -62,7 +62,6 @@ const EmailInputWithoutI18n = (props: EmailInputProps) => {
           type="email"
           id="email-input"
           className="input"
-          placeholder={i18n._(t`Enter email`)}
           onChange={onChange}
           onBlur={isBadEmailFormat}
           value={email}
@@ -70,7 +69,7 @@ const EmailInputWithoutI18n = (props: EmailInputProps) => {
           // note: required={true} removed bc any empty state registers as invalid state
         />
       </div>
-    </>
+    </div>
   );
 };
 

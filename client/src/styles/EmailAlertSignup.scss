@@ -35,13 +35,20 @@
     }
   }
 
+  .table-small-font {
+    padding: 0 !important;
+  }
+
   .table-content {
-    margin: 1rem 1rem 1.7rem 1rem !important;
+    display: flex;
+    flex-direction: column;
+    gap: 2.4rem;
+    padding: 2.4rem;
+    margin: 0 !important;
   }
 
   .email-description {
     text-align: left;
-    margin: 1rem 0 !important;
     line-height: 117%;
   }
 

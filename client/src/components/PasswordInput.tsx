@@ -1,5 +1,5 @@
 /* eslint-disable no-useless-escape */
-import React, { ChangeEvent, Fragment, useState } from "react";
+import React, { ChangeEvent, useState } from "react";
 
 import "styles/Password.css";
 import "styles/_input.scss";
@@ -63,7 +63,7 @@ const PasswordInputWithoutI18n = (props: PasswordInputProps) => {
   };
 
   return (
-    <Fragment>
+    <div className="password-input-field">
       <div className="password-input-label">
         <label>{i18n._(t`${labelText}`)}</label>
         {showForgotPassword && (
@@ -101,7 +101,7 @@ const PasswordInputWithoutI18n = (props: PasswordInputProps) => {
           {showPassword ? <HideIcon /> : <ShowIcon />}
         </button>
       </div>
-    </Fragment>
+    </div>
   );
 };
 

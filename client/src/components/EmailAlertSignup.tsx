@@ -98,10 +98,7 @@ const EmailAlertSignupWithoutI18n = (props: EmailAlertProps) => {
         <div className="table-row">
           <I18n>
             {({ i18n }) => (
-              <div
-                title={i18n._(t`Get data updates for this building`)}
-                className="table-small-font"
-              >
+              <div className="table-small-font">
                 <label className="data-updates-label-container">
                   <span className="pill-new">
                     <Trans>NEW</Trans>

@@ -8,13 +8,7 @@
   .input-group {
     display: flex;
     flex-direction: column;
-    margin-top: 1rem;
-
-    .email-input,
-    .password-input,
-    .user-type-container {
-      margin-bottom: 2rem;
-    }
+    gap: 2.4rem;
 
     .submit-button-group {
       display: flex;
