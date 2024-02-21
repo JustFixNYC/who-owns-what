@@ -33,15 +33,15 @@ export const CheckIcon = (props: SVGProps<SVGSVGElement>) => (
 
 export const SubscribedIcon = (props: SVGProps<SVGSVGElement>) => (
   <svg
-    width="36"
+    width="31"
     height="30"
-    viewBox="0 0 36 30"
+    viewBox="0 0 31 30"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     {...props}
   >
-    <rect x="0.5" width="34.6667" height="30" rx="15" fill="#242323" />
-    <path d="M10.5 15.3333L15.1667 20L25.1667 10" stroke="#F2F2F2" stroke-width="2" />
+    <rect x="0.5" width="30" height="30" rx="15" fill="#242323" />
+    <path d="M8 15.3333L12.6667 20L22.6667 10" stroke="#F2F2F2" strokeWidth="2" />
   </svg>
 );
 

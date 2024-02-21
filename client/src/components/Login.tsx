@@ -338,7 +338,9 @@ const LoginWithoutI18n = (props: LoginProps) => {
         !onBuildingPage || showRegisterModal ? i18n._(t`Submit`) : i18n._(t`Get updates`);
       break;
     case Step.Login:
-      headerText = onBuildingPage ? "" : i18n._(t`Log in`);
+      headerText = onBuildingPage
+        ? i18n._(t`Get weekly Data Updates for complaints, violations, and evictions.`)
+        : i18n._(t`Log in`);
       onSubmit = onLoginSubmit;
       submitButtonText = i18n._(t`Log in`);
       break;
@@ -410,7 +412,7 @@ const LoginWithoutI18n = (props: LoginProps) => {
                   className="button is-primary button-back"
                   onClick={() => setLoginStep(LoginStep.RegisterAccount)}
                 >
-                  Back
+                  <Trans>Back</Trans>
                 </button>
               )} */}
                 <button type="submit" className="button is-primary">

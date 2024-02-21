@@ -42,21 +42,19 @@ const BuildingSubscribeWithoutI18n = (props: BuildingSubscribeProps) => {
   const showEmailVerification = (i18n: any) => {
     return (
       <div className="building-subscribe-status">
-        <div>
-          <div className="status-title">
-            <AlertIconOutline />
-            <Trans>Email verification required</Trans>
-          </div>
-          <div className="status-description">
-            {i18n._(t`Click the link we sent to ${email}. It may take a few minutes to arrive.`)}
-          </div>
-          <button
-            className="button is-secondary is-full-width"
-            onClick={() => AuthClient.resendVerifyEmail()}
-          >
-            <Trans>Resend email</Trans>
-          </button>
+        <div className="status-title">
+          <AlertIconOutline />
+          <Trans>Email verification required</Trans>
         </div>
+        <div className="status-description">
+          {i18n._(t`Click the link we sent to ${email}. It may take a few minutes to arrive.`)}
+        </div>
+        <button
+          className="button is-secondary is-full-width"
+          onClick={() => AuthClient.resendVerifyEmail()}
+        >
+          <Trans>Resend email</Trans>
+        </button>
       </div>
     );
   };
