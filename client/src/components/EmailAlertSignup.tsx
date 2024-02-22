@@ -10,6 +10,7 @@ import "styles/EmailAlertSignup.css";
 import { JustfixUser } from "state-machine";
 import AuthClient from "./AuthClient";
 import { AlertIconOutline, SubscribedIcon } from "./Icons";
+import { Alert } from "./Alert";
 
 type BuildingSubscribeProps = withI18nProps & {
   bbl: string;
@@ -42,10 +43,9 @@ const BuildingSubscribeWithoutI18n = (props: BuildingSubscribeProps) => {
   const showEmailVerification = (i18n: any) => {
     return (
       <div className="building-subscribe-status">
-        <div className="status-title">
-          <AlertIconOutline />
-          <Trans>Email verification required</Trans>
-        </div>
+        <Alert type="info">
+          <Trans>Verify your email to start receiving updates.</Trans>
+        </Alert>
         <div className="status-description">
           {i18n._(t`Click the link we sent to ${email}. It may take a few minutes to arrive.`)}
         </div>

@@ -10,6 +10,7 @@ import { createWhoOwnsWhatRoutePaths } from "routes";
 import { I18n } from "@lingui/core";
 import { t } from "@lingui/macro";
 import { HideIcon, ShowIcon } from "./Icons";
+import classNames from "classnames";
 
 type PasswordRule = {
   regex: RegExp;
@@ -34,8 +35,10 @@ type PasswordInputProps = {
   i18n: I18n;
   labelText: string;
   password: string;
-  username?: string;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  error: boolean;
+  showError: boolean;
+  username?: string;
   setError?: React.Dispatch<React.SetStateAction<boolean>>;
   showPasswordRules?: boolean;
   showForgotPassword?: boolean;
@@ -48,7 +51,9 @@ const PasswordInputWithoutI18n = (props: PasswordInputProps) => {
     labelText,
     username,
     password,
+    error,
     setError,
+    showError,
     onChange,
     showPasswordRules,
     showForgotPassword,
@@ -88,7 +93,7 @@ const PasswordInputWithoutI18n = (props: PasswordInputProps) => {
         <input
           type={showPassword ? "text" : "password"}
           id="password-input"
-          className="input"
+          className={classNames("input", { invalid: showError && error })}
           onChange={onChange}
           onBlur={badPasswordFormat}
           value={password}

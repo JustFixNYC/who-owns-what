@@ -71,7 +71,9 @@ const LoginWithoutI18n = (props: LoginProps) => {
   const {
     value: password,
     error: passwordError,
+    showError: showPasswordError,
     setError: setPasswordError,
+    setShowError: setShowPasswordError,
     onChange: onChangePassword,
   } = useInput("");
   const {
@@ -125,7 +127,7 @@ const LoginWithoutI18n = (props: LoginProps) => {
           alertMessage = i18n._(t`That email is already used.`);
           // show login button in alert
           return renderPageLevelAlert("error", alertMessage, !onBuildingPage || showRegisterModal);
-        } else if (isLoginStep && !(onBuildingPage && !showRegisterModal)) {
+        } else if (isLoginStep && onBuildingPage && showRegisterModal) {
           alertMessage = i18n._(t`Your email is associated with an account. Log in below.`);
           return renderPageLevelAlert("info", alertMessage);
         }
@@ -191,14 +193,9 @@ const LoginWithoutI18n = (props: LoginProps) => {
   const renderVerifyEmail = () => {
     return (
       <div className="verify-email-container">
-        <h4>✅</h4>
-        <p>
-          {i18n._(
-            t`We just sent an email verification link to ${email}. To complete signup, please click the link in your email.`
-          )}
-        </p>
+        <p>{i18n._(t`Click the link we sent to ${email}. It may take a few minutes to arrive.`)}</p>
         <Trans render="span" className="resend-verify-label">
-          Didn’t receive the link?
+          Didn’t get the link?
         </Trans>
         <button
           className="button is-secondary is-full-width"
@@ -266,7 +263,15 @@ const LoginWithoutI18n = (props: LoginProps) => {
   const onLoginSubmit = async () => {
     resetErrorStates();
 
-    if (!email || emailError || !password || passwordError) {
+    if (!email || emailError) {
+      setEmailError(true);
+      setShowEmailError(true);
+      return;
+    }
+
+    if (!password || passwordError) {
+      setPasswordError(true);
+      setShowPasswordError(true);
       return;
     }
 
@@ -288,6 +293,8 @@ const LoginWithoutI18n = (props: LoginProps) => {
 
   const onAccountSubmit = async () => {
     if (!email || emailError) {
+      setEmailError(true);
+      setShowEmailError(true);
       return;
     }
 
@@ -299,6 +306,8 @@ const LoginWithoutI18n = (props: LoginProps) => {
     }
 
     if (!password || passwordError) {
+      setPasswordError(true);
+      setShowPasswordError(true);
       return;
     }
 
@@ -365,60 +374,64 @@ const LoginWithoutI18n = (props: LoginProps) => {
       onSubmit = onUserTypeSubmit;
       submitButtonText = "Sign up";
       break;
+    case Step.VerifyEmail:
+      headerText = i18n._(t`Almost done. Verify your email to start receiving updates.`);
+      break;
   }
 
   const renderLoginFlow = () => {
     return (
       <div className="Login">
+        {(!onBuildingPage || showRegisterModal) && (
+          <h4 className={classNames(!onBuildingPage && "page-title")}>{headerText}</h4>
+        )}
+        {onBuildingPage && !showRegisterModal && (
+          <div className="email-description">{headerText}</div>
+        )}
+        {renderAlert()}
         {!isVerifyEmailStep && !isVerifyEmailReminderStep && (
-          <>
-            {(!onBuildingPage || showRegisterModal) && (
-              <h4 className={classNames(!onBuildingPage && "page-title")}>{headerText}</h4>
+          <form
+            className="input-group"
+            onSubmit={(e) => {
+              e.preventDefault();
+              resetErrorStates();
+              onSubmit();
+            }}
+          >
+            {(isCheckEmailStep || isLoginStep || isRegisterAccountStep) && (
+              <EmailInput
+                email={email}
+                onChange={onChangeEmail}
+                error={emailError}
+                setError={setEmailError}
+                showError={showEmailError}
+                // note: required={true} removed bc any empty state registers as invalid state
+              />
             )}
-            {onBuildingPage && !showRegisterModal && (
-              <div className="email-description">{headerText}</div>
+            {(isLoginStep || isRegisterAccountStep) && (
+              <PasswordInput
+                labelText={i18n._(t`Password`)}
+                password={password}
+                username={email}
+                error={passwordError}
+                showError={showPasswordError}
+                setError={setPasswordError}
+                onChange={onChangePassword}
+                showPasswordRules={isRegisterAccountStep}
+                showForgotPassword={!isRegisterAccountStep}
+              />
             )}
-            {renderAlert()}
-            <form
-              className="input-group"
-              onSubmit={(e) => {
-                e.preventDefault();
-                resetErrorStates();
-                onSubmit();
-              }}
-            >
-              {(isCheckEmailStep || isLoginStep || isRegisterAccountStep) && (
-                <EmailInput
-                  email={email}
-                  onChange={onChangeEmail}
-                  error={emailError}
-                  setError={setEmailError}
-                  showError={showEmailError}
-                  // note: required={true} removed bc any empty state registers as invalid state
-                />
-              )}
-              {(isLoginStep || isRegisterAccountStep) && (
-                <PasswordInput
-                  labelText={i18n._(t`Password`)}
-                  password={password}
-                  username={email}
-                  setError={setPasswordError}
-                  onChange={onChangePassword}
-                  showPasswordRules={isRegisterAccountStep}
-                  showForgotPassword={!isRegisterAccountStep}
-                />
-              )}
-              {isRegisterUserTypeStep && (
-                <UserTypeInput
-                  userType={userType}
-                  setUserType={setUserType}
-                  error={userTypeError}
-                  setError={setUserTypeError}
-                  onChange={onChangeUserType}
-                />
-              )}
-              <div className="submit-button-group">
-                {/* {isRegisterUserTypeStep && (
+            {isRegisterUserTypeStep && (
+              <UserTypeInput
+                userType={userType}
+                setUserType={setUserType}
+                error={userTypeError}
+                setError={setUserTypeError}
+                onChange={onChangeUserType}
+              />
+            )}
+            <div className="submit-button-group">
+              {/* {isRegisterUserTypeStep && (
                 <button
                   type="button"
                   className="button is-primary button-back"
@@ -427,12 +440,11 @@ const LoginWithoutI18n = (props: LoginProps) => {
                   <Trans>Back</Trans>
                 </button>
               )} */}
-                <button type="submit" className="button is-primary">
-                  {submitButtonText}
-                </button>
-              </div>
-            </form>
-          </>
+              <button type="submit" className="button is-primary">
+                {submitButtonText}
+              </button>
+            </div>
+          </form>
         )}
         {isVerifyEmailStep && renderVerifyEmail()}
         {isVerifyEmailReminderStep && renderVerifyEmailReminder()}

@@ -34,12 +34,12 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    gap: 2.4rem;
 
     .privacy-modal {
       display: flex;
       justify-content: center;
       align-items: center;
-      margin: 2rem 0 2rem 0;
 
       .info-icon {
         margin-left: 0.4rem;
@@ -85,12 +85,19 @@
   }
 
   .verify-email-container {
+    color: $justfix-black;
+    display: flex;
+    flex-direction: column;
+    gap: 2.4rem;
+
+    p {
+      margin: 0;
+    }
+
     h4,
     .resend-verify-label {
       display: flex;
       justify-content: center;
-      margin-bottom: 1.2rem;
-      margin-top: 1.4rem;
     }
   }
 
