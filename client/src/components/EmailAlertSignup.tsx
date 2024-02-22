@@ -111,22 +111,14 @@ const EmailAlertSignupWithoutI18n = (props: EmailAlertProps) => {
                   {user && !loginRegisterInProgress ? (
                     <BuildingSubscribe {...props} />
                   ) : (
-                    <>
-                      <div className="email-description">
-                        <Trans>
-                          Each weekly email includes HPD Complaints, HPD Violations, and Eviction
-                          Filings.
-                        </Trans>
-                      </div>
-                      <Login
-                        registerInModal
-                        onBuildingPage
-                        setLoginRegisterInProgress={setLoginRegisterInProgress}
-                        onSuccess={(user: JustfixUser) => {
-                          userContext.subscribe(bbl, housenumber, streetname, zip, boro, user);
-                        }}
-                      />
-                    </>
+                    <Login
+                      registerInModal
+                      onBuildingPage
+                      setLoginRegisterInProgress={setLoginRegisterInProgress}
+                      onSuccess={(user: JustfixUser) => {
+                        userContext.subscribe(bbl, housenumber, streetname, zip, boro, user);
+                      }}
+                    />
                   )}
                 </div>
               </div>

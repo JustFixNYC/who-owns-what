@@ -120,10 +120,15 @@ const LoginWithoutI18n = (props: LoginProps) => {
       case invalidAuthError:
         alertMessage = i18n._(t`The email and/or password you entered is incorrect.`);
         return renderPageLevelAlert("error", alertMessage);
-      case existingUserError && isRegisterAccountStep:
-        alertMessage = i18n._(t`That email is already used.`);
-        // show login button in alert
-        return renderPageLevelAlert("error", alertMessage, !onBuildingPage || showRegisterModal);
+      case existingUserError:
+        if (isRegisterAccountStep) {
+          alertMessage = i18n._(t`That email is already used.`);
+          // show login button in alert
+          return renderPageLevelAlert("error", alertMessage, !onBuildingPage || showRegisterModal);
+        } else if (isLoginStep && !(onBuildingPage && !showRegisterModal)) {
+          alertMessage = i18n._(t`Your email is associated with an account. Log in below.`);
+          return renderPageLevelAlert("info", alertMessage);
+        }
     }
   };
 
@@ -248,6 +253,7 @@ const LoginWithoutI18n = (props: LoginProps) => {
 
       if (existingUser) {
         setStep(Step.Login);
+        setExistingUserError(true);
       } else {
         setStep(Step.RegisterAccount);
         if (registerInModal && !showRegisterModal) {
@@ -287,6 +293,7 @@ const LoginWithoutI18n = (props: LoginProps) => {
 
     const existingUser = await AuthClient.isEmailAlreadyUsed(email);
     if (existingUser) {
+      setStep(Step.Login);
       setExistingUserError(true);
       return;
     }
@@ -338,9 +345,11 @@ const LoginWithoutI18n = (props: LoginProps) => {
         !onBuildingPage || showRegisterModal ? i18n._(t`Submit`) : i18n._(t`Get updates`);
       break;
     case Step.Login:
-      headerText = onBuildingPage
+      headerText = !onBuildingPage
+        ? i18n._(t`Log in`)
+        : showRegisterModal
         ? i18n._(t`Get weekly Data Updates for complaints, violations, and evictions.`)
-        : i18n._(t`Log in`);
+        : i18n._(t`Log in to start getting updates for this building.`);
       onSubmit = onLoginSubmit;
       submitButtonText = i18n._(t`Log in`);
       break;
@@ -365,6 +374,9 @@ const LoginWithoutI18n = (props: LoginProps) => {
           <>
             {(!onBuildingPage || showRegisterModal) && (
               <h4 className={classNames(!onBuildingPage && "page-title")}>{headerText}</h4>
+            )}
+            {onBuildingPage && !showRegisterModal && (
+              <div className="email-description">{headerText}</div>
             )}
             {renderAlert()}
             <form
