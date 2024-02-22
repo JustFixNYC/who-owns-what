@@ -87,17 +87,11 @@ DATABASES = {
 CORS_ALLOW_HEADERS = default_headers + ("Access-Control-Allow-Origin", "Set-Cookie")
 CORS_ALLOW_ALL_ORIGINS = False
 CORS_ALLOW_CREDENTIALS = True
-CORS_ALLOWED_ORIGINS = (
+CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:3000",
     "http://localhost:3000",
     "http://demo-wowserver.justfix.org",
-    "https://deploy-preview-703--wow-django-dev.netlify.app",
-    "https://deploy-preview-785--wow-django-dev.netlify.app",
-    "https://deploy-preview-811--wow-django-dev.netlify.app",
-    "https://deploy-preview-843--wow-django-dev.netlify.app",
-    "https://deploy-preview-849--wow-django-dev.netlify.app",
-    "https://email-alerts-account-signup--wow-django-dev.netlify.app",
-)
+]
 CORS_ORIGIN_REGEX_WHITELIST = [
     r"https://\w+\.deploy-preview-(?:\d{1,4})--wow-django-dev\.netlify\.app"
 ]
