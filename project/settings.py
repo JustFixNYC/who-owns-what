@@ -90,11 +90,13 @@ CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:3000",
     "http://localhost:3000",
-    "http://demo-wowserver.justfix.org",
+    "https://demo-wowserver.justfix.org",
+    "https://wow-django-dev.herokuapp.com/",
 ]
+
 CORS_ALLOWED_ORIGIN_REGEXES = [
     r"^https://\w+\.deploy-preview-(?:\d{1,4})--wow-django-dev\.netlify\.app$",
-    r"^https://deploy-preview-(?:\d{1,4})--wow-django-dev\.netlify\.app$"
+    r"^https://deploy-preview-(?:\d{1,4})--wow-django-dev\.netlify\.app$",
 ]
 # This is based off the default Django logging configuration:
 # https://github.com/django/django/blob/master/django/utils/log.py
