@@ -87,7 +87,7 @@ DATABASES = {
 CORS_ALLOW_HEADERS = default_headers + ("Access-Control-Allow-Origin", "Set-Cookie")
 CORS_ALLOW_ALL_ORIGINS = False
 CORS_ALLOW_CREDENTIALS = True
-CORS_ORIGIN_WHITELIST = (
+CORS_ALLOWED_ORIGINS = (
     "http://127.0.0.1:3000",
     "http://localhost:3000",
     "http://demo-wowserver.justfix.org",
@@ -97,9 +97,10 @@ CORS_ORIGIN_WHITELIST = (
     "https://deploy-preview-843--wow-django-dev.netlify.app",
     "https://deploy-preview-849--wow-django-dev.netlify.app",
     "https://email-alerts-account-signup--wow-django-dev.netlify.app",
-
 )
-
+CORS_ORIGIN_REGEX_WHITELIST = [
+    r"https://\w+\.deploy-preview-(?:\d{1,4})--wow-django-dev\.netlify\.app"
+]
 # This is based off the default Django logging configuration:
 # https://github.com/django/django/blob/master/django/utils/log.py
 LOGGING = {
