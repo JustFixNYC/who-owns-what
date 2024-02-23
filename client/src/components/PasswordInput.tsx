@@ -42,6 +42,7 @@ type PasswordInputProps = {
   setError?: React.Dispatch<React.SetStateAction<boolean>>;
   showPasswordRules?: boolean;
   showForgotPassword?: boolean;
+  inputId?: string;
 };
 
 const PasswordInputWithoutI18n = (props: PasswordInputProps) => {
@@ -57,6 +58,7 @@ const PasswordInputWithoutI18n = (props: PasswordInputProps) => {
     onChange,
     showPasswordRules,
     showForgotPassword,
+    inputId,
   } = props;
   const [showPassword, setShowPassword] = useState(false);
 
@@ -70,7 +72,7 @@ const PasswordInputWithoutI18n = (props: PasswordInputProps) => {
   return (
     <div className="password-input-field">
       <div className="password-input-label">
-        <label>{i18n._(t`${labelText}`)}</label>
+        <label htmlFor={inputId ?? "password-input"}>{i18n._(t`${labelText}`)}</label>
         {showForgotPassword && (
           <LocaleLink to={`${account.forgotPassword}?email=${encodeURIComponent(username || "")}`}>
             Forgot your password?
@@ -92,7 +94,7 @@ const PasswordInputWithoutI18n = (props: PasswordInputProps) => {
       <div className="password-input">
         <input
           type={showPassword ? "text" : "password"}
-          id="password-input"
+          id={inputId ?? "password-input"}
           className={classNames("input", { invalid: showError && error })}
           onChange={onChange}
           onBlur={badPasswordFormat}
