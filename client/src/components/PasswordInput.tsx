@@ -25,10 +25,10 @@ const passwordRules: PasswordRule[] = [
   },
 ];
 
-export const validatePassword = (password: string) => {
+const isBadPasswordFormat = (password: string) => {
   let valid = true;
   passwordRules.forEach((rule) => (valid = valid && !!password.match(rule.regex)));
-  return valid;
+  return !valid;
 };
 
 type PasswordInputProps = {
@@ -38,8 +38,8 @@ type PasswordInputProps = {
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
   error: boolean;
   showError: boolean;
+  setError: React.Dispatch<React.SetStateAction<boolean>>;
   username?: string;
-  setError?: React.Dispatch<React.SetStateAction<boolean>>;
   showPasswordRules?: boolean;
   showForgotPassword?: boolean;
   inputId?: string;
@@ -62,11 +62,10 @@ const PasswordInputWithoutI18n = (props: PasswordInputProps) => {
   } = props;
   const [showPassword, setShowPassword] = useState(false);
 
-  const badPasswordFormat = () => {
-    const input = document.getElementById("password-input") as HTMLElement;
-    const inputValue = (input as HTMLInputElement).value;
-    const isValid = validatePassword(inputValue);
-    setError && setError(!isValid);
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    onChange(e);
+    const passwordIsInvalid = isBadPasswordFormat(e.target.value);
+    setError(passwordIsInvalid);
   };
 
   return (
@@ -96,8 +95,7 @@ const PasswordInputWithoutI18n = (props: PasswordInputProps) => {
           type={showPassword ? "text" : "password"}
           id={inputId ?? "password-input"}
           className={classNames("input", { invalid: showError && error })}
-          onChange={onChange}
-          onBlur={badPasswordFormat}
+          onChange={handleChange}
           value={password}
         />
         <button

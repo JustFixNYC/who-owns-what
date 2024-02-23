@@ -21,6 +21,7 @@ const ResetPasswordPage = withI18n()((props: withI18nProps) => {
     value: password,
     error: passwordError,
     showError: showPasswordError,
+    setError: setPasswordError,
     onChange: onChangePassword,
   } = useInput("");
 
@@ -63,6 +64,7 @@ const ResetPasswordPage = withI18n()((props: withI18nProps) => {
                   onChange={onChangePassword}
                   error={passwordError}
                   showError={showPasswordError}
+                  setError={setPasswordError}
                 />
                 <button type="submit" className="button is-primary">
                   <Trans>Reset password</Trans>

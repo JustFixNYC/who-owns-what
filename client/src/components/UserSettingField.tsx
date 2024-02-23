@@ -17,12 +17,14 @@ const PasswordSettingFieldWithoutI18n = (props: PasswordSettingFieldProps) => {
     value: currentPassword,
     error: currentPasswordError,
     showError: showCurrentPasswordError,
+    setError: setCurrentPasswordError,
     onChange: onChangeCurrentPassword,
   } = useInput("");
   const {
     value: newPassword,
     error: newPasswordError,
     showError: showNewPasswordError,
+    setError: setNewPasswordError,
     onChange: onChangeNewPassword,
   } = useInput("");
   // const [showCurrentPassword, setShowCurrentPassword] = useState(false);
@@ -36,18 +38,20 @@ const PasswordSettingFieldWithoutI18n = (props: PasswordSettingFieldProps) => {
       <PasswordInput
         labelText={i18n._(t`Enter your old password`)}
         password={currentPassword}
-        onChange={onChangeCurrentPassword}
         error={currentPasswordError}
         showError={showCurrentPasswordError}
+        setError={setCurrentPasswordError}
+        onChange={onChangeCurrentPassword}
         inputId="old-password-input"
       />
       <PasswordInput
         labelText={i18n._(t`Create a new password`)}
         showPasswordRules={true}
         password={newPassword}
-        onChange={onChangeNewPassword}
         error={newPasswordError}
         showError={showNewPasswordError}
+        setError={setNewPasswordError}
+        onChange={onChangeNewPassword}
         inputId="new-password-input"
       />
     </UserSettingField>
