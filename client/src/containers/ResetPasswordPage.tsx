@@ -17,7 +17,12 @@ const ResetPasswordPage = withI18n()((props: withI18nProps) => {
 
   const [requestSent, setRequestSent] = React.useState(false);
   const userContext = useContext(UserContext);
-  const { value: password, onChange: onChangePassword } = useInput("");
+  const {
+    value: password,
+    error: passwordError,
+    showError: showPasswordError,
+    onChange: onChangePassword,
+  } = useInput("");
 
   const delaySeconds = 5;
   const baseUrl = window.location.origin;
@@ -56,6 +61,8 @@ const ResetPasswordPage = withI18n()((props: withI18nProps) => {
                   showPasswordRules={true}
                   password={password}
                   onChange={onChangePassword}
+                  error={passwordError}
+                  showError={showPasswordError}
                 />
                 <button type="submit" className="button is-primary">
                   <Trans>Reset password</Trans>

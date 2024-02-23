@@ -13,8 +13,18 @@ type PasswordSettingFieldProps = withI18nProps & {
 
 const PasswordSettingFieldWithoutI18n = (props: PasswordSettingFieldProps) => {
   const { i18n, onSubmit } = props;
-  const { value: currentPassword, onChange: onChangeCurrentPassword } = useInput("");
-  const { value: newPassword, onChange: onChangeNewPassword } = useInput("");
+  const {
+    value: currentPassword,
+    error: currentPasswordError,
+    showError: showCurrentPasswordError,
+    onChange: onChangeCurrentPassword,
+  } = useInput("");
+  const {
+    value: newPassword,
+    error: newPasswordError,
+    showError: showNewPasswordError,
+    onChange: onChangeNewPassword,
+  } = useInput("");
   // const [showCurrentPassword, setShowCurrentPassword] = useState(false);
 
   const handleSubmit = () => {
@@ -23,29 +33,20 @@ const PasswordSettingFieldWithoutI18n = (props: PasswordSettingFieldProps) => {
 
   return (
     <UserSettingField title={i18n._(t`Password`)} preview="**********" onSubmit={handleSubmit}>
-      <Trans render="label">Password</Trans>
       <PasswordInput
         labelText={i18n._(t`Enter your old password`)}
         password={currentPassword}
         onChange={onChangeCurrentPassword}
+        error={currentPasswordError}
+        showError={showCurrentPasswordError}
       />
-
-      {/* <div className="password-input">
-        <input
-          type={showCurrentPassword ? "text" : "password"}
-          className="input"
-          onChange={handleCurrentPasswordChange}
-          value={currentPassword}
-        />
-        <button type="button" onClick={() => setShowCurrentPassword(!showCurrentPassword)}>
-          Show
-        </button>
-      </div> */}
       <PasswordInput
         labelText={i18n._(t`Create a new password`)}
         showPasswordRules={true}
         password={newPassword}
         onChange={onChangeNewPassword}
+        error={newPasswordError}
+        showError={showNewPasswordError}
       />
     </UserSettingField>
   );
