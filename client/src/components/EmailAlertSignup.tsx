@@ -9,7 +9,7 @@ import { UserContext } from "./UserContext";
 import "styles/EmailAlertSignup.css";
 import { JustfixUser } from "state-machine";
 import AuthClient from "./AuthClient";
-import { AlertIconOutline, SubscribedIcon } from "./Icons";
+import { SubscribedIcon } from "./Icons";
 import { Alert } from "./Alert";
 
 type BuildingSubscribeProps = withI18nProps & {
