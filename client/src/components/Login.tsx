@@ -269,7 +269,7 @@ const LoginWithoutI18n = (props: LoginProps) => {
       return;
     }
 
-    if (!password || passwordError) {
+    if (!password) {
       setPasswordError(true);
       setShowPasswordError(true);
       return;
