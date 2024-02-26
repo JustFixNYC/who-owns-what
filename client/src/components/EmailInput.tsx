@@ -15,10 +15,11 @@ interface EmailInputProps extends React.ComponentPropsWithoutRef<"input"> {
   setError: React.Dispatch<React.SetStateAction<boolean>>;
   showError: boolean;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  i18nHash?: string;
 }
 
 const EmailInputWithoutI18n = forwardRef<HTMLInputElement, EmailInputProps>(
-  ({ i18n, email, error, setError, showError, onChange, ...props }, ref) => {
+  ({ i18n, i18nHash, email, error, setError, showError, onChange, ...props }, ref) => {
     const isBadEmailFormat = (value: string) => {
       /* valid email regex rules 
       alpha numeric characters are ok, upper/lower case agnostic 
@@ -68,6 +69,6 @@ const EmailInputWithoutI18n = forwardRef<HTMLInputElement, EmailInputProps>(
   }
 );
 
-const EmailInput = withI18n()(EmailInputWithoutI18n);
+const EmailInput = withI18n({ withHash: false })(EmailInputWithoutI18n);
 
 export default EmailInput;
