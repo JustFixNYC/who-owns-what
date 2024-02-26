@@ -453,7 +453,7 @@ const LoginWithoutI18n = (props: LoginProps) => {
         )}
         {isVerifyEmailStep && renderVerifyEmail()}
         {isVerifyEmailReminderStep && renderVerifyEmailReminder()}
-        {isRegisterAccountStep && renderFooter()}
+        {(isLoginStep || isRegisterAccountStep) && renderFooter()}
       </div>
     );
   };
