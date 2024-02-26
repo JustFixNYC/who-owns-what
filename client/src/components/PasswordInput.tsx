@@ -42,7 +42,6 @@ interface PasswordInputProps extends React.ComponentPropsWithoutRef<"input"> {
   username?: string;
   showPasswordRules?: boolean;
   showForgotPassword?: boolean;
-  inputId?: string;
 }
 
 const PasswordInputWithoutI18n = forwardRef<HTMLInputElement, PasswordInputProps>(
