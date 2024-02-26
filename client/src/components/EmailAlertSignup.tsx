@@ -1,7 +1,6 @@
 import React, { Fragment, useContext, useState } from "react";
 
 import { withI18n, withI18nProps, I18n } from "@lingui/react";
-import { t } from "@lingui/macro";
 import { Trans } from "@lingui/macro";
 import Login from "./Login";
 import { UserContext } from "./UserContext";
@@ -46,9 +45,10 @@ const BuildingSubscribeWithoutI18n = (props: BuildingSubscribeProps) => {
         <Alert type="info">
           <Trans>Verify your email to start receiving updates.</Trans>
         </Alert>
-        <div className="status-description">
-          {i18n._(t`Click the link we sent to ${email}. It may take a few minutes to arrive.`)}
-        </div>
+        <Trans render="div" className="status-description">
+          Click the link we sent to {email}. It may take a few minutes to arrive.
+        </Trans>
+        <Trans render="div">Didn’t get the link?</Trans>
         <button
           className="button is-secondary is-full-width"
           onClick={() => AuthClient.resendVerifyEmail()}
