@@ -79,8 +79,10 @@ const LoginWithoutI18n = (props: LoginProps) => {
   const {
     value: userType,
     error: userTypeError,
-    setError: setUserTypeError,
+    showError: userShowUserTypeError,
     setValue: setUserType,
+    setError: setUserTypeError,
+    setShowError: setShowUserTypeError,
     onChange: onChangeUserType,
   } = useInput("");
 
@@ -316,8 +318,8 @@ const LoginWithoutI18n = (props: LoginProps) => {
 
   const onUserTypeSubmit = async () => {
     if (!userType || userTypeError) {
-      // TODO: raise alert here that this is required?
       setUserTypeError(true);
+      setShowUserTypeError(true);
       return;
     }
 
@@ -325,6 +327,7 @@ const LoginWithoutI18n = (props: LoginProps) => {
 
     if (!!resp?.error) {
       setInvalidAuthError(true);
+      setStep(Step.RegisterAccount);
       return;
     }
 
@@ -405,7 +408,7 @@ const LoginWithoutI18n = (props: LoginProps) => {
                 error={emailError}
                 setError={setEmailError}
                 showError={showEmailError}
-                // note: required={true} removed bc any empty state registers as invalid state
+                autoFocus={showRegisterModal && !email}
               />
             )}
             {(isLoginStep || isRegisterAccountStep) && (
@@ -419,6 +422,7 @@ const LoginWithoutI18n = (props: LoginProps) => {
                 onChange={onChangePassword}
                 showPasswordRules={isRegisterAccountStep}
                 showForgotPassword={!isRegisterAccountStep}
+                autoFocus={showRegisterModal && !!email && !password}
               />
             )}
             {isRegisterUserTypeStep && (
@@ -426,7 +430,8 @@ const LoginWithoutI18n = (props: LoginProps) => {
                 userType={userType}
                 setUserType={setUserType}
                 error={userTypeError}
-                setError={setUserTypeError}
+                showError={userShowUserTypeError}
+                setError={setShowUserTypeError}
                 onChange={onChangeUserType}
               />
             )}

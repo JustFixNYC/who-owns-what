@@ -1,5 +1,5 @@
 /* eslint-disable no-useless-escape */
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, forwardRef, useState } from "react";
 
 import "styles/Password.css";
 import "styles/_input.scss";
@@ -31,7 +31,7 @@ const isBadPasswordFormat = (password: string) => {
   return !valid;
 };
 
-type PasswordInputProps = {
+interface PasswordInputProps extends React.ComponentPropsWithoutRef<"input"> {
   i18n: I18n;
   labelText: string;
   password: string;
@@ -43,72 +43,85 @@ type PasswordInputProps = {
   showPasswordRules?: boolean;
   showForgotPassword?: boolean;
   inputId?: string;
-};
+}
 
-const PasswordInputWithoutI18n = (props: PasswordInputProps) => {
-  const { account } = createWhoOwnsWhatRoutePaths();
-  const {
-    i18n,
-    labelText,
-    username,
-    password,
-    error,
-    setError,
-    showError,
-    onChange,
-    showPasswordRules,
-    showForgotPassword,
-    inputId,
-  } = props;
-  const [showPassword, setShowPassword] = useState(false);
+const PasswordInputWithoutI18n = forwardRef<HTMLInputElement, PasswordInputProps>(
+  (
+    {
+      i18n,
+      labelText,
+      username,
+      password,
+      error,
+      setError,
+      showError,
+      onChange,
+      showPasswordRules,
+      showForgotPassword,
+      id,
+      ...props
+    },
+    ref
+  ) => {
+    const { account } = createWhoOwnsWhatRoutePaths();
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    onChange(e);
-    const passwordIsInvalid = isBadPasswordFormat(e.target.value);
-    setError(passwordIsInvalid);
-  };
+    const [showPassword, setShowPassword] = useState(false);
 
-  return (
-    <div className="password-input-field">
-      <div className="password-input-label">
-        <label htmlFor={inputId ?? "password-input"}>{i18n._(t`${labelText}`)}</label>
-        {showForgotPassword && (
-          <LocaleLink to={`${account.forgotPassword}?email=${encodeURIComponent(username || "")}`}>
-            Forgot your password?
-          </LocaleLink>
-        )}
-      </div>
-      {showPasswordRules && (
-        <div className="password-input-rules">
-          {passwordRules.map((rule, i) => {
-            const ruleClass = !!password ? (password.match(rule.regex) ? "valid" : "invalid") : "";
-            return (
-              <span className={`password-input-rule ${ruleClass}`} key={`rule-${i}`}>
-                {rule.label}
-              </span>
-            );
-          })}
+    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+      onChange(e);
+      const passwordIsInvalid = isBadPasswordFormat(e.target.value);
+      setError(passwordIsInvalid);
+    };
+
+    return (
+      <div className="password-input-field">
+        <div className="password-input-label">
+          <label htmlFor={id ?? "password-input"}>{i18n._(t`${labelText}`)}</label>
+          {showForgotPassword && (
+            <LocaleLink
+              to={`${account.forgotPassword}?email=${encodeURIComponent(username || "")}`}
+            >
+              Forgot your password?
+            </LocaleLink>
+          )}
         </div>
-      )}
-      <div className="password-input">
-        <input
-          type={showPassword ? "text" : "password"}
-          id={inputId ?? "password-input"}
-          className={classNames("input", { invalid: showError && error })}
-          onChange={handleChange}
-          value={password}
-        />
-        <button
-          type="button"
-          className="show-hide-toggle"
-          onClick={() => setShowPassword(!showPassword)}
-        >
-          {showPassword ? <HideIcon /> : <ShowIcon />}
-        </button>
+        {showPasswordRules && (
+          <div className="password-input-rules">
+            {passwordRules.map((rule, i) => {
+              const ruleClass = !!password
+                ? password.match(rule.regex)
+                  ? "valid"
+                  : "invalid"
+                : "";
+              return (
+                <span className={`password-input-rule ${ruleClass}`} key={`rule-${i}`}>
+                  {rule.label}
+                </span>
+              );
+            })}
+          </div>
+        )}
+        <div className="password-input">
+          <input
+            type={showPassword ? "text" : "password"}
+            id={id ?? "password-input"}
+            className={classNames("input", { invalid: showError && error })}
+            onChange={handleChange}
+            value={password}
+            {...props}
+          />
+          <button
+            type="button"
+            className="show-hide-toggle"
+            onClick={() => setShowPassword(!showPassword)}
+          >
+            {showPassword ? <HideIcon /> : <ShowIcon />}
+          </button>
+        </div>
       </div>
-    </div>
-  );
-};
+    );
+  }
+);
 
 PasswordInputWithoutI18n.defaultProps = {
   showPasswordRules: false,
