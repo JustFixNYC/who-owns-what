@@ -22,14 +22,13 @@ const UserTypeInputWithoutI18n = (props: UserTypeInputProps) => {
   const [activeRadio, setActiveRadio] = useState("");
 
   const handleRadioChange = (e: ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault();
     const value = e.target.value;
     setActiveRadio(value);
     if (value === USER_TYPES.other) {
       setUserType("");
       setError(true);
     } else {
-      onChange(e);
+      setUserType(value);
       setError(false);
     }
   };
