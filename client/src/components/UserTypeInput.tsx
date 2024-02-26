@@ -9,6 +9,7 @@ type UserTypeInputProps = {
   i18n: I18n;
   userType: string;
   error: boolean;
+  showError: boolean;
   setError: React.Dispatch<React.SetStateAction<boolean>>;
   setUserType: React.Dispatch<React.SetStateAction<string>>;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
@@ -16,27 +17,27 @@ type UserTypeInputProps = {
 };
 
 const UserTypeInputWithoutI18n = (props: UserTypeInputProps) => {
-  const { i18n, userType, error, setError, setUserType, onChange, required } = props;
+  const { i18n, userType, error, showError, setError, setUserType, onChange, required } = props;
 
   const [activeRadio, setActiveRadio] = useState("");
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleRadioChange = (e: ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
     const value = e.target.value;
     setActiveRadio(value);
     if (value === USER_TYPES.other) {
       setUserType("");
+      setError(true);
     } else {
       onChange(e);
       setError(false);
     }
   };
 
-  const missingOtherText = () => {
-    if (!userType) {
-      setError(true);
-    } else {
-      setError(false);
-    }
+  const handleTextChange = (e: ChangeEvent<HTMLInputElement>) => {
+    onChange(e);
+    const value = e.target.value;
+    setError(!value);
   };
 
   const USER_TYPES = {
@@ -50,7 +51,7 @@ const UserTypeInputWithoutI18n = (props: UserTypeInputProps) => {
 
   return (
     <div className="user-type-container">
-      {error && activeRadio !== USER_TYPES.other && (
+      {showError && error && activeRadio !== USER_TYPES.other && (
         <span id="input-field-error">
           <AlertIcon />
           <Trans>Please select an option.</Trans>
@@ -65,7 +66,7 @@ const UserTypeInputWithoutI18n = (props: UserTypeInputProps) => {
           name="user-type"
           value={USER_TYPES.tenant}
           checked={activeRadio === USER_TYPES.tenant}
-          onChange={handleChange}
+          onChange={handleRadioChange}
         />
         <label htmlFor={"user-type-input-tenant"}>{USER_TYPES.tenant}</label>
         <input
@@ -76,7 +77,7 @@ const UserTypeInputWithoutI18n = (props: UserTypeInputProps) => {
           name="user-type"
           value={USER_TYPES.organizer}
           checked={activeRadio === USER_TYPES.organizer}
-          onChange={handleChange}
+          onChange={handleRadioChange}
         />
         <label htmlFor={"user-type-input-organizer"}>{USER_TYPES.organizer}</label>
         <input
@@ -87,7 +88,7 @@ const UserTypeInputWithoutI18n = (props: UserTypeInputProps) => {
           name="user-type"
           value={USER_TYPES.advocate}
           checked={activeRadio === USER_TYPES.advocate}
-          onChange={handleChange}
+          onChange={handleRadioChange}
         />
         <label htmlFor={"user-type-input-advocate"}>{USER_TYPES.advocate}</label>
         <input
@@ -98,7 +99,7 @@ const UserTypeInputWithoutI18n = (props: UserTypeInputProps) => {
           name="user-type"
           value={USER_TYPES.legal}
           checked={activeRadio === USER_TYPES.legal}
-          onChange={handleChange}
+          onChange={handleRadioChange}
         />
         <label htmlFor={"user-type-input-legal"}>{USER_TYPES.legal}</label>
         <input
@@ -109,7 +110,7 @@ const UserTypeInputWithoutI18n = (props: UserTypeInputProps) => {
           name="user-type"
           value={USER_TYPES.government}
           checked={activeRadio === USER_TYPES.government}
-          onChange={handleChange}
+          onChange={handleRadioChange}
         />
         <label htmlFor={"user-type-input-government"}>{USER_TYPES.government}</label>
         <input
@@ -120,13 +121,13 @@ const UserTypeInputWithoutI18n = (props: UserTypeInputProps) => {
           name="user-type"
           value={USER_TYPES.other}
           checked={activeRadio === USER_TYPES.other}
-          onChange={handleChange}
+          onChange={handleRadioChange}
         />
         <label htmlFor={"user-type-input-other"}>{USER_TYPES.other}</label>
       </div>
       {activeRadio === USER_TYPES.other && (
         <div className="user-type-input-text-group">
-          {error && (
+          {showError && error && (
             <span id="input-field-error">
               <AlertIcon />
               <Trans>Please enter a response. </Trans>
@@ -140,8 +141,7 @@ const UserTypeInputWithoutI18n = (props: UserTypeInputProps) => {
             type="text"
             name="user-type"
             value={userType}
-            onChange={onChange}
-            onBlur={missingOtherText}
+            onChange={handleTextChange}
           />
         </div>
       )}
