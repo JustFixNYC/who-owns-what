@@ -31,8 +31,6 @@ const BuildingSubscribeWithoutI18n = (props: BuildingSubscribeProps) => {
   const { user, subscribe, unsubscribe } = userContext;
   const { email, subscriptions, verified } = user! as JustfixUser;
   const [showSubscriptionLimitModal, setShowSubscriptionLimitModal] = useState(false);
-  const { pathname } = useLocation();
-  const { legacy, account } = createWhoOwnsWhatRoutePaths();
 
   const showSubscribed = () => {
     return (
