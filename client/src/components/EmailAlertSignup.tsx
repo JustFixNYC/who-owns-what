@@ -13,7 +13,6 @@ import { JustfixUser } from "state-machine";
 import AuthClient from "./AuthClient";
 import { AlertIconOutline, SubscribedIcon } from "./Icons";
 import Modal from "./Modal";
-import { useLocation } from "react-router-dom";
 
 const SUBSCRIPTION_LIMIT = 15;
 
@@ -31,6 +30,7 @@ const BuildingSubscribeWithoutI18n = (props: BuildingSubscribeProps) => {
   const { user, subscribe, unsubscribe } = userContext;
   const { email, subscriptions, verified } = user! as JustfixUser;
   const [showSubscriptionLimitModal, setShowSubscriptionLimitModal] = useState(false);
+  const { account } = createWhoOwnsWhatRoutePaths();
 
   const showSubscribed = () => {
     return (
