@@ -14,9 +14,8 @@ import AuthClient from "./AuthClient";
 import { AlertIconOutline, SubscribedIcon } from "./Icons";
 import Modal from "./Modal";
 import { useLocation } from "react-router-dom";
-import { isLegacyPath } from "./WowzaToggle";
 
-const SUBCSCRIPTION_LIMIT = 15;
+const SUBSCRIPTION_LIMIT = 15;
 
 type BuildingSubscribeProps = withI18nProps & {
   bbl: string;
@@ -79,7 +78,7 @@ const BuildingSubscribeWithoutI18n = (props: BuildingSubscribeProps) => {
               <button
                 className="button is-primary"
                 onClick={() =>
-                  subscriptions.length <= SUBCSCRIPTION_LIMIT
+                  subscriptions.length <= SUBSCRIPTION_LIMIT
                     ? subscribe(bbl, housenumber, streetname, zip, boro)
                     : setShowSubscriptionLimitModal(true)
                 }
@@ -101,13 +100,9 @@ const BuildingSubscribeWithoutI18n = (props: BuildingSubscribeProps) => {
           >
             <Trans render="h4">You have reached the maximum number of building updates</Trans>
             <Trans>
-              At this time we can only support {SUBCSCRIPTION_LIMIT} buildings in each email. Please
-              visit your{" "}
-              <Link to={isLegacyPath(pathname) ? legacy.account.settings : account.settings}>
-                account
-              </Link>{" "}
-              to manage the buildings in your email. If you would like to track more buildings,
-              please let us know by submiting a{" "}
+              At this time we can only support {SUBSCRIPTION_LIMIT} buildings in each email. Please
+              visit your <Link to={account.settings}>account</Link> to manage the buildings in your
+              email. If you would like to track more buildings, please let us know by submiting a{" "}
               <a
                 href={`https://form.typeform.com/to/ChJMCNYN#email=${email}`}
                 target="_blank"
