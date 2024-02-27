@@ -55,30 +55,6 @@
       gap: var(--filter-bar-row-gap) 1.2rem;
     }
 
-    .filter-new-container {
-      letter-spacing: 0.04em;
-      display: flex;
-      flex-direction: column;
-
-      .pill-new {
-        font-family: $body-font;
-        letter-spacing: 0.02em;
-        background: $justfix-yellow;
-        padding: 0.4rem 0.8rem;
-        border-radius: 1.6rem;
-        width: fit-content;
-        margin-bottom: 0.26rem;
-      }
-
-      @include for-phone-only() {
-        width: unset;
-        justify-content: center;
-        .pill-new {
-          margin: 0;
-        }
-      }
-    }
-
     .view-type-toggle-container {
       display: flex;
       // adjust for border difference with filters
