@@ -8,27 +8,27 @@
   .input-group {
     display: flex;
     flex-direction: column;
-    margin-top: 1rem;
+    margin-top: 0.63rem;
 
     #input-field-error {
       display: flex;
       align-items: center;
-      font-size: 1.3rem;
+      font-size: 0.81rem;
       color: #ba4300;
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.31rem;
 
       svg {
-        margin-right: 0.75rem;
+        margin-right: 0.47rem;
       }
     }
 
     input[type="email"],
     .password-input {
-      margin-bottom: 2rem;
+      margin-bottom: 1.25rem;
     }
 
     input[type="submit"] {
-      padding: 1.6rem 3.2rem !important;
+      padding: 1rem 2rem !important;
       align-self: center;
       margin: 0 auto !important;
     }
@@ -45,7 +45,7 @@
   }
 
   .page-title {
-    margin-top: 1.5rem;
+    margin-top: 0.94rem;
   }
 
   label {
@@ -53,11 +53,11 @@
     // vars marked !important bc typography mixin is not available for inconsolata
     font-weight: 600 !important;
     font-family: $wow-font !important;
-    font-size: 1.3rem !important;
+    font-size: 0.81rem !important;
 
     text-align: left;
-    margin-top: 1rem;
-    margin-bottom: 0.5rem;
+    margin-top: 0.63rem;
+    margin-bottom: 0.31rem;
   }
 
   .building-page-footer {
@@ -69,10 +69,10 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      margin: 2rem 0 2rem 0;
+      margin: 1.25rem 0 1.25rem 0;
 
       .info-icon {
-        margin-left: 0.4rem;
+        margin-left: 0.25rem;
         width: 18px;
         &:focus-visible {
           outline: 2px solid $focus-outline-color;
@@ -84,12 +84,12 @@
     .login-type-toggle {
       display: flex;
       justify-content: center;
-      font-size: 1.5rem;
+      font-size: 0.94rem;
     }
   }
 
   .login-response-text {
-    margin: 1rem 0 1rem;
+    margin: 0.63rem 0 0.63rem;
   }
 
   .login-password-label {
@@ -103,19 +103,19 @@
   }
 
   h4 {
-    font-size: 2.4rem;
+    font-size: 1.5rem;
   }
   h5 {
-    font-size: 1.6rem;
+    font-size: 1rem;
   }
 
   .password-input {
-    margin-top: 0.5rem;
+    margin-top: 0.31rem;
   }
 
   .jf-alert {
     width: auto;
-    font-size: 1.3rem;
+    font-size: 0.81rem;
 
     .button.is-text {
       display: block !important;
@@ -134,11 +134,11 @@
     align-items: center;
 
     svg {
-      margin: 1rem 0 2.5rem 0;
+      margin: 0.63rem 0 1.56rem 0;
     }
 
     .button.is-text {
-      margin-top: 1rem;
+      margin-top: 0.63rem;
       display: block !important;
       color: $justfix-black;
     }

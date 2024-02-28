@@ -21,13 +21,13 @@
 }
 
 .PortfolioFilters {
-  --filter-bar-row-gap: 1.2rem;
-  --checkbox-height: 2.4rem;
+  --filter-bar-row-gap: 0.75rem;
+  --checkbox-height: 1.5rem;
   // height based on filter toggle checkbox + border + padding
-  --filter-height: calc(var(--checkbox-height) + ((0.1rem + 1rem) * 2));
+  --filter-height: calc(var(--checkbox-height) + ((0.06rem + 0.63rem) * 2));
   display: flex;
   flex-wrap: wrap;
-  padding: 1.4rem;
+  padding: 0.87rem;
   background-color: $justfix-white;
   border-bottom: 1px solid $justfix-black;
   text-transform: uppercase;
@@ -38,36 +38,36 @@
   @include browser("Firefox") {
     font-weight: 500;
   }
-  font-size: 1.4rem;
+  font-size: 0.87rem;
   line-height: 100%;
   letter-spacing: 0.02em;
 
-  gap: 1.8rem;
+  gap: 1.13rem;
   @include for-phone-only() {
-    gap: 1.2rem;
+    gap: 0.75rem;
   }
 
   .filters-container {
     display: flex;
     flex-wrap: wrap;
-    gap: var(--filter-bar-row-gap) 1.8rem;
+    gap: var(--filter-bar-row-gap) 1.13rem;
     @include for-phone-only {
-      gap: var(--filter-bar-row-gap) 1.2rem;
+      gap: var(--filter-bar-row-gap) 0.75rem;
     }
 
     .view-type-toggle-container {
       display: flex;
       // adjust for border difference with filters
-      height: calc(var(--filter-height) + (0.1rem * 2));
+      height: calc(var(--filter-height) + (0.06rem * 2));
       .view-type-toggle {
         display: flex;
         align-items: center;
         text-transform: uppercase;
-        border: 0.1rem solid $justfix-black;
-        border-radius: 0.8rem;
-        width: 6.1rem;
+        border: 0.06rem solid $justfix-black;
+        border-radius: 0.5rem;
+        width: 3.81rem;
         @include for-phone-only {
-          width: 5rem;
+          width: 3.13rem;
         }
         justify-content: center;
         &[aria-pressed="true"] {
@@ -75,10 +75,10 @@
           border-color: $justfix-black;
         }
         &:nth-child(1) {
-          border-radius: 0.8rem 0 0 0.8rem;
+          border-radius: 0.5rem 0 0 0.5rem;
         }
         &:nth-child(2) {
-          border-radius: 0 0.8rem 0.8rem 0;
+          border-radius: 0 0.5rem 0.5rem 0;
         }
       }
     }
@@ -86,11 +86,11 @@
     .filters {
       display: flex;
       flex-grow: 1;
-      gap: 1.8rem;
+      gap: 1.13rem;
 
       .filter {
-        border: 0.1rem solid $justfix-black;
-        border-radius: 0.8rem;
+        border: 0.06rem solid $justfix-black;
+        border-radius: 0.5rem;
         text-transform: uppercase;
         display: flex;
         align-items: center;
@@ -100,7 +100,7 @@
             border-radius: 0;
             box-sizing: border-box;
             border: none;
-            border-bottom: 0.1rem solid $justfix-grey-400;
+            border-bottom: 0.06rem solid $justfix-grey-400;
             text-align: left;
           }
           &.active:not([open]):not(.filter-toggle):not(.filters-mobile-wrapper) {
@@ -130,14 +130,14 @@
       }
 
       .filter-toggle {
-        gap: 1rem;
-        padding: 1rem;
+        gap: 0.63rem;
+        padding: 0.63rem;
         letter-spacing: 0.02em;
         @include for-phone-only {
           height: var(--filter-bar-height);
           min-height: var(--filter-bar-height);
-          padding: 0 2.4rem;
-          font-size: 1.8rem;
+          padding: 0 1.5rem;
+          font-size: 1.13rem;
           &[aria-pressed="false"]:hover {
             text-decoration: none;
           }
@@ -148,8 +148,8 @@
         }
         .checkbox {
           box-sizing: border-box;
-          border: 0.1rem solid $justfix-black;
-          border-radius: 0.4rem;
+          border: 0.06rem solid $justfix-black;
+          border-radius: 0.25rem;
           width: var(--checkbox-height);
           height: var(--checkbox-height);
           display: flex;
@@ -173,7 +173,7 @@
 
         summary:not(.minmaxselect__custom-range-summary) {
           height: var(--filter-height);
-          padding: 0 1rem 0 1rem;
+          padding: 0 0.63rem 0 0.63rem;
           display: flex;
           align-items: center;
           position: relative;
@@ -188,8 +188,8 @@
             stroke-width: 2px;
           }
           .chevronIcon {
-            height: 1.1rem;
-            margin-left: 0.8rem;
+            height: 0.69rem;
+            margin-left: 0.5rem;
           }
           .closeIcon {
             margin-left: auto;
@@ -198,8 +198,8 @@
         &:not(.filters-mobile-wrapper) summary:not(.minmaxselect__custom-range-summary) {
           @include for-phone-only {
             height: var(--filter-bar-height);
-            padding: 0 2.4rem;
-            font-size: 1.8rem;
+            padding: 0 1.5rem;
+            font-size: 1.13rem;
             .chevronIcon {
               margin-left: auto;
             }
@@ -207,15 +207,15 @@
         }
         .filter-selection-count {
           @include for-tablet-portrait-up() {
-            margin-left: 0.5rem;
+            margin-left: 0.31rem;
             @include wrap-with-parentheses();
           }
           @include for-phone-only() {
             @include white-on-black();
-            padding: 0.4rem 0.8rem;
-            border-radius: 1.5rem;
-            margin-left: 0.5rem;
-            font-size: 1.4rem;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.94rem;
+            margin-left: 0.31rem;
+            font-size: 0.87rem;
           }
         }
         &[open] {
@@ -227,32 +227,32 @@
 
           @include for-tablet-portrait-up {
             &.ownernames-accordion .dropdown-container {
-              width: 25.2rem;
+              width: 15.75rem;
             }
             &.unitsres-accordion .dropdown-container {
-              width: 26rem;
+              width: 16.25rem;
             }
             &.zip-accordion .dropdown-container {
-              width: 24rem;
+              width: 15rem;
             }
           }
 
           .dropdown-container {
             position: absolute;
-            top: 5rem;
-            left: -0.1rem;
+            top: 3.13rem;
+            left: -0.06rem;
             z-index: 10;
             overflow-y: auto;
             background-color: $justfix-white;
             box-sizing: border-box;
-            border: 0.1rem solid $justfix-black;
-            border-radius: 0.8rem;
+            border: 0.06rem solid $justfix-black;
+            border-radius: 0.5rem;
             @include for-tablet-portrait-up {
               max-height: 65vh;
               @include scrollbar_wowza();
             }
             @include for-phone-only {
-              padding: 0 2.4rem 2.4rem 2.4rem;
+              padding: 0 1.5rem 1.5rem 1.5rem;
               display: flex;
               flex-direction: column;
               width: 100%;
@@ -268,24 +268,24 @@
               display: flex;
               align-items: center;
               width: 100%;
-              font-size: 1.2rem;
-              padding: 1.2rem;
+              font-size: 0.75rem;
+              padding: 0.75rem;
               @include for-phone-only {
-                padding: 0 0 1.2rem 0;
-                font-size: 1.6rem;
+                padding: 0 0 0.75rem 0;
+                font-size: 1rem;
                 .filter-info {
-                  font-size: 1.4rem;
+                  font-size: 0.87rem;
                 }
               }
               @include for-tablet-portrait-up() {
-                border-bottom: 0.1rem solid $justfix-grey;
+                border-bottom: 0.06rem solid $justfix-grey;
               }
               &,
               .filter-info {
                 color: $justfix-grey-700;
               }
               .filter-subtitle {
-                margin-right: 0.5rem;
+                margin-right: 0.31rem;
               }
               .filter-info {
                 width: 18px;
@@ -310,7 +310,7 @@
                 }
 
                 .button.is-primary {
-                  padding: 1.6rem 3.2rem;
+                  padding: 1rem 2rem;
                 }
               }
             }
@@ -322,44 +322,44 @@
 
                 .multiselect__input-container,
                 .multiselect__placeholder {
-                  font-size: 1.8rem;
+                  font-size: 1.13rem;
                   line-height: 100%;
-                  height: 5rem;
-                  padding-left: 1.2rem;
+                  height: 3.13rem;
+                  padding-left: 0.75rem;
                 }
                 .multiselect__menu {
-                  font-size: 1.6rem;
+                  font-size: 1rem;
                 }
               }
               @include for-tablet-portrait-up {
                 .multiselect__selected-value-control-container {
-                  font-size: 1.2rem;
+                  font-size: 0.75rem;
                 }
               }
             }
             .minmaxselect-container {
               @include for-phone-only {
                 .minmaxselect__presets-container {
-                  grid-template-rows: 4.5rem 4.5rem;
+                  grid-template-rows: 2.81rem 2.81rem;
                   .minmaxselect__preset-value {
-                    font-size: 1.6rem;
+                    font-size: 1rem;
                   }
                 }
                 .minmaxselect__custom-range-summary span,
                 .minmaxselect__clear-value-button {
-                  font-size: 1.4rem;
+                  font-size: 0.87rem;
                 }
                 .chevronIcon {
-                  height: 1.1rem;
-                  stroke-width: 0.2rem;
+                  height: 0.69rem;
+                  stroke-width: 0.13rem;
                 }
                 .minmaxselect__label-input-container {
                   width: fit-content;
-                  font-size: 1.6rem;
+                  font-size: 1rem;
                   input {
-                    font-size: 1.8rem;
-                    width: 4.8rem;
-                    height: 4.8rem;
+                    font-size: 1.13rem;
+                    width: 3rem;
+                    height: 3rem;
                   }
                 }
               }
@@ -371,13 +371,13 @@
         &.active:not([open]) {
           @include white-on-black();
           .active-filter-count {
-            margin-left: 0.5rem;
+            margin-left: 0.31rem;
             @include wrap-with-parentheses();
           }
         }
         &[open] {
-          --filter-bar-top-height: 4.6rem;
-          --filter-bar-height: 6.6rem;
+          --filter-bar-top-height: 2.87rem;
+          --filter-bar-height: 4.12rem;
           position: absolute;
           top: 0;
           left: 0;
@@ -385,7 +385,7 @@
           z-index: 11;
           height: 100%;
           background-color: $justfix-white;
-          border-radius: 0.8rem 0.8rem 0 0;
+          border-radius: 0.5rem 0.5rem 0 0;
           box-sizing: border-box;
           border: none;
 
@@ -406,7 +406,7 @@
           // Hide page from showing through around rounded corners
           // Sadly outline+offset doesn't work since in safari is doesn't follow border-radius
           &::before {
-            --border-size: 0.5rem;
+            --border-size: 0.31rem;
             content: "";
             position: absolute;
             top: calc(0rem - var(--border-size));
@@ -415,7 +415,7 @@
             left: calc(0rem - var(--border-size));
             border: var(--border-size) solid $justfix-black;
             border-bottom: none;
-            border-radius: 1.25rem 1.25rem 0 0;
+            border-radius: 0.78rem 0.78rem 0 0;
 
             @keyframes fade-in {
               0% {
@@ -436,8 +436,8 @@
           }
 
           & > summary {
-            padding: 0 2.4rem;
-            border-bottom: 0.2rem solid $justfix-grey-700;
+            padding: 0 1.5rem;
+            border-bottom: 0.13rem solid $justfix-grey-700;
           }
           & > .dropdown-container {
             height: calc(100% - var(--filter-bar-top-height));
@@ -455,13 +455,13 @@
               background-color: $justfix-white;
               background-repeat: no-repeat;
               background-attachment: local, local, scroll;
-              background-size: 100% 6rem, 100% 6rem, 100% 1rem, 100% 1rem;
+              background-size: 100% 3.75rem, 100% 3.75rem, 100% 0.63rem, 100% 0.63rem;
             }
 
             & > .button.is-primary {
               align-self: center;
-              padding: 1.6rem 3.2rem;
-              margin: 2.4rem 0;
+              padding: 1rem 2rem;
+              margin: 1.5rem 0;
               letter-spacing: 0.02em;
               .view-results-count {
                 margin-left: 1em;
@@ -470,7 +470,7 @@
             }
             .zero-results-alert {
               align-self: center;
-              margin: 0 2.45rem;
+              margin: 0 1.53rem;
             }
           }
         }
@@ -480,14 +480,14 @@
       display: flex;
       flex-direction: column;
       flex: 0 0 100%;
-      gap: 1rem;
+      gap: 0.63rem;
       .filter-status-info {
         display: flex;
         text-transform: none;
         color: $justfix-grey-700;
         .results-count {
-          font-size: 1.6rem;
-          padding-right: 0.5rem;
+          font-size: 1rem;
+          padding-right: 0.31rem;
         }
         .results-info {
           width: 18px;
@@ -499,11 +499,11 @@
         .clear-filters {
           color: $justfix-grey-700;
           align-self: start;
-          margin-left: 1.8rem;
+          margin-left: 1.13rem;
         }
       }
       .filter-results-alert {
-        max-width: 50rem;
+        max-width: 31.25rem;
       }
     }
   }

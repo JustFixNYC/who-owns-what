@@ -38,20 +38,20 @@
         }
 
         text-align: center;
-        font-size: 2rem;
+        font-size: 1.25rem;
 
         @include for-tablet-landscape-down() {
-          font-size: 1.6rem;
+          font-size: 1rem;
         }
 
         @include for-phone-only() {
-          font-size: 1.3rem;
+          font-size: 0.81rem;
         }
 
         > label {
           display: block;
           line-height: 1.1;
-          font-size: 1.3rem;
+          font-size: 0.81rem;
           padding: 1px 0;
           // background-color: $background;
           border-bottom: 1px solid $gray-dark;
@@ -74,12 +74,12 @@
       }
 
       .table-content {
-        margin: 1rem 0.75rem;
-        line-height: 1.3rem;
+        margin: 0.63rem 0.47rem;
+        line-height: 0.81rem;
       }
 
       .table-small-font {
-        font-size: 1.3rem;
+        font-size: 0.81rem;
       }
     }
   }
