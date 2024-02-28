@@ -9,6 +9,10 @@
 @import "spectre.scss/spectre-icons.scss";
 
 // various overwrites
+html {
+  font-size: 16px;
+}
+
 a {
   text-decoration: underline;
   color: darken($justfix-blue, 10%);
@@ -18,12 +22,12 @@ a:focus,
 .form-input:focus,
 .btn:focus {
   // @include control-shadow($gray);
-  box-shadow: 0 0 0 0.1rem fade-in($gray-light, 0.15);
+  box-shadow: 0 0 0 0.06rem fade-in($gray-light, 0.15);
   border-color: $gray-dark;
 }
 
 .menu {
-  box-shadow: 0 0.1rem (0.1rem+0.1rem) * 2 fade-in($gray-light, 0.3);
+  box-shadow: 0 0.06rem (0.06rem+0.06rem) * 2 fade-in($gray-light, 0.3);
 }
 
 p {
