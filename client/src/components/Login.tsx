@@ -431,7 +431,7 @@ const LoginWithoutI18n = (props: LoginProps) => {
                 setUserType={setUserType}
                 error={userTypeError}
                 showError={userShowUserTypeError}
-                setError={setShowUserTypeError}
+                setError={setUserTypeError}
                 onChange={onChangeUserType}
               />
             )}
