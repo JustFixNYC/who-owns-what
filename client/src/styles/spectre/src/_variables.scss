@@ -50,7 +50,7 @@ $code-color: #e06870 !default;
 $highlight-color: #ffe9b3 !default;
 
 // Global
-$html-font-size: 10px !default;
+$html-font-size: 16px !default; // JUSTFIX: changed from 10px 
 $html-line-height: 1.428571429 !default;
 $body-bg: $bg-color-light !default;
 $body-font-color: lighten($dark-color, 5%) !default;
