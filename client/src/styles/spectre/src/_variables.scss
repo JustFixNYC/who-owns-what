@@ -9,11 +9,11 @@ $cjk-font-family: $base-font-family, "PingFang SC", "Hiragino Sans GB", "Microso
 $body-font-family: $base-font-family, $fallback-font-family !default;
 
 // Sizes
-$layout-padding: 1rem !default;
-$layout-padding-lg: 1.5rem !default;
-$control-min-width: 18rem !default;
-$border-radius: 0.2rem !default;
-$border-width: 0.1rem !default;
+$layout-padding: 0.63rem !default;
+$layout-padding-lg: 0.94rem !default;
+$control-min-width: 11.25rem !default;
+$border-radius: 0.13rem !default;
+$border-width: 0.06rem !default;
 
 // Colors
 // Core colors
@@ -54,9 +54,9 @@ $html-font-size: 10px !default;
 $html-line-height: 1.428571429 !default;
 $body-bg: $bg-color-light !default;
 $body-font-color: lighten($dark-color, 5%) !default;
-$font-size: 1.4rem !default;
-$font-size-sm: 1.2rem !default;
-$font-size-lg: 1.6rem !default;
+$font-size: 0.87rem !default;
+$font-size-sm: 0.75rem !default;
+$font-size-lg: 1rem !default;
 
 // Responsive breakpoints
 $size-xs: 480px !default;

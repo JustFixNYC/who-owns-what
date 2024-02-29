@@ -12,7 +12,7 @@
     top: 0;
     transform: translate(-50%, -50%) scale(0);
     transition: transform 0.2s ease;
-    width: 32rem;
+    width: 20rem;
     z-index: $zindex-4;
   }
 
@@ -65,6 +65,6 @@
 
   .card {
     border: 0;
-    @include shadow-variant(0.4rem);
+    @include shadow-variant(0.25rem);
   }
 }

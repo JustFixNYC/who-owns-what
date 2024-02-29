@@ -1,5 +1,5 @@
 // CSS Icons
-$icon-border-width: 0.2rem;
+$icon-border-width: 0.13rem;
 
 .icon {
   box-sizing: border-box;
@@ -8,7 +8,7 @@ $icon-border-width: 0.2rem;
   font-style: normal;
   height: 1em;
   position: relative;
-  text-indent: -999rem;
+  text-indent: -624.38rem;
   vertical-align: middle;
   width: 1em;
   &::before,
@@ -103,8 +103,8 @@ $icon-border-width: 0.2rem;
     box-shadow: -0.35em -0.35em, -0.35em 0, -0.35em 0.35em, 0 -0.35em, 0 0.35em, 0.35em -0.35em,
       0.35em 0, 0.35em 0.35em;
     content: "";
-    height: 0.3rem;
-    width: 0.3rem;
+    height: 0.19rem;
+    width: 0.19rem;
   }
 }
 
@@ -145,8 +145,8 @@ $icon-border-width: 0.2rem;
     box-shadow: -0.4em 0, 0.4em 0;
     border-radius: 50%;
     content: "";
-    height: 0.3rem;
-    width: 0.3rem;
+    height: 0.19rem;
+    width: 0.19rem;
   }
 }
 .icon-more-vert {

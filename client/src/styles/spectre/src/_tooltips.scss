@@ -10,14 +10,14 @@
     display: block;
     font-size: $font-size-sm;
     left: 50%;
-    max-width: 32rem;
+    max-width: 20rem;
     opacity: 0;
     overflow: hidden;
-    padding: 0.4rem 0.8rem;
+    padding: 0.25rem 0.5rem;
     pointer-events: none;
     position: absolute;
     text-overflow: ellipsis;
-    transform: translate(-50%, 1rem);
+    transform: translate(-50%, 0.63rem);
     transition: all 0.2s ease;
     white-space: nowrap;
     z-index: $zindex-2;
@@ -26,7 +26,7 @@
   &:hover {
     &::after {
       opacity: 1;
-      transform: translate(-50%, -0.5rem);
+      transform: translate(-50%, -0.31rem);
     }
   }
   &[disabled],
@@ -38,12 +38,12 @@
     &::after {
       bottom: 50%;
       left: 100%;
-      transform: translate(-1rem, 50%);
+      transform: translate(-0.63rem, 50%);
     }
     &:focus,
     &:hover {
       &::after {
-        transform: translate(0.5rem, 50%);
+        transform: translate(0.31rem, 50%);
       }
     }
   }
@@ -51,12 +51,12 @@
     &::after {
       bottom: auto;
       top: 100%;
-      transform: translate(-50%, -1rem);
+      transform: translate(-50%, -0.63rem);
     }
     &:focus,
     &:hover {
       &::after {
-        transform: translate(-50%, 0.5rem);
+        transform: translate(-50%, 0.31rem);
       }
     }
   }
@@ -65,12 +65,12 @@
       bottom: 50%;
       left: auto;
       right: 100%;
-      transform: translate(1rem, 50%);
+      transform: translate(0.63rem, 50%);
     }
     &:focus,
     &:hover {
       &::after {
-        transform: translate(-0.5rem, 50%);
+        transform: translate(-0.31rem, 50%);
       }
     }
   }

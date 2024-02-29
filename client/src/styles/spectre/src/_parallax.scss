@@ -1,7 +1,7 @@
 // Parallax
 $parallax-deg: 3deg;
-$parallax-offset: 0.65rem;
-$parallax-offset-z: 10rem;
+$parallax-offset: 0.41rem;
+$parallax-offset-z: 6.25rem;
 
 @mixin parallax-dir() {
   height: 50%;
@@ -18,8 +18,8 @@ $parallax-offset-z: 10rem;
 
   .parallax-content {
     height: auto;
-    @include shadow-variant(2rem);
-    transform: perspective(100rem);
+    @include shadow-variant(1.25rem);
+    transform: perspective(62.5rem);
     transform-style: preserve-3d;
     transition: all 0.4s ease;
     width: 100%;
@@ -44,7 +44,7 @@ $parallax-offset-z: 10rem;
     left: 0;
     position: absolute;
     text-align: center;
-    text-shadow: 0 0 3rem fade-in($dark-color, 0.95);
+    text-shadow: 0 0 1.88rem fade-in($dark-color, 0.95);
     top: 0;
     transform: translateZ($parallax-offset-z);
     transition: all 0.4s ease;
@@ -58,7 +58,7 @@ $parallax-offset-z: 10rem;
     top: 0;
 
     &:hover ~ .parallax-content {
-      transform: perspective(100rem) rotateX(-$parallax-deg) rotateY($parallax-deg);
+      transform: perspective(62.5rem) rotateX(-$parallax-deg) rotateY($parallax-deg);
 
       &::before {
         background: linear-gradient(
@@ -80,7 +80,7 @@ $parallax-offset-z: 10rem;
     top: 0;
 
     &:hover ~ .parallax-content {
-      transform: perspective(100rem) rotateX(-$parallax-deg) rotateY(-$parallax-deg);
+      transform: perspective(62.5rem) rotateX(-$parallax-deg) rotateY(-$parallax-deg);
 
       &::before {
         background: linear-gradient(
@@ -102,7 +102,7 @@ $parallax-offset-z: 10rem;
     left: 0;
 
     &:hover ~ .parallax-content {
-      transform: perspective(100rem) rotateX($parallax-deg) rotateY($parallax-deg);
+      transform: perspective(62.5rem) rotateX($parallax-deg) rotateY($parallax-deg);
 
       &::before {
         background: linear-gradient(
@@ -124,7 +124,7 @@ $parallax-offset-z: 10rem;
     right: 0;
 
     &:hover ~ .parallax-content {
-      transform: perspective(100rem) rotateX($parallax-deg) rotateY(-$parallax-deg);
+      transform: perspective(62.5rem) rotateX($parallax-deg) rotateY(-$parallax-deg);
 
       &::before {
         background: linear-gradient(

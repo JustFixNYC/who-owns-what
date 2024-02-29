@@ -9,20 +9,20 @@
       background: $primary-color;
       background-clip: padding-box;
       border: $border-width solid $bg-color-light;
-      border-radius: 1rem;
+      border-radius: 0.63rem;
       color: $light-color;
       content: attr(data-badge);
       display: inline-block;
-      transform: translate(-0.2rem, -1rem);
+      transform: translate(-0.13rem, -0.63rem);
     }
   }
   &[data-badge] {
     &::after {
       font-size: $font-size-sm;
-      height: 2rem;
+      height: 1.25rem;
       line-height: 1;
-      min-width: 2rem;
-      padding: 0.3rem 0.5rem;
+      min-width: 1.25rem;
+      padding: 0.19rem 0.31rem;
       text-align: center;
       white-space: nowrap;
     }
@@ -30,10 +30,10 @@
   &:not([data-badge]),
   &[data-badge=""] {
     &::after {
-      height: 0.8rem;
-      min-width: 0.8rem;
+      height: 0.5rem;
+      min-width: 0.5rem;
       padding: 0;
-      width: 0.8rem;
+      width: 0.5rem;
     }
   }
 
@@ -61,10 +61,10 @@
   &.avatar-xs {
     &::after {
       content: "";
-      height: 0.8rem;
-      min-width: 0.8rem;
+      height: 0.5rem;
+      min-width: 0.5rem;
       padding: 0;
-      width: 0.8rem;
+      width: 0.5rem;
     }
   }
 }

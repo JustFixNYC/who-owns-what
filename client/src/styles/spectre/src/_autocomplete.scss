@@ -7,8 +7,8 @@
     display: flex;
     flex-wrap: wrap;
     height: auto;
-    min-height: 3.2rem;
-    padding: 0.1rem 0 0 0.1rem;
+    min-height: 2rem;
+    padding: 0.06rem 0 0 0.06rem;
 
     &.is-focused {
       border-color: $primary-color;
@@ -20,8 +20,8 @@
       box-shadow: none;
       display: inline-block;
       flex: 1 0 auto;
-      height: 2.8rem;
-      padding: 0.3rem 0.8rem;
+      height: 1.75rem;
+      padding: 0.19rem 0.5rem;
       width: auto;
     }
   }

@@ -31,14 +31,14 @@
 
     .modal-container {
       animation: slide-down 0.2s ease 1;
-      max-width: 64rem;
+      max-width: 40rem;
       z-index: $zindex-0;
     }
   }
 
   &.modal-sm {
     .modal-container {
-      max-width: 32rem;
+      max-width: 20rem;
     }
   }
 }
@@ -48,7 +48,7 @@
   border-radius: $border-radius;
   display: block;
   padding: 0;
-  @include shadow-variant(0.4rem);
+  @include shadow-variant(0.25rem);
   text-align: left;
 
   .modal-header {

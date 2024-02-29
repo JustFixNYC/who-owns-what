@@ -9,10 +9,10 @@
   cursor: pointer;
   display: inline-block;
   font-size: $font-size;
-  height: 3.2rem;
-  line-height: 2rem;
+  height: 2rem;
+  line-height: 1.25rem;
   outline: none;
-  padding: 0.5rem 0.8rem;
+  padding: 0.31rem 0.5rem;
   text-align: center;
   text-decoration: none;
   user-select: none;
@@ -85,14 +85,14 @@
   // Button Sizes
   &.btn-sm {
     font-size: $font-size-sm;
-    height: 2.4rem;
-    padding: 0.1rem 0.8rem;
+    height: 1.5rem;
+    padding: 0.06rem 0.5rem;
   }
 
   &.btn-lg {
     font-size: $font-size-lg;
-    height: 4rem;
-    padding: 0.9rem 0.8rem;
+    height: 2.5rem;
+    padding: 0.56rem 0.5rem;
   }
 
   // Button Block
@@ -103,16 +103,16 @@
 
   // Button Action
   &.btn-action {
-    width: 3.2rem;
+    width: 2rem;
     padding-left: 0;
     padding-right: 0;
 
     &.btn-sm {
-      width: 2.4rem;
+      width: 1.5rem;
     }
 
     &.btn-lg {
-      width: 4rem;
+      width: 2.5rem;
     }
   }
 
@@ -121,13 +121,13 @@
     background: transparent;
     border: 0;
     color: currentColor;
-    height: 1.6rem;
-    line-height: 1.6rem;
-    margin: 0.2rem -0.2rem 0.2rem 0.4rem;
+    height: 1rem;
+    line-height: 1rem;
+    margin: 0.13rem -0.13rem 0.13rem 0.25rem;
     opacity: 0.45;
-    padding: 0 0.2rem;
+    padding: 0 0.13rem;
     text-decoration: none;
-    width: 1.6rem;
+    width: 1rem;
 
     &:hover {
       opacity: 0.85;
@@ -152,12 +152,12 @@
     }
     &:not(:first-child):not(:last-child) {
       border-radius: 0;
-      margin-left: -0.1rem;
+      margin-left: -0.06rem;
     }
     &:last-child:not(:first-child) {
       border-bottom-left-radius: 0;
       border-top-left-radius: 0;
-      margin-left: -0.1rem;
+      margin-left: -0.06rem;
     }
     &:focus,
     &:hover,

@@ -9,7 +9,7 @@
 
 // Component focus shadow
 @mixin control-shadow($color: $primary-color) {
-  box-shadow: 0 0 0 0.2rem fade-in($color, 0.15);
+  box-shadow: 0 0 0 0.13rem fade-in($color, 0.15);
 }
 
 // Component transition
@@ -28,7 +28,7 @@
   border-radius: $border-radius;
   display: inline-block;
   line-height: 1;
-  padding: 0.3rem 0.4rem;
+  padding: 0.19rem 0.25rem;
   vertical-align: baseline;
 }
 
@@ -38,5 +38,5 @@
 }
 
 @mixin shadow-variant($offset) {
-  box-shadow: 0 $offset ($offset + 0.1rem) * 2 fade-in($dark-color, 0.3);
+  box-shadow: 0 $offset ($offset + 0.06rem) * 2 fade-in($dark-color, 0.3);
 }

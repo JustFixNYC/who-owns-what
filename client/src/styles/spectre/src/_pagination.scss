@@ -3,18 +3,18 @@
   display: flex;
 
   .page-item {
-    margin: 1rem 0.1rem;
+    margin: 0.63rem 0.06rem;
 
     span {
       display: inline-block;
-      padding: 0.6rem 0.4rem;
+      padding: 0.37rem 0.25rem;
     }
 
     a {
       border-radius: $border-radius;
       color: $gray-color-dark;
       display: inline-block;
-      padding: 0.6rem 0.8rem;
+      padding: 0.37rem 0.5rem;
       text-decoration: none;
       &:focus,
       &:hover {

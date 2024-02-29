@@ -11,18 +11,18 @@
   .tile-content {
     flex: 1 1 auto;
     &:not(:first-child) {
-      padding-left: 1rem;
+      padding-left: 0.63rem;
     }
     &:not(:last-child) {
-      padding-right: 1rem;
+      padding-right: 0.63rem;
     }
   }
   .tile-title {
-    line-height: 2rem;
+    line-height: 1.25rem;
   }
   .tile-subtitle {
     color: lighten($body-font-color, 40%);
-    line-height: 2rem;
+    line-height: 1.25rem;
   }
 
   &.tile-centered {

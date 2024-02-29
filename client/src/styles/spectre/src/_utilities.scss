@@ -2,8 +2,8 @@
 .divider {
   border-top: $border-width solid $border-color;
   display: block;
-  height: 0.1rem;
-  margin: 1rem 0;
+  height: 0.06rem;
+  margin: 0.63rem 0;
   position: relative;
 
   &[data-content]::before {
@@ -12,32 +12,32 @@
     content: attr(data-content);
     display: inline-block;
     font-size: $font-size-sm;
-    padding: 0 0.8rem;
-    transform: translateY(-1.1rem);
+    padding: 0 0.5rem;
+    transform: translateY(-0.69rem);
   }
 }
 
 // Loading
 .loading {
   color: transparent !important;
-  min-height: 1.6rem;
+  min-height: 1rem;
   pointer-events: none;
   position: relative;
   &::after {
     animation: loading 500ms infinite linear;
-    border: 0.2rem solid $primary-color;
-    border-radius: 0.8rem;
+    border: 0.13rem solid $primary-color;
+    border-radius: 0.5rem;
     border-right-color: transparent;
     border-top-color: transparent;
     content: "";
     display: block;
-    height: 1.6rem;
+    height: 1rem;
     left: 50%;
-    margin-left: -0.8rem;
-    margin-top: -0.8rem;
+    margin-left: -0.5rem;
+    margin-top: -0.5rem;
     position: absolute;
     top: 50%;
-    width: 1.6rem;
+    width: 1rem;
     z-index: $zindex-0;
   }
 }
@@ -71,53 +71,53 @@
 
 // Spacing
 .mt-10 {
-  margin-top: 1rem;
+  margin-top: 0.63rem;
 }
 .mr-10 {
-  margin-right: 1rem;
+  margin-right: 0.63rem;
 }
 .mb-10 {
-  margin-bottom: 1rem;
+  margin-bottom: 0.63rem;
 }
 .ml-10 {
-  margin-left: 1rem;
+  margin-left: 0.63rem;
 }
 .mt-5 {
-  margin-top: 0.5rem;
+  margin-top: 0.31rem;
 }
 .mr-5 {
-  margin-right: 0.5rem;
+  margin-right: 0.31rem;
 }
 .mb-5 {
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.31rem;
 }
 .ml-5 {
-  margin-left: 0.5rem;
+  margin-left: 0.31rem;
 }
 
 .pt-10 {
-  padding-top: 1rem;
+  padding-top: 0.63rem;
 }
 .pr-10 {
-  padding-right: 1rem;
+  padding-right: 0.63rem;
 }
 .pb-10 {
-  padding-bottom: 1rem;
+  padding-bottom: 0.63rem;
 }
 .pl-10 {
-  padding-left: 1rem;
+  padding-left: 0.63rem;
 }
 .pt-5 {
-  padding-top: 0.5rem;
+  padding-top: 0.31rem;
 }
 .pr-5 {
-  padding-right: 0.5rem;
+  padding-right: 0.31rem;
 }
 .pb-5 {
-  padding-bottom: 0.5rem;
+  padding-bottom: 0.31rem;
 }
 .pl-5 {
-  padding-left: 0.5rem;
+  padding-left: 0.31rem;
 }
 
 // Display
@@ -156,12 +156,12 @@
 .text-assistive {
   border: 0;
   clip: rect(0, 0, 0, 0);
-  height: 0.1rem;
-  margin: -0.1rem;
+  height: 0.06rem;
+  margin: -0.06rem;
   overflow: hidden;
   padding: 0;
   position: absolute;
-  width: 0.1rem;
+  width: 0.06rem;
 }
 // Text
 .text-left {
@@ -224,16 +224,16 @@
   @include shadow-variant(0);
 }
 .shadow-1 {
-  @include shadow-variant(0.1rem);
+  @include shadow-variant(0.06rem);
 }
 .shadow-2 {
-  @include shadow-variant(0.2rem);
+  @include shadow-variant(0.13rem);
 }
 .shadow-3 {
-  @include shadow-variant(0.3rem);
+  @include shadow-variant(0.19rem);
 }
 .shadow-4 {
-  @include shadow-variant(0.4rem);
+  @include shadow-variant(0.25rem);
 }
 
 // Shapes

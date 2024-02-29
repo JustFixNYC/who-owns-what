@@ -4,11 +4,11 @@
   border-radius: $border-radius;
   display: flex;
   flex-wrap: nowrap;
-  height: 1.6rem;
+  height: 1rem;
   width: 100%;
 
   &.bar-sm {
-    height: 0.4rem;
+    height: 0.25rem;
   }
 
   // TODO: attr() support
@@ -20,7 +20,7 @@
     flex-shrink: 0;
     line-height: 1;
     height: 100%;
-    padding: 0.2rem 0;
+    padding: 0.13rem 0;
     position: relative;
     text-align: center;
     width: 0;
@@ -39,8 +39,8 @@
 
 // Slider bar
 .bar-slider {
-  height: 0.2rem;
-  margin: 1rem 0;
+  height: 0.13rem;
+  margin: 0.63rem 0;
   position: relative;
 
   .bar-item {
@@ -57,16 +57,16 @@
     background: $primary-color;
     border: 0;
     border-radius: 50%;
-    height: 1.2rem;
+    height: 0.75rem;
     padding: 0;
     position: absolute;
     right: 0;
     top: 50%;
     transform: translate(50%, -50%);
-    width: 1.2rem;
+    width: 0.75rem;
 
     &:active {
-      box-shadow: 0 0 0 0.2rem $primary-color;
+      box-shadow: 0 0 0 0.13rem $primary-color;
     }
   }
 }

@@ -14,11 +14,11 @@
     }
 
     a {
-      border-bottom: 0.2rem solid transparent;
+      border-bottom: 0.13rem solid transparent;
       color: inherit;
       display: block;
       margin-top: 0;
-      padding: 0.5rem 1.2rem;
+      padding: 0.31rem 0.75rem;
       text-decoration: none;
       &:focus,
       &:hover {
@@ -40,8 +40,8 @@
       .badge {
         &[data-badge]::after {
           position: absolute;
-          right: -0.4rem;
-          top: -0.4rem;
+          right: -0.25rem;
+          top: -0.25rem;
           transform: translate(0, 0);
         }
       }

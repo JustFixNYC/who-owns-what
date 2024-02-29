@@ -5,7 +5,7 @@
   background: transparent;
   display: block;
   width: 100%;
-  height: 2.4rem;
+  height: 1.5rem;
 
   &:focus {
     @include control-shadow();
@@ -18,26 +18,26 @@
     background: $primary-color;
     border: 0;
     border-radius: 50%;
-    height: 1.2rem;
-    margin-top: -0.5rem;
+    height: 0.75rem;
+    margin-top: -0.31rem;
     transition: transform 0.2s ease;
-    width: 1.2rem;
+    width: 0.75rem;
   }
   &::-moz-range-thumb {
     background: $primary-color;
     border: 0;
     border-radius: 50%;
-    height: 1.2rem;
+    height: 0.75rem;
     transition: transform 0.2s ease;
-    width: 1.2rem;
+    width: 0.75rem;
   }
   &::-ms-thumb {
     background: $primary-color;
     border: 0;
     border-radius: 50%;
-    height: 1.2rem;
+    height: 0.75rem;
     transition: transform 0.2s ease;
-    width: 1.2rem;
+    width: 0.75rem;
   }
 
   &:active {
@@ -72,19 +72,19 @@
   &::-webkit-slider-runnable-track {
     background: $bg-color-dark;
     border-radius: $border-radius;
-    height: 0.2rem;
+    height: 0.13rem;
     width: 100%;
   }
   &::-moz-range-track {
     background: $bg-color-dark;
     border-radius: $border-radius;
-    height: 0.2rem;
+    height: 0.13rem;
     width: 100%;
   }
   &::-ms-track {
     background: $bg-color-dark;
     border-radius: $border-radius;
-    height: 0.2rem;
+    height: 0.13rem;
     width: 100%;
   }
   &::-ms-fill-lower {

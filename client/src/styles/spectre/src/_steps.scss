@@ -3,44 +3,44 @@
   display: flex;
   flex-wrap: nowrap;
   list-style: none;
-  margin: 0.5rem 0;
+  margin: 0.31rem 0;
   width: 100%;
 
   .step-item {
     flex: 1 1 0;
     margin-top: 0;
-    min-height: 2rem;
+    min-height: 1.25rem;
     text-align: center;
     position: relative;
 
     &:not(:first-child)::before {
       background: $primary-color;
       content: "";
-      height: 0.2rem;
+      height: 0.13rem;
       left: -50%;
       position: absolute;
-      top: 0.9rem;
+      top: 0.56rem;
       width: 100%;
     }
 
     a {
       color: $gray-color;
       display: inline-block;
-      padding: 2rem 1rem 0;
+      padding: 1.25rem 0.63rem 0;
       text-decoration: none;
 
       &::before {
         background: $primary-color;
-        border: 0.2rem solid $light-color;
+        border: 0.13rem solid $light-color;
         border-radius: 50%;
         content: "";
         display: block;
-        height: 1.2rem;
+        height: 0.75rem;
         left: 50%;
         position: absolute;
-        top: 0.4rem;
+        top: 0.25rem;
         transform: translateX(-50%);
-        width: 1.2rem;
+        width: 0.75rem;
         z-index: $zindex-0;
       }
     }
@@ -49,7 +49,7 @@
       a {
         &::before {
           background: $light-color;
-          border: 0.2rem solid $primary-color;
+          border: 0.13rem solid $primary-color;
         }
       }
 
