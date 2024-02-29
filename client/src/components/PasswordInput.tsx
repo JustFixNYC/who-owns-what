@@ -9,7 +9,7 @@ import { LocaleLink } from "i18n";
 import { createWhoOwnsWhatRoutePaths } from "routes";
 import { I18n } from "@lingui/core";
 import { t } from "@lingui/macro";
-import { HideIcon, ShowIcon } from "./Icons";
+import { AlertIcon, HideIcon, ShowIcon } from "./Icons";
 import classNames from "classnames";
 
 type PasswordRule = {
@@ -97,6 +97,14 @@ const PasswordInputWithoutI18n = forwardRef<HTMLInputElement, PasswordInputProps
                 </span>
               );
             })}
+          </div>
+        )}
+        {!showPasswordRules && showError && error && (
+          <div className="password-input-errors">
+            <span id="input-field-error">
+              <AlertIcon />
+              {i18n._(t`Please enter password.`)}
+            </span>
           </div>
         )}
         <div className="password-input">

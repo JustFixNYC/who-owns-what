@@ -68,7 +68,9 @@ const PasswordSettingFieldWithoutI18n = (props: PasswordSettingFieldProps) => {
 
   return (
     <UserSettingField title={i18n._(t`Password`)} preview="**********" onSubmit={handleSubmit}>
-      <Trans render="label">Password</Trans>
+      <Trans render="label" className="user-setting-label">
+        Password
+      </Trans>
       {invalidAuthError && (
         <Alert
           className={`page-level-alert`}
@@ -155,7 +157,9 @@ const EmailSettingFieldWithoutI18n = (props: EmailSettingFieldProps) => {
       preview={currentValue}
       onSubmit={handleSubmit}
     >
-      <Trans render="label">Email address</Trans>
+      <Trans render="label" className="user-setting-label">
+        Email address
+      </Trans>
       {existingUserError && (
         <Alert
           className={`page-level-alert`}
@@ -221,7 +225,9 @@ const UserSettingFieldWithoutI18n = (props: UserSettingFieldProps) => {
           </>
         ) : (
           <>
-            <Trans render="label">{title}</Trans>
+            <Trans render="label" className="user-setting-label">
+              {title}
+            </Trans>
             <div>
               <span>{preview}</span>
               <button type="button" className="button is-text" onClick={() => setEditing(true)}>

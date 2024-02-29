@@ -77,7 +77,7 @@
     }
   }
 
-  label {
+  .user-setting-label {
     @include desktop-eyebrow();
     // vars marked !important bc typography mixin is not available for inconsolata
     font-weight: 600 !important;
