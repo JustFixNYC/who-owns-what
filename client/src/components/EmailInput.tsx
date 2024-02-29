@@ -16,17 +16,18 @@ interface EmailInputProps extends React.ComponentPropsWithoutRef<"input"> {
   showError: boolean;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
   i18nHash?: string;
+  labelText?: string;
 }
 
 const EmailInputWithoutI18n = forwardRef<HTMLInputElement, EmailInputProps>(
-  ({ i18n, i18nHash, email, error, setError, showError, onChange, ...props }, ref) => {
+  ({ i18n, i18nHash, email, error, setError, showError, onChange, labelText, ...props }, ref) => {
     const isBadEmailFormat = (value: string) => {
       /* valid email regex rules 
       alpha numeric characters are ok, upper/lower case agnostic 
       username: leading \_ ok, chars \_\.\-\+ ok in all other positions
       domain name: chars \.\- ok as long as not leading. must end in a \. and at least two alphabet chars */
       const pattern =
-        "^([a-zA-Z0-9_]+[a-zA-Z0-9+_.-]+@[a-zA-Z0-9]+[a-zA-Z0-9.-]+[a-zA-Z0-9]+.[a-zA-Z]{2,})$";
+        "^([a-zA-Z0-9_]+[a-zA-Z0-9+_.-]+@[a-zA-Z0-9]+[a-zA-Z0-9.-]+[a-zA-Z0-9]+\\.[a-zA-Z]{2,})$";
 
       // HTML input element has loose email validation requirements, so we check the input against a custom regex
       const passStrictRegex = value.match(pattern);
@@ -43,9 +44,11 @@ const EmailInputWithoutI18n = forwardRef<HTMLInputElement, EmailInputProps>(
 
     return (
       <div className="email-input-field">
-        <div className="email-input-label">
-          <label htmlFor="email-input">{i18n._(t`Email address`)}</label>
-        </div>
+        {!!labelText && (
+          <div className="email-input-label">
+            <label htmlFor="email-input">{labelText}</label>
+          </div>
+        )}
         {showError && error && (
           <div className="email-input-errors">
             <span id="input-field-error">

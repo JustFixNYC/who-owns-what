@@ -409,6 +409,7 @@ const LoginWithoutI18n = (props: LoginProps) => {
                 setError={setEmailError}
                 showError={showEmailError}
                 autoFocus={showRegisterModal && !email}
+                labelText={i18n._(t`Email address`)}
               />
             )}
             {(isLoginStep || isRegisterAccountStep) && (
