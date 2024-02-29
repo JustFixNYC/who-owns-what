@@ -31,7 +31,7 @@
       text-align: center;
       width: 1.5rem;
       &::before {
-        border: 0.13rem solid $primary-color;
+        border: 2px solid $primary-color;
         border-radius: 50%;
         content: "";
         display: block;

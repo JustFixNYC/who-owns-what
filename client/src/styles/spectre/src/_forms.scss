@@ -219,7 +219,7 @@
     &:checked + .form-icon {
       &::before {
         background-clip: padding-box;
-        border: 0.13rem solid $light-color;
+        border: 2px solid $light-color;
         border-left-width: 0;
         border-top-width: 0;
         content: "";
