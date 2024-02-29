@@ -51,7 +51,7 @@ $highlight-color: #ffe9b3 !default;
 
 // Global
 // JUSTFIX: removing this so that it uses default 16px and allows a11y tools to scale
-// $html-font-size: 16px !default; 
+// $html-font-size: 16px !default;
 $html-line-height: 1.428571429 !default;
 $body-bg: $bg-color-light !default;
 $body-font-color: lighten($dark-color, 5%) !default;
