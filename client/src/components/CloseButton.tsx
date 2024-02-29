@@ -7,7 +7,7 @@ import classNames from "classnames";
 type CloseButtonProps = withI18nProps & {
   onClick: () => void;
   /**
-   * Stroke width for the X svg (Default: "0.06rem")
+   * Stroke width for the X svg (Default: "1px")
    */
   strokeWidth?: number | string;
   /**
@@ -29,7 +29,7 @@ export const CloseButton = withI18n()(
   ({
     i18n,
     onClick,
-    strokeWidth = "0.06rem",
+    strokeWidth = "1px",
     height = "1rem",
     width = "1rem",
     className,

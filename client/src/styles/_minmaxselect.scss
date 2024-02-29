@@ -16,11 +16,11 @@
     width: 100%;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 2.5rem 2.5rem;
-    gap: 0.06rem;
+    gap: 1px;
     .minmaxselect__preset-value {
       position: relative;
       display: flex;
-      box-shadow: 0 0 0 0.06rem $justfix-grey-700;
+      box-shadow: 0 0 0 1px $justfix-grey-700;
       color: $justfix-black;
       background-color: $justfix-white;
       &:has(> input[disabled]) {
@@ -115,7 +115,7 @@
             background-color: $justfix-white;
             color: $justfix-black;
             font-size: 1rem;
-            border: 0.06rem solid $justfix-grey-600;
+            border: 1px solid $justfix-grey-600;
             border-radius: 0.13rem;
             appearance: textfield;
             // remove increment arrows
@@ -128,7 +128,7 @@
               outline: none;
             }
             &.hasError {
-              outline: 0.19rem solid $justfix-orange;
+              outline: 3px solid $justfix-orange;
             }
           }
         }

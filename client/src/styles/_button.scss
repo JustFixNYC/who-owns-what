@@ -123,7 +123,7 @@
 }
 
 .icon-mail:before {
-  border-radius: 0.06rem;
+  border-radius: 1px;
 }
 
 // WHO ARE OUR USERS SURVEY BUTTON
@@ -152,10 +152,10 @@
 
   @if $color ==$justfix-white {
     color: $justfix-black;
-    border: 0.06rem solid $justfix-black;
+    border: 1px solid $justfix-black;
   } @else {
     color: $justfix-white;
-    border: 0.06rem solid $justfix-white;
+    border: 1px solid $justfix-white;
   }
 
   $button-shadow: #d4d5d0;

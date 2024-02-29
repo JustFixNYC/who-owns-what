@@ -25,7 +25,7 @@
   position: relative;
   &::after {
     animation: loading 500ms infinite linear;
-    border: 0.13rem solid $primary-color;
+    border: 2px solid $primary-color;
     border-radius: 0.5rem;
     border-right-color: transparent;
     border-top-color: transparent;

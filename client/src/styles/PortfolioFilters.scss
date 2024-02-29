@@ -63,7 +63,7 @@
         display: flex;
         align-items: center;
         text-transform: uppercase;
-        border: 0.06rem solid $justfix-black;
+        border: 1px solid $justfix-black;
         border-radius: 0.5rem;
         width: 3.81rem;
         @include for-phone-only {
@@ -89,7 +89,7 @@
       gap: 1.13rem;
 
       .filter {
-        border: 0.06rem solid $justfix-black;
+        border: 1px solid $justfix-black;
         border-radius: 0.5rem;
         text-transform: uppercase;
         display: flex;
@@ -100,7 +100,7 @@
             border-radius: 0;
             box-sizing: border-box;
             border: none;
-            border-bottom: 0.06rem solid $justfix-grey-400;
+            border-bottom: 1px solid $justfix-grey-400;
             text-align: left;
           }
           &.active:not([open]):not(.filter-toggle):not(.filters-mobile-wrapper) {
@@ -148,7 +148,7 @@
         }
         .checkbox {
           box-sizing: border-box;
-          border: 0.06rem solid $justfix-black;
+          border: 1px solid $justfix-black;
           border-radius: 0.25rem;
           width: var(--checkbox-height);
           height: var(--checkbox-height);
@@ -245,7 +245,7 @@
             overflow-y: auto;
             background-color: $justfix-white;
             box-sizing: border-box;
-            border: 0.06rem solid $justfix-black;
+            border: 1px solid $justfix-black;
             border-radius: 0.5rem;
             @include for-tablet-portrait-up {
               max-height: 65vh;
@@ -278,7 +278,7 @@
                 }
               }
               @include for-tablet-portrait-up() {
-                border-bottom: 0.06rem solid $justfix-grey;
+                border-bottom: 1px solid $justfix-grey;
               }
               &,
               .filter-info {

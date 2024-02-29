@@ -96,7 +96,7 @@ kbd {
   @include label-variant($light-color, $dark-color);
 }
 abbr[title] {
-  border-bottom: 0.06rem dotted;
+  border-bottom: 1px dotted;
   cursor: help;
   text-decoration: none;
 }

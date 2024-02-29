@@ -55,13 +55,13 @@
         svg {
           width: 0.63rem;
           height: 0.63rem;
-          stroke-width: 0.19rem;
+          stroke-width: 3px;
         }
       }
     }
 
     .multiselect__show-more-button {
-      border: 0.06rem solid $justfix-black;
+      border: 1px solid $justfix-black;
       padding: 0.5rem 0.37rem;
     }
   }
@@ -104,7 +104,7 @@
       }
 
       .multiselect__input-container {
-        border: 0.06rem solid $justfix-black;
+        border: 1px solid $justfix-black;
         border-radius: 0.13rem 0.13rem 0 0;
         font-size: 1rem;
         color: $justfix-black;
@@ -122,7 +122,7 @@
     margin: 0;
     border-radius: 0 0 0.13rem 0.13rem;
     position: relative;
-    border: 0.06rem solid $justfix-grey-400;
+    border: 1px solid $justfix-grey-400;
     border-top: none;
     box-shadow: none;
     color: $justfix-black;
@@ -160,7 +160,7 @@
           min-height: var(--box-size);
           min-width: var(--box-size);
           border-radius: 0.25rem;
-          border: 0.06rem solid $justfix-black;
+          border: 1px solid $justfix-black;
           display: flex;
           align-items: center;
           justify-content: center;
@@ -183,5 +183,5 @@
   .multiselect__control
   .multiselect__value-container
   .multiselect__input-container {
-  border: 0.19rem solid $justfix-orange;
+  border: 3px solid $justfix-orange;
 }
