@@ -1,0 +1,77 @@
+// Tooltips
+.tooltip {
+  position: relative;
+  &::after {
+    background: fade-in($dark-color, 0.9);
+    border-radius: $border-radius;
+    bottom: 100%;
+    color: $light-color;
+    content: attr(data-tooltip);
+    display: block;
+    font-size: $font-size-sm;
+    left: 50%;
+    max-width: 32rem;
+    opacity: 0;
+    overflow: hidden;
+    padding: 0.4rem 0.8rem;
+    pointer-events: none;
+    position: absolute;
+    text-overflow: ellipsis;
+    transform: translate(-50%, 1rem);
+    transition: all 0.2s ease;
+    white-space: nowrap;
+    z-index: $zindex-2;
+  }
+  &:focus,
+  &:hover {
+    &::after {
+      opacity: 1;
+      transform: translate(-50%, -0.5rem);
+    }
+  }
+  &[disabled],
+  &.disabled {
+    pointer-events: auto;
+  }
+
+  &.tooltip-right {
+    &::after {
+      bottom: 50%;
+      left: 100%;
+      transform: translate(-1rem, 50%);
+    }
+    &:focus,
+    &:hover {
+      &::after {
+        transform: translate(0.5rem, 50%);
+      }
+    }
+  }
+  &.tooltip-bottom {
+    &::after {
+      bottom: auto;
+      top: 100%;
+      transform: translate(-50%, -1rem);
+    }
+    &:focus,
+    &:hover {
+      &::after {
+        transform: translate(-50%, 0.5rem);
+      }
+    }
+  }
+  &.tooltip-left {
+    &::after {
+      bottom: 50%;
+      left: auto;
+      right: 100%;
+      transform: translate(1rem, 50%);
+    }
+    &:focus,
+    &:hover {
+      &::after {
+        transform: translate(-0.5rem, 50%);
+      }
+    }
+  }
+}

@@ -75,7 +75,6 @@
     "resize-observer-polyfill": "^1.5.1",
     "rollbar": "^2.14.4",
     "sass": "^1.49.9",
-    "spectre.scss": "0.0.2",
     "typescript": "^4.9.3",
     "widont": "^0.3.3",
     "xstate": "^4.11.0"
@@ -88,8 +87,8 @@
     "contentful": "node pull-contentful-data.js",
     "contentful-common-strings": "contentful-common-strings fetch -o src/data/common-strings.json",
     "typecheck": "tsc",
-    "build-css": "sass src/:src/ --no-source-map --load-path src/ --load-path node_modules/ --load-path node_modules/spectre.scss/src/",
-    "watch-css": "yarn build-css && sass src/:src/ --no-source-map --load-path src/ --load-path node_modules/ --load-path node_modules/spectre.scss/src/ --watch",
+    "build-css": "sass src/:src/ --no-source-map --load-path src/ --load-path node_modules/",
+    "watch-css": "yarn build-css && sass src/:src/ --no-source-map --load-path src/ --load-path node_modules/ --watch",
     "start-js": "lingui compile && react-scripts start",
     "start": "yarn contentful-common-strings --dev && npm-run-all -p watch-css start-js",
     "build": "yarn contentful-common-strings && node write-version.js && yarn build-css && lingui compile && react-scripts build",

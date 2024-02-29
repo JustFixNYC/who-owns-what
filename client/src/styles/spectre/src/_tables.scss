@@ -1,0 +1,46 @@
+// Tables
+.table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  text-align: left;
+  width: 100%;
+
+  &.table-striped {
+    tbody {
+      tr:nth-of-type(odd) {
+        background: $bg-color;
+      }
+    }
+  }
+
+  &.table-hover {
+    tbody {
+      tr {
+        &:hover {
+          background: $bg-color-dark;
+        }
+      }
+    }
+  }
+
+  &,
+  &.table-striped {
+    tbody {
+      tr {
+        &.active {
+          background: $bg-color-dark;
+        }
+      }
+    }
+  }
+
+  td {
+    border-bottom: $border-width solid $border-color;
+    padding: 1.5rem 1rem;
+  }
+
+  th {
+    border-bottom: $border-width solid $gray-color-dark;
+    padding: 1.5rem 1rem;
+  }
+}

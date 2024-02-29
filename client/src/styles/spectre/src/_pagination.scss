@@ -1,0 +1,56 @@
+// Pagination
+.pagination {
+  display: flex;
+
+  .page-item {
+    margin: 1rem 0.1rem;
+
+    span {
+      display: inline-block;
+      padding: 0.6rem 0.4rem;
+    }
+
+    a {
+      border-radius: $border-radius;
+      color: $gray-color-dark;
+      display: inline-block;
+      padding: 0.6rem 0.8rem;
+      text-decoration: none;
+      &:focus,
+      &:hover {
+        color: $primary-color;
+      }
+      &[disabled],
+      &.disabled {
+        cursor: default;
+        opacity: 0.5;
+        pointer-events: none;
+      }
+    }
+
+    &.active {
+      a {
+        background: $primary-color;
+        color: $light-color;
+      }
+    }
+
+    &.page-prev,
+    &.page-next {
+      flex: 1 0 50%;
+    }
+
+    &.page-next {
+      text-align: right;
+    }
+
+    .page-item-title {
+      margin: 0;
+    }
+
+    .page-item-subtitle {
+      margin: 0;
+      opacity: 0.5;
+    }
+  }
+}

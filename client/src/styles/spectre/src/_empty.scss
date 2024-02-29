@@ -1,0 +1,21 @@
+// Empty states (or Blank slates)
+.empty {
+  background: $bg-color;
+  border-radius: $border-radius;
+  color: $gray-color-dark;
+  text-align: center;
+  padding: 4 * $layout-padding;
+
+  .empty-title,
+  .empty-subtitle {
+    margin: 1rem auto;
+  }
+
+  .empty-subtitle {
+    color: lighten($body-font-color, 40%);
+  }
+
+  .empty-action {
+    margin-top: 1.5rem;
+  }
+}

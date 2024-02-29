@@ -1,0 +1,43 @@
+// Tiles
+.tile {
+  align-content: space-between;
+  align-items: flex-start;
+  display: flex;
+
+  .tile-icon,
+  .tile-action {
+    flex: 0 0 auto;
+  }
+  .tile-content {
+    flex: 1 1 auto;
+    &:not(:first-child) {
+      padding-left: 1rem;
+    }
+    &:not(:last-child) {
+      padding-right: 1rem;
+    }
+  }
+  .tile-title {
+    line-height: 2rem;
+  }
+  .tile-subtitle {
+    color: lighten($body-font-color, 40%);
+    line-height: 2rem;
+  }
+
+  &.tile-centered {
+    align-items: center;
+
+    .tile-content {
+      overflow: hidden;
+    }
+
+    .tile-title,
+    .tile-subtitle {
+      margin-bottom: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+}

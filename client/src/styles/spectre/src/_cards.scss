@@ -1,0 +1,47 @@
+// Cards
+.card {
+  background: $bg-color-light;
+  border: $border-width solid $border-color;
+  border-radius: $border-radius;
+  display: block;
+
+  .card-header,
+  .card-body,
+  .card-footer {
+    padding: $layout-padding-lg;
+    padding-bottom: 0;
+
+    &:last-child {
+      padding-bottom: $layout-padding-lg;
+    }
+  }
+
+  .card-image {
+    padding-top: $layout-padding-lg;
+
+    &:first-child {
+      padding-top: 0;
+
+      img {
+        border-top-left-radius: $border-radius;
+        border-top-right-radius: $border-radius;
+      }
+    }
+
+    &:last-child {
+      img {
+        border-bottom-left-radius: $border-radius;
+        border-bottom-right-radius: $border-radius;
+      }
+    }
+  }
+
+  .card-title {
+    font-size: 2rem;
+  }
+
+  .card-subtitle {
+    color: lighten($body-font-color, 40%);
+    font-size: $font-size-sm;
+  }
+}

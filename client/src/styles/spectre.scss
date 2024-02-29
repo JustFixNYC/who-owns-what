@@ -1,12 +1,16 @@
 /*! Spectre.css | MIT License | github.com/picturepan2/spectre */
 
+// JUSTFIX: we manually copied over these files from node_modules and changed
+// all the rem units for 16px base font size instead of 10px, so that WOW aligns
+// with tenant platform and component-library. We were using version 0.0.2
+
 // Include our variables to overwrite the default ones
 @import "styles/_vars.scss";
 @import "styles/_button.scss";
 @import "styles/_modal.scss";
 
-@import "spectre.scss/spectre.scss";
-@import "spectre.scss/spectre-icons.scss";
+@import "styles/spectre/spectre.scss";
+@import "styles/spectre/spectre-icons.scss";
 
 // various overwrites
 html {
@@ -109,48 +113,48 @@ sup .tooltip:after {
 }
 
 // Core variables and mixins
-// @import 'spectre.scss/src/_variables.scss';
+// @import 'styles/spectre/src/_variables.scss';
 //
-// @import 'spectre.scss/src/_mixins.scss';
+// @import 'styles/spectre/src/_mixins.scss';
 //
 // // Reset and dependencies
-// @import 'spectre.scss/src/_normalize.scss';
-// @import 'spectre.scss/src/_base.scss';
+// @import 'styles/spectre/src/_normalize.scss';
+// @import 'styles/spectre/src/_base.scss';
 //
 // // Core classes
-// @import 'spectre.scss/src/_typography.scss';
-// // @import 'spectre.scss/src/_asian.scss';
-// @import 'spectre.scss/src/_tables.scss';
-// @import 'spectre.scss/src/_buttons.scss';
-// @import 'spectre.scss/src/_forms.scss';
-// @import 'spectre.scss/src/_labels.scss';
-// @import 'spectre.scss/src/_codes.scss';
-// @import 'spectre.scss/src/_media.scss';
+// @import 'styles/spectre/src/_typography.scss';
+// // @import 'styles/spectre/src/_asian.scss';
+// @import 'styles/spectre/src/_tables.scss';
+// @import 'styles/spectre/src/_buttons.scss';
+// @import 'styles/spectre/src/_forms.scss';
+// @import 'styles/spectre/src/_labels.scss';
+// @import 'styles/spectre/src/_codes.scss';
+// @import 'styles/spectre/src/_media.scss';
 //
 // // Layout
-@import "spectre.scss/src/_layout.scss";
-// @import 'spectre.scss/src/_navbar.scss';
-// @import 'spectre.scss/src/_panels.scss';
-// @import 'spectre.scss/src/_empty.scss';
+@import "styles/spectre/src/_layout.scss";
+// @import 'styles/spectre/src/_navbar.scss';
+// @import 'styles/spectre/src/_panels.scss';
+// @import 'styles/spectre/src/_empty.scss';
 //
 // // Components
-// @import 'spectre.scss/src/_autocomplete.scss';
-// @import 'spectre.scss/src/_avatars.scss';
-// @import 'spectre.scss/src/_badges.scss';
-// @import 'spectre.scss/src/_bars.scss';
-// @import 'spectre.scss/src/_cards.scss';
-// @import 'spectre.scss/src/_chips.scss';
-// @import 'spectre.scss/src/_dropdowns.scss';
-// @import 'spectre.scss/src/_menus.scss';
-// @import 'spectre.scss/src/_modals.scss';
-// @import 'spectre.scss/src/_navigation.scss';
-// @import 'spectre.scss/src/_popovers.scss';
-// @import 'spectre.scss/src/_steps.scss';
-// @import 'spectre.scss/src/_tiles.scss';
-// @import 'spectre.scss/src/_toasts.scss';
-// @import 'spectre.scss/src/_tooltips.scss';
-// @import 'spectre.scss/src/_icons.scss';
+// @import 'styles/spectre/src/_autocomplete.scss';
+// @import 'styles/spectre/src/_avatars.scss';
+// @import 'styles/spectre/src/_badges.scss';
+// @import 'styles/spectre/src/_bars.scss';
+// @import 'styles/spectre/src/_cards.scss';
+// @import 'styles/spectre/src/_chips.scss';
+// @import 'styles/spectre/src/_dropdowns.scss';
+// @import 'styles/spectre/src/_menus.scss';
+// @import 'styles/spectre/src/_modals.scss';
+// @import 'styles/spectre/src/_navigation.scss';
+// @import 'styles/spectre/src/_popovers.scss';
+// @import 'styles/spectre/src/_steps.scss';
+// @import 'styles/spectre/src/_tiles.scss';
+// @import 'styles/spectre/src/_toasts.scss';
+// @import 'styles/spectre/src/_tooltips.scss';
+// @import 'styles/spectre/src/_icons.scss';
 //
 // // Utility classes
-// @import 'spectre.scss/src/_animations.scss';
-@import "spectre.scss/src/_utilities.scss";
+// @import 'styles/spectre/src/_animations.scss';
+@import "styles/spectre/src/_utilities.scss";

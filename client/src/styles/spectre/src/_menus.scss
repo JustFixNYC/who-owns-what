@@ -1,0 +1,46 @@
+// Menus
+.menu {
+  background: $bg-color-light;
+  border-radius: $border-radius;
+  list-style: none;
+  margin: 0;
+  min-width: $control-min-width;
+  padding: 1rem;
+  @include shadow-variant(0.1rem);
+  transform: translateY(0.5rem);
+  z-index: $zindex-1;
+
+  .menu-item {
+    margin-top: 0;
+    padding: 0 0.8rem;
+    text-decoration: none;
+    user-select: none;
+
+    & > a {
+      border-radius: $border-radius;
+      color: inherit;
+      display: block;
+      margin: 0 -0.8rem;
+      padding: 0.6rem 0.8rem;
+      text-decoration: none;
+      &:focus,
+      &:hover {
+        color: $primary-color;
+      }
+      &:active,
+      &.active {
+        background: $secondary-color-light;
+        color: $primary-color;
+      }
+    }
+  }
+
+  .menu-badge {
+    float: right;
+    padding: 0.6rem 0;
+
+    .btn {
+      margin-top: -0.2rem;
+    }
+  }
+}

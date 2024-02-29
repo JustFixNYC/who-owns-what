@@ -1,0 +1,70 @@
+// Popovers
+.popover {
+  display: inline-block;
+  position: relative;
+
+  .popover-container {
+    content: attr(data-tooltip);
+    opacity: 0;
+    left: 50%;
+    padding: $layout-padding;
+    position: absolute;
+    top: 0;
+    transform: translate(-50%, -50%) scale(0);
+    transition: transform 0.2s ease;
+    width: 32rem;
+    z-index: $zindex-4;
+  }
+
+  :focus + .popover-container,
+  &:hover .popover-container,
+  .popover-container:hover {
+    display: block;
+    opacity: 1;
+    transform: translate(-50%, -100%) scale(1);
+  }
+
+  &.popover-right {
+    .popover-container {
+      left: 100%;
+      top: 50%;
+    }
+
+    :focus + .popover-container,
+    &:hover .popover-container,
+    .popover-container:hover {
+      transform: translate(0, -50%) scale(1);
+    }
+  }
+
+  &.popover-bottom {
+    .popover-container {
+      left: 50%;
+      top: 100%;
+    }
+
+    :focus + .popover-container,
+    &:hover .popover-container,
+    .popover-container:hover {
+      transform: translate(-50%, 0) scale(1);
+    }
+  }
+
+  &.popover-left {
+    .popover-container {
+      left: 0;
+      top: 50%;
+    }
+
+    :focus + .popover-container,
+    &:hover .popover-container,
+    .popover-container:hover {
+      transform: translate(-100%, -50%) scale(1);
+    }
+  }
+
+  .card {
+    border: 0;
+    @include shadow-variant(0.4rem);
+  }
+}

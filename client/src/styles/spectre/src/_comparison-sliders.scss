@@ -1,0 +1,115 @@
+// Image comparison slider
+// Credit: http://codepen.io/solipsistacp/pen/Gpmaq
+.comparison-slider {
+  height: 50vh;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+
+  .comparison-before,
+  .comparison-after {
+    height: 100%;
+    left: 0;
+    margin: 0;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+
+    img {
+      height: 100%;
+      object-fit: none;
+      object-position: left top;
+      position: absolute;
+      width: 100%;
+      z-index: -1;
+    }
+  }
+
+  .comparison-before {
+    width: 100%;
+
+    .comparison-label {
+      right: 1.6rem;
+    }
+  }
+
+  .comparison-after {
+    max-width: 100%;
+    min-width: 0;
+    z-index: $zindex-0;
+
+    &::before {
+      background: transparent;
+      content: "";
+      cursor: default;
+      height: 100%;
+      left: 0;
+      position: absolute;
+      right: 1.6rem;
+      top: 0;
+      z-index: $zindex-0;
+    }
+
+    &::after {
+      background: currentColor;
+      border-radius: 50%;
+      box-shadow: 0 -0.5rem, 0 0.5rem;
+      color: $light-color;
+      content: "";
+      height: 0.3rem;
+      position: absolute;
+      right: 0.8rem;
+      top: 50%;
+      transform: translate(50%, -50%);
+      width: 0.3rem;
+      z-index: -$zindex-0;
+    }
+
+    .comparison-label {
+      left: 1.6rem;
+    }
+  }
+
+  .comparison-resizer {
+    animation: first-run 1.5s 1 ease-in-out;
+    cursor: ew-resize;
+    height: 1.5rem;
+    left: 0;
+    max-width: 100%;
+    min-width: 1.6rem;
+    opacity: 0;
+    outline: none;
+    position: relative;
+    resize: horizontal;
+    top: 50%;
+    transform: translateY(-50%) scaleY(30);
+    width: 0;
+  }
+
+  .comparison-label {
+    background: fade-in($dark-color, 0.5);
+    bottom: 1.6rem;
+    color: $light-color;
+    padding: 0.3rem 0.8rem;
+    position: absolute;
+    user-select: none;
+  }
+}
+
+@keyframes first-run {
+  0% {
+    width: 0;
+  }
+  25% {
+    width: 4.8rem;
+  }
+  50% {
+    width: 1.6rem;
+  }
+  75% {
+    width: 2.4rem;
+  }
+  100% {
+    width: 0;
+  }
+}
