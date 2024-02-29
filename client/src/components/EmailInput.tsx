@@ -26,8 +26,7 @@ const EmailInputWithoutI18n = forwardRef<HTMLInputElement, EmailInputProps>(
       alpha numeric characters are ok, upper/lower case agnostic 
       username: leading \_ ok, chars \_\.\-\+ ok in all other positions
       domain name: chars \.\- ok as long as not leading. must end in a \. and at least two alphabet chars */
-      const pattern =
-        "^([a-zA-Z0-9_]+[a-zA-Z0-9+_.-]+@[a-zA-Z0-9]+[a-zA-Z0-9.-]+[a-zA-Z0-9]+\\.[a-zA-Z]{2,})$";
+      const pattern = /^([a-zA-Z0-9_]+[a-zA-Z0-9+_.-]+@[a-zA-Z0-9]+[a-zA-Z0-9.-]+[a-zA-Z0-9]+\.[a-zA-Z]{2,})$/;
 
       // HTML input element has loose email validation requirements, so we check the input against a custom regex
       const passStrictRegex = value.match(pattern);
