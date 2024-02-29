@@ -82,18 +82,15 @@ const PasswordInputWithoutI18n = forwardRef<HTMLInputElement, PasswordInputProps
             <LocaleLink
               to={`${account.forgotPassword}?email=${encodeURIComponent(username || "")}`}
             >
-              Forgot your password?
+              {i18n._(t`Forgot your password?`)}
             </LocaleLink>
           )}
         </div>
         {showPasswordRules && (
           <div className="password-input-rules">
             {passwordRules.map((rule, i) => {
-              const ruleClass = !!password
-                ? password.match(rule.regex)
-                  ? "valid"
-                  : "invalid"
-                : "";
+              const ruleClass =
+                !!password || showError ? (password.match(rule.regex) ? "valid" : "invalid") : "";
               return (
                 <span className={`password-input-rule ${ruleClass}`} key={`rule-${i}`}>
                   {rule.label}
