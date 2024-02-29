@@ -68,6 +68,7 @@ const PasswordSettingFieldWithoutI18n = (props: PasswordSettingFieldProps) => {
 
   return (
     <UserSettingField title={i18n._(t`Password`)} preview="**********" onSubmit={handleSubmit}>
+      <Trans render="label">Password</Trans>
       {invalidAuthError && (
         <Alert
           className={`page-level-alert`}
