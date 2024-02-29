@@ -45,13 +45,14 @@
     margin: 3.2rem 1.6rem;
     gap: 2.4rem;
 
+    .email-input-field,
     .password-input-field {
       display: flex;
       flex-direction: column;
     }
 
     p {
-      margin: -1rem 0 0.6rem 0;
+      margin: 0;
     }
   }
 
@@ -84,7 +85,6 @@
     font-size: 1.3rem !important;
 
     text-align: left;
-    margin-bottom: 1.6rem;
   }
 
   .password-input-rules {
