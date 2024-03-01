@@ -9,7 +9,7 @@ import { LocaleLink } from "i18n";
 import { createWhoOwnsWhatRoutePaths } from "routes";
 import { I18n } from "@lingui/core";
 import { t } from "@lingui/macro";
-import { AlertIcon, HideIcon, ShowIcon } from "./Icons";
+import { AlertIcon, CheckIcon, DotIcon, HideIcon, ShowIcon } from "./Icons";
 import classNames from "classnames";
 
 type PasswordRule = {
@@ -89,10 +89,20 @@ const PasswordInputWithoutI18n = forwardRef<HTMLInputElement, PasswordInputProps
         {showPasswordRules && (
           <div className="password-input-rules">
             {passwordRules.map((rule, i) => {
-              const ruleClass =
-                !!password || showError ? (password.match(rule.regex) ? "valid" : "invalid") : "";
+              let ruleClass = "";
+              let RuleIcon = <DotIcon />;
+              if (!!password || showError) {
+                if (password.match(rule.regex)) {
+                  ruleClass = "valid";
+                  RuleIcon = <CheckIcon />;
+                } else {
+                  ruleClass = "invalid";
+                  RuleIcon = <AlertIcon />;
+                }
+              }
               return (
                 <span className={`password-input-rule ${ruleClass}`} key={`rule-${i}`}>
+                  {RuleIcon}
                   {rule.label}
                 </span>
               );
