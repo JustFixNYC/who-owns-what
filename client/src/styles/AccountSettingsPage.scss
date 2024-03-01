@@ -42,17 +42,38 @@
   form {
     display: flex;
     flex-direction: column;
-    margin: 3.2rem 1.6rem;
-    gap: 2.4rem;
+    margin: 2.6rem 1.6rem;
+
+    .page-level-alert {
+      margin-bottom: 2.6rem;
+      svg {
+        margin-right: 0.8rem;
+        vertical-align: bottom;
+      }
+    }
+
+    .user-setting-label {
+      @include desktop-eyebrow();
+      // vars marked !important bc typography mixin is not available for inconsolata
+      font-weight: 600 !important;
+      font-family: $wow-font !important;
+      font-size: 1.3rem !important;
+      text-transform: none !important;
+      text-align: left;
+      margin-bottom: 0.8rem;
+    }
+
+    p {
+      margin-bottom: 0.6rem;
+    }
 
     .email-input-field,
     .password-input-field {
       display: flex;
       flex-direction: column;
-    }
-
-    p {
-      margin: 0;
+      &:has(#new-password-input) {
+        margin-top: 2rem;
+      }
     }
   }
 
@@ -66,7 +87,8 @@
 
   .user-setting-actions {
     display: flex;
-    justify-content: right;
+    justify-content: left;
+    margin-top: 1.6rem;
 
     @include for-phone-only() {
       justify-content: center;
@@ -74,25 +96,6 @@
 
     input[type="submit"] {
       margin: 0 1.6rem 0 0 !important;
-    }
-  }
-
-  .user-setting-label {
-    @include desktop-eyebrow();
-    // vars marked !important bc typography mixin is not available for inconsolata
-    font-weight: 600 !important;
-    font-family: $wow-font !important;
-    font-size: 1.3rem !important;
-
-    text-align: left;
-  }
-
-  .password-input-rules {
-    display: flex;
-    flex-direction: column;
-
-    span:last-child {
-      margin-bottom: 0.6rem !important;
     }
   }
 }

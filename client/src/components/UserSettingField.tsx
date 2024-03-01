@@ -11,6 +11,7 @@ import { JustfixUser } from "state-machine";
 import EmailInput from "./EmailInput";
 import AuthClient from "./AuthClient";
 import { Alert } from "./Alert";
+import { AlertIconOutline } from "./Icons";
 
 type PasswordSettingFieldProps = withI18nProps & {
   onSubmit: (currentPassword: string, newPassword: string) => void;
@@ -68,9 +69,6 @@ const PasswordSettingFieldWithoutI18n = (props: PasswordSettingFieldProps) => {
 
   return (
     <UserSettingField title={i18n._(t`Password`)} preview="**********" onSubmit={handleSubmit}>
-      <Trans render="label" className="user-setting-label">
-        Password
-      </Trans>
       {invalidAuthError && (
         <Alert
           className={`page-level-alert`}
@@ -79,9 +77,13 @@ const PasswordSettingFieldWithoutI18n = (props: PasswordSettingFieldProps) => {
           role="status"
           type="error"
         >
+          <AlertIconOutline />
           {i18n._(t`The old password you entered is incorrect`)}
         </Alert>
       )}
+      <Trans render="label" className="user-setting-label">
+        Password
+      </Trans>
       <PasswordInput
         labelText={i18n._(t`Enter your old password`)}
         password={currentPassword}
@@ -157,9 +159,6 @@ const EmailSettingFieldWithoutI18n = (props: EmailSettingFieldProps) => {
       preview={currentValue}
       onSubmit={handleSubmit}
     >
-      <Trans render="label" className="user-setting-label">
-        Email address
-      </Trans>
       {existingUserError && (
         <Alert
           className={`page-level-alert`}
@@ -168,10 +167,14 @@ const EmailSettingFieldWithoutI18n = (props: EmailSettingFieldProps) => {
           role="status"
           type="error"
         >
+          <AlertIconOutline />
           {i18n._(t`That email is already used.`)}
         </Alert>
       )}
-      <Trans render="p">This is used for logging in and for receiving weekly data updates.</Trans>
+      <Trans render="label" className="user-setting-label">
+        Email address
+      </Trans>
+      <Trans render="p">We send data updates to this email.</Trans>
       <EmailInput
         email={email}
         error={emailError}
