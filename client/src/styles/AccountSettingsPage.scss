@@ -57,7 +57,7 @@
       // vars marked !important bc typography mixin is not available for inconsolata
       font-weight: 600 !important;
       font-family: $wow-font !important;
-      font-size: 1.3rem !important;
+      font-size: 1.4rem !important;
       text-transform: none !important;
       text-align: left;
       margin-bottom: 0.8rem;
@@ -88,6 +88,7 @@
   .user-setting-actions {
     display: flex;
     justify-content: left;
+    align-items: center;
     margin-top: 1.6rem;
 
     @include for-phone-only() {
@@ -95,7 +96,14 @@
     }
 
     input[type="submit"] {
-      margin: 0 1.6rem 0 0 !important;
+      margin: 0 4.8rem 0 0 !important;
+    }
+
+    .button.is-text {
+      @include body-standard;
+      font-size: 1.8rem;
+      font-weight: 500;
+      text-decoration: none;
     }
   }
 }
