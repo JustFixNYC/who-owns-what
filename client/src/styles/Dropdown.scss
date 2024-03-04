@@ -34,11 +34,11 @@
       }
 
       &.dropdown-selector-panel {
-        font-size: 2rem;
+        font-size: 1.25rem;
         outline: 1px solid $dark;
         border: none;
         background-color: $gray-light;
-        height: 4.4rem;
+        height: 2.75rem;
         padding: 0px;
 
         display: flex;
@@ -48,7 +48,7 @@
         .float-left,
         .float-right {
           height: 100%;
-          padding: 1.2rem;
+          padding: 0.75rem;
         }
 
         .float-left {
@@ -76,8 +76,8 @@
 
     .menu {
       z-index: 110;
-      padding: 0.25rem 0.5rem;
-      font-size: 1.6rem;
+      padding: 0.16rem 0.31rem;
+      font-size: 1rem;
 
       .menu-item a {
         &:focus {
@@ -99,14 +99,14 @@
   }
 
   .dropdown-selector-panel + .menu {
-    padding: 1.25rem 0.5rem;
-    font-size: 2rem;
+    padding: 0.78rem 0.31rem;
+    font-size: 1.25rem;
     box-shadow: none;
     // Override default translation so it lies flush with toggle button outline:
     transform: translateY(1px);
     .menu-item {
       display: inline-block;
-      margin: 1rem 0;
+      margin: 0.63rem 0;
     }
   }
 }
