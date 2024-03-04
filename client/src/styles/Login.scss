@@ -27,7 +27,7 @@
   }
 
   .page-title {
-    margin-top: 1.5rem;
+    margin-top: 0.94rem;
   }
 
   .building-page-footer {
@@ -42,7 +42,7 @@
       align-items: center;
 
       .info-icon {
-        margin-left: 0.4rem;
+        margin-left: 0.25rem;
         width: 18px;
         &:focus-visible {
           outline: 2px solid $focus-outline-color;
@@ -54,12 +54,12 @@
     .login-type-toggle {
       display: flex;
       justify-content: center;
-      font-size: 1.5rem;
+      font-size: 0.94rem;
     }
   }
 
   .login-response-text {
-    margin: 1rem 0 1rem;
+    margin: 0.63rem 0 0.63rem;
   }
 
   .login-password-label {
@@ -77,11 +77,11 @@
     margin-bottom: 0;
   }
   h5 {
-    font-size: 1.6rem;
+    font-size: 1rem;
   }
 
   .password-input {
-    margin-top: 0.5rem;
+    margin-top: 0.31rem;
   }
 
   .verify-email-container {
@@ -103,7 +103,7 @@
 
   .jf-alert {
     width: auto;
-    font-size: 1.3rem;
+    font-size: 0.81rem;
 
     .button.is-text {
       display: block !important;
@@ -122,11 +122,11 @@
     align-items: center;
 
     svg {
-      margin: 1rem 0 2.5rem 0;
+      margin: 0.63rem 0 1.56rem 0;
     }
 
     .button.is-text {
-      margin-top: 1rem;
+      margin-top: 0.63rem;
       display: block !important;
       color: $justfix-black;
     }

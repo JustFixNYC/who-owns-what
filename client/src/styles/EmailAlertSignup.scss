@@ -2,7 +2,7 @@
 @import "_typography.scss";
 
 .EmailAlertSignup {
-  margin-top: 2rem;
+  margin-top: 1.25rem;
 
   // overrides datatable mixin
   label:hover,
@@ -11,7 +11,7 @@
   }
 
   .data-updates-label-container {
-    min-height: 3.8rem;
+    min-height: 2.37rem;
     display: flex !important;
     justify-content: center;
     align-items: center;
@@ -20,10 +20,10 @@
       font-family: $body-font;
       letter-spacing: 0.02em;
       background: $justfix-yellow;
-      padding: 0.4rem 0.8rem;
-      border-radius: 1.6rem;
+      padding: 0.25rem 0.5rem;
+      border-radius: 1rem;
       width: fit-content;
-      margin-right: 0.8rem !important;
+      margin-right: 0.5rem !important;
     }
 
     @include for-phone-only() {
@@ -73,7 +73,7 @@
       align-items: center;
 
       svg {
-        margin-right: 1rem;
+        margin-right: 0.63rem;
       }
     }
   }

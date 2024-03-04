@@ -1,0 +1,245 @@
+// Divider
+.divider {
+  border-top: $border-width solid $border-color;
+  display: block;
+  height: 0.06rem;
+  margin: 0.63rem 0;
+  position: relative;
+
+  &[data-content]::before {
+    background: $light-color;
+    color: $gray-color-light;
+    content: attr(data-content);
+    display: inline-block;
+    font-size: $font-size-sm;
+    padding: 0 0.5rem;
+    transform: translateY(-0.69rem);
+  }
+}
+
+// Loading
+.loading {
+  color: transparent !important;
+  min-height: 1rem;
+  pointer-events: none;
+  position: relative;
+  &::after {
+    animation: loading 500ms infinite linear;
+    border: 2px solid $primary-color;
+    border-radius: 0.5rem;
+    border-right-color: transparent;
+    border-top-color: transparent;
+    content: "";
+    display: block;
+    height: 1rem;
+    left: 50%;
+    margin-left: -0.5rem;
+    margin-top: -0.5rem;
+    position: absolute;
+    top: 50%;
+    width: 1rem;
+    z-index: $zindex-0;
+  }
+}
+
+// Position
+.clearfix {
+  @include clearfix();
+}
+.float-left {
+  float: left !important;
+}
+.float-right {
+  float: right !important;
+}
+
+.rel {
+  position: relative;
+}
+.abs {
+  position: absolute;
+}
+.fixed {
+  position: fixed;
+}
+.centered {
+  display: block;
+  float: none;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+// Spacing
+.mt-10 {
+  margin-top: 0.63rem;
+}
+.mr-10 {
+  margin-right: 0.63rem;
+}
+.mb-10 {
+  margin-bottom: 0.63rem;
+}
+.ml-10 {
+  margin-left: 0.63rem;
+}
+.mt-5 {
+  margin-top: 0.31rem;
+}
+.mr-5 {
+  margin-right: 0.31rem;
+}
+.mb-5 {
+  margin-bottom: 0.31rem;
+}
+.ml-5 {
+  margin-left: 0.31rem;
+}
+
+.pt-10 {
+  padding-top: 0.63rem;
+}
+.pr-10 {
+  padding-right: 0.63rem;
+}
+.pb-10 {
+  padding-bottom: 0.63rem;
+}
+.pl-10 {
+  padding-left: 0.63rem;
+}
+.pt-5 {
+  padding-top: 0.31rem;
+}
+.pr-5 {
+  padding-right: 0.31rem;
+}
+.pb-5 {
+  padding-bottom: 0.31rem;
+}
+.pl-5 {
+  padding-left: 0.31rem;
+}
+
+// Display
+.block {
+  display: block;
+}
+.inline {
+  display: inline;
+}
+.inline-block {
+  display: inline-block;
+}
+.flex {
+  display: flex;
+}
+.inline-flex {
+  display: inline-flex;
+}
+.hide {
+  display: none !important;
+}
+.visible {
+  visibility: visible;
+}
+.invisible {
+  visibility: hidden;
+}
+.text-hide {
+  background: transparent;
+  border: 0;
+  color: transparent;
+  font-size: 0;
+  line-height: 0;
+  text-shadow: none;
+}
+.text-assistive {
+  border: 0;
+  clip: rect(0, 0, 0, 0);
+  height: 0.06rem;
+  margin: -0.06rem;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 0.06rem;
+}
+// Text
+.text-left {
+  text-align: left;
+}
+.text-right {
+  text-align: right;
+}
+.text-center {
+  text-align: center;
+}
+.text-justify {
+  text-align: justify;
+}
+
+.text-lowercase {
+  text-transform: lowercase;
+}
+.text-uppercase {
+  text-transform: uppercase;
+}
+.text-capitalize {
+  text-transform: capitalize;
+}
+
+.text-normal {
+  font-weight: normal;
+}
+.text-bold {
+  font-weight: bold;
+}
+.text-italic {
+  font-style: italic;
+}
+.text-large {
+  font-size: 1.2em;
+}
+
+.text-ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.text-clip {
+  overflow: hidden;
+  text-overflow: clip;
+  white-space: nowrap;
+}
+.text-break {
+  hyphens: auto;
+  word-break: break-word;
+  word-wrap: break-word;
+}
+.hand {
+  cursor: pointer;
+}
+
+// Shadow
+.shadow-0 {
+  @include shadow-variant(0);
+}
+.shadow-1 {
+  @include shadow-variant(0.06rem);
+}
+.shadow-2 {
+  @include shadow-variant(0.13rem);
+}
+.shadow-3 {
+  @include shadow-variant(0.19rem);
+}
+.shadow-4 {
+  @include shadow-variant(0.25rem);
+}
+
+// Shapes
+.rounded {
+  border-radius: $border-radius;
+}
+.circle {
+  border-radius: 50%;
+}

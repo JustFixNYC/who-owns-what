@@ -11,7 +11,7 @@ $eyebrow-font: "Suisse Int'l Mono", "Courier New", Courier, monospace;
 
 @mixin body-standard {
   font-family: $body-font;
-  font-size: 1.125rem;
+  font-size: 0.7rem;
   line-height: 100%;
   font-weight: 400;
   font-style: normal;
@@ -22,14 +22,14 @@ $eyebrow-font: "Suisse Int'l Mono", "Courier New", Courier, monospace;
 @mixin desktop-h1 {
   @include body-standard();
   font-family: $title-font;
-  font-size: 6rem;
+  font-size: 3.75rem;
   letter-spacing: 0.03em;
 }
 
 @mixin desktop-h2 {
   @include body-standard();
   font-family: $title-font;
-  font-size: 4rem;
+  font-size: 2.5rem;
   line-height: 90%;
   letter-spacing: 0.03em;
 }
@@ -37,19 +37,19 @@ $eyebrow-font: "Suisse Int'l Mono", "Courier New", Courier, monospace;
 @mixin desktop-h3 {
   @include body-standard();
   font-weight: 600;
-  font-size: 2.25rem;
+  font-size: 1.41rem;
 }
 
 @mixin desktop-h4 {
   @include body-standard();
   font-weight: 600;
-  font-size: 1.8rem;
+  font-size: 1.13rem;
   line-height: 120%;
 }
 
 @mixin desktop-text-small {
   @include body-standard();
-  font-size: 0.875rem;
+  font-size: 0.55rem;
 }
 
 @mixin desktop-text-small-bold {
@@ -68,40 +68,40 @@ $eyebrow-font: "Suisse Int'l Mono", "Courier New", Courier, monospace;
 
 @mixin desktop-eyebrow-small {
   @include desktop-eyebrow();
-  font-size: 1rem;
+  font-size: 0.63rem;
 }
 
 // TYPOGRAPHY-MOBILE:
 @mixin mobile-body-standard {
   @include body-standard();
   line-height: 125%;
-  font-size: 2rem;
+  font-size: 1.25rem;
 }
 
 @mixin mobile-h1 {
   @include body-standard();
   font-weight: 600;
-  font-size: 3.6rem;
+  font-size: 2.25rem;
 }
 
 @mixin mobile-h2 {
   @include body-standard();
   font-weight: 600;
-  font-size: 1.8rem;
+  font-size: 1.13rem;
   letter-spacing: 0.02em;
   font-variant: all-small-caps;
 }
 
 @mixin mobile-h3 {
   @include body-standard();
-  font-size: 2.4rem;
+  font-size: 1.5rem;
   line-height: 110%;
 }
 
 @mixin mobile-eyebrow {
   @include body-standard();
   font-family: $eyebrow-font;
-  font-size: 1.4rem;
+  font-size: 0.87rem;
   line-height: 115%;
   letter-spacing: 0.03em;
   text-transform: uppercase;
@@ -109,7 +109,7 @@ $eyebrow-font: "Suisse Int'l Mono", "Courier New", Courier, monospace;
 
 @mixin mobile-text-small {
   @include body-standard();
-  font-size: 1.4rem;
+  font-size: 0.87rem;
 }
 
 @mixin mobile-text-small-bold {
