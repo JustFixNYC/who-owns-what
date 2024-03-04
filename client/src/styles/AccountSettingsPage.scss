@@ -6,8 +6,8 @@
     text-decoration: none;
     text-align: left !important;
     font-weight: 700;
-    padding-top: 0.37rem;
-    margin: 3.5rem 1rem 1.63rem;
+    padding-top: 0.23rem;
+    margin: 2.19rem 0.63rem 1.02rem;
   }
 
   h4.settings-section {
@@ -16,25 +16,25 @@
   }
 
   label {
-    font-size: 0.81rem;
+    font-size: 0.51rem;
     font-weight: 600;
   }
 
   p {
-    font-size: 0.81rem;
+    font-size: 0.51rem;
     font-weight: 500;
   }
 
   .settings-contact {
-    margin: 3.75rem 1.25rem 3.13rem;
+    margin: 2.34rem 0.78rem 1.96rem;
     text-align: center;
   }
 
   .settings-no-subscriptions {
-    padding: 1rem;
+    padding: 0.63rem;
     background-color: $justfix-grey-50;
     border-radius: 4px;
-    margin: auto 1rem;
+    margin: auto 0.63rem;
   }
 }
 
@@ -42,8 +42,8 @@
   form {
     display: flex;
     flex-direction: column;
-    margin: 3.2rem 1.6rem;
-    gap: 2.4rem;
+    margin: 2rem 1rem;
+    gap: 1.5rem;
 
     .password-input-field {
       display: flex;
@@ -51,7 +51,7 @@
     }
 
     p {
-      margin: -0.63rem 0 0.37rem 0;
+      margin: -0.39rem 0 0.23rem 0;
     }
   }
 
@@ -72,7 +72,7 @@
     }
 
     input[type="submit"] {
-      margin: 0 1rem 0 0 !important;
+      margin: 0 0.63rem 0 0 !important;
     }
   }
 
@@ -81,10 +81,10 @@
     // vars marked !important bc typography mixin is not available for inconsolata
     font-weight: 600 !important;
     font-family: $wow-font !important;
-    font-size: 0.81rem !important;
+    font-size: 0.51rem !important;
 
     text-align: left;
-    margin-bottom: 1rem;
+    margin-bottom: 0.63rem;
   }
 
   .password-input-rules {
@@ -92,7 +92,7 @@
     flex-direction: column;
 
     span:last-child {
-      margin-bottom: 0.37rem !important;
+      margin-bottom: 0.23rem !important;
     }
   }
 }
