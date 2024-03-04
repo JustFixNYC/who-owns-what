@@ -92,6 +92,7 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "https://demo-wowserver.justfix.org",
     "https://wow-django-dev.herokuapp.com",
+    "https://demo-whoownswhat.justfix.org",
 ]
 CORS_ALLOWED_ORIGIN_REGEXES = [
     r"https://\w+\.deploy-preview-(?:\d{1,4})--wow-django-dev\.netlify\.app",
