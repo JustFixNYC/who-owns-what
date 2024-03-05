@@ -73,8 +73,8 @@ type HomePageProps = {
 } & withMachineProps;
 
 const JFCLLinkInternal: React.FC<any> = (props) => {
-  return <JFCLLink icon="internal" {...props}/>
-}
+  return <JFCLLink icon="internal" {...props} />;
+};
 
 const HomePage: React.FC<HomePageProps> = ({ useNewPortfolioMethod }) => {
   const { pathname } = useLocation();
