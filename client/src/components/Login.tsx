@@ -323,7 +323,7 @@ const LoginWithoutI18n = (props: LoginProps) => {
       return;
     }
 
-    const resp = await userContext.register(email, password, onSuccess);
+    const resp = await userContext.register(email, password, userType, onSuccess);
 
     if (!!resp?.error) {
       setInvalidAuthError(true);
