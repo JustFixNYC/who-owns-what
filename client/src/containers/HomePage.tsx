@@ -20,6 +20,7 @@ import { ContentfulCommonStrings } from "@justfixnyc/contentful-common-strings";
 import _commonStrings from "../data/common-strings.json";
 import LandlordSearch, { algoliaAppId, algoliaSearchKey } from "components/LandlordSearch";
 import { logAmplitudeEvent } from "components/Amplitude";
+import { Link as JFCLLink } from "@justfixnyc/component-library";
 
 const commonStrings = new ContentfulCommonStrings(_commonStrings as any);
 
@@ -70,6 +71,10 @@ const MoratoriumBanner = withI18n()(MoratoriumBannerWithoutI18n);
 type HomePageProps = {
   useNewPortfolioMethod?: boolean;
 } & withMachineProps;
+
+const JFCLLinkInternal: React.FC<any> = (props) => {
+  return <JFCLLink icon="internal" {...props}/>
+}
 
 const HomePage: React.FC<HomePageProps> = ({ useNewPortfolioMethod }) => {
   const { pathname } = useLocation();
@@ -242,13 +247,14 @@ const HomePage: React.FC<HomePageProps> = ({ useNewPortfolioMethod }) => {
                       in rent-stabilized buildings.
                     </Trans>
                     <Link
-                      className="btn block text-center"
                       to={getSampleUrls()[1]}
                       onClick={() => {
                         window.gtag("event", "example-portfolio-2-homepage");
                       }}
+                      className="flex-centered"
+                      component={JFCLLinkInternal}
                     >
-                      <Trans>View portfolio</Trans> &#10230;
+                      <Trans>View portfolio</Trans>
                     </Link>
                   </div>
                 </div>
@@ -286,13 +292,14 @@ const HomePage: React.FC<HomePageProps> = ({ useNewPortfolioMethod }) => {
                       while vacant, and skyrocketing rents to market rate.
                     </Trans>
                     <Link
-                      className="btn block text-center"
                       to={getSampleUrls()[2]}
                       onClick={() => {
                         window.gtag("event", "example-portfolio-3-homepage");
                       }}
+                      className="flex-centered"
+                      component={JFCLLinkInternal}
                     >
-                      <Trans>View portfolio</Trans> &#10230;
+                      <Trans>View portfolio</Trans>
                     </Link>
                   </div>
                 </div>

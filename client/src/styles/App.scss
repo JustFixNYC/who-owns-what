@@ -2,6 +2,14 @@
 @import "_vars.scss";
 @import "_typography.scss";
 
+.jfcl-button {
+  @include button-standard;
+}
+
+.jfcl-link {
+  @include link-standard;
+}
+
 .App {
   height: 100%;
   display: flex;

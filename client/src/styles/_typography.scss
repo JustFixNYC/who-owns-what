@@ -1,4 +1,4 @@
-/* 
+/*
   Copied/adapted from https://github.com/JustFixNYC/justfix-website/blob/master/src/styles/_design-system.scss
   - wow uses root 10px, org-site uses 16px. All rem units here have been adjusted
   - font files have been relocated to '/public/fonts' and are preloaded/initialized in index.html
@@ -8,6 +8,24 @@ $wow-font: "Inconsolata", monospace;
 $body-font: "Degular", Arial, Helvetica, sans-serif;
 $title-font: "Degular Display", Arial, Helvetica, sans-serif;
 $eyebrow-font: "Suisse Int'l Mono", "Courier New", Courier, monospace;
+
+@mixin button-standard {
+  font-family: $wow-font;
+  font-size: 0.875rem; // 14px
+  font-style: normal;
+  font-weight: 400;
+  line-height: 115%; // 16.1px
+  letter-spacing: 0.02625rem; // 0.42px;
+}
+
+@mixin link-standard {
+  font-family: $wow-font;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 115%; /* 18.4px */
+  letter-spacing: 0.03rem; // 0.48px;
+}
 
 @mixin body-standard {
   font-family: $body-font;
