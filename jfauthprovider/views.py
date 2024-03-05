@@ -60,7 +60,10 @@ def logout(request):
 @api
 def update(request):
     try:
-        post_data = {"new_email": request.POST.get("new_email")}
+        post_data = {
+            "new_email": request.POST.get("new_email"),
+            "origin": request.headers["Origin"],
+        }
 
         return authenticated_request(
             "user/",

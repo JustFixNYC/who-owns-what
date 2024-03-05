@@ -117,7 +117,7 @@ type EmailSettingFieldProps = withI18nProps & {
 const EmailSettingFieldWithoutI18n = (props: EmailSettingFieldProps) => {
   const { i18n, currentValue, onSubmit } = props;
   const userContext = useContext(UserContext);
-  const { email: oldEmail } = userContext.user as JustfixUser;
+  const { email: oldEmail, verified } = userContext.user as JustfixUser;
   const [existingUserError, setExistingUserError] = useState(false);
   const {
     value: email,
@@ -153,11 +153,25 @@ const EmailSettingFieldWithoutI18n = (props: EmailSettingFieldProps) => {
     onSubmit(email);
   };
 
+  const verifyCallout = !verified ? (
+    <div className="jf-callout">
+      <Trans>
+        Email address not verified. Click the link we sent to {email} start receiving emails.
+      </Trans>
+      <br />
+      <br />
+      <button className="button is-text" onClick={() => AuthClient.resendVerifyEmail()}>
+        <Trans>Resend email</Trans>
+      </button>
+    </div>
+  ) : undefined;
+
   return (
     <UserSettingField
       title={i18n._(t`Email address`)}
       preview={currentValue}
       onSubmit={handleSubmit}
+      verifyCallout={verifyCallout}
     >
       {existingUserError && (
         <Alert
@@ -195,10 +209,11 @@ type UserSettingFieldProps = withI18nProps & {
   preview: string;
   onSubmit: () => Promise<void>;
   children: React.ReactNode;
+  verifyCallout?: React.ReactNode;
 };
 
 const UserSettingFieldWithoutI18n = (props: UserSettingFieldProps) => {
-  const { title, preview, onSubmit, children } = props;
+  const { title, preview, onSubmit, children, verifyCallout } = props;
   const [editing, setEditing] = useState(false);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -233,6 +248,7 @@ const UserSettingFieldWithoutI18n = (props: UserSettingFieldProps) => {
                 <Trans>Edit</Trans>
               </button>
             </div>
+            {!!verifyCallout && verifyCallout}
           </>
         )}
       </form>
