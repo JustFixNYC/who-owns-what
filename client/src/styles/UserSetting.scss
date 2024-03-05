@@ -21,3 +21,15 @@ a.subscription-address {
 a.subscription-address:hover {
   text-decoration: none;
 }
+
+.settings-contact {
+  margin: 6rem 2rem 5rem;
+  text-align: center;
+}
+
+.settings-no-subscriptions {
+  padding: 1.6rem;
+  background-color: $justfix-grey-50;
+  border-radius: 4px;
+  margin: auto 1.6rem;
+}

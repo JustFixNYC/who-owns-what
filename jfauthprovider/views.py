@@ -194,13 +194,27 @@ class SubscriptionView(View):
 
 
 @api
-def user_subscriptions(request):
+def email_user_subscriptions(request):
     try:
         post_data = {"token": request.GET.get("u")}
 
         return auth_server_request(
             "POST",
-            "user/subscriptions/",
+            "user/email/subscriptions/",
+            post_data,
+        )
+    except KeyError:
+        return HttpResponse(content_type="application/json", status=401)
+
+
+@api
+def email_unsubscribe_all(request):
+    try:
+        post_data = {"token": request.GET.get("u")}
+
+        return auth_server_request(
+            "POST",
+            "user/email/unsubscribe/",
             post_data,
         )
     except KeyError:

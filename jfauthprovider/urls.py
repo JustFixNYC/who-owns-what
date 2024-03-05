@@ -21,6 +21,7 @@ urlpatterns = [
         views.SubscriptionView.as_view(),
         name="subscriptions",
     ),
-    path("subscriptions", views.user_subscriptions, name="user_subscriptions"),
+    path("email/subscriptions", views.email_user_subscriptions, name="email_user_subscriptions"),
+    path("email/unsubscribe", views.email_unsubscribe_all, name="email_unsubscribe_all"),
     path("unsubscribe/<int:bbl>", views.email_unsubscribe, name="email_unsubscribe"),
 ]
