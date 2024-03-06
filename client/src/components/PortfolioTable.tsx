@@ -24,6 +24,7 @@ import { Link, useLocation } from "react-router-dom";
 import { createRouteForFullBbl } from "routes";
 import { I18n } from "@lingui/core";
 import { withI18n, withI18nProps } from "@lingui/react";
+import { Button, IconChevron } from "@justfixnyc/component-library";
 import { SupportedLocale } from "../i18n-base";
 import Helpers, { longDateOptions } from "../util/helpers";
 import { AddressRecord, HpdComplaintCount } from "./APIDataTypes";
@@ -696,8 +697,7 @@ const PortfolioTableWithoutI18n = React.memo((props: PortfolioTableProps) => {
               </span>
             </div>
             <div className="prev">
-              <button
-                className="page-btn"
+              <Button
                 onClick={() => {
                   table.previousPage();
                   logPortfolioAnalytics("portfolioPagination", {
@@ -705,14 +705,15 @@ const PortfolioTableWithoutI18n = React.memo((props: PortfolioTableProps) => {
                   });
                 }}
                 disabled={!table.getCanPreviousPage()}
-                aria-label={i18n._(t`Previous page`)}
-              >
-                <ChevronIcon className="chevronIcon left" />
-              </button>
+                labelIcon={IconChevron}
+                variant="secondary"
+                size="small"
+                labelText={i18n._(t`Previous page`)}
+                iconOnly
+              />
             </div>
             <div className="next">
-              <button
-                className="page-btn"
+              <Button
                 onClick={() => {
                   table.nextPage();
                   logPortfolioAnalytics("portfolioPagination", {
@@ -720,10 +721,12 @@ const PortfolioTableWithoutI18n = React.memo((props: PortfolioTableProps) => {
                   });
                 }}
                 disabled={!table.getCanNextPage()}
-                aria-label={i18n._(t`Next page`)}
-              >
-                <ChevronIcon className="chevronIcon right" />
-              </button>
+                labelText={i18n._(t`Next page`)}
+                labelIcon={IconChevron}
+                variant="secondary"
+                size="small"
+                iconOnly
+              />
             </div>
           </div>
         </>

@@ -246,44 +246,17 @@ $table-border-dark: 1px solid $dark;
       }
     }
 
-    .next,
     .prev {
-      .page-btn {
-        color: $justfix-black;
-        width: 3rem;
-        height: 3rem;
-        border-radius: 2.5rem;
+      margin-right: 1rem;  // $JF_SPACING_05
 
-        .chevronIcon {
-          height: 0.75rem;
-          stroke-width: 2px;
-          &.left {
-            transform: rotate(90deg);
-          }
-          &.right {
-            transform: rotate(-90deg);
-          }
-        }
-
-        &[disabled] {
-          color: $justfix-grey-400;
-          cursor: default;
-        }
-        &:not([disabled]) {
-          &:hover,
-          &:active,
-          &:focus,
-          &:focus-visible {
-            background-color: $justfix-white-200;
-          }
-        }
+      .jfcl-button__icon {
+        transform: rotate(90deg);
       }
     }
-    .prev .page-btn .chevronIcon {
-      transform: rotate(90deg);
-    }
-    .next .page-btn .chevronIcon {
-      transform: rotate(-90deg);
+    .next {
+      .jfcl-button__icon {
+        transform: rotate(-90deg);
+      }
     }
 
     select {
