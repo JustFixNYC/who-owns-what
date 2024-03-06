@@ -36,25 +36,23 @@
     justify-content: center;
     gap: 1.5rem;
 
-    .privacy-modal {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-
-      .info-icon {
-        margin-left: 0.16rem;
-        width: 18px;
-        &:focus-visible {
-          outline: 2px solid $focus-outline-color;
-          outline-offset: 2px;
-        }
-      }
+    .privacy-links {
+      text-align: center;
+      padding: 0 1.875rem;
     }
 
     .login-type-toggle {
       display: flex;
       justify-content: center;
       font-size: 0.94rem;
+    }
+
+    .privacy-links,
+    .login-type-toggle {
+      a,
+      button {
+        color: inherit;
+      }
     }
   }
 
