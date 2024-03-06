@@ -14,6 +14,7 @@ import { withMachineInStateProps } from "state-machine";
 import Page from "components/Page";
 import { UsefulLinks } from "components/UsefulLinks";
 import { logAmplitudeEvent } from "components/Amplitude";
+import { Link as JFCLLink } from "@justfixnyc/component-library";
 
 type Props = withI18nProps & withMachineInStateProps<"unregisteredFound">;
 
@@ -31,6 +32,10 @@ export const SocialShareForNotRegisteredPage = () => (
     <SocialShare location="not-registered-page" />
   </div>
 );
+
+const JFCLLinkInternal: React.FC<any> = (props) => {
+  return <JFCLLink icon="internal" {...props} />;
+};
 
 class NotRegisteredPageWithoutI18n extends Component<Props, State> {
   constructor(props: Props) {
@@ -237,8 +242,8 @@ class NotRegisteredPageWithoutI18n extends Component<Props, State> {
                 <SocialShareForNotRegisteredPage />
                 <br />
                 <br />
-                <Link className="btn btn-primary btn-block" to="/">
-                  &lt;-- <Trans>Search for a different address</Trans>
+                <Link to="/" className="flex-centered" component={JFCLLinkInternal}>
+                  <Trans>Search for a different address</Trans>
                 </Link>
               </div>
               <Modal
