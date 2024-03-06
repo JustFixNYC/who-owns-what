@@ -4,12 +4,17 @@ import { withI18n, withI18nProps, I18n } from "@lingui/react";
 import { Trans } from "@lingui/macro";
 import Login from "./Login";
 import { UserContext } from "./UserContext";
+import { createWhoOwnsWhatRoutePaths } from "routes";
+import { LocaleLink as Link } from "../i18n";
 
 import "styles/EmailAlertSignup.css";
 import { JustfixUser } from "state-machine";
 import AuthClient from "./AuthClient";
 import { SubscribedIcon } from "./Icons";
 import { Alert } from "./Alert";
+import Modal from "./Modal";
+
+const SUBSCRIPTION_LIMIT = 15;
 
 type BuildingSubscribeProps = withI18nProps & {
   bbl: string;
@@ -24,6 +29,8 @@ const BuildingSubscribeWithoutI18n = (props: BuildingSubscribeProps) => {
   const userContext = useContext(UserContext);
   const { user, subscribe, unsubscribe } = userContext;
   const { email, subscriptions, verified } = user! as JustfixUser;
+  const [showSubscriptionLimitModal, setShowSubscriptionLimitModal] = useState(false);
+  const { account } = createWhoOwnsWhatRoutePaths();
 
   const showSubscribed = () => {
     return (
@@ -61,20 +68,47 @@ const BuildingSubscribeWithoutI18n = (props: BuildingSubscribeProps) => {
   return (
     <I18n>
       {({ i18n }) => (
-        <div className="building-subscribe">
-          {!(subscriptions && !!subscriptions?.find((s) => s.bbl === bbl)) ? (
-            <button
-              className="button is-primary"
-              onClick={() => subscribe(bbl, housenumber, streetname, zip, boro)}
-            >
-              <Trans>Get updates</Trans>
-            </button>
-          ) : verified ? (
-            showSubscribed()
-          ) : (
-            showEmailVerification(i18n)
-          )}
-        </div>
+        <>
+          <div className="building-subscribe">
+            {!(subscriptions && !!subscriptions?.find((s) => s.bbl === bbl)) ? (
+              <button
+                className="button is-primary"
+                onClick={() =>
+                  subscriptions.length <= SUBSCRIPTION_LIMIT
+                    ? subscribe(bbl, housenumber, streetname, zip, boro)
+                    : setShowSubscriptionLimitModal(true)
+                }
+              >
+                <Trans>Get updates</Trans>
+              </button>
+            ) : verified ? (
+              showSubscribed()
+            ) : (
+              showEmailVerification(i18n)
+            )}
+          </div>
+          <Modal
+            key={1}
+            showModal={showSubscriptionLimitModal}
+            width={40}
+            onClose={() => setShowSubscriptionLimitModal(false)}
+          >
+            <Trans render="h4">You have reached the maximum number of building updates</Trans>
+            <Trans>
+              At this time we can only support {SUBSCRIPTION_LIMIT} buildings in each email. Please
+              visit your <Link to={account.settings}>account</Link> to manage the buildings in your
+              email. If you would like to track more buildings, please let us know by submiting a{" "}
+              <a
+                href={`https://form.typeform.com/to/ChJMCNYN#email=${email}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                request form
+              </a>
+              .
+            </Trans>
+          </Modal>
+        </>
       )}
     </I18n>
   );

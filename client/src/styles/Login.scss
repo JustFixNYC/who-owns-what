@@ -7,19 +7,19 @@
 .ResetPasswordPage {
   display: flex;
   flex-direction: column;
-  gap: 2.4rem;
+  gap: 1.5rem;
 
   .input-group {
     display: flex;
     flex-direction: column;
-    gap: 2.4rem;
+    gap: 1.5rem;
 
     .submit-button-group {
       display: flex;
 
       button[type="submit"],
       input[type="submit"] {
-        padding: 1.6rem 3.2rem !important;
+        padding: 1rem 2rem !important;
         align-self: center;
         margin: 0 auto !important;
       }
@@ -27,14 +27,14 @@
   }
 
   .page-title {
-    margin-top: 1.5rem;
+    margin-top: 0.9375rem;
   }
 
   .building-page-footer {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    gap: 2.4rem;
+    gap: 1.5rem;
 
     .privacy-modal {
       display: flex;
@@ -42,7 +42,7 @@
       align-items: center;
 
       .info-icon {
-        margin-left: 0.4rem;
+        margin-left: 0.16rem;
         width: 18px;
         &:focus-visible {
           outline: 2px solid $focus-outline-color;
@@ -54,12 +54,12 @@
     .login-type-toggle {
       display: flex;
       justify-content: center;
-      font-size: 1.5rem;
+      font-size: 0.94rem;
     }
   }
 
   .login-response-text {
-    margin: 1rem 0 1rem;
+    margin: 0.39rem 0 0.39rem;
   }
 
   .login-password-label {
@@ -73,18 +73,18 @@
   }
 
   h4 {
-    font-size: 2.4rem;
+    font-size: 1.5rem;
     margin-bottom: 0;
   }
   h5 {
-    font-size: 1.6rem;
+    font-size: 0.63rem;
   }
 
   .verify-email-container {
     color: $justfix-black;
     display: flex;
     flex-direction: column;
-    gap: 2.4rem;
+    gap: 1.5rem;
 
     p {
       margin: 0;
@@ -99,7 +99,7 @@
 
   .jf-alert {
     width: auto;
-    font-size: 1.3rem;
+    font-size: 0.81rem;
 
     .button.is-text {
       display: block !important;
@@ -118,11 +118,11 @@
     align-items: center;
 
     svg {
-      margin: 1rem 0 2.5rem 0;
+      margin: 0.39rem 0 0.98rem 0;
     }
 
     .button.is-text {
-      margin-top: 1rem;
+      margin-top: 0.39rem;
       display: block !important;
       color: $justfix-black;
     }

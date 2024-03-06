@@ -10,7 +10,7 @@ const PrivacyPolicyPage = withI18n()((props: withI18nProps) => {
     <Page title={i18n._(t`Privacy policy`)}>
       <div className="PrivacyPolicy Page">
         <div className="Page__content">
-          <h4 style={{ fontSize: "3.2rem" }}>WhoOwnsWhat — Privacy Policy</h4>
+          <h4 style={{ fontSize: "2rem" }}>WhoOwnsWhat — Privacy Policy</h4>
           <p>Effective Date: October 18th, 2018 </p>
           <h4> Introduction </h4>
           <p>

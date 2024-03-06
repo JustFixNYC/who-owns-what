@@ -323,7 +323,7 @@ const LoginWithoutI18n = (props: LoginProps) => {
       return;
     }
 
-    const resp = await userContext.register(email, password, onSuccess);
+    const resp = await userContext.register(email, password, userType, onSuccess);
 
     if (!!resp?.error) {
       setInvalidAuthError(true);
@@ -437,15 +437,6 @@ const LoginWithoutI18n = (props: LoginProps) => {
               />
             )}
             <div className="submit-button-group">
-              {/* {isRegisterUserTypeStep && (
-                <button
-                  type="button"
-                  className="button is-primary button-back"
-                  onClick={() => setLoginStep(LoginStep.RegisterAccount)}
-                >
-                  <Trans>Back</Trans>
-                </button>
-              )} */}
               <button type="submit" className="button is-primary">
                 {submitButtonText}
               </button>

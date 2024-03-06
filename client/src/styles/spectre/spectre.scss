@@ -1,0 +1,50 @@
+/*! Spectre.css | MIT License | github.com/picturepan2/spectre */
+
+// JUSTFIX: we manually copied over these files from node_modules and changed
+// all the rem units for 16px base font size instead of 10px, so that WOW aligns
+// with tenant platform and component-library. We were using version 0.0.2
+
+// Core variables and mixins
+@import "src/_variables.scss";
+@import "src/_mixins.scss";
+
+// Reset and dependencies
+@import "src/_normalize.scss";
+@import "src/_base.scss";
+
+// Core classes
+@import "src/_typography.scss";
+@import "src/_asian.scss";
+@import "src/_tables.scss";
+@import "src/_buttons.scss";
+@import "src/_forms.scss";
+@import "src/_labels.scss";
+@import "src/_codes.scss";
+@import "src/_media.scss";
+
+// Layout
+@import "src/_layout.scss";
+@import "src/_navbar.scss";
+@import "src/_panels.scss";
+@import "src/_empty.scss";
+
+// Components
+@import "src/_autocomplete.scss";
+@import "src/_avatars.scss";
+@import "src/_badges.scss";
+@import "src/_bars.scss";
+@import "src/_cards.scss";
+@import "src/_chips.scss";
+@import "src/_dropdowns.scss";
+@import "src/_menus.scss";
+@import "src/_modals.scss";
+@import "src/_navigation.scss";
+@import "src/_popovers.scss";
+@import "src/_steps.scss";
+@import "src/_tiles.scss";
+@import "src/_toasts.scss";
+@import "src/_tooltips.scss";
+
+// Utility classes
+@import "src/_animations.scss";
+@import "src/_utilities.scss";

@@ -47,7 +47,7 @@
 .btn:not(.btn-link) {
   @include button();
 
-  padding: 0.7rem 0.8rem;
+  padding: 0.44rem 0.5rem;
   height: auto;
 }
 
@@ -123,7 +123,7 @@
 }
 
 .icon-mail:before {
-  border-radius: 0.1rem;
+  border-radius: 1px;
 }
 
 // WHO ARE OUR USERS SURVEY BUTTON
@@ -133,7 +133,7 @@
   text-align: center;
   color: $justfix-black;
   background-color: $justfix-pink;
-  height: 4rem;
+  height: 2.5rem;
 }
 
 .waou-survey-button:hover,
@@ -152,20 +152,20 @@
 
   @if $color ==$justfix-white {
     color: $justfix-black;
-    border: 0.1rem solid $justfix-black;
+    border: 1px solid $justfix-black;
   } @else {
     color: $justfix-white;
-    border: 0.1rem solid $justfix-white;
+    border: 1px solid $justfix-white;
   }
 
   $button-shadow: #d4d5d0;
-  border-radius: 10rem;
-  padding: 1.6rem 3.2rem;
+  border-radius: 6.25rem;
+  padding: 1rem 2rem;
   width: fit-content;
   height: fit-content;
   display: inline-block;
   flex: none;
-  box-shadow: 0.4rem 0.4rem 0rem $button-shadow;
+  box-shadow: 0.25rem 0.25rem 0rem $button-shadow;
   max-width: 100%;
   white-space: normal;
   word-wrap: break-word;
@@ -184,8 +184,8 @@
 
   &:hover {
     transition: all 0.1s linear;
-    box-shadow: 0rem 0.4rem 0rem 0rem $button-shadow;
-    transform: translateX(0.7rem);
+    box-shadow: 0rem 0.25rem 0rem 0rem $button-shadow;
+    transform: translateX(0.44rem);
   }
 
   &:focus-visible {
@@ -204,13 +204,13 @@
 
     border-style: solid;
     background-color: $color;
-    box-shadow: 0rem -0.4rem 0rem 0rem $button-shadow;
+    box-shadow: 0rem -0.25rem 0rem 0rem $button-shadow;
   }
 
   &:disabled {
     background-color: $justfix-grey-600;
     border: 1px solid $justfix-white;
-    border-radius: 10rem;
+    border-radius: 6.25rem;
     box-shadow: none;
   }
 }
@@ -238,14 +238,14 @@
   text-underline-position: under;
   &:focus,
   &:focus-visible {
-    outline: 0.2rem solid $justfix-grey;
-    outline-offset: 0.2rem;
+    outline: 0.13rem solid $justfix-grey;
+    outline-offset: 0.13rem;
   }
 }
 
 .buttons.has-addons {
   width: fit-content;
-  border-radius: 0.4rem;
+  border-radius: 0.25rem;
   border: 1px solid $justfix-white;
 
   .button {

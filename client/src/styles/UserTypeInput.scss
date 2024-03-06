@@ -4,8 +4,8 @@
 .user-type-container {
   .user-type-radio-group {
     display: grid;
-    grid-template-columns: 2rem auto;
-    gap: 1rem 0.8rem;
+    grid-template-columns: 1.25rem auto;
+    gap: 0.63rem 0.5rem;
     align-items: center;
 
     label {
@@ -22,8 +22,8 @@
 
       font: inherit;
       color: $justfix-black;
-      width: 2rem;
-      height: 2rem;
+      width: 1.25rem;
+      height: 1.25rem;
       border: 0.15em solid $justfix-black;
       border-radius: 50%;
       transform: translateY(-0.075em);
@@ -33,8 +33,8 @@
 
       &::before {
         content: "";
-        width: 1.2rem;
-        height: 1.2rem;
+        width: 0.75rem;
+        height: 0.75rem;
         border-radius: 50%;
         transform: scale(0);
         transition: 120ms transform ease-in-out;
@@ -52,7 +52,7 @@
   .user-type-input-text-group {
     display: flex;
     flex-direction: column;
-    margin: 2.4rem 2.8rem 0 2.8rem;
+    margin: 1.5rem 1.75rem 0 1.75rem;
 
     input {
       &.invalid {
@@ -68,12 +68,12 @@
   #input-field-error {
     display: flex;
     align-items: center;
-    font-size: 1.3rem;
+    font-size: 0.8125rem;
     color: #ba4300;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.3125rem;
 
     svg {
-      margin-right: 0.75rem;
+      margin-right: 0.47rem;
     }
   }
 }
