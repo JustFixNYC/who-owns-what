@@ -144,7 +144,7 @@
   display: inline-flex;
   flex-wrap: wrap;
 
-  .jfcl-button {
+  .jfcl-button, .jfcl-link {
     &:not(:last-child) {
       margin-right: 1rem; // $JF_SPACING_05
     }
