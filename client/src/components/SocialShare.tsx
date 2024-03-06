@@ -10,6 +10,7 @@ import { withI18n } from "@lingui/react";
 import { FB_APP_ID } from "./Page";
 import { getSiteOrigin } from "../routes";
 import { useLocation } from "react-router-dom";
+import { Button, IconMail, IconTwitter } from "@justfixnyc/component-library";
 
 export type SocialShareContent = {
   tweet: MessageDescriptor;
@@ -58,7 +59,22 @@ const SocialShareWithoutI18n: React.FC<SocialShareProps> = ({
 
   return (
     <div className="btn-group btns-social btn-group-block">
-      <FacebookButton
+      <Button
+        labelIcon={IconTwitter}
+        iconOnly
+        variant="secondary"
+        size="small"
+        labelText="Facebook"
+      />
+      <Button
+        labelIcon={IconTwitter}
+        iconOnly
+        variant="secondary"
+        size="small"
+        labelText="Twitter"
+      />
+      <Button labelIcon={IconMail} iconOnly variant="secondary" size="small" labelText="Email" />
+      {/* <FacebookButton
         onClick={() => {
           window.gtag("event", "facebook-" + location);
         }}
@@ -95,7 +111,7 @@ const SocialShareWithoutI18n: React.FC<SocialShareProps> = ({
       >
         <i className="icon icon-mail mx-2" />
         <Trans render="span">Email</Trans>
-      </EmailButton>
+      </EmailButton> */}
       {isMobile && (
         <a
           className="btn btn-steps"
