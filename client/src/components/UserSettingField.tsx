@@ -244,7 +244,11 @@ const UserSettingFieldWithoutI18n = (props: UserSettingFieldProps) => {
             </Trans>
             <div>
               <span>{preview}</span>
-              <button type="button" className="button is-text" onClick={() => setEditing(true)}>
+              <button
+                type="button"
+                className="button is-text edit-button"
+                onClick={() => setEditing(true)}
+              >
                 <Trans>Edit</Trans>
               </button>
             </div>

@@ -93,6 +93,10 @@
     span {
       flex: 1;
     }
+    span,
+    .edit-button {
+      font-size: 1rem;
+    }
   }
 
   .user-setting-actions {
