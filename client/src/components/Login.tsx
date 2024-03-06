@@ -436,15 +436,6 @@ const LoginWithoutI18n = (props: LoginProps) => {
               />
             )}
             <div className="submit-button-group">
-              {/* {isRegisterUserTypeStep && (
-                <button
-                  type="button"
-                  className="button is-primary button-back"
-                  onClick={() => setLoginStep(LoginStep.RegisterAccount)}
-                >
-                  <Trans>Back</Trans>
-                </button>
-              )} */}
               <button type="submit" className="button is-primary">
                 {submitButtonText}
               </button>
