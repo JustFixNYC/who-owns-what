@@ -86,7 +86,7 @@ const PasswordInputWithoutI18n = forwardRef<HTMLInputElement, PasswordInputProps
             </LocaleLink>
           )}
         </div>
-        {showPasswordRules && (
+        {showPasswordRules ? (
           <div className="password-input-rules">
             {passwordRules.map((rule, i) => {
               let ruleClass = "";
@@ -108,14 +108,16 @@ const PasswordInputWithoutI18n = forwardRef<HTMLInputElement, PasswordInputProps
               );
             })}
           </div>
-        )}
-        {!showPasswordRules && showError && error && (
-          <div className="password-input-errors">
-            <span id="input-field-error">
-              <AlertIcon />
-              {i18n._(t`Please enter password.`)}
-            </span>
-          </div>
+        ) : (
+          showError &&
+          error && (
+            <div className="password-input-errors">
+              <span id="input-field-error">
+                <AlertIcon />
+                {i18n._(t`Please enter password.`)}
+              </span>
+            </div>
+          )
         )}
         <div className="password-input">
           <input

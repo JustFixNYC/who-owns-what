@@ -99,10 +99,6 @@ CORS_ALLOWED_ORIGIN_REGEXES = [
     r"https://deploy-preview-(?:\d{1,4})--wow-django-dev\.netlify\.app",
 ]
 
-CORS_ALLOWED_ORIGIN_REGEXES = [
-    r"https://\w+\.deploy-preview-(?:\d{1,4})--wow-django-dev\.netlify\.app"
-]
-
 # This is based off the default Django logging configuration:
 # https://github.com/django/django/blob/master/django/utils/log.py
 LOGGING = {
