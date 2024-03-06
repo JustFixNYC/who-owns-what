@@ -12,7 +12,6 @@ import PasswordInput from "./PasswordInput";
 import EmailInput from "./EmailInput";
 import UserTypeInput from "./UserTypeInput";
 import { Alert } from "./Alert";
-import { InfoIcon } from "./Icons";
 import Modal from "./Modal";
 
 import "styles/Login.css";
@@ -50,7 +49,6 @@ const LoginWithoutI18n = (props: LoginProps) => {
   const userContext = useContext(UserContext);
 
   const [showRegisterModal, setShowRegisterModal] = useState(false);
-  const [showInfoModal, setShowInfoModal] = useState(false);
 
   const [step, setStep] = useState(Step.CheckEmail);
   const isCheckEmailStep = step === Step.CheckEmail;
