@@ -8,6 +8,7 @@ import { Trans, t } from "@lingui/macro";
 
 import { UserContext } from "components/UserContext";
 import PasswordInput from "components/PasswordInput";
+import { useInput } from "util/helpers";
 
 const ResetPasswordPage = withI18n()((props: withI18nProps) => {
   const { i18n } = props;
@@ -15,8 +16,14 @@ const ResetPasswordPage = withI18n()((props: withI18nProps) => {
   const params = new URLSearchParams(search);
 
   const [requestSent, setRequestSent] = React.useState(false);
-  const [value, setValue] = React.useState("");
   const userContext = useContext(UserContext);
+  const {
+    value: password,
+    error: passwordError,
+    showError: showPasswordError,
+    setError: setPasswordError,
+    onChange: onChangePassword,
+  } = useInput("");
 
   const delaySeconds = 5;
   const baseUrl = window.location.origin;
@@ -38,7 +45,7 @@ const ResetPasswordPage = withI18n()((props: withI18nProps) => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    await userContext.resetPassword(params.get("token") || "", value);
+    await userContext.resetPassword(params.get("token") || "", password);
     setRequestSent(true);
   };
 
@@ -49,13 +56,19 @@ const ResetPasswordPage = withI18n()((props: withI18nProps) => {
           {!requestSent ? (
             <>
               <Trans render="h4">Reset your password</Trans>
-              <form onSubmit={handleSubmit}>
+              <form className="input-group" onSubmit={handleSubmit}>
                 <PasswordInput
-                  labelText="Create a password"
+                  labelText={i18n._(t`Create a password`)}
                   showPasswordRules={true}
-                  onChange={setValue}
+                  password={password}
+                  onChange={onChangePassword}
+                  error={passwordError}
+                  showError={showPasswordError}
+                  setError={setPasswordError}
                 />
-                <input type="submit" className="button is-primary" value={`Reset password`} />
+                <button type="submit" className="button is-primary">
+                  <Trans>Reset password</Trans>
+                </button>
               </form>
             </>
           ) : (

@@ -77,6 +77,7 @@ def register(request):
         "grant_type": "password",
         "username": request.POST.get("username"),
         "password": request.POST.get("password"),
+        "user_type": request.POST.get("user_type"),
         "origin": request.headers["Origin"],
     }
 

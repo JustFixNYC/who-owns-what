@@ -42,7 +42,13 @@
   form {
     display: flex;
     flex-direction: column;
-    margin: 2rem 1rem;
+    margin: 3.2rem 1.6rem;
+    gap: 2.4rem;
+
+    .password-input-field {
+      display: flex;
+      flex-direction: column;
+    }
 
     p {
       margin: -0.63rem 0 0.37rem 0;
@@ -60,7 +66,6 @@
   .user-setting-actions {
     display: flex;
     justify-content: right;
-    margin-top: 1rem;
 
     @include for-phone-only() {
       justify-content: center;
@@ -80,10 +85,6 @@
 
     text-align: left;
     margin-bottom: 1rem;
-  }
-
-  .password-input-label {
-    margin-bottom: -0.63rem !important;
   }
 
   .password-input-rules {

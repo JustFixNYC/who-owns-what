@@ -5,6 +5,7 @@ import { t, Trans } from "@lingui/macro";
 
 import "styles/EmailAlertSignup.css";
 import PasswordInput from "./PasswordInput";
+import { useInput } from "util/helpers";
 
 type PasswordSettingFieldProps = withI18nProps & {
   onSubmit: (currentPassword: string, newPassword: string) => void;
@@ -12,14 +13,21 @@ type PasswordSettingFieldProps = withI18nProps & {
 
 const PasswordSettingFieldWithoutI18n = (props: PasswordSettingFieldProps) => {
   const { i18n, onSubmit } = props;
-  const [newPassword, setNewPassword] = useState("");
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [currentPassword, setCurrentPassword] = useState("");
+  const {
+    value: currentPassword,
+    error: currentPasswordError,
+    showError: showCurrentPasswordError,
+    setError: setCurrentPasswordError,
+    onChange: onChangeCurrentPassword,
+  } = useInput("");
+  const {
+    value: newPassword,
+    error: newPasswordError,
+    showError: showNewPasswordError,
+    setError: setNewPasswordError,
+    onChange: onChangeNewPassword,
+  } = useInput("");
   // const [showCurrentPassword, setShowCurrentPassword] = useState(false);
-
-  // const handleCurrentPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   setCurrentPassword(e.target.value);
-  // };
 
   const handleSubmit = () => {
     onSubmit(currentPassword, newPassword);
@@ -27,24 +35,24 @@ const PasswordSettingFieldWithoutI18n = (props: PasswordSettingFieldProps) => {
 
   return (
     <UserSettingField title={i18n._(t`Password`)} preview="**********" onSubmit={handleSubmit}>
-      <Trans render="label">Password</Trans>
-      <PasswordInput labelText="Enter your old password" />
-
-      {/* <div className="password-input">
-        <input
-          type={showCurrentPassword ? "text" : "password"}
-          className="input"
-          onChange={handleCurrentPasswordChange}
-          value={currentPassword}
-        />
-        <button type="button" onClick={() => setShowCurrentPassword(!showCurrentPassword)}>
-          Show
-        </button>
-      </div> */}
       <PasswordInput
-        labelText="Create a new password"
+        labelText={i18n._(t`Enter your old password`)}
+        password={currentPassword}
+        error={currentPasswordError}
+        showError={showCurrentPasswordError}
+        setError={setCurrentPasswordError}
+        onChange={onChangeCurrentPassword}
+        id="old-password-input"
+      />
+      <PasswordInput
+        labelText={i18n._(t`Create a new password`)}
         showPasswordRules={true}
-        onChange={setNewPassword}
+        password={newPassword}
+        error={newPasswordError}
+        showError={showNewPasswordError}
+        setError={setNewPasswordError}
+        onChange={onChangeNewPassword}
+        id="new-password-input"
       />
     </UserSettingField>
   );

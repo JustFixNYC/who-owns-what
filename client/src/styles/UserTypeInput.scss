@@ -1,0 +1,79 @@
+@import "_vars.scss";
+@import "_typography.scss";
+
+.user-type-container {
+  .user-type-radio-group {
+    display: grid;
+    grid-template-columns: 1.25rem auto;
+    gap: 0.63rem 0.5rem;
+    align-items: center;
+
+    label {
+      margin: 0;
+    }
+
+    input[type="radio"] {
+      /* Remove most all native input styles */
+      appearance: none;
+      /* For iOS < 15 */
+      background-color: $justfix-white;
+      /* Not removed via appearance */
+      margin: 0;
+
+      font: inherit;
+      color: $justfix-black;
+      width: 1.25rem;
+      height: 1.25rem;
+      border: 0.15em solid $justfix-black;
+      border-radius: 50%;
+      transform: translateY(-0.075em);
+
+      display: grid;
+      place-content: center;
+
+      &::before {
+        content: "";
+        width: 0.75rem;
+        height: 0.75rem;
+        border-radius: 50%;
+        transform: scale(0);
+        transition: 120ms transform ease-in-out;
+        box-shadow: inset 1em 1em $justfix-black;
+        /* Windows High Contrast Mode */
+        background-color: CanvasText;
+      }
+
+      &:checked::before {
+        transform: scale(1);
+      }
+    }
+  }
+
+  .user-type-input-text-group {
+    display: flex;
+    flex-direction: column;
+    margin: 1.5rem 1.75rem 0 1.75rem;
+
+    input {
+      &.invalid {
+        border-color: $justfix-orange;
+      }
+
+      &.invalid:focus {
+        border-color: $justfix-black;
+      }
+    }
+  }
+
+  #input-field-error {
+    display: flex;
+    align-items: center;
+    font-size: 0.8125rem;
+    color: #ba4300;
+    margin-bottom: 0.31rem;
+
+    svg {
+      margin-right: 0.47rem;
+    }
+  }
+}
