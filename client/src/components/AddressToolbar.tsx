@@ -40,7 +40,7 @@ const AddressToolbar: React.FC<AddressToolbarProps> = ({ searchAddr, assocAddrs 
           <Trans>New Search</Trans>
         </Link>
         <Button
-          labelText={i18n._('Export Data')}
+          labelText={i18n._("Export Data")}
           variant="secondary"
           size="small"
           onClick={() => {

@@ -173,9 +173,8 @@ function MultiSelect<
             // click apply while it's open it moves on you before you can mouseUp.
             onMouseDown={handleApply}
             onTouchStart={handleApply}
-            labelText={i18n._('Apply')}
-          >
-          </Button>
+            labelText={i18n._("Apply")}
+          />
         </div>
       )}
     </I18n>

@@ -262,9 +262,8 @@ function MinMaxSelect({
             form={`${id || "minmaxselect"}__form`}
             aria-label={i18n._(t`Apply selections and get results`)}
             onClick={handleApply}
-            labelText={i18n._('Apply')}
-          >
-          </Button>
+            labelText={i18n._("Apply")}
+          />
         )}
       </I18n>
     </div>
