@@ -12,7 +12,6 @@ import PasswordInput from "./PasswordInput";
 import EmailInput from "./EmailInput";
 import UserTypeInput from "./UserTypeInput";
 import { Alert } from "./Alert";
-import { InfoIcon } from "./Icons";
 import Modal from "./Modal";
 
 import "styles/Login.css";
@@ -50,7 +49,6 @@ const LoginWithoutI18n = (props: LoginProps) => {
   const userContext = useContext(UserContext);
 
   const [showRegisterModal, setShowRegisterModal] = useState(false);
-  const [showInfoModal, setShowInfoModal] = useState(false);
 
   const [step, setStep] = useState(Step.CheckEmail);
   const isCheckEmailStep = step === Step.CheckEmail;
@@ -139,16 +137,29 @@ const LoginWithoutI18n = (props: LoginProps) => {
   const renderFooter = () => {
     return (
       <div className="building-page-footer">
-        <div className="privacy-modal">
-          <Trans>Your information is secure</Trans>
-          <button
-            className="info-icon"
-            onClick={() => setShowInfoModal(true)}
-            aria-label={i18n._(t`Learn more about how we use your data`)}
-          >
-            <InfoIcon />
-          </button>
-        </div>
+        {isRegisterAccountStep && (
+          <span className="privacy-links">
+            <Trans>
+              Your privacy is important to us. Read our{" "}
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                href="https://www.justfix.org/en/privacy-policy/"
+              >
+                Privacy Policy
+              </a>{" "}
+              and{" "}
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                href="https://www.justfix.org/en/terms-of-use/"
+              >
+                Terms of Service
+              </a>
+              .
+            </Trans>
+          </span>
+        )}
         <div className="login-type-toggle">
           {isRegisterAccountStep ? (
             <>
@@ -162,32 +173,18 @@ const LoginWithoutI18n = (props: LoginProps) => {
               <Trans>Don't have an account?</Trans>
               <button
                 className="button is-text ml-5 pt-20"
-                onClick={() => setStep(Step.RegisterAccount)}
+                onClick={() => {
+                  setStep(Step.RegisterAccount);
+                  if (registerInModal && !showRegisterModal) {
+                    setShowRegisterModal(true);
+                  }
+                }}
               >
                 <Trans>Sign up</Trans>
               </button>
             </>
           )}
         </div>
-        <Modal key={1} showModal={showInfoModal} width={40} onClose={() => setShowInfoModal(false)}>
-          <Trans render="h4">
-            Your privacy is very important to us. Here are some important things to know:
-          </Trans>
-          <ul>
-            <Trans render="li">Your personal information is secure.</Trans>
-            <Trans render="li">
-              We don’t use your personal information for profit and will never give or sell it to
-              third parties.
-            </Trans>
-          </ul>
-          <Trans>
-            If you would like to read more about our mission, please visit{" "}
-            <a href="https://www.justfix.org/">JustFix.org</a>. If you would like to read more about
-            the data we collect, please review our full{" "}
-            <a href="https://www.justfix.org/en/privacy-policy/">Privacy Policy</a> and{" "}
-            <a href="https://www.justfix.org/en/terms-of-use/">Terms of Use</a>.
-          </Trans>
-        </Modal>
       </div>
     );
   };
