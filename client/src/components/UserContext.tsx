@@ -185,7 +185,7 @@ export const UserContextProvider = ({ children }: { children: React.ReactNode })
       if (user) {
         const asyncUpdateEmail = async () => {
           const response = await AuthClient.updateEmail(email);
-          setUser({ ...user, email: response.email });
+          setUser({ ...user, email: response.email, verified: false });
         };
         asyncUpdateEmail();
       }

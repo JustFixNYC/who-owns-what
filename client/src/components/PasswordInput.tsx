@@ -9,7 +9,7 @@ import { LocaleLink } from "i18n";
 import { createWhoOwnsWhatRoutePaths } from "routes";
 import { I18n } from "@lingui/core";
 import { t } from "@lingui/macro";
-import { HideIcon, ShowIcon } from "./Icons";
+import { AlertIcon, CheckIcon, DotIcon, HideIcon, ShowIcon } from "./Icons";
 import classNames from "classnames";
 
 type PasswordRule = {
@@ -82,25 +82,42 @@ const PasswordInputWithoutI18n = forwardRef<HTMLInputElement, PasswordInputProps
             <LocaleLink
               to={`${account.forgotPassword}?email=${encodeURIComponent(username || "")}`}
             >
-              Forgot your password?
+              {i18n._(t`Forgot your password?`)}
             </LocaleLink>
           )}
         </div>
-        {showPasswordRules && (
+        {showPasswordRules ? (
           <div className="password-input-rules">
             {passwordRules.map((rule, i) => {
-              const ruleClass = !!password
-                ? password.match(rule.regex)
-                  ? "valid"
-                  : "invalid"
-                : "";
+              let ruleClass = "";
+              let RuleIcon = <DotIcon />;
+              if (!!password || showError) {
+                if (password.match(rule.regex)) {
+                  ruleClass = "valid";
+                  RuleIcon = <CheckIcon />;
+                } else {
+                  ruleClass = "invalid";
+                  RuleIcon = <AlertIcon />;
+                }
+              }
               return (
                 <span className={`password-input-rule ${ruleClass}`} key={`rule-${i}`}>
+                  {RuleIcon}
                   {rule.label}
                 </span>
               );
             })}
           </div>
+        ) : (
+          showError &&
+          error && (
+            <div className="password-input-errors">
+              <span id="input-field-error">
+                <AlertIcon />
+                {i18n._(t`Please enter password.`)}
+              </span>
+            </div>
+          )
         )}
         <div className="password-input">
           <input

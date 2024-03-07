@@ -49,7 +49,7 @@ $eyebrow-font: "Suisse Int'l Mono", "Courier New", Courier, monospace;
 
 @mixin desktop-text-small {
   @include body-standard();
-  font-size: 0.55rem;
+  font-size: 0.875rem;
 }
 
 @mixin desktop-text-small-bold {
