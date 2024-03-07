@@ -1,7 +1,7 @@
 import React from "react";
 import Subscribe from "./Subscribe";
 import SocialShare, { SocialShareLocation } from "./SocialShare";
-import { Link } from '@justfixnyc/component-library';
+import { Link } from "@justfixnyc/component-library";
 
 import "styles/EngagementPanel.css";
 import { Trans } from "@lingui/macro";
@@ -29,7 +29,7 @@ const EngagementPanel: React.FC<{
           <p>
             <Trans>Visit our website</Trans>
           </p>
-          <Link href="https://www.justfix.org/">
+          <Link href="https://www.justfix.org/" icon="external">
             www.JustFix.org
           </Link>
         </div>

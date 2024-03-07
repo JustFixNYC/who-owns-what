@@ -31,7 +31,7 @@ import { AddressRecord, HpdComplaintCount } from "./APIDataTypes";
 import { FilterContext, FilterNumberRange, PortfolioAnalyticsEvent } from "./PropertiesList";
 import "styles/PortfolioTable.scss";
 import { sortContactsByImportance } from "./DetailView";
-import { ArrowIcon, ChevronIcon } from "./Icons";
+import { ArrowIcon } from "./Icons";
 import classnames from "classnames";
 import { isLegacyPath } from "./WowzaToggle";
 import Loader from "./Loader";
