@@ -82,11 +82,13 @@ const AccountSettingsPage = withI18n()((props: withI18nProps) => {
               <Trans>Sign up for Data Updates on the buildings you choose:</Trans>
             )}
           </h4>
-          <div>
+          <div className="subscriptions-container">
             {subscriptions?.length ? (
-              subscriptions.map((s) => (
-                <SubscriptionField key={s.bbl} {...s} onRemoveClick={userContext.unsubscribe} />
-              ))
+              <>
+                {subscriptions.map((s) => (
+                  <SubscriptionField key={s.bbl} {...s} onRemoveClick={userContext.unsubscribe} />
+                ))}
+              </>
             ) : (
               <Trans render="div" className="settings-no-subscriptions">
                 <LocaleNavLink exact to={home}>

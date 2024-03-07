@@ -11,6 +11,8 @@ import AuthClient from "../components/AuthClient";
 import { SubscriptionField } from "./AccountSettingsPage";
 import { createWhoOwnsWhatRoutePaths } from "routes";
 import { LocaleNavLink } from "i18n";
+import { BuildingSubscription } from "state-machine";
+import { FixedLoadingLabel } from "components/Loader";
 
 const UnsubscribePage = withI18n()((props: withI18nProps) => {
   const { i18n } = props;
@@ -20,7 +22,8 @@ const UnsubscribePage = withI18n()((props: withI18nProps) => {
   const token = params.get("u") || "";
   const isEmailUnsubscribeAll = !!params.get("all");
 
-  const [subscriptions, setSubscriptions] = React.useState([]);
+  const [subscriptions, setSubscriptions] = React.useState<BuildingSubscription[] | undefined>();
+
   useEffect(() => {
     if (isEmailUnsubscribeAll) {
       const asyncUnsubscribeAll = async () => {
@@ -51,7 +54,9 @@ const UnsubscribePage = withI18n()((props: withI18nProps) => {
     <Page title={i18n._(t`Modify your email preferences`)}>
       <div className="UnsubscribePage Page">
         <div className="page-container">
-          {isEmailUnsubscribeAll || !subscriptions.length ? (
+          {subscriptions === undefined ? (
+            <FixedLoadingLabel />
+          ) : isEmailUnsubscribeAll || !subscriptions.length ? (
             <>
               {isEmailUnsubscribeAll ? (
                 <Trans render="h4">You have sucessfully unsubscribed from all buildings.</Trans>
@@ -73,13 +78,15 @@ const UnsubscribePage = withI18n()((props: withI18nProps) => {
           ) : (
             <>
               <Trans render="h4">You are signed up for email alerts from these bulidings:</Trans>
-              <button className="button is-primary" onClick={handleUnsubscribeAll}>
-                <Trans>Unsubscribe from all</Trans>
-              </button>
-              <div>
+              <div className="subscriptions-container">
                 {subscriptions.map((s: any) => (
                   <SubscriptionField key={s.bbl} {...s} onRemoveClick={handleUnsubscribeBuilding} />
                 ))}
+                <div className="unsubscribe-all-field">
+                  <button className="button is-text" onClick={handleUnsubscribeAll}>
+                    <Trans>Unsubscribe from all</Trans>
+                  </button>
+                </div>
               </div>
             </>
           )}
