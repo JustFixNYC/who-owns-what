@@ -47,7 +47,7 @@ type SocialShareProps = {
 
 const _FacebookButton: React.FC = (props) => (
   <Button
-    labelText="Facebook"
+    labelText="Facebook (Opens a new window)"
     variant="secondary"
     size="small"
     labelIcon={IconPerson}
@@ -57,7 +57,7 @@ const _FacebookButton: React.FC = (props) => (
 );
 const _TwitterButton: React.FC = (props) => (
   <Button
-    labelText="Twitter"
+    labelText="Twitter (Opens a new window)"
     variant="secondary"
     size="small"
     labelIcon={IconTwitter}
@@ -67,7 +67,7 @@ const _TwitterButton: React.FC = (props) => (
 );
 const _EmailButton: React.FC = (props) => (
   <Button
-    labelText={i18n._("Email")}
+    labelText={`${i18n._("Email")} (Opens a new window)`}
     variant="secondary"
     size="small"
     labelIcon={IconMail}
