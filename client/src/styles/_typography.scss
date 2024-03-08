@@ -9,24 +9,6 @@ $body-font: "Degular", Arial, Helvetica, sans-serif;
 $title-font: "Degular Display", Arial, Helvetica, sans-serif;
 $eyebrow-font: "Suisse Int'l Mono", "Courier New", Courier, monospace;
 
-@mixin button-standard {
-  font-family: $wow-font;
-  font-size: 0.875rem; // 14px
-  font-style: normal;
-  font-weight: 400;
-  line-height: 115%; // 16.1px
-  letter-spacing: 0.02625rem; // 0.42px;
-}
-
-@mixin link-standard {
-  font-family: $wow-font;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 600;
-  line-height: 115%; /* 18.4px */
-  letter-spacing: 0.03rem; // 0.48px;
-}
-
 @mixin body-standard {
   font-family: $body-font;
   font-size: 0.7rem;

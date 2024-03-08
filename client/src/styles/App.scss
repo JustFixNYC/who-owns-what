@@ -2,12 +2,9 @@
 @import "_vars.scss";
 @import "_typography.scss";
 
-.jfcl-button {
-  @include button-standard;
-}
-
+.jfcl-button,
 .jfcl-link {
-  @include link-standard;
+  font-family: $wow-font;
 }
 
 .App {
