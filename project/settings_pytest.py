@@ -4,7 +4,6 @@ import dj_database_url
 
 os.environ["DEBUG"] = ""
 os.environ["SECRET_KEY"] = "for testing only!"
-os.environ["ALERTS_API_TOKEN"] = "test_token"
 
 from .settings import *  # noqa
 
