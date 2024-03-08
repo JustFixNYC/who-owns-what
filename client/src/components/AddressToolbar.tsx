@@ -12,6 +12,7 @@ import ExportDataButton from "./ExportData";
 import { useLocation } from "react-router-dom";
 import { createWhoOwnsWhatRoutePaths } from "routes";
 import { logAmplitudeEvent } from "./Amplitude";
+import { Button } from "@justfixnyc/component-library";
 
 export type AddressToolbarProps = {
   searchAddr: SearchAddress;
@@ -37,6 +38,16 @@ const AddressToolbar: React.FC<AddressToolbarProps> = ({ searchAddr, assocAddrs 
         >
           <Trans>New Search</Trans>
         </Link>
+
+        <Button
+          onClick={() => {
+            setExportModalVisibility(true);
+            logAmplitudeEvent("clickExportData");
+            window.gtag("event", "click-export-data");
+          }}
+          labelText="Export Data!"
+        />
+
         <button
           className="btn"
           onClick={() => {
@@ -47,6 +58,8 @@ const AddressToolbar: React.FC<AddressToolbarProps> = ({ searchAddr, assocAddrs 
         >
           <Trans>Export Data</Trans>
         </button>
+
+
       </div>
       <Modal showModal={showExportModal} onClose={() => setExportModalVisibility(false)}>
         <Trans render="p">
