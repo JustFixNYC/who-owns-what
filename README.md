@@ -59,7 +59,7 @@ Alternatively, you can load a small test dataset with:
 python dbtool.py loadtestdata
 ```
 
-After that, make sure you have Node 12 or higher installed as well as [yarn](https://yarnpkg.com/en/), and then run:
+After that, make sure you have Node 18 or higher installed as well as [yarn](https://yarnpkg.com/en/), and then run:
 
 ```
 cd client

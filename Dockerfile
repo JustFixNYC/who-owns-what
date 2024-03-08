@@ -3,7 +3,7 @@ FROM python:3.9.16
 # This Dockerfile is for development purposes only; we don't use it
 # for production.
 
-ENV NODE_VERSION=12
+ENV NODE_VERSION=18
 
 RUN curl -sL https://deb.nodesource.com/setup_${NODE_VERSION}.x | bash -
 
