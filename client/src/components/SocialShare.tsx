@@ -47,7 +47,7 @@ type SocialShareProps = {
 
 const _FacebookButton: React.FC = (props) => (
   <Button
-  labelText={`Facebook (${i18n._("Opens in a new window")})`}
+    labelText={`Facebook (${i18n._("Opens in a new window")})`}
     variant="secondary"
     size="small"
     labelIcon={IconPerson}
