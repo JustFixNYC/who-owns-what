@@ -60,7 +60,10 @@ def logout(request):
 @api
 def update(request):
     try:
-        post_data = {"new_email": request.POST.get("new_email")}
+        post_data = {
+            "new_email": request.POST.get("new_email"),
+            "origin": request.headers["Origin"],
+        }
 
         return authenticated_request(
             "user/",
@@ -77,6 +80,7 @@ def register(request):
         "grant_type": "password",
         "username": request.POST.get("username"),
         "password": request.POST.get("password"),
+        "user_type": request.POST.get("user_type"),
         "origin": request.headers["Origin"],
     }
 
@@ -194,13 +198,27 @@ class SubscriptionView(View):
 
 
 @api
-def user_subscriptions(request):
+def email_user_subscriptions(request):
     try:
         post_data = {"token": request.GET.get("u")}
 
         return auth_server_request(
             "POST",
-            "user/subscriptions/",
+            "user/email/subscriptions/",
+            post_data,
+        )
+    except KeyError:
+        return HttpResponse(content_type="application/json", status=401)
+
+
+@api
+def email_unsubscribe_all(request):
+    try:
+        post_data = {"token": request.GET.get("u")}
+
+        return auth_server_request(
+            "POST",
+            "user/email/unsubscribe/",
             post_data,
         )
     except KeyError:

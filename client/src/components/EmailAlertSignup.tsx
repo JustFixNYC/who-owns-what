@@ -1,7 +1,6 @@
 import React, { Fragment, useContext, useState } from "react";
 
 import { withI18n, withI18nProps, I18n } from "@lingui/react";
-import { t } from "@lingui/macro";
 import { Trans } from "@lingui/macro";
 import Login from "./Login";
 import { UserContext } from "./UserContext";
@@ -11,7 +10,8 @@ import { LocaleLink as Link } from "../i18n";
 import "styles/EmailAlertSignup.css";
 import { JustfixUser } from "state-machine";
 import AuthClient from "./AuthClient";
-import { AlertIconOutline, SubscribedIcon } from "./Icons";
+import { SubscribedIcon } from "./Icons";
+import { Alert } from "./Alert";
 import Modal from "./Modal";
 
 const SUBSCRIPTION_LIMIT = 15;
@@ -49,21 +49,19 @@ const BuildingSubscribeWithoutI18n = (props: BuildingSubscribeProps) => {
   const showEmailVerification = (i18n: any) => {
     return (
       <div className="building-subscribe-status">
-        <div>
-          <div className="status-title">
-            <AlertIconOutline />
-            <Trans>Email verification required</Trans>
-          </div>
-          <div className="status-description">
-            {i18n._(t`Click the link we sent to ${email}. It may take a few minutes to arrive.`)}
-          </div>
-          <button
-            className="button is-secondary is-full-width"
-            onClick={() => AuthClient.resendVerifyEmail()}
-          >
-            <Trans>Resend email</Trans>
-          </button>
-        </div>
+        <Alert type="info">
+          <Trans>Verify your email to start receiving updates.</Trans>
+        </Alert>
+        <Trans render="div" className="status-description">
+          Click the link we sent to {email}. It may take a few minutes to arrive.
+        </Trans>
+        <Trans render="div">Didn’t get the link?</Trans>
+        <button
+          className="button is-secondary is-full-width"
+          onClick={() => AuthClient.resendVerifyEmail()}
+        >
+          <Trans>Resend email</Trans>
+        </button>
       </div>
     );
   };
@@ -71,7 +69,7 @@ const BuildingSubscribeWithoutI18n = (props: BuildingSubscribeProps) => {
     <I18n>
       {({ i18n }) => (
         <>
-          <div className="table-content building-subscribe">
+          <div className="building-subscribe">
             {!(subscriptions && !!subscriptions?.find((s) => s.bbl === bbl)) ? (
               <button
                 className="button is-primary"
@@ -89,7 +87,6 @@ const BuildingSubscribeWithoutI18n = (props: BuildingSubscribeProps) => {
               showEmailVerification(i18n)
             )}
           </div>
-
           <Modal
             key={1}
             showModal={showSubscriptionLimitModal}
@@ -125,7 +122,7 @@ const EmailAlertSignupWithoutI18n = (props: EmailAlertProps) => {
   const { bbl, housenumber, streetname, zip, boro } = props;
   const userContext = useContext(UserContext);
   const { user } = userContext;
-  const [showVerifyModal, setShowVerifyModal] = useState(false);
+  const [loginRegisterInProgress, setLoginRegisterInProgress] = useState(false);
 
   return (
     <>
@@ -133,10 +130,7 @@ const EmailAlertSignupWithoutI18n = (props: EmailAlertProps) => {
         <div className="table-row">
           <I18n>
             {({ i18n }) => (
-              <div
-                title={i18n._(t`Get data updates for this building`)}
-                className="table-small-font"
-              >
+              <div className="table-small-font">
                 <label className="data-updates-label-container">
                   <span className="pill-new">
                     <Trans>NEW</Trans>
@@ -148,50 +142,19 @@ const EmailAlertSignupWithoutI18n = (props: EmailAlertProps) => {
                   )}
                 </label>
                 <div className="table-content">
-                  {!user ? (
-                    <Fragment>
-                      <div className="email-description">
-                        <Trans>
-                          Each weekly email includes HPD Complaints, HPD Violations, and Eviction
-                          Filings.
-                        </Trans>
-                      </div>
-                      <Login
-                        onBuildingPage={true}
-                        onSuccess={(user: JustfixUser) => {
-                          userContext.subscribe(bbl, housenumber, streetname, zip, boro, user);
-                          !user.verified && setShowVerifyModal(true);
-                        }}
-                      />
-                    </Fragment>
-                  ) : (
+                  {user && !loginRegisterInProgress ? (
                     <BuildingSubscribe {...props} />
+                  ) : (
+                    <Login
+                      registerInModal
+                      onBuildingPage
+                      setLoginRegisterInProgress={setLoginRegisterInProgress}
+                      onSuccess={(user: JustfixUser) => {
+                        userContext.subscribe(bbl, housenumber, streetname, zip, boro, user);
+                      }}
+                    />
                   )}
                 </div>
-                <Modal
-                  key={1}
-                  showModal={showVerifyModal}
-                  width={40}
-                  onClose={() => setShowVerifyModal(false)}
-                >
-                  <Trans render="h4">Verify your email to start receiving updates</Trans>
-                  {i18n._(
-                    t`Click the link we sent to ${user?.email}. It may take a few minutes to arrive.`
-                  )}
-                  <br />
-                  <br />
-                  <Trans>
-                    Once your email has been verified, you’ll be signed up for Data Updates.
-                  </Trans>
-                  <br />
-                  <br />
-                  <button
-                    className="button is-secondary is-full-width"
-                    onClick={() => AuthClient.resendVerifyEmail()}
-                  >
-                    <Trans>Resend email</Trans>
-                  </button>
-                </Modal>
               </div>
             )}
           </I18n>
