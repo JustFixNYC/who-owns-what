@@ -251,7 +251,6 @@ const HomePage: React.FC<HomePageProps> = ({ useNewPortfolioMethod }) => {
                       onClick={() => {
                         window.gtag("event", "example-portfolio-2-homepage");
                       }}
-                      className="flex-centered"
                       component={JFCLLinkInternal}
                     >
                       <Trans>View portfolio</Trans>
@@ -296,7 +295,6 @@ const HomePage: React.FC<HomePageProps> = ({ useNewPortfolioMethod }) => {
                       onClick={() => {
                         window.gtag("event", "example-portfolio-3-homepage");
                       }}
-                      className="flex-centered"
                       component={JFCLLinkInternal}
                     >
                       <Trans>View portfolio</Trans>

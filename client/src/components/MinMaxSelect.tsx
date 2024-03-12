@@ -263,6 +263,7 @@ function MinMaxSelect({
             aria-label={i18n._(t`Apply selections and get results`)}
             onClick={handleApply}
             labelText={i18n._("Apply")}
+            size="small"
           />
         )}
       </I18n>

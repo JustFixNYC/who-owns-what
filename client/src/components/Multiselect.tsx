@@ -174,6 +174,7 @@ function MultiSelect<
             onMouseDown={handleApply}
             onTouchStart={handleApply}
             labelText={i18n._("Apply")}
+            size="small"
           />
         </div>
       )}
