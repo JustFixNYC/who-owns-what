@@ -3,6 +3,7 @@ import { Trans } from "@lingui/macro";
 import Helpers from "../util/helpers";
 import { AddressRecord } from "./APIDataTypes";
 import { AmplitudeEvent, logAmplitudeEvent } from "components/Amplitude";
+import { Link } from "@justfixnyc/component-library";
 
 type UsefulLinksProps = {
   addrForLinks: Pick<AddressRecord, "bbl"> &
@@ -18,23 +19,22 @@ export const UsefulLinks: React.FC<UsefulLinksProps> = ({ addrForLinks, location
       <Trans render={location === "not-registered-page" ? "p" : "b"}>Useful links</Trans>
       <ul>
         <li>
-          <Trans>
-            View documents on{" "}
-            <a
-              onClick={() => {
-                logAmplitudeEvent(`acris-${location}` as AmplitudeEvent);
-                window.gtag("event", `acris-${location}`);
-              }}
-              href={`http://a836-acris.nyc.gov/bblsearch/bblsearch.asp?borough=${boro}&block=${block}&lot=${lot}`}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              ACRIS
-            </a>
-          </Trans>
+          <Trans>View documents on</Trans>{" "}
+          <Link
+            onClick={() => {
+              logAmplitudeEvent(`acris-${location}` as AmplitudeEvent);
+              window.gtag("event", `acris-${location}`);
+            }}
+            href={`http://a836-acris.nyc.gov/bblsearch/bblsearch.asp?borough=${boro}&block=${block}&lot=${lot}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            icon="external"
+          >
+            <Trans>ACRIS</Trans>
+          </Link>
         </li>
         <li>
-          <a
+          <Link
             onClick={() => {
               logAmplitudeEvent(`hpd-${location}` as AmplitudeEvent);
               window.gtag("event", `hpd-${location}`);
@@ -46,12 +46,13 @@ export const UsefulLinks: React.FC<UsefulLinksProps> = ({ addrForLinks, location
             }
             target="_blank"
             rel="noopener noreferrer"
+            icon="external"
           >
             <Trans>HPD Building Profile</Trans>
-          </a>
+          </Link>
         </li>
         <li>
-          <a
+          <Link
             onClick={() => {
               logAmplitudeEvent(`dob-${location}` as AmplitudeEvent);
               window.gtag("event", `dob-${location}`);
@@ -59,12 +60,13 @@ export const UsefulLinks: React.FC<UsefulLinksProps> = ({ addrForLinks, location
             href={`http://a810-bisweb.nyc.gov/bisweb/PropertyProfileOverviewServlet?boro=${boro}&block=${block}&lot=${lot}`}
             target="_blank"
             rel="noopener noreferrer"
+            icon="external"
           >
             <Trans>DOB Building Profile</Trans>
-          </a>
+          </Link>
         </li>
         <li>
-          <a
+          <Link
             onClick={() => {
               logAmplitudeEvent(`dof-${location}` as AmplitudeEvent);
               window.gtag("event", `dof-${location}`);
@@ -72,12 +74,13 @@ export const UsefulLinks: React.FC<UsefulLinksProps> = ({ addrForLinks, location
             href={`https://a836-pts-access.nyc.gov/care/search/commonsearch.aspx?mode=persprop`}
             target="_blank"
             rel="noopener noreferrer"
+            icon="external"
           >
             <Trans>DOF Property Tax Bills</Trans>
-          </a>
+          </Link>
         </li>
         <li>
-          <a
+          <Link
             onClick={() => {
               logAmplitudeEvent(`dap-${location}` as AmplitudeEvent);
               window.gtag("event", `dap-${location}`);
@@ -85,9 +88,10 @@ export const UsefulLinks: React.FC<UsefulLinksProps> = ({ addrForLinks, location
             href={`https://portal.displacementalert.org/property/${boro}${block}${lot}`}
             target="_blank"
             rel="noopener noreferrer"
+            icon="external"
           >
             <Trans>ANHD DAP Portal</Trans>
-          </a>
+          </Link>
         </li>
       </ul>
     </div>
