@@ -91,7 +91,7 @@ const userAuthenticated = async () => {
 };
 
 /**
- * Sends an authenticated request to verify the user email
+ * Sends an unauthenticated request to verify the user email
  */
 const verifyEmail = async () => {
   const params = new URLSearchParams(window.location.search);
