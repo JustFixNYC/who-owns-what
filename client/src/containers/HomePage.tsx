@@ -20,7 +20,7 @@ import { ContentfulCommonStrings } from "@justfixnyc/contentful-common-strings";
 import _commonStrings from "../data/common-strings.json";
 import LandlordSearch, { algoliaAppId, algoliaSearchKey } from "components/LandlordSearch";
 import { logAmplitudeEvent } from "components/Amplitude";
-import { Link as JFCLLink } from "@justfixnyc/component-library";
+import JFCLLinkInternal from "components/JFCLLinkInternal";
 
 const commonStrings = new ContentfulCommonStrings(_commonStrings as any);
 
@@ -71,10 +71,6 @@ const MoratoriumBanner = withI18n()(MoratoriumBannerWithoutI18n);
 type HomePageProps = {
   useNewPortfolioMethod?: boolean;
 } & withMachineProps;
-
-const JFCLLinkInternal: React.FC<any> = (props) => {
-  return <JFCLLink icon="internal" {...props} />;
-};
 
 const HomePage: React.FC<HomePageProps> = ({ useNewPortfolioMethod }) => {
   const { pathname } = useLocation();

@@ -24,6 +24,8 @@ import { isLegacyPath } from "./WowzaToggle";
 import { logAmplitudeEvent } from "./Amplitude";
 import EmailAlertSignup from "./EmailAlertSignup";
 import { StreetViewStatic } from "./StreetView";
+import { Link as JFCLLink } from "@justfixnyc/component-library";
+import JFCLLinkInternal from "./JFCLLinkInternal";
 
 type Props = withI18nProps &
   withMachineInStateProps<"portfolioFound"> & {
@@ -294,12 +296,12 @@ class DetailViewWithoutI18n extends Component<Props, State> {
                       <div className="card-body-timeline-link">
                         <Link
                           to={this.props.addressPageRoutes.timeline}
-                          className="btn btn-primary btn-block"
                           onClick={() => {
                             window.gtag("event", "view-data-over-time-overview-tab");
                           }}
+                          component={JFCLLinkInternal}
                         >
-                          <Trans render="span">View data over time &#8599;&#xFE0E;</Trans>
+                          <Trans render="span">View data over time!</Trans>
                         </Link>
                       </div>
                       <div className="card-body-complaints">
@@ -418,14 +420,9 @@ class DetailViewWithoutI18n extends Component<Props, State> {
                         <h6 className="DetailView__subtitle">
                           <Trans>Are you having issues in this building?</Trans>
                         </h6>
-                        <a
-                          href={takeActionURL}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="btn btn-justfix btn-block"
-                        >
+                        <JFCLLink href={takeActionURL} target="_blank" rel="noopener noreferrer">
                           <Trans>Take action on JustFix.org!</Trans>
-                        </a>
+                        </JFCLLink>
                       </div>
 
                       <div className="card-body-social social-group">
