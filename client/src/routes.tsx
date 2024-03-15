@@ -67,10 +67,6 @@ export const createAddressPageRoutes = (
 };
 
 export const createAccountRoutePaths = (prefix?: string) => {
-  // TODO shakao handle legacy routes
-  // if (typeof prefix === "object") {
-  //   prefix = createRouteForAddressPage(prefix, isLegacyRoute);
-  // }
   return {
     login: `${prefix}/login`,
     settings: `${prefix}/settings`,

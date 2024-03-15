@@ -104,11 +104,11 @@ def auth_check(request):
 @api
 def verify_email(request):
     try:
-        code = request.GET.get("code")
-
-        return authenticated_request(
-            "user/verify_email/?code=" + code,
-            request,
+        post_data = {"code": request.GET.get("code")}
+        return auth_server_request(
+            "POST",
+            "user/verify_email/",
+            post_data,
         )
     except KeyError:
         return HttpResponse(content_type="application/json", status=401)
