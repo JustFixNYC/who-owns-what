@@ -74,7 +74,7 @@ const BuildingSubscribeWithoutI18n = (props: BuildingSubscribeProps) => {
               <button
                 className="button is-primary"
                 onClick={() =>
-                  subscriptions.length <= SUBSCRIPTION_LIMIT
+                  subscriptions.length < SUBSCRIPTION_LIMIT
                     ? subscribe(bbl, housenumber, streetname, zip, boro)
                     : setShowSubscriptionLimitModal(true)
                 }
