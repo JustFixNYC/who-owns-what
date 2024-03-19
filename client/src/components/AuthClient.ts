@@ -118,14 +118,31 @@ const verifyEmail = async () => {
 /**
  * Sends request to resend the account verification link to the user's email
  */
-const resendVerifyEmail = async () => {
+const resendVerifyEmail = async (token?: string) => {
   try {
-    await postAuthRequest(`${BASE_URL}auth/resend_verify_email`);
+    if (token) {
+      await postAuthRequest(`${BASE_URL}auth/resend_verification_with_token?u=${token}`);
+    } else {
+      await postAuthRequest(`${BASE_URL}auth/resend_verification`);
+    }
     return true;
   } catch {
     return false;
   }
 };
+
+// /**
+//  * Sends unauthenticated request for a new verification email
+//  * Used only in expired verification flow in logged out state
+//  */
+// const resendVerificationWithoutAuth = async (token: string) => {
+//   try {
+//     await postAuthRequest(`${BASE_URL}auth/token_resend_verify_email?u=${token}`);
+//     return true;
+//   } catch {
+//     return false;
+//   }
+// };
 
 /**
  * Sends an authenticated request to update the user email
@@ -236,14 +253,11 @@ const postAuthRequest = async (
 
   try {
     if (result.ok) {
-      console.log("result is ok");
       return await result.json();
     } else {
-      console.log("result is not ok");
       return await result.json();
     }
   } catch {
-    console.log("in error");
     return result;
   }
 };

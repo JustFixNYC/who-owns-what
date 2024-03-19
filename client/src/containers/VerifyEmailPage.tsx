@@ -2,17 +2,20 @@ import { useState, useEffect } from "react";
 import { withI18n, withI18nProps } from "@lingui/react";
 import { Trans, t } from "@lingui/macro";
 import AuthClient, { VerifyStatusCode } from "../components/AuthClient";
-import { JustfixUser } from "state-machine";
 import Page from "components/Page";
+import { useLocation } from "react-router-dom";
 
 const VerifyEmailPage = withI18n()((props: withI18nProps) => {
   const { i18n } = props;
+  const { search } = useLocation();
   const [loading, setLoading] = useState(true);
   const [isVerified, setIsVerified] = useState(false);
   const [isAlreadyVerified, setIsAlreadyVerified] = useState(false);
   const [isExpired, setIsExpired] = useState(false);
   const [isEmailResent, setIsEmailResent] = useState(false);
   const [unknownError, setUnknownError] = useState(false);
+  const params = new URLSearchParams(search);
+  const token = params.get("u") || "";
 
   useEffect(() => {
     const asyncVerifyEmail = async () => {
@@ -34,8 +37,6 @@ const VerifyEmailPage = withI18n()((props: withI18nProps) => {
         default:
           setUnknownError(true);
       }
-      console.log(result.statusCode);
-      console.log(result.statusText);
       setLoading(false);
     });
   }, []);
@@ -65,7 +66,7 @@ const VerifyEmailPage = withI18n()((props: withI18nProps) => {
         <button
           className="button is-secondary"
           onClick={async () => {
-            setIsEmailResent(await AuthClient.resendVerifyEmail());
+            setIsEmailResent(await AuthClient.resendVerifyEmail(token));
           }}
         >
           <Trans>Resend verification email</Trans>
@@ -137,7 +138,7 @@ const VerifyEmailPage = withI18n()((props: withI18nProps) => {
                 : successPage()
               : isExpired
               ? expiredLinkPage()
-              : errorPage())}
+              : unknownError && errorPage())}
         </div>
       </div>
     </Page>
