@@ -236,9 +236,14 @@ const postAuthRequest = async (
 
   try {
     if (result.ok) {
+      console.log("result is ok");
+      return await result.json();
+    } else {
+      console.log("result is not ok");
       return await result.json();
     }
   } catch {
+    console.log("in error");
     return result;
   }
 };
