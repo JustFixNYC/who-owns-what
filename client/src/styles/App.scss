@@ -7,6 +7,13 @@
   font-family: $wow-font;
 }
 
+.download-btn-link,
+.download-btn-link:hover,
+.download-btn-link:active,
+.download-btn-link:focus {
+  text-decoration: none;
+}
+
 .App {
   height: 100%;
   display: flex;
