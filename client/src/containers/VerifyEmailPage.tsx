@@ -69,7 +69,7 @@ const VerifyEmailPage = withI18n()((props: withI18nProps) => {
             setIsEmailResent(await AuthClient.resendVerifyEmail(token));
           }}
         >
-          <Trans>Resend verification email</Trans>
+          <Trans>Send new link</Trans>
         </button>
       </div>
     );
