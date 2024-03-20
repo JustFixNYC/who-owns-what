@@ -115,14 +115,31 @@ def verify_email(request):
 
 
 @api
-def resend_verify_email(request):
+def resend_verification(request):
     try:
         return authenticated_request(
-            "user/resend_verify_email/",
+            "user/resend_verification/",
             request,
             {
                 "origin": request.headers["Origin"],
             },
+        )
+    except KeyError:
+        return HttpResponse(content_type="application/json", status=401)
+
+
+@api
+def resend_verification_with_token(request):
+    try:
+        post_data = {
+            "token": request.GET.get("u"),
+            "origin": request.headers["Origin"],
+        }
+
+        return auth_server_request(
+            "POST",
+            "user/resend_verification_with_token/",
+            post_data,
         )
     except KeyError:
         return HttpResponse(content_type="application/json", status=401)
