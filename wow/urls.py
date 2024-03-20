@@ -32,4 +32,12 @@ urlpatterns = [
     ),
     path("address/export", views.address_export, name="address_export"),
     path("address/latestdeed", views.address_latestdeed, name="address_latestdeed"),
+    path("alerts/violations", views.alerts_violations, name="alerts_violations"),
+    path("email_alerts", views.email_alerts, name="email_alerts"),
+    path(
+        "email_oca_lag",
+        views.email_alerts_lagged_eviction_filings,
+        name="email_alerts_lagged_eviction_filings",
+    ),
+    path("email_alerts_multi", views.email_alerts_multi, name="email_alerts_multi"),
 ]

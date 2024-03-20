@@ -47,8 +47,12 @@ const clearUser = () => (_user = undefined);
  * Authenticates a user with the given email and password.
  * Creates an account for this user if one does not already exist.
  */
-const register = async (username: string, password: string) => {
-  const json = await postAuthRequest(`${BASE_URL}auth/register`, { username, password });
+const register = async (username: string, password: string, userType: string) => {
+  const json = await postAuthRequest(`${BASE_URL}auth/register`, {
+    username,
+    password,
+    user_type: userType,
+  });
   fetchUser();
   return json;
 };
@@ -87,7 +91,7 @@ const userAuthenticated = async () => {
 };
 
 /**
- * Sends an authenticated request to verify the user email
+ * Sends an unauthenticated request to verify the user email
  */
 const verifyEmail = async () => {
   const params = new URLSearchParams(window.location.search);
@@ -186,15 +190,22 @@ const isEmailAlreadyUsed = async (email: string) => {
 /**
  * Sends an unauthenticated request to unsubscribe the user from the building
  */
-const emailBuildingUnsubscribe = async (bbl: string, token: string) => {
+const emailUnsubscribeBuilding = async (bbl: string, token: string) => {
   return await postAuthRequest(`${BASE_URL}auth/unsubscribe/${bbl}?u=${token}`);
+};
+
+/**
+ * Sends an unauthenticated request to unsubscribe the user from all buildings
+ */
+const emailUnsubscribeAll = async (token: string) => {
+  return await postAuthRequest(`${BASE_URL}auth/email/unsubscribe?u=${token}`);
 };
 
 /**
  * Fetches the list of all subscriptions associated with a user
  */
-const userSubscriptions = async (token: string) => {
-  return await postAuthRequest(`${BASE_URL}auth/subscriptions?u=${token}`);
+const emailUserSubscriptions = async (token: string) => {
+  return await postAuthRequest(`${BASE_URL}auth/email/subscriptions?u=${token}`);
 };
 
 /**
@@ -294,8 +305,9 @@ const Client = {
   resetPassword,
   buildingSubscribe,
   buildingUnsubscribe,
-  userSubscriptions,
-  emailBuildingUnsubscribe,
+  emailUserSubscriptions,
+  emailUnsubscribeBuilding,
+  emailUnsubscribeAll,
 };
 
 export default Client;

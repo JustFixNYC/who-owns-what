@@ -5,80 +5,41 @@
 .Login,
 .ForgotPasswordPage,
 .ResetPasswordPage {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+
   .input-group {
     display: flex;
     flex-direction: column;
-    margin-top: 0.63rem;
+    gap: 1.5rem;
 
-    #input-field-error {
+    .submit-button-group {
       display: flex;
-      align-items: center;
-      font-size: 0.81rem;
-      color: #ba4300;
-      margin-bottom: 0.31rem;
 
-      svg {
-        margin-right: 0.47rem;
+      button[type="submit"],
+      input[type="submit"] {
+        padding: 1rem 2rem !important;
+        align-self: center;
+        margin: 0 auto !important;
       }
-    }
-
-    input[type="email"],
-    .password-input {
-      margin-bottom: 1.25rem;
-    }
-
-    input[type="submit"] {
-      padding: 1rem 2rem !important;
-      align-self: center;
-      margin: 0 auto !important;
-    }
-
-    input:invalid,
-    .invalid {
-      border-color: $justfix-orange;
-    }
-
-    input:focus:invalid,
-    .invalid:focus {
-      border-color: $justfix-black;
     }
   }
 
   .page-title {
-    margin-top: 0.94rem;
-  }
-
-  label {
-    @include desktop-eyebrow();
-    // vars marked !important bc typography mixin is not available for inconsolata
-    font-weight: 600 !important;
-    font-family: $wow-font !important;
-    font-size: 0.81rem !important;
-
-    text-align: left;
-    margin-top: 0.63rem;
-    margin-bottom: 0.31rem;
+    margin-top: 0.9375rem;
   }
 
   .building-page-footer {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    gap: 1.5rem;
 
-    .privacy-modal {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin: 1.25rem 0 1.25rem 0;
-
-      .info-icon {
-        margin-left: 0.25rem;
-        width: 18px;
-        &:focus-visible {
-          outline: 2px solid $focus-outline-color;
-          outline-offset: 2px;
-        }
-      }
+    .privacy-links {
+      text-align: center;
+      max-width: 20rem;
+      margin: 0 auto;
     }
 
     .login-type-toggle {
@@ -86,10 +47,18 @@
       justify-content: center;
       font-size: 0.94rem;
     }
+
+    .privacy-links,
+    .login-type-toggle {
+      a,
+      button {
+        color: inherit;
+      }
+    }
   }
 
   .login-response-text {
-    margin: 0.63rem 0 0.63rem;
+    margin: 0.39rem 0 0.39rem;
   }
 
   .login-password-label {
@@ -104,13 +73,27 @@
 
   h4 {
     font-size: 1.5rem;
+    margin-bottom: 0;
   }
   h5 {
-    font-size: 1rem;
+    font-size: 0.63rem;
   }
 
-  .password-input {
-    margin-top: 0.31rem;
+  .verify-email-container {
+    color: $justfix-black;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+
+    p {
+      margin: 0;
+    }
+
+    h4,
+    .resend-verify-label {
+      display: flex;
+      justify-content: center;
+    }
   }
 
   .jf-alert {
@@ -134,11 +117,11 @@
     align-items: center;
 
     svg {
-      margin: 0.63rem 0 1.56rem 0;
+      margin: 0.39rem 0 0.98rem 0;
     }
 
     .button.is-text {
-      margin-top: 0.63rem;
+      margin-top: 0.39rem;
       display: block !important;
       color: $justfix-black;
     }

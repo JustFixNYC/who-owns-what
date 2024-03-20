@@ -1,23 +1,41 @@
 @import "_vars.scss";
 
-.subscription-field {
-  display: flex;
-  border-top: 1px solid #e5e5e5;
-  padding: 1rem;
+.subscriptions-container {
+  .subscription-field,
+  .unsubscribe-all-field {
+    display: flex;
+    border-top: 1px solid #e5e5e5;
+    padding: 1rem;
+  }
+  .unsubscribe-all-field {
+    justify-content: end;
+    button {
+      font-size: 1rem;
+      text-decoration: none;
+    }
+  }
+
+  a.subscription-address {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    color: $justfix-black;
+    cursor: pointer;
+  }
+
+  a.subscription-address:hover {
+    text-decoration: none;
+  }
 }
 
-.subscription-field:last-child {
-  border-bottom: 1px solid #e5e5e5;
+.settings-no-subscriptions {
+  padding: 1.6rem;
+  background-color: $justfix-grey-50;
+  border-radius: 4px;
+  margin: auto 1.6rem;
 }
 
-a.subscription-address {
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  color: $justfix-black;
-  cursor: pointer;
-}
-
-a.subscription-address:hover {
-  text-decoration: none;
+.settings-contact {
+  margin: 3.75rem 1.25rem 3.13rem;
+  text-align: center;
 }

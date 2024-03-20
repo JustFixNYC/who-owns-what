@@ -1,5 +1,5 @@
 /* eslint-disable no-useless-escape */
-import React, { Fragment, useState } from "react";
+import React, { ChangeEvent, forwardRef, useState } from "react";
 
 import "styles/Password.css";
 import "styles/_input.scss";
@@ -9,7 +9,8 @@ import { LocaleLink } from "i18n";
 import { createWhoOwnsWhatRoutePaths } from "routes";
 import { I18n } from "@lingui/core";
 import { t } from "@lingui/macro";
-import { HideIcon, ShowIcon } from "./Icons";
+import { AlertIcon, CheckIcon, DotIcon, HideIcon, ShowIcon } from "./Icons";
+import classNames from "classnames";
 
 type PasswordRule = {
   regex: RegExp;
@@ -24,73 +25,121 @@ const passwordRules: PasswordRule[] = [
   },
 ];
 
-export const validatePassword = (password: string) => {
+const isBadPasswordFormat = (password: string) => {
   let valid = true;
   passwordRules.forEach((rule) => (valid = valid && !!password.match(rule.regex)));
-  return valid;
+  return !valid;
 };
 
-type PasswordInputProps = {
+interface PasswordInputProps extends React.ComponentPropsWithoutRef<"input"> {
   i18n: I18n;
   labelText: string;
+  password: string;
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  error: boolean;
+  showError: boolean;
+  setError: React.Dispatch<React.SetStateAction<boolean>>;
   username?: string;
-  onChange?: (password: string) => void;
   showPasswordRules?: boolean;
   showForgotPassword?: boolean;
-};
+  i18nHash?: string;
+}
 
-const PasswordInputWithoutI18n = (props: PasswordInputProps) => {
-  const { account } = createWhoOwnsWhatRoutePaths();
+const PasswordInputWithoutI18n = forwardRef<HTMLInputElement, PasswordInputProps>(
+  (
+    {
+      i18n,
+      i18nHash,
+      labelText,
+      username,
+      password,
+      error,
+      setError,
+      showError,
+      onChange,
+      showPasswordRules,
+      showForgotPassword,
+      id,
+      ...props
+    },
+    ref
+  ) => {
+    const { account } = createWhoOwnsWhatRoutePaths();
 
-  const { i18n, labelText, username, onChange, showPasswordRules, showForgotPassword } = props;
-  const [password, setPassword] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
 
-  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPassword(e.target.value);
-    if (onChange) onChange(e.target.value);
-  };
+    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+      onChange(e);
+      const passwordIsInvalid = isBadPasswordFormat(e.target.value);
+      setError(passwordIsInvalid);
+    };
 
-  return (
-    <Fragment>
-      <div className="password-input-label">
-        <label>{i18n._(t`${labelText}`)}</label>
-        {showForgotPassword && (
-          <LocaleLink to={`${account.forgotPassword}?email=${encodeURIComponent(username || "")}`}>
-            Forgot your password?
-          </LocaleLink>
-        )}
-      </div>
-      {showPasswordRules && (
-        <div className="password-input-rules">
-          {passwordRules.map((rule, i) => {
-            const ruleClass = !!password ? (password.match(rule.regex) ? "valid" : "invalid") : "";
-            return (
-              <span className={`password-input-rule ${ruleClass}`} key={`rule-${i}`}>
-                {rule.label}
-              </span>
-            );
-          })}
+    return (
+      <div className="password-input-field">
+        <div className="password-input-label">
+          <label htmlFor={id ?? "password-input"}>{i18n._(t`${labelText}`)}</label>
+          {showForgotPassword && (
+            <LocaleLink
+              to={`${account.forgotPassword}?email=${encodeURIComponent(username || "")}`}
+            >
+              {i18n._(t`Forgot your password?`)}
+            </LocaleLink>
+          )}
         </div>
-      )}
-      <div className="password-input">
-        <input
-          type={showPassword ? "text" : "password"}
-          className="input"
-          onChange={handlePasswordChange}
-          value={password}
-        />
-        <button
-          type="button"
-          className="show-hide-toggle"
-          onClick={() => setShowPassword(!showPassword)}
-        >
-          {showPassword ? <HideIcon /> : <ShowIcon />}
-        </button>
+        {showPasswordRules ? (
+          <div className="password-input-rules">
+            {passwordRules.map((rule, i) => {
+              let ruleClass = "";
+              let RuleIcon = <DotIcon />;
+              if (!!password || showError) {
+                if (password.match(rule.regex)) {
+                  ruleClass = "valid";
+                  RuleIcon = <CheckIcon />;
+                } else {
+                  ruleClass = "invalid";
+                  RuleIcon = <AlertIcon />;
+                }
+              }
+              return (
+                <span className={`password-input-rule ${ruleClass}`} key={`rule-${i}`}>
+                  {RuleIcon}
+                  {rule.label}
+                </span>
+              );
+            })}
+          </div>
+        ) : (
+          showError &&
+          error && (
+            <div className="password-input-errors">
+              <span id="input-field-error">
+                <AlertIcon />
+                {i18n._(t`Please enter password.`)}
+              </span>
+            </div>
+          )
+        )}
+        <div className="password-input">
+          <input
+            type={showPassword ? "text" : "password"}
+            id={id ?? "password-input"}
+            className={classNames("input", { invalid: showError && error })}
+            onChange={handleChange}
+            value={password}
+            {...props}
+          />
+          <button
+            type="button"
+            className="show-hide-toggle"
+            onClick={() => setShowPassword(!showPassword)}
+          >
+            {showPassword ? <HideIcon /> : <ShowIcon />}
+          </button>
+        </div>
       </div>
-    </Fragment>
-  );
-};
+    );
+  }
+);
 
 PasswordInputWithoutI18n.defaultProps = {
   showPasswordRules: false,

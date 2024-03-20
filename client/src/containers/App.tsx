@@ -36,11 +36,7 @@ import { wowMachine } from "state-machine";
 import { NotFoundPage } from "./NotFoundPage";
 import widont from "widont";
 import { Dropdown } from "components/Dropdown";
-import {
-  isLegacyPath,
-  ToggleLinkBetweenPortfolioMethods,
-  WowzaRedirectPage,
-} from "components/WowzaToggle";
+import { isLegacyPath, WowzaRedirectPage } from "components/WowzaToggle";
 import { logAmplitudeEvent } from "../components/Amplitude";
 import { SliderButton } from "@typeform/embed-react";
 import { StickyModal } from "components/StickyModal";
@@ -318,44 +314,8 @@ const AppBody = () => {
   );
 };
 
-const WowzaBanner = withI18n()((props: withI18nProps) => {
-  const [isBannerOpen, setBannerVisibility] = useState(true);
-  const { pathname } = useLocation();
-  const { i18n } = props;
-  const { about } = createWhoOwnsWhatRoutePaths();
-
-  return (
-    <div className={"App__banner " + (!isBannerOpen ? "d-hide" : "")}>
-      <div className="content">
-        {isLegacyPath(pathname) ? (
-          <Trans>
-            This is the old version of Who Owns What.{" "}
-            <ToggleLinkBetweenPortfolioMethods>
-              Check out the new version here.
-            </ToggleLinkBetweenPortfolioMethods>
-          </Trans>
-        ) : (
-          <Trans>
-            This is the new version of Who Owns What. To view the old version{" "}
-            <LocaleNavLink to={about}>visit the About Page.</LocaleNavLink>
-          </Trans>
-        )}
-      </div>
-      <button
-        className="close-button"
-        onClick={() => setBannerVisibility(false)}
-        aria-label={i18n._(t`Close`)}
-      >
-        ✕
-      </button>
-    </div>
-  );
-});
-
 const App = () => {
   const version = process.env.REACT_APP_VERSION;
-  const allowChangingPortfolioMethod =
-    process.env.REACT_APP_ENABLE_NEW_WOWZA_PORTFOLIO_MAPPING === "1";
   const surveyId = process.env.REACT_APP_WOAU_SURVEY_ID;
   const deprecationModalEnabled = process.env.REACT_APP_DEPRECATION_MODAL_ENABLED;
 
@@ -395,7 +355,6 @@ const App = () => {
           )}
           <UserContextProvider>
             <div className="App">
-              {allowChangingPortfolioMethod && <WowzaBanner />}
               <Navbar />
               {deprecationModalEnabled && <DeprecationModal />}
               <AppBody />
