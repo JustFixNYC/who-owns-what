@@ -131,19 +131,6 @@ const resendVerifyEmail = async (token?: string) => {
   }
 };
 
-// /**
-//  * Sends unauthenticated request for a new verification email
-//  * Used only in expired verification flow in logged out state
-//  */
-// const resendVerificationWithoutAuth = async (token: string) => {
-//   try {
-//     await postAuthRequest(`${BASE_URL}auth/token_resend_verify_email?u=${token}`);
-//     return true;
-//   } catch {
-//     return false;
-//   }
-// };
-
 /**
  * Sends an authenticated request to update the user email
  */
