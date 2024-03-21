@@ -131,9 +131,7 @@ const ResetPasswordPage = withI18n()((props: withI18nProps) => {
 
   const successPage = () => (
     <>
-      <Trans render="h4">
-        Your password has successfully been reset
-      </Trans>
+      <Trans render="h4">Your password has successfully been reset</Trans>
       <Trans render="div">
         You will be redirected back to Who Owns What in
         {updateCountdown()}
@@ -159,7 +157,7 @@ const ResetPasswordPage = withI18n()((props: withI18nProps) => {
               successPage()
             ) : tokenStatus === ResetStatusCode.Accepted ? (
               resetPasswordPage()
-            ) : resetStatus === ResetStatusCode.Expired ? (
+            ) : tokenStatus === ResetStatusCode.Expired ? (
               expiredPage()
             ) : (
               invalidPage()
