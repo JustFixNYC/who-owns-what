@@ -146,6 +146,7 @@
 
       h6 {
         font-weight: bold;
+        text-align: center;
 
         a {
           color: $dark;
@@ -156,6 +157,10 @@
           }
         }
       }
+    }
+
+    .portfolio-link {
+      margin: 2rem 0;
     }
   }
 }

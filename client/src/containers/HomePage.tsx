@@ -243,6 +243,7 @@ const HomePage: React.FC<HomePageProps> = ({ useNewPortfolioMethod }) => {
                       in rent-stabilized buildings.
                     </Trans>
                     <Link
+                      className="flex-centered portfolio-link"
                       to={getSampleUrls()[1]}
                       onClick={() => {
                         window.gtag("event", "example-portfolio-2-homepage");
@@ -287,6 +288,7 @@ const HomePage: React.FC<HomePageProps> = ({ useNewPortfolioMethod }) => {
                       while vacant, and skyrocketing rents to market rate.
                     </Trans>
                     <Link
+                      className="flex-centered portfolio-link"
                       to={getSampleUrls()[2]}
                       onClick={() => {
                         window.gtag("event", "example-portfolio-3-homepage");

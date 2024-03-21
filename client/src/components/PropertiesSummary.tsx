@@ -59,6 +59,7 @@ const DataRequestButton: React.FC<{
           href={generateLinkToDataRequestForm(i18n, address)}
           target="_blank"
           rel="noopener noreferrer"
+          icon="external"
         >
           <Trans>Send us a data request</Trans>
         </Link>
@@ -208,7 +209,7 @@ export default class PropertiesSummary extends Component<Props, {}> {
                   </div>
                   <div>
                     <h6 className="PropertiesSummary__linksSubtitle">
-                      <Trans>Share this page with your neighbors</Trans>
+                      <Trans>Share with your neighbors</Trans>
                     </h6>
                     <SocialShareAddressPage
                       location="summary-tab"

@@ -19,7 +19,6 @@ export const UsefulLinks: React.FC<UsefulLinksProps> = ({ addrForLinks, location
       <Trans render={location === "not-registered-page" ? "p" : "b"}>Useful links</Trans>
       <ul>
         <li>
-          <Trans>View documents on</Trans>{" "}
           <Link
             onClick={() => {
               logAmplitudeEvent(`acris-${location}` as AmplitudeEvent);
@@ -30,7 +29,7 @@ export const UsefulLinks: React.FC<UsefulLinksProps> = ({ addrForLinks, location
             rel="noopener noreferrer"
             icon="external"
           >
-            <Trans>ACRIS</Trans>
+            <Trans>View documents on ACRIS</Trans>
           </Link>
         </li>
         <li>

@@ -428,7 +428,7 @@ class DetailViewWithoutI18n extends Component<Props, State> {
 
                       <div className="card-body-social social-group">
                         <h6 className="DetailView__subtitle">
-                          <Trans>Share this page with your neighbors</Trans>
+                          <Trans>Share with your neighbors</Trans>
                         </h6>
                         <SocialShareDetailView />
                       </div>

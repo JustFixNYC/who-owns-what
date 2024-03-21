@@ -27,7 +27,7 @@ const getTodaysDate = () => new Date();
 export const SocialShareForNotRegisteredPage = () => (
   <div className="social-share">
     <p>
-      <Trans>Share this page with your neighbors</Trans>
+      <Trans>Share with your neighbors</Trans>
     </p>
     <SocialShare location="not-registered-page" />
   </div>

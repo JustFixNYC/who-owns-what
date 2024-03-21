@@ -28,7 +28,7 @@
     position: relative;
     flex-direction: row;
 
-    @include for-tablet-landscape-down() {
+    @include for-desktop-down() {
       display: block;
       align-items: center;
       flex-direction: column;
@@ -38,7 +38,7 @@
       margin-left: 16px;
       margin-right: 16px;
 
-      @include for-tablet-landscape-down() {
+      @include for-desktop-down() {
         margin-top: 10px;
         margin-bottom: 10px;
       }
@@ -50,16 +50,6 @@
 
       .btn-block {
         min-width: 175px;
-      }
-
-      @include for-tablet-landscape-down() {
-        .EngagementSocialLinks {
-          display: flex;
-
-          .btn {
-            flex: 1 1 0;
-          }
-        }
       }
     }
   }

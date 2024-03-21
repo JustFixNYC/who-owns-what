@@ -21,7 +21,7 @@ const EngagementPanel: React.FC<{
         </div>
         <div className="EngagementItem">
           <p>
-            <Trans>Share this page with your neighbors</Trans>
+            <Trans>Share with your neighbors</Trans>
           </p>
           <SocialShare location={props.location} />
         </div>
@@ -29,9 +29,7 @@ const EngagementPanel: React.FC<{
           <p>
             <Trans>Visit our website</Trans>
           </p>
-          <Link href="https://www.justfix.org/" icon="external">
-            www.JustFix.org
-          </Link>
+          <Link href="https://www.justfix.org/">www.JustFix.org</Link>
         </div>
       </div>
     </div>
