@@ -143,6 +143,19 @@ def password_reset_request(request):
 
 
 @api
+def password_reset_token_check(request):
+    post_data = {
+        "token": request.GET.get("token"),
+    }
+    return auth_server_request(
+        "POST",
+        "user/password_reset/check/",
+        post_data,
+        {"Cookie": request.headers.get("Cookie")},
+    )
+
+
+@api
 def password_reset(request):
     post_data = {
         "token": request.GET.get("token"),
