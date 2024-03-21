@@ -10,14 +10,18 @@ import AuthClient, { ResetStatusCode } from "components/AuthClient";
 import PasswordInput from "components/PasswordInput";
 import { useInput } from "util/helpers";
 import { FixedLoadingLabel } from "components/Loader";
+import { createWhoOwnsWhatRoutePaths } from "routes";
+import { LocaleLink } from "i18n";
 
 const ResetPasswordPage = withI18n()((props: withI18nProps) => {
   const { i18n } = props;
   const { search } = useLocation();
+  const { account } = createWhoOwnsWhatRoutePaths();
   const params = new URLSearchParams(search);
 
   const [tokenStatus, setTokenStatus] = React.useState<ResetStatusCode>();
-  const [requestSent, setRequestSent] = React.useState(false);
+  const [resetStatus, setResetStatus] = React.useState<ResetStatusCode>();
+  const [emailIsResent, setEmailIsResent] = React.useState(false);
   const {
     value: password,
     error: passwordError,
@@ -36,7 +40,7 @@ const ResetPasswordPage = withI18n()((props: withI18nProps) => {
     const delayInterval = delaySeconds * 100;
 
     setInterval(() => {
-      timeLeft--;
+      timeLeft && timeLeft--; // prevents counter from going below 0
       document.getElementById("countdown")!.textContent = timeLeft.toString();
       if (timeLeft <= 0) {
         document.location.href = redirectUrl;
@@ -64,42 +68,46 @@ const ResetPasswordPage = withI18n()((props: withI18nProps) => {
     }
 
     const resp = await AuthClient.resetPassword(params.get("token") || "", password);
-    if (resp.statusCode === ResetStatusCode.Success) {
-      
-    } else {
-      setTokenStatus(resp.statusCode);
-    }
+    setResetStatus(resp.statusCode);
   };
 
-  const expiredTokenPage = () => (
-    <>
-      <Trans render="h4">The link sent to you has timed out.</Trans>
-        <br />
+  const expiredPage = () => {
+    const resendEmailPage = (
+      <>
+        <Trans render="h4">The password reset link that we sent you is no longer valid.</Trans>
         <button
           className="button is-secondary"
           onClick={async () => {
-            setIsEmailResent(await AuthClient.resendVerifyEmail());
+            setEmailIsResent(await AuthClient.resetPasswordRequest());
           }}
         >
-          <Trans>Resend verification email</Trans>
+          <Trans>Send new link</Trans>
         </button>
-    </>
-  )
+      </>
+    );
 
-  const invalidTokenPage = () => (
-    <>
-      <Trans render="h4">The link sent to you has timed out.</Trans>
-        <br />
-        <button
-          className="button is-secondary"
-          onClick={async () => {
-            setIsEmailResent(await AuthClient.resendVerifyEmail());
-          }}
-        >
-          <Trans>Resend verification email</Trans>
-        </button>
-    </>
-  )
+    const resendEmailConfirmation = (
+      <>
+        <Trans render="h4">Check your email</Trans>
+        <Trans render="span">
+          We sent a new password reset link to your email. Please check your inbox and spam.
+        </Trans>
+      </>
+    );
+
+    return emailIsResent ? resendEmailConfirmation : resendEmailPage;
+  };
+
+  const invalidPage = () => {
+    return (
+      <>
+        <Trans render="h4">Sorry, something went wrong with the password reset.</Trans>
+        <LocaleLink className="button is-secondary" to={account.forgotPassword}>
+          <Trans>Request new link</Trans>
+        </LocaleLink>
+      </>
+    );
+  };
 
   const resetPasswordPage = () => (
     <>
@@ -123,32 +131,41 @@ const ResetPasswordPage = withI18n()((props: withI18nProps) => {
 
   const successPage = () => (
     <>
-      <Trans className="text-center" render="h4">
+      <Trans render="h4">
         Your password has successfully been reset
       </Trans>
-      <br />
-      <div className="text-center">
-        <Trans className="text-center">You will be redirected back to Who Owns What in</Trans>
-        <br>{updateCountdown()}</br>
-        <Trans className="d-flex justify-content-center">
-          <span id="countdown"> {delaySeconds}</span> seconds
-        </Trans>
-        <br />
-        <br />
-        <Trans className="text-center">
-          <a href={redirectUrl} style={{ color: "#242323" }}>
-            Click to log in
-          </a>{" "}
-          if you are not redirected
-        </Trans>
-      </div>
+      <Trans render="div">
+        You will be redirected back to Who Owns What in
+        {updateCountdown()}
+        <span id="countdown"> {delaySeconds}</span> seconds
+      </Trans>
+      <Trans render="div">
+        <a href={redirectUrl} style={{ color: "#242323" }}>
+          Click to log in
+        </a>{" "}
+        if you are not redirected
+      </Trans>
     </>
   );
 
   return (
     <Page title={i18n._(t`Reset your password`)}>
       <div className="ResetPasswordPage Page">
-        <div className="page-container">{tokenIsValid === undefined ? <FixedLoadingLabel/> : !tokenIsValid ? invalidTokenPage() : passwordIsReset ? successPage() : resetPasswordPage()}</div>
+        <div className="page-container">
+          <div className="text-center">
+            {tokenStatus === undefined ? (
+              <FixedLoadingLabel />
+            ) : resetStatus === ResetStatusCode.Success ? (
+              successPage()
+            ) : tokenStatus === ResetStatusCode.Accepted ? (
+              resetPasswordPage()
+            ) : resetStatus === ResetStatusCode.Expired ? (
+              expiredPage()
+            ) : (
+              invalidPage()
+            )}
+          </div>
+        </div>
         <LegalFooter />
       </div>
     </Page>
