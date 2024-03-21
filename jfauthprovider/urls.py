@@ -12,7 +12,12 @@ urlpatterns = [
     path("auth_check", views.auth_check, name="auth_check"),
     path("account_exists/<str:email>", views.account_exists, name="account_exists"),
     path("verify_email", views.verify_email, name="verify_email"),
-    path("resend_verify_email", views.resend_verify_email, name="resend_verify_email"),
+    path("resend_verification", views.resend_verification, name="resend_verification"),
+    path(
+        "resend_verification_with_token",
+        views.resend_verification_with_token,
+        name="resend_verification_with_token",
+    ),
     path("reset_password", views.password_reset_request, name="password_reset_request"),
     path("reset_password/check", views.password_reset_token_check, name="password_reset_token_check"),
     path("set_password", views.password_reset, name="password_reset"),
