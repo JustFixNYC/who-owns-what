@@ -18,21 +18,8 @@ urlpatterns = [
         views.resend_verification_with_token,
         name="resend_verification_with_token",
     ),
-    path(
-        "reset_password_request",
-        views.reset_password_request,
-        name="reset_password_request",
-    ),
-    path(
-        "reset_password_request_with_token",
-        views.reset_password_request_with_token,
-        name="reset_password_request_with_token",
-    ),
-    path(
-        "reset_password/check",
-        views.password_reset_token_check,
-        name="password_reset_token_check",
-    ),
+    path("reset_password", views.password_reset_request, name="password_reset_request"),
+    path("reset_password/check", views.password_reset_token_check, name="password_reset_token_check"),
     path("set_password", views.password_reset, name="password_reset"),
     path("change_password", views.password_change, name="password_change"),
     path(

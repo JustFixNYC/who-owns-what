@@ -22,7 +22,7 @@ export enum ResetStatusCode {
   Success = 200,
   Accepted = 202,
   Invalid = 400,
-  Expired = 410,
+  Expired = 404,
   Unknown = 500,
 }
 
@@ -85,23 +85,8 @@ const logout = async () => {
   return await postAuthRequest(`${BASE_URL}auth/logout`);
 };
 
-/**
- * Sends request to send a password reset link to the user's email
- */
-const resetPasswordRequest = async (username?: string) => {
-  try {
-    if (username) {
-      await postAuthRequest(`${BASE_URL}auth/reset_password_request`, { username });
-    } else {
-      const params = new URLSearchParams(window.location.search);
-      await postAuthRequest(
-        `${BASE_URL}auth/reset_password_request_with_token?u=${params.get("token")}`
-      );
-    }
-    return true;
-  } catch {
-    return false;
-  }
+const resetPasswordRequest = async (username: string) => {
+  return await postAuthRequest(`${BASE_URL}auth/reset_password`, { username });
 };
 
 /**
@@ -130,23 +115,9 @@ const resetPasswordCheck = async () => {
 };
 
 const resetPassword = async (token: string, newPassword: string) => {
-  let result: PasswordResetResponse = {
-    statusCode: ResetStatusCode.Unknown,
-    statusText: "",
-  };
-
-  try {
-    const response = await postAuthRequest(`${BASE_URL}auth/set_password?token=${token}`, {
-      new_password: newPassword,
-    });
-    result.statusCode = response.status_code;
-    result.statusText = response.status_text;
-  } catch (e) {
-    if (e instanceof Error) {
-      result.error = e.message;
-    }
-  }
-  return result;
+  return await postAuthRequest(`${BASE_URL}auth/set_password?token=${token}`, {
+    new_password: newPassword,
+  });
 };
 
 /**
