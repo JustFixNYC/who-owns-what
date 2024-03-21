@@ -34,7 +34,6 @@ const ForgotPasswordPage = withI18n()((props: withI18nProps) => {
       setShowEmailError(true);
       return;
     }
-    // TODO: should we confirm that the email already exists?
     resendPasswordResetRequest();
   };
 
@@ -47,45 +46,49 @@ const ForgotPasswordPage = withI18n()((props: withI18nProps) => {
     <Page title={i18n._(t`Forgot your password?`)}>
       <div className="ForgotPasswordPage Page">
         <div className="page-container">
-          <Trans render="h4" className="page-title">
-            Reset Password
-          </Trans>
-          {!requestSent ? (
-            <>
-              <Trans render="h5">
-                Review your email address below. You’ll receive a "Reset password" email to this
-                address.
-              </Trans>
-              <form onSubmit={handleSubmit} className="input-group">
-                <EmailInput
-                  email={email}
-                  error={emailError}
-                  showError={showEmailError}
-                  setError={setEmailError}
-                  onChange={onChangeEmail}
-                  placeholder={i18n._(t`Enter email`)}
-                  labelText={i18n._(t`Email address`)}
-                  autoFocus
-                />
-                <button type="submit" className="button is-primary">
-                  <Trans>Reset password</Trans>
-                </button>
-              </form>
-            </>
-          ) : (
-            <div className="request-sent-success">
-              <Trans render="h5">
-                We sent a reset link to {`${email}`}. Please check your inbox and spam.
-              </Trans>
-              <Trans render="span">Didn’t receive an email?</Trans>
-              <button
-                className="button is-primary resend-link"
-                onClick={resendPasswordResetRequest}
-              >
-                <Trans>Send new link</Trans>
-              </button>
-            </div>
-          )}
+          <div className="text-center">
+            <Trans render="h4" className="page-title">
+              Reset Password
+            </Trans>
+            {!requestSent ? (
+              <>
+                <Trans render="h5">
+                  Review your email address below. You’ll receive a "Reset password" email to this
+                  address.
+                </Trans>
+                <form onSubmit={handleSubmit} className="input-group">
+                  <EmailInput
+                    email={email}
+                    error={emailError}
+                    showError={showEmailError}
+                    setError={setEmailError}
+                    onChange={onChangeEmail}
+                    placeholder={i18n._(t`Enter email`)}
+                    labelText={i18n._(t`Email address`)}
+                    autoFocus
+                  />
+                  <button type="submit" className="button is-primary">
+                    <Trans>Reset password</Trans>
+                  </button>
+                </form>
+              </>
+            ) : (
+              <>
+                <Trans render="h5">
+                  We sent a reset link to {`${email}`}. Please check your inbox and spam.
+                </Trans>
+                <div className="text-center">
+                  <Trans render="span">Didn’t receive an email?</Trans>
+                  <button
+                    className="button is-primary resend-link"
+                    onClick={resendPasswordResetRequest}
+                  >
+                    <Trans>Send new link</Trans>
+                  </button>
+                </div>
+              </>
+            )}
+          </div>
         </div>
         <LegalFooter />
       </div>
