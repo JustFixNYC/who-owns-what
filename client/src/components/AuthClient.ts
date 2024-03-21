@@ -18,18 +18,6 @@ type VerifyEmailResponse = {
   error?: string;
 };
 
-export enum ResetStatusCode {
-  Success = 200,
-  Accepted = 202,
-  Invalid = 400,
-  Expired = 404,
-  Unknown = 500,
-}
-
-type PasswordResetResponse = Omit<VerifyEmailResponse, "statusCode"> & {
-  statusCode: ResetStatusCode;
-};
-
 let _user: JustfixUser | undefined;
 const user = () => _user;
 const fetchUser = async () => {
@@ -87,31 +75,6 @@ const logout = async () => {
 
 const resetPasswordRequest = async (username: string) => {
   return await postAuthRequest(`${BASE_URL}auth/reset_password`, { username });
-};
-
-/**
- * Sends an unauthenticated request to checks if the password reset token is valid
- */
-const resetPasswordCheck = async () => {
-  const params = new URLSearchParams(window.location.search);
-
-  let result: PasswordResetResponse = {
-    statusCode: ResetStatusCode.Unknown,
-    statusText: "",
-  };
-
-  try {
-    const response = await postAuthRequest(
-      `${BASE_URL}auth/reset_password/check?token=${params.get("token")}`
-    );
-    result.statusCode = response.status_code;
-    result.statusText = response.status_text;
-  } catch (e) {
-    if (e instanceof Error) {
-      result.error = e.message;
-    }
-  }
-  return result;
 };
 
 const resetPassword = async (token: string, newPassword: string) => {
@@ -345,7 +308,6 @@ const Client = {
   updateEmail,
   updatePassword,
   resetPasswordRequest,
-  resetPasswordCheck,
   resetPassword,
   buildingSubscribe,
   buildingUnsubscribe,

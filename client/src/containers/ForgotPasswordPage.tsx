@@ -8,8 +8,7 @@ import { withI18n, withI18nProps } from "@lingui/react";
 import { Trans, t } from "@lingui/macro";
 
 import { UserContext } from "components/UserContext";
-import EmailInput from "components/EmailInput";
-import { useInput } from "util/helpers";
+import { MailIcon } from "components/Icons";
 
 const ForgotPasswordPage = withI18n()((props: withI18nProps) => {
   const { i18n } = props;
@@ -17,28 +16,16 @@ const ForgotPasswordPage = withI18n()((props: withI18nProps) => {
   const params = new URLSearchParams(search);
 
   const [requestSent, setRequestSent] = React.useState(false);
+  const [email, setEmail] = React.useState(decodeURIComponent(params.get("email") || ""));
   const userContext = useContext(UserContext);
-  const {
-    value: email,
-    error: emailError,
-    showError: showEmailError,
-    setError: setEmailError,
-    setShowError: setShowEmailError,
-    onChange: onChangeEmail,
-  } = useInput(decodeURIComponent(params.get("email") || ""));
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (!email || emailError) {
-      setEmailError(true);
-      setShowEmailError(true);
-      return;
-    }
-    // TODO: should we confirm that the email already exists?
-    resendPasswordResetRequest();
+  const handleValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(e.target.value);
   };
 
-  const resendPasswordResetRequest = async () => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
     await userContext.requestPasswordReset(email);
     setRequestSent(true);
   };
@@ -48,7 +35,7 @@ const ForgotPasswordPage = withI18n()((props: withI18nProps) => {
       <div className="ForgotPasswordPage Page">
         <div className="page-container">
           <Trans render="h4" className="page-title">
-            Reset Password
+            Forgot your password?
           </Trans>
           {!requestSent ? (
             <>
@@ -56,33 +43,35 @@ const ForgotPasswordPage = withI18n()((props: withI18nProps) => {
                 Review your email address below. You’ll receive a "Reset password" email to this
                 address.
               </Trans>
-              <form onSubmit={handleSubmit} className="input-group">
-                <EmailInput
-                  email={email}
-                  error={emailError}
-                  showError={showEmailError}
-                  setError={setEmailError}
-                  onChange={onChangeEmail}
+              <form onSubmit={handleSubmit}>
+                <Trans render="label">Email address</Trans>
+                <input
+                  type="email"
+                  className="input"
                   placeholder={i18n._(t`Enter email`)}
-                  labelText={i18n._(t`Email address`)}
-                  autoFocus
+                  onChange={handleValueChange}
+                  value={email}
                 />
-                <button type="submit" className="button is-primary">
-                  <Trans>Reset password</Trans>
-                </button>
+                <input
+                  type="submit"
+                  className="button is-primary"
+                  value={i18n._(t`Reset password`)}
+                />
               </form>
             </>
           ) : (
             <div className="request-sent-success">
+              <MailIcon />
               <Trans render="h5">
-                We sent a reset link to {`${email}`}. Please check your inbox and spam.
+                An email has been sent to your email address {`${email}`}. Please check your inbox
+                and spam.
               </Trans>
-              <Trans render="span">Didn’t receive an email?</Trans>
-              <button
-                className="button is-primary resend-link"
-                onClick={resendPasswordResetRequest}
-              >
-                <Trans>Send new link</Trans>
+              <button className="button is-text" onClick={() => setRequestSent(false)}>
+                <Trans>
+                  Didn’t receive an email?
+                  <br />
+                  Click here to try again.
+                </Trans>
               </button>
             </div>
           )}
