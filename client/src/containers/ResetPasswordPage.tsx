@@ -76,7 +76,7 @@ const ResetPasswordPage = withI18n()((props: withI18nProps) => {
       <>
         <Trans render="h4">The password reset link that we sent you is no longer valid.</Trans>
         <button
-          className="button is-secondary"
+          className="button is-primary"
           onClick={async () => {
             setEmailIsResent(await AuthClient.resetPasswordRequest());
           }}
@@ -102,7 +102,7 @@ const ResetPasswordPage = withI18n()((props: withI18nProps) => {
     return (
       <>
         <Trans render="h4">Sorry, something went wrong with the password reset.</Trans>
-        <LocaleLink className="button is-secondary" to={account.forgotPassword}>
+        <LocaleLink className="button is-primary" to={account.forgotPassword}>
           <Trans>Request new link</Trans>
         </LocaleLink>
       </>
