@@ -146,31 +146,72 @@ def resend_verification_with_token(request):
 
 
 @api
-def password_reset_request(request):
-    post_data = {
-        "username": request.POST.get("username"),
-        "origin": request.headers["Origin"],
-    }
-    return auth_server_request(
-        "POST",
-        "user/password_reset/request/",
-        post_data,
-        {"Cookie": request.headers.get("Cookie")},
-    )
+def reset_password_request(request):
+    try:
+        post_data = {
+            "username": request.POST.get("username"),
+            "origin": request.headers["Origin"],
+        }
+        return auth_server_request(
+            "POST",
+            "user/password_reset/request/",
+            post_data,
+            {"Cookie": request.headers.get("Cookie")},
+        )
+    except Exception:
+        print("failed")
+        return HttpResponse(content_type="application/json", status=401)
+
+
+@api
+def reset_password_request_with_token(request):
+    try:
+        print(request.GET.get("token"))
+        post_data = {
+            "token": request.GET.get("token"),
+            "origin": request.headers["Origin"],
+        }
+
+        return auth_server_request(
+            "POST",
+            "user/email/password_reset/request/",
+            post_data,
+        )
+    except KeyError:
+        return HttpResponse(content_type="application/json", status=401)
+
+
+@api
+def password_reset_token_check(request):
+    try:
+        post_data = {
+            "token": request.GET.get("token"),
+        }
+        return auth_server_request(
+            "POST",
+            "user/email/password_reset/check/",
+            post_data,
+            {"Cookie": request.headers.get("Cookie")},
+        )
+    except KeyError:
+        return HttpResponse(content_type="application/json", status=401)
 
 
 @api
 def password_reset(request):
-    post_data = {
-        "token": request.GET.get("token"),
-        "new_password": request.POST.get("new_password"),
-    }
-    return auth_server_request(
-        "POST",
-        "user/password_reset/",
-        post_data,
-        {"Cookie": request.headers.get("Cookie")},
-    )
+    try:
+        post_data = {
+            "token": request.GET.get("token"),
+            "new_password": request.POST.get("new_password"),
+        }
+        return auth_server_request(
+            "POST",
+            "user/password_reset/",
+            post_data,
+            {"Cookie": request.headers.get("Cookie")},
+        )
+    except KeyError:
+        return HttpResponse(content_type="application/json", status=401)
 
 
 @api

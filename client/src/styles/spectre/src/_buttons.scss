@@ -144,6 +144,13 @@
   display: inline-flex;
   flex-wrap: wrap;
 
+  .jfcl-button,
+  .jfcl-link {
+    &:not(:last-child) {
+      margin-right: 1rem; // $JF_SPACING_05
+    }
+  }
+
   .btn {
     flex: 1 0 auto;
     &:first-child:not(:last-child) {

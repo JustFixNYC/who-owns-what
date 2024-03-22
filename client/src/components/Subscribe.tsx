@@ -8,6 +8,7 @@ import { t } from "@lingui/macro";
 import { reportError } from "error-reporting";
 import { getDataLayer } from "google-tag-manager";
 import { logAmplitudeEvent } from "./Amplitude";
+import { Button } from "@justfixnyc/component-library";
 
 //import 'styles/Subscribe.css';
 
@@ -106,11 +107,12 @@ class SubscribeWithoutI18n extends React.Component<SubscribeProps, State> {
             onChange={this.handleChange}
             value={this.state.email}
           />
-          <input
+          <Button
             type="submit"
-            className="btn btn-white input-group-btn"
-            value={i18n._(t`Sign up`)}
-          />
+            variant="secondary"
+            size="small"
+            labelText={i18n._(t`Sign up`)}
+          ></Button>
         </form>
         {this.state.response && <p className="response-text">{this.state.response}</p>}
       </div>

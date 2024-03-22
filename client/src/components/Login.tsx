@@ -87,9 +87,24 @@ const LoginWithoutI18n = (props: LoginProps) => {
   const [invalidAuthError, setInvalidAuthError] = useState(false);
   const [existingUserError, setExistingUserError] = useState(false);
 
-  const resetErrorStates = () => {
+  const resetAlertErrorStates = () => {
     setInvalidAuthError(false);
     setExistingUserError(false);
+  };
+
+  const resetInputErrorStates = () => {
+    setEmailError(false);
+    setShowEmailError(false);
+    setPasswordError(false);
+    setShowPasswordError(false);
+    setUserTypeError(false);
+    setShowUserTypeError(false);
+  };
+
+  const toggleLoginSignup = (toStep: Step) => {
+    resetAlertErrorStates();
+    resetInputErrorStates();
+    setStep(toStep);
   };
 
   const renderPageLevelAlert = (
@@ -107,7 +122,7 @@ const LoginWithoutI18n = (props: LoginProps) => {
       >
         {message}
         {showLogin && (
-          <button className="button is-text ml-5" onClick={() => setStep(Step.Login)}>
+          <button className="button is-text ml-5" onClick={() => toggleLoginSignup(Step.Login)}>
             <Trans>Log in</Trans>
           </button>
         )}
@@ -164,7 +179,7 @@ const LoginWithoutI18n = (props: LoginProps) => {
           {isRegisterAccountStep ? (
             <>
               <Trans>Already have an account?</Trans>
-              <button className="button is-text ml-5" onClick={() => setStep(Step.Login)}>
+              <button className="button is-text ml-5" onClick={() => toggleLoginSignup(Step.Login)}>
                 <Trans>Log in</Trans>
               </button>
             </>
@@ -174,7 +189,7 @@ const LoginWithoutI18n = (props: LoginProps) => {
               <button
                 className="button is-text ml-5 pt-20"
                 onClick={() => {
-                  setStep(Step.RegisterAccount);
+                  toggleLoginSignup(Step.RegisterAccount);
                   if (registerInModal && !showRegisterModal) {
                     setShowRegisterModal(true);
                   }
@@ -249,7 +264,6 @@ const LoginWithoutI18n = (props: LoginProps) => {
 
       if (existingUser) {
         setStep(Step.Login);
-        setExistingUserError(true);
       } else {
         setStep(Step.RegisterAccount);
         if (registerInModal && !showRegisterModal) {
@@ -260,7 +274,7 @@ const LoginWithoutI18n = (props: LoginProps) => {
   };
 
   const onLoginSubmit = async () => {
-    resetErrorStates();
+    resetAlertErrorStates();
 
     if (!email || emailError) {
       setEmailError(true);
@@ -299,7 +313,6 @@ const LoginWithoutI18n = (props: LoginProps) => {
 
     const existingUser = await AuthClient.isEmailAlreadyUsed(email);
     if (existingUser) {
-      setStep(Step.Login);
       setExistingUserError(true);
       return;
     }
@@ -394,7 +407,7 @@ const LoginWithoutI18n = (props: LoginProps) => {
             className="input-group"
             onSubmit={(e) => {
               e.preventDefault();
-              resetErrorStates();
+              resetAlertErrorStates();
               onSubmit();
             }}
           >
@@ -405,7 +418,7 @@ const LoginWithoutI18n = (props: LoginProps) => {
                 error={emailError}
                 setError={setEmailError}
                 showError={showEmailError}
-                autoFocus={showRegisterModal && !email}
+                autoFocus={!registerInModal || (showRegisterModal && !email)}
                 labelText={i18n._(t`Email address`)}
               />
             )}
@@ -457,7 +470,7 @@ const LoginWithoutI18n = (props: LoginProps) => {
           showModal={showRegisterModal}
           width={40}
           onClose={() => {
-            resetErrorStates();
+            resetAlertErrorStates();
             setShowEmailError(false);
             setShowRegisterModal(false);
             setStep(Step.CheckEmail);
