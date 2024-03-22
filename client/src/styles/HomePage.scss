@@ -142,7 +142,7 @@
 
     .HomePage__sample {
       border: 1px dashed $gray;
-      padding: 10px;
+      padding: 24px;
 
       h6 {
         font-weight: bold;
@@ -158,6 +158,10 @@
         }
       }
     }
+
+    .portfolio-link {
+      margin-top: 1.5rem;
+    }
   }
 }
 
@@ -166,7 +170,7 @@
 .wowza-styling .HomePage {
   background: $wowza-background;
   color: $wowza-dark;
-  a:not(.btn-justfix):not(.algolia__item),
+  a:not(.btn-justfix):not(.jfcl-link):not(.algolia__item),
   h6 a,
   .HomePage__samples .HomePage__sample,
   .HomePage__samples .HomePage__sample h6 a,

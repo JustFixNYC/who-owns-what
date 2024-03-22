@@ -2769,6 +2769,13 @@
     "@jridgewell/resolve-uri" "3.1.0"
     "@jridgewell/sourcemap-codec" "1.4.14"
 
+"@justfixnyc/component-library@0.31.1":
+  version "0.31.1"
+  resolved "https://registry.yarnpkg.com/@justfixnyc/component-library/-/component-library-0.31.1.tgz#a6d41925f19640d87f4c02a20c962bfb5d247170"
+  integrity sha512-t6NkG6PvGKTfVDtnNgcayJjDEddDcBpByeRNTbl9feWJh9ih5G5LvDcPPf5P0N2B++EKUWTq7nanei59TaZ0/w==
+  dependencies:
+    "@babel/runtime" "^7.12.5"
+
 "@justfixnyc/contentful-common-strings@^0.1.0":
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/@justfixnyc/contentful-common-strings/-/contentful-common-strings-0.1.0.tgz#4ca00e3a23a53ecef9dafcb45890adebf992dd57"
