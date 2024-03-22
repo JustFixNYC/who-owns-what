@@ -360,7 +360,9 @@ const LoginWithoutI18n = (props: LoginProps) => {
   switch (step) {
     case Step.CheckEmail:
       headerText = onBuildingPage
-        ? i18n._(t`Enter your email to get weekly updates on complaints, violations, and eviction filings for this building.`)
+        ? i18n._(
+            t`Enter your email to get weekly updates on complaints, violations, and eviction filings for this building.`
+          )
         : i18n._(t`Log in / sign up`);
       onSubmit = onEmailSubmit;
       submitButtonText =
@@ -370,7 +372,9 @@ const LoginWithoutI18n = (props: LoginProps) => {
       headerText = !onBuildingPage
         ? i18n._(t`Log in`)
         : showRegisterModal
-        ? i18n._(t`Enter your email to get weekly updates on complaints, violations, and eviction filings for this building.`)
+        ? i18n._(
+            t`Enter your email to get weekly updates on complaints, violations, and eviction filings for this building.`
+          )
         : i18n._(t`Log in to start getting updates for this building.`);
       onSubmit = onLoginSubmit;
       submitButtonText = i18n._(t`Log in`);

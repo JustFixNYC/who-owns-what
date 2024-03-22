@@ -79,7 +79,7 @@ const AccountSettingsPage = withI18n()((props: withI18nProps) => {
           <h4 className="settings-section">
             <Trans>Building Updates</Trans>
           </h4>
-          <Trans render="p">
+          <Trans render="p" className="settings-section">
             There <Plural value={subscriptionsNumber} one="is" other="are" /> {subscriptionsNumber}{" "}
             <Plural value={subscriptionsNumber} one="building" other="buildings" /> in your weekly
             updates
@@ -94,15 +94,15 @@ const AccountSettingsPage = withI18n()((props: withI18nProps) => {
             ) : (
               <Trans render="div" className="settings-no-subscriptions">
                 <LocaleNavLink exact to={home}>
-                Search for a building
+                  Search for a building
                 </LocaleNavLink>{" "}
                 to add to your updates
               </Trans>
             )}
           </div>
-          <div className="settings-contact">
-            <Trans>Contact support@justfix.org to delete your account or get help</Trans>
-          </div>
+          <Trans render="div" className="settings-contact">
+            Contact support@justfix.org to delete your account or get help
+          </Trans>
         </div>
         <LegalFooter />
       </div>

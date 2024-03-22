@@ -43,7 +43,7 @@ const ForgotPasswordPage = withI18n()((props: withI18nProps) => {
   };
 
   return (
-    <Page title={i18n._(t`Forgot your password?`)}>
+    <Page title={i18n._(t`Reset password?`)}>
       <div className="ForgotPasswordPage Page">
         <div className="page-container">
           <div className="text-center">

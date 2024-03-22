@@ -159,10 +159,7 @@ const EmailSettingFieldWithoutI18n = (props: EmailSettingFieldProps) => {
         Email address not verified. Click the link we sent to {email} start receiving Building
         Updates.
       </Trans>
-      <Trans render="p">
-        Didn’t get the link?
-      </Trans>
-      {/* TODO: small button */}
+      <Trans render="p">Didn’t get the link?</Trans>
       <button className="button is-secondary" onClick={() => AuthClient.resendVerifyEmail()}>
         <Trans>Send new link</Trans>
       </button>

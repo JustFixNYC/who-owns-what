@@ -103,9 +103,9 @@ const VerifyEmailPage = withI18n()((props: withI18nProps) => {
 
   const successPage = () => (
     <div className="text-center">
-      <Trans render="h4">Email verified</Trans>
+      <Trans render="h4">Email address verified</Trans>
       <br />
-      <Trans render="h4">You are now signed up for weekly Building Updates.</Trans>
+      <Trans render="h4">You can now start receiving Building Updates</Trans>
     </div>
   );
 
