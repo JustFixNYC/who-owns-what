@@ -4,7 +4,6 @@ import { withI18n, withI18nProps } from "@lingui/react";
 import { Plural, Trans, t } from "@lingui/macro";
 import { Button } from "@justfixnyc/component-library";
 
-
 import "styles/UnsubscribePage.css";
 import "styles/UserSetting.css";
 import Page from "../components/Page";
