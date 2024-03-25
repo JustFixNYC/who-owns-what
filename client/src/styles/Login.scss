@@ -17,8 +17,7 @@
     .submit-button-group {
       display: flex;
 
-      button[type="submit"],
-      input[type="submit"] {
+      .button.is-primary {
         padding: 1rem 2rem !important;
         align-self: center;
         margin: 0 auto !important;
