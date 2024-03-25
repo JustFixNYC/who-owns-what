@@ -3,10 +3,15 @@ import Cytoscape from "cytoscape";
 import CytoscapeComponent from "react-cytoscapejs";
 // @ts-ignore
 import fcose from "cytoscape-fcose";
-import { AddressRecord, PortfolioGraphNode, RawPortfolioGraphJson } from "./APIDataTypes";
+import {
+  AddressRecord,
+  PortfolioGraphNode,
+  PortfolioGraphEdge,
+  RawPortfolioGraphJson,
+} from "./APIDataTypes";
 import { withMachineInStateProps } from "state-machine";
 import helpers from "util/helpers";
-import { t, Trans } from "@lingui/macro";
+import { t } from "@lingui/macro";
 import { withI18n, withI18nProps } from "@lingui/react";
 import { I18n } from "@lingui/core";
 import browser from "util/browser";
@@ -24,56 +29,37 @@ const layout = {
   nodeRepulsion: () => 45000,
 };
 
-function createNode(id: string, type: string, value: string): cytoscape.NodeDefinition {
-  return {
-    group: "nodes",
-    data: {
-      id,
-      type,
-      value,
-    },
-  };
+function createNode(attrs: PortfolioGraphNode): cytoscape.NodeDefinition {
+  return { group: "nodes", data: attrs };
 }
 
-function createEdge(
-  source: string,
-  target: string,
-  count_hpd_registrations: number = 1
-): cytoscape.EdgeDefinition {
-  return {
-    group: "edges",
-    data: {
-      source,
-      target,
-      count_hpd_registrations,
-    },
-  };
+function createEdge(attrs: PortfolioGraphEdge): cytoscape.EdgeDefinition {
+  return { group: "edges", data: attrs };
 }
 
 /**
  * Generates one node for the search BBL and one for the detail BBL to show on the portfolio graph.
  */
-function generateAdditionalNodes(
-  i18n: I18n,
-  searchAddr: AddressRecord,
-  detailAddr?: AddressRecord
-) {
+function generatePropertyNodes(i18n: I18n, searchAddr: AddressRecord, detailAddr?: AddressRecord) {
   var additionalNodes = [];
-  const searchBBLNode = createNode(
-    "searchaddr",
-    "searchaddr",
-    i18n._(t`OWNS`) + ` ${searchAddr.housenumber}\n${searchAddr.streetname}`
-  );
+  const searchBBLNode = createNode({
+    id: "searchaddr",
+    type: "searchaddr",
+    name: i18n._(t`Search Address:`),
+    bizAddr: `${searchAddr.housenumber} ${searchAddr.streetname}`,
+  });
   additionalNodes.push(searchBBLNode);
 
   if (detailAddr) {
-    const detailBBLNode = createNode(
-      "detailaddr",
-      "detailaddr",
-      i18n._(t`OWNS`) + ` ${detailAddr.housenumber}\n${detailAddr.streetname}`
-    );
+    const detailBBLNode = createNode({
+      id: "detailaddr",
+      type: "detailaddr",
+      name: i18n._(t`Selected Address:`),
+      bizAddr: `${detailAddr.housenumber} ${detailAddr.streetname}`,
+    });
     additionalNodes.push(detailBBLNode);
   }
+
   return additionalNodes;
 }
 
@@ -86,10 +72,7 @@ export function getLandlordNodeIDFromAddress(
   existingNodes: PortfolioGraphNode[],
   addr: AddressRecord
 ) {
-  const landlordNames = helpers.getLandlordNameFromAddress(addr);
-  const landlordMatches = existingNodes.filter(
-    (node) => node.value.kind === "name" && landlordNames.includes(node.value.value)
-  );
+  const landlordMatches = existingNodes.filter((node) => node.bbls?.includes(addr.bbl));
   return landlordMatches.map((node) => node.id.toString());
 }
 
@@ -100,23 +83,23 @@ export function getLandlordNodeIDFromAddress(
  * Note: in rare edge cases, there may be more than one corresponding owner name for a given BBL.
  * In these cases, multiple edges may be created here.
  */
-function generateAdditionalEdges(
+function generatePropertyEdges(
   existingNodes: PortfolioGraphNode[],
   searchAddr: AddressRecord,
   detailAddr?: AddressRecord
 ) {
-  let additionalEdges: Cytoscape.EdgeDefinition[] = [];
+  let propertyEdges: Cytoscape.EdgeDefinition[] = [];
   const searchBBLEdges = getLandlordNodeIDFromAddress(existingNodes, searchAddr).map((id) =>
-    createEdge(id, "searchaddr")
+    createEdge({ source: id, target: "searchaddr", type: "property", weight: 1 })
   );
-  additionalEdges = additionalEdges.concat(searchBBLEdges);
+  propertyEdges = propertyEdges.concat(searchBBLEdges);
   if (detailAddr) {
     const detailBBLEdges = getLandlordNodeIDFromAddress(existingNodes, detailAddr).map((id) =>
-      createEdge(id, "detailaddr")
+      createEdge({ source: id, target: "detailaddr", type: "property", weight: 1 })
     );
-    additionalEdges = additionalEdges.concat(detailBBLEdges);
+    propertyEdges = propertyEdges.concat(detailBBLEdges);
   }
-  return additionalEdges;
+  return propertyEdges;
 }
 
 const formatGraphJSON = (
@@ -124,21 +107,35 @@ const formatGraphJSON = (
   additionalNodes: Cytoscape.NodeDefinition[],
   additionalEdges: Cytoscape.EdgeDefinition[]
 ): cytoscape.ElementDefinition[] => {
-  let nodes: cytoscape.ElementDefinition[] = rawJSON.nodes.map((node) =>
-    createNode(node.id.toString(), node.value.kind, node.value.value)
-  );
+  let nodes: cytoscape.ElementDefinition[] = rawJSON.nodes.map(createNode);
   nodes = nodes.concat(additionalNodes);
 
-  let edges: cytoscape.ElementDefinition[] = rawJSON.edges.map((edge) =>
-    createEdge(edge.from.toString(), edge.to.toString(), edge.reg_contacts)
-  );
+  let edges: cytoscape.ElementDefinition[] = rawJSON.edges.map(createEdge);
   edges = edges.concat(additionalEdges);
   return nodes.concat(edges);
 };
 
-const LANDLORD_NAME_COLOR = "#FF3A0E";
-const BIZ_ADDRESS_COLOR = "#808080";
-const ANNOTATION_COLOR = "#E79B07";
+const OWNER_COLOR = "#676565"; // justfix-grey-dark
+const NAME_COLOR = "#1aa551"; // justfix-green
+const BIZADDR_COLOR = "#5188ff"; // justfix-blue
+const PROPERTY_COLOR = "#9a9898"; // justfix-grey
+const SEARCH_ADDR_COLOR = "#FF5722"; // search-marker (map)
+const SELECTED_ADDR_COLOR = "#ff9800"; // assoc-marker (map)
+const JUSTFIX_WHITE = "#faf8f4";
+
+const NODE_TYPE_TO_COLOR: Record<string, string> = {
+  owner: OWNER_COLOR,
+  searchaddr: SEARCH_ADDR_COLOR,
+  detailaddr: SELECTED_ADDR_COLOR,
+  name: NAME_COLOR,
+  bizAddr: BIZADDR_COLOR,
+};
+
+const EDGE_TYPE_TO_COLOR: Record<string, string> = {
+  name: NAME_COLOR,
+  bizaddr: BIZADDR_COLOR,
+  property: PROPERTY_COLOR,
+};
 
 type PortfolioGraphProps = withI18nProps &
   Pick<withMachineInStateProps<"portfolioFound">, "state"> & {
@@ -151,8 +148,8 @@ const PortfolioGraphWithoutI18: React.FC<PortfolioGraphProps> = ({ graphJSON, st
   const distinctDetailAddr = !helpers.addrsAreEqual(searchAddr, detailAddr)
     ? detailAddr
     : undefined;
-  const additionalNodes = generateAdditionalNodes(i18n, searchAddr, distinctDetailAddr);
-  const additionalEdges = generateAdditionalEdges(graphJSON.nodes, searchAddr, distinctDetailAddr);
+  const propertyNodes = generatePropertyNodes(i18n, searchAddr, distinctDetailAddr);
+  const propertyEdges = generatePropertyEdges(graphJSON.nodes, searchAddr, distinctDetailAddr);
 
   const isMobile = browser.isMobile();
 
@@ -180,22 +177,6 @@ const PortfolioGraphWithoutI18: React.FC<PortfolioGraphProps> = ({ graphJSON, st
 
   return (
     <div className="portfolio-graph">
-      <div className="float-left">
-        <span
-          style={{
-            color: LANDLORD_NAME_COLOR,
-          }}
-        >
-          ● <Trans>Owner Names</Trans>
-        </span>{" "}
-        <span
-          style={{
-            color: BIZ_ADDRESS_COLOR,
-          }}
-        >
-          ● <Trans>Business Addresses</Trans>
-        </span>
-      </div>
       <div className="btn-group btn-group-block">
         <button
           className="btn btn-action"
@@ -252,7 +233,7 @@ const PortfolioGraphWithoutI18: React.FC<PortfolioGraphProps> = ({ graphJSON, st
         </button>
       </div>
       <CytoscapeComponent
-        elements={formatGraphJSON(graphJSON, additionalNodes, additionalEdges)}
+        elements={formatGraphJSON(graphJSON, propertyNodes, propertyEdges)}
         style={{ width: "100%", height: isMobile ? "40vh" : "55vh" }}
         layout={layout}
         // Enable scroll zoom only on mobile devices:
@@ -272,35 +253,75 @@ const PortfolioGraphWithoutI18: React.FC<PortfolioGraphProps> = ({ graphJSON, st
           {
             selector: "node",
             style: {
-              label: "data(value)",
+              label: (ele: Cytoscape.NodeSingular) =>
+                `${helpers.titleCase(ele.data("name"))}\n${ele.data("bizAddr")}`,
+              "text-outline-color": JUSTFIX_WHITE,
+              "text-outline-width": 3,
+              "text-outline-opacity": 0.8,
               width: (ele: Cytoscape.NodeSingular) =>
-                ele.data("type") === "name" ? 30 : ele.data("type") === "bizaddr" ? 20 : 5,
+                ele.data("type") === "owner"
+                  ? (ele.data("bbls").length / portfolioSize) * 70 + 10
+                  : 30,
               height: (ele: Cytoscape.NodeSingular) =>
-                ele.data("type") === "name" ? 30 : ele.data("type") === "bizaddr" ? 20 : 5,
+                ele.data("type") === "owner"
+                  ? (ele.data("bbls").length / portfolioSize) * 70 + 10
+                  : 30,
+              shape: (ele: Cytoscape.NodeSingular) =>
+                ele.data("type") === "owner" ? "ellipse" : "round-rectangle",
               "text-wrap": "wrap",
               "text-max-width": "200px",
               "font-size": (ele: Cytoscape.NodeSingular) =>
-                ele.data("type") === "bizaddr" ? "16px" : "18px",
+                ["searchaddr", "detailaddr"].includes(ele.data("type")) ? "16px" : "18px",
               "font-weight": (ele: Cytoscape.NodeSingular) =>
                 ["searchaddr", "detailaddr"].includes(ele.data("type")) ? 700 : 400,
               "font-family": "Inconsolata, monospace",
               backgroundColor: (ele) => NODE_TYPE_TO_COLOR[ele.data("type")],
-              color: (ele: Cytoscape.NodeSingular) =>
-                ["searchaddr", "detailaddr"].includes(ele.data("type")) ? ANNOTATION_COLOR : "",
-              "background-opacity": (ele: Cytoscape.NodeSingular) =>
-                ["searchaddr", "detailaddr"].includes(ele.data("type")) ? 0 : 1,
+              // "background-opacity": (ele: Cytoscape.NodeSingular) =>
+              //   ["searchaddr", "detailaddr"].includes(ele.data("type")) ? 0 : 1,
               "min-zoomed-font-size": 10,
+            },
+          },
+          {
+            selector: 'node[type = "searchaddr"], node[type = "detailaddr"]',
+            style: {
+              "text-valign": "center",
+              "text-halign": "center",
+              "text-outline-width": 0,
+              width: (ele: Cytoscape.NodeSingular) => ele.data("bizAddr").length * 0.7 + "em",
+              height: 60,
             },
           },
           {
             selector: "edge",
             style: {
-              "line-color": (ele: Cytoscape.EdgeSingular) =>
-                ["searchaddr", "detailaddr"].includes(ele.data("target"))
-                  ? ANNOTATION_COLOR
-                  : "default",
+              "line-color": (ele: Cytoscape.EdgeSingular) => EDGE_TYPE_TO_COLOR[ele.data("type")],
               "line-style": (ele: Cytoscape.EdgeSingular) =>
-                ["searchaddr", "detailaddr"].includes(ele.data("target")) ? "dashed" : "solid",
+                ele.data("type") === "name" ? "dashed" : "solid",
+              width: 3,
+              // width: (ele: Cytoscape.EdgeSingular) => 0.5 + (5 - 0.5) * ele.data("weight"),
+            },
+          },
+          {
+            selector: "node > node",
+            style: {
+              label: (ele: Cytoscape.NodeSingular) =>
+                ele.parent()[0].data("type") === "name"
+                  ? ele.data("bizAddr")
+                  : helpers.titleCase(ele.data("name")),
+            },
+          },
+          {
+            selector: "$node > node",
+            style: {
+              label: (ele: Cytoscape.NodeSingular) =>
+                ele.data("type") === "name" ? helpers.titleCase(ele.data("id")) : ele.data("id"),
+              "text-outline-color": JUSTFIX_WHITE,
+              "text-outline-width": 3,
+              "text-outline-opacity": 0.8,
+              backgroundColor: (ele) => NODE_TYPE_TO_COLOR[ele.data("type")],
+              "background-opacity": 0.3,
+              "border-width": 0,
+              "font-weight": 700,
             },
           },
         ]}
@@ -311,10 +332,3 @@ const PortfolioGraphWithoutI18: React.FC<PortfolioGraphProps> = ({ graphJSON, st
 };
 
 export const PortfolioGraph = withI18n()(PortfolioGraphWithoutI18);
-
-const NODE_TYPE_TO_COLOR: Record<string, string> = {
-  name: LANDLORD_NAME_COLOR,
-  bizaddr: BIZ_ADDRESS_COLOR,
-  searchaddr: ANNOTATION_COLOR,
-  detailaddr: ANNOTATION_COLOR,
-};

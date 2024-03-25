@@ -89,17 +89,20 @@ export type AddressRecord = {
 };
 
 export type PortfolioGraphNode = {
-  id: number;
-  value: {
-    kind: "name" | "bizaddr";
-    value: string;
-  };
+  id: string;
+  type: "searchaddr" | "detailaddr" | "owner" | "name" | "bizaddr";
+  name: string;
+  bizAddr: string;
+  parent?: string;
+  value?: string;
+  bbls?: string[];
 };
 
 export type PortfolioGraphEdge = {
-  from: number;
-  to: number;
-  reg_contacts: number;
+  source: string;
+  target: string;
+  type: "name" | "bizAddr" | "property";
+  weight: number;
 };
 
 export type RawPortfolioGraphJson = {
@@ -111,6 +114,7 @@ export type SearchResults = {
   addrs: AddressRecord[];
   geosearch?: GeoSearchData;
   graph?: RawPortfolioGraphJson;
+  relatedPortfoliosBbls?: string[];
 };
 
 // TYPES ASSOCIATED WITH SUMMARY AGGREGATION:

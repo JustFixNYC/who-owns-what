@@ -16,7 +16,7 @@
     }
 
     & > div > h6 {
-      font-size: 1.4rem;
+      font-size: 1.6rem;
       margin-bottom: 0.6rem;
       text-decoration: underline;
       font-weight: bold;
@@ -39,6 +39,59 @@
         margin-bottom: 0;
       }
     }
+
+    .network-legend {
+      // position: absolute;
+      // top: 0;
+      // left: 0;
+      // padding: 1rem;
+      // padding-left: 5.5rem;
+      padding-bottom: 1rem;
+      z-index: 10;
+      display: grid;
+      grid-template-columns: 3rem 1fr;
+      gap: 1rem;
+      cursor: inherit;
+
+      .network-legend-symbol {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        &:before {
+          content: "";
+          position: relative;
+          display: inline-block;
+          flex: none;
+        }
+
+        &.symbol-owner {
+          margin: 1rem 0.5rem;
+          height: 2rem;
+          width: 2rem;
+          border-radius: 2rem;
+          background-color: $justfix-grey-dark;
+        }
+        &.symbol-name {
+          height: 0rem;
+          padding-top: 0.75rem;
+          width: 3rem;
+          border-bottom: 3px dashed $justfix-green;
+        }
+        &.symbol-bizaddr {
+          height: 0rem;
+          padding-top: 0.75rem;
+          width: 3rem;
+          border-bottom: 3px solid $justfix-blue;
+        }
+      }
+
+      .network-legend-label {
+        font-weight: bold;
+        .network-legend-sublabel {
+          font-weight: normal;
+        }
+      }
+    }
     .portfolio-graph-container {
       position: relative;
       .Loader-map {
@@ -54,16 +107,9 @@
           cursor: pointer;
         }
 
-        .float-left {
-          position: relative;
-          z-index: 10;
-          cursor: inherit;
-        }
-
         .btn-group {
           position: absolute;
           flex-direction: column;
-          margin-top: 3.5rem;
           z-index: 10;
           .btn {
             flex-grow: 0;

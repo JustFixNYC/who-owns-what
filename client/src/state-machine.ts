@@ -105,6 +105,11 @@ type PortfolioData = {
    * used to generate the landlord portfolio.
    */
   portfolioGraph?: RawPortfolioGraphJson;
+  /** A list of bbls, each representing a related portfolio. That is, other
+   * portfolios that were created from splitting the same original connect component
+   * as this portfolio.
+   */
+  relatedPortfoliosBbls?: string[];
 };
 
 export interface WowContext {
@@ -209,6 +214,7 @@ async function getSearchResult(
           detailAddr: searchAddr,
           assocAddrs: apiResults.addrs,
           portfolioGraph: apiResults.graph,
+          relatedPortfoliosBbls: apiResults.relatedPortfoliosBbls,
         },
       },
     };
