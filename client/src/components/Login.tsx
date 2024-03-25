@@ -84,6 +84,8 @@ const LoginWithoutI18n = (props: LoginProps) => {
     onChange: onChangeUserType,
   } = useInput("");
 
+  const [placeholderEmail, setPlaceholderEmail] = useState("");
+
   const [invalidAuthError, setInvalidAuthError] = useState(false);
   const [existingUserError, setExistingUserError] = useState(false);
 
@@ -271,6 +273,8 @@ const LoginWithoutI18n = (props: LoginProps) => {
         }
       }
     }
+
+    setPlaceholderEmail(email);
   };
 
   const onLoginSubmit = async () => {
@@ -392,6 +396,31 @@ const LoginWithoutI18n = (props: LoginProps) => {
       break;
   }
 
+  const renderOnPagePlaceholder = () => {
+    return (
+      <div className="Login">
+        <Trans render="div" className="email-description">
+          Get weekly Data Updates for complaints, violations, and evictions.
+        </Trans>
+        <div className="input-group">
+          <EmailInput
+            email={placeholderEmail}
+            onChange={() => {}}
+            error={false}
+            setError={() => {}}
+            showError={false}
+            labelText={i18n._(t`Email address`)}
+          />
+          <div className="submit-button-group">
+            <button type="button" className="button is-primary">
+              <Trans>Get updates</Trans>
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
   const renderLoginFlow = () => {
     return (
       <div className="Login">
@@ -462,8 +491,7 @@ const LoginWithoutI18n = (props: LoginProps) => {
 
   return (
     <>
-      {(!showRegisterModal || isCheckEmailStep || isLoginStep || isVerifyEmailStep) &&
-        renderLoginFlow()}
+      {!showRegisterModal ? renderLoginFlow() : renderOnPagePlaceholder()}
       {registerInModal && (
         <Modal
           key={1}
