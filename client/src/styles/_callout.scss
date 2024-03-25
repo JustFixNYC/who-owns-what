@@ -1,0 +1,8 @@
+@import "_vars.scss";
+@import "_typography.scss";
+
+.jf-callout {
+  @include desktop-text-small;
+  background-color: $justfix-white-200;
+  padding: 0.75rem;
+}

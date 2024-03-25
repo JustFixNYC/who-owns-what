@@ -1,0 +1,65 @@
+// Avatars
+.avatar {
+  background: $primary-color;
+  border-radius: 50%;
+  color: fade-in($light-color, 0.85);
+  display: inline-block;
+  font-size: $font-size;
+  font-weight: 300;
+  height: 2rem;
+  line-height: 1;
+  margin: 0;
+  position: relative;
+  vertical-align: middle;
+  width: 2rem;
+
+  &.avatar-xs {
+    font-size: 0.5rem;
+    height: 1rem;
+    width: 1rem;
+  }
+  &.avatar-sm {
+    font-size: 0.63rem;
+    height: 1.5rem;
+    width: 1.5rem;
+  }
+  &.avatar-lg {
+    font-size: 1.25rem;
+    height: 3rem;
+    width: 3rem;
+  }
+  &.avatar-xl {
+    font-size: 1.63rem;
+    height: 4rem;
+    width: 4rem;
+  }
+
+  img {
+    border-radius: 50%;
+    height: 100%;
+    position: relative;
+    width: 100%;
+    z-index: $zindex-1;
+  }
+
+  .avatar-icon {
+    background: $bg-color-light;
+    bottom: 14.64%;
+    height: 50%;
+    padding: 0.13rem;
+    position: absolute;
+    right: 14.64%;
+    transform: translate(50%, 50%);
+    width: 50%;
+  }
+
+  &[data-initial]::before {
+    color: currentColor;
+    content: attr(data-initial);
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: $zindex-0;
+  }
+}

@@ -10,7 +10,7 @@ const TermsOfUsePage = withI18n()((props: withI18nProps) => {
     <Page title={i18n._(t`Terms of use`)}>
       <div className="TermsOfUse Page">
         <div className="Page__content">
-          <h4 style={{ fontSize: "3.2rem" }}>WhoOwnsWhat — Terms of Use</h4>
+          <h4 style={{ fontSize: "2rem" }}>WhoOwnsWhat — Terms of Use</h4>
           <p> Effective Date: October 18th, 2018 </p>
           <p>
             <b>

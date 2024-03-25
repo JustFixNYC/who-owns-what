@@ -1,14 +1,20 @@
-import React, { useContext } from "react";
+import React, { Fragment, useContext, useState } from "react";
 
 import { withI18n, withI18nProps, I18n } from "@lingui/react";
-import { t } from "@lingui/macro";
 import { Trans } from "@lingui/macro";
 import Login from "./Login";
 import { UserContext } from "./UserContext";
+import { createWhoOwnsWhatRoutePaths } from "routes";
+import { LocaleLink as Link } from "../i18n";
 
 import "styles/EmailAlertSignup.css";
 import { JustfixUser } from "state-machine";
 import AuthClient from "./AuthClient";
+import { SubscribedIcon } from "./Icons";
+import { Alert } from "./Alert";
+import Modal from "./Modal";
+
+const SUBSCRIPTION_LIMIT = 15;
 
 type BuildingSubscribeProps = withI18nProps & {
   bbl: string;
@@ -23,52 +29,86 @@ const BuildingSubscribeWithoutI18n = (props: BuildingSubscribeProps) => {
   const userContext = useContext(UserContext);
   const { user, subscribe, unsubscribe } = userContext;
   const { email, subscriptions, verified } = user! as JustfixUser;
+  const [showSubscriptionLimitModal, setShowSubscriptionLimitModal] = useState(false);
+  const { account } = createWhoOwnsWhatRoutePaths();
 
+  const showSubscribed = () => {
+    return (
+      <div className="building-subscribe-status">
+        <div className="status-title">
+          <SubscribedIcon />
+          <Trans>You’re signed up for Data Updates for this building.</Trans>
+        </div>
+        <button className="button is-text unsubscribe-button" onClick={() => unsubscribe(bbl)}>
+          <Trans>Unsubscribe</Trans>
+        </button>
+      </div>
+    );
+  };
+
+  const showEmailVerification = (i18n: any) => {
+    return (
+      <div className="building-subscribe-status">
+        <Alert type="info">
+          <Trans>Verify your email to start receiving updates.</Trans>
+        </Alert>
+        <Trans render="div" className="status-description">
+          Click the link we sent to {email}. It may take a few minutes to arrive.
+        </Trans>
+        <Trans render="div">Didn’t get the link?</Trans>
+        <button
+          className="button is-secondary is-full-width"
+          onClick={() => AuthClient.resendVerifyEmail()}
+        >
+          <Trans>Resend email</Trans>
+        </button>
+      </div>
+    );
+  };
   return (
     <I18n>
       {({ i18n }) => (
-        <div className="table-content building-subscribe">
-          {!(subscriptions && !!subscriptions?.find((s) => s.bbl === bbl)) ? (
-            <button
-              className="button is-primary"
-              onClick={() => subscribe(bbl, housenumber, streetname, zip, boro)}
-            >
-              <Trans>Get updates</Trans>
-            </button>
-          ) : (
-            <>
-              <div className="building-subscribe-status">
-                <div className={`building-subscribe-icon ${verified ? "verified" : ""}`}></div>
-                {verified ? (
-                  <div>
-                    {i18n._(t`Email updates will be sent to ${email}`)}{" "}
-                    <button onClick={() => unsubscribe(bbl)}>
-                      <Trans>Unsubscribe</Trans>
-                    </button>
-                  </div>
-                ) : (
-                  <div>
-                    <div>
-                      {i18n._(
-                        t`Check your email inbox ${email} to verify your email address. Once you’ve done that, you’ll start getting email updates.`
-                      )}
-                    </div>
-                  </div>
-                )}
-              </div>
-              {!verified && (
-                <p>
-                  <button
-                    className="button is-primary"
-                    onClick={() => AuthClient.resendVerifyEmail()}
-                  >
-                    Resend verification email
-                  </button>
-                </p>
-              )}
-            </>
-          )}
-        </div>
+        <>
+          <div className="building-subscribe">
+            {!(subscriptions && !!subscriptions?.find((s) => s.bbl === bbl)) ? (
+              <button
+                className="button is-primary"
+                onClick={() =>
+                  subscriptions.length < SUBSCRIPTION_LIMIT
+                    ? subscribe(bbl, housenumber, streetname, zip, boro)
+                    : setShowSubscriptionLimitModal(true)
+                }
+              >
+                <Trans>Get updates</Trans>
+              </button>
+            ) : verified ? (
+              showSubscribed()
+            ) : (
+              showEmailVerification(i18n)
+            )}
+          </div>
+          <Modal
+            key={1}
+            showModal={showSubscriptionLimitModal}
+            width={40}
+            onClose={() => setShowSubscriptionLimitModal(false)}
+          >
+            <Trans render="h4">You have reached the maximum number of building updates</Trans>
+            <Trans>
+              At this time we can only support {SUBSCRIPTION_LIMIT} buildings in each email. Please
+              visit your <Link to={account.settings}>account</Link> to manage the buildings in your
+              email. If you would like to track more buildings, please let us know by submiting a{" "}
+              <a
+                href={`https://form.typeform.com/to/ChJMCNYN#email=${email}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                request form
+              </a>
+              .
+            </Trans>
+          </Modal>
+        </>
       )}
     </I18n>
   );
@@ -82,6 +122,7 @@ const EmailAlertSignupWithoutI18n = (props: EmailAlertProps) => {
   const { bbl, housenumber, streetname, zip, boro } = props;
   const userContext = useContext(UserContext);
   const { user } = userContext;
+  const [loginRegisterInProgress, setLoginRegisterInProgress] = useState(false);
 
   return (
     <>
@@ -89,25 +130,31 @@ const EmailAlertSignupWithoutI18n = (props: EmailAlertProps) => {
         <div className="table-row">
           <I18n>
             {({ i18n }) => (
-              <div
-                title={i18n._(t`Get email updates for this building`)}
-                className="table-small-font"
-              >
-                <Trans render="label">Get email updates for this building</Trans>
-                <div className="table-content email-alert-content">
-                  <Trans>
-                    Each weekly email includes HPD Complaints, HPD Violations, and Eviction Filings.
-                  </Trans>
+              <div className="table-small-font">
+                <label className="data-updates-label-container">
+                  <span className="pill-new">
+                    <Trans>NEW</Trans>
+                  </span>
+                  {!user ? (
+                    <Trans>Get Data Updates for this building</Trans>
+                  ) : (
+                    <Trans>Data Updates</Trans>
+                  )}
+                </label>
+                <div className="table-content">
+                  {user && !loginRegisterInProgress ? (
+                    <BuildingSubscribe {...props} />
+                  ) : (
+                    <Login
+                      registerInModal
+                      onBuildingPage
+                      setLoginRegisterInProgress={setLoginRegisterInProgress}
+                      onSuccess={(user: JustfixUser) => {
+                        userContext.subscribe(bbl, housenumber, streetname, zip, boro, user);
+                      }}
+                    />
+                  )}
                 </div>
-                {!user ? (
-                  <Login
-                    onSuccess={(user: JustfixUser) =>
-                      userContext.subscribe(bbl, housenumber, streetname, zip, boro, user)
-                    }
-                  />
-                ) : (
-                  <BuildingSubscribe {...props} />
-                )}
               </div>
             )}
           </I18n>

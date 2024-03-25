@@ -2,14 +2,13 @@ import React from "react";
 import { FacebookButton, TwitterButton, EmailButton } from "react-social";
 import { isMobile, isAndroid } from "react-device-detect";
 
-import fbIcon from "../assets/img/fb.svg";
-import twitterIcon from "../assets/img/twitter.svg";
-import { I18n, MessageDescriptor } from "@lingui/core";
-import { t, Trans } from "@lingui/macro";
+import { I18n, MessageDescriptor, i18n } from "@lingui/core";
+import { t } from "@lingui/macro";
 import { withI18n } from "@lingui/react";
 import { FB_APP_ID } from "./Page";
 import { getSiteOrigin } from "../routes";
 import { useLocation } from "react-router-dom";
+import { Button, IconPerson, IconMail, IconTwitter } from "@justfixnyc/component-library";
 
 export type SocialShareContent = {
   tweet: MessageDescriptor;
@@ -46,6 +45,37 @@ type SocialShareProps = {
   customContent?: SocialShareContent;
 };
 
+const _FacebookButton: React.FC = (props) => (
+  <Button
+    labelText={`Facebook (${i18n._("Opens in a new window")})`}
+    variant="secondary"
+    size="small"
+    labelIcon={IconPerson}
+    iconOnly
+    {...props}
+  />
+);
+const _TwitterButton: React.FC = (props) => (
+  <Button
+    labelText={`Twitter (${i18n._("Opens in a new window")})`}
+    variant="secondary"
+    size="small"
+    labelIcon={IconTwitter}
+    iconOnly
+    {...props}
+  />
+);
+const _EmailButton: React.FC = (props) => (
+  <Button
+    labelText={`${i18n._("Email")} (${i18n._("Opens in a new window")})`}
+    variant="secondary"
+    size="small"
+    labelIcon={IconMail}
+    iconOnly
+    {...props}
+  />
+);
+
 const SocialShareWithoutI18n: React.FC<SocialShareProps> = ({
   i18n,
   location,
@@ -62,40 +92,31 @@ const SocialShareWithoutI18n: React.FC<SocialShareProps> = ({
         onClick={() => {
           window.gtag("event", "facebook-" + location);
         }}
-        className="btn btn-steps"
         sharer={true}
         windowOptions={["width=400", "height=200"]}
         url={url}
         appId={FB_APP_ID}
-      >
-        <img src={fbIcon} className="icon mx-1" alt="Facebook" />
-        <span>Facebook</span>
-      </FacebookButton>
+        element={_FacebookButton}
+      />
       <TwitterButton
         onClick={() => {
           window.gtag("event", "twitter-" + location);
         }}
-        className="btn btn-steps"
         windowOptions={["width=400", "height=200"]}
         url={url + (!!content.tweetCloseout ? ` ${i18n._(content.tweetCloseout)}` : "")}
         message={i18n._(content.tweet)}
-      >
-        <img src={twitterIcon} className="icon mx-1" alt="Twitter" />
-        <span>Twitter</span>
-      </TwitterButton>
+        element={_TwitterButton}
+      />
       <EmailButton
         onClick={() => {
           window.gtag("event", "email-" + location);
         }}
-        className="btn btn-steps"
         // NOTE: EmailButton components use the `url` prop for the full body of the email.
         url={i18n._(content.getEmailBody(url))}
         target="_blank"
         message={i18n._(content.emailSubject)}
-      >
-        <i className="icon icon-mail mx-2" />
-        <Trans render="span">Email</Trans>
-      </EmailButton>
+        element={_EmailButton}
+      />
       {isMobile && (
         <a
           className="btn btn-steps"

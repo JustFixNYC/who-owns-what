@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Bar, ChartData } from "react-chartjs-2";
 import { I18n, withI18nProps } from "@lingui/react";
-import { t } from "@lingui/macro";
+import { plural, t } from "@lingui/macro";
 import * as chartjs from "chart.js";
 
 // reference: https://github.com/jerairrest/react-chartjs-2
@@ -10,7 +10,7 @@ import * as ChartAnnotation from "chartjs-plugin-annotation";
 // reference: https://github.com/chartjs/chartjs-plugin-annotation
 // why we're using this import format: https://stackoverflow.com/questions/51664741/chartjs-plugin-annotations-not-displayed-in-angular-5/53071497#53071497
 
-import Helpers, { mediumDateOptions, shortDateOptions } from "../util/helpers";
+import Helpers, { longDateOptions, mediumDateOptions, shortDateOptions } from "../util/helpers";
 
 import "styles/Indicators.css";
 import { indicatorsDatasetIds, IndicatorsState } from "./IndicatorsTypes";
@@ -165,10 +165,15 @@ class IndicatorsVizImplementation extends Component<IndicatorVizImplementationPr
     }
   }
 
-  /** Returns maximum y-value across all datasets, grouped by selected timespan */
+  /** Returns maximum y-value across all datasets except Rent Stab, grouped by selected timespan */
   getDataMaximum() {
     var { timelineData } = this.props.state.context;
-    var dataMaximums = indicatorsDatasetIds.map((datasetName) => {
+    // Rent stabilized unit counts are usually an outlier and may skew the suggested Y axis calculation for other indicators
+    const indicatorsWithoutRentStab = indicatorsDatasetIds.filter(
+      (id) => id !== "rentstabilizedunits"
+    );
+
+    var dataMaximums = indicatorsWithoutRentStab.map((datasetName) => {
       const { total } = timelineData[datasetName].values;
       return total ? Helpers.maxArray(this.groupData(total) || [0]) : 0;
     });
@@ -177,12 +182,15 @@ class IndicatorsVizImplementation extends Component<IndicatorVizImplementationPr
   }
 
   render() {
-    // Create "data" object according to Chart.js documentation
-    var datasets: chartjs.ChartDataSets[];
-    var { timelineData } = this.props.state.context;
-
     const { i18n } = this.props;
     const locale = (i18n.language || defaultLocale) as SupportedLocale;
+
+    var { timelineData } = this.props.state.context;
+    const unitsres = this.props.state.context.portfolioData.searchAddr.unitsres ?? 0;
+    const rsunits = this.groupData(timelineData.rentstabilizedunits.values.total) ?? [];
+
+    // Create "data" object according to Chart.js documentation
+    var datasets: chartjs.ChartDataSets[];
 
     switch (this.props.activeVis) {
       case "hpdviolations":
@@ -269,8 +277,19 @@ class IndicatorsVizImplementation extends Component<IndicatorVizImplementationPr
           {
             label: i18n._(t`Eviction Filings`),
             data: this.groupData(timelineData.evictionfilings.values.total) || [],
-            backgroundColor: "rgba(227,74,51, 0.6)",
+            backgroundColor: "rgba(227,74,51,0.6)",
             borderColor: "rgba(227,74,51,1)",
+            borderWidth: 1,
+          },
+        ];
+        break;
+      case "rentstabilizedunits":
+        datasets = [
+          {
+            label: i18n._(t`Rent Stabilized Units`),
+            data: rsunits,
+            backgroundColor: "rgba(131, 207, 162, 0.6)",
+            borderColor: "rgba(131, 207, 162, 1)",
             borderWidth: 1,
           },
         ];
@@ -291,15 +310,17 @@ class IndicatorsVizImplementation extends Component<IndicatorVizImplementationPr
     var labelPosition: string = ""; // specific graph label value where we want to mark "Sold to Current Owner" (as YYYY-MM)
     var dateLocation = "current"; // last sale date is either in the 'past', 'future', or 'current' (default)
 
+    var xAxisStart =
+      this.props.activeTimeSpan === "year"
+        ? INDICATORS_DATASETS[this.props.activeVis].startYear - 2007
+        : this.props.xAxisStart;
+
     if (data.labels) {
       const lastColumnIndex =
-        Math.min(this.props.xAxisStart + this.props.xAxisViewableColumns, data.labels.length) - 1;
+        Math.min(xAxisStart + this.props.xAxisViewableColumns, data.labels.length) - 1;
 
-      if (
-        !this.props.lastSale.label ||
-        this.props.lastSale.label < data.labels[this.props.xAxisStart]
-      ) {
-        labelPosition = (data.labels[this.props.xAxisStart] || "").toString();
+      if (!this.props.lastSale.label || this.props.lastSale.label < data.labels[xAxisStart]) {
+        labelPosition = (data.labels[xAxisStart] || "").toString();
         dateLocation = "past";
       } else if (this.props.lastSale.label > data.labels[lastColumnIndex]) {
         labelPosition = (data.labels[lastColumnIndex] || "").toString();
@@ -310,13 +331,22 @@ class IndicatorsVizImplementation extends Component<IndicatorVizImplementationPr
     }
 
     var dataMaximum = this.getDataMaximum();
-    var suggestedYAxisMax =
-      this.props.activeVis !== "hpdcomplaints" && this.props.activeVis !== "hpdviolations"
-        ? Math.max(
-            12,
-            Helpers.maxArray(this.groupData(timelineData.dobpermits.values.total) || [0]) * 1.25
-          )
-        : Math.max(12, dataMaximum * 1.25);
+    var suggestedYAxisMax: number;
+
+    switch (this.props.activeVis) {
+      case "hpdcomplaints":
+      case "hpdviolations":
+        suggestedYAxisMax = Math.max(12, dataMaximum * 1.25);
+        break;
+      case "rentstabilizedunits":
+        suggestedYAxisMax = Math.max(12, unitsres + unitsres / 4);
+        break;
+      default:
+        suggestedYAxisMax = Math.max(
+          12,
+          Helpers.maxArray(this.groupData(timelineData.dobpermits.values.total) || [0]) * 1.25
+        );
+    }
 
     var timeSpan = this.props.activeTimeSpan;
 
@@ -371,9 +401,9 @@ class IndicatorsVizImplementation extends Component<IndicatorVizImplementationPr
         xAxes: [
           {
             ticks: {
-              min: data.labels ? data.labels[this.props.xAxisStart] : null,
+              min: data.labels ? data.labels[xAxisStart] : null,
               max: data.labels
-                ? data.labels[this.props.xAxisStart + this.props.xAxisViewableColumns - 1]
+                ? data.labels[xAxisStart + this.props.xAxisViewableColumns - 1]
                 : null,
               maxRotation: 45,
               minRotation: 45,
@@ -452,86 +482,86 @@ class IndicatorsVizImplementation extends Component<IndicatorVizImplementationPr
       annotation: {
         events: ["click"],
         annotations: makeAnnotations([
-          {
-            drawTime: "beforeDatasetsDraw",
-            type: "line",
-            mode: "vertical",
-            scaleID: "x-axis-0",
-            value: labelPosition,
-            borderColor: dateLocation === "current" ? "rgb(69, 77, 93)" : "rgba(0,0,0,0)",
-            borderWidth: 2,
-            label: {
-              content: this.props.lastSale.date
-                ? i18n._(t`Sold to Current Owner`)
-                : i18n._(t`Last Sale Unknown`),
-              fontFamily: "Inconsolata, monospace",
-              fontColor: "#fff",
-              fontSize: 12,
-              xPadding: 10,
-              yPadding: 10,
-              backgroundColor: "rgb(69, 77, 93)",
-              position: "top",
-              xAdjust: dateLocation === "past" ? -70 : dateLocation === "future" ? 70 : 0,
-              yAdjust: 10,
-              enabled: true,
-              cornerRadius: 0,
+          !!this.props.lastSale.date
+            ? {
+                drawTime: "beforeDatasetsDraw",
+                type: "line",
+                mode: "vertical",
+                scaleID: "x-axis-0",
+                value: labelPosition,
+                borderColor: dateLocation === "current" ? "rgb(68, 77, 93)" : "rgba(0,0,0,0)",
+                borderWidth: 2,
+                label: {
+                  content:
+                    (dateLocation === "past" ? "← " : "") +
+                    i18n._(t`Sold`) +
+                    " " +
+                    Helpers.formatDate(this.props.lastSale.date, longDateOptions, locale) +
+                    (dateLocation === "future" ? " →" : ""),
+                  fontStyle: "normal",
+                  xPadding: 10,
+                  yPadding: 10,
+                  backgroundColor: "rgb(68, 77, 93)",
+                  position: "top",
+                  xAdjust: dateLocation === "past" ? -70 : dateLocation === "future" ? 70 : 0,
+                  yAdjust: 10,
+                  enabled: true,
+                  cornerRadius: 0,
+                },
+                onClick: () => {
+                  window.open(acrisURL, "_blank");
+                },
+              }
+            : {
+                drawTime: "beforeDatasetsDraw",
+                type: "line",
+                mode: "vertical",
+                scaleID: "x-axis-0",
+                value: labelPosition,
+                borderColor: dateLocation === "current" ? "rgb(68, 77, 93)" : "rgba(0,0,0,0)",
+                borderWidth: 2,
+                label: {
+                  content: i18n._(t`Last Sale Unknown`),
+                  fontStyle: "normal",
+                  xPadding: 10,
+                  yPadding: 10,
+                  backgroundColor: "rgb(68, 77, 93)",
+                  position: "top",
+                  xAdjust: dateLocation === "past" ? -70 : dateLocation === "future" ? 70 : 0,
+                  yAdjust: 10,
+                  enabled: true,
+                  cornerRadius: 0,
+                },
+                onClick: () => {
+                  window.open(acrisURL, "_blank");
+                },
+              },
+          this.props.activeVis === "rentstabilizedunits" &&
+            !!unitsres && {
+              drawTime: "afterDatasetsDraw",
+              type: "line",
+              mode: "horizontal",
+              scaleID: "y-axis-0",
+              value: unitsres,
+              borderColor: "rgb(81, 136, 255)",
+              borderWidth: 2,
+              borderDash: [10, 10],
+              label: {
+                content: i18n._(
+                  plural({
+                    value: unitsres,
+                    one: "1 unit total",
+                    other: "# units total",
+                  })
+                ),
+                fontStyle: "normal",
+                fontColor: "rgb(0,0,0)",
+                backgroundColor: "rgb(81, 136, 255)",
+                position: "center",
+                enabled: true,
+                cornerRadius: 0,
+              },
             },
-            onClick: () => {
-              window.open(acrisURL, "_blank");
-            },
-          },
-          !!this.props.lastSale.date && {
-            drawTime: "beforeDatasetsDraw",
-            type: "line",
-            mode: "vertical",
-            scaleID: "x-axis-0",
-            value: labelPosition,
-            borderColor: "rgba(0,0,0,0)",
-            borderWidth: 0,
-            label: {
-              content:
-                (dateLocation === "past" ? "← " : "") +
-                Helpers.formatDate(this.props.lastSale.date, mediumDateOptions, locale) +
-                (dateLocation === "future" ? " →" : ""),
-              fontFamily: "Inconsolata, monospace",
-              fontColor: "#fff",
-              fontSize: 12,
-              xPadding: 10,
-              yPadding: 10,
-              backgroundColor: "rgb(69, 77, 93)",
-              position: "top",
-              xAdjust: dateLocation === "past" ? -70 : dateLocation === "future" ? 70 : 0,
-              yAdjust: 30,
-              enabled: true,
-              cornerRadius: 0,
-            },
-            onClick: () => {
-              window.open(acrisURL, "_blank");
-            },
-          },
-          this.props.activeVis === "hpdcomplaints" && {
-            drawTime: "beforeDatasetsDraw",
-            type: "line",
-            mode: "vertical",
-            scaleID: "x-axis-0",
-            value: timeSpan === "quarter" ? "2012-Q4" : timeSpan === "year" ? "2012" : "2013-10",
-            borderColor: "rgba(0,0,0,0)",
-            borderWidth: 0,
-            label: {
-              content: "← " + i18n._(t`No data available`),
-              fontFamily: "Inconsolata, monospace",
-              fontColor: "#e85600",
-              fontSize: 12,
-              xPadding: 10,
-              yPadding: 10,
-              backgroundColor: "rgba(0,0,0,0)",
-              position: "top",
-              xAdjust: 0,
-              yAdjust: 105,
-              enabled: true,
-              cornerRadius: 0,
-            },
-          },
         ]),
         drawTime: "afterDraw", // (default)
       },

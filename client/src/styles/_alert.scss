@@ -1,14 +1,14 @@
 @import "_vars.scss";
 
 .jf-alert {
-  --color-bar-width: 1.5rem;
+  --color-bar-width: 0.94rem;
   display: flex;
   position: relative;
-  padding: 0 0 1rem calc(var(--color-bar-width) + 1rem);
+  padding: 0 0 0.63rem calc(var(--color-bar-width) + 0.63rem);
   width: fit-content;
-  border-radius: 0.4rem;
+  border-radius: 0.25rem;
   font-family: "Inconsolata", monospace;
-  font-size: 1.4rem;
+  font-size: 0.87rem;
   font-weight: 500;
   text-transform: none;
 
@@ -19,27 +19,27 @@
     top: 0;
     left: 0;
     bottom: 0;
-    border-radius: 0.3rem 0 0 0.3rem;
+    border-radius: 0.19rem 0 0 0.19rem;
   }
 
   .jf-alert__content {
     margin-right: auto;
-    padding-top: 1rem;
+    padding-top: 0.63rem;
     &:last-child {
-      padding-right: 1rem;
+      padding-right: 0.63rem;
     }
   }
 
   .jf-alert__close {
     align-self: flex-start;
-    padding: 1rem 1rem 1.2rem 1.2rem;
+    padding: 0.63rem 0.63rem 0.75rem 0.75rem;
     &:focus-visible {
       outline: 2px solid $focus-outline-color;
     }
     .closeIcon {
-      height: 1.2rem;
-      width: 1.2rem;
-      stroke-width: 0.2rem;
+      height: 0.75rem;
+      width: 0.75rem;
+      stroke-width: 0.13rem;
     }
   }
 
@@ -60,14 +60,14 @@
   }
 
   &.is-error {
-    padding: 0 0 0.7rem calc(var(--color-bar-width) + 0.8rem);
+    padding: 0 0 0.44rem calc(var(--color-bar-width) + 0.5rem);
     &::before {
       background-color: $justfix-orange;
     }
     .jf-alert__content {
-      padding-top: 0.7rem;
+      padding-top: 0.44rem;
       &:last-child {
-        padding-right: 0.6rem;
+        padding-right: 0.37rem;
       }
     }
   }
@@ -76,7 +76,7 @@
   }
   &.is-info {
     &.is-secondary {
-      border: 0.1rem solid $justfix-grey-400;
+      border: 1px solid $justfix-grey-400;
       &,
       p,
       a,

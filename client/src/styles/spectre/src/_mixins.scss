@@ -1,0 +1,42 @@
+// Core mixins
+@mixin clearfix() {
+  &::after {
+    clear: both;
+    content: "";
+    display: table;
+  }
+}
+
+// Component focus shadow
+@mixin control-shadow($color: $primary-color) {
+  box-shadow: 0 0 0 0.13rem fade-in($color, 0.15);
+}
+
+// Component transition
+@mixin control-transition() {
+  transition: all 0.2s ease;
+}
+
+// Toast variant
+@mixin toast-variant($color: $dark-color) {
+  background: fade-in($color, 0.9);
+  border-color: $color;
+}
+
+// Label base style
+@mixin label-base() {
+  border-radius: $border-radius;
+  display: inline-block;
+  line-height: 1;
+  padding: 0.19rem 0.25rem;
+  vertical-align: baseline;
+}
+
+@mixin label-variant($color: $light-color, $bg-color: $primary-color) {
+  background: $bg-color;
+  color: $color;
+}
+
+@mixin shadow-variant($offset) {
+  box-shadow: 0 $offset ($offset + 0.06rem) * 2 fade-in($dark-color, 0.3);
+}

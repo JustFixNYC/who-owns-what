@@ -3,7 +3,7 @@ import { AddressRecord, HpdContactAddress, SearchAddressWithoutBbl } from "compo
 import { reportError } from "error-reporting";
 import { t } from "@lingui/macro";
 import { I18n, MessageDescriptor } from "@lingui/core";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, ChangeEvent } from "react";
 import _ from "lodash";
 
 const hpdComplaintTypeTranslations = new Map([
@@ -41,6 +41,9 @@ const hpdComplaintTypeTranslations = new Map([
   ["HEAT/HOT WATER", t`HEAT/HOT WATER`],
   ["DOORS", t`DOORS`],
   ["LOCKS", t`LOCKS`],
+  ["LINE OF TRAVEL", t`LINE OF TRAVEL`],
+  ["PORCH/BALCONY", t`PORCH/BALCONY`],
+  ["VENTILATORS", t`VENTILATORS`],
 ]);
 
 const hpdContactTitleTranslations = new Map([
@@ -131,6 +134,27 @@ export function searchAddrsAreEqual(
     addr1.housenumber === addr2.housenumber
   );
 }
+
+// https://www.codevertiser.com/reusable-input-component-react/
+export const useInput = (initialValue: string) => {
+  const [value, setValue] = useState(initialValue);
+  const [error, setError] = useState(false);
+  const [showError, setShowError] = useState(false);
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setValue(e.target.value);
+  };
+
+  return {
+    value,
+    error,
+    showError,
+    setValue,
+    setError,
+    setShowError,
+    onChange: handleChange,
+  };
+};
 
 const helpers = {
   // filter repeated values in rbas and owners

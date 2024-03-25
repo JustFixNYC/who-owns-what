@@ -1,7 +1,7 @@
 @import "_vars.scss";
 
 details.accordion {
-  padding: 1.6rem 1.6rem 1.6rem 0.8rem;
+  padding: 1rem 1rem 1rem 0.5rem;
   @include for-phone-only() {
     padding-left: 0;
     padding-right: 0;
@@ -35,7 +35,7 @@ details.accordion {
   }
 
   > div {
-    margin-top: 1.8rem;
+    margin-top: 1.13rem;
   }
 
   summary {

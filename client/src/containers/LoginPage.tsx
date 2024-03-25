@@ -19,7 +19,7 @@ const LoginPage = withI18n()((props: withI18nProps) => {
   };
 
   return (
-    <Page title={i18n._(t`Verify your email address`)}>
+    <Page title={i18n._(t`Log in / sign up`)}>
       <div className="LoginPage Page">
         <div className="page-container">
           <Login handleRedirect={redirect} />

@@ -79,14 +79,16 @@ const AccountSettingsPage = withI18n()((props: withI18nProps) => {
             {subscriptions?.length ? (
               <Trans>You’re signed up for email updates from these buildings:</Trans>
             ) : (
-              <Trans>Sign up for email updates on the buildings you choose:</Trans>
+              <Trans>Sign up for Data Updates on the buildings you choose:</Trans>
             )}
           </h4>
-          <div>
+          <div className="subscriptions-container">
             {subscriptions?.length ? (
-              subscriptions.map((s) => (
-                <SubscriptionField key={s.bbl} {...s} onRemoveClick={userContext.unsubscribe} />
-              ))
+              <>
+                {subscriptions.map((s) => (
+                  <SubscriptionField key={s.bbl} {...s} onRemoveClick={userContext.unsubscribe} />
+                ))}
+              </>
             ) : (
               <Trans render="div" className="settings-no-subscriptions">
                 <LocaleNavLink exact to={home}>
@@ -97,7 +99,9 @@ const AccountSettingsPage = withI18n()((props: withI18nProps) => {
             )}
           </div>
           <div className="settings-contact">
-            <Trans>If you’d like to delete your account, contact support@justfix.org</Trans>
+            <Trans>If you’d like to delete your account,</Trans>
+            <br />
+            <Trans>contact support@justfix.org </Trans>
           </div>
         </div>
         <LegalFooter />

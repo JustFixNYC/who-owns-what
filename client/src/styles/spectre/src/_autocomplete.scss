@@ -1,0 +1,40 @@
+// Autocomplete
+.form-autocomplete {
+  position: relative;
+
+  .form-autocomplete-input {
+    align-content: flex-start;
+    display: flex;
+    flex-wrap: wrap;
+    height: auto;
+    min-height: 2rem;
+    padding: 0.06rem 0 0 0.06rem;
+
+    &.is-focused {
+      border-color: $primary-color;
+      @include control-shadow();
+    }
+
+    .form-input {
+      border-color: transparent;
+      box-shadow: none;
+      display: inline-block;
+      flex: 1 0 auto;
+      height: 1.75rem;
+      padding: 0.19rem 0.5rem;
+      width: auto;
+    }
+  }
+
+  mark {
+    font-size: 1;
+    padding: 0.1em 0;
+  }
+
+  .menu {
+    left: 0;
+    position: absolute;
+    top: 100%;
+    width: 100%;
+  }
+}

@@ -1,0 +1,35 @@
+// Navs
+.nav {
+  display: flex;
+  flex-direction: column;
+
+  .nav-item {
+    a {
+      color: $gray-color-dark;
+      padding: 0.37rem 0.5rem;
+      text-decoration: none;
+      &:focus,
+      &:hover {
+        color: $primary-color;
+      }
+    }
+    &.active {
+      & > a {
+        font-weight: bold;
+        &:focus,
+        &:hover {
+          color: $primary-color;
+        }
+      }
+    }
+  }
+
+  & .nav {
+    margin-bottom: 0.63rem;
+    margin-left: 1.25rem;
+
+    a {
+      color: $gray-color;
+    }
+  }
+}

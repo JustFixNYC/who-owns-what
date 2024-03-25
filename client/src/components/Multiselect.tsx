@@ -13,6 +13,7 @@ import { t, Trans } from "@lingui/macro";
 import { Alert } from "./Alert";
 import { CloseIcon, CheckIcon } from "./Icons";
 import classnames from "classnames";
+import { Button } from "@justfixnyc/component-library";
 
 // Example of separating out selected values
 // https://github.com/JedWatson/react-select/discussions/4850
@@ -41,9 +42,9 @@ interface CustomSelectProps {
   setShowAllSelections: (x: any) => void;
 }
 
-const ariaLiveGuidanceGeneral = `Type to refine list of options. Use Up and Down to choose options, 
-  press Enter to select the currently focused option, press Escape to exit the menu. 
-  Use Left and Right to toggle between selected values, 
+const ariaLiveGuidanceGeneral = `Type to refine list of options. Use Up and Down to choose options,
+  press Enter to select the currently focused option, press Escape to exit the menu.
+  Use Left and Right to toggle between selected values,
   press Backspace to remove the currently focused value`;
 
 function CustomSelect<
@@ -165,18 +166,16 @@ function MultiSelect<
 
           {infoAlert}
 
-          <button
-            className="button is-primary"
-            aria-label={i18n._(t`Apply selections and get results`)}
+          <Button
             onClick={handleApply}
             // By default, when multiselect option list is open mouseDown outside
             // closes the list, so because the Apply button is below, if you try to
             // click apply while it's open it moves on you before you can mouseUp.
             onMouseDown={handleApply}
             onTouchStart={handleApply}
-          >
-            <Trans>Apply</Trans>
-          </button>
+            labelText={i18n._("Apply")}
+            size="small"
+          />
         </div>
       )}
     </I18n>

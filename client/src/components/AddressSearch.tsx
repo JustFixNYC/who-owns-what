@@ -225,6 +225,7 @@ export default class AddressSearch extends React.Component<AddressSearchProps, S
                       {this.props.labelText}
                     </label>
                     <input
+                      autoFocus
                       placeholder="Search places"
                       className="geosuggest__input form-input"
                       {...downshift.getInputProps(inputOptions)}

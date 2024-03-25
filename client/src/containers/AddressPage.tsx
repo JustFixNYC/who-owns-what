@@ -4,7 +4,7 @@ import AddressToolbar from "../components/AddressToolbar";
 import PropertiesMap from "../components/PropertiesMap";
 import PropertiesList, { FilterContextProvider } from "../components/PropertiesList";
 import PropertiesSummary from "../components/PropertiesSummary";
-import Indicators from "../components/Indicators";
+import Indicators, { validateIndicatorParam } from "../components/Indicators";
 import DetailView from "../components/DetailView";
 import { LoadingPage } from "../components/Loader";
 
@@ -20,7 +20,7 @@ import { withMachineProps } from "state-machine";
 import { AddrNotFoundPage } from "./NotFoundPage";
 import { searchAddrsAreEqual } from "util/helpers";
 import { NetworkErrorMessage } from "components/NetworkErrorMessage";
-import { createAddressPageRoutes } from "routes";
+import { removeIndicatorSuffix, createAddressPageRoutes } from "routes";
 import { isLegacyPath } from "../components/WowzaToggle";
 import { logAmplitudeEvent } from "components/Amplitude";
 
@@ -29,6 +29,7 @@ type RouteParams = {
   boro?: string;
   housenumber?: string;
   streetname?: string;
+  indicator?: string;
 };
 
 type RouteState = {
@@ -60,7 +61,11 @@ const validateRouteParams = (params: RouteParams) => {
       housenumber: params.housenumber,
       bbl: "",
     };
-    return { ...searchAddress, locale: params.locale };
+    return {
+      ...searchAddress,
+      locale: params.locale,
+      indicator: validateIndicatorParam(params.indicator),
+    };
   }
 };
 
@@ -203,7 +208,7 @@ export default class AddressPage extends Component<AddressPageProps, State> {
                   </li>
                   <li className={`tab-item ${this.props.currentTab === 2 ? "active" : ""}`}>
                     <Link
-                      to={routes.timeline}
+                      to={removeIndicatorSuffix(routes.timeline)}
                       tabIndex={this.props.currentTab === 2 ? -1 : 0}
                       onClick={() => {
                         logAmplitudeEvent("timelineTab");

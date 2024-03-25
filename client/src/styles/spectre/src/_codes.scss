@@ -1,0 +1,31 @@
+// Codes
+code {
+  @include label-base();
+  @include label-variant($code-color, lighten($code-color, 33%));
+}
+
+.code {
+  border-radius: $border-radius;
+  color: $body-font-color;
+  line-height: 1.25rem;
+  position: relative;
+
+  &::before {
+    content: attr(data-lang);
+    color: $gray-color;
+    font-size: $font-size-sm;
+    position: absolute;
+    right: 0.63rem;
+    top: 0.13rem;
+  }
+
+  code {
+    background: $bg-color;
+    color: inherit;
+    display: block;
+    line-height: inherit;
+    overflow-x: auto;
+    padding: 1.25rem;
+    width: 100%;
+  }
+}

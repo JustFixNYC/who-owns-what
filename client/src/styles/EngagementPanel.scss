@@ -28,19 +28,32 @@
     position: relative;
     flex-direction: row;
 
-    @include for-tablet-landscape-down() {
+    @include for-desktop-down() {
       display: block;
       align-items: center;
       flex-direction: column;
+
+      .Subscribe form {
+        display: flex;
+        flex-direction: column;
+        input {
+          margin-bottom: 8px;
+        }
+      }
     }
 
     .EngagementItem {
       margin-left: 16px;
       margin-right: 16px;
 
-      @include for-tablet-landscape-down() {
+      @include for-desktop-down() {
         margin-top: 10px;
         margin-bottom: 10px;
+
+        &:nth-of-type(2) {
+          margin-top: 24px;
+          margin-bottom: 24px;
+        }
       }
 
       p {
@@ -50,16 +63,6 @@
 
       .btn-block {
         min-width: 175px;
-      }
-
-      @include for-tablet-landscape-down() {
-        .EngagementSocialLinks {
-          display: flex;
-
-          .btn {
-            flex: 1 1 0;
-          }
-        }
       }
     }
   }

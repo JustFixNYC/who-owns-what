@@ -20,6 +20,7 @@ import { ContentfulCommonStrings } from "@justfixnyc/contentful-common-strings";
 import _commonStrings from "../data/common-strings.json";
 import LandlordSearch, { algoliaAppId, algoliaSearchKey } from "components/LandlordSearch";
 import { logAmplitudeEvent } from "components/Amplitude";
+import JFCLLinkInternal from "components/JFCLLinkInternal";
 
 const commonStrings = new ContentfulCommonStrings(_commonStrings as any);
 
@@ -242,13 +243,14 @@ const HomePage: React.FC<HomePageProps> = ({ useNewPortfolioMethod }) => {
                       in rent-stabilized buildings.
                     </Trans>
                     <Link
-                      className="btn block text-center"
+                      className="flex-centered portfolio-link"
                       to={getSampleUrls()[1]}
                       onClick={() => {
                         window.gtag("event", "example-portfolio-2-homepage");
                       }}
+                      component={JFCLLinkInternal}
                     >
-                      <Trans>View portfolio</Trans> &#10230;
+                      <Trans>View portfolio</Trans>
                     </Link>
                   </div>
                 </div>
@@ -286,13 +288,14 @@ const HomePage: React.FC<HomePageProps> = ({ useNewPortfolioMethod }) => {
                       while vacant, and skyrocketing rents to market rate.
                     </Trans>
                     <Link
-                      className="btn block text-center"
+                      className="flex-centered portfolio-link"
                       to={getSampleUrls()[2]}
                       onClick={() => {
                         window.gtag("event", "example-portfolio-3-homepage");
                       }}
+                      component={JFCLLinkInternal}
                     >
-                      <Trans>View portfolio</Trans> &#10230;
+                      <Trans>View portfolio</Trans>
                     </Link>
                   </div>
                 </div>

@@ -9,24 +9,44 @@ import { Trans, t } from "@lingui/macro";
 import "styles/UserSetting.css";
 import AuthClient from "../components/AuthClient";
 import { SubscriptionField } from "./AccountSettingsPage";
+import { createWhoOwnsWhatRoutePaths } from "routes";
+import { LocaleNavLink } from "i18n";
+import { BuildingSubscription } from "state-machine";
+import { FixedLoadingLabel } from "components/Loader";
 
 const UnsubscribePage = withI18n()((props: withI18nProps) => {
   const { i18n } = props;
   const { search } = useLocation();
+  const { home } = createWhoOwnsWhatRoutePaths();
   const params = new URLSearchParams(search);
   const token = params.get("u") || "";
+  const isEmailUnsubscribeAll = !!params.get("all");
 
-  const [subscriptions, setSubscriptions] = React.useState([]);
+  const [subscriptions, setSubscriptions] = React.useState<BuildingSubscription[] | undefined>();
+
   useEffect(() => {
-    const asyncFetchSubscriptions = async () => {
-      const response = await AuthClient.userSubscriptions(token);
-      setSubscriptions(response["subscriptions"]);
-    };
-    asyncFetchSubscriptions();
-  }, [token]);
+    if (isEmailUnsubscribeAll) {
+      const asyncUnsubscribeAll = async () => {
+        const response = await AuthClient.emailUnsubscribeAll(token);
+        setSubscriptions(response["subscriptions"]);
+      };
+      asyncUnsubscribeAll();
+    } else {
+      const asyncFetchSubscriptions = async () => {
+        const response = await AuthClient.emailUserSubscriptions(token);
+        setSubscriptions(response["subscriptions"]);
+      };
+      asyncFetchSubscriptions();
+    }
+  }, [token, isEmailUnsubscribeAll]);
 
-  const handleUnsubscribe = async (bbl: string) => {
-    const result = await AuthClient.emailBuildingUnsubscribe(bbl, token);
+  const handleUnsubscribeBuilding = async (bbl: string) => {
+    const result = await AuthClient.emailUnsubscribeBuilding(bbl, token);
+    if (!!result?.["subscriptions"]) setSubscriptions(result["subscriptions"]);
+  };
+
+  const handleUnsubscribeAll = async () => {
+    const result = await AuthClient.emailUnsubscribeAll(token);
     if (!!result?.["subscriptions"]) setSubscriptions(result["subscriptions"]);
   };
 
@@ -34,12 +54,42 @@ const UnsubscribePage = withI18n()((props: withI18nProps) => {
     <Page title={i18n._(t`Modify your email preferences`)}>
       <div className="UnsubscribePage Page">
         <div className="page-container">
-          <Trans render="h4">You are signed up for email alerts from these bulidings:</Trans>
-          <div>
-            {subscriptions?.map((s: any) => (
-              <SubscriptionField key={s.bbl} {...s} onRemoveClick={handleUnsubscribe} />
-            ))}
-          </div>
+          {subscriptions === undefined ? (
+            <FixedLoadingLabel />
+          ) : isEmailUnsubscribeAll || !subscriptions.length ? (
+            <>
+              {isEmailUnsubscribeAll ? (
+                <Trans render="h4">You have sucessfully unsubscribed from all buildings.</Trans>
+              ) : (
+                <Trans render="h4">You are not subscribed to any buildings.</Trans>
+              )}
+              <Trans render="div" className="settings-no-subscriptions">
+                <LocaleNavLink exact to={home}>
+                  Search an address
+                </LocaleNavLink>{" "}
+                to sign up for email alerts for that building.
+              </Trans>
+              <div className="settings-contact">
+                <Trans>If you’d like to delete your account,</Trans>
+                <br />
+                <Trans>contact support@justfix.org </Trans>
+              </div>
+            </>
+          ) : (
+            <>
+              <Trans render="h4">You are signed up for email alerts from these bulidings:</Trans>
+              <div className="subscriptions-container">
+                {subscriptions.map((s: any) => (
+                  <SubscriptionField key={s.bbl} {...s} onRemoveClick={handleUnsubscribeBuilding} />
+                ))}
+                <div className="unsubscribe-all-field">
+                  <button className="button is-text" onClick={handleUnsubscribeAll}>
+                    <Trans>Unsubscribe from all</Trans>
+                  </button>
+                </div>
+              </div>
+            </>
+          )}
         </div>
         <LegalFooter />
       </div>

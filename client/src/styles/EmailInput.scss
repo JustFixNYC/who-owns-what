@@ -1,0 +1,61 @@
+@import "_vars.scss";
+@import "_typography.scss";
+
+.email-input-field {
+  .email-input-label {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    label {
+      @include body-standard;
+      // vars marked !important bc typography mixin is not available for inconsolata
+      // font-weight: 600 !important;
+      font-family: $wow-font !important;
+      font-size: 0.8125rem !important;
+      line-height: 120%;
+      color: $justfix-black;
+
+      text-align: left;
+      margin-bottom: 0.3125rem;
+    }
+
+    a {
+      color: $justfix-black;
+      font-size: 0.8125rem;
+    }
+  }
+
+  .email-input {
+    display: flex;
+
+    input {
+      flex: 1;
+
+      &.invalid {
+        border-color: $justfix-orange;
+      }
+
+      &.invalid:focus {
+        border-color: $justfix-black;
+      }
+    }
+  }
+
+  .email-input-errors {
+    display: flex;
+    flex-direction: column;
+
+    span {
+      display: flex;
+      align-items: center;
+      font-size: 0.8125rem;
+      color: #ba4300;
+      margin-bottom: 0.3125rem;
+
+      svg {
+        margin-right: 0.47rem;
+      }
+    }
+  }
+}

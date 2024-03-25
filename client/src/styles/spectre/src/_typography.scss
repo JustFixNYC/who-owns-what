@@ -1,0 +1,102 @@
+// Typography
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: inherit;
+  font-weight: 300;
+  line-height: 1.2;
+  margin-bottom: 0.94rem;
+  margin-top: 0;
+}
+h1 {
+  font-size: 3.13rem;
+}
+h2 {
+  font-size: 2.5rem;
+}
+h3 {
+  font-size: 1.88rem;
+}
+h4 {
+  font-size: 1.5rem;
+}
+h5 {
+  font-size: 1.25rem;
+}
+h6 {
+  font-size: 1rem;
+}
+p {
+  line-height: 1.5rem;
+  margin: 0 0 0.63rem;
+}
+a,
+ins,
+u {
+  text-decoration-skip: ink edges;
+}
+blockquote {
+  border-left: 0.13rem solid $border-color;
+  margin-left: 0;
+  padding: 0.63rem 1.25rem;
+
+  p:last-child {
+    margin-bottom: 0;
+  }
+
+  cite {
+    color: $gray-color;
+  }
+}
+ul,
+ol {
+  margin: 1.25rem 0 1.25rem 1.25rem;
+  padding: 0;
+
+  ul,
+  ol {
+    margin: 0.94rem 0 0.94rem 1.25rem;
+  }
+
+  li {
+    margin-top: 0.63rem;
+  }
+}
+ul {
+  list-style: disc inside;
+
+  ul {
+    list-style-type: circle;
+  }
+}
+ol {
+  list-style: decimal inside;
+
+  ol {
+    list-style-type: lower-alpha;
+  }
+}
+dl {
+  dt {
+    font-weight: bold;
+  }
+  dd {
+    margin: 0.31rem 0 0.94rem 0;
+  }
+}
+mark {
+  @include label-base();
+  @include label-variant($body-font-color, $highlight-color);
+}
+kbd {
+  @include label-base();
+  @include label-variant($light-color, $dark-color);
+}
+abbr[title] {
+  border-bottom: 1px dotted;
+  cursor: help;
+  text-decoration: none;
+}

@@ -1,0 +1,70 @@
+// Badges
+.badge {
+  position: relative;
+  white-space: nowrap;
+
+  &[data-badge],
+  &:not([data-badge]) {
+    &::after {
+      background: $primary-color;
+      background-clip: padding-box;
+      border: $border-width solid $bg-color-light;
+      border-radius: 0.63rem;
+      color: $light-color;
+      content: attr(data-badge);
+      display: inline-block;
+      transform: translate(-0.13rem, -0.63rem);
+    }
+  }
+  &[data-badge] {
+    &::after {
+      font-size: $font-size-sm;
+      height: 1.25rem;
+      line-height: 1;
+      min-width: 1.25rem;
+      padding: 0.19rem 0.31rem;
+      text-align: center;
+      white-space: nowrap;
+    }
+  }
+  &:not([data-badge]),
+  &[data-badge=""] {
+    &::after {
+      height: 0.5rem;
+      min-width: 0.5rem;
+      padding: 0;
+      width: 0.5rem;
+    }
+  }
+
+  // Badges for Buttons
+  &.btn {
+    &::after {
+      position: absolute;
+      top: 0;
+      right: 0;
+      transform: translate(50%, -50%);
+    }
+  }
+
+  // Badges for Avatars
+  &.avatar {
+    &::after {
+      position: absolute;
+      top: 14.64%;
+      right: 14.64%;
+      transform: translate(50%, -50%);
+      z-index: $zindex-1;
+    }
+  }
+
+  &.avatar-xs {
+    &::after {
+      content: "";
+      height: 0.5rem;
+      min-width: 0.5rem;
+      padding: 0;
+      width: 0.5rem;
+    }
+  }
+}

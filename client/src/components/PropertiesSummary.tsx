@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Trans, Plural, t } from "@lingui/macro";
+import { Link } from "@justfixnyc/component-library";
 
 import { FixedLoadingLabel } from "../components/Loader";
 import LegalFooter from "../components/LegalFooter";
@@ -51,19 +52,17 @@ const DataRequestButton: React.FC<{
   return (
     <I18nComponent>
       {({ i18n }) => (
-        <a
+        <Link
           onClick={() => {
             window.gtag("event", "data-request");
           }}
           href={generateLinkToDataRequestForm(i18n, address)}
           target="_blank"
           rel="noopener noreferrer"
-          className="btn btn-block"
+          icon="external"
         >
-          <div>
-            <Trans render="label">Send us a data request</Trans>
-          </div>
-        </a>
+          <Trans>Send us a data request</Trans>
+        </Link>
       )}
     </I18nComponent>
   );
@@ -210,7 +209,7 @@ export default class PropertiesSummary extends Component<Props, {}> {
                   </div>
                   <div>
                     <h6 className="PropertiesSummary__linksSubtitle">
-                      <Trans>Share this page with your neighbors</Trans>
+                      <Trans>Share with your neighbors</Trans>
                     </h6>
                     <SocialShareAddressPage
                       location="summary-tab"

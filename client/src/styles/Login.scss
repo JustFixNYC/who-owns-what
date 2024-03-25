@@ -1,28 +1,64 @@
 @import "_vars.scss";
 @import "_typography.scss";
 
-.Login {
+// TODO REFACTOR THIS PAGE
+.Login,
+.ForgotPasswordPage,
+.ResetPasswordPage {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+
   .input-group {
     display: flex;
     flex-direction: column;
-    margin: 1rem 0.75rem;
+    gap: 1.5rem;
+
+    .submit-button-group {
+      display: flex;
+
+      button[type="submit"],
+      input[type="submit"] {
+        padding: 1rem 2rem !important;
+        align-self: center;
+        margin: 0 auto !important;
+      }
+    }
   }
 
-  label {
-    @include desktop-eyebrow();
-
-    text-align: left;
-    margin-top: 1rem;
-    margin-bottom: 0.5rem;
+  .page-title {
+    margin-top: 0.9375rem;
   }
 
-  .login-type-toggle {
+  .building-page-footer {
     display: flex;
-    justify-content: flex-start;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1.5rem;
+
+    .privacy-links {
+      text-align: center;
+      max-width: 20rem;
+      margin: 0 auto;
+    }
+
+    .login-type-toggle {
+      display: flex;
+      justify-content: center;
+      font-size: 0.94rem;
+    }
+
+    .privacy-links,
+    .login-type-toggle {
+      a,
+      button {
+        color: inherit;
+      }
+    }
   }
 
   .login-response-text {
-    margin: 1rem 0 1rem;
+    margin: 0.39rem 0 0.39rem;
   }
 
   .login-password-label {
@@ -36,15 +72,33 @@
   }
 
   h4 {
-    font-size: 2.4rem;
+    font-size: 1.5rem;
+    margin-bottom: 0;
   }
   h5 {
-    font-size: 1.6rem;
+    font-size: 0.63rem;
+  }
+
+  .verify-email-container {
+    color: $justfix-black;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+
+    p {
+      margin: 0;
+    }
+
+    h4,
+    .resend-verify-label {
+      display: flex;
+      justify-content: center;
+    }
   }
 
   .jf-alert {
     width: auto;
-    margin-bottom: 2rem;
+    font-size: 0.81rem;
 
     .button.is-text {
       display: block !important;
@@ -53,6 +107,23 @@
 
     .jf-alert__content {
       display: flex;
+      text-align: left;
+    }
+  }
+
+  .request-sent-success {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    svg {
+      margin: 0.39rem 0 0.98rem 0;
+    }
+
+    .button.is-text {
+      margin-top: 0.39rem;
+      display: block !important;
+      color: $justfix-black;
     }
   }
 }

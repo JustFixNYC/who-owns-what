@@ -16,8 +16,8 @@
     }
 
     & > div > h6 {
-      font-size: 1.4rem;
-      margin-bottom: 0.6rem;
+      font-size: 0.87rem;
+      margin-bottom: 0.37rem;
       text-decoration: underline;
       font-weight: bold;
       // Override default styling in App.scss
@@ -27,8 +27,8 @@
     }
 
     p {
-      font-size: 1.6rem;
-      margin-bottom: 2.4rem;
+      font-size: 1rem;
+      margin-bottom: 1.5rem;
     }
 
     aside {
@@ -42,12 +42,12 @@
     .portfolio-graph-container {
       position: relative;
       .Loader-map {
-        height: calc(55vh + 6.25rem);
+        height: calc(55vh + 3.91rem);
       }
       .portfolio-graph {
         position: relative;
-        padding: 1rem;
-        margin-bottom: 2rem;
+        padding: 0.63rem;
+        margin-bottom: 1.25rem;
         border: 1px dashed $wowza-dark;
 
         div:not(.float-left) {
@@ -63,12 +63,12 @@
         .btn-group {
           position: absolute;
           flex-direction: column;
-          margin-top: 3.5rem;
+          margin-top: 2.19rem;
           z-index: 10;
           .btn {
             flex-grow: 0;
             margin-left: 0;
-            font-size: 2rem;
+            font-size: 1.25rem;
           }
         }
       }
@@ -77,10 +77,10 @@
         @include for-tablet-portrait-up {
           position: absolute;
           z-index: 100;
-          bottom: 1rem;
-          left: 1rem;
+          bottom: 0.63rem;
+          left: 0.63rem;
           margin-bottom: 0;
-          width: 37.5rem;
+          width: 23.44rem;
         }
       }
     }
@@ -88,7 +88,7 @@
 
   .PropertiesSummary__links {
     border: 1px solid $gray;
-    padding: 2rem 1.5rem;
+    padding: 1.25rem 0.94rem;
     position: relative;
 
     .btn {
@@ -105,7 +105,7 @@
 
     h6.PropertiesSummary__linksSubtitle {
       font-weight: bold;
-      margin-bottom: 0.75rem;
+      margin-bottom: 0.47rem;
       width: 100%;
     }
 

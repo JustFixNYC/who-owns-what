@@ -1,0 +1,13 @@
+// Navigation
+.breadcrumb,
+.tab,
+.pagination,
+.nav {
+  list-style: none;
+  margin: 0.31rem 0;
+}
+
+@import "_breadcrumbs.scss";
+@import "_tabs.scss";
+@import "_pagination.scss";
+@import "_navs.scss";
