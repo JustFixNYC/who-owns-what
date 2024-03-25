@@ -51,7 +51,7 @@ export const SubscriptionField = withI18n()(SubscriptionFieldWithoutI18n);
 const AccountSettingsPage = withI18n()((props: withI18nProps) => {
   const { i18n } = props;
   const userContext = useContext(UserContext);
-  if (!userContext.user) return <div />;
+  if (!userContext?.user?.email) return <div />;
 
   const { email, subscriptions } = userContext.user as JustfixUser;
   const { home } = createWhoOwnsWhatRoutePaths();
