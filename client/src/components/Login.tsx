@@ -369,13 +369,11 @@ const LoginWithoutI18n = (props: LoginProps) => {
         !onBuildingPage || showRegisterModal ? i18n._(t`Submit`) : i18n._(t`Get updates`);
       break;
     case Step.Login:
-      headerText = !onBuildingPage
-        ? i18n._(t`Log in`)
-        : showRegisterModal
+      headerText = showRegisterModal
         ? i18n._(
             t`Enter your email to get weekly updates on complaints, violations, and eviction filings for this building.`
           )
-        : i18n._(t`Log in to start getting updates for this building.`);
+        : i18n._(t`Log in`);
       onSubmit = onLoginSubmit;
       submitButtonText = i18n._(t`Log in`);
       break;
