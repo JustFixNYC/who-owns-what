@@ -92,9 +92,9 @@ const AccountSettingsPage = withI18n()((props: withI18nProps) => {
             ) : (
               <Trans render="div" className="settings-no-subscriptions">
                 <LocaleNavLink exact to={home}>
-                  Search an address
+                  Search for an address
                 </LocaleNavLink>{" "}
-                to sign up for email alerts for that building.
+                to add to your Building Updates
               </Trans>
             )}
           </div>

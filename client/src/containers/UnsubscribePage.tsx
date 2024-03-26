@@ -89,14 +89,12 @@ const UnsubscribePage = withI18n()((props: withI18nProps) => {
 
   const renderNoSubscriptionsPage = () => (
     <>
-      <Trans render="h4" className="settings-section">
-        You are not subscribed to any buildings.
-      </Trans>
+      <Trans render="h4">You are not subscribed to any buildings</Trans>
       <Trans render="div" className="settings-no-subscriptions">
         <LocaleNavLink exact to={home}>
-          Search for a building
+          Search for an address
         </LocaleNavLink>{" "}
-        to add to your updates
+        to add to your Building Updates
       </Trans>
     </>
   );
