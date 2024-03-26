@@ -142,7 +142,7 @@ const EmailAlertSignupWithoutI18n = (props: EmailAlertProps) => {
                   <Trans>Building Updates</Trans>
                 </label>
                 <div className="table-content">
-                  {user && !loginRegisterInProgress ? (
+                  {!!user?.email && !loginRegisterInProgress ? (
                     <BuildingSubscribe {...props} />
                   ) : (
                     <Login

@@ -231,7 +231,9 @@ const UserSettingFieldWithoutI18n = (props: UserSettingFieldProps) => {
           <>
             {children}
             <div className="user-setting-actions">
-              <input type="submit" className="button is-primary" value={`Save`} />
+              <button type="submit" className="button is-primary">
+                <Trans>Save</Trans>
+              </button>
               <button type="button" className="button is-text" onClick={() => setEditing(false)}>
                 <Trans>Cancel</Trans>
               </button>
