@@ -52,19 +52,24 @@
     line-height: 117%;
   }
 
-  button.is-primary {
-    @include for-phone-only() {
-      width: -webkit-fill-available !important;
+  .jfcl-button {
+    &.is-full-width {
+      width: 100%;
+    }
+    &.jfcl-variant-primary {
+      @include for-phone-only() {
+        width: -webkit-fill-available !important;
+      }
     }
   }
 
-  .building-subscribe-status {
+  .building-subscribe {
     display: flex;
     flex-direction: column;
     text-align: left;
     gap: 1.5rem;
 
-    button {
+    .jfcl-button {
       align-self: center;
     }
 

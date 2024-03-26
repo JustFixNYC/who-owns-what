@@ -17,7 +17,7 @@
     .submit-button-group {
       display: flex;
 
-      .button.is-primary {
+      .jfcl-button.jfcl-variant-primary {
         padding: 1rem 2rem !important;
         align-self: center;
         margin: 0 auto !important;
@@ -99,7 +99,7 @@
     width: auto;
     font-size: 0.81rem;
 
-    .button.is-text {
+    .jfcl-button.jfcl-variant-text {
       display: block !important;
       color: $justfix-white;
     }
