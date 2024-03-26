@@ -17,6 +17,7 @@ import Modal from "./Modal";
 import "styles/Login.css";
 import "styles/UserTypeInput.css";
 import "styles/_input.scss";
+import { Button } from "@justfixnyc/component-library";
 
 enum Step {
   CheckEmail,
@@ -181,24 +182,27 @@ const LoginWithoutI18n = (props: LoginProps) => {
           {isRegisterAccountStep ? (
             <>
               <Trans>Already have an account?</Trans>
-              <button className="button is-text ml-5" onClick={() => toggleLoginSignup(Step.Login)}>
-                <Trans>Log in</Trans>
-              </button>
+              <Button
+                variant="text"
+                labelText={i18n._(t`Log in`)}
+                onClick={() => toggleLoginSignup(Step.Login)}
+                className="ml-5"
+              />
             </>
           ) : (
             <>
               <Trans>Don't have an account?</Trans>
-              <button
-                className="button is-text ml-5 pt-20"
+              <Button
+                variant="text"
+                labelText={i18n._(t`Sign up`)}
+                className="ml-5 pt-20"
                 onClick={() => {
                   toggleLoginSignup(Step.RegisterAccount);
                   if (registerInModal && !showRegisterModal) {
                     setShowRegisterModal(true);
                   }
                 }}
-              >
-                <Trans>Sign up</Trans>
-              </button>
+              />
             </>
           )}
         </div>
@@ -213,12 +217,13 @@ const LoginWithoutI18n = (props: LoginProps) => {
         <Trans render="span" className="resend-verify-label">
           Didn’t get the link?
         </Trans>
-        <button
-          className="button is-secondary is-full-width"
+        <Button
+          variant="secondary"
+          size="small"
+          className="is-full-width"
+          labelText={i18n._(t`Send new link`)}
           onClick={() => AuthClient.resendVerifyEmail()}
-        >
-          <Trans>Send new link</Trans>
-        </button>
+        />
       </div>
     );
   };
@@ -233,12 +238,13 @@ const LoginWithoutI18n = (props: LoginProps) => {
         <Trans>Once your email has been verified, you’ll be signed up for Building Updates.</Trans>
         <br />
         <br />
-        <button
-          className="button is-secondary is-full-width"
+        <Button
+          variant="secondary"
+          size="small"
+          className="is-full-width"
+          labelText={i18n._(t`Send new link`)}
           onClick={() => AuthClient.resendVerifyEmail()}
-        >
-          <Trans>Resend email</Trans>
-        </button>
+        />
       </>
     );
   };
@@ -414,9 +420,7 @@ const LoginWithoutI18n = (props: LoginProps) => {
             labelText={i18n._(t`Email address`)}
           />
           <div className="submit-button-group">
-            <button type="button" className="button is-primary">
-              <Trans>Get updates</Trans>
-            </button>
+            <Button variant="primary" size="small" labelText={i18n._(t`Get updates`)} />
           </div>
         </div>
       </div>
@@ -478,9 +482,7 @@ const LoginWithoutI18n = (props: LoginProps) => {
               />
             )}
             <div className="submit-button-group">
-              <button type="submit" className="button is-primary">
-                {submitButtonText}
-              </button>
+              <Button type="submit" variant="primary" size="small" labelText={submitButtonText} />
             </div>
           </form>
         )}

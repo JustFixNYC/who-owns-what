@@ -89,11 +89,11 @@ const BuildingSubscribeWithoutI18n = (props: BuildingSubscribeProps) => {
       {({ i18n }) => (
         <>
           <div className="building-subscribe">
-            {!(subscriptions && !!subscriptions?.find((s) => s.bbl === bbl))
-              ? showGetUpdates()
-              : verified
+            {!verified
+              ? showEmailVerification()
+              : subscriptions && !!subscriptions?.find((s) => s.bbl === bbl)
               ? showSubscribed()
-              : showEmailVerification()}
+              : showGetUpdates()}
           </div>
           <Modal
             key={1}

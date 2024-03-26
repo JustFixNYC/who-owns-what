@@ -17,7 +17,7 @@
     .submit-button-group {
       display: flex;
 
-      .button.is-primary {
+      .jfcl-button.jfcl-variant-primary {
         padding: 1rem 2rem !important;
         align-self: center;
         margin: 0 auto !important;
@@ -95,20 +95,20 @@
     }
   }
 
-  .jf-alert {
-    width: auto;
-    font-size: 0.81rem;
+  // .jf-alert {
+  //   width: auto;
+  //   font-size: 0.81rem;
 
-    .button.is-text {
-      display: block !important;
-      color: $justfix-white;
-    }
+  //   .jfcl-button.jfcl-variant-text {
+  //     display: block !important;
+  //     color: $justfix-white;
+  //   }
 
-    .jf-alert__content {
-      display: flex;
-      text-align: left;
-    }
-  }
+  //   .jf-alert__content {
+  //     display: flex;
+  //     text-align: left;
+  //   }
+  // }
 
   .request-sent-success {
     display: flex;
