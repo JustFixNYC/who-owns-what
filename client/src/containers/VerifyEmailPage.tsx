@@ -80,7 +80,7 @@ const VerifyEmailPage = withI18n()((props: withI18nProps) => {
         <br />
         <Trans>
           Click the link we sent to verify your email address. It may take a few minutes to arrive.
-          Once your email has been verified, you’ll be signed up for Data Updates.
+          Once your email has been verified, you’ll be signed up for Building Updates.
         </Trans>
       </div>
     );
@@ -103,9 +103,27 @@ const VerifyEmailPage = withI18n()((props: withI18nProps) => {
 
   const successPage = () => (
     <div className="text-center">
-      <Trans render="h4">Email verified</Trans>
+      <Trans render="h4">Email address verified</Trans>
       <br />
-      <Trans render="h4">You are now signed up for weekly Data Updates.</Trans>
+      <Trans render="h4">You can now start receiving Building Updates</Trans>
+    </div>
+  );
+
+  const alreadyVerifiedPage = () => (
+    <div className="text-center">
+      <Trans render="h4">Your email is already verified</Trans>
+      <br />
+      <Trans className="text-center">You will be redirected back to Who Owns What in:</Trans>
+      <br />
+      <br>{updateCountdown()}</br>
+      <Trans className="d-flex justify-content-center">
+        <span id="countdown">{delaySeconds}</span> seconds
+      </Trans>
+      <br />
+      <br />
+      <Trans className="text-center">If you are not redirected, please click this link:</Trans>
+      <br />
+      <a href={redirectUrl}>{redirectUrl}</a>
     </div>
   );
 

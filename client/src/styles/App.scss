@@ -1,5 +1,18 @@
+@import "~@justfixnyc/component-library/dist/src/assets/index.css";
 @import "_vars.scss";
 @import "_typography.scss";
+
+.jfcl-button,
+.jfcl-link {
+  font-family: $wow-font;
+}
+
+.download-btn-link,
+.download-btn-link:hover,
+.download-btn-link:active,
+.download-btn-link:focus {
+  text-decoration: none;
+}
 
 .App {
   height: 100%;

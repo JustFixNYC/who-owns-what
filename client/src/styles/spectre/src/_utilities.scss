@@ -133,6 +133,10 @@
 .flex {
   display: flex;
 }
+.flex-centered {
+  display: flex;
+  justify-content: center;
+}
 .inline-flex {
   display: inline-flex;
 }
