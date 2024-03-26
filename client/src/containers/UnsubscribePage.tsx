@@ -4,7 +4,7 @@ import LegalFooter from "../components/LegalFooter";
 
 import Page from "../components/Page";
 import { withI18n, withI18nProps } from "@lingui/react";
-import { Trans, t } from "@lingui/macro";
+import { Plural, Trans, t } from "@lingui/macro";
 
 import "styles/UserSetting.css";
 import AuthClient from "../components/AuthClient";
@@ -23,6 +23,7 @@ const UnsubscribePage = withI18n()((props: withI18nProps) => {
   const isEmailUnsubscribeAll = !!params.get("all");
 
   const [subscriptions, setSubscriptions] = React.useState<BuildingSubscription[] | undefined>();
+  const subscriptionsNumber = !!subscriptions ? subscriptions.length : 0;
 
   useEffect(() => {
     if (isEmailUnsubscribeAll) {
@@ -65,19 +66,21 @@ const UnsubscribePage = withI18n()((props: withI18nProps) => {
               )}
               <Trans render="div" className="settings-no-subscriptions">
                 <LocaleNavLink exact to={home}>
-                  Search an address
+                  Search for a building
                 </LocaleNavLink>{" "}
-                to sign up for email alerts for that building.
+                to add to your updates
               </Trans>
-              <div className="settings-contact">
-                <Trans>If you’d like to delete your account,</Trans>
-                <br />
-                <Trans>contact support@justfix.org </Trans>
-              </div>
+              <Trans render="div" className="settings-contact">
+                Contact support@justfix.org to delete your account or get help
+              </Trans>
             </>
           ) : (
             <>
-              <Trans render="h4">You are signed up for email alerts from these bulidings:</Trans>
+              <Trans render="h4">Manage Subscriptions</Trans>
+              <Trans render="p">
+                You are signed up for Building Updates for {subscriptionsNumber}{" "}
+                <Plural value={subscriptionsNumber} one="building" other="buildings" />
+              </Trans>
               <div className="subscriptions-container">
                 {subscriptions.map((s: any) => (
                   <SubscriptionField key={s.bbl} {...s} onRemoveClick={handleUnsubscribeBuilding} />

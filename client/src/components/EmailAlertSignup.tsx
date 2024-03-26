@@ -13,6 +13,7 @@ import AuthClient from "./AuthClient";
 import { SubscribedIcon } from "./Icons";
 import { Alert } from "./Alert";
 import Modal from "./Modal";
+import helpers from "util/helpers";
 
 const SUBSCRIPTION_LIMIT = 15;
 
@@ -37,7 +38,10 @@ const BuildingSubscribeWithoutI18n = (props: BuildingSubscribeProps) => {
       <div className="building-subscribe-status">
         <div className="status-title">
           <SubscribedIcon />
-          <Trans>You’re signed up for Data Updates for this building.</Trans>
+          <Trans>
+            You’re signed up for Building Updates for {housenumber}
+            {helpers.titleCase(streetname)}, {helpers.titleCase(boro)}.
+          </Trans>
         </div>
         <button className="button is-text unsubscribe-button" onClick={() => unsubscribe(bbl)}>
           <Trans>Unsubscribe</Trans>
@@ -93,7 +97,7 @@ const BuildingSubscribeWithoutI18n = (props: BuildingSubscribeProps) => {
             width={40}
             onClose={() => setShowSubscriptionLimitModal(false)}
           >
-            <Trans render="h4">You have reached the maximum number of building updates</Trans>
+            <Trans render="h4">You have reached the maximum number of Building Updates</Trans>
             <Trans>
               At this time we can only support {SUBSCRIPTION_LIMIT} buildings in each email. Please
               visit your <Link to={account.settings}>account</Link> to manage the buildings in your
@@ -135,11 +139,7 @@ const EmailAlertSignupWithoutI18n = (props: EmailAlertProps) => {
                   <span className="pill-new">
                     <Trans>NEW</Trans>
                   </span>
-                  {!user?.email ? (
-                    <Trans>Get Data Updates for this building</Trans>
-                  ) : (
-                    <Trans>Data Updates</Trans>
-                  )}
+                  <Trans>Building Updates</Trans>
                 </label>
                 <div className="table-content">
                   {!!user?.email && !loginRegisterInProgress ? (

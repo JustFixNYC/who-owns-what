@@ -3,7 +3,7 @@ import LegalFooter from "../components/LegalFooter";
 
 import Page from "../components/Page";
 import { withI18n, withI18nProps } from "@lingui/react";
-import { t, Trans } from "@lingui/macro";
+import { Plural, t, Trans } from "@lingui/macro";
 
 import "styles/AccountSettingsPage.css";
 import "styles/UserSetting.css";
@@ -54,14 +54,15 @@ const AccountSettingsPage = withI18n()((props: withI18nProps) => {
   if (!userContext.user) return <div />;
 
   const { email, subscriptions } = userContext.user as JustfixUser;
+  const subscriptionsNumber = !!subscriptions ? subscriptions.length : 0;
   const { home } = createWhoOwnsWhatRoutePaths();
 
   return (
-    <Page title={i18n._(t`Account settings`)}>
+    <Page title={i18n._(t`Account`)}>
       <div className="AccountSettingsPage Page">
         <div className="page-container">
           <h4>
-            <Trans>Account settings</Trans>
+            <Trans>Account</Trans>
           </h4>
           <h4 className="settings-section">
             <Trans>Login details</Trans>
@@ -76,12 +77,13 @@ const AccountSettingsPage = withI18n()((props: withI18nProps) => {
             }
           />
           <h4 className="settings-section">
-            {subscriptions?.length ? (
-              <Trans>You’re signed up for email updates from these buildings:</Trans>
-            ) : (
-              <Trans>Sign up for Data Updates on the buildings you choose:</Trans>
-            )}
+            <Trans>Building Updates</Trans>
           </h4>
+          <Trans render="p" className="settings-section">
+            There <Plural value={subscriptionsNumber} one="is" other="are" /> {subscriptionsNumber}{" "}
+            <Plural value={subscriptionsNumber} one="building" other="buildings" /> in your weekly
+            updates
+          </Trans>
           <div className="subscriptions-container">
             {subscriptions?.length ? (
               <>
@@ -92,17 +94,15 @@ const AccountSettingsPage = withI18n()((props: withI18nProps) => {
             ) : (
               <Trans render="div" className="settings-no-subscriptions">
                 <LocaleNavLink exact to={home}>
-                  Search an address
+                  Search for a building
                 </LocaleNavLink>{" "}
-                to sign up for email alerts for that building.
+                to add to your updates
               </Trans>
             )}
           </div>
-          <div className="settings-contact">
-            <Trans>If you’d like to delete your account,</Trans>
-            <br />
-            <Trans>contact support@justfix.org </Trans>
-          </div>
+          <Trans render="div" className="settings-contact">
+            Contact support@justfix.org to delete your account or get help
+          </Trans>
         </div>
         <LegalFooter />
       </div>
