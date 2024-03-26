@@ -1,13 +1,13 @@
 import React, { Fragment, useContext, useState } from "react";
-
 import { withI18n, withI18nProps, I18n } from "@lingui/react";
-import { Trans } from "@lingui/macro";
+import { Trans, t } from "@lingui/macro";
+import { Button } from "@justfixnyc/component-library";
+
+import "styles/EmailAlertSignup.css";
 import Login from "./Login";
 import { UserContext } from "./UserContext";
 import { createWhoOwnsWhatRoutePaths } from "routes";
 import { LocaleLink as Link } from "../i18n";
-
-import "styles/EmailAlertSignup.css";
 import { JustfixUser } from "state-machine";
 import AuthClient from "./AuthClient";
 import { SubscribedIcon } from "./Icons";
@@ -26,70 +26,74 @@ type BuildingSubscribeProps = withI18nProps & {
 };
 
 const BuildingSubscribeWithoutI18n = (props: BuildingSubscribeProps) => {
-  const { bbl, housenumber, streetname, zip, boro } = props;
+  const { bbl, housenumber, streetname, zip, boro, i18n } = props;
   const userContext = useContext(UserContext);
   const { user, subscribe, unsubscribe } = userContext;
   const { email, subscriptions, verified } = user! as JustfixUser;
   const [showSubscriptionLimitModal, setShowSubscriptionLimitModal] = useState(false);
   const { account } = createWhoOwnsWhatRoutePaths();
 
-  const showSubscribed = () => {
-    return (
-      <div className="building-subscribe-status">
-        <div className="status-title">
-          <SubscribedIcon />
-          <Trans>
-            You’re signed up for Building Updates for {housenumber}
-            {helpers.titleCase(streetname)}, {helpers.titleCase(boro)}.
-          </Trans>
-        </div>
-        <button className="button is-text unsubscribe-button" onClick={() => unsubscribe(bbl)}>
-          <Trans>Unsubscribe</Trans>
-        </button>
-      </div>
-    );
-  };
-
-  const showEmailVerification = (i18n: any) => {
-    return (
-      <div className="building-subscribe-status">
-        <Alert type="info">
-          <Trans>Verify your email to start receiving updates.</Trans>
-        </Alert>
-        <Trans render="div" className="status-description">
-          Click the link we sent to {email}. It may take a few minutes to arrive.
+  const showSubscribed = () => (
+    <>
+      <div className="status-title">
+        <SubscribedIcon />
+        <Trans>
+          You’re signed up for Building Updates for {housenumber}
+          {helpers.titleCase(streetname)}, {helpers.titleCase(boro)}.
         </Trans>
-        <Trans render="div">Didn’t get the link?</Trans>
-        <button
-          className="button is-secondary is-full-width"
-          onClick={() => AuthClient.resendVerifyEmail()}
-        >
-          <Trans>Resend email</Trans>
-        </button>
       </div>
-    );
-  };
+      <Button
+        variant="text"
+        size="small"
+        labelText={i18n._(t`Unsubscribe`)}
+        onClick={() => unsubscribe(bbl)}
+      />
+    </>
+  );
+
+  const showEmailVerification = () => (
+    <>
+      <Alert type="info">
+        <Trans>Verify your email to start receiving updates.</Trans>
+      </Alert>
+      <Trans render="div" className="status-description">
+        Click the link we sent to {email}. It may take a few minutes to arrive.
+      </Trans>
+      <Trans render="div">Didn’t get the link?</Trans>
+      <Button
+        variant="secondary"
+        size="small"
+        className="is-full-width"
+        labelText={i18n._(t`Send new link`)}
+        onClick={() => AuthClient.resendVerifyEmail()}
+      />
+    </>
+  );
+
+  const showGetUpdates = () => (
+    <>
+      <Button
+        variant="primary"
+        size="small"
+        labelText={i18n._(t`Get updates`)}
+        onClick={() =>
+          subscriptions.length < SUBSCRIPTION_LIMIT
+            ? subscribe(bbl, housenumber, streetname, zip, boro)
+            : setShowSubscriptionLimitModal(true)
+        }
+      />
+    </>
+  );
   return (
     <I18n>
       {({ i18n }) => (
         <>
           <div className="building-subscribe">
-            {!(subscriptions && !!subscriptions?.find((s) => s.bbl === bbl)) ? (
-              <button
-                className="button is-primary"
-                onClick={() =>
-                  subscriptions.length < SUBSCRIPTION_LIMIT
-                    ? subscribe(bbl, housenumber, streetname, zip, boro)
-                    : setShowSubscriptionLimitModal(true)
-                }
-              >
-                <Trans>Get updates</Trans>
-              </button>
-            ) : verified ? (
-              showSubscribed()
-            ) : (
-              showEmailVerification(i18n)
-            )}
+            {!(subscriptions && !!subscriptions?.find((s) => s.bbl === bbl))
+              ? showGetUpdates()
+              : verified
+              ? showSubscribed()
+              : showEmailVerification()}
           </div>
           <Modal
             key={1}
