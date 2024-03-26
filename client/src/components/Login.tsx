@@ -84,6 +84,8 @@ const LoginWithoutI18n = (props: LoginProps) => {
     onChange: onChangeUserType,
   } = useInput("");
 
+  const [placeholderEmail, setPlaceholderEmail] = useState("");
+
   const [invalidAuthError, setInvalidAuthError] = useState(false);
   const [existingUserError, setExistingUserError] = useState(false);
 
@@ -215,7 +217,7 @@ const LoginWithoutI18n = (props: LoginProps) => {
           className="button is-secondary is-full-width"
           onClick={() => AuthClient.resendVerifyEmail()}
         >
-          <Trans>Send again</Trans>
+          <Trans>Send new link</Trans>
         </button>
       </div>
     );
@@ -228,7 +230,7 @@ const LoginWithoutI18n = (props: LoginProps) => {
         {i18n._(t`Click the link we sent to ${email}. It may take a few minutes to arrive.`)}
         <br />
         <br />
-        <Trans>Once your email has been verified, you’ll be signed up for Data Updates.</Trans>
+        <Trans>Once your email has been verified, you’ll be signed up for Building Updates.</Trans>
         <br />
         <br />
         <button
@@ -271,6 +273,8 @@ const LoginWithoutI18n = (props: LoginProps) => {
         }
       }
     }
+
+    setPlaceholderEmail(email);
   };
 
   const onLoginSubmit = async () => {
@@ -360,24 +364,26 @@ const LoginWithoutI18n = (props: LoginProps) => {
   switch (step) {
     case Step.CheckEmail:
       headerText = onBuildingPage
-        ? i18n._(t`Get weekly Data Updates for complaints, violations, and evictions.`)
+        ? i18n._(
+            t`Enter your email to get weekly updates on complaints, violations, and eviction filings for this building.`
+          )
         : i18n._(t`Log in / sign up`);
       onSubmit = onEmailSubmit;
       submitButtonText =
         !onBuildingPage || showRegisterModal ? i18n._(t`Submit`) : i18n._(t`Get updates`);
       break;
     case Step.Login:
-      headerText = !onBuildingPage
-        ? i18n._(t`Log in`)
-        : showRegisterModal
-        ? i18n._(t`Get weekly Data Updates for complaints, violations, and evictions.`)
-        : i18n._(t`Log in to start getting updates for this building.`);
+      headerText = showRegisterModal
+        ? i18n._(
+            t`Enter your email to get weekly updates on complaints, violations, and eviction filings for this building.`
+          )
+        : i18n._(t`Log in`);
       onSubmit = onLoginSubmit;
       submitButtonText = i18n._(t`Log in`);
       break;
     case Step.RegisterAccount:
       headerText = onBuildingPage
-        ? i18n._(t`Create a password to start receiving Data Updates`)
+        ? i18n._(t`Create a password to start receiving Building Updates`)
         : i18n._(t`Sign up`);
       onSubmit = onAccountSubmit;
       submitButtonText = i18n._(t`Next`);
@@ -391,6 +397,31 @@ const LoginWithoutI18n = (props: LoginProps) => {
       headerText = i18n._(t`Almost done. Verify your email to start receiving updates.`);
       break;
   }
+
+  const renderOnPagePlaceholder = () => {
+    return (
+      <div className="Login">
+        <Trans render="div" className="email-description">
+          Get weekly Data Updates for complaints, violations, and evictions.
+        </Trans>
+        <div className="input-group">
+          <EmailInput
+            email={placeholderEmail}
+            onChange={() => {}}
+            error={false}
+            setError={() => {}}
+            showError={false}
+            labelText={i18n._(t`Email address`)}
+          />
+          <div className="submit-button-group">
+            <button type="button" className="button is-primary">
+              <Trans>Get updates</Trans>
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  };
 
   const renderLoginFlow = () => {
     return (
@@ -462,8 +493,7 @@ const LoginWithoutI18n = (props: LoginProps) => {
 
   return (
     <>
-      {(!showRegisterModal || isCheckEmailStep || isLoginStep || isVerifyEmailStep) &&
-        renderLoginFlow()}
+      {!showRegisterModal ? renderLoginFlow() : renderOnPagePlaceholder()}
       {registerInModal && (
         <Modal
           key={1}

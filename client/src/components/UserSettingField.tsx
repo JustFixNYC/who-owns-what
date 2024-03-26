@@ -78,14 +78,14 @@ const PasswordSettingFieldWithoutI18n = (props: PasswordSettingFieldProps) => {
           type="error"
         >
           <AlertIconOutline />
-          {i18n._(t`The old password you entered is incorrect`)}
+          {i18n._(t`The current password you entered is incorrect`)}
         </Alert>
       )}
       <Trans render="label" className="user-setting-label">
         Password
       </Trans>
       <PasswordInput
-        labelText={i18n._(t`Enter your old password`)}
+        labelText={i18n._(t`Current password`)}
         password={currentPassword}
         error={currentPasswordError}
         showError={showCurrentPasswordError}
@@ -94,7 +94,7 @@ const PasswordSettingFieldWithoutI18n = (props: PasswordSettingFieldProps) => {
         id="old-password-input"
       />
       <PasswordInput
-        labelText={i18n._(t`Create a new password`)}
+        labelText={i18n._(t`New password`)}
         showPasswordRules={true}
         password={newPassword}
         error={newPasswordError}
@@ -155,13 +155,13 @@ const EmailSettingFieldWithoutI18n = (props: EmailSettingFieldProps) => {
 
   const verifyCallout = !verified ? (
     <div className="jf-callout">
-      <Trans>
-        Email address not verified. Click the link we sent to {email} start receiving emails.
+      <Trans render="p">
+        Email address not verified. Click the link we sent to {email} start receiving Building
+        Updates.
       </Trans>
-      <br />
-      <br />
-      <button className="button is-text" onClick={() => AuthClient.resendVerifyEmail()}>
-        <Trans>Resend email</Trans>
+      <Trans render="p">Didn’t get the link?</Trans>
+      <button className="button is-secondary" onClick={() => AuthClient.resendVerifyEmail()}>
+        <Trans>Send new link</Trans>
       </button>
     </div>
   ) : undefined;
@@ -188,7 +188,7 @@ const EmailSettingFieldWithoutI18n = (props: EmailSettingFieldProps) => {
       <Trans render="label" className="user-setting-label">
         Email address
       </Trans>
-      <Trans render="p">We send data updates to this email.</Trans>
+      <Trans render="p">We send Building Updates to this email.</Trans>
       <EmailInput
         email={email}
         error={emailError}
@@ -231,7 +231,9 @@ const UserSettingFieldWithoutI18n = (props: UserSettingFieldProps) => {
           <>
             {children}
             <div className="user-setting-actions">
-              <input type="submit" className="button is-primary" value={`Save`} />
+              <button type="submit" className="button is-primary">
+                <Trans>Save</Trans>
+              </button>
               <button type="button" className="button is-text" onClick={() => setEditing(false)}>
                 <Trans>Cancel</Trans>
               </button>

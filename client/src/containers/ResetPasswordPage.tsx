@@ -131,7 +131,7 @@ const ResetPasswordPage = withI18n()((props: withI18nProps) => {
 
   const successPage = () => (
     <>
-      <Trans render="h4">Your password has successfully been reset</Trans>
+      <Trans render="h4">Password reset successful</Trans>
       <Trans render="div">
         You will be redirected back to Who Owns What in
         {updateCountdown()}
