@@ -31,8 +31,10 @@ const BuildingSubscribeWithoutI18n = (props: BuildingSubscribeProps) => {
   const userContext = useContext(UserContext);
   const { user, subscribe, unsubscribe } = userContext;
   const { email, subscriptions, verified } = user! as JustfixUser;
-  const [showSubscriptionLimitModal, setShowSubscriptionLimitModal] = useState(false);
   const { account } = createWhoOwnsWhatRoutePaths();
+
+  const [verifyResent, setVerifyResent] = React.useState(false);
+  const [showSubscriptionLimitModal, setShowSubscriptionLimitModal] = useState(false);
 
   const showSubscribed = () => (
     <>
@@ -60,8 +62,10 @@ const BuildingSubscribeWithoutI18n = (props: BuildingSubscribeProps) => {
       <Trans render="div" className="status-description">
         Click the link we sent to {email}. It may take a few minutes to arrive.
       </Trans>
-      <Trans render="div">Didn’t get the link?</Trans>
+      {!verifyResent && <Trans render="div">Didn’t get the link?</Trans>}
       <SendNewLink
+        linkSent={verifyResent}
+        setLinkSent={setVerifyResent}
         variant="secondary"
         className="is-full-width"
         onClick={() => AuthClient.resendVerifyEmail()}

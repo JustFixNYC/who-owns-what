@@ -19,6 +19,7 @@ const ForgotPasswordPage = withI18n()((props: withI18nProps) => {
   const params = new URLSearchParams(search);
 
   const [requestSent, setRequestSent] = React.useState(false);
+  const [requestSentAgain, setRequestSentAgain] = React.useState(false);
   const userContext = useContext(UserContext);
   const {
     value: email,
@@ -36,12 +37,12 @@ const ForgotPasswordPage = withI18n()((props: withI18nProps) => {
       setShowEmailError(true);
       return;
     }
-    resendPasswordResetRequest();
+    sendResetEmail();
+    setRequestSent(true);
   };
 
-  const resendPasswordResetRequest = async () => {
+  const sendResetEmail = async () => {
     await userContext.requestPasswordReset(email);
-    setRequestSent(true);
   };
 
   return (
@@ -83,11 +84,13 @@ const ForgotPasswordPage = withI18n()((props: withI18nProps) => {
                   We sent a reset link to {`${email}`}. Please check your inbox and spam.
                 </Trans>
                 <div className="text-center">
-                  <Trans render="span">Didn’t receive an email?</Trans>
+                  {!requestSentAgain && <Trans render="span">Didn’t receive an email?</Trans>}
                   <SendNewLink
+                    linkSent={requestSentAgain}
+                    setLinkSent={setRequestSentAgain}
                     variant="primary"
                     className="is-full-width"
-                    onClick={resendPasswordResetRequest}
+                    onClick={sendResetEmail}
                   />
                 </div>
               </>

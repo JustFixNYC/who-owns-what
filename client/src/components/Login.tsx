@@ -86,6 +86,8 @@ const LoginWithoutI18n = (props: LoginProps) => {
     onChange: onChangeUserType,
   } = useInput("");
 
+  const [verifyResent, setVerifyResent] = React.useState(false);
+
   const [placeholderEmail, setPlaceholderEmail] = useState("");
 
   const [invalidAuthError, setInvalidAuthError] = useState(false);
@@ -212,10 +214,14 @@ const LoginWithoutI18n = (props: LoginProps) => {
     return (
       <div className="verify-email-container">
         <p>{i18n._(t`Click the link we sent to ${email}. It may take a few minutes to arrive.`)}</p>
-        <Trans render="span" className="resend-verify-label">
-          Didn’t get the link?
-        </Trans>
+        {!verifyResent && (
+          <Trans render="span" className="resend-verify-label">
+            Didn’t get the link?
+          </Trans>
+        )}
         <SendNewLink
+          linkSent={verifyResent}
+          setLinkSent={setVerifyResent}
           variant="secondary"
           className="is-full-width"
           onClick={() => AuthClient.resendVerifyEmail()}
@@ -235,6 +241,8 @@ const LoginWithoutI18n = (props: LoginProps) => {
         <br />
         <br />
         <SendNewLink
+          linkSent={verifyResent}
+          setLinkSent={setVerifyResent}
           variant="secondary"
           className="is-full-width"
           onClick={() => AuthClient.resendVerifyEmail()}
