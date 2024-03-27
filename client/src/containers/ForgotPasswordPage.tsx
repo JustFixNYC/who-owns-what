@@ -86,8 +86,7 @@ const ForgotPasswordPage = withI18n()((props: withI18nProps) => {
                 <div className="text-center">
                   {!requestSentAgain && <Trans render="span">Didn’t receive an email?</Trans>}
                   <SendNewLink
-                    linkSent={requestSentAgain}
-                    setLinkSent={setRequestSentAgain}
+                    setParentState={setRequestSentAgain}
                     variant="primary"
                     className="is-full-width"
                     onClick={sendResetEmail}

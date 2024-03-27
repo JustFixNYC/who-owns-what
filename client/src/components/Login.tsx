@@ -220,8 +220,7 @@ const LoginWithoutI18n = (props: LoginProps) => {
           </Trans>
         )}
         <SendNewLink
-          linkSent={verifyResent}
-          setLinkSent={setVerifyResent}
+          setParentState={setVerifyResent}
           variant="secondary"
           className="is-full-width"
           onClick={() => AuthClient.resendVerifyEmail()}
@@ -241,8 +240,7 @@ const LoginWithoutI18n = (props: LoginProps) => {
         <br />
         <br />
         <SendNewLink
-          linkSent={verifyResent}
-          setLinkSent={setVerifyResent}
+          setParentState={setVerifyResent}
           variant="secondary"
           className="is-full-width"
           onClick={() => AuthClient.resendVerifyEmail()}

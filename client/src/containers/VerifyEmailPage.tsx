@@ -69,8 +69,7 @@ const VerifyEmailPage = withI18n()((props: withI18nProps) => {
         <Trans>The verification link that we sent you is no longer valid.</Trans>
       )}
       <SendNewLink
-        linkSent={isEmailResent}
-        setLinkSent={setIsEmailResent}
+        setParentState={setIsEmailResent}
         variant="secondary"
         onClick={async () => {
           setIsEmailResent(await AuthClient.resendVerifyEmail(token));

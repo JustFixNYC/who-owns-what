@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { withI18n, withI18nProps } from "@lingui/react";
 import { Button } from "@justfixnyc/component-library";
 import { Trans, t } from "@lingui/macro";
@@ -7,19 +7,21 @@ import "styles/SendNewLink.css";
 import { CheckIcon } from "./Icons";
 
 type SendNewLinkProps = withI18nProps & {
-  linkSent: boolean;
-  setLinkSent: React.Dispatch<React.SetStateAction<boolean>>;
+  setParentState: React.Dispatch<React.SetStateAction<boolean>>;
   onClick: () => void;
   variant: "primary" | "secondary" | "text";
   className?: string;
 };
 
 const SendNewLinkWithoutI18n = (props: SendNewLinkProps) => {
-  const { linkSent, setLinkSent, onClick, variant, className, i18n } = props;
+  const { setParentState, onClick, variant, className, i18n } = props;
+
+  const [linkSent, setLinkSent] = useState(false);
 
   const handleClick = () => {
     onClick();
     setLinkSent(true);
+    setParentState(true);
   };
 
   return (

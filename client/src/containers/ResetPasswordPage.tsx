@@ -81,8 +81,7 @@ const ResetPasswordPage = withI18n()((props: withI18nProps) => {
         <Trans>The password reset link that we sent you is no longer valid.</Trans>
       )}
       <SendNewLink
-        linkSent={emailIsResent}
-        setLinkSent={setEmailIsResent}
+        setParentState={setEmailIsResent}
         variant="secondary"
         onClick={async () => {
           setEmailIsResent(await AuthClient.resendVerifyEmail());
