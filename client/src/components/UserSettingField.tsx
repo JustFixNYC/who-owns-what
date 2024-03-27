@@ -12,6 +12,7 @@ import EmailInput from "./EmailInput";
 import AuthClient from "./AuthClient";
 import { Alert } from "./Alert";
 import { AlertIconOutline } from "./Icons";
+import SendNewLink from "./SendNewLink";
 
 type PasswordSettingFieldProps = withI18nProps & {
   onSubmit: (currentPassword: string, newPassword: string) => void;
@@ -160,9 +161,7 @@ const EmailSettingFieldWithoutI18n = (props: EmailSettingFieldProps) => {
         Updates.
       </Trans>
       <Trans render="p">Didn’t get the link?</Trans>
-      <button className="button is-secondary" onClick={() => AuthClient.resendVerifyEmail()}>
-        <Trans>Send new link</Trans>
-      </button>
+      <SendNewLink variant="secondary" onClick={() => AuthClient.resendVerifyEmail()} />
     </div>
   ) : undefined;
 

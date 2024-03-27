@@ -10,6 +10,7 @@ import { Trans, t } from "@lingui/macro";
 import { UserContext } from "components/UserContext";
 import EmailInput from "components/EmailInput";
 import { useInput } from "util/helpers";
+import SendNewLink from "components/SendNewLink";
 
 const ForgotPasswordPage = withI18n()((props: withI18nProps) => {
   const { i18n } = props;
@@ -79,12 +80,11 @@ const ForgotPasswordPage = withI18n()((props: withI18nProps) => {
                 </Trans>
                 <div className="text-center">
                   <Trans render="span">Didn’t receive an email?</Trans>
-                  <button
-                    className="button is-primary resend-link"
+                  <SendNewLink
+                    variant="primary"
+                    className="is-full-width"
                     onClick={resendPasswordResetRequest}
-                  >
-                    <Trans>Send new link</Trans>
-                  </button>
+                  />
                 </div>
               </>
             )}

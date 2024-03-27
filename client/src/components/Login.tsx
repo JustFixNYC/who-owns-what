@@ -17,7 +17,8 @@ import Modal from "./Modal";
 import "styles/Login.css";
 import "styles/UserTypeInput.css";
 import "styles/_input.scss";
-import { Button } from "@justfixnyc/component-library";
+import { Button, Link } from "@justfixnyc/component-library";
+import SendNewLink from "./SendNewLink";
 
 enum Step {
   CheckEmail,
@@ -182,12 +183,9 @@ const LoginWithoutI18n = (props: LoginProps) => {
           {isRegisterAccountStep ? (
             <>
               <Trans>Already have an account?</Trans>
-              <Button
-                variant="text"
-                labelText={i18n._(t`Log in`)}
-                onClick={() => toggleLoginSignup(Step.Login)}
-                className="ml-5"
-              />
+              <Link onClick={() => toggleLoginSignup(Step.Login)} className="ml-5">
+                <Trans>Log in</Trans>
+              </Link>
             </>
           ) : (
             <>
@@ -217,11 +215,9 @@ const LoginWithoutI18n = (props: LoginProps) => {
         <Trans render="span" className="resend-verify-label">
           Didn’t get the link?
         </Trans>
-        <Button
+        <SendNewLink
           variant="secondary"
-          size="small"
           className="is-full-width"
-          labelText={i18n._(t`Send new link`)}
           onClick={() => AuthClient.resendVerifyEmail()}
         />
       </div>
@@ -238,11 +234,9 @@ const LoginWithoutI18n = (props: LoginProps) => {
         <Trans>Once your email has been verified, you’ll be signed up for Building Updates.</Trans>
         <br />
         <br />
-        <Button
+        <SendNewLink
           variant="secondary"
-          size="small"
           className="is-full-width"
-          labelText={i18n._(t`Send new link`)}
           onClick={() => AuthClient.resendVerifyEmail()}
         />
       </>

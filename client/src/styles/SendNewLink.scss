@@ -1,0 +1,16 @@
+.send-new-link {
+  display: flex;
+  justify-content: center;
+
+  .link-sent {
+    display: flex;
+    align-items: start;
+    font-size: 0.875rem;
+
+    svg {
+      height: 20px;
+      width: 20px;
+      margin-right: 0.5rem;
+    }
+  }
+}
