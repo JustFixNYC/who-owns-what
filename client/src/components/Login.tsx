@@ -95,18 +95,15 @@ const LoginWithoutI18n = (props: LoginProps) => {
     setExistingUserError(false);
   };
 
-  const resetInputErrorStates = () => {
-    setEmailError(false);
+  const hideInputErrors = () => {
     setShowEmailError(false);
-    setPasswordError(false);
     setShowPasswordError(false);
-    setUserTypeError(false);
     setShowUserTypeError(false);
   };
 
   const toggleLoginSignup = (toStep: Step) => {
     resetAlertErrorStates();
-    resetInputErrorStates();
+    hideInputErrors();
     setStep(toStep);
   };
 
