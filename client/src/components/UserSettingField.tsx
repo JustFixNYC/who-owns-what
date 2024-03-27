@@ -231,13 +231,7 @@ const UserSettingFieldWithoutI18n = (props: UserSettingFieldProps) => {
           <>
             {children}
             <div className="user-setting-actions">
-              <Button
-                type="submit"
-                variant="primary"
-                size="small"
-                labelText={i18n._(t`Save`)}
-                className="user-setting-actions"
-              />
+              <Button type="submit" variant="primary" size="small" labelText={i18n._(t`Save`)} />
               <Button
                 type="submit"
                 variant="text"
