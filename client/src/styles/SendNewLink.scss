@@ -1,0 +1,20 @@
+.send-new-link-container {
+  display: flex;
+  .send-new-link {
+    display: flex;
+    justify-content: center;
+  }
+
+  .link-sent {
+    display: flex;
+    align-items: start;
+    font-size: 0.875rem;
+    padding: 0.875rem 0;
+
+    svg {
+      height: 20px;
+      width: 20px;
+      margin-right: 0.5rem;
+    }
+  }
+}

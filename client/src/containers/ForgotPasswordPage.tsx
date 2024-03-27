@@ -10,6 +10,8 @@ import { Trans, t } from "@lingui/macro";
 import { UserContext } from "components/UserContext";
 import EmailInput from "components/EmailInput";
 import { useInput } from "util/helpers";
+import SendNewLink from "components/SendNewLink";
+import { Button } from "@justfixnyc/component-library";
 
 const ForgotPasswordPage = withI18n()((props: withI18nProps) => {
   const { i18n } = props;
@@ -17,6 +19,7 @@ const ForgotPasswordPage = withI18n()((props: withI18nProps) => {
   const params = new URLSearchParams(search);
 
   const [requestSent, setRequestSent] = React.useState(false);
+  const [requestSentAgain, setRequestSentAgain] = React.useState(false);
   const userContext = useContext(UserContext);
   const {
     value: email,
@@ -34,12 +37,12 @@ const ForgotPasswordPage = withI18n()((props: withI18nProps) => {
       setShowEmailError(true);
       return;
     }
-    resendPasswordResetRequest();
+    sendResetEmail();
+    setRequestSent(true);
   };
 
-  const resendPasswordResetRequest = async () => {
+  const sendResetEmail = async () => {
     await userContext.requestPasswordReset(email);
-    setRequestSent(true);
   };
 
   return (
@@ -67,9 +70,12 @@ const ForgotPasswordPage = withI18n()((props: withI18nProps) => {
                     labelText={i18n._(t`Email address`)}
                     autoFocus
                   />
-                  <button type="submit" className="button is-primary">
-                    <Trans>Reset password</Trans>
-                  </button>
+                  <Button
+                    type="submit"
+                    variant="primary"
+                    size="small"
+                    labelText={i18n._(t`Reset password`)}
+                  />
                 </form>
               </>
             ) : (
@@ -78,13 +84,13 @@ const ForgotPasswordPage = withI18n()((props: withI18nProps) => {
                   We sent a reset link to {`${email}`}. Please check your inbox and spam.
                 </Trans>
                 <div className="text-center">
-                  <Trans render="span">Didn’t receive an email?</Trans>
-                  <button
-                    className="button is-primary resend-link"
-                    onClick={resendPasswordResetRequest}
-                  >
-                    <Trans>Send new link</Trans>
-                  </button>
+                  {!requestSentAgain && <Trans render="span">Didn’t receive an email?</Trans>}
+                  <SendNewLink
+                    setParentState={setRequestSentAgain}
+                    variant="primary"
+                    className="is-full-width"
+                    onClick={sendResetEmail}
+                  />
                 </div>
               </>
             )}

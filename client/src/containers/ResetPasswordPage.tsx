@@ -12,6 +12,8 @@ import { useInput } from "util/helpers";
 import { FixedLoadingLabel } from "components/Loader";
 import { createWhoOwnsWhatRoutePaths } from "routes";
 import { LocaleLink } from "i18n";
+import SendNewLink from "components/SendNewLink";
+import { Button } from "@justfixnyc/component-library";
 
 const ResetPasswordPage = withI18n()((props: withI18nProps) => {
   const { i18n } = props;
@@ -71,32 +73,22 @@ const ResetPasswordPage = withI18n()((props: withI18nProps) => {
     setResetStatus(resp.statusCode);
   };
 
-  const expiredPage = () => {
-    const resendEmailPage = (
-      <>
-        <Trans render="h4">The password reset link that we sent you is no longer valid.</Trans>
-        <button
-          className="button is-primary"
-          onClick={async () => {
-            setEmailIsResent(await AuthClient.resetPasswordRequest());
-          }}
-        >
-          <Trans>Send new link</Trans>
-        </button>
-      </>
-    );
-
-    const resendEmailConfirmation = (
-      <>
-        <Trans render="h4">Check your email</Trans>
-        <Trans render="span">
-          We sent a new password reset link to your email. Please check your inbox and spam.
-        </Trans>
-      </>
-    );
-
-    return emailIsResent ? resendEmailConfirmation : resendEmailPage;
-  };
+  const expiredPage = () => (
+    <>
+      {emailIsResent ? (
+        <Trans>Click the link we sent to your email to reset your password.</Trans>
+      ) : (
+        <Trans>The password reset link that we sent you is no longer valid.</Trans>
+      )}
+      <SendNewLink
+        setParentState={setEmailIsResent}
+        variant="secondary"
+        onClick={async () => {
+          setEmailIsResent(await AuthClient.resendVerifyEmail());
+        }}
+      />
+    </>
+  );
 
   const invalidPage = () => {
     return (
@@ -122,9 +114,12 @@ const ResetPasswordPage = withI18n()((props: withI18nProps) => {
           showError={showPasswordError}
           setError={setPasswordError}
         />
-        <button type="submit" className="button is-primary">
-          <Trans>Reset password</Trans>
-        </button>
+        <Button
+          type="submit"
+          variant="primary"
+          size="small"
+          labelText={i18n._(t`Reset password`)}
+        />
       </form>
     </>
   );

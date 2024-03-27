@@ -18,6 +18,7 @@ import "styles/Login.css";
 import "styles/UserTypeInput.css";
 import "styles/_input.scss";
 import { Button } from "@justfixnyc/component-library";
+import SendNewLink from "./SendNewLink";
 
 enum Step {
   CheckEmail,
@@ -84,6 +85,8 @@ const LoginWithoutI18n = (props: LoginProps) => {
     setShowError: setShowUserTypeError,
     onChange: onChangeUserType,
   } = useInput("");
+
+  const [verifyResent, setVerifyResent] = React.useState(false);
 
   const [placeholderEmail, setPlaceholderEmail] = useState("");
 
@@ -182,12 +185,9 @@ const LoginWithoutI18n = (props: LoginProps) => {
           {isRegisterAccountStep ? (
             <>
               <Trans>Already have an account?</Trans>
-              <Button
-                variant="text"
-                labelText={i18n._(t`Log in`)}
-                onClick={() => toggleLoginSignup(Step.Login)}
-                className="ml-5"
-              />
+              <button className="button is-text ml-5" onClick={() => toggleLoginSignup(Step.Login)}>
+                <Trans>Log in</Trans>
+              </button>
             </>
           ) : (
             <>
@@ -214,14 +214,15 @@ const LoginWithoutI18n = (props: LoginProps) => {
     return (
       <div className="verify-email-container">
         <p>{i18n._(t`Click the link we sent to ${email}. It may take a few minutes to arrive.`)}</p>
-        <Trans render="span" className="resend-verify-label">
-          Didn’t get the link?
-        </Trans>
-        <Button
+        {!verifyResent && (
+          <Trans render="span" className="resend-verify-label">
+            Didn’t get the link?
+          </Trans>
+        )}
+        <SendNewLink
+          setParentState={setVerifyResent}
           variant="secondary"
-          size="small"
           className="is-full-width"
-          labelText={i18n._(t`Send new link`)}
           onClick={() => AuthClient.resendVerifyEmail()}
         />
       </div>
@@ -238,11 +239,10 @@ const LoginWithoutI18n = (props: LoginProps) => {
         <Trans>Once your email has been verified, you’ll be signed up for Building Updates.</Trans>
         <br />
         <br />
-        <Button
+        <SendNewLink
+          setParentState={setVerifyResent}
           variant="secondary"
-          size="small"
           className="is-full-width"
-          labelText={i18n._(t`Send new link`)}
           onClick={() => AuthClient.resendVerifyEmail()}
         />
       </>
