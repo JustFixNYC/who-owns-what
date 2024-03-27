@@ -6,6 +6,9 @@ import { AddressRecord } from "./APIDataTypes";
 import { withI18n, I18n } from "@lingui/react";
 import { t } from "@lingui/macro";
 import { Trans } from "@lingui/macro";
+import JFCLLinkInternal from "./JFCLLinkInternal";
+import { Link } from "react-router-dom";
+import "styles/BuildingStatsTable.css";
 
 interface BuildingStatsAddrContext {
   getBuildingStats(): AddressRecord;
@@ -189,13 +192,27 @@ const RsUnits = () => {
   );
 };
 
-const BuildingStatsTableWithoutI18n = (props: { addr: AddressRecord }) => (
+const TimelineLink = (url: string) => {
+  return (
+    <Link
+      to={url}
+      onClick={() => {
+        window.gtag("event", "view-data-over-time-overview-tab");
+      }}
+      component={JFCLLinkInternal}
+    >
+      <Trans render="span">View data over time</Trans>
+    </Link>
+  );
+};
+
+const BuildingStatsTableWithoutI18n = (props: { addr: AddressRecord; timelineUrl: string }) => (
   <AddrContext.Provider
     value={{
       getBuildingStats: () => props.addr,
     }}
   >
-    <div className="card-body-table hide-sm">
+    <div className="BuildingStatsTable card-body-table hide-sm">
       <div className="table-row">
         <BBL />
         <YearBuilt />
@@ -208,8 +225,11 @@ const BuildingStatsTableWithoutI18n = (props: { addr: AddressRecord }) => (
         <EvictionFilings />
         <EvictionsExecuted />
       </div>
+      <div className="table-row timeline-link">
+        <TimelineLink url={props.timelineUrl} />
+      </div>
     </div>
-    <div className="card-body-table show-sm">
+    <div className="BuildingStatsTable card-body-table show-sm">
       <div className="table-row">
         <BBL />
       </div>
@@ -223,10 +243,10 @@ const BuildingStatsTableWithoutI18n = (props: { addr: AddressRecord }) => (
         <TotalViolations />
         <EvictionsExecuted />
       </div>
+      <div className="table-row timeline-link">
+        <TimelineLink url={props.timelineUrl} />
+      </div>
     </div>
-    <span className="card-body-table-prompt float-right">
-      <Trans render="i">(hover over a box to learn more)</Trans>
-    </span>
   </AddrContext.Provider>
 );
 

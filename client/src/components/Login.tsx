@@ -407,8 +407,9 @@ const LoginWithoutI18n = (props: LoginProps) => {
   const renderOnPagePlaceholder = () => {
     return (
       <div className="Login">
-        <Trans render="div" className="email-description">
-          Get weekly Data Updates for complaints, violations, and evictions.
+        <Trans render="div" className="card-description">
+          Enter your email to get weekly updates on complaints, violations, and eviction filings for
+          this building.
         </Trans>
         <div className="input-group">
           <EmailInput
@@ -420,7 +421,12 @@ const LoginWithoutI18n = (props: LoginProps) => {
             labelText={i18n._(t`Email address`)}
           />
           <div className="submit-button-group">
-            <Button variant="primary" size="small" labelText={i18n._(t`Get updates`)} />
+            <Button
+              variant="primary"
+              size="small"
+              className="is-full-width"
+              labelText={i18n._(t`Get updates`)}
+            />
           </div>
         </div>
       </div>
@@ -434,7 +440,7 @@ const LoginWithoutI18n = (props: LoginProps) => {
           <h4 className={classNames(!onBuildingPage && "page-title")}>{headerText}</h4>
         )}
         {onBuildingPage && !showRegisterModal && (
-          <div className="email-description">{headerText}</div>
+          <div className="card-description">{headerText}</div>
         )}
         {renderAlert()}
         {!isVerifyEmailStep && !isVerifyEmailReminderStep && (
@@ -482,7 +488,13 @@ const LoginWithoutI18n = (props: LoginProps) => {
               />
             )}
             <div className="submit-button-group">
-              <Button type="submit" variant="primary" size="small" labelText={submitButtonText} />
+              <Button
+                type="submit"
+                variant="primary"
+                size="small"
+                className="is-full-width"
+                labelText={submitButtonText}
+              />
             </div>
           </form>
         )}

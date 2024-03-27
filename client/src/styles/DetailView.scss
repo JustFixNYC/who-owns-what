@@ -21,11 +21,8 @@
     position: absolute;
     top: 0;
     left: 0;
-    // height: calc(100% + 34px);
     height: 100%;
     width: 100vw;
-
-    // border-top: 1px solid $dark;
 
     transform: translateX(100%);
     &.DetailView-enter {
@@ -50,24 +47,6 @@
       transform: translateX(100%);
     }
   }
-
-  // &.slide-enter {
-  //   margin-right: -$detailWidth;
-  // }
-  //
-  // &.slide-enter.slide-enter-active {
-  //   margin-right: 0;
-  //   transition: margin $detailAnimLengthMs cubic-bezier(0.215, 0.610, 0.355, 1.000);
-  // }
-  //
-  // &.slide-leave {
-  //   margin-right: 0;
-  // }
-  //
-  // &.slide-leave.slide-leave-active {
-  //   margin-right: -$detailWidth;
-  //   transition: margin $detailAnimLengthMs cubic-bezier(0.215, 0.610, 0.355, 1.000);
-  // }
 
   .DetailView__wrapper {
     height: 100%;
@@ -165,6 +144,10 @@
 
     .card-image {
       padding-top: 0;
+      @include for-phone-only() {
+        display: none;
+      }
+
       figure {
         display: inline-block;
         width: 100%;
@@ -213,21 +196,10 @@
 
     @include datatable();
 
-    .card-body-table-prompt {
-      @include for-phone-only() {
-        display: none;
-      }
-    }
-
-    .card-body-timeline-link,
     .card-body-landlord,
     .card-body-complaints,
     .card-body-links {
       margin-top: 1.5rem;
-    }
-
-    .card-body-timeline-link {
-      padding-top: 0.63rem;
     }
 
     .card-body-complaints,
@@ -311,12 +283,6 @@
       b {
         display: inline;
         border-bottom: none;
-      }
-    }
-
-    .card-body-links {
-      @include for-tablet-landscape-down() {
-        margin-top: 0;
       }
     }
 

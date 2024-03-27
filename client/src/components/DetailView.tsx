@@ -13,7 +13,7 @@ import { isPartOfGroupSale } from "./PortfolioTable";
 import { Link, useLocation } from "react-router-dom";
 import { LocaleLink } from "../i18n";
 import BuildingStatsTable from "./BuildingStatsTable";
-import { createWhoOwnsWhatRoutePaths, AddressPageRoutes, removeIndicatorSuffix } from "../routes";
+import { createWhoOwnsWhatRoutePaths, AddressPageRoutes } from "../routes";
 import { defaultLocale, SupportedLocale } from "../i18n-base";
 import { withMachineInStateProps } from "state-machine";
 import { Accordion } from "./Accordion";
@@ -24,8 +24,7 @@ import { isLegacyPath } from "./WowzaToggle";
 import { logAmplitudeEvent } from "./Amplitude";
 import EmailAlertSignup from "./EmailAlertSignup";
 import { StreetViewStatic } from "./StreetView";
-import { Link as JFCLLink } from "@justfixnyc/component-library";
-import JFCLLinkInternal from "./JFCLLinkInternal";
+import GetRepairs from "./GetRepairs";
 
 type Props = withI18nProps &
   withMachineInStateProps<"portfolioFound"> & {
@@ -285,26 +284,10 @@ class DetailViewWithoutI18n extends Component<Props, State> {
                         ))}
                     </div>
                     <div className="card-body">
-                      <BuildingStatsTable addr={detailAddr} />
-                      <EmailAlertSignup
-                        bbl={detailAddr.bbl}
-                        housenumber={detailAddr.housenumber}
-                        streetname={detailAddr.streetname}
-                        zip={detailAddr.zip || ""}
-                        boro={detailAddr.boro}
+                      <BuildingStatsTable
+                        addr={detailAddr}
+                        timelineUrl={this.props.addressPageRoutes.timeline}
                       />
-                      <div className="card-body-timeline-link">
-                        <Link
-                          to={removeIndicatorSuffix(this.props.addressPageRoutes.timeline)}
-                          className="btn btn-primary btn-block"
-                          onClick={() => {
-                            window.gtag("event", "view-data-over-time-overview-tab");
-                          }}
-                          component={JFCLLinkInternal}
-                        >
-                          <Trans render="span">View data over time!</Trans>
-                        </Link>
-                      </div>
                       <div className="card-body-complaints">
                         <div>
                           <b>
@@ -414,18 +397,16 @@ class DetailViewWithoutI18n extends Component<Props, State> {
                     </div>
                   </div>
                   <div className="column col-lg-12 col-5">
-                    <div className="card-image hide-lg">{streetView}</div>
-                    <div className="card-body column-right">
+                    <EmailAlertSignup
+                      bbl={detailAddr.bbl}
+                      housenumber={detailAddr.housenumber}
+                      streetname={detailAddr.streetname}
+                      zip={detailAddr.zip || ""}
+                      boro={detailAddr.boro}
+                    />
+                    <GetRepairs url={takeActionURL} />
+                    <div className="card-body-links column-right">
                       <UsefulLinks addrForLinks={detailAddr} location="overview-tab" />
-                      <div className="card-body-prompt">
-                        <h6 className="DetailView__subtitle">
-                          <Trans>Are you having issues in this building?</Trans>
-                        </h6>
-                        <JFCLLink href={takeActionURL} target="_blank" rel="noopener noreferrer">
-                          <Trans>Take action on JustFix.org!</Trans>
-                        </JFCLLink>
-                      </div>
-
                       <div className="card-body-social social-group">
                         <h6 className="DetailView__subtitle">
                           <Trans>Share with your neighbors</Trans>
@@ -433,6 +414,7 @@ class DetailViewWithoutI18n extends Component<Props, State> {
                         <SocialShareDetailView />
                       </div>
                     </div>
+                    <div className="card-image hide-lg">{streetView}</div>
                   </div>
                 </div>
               </div>

@@ -4,13 +4,15 @@ import { Trans, t } from "@lingui/macro";
 import { Button } from "@justfixnyc/component-library";
 
 import "styles/EmailAlertSignup.css";
+import "styles/Card.css";
+
 import Login from "./Login";
 import { UserContext } from "./UserContext";
 import { createWhoOwnsWhatRoutePaths } from "routes";
 import { LocaleLink as Link } from "../i18n";
 import { JustfixUser } from "state-machine";
 import AuthClient from "./AuthClient";
-import { SubscribedIcon } from "./Icons";
+import { AddIcon, SubscribedIcon } from "./Icons";
 import { Alert } from "./Alert";
 import Modal from "./Modal";
 import helpers from "util/helpers";
@@ -45,7 +47,8 @@ const BuildingSubscribeWithoutI18n = (props: BuildingSubscribeProps) => {
       <Button
         variant="text"
         size="small"
-        labelText={i18n._(t`Unsubscribe`)}
+        className="is-full-width"
+        labelText={i18n._(t`Remove building`)}
         onClick={() => unsubscribe(bbl)}
       />
     </>
@@ -56,7 +59,7 @@ const BuildingSubscribeWithoutI18n = (props: BuildingSubscribeProps) => {
       <Alert type="info">
         <Trans>Verify your email to start receiving updates.</Trans>
       </Alert>
-      <Trans render="div" className="status-description">
+      <Trans render="div" className="card-description">
         Click the link we sent to {email}. It may take a few minutes to arrive.
       </Trans>
       <Trans render="div">Didn’t get the link?</Trans>
@@ -70,20 +73,25 @@ const BuildingSubscribeWithoutI18n = (props: BuildingSubscribeProps) => {
     </>
   );
 
-  const showGetUpdates = () => (
-    <>
-      <Button
-        variant="primary"
-        size="small"
-        labelText={i18n._(t`Get updates`)}
-        onClick={() =>
-          subscriptions.length < SUBSCRIPTION_LIMIT
-            ? subscribe(bbl, housenumber, streetname, zip, boro)
-            : setShowSubscriptionLimitModal(true)
-        }
-      />
-    </>
-  );
+  const showAddBuilding = () => {
+    return (
+      <>
+        <Button
+          variant="primary"
+          size="small"
+          className="is-full-width"
+          labelText={i18n._(t`Add to Building Updates`)}
+          labelIcon={AddIcon}
+          onClick={() =>
+            subscriptions.length < SUBSCRIPTION_LIMIT
+              ? subscribe(bbl, housenumber, streetname, zip, boro)
+              : setShowSubscriptionLimitModal(true)
+          }
+        />
+      </>
+    );
+  };
+
   return (
     <I18n>
       {({ i18n }) => (
@@ -93,7 +101,7 @@ const BuildingSubscribeWithoutI18n = (props: BuildingSubscribeProps) => {
               ? showEmailVerification()
               : subscriptions && !!subscriptions?.find((s) => s.bbl === bbl)
               ? showSubscribed()
-              : showGetUpdates()}
+              : showAddBuilding()}
           </div>
           <Modal
             key={1}
@@ -134,12 +142,12 @@ const EmailAlertSignupWithoutI18n = (props: EmailAlertProps) => {
 
   return (
     <>
-      <div className="EmailAlertSignup card-body-table">
+      <div className="Card EmailAlertSignup card-body-table">
         <div className="table-row">
           <I18n>
             {({ i18n }) => (
               <div className="table-small-font">
-                <label className="data-updates-label-container">
+                <label className="card-label-container">
                   <span className="pill-new">
                     <Trans>NEW</Trans>
                   </span>
