@@ -64,7 +64,7 @@ const VerifyEmailPage = withI18n()((props: withI18nProps) => {
   const expiredLinkPage = () => (
     <div className="text-center">
       {isEmailResent ? (
-        <Trans>Click the link we sent to your email to start receiving emails.</Trans>
+        <Trans> Click the link we sent to your email to start receiving emails.</Trans>
       ) : (
         <Trans>The verification link that we sent you is no longer valid.</Trans>
       )}
