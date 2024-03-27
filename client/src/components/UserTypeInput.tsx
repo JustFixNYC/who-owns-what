@@ -16,7 +16,7 @@ type UserTypeInputProps = {
 };
 
 const UserTypeInputWithoutI18n = (props: UserTypeInputProps) => {
-  const { i18n, error, showError, setError, userType, setUserType, required } = props;
+  const { i18n, error, showError, setError, setUserType, required } = props;
 
   const [activeRadio, setActiveRadio] = useState("");
   const [userTypeText, setUserTypeText] = useState("");
