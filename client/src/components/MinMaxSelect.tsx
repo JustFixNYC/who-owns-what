@@ -242,16 +242,15 @@ function MinMaxSelect({
         {(hasCustomInputs || hasPresetSelections) && (
           <I18n>
             {({ i18n }) => (
-              <Button
-                variant="text"
-                size="small"
-                className="minmaxselect__clear-value-button"
-                labelText={i18n._(t`Clear selections`)}
+              <button
+                className={`minmaxselect__clear-value-button button is-text`}
                 aria-label={i18n._(t`Clear all selections`)}
                 onClick={() => {
                   onApply({ type: "default", values: [NUMBER_RANGE_DEFAULT] });
                 }}
-              />
+              >
+                <Trans>Clear selections</Trans>
+              </button>
             )}
           </I18n>
         )}
