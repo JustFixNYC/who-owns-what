@@ -189,17 +189,17 @@ const LoginWithoutI18n = (props: LoginProps) => {
           ) : (
             <>
               <Trans>Don't have an account?</Trans>
-              <Button
-                variant="text"
-                labelText={i18n._(t`Sign up`)}
-                className="ml-5 pt-20"
+              <button
+                className="button is-text ml-5 pt-20"
                 onClick={() => {
                   toggleLoginSignup(Step.RegisterAccount);
                   if (registerInModal && !showRegisterModal) {
                     setShowRegisterModal(true);
                   }
                 }}
-              />
+              >
+                <Trans>Sign up</Trans>
+              </button>
             </>
           )}
         </div>
