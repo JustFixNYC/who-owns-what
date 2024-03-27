@@ -123,17 +123,15 @@ const UserTypeInputWithoutI18n = (props: UserTypeInputProps) => {
         <label htmlFor={"user-type-input-other"}>{USER_TYPES.other}</label>
       </div>
       {activeRadio === USER_TYPES.other.toLocaleUpperCase("en") && (
-        <div className="user-type-input-text-group">
-          <input
-            autoFocus
-            id="user-type-input-other-text"
-            className={classNames("input", { invalid: error })}
-            type="text"
-            name="user-type"
-            value={userTypeText}
-            onChange={handleTextChange}
-          />
-        </div>
+        <input
+          autoFocus
+          id="user-type-input-other-text"
+          className={classNames("input", { invalid: error })}
+          type="text"
+          name="user-type"
+          value={userTypeText}
+          onChange={handleTextChange}
+        />
       )}
     </div>
   );
