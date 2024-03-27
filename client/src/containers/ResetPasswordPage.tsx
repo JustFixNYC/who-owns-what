@@ -13,6 +13,7 @@ import { FixedLoadingLabel } from "components/Loader";
 import { createWhoOwnsWhatRoutePaths } from "routes";
 import { LocaleLink } from "i18n";
 import SendNewLink from "components/SendNewLink";
+import { Button } from "@justfixnyc/component-library";
 
 const ResetPasswordPage = withI18n()((props: withI18nProps) => {
   const { i18n } = props;
@@ -112,9 +113,12 @@ const ResetPasswordPage = withI18n()((props: withI18nProps) => {
           showError={showPasswordError}
           setError={setPasswordError}
         />
-        <button type="submit" className="button is-primary">
-          <Trans>Reset password</Trans>
-        </button>
+        <Button
+          type="submit"
+          variant="primary"
+          size="small"
+          labelText={i18n._(t`Reset password`)}
+        />
       </form>
     </>
   );

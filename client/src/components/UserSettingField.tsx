@@ -13,6 +13,7 @@ import AuthClient from "./AuthClient";
 import { Alert } from "./Alert";
 import { AlertIconOutline } from "./Icons";
 import SendNewLink from "./SendNewLink";
+import { Button } from "@justfixnyc/component-library";
 
 type PasswordSettingFieldProps = withI18nProps & {
   onSubmit: (currentPassword: string, newPassword: string) => void;
@@ -212,7 +213,7 @@ type UserSettingFieldProps = withI18nProps & {
 };
 
 const UserSettingFieldWithoutI18n = (props: UserSettingFieldProps) => {
-  const { title, preview, onSubmit, children, verifyCallout } = props;
+  const { title, preview, onSubmit, children, verifyCallout, i18n } = props;
   const [editing, setEditing] = useState(false);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -230,12 +231,20 @@ const UserSettingFieldWithoutI18n = (props: UserSettingFieldProps) => {
           <>
             {children}
             <div className="user-setting-actions">
-              <button type="submit" className="button is-primary">
-                <Trans>Save</Trans>
-              </button>
-              <button type="button" className="button is-text" onClick={() => setEditing(false)}>
-                <Trans>Cancel</Trans>
-              </button>
+              <Button
+                type="submit"
+                variant="primary"
+                size="small"
+                labelText={i18n._(t`Save`)}
+                className="user-setting-actions"
+              />
+              <Button
+                type="submit"
+                variant="text"
+                size="small"
+                labelText={i18n._(t`Cancel`)}
+                onClick={() => setEditing(false)}
+              />
             </div>
           </>
         ) : (

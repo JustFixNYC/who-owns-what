@@ -1,12 +1,12 @@
 import React, { useContext } from "react";
-import LegalFooter from "../components/LegalFooter";
-
-import Page from "../components/Page";
 import { withI18n, withI18nProps } from "@lingui/react";
 import { Plural, t, Trans } from "@lingui/macro";
+import { Button } from "@justfixnyc/component-library";
 
 import "styles/AccountSettingsPage.css";
 import "styles/UserSetting.css";
+import Page from "components/Page";
+import LegalFooter from "components/LegalFooter";
 import { UserContext } from "components/UserContext";
 import { EmailSettingField, PasswordSettingField } from "components/UserSettingField";
 import { JustfixUser } from "state-machine";
@@ -14,7 +14,7 @@ import { createRouteForAddressPage, createWhoOwnsWhatRoutePaths } from "routes";
 import { Borough } from "components/APIDataTypes";
 import { LocaleNavLink } from "i18n";
 
-type SubscriptionFieldProps = {
+type SubscriptionFieldProps = withI18nProps & {
   bbl: string;
   housenumber: string;
   streetname: string;
@@ -23,7 +23,7 @@ type SubscriptionFieldProps = {
 };
 
 const SubscriptionFieldWithoutI18n = (props: SubscriptionFieldProps) => {
-  const { bbl, housenumber, streetname, boro, onRemoveClick } = props;
+  const { bbl, housenumber, streetname, boro, onRemoveClick, i18n } = props;
   return (
     <div className="subscription-field">
       <a
@@ -39,9 +39,13 @@ const SubscriptionFieldWithoutI18n = (props: SubscriptionFieldProps) => {
         <span>{`${housenumber} ${streetname},`}</span>
         <span>{`${boro}, NY`}</span>
       </a>
-      <button className="button is-secondary" onClick={() => onRemoveClick(bbl)}>
-        <Trans>Remove</Trans>
-      </button>
+      <Button
+        type="submit"
+        variant="secondary"
+        size="small"
+        labelText={i18n._(t`Remove`)}
+        onClick={() => onRemoveClick(bbl)}
+      />
     </div>
   );
 };

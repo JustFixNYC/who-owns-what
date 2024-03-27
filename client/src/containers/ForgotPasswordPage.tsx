@@ -11,6 +11,7 @@ import { UserContext } from "components/UserContext";
 import EmailInput from "components/EmailInput";
 import { useInput } from "util/helpers";
 import SendNewLink from "components/SendNewLink";
+import { Button } from "@justfixnyc/component-library";
 
 const ForgotPasswordPage = withI18n()((props: withI18nProps) => {
   const { i18n } = props;
@@ -68,9 +69,12 @@ const ForgotPasswordPage = withI18n()((props: withI18nProps) => {
                     labelText={i18n._(t`Email address`)}
                     autoFocus
                   />
-                  <button type="submit" className="button is-primary">
-                    <Trans>Reset password</Trans>
-                  </button>
+                  <Button
+                    type="submit"
+                    variant="primary"
+                    size="small"
+                    labelText={i18n._(t`Reset password`)}
+                  />
                 </form>
               </>
             ) : (
