@@ -17,7 +17,7 @@ import Modal from "./Modal";
 import "styles/Login.css";
 import "styles/UserTypeInput.css";
 import "styles/_input.scss";
-import { Button, Link } from "@justfixnyc/component-library";
+import { Button } from "@justfixnyc/component-library";
 import SendNewLink from "./SendNewLink";
 
 enum Step {
@@ -183,9 +183,9 @@ const LoginWithoutI18n = (props: LoginProps) => {
           {isRegisterAccountStep ? (
             <>
               <Trans>Already have an account?</Trans>
-              <Link onClick={() => toggleLoginSignup(Step.Login)} className="ml-5">
+              <button className="button is-text ml-5" onClick={() => toggleLoginSignup(Step.Login)}>
                 <Trans>Log in</Trans>
-              </Link>
+              </button>
             </>
           ) : (
             <>
