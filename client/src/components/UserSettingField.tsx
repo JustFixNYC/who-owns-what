@@ -253,13 +253,13 @@ const UserSettingFieldWithoutI18n = (props: UserSettingFieldProps) => {
             </Trans>
             <div>
               <span>{preview}</span>
-              <button
-                type="button"
-                className="button is-text edit-button"
+              <Button
+                variant="text"
+                size="small"
+                className="edit-button"
+                labelText={i18n._(t`Edit`)}
                 onClick={() => setEditing(true)}
-              >
-                <Trans>Edit</Trans>
-              </button>
+              />
             </div>
             {!!verifyCallout && verifyCallout}
           </>

@@ -77,7 +77,7 @@ const UnsubscribePage = withI18n()((props: withI18nProps) => {
         ))}
         <div className="unsubscribe-all-field">
           <Button
-            variant="text"
+            variant="secondary"
             size="small"
             labelText={i18n._(t`Unsubscribe from all`)}
             onClick={handleUnsubscribeAll}

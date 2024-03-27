@@ -297,16 +297,17 @@ function SelectContainer<
               </button>
             )}
             {getValue().length > 0 && (
-              <button
-                className={`${classNamePrefix}__clear-value-button button is-text`}
+              <Button
+                variant="text"
+                size="small"
+                className={`${classNamePrefix}__clear-value-button`}
+                labelText={i18n._(t`Clear selections`)}
                 aria-label={i18n._(t`Clear all selections`)}
                 onClick={() => {
                   setSelections([]);
                   onApply([]);
                 }}
-              >
-                <Trans>Clear selections</Trans>
-              </button>
+              />
             )}
           </div>
         )}
