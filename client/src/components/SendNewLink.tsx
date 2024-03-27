@@ -23,15 +23,17 @@ const SendNewLinkWithoutI18n = (props: SendNewLinkProps) => {
   };
 
   return (
-    <div className="send-new-link">
+    <div className="send-new-link-container">
       {!linkSent ? (
-        <Button
-          variant={variant}
-          size="small"
-          className={className}
-          labelText={i18n._(t`Send new link`)}
-          onClick={handleClick}
-        />
+        <div className="send-new-link">
+          <Button
+            variant={variant}
+            size="small"
+            className={className}
+            labelText={i18n._(t`Send new link`)}
+            onClick={handleClick}
+          />
+        </div>
       ) : (
         <div className="link-sent">
           <CheckIcon />
