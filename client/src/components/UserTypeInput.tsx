@@ -12,32 +12,14 @@ type UserTypeInputProps = {
   showError: boolean;
   setError: React.Dispatch<React.SetStateAction<boolean>>;
   setUserType: React.Dispatch<React.SetStateAction<string>>;
-  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
   required?: boolean;
 };
 
 const UserTypeInputWithoutI18n = (props: UserTypeInputProps) => {
-  const { i18n, userType, error, showError, setError, setUserType, onChange, required } = props;
+  const { i18n, error, showError, setError, userType, setUserType, required } = props;
 
   const [activeRadio, setActiveRadio] = useState("");
-
-  const handleRadioChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setActiveRadio(value);
-    if (value === USER_TYPES.other) {
-      setUserType("");
-      setError(true);
-    } else {
-      setUserType(value);
-      setError(false);
-    }
-  };
-
-  const handleTextChange = (e: ChangeEvent<HTMLInputElement>) => {
-    onChange(e);
-    const value = e.target.value;
-    setError(!value);
-  };
+  const [userTypeText, setUserTypeText] = useState("");
 
   const USER_TYPES = {
     tenant: i18n._(t`Tenant`),
@@ -48,9 +30,26 @@ const UserTypeInputWithoutI18n = (props: UserTypeInputProps) => {
     other: i18n._(t`Other`),
   };
 
+  const handleRadioChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    if (value === USER_TYPES.other.toLocaleUpperCase("en")) {
+      setUserType(!!userTypeText ? userTypeText : value);
+    } else {
+      setUserType(value);
+    }
+    setActiveRadio(value);
+    setError(false);
+  };
+
+  const handleTextChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setUserType(!!value ? value : activeRadio);
+    setUserTypeText(value);
+  };
+
   return (
     <div className="user-type-container">
-      {showError && error && activeRadio !== USER_TYPES.other && (
+      {showError && error && (
         <span id="input-field-error">
           <AlertIcon />
           <Trans>Please select an option.</Trans>
@@ -63,8 +62,8 @@ const UserTypeInputWithoutI18n = (props: UserTypeInputProps) => {
           required={required}
           type="radio"
           name="user-type"
-          value={USER_TYPES.tenant}
-          checked={activeRadio === USER_TYPES.tenant}
+          value={USER_TYPES.tenant.toLocaleUpperCase("en")}
+          checked={activeRadio === USER_TYPES.tenant.toLocaleUpperCase("en")}
           onChange={handleRadioChange}
         />
         <label htmlFor={"user-type-input-tenant"}>{USER_TYPES.tenant}</label>
@@ -74,8 +73,8 @@ const UserTypeInputWithoutI18n = (props: UserTypeInputProps) => {
           required={required}
           type="radio"
           name="user-type"
-          value={USER_TYPES.organizer}
-          checked={activeRadio === USER_TYPES.organizer}
+          value={USER_TYPES.organizer.toLocaleUpperCase("en")}
+          checked={activeRadio === USER_TYPES.organizer.toLocaleUpperCase("en")}
           onChange={handleRadioChange}
         />
         <label htmlFor={"user-type-input-organizer"}>{USER_TYPES.organizer}</label>
@@ -85,8 +84,8 @@ const UserTypeInputWithoutI18n = (props: UserTypeInputProps) => {
           required={required}
           type="radio"
           name="user-type"
-          value={USER_TYPES.advocate}
-          checked={activeRadio === USER_TYPES.advocate}
+          value={USER_TYPES.advocate.toLocaleUpperCase("en")}
+          checked={activeRadio === USER_TYPES.advocate.toLocaleUpperCase("en")}
           onChange={handleRadioChange}
         />
         <label htmlFor={"user-type-input-advocate"}>{USER_TYPES.advocate}</label>
@@ -96,8 +95,8 @@ const UserTypeInputWithoutI18n = (props: UserTypeInputProps) => {
           required={required}
           type="radio"
           name="user-type"
-          value={USER_TYPES.legal}
-          checked={activeRadio === USER_TYPES.legal}
+          value={USER_TYPES.legal.toLocaleUpperCase("en")}
+          checked={activeRadio === USER_TYPES.legal.toLocaleUpperCase("en")}
           onChange={handleRadioChange}
         />
         <label htmlFor={"user-type-input-legal"}>{USER_TYPES.legal}</label>
@@ -107,8 +106,8 @@ const UserTypeInputWithoutI18n = (props: UserTypeInputProps) => {
           required={required}
           type="radio"
           name="user-type"
-          value={USER_TYPES.government}
-          checked={activeRadio === USER_TYPES.government}
+          value={USER_TYPES.government.toLocaleUpperCase("en")}
+          checked={activeRadio === USER_TYPES.government.toLocaleUpperCase("en")}
           onChange={handleRadioChange}
         />
         <label htmlFor={"user-type-input-government"}>{USER_TYPES.government}</label>
@@ -118,28 +117,21 @@ const UserTypeInputWithoutI18n = (props: UserTypeInputProps) => {
           required={required}
           type="radio"
           name="user-type"
-          value={USER_TYPES.other}
-          checked={activeRadio === USER_TYPES.other}
+          value={USER_TYPES.other.toLocaleUpperCase("en")}
+          checked={activeRadio === USER_TYPES.other.toLocaleUpperCase("en")}
           onChange={handleRadioChange}
         />
         <label htmlFor={"user-type-input-other"}>{USER_TYPES.other}</label>
       </div>
-      {activeRadio === USER_TYPES.other && (
+      {activeRadio === USER_TYPES.other.toLocaleUpperCase("en") && (
         <div className="user-type-input-text-group">
-          {showError && error && (
-            <span id="input-field-error">
-              <AlertIcon />
-              <Trans>Please enter a response. </Trans>
-            </span>
-          )}
           <input
-            required={required}
             autoFocus
             id="user-type-input-other-text"
             className={classNames("input", { invalid: error })}
             type="text"
             name="user-type"
-            value={userType}
+            value={userTypeText}
             onChange={handleTextChange}
           />
         </div>

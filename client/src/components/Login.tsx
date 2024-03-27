@@ -82,7 +82,6 @@ const LoginWithoutI18n = (props: LoginProps) => {
     setValue: setUserType,
     setError: setUserTypeError,
     setShowError: setShowUserTypeError,
-    onChange: onChangeUserType,
   } = useInput("");
 
   const [placeholderEmail, setPlaceholderEmail] = useState("");
@@ -478,7 +477,6 @@ const LoginWithoutI18n = (props: LoginProps) => {
                 error={userTypeError}
                 showError={userShowUserTypeError}
                 setError={setUserTypeError}
-                onChange={onChangeUserType}
               />
             )}
             <div className="submit-button-group">
