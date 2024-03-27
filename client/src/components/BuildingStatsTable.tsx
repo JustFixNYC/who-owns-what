@@ -192,10 +192,10 @@ const RsUnits = () => {
   );
 };
 
-const TimelineLink = (url: string) => {
+const TimelineLink = (props: { url: string }) => {
   return (
     <Link
-      to={url}
+      to={props.url}
       onClick={() => {
         window.gtag("event", "view-data-over-time-overview-tab");
       }}
