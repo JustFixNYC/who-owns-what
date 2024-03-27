@@ -472,7 +472,6 @@ const LoginWithoutI18n = (props: LoginProps) => {
             )}
             {isRegisterUserTypeStep && (
               <UserTypeInput
-                userType={userType}
                 setUserType={setUserType}
                 error={userTypeError}
                 showError={userShowUserTypeError}

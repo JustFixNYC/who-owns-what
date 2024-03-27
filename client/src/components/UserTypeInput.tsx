@@ -7,7 +7,6 @@ import classNames from "classnames";
 
 type UserTypeInputProps = {
   i18n: I18n;
-  userType: string;
   error: boolean;
   showError: boolean;
   setError: React.Dispatch<React.SetStateAction<boolean>>;
