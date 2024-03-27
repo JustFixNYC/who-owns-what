@@ -120,7 +120,7 @@ const VerifyEmailPage = withI18n()((props: withI18nProps) => {
 
   return (
     <Page title={i18n._(t`Verify your email address`)}>
-      <div className="VerifyemailPage Page">
+      <div className="VerifyEmailPage Page">
         <div className="page-container">
           {!loading &&
             (isVerified
