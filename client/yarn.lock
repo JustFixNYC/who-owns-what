@@ -2769,10 +2769,10 @@
     "@jridgewell/resolve-uri" "3.1.0"
     "@jridgewell/sourcemap-codec" "1.4.14"
 
-"@justfixnyc/component-library@0.32.1":
-  version "0.32.1"
-  resolved "https://registry.yarnpkg.com/@justfixnyc/component-library/-/component-library-0.32.1.tgz#eaed25a8699bbaef5a1ab277fa13dd564030f14e"
-  integrity sha512-83tr8xeBGguK6mx9nG1+a49WTSPTWmOtQ7DkhgOHIq4n249W6cBrMMaVD9jCGBO9xOQbAK7lpGcIMYcjBHTK8w==
+"@justfixnyc/component-library@0.32.2":
+  version "0.32.2"
+  resolved "https://registry.yarnpkg.com/@justfixnyc/component-library/-/component-library-0.32.2.tgz#9cc41ffbeb0e03dbcd66265d00ec7b52aafd2939"
+  integrity sha512-dEGO8hGpFrZz+9YqXGtk3HmWiOt0Xd87S8WpnizoXsFcLa1n4L6/qX7kDqz/RNeGNGElwIGwoejLCa1o8o4iSA==
   dependencies:
     "@babel/runtime" "^7.12.5"
 
