@@ -109,6 +109,11 @@
         font-size: 1rem;
         color: $justfix-black;
 
+        &:focus-within {
+          border: 2px $justfix-black solid;
+          box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
         &::placeholder,
         &::-moz-placeholder,
         &::-webkit-input-placeholder {
