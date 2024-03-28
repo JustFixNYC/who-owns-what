@@ -2,7 +2,7 @@
 @import "_typography.scss";
 
 .jf-callout {
-  @include desktop-text-small;
+  @include wow-body-standard;
   background-color: $justfix-white-200;
   padding: 0.75rem;
 }
