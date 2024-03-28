@@ -9,6 +9,15 @@ $body-font: "Degular", Arial, Helvetica, sans-serif;
 $title-font: "Degular Display", Arial, Helvetica, sans-serif;
 $eyebrow-font: "Suisse Int'l Mono", "Courier New", Courier, monospace;
 
+@mixin wow-body-standard {
+  font-family: $wow-font;
+  font-size: 0.875rem; // 14px
+  font-style: normal;
+  font-weight: 500;
+  line-height: 130%;
+  letter-spacing: 0.042rem;
+}
+
 @mixin body-standard {
   font-family: $body-font;
   font-size: 0.7rem;
