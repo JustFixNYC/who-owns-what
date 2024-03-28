@@ -1,7 +1,7 @@
 import React from "react";
 import { withI18n, I18n } from "@lingui/react";
-import { Trans, t } from "@lingui/macro";
-import { Button, Link as JFCLLink } from "@justfixnyc/component-library";
+import { Trans } from "@lingui/macro";
+import { Link as JFCLLink } from "@justfixnyc/component-library";
 
 import "styles/GetRepairs.css";
 import "styles/Card.css";
