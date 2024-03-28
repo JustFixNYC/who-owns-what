@@ -4,65 +4,6 @@
 .EmailAlertSignup {
   margin-top: 1.25rem;
 
-  // overrides datatable mixin
-  label:hover,
-  div:hover {
-    cursor: default !important;
-  }
-
-  .data-updates-label-container {
-    min-height: 2.37rem;
-    display: flex !important;
-    justify-content: center;
-    align-items: center;
-
-    .pill-new {
-      font-family: $body-font;
-      letter-spacing: 0.02em;
-      background: $justfix-yellow;
-      padding: 0.25rem 0.5rem;
-      border-radius: 1rem;
-      width: fit-content;
-      margin-right: 0.5rem !important;
-    }
-
-    @include for-phone-only() {
-      width: unset;
-      justify-content: center;
-      .pill-new {
-        margin: 0;
-      }
-    }
-  }
-
-  .table-small-font {
-    padding: 0 !important;
-  }
-
-  .table-content {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-    padding: 1.5rem;
-    margin: 0 !important;
-  }
-
-  .email-description {
-    text-align: left;
-    line-height: 117%;
-  }
-
-  .jfcl-button {
-    &.is-full-width {
-      width: 100%;
-    }
-    &.jfcl-variant-primary {
-      @include for-phone-only() {
-        width: -webkit-fill-available !important;
-      }
-    }
-  }
-
   .building-subscribe {
     display: flex;
     flex-direction: column;
@@ -71,6 +12,10 @@
 
     .jfcl-button {
       align-self: center;
+
+      .jfcl-button__label {
+        align-items: center;
+      }
     }
 
     .status-title {
