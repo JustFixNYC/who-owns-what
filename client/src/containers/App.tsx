@@ -265,7 +265,7 @@ const Navbar = () => {
     >
       <HomeLink />
       {isDemoSite && (
-        <span className="label label-warning ml-2 text-uppercase">
+        <span className="label label-warning ml-1 text-uppercase">
           <Trans>Demo Site</Trans>
         </span>
       )}

@@ -2,8 +2,9 @@ import { ChangeEvent, useState } from "react";
 import { Trans, t } from "@lingui/macro";
 import { I18n } from "@lingui/core";
 import { withI18n } from "@lingui/react";
-import { AlertIcon } from "./Icons";
 import classNames from "classnames";
+
+import { AlertIcon } from "./Icons";
 
 type UserTypeInputProps = {
   i18n: I18n;
@@ -49,8 +50,10 @@ const UserTypeInputWithoutI18n = (props: UserTypeInputProps) => {
   return (
     <div className="user-type-container">
       {showError && error && (
-        <span id="input-field-error">
-          <AlertIcon />
+        <span id="input-field-error" className="mb-4">
+          <div>
+            <AlertIcon className="mr-3" />
+          </div>
           <Trans>Please select an option.</Trans>
         </span>
       )}

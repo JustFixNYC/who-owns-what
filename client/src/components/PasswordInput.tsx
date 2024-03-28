@@ -5,8 +5,6 @@ import "styles/Password.css";
 import "styles/_input.scss";
 
 import { withI18n } from "@lingui/react";
-import { LocaleLink } from "i18n";
-import { createWhoOwnsWhatRoutePaths } from "routes";
 import { I18n } from "@lingui/core";
 import { t } from "@lingui/macro";
 import { AlertIcon, CheckIcon, DotIcon, HideIcon, ShowIcon } from "./Icons";
@@ -41,7 +39,6 @@ interface PasswordInputProps extends React.ComponentPropsWithoutRef<"input"> {
   setError: React.Dispatch<React.SetStateAction<boolean>>;
   username?: string;
   showPasswordRules?: boolean;
-  showForgotPassword?: boolean;
   i18nHash?: string;
 }
 
@@ -58,14 +55,11 @@ const PasswordInputWithoutI18n = forwardRef<HTMLInputElement, PasswordInputProps
       showError,
       onChange,
       showPasswordRules,
-      showForgotPassword,
       id,
       ...props
     },
     ref
   ) => {
-    const { account } = createWhoOwnsWhatRoutePaths();
-
     const [showPassword, setShowPassword] = useState(false);
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -76,33 +70,26 @@ const PasswordInputWithoutI18n = forwardRef<HTMLInputElement, PasswordInputProps
 
     return (
       <div className="password-input-field">
-        <div className="password-input-label">
+        <div className="password-input-label mb-4">
           <label htmlFor={id ?? "password-input"}>{i18n._(t`${labelText}`)}</label>
-          {showForgotPassword && (
-            <LocaleLink
-              to={`${account.forgotPassword}?email=${encodeURIComponent(username || "")}`}
-            >
-              {i18n._(t`Forgot your password?`)}
-            </LocaleLink>
-          )}
         </div>
         {showPasswordRules ? (
           <div className="password-input-rules">
             {passwordRules.map((rule, i) => {
               let ruleClass = "";
-              let RuleIcon = <DotIcon />;
+              let RuleIcon = <DotIcon className="mr-3" />;
               if (!!password || showError) {
                 if (password.match(rule.regex)) {
                   ruleClass = "valid";
-                  RuleIcon = <CheckIcon />;
+                  RuleIcon = <CheckIcon className="mr-3" />;
                 } else {
                   ruleClass = "invalid";
-                  RuleIcon = <AlertIcon />;
+                  RuleIcon = <AlertIcon className="mr-3" />;
                 }
               }
               return (
-                <span className={`password-input-rule ${ruleClass}`} key={`rule-${i}`}>
-                  {RuleIcon}
+                <span className={`password-input-rule ${ruleClass} mb-2`} key={`rule-${i}`}>
+                  <div>{RuleIcon}</div>
                   {rule.label}
                 </span>
               );
@@ -111,9 +98,11 @@ const PasswordInputWithoutI18n = forwardRef<HTMLInputElement, PasswordInputProps
         ) : (
           showError &&
           error && (
-            <div className="password-input-errors">
+            <div className="password-input-errors mb-4">
               <span id="input-field-error">
-                <AlertIcon />
+                <div>
+                  <AlertIcon className="mr-3" />
+                </div>
                 {i18n._(t`Please enter password.`)}
               </span>
             </div>

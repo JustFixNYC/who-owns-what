@@ -44,14 +44,16 @@ const EmailInputWithoutI18n = forwardRef<HTMLInputElement, EmailInputProps>(
     return (
       <div className="email-input-field">
         {!!labelText && (
-          <div className="email-input-label">
+          <div className="email-input-label mb-4">
             <label htmlFor="email-input">{labelText}</label>
           </div>
         )}
         {showError && error && (
-          <div className="email-input-errors">
+          <div className="email-input-errors mb-4">
             <span id="input-field-error">
-              <AlertIcon />
+              <div>
+                <AlertIcon className="mr-3" />
+              </div>
               {i18n._(t`Please enter a valid email address.`)}
             </span>
           </div>

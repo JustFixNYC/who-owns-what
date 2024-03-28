@@ -185,7 +185,7 @@ class NotRegisteredPageWithoutI18n extends Component<Props, State> {
         <div className="NotRegisteredPage Page">
           <div className="HomePage__content">
             <div className="HomePage__search">
-              <h5 className="mt-10 text-center text-bold text-large">{registrationMessageText}</h5>
+              <h5 className="mt-4 text-center text-bold text-large">{registrationMessageText}</h5>
               {buildingInfo.registrationenddate && (
                 <p className="text-center">
                   <Trans>
