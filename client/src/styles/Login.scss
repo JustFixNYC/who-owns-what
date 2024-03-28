@@ -33,6 +33,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
     gap: 1.5rem;
 
     .privacy-links {
@@ -41,18 +42,19 @@
       margin: 0 auto;
     }
 
-    .login-type-toggle {
+    .login-type-toggle,
+    .forgot-password {
       display: flex;
       justify-content: center;
-      font-size: 0.94rem;
     }
 
     .privacy-links,
-    .login-type-toggle {
-      a,
-      button {
-        color: inherit;
-      }
+    .login-type-toggle,
+    .forgot-password,
+    a {
+      font-size: 0.875rem;
+      font-weight: 400;
+      color: inherit;
     }
   }
 

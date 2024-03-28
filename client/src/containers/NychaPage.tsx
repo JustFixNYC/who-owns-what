@@ -88,10 +88,10 @@ const NychaPageWithoutI18n: React.FC<NychaPageProps> = (props) => {
       <div className="NotRegisteredPage Page">
         <div className="HomePage__content">
           <div className="HomePage__search">
-            <h5 className="mt-10 text-center text-bold text-large">
+            <h5 className="mt-4 text-center text-bold text-large">
               {buildingInfo.nycha_development}: <Trans>Public Housing Development</Trans>
             </h5>
-            <h6 className="mt-10 text-center text-bold text-large">
+            <h6 className="mt-4 text-center text-bold text-large">
               <Trans>This building is owned by the NYC Housing Authority (NYCHA)</Trans>
             </h6>
             <div className="wrapper">

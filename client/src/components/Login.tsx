@@ -3,7 +3,11 @@ import { Trans, t } from "@lingui/macro";
 import { I18n } from "@lingui/core";
 import { withI18n } from "@lingui/react";
 import classNames from "classnames";
+import { Button, Link as JFCLLink } from "@justfixnyc/component-library";
 
+import "styles/Login.css";
+import "styles/UserTypeInput.css";
+import "styles/_input.scss";
 import AuthClient from "./AuthClient";
 import { JustfixUser } from "state-machine";
 import { UserContext } from "./UserContext";
@@ -13,12 +17,9 @@ import EmailInput from "./EmailInput";
 import UserTypeInput from "./UserTypeInput";
 import { Alert } from "./Alert";
 import Modal from "./Modal";
-
-import "styles/Login.css";
-import "styles/UserTypeInput.css";
-import "styles/_input.scss";
-import { Button } from "@justfixnyc/component-library";
 import SendNewLink from "./SendNewLink";
+import { LocaleLink } from "i18n";
+import { createWhoOwnsWhatRoutePaths } from "routes";
 
 enum Step {
   CheckEmail,
@@ -36,6 +37,7 @@ type LoginProps = {
   handleRedirect?: () => void;
   registerInModal?: boolean;
   setLoginRegisterInProgress?: React.Dispatch<React.SetStateAction<boolean>>;
+  showForgotPassword?: boolean;
 };
 
 const LoginWithoutI18n = (props: LoginProps) => {
@@ -49,6 +51,7 @@ const LoginWithoutI18n = (props: LoginProps) => {
   } = props;
 
   const userContext = useContext(UserContext);
+  const { account } = createWhoOwnsWhatRoutePaths();
 
   const [showRegisterModal, setShowRegisterModal] = useState(false);
 
@@ -124,7 +127,7 @@ const LoginWithoutI18n = (props: LoginProps) => {
       >
         {message}
         {showLogin && (
-          <button className="button is-text ml-5" onClick={() => toggleLoginSignup(Step.Login)}>
+          <button className="button is-text ml-2" onClick={() => toggleLoginSignup(Step.Login)}>
             <Trans>Log in</Trans>
           </button>
         )}
@@ -177,11 +180,23 @@ const LoginWithoutI18n = (props: LoginProps) => {
             </Trans>
           </span>
         )}
+        {isLoginStep && (
+          <LocaleLink
+            to={`${account.forgotPassword}?email=${encodeURIComponent(email || "")}`}
+            onClick={() => {
+              window.gtag("event", "view-data-over-time-overview-tab");
+            }}
+            component={JFCLLink}
+            className="forgot-password"
+          >
+            <Trans render="span">Forgot your password?</Trans>
+          </LocaleLink>
+        )}
         <div className="login-type-toggle">
           {isRegisterAccountStep ? (
             <>
               <Trans>Already have an account?</Trans>
-              <button className="button is-text ml-5" onClick={() => toggleLoginSignup(Step.Login)}>
+              <button className="button is-text ml-2" onClick={() => toggleLoginSignup(Step.Login)}>
                 <Trans>Log in</Trans>
               </button>
             </>
@@ -189,7 +204,7 @@ const LoginWithoutI18n = (props: LoginProps) => {
             <>
               <Trans>Don't have an account?</Trans>
               <button
-                className="button is-text ml-5 pt-20"
+                className="button is-text ml-2 pt-6"
                 onClick={() => {
                   toggleLoginSignup(Step.RegisterAccount);
                   if (registerInModal && !showRegisterModal) {
@@ -469,7 +484,6 @@ const LoginWithoutI18n = (props: LoginProps) => {
                 setError={setPasswordError}
                 onChange={onChangePassword}
                 showPasswordRules={isRegisterAccountStep}
-                showForgotPassword={!isRegisterAccountStep}
                 autoFocus={showRegisterModal && !!email && !password}
               />
             )}
