@@ -127,6 +127,10 @@
             &:focus-visible {
               outline: none;
             }
+            &:focus {
+              border: 2px $justfix-black solid;
+              box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+            }
             &.hasError {
               outline: 3px solid $justfix-orange;
             }
