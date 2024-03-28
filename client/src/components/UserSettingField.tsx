@@ -120,7 +120,7 @@ const EmailSettingFieldWithoutI18n = (props: EmailSettingFieldProps) => {
   const { i18n, currentValue, onSubmit } = props;
   const userContext = useContext(UserContext);
   const { email: oldEmail, verified } = userContext.user as JustfixUser;
-  const [verifyResent, setVerifyResent] = React.useState(false);
+  const [isEmailResent, setIsEmailResent] = React.useState(false);
   const [existingUserError, setExistingUserError] = useState(false);
   const {
     value: email,
@@ -162,9 +162,9 @@ const EmailSettingFieldWithoutI18n = (props: EmailSettingFieldProps) => {
         Email address not verified. Click the link we sent to {email} start receiving Building
         Updates.
       </Trans>
-      {!verifyResent && <Trans render="p">Didn’t get the link?</Trans>}
+      {!isEmailResent && <Trans render="p">Didn’t get the link?</Trans>}
       <SendNewLink
-        setParentState={setVerifyResent}
+        setParentState={setIsEmailResent}
         variant="secondary"
         onClick={() => AuthClient.resendVerifyEmail()}
       />
@@ -238,7 +238,7 @@ const UserSettingFieldWithoutI18n = (props: UserSettingFieldProps) => {
             <div className="user-setting-actions">
               <Button type="submit" variant="primary" size="small" labelText={i18n._(t`Save`)} />
               <Button
-                type="submit"
+                type="button"
                 variant="text"
                 size="small"
                 labelText={i18n._(t`Cancel`)}
@@ -253,13 +253,14 @@ const UserSettingFieldWithoutI18n = (props: UserSettingFieldProps) => {
             </Trans>
             <div>
               <span>{preview}</span>
-              <button
+              <Button
                 type="button"
-                className="button is-text edit-button"
+                variant="text"
+                size="small"
+                className="edit-button"
+                labelText={i18n._(t`Edit`)}
                 onClick={() => setEditing(true)}
-              >
-                <Trans>Edit</Trans>
-              </button>
+              />
             </div>
             {!!verifyCallout && verifyCallout}
           </>
