@@ -1,0 +1,93 @@
+@import "_vars.scss";
+
+// These are borrowed from orgsite where we overwride helpers from the Bulma package
+// https://github.com/JustFixNYC/justfix-website/blob/master/src/styles/_custom.scss
+
+.is-marginless {
+  margin: 0 !important;
+}
+
+.is-paddingless {
+  padding: 0 !important;
+}
+
+$spacing-shortcuts: (
+  "margin": "m",
+  "padding": "p",
+);
+$spacing-directions: (
+  "top": "t",
+  "right": "r",
+  "bottom": "b",
+  "left": "l",
+);
+$spacing-horizontal: "x";
+$spacing-vertical: "y";
+$spacing-values: (
+  "0": 0,
+  "1": $spacing-01,
+  "2": $spacing-02,
+  "3": $spacing-03,
+  "4": $spacing-04,
+  "5": $spacing-05,
+  "6": $spacing-06,
+  "7": $spacing-07,
+  "8": $spacing-08,
+  "9": $spacing-09,
+  "10": $spacing-10,
+  "11": $spacing-11,
+  "12": $spacing-12,
+  "13": $spacing-13,
+  "auto": auto,
+);
+
+@each $property, $shortcut in $spacing-shortcuts {
+  @each $name, $value in $spacing-values {
+    // All directions
+    .#{$shortcut}-#{$name} {
+      #{$property}: $value;
+    }
+    .#{$shortcut}-#{$name}-mobile {
+      @include for-phone-only {
+        #{$property}: $value !important;
+      }
+    }
+    // Cardinal directions
+    @each $direction, $suffix in $spacing-directions {
+      .#{$shortcut}#{$suffix}-#{$name} {
+        #{$property}-#{$direction}: $value;
+      }
+      .#{$shortcut}#{$suffix}-#{$name}-mobile {
+        @include for-phone-only {
+          #{$property}-#{$direction}: $value !important;
+        }
+      }
+    }
+    // Horizontal axis
+    @if $spacing-horizontal != null {
+      .#{$shortcut}#{$spacing-horizontal}-#{$name} {
+        #{$property}-left: $value;
+        #{$property}-right: $value;
+      }
+      .#{$shortcut}#{$spacing-horizontal}-#{$name}-mobile {
+        @include for-phone-only {
+          #{$property}-left: $value !important;
+          #{$property}-right: $value !important;
+        }
+      }
+    }
+    // Vertical axis
+    @if $spacing-vertical != null {
+      .#{$shortcut}#{$spacing-vertical}-#{$name} {
+        #{$property}-top: $value;
+        #{$property}-bottom: $value;
+      }
+      .#{$shortcut}#{$spacing-vertical}-#{$name}-mobile {
+        @include for-phone-only {
+          #{$property}-top: $value !important;
+          #{$property}-bottom: $value !important;
+        }
+      }
+    }
+  }
+}
