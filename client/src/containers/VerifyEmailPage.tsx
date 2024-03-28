@@ -1,9 +1,12 @@
 import { useState, useEffect } from "react";
 import { withI18n, withI18nProps } from "@lingui/react";
 import { Trans, t } from "@lingui/macro";
-import AuthClient, { VerifyStatusCode } from "../components/AuthClient";
-import Page from "components/Page";
 import { useLocation } from "react-router-dom";
+
+import "styles/VerifyEmailPage.css";
+import Page from "components/Page";
+import AuthClient, { VerifyStatusCode } from "../components/AuthClient";
+import SendNewLink from "components/SendNewLink";
 
 const VerifyEmailPage = withI18n()((props: withI18nProps) => {
   const { i18n } = props;
@@ -58,35 +61,22 @@ const VerifyEmailPage = withI18n()((props: withI18nProps) => {
     }, delayInterval);
   };
 
-  const expiredLinkPage = () => {
-    const resendEmailPage = (
-      <div className="text-center">
-        <Trans render="h4">The link sent to you has timed out.</Trans>
-        <br />
-        <button
-          className="button is-secondary"
-          onClick={async () => {
-            setIsEmailResent(await AuthClient.resendVerifyEmail(token));
-          }}
-        >
-          <Trans>Send new link</Trans>
-        </button>
-      </div>
-    );
-
-    const resendEmailConfirmation = (
-      <div className="text-center">
-        <Trans render="h4">Check your email inbox & spam</Trans>
-        <br />
-        <Trans>
-          Click the link we sent to verify your email address. It may take a few minutes to arrive.
-          Once your email has been verified, you’ll be signed up for Building Updates.
-        </Trans>
-      </div>
-    );
-
-    return isEmailResent ? resendEmailConfirmation : resendEmailPage;
-  };
+  const expiredLinkPage = () => (
+    <div className="text-center">
+      {isEmailResent ? (
+        <Trans> Click the link we sent to your email to start receiving emails.</Trans>
+      ) : (
+        <Trans>The verification link that we sent you is no longer valid.</Trans>
+      )}
+      <SendNewLink
+        setParentState={setIsEmailResent}
+        variant="secondary"
+        onClick={async () => {
+          setIsEmailResent(await AuthClient.resendVerifyEmail(token));
+        }}
+      />
+    </div>
+  );
 
   // TODO add error logging
   const errorPage = () => (
@@ -129,7 +119,7 @@ const VerifyEmailPage = withI18n()((props: withI18nProps) => {
 
   return (
     <Page title={i18n._(t`Verify your email address`)}>
-      <div className="TextPage Page">
+      <div className="VerifyEmailPage Page">
         <div className="page-container">
           {!loading &&
             (isVerified

@@ -2,6 +2,9 @@
 @import "_typography.scss";
 
 .user-type-container {
+  display: flex;
+  flex-direction: column;
+
   .user-type-radio-group {
     display: grid;
     grid-template-columns: 1.25rem auto;
@@ -49,19 +52,14 @@
     }
   }
 
-  .user-type-input-text-group {
-    display: flex;
-    flex-direction: column;
+  input[type="text"] {
     margin: 1.5rem 1.75rem 0 1.75rem;
+    &.invalid {
+      border-color: $justfix-orange;
+    }
 
-    input {
-      &.invalid {
-        border-color: $justfix-orange;
-      }
-
-      &.invalid:focus {
-        border-color: $justfix-black;
-      }
+    &.invalid:focus {
+      border-color: $justfix-black;
     }
   }
 

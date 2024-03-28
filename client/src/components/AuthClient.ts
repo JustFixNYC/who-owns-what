@@ -61,7 +61,7 @@ const clearUser = () => (_user = undefined);
  */
 const register = async (username: string, password: string, userType: string) => {
   const json = await postAuthRequest(`${BASE_URL}auth/register`, {
-    username,
+    username: username.toLowerCase(),
     password,
     user_type: userType,
   });
@@ -74,7 +74,10 @@ const register = async (username: string, password: string, userType: string) =>
  * and expiry time.
  */
 const login = async (username: string, password: string) => {
-  const json = await postLoginCredentials(`${BASE_URL}auth/login`, { username, password });
+  const json = await postLoginCredentials(`${BASE_URL}auth/login`, {
+    username: username.toLowerCase(),
+    password,
+  });
   return json;
 };
 
@@ -91,7 +94,9 @@ const logout = async () => {
 const resetPasswordRequest = async (username?: string) => {
   try {
     if (username) {
-      await postAuthRequest(`${BASE_URL}auth/reset_password_request`, { username });
+      await postAuthRequest(`${BASE_URL}auth/reset_password_request`, {
+        username: username.toLowerCase(),
+      });
     } else {
       const params = new URLSearchParams(window.location.search);
       await postAuthRequest(
@@ -201,7 +206,7 @@ const resendVerifyEmail = async (token?: string) => {
  * Sends an authenticated request to update the user email
  */
 const updateEmail = async (newEmail: string) => {
-  return await postAuthRequest(`${BASE_URL}auth/update`, { new_email: newEmail });
+  return await postAuthRequest(`${BASE_URL}auth/update`, { new_email: newEmail.toLowerCase() });
 };
 
 /**
@@ -246,7 +251,9 @@ const buildingUnsubscribe = async (bbl: string) => {
 };
 
 const isEmailAlreadyUsed = async (email: string) => {
-  const result = await friendlyFetch(`${BASE_URL}auth/account_exists/${email}`, {
+  const sanitizedEmail = email.toLowerCase();
+
+  const result = await friendlyFetch(`${BASE_URL}auth/account_exists/${sanitizedEmail}`, {
     method: "GET",
     mode: "cors",
     headers: {

@@ -17,6 +17,7 @@ import { Alert } from "./Alert";
 import Modal from "./Modal";
 import helpers from "util/helpers";
 import { AddressRecord } from "./APIDataTypes";
+import SendNewLink from "./SendNewLink";
 
 const SUBSCRIPTION_LIMIT = 15;
 
@@ -29,8 +30,10 @@ const BuildingSubscribeWithoutI18n = (props: BuildingSubscribeProps) => {
   const userContext = useContext(UserContext);
   const { user, subscribe, unsubscribe } = userContext;
   const { email, subscriptions, verified } = user! as JustfixUser;
-  const [showSubscriptionLimitModal, setShowSubscriptionLimitModal] = useState(false);
   const { account } = createWhoOwnsWhatRoutePaths();
+
+  const [isEmailResent, setIsEmailResent] = React.useState(false);
+  const [showSubscriptionLimitModal, setShowSubscriptionLimitModal] = useState(false);
 
   const showSubscribed = () => (
     <>
@@ -59,12 +62,11 @@ const BuildingSubscribeWithoutI18n = (props: BuildingSubscribeProps) => {
       <Trans render="div" className="card-description">
         Click the link we sent to {email}. It may take a few minutes to arrive.
       </Trans>
-      <Trans render="div">Didn’t get the link?</Trans>
-      <Button
+      {!isEmailResent && <Trans render="div">Didn’t get the link?</Trans>}
+      <SendNewLink
+        setParentState={setIsEmailResent}
         variant="secondary"
-        size="small"
         className="is-full-width"
-        labelText={i18n._(t`Send new link`)}
         onClick={() => AuthClient.resendVerifyEmail()}
       />
     </>

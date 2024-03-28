@@ -12,6 +12,8 @@ import EmailInput from "./EmailInput";
 import AuthClient from "./AuthClient";
 import { Alert } from "./Alert";
 import { AlertIconOutline } from "./Icons";
+import SendNewLink from "./SendNewLink";
+import { Button } from "@justfixnyc/component-library";
 
 type PasswordSettingFieldProps = withI18nProps & {
   onSubmit: (currentPassword: string, newPassword: string) => void;
@@ -118,6 +120,7 @@ const EmailSettingFieldWithoutI18n = (props: EmailSettingFieldProps) => {
   const { i18n, currentValue, onSubmit } = props;
   const userContext = useContext(UserContext);
   const { email: oldEmail, verified } = userContext.user as JustfixUser;
+  const [verifyResent, setVerifyResent] = React.useState(false);
   const [existingUserError, setExistingUserError] = useState(false);
   const {
     value: email,
@@ -159,10 +162,12 @@ const EmailSettingFieldWithoutI18n = (props: EmailSettingFieldProps) => {
         Email address not verified. Click the link we sent to {email} start receiving Building
         Updates.
       </Trans>
-      <Trans render="p">Didn’t get the link?</Trans>
-      <button className="button is-secondary" onClick={() => AuthClient.resendVerifyEmail()}>
-        <Trans>Send new link</Trans>
-      </button>
+      {!verifyResent && <Trans render="p">Didn’t get the link?</Trans>}
+      <SendNewLink
+        setParentState={setVerifyResent}
+        variant="secondary"
+        onClick={() => AuthClient.resendVerifyEmail()}
+      />
     </div>
   ) : undefined;
 
@@ -213,7 +218,7 @@ type UserSettingFieldProps = withI18nProps & {
 };
 
 const UserSettingFieldWithoutI18n = (props: UserSettingFieldProps) => {
-  const { title, preview, onSubmit, children, verifyCallout } = props;
+  const { title, preview, onSubmit, children, verifyCallout, i18n } = props;
   const [editing, setEditing] = useState(false);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -231,12 +236,14 @@ const UserSettingFieldWithoutI18n = (props: UserSettingFieldProps) => {
           <>
             {children}
             <div className="user-setting-actions">
-              <button type="submit" className="button is-primary">
-                <Trans>Save</Trans>
-              </button>
-              <button type="button" className="button is-text" onClick={() => setEditing(false)}>
-                <Trans>Cancel</Trans>
-              </button>
+              <Button type="submit" variant="primary" size="small" labelText={i18n._(t`Save`)} />
+              <Button
+                type="submit"
+                variant="text"
+                size="small"
+                labelText={i18n._(t`Cancel`)}
+                onClick={() => setEditing(false)}
+              />
             </div>
           </>
         ) : (
