@@ -46,16 +46,15 @@
     .forgot-password {
       display: flex;
       justify-content: center;
-      font-size: 0.94rem;
     }
 
     .privacy-links,
     .login-type-toggle,
-    .forgot-password {
-      a,
-      button {
-        color: inherit;
-      }
+    .forgot-password,
+    a {
+      font-size: 0.875rem;
+      font-weight: 400;
+      color: inherit;
     }
   }
 

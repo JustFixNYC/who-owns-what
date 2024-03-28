@@ -187,10 +187,9 @@ const LoginWithoutI18n = (props: LoginProps) => {
               window.gtag("event", "view-data-over-time-overview-tab");
             }}
             component={JFCLLink}
+            className="forgot-password"
           >
-            <Trans render="span" className="forgot-password">
-              Forgot your password?
-            </Trans>
+            <Trans render="span">Forgot your password?</Trans>
           </LocaleLink>
         )}
         <div className="login-type-toggle">
