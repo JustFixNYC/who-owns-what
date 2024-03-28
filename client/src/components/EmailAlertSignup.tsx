@@ -16,19 +16,16 @@ import { AddIcon, SubscribedIcon } from "./Icons";
 import { Alert } from "./Alert";
 import Modal from "./Modal";
 import helpers from "util/helpers";
+import { AddressRecord } from "./APIDataTypes";
 
 const SUBSCRIPTION_LIMIT = 15;
 
 type BuildingSubscribeProps = withI18nProps & {
-  bbl: string;
-  housenumber: string;
-  streetname: string;
-  boro: string;
-  zip: string;
+  addr: AddressRecord;
 };
 
 const BuildingSubscribeWithoutI18n = (props: BuildingSubscribeProps) => {
-  const { bbl, housenumber, streetname, zip, boro, i18n } = props;
+  const { addr, i18n } = props;
   const userContext = useContext(UserContext);
   const { user, subscribe, unsubscribe } = userContext;
   const { email, subscriptions, verified } = user! as JustfixUser;
@@ -40,16 +37,16 @@ const BuildingSubscribeWithoutI18n = (props: BuildingSubscribeProps) => {
       <div className="status-title">
         <SubscribedIcon />
         <Trans>
-          You’re signed up for Building Updates for {housenumber}
-          {helpers.titleCase(streetname)}, {helpers.titleCase(boro)}.
+          You’re signed up for Building Updates for {addr.housenumber}
+          {helpers.titleCase(addr.streetname)}, {helpers.titleCase(addr.boro)}.
         </Trans>
       </div>
       <Button
-        variant="text"
+        variant="secondary"
         size="small"
         className="is-full-width"
         labelText={i18n._(t`Remove building`)}
-        onClick={() => unsubscribe(bbl)}
+        onClick={() => unsubscribe(addr.bbl)}
       />
     </>
   );
@@ -84,7 +81,7 @@ const BuildingSubscribeWithoutI18n = (props: BuildingSubscribeProps) => {
           labelIcon={AddIcon}
           onClick={() =>
             subscriptions.length < SUBSCRIPTION_LIMIT
-              ? subscribe(bbl, housenumber, streetname, zip, boro)
+              ? subscribe(addr.bbl, addr.housenumber, addr.streetname, addr.zip ?? "", addr.boro)
               : setShowSubscriptionLimitModal(true)
           }
         />
@@ -99,7 +96,7 @@ const BuildingSubscribeWithoutI18n = (props: BuildingSubscribeProps) => {
           <div className="building-subscribe">
             {!verified
               ? showEmailVerification()
-              : subscriptions && !!subscriptions?.find((s) => s.bbl === bbl)
+              : subscriptions && !!subscriptions?.find((s) => s.bbl === addr.bbl)
               ? showSubscribed()
               : showAddBuilding()}
           </div>
@@ -135,7 +132,7 @@ const BuildingSubscribe = withI18n()(BuildingSubscribeWithoutI18n);
 type EmailAlertProps = BuildingSubscribeProps;
 
 const EmailAlertSignupWithoutI18n = (props: EmailAlertProps) => {
-  const { bbl, housenumber, streetname, zip, boro } = props;
+  const { addr } = props;
   const userContext = useContext(UserContext);
   const { user } = userContext;
   const [loginRegisterInProgress, setLoginRegisterInProgress] = useState(false);
@@ -162,7 +159,14 @@ const EmailAlertSignupWithoutI18n = (props: EmailAlertProps) => {
                       onBuildingPage
                       setLoginRegisterInProgress={setLoginRegisterInProgress}
                       onSuccess={(user: JustfixUser) => {
-                        userContext.subscribe(bbl, housenumber, streetname, zip, boro, user);
+                        userContext.subscribe(
+                          addr.bbl,
+                          addr.housenumber,
+                          addr.streetname,
+                          addr.zip ?? "",
+                          addr.boro,
+                          user
+                        );
                       }}
                     />
                   )}

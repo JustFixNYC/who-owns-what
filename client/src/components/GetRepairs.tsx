@@ -32,14 +32,9 @@ const GetRepairsWithoutI18n = (props: GetRepairsProps) => {
                     target="_blank"
                     rel="noopener noreferrer"
                     className="jfcl-link"
+                    icon="external"
                   >
-                    <Button
-                      variant="secondary"
-                      size="small"
-                      className="jfcl-button is-full-width"
-                      labelText={i18n._(t`Get repairs`)}
-                      onClick={() => null}
-                    />
+                    <Trans>Get Repairs</Trans>
                   </JFCLLink>
                 </div>
               </div>

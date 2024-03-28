@@ -397,13 +397,7 @@ class DetailViewWithoutI18n extends Component<Props, State> {
                     </div>
                   </div>
                   <div className="column col-lg-12 col-5">
-                    <EmailAlertSignup
-                      bbl={detailAddr.bbl}
-                      housenumber={detailAddr.housenumber}
-                      streetname={detailAddr.streetname}
-                      zip={detailAddr.zip || ""}
-                      boro={detailAddr.boro}
-                    />
+                    <EmailAlertSignup addr={detailAddr} />
                     <GetRepairs url={takeActionURL} />
                     <div className="card-body-links column-right">
                       <UsefulLinks addrForLinks={detailAddr} location="overview-tab" />

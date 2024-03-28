@@ -3,8 +3,8 @@
 
 .Card {
   // overrides datatable mixin
-  label:hover,
-  div:hover {
+  .card-label-container:hover,
+  .table-content:hover {
     cursor: default !important;
   }
 
@@ -13,6 +13,7 @@
     display: flex !important;
     justify-content: center;
     align-items: center;
+    margin-bottom: 0px !important;
 
     .pill-new {
       font-family: $body-font;
@@ -42,7 +43,9 @@
     flex-direction: column;
     gap: 1.5rem;
     padding: 1.5rem;
-    margin: 0 !important;
+    // overrides the margin-bottom: 3px introduced in DetailView.
+    // important so the cursor doesn't flicker to the tooltip/question mark icon
+    margin: 0px !important;
   }
 
   .card-description {
