@@ -1,15 +1,15 @@
+@import "_typography.scss";
+
 .send-new-link-container {
   display: flex;
+
   .send-new-link {
     display: flex;
-    justify-content: center;
   }
 
   .link-sent {
     display: flex;
-    align-items: start;
-    font-size: 0.875rem;
-    padding: 0.875rem 0;
+    align-items: center;
 
     svg {
       height: 20px;
