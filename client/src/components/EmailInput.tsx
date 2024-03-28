@@ -51,7 +51,9 @@ const EmailInputWithoutI18n = forwardRef<HTMLInputElement, EmailInputProps>(
         {showError && error && (
           <div className="email-input-errors mb-4">
             <span id="input-field-error">
-              <AlertIcon className="mr-3" />
+              <div>
+                <AlertIcon className="mr-3" />
+              </div>
               {i18n._(t`Please enter a valid email address.`)}
             </span>
           </div>

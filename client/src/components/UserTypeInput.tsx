@@ -51,7 +51,9 @@ const UserTypeInputWithoutI18n = (props: UserTypeInputProps) => {
     <div className="user-type-container">
       {showError && error && (
         <span id="input-field-error" className="mb-4">
-          <AlertIcon className="mr-3" />
+          <div>
+            <AlertIcon className="mr-3" />
+          </div>
           <Trans>Please select an option.</Trans>
         </span>
       )}

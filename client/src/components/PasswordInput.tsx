@@ -89,7 +89,7 @@ const PasswordInputWithoutI18n = forwardRef<HTMLInputElement, PasswordInputProps
               }
               return (
                 <span className={`password-input-rule ${ruleClass} mb-2`} key={`rule-${i}`}>
-                  {RuleIcon}
+                  <div>{RuleIcon}</div>
                   {rule.label}
                 </span>
               );
@@ -100,7 +100,9 @@ const PasswordInputWithoutI18n = forwardRef<HTMLInputElement, PasswordInputProps
           error && (
             <div className="password-input-errors mb-4">
               <span id="input-field-error">
-                <AlertIcon className="mr-3" />
+                <div>
+                  <AlertIcon className="mr-3" />
+                </div>
                 {i18n._(t`Please enter password.`)}
               </span>
             </div>
