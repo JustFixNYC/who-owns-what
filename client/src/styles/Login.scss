@@ -1,13 +1,39 @@
 @import "_vars.scss";
 @import "_typography.scss";
 
-// TODO REFACTOR THIS PAGE
 .Login,
 .ForgotPasswordPage,
 .ResetPasswordPage {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+
+  .page-title {
+    margin-top: 0.9375rem;
+  }
+
+  .jf-alert {
+    width: auto;
+    font-size: 0.81rem;
+
+    .jfcl-button.jfcl-variant-text {
+      display: block !important;
+      color: $justfix-white;
+    }
+
+    .jf-alert__content {
+      display: flex;
+      text-align: left;
+    }
+  }
+
+  h4 {
+    font-size: 1.5rem;
+    margin-bottom: 0;
+  }
+  h5 {
+    font-size: 0.63rem;
+  }
 
   .input-group {
     display: flex;
@@ -25,8 +51,12 @@
     }
   }
 
-  .page-title {
-    margin-top: 0.9375rem;
+  .resend-verify-label {
+    text-align: center;
+  }
+
+  .send-new-link-container {
+    justify-content: center;
   }
 
   .building-page-footer {
@@ -55,76 +85,6 @@
       font-size: 0.875rem;
       font-weight: 400;
       color: inherit;
-    }
-  }
-
-  .login-response-text {
-    margin: 0.39rem 0 0.39rem;
-  }
-
-  .login-password-label {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-    label {
-      flex: 1;
-    }
-  }
-
-  h4 {
-    font-size: 1.5rem;
-    margin-bottom: 0;
-  }
-  h5 {
-    font-size: 0.63rem;
-  }
-
-  .verify-email-container {
-    color: $justfix-black;
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-
-    p {
-      margin: 0;
-    }
-
-    h4,
-    .resend-verify-label {
-      display: flex;
-      justify-content: center;
-    }
-  }
-
-  .jf-alert {
-    width: auto;
-    font-size: 0.81rem;
-
-    .jfcl-button.jfcl-variant-text {
-      display: block !important;
-      color: $justfix-white;
-    }
-
-    .jf-alert__content {
-      display: flex;
-      text-align: left;
-    }
-  }
-
-  .request-sent-success {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    svg {
-      margin: 0.39rem 0 0.98rem 0;
-    }
-
-    .button.is-text {
-      margin-top: 0.39rem;
-      display: block !important;
-      color: $justfix-black;
     }
   }
 }
