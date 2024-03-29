@@ -18,7 +18,7 @@ import UserTypeInput from "./UserTypeInput";
 import { Alert } from "./Alert";
 import Modal from "./Modal";
 import SendNewLink from "./SendNewLink";
-import { LocaleLink } from "i18n";
+import { JFCLLocaleLink } from "i18n";
 import { createWhoOwnsWhatRoutePaths } from "routes";
 
 enum Step {
@@ -161,36 +161,32 @@ const LoginWithoutI18n = (props: LoginProps) => {
           <span className="privacy-links">
             <Trans>
               Your privacy is important to us. Read our{" "}
-              <a
+              <JFCLLink
+                href="https://www.justfix.org/en/privacy-policy/"
                 target="_blank"
                 rel="noopener noreferrer"
-                href="https://www.justfix.org/en/privacy-policy/"
               >
                 Privacy Policy
-              </a>{" "}
+              </JFCLLink>{" "}
               and{" "}
-              <a
+              <JFCLLink
+                href="https://www.justfix.org/en/terms-of-use/"
                 target="_blank"
                 rel="noopener noreferrer"
-                href="https://www.justfix.org/en/terms-of-use/"
               >
                 Terms of Service
-              </a>
+              </JFCLLink>
               .
             </Trans>
           </span>
         )}
         {isLoginStep && (
-          <LocaleLink
+          <JFCLLocaleLink
             to={`${account.forgotPassword}?email=${encodeURIComponent(email || "")}`}
-            onClick={() => {
-              window.gtag("event", "view-data-over-time-overview-tab");
-            }}
-            component={JFCLLink}
             className="forgot-password"
           >
-            <Trans render="span">Forgot your password?</Trans>
-          </LocaleLink>
+            <Trans>Forgot your password?</Trans>
+          </JFCLLocaleLink>
         )}
         <div className="login-type-toggle">
           {isRegisterAccountStep ? (

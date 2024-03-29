@@ -24,12 +24,14 @@
   }
 
   // Standard inline-link focus class:
+  // use component library default
+  // https://github.com/JustFixNYC/component-library/blob/701c58d033e12f2410d7203e5c6c75a7522d772c/src/buttons/styles.scss#L31
   a:not(.btn):not(.image):focus,
   summary:focus-visible,
   button.dropdown-toggle:focus {
-    box-shadow: none;
-    outline: 2px solid $gray-dark;
-    outline-offset: 2px;
+    outline-style: solid;
+    outline-width: 2px;
+    outline-color: $justfix-blue;
   }
 }
 
