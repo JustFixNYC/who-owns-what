@@ -54,6 +54,7 @@
 
   input[type="text"] {
     margin: 1.5rem 1.75rem 0 1.75rem;
+    font-size: 1rem; // below 16px zooms on mobile
 
     &:focus {
       border: 2px $justfix-black solid;

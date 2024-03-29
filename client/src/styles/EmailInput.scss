@@ -30,6 +30,7 @@
 
     input {
       flex: 1;
+      font-size: 1rem; // below 16px zooms on mobile
 
       &:focus {
         border: 2px $justfix-black solid;
