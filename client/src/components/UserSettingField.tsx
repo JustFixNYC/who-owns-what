@@ -239,7 +239,7 @@ const UserSettingFieldWithoutI18n = (props: UserSettingFieldProps) => {
               <Button type="submit" variant="primary" size="small" labelText={i18n._(t`Save`)} />
               <Button
                 type="button"
-                variant="text"
+                variant="tertiary"
                 size="small"
                 labelText={i18n._(t`Cancel`)}
                 onClick={() => setEditing(false)}
@@ -255,7 +255,7 @@ const UserSettingFieldWithoutI18n = (props: UserSettingFieldProps) => {
               <span>{preview}</span>
               <Button
                 type="button"
-                variant="text"
+                variant="tertiary"
                 size="small"
                 className="edit-button"
                 labelText={i18n._(t`Edit`)}
