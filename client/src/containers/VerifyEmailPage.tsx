@@ -85,8 +85,6 @@ const VerifyEmailPage = withI18n()((props: withI18nProps) => {
       <br />
       <Trans>
         Please try again later. If you’re still having issues, contact support@justfix.org.
-        <br />
-        <br />A report about this issue has been sent to our team.
       </Trans>
     </div>
   );
