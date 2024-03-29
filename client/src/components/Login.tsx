@@ -11,7 +11,7 @@ import "styles/_input.scss";
 import AuthClient from "./AuthClient";
 import { JustfixUser } from "state-machine";
 import { UserContext } from "./UserContext";
-import { useInput } from "util/helpers";
+import helpers, { useInput } from "util/helpers";
 import PasswordInput from "./PasswordInput";
 import EmailInput from "./EmailInput";
 import UserTypeInput from "./UserTypeInput";
@@ -20,6 +20,7 @@ import Modal from "./Modal";
 import SendNewLink from "./SendNewLink";
 import { LocaleLink } from "i18n";
 import { createWhoOwnsWhatRoutePaths } from "routes";
+import { AddressRecord } from "./APIDataTypes";
 
 enum Step {
   CheckEmail,
@@ -32,6 +33,7 @@ enum Step {
 
 type LoginProps = {
   i18n: I18n;
+  addr?: AddressRecord;
   onBuildingPage?: boolean;
   onSuccess?: (user: JustfixUser) => void;
   handleRedirect?: () => void;
@@ -43,6 +45,7 @@ type LoginProps = {
 const LoginWithoutI18n = (props: LoginProps) => {
   const {
     i18n,
+    addr,
     onBuildingPage,
     onSuccess,
     handleRedirect,
@@ -221,44 +224,21 @@ const LoginWithoutI18n = (props: LoginProps) => {
     );
   };
 
-  const renderVerifyEmail = () => {
-    return (
-      <div className="verify-email-container">
-        <p>{i18n._(t`Click the link we sent to ${email}. It may take a few minutes to arrive.`)}</p>
-        {!isEmailResent && (
-          <Trans render="span" className="resend-verify-label">
-            Didn’t get the link?
-          </Trans>
-        )}
-        <SendNewLink
-          setParentState={setIsEmailResent}
-          variant="secondary"
-          className="is-full-width"
-          onClick={() => AuthClient.resendVerifyEmail()}
-        />
-      </div>
-    );
-  };
-
-  const renderVerifyEmailReminder = () => {
-    return (
-      <>
-        <Trans render="h4">Verify your email to start receiving updates</Trans>
-        {i18n._(t`Click the link we sent to ${email}. It may take a few minutes to arrive.`)}
-        <br />
-        <br />
-        <Trans>Once your email has been verified, you’ll be signed up for Building Updates.</Trans>
-        <br />
-        <br />
-        <SendNewLink
-          setParentState={setIsEmailResent}
-          variant="secondary"
-          className="is-full-width"
-          onClick={() => AuthClient.resendVerifyEmail()}
-        />
-      </>
-    );
-  };
+  const renderResendVerifyEmail = () => (
+    <>
+      {!isEmailResent && (
+        <Trans render="span" className="resend-verify-label">
+          Didn’t get the link?
+        </Trans>
+      )}
+      <SendNewLink
+        setParentState={setIsEmailResent}
+        variant="secondary"
+        className="is-full-width"
+        onClick={() => AuthClient.resendVerifyEmail()}
+      />
+    </>
+  );
 
   const onEmailSubmit = async () => {
     !!setLoginRegisterInProgress && setLoginRegisterInProgress(true);
@@ -375,43 +355,61 @@ const LoginWithoutI18n = (props: LoginProps) => {
     setStep(Step.VerifyEmail);
   };
 
-  let headerText = "";
+  let headerText: any;
+  let subHeaderText: any;
   let onSubmit = () => {};
   let submitButtonText = "";
   switch (step) {
     case Step.CheckEmail:
-      headerText = onBuildingPage
-        ? i18n._(
-            t`Enter your email to get weekly updates on complaints, violations, and eviction filings for this building.`
-          )
-        : i18n._(t`Log in / sign up`);
+      headerText = !onBuildingPage
+        ? i18n._(t`Log in / sign up`)
+        : showRegisterModal
+        ? i18n._(t`Sign up for Building Updates`)
+        : "";
+      subHeaderText =
+        onBuildingPage && !showRegisterModal ? (
+          <Trans>
+            Enter your email to get weekly updates on complaints, violations, and eviction filings
+            for this building.
+          </Trans>
+        ) : undefined;
       onSubmit = onEmailSubmit;
       submitButtonText =
         !onBuildingPage || showRegisterModal ? i18n._(t`Submit`) : i18n._(t`Get updates`);
       break;
     case Step.Login:
-      headerText = showRegisterModal
-        ? i18n._(
-            t`Enter your email to get weekly updates on complaints, violations, and eviction filings for this building.`
-          )
-        : i18n._(t`Log in`);
+      headerText = onBuildingPage && !showRegisterModal ? undefined : i18n._(t`Log in`);
+      subHeaderText =
+        onBuildingPage && addr
+          ? i18n._(
+              t`Log in to add ${addr.housenumber} ${helpers.titleCase(
+                addr.streetname
+              )}, ${helpers.titleCase(addr.boro)} to your Building Updates`
+            )
+          : undefined;
       onSubmit = onLoginSubmit;
       submitButtonText = i18n._(t`Log in`);
       break;
     case Step.RegisterAccount:
-      headerText = onBuildingPage
-        ? i18n._(t`Create a password to start receiving Building Updates`)
-        : i18n._(t`Sign up`);
+      headerText = i18n._(t`Sign up for Building Updates`);
       onSubmit = onAccountSubmit;
       submitButtonText = i18n._(t`Next`);
       break;
     case Step.RegisterUserType:
-      headerText = i18n._(t`Which best describes you?`);
+      headerText = i18n._(t`Sign up for Building Updates`);
+      subHeaderText = i18n._(t`Which best describes you?`);
       onSubmit = onUserTypeSubmit;
       submitButtonText = "Sign up";
       break;
     case Step.VerifyEmail:
-      headerText = i18n._(t`Almost done. Verify your email to start receiving updates.`);
+      headerText = i18n._(t`Check your email`);
+      subHeaderText = (
+        <Trans>
+          Click the link we sent to {email} to verify your email. It may take a few minutes to
+          arrive. If you can't find it, check your spam and promotions folders for an email from
+          no-reply@justfix.org.
+        </Trans>
+      );
       break;
   }
 
@@ -447,12 +445,10 @@ const LoginWithoutI18n = (props: LoginProps) => {
   const renderLoginFlow = () => {
     return (
       <div className="Login">
-        {(!onBuildingPage || showRegisterModal) && (
+        {!!headerText && (
           <h4 className={classNames(!onBuildingPage && "page-title")}>{headerText}</h4>
         )}
-        {onBuildingPage && !showRegisterModal && (
-          <div className="card-description">{headerText}</div>
-        )}
+        {!!subHeaderText && <div className="card-description">{subHeaderText}</div>}
         {renderAlert()}
         {!isVerifyEmailStep && !isVerifyEmailReminderStep && (
           <form
@@ -506,8 +502,7 @@ const LoginWithoutI18n = (props: LoginProps) => {
             </div>
           </form>
         )}
-        {isVerifyEmailStep && renderVerifyEmail()}
-        {isVerifyEmailReminderStep && renderVerifyEmailReminder()}
+        {isVerifyEmailStep && renderResendVerifyEmail()}
         {(isLoginStep || isRegisterAccountStep) && renderFooter()}
       </div>
     );

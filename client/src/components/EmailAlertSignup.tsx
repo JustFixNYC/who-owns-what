@@ -157,6 +157,7 @@ const EmailAlertSignupWithoutI18n = (props: EmailAlertProps) => {
                     <BuildingSubscribe {...props} />
                   ) : (
                     <Login
+                      addr={addr}
                       registerInModal
                       onBuildingPage
                       setLoginRegisterInProgress={setLoginRegisterInProgress}
