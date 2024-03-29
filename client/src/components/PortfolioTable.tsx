@@ -706,7 +706,7 @@ const PortfolioTableWithoutI18n = React.memo((props: PortfolioTableProps) => {
                 }}
                 disabled={!table.getCanPreviousPage()}
                 labelIcon={IconChevron}
-                variant="text"
+                variant="tertiary"
                 size="small"
                 labelText={i18n._(t`Previous page`)}
                 iconOnly
@@ -723,7 +723,7 @@ const PortfolioTableWithoutI18n = React.memo((props: PortfolioTableProps) => {
                 disabled={!table.getCanNextPage()}
                 labelText={i18n._(t`Next page`)}
                 labelIcon={IconChevron}
-                variant="text"
+                variant="tertiary"
                 size="small"
                 iconOnly
               />
