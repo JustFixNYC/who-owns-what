@@ -9,7 +9,7 @@ import { CheckIcon } from "./Icons";
 type SendNewLinkProps = withI18nProps & {
   setParentState: React.Dispatch<React.SetStateAction<boolean>>;
   onClick: () => void;
-  variant: "primary" | "secondary" | "text";
+  variant: "primary" | "secondary" | "tertiary";
   className?: string;
 };
 

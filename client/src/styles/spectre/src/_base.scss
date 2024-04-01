@@ -22,20 +22,20 @@ body {
   text-rendering: optimizeLegibility;
 }
 
-a {
-  color: $link-color;
-  outline: none;
-  text-decoration: none;
+// a {
+//   color: $link-color;
+//   outline: none;
+//   text-decoration: none;
 
-  &:focus {
-    @include control-shadow();
-  }
+//   &:focus {
+//     @include control-shadow();
+//   }
 
-  &:focus,
-  &:hover,
-  &:active,
-  &.active {
-    color: $link-color-dark;
-    text-decoration: underline;
-  }
-}
+//   &:focus,
+//   &:hover,
+//   &:active,
+//   &.active {
+//     color: $link-color-dark;
+//     text-decoration: underline;
+//   }
+// }

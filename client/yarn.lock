@@ -2474,6 +2474,32 @@
   dependencies:
     "@floating-ui/core" "^1.2.4"
 
+"@fortawesome/fontawesome-common-types@6.5.1":
+  version "6.5.1"
+  resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-common-types/-/fontawesome-common-types-6.5.1.tgz#fdb1ec4952b689f5f7aa0bffe46180bb35490032"
+  integrity sha512-GkWzv+L6d2bI5f/Vk6ikJ9xtl7dfXtoRu3YGE6nq0p/FFqA1ebMOAWg3XgRyb0I6LYyYkiAo+3/KrwuBp8xG7A==
+
+"@fortawesome/fontawesome-svg-core@^6.5.1":
+  version "6.5.1"
+  resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-svg-core/-/fontawesome-svg-core-6.5.1.tgz#9d56d46bddad78a7ebb2043a97957039fcebcf0a"
+  integrity sha512-MfRCYlQPXoLlpem+egxjfkEuP9UQswTrlCOsknus/NcMoblTH2g0jPrapbcIb04KGA7E2GZxbAccGZfWoYgsrQ==
+  dependencies:
+    "@fortawesome/fontawesome-common-types" "6.5.1"
+
+"@fortawesome/free-solid-svg-icons@^6.5.1":
+  version "6.5.1"
+  resolved "https://registry.yarnpkg.com/@fortawesome/free-solid-svg-icons/-/free-solid-svg-icons-6.5.1.tgz#737b8d787debe88b400ab7528f47be333031274a"
+  integrity sha512-S1PPfU3mIJa59biTtXJz1oI0+KAXW6bkAb31XKhxdxtuXDiUIFsih4JR1v5BbxY7hVHsD1RKq+jRkVRaf773NQ==
+  dependencies:
+    "@fortawesome/fontawesome-common-types" "6.5.1"
+
+"@fortawesome/react-fontawesome@^0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@fortawesome/react-fontawesome/-/react-fontawesome-0.2.0.tgz#d90dd8a9211830b4e3c08e94b63a0ba7291ddcf4"
+  integrity sha512-uHg75Rb/XORTtVt7OS9WoK8uM276Ufi7gCzshVWkUJbHhh3svsUUeqXerrM96Wm7fRiDzfKRwSoahhMIkGAYHw==
+  dependencies:
+    prop-types "^15.8.1"
+
 "@gar/promisify@^1.0.1":
   version "1.1.3"
   resolved "https://registry.yarnpkg.com/@gar/promisify/-/promisify-1.1.3.tgz#555193ab2e3bb3b6adc3d551c9c030d9e860daf6"
@@ -2769,12 +2795,15 @@
     "@jridgewell/resolve-uri" "3.1.0"
     "@jridgewell/sourcemap-codec" "1.4.14"
 
-"@justfixnyc/component-library@0.32.2":
-  version "0.32.2"
-  resolved "https://registry.yarnpkg.com/@justfixnyc/component-library/-/component-library-0.32.2.tgz#9cc41ffbeb0e03dbcd66265d00ec7b52aafd2939"
-  integrity sha512-dEGO8hGpFrZz+9YqXGtk3HmWiOt0Xd87S8WpnizoXsFcLa1n4L6/qX7kDqz/RNeGNGElwIGwoejLCa1o8o4iSA==
+"@justfixnyc/component-library@0.33.0":
+  version "0.33.0"
+  resolved "https://registry.yarnpkg.com/@justfixnyc/component-library/-/component-library-0.33.0.tgz#227941f59055faf1e763f8d0d6ee3bb4423d49e9"
+  integrity sha512-iHIg3ihO/zPJ6kwcyUDtPacBi90+RgBdiaaaN71oLJla2kcmyv19X7X0LXbZbFOWFkof+/dG5dUjLGXBexCRUg==
   dependencies:
     "@babel/runtime" "^7.12.5"
+    "@fortawesome/fontawesome-svg-core" "^6.5.1"
+    "@fortawesome/free-solid-svg-icons" "^6.5.1"
+    "@fortawesome/react-fontawesome" "^0.2.0"
 
 "@justfixnyc/contentful-common-strings@^0.1.0":
   version "0.1.0"

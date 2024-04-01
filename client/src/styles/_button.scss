@@ -238,8 +238,11 @@
   text-underline-position: under;
   &:focus,
   &:focus-visible {
-    outline: 0.13rem solid $justfix-grey;
-    outline-offset: 0.13rem;
+    // match component library until we can swap the remaining uses
+    // https://github.com/JustFixNYC/component-library/blob/701c58d033e12f2410d7203e5c6c75a7522d772c/src/buttons/styles.scss#L31
+    outline-style: solid;
+    outline-width: 2px;
+    outline-color: $justfix-blue;
   }
 }
 

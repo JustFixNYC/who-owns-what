@@ -15,7 +15,7 @@ const EngagementPanel: React.FC<{
       <div className="EngagementWrapper">
         <div className="EngagementItem">
           <p>
-            <Trans>Sign up for email updates</Trans>
+            <Trans>Sign up for our newsletter</Trans>
           </p>
           <Subscribe />
         </div>

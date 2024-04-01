@@ -121,7 +121,8 @@
           border: 1px solid $wowza-dark;
 
           &:focus {
-            box-shadow: 0 0 0 0.13rem $dark;
+            border: 2px $justfix-black solid;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
           }
 
           &::placeholder {

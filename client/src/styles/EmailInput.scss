@@ -30,6 +30,12 @@
 
     input {
       flex: 1;
+      font-size: 1rem; // below 16px zooms on mobile
+
+      &:focus {
+        border: 2px $justfix-black solid;
+        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+      }
 
       &.invalid {
         border-color: $justfix-orange;
