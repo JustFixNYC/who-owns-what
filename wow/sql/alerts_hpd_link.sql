@@ -11,4 +11,4 @@ SELECT
         )
     END AS HPD_LINK
 FROM WOW_BLDGS
-WHERE BBL = %(bbl)s;
+WHERE BBL = %(bbl)s
