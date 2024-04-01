@@ -112,6 +112,7 @@
   }
 
   &.wowza-styling {
+    align-items: center !important; // for "demo site" span alignment
     background-color: $wowza-dark;
     & > a h4,
     button.btn.btn-link.dropdown-toggle {
@@ -133,8 +134,8 @@
   .label.label-warning {
     color: $dark;
     transform: rotate(-4deg);
-    margin-top: 0rem;
     height: min-content;
+    margin-left: 12px;
     @include for-phone-only {
       font-size: 0.63rem;
       width: min-content;
@@ -145,6 +146,9 @@
     @include mobile-h2;
     margin: 0 0 0 1.5rem;
     color: $justfix-white;
+    @include for-phone-only {
+      margin: 1.5rem 0;
+    }
   }
 
   & > a,
@@ -162,6 +166,15 @@
 
     .jf-logo {
       margin-right: 1.5rem;
+      @include for-phone-only {
+        display: none;
+      }
+    }
+
+    .jf-logo-divider {
+      @include for-phone-only {
+        display: none;
+      }
     }
   }
 
