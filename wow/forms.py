@@ -79,10 +79,11 @@ class EmailAlertLaggedEvictionFilingsForm(PaddedBBLForm):
 
 
 class EmailAlertSingleIndicatorForm(PaddedBBLForm):
+    regex = r"^(violations)|(complaints)|(eviction_filings)|(lagged_eviction_filings)|(hpd_link)$"
     indicator = forms.CharField(
         validators=[
             RegexValidator(
-                r"^(violations)|(complaints)|(eviction_filings)|(lagged_eviction_filings)|(hpd_link)$",
+                regex,
                 message="This must be one of 'violations', 'complaints', 'eviction_filings', \
                     'lagged_eviction_filings', 'hpd_link'.",
             )
