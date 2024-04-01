@@ -59,12 +59,13 @@ def validate_indicators(value):
         "complaints",
         "eviction_filings",
         "lagged_eviction_filings",
+        "hpd_link",
     ]
     for i in value:
         if i not in valid_indicators:
             raise ValidationError(
                 "Indicators must be comma-separated list of: 'violations',\
-                'complaints', 'eviction_filings', or 'lagged_eviction_filings'"
+                'complaints', 'eviction_filings', 'lagged_eviction_filings', or 'hpd_link"
             )
 
 
@@ -81,9 +82,9 @@ class EmailAlertSingleIndicatorForm(PaddedBBLForm):
     indicator = forms.CharField(
         validators=[
             RegexValidator(
-                r"^(violations)|(complaints)|(eviction_filings)|(lagged_eviction_filings)$",
+                r"^(violations)|(complaints)|(eviction_filings)|(lagged_eviction_filings)|(hpd_link)$",
                 message="This must be one of 'violations', 'complaints', 'eviction_filings', \
-                    'lagged_eviction_filings'.",
+                    'lagged_eviction_filings', 'hpd_link'.",
             )
         ]
     )
@@ -123,11 +124,15 @@ class EmailAlertMultiIndicatorForm(PaddedBBLForm):
         indicators = data.get("indicators", [])
         start_end_indicators = ["violations", "complaints", "eviction_filings"]
 
+        if indicators == ["hpd_link"]:
+            return data
+
         if "lagged_eviction_filings" in indicators:
             if not data.get("prev_date", None):
                 raise forms.ValidationError(
                     "prev_date is required for lagged_eviction_filings"
                 )
+
         if not set(start_end_indicators).isdisjoint(indicators):
             if not data.get("start_date", None):
                 raise forms.ValidationError(
@@ -137,5 +142,5 @@ class EmailAlertMultiIndicatorForm(PaddedBBLForm):
                 raise forms.ValidationError(
                     "end_date is required for violations, complaints, and eviction_filings"
                 )
-        else:
-            return data
+
+        return data

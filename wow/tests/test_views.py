@@ -225,10 +225,11 @@ class TestAlertsMultiIndicator(ApiTest):
             f"{url_bbl_base}&indicators=violations&{start_date}&{end_date}",
             f"{url_bbl_base}&indicators=complaints&{start_date}&{end_date}",
             f"{url_bbl_base}&indicators=eviction_filings&{start_date}&{end_date}",
+            f"{url_bbl_base}&indicators=hpd_link",
             f"{url_bbl_base}&indicators=violations,complaints,eviction_filings \
                 &{start_date}&{end_date}",
             f"{url_bbl_base} \
-                &indicators=violations,complaints,eviction_filings,lagged_eviction_filings \
+                &indicators=violations,complaints,eviction_filings,lagged_eviction_filings,hpd_link \
                 &{start_date}&{end_date}&prev_date=2024-01-01",
         ]
         for url in urls:

@@ -41,7 +41,7 @@ export const UsefulLinks: React.FC<UsefulLinksProps> = ({ addrForLinks, location
             href={
               !!hpdbuildingid && hpdbuildings === 1
                 ? `https://hpdonline.nyc.gov/hpdonline/building/${hpdbuildingid}/overview`
-                : "https://hpdonline.nyc.gov/hpdonline"
+                : `https://hpdonline.nyc.gov/hpdonline/building/search-results?boroId=${boro}&block=${block}&lot=${lot}`
             }
             target="_blank"
             rel="noopener noreferrer"
