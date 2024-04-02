@@ -54,6 +54,8 @@ class CommaSeparatedField(forms.CharField):
 
 
 def validate_indicators(value):
+    # "hpd_link" included here for email alerts api, this is temporary until we refactor
+    # this to use a pre-built table with all values instead of this composable option
     valid_indicators = [
         "violations",
         "complaints",
