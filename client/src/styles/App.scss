@@ -99,21 +99,20 @@
 }
 
 .App__header {
-  padding: 15px;
-  border-bottom: 1px solid $gray-light;
   background-color: $background;
-
+  border-bottom: 1px solid $justfix-white;
   display: flex;
-
   justify-content: space-between;
   align-items: center;
   position: relative;
+  padding: 0 1.5rem 0 2rem;
 
   @include for-phone-only {
-    padding: 10px 8px 8px;
+    padding: 0 1.5rem 0 1.5rem;
   }
 
   &.wowza-styling {
+    align-items: center !important; // for "demo site" span alignment
     background-color: $wowza-dark;
     & > a h4,
     button.btn.btn-link.dropdown-toggle {
@@ -135,8 +134,8 @@
   .label.label-warning {
     color: $dark;
     transform: rotate(-4deg);
-    margin-top: 0rem;
     height: min-content;
+    margin-left: 12px;
     @include for-phone-only {
       font-size: 0.63rem;
       width: min-content;
@@ -144,14 +143,11 @@
   }
 
   h1.page-title {
-    margin: 0;
+    @include mobile-h2;
+    margin: 0 0 0 1.5rem;
     color: $justfix-white;
-    line-height: 1.2;
-    font-weight: bold;
-    font-size: 1.13rem;
-
-    @include for-tablet-portrait-up() {
-      font-size: 1.5rem;
+    @include for-phone-only {
+      margin: 1.5rem 0;
     }
   }
 
@@ -162,15 +158,24 @@
   }
 
   & > a {
-    display: block;
-    position: absolute;
     width: fit-content;
     max-width: 75%;
     text-align: center;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    margin: 0 -0.63rem 0;
+    display: flex;
+    align-items: center;
+
+    .jf-logo {
+      margin-right: 1.5rem;
+      @include for-phone-only {
+        display: none;
+      }
+    }
+
+    .jf-logo-divider {
+      @include for-phone-only {
+        display: none;
+      }
+    }
   }
 
   nav {
@@ -178,13 +183,10 @@
     flex-wrap: nowrap;
     margin-left: auto;
     text-align: end;
+    align-items: center;
 
     @include for-tablet-landscape-down {
       align-items: center;
-    }
-
-    @include for-desktop-down {
-      max-width: 250px;
     }
 
     a,
@@ -197,7 +199,6 @@
       &.active,
       &:hover {
         text-decoration: none;
-        cursor: default;
       }
     }
 

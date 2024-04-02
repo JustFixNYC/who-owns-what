@@ -1,6 +1,8 @@
 import React, { useEffect, useState, useContext } from "react";
 import { BrowserRouter as Router, Switch, Route, useLocation } from "react-router-dom";
 import { Trans, t } from "@lingui/macro";
+import logo from "../assets/img/logo.svg";
+import logoDivider from "../assets/img/logo-divider.svg";
 
 import "styles/App.css";
 
@@ -13,9 +15,9 @@ import browser from "util/browser";
 import {
   I18n,
   LocaleNavLink,
-  LocaleLink as Link,
   LocaleSwitcher,
   LocaleSwitcherWithFullLanguageName,
+  JFCLLocaleLink,
 } from "../i18n";
 import { withI18n, withI18nProps } from "@lingui/react";
 import { createWhoOwnsWhatRoutePaths } from "../routes";
@@ -50,22 +52,29 @@ import LoginPage from "./LoginPage";
 
 const HomeLink = withI18n()((props: withI18nProps) => {
   const { i18n } = props;
-  const title = i18n._(t`Who owns what in nyc?`);
+  const title = i18n._(t`Who owns what`);
 
   const { home, legacy } = createWhoOwnsWhatRoutePaths();
   const { pathname } = useLocation();
 
   return (
-    <Link
-      // We need to spell out each letter of "nyc" here for screenreaders to pronounce:
-      aria-label={i18n._(t`Who owns what in n y c?`)}
+    <JFCLLocaleLink
+      aria-label={i18n._(t`Who owns what`)}
       onClick={() => {
         window.gtag("event", "site-title");
       }}
       to={isLegacyPath(pathname) ? legacy.home : home}
     >
+      <img className="jf-logo" src={logo} width="96" height="22" alt="JustFix" />
+      <img
+        className="jf-logo-divider"
+        src={logoDivider}
+        width="1"
+        height="72"
+        alt="visual divider"
+      />
       <h1 className="page-title">{widont(title)}</h1>
-    </Link>
+    </JFCLLocaleLink>
   );
 });
 
