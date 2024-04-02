@@ -28,7 +28,6 @@ enum Step {
   RegisterAccount,
   RegisterUserType,
   VerifyEmail,
-  VerifyEmailReminder,
 }
 
 type LoginProps = {
@@ -64,7 +63,6 @@ const LoginWithoutI18n = (props: LoginProps) => {
   const isRegisterAccountStep = step === Step.RegisterAccount;
   const isRegisterUserTypeStep = step === Step.RegisterUserType;
   const isVerifyEmailStep = step === Step.VerifyEmail;
-  const isVerifyEmailReminderStep = step === Step.VerifyEmailReminder;
 
   const {
     value: email,
@@ -338,13 +336,7 @@ const LoginWithoutI18n = (props: LoginProps) => {
       return;
     }
 
-    if (!onBuildingPage) {
-      !!setLoginRegisterInProgress && setLoginRegisterInProgress(false);
-      handleRedirect && handleRedirect();
-      return;
-    }
-
-    if (!registerInModal) {
+    if (!onBuildingPage || !registerInModal) {
       !!setLoginRegisterInProgress && setLoginRegisterInProgress(false);
     }
 
@@ -446,7 +438,7 @@ const LoginWithoutI18n = (props: LoginProps) => {
         )}
         {!!subHeaderText && <div className="card-description">{subHeaderText}</div>}
         {renderAlert()}
-        {!isVerifyEmailStep && !isVerifyEmailReminderStep && (
+        {!isVerifyEmailStep && (
           <form
             className="input-group"
             onSubmit={(e) => {
