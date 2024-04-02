@@ -23,10 +23,10 @@ const UserTypeInputWithoutI18n = (props: UserTypeInputProps) => {
 
   const USER_TYPES = {
     tenant: i18n._(t`Tenant`),
-    organizer: i18n._(t`Organizer`),
-    advocate: i18n._(t`Advocate`),
-    legal: i18n._(t`Legal Worker`),
-    government: i18n._(t`Government Worker (Non-Lawyer)`),
+    organizer: i18n._(t`Tenant Organizer`),
+    advocate: i18n._(t`Tenant Advocate`),
+    legal: i18n._(t` Legal Worker/Lawyer`),
+    government: i18n._(t`Government Worker (non-lawyer)`),
     other: i18n._(t`Other`),
   };
 
