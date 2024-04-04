@@ -27,8 +27,7 @@ enum Step {
   RegisterAccount,
   RegisterUserType,
   VerifyEmail,
-  VerifyEmailReminder,
-  // TODO: add step for after successful login when !onBuildingPage
+  LoginSuccess,
 }
 
 type LoginProps = {
@@ -54,7 +53,7 @@ const LoginWithoutI18n = (props: LoginProps) => {
   } = props;
 
   const userContext = useContext(UserContext);
-  const { account } = createWhoOwnsWhatRoutePaths();
+  const { home, account } = createWhoOwnsWhatRoutePaths();
 
   const [showRegisterModal, setShowRegisterModal] = useState(false);
 
@@ -64,7 +63,7 @@ const LoginWithoutI18n = (props: LoginProps) => {
   const isRegisterAccountStep = step === Step.RegisterAccount;
   const isRegisterUserTypeStep = step === Step.RegisterUserType;
   const isVerifyEmailStep = step === Step.VerifyEmail;
-  const isVerifyEmailReminderStep = step === Step.VerifyEmailReminder;
+  const isLoginSuccessStep = step === Step.LoginSuccess;
 
   const {
     value: email,
@@ -221,9 +220,9 @@ const LoginWithoutI18n = (props: LoginProps) => {
   };
 
   const renderResendVerifyEmail = () => (
-    <>
+    <div className="resend-email-container">
       {!isEmailResent && (
-        <Trans render="span" className="resend-verify-label">
+        <Trans render="p" className="didnt-get-link">
           Didn’t get the link?
         </Trans>
       )}
@@ -234,6 +233,15 @@ const LoginWithoutI18n = (props: LoginProps) => {
         className="is-full-width"
         onClick={() => AuthClient.resendVerifyEmail()}
       />
+    </div>
+  );
+
+  const renderLoginSuccess = () => (
+    <>
+      <Trans render="h1">You are logged in</Trans>
+      <Trans render="h2">
+        <JFCLLocaleLink to={home}>Search for an address</JFCLLocaleLink> to add to Building Updates
+      </Trans>
     </>
   );
 
@@ -294,12 +302,17 @@ const LoginWithoutI18n = (props: LoginProps) => {
       return;
     }
 
-    !!setLoginRegisterInProgress && setLoginRegisterInProgress(false);
-
     if (!onBuildingPage) {
-      handleRedirect && handleRedirect();
+      if (resp?.user?.verified) {
+        setStep(Step.LoginSuccess);
+      } else {
+        await AuthClient.resendVerifyEmail();
+        setStep(Step.VerifyEmail);
+      }
       return;
     }
+
+    !!setLoginRegisterInProgress && setLoginRegisterInProgress(false);
   };
 
   const onAccountSubmit = async () => {
@@ -450,7 +463,7 @@ const LoginWithoutI18n = (props: LoginProps) => {
             <h2>{subHeaderText}</h2>
           ))}
         {renderAlert()}
-        {!isVerifyEmailStep && !isVerifyEmailReminderStep && (
+        {!isVerifyEmailStep && !isLoginSuccessStep && (
           <form
             className="input-group"
             onSubmit={(e) => {
@@ -480,7 +493,7 @@ const LoginWithoutI18n = (props: LoginProps) => {
                 setError={setPasswordError}
                 onChange={onChangePassword}
                 showPasswordRules={isRegisterAccountStep}
-                autoFocus={showRegisterModal && !!email && !password}
+                autoFocus={!!email && !password}
               />
             )}
             {isRegisterUserTypeStep && (
@@ -503,6 +516,7 @@ const LoginWithoutI18n = (props: LoginProps) => {
           </form>
         )}
         {isVerifyEmailStep && renderResendVerifyEmail()}
+        {isLoginSuccessStep && renderLoginSuccess()}
         {(isLoginStep || isRegisterAccountStep) && renderFooter()}
       </div>
     );

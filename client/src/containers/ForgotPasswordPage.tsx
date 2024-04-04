@@ -83,8 +83,12 @@ const ForgotPasswordPage = withI18n()((props: withI18nProps) => {
           <Trans render="h2">
             We sent a reset link to {`${email}`}. Please check your inbox and spam.
           </Trans>
-          <div className="resend-email-container is-full-width">
-            {!requestSentAgain && <Trans render="p">Didn’t receive an email?</Trans>}
+          <div className="resend-email-container">
+            {!requestSentAgain && (
+              <Trans render="p" className="didnt-get-link">
+                Didn’t receive an email?
+              </Trans>
+            )}
             <SendNewLink
               setParentState={setRequestSentAgain}
               variant="secondary"
