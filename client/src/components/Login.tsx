@@ -35,7 +35,6 @@ type LoginProps = {
   addr?: AddressRecord;
   onBuildingPage?: boolean;
   onSuccess?: (user: JustfixUser) => void;
-  handleRedirect?: () => void;
   registerInModal?: boolean;
   setLoginRegisterInProgress?: React.Dispatch<React.SetStateAction<boolean>>;
   showForgotPassword?: boolean;
@@ -47,7 +46,6 @@ const LoginWithoutI18n = (props: LoginProps) => {
     addr,
     onBuildingPage,
     onSuccess,
-    handleRedirect,
     registerInModal,
     setLoginRegisterInProgress,
   } = props;
