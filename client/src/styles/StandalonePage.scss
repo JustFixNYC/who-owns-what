@@ -1,0 +1,101 @@
+@import "_vars.scss";
+
+.StandalonePage {
+  div.page-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    width: 464px; // TODO check about this, and mobile
+    margin-top: 4rem;
+    margin-bottom: 1.5rem;
+
+    .jf-logo {
+      color: $justfix-black;
+      height: 0.875rem;
+    }
+
+    .standalone-container {
+      display: flex;
+      flex-direction: column;
+      background-color: $justfix-white-200;
+      width: 100%;
+      padding: 3rem 4rem;
+      margin: 2rem 0;
+
+      .Loader {
+        background-color: inherit;
+      }
+
+      h1,
+      h2,
+      p {
+        margin: 0;
+        text-align: left;
+        font-weight: 500;
+      }
+
+      h1 {
+        font-size: 1.5rem;
+      }
+
+      h2,
+      p {
+        font-size: 0.875rem;
+      }
+
+      h1 + h2 {
+        margin-top: 1rem;
+      }
+
+      .input-group,
+      .email-input-field + .password-input-field,
+      .jfcl-button.jfcl-variant-primary {
+        margin-top: 1.5rem;
+      }
+
+      .send-new-link,
+      .jfcl-button {
+        width: 100%;
+      }
+
+      // reset password link to forgot pw, should redesign..
+      a.jfcl-button {
+        text-decoration: none;
+      }
+
+      .send-new-link-container {
+        margin-top: 1.5rem;
+      }
+
+      .standalone-footer,
+      .login-footer {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+        margin-top: 1.5rem;
+
+        &,
+        a,
+        .button.is-text {
+          font-size: 0.875rem;
+          font-weight: 500;
+          color: #464d5d; // TODO: this isn't in design system, confirm it's the right one to use and add
+        }
+
+        .button.is-text {
+          display: inline;
+        }
+      }
+    }
+
+    .wow-footer {
+      margin-top: auto;
+      &,
+      a {
+        font-size: 0.875rem;
+      }
+    }
+  }
+}

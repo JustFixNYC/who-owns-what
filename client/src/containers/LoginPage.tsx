@@ -1,32 +1,16 @@
-import { useHistory } from "react-router-dom";
-import LegalFooter from "../components/LegalFooter";
-
-import Page from "../components/Page";
 import { withI18n, withI18nProps } from "@lingui/react";
 import { t } from "@lingui/macro";
+
+import StandalonePage from "components/StandalonePage";
 import Login from "components/Login";
-import { createWhoOwnsWhatRoutePaths } from "routes";
 
 const LoginPage = withI18n()((props: withI18nProps) => {
   const { i18n } = props;
-  const history = useHistory();
-  const { account } = createWhoOwnsWhatRoutePaths();
-
-  const redirect = () => {
-    window.setTimeout(() => {
-      history.push(account.settings);
-    }, 1000);
-  };
 
   return (
-    <Page title={i18n._(t`Log in / sign up`)}>
-      <div className="LoginPage Page">
-        <div className="page-container">
-          <Login handleRedirect={redirect} />
-        </div>
-        <LegalFooter />
-      </div>
-    </Page>
+    <StandalonePage title={i18n._(t`Log in / sign up`)} className="LoginPage">
+      <Login />
+    </StandalonePage>
   );
 });
 

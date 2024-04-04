@@ -1,9 +1,7 @@
 @import "_vars.scss";
 @import "_typography.scss";
 
-.Login,
-.ForgotPasswordPage,
-.ResetPasswordPage {
+.EmailAlertSignup .Login {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
@@ -59,7 +57,7 @@
     justify-content: center;
   }
 
-  .building-page-footer {
+  .login-footer {
     display: flex;
     flex-direction: column;
     justify-content: center;

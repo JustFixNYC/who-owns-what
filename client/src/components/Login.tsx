@@ -2,7 +2,6 @@ import React, { useState, useContext } from "react";
 import { Trans, t } from "@lingui/macro";
 import { I18n } from "@lingui/core";
 import { withI18n } from "@lingui/react";
-import classNames from "classnames";
 import { Button, Link as JFCLLink } from "@justfixnyc/component-library";
 
 import "styles/Login.css";
@@ -29,6 +28,7 @@ enum Step {
   RegisterUserType,
   VerifyEmail,
   VerifyEmailReminder,
+  // TODO: add step for after successful login when !onBuildingPage
 }
 
 type LoginProps = {
@@ -159,7 +159,7 @@ const LoginWithoutI18n = (props: LoginProps) => {
 
   const renderFooter = () => {
     return (
-      <div className="building-page-footer">
+      <div className="login-footer">
         {isRegisterAccountStep && (
           <span className="privacy-links">
             <Trans>
@@ -230,6 +230,7 @@ const LoginWithoutI18n = (props: LoginProps) => {
       <SendNewLink
         setParentState={setIsEmailResent}
         variant="secondary"
+        size={onBuildingPage ? "small" : "large"}
         className="is-full-width"
         onClick={() => AuthClient.resendVerifyEmail()}
       />
@@ -441,10 +442,13 @@ const LoginWithoutI18n = (props: LoginProps) => {
   const renderLoginFlow = () => {
     return (
       <div className="Login">
-        {!!headerText && (
-          <h4 className={classNames(!onBuildingPage && "page-title")}>{headerText}</h4>
-        )}
-        {!!subHeaderText && <div className="card-description">{subHeaderText}</div>}
+        {!!headerText && (onBuildingPage ? <h4>{headerText}</h4> : <h1>{headerText}</h1>)}
+        {!!subHeaderText &&
+          (onBuildingPage ? (
+            <div className="card-description">{subHeaderText}</div>
+          ) : (
+            <h2>{subHeaderText}</h2>
+          ))}
         {renderAlert()}
         {!isVerifyEmailStep && !isVerifyEmailReminderStep && (
           <form
@@ -491,7 +495,7 @@ const LoginWithoutI18n = (props: LoginProps) => {
               <Button
                 type="submit"
                 variant="primary"
-                size="small"
+                size={onBuildingPage ? "small" : "large"}
                 className="is-full-width"
                 labelText={submitButtonText}
               />
