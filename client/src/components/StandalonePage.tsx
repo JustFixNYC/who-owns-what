@@ -14,7 +14,8 @@ export const StandalonePageFooter = () => {
   const { home } = createWhoOwnsWhatRoutePaths();
   return (
     <Trans render="div" className="wow-footer">
-      <JFCLLocaleLink to={home}>Who Owns What</JFCLLocaleLink> by JustFix. Read our{" "}
+      <JFCLLocaleLink to={home}>Who Owns What</JFCLLocaleLink> by JustFix.
+      <br/>Read our{" "}
       <JFCLLink
         href="https://www.justfix.org/en/privacy-policy/"
         target="_blank"
