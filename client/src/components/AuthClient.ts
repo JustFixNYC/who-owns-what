@@ -100,7 +100,7 @@ const resetPasswordRequest = async (username?: string) => {
     } else {
       const params = new URLSearchParams(window.location.search);
       await postAuthRequest(
-        `${BASE_URL}auth/reset_password_request_with_token?u=${params.get("token")}`
+        `${BASE_URL}auth/reset_password_request_with_token?token=${params.get("token")}`
       );
     }
     return true;
