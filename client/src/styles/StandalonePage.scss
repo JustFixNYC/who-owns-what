@@ -6,28 +6,31 @@
     flex-direction: column;
     align-items: center;
     flex-grow: 1;
-    margin: 0;
 
-    width: 464px;
+    margin-top: 0;
+    margin-bottom: 0;
     padding: 4rem 0 1.5rem 0;
     @include for-phone-only() {
+      margin: 0;
       width: 100%;
       padding: 1.5rem 1rem;
     }
 
     .jf-logo {
       color: $justfix-black;
-      height: 0.875rem;
+      height: 1rem;
     }
 
     .standalone-container {
       display: flex;
       flex-direction: column;
       background-color: $justfix-white-200;
-      width: 100%;
-      padding: 3rem 4rem;
       margin: 2rem 0;
+
+      width: 464px;
+      padding: 3rem 4rem;
       @include for-phone-only() {
+        width: 100%;
         padding: 1.5rem;
       }
 
