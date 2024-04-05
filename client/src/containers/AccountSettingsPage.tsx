@@ -66,50 +66,48 @@ const AccountSettingsPage = withI18n()((props: withI18nProps) => {
     <Page title={i18n._(t`Account`)}>
       <div className="AccountSettingsPage Page">
         <div className="page-container">
-          <h4>
-            <Trans>Account</Trans>
-          </h4>
-          <h4 className="settings-section">
-            <Trans>Login details</Trans>
-          </h4>
-          <EmailSettingField
-            currentValue={email}
-            onSubmit={(newEmail: string) => userContext.updateEmail(newEmail)}
-          />
-          <PasswordSettingField
-            onSubmit={(currentPassword: string, newPassword: string) =>
-              userContext.updatePassword(currentPassword, newPassword)
-            }
-          />
-          <h4 className="settings-section">
-            <Trans>Building Updates</Trans>
-          </h4>
-          <Trans render="p" className="settings-section">
-            There <Plural value={subscriptionsNumber} one="is" other="are" /> {subscriptionsNumber}{" "}
-            <Plural value={subscriptionsNumber} one="building" other="buildings" /> in your weekly
-            updates
-          </Trans>
-          <div className="subscriptions-container">
-            {subscriptions?.length ? (
-              <>
-                {subscriptions.map((s) => (
-                  <SubscriptionField key={s.bbl} {...s} onRemoveClick={userContext.unsubscribe} />
-                ))}
-              </>
-            ) : (
-              <Trans render="div" className="settings-no-subscriptions">
-                <LocaleNavLink exact to={home}>
-                  Search for an address
-                </LocaleNavLink>{" "}
-                to add to your Building Updates
-              </Trans>
-            )}
+          <Trans render="h1">Account</Trans>
+          <div className="settings-section">
+            <Trans render="h2">Log in</Trans>
+            <EmailSettingField
+              currentValue={email}
+              onSubmit={(newEmail: string) => userContext.updateEmail(newEmail)}
+            />
+            <PasswordSettingField
+              onSubmit={(currentPassword: string, newPassword: string) =>
+                userContext.updatePassword(currentPassword, newPassword)
+              }
+            />
+          </div>
+          <div className="settings-section">
+            <Trans render="h2">Building Updates</Trans>
+            <Trans render="p" className="section-description">
+              There <Plural value={subscriptionsNumber} one="is" other="are" />{" "}
+              {subscriptionsNumber}{" "}
+              <Plural value={subscriptionsNumber} one="building" other="buildings" /> in your weekly
+              updates
+            </Trans>
+            <div className="subscriptions-container">
+              {subscriptions?.length ? (
+                <>
+                  {subscriptions.map((s) => (
+                    <SubscriptionField key={s.bbl} {...s} onRemoveClick={userContext.unsubscribe} />
+                  ))}
+                </>
+              ) : (
+                <Trans render="div" className="settings-no-subscriptions">
+                  <LocaleNavLink exact to={home}>
+                    Search for an address
+                  </LocaleNavLink>{" "}
+                  to add to your Building Updates
+                </Trans>
+              )}
+            </div>
           </div>
           <Trans render="div" className="settings-contact">
             Contact support@justfix.org to delete your account or get help
           </Trans>
         </div>
-        <LegalFooter />
       </div>
     </Page>
   );

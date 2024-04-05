@@ -3,20 +3,37 @@
 @import "_callout.scss";
 
 .AccountSettingsPage {
-  h4 {
-    text-decoration: none;
-    text-align: left !important;
-    font-weight: 700;
-    padding-top: 0.37rem;
-    margin: 3.5rem 1rem 1.63rem;
+  .page-container {
+    padding-top: 1.5rem;
   }
 
-  h4.settings-section {
+  h1 {
+    font-size: 24px;
     font-weight: 400;
+    line-height: 100%;
+    margin-bottom: 3rem;
   }
-  
-  p.settings-section {
-    margin: 0 1rem 0.78rem 1rem;
+
+  .settings-section {
+    margin-bottom: 3rem;
+
+    h2 {
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 100%;
+      letter-spacing: 0;
+      margin-bottom: 1rem !important;
+    }
+
+    // only first user setting div gets this style
+    .UserSetting:nth-of-type(1) {
+      margin-bottom: 1rem;
+    }
+
+    .section-description {
+      margin-bottom: 2rem;
+    }
   }
 
   label {
@@ -25,8 +42,9 @@
   }
 
   p {
-    font-size: 0.81rem;
+    font-size: 0.875rem;
     font-weight: 500;
+    line-height: 100%;
   }
 }
 
@@ -34,7 +52,6 @@
   form {
     display: flex;
     flex-direction: column;
-    margin: 1.625rem 1rem;
 
     .page-level-alert {
       margin-bottom: 1.625rem;
@@ -45,14 +62,12 @@
     }
 
     .user-setting-label {
-      @include desktop-eyebrow();
-      // vars marked !important bc typography mixin is not available for inconsolata
-      font-weight: 600 !important;
-      font-family: $wow-font !important;
-      font-size: 0.875rem !important;
-      text-transform: none !important;
-      text-align: left;
-      margin-bottom: 0.5rem;
+      font-size: 0.81rem;
+      font-weight: 600;
+      line-height: 100%;
+      letter-spacing: 0.26px;
+      text-transform: uppercase !important;
+      margin-bottom: 1rem !important;
     }
 
     p {
