@@ -17,8 +17,14 @@
     }
 
     .jf-logo {
-      color: $justfix-black;
-      height: 1rem;
+      display: flex;
+      @include for-phone-only {
+        margin-top: 1rem;
+      }
+      svg {
+        color: $justfix-black;
+        height: 1rem;
+      }
     }
 
     .standalone-container {
