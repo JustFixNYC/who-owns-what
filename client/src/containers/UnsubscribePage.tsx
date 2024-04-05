@@ -65,9 +65,8 @@ const UnsubscribePage = withI18n()((props: withI18nProps) => {
     <>
       <Trans render="h1">Manage Subscriptions</Trans>
       <Trans render="h2" className="settings-section">
-        There <Plural value={subscriptionsNumber!} one="is" other="are" /> {subscriptionsNumber}{" "}
-        <Plural value={subscriptionsNumber!} one="building" other="buildings" /> in your weekly
-        updates
+        You are signed up for Building Updates for {subscriptionsNumber}{" "}
+        <Plural value={subscriptionsNumber!} one="building" other="buildings" />
       </Trans>
       <div className="subscriptions-container">
         {subscriptions!.map((s) => (

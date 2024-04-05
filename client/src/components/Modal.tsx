@@ -20,7 +20,7 @@ const Modal = (props: ModalProps) => {
       left: 0,
       right: 0,
       bottom: 0,
-      backgroundColor: "rgba(69, 77, 93, 0.6)", // rgba equivalent of the $dark color (#454D5D)
+      backgroundColor: "rgba(78, 75, 75, 0.8)", // rgba equivalent of the $gray-700 (#4E4B4B)
     },
     content: {
       position: "absolute",

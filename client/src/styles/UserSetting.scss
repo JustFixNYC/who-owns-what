@@ -4,8 +4,8 @@
   .subscription-field,
   .unsubscribe-all-field {
     display: flex;
-    border-top: 1px solid #e5e5e5;
-    padding: 1rem;
+    border-top: 1px solid #C5CCD1; // new grey in figma, unnamed
+    padding: 1rem 0;
   }
   .unsubscribe-all-field {
     justify-content: end;
@@ -21,10 +21,16 @@
     flex-direction: column;
     color: $justfix-black;
     cursor: pointer;
+    font-weight: 600;
   }
 
   a.subscription-address:hover {
     text-decoration: none;
+  }
+
+  .street-address {
+    text-transform: capitalize;
+    font-size: 18px;
   }
 }
 

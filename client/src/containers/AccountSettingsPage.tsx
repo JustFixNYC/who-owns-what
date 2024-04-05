@@ -36,7 +36,8 @@ const SubscriptionFieldWithoutI18n = (props: SubscriptionFieldProps) => {
         target="_blank"
         rel="noreferrer noopener"
       >
-        <span>{`${housenumber} ${streetname},`}</span>
+        {/* title case styling via css only works if address is lowercase */}
+        <span className="street-address">{`${housenumber} ${streetname.toLowerCase()},`}</span>
         <span>{`${boro}, NY`}</span>
       </a>
       <Button
