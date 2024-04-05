@@ -64,7 +64,6 @@ const ResetPasswordPage = withI18n()((props: withI18nProps) => {
       )}
       <SendNewLink
         setParentState={setEmailIsResent}
-        variant="secondary"
         size="large"
         onClick={async () => {
           setEmailIsResent(await AuthClient.resetPasswordRequest());
