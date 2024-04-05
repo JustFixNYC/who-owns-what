@@ -7,7 +7,6 @@
     align-items: center;
     flex-grow: 1;
     margin-top: 4rem;
-    margin-bottom: 1.5rem;
 
     @include for-phone-only() {
       margin: 1.5rem 1rem;
@@ -55,6 +54,7 @@
 
   .wow-footer {
     margin-top: auto;
+    text-align: center;
     &,
     a {
       font-size: 0.875rem;
