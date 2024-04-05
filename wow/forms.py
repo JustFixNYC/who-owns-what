@@ -135,7 +135,6 @@ class EmailAlertMultiIndicatorForm(PaddedBBLForm):
                 raise forms.ValidationError(
                     "prev_date is required for lagged_eviction_filings"
                 )
-
         if not set(start_end_indicators).isdisjoint(indicators):
             if not data.get("start_date", None):
                 raise forms.ValidationError(
