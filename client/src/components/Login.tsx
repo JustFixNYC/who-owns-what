@@ -38,20 +38,11 @@ type LoginProps = {
   onSuccess?: (user: JustfixUser) => void;
   handleRedirect?: () => void;
   registerInModal?: boolean;
-  setLoginRegisterInProgress?: React.Dispatch<React.SetStateAction<boolean>>;
   showForgotPassword?: boolean;
 };
 
 const LoginWithoutI18n = (props: LoginProps) => {
-  const {
-    i18n,
-    addr,
-    onBuildingPage,
-    onSuccess,
-    handleRedirect,
-    registerInModal,
-    setLoginRegisterInProgress,
-  } = props;
+  const { i18n, addr, onBuildingPage, onSuccess, handleRedirect, registerInModal } = props;
 
   const userContext = useContext(UserContext);
   const { account } = createWhoOwnsWhatRoutePaths();
@@ -237,8 +228,6 @@ const LoginWithoutI18n = (props: LoginProps) => {
   );
 
   const onEmailSubmit = async () => {
-    !!setLoginRegisterInProgress && setLoginRegisterInProgress(true);
-
     if (!email) {
       if (!onBuildingPage || showRegisterModal) {
         setEmailError(true);
@@ -293,8 +282,6 @@ const LoginWithoutI18n = (props: LoginProps) => {
       return;
     }
 
-    !!setLoginRegisterInProgress && setLoginRegisterInProgress(false);
-
     if (!onBuildingPage) {
       handleRedirect && handleRedirect();
       return;
@@ -339,13 +326,8 @@ const LoginWithoutI18n = (props: LoginProps) => {
     }
 
     if (!onBuildingPage) {
-      !!setLoginRegisterInProgress && setLoginRegisterInProgress(false);
       handleRedirect && handleRedirect();
       return;
-    }
-
-    if (!registerInModal) {
-      !!setLoginRegisterInProgress && setLoginRegisterInProgress(false);
     }
 
     setStep(Step.VerifyEmail);
@@ -517,7 +499,6 @@ const LoginWithoutI18n = (props: LoginProps) => {
             setShowEmailError(false);
             setShowRegisterModal(false);
             setStep(Step.CheckEmail);
-            !!setLoginRegisterInProgress && setLoginRegisterInProgress(false);
           }}
         >
           {renderLoginFlow()}
