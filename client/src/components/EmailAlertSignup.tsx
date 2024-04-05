@@ -1,4 +1,4 @@
-import React, { Fragment, useContext, useState } from "react";
+import React, { useContext, useState } from "react";
 import { withI18n, withI18nProps, I18n } from "@lingui/react";
 import { Trans, t } from "@lingui/macro";
 import { Button } from "@justfixnyc/component-library";
@@ -21,17 +21,28 @@ import SendNewLink from "./SendNewLink";
 
 const SUBSCRIPTION_LIMIT = 15;
 
+/**
+ * edge case: adding building as a result of successful login shows a flicker
+ * between states, likely from a lag in subscription obj iteration.
+ * addViaLogin enforces a success state to be shown once
+ */
 type BuildingSubscribeProps = withI18nProps & {
   addr: AddressRecord;
+  addViaLogin?: boolean;
 };
 
 const BuildingSubscribeWithoutI18n = (props: BuildingSubscribeProps) => {
-  const { addr, i18n } = props;
+  const { i18n, addr, addViaLogin = false } = props;
   const userContext = useContext(UserContext);
   const { user, subscribe, unsubscribe } = userContext;
   const { email, subscriptions, verified } = user! as JustfixUser;
   const { account } = createWhoOwnsWhatRoutePaths();
 
+  /**
+   * edge case: if repeatedly adding and removing building on first login,
+   * only the success case will show unless addViaLogin is made falsy.
+   */
+  const [showSuccess, setShowSuccess] = React.useState(true);
   const [isEmailResent, setIsEmailResent] = React.useState(false);
   const [showSubscriptionLimitModal, setShowSubscriptionLimitModal] = useState(false);
 
@@ -49,7 +60,10 @@ const BuildingSubscribeWithoutI18n = (props: BuildingSubscribeProps) => {
         size="small"
         className="is-full-width"
         labelText={i18n._(t`Remove building`)}
-        onClick={() => unsubscribe(addr.bbl)}
+        onClick={() => {
+          unsubscribe(addr.bbl);
+          setShowSuccess(false);
+        }}
       />
     </>
   );
@@ -95,11 +109,11 @@ const BuildingSubscribeWithoutI18n = (props: BuildingSubscribeProps) => {
       {({ i18n }) => (
         <>
           <div className="building-subscribe">
-            {!verified
-              ? showEmailVerification()
-              : subscriptions && !!subscriptions?.find((s) => s.bbl === addr.bbl)
-              ? showSubscribed()
-              : showAddBuilding()}
+            {verified
+              ? (addViaLogin && showSuccess) || !!subscriptions?.find((s) => s.bbl === addr.bbl)
+                ? showSubscribed()
+                : showAddBuilding()
+              : showEmailVerification()}
           </div>
           <Modal
             key={1}
@@ -128,7 +142,7 @@ const BuildingSubscribeWithoutI18n = (props: BuildingSubscribeProps) => {
   );
 };
 
-const BuildingSubscribe = withI18n()(BuildingSubscribeWithoutI18n);
+export const BuildingSubscribe = withI18n()(BuildingSubscribeWithoutI18n);
 
 type EmailAlertProps = BuildingSubscribeProps;
 
@@ -136,7 +150,7 @@ const EmailAlertSignupWithoutI18n = (props: EmailAlertProps) => {
   const { addr } = props;
   const userContext = useContext(UserContext);
   const { user } = userContext;
-  const [loginRegisterInProgress, setLoginRegisterInProgress] = useState(false);
+  const [addViaLogin, setAddViaLogin] = useState(false);
 
   return (
     <>
@@ -152,15 +166,15 @@ const EmailAlertSignupWithoutI18n = (props: EmailAlertProps) => {
                   <Trans>Building Updates</Trans>
                 </label>
                 <div className="table-content">
-                  {!!user?.email && !loginRegisterInProgress ? (
-                    <BuildingSubscribe {...props} />
+                  {!!user?.email ? (
+                    <BuildingSubscribe {...props} addViaLogin={addViaLogin} />
                   ) : (
                     <Login
                       addr={addr}
                       registerInModal
                       onBuildingPage
-                      setLoginRegisterInProgress={setLoginRegisterInProgress}
                       onSuccess={(user: JustfixUser) => {
+                        setAddViaLogin(true);
                         userContext.subscribe(
                           addr.bbl,
                           addr.housenumber,
