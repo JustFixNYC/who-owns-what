@@ -6,7 +6,6 @@ import { Button } from "@justfixnyc/component-library";
 import "styles/AccountSettingsPage.css";
 import "styles/UserSetting.css";
 import Page from "components/Page";
-import LegalFooter from "components/LegalFooter";
 import { UserContext } from "components/UserContext";
 import { EmailSettingField, PasswordSettingField } from "components/UserSettingField";
 import { JustfixUser } from "state-machine";
