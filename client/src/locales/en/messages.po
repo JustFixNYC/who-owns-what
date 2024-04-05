@@ -1906,8 +1906,8 @@ msgid "There {0, plural, one {<0>is <1>1</1> building</0>} other {<2>are <3>{1}<
 msgstr "There {0, plural, one {<0>is <1>1</1> building</0>} other {<2>are <3>{1}</3> buildings</2>}} in this portfolio with a total of {2, plural, one {1 unit} other {# units}}."
 
 #: src/containers/AccountSettingsPage.tsx:47
-msgid "There {subscriptionsNumber} in your weekly updates"
-msgstr "There {subscriptionsNumber} in your weekly updates"
+msgid "There {subscriptionsNumber, plural, one {is} other {are}} {subscriptionsNumber} {subscriptionsNumber, plural, one {building} other {buildings}} in your weekly updates"
+msgstr "There {subscriptionsNumber, plural, one {is} other {are}} {subscriptionsNumber} {subscriptionsNumber, plural, one {building} other {buildings}} in your weekly updates"
 
 #: src/containers/NychaPage.tsx:76
 msgid "This building is owned by the NYC Housing Authority (NYCHA)"
@@ -2303,12 +2303,12 @@ msgstr "You are not subscribed to any buildings"
 #~ msgstr "You are now signed up for weekly Data Updates."
 
 #: src/containers/UnsubscribePage.tsx:61
-msgid "You are signed up for Building Updates for {subscriptionsNumber}"
-msgstr "You are signed up for Building Updates for {subscriptionsNumber}"
+msgid "You are signed up for Building Updates for {subscriptionsNumber} {subscriptionsNumber, plural, one {building} other {buildings}}"
+msgstr "You are signed up for Building Updates for {subscriptionsNumber} {subscriptionsNumber, plural, one {building} other {buildings}}"
 
 #: src/containers/UnsubscribePage.tsx:52
-msgid "You are signed up for Building Updates for {subscriptionsNumber} . Click below to unsubscribe from all and stop receiving Building Updates."
-msgstr "You are signed up for Building Updates for {subscriptionsNumber} . Click below to unsubscribe from all and stop receiving Building Updates."
+msgid "You are signed up for Building Updates for {subscriptionsNumber} {subscriptionsNumber, plural, one {building} other {buildings}}. Click below to unsubscribe from all and stop receiving Building Updates."
+msgstr "You are signed up for Building Updates for {subscriptionsNumber} {subscriptionsNumber, plural, one {building} other {buildings}}. Click below to unsubscribe from all and stop receiving Building Updates."
 
 #: src/containers/UnsubscribePage.tsx:40
 #~ msgid "You are signed up for email alerts from these bulidings:"
