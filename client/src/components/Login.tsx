@@ -226,7 +226,6 @@ const LoginWithoutI18n = (props: LoginProps) => {
       )}
       <SendNewLink
         setParentState={setIsEmailResent}
-        variant="secondary"
         size={onBuildingPage ? "small" : "large"}
         className="is-full-width"
         onClick={() => AuthClient.resendVerifyEmail()}

@@ -91,7 +91,6 @@ const ForgotPasswordPage = withI18n()((props: withI18nProps) => {
             )}
             <SendNewLink
               setParentState={setRequestSentAgain}
-              variant="secondary"
               size="large"
               onClick={sendResetEmail}
             />

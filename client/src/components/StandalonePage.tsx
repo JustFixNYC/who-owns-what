@@ -49,8 +49,8 @@ const StandalonePage = withI18n()((props: StandalonePageProps) => {
     <Page title={title}>
       <div className={classNames("StandalonePage Page", className)}>
         <div className="page-container">
-          <LocaleLink to={home}>
-            <JFLogo className="jf-logo" />
+          <LocaleLink className="jf-logo" to={home}>
+            <JFLogo />
           </LocaleLink>
           <div className="standalone-container">{children}</div>
           <StandalonePageFooter />
