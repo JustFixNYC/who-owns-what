@@ -166,7 +166,6 @@ def reset_password_request(request):
 @api
 def reset_password_request_with_token(request):
     try:
-        print(request.GET.get("token"))
         post_data = {
             "token": request.GET.get("token"),
             "origin": request.headers["Origin"],
@@ -176,6 +175,7 @@ def reset_password_request_with_token(request):
             "POST",
             "user/email/password_reset/request/",
             post_data,
+            {"Cookie": request.headers.get("Cookie")},
         )
     except KeyError:
         return HttpResponse(content_type="application/json", status=401)

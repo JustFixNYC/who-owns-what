@@ -2,7 +2,6 @@ import React, { useState, useContext } from "react";
 import { Trans, t } from "@lingui/macro";
 import { I18n } from "@lingui/core";
 import { withI18n } from "@lingui/react";
-import classNames from "classnames";
 import { Button, Link as JFCLLink } from "@justfixnyc/component-library";
 
 import "styles/Login.css";
@@ -28,6 +27,7 @@ enum Step {
   RegisterAccount,
   RegisterUserType,
   VerifyEmail,
+  LoginSuccess,
 }
 
 type LoginProps = {
@@ -35,7 +35,6 @@ type LoginProps = {
   addr?: AddressRecord;
   onBuildingPage?: boolean;
   onSuccess?: (user: JustfixUser) => void;
-  handleRedirect?: () => void;
   registerInModal?: boolean;
   setLoginRegisterInProgress?: React.Dispatch<React.SetStateAction<boolean>>;
   showForgotPassword?: boolean;
@@ -47,13 +46,12 @@ const LoginWithoutI18n = (props: LoginProps) => {
     addr,
     onBuildingPage,
     onSuccess,
-    handleRedirect,
     registerInModal,
     setLoginRegisterInProgress,
   } = props;
 
   const userContext = useContext(UserContext);
-  const { account } = createWhoOwnsWhatRoutePaths();
+  const { home, account } = createWhoOwnsWhatRoutePaths();
 
   const [showRegisterModal, setShowRegisterModal] = useState(false);
 
@@ -63,6 +61,7 @@ const LoginWithoutI18n = (props: LoginProps) => {
   const isRegisterAccountStep = step === Step.RegisterAccount;
   const isRegisterUserTypeStep = step === Step.RegisterUserType;
   const isVerifyEmailStep = step === Step.VerifyEmail;
+  const isLoginSuccessStep = step === Step.LoginSuccess;
 
   const {
     value: email,
@@ -157,7 +156,7 @@ const LoginWithoutI18n = (props: LoginProps) => {
 
   const renderFooter = () => {
     return (
-      <div className="building-page-footer">
+      <div className="login-footer">
         {isRegisterAccountStep && (
           <span className="privacy-links">
             <Trans>
@@ -219,18 +218,27 @@ const LoginWithoutI18n = (props: LoginProps) => {
   };
 
   const renderResendVerifyEmail = () => (
-    <>
+    <div className="resend-email-container">
       {!isEmailResent && (
-        <Trans render="span" className="resend-verify-label">
+        <Trans render="p" className="didnt-get-link">
           Didn’t get the link?
         </Trans>
       )}
       <SendNewLink
         setParentState={setIsEmailResent}
-        variant="secondary"
+        size={onBuildingPage ? "small" : "large"}
         className="is-full-width"
         onClick={() => AuthClient.resendVerifyEmail()}
       />
+    </div>
+  );
+
+  const renderLoginSuccess = () => (
+    <>
+      <Trans render="h1">You are logged in</Trans>
+      <Trans render="h2">
+        <JFCLLocaleLink to={home}>Search for an address</JFCLLocaleLink> to add to Building Updates
+      </Trans>
     </>
   );
 
@@ -291,12 +299,17 @@ const LoginWithoutI18n = (props: LoginProps) => {
       return;
     }
 
-    !!setLoginRegisterInProgress && setLoginRegisterInProgress(false);
-
     if (!onBuildingPage) {
-      handleRedirect && handleRedirect();
+      if (resp?.user?.verified) {
+        setStep(Step.LoginSuccess);
+      } else {
+        await AuthClient.resendVerifyEmail();
+        setStep(Step.VerifyEmail);
+      }
       return;
     }
+
+    !!setLoginRegisterInProgress && setLoginRegisterInProgress(false);
   };
 
   const onAccountSubmit = async () => {
@@ -433,12 +446,15 @@ const LoginWithoutI18n = (props: LoginProps) => {
   const renderLoginFlow = () => {
     return (
       <div className="Login">
-        {!!headerText && (
-          <h4 className={classNames(!onBuildingPage && "page-title")}>{headerText}</h4>
-        )}
-        {!!subHeaderText && <div className="card-description">{subHeaderText}</div>}
+        {!!headerText && (onBuildingPage ? <h4>{headerText}</h4> : <h1>{headerText}</h1>)}
+        {!!subHeaderText &&
+          (onBuildingPage ? (
+            <div className="card-description">{subHeaderText}</div>
+          ) : (
+            <h2>{subHeaderText}</h2>
+          ))}
         {renderAlert()}
-        {!isVerifyEmailStep && (
+        {!isVerifyEmailStep && !isLoginSuccessStep && (
           <form
             className="input-group"
             onSubmit={(e) => {
@@ -468,7 +484,7 @@ const LoginWithoutI18n = (props: LoginProps) => {
                 setError={setPasswordError}
                 onChange={onChangePassword}
                 showPasswordRules={isRegisterAccountStep}
-                autoFocus={showRegisterModal && !!email && !password}
+                autoFocus={!!email && !password}
               />
             )}
             {isRegisterUserTypeStep && (
@@ -483,7 +499,7 @@ const LoginWithoutI18n = (props: LoginProps) => {
               <Button
                 type="submit"
                 variant="primary"
-                size="small"
+                size={onBuildingPage ? "small" : "large"}
                 className="is-full-width"
                 labelText={submitButtonText}
               />
@@ -491,6 +507,7 @@ const LoginWithoutI18n = (props: LoginProps) => {
           </form>
         )}
         {isVerifyEmailStep && renderResendVerifyEmail()}
+        {isLoginSuccessStep && renderLoginSuccess()}
         {(isLoginStep || isRegisterAccountStep) && renderFooter()}
       </div>
     );

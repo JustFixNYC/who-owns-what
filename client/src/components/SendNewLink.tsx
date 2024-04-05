@@ -9,12 +9,13 @@ import { CheckIcon } from "./Icons";
 type SendNewLinkProps = withI18nProps & {
   setParentState: React.Dispatch<React.SetStateAction<boolean>>;
   onClick: () => void;
-  variant: "primary" | "secondary" | "tertiary";
+  variant?: "primary" | "secondary" | "tertiary";
+  size?: "small" | "large";
   className?: string;
 };
 
 const SendNewLinkWithoutI18n = (props: SendNewLinkProps) => {
-  const { setParentState, onClick, variant, className, i18n } = props;
+  const { setParentState, onClick, variant = "secondary", size = "small", className, i18n } = props;
 
   const [linkSent, setLinkSent] = useState(false);
 
@@ -30,7 +31,7 @@ const SendNewLinkWithoutI18n = (props: SendNewLinkProps) => {
         <div className="send-new-link">
           <Button
             variant={variant}
-            size="small"
+            size={size}
             className={className}
             labelText={i18n._(t`Send new link`)}
             onClick={handleClick}

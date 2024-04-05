@@ -165,7 +165,6 @@ const EmailSettingFieldWithoutI18n = (props: EmailSettingFieldProps) => {
       {!isEmailResent && <Trans render="p">Didn’t get the link?</Trans>}
       <SendNewLink
         setParentState={setIsEmailResent}
-        variant="secondary"
         onClick={() => AuthClient.resendVerifyEmail()}
       />
     </div>

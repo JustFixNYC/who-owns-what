@@ -1,19 +1,17 @@
 import React, { useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import LegalFooter from "../components/LegalFooter";
-
-import Page from "../components/Page";
 import { withI18n, withI18nProps } from "@lingui/react";
 import { Trans, t } from "@lingui/macro";
+import { Button } from "@justfixnyc/component-library";
 
 import AuthClient, { ResetStatusCode } from "components/AuthClient";
 import PasswordInput from "components/PasswordInput";
 import { useInput } from "util/helpers";
 import { FixedLoadingLabel } from "components/Loader";
 import { createWhoOwnsWhatRoutePaths } from "routes";
-import { LocaleLink } from "i18n";
+import { JFCLLocaleLink, LocaleLink } from "i18n";
 import SendNewLink from "components/SendNewLink";
-import { Button } from "@justfixnyc/component-library";
+import StandalonePage from "components/StandalonePage";
 
 const ResetPasswordPage = withI18n()((props: withI18nProps) => {
   const { i18n } = props;
@@ -32,23 +30,6 @@ const ResetPasswordPage = withI18n()((props: withI18nProps) => {
     setError: setPasswordError,
     onChange: onChangePassword,
   } = useInput("");
-
-  const delaySeconds = 5;
-  const baseUrl = window.location.origin;
-  const redirectUrl = `${baseUrl}/${i18n.language}/account/login`;
-
-  const updateCountdown = () => {
-    let timeLeft = delaySeconds;
-    const delayInterval = delaySeconds * 100;
-
-    setInterval(() => {
-      timeLeft && timeLeft--; // prevents counter from going below 0
-      document.getElementById("countdown")!.textContent = timeLeft.toString();
-      if (timeLeft <= 0) {
-        document.location.href = redirectUrl;
-      }
-    }, delayInterval);
-  };
 
   useEffect(() => {
     const asyncCheckToken = async () => {
@@ -75,16 +56,17 @@ const ResetPasswordPage = withI18n()((props: withI18nProps) => {
 
   const expiredPage = () => (
     <>
+      <Trans render="h1">Reset Password</Trans>
       {emailIsResent ? (
-        <Trans>Click the link we sent to your email to reset your password.</Trans>
+        <Trans render="h2">Click the link we sent to your email to reset your password.</Trans>
       ) : (
-        <Trans>The password reset link that we sent you is no longer valid.</Trans>
+        <Trans render="h2">The password reset link that we sent you is no longer valid.</Trans>
       )}
       <SendNewLink
         setParentState={setEmailIsResent}
-        variant="secondary"
+        size="large"
         onClick={async () => {
-          setEmailIsResent(await AuthClient.resendVerifyEmail());
+          setEmailIsResent(await AuthClient.resetPasswordRequest());
         }}
       />
     </>
@@ -93,8 +75,12 @@ const ResetPasswordPage = withI18n()((props: withI18nProps) => {
   const invalidPage = () => {
     return (
       <>
-        <Trans render="h4">Sorry, something went wrong with the password reset.</Trans>
-        <LocaleLink className="button is-primary" to={account.forgotPassword}>
+        <Trans render="h1">Reset Password</Trans>
+        <Trans render="h2">Sorry, something went wrong with the password reset.</Trans>
+        <LocaleLink
+          className="jfcl-button jfcl-variant-primary jfcl-size-large"
+          to={account.forgotPassword}
+        >
           <Trans>Request new link</Trans>
         </LocaleLink>
       </>
@@ -103,7 +89,7 @@ const ResetPasswordPage = withI18n()((props: withI18nProps) => {
 
   const resetPasswordPage = () => (
     <>
-      <Trans render="h4">Reset your password</Trans>
+      <Trans render="h1">Reset Password</Trans>
       <form className="input-group" onSubmit={handleSubmit}>
         <PasswordInput
           labelText={i18n._(t`Create a password`)}
@@ -117,7 +103,7 @@ const ResetPasswordPage = withI18n()((props: withI18nProps) => {
         <Button
           type="submit"
           variant="primary"
-          size="small"
+          size="large"
           labelText={i18n._(t`Reset password`)}
         />
       </form>
@@ -126,42 +112,29 @@ const ResetPasswordPage = withI18n()((props: withI18nProps) => {
 
   const successPage = () => (
     <>
-      <Trans render="h4">Password reset successful</Trans>
-      <Trans render="div">
-        You will be redirected back to Who Owns What in
-        {updateCountdown()}
-        <span id="countdown"> {delaySeconds}</span> seconds
-      </Trans>
-      <Trans render="div">
-        <a href={redirectUrl} style={{ color: "#242323" }}>
-          Click to log in
-        </a>{" "}
-        if you are not redirected
-      </Trans>
+      <Trans render="h1">Password reset successful</Trans>
+      <div className="standalone-footer">
+        <JFCLLocaleLink to={account.login}>
+          <Trans>Back to Log in</Trans>
+        </JFCLLocaleLink>
+      </div>
     </>
   );
 
   return (
-    <Page title={i18n._(t`Reset your password`)}>
-      <div className="ResetPasswordPage Page">
-        <div className="page-container">
-          <div className="text-center">
-            {tokenStatus === undefined ? (
-              <FixedLoadingLabel />
-            ) : resetStatus === ResetStatusCode.Success ? (
-              successPage()
-            ) : tokenStatus === ResetStatusCode.Accepted ? (
-              resetPasswordPage()
-            ) : tokenStatus === ResetStatusCode.Expired ? (
-              expiredPage()
-            ) : (
-              invalidPage()
-            )}
-          </div>
-        </div>
-        <LegalFooter />
-      </div>
-    </Page>
+    <StandalonePage title={i18n._(t`Reset your password`)} className="ResetPasswordPage2">
+      {tokenStatus === undefined ? (
+        <FixedLoadingLabel />
+      ) : resetStatus === ResetStatusCode.Success ? (
+        successPage()
+      ) : tokenStatus === ResetStatusCode.Accepted ? (
+        resetPasswordPage()
+      ) : tokenStatus === ResetStatusCode.Expired ? (
+        expiredPage()
+      ) : (
+        invalidPage()
+      )}
+    </StandalonePage>
   );
 });
 
