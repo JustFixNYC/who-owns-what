@@ -79,7 +79,6 @@ const BuildingSubscribeWithoutI18n = (props: BuildingSubscribeProps) => {
       {!isEmailResent && <Trans render="div">Didn’t get the link?</Trans>}
       <SendNewLink
         setParentState={setIsEmailResent}
-        variant="secondary"
         className="is-full-width"
         onClick={() => AuthClient.resendVerifyEmail()}
       />

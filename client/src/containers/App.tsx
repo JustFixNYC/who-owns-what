@@ -1,8 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import { BrowserRouter as Router, Switch, Route, useLocation } from "react-router-dom";
 import { Trans, t } from "@lingui/macro";
-import logo from "../assets/img/logo.svg";
-import logoDivider from "../assets/img/logo-divider.svg";
 
 import "styles/App.css";
 
@@ -49,6 +47,8 @@ import ResetPasswordPage from "./ResetPasswordPage";
 import ForgotPasswordPage from "./ForgotPasswordPage";
 import UnsubscribePage from "./UnsubscribePage";
 import LoginPage from "./LoginPage";
+import { JFLogo } from "components/JFLogo";
+import logoDivider from "../assets/img/logo-divider.svg";
 
 const HomeLink = withI18n()((props: withI18nProps) => {
   const { i18n } = props;
@@ -65,7 +65,7 @@ const HomeLink = withI18n()((props: withI18nProps) => {
       }}
       to={isLegacyPath(pathname) ? legacy.home : home}
     >
-      <img className="jf-logo" src={logo} width="96" height="22" alt="JustFix" />
+      <JFLogo className="jf-logo" />
       <img
         className="jf-logo-divider"
         src={logoDivider}
@@ -264,7 +264,17 @@ const Navbar = () => {
 
   const userContext = useContext(UserContext);
 
-  return (
+  const standalonePages = [
+    "forgot-password",
+    "login",
+    "verify-email",
+    "forgot-password",
+    "reset-password",
+    "unsubscribe",
+  ];
+  const hideNavbar = standalonePages.some((v) => pathname.includes(`account/${v}`));
+
+  return hideNavbar ? null : (
     <div
       className={classnames(
         "App__header",

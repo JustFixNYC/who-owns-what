@@ -1,9 +1,10 @@
 @import "_vars.scss";
 @import "_typography.scss";
 
-.Login,
-.ForgotPasswordPage,
-.ResetPasswordPage {
+// Login via Nav styled by StandalonePage
+
+.EmailAlertSignup .Login,
+.ReactModalPortal .Login {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
@@ -51,7 +52,7 @@
     }
   }
 
-  .resend-verify-label {
+  .didnt-get-link {
     text-align: center;
   }
 
@@ -59,7 +60,7 @@
     justify-content: center;
   }
 
-  .building-page-footer {
+  .login-footer {
     display: flex;
     flex-direction: column;
     justify-content: center;
