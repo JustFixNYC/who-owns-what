@@ -13,7 +13,7 @@ import { isPartOfGroupSale } from "./PortfolioTable";
 import { Link, useLocation } from "react-router-dom";
 import { LocaleLink } from "../i18n";
 import BuildingStatsTable from "./BuildingStatsTable";
-import { createWhoOwnsWhatRoutePaths, AddressPageRoutes, removeIndicatorSuffix } from "../routes";
+import { createWhoOwnsWhatRoutePaths, AddressPageRoutes } from "../routes";
 import { defaultLocale, SupportedLocale } from "../i18n-base";
 import { withMachineInStateProps } from "state-machine";
 import { Accordion } from "./Accordion";
