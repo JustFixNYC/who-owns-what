@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { withI18n, withI18nProps } from "@lingui/react";
-import { Plural, t, Trans } from "@lingui/macro";
+import { t, Trans, Plural } from "@lingui/macro";
 import { Button } from "@justfixnyc/component-library";
 
 import "styles/AccountSettingsPage.css";
