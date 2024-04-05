@@ -151,7 +151,7 @@ const EmailAlertSignupWithoutI18n = (props: EmailAlertProps) => {
   const userContext = useContext(UserContext);
   const { user } = userContext;
   const [addViaLogin, setAddViaLogin] = useState(false);
-
+  const [loginRegisterInProgress, setLoginRegisterInProgress] = useState(false);
   return (
     <>
       <div className="Card EmailAlertSignup card-body-table">
@@ -166,13 +166,14 @@ const EmailAlertSignupWithoutI18n = (props: EmailAlertProps) => {
                   <Trans>Building Updates</Trans>
                 </label>
                 <div className="table-content">
-                  {!!user?.email ? (
+                  {!!user?.email && !loginRegisterInProgress ? (
                     <BuildingSubscribe {...props} addViaLogin={addViaLogin} />
                   ) : (
                     <Login
                       addr={addr}
                       registerInModal
                       onBuildingPage
+                      setLoginRegisterInProgress={setLoginRegisterInProgress}
                       onSuccess={(user: JustfixUser) => {
                         setAddViaLogin(true);
                         userContext.subscribe(
