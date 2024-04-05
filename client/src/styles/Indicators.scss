@@ -4,38 +4,38 @@
 
 .Indicators {
   .Indicators__content {
-    padding: 1.6rem;
+    padding: 1rem;
 
     @include for-tablet-portrait-up() {
-      padding: 2.6rem;
+      padding: 1.63rem;
       .title-card,
       .Indicators__links {
-        padding-left: 2.6rem;
+        padding-left: 1.63rem;
       }
     }
 
     & > div > h6 {
-      font-size: 1.4rem;
-      margin-bottom: 0.6rem;
+      font-size: 0.87rem;
+      margin-bottom: 0.37rem;
       text-decoration: underline;
       font-weight: bold;
     }
 
     p {
-      font-size: 1.6rem;
-      margin-bottom: 2.4rem;
+      font-size: 1rem;
+      margin-bottom: 1.5rem;
     }
 
     .columns {
       .column.column-context:last-child {
         @include for-tablet-landscape-up() {
-          padding-left: 3rem;
+          padding-left: 1.88rem;
         }
       }
     }
 
     .title {
-      font-size: 2rem;
+      font-size: 1.25rem;
       text-decoration: none;
       margin-bottom: 0px;
 
@@ -46,11 +46,11 @@
     }
 
     .title-card {
-      padding-bottom: 1.4rem;
+      padding-bottom: 0.87rem;
     }
 
     .card {
-      margin-bottom: 3rem;
+      margin-bottom: 1.88rem;
     }
 
     .card-body-links {
@@ -59,10 +59,10 @@
         border-bottom: 1px solid $gray-dark;
       }
       ul {
-        margin: 1rem 0.5rem;
+        margin: 0.63rem 0.31rem;
         li {
-          margin-top: 0.5rem;
-          line-height: 1.8rem;
+          margin-top: 0.31rem;
+          line-height: 1.13rem;
         }
       }
     }
@@ -78,14 +78,14 @@
   }
 
   .Indicators__links {
-    padding: 0rem 1.5rem 2.5rem 0rem;
+    padding: 0rem 0.94rem 1.56rem 0rem;
     position: relative;
 
     @include for-tablet-portrait-up() {
       display: flex;
 
       .Indicators__linksContainer:first-child {
-        padding-right: 3rem;
+        padding-right: 1.88rem;
       }
     }
 
@@ -93,13 +93,33 @@
       // Make sure links container doesn't extend beyond viewport
       max-width: 100%;
       &:first-child {
-        padding-bottom: 1rem;
+        padding-bottom: 0.63rem;
       }
 
       .Indicators__linksTitle {
         display: inline-block;
-        font-size: 1.5rem;
-        margin: 0 2rem 0.4rem 0;
+        font-size: 0.94rem;
+        margin: 0 1.25rem 0.25rem 0;
+      }
+
+      .select__control {
+        border-color: $justfix-black;
+      }
+
+      .select__control--is-focused,
+      .select__control--menu-is-open {
+        box-shadow: 0 0 0 1px $justfix-black;
+      }
+
+      .select__menu {
+        .select__option--is-focused {
+          background-color: $justfix-grey-50;
+        }
+
+        .select__option--is-selected {
+          background-color: $justfix-white-200;
+          color: $justfix-black;
+        }
       }
 
       .select__control {
@@ -127,8 +147,8 @@
   .Indicators__viz {
     display: flex;
     flex-direction: row;
-    margin-top: 1rem;
-    margin-bottom: 0.5rem;
+    margin-top: 0.63rem;
+    margin-bottom: 0.31rem;
 
     .Indicators__chart {
       width: 95%;

@@ -21,14 +21,14 @@
 
     h1 {
       margin-bottom: 0;
-      font-size: 2rem;
+      font-size: 1.25rem;
 
       &.primary {
         line-height: 20px;
         margin-bottom: 20px;
 
         @include for-phone-only() {
-          font-size: 1.8rem;
+          font-size: 1.13rem;
         }
 
         a {

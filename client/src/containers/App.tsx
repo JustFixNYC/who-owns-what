@@ -1,12 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { BrowserRouter as Router, Switch, Route, useLocation } from "react-router-dom";
 import { Trans, t } from "@lingui/macro";
 
 import "styles/App.css";
 
 import ScrollToTop from "../components/ScrollToTop";
-import SocialShare from "../components/SocialShare";
-import Modal from "../components/Modal";
 import FeatureCalloutWidget from "../components/FeatureCalloutWidget";
 import classnames from "classnames";
 import browser from "util/browser";
@@ -15,9 +13,9 @@ import browser from "util/browser";
 import {
   I18n,
   LocaleNavLink,
-  LocaleLink as Link,
   LocaleSwitcher,
   LocaleSwitcherWithFullLanguageName,
+  JFCLLocaleLink,
 } from "../i18n";
 import { withI18n, withI18nProps } from "@lingui/react";
 import { createWhoOwnsWhatRoutePaths } from "../routes";
@@ -32,39 +30,51 @@ import HowToUsePage from "./HowToUsePage";
 import MethodologyPage from "./Methodology";
 import TermsOfUsePage from "./TermsOfUsePage";
 import PrivacyPolicyPage from "./PrivacyPolicyPage";
+import VerifyEmailPage from "./VerifyEmailPage";
 import { DevPage } from "./DevPage";
 import { wowMachine } from "state-machine";
 import { NotFoundPage } from "./NotFoundPage";
 import widont from "widont";
 import { Dropdown } from "components/Dropdown";
-import {
-  isLegacyPath,
-  ToggleLinkBetweenPortfolioMethods,
-  WowzaRedirectPage,
-} from "components/WowzaToggle";
+import { isLegacyPath, WowzaRedirectPage } from "components/WowzaToggle";
 import { logAmplitudeEvent } from "../components/Amplitude";
 import { SliderButton } from "@typeform/embed-react";
 import { StickyModal } from "components/StickyModal";
 import { DeprecationModal } from "components/DeprecationModal";
+import { UserContext, UserContextProvider } from "components/UserContext";
+import AccountSettingsPage from "./AccountSettingsPage";
+import ResetPasswordPage from "./ResetPasswordPage";
+import ForgotPasswordPage from "./ForgotPasswordPage";
+import UnsubscribePage from "./UnsubscribePage";
+import LoginPage from "./LoginPage";
+import { JFLogo } from "components/JFLogo";
+import logoDivider from "../assets/img/logo-divider.svg";
 
 const HomeLink = withI18n()((props: withI18nProps) => {
   const { i18n } = props;
-  const title = i18n._(t`Who owns what in nyc?`);
+  const title = i18n._(t`Who owns what`);
 
   const { home, legacy } = createWhoOwnsWhatRoutePaths();
   const { pathname } = useLocation();
 
   return (
-    <Link
-      // We need to spell out each letter of "nyc" here for screenreaders to pronounce:
-      aria-label={i18n._(t`Who owns what in n y c?`)}
+    <JFCLLocaleLink
+      aria-label={i18n._(t`Who owns what`)}
       onClick={() => {
         window.gtag("event", "site-title");
       }}
       to={isLegacyPath(pathname) ? legacy.home : home}
     >
+      <JFLogo className="jf-logo" />
+      <img
+        className="jf-logo-divider"
+        src={logoDivider}
+        width="1"
+        height="72"
+        alt="visual divider"
+      />
       <h1 className="page-title">{widont(title)}</h1>
-    </Link>
+    </JFCLLocaleLink>
   );
 });
 
@@ -163,6 +173,12 @@ const WhoOwnsWhatRoutes: React.FC<{}> = () => {
           <BBLPage {...props} useNewPortfolioMethod={allowChangingPortfolioMethod} />
         )}
       />
+      <Route path={paths.account.login} component={LoginPage} />
+      <Route path={paths.account.verifyEmail} component={VerifyEmailPage} />
+      <Route path={paths.account.settings} component={AccountSettingsPage} />
+      <Route path={paths.account.forgotPassword} component={ForgotPasswordPage} />
+      <Route path={paths.account.resetPassword} component={ResetPasswordPage} />
+      <Route path={paths.account.unsubscribe} component={UnsubscribePage} />
       <Route path={paths.about} component={AboutPage} />
       <Route path={paths.legacy.about} component={AboutPage} />
       <Route path={paths.howToUse} component={HowToUsePage} />
@@ -192,6 +208,30 @@ const SearchLink = () => {
   );
 };
 
+const getAccountNavLinks = (
+  handleLogout: (fromPath: string) => void,
+  fromPath: string,
+  isSignedIn?: boolean
+) => {
+  const { account } = createWhoOwnsWhatRoutePaths();
+  const { settings, login } = account;
+
+  return isSignedIn
+    ? [
+        <LocaleNavLink to={settings} key="account-1">
+          <Trans>Account</Trans>
+        </LocaleNavLink>,
+        <button onClick={() => handleLogout(fromPath)} key="account-2">
+          <Trans>Log out</Trans>
+        </button>,
+      ]
+    : [
+        <LocaleNavLink to={login} key="account-3">
+          <Trans>Log in</Trans>
+        </LocaleNavLink>,
+      ];
+};
+
 const getMainNavLinks = (isLegacyPath?: boolean) => {
   const { about, howToUse, legacy } = createWhoOwnsWhatRoutePaths();
   return [
@@ -217,12 +257,24 @@ const getMainNavLinks = (isLegacyPath?: boolean) => {
 
 const Navbar = () => {
   const { pathname } = useLocation();
-  const [isEngageModalVisible, setEngageModalVisibility] = useState(false);
   const addFeatureCalloutWidget = process.env.REACT_APP_ENABLE_FEATURE_CALLOUT_WIDGET === "1";
   const isDemoSite = process.env.REACT_APP_DEMO_SITE === "1";
   const allowChangingPortfolioMethod =
     process.env.REACT_APP_ENABLE_NEW_WOWZA_PORTFOLIO_MAPPING === "1";
-  return (
+
+  const userContext = useContext(UserContext);
+
+  const standalonePages = [
+    "forgot-password",
+    "login",
+    "verify-email",
+    "forgot-password",
+    "reset-password",
+    "unsubscribe",
+  ];
+  const hideNavbar = standalonePages.some((v) => pathname.includes(`account/${v}`));
+
+  return hideNavbar ? null : (
     <div
       className={classnames(
         "App__header",
@@ -232,7 +284,7 @@ const Navbar = () => {
     >
       <HomeLink />
       {isDemoSite && (
-        <span className="label label-warning ml-2 text-uppercase">
+        <span className="label label-warning ml-1 text-uppercase">
           <Trans>Demo Site</Trans>
         </span>
       )}
@@ -240,11 +292,8 @@ const Navbar = () => {
         {addFeatureCalloutWidget && <FeatureCalloutWidget />}
         <span className="hide-lg">
           {getMainNavLinks(isLegacyPath(pathname))}
-          {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-          <a href="#" onClick={() => setEngageModalVisibility(true)}>
-            <Trans>Share</Trans>
-          </a>
           <LocaleSwitcher />
+          {getAccountNavLinks(userContext.logout, pathname, !!userContext?.user?.email)}
         </span>
         <Dropdown>
           {getMainNavLinks(isLegacyPath(pathname)).map((link, i) => (
@@ -253,22 +302,17 @@ const Navbar = () => {
             </li>
           ))}
           <li className="menu-item">
-            {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-            <a href="#" onClick={() => setEngageModalVisibility(true)}>
-              <Trans>Share</Trans>
-            </a>
-          </li>
-          <li className="menu-item">
             <LocaleSwitcherWithFullLanguageName />
           </li>
+          {getAccountNavLinks(userContext.logout, pathname, !!userContext?.user?.email).map(
+            (link, i) => (
+              <li className="menu-item" key={`account-${i}`}>
+                {link}
+              </li>
+            )
+          )}
         </Dropdown>
       </nav>
-      <Modal showModal={isEngageModalVisible} onClose={() => setEngageModalVisibility(false)}>
-        <h5 className="first-header">
-          <Trans>Share this page with your neighbors</Trans>
-        </h5>
-        <SocialShare location="share-modal" />
-      </Modal>
     </div>
   );
 };
@@ -289,44 +333,8 @@ const AppBody = () => {
   );
 };
 
-const WowzaBanner = withI18n()((props: withI18nProps) => {
-  const [isBannerOpen, setBannerVisibility] = useState(true);
-  const { pathname } = useLocation();
-  const { i18n } = props;
-  const { about } = createWhoOwnsWhatRoutePaths();
-
-  return (
-    <div className={"App__banner " + (!isBannerOpen ? "d-hide" : "")}>
-      <div className="content">
-        {isLegacyPath(pathname) ? (
-          <Trans>
-            This is the old version of Who Owns What.{" "}
-            <ToggleLinkBetweenPortfolioMethods>
-              Check out the new version here.
-            </ToggleLinkBetweenPortfolioMethods>
-          </Trans>
-        ) : (
-          <Trans>
-            This is the new version of Who Owns What. To view the old version{" "}
-            <LocaleNavLink to={about}>visit the About Page.</LocaleNavLink>
-          </Trans>
-        )}
-      </div>
-      <button
-        className="close-button"
-        onClick={() => setBannerVisibility(false)}
-        aria-label={i18n._(t`Close`)}
-      >
-        ✕
-      </button>
-    </div>
-  );
-});
-
 const App = () => {
   const version = process.env.REACT_APP_VERSION;
-  const allowChangingPortfolioMethod =
-    process.env.REACT_APP_ENABLE_NEW_WOWZA_PORTFOLIO_MAPPING === "1";
   const surveyId = process.env.REACT_APP_WOAU_SURVEY_ID;
   const deprecationModalEnabled = process.env.REACT_APP_DEPRECATION_MODAL_ENABLED;
 
@@ -364,32 +372,33 @@ const App = () => {
               checkIntervalSecs={300}
             />
           )}
-          <div className="App">
-            {allowChangingPortfolioMethod && <WowzaBanner />}
-            <Navbar />
-            {deprecationModalEnabled && <DeprecationModal />}
-            <AppBody />
-            {surveyId && surveyCookie !== "2" && (
-              <StickyModal
-                label={"Help us build tenant power in NYC!"}
-                verticalPosition="bottom"
-                horizontalPosition="right"
-                onClose={hideSurveyButton}
-              >
-                <SliderButton
-                  id={surveyId}
-                  redirectTarget="_self"
-                  open={surveyCookie ? undefined : "time"}
-                  openValue={surveyCookie ? undefined : 5000}
-                  className="waou-survey-button"
-                  onClose={closeSurvey}
-                  onSubmit={() => (surveySubmitted = true)}
+          <UserContextProvider>
+            <div className="App">
+              <Navbar />
+              {deprecationModalEnabled && <DeprecationModal />}
+              <AppBody />
+              {surveyId && surveyCookie !== "2" && (
+                <StickyModal
+                  label={"Help us build tenant power in NYC!"}
+                  verticalPosition="bottom"
+                  horizontalPosition="right"
+                  onClose={hideSurveyButton}
                 >
-                  Take our short survey
-                </SliderButton>
-              </StickyModal>
-            )}
-          </div>
+                  <SliderButton
+                    id={surveyId}
+                    redirectTarget="_self"
+                    open={surveyCookie ? undefined : "time"}
+                    openValue={surveyCookie ? undefined : 5000}
+                    className="waou-survey-button"
+                    onClose={closeSurvey}
+                    onSubmit={() => (surveySubmitted = true)}
+                  >
+                    Take our short survey
+                  </SliderButton>
+                </StickyModal>
+              )}
+            </div>
+          </UserContextProvider>
         </ScrollToTop>
       </I18n>
     </Router>

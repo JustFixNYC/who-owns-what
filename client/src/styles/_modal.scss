@@ -44,13 +44,13 @@ $sticky-modal-zindex: 20;
   position: absolute;
   right: 0;
   top: 0;
-  height: 3.5rem;
-  width: 3.5rem;
+  height: 2.19rem;
+  width: 2.19rem;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  font-size: 1.8rem;
+  font-size: 1.13rem;
 }
 
 .sticky-modal-body {
@@ -60,13 +60,13 @@ $sticky-modal-zindex: 20;
 
 .App__body:has(.AddressPage__viz.AddressPage__content-active) + .sticky-modal,
 .App__body:has(.AddressPage__table.AddressPage__content-active) + .sticky-modal {
-  margin-bottom: 5rem;
+  margin-bottom: 3.13rem;
 }
 
 @include for-tablet-landscape-up() {
   .sticky-modal {
     font-weight: 400;
-    width: 31rem;
+    width: 19.38rem;
     margin-right: $spacing-07;
   }
 }

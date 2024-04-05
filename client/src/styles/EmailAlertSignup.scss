@@ -1,0 +1,30 @@
+@import "_vars.scss";
+@import "_typography.scss";
+
+.EmailAlertSignup {
+  margin-top: 1.25rem;
+
+  .building-subscribe {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    gap: 1.5rem;
+
+    .jfcl-button {
+      align-self: center;
+
+      .jfcl-button__label {
+        align-items: center;
+      }
+    }
+
+    .status-title {
+      display: flex;
+      align-items: center;
+
+      svg {
+        margin-right: 0.63rem;
+      }
+    }
+  }
+}

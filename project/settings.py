@@ -2,6 +2,7 @@ import os
 from pathlib import Path
 from typing import List, Optional, Dict, Any
 from django.core.exceptions import ImproperlyConfigured
+from corsheaders.defaults import default_headers
 import dj_database_url
 
 try:
@@ -40,11 +41,40 @@ ALLOWED_HOSTS: List[str] = ["*"]
 ROOT_URLCONF = "project.urls"
 
 INSTALLED_APPS = [
+    "django.contrib.admin",
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.sessions",
+    "django.contrib.messages",
     "project.apps.DefaultConfig",
     "wow.apps.WowConfig",
+    "corsheaders",
 ]
 
-MIDDLEWARE: List[str] = ["django.middleware.gzip.GZipMiddleware"]
+MIDDLEWARE: List[str] = [
+    "corsheaders.middleware.CorsMiddleware",
+    "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django.contrib.messages.middleware.MessageMiddleware",
+    "django.middleware.common.CommonMiddleware",
+    "django.middleware.gzip.GZipMiddleware",
+]
+
+TEMPLATES = [
+    {
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
+        "DIRS": [],
+        "APP_DIRS": True,
+        "OPTIONS": {
+            "context_processors": [
+                "django.template.context_processors.debug",
+                "django.template.context_processors.request",
+                "django.contrib.auth.context_processors.auth",
+                "django.contrib.messages.context_processors.messages",
+            ],
+        },
+    },
+]
 
 DATABASES = {
     "default": {
@@ -56,6 +86,20 @@ DATABASES = {
     },
     "wow": dj_database_url.parse(get_required_env("DATABASE_URL")),
 }
+CORS_ALLOW_HEADERS = default_headers + ("Access-Control-Allow-Origin", "Set-Cookie")
+CORS_ALLOW_ALL_ORIGINS = False
+CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOWED_ORIGINS = [
+    "http://127.0.0.1:3000",
+    "http://localhost:3000",
+    "https://demo-wowserver.justfix.org",
+    "https://wow-django-dev.herokuapp.com",
+    "https://demo-whoownswhat.justfix.org",
+]
+CORS_ALLOWED_ORIGIN_REGEXES = [
+    r"https://\w+\.deploy-preview-(?:\d{1,4})--wow-django-dev\.netlify\.app",
+    r"https://deploy-preview-(?:\d{1,4})--wow-django-dev\.netlify\.app",
+]
 
 # This is based off the default Django logging configuration:
 # https://github.com/django/django/blob/master/django/utils/log.py
@@ -126,3 +170,5 @@ if ROLLBAR_ACCESS_TOKEN:
     MIDDLEWARE.append(
         "rollbar.contrib.django.middleware.RollbarNotifierMiddlewareExcluding404"
     )
+
+AUTHENTICATION_BACKENDS = ("django.contrib.auth.backends.ModelBackend",)

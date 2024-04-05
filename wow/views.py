@@ -241,6 +241,7 @@ ALERTS_QUERIES = {
     "complaints": SQL_DIR / "alerts_complaints.sql",
     "eviction_filings": SQL_DIR / "alerts_eviction_filings.sql",
     "lagged_eviction_filings": SQL_DIR / "alerts_lagged_eviction_filings.sql",
+    "hpd_link": SQL_DIR / "alerts_hpd_link.sql",
 }
 
 

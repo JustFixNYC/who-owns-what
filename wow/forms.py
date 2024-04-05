@@ -54,17 +54,20 @@ class CommaSeparatedField(forms.CharField):
 
 
 def validate_indicators(value):
+    # "hpd_link" included here for email alerts api, this is temporary until we refactor
+    # this to use a pre-built table with all values instead of this composable option
     valid_indicators = [
         "violations",
         "complaints",
         "eviction_filings",
         "lagged_eviction_filings",
+        "hpd_link",
     ]
     for i in value:
         if i not in valid_indicators:
             raise ValidationError(
                 "Indicators must be comma-separated list of: 'violations',\
-                'complaints', 'eviction_filings', or 'lagged_eviction_filings'"
+                'complaints', 'eviction_filings', 'lagged_eviction_filings', or 'hpd_link"
             )
 
 
@@ -78,12 +81,13 @@ class EmailAlertLaggedEvictionFilingsForm(PaddedBBLForm):
 
 
 class EmailAlertSingleIndicatorForm(PaddedBBLForm):
+    regex = r"^(violations)|(complaints)|(eviction_filings)|(lagged_eviction_filings)|(hpd_link)$"
     indicator = forms.CharField(
         validators=[
             RegexValidator(
-                r"^(violations)|(complaints)|(eviction_filings)|(lagged_eviction_filings)$",
+                regex,
                 message="This must be one of 'violations', 'complaints', 'eviction_filings', \
-                    'lagged_eviction_filings'.",
+                    'lagged_eviction_filings', 'hpd_link'.",
             )
         ]
     )
@@ -123,6 +127,9 @@ class EmailAlertMultiIndicatorForm(PaddedBBLForm):
         indicators = data.get("indicators", [])
         start_end_indicators = ["violations", "complaints", "eviction_filings"]
 
+        if indicators == ["hpd_link"]:
+            return data
+
         if "lagged_eviction_filings" in indicators:
             if not data.get("prev_date", None):
                 raise forms.ValidationError(
@@ -137,5 +144,5 @@ class EmailAlertMultiIndicatorForm(PaddedBBLForm):
                 raise forms.ValidationError(
                     "end_date is required for violations, complaints, and eviction_filings"
                 )
-        else:
-            return data
+
+        return data

@@ -7,14 +7,15 @@
 
   .btn-group {
     flex-wrap: nowrap;
-    min-width: 19rem;
-    padding-left: 0.8rem;
+    min-width: 11.88rem;
+    padding-left: 0.5rem;
+    align-items: center;
   }
 
   ul.menu {
     border: 1px solid $gray-dark;
     padding: 0;
-    width: 24rem;
+    width: 15rem;
     right: 0;
     left: inherit;
     list-style: disc inside none;

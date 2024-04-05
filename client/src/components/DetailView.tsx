@@ -13,7 +13,7 @@ import { isPartOfGroupSale } from "./PortfolioTable";
 import { Link, useLocation } from "react-router-dom";
 import { LocaleLink } from "../i18n";
 import BuildingStatsTable from "./BuildingStatsTable";
-import { createWhoOwnsWhatRoutePaths, AddressPageRoutes, removeIndicatorSuffix } from "../routes";
+import { createWhoOwnsWhatRoutePaths, AddressPageRoutes } from "../routes";
 import { defaultLocale, SupportedLocale } from "../i18n-base";
 import { withMachineInStateProps } from "state-machine";
 import { Accordion } from "./Accordion";
@@ -22,7 +22,9 @@ import _groupBy from "lodash/groupBy";
 import { HpdContactAddress, HpdFullContact } from "./APIDataTypes";
 import { isLegacyPath } from "./WowzaToggle";
 import { logAmplitudeEvent } from "./Amplitude";
+import EmailAlertSignup from "./EmailAlertSignup";
 import { StreetViewStatic } from "./StreetView";
+import GetRepairs from "./GetRepairs";
 
 type Props = withI18nProps &
   withMachineInStateProps<"portfolioFound"> & {
@@ -184,9 +186,9 @@ class DetailViewWithoutI18n extends Component<Props, State> {
 
   render() {
     const isMobile = Browser.isMobile();
-    const { i18n } = this.props;
+    const { i18n, state } = this.props;
     const locale = (i18n.language as SupportedLocale) || defaultLocale;
-    const { useNewPortfolioMethod, portfolioData } = this.props.state.context;
+    const { useNewPortfolioMethod, portfolioData } = state.context;
     const { assocAddrs, detailAddr, searchAddr } = portfolioData;
 
     // Let's save some variables that will be helpful in rendering the front-end component
@@ -282,18 +284,10 @@ class DetailViewWithoutI18n extends Component<Props, State> {
                         ))}
                     </div>
                     <div className="card-body">
-                      <BuildingStatsTable addr={detailAddr} />
-                      <div className="card-body-timeline-link">
-                        <Link
-                          to={removeIndicatorSuffix(this.props.addressPageRoutes.timeline)}
-                          className="btn btn-primary btn-block"
-                          onClick={() => {
-                            window.gtag("event", "view-data-over-time-overview-tab");
-                          }}
-                        >
-                          <Trans render="span">View data over time &#8599;&#xFE0E;</Trans>
-                        </Link>
-                      </div>
+                      <BuildingStatsTable
+                        addr={detailAddr}
+                        timelineUrl={this.props.addressPageRoutes.timeline}
+                      />
                       <div className="card-body-complaints">
                         <div>
                           <b>
@@ -403,30 +397,18 @@ class DetailViewWithoutI18n extends Component<Props, State> {
                     </div>
                   </div>
                   <div className="column col-lg-12 col-5">
-                    <div className="card-image hide-lg">{streetView}</div>
-                    <div className="card-body column-right">
+                    <EmailAlertSignup addr={detailAddr} />
+                    <GetRepairs url={takeActionURL} />
+                    <div className="card-body-links column-right">
                       <UsefulLinks addrForLinks={detailAddr} location="overview-tab" />
-                      <div className="card-body-prompt">
-                        <h6 className="DetailView__subtitle">
-                          <Trans>Are you having issues in this building?</Trans>
-                        </h6>
-                        <a
-                          href={takeActionURL}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="btn btn-justfix btn-block"
-                        >
-                          <Trans>Take action on JustFix.org!</Trans>
-                        </a>
-                      </div>
-
                       <div className="card-body-social social-group">
                         <h6 className="DetailView__subtitle">
-                          <Trans>Share this page with your neighbors</Trans>
+                          <Trans>Share with your neighbors</Trans>
                         </h6>
                         <SocialShareDetailView />
                       </div>
                     </div>
+                    <div className="card-image hide-lg">{streetView}</div>
                   </div>
                 </div>
               </div>
