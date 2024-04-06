@@ -34,7 +34,7 @@ type LoginProps = {
   i18n: I18n;
   addr?: AddressRecord;
   onBuildingPage?: boolean;
-  onSuccess?: (user: JustfixUser) => void;
+  onSuccess?: () => void;
   registerInModal?: boolean;
   showForgotPassword?: boolean;
   setLoginRegisterInProgress?: React.Dispatch<React.SetStateAction<boolean>>;
@@ -94,6 +94,18 @@ const LoginWithoutI18n = (props: LoginProps) => {
 
   const [invalidAuthError, setInvalidAuthError] = useState(false);
   const [existingUserError, setExistingUserError] = useState(false);
+
+  const subscribe = (user: JustfixUser) => {
+    addr &&
+      userContext.subscribe(
+        addr.bbl,
+        addr.housenumber,
+        addr.streetname,
+        addr.zip ?? "",
+        addr.boro,
+        user
+      );
+  };
 
   const resetAlertErrorStates = () => {
     setInvalidAuthError(false);
@@ -291,12 +303,15 @@ const LoginWithoutI18n = (props: LoginProps) => {
     }
 
     // context doesn't update immediately so need to reurn user to check verified status
-    const resp = await userContext.login(email, password, onSuccess);
+    const resp = await userContext.login(email, password);
 
     if (!!resp?.error) {
       setInvalidAuthError(true);
       return;
     }
+
+    resp?.user && addr && subscribe(resp.user);
+    !!onSuccess && onSuccess();
 
     if (!onBuildingPage) {
       if (resp?.user?.verified) {
@@ -308,10 +323,6 @@ const LoginWithoutI18n = (props: LoginProps) => {
       return;
     }
     !!setLoginRegisterInProgress && setLoginRegisterInProgress(false);
-
-    if (onBuildingPage) {
-      window.location.reload();
-    }
   };
 
   const onAccountSubmit = async () => {
@@ -343,13 +354,17 @@ const LoginWithoutI18n = (props: LoginProps) => {
       return;
     }
 
-    const resp = await userContext.register(email, password, userType, onSuccess);
+    const resp = await userContext.register(email, password, userType);
 
     if (!!resp?.error) {
       setInvalidAuthError(true);
       setStep(Step.RegisterAccount);
       return;
     }
+
+    resp?.user && addr && subscribe(resp.user);
+    !!onSuccess && onSuccess();
+
     if (!onBuildingPage || !registerInModal) {
       !!setLoginRegisterInProgress && setLoginRegisterInProgress(false);
     }
@@ -527,7 +542,6 @@ const LoginWithoutI18n = (props: LoginProps) => {
             setShowRegisterModal(false);
             setStep(Step.CheckEmail);
             !!setLoginRegisterInProgress && setLoginRegisterInProgress(false);
-            isVerifyEmailStep && window.location.reload();
           }}
         >
           {renderLoginFlow()}
