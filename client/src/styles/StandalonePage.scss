@@ -44,6 +44,10 @@
         background-color: inherit;
       }
 
+      .jf-alert {
+        margin-bottom: 1.5rem;
+      }
+
       h1,
       h2,
       p {
@@ -97,7 +101,8 @@
 
       .standalone-footer,
       .login-footer,
-      .unsubscribe-footer {
+      .unsubscribe-footer,
+      .address-page-link {
         display: flex;
         flex-direction: column;
         gap: 1rem;
@@ -115,6 +120,10 @@
         .button.is-text {
           display: inline;
         }
+      }
+
+      .address-page-link {
+        text-align: left;
       }
     }
 

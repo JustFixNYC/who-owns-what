@@ -1,10 +1,9 @@
 import React, { useState, useContext } from "react";
 import { Trans, t } from "@lingui/macro";
-import { I18n } from "@lingui/core";
-import { withI18n } from "@lingui/react";
+import { withI18n, withI18nProps } from "@lingui/react";
+import { Link, useHistory, useLocation } from "react-router-dom";
 import { Button, Link as JFCLLink } from "@justfixnyc/component-library";
 
-import "styles/Login.css";
 import "styles/UserTypeInput.css";
 import "styles/_input.scss";
 import AuthClient from "./AuthClient";
@@ -15,11 +14,12 @@ import PasswordInput from "./PasswordInput";
 import EmailInput from "./EmailInput";
 import UserTypeInput from "./UserTypeInput";
 import { Alert } from "./Alert";
-import Modal from "./Modal";
 import SendNewLink from "./SendNewLink";
 import { JFCLLocaleLink } from "i18n";
-import { createWhoOwnsWhatRoutePaths } from "routes";
+import { createRouteForAddressPage, createWhoOwnsWhatRoutePaths } from "routes";
 import { AddressRecord } from "./APIDataTypes";
+import { isLegacyPath } from "./WowzaToggle";
+import { Nobr } from "./Nobr";
 
 enum Step {
   CheckEmail,
@@ -30,30 +30,15 @@ enum Step {
   LoginSuccess,
 }
 
-type LoginProps = {
-  i18n: I18n;
-  addr?: AddressRecord;
-  onBuildingPage?: boolean;
-  onSuccess?: (user: JustfixUser) => void;
-  registerInModal?: boolean;
-  showForgotPassword?: boolean;
-  setLoginRegisterInProgress?: React.Dispatch<React.SetStateAction<boolean>>;
-};
-
-const LoginWithoutI18n = (props: LoginProps) => {
-  const {
-    i18n,
-    addr,
-    onBuildingPage,
-    onSuccess,
-    registerInModal,
-    setLoginRegisterInProgress,
-  } = props;
+const LoginWithoutI18n = (props: withI18nProps) => {
+  const { i18n } = props;
 
   const userContext = useContext(UserContext);
   const { home, account } = createWhoOwnsWhatRoutePaths();
-
-  const [showRegisterModal, setShowRegisterModal] = useState(false);
+  const history = useHistory();
+  const location = useLocation();
+  const { pathname } = location;
+  const addr = location.state?.addr;
 
   const [step, setStep] = useState(Step.CheckEmail);
   const isCheckEmailStep = step === Step.CheckEmail;
@@ -88,12 +73,34 @@ const LoginWithoutI18n = (props: LoginProps) => {
     setShowError: setShowUserTypeError,
   } = useInput("");
 
-  const [isEmailResent, setIsEmailResent] = React.useState(false);
-
-  const [placeholderEmail, setPlaceholderEmail] = useState("");
-
+  const [isLoading, setIsLoading] = useState(false);
+  const [isEmailResent, setIsEmailResent] = useState(false);
   const [invalidAuthError, setInvalidAuthError] = useState(false);
   const [existingUserError, setExistingUserError] = useState(false);
+
+  const getAddrPageRoute = (addr: AddressRecord) => {
+    const isLegacy = isLegacyPath(pathname);
+    return createRouteForAddressPage({ ...addr, locale: i18n.language }, isLegacy);
+  };
+
+  const formatAddr = (addr: AddressRecord) => {
+    return (
+      !!addr &&
+      `${addr.housenumber} ${helpers.titleCase(addr.streetname)}, ${helpers.titleCase(addr.boro)}`
+    );
+  };
+
+  const subscribeOnSuccess = (user: JustfixUser) => {
+    !!addr &&
+      userContext.subscribe(
+        addr.bbl,
+        addr.housenumber,
+        addr.streetname,
+        addr.zip ?? "",
+        addr.boro,
+        user
+      );
+  };
 
   const resetAlertErrorStates = () => {
     setInvalidAuthError(false);
@@ -142,15 +149,10 @@ const LoginWithoutI18n = (props: LoginProps) => {
       case invalidAuthError:
         alertMessage = i18n._(t`The email and/or password you entered is incorrect.`);
         return renderPageLevelAlert("error", alertMessage);
-      case existingUserError:
-        if (isRegisterAccountStep) {
-          alertMessage = i18n._(t`That email is already used.`);
-          // show login button in alert
-          return renderPageLevelAlert("error", alertMessage, !onBuildingPage || showRegisterModal);
-        } else if (isLoginStep && onBuildingPage && showRegisterModal) {
-          alertMessage = i18n._(t`Your email is associated with an account. Log in below.`);
-          return renderPageLevelAlert("info", alertMessage);
-        }
+      case existingUserError && isRegisterAccountStep:
+        alertMessage = i18n._(t`That email is already used.`);
+        // show login button in alert
+        return renderPageLevelAlert("error", alertMessage, true);
     }
   };
 
@@ -201,12 +203,7 @@ const LoginWithoutI18n = (props: LoginProps) => {
               <Trans>Don't have an account?</Trans>
               <button
                 className="button is-text ml-2 pt-6"
-                onClick={() => {
-                  toggleLoginSignup(Step.RegisterAccount);
-                  if (registerInModal && !showRegisterModal) {
-                    setShowRegisterModal(true);
-                  }
-                }}
+                onClick={() => toggleLoginSignup(Step.RegisterAccount)}
               >
                 <Trans>Sign up</Trans>
               </button>
@@ -218,19 +215,30 @@ const LoginWithoutI18n = (props: LoginProps) => {
   };
 
   const renderResendVerifyEmail = () => (
-    <div className="resend-email-container">
-      {!isEmailResent && (
-        <Trans render="p" className="didnt-get-link">
-          Didn’t get the link?
-        </Trans>
+    <>
+      <div className="resend-email-container">
+        {!isEmailResent && (
+          <Trans render="p" className="didnt-get-link">
+            Didn’t get the link?
+          </Trans>
+        )}
+        <SendNewLink
+          setParentState={setIsEmailResent}
+          size="large"
+          onClick={() => AuthClient.resendVerifyEmail()}
+        />
+      </div>
+      {!!addr && (
+        <div className="address-page-link">
+          <Link
+            to={{ pathname: getAddrPageRoute(addr), state: { justSubscribed: true } }}
+            component={JFCLLink}
+          >
+            Back to {formatAddr(addr)}
+          </Link>
+        </div>
       )}
-      <SendNewLink
-        setParentState={setIsEmailResent}
-        size={onBuildingPage ? "small" : "large"}
-        className="is-full-width"
-        onClick={() => AuthClient.resendVerifyEmail()}
-      />
-    </div>
+    </>
   );
 
   const renderLoginSuccess = () => (
@@ -243,36 +251,14 @@ const LoginWithoutI18n = (props: LoginProps) => {
   );
 
   const onEmailSubmit = async () => {
-    !!setLoginRegisterInProgress && setLoginRegisterInProgress(true);
-    if (!email) {
-      if (!onBuildingPage || showRegisterModal) {
-        setEmailError(true);
-        setShowEmailError(true);
-      }
-      registerInModal && setShowRegisterModal(true);
-      return;
-    }
-
-    if (!!email && emailError) {
+    if (!email || emailError) {
       setEmailError(true);
       setShowEmailError(true);
       return;
     }
 
-    if (!!email && !emailError) {
-      const existingUser = await AuthClient.isEmailAlreadyUsed(email);
-
-      if (existingUser) {
-        setStep(Step.Login);
-      } else {
-        setStep(Step.RegisterAccount);
-        if (registerInModal && !showRegisterModal) {
-          setShowRegisterModal(true);
-        }
-      }
-    }
-
-    setPlaceholderEmail(email);
+    const existingUser = await AuthClient.isEmailAlreadyUsed(email);
+    existingUser ? setStep(Step.Login) : setStep(Step.RegisterAccount);
   };
 
   const onLoginSubmit = async () => {
@@ -291,27 +277,25 @@ const LoginWithoutI18n = (props: LoginProps) => {
     }
 
     // context doesn't update immediately so need to reurn user to check verified status
-    const resp = await userContext.login(email, password, onSuccess);
+    const resp = await userContext.login(email, password, subscribeOnSuccess);
 
     if (!!resp?.error) {
       setInvalidAuthError(true);
       return;
     }
 
-    if (!onBuildingPage) {
-      if (resp?.user?.verified) {
-        setStep(Step.LoginSuccess);
-      } else {
-        await AuthClient.resendVerifyEmail();
-        setStep(Step.VerifyEmail);
-      }
+    if (!resp?.user?.verified) {
+      await AuthClient.resendVerifyEmail();
+      setStep(Step.VerifyEmail);
       return;
     }
-    !!setLoginRegisterInProgress && setLoginRegisterInProgress(false);
 
-    if (onBuildingPage) {
-      window.location.reload();
+    if (!!addr) {
+      const redirectTo = { pathname: getAddrPageRoute(addr), state: { justSubscribed: true } };
+      history.push(redirectTo);
     }
+
+    setStep(Step.LoginSuccess);
   };
 
   const onAccountSubmit = async () => {
@@ -343,51 +327,38 @@ const LoginWithoutI18n = (props: LoginProps) => {
       return;
     }
 
-    const resp = await userContext.register(email, password, userType, onSuccess);
+    const resp = await userContext.register(email, password, userType, subscribeOnSuccess);
 
     if (!!resp?.error) {
       setInvalidAuthError(true);
       setStep(Step.RegisterAccount);
       return;
     }
-    if (!onBuildingPage || !registerInModal) {
-      !!setLoginRegisterInProgress && setLoginRegisterInProgress(false);
-    }
+
     setStep(Step.VerifyEmail);
   };
 
   let headerText: any;
   let subHeaderText: any;
-  let onSubmit = () => {};
+  let onSubmit = async () => {};
   let submitButtonText = "";
   switch (step) {
     case Step.CheckEmail:
-      headerText = !onBuildingPage
-        ? i18n._(t`Log in / sign up`)
-        : showRegisterModal
-        ? i18n._(t`Sign up for Building Updates`)
-        : "";
-      subHeaderText =
-        onBuildingPage && !showRegisterModal ? (
-          <Trans>
-            Enter your email to get weekly updates on complaints, violations, and eviction filings
-            for this building.
-          </Trans>
-        ) : undefined;
+      headerText = i18n._(t`Log in / sign up`);
+      subHeaderText = (
+        <Trans>
+          Enter your email to get weekly updates on complaints, violations, and eviction filings for
+          {formatAddr(addr)}.
+        </Trans>
+      );
       onSubmit = onEmailSubmit;
-      submitButtonText =
-        !onBuildingPage || showRegisterModal ? i18n._(t`Submit`) : i18n._(t`Get updates`);
+      submitButtonText = i18n._(t`Submit`);
       break;
     case Step.Login:
-      headerText = onBuildingPage && !showRegisterModal ? undefined : i18n._(t`Log in`);
-      subHeaderText =
-        onBuildingPage && addr
-          ? i18n._(
-              t`Log in to add ${addr.housenumber} ${helpers.titleCase(
-                addr.streetname
-              )}, ${helpers.titleCase(addr.boro)} to your Building Updates`
-            )
-          : undefined;
+      headerText = i18n._(t`Log in`);
+      subHeaderText = !!addr ? (
+        <Trans>Log in to add {formatAddr(addr)} to your Building Updates</Trans>
+      ) : undefined;
       onSubmit = onLoginSubmit;
       submitButtonText = i18n._(t`Log in`);
       break;
@@ -406,134 +377,77 @@ const LoginWithoutI18n = (props: LoginProps) => {
       headerText = i18n._(t`Check your email`);
       subHeaderText = (
         <Trans>
-          Click the link we sent to {email} to verify your email. It may take a few minutes to
-          arrive. If you can't find it, check your spam and promotions folders for an email from
-          no-reply@justfix.org.
+          Click the link we sent to <Nobr>{email}</Nobr> to verify your email. It may take a few
+          minutes to arrive. If you can't find it, check your spam and promotions folders for an
+          email from <Nobr>no-reply@justfix.org</Nobr>.
         </Trans>
       );
       break;
   }
 
-  const renderOnPagePlaceholder = () => {
-    return (
-      <div className="Login">
-        <Trans render="div" className="card-description">
-          Enter your email to get weekly updates on complaints, violations, and eviction filings for
-          this building.
-        </Trans>
-        <div className="input-group">
-          <EmailInput
-            email={placeholderEmail}
-            onChange={() => {}}
-            error={false}
-            setError={() => {}}
-            showError={false}
-            labelText={i18n._(t`Email address`)}
-          />
-          <div className="submit-button-group">
-            <Button
-              variant="primary"
-              size="small"
-              className="is-full-width"
-              labelText={i18n._(t`Get updates`)}
-            />
-          </div>
-        </div>
-      </div>
-    );
-  };
-
-  const renderLoginFlow = () => {
-    return (
-      <div className="Login">
-        {!!headerText && (onBuildingPage ? <h4>{headerText}</h4> : <h1>{headerText}</h1>)}
-        {!!subHeaderText &&
-          (onBuildingPage ? (
-            <div className="card-description">{subHeaderText}</div>
-          ) : (
-            <h2>{subHeaderText}</h2>
-          ))}
-        {renderAlert()}
-        {!isVerifyEmailStep && !isLoginSuccessStep && (
-          <form
-            className="input-group"
-            onSubmit={(e) => {
-              e.preventDefault();
-              resetAlertErrorStates();
-              onSubmit();
-            }}
-          >
-            {(isCheckEmailStep || isLoginStep || isRegisterAccountStep) && (
-              <EmailInput
-                email={email}
-                onChange={onChangeEmail}
-                error={emailError}
-                setError={setEmailError}
-                showError={showEmailError}
-                autoFocus={!registerInModal || (showRegisterModal && !email)}
-                labelText={i18n._(t`Email address`)}
-              />
-            )}
-            {(isLoginStep || isRegisterAccountStep) && (
-              <PasswordInput
-                labelText={i18n._(t`Password`)}
-                password={password}
-                username={email}
-                error={passwordError}
-                showError={showPasswordError}
-                setError={setPasswordError}
-                onChange={onChangePassword}
-                showPasswordRules={isRegisterAccountStep}
-                autoFocus={!!email && !password}
-              />
-            )}
-            {isRegisterUserTypeStep && (
-              <UserTypeInput
-                setUserType={setUserType}
-                error={userTypeError}
-                showError={userShowUserTypeError}
-                setError={setUserTypeError}
-              />
-            )}
-            <div className="submit-button-group">
-              <Button
-                type="submit"
-                variant="primary"
-                size={onBuildingPage ? "small" : "large"}
-                className="is-full-width"
-                labelText={submitButtonText}
-              />
-            </div>
-          </form>
-        )}
-        {isVerifyEmailStep && renderResendVerifyEmail()}
-        {isLoginSuccessStep && renderLoginSuccess()}
-        {(isLoginStep || isRegisterAccountStep) && renderFooter()}
-      </div>
-    );
-  };
-
   return (
-    <>
-      {!showRegisterModal ? renderLoginFlow() : renderOnPagePlaceholder()}
-      {registerInModal && (
-        <Modal
-          key={1}
-          showModal={showRegisterModal}
-          width={40}
-          onClose={() => {
+    <div className="Login">
+      {renderAlert()}
+      {!!headerText && <h1>{headerText}</h1>}
+      {!!subHeaderText && <h2>{subHeaderText}</h2>}
+      {!isVerifyEmailStep && !isLoginSuccessStep && (
+        <form
+          className="input-group"
+          onSubmit={async (e) => {
+            e.preventDefault();
+            setIsLoading(true);
             resetAlertErrorStates();
-            setShowEmailError(false);
-            setShowRegisterModal(false);
-            setStep(Step.CheckEmail);
-            !!setLoginRegisterInProgress && setLoginRegisterInProgress(false);
-            isVerifyEmailStep && window.location.reload();
+            await onSubmit();
+            setIsLoading(false);
           }}
         >
-          {renderLoginFlow()}
-        </Modal>
+          {(isCheckEmailStep || isLoginStep || isRegisterAccountStep) && (
+            <EmailInput
+              email={email}
+              onChange={onChangeEmail}
+              error={emailError}
+              setError={setEmailError}
+              showError={showEmailError}
+              autoFocus={true}
+              labelText={i18n._(t`Email address`)}
+            />
+          )}
+          {(isLoginStep || isRegisterAccountStep) && (
+            <PasswordInput
+              labelText={i18n._(t`Password`)}
+              password={password}
+              username={email}
+              error={passwordError}
+              showError={showPasswordError}
+              setError={setPasswordError}
+              onChange={onChangePassword}
+              showPasswordRules={isRegisterAccountStep}
+              autoFocus={!!email && !password}
+            />
+          )}
+          {isRegisterUserTypeStep && (
+            <UserTypeInput
+              setUserType={setUserType}
+              error={userTypeError}
+              showError={userShowUserTypeError}
+              setError={setUserTypeError}
+            />
+          )}
+          <div className="submit-button-group">
+            <Button
+              type="submit"
+              variant="primary"
+              size="large"
+              labelText={submitButtonText}
+              loading={isLoading}
+            />
+          </div>
+        </form>
       )}
-    </>
+      {isVerifyEmailStep && renderResendVerifyEmail()}
+      {isLoginSuccessStep && renderLoginSuccess()}
+      {(isLoginStep || isRegisterAccountStep) && renderFooter()}
+    </div>
   );
 };
 
