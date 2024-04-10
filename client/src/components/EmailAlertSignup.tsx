@@ -2,7 +2,8 @@ import React, { useContext, useEffect, useState } from "react";
 import { withI18n, withI18nProps } from "@lingui/react";
 import { Trans, t } from "@lingui/macro";
 import { useHistory, useLocation } from "react-router-dom";
-import { Button } from "@justfixnyc/component-library";
+import { CSSTransition } from "react-transition-group";
+import { Button, Alert as JFCLAlert } from "@justfixnyc/component-library";
 
 import "styles/EmailAlertSignup.css";
 import "styles/Card.css";
@@ -45,8 +46,6 @@ const BuildingSubscribeWithoutI18n = (props: BuildingSubscribeProps) => {
     setShowSuccess(!!locationState?.justSubscribed);
     window.history.replaceState({ state: undefined }, "");
   }, [locationState]);
-
-  // TODO: show temporary page level success alert if justSubscribed=true
 
   const userContext = useContext(UserContext);
   const { user, subscribe, unsubscribe } = userContext;
@@ -137,6 +136,21 @@ const BuildingSubscribeWithoutI18n = (props: BuildingSubscribeProps) => {
           : isLoggedIn && !user.verified
           ? showEmailVerification()
           : showAddBuilding()}
+      </div>
+      <div className="login-subscribe-alert-container">
+        <CSSTransition
+          in={justSubscribed}
+          timeout={5000}
+          classNames="login-subscribe-alert"
+          onEntered={() => setJustSubscribed(false)}
+        >
+          <JFCLAlert
+            variant="primary"
+            type="success"
+            className="login-subscribe-alert"
+            text={i18n._(t`You are now logged in and we’ve added this building to your updates`)}
+          />
+        </CSSTransition>
       </div>
       <Modal
         key={1}
