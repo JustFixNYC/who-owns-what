@@ -35,15 +35,11 @@ const BuildingSubscribeWithoutI18n = (props: BuildingSubscribeProps) => {
   const { account } = createWhoOwnsWhatRoutePaths();
   const history = useHistory();
 
-  // avoid delay when adding/removing building
-  const [showSuccess, setShowSuccess] = React.useState(false);
-
   const { state: locationState } = useLocation();
   const [justSubscribed, setJustSubscribed] = React.useState(false);
   // switch to regular state and clear location state since it othrwise persists after reloads
   useEffect(() => {
     setJustSubscribed(!!locationState?.justSubscribed);
-    setShowSuccess(!!locationState?.justSubscribed);
     window.history.replaceState({ state: undefined }, "");
   }, [locationState]);
 
@@ -51,8 +47,7 @@ const BuildingSubscribeWithoutI18n = (props: BuildingSubscribeProps) => {
   const { user, subscribe, unsubscribe } = userContext;
   const isLoggedIn = !!user?.email;
   const atSubscriptionLimit = isLoggedIn && user.subscriptions.length >= SUBSCRIPTION_LIMIT;
-
-  const isSubscribed = showSuccess || !!user?.subscriptions?.find((s) => s.bbl === addr.bbl);
+  const isSubscribed = justSubscribed || !!user?.subscriptions?.find((s) => s.bbl === addr.bbl);
 
   const [isEmailResent, setIsEmailResent] = React.useState(false);
   const [showSubscriptionLimitModal, setShowSubscriptionLimitModal] = useState(false);
@@ -78,7 +73,6 @@ const BuildingSubscribeWithoutI18n = (props: BuildingSubscribeProps) => {
         labelText={i18n._(t`Remove building`)}
         onClick={() => {
           unsubscribe(addr.bbl);
-          setShowSuccess(false);
           setJustSubscribed(false);
         }}
       />
@@ -103,7 +97,6 @@ const BuildingSubscribeWithoutI18n = (props: BuildingSubscribeProps) => {
   );
 
   const subscribeToBuilding = (addr: AddressRecord) => {
-    setShowSuccess(true);
     subscribe(addr.bbl, addr.housenumber, addr.streetname, addr.zip ?? "", addr.boro);
   };
 
