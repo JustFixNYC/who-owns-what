@@ -157,7 +157,7 @@ msgstr "Account"
 msgid "Across owners and management staff, the most common {0, plural, one {name that appears in this portfolio is} other {names that appear in this portfolio are}} <0/>."
 msgstr "Across owners and management staff, the most common {0, plural, one {name that appears in this portfolio is} other {names that appear in this portfolio are}} <0/>."
 
-#: src/components/EmailAlertSignup.tsx:71
+#: src/components/EmailAlertSignup.tsx:72
 msgid "Add to Building Updates"
 msgstr "Add to Building Updates"
 
@@ -239,7 +239,7 @@ msgstr "Are you having issues in this development?"
 msgid "Associated names/entities: {0}"
 msgstr "Associated names/entities: {0}"
 
-#: src/components/EmailAlertSignup.tsx:95
+#: src/components/EmailAlertSignup.tsx:96
 msgid "At this time we can only support {SUBSCRIPTION_LIMIT} buildings in each email. Please visit your <0>account</0> to manage the buildings in your email. If you would like to track more buildings, please let us know by submiting a <1>request form</1>."
 msgstr "At this time we can only support {SUBSCRIPTION_LIMIT} buildings in each email. Please visit your <0>account</0> to manage the buildings in your email. If you would like to track more buildings, please let us know by submiting a <1>request form</1>."
 
@@ -278,7 +278,7 @@ msgstr "Building Permits Applied For"
 msgid "Building Size"
 msgstr "Building Size"
 
-#: src/components/EmailAlertSignup.tsx:116
+#: src/components/EmailAlertSignup.tsx:117
 #: src/containers/AccountSettingsPage.tsx:46
 msgid "Building Updates"
 msgstr "Building Updates"
@@ -416,7 +416,7 @@ msgstr "Click the link we sent to your email to reset your password."
 msgid "Click the link we sent to your email to start receiving emails."
 msgstr "Click the link we sent to your email to start receiving emails."
 
-#: src/components/EmailAlertSignup.tsx:59
+#: src/components/EmailAlertSignup.tsx:60
 msgid "Click the link we sent to {0}. It may take a few minutes to arrive."
 msgstr "Click the link we sent to {0}. It may take a few minutes to arrive."
 
@@ -518,7 +518,7 @@ msgstr "Date"
 msgid "Demo Site"
 msgstr "Demo Site"
 
-#: src/components/EmailAlertSignup.tsx:62
+#: src/components/EmailAlertSignup.tsx:63
 #: src/components/Login.tsx:150
 #: src/components/UserSettingField.tsx:97
 msgid "Didn’t get the link?"
@@ -1169,7 +1169,7 @@ msgstr "Move chart data right."
 msgid "MyNYCHA App"
 msgstr "MyNYCHA App"
 
-#: src/components/EmailAlertSignup.tsx:114
+#: src/components/EmailAlertSignup.tsx:115
 msgid "NEW"
 msgstr "NEW"
 
@@ -1465,7 +1465,7 @@ msgstr "Registration expired:"
 msgid "Remove"
 msgstr "Remove"
 
-#: src/components/EmailAlertSignup.tsx:50
+#: src/components/EmailAlertSignup.tsx:51
 msgid "Remove building"
 msgstr "Remove building"
 
@@ -2094,7 +2094,7 @@ msgstr "Verify your email address"
 #~ msgid "Verify your email to start receiving updates"
 #~ msgstr "Verify your email to start receiving updates"
 
-#: src/components/EmailAlertSignup.tsx:57
+#: src/components/EmailAlertSignup.tsx:58
 msgid "Verify your email to start receiving updates."
 msgstr "Verify your email to start receiving updates."
 
@@ -2320,7 +2320,7 @@ msgstr "You are logged in"
 msgid "You are not subscribed to any buildings"
 msgstr "You are not subscribed to any buildings"
 
-#: src/components/EmailAlertSignup.tsx:90
+#: src/components/EmailAlertSignup.tsx:91
 msgid "You are now logged in and we’ve added this building to your updates"
 msgstr "You are now logged in and we’ve added this building to your updates"
 
@@ -2360,7 +2360,7 @@ msgstr "You are viewing a legacy version of Who Owns What"
 msgid "You can now start receiving Building Updates"
 msgstr "You can now start receiving Building Updates"
 
-#: src/components/EmailAlertSignup.tsx:94
+#: src/components/EmailAlertSignup.tsx:95
 msgid "You have reached the maximum number of Building Updates"
 msgstr "You have reached the maximum number of Building Updates"
 
@@ -2404,7 +2404,7 @@ msgstr "Your email is already verified"
 msgid "Your privacy is important to us. Read our <0>Privacy Policy</0> and <1>Terms of Service</1>."
 msgstr "Your privacy is important to us. Read our <0>Privacy Policy</0> and <1>Terms of Service</1>."
 
-#: src/components/EmailAlertSignup.tsx:45
+#: src/components/EmailAlertSignup.tsx:46
 msgid "You’re signed up for Building Updates for {0} {1}, {2}."
 msgstr "You’re signed up for Building Updates for {0} {1}, {2}."
 

@@ -162,7 +162,7 @@ msgstr ""
 msgid "Across owners and management staff, the most common {0, plural, one {name that appears in this portfolio is} other {names that appear in this portfolio are}} <0/>."
 msgstr "En todos los dueños y administradores, {0, plural, one {el nombre más común que aparece en esta cartera de edificios es} other {los nombres más comunes que aparecen en esta cartera de edificios son}} <0/>."
 
-#: src/components/EmailAlertSignup.tsx:71
+#: src/components/EmailAlertSignup.tsx:72
 msgid "Add to Building Updates"
 msgstr ""
 
@@ -244,7 +244,7 @@ msgstr "¿Tienes problemas en tu edificio?"
 msgid "Associated names/entities: {0}"
 msgstr "Nombres/entidades asociados: {0}"
 
-#: src/components/EmailAlertSignup.tsx:95
+#: src/components/EmailAlertSignup.tsx:96
 msgid "At this time we can only support {SUBSCRIPTION_LIMIT} buildings in each email. Please visit your <0>account</0> to manage the buildings in your email. If you would like to track more buildings, please let us know by submiting a <1>request form</1>."
 msgstr ""
 
@@ -283,7 +283,7 @@ msgstr "Permisos de Construcción Solicitados"
 msgid "Building Size"
 msgstr "Tamaño del Edificio"
 
-#: src/components/EmailAlertSignup.tsx:116
+#: src/components/EmailAlertSignup.tsx:117
 #: src/containers/AccountSettingsPage.tsx:46
 msgid "Building Updates"
 msgstr ""
@@ -421,7 +421,7 @@ msgstr ""
 msgid "Click the link we sent to your email to start receiving emails."
 msgstr ""
 
-#: src/components/EmailAlertSignup.tsx:59
+#: src/components/EmailAlertSignup.tsx:60
 msgid "Click the link we sent to {0}. It may take a few minutes to arrive."
 msgstr ""
 
@@ -523,7 +523,7 @@ msgstr "Fecha"
 msgid "Demo Site"
 msgstr "Sitio Demo"
 
-#: src/components/EmailAlertSignup.tsx:62
+#: src/components/EmailAlertSignup.tsx:63
 #: src/components/Login.tsx:150
 #: src/components/UserSettingField.tsx:97
 msgid "Didn’t get the link?"
@@ -1186,7 +1186,7 @@ msgstr "Mover datos del gráfico a la derecha."
 msgid "MyNYCHA App"
 msgstr "App MyNYCHA"
 
-#: src/components/EmailAlertSignup.tsx:114
+#: src/components/EmailAlertSignup.tsx:115
 msgid "NEW"
 msgstr ""
 
@@ -1482,7 +1482,7 @@ msgstr "El registro ha caducado:<<<<<<< HEAD======="
 msgid "Remove"
 msgstr ""
 
-#: src/components/EmailAlertSignup.tsx:50
+#: src/components/EmailAlertSignup.tsx:51
 msgid "Remove building"
 msgstr ""
 
@@ -2111,7 +2111,7 @@ msgstr ""
 #~ msgid "Verify your email to start receiving updates"
 #~ msgstr ""
 
-#: src/components/EmailAlertSignup.tsx:57
+#: src/components/EmailAlertSignup.tsx:58
 msgid "Verify your email to start receiving updates."
 msgstr ""
 
@@ -2337,7 +2337,7 @@ msgstr ""
 msgid "You are not subscribed to any buildings"
 msgstr ""
 
-#: src/components/EmailAlertSignup.tsx:90
+#: src/components/EmailAlertSignup.tsx:91
 msgid "You are now logged in and we’ve added this building to your updates"
 msgstr ""
 
@@ -2377,7 +2377,7 @@ msgstr ""
 msgid "You can now start receiving Building Updates"
 msgstr ""
 
-#: src/components/EmailAlertSignup.tsx:94
+#: src/components/EmailAlertSignup.tsx:95
 msgid "You have reached the maximum number of Building Updates"
 msgstr ""
 
@@ -2421,7 +2421,7 @@ msgstr ""
 msgid "Your privacy is important to us. Read our <0>Privacy Policy</0> and <1>Terms of Service</1>."
 msgstr ""
 
-#: src/components/EmailAlertSignup.tsx:45
+#: src/components/EmailAlertSignup.tsx:46
 msgid "You’re signed up for Building Updates for {0} {1}, {2}."
 msgstr ""
 
