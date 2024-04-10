@@ -47,7 +47,9 @@ const BuildingSubscribeWithoutI18n = (props: BuildingSubscribeProps) => {
   const { user, subscribe, unsubscribe } = userContext;
   const isLoggedIn = !!user?.email;
   const atSubscriptionLimit = isLoggedIn && user.subscriptions.length >= SUBSCRIPTION_LIMIT;
-  const isSubscribed = justSubscribed || !!user?.subscriptions?.find((s) => s.bbl === addr.bbl);
+  // avoid slower building lookup if possible to prevent flash of "add building" before "subscribed"
+  const showSubscribed =
+    (justSubscribed && !!user?.verified) || !!user?.subscriptions?.find((s) => s.bbl === addr.bbl);
 
   const [isEmailResent, setIsEmailResent] = React.useState(false);
   const [showSubscriptionLimitModal, setShowSubscriptionLimitModal] = useState(false);
@@ -57,7 +59,7 @@ const BuildingSubscribeWithoutI18n = (props: BuildingSubscribeProps) => {
     history.push({ pathname: loginRoute, state: { addr } });
   };
 
-  const showSubscribed = () => (
+  const renderSubscribed = () => (
     <>
       <div className="status-title">
         <SubscribedIcon />
@@ -79,7 +81,7 @@ const BuildingSubscribeWithoutI18n = (props: BuildingSubscribeProps) => {
     </>
   );
 
-  const showEmailVerification = () => (
+  const renderEmailVerification = () => (
     <>
       <Alert type="info">
         <Trans>Verify your email to start receiving updates.</Trans>
@@ -100,7 +102,7 @@ const BuildingSubscribeWithoutI18n = (props: BuildingSubscribeProps) => {
     subscribe(addr.bbl, addr.housenumber, addr.streetname, addr.zip ?? "", addr.boro);
   };
 
-  const showAddBuilding = () => {
+  const renderAddBuilding = () => {
     return (
       <>
         <Button
@@ -124,11 +126,11 @@ const BuildingSubscribeWithoutI18n = (props: BuildingSubscribeProps) => {
   return (
     <>
       <div className="building-subscribe">
-        {isSubscribed
-          ? showSubscribed()
-          : isLoggedIn && !user.verified
-          ? showEmailVerification()
-          : showAddBuilding()}
+        {isLoggedIn && !user.verified
+          ? renderEmailVerification()
+          : showSubscribed
+          ? renderSubscribed()
+          : renderAddBuilding()}
       </div>
       <div className="login-subscribe-alert-container">
         <CSSTransition
