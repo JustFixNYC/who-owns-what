@@ -149,7 +149,7 @@ export const UserContextProvider = ({ children }: { children: React.ReactNode })
       boro: string,
       _user?: JustfixUser
     ) => {
-      const currentUser = user || _user;
+      const currentUser = !!user?.email ? user : _user;
       if (currentUser) {
         const asyncSubscribe = async () => {
           const response = await AuthClient.buildingSubscribe(
