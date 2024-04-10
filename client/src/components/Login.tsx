@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Trans, t } from "@lingui/macro";
 import { withI18n, withI18nProps } from "@lingui/react";
 import { Link, useHistory, useLocation } from "react-router-dom";
@@ -38,7 +38,14 @@ const LoginWithoutI18n = (props: withI18nProps) => {
   const history = useHistory();
   const location = useLocation();
   const { pathname } = location;
-  const addr = location.state?.addr;
+
+  const { state: locationState } = location;
+  const [addr, setAddr] = React.useState<AddressRecord>();
+  // switch to regular state and clear location state since it othrwise persists after reloads
+  useEffect(() => {
+    setAddr(locationState?.addr);
+    window.history.replaceState({ state: undefined }, "");
+  }, [locationState]);
 
   const [step, setStep] = useState(Step.CheckEmail);
   const isCheckEmailStep = step === Step.CheckEmail;
@@ -83,11 +90,10 @@ const LoginWithoutI18n = (props: withI18nProps) => {
     return createRouteForAddressPage({ ...addr, locale: i18n.language }, isLegacy);
   };
 
-  const formatAddr = (addr: AddressRecord) => {
-    return (
-      !!addr &&
-      `${addr.housenumber} ${helpers.titleCase(addr.streetname)}, ${helpers.titleCase(addr.boro)}`
-    );
+  const formatAddr = (addr: AddressRecord, withBoro = true) => {
+    if (!addr) return;
+    const addrWithoutBoro = `${addr.housenumber} ${helpers.titleCase(addr.streetname)}`;
+    return withBoro ? `${addrWithoutBoro}, ${helpers.titleCase(addr.boro)}` : addrWithoutBoro;
   };
 
   const subscribeOnSuccess = (user: JustfixUser) => {
@@ -293,6 +299,7 @@ const LoginWithoutI18n = (props: withI18nProps) => {
     if (!!addr) {
       const redirectTo = { pathname: getAddrPageRoute(addr), state: { justSubscribed: true } };
       history.push(redirectTo);
+      return;
     }
 
     setStep(Step.LoginSuccess);
@@ -345,11 +352,10 @@ const LoginWithoutI18n = (props: withI18nProps) => {
   switch (step) {
     case Step.CheckEmail:
       headerText = i18n._(t`Log in / sign up`);
-      subHeaderText = (
-        <Trans>
-          Enter your email to get weekly updates on complaints, violations, and eviction filings for
-          {formatAddr(addr)}.
-        </Trans>
+      subHeaderText = !!addr ? (
+        <Trans>Use your account to get weekly updates on {formatAddr(addr, false)}.</Trans>
+      ) : (
+        <Trans>Use your account to save buildings and get weekly updates</Trans>
       );
       onSubmit = onEmailSubmit;
       submitButtonText = i18n._(t`Submit`);
@@ -357,7 +363,7 @@ const LoginWithoutI18n = (props: withI18nProps) => {
     case Step.Login:
       headerText = i18n._(t`Log in`);
       subHeaderText = !!addr ? (
-        <Trans>Log in to add {formatAddr(addr)} to your Building Updates</Trans>
+        <Trans>Log in to add {formatAddr(addr, false)} to your Building Updates</Trans>
       ) : undefined;
       onSubmit = onLoginSubmit;
       submitButtonText = i18n._(t`Log in`);

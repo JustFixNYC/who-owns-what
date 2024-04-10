@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { withI18n, withI18nProps } from "@lingui/react";
 import { Trans, t } from "@lingui/macro";
 import { useHistory, useLocation } from "react-router-dom";
@@ -33,20 +33,28 @@ const BuildingSubscribeWithoutI18n = (props: BuildingSubscribeProps) => {
   const { i18n, addr } = props;
   const { account } = createWhoOwnsWhatRoutePaths();
   const history = useHistory();
-  const location = useLocation();
 
-  const justSubscribed = location.state?.justSubscribed;
+  // avoid delay when adding/removing building
+  const [showSuccess, setShowSuccess] = React.useState(false);
+
+  const { state: locationState } = useLocation();
+  const [justSubscribed, setJustSubscribed] = React.useState(false);
+  // switch to regular state and clear location state since it othrwise persists after reloads
+  useEffect(() => {
+    setJustSubscribed(!!locationState?.justSubscribed);
+    setShowSuccess(!!locationState?.justSubscribed);
+    window.history.replaceState({ state: undefined }, "");
+  }, [locationState]);
+
+  // TODO: show temporary page level success alert if justSubscribed=true
 
   const userContext = useContext(UserContext);
   const { user, subscribe, unsubscribe } = userContext;
   const isLoggedIn = !!user?.email;
   const atSubscriptionLimit = isLoggedIn && user.subscriptions.length >= SUBSCRIPTION_LIMIT;
 
-  /**
-   * edge case: if repeatedly adding and removing building on first login,
-   * only the success case will show unless addViaLogin is made falsy.
-   */
-  const [showSuccess, setShowSuccess] = React.useState(true);
+  const isSubscribed = showSuccess || !!user?.subscriptions?.find((s) => s.bbl === addr.bbl);
+
   const [isEmailResent, setIsEmailResent] = React.useState(false);
   const [showSubscriptionLimitModal, setShowSubscriptionLimitModal] = useState(false);
 
@@ -72,6 +80,7 @@ const BuildingSubscribeWithoutI18n = (props: BuildingSubscribeProps) => {
         onClick={() => {
           unsubscribe(addr.bbl);
           setShowSuccess(false);
+          setJustSubscribed(false);
         }}
       />
     </>
@@ -94,6 +103,11 @@ const BuildingSubscribeWithoutI18n = (props: BuildingSubscribeProps) => {
     </>
   );
 
+  const subscribeToBuilding = (addr: AddressRecord) => {
+    setShowSuccess(true);
+    subscribe(addr.bbl, addr.housenumber, addr.streetname, addr.zip ?? "", addr.boro);
+  };
+
   const showAddBuilding = () => {
     return (
       <>
@@ -108,7 +122,7 @@ const BuildingSubscribeWithoutI18n = (props: BuildingSubscribeProps) => {
               ? navigateToLogin()
               : atSubscriptionLimit
               ? setShowSubscriptionLimitModal(true)
-              : subscribe(addr.bbl, addr.housenumber, addr.streetname, addr.zip ?? "", addr.boro);
+              : subscribeToBuilding(addr);
           }}
         />
       </>
@@ -118,11 +132,10 @@ const BuildingSubscribeWithoutI18n = (props: BuildingSubscribeProps) => {
   return (
     <>
       <div className="building-subscribe">
-        {isLoggedIn && !user.verified
-          ? showEmailVerification()
-          : (justSubscribed && showSuccess) ||
-            !!user?.subscriptions?.find((s) => s.bbl === addr.bbl)
+        {isSubscribed
           ? showSubscribed()
+          : isLoggedIn && !user.verified
+          ? showEmailVerification()
           : showAddBuilding()}
       </div>
       <Modal
