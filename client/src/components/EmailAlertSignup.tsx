@@ -105,6 +105,10 @@ const BuildingSubscribeWithoutI18n = (props: BuildingSubscribeProps) => {
   const renderAddBuilding = () => {
     return (
       <>
+        <Trans render="div" className="card-description">
+          Get a weekly email update on complaints, violations, and eviction filings for this
+          building.
+        </Trans>
         <Button
           variant="primary"
           size="small"
