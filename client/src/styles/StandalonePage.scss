@@ -124,6 +124,15 @@
 
       .address-page-link {
         text-align: left;
+        a {
+          color: $justfix-black;
+          svg {
+            rotate: 180deg;
+            margin-right: 10px;
+            height: 1em;
+            vertical-align: -0.125em;
+          }
+        }
       }
     }
 

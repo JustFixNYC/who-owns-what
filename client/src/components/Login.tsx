@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import { Trans, t } from "@lingui/macro";
 import { withI18n, withI18nProps } from "@lingui/react";
 import { Link, useHistory, useLocation } from "react-router-dom";
-import { Button, Link as JFCLLink } from "@justfixnyc/component-library";
+import { Button, IconLinkInternal, Link as JFCLLink } from "@justfixnyc/component-library";
 
 import "styles/UserTypeInput.css";
 import "styles/_input.scss";
@@ -20,7 +20,6 @@ import { createRouteForAddressPage, createWhoOwnsWhatRoutePaths } from "routes";
 import { AddressRecord } from "./APIDataTypes";
 import { isLegacyPath } from "./WowzaToggle";
 import { Nobr } from "./Nobr";
-import JFCLLinkInternal from "./JFCLLinkInternal";
 
 enum Step {
   CheckEmail,
@@ -239,8 +238,9 @@ const LoginWithoutI18n = (props: withI18nProps) => {
         <div className="address-page-link">
           <Link
             to={{ pathname: getAddrPageRoute(addr), state: { justSubscribed: true } }}
-            component={JFCLLinkInternal}
+            component={JFCLLink}
           >
+            <IconLinkInternal />
             Back to {formatAddr(addr)}
           </Link>
         </div>

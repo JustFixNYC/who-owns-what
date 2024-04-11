@@ -87,7 +87,7 @@ msgstr "<0>Renta estabilizada</0> protege a los inquilinos al limitar los aument
 #~ msgid "<0>Search an address</0> to sign up for email alerts for that building."
 #~ msgstr ""
 
-#: src/components/Login.tsx:163
+#: src/components/Login.tsx:164
 #: src/containers/UnsubscribePage.tsx:74
 msgid "<0>Search for an address</0> to add to Building Updates"
 msgstr ""
@@ -343,7 +343,7 @@ msgstr ""
 msgid "Check out the issues in this building"
 msgstr "Mira los problemas en este edificio"
 
-#: src/components/Login.tsx:271
+#: src/components/Login.tsx:272
 msgid "Check your email"
 msgstr ""
 
@@ -409,7 +409,7 @@ msgstr "Información de contacto del dueño más clara"
 msgid "Click here to learn more."
 msgstr "HaZ clic aquí para obtener más información."
 
-#: src/components/Login.tsx:272
+#: src/components/Login.tsx:273
 msgid "Click the link we sent to <0>{email}</0> to verify your email. It may take a few minutes to arrive. If you can't find it, check your spam and promotions folders for an email from <1>no-reply@justfix.org</1>."
 msgstr ""
 
@@ -587,7 +587,7 @@ msgstr ""
 msgid "Email"
 msgstr "Email"
 
-#: src/components/Login.tsx:290
+#: src/components/Login.tsx:291
 #: src/components/UserSettingField.tsx:100
 #: src/components/UserSettingField.tsx:105
 #: src/containers/ForgotPasswordPage.tsx:52
@@ -1045,19 +1045,19 @@ msgstr "Ubicación"
 
 #: src/components/Login.tsx:99
 #: src/components/Login.tsx:137
-#: src/components/Login.tsx:254
-#: src/components/Login.tsx:257
+#: src/components/Login.tsx:255
+#: src/components/Login.tsx:258
 #: src/containers/AccountSettingsPage.tsx:41
 #: src/containers/App.tsx:117
 msgid "Log in"
 msgstr ""
 
-#: src/components/Login.tsx:245
+#: src/components/Login.tsx:246
 #: src/containers/LoginPage.tsx:7
 msgid "Log in / sign up"
 msgstr ""
 
-#: src/components/Login.tsx:255
+#: src/components/Login.tsx:256
 msgid "Log in to add {0} to your Building Updates"
 msgstr ""
 
@@ -1239,7 +1239,7 @@ msgid "New password"
 msgstr ""
 
 #: src/components/FeatureCalloutWidget.tsx:81
-#: src/components/Login.tsx:262
+#: src/components/Login.tsx:263
 msgid "Next"
 msgstr "Siguiente"
 
@@ -1398,7 +1398,7 @@ msgstr "Página"
 #~ msgid "Page {0} of {1}"
 #~ msgstr "Page {0} of {1}"
 
-#: src/components/Login.tsx:291
+#: src/components/Login.tsx:292
 #: src/components/UserSettingField.tsx:52
 #: src/components/UserSettingField.tsx:57
 msgid "Password"
@@ -1708,8 +1708,8 @@ msgstr "Mostrar {0} {1, plural, one {resultado} other {resultados}}"
 msgid "Sign up"
 msgstr "Regístrate"
 
-#: src/components/Login.tsx:260
-#: src/components/Login.tsx:265
+#: src/components/Login.tsx:261
+#: src/components/Login.tsx:266
 msgid "Sign up for Building Updates"
 msgstr ""
 
@@ -1790,7 +1790,7 @@ msgstr "Código fuente"
 msgid "Starts {year}"
 msgstr "Comienza {year}"
 
-#: src/components/Login.tsx:251
+#: src/components/Login.tsx:252
 msgid "Submit"
 msgstr ""
 
@@ -2086,7 +2086,7 @@ msgstr "Utilice esta herramienta gratuita de JustFix para investigar tu edificio
 #~ msgid "Use your account to get weekly email updates on the buildings you choose"
 #~ msgstr ""
 
-#: src/components/Login.tsx:246
+#: src/components/Login.tsx:247
 msgid "Use your account to get weekly email updates on {0}."
 msgstr ""
 
@@ -2285,7 +2285,7 @@ msgstr "¿Cuál es la diferencia entre un dueño, un propietario y oficial princ
 msgid "When two parties share the same business address, we group them as part of the same portfolio."
 msgstr "Cuando dos partes comparten la misma dirección comercial, los agrupamos como parte del mismo portafolio."
 
-#: src/components/Login.tsx:266
+#: src/components/Login.tsx:267
 msgid "Which best describes you?"
 msgstr ""
 
@@ -2345,7 +2345,7 @@ msgstr "Año de construcción"
 msgid "Yes"
 msgstr "Sí"
 
-#: src/components/Login.tsx:162
+#: src/components/Login.tsx:163
 msgid "You are logged in"
 msgstr ""
 
