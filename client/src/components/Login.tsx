@@ -20,6 +20,7 @@ import { createRouteForAddressPage, createWhoOwnsWhatRoutePaths } from "routes";
 import { AddressRecord } from "./APIDataTypes";
 import { isLegacyPath } from "./WowzaToggle";
 import { Nobr } from "./Nobr";
+import JFCLLinkInternal from "./JFCLLinkInternal";
 
 enum Step {
   CheckEmail,
@@ -238,7 +239,7 @@ const LoginWithoutI18n = (props: withI18nProps) => {
         <div className="address-page-link">
           <Link
             to={{ pathname: getAddrPageRoute(addr), state: { justSubscribed: true } }}
-            component={JFCLLink}
+            component={JFCLLinkInternal}
           >
             Back to {formatAddr(addr)}
           </Link>

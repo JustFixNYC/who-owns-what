@@ -158,8 +158,12 @@ msgid "Across owners and management staff, the most common {0, plural, one {name
 msgstr "Across owners and management staff, the most common {0, plural, one {name that appears in this portfolio is} other {names that appear in this portfolio are}} <0/>."
 
 #: src/components/EmailAlertSignup.tsx:76
-msgid "Add to Building Updates"
-msgstr "Add to Building Updates"
+msgid "Add building"
+msgstr "Add building"
+
+#: src/components/EmailAlertSignup.tsx:76
+#~ msgid "Add to Building Updates"
+#~ msgstr "Add to Building Updates"
 
 #: src/components/PropertiesSummary.tsx:130
 msgid "Additional links"

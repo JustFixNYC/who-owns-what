@@ -163,8 +163,12 @@ msgid "Across owners and management staff, the most common {0, plural, one {name
 msgstr "En todos los dueños y administradores, {0, plural, one {el nombre más común que aparece en esta cartera de edificios es} other {los nombres más comunes que aparecen en esta cartera de edificios son}} <0/>."
 
 #: src/components/EmailAlertSignup.tsx:76
-msgid "Add to Building Updates"
+msgid "Add building"
 msgstr ""
+
+#: src/components/EmailAlertSignup.tsx:76
+#~ msgid "Add to Building Updates"
+#~ msgstr ""
 
 #: src/components/PropertiesSummary.tsx:130
 msgid "Additional links"

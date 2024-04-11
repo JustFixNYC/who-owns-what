@@ -105,15 +105,17 @@ const BuildingSubscribeWithoutI18n = (props: BuildingSubscribeProps) => {
   const renderAddBuilding = () => {
     return (
       <>
-        <Trans render="div" className="card-description">
-          Get a weekly email update on complaints, violations, and eviction filings for this
-          building.
-        </Trans>
+        {!isLoggedIn && (
+          <Trans render="div" className="card-description">
+            Get a weekly email update on complaints, violations, and eviction filings for this
+            building.
+          </Trans>
+        )}
         <Button
           variant="primary"
           size="small"
           className="is-full-width"
-          labelText={i18n._(t`Add to Building Updates`)}
+          labelText={i18n._(t`Add building`)}
           labelIcon={AddIcon}
           onClick={() => {
             !isLoggedIn
