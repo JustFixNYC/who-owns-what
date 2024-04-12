@@ -104,7 +104,10 @@ def auth_check(request):
 @api
 def verify_email(request):
     try:
-        post_data = {"code": request.GET.get("code")}
+        post_data = {
+            "code": request.GET.get("code"),
+            "origin": request.headers["Origin"],
+        }
         return auth_server_request(
             "POST",
             "user/verify_email/",
