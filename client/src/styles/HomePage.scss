@@ -2,7 +2,7 @@
 
 .HomePage {
   .HomePage__banner {
-    padding: 1rem 1.5rem;
+    padding: 0.63rem 0.94rem;
 
     b {
       color: $dark;
@@ -44,7 +44,7 @@
     flex-grow: 1;
 
     h1 {
-      font-size: 2rem;
+      font-size: 1.25rem;
     }
 
     @include for-tablet-portrait-up() {
@@ -71,57 +71,58 @@
 
       h1 {
         text-align: left;
-        font-size: 3.6rem;
+        font-size: 2.25rem;
         font-weight: 600;
       }
       h2 {
-        font-size: 1.6rem;
-        margin-bottom: 1.2rem;
+        font-size: 1rem;
+        margin-bottom: 0.75rem;
       }
 
       label {
-        margin-left: 0.7rem;
+        margin-left: 0.44rem;
       }
 
       i.form-icon {
         transform: scale(1.5);
         background: transparent;
         border-color: $wowza-dark;
-        margin-left: -0.2rem;
+        margin-left: -0.13rem;
 
         &::before {
           background: $wowza-dark;
-          border-radius: 1rem;
+          border-radius: 0.63rem;
           transform: scale(2);
         }
       }
 
       .chip {
-        border-radius: 1.5rem;
-        height: 1.8rem;
-        padding: 0 1.1rem;
-        margin-left: 0.6rem;
-        box-shadow: 0 0 0.4rem $wowza-dark;
+        border-radius: 0.94rem;
+        height: 1.13rem;
+        padding: 0 0.69rem;
+        margin-left: 0.37rem;
+        box-shadow: 0 0 0.25rem $wowza-dark;
         transform: rotate(-12deg);
         background-color: $wowza-dark;
         color: $wowza-background;
         text-transform: uppercase;
-        font-size: 1.2rem;
+        font-size: 0.75rem;
       }
 
       .AddressSearch,
       .LandlordSearch {
-        margin-top: 1.5rem;
-        margin-bottom: 1.5rem;
+        margin-top: 0.94rem;
+        margin-bottom: 0.94rem;
         input.form-input {
           background: inherit;
           color: $wowza-dark;
-          border-radius: 0.5rem;
-          height: 4.5rem;
+          border-radius: 0.31rem;
+          height: 2.81rem;
           border: 1px solid $wowza-dark;
 
           &:focus {
-            box-shadow: 0 0 0 0.2rem $dark;
+            border: 2px $justfix-black solid;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
           }
 
           &::placeholder {
@@ -142,7 +143,7 @@
 
     .HomePage__sample {
       border: 1px dashed $gray;
-      padding: 10px;
+      padding: 24px;
 
       h6 {
         font-weight: bold;
@@ -158,6 +159,10 @@
         }
       }
     }
+
+    .portfolio-link {
+      margin-top: 1.5rem;
+    }
   }
 }
 
@@ -166,7 +171,7 @@
 .wowza-styling .HomePage {
   background: $wowza-background;
   color: $wowza-dark;
-  a:not(.btn-justfix):not(.algolia__item),
+  a:not(.btn-justfix):not(.jfcl-link):not(.algolia__item),
   h6 a,
   .HomePage__samples .HomePage__sample,
   .HomePage__samples .HomePage__sample h6 a,

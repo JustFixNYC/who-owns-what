@@ -1,9 +1,10 @@
 import React from "react";
-import { Trans } from "@lingui/macro";
 import { CSVDownloader } from "react-papaparse";
 import { AddressRecord, HpdComplaintCount, HpdFullContact, HpdOwnerContact } from "./APIDataTypes";
 import helpers from "util/helpers";
 import { logAmplitudeEvent } from "./Amplitude";
+import { Button } from "@justfixnyc/component-library";
+import { i18n } from "@lingui/core";
 
 export const formatOwnerNames = (names: HpdOwnerContact[] | null) => {
   return names ? names.map(({ title, value }) => `${value} (${title})`).join(", ") : "";
@@ -43,16 +44,20 @@ const ExportDataButton: React.FC<{ data: AddressRecord[] }> = ({ data }) => {
   });
 
   return (
-    <CSVDownloader data={formattedData} filename="who_owns_what_export">
-      <button
-        className="btn centered"
+    <CSVDownloader
+      data={formattedData}
+      filename="who_owns_what_export"
+      className="flex-centered download-btn-link"
+    >
+      <Button
         onClick={() => {
           logAmplitudeEvent("downloadPortfolioData");
           window.gtag("event", "download-portfolio-data");
         }}
-      >
-        <Trans>Download</Trans>
-      </button>
+        labelText={i18n._("Download")}
+        variant="secondary"
+        size="small"
+      />
     </CSVDownloader>
   );
 };

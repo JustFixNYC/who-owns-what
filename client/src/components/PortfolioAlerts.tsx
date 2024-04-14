@@ -1,23 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { Trans } from "@lingui/macro";
 import classNames from "classnames";
-import { Link, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import networkDiagram from "../assets/img/network-diagram.png";
-import { AddressPageRoutes } from "../routes";
 import { Alert, AlertProps } from "./Alert";
 import { logAmplitudeEvent } from "./Amplitude";
 import Modal from "./Modal";
 import { isLegacyPath } from "./WowzaToggle";
 
 export const BIG_PORTFOLIO_THRESHOLD = 300;
-export const FILTER_PORTFOLIO_THRESHOLD = 15;
 
 type PortfolioAlertProps = Omit<AlertProps, "children"> & {
   portfolioSize: number;
-};
-
-type FilterPortfolioAlertProps = PortfolioAlertProps & {
-  addressPageRoutes: AddressPageRoutes;
 };
 
 export const BigPortfolioAlert = ({ portfolioSize, className, ...props }: PortfolioAlertProps) => {
@@ -83,39 +77,6 @@ export const BigPortfolioAlert = ({ portfolioSize, className, ...props }: Portfo
           </p>
         </Modal>
       </>
-    </Alert>
-  ) : (
-    <></>
-  );
-};
-
-export const FilterPortfolioAlert = ({
-  portfolioSize,
-  className,
-  addressPageRoutes,
-  ...props
-}: FilterPortfolioAlertProps) => {
-  const { pathname } = useLocation();
-
-  return !isLegacyPath(pathname) && portfolioSize >= FILTER_PORTFOLIO_THRESHOLD ? (
-    <Alert
-      className={classNames("big-portfolio-alert", className)}
-      variant="secondary"
-      type="info"
-      {...props}
-    >
-      <Trans>
-        Narrow down this portfolio using filters in{" "}
-        <Link
-          to={addressPageRoutes.portfolio}
-          onClick={() => {
-            logAmplitudeEvent("alertToFilterPortfolio", { portfolioSize });
-            window.gtag("event", "alert-to-filter-portfolio", { portfolioSize });
-          }}
-        >
-          the Portfolio tab.
-        </Link>
-      </Trans>
     </Alert>
   ) : (
     <></>

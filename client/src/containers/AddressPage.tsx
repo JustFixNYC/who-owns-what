@@ -13,6 +13,7 @@ import NychaPage from "./NychaPage";
 import NotRegisteredPage from "./NotRegisteredPage";
 import { Trans, Plural } from "@lingui/macro";
 import { Link, RouteComponentProps } from "react-router-dom";
+import _find from "lodash/find";
 import Page from "../components/Page";
 import { SearchResults, Borough } from "../components/APIDataTypes";
 import { SearchAddress } from "../components/AddressSearch";
@@ -20,9 +21,10 @@ import { withMachineProps } from "state-machine";
 import { AddrNotFoundPage } from "./NotFoundPage";
 import { searchAddrsAreEqual } from "util/helpers";
 import { NetworkErrorMessage } from "components/NetworkErrorMessage";
-import { removeIndicatorSuffix, createAddressPageRoutes } from "routes";
+import { removeIndicatorSuffix, createAddressPageRoutes, createRouteForAddressPage } from "routes";
 import { isLegacyPath } from "../components/WowzaToggle";
 import { logAmplitudeEvent } from "components/Amplitude";
+import { localeFromRouter } from "i18n";
 
 type RouteParams = {
   locale?: string;
@@ -91,7 +93,7 @@ export default class AddressPage extends Component<AddressPageProps, State> {
       address: validateRouteParams(match.params),
       useNewPortfolioMethod: this.props.useNewPortfolioMethod || false,
     });
-    /* When searching for user's address, let's reset the DetailView to the "closed" state 
+    /* When searching for user's address, let's reset the DetailView to the "closed" state
     so it can pop into view once the address is found */
     this.handleCloseDetail();
   }
@@ -115,13 +117,24 @@ export default class AddressPage extends Component<AddressPageProps, State> {
     });
   };
 
+  setAddrUrl = (bbl: string) => {
+    const addr = _find(this.props.state.context.portfolioData?.assocAddrs, { bbl });
+    if (!addr) return;
+    const locale = localeFromRouter(this.props);
+    const isLegacy = isLegacyPath(this.props.location.pathname);
+    const addrRoute = createRouteForAddressPage({ ...addr, locale }, isLegacy);
+    this.props.history.replace(addrRoute);
+  };
+
   handleAddrChange = (newFocusBbl: string) => {
     if (!this.props.state.matches("portfolioFound")) {
       throw new Error("A change of detail address was attempted without any portfolio data found.");
     }
     const detailBbl = this.props.state.context.portfolioData.detailAddr.bbl;
-    if (newFocusBbl !== detailBbl)
+    if (newFocusBbl !== detailBbl) {
       this.props.send({ type: "SELECT_DETAIL_ADDR", bbl: newFocusBbl });
+      this.setAddrUrl(newFocusBbl);
+    }
     this.handleOpenDetail();
   };
 

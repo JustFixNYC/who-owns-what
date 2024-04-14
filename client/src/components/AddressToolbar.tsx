@@ -12,6 +12,8 @@ import ExportDataButton from "./ExportData";
 import { useLocation } from "react-router-dom";
 import { createWhoOwnsWhatRoutePaths } from "routes";
 import { logAmplitudeEvent } from "./Amplitude";
+import { Button, Link as JFCLLink } from "@justfixnyc/component-library";
+import { i18n } from "@lingui/core";
 
 export type AddressToolbarProps = {
   searchAddr: SearchAddress;
@@ -28,25 +30,25 @@ const AddressToolbar: React.FC<AddressToolbarProps> = ({ searchAddr, assocAddrs 
     <div className="AddressToolbar">
       <div className="btn-group">
         <Link
-          className="btn"
           onClick={() => {
             logAmplitudeEvent("newSearch");
             window.gtag("event", "new-search");
           }}
           to={isLegacyPath(pathname) ? legacy.home : home}
+          component={JFCLLink}
         >
           <Trans>New Search</Trans>
         </Link>
-        <button
-          className="btn"
+        <Button
+          labelText={i18n._("Export Data")}
+          variant="secondary"
+          size="small"
           onClick={() => {
             setExportModalVisibility(true);
             logAmplitudeEvent("clickExportData");
             window.gtag("event", "click-export-data");
           }}
-        >
-          <Trans>Export Data</Trans>
-        </button>
+        />
       </div>
       <Modal showModal={showExportModal} onClose={() => setExportModalVisibility(false)}>
         <Trans render="p">

@@ -56,11 +56,11 @@ $table-border-dark: 1px solid $dark;
     position: relative;
 
     th[class^="col-Evictions"] div {
-      min-width: 15rem;
+      min-width: 9.38rem;
     }
 
     tr {
-      padding: 0rem 0.5rem;
+      padding: 0rem 0.31rem;
     }
 
     table {
@@ -79,7 +79,7 @@ $table-border-dark: 1px solid $dark;
       .arrow-icon {
         cursor: pointer;
         display: inline-block;
-        margin-left: 0.5rem;
+        margin-left: 0.31rem;
         .arrow-2 {
           // This small adjustment aligns second arrow in icon with first
           transform: translateY(0.5px);
@@ -166,9 +166,9 @@ $table-border-dark: 1px solid $dark;
           }
 
           .contacts-expand {
-            border-radius: 5rem;
-            padding: 0.1rem 0.4rem;
-            margin-left: 0.5rem;
+            border-radius: 3.13rem;
+            padding: 0.06rem 0.25rem;
+            margin-left: 0.31rem;
             color: $justfix-grey-700;
             border: 1px solid $justfix-grey-700;
           }
@@ -176,9 +176,9 @@ $table-border-dark: 1px solid $dark;
             text-align: left;
             position: relative;
             list-style-type: none;
-            left: 130.5rem;
+            left: 81.56rem;
             &.lang-es {
-              left: 152.5rem;
+              left: 95.31rem;
             }
           }
         }
@@ -186,11 +186,11 @@ $table-border-dark: 1px solid $dark;
         td {
           &.col-address {
             text-align: left;
-            padding: 0.75rem;
+            padding: 0.47rem;
           }
           &.col-ownernames {
             text-align: left;
-            padding: 0 0.5rem;
+            padding: 0 0.31rem;
             .col-ownernames-last-word {
               white-space: nowrap;
             }
@@ -211,26 +211,26 @@ $table-border-dark: 1px solid $dark;
     display: flex;
     align-items: center;
     flex-wrap: wrap;
-    padding: 1.4rem 1.7rem;
+    padding: 0.87rem 1.06rem;
     background-color: $justfix-white;
-    border-top: 0.1rem solid $gray-light;
+    border-top: 1px solid $gray-light;
     text-align: center;
     margin: 0;
 
     .page-size {
       select {
-        padding: 0.45rem 2.7rem 0.45rem 0.9rem;
+        padding: 0.28rem 1.69rem 0.28rem 0.56rem;
         color: $justfix-black;
         cursor: pointer;
         appearance: none;
         // custom arrow, same as chevronIcon
         background-image: url("data:image/svg+xml,%3Csvg width='11' height='7' viewBox='0 0 11 7' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M9.5 1L5.25 5.25L1 1' stroke='%23242323' stroke-width='2'/%3E%3C/svg%3E%0A");
         background-repeat: no-repeat;
-        background-position: right 0.9rem top 50%;
-        background-size: 0.8rem auto;
+        background-position: right 0.56rem top 50%;
+        background-size: 0.5rem auto;
         &:focus,
         &:focus-visible {
-          outline: 0.2rem solid $focus-outline-color;
+          outline: 0.13rem solid $focus-outline-color;
         }
       }
     }
@@ -238,52 +238,25 @@ $table-border-dark: 1px solid $dark;
     .page-info {
       display: flex;
       justify-content: end;
-      font-size: 1.2rem;
+      font-size: 0.75rem;
       flex: 1;
-      margin-right: 3.2rem;
+      margin-right: 2rem;
       @include for-phone-only {
-        margin-right: 1.6rem;
+        margin-right: 1rem;
       }
     }
 
-    .next,
     .prev {
-      .page-btn {
-        color: $justfix-black;
-        width: 4.8rem;
-        height: 4.8rem;
-        border-radius: 4rem;
+      margin-right: 1rem; // $JF_SPACING_05
 
-        .chevronIcon {
-          height: 1.2rem;
-          stroke-width: 2px;
-          &.left {
-            transform: rotate(90deg);
-          }
-          &.right {
-            transform: rotate(-90deg);
-          }
-        }
-
-        &[disabled] {
-          color: $justfix-grey-400;
-          cursor: default;
-        }
-        &:not([disabled]) {
-          &:hover,
-          &:active,
-          &:focus,
-          &:focus-visible {
-            background-color: $justfix-white-200;
-          }
-        }
+      .jfcl-button__icon {
+        transform: rotate(90deg);
       }
     }
-    .prev .page-btn .chevronIcon {
-      transform: rotate(90deg);
-    }
-    .next .page-btn .chevronIcon {
-      transform: rotate(-90deg);
+    .next {
+      .jfcl-button__icon {
+        transform: rotate(-90deg);
+      }
     }
 
     select {

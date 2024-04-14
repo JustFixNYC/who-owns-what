@@ -1,0 +1,63 @@
+@import "_vars.scss";
+
+.UnsubscribePage {
+  div.page-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-grow: 1;
+    margin-top: 4rem;
+
+    @include for-phone-only() {
+      margin: 1.5rem 1rem;
+    }
+  }
+
+  h1,
+  h2 {
+    margin: 0;
+    align-self: start;
+    &,
+    a {
+      font-weight: 500;
+    }
+  }
+
+  h1 {
+    font-size: 1.5rem;
+  }
+
+  h2 {
+    &,
+    a {
+      font-size: 0.875rem;
+    }
+  }
+
+  h1 + h2 {
+    margin-top: 1rem;
+  }
+
+  .jfcl-button.jfcl-variant-primary {
+    align-self: start;
+    margin-top: 1.5rem;
+  }
+
+  .subscriptions-container {
+    width: 100%;
+    margin-top: 3rem;
+  }
+
+  p.settings-section {
+    margin-bottom: 2rem;
+  }
+
+  .wow-footer {
+    margin-top: auto;
+    text-align: center;
+    &,
+    a {
+      font-size: 0.875rem;
+    }
+  }
+}

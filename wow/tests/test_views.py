@@ -3,6 +3,7 @@ from typing import Any, Dict, List
 from io import StringIO
 from django.urls import path
 from django.test import Client
+from django.conf import settings
 import pytest
 
 from wow.apiutil import api
@@ -25,13 +26,16 @@ urlpatterns = [
 ]
 
 
+AUTH_ARG = {"HTTP_AUTHORIZATION": f"Token {settings.ALERTS_API_TOKEN}"}
+
+
 class ApiTest:
     HTTP_400_URLS: List[str] = []
 
     def test_400s_work(self, db, client):
         assert self.HTTP_400_URLS, "No HTTP 400 examples to test!"
         for url in self.HTTP_400_URLS:
-            res = client.get(url)
+            res = client.get(url, **AUTH_ARG)
             assert res.status_code == 400, f"{url} should return HTTP 400"
             assert res.json()["error"] == "Bad request"
             assert "Access-Control-Allow-Origin" in res
@@ -132,6 +136,114 @@ class TestAddressLatestDeed(ApiTest):
         res = client.get("/api/address/latestdeed?bbl=3012380016")
         assert res.status_code == 200
         assert res.json()["result"] is not None
+
+
+class TestAlertsViolations(ApiTest):
+    HTTP_400_URLS = [
+        "/api/alerts/violations",
+        "/api/alerts/violations?bbl=bop",
+        "/api/alerts/violations?bbl=3012380016&start_date=2024-01-01",
+        "/api/alerts/violations?bbl=3012380016&start_date=2024-01-01&end_date=01-07-2024",
+    ]
+
+    def test_it_works(self, db, client):
+        res = client.get(
+            "/api/alerts/violations?bbl=3012380016&start_date=2024-01-01&end_date=2024-01-07"
+        )
+        assert res.status_code == 200
+        assert res.json()["result"] is not None
+
+
+class TestAlertsOcaLaggedFilings(ApiTest):
+    HTTP_400_URLS = [
+        "/api/email_oca_lag",
+        "/api/email_oca_lag?bbl=bop",
+        "/api/email_oca_lag?bbl=3012380016",
+        "/api/email_oca_lag?bbl=3012380016&prev_date=01-07-2024",
+    ]
+
+    def test_it_works(self, db, client):
+        res = client.get(
+            "/api/email_oca_lag?bbl=3012380016&prev_date=2024-01-07", **AUTH_ARG
+        )
+        assert res.status_code == 200
+        assert res.json()["result"] is not None
+
+    def test_auth_works(self, db, client):
+        res = client.get("/api/email_oca_lag?bbl=3012380016&prev_date=2024-01-07")
+        assert res.status_code == 401
+
+
+class TestAlertsSingleIndicator(ApiTest):
+    HTTP_400_URLS = [
+        "/api/email_alerts",
+        "/api/email_alerts?bbl=bop",
+        "/api/email_alerts?bbl=3012380016&indicator=lagged_eviction_filings",
+        "/api/email_alerts?bbl=3012380016&indicator=violations&start_date=2024-01-01",
+        "/api/email_alerts?bbl=3012380016&indicator=complaints&end_date=2024-01-01",
+        "/api/email_alerts?bbl=3012380016&indicator=eviction_filings&end_date=2024-01-01",
+    ]
+
+    def test_it_works(self, db, client):
+        url_bbl_base = "/api/email_alerts?bbl=3012380016"
+        urls = [
+            f"{url_bbl_base}&indicator=lagged_eviction_filings&prev_date=2024-01-07",
+            f"{url_bbl_base}&indicator=violations&start_date=2024-01-01&end_date=2024-01-07",
+            f"{url_bbl_base}&indicator=complaints&start_date=2024-01-01&end_date=2024-01-07",
+            f"{url_bbl_base}&indicator=eviction_filings&start_date=2024-01-01&end_date=2024-01-07",
+        ]
+        for url in urls:
+            res = client.get(url, **AUTH_ARG)
+            assert res.status_code == 200
+            assert res.json()["result"] is not None
+
+    def test_auth_works(self, db, client):
+        res = client.get(
+            "/api/email_alerts?bbl=3012380016&indicator=lagged_eviction_filings \
+                &prev_date=2024-01-07"
+        )
+        assert res.status_code == 401
+
+
+class TestAlertsMultiIndicator(ApiTest):
+    HTTP_400_URLS = [
+        "/api/email_alerts_multi",
+        "/api/email_alerts_multi?bbl=bop",
+        "/api/email_alerts_multi?bbl=3012380016&indicators=bop",
+        "/api/email_alerts_multi?bbl=3012380016&indicators=violations,lagged_eviction_filings \
+            &start_date=2024-01-01&end_date=2024-01-01",
+        "/api/email_alerts_multi?bbl=3012380016&indicators=violations,complaints \
+            &prev_date=2024-01-01",
+    ]
+
+    def test_it_works(self, db, client):
+        url_bbl_base = "/api/email_alerts_multi?bbl=3012380016"
+        start_date = "start_date=2024-01-01"
+        end_date = "end_date=2024-01-07"
+        urls = [
+            f"{url_bbl_base}&indicators=lagged_eviction_filings&prev_date=2024-01-07",
+            f"{url_bbl_base}&indicators=violations&{start_date}&{end_date}",
+            f"{url_bbl_base}&indicators=complaints&{start_date}&{end_date}",
+            f"{url_bbl_base}&indicators=eviction_filings&{start_date}&{end_date}",
+            f"{url_bbl_base}&indicators=hpd_link",
+            f"{url_bbl_base}&indicators=violations,complaints,eviction_filings \
+                &{start_date}&{end_date}",
+            f"{url_bbl_base}&indicators= \
+                violations,complaints,eviction_filings,lagged_eviction_filings,hpd_link \
+                &{start_date}&{end_date}&prev_date=2024-01-01",
+        ]
+        for url in urls:
+            res = client.get(url, **AUTH_ARG)
+            print(res.json())
+            assert res.status_code == 200
+            assert res.json()["result"] is not None
+
+    def test_auth_works(self, db, client):
+        res = client.get(
+            "/api/email_alerts_multi?bbl=3012380016&indicator=lagged_eviction_filings \
+                &prev_date=2024-01-07"
+        )
+        assert res.status_code == 401
 
 
 class TestAddressExport(ApiTest):

@@ -1,0 +1,58 @@
+@import "_vars.scss";
+@import "_typography.scss";
+
+.email-input-field {
+  .email-input-label {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    label {
+      @include wow-body-standard;
+      text-align: left;
+    }
+
+    a {
+      color: $justfix-black;
+      font-size: 0.8125rem;
+    }
+  }
+
+  .email-input {
+    display: flex;
+
+    input {
+      flex: 1;
+      font-size: 1rem; // below 16px zooms on mobile
+
+      &:focus {
+        border: 2px $justfix-black solid;
+        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+      }
+
+      &.invalid {
+        border-color: $justfix-orange;
+      }
+
+      &.invalid:focus {
+        border-color: $justfix-black;
+      }
+    }
+  }
+
+  .email-input-errors {
+    display: flex;
+    flex-direction: column;
+
+    span {
+      display: flex;
+      font-size: 0.8125rem;
+      color: #ba4300;
+
+      svg {
+        height: 0.875rem;
+        width: 0.875rem;
+      }
+    }
+  }
+}

@@ -4,7 +4,7 @@
 module "react-social" {
   type BaseProps = {
     onClick: () => void;
-    className: string;
+    className?: string;
     /**
      * For EmailButton components, this prop becomes the BODY of the email itself,
      * so it can be just a url or a larger string of text.
@@ -15,6 +15,7 @@ module "react-social" {
      * For EmailButton components, this prop becomes the SUBJECT of the email.
      */
     message?: string;
+    element?: function;
   };
 
   const FacebookButton: React.FC<{ appId: string; sharer: boolean } & BaseProps>;

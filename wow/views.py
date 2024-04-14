@@ -8,7 +8,14 @@ from .dbutil import call_db_func, exec_db_query, exec_sql
 from .datautil import int_or_none, float_or_none
 from . import csvutil, apiutil
 from .apiutil import api, get_validated_form_data, authorize_for_alerts
-from .forms import PaddedBBLForm, SeparatedBBLForm, EmailAlertForm
+from .forms import (
+    EmailAlertLaggedEvictionFilingsForm,
+    EmailAlertMultiIndicatorForm,
+    EmailAlertSingleIndicatorForm,
+    EmailAlertViolationsForm,
+    PaddedBBLForm,
+    SeparatedBBLForm,
+)
 
 
 MY_DIR = Path(__file__).parent.resolve()
@@ -195,10 +202,6 @@ def address_latestdeed(request):
     return JsonResponse({"result": list(result)})
 
 
-def get_alert_params_from_request(request) -> dict:
-    return get_validated_form_data(EmailAlertForm, request.GET)
-
-
 @api
 def alerts_violations(request):
     """
@@ -206,7 +209,7 @@ def alerts_violations(request):
     and end_date (yyyy-mm-dd), and responds with the number of HPD violations
     that the property recieved within that time period.
     """
-    args = get_alert_params_from_request(request)
+    args = get_validated_form_data(EmailAlertViolationsForm, request.GET)
     query_params = {
         "bbl": args["bbl"],
         "start_date": args["start_date"],
@@ -220,6 +223,7 @@ def alerts_violations(request):
     return JsonResponse({"result": list(result)})
 
 
+@api
 def email_alerts_lagged_eviction_filings(request):
     """
     This API endpoint receives requests with a 10-digit BBL and prev_date
@@ -228,7 +232,7 @@ def email_alerts_lagged_eviction_filings(request):
     have only appeared in the database after that date (ie. lagged filings).
     """
     authorize_for_alerts(request)
-    args = get_alert_params_from_request(request)
+    args = get_validated_form_data(EmailAlertLaggedEvictionFilingsForm, request.GET)
     query_params = {
         "bbl": args["bbl"],
         "prev_date": args["prev_date"],
@@ -244,7 +248,17 @@ ALERTS_QUERIES = {
     "complaints": SQL_DIR / "alerts_complaints.sql",
     "eviction_filings": SQL_DIR / "alerts_eviction_filings.sql",
     "lagged_eviction_filings": SQL_DIR / "alerts_lagged_eviction_filings.sql",
+    "hpd_link": SQL_DIR / "alerts_hpd_link.sql",
 }
+
+
+def combine_alert_subqueries(indicators):
+    cte_subqueries = [f"{i} as ( {ALERTS_QUERIES[i].read_text()} )" for i in indicators]
+    return f"""
+    with {",".join(cte_subqueries)}
+    select *
+    from {','.join(indicators)}
+    """
 
 
 @api
@@ -254,12 +268,14 @@ def email_alerts(request):
     and end_date (yyyy-mm-dd), and an indicator name. It responds with the
     value for that indicator for the property over the time period.
     """
-    args = get_alert_params_from_request(request)
+    authorize_for_alerts(request)
+    args = get_validated_form_data(EmailAlertSingleIndicatorForm, request.GET)
     sql_file = ALERTS_QUERIES[args["indicator"]]
     query_params = {
         "bbl": args["bbl"],
         "start_date": args["start_date"],
         "end_date": args["end_date"],
+        "prev_date": args["prev_date"],
     }
     result = exec_db_query(sql_file, query_params)
     result[0].update(query_params)
@@ -275,7 +291,7 @@ def email_alerts_multi(request):
     property over the time period.
     """
     authorize_for_alerts(request)
-    args = get_alert_params_from_request(request)
+    args = get_validated_form_data(EmailAlertMultiIndicatorForm, request.GET)
     query_params = {
         "bbl": args["bbl"],
         "start_date": args["start_date"],
@@ -286,15 +302,6 @@ def email_alerts_multi(request):
     result = exec_sql(sql_query, query_params)
     result[0].update(query_params)
     return JsonResponse({"result": list(result)})
-
-
-def combine_alert_subqueries(indicators):
-    cte_subqueries = [f"{i} as ( {ALERTS_QUERIES[i].read_text()} )" for i in indicators]
-    return f"""
-    with {",".join(cte_subqueries)}
-    select *
-    from {','.join(indicators)}
-    """
 
 
 def _fixup_addr_for_csv(addr: Dict[str, Any]):

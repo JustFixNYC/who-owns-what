@@ -14,6 +14,7 @@ import { withMachineInStateProps } from "state-machine";
 import Page from "components/Page";
 import { UsefulLinks } from "components/UsefulLinks";
 import { logAmplitudeEvent } from "components/Amplitude";
+import JFCLLinkInternal from "components/JFCLLinkInternal";
 
 type Props = withI18nProps & withMachineInStateProps<"unregisteredFound">;
 
@@ -26,7 +27,7 @@ const getTodaysDate = () => new Date();
 export const SocialShareForNotRegisteredPage = () => (
   <div className="social-share">
     <p>
-      <Trans>Share this page with your neighbors</Trans>
+      <Trans>Share with your neighbors</Trans>
     </p>
     <SocialShare location="not-registered-page" />
   </div>
@@ -184,7 +185,7 @@ class NotRegisteredPageWithoutI18n extends Component<Props, State> {
         <div className="NotRegisteredPage Page">
           <div className="HomePage__content">
             <div className="HomePage__search">
-              <h5 className="mt-10 text-center text-bold text-large">{registrationMessageText}</h5>
+              <h5 className="mt-4 text-center text-bold text-large">{registrationMessageText}</h5>
               {buildingInfo.registrationenddate && (
                 <p className="text-center">
                   <Trans>
@@ -237,8 +238,8 @@ class NotRegisteredPageWithoutI18n extends Component<Props, State> {
                 <SocialShareForNotRegisteredPage />
                 <br />
                 <br />
-                <Link className="btn btn-primary btn-block" to="/">
-                  &lt;-- <Trans>Search for a different address</Trans>
+                <Link to="/" className="flex-centered" component={JFCLLinkInternal}>
+                  <Trans>Search for a different address</Trans>
                 </Link>
               </div>
               <Modal

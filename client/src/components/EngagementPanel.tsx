@@ -1,6 +1,7 @@
 import React from "react";
 import Subscribe from "./Subscribe";
 import SocialShare, { SocialShareLocation } from "./SocialShare";
+import { Link } from "@justfixnyc/component-library";
 
 import "styles/EngagementPanel.css";
 import { Trans } from "@lingui/macro";
@@ -14,13 +15,13 @@ const EngagementPanel: React.FC<{
       <div className="EngagementWrapper">
         <div className="EngagementItem">
           <p>
-            <Trans>Sign up for email updates</Trans>
+            <Trans>Sign up for our newsletter</Trans>
           </p>
           <Subscribe />
         </div>
         <div className="EngagementItem">
           <p>
-            <Trans>Share this page with your neighbors</Trans>
+            <Trans>Share with your neighbors</Trans>
           </p>
           <SocialShare location={props.location} />
         </div>
@@ -28,9 +29,7 @@ const EngagementPanel: React.FC<{
           <p>
             <Trans>Visit our website</Trans>
           </p>
-          <a href="https://www.justfix.org/" className="btn btn-block btn-justfix">
-            www.JustFix.org
-          </a>
+          <Link href="https://www.justfix.org/">www.JustFix.org</Link>
         </div>
       </div>
     </div>

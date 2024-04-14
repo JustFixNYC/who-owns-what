@@ -11,12 +11,14 @@ import {
   NavLink,
 } from "react-router-dom";
 import { I18nProvider } from "@lingui/react";
+import { Link as JFCLLink } from "@justfixnyc/component-library";
 
 import catalogEn from "./locales/en/messages";
 import catalogEs from "./locales/es/messages";
 import { LocationDescriptorObject, History } from "history";
 import { SupportedLocale, defaultLocale, isSupportedLocale } from "./i18n-base";
 import { logAmplitudeEvent } from "./components/Amplitude";
+import JFCLLinkInternal from "components/JFCLLinkInternal";
 
 /** The structure for message catalogs that lingui expects. */
 type LocaleCatalog = {
@@ -90,11 +92,11 @@ export function localeFromRouter(routerProps: RouteComponentProps): SupportedLoc
 export const I18n = withRouter(function I18nWithoutRouter(
   props: { children: any } & RouteComponentProps
 ): JSX.Element {
-  const { pathname } = props.location;
+  const { pathname, search } = props.location;
   const locale = parseLocaleFromPath(pathname);
 
   if (!locale) {
-    return <Redirect to={`/${getBestDefaultLocale()}${pathname}`} />;
+    return <Redirect to={`/${getBestDefaultLocale()}${pathname}${search}`} />;
   }
 
   return (
@@ -226,6 +228,30 @@ export function LocaleNavLink(props: NavLinkProps & { to: string }): JSX.Element
  */
 export function LocaleLink(props: LinkProps & { to: string }): JSX.Element {
   return <Route render={(rProps) => <Link {...props} to={localePrefixPath(rProps, props.to)} />} />;
+}
+
+/**
+ * Like React Router's <Link>, but it prefixes the passed-in `to` prop with
+ * the current locale, and uses JustFix Component Library's Link for styles.
+ *
+ * Note that this doesn't localize the actual *text* of the link--it only localizes
+ * the path!
+ */
+export function JFCLLocaleLink(props: LinkProps & { to: string; icon?: "internal" }): JSX.Element {
+  const { icon, ...linkProps } = props;
+  const JFCLLinkComponent = icon === "internal" ? JFCLLinkInternal : JFCLLink;
+
+  return (
+    <Route
+      render={(rProps) => (
+        <Link
+          {...linkProps}
+          to={localePrefixPath(rProps, props.to)}
+          component={JFCLLinkComponent}
+        />
+      )}
+    />
+  );
 }
 
 /**
