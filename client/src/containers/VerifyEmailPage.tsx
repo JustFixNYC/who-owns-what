@@ -6,6 +6,8 @@ import { useLocation } from "react-router-dom";
 import AuthClient, { VerifyStatusCode } from "../components/AuthClient";
 import SendNewLink from "components/SendNewLink";
 import StandalonePage from "components/StandalonePage";
+import { JFCLLocaleLink } from "i18n";
+import { createWhoOwnsWhatRoutePaths } from "routes";
 
 const VerifyEmailPage = withI18n()((props: withI18nProps) => {
   const { i18n } = props;
@@ -18,6 +20,7 @@ const VerifyEmailPage = withI18n()((props: withI18nProps) => {
   const [unknownError, setUnknownError] = useState(false);
   const params = new URLSearchParams(search);
   const token = params.get("u") || "";
+  const { home } = createWhoOwnsWhatRoutePaths();
 
   useEffect(() => {
     const asyncVerifyEmail = async () => {
@@ -75,6 +78,9 @@ const VerifyEmailPage = withI18n()((props: withI18nProps) => {
     <>
       <Trans render="h1">Email address verified</Trans>
       <Trans render="h2">You can now start receiving Building Updates</Trans>
+      <Trans render="h2">
+        <JFCLLocaleLink to={home}>Search for an address</JFCLLocaleLink> to add to Building Updates
+      </Trans>
     </>
   );
 
