@@ -82,7 +82,6 @@ msgstr "<0>Rent stabilization</0> protects tenants by limiting rent increases an
 #~ msgid "<0>Search an address</0> to sign up for email alerts for that building."
 #~ msgstr "<0>Search an address</0> to sign up for email alerts for that building."
 
-#: src/components/Login.tsx:164
 #: src/containers/UnsubscribePage.tsx:74
 msgid "<0>Search for an address</0> to add to Building Updates"
 msgstr "<0>Search for an address</0> to add to Building Updates"
@@ -90,6 +89,10 @@ msgstr "<0>Search for an address</0> to add to Building Updates"
 #: src/containers/AccountSettingsPage.tsx:56
 msgid "<0>Search for an address</0> to add to your Building Updates"
 msgstr "<0>Search for an address</0> to add to your Building Updates"
+
+#: src/components/Login.tsx:164
+msgid "<0>Search for an address</0> to add to your Building Updates, or visit your <1>Account</1>."
+msgstr "<0>Search for an address</0> to add to your Building Updates, or visit your <1>Account</1>."
 
 #: src/containers/NotRegisteredPage.tsx:73
 msgid "<0>This property is not required to register with HPD</0> because it doesn't have any residential units."
@@ -338,7 +341,7 @@ msgstr "Cancel"
 msgid "Check out the issues in this building"
 msgstr "Check out the issues in this building"
 
-#: src/components/Login.tsx:272
+#: src/components/Login.tsx:273
 msgid "Check your email"
 msgstr "Check your email"
 
@@ -404,7 +407,7 @@ msgstr "Clearer Landlord Contact Info"
 msgid "Click here to learn more."
 msgstr "Click here to learn more."
 
-#: src/components/Login.tsx:273
+#: src/components/Login.tsx:274
 msgid "Click the link we sent to <0>{email}</0> to verify your email. It may take a few minutes to arrive. If you can't find it, check your spam and promotions folders for an email from <1>no-reply@justfix.org</1>."
 msgstr "Click the link we sent to <0>{email}</0> to verify your email. It may take a few minutes to arrive. If you can't find it, check your spam and promotions folders for an email from <1>no-reply@justfix.org</1>."
 
@@ -482,7 +485,7 @@ msgstr "Create a password"
 #~ msgid "Create a password to start receiving Data Updates"
 #~ msgstr "Create a password to start receiving Data Updates"
 
-#: src/components/Login.tsx:292
+#: src/components/Login.tsx:293
 msgid "Create password"
 msgstr "Create password"
 
@@ -586,7 +589,7 @@ msgstr "Edit"
 msgid "Email"
 msgstr "Email"
 
-#: src/components/Login.tsx:291
+#: src/components/Login.tsx:292
 #: src/components/UserSettingField.tsx:100
 #: src/components/UserSettingField.tsx:105
 #: src/containers/ForgotPasswordPage.tsx:52
@@ -639,7 +642,7 @@ msgstr "Enter new email address"
 #~ msgid "Enter your old password"
 #~ msgstr "Enter your old password"
 
-#: src/components/Login.tsx:292
+#: src/components/Login.tsx:293
 msgid "Enter your password"
 msgstr "Enter your password"
 
@@ -1040,19 +1043,19 @@ msgstr "Location"
 
 #: src/components/Login.tsx:99
 #: src/components/Login.tsx:137
-#: src/components/Login.tsx:255
-#: src/components/Login.tsx:258
+#: src/components/Login.tsx:256
+#: src/components/Login.tsx:259
 #: src/containers/AccountSettingsPage.tsx:41
 #: src/containers/App.tsx:117
 msgid "Log in"
 msgstr "Log in"
 
-#: src/components/Login.tsx:246
+#: src/components/Login.tsx:247
 #: src/containers/LoginPage.tsx:7
 msgid "Log in / sign up"
 msgstr "Log in / sign up"
 
-#: src/components/Login.tsx:256
+#: src/components/Login.tsx:257
 msgid "Log in to add {0} to your Building Updates"
 msgstr "Log in to add {0} to your Building Updates"
 
@@ -1234,7 +1237,7 @@ msgid "New password"
 msgstr "New password"
 
 #: src/components/FeatureCalloutWidget.tsx:81
-#: src/components/Login.tsx:263
+#: src/components/Login.tsx:264
 msgid "Next"
 msgstr "Next"
 
@@ -1702,8 +1705,8 @@ msgstr "Showing {0} {1, plural, one {result} other {results}}"
 msgid "Sign up"
 msgstr "Sign up"
 
-#: src/components/Login.tsx:261
-#: src/components/Login.tsx:266
+#: src/components/Login.tsx:262
+#: src/components/Login.tsx:267
 msgid "Sign up for Building Updates"
 msgstr "Sign up for Building Updates"
 
@@ -1784,7 +1787,7 @@ msgstr "Source code"
 msgid "Starts {year}"
 msgstr "Starts {year}"
 
-#: src/components/Login.tsx:252
+#: src/components/Login.tsx:253
 msgid "Submit"
 msgstr "Submit"
 
@@ -2080,7 +2083,7 @@ msgstr "Use this free tool from JustFix to research your building and investigat
 #~ msgid "Use your account to get weekly email updates on the buildings you choose"
 #~ msgstr "Use your account to get weekly email updates on the buildings you choose"
 
-#: src/components/Login.tsx:247
+#: src/components/Login.tsx:248
 msgid "Use your account to get weekly email updates on {0}."
 msgstr "Use your account to get weekly email updates on {0}."
 
@@ -2283,7 +2286,7 @@ msgstr "What’s the difference between a landlord, an owner, and head officer?"
 msgid "When two parties share the same business address, we group them as part of the same portfolio."
 msgstr "When two parties share the same business address, we group them as part of the same portfolio."
 
-#: src/components/Login.tsx:267
+#: src/components/Login.tsx:268
 msgid "Which best describes you?"
 msgstr "Which best describes you?"
 
