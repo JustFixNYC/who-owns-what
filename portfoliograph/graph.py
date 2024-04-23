@@ -19,14 +19,15 @@ class ConnectedLandlordRow(NamedTuple):
 def build_graph(dict_cursor) -> nx.Graph:
     g = nx.Graph()
 
+    print("Making landlord connections")
     landlords_with_connections = (
         SQL_DIR / "landlords_with_connections.sql"
     ).read_text()
     dict_cursor.execute(landlords_with_connections)
     contacts = [ConnectedLandlordRow(**row) for row in dict_cursor.fetchall()]
 
+    print("Building graph")
     for contact in contacts:
-        # TODO: cut back to only what's neded for the new vizualization
         g.add_node(
             contact.nodeid,
             name=contact.name,
@@ -83,6 +84,7 @@ def split_subgraph_if(
 
 
 def iter_split_graph(graph: nx.Graph) -> Iterator[Any]:
+    print("Finding and splitting portfolios")
     for id, cc in enumerate(nx.connected_components(graph), 1):
         portfolio_subgraph = graph.subgraph(cc)
         yield from split_subgraph_if(

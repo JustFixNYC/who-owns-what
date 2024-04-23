@@ -37,6 +37,9 @@ class StandardizedLandlordRow(NamedTuple):
     registrationid: int
     name: str
     bizaddr: str
+    bizhousestreet: str
+    bizapt: str
+    bizzip: str
 
 
 def get_raw_landlord_rows(dict_cursor) -> List[RawLandlordRow]:
@@ -110,14 +113,17 @@ def standardize_record(record: RawLandlordRow):
     )
     streetname = std_addr["streetname"] if std_addr["streetname"] else record.streetname
     city_or_boro = std_addr["boro"] if std_addr["boro"] else record.city
-    street_addr = str_squish(f"{housenumber} {streetname} {record.apartment}")
-    bizaddr = f"{street_addr}, {city_or_boro} {record.state}"
+    house_sreett_apt = str_squish(f"{housenumber} {streetname} {record.apartment}")
+    bizaddr = f"{house_sreett_apt}, {city_or_boro} {record.state}"
 
     return StandardizedLandlordRow(
         bbl=record.bbl,
         registrationid=record.registrationid,
         name=record.name,
         bizaddr=bizaddr,
+        bizhousestreet=f"{housenumber} {streetname}",
+        bizapt=record.apartment,
+        bizzip=std_addr["zip"],
     )
 
 
@@ -151,6 +157,6 @@ def populate_landlords_table(conn, batch_size=5000, table="wow_landlords"):
         for chunk in grouper(batch_size, standardized_records):
             # https://stackoverflow.com/a/10147451
             args_str = b",".join(
-                dict_cursor.mogrify("(%s,%s,%s,%s)", row) for row in chunk
+                dict_cursor.mogrify("(%s,%s,%s,%s,%s,%s,%s)", row) for row in chunk
             ).decode()
             dict_cursor.execute(f"INSERT INTO {table} VALUES {args_str}")

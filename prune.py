@@ -56,9 +56,12 @@ def create_table_landlords(conn, table: str):
                 bbl char(10), \
                 registrationid int, \
                 name text, \
-                bizaddr text \
+                bizaddr text, \
+                bizhousestreet text, \
+                bizapt text, \
+                bizzip text \
             ); \
-            CREATE INDEX ON {table} (name, bizaddr);"
+            CREATE INDEX ON {table} (name, bizaddr, bizhousestreet, bizapt, bizzip);"
     with conn.cursor() as cur:
         cur.execute(sql)
 

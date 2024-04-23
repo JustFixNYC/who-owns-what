@@ -29,10 +29,7 @@ class PortfolioRow(NamedTuple):
 def iter_portfolio_rows(conn) -> Iterable[PortfolioRow]:
     cur = conn.cursor(cursor_factory=DictCursor)
 
-    print("Building graph.")
     g = graph.build_graph(cur)
-
-    print("Finding and splitting portfolios.")
 
     for id, portfolio_graph in graph.iter_split_graph(g):
         bbls: Set[str] = set()
