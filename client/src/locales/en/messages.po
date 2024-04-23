@@ -482,6 +482,10 @@ msgstr "Create a password"
 #~ msgid "Create a password to start receiving Data Updates"
 #~ msgstr "Create a password to start receiving Data Updates"
 
+#: src/components/Login.tsx:292
+msgid "Create password"
+msgstr "Create password"
+
 #: src/components/UserSettingField.tsx:60
 msgid "Current password"
 msgstr "Current password"
@@ -634,6 +638,10 @@ msgstr "Enter new email address"
 #: src/components/UserSettingField.tsx:58
 #~ msgid "Enter your old password"
 #~ msgstr "Enter your old password"
+
+#: src/components/Login.tsx:292
+msgid "Enter your password"
+msgstr "Enter your password"
 
 #: src/components/BuildingStatsTable.tsx:83
 #: src/components/IndicatorsDatasets.tsx:128
@@ -1385,7 +1393,6 @@ msgstr "Page"
 #~ msgid "Page {0} of {1}"
 #~ msgstr "Page {0} of {1}"
 
-#: src/components/Login.tsx:292
 #: src/components/UserSettingField.tsx:52
 #: src/components/UserSettingField.tsx:57
 msgid "Password"

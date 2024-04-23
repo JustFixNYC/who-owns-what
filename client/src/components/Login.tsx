@@ -422,7 +422,9 @@ const LoginWithoutI18n = (props: withI18nProps) => {
           )}
           {(isLoginStep || isRegisterAccountStep) && (
             <PasswordInput
-              labelText={i18n._(t`Password`)}
+              labelText={
+                isRegisterAccountStep ? i18n._(t`Create password`) : i18n._(t`Enter your password`)
+              }
               password={password}
               username={email}
               error={passwordError}
