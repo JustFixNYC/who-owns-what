@@ -2134,13 +2134,17 @@ msgstr "VENTILADORES"
 msgid "Verify your email address"
 msgstr ""
 
+#: src/components/EmailAlertSignup.tsx:58
+msgid "Verify your email to receive updates and to add new buildings."
+msgstr ""
+
 #: src/components/Login.tsx:128
 #~ msgid "Verify your email to start receiving updates"
 #~ msgstr ""
 
 #: src/components/EmailAlertSignup.tsx:58
-msgid "Verify your email to start receiving updates."
-msgstr ""
+#~ msgid "Verify your email to start receiving updates."
+#~ msgstr ""
 
 #: src/components/PortfolioTable.tsx:378
 #: src/components/PortfolioTable.tsx:385
