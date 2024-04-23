@@ -937,7 +937,7 @@ msgstr "Información"
 msgid "JANITOR/SUPER"
 msgstr "CONSERJE/SÚPER"
 
-#: src/components/EngagementPanel.tsx:8
+#: src/components/EngagementPanel.tsx:7
 msgid "Join the fight for tenant rights!"
 msgstr "¡Únete a la lucha por los derechos de los inquilinos!"
 
@@ -1667,7 +1667,7 @@ msgstr "Envíanos una solicitud de datos"
 #~ msgstr "Comparte esta página con tus vecinos"
 
 #: src/components/DetailView.tsx:264
-#: src/components/EngagementPanel.tsx:18
+#: src/components/EngagementPanel.tsx:11
 #: src/components/PropertiesSummary.tsx:140
 #: src/containers/NotRegisteredPage.tsx:19
 msgid "Share with your neighbors"
@@ -1740,8 +1740,8 @@ msgstr ""
 #~ msgstr ""
 
 #: src/components/EngagementPanel.tsx:12
-msgid "Sign up for our newsletter"
-msgstr ""
+#~ msgid "Sign up for our newsletter"
+#~ msgstr ""
 
 #: src/components/PropertiesList.tsx:295
 #: src/components/PropertiesList.tsx:300
@@ -2210,7 +2210,7 @@ msgstr "Ver portafolio de edificios"
 msgid "Violations Issued"
 msgstr "Violaciones emitidas"
 
-#: src/components/EngagementPanel.tsx:24
+#: src/components/EngagementPanel.tsx:17
 msgid "Visit our website"
 msgstr "Visite nuestro sitio web"
 

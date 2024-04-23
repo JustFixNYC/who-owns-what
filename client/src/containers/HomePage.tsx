@@ -302,7 +302,7 @@ const HomePage: React.FC<HomePageProps> = ({ useNewPortfolioMethod }) => {
               </div>
             </div>
           </div>
-          <EngagementPanel location="homepage" newsletter={false} />
+          <EngagementPanel location="homepage" />
         </div>
         <LegalFooter />
       </div>

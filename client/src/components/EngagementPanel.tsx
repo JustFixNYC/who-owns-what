@@ -1,5 +1,4 @@
 import React from "react";
-import Subscribe from "./Subscribe";
 import SocialShare, { SocialShareLocation } from "./SocialShare";
 import { Link } from "@justfixnyc/component-library";
 
@@ -8,24 +7,15 @@ import { Trans } from "@lingui/macro";
 
 const EngagementPanel: React.FC<{
   location: SocialShareLocation;
-  newsletter?: boolean;
-}> = ({ location, newsletter = true }) => (
+}> = (props) => (
   <div className="EngagementPanel">
     <Trans render="h5">Join the fight for tenant rights!</Trans>
     <div className="EngagementWrapper">
-      {newsletter && (
-        <div className="EngagementItem">
-          <p>
-            <Trans>Sign up for our newsletter</Trans>
-          </p>
-          <Subscribe />
-        </div>
-      )}
       <div className="EngagementItem">
         <p>
           <Trans>Share with your neighbors</Trans>
         </p>
-        <SocialShare location={location} />
+        <SocialShare location={props.location} />
       </div>
       <div className="EngagementItem">
         <p>
