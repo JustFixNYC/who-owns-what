@@ -44,6 +44,8 @@ const fetchUser = async () => {
       _user = {
         email: authCheck["email"],
         verified: authCheck["verified"],
+        id: authCheck["id"],
+        type: authCheck["type"],
         subscriptions,
       };
     } else {
