@@ -1,28 +1,50 @@
 @import "_vars.scss";
 @import "_typography.scss";
+@import "_callout.scss";
 
-.AccountSettingsPage.Page {
-  h4 {
-    text-decoration: none;
-    font-weight: 700;
-    padding-top: 0.5rem;
-    margin: 5.5rem 1.6rem 2.6rem;
+.AccountSettingsPage {
+  .page-container {
+    padding-top: 1.5rem;
   }
 
-  h4.settings-section {
+  h1 {
+    font-size: 1.5rem;
     font-weight: 400;
-    border-top: 1px solid $justfix-grey-400;
+    line-height: 100%;
+    margin-bottom: 3rem;
   }
 
-  .settings-contact {
-    margin: 6rem 2rem 5rem;
-    text-align: center;
+  .settings-section {
+    margin-bottom: 3rem;
+
+    h2 {
+      font-size: 1rem;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 100%;
+      letter-spacing: 0;
+      margin-bottom: 1rem !important;
+    }
+
+    // only first user setting div gets this style
+    .UserSetting:nth-of-type(1) {
+      margin-bottom: 1rem;
+    }
+
+    .section-description {
+      margin-bottom: 2rem;
+    }
   }
 
-  .settings-no-subscriptions {
-    padding: 1.6rem;
-    background-color: $justfix-grey-light;
-    border-radius: 4px;
+  label {
+    font-size: 0.81rem;
+    font-weight: 600;
+  }
+
+  p {
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 100%;
   }
 }
 
@@ -30,7 +52,43 @@
   form {
     display: flex;
     flex-direction: column;
-    margin: 1.6rem;
+
+    .page-level-alert {
+      margin-bottom: 1.625rem;
+      svg {
+        margin-right: 0.5rem;
+        vertical-align: bottom;
+      }
+    }
+
+    .user-setting-label {
+      font-size: 0.875rem;
+      font-weight: 600;
+      line-height: 100%;
+      letter-spacing: 0.26px;
+      text-transform: uppercase !important;
+      margin-bottom: 1rem !important;
+    }
+
+    p {
+      margin-bottom: 0.375rem;
+    }
+
+    .email-input-field,
+    .password-input-field {
+      display: flex;
+      flex-direction: column;
+      &:has(#new-password-input) {
+        margin-top: 1.25rem;
+      }
+    }
+
+    .jf-callout {
+      margin-top: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.625;
+    }
   }
 
   form > div {
@@ -39,20 +97,21 @@
     span {
       flex: 1;
     }
+    span,
+    .edit-button {
+      font-size: 1rem;
+    }
   }
 
   .user-setting-actions {
     display: flex;
-    justify-content: center;
-    margin-top: 1.6rem;
+    justify-content: left;
+    align-items: center;
+    margin-top: 1rem;
+    column-gap: 1rem;
 
-    input[type="submit"] {
-      margin-right: 1.6rem;
+    @include for-phone-only() {
+      justify-content: center;
     }
-  }
-
-  label {
-    @include desktop-eyebrow();
-    margin-bottom: 1.6rem;
   }
 }

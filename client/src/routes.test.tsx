@@ -32,7 +32,7 @@ describe("createAddressPageRoutes()", () => {
   });
 
   it("prefixes with string when given one", () => {
-    expect(createAddressPageRoutes("/boop").timeline).toBe("/boop/timeline");
+    expect(createAddressPageRoutes("/boop").summary).toBe("/boop/summary");
   });
 
   it("prefixes with address page params when given one", () => {
@@ -41,8 +41,8 @@ describe("createAddressPageRoutes()", () => {
         boro: "BROOKLYN",
         housenumber: "654",
         streetname: "PARK PLACE",
-      }).timeline
-    ).toBe("/address/BROOKLYN/654/PARK%20PLACE/timeline");
+      }).summary
+    ).toBe("/address/BROOKLYN/654/PARK%20PLACE/summary");
   });
 
   it("prefixes with address page params and locale when given one", () => {
@@ -52,8 +52,8 @@ describe("createAddressPageRoutes()", () => {
         housenumber: "654",
         streetname: "PARK PLACE",
         locale: "es",
-      }).timeline
-    ).toBe("/es/address/BROOKLYN/654/PARK%20PLACE/timeline");
+      }).summary
+    ).toBe("/es/address/BROOKLYN/654/PARK%20PLACE/summary");
   });
 
   it("correctly sets the right path when route is specified as a legacy route", () => {
@@ -67,8 +67,8 @@ describe("createAddressPageRoutes()", () => {
           locale: "es",
         },
         true
-      ).timeline
-    ).toBe("/es/legacy/address/BROOKLYN/654/PARK%20PLACE/timeline");
+      ).summary
+    ).toBe("/es/legacy/address/BROOKLYN/654/PARK%20PLACE/summary");
   });
 
   it("defaults to the standard path when env variable is not defined", () => {
@@ -82,7 +82,7 @@ describe("createAddressPageRoutes()", () => {
           locale: "es",
         },
         true
-      ).timeline
-    ).toBe("/es/address/BROOKLYN/654/PARK%20PLACE/timeline");
+      ).summary
+    ).toBe("/es/address/BROOKLYN/654/PARK%20PLACE/summary");
   });
 });

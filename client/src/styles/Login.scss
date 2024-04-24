@@ -1,58 +1,91 @@
 @import "_vars.scss";
 @import "_typography.scss";
 
-.Login {
-  .input-group {
-    display: flex;
-    flex-direction: column;
-    margin: 1rem 0.75rem;
-  }
+// Login via Nav styled by StandalonePage
 
-  label {
-    @include desktop-eyebrow();
+.EmailAlertSignup .Login,
+.ReactModalPortal .Login {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
 
-    text-align: left;
-    margin-top: 1rem;
-    margin-bottom: 0.5rem;
-  }
-
-  .login-type-toggle {
-    display: flex;
-    justify-content: flex-start;
-  }
-
-  .login-response-text {
-    margin: 1rem 0 1rem;
-  }
-
-  .login-password-label {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-    label {
-      flex: 1;
-    }
-  }
-
-  h4 {
-    font-size: 2.4rem;
-  }
-  h5 {
-    font-size: 1.6rem;
+  .page-title {
+    margin-top: 0.9375rem;
   }
 
   .jf-alert {
     width: auto;
-    margin-bottom: 2rem;
+    font-size: 0.81rem;
 
-    .button.is-text {
+    .jfcl-button.jfcl-variant-text {
       display: block !important;
       color: $justfix-white;
     }
 
     .jf-alert__content {
       display: flex;
+      text-align: left;
+    }
+  }
+
+  h4 {
+    font-size: 1.5rem;
+    margin-bottom: 0;
+  }
+  h5 {
+    font-size: 0.63rem;
+  }
+
+  .input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+
+    .submit-button-group {
+      display: flex;
+
+      .jfcl-button.jfcl-variant-primary {
+        padding: 1rem 2rem !important;
+        align-self: center;
+        margin: 0 auto !important;
+      }
+    }
+  }
+
+  .didnt-get-link {
+    text-align: center;
+  }
+
+  .send-new-link-container {
+    justify-content: center;
+  }
+
+  .login-footer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+
+    .privacy-links {
+      text-align: center;
+      max-width: 20rem;
+      margin: 0 auto;
+    }
+
+    .login-type-toggle,
+    .forgot-password {
+      display: flex;
+      justify-content: center;
+    }
+
+    .privacy-links,
+    .login-type-toggle,
+    .forgot-password,
+    a {
+      font-size: 0.875rem;
+      font-weight: 400;
+      color: inherit;
     }
   }
 }

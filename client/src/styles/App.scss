@@ -1,5 +1,18 @@
+@import "~@justfixnyc/component-library/dist/src/assets/index.css";
 @import "_vars.scss";
 @import "_typography.scss";
+
+.jfcl-button,
+.jfcl-link {
+  font-family: $wow-font;
+}
+
+.download-btn-link,
+.download-btn-link:hover,
+.download-btn-link:active,
+.download-btn-link:focus {
+  text-decoration: none;
+}
 
 .App {
   height: 100%;
@@ -11,12 +24,14 @@
   }
 
   // Standard inline-link focus class:
+  // use component library default
+  // https://github.com/JustFixNYC/component-library/blob/701c58d033e12f2410d7203e5c6c75a7522d772c/src/buttons/styles.scss#L31
   a:not(.btn):not(.image):focus,
   summary:focus-visible,
   button.dropdown-toggle:focus {
-    box-shadow: none;
-    outline: 2px solid $gray-dark;
-    outline-offset: 2px;
+    outline-style: solid;
+    outline-width: 2px;
+    outline-color: $justfix-blue;
   }
 }
 
@@ -32,17 +47,17 @@
 }
 
 .App__banner {
-  padding: 0.5rem 1.5rem;
+  padding: 0.31rem 0.94rem;
   color: $wowza-dark;
   position: relative;
 
   .close-button {
     color: $wowza-dark;
     position: absolute;
-    right: 0.5rem;
+    right: 0.31rem;
     top: 0rem;
-    padding: 0 1rem;
-    font-size: 2rem;
+    padding: 0 0.63rem;
+    font-size: 1.25rem;
     height: 100%;
     cursor: pointer;
     &:hover {
@@ -84,21 +99,20 @@
 }
 
 .App__header {
-  padding: 15px;
-  border-bottom: 1px solid $gray-light;
   background-color: $background;
-
+  border-bottom: 1px solid $justfix-white;
   display: flex;
-
   justify-content: space-between;
   align-items: center;
   position: relative;
+  padding: 0 1.5rem 0 2rem;
 
   @include for-phone-only {
-    padding: 10px 8px 8px;
+    padding: 0 1.5rem 0 1.5rem;
   }
 
   &.wowza-styling {
+    align-items: center !important; // for "demo site" span alignment
     background-color: $wowza-dark;
     & > a h4,
     button.btn.btn-link.dropdown-toggle {
@@ -120,23 +134,20 @@
   .label.label-warning {
     color: $dark;
     transform: rotate(-4deg);
-    margin-top: 0rem;
     height: min-content;
+    margin-left: 12px;
     @include for-phone-only {
-      font-size: 1rem;
+      font-size: 0.63rem;
       width: min-content;
     }
   }
 
   h1.page-title {
-    margin: 0;
+    @include mobile-h2;
+    margin: 0 0 0 1.5rem;
     color: $justfix-white;
-    line-height: 1.2;
-    font-weight: bold;
-    font-size: 1.8rem;
-
-    @include for-tablet-portrait-up() {
-      font-size: 2.4rem;
+    @include for-phone-only {
+      margin: 1.5rem 0;
     }
   }
 
@@ -147,15 +158,25 @@
   }
 
   & > a {
-    display: block;
-    position: absolute;
     width: fit-content;
     max-width: 75%;
     text-align: center;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    margin: 0 -1rem 0;
+    display: flex;
+    align-items: center;
+
+    .jf-logo {
+      color: $justfix-white;
+      margin-right: 1.5rem;
+      @include for-phone-only {
+        display: none;
+      }
+    }
+
+    .jf-logo-divider {
+      @include for-phone-only {
+        display: none;
+      }
+    }
   }
 
   nav {
@@ -163,13 +184,10 @@
     flex-wrap: nowrap;
     margin-left: auto;
     text-align: end;
+    align-items: center;
 
     @include for-tablet-landscape-down {
       align-items: center;
-    }
-
-    @include for-desktop-down {
-      max-width: 250px;
     }
 
     a,
@@ -182,7 +200,6 @@
       &.active,
       &:hover {
         text-decoration: none;
-        cursor: default;
       }
     }
 
@@ -190,8 +207,8 @@
       text-decoration: none;
       color: inherit;
       display: inline;
-      margin: 0 -0.8rem;
-      padding: 0.6rem 0.8rem;
+      margin: 0 -0.5rem;
+      padding: 0.37rem 0.5rem;
     }
 
     .language-toggle a {
@@ -232,7 +249,7 @@ div.Page {
   }
   p {
     // line-height: 1.6;
-    margin-bottom: 1.25rem;
+    margin-bottom: 0.78rem;
   }
 
   .page-container {
@@ -241,9 +258,9 @@ div.Page {
       text-align: center;
     }
 
-    width: min(calc(100vw - 4rem), 60rem);
-    max-width: 60rem;
-    margin: 4rem auto;
+    width: min(calc(100vw - 2.5rem), 37.5rem);
+    max-width: 37.5rem;
+    margin: 2.5rem auto;
 
     form {
       display: flex;
@@ -254,7 +271,7 @@ div.Page {
       }
 
       input[type="submit"] {
-        margin: 1rem auto;
+        margin: 0.63rem auto;
       }
     }
   }
@@ -272,7 +289,7 @@ div.Page {
   // mobile
   @include for-tablet-landscape-down() {
     h5 {
-      margin-top: 4rem;
+      margin-top: 2.5rem;
     }
     aside {
       margin-top: 48px;
@@ -299,8 +316,8 @@ div.Page {
       }
       figcaption {
         max-width: 300px;
-        margin: 1rem auto;
-        font-size: 1.25rem;
+        margin: 0.63rem auto;
+        font-size: 0.78rem;
         line-height: 1.1;
       }
     }

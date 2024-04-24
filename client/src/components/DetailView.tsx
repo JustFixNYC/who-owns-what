@@ -24,6 +24,7 @@ import { isLegacyPath } from "./WowzaToggle";
 import { logAmplitudeEvent } from "./Amplitude";
 import EmailAlertSignup from "./EmailAlertSignup";
 import { StreetViewStatic } from "./StreetView";
+import GetRepairs from "./GetRepairs";
 
 type Props = withI18nProps &
   withMachineInStateProps<"portfolioFound"> & {
@@ -283,25 +284,10 @@ class DetailViewWithoutI18n extends Component<Props, State> {
                         ))}
                     </div>
                     <div className="card-body">
-                      <BuildingStatsTable addr={detailAddr} />
-                      <EmailAlertSignup
-                        bbl={detailAddr.bbl}
-                        housenumber={detailAddr.housenumber}
-                        streetname={detailAddr.streetname}
-                        zip={detailAddr.zip || ""}
-                        boro={detailAddr.boro}
+                      <BuildingStatsTable
+                        addr={detailAddr}
+                        timelineUrl={this.props.addressPageRoutes.timeline}
                       />
-                      <div className="card-body-timeline-link">
-                        <Link
-                          to={this.props.addressPageRoutes.timeline}
-                          className="btn btn-primary btn-block"
-                          onClick={() => {
-                            window.gtag("event", "view-data-over-time-overview-tab");
-                          }}
-                        >
-                          <Trans render="span">View data over time &#8599;&#xFE0E;</Trans>
-                        </Link>
-                      </div>
                       <div className="card-body-complaints">
                         <div>
                           <b>
@@ -411,30 +397,18 @@ class DetailViewWithoutI18n extends Component<Props, State> {
                     </div>
                   </div>
                   <div className="column col-lg-12 col-5">
-                    <div className="card-image hide-lg">{streetView}</div>
-                    <div className="card-body column-right">
+                    <EmailAlertSignup addr={detailAddr} />
+                    <GetRepairs url={takeActionURL} />
+                    <div className="card-body-links column-right">
                       <UsefulLinks addrForLinks={detailAddr} location="overview-tab" />
-                      <div className="card-body-prompt">
-                        <h6 className="DetailView__subtitle">
-                          <Trans>Are you having issues in this building?</Trans>
-                        </h6>
-                        <a
-                          href={takeActionURL}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="btn btn-justfix btn-block"
-                        >
-                          <Trans>Take action on JustFix.org!</Trans>
-                        </a>
-                      </div>
-
                       <div className="card-body-social social-group">
                         <h6 className="DetailView__subtitle">
-                          <Trans>Share this page with your neighbors</Trans>
+                          <Trans>Share with your neighbors</Trans>
                         </h6>
                         <SocialShareDetailView />
                       </div>
                     </div>
+                    <div className="card-image hide-lg">{streetView}</div>
                   </div>
                 </div>
               </div>

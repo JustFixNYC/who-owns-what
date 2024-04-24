@@ -1,0 +1,66 @@
+@import "_vars.scss";
+@import "_typography.scss";
+
+.Card {
+  // overrides datatable mixin
+  .card-label-container:hover,
+  .table-content:hover {
+    cursor: default !important;
+  }
+
+  .card-label-container {
+    min-height: 2.37rem;
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 0px !important;
+
+    .pill-new {
+      font-family: $body-font;
+      letter-spacing: 0.02em;
+      background: $justfix-yellow;
+      padding: 0.25rem 0.5rem;
+      border-radius: 1rem;
+      width: fit-content;
+      margin-right: 0.5rem !important;
+    }
+
+    @include for-phone-only() {
+      width: unset;
+      justify-content: center;
+      .pill-new {
+        margin: 0;
+      }
+    }
+  }
+
+  .table-small-font {
+    padding: 0 !important;
+  }
+
+  .table-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 1.5rem;
+    // overrides the margin-bottom: 3px introduced in DetailView.
+    // important so the cursor doesn't flicker to the tooltip/question mark icon
+    margin: 0px !important;
+  }
+
+  .card-description {
+    text-align: left;
+    line-height: 117%;
+  }
+
+  .jfcl-button {
+    &.is-full-width {
+      width: 100%;
+    }
+    &.jfcl-variant-primary {
+      @include for-phone-only() {
+        width: -webkit-fill-available !important;
+      }
+    }
+  }
+}

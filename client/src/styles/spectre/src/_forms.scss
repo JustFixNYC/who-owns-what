@@ -1,0 +1,419 @@
+// Forms
+.form-group {
+  &:not(:last-child) {
+    margin-bottom: $layout-padding;
+  }
+}
+
+// Form element: Label
+.form-label {
+  display: block;
+  padding: 0.37rem 0;
+
+  &.label-sm {
+    padding: 0.13rem 0;
+  }
+
+  &.label-lg {
+    padding: 0.63rem 0;
+  }
+}
+
+// Form element: Input
+.form-input {
+  appearance: none;
+  background: $bg-color-light;
+  background-image: none;
+  border: $border-width solid $border-color-dark;
+  border-radius: $border-radius;
+  color: $body-font-color;
+  @include control-transition();
+  display: block;
+  font-size: $font-size;
+  height: 2rem;
+  line-height: 1.25rem;
+  max-width: 100%;
+  outline: none;
+  padding: 0.31rem 0.5rem;
+  position: relative;
+  width: 100%;
+  &:focus {
+    border-color: $primary-color;
+    @include control-shadow();
+  }
+  &::placeholder {
+    color: $gray-color;
+  }
+
+  // Input sizes
+  &.input-sm {
+    font-size: $font-size-sm;
+    height: 1.5rem;
+    padding: 0.06rem 0.5rem;
+  }
+
+  &.input-lg {
+    font-size: $font-size-lg;
+    height: 2.5rem;
+    padding: 0.56rem 0.5rem;
+  }
+
+  &.input-inline {
+    display: inline-block;
+    vertical-align: middle;
+    width: auto;
+  }
+
+  // Textarea
+  &textarea {
+    height: auto;
+  }
+
+  // Input types
+  &[type="file"] {
+    height: auto;
+  }
+}
+
+// Form element: Input hint
+.form-input-hint {
+  color: $gray-color;
+  margin-top: 0.25rem;
+
+  .has-success &,
+  .is-success + & {
+    color: $control-color-success;
+  }
+
+  .has-error &,
+  .is-error + & {
+    color: $control-color-error;
+  }
+}
+
+// Form element: Select
+.form-select {
+  appearance: none;
+  border: $border-width solid $border-color-dark;
+  border-radius: $border-radius;
+  color: inherit;
+  font-size: $font-size;
+  line-height: 1.25rem;
+  outline: none;
+  padding: 0.31rem 0.5rem;
+  vertical-align: middle;
+
+  &[multiple] {
+    width: 100%;
+
+    option {
+      padding: 0.13rem 0.25rem;
+    }
+  }
+  &:not([multiple]) {
+    background: $bg-color-light
+      url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3E%3Cpath fill='%23667189' d='M2 0L0 2h4zm0 5L0 3h4z'/%3E%3C/svg%3E")
+      no-repeat right 0.47rem center / 0.5rem 0.63rem;
+    height: 2rem;
+    padding-right: 1.5rem;
+  }
+  &:focus {
+    border-color: $primary-color;
+    @include control-shadow();
+  }
+  &::-ms-expand {
+    display: none;
+  }
+
+  // Select sizes
+  &.select-sm {
+    font-size: $font-size-sm;
+    height: 1.5rem;
+    padding: 0.06rem 1.25rem 0.06rem 0.37rem;
+  }
+
+  &.select-lg {
+    font-size: $font-size-lg;
+    height: 2.5rem;
+    padding: 0.56rem 1.5rem 0.56rem 0.5rem;
+  }
+}
+
+// Form validation states
+.form-input,
+.form-select {
+  .has-success &,
+  &.is-success {
+    border-color: $control-color-success;
+    &:focus {
+      @include control-shadow($control-color-success);
+    }
+  }
+
+  .has-error &,
+  &.is-error {
+    border-color: $control-color-error;
+    &:focus {
+      @include control-shadow($control-color-error);
+    }
+  }
+}
+
+// Form element: Checkbox and Radio
+.form-checkbox,
+.form-radio,
+.form-switch {
+  display: inline-block;
+  line-height: 1.25rem;
+  position: relative;
+
+  input {
+    clip: rect(0, 0, 0, 0);
+    height: 0.06rem;
+    margin: -0.06rem;
+    overflow: hidden;
+    position: absolute;
+    width: 0.06rem;
+    &:focus + .form-icon {
+      border-color: $primary-color;
+      @include control-shadow();
+    }
+    &:checked + .form-icon {
+      background: $primary-color;
+      border-color: $primary-color;
+    }
+  }
+
+  .form-icon {
+    border: $border-width solid $border-color-dark;
+    @include control-transition();
+    cursor: pointer;
+    display: inline-block;
+    position: absolute;
+  }
+}
+
+.form-checkbox,
+.form-radio {
+  padding: 0.13rem 1.25rem;
+
+  .form-icon {
+    height: 0.87rem;
+    left: 0;
+    top: 0.31rem;
+    width: 0.87rem;
+  }
+
+  input {
+    &:active + .form-icon {
+      background: $bg-color-dark;
+    }
+  }
+}
+.form-checkbox {
+  .form-icon {
+    border-radius: $border-radius;
+  }
+
+  input {
+    &:checked + .form-icon {
+      &::before {
+        background-clip: padding-box;
+        border: 2px solid $light-color;
+        border-left-width: 0;
+        border-top-width: 0;
+        content: "";
+        height: 0.63rem;
+        left: 50%;
+        margin-left: -0.19rem;
+        margin-top: -0.37rem;
+        position: absolute;
+        top: 50%;
+        transform: rotate(45deg);
+        width: 0.37rem;
+      }
+    }
+    &:indeterminate + .form-icon {
+      background: $primary-color;
+      border-color: $primary-color;
+      &::before {
+        background: $bg-color-light;
+        content: "";
+        height: 0.13rem;
+        left: 50%;
+        margin-left: -0.31rem;
+        margin-top: -0.06rem;
+        position: absolute;
+        top: 50%;
+        width: 0.63rem;
+      }
+    }
+  }
+}
+.form-radio {
+  .form-icon {
+    border-radius: 0.44rem;
+  }
+
+  input {
+    &:checked + .form-icon {
+      &::before {
+        background: $bg-color-light;
+        border-radius: $border-radius;
+        content: "";
+        height: 0.25rem;
+        left: 50%;
+        margin-left: -0.13rem;
+        margin-top: -0.13rem;
+        position: absolute;
+        top: 50%;
+        width: 0.25rem;
+      }
+    }
+  }
+}
+
+// Form element: Switch
+.form-switch {
+  padding: 0.13rem 1.25rem 0.13rem 2.25rem;
+
+  .form-icon {
+    background: $gray-color-light;
+    background-clip: padding-box;
+    border-radius: 0.56rem;
+    height: 1.13rem;
+    left: 0;
+    top: 0.19rem;
+    width: 1.88rem;
+    &::before {
+      background: $bg-color-light;
+      border-radius: 0.5rem;
+      content: "";
+      display: block;
+      height: 1rem;
+      left: 0;
+      position: absolute;
+      top: 0;
+      @include control-transition();
+      width: 1rem;
+    }
+  }
+
+  input {
+    &:checked + .form-icon {
+      &::before {
+        left: 0.75rem;
+      }
+    }
+    &:active + .form-icon {
+      &::before {
+        background: $bg-color;
+      }
+    }
+  }
+}
+
+// Form element: Input groups
+.input-group {
+  display: flex;
+
+  .input-group-addon {
+    background: $bg-color;
+    border: $border-width solid $border-color-dark;
+    border-radius: $border-radius;
+    line-height: 1.25rem;
+    padding: 0.31rem 0.5rem;
+
+    &.addon-sm {
+      font-size: $font-size-sm;
+      padding: 0.06rem 0.5rem;
+    }
+    &.addon-lg {
+      font-size: $font-size-lg;
+      padding: 0.56rem 0.5rem;
+    }
+  }
+  .input-group-addon,
+  .input-group-btn {
+    flex: 1 0 auto;
+  }
+
+  .form-input,
+  .input-group-addon,
+  .input-group-btn {
+    &:first-child:not(:last-child) {
+      border-bottom-right-radius: 0;
+      border-top-right-radius: 0;
+    }
+    &:not(:first-child):not(:last-child) {
+      border-radius: 0;
+      margin-left: -0.06rem;
+    }
+    &:last-child:not(:first-child) {
+      border-bottom-left-radius: 0;
+      border-top-left-radius: 0;
+      margin-left: -0.06rem;
+    }
+    &:focus {
+      z-index: $zindex-0;
+    }
+  }
+
+  &.input-inline {
+    display: inline-flex;
+  }
+}
+
+// Form disabled and readonly
+.form-input,
+.form-select {
+  &:disabled,
+  &.disabled {
+    background-color: $bg-color-dark;
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+}
+
+.form-input {
+  &[readonly] {
+    background-color: $bg-color;
+  }
+}
+
+input {
+  &:disabled,
+  &.disabled {
+    & + .form-icon {
+      background: $bg-color-dark;
+      cursor: not-allowed;
+      opacity: 0.5;
+    }
+  }
+}
+
+.form-switch {
+  input {
+    &:disabled,
+    &.disabled {
+      & + .form-icon::before {
+        background: $bg-color-light;
+      }
+    }
+  }
+}
+
+// Form Horizontal
+.form-horizontal {
+  padding: $layout-padding;
+
+  .form-group {
+    display: flex;
+  }
+
+  .form-checkbox,
+  .form-radio,
+  .form-switch {
+    margin: 0.25rem 0;
+  }
+}

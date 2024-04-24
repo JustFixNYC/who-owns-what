@@ -6,6 +6,7 @@
     "@amplitude/analytics-browser": "^1.2.3",
     "@babel/core": "^7.7.2",
     "@contentful/rich-text-react-renderer": "^15.0.0",
+    "@justfixnyc/component-library": "0.33.0",
     "@justfixnyc/contentful-common-strings": "^0.1.0",
     "@justfixnyc/geosearch-requester": "1.0.0",
     "@justfixnyc/util": "^0.4.1",
@@ -75,7 +76,6 @@
     "resize-observer-polyfill": "^1.5.1",
     "rollbar": "^2.14.4",
     "sass": "^1.49.9",
-    "spectre.scss": "0.0.2",
     "typescript": "^4.9.3",
     "widont": "^0.3.3",
     "xstate": "^4.11.0"
@@ -88,8 +88,8 @@
     "contentful": "node pull-contentful-data.js",
     "contentful-common-strings": "contentful-common-strings fetch -o src/data/common-strings.json",
     "typecheck": "tsc",
-    "build-css": "sass src/:src/ --no-source-map --load-path src/ --load-path node_modules/ --load-path node_modules/spectre.scss/src/",
-    "watch-css": "yarn build-css && sass src/:src/ --no-source-map --load-path src/ --load-path node_modules/ --load-path node_modules/spectre.scss/src/ --watch",
+    "build-css": "sass src/:src/ --no-source-map --load-path src/ --load-path node_modules/",
+    "watch-css": "yarn build-css && sass src/:src/ --no-source-map --load-path src/ --load-path node_modules/ --watch",
     "start-js": "lingui compile && react-scripts start",
     "start": "yarn contentful-common-strings --dev && npm-run-all -p watch-css start-js",
     "build": "yarn contentful-common-strings && node write-version.js && yarn build-css && lingui compile && react-scripts build",
@@ -104,7 +104,8 @@
     "dotenv": "^8.2.0",
     "jest-fetch-mock": "^3.0.3",
     "npm-run-all": "^4.0.2",
-    "prettier": "2.0.5"
+    "prettier": "2.0.5",
+    "react-error-overlay": "6.0.9"
   },
   "overrides": {
     "@svgr/webpack": "$@svgr/webpack"
@@ -115,7 +116,8 @@
     "loader-utils": "^2.0.4",
     "set-value": "^2.0.1",
     "minimist": "^0.2.4",
-    "immer": "^9.0.6"
+    "immer": "^9.0.6",
+    "react-error-overlay": "6.0.9"
   },
   "engines": {
     "node": ">=12.0.0"

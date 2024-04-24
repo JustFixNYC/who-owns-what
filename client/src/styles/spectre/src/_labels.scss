@@ -1,0 +1,21 @@
+// Labels
+.label {
+  @include label-base();
+  @include label-variant(lighten($body-font-color, 12%), $bg-color);
+
+  &.label-primary {
+    @include label-variant($light-color, $primary-color);
+  }
+
+  &.label-success {
+    @include label-variant($light-color, $control-color-success);
+  }
+
+  &.label-warning {
+    @include label-variant($light-color, $control-color-warning);
+  }
+
+  &.label-error {
+    @include label-variant($light-color, $control-color-error);
+  }
+}

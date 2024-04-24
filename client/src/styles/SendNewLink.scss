@@ -1,0 +1,20 @@
+@import "_typography.scss";
+
+.send-new-link-container {
+  display: flex;
+
+  .send-new-link {
+    display: flex;
+  }
+
+  .link-sent {
+    display: flex;
+    align-items: center;
+
+    svg {
+      height: 20px;
+      width: 20px;
+      margin-right: 0.5rem;
+    }
+  }
+}

@@ -240,6 +240,7 @@ export const SAMPLE_TIMELINE_DATA: IndicatorsHistoryResults = {
       dobviolations_ecb: 1,
       dobviolations_total: 2,
       evictionfilings_total: 0,
+      rentstabilizedunits_total: 4,
     },
   ],
 };

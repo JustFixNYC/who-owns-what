@@ -1,3 +1,4 @@
+import json
 import sys
 from django.http import HttpResponse
 from django.utils.decorators import method_decorator
@@ -27,7 +28,7 @@ def login(request):
         return set_response_cookies(response, response.json())
     else:
         return HttpResponse(
-            content_type="application/json", status=response.status_code
+            content=json.dumps(response.json()), status=response.status_code
         )
 
 
@@ -59,7 +60,10 @@ def logout(request):
 @api
 def update(request):
     try:
-        post_data = {"new_email": request.POST.get("new_email")}
+        post_data = {
+            "new_email": request.POST.get("new_email"),
+            "origin": request.headers["Origin"],
+        }
 
         return authenticated_request(
             "user/",
@@ -76,6 +80,7 @@ def register(request):
         "grant_type": "password",
         "username": request.POST.get("username"),
         "password": request.POST.get("password"),
+        "user_type": request.POST.get("user_type"),
         "origin": request.headers["Origin"],
     }
 
@@ -99,21 +104,21 @@ def auth_check(request):
 @api
 def verify_email(request):
     try:
-        code = request.GET.get("code")
-
-        return authenticated_request(
-            "user/verify_email/?code=" + code,
-            request,
+        post_data = {"code": request.GET.get("code")}
+        return auth_server_request(
+            "POST",
+            "user/verify_email/",
+            post_data,
         )
     except KeyError:
         return HttpResponse(content_type="application/json", status=401)
 
 
 @api
-def resend_verify_email(request):
+def resend_verification(request):
     try:
         return authenticated_request(
-            "user/resend_verify_email/",
+            "user/resend_verification/",
             request,
             {
                 "origin": request.headers["Origin"],
@@ -124,31 +129,89 @@ def resend_verify_email(request):
 
 
 @api
-def password_reset_request(request):
-    post_data = {
-        "username": request.POST.get("username"),
-        "origin": request.headers["Origin"],
-    }
-    return auth_server_request(
-        "POST",
-        "user/password_reset/request/",
-        post_data,
-        {"Cookie": request.headers.get("Cookie")},
-    )
+def resend_verification_with_token(request):
+    try:
+        post_data = {
+            "token": request.GET.get("u"),
+            "origin": request.headers["Origin"],
+        }
+
+        return auth_server_request(
+            "POST",
+            "user/resend_verification_with_token/",
+            post_data,
+        )
+    except KeyError:
+        return HttpResponse(content_type="application/json", status=401)
+
+
+@api
+def reset_password_request(request):
+    try:
+        post_data = {
+            "username": request.POST.get("username"),
+            "origin": request.headers["Origin"],
+        }
+        return auth_server_request(
+            "POST",
+            "user/password_reset/request/",
+            post_data,
+            {"Cookie": request.headers.get("Cookie")},
+        )
+    except Exception:
+        print("failed")
+        return HttpResponse(content_type="application/json", status=401)
+
+
+@api
+def reset_password_request_with_token(request):
+    try:
+        post_data = {
+            "token": request.GET.get("token"),
+            "origin": request.headers["Origin"],
+        }
+
+        return auth_server_request(
+            "POST",
+            "user/email/password_reset/request/",
+            post_data,
+            {"Cookie": request.headers.get("Cookie")},
+        )
+    except KeyError:
+        return HttpResponse(content_type="application/json", status=401)
+
+
+@api
+def password_reset_token_check(request):
+    try:
+        post_data = {
+            "token": request.GET.get("token"),
+        }
+        return auth_server_request(
+            "POST",
+            "user/email/password_reset/check/",
+            post_data,
+            {"Cookie": request.headers.get("Cookie")},
+        )
+    except KeyError:
+        return HttpResponse(content_type="application/json", status=401)
 
 
 @api
 def password_reset(request):
-    post_data = {
-        "token": request.GET.get("token"),
-        "new_password": request.POST.get("new_password"),
-    }
-    return auth_server_request(
-        "POST",
-        "user/password_reset/",
-        post_data,
-        {"Cookie": request.headers.get("Cookie")},
-    )
+    try:
+        post_data = {
+            "token": request.GET.get("token"),
+            "new_password": request.POST.get("new_password"),
+        }
+        return auth_server_request(
+            "POST",
+            "user/password_reset/",
+            post_data,
+            {"Cookie": request.headers.get("Cookie")},
+        )
+    except KeyError:
+        return HttpResponse(content_type="application/json", status=401)
 
 
 @api
@@ -193,13 +256,27 @@ class SubscriptionView(View):
 
 
 @api
-def user_subscriptions(request):
+def email_user_subscriptions(request):
     try:
         post_data = {"token": request.GET.get("u")}
 
         return auth_server_request(
             "POST",
-            "user/subscriptions/",
+            "user/email/subscriptions/",
+            post_data,
+        )
+    except KeyError:
+        return HttpResponse(content_type="application/json", status=401)
+
+
+@api
+def email_unsubscribe_all(request):
+    try:
+        post_data = {"token": request.GET.get("u")}
+
+        return auth_server_request(
+            "POST",
+            "user/email/unsubscribe/",
             post_data,
         )
     except KeyError:

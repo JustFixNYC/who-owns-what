@@ -1,0 +1,55 @@
+// Timelines
+.timeline {
+  .timeline-item {
+    display: flex;
+    margin-bottom: 1.5rem;
+    position: relative;
+    &::before {
+      background: $border-color;
+      content: "";
+      height: 100%;
+      left: 0.69rem;
+      position: absolute;
+      top: 1.5rem;
+      width: 0.13rem;
+    }
+
+    .timeline-left {
+      flex: 0 0 auto;
+    }
+
+    .timeline-content {
+      flex: 1 1 auto;
+      padding: 0.13rem 0 0.13rem $layout-padding-lg;
+    }
+
+    .timeline-icon {
+      border-radius: 50%;
+      color: $light-color;
+      display: block;
+      height: 1.5rem;
+      text-align: center;
+      width: 1.5rem;
+      &::before {
+        border: 2px solid $primary-color;
+        border-radius: 50%;
+        content: "";
+        display: block;
+        height: 0.5rem;
+        left: 0.5rem;
+        position: absolute;
+        top: 0.5rem;
+        width: 0.5rem;
+      }
+
+      &.icon-lg {
+        background: $primary-color;
+        font-size: 1rem;
+        line-height: 1.25rem;
+        &::before {
+          content: none;
+        }
+      }
+    }
+  }
+}

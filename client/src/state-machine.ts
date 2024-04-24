@@ -107,7 +107,7 @@ type PortfolioData = {
   portfolioGraph?: RawPortfolioGraphJson;
 };
 
-type BuildingSubscription = {
+export type BuildingSubscription = {
   bbl: string;
   housenumber: string;
   streetname: string;

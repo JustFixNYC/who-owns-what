@@ -3,18 +3,24 @@ import { JustfixUser } from "state-machine";
 import AuthClient from "./AuthClient";
 import { authRequiredPaths } from "routes";
 
+type UserOrError = {
+  user?: JustfixUser;
+  error?: string;
+};
+
 export type UserContextProps = {
   user?: JustfixUser;
   register: (
     username: string,
     password: string,
+    userType: string,
     onSuccess?: (user: JustfixUser) => void
-  ) => Promise<string | void>;
+  ) => Promise<UserOrError | void>;
   login: (
     username: string,
     password: string,
     onSuccess?: (user: JustfixUser) => void
-  ) => Promise<string | void>;
+  ) => Promise<UserOrError | void>;
   logout: (fromPath: string) => void;
   subscribe: (
     bbl: string,
@@ -35,6 +41,7 @@ const initialState: UserContextProps = {
   register: async (
     username: string,
     password: string,
+    userType: string,
     onSuccess?: (user: JustfixUser) => void
   ) => {},
   login: async (username: string, password: string, onSuccess?: (user: JustfixUser) => void) => {},
@@ -75,8 +82,13 @@ export const UserContextProvider = ({ children }: { children: React.ReactNode })
   }, []);
 
   const register = useCallback(
-    async (username: string, password: string, onSuccess?: (user: JustfixUser) => void) => {
-      const response = await AuthClient.register(username, password);
+    async (
+      username: string,
+      password: string,
+      userType: string,
+      onSuccess?: (user: JustfixUser) => void
+    ) => {
+      const response = await AuthClient.register(username, password, userType);
       if (!response.error && response.user) {
         const _user = {
           ...response.user,
@@ -87,8 +99,9 @@ export const UserContextProvider = ({ children }: { children: React.ReactNode })
         };
         setUser(_user);
         if (onSuccess) onSuccess(_user);
+        return { user: _user };
       } else {
-        return response.error_description;
+        return { error: response.error_description };
       }
     },
     []
@@ -97,6 +110,7 @@ export const UserContextProvider = ({ children }: { children: React.ReactNode })
   const login = useCallback(
     async (username: string, password: string, onSuccess?: (user: JustfixUser) => void) => {
       const response = await AuthClient.login(username, password);
+      console.log(response);
       if (!response.error && response.user) {
         const _user = {
           ...response.user,
@@ -107,18 +121,23 @@ export const UserContextProvider = ({ children }: { children: React.ReactNode })
         };
         setUser(_user);
         if (onSuccess) onSuccess(_user);
+        return { user: _user };
       } else {
-        return response.error_description;
+        return { error: response.error };
       }
     },
     []
   );
 
   const logout = useCallback(async (fromPath: string) => {
-    await AuthClient.logout();
-    if (authRequiredPaths().includes(fromPath)) {
-      document.location.href = `${window.location.origin}`;
-    }
+    const asyncLogout = async () => {
+      await AuthClient.logout();
+      setUser(undefined);
+      if (authRequiredPaths().includes(fromPath)) {
+        document.location.href = `${window.location.origin}`;
+      }
+    };
+    asyncLogout();
   }, []);
 
   const subscribe = useCallback(
@@ -166,7 +185,7 @@ export const UserContextProvider = ({ children }: { children: React.ReactNode })
       if (user) {
         const asyncUpdateEmail = async () => {
           const response = await AuthClient.updateEmail(email);
-          setUser({ ...user, email: response.email });
+          setUser({ ...user, email: response.email, verified: false });
         };
         asyncUpdateEmail();
       }

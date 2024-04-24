@@ -11,8 +11,13 @@ import { Nobr } from "../components/Nobr";
 import { SocialShareForNotRegisteredPage } from "./NotRegisteredPage";
 import { withMachineInStateProps } from "state-machine";
 import Page from "components/Page";
+import { Link as JFCLLink } from "@justfixnyc/component-library";
 
 type NychaPageProps = withMachineInStateProps<"nychaFound"> & withI18nProps;
+
+const JFCLLinkInternal: React.FC<any> = (props) => {
+  return <JFCLLink icon="internal" {...props} />;
+};
 
 const NychaPageWithoutI18n: React.FC<NychaPageProps> = (props) => {
   const { i18n, state } = props;
@@ -83,10 +88,10 @@ const NychaPageWithoutI18n: React.FC<NychaPageProps> = (props) => {
       <div className="NotRegisteredPage Page">
         <div className="HomePage__content">
           <div className="HomePage__search">
-            <h5 className="mt-10 text-center text-bold text-large">
+            <h5 className="mt-4 text-center text-bold text-large">
               {buildingInfo.nycha_development}: <Trans>Public Housing Development</Trans>
             </h5>
-            <h6 className="mt-10 text-center text-bold text-large">
+            <h6 className="mt-4 text-center text-bold text-large">
               <Trans>This building is owned by the NYC Housing Authority (NYCHA)</Trans>
             </h6>
             <div className="wrapper">
@@ -209,59 +214,63 @@ const NychaPageWithoutI18n: React.FC<NychaPageProps> = (props) => {
 
               <div>
                 <Trans render="p">Useful links</Trans>
-                <div>
-                  <div className="btn-group btn-group-block">
-                    <a
+                <ul>
+                  <li>
+                    <JFCLLink
                       href="https://www.hud.gov/sites/documents/958.PDF"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="btn"
+                      icon="external"
                     >
-                      <Trans>HUD Complaint Form 958</Trans> &#8599;
-                    </a>
-                    <a
+                      <Trans>HUD Complaint Form 958</Trans>
+                    </JFCLLink>
+                  </li>
+                  <li>
+                    <JFCLLink
                       href="https://www1.nyc.gov/assets/nycha/downloads/pdf/Development-Guide-04-23-2020.pdf"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="btn"
+                      icon="external"
                     >
-                      <Trans>NYCHA Directory</Trans> &#8599;
-                    </a>
-                  </div>
-                  <div className="btn-group btn-group-block">
-                    <a
+                      <Trans>NYCHA Directory</Trans>
+                    </JFCLLink>
+                  </li>
+                  <li>
+                    <JFCLLink
                       href="https://www1.nyc.gov/site/nycha/mynycha/mynycha-landing.page"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="btn"
+                      icon="external"
                     >
-                      <Trans>MyNYCHA App</Trans> &#8599;
-                    </a>
-                    <a
+                      <Trans>MyNYCHA App</Trans>
+                    </JFCLLink>
+                  </li>
+                  <li>
+                    <JFCLLink
                       href={`https://portal.displacementalert.org/property/${boro}${block}${lot}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="btn"
+                      icon="external"
                     >
-                      <Trans>ANHD DAP Portal</Trans> &#8599;
-                    </a>
-                  </div>
-                </div>
+                      <Trans>ANHD DAP Portal</Trans>
+                    </JFCLLink>
+                  </li>
+                </ul>
               </div>
 
               <div className="justfix-cta">
                 <Trans render="p">Are you having issues in this development?</Trans>
-                <a
+                <JFCLLink
+                  className="flex-centered"
                   onClick={() => {
                     window.gtag("event", "take-action-nycha-page");
                   }}
                   href={takeActionURL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="btn btn-justfix btn-block"
                 >
                   <Trans>Take action on JustFix.org!</Trans>
-                </a>
+                </JFCLLink>
               </div>
 
               <SocialShareForNotRegisteredPage />
@@ -272,8 +281,8 @@ const NychaPageWithoutI18n: React.FC<NychaPageProps> = (props) => {
               </div> */}
               <br />
 
-              <Link className="btn btn-primary btn-block" to="/">
-                &lt;-- <Trans>Search for a different address</Trans>
+              <Link className="flex-centered" component={JFCLLinkInternal} to="/">
+                <Trans>Search for a different address</Trans>
               </Link>
             </div>
           </div>

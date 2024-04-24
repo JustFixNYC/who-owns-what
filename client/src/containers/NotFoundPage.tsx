@@ -7,7 +7,7 @@ export const ErrorPageScaffolding = (props: { children: React.ReactNode }) => (
   <div className="NotRegisteredPage Page">
     <div className="HomePage__content">
       <div className="HomePage__search">
-        <h5 className="mt-10 text-danger text-center text-bold text-large">{props.children}</h5>
+        <h5 className="mt-4 text-danger text-center text-bold text-large">{props.children}</h5>
       </div>
     </div>
   </div>

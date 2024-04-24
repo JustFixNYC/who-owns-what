@@ -1,10 +1,19 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 
 import { withI18n, withI18nProps } from "@lingui/react";
 import { t, Trans } from "@lingui/macro";
 
 import "styles/EmailAlertSignup.css";
 import PasswordInput from "./PasswordInput";
+import { useInput } from "util/helpers";
+import { UserContext } from "./UserContext";
+import { JustfixUser } from "state-machine";
+import EmailInput from "./EmailInput";
+import AuthClient from "./AuthClient";
+import { Alert } from "./Alert";
+import { AlertIconOutline } from "./Icons";
+import SendNewLink from "./SendNewLink";
+import { Button } from "@justfixnyc/component-library";
 
 type PasswordSettingFieldProps = withI18nProps & {
   onSubmit: (currentPassword: string, newPassword: string) => void;
@@ -12,34 +21,90 @@ type PasswordSettingFieldProps = withI18nProps & {
 
 const PasswordSettingFieldWithoutI18n = (props: PasswordSettingFieldProps) => {
   const { i18n, onSubmit } = props;
-  const [newPassword, setNewPassword] = useState("");
-  const [currentPassword, setCurrentPassword] = useState("");
-  const [showCurrentPassword, setShowCurrentPassword] = useState(false);
+  const userContext = useContext(UserContext);
+  const { email } = userContext.user as JustfixUser;
+  const {
+    value: currentPassword,
+    error: currentPasswordError,
+    showError: showCurrentPasswordError,
+    setError: setCurrentPasswordError,
+    setShowError: setShowCurrentPasswordError,
+    onChange: onChangeCurrentPassword,
+  } = useInput("");
+  const {
+    value: newPassword,
+    error: newPasswordError,
+    showError: showNewPasswordError,
+    setError: setNewPasswordError,
+    setShowError: setShowNewPasswordError,
+    onChange: onChangeNewPassword,
+  } = useInput("");
+  const [invalidAuthError, setInvalidAuthError] = useState(false);
 
-  const handleCurrentPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setCurrentPassword(e.target.value);
-  };
+  const handleSubmit = async () => {
+    setInvalidAuthError(false);
+    setShowCurrentPasswordError(false);
+    setShowNewPasswordError(false);
 
-  const handleSubmit = () => {
+    if (!currentPassword) {
+      setCurrentPasswordError(true);
+      setShowCurrentPasswordError(true);
+      throw new Error("Current password missing");
+    }
+
+    if (!newPassword || newPasswordError) {
+      setNewPasswordError(true);
+      setShowNewPasswordError(true);
+      throw new Error("New password format error");
+    }
+
+    // context doesn't update immediately so need to reurn user to check verified status
+    const resp = await userContext.login(email, currentPassword);
+
+    if (!!resp?.error) {
+      setInvalidAuthError(true);
+      throw new Error("Incorrect current password");
+    }
+
     onSubmit(currentPassword, newPassword);
   };
 
   return (
     <UserSettingField title={i18n._(t`Password`)} preview="**********" onSubmit={handleSubmit}>
-      <Trans render="label">Enter your old password</Trans>
-      <div className="password-input">
-        <input
-          type={showCurrentPassword ? "text" : "password"}
-          className="input"
-          placeholder={`Enter your current password`}
-          onChange={handleCurrentPasswordChange}
-          value={currentPassword}
-        />
-        <button type="button" onClick={() => setShowCurrentPassword(!showCurrentPassword)}>
-          Show
-        </button>
-      </div>
-      <PasswordInput validateInput={true} onChange={setNewPassword} />
+      {invalidAuthError && (
+        <Alert
+          className={`page-level-alert`}
+          variant="primary"
+          closeType="none"
+          role="status"
+          type="error"
+        >
+          <AlertIconOutline />
+          {i18n._(t`The current password you entered is incorrect`)}
+        </Alert>
+      )}
+      <Trans render="label" className="user-setting-label">
+        Password
+      </Trans>
+      <PasswordInput
+        labelText={i18n._(t`Current password`)}
+        password={currentPassword}
+        error={currentPasswordError}
+        showError={showCurrentPasswordError}
+        setError={setCurrentPasswordError}
+        onChange={onChangeCurrentPassword}
+        id="old-password-input"
+      />
+      <PasswordInput
+        labelText={i18n._(t`New password`)}
+        showPasswordRules={true}
+        password={newPassword}
+        error={newPasswordError}
+        showError={showNewPasswordError}
+        setError={setNewPasswordError}
+        onChange={onChangeNewPassword}
+        id="new-password-input"
+      />
     </UserSettingField>
   );
 };
@@ -53,29 +118,89 @@ type EmailSettingFieldProps = withI18nProps & {
 
 const EmailSettingFieldWithoutI18n = (props: EmailSettingFieldProps) => {
   const { i18n, currentValue, onSubmit } = props;
-  const [value, setValue] = useState(currentValue);
+  const userContext = useContext(UserContext);
+  const { email: oldEmail, verified } = userContext.user as JustfixUser;
+  const [isEmailResent, setIsEmailResent] = React.useState(false);
+  const [existingUserError, setExistingUserError] = useState(false);
+  const {
+    value: email,
+    error: emailError,
+    showError: showEmailError,
+    setError: setEmailError,
+    setShowError: setShowEmailError,
+    onChange: onChangeEmail,
+  } = useInput(oldEmail);
 
-  const handleValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(e.target.value);
+  const handleSubmit = async () => {
+    setExistingUserError(false);
+    setShowEmailError(false);
+
+    if (email === oldEmail) {
+      return;
+    }
+
+    if (!email || emailError) {
+      setEmailError(true);
+      setShowEmailError(true);
+      throw new Error("Email format error");
+    }
+
+    if (!!email && !emailError) {
+      const existingUser = await AuthClient.isEmailAlreadyUsed(email);
+      if (existingUser) {
+        setExistingUserError(true);
+        throw new Error("Existing user error");
+      }
+    }
+
+    onSubmit(email);
   };
 
-  const handleSubmit = () => {
-    onSubmit(value);
-  };
+  const verifyCallout = !verified ? (
+    <div className="jf-callout">
+      <Trans render="p">
+        Email address not verified. Click the link we sent to {email} start receiving Building
+        Updates.
+      </Trans>
+      {!isEmailResent && <Trans render="p">Didn’t get the link?</Trans>}
+      <SendNewLink
+        setParentState={setIsEmailResent}
+        onClick={() => AuthClient.resendVerifyEmail()}
+      />
+    </div>
+  ) : undefined;
 
   return (
     <UserSettingField
       title={i18n._(t`Email address`)}
       preview={currentValue}
       onSubmit={handleSubmit}
+      verifyCallout={verifyCallout}
     >
-      <Trans render="label">Email address</Trans>
-      <input
-        type="email"
-        className="input"
+      {existingUserError && (
+        <Alert
+          className={`page-level-alert`}
+          variant="primary"
+          closeType="none"
+          role="status"
+          type="error"
+        >
+          <AlertIconOutline />
+          {i18n._(t`That email is already used.`)}
+        </Alert>
+      )}
+      <Trans render="label" className="user-setting-label">
+        Email address
+      </Trans>
+      <Trans render="p">We send Building Updates to this email.</Trans>
+      <EmailInput
+        email={email}
+        error={emailError}
+        showError={showEmailError}
+        setError={setEmailError}
+        onChange={onChangeEmail}
+        autoFocus
         placeholder={i18n._(t`Enter new email address`)}
-        onChange={handleValueChange}
-        value={value}
       />
     </UserSettingField>
   );
@@ -86,39 +211,57 @@ export const EmailSettingField = withI18n()(EmailSettingFieldWithoutI18n);
 type UserSettingFieldProps = withI18nProps & {
   title: string;
   preview: string;
-  onSubmit: () => void;
+  onSubmit: () => Promise<void>;
   children: React.ReactNode;
+  verifyCallout?: React.ReactNode;
 };
 
 const UserSettingFieldWithoutI18n = (props: UserSettingFieldProps) => {
-  const { title, preview, onSubmit, children } = props;
+  const { title, preview, onSubmit, children, verifyCallout, i18n } = props;
   const [editing, setEditing] = useState(false);
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    onSubmit().then(
+      (response) => setEditing(false),
+      (error) => {}
+    );
+  };
+
   return (
     <div className={`UserSetting`}>
-      <form onSubmit={onSubmit} className="input-group">
+      <form onSubmit={handleSubmit} className="input-group">
         {editing ? (
           <>
             {children}
             <div className="user-setting-actions">
-              <input type="submit" className="button is-primary" value={`Save`} />
-              <button
+              <Button type="submit" variant="primary" size="small" labelText={i18n._(t`Save`)} />
+              <Button
                 type="button"
-                className="button is-secondary"
+                variant="tertiary"
+                size="small"
+                labelText={i18n._(t`Cancel`)}
                 onClick={() => setEditing(false)}
-              >
-                <Trans>Cancel</Trans>
-              </button>
+              />
             </div>
           </>
         ) : (
           <>
-            <Trans render="label">{title}</Trans>
+            <Trans render="label" className="user-setting-label">
+              {title}
+            </Trans>
             <div>
               <span>{preview}</span>
-              <button type="button" className="link-button" onClick={() => setEditing(true)}>
-                <Trans>Edit</Trans>
-              </button>
+              <Button
+                type="button"
+                variant="tertiary"
+                size="small"
+                className="edit-button"
+                labelText={i18n._(t`Edit`)}
+                onClick={() => setEditing(true)}
+              />
             </div>
+            {!!verifyCallout && verifyCallout}
           </>
         )}
       </form>

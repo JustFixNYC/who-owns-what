@@ -1,36 +1,30 @@
 @import "_vars.scss";
+@import "_typography.scss";
 
 .EmailAlertSignup {
-  margin-top: 2rem;
+  margin-top: 1.25rem;
 
-  .email-alert-content {
-    text-align: left;
-  }
-
-  .building-subscribe-status {
+  .building-subscribe {
     display: flex;
+    flex-direction: column;
     text-align: left;
+    gap: 1.5rem;
 
-    button {
-      cursor: pointer;
-      text-decoration: underline;
+    .jfcl-button {
+      align-self: center;
+
+      .jfcl-button__label {
+        align-items: center;
+      }
     }
 
-    button:hover {
-      text-decoration: none;
+    .status-title {
+      display: flex;
+      align-items: center;
+
+      svg {
+        margin-right: 0.63rem;
+      }
     }
-  }
-
-  .building-subscribe-icon {
-    width: 3rem;
-    height: 3rem;
-    margin-right: 1rem;
-    flex-shrink: 0;
-    border: 1px solid $justfix-black;
-    border-radius: 50%;
-  }
-
-  .building-subscribe-icon.verified {
-    background-color: $justfix-black;
   }
 }

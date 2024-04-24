@@ -10,6 +10,7 @@ import {
   NUMBER_RANGE_DEFAULT,
 } from "./PropertiesList";
 import { ChevronIcon } from "./Icons";
+import { Button } from "@justfixnyc/component-library";
 
 type CustomRangeErrors = { min: boolean; max: boolean; msg: JSX.Element | undefined };
 const CUSTOM_RANGE_ERRORS_DEFAULT = { min: false, max: false, msg: undefined };
@@ -256,15 +257,14 @@ function MinMaxSelect({
       </div>
       <I18n>
         {({ i18n }) => (
-          <button
+          <Button
             type="submit"
             form={`${id || "minmaxselect"}__form`}
-            className="button is-primary"
             aria-label={i18n._(t`Apply selections and get results`)}
             onClick={handleApply}
-          >
-            <Trans>Apply</Trans>
-          </button>
+            labelText={i18n._("Apply")}
+            size="small"
+          />
         )}
       </I18n>
     </div>
