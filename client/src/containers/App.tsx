@@ -16,6 +16,7 @@ import {
   LocaleSwitcher,
   LocaleSwitcherWithFullLanguageName,
   JFCLLocaleLink,
+  removeLocalePrefix,
 } from "../i18n";
 import { withI18n, withI18nProps } from "@lingui/react";
 import { createWhoOwnsWhatRoutePaths } from "../routes";
@@ -224,7 +225,7 @@ const getAccountNavLinks = (
         </LocaleNavLink>,
         <button
           onClick={() => {
-            window.gtag("event", "nav-logout", { from: fromPath });
+            window.gtag("event", "nav-logout", { from: removeLocalePrefix(fromPath) });
             handleLogout(fromPath);
           }}
           key="account-2"
@@ -236,7 +237,7 @@ const getAccountNavLinks = (
         <LocaleNavLink
           to={login}
           key="account-3"
-          onClick={() => window.gtag("event", "nav-login", { from: fromPath })}
+          onClick={() => window.gtag("event", "nav-login", { from: removeLocalePrefix(fromPath) })}
         >
           <Trans>Log in</Trans>
         </LocaleNavLink>,
