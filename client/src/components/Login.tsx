@@ -20,7 +20,6 @@ import { createRouteForAddressPage, createWhoOwnsWhatRoutePaths } from "routes";
 import { AddressRecord } from "./APIDataTypes";
 import { isLegacyPath } from "./WowzaToggle";
 import { Nobr } from "./Nobr";
-import { logAmplitudeEvent } from "./Amplitude";
 
 enum Step {
   CheckEmail,
