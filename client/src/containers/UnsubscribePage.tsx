@@ -37,10 +37,8 @@ const UnsubscribePage = withI18n()((props: withI18nProps) => {
     asyncFetchSubscriptions();
 
     if (isEmailUnsubscribeAll) {
-      // logAmplitudeEvent("unsubscribeBuildingAllEmailLink");
       window.gtag("event", "unsubscribe-building-all-email-link");
     } else {
-      // logAmplitudeEvent("manageSubscriptionsEmailLink");
       window.gtag("event", "manage-subscriptions-email-link");
     }
   }, [token, isEmailUnsubscribeAll]);
@@ -48,17 +46,13 @@ const UnsubscribePage = withI18n()((props: withI18nProps) => {
   const handleUnsubscribeBuilding = async (bbl: string) => {
     const result = await AuthClient.emailUnsubscribeBuilding(bbl, token);
     if (!!result?.["subscriptions"]) setSubscriptions(result["subscriptions"]);
-    const eventParams = { from: "manage subscriptions page" };
-    // logAmplitudeEvent("unsubscribeBuilding", eventParams);
-    window.gtag("event", "unsubscribe-building", eventParams);
+    window.gtag("event", "unsubscribe-building", { from: "manage subscriptions page" });
   };
 
   const handleUnsubscribeAll = async () => {
     const result = await AuthClient.emailUnsubscribeAll(token);
     if (!!result?.["subscriptions"]) setSubscriptions(result["subscriptions"]);
-    const eventParams = { from: "manage subscriptions page" };
-    // logAmplitudeEvent("unsubscribeBuildingAll", eventParams);
-    window.gtag("event", "unsubscribe-building-all", eventParams);
+    window.gtag("event", "unsubscribe-building-all", { from: "manage subscriptions page" });
   };
 
   const renderUnsubscribePage = () => (

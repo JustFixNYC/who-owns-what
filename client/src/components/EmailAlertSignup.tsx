@@ -57,7 +57,6 @@ const BuildingSubscribeWithoutI18n = (props: BuildingSubscribeProps) => {
   const [showSubscriptionLimitModal, setShowSubscriptionLimitModal] = useState(false);
 
   const navigateToLogin = () => {
-    // logAmplitudeEvent("registerLoginViaBuilding");
     window.gtag("event", "register-login-via-building");
     const loginRoute = `/${i18n.language}${account.login}`;
     history.push({ pathname: loginRoute, state: { addr } });
@@ -99,24 +98,21 @@ const BuildingSubscribeWithoutI18n = (props: BuildingSubscribeProps) => {
         className="is-full-width"
         onClick={() => {
           AuthClient.resendVerifyEmail();
-          const eventParams = { ...eventUserParams, from: "building page" };
-          // logAmplitudeEvent("emailVerifyResend", eventParams);
-          window.gtag("event", "email-verify-resend", { ...eventParams });
+          const params = { ...eventUserParams, from: "building page" };
+          window.gtag("event", "email-verify-resend", { ...params });
         }}
       />
     </>
   );
 
   const subscribeToBuilding = (addr: AddressRecord) => {
-    // logAmplitudeEvent("subscribeBuildingPage", gtagUserParams);
-    window.gtag("event", "subscribe-building-page", eventUserParams);
+    window.gtag("event", "subscribe-building-page", { ...eventUserParams });
     subscribe(addr.bbl, addr.housenumber, addr.streetname, addr.zip ?? "", addr.boro);
   };
 
   const handleSubscriptionLimitReached = () => {
-    const eventParams = { ...eventUserParams, limit: SUBSCRIPTION_LIMIT };
-    // logAmplitudeEvent("subscriptionLimitExceedAttempt", eventParams);
-    window.gtag("event", "subscription-limit-exceed-attempt", eventParams);
+    const params = { ...eventUserParams, limit: SUBSCRIPTION_LIMIT };
+    window.gtag("event", "subscription-limit-exceed-attempt", { ...params });
     setShowSubscriptionLimitModal(true);
   };
 
@@ -189,8 +185,7 @@ const BuildingSubscribeWithoutI18n = (props: BuildingSubscribeProps) => {
             rel="noopener noreferrer"
             onClick={() => {
               const eventParams = { ...eventUserParams, limit: SUBSCRIPTION_LIMIT };
-              // logAmplitudeEvent("subscriptionLimitRequest", eventParams);
-              window.gtag("event", "subscription-limit-request", eventParams);
+              window.gtag("event", "subscription-limit-request", { ...eventParams });
             }}
           >
             request form

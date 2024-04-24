@@ -218,7 +218,6 @@ const LoginWithoutI18n = (props: withI18nProps) => {
               <button
                 className="button is-text ml-2"
                 onClick={() => {
-                  // logAmplitudeEvent("swapRegisterLogin", { ...eventParams(), to: "login" });
                   window.gtag("event", "swap-register-login", { ...eventParams(), to: "login" });
                   toggleLoginSignup(Step.Login);
                 }}
@@ -232,7 +231,6 @@ const LoginWithoutI18n = (props: withI18nProps) => {
               <button
                 className="button is-text ml-2 pt-6"
                 onClick={() => {
-                  // logAmplitudeEvent("swapRegisterLogin", { ...eventParams(), to: "register" });
                   window.gtag("event", "swap-register-login", { ...eventParams(), to: "register" });
                   toggleLoginSignup(Step.RegisterAccount);
                 }}
@@ -260,7 +258,6 @@ const LoginWithoutI18n = (props: withI18nProps) => {
           onClick={() => {
             AuthClient.resendVerifyEmail();
             const from = (!!addr ? "building page " : "nav ") + loginOrRegister;
-            // logAmplitudeEvent("emailVerifyResend", { ...eventParams(), from });
             window.gtag("event", "email-verify-resend", { ...eventParams(), from });
           }}
         />
@@ -270,10 +267,7 @@ const LoginWithoutI18n = (props: withI18nProps) => {
           <Link
             to={{ pathname: getAddrPageRoute(addr), state: { justSubscribed: true } }}
             component={JFCLLink}
-            onClick={() => {
-              // logAmplitudeEvent("registerReturnAddress");
-              window.gtag("event", "register-return-address");
-            }}
+            onClick={() => window.gtag("event", "register-return-address")}
           >
             <IconLinkInternal />
             Back to {formatAddr(addr)}
@@ -293,7 +287,6 @@ const LoginWithoutI18n = (props: withI18nProps) => {
   );
 
   const onEmailSubmit = async () => {
-    // logAmplitudeEvent("registerLoginEmail", gtagParams());
     window.gtag("event", "register-login-email", eventParams());
 
     if (!email || emailError) {
@@ -307,7 +300,6 @@ const LoginWithoutI18n = (props: withI18nProps) => {
   };
 
   const onLoginSubmit = async () => {
-    // logAmplitudeEvent("loginPassword", gtagParams());
     window.gtag("event", "login-password", eventParams());
 
     resetAlertErrorStates();
@@ -332,13 +324,11 @@ const LoginWithoutI18n = (props: withI18nProps) => {
       return;
     }
 
-    // logAmplitudeEvent("loginSuccess", gtagParams(resp.user));
     window.gtag("event", "login-success", eventParams(resp?.user));
 
     if (!!addr) {
       const subscribeEventParams = { ...eventParams(), via: "login" };
-      // logAmplitudeEvent("subscribeBuildingViaRegisterLogin", subscribeEventParams);
-      window.gtag("event", "subscribe-building-via-register-login", subscribeEventParams);
+      window.gtag("event", "subscribe-building-via-register-login", { ...subscribeEventParams });
     }
 
     if (!resp?.user?.verified) {
@@ -358,7 +348,6 @@ const LoginWithoutI18n = (props: withI18nProps) => {
   };
 
   const onAccountSubmit = async () => {
-    // logAmplitudeEvent("registerPassword", gtagParams());
     window.gtag("event", "register-password", eventParams());
 
     if (!email || emailError) {
@@ -369,14 +358,12 @@ const LoginWithoutI18n = (props: withI18nProps) => {
 
     const existingUser = await AuthClient.isEmailAlreadyUsed(email);
     if (existingUser) {
-      // logAmplitudeEvent("registerExistingserError", eventParams());
       window.gtag("event", "register-existing-user-error", eventParams());
       setExistingUserError(true);
       return;
     }
 
     if (!password || passwordError) {
-      // logAmplitudeEvent("registerPasswordError", eventParams());
       window.gtag("event", "register-password-error", eventParams());
       setPasswordError(true);
       setShowPasswordError(true);
@@ -387,7 +374,6 @@ const LoginWithoutI18n = (props: withI18nProps) => {
   };
 
   const onUserTypeSubmit = async () => {
-    // logAmplitudeEvent("registerUserType", gtagParams());
     window.gtag("event", "register-user-type", eventParams());
 
     if (!userType || userTypeError) {
@@ -404,13 +390,11 @@ const LoginWithoutI18n = (props: withI18nProps) => {
       return;
     }
 
-    // logAmplitudeEvent("registerSuccess", gtagParams(resp?.user));
     window.gtag("event", "register-success", eventParams(resp?.user));
 
     if (!!addr) {
       const subscribeEventParams = { ...eventParams(), via: "register" };
-      // logAmplitudeEvent("subscribeBuildingViaRegisterLogin", subscribeEventParams);
-      window.gtag("event", "subscribe-building-via-register-login", subscribeEventParams);
+      window.gtag("event", "subscribe-building-via-register-login", { ...subscribeEventParams });
     }
 
     setLoginOrRegister("register");

@@ -39,7 +39,6 @@ const ForgotPasswordPage = withI18n()((props: withI18nProps) => {
     }
     sendResetEmail();
     setRequestSent(true);
-    // logAmplitudeEvent("forgotPasswordRequest");
     window.gtag("event", "forgot-password-request");
   };
 
@@ -96,7 +95,6 @@ const ForgotPasswordPage = withI18n()((props: withI18nProps) => {
               size="large"
               onClick={() => {
                 sendResetEmail();
-                // logAmplitudeEvent("forgotPasswordResend");
                 window.gtag("event", "forgot-password-resend");
               }}
             />

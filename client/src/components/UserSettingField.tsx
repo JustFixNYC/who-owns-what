@@ -71,8 +71,7 @@ const PasswordSettingFieldWithoutI18n = (props: PasswordSettingFieldProps) => {
 
     onSubmit(currentPassword, newPassword);
 
-    // logAmplitudeEvent("accountUpdatePassword", eventUserParams);
-    window.gtag("event", "account-update-password", eventUserParams);
+    window.gtag("event", "account-update-password", { ...eventUserParams });
   };
 
   return (
@@ -139,6 +138,7 @@ const EmailSettingFieldWithoutI18n = (props: EmailSettingFieldProps) => {
   } = useInput(oldEmail);
 
   const eventUserParams = { user_id: user.id, user_type: user.type };
+  console.log({ user, eventUserParams });
 
   const handleSubmit = async () => {
     setExistingUserError(false);
@@ -164,8 +164,7 @@ const EmailSettingFieldWithoutI18n = (props: EmailSettingFieldProps) => {
 
     onSubmit(email);
 
-    // logAmplitudeEvent("accountUpdateEmail", eventUserParams);
-    window.gtag("event", "account-update-email", eventUserParams);
+    window.gtag("event", "account-update-email", { ...eventUserParams });
   };
 
   const verifyCallout = !verified ? (
@@ -180,8 +179,7 @@ const EmailSettingFieldWithoutI18n = (props: EmailSettingFieldProps) => {
         onClick={() => {
           AuthClient.resendVerifyEmail();
           const eventParams = { ...eventUserParams, from: "account settings" };
-          // logAmplitudeEvent("emailVerifyResend", eventParams);
-          window.gtag("event", "email-verify-resend", eventParams);
+          window.gtag("event", "email-verify-resend", { ...eventParams });
         }}
       />
     </div>

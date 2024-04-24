@@ -121,7 +121,6 @@ const PasswordInputWithoutI18n = forwardRef<HTMLInputElement, PasswordInputProps
             type="button"
             className="show-hide-toggle"
             onClick={() => {
-              // logAmplitudeEvent("passwordVisibilityToggle");
               window.gtag("event", "password-visibility-toggle");
               setShowPassword(!showPassword);
             }}

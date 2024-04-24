@@ -28,8 +28,7 @@ export const JustFixLogoLink = (eventParams: any) => {
       className="jf-logo"
       to={home}
       onClick={() => {
-        // logAmplitudeEvent("standaloneJustfixLogoClick", eventParams);
-        window.gtag("event", "standalone-justfix-logo-click", eventParams);
+        window.gtag("event", "standalone-justfix-logo-click", { ...eventParams });
       }}
     >
       <JFLogo />
@@ -45,8 +44,7 @@ export const StandalonePageFooter = (eventParams: any) => {
       <JFCLLocaleLink
         to={home}
         onClick={() => {
-          // logAmplitudeEvent("standaloneWowLinkClick", eventParams);
-          window.gtag("event", "standalone-wow-link-click", eventParams);
+          window.gtag("event", "standalone-wow-link-click", { ...eventParams });
         }}
       >
         Who Owns What

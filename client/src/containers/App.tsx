@@ -224,7 +224,6 @@ const getAccountNavLinks = (
         </LocaleNavLink>,
         <button
           onClick={() => {
-            // logAmplitudeEvent("navLogout");
             window.gtag("event", "nav-logout", { from: fromPath });
             handleLogout(fromPath);
           }}
@@ -237,10 +236,7 @@ const getAccountNavLinks = (
         <LocaleNavLink
           to={login}
           key="account-3"
-          onClick={() => {
-            // logAmplitudeEvent("navLogin");
-            window.gtag("event", "nav-login", { from: fromPath });
-          }}
+          onClick={() => window.gtag("event", "nav-login", { from: fromPath })}
         >
           <Trans>Log in</Trans>
         </LocaleNavLink>,
