@@ -327,7 +327,7 @@ const LoginWithoutI18n = (props: withI18nProps) => {
     window.gtag("event", "login-success", eventParams(resp?.user));
 
     if (!!addr) {
-      const subscribeEventParams = { ...eventParams(), via: "login" };
+      const subscribeEventParams = { ...eventParams(), from: "login" };
       window.gtag("event", "subscribe-building-via-register-login", { ...subscribeEventParams });
     }
 
@@ -393,7 +393,7 @@ const LoginWithoutI18n = (props: withI18nProps) => {
     window.gtag("event", "register-success", eventParams(resp?.user));
 
     if (!!addr) {
-      const subscribeEventParams = { ...eventParams(), via: "register" };
+      const subscribeEventParams = { ...eventParams(), from: "register" };
       window.gtag("event", "subscribe-building-via-register-login", { ...subscribeEventParams });
     }
 
