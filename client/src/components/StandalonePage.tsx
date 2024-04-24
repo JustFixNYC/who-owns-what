@@ -9,12 +9,49 @@ import { createWhoOwnsWhatRoutePaths } from "routes";
 import { JFCLLocaleLink, LocaleLink } from "i18n";
 import { Trans } from "@lingui/macro";
 import { JFLogo } from "./JFLogo";
+import { useLocation } from "react-router-dom";
 
-export const StandalonePageFooter = () => {
+export const STANDALONE_PAGES = [
+  "forgot-password",
+  "login",
+  "verify-email",
+  "forgot-password",
+  "reset-password",
+  "unsubscribe",
+];
+
+export const JustFixLogoLink = (eventParams: any) => {
   const { home } = createWhoOwnsWhatRoutePaths();
+
+  return (
+    <LocaleLink
+      className="jf-logo"
+      to={home}
+      onClick={() => {
+        // logAmplitudeEvent("standaloneJustfixLogoClick", eventParams);
+        window.gtag("event", "standalone-justfix-logo-click", eventParams);
+      }}
+    >
+      <JFLogo />
+    </LocaleLink>
+  );
+};
+
+export const StandalonePageFooter = (eventParams: any) => {
+  const { home } = createWhoOwnsWhatRoutePaths();
+
   return (
     <Trans render="div" className="wow-footer">
-      <JFCLLocaleLink to={home}>Who Owns What</JFCLLocaleLink> by JustFix.
+      <JFCLLocaleLink
+        to={home}
+        onClick={() => {
+          // logAmplitudeEvent("standaloneWowLinkClick", eventParams);
+          window.gtag("event", "standalone-wow-link-click", eventParams);
+        }}
+      >
+        Who Owns What
+      </JFCLLocaleLink>{" "}
+      by JustFix.
       <br />
       Read our{" "}
       <JFCLLink
@@ -44,16 +81,17 @@ type StandalonePageProps = withI18nProps & {
 
 const StandalonePage = withI18n()((props: StandalonePageProps) => {
   const { title, className, children } = props;
-  const { home } = createWhoOwnsWhatRoutePaths();
+  const { pathname } = useLocation();
+  const pageName = STANDALONE_PAGES.find((x) => pathname.includes(x));
+  const eventParams = { from: pageName };
+
   return (
     <Page title={title}>
       <div className={classNames("StandalonePage Page", className)}>
         <div className="page-container">
-          <LocaleLink className="jf-logo" to={home}>
-            <JFLogo />
-          </LocaleLink>
+          <JustFixLogoLink eventParams={eventParams} />
           <div className="standalone-container">{children}</div>
-          <StandalonePageFooter />
+          <StandalonePageFooter eventParams={eventParams} />
         </div>
       </div>
     </Page>

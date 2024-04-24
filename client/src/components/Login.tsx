@@ -20,6 +20,7 @@ import { createRouteForAddressPage, createWhoOwnsWhatRoutePaths } from "routes";
 import { AddressRecord } from "./APIDataTypes";
 import { isLegacyPath } from "./WowzaToggle";
 import { Nobr } from "./Nobr";
+import { logAmplitudeEvent } from "./Amplitude";
 
 enum Step {
   CheckEmail,
@@ -55,6 +56,8 @@ const LoginWithoutI18n = (props: withI18nProps) => {
   const isVerifyEmailStep = step === Step.VerifyEmail;
   const isLoginSuccessStep = step === Step.LoginSuccess;
 
+  const [loginOrRegister, setLoginOrRegister] = useState("");
+
   const {
     value: email,
     error: emailError,
@@ -84,6 +87,19 @@ const LoginWithoutI18n = (props: withI18nProps) => {
   const [isEmailResent, setIsEmailResent] = useState(false);
   const [invalidAuthError, setInvalidAuthError] = useState(false);
   const [existingUserError, setExistingUserError] = useState(false);
+
+  const eventParams = (user?: JustfixUser) => {
+    const fromParam = { from: !!addr ? "building page" : "nav" };
+    const params = !!user?.id
+      ? {
+          ...fromParam,
+          user_id: user.id,
+          user_type: user.type,
+        }
+      : fromParam;
+
+    return params;
+  };
 
   const getAddrPageRoute = (addr: AddressRecord) => {
     const isLegacy = isLegacyPath(pathname);
@@ -200,7 +216,14 @@ const LoginWithoutI18n = (props: withI18nProps) => {
           {isRegisterAccountStep ? (
             <>
               <Trans>Already have an account?</Trans>
-              <button className="button is-text ml-2" onClick={() => toggleLoginSignup(Step.Login)}>
+              <button
+                className="button is-text ml-2"
+                onClick={() => {
+                  // logAmplitudeEvent("swapRegisterLogin", { ...eventParams(), to: "login" });
+                  window.gtag("event", "swap-register-login", { ...eventParams(), to: "login" });
+                  toggleLoginSignup(Step.Login);
+                }}
+              >
                 <Trans>Log in</Trans>
               </button>
             </>
@@ -209,7 +232,11 @@ const LoginWithoutI18n = (props: withI18nProps) => {
               <Trans>Don't have an account?</Trans>
               <button
                 className="button is-text ml-2 pt-6"
-                onClick={() => toggleLoginSignup(Step.RegisterAccount)}
+                onClick={() => {
+                  // logAmplitudeEvent("swapRegisterLogin", { ...eventParams(), to: "register" });
+                  window.gtag("event", "swap-register-login", { ...eventParams(), to: "register" });
+                  toggleLoginSignup(Step.RegisterAccount);
+                }}
               >
                 <Trans>Sign up</Trans>
               </button>
@@ -231,7 +258,12 @@ const LoginWithoutI18n = (props: withI18nProps) => {
         <SendNewLink
           setParentState={setIsEmailResent}
           size="large"
-          onClick={() => AuthClient.resendVerifyEmail()}
+          onClick={() => {
+            AuthClient.resendVerifyEmail();
+            const from = (!!addr ? "building page " : "nav ") + loginOrRegister;
+            // logAmplitudeEvent("emailVerifyResend", { ...eventParams(), from });
+            window.gtag("event", "email-verify-resend", { ...eventParams(), from });
+          }}
         />
       </div>
       {!!addr && (
@@ -239,6 +271,10 @@ const LoginWithoutI18n = (props: withI18nProps) => {
           <Link
             to={{ pathname: getAddrPageRoute(addr), state: { justSubscribed: true } }}
             component={JFCLLink}
+            onClick={() => {
+              // logAmplitudeEvent("registerReturnAddress");
+              window.gtag("event", "register-return-address");
+            }}
           >
             <IconLinkInternal />
             Back to {formatAddr(addr)}
@@ -258,6 +294,9 @@ const LoginWithoutI18n = (props: withI18nProps) => {
   );
 
   const onEmailSubmit = async () => {
+    // logAmplitudeEvent("registerLoginEmail", gtagParams());
+    window.gtag("event", "register-login-email", eventParams());
+
     if (!email || emailError) {
       setEmailError(true);
       setShowEmailError(true);
@@ -269,6 +308,9 @@ const LoginWithoutI18n = (props: withI18nProps) => {
   };
 
   const onLoginSubmit = async () => {
+    // logAmplitudeEvent("loginPassword", gtagParams());
+    window.gtag("event", "login-password", eventParams());
+
     resetAlertErrorStates();
 
     if (!email || emailError) {
@@ -291,8 +333,18 @@ const LoginWithoutI18n = (props: withI18nProps) => {
       return;
     }
 
+    // logAmplitudeEvent("loginSuccess", gtagParams(resp.user));
+    window.gtag("event", "login-success", eventParams(resp?.user));
+
+    if (!!addr) {
+      const subscribeEventParams = { ...eventParams(), via: "login" };
+      // logAmplitudeEvent("subscribeBuildingViaRegisterLogin", subscribeEventParams);
+      window.gtag("event", "subscribe-building-via-register-login", subscribeEventParams);
+    }
+
     if (!resp?.user?.verified) {
       await AuthClient.resendVerifyEmail();
+      setLoginOrRegister("login");
       setStep(Step.VerifyEmail);
       return;
     }
@@ -307,6 +359,9 @@ const LoginWithoutI18n = (props: withI18nProps) => {
   };
 
   const onAccountSubmit = async () => {
+    // logAmplitudeEvent("registerPassword", gtagParams());
+    window.gtag("event", "register-password", eventParams());
+
     if (!email || emailError) {
       setEmailError(true);
       setShowEmailError(true);
@@ -315,11 +370,15 @@ const LoginWithoutI18n = (props: withI18nProps) => {
 
     const existingUser = await AuthClient.isEmailAlreadyUsed(email);
     if (existingUser) {
+      // logAmplitudeEvent("registerExistingserError", eventParams());
+      window.gtag("event", "register-existing-user-error", eventParams());
       setExistingUserError(true);
       return;
     }
 
     if (!password || passwordError) {
+      // logAmplitudeEvent("registerPasswordError", eventParams());
+      window.gtag("event", "register-password-error", eventParams());
       setPasswordError(true);
       setShowPasswordError(true);
       return;
@@ -329,6 +388,9 @@ const LoginWithoutI18n = (props: withI18nProps) => {
   };
 
   const onUserTypeSubmit = async () => {
+    // logAmplitudeEvent("registerUserType", gtagParams());
+    window.gtag("event", "register-user-type", eventParams());
+
     if (!userType || userTypeError) {
       setUserTypeError(true);
       setShowUserTypeError(true);
@@ -343,6 +405,16 @@ const LoginWithoutI18n = (props: withI18nProps) => {
       return;
     }
 
+    // logAmplitudeEvent("registerSuccess", gtagParams(resp?.user));
+    window.gtag("event", "register-success", eventParams(resp?.user));
+
+    if (!!addr) {
+      const subscribeEventParams = { ...eventParams(), via: "register" };
+      // logAmplitudeEvent("subscribeBuildingViaRegisterLogin", subscribeEventParams);
+      window.gtag("event", "subscribe-building-via-register-login", subscribeEventParams);
+    }
+
+    setLoginOrRegister("register");
     setStep(Step.VerifyEmail);
   };
 

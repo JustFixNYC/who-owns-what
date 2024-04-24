@@ -51,10 +51,14 @@ const BuildingSubscribeWithoutI18n = (props: BuildingSubscribeProps) => {
   const showSubscribed =
     (justSubscribed && !!user?.verified) || !!user?.subscriptions?.find((s) => s.bbl === addr.bbl);
 
+  const eventUserParams = { user_id: user?.id, user_type: user?.type };
+
   const [isEmailResent, setIsEmailResent] = React.useState(false);
   const [showSubscriptionLimitModal, setShowSubscriptionLimitModal] = useState(false);
 
   const navigateToLogin = () => {
+    // logAmplitudeEvent("registerLoginViaBuilding");
+    window.gtag("event", "register-login-via-building");
     const loginRoute = `/${i18n.language}${account.login}`;
     history.push({ pathname: loginRoute, state: { addr } });
   };
@@ -93,13 +97,27 @@ const BuildingSubscribeWithoutI18n = (props: BuildingSubscribeProps) => {
       <SendNewLink
         setParentState={setIsEmailResent}
         className="is-full-width"
-        onClick={() => AuthClient.resendVerifyEmail()}
+        onClick={() => {
+          AuthClient.resendVerifyEmail();
+          const eventParams = { ...eventUserParams, from: "building page" };
+          // logAmplitudeEvent("emailVerifyResend", eventParams);
+          window.gtag("event", "email-verify-resend", eventParams);
+        }}
       />
     </>
   );
 
   const subscribeToBuilding = (addr: AddressRecord) => {
+    // logAmplitudeEvent("subscribeBuildingPage", gtagUserParams);
+    window.gtag("event", "subscribe-building-page", eventUserParams);
     subscribe(addr.bbl, addr.housenumber, addr.streetname, addr.zip ?? "", addr.boro);
+  };
+
+  const handleSubscriptionLimitReached = () => {
+    const eventParams = { ...eventUserParams, limit: SUBSCRIPTION_LIMIT };
+    // logAmplitudeEvent("subscriptionLimitExceedAttempt", eventParams);
+    window.gtag("event", "subscription-limit-exceed-attempt", eventParams);
+    setShowSubscriptionLimitModal(true);
   };
 
   const renderAddBuilding = () => {
@@ -121,7 +139,7 @@ const BuildingSubscribeWithoutI18n = (props: BuildingSubscribeProps) => {
             !isLoggedIn
               ? navigateToLogin()
               : atSubscriptionLimit
-              ? setShowSubscriptionLimitModal(true)
+              ? handleSubscriptionLimitReached()
               : subscribeToBuilding(addr);
           }}
         />
@@ -169,6 +187,11 @@ const BuildingSubscribeWithoutI18n = (props: BuildingSubscribeProps) => {
             href={`https://form.typeform.com/to/ChJMCNYN#email=${user?.email}`}
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() => {
+              const eventParams = { ...eventUserParams, limit: SUBSCRIPTION_LIMIT };
+              // logAmplitudeEvent("subscriptionLimitRequest", eventParams);
+              window.gtag("event", "subscription-limit-request", eventParams);
+            }}
           >
             request form
           </a>

@@ -13,11 +13,11 @@ import { createWhoOwnsWhatRoutePaths } from "routes";
 import { JFCLLocaleLink } from "i18n";
 import { BuildingSubscription } from "state-machine";
 import { FixedLoadingLabel } from "components/Loader";
-import { StandalonePageFooter } from "components/StandalonePage";
+import { STANDALONE_PAGES, StandalonePageFooter } from "components/StandalonePage";
 
 const UnsubscribePage = withI18n()((props: withI18nProps) => {
   const { i18n } = props;
-  const { search } = useLocation();
+  const { search, pathname } = useLocation();
   const { home } = createWhoOwnsWhatRoutePaths();
   const params = new URLSearchParams(search);
   const token = params.get("u") || "";
@@ -26,22 +26,39 @@ const UnsubscribePage = withI18n()((props: withI18nProps) => {
   const [subscriptions, setSubscriptions] = React.useState<BuildingSubscription[]>();
   const subscriptionsNumber = subscriptions?.length;
 
+  const pageName = STANDALONE_PAGES.find((x) => pathname.includes(x));
+  const standalonePageEventParams = { from: pageName };
+
   useEffect(() => {
     const asyncFetchSubscriptions = async () => {
       const response = await AuthClient.emailUserSubscriptions(token);
       setSubscriptions(response["subscriptions"]);
     };
     asyncFetchSubscriptions();
-  }, [token]);
+
+    if (isEmailUnsubscribeAll) {
+      // logAmplitudeEvent("unsubscribeBuildingAllEmailLink");
+      window.gtag("event", "unsubscribe-building-all-email-link");
+    } else {
+      // logAmplitudeEvent("manageSubscriptionsEmailLink");
+      window.gtag("event", "manage-subscriptions-email-link");
+    }
+  }, [token, isEmailUnsubscribeAll]);
 
   const handleUnsubscribeBuilding = async (bbl: string) => {
     const result = await AuthClient.emailUnsubscribeBuilding(bbl, token);
     if (!!result?.["subscriptions"]) setSubscriptions(result["subscriptions"]);
+    const eventParams = { from: "manage subscriptions page" };
+    // logAmplitudeEvent("unsubscribeBuilding", eventParams);
+    window.gtag("event", "unsubscribe-building", eventParams);
   };
 
   const handleUnsubscribeAll = async () => {
     const result = await AuthClient.emailUnsubscribeAll(token);
     if (!!result?.["subscriptions"]) setSubscriptions(result["subscriptions"]);
+    const eventParams = { from: "manage subscriptions page" };
+    // logAmplitudeEvent("unsubscribeBuildingAll", eventParams);
+    window.gtag("event", "unsubscribe-building-all", eventParams);
   };
 
   const renderUnsubscribePage = () => (
@@ -106,7 +123,7 @@ const UnsubscribePage = withI18n()((props: withI18nProps) => {
           ) : (
             renderManageSubscriptionsPage()
           )}
-          <StandalonePageFooter />
+          <StandalonePageFooter eventParams={standalonePageEventParams} />
         </div>
       </div>
     </Page>
