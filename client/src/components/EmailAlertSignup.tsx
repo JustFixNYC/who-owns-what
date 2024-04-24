@@ -84,7 +84,7 @@ const BuildingSubscribeWithoutI18n = (props: BuildingSubscribeProps) => {
   const renderEmailVerification = () => (
     <>
       <Alert type="info">
-        <Trans>Verify your email to start receiving updates.</Trans>
+        <Trans>Verify your email to receive updates and to add new buildings.</Trans>
       </Alert>
       <Trans render="div" className="card-description">
         Click the link we sent to {user?.email}. It may take a few minutes to arrive.

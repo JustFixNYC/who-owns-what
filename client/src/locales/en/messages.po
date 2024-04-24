@@ -29,16 +29,16 @@ msgstr "#WhoOwnsWhat via @JustFixNYC"
 msgid "(\"{textInEnglish}\" in English)"
 msgstr "(\"{textInEnglish}\" in English)"
 
-#: src/components/DetailView.tsx:251
+#: src/components/DetailView.tsx:250
 msgid "(as part of a group sale)"
 msgstr "(as part of a group sale)"
 
-#: src/components/DetailView.tsx:233
+#: src/components/DetailView.tsx:232
 #: src/containers/NotRegisteredPage.tsx:104
 msgid "(expired {formattedRegEndDate})"
 msgstr "(expired {formattedRegEndDate})"
 
-#: src/components/DetailView.tsx:236
+#: src/components/DetailView.tsx:235
 msgid "(expires {formattedRegEndDate})"
 msgstr "(expires {formattedRegEndDate})"
 
@@ -82,7 +82,6 @@ msgstr "<0>Rent stabilization</0> protects tenants by limiting rent increases an
 #~ msgid "<0>Search an address</0> to sign up for email alerts for that building."
 #~ msgstr "<0>Search an address</0> to sign up for email alerts for that building."
 
-#: src/components/Login.tsx:164
 #: src/containers/UnsubscribePage.tsx:74
 msgid "<0>Search for an address</0> to add to Building Updates"
 msgstr "<0>Search for an address</0> to add to Building Updates"
@@ -90,6 +89,10 @@ msgstr "<0>Search for an address</0> to add to Building Updates"
 #: src/containers/AccountSettingsPage.tsx:56
 msgid "<0>Search for an address</0> to add to your Building Updates"
 msgstr "<0>Search for an address</0> to add to your Building Updates"
+
+#: src/components/Login.tsx:164
+msgid "<0>Search for an address</0> to add to your Building Updates, or visit your <1>Account</1>."
+msgstr "<0>Search for an address</0> to add to your Building Updates, or visit your <1>Account</1>."
 
 #: src/containers/NotRegisteredPage.tsx:73
 msgid "<0>This property is not required to register with HPD</0> because it doesn't have any residential units."
@@ -251,7 +254,7 @@ msgstr "At this time we can only support {SUBSCRIPTION_LIMIT} buildings in each 
 msgid "BELL/BUZZER/INTERCOM"
 msgstr "BELL/BUZZER/INTERCOM"
 
-#: src/components/DetailView.tsx:164
+#: src/components/DetailView.tsx:163
 msgid "BUILDING:"
 msgstr "BUILDING:"
 
@@ -303,14 +306,14 @@ msgstr "Buildings without valid property registration are subject to the followi
 msgid "Built"
 msgstr "Built"
 
-#: src/components/DetailView.tsx:316
-#: src/components/DetailView.tsx:325
+#: src/components/DetailView.tsx:315
+#: src/components/DetailView.tsx:324
 #: src/components/PortfolioGraph.tsx:129
 msgid "Business Addresses"
 msgstr "Business Addresses"
 
-#: src/components/DetailView.tsx:296
-#: src/components/DetailView.tsx:305
+#: src/components/DetailView.tsx:295
+#: src/components/DetailView.tsx:304
 msgid "Business Entities"
 msgstr "Business Entities"
 
@@ -338,7 +341,7 @@ msgstr "Cancel"
 msgid "Check out the issues in this building"
 msgstr "Check out the issues in this building"
 
-#: src/components/Login.tsx:272
+#: src/components/Login.tsx:273
 msgid "Check your email"
 msgstr "Check your email"
 
@@ -404,7 +407,7 @@ msgstr "Clearer Landlord Contact Info"
 msgid "Click here to learn more."
 msgstr "Click here to learn more."
 
-#: src/components/Login.tsx:273
+#: src/components/Login.tsx:274
 msgid "Click the link we sent to <0>{email}</0> to verify your email. It may take a few minutes to arrive. If you can't find it, check your spam and promotions folders for an email from <1>no-reply@justfix.org</1>."
 msgstr "Click the link we sent to <0>{email}</0> to verify your email. It may take a few minutes to arrive. If you can't find it, check your spam and promotions folders for an email from <1>no-reply@justfix.org</1>."
 
@@ -416,7 +419,7 @@ msgstr "Click the link we sent to <0>{email}</0> to verify your email. It may ta
 msgid "Click the link we sent to your email to reset your password."
 msgstr "Click the link we sent to your email to reset your password."
 
-#: src/containers/VerifyEmailPage.tsx:51
+#: src/containers/VerifyEmailPage.tsx:54
 msgid "Click the link we sent to your email to start receiving emails."
 msgstr "Click the link we sent to your email to start receiving emails."
 
@@ -481,6 +484,10 @@ msgstr "Create a password"
 #: src/components/Login.tsx:257
 #~ msgid "Create a password to start receiving Data Updates"
 #~ msgstr "Create a password to start receiving Data Updates"
+
+#: src/components/Login.tsx:293
+msgid "Create password"
+msgstr "Create password"
 
 #: src/components/UserSettingField.tsx:60
 msgid "Current password"
@@ -582,7 +589,7 @@ msgstr "Edit"
 msgid "Email"
 msgstr "Email"
 
-#: src/components/Login.tsx:291
+#: src/components/Login.tsx:292
 #: src/components/UserSettingField.tsx:100
 #: src/components/UserSettingField.tsx:105
 #: src/containers/ForgotPasswordPage.tsx:52
@@ -593,7 +600,7 @@ msgstr "Email address"
 msgid "Email address not verified. Click the link we sent to {email} start receiving Building Updates."
 msgstr "Email address not verified. Click the link we sent to {email} start receiving Building Updates."
 
-#: src/containers/VerifyEmailPage.tsx:64
+#: src/containers/VerifyEmailPage.tsx:67
 msgid "Email address verified"
 msgstr "Email address verified"
 
@@ -634,6 +641,10 @@ msgstr "Enter new email address"
 #: src/components/UserSettingField.tsx:58
 #~ msgid "Enter your old password"
 #~ msgstr "Enter your old password"
+
+#: src/components/Login.tsx:293
+msgid "Enter your password"
+msgstr "Enter your password"
 
 #: src/components/BuildingStatsTable.tsx:83
 #: src/components/IndicatorsDatasets.tsx:128
@@ -743,7 +754,7 @@ msgstr "GARBAGE/RECYCLING STORAGE"
 #~ msgid "Get Data Updates for this building"
 #~ msgstr "Get Data Updates for this building"
 
-#: src/components/GetRepairs.tsx:25
+#: src/components/GetRepairs.tsx:23
 msgid "Get Repairs"
 msgstr "Get Repairs"
 
@@ -845,6 +856,10 @@ msgstr "I used #WhoOwnsWhat (built by @JustFixNYC) to see not only the open viol
 msgid "I was checking out this building on Who Owns What, a free landlord research tool from JustFix. It’s a remarkable website that every tenant and housing advocate should know about! Can you guess how many total violations this landlord portfolio has? Check it out here: {url}"
 msgstr "I was checking out this building on Who Owns What, a free landlord research tool from JustFix. It’s a remarkable website that every tenant and housing advocate should know about! Can you guess how many total violations this landlord portfolio has? Check it out here: {url}"
 
+#: src/containers/VerifyEmailPage.tsx:68
+msgid "If you already added a building, you will get your first Building Update on Monday morning."
+msgstr "If you already added a building, you will get your first Building Update on Monday morning."
+
 #: src/containers/VerifyEmailPage.tsx:114
 #~ msgid "If you are not redirected, please click <0>[here]</0>"
 #~ msgstr "If you are not redirected, please click <0>[here]</0>"
@@ -905,7 +920,7 @@ msgstr "Information"
 msgid "JANITOR/SUPER"
 msgstr "JANITOR/SUPER"
 
-#: src/components/EngagementPanel.tsx:9
+#: src/components/EngagementPanel.tsx:7
 msgid "Join the fight for tenant rights!"
 msgstr "Join the fight for tenant rights!"
 
@@ -966,12 +981,12 @@ msgstr "Last Sale"
 msgid "Last Sale Unknown"
 msgstr "Last Sale Unknown"
 
-#: src/components/DetailView.tsx:228
+#: src/components/DetailView.tsx:227
 #: src/containers/NotRegisteredPage.tsx:99
 msgid "Last registered:"
 msgstr "Last registered:"
 
-#: src/components/DetailView.tsx:241
+#: src/components/DetailView.tsx:240
 msgid "Last sold:"
 msgstr "Last sold:"
 
@@ -1028,19 +1043,19 @@ msgstr "Location"
 
 #: src/components/Login.tsx:99
 #: src/components/Login.tsx:137
-#: src/components/Login.tsx:255
-#: src/components/Login.tsx:258
+#: src/components/Login.tsx:256
+#: src/components/Login.tsx:259
 #: src/containers/AccountSettingsPage.tsx:41
 #: src/containers/App.tsx:117
 msgid "Log in"
 msgstr "Log in"
 
-#: src/components/Login.tsx:246
+#: src/components/Login.tsx:247
 #: src/containers/LoginPage.tsx:7
 msgid "Log in / sign up"
 msgstr "Log in / sign up"
 
-#: src/components/Login.tsx:256
+#: src/components/Login.tsx:257
 msgid "Log in to add {0} to your Building Updates"
 msgstr "Log in to add {0} to your Building Updates"
 
@@ -1161,7 +1176,7 @@ msgstr "Min must be less than {maxOption}"
 msgid "More Mobile Friendly"
 msgstr "More Mobile Friendly"
 
-#: src/components/DetailView.tsx:185
+#: src/components/DetailView.tsx:184
 msgid "Most Common 311 Complaints, Last 3 Years"
 msgstr "Most Common 311 Complaints, Last 3 Years"
 
@@ -1193,7 +1208,7 @@ msgstr "NYCHA Directory"
 #~ msgid "Narrow down this portfolio using filters in <0>the Portfolio tab.</0>"
 #~ msgstr "Narrow down this portfolio using filters in <0>the Portfolio tab.</0>"
 
-#: src/components/GetRepairs.tsx:17
+#: src/components/GetRepairs.tsx:15
 msgid "Need repairs in this building?"
 msgstr "Need repairs in this building?"
 
@@ -1222,7 +1237,7 @@ msgid "New password"
 msgstr "New password"
 
 #: src/components/FeatureCalloutWidget.tsx:81
-#: src/components/Login.tsx:263
+#: src/components/Login.tsx:264
 msgid "Next"
 msgstr "Next"
 
@@ -1267,7 +1282,7 @@ msgstr "Non-ECB"
 msgid "Non-Emergency"
 msgstr "Non-Emergency"
 
-#: src/components/DetailView.tsx:193
+#: src/components/DetailView.tsx:192
 msgid "None"
 msgstr "None"
 
@@ -1381,7 +1396,6 @@ msgstr "Page"
 #~ msgid "Page {0} of {1}"
 #~ msgstr "Page {0} of {1}"
 
-#: src/components/Login.tsx:292
 #: src/components/UserSettingField.tsx:52
 #: src/components/UserSettingField.tsx:57
 msgid "Password"
@@ -1391,8 +1405,8 @@ msgstr "Password"
 msgid "Password reset successful"
 msgstr "Password reset successful"
 
-#: src/components/DetailView.tsx:336
-#: src/components/DetailView.tsx:346
+#: src/components/DetailView.tsx:335
+#: src/components/DetailView.tsx:345
 msgid "People"
 msgstr "People"
 
@@ -1421,7 +1435,7 @@ msgstr "Please enter password."
 msgid "Please select an option."
 msgstr "Please select an option."
 
-#: src/containers/VerifyEmailPage.tsx:59
+#: src/containers/VerifyEmailPage.tsx:62
 msgid "Please try again later. If you’re still having issues, contact support@justfix.org."
 msgstr "Please try again later. If you’re still having issues, contact support@justfix.org."
 
@@ -1607,7 +1621,7 @@ msgstr "See the most common complaints reported by tenants to 311, now on the Ov
 msgid "Select one or more ranges of building units, or set a custom range, then apply selections to filter the list of portfolio properties."
 msgstr "Select one or more ranges of building units, or set a custom range, then apply selections to filter the list of portfolio properties."
 
-#: src/components/GetRepairs.tsx:20
+#: src/components/GetRepairs.tsx:18
 msgid "Send a free, legally vetted letter to notify your landlord of repair issues"
 msgstr "Send a free, legally vetted letter to notify your landlord of repair issues"
 
@@ -1635,8 +1649,8 @@ msgstr "Send us a data request"
 #~ msgid "Share this page with your neighbors"
 #~ msgstr "Share this page with your neighbors"
 
-#: src/components/DetailView.tsx:265
-#: src/components/EngagementPanel.tsx:19
+#: src/components/DetailView.tsx:264
+#: src/components/EngagementPanel.tsx:11
 #: src/components/PropertiesSummary.tsx:140
 #: src/containers/NotRegisteredPage.tsx:19
 msgid "Share with your neighbors"
@@ -1691,8 +1705,8 @@ msgstr "Showing {0} {1, plural, one {result} other {results}}"
 msgid "Sign up"
 msgstr "Sign up"
 
-#: src/components/Login.tsx:261
-#: src/components/Login.tsx:266
+#: src/components/Login.tsx:262
+#: src/components/Login.tsx:267
 msgid "Sign up for Building Updates"
 msgstr "Sign up for Building Updates"
 
@@ -1708,9 +1722,9 @@ msgstr "Sign up for Building Updates"
 #~ msgid "Sign up for email updates on the buildings you choose:"
 #~ msgstr "Sign up for email updates on the buildings you choose:"
 
-#: src/components/EngagementPanel.tsx:13
-msgid "Sign up for our newsletter"
-msgstr "Sign up for our newsletter"
+#: src/components/EngagementPanel.tsx:12
+#~ msgid "Sign up for our newsletter"
+#~ msgstr "Sign up for our newsletter"
 
 #: src/components/PropertiesList.tsx:295
 #: src/components/PropertiesList.tsx:300
@@ -1773,7 +1787,7 @@ msgstr "Source code"
 msgid "Starts {year}"
 msgstr "Starts {year}"
 
-#: src/components/Login.tsx:252
+#: src/components/Login.tsx:253
 msgid "Submit"
 msgstr "Submit"
 
@@ -1911,7 +1925,7 @@ msgstr "The registration for this property is missing details for owner name or 
 msgid "The same owner may have spelled their name several ways in official documents."
 msgstr "The same owner may have spelled their name several ways in official documents."
 
-#: src/containers/VerifyEmailPage.tsx:51
+#: src/containers/VerifyEmailPage.tsx:54
 msgid "The verification link that we sent you is no longer valid."
 msgstr "The verification link that we sent you is no longer valid."
 
@@ -2069,7 +2083,7 @@ msgstr "Use this free tool from JustFix to research your building and investigat
 #~ msgid "Use your account to get weekly email updates on the buildings you choose"
 #~ msgstr "Use your account to get weekly email updates on the buildings you choose"
 
-#: src/components/Login.tsx:247
+#: src/components/Login.tsx:248
 msgid "Use your account to get weekly email updates on {0}."
 msgstr "Use your account to get weekly email updates on {0}."
 
@@ -2102,17 +2116,21 @@ msgstr "VENTILATORS"
 #~ msgid "Verify this email:"
 #~ msgstr "Verify this email:"
 
-#: src/containers/VerifyEmailPage.tsx:68
+#: src/containers/VerifyEmailPage.tsx:77
 msgid "Verify your email address"
 msgstr "Verify your email address"
+
+#: src/components/EmailAlertSignup.tsx:58
+msgid "Verify your email to receive updates and to add new buildings."
+msgstr "Verify your email to receive updates and to add new buildings."
 
 #: src/components/Login.tsx:128
 #~ msgid "Verify your email to start receiving updates"
 #~ msgstr "Verify your email to start receiving updates"
 
 #: src/components/EmailAlertSignup.tsx:58
-msgid "Verify your email to start receiving updates."
-msgstr "Verify your email to start receiving updates."
+#~ msgid "Verify your email to start receiving updates."
+#~ msgstr "Verify your email to start receiving updates."
 
 #: src/components/PortfolioTable.tsx:378
 #: src/components/PortfolioTable.tsx:385
@@ -2153,11 +2171,11 @@ msgstr "View documents on ACRIS"
 #~ msgid "View legend"
 #~ msgstr "View legend"
 
-#: src/components/DetailView.tsx:156
+#: src/components/DetailView.tsx:155
 msgid "View map"
 msgstr "View map"
 
-#: src/components/DetailView.tsx:145
+#: src/components/DetailView.tsx:144
 msgid "View on Google Maps"
 msgstr "View on Google Maps"
 
@@ -2175,7 +2193,7 @@ msgstr "View portfolio"
 msgid "Violations Issued"
 msgstr "Violations Issued"
 
-#: src/components/EngagementPanel.tsx:25
+#: src/components/EngagementPanel.tsx:17
 msgid "Visit our website"
 msgstr "Visit our website"
 
@@ -2195,7 +2213,7 @@ msgstr "WINDOWS"
 #~ msgid "Warning"
 #~ msgstr "Warning"
 
-#: src/components/DetailView.tsx:220
+#: src/components/DetailView.tsx:219
 msgid "Warning: This building has an expired registration and was sold after the expiration date. The landlord info listed here may be outdated."
 msgstr "Warning: This building has an expired registration and was sold after the expiration date. The landlord info listed here may be outdated."
 
@@ -2227,7 +2245,7 @@ msgstr "We send Building Updates to this email."
 msgid "We sent a reset link to {email}. Please check your inbox and spam."
 msgstr "We sent a reset link to {email}. Please check your inbox and spam."
 
-#: src/containers/VerifyEmailPage.tsx:58
+#: src/containers/VerifyEmailPage.tsx:61
 msgid "We’re having trouble verifying your email at this time."
 msgstr "We’re having trouble verifying your email at this time."
 
@@ -2268,7 +2286,7 @@ msgstr "What’s the difference between a landlord, an owner, and head officer?"
 msgid "When two parties share the same business address, we group them as part of the same portfolio."
 msgstr "When two parties share the same business address, we group them as part of the same portfolio."
 
-#: src/components/Login.tsx:267
+#: src/components/Login.tsx:268
 msgid "Which best describes you?"
 msgstr "Which best describes you?"
 
@@ -2311,7 +2329,7 @@ msgstr "Who owns what in nyc?"
 msgid "Who’s responsible for issues in your apartment & building? #WhoOwnsWhat helps you research NYC property owners using public, open data. A free tool built by @JustFixNYC, it works on any device with an internet connection! Search your address here:"
 msgstr "Who’s responsible for issues in your apartment & building? #WhoOwnsWhat helps you research NYC property owners using public, open data. A free tool built by @JustFixNYC, it works on any device with an internet connection! Search your address here:"
 
-#: src/components/DetailView.tsx:200
+#: src/components/DetailView.tsx:199
 msgid "Who’s the landlord of this building?"
 msgstr "Who’s the landlord of this building?"
 
@@ -2372,9 +2390,13 @@ msgstr "You are viewing a legacy version of Who Owns What"
 #~ msgid "You are viewing the old version of Who Owns What. <0>Switch to the new version.</0>"
 #~ msgstr "You are viewing the old version of Who Owns What. <0>Switch to the new version.</0>"
 
+#: src/containers/VerifyEmailPage.tsx:71
+msgid "You can now close this window or <0>search for another building</0> to add."
+msgstr "You can now close this window or <0>search for another building</0> to add."
+
 #: src/containers/VerifyEmailPage.tsx:65
-msgid "You can now start receiving Building Updates"
-msgstr "You can now start receiving Building Updates"
+#~ msgid "You can now start receiving Building Updates"
+#~ msgstr "You can now start receiving Building Updates"
 
 #: src/components/EmailAlertSignup.tsx:99
 msgid "You have reached the maximum number of Building Updates"
@@ -2396,7 +2418,7 @@ msgstr "You have reached the maximum number of Building Updates"
 #~ msgid "You will be redirected back to Who Owns What in:"
 #~ msgstr "You will be redirected back to Who Owns What in:"
 
-#: src/containers/VerifyEmailPage.tsx:67
+#: src/containers/VerifyEmailPage.tsx:76
 msgid "Your email is already verified"
 msgstr "Your email is already verified"
 
@@ -2479,7 +2501,7 @@ msgstr "associated building"
 #~ msgid "contact support@justfix.org"
 #~ msgstr "contact support@justfix.org"
 
-#: src/components/DetailView.tsx:245
+#: src/components/DetailView.tsx:244
 msgid "for ${0}"
 msgstr "for ${0}"
 
