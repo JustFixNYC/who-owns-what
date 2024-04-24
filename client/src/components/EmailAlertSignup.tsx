@@ -101,7 +101,7 @@ const BuildingSubscribeWithoutI18n = (props: BuildingSubscribeProps) => {
           AuthClient.resendVerifyEmail();
           const eventParams = { ...eventUserParams, from: "building page" };
           // logAmplitudeEvent("emailVerifyResend", eventParams);
-          window.gtag("event", "email-verify-resend", eventParams);
+          window.gtag("event", "email-verify-resend", { ...eventParams });
         }}
       />
     </>
