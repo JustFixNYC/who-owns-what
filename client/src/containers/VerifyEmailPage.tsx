@@ -77,9 +77,12 @@ const VerifyEmailPage = withI18n()((props: withI18nProps) => {
   const successPage = () => (
     <>
       <Trans render="h1">Email address verified</Trans>
-      <Trans render="h2">You can now start receiving Building Updates</Trans>
       <Trans render="h2">
-        <JFCLLocaleLink to={home}>Search for an address</JFCLLocaleLink> to add to Building Updates
+        If you already added a building, you will get your first Building Update on Monday morning.
+      </Trans>
+      <Trans render="h2">
+        You can now close this window or{" "}
+        <JFCLLocaleLink to={home}>search for another building</JFCLLocaleLink> to add.
       </Trans>
     </>
   );

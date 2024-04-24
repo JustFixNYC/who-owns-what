@@ -252,7 +252,9 @@ const LoginWithoutI18n = (props: withI18nProps) => {
     <>
       <Trans render="h1">You are logged in</Trans>
       <Trans render="h2">
-        <JFCLLocaleLink to={home}>Search for an address</JFCLLocaleLink> to add to Building Updates
+        <JFCLLocaleLink to={home}>Search for an address</JFCLLocaleLink> to add to your Building
+        Updates, or visit your <JFCLLocaleLink to={account.settings}>account</JFCLLocaleLink> page
+        to manage subscriptions.
       </Trans>
     </>
   );
@@ -422,7 +424,9 @@ const LoginWithoutI18n = (props: withI18nProps) => {
           )}
           {(isLoginStep || isRegisterAccountStep) && (
             <PasswordInput
-              labelText={i18n._(t`Password`)}
+              labelText={
+                isRegisterAccountStep ? i18n._(t`Create password`) : i18n._(t`Enter your password`)
+              }
               password={password}
               username={email}
               error={passwordError}
