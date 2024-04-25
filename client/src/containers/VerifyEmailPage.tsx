@@ -31,16 +31,20 @@ const VerifyEmailPage = withI18n()((props: withI18nProps) => {
       switch (result.statusCode) {
         case VerifyStatusCode.Success:
           setIsVerified(true);
+          window.gtag("event", "email-verify-success");
           break;
         case VerifyStatusCode.AlreadyVerified:
           setIsVerified(true);
           setIsAlreadyVerified(true);
+          window.gtag("event", "email-verify-already");
           break;
         case VerifyStatusCode.Expired:
           setIsExpired(true);
+          window.gtag("event", "email-verify-expired");
           break;
         default:
           setUnknownError(true);
+          window.gtag("event", "email-verify-error");
       }
       setLoading(false);
     });
@@ -59,6 +63,7 @@ const VerifyEmailPage = withI18n()((props: withI18nProps) => {
         size="large"
         onClick={async () => {
           setIsEmailResent(await AuthClient.resendVerifyEmail(token));
+          window.gtag("event", "email-verify-resend", { from: "verify page" });
         }}
       />
     </div>

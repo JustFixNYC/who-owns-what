@@ -39,6 +39,7 @@ const ForgotPasswordPage = withI18n()((props: withI18nProps) => {
     }
     sendResetEmail();
     setRequestSent(true);
+    window.gtag("event", "forgot-password-request");
   };
 
   const sendResetEmail = async () => {
@@ -92,7 +93,10 @@ const ForgotPasswordPage = withI18n()((props: withI18nProps) => {
             <SendNewLink
               setParentState={setRequestSentAgain}
               size="large"
-              onClick={sendResetEmail}
+              onClick={() => {
+                sendResetEmail();
+                window.gtag("event", "forgot-password-resend");
+              }}
             />
           </div>
         </>
