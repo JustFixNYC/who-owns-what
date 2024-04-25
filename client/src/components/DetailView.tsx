@@ -192,14 +192,7 @@ class DetailViewWithoutI18n extends Component<Props, State> {
     const { assocAddrs, detailAddr, searchAddr } = portfolioData;
 
     // Let's save some variables that will be helpful in rendering the front-end component
-    let takeActionURL,
-      formattedRegEndDate,
-      streetViewCoords,
-      streetViewAddr,
-      ownernames,
-      userOwnernames;
-
-    takeActionURL = Helpers.createTakeActionURL(detailAddr, "detail_view");
+    let formattedRegEndDate, streetViewCoords, streetViewAddr, ownernames, userOwnernames;
 
     formattedRegEndDate = Helpers.formatDate(
       detailAddr.registrationenddate,
@@ -398,7 +391,7 @@ class DetailViewWithoutI18n extends Component<Props, State> {
                   </div>
                   <div className="column col-lg-12 col-5">
                     <EmailAlertSignup addr={detailAddr} />
-                    <GetRepairs url={takeActionURL} />
+                    <GetRepairs />
                     <div className="card-body-links column-right">
                       <UsefulLinks addrForLinks={detailAddr} location="overview-tab" />
                       <div className="card-body-social social-group">

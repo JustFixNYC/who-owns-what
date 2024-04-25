@@ -16,6 +16,7 @@ import {
   LocaleSwitcher,
   LocaleSwitcherWithFullLanguageName,
   JFCLLocaleLink,
+  removeLocalePrefix,
 } from "../i18n";
 import { withI18n, withI18nProps } from "@lingui/react";
 import { createWhoOwnsWhatRoutePaths } from "../routes";
@@ -49,6 +50,7 @@ import UnsubscribePage from "./UnsubscribePage";
 import LoginPage from "./LoginPage";
 import { JFLogo } from "components/JFLogo";
 import logoDivider from "../assets/img/logo-divider.svg";
+import { STANDALONE_PAGES } from "components/StandalonePage";
 
 const HomeLink = withI18n()((props: withI18nProps) => {
   const { i18n } = props;
@@ -221,12 +223,22 @@ const getAccountNavLinks = (
         <LocaleNavLink to={settings} key="account-1">
           <Trans>Account</Trans>
         </LocaleNavLink>,
-        <button onClick={() => handleLogout(fromPath)} key="account-2">
+        <button
+          onClick={() => {
+            window.gtag("event", "nav-logout", { from: removeLocalePrefix(fromPath) });
+            handleLogout(fromPath);
+          }}
+          key="account-2"
+        >
           <Trans>Log out</Trans>
         </button>,
       ]
     : [
-        <LocaleNavLink to={login} key="account-3">
+        <LocaleNavLink
+          to={login}
+          key="account-3"
+          onClick={() => window.gtag("event", "nav-login", { from: removeLocalePrefix(fromPath) })}
+        >
           <Trans>Log in</Trans>
         </LocaleNavLink>,
       ];
@@ -264,15 +276,7 @@ const Navbar = () => {
 
   const userContext = useContext(UserContext);
 
-  const standalonePages = [
-    "forgot-password",
-    "login",
-    "verify-email",
-    "forgot-password",
-    "reset-password",
-    "unsubscribe",
-  ];
-  const hideNavbar = standalonePages.some((v) => pathname.includes(`account/${v}`));
+  const hideNavbar = STANDALONE_PAGES.some((v) => pathname.includes(`account/${v}`));
 
   return hideNavbar ? null : (
     <div

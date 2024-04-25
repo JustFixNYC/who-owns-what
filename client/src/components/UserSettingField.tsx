@@ -22,7 +22,10 @@ type PasswordSettingFieldProps = withI18nProps & {
 const PasswordSettingFieldWithoutI18n = (props: PasswordSettingFieldProps) => {
   const { i18n, onSubmit } = props;
   const userContext = useContext(UserContext);
-  const { email } = userContext.user as JustfixUser;
+  const user = userContext.user as JustfixUser;
+  const { email } = user;
+  const eventUserParams = { user_id: user.id, user_type: user.type };
+
   const {
     value: currentPassword,
     error: currentPasswordError,
@@ -67,6 +70,8 @@ const PasswordSettingFieldWithoutI18n = (props: PasswordSettingFieldProps) => {
     }
 
     onSubmit(currentPassword, newPassword);
+
+    window.gtag("event", "account-update-password", { ...eventUserParams });
   };
 
   return (
@@ -119,7 +124,8 @@ type EmailSettingFieldProps = withI18nProps & {
 const EmailSettingFieldWithoutI18n = (props: EmailSettingFieldProps) => {
   const { i18n, currentValue, onSubmit } = props;
   const userContext = useContext(UserContext);
-  const { email: oldEmail, verified } = userContext.user as JustfixUser;
+  const user = userContext.user as JustfixUser;
+  const { email: oldEmail, verified } = user;
   const [isEmailResent, setIsEmailResent] = React.useState(false);
   const [existingUserError, setExistingUserError] = useState(false);
   const {
@@ -130,6 +136,9 @@ const EmailSettingFieldWithoutI18n = (props: EmailSettingFieldProps) => {
     setShowError: setShowEmailError,
     onChange: onChangeEmail,
   } = useInput(oldEmail);
+
+  const eventUserParams = { user_id: user.id, user_type: user.type };
+  console.log({ user, eventUserParams });
 
   const handleSubmit = async () => {
     setExistingUserError(false);
@@ -154,6 +163,8 @@ const EmailSettingFieldWithoutI18n = (props: EmailSettingFieldProps) => {
     }
 
     onSubmit(email);
+
+    window.gtag("event", "account-update-email", { ...eventUserParams });
   };
 
   const verifyCallout = !verified ? (
@@ -165,7 +176,11 @@ const EmailSettingFieldWithoutI18n = (props: EmailSettingFieldProps) => {
       {!isEmailResent && <Trans render="p">Didn’t get the link?</Trans>}
       <SendNewLink
         setParentState={setIsEmailResent}
-        onClick={() => AuthClient.resendVerifyEmail()}
+        onClick={() => {
+          AuthClient.resendVerifyEmail();
+          const eventParams = { ...eventUserParams, from: "account settings" };
+          window.gtag("event", "email-verify-resend", { ...eventParams });
+        }}
       />
     </div>
   ) : undefined;

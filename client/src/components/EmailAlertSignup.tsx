@@ -51,10 +51,13 @@ const BuildingSubscribeWithoutI18n = (props: BuildingSubscribeProps) => {
   const showSubscribed =
     (justSubscribed && !!user?.verified) || !!user?.subscriptions?.find((s) => s.bbl === addr.bbl);
 
+  const eventUserParams = { user_id: user?.id, user_type: user?.type };
+
   const [isEmailResent, setIsEmailResent] = React.useState(false);
   const [showSubscriptionLimitModal, setShowSubscriptionLimitModal] = useState(false);
 
   const navigateToLogin = () => {
+    window.gtag("event", "register-login-via-building");
     const loginRoute = `/${i18n.language}${account.login}`;
     history.push({ pathname: loginRoute, state: { addr } });
   };
@@ -76,6 +79,8 @@ const BuildingSubscribeWithoutI18n = (props: BuildingSubscribeProps) => {
         onClick={() => {
           unsubscribe(addr.bbl);
           setJustSubscribed(false);
+          const params = { ...eventUserParams, from: "building page" };
+          window.gtag("event", "unsubscribe-building", { ...params });
         }}
       />
     </>
@@ -84,7 +89,7 @@ const BuildingSubscribeWithoutI18n = (props: BuildingSubscribeProps) => {
   const renderEmailVerification = () => (
     <>
       <Alert type="info">
-        <Trans>Verify your email to start receiving updates.</Trans>
+        <Trans>Verify your email to receive updates and to add new buildings.</Trans>
       </Alert>
       <Trans render="div" className="card-description">
         Click the link we sent to {user?.email}. It may take a few minutes to arrive.
@@ -93,13 +98,24 @@ const BuildingSubscribeWithoutI18n = (props: BuildingSubscribeProps) => {
       <SendNewLink
         setParentState={setIsEmailResent}
         className="is-full-width"
-        onClick={() => AuthClient.resendVerifyEmail()}
+        onClick={() => {
+          AuthClient.resendVerifyEmail();
+          const params = { ...eventUserParams, from: "building page" };
+          window.gtag("event", "email-verify-resend", { ...params });
+        }}
       />
     </>
   );
 
   const subscribeToBuilding = (addr: AddressRecord) => {
+    window.gtag("event", "subscribe-building-page", { ...eventUserParams });
     subscribe(addr.bbl, addr.housenumber, addr.streetname, addr.zip ?? "", addr.boro);
+  };
+
+  const handleSubscriptionLimitReached = () => {
+    const params = { ...eventUserParams, limit: SUBSCRIPTION_LIMIT };
+    window.gtag("event", "subscription-limit-exceed-attempt", { ...params });
+    setShowSubscriptionLimitModal(true);
   };
 
   const renderAddBuilding = () => {
@@ -121,7 +137,7 @@ const BuildingSubscribeWithoutI18n = (props: BuildingSubscribeProps) => {
             !isLoggedIn
               ? navigateToLogin()
               : atSubscriptionLimit
-              ? setShowSubscriptionLimitModal(true)
+              ? handleSubscriptionLimitReached()
               : subscribeToBuilding(addr);
           }}
         />
@@ -169,6 +185,10 @@ const BuildingSubscribeWithoutI18n = (props: BuildingSubscribeProps) => {
             href={`https://form.typeform.com/to/ChJMCNYN#email=${user?.email}`}
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() => {
+              const eventParams = { ...eventUserParams, limit: SUBSCRIPTION_LIMIT };
+              window.gtag("event", "subscription-limit-request", { ...eventParams });
+            }}
           >
             request form
           </a>

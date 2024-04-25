@@ -56,10 +56,19 @@ const AccountSettingsPage = withI18n()((props: withI18nProps) => {
   const { i18n } = props;
   const userContext = useContext(UserContext);
   if (!userContext.user) return <div />;
-
-  const { email, subscriptions } = userContext.user as JustfixUser;
+  const user = userContext.user as JustfixUser;
+  const { email, subscriptions } = user;
   const subscriptionsNumber = !!subscriptions ? subscriptions.length : 0;
   const { home } = createWhoOwnsWhatRoutePaths();
+
+  const unsubscribeBuilding = (bbl: string) => {
+    userContext.unsubscribe(bbl);
+    window.gtag("event", "unsubscribe-building", {
+      user_id: user.id,
+      user_type: user.type,
+      from: "account settings",
+    });
+  };
 
   return (
     <Page title={i18n._(t`Account`)}>
@@ -90,7 +99,7 @@ const AccountSettingsPage = withI18n()((props: withI18nProps) => {
               {subscriptions?.length ? (
                 <>
                   {subscriptions.map((s) => (
-                    <SubscriptionField key={s.bbl} {...s} onRemoveClick={userContext.unsubscribe} />
+                    <SubscriptionField key={s.bbl} {...s} onRemoveClick={unsubscribeBuilding} />
                   ))}
                 </>
               ) : (

@@ -120,7 +120,10 @@ const PasswordInputWithoutI18n = forwardRef<HTMLInputElement, PasswordInputProps
           <button
             type="button"
             className="show-hide-toggle"
-            onClick={() => setShowPassword(!showPassword)}
+            onClick={() => {
+              window.gtag("event", "password-visibility-toggle");
+              setShowPassword(!showPassword);
+            }}
           >
             {showPassword ? <HideIcon /> : <ShowIcon />}
           </button>

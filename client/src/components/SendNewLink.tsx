@@ -47,6 +47,6 @@ const SendNewLinkWithoutI18n = (props: SendNewLinkProps) => {
   );
 };
 
-const BuildingStatsTable = withI18n()(SendNewLinkWithoutI18n);
+const SendNewLink = withI18n()(SendNewLinkWithoutI18n);
 
-export default BuildingStatsTable;
+export default SendNewLink;

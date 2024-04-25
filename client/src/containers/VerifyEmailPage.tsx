@@ -6,6 +6,8 @@ import { useLocation } from "react-router-dom";
 import AuthClient, { VerifyStatusCode } from "../components/AuthClient";
 import SendNewLink from "components/SendNewLink";
 import StandalonePage from "components/StandalonePage";
+import { JFCLLocaleLink } from "i18n";
+import { createWhoOwnsWhatRoutePaths } from "routes";
 
 const VerifyEmailPage = withI18n()((props: withI18nProps) => {
   const { i18n } = props;
@@ -18,6 +20,7 @@ const VerifyEmailPage = withI18n()((props: withI18nProps) => {
   const [unknownError, setUnknownError] = useState(false);
   const params = new URLSearchParams(search);
   const token = params.get("u") || "";
+  const { home } = createWhoOwnsWhatRoutePaths();
 
   useEffect(() => {
     const asyncVerifyEmail = async () => {
@@ -28,16 +31,20 @@ const VerifyEmailPage = withI18n()((props: withI18nProps) => {
       switch (result.statusCode) {
         case VerifyStatusCode.Success:
           setIsVerified(true);
+          window.gtag("event", "email-verify-success");
           break;
         case VerifyStatusCode.AlreadyVerified:
           setIsVerified(true);
           setIsAlreadyVerified(true);
+          window.gtag("event", "email-verify-already");
           break;
         case VerifyStatusCode.Expired:
           setIsExpired(true);
+          window.gtag("event", "email-verify-expired");
           break;
         default:
           setUnknownError(true);
+          window.gtag("event", "email-verify-error");
       }
       setLoading(false);
     });
@@ -56,6 +63,7 @@ const VerifyEmailPage = withI18n()((props: withI18nProps) => {
         size="large"
         onClick={async () => {
           setIsEmailResent(await AuthClient.resendVerifyEmail(token));
+          window.gtag("event", "email-verify-resend", { from: "verify page" });
         }}
       />
     </div>
@@ -74,7 +82,13 @@ const VerifyEmailPage = withI18n()((props: withI18nProps) => {
   const successPage = () => (
     <>
       <Trans render="h1">Email address verified</Trans>
-      <Trans render="h2">You can now start receiving Building Updates</Trans>
+      <Trans render="h2">
+        If you already added a building, you will get your first Building Update on Monday morning.
+      </Trans>
+      <Trans render="h2">
+        You can now close this window or{" "}
+        <JFCLLocaleLink to={home}>search for another building</JFCLLocaleLink> to add.
+      </Trans>
     </>
   );
 
