@@ -81,15 +81,14 @@ const StandalonePage = withI18n()((props: StandalonePageProps) => {
   const { title, className, children } = props;
   const { pathname } = useLocation();
   const pageName = STANDALONE_PAGES.find((x) => pathname.includes(x));
-  const eventParams = { from: pageName };
 
   return (
     <Page title={title}>
       <div className={classNames("StandalonePage Page", className)}>
         <div className="page-container">
-          <JustFixLogoLink eventParams={eventParams} />
+          <JustFixLogoLink eventParams={{ from: pageName }} />
           <div className="standalone-container">{children}</div>
-          <StandalonePageFooter eventParams={eventParams} />
+          <StandalonePageFooter eventParams={{ from: pageName }} />
         </div>
       </div>
     </Page>

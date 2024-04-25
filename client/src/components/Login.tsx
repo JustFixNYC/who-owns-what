@@ -34,6 +34,7 @@ const LoginWithoutI18n = (props: withI18nProps) => {
   const { i18n } = props;
 
   const userContext = useContext(UserContext);
+  const { user } = userContext;
   const { home, account } = createWhoOwnsWhatRoutePaths();
   const history = useHistory();
   const location = useLocation();
@@ -258,7 +259,7 @@ const LoginWithoutI18n = (props: withI18nProps) => {
           onClick={() => {
             AuthClient.resendVerifyEmail();
             const from = (!!addr ? "building page " : "nav ") + loginOrRegister;
-            window.gtag("event", "email-verify-resend", { ...eventParams(), from });
+            window.gtag("event", "email-verify-resend", { ...eventParams(user), from });
           }}
         />
       </div>
@@ -267,7 +268,9 @@ const LoginWithoutI18n = (props: withI18nProps) => {
           <Link
             to={{ pathname: getAddrPageRoute(addr), state: { justSubscribed: true } }}
             component={JFCLLink}
-            onClick={() => window.gtag("event", "register-return-address")}
+            onClick={() =>
+              window.gtag("event", "register-return-address", { ...eventParams(user) })
+            }
           >
             <IconLinkInternal />
             Back to {formatAddr(addr)}
@@ -321,6 +324,7 @@ const LoginWithoutI18n = (props: withI18nProps) => {
 
     if (!!resp?.error) {
       setInvalidAuthError(true);
+      window.gtag("event", "login-password-invalid", eventParams());
       return;
     }
 
