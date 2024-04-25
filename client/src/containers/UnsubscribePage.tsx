@@ -46,13 +46,13 @@ const UnsubscribePage = withI18n()((props: withI18nProps) => {
   const handleUnsubscribeBuilding = async (bbl: string) => {
     const result = await AuthClient.emailUnsubscribeBuilding(bbl, token);
     if (!!result?.["subscriptions"]) setSubscriptions(result["subscriptions"]);
-    window.gtag("event", "unsubscribe-building", { from: "manage subscriptions page" });
+    window.gtag("event", "unsubscribe-building", { from: "manage subscriptions" });
   };
 
-  const handleUnsubscribeAll = async () => {
+  const handleUnsubscribeAll = async (from: string) => {
     const result = await AuthClient.emailUnsubscribeAll(token);
     if (!!result?.["subscriptions"]) setSubscriptions(result["subscriptions"]);
-    window.gtag("event", "unsubscribe-building-all", { from: "manage subscriptions page" });
+    window.gtag("event", "unsubscribe-building-all", { from: from });
   };
 
   const renderUnsubscribePage = () => (
@@ -67,7 +67,7 @@ const UnsubscribePage = withI18n()((props: withI18nProps) => {
         variant="primary"
         size="large"
         labelText={i18n._(t`Unsubscribe from all`)}
-        onClick={handleUnsubscribeAll}
+        onClick={() => () => handleUnsubscribeAll("unsubscribe")}
       />
     </>
   );
@@ -88,7 +88,7 @@ const UnsubscribePage = withI18n()((props: withI18nProps) => {
             variant="secondary"
             size="small"
             labelText={i18n._(t`Unsubscribe from all`)}
-            onClick={handleUnsubscribeAll}
+            onClick={() => handleUnsubscribeAll("manage subscriptions")}
           />
         </div>
       </div>

@@ -79,6 +79,7 @@ const BuildingSubscribeWithoutI18n = (props: BuildingSubscribeProps) => {
         onClick={() => {
           unsubscribe(addr.bbl);
           setJustSubscribed(false);
+          window.gtag("event", "unsubscribe-building", { from: "building page" });
         }}
       />
     </>
