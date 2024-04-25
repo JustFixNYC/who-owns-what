@@ -20,7 +20,7 @@ export const STANDALONE_PAGES = [
   "unsubscribe",
 ];
 
-export const JustFixLogoLink = (eventParams: any) => {
+export const JustFixLogoLink = (props: { eventParams: any }) => {
   const { home } = createWhoOwnsWhatRoutePaths();
 
   return (
@@ -28,7 +28,7 @@ export const JustFixLogoLink = (eventParams: any) => {
       className="jf-logo"
       to={home}
       onClick={() => {
-        window.gtag("event", "standalone-justfix-logo-click", { ...eventParams });
+        window.gtag("event", "standalone-justfix-logo-click", { ...props.eventParams });
       }}
     >
       <JFLogo />
@@ -36,7 +36,7 @@ export const JustFixLogoLink = (eventParams: any) => {
   );
 };
 
-export const StandalonePageFooter = (eventParams: any) => {
+export const StandalonePageFooter = (props: { eventParams: any }) => {
   const { home } = createWhoOwnsWhatRoutePaths();
 
   return (
@@ -44,7 +44,7 @@ export const StandalonePageFooter = (eventParams: any) => {
       <JFCLLocaleLink
         to={home}
         onClick={() => {
-          window.gtag("event", "standalone-wow-link-click", { ...eventParams });
+          window.gtag("event", "standalone-wow-link-click", { ...props.eventParams });
         }}
       >
         Who Owns What
@@ -81,14 +81,15 @@ const StandalonePage = withI18n()((props: StandalonePageProps) => {
   const { title, className, children } = props;
   const { pathname } = useLocation();
   const pageName = STANDALONE_PAGES.find((x) => pathname.includes(x));
+  const eventParams = { from: pageName };
 
   return (
     <Page title={title}>
       <div className={classNames("StandalonePage Page", className)}>
         <div className="page-container">
-          <JustFixLogoLink eventParams={{ from: pageName }} />
+          <JustFixLogoLink eventParams={eventParams} />
           <div className="standalone-container">{children}</div>
-          <StandalonePageFooter eventParams={{ from: pageName }} />
+          <StandalonePageFooter eventParams={eventParams} />
         </div>
       </div>
     </Page>
