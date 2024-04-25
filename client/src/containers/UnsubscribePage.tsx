@@ -67,7 +67,7 @@ const UnsubscribePage = withI18n()((props: withI18nProps) => {
         variant="primary"
         size="large"
         labelText={i18n._(t`Unsubscribe from all`)}
-        onClick={() => () => handleUnsubscribeAll("unsubscribe")}
+        onClick={() => handleUnsubscribeAll("unsubscribe")}
       />
     </>
   );
