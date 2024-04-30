@@ -21,6 +21,7 @@ import _commonStrings from "../data/common-strings.json";
 import LandlordSearch, { algoliaAppId, algoliaSearchKey } from "components/LandlordSearch";
 import { logAmplitudeEvent } from "components/Amplitude";
 import JFCLLinkInternal from "components/JFCLLinkInternal";
+import { Button } from "@justfixnyc/component-library";
 
 const commonStrings = new ContentfulCommonStrings(_commonStrings as any);
 
@@ -135,6 +136,18 @@ const HomePage: React.FC<HomePageProps> = ({ useNewPortfolioMethod }) => {
   type SearchType = "address" | "landlord";
   const [searchType, setSearchType] = useState("address" as SearchType);
 
+  const setCookie = () => {
+    // set the cookie with the name of the branch of our private beta for 1 year
+    let now = new Date();
+    let expires = now.getTime() + 1000 * 3600 * 24 * 365;
+    now.setTime(expires);
+    document.cookie = `nf_ab=split-testing; expires=${now.toUTCString()}`;
+
+    // reload the page to pick up the new option
+    // (forcing the browser to re-request it, rather than serving from browser cache)
+    window.location.reload();
+  };
+
   return (
     <Page>
       <div className="HomePage Page">
@@ -142,6 +155,9 @@ const HomePage: React.FC<HomePageProps> = ({ useNewPortfolioMethod }) => {
         <div className="HomePage__content">
           {useNewPortfolioMethod && algoliaAppId && algoliaSearchKey ? (
             <div className="HomePage__search wowza-styling">
+              <div className="split-test">
+                <Button labelText="Enable Split Testing" onClick={setCookie} size="small" />
+              </div>
               <h1 className="text-center">{wowzaLabelText}</h1>
               <div>
                 <h2 className="text-uppercase">

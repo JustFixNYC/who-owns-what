@@ -50,13 +50,23 @@
     @include for-tablet-portrait-up() {
       width: 65vw;
     }
+
+    .split-test {
+      display: flex;
+      justify-content: flex-end;
+      padding-bottom: 35px;
+
+      button {
+        background-color: #5188ff;
+      }
+    }
   }
 
   .HomePage__search {
     background-color: $background;
     border: 1px solid $gray-dark;
 
-    margin: 75px auto 60px auto;
+    margin: 0px auto 60px auto;
     padding: 35px;
 
     @include for-phone-only() {
