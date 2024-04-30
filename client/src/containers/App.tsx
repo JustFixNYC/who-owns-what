@@ -273,6 +273,7 @@ const Navbar = () => {
   const isDemoSite = process.env.REACT_APP_DEMO_SITE === "1";
   const allowChangingPortfolioMethod =
     process.env.REACT_APP_ENABLE_NEW_WOWZA_PORTFOLIO_MAPPING === "1";
+  const hideAccountsFeature = document.cookie.includes("split-testing");
 
   const userContext = useContext(UserContext);
 
@@ -297,7 +298,8 @@ const Navbar = () => {
         <span className="hide-lg">
           {getMainNavLinks(isLegacyPath(pathname))}
           <LocaleSwitcher />
-          {getAccountNavLinks(userContext.logout, pathname, !!userContext?.user?.email)}
+          {!hideAccountsFeature &&
+            getAccountNavLinks(userContext.logout, pathname, !!userContext?.user?.email)}
         </span>
         <Dropdown>
           {getMainNavLinks(isLegacyPath(pathname)).map((link, i) => (
@@ -308,13 +310,14 @@ const Navbar = () => {
           <li className="menu-item">
             <LocaleSwitcherWithFullLanguageName />
           </li>
-          {getAccountNavLinks(userContext.logout, pathname, !!userContext?.user?.email).map(
-            (link, i) => (
-              <li className="menu-item" key={`account-${i}`}>
-                {link}
-              </li>
-            )
-          )}
+          {!hideAccountsFeature &&
+            getAccountNavLinks(userContext.logout, pathname, !!userContext?.user?.email).map(
+              (link, i) => (
+                <li className="menu-item" key={`account-${i}`}>
+                  {link}
+                </li>
+              )
+            )}
         </Dropdown>
       </nav>
     </div>

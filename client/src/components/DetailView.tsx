@@ -239,6 +239,8 @@ class DetailViewWithoutI18n extends Component<Props, State> {
         <></>
       );
 
+    const hideAccountsFeature = document.cookie.includes("split-testing");
+
     return (
       <CSSTransition in={!isMobile || this.props.mobileShow} timeout={500} classNames="DetailView">
         <div className={`DetailView`}>
@@ -390,7 +392,7 @@ class DetailViewWithoutI18n extends Component<Props, State> {
                     </div>
                   </div>
                   <div className="column col-lg-12 col-5">
-                    <EmailAlertSignup addr={detailAddr} />
+                    {!hideAccountsFeature && <EmailAlertSignup addr={detailAddr} />}
                     <GetRepairs />
                     <div className="card-body-links column-right">
                       <UsefulLinks addrForLinks={detailAddr} location="overview-tab" />
