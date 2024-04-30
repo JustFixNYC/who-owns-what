@@ -141,7 +141,7 @@ const HomePage: React.FC<HomePageProps> = ({ useNewPortfolioMethod }) => {
     let now = new Date();
     let expires = now.getTime() + 1000 * 3600 * 24 * 365;
     now.setTime(expires);
-    document.cookie = `nf_ab=split-testing; expires=${now.toUTCString()}`;
+    document.cookie = `nf_ab=master; expires=${now.toUTCString()}`;
 
     // reload the page to pick up the new option
     // (forcing the browser to re-request it, rather than serving from browser cache)
@@ -156,7 +156,7 @@ const HomePage: React.FC<HomePageProps> = ({ useNewPortfolioMethod }) => {
           {useNewPortfolioMethod && algoliaAppId && algoliaSearchKey ? (
             <div className="HomePage__search wowza-styling">
               <div className="split-test">
-                <Button labelText="Enable Split Testing" onClick={setCookie} size="small" />
+                <Button labelText="Please, no more Papyrus!" onClick={setCookie} size="small" />
               </div>
               <h1 className="text-center">{wowzaLabelText}</h1>
               <div>
