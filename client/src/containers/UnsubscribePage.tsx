@@ -24,7 +24,7 @@ const UnsubscribePage = withI18n()((props: withI18nProps) => {
   const isEmailUnsubscribeAll = !!params.get("all");
 
   const [subscriptions, setSubscriptions] = React.useState<BuildingSubscription[]>();
-  const subscriptionsNumber = subscriptions?.length;
+  const subscriptionsNumber: number = subscriptions?.length || 0;
 
   const pageName = STANDALONE_PAGES.find((x) => pathname.includes(x));
   const standalonePageEventParams = { from: pageName };
