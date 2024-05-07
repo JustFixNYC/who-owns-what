@@ -252,7 +252,7 @@ class DetailViewWithoutI18n extends Component<Props, State> {
                 </div>
                 <div className="card-image show-lg">{streetView}</div>
                 <div className="columns main-content-columns">
-                  <div className="column col-lg-12 col-7">
+                  <div className="column col-lg-12 col-7 detail-column-left">
                     <div className="card-header">
                       <h4 className="card-title">
                         <Trans>BUILDING:</Trans> {detailAddr.housenumber}{" "}
@@ -389,7 +389,7 @@ class DetailViewWithoutI18n extends Component<Props, State> {
                       </div>
                     </div>
                   </div>
-                  <div className="column col-lg-12 col-5">
+                  <div className="column col-lg-12 col-5 detail-column-right">
                     <EmailAlertSignup addr={detailAddr} />
                     <GetRepairs />
                     <div className="card-body-links column-right">
