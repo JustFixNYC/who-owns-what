@@ -173,13 +173,21 @@
       }
     }
 
+    .hover-info {
+      display: flex;
+      i {
+        margin-left: auto;
+      }
+    }
+
     .card-body {
       padding-top: 0;
 
-      &:last-child {
-        @include for-phone-only() {
+      @include for-phone-only() {
+        &:last-child {
           padding: 0.63rem;
         }
+        padding-top: 0 !important;
       }
 
       @include for-tablet-portrait-up() {

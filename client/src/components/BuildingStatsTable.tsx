@@ -212,6 +212,9 @@ const BuildingStatsTableWithoutI18n = (props: { addr: AddressRecord; timelineUrl
       getBuildingStats: () => props.addr,
     }}
   >
+    <div className="hover-info">
+      <Trans render="i">hover over a box to learn more</Trans>
+    </div>
     <div className="BuildingStatsTable card-body-table hide-sm">
       <div className="table-row">
         <BBL />
