@@ -312,7 +312,7 @@ $icon-border-width: 0.13rem;
     box-shadow: -0.25em 0.2em, 0.25em 0.2em;
     content: "";
     height: $icon-border-width;
-    top: $icon-border-width/2;
+    top: calc($icon-border-width/2);
     width: 0.5em;
   }
 }
