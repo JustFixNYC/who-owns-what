@@ -51,7 +51,10 @@
         > label {
           display: block;
           line-height: 1.1;
-          font-size: 0.8125rem;
+          font-size: 0.875rem;
+          @include for-phone-only() {
+            font-size: 1rem;
+          }
           padding: 1px 0;
           // background-color: $background;
           border-bottom: 1px solid $gray-dark;
@@ -79,7 +82,10 @@
       }
 
       .table-small-font {
-        font-size: 0.8125rem;
+        font-size: 0.875rem;
+        @include for-phone-only() {
+          font-size: 1rem;
+        }
       }
     }
   }
