@@ -27,7 +27,7 @@
     .multiselect__multi-value,
     .multiselect__show-more-button {
       border-radius: 0.5rem;
-      padding: 0.5rem 0.87rem;
+      padding: 0.5rem 0.875rem;
       margin: 0;
       white-space: pre-line;
       gap: 0.31rem;
@@ -42,7 +42,7 @@
       }
       .multiselect__multi-value__label {
         text-transform: uppercase;
-        font-size: 0.87rem;
+        font-size: 0.875rem;
         padding: 0;
         white-space: normal;
       }
@@ -171,7 +171,7 @@
           justify-content: center;
           svg {
             height: 0.63rem;
-            width: 0.87rem;
+            width: 0.875rem;
           }
         }
       }

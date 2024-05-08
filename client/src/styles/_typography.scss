@@ -110,7 +110,7 @@ $eyebrow-font: "Suisse Int'l Mono", "Courier New", Courier, monospace;
 @mixin mobile-eyebrow {
   @include body-standard();
   font-family: $eyebrow-font;
-  font-size: 0.87rem;
+  font-size: 0.875rem;
   line-height: 115%;
   letter-spacing: 0.03em;
   text-transform: uppercase;
@@ -118,7 +118,7 @@ $eyebrow-font: "Suisse Int'l Mono", "Courier New", Courier, monospace;
 
 @mixin mobile-text-small {
   @include body-standard();
-  font-size: 0.87rem;
+  font-size: 0.875rem;
 }
 
 @mixin mobile-text-small-bold {
