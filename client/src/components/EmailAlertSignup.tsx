@@ -208,9 +208,6 @@ const EmailAlertSignupWithoutI18n = (props: EmailAlertProps) => (
     <div className="table-row">
       <div className="table-small-font">
         <label className="card-label-container">
-          <span className="pill-new">
-            <Trans>NEW</Trans>
-          </span>
           <Trans>Building Updates</Trans>
         </label>
         <div className="table-content">
