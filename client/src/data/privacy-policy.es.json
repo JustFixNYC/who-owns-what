@@ -30,7 +30,7 @@
         ]
       },
       {
-        "nodeType": "paragraph",
+        "nodeType": "heading-2",
         "data": {},
         "content": [
           {
@@ -39,9 +39,6 @@
             "marks": [
               {
                 "type": "underline"
-              },
-              {
-                "type": "bold"
               }
             ],
             "data": {}
@@ -110,9 +107,6 @@
             "marks": [
               {
                 "type": "underline"
-              },
-              {
-                "type": "bold"
               }
             ],
             "data": {}
@@ -237,9 +231,6 @@
             "marks": [
               {
                 "type": "underline"
-              },
-              {
-                "type": "bold"
               }
             ],
             "data": {}
@@ -382,9 +373,6 @@
             "marks": [
               {
                 "type": "underline"
-              },
-              {
-                "type": "bold"
               }
             ],
             "data": {}
@@ -545,9 +533,6 @@
             "marks": [
               {
                 "type": "underline"
-              },
-              {
-                "type": "bold"
               }
             ],
             "data": {}
@@ -588,9 +573,6 @@
             "marks": [
               {
                 "type": "underline"
-              },
-              {
-                "type": "bold"
               }
             ],
             "data": {}
@@ -709,9 +691,6 @@
             "marks": [
               {
                 "type": "underline"
-              },
-              {
-                "type": "bold"
               }
             ],
             "data": {}
@@ -752,9 +731,6 @@
             "marks": [
               {
                 "type": "underline"
-              },
-              {
-                "type": "bold"
               }
             ],
             "data": {}
@@ -783,9 +759,6 @@
             "marks": [
               {
                 "type": "underline"
-              },
-              {
-                "type": "bold"
               }
             ],
             "data": {}
@@ -846,9 +819,6 @@
             "marks": [
               {
                 "type": "underline"
-              },
-              {
-                "type": "bold"
               }
             ],
             "data": {}
@@ -877,9 +847,6 @@
             "marks": [
               {
                 "type": "underline"
-              },
-              {
-                "type": "bold"
               }
             ],
             "data": {}
@@ -944,9 +911,6 @@
             "marks": [
               {
                 "type": "underline"
-              },
-              {
-                "type": "bold"
               }
             ],
             "data": {}
@@ -975,9 +939,6 @@
             "marks": [
               {
                 "type": "underline"
-              },
-              {
-                "type": "bold"
               }
             ],
             "data": {}
@@ -1006,9 +967,6 @@
             "marks": [
               {
                 "type": "underline"
-              },
-              {
-                "type": "bold"
               }
             ],
             "data": {}
