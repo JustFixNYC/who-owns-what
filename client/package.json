@@ -6,7 +6,7 @@
     "@amplitude/analytics-browser": "^1.2.3",
     "@babel/core": "^7.7.2",
     "@contentful/rich-text-react-renderer": "^15.0.0",
-    "@justfixnyc/component-library": "0.33.0",
+    "@justfixnyc/component-library": "^0.36.0",
     "@justfixnyc/contentful-common-strings": "^0.1.0",
     "@justfixnyc/geosearch-requester": "1.0.0",
     "@justfixnyc/util": "^0.4.1",

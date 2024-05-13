@@ -2479,14 +2479,21 @@
   resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-common-types/-/fontawesome-common-types-6.5.1.tgz#fdb1ec4952b689f5f7aa0bffe46180bb35490032"
   integrity sha512-GkWzv+L6d2bI5f/Vk6ikJ9xtl7dfXtoRu3YGE6nq0p/FFqA1ebMOAWg3XgRyb0I6LYyYkiAo+3/KrwuBp8xG7A==
 
-"@fortawesome/fontawesome-svg-core@^6.5.1":
+"@fortawesome/fontawesome-svg-core@6.5.1":
   version "6.5.1"
   resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-svg-core/-/fontawesome-svg-core-6.5.1.tgz#9d56d46bddad78a7ebb2043a97957039fcebcf0a"
   integrity sha512-MfRCYlQPXoLlpem+egxjfkEuP9UQswTrlCOsknus/NcMoblTH2g0jPrapbcIb04KGA7E2GZxbAccGZfWoYgsrQ==
   dependencies:
     "@fortawesome/fontawesome-common-types" "6.5.1"
 
-"@fortawesome/free-solid-svg-icons@^6.5.1":
+"@fortawesome/free-brands-svg-icons@6.5.1":
+  version "6.5.1"
+  resolved "https://registry.yarnpkg.com/@fortawesome/free-brands-svg-icons/-/free-brands-svg-icons-6.5.1.tgz#e948cc02404277cb8ad40fe3573ca75f2830e876"
+  integrity sha512-093l7DAkx0aEtBq66Sf19MgoZewv1zeY9/4C7vSKPO4qMwEsW/2VYTUTpBtLwfb9T2R73tXaRDPmE4UqLCYHfg==
+  dependencies:
+    "@fortawesome/fontawesome-common-types" "6.5.1"
+
+"@fortawesome/free-solid-svg-icons@6.5.1":
   version "6.5.1"
   resolved "https://registry.yarnpkg.com/@fortawesome/free-solid-svg-icons/-/free-solid-svg-icons-6.5.1.tgz#737b8d787debe88b400ab7528f47be333031274a"
   integrity sha512-S1PPfU3mIJa59biTtXJz1oI0+KAXW6bkAb31XKhxdxtuXDiUIFsih4JR1v5BbxY7hVHsD1RKq+jRkVRaf773NQ==
@@ -2795,15 +2802,17 @@
     "@jridgewell/resolve-uri" "3.1.0"
     "@jridgewell/sourcemap-codec" "1.4.14"
 
-"@justfixnyc/component-library@0.33.0":
-  version "0.33.0"
-  resolved "https://registry.yarnpkg.com/@justfixnyc/component-library/-/component-library-0.33.0.tgz#227941f59055faf1e763f8d0d6ee3bb4423d49e9"
-  integrity sha512-iHIg3ihO/zPJ6kwcyUDtPacBi90+RgBdiaaaN71oLJla2kcmyv19X7X0LXbZbFOWFkof+/dG5dUjLGXBexCRUg==
+"@justfixnyc/component-library@^0.36.0":
+  version "0.36.0"
+  resolved "https://registry.yarnpkg.com/@justfixnyc/component-library/-/component-library-0.36.0.tgz#33f364731cb67ba6cf3387f39cc7808aab1eefe8"
+  integrity sha512-qF0xqL9lesp7TvJ4R/3IR1kpGQvRNQ3DwGOw01zelFCqqB6hWPBtoqz23wgDoXx01IQoJIgosuFiJWhsNX7Zfg==
   dependencies:
     "@babel/runtime" "^7.12.5"
-    "@fortawesome/fontawesome-svg-core" "^6.5.1"
-    "@fortawesome/free-solid-svg-icons" "^6.5.1"
+    "@fortawesome/fontawesome-svg-core" "6.5.1"
+    "@fortawesome/free-brands-svg-icons" "6.5.1"
+    "@fortawesome/free-solid-svg-icons" "6.5.1"
     "@fortawesome/react-fontawesome" "^0.2.0"
+    react-select "^5.7.2"
 
 "@justfixnyc/contentful-common-strings@^0.1.0":
   version "0.1.0"

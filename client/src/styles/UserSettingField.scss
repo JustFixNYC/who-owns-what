@@ -1,0 +1,9 @@
+@import "_vars.scss";
+@import "_typography.scss";
+
+.UserSetting {
+    .jf-alert__content {
+        display: flex;
+        align-items: center;
+    }
+}

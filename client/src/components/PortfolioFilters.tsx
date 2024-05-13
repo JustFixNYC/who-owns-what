@@ -2,7 +2,8 @@ import { t, Trans, Plural } from "@lingui/macro";
 import { withI18n, withI18nProps } from "@lingui/react";
 import classnames from "classnames";
 import React from "react";
-import { CheckIcon, ChevronIcon, CloseIcon, InfoIcon } from "./Icons";
+import { InfoIcon } from "./Icons";
+import { Icon } from "@justfixnyc/component-library";
 import {
   FilterContext,
   PortfolioAnalyticsEvent,
@@ -222,7 +223,7 @@ const PortfolioFiltersWithoutI18n = React.memo(
               className="filter filter-toggle"
               aria-label={i18n._(t`Rent Stabilized Units filter`)}
             >
-              <div className="checkbox">{rsunitslatestActive && <CheckIcon />}</div>
+              <div className="checkbox">{rsunitslatestActive && <Icon icon="check" />}</div>
               <span>
                 <Trans>Rent Stabilized Units</Trans>
               </span>
@@ -390,7 +391,11 @@ const FiltersWrapper = (props: {
             {!isOpen && !!numActiveFilters && (
               <span className="active-filter-count">{numActiveFilters}</span>
             )}
-            {isOpen ? <CloseIcon className="closeIcon" /> : <ChevronIcon className="chevronIcon" />}
+            {isOpen ? (
+              <Icon icon="xmark" className="closeIcon" />
+            ) : (
+              <Icon icon="chevronDown" className="chevronIcon" />
+            )}
           </summary>
           <div className="dropdown-container scroll-gradient mobile-wrapper-dropdown">
             {children}
@@ -541,7 +546,7 @@ const FilterAccordion = withI18n()((props: FilterAccordionProps) => {
             {isActive && selectionsCount && (
               <span className="filter-selection-count">{selectionsCount}</span>
             )}
-            <ChevronIcon className="chevronIcon" />
+            <Icon icon="chevronDown" className="chevronIcon" />
           </summary>
           <div className="dropdown-container">
             {subtitle && (

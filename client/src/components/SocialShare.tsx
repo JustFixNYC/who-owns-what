@@ -8,7 +8,7 @@ import { withI18n } from "@lingui/react";
 import { FB_APP_ID } from "./Page";
 import { getSiteOrigin } from "../routes";
 import { useLocation } from "react-router-dom";
-import { Button, IconPerson, IconMail, IconTwitter } from "@justfixnyc/component-library";
+import { Button } from "@justfixnyc/component-library";
 
 export type SocialShareContent = {
   tweet: MessageDescriptor;
@@ -50,7 +50,7 @@ const _FacebookButton: React.FC = (props) => (
     labelText={`Facebook (${i18n._("Opens in a new window")})`}
     variant="secondary"
     size="small"
-    labelIcon={IconPerson}
+    labelIcon="user"
     iconOnly
     {...props}
   />
@@ -60,7 +60,7 @@ const _TwitterButton: React.FC = (props) => (
     labelText={`Twitter (${i18n._("Opens in a new window")})`}
     variant="secondary"
     size="small"
-    labelIcon={IconTwitter}
+    labelIcon="twitter"
     iconOnly
     {...props}
   />
@@ -70,7 +70,7 @@ const _EmailButton: React.FC = (props) => (
     labelText={`${i18n._("Email")} (${i18n._("Opens in a new window")})`}
     variant="secondary"
     size="small"
-    labelIcon={IconMail}
+    labelIcon="envelope"
     iconOnly
     {...props}
   />
