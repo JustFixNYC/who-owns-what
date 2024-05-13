@@ -2802,10 +2802,10 @@
     "@jridgewell/resolve-uri" "3.1.0"
     "@jridgewell/sourcemap-codec" "1.4.14"
 
-"@justfixnyc/component-library@^0.36.0":
-  version "0.36.0"
-  resolved "https://registry.yarnpkg.com/@justfixnyc/component-library/-/component-library-0.36.0.tgz#33f364731cb67ba6cf3387f39cc7808aab1eefe8"
-  integrity sha512-qF0xqL9lesp7TvJ4R/3IR1kpGQvRNQ3DwGOw01zelFCqqB6hWPBtoqz23wgDoXx01IQoJIgosuFiJWhsNX7Zfg==
+"@justfixnyc/component-library@0.37":
+  version "0.37.0"
+  resolved "https://registry.yarnpkg.com/@justfixnyc/component-library/-/component-library-0.37.0.tgz#61839745f369a0c4fa5c4eeeee1adf7739cd1f1c"
+  integrity sha512-Hyn1pUq78FQbNgplGr8s2bAyVsDM8ZH/GXRSyH62qtmceLo3Uem5cAypImax5za/D+dZHyDb86yf2oSDcDQn7A==
   dependencies:
     "@babel/runtime" "^7.12.5"
     "@fortawesome/fontawesome-svg-core" "6.5.1"

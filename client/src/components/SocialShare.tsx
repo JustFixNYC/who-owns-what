@@ -1,6 +1,7 @@
 import React from "react";
 import { FacebookButton, TwitterButton, EmailButton } from "react-social";
 import { isMobile, isAndroid } from "react-device-detect";
+import { Icon, Link as JFCLLink } from "@justfixnyc/component-library";
 
 import { I18n, MessageDescriptor, i18n } from "@lingui/core";
 import { t } from "@lingui/macro";
@@ -50,17 +51,17 @@ const _FacebookButton: React.FC = (props) => (
     labelText={`Facebook (${i18n._("Opens in a new window")})`}
     variant="secondary"
     size="small"
-    labelIcon="user"
+    labelIcon="facebook"
     iconOnly
     {...props}
   />
 );
 const _TwitterButton: React.FC = (props) => (
   <Button
-    labelText={`Twitter (${i18n._("Opens in a new window")})`}
+    labelText={`X (${i18n._("Opens in a new window")})`}
     variant="secondary"
     size="small"
-    labelIcon="twitter"
+    labelIcon="xTwitter"
     iconOnly
     {...props}
   />
@@ -71,6 +72,16 @@ const _EmailButton: React.FC = (props) => (
     variant="secondary"
     size="small"
     labelIcon="envelope"
+    iconOnly
+    {...props}
+  />
+);
+const _SmsButton: React.FC = (props) => (
+  <Button
+    labelText={`${i18n._("SMS")} (${i18n._("Opens in a new window")})`}
+    variant="secondary"
+    size="small"
+    labelIcon="sms"
     iconOnly
     {...props}
   />
@@ -118,17 +129,17 @@ const SocialShareWithoutI18n: React.FC<SocialShareProps> = ({
         element={_EmailButton}
       />
       {isMobile && (
-        <a
-          className="sms-social jfcl-button jfcl-variant-secondary jfcl-size-small"
+        <JFCLLink
           onClick={() => {
             window.gtag("event", "sms-" + location);
           }}
           href={"sms: " + (isAndroid ? "?" : "&") + "body=" + encodeURIComponent(url)}
           target="_blank"
           rel="noopener noreferrer"
+          className="jfcl-button jfcl-size-small jfcl-btn-icon-only"
         >
-          Text URL
-        </a>
+          <Icon icon="sms" />
+        </JFCLLink>
       )}
     </div>
   );
