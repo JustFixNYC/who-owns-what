@@ -119,15 +119,15 @@ const SocialShareWithoutI18n: React.FC<SocialShareProps> = ({
       />
       {isMobile && (
         <a
-          className="btn btn-steps"
+          className="sms-social jfcl-button jfcl-variant-secondary jfcl-size-small"
           onClick={() => {
-            window.gtag("event", "twitter-" + location);
+            window.gtag("event", "sms-" + location);
           }}
           href={"sms: " + (isAndroid ? "?" : "&") + "body=" + encodeURIComponent(url)}
           target="_blank"
           rel="noopener noreferrer"
         >
-          SMS
+          Text URL
         </a>
       )}
     </div>
