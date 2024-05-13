@@ -44,10 +44,6 @@
           font-size: 1rem;
         }
 
-        @include for-phone-only() {
-          font-size: 0.8125rem;
-        }
-
         > label {
           display: block;
           line-height: 1.1;
@@ -78,7 +74,7 @@
 
       .table-content {
         margin: 0.63rem 0.47rem;
-        line-height: 0.8125rem;
+        line-height: 1rem;
       }
 
       .table-small-font {
