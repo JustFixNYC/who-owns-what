@@ -12,6 +12,8 @@ import { JustfixUser } from "state-machine";
 import { createRouteForAddressPage, createWhoOwnsWhatRoutePaths } from "routes";
 import { Borough } from "components/APIDataTypes";
 import { LocaleNavLink } from "i18n";
+import { useHistory } from "react-router-dom";
+import { LoadingPage } from "components/Loader";
 
 type SubscriptionFieldProps = withI18nProps & {
   bbl: string;
@@ -54,12 +56,18 @@ export const SubscriptionField = withI18n()(SubscriptionFieldWithoutI18n);
 
 const AccountSettingsPage = withI18n()((props: withI18nProps) => {
   const { i18n } = props;
+  const history = useHistory();
+  const { home, account } = createWhoOwnsWhatRoutePaths();
   const userContext = useContext(UserContext);
-  if (!userContext.user) return <div />;
   const user = userContext.user as JustfixUser;
+
+  if (!user?.email) {
+    history.replace(account.login);
+    return <LoadingPage />;
+  }
+
   const { email, subscriptions } = user;
   const subscriptionsNumber = !!subscriptions ? subscriptions.length : 0;
-  const { home } = createWhoOwnsWhatRoutePaths();
 
   const unsubscribeBuilding = (bbl: string) => {
     userContext.unsubscribe(bbl);
