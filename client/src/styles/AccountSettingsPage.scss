@@ -17,6 +17,19 @@
   .settings-section {
     margin-bottom: 3rem;
 
+    &:first-of-type {
+      border-top: 1px solid #c5ccd1; // new grey in figma, unnamed
+      border-bottom: 1px solid #c5ccd1; // new grey in figma, unnamed
+      padding-bottom: 3rem;
+    }
+
+    .log-in-out {
+      display: flex;
+      justify-content: space-between;
+      padding: 1rem 0 3rem 0;
+      align-items: baseline;
+    }
+
     h2 {
       font-size: 1rem;
       font-style: normal;
