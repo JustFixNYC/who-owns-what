@@ -1,0 +1,1052 @@
+{
+  "title": "Política de privacidad",
+  "slug": "privacy-policy",
+  "content": {
+    "nodeType": "document",
+    "data": {},
+    "content": [
+      {
+        "nodeType": "heading-1",
+        "data": {},
+        "content": [
+          {
+            "nodeType": "text",
+            "value": "Política de privacidad de JustFix",
+            "marks": [],
+            "data": {}
+          }
+        ]
+      },
+      {
+        "nodeType": "paragraph",
+        "data": {},
+        "content": [
+          {
+            "nodeType": "text",
+            "value": "Última modificación: 13 de mayo de 2024",
+            "marks": [],
+            "data": {}
+          }
+        ]
+      },
+      {
+        "nodeType": "paragraph",
+        "data": {},
+        "content": [
+          {
+            "nodeType": "text",
+            "value": "Introducción",
+            "marks": [
+              {
+                "type": "underline"
+              },
+              {
+                "type": "bold"
+              }
+            ],
+            "data": {}
+          }
+        ]
+      },
+      {
+        "nodeType": "paragraph",
+        "data": {},
+        "content": [
+          {
+            "nodeType": "text",
+            "value": "Bienvenido JustFix (\"Justfix\" o la \"Compañía\") ",
+            "marks": [],
+            "data": {}
+          },
+          {
+            "nodeType": "text",
+            "value": "es ",
+            "marks": [
+              {
+                "type": "bold"
+              }
+            ],
+            "data": {}
+          },
+          {
+            "nodeType": "text",
+            "value": "una organización 501(c)(3) sin ánimo de lucro dedicada a ayudar a los inquilinos a ejercer sus derechos a una vivienda habitable. Valoramos la confianza que ha depositado en nosotros y en nuestra misión. Justfix se compromete a proteger su privacidad mediante el cumplimiento de esta política de privacidad (la \"Política\") y todas las leyes y reglamentos pertinentes que rigen la Compañía.",
+            "marks": [],
+            "data": {}
+          }
+        ]
+      },
+      {
+        "nodeType": "paragraph",
+        "data": {},
+        "content": [
+          {
+            "nodeType": "text",
+            "value": "Esta Política describe los tipos de información que podemos recopilar de usted o que usted puede proporcionar cuando visita el sitio web Justfix.org (nuestro \"Sitio web\"). Esta Política rige además cualquier otro producto o sitio web afiliado como WhoOwnsWhat (Quien es Dueño de Que), Letter of Complaint (Carta de Queja), Los Angeles Tenant Action Center (Centro de Acción de Inquilinos de Los Angeles), y cualquier herramienta actualmente existente o futura creada o regida por la Compañía (colectivamente, los \"Servicios\").  Esta Política describe nuestras prácticas de recopilación, uso, mantenimiento, protección y divulgación de dicha información cuando usted visita nuestro Sitio Web y/o utiliza nuestros Servicios. Además, esta Política revela sus derechos y las formas de ponerse en contacto con la Compañía para ejercerlos.",
+            "marks": [],
+            "data": {}
+          }
+        ]
+      },
+      {
+        "nodeType": "paragraph",
+        "data": {},
+        "content": [
+          {
+            "nodeType": "text",
+            "value": "Si tiene alguna pregunta sobre esta política, póngase en contacto con support@justfix.org para más información.",
+            "marks": [],
+            "data": {}
+          }
+        ]
+      },
+      {
+        "nodeType": "heading-2",
+        "data": {},
+        "content": [
+          {
+            "nodeType": "text",
+            "value": "Información Recogida:",
+            "marks": [
+              {
+                "type": "underline"
+              },
+              {
+                "type": "bold"
+              }
+            ],
+            "data": {}
+          }
+        ]
+      },
+      {
+        "nodeType": "paragraph",
+        "data": {},
+        "content": [
+          {
+            "nodeType": "text",
+            "value": "Al acceder, ver, visitar o interactuar de cualquier otro modo con el Sitio Web y/o los Servicios, usted acepta lo siguiente:",
+            "marks": [],
+            "data": {}
+          }
+        ]
+      },
+      {
+        "nodeType": "unordered-list",
+        "data": {},
+        "content": [
+          {
+            "nodeType": "list-item",
+            "data": {},
+            "content": [
+              {
+                "nodeType": "paragraph",
+                "data": {},
+                "content": [
+                  {
+                    "nodeType": "text",
+                    "value": "Es posible que se recopile información automáticamente, incluidos detalles de uso, direcciones IP y cookies, lo que ayuda a la Compañía a gestionar su sesión en nuestro sitio web.",
+                    "marks": [],
+                    "data": {}
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "nodeType": "list-item",
+            "data": {},
+            "content": [
+              {
+                "nodeType": "paragraph",
+                "data": {},
+                "content": [
+                  {
+                    "nodeType": "text",
+                    "value": "Es posible que se le pida que proporcione su nombre, correo electrónico, dirección postal, código postal, número de teléfono u otra información de identificación personal (\"IIP\").  Al introducir esta información, usted consiente explícitamente el uso de su IIP por parte de la Compañía, incluso para su uso en información agregada con fines de investigación de otros usuarios del Sitio Web. ",
+                    "marks": [],
+                    "data": {}
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "nodeType": "list-item",
+            "data": {},
+            "content": [
+              {
+                "nodeType": "paragraph",
+                "data": {},
+                "content": [
+                  {
+                    "nodeType": "text",
+                    "value": "Es posible que se recopile información adicional, como las características de su navegación y el tiempo que pasa en una parte determinada del sitio web. Podemos recopilar información específica sobre su dispositivo, como el tipo de dispositivo, el modelo, el operador de telefonía móvil, el sistema operativo y el idioma preferido. ",
+                    "marks": [],
+                    "data": {}
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "nodeType": "list-item",
+            "data": {},
+            "content": [
+              {
+                "nodeType": "paragraph",
+                "data": {},
+                "content": [
+                  {
+                    "nodeType": "text",
+                    "value": "La conservación de registros o copias de su correspondencia si se pone en contacto con nosotros directamente.",
+                    "marks": [],
+                    "data": {}
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "nodeType": "list-item",
+            "data": {},
+            "content": [
+              {
+                "nodeType": "paragraph",
+                "data": {},
+                "content": [
+                  {
+                    "nodeType": "text",
+                    "value": "Podemos agregar, anonimizar y/o desidentificar la información descrita anteriormente con el fin de compartir esos datos con terceros o publicarlos. Estos datos ya no se considerarían IIP debido a su proceso de anonimización. Estos datos pueden utilizarse para ayudar a la Company a mejorar la experiencia del sitio web. ",
+                    "marks": [],
+                    "data": {}
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "nodeType": "heading-2",
+        "data": {},
+        "content": [
+          {
+            "nodeType": "text",
+            "value": "Uso de su información:",
+            "marks": [
+              {
+                "type": "underline"
+              },
+              {
+                "type": "bold"
+              }
+            ],
+            "data": {}
+          }
+        ]
+      },
+      {
+        "nodeType": "paragraph",
+        "data": {},
+        "content": [
+          {
+            "nodeType": "text",
+            "value": "Utilizamos la información que recopilamos sobre usted o que usted o terceros nos proporcionan, incluida cualquier información personal para:",
+            "marks": [],
+            "data": {}
+          }
+        ]
+      },
+      {
+        "nodeType": "unordered-list",
+        "data": {},
+        "content": [
+          {
+            "nodeType": "list-item",
+            "data": {},
+            "content": [
+              {
+                "nodeType": "paragraph",
+                "data": {},
+                "content": [
+                  {
+                    "nodeType": "text",
+                    "value": "Presentarle nuestro sitio web y nuestros servicios de forma verificable.",
+                    "marks": [],
+                    "data": {}
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "nodeType": "list-item",
+            "data": {},
+            "content": [
+              {
+                "nodeType": "paragraph",
+                "data": {},
+                "content": [
+                  {
+                    "nodeType": "text",
+                    "value": "Proporcionarle información, productos o servicios que nos solicite.",
+                    "marks": [],
+                    "data": {}
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "nodeType": "list-item",
+            "data": {},
+            "content": [
+              {
+                "nodeType": "paragraph",
+                "data": {},
+                "content": [
+                  {
+                    "nodeType": "text",
+                    "value": "Proporcionarle avisos sobre su cuenta, incluida la falta de uso y la posterior eliminación de datos.",
+                    "marks": [],
+                    "data": {}
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "nodeType": "list-item",
+            "data": {},
+            "content": [
+              {
+                "nodeType": "paragraph",
+                "data": {},
+                "content": [
+                  {
+                    "nodeType": "text",
+                    "value": "Notificarle cambios en nuestro Sitio Web y/o en los Servicios que presta la Compañía.",
+                    "marks": [],
+                    "data": {}
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "nodeType": "list-item",
+            "data": {},
+            "content": [
+              {
+                "nodeType": "paragraph",
+                "data": {},
+                "content": [
+                  {
+                    "nodeType": "text",
+                    "value": "Permitirnos mostrar anuncios al público objetivo de nuestros anunciantes, aunque no revelemos su información personal para estos fines.",
+                    "marks": [],
+                    "data": {}
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "nodeType": "list-item",
+            "data": {},
+            "content": [
+              {
+                "nodeType": "paragraph",
+                "data": {},
+                "content": [
+                  {
+                    "nodeType": "text",
+                    "value": "Toda la información recopilada se conservará de conformidad con la legislación aplicable. Tras un periodo de inactividad, el usuario puede recibir un correo electrónico sobre la posible desactivación de su cuenta. El usuario debe enviar un correo electrónico afirmativo a la Compañía para garantizar la conservación de su cuenta. De lo contrario, su cuenta será desactivada.",
+                    "marks": [],
+                    "data": {}
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "nodeType": "heading-2",
+        "data": {},
+        "content": [
+          {
+            "nodeType": "text",
+            "value": "Divulgación de sus datos",
+            "marks": [
+              {
+                "type": "underline"
+              },
+              {
+                "type": "bold"
+              }
+            ],
+            "data": {}
+          }
+        ]
+      },
+      {
+        "nodeType": "paragraph",
+        "data": {},
+        "content": [
+          {
+            "nodeType": "text",
+            "value": "Podemos revelar información agregada sobre nuestros usuarios. Podemos divulgar la información personal que recopilamos o que usted nos proporciona según lo descrito en esta Política a las siguientes partes:",
+            "marks": [],
+            "data": {}
+          }
+        ]
+      },
+      {
+        "nodeType": "unordered-list",
+        "data": {},
+        "content": [
+          {
+            "nodeType": "list-item",
+            "data": {},
+            "content": [
+              {
+                "nodeType": "paragraph",
+                "data": {},
+                "content": [
+                  {
+                    "nodeType": "text",
+                    "value": "A nuestras filiales y Compañías asociadas.",
+                    "marks": [],
+                    "data": {}
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "nodeType": "list-item",
+            "data": {},
+            "content": [
+              {
+                "nodeType": "paragraph",
+                "data": {},
+                "content": [
+                  {
+                    "nodeType": "text",
+                    "value": "A contratistas, proveedores de servicios y otros terceros que utilizamos para apoyar nuestra actividad y que están obligados por contrato a mantener la confidencialidad de los datos personales y a utilizarlos únicamente para los fines para los que se los comunicamos.",
+                    "marks": [],
+                    "data": {}
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "nodeType": "list-item",
+            "data": {},
+            "content": [
+              {
+                "nodeType": "paragraph",
+                "data": {},
+                "content": [
+                  {
+                    "nodeType": "text",
+                    "value": "A terceros para que comercialicen sus productos o servicios con usted. Exigimos contractualmente a estos terceros que mantengan la confidencialidad de la información personal y la utilicen únicamente para los fines para los que se la comunicamos.",
+                    "marks": [],
+                    "data": {}
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "nodeType": "list-item",
+            "data": {},
+            "content": [
+              {
+                "nodeType": "paragraph",
+                "data": {},
+                "content": [
+                  {
+                    "nodeType": "text",
+                    "value": "Para cumplir la finalidad para la que usted la facilita.",
+                    "marks": [],
+                    "data": {}
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "nodeType": "list-item",
+            "data": {},
+            "content": [
+              {
+                "nodeType": "paragraph",
+                "data": {},
+                "content": [
+                  {
+                    "nodeType": "text",
+                    "value": "Para cualquier otro fin que le comuniquemos cuando nos facilite la información.",
+                    "marks": [],
+                    "data": {}
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "nodeType": "list-item",
+            "data": {},
+            "content": [
+              {
+                "nodeType": "paragraph",
+                "data": {},
+                "content": [
+                  {
+                    "nodeType": "text",
+                    "value": "Para cumplir cualquier orden judicial, ley o proceso legal, incluida la respuesta a cualquier solicitud gubernamental o reglamentaria.",
+                    "marks": [],
+                    "data": {}
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "nodeType": "list-item",
+            "data": {},
+            "content": [
+              {
+                "nodeType": "paragraph",
+                "data": {},
+                "content": [
+                  {
+                    "nodeType": "text",
+                    "value": "Si creemos que la divulgación es necesaria o apropiada para proteger los derechos, la propiedad o la seguridad de la Compañía.",
+                    "marks": [],
+                    "data": {}
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "nodeType": "heading-2",
+        "data": {},
+        "content": [
+          {
+            "nodeType": "text",
+            "value": "Uso de tecnologías de seguimiento por terceros",
+            "marks": [
+              {
+                "type": "underline"
+              },
+              {
+                "type": "bold"
+              }
+            ],
+            "data": {}
+          }
+        ]
+      },
+      {
+        "nodeType": "paragraph",
+        "data": {},
+        "content": [
+          {
+            "nodeType": "text",
+            "value": "Algunos contenidos o aplicaciones del sitio web, incluidos los anuncios, son suministrados por terceros, como anunciantes, proveedores de contenidos y proveedores de aplicaciones. Estos terceros pueden utilizar cookies, web beacons u otras tecnologías de seguimiento para recopilar información sobre usted cuando utiliza nuestro sitio web. La información que recopilan puede estar asociada a sus datos personales o pueden recopilar información, incluida información personal, sobre sus actividades en línea en diferentes sitios web y otros servicios en línea. Pueden utilizar esta información para ofrecerle contenidos publicitarios específicos.",
+            "marks": [],
+            "data": {}
+          }
+        ]
+      },
+      {
+        "nodeType": "paragraph",
+        "data": {},
+        "content": [
+          {
+            "nodeType": "text",
+            "value": "No controlamos las tecnologías de seguimiento de estos terceros ni el modo en que pueden utilizarse. Si tiene alguna pregunta sobre un anuncio u otro contenido dirigido, debe ponerse en contacto directamente con el proveedor responsable. ",
+            "marks": [],
+            "data": {}
+          }
+        ]
+      },
+      {
+        "nodeType": "heading-2",
+        "data": {},
+        "content": [
+          {
+            "nodeType": "text",
+            "value": "Notificación y elección sobre el uso y la recogida de sus datos",
+            "marks": [
+              {
+                "type": "underline"
+              },
+              {
+                "type": "bold"
+              }
+            ],
+            "data": {}
+          }
+        ]
+      },
+      {
+        "nodeType": "paragraph",
+        "data": {},
+        "content": [
+          {
+            "nodeType": "text",
+            "value": "La Compañía se esfuerza por ofrecerle opciones en relación con la información personal que nos proporciona. Hemos creado mecanismos para proporcionarle el siguiente control sobre su información: ",
+            "marks": [],
+            "data": {}
+          }
+        ]
+      },
+      {
+        "nodeType": "unordered-list",
+        "data": {},
+        "content": [
+          {
+            "nodeType": "list-item",
+            "data": {},
+            "content": [
+              {
+                "nodeType": "paragraph",
+                "data": {},
+                "content": [
+                  {
+                    "nodeType": "text",
+                    "value": "Tecnologías de seguimiento y publicidad.",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      }
+                    ],
+                    "data": {}
+                  },
+                  {
+                    "nodeType": "text",
+                    "value": " Puede configurar su navegador para que rechace todas o algunas de las cookies o para que le avise cuando se envíen cookies. Si desactiva o rechaza las cookies, tenga en cuenta que algunas partes de este sitio pueden resultar inaccesibles o no funcionar correctamente.",
+                    "marks": [],
+                    "data": {}
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "nodeType": "list-item",
+            "data": {},
+            "content": [
+              {
+                "nodeType": "paragraph",
+                "data": {},
+                "content": [
+                  {
+                    "nodeType": "text",
+                    "value": "Divulgación de sus datos para publicidad de terceros. ",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      }
+                    ],
+                    "data": {}
+                  },
+                  {
+                    "nodeType": "text",
+                    "value": "En este momento, la Compañía no participa en publicidad de terceros. ",
+                    "marks": [],
+                    "data": {}
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "nodeType": "list-item",
+            "data": {},
+            "content": [
+              {
+                "nodeType": "paragraph",
+                "data": {},
+                "content": [
+                  {
+                    "nodeType": "text",
+                    "value": "Publicidad dirigida. ",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      }
+                    ],
+                    "data": {}
+                  },
+                  {
+                    "nodeType": "text",
+                    "value": "En este momento, la Compañía no participa en Publicidad Dirigida. ",
+                    "marks": [],
+                    "data": {}
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "nodeType": "heading-2",
+        "data": {},
+        "content": [
+          {
+            "nodeType": "text",
+            "value": "Derechos relacionados a su información",
+            "marks": [
+              {
+                "type": "underline"
+              },
+              {
+                "type": "bold"
+              }
+            ],
+            "data": {}
+          }
+        ]
+      },
+      {
+        "nodeType": "paragraph",
+        "data": {},
+        "content": [
+          {
+            "nodeType": "text",
+            "value": "Puede solicitar parte o la totalidad de la información personal recopilada por la Compañía. Puede hacerlo enviándonos un correo electrónico a support@justfix.org. Además, puede ponerse en contacto con nosotros en esta misma dirección de correo electrónico para solicitar el acceso, la corrección o la eliminación de cualquier información personal que nos haya proporcionado. Es posible que no accedamos a una solicitud de cambio de información si consideramos que dicho cambio infringiría alguna ley o requisito legal o provocaría que la información fuera incorrecta.",
+            "marks": [],
+            "data": {}
+          }
+        ]
+      },
+      {
+        "nodeType": "paragraph",
+        "data": {},
+        "content": [
+          {
+            "nodeType": "text",
+            "value": "Para conocer los derechos específicos de los residentes de determinados estados, consulte la sección \"Derechos de privacidad específicos de los residentes de determinados estados.\"",
+            "marks": [],
+            "data": {}
+          }
+        ]
+      },
+      {
+        "nodeType": "heading-2",
+        "data": {},
+        "content": [
+          {
+            "nodeType": "text",
+            "value": "Privacidad de los niños ",
+            "marks": [
+              {
+                "type": "underline"
+              },
+              {
+                "type": "bold"
+              }
+            ],
+            "data": {}
+          }
+        ]
+      },
+      {
+        "nodeType": "paragraph",
+        "data": {},
+        "content": [
+          {
+            "nodeType": "text",
+            "value": "El Sitio Web y los Servicios afiliados no están destinados a usuarios menores de 13 años sin la orientación y supervisión activa de sus padres. No recopilamos conscientemente información personal de usuarios menores de 13. Si usted es menor de 13 años, no utilice ni proporcione ninguna información personal en este Sitio Web ni en los Servicios afiliados.  Si sospecha que un menor de 13 años accede a nuestro sitio web o a nuestros servicios, póngase en contacto con nosotros en support@justfix.org. Si se recopila cualquier información de un usuario menor de 13 años debido a su uso del sitio web y la Compañía tiene conocimiento de dicho incidente, la información recopilada se eliminará de inmediato. ",
+            "marks": [],
+            "data": {}
+          }
+        ]
+      },
+      {
+        "nodeType": "heading-2",
+        "data": {},
+        "content": [
+          {
+            "nodeType": "text",
+            "value": "Derechos específicos de privacidad de los residentes en el Estado",
+            "marks": [
+              {
+                "type": "underline"
+              },
+              {
+                "type": "bold"
+              }
+            ],
+            "data": {}
+          }
+        ]
+      },
+      {
+        "nodeType": "paragraph",
+        "data": {},
+        "content": [
+          {
+            "nodeType": "text",
+            "value": "La Ley de Privacidad del Consumidor de California y las Leyes de Derechos de Privacidad de California (\"CPRA\", por sus siglas en inglés), (colectivamente, en su versión modificada, \"CCPA\"), proporcionan a los residentes de California derechos específicos en relación con su información personal. Para obtener más información sobre los derechos de privacidad de los residentes de California, visite ",
+            "marks": [],
+            "data": {}
+          },
+          {
+            "nodeType": "hyperlink",
+            "data": {
+              "uri": "https://oag.ca.gov/privacy/ccpa"
+            },
+            "content": [
+              {
+                "nodeType": "text",
+                "value": "https://oag.ca.gov/privacy/ccpa",
+                "marks": [],
+                "data": {}
+              }
+            ]
+          },
+          {
+            "nodeType": "text",
+            "value": " o póngase en contacto con su legislatura local. ",
+            "marks": [],
+            "data": {}
+          }
+        ]
+      },
+      {
+        "nodeType": "paragraph",
+        "data": {},
+        "content": [
+          {
+            "nodeType": "text",
+            "value": "Además de la CCPA, la ley \"Shine the Light\" de California (Código Civil, sección § 1798.83) permite a los usuarios de nuestro sitio web y/o servicios que sean residentes de California solicitar determinada información relativa a nuestra divulgación de información personal a terceros para sus fines de marketing directo. Para realizar dicha solicitud, envíe un correo electrónico a support@justfix.org.",
+            "marks": [],
+            "data": {}
+          }
+        ]
+      },
+      {
+        "nodeType": "heading-2",
+        "data": {},
+        "content": [
+          {
+            "nodeType": "text",
+            "value": "Derechos de privacidad de no residentes en EE.UU.",
+            "marks": [
+              {
+                "type": "underline"
+              },
+              {
+                "type": "bold"
+              }
+            ],
+            "data": {}
+          }
+        ]
+      },
+      {
+        "nodeType": "paragraph",
+        "data": {},
+        "content": [
+          {
+            "nodeType": "text",
+            "value": "Este Sitio Web y sus Servicios están destinados al uso por parte de ciudadanos, residentes e individuos de los Estados Unidos. El Sitio Web y sus Servicios no están destinados al acceso, uso o distribución fuera de los Estados Unidos y pueden no proteger los derechos de privacidad específicos de su país de residencia. Al acceder y/o utilizar este Sitio Web o los Servicios, usted declara y garantiza que es residente, ciudadano o persona física de los Estados Unidos. Cualquier declaración en sentido contrario quedaría fuera de esta Política y de las Condiciones de Uso de la Compañía.",
+            "marks": [],
+            "data": {}
+          }
+        ]
+      },
+      {
+        "nodeType": "heading-2",
+        "data": {},
+        "content": [
+          {
+            "nodeType": "text",
+            "value": "Seguridad de su información",
+            "marks": [
+              {
+                "type": "underline"
+              },
+              {
+                "type": "bold"
+              }
+            ],
+            "data": {}
+          }
+        ]
+      },
+      {
+        "nodeType": "paragraph",
+        "data": {},
+        "content": [
+          {
+            "nodeType": "text",
+            "value": "La conservación de información se refiere a la recogida, almacenamiento y gestión de datos. Toda la información personal conservada seguirá estando sujeta a los términos de esta Política.",
+            "marks": [],
+            "data": {}
+          }
+        ]
+      },
+      {
+        "nodeType": "paragraph",
+        "data": {},
+        "content": [
+          {
+            "nodeType": "text",
+            "value": "La Compañía podrá conservar la información durante el tiempo necesario para cumplir los fines descritos en la presente Política de Privacidad, a menos que la legislación o la normativa aplicable exijan o permitan un período de conservación más largo. La Compañía también podrá conservar información para resolver litigios, hacer cumplir nuestros acuerdos legales y políticas, y si así lo exigen las leyes o reglamentos que estén actualmente en vigor o que entren en vigor después de la publicación de la presente Política de Privacidad.  ",
+            "marks": [],
+            "data": {}
+          }
+        ]
+      },
+      {
+        "nodeType": "paragraph",
+        "data": {},
+        "content": [
+          {
+            "nodeType": "text",
+            "value": "La Compañía se toma muy en serio su responsabilidad de proteger la seguridad, integridad y confidencialidad de la información. La Compañía utiliza medidas de seguridad técnicas, administrativas y físicas razonables para proteger la información de pérdidas, robos, usos indebidos, accesos no autorizados, divulgación, modificación y destrucción. La Compañía revisa periódicamente sus procedimientos de seguridad para determinar si la implantación de nuevas tecnologías y métodos es viable y adecuada para salvaguardar la información.  ",
+            "marks": [],
+            "data": {}
+          }
+        ]
+      },
+      {
+        "nodeType": "paragraph",
+        "data": {},
+        "content": [
+          {
+            "nodeType": "text",
+            "value": "No obstante lo anterior, la Compañía no puede asegurar ni garantizar la seguridad de la información. En caso de que cualquier información bajo el control de la Compañía se vea comprometida como resultado de una violación de la seguridad, la Compañía tomará las medidas razonables para investigar el asunto y notificar a los usuarios el incidente de seguridad de conformidad con las leyes y reglamentos aplicables.  ",
+            "marks": [],
+            "data": {}
+          }
+        ]
+      },
+      {
+        "nodeType": "heading-2",
+        "data": {},
+        "content": [
+          {
+            "nodeType": "text",
+            "value": "Cambio de Control",
+            "marks": [
+              {
+                "type": "underline"
+              },
+              {
+                "type": "bold"
+              }
+            ],
+            "data": {}
+          }
+        ]
+      },
+      {
+        "nodeType": "paragraph",
+        "data": {},
+        "content": [
+          {
+            "nodeType": "text",
+            "value": "En caso de que la Compañía experimente una fusión, desinversión, reestructuración, reorganización, disolución u otro tipo de venta o transferencia de activos, ya sea como Compañía en funcionamiento o como parte de un procedimiento de quiebra, liquidación o similar, usted consiente que su información se encuentre entre los activos transferidos.",
+            "marks": [],
+            "data": {}
+          }
+        ]
+      },
+      {
+        "nodeType": "heading-2",
+        "data": {},
+        "content": [
+          {
+            "nodeType": "text",
+            "value": "Modificaciones de nuestra política de privacidad",
+            "marks": [
+              {
+                "type": "underline"
+              },
+              {
+                "type": "bold"
+              }
+            ],
+            "data": {}
+          }
+        ]
+      },
+      {
+        "nodeType": "paragraph",
+        "data": {},
+        "content": [
+          {
+            "nodeType": "text",
+            "value": "Al acceder, ver, visitar o interactuar de cualquier otro modo con el Sitio Web y/o los Servicios, usted acepta esta Política. Esta Política puede cambiar para satisfacer las necesidades de la Compañía y ciertos requisitos legales. El uso continuado del Sitio Web y/o de los Servicios después de que realicemos cambios se considerará como aceptación de dicho cambio. Por favor, compruebe la política periódicamente para ver si hay actualizaciones. La fecha de la última modificación en la parte superior de esta Política denotará la última actualización de la misma.  ",
+            "marks": [],
+            "data": {}
+          }
+        ]
+      },
+      {
+        "nodeType": "heading-2",
+        "data": {},
+        "content": [
+          {
+            "nodeType": "text",
+            "value": "Póngase en contacto con nosotros",
+            "marks": [
+              {
+                "type": "underline"
+              },
+              {
+                "type": "bold"
+              }
+            ],
+            "data": {}
+          }
+        ]
+      },
+      {
+        "nodeType": "paragraph",
+        "data": {},
+        "content": [
+          {
+            "nodeType": "text",
+            "value": "Si tiene alguna pregunta sobre esta política, póngase en contacto con ",
+            "marks": [],
+            "data": {}
+          },
+          {
+            "nodeType": "hyperlink",
+            "data": {
+              "uri": "mailto:support@justfix.org"
+            },
+            "content": [
+              {
+                "nodeType": "text",
+                "value": "support@justfix.org",
+                "marks": [],
+                "data": {}
+              }
+            ]
+          },
+          {
+            "nodeType": "text",
+            "value": " para obtener más información.",
+            "marks": [],
+            "data": {}
+          }
+        ]
+      }
+    ]
+  }
+}
