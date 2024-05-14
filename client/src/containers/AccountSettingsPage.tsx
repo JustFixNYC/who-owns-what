@@ -55,13 +55,13 @@ export const SubscriptionField = withI18n()(SubscriptionFieldWithoutI18n);
 
 const AccountSettingsPage = withI18n()((props: withI18nProps) => {
   const { i18n } = props;
+  const { home } = createWhoOwnsWhatRoutePaths();
   const { pathname } = useLocation();
   const userContext = useContext(UserContext);
   if (!userContext.user) return <div />;
   const user = userContext.user as JustfixUser;
   const { email, subscriptions } = user;
   const subscriptionsNumber = !!subscriptions ? subscriptions.length : 0;
-  const { home } = createWhoOwnsWhatRoutePaths();
 
   const unsubscribeBuilding = (bbl: string) => {
     userContext.unsubscribe(bbl);

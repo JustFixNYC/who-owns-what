@@ -138,7 +138,6 @@ const EmailSettingFieldWithoutI18n = (props: EmailSettingFieldProps) => {
   } = useInput(oldEmail);
 
   const eventUserParams = { user_id: user.id, user_type: user.type };
-  console.log({ user, eventUserParams });
 
   const handleSubmit = async () => {
     setExistingUserError(false);
