@@ -1,0 +1,9 @@
+// Temporary until we can better align WOW type styles with desig sytem
+.jfcl-button,
+.jfcl-link {
+  font-size: 1rem;
+  svg:not(.jf-logo) {
+    height: 1rem;
+    width: 1rem;
+  }
+}
