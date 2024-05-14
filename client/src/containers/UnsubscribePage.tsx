@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { withI18n, withI18nProps } from "@lingui/react";
-import { Trans, Plural, t } from "@lingui/macro";
+import { t, Trans, Plural } from "@lingui/macro";
 import { Button } from "@justfixnyc/component-library";
 
 import "styles/UserSetting.css";
