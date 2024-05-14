@@ -76,6 +76,17 @@ $table-border-dark: 1px solid $dark;
         font-weight: 400;
       }
 
+      .arrow-icon {
+        cursor: pointer;
+        display: inline-block;
+        margin-left: 0.31rem;
+
+        .arrow-2 {
+          // This small adjustment aligns second arrow in icon with first
+          transform: translateY(0.5px);
+        }
+      }
+
       .col-address {
         position: sticky;
         left: 0px;
