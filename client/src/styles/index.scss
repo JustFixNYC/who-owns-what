@@ -1,5 +1,6 @@
 @import "_vars.scss";
 @import "_spacing.scss";
+@import "_jfcl_overrides.scss";
 
 html,
 body {
@@ -14,6 +15,10 @@ body {
   padding: 0;
   color: $dark !important;
   font-family: "Inconsolata", monospace !important;
+  font-size: 0.875rem;
+  @include for-phone-only {
+    font-size: 1rem;
+  }
 }
 
 body * {

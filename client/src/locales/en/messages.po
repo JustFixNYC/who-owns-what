@@ -108,7 +108,7 @@ msgstr "<0>This property should be registered with HPD</0> because it has more t
 
 #: src/components/DetailView.tsx:65
 msgid "<0>While the legal owner of a building is often a company (usually called an “LLC”), these names and business addresses registered with HPD offer a clearer picture of who really controls the building.</0><1>People listed here as “Head Officer” or “Owner” usually have ties to building ownership, while “Site Managers” are part of management. That being said, these names are self reported by the landlord, so they can be misleading.</1><2>Learn more about HPD registrations and how this information powers this tool on the <3>About page</3>.</2>"
-msgstr "<0>While the legal owner of a building is often a company (usually called an “LLC”), these names and business addresses registered with HPD offer a clearer picture of who really controls the building.</0><1>People listed here as “Head Officer” or “Owner” usually have ties to building ownership, while “Site Managers” are part of management. That being said, these names are self reported by the landlord, so they can be misleading.</1><2>Learn more about HPD registrations and how this information powers this tool on the <3>About page</3>.</2><<<<<<< HEAD"
+msgstr "<0>While the legal owner of a building is often a company (usually called an “LLC”), these names and business addresses registered with HPD offer a clearer picture of who really controls the building.</0><1>People listed here as “Head Officer” or “Owner” usually have ties to building ownership, while “Site Managers” are part of management. That being said, these names are self reported by the landlord, so they can be misleading.</1><2>Learn more about HPD registrations and how this information powers this tool on the <3>About page</3>.</2>"
 
 #: src/components/StandalonePage.tsx:30
 msgid "<0>Who Owns What</0> by JustFix.<1/>Read our <2>Privacy Policy</2> and <3>Terms of Service</3>"
@@ -207,7 +207,7 @@ msgstr "Already have an account?"
 
 #: src/components/PortfolioTable.tsx:338
 msgid "Amount"
-msgstr "Amount<<<<<<< HEAD"
+msgstr "Amount"
 
 #: src/containers/ForgotPasswordPage.tsx:52
 #~ msgid "An email has been sent to your email address {email}. Please check your inbox and spam."
@@ -1296,7 +1296,7 @@ msgstr "Not found"
 
 #: src/components/PortfolioFilters.tsx:88
 #~ msgid "Notice an inaccuracy? Click here."
-#~ msgstr "Notice an inaccuracy? Click here.<<<<<<< HEAD"
+#~ msgstr "Notice an inaccuracy? Click here."
 
 #: src/components/IndicatorsDatasets.tsx:171
 #: src/components/PortfolioFilters.tsx:137
