@@ -52,6 +52,7 @@ import LoginPage from "./LoginPage";
 import { JFLogo } from "components/JFLogo";
 import logoDivider from "../assets/img/logo-divider.svg";
 import { STANDALONE_PAGES } from "components/StandalonePage";
+import { LoadingPage } from "components/Loader";
 
 const HomeLink = withI18n()((props: withI18nProps) => {
   const { i18n } = props;
@@ -86,6 +87,7 @@ const WhoOwnsWhatRoutes: React.FC<{}> = () => {
   const [state, send] = useMachine(wowMachine);
   const machineProps = { state, send };
   const userContext = useContext(UserContext);
+  const fetchingUser = !userContext?.user;
   const isLoggedIn = !!userContext?.user?.email;
   const allowChangingPortfolioMethod =
     process.env.REACT_APP_ENABLE_NEW_WOWZA_PORTFOLIO_MAPPING === "1";
@@ -188,7 +190,13 @@ const WhoOwnsWhatRoutes: React.FC<{}> = () => {
       <Route
         path={paths.account.settings}
         render={(props) =>
-          isLoggedIn ? <AccountSettingsPage /> : localizedRedirect(paths.account.login)
+          fetchingUser ? (
+            <LoadingPage />
+          ) : isLoggedIn ? (
+            <AccountSettingsPage />
+          ) : (
+            localizedRedirect(paths.account.login)
+          )
         }
       />
       <Route path={paths.account.forgotPassword} component={ForgotPasswordPage} />
