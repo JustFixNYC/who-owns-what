@@ -12,6 +12,7 @@ import { JustfixUser } from "state-machine";
 import { createRouteForAddressPage, createWhoOwnsWhatRoutePaths } from "routes";
 import { Borough } from "components/APIDataTypes";
 import { LocaleNavLink } from "i18n";
+import { useLocation } from "react-router-dom";
 
 type SubscriptionFieldProps = withI18nProps & {
   bbl: string;
@@ -54,6 +55,7 @@ export const SubscriptionField = withI18n()(SubscriptionFieldWithoutI18n);
 
 const AccountSettingsPage = withI18n()((props: withI18nProps) => {
   const { i18n } = props;
+  const { pathname } = useLocation();
   const userContext = useContext(UserContext);
   if (!userContext.user) return <div />;
   const user = userContext.user as JustfixUser;
