@@ -24,7 +24,7 @@ import { Link, useLocation } from "react-router-dom";
 import { createRouteForFullBbl } from "routes";
 import { I18n } from "@lingui/core";
 import { withI18n, withI18nProps } from "@lingui/react";
-import { Button, IconChevron } from "@justfixnyc/component-library";
+import { Button } from "@justfixnyc/component-library";
 import { SupportedLocale } from "../i18n-base";
 import Helpers, { longDateOptions } from "../util/helpers";
 import { AddressRecord, HpdComplaintCount } from "./APIDataTypes";
@@ -705,7 +705,7 @@ const PortfolioTableWithoutI18n = React.memo((props: PortfolioTableProps) => {
                   });
                 }}
                 disabled={!table.getCanPreviousPage()}
-                labelIcon={IconChevron}
+                labelIcon="chevronLeft"
                 variant="tertiary"
                 size="small"
                 labelText={i18n._(t`Previous page`)}
@@ -722,7 +722,7 @@ const PortfolioTableWithoutI18n = React.memo((props: PortfolioTableProps) => {
                 }}
                 disabled={!table.getCanNextPage()}
                 labelText={i18n._(t`Next page`)}
-                labelIcon={IconChevron}
+                labelIcon="chevronRight"
                 variant="tertiary"
                 size="small"
                 iconOnly

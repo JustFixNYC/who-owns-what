@@ -2,11 +2,11 @@ import { ChangeEvent, forwardRef } from "react";
 import { t } from "@lingui/macro";
 import { I18n } from "@lingui/core";
 import { withI18n } from "@lingui/react";
-import { AlertIcon } from "./Icons";
 
 import "styles/EmailInput.css";
 import "styles/_input.scss";
 import classNames from "classnames";
+import { Icon } from "@justfixnyc/component-library";
 
 interface EmailInputProps extends React.ComponentPropsWithoutRef<"input"> {
   i18n: I18n;
@@ -52,7 +52,7 @@ const EmailInputWithoutI18n = forwardRef<HTMLInputElement, EmailInputProps>(
           <div className="email-input-errors mb-4">
             <span id="input-field-error">
               <div>
-                <AlertIcon className="mr-3" />
+                <Icon icon="circleExclamation" className="mr-3" />
               </div>
               {i18n._(t`Please enter a valid email address.`)}
             </span>

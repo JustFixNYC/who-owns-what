@@ -4,6 +4,7 @@ import { LazyLoadWhenVisible } from "./LazyLoadWhenVisible";
 import Helpers, { longDateOptions } from "../util/helpers";
 import Browser from "../util/browser";
 import Modal from "../components/Modal";
+import { Link as JFCLLink } from "@justfixnyc/component-library";
 
 import "styles/DetailView.css";
 import { withI18n, withI18nProps, I18n } from "@lingui/react";
@@ -184,6 +185,44 @@ class DetailViewWithoutI18n extends Component<Props, State> {
     if (wrapper) wrapper.scrollTop = 0;
   }
 
+  renderStreetView(
+    streetViewAddr: string,
+    streetViewCoords: {
+      lat: number;
+      lng: number;
+    } | null,
+    isMobile: boolean
+  ) {
+    if (!(streetViewAddr && streetViewCoords)) return <></>;
+
+    const googleMapLink = (
+      <figcaption className="figure-caption">
+        <JFCLLink
+          href={`https://www.google.com/maps/place/${streetViewAddr}`}
+          target="blank"
+          icon="external"
+        >
+          <Trans>View on Google Maps</Trans>
+        </JFCLLink>
+      </figcaption>
+    );
+
+    return (
+      <LazyLoadWhenVisible>
+        {!isMobile && googleMapLink}
+        <figure className="figure">
+          <StreetViewStatic
+            lat={streetViewCoords.lat}
+            lng={streetViewCoords.lng}
+            imgHeight={(width, _height) => ((width || 0) < 900 ? 200 : 400)}
+            imgWidth={(width, _height) => ((width || 0) < 900 ? 500 : 600)}
+          />
+        </figure>
+        {isMobile && googleMapLink}
+      </LazyLoadWhenVisible>
+    );
+  }
+
   render() {
     const isMobile = Browser.isMobile();
     const { i18n, state } = this.props;
@@ -218,27 +257,6 @@ class DetailViewWithoutI18n extends Component<Props, State> {
     if (searchAddr.ownernames && searchAddr.ownernames.length)
       userOwnernames = Helpers.uniq(searchAddr.ownernames);
 
-    const streetView =
-      streetViewAddr && streetViewCoords ? (
-        <LazyLoadWhenVisible>
-          <figure className="figure">
-            <StreetViewStatic
-              lat={streetViewCoords.lat}
-              lng={streetViewCoords.lng}
-              imgHeight={(width, _height) => ((width || 0) < 900 ? 200 : 400)}
-              imgWidth={(width, _height) => ((width || 0) < 900 ? 500 : 600)}
-            />
-            <figcaption className="figure-caption">
-              <a href={`https://www.google.com/maps/place/${streetViewAddr}`} target="blank">
-                <Trans>View on Google Maps</Trans>
-              </a>
-            </figcaption>
-          </figure>
-        </LazyLoadWhenVisible>
-      ) : (
-        <></>
-      );
-
     return (
       <CSSTransition in={!isMobile || this.props.mobileShow} timeout={500} classNames="DetailView">
         <div className={`DetailView`}>
@@ -247,12 +265,14 @@ class DetailViewWithoutI18n extends Component<Props, State> {
               <div className="DetailView__card card">
                 <div className="DetailView__mobilePortfolioView">
                   <button onClick={() => this.props.onCloseDetail()}>
-                    <Trans render="span">View map</Trans>
+                    <Trans render="span">View portfolio map</Trans>
                   </button>
                 </div>
-                <div className="card-image show-lg">{streetView}</div>
+                <div className="card-image show-lg">
+                  {this.renderStreetView(streetViewAddr, streetViewCoords, isMobile)}
+                </div>
                 <div className="columns main-content-columns">
-                  <div className="column col-lg-12 col-7">
+                  <div className="column col-lg-12 col-7 detail-column-left">
                     <div className="card-header">
                       <h4 className="card-title">
                         <Trans>BUILDING:</Trans> {detailAddr.housenumber}{" "}
@@ -389,19 +409,21 @@ class DetailViewWithoutI18n extends Component<Props, State> {
                       </div>
                     </div>
                   </div>
-                  <div className="column col-lg-12 col-5">
+                  <div className="column col-lg-12 col-5 detail-column-right">
                     <EmailAlertSignup addr={detailAddr} />
                     <GetRepairs />
                     <div className="card-body-links column-right">
                       <UsefulLinks addrForLinks={detailAddr} location="overview-tab" />
-                      <div className="card-body-social social-group">
-                        <h6 className="DetailView__subtitle">
-                          <Trans>Share with your neighbors</Trans>
-                        </h6>
-                        <SocialShareDetailView />
-                      </div>
                     </div>
-                    <div className="card-image hide-lg">{streetView}</div>
+                    <div className="card-image hide-lg">
+                      {this.renderStreetView(streetViewAddr, streetViewCoords, isMobile)}
+                    </div>
+                    <div className="card-body-social social-group">
+                      <h6 className="DetailView__subtitle">
+                        <Trans>Share with your neighbors</Trans>
+                      </h6>
+                      <SocialShareDetailView />
+                    </div>
                   </div>
                 </div>
               </div>

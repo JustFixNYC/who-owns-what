@@ -4,6 +4,7 @@ import { withI18n, withI18nProps } from "@lingui/react";
 import { t, Trans } from "@lingui/macro";
 
 import "styles/EmailAlertSignup.css";
+import "styles/UserSettingField.css";
 import PasswordInput from "./PasswordInput";
 import { useInput } from "util/helpers";
 import { UserContext } from "./UserContext";
@@ -11,9 +12,8 @@ import { JustfixUser } from "state-machine";
 import EmailInput from "./EmailInput";
 import AuthClient from "./AuthClient";
 import { Alert } from "./Alert";
-import { AlertIconOutline } from "./Icons";
 import SendNewLink from "./SendNewLink";
-import { Button } from "@justfixnyc/component-library";
+import { Button, Icon } from "@justfixnyc/component-library";
 
 type PasswordSettingFieldProps = withI18nProps & {
   onSubmit: (currentPassword: string, newPassword: string) => void;
@@ -84,7 +84,7 @@ const PasswordSettingFieldWithoutI18n = (props: PasswordSettingFieldProps) => {
           role="status"
           type="error"
         >
-          <AlertIconOutline />
+          <Icon icon="circleExclamation" />
           {i18n._(t`The current password you entered is incorrect`)}
         </Alert>
       )}
@@ -138,7 +138,6 @@ const EmailSettingFieldWithoutI18n = (props: EmailSettingFieldProps) => {
   } = useInput(oldEmail);
 
   const eventUserParams = { user_id: user.id, user_type: user.type };
-  console.log({ user, eventUserParams });
 
   const handleSubmit = async () => {
     setExistingUserError(false);
@@ -200,7 +199,7 @@ const EmailSettingFieldWithoutI18n = (props: EmailSettingFieldProps) => {
           role="status"
           type="error"
         >
-          <AlertIconOutline />
+          <Icon icon="circleExclamation" />
           {i18n._(t`That email is already used.`)}
         </Alert>
       )}

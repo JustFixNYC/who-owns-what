@@ -81,6 +81,7 @@
 }
 
 .btns-social {
+  row-gap: 0.5rem;
   .btn {
     &:nth-child(1) {
       @include button-special($facebook, #fff);
@@ -104,6 +105,11 @@
 
   .btn.btn-steps {
     flex: 1 0 0;
+  }
+
+  // sms link
+  .sms-social {
+    text-decoration: none;
   }
 }
 

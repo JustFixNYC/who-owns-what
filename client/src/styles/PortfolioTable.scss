@@ -80,6 +80,7 @@ $table-border-dark: 1px solid $dark;
         cursor: pointer;
         display: inline-block;
         margin-left: 0.31rem;
+
         .arrow-2 {
           // This small adjustment aligns second arrow in icon with first
           transform: translateY(0.5px);
@@ -211,7 +212,7 @@ $table-border-dark: 1px solid $dark;
     display: flex;
     align-items: center;
     flex-wrap: wrap;
-    padding: 0.87rem 1.06rem;
+    padding: 0.875rem 1.06rem;
     background-color: $justfix-white;
     border-top: 1px solid $gray-light;
     text-align: center;
@@ -237,7 +238,7 @@ $table-border-dark: 1px solid $dark;
 
     .page-info {
       display: flex;
-      justify-content: end;
+      justify-content: flex-end;
       font-size: 0.75rem;
       flex: 1;
       margin-right: 2rem;
@@ -248,15 +249,6 @@ $table-border-dark: 1px solid $dark;
 
     .prev {
       margin-right: 1rem; // $JF_SPACING_05
-
-      .jfcl-button__icon {
-        transform: rotate(90deg);
-      }
-    }
-    .next {
-      .jfcl-button__icon {
-        transform: rotate(-90deg);
-      }
     }
 
     select {

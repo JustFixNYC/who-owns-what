@@ -12,6 +12,7 @@ import { JustfixUser } from "state-machine";
 import { createRouteForAddressPage, createWhoOwnsWhatRoutePaths } from "routes";
 import { Borough } from "components/APIDataTypes";
 import { LocaleNavLink } from "i18n";
+import { useLocation } from "react-router-dom";
 
 type SubscriptionFieldProps = withI18nProps & {
   bbl: string;
@@ -54,12 +55,13 @@ export const SubscriptionField = withI18n()(SubscriptionFieldWithoutI18n);
 
 const AccountSettingsPage = withI18n()((props: withI18nProps) => {
   const { i18n } = props;
+  const { home } = createWhoOwnsWhatRoutePaths();
+  const { pathname } = useLocation();
   const userContext = useContext(UserContext);
   if (!userContext.user) return <div />;
   const user = userContext.user as JustfixUser;
   const { email, subscriptions } = user;
   const subscriptionsNumber = !!subscriptions ? subscriptions.length : 0;
-  const { home } = createWhoOwnsWhatRoutePaths();
 
   const unsubscribeBuilding = (bbl: string) => {
     userContext.unsubscribe(bbl);
@@ -76,7 +78,16 @@ const AccountSettingsPage = withI18n()((props: withI18nProps) => {
         <div className="page-container">
           <Trans render="h1">Account</Trans>
           <div className="settings-section">
-            <Trans render="h2">Log in</Trans>
+            <div className="log-in-out">
+              <Trans render="h2">You are logged in</Trans>
+              <Button
+                type="button"
+                variant="tertiary"
+                size="small"
+                labelText={i18n._(t`Logout`)}
+                onClick={() => userContext.logout(pathname)}
+              />
+            </div>
             <EmailSettingField
               currentValue={email}
               onSubmit={(newEmail: string) => userContext.updateEmail(newEmail)}

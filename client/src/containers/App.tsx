@@ -17,6 +17,7 @@ import {
   LocaleSwitcherWithFullLanguageName,
   JFCLLocaleLink,
   removeLocalePrefix,
+  LocaleRedirect,
 } from "../i18n";
 import { withI18n, withI18nProps } from "@lingui/react";
 import { createWhoOwnsWhatRoutePaths } from "../routes";
@@ -51,6 +52,7 @@ import LoginPage from "./LoginPage";
 import { JFLogo } from "components/JFLogo";
 import { STANDALONE_PAGES } from "components/StandalonePage";
 import { JFLogoDivider } from "components/JFLogoDivider";
+import { LoadingPage } from "components/Loader";
 
 const HomeLink = withI18n()((props: withI18nProps) => {
   const { i18n } = props;
@@ -82,8 +84,16 @@ const WhoOwnsWhatRoutes: React.FC<{}> = () => {
   const paths = createWhoOwnsWhatRoutePaths("/:locale");
   const [state, send] = useMachine(wowMachine);
   const machineProps = { state, send };
+  const userContext = useContext(UserContext);
+  const fetchingUser = !userContext?.user;
+  const isLoggedIn = !!userContext?.user?.email;
   const allowChangingPortfolioMethod =
     process.env.REACT_APP_ENABLE_NEW_WOWZA_PORTFOLIO_MAPPING === "1";
+
+  const localizedRedirect = (pathname: string) => {
+    return <LocaleRedirect to={{ pathname: removeLocalePrefix(pathname) }} />;
+  };
+
   return (
     <Switch>
       <Route exact path={paths.legacy.home} component={HomePage} />
@@ -175,7 +185,18 @@ const WhoOwnsWhatRoutes: React.FC<{}> = () => {
       />
       <Route path={paths.account.login} component={LoginPage} />
       <Route path={paths.account.verifyEmail} component={VerifyEmailPage} />
-      <Route path={paths.account.settings} component={AccountSettingsPage} />
+      <Route
+        path={paths.account.settings}
+        render={(props) =>
+          fetchingUser ? (
+            <LoadingPage />
+          ) : isLoggedIn ? (
+            <AccountSettingsPage />
+          ) : (
+            localizedRedirect(paths.account.login)
+          )
+        }
+      />
       <Route path={paths.account.forgotPassword} component={ForgotPasswordPage} />
       <Route path={paths.account.resetPassword} component={ResetPasswordPage} />
       <Route path={paths.account.unsubscribe} component={UnsubscribePage} />

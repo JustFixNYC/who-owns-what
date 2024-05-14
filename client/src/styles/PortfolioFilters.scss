@@ -27,7 +27,7 @@
   --filter-height: calc(var(--checkbox-height) + ((0.06rem + 0.63rem) * 2));
   display: flex;
   flex-wrap: wrap;
-  padding: 0.87rem;
+  padding: 0.875rem;
   background-color: $justfix-white;
   border-bottom: 1px solid $justfix-black;
   text-transform: uppercase;
@@ -38,7 +38,7 @@
   @include browser("Firefox") {
     font-weight: 500;
   }
-  font-size: 0.87rem;
+  font-size: 0.875rem;
   line-height: 100%;
   letter-spacing: 0.02em;
 
@@ -215,7 +215,7 @@
             padding: 0.25rem 0.5rem;
             border-radius: 0.94rem;
             margin-left: 0.31rem;
-            font-size: 0.87rem;
+            font-size: 0.875rem;
           }
         }
         &[open] {
@@ -274,7 +274,7 @@
                 padding: 0 0 0.75rem 0;
                 font-size: 1rem;
                 .filter-info {
-                  font-size: 0.87rem;
+                  font-size: 0.875rem;
                 }
               }
               @include for-tablet-portrait-up() {
@@ -347,7 +347,7 @@
                 }
                 .minmaxselect__custom-range-summary span,
                 .minmaxselect__clear-value-button {
-                  font-size: 0.87rem;
+                  font-size: 0.875rem;
                 }
                 .chevronIcon {
                   height: 0.69rem;

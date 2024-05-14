@@ -9,6 +9,7 @@ import { Trans } from "@lingui/macro";
 import JFCLLinkInternal from "./JFCLLinkInternal";
 import { Link } from "react-router-dom";
 import "styles/BuildingStatsTable.css";
+import { removeIndicatorSuffix } from "routes";
 
 interface BuildingStatsAddrContext {
   getBuildingStats(): AddressRecord;
@@ -195,7 +196,7 @@ const RsUnits = () => {
 const TimelineLink = (props: { url: string }) => {
   return (
     <Link
-      to={props.url}
+      to={removeIndicatorSuffix(props.url)}
       onClick={() => {
         window.gtag("event", "view-data-over-time-overview-tab");
       }}
@@ -212,6 +213,9 @@ const BuildingStatsTableWithoutI18n = (props: { addr: AddressRecord; timelineUrl
       getBuildingStats: () => props.addr,
     }}
   >
+    <div className="hover-info">
+      <Trans render="i">hover over a box to learn more</Trans>
+    </div>
     <div className="BuildingStatsTable card-body-table hide-sm">
       <div className="table-row">
         <BBL />
