@@ -121,7 +121,7 @@ const UserTypeInputWithoutI18n = (props: UserTypeInputProps) => {
           autoFocus
           labelText={USER_TYPES.other} // required field but hidden by css
           id="user-type-input-other-text"
-          name="user=type"
+          name="user-type"
           value={userTypeText}
           onChange={handleTextChange}
         />
