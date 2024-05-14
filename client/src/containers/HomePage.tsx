@@ -127,7 +127,7 @@ const HomePage: React.FC<HomePageProps> = ({ useNewPortfolioMethod }) => {
   const history = useHistory();
 
   const labelText = (
-    <Trans>Enter an NYC address and find other buildings your landlord might own in NYC:</Trans>
+    <Trans>Enter an address and find other buildings your landlord might own in NYC:</Trans>
   );
 
   const wowzaLabelText = <Trans>Find other buildings your landlord might own in NYC:</Trans>;
