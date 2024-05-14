@@ -190,7 +190,7 @@ const LoginWithoutI18n = (props: withI18nProps) => {
               </JFCLLocaleLink>{" "}
               and{" "}
               <JFCLLocaleLink to={termsOfUse} target="_blank" rel="noopener noreferrer">
-                Terms of Service
+                Terms of Use
               </JFCLLocaleLink>
               .
             </Trans>

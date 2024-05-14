@@ -56,7 +56,7 @@ export const StandalonePageFooter = (props: { eventParams: any }) => {
       </JFCLLocaleLink>{" "}
       and{" "}
       <JFCLLocaleLink to={termsOfUse} target="_blank" rel="noopener noreferrer">
-        Terms of Service
+        Terms of Use
       </JFCLLocaleLink>
     </Trans>
   );
