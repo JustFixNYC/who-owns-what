@@ -4,7 +4,7 @@ import { I18n } from "@lingui/core";
 import { withI18n } from "@lingui/react";
 import classNames from "classnames";
 
-import { AlertIcon } from "./Icons";
+import { Icon, RadioButton, TextInput } from "@justfixnyc/component-library";
 
 type UserTypeInputProps = {
   i18n: I18n;
@@ -51,87 +51,78 @@ const UserTypeInputWithoutI18n = (props: UserTypeInputProps) => {
     <div className="user-type-container">
       {showError && error && (
         <span id="input-field-error" className="mb-4">
-          <div>
-            <AlertIcon className="mr-3" />
-          </div>
+          <Icon icon="circleExclamation" className="alert-icon mr-3" />
           <Trans>Please select an option.</Trans>
         </span>
       )}
       <div className="user-type-radio-group">
-        <input
+        <RadioButton
           id="user-type-input-tenant"
-          className="input-radio"
+          labelText={USER_TYPES.tenant}
           required={required}
-          type="radio"
-          name="user-type"
+          aria-required={required}
           value={USER_TYPES.tenant.toLocaleUpperCase("en")}
           checked={activeRadio === USER_TYPES.tenant.toLocaleUpperCase("en")}
           onChange={handleRadioChange}
-        />
-        <label htmlFor={"user-type-input-tenant"}>{USER_TYPES.tenant}</label>
-        <input
-          id="user-type-input-organizer"
-          className="input-radio"
-          required={required}
-          type="radio"
           name="user-type"
+        />
+        <RadioButton
+          id="user-type-input-organizer"
+          labelText={USER_TYPES.organizer}
+          required={required}
+          aria-required={required}
           value={USER_TYPES.organizer.toLocaleUpperCase("en")}
           checked={activeRadio === USER_TYPES.organizer.toLocaleUpperCase("en")}
           onChange={handleRadioChange}
-        />
-        <label htmlFor={"user-type-input-organizer"}>{USER_TYPES.organizer}</label>
-        <input
-          id="user-type-input-advocate"
-          className="input-radio"
-          required={required}
-          type="radio"
           name="user-type"
+        />
+        <RadioButton
+          id="user-type-input-advocate"
+          labelText={USER_TYPES.advocate}
+          required={required}
+          aria-required={required}
           value={USER_TYPES.advocate.toLocaleUpperCase("en")}
           checked={activeRadio === USER_TYPES.advocate.toLocaleUpperCase("en")}
           onChange={handleRadioChange}
-        />
-        <label htmlFor={"user-type-input-advocate"}>{USER_TYPES.advocate}</label>
-        <input
-          id="user-type-input-legal"
-          className="input-radio"
-          required={required}
-          type="radio"
           name="user-type"
+        />
+        <RadioButton
+          id="user-type-input-legal"
+          labelText={USER_TYPES.legal}
+          required={required}
+          aria-required={required}
           value={USER_TYPES.legal.toLocaleUpperCase("en")}
           checked={activeRadio === USER_TYPES.legal.toLocaleUpperCase("en")}
           onChange={handleRadioChange}
-        />
-        <label htmlFor={"user-type-input-legal"}>{USER_TYPES.legal}</label>
-        <input
-          id="user-type-input-government"
-          className="input-radio"
-          required={required}
-          type="radio"
           name="user-type"
+        />
+        <RadioButton
+          id="user-type-input-government"
+          labelText={USER_TYPES.government}
+          required={required}
+          aria-required={required}
           value={USER_TYPES.government.toLocaleUpperCase("en")}
           checked={activeRadio === USER_TYPES.government.toLocaleUpperCase("en")}
           onChange={handleRadioChange}
-        />
-        <label htmlFor={"user-type-input-government"}>{USER_TYPES.government}</label>
-        <input
-          id="user-type-input-other"
-          className="input-radio"
-          required={required}
-          type="radio"
           name="user-type"
+        />
+        <RadioButton
+          id="user-type-input-other"
+          labelText={USER_TYPES.other}
+          required={required}
+          aria-required={required}
           value={USER_TYPES.other.toLocaleUpperCase("en")}
           checked={activeRadio === USER_TYPES.other.toLocaleUpperCase("en")}
           onChange={handleRadioChange}
+          name="user-type"
         />
-        <label htmlFor={"user-type-input-other"}>{USER_TYPES.other}</label>
       </div>
       {activeRadio === USER_TYPES.other.toLocaleUpperCase("en") && (
-        <input
+        <TextInput
           autoFocus
+          labelText={USER_TYPES.other} // required field but hidden by css
           id="user-type-input-other-text"
-          className={classNames("input", { invalid: error })}
-          type="text"
-          name="user-type"
+          name="user=type"
           value={userTypeText}
           onChange={handleTextChange}
         />
