@@ -229,11 +229,7 @@ const SearchLink = () => {
   );
 };
 
-const getAccountNavLinks = (
-  handleLogout: (fromPath: string) => void,
-  fromPath: string,
-  isSignedIn?: boolean
-) => {
+const getAccountNavLinks = (fromPath: string, isSignedIn?: boolean) => {
   const { account } = createWhoOwnsWhatRoutePaths();
   const { settings, login } = account;
 
@@ -242,15 +238,6 @@ const getAccountNavLinks = (
         <LocaleNavLink to={settings} key="account-1">
           <Trans>Email settings</Trans>
         </LocaleNavLink>,
-        <button
-          onClick={() => {
-            window.gtag("event", "nav-logout", { from: removeLocalePrefix(fromPath) });
-            handleLogout(fromPath);
-          }}
-          key="account-2"
-        >
-          <Trans>Log out</Trans>
-        </button>,
       ]
     : [
         <LocaleNavLink
@@ -316,8 +303,7 @@ const Navbar = () => {
         <span className="hide-lg">
           {getMainNavLinks(isLegacyPath(pathname))}
           <LocaleSwitcher />
-          {!isLegacyPath(pathname) &&
-            getAccountNavLinks(userContext.logout, pathname, !!userContext?.user?.email)}
+          {!isLegacyPath(pathname) && getAccountNavLinks(pathname, !!userContext?.user?.email)}
         </span>
         <Dropdown>
           {getMainNavLinks(isLegacyPath(pathname)).map((link, i) => (
@@ -329,13 +315,11 @@ const Navbar = () => {
             <LocaleSwitcherWithFullLanguageName />
           </li>
           {!isLegacyPath(pathname) &&
-            getAccountNavLinks(userContext.logout, pathname, !!userContext?.user?.email).map(
-              (link, i) => (
-                <li className="menu-item" key={`account-${i}`}>
-                  {link}
-                </li>
-              )
-            )}
+            getAccountNavLinks(pathname, !!userContext?.user?.email).map((link, i) => (
+              <li className="menu-item" key={`account-${i}`}>
+                {link}
+              </li>
+            ))}
         </Dropdown>
       </nav>
     </div>
