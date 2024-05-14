@@ -1,7 +1,6 @@
 import React from "react";
 import classNames from "classnames";
 import { withI18n, withI18nProps } from "@lingui/react";
-import { Link as JFCLLink } from "@justfixnyc/component-library";
 
 import "styles/StandalonePage.css";
 import Page from "./Page";
@@ -37,7 +36,7 @@ export const JustFixLogoLink = (props: { eventParams: any }) => {
 };
 
 export const StandalonePageFooter = (props: { eventParams: any }) => {
-  const { home } = createWhoOwnsWhatRoutePaths();
+  const { home, privacyPolicy, termsOfUse } = createWhoOwnsWhatRoutePaths();
 
   return (
     <Trans render="div" className="wow-footer">
@@ -52,21 +51,13 @@ export const StandalonePageFooter = (props: { eventParams: any }) => {
       by JustFix.
       <br />
       Read our{" "}
-      <JFCLLink
-        href="https://www.justfix.org/en/privacy-policy/"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
+      <JFCLLocaleLink to={privacyPolicy} target="_blank" rel="noopener noreferrer">
         Privacy Policy
-      </JFCLLink>{" "}
+      </JFCLLocaleLink>{" "}
       and{" "}
-      <JFCLLink
-        href="https://www.justfix.org/en/terms-of-use/"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Terms of Service
-      </JFCLLink>
+      <JFCLLocaleLink to={termsOfUse} target="_blank" rel="noopener noreferrer">
+        Terms of Use
+      </JFCLLocaleLink>
     </Trans>
   );
 };
