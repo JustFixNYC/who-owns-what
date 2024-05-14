@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import { Trans, t } from "@lingui/macro";
 import { withI18n, withI18nProps } from "@lingui/react";
 import { Link, useHistory, useLocation } from "react-router-dom";
-import { Button, IconLinkInternal, Link as JFCLLink } from "@justfixnyc/component-library";
+import { Button, Icon, Link as JFCLLink } from "@justfixnyc/component-library";
 
 import "styles/UserTypeInput.css";
 import "styles/_input.scss";
@@ -35,7 +35,7 @@ const LoginWithoutI18n = (props: withI18nProps) => {
 
   const userContext = useContext(UserContext);
   const { user } = userContext;
-  const { home, account } = createWhoOwnsWhatRoutePaths();
+  const { home, account, termsOfUse, privacyPolicy } = createWhoOwnsWhatRoutePaths();
   const history = useHistory();
   const location = useLocation();
   const { pathname } = location;
@@ -185,21 +185,13 @@ const LoginWithoutI18n = (props: withI18nProps) => {
           <span className="privacy-links">
             <Trans>
               Your privacy is important to us. Read our{" "}
-              <JFCLLink
-                href="https://www.justfix.org/en/privacy-policy/"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
+              <JFCLLocaleLink to={privacyPolicy} target="_blank" rel="noopener noreferrer">
                 Privacy Policy
-              </JFCLLink>{" "}
+              </JFCLLocaleLink>{" "}
               and{" "}
-              <JFCLLink
-                href="https://www.justfix.org/en/terms-of-use/"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Terms of Service
-              </JFCLLink>
+              <JFCLLocaleLink to={termsOfUse} target="_blank" rel="noopener noreferrer">
+                Terms of Use
+              </JFCLLocaleLink>
               .
             </Trans>
           </span>
@@ -272,7 +264,7 @@ const LoginWithoutI18n = (props: withI18nProps) => {
               window.gtag("event", "register-return-address", { ...eventParams(user) })
             }
           >
-            <IconLinkInternal />
+            <Icon icon="arrowRight" />
             Back to {formatAddr(addr)}
           </Link>
         </div>

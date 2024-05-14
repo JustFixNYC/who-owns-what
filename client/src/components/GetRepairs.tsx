@@ -21,7 +21,7 @@ const GetRepairsWithoutI18n = () => {
                 </label>
                 <div className="table-content">
                   <Trans render="div" className="card-description">
-                    Send a free, legally vetted letter to notify your landlord of repair issues
+                    Send a free, legally vetted letter to notify your landlord of repair issues.
                   </Trans>
 
                   <JFCLLink

@@ -44,14 +44,13 @@
           font-size: 1rem;
         }
 
-        @include for-phone-only() {
-          font-size: 0.8125rem;
-        }
-
         > label {
           display: block;
           line-height: 1.1;
-          font-size: 0.8125rem;
+          font-size: 0.875rem;
+          @include for-phone-only() {
+            font-size: 1rem;
+          }
           padding: 1px 0;
           // background-color: $background;
           border-bottom: 1px solid $gray-dark;
@@ -75,11 +74,14 @@
 
       .table-content {
         margin: 0.63rem 0.47rem;
-        line-height: 0.8125rem;
+        line-height: 1rem;
       }
 
       .table-small-font {
-        font-size: 0.8125rem;
+        font-size: 0.875rem;
+        @include for-phone-only() {
+          font-size: 1rem;
+        }
       }
     }
   }

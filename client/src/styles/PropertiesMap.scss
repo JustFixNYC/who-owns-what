@@ -5,6 +5,10 @@
   width: 30vw;
   // height: 100%;
 
+  @include for-tablet-landscape-up() {
+    flex-grow: 1;
+  }
+
   @include for-phone-only() {
     width: 100%;
   }
@@ -83,7 +87,7 @@
     padding: 1rem;
 
     p {
-      font-size: 0.87rem;
+      font-size: 0.875rem;
       line-height: 100%;
       text-align: center;
       padding: 0 0 1.25rem 0;
