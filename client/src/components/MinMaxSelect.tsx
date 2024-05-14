@@ -9,8 +9,7 @@ import {
   FilterNumberRangeSelections,
   NUMBER_RANGE_DEFAULT,
 } from "./PropertiesList";
-import { ChevronIcon } from "./Icons";
-import { Button } from "@justfixnyc/component-library";
+import { Button, Icon } from "@justfixnyc/component-library";
 
 type CustomRangeErrors = { min: boolean; max: boolean; msg: JSX.Element | undefined };
 const CUSTOM_RANGE_ERRORS_DEFAULT = { min: false, max: false, msg: undefined };
@@ -166,7 +165,7 @@ function MinMaxSelect({
             <span>
               <Trans>Custom range</Trans>
             </span>
-            <ChevronIcon className="chevronIcon" />
+            <Icon icon="chevronDown" />
           </summary>
           <form
             id={`${id || "minmaxselect"}__form`}

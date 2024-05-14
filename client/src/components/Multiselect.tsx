@@ -11,9 +11,8 @@ import Select, {
 import { I18n } from "@lingui/react";
 import { t, Trans } from "@lingui/macro";
 import { Alert } from "./Alert";
-import { CloseIcon, CheckIcon } from "./Icons";
 import classnames from "classnames";
-import { Button } from "@justfixnyc/component-library";
+import { Button, Icon } from "@justfixnyc/component-library";
 
 // Example of separating out selected values
 // https://github.com/JedWatson/react-select/discussions/4850
@@ -323,7 +322,7 @@ function CustomMultiValueRemove<
 >(props: MultiValueRemoveProps<Option, IsMulti, GroupType>) {
   return (
     <components.MultiValueRemove {...props}>
-      <CloseIcon />
+      <Icon icon="xmark" />
     </components.MultiValueRemove>
   );
 }
@@ -359,7 +358,7 @@ function CustomOption<
   return (
     <components.Option {...props}>
       <div className={`${classNamePrefix}__option-checkbox`} role="presentation" tabIndex={-1}>
-        {isSelected && <CheckIcon />}
+        {isSelected && <Icon icon="check" />}
       </div>
       <div className={`${classNamePrefix}__option-label`} tabIndex={-1}>
         {/* @ts-ignore (value isn't recognizing the available properties of Option type) */}

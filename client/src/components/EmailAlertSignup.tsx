@@ -12,7 +12,7 @@ import { UserContext } from "./UserContext";
 import { createWhoOwnsWhatRoutePaths } from "routes";
 import { LocaleLink } from "../i18n";
 import AuthClient from "./AuthClient";
-import { AddIcon, SubscribedIcon } from "./Icons";
+import { SubscribedIcon } from "./Icons";
 import { Alert } from "./Alert";
 import Modal from "./Modal";
 import helpers from "util/helpers";
@@ -132,7 +132,7 @@ const BuildingSubscribeWithoutI18n = (props: BuildingSubscribeProps) => {
           size="small"
           className="is-full-width"
           labelText={i18n._(t`Add building`)}
-          labelIcon={AddIcon}
+          labelIcon="circlePlus"
           onClick={() => {
             !isLoggedIn
               ? navigateToLogin()

@@ -1,6 +1,7 @@
 import React from "react";
 import { FacebookButton, TwitterButton, EmailButton } from "react-social";
 import { isMobile, isAndroid } from "react-device-detect";
+import { Icon, Link as JFCLLink } from "@justfixnyc/component-library";
 
 import { I18n, MessageDescriptor, i18n } from "@lingui/core";
 import { t } from "@lingui/macro";
@@ -8,7 +9,7 @@ import { withI18n } from "@lingui/react";
 import { FB_APP_ID } from "./Page";
 import { getSiteOrigin } from "../routes";
 import { useLocation } from "react-router-dom";
-import { Button, IconPerson, IconMail, IconTwitter } from "@justfixnyc/component-library";
+import { Button } from "@justfixnyc/component-library";
 
 export type SocialShareContent = {
   tweet: MessageDescriptor;
@@ -50,17 +51,17 @@ const _FacebookButton: React.FC = (props) => (
     labelText={`Facebook (${i18n._("Opens in a new window")})`}
     variant="secondary"
     size="small"
-    labelIcon={IconPerson}
+    labelIcon="facebook"
     iconOnly
     {...props}
   />
 );
 const _TwitterButton: React.FC = (props) => (
   <Button
-    labelText={`Twitter (${i18n._("Opens in a new window")})`}
+    labelText={`X (${i18n._("Opens in a new window")})`}
     variant="secondary"
     size="small"
-    labelIcon={IconTwitter}
+    labelIcon="xTwitter"
     iconOnly
     {...props}
   />
@@ -70,7 +71,7 @@ const _EmailButton: React.FC = (props) => (
     labelText={`${i18n._("Email")} (${i18n._("Opens in a new window")})`}
     variant="secondary"
     size="small"
-    labelIcon={IconMail}
+    labelIcon="envelope"
     iconOnly
     {...props}
   />
@@ -118,17 +119,17 @@ const SocialShareWithoutI18n: React.FC<SocialShareProps> = ({
         element={_EmailButton}
       />
       {isMobile && (
-        <a
-          className="btn btn-steps"
+        <JFCLLink
           onClick={() => {
-            window.gtag("event", "twitter-" + location);
+            window.gtag("event", "sms-" + location);
           }}
           href={"sms: " + (isAndroid ? "?" : "&") + "body=" + encodeURIComponent(url)}
           target="_blank"
           rel="noopener noreferrer"
+          className="jfcl-button jfcl-size-small jfcl-btn-icon-only"
         >
-          SMS
-        </a>
+          <Icon icon="sms" />
+        </JFCLLink>
       )}
     </div>
   );

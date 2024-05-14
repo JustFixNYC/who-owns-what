@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import { Trans, t } from "@lingui/macro";
 import { withI18n, withI18nProps } from "@lingui/react";
 import { Link, useHistory, useLocation } from "react-router-dom";
-import { Button, IconLinkInternal, Link as JFCLLink } from "@justfixnyc/component-library";
+import { Button, Icon, Link as JFCLLink } from "@justfixnyc/component-library";
 
 import "styles/UserTypeInput.css";
 import "styles/_input.scss";
@@ -272,7 +272,7 @@ const LoginWithoutI18n = (props: withI18nProps) => {
               window.gtag("event", "register-return-address", { ...eventParams(user) })
             }
           >
-            <IconLinkInternal />
+            <Icon icon="arrowRight" />
             Back to {formatAddr(addr)}
           </Link>
         </div>

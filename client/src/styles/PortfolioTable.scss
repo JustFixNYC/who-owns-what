@@ -80,6 +80,7 @@ $table-border-dark: 1px solid $dark;
         cursor: pointer;
         display: inline-block;
         margin-left: 0.31rem;
+
         .arrow-2 {
           // This small adjustment aligns second arrow in icon with first
           transform: translateY(0.5px);
@@ -248,15 +249,6 @@ $table-border-dark: 1px solid $dark;
 
     .prev {
       margin-right: 1rem; // $JF_SPACING_05
-
-      .jfcl-button__icon {
-        transform: rotate(90deg);
-      }
-    }
-    .next {
-      .jfcl-button__icon {
-        transform: rotate(-90deg);
-      }
     }
 
     select {
