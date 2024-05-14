@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { withI18n, withI18nProps } from "@lingui/react";
-import { Trans, Plural, t } from "@lingui/macro";
+import { Trans, t } from "@lingui/macro";
 import { Button } from "@justfixnyc/component-library";
 
 import "styles/UserSetting.css";
@@ -59,8 +59,7 @@ const UnsubscribePage = withI18n()((props: withI18nProps) => {
     <>
       <Trans render="h1">Unsubscribe</Trans>
       <Trans render="h2">
-        You are signed up for Building Updates for {subscriptionsNumber}{" "}
-        <Plural value={subscriptionsNumber!} one="building" other="buildings" />. Click below to
+        You are signed up for Building Updates for {subscriptionsNumber} . Click below to
         unsubscribe from all and stop receiving Building Updates.
       </Trans>
       <Button
@@ -77,7 +76,6 @@ const UnsubscribePage = withI18n()((props: withI18nProps) => {
       <Trans render="h1">Manage Subscriptions</Trans>
       <Trans render="h2" className="settings-section">
         You are signed up for Building Updates for {subscriptionsNumber}{" "}
-        <Plural value={subscriptionsNumber!} one="building" other="buildings" />
       </Trans>
       <div className="subscriptions-container">
         {subscriptions!.map((s) => (

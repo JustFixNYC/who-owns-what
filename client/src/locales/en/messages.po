@@ -82,7 +82,7 @@ msgstr "<0>Rent stabilization</0> protects tenants by limiting rent increases an
 #~ msgid "<0>Search an address</0> to sign up for email alerts for that building."
 #~ msgstr "<0>Search an address</0> to sign up for email alerts for that building."
 
-#: src/containers/UnsubscribePage.tsx:84
+#: src/containers/UnsubscribePage.tsx:82
 msgid "<0>Search for an address</0> to add to Building Updates"
 msgstr "<0>Search for an address</0> to add to Building Updates"
 
@@ -1123,11 +1123,11 @@ msgstr "Make a selection from the list or clear search text"
 #~ msgid "Make a selection."
 #~ msgstr "Make a selection."
 
-#: src/containers/UnsubscribePage.tsx:70
+#: src/containers/UnsubscribePage.tsx:69
 msgid "Manage Subscriptions"
 msgstr "Manage Subscriptions"
 
-#: src/containers/UnsubscribePage.tsx:88
+#: src/containers/UnsubscribePage.tsx:86
 msgid "Manage subscriptions"
 msgstr "Manage subscriptions"
 
@@ -2062,12 +2062,12 @@ msgid "Units"
 msgstr "Units"
 
 #: src/containers/UnsubscribePage.tsx:61
-#: src/containers/UnsubscribePage.tsx:88
+#: src/containers/UnsubscribePage.tsx:86
 msgid "Unsubscribe"
 msgstr "Unsubscribe"
 
-#: src/containers/UnsubscribePage.tsx:67
-#: src/containers/UnsubscribePage.tsx:78
+#: src/containers/UnsubscribePage.tsx:66
+#: src/containers/UnsubscribePage.tsx:76
 msgid "Unsubscribe from all"
 msgstr "Unsubscribe from all"
 
@@ -2354,7 +2354,7 @@ msgstr "Yes"
 msgid "You are logged in"
 msgstr "You are logged in"
 
-#: src/containers/UnsubscribePage.tsx:83
+#: src/containers/UnsubscribePage.tsx:81
 msgid "You are not subscribed to any buildings"
 msgstr "You are not subscribed to any buildings"
 
@@ -2366,13 +2366,21 @@ msgstr "You are now logged in and we’ve added this building to your updates"
 #~ msgid "You are now signed up for weekly Data Updates."
 #~ msgstr "You are now signed up for weekly Data Updates."
 
-#: src/containers/UnsubscribePage.tsx:71
-msgid "You are signed up for Building Updates for {subscriptionsNumber} {subscriptionsNumber, plural, one {building} other {buildings}}"
-msgstr "You are signed up for Building Updates for {subscriptionsNumber} {subscriptionsNumber, plural, one {building} other {buildings}}"
+#: src/containers/UnsubscribePage.tsx:70
+msgid "You are signed up for Building Updates for {subscriptionsNumber}"
+msgstr "You are signed up for Building Updates for {subscriptionsNumber}"
 
 #: src/containers/UnsubscribePage.tsx:62
-msgid "You are signed up for Building Updates for {subscriptionsNumber} {subscriptionsNumber, plural, one {building} other {buildings}}. Click below to unsubscribe from all and stop receiving Building Updates."
-msgstr "You are signed up for Building Updates for {subscriptionsNumber} {subscriptionsNumber, plural, one {building} other {buildings}}. Click below to unsubscribe from all and stop receiving Building Updates."
+msgid "You are signed up for Building Updates for {subscriptionsNumber} . Click below to unsubscribe from all and stop receiving Building Updates."
+msgstr "You are signed up for Building Updates for {subscriptionsNumber} . Click below to unsubscribe from all and stop receiving Building Updates."
+
+#: src/containers/UnsubscribePage.tsx:71
+#~ msgid "You are signed up for Building Updates for {subscriptionsNumber} {subscriptionsNumber, plural, one {building} other {buildings}}"
+#~ msgstr "You are signed up for Building Updates for {subscriptionsNumber} {subscriptionsNumber, plural, one {building} other {buildings}}"
+
+#: src/containers/UnsubscribePage.tsx:62
+#~ msgid "You are signed up for Building Updates for {subscriptionsNumber} {subscriptionsNumber, plural, one {building} other {buildings}}. Click below to unsubscribe from all and stop receiving Building Updates."
+#~ msgstr "You are signed up for Building Updates for {subscriptionsNumber} {subscriptionsNumber, plural, one {building} other {buildings}}. Click below to unsubscribe from all and stop receiving Building Updates."
 
 #: src/containers/UnsubscribePage.tsx:40
 #~ msgid "You are signed up for email alerts from these bulidings:"
