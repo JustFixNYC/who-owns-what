@@ -2,7 +2,6 @@ import { ChangeEvent, useState } from "react";
 import { Trans, t } from "@lingui/macro";
 import { I18n } from "@lingui/core";
 import { withI18n } from "@lingui/react";
-import classNames from "classnames";
 
 import { Icon, RadioButton, TextInput } from "@justfixnyc/component-library";
 
