@@ -76,16 +76,6 @@ const _EmailButton: React.FC = (props) => (
     {...props}
   />
 );
-const _SmsButton: React.FC = (props) => (
-  <Button
-    labelText={`${i18n._("SMS")} (${i18n._("Opens in a new window")})`}
-    variant="secondary"
-    size="small"
-    labelIcon="sms"
-    iconOnly
-    {...props}
-  />
-);
 
 const SocialShareWithoutI18n: React.FC<SocialShareProps> = ({
   i18n,
