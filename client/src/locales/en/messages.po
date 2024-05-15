@@ -411,6 +411,10 @@ msgstr "Clear selections"
 msgid "Clearer Landlord Contact Info"
 msgstr "Clearer Landlord Contact Info"
 
+#: src/containers/UnsubscribePage.tsx:65
+msgid "Click below to unsubscribe from all and stop receiving Building Updates."
+msgstr "Click below to unsubscribe from all and stop receiving Building Updates."
+
 #: src/containers/NotRegisteredPage.tsx:176
 msgid "Click here to learn more."
 msgstr "Click here to learn more."
@@ -2381,6 +2385,11 @@ msgstr "You are now logged in and we’ve added this building to your updates"
 #~ msgid "You are now signed up for weekly Data Updates."
 #~ msgstr "You are now signed up for weekly Data Updates."
 
+#: src/containers/UnsubscribePage.tsx:63
+#: src/containers/UnsubscribePage.tsx:72
+msgid "You are signed up for Building Updates for"
+msgstr "You are signed up for Building Updates for"
+
 #: src/containers/UnsubscribePage.tsx:70
 #~ msgid "You are signed up for Building Updates for {subscriptionsNumber}"
 #~ msgstr "You are signed up for Building Updates for {subscriptionsNumber}"
@@ -2390,12 +2399,12 @@ msgstr "You are now logged in and we’ve added this building to your updates"
 #~ msgstr "You are signed up for Building Updates for {subscriptionsNumber} . Click below to unsubscribe from all and stop receiving Building Updates."
 
 #: src/containers/UnsubscribePage.tsx:71
-msgid "You are signed up for Building Updates for {subscriptionsNumber} {subscriptionsNumber, plural, one {building} other {buildings}}"
-msgstr "You are signed up for Building Updates for {subscriptionsNumber} {subscriptionsNumber, plural, one {building} other {buildings}}"
+#~ msgid "You are signed up for Building Updates for {subscriptionsNumber} {subscriptionsNumber, plural, one {building} other {buildings}}"
+#~ msgstr "You are signed up for Building Updates for {subscriptionsNumber} {subscriptionsNumber, plural, one {building} other {buildings}}"
 
 #: src/containers/UnsubscribePage.tsx:62
-msgid "You are signed up for Building Updates for {subscriptionsNumber} {subscriptionsNumber, plural, one {building} other {buildings}}. Click below to unsubscribe from all and stop receiving Building Updates."
-msgstr "You are signed up for Building Updates for {subscriptionsNumber} {subscriptionsNumber, plural, one {building} other {buildings}}. Click below to unsubscribe from all and stop receiving Building Updates."
+#~ msgid "You are signed up for Building Updates for {subscriptionsNumber} {subscriptionsNumber, plural, one {building} other {buildings}}. Click below to unsubscribe from all and stop receiving Building Updates."
+#~ msgstr "You are signed up for Building Updates for {subscriptionsNumber} {subscriptionsNumber, plural, one {building} other {buildings}}. Click below to unsubscribe from all and stop receiving Building Updates."
 
 #: src/containers/UnsubscribePage.tsx:40
 #~ msgid "You are signed up for email alerts from these bulidings:"
@@ -2527,6 +2536,16 @@ msgstr "and"
 #: src/components/PropertiesMap.tsx:323
 msgid "associated building"
 msgstr "associated building"
+
+#: src/containers/UnsubscribePage.tsx:64
+#: src/containers/UnsubscribePage.tsx:73
+msgid "building"
+msgstr "building"
+
+#: src/containers/UnsubscribePage.tsx:64
+#: src/containers/UnsubscribePage.tsx:73
+msgid "buildings"
+msgstr "buildings"
 
 #: src/containers/AccountSettingsPage.tsx:61
 #~ msgid "contact support@justfix.org"

@@ -416,6 +416,10 @@ msgstr "Eliminar selecciones"
 msgid "Clearer Landlord Contact Info"
 msgstr "Información de contacto del dueño más clara"
 
+#: src/containers/UnsubscribePage.tsx:65
+msgid "Click below to unsubscribe from all and stop receiving Building Updates."
+msgstr ""
+
 #: src/containers/NotRegisteredPage.tsx:176
 msgid "Click here to learn more."
 msgstr "HaZ clic aquí para obtener más información."
@@ -2398,6 +2402,11 @@ msgstr ""
 #~ msgid "You are now signed up for weekly Data Updates."
 #~ msgstr ""
 
+#: src/containers/UnsubscribePage.tsx:63
+#: src/containers/UnsubscribePage.tsx:72
+msgid "You are signed up for Building Updates for"
+msgstr ""
+
 #: src/containers/UnsubscribePage.tsx:70
 #~ msgid "You are signed up for Building Updates for {subscriptionsNumber}"
 #~ msgstr ""
@@ -2407,12 +2416,12 @@ msgstr ""
 #~ msgstr ""
 
 #: src/containers/UnsubscribePage.tsx:71
-msgid "You are signed up for Building Updates for {subscriptionsNumber} {subscriptionsNumber, plural, one {building} other {buildings}}"
-msgstr ""
+#~ msgid "You are signed up for Building Updates for {subscriptionsNumber} {subscriptionsNumber, plural, one {building} other {buildings}}"
+#~ msgstr ""
 
 #: src/containers/UnsubscribePage.tsx:62
-msgid "You are signed up for Building Updates for {subscriptionsNumber} {subscriptionsNumber, plural, one {building} other {buildings}}. Click below to unsubscribe from all and stop receiving Building Updates."
-msgstr ""
+#~ msgid "You are signed up for Building Updates for {subscriptionsNumber} {subscriptionsNumber, plural, one {building} other {buildings}}. Click below to unsubscribe from all and stop receiving Building Updates."
+#~ msgstr ""
 
 #: src/containers/UnsubscribePage.tsx:40
 #~ msgid "You are signed up for email alerts from these bulidings:"
@@ -2544,6 +2553,16 @@ msgstr "y"
 #: src/components/PropertiesMap.tsx:323
 msgid "associated building"
 msgstr "edificio asociado"
+
+#: src/containers/UnsubscribePage.tsx:64
+#: src/containers/UnsubscribePage.tsx:73
+msgid "building"
+msgstr ""
+
+#: src/containers/UnsubscribePage.tsx:64
+#: src/containers/UnsubscribePage.tsx:73
+msgid "buildings"
+msgstr ""
 
 #: src/containers/AccountSettingsPage.tsx:61
 #~ msgid "contact support@justfix.org"
