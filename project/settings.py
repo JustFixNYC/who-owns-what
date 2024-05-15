@@ -94,6 +94,9 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "https://demo-wowserver.justfix.org",
     "https://wow-django-dev.herokuapp.com",
+    "https://wowserver.justfix.org",
+    "https://wow-django.herokuapp.com",
+    "https://whoownswhat.justfix.org",
     "https://demo-whoownswhat.justfix.org",
 ]
 CORS_ALLOWED_ORIGIN_REGEXES = [
