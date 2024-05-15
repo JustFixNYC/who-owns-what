@@ -100,7 +100,7 @@
 
 .App__header {
   background-color: $background;
-  border-bottom: 1px solid $justfix-white;
+  border-bottom: 1px solid black;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -173,9 +173,14 @@
     }
 
     .jf-logo-divider {
+      color: $justfix-white;
       @include for-phone-only {
         display: none;
       }
+    }
+
+    .legacy-styling {
+      color: black;
     }
   }
 

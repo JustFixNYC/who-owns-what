@@ -50,8 +50,8 @@ import ForgotPasswordPage from "./ForgotPasswordPage";
 import UnsubscribePage from "./UnsubscribePage";
 import LoginPage from "./LoginPage";
 import { JFLogo } from "components/JFLogo";
-import logoDivider from "../assets/img/logo-divider.svg";
 import { STANDALONE_PAGES } from "components/StandalonePage";
+import { JFLogoDivider } from "components/JFLogoDivider";
 import { LoadingPage } from "components/Loader";
 
 const HomeLink = withI18n()((props: withI18nProps) => {
@@ -69,15 +69,13 @@ const HomeLink = withI18n()((props: withI18nProps) => {
       }}
       to={isLegacyPath(pathname) ? legacy.home : home}
     >
-      <JFLogo className="jf-logo" />
-      <img
-        className="jf-logo-divider"
-        src={logoDivider}
-        width="1"
-        height="72"
-        alt="visual divider"
+      <JFLogo className={classnames("jf-logo", isLegacyPath(pathname) && "legacy-styling")} />
+      <JFLogoDivider
+        className={classnames("jf-logo-divider", isLegacyPath(pathname) && "legacy-styling")}
       />
-      <h1 className="page-title">{widont(title)}</h1>
+      <h1 className={classnames("page-title", isLegacyPath(pathname) && "legacy-styling")}>
+        {widont(title)}
+      </h1>
     </JFCLLocaleLink>
   );
 });
@@ -231,28 +229,15 @@ const SearchLink = () => {
   );
 };
 
-const getAccountNavLinks = (
-  handleLogout: (fromPath: string) => void,
-  fromPath: string,
-  isSignedIn?: boolean
-) => {
+const getAccountNavLinks = (fromPath: string, isSignedIn?: boolean) => {
   const { account } = createWhoOwnsWhatRoutePaths();
   const { settings, login } = account;
 
   return isSignedIn
     ? [
         <LocaleNavLink to={settings} key="account-1">
-          <Trans>Account</Trans>
+          <Trans>Email settings</Trans>
         </LocaleNavLink>,
-        <button
-          onClick={() => {
-            window.gtag("event", "nav-logout", { from: removeLocalePrefix(fromPath) });
-            handleLogout(fromPath);
-          }}
-          key="account-2"
-        >
-          <Trans>Log out</Trans>
-        </button>,
       ]
     : [
         <LocaleNavLink
@@ -304,7 +289,7 @@ const Navbar = () => {
       className={classnames(
         "App__header",
         "navbar",
-        allowChangingPortfolioMethod && !isLegacyPath(pathname) && "wowza-styling"
+        allowChangingPortfolioMethod && !isLegacyPath(pathname) ? "wowza-styling" : "legacy-styling"
       )}
     >
       <HomeLink />
@@ -318,7 +303,7 @@ const Navbar = () => {
         <span className="hide-lg">
           {getMainNavLinks(isLegacyPath(pathname))}
           <LocaleSwitcher />
-          {getAccountNavLinks(userContext.logout, pathname, !!userContext?.user?.email)}
+          {!isLegacyPath(pathname) && getAccountNavLinks(pathname, !!userContext?.user?.email)}
         </span>
         <Dropdown>
           {getMainNavLinks(isLegacyPath(pathname)).map((link, i) => (
@@ -329,13 +314,12 @@ const Navbar = () => {
           <li className="menu-item">
             <LocaleSwitcherWithFullLanguageName />
           </li>
-          {getAccountNavLinks(userContext.logout, pathname, !!userContext?.user?.email).map(
-            (link, i) => (
+          {!isLegacyPath(pathname) &&
+            getAccountNavLinks(pathname, !!userContext?.user?.email).map((link, i) => (
               <li className="menu-item" key={`account-${i}`}>
                 {link}
               </li>
-            )
-          )}
+            ))}
         </Dropdown>
       </nav>
     </div>

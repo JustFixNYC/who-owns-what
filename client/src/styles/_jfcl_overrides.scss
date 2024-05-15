@@ -2,7 +2,7 @@
 .jfcl-button,
 .jfcl-link {
   font-size: 1rem;
-  svg:not(.jf-logo) {
+  svg:not(.jf-logo, .jf-logo-divider) {
     height: 1rem;
     width: 1rem;
   }
