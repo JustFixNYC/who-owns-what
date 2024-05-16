@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-05-15 18:24\n"
+"PO-Revision-Date: 2024-05-16 18:44\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -89,7 +89,7 @@ msgstr "<0>Renta estabilizada</0> protege a los inquilinos al limitar los aument
 
 #: src/containers/UnsubscribePage.tsx:84
 msgid "<0>Search for an address</0> to add to Building Updates"
-msgstr ""
+msgstr "<0>Busca una dirección</0> para añadir a Actualizaciones de Edificio"
 
 #: src/containers/AccountSettingsPage.tsx:70
 msgid "<0>Search for an address</0> to add to your Building Updates"
@@ -1419,7 +1419,7 @@ msgstr "Página"
 #: src/components/UserSettingField.tsx:55
 #: src/components/UserSettingField.tsx:60
 msgid "Password"
-msgstr ""
+msgstr "Contraseña"
 
 #: src/containers/ResetPasswordPage.tsx:90
 msgid "Password reset successful"
@@ -1449,15 +1449,15 @@ msgstr "Por favor, ¡introduzca una dirección de correo electrónico!"
 
 #: src/components/PasswordInput.tsx:70
 msgid "Please enter password."
-msgstr ""
+msgstr "Por favor introduce una contraseña."
 
 #: src/components/UserTypeInput.tsx:36
 msgid "Please select an option."
-msgstr ""
+msgstr "Elige una opción, por favor."
 
 #: src/containers/VerifyEmailPage.tsx:67
 msgid "Please try again later. If you’re still having issues, contact support@justfix.org."
-msgstr ""
+msgstr "Por favor intenté de nuevo más tarde. Si aún tiene problemas, contacte support@justfix.org."
 
 #: src/containers/AddressPage.tsx:162
 msgid "Portfolio"
@@ -1505,11 +1505,11 @@ msgstr "El registro ha caducado:<<<<<<< HEAD======="
 
 #: src/containers/AccountSettingsPage.tsx:25
 msgid "Remove"
-msgstr ""
+msgstr "Eliminar"
 
 #: src/components/EmailAlertSignup.tsx:53
 msgid "Remove building"
-msgstr ""
+msgstr "Eliminar edificio"
 
 #: src/components/IndicatorsDatasets.tsx:167
 #: src/components/IndicatorsViz.tsx:228
@@ -1547,7 +1547,7 @@ msgstr "Las unidades de renta estabilizada son declaradas por los dueños de los
 
 #: src/containers/ResetPasswordPage.tsx:78
 msgid "Request new link"
-msgstr ""
+msgstr "Solicite un nuevo enlace"
 
 #: src/components/EmailAlertSignup.tsx:42
 #: src/components/Login.tsx:136
@@ -1564,7 +1564,7 @@ msgstr ""
 #: src/containers/ResetPasswordPage.tsx:75
 #: src/containers/ResetPasswordPage.tsx:83
 msgid "Reset Password"
-msgstr ""
+msgstr "Restablecer Contraseña"
 
 #: src/components/PortfolioGraph.tsx:159
 msgid "Reset diagram"
@@ -1573,19 +1573,19 @@ msgstr "Restablecer diagrama"
 #: src/containers/ForgotPasswordPage.tsx:54
 #: src/containers/ResetPasswordPage.tsx:86
 msgid "Reset password"
-msgstr ""
+msgstr "Restablecer contraseña"
 
 #: src/containers/ForgotPasswordPage.tsx:45
 msgid "Reset password?"
-msgstr ""
+msgstr "¿Restablecer su contraseña?"
 
 #: src/containers/ResetPasswordPage.tsx:97
 msgid "Reset your password"
-msgstr ""
+msgstr "Restablece su contraseña"
 
 #: src/containers/ForgotPasswordPage.tsx:48
 msgid "Review your email address below. You’ll receive a \"Reset password\" email to this address."
-msgstr ""
+msgstr "Revisa su correo electrónico a continuación. Recibirá un \"Restablecer contraseña\" correo a este correo electrónico."
 
 #: src/util/helpers.ts:37
 msgid "SAFETY"
@@ -1605,7 +1605,7 @@ msgstr "ESCALERAS"
 
 #: src/components/UserSettingField.tsx:135
 msgid "Save"
-msgstr ""
+msgstr "Guardar"
 
 #: src/components/Multiselect.tsx:71
 #: src/containers/App.tsx:109
@@ -1647,7 +1647,7 @@ msgstr "Seleccione uno o varios rangos de unidades de edificios o establezca un 
 
 #: src/components/GetRepairs.tsx:18
 msgid "Send a free, legally vetted letter to notify your landlord of repair issues."
-msgstr ""
+msgstr "Envíe una carta gratuita para notificar a su dueño de los problemas de reparación."
 
 #: src/components/Login.tsx:122
 #~ msgid "Send again"
@@ -1655,7 +1655,7 @@ msgstr ""
 
 #: src/components/SendNewLink.tsx:16
 msgid "Send new link"
-msgstr ""
+msgstr "Enviarme otro enlace"
 
 #: src/components/PropertiesSummary.tsx:40
 msgid "Send us a data request"
