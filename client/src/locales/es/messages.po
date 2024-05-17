@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-05-16 18:44\n"
+"PO-Revision-Date: 2024-05-17 19:04\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -1678,7 +1678,7 @@ msgstr "Envíanos una solicitud de datos"
 #: src/components/PropertiesSummary.tsx:140
 #: src/containers/NotRegisteredPage.tsx:19
 msgid "Share with your neighbors"
-msgstr ""
+msgstr "Comparte esta página con sus vecinos"
 
 #: src/util/helpers.ts:54
 msgid "Shareholder"
@@ -1732,7 +1732,7 @@ msgstr "Regístrate"
 #: src/components/Login.tsx:300
 #: src/components/Login.tsx:305
 msgid "Sign up for Building Updates"
-msgstr ""
+msgstr "Registrase para Actualizaciones de Edificios"
 
 #: src/containers/AccountSettingsPage.tsx:48
 #~ msgid "Sign up for Data Updates on the buildings you choose:"
@@ -1789,7 +1789,7 @@ msgstr "Lo sentimos, parece que hay un error en el mapa. Inténtalo de nuevo con
 
 #: src/containers/ResetPasswordPage.tsx:76
 msgid "Sorry, something went wrong with the password reset."
-msgstr ""
+msgstr "Lo sentimos, algo salió mal con el restablecimiento de contraseña."
 
 #: src/containers/NotFoundPage.tsx:25
 msgid "Sorry, the page you are looking for doesn't seem to exist."
@@ -1813,7 +1813,7 @@ msgstr "Comienza {year}"
 
 #: src/components/Login.tsx:291
 msgid "Submit"
-msgstr ""
+msgstr "Enviar"
 
 #: src/containers/AddressPage.tsx:178
 msgid "Summary"
@@ -1845,15 +1845,15 @@ msgstr "Exenciones de impuestos"
 
 #: src/components/UserTypeInput.tsx:10
 msgid "Tenant"
-msgstr ""
+msgstr "Inquilino"
 
 #: src/components/UserTypeInput.tsx:12
 msgid "Tenant Advocate"
-msgstr ""
+msgstr "Defensores de inquilinos"
 
 #: src/components/UserTypeInput.tsx:11
 msgid "Tenant Organizer"
-msgstr ""
+msgstr "Organizador de inquilinos"
 
 #: src/components/ComplaintsSummary.tsx:11
 msgid "Tenants in this portfolio have reported a total of <0>{totalhpdcomplaints}</0> {totalhpdcomplaints, plural, one {complaint} other {complaints}} to 311, <1>{totalrecenthpdcomplaints}</1> of which {totalrecenthpdcomplaints, plural, one {was} other {were}} reported in the last three years."
@@ -1867,7 +1867,7 @@ msgstr "Condiciones de uso"
 #: src/components/Login.tsx:118
 #: src/components/UserSettingField.tsx:113
 msgid "That email is already used."
-msgstr ""
+msgstr "El correo electrónico ya está en uso."
 
 #: src/containers/NychaPage.tsx:98
 msgid "The NYCHA office overseeing your borough. Some experts suggest reaching out to Borough Management Offices to advocate for repairs, as they tend to have more administrative power than local management offices."
@@ -1903,7 +1903,7 @@ msgstr "El quinto <0>peor desalojador</0> de la ciudad en 2018, A&E es un excele
 
 #: src/components/UserSettingField.tsx:58
 msgid "The current password you entered is incorrect"
-msgstr ""
+msgstr "La contraseña que ha ingresado es incorrecta"
 
 #: src/components/Login.tsx:115
 msgid "The email and/or password you entered is incorrect."
