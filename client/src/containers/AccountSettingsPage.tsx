@@ -76,7 +76,7 @@ const AccountSettingsPage = withI18n()((props: withI18nProps) => {
     <Page title={i18n._(t`Account`)}>
       <div className="AccountSettingsPage Page">
         <div className="page-container">
-          <Trans render="h1">Account</Trans>
+          <Trans render="h1">Email settings</Trans>
           <div className="settings-section">
             <div className="log-in-out">
               <Trans render="h2">You are logged in</Trans>
