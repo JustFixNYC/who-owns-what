@@ -29,16 +29,16 @@ msgstr "#WhoOwnsWhat via @JustFixNYC"
 msgid "(\"{textInEnglish}\" in English)"
 msgstr "(\"{textInEnglish}\" in English)"
 
-#: src/components/DetailView.tsx:250
+#: src/components/DetailView.tsx:259
 msgid "(as part of a group sale)"
 msgstr "(as part of a group sale)"
 
-#: src/components/DetailView.tsx:232
+#: src/components/DetailView.tsx:241
 #: src/containers/NotRegisteredPage.tsx:104
 msgid "(expired {formattedRegEndDate})"
 msgstr "(expired {formattedRegEndDate})"
 
-#: src/components/DetailView.tsx:235
+#: src/components/DetailView.tsx:244
 msgid "(expires {formattedRegEndDate})"
 msgstr "(expires {formattedRegEndDate})"
 
@@ -86,7 +86,7 @@ msgstr "<0>Rent stabilization</0> protects tenants by limiting rent increases an
 msgid "<0>Search for an address</0> to add to Building Updates"
 msgstr "<0>Search for an address</0> to add to Building Updates"
 
-#: src/containers/AccountSettingsPage.tsx:65
+#: src/containers/AccountSettingsPage.tsx:70
 msgid "<0>Search for an address</0> to add to your Building Updates"
 msgstr "<0>Search for an address</0> to add to your Building Updates"
 
@@ -106,13 +106,17 @@ msgstr "<0>This property is not required to register with HPD</0> because it doe
 msgid "<0>This property should be registered with HPD</0> because it has more than 2 residential units."
 msgstr "<0>This property should be registered with HPD</0> because it has more than 2 residential units."
 
-#: src/components/DetailView.tsx:65
+#: src/components/DetailView.tsx:66
 msgid "<0>While the legal owner of a building is often a company (usually called an “LLC”), these names and business addresses registered with HPD offer a clearer picture of who really controls the building.</0><1>People listed here as “Head Officer” or “Owner” usually have ties to building ownership, while “Site Managers” are part of management. That being said, these names are self reported by the landlord, so they can be misleading.</1><2>Learn more about HPD registrations and how this information powers this tool on the <3>About page</3>.</2>"
 msgstr "<0>While the legal owner of a building is often a company (usually called an “LLC”), these names and business addresses registered with HPD offer a clearer picture of who really controls the building.</0><1>People listed here as “Head Officer” or “Owner” usually have ties to building ownership, while “Site Managers” are part of management. That being said, these names are self reported by the landlord, so they can be misleading.</1><2>Learn more about HPD registrations and how this information powers this tool on the <3>About page</3>.</2>"
 
 #: src/components/StandalonePage.tsx:30
-msgid "<0>Who Owns What</0> by JustFix.<1/>Read our <2>Privacy Policy</2> and <3>Terms of Service</3>"
-msgstr "<0>Who Owns What</0> by JustFix.<1/>Read our <2>Privacy Policy</2> and <3>Terms of Service</3>"
+#~ msgid "<0>Who Owns What</0> by JustFix.<1/>Read our <2>Privacy Policy</2> and <3>Terms of Service</3>"
+#~ msgstr "<0>Who Owns What</0> by JustFix.<1/>Read our <2>Privacy Policy</2> and <3>Terms of Service</3>"
+
+#: src/components/StandalonePage.tsx:29
+msgid "<0>Who Owns What</0> by JustFix.<1/>Read our <2>Privacy Policy</2> and <3>Terms of Use</3>"
+msgstr "<0>Who Owns What</0> by JustFix.<1/>Read our <2>Privacy Policy</2> and <3>Terms of Use</3>"
 
 #: src/containers/VerifyEmailPage.tsx:35
 #~ msgid "<0>Your email is now verified.</0>"
@@ -140,7 +144,7 @@ msgid "APPLIANCE"
 msgstr "APPLIANCE"
 
 #: src/containers/AboutPage.tsx:13
-#: src/containers/App.tsx:130
+#: src/containers/App.tsx:138
 msgid "About"
 msgstr "About"
 
@@ -148,9 +152,9 @@ msgstr "About"
 msgid "According to available HPD data, this portfolio has received <0>{totalviolations}</0> total violations."
 msgstr "According to available HPD data, this portfolio has received <0>{totalviolations}</0> total violations."
 
-#: src/containers/AccountSettingsPage.tsx:45
-#: src/containers/AccountSettingsPage.tsx:48
-#: src/containers/App.tsx:110
+#: src/containers/AccountSettingsPage.tsx:47
+#: src/containers/AccountSettingsPage.tsx:50
+#: src/containers/App.tsx:118
 msgid "Account"
 msgstr "Account"
 
@@ -193,7 +197,7 @@ msgstr "Agent"
 msgid "All set! Thanks for subscribing!"
 msgstr "All set! Thanks for subscribing!"
 
-#: src/components/SocialShare.tsx:13
+#: src/components/SocialShare.tsx:14
 msgid "All the public info on your landlord"
 msgstr "All the public info on your landlord"
 
@@ -229,12 +233,12 @@ msgstr "An “eviction filing” is a legal case for eviction commenced by a lan
 #~ msgid "An “eviction filing” is a legal case for eviction commenced by a landlord against a tenant in Housing Court. Such a case can be commenced for nonpayment of rent (most commonly) or for a violation of the lease (such as a nuisance). The eviction filings number only represents cases filed in Housing Court (data from the New York State Office of Court Administration<0>via the Housing Data Coalition</0> in collaboration with the <1>Right to Counsel Coalition</1>) and not evictions carried out by NYC Marshals.<2/>If you or someone you know is facing eviction and want to learn more about your rights, head over to <3>Housing Court Answers for more information</3>.<4/>Due to privacy restrictions on the use of these data, eviction filings cannot be shown for buildings with fewer than 11 units."
 #~ msgstr "An “eviction filing” is a legal case for eviction commenced by a landlord against a tenant in Housing Court. Such a case can be commenced for nonpayment of rent (most commonly) or for a violation of the lease (such as a nuisance). The eviction filings number only represents cases filed in Housing Court (data from the New York State Office of Court Administration<0>via the Housing Data Coalition</0> in collaboration with the <1>Right to Counsel Coalition</1>) and not evictions carried out by NYC Marshals.<2/>If you or someone you know is facing eviction and want to learn more about your rights, head over to <3>Housing Court Answers for more information</3>.<4/>Due to privacy restrictions on the use of these data, eviction filings cannot be shown for buildings with fewer than 11 units."
 
-#: src/components/MinMaxSelect.tsx:180
-#: src/components/Multiselect.tsx:90
+#: src/components/MinMaxSelect.tsx:179
+#: src/components/Multiselect.tsx:89
 msgid "Apply"
 msgstr "Apply"
 
-#: src/components/MinMaxSelect.tsx:180
+#: src/components/MinMaxSelect.tsx:179
 msgid "Apply selections and get results"
 msgstr "Apply selections and get results"
 
@@ -258,7 +262,7 @@ msgstr "At this time we can only support {SUBSCRIPTION_LIMIT} buildings in each 
 msgid "BELL/BUZZER/INTERCOM"
 msgstr "BELL/BUZZER/INTERCOM"
 
-#: src/components/DetailView.tsx:163
+#: src/components/DetailView.tsx:172
 msgid "BUILDING:"
 msgstr "BUILDING:"
 
@@ -285,12 +289,12 @@ msgstr "Building Permit Applications"
 msgid "Building Permits Applied For"
 msgstr "Building Permits Applied For"
 
-#: src/components/PortfolioFilters.tsx:137
+#: src/components/PortfolioFilters.tsx:138
 msgid "Building Size"
 msgstr "Building Size"
 
-#: src/components/EmailAlertSignup.tsx:138
-#: src/containers/AccountSettingsPage.tsx:55
+#: src/components/EmailAlertSignup.tsx:135
+#: src/containers/AccountSettingsPage.tsx:60
 msgid "Building Updates"
 msgstr "Building Updates"
 
@@ -310,14 +314,14 @@ msgstr "Buildings without valid property registration are subject to the followi
 msgid "Built"
 msgstr "Built"
 
-#: src/components/DetailView.tsx:315
-#: src/components/DetailView.tsx:324
+#: src/components/DetailView.tsx:326
+#: src/components/DetailView.tsx:335
 #: src/components/PortfolioGraph.tsx:129
 msgid "Business Addresses"
 msgstr "Business Addresses"
 
-#: src/components/DetailView.tsx:295
-#: src/components/DetailView.tsx:304
+#: src/components/DetailView.tsx:306
+#: src/components/DetailView.tsx:315
 msgid "Business Entities"
 msgstr "Business Entities"
 
@@ -337,11 +341,11 @@ msgstr "CONSTRUCTION"
 msgid "COOKING GAS"
 msgstr "COOKING GAS"
 
-#: src/components/UserSettingField.tsx:137
+#: src/components/UserSettingField.tsx:136
 msgid "Cancel"
 msgstr "Cancel"
 
-#: src/components/DetailView.tsx:29
+#: src/components/DetailView.tsx:30
 msgid "Check out the issues in this building"
 msgstr "Check out the issues in this building"
 
@@ -381,7 +385,7 @@ msgstr "Class I"
 #~ msgid "Clear"
 #~ msgstr "Clear"
 
-#: src/components/PortfolioFilters.tsx:157
+#: src/components/PortfolioFilters.tsx:158
 msgid "Clear Filters"
 msgstr "Clear Filters"
 
@@ -389,23 +393,27 @@ msgstr "Clear Filters"
 #~ msgid "Clear all"
 #~ msgstr "Clear all"
 
-#: src/components/MinMaxSelect.tsx:172
-#: src/components/Multiselect.tsx:141
+#: src/components/MinMaxSelect.tsx:171
+#: src/components/Multiselect.tsx:140
 msgid "Clear all selections"
 msgstr "Clear all selections"
 
-#: src/components/MinMaxSelect.tsx:109
+#: src/components/MinMaxSelect.tsx:108
 msgid "Clear custom range inputs to use preset ranges."
 msgstr "Clear custom range inputs to use preset ranges."
 
-#: src/components/MinMaxSelect.tsx:175
-#: src/components/Multiselect.tsx:145
+#: src/components/MinMaxSelect.tsx:174
+#: src/components/Multiselect.tsx:144
 msgid "Clear selections"
 msgstr "Clear selections"
 
 #: src/components/FeatureCalloutContent.ts:13
 msgid "Clearer Landlord Contact Info"
 msgstr "Clearer Landlord Contact Info"
+
+#: src/containers/UnsubscribePage.tsx:65
+msgid "Click below to unsubscribe from all and stop receiving Building Updates."
+msgstr "Click below to unsubscribe from all and stop receiving Building Updates."
 
 #: src/containers/NotRegisteredPage.tsx:176
 msgid "Click here to learn more."
@@ -440,7 +448,7 @@ msgstr "Click the link we sent to {0}. It may take a few minutes to arrive."
 #~ msgstr "Click the link we sent to {email}. It may take a few minutes to arrive."
 
 #: src/components/CloseButton.tsx:10
-#: src/components/DetailView.tsx:60
+#: src/components/DetailView.tsx:61
 #: src/components/FeatureCalloutWidget.tsx:61
 msgid "Close"
 msgstr "Close"
@@ -457,7 +465,7 @@ msgstr "Complaints Issued"
 msgid "Complaints to 311"
 msgstr "Complaints to 311"
 
-#: src/containers/AccountSettingsPage.tsx:73
+#: src/containers/AccountSettingsPage.tsx:78
 msgid "Contact support@justfix.org to delete your account or get help"
 msgstr "Contact support@justfix.org to delete your account or get help"
 
@@ -497,7 +505,7 @@ msgstr "Create password"
 msgid "Current password"
 msgstr "Current password"
 
-#: src/components/MinMaxSelect.tsx:119
+#: src/components/MinMaxSelect.tsx:118
 msgid "Custom range"
 msgstr "Custom range"
 
@@ -529,13 +537,13 @@ msgstr "DOORS"
 msgid "Date"
 msgstr "Date"
 
-#: src/containers/App.tsx:154
+#: src/containers/App.tsx:162
 msgid "Demo Site"
 msgstr "Demo Site"
 
 #: src/components/EmailAlertSignup.tsx:67
 #: src/components/Login.tsx:164
-#: src/components/UserSettingField.tsx:104
+#: src/components/UserSettingField.tsx:103
 msgid "Didn’t get the link?"
 msgstr "Didn’t get the link?"
 
@@ -561,7 +569,7 @@ msgid "Don't have an account?"
 msgstr "Don't have an account?"
 
 #: src/components/LegalFooter.tsx:35
-#: src/containers/App.tsx:139
+#: src/containers/App.tsx:147
 msgid "Donate"
 msgstr "Donate"
 
@@ -585,22 +593,22 @@ msgstr "ELEVATOR"
 #~ msgid "Each weekly email includes HPD Complaints, HPD Violations, and Eviction Filings."
 #~ msgstr "Each weekly email includes HPD Complaints, HPD Violations, and Eviction Filings."
 
-#: src/components/UserSettingField.tsx:145
+#: src/components/UserSettingField.tsx:144
 msgid "Edit"
 msgstr "Edit"
 
-#: src/components/SocialShare.tsx:18
+#: src/components/SocialShare.tsx:19
 msgid "Email"
 msgstr "Email"
 
 #: src/components/Login.tsx:330
-#: src/components/UserSettingField.tsx:111
-#: src/components/UserSettingField.tsx:116
+#: src/components/UserSettingField.tsx:110
+#: src/components/UserSettingField.tsx:115
 #: src/containers/ForgotPasswordPage.tsx:53
 msgid "Email address"
 msgstr "Email address"
 
-#: src/components/UserSettingField.tsx:100
+#: src/components/UserSettingField.tsx:99
 msgid "Email address not verified. Click the link we sent to {email} start receiving Building Updates."
 msgstr "Email address not verified. Click the link we sent to {email} start receiving Building Updates."
 
@@ -625,11 +633,11 @@ msgstr "Enter an NYC address and find other buildings your landlord might own:"
 msgid "Enter email"
 msgstr "Enter email"
 
-#: src/components/MinMaxSelect.tsx:161
+#: src/components/MinMaxSelect.tsx:160
 msgid "Enter minimum and maximum number of units, or leave either blank, then apply selections to filter the list of portfolio properties. Set both to blank and apply to clear filter."
 msgstr "Enter minimum and maximum number of units, or leave either blank, then apply selections to filter the list of portfolio properties. Set both to blank and apply to clear filter."
 
-#: src/components/UserSettingField.tsx:120
+#: src/components/UserSettingField.tsx:119
 msgid "Enter new email address"
 msgstr "Enter new email address"
 
@@ -650,14 +658,14 @@ msgstr "Enter new email address"
 msgid "Enter your password"
 msgstr "Enter your password"
 
-#: src/components/BuildingStatsTable.tsx:83
+#: src/components/BuildingStatsTable.tsx:84
 #: src/components/IndicatorsDatasets.tsx:128
 #: src/components/IndicatorsDatasets.tsx:138
 #: src/components/IndicatorsViz.tsx:217
 msgid "Eviction Filings"
 msgstr "Eviction Filings"
 
-#: src/components/BuildingStatsTable.tsx:82
+#: src/components/BuildingStatsTable.tsx:83
 msgid "Eviction cases filed in Housing Court since 2017. This data comes from the Office of Court Administration via the Housing Data Coalition."
 msgstr "Eviction cases filed in Housing Court since 2017. This data comes from the Office of Court Administration via the Housing Data Coalition."
 
@@ -666,7 +674,7 @@ msgstr "Eviction cases filed in Housing Court since 2017. This data comes from t
 msgid "Evictions"
 msgstr "Evictions"
 
-#: src/components/BuildingStatsTable.tsx:74
+#: src/components/BuildingStatsTable.tsx:75
 msgid "Evictions Executed"
 msgstr "Evictions Executed"
 
@@ -674,7 +682,7 @@ msgstr "Evictions Executed"
 msgid "Evictions Since 2017"
 msgstr "Evictions Since 2017"
 
-#: src/components/BuildingStatsTable.tsx:73
+#: src/components/BuildingStatsTable.tsx:74
 msgid "Evictions executed by NYC Marshals since 2017. ANHD and the Housing Data Coalition cleaned, geocoded, and validated the data, originally sourced from DOI."
 msgstr "Evictions executed by NYC Marshals since 2017. ANHD and the Housing Data Coalition cleaned, geocoded, and validated the data, originally sourced from DOI."
 
@@ -686,7 +694,7 @@ msgstr "Evictions executed in this development by NYC Marshals since 2017. ANHD 
 msgid "Executed"
 msgstr "Executed"
 
-#: src/components/PortfolioFilters.tsx:224
+#: src/components/PortfolioFilters.tsx:225
 msgid "Expand the Person/ Entity column in the Table to see all contacts associated with that building."
 msgstr "Expand the Person/ Entity column in the Table to see all contacts associated with that building."
 
@@ -722,7 +730,7 @@ msgstr "Filed"
 #~ msgid "Filied"
 #~ msgstr "Filied"
 
-#: src/components/PortfolioFilters.tsx:263
+#: src/components/PortfolioFilters.tsx:264
 msgid "Filter"
 msgstr "Filter"
 
@@ -730,7 +738,7 @@ msgstr "Filter"
 #~ msgid "Filter through this portfolio in <0>the Portfolio tab.</0>"
 #~ msgstr "Filter through this portfolio in <0>the Portfolio tab.</0>"
 
-#: src/components/PortfolioFilters.tsx:205
+#: src/components/PortfolioFilters.tsx:206
 msgid "Filters"
 msgstr "Filters"
 
@@ -785,7 +793,7 @@ msgstr "Get a weekly email update on complaints, violations, and eviction filing
 #~ msgid "Government Worker (Non-Lawyer)"
 #~ msgstr "Government Worker (Non-Lawyer)"
 
-#: src/components/UserTypeInput.tsx:15
+#: src/components/UserTypeInput.tsx:14
 msgid "Government Worker (non-lawyer)"
 msgstr "Government Worker (non-lawyer)"
 
@@ -835,24 +843,24 @@ msgstr "Head Officer"
 msgid "Hide legend"
 msgstr "Hide legend"
 
-#: src/components/PortfolioFilters.tsx:171
+#: src/components/PortfolioFilters.tsx:172
 msgid "How are the results calculated?"
 msgstr "How are the results calculated?"
 
-#: src/components/DetailView.tsx:89
+#: src/components/DetailView.tsx:90
 msgid "How is this building associated to this portfolio?"
 msgstr "How is this building associated to this portfolio?"
 
-#: src/containers/App.tsx:136
+#: src/containers/App.tsx:144
 #: src/containers/HowToUsePage.tsx:13
 msgid "How to use"
 msgstr "How to use"
 
-#: src/components/DetailView.tsx:30
+#: src/components/DetailView.tsx:31
 msgid "I just looked up this building on Who Owns What, a free tool built by JustFix to make data on landlords and evictors more transparent to tenants. You might want to look up your building. Check it out here: {url}"
 msgstr "I just looked up this building on Who Owns What, a free tool built by JustFix to make data on landlords and evictors more transparent to tenants. You might want to look up your building. Check it out here: {url}"
 
-#: src/components/DetailView.tsx:28
+#: src/components/DetailView.tsx:29
 msgid "I used #WhoOwnsWhat (built by @JustFixNYC) to see not only the open violations in this building, but also rent stabilized losses, evictions, and more. This website is a wealth of info and costs nothing to use. Savvy New Yorkers need this info:"
 msgstr "I used #WhoOwnsWhat (built by @JustFixNYC) to see not only the open violations in this building, but also rent stabilized losses, evictions, and more. This website is a wealth of info and costs nothing to use. Savvy New Yorkers need this info:"
 
@@ -956,12 +964,12 @@ msgstr "LINE OF TRAVEL"
 msgid "LOCKS"
 msgstr "LOCKS"
 
-#: src/components/PortfolioFilters.tsx:134
+#: src/components/PortfolioFilters.tsx:135
 #: src/components/PortfolioTable.tsx:259
 msgid "Landlord"
 msgstr "Landlord"
 
-#: src/components/PortfolioFilters.tsx:135
+#: src/components/PortfolioFilters.tsx:136
 msgid "Landlord filter"
 msgstr "Landlord filter"
 
@@ -985,24 +993,24 @@ msgstr "Last Sale"
 msgid "Last Sale Unknown"
 msgstr "Last Sale Unknown"
 
-#: src/components/DetailView.tsx:227
+#: src/components/DetailView.tsx:236
 #: src/containers/NotRegisteredPage.tsx:99
 msgid "Last registered:"
 msgstr "Last registered:"
 
-#: src/components/DetailView.tsx:240
+#: src/components/DetailView.tsx:249
 msgid "Last sold:"
 msgstr "Last sold:"
 
-#: src/components/DetailView.tsx:60
+#: src/components/DetailView.tsx:61
 msgid "Learn more"
 msgstr "Learn more"
 
-#: src/components/PortfolioFilters.tsx:153
+#: src/components/PortfolioFilters.tsx:154
 msgid "Learn more about how the results are calculated"
 msgstr "Learn more about how the results are calculated"
 
-#: src/components/PortfolioFilters.tsx:134
+#: src/components/PortfolioFilters.tsx:135
 msgid "Learn more about what it means for someone to be listed as a landlord"
 msgstr "Learn more about what it means for someone to be listed as a landlord"
 
@@ -1014,7 +1022,7 @@ msgstr "Learn more."
 #~ msgid "Legal Worker"
 #~ msgstr "Legal Worker"
 
-#: src/components/UserTypeInput.tsx:14
+#: src/components/UserTypeInput.tsx:13
 msgid "Legal Worker/Lawyer"
 msgstr "Legal Worker/Lawyer"
 
@@ -1049,8 +1057,7 @@ msgstr "Location"
 #: src/components/Login.tsx:148
 #: src/components/Login.tsx:294
 #: src/components/Login.tsx:297
-#: src/containers/AccountSettingsPage.tsx:50
-#: src/containers/App.tsx:121
+#: src/containers/App.tsx:129
 msgid "Log in"
 msgstr "Log in"
 
@@ -1071,13 +1078,17 @@ msgstr "Log in to add {0} to your Building Updates"
 #~ msgid "Log in to start getting updates for this building."
 #~ msgstr "Log in to start getting updates for this building."
 
-#: src/containers/App.tsx:116
+#: src/containers/App.tsx:124
 msgid "Log out"
 msgstr "Log out"
 
 #: src/containers/AccountSettingsPage.tsx:43
 #~ msgid "Login details"
 #~ msgstr "Login details"
+
+#: src/containers/AccountSettingsPage.tsx:54
+msgid "Logout"
+msgstr "Logout"
 
 #: src/components/PortfolioFilters.tsx:212
 #~ msgid "Look out for multiple spellings for the same person/entity. Names can be spelled multiple ways in official documents."
@@ -1095,11 +1106,11 @@ msgstr "Looking for more information?"
 msgid "MAILBOX"
 msgstr "MAILBOX"
 
-#: src/components/MinMaxSelect.tsx:135
+#: src/components/MinMaxSelect.tsx:134
 msgid "MAX"
 msgstr "MAX"
 
-#: src/components/MinMaxSelect.tsx:132
+#: src/components/MinMaxSelect.tsx:131
 msgid "MIN"
 msgstr "MIN"
 
@@ -1115,7 +1126,7 @@ msgstr "Made with NYC ♥ by the team at <0>JustFix.org</0>"
 msgid "Maintenance code violations"
 msgstr "Maintenance code violations"
 
-#: src/components/Multiselect.tsx:70
+#: src/components/Multiselect.tsx:69
 msgid "Make a selection from the list or clear search text"
 msgstr "Make a selection from the list or clear search text"
 
@@ -1131,15 +1142,15 @@ msgstr "Manage Subscriptions"
 msgid "Manage subscriptions"
 msgstr "Manage subscriptions"
 
-#: src/components/PortfolioFilters.tsx:124
+#: src/components/PortfolioFilters.tsx:125
 msgid "Map"
 msgstr "Map"
 
-#: src/components/MinMaxSelect.tsx:206
+#: src/components/MinMaxSelect.tsx:205
 msgid "Max must be greater than 0"
 msgstr "Max must be greater than 0"
 
-#: src/components/MinMaxSelect.tsx:210
+#: src/components/MinMaxSelect.tsx:209
 msgid "Max must be greater than {minOption}"
 msgstr "Max must be greater than {minOption}"
 
@@ -1160,15 +1171,15 @@ msgstr "Menu"
 msgid "Methodology"
 msgstr "Methodology"
 
-#: src/components/MinMaxSelect.tsx:202
+#: src/components/MinMaxSelect.tsx:201
 msgid "Min must be greater than 0"
 msgstr "Min must be greater than 0"
 
-#: src/components/MinMaxSelect.tsx:198
+#: src/components/MinMaxSelect.tsx:197
 msgid "Min must be less than or equal to Max"
 msgstr "Min must be less than or equal to Max"
 
-#: src/components/MinMaxSelect.tsx:214
+#: src/components/MinMaxSelect.tsx:213
 msgid "Min must be less than {maxOption}"
 msgstr "Min must be less than {maxOption}"
 
@@ -1180,7 +1191,7 @@ msgstr "Min must be less than {maxOption}"
 msgid "More Mobile Friendly"
 msgstr "More Mobile Friendly"
 
-#: src/components/DetailView.tsx:184
+#: src/components/DetailView.tsx:193
 msgid "Most Common 311 Complaints, Last 3 Years"
 msgstr "Most Common 311 Complaints, Last 3 Years"
 
@@ -1197,8 +1208,8 @@ msgid "MyNYCHA App"
 msgstr "MyNYCHA App"
 
 #: src/components/EmailAlertSignup.tsx:136
-msgid "NEW"
-msgstr "NEW"
+#~ msgid "NEW"
+#~ msgstr "NEW"
 
 #: src/util/helpers.ts:34
 msgid "NON-CONSTRUCTION"
@@ -1232,7 +1243,7 @@ msgstr "New Search"
 msgid "New York Regional Office:"
 msgstr "New York Regional Office:"
 
-#: src/components/SendNewLink.tsx:20
+#: src/components/SendNewLink.tsx:19
 msgid "New link sent"
 msgstr "New link sent"
 
@@ -1286,7 +1297,7 @@ msgstr "Non-ECB"
 msgid "Non-Emergency"
 msgstr "Non-Emergency"
 
-#: src/components/DetailView.tsx:192
+#: src/components/DetailView.tsx:201
 msgid "None"
 msgstr "None"
 
@@ -1299,7 +1310,7 @@ msgstr "Not found"
 #~ msgstr "Notice an inaccuracy? Click here."
 
 #: src/components/IndicatorsDatasets.tsx:171
-#: src/components/PortfolioFilters.tsx:137
+#: src/components/PortfolioFilters.tsx:138
 msgid "Number of Units"
 msgstr "Number of Units"
 
@@ -1338,13 +1349,13 @@ msgstr "Oops! That email is invalid."
 msgid "Open"
 msgstr "Open"
 
-#: src/components/BuildingStatsTable.tsx:56
+#: src/components/BuildingStatsTable.tsx:57
 msgid "Open Violations"
 msgstr "Open Violations"
 
-#: src/components/SocialShare.tsx:16
 #: src/components/SocialShare.tsx:17
 #: src/components/SocialShare.tsx:18
+#: src/components/SocialShare.tsx:19
 msgid "Opens in a new window"
 msgstr "Opens in a new window"
 
@@ -1352,7 +1363,7 @@ msgstr "Opens in a new window"
 #~ msgid "Organizer"
 #~ msgstr "Organizer"
 
-#: src/components/UserTypeInput.tsx:16
+#: src/components/UserTypeInput.tsx:15
 msgid "Other"
 msgstr "Other"
 
@@ -1409,12 +1420,12 @@ msgstr "Password"
 msgid "Password reset successful"
 msgstr "Password reset successful"
 
-#: src/components/DetailView.tsx:335
-#: src/components/DetailView.tsx:345
+#: src/components/DetailView.tsx:346
+#: src/components/DetailView.tsx:356
 msgid "People"
 msgstr "People"
 
-#: src/components/PortfolioFilters.tsx:134
+#: src/components/PortfolioFilters.tsx:135
 #: src/components/PortfolioTable.tsx:272
 msgid "Person/Entity"
 msgstr "Person/Entity"
@@ -1431,11 +1442,11 @@ msgstr "Please enter a valid email address."
 msgid "Please enter an email address!"
 msgstr "Please enter an email address!"
 
-#: src/components/PasswordInput.tsx:69
+#: src/components/PasswordInput.tsx:70
 msgid "Please enter password."
 msgstr "Please enter password."
 
-#: src/components/UserTypeInput.tsx:39
+#: src/components/UserTypeInput.tsx:36
 msgid "Please select an option."
 msgstr "Please select an option."
 
@@ -1460,7 +1471,7 @@ msgid "Previous page"
 msgstr "Previous page"
 
 #: src/components/LegalFooter.tsx:41
-#: src/containers/PrivacyPolicyPage.tsx:8
+#: src/containers/PrivacyPolicyPage.tsx:11
 msgid "Privacy policy"
 msgstr "Privacy policy"
 
@@ -1468,7 +1479,7 @@ msgstr "Privacy policy"
 msgid "Public Housing Development"
 msgstr "Public Housing Development"
 
-#: src/components/BuildingStatsTable.tsx:93
+#: src/components/BuildingStatsTable.tsx:94
 #: src/components/PortfolioTable.tsx:148
 msgid "RS Units"
 msgstr "RS Units"
@@ -1478,8 +1489,8 @@ msgstr "RS Units"
 #~ msgid "Read more about our Methodology"
 #~ msgstr "Read more about our Methodology"
 
-#: src/components/PortfolioFilters.tsx:113
-#: src/components/PortfolioFilters.tsx:183
+#: src/components/PortfolioFilters.tsx:114
+#: src/components/PortfolioFilters.tsx:184
 msgid "Read more in our Methodology section"
 msgstr "Read more in our Methodology section"
 
@@ -1487,7 +1498,7 @@ msgstr "Read more in our Methodology section"
 msgid "Registration expired:"
 msgstr "Registration expired:"
 
-#: src/containers/AccountSettingsPage.tsx:24
+#: src/containers/AccountSettingsPage.tsx:25
 msgid "Remove"
 msgstr "Remove"
 
@@ -1497,11 +1508,11 @@ msgstr "Remove building"
 
 #: src/components/IndicatorsDatasets.tsx:167
 #: src/components/IndicatorsViz.tsx:228
-#: src/components/PortfolioFilters.tsx:131
+#: src/components/PortfolioFilters.tsx:132
 msgid "Rent Stabilized Units"
 msgstr "Rent Stabilized Units"
 
-#: src/components/PortfolioFilters.tsx:128
+#: src/components/PortfolioFilters.tsx:129
 msgid "Rent Stabilized Units filter"
 msgstr "Rent Stabilized Units filter"
 
@@ -1525,7 +1536,7 @@ msgstr "Rent stabilized units ({0}): {1}"
 #~ msgid "Rent stabilized units are self-reported in yearly tax statements by building owners. As a result, many buildings with rent stabilized units may appear to be deregulated."
 #~ msgstr "Rent stabilized units are self-reported in yearly tax statements by building owners. As a result, many buildings with rent stabilized units may appear to be deregulated."
 
-#: src/components/PortfolioFilters.tsx:230
+#: src/components/PortfolioFilters.tsx:231
 msgid "Rent stabilized units are self-reported in yearly tax statements by building owners. As a result, many buildings with rent stabilized units may not be documented."
 msgstr "Rent stabilized units are self-reported in yearly tax statements by building owners. As a result, many buildings with rent stabilized units may not be documented."
 
@@ -1587,12 +1598,12 @@ msgstr "SIGNAGE MISSING"
 msgid "STAIRS"
 msgstr "STAIRS"
 
-#: src/components/UserSettingField.tsx:136
+#: src/components/UserSettingField.tsx:135
 msgid "Save"
 msgstr "Save"
 
-#: src/components/Multiselect.tsx:72
-#: src/containers/App.tsx:101
+#: src/components/Multiselect.tsx:71
+#: src/containers/App.tsx:109
 msgid "Search"
 msgstr "Search"
 
@@ -1621,19 +1632,23 @@ msgstr "See Building Profile"
 msgid "See the most common complaints reported by tenants to 311, now on the Overview and Portfolio tabs."
 msgstr "See the most common complaints reported by tenants to 311, now on the Overview and Portfolio tabs."
 
-#: src/components/MinMaxSelect.tsx:109
+#: src/components/MinMaxSelect.tsx:108
 msgid "Select one or more ranges of building units, or set a custom range, then apply selections to filter the list of portfolio properties."
 msgstr "Select one or more ranges of building units, or set a custom range, then apply selections to filter the list of portfolio properties."
 
 #: src/components/GetRepairs.tsx:18
-msgid "Send a free, legally vetted letter to notify your landlord of repair issues"
-msgstr "Send a free, legally vetted letter to notify your landlord of repair issues"
+#~ msgid "Send a free, legally vetted letter to notify your landlord of repair issues"
+#~ msgstr "Send a free, legally vetted letter to notify your landlord of repair issues"
+
+#: src/components/GetRepairs.tsx:18
+msgid "Send a free, legally vetted letter to notify your landlord of repair issues."
+msgstr "Send a free, legally vetted letter to notify your landlord of repair issues."
 
 #: src/components/Login.tsx:122
 #~ msgid "Send again"
 #~ msgstr "Send again"
 
-#: src/components/SendNewLink.tsx:17
+#: src/components/SendNewLink.tsx:16
 msgid "Send new link"
 msgstr "Send new link"
 
@@ -1653,7 +1668,7 @@ msgstr "Send us a data request"
 #~ msgid "Share this page with your neighbors"
 #~ msgstr "Share this page with your neighbors"
 
-#: src/components/DetailView.tsx:264
+#: src/components/DetailView.tsx:277
 #: src/components/EngagementPanel.tsx:11
 #: src/components/PropertiesSummary.tsx:140
 #: src/containers/NotRegisteredPage.tsx:19
@@ -1668,7 +1683,7 @@ msgstr "Shareholder"
 msgid "Show"
 msgstr "Show"
 
-#: src/components/Multiselect.tsx:121
+#: src/components/Multiselect.tsx:120
 msgid "Show all {numSelections} selections"
 msgstr "Show all {numSelections} selections"
 
@@ -1676,15 +1691,15 @@ msgstr "Show all {numSelections} selections"
 msgid "Show legend"
 msgstr "Show legend"
 
-#: src/components/Multiselect.tsx:139
+#: src/components/Multiselect.tsx:138
 msgid "Show less"
 msgstr "Show less"
 
-#: src/components/Multiselect.tsx:138
+#: src/components/Multiselect.tsx:137
 msgid "Show only {previewSelectedNum} selections"
 msgstr "Show only {previewSelectedNum} selections"
 
-#: src/components/PortfolioFilters.tsx:148
+#: src/components/PortfolioFilters.tsx:149
 msgid "Showing {0} {1, plural, one {result} other {results}}"
 msgstr "Showing {0} {1, plural, one {result} other {results}}"
 
@@ -1811,7 +1826,7 @@ msgstr "Summary"
 msgid "TENANT HARASSMENT"
 msgstr "TENANT HARASSMENT"
 
-#: src/components/PortfolioFilters.tsx:121
+#: src/components/PortfolioFilters.tsx:122
 msgid "Table"
 msgstr "Table"
 
@@ -1823,15 +1838,15 @@ msgstr "Take action on JustFix.org!"
 msgid "Tax Exemptions"
 msgstr "Tax Exemptions"
 
-#: src/components/UserTypeInput.tsx:11
+#: src/components/UserTypeInput.tsx:10
 msgid "Tenant"
 msgstr "Tenant"
 
-#: src/components/UserTypeInput.tsx:13
+#: src/components/UserTypeInput.tsx:12
 msgid "Tenant Advocate"
 msgstr "Tenant Advocate"
 
-#: src/components/UserTypeInput.tsx:12
+#: src/components/UserTypeInput.tsx:11
 msgid "Tenant Organizer"
 msgstr "Tenant Organizer"
 
@@ -1840,12 +1855,12 @@ msgid "Tenants in this portfolio have reported a total of <0>{totalhpdcomplaints
 msgstr "Tenants in this portfolio have reported a total of <0>{totalhpdcomplaints}</0> {totalhpdcomplaints, plural, one {complaint} other {complaints}} to 311, <1>{totalrecenthpdcomplaints}</1> of which {totalrecenthpdcomplaints, plural, one {was} other {were}} reported in the last three years."
 
 #: src/components/LegalFooter.tsx:38
-#: src/containers/TermsOfUsePage.tsx:8
+#: src/containers/TermsOfUsePage.tsx:11
 msgid "Terms of use"
 msgstr "Terms of use"
 
 #: src/components/Login.tsx:118
-#: src/components/UserSettingField.tsx:114
+#: src/components/UserSettingField.tsx:113
 msgid "That email is already used."
 msgstr "That email is already used."
 
@@ -1901,7 +1916,7 @@ msgstr "The most common corporate entity is <0>{0}</0> and the most common busin
 msgid "The most common {0, plural, one {issue} other {issues}} reported in this portfolio over the last three years {1, plural, one {is} other {are}} <0/>."
 msgstr "The most common {0, plural, one {issue} other {issues}} reported in this portfolio over the last three years {1, plural, one {is} other {are}} <0/>."
 
-#: src/components/BuildingStatsTable.tsx:55
+#: src/components/BuildingStatsTable.tsx:56
 msgid "The number of open HPD violations for this building, updated monthly. Click the HPD Building Profile button below for the most up-to-date information."
 msgstr "The number of open HPD violations for this building, updated monthly. Click the HPD Building Profile button below for the most up-to-date information."
 
@@ -1909,7 +1924,7 @@ msgstr "The number of open HPD violations for this building, updated monthly. Cl
 msgid "The number of residential units across all buildings in this development, according to the Dept. of City Planning."
 msgstr "The number of residential units across all buildings in this development, according to the Dept. of City Planning."
 
-#: src/components/BuildingStatsTable.tsx:46
+#: src/components/BuildingStatsTable.tsx:47
 msgid "The number of residential units in this building, according to the Dept. of City Planning."
 msgstr "The number of residential units in this building, according to the Dept. of City Planning."
 
@@ -1925,7 +1940,7 @@ msgstr "The password reset link that we sent you is no longer valid."
 msgid "The registration for this property is missing details for owner name or businesses address, which are required to link the property to a portfolio."
 msgstr "The registration for this property is missing details for owner name or businesses address, which are required to link the property to a portfolio."
 
-#: src/components/PortfolioFilters.tsx:239
+#: src/components/PortfolioFilters.tsx:240
 msgid "The same owner may have spelled their name several ways in official documents."
 msgstr "The same owner may have spelled their name several ways in official documents."
 
@@ -1933,7 +1948,7 @@ msgstr "The same owner may have spelled their name several ways in official docu
 msgid "The verification link that we sent you is no longer valid."
 msgstr "The verification link that we sent you is no longer valid."
 
-#: src/components/BuildingStatsTable.tsx:37
+#: src/components/BuildingStatsTable.tsx:38
 msgid "The year that this building was originally constructed, according to the Dept. of City Planning."
 msgstr "The year that this building was originally constructed, according to the Dept. of City Planning."
 
@@ -1945,7 +1960,7 @@ msgstr "The {0, plural, one {} other {average}} age of {1, plural, one {this bui
 msgid "There {0, plural, one {<0>is <1>1</1> building</0>} other {<2>are <3>{1}</3> buildings</2>}} in this portfolio with a total of {2, plural, one {1 unit} other {# units}}."
 msgstr "There {0, plural, one {<0>is <1>1</1> building</0>} other {<2>are <3>{1}</3> buildings</2>}} in this portfolio with a total of {2, plural, one {1 unit} other {# units}}."
 
-#: src/containers/AccountSettingsPage.tsx:56
+#: src/containers/AccountSettingsPage.tsx:61
 msgid "There {subscriptionsNumber, plural, one {is} other {are}} {subscriptionsNumber} {subscriptionsNumber, plural, one {building} other {buildings}} in your weekly updates"
 msgstr "There {subscriptionsNumber, plural, one {is} other {are}} {subscriptionsNumber} {subscriptionsNumber, plural, one {building} other {buildings}} in your weekly updates"
 
@@ -1973,7 +1988,7 @@ msgstr "This is <0>worse</0> than the citywide average of {VIOLATIONS_AVG} per r
 #~ msgid "This is the new version of Who Owns What. To view the old version <0>visit the About Page.</0>"
 #~ msgstr "This is the new version of Who Owns What. To view the old version <0>visit the About Page.</0>"
 
-#: src/components/BuildingStatsTable.tsx:22
+#: src/components/BuildingStatsTable.tsx:23
 msgid "This is the official identifer for the building according to the Dept. of Finance tax records."
 msgstr "This is the official identifer for the building according to the Dept. of Finance tax records."
 
@@ -2005,11 +2020,11 @@ msgstr "This portfolio has an average of <0>{0}</0> open HPD violations per resi
 msgid "This represents <0>{0}%</0> of the total size of this portfolio."
 msgstr "This represents <0>{0}%</0> of the total size of this portfolio."
 
-#: src/components/BuildingStatsTable.tsx:64
+#: src/components/BuildingStatsTable.tsx:65
 msgid "This represents the total number of HPD Violations (both open & closed) recorded by the city."
 msgstr "This represents the total number of HPD Violations (both open & closed) recorded by the city."
 
-#: src/components/BuildingStatsTable.tsx:91
+#: src/components/BuildingStatsTable.tsx:92
 msgid "This tracks how rent stabilized units in the building have changed (i.e. \"{delta}\") from 2007 to {0}. If the number for {1} is red, this means there has been a loss in stabilized units! These counts are estimated from the DOF Property Tax Bills."
 msgstr "This tracks how rent stabilized units in the building have changed (i.e. \"{delta}\") from 2007 to {0}. If the number for {1} is red, this means there has been a loss in stabilized units! These counts are estimated from the DOF Property Tax Bills."
 
@@ -2035,11 +2050,11 @@ msgstr "Top Complaint"
 msgid "Total"
 msgstr "Total"
 
-#: src/components/BuildingStatsTable.tsx:65
+#: src/components/BuildingStatsTable.tsx:66
 msgid "Total Violations"
 msgstr "Total Violations"
 
-#: src/components/PortfolioFilters.tsx:236
+#: src/components/PortfolioFilters.tsx:237
 msgid "Try adjusting or clearing the filters to show more than 0 results."
 msgstr "Try adjusting or clearing the filters to show more than 0 results."
 
@@ -2055,7 +2070,7 @@ msgstr "Unable to initiate a court action for nonpayment of rent."
 msgid "Unable to request Code Violation Dismissals"
 msgstr "Unable to request Code Violation Dismissals"
 
-#: src/components/BuildingStatsTable.tsx:47
+#: src/components/BuildingStatsTable.tsx:48
 #: src/components/PortfolioTable.tsx:138
 #: src/containers/NychaPage.tsx:87
 msgid "Units"
@@ -2141,7 +2156,7 @@ msgstr "Verify your email to receive updates and to add new buildings."
 msgid "View Detail"
 msgstr "View Detail"
 
-#: src/components/PortfolioFilters.tsx:214
+#: src/components/PortfolioFilters.tsx:215
 msgid "View Results"
 msgstr "View Results"
 
@@ -2150,7 +2165,7 @@ msgstr "View Results"
 msgid "View by:"
 msgstr "View by:"
 
-#: src/components/BuildingStatsTable.tsx:109
+#: src/components/BuildingStatsTable.tsx:110
 msgid "View data over time"
 msgstr "View data over time"
 
@@ -2176,10 +2191,10 @@ msgstr "View documents on ACRIS"
 #~ msgstr "View legend"
 
 #: src/components/DetailView.tsx:155
-msgid "View map"
-msgstr "View map"
+#~ msgid "View map"
+#~ msgstr "View map"
 
-#: src/components/DetailView.tsx:144
+#: src/components/DetailView.tsx:124
 msgid "View on Google Maps"
 msgstr "View on Google Maps"
 
@@ -2188,9 +2203,9 @@ msgstr "View on Google Maps"
 msgid "View portfolio"
 msgstr "View portfolio"
 
-#: src/components/DetailView.tsx:146
-#~ msgid "View portfolio map"
-#~ msgstr "View portfolio map"
+#: src/components/DetailView.tsx:162
+msgid "View portfolio map"
+msgstr "View portfolio map"
 
 #: src/components/IndicatorsDatasets.tsx:42
 #: src/components/IndicatorsDatasets.tsx:99
@@ -2217,11 +2232,11 @@ msgstr "WINDOWS"
 #~ msgid "Warning"
 #~ msgstr "Warning"
 
-#: src/components/DetailView.tsx:219
+#: src/components/DetailView.tsx:228
 msgid "Warning: This building has an expired registration and was sold after the expiration date. The landlord info listed here may be outdated."
 msgstr "Warning: This building has an expired registration and was sold after the expiration date. The landlord info listed here may be outdated."
 
-#: src/components/DetailView.tsx:93
+#: src/components/DetailView.tsx:94
 msgid "We compare your search address with a database of over 200k buildings to identify a landlord or management company's portfolio. To learn more, check out <0>our methodology</0>."
 msgstr "We compare your search address with a database of over 200k buildings to identify a landlord or management company's portfolio. To learn more, check out <0>our methodology</0>."
 
@@ -2229,7 +2244,7 @@ msgstr "We compare your search address with a database of over 200k buildings to
 msgid "We overhauled the Portfolio tab to help make navigating this large table of data easier, especially for mobile phones."
 msgstr "We overhauled the Portfolio tab to help make navigating this large table of data easier, especially for mobile phones."
 
-#: src/components/PortfolioFilters.tsx:174
+#: src/components/PortfolioFilters.tsx:175
 msgid "We pull data from public records to calculate these results. Our algorithm relies on public <0>HPD registration data</0> for residential buildings, which contains self-reported landlord contact information on about 170,000 properties across the city."
 msgstr "We pull data from public records to calculate these results. Our algorithm relies on public <0>HPD registration data</0> for residential buildings, which contains self-reported landlord contact information on about 170,000 properties across the city."
 
@@ -2237,7 +2252,7 @@ msgstr "We pull data from public records to calculate these results. Our algorit
 msgid "We reorganized the contact details for each individual and corporate entities associated with a property on the Overview tab."
 msgstr "We reorganized the contact details for each individual and corporate entities associated with a property on the Overview tab."
 
-#: src/components/UserSettingField.tsx:119
+#: src/components/UserSettingField.tsx:118
 msgid "We send Building Updates to this email."
 msgstr "We send Building Updates to this email."
 
@@ -2282,7 +2297,7 @@ msgstr "What's New"
 #~ msgid "What's this?"
 #~ msgstr "What's this?"
 
-#: src/components/PortfolioFilters.tsx:97
+#: src/components/PortfolioFilters.tsx:98
 msgid "What’s the difference between a landlord, an owner, and head officer?"
 msgstr "What’s the difference between a landlord, an owner, and head officer?"
 
@@ -2302,11 +2317,11 @@ msgstr "Which best describes you?"
 #~ msgid "While the legal owner of a building is often a company (usually called an “LLC”), these names and business addresses registered with the Department of Housing Preservation (“HPD”) offer a clearer picture of who really controls the building. People listed here as “Head Officer” or “Owner” usually have ties to building ownership, while “Site Managers” are part of management. That being said, these names are self reported by the landlord, so they can be misleading. Learn more about HPD registrations and how this information powers this tool on the <0>About page</0>."
 #~ msgstr "While the legal owner of a building is often a company (usually called an “LLC”), these names and business addresses registered with the Department of Housing Preservation (“HPD”) offer a clearer picture of who really controls the building. People listed here as “Head Officer” or “Owner” usually have ties to building ownership, while “Site Managers” are part of management. That being said, these names are self reported by the landlord, so they can be misleading. Learn more about HPD registrations and how this information powers this tool on the <0>About page</0>."
 
-#: src/components/PortfolioFilters.tsx:100
+#: src/components/PortfolioFilters.tsx:101
 msgid "While the legal owner of a building is often a company (usually called an “LLC”), these names and business addresses registered with the Department of Housing Preservation and Development (“HPD”) offer a clearer picture of who really controls the building. People listed here as “Head Officer” or “Owner” usually have ties to building ownership, while “Site Managers” are part of management. That being said, these names are self reported by the landlord, so they can be misleading. Learn more about HPD registrations and how this information powers this tool on the <0>About page</0>."
 msgstr "While the legal owner of a building is often a company (usually called an “LLC”), these names and business addresses registered with the Department of Housing Preservation and Development (“HPD”) offer a clearer picture of who really controls the building. People listed here as “Head Officer” or “Owner” usually have ties to building ownership, while “Site Managers” are part of management. That being said, these names are self reported by the landlord, so they can be misleading. Learn more about HPD registrations and how this information powers this tool on the <0>About page</0>."
 
-#: src/components/SocialShare.tsx:14
+#: src/components/SocialShare.tsx:15
 msgid "Who Owns What is a free tool built by JustFix to research property owners in NYC. It has helped over 200,000 New Yorkers find out who really owns their building, what other buildings that their landlord or management company owns, and other critical information about code violations, evictions, rent stabilized units, and so much more in any given building. You can look up any residential building located in NYC, even public housing (NYCHA) buildings! Search your address here: {url}"
 msgstr "Who Owns What is a free tool built by JustFix to research property owners in NYC. It has helped over 200,000 New Yorkers find out who really owns their building, what other buildings that their landlord or management company owns, and other critical information about code violations, evictions, rent stabilized units, and so much more in any given building. You can look up any residential building located in NYC, even public housing (NYCHA) buildings! Search your address here: {url}"
 
@@ -2314,8 +2329,11 @@ msgstr "Who Owns What is a free tool built by JustFix to research property owner
 #~ msgid "Who are they?"
 #~ msgstr "Who are they?"
 
-#: src/containers/App.tsx:45
-#: src/containers/App.tsx:48
+#: src/components/Page.tsx:10
+#: src/components/Page.tsx:20
+#: src/components/Page.tsx:20
+#: src/containers/App.tsx:46
+#: src/containers/App.tsx:49
 msgid "Who owns what"
 msgstr "Who owns what"
 
@@ -2326,14 +2344,14 @@ msgstr "Who owns what"
 #: src/components/Page.tsx:10
 #: src/components/Page.tsx:21
 #: src/components/Page.tsx:22
-msgid "Who owns what in nyc?"
-msgstr "Who owns what in nyc?"
+#~ msgid "Who owns what in nyc?"
+#~ msgstr "Who owns what in nyc?"
 
-#: src/components/SocialShare.tsx:12
+#: src/components/SocialShare.tsx:13
 msgid "Who’s responsible for issues in your apartment & building? #WhoOwnsWhat helps you research NYC property owners using public, open data. A free tool built by @JustFixNYC, it works on any device with an internet connection! Search your address here:"
 msgstr "Who’s responsible for issues in your apartment & building? #WhoOwnsWhat helps you research NYC property owners using public, open data. A free tool built by @JustFixNYC, it works on any device with an internet connection! Search your address here:"
 
-#: src/components/DetailView.tsx:199
+#: src/components/DetailView.tsx:208
 msgid "Who’s the landlord of this building?"
 msgstr "Who’s the landlord of this building?"
 
@@ -2342,7 +2360,7 @@ msgstr "Who’s the landlord of this building?"
 msgid "Why am I seeing such a big portfolio?"
 msgstr "Why am I seeing such a big portfolio?"
 
-#: src/components/BuildingStatsTable.tsx:38
+#: src/components/BuildingStatsTable.tsx:39
 msgid "Year Built"
 msgstr "Year Built"
 
@@ -2351,6 +2369,7 @@ msgid "Yes"
 msgstr "Yes"
 
 #: src/components/Login.tsx:181
+#: src/containers/AccountSettingsPage.tsx:53
 msgid "You are logged in"
 msgstr "You are logged in"
 
@@ -2366,13 +2385,26 @@ msgstr "You are now logged in and we’ve added this building to your updates"
 #~ msgid "You are now signed up for weekly Data Updates."
 #~ msgstr "You are now signed up for weekly Data Updates."
 
-#: src/containers/UnsubscribePage.tsx:71
-msgid "You are signed up for Building Updates for {subscriptionsNumber} {subscriptionsNumber, plural, one {building} other {buildings}}"
-msgstr "You are signed up for Building Updates for {subscriptionsNumber} {subscriptionsNumber, plural, one {building} other {buildings}}"
+#: src/containers/UnsubscribePage.tsx:63
+#: src/containers/UnsubscribePage.tsx:72
+msgid "You are signed up for Building Updates for"
+msgstr "You are signed up for Building Updates for"
+
+#: src/containers/UnsubscribePage.tsx:70
+#~ msgid "You are signed up for Building Updates for {subscriptionsNumber}"
+#~ msgstr "You are signed up for Building Updates for {subscriptionsNumber}"
 
 #: src/containers/UnsubscribePage.tsx:62
-msgid "You are signed up for Building Updates for {subscriptionsNumber} {subscriptionsNumber, plural, one {building} other {buildings}}. Click below to unsubscribe from all and stop receiving Building Updates."
-msgstr "You are signed up for Building Updates for {subscriptionsNumber} {subscriptionsNumber, plural, one {building} other {buildings}}. Click below to unsubscribe from all and stop receiving Building Updates."
+#~ msgid "You are signed up for Building Updates for {subscriptionsNumber} . Click below to unsubscribe from all and stop receiving Building Updates."
+#~ msgstr "You are signed up for Building Updates for {subscriptionsNumber} . Click below to unsubscribe from all and stop receiving Building Updates."
+
+#: src/containers/UnsubscribePage.tsx:71
+#~ msgid "You are signed up for Building Updates for {subscriptionsNumber} {subscriptionsNumber, plural, one {building} other {buildings}}"
+#~ msgstr "You are signed up for Building Updates for {subscriptionsNumber} {subscriptionsNumber, plural, one {building} other {buildings}}"
+
+#: src/containers/UnsubscribePage.tsx:62
+#~ msgid "You are signed up for Building Updates for {subscriptionsNumber} {subscriptionsNumber, plural, one {building} other {buildings}}. Click below to unsubscribe from all and stop receiving Building Updates."
+#~ msgstr "You are signed up for Building Updates for {subscriptionsNumber} {subscriptionsNumber, plural, one {building} other {buildings}}. Click below to unsubscribe from all and stop receiving Building Updates."
 
 #: src/containers/UnsubscribePage.tsx:40
 #~ msgid "You are signed up for email alerts from these bulidings:"
@@ -2443,8 +2475,12 @@ msgstr "Your email is already verified"
 #~ msgstr "Your password has successfully been reset"
 
 #: src/components/Login.tsx:126
-msgid "Your privacy is important to us. Read our <0>Privacy Policy</0> and <1>Terms of Service</1>."
-msgstr "Your privacy is important to us. Read our <0>Privacy Policy</0> and <1>Terms of Service</1>."
+#~ msgid "Your privacy is important to us. Read our <0>Privacy Policy</0> and <1>Terms of Service</1>."
+#~ msgstr "Your privacy is important to us. Read our <0>Privacy Policy</0> and <1>Terms of Service</1>."
+
+#: src/components/Login.tsx:126
+msgid "Your privacy is important to us. Read our <0>Privacy Policy</0> and <1>Terms of Use</1>."
+msgstr "Your privacy is important to us. Read our <0>Privacy Policy</0> and <1>Terms of Use</1>."
 
 #: src/components/EmailAlertSignup.tsx:48
 msgid "You’re signed up for Building Updates for {0} {1}, {2}."
@@ -2467,16 +2503,16 @@ msgstr "You’re signed up for Building Updates for {0} {1}, {2}."
 #~ msgid "ZIP CODE is not applicable"
 #~ msgstr "ZIP CODE is not applicable"
 
-#: src/components/PortfolioFilters.tsx:141
+#: src/components/PortfolioFilters.tsx:142
 msgid "ZIP code is not applicable"
 msgstr "ZIP code is not applicable"
 
-#: src/components/PortfolioFilters.tsx:140
+#: src/components/PortfolioFilters.tsx:141
 #: src/components/PortfolioTable.tsx:85
 msgid "Zip Code"
 msgstr "Zip Code"
 
-#: src/components/PortfolioFilters.tsx:141
+#: src/components/PortfolioFilters.tsx:142
 msgid "Zip code filter"
 msgstr "Zip code filter"
 
@@ -2492,7 +2528,7 @@ msgstr "Zoom in"
 msgid "Zoom out"
 msgstr "Zoom out"
 
-#: src/components/MinMaxSelect.tsx:149
+#: src/components/MinMaxSelect.tsx:148
 #: src/components/StringifyList.tsx:18
 msgid "and"
 msgstr "and"
@@ -2501,13 +2537,27 @@ msgstr "and"
 msgid "associated building"
 msgstr "associated building"
 
+#: src/containers/UnsubscribePage.tsx:64
+#: src/containers/UnsubscribePage.tsx:73
+msgid "building"
+msgstr "building"
+
+#: src/containers/UnsubscribePage.tsx:64
+#: src/containers/UnsubscribePage.tsx:73
+msgid "buildings"
+msgstr "buildings"
+
 #: src/containers/AccountSettingsPage.tsx:61
 #~ msgid "contact support@justfix.org"
 #~ msgstr "contact support@justfix.org"
 
-#: src/components/DetailView.tsx:244
+#: src/components/DetailView.tsx:253
 msgid "for ${0}"
 msgstr "for ${0}"
+
+#: src/components/BuildingStatsTable.tsx:117
+msgid "hover over a box to learn more"
+msgstr "hover over a box to learn more"
 
 #: src/components/Indicators.tsx:18
 msgid "month"
@@ -2565,7 +2615,7 @@ msgstr "{0} {1}, {2} currently has {3, plural, one {one open HPD violation} othe
 #~ msgid "{header}"
 #~ msgstr "{header}"
 
-#: src/components/PasswordInput.tsx:42
+#: src/components/PasswordInput.tsx:43
 msgid "{labelText}"
 msgstr "{labelText}"
 
@@ -2577,7 +2627,7 @@ msgstr "{numberOfHits} {numberOfHits, plural, one {search result} other {search 
 #~ msgid "{subheader}"
 #~ msgstr "{subheader}"
 
-#: src/components/UserSettingField.tsx:140
+#: src/components/UserSettingField.tsx:139
 msgid "{title}"
 msgstr "{title}"
 

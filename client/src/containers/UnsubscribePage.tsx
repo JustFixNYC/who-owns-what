@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { withI18n, withI18nProps } from "@lingui/react";
-import { t, Trans, Plural } from "@lingui/macro";
+import { t, Trans } from "@lingui/macro";
 import { Button } from "@justfixnyc/component-library";
 
 import "styles/UserSetting.css";
@@ -24,7 +24,7 @@ const UnsubscribePage = withI18n()((props: withI18nProps) => {
   const isEmailUnsubscribeAll = !!params.get("all");
 
   const [subscriptions, setSubscriptions] = React.useState<BuildingSubscription[]>();
-  const subscriptionsNumber = subscriptions?.length;
+  const subscriptionsNumber: number = subscriptions?.length || 0;
 
   const pageName = STANDALONE_PAGES.find((x) => pathname.includes(x));
   const standalonePageEventParams = { from: pageName };
@@ -58,11 +58,11 @@ const UnsubscribePage = withI18n()((props: withI18nProps) => {
   const renderUnsubscribePage = () => (
     <>
       <Trans render="h1">Unsubscribe</Trans>
-      <Trans render="h2">
-        You are signed up for Building Updates for {subscriptionsNumber}{" "}
-        <Plural value={subscriptionsNumber!} one="building" other="buildings" />. Click below to
-        unsubscribe from all and stop receiving Building Updates.
-      </Trans>
+      <h2>
+        <Trans>You are signed up for Building Updates for</Trans> {subscriptionsNumber}{" "}
+        {subscriptionsNumber! === 1 ? <Trans>building</Trans> : <Trans>buildings</Trans>}.{" "}
+        <Trans>Click below to unsubscribe from all and stop receiving Building Updates.</Trans>
+      </h2>
       <Button
         variant="primary"
         size="large"
@@ -75,10 +75,10 @@ const UnsubscribePage = withI18n()((props: withI18nProps) => {
   const renderManageSubscriptionsPage = () => (
     <>
       <Trans render="h1">Manage Subscriptions</Trans>
-      <Trans render="h2" className="settings-section">
-        You are signed up for Building Updates for {subscriptionsNumber}{" "}
-        <Plural value={subscriptionsNumber!} one="building" other="buildings" />
-      </Trans>
+      <h2 className="settings-section">
+        <Trans>You are signed up for Building Updates for</Trans> {subscriptionsNumber}{" "}
+        {subscriptionsNumber! === 1 ? <Trans>building</Trans> : <Trans>buildings</Trans>}
+      </h2>
       <div className="subscriptions-container">
         {subscriptions!.map((s) => (
           <SubscriptionField key={s.bbl} {...s} onRemoveClick={handleUnsubscribeBuilding} />

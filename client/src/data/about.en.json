@@ -302,18 +302,18 @@
           {
             "data": {},
             "marks": [],
-            "value": "The Housing Data Coalition (HDC) is a group of individuals and organizations who use public data to further housing justice in New York City. To fight the real estate industry’s escalating exploitation of housing data that drives speculation and displacement, HDC aims to make public data more accessible for housing justice groups. HDC members connect, learn, and give mutual support to a variety of projects involving housing data. For more info about our working groups and monthly meetings, email ",
+            "value": "The Housing Data Coalition (HDC) is a group of individuals and organizations who use public data to further housing justice in New York City. To fight the real estate industry’s escalating exploitation of housing data that drives speculation and displacement, HDC aims to make public data more accessible for housing justice groups. HDC members connect, learn, and give mutual support to a variety of projects involving housing data. For more info about our working groups and monthly meetings, visit their website at ",
             "nodeType": "text"
           },
           {
             "data": {
-              "uri": "mailto:housingdatacoalition@gmail.com"
+              "uri": "https://www.housingdatanyc.org/"
             },
             "content": [
               {
                 "data": {},
                 "marks": [],
-                "value": "housingdatacoalition@gmail.com",
+                "value": "housingdatanyc.org",
                 "nodeType": "text"
               }
             ],
