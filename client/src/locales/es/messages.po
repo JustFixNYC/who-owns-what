@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-05-20 18:05\n"
+"PO-Revision-Date: 2024-05-20 18:18\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -622,7 +622,7 @@ msgstr "Correo electrónico verificado"
 
 #: src/containers/App.tsx:120
 msgid "Email settings"
-msgstr ""
+msgstr "Configuración del correo electrónico"
 
 #: src/components/IndicatorsViz.tsx:170
 msgid "Emergency"
@@ -638,7 +638,7 @@ msgstr "Emergencia"
 
 #: src/containers/HomePage.tsx:87
 msgid "Enter an address and find other buildings your landlord might own in NYC:"
-msgstr ""
+msgstr "Introduzca una dirección y encuentre otros edificios que su dueño pueda tener en NYC:"
 
 #: src/components/Subscribe.tsx:80
 #: src/containers/ForgotPasswordPage.tsx:53
@@ -764,7 +764,7 @@ msgstr "Filtros"
 
 #: src/containers/HomePage.tsx:88
 msgid "Find other buildings your landlord might own in NYC:"
-msgstr ""
+msgstr "Encuentre otros edificios que su dueño pueda tener en NYC:"
 
 #: src/containers/HomePage.tsx:88
 #~ msgid "Find other buildings your landlord might own:"
