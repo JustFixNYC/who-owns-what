@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-05-20 17:15\n"
+"PO-Revision-Date: 2024-05-20 18:05\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -634,7 +634,7 @@ msgstr "Emergencia"
 
 #: src/containers/HomePage.tsx:87
 #~ msgid "Enter an NYC address and find other buildings your landlord might own:"
-#~ msgstr "Introduce una dirección de NYC para encontrar otros edificios que tu propietario podría poseer:"
+#~ msgstr "Enter an NYC address and find other buildings your landlord might own:"
 
 #: src/containers/HomePage.tsx:87
 msgid "Enter an address and find other buildings your landlord might own in NYC:"
@@ -768,7 +768,7 @@ msgstr ""
 
 #: src/containers/HomePage.tsx:88
 #~ msgid "Find other buildings your landlord might own:"
-#~ msgstr "Encuentra otros edificios que su dueño podría poseer:"
+#~ msgstr "Find other buildings your landlord might own:"
 
 #: src/components/Login.tsx:139
 msgid "Forgot your password?"
@@ -1096,7 +1096,7 @@ msgstr "Inicia sesión para añadir {0} a sus Actualizaciones de edificios"
 
 #: src/containers/App.tsx:124
 #~ msgid "Log out"
-#~ msgstr "Cerrar sesión"
+#~ msgstr "Log out"
 
 #: src/containers/AccountSettingsPage.tsx:43
 #~ msgid "Login details"
@@ -2633,7 +2633,7 @@ msgstr "{0} {1}, {2} tiene {3, plural, one {una violación del HPD actual} other
 
 #: src/components/PasswordInput.tsx:43
 #~ msgid "{labelText}"
-#~ msgstr ""
+#~ msgstr "{labelText}"
 
 #: src/components/LandlordSearch.tsx:65
 msgid "{numberOfHits} {numberOfHits, plural, one {search result} other {search results}}."
@@ -2645,7 +2645,7 @@ msgstr "{numberOfHits} {numberOfHits, plural, one {resultado de búsqueda} other
 
 #: src/components/UserSettingField.tsx:139
 #~ msgid "{title}"
-#~ msgstr ""
+#~ msgstr "{title}"
 
 #: src/components/IndicatorsViz.tsx:467
 msgid "{unitsres, plural, one {1 unit total} other {# units total}}"
@@ -2678,3 +2678,4 @@ msgstr "{value, plural, one {Una Queja del HPD emitida desde el 2012} other {# Q
 #: src/components/IndicatorsDatasets.tsx:36
 msgid "{value, plural, one {One HPD Violation Issued since 2012} other {# HPD Violations Issued since 2012}}"
 msgstr "{value, plural, one {Una Violación del HPD emitida desde el 2012} other {# Violaciones del HPD emitidas desde el 2012}}"
+
