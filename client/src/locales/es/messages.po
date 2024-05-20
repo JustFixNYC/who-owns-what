@@ -620,6 +620,10 @@ msgstr "Correo electrónico no verificado. Haga clic al enlace que le enviamos a
 msgid "Email address verified"
 msgstr "Correo electrónico verificado"
 
+#: src/containers/App.tsx:120
+msgid "Email settings"
+msgstr ""
+
 #: src/components/IndicatorsViz.tsx:170
 msgid "Emergency"
 msgstr "Emergencia"
@@ -1091,8 +1095,8 @@ msgstr "Inicia sesión para añadir {0} a sus Actualizaciones de edificios"
 #~ msgstr "Log in to start getting updates for this building."
 
 #: src/containers/App.tsx:124
-msgid "Log out"
-msgstr "Cerrar sesión"
+#~ msgid "Log out"
+#~ msgstr "Cerrar sesión"
 
 #: src/containers/AccountSettingsPage.tsx:43
 #~ msgid "Login details"
@@ -2674,4 +2678,3 @@ msgstr "{value, plural, one {Una Queja del HPD emitida desde el 2012} other {# Q
 #: src/components/IndicatorsDatasets.tsx:36
 msgid "{value, plural, one {One HPD Violation Issued since 2012} other {# HPD Violations Issued since 2012}}"
 msgstr "{value, plural, one {Una Violación del HPD emitida desde el 2012} other {# Violaciones del HPD emitidas desde el 2012}}"
-
