@@ -149,7 +149,7 @@ msgid "APPLIANCE"
 msgstr "MEDIO DOMÉSTICO"
 
 #: src/containers/AboutPage.tsx:13
-#: src/containers/App.tsx:138
+#: src/containers/App.tsx:134
 msgid "About"
 msgstr "Acerca de"
 
@@ -159,7 +159,6 @@ msgstr "Según los datos del HPD disponibles, este portafolio de edificios ha re
 
 #: src/containers/AccountSettingsPage.tsx:47
 #: src/containers/AccountSettingsPage.tsx:50
-#: src/containers/App.tsx:118
 msgid "Account"
 msgstr ""
 
@@ -542,7 +541,7 @@ msgstr "PUERTAS"
 msgid "Date"
 msgstr "Fecha"
 
-#: src/containers/App.tsx:162
+#: src/containers/App.tsx:158
 msgid "Demo Site"
 msgstr "Sitio Demo"
 
@@ -574,7 +573,7 @@ msgid "Don't have an account?"
 msgstr ""
 
 #: src/components/LegalFooter.tsx:35
-#: src/containers/App.tsx:147
+#: src/containers/App.tsx:143
 msgid "Donate"
 msgstr "Donar"
 
@@ -625,6 +624,10 @@ msgstr ""
 msgid "Email address verified"
 msgstr ""
 
+#: src/containers/App.tsx:120
+msgid "Email settings"
+msgstr ""
+
 #: src/components/EmailAlertSignup.tsx:22
 #~ msgid "Email updates will be sent to {email}"
 #~ msgstr ""
@@ -642,8 +645,12 @@ msgstr "Emergencia"
 #~ msgstr "Enter NYC ZIP CODE"
 
 #: src/containers/HomePage.tsx:87
-msgid "Enter an NYC address and find other buildings your landlord might own:"
-msgstr "Introduce una dirección de NYC para encontrar otros edificios que tu propietario podría poseer:"
+#~ msgid "Enter an NYC address and find other buildings your landlord might own:"
+#~ msgstr "Introduce una dirección de NYC para encontrar otros edificios que tu propietario podría poseer:"
+
+#: src/containers/HomePage.tsx:87
+msgid "Enter an address and find other buildings your landlord might own in NYC:"
+msgstr ""
 
 #: src/components/Subscribe.tsx:80
 #: src/containers/ForgotPasswordPage.tsx:53
@@ -768,8 +775,12 @@ msgstr "Filtros"
 #~ msgstr "Filter <0/>for"
 
 #: src/containers/HomePage.tsx:88
-msgid "Find other buildings your landlord might own:"
-msgstr "Encuentra otros edificios que su dueño podría poseer:"
+msgid "Find other buildings your landlord might own in NYC:"
+msgstr ""
+
+#: src/containers/HomePage.tsx:88
+#~ msgid "Find other buildings your landlord might own:"
+#~ msgstr "Encuentra otros edificios que su dueño podría poseer:"
 
 #: src/components/Login.tsx:139
 msgid "Forgot your password?"
@@ -868,7 +879,7 @@ msgstr "¿Cómo se calculan los resultados?"
 msgid "How is this building associated to this portfolio?"
 msgstr "¿Cómo se asocia este edificio a este portafolio de edificios?"
 
-#: src/containers/App.tsx:144
+#: src/containers/App.tsx:140
 #: src/containers/HowToUsePage.tsx:13
 msgid "How to use"
 msgstr "Cómo se usa"
@@ -1074,12 +1085,12 @@ msgstr "Ubicación"
 #: src/components/Login.tsx:148
 #: src/components/Login.tsx:294
 #: src/components/Login.tsx:297
-#: src/containers/App.tsx:129
+#: src/containers/App.tsx:125
 msgid "Log in"
 msgstr ""
 
 #: src/components/Login.tsx:285
-#: src/containers/LoginPage.tsx:7
+#: src/containers/LoginPage.tsx:23
 msgid "Log in / sign up"
 msgstr ""
 
@@ -1096,8 +1107,8 @@ msgstr ""
 #~ msgstr ""
 
 #: src/containers/App.tsx:124
-msgid "Log out"
-msgstr ""
+#~ msgid "Log out"
+#~ msgstr ""
 
 #: src/containers/AccountSettingsPage.tsx:43
 #~ msgid "Login details"
@@ -1620,7 +1631,7 @@ msgid "Save"
 msgstr ""
 
 #: src/components/Multiselect.tsx:71
-#: src/containers/App.tsx:109
+#: src/containers/App.tsx:111
 msgid "Search"
 msgstr "Buscar"
 
