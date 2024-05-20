@@ -592,7 +592,7 @@ msgstr "ELEVATOR"
 #~ msgid "Each weekly email includes HPD Complaints, HPD Violations, and Eviction Filings."
 #~ msgstr "Each weekly email includes HPD Complaints, HPD Violations, and Eviction Filings."
 
-#: src/components/UserSettingField.tsx:144
+#: src/components/UserSettingField.tsx:142
 msgid "Edit"
 msgstr "Edit"
 
@@ -2627,8 +2627,8 @@ msgstr "{0} {1}, {2} currently has {3, plural, one {one open HPD violation} othe
 #~ msgstr "{header}"
 
 #: src/components/PasswordInput.tsx:43
-msgid "{labelText}"
-msgstr "{labelText}"
+#~ msgid "{labelText}"
+#~ msgstr "{labelText}"
 
 #: src/components/LandlordSearch.tsx:65
 msgid "{numberOfHits} {numberOfHits, plural, one {search result} other {search results}}."
@@ -2639,8 +2639,8 @@ msgstr "{numberOfHits} {numberOfHits, plural, one {search result} other {search 
 #~ msgstr "{subheader}"
 
 #: src/components/UserSettingField.tsx:139
-msgid "{title}"
-msgstr "{title}"
+#~ msgid "{title}"
+#~ msgstr "{title}"
 
 #: src/components/IndicatorsViz.tsx:467
 msgid "{unitsres, plural, one {1 unit total} other {# units total}}"

@@ -597,7 +597,7 @@ msgstr "ASCENSOR"
 #~ msgid "Each weekly email includes HPD Complaints, HPD Violations, and Eviction Filings."
 #~ msgstr ""
 
-#: src/components/UserSettingField.tsx:144
+#: src/components/UserSettingField.tsx:142
 msgid "Edit"
 msgstr ""
 
@@ -2644,16 +2644,16 @@ msgstr "{0} {1}, {2} tiene {3, plural, one {una violación del HPD actual} other
 #~ msgstr ""
 
 #: src/components/PasswordInput.tsx:43
-msgid "{labelText}"
-msgstr ""
+#~ msgid "{labelText}"
+#~ msgstr ""
 
 #: src/components/LandlordSearch.tsx:65
 msgid "{numberOfHits} {numberOfHits, plural, one {search result} other {search results}}."
 msgstr "{numberOfHits} {numberOfHits, plural, one {resultado de búsqueda} other {resultados de búsqueda}}."
 
 #: src/components/UserSettingField.tsx:139
-msgid "{title}"
-msgstr ""
+#~ msgid "{title}"
+#~ msgstr ""
 
 #: src/components/IndicatorsViz.tsx:467
 msgid "{unitsres, plural, one {1 unit total} other {# units total}}"
