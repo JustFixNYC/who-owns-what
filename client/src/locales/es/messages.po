@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-05-18 19:25\n"
+"PO-Revision-Date: 2024-05-20 14:54\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -2109,7 +2109,7 @@ msgstr "Utilice esta herramienta gratuita de JustFix para investigar tu edificio
 
 #: src/components/Login.tsx:286
 msgid "Use your account to get weekly email updates on {0}."
-msgstr ""
+msgstr "Utilice su cuenta para recibir actualizaciones semanales por correo electrónico sobre {0}."
 
 #: src/components/Login.tsx:246
 #~ msgid "Use your account to get weekly updates on {0}."
@@ -2142,11 +2142,11 @@ msgstr "VENTILADORES"
 
 #: src/containers/VerifyEmailPage.tsx:82
 msgid "Verify your email address"
-msgstr ""
+msgstr "Verifica su correo electrónico"
 
 #: src/components/EmailAlertSignup.tsx:62
 msgid "Verify your email to receive updates and to add new buildings."
-msgstr ""
+msgstr "Verifica su correo electrónico para recibir actualizaciones y añadir nuevos edificios."
 
 #: src/components/Login.tsx:128
 #~ msgid "Verify your email to start receiving updates"
@@ -2172,7 +2172,7 @@ msgstr "Visualizar por:"
 
 #: src/components/BuildingStatsTable.tsx:110
 msgid "View data over time"
-msgstr ""
+msgstr "Ver datos a lo largo del tiempo"
 
 #: src/components/DetailView.tsx:186
 #~ msgid "View data over time ↗︎"
@@ -2189,7 +2189,7 @@ msgstr ""
 
 #: src/components/UsefulLinks.tsx:17
 msgid "View documents on ACRIS"
-msgstr ""
+msgstr "Ver documentos en ACRIS"
 
 #: src/components/PropertiesMap.tsx:290
 #~ msgid "View legend"
@@ -2210,7 +2210,7 @@ msgstr "Ver portafolio de edificios"
 
 #: src/components/DetailView.tsx:162
 msgid "View portfolio map"
-msgstr ""
+msgstr "Ver mapa de la cartera de edificios"
 
 #: src/components/IndicatorsDatasets.tsx:42
 #: src/components/IndicatorsDatasets.tsx:99
@@ -2259,7 +2259,7 @@ msgstr "Reorganizamos los datos de contacto de cada entidad individual y corpora
 
 #: src/components/UserSettingField.tsx:118
 msgid "We send Building Updates to this email."
-msgstr ""
+msgstr "Enviamos actualizaciones de edificios a este correo electrónico."
 
 #: src/components/UserSettingField.tsx:107
 #~ msgid "We send data updates to this email."
@@ -2267,11 +2267,11 @@ msgstr ""
 
 #: src/containers/ForgotPasswordPage.tsx:62
 msgid "We sent a reset link to {email}. Please check your inbox and spam."
-msgstr ""
+msgstr "Hemos enviado un enlace de reinicio a {email}. Por favor, comprueba su buzón de correo y spam."
 
 #: src/containers/VerifyEmailPage.tsx:66
 msgid "We’re having trouble verifying your email at this time."
-msgstr ""
+msgstr "Estamos teniendo problemas para verificar su correo electrónico en este momento."
 
 #: src/components/BigPortfolioWarning.tsx:61
 #~ msgid "We’ve improved Who Owns What to dig deeper into the data and offer you a more complete picture of buildings associated with your landlord. <0>Read more in our Medium article</0>"
@@ -2380,11 +2380,11 @@ msgstr "Ha iniciado sesión"
 
 #: src/containers/UnsubscribePage.tsx:83
 msgid "You are not subscribed to any buildings"
-msgstr ""
+msgstr "No está suscrito a ningún edificio"
 
 #: src/components/EmailAlertSignup.tsx:109
 msgid "You are now logged in and we’ve added this building to your updates"
-msgstr ""
+msgstr "Ha iniciado sesión y hemos añadido este edificio a sus actualizaciones"
 
 #: src/containers/VerifyEmailPage.tsx:86
 #~ msgid "You are now signed up for weekly Data Updates."
@@ -2393,7 +2393,7 @@ msgstr ""
 #: src/containers/UnsubscribePage.tsx:63
 #: src/containers/UnsubscribePage.tsx:72
 msgid "You are signed up for Building Updates for"
-msgstr ""
+msgstr "Está inscrito a Actualizaciones de Edificios para"
 
 #: src/containers/UnsubscribePage.tsx:70
 #~ msgid "You are signed up for Building Updates for {subscriptionsNumber}"
@@ -2417,7 +2417,7 @@ msgstr ""
 
 #: src/components/DeprecationModal.tsx:16
 msgid "You are viewing a legacy version of Who Owns What"
-msgstr ""
+msgstr "Está viendo la versión anterior de Quién es el Dueño"
 
 #: src/containers/App.tsx:164
 #~ msgid "You are viewing the new version of Who Owns What."
@@ -2433,7 +2433,7 @@ msgstr ""
 
 #: src/containers/VerifyEmailPage.tsx:76
 msgid "You can now close this window or <0>search for another building</0> to add."
-msgstr ""
+msgstr "Ahora puede cerrar esta ventana o <0>buscar otro edificio</0> para añadir."
 
 #: src/containers/VerifyEmailPage.tsx:65
 #~ msgid "You can now start receiving Building Updates"
@@ -2441,7 +2441,7 @@ msgstr ""
 
 #: src/components/EmailAlertSignup.tsx:113
 msgid "You have reached the maximum number of Building Updates"
-msgstr ""
+msgstr "Ha alcanzado el número máximo de Actualizaciones de Edificios"
 
 #: src/components/EmailAlertSignup.tsx:56
 #~ msgid "You have reached the maximum number of building updates"
@@ -2461,7 +2461,7 @@ msgstr ""
 
 #: src/containers/VerifyEmailPage.tsx:81
 msgid "Your email is already verified"
-msgstr ""
+msgstr "Este correo electrónico ya está verificado"
 
 #: src/components/Login.tsx:91
 #~ msgid "Your email is associated with an account. Log in below."
@@ -2485,11 +2485,11 @@ msgstr ""
 
 #: src/components/Login.tsx:126
 msgid "Your privacy is important to us. Read our <0>Privacy Policy</0> and <1>Terms of Use</1>."
-msgstr ""
+msgstr "Su privacidad es importante a nosotros. Lea nuestra <0>Política de privacidad</0> y <1>Términos de uso</1>."
 
 #: src/components/EmailAlertSignup.tsx:48
 msgid "You’re signed up for Building Updates for {0} {1}, {2}."
-msgstr ""
+msgstr "Está inscrito a Actualizaciones de Edificios para {0} {1}, {2}."
 
 #: src/components/EmailAlertSignup.tsx:25
 #~ msgid "You’re signed up for Data Updates for this building."
