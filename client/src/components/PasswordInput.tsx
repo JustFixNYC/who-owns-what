@@ -72,7 +72,7 @@ const PasswordInputWithoutI18n = forwardRef<HTMLInputElement, PasswordInputProps
     return (
       <div className="password-input-field">
         <div className="password-input-label mb-4">
-          <label htmlFor={id ?? "password-input"}>{i18n._(t`${labelText}`)}</label>
+          <label htmlFor={id ?? "password-input"}>{labelText}</label>
         </div>
         {showPasswordRules ? (
           <div className="password-input-rules">
