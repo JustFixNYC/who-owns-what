@@ -25,8 +25,8 @@ CREATE TABLE IF NOT EXISTS signature.signature_groups AS (
 			
 			array_to_json(array_agg(row_to_json(bldgs)))::jsonb AS bldg_data
 		FROM signature.signature_bldgs AS bldgs
-		GROUP BY landlord
 		WHERE landlord IS NOT NULL
+		GROUP BY landlord
 		UNION
 		SELECT
 			lender AS group,
