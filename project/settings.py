@@ -35,6 +35,8 @@ SECRET_KEY = get_required_env("SECRET_KEY")
 
 ALERTS_API_TOKEN = get_required_env("ALERTS_API_TOKEN")
 
+SIGNATURE_API_TOKEN = get_required_env("SIGNATURE_API_TOKEN")
+
 # TODO: Figure out if this can securely stay at '*'.
 ALLOWED_HOSTS: List[str] = ["*"]
 

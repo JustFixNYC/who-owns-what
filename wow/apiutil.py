@@ -53,8 +53,7 @@ def api(fn):
 
     return wrapper
 
-
-def authorize_for_alerts(request):
+def authorize_with_token(request, token):
     keyword = "Token"
 
     if "Authorization" not in request.headers:
@@ -73,10 +72,18 @@ def authorize_for_alerts(request):
             "Invalid token header. Token string should not contain spaces."
         )
 
-    token = auth[1]
+    request_token = auth[1]
 
-    if not (settings.ALERTS_API_TOKEN == token):
+    if not (token == request_token):
         raise AuthorizationError("You do not have permission to access this resource")
+
+
+def authorize_for_alerts(request):
+    authorize_with_token(request, settings.ALERTS_API_TOKEN)
+
+
+def authorize_for_signature(request):
+    authorize_with_token(request, settings.SIGNATURE_API_TOKEN)
 
 
 def get_validated_form_data(form_class, data) -> Dict[str, Any]:

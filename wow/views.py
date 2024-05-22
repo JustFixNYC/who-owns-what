@@ -7,7 +7,12 @@ from django.http import HttpResponse, JsonResponse
 from .dbutil import call_db_func, exec_db_query, exec_sql
 from .datautil import int_or_none, float_or_none
 from . import csvutil, apiutil
-from .apiutil import api, get_validated_form_data, authorize_for_alerts
+from .apiutil import (
+    api,
+    authorize_for_signature,
+    get_validated_form_data,
+    authorize_for_alerts,
+)
 from .forms import (
     EmailAlertLaggedEvictionFilingsForm,
     EmailAlertMultiIndicatorForm,
@@ -15,6 +20,7 @@ from .forms import (
     EmailAlertViolationsForm,
     PaddedBBLForm,
     SeparatedBBLForm,
+    SignatureGroupForm,
 )
 
 
@@ -294,6 +300,31 @@ def email_alerts_multi(request):
     sql_query = combine_alert_subqueries(args["indicators"])
     result = exec_sql(sql_query, query_params)
     result[0].update(query_params)
+    return JsonResponse({"result": list(result)})
+
+
+@api
+def signature_building(request):
+    """
+    This API endpoint receives requests with a 10-digit BBL. It responds with a
+    collection of data to populate a building page of the Signature Dashboard.
+    """
+    authorize_for_signature(request)
+    bbl = get_request_bbl(request)
+    result = exec_db_query(SQL_DIR / "signature_building.sql", {"bbl": bbl})
+    return JsonResponse({"result": list(result)})
+
+
+@api
+def signature_group(request):
+    """
+    This API endpoint receives requests with a group name (landlord, lender). It
+    responds with a collection of data to populate a group page of the Signature
+    Dashboard with summary values and building-level data in json.
+    """
+    authorize_for_signature(request)
+    group = get_validated_form_data(SignatureGroupForm, request.GET)["group"]
+    result = exec_db_query(SQL_DIR / "signature_group.sql", {"group": group})
     return JsonResponse({"result": list(result)})
 
 

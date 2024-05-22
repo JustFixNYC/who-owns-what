@@ -1,0 +1,102 @@
+-- TODO: remove schema prefix from table names
+DROP TABLE IF EXISTS signature_pluto_geos;
+CREATE TEMP TABLE IF NOT EXISTS signature_pluto_geos AS (
+	SELECT
+		p.*,
+		s.landlord,
+		s.lender,
+		s.origination_date,
+		s.debt_total,
+		s.debt_building,
+		s.debt_unit,
+		ST_TRANSFORM(ST_SetSRID(ST_MakePoint(longitude, latitude),4326), 2263) AS geom_point
+	FROM pluto_latest AS p
+	INNER JOIN signature.signature_unhp_data AS s USING(bbl)
+);
+
+CREATE INDEX ON signature_pluto_geos using gist (geom_point);
+
+DROP TABLE IF EXISTS signature_pluto_poli;
+CREATE TEMP TABLE IF NOT EXISTS signature_pluto_poli AS (
+	SELECT
+		p.*,
+		council::text AS coun_dist,
+		ad.assemdist::text AS assem_dist,
+		ss.stsendist::text AS stsen_dist,
+		cg.congdist::text AS cong_dist
+	FROM signature_pluto_geos AS p
+	LEFT JOIN nyad AS ad ON st_within(p.geom_point, ad.geom)
+	LEFT JOIN nyss AS ss ON st_within(p.geom_point, ss.geom)
+	LEFT JOIN nycg AS cg ON st_within(p.geom_point, cg.geom)
+);
+
+CREATE INDEX ON signature_pluto_poli (bbl);
+
+DROP TABLE IF EXISTS signature.signature_bldgs;
+CREATE TABLE if not exists signature.signature_bldgs AS (
+	WITH evictions AS (
+	    SELECT
+	        bbl,
+	        count(*) AS evictions
+	    FROM marshal_evictions_all
+	    WHERE residentialcommercialind = 'RESIDENTIAL'
+	    GROUP BY bbl
+	), hpd_viol AS (
+	    SELECT 
+	    	bbl,
+	        count((violationstatus = 'Open')::int) AS hpd_viol_bc_open,
+	        count(*) AS hpd_viol_bc_total
+	    FROM hpd_violations
+	    WHERE class = any('{B,C}') and inspectiondate >= '2010-01-01'
+	    GROUP BY bbl
+	), hpd_comp AS (
+		SELECT 
+			bbl,
+			COUNT(*) FILTER (WHERE TYPE = ANY('{IMMEDIATE EMERGENCY,HAZARDOUS,EMERGENCY}')) AS hpd_comp_emerg_total,
+			array_agg(distinct apartment) filter (WHERE apartment != 'BLDG') AS hpd_comp_apts
+		FROM HPD_COMPLAINTS_AND_PROBLEMS
+		WHERE RECEIVEDDATE >= '2010-01-01'
+		GROUP BY bbl
+	)
+	SELECT
+		sp.bbl,
+		sp.address,
+		sp.zipcode AS zip,
+		sp.borough,
+		
+		sp.council AS coun_dist,
+		sp.assem_dist,
+		sp.stsen_dist,
+		sp.cong_dist,
+			
+		sp.unitsres AS units_res,
+		sp.unitstotal - sp.unitsres AS units_comm,
+		sp.yearbuilt AS year_built,
+		sp.numbldgs AS buildings,
+	
+	    coalesce(evictions.evictions, 0) AS evictions,
+	    
+	    coalesce(hpd_viol.hpd_viol_bc_open, 0) AS hpd_viol_bc_open,
+	    coalesce(hpd_viol.hpd_viol_bc_total, 0) AS hpd_viol_bc_total,
+	    
+	    coalesce(hpd_comp.hpd_comp_emerg_total, 0) AS hpd_comp_emerg_total,
+	    coalesce(array_length(hpd_comp.hpd_comp_apts, 1), 0)::numeric / nullif(sp.unitsres, 0)::numeric AS hpd_comp_apts_pct,
+	    array_to_string(hpd_comp.hpd_comp_apts, ', ') AS hpd_comp_apts,
+		
+		sp.landlord,
+		sp.lender,
+		sp.origination_date,
+		sp.debt_building AS debt_total,
+		sp.debt_unit AS debt_per_unit,
+		
+		sp.latitude AS lat,
+		sp.longitude AS lng
+	FROM signature_pluto_poli AS sp
+	LEFT JOIN evictions USING(bbl)
+	LEFT JOIN hpd_viol USING(bbl)
+	LEFT JOIN hpd_comp USING(bbl)
+);
+
+CREATE INDEX ON signature.signature_bldgs (bbl);
+CREATE INDEX ON signature.signature_bldgs (landlord);
+CREATE INDEX ON signature.signature_bldgs (lender);

@@ -40,4 +40,6 @@ urlpatterns = [
         name="email_alerts_lagged_eviction_filings",
     ),
     path("email_alerts_multi", views.email_alerts_multi, name="email_alerts_multi"),
+    path("signature/building", views.signature_building, name="signature_building"),
+    path("signature/group", views.signature_group, name="signature_group"),
 ]
