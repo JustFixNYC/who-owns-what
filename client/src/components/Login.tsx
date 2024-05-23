@@ -277,8 +277,8 @@ const LoginWithoutI18n = (props: withI18nProps) => {
       <Trans render="h1">You are logged in</Trans>
       <Trans render="h2">
         <JFCLLocaleLink to={home}>Search for an address</JFCLLocaleLink> to add to your Building
-        Updates, or visit your <JFCLLocaleLink to={account.settings}>account</JFCLLocaleLink> page
-        to manage subscriptions.
+        Updates, or visit your <JFCLLocaleLink to={account.settings}>email settings</JFCLLocaleLink>{" "}
+        page to manage subscriptions.
       </Trans>
     </>
   );
