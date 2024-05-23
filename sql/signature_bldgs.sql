@@ -10,7 +10,7 @@ CREATE TEMP TABLE IF NOT EXISTS signature_pluto_geos AS (
 		s.debt_unit,
 		ST_TRANSFORM(ST_SetSRID(ST_MakePoint(longitude, latitude),4326), 2263) AS geom_point
 	FROM pluto_latest AS p
-	INNER JOIN signature.signature_unhp_data AS s USING(bbl)
+	INNER JOIN signature_unhp_data AS s USING(bbl)
 );
 
 CREATE INDEX ON signature_pluto_geos using gist (geom_point);
@@ -31,8 +31,8 @@ CREATE TEMP TABLE IF NOT EXISTS signature_pluto_poli AS (
 
 CREATE INDEX ON signature_pluto_poli (bbl);
 
-DROP TABLE IF EXISTS signature.signature_bldgs;
-CREATE TABLE if not exists signature.signature_bldgs AS (
+DROP TABLE IF EXISTS signature_bldgs;
+CREATE TABLE if not exists signature_bldgs AS (
 	WITH evictions AS (
 	    SELECT
 	        bbl,
@@ -96,6 +96,6 @@ CREATE TABLE if not exists signature.signature_bldgs AS (
 	LEFT JOIN hpd_comp USING(bbl)
 );
 
-CREATE INDEX ON signature.signature_bldgs (bbl);
-CREATE INDEX ON signature.signature_bldgs (landlord);
-CREATE INDEX ON signature.signature_bldgs (lender);
+CREATE INDEX ON signature_bldgs (bbl);
+CREATE INDEX ON signature_bldgs (landlord);
+CREATE INDEX ON signature_bldgs (lender);

@@ -1,6 +1,6 @@
 -- TODO: remove schema prefix from table names
-DROP TABLE IF EXISTS signature.signature_groups;
-CREATE TABLE IF NOT EXISTS signature.signature_groups AS (
+DROP TABLE IF EXISTS signature_groups;
+CREATE TABLE IF NOT EXISTS signature_groups AS (
 	WITH groups_stacked AS (
 		SELECT
 			landlord AS group_name,
@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS signature.signature_groups AS (
 			sum(debt_total) / sum(units_res) AS debt_per_unit,
 			
 			array_to_json(array_agg(row_to_json(bldgs)))::jsonb AS bldg_data
-		FROM signature.signature_bldgs AS bldgs
+		FROM signature_bldgs AS bldgs
 		WHERE landlord IS NOT NULL
 		GROUP BY landlord
 		UNION
@@ -50,7 +50,7 @@ CREATE TABLE IF NOT EXISTS signature.signature_groups AS (
 			sum(debt_total) / sum(units_res) AS debt_per_unit,
 			
 			array_to_json(array_agg(row_to_json(bldgs)))::jsonb AS bldg_data
-		FROM signature.signature_bldgs AS bldgs
+		FROM signature_bldgs AS bldgs
 		GROUP BY lender
 	)
 	SELECT 
@@ -73,5 +73,5 @@ CREATE TABLE IF NOT EXISTS signature.signature_groups AS (
 	FROM groups_stacked
 );
 
-CREATE INDEX ON signature.signature_groups (group_slug);
+CREATE INDEX ON signature_groups (group_slug);
 
