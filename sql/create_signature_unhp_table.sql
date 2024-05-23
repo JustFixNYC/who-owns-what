@@ -8,10 +8,10 @@ DROP TABLE IF EXISTS signature_unhp_data cascade;
 CREATE TABLE signature_unhp_data (
     bbl char(10),
     landlord text,
-    origination_date date,
-    debt_total numeric,
-    debt_building numeric,
-    debt_unit numeric,
+    origination_date text,
+    debt_total text,
+    debt_building text,
+    debt_unit text,
     lender text
 );
 
