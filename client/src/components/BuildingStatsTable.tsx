@@ -236,14 +236,14 @@ const BuildingStatsTableWithoutI18n = (props: { addr: AddressRecord; timelineUrl
     <div className="BuildingStatsTable card-body-table show-sm">
       <div className="table-row">
         <BBL />
+        <YearBuilt />
       </div>
       <div className="table-row">
-        <YearBuilt />
         <UnitsRes />
         <RsUnits />
+        <OpenViolations />
       </div>
       <div className="table-row">
-        <OpenViolations />
         <TotalViolations />
         <EvictionsExecuted />
       </div>
