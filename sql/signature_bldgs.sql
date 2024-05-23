@@ -9,8 +9,8 @@ CREATE TEMP TABLE IF NOT EXISTS signature_pluto_geos AS (
 		s.debt_building,
 		s.debt_unit,
 		ST_TRANSFORM(ST_SetSRID(ST_MakePoint(longitude, latitude),4326), 2263) AS geom_point
-	FROM pluto_latest AS p
-	INNER JOIN signature_unhp_data AS s USING(bbl)
+	FROM signature_unhp_data AS s
+	LEFT JOIN pluto_latest AS p USING(bbl)
 );
 
 CREATE INDEX ON signature_pluto_geos using gist (geom_point);
