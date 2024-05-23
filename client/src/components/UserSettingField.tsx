@@ -261,9 +261,7 @@ const UserSettingFieldWithoutI18n = (props: UserSettingFieldProps) => {
           </>
         ) : (
           <>
-            <Trans render="label" className="user-setting-label">
-              {title}
-            </Trans>
+            <label className="user-setting-label">{title}</label>
             <div>
               <span>{preview}</span>
               <Button
