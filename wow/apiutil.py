@@ -53,6 +53,7 @@ def api(fn):
 
     return wrapper
 
+
 def authorize_with_token(request, token):
     keyword = "Token"
 
