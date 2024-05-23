@@ -95,8 +95,12 @@ msgstr "<0>Search for an address</0> to add to your Building Updates"
 #~ msgstr "<0>Search for an address</0> to add to your Building Updates, or visit your <1>Account</1>."
 
 #: src/components/Login.tsx:182
-msgid "<0>Search for an address</0> to add to your Building Updates, or visit your <1>account</1> page to manage subscriptions."
-msgstr "<0>Search for an address</0> to add to your Building Updates, or visit your <1>account</1> page to manage subscriptions."
+#~ msgid "<0>Search for an address</0> to add to your Building Updates, or visit your <1>account</1> page to manage subscriptions."
+#~ msgstr "<0>Search for an address</0> to add to your Building Updates, or visit your <1>account</1> page to manage subscriptions."
+
+#: src/components/Login.tsx:182
+msgid "<0>Search for an address</0> to add to your Building Updates, or visit your <1>email settings</1> page to manage subscriptions."
+msgstr "<0>Search for an address</0> to add to your Building Updates, or visit your <1>email settings</1> page to manage subscriptions."
 
 #: src/containers/NotRegisteredPage.tsx:73
 msgid "<0>This property is not required to register with HPD</0> because it doesn't have any residential units."
@@ -153,7 +157,6 @@ msgid "According to available HPD data, this portfolio has received <0>{totalvio
 msgstr "According to available HPD data, this portfolio has received <0>{totalviolations}</0> total violations."
 
 #: src/containers/AccountSettingsPage.tsx:47
-#: src/containers/AccountSettingsPage.tsx:50
 msgid "Account"
 msgstr "Account"
 
@@ -615,6 +618,7 @@ msgstr "Email address not verified. Click the link we sent to {email} start rece
 msgid "Email address verified"
 msgstr "Email address verified"
 
+#: src/containers/AccountSettingsPage.tsx:50
 #: src/containers/App.tsx:120
 msgid "Email settings"
 msgstr "Email settings"
