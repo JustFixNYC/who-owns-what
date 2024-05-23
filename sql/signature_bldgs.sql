@@ -6,7 +6,6 @@ CREATE TEMP TABLE IF NOT EXISTS signature_pluto_geos AS (
 		s.landlord,
 		s.lender,
 		s.origination_date,
-		s.debt_total,
 		s.debt_building,
 		s.debt_unit,
 		ST_TRANSFORM(ST_SetSRID(ST_MakePoint(longitude, latitude),4326), 2263) AS geom_point
@@ -85,9 +84,9 @@ CREATE TABLE if not exists signature.signature_bldgs AS (
 		
 		sp.landlord,
 		sp.lender,
-		sp.origination_date,
-		sp.debt_building AS debt_total,
-		sp.debt_unit AS debt_per_unit,
+		nullif(sp.origination_date, '')::date AS origination_date,
+		nullif(sp.debt_building, '')::numeric AS debt_total,
+		nullif(sp.debt_unit, '')::numeric AS debt_per_unit,
 		
 		sp.latitude AS lat,
 		sp.longitude AS lng
