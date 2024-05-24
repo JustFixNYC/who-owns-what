@@ -57,7 +57,7 @@ const BuildingSubscribeWithoutI18n = (props: BuildingSubscribeProps) => {
   const [showSubscriptionLimitModal, setShowSubscriptionLimitModal] = useState(false);
 
   const navigateToLogin = () => {
-    window.gtag("event", "register-login-via-building");
+    window.gtag("event", `register-login-via-building_${process.env.BRANCH}`);
     const loginRoute = `/${i18n.language}${account.login}`;
     history.push({ pathname: loginRoute, state: { addr } });
   };
@@ -131,7 +131,7 @@ const BuildingSubscribeWithoutI18n = (props: BuildingSubscribeProps) => {
           variant="primary"
           size="small"
           className="is-full-width"
-          labelText={i18n._(t`Add building`)}
+          labelText={i18n._(t`Follow building`)}
           labelIcon="circlePlus"
           onClick={() => {
             !isLoggedIn
