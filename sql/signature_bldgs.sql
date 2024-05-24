@@ -43,18 +43,18 @@ CREATE TABLE if not exists signature_bldgs AS (
 	), hpd_viol AS (
 	    SELECT 
 	    	bbl,
-	        count((violationstatus = 'Open')::int) AS hpd_viol_bc_open,
-	        count(*) AS hpd_viol_bc_total
+	        count(*) FILTER (WHERE violationstatus = 'Open' AND inspectiondate >= '2010-01-01') AS hpd_viol_bc_open,
+	        count(*) FILTER (WHERE inspectiondate >= (CURRENT_DATE - interval '1' year)) AS hpd_viol_bc_total
 	    FROM hpd_violations
-	    WHERE class = any('{B,C}') and inspectiondate >= '2010-01-01'
+	    WHERE class = any('{B,C}')
 	    GROUP BY bbl
 	), hpd_comp AS (
 		SELECT 
 			bbl,
 			COUNT(*) FILTER (WHERE TYPE = ANY('{IMMEDIATE EMERGENCY,HAZARDOUS,EMERGENCY}')) AS hpd_comp_emerg_total,
-			array_agg(distinct apartment) filter (WHERE apartment != 'BLDG') AS hpd_comp_apts
+			array_agg(DISTINCT apartment) FILTER (WHERE apartment NOT IN ('BLDG', 'NA')) AS hpd_comp_apts
 		FROM HPD_COMPLAINTS_AND_PROBLEMS
-		WHERE RECEIVEDDATE >= '2010-01-01'
+		WHERE RECEIVEDDATE >= (CURRENT_DATE - interval '1' year)
 		GROUP BY bbl
 	)
 	SELECT
