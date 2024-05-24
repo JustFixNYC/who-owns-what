@@ -1,7 +1,7 @@
 SELECT
-    group_name,
-    group_slug,
-    group_type,
+    collection_name,
+    collection_slug,
+    collection_type,
     properties,
     units_res,
     evictions,
@@ -15,5 +15,5 @@ SELECT
     debt_per_building,
     debt_per_unit,
     bldg_data
-FROM signature_groups
-WHERE group_slug = %(group)s
+FROM signature_collections
+WHERE collection_slug = %(collection)s

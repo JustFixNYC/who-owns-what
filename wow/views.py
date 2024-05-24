@@ -20,7 +20,7 @@ from .forms import (
     EmailAlertViolationsForm,
     PaddedBBLForm,
     SeparatedBBLForm,
-    SignatureGroupForm,
+    SignatureCollectionForm,
 )
 
 
@@ -316,15 +316,15 @@ def signature_building(request):
 
 
 @api
-def signature_group(request):
+def signature_collection(request):
     """
-    This API endpoint receives requests with a group name (landlord, lender). It
-    responds with a collection of data to populate a group page of the Signature
+    This API endpoint receives requests with a collection name (landlord, lender). It
+    responds with a collection of data to populate a collection page of the Signature
     Dashboard with summary values and building-level data in json.
     """
     authorize_for_signature(request)
-    group = get_validated_form_data(SignatureGroupForm, request.GET)["group"]
-    result = exec_db_query(SQL_DIR / "signature_group.sql", {"group": group})
+    collection = get_validated_form_data(SignatureCollectionForm, request.GET)["collection"]
+    result = exec_db_query(SQL_DIR / "signature_collection.sql", {"collection": collection})
     return JsonResponse({"result": list(result)})
 
 

@@ -149,5 +149,5 @@ class EmailAlertMultiIndicatorForm(PaddedBBLForm):
 
 
 # TODO: what if any validation can/should we do?
-class SignatureGroupForm(forms.Form):
-    group = forms.CharField()
+class SignatureCollectionForm(forms.Form):
+    collection = forms.CharField()

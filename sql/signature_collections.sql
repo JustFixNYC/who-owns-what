@@ -1,10 +1,9 @@
--- TODO: remove schema prefix from table names
-DROP TABLE IF EXISTS signature_groups;
-CREATE TABLE IF NOT EXISTS signature_groups AS (
-	WITH groups_stacked AS (
+DROP TABLE IF EXISTS signature_collections;
+CREATE TABLE IF NOT EXISTS signature_collections AS (
+	WITH collections_stacked AS (
 		SELECT
-			landlord AS group_name,
-			'landlord' AS group_type,
+			landlord AS collection_name,
+			'landlord' AS collection_type,
 			
 			count(*) AS properties,
 			sum(units_res) AS units_res,
@@ -29,8 +28,8 @@ CREATE TABLE IF NOT EXISTS signature_groups AS (
 		GROUP BY landlord
 		UNION
 		SELECT
-			lender AS group,
-			'lender' AS group_type,
+			lender AS collection,
+			'lender' AS collection_type,
 			
 			count(*) AS properties,
 			sum(units_res) AS units_res,
@@ -54,9 +53,9 @@ CREATE TABLE IF NOT EXISTS signature_groups AS (
 		GROUP BY lender
 	)
 	SELECT 
-		group_name,
-		trim(BOTH '-' FROM regexp_replace(lower(trim(group_name)), '[^a-z0-9_-]+', '-', 'gi')) AS group_slug,
-		group_type,
+		collection_name,
+		trim(BOTH '-' FROM regexp_replace(lower(trim(collection_name)), '[^a-z0-9_-]+', '-', 'gi')) AS collection_slug,
+		collection_type,
 		properties,
 		units_res,
 		evictions,
@@ -70,8 +69,8 @@ CREATE TABLE IF NOT EXISTS signature_groups AS (
 		debt_per_building,
 		debt_per_unit,
 		bldg_data::json AS bldg_data -- cant union json columns, but jsonb works
-	FROM groups_stacked
+	FROM collections_stacked
 );
 
-CREATE INDEX ON signature_groups (group_slug);
+CREATE INDEX ON signature_collections (collection_slug);
 
