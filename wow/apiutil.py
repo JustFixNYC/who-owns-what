@@ -54,8 +54,7 @@ def api(fn):
     return wrapper
 
 
-def authorize_with_token(request, token):
-    keyword = "Token"
+def authorize_with_token(request, keyword, token):
 
     if "Authorization" not in request.headers:
         raise AuthorizationError("No authorization header provided")
@@ -80,11 +79,12 @@ def authorize_with_token(request, token):
 
 
 def authorize_for_alerts(request):
-    authorize_with_token(request, settings.ALERTS_API_TOKEN)
+    # TODO: change this to bearer as well for swagger docs
+    authorize_with_token(request, "token", settings.ALERTS_API_TOKEN)
 
 
 def authorize_for_signature(request):
-    authorize_with_token(request, settings.SIGNATURE_API_TOKEN)
+    authorize_with_token(request, "bearer", settings.SIGNATURE_API_TOKEN)
 
 
 def get_validated_form_data(form_class, data) -> Dict[str, Any]:
