@@ -10,7 +10,6 @@ SELECT
     units_res,
     units_comm,
     year_built,
-    buildings,
     evictions,
     hpd_viol_bc_open,
     hpd_viol_bc_total,
