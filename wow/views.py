@@ -312,7 +312,7 @@ def signature_building(request):
     authorize_for_signature(request)
     bbl = get_request_bbl(request)
     result = exec_db_query(SQL_DIR / "signature_building.sql", {"bbl": bbl})
-    return JsonResponse({"result": list(result)})
+    return JsonResponse(result)
 
 
 @api
@@ -323,9 +323,13 @@ def signature_collection(request):
     Dashboard with summary values and building-level data in json.
     """
     authorize_for_signature(request)
-    collection = get_validated_form_data(SignatureCollectionForm, request.GET)["collection"]
-    result = exec_db_query(SQL_DIR / "signature_collection.sql", {"collection": collection})
-    return JsonResponse({"result": list(result)})
+    collection = get_validated_form_data(SignatureCollectionForm, request.GET)[
+        "collection"
+    ]
+    result = exec_db_query(
+        SQL_DIR / "signature_collection.sql", {"collection": collection}
+    )
+    return JsonResponse(result)
 
 
 def _fixup_addr_for_csv(addr: Dict[str, Any]):

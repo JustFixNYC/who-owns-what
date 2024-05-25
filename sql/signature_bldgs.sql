@@ -71,7 +71,6 @@ CREATE TABLE if not exists signature_bldgs AS (
 		sp.unitsres AS units_res,
 		sp.unitstotal - sp.unitsres AS units_comm,
 		sp.yearbuilt AS year_built,
-		sp.numbldgs AS buildings,
 	
 	    coalesce(evictions.evictions, 0) AS evictions,
 	    

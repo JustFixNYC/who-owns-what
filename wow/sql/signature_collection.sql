@@ -2,7 +2,7 @@ SELECT
     collection_name,
     collection_slug,
     collection_type,
-    properties,
+    buildings,
     units_res,
     evictions,
     hpd_viol_bc_open,

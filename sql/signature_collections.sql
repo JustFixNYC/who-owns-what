@@ -5,7 +5,7 @@ CREATE TABLE IF NOT EXISTS signature_collections AS (
 			landlord AS collection_name,
 			'landlord' AS collection_type,
 			
-			count(*) AS properties,
+			count(*) AS buildings,
 			sum(units_res) AS units_res,
 			
 			sum(evictions) AS evictions,
@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS signature_collections AS (
 			lender AS collection,
 			'lender' AS collection_type,
 			
-			count(*) AS properties,
+			count(*) AS buildings,
 			sum(units_res) AS units_res,
 			
 			sum(evictions) AS evictions,
@@ -56,7 +56,7 @@ CREATE TABLE IF NOT EXISTS signature_collections AS (
 		collection_name,
 		trim(BOTH '-' FROM regexp_replace(lower(trim(collection_name)), '[^a-z0-9_-]+', '-', 'gi')) AS collection_slug,
 		collection_type,
-		properties,
+		buildings,
 		units_res,
 		evictions,
 		hpd_viol_bc_open,
