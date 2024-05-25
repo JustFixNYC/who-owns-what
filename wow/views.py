@@ -312,7 +312,7 @@ def signature_building(request):
     authorize_for_signature(request)
     bbl = get_request_bbl(request)
     result = exec_db_query(SQL_DIR / "signature_building.sql", {"bbl": bbl})
-    return JsonResponse(result)
+    return JsonResponse({"result": list(result)})
 
 
 @api
@@ -329,7 +329,7 @@ def signature_collection(request):
     result = exec_db_query(
         SQL_DIR / "signature_collection.sql", {"collection": collection}
     )
-    return JsonResponse(result)
+    return JsonResponse({"result": list(result)})
 
 
 def _fixup_addr_for_csv(addr: Dict[str, Any]):
