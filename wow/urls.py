@@ -41,5 +41,7 @@ urlpatterns = [
     ),
     path("email_alerts_multi", views.email_alerts_multi, name="email_alerts_multi"),
     path("signature/building", views.signature_building, name="signature_building"),
-    path("signature/collection", views.signature_collection, name="signature_collection"),
+    path(
+        "signature/collection", views.signature_collection, name="signature_collection"
+    ),
 ]
