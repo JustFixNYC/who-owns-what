@@ -50,7 +50,32 @@ CREATE TABLE IF NOT EXISTS signature_collections AS (
 			
 			array_to_json(array_agg(row_to_json(bldgs)))::jsonb AS bldg_data
 		FROM signature_bldgs AS bldgs
+		WHERE lender IS NOT NULL
 		GROUP BY lender
+		UNION
+		SELECT
+			'all' AS collection,
+			'all' AS collection_type,
+			
+			count(*) AS buildings,
+			sum(units_res) AS units_res,
+			
+			sum(evictions) AS evictions,
+			
+			sum(hpd_viol_bc_open) AS hpd_viol_bc_open,
+			sum(hpd_viol_bc_open) / sum(units_res) AS hpd_viol_bc_open_per_unit,
+			sum(hpd_viol_bc_total) AS hpd_viol_bc_total,
+			sum(hpd_viol_bc_total) / sum(units_res) AS hpd_viol_bc_total_per_unit,
+			
+			sum(hpd_comp_emerg_total) AS hpd_comp_emerg_total,
+			sum(hpd_comp_emerg_total) / sum(units_res) AS hpd_comp_emerg_total_per_unit,
+			
+			sum(debt_total) AS debt_total,
+			sum(debt_total) / count(*) AS debt_per_building,
+			sum(debt_total) / sum(units_res) AS debt_per_unit,
+			
+			array_to_json(array_agg(row_to_json(bldgs)))::jsonb AS bldg_data
+		FROM signature_bldgs AS bldgs
 	)
 	SELECT 
 		collection_name,
