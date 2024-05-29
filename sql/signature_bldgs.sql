@@ -116,7 +116,11 @@ CREATE TABLE if not exists signature_bldgs AS (
 		coalesce(hpd_comp_pests, 0) AS hpd_comp_pests,
 		
 		sp.landlord,
+		trim(BOTH '-' FROM regexp_replace(lower(trim(sp.landlord)), '[^a-z0-9_-]+', '-', 'gi')) AS landlord_slug,
+
 		sp.lender,
+		trim(BOTH '-' FROM regexp_replace(lower(trim(sp.lender)), '[^a-z0-9_-]+', '-', 'gi')) AS lender_slug,
+		
 		nullif(sp.origination_date, '')::date AS origination_date,
 		nullif(sp.debt_building, '')::numeric AS debt_total,
 		nullif(sp.debt_unit, '')::numeric AS debt_per_unit,
