@@ -65,6 +65,24 @@ CREATE TABLE if not exists signature_bldgs AS (
 		FROM HPD_COMPLAINTS_AND_PROBLEMS
 		WHERE RECEIVEDDATE >= (CURRENT_DATE - interval '1' year)
 		GROUP BY bbl
+	), aep AS (
+		SELECT DISTINCT
+			bbl,
+			true as in_aep
+		FROM hpd_aep
+		WHERE currentstatus = 'AEP Active'
+	), conh AS (
+		-- TODO: this is only the pilot program, need to also include SROs and special districts
+		SELECT DISTINCT
+			bbl,
+			true as in_conh
+		FROM hpd_conh
+	), ucp AS (
+		SELECT DISTINCT
+			bbl,
+			true as in_ucp
+		FROM hpd_underlying_conditions
+		WHERE currentstatus = 'Active'
 	)
 	SELECT
 		sp.bbl,
@@ -80,6 +98,10 @@ CREATE TABLE if not exists signature_bldgs AS (
 		sp.unitsres AS units_res,
 		(sp.unitstotal - sp.unitsres > 0) AS units_nonres,
 		sp.yearbuilt AS year_built,
+
+		coalesce(aep.in_aep, false) AS in_aep,
+		coalesce(conh.in_conh, false) AS in_conh,
+		coalesce(ucp.in_ucp, false) AS in_ucp,
 	
 	    coalesce(evictions.evictions, 0) AS evictions,
 	    
@@ -105,6 +127,9 @@ CREATE TABLE if not exists signature_bldgs AS (
 	LEFT JOIN evictions USING(bbl)
 	LEFT JOIN hpd_viol USING(bbl)
 	LEFT JOIN hpd_comp USING(bbl)
+	LEFT JOIN aep USING(bbl)
+	LEFT JOIN conh USING(bbl)
+	LEFT JOIN ucp USING(bbl)
 );
 
 CREATE INDEX ON signature_bldgs (bbl);
