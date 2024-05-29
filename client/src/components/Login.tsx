@@ -288,7 +288,7 @@ const LoginWithoutI18n = (props: withI18nProps) => {
 
   const onEmailSubmit = async () => {
     window.gtag("event", "register-login-email", eventParams());
-
+    console.log(process.env.REACT_BRANCH);
     if (!email || emailError) {
       setEmailError(true);
       setShowEmailError(true);
