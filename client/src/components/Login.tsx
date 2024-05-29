@@ -91,7 +91,7 @@ const LoginWithoutI18n = (props: withI18nProps) => {
   const eventParams = (user?: JustfixUser) => {
     const customParams = {
       from: !!addr ? "building page" : "nav",
-      branch: process.env.REACT_BRANCH,
+      branch: process.env.REACT_APP_BRANCH,
     };
     const params = !!user?.id
       ? {
