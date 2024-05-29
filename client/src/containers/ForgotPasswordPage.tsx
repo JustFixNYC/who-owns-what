@@ -12,6 +12,8 @@ import StandalonePage from "components/StandalonePage";
 import { JFCLLocaleLink } from "i18n";
 import { createWhoOwnsWhatRoutePaths } from "routes";
 
+const BRANCH_NAME = process.env.REACT_APP_BRANCH;
+
 const ForgotPasswordPage = withI18n()((props: withI18nProps) => {
   const { i18n } = props;
   const { search } = useLocation();
@@ -39,7 +41,7 @@ const ForgotPasswordPage = withI18n()((props: withI18nProps) => {
     }
     sendResetEmail();
     setRequestSent(true);
-    window.gtag("event", "forgot-password-request");
+    window.gtag("event", "forgot-password-request", { branch: BRANCH_NAME });
   };
 
   const sendResetEmail = async () => {
@@ -95,7 +97,7 @@ const ForgotPasswordPage = withI18n()((props: withI18nProps) => {
               size="large"
               onClick={() => {
                 sendResetEmail();
-                window.gtag("event", "forgot-password-resend");
+                window.gtag("event", "forgot-password-resend", { branch: BRANCH_NAME });
               }}
             />
           </div>

@@ -15,6 +15,8 @@ import { BuildingSubscription } from "state-machine";
 import { FixedLoadingLabel } from "components/Loader";
 import { STANDALONE_PAGES, StandalonePageFooter } from "components/StandalonePage";
 
+const BRANCH_NAME = process.env.REACT_APP_BRANCH;
+
 const UnsubscribePage = withI18n()((props: withI18nProps) => {
   const { i18n } = props;
   const { search, pathname } = useLocation();
@@ -37,22 +39,25 @@ const UnsubscribePage = withI18n()((props: withI18nProps) => {
     asyncFetchSubscriptions();
 
     if (isEmailUnsubscribeAll) {
-      window.gtag("event", "unsubscribe-building-all-email-link");
+      window.gtag("event", "unsubscribe-building-all-email-link", { branch: BRANCH_NAME });
     } else {
-      window.gtag("event", "manage-subscriptions-email-link");
+      window.gtag("event", "manage-subscriptions-email-link", { branch: BRANCH_NAME });
     }
   }, [token, isEmailUnsubscribeAll]);
 
   const handleUnsubscribeBuilding = async (bbl: string) => {
     const result = await AuthClient.emailUnsubscribeBuilding(bbl, token);
     if (!!result?.["subscriptions"]) setSubscriptions(result["subscriptions"]);
-    window.gtag("event", "unsubscribe-building", { from: "manage subscriptions" });
+    window.gtag("event", "unsubscribe-building", {
+      from: "manage subscriptions",
+      branch: BRANCH_NAME,
+    });
   };
 
   const handleUnsubscribeAll = async (from: string) => {
     const result = await AuthClient.emailUnsubscribeAll(token);
     if (!!result?.["subscriptions"]) setSubscriptions(result["subscriptions"]);
-    window.gtag("event", "unsubscribe-building-all", { from: from });
+    window.gtag("event", "unsubscribe-building-all", { from: from, branch: BRANCH_NAME });
   };
 
   const renderUnsubscribePage = () => (

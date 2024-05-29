@@ -11,6 +11,8 @@ import { DotIcon, HideIcon, ShowIcon } from "./Icons";
 import classNames from "classnames";
 import { Icon } from "@justfixnyc/component-library";
 
+const BRANCH_NAME = process.env.REACT_APP_BRANCH;
+
 type PasswordRule = {
   regex: RegExp;
   label: string;
@@ -122,7 +124,7 @@ const PasswordInputWithoutI18n = forwardRef<HTMLInputElement, PasswordInputProps
             type="button"
             className="show-hide-toggle"
             onClick={() => {
-              window.gtag("event", "password-visibility-toggle");
+              window.gtag("event", "password-visibility-toggle", { branch: BRANCH_NAME });
               setShowPassword(!showPassword);
             }}
           >
