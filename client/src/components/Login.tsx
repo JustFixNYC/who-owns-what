@@ -89,14 +89,17 @@ const LoginWithoutI18n = (props: withI18nProps) => {
   const [existingUserError, setExistingUserError] = useState(false);
 
   const eventParams = (user?: JustfixUser) => {
-    const fromParam = { from: !!addr ? "building page" : "nav" };
+    const customParams = {
+      from: !!addr ? "building page" : "nav",
+      branch: process.env.REACT_BRANCH,
+    };
     const params = !!user?.id
       ? {
-          ...fromParam,
+          ...customParams,
           user_id: user.id,
           user_type: user.type,
         }
-      : fromParam;
+      : customParams;
 
     return params;
   };

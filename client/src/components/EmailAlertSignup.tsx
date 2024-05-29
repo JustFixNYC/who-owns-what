@@ -57,7 +57,7 @@ const BuildingSubscribeWithoutI18n = (props: BuildingSubscribeProps) => {
   const [showSubscriptionLimitModal, setShowSubscriptionLimitModal] = useState(false);
 
   const navigateToLogin = () => {
-    window.gtag("event", `register-login-via-building_${process.env.BRANCH}`);
+    window.gtag("event", `register-login-via-building_${process.env.REACT_BRANCH}`);
     const loginRoute = `/${i18n.language}${account.login}`;
     history.push({ pathname: loginRoute, state: { addr } });
   };
