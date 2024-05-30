@@ -4,10 +4,13 @@ CREATE TEMP TABLE IF NOT EXISTS signature_pluto_geos AS (
 	SELECT
 		p.*,
 		s.landlord,
+		trim(BOTH '-' FROM regexp_replace(lower(trim(s.landlord)), '[^a-z0-9_-]+', '-', 'gi')) AS landlord_slug,
 		s.lender,
-		s.origination_date,
-		s.debt_building,
-		s.debt_unit,
+		trim(BOTH '-' FROM regexp_replace(lower(trim(s.lender)), '[^a-z0-9_-]+', '-', 'gi')) AS lender_slug,
+		-- having issues with the csv nulls, so all imported as strings
+		nullif(sp.origination_date, '')::date AS origination_date,
+		nullif(sp.debt_building, '')::numeric AS debt_total,
+		nullif(sp.debt_unit, '')::numeric AS debt_per_unit
 		ST_TRANSFORM(ST_SetSRID(ST_MakePoint(longitude, latitude),4326), 2263) AS geom_point
 	FROM signature_unhp_data AS s
 	LEFT JOIN pluto_latest AS p USING(bbl)
@@ -24,9 +27,9 @@ CREATE TEMP TABLE IF NOT EXISTS signature_pluto_poli AS (
 		ss.stsendist::text AS stsen_dist,
 		cg.congdist::text AS cong_dist
 	FROM signature_pluto_geos AS p
-	LEFT JOIN nyad AS ad ON st_within(p.geom_point, ad.geom)
-	LEFT JOIN nyss AS ss ON st_within(p.geom_point, ss.geom)
-	LEFT JOIN nycg AS cg ON st_within(p.geom_point, cg.geom)
+	LEFT JOIN nyad AS ad ON ST_Within(p.geom_point, ad.geom)
+	LEFT JOIN nyss AS ss ON ST_Within(p.geom_point, ss.geom)
+	LEFT JOIN nycg AS cg ON ST_Within(p.geom_point, cg.geom)
 );
 
 CREATE INDEX ON signature_pluto_poli (bbl);
@@ -83,31 +86,88 @@ CREATE TABLE if not exists signature_bldgs AS (
 			true as in_ucp
 		FROM hpd_underlying_conditions
 		WHERE currentstatus = 'Active'
+	), hpd_reg AS (
+		SELECT 
+			bbl,
+			CASE WHEN count(*) = 1 THEN max(buildingid) ELSE NULL END AS buildingid
+		FROM hpd_registrations
+		GROUP BY bbl
+	), acris_deed AS (
+		SELECT DISTINCT ON (bbl)
+			l.bbl,
+			coalesce(m.docdate, m.recordedfiled) AS last_sale_date,
+		FROM real_property_master AS m
+		LEFT JOIN real_property_legals AS l USING(documentid)
+		WHERE docamount > 1 AND doctype = any('{DEED,DEEDO}')
+		ORDER BY bbl, docdate DESC
 	)
 	SELECT
+		-- LOCATION
 		sp.bbl,
 		sp.address,
 		sp.zipcode AS zip,
 		sp.borough,
+		sp.latitude AS lat,
+		sp.longitude AS lng
 		
+		-- POLITICAL DISTRICTS
 		sp.council AS coun_dist,
 		sp.assem_dist,
 		sp.stsen_dist,
 		sp.cong_dist,
-			
+		
+		-- BUILDING CHARACTERISTICS
 		sp.unitsres AS units_res,
 		(sp.unitstotal - sp.unitsres > 0) AS units_nonres,
 		sp.yearbuilt AS year_built,
 
+		-- EXTERNAL LINKS
+		CASE 
+			WHEN hpd_reg.buildingid IS NOT NULL 
+				THEN concat('https://hpdonline.nyc.gov/hpdonline/building/', hpd_reg.buildingid)
+			ELSE
+				concat(
+				'https://hpdonline.nyc.gov/hpdonline/building/search-results', 
+				'?boroId=', sp.borocode,
+				'&block=', sp.block, 
+				'&lot=', sp.lot
+				)
+		END AS link_hpd,
+		concat(
+			'http://a836-acris.nyc.gov/bblsearch/bblsearch.asp', 
+			'?borough=', sp.borocode,
+			'&block=', sp.block, 
+			'&lot=', sp.lot
+		) AS link_acris,
+		concat(
+			'http://a810-bisweb.nyc.gov/bisweb/PropertyProfileOverviewServlet', 
+			'?boro=', sp.borocode,
+			'&block=', sp.block, 
+			'&lot=', sp.lot
+		) AS link_dob,
+		concat(
+			'http://a810-bisweb.nyc.gov/bisweb/PropertyProfileOverviewServlet', 
+			'?boro=', sp.borocode,
+			'&block=', sp.block, 
+			'&lot=', sp.lot
+		) AS link_dob,
+		concat('https://portal.displacementalert.org/property/', sp.bbl) AS link_dap,
+
+		-- https://www.google.com/maps/place/801%20NEILL%20AVENUE%2C%20BRONX%2C%20NY%2010462 AS link_google,
+
+		-- HPD PROGRAMS
 		coalesce(aep.in_aep, false) AS in_aep,
 		coalesce(conh.in_conh, false) AS in_conh,
 		coalesce(ucp.in_ucp, false) AS in_ucp,
 	
+		-- HOUSING COURT
 	    coalesce(evictions.evictions, 0) AS evictions,
 	    
+		-- HPD VIOLATIONS
 	    coalesce(hpd_viol.hpd_viol_bc_open, 0) AS hpd_viol_bc_open,
 	    coalesce(hpd_viol.hpd_viol_bc_total, 0) AS hpd_viol_bc_total,
 	    
+		-- HPD COMPLAINTS
 	    coalesce(hpd_comp.hpd_comp_emerg_total, 0) AS hpd_comp_emerg_total,
 	    coalesce(array_length(hpd_comp.hpd_comp_apts, 1), 0)::numeric / nullif(sp.unitsres, 0)::numeric AS hpd_comp_apts_pct,
 	    array_to_string(hpd_comp.hpd_comp_apts, ', ') AS hpd_comp_apts,
@@ -115,18 +175,17 @@ CREATE TABLE if not exists signature_bldgs AS (
 		coalesce(hpd_comp_water, 0) AS hpd_comp_water,
 		coalesce(hpd_comp_pests, 0) AS hpd_comp_pests,
 		
+		-- LANDLORD/LENDER
 		sp.landlord,
-		trim(BOTH '-' FROM regexp_replace(lower(trim(sp.landlord)), '[^a-z0-9_-]+', '-', 'gi')) AS landlord_slug,
-
+		sp.landlord_slug,
 		sp.lender,
-		trim(BOTH '-' FROM regexp_replace(lower(trim(sp.lender)), '[^a-z0-9_-]+', '-', 'gi')) AS lender_slug,
+		sp.lender_slug,
 		
-		nullif(sp.origination_date, '')::date AS origination_date,
-		nullif(sp.debt_building, '')::numeric AS debt_total,
-		nullif(sp.debt_unit, '')::numeric AS debt_per_unit,
-		
-		sp.latitude AS lat,
-		sp.longitude AS lng
+		-- FINANCIAL
+		acris_deed.last_sale_date,
+		sp.origination_date,
+		sp.debt_building,
+		sp.debt_unit
 	FROM signature_pluto_poli AS sp
 	LEFT JOIN evictions USING(bbl)
 	LEFT JOIN hpd_viol USING(bbl)
@@ -134,6 +193,8 @@ CREATE TABLE if not exists signature_bldgs AS (
 	LEFT JOIN aep USING(bbl)
 	LEFT JOIN conh USING(bbl)
 	LEFT JOIN ucp USING(bbl)
+	LEFT JOIN hpd_reg USING(bbl)
+	LEFT JOIN acris_deed USING(bbl)
 );
 
 CREATE INDEX ON signature_bldgs (bbl);
