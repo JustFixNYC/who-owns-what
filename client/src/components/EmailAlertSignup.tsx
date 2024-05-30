@@ -132,7 +132,7 @@ const BuildingSubscribeWithoutI18n = (props: BuildingSubscribeProps) => {
           variant="primary"
           size="small"
           className="is-full-width"
-          labelText={i18n._(t`Add building`)}
+          labelText={i18n._(t`Follow building`)}
           labelIcon="circlePlus"
           onClick={() => {
             !isLoggedIn
