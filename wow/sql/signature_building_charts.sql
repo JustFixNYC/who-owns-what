@@ -11,5 +11,5 @@ SELECT
     dobviolations_regular,
     dobviolations_ecb,
     dobviolations_total
-FROM signature_charts
+FROM signature_building_charts
 WHERE bbl = %(bbl)s

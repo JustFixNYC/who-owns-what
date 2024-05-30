@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS signature_charts AS
+CREATE TABLE IF NOT EXISTS signature_building_charts AS
 
     WITH time_series AS (
         SELECT 
@@ -81,4 +81,4 @@ CREATE TABLE IF NOT EXISTS signature_charts AS
     LEFT JOIN ecbviolations USING(bbl, month)
     ORDER BY bbl, month ASC;
 
-CREATE INDEX ON signature_charts (bbl);
+CREATE INDEX ON signature_building_charts (bbl);
