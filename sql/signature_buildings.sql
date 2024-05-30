@@ -8,9 +8,9 @@ CREATE TEMP TABLE IF NOT EXISTS signature_pluto_geos AS (
 		s.lender,
 		trim(BOTH '-' FROM regexp_replace(lower(trim(s.lender)), '[^a-z0-9_-]+', '-', 'gi')) AS lender_slug,
 		-- having issues with the csv nulls, so all imported as strings
-		nullif(sp.origination_date, '')::date AS origination_date,
-		nullif(sp.debt_building, '')::numeric AS debt_total,
-		nullif(sp.debt_unit, '')::numeric AS debt_per_unit
+		nullif(s.origination_date, '')::date AS origination_date,
+		nullif(s.debt_building, '')::numeric AS debt_total,
+		nullif(s.debt_unit, '')::numeric AS debt_per_unit,
 		ST_TRANSFORM(ST_SetSRID(ST_MakePoint(longitude, latitude),4326), 2263) AS geom_point
 	FROM signature_unhp_data AS s
 	LEFT JOIN pluto_latest AS p USING(bbl)
@@ -95,7 +95,7 @@ CREATE TABLE if not exists signature_buildings AS (
 	), acris_deed AS (
 		SELECT DISTINCT ON (bbl)
 			l.bbl,
-			coalesce(m.docdate, m.recordedfiled) AS last_sale_date,
+			coalesce(m.docdate, m.recordedfiled) AS last_sale_date
 		FROM real_property_master AS m
 		LEFT JOIN real_property_legals AS l USING(documentid)
 		WHERE docamount > 1 AND doctype = any('{DEED,DEEDO}')
@@ -108,10 +108,10 @@ CREATE TABLE if not exists signature_buildings AS (
 		sp.zipcode AS zip,
 		sp.borough,
 		sp.latitude AS lat,
-		sp.longitude AS lng
+		sp.longitude AS lng,
 		
 		-- POLITICAL DISTRICTS
-		sp.council AS coun_dist,
+		sp.coun_dist,
 		sp.assem_dist,
 		sp.stsen_dist,
 		sp.cong_dist,
@@ -139,12 +139,6 @@ CREATE TABLE if not exists signature_buildings AS (
 			'&block=', sp.block, 
 			'&lot=', sp.lot
 		) AS link_acris,
-		concat(
-			'http://a810-bisweb.nyc.gov/bisweb/PropertyProfileOverviewServlet', 
-			'?boro=', sp.borocode,
-			'&block=', sp.block, 
-			'&lot=', sp.lot
-		) AS link_dob,
 		concat(
 			'http://a810-bisweb.nyc.gov/bisweb/PropertyProfileOverviewServlet', 
 			'?boro=', sp.borocode,
@@ -184,7 +178,7 @@ CREATE TABLE if not exists signature_buildings AS (
 		-- FINANCIAL
 		acris_deed.last_sale_date,
 		sp.origination_date,
-		sp.debt_building,
+		sp.debt_total,
 		sp.debt_unit
 	FROM signature_pluto_poli AS sp
 	LEFT JOIN evictions USING(bbl)
