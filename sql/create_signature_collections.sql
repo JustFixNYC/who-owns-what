@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS signature_collections;
+DROP TABLE IF EXISTS signature_collections CASCADE;
 CREATE TABLE IF NOT EXISTS signature_collections AS (
 	WITH collections_stacked AS (
 		SELECT

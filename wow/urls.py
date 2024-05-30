@@ -49,4 +49,9 @@ urlpatterns = [
     path(
         "signature/collection", views.signature_collection, name="signature_collection"
     ),
+    path(
+        "signature/collection/charts",
+        views.signature_collection_charts,
+        name="signature_collection_charts",
+    ),
 ]

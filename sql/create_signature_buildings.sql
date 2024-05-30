@@ -1,4 +1,3 @@
--- TODO: remove schema prefix from table names
 DROP TABLE IF EXISTS signature_pluto_geos;
 CREATE TEMP TABLE IF NOT EXISTS signature_pluto_geos AS (
 	SELECT
@@ -34,8 +33,8 @@ CREATE TEMP TABLE IF NOT EXISTS signature_pluto_poli AS (
 
 CREATE INDEX ON signature_pluto_poli (bbl);
 
-DROP TABLE IF EXISTS signature_buildings;
-CREATE TABLE if not exists signature_buildings AS (
+DROP TABLE IF EXISTS signature_buildings CASCADE;
+CREATE TABLE IF NOT EXISTS signature_buildings AS (
 	WITH evictions AS (
 	    SELECT
 	        bbl,

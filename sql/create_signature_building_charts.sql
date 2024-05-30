@@ -1,3 +1,4 @@
+DROP TABLE IF EXISTS signature_building_charts CASCADE;
 CREATE TABLE IF NOT EXISTS signature_building_charts AS
 
     WITH time_series AS (
