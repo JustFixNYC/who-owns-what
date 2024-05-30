@@ -316,6 +316,19 @@ def signature_building(request):
 
 
 @api
+def signature_building_charts(request):
+    """
+    This API endpoint receives requests with a 10-digit BBL. It responds with a
+    collection of data to populate the charts for that building's page of the
+    Signature Dashboard.
+    """
+    authorize_for_signature(request)
+    bbl = get_request_bbl(request)
+    result = exec_db_query(SQL_DIR / "signature_building_charts.sql", {"bbl": bbl})
+    return JsonResponse({"result": list(result)})
+
+
+@api
 def signature_collection(request):
     """
     This API endpoint receives requests with a collection name (landlord, lender). It
