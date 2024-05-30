@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS signature_collections AS (
 		GROUP BY landlord
 		UNION
 		SELECT
-			lender AS collection,
+			lender AS collection_name,
 			'lender' AS collection_type,
 			
 			count(*) AS buildings,
@@ -54,7 +54,7 @@ CREATE TABLE IF NOT EXISTS signature_collections AS (
 		GROUP BY lender
 		UNION
 		SELECT
-			'all' AS collection,
+			'all' AS collection_name,
 			'all' AS collection_type,
 			
 			count(*) AS buildings,
