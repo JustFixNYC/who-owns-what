@@ -33,5 +33,5 @@ SELECT
     debt_per_unit,
     lat,
     lng
-FROM signature_bldgs
+FROM signature_buildings
 WHERE bbl = %(bbl)s

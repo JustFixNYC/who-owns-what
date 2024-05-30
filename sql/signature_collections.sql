@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS signature_collections AS (
 			sum(debt_total) / sum(units_res) AS debt_per_unit,
 			
 			array_to_json(array_agg(row_to_json(bldgs)))::jsonb AS bldg_data
-		FROM signature_bldgs AS bldgs
+		FROM signature_buildings AS bldgs
 		WHERE landlord IS NOT NULL
 		GROUP BY landlord
 		UNION
@@ -49,7 +49,7 @@ CREATE TABLE IF NOT EXISTS signature_collections AS (
 			sum(debt_total) / sum(units_res) AS debt_per_unit,
 			
 			array_to_json(array_agg(row_to_json(bldgs)))::jsonb AS bldg_data
-		FROM signature_bldgs AS bldgs
+		FROM signature_buildings AS bldgs
 		WHERE lender IS NOT NULL
 		GROUP BY lender
 		UNION
@@ -75,7 +75,7 @@ CREATE TABLE IF NOT EXISTS signature_collections AS (
 			sum(debt_total) / sum(units_res) AS debt_per_unit,
 			
 			array_to_json(array_agg(row_to_json(bldgs)))::jsonb AS bldg_data
-		FROM signature_bldgs AS bldgs
+		FROM signature_buildings AS bldgs
 	)
 	SELECT 
 		collection_name,

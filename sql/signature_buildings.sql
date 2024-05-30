@@ -34,8 +34,8 @@ CREATE TEMP TABLE IF NOT EXISTS signature_pluto_poli AS (
 
 CREATE INDEX ON signature_pluto_poli (bbl);
 
-DROP TABLE IF EXISTS signature_bldgs;
-CREATE TABLE if not exists signature_bldgs AS (
+DROP TABLE IF EXISTS signature_buildings;
+CREATE TABLE if not exists signature_buildings AS (
 	WITH evictions AS (
 	    SELECT
 	        bbl,
@@ -197,6 +197,6 @@ CREATE TABLE if not exists signature_bldgs AS (
 	LEFT JOIN acris_deed USING(bbl)
 );
 
-CREATE INDEX ON signature_bldgs (bbl);
-CREATE INDEX ON signature_bldgs (landlord);
-CREATE INDEX ON signature_bldgs (lender);
+CREATE INDEX ON signature_buildings (bbl);
+CREATE INDEX ON signature_buildings (landlord);
+CREATE INDEX ON signature_buildings (lender);

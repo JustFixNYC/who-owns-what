@@ -41,7 +41,7 @@ signature_pre_sql:
   - create_signature_unhp_table.sql
 signature_post_sql:
   # Scripts for signature data to run after the above tables have been created and populated
-  - signature_bldgs.sql
+  - signature_buildings.sql
   - signature_collections.sql
   - signature_charts.sql
 sql:
