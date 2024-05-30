@@ -20,6 +20,7 @@ import { AddressRecord } from "./APIDataTypes";
 import SendNewLink from "./SendNewLink";
 
 const SUBSCRIPTION_LIMIT = 15;
+const BRANCH_NAME = process.env.REACT_APP_BRANCH;
 
 /**
  * edge case: adding building as a result of successful login shows a flicker
@@ -57,7 +58,7 @@ const BuildingSubscribeWithoutI18n = (props: BuildingSubscribeProps) => {
   const [showSubscriptionLimitModal, setShowSubscriptionLimitModal] = useState(false);
 
   const navigateToLogin = () => {
-    window.gtag("event", "register-login-via-building");
+    window.gtag("event", "register-login-via-building", { branch: BRANCH_NAME });
     const loginRoute = `/${i18n.language}${account.login}`;
     history.push({ pathname: loginRoute, state: { addr } });
   };
@@ -79,7 +80,7 @@ const BuildingSubscribeWithoutI18n = (props: BuildingSubscribeProps) => {
         onClick={() => {
           unsubscribe(addr.bbl);
           setJustSubscribed(false);
-          const params = { ...eventUserParams, from: "building page" };
+          const params = { ...eventUserParams, from: "building page", branch: BRANCH_NAME };
           window.gtag("event", "unsubscribe-building", { ...params });
         }}
       />
@@ -100,7 +101,7 @@ const BuildingSubscribeWithoutI18n = (props: BuildingSubscribeProps) => {
         className="is-full-width"
         onClick={() => {
           AuthClient.resendVerifyEmail();
-          const params = { ...eventUserParams, from: "building page" };
+          const params = { ...eventUserParams, from: "building page", branch: BRANCH_NAME };
           window.gtag("event", "email-verify-resend", { ...params });
         }}
       />
@@ -108,7 +109,7 @@ const BuildingSubscribeWithoutI18n = (props: BuildingSubscribeProps) => {
   );
 
   const subscribeToBuilding = (addr: AddressRecord) => {
-    window.gtag("event", "subscribe-building-page", { ...eventUserParams });
+    window.gtag("event", "subscribe-building-page", { ...eventUserParams, branch: BRANCH_NAME });
     subscribe(addr.bbl, addr.housenumber, addr.streetname, addr.zip ?? "", addr.boro);
   };
 
@@ -186,8 +187,14 @@ const BuildingSubscribeWithoutI18n = (props: BuildingSubscribeProps) => {
             target="_blank"
             rel="noopener noreferrer"
             onClick={() => {
-              const eventParams = { ...eventUserParams, limit: SUBSCRIPTION_LIMIT };
-              window.gtag("event", "subscription-limit-request", { ...eventParams });
+              const eventParams = {
+                ...eventUserParams,
+                limit: SUBSCRIPTION_LIMIT,
+                branch: BRANCH_NAME,
+              };
+              window.gtag("event", "subscription-limit-request", {
+                ...eventParams,
+              });
             }}
           >
             request form

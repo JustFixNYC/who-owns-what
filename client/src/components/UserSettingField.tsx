@@ -15,6 +15,8 @@ import { Alert } from "./Alert";
 import SendNewLink from "./SendNewLink";
 import { Button, Icon } from "@justfixnyc/component-library";
 
+const BRANCH_NAME = process.env.REACT_APP_BRANCH;
+
 type PasswordSettingFieldProps = withI18nProps & {
   onSubmit: (currentPassword: string, newPassword: string) => void;
 };
@@ -71,7 +73,7 @@ const PasswordSettingFieldWithoutI18n = (props: PasswordSettingFieldProps) => {
 
     onSubmit(currentPassword, newPassword);
 
-    window.gtag("event", "account-update-password", { ...eventUserParams });
+    window.gtag("event", "account-update-password", { ...eventUserParams, branch: BRANCH_NAME });
   };
 
   return (
@@ -163,7 +165,7 @@ const EmailSettingFieldWithoutI18n = (props: EmailSettingFieldProps) => {
 
     onSubmit(email);
 
-    window.gtag("event", "account-update-email", { ...eventUserParams });
+    window.gtag("event", "account-update-email", { ...eventUserParams, branch: BRANCH_NAME });
   };
 
   const verifyCallout = !verified ? (
@@ -178,7 +180,7 @@ const EmailSettingFieldWithoutI18n = (props: EmailSettingFieldProps) => {
         onClick={() => {
           AuthClient.resendVerifyEmail();
           const eventParams = { ...eventUserParams, from: "account settings" };
-          window.gtag("event", "email-verify-resend", { ...eventParams });
+          window.gtag("event", "email-verify-resend", { ...eventParams, branch: BRANCH_NAME });
         }}
       />
     </div>

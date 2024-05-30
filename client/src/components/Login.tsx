@@ -21,6 +21,8 @@ import { AddressRecord } from "./APIDataTypes";
 import { isLegacyPath } from "./WowzaToggle";
 import { Nobr } from "./Nobr";
 
+const BRANCH_NAME = process.env.REACT_APP_BRANCH;
+
 enum Step {
   CheckEmail,
   Login,
@@ -89,14 +91,17 @@ const LoginWithoutI18n = (props: withI18nProps) => {
   const [existingUserError, setExistingUserError] = useState(false);
 
   const eventParams = (user?: JustfixUser) => {
-    const fromParam = { from: !!addr ? "building page" : "nav" };
+    const customParams = {
+      from: !!addr ? "building page" : "nav",
+      branch: BRANCH_NAME,
+    };
     const params = !!user?.id
       ? {
-          ...fromParam,
+          ...customParams,
           user_id: user.id,
           user_type: user.type,
         }
-      : fromParam;
+      : customParams;
 
     return params;
   };
@@ -285,7 +290,6 @@ const LoginWithoutI18n = (props: withI18nProps) => {
 
   const onEmailSubmit = async () => {
     window.gtag("event", "register-login-email", eventParams());
-
     if (!email || emailError) {
       setEmailError(true);
       setShowEmailError(true);

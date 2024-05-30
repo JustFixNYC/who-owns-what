@@ -54,6 +54,8 @@ import { STANDALONE_PAGES } from "components/StandalonePage";
 import { JFLogoDivider } from "components/JFLogoDivider";
 import { LoadingPage } from "components/Loader";
 
+const BRANCH_NAME = process.env.REACT_APP_BRANCH;
+
 const HomeLink = withI18n()((props: withI18nProps) => {
   const { i18n } = props;
   const title = i18n._(t`Who owns what`);
@@ -243,7 +245,12 @@ const getAccountNavLinks = (fromPath: string, isSignedIn?: boolean) => {
         <LocaleNavLink
           to={login}
           key="account-3"
-          onClick={() => window.gtag("event", "nav-login", { from: removeLocalePrefix(fromPath) })}
+          onClick={() =>
+            window.gtag("event", "nav-login", {
+              from: removeLocalePrefix(fromPath),
+              branch: BRANCH_NAME,
+            })
+          }
         >
           <Trans>Log in</Trans>
         </LocaleNavLink>,

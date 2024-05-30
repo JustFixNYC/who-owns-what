@@ -10,6 +10,8 @@ import { Trans } from "@lingui/macro";
 import { JFLogo } from "./JFLogo";
 import { useLocation } from "react-router-dom";
 
+const BRANCH_NAME = process.env.REACT_APP_BRANCH;
+
 export const STANDALONE_PAGES = [
   "forgot-password",
   "login",
@@ -27,7 +29,10 @@ export const JustFixLogoLink = (props: { eventParams: any }) => {
       className="jf-logo"
       to={home}
       onClick={() => {
-        window.gtag("event", "standalone-justfix-logo-click", { ...props.eventParams });
+        window.gtag("event", "standalone-justfix-logo-click", {
+          ...props.eventParams,
+          branch: BRANCH_NAME,
+        });
       }}
     >
       <JFLogo />
@@ -43,7 +48,10 @@ export const StandalonePageFooter = (props: { eventParams: any }) => {
       <JFCLLocaleLink
         to={home}
         onClick={() => {
-          window.gtag("event", "standalone-wow-link-click", { ...props.eventParams });
+          window.gtag("event", "standalone-wow-link-click", {
+            ...props.eventParams,
+            branch: BRANCH_NAME,
+          });
         }}
       >
         Who Owns What

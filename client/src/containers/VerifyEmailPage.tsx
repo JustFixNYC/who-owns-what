@@ -9,6 +9,8 @@ import StandalonePage from "components/StandalonePage";
 import { JFCLLocaleLink } from "i18n";
 import { createWhoOwnsWhatRoutePaths } from "routes";
 
+const BRANCH_NAME = process.env.REACT_APP_BRANCH;
+
 const VerifyEmailPage = withI18n()((props: withI18nProps) => {
   const { i18n } = props;
   const { search } = useLocation();
@@ -31,20 +33,20 @@ const VerifyEmailPage = withI18n()((props: withI18nProps) => {
       switch (result.statusCode) {
         case VerifyStatusCode.Success:
           setIsVerified(true);
-          window.gtag("event", "email-verify-success");
+          window.gtag("event", "email-verify-success", { branch: BRANCH_NAME });
           break;
         case VerifyStatusCode.AlreadyVerified:
           setIsVerified(true);
           setIsAlreadyVerified(true);
-          window.gtag("event", "email-verify-already");
+          window.gtag("event", "email-verify-already", { branch: BRANCH_NAME });
           break;
         case VerifyStatusCode.Expired:
           setIsExpired(true);
-          window.gtag("event", "email-verify-expired");
+          window.gtag("event", "email-verify-expired", { branch: BRANCH_NAME });
           break;
         default:
           setUnknownError(true);
-          window.gtag("event", "email-verify-error");
+          window.gtag("event", "email-verify-error", { branch: BRANCH_NAME });
       }
       setLoading(false);
     });
@@ -63,7 +65,7 @@ const VerifyEmailPage = withI18n()((props: withI18nProps) => {
         size="large"
         onClick={async () => {
           setIsEmailResent(await AuthClient.resendVerifyEmail(token));
-          window.gtag("event", "email-verify-resend", { from: "verify page" });
+          window.gtag("event", "email-verify-resend", { from: "verify page", branch: BRANCH_NAME });
         }}
       />
     </div>
