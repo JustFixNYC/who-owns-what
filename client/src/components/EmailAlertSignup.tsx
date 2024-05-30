@@ -194,7 +194,6 @@ const BuildingSubscribeWithoutI18n = (props: BuildingSubscribeProps) => {
               };
               window.gtag("event", "subscription-limit-request", {
                 ...eventParams,
-                branch: BRANCH_NAME,
               });
             }}
           >
