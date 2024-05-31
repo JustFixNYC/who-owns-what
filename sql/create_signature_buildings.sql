@@ -99,7 +99,22 @@ CREATE TABLE IF NOT EXISTS signature_buildings AS (
 		LEFT JOIN real_property_legals AS l USING(documentid)
 		WHERE docamount > 1 AND doctype = any('{DEED,DEEDO}')
 		ORDER BY bbl, docdate DESC
+	), rodents AS (
+		SELECT DISTINCT ON (bbl)
+			bbl,
+			coalesce(approveddate, inspectiondate)::date AS last_rodent_date,
+			CASE WHEN 
+				result IN ('Rat Activity', 'Failed for Other R') THEN 'Failed'
+				ELSE 'Passed'
+			END AS last_rodent_result
+		FROM dohmh_rodent_inspections
+		INNER JOIN signature.signature_bldgs USING(bbl)
+		WHERE inspectiontype IN ('Initial', 'Compliance') 
+			AND result IS NOT NULL
+			AND coalesce(approveddate, inspectiondate) IS NOT NULL
+		ORDER BY bbl, coalesce(approveddate, inspectiondate) DESC
 	)
+
 	SELECT
 		-- LOCATION
 		sp.bbl,
@@ -167,6 +182,10 @@ CREATE TABLE IF NOT EXISTS signature_buildings AS (
 		coalesce(hpd_comp_heat, 0) AS hpd_comp_heat,
 		coalesce(hpd_comp_water, 0) AS hpd_comp_water,
 		coalesce(hpd_comp_pests, 0) AS hpd_comp_pests,
+
+		-- DOHMH RODENTS
+		rodents.last_rodent_date,
+		rodents.last_rodent_result,
 		
 		-- LANDLORD/LENDER
 		sp.landlord,
@@ -178,7 +197,7 @@ CREATE TABLE IF NOT EXISTS signature_buildings AS (
 		acris_deed.last_sale_date,
 		sp.origination_date,
 		sp.debt_total,
-		sp.debt_unit
+		sp.debt_per_unit
 	FROM signature_pluto_poli AS sp
 	LEFT JOIN evictions USING(bbl)
 	LEFT JOIN hpd_viol USING(bbl)
@@ -188,6 +207,7 @@ CREATE TABLE IF NOT EXISTS signature_buildings AS (
 	LEFT JOIN ucp USING(bbl)
 	LEFT JOIN hpd_reg USING(bbl)
 	LEFT JOIN acris_deed USING(bbl)
+	LEFT JOIN rodents USING(bbl)
 );
 
 CREATE INDEX ON signature_buildings (bbl);

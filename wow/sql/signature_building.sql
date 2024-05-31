@@ -26,6 +26,8 @@ SELECT
     hpd_comp_pests,
     hpd_comp_apts_pct,
     hpd_comp_apts,
+    last_rodent_date,
+    last_rodent_result,
     landlord,
     landlord_slug,
     lender,
