@@ -12,13 +12,13 @@ CREATE TABLE IF NOT EXISTS signature_building_charts AS
 
     hpdviolations AS (
         SELECT
-        bbl,
-        to_char(coalesce(inspectiondate, novissueddate), 'YYYY-MM') AS month,
-        count(*) FILTER (WHERE class = 'A') AS hpdviolations_class_a,
-        count(*) FILTER (WHERE class = 'B') AS hpdviolations_class_b,
-        count(*) FILTER (WHERE class = 'C') AS hpdviolations_class_c,
-        count(*) FILTER (WHERE class = 'I') AS hpdviolations_class_i,
-        count(*) FILTER (WHERE class IS NOT NULL) AS hpdviolations_total
+            bbl,
+            to_char(coalesce(inspectiondate, novissueddate), 'YYYY-MM') AS month,
+            count(*) FILTER (WHERE class = 'A') AS hpdviolations_class_a,
+            count(*) FILTER (WHERE class = 'B') AS hpdviolations_class_b,
+            count(*) FILTER (WHERE class = 'C') AS hpdviolations_class_c,
+            count(*) FILTER (WHERE class = 'I') AS hpdviolations_class_i,
+            count(*) FILTER (WHERE class IS NOT NULL) AS hpdviolations_total
         FROM hpd_violations
         INNER JOIN signature.signature_unhp_data USING(bbl)
         WHERE coalesce(inspectiondate, novissueddate) >= '2010-01-01'

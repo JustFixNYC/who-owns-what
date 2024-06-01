@@ -10,17 +10,22 @@ CREATE TABLE IF NOT EXISTS signature_collections AS (
 			
 			sum(evictions) AS evictions,
 			
+			sum(hpd_erp_orders) AS hpd_erp_orders,
+			sum(hpd_erp_orders) / nullif(sum(units_res), 0)::numeric AS hpd_erp_orders_per_unit,
+			sum(hpd_erp_charges) AS hpd_erp_charges,
+			sum(hpd_erp_charges) / nullif(sum(units_res), 0)::numeric AS hpd_erp_charges_per_unit,
+
 			sum(hpd_viol_bc_open) AS hpd_viol_bc_open,
-			sum(hpd_viol_bc_open) / sum(units_res) AS hpd_viol_bc_open_per_unit,
+			sum(hpd_viol_bc_open) / nullif(sum(units_res), 0)::numeric AS hpd_viol_bc_open_per_unit,
 			sum(hpd_viol_bc_total) AS hpd_viol_bc_total,
-			sum(hpd_viol_bc_total) / sum(units_res) AS hpd_viol_bc_total_per_unit,
+			sum(hpd_viol_bc_total) / nullif(sum(units_res), 0)::numeric AS hpd_viol_bc_total_per_unit,
 			
 			sum(hpd_comp_emerg_total) AS hpd_comp_emerg_total,
-			sum(hpd_comp_emerg_total) / sum(units_res) AS hpd_comp_emerg_total_per_unit,
+			sum(hpd_comp_emerg_total) / nullif(sum(units_res), 0)::numeric AS hpd_comp_emerg_total_per_unit,
 			
 			sum(debt_total) AS debt_total,
-			sum(debt_total) / count(*) AS debt_per_building,
-			sum(debt_total) / sum(units_res) AS debt_per_unit,
+			sum(debt_total) / count(*)::numeric AS debt_per_building,
+			sum(debt_total) / nullif(sum(units_res), 0)::numeric AS debt_per_unit,
 			
 			array_to_json(array_agg(row_to_json(bldgs)))::jsonb AS bldg_data
 		FROM signature_buildings AS bldgs
@@ -30,23 +35,29 @@ CREATE TABLE IF NOT EXISTS signature_collections AS (
 		SELECT
 			lender AS collection_name,
 			'lender' AS collection_type,
-			
+
+			-- All copied from above
 			count(*) AS buildings,
 			sum(units_res) AS units_res,
 			
 			sum(evictions) AS evictions,
 			
+			sum(hpd_erp_orders) AS hpd_erp_orders,
+			sum(hpd_erp_orders) / nullif(sum(units_res), 0)::numeric AS hpd_erp_orders_per_unit,
+			sum(hpd_erp_charges) AS hpd_erp_charges,
+			sum(hpd_erp_charges) / nullif(sum(units_res), 0)::numeric AS hpd_erp_charges_per_unit,
+
 			sum(hpd_viol_bc_open) AS hpd_viol_bc_open,
-			sum(hpd_viol_bc_open) / sum(units_res) AS hpd_viol_bc_open_per_unit,
+			sum(hpd_viol_bc_open) / nullif(sum(units_res), 0)::numeric AS hpd_viol_bc_open_per_unit,
 			sum(hpd_viol_bc_total) AS hpd_viol_bc_total,
-			sum(hpd_viol_bc_total) / sum(units_res) AS hpd_viol_bc_total_per_unit,
+			sum(hpd_viol_bc_total) / nullif(sum(units_res), 0)::numeric AS hpd_viol_bc_total_per_unit,
 			
 			sum(hpd_comp_emerg_total) AS hpd_comp_emerg_total,
-			sum(hpd_comp_emerg_total) / sum(units_res) AS hpd_comp_emerg_total_per_unit,
+			sum(hpd_comp_emerg_total) / nullif(sum(units_res), 0)::numeric AS hpd_comp_emerg_total_per_unit,
 			
 			sum(debt_total) AS debt_total,
-			sum(debt_total) / count(*) AS debt_per_building,
-			sum(debt_total) / sum(units_res) AS debt_per_unit,
+			sum(debt_total) / count(*)::numeric AS debt_per_building,
+			sum(debt_total) / nullif(sum(units_res), 0)::numeric AS debt_per_unit,
 			
 			array_to_json(array_agg(row_to_json(bldgs)))::jsonb AS bldg_data
 		FROM signature_buildings AS bldgs
@@ -56,23 +67,29 @@ CREATE TABLE IF NOT EXISTS signature_collections AS (
 		SELECT
 			'all' AS collection_name,
 			'all' AS collection_type,
-			
+
+			-- All copied from above
 			count(*) AS buildings,
 			sum(units_res) AS units_res,
 			
 			sum(evictions) AS evictions,
 			
+			sum(hpd_erp_orders) AS hpd_erp_orders,
+			sum(hpd_erp_orders) / nullif(sum(units_res), 0)::numeric AS hpd_erp_orders_per_unit,
+			sum(hpd_erp_charges) AS hpd_erp_charges,
+			sum(hpd_erp_charges) / nullif(sum(units_res), 0)::numeric AS hpd_erp_charges_per_unit,
+
 			sum(hpd_viol_bc_open) AS hpd_viol_bc_open,
-			sum(hpd_viol_bc_open) / sum(units_res) AS hpd_viol_bc_open_per_unit,
+			sum(hpd_viol_bc_open) / nullif(sum(units_res), 0)::numeric AS hpd_viol_bc_open_per_unit,
 			sum(hpd_viol_bc_total) AS hpd_viol_bc_total,
-			sum(hpd_viol_bc_total) / sum(units_res) AS hpd_viol_bc_total_per_unit,
+			sum(hpd_viol_bc_total) / nullif(sum(units_res), 0)::numeric AS hpd_viol_bc_total_per_unit,
 			
 			sum(hpd_comp_emerg_total) AS hpd_comp_emerg_total,
-			sum(hpd_comp_emerg_total) / sum(units_res) AS hpd_comp_emerg_total_per_unit,
+			sum(hpd_comp_emerg_total) / nullif(sum(units_res), 0)::numeric AS hpd_comp_emerg_total_per_unit,
 			
 			sum(debt_total) AS debt_total,
-			sum(debt_total) / count(*) AS debt_per_building,
-			sum(debt_total) / sum(units_res) AS debt_per_unit,
+			sum(debt_total) / count(*)::numeric AS debt_per_building,
+			sum(debt_total) / nullif(sum(units_res), 0)::numeric AS debt_per_unit,
 			
 			array_to_json(array_agg(row_to_json(bldgs)))::jsonb AS bldg_data
 		FROM signature_buildings AS bldgs
@@ -84,6 +101,10 @@ CREATE TABLE IF NOT EXISTS signature_collections AS (
 		buildings,
 		units_res,
 		evictions,
+		hpd_erp_orders,
+		hpd_erp_orders_per_unit,
+		hpd_erp_charges,
+		hpd_erp_charges_per_unit,
 		hpd_viol_bc_open,
 		hpd_viol_bc_open_per_unit,
 		hpd_viol_bc_total,

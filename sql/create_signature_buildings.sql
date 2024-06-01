@@ -42,7 +42,35 @@ CREATE TABLE IF NOT EXISTS signature_buildings AS (
 	    FROM marshal_evictions_all
 	    WHERE residentialcommercialind = 'RESIDENTIAL'
 	    GROUP BY bbl
-	), hpd_viol AS (
+	), 
+	
+	hpd_erp_charges_all AS (
+		SELECT 
+			c.bbl, 
+			c.omocreatedate AS order_date,
+			sum(i.chargeamount) AS charge_amount
+		FROM hpd_omo_charges AS c
+		LEFT JOIN hpd_omo_invoices AS i USING(omonumber)
+		GROUP BY bbl, omonumber, c.omocreatedate
+		UNION
+		SELECT 
+			bbl, 
+			hwocreatedate AS order_date, 
+			chargeamount AS charge_amount
+		FROM hpd_hwo_charges
+	), 
+	
+	hpd_erp AS (
+		SELECT
+			bbl,
+			count(*) AS hpd_erp_orders,
+			sum(charge_amount) AS hpd_erp_charges
+		FROM hpd_erp_charges_all
+		WHERE order_date >= (CURRENT_DATE - interval '1' year)
+		GROUP BY bbl
+	), 
+	
+	hpd_viol AS (
 	    SELECT 
 	    	bbl,
 	        count(*) FILTER (WHERE violationstatus = 'Open' AND inspectiondate >= '2010-01-01') AS hpd_viol_bc_open,
@@ -50,7 +78,9 @@ CREATE TABLE IF NOT EXISTS signature_buildings AS (
 	    FROM hpd_violations
 	    WHERE class = any('{B,C}')
 	    GROUP BY bbl
-	), hpd_comp AS (
+	), 
+	
+	hpd_comp AS (
 		SELECT 
 			bbl,
 			COUNT(*) FILTER (WHERE TYPE = ANY('{IMMEDIATE EMERGENCY,HAZARDOUS,EMERGENCY}')) AS hpd_comp_emerg_total,
@@ -67,31 +97,41 @@ CREATE TABLE IF NOT EXISTS signature_buildings AS (
 		FROM HPD_COMPLAINTS_AND_PROBLEMS
 		WHERE RECEIVEDDATE >= (CURRENT_DATE - interval '1' year)
 		GROUP BY bbl
-	), aep AS (
+	), 
+	
+	aep AS (
 		SELECT DISTINCT
 			bbl,
 			true as in_aep
 		FROM hpd_aep
 		WHERE currentstatus = 'AEP Active'
-	), conh AS (
+	), 
+	
+	conh AS (
 		-- TODO: this is only the pilot program, need to also include SROs and special districts
 		SELECT DISTINCT
 			bbl,
 			true as in_conh
 		FROM hpd_conh
-	), ucp AS (
+	), 
+	
+	ucp AS (
 		SELECT DISTINCT
 			bbl,
 			true as in_ucp
 		FROM hpd_underlying_conditions
 		WHERE currentstatus = 'Active'
-	), hpd_reg AS (
+	), 
+	
+	hpd_reg AS (
 		SELECT 
 			bbl,
 			CASE WHEN count(*) = 1 THEN max(buildingid) ELSE NULL END AS buildingid
 		FROM hpd_registrations
 		GROUP BY bbl
-	), acris_deed AS (
+	), 
+	
+	acris_deed AS (
 		SELECT DISTINCT ON (bbl)
 			l.bbl,
 			coalesce(m.docdate, m.recordedfiled) AS last_sale_date
@@ -99,7 +139,9 @@ CREATE TABLE IF NOT EXISTS signature_buildings AS (
 		LEFT JOIN real_property_legals AS l USING(documentid)
 		WHERE docamount > 1 AND doctype = any('{DEED,DEEDO}')
 		ORDER BY bbl, docdate DESC
-	), rodents AS (
+	), 
+	
+	rodents AS (
 		SELECT DISTINCT ON (bbl)
 			bbl,
 			coalesce(approveddate, inspectiondate)::date AS last_rodent_date,
@@ -170,9 +212,15 @@ CREATE TABLE IF NOT EXISTS signature_buildings AS (
 	
 		-- HOUSING COURT
 	    coalesce(evictions.evictions, 0) AS evictions,
+
+		-- HPD EMERGENCY REPAIR PROGRAM
+		coalesce(hpd_erp.hpd_erp_orders, 0) AS hpd_erp_orders,
+		coalesce(hpd_erp.hpd_erp_charges, 0) AS hpd_erp_charges,
+		coalesce(hpd_erp.hpd_erp_charges, 0)::numeric / nullif(sp.unitsres, 0)::numeric AS hpd_erp_charges_per_unit,
 	    
 		-- HPD VIOLATIONS
 	    coalesce(hpd_viol.hpd_viol_bc_open, 0) AS hpd_viol_bc_open,
+	    coalesce(hpd_viol.hpd_viol_bc_open, 0)::numeric / nullif(sp.unitsres, 0)::numeric AS hpd_viol_bc_open_per_unit,
 	    coalesce(hpd_viol.hpd_viol_bc_total, 0) AS hpd_viol_bc_total,
 	    
 		-- HPD COMPLAINTS
@@ -198,8 +246,10 @@ CREATE TABLE IF NOT EXISTS signature_buildings AS (
 		sp.origination_date,
 		sp.debt_total,
 		sp.debt_per_unit
+
 	FROM signature_pluto_poli AS sp
 	LEFT JOIN evictions USING(bbl)
+	LEFT JOIN hpd_erp USING(bbl)
 	LEFT JOIN hpd_viol USING(bbl)
 	LEFT JOIN hpd_comp USING(bbl)
 	LEFT JOIN aep USING(bbl)
