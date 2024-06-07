@@ -8,8 +8,8 @@ CREATE TEMP TABLE IF NOT EXISTS signature_pluto_geos AS (
 		trim(BOTH '-' FROM regexp_replace(lower(trim(s.lender)), '[^a-z0-9_-]+', '-', 'gi')) AS lender_slug,
 		-- having issues with the csv nulls, so all imported as strings
 		nullif(s.origination_date, '')::date AS origination_date,
-		nullif(s.debt_building, '')::numeric AS debt_total,
-		nullif(s.debt_unit, '')::numeric AS debt_per_unit,
+		nullif(s.debt_building, '')::float AS debt_total,
+		nullif(s.debt_unit, '')::float AS debt_per_unit,
 		ST_TRANSFORM(ST_SetSRID(ST_MakePoint(longitude, latitude),4326), 2263) AS geom_point
 	FROM signature_unhp_data AS s
 	LEFT JOIN pluto_latest AS p USING(bbl)
@@ -70,13 +70,29 @@ CREATE TABLE IF NOT EXISTS signature_buildings AS (
 		GROUP BY bbl
 	), 
 	
-	hpd_viol AS (
+	hpd_viol_open AS (
 	    SELECT 
 	    	bbl,
-	        count(*) FILTER (WHERE violationstatus = 'Open' AND inspectiondate >= '2010-01-01') AS hpd_viol_bc_open,
-	        count(*) FILTER (WHERE inspectiondate >= (CURRENT_DATE - interval '1' year)) AS hpd_viol_bc_total
+	        count(*) AS hpd_viol_bc_open
 	    FROM hpd_violations
-	    WHERE class = any('{B,C}')
+	    WHERE class = any('{B,C}') 
+			AND violationstatus = 'Open' 
+			AND inspectiondate >= '2010-01-01'
+	    GROUP BY bbl
+	), 
+	hpd_viol_total AS (
+	    SELECT 
+	    	bbl,
+	        count(*) FILTER (WHERE class = any('{B,C}')) AS hpd_viol_bc_total,
+			-- https://regex101.com/r/73lWqr/1
+			-- https://www.nyc.gov/assets/buildings/pdf/HousingMaintenanceCode.pdf#page=29
+			count(*) FILTER (WHERE novdescription ~* '27-[\d\s,]*?20(?:(?:2[8-9])|(?:3[0-3]))') AS hpd_viol_heat,
+			-- Sections used are too broad to use, not perfect but better than nothing
+			count(*) FILTER (WHERE novdescription ~* '(leak)|(mold)' AND novdescription !~* 'gas') AS hpd_viol_water,
+			-- https://www.nyc.gov/assets/buildings/pdf/HousingMaintenanceCode.pdf#page=18
+			count(*) FILTER (WHERE novdescription ~* '27-[\d\s,]*?201[7-9]') AS hpd_viol_pests
+	    FROM hpd_violations
+	    WHERE inspectiondate >= (CURRENT_DATE - interval '1' year)
 	    GROUP BY bbl
 	), 
 	
@@ -150,11 +166,34 @@ CREATE TABLE IF NOT EXISTS signature_buildings AS (
 				ELSE 'Passed'
 			END AS last_rodent_result
 		FROM dohmh_rodent_inspections
-		INNER JOIN signature.signature_bldgs USING(bbl)
 		WHERE inspectiontype IN ('Initial', 'Compliance') 
 			AND result IS NOT NULL
 			AND coalesce(approveddate, inspectiondate) IS NOT NULL
 		ORDER BY bbl, coalesce(approveddate, inspectiondate) DESC
+	),
+
+	dob_jobs_all AS (
+		SELECT 
+			bbl,
+			count(DISTINCT jobfilingnumber) AS dob_jobs
+		FROM dob_now_jobs
+		WHERE filingdate >= (CURRENT_DATE - interval '1' year)
+		GROUP BY bbl
+		UNION 
+		SELECT 
+			bbl,
+			count(DISTINCT job) AS dob_jobs
+		FROM dobjobs
+		WHERE prefilingdate >= (CURRENT_DATE - interval '1' year)
+		GROUP BY bbl
+	),
+
+	dob_jobs AS (
+		SELECT
+			bbl,
+			sum(dob_jobs)::int as dob_jobs
+		FROM dob_jobs_all
+		GROUP BY bbl
 	)
 
 	SELECT
@@ -162,7 +201,13 @@ CREATE TABLE IF NOT EXISTS signature_buildings AS (
 		sp.bbl,
 		sp.address,
 		sp.zipcode AS zip,
-		sp.borough,
+		CASE 
+			WHEN sp.borough = 'MN' THEN 'Manhattan'
+			WHEN sp.borough = 'BX' THEN 'Bronx'
+			WHEN sp.borough = 'BK' THEN 'Brooklyn'
+			WHEN sp.borough = 'QN' THEN 'Queens'
+			WHEN sp.borough = 'SI' THEN 'Staten Island'
+		END AS borough,
 		sp.latitude AS lat,
 		sp.longitude AS lng,
 		
@@ -216,16 +261,19 @@ CREATE TABLE IF NOT EXISTS signature_buildings AS (
 		-- HPD EMERGENCY REPAIR PROGRAM
 		coalesce(hpd_erp.hpd_erp_orders, 0) AS hpd_erp_orders,
 		coalesce(hpd_erp.hpd_erp_charges, 0) AS hpd_erp_charges,
-		coalesce(hpd_erp.hpd_erp_charges, 0)::numeric / nullif(sp.unitsres, 0)::numeric AS hpd_erp_charges_per_unit,
+		coalesce(hpd_erp.hpd_erp_charges, 0)::float / nullif(sp.unitsres, 0)::float AS hpd_erp_charges_per_unit,
 	    
 		-- HPD VIOLATIONS
-	    coalesce(hpd_viol.hpd_viol_bc_open, 0) AS hpd_viol_bc_open,
-	    coalesce(hpd_viol.hpd_viol_bc_open, 0)::numeric / nullif(sp.unitsres, 0)::numeric AS hpd_viol_bc_open_per_unit,
-	    coalesce(hpd_viol.hpd_viol_bc_total, 0) AS hpd_viol_bc_total,
+	    coalesce(hpd_viol_open.hpd_viol_bc_open, 0) AS hpd_viol_bc_open,
+	    coalesce(hpd_viol_open.hpd_viol_bc_open, 0)::float / nullif(sp.unitsres, 0)::float AS hpd_viol_bc_open_per_unit,
+	    coalesce(hpd_viol_total.hpd_viol_bc_total, 0) AS hpd_viol_bc_total,
+	    coalesce(hpd_viol_total.hpd_viol_heat, 0) AS hpd_viol_heat,
+	    coalesce(hpd_viol_total.hpd_viol_water, 0) AS hpd_viol_water,
+	    coalesce(hpd_viol_total.hpd_viol_pests, 0) AS hpd_viol_pests,
 	    
 		-- HPD COMPLAINTS
 	    coalesce(hpd_comp.hpd_comp_emerg_total, 0) AS hpd_comp_emerg_total,
-	    coalesce(array_length(hpd_comp.hpd_comp_apts, 1), 0)::numeric / nullif(sp.unitsres, 0)::numeric AS hpd_comp_apts_pct,
+	    round(coalesce(array_length(hpd_comp.hpd_comp_apts, 1), 0)::float / nullif(sp.unitsres, 0)::float * 100) AS hpd_comp_apts_pct,
 	    array_to_string(hpd_comp.hpd_comp_apts, ', ') AS hpd_comp_apts,
 		coalesce(hpd_comp_heat, 0) AS hpd_comp_heat,
 		coalesce(hpd_comp_water, 0) AS hpd_comp_water,
@@ -234,6 +282,9 @@ CREATE TABLE IF NOT EXISTS signature_buildings AS (
 		-- DOHMH RODENTS
 		rodents.last_rodent_date,
 		rodents.last_rodent_result,
+
+		-- DOB Jobs/Permits
+		coalesce(dob_jobs.dob_jobs, 0) AS dob_jobs,
 		
 		-- LANDLORD/LENDER
 		sp.landlord,
@@ -250,7 +301,8 @@ CREATE TABLE IF NOT EXISTS signature_buildings AS (
 	FROM signature_pluto_poli AS sp
 	LEFT JOIN evictions USING(bbl)
 	LEFT JOIN hpd_erp USING(bbl)
-	LEFT JOIN hpd_viol USING(bbl)
+	LEFT JOIN hpd_viol_open USING(bbl)
+	LEFT JOIN hpd_viol_total USING(bbl)
 	LEFT JOIN hpd_comp USING(bbl)
 	LEFT JOIN aep USING(bbl)
 	LEFT JOIN conh USING(bbl)
@@ -258,6 +310,7 @@ CREATE TABLE IF NOT EXISTS signature_buildings AS (
 	LEFT JOIN hpd_reg USING(bbl)
 	LEFT JOIN acris_deed USING(bbl)
 	LEFT JOIN rodents USING(bbl)
+	LEFT JOIN dob_jobs USING(bbl)
 );
 
 CREATE INDEX ON signature_buildings (bbl);

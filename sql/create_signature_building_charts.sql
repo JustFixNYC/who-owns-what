@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS signature_building_charts AS
             count(*) FILTER (WHERE class = 'I') AS hpdviolations_class_i,
             count(*) FILTER (WHERE class IS NOT NULL) AS hpdviolations_total
         FROM hpd_violations
-        INNER JOIN signature.signature_unhp_data USING(bbl)
+        INNER JOIN signature_unhp_data USING(bbl)
         WHERE coalesce(inspectiondate, novissueddate) >= '2010-01-01'
         GROUP BY bbl, month
     ),
