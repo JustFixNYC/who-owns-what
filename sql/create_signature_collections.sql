@@ -4,6 +4,8 @@ CREATE TABLE IF NOT EXISTS signature_collections AS (
 		SELECT
 			landlord AS collection_name,
 			'landlord' AS collection_type,
+
+			max(lender) AS lender_name,
 			
 			-- This all copied to next two sections
 			count(*)::int AS buildings,
@@ -40,6 +42,8 @@ CREATE TABLE IF NOT EXISTS signature_collections AS (
 			lender AS collection_name,
 			'lender' AS collection_type,
 
+			NULL::text AS lender_name,
+
 			-- All copied from above
 			count(*)::int AS buildings,
 			sum(units_res)::int AS units_res,
@@ -75,6 +79,8 @@ CREATE TABLE IF NOT EXISTS signature_collections AS (
 			'all' AS collection_name,
 			'all' AS collection_type,
 
+			NULL::text AS lender_name,
+
 			-- All copied from above
 			count(*)::int AS buildings,
 			sum(units_res)::int AS units_res,
@@ -105,9 +111,11 @@ CREATE TABLE IF NOT EXISTS signature_collections AS (
 		FROM signature_buildings AS bldgs
 	)
 	SELECT 
+		collection_type,
 		collection_name,
 		trim(BOTH '-' FROM regexp_replace(lower(trim(collection_name)), '[^a-z0-9_-]+', '-', 'gi')) AS collection_slug,
-		collection_type,
+		lender_name,
+		trim(BOTH '-' FROM regexp_replace(lower(trim(lender_name)), '[^a-z0-9_-]+', '-', 'gi')) AS lender_slug,
 		buildings,
 		units_res,
 		evictions,

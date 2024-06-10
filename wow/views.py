@@ -363,6 +363,18 @@ def signature_collection_charts(request):
     return JsonResponse({"result": list(result)})
 
 
+@api
+def signature_landlords(request):
+    """
+    This API endpoint returns data for all landlords in the signature program,
+    along with select aggregate indicators, to populate a table on the landlord
+    search page of the dashabord
+    """
+    authorize_for_signature(request)
+    result = exec_db_query(SQL_DIR / "signature_landlords.sql")
+    return JsonResponse({"result": list(result)})
+
+
 def _fixup_addr_for_csv(addr: Dict[str, Any]):
     addr["ownernames"] = csvutil.stringify_owners(addr["ownernames"] or [])
     addr["recentcomplaintsbytype"] = csvutil.stringify_complaints(
