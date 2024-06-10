@@ -7,9 +7,10 @@ CREATE TEMP TABLE IF NOT EXISTS signature_pluto_geos AS (
 		s.lender,
 		trim(BOTH '-' FROM regexp_replace(lower(trim(s.lender)), '[^a-z0-9_-]+', '-', 'gi')) AS lender_slug,
 		-- having issues with the csv nulls, so all imported as strings
+		nullif(s.bip, '')::integer AS bip,
+		nullif(s.water_charges, '')::float AS water_charges,
 		nullif(s.origination_date, '')::date AS origination_date,
-		nullif(s.debt_building, '')::float AS debt_total,
-		nullif(s.debt_unit, '')::float AS debt_per_unit,
+		nullif(s.debt_total, '')::float AS debt_total,
 		ST_TRANSFORM(ST_SetSRID(ST_MakePoint(longitude, latitude),4326), 2263) AS geom_point
 	FROM signature_unhp_data AS s
 	LEFT JOIN pluto_latest AS p USING(bbl)
@@ -285,6 +286,12 @@ CREATE TABLE IF NOT EXISTS signature_buildings AS (
 
 		-- DOB Jobs/Permits
 		coalesce(dob_jobs.dob_jobs, 0) AS dob_jobs,
+
+		-- DEP Water Charges
+		sp.water_charges,
+
+		-- BIP Score (UNHP)
+		sp.bip,
 		
 		-- LANDLORD/LENDER
 		sp.landlord,
@@ -296,7 +303,7 @@ CREATE TABLE IF NOT EXISTS signature_buildings AS (
 		acris_deed.last_sale_date,
 		sp.origination_date,
 		sp.debt_total,
-		sp.debt_per_unit
+		sp.debt_total / nullif(sp.unitsres, 0)::float AS debt_per_unit
 
 	FROM signature_pluto_poli AS sp
 	LEFT JOIN evictions USING(bbl)
