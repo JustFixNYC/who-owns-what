@@ -36,6 +36,8 @@ SELECT
     last_rodent_date,
     last_rodent_result,
     dob_jobs,
+    water_charges,
+    bip,
     landlord,
     landlord_slug,
     lender,
