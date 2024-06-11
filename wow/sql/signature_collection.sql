@@ -5,6 +5,7 @@ SELECT
     buildings,
     units_res,
     rs_units,
+    bip_500_pct,
     evictions_filed,
     hpd_erp_orders,
     hpd_erp_orders_per_unit,
