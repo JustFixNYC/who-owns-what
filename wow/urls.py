@@ -59,4 +59,5 @@ urlpatterns = [
     path(
         "signature/portfolios", views.signature_portfolios, name="signature_portfolios"
     ),
+    path("signature/map", views.signature_map, name="signature_map"),
 ]

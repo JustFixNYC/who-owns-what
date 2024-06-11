@@ -398,6 +398,17 @@ def signature_portfolios(request):
     return JsonResponse({"result": list(result)})
 
 
+@api
+def signature_map(request):
+    """
+    This API endpoint returns data on all properties in the signature portfolio
+    for the dedicated map page.
+    """
+    authorize_for_signature(request)
+    result = exec_db_query(SQL_DIR / "signature_map.sql")
+    return JsonResponse({"result": list(result)})
+
+
 def _fixup_addr_for_csv(addr: Dict[str, Any]):
     addr["ownernames"] = csvutil.stringify_owners(addr["ownernames"] or [])
     addr["recentcomplaintsbytype"] = csvutil.stringify_complaints(
