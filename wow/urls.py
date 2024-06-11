@@ -55,4 +55,8 @@ urlpatterns = [
         name="signature_collection_charts",
     ),
     path("signature/landlords", views.signature_landlords, name="signature_landlords"),
+    path("signature/bbls", views.signature_bbls, name="signature_bbls"),
+    path(
+        "signature/portfolios", views.signature_portfolios, name="signature_portfolios"
+    ),
 ]

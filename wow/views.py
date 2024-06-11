@@ -375,6 +375,29 @@ def signature_landlords(request):
     return JsonResponse({"result": list(result)})
 
 
+@api
+def signature_bbls(request):
+    """
+    This API endpoint returns a list of all of the BBLs in the signature
+    portfolio, to use in limiting results from GeoSearch Autocomplete API for
+    the building search function.
+    """
+    authorize_for_signature(request)
+    result = exec_db_query(SQL_DIR / "signature_bbls.sql")
+    bbls = [x["bbl"] for x in result]
+    return JsonResponse({"result": list(bbls)})
+
+
+@api
+def signature_portfolios(request):
+    """
+    This API endpoint returns data on signature/lender portfolio for home page cards.
+    """
+    authorize_for_signature(request)
+    result = exec_db_query(SQL_DIR / "signature_portfolios.sql")
+    return JsonResponse({"result": list(result)})
+
+
 def _fixup_addr_for_csv(addr: Dict[str, Any]):
     addr["ownernames"] = csvutil.stringify_owners(addr["ownernames"] or [])
     addr["recentcomplaintsbytype"] = csvutil.stringify_complaints(
