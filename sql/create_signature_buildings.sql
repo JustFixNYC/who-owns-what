@@ -36,14 +36,34 @@ CREATE INDEX ON signature_pluto_poli (bbl);
 
 DROP TABLE IF EXISTS signature_buildings CASCADE;
 CREATE TABLE IF NOT EXISTS signature_buildings AS (
-	WITH evictions AS (
+	WITH evic_marshal AS (
 	    SELECT
 	        bbl,
-	        count(*) AS evictions
+	        count(*) AS evictions_executed
 	    FROM marshal_evictions_all
 	    WHERE residentialcommercialind = 'RESIDENTIAL'
 	    GROUP BY bbl
 	), 
+
+	evic_oca AS (
+		SELECT
+			a.bbl,
+			count(distinct indexnumberid) AS evictions_filed
+		FROM oca_index AS i
+		LEFT JOIN oca_addresses_with_bbl AS a USING(indexnumberid)
+		WHERE i.fileddate >= (CURRENT_DATE - interval '1' year)
+			AND i.classification = any('{Holdover,Non-Payment}') 
+			AND i.propertytype = 'Residential'
+			AND nullif(a.bbl, '') IS NOT NULL
+		GROUP BY a.bbl
+	),
+
+	rs_units AS (
+		SELECT
+			ucbbl AS bbl,
+			coalesce(nullif(uc2022, 0), nullif(uc2021, 0), nullif(uc2020, 0), nullif(uc2019, 0), 0) as rs_units
+		FROM rentstab_v2
+	),
 	
 	hpd_erp_charges_all AS (
 		SELECT 
@@ -195,6 +215,36 @@ CREATE TABLE IF NOT EXISTS signature_buildings AS (
 			sum(dob_jobs)::int as dob_jobs
 		FROM dob_jobs_all
 		GROUP BY bbl
+	),
+
+	dob_ecb_stacked as (
+		SELECT
+			bbl,
+			issuedate,
+			(violationcategory ~* 'ACTIVE') AS is_active
+		FROM dob_violations 
+		WHERE issuedate >= '2010-01-01'
+			AND violationtypecode IS NOT NULL
+		UNION
+		SELECT
+			bbl,
+			issuedate,
+			(certificationstatus IS NULL 
+			OR certificationstatus in ('REINSPECTION SHOWS STILL IN VIOLATION', 
+					'CERTIFICATE PENDING', 'CERTIFICATE DISAPPROVED', 'NO COMPLIANCE RECORDED')
+			) AS is_active
+		FROM ecb_violations 
+		WHERE issuedate >= '2010-01-01'
+			AND severity IS NOT NULL
+	),
+
+	dob_ecb_viol AS (
+		SELECT
+			bbl,
+			count(*) FILTER (WHERE issuedate >= (CURRENT_DATE - interval '1' year)) AS dob_ecb_viol_total,
+			count(*) FILTER (WHERE is_active) AS dob_ecb_viol_open
+		FROM dob_ecb_stacked
+		GROUP BY bbl
 	)
 
 	SELECT
@@ -222,6 +272,7 @@ CREATE TABLE IF NOT EXISTS signature_buildings AS (
 		sp.unitsres AS units_res,
 		(sp.unitstotal - sp.unitsres > 0) AS units_nonres,
 		sp.yearbuilt AS year_built,
+		coalesce(rs_units.rs_units, 0) AS rs_units,
 
 		-- EXTERNAL LINKS
 		CASE 
@@ -257,7 +308,11 @@ CREATE TABLE IF NOT EXISTS signature_buildings AS (
 		coalesce(ucp.in_ucp, false) AS in_ucp,
 	
 		-- HOUSING COURT
-	    coalesce(evictions.evictions, 0) AS evictions,
+	    coalesce(evic_marshal.evictions_executed, 0) AS evictions_executed,
+		CASE 
+			WHEN sp.unitsres > 10 THEN coalesce(evic_oca.evictions_filed, 0)
+			ELSE NULL
+		END AS evictions_filed,
 
 		-- HPD EMERGENCY REPAIR PROGRAM
 		coalesce(hpd_erp.hpd_erp_orders, 0) AS hpd_erp_orders,
@@ -287,6 +342,10 @@ CREATE TABLE IF NOT EXISTS signature_buildings AS (
 		-- DOB Jobs/Permits
 		coalesce(dob_jobs.dob_jobs, 0) AS dob_jobs,
 
+		-- DOB/ECB Violations
+		coalesce(dob_ecb_viol.dob_ecb_viol_total, 0) AS dob_ecb_viol_total,
+		coalesce(dob_ecb_viol.dob_ecb_viol_open, 0) AS dob_ecb_viol_open,
+
 		-- DEP Water Charges
 		sp.water_charges,
 
@@ -306,7 +365,9 @@ CREATE TABLE IF NOT EXISTS signature_buildings AS (
 		sp.debt_total / nullif(sp.unitsres, 0)::float AS debt_per_unit
 
 	FROM signature_pluto_poli AS sp
-	LEFT JOIN evictions USING(bbl)
+	LEFT JOIN evic_marshal USING(bbl)
+	LEFT JOIN evic_oca USING(bbl)
+	LEFT JOIN rs_units USING(bbl)
 	LEFT JOIN hpd_erp USING(bbl)
 	LEFT JOIN hpd_viol_open USING(bbl)
 	LEFT JOIN hpd_viol_total USING(bbl)
@@ -318,6 +379,8 @@ CREATE TABLE IF NOT EXISTS signature_buildings AS (
 	LEFT JOIN acris_deed USING(bbl)
 	LEFT JOIN rodents USING(bbl)
 	LEFT JOIN dob_jobs USING(bbl)
+	LEFT JOIN dob_ecb_viol USING(bbl)
+	WHERE bbl IS NOT NULL
 );
 
 CREATE INDEX ON signature_buildings (bbl);

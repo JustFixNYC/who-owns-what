@@ -10,8 +10,11 @@ CREATE TABLE IF NOT EXISTS signature_collections AS (
 			-- This all copied to next two sections
 			count(*)::int AS buildings,
 			sum(units_res)::int AS units_res,
+			sum(rs_units)::int AS rs_units,
 			
-			sum(evictions)::int AS evictions,
+			sum(evictions_filed)::int AS evictions_filed,
+
+			(sum((bip >= 500)::int) / sum((bip IS NOT NULL)::int))::float * 100 AS bip_500_pct,
 			
 			sum(hpd_erp_orders)::int AS hpd_erp_orders,
 			sum(hpd_erp_orders) / nullif(sum(units_res), 0)::float AS hpd_erp_orders_per_unit,
@@ -27,6 +30,9 @@ CREATE TABLE IF NOT EXISTS signature_collections AS (
 			sum(hpd_comp_emerg_total) / nullif(sum(units_res), 0)::float AS hpd_comp_emerg_total_per_unit,
 			
 			sum(dob_jobs)::int as dob_jobs,
+			sum(dob_ecb_viol_open) / nullif(sum(units_res), 0)::float AS dob_ecb_viol_open_per_unit,
+
+			sum(water_charges)::float AS water_charges,
 
 			sum(debt_total)::float AS debt_total,
 			sum(debt_total) / count(*)::float AS debt_per_building,
@@ -47,8 +53,11 @@ CREATE TABLE IF NOT EXISTS signature_collections AS (
 			-- All copied from above
 			count(*)::int AS buildings,
 			sum(units_res)::int AS units_res,
+			sum(rs_units)::int AS rs_units,
 			
-			sum(evictions)::int AS evictions,
+			sum(evictions_filed)::int AS evictions_filed,
+
+			(sum((bip >= 500)::int) / sum((bip IS NOT NULL)::int))::float * 100 AS bip_500_pct,
 			
 			sum(hpd_erp_orders)::int AS hpd_erp_orders,
 			sum(hpd_erp_orders) / nullif(sum(units_res), 0)::float AS hpd_erp_orders_per_unit,
@@ -64,6 +73,9 @@ CREATE TABLE IF NOT EXISTS signature_collections AS (
 			sum(hpd_comp_emerg_total) / nullif(sum(units_res), 0)::float AS hpd_comp_emerg_total_per_unit,
 			
 			sum(dob_jobs)::int as dob_jobs,
+			sum(dob_ecb_viol_open) / nullif(sum(units_res), 0)::float AS dob_ecb_viol_open_per_unit,
+
+			sum(water_charges)::float AS water_charges,
 
 			sum(debt_total)::float AS debt_total,
 			sum(debt_total) / count(*)::float AS debt_per_building,
@@ -84,8 +96,11 @@ CREATE TABLE IF NOT EXISTS signature_collections AS (
 			-- All copied from above
 			count(*)::int AS buildings,
 			sum(units_res)::int AS units_res,
+			sum(rs_units)::int AS rs_units,
 			
-			sum(evictions)::int AS evictions,
+			sum(evictions_filed)::int AS evictions_filed,
+
+			(sum((bip >= 500)::int) / sum((bip IS NOT NULL)::int))::float * 100 AS bip_500_pct,
 			
 			sum(hpd_erp_orders)::int AS hpd_erp_orders,
 			sum(hpd_erp_orders) / nullif(sum(units_res), 0)::float AS hpd_erp_orders_per_unit,
@@ -101,6 +116,9 @@ CREATE TABLE IF NOT EXISTS signature_collections AS (
 			sum(hpd_comp_emerg_total) / nullif(sum(units_res), 0)::float AS hpd_comp_emerg_total_per_unit,
 			
 			sum(dob_jobs)::int as dob_jobs,
+			sum(dob_ecb_viol_open) / nullif(sum(units_res), 0)::float AS dob_ecb_viol_open_per_unit,
+
+			sum(water_charges)::float AS water_charges,
 
 			sum(debt_total)::float AS debt_total,
 			sum(debt_total) / count(*)::float AS debt_per_building,
@@ -118,7 +136,9 @@ CREATE TABLE IF NOT EXISTS signature_collections AS (
 		trim(BOTH '-' FROM regexp_replace(lower(trim(lender_name)), '[^a-z0-9_-]+', '-', 'gi')) AS lender_slug,
 		buildings,
 		units_res,
-		evictions,
+		rs_units,
+		evictions_filed,
+		bip_500_pct,
 		hpd_erp_orders,
 		hpd_erp_orders_per_unit,
 		hpd_erp_charges,
@@ -130,6 +150,8 @@ CREATE TABLE IF NOT EXISTS signature_collections AS (
 		hpd_comp_emerg_total,
 		hpd_comp_emerg_total_per_unit,
 		dob_jobs,
+		dob_ecb_viol_open_per_unit,
+		water_charges,
 		debt_total,
 		debt_per_building,
 		debt_per_unit,
