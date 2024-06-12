@@ -13,6 +13,7 @@ CREATE TABLE IF NOT EXISTS signature_collections AS (
 			sum(rs_units)::int AS rs_units,
 			
 			sum(evictions_filed)::int AS evictions_filed,
+			sum(hp_active)::int AS hp_active,
 
 			(sum((bip >= 500)::int) / sum((bip IS NOT NULL)::int))::float * 100 AS bip_500_pct,
 			
@@ -30,6 +31,7 @@ CREATE TABLE IF NOT EXISTS signature_collections AS (
 			sum(hpd_comp_emerg_total) / nullif(sum(units_res), 0)::float AS hpd_comp_emerg_total_per_unit,
 			
 			sum(dob_jobs)::int as dob_jobs,
+			sum(dob_ecb_viol_open)::int AS dob_ecb_viol_open,
 			sum(dob_ecb_viol_open) / nullif(sum(units_res), 0)::float AS dob_ecb_viol_open_per_unit,
 
 			sum(water_charges)::float AS water_charges,
@@ -56,6 +58,7 @@ CREATE TABLE IF NOT EXISTS signature_collections AS (
 			sum(rs_units)::int AS rs_units,
 			
 			sum(evictions_filed)::int AS evictions_filed,
+			sum(hp_active)::int AS hp_active,
 
 			(sum((bip >= 500)::int) / sum((bip IS NOT NULL)::int))::float * 100 AS bip_500_pct,
 			
@@ -73,6 +76,7 @@ CREATE TABLE IF NOT EXISTS signature_collections AS (
 			sum(hpd_comp_emerg_total) / nullif(sum(units_res), 0)::float AS hpd_comp_emerg_total_per_unit,
 			
 			sum(dob_jobs)::int as dob_jobs,
+			sum(dob_ecb_viol_open)::int AS dob_ecb_viol_open,
 			sum(dob_ecb_viol_open) / nullif(sum(units_res), 0)::float AS dob_ecb_viol_open_per_unit,
 
 			sum(water_charges)::float AS water_charges,
@@ -99,6 +103,7 @@ CREATE TABLE IF NOT EXISTS signature_collections AS (
 			sum(rs_units)::int AS rs_units,
 			
 			sum(evictions_filed)::int AS evictions_filed,
+			sum(hp_active)::int AS hp_active,
 
 			(sum((bip >= 500)::int) / sum((bip IS NOT NULL)::int))::float * 100 AS bip_500_pct,
 			
@@ -116,6 +121,7 @@ CREATE TABLE IF NOT EXISTS signature_collections AS (
 			sum(hpd_comp_emerg_total) / nullif(sum(units_res), 0)::float AS hpd_comp_emerg_total_per_unit,
 			
 			sum(dob_jobs)::int as dob_jobs,
+			sum(dob_ecb_viol_open)::int AS dob_ecb_viol_open,
 			sum(dob_ecb_viol_open) / nullif(sum(units_res), 0)::float AS dob_ecb_viol_open_per_unit,
 
 			sum(water_charges)::float AS water_charges,
@@ -138,6 +144,7 @@ CREATE TABLE IF NOT EXISTS signature_collections AS (
 		units_res,
 		rs_units,
 		evictions_filed,
+		hp_active,
 		bip_500_pct,
 		hpd_erp_orders,
 		hpd_erp_orders_per_unit,
@@ -151,6 +158,7 @@ CREATE TABLE IF NOT EXISTS signature_collections AS (
 		hpd_comp_emerg_total_per_unit,
 		dob_jobs,
 		dob_ecb_viol_open_per_unit,
+		dob_ecb_viol_open,
 		water_charges,
 		debt_total,
 		debt_per_building,

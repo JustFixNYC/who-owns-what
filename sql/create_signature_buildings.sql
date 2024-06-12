@@ -58,6 +58,18 @@ CREATE TABLE IF NOT EXISTS signature_buildings AS (
 		GROUP BY a.bbl
 	),
 
+	hp_cases AS (
+		SELECT
+			bbl,
+			count(*) AS hp_total,
+			count(*) FILTER (WHERE openjudgement = 'YES') AS hp_open_judgements,
+			coalesce(sum(penalty::float) FILTER (WHERE openjudgement = 'YES'), 0) AS hp_penalies,
+			count(*) FILTER (WHERE findingofharassment IN ('After Trial', 'After Inquest')) AS hp_find_harassment,
+			count(*) FILTER (WHERE casestatus IN ('APPLICATION PENDING', 'PENDING')) AS hp_active
+		FROM hpd_litigations
+		GROUP BY bbl
+	),
+
 	rs_units AS (
 		SELECT
 			ucbbl AS bbl,
@@ -98,9 +110,10 @@ CREATE TABLE IF NOT EXISTS signature_buildings AS (
 	    FROM hpd_violations
 	    WHERE class = any('{B,C}') 
 			AND violationstatus = 'Open' 
-			AND inspectiondate >= '2010-01-01'
+			AND novissueddate >= (CURRENT_DATE - interval '5' year)
 	    GROUP BY bbl
 	), 
+
 	hpd_viol_total AS (
 	    SELECT 
 	    	bbl,
@@ -113,7 +126,7 @@ CREATE TABLE IF NOT EXISTS signature_buildings AS (
 			-- https://www.nyc.gov/assets/buildings/pdf/HousingMaintenanceCode.pdf#page=18
 			count(*) FILTER (WHERE novdescription ~* '27-[\d\s,]*?201[7-9]') AS hpd_viol_pests
 	    FROM hpd_violations
-	    WHERE inspectiondate >= (CURRENT_DATE - interval '1' year)
+	    WHERE novissueddate >= (CURRENT_DATE - interval '1' year)
 	    GROUP BY bbl
 	), 
 	
@@ -223,7 +236,7 @@ CREATE TABLE IF NOT EXISTS signature_buildings AS (
 			issuedate,
 			(violationcategory ~* 'ACTIVE') AS is_active
 		FROM dob_violations 
-		WHERE issuedate >= '2010-01-01'
+		WHERE issuedate >= (CURRENT_DATE - interval '5' year)
 			AND violationtypecode IS NOT NULL
 		UNION
 		SELECT
@@ -234,7 +247,7 @@ CREATE TABLE IF NOT EXISTS signature_buildings AS (
 					'CERTIFICATE PENDING', 'CERTIFICATE DISAPPROVED', 'NO COMPLIANCE RECORDED')
 			) AS is_active
 		FROM ecb_violations 
-		WHERE issuedate >= '2010-01-01'
+		WHERE issuedate >= (CURRENT_DATE - interval '5' year)
 			AND severity IS NOT NULL
 	),
 
@@ -307,12 +320,19 @@ CREATE TABLE IF NOT EXISTS signature_buildings AS (
 		coalesce(conh.in_conh, false) AS in_conh,
 		coalesce(ucp.in_ucp, false) AS in_ucp,
 	
-		-- HOUSING COURT
+		-- EVICTIONS
 	    coalesce(evic_marshal.evictions_executed, 0) AS evictions_executed,
 		CASE 
 			WHEN sp.unitsres > 10 THEN coalesce(evic_oca.evictions_filed, 0)
 			ELSE NULL
 		END AS evictions_filed,
+
+		-- HP CASES
+		coalesce(hp_cases.hp_total, 0) AS hp_total,
+		coalesce(hp_cases.hp_open_judgements, 0) AS hp_open_judgements,
+		coalesce(hp_cases.hp_penalies, 0) AS hp_penalies,
+		coalesce(hp_cases.hp_find_harassment, 0) AS hp_find_harassment,
+		coalesce(hp_cases.hp_active, 0) AS hp_active,
 
 		-- HPD EMERGENCY REPAIR PROGRAM
 		coalesce(hpd_erp.hpd_erp_orders, 0) AS hpd_erp_orders,
@@ -367,6 +387,7 @@ CREATE TABLE IF NOT EXISTS signature_buildings AS (
 	FROM signature_pluto_poli AS sp
 	LEFT JOIN evic_marshal USING(bbl)
 	LEFT JOIN evic_oca USING(bbl)
+	LEFT JOIN hp_cases USING(bbl)
 	LEFT JOIN rs_units USING(bbl)
 	LEFT JOIN hpd_erp USING(bbl)
 	LEFT JOIN hpd_viol_open USING(bbl)
