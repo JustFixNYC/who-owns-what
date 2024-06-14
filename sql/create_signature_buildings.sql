@@ -1,7 +1,7 @@
 DROP TABLE IF EXISTS signature_pluto_geos;
 CREATE TEMP TABLE IF NOT EXISTS signature_pluto_geos AS (
 	SELECT
-		p.*,
+		bbl,
 		s.landlord,
 		trim(BOTH '-' FROM regexp_replace(lower(trim(s.landlord)), '[^a-z0-9_-]+', '-', 'gi')) AS landlord_slug,
 		s.lender,
@@ -11,6 +11,17 @@ CREATE TEMP TABLE IF NOT EXISTS signature_pluto_geos AS (
 		nullif(s.water_charges, '')::float AS water_charges,
 		nullif(s.origination_date, '')::date AS origination_date,
 		nullif(s.debt_total, '')::float AS debt_total,
+		p.borocode,
+		p.block,
+		p.lot,
+		p.address,
+		p.zipcode,
+		p.council,
+		p.latitude,
+		p.longitude,
+		p.unitsres,
+		p.unitstotal,
+		p.yearbuilt,
 		ST_TRANSFORM(ST_SetSRID(ST_MakePoint(longitude, latitude),4326), 2263) AS geom_point
 	FROM signature_unhp_data AS s
 	LEFT JOIN pluto_latest AS p USING(bbl)
