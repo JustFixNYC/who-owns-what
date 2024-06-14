@@ -16,6 +16,7 @@ CREATE TEMP TABLE IF NOT EXISTS signature_pluto_geos AS (
 		p.lot,
 		p.address,
 		p.zipcode,
+		p.borough,
 		p.council,
 		p.latitude,
 		p.longitude,
