@@ -97,7 +97,7 @@ CREATE TABLE IF NOT EXISTS signature_buildings AS (
 		SELECT
 			bbl,
 			count(*) AS hpd_erp_orders,
-			sum(charge_amount) AS hpd_erp_charges
+			sum(charge_amount)::float AS hpd_erp_charges
 		FROM hpd_erp_charges_all
 		WHERE order_date >= (CURRENT_DATE - interval '1' year)
 		GROUP BY bbl
