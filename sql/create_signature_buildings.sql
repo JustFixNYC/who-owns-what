@@ -362,6 +362,7 @@ CREATE TABLE IF NOT EXISTS signature_buildings AS (
 	    
 		-- HPD COMPLAINTS
 	    coalesce(hpd_comp.hpd_comp_emerg_total, 0) AS hpd_comp_emerg_total,
+		coalesce(hpd_comp.hpd_comp_emerg_total, 0)::float / nullif(sp.unitsres, 0)::float AS hpd_comp_emerg_total_per_unit,
 	    round(coalesce(array_length(hpd_comp.hpd_comp_apts, 1), 0)::float / nullif(sp.unitsres, 0)::float * 100) AS hpd_comp_apts_pct,
 	    array_to_string(hpd_comp.hpd_comp_apts, ', ') AS hpd_comp_apts,
 		coalesce(hpd_comp_heat, 0) AS hpd_comp_heat,

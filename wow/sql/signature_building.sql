@@ -37,6 +37,7 @@ SELECT
     hpd_viol_water,
     hpd_viol_pests,
     hpd_comp_emerg_total,
+    hpd_comp_emerg_total_per_unit,
     hpd_comp_heat,
     hpd_comp_water,
     hpd_comp_pests,
