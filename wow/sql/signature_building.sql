@@ -26,6 +26,7 @@ SELECT
     hp_find_harassment,
     hp_active,
     hpd_erp_orders,
+    hpd_erp_orders_per_unit,
     hpd_erp_charges,
     hpd_erp_charges_per_unit,
     hpd_viol_bc_open,

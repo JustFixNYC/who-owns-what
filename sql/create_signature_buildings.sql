@@ -348,6 +348,7 @@ CREATE TABLE IF NOT EXISTS signature_buildings AS (
 
 		-- HPD EMERGENCY REPAIR PROGRAM
 		coalesce(hpd_erp.hpd_erp_orders, 0) AS hpd_erp_orders,
+		coalesce(hpd_erp.hpd_erp_orders, 0)::float / nullif(sp.unitsres, 0)::float AS hpd_erp_orders_per_unit,
 		coalesce(hpd_erp.hpd_erp_charges, 0) AS hpd_erp_charges,
 		coalesce(hpd_erp.hpd_erp_charges, 0)::float / nullif(sp.unitsres, 0)::float AS hpd_erp_charges_per_unit,
 	    
