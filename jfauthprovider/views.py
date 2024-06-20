@@ -106,6 +106,7 @@ def verify_email(request):
     try:
         post_data = {
             "code": request.GET.get("code"),
+            "utm_source": request.GET.get("utm_source"),
             "origin": request.headers["Origin"],
         }
         return auth_server_request(
