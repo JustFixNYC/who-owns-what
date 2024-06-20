@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS signature_collections AS (
 			sum(evictions_filed)::int AS evictions_filed,
 			sum(hp_active)::int AS hp_active,
 
-			(sum((bip >= 500)::int) / sum((bip IS NOT NULL)::int))::float * 100 AS bip_500_pct,
+			(sum((bip >= 500)::int)::float / sum((bip IS NOT NULL)::int)::float)::float * 100 AS bip_500_pct,
 			
 			sum(hpd_erp_orders)::int AS hpd_erp_orders,
 			sum(hpd_erp_orders) / nullif(sum(units_res), 0)::float AS hpd_erp_orders_per_unit,
@@ -60,7 +60,7 @@ CREATE TABLE IF NOT EXISTS signature_collections AS (
 			sum(evictions_filed)::int AS evictions_filed,
 			sum(hp_active)::int AS hp_active,
 
-			(sum((bip >= 500)::int) / sum((bip IS NOT NULL)::int))::float * 100 AS bip_500_pct,
+			(sum((bip >= 500)::int)::float / sum((bip IS NOT NULL)::int)::float)::float * 100 AS bip_500_pct,
 			
 			sum(hpd_erp_orders)::int AS hpd_erp_orders,
 			sum(hpd_erp_orders) / nullif(sum(units_res), 0)::float AS hpd_erp_orders_per_unit,
@@ -105,7 +105,7 @@ CREATE TABLE IF NOT EXISTS signature_collections AS (
 			sum(evictions_filed)::int AS evictions_filed,
 			sum(hp_active)::int AS hp_active,
 
-			(sum((bip >= 500)::int) / sum((bip IS NOT NULL)::int))::float * 100 AS bip_500_pct,
+			(sum((bip >= 500)::int)::float / sum((bip IS NOT NULL)::int)::float)::float * 100 AS bip_500_pct,
 			
 			sum(hpd_erp_orders)::int AS hpd_erp_orders,
 			sum(hpd_erp_orders) / nullif(sum(units_res), 0)::float AS hpd_erp_orders_per_unit,
