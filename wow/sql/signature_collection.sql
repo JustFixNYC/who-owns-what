@@ -2,6 +2,8 @@ SELECT
     collection_name,
     collection_slug,
     collection_type,
+    lender_name,
+    lender_slug,
     buildings,
     units_res,
     rs_units,
