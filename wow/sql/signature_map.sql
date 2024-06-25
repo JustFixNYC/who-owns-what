@@ -3,7 +3,7 @@ SELECT
     address,
     borough,
     zip,
-    lender_slug,
+    landlord_slug,
     landlord,
     lender_slug,
     lat,
