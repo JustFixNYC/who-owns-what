@@ -1,6 +1,7 @@
 SELECT
     bbl,
     address,
+    borough,
     zip,
     lender_slug,
     landlord,
