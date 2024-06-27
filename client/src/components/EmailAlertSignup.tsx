@@ -124,7 +124,7 @@ const BuildingSubscribeWithoutI18n = (props: BuildingSubscribeProps) => {
       <>
         {!isLoggedIn && (
           <Trans render="div" className="card-description">
-            Get a weekly email update on complaints, violations, and eviction filings for this
+            Get a weekly email alert on complaints, violations, and eviction filings for this
             building.
           </Trans>
         )}
@@ -132,7 +132,7 @@ const BuildingSubscribeWithoutI18n = (props: BuildingSubscribeProps) => {
           variant="primary"
           size="small"
           className="is-full-width"
-          labelText={i18n._(t`Add building`)}
+          labelText={i18n._(t`Follow building`)}
           labelIcon="circlePlus"
           onClick={() => {
             !isLoggedIn
@@ -215,7 +215,7 @@ const EmailAlertSignupWithoutI18n = (props: EmailAlertProps) => (
     <div className="table-row">
       <div className="table-small-font">
         <label className="card-label-container">
-          <Trans>Building Updates</Trans>
+          <Trans>Building Alerts</Trans>
         </label>
         <div className="table-content">
           <BuildingSubscribe {...props} />
