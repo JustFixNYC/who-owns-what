@@ -40,7 +40,9 @@ CREATE TABLE IF NOT EXISTS signature_collection_charts AS (
 		sum(hpdcomplaints_total) AS hpdcomplaints_total,
 		sum(dobviolations_regular) AS dobviolations_regular,
 		sum(dobviolations_ecb) AS dobviolations_ecb,
-		sum(dobviolations_total) AS dobviolations_total
+		sum(dobviolations_total) AS dobviolations_total,
+    	sum(evictions_filed) AS evictions_filed,
+    	sum(evictions_executed) AS evictions_executed
 	FROM stacked_data
 	GROUP BY collection_name, collection_slug, collection_type, month
 	ORDER BY collection_name, collection_slug, collection_type, month

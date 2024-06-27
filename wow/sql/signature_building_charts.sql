@@ -10,6 +10,8 @@ SELECT
     hpdcomplaints_total,
     dobviolations_regular,
     dobviolations_ecb,
-    dobviolations_total
+    dobviolations_total,
+    evictions_filed,
+    evictions_executed
 FROM signature_building_charts
 WHERE bbl = %(bbl)s
