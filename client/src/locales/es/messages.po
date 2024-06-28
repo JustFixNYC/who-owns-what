@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-05-24 16:19\n"
+"PO-Revision-Date: 2024-06-28 17:48\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -177,7 +177,7 @@ msgstr "En todos los dueños y administradores, {0, plural, one {el nombre más 
 
 #: src/components/EmailAlertSignup.tsx:90
 #~ msgid "Add building"
-#~ msgstr "Añadir edificio"
+#~ msgstr "Add building"
 
 #: src/components/EmailAlertSignup.tsx:76
 #~ msgid "Add to Building Updates"
@@ -803,7 +803,7 @@ msgstr "Reciba por correo electrónico una alerta semanal de las quejas, infracc
 
 #: src/components/EmailAlertSignup.tsx:86
 #~ msgid "Get a weekly email update on complaints, violations, and eviction filings for this building."
-#~ msgstr "Reciba por correo electrónico una actualización semanal de las quejas, infracciones y expedientes de desalojo de este edificio."
+#~ msgstr "Get a weekly email update on complaints, violations, and eviction filings for this building."
 
 #: src/components/EmailAlertSignup.tsx:50
 #: src/components/EmailAlertSignup.tsx:51
@@ -2693,3 +2693,4 @@ msgstr "{value, plural, one {Una Queja del HPD emitida desde el 2012} other {# Q
 #: src/components/IndicatorsDatasets.tsx:36
 msgid "{value, plural, one {One HPD Violation Issued since 2012} other {# HPD Violations Issued since 2012}}"
 msgstr "{value, plural, one {Una Violación del HPD emitida desde el 2012} other {# Violaciones del HPD emitidas desde el 2012}}"
+
