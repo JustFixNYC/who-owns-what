@@ -12,6 +12,9 @@ SELECT
     dobviolations_ecb,
     dobviolations_total,
     evictions_filed,
-    evictions_executed
+    evictions_executed,
+    rentstab_units,
+    dobpermits_jobs,
+    hpderp_charges
 FROM signature_collection_charts
 WHERE collection_slug = %(collection)s
