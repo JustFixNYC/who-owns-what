@@ -324,8 +324,8 @@ CREATE TABLE IF NOT EXISTS signature_buildings AS (
 			'&lot=', sp.lot
 		) AS link_dob,
 		concat('https://portal.displacementalert.org/property/', sp.bbl) AS link_dap,
-
-		-- https://www.google.com/maps/place/801%20NEILL%20AVENUE%2C%20BRONX%2C%20NY%2010462 AS link_google,
+		concat('https://whoownswhat.justfix.org/bbl/', sp.bbl) AS link_wow,
+		concat('https://www.mygovnyc.org/?lnglat=', sp.longitude, '%2C', sp.latitude) AS link_political,
 
 		-- HPD PROGRAMS
 		coalesce(aep.in_aep, false) AS in_aep,
