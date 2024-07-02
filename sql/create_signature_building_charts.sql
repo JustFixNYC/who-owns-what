@@ -129,16 +129,34 @@ CREATE TABLE IF NOT EXISTS signature_building_charts AS
       SELECT bbl, '2022-01' AS month, uc2022 AS rentstab_units FROM rentstab_data
     ),
 
-    dob_permits_jobs AS (
-        SELECT 
-            bbl,
+    dob_jobs_all AS (
+		SELECT 
+			bbl,
+            to_char(filingdate, 'YYYY-MM') AS month, 
+			count(DISTINCT jobfilingnumber) AS dob_jobs
+		FROM dob_now_jobs
+        INNER JOIN signature_unhp_data USING(bbl) 
+		WHERE filingdate >= (CURRENT_DATE - interval '1' year)
+		GROUP BY bbl, month
+		UNION 
+		SELECT 
+			bbl,
             to_char(prefilingdate, 'YYYY-MM') AS month, 
-            count(*) FILTER (WHERE jobtype IS NOT NULL) AS dobpermits_jobs
-        FROM dobjobs
-        INNER JOIN signature_unhp_data USING(bbl)   
-        WHERE prefilingdate >= '2010-01-01'
-        GROUP BY bbl, month
-    ),
+			count(DISTINCT job) AS dob_jobs
+		FROM dobjobs
+        INNER JOIN signature_unhp_data USING(bbl) 
+		WHERE prefilingdate >= (CURRENT_DATE - interval '1' year)
+		GROUP BY bbl, month
+	),
+
+	dob_permits_jobs AS (
+		SELECT
+			bbl,
+            month, 
+			sum(dob_jobs)::int as dobpermits_jobs
+		FROM dob_jobs_all
+		GROUP BY bbl, month
+	),
 
     hpd_erp_charges_all AS (
 		SELECT 
