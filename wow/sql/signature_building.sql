@@ -32,6 +32,7 @@ SELECT
     hpd_comp_pests,
     hpd_comp_apts_pct,
     hpd_comp_apts,
+    hpd_active_vacate,
     last_rodent_date,
     last_rodent_result,
     in_aep,
