@@ -79,7 +79,6 @@ def authorize_with_token(request, keyword, token):
 
 
 def authorize_for_alerts(request):
-    # TODO: change this to bearer as well for swagger docs
     authorize_with_token(request, "token", settings.ALERTS_API_TOKEN)
 
 

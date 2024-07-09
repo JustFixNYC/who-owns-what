@@ -148,6 +148,5 @@ class EmailAlertMultiIndicatorForm(PaddedBBLForm):
         return data
 
 
-# TODO: what if any validation can/should we do?
 class SignatureCollectionForm(forms.Form):
     collection = forms.CharField()
