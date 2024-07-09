@@ -7,6 +7,8 @@ SELECT
     landlord_slug,
     lender,
     lender_slug,
+    loan_status,
+    loan_action,
     units_res,
     units_nonres,
     rs_units,
