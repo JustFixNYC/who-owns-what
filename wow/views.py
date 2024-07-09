@@ -7,7 +7,12 @@ from django.http import HttpResponse, JsonResponse
 from .dbutil import call_db_func, exec_db_query, exec_sql
 from .datautil import int_or_none, float_or_none
 from . import csvutil, apiutil
-from .apiutil import api, get_validated_form_data, authorize_for_alerts
+from .apiutil import (
+    api,
+    authorize_for_signature,
+    get_validated_form_data,
+    authorize_for_alerts,
+)
 from .forms import (
     EmailAlertLaggedEvictionFilingsForm,
     EmailAlertMultiIndicatorForm,
@@ -15,6 +20,7 @@ from .forms import (
     EmailAlertViolationsForm,
     PaddedBBLForm,
     SeparatedBBLForm,
+    SignatureCollectionForm,
 )
 
 
@@ -294,6 +300,112 @@ def email_alerts_multi(request):
     sql_query = combine_alert_subqueries(args["indicators"])
     result = exec_sql(sql_query, query_params)
     result[0].update(query_params)
+    return JsonResponse({"result": list(result)})
+
+
+@api
+def signature_building(request):
+    """
+    This API endpoint receives requests with a 10-digit BBL. It responds with a
+    collection of data to populate a building page of the Signature Dashboard.
+    """
+    authorize_for_signature(request)
+    bbl = get_request_bbl(request)
+    result = exec_db_query(SQL_DIR / "signature_building.sql", {"bbl": bbl})
+    return JsonResponse({"result": list(result)})
+
+
+@api
+def signature_building_charts(request):
+    """
+    This API endpoint receives requests with a 10-digit BBL. It responds with a
+    collection of data to populate the charts for that building's page of the
+    Signature Dashboard.
+    """
+    authorize_for_signature(request)
+    bbl = get_request_bbl(request)
+    result = exec_db_query(SQL_DIR / "signature_building_charts.sql", {"bbl": bbl})
+    return JsonResponse({"result": list(result)})
+
+
+@api
+def signature_collection(request):
+    """
+    This API endpoint receives requests with a collection name (landlord,
+    lender, all). It responds with a collection of data to populate a collection
+    page of the Signature Dashboard with summary values and building-level data
+    in json.
+    """
+    authorize_for_signature(request)
+    collection = get_validated_form_data(SignatureCollectionForm, request.GET)[
+        "collection"
+    ]
+    result = exec_db_query(
+        SQL_DIR / "signature_collection.sql", {"collection": collection}
+    )
+    return JsonResponse({"result": list(result)})
+
+
+@api
+def signature_collection_charts(request):
+    """
+    This API endpoint receives requests with a collection name (landlord,
+    lender, all). It responds with a collection of data to populate the charts
+    on a collection page of the Signature Dashboard.
+    """
+    authorize_for_signature(request)
+    collection = get_validated_form_data(SignatureCollectionForm, request.GET)[
+        "collection"
+    ]
+    result = exec_db_query(
+        SQL_DIR / "signature_collection_charts.sql", {"collection": collection}
+    )
+    return JsonResponse({"result": list(result)})
+
+
+@api
+def signature_landlords(request):
+    """
+    This API endpoint returns data for all landlords in the signature program,
+    along with select aggregate indicators, to populate a table on the landlord
+    search page of the dashabord
+    """
+    authorize_for_signature(request)
+    result = exec_db_query(SQL_DIR / "signature_landlords.sql")
+    return JsonResponse({"result": list(result)})
+
+
+@api
+def signature_bbls(request):
+    """
+    This API endpoint returns a list of all of the BBLs in the signature
+    portfolio, to use in limiting results from GeoSearch Autocomplete API for
+    the building search function.
+    """
+    authorize_for_signature(request)
+    result = exec_db_query(SQL_DIR / "signature_bbls.sql")
+    bbls = [x["bbl"] for x in result]
+    return JsonResponse({"result": list(bbls)})
+
+
+@api
+def signature_portfolios(request):
+    """
+    This API endpoint returns data on signature/lender portfolio for home page cards.
+    """
+    authorize_for_signature(request)
+    result = exec_db_query(SQL_DIR / "signature_portfolios.sql")
+    return JsonResponse({"result": list(result)})
+
+
+@api
+def signature_map(request):
+    """
+    This API endpoint returns data on all properties in the signature portfolio
+    for the dedicated map page.
+    """
+    authorize_for_signature(request)
+    result = exec_db_query(SQL_DIR / "signature_map.sql")
     return JsonResponse({"result": list(result)})
 
 

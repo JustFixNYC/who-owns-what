@@ -40,4 +40,24 @@ urlpatterns = [
         name="email_alerts_lagged_eviction_filings",
     ),
     path("email_alerts_multi", views.email_alerts_multi, name="email_alerts_multi"),
+    path("signature/building", views.signature_building, name="signature_building"),
+    path(
+        "signature/building/charts",
+        views.signature_building_charts,
+        name="signature_building_charts",
+    ),
+    path(
+        "signature/collection", views.signature_collection, name="signature_collection"
+    ),
+    path(
+        "signature/collection/charts",
+        views.signature_collection_charts,
+        name="signature_collection_charts",
+    ),
+    path("signature/landlords", views.signature_landlords, name="signature_landlords"),
+    path("signature/bbls", views.signature_bbls, name="signature_bbls"),
+    path(
+        "signature/portfolios", views.signature_portfolios, name="signature_portfolios"
+    ),
+    path("signature/map", views.signature_map, name="signature_map"),
 ]
