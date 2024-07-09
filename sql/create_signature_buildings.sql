@@ -163,6 +163,18 @@ CREATE TABLE IF NOT EXISTS signature_buildings AS (
 		WHERE RECEIVEDDATE >= (CURRENT_DATE - interval '1' year)
 		GROUP BY bbl
 	), 
+
+	hpd_vacate AS (
+		SELECT DISTINCT ON (bbl)
+			bbl,
+			concat(initcap(vacatetype), " (", to_char(vacateeffectivedate, 'Mon d, YYYY'), ")") AS hpd_active_vacate
+		FROM hpd_vacateorders
+		WHERE vacateeffectivedate <= CURRENT_DATE
+			AND rescinddate IS NULL
+			AND coalesce(bbl, '') != ''
+		-- keep 'entire building' orders over 'partial' ones if both
+		ORDER BY bbl, vacatetype, vacateeffectivedate DESC
+	),
 	
 	aep AS (
 		SELECT DISTINCT
@@ -372,6 +384,9 @@ CREATE TABLE IF NOT EXISTS signature_buildings AS (
 		coalesce(hpd_comp_water, 0) AS hpd_comp_water,
 		coalesce(hpd_comp_pests, 0) AS hpd_comp_pests,
 
+		-- HPD ACTIVE VACATE ORDERS
+		hpd_vacate.hpd_active_vacate,
+
 		-- DOHMH RODENTS
 		rodents.last_rodent_date,
 		rodents.last_rodent_result,
@@ -414,6 +429,7 @@ CREATE TABLE IF NOT EXISTS signature_buildings AS (
 	LEFT JOIN hpd_viol_open USING(bbl)
 	LEFT JOIN hpd_viol_total USING(bbl)
 	LEFT JOIN hpd_comp USING(bbl)
+	LEFT JOIN hpd_vacate USING(bbl)
 	LEFT JOIN aep USING(bbl)
 	LEFT JOIN conh USING(bbl)
 	LEFT JOIN ucp USING(bbl)
