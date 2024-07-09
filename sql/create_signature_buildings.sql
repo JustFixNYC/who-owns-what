@@ -11,6 +11,9 @@ CREATE TEMP TABLE IF NOT EXISTS signature_pluto_geos AS (
 		nullif(s.water_charges, '')::float AS water_charges,
 		nullif(s.origination_date, '')::date AS origination_date,
 		nullif(s.debt_total, '')::float AS debt_total,
+		-- temporarily adding these here, later they'll be included in the data from UNHP
+		'active' AS loan_status,
+		NULL AS loan_action,
 		p.borocode,
 		p.block,
 		p.lot,
@@ -391,6 +394,10 @@ CREATE TABLE IF NOT EXISTS signature_buildings AS (
 		sp.landlord_slug,
 		sp.lender,
 		sp.lender_slug,
+
+		-- LOAN
+		loan_status,
+ 		loan_action,
 		
 		-- FINANCIAL
 		acris_deed.last_sale_date,
