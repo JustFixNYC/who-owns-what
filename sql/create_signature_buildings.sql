@@ -167,7 +167,7 @@ CREATE TABLE IF NOT EXISTS signature_buildings AS (
 	hpd_vacate AS (
 		SELECT DISTINCT ON (bbl)
 			bbl,
-			concat(initcap(vacatetype), " (", to_char(vacateeffectivedate, 'Mon d, YYYY'), ")") AS hpd_active_vacate
+			concat(initcap(vacatetype), ' (', to_char(vacateeffectivedate, 'Mon d, YYYY'), ")") AS hpd_active_vacate
 		FROM hpd_vacateorders
 		WHERE vacateeffectivedate <= CURRENT_DATE
 			AND rescinddate IS NULL
