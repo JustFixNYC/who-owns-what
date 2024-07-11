@@ -59,4 +59,7 @@ urlpatterns = [
         "signature/portfolios", views.signature_portfolios, name="signature_portfolios"
     ),
     path("signature/map", views.signature_map, name="signature_map"),
+    path(
+        "dataset/last_updated", views.dataset_last_updated, name="dataset_last_updated"
+    ),
 ]

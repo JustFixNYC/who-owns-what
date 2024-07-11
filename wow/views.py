@@ -396,6 +396,17 @@ def signature_map(request):
     return JsonResponse({"result": list(result)})
 
 
+@api
+def dataset_last_updated(request):
+    """
+    This API endpoint returns data on all properties in the signature portfolio
+    for the dedicated map page.
+    """
+    dataset = get_validated_form_data(EmailAlertViolationsForm, request.GET)["dataset"]
+    result = exec_db_query(SQL_DIR / "dataset_last_updated.sql", {dataset: dataset})
+    return JsonResponse({"result": list(result)})
+
+
 def _fixup_addr_for_csv(addr: Dict[str, Any]):
     addr["ownernames"] = csvutil.stringify_owners(addr["ownernames"] or [])
     addr["recentcomplaintsbytype"] = csvutil.stringify_complaints(
