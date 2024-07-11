@@ -150,3 +150,7 @@ class EmailAlertMultiIndicatorForm(PaddedBBLForm):
 
 class SignatureCollectionForm(forms.Form):
     collection = forms.CharField()
+
+
+class DatasetLastUpdatedForm(forms.Form):
+    dataset = forms.CharField()
