@@ -153,4 +153,4 @@ class SignatureCollectionForm(forms.Form):
 
 
 class DatasetLastUpdatedForm(forms.Form):
-    dataset = forms.CharField()
+    dataset = forms.CharField(required=False)
