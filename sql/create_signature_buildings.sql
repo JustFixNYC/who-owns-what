@@ -125,7 +125,7 @@ CREATE TABLE IF NOT EXISTS signature_buildings AS (
 	    FROM hpd_violations
 	    WHERE class = any('{B,C}') 
 			AND violationstatus = 'Open' 
-			AND novissueddate >= (CURRENT_DATE - interval '5' year)
+			AND inspectiondate >= (CURRENT_DATE - interval '5' year)
 	    GROUP BY bbl
 	), 
 
@@ -141,7 +141,7 @@ CREATE TABLE IF NOT EXISTS signature_buildings AS (
 			-- https://www.nyc.gov/assets/buildings/pdf/HousingMaintenanceCode.pdf#page=18
 			count(*) FILTER (WHERE novdescription ~* '27-[\d\s,]*?201[7-9]') AS hpd_viol_pests
 	    FROM hpd_violations
-	    WHERE novissueddate >= (CURRENT_DATE - interval '1' year)
+	    WHERE inspectiondate >= (CURRENT_DATE - interval '1' year)
 	    GROUP BY bbl
 	), 
 	
