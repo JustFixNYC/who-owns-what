@@ -404,7 +404,6 @@ def dataset_last_updated(request):
     for the dedicated map page.
     """
     args = get_validated_form_data(DatasetLastUpdatedForm, request.GET)
-    print(args)
     if args["dataset"] != "":
         result = exec_db_query(
             SQL_DIR / "dataset_last_updated.sql", {"dataset": args["dataset"]}
