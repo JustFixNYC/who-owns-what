@@ -2,10 +2,10 @@ DROP TABLE IF EXISTS signature_pluto_geos;
 CREATE TEMP TABLE IF NOT EXISTS signature_pluto_geos AS (
 	SELECT
 		bbl,
-		s.landlord,
-		trim(BOTH '-' FROM regexp_replace(lower(trim(s.landlord)), '[^a-z0-9_-]+', '-', 'gi')) AS landlord_slug,
-		s.lender,
-		trim(BOTH '-' FROM regexp_replace(lower(trim(s.lender)), '[^a-z0-9_-]+', '-', 'gi')) AS lender_slug,
+		nullif(s.landlord, '') AS landlord,
+		trim(BOTH '-' FROM regexp_replace(lower(trim(nullif(s.landlord, ''))), '[^a-z0-9_-]+', '-', 'gi')) AS landlord_slug,
+		nullif(s.lender, '') AS lender,
+		trim(BOTH '-' FROM regexp_replace(lower(trim(nullif(s.lender, ''))), '[^a-z0-9_-]+', '-', 'gi')) AS lender_slug,
 		-- having issues with the csv nulls, so all imported as strings
 		nullif(s.bip, '')::integer AS bip,
 		nullif(s.water_charges, '')::float AS water_charges,
