@@ -16,7 +16,7 @@ MY_DIR = Path(__file__).parent.resolve()
 
 BASE_DIR = MY_DIR.parent
 
-
+#test
 def get_required_env(key: str) -> str:
     value = os.environ.get(key)
     if not value:
