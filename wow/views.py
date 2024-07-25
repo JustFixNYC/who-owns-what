@@ -14,6 +14,7 @@ from .apiutil import (
     authorize_for_alerts,
 )
 from .forms import (
+    DatasetLastUpdatedForm,
     EmailAlertLaggedEvictionFilingsForm,
     EmailAlertMultiIndicatorForm,
     EmailAlertSingleIndicatorForm,
@@ -393,6 +394,22 @@ def signature_map(request):
     """
     authorize_for_signature(request)
     result = exec_db_query(SQL_DIR / "signature_map.sql")
+    return JsonResponse({"result": list(result)})
+
+
+@api
+def dataset_last_updated(request):
+    """
+    This API endpoint returns data on all properties in the signature portfolio
+    for the dedicated map page.
+    """
+    args = get_validated_form_data(DatasetLastUpdatedForm, request.GET)
+    if args["dataset"] != "":
+        result = exec_db_query(
+            SQL_DIR / "dataset_last_updated.sql", {"dataset": args["dataset"]}
+        )
+    else:
+        result = exec_db_query(SQL_DIR / "dataset_last_updated_all.sql")
     return JsonResponse({"result": list(result)})
 
 
