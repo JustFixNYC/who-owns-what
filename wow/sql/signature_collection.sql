@@ -24,7 +24,6 @@ SELECT
     dob_ecb_viol_open_per_unit_agg,
     water_charges_agg,
     debt_total_agg,
-    debt_per_building_agg,
     debt_per_unit_agg,
     bldg_data
 FROM signature_collections
