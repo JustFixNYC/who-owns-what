@@ -126,6 +126,8 @@ CREATE TABLE IF NOT EXISTS signature_collections AS (
 
 			sum(debt_total)::float AS debt_total_agg,
 			sum(debt_total) / nullif(sum(units_res), 0)::float AS debt_per_unit_agg,
+
+			array_to_json(array_agg(row_to_json(bldgs)))::jsonb AS bldg_data
 			----
 		FROM signature_buildings AS bldgs
 	)
