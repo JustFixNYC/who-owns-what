@@ -133,13 +133,13 @@ CREATE TABLE IF NOT EXISTS signature_buildings AS (
 	    SELECT 
 	    	bbl,
 	        count(*) FILTER (WHERE class = any('{B,C}')) AS hpd_viol_bc_total,
-			-- https://regex101.com/r/73lWqr/1
-			-- https://www.nyc.gov/assets/buildings/pdf/HousingMaintenanceCode.pdf#page=29
-			count(*) FILTER (WHERE novdescription ~* '27-[\d\s,]*?20(?:(?:2[8-9])|(?:3[0-3]))') AS hpd_viol_heat,
-			-- Sections used are too broad to use, not perfect but better than nothing
-			count(*) FILTER (WHERE novdescription ~* '(leak)|(mold)' AND novdescription !~* 'gas') AS hpd_viol_water,
-			-- https://www.nyc.gov/assets/buildings/pdf/HousingMaintenanceCode.pdf#page=18
-			count(*) FILTER (WHERE novdescription ~* '27-[\d\s,]*?201[7-9]') AS hpd_viol_pests
+			-- heat and hot water violations, from open data user guide doc
+			count(*) FILTER (WHERE ordernumber = any('{666,664,966,964,670,970}')) AS hpd_viol_heat,
+			-- pests (vermin, rodents, roaches, mice, bedbugs), from open data user guide doc
+			count(*) FILTER (WHERE ordernumber = any('{566,567,568,569,570,866,867,868,869,870}')) AS hpd_viol_pests,
+			-- water leak (583,507,878,879), from open data user guide doc. 
+			-- mold=550 according to guide, but also shows up often under other numbers
+			count(*) FILTER (WHERE novdescription ~* 'mold' OR ordernumber = any('{583,507,878,879,550}')) AS hpd_viol_water
 	    FROM hpd_violations
 	    WHERE inspectiondate >= (CURRENT_DATE - interval '1' year)
 	    GROUP BY bbl
