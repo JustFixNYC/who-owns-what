@@ -4,8 +4,8 @@ CREATE TEMP TABLE IF NOT EXISTS signature_pluto_geos AS (
 		bbl,
 		nullif(s.landlord, '') AS landlord,
 		trim(BOTH '-' FROM regexp_replace(lower(trim(nullif(s.landlord, ''))), '[^a-z0-9_-]+', '-', 'gi')) AS landlord_slug,
-		nullif(s.lender, '') AS lender,
-		trim(BOTH '-' FROM regexp_replace(lower(trim(nullif(s.lender, ''))), '[^a-z0-9_-]+', '-', 'gi')) AS lender_slug,
+		nullif(s.loan_pool, '') AS loan_pool,
+		trim(BOTH '-' FROM regexp_replace(lower(trim(nullif(s.loan_pool, ''))), '[^a-z0-9_-]+', '-', 'gi')) AS loan_pool_slug,
 		-- having issues with the csv nulls, so all imported as strings
 		nullif(s.bip, '')::integer AS bip,
 		nullif(s.water_charges, '')::float AS water_charges,
@@ -404,11 +404,11 @@ CREATE TABLE IF NOT EXISTS signature_buildings AS (
 		-- BIP Score (UNHP)
 		sp.bip,
 		
-		-- LANDLORD/LENDER
+		-- LANDLORD/LOAN POOL
 		sp.landlord,
 		sp.landlord_slug,
-		sp.lender,
-		sp.lender_slug,
+		sp.loan_pool,
+		sp.loan_pool_slug,
 
 		-- LOAN
 		loan_status,
@@ -443,4 +443,4 @@ CREATE TABLE IF NOT EXISTS signature_buildings AS (
 
 CREATE INDEX ON signature_buildings (bbl);
 CREATE INDEX ON signature_buildings (landlord);
-CREATE INDEX ON signature_buildings (lender);
+CREATE INDEX ON signature_buildings (loan_pool);

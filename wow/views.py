@@ -333,7 +333,7 @@ def signature_building_charts(request):
 def signature_collection(request):
     """
     This API endpoint receives requests with a collection name (landlord,
-    lender, all). It responds with a collection of data to populate a collection
+    loan_pool, all). It responds with a collection of data to populate a collection
     page of the Signature Dashboard with summary values and building-level data
     in json.
     """
@@ -351,7 +351,7 @@ def signature_collection(request):
 def signature_collection_charts(request):
     """
     This API endpoint receives requests with a collection name (landlord,
-    lender, all). It responds with a collection of data to populate the charts
+    loan_pool, all). It responds with a collection of data to populate the charts
     on a collection page of the Signature Dashboard.
     """
     authorize_for_signature(request)
@@ -379,7 +379,7 @@ def signature_landlords(request):
 @api
 def signature_portfolios(request):
     """
-    This API endpoint returns data on signature/lender portfolio for home page cards.
+    This API endpoint returns data on signature/loan-pool portfolios for home page cards.
     """
     authorize_for_signature(request)
     result = exec_db_query(SQL_DIR / "signature_portfolios.sql")

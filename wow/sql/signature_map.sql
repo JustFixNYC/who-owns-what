@@ -5,7 +5,7 @@ SELECT
     zip,
     landlord_slug,
     landlord,
-    lender_slug,
+    loan_pool_slug,
     lat,
     lng
 FROM signature_buildings

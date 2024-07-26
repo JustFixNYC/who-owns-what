@@ -11,7 +11,7 @@ DROP TABLE IF EXISTS signature_unhp_data cascade;
 
 CREATE TABLE signature_unhp_data (
     bbl char(10),
-    lender text,
+    loan_pool text,
     landlord text,
     bip text,
     water_charges text,
