@@ -101,7 +101,7 @@ CORS_ALLOWED_ORIGINS = [
     "https://whoownswhat.justfix.org",
     "https://demo-whoownswhat.justfix.org",
     "https://signature-dashboard.netlify.app",
-    "https://signatureportfolio.org/",
+    "https://signatureportfolio.org",
 ]
 CORS_ALLOWED_ORIGIN_REGEXES = [
     r"https://deploy-preview-(?:\d{1,4})--wow-django-dev\.netlify\.app",
