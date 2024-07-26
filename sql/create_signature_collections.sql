@@ -5,7 +5,7 @@ CREATE TABLE IF NOT EXISTS signature_collections AS (
 			landlord AS collection_name,
 			'landlord' AS collection_type,
 
-			max(lender) AS lender_name,
+			max(loan_pool) AS loan_pool_name,
 			
 			-- This all copied to next two sections
 			count(*)::int AS buildings_agg,
@@ -46,10 +46,10 @@ CREATE TABLE IF NOT EXISTS signature_collections AS (
 		GROUP BY landlord
 		UNION
 		SELECT
-			lender AS collection_name,
-			'lender' AS collection_type,
+			loan_pool AS collection_name,
+			'loan_pool' AS collection_type,
 
-			NULL::text AS lender_name,
+			NULL::text AS loan_pool_name,
 
 			-- All copied from above
 			count(*)::int AS buildings_agg,
@@ -86,14 +86,14 @@ CREATE TABLE IF NOT EXISTS signature_collections AS (
 			array_to_json(array_agg(row_to_json(bldgs)))::jsonb AS bldg_data
 			----
 		FROM signature_buildings AS bldgs
-		WHERE lender IS NOT NULL
-		GROUP BY lender
+		WHERE loan_pool IS NOT NULL
+		GROUP BY loan_pool
 		UNION
 		SELECT
 			'all' AS collection_name,
 			'all' AS collection_type,
 
-			NULL::text AS lender_name,
+			NULL::text AS loan_pool_name,
 
 			-- All copied from above
 			count(*)::int AS buildings_agg,
@@ -135,8 +135,8 @@ CREATE TABLE IF NOT EXISTS signature_collections AS (
 		collection_type,
 		collection_name,
 		trim(BOTH '-' FROM regexp_replace(lower(trim(collection_name)), '[^a-z0-9_-]+', '-', 'gi')) AS collection_slug,
-		lender_name,
-		trim(BOTH '-' FROM regexp_replace(lower(trim(lender_name)), '[^a-z0-9_-]+', '-', 'gi')) AS lender_slug,
+		loan_pool_name,
+		trim(BOTH '-' FROM regexp_replace(lower(trim(loan_pool_name)), '[^a-z0-9_-]+', '-', 'gi')) AS loan_pool_slug,
 		buildings_agg,
 		units_res_agg,
 		rs_units_agg,

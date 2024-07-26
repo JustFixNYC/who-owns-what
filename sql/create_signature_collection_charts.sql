@@ -10,9 +10,9 @@ CREATE TABLE IF NOT EXISTS signature_collection_charts AS (
 		LEFT JOIN signature_building_charts AS c USING(bbl)
 		UNION
 		SELECT
-			s.lender AS collection_name,
-			s.lender_slug AS collection_slug,
-			'lender' AS collection_type,
+			s.loan_pool AS collection_name,
+			s.loan_pool_slug AS collection_slug,
+			'loan_pool' AS collection_type,
 			c.*
 		FROM signature_buildings AS s
 		LEFT JOIN signature_building_charts AS c USING(bbl)
