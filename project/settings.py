@@ -35,6 +35,8 @@ SECRET_KEY = get_required_env("SECRET_KEY")
 
 ALERTS_API_TOKEN = get_required_env("ALERTS_API_TOKEN")
 
+SIGNATURE_API_TOKEN = get_required_env("SIGNATURE_API_TOKEN")
+
 # TODO: Figure out if this can securely stay at '*'.
 ALLOWED_HOSTS: List[str] = ["*"]
 
@@ -98,9 +100,12 @@ CORS_ALLOWED_ORIGINS = [
     "https://wow-django-dev.herokuapp.com",
     "https://whoownswhat.justfix.org",
     "https://demo-whoownswhat.justfix.org",
+    "https://signature-dashboard.netlify.app",
+    "https://signatureportfolio.org",
 ]
 CORS_ALLOWED_ORIGIN_REGEXES = [
     r"https://deploy-preview-(?:\d{1,4})--wow-django-dev\.netlify\.app",
+    r"https://deploy-preview-(?:\d{1,4})--signature-dashboard\.netlify\.app",
     r"https://deploy-preview-(?:\d{1,4})--wow-django\.netlify\.app",
     r"https://([A-Za-z0-9\-\_]+)--wow-django\.netlify\.app",
     r"https://([A-Za-z0-9\-\_]+)--wow-django-dev\.netlify\.app",
