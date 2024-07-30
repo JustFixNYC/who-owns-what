@@ -265,6 +265,62 @@ const PortfolioTableWithoutI18n = React.memo((props: PortfolioTableProps) => {
         ],
       },
       {
+        header: i18n._(t`Landlord`),
+        footer: (props) => props.column.id,
+        columns: [
+          {
+            accessorFn: (row) => {
+              // Group all contact info by the name of each person/corporate entity (same as on overview tab)
+              var ownerList =
+                row.allcontacts &&
+                Object.entries(_groupBy(row.allcontacts, "value"))
+                  .sort(sortContactsByImportance)
+                  .map((contact) => contact[0]);
+              return ownerList || [];
+            },
+            id: "ownernames",
+            header: i18n._(t`Person/Entity`),
+            cell: ({ row }) => {
+              var contacts =
+                row.original.allcontacts &&
+                Object.entries(_groupBy(row.original.allcontacts, "value")).sort(
+                  sortContactsByImportance
+                );
+
+              if (!contacts) return "";
+
+              const contactWords = contacts[0][0].trim().split(/\s+/) || [contacts[0][0]];
+
+              return (
+                <>
+                  {contactWords.length > 1 && contactWords.slice(0, 1).join(" ") + " "}
+                  <span className="col-ownernames-last-word">
+                    {contactWords.slice(-1)}
+                    {row.getCanExpand() && contacts && contacts.length > 1 ? (
+                      <button
+                        className="contacts-expand"
+                        onClick={() => {
+                          row.getToggleExpandedHandler()();
+                          !row.getIsExpanded() &&
+                            logPortfolioAnalytics("portfolioRowExpanded", { column: "ownernames" });
+                        }}
+                      >
+                        +{contacts.length - 1}
+                      </button>
+                    ) : (
+                      <></>
+                    )}
+                  </span>
+                </>
+              );
+            },
+            footer: (props) => props.column.id,
+            filterFn: "arrIncludesSome",
+            minSize: 100,
+          },
+        ],
+      },
+      {
         header: i18n._(t`HPD Complaints`),
         footer: (props) => props.column.id,
         columns: [
@@ -340,62 +396,6 @@ const PortfolioTableWithoutI18n = React.memo((props: PortfolioTableProps) => {
             footer: (props) => props.column.id,
             enableColumnFilter: false,
             size: "auto",
-          },
-        ],
-      },
-      {
-        header: i18n._(t`Landlord`),
-        footer: (props) => props.column.id,
-        columns: [
-          {
-            accessorFn: (row) => {
-              // Group all contact info by the name of each person/corporate entity (same as on overview tab)
-              var ownerList =
-                row.allcontacts &&
-                Object.entries(_groupBy(row.allcontacts, "value"))
-                  .sort(sortContactsByImportance)
-                  .map((contact) => contact[0]);
-              return ownerList || [];
-            },
-            id: "ownernames",
-            header: i18n._(t`Person/Entity`),
-            cell: ({ row }) => {
-              var contacts =
-                row.original.allcontacts &&
-                Object.entries(_groupBy(row.original.allcontacts, "value")).sort(
-                  sortContactsByImportance
-                );
-
-              if (!contacts) return "";
-
-              const contactWords = contacts[0][0].trim().split(/\s+/) || [contacts[0][0]];
-
-              return (
-                <>
-                  {contactWords.length > 1 && contactWords.slice(0, 1).join(" ") + " "}
-                  <span className="col-ownernames-last-word">
-                    {contactWords.slice(-1)}
-                    {row.getCanExpand() && contacts && contacts.length > 1 ? (
-                      <button
-                        className="contacts-expand"
-                        onClick={() => {
-                          row.getToggleExpandedHandler()();
-                          !row.getIsExpanded() &&
-                            logPortfolioAnalytics("portfolioRowExpanded", { column: "ownernames" });
-                        }}
-                      >
-                        +{contacts.length - 1}
-                      </button>
-                    ) : (
-                      <></>
-                    )}
-                  </span>
-                </>
-              );
-            },
-            footer: (props) => props.column.id,
-            filterFn: "arrIncludesSome",
-            minSize: 100,
           },
         ],
       },
