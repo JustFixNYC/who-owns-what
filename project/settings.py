@@ -97,18 +97,18 @@ CORS_ALLOWED_ORIGINS = [
     "https://wowserver.justfix.org",
     "https://demo-wowserver.justfix.org",
     "https://wow-django.herokuapp.com",
-    "https://wow-django-dev.herokuapp.com",
+    "https://wow-django-demo.herokuapp.com",
     "https://whoownswhat.justfix.org",
     "https://demo-whoownswhat.justfix.org",
     "https://signature-dashboard.netlify.app",
     "https://signatureportfolio.org",
 ]
 CORS_ALLOWED_ORIGIN_REGEXES = [
-    r"https://deploy-preview-(?:\d{1,4})--wow-django-dev\.netlify\.app",
+    r"https://deploy-preview-(?:\d{1,4})--wow-django-demo\.netlify\.app",
     r"https://deploy-preview-(?:\d{1,4})--signature-dashboard\.netlify\.app",
     r"https://deploy-preview-(?:\d{1,4})--wow-django\.netlify\.app",
     r"https://([A-Za-z0-9\-\_]+)--wow-django\.netlify\.app",
-    r"https://([A-Za-z0-9\-\_]+)--wow-django-dev\.netlify\.app",
+    r"https://([A-Za-z0-9\-\_]+)--wow-django-demo\.netlify\.app",
 ]
 
 # This is based off the default Django logging configuration:
