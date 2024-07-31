@@ -54,7 +54,7 @@ type State = {
 const MAPBOX_STYLE = "mapbox://styles/justfix/ckhevcljr02jg19l3jtw9h9w6";
 
 const Map = ReactMapboxGl({
-  accessToken: process.env.REACT_APP_MAPBOX_ACCESS_TOKEN,
+  accessToken: process.env.REACT_APP_MAPBOX_ACCESS_TOKEN || "",
 });
 
 const DEFAULT_FIT_BOUNDS: BoundingBox = [
