@@ -97,7 +97,7 @@ CORS_ALLOWED_ORIGINS = [
     "https://wowserver.justfix.org",
     "https://demo-wowserver.justfix.org",
     "https://wow-django.herokuapp.com",
-    "https://wow-django-demo.herokuapp.com",
+    "wow-django-demo-ce7b326fc987.herokuapp.com",
     "https://whoownswhat.justfix.org",
     "https://demo-whoownswhat.justfix.org",
     "https://signature-dashboard.netlify.app",
