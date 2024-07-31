@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-07-17 19:13\n"
+"PO-Revision-Date: 2024-07-31 18:08\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -778,8 +778,8 @@ msgstr "Encuentre otros edificios que su dueño pueda tener en NYC:"
 #~ msgstr "Find other buildings your landlord might own:"
 
 #: src/components/EmailAlertSignup.tsx:91
-#~ msgid "Follow building"
-#~ msgstr "Follow building"
+msgid "Follow building"
+msgstr "Seguir edifico"
 
 #: src/components/Login.tsx:143
 msgid "Forgot your password?"
@@ -804,10 +804,6 @@ msgstr "Reciba por correo electrónico una alerta semanal de las quejas, infracc
 #: src/components/EmailAlertSignup.tsx:86
 #~ msgid "Get a weekly email update on complaints, violations, and eviction filings for this building."
 #~ msgstr "Get a weekly email update on complaints, violations, and eviction filings for this building."
-
-#: src/components/EmailAlertSignup.tsx:91
-msgid "Get alerts"
-msgstr "Recibir alertas"
 
 #: src/components/EmailAlertSignup.tsx:50
 #: src/components/EmailAlertSignup.tsx:51
