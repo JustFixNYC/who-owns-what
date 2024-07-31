@@ -773,8 +773,8 @@ msgstr "Find other buildings your landlord might own in NYC:"
 #~ msgstr "Find other buildings your landlord might own:"
 
 #: src/components/EmailAlertSignup.tsx:91
-#~ msgid "Follow building"
-#~ msgstr "Follow building"
+msgid "Follow building"
+msgstr "Follow building"
 
 #: src/components/Login.tsx:143
 msgid "Forgot your password?"
@@ -799,10 +799,6 @@ msgstr "Get a weekly email alert on complaints, violations, and eviction filings
 #: src/components/EmailAlertSignup.tsx:86
 #~ msgid "Get a weekly email update on complaints, violations, and eviction filings for this building."
 #~ msgstr "Get a weekly email update on complaints, violations, and eviction filings for this building."
-
-#: src/components/EmailAlertSignup.tsx:91
-msgid "Get alerts"
-msgstr "Get alerts"
 
 #: src/components/EmailAlertSignup.tsx:50
 #: src/components/EmailAlertSignup.tsx:51
