@@ -74,7 +74,7 @@ CREATE TABLE IF NOT EXISTS signature_building_charts AS
             AND i.propertytype = 'Residential'
             AND a.bbl IS NOT NULL
             AND coalesce(p.unitsres, 0) > 10
-            AND i.fileddate >= '2010-01-01'
+            AND i.fileddate >= '2017-01-01'
         GROUP BY a.bbl, TO_CHAR(i.fileddate, 'YYYY')
     ),
 
@@ -86,7 +86,7 @@ CREATE TABLE IF NOT EXISTS signature_building_charts AS
             count(*) AS evictions_executed
         FROM marshal_evictions_all
         INNER JOIN signature_unhp_data USING(bbl)   
-        WHERE executeddate >= '2010-01-01'
+        WHERE executeddate >= '2017-01-01'
         GROUP BY bbl, TO_CHAR(executeddate, 'YYYY')
     ),
 
