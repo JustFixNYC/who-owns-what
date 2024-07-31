@@ -51,13 +51,10 @@ type State = {
   selectedAddr?: AddressRecord;
 };
 
-const MAPBOX_ACCESS_TOKEN =
-  "pk.eyJ1IjoianVzdGZpeCIsImEiOiJja2hldmIxMmEwODVyMnNtZ2NkNGEyNjd0In0.4Piymx4ObHhSPq1K4MOZkw";
-
 const MAPBOX_STYLE = "mapbox://styles/justfix/ckhevcljr02jg19l3jtw9h9w6";
 
 const Map = ReactMapboxGl({
-  accessToken: MAPBOX_ACCESS_TOKEN,
+  accessToken: process.env.REACT_APP_MAPBOX_ACCESS_TOKEN,
 });
 
 const DEFAULT_FIT_BOUNDS: BoundingBox = [
