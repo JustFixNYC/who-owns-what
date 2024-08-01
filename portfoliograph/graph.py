@@ -1,133 +1,95 @@
-from typing import Any, Dict, List, NamedTuple, Optional
-from enum import Enum
+from pathlib import Path
+from typing import Any, Dict, Callable, Iterator, List, NamedTuple
+from collections import Counter
 import networkx as nx
 
 
-class NodeKind(Enum):
-    NAME = "name"
-    BIZADDR = "bizaddr"
+SQL_DIR = Path(__file__).parent.resolve() / "sql"
 
 
-class Node(NamedTuple):
-    kind: NodeKind
-    value: str
-
-    def to_json(self) -> Dict[str, str]:
-        return {
-            "kind": self.kind.value,
-            "value": self.value,
-        }
-
-
-class RegistrationInfo(NamedTuple):
-    reg_id: int
-    reg_contact_id: int
-
-
-def join_truthies(*items: Optional[str], sep=" ") -> str:
-    """
-    Joins the given arguments with a space (or provided separator),
-    filtering out anything that is falsy, e.g.:
-
-        >>> join_truthies('boop', 'jones')
-        'boop jones'
-
-        >>> join_truthies('boop', '')
-        'boop'
-
-        >>> join_truthies(None, 'jones')
-        'jones'
-
-        >>> join_truthies('New York', 'NY', sep=', ')
-        'New York, NY'
-    """
-
-    return sep.join(filter(None, items))
+class ConnectedLandlordRow(NamedTuple):
+    nodeid: int
+    name: str
+    bizaddr: str
+    bbls: List[str]
+    name_match_info: List[Dict[str, float]]
+    bizaddr_match_info: List[Dict[str, float]]
 
 
 def build_graph(dict_cursor) -> nx.Graph:
     g = nx.Graph()
 
-    # TODO: process synonyms (e.g. folks in pinnacle)
-    dict_cursor.execute(
-        f"""
-        WITH landlord_contacts AS (
-            SELECT DISTINCT
-                firstname,
-                lastname,
-                businesshousenumber,
-                businessstreetname,
-                businessapartment,
-                businesscity,
-                businessstate,
-                hpd_contacts.registrationid,
-                hpd_contacts.registrationcontactid,
-                hpd_contacts.type
-            FROM hpd_contacts
-            INNER JOIN hpd_registrations
-                ON hpd_contacts.registrationid = hpd_registrations.registrationid
-            WHERE
-                type = ANY('{{HeadOfficer, IndividualOwner, CorporateOwner, JointOwner}}')
-                AND (businesshousenumber IS NOT NULL OR businessstreetname IS NOT NULL)
-                AND LENGTH(CONCAT(businesshousenumber, businessstreetname)) > 2
-                AND (firstname IS NOT NULL OR lastname IS NOT NULL)
-        ),
+    print("Making landlord connections")
+    landlords_with_connections = (
+        SQL_DIR / "landlords_with_connections.sql"
+    ).read_text()
+    dict_cursor.execute(landlords_with_connections)
+    contacts = [ConnectedLandlordRow(**row) for row in dict_cursor.fetchall()]
 
-        landlord_contacts_ordered AS (
-            SELECT *
-            FROM landlord_contacts
-            ORDER BY (
-                -- First, we prioritize certain owner types over others:
-                ARRAY_POSITION(
-                    ARRAY['IndividualOwner','HeadOfficer','JointOwner','CorporateOwner'],
-                    landlord_contacts.type
-                ),
-                -- Then, we order by landlord name, just to make sure our sorting is deterministic:
-                concat(firstname,' ',lastname)
-            )
+    print("Building graph")
+    for contact in contacts:
+        g.add_node(
+            contact.nodeid,
+            name=contact.name,
+            bizAddr=contact.bizaddr,
+            bbls=contact.bbls,
         )
 
-        SELECT
-            registrationid,
-            FIRST(firstname) AS firstname,
-            FIRST(lastname) AS lastname,
-            FIRST(businesshousenumber) AS businesshousenumber,
-            FIRST(businessstreetname) AS businessstreetname,
-            FIRST(businessapartment) AS businessapartment,
-            FIRST(businesscity) AS businesscity,
-            FIRST(businessstate) AS businessstate,
-            FIRST(registrationcontactid) AS registrationcontactid
-        FROM landlord_contacts_ordered
-        GROUP BY registrationid;
-    """
-    )
-    for row in dict_cursor.fetchall():
-        name = join_truthies(row["firstname"], row["lastname"]).upper()
-        street_addr = join_truthies(
-            row["businesshousenumber"],
-            row["businessstreetname"],
-            row["businessapartment"],
-        ).upper()
-        city_state = join_truthies(
-            row["businesscity"],
-            row["businessstate"],
-        ).upper()
-        bizaddr = join_truthies(street_addr, city_state, sep=", ")
-        name_node = Node(NodeKind.NAME, name)
-        bizaddr_node = Node(NodeKind.BIZADDR, bizaddr)
-        g.add_node(name_node)
-        g.add_node(bizaddr_node)
-        if not g.has_edge(name_node, bizaddr_node):
-            g.add_edge(name_node, bizaddr_node, hpd_regs=set())
-        edge_data = g[name_node][bizaddr_node]
-        edge_data["hpd_regs"].add(
-            RegistrationInfo(
-                reg_id=row["registrationid"],
-                reg_contact_id=row["registrationcontactid"],
-            )
-        )
+    for contact in contacts:
+        nodeid = contact.nodeid
+
+        if contact.name_match_info:
+            for match in contact.name_match_info:
+                if not g.has_edge(nodeid, match["nodeid"]):
+                    g.add_edge(
+                        nodeid, match["nodeid"], type="name", weight=match["weight"]
+                    )
+
+        if contact.bizaddr_match_info:
+            for match in contact.bizaddr_match_info:
+                if not g.has_edge(nodeid, match["nodeid"]):
+                    g.add_edge(
+                        nodeid, match["nodeid"], type="bizaddr", weight=match["weight"]
+                    )
 
     return g
+
+
+def portfolio_size(portfolio_subgraph):
+    n_bbls = sum([len(node[1]["bbls"]) for node in portfolio_subgraph.nodes(data=True)])
+    return n_bbls
+
+
+def portfolio_is_too_big(portfolio_subgraph: Any) -> bool:
+    MAX_SIZE = 300
+    n_bbls = portfolio_size(portfolio_subgraph)
+    return n_bbls > MAX_SIZE
+
+
+def split_subgraph_if(
+    graph: nx.Graph, subgraph: Any, predicate: Callable[[Any], bool], id: int
+):
+    RESOLUTION = 0.1
+    if predicate(subgraph):
+        for comm in nx.community.louvain_communities(
+            subgraph, resolution=RESOLUTION, weight="weight"
+        ):
+            comm_subgraph = graph.subgraph(comm)
+            if portfolio_size(comm_subgraph) == portfolio_size(subgraph):
+                yield (id, comm_subgraph)
+            else:
+                yield from split_subgraph_if(graph, comm_subgraph, predicate, id)
+    else:
+        yield (id, subgraph)
+
+
+def iter_split_graph(graph: nx.Graph) -> Iterator[Any]:
+    print("Finding and splitting portfolios")
+    for id, cc in enumerate(nx.connected_components(graph), 1):
+        portfolio_subgraph = graph.subgraph(cc)
+        yield from split_subgraph_if(
+            graph, portfolio_subgraph, portfolio_is_too_big, id
+        )
 
 
 def to_json_graph(graph: nx.Graph) -> Dict[str, Any]:
@@ -137,28 +99,48 @@ def to_json_graph(graph: nx.Graph) -> Dict[str, Any]:
     https://github.com/JustFixNYC/hpd-graph-fun/blob/main/typescript/portfolio.d.ts
     """
 
-    node_indexes: Dict[Node, int] = {}
-    counter = 1
-    nodes: List[Dict[str, Any]] = []
-    edges: List[Dict[str, Any]] = []
-    for node in graph:
-        node_indexes[node] = counter
-        nodes.append(
+    ret_nodes: List[Dict[str, Any]] = []
+    ret_edges: List[Dict[str, Any]] = []
+
+    raw_nodes = [n for n in graph.nodes(data=True)]
+
+    # Identify common names/addresses for "compound"/group nodes in viz
+    all_names = [n[1]["name"] for n in raw_nodes]
+    all_bizaddrs = [n[1]["bizAddr"] for n in raw_nodes]
+    parent_names = [x for x, n in Counter(all_names).most_common() if n > 4]
+    parent_bizaddrs = [x for x, n in Counter(all_bizaddrs).most_common() if n > 4]
+    name_nodes = [{"id": name, "type": "name"} for name in parent_names]
+    bizaddr_nodes = [{"id": bizaddr, "type": "bizAddr"} for bizaddr in parent_bizaddrs]
+
+    ret_nodes.extend(name_nodes + bizaddr_nodes)
+
+    for id, attrs in raw_nodes:
+        node_values = {
+            "id": id,
+            "type": "owner",
+            "name": attrs["name"],
+            "bizAddr": attrs["bizAddr"],
+            "bbls": attrs["bbls"],
+        }
+
+        # Can only have one parent, so prioritize bizaddr
+        if attrs["bizAddr"] in parent_bizaddrs:
+            node_values.update({"parent": attrs["bizAddr"]})
+        elif attrs["name"] in parent_names:
+            node_values.update({"parent": attrs["name"]})
+
+        ret_nodes.append(node_values)
+
+    for (_from, to, attrs) in graph.edges(data=True):
+        ret_edges.append(
             {
-                "id": counter,
-                "value": node.to_json(),
-            }
-        )
-        counter += 1
-    for (_from, to, attrs) in graph.edges.data():
-        edges.append(
-            {
-                "from": node_indexes[_from],
-                "to": node_indexes[to],
-                "reg_contacts": len(attrs["hpd_regs"]),
+                "source": _from,
+                "target": to,
+                "type": attrs["type"],
+                "weight": attrs["weight"],
             }
         )
     return {
-        "nodes": nodes,
-        "edges": edges,
+        "nodes": ret_nodes,
+        "edges": ret_edges,
     }
