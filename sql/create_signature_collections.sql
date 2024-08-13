@@ -49,7 +49,7 @@ CREATE TABLE IF NOT EXISTS signature_collections AS (
 			loan_pool AS collection_name,
 			'loan_pool' AS collection_type,
 
-			NULL::text AS loan_pool_name,
+			max(loan_pool) AS loan_pool_name,
 
 			-- All copied from above
 			count(*)::int AS buildings_agg,
@@ -164,4 +164,5 @@ CREATE TABLE IF NOT EXISTS signature_collections AS (
 );
 
 CREATE INDEX ON signature_collections (collection_slug);
+CREATE INDEX ON signature_collections (collection_type);
 
