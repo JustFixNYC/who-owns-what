@@ -115,6 +115,7 @@ const formatGraphJSON = (
   return nodes.concat(edges);
 };
 
+// TODO: remove name vs bizaddr color distinction
 const OWNER_COLOR = "#676565"; // justfix-grey-dark
 const NAME_COLOR = "#1aa551"; // justfix-green
 const BIZADDR_COLOR = "#5188ff"; // justfix-blue
