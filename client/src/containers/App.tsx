@@ -16,6 +16,8 @@ import {
   LocaleSwitcher,
   LocaleSwitcherWithFullLanguageName,
   JFCLLocaleLink,
+  removeLocalePrefix,
+  LocaleRedirect,
 } from "../i18n";
 import { withI18n, withI18nProps } from "@lingui/react";
 import { createWhoOwnsWhatRoutePaths } from "../routes";
@@ -48,7 +50,11 @@ import ForgotPasswordPage from "./ForgotPasswordPage";
 import UnsubscribePage from "./UnsubscribePage";
 import LoginPage from "./LoginPage";
 import { JFLogo } from "components/JFLogo";
-import logoDivider from "../assets/img/logo-divider.svg";
+import { STANDALONE_PAGES } from "components/StandalonePage";
+import { JFLogoDivider } from "components/JFLogoDivider";
+import { LoadingPage } from "components/Loader";
+
+const BRANCH_NAME = process.env.REACT_APP_BRANCH;
 
 const HomeLink = withI18n()((props: withI18nProps) => {
   const { i18n } = props;
@@ -65,15 +71,13 @@ const HomeLink = withI18n()((props: withI18nProps) => {
       }}
       to={isLegacyPath(pathname) ? legacy.home : home}
     >
-      <JFLogo className="jf-logo" />
-      <img
-        className="jf-logo-divider"
-        src={logoDivider}
-        width="1"
-        height="72"
-        alt="visual divider"
+      <JFLogo className={classnames("jf-logo", isLegacyPath(pathname) && "legacy-styling")} />
+      <JFLogoDivider
+        className={classnames("jf-logo-divider", isLegacyPath(pathname) && "legacy-styling")}
       />
-      <h1 className="page-title">{widont(title)}</h1>
+      <h1 className={classnames("page-title", isLegacyPath(pathname) && "legacy-styling")}>
+        {widont(title)}
+      </h1>
     </JFCLLocaleLink>
   );
 });
@@ -82,8 +86,16 @@ const WhoOwnsWhatRoutes: React.FC<{}> = () => {
   const paths = createWhoOwnsWhatRoutePaths("/:locale");
   const [state, send] = useMachine(wowMachine);
   const machineProps = { state, send };
+  const userContext = useContext(UserContext);
+  const fetchingUser = !userContext?.user;
+  const isLoggedIn = !!userContext?.user?.email;
   const allowChangingPortfolioMethod =
     process.env.REACT_APP_ENABLE_NEW_WOWZA_PORTFOLIO_MAPPING === "1";
+
+  const localizedRedirect = (pathname: string) => {
+    return <LocaleRedirect to={{ pathname: removeLocalePrefix(pathname) }} />;
+  };
+
   return (
     <Switch>
       <Route exact path={paths.legacy.home} component={HomePage} />
@@ -175,7 +187,18 @@ const WhoOwnsWhatRoutes: React.FC<{}> = () => {
       />
       <Route path={paths.account.login} component={LoginPage} />
       <Route path={paths.account.verifyEmail} component={VerifyEmailPage} />
-      <Route path={paths.account.settings} component={AccountSettingsPage} />
+      <Route
+        path={paths.account.settings}
+        render={(props) =>
+          fetchingUser ? (
+            <LoadingPage />
+          ) : isLoggedIn ? (
+            <AccountSettingsPage />
+          ) : (
+            localizedRedirect(paths.account.login)
+          )
+        }
+      />
       <Route path={paths.account.forgotPassword} component={ForgotPasswordPage} />
       <Route path={paths.account.resetPassword} component={ResetPasswordPage} />
       <Route path={paths.account.unsubscribe} component={UnsubscribePage} />
@@ -208,25 +231,27 @@ const SearchLink = () => {
   );
 };
 
-const getAccountNavLinks = (
-  handleLogout: (fromPath: string) => void,
-  fromPath: string,
-  isSignedIn?: boolean
-) => {
+const getAccountNavLinks = (fromPath: string, isSignedIn?: boolean) => {
   const { account } = createWhoOwnsWhatRoutePaths();
   const { settings, login } = account;
 
   return isSignedIn
     ? [
         <LocaleNavLink to={settings} key="account-1">
-          <Trans>Account</Trans>
+          <Trans>Email settings</Trans>
         </LocaleNavLink>,
-        <button onClick={() => handleLogout(fromPath)} key="account-2">
-          <Trans>Log out</Trans>
-        </button>,
       ]
     : [
-        <LocaleNavLink to={login} key="account-3">
+        <LocaleNavLink
+          to={login}
+          key="account-3"
+          onClick={() =>
+            window.gtag("event", "nav-login", {
+              from: removeLocalePrefix(fromPath),
+              branch: BRANCH_NAME,
+            })
+          }
+        >
           <Trans>Log in</Trans>
         </LocaleNavLink>,
       ];
@@ -264,22 +289,14 @@ const Navbar = () => {
 
   const userContext = useContext(UserContext);
 
-  const standalonePages = [
-    "forgot-password",
-    "login",
-    "verify-email",
-    "forgot-password",
-    "reset-password",
-    "unsubscribe",
-  ];
-  const hideNavbar = standalonePages.some((v) => pathname.includes(`account/${v}`));
+  const hideNavbar = STANDALONE_PAGES.some((v) => pathname.includes(`account/${v}`));
 
   return hideNavbar ? null : (
     <div
       className={classnames(
         "App__header",
         "navbar",
-        allowChangingPortfolioMethod && !isLegacyPath(pathname) && "wowza-styling"
+        allowChangingPortfolioMethod && !isLegacyPath(pathname) ? "wowza-styling" : "legacy-styling"
       )}
     >
       <HomeLink />
@@ -293,7 +310,7 @@ const Navbar = () => {
         <span className="hide-lg">
           {getMainNavLinks(isLegacyPath(pathname))}
           <LocaleSwitcher />
-          {getAccountNavLinks(userContext.logout, pathname, !!userContext?.user?.email)}
+          {!isLegacyPath(pathname) && getAccountNavLinks(pathname, !!userContext?.user?.email)}
         </span>
         <Dropdown>
           {getMainNavLinks(isLegacyPath(pathname)).map((link, i) => (
@@ -304,13 +321,12 @@ const Navbar = () => {
           <li className="menu-item">
             <LocaleSwitcherWithFullLanguageName />
           </li>
-          {getAccountNavLinks(userContext.logout, pathname, !!userContext?.user?.email).map(
-            (link, i) => (
+          {!isLegacyPath(pathname) &&
+            getAccountNavLinks(pathname, !!userContext?.user?.email).map((link, i) => (
               <li className="menu-item" key={`account-${i}`}>
                 {link}
               </li>
-            )
-          )}
+            ))}
         </Dropdown>
       </nav>
     </div>

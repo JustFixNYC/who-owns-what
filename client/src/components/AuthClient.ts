@@ -44,6 +44,8 @@ const fetchUser = async () => {
       _user = {
         email: authCheck["email"],
         verified: authCheck["verified"],
+        id: authCheck["id"],
+        type: authCheck["type"],
         subscriptions,
       };
     } else {
@@ -166,6 +168,8 @@ const userAuthenticated = async () => {
  */
 const verifyEmail = async () => {
   const params = new URLSearchParams(window.location.search);
+  const code = params.get("code");
+  const utm_source = params.get("utm_source") || "";
 
   let result: VerifyEmailResponse = {
     statusCode: VerifyStatusCode.Unknown,
@@ -173,9 +177,10 @@ const verifyEmail = async () => {
   };
 
   try {
-    const response = await postAuthRequest(
-      `${BASE_URL}auth/verify_email?code=${params.get("code")}`
-    );
+    let url = `${BASE_URL}auth/verify_email?code=${code}`;
+    if (utm_source) url += `&utm_source=${utm_source}`;
+
+    const response = await postAuthRequest(url);
     result.statusCode = response.status_code;
     result.statusText = response.status_text;
   } catch (e) {

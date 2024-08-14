@@ -49,6 +49,10 @@
   }
 
   .card-description {
+    font-size: 0.875rem;
+    @include for-phone-only {
+      font-size: 1rem;
+    }
     text-align: left;
     line-height: 117%;
   }

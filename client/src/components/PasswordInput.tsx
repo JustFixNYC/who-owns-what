@@ -7,8 +7,11 @@ import "styles/_input.scss";
 import { withI18n } from "@lingui/react";
 import { I18n } from "@lingui/core";
 import { t } from "@lingui/macro";
-import { AlertIcon, CheckIcon, DotIcon, HideIcon, ShowIcon } from "./Icons";
+import { DotIcon, HideIcon, ShowIcon } from "./Icons";
 import classNames from "classnames";
+import { Icon } from "@justfixnyc/component-library";
+
+const BRANCH_NAME = process.env.REACT_APP_BRANCH;
 
 type PasswordRule = {
   regex: RegExp;
@@ -71,7 +74,7 @@ const PasswordInputWithoutI18n = forwardRef<HTMLInputElement, PasswordInputProps
     return (
       <div className="password-input-field">
         <div className="password-input-label mb-4">
-          <label htmlFor={id ?? "password-input"}>{i18n._(t`${labelText}`)}</label>
+          <label htmlFor={id ?? "password-input"}>{labelText}</label>
         </div>
         {showPasswordRules ? (
           <div className="password-input-rules">
@@ -81,10 +84,10 @@ const PasswordInputWithoutI18n = forwardRef<HTMLInputElement, PasswordInputProps
               if (!!password || showError) {
                 if (password.match(rule.regex)) {
                   ruleClass = "valid";
-                  RuleIcon = <CheckIcon className="mr-3" />;
+                  RuleIcon = <Icon icon="check" className="mr-3" />;
                 } else {
                   ruleClass = "invalid";
-                  RuleIcon = <AlertIcon className="mr-3" />;
+                  RuleIcon = <Icon icon="circleExclamation" className="mr-3" />;
                 }
               }
               return (
@@ -101,7 +104,7 @@ const PasswordInputWithoutI18n = forwardRef<HTMLInputElement, PasswordInputProps
             <div className="password-input-errors mb-4">
               <span id="input-field-error">
                 <div>
-                  <AlertIcon className="mr-3" />
+                  <Icon icon="circleExclamation" className="mr-3" />
                 </div>
                 {i18n._(t`Please enter password.`)}
               </span>
@@ -120,7 +123,10 @@ const PasswordInputWithoutI18n = forwardRef<HTMLInputElement, PasswordInputProps
           <button
             type="button"
             className="show-hide-toggle"
-            onClick={() => setShowPassword(!showPassword)}
+            onClick={() => {
+              window.gtag("event", "password-visibility-toggle", { branch: BRANCH_NAME });
+              setShowPassword(!showPassword);
+            }}
           >
             {showPassword ? <HideIcon /> : <ShowIcon />}
           </button>

@@ -125,6 +125,10 @@ export type JustfixUser = {
   email: string;
   /** Whether the user's email address has been verified */
   verified: boolean;
+  /** User id for passing to Google Analytics */
+  id: number;
+  /** User type for passing to Google Analytics */
+  type: string;
   /** All buildings the user is subscribed to (email alerts) */
   subscriptions: BuildingSubscription[];
 };

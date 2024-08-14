@@ -8,7 +8,7 @@ import { getSiteOrigin } from "../routes";
 const metadata = {
   keywords: t`Landlord, Portfolio, Tenant, Displacement, Map, JustFix, NYC, New York, Housing, Who Owns What`,
   description: t`Use this free tool from JustFix to research your building and investigate landlords! We use property ownership mapping to identify a landlord's portfolio and provide data to indicate potential tenant harassment and displacement.`,
-  siteName: t`Who owns what in nyc?`,
+  siteName: t`Who owns what`,
 };
 
 export const FB_APP_ID = "247990609143668";
@@ -25,9 +25,7 @@ type PageProps = {
 const Page = withI18n()((props: PageProps & withI18nProps) => {
   const i18n = props.i18n;
   const title = props.title && helpers.titleCase(props.title.trim());
-  const fullTitle = title
-    ? `${title} | ${i18n._(t`Who owns what in nyc?`)}`
-    : i18n._(t`Who owns what in nyc?`);
+  const fullTitle = title ? `${title} | ${i18n._(t`Who owns what`)}` : i18n._(t`Who owns what`);
 
   /**
    * Google Tag Manager reports the title of the landing page when it

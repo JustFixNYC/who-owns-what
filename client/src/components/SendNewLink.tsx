@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import { withI18n, withI18nProps } from "@lingui/react";
-import { Button } from "@justfixnyc/component-library";
+import { Button, Icon } from "@justfixnyc/component-library";
 import { Trans, t } from "@lingui/macro";
 
 import "styles/SendNewLink.css";
-import { CheckIcon } from "./Icons";
 
 type SendNewLinkProps = withI18nProps & {
   setParentState: React.Dispatch<React.SetStateAction<boolean>>;
@@ -39,7 +38,7 @@ const SendNewLinkWithoutI18n = (props: SendNewLinkProps) => {
         </div>
       ) : (
         <div className="link-sent">
-          <CheckIcon />
+          <Icon icon="check" />
           <Trans render="span">New link sent</Trans>
         </div>
       )}
@@ -47,6 +46,6 @@ const SendNewLinkWithoutI18n = (props: SendNewLinkProps) => {
   );
 };
 
-const BuildingStatsTable = withI18n()(SendNewLinkWithoutI18n);
+const SendNewLink = withI18n()(SendNewLinkWithoutI18n);
 
-export default BuildingStatsTable;
+export default SendNewLink;

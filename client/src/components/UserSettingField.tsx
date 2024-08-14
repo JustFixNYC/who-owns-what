@@ -4,6 +4,7 @@ import { withI18n, withI18nProps } from "@lingui/react";
 import { t, Trans } from "@lingui/macro";
 
 import "styles/EmailAlertSignup.css";
+import "styles/UserSettingField.css";
 import PasswordInput from "./PasswordInput";
 import { useInput } from "util/helpers";
 import { UserContext } from "./UserContext";
@@ -11,9 +12,10 @@ import { JustfixUser } from "state-machine";
 import EmailInput from "./EmailInput";
 import AuthClient from "./AuthClient";
 import { Alert } from "./Alert";
-import { AlertIconOutline } from "./Icons";
 import SendNewLink from "./SendNewLink";
-import { Button } from "@justfixnyc/component-library";
+import { Button, Icon } from "@justfixnyc/component-library";
+
+const BRANCH_NAME = process.env.REACT_APP_BRANCH;
 
 type PasswordSettingFieldProps = withI18nProps & {
   onSubmit: (currentPassword: string, newPassword: string) => void;
@@ -22,7 +24,10 @@ type PasswordSettingFieldProps = withI18nProps & {
 const PasswordSettingFieldWithoutI18n = (props: PasswordSettingFieldProps) => {
   const { i18n, onSubmit } = props;
   const userContext = useContext(UserContext);
-  const { email } = userContext.user as JustfixUser;
+  const user = userContext.user as JustfixUser;
+  const { email } = user;
+  const eventUserParams = { user_id: user.id, user_type: user.type };
+
   const {
     value: currentPassword,
     error: currentPasswordError,
@@ -67,6 +72,8 @@ const PasswordSettingFieldWithoutI18n = (props: PasswordSettingFieldProps) => {
     }
 
     onSubmit(currentPassword, newPassword);
+
+    window.gtag("event", "account-update-password", { ...eventUserParams, branch: BRANCH_NAME });
   };
 
   return (
@@ -79,7 +86,7 @@ const PasswordSettingFieldWithoutI18n = (props: PasswordSettingFieldProps) => {
           role="status"
           type="error"
         >
-          <AlertIconOutline />
+          <Icon icon="circleExclamation" />
           {i18n._(t`The current password you entered is incorrect`)}
         </Alert>
       )}
@@ -119,7 +126,8 @@ type EmailSettingFieldProps = withI18nProps & {
 const EmailSettingFieldWithoutI18n = (props: EmailSettingFieldProps) => {
   const { i18n, currentValue, onSubmit } = props;
   const userContext = useContext(UserContext);
-  const { email: oldEmail, verified } = userContext.user as JustfixUser;
+  const user = userContext.user as JustfixUser;
+  const { email: oldEmail, verified } = user;
   const [isEmailResent, setIsEmailResent] = React.useState(false);
   const [existingUserError, setExistingUserError] = useState(false);
   const {
@@ -130,6 +138,8 @@ const EmailSettingFieldWithoutI18n = (props: EmailSettingFieldProps) => {
     setShowError: setShowEmailError,
     onChange: onChangeEmail,
   } = useInput(oldEmail);
+
+  const eventUserParams = { user_id: user.id, user_type: user.type };
 
   const handleSubmit = async () => {
     setExistingUserError(false);
@@ -154,6 +164,8 @@ const EmailSettingFieldWithoutI18n = (props: EmailSettingFieldProps) => {
     }
 
     onSubmit(email);
+
+    window.gtag("event", "account-update-email", { ...eventUserParams, branch: BRANCH_NAME });
   };
 
   const verifyCallout = !verified ? (
@@ -165,7 +177,11 @@ const EmailSettingFieldWithoutI18n = (props: EmailSettingFieldProps) => {
       {!isEmailResent && <Trans render="p">Didn’t get the link?</Trans>}
       <SendNewLink
         setParentState={setIsEmailResent}
-        onClick={() => AuthClient.resendVerifyEmail()}
+        onClick={() => {
+          AuthClient.resendVerifyEmail();
+          const eventParams = { ...eventUserParams, from: "account settings" };
+          window.gtag("event", "email-verify-resend", { ...eventParams, branch: BRANCH_NAME });
+        }}
       />
     </div>
   ) : undefined;
@@ -185,7 +201,7 @@ const EmailSettingFieldWithoutI18n = (props: EmailSettingFieldProps) => {
           role="status"
           type="error"
         >
-          <AlertIconOutline />
+          <Icon icon="circleExclamation" />
           {i18n._(t`That email is already used.`)}
         </Alert>
       )}
@@ -247,9 +263,7 @@ const UserSettingFieldWithoutI18n = (props: UserSettingFieldProps) => {
           </>
         ) : (
           <>
-            <Trans render="label" className="user-setting-label">
-              {title}
-            </Trans>
+            <label className="user-setting-label">{title}</label>
             <div>
               <span>{preview}</span>
               <Button

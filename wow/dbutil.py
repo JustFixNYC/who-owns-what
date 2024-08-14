@@ -33,5 +33,5 @@ def exec_sql(sql: str, params: Dict[str, Any] = {}) -> List[Dict[str, Any]]:
         return dictfetchall(cursor)
 
 
-def exec_db_query(sql_file: Path, params: Dict[str, Any]) -> List[Dict[str, Any]]:
+def exec_db_query(sql_file: Path, params: Dict[str, Any] = {}) -> List[Dict[str, Any]]:
     return exec_sql(sql_file.read_text(), params)

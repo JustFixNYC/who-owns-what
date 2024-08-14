@@ -6,11 +6,8 @@ import { Link as JFCLLink } from "@justfixnyc/component-library";
 import "styles/GetRepairs.css";
 import "styles/Card.css";
 
-type GetRepairsProps = {
-  url: string | undefined;
-};
-const GetRepairsWithoutI18n = (props: GetRepairsProps) => {
-  const fallbackUrl = "https://app.justfix.org/en/loc/splash";
+const GetRepairsWithoutI18n = () => {
+  const locSplashUrl = "https://app.justfix.org/en/loc/splash";
 
   return (
     <>
@@ -24,11 +21,11 @@ const GetRepairsWithoutI18n = (props: GetRepairsProps) => {
                 </label>
                 <div className="table-content">
                   <Trans render="div" className="card-description">
-                    Send a free, legally vetted letter to notify your landlord of repair issues
+                    Send a free, legally vetted letter to notify your landlord of repair issues.
                   </Trans>
 
                   <JFCLLink
-                    href={props.url ?? fallbackUrl}
+                    href={locSplashUrl}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="jfcl-link"

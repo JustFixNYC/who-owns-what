@@ -6,6 +6,7 @@
   $detailWidth: 70vw;
   $detailAnimLength: 300;
   $detailAnimLengthMs: 300 + 0ms;
+  $rightColumnMaxWidth: 336px;
 
   position: relative;
   display: inline-block;
@@ -16,6 +17,17 @@
   z-index: 10;
   background-color: #ffffff;
   border-left: 1px solid $dark;
+
+  @include for-tablet-landscape-up() {
+    // detail left column and property map split the remaining width after left column max
+    width: calc(((100vw - #{$rightColumnMaxWidth}) / 2) + #{$rightColumnMaxWidth});
+    .detail-column-right {
+      max-width: $rightColumnMaxWidth;
+    }
+    .detail-column-left {
+      flex-grow: 1 !important;
+    }
+  }
 
   @include for-phone-only() {
     position: absolute;
@@ -163,23 +175,37 @@
       }
       figcaption {
         margin: 0;
+        padding-top: 1.5rem;
+        padding-bottom: 0.5rem;
         @include for-tablet-landscape-down {
           padding-left: 1.56rem;
         }
         @include for-phone-only {
+          padding-top: 0;
           padding-right: 1.25rem;
           text-align: right;
+          a {
+            font-size: 0.875rem;
+          }
         }
+      }
+    }
+
+    .hover-info {
+      display: flex;
+      i {
+        margin-left: auto;
       }
     }
 
     .card-body {
       padding-top: 0;
 
-      &:last-child {
-        @include for-phone-only() {
+      @include for-phone-only() {
+        &:last-child {
           padding: 0.63rem;
         }
+        padding-top: 0 !important;
       }
 
       @include for-tablet-portrait-up() {

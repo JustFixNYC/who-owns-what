@@ -26,7 +26,9 @@ urlpatterns = [
 ]
 
 
-AUTH_ARG = {"HTTP_AUTHORIZATION": f"Token {settings.ALERTS_API_TOKEN}"}
+ALERTS_AUTH_ARG = {"HTTP_AUTHORIZATION": f"Token {settings.ALERTS_API_TOKEN}"}
+
+SIGNATURE_AUTH_ARG = {"HTTP_AUTHORIZATION": f"Token {settings.SIGNATURE_API_TOKEN}"}
 
 
 class ApiTest:
@@ -35,7 +37,7 @@ class ApiTest:
     def test_400s_work(self, db, client):
         assert self.HTTP_400_URLS, "No HTTP 400 examples to test!"
         for url in self.HTTP_400_URLS:
-            res = client.get(url, **AUTH_ARG)
+            res = client.get(url, **ALERTS_AUTH_ARG)
             assert res.status_code == 400, f"{url} should return HTTP 400"
             assert res.json()["error"] == "Bad request"
             assert "Access-Control-Allow-Origin" in res
@@ -164,7 +166,7 @@ class TestAlertsOcaLaggedFilings(ApiTest):
 
     def test_it_works(self, db, client):
         res = client.get(
-            "/api/email_oca_lag?bbl=3012380016&prev_date=2024-01-07", **AUTH_ARG
+            "/api/email_oca_lag?bbl=3012380016&prev_date=2024-01-07", **ALERTS_AUTH_ARG
         )
         assert res.status_code == 200
         assert res.json()["result"] is not None
@@ -193,7 +195,7 @@ class TestAlertsSingleIndicator(ApiTest):
             f"{url_bbl_base}&indicator=eviction_filings&start_date=2024-01-01&end_date=2024-01-07",
         ]
         for url in urls:
-            res = client.get(url, **AUTH_ARG)
+            res = client.get(url, **ALERTS_AUTH_ARG)
             assert res.status_code == 200
             assert res.json()["result"] is not None
 
@@ -233,7 +235,7 @@ class TestAlertsMultiIndicator(ApiTest):
                 &{start_date}&{end_date}&prev_date=2024-01-01",
         ]
         for url in urls:
-            res = client.get(url, **AUTH_ARG)
+            res = client.get(url, **ALERTS_AUTH_ARG)
             print(res.json())
             assert res.status_code == 200
             assert res.json()["result"] is not None

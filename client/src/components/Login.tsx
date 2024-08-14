@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import { Trans, t } from "@lingui/macro";
 import { withI18n, withI18nProps } from "@lingui/react";
 import { Link, useHistory, useLocation } from "react-router-dom";
-import { Button, IconLinkInternal, Link as JFCLLink } from "@justfixnyc/component-library";
+import { Button, Icon, Link as JFCLLink } from "@justfixnyc/component-library";
 
 import "styles/UserTypeInput.css";
 import "styles/_input.scss";
@@ -21,6 +21,8 @@ import { AddressRecord } from "./APIDataTypes";
 import { isLegacyPath } from "./WowzaToggle";
 import { Nobr } from "./Nobr";
 
+const BRANCH_NAME = process.env.REACT_APP_BRANCH;
+
 enum Step {
   CheckEmail,
   Login,
@@ -34,7 +36,8 @@ const LoginWithoutI18n = (props: withI18nProps) => {
   const { i18n } = props;
 
   const userContext = useContext(UserContext);
-  const { home, account } = createWhoOwnsWhatRoutePaths();
+  const { user } = userContext;
+  const { home, account, termsOfUse, privacyPolicy } = createWhoOwnsWhatRoutePaths();
   const history = useHistory();
   const location = useLocation();
   const { pathname } = location;
@@ -54,6 +57,8 @@ const LoginWithoutI18n = (props: withI18nProps) => {
   const isRegisterUserTypeStep = step === Step.RegisterUserType;
   const isVerifyEmailStep = step === Step.VerifyEmail;
   const isLoginSuccessStep = step === Step.LoginSuccess;
+
+  const [loginOrRegister, setLoginOrRegister] = useState("");
 
   const {
     value: email,
@@ -84,6 +89,22 @@ const LoginWithoutI18n = (props: withI18nProps) => {
   const [isEmailResent, setIsEmailResent] = useState(false);
   const [invalidAuthError, setInvalidAuthError] = useState(false);
   const [existingUserError, setExistingUserError] = useState(false);
+
+  const eventParams = (user?: JustfixUser) => {
+    const customParams = {
+      from: !!addr ? "building page" : "nav",
+      branch: BRANCH_NAME,
+    };
+    const params = !!user?.id
+      ? {
+          ...customParams,
+          user_id: user.id,
+          user_type: user.type,
+        }
+      : customParams;
+
+    return params;
+  };
 
   const getAddrPageRoute = (addr: AddressRecord) => {
     const isLegacy = isLegacyPath(pathname);
@@ -169,21 +190,13 @@ const LoginWithoutI18n = (props: withI18nProps) => {
           <span className="privacy-links">
             <Trans>
               Your privacy is important to us. Read our{" "}
-              <JFCLLink
-                href="https://www.justfix.org/en/privacy-policy/"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
+              <JFCLLocaleLink to={privacyPolicy} target="_blank" rel="noopener noreferrer">
                 Privacy Policy
-              </JFCLLink>{" "}
+              </JFCLLocaleLink>{" "}
               and{" "}
-              <JFCLLink
-                href="https://www.justfix.org/en/terms-of-use/"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Terms of Service
-              </JFCLLink>
+              <JFCLLocaleLink to={termsOfUse} target="_blank" rel="noopener noreferrer">
+                Terms of Use
+              </JFCLLocaleLink>
               .
             </Trans>
           </span>
@@ -200,7 +213,13 @@ const LoginWithoutI18n = (props: withI18nProps) => {
           {isRegisterAccountStep ? (
             <>
               <Trans>Already have an account?</Trans>
-              <button className="button is-text ml-2" onClick={() => toggleLoginSignup(Step.Login)}>
+              <button
+                className="button is-text ml-2"
+                onClick={() => {
+                  window.gtag("event", "swap-register-login", { ...eventParams(), to: "login" });
+                  toggleLoginSignup(Step.Login);
+                }}
+              >
                 <Trans>Log in</Trans>
               </button>
             </>
@@ -209,7 +228,10 @@ const LoginWithoutI18n = (props: withI18nProps) => {
               <Trans>Don't have an account?</Trans>
               <button
                 className="button is-text ml-2 pt-6"
-                onClick={() => toggleLoginSignup(Step.RegisterAccount)}
+                onClick={() => {
+                  window.gtag("event", "swap-register-login", { ...eventParams(), to: "register" });
+                  toggleLoginSignup(Step.RegisterAccount);
+                }}
               >
                 <Trans>Sign up</Trans>
               </button>
@@ -231,7 +253,11 @@ const LoginWithoutI18n = (props: withI18nProps) => {
         <SendNewLink
           setParentState={setIsEmailResent}
           size="large"
-          onClick={() => AuthClient.resendVerifyEmail()}
+          onClick={() => {
+            AuthClient.resendVerifyEmail();
+            const from = (!!addr ? "building page " : "nav ") + loginOrRegister;
+            window.gtag("event", "email-verify-resend", { ...eventParams(user), from });
+          }}
         />
       </div>
       {!!addr && (
@@ -239,8 +265,11 @@ const LoginWithoutI18n = (props: withI18nProps) => {
           <Link
             to={{ pathname: getAddrPageRoute(addr), state: { justSubscribed: true } }}
             component={JFCLLink}
+            onClick={() =>
+              window.gtag("event", "register-return-address", { ...eventParams(user) })
+            }
           >
-            <IconLinkInternal />
+            <Icon icon="arrowRight" />
             Back to {formatAddr(addr)}
           </Link>
         </div>
@@ -252,12 +281,15 @@ const LoginWithoutI18n = (props: withI18nProps) => {
     <>
       <Trans render="h1">You are logged in</Trans>
       <Trans render="h2">
-        <JFCLLocaleLink to={home}>Search for an address</JFCLLocaleLink> to add to Building Updates
+        <JFCLLocaleLink to={home}>Search for an address</JFCLLocaleLink> to add to your Building
+        Updates, or visit your <JFCLLocaleLink to={account.settings}>email settings</JFCLLocaleLink>{" "}
+        page to manage subscriptions.
       </Trans>
     </>
   );
 
   const onEmailSubmit = async () => {
+    window.gtag("event", "register-login-email", eventParams());
     if (!email || emailError) {
       setEmailError(true);
       setShowEmailError(true);
@@ -269,6 +301,8 @@ const LoginWithoutI18n = (props: withI18nProps) => {
   };
 
   const onLoginSubmit = async () => {
+    window.gtag("event", "login-password", eventParams());
+
     resetAlertErrorStates();
 
     if (!email || emailError) {
@@ -288,11 +322,20 @@ const LoginWithoutI18n = (props: withI18nProps) => {
 
     if (!!resp?.error) {
       setInvalidAuthError(true);
+      window.gtag("event", "login-password-invalid", eventParams());
       return;
+    }
+
+    window.gtag("event", "login-success", eventParams(resp?.user));
+
+    if (!!addr) {
+      const subscribeEventParams = { ...eventParams(), from: "login" };
+      window.gtag("event", "subscribe-building-via-register-login", { ...subscribeEventParams });
     }
 
     if (!resp?.user?.verified) {
       await AuthClient.resendVerifyEmail();
+      setLoginOrRegister("login");
       setStep(Step.VerifyEmail);
       return;
     }
@@ -307,6 +350,8 @@ const LoginWithoutI18n = (props: withI18nProps) => {
   };
 
   const onAccountSubmit = async () => {
+    window.gtag("event", "register-password", eventParams());
+
     if (!email || emailError) {
       setEmailError(true);
       setShowEmailError(true);
@@ -315,11 +360,13 @@ const LoginWithoutI18n = (props: withI18nProps) => {
 
     const existingUser = await AuthClient.isEmailAlreadyUsed(email);
     if (existingUser) {
+      window.gtag("event", "register-existing-user-error", eventParams());
       setExistingUserError(true);
       return;
     }
 
     if (!password || passwordError) {
+      window.gtag("event", "register-password-error", eventParams());
       setPasswordError(true);
       setShowPasswordError(true);
       return;
@@ -329,6 +376,8 @@ const LoginWithoutI18n = (props: withI18nProps) => {
   };
 
   const onUserTypeSubmit = async () => {
+    window.gtag("event", "register-user-type", eventParams());
+
     if (!userType || userTypeError) {
       setUserTypeError(true);
       setShowUserTypeError(true);
@@ -343,6 +392,14 @@ const LoginWithoutI18n = (props: withI18nProps) => {
       return;
     }
 
+    window.gtag("event", "register-success", eventParams(resp?.user));
+
+    if (!!addr) {
+      const subscribeEventParams = { ...eventParams(), from: "register" };
+      window.gtag("event", "subscribe-building-via-register-login", { ...subscribeEventParams });
+    }
+
+    setLoginOrRegister("register");
     setStep(Step.VerifyEmail);
   };
 
@@ -422,7 +479,9 @@ const LoginWithoutI18n = (props: withI18nProps) => {
           )}
           {(isLoginStep || isRegisterAccountStep) && (
             <PasswordInput
-              labelText={i18n._(t`Password`)}
+              labelText={
+                isRegisterAccountStep ? i18n._(t`Create password`) : i18n._(t`Enter your password`)
+              }
               password={password}
               username={email}
               error={passwordError}

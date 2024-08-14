@@ -1,7 +1,6 @@
 import React from "react";
 import classNames from "classnames";
 import { withI18n, withI18nProps } from "@lingui/react";
-import { Link as JFCLLink } from "@justfixnyc/component-library";
 
 import "styles/StandalonePage.css";
 import Page from "./Page";
@@ -9,29 +8,64 @@ import { createWhoOwnsWhatRoutePaths } from "routes";
 import { JFCLLocaleLink, LocaleLink } from "i18n";
 import { Trans } from "@lingui/macro";
 import { JFLogo } from "./JFLogo";
+import { useLocation } from "react-router-dom";
 
-export const StandalonePageFooter = () => {
+const BRANCH_NAME = process.env.REACT_APP_BRANCH;
+
+export const STANDALONE_PAGES = [
+  "forgot-password",
+  "login",
+  "verify-email",
+  "forgot-password",
+  "reset-password",
+  "unsubscribe",
+];
+
+export const JustFixLogoLink = (props: { eventParams: any }) => {
   const { home } = createWhoOwnsWhatRoutePaths();
+
+  return (
+    <LocaleLink
+      className="jf-logo"
+      to={home}
+      onClick={() => {
+        window.gtag("event", "standalone-justfix-logo-click", {
+          ...props.eventParams,
+          branch: BRANCH_NAME,
+        });
+      }}
+    >
+      <JFLogo />
+    </LocaleLink>
+  );
+};
+
+export const StandalonePageFooter = (props: { eventParams: any }) => {
+  const { home, privacyPolicy, termsOfUse } = createWhoOwnsWhatRoutePaths();
+
   return (
     <Trans render="div" className="wow-footer">
-      <JFCLLocaleLink to={home}>Who Owns What</JFCLLocaleLink> by JustFix.
+      <JFCLLocaleLink
+        to={home}
+        onClick={() => {
+          window.gtag("event", "standalone-wow-link-click", {
+            ...props.eventParams,
+            branch: BRANCH_NAME,
+          });
+        }}
+      >
+        Who Owns What
+      </JFCLLocaleLink>{" "}
+      by JustFix.
       <br />
       Read our{" "}
-      <JFCLLink
-        href="https://www.justfix.org/en/privacy-policy/"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
+      <JFCLLocaleLink to={privacyPolicy} target="_blank" rel="noopener noreferrer">
         Privacy Policy
-      </JFCLLink>{" "}
+      </JFCLLocaleLink>{" "}
       and{" "}
-      <JFCLLink
-        href="https://www.justfix.org/en/terms-of-use/"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Terms of Service
-      </JFCLLink>
+      <JFCLLocaleLink to={termsOfUse} target="_blank" rel="noopener noreferrer">
+        Terms of Use
+      </JFCLLocaleLink>
     </Trans>
   );
 };
@@ -44,16 +78,17 @@ type StandalonePageProps = withI18nProps & {
 
 const StandalonePage = withI18n()((props: StandalonePageProps) => {
   const { title, className, children } = props;
-  const { home } = createWhoOwnsWhatRoutePaths();
+  const { pathname } = useLocation();
+  const pageName = STANDALONE_PAGES.find((x) => pathname.includes(x));
+  const eventParams = { from: pageName };
+
   return (
     <Page title={title}>
       <div className={classNames("StandalonePage Page", className)}>
         <div className="page-container">
-          <LocaleLink className="jf-logo" to={home}>
-            <JFLogo />
-          </LocaleLink>
+          <JustFixLogoLink eventParams={eventParams} />
           <div className="standalone-container">{children}</div>
-          <StandalonePageFooter />
+          <StandalonePageFooter eventParams={eventParams} />
         </div>
       </div>
     </Page>

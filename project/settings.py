@@ -35,6 +35,8 @@ SECRET_KEY = get_required_env("SECRET_KEY")
 
 ALERTS_API_TOKEN = get_required_env("ALERTS_API_TOKEN")
 
+SIGNATURE_API_TOKEN = get_required_env("SIGNATURE_API_TOKEN")
+
 # TODO: Figure out if this can securely stay at '*'.
 ALLOWED_HOSTS: List[str] = ["*"]
 
@@ -92,13 +94,23 @@ CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:3000",
     "http://localhost:3000",
+    "http://127.0.0.1:5173",
+    "http://localhost:5173",
+    "https://wowserver.justfix.org",
     "https://demo-wowserver.justfix.org",
-    "https://wow-django-dev.herokuapp.com",
+    "https://wow-django.herokuapp.com",
+    "https://wow-django-demo-ce7b326fc987.herokuapp.com",
+    "https://whoownswhat.justfix.org",
     "https://demo-whoownswhat.justfix.org",
+    "https://signature-dashboard.netlify.app",
+    "https://signatureportfolio.org",
 ]
 CORS_ALLOWED_ORIGIN_REGEXES = [
-    r"https://\w+\.deploy-preview-(?:\d{1,4})--wow-django-dev\.netlify\.app",
-    r"https://deploy-preview-(?:\d{1,4})--wow-django-dev\.netlify\.app",
+    r"https://deploy-preview-(?:\d{1,4})--wow-django-demo\.netlify\.app",
+    r"https://deploy-preview-(?:\d{1,4})--signature-dashboard\.netlify\.app",
+    r"https://deploy-preview-(?:\d{1,4})--wow-django\.netlify\.app",
+    r"https://([A-Za-z0-9\-\_]+)--wow-django\.netlify\.app",
+    r"https://([A-Za-z0-9\-\_]+)--wow-django-demo\.netlify\.app",
 ]
 
 # This is based off the default Django logging configuration:

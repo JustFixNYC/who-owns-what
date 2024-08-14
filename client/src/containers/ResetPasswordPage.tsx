@@ -13,6 +13,8 @@ import { JFCLLocaleLink, LocaleLink } from "i18n";
 import SendNewLink from "components/SendNewLink";
 import StandalonePage from "components/StandalonePage";
 
+const BRANCH_NAME = process.env.REACT_APP_BRANCH;
+
 const ResetPasswordPage = withI18n()((props: withI18nProps) => {
   const { i18n } = props;
   const { search } = useLocation();
@@ -38,7 +40,20 @@ const ResetPasswordPage = withI18n()((props: withI18nProps) => {
 
     asyncCheckToken().then((result) => {
       setTokenStatus(result.statusCode);
+      switch (result.statusCode) {
+        case ResetStatusCode.Expired:
+          window.gtag("event", "forgot-password-expired", { branch: BRANCH_NAME });
+          break;
+        case ResetStatusCode.Invalid:
+          window.gtag("event", "forgot-password-invalid", { branch: BRANCH_NAME });
+          break;
+        case ResetStatusCode.Unknown:
+          window.gtag("event", "forgot-password-email-link-error", { branch: BRANCH_NAME });
+          break;
+      }
     });
+
+    window.gtag("event", "forgot-password-email-link", { branch: BRANCH_NAME });
   }, []);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -52,6 +67,11 @@ const ResetPasswordPage = withI18n()((props: withI18nProps) => {
 
     const resp = await AuthClient.resetPassword(params.get("token") || "", password);
     setResetStatus(resp.statusCode);
+    if (resp.statusCode === ResetStatusCode.Success) {
+      window.gtag("event", "forgot-password-reset-success", { branch: BRANCH_NAME });
+    } else {
+      window.gtag("event", "forgot-password-reset-error", { branch: BRANCH_NAME });
+    }
   };
 
   const expiredPage = () => (
@@ -65,9 +85,7 @@ const ResetPasswordPage = withI18n()((props: withI18nProps) => {
       <SendNewLink
         setParentState={setEmailIsResent}
         size="large"
-        onClick={async () => {
-          setEmailIsResent(await AuthClient.resetPasswordRequest());
-        }}
+        onClick={async () => setEmailIsResent(await AuthClient.resetPasswordRequest())}
       />
     </>
   );
@@ -80,6 +98,9 @@ const ResetPasswordPage = withI18n()((props: withI18nProps) => {
         <LocaleLink
           className="jfcl-button jfcl-variant-primary jfcl-size-large"
           to={account.forgotPassword}
+          onClick={() =>
+            window.gtag("event", "forgot-password-reset-resend", { branch: BRANCH_NAME })
+          }
         >
           <Trans>Request new link</Trans>
         </LocaleLink>
@@ -114,7 +135,12 @@ const ResetPasswordPage = withI18n()((props: withI18nProps) => {
     <>
       <Trans render="h1">Password reset successful</Trans>
       <div className="standalone-footer">
-        <JFCLLocaleLink to={account.login}>
+        <JFCLLocaleLink
+          to={account.login}
+          onClick={() =>
+            window.gtag("event", "forgot-password-reset-return-login", { branch: BRANCH_NAME })
+          }
+        >
           <Trans>Back to Log in</Trans>
         </JFCLLocaleLink>
       </div>

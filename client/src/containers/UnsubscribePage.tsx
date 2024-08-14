@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { withI18n, withI18nProps } from "@lingui/react";
-import { t, Trans, Plural } from "@lingui/macro";
+import { t, Trans } from "@lingui/macro";
 import { Button } from "@justfixnyc/component-library";
 
 import "styles/UserSetting.css";
@@ -13,18 +13,23 @@ import { createWhoOwnsWhatRoutePaths } from "routes";
 import { JFCLLocaleLink } from "i18n";
 import { BuildingSubscription } from "state-machine";
 import { FixedLoadingLabel } from "components/Loader";
-import { StandalonePageFooter } from "components/StandalonePage";
+import { STANDALONE_PAGES, StandalonePageFooter } from "components/StandalonePage";
+
+const BRANCH_NAME = process.env.REACT_APP_BRANCH;
 
 const UnsubscribePage = withI18n()((props: withI18nProps) => {
   const { i18n } = props;
-  const { search } = useLocation();
+  const { search, pathname } = useLocation();
   const { home } = createWhoOwnsWhatRoutePaths();
   const params = new URLSearchParams(search);
   const token = params.get("u") || "";
   const isEmailUnsubscribeAll = !!params.get("all");
 
   const [subscriptions, setSubscriptions] = React.useState<BuildingSubscription[]>();
-  const subscriptionsNumber = subscriptions?.length;
+  const subscriptionsNumber: number = subscriptions?.length || 0;
+
+  const pageName = STANDALONE_PAGES.find((x) => pathname.includes(x));
+  const standalonePageEventParams = { from: pageName };
 
   useEffect(() => {
     const asyncFetchSubscriptions = async () => {
@@ -32,31 +37,42 @@ const UnsubscribePage = withI18n()((props: withI18nProps) => {
       setSubscriptions(response["subscriptions"]);
     };
     asyncFetchSubscriptions();
-  }, [token]);
+
+    if (isEmailUnsubscribeAll) {
+      window.gtag("event", "unsubscribe-building-all-email-link", { branch: BRANCH_NAME });
+    } else {
+      window.gtag("event", "manage-subscriptions-email-link", { branch: BRANCH_NAME });
+    }
+  }, [token, isEmailUnsubscribeAll]);
 
   const handleUnsubscribeBuilding = async (bbl: string) => {
     const result = await AuthClient.emailUnsubscribeBuilding(bbl, token);
     if (!!result?.["subscriptions"]) setSubscriptions(result["subscriptions"]);
+    window.gtag("event", "unsubscribe-building", {
+      from: "manage subscriptions",
+      branch: BRANCH_NAME,
+    });
   };
 
-  const handleUnsubscribeAll = async () => {
+  const handleUnsubscribeAll = async (from: string) => {
     const result = await AuthClient.emailUnsubscribeAll(token);
     if (!!result?.["subscriptions"]) setSubscriptions(result["subscriptions"]);
+    window.gtag("event", "unsubscribe-building-all", { from: from, branch: BRANCH_NAME });
   };
 
   const renderUnsubscribePage = () => (
     <>
       <Trans render="h1">Unsubscribe</Trans>
-      <Trans render="h2">
-        You are signed up for Building Updates for {subscriptionsNumber}{" "}
-        <Plural value={subscriptionsNumber!} one="building" other="buildings" />. Click below to
-        unsubscribe from all and stop receiving Building Updates.
-      </Trans>
+      <h2>
+        <Trans>You are signed up for Building Updates for</Trans> {subscriptionsNumber}{" "}
+        {subscriptionsNumber! === 1 ? <Trans>building</Trans> : <Trans>buildings</Trans>}.{" "}
+        <Trans>Click below to unsubscribe from all and stop receiving Building Updates.</Trans>
+      </h2>
       <Button
         variant="primary"
         size="large"
         labelText={i18n._(t`Unsubscribe from all`)}
-        onClick={handleUnsubscribeAll}
+        onClick={() => handleUnsubscribeAll("unsubscribe")}
       />
     </>
   );
@@ -64,10 +80,10 @@ const UnsubscribePage = withI18n()((props: withI18nProps) => {
   const renderManageSubscriptionsPage = () => (
     <>
       <Trans render="h1">Manage Subscriptions</Trans>
-      <Trans render="h2" className="settings-section">
-        You are signed up for Building Updates for {subscriptionsNumber}{" "}
-        <Plural value={subscriptionsNumber!} one="building" other="buildings" />
-      </Trans>
+      <h2 className="settings-section">
+        <Trans>You are signed up for Building Updates for</Trans> {subscriptionsNumber}{" "}
+        {subscriptionsNumber! === 1 ? <Trans>building</Trans> : <Trans>buildings</Trans>}
+      </h2>
       <div className="subscriptions-container">
         {subscriptions!.map((s) => (
           <SubscriptionField key={s.bbl} {...s} onRemoveClick={handleUnsubscribeBuilding} />
@@ -77,7 +93,7 @@ const UnsubscribePage = withI18n()((props: withI18nProps) => {
             variant="secondary"
             size="small"
             labelText={i18n._(t`Unsubscribe from all`)}
-            onClick={handleUnsubscribeAll}
+            onClick={() => handleUnsubscribeAll("manage subscriptions")}
           />
         </div>
       </div>
@@ -106,7 +122,7 @@ const UnsubscribePage = withI18n()((props: withI18nProps) => {
           ) : (
             renderManageSubscriptionsPage()
           )}
-          <StandalonePageFooter />
+          <StandalonePageFooter eventParams={standalonePageEventParams} />
         </div>
       </div>
     </Page>

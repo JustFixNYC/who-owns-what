@@ -97,7 +97,7 @@ jobs:
               export HEROKU_APP=wow-django
             else
               # This should be the Heroku app name of our development instance.
-              export HEROKU_APP=wow-django-dev
+              export HEROKU_APP=wow-django-demo
             fi
             git push -f https://boop:${HEROKU_API_KEY}@git.heroku.com/${HEROKU_APP}.git +HEAD:master
 workflows:
