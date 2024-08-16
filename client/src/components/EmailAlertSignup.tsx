@@ -122,10 +122,14 @@ const BuildingSubscribeWithoutI18n = (props: BuildingSubscribeProps) => {
   const renderAddBuilding = () => {
     return (
       <>
-        {!isLoggedIn && (
+        {!isLoggedIn ? (
           <Trans render="div" className="card-description">
             Get a weekly email alert on complaints, violations, and eviction filings for this
             building.
+          </Trans>
+        ) : (
+          <Trans render="div" className="card-description">
+            Follow this building to add it to your weekly email alert.
           </Trans>
         )}
         <Button
