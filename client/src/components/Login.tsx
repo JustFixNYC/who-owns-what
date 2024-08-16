@@ -422,18 +422,18 @@ const LoginWithoutI18n = (props: withI18nProps) => {
     case Step.Login:
       headerText = i18n._(t`Log in`);
       subHeaderText = !!addr ? (
-        <Trans>Log in to add {formatAddr(addr, false)} to your Building Updates</Trans>
+        <Trans>Log in to add {formatAddr(addr, false)} to your Building Alerts</Trans>
       ) : undefined;
       onSubmit = onLoginSubmit;
       submitButtonText = i18n._(t`Log in`);
       break;
     case Step.RegisterAccount:
-      headerText = i18n._(t`Sign up for Building Updates`);
+      headerText = i18n._(t`Sign up for Building Alerts`);
       onSubmit = onAccountSubmit;
       submitButtonText = i18n._(t`Next`);
       break;
     case Step.RegisterUserType:
-      headerText = i18n._(t`Sign up for Building Updates`);
+      headerText = i18n._(t`Sign up for Building Alerts`);
       subHeaderText = i18n._(t`Which best describes you?`);
       onSubmit = onUserTypeSubmit;
       submitButtonText = "Sign up";

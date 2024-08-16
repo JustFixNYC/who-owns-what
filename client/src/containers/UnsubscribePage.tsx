@@ -64,9 +64,9 @@ const UnsubscribePage = withI18n()((props: withI18nProps) => {
     <>
       <Trans render="h1">Unsubscribe</Trans>
       <h2>
-        <Trans>You are signed up for Building Updates for</Trans> {subscriptionsNumber}{" "}
+        <Trans>You are signed up for Building Alerts for</Trans> {subscriptionsNumber}{" "}
         {subscriptionsNumber! === 1 ? <Trans>building</Trans> : <Trans>buildings</Trans>}.{" "}
-        <Trans>Click below to unsubscribe from all and stop receiving Building Updates.</Trans>
+        <Trans>Click below to unsubscribe from all and stop receiving Building Alerts.</Trans>
       </h2>
       <Button
         variant="primary"
@@ -81,7 +81,7 @@ const UnsubscribePage = withI18n()((props: withI18nProps) => {
     <>
       <Trans render="h1">Manage Subscriptions</Trans>
       <h2 className="settings-section">
-        <Trans>You are signed up for Building Updates for</Trans> {subscriptionsNumber}{" "}
+        <Trans>You are signed up for Building Alerts for</Trans> {subscriptionsNumber}{" "}
         {subscriptionsNumber! === 1 ? <Trans>building</Trans> : <Trans>buildings</Trans>}
       </h2>
       <div className="subscriptions-container">
@@ -104,7 +104,7 @@ const UnsubscribePage = withI18n()((props: withI18nProps) => {
     <>
       <Trans render="h1">You are not subscribed to any buildings</Trans>
       <Trans render="h2">
-        <JFCLLocaleLink to={home}>Search for an address</JFCLLocaleLink> to add to Building Updates
+        <JFCLLocaleLink to={home}>Search for an address</JFCLLocaleLink> to add to Building Alerts
       </Trans>
     </>
   );

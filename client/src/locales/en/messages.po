@@ -83,12 +83,20 @@ msgstr "<0>Rent stabilization</0> protects tenants by limiting rent increases an
 #~ msgstr "<0>Search an address</0> to sign up for email alerts for that building."
 
 #: src/containers/UnsubscribePage.tsx:88
-msgid "<0>Search for an address</0> to add to Building Updates"
-msgstr "<0>Search for an address</0> to add to Building Updates"
+msgid "<0>Search for an address</0> to add to Building Alerts"
+msgstr "<0>Search for an address</0> to add to Building Alerts"
+
+#: src/containers/UnsubscribePage.tsx:88
+#~ msgid "<0>Search for an address</0> to add to Building Updates"
+#~ msgstr "<0>Search for an address</0> to add to Building Updates"
 
 #: src/containers/AccountSettingsPage.tsx:70
-msgid "<0>Search for an address</0> to add to your Building Updates"
-msgstr "<0>Search for an address</0> to add to your Building Updates"
+msgid "<0>Search for an address</0> to add to your Building Alerts"
+msgstr "<0>Search for an address</0> to add to your Building Alerts"
+
+#: src/containers/AccountSettingsPage.tsx:70
+#~ msgid "<0>Search for an address</0> to add to your Building Updates"
+#~ msgstr "<0>Search for an address</0> to add to your Building Updates"
 
 #: src/components/Login.tsx:164
 #~ msgid "<0>Search for an address</0> to add to your Building Updates, or visit your <1>Account</1>."
@@ -252,11 +260,11 @@ msgstr "Apply selections and get results"
 msgid "Are you having issues in this development?"
 msgstr "Are you having issues in this development?"
 
-#: src/components/PropertiesMap.tsx:343
+#: src/components/PropertiesMap.tsx:342
 msgid "Associated names/entities: {0}"
 msgstr "Associated names/entities: {0}"
 
-#: src/components/EmailAlertSignup.tsx:115
+#: src/components/EmailAlertSignup.tsx:117
 msgid "At this time we can only support {SUBSCRIPTION_LIMIT} buildings in each email. Please visit your <0>account</0> to manage the buildings in your email. If you would like to track more buildings, please let us know by submiting a <1>request form</1>."
 msgstr "At this time we can only support {SUBSCRIPTION_LIMIT} buildings in each email. Please visit your <0>account</0> to manage the buildings in your email. If you would like to track more buildings, please let us know by submiting a <1>request form</1>."
 
@@ -282,7 +290,8 @@ msgstr "Borough"
 msgid "Borough Management Office:"
 msgstr "Borough Management Office:"
 
-#: src/components/EmailAlertSignup.tsx:136
+#: src/components/EmailAlertSignup.tsx:138
+#: src/containers/AccountSettingsPage.tsx:60
 msgid "Building Alerts"
 msgstr "Building Alerts"
 
@@ -300,14 +309,14 @@ msgid "Building Size"
 msgstr "Building Size"
 
 #: src/containers/AccountSettingsPage.tsx:60
-msgid "Building Updates"
-msgstr "Building Updates"
+#~ msgid "Building Updates"
+#~ msgstr "Building Updates"
 
 #: src/components/PropertiesSummary.tsx:101
 msgid "Building info"
 msgstr "Building info"
 
-#: src/components/PropertiesMap.tsx:351
+#: src/components/PropertiesMap.tsx:350
 msgid "Building size: {0}"
 msgstr "Building size: {0}"
 
@@ -417,8 +426,12 @@ msgid "Clearer Landlord Contact Info"
 msgstr "Clearer Landlord Contact Info"
 
 #: src/containers/UnsubscribePage.tsx:69
-msgid "Click below to unsubscribe from all and stop receiving Building Updates."
-msgstr "Click below to unsubscribe from all and stop receiving Building Updates."
+msgid "Click below to unsubscribe from all and stop receiving Building Alerts."
+msgstr "Click below to unsubscribe from all and stop receiving Building Alerts."
+
+#: src/containers/UnsubscribePage.tsx:69
+#~ msgid "Click below to unsubscribe from all and stop receiving Building Updates."
+#~ msgstr "Click below to unsubscribe from all and stop receiving Building Updates."
 
 #: src/containers/NotRegisteredPage.tsx:176
 msgid "Click here to learn more."
@@ -692,7 +705,7 @@ msgstr "Evictions"
 msgid "Evictions Executed"
 msgstr "Evictions Executed"
 
-#: src/components/PortfolioTable.tsx:235
+#: src/components/PortfolioTable.tsx:276
 msgid "Evictions Since 2017"
 msgstr "Evictions Since 2017"
 
@@ -704,7 +717,7 @@ msgstr "Evictions executed by NYC Marshals since 2017. ANHD and the Housing Data
 msgid "Evictions executed in this development by NYC Marshals since 2017. ANHD and the Housing Data Coalition cleaned, geocoded, and validated the data, originally sourced from DOI."
 msgstr "Evictions executed in this development by NYC Marshals since 2017. ANHD and the Housing Data Coalition cleaned, geocoded, and validated the data, originally sourced from DOI."
 
-#: src/components/PortfolioTable.tsx:250
+#: src/components/PortfolioTable.tsx:291
 msgid "Executed"
 msgstr "Executed"
 
@@ -736,7 +749,7 @@ msgstr "FLOORING/STAIRS"
 msgid "Failure to register a building with HPD"
 msgstr "Failure to register a building with HPD"
 
-#: src/components/PortfolioTable.tsx:241
+#: src/components/PortfolioTable.tsx:282
 msgid "Filed"
 msgstr "Filed"
 
@@ -772,9 +785,13 @@ msgstr "Find other buildings your landlord might own in NYC:"
 #~ msgid "Find other buildings your landlord might own:"
 #~ msgstr "Find other buildings your landlord might own:"
 
-#: src/components/EmailAlertSignup.tsx:91
+#: src/components/EmailAlertSignup.tsx:93
 msgid "Follow building"
 msgstr "Follow building"
+
+#: src/components/EmailAlertSignup.tsx:90
+msgid "Follow this building to add it to your weekly email alert."
+msgstr "Follow this building to add it to your weekly email alert."
 
 #: src/components/Login.tsx:143
 msgid "Forgot your password?"
@@ -840,7 +857,7 @@ msgid "HPD Building Profile"
 msgstr "HPD Building Profile"
 
 #: src/components/IndicatorsDatasets.tsx:5
-#: src/components/PortfolioTable.tsx:180
+#: src/components/PortfolioTable.tsx:221
 msgid "HPD Complaints"
 msgstr "HPD Complaints"
 
@@ -849,7 +866,7 @@ msgid "HPD Complaints are housing issues reported to the City <0>by a tenant cal
 msgstr "HPD Complaints are housing issues reported to the City <0>by a tenant calling 311</0>. When someone issues a complaint, the Department of Housing Preservation and Development begins a process of investigation that may lead to an official violation from the City. Complaints can be identified as:<1/><2/><3>Emergency</3> — reported to be hazardous/dire<4/><5>Non-Emergency</5> — all others<6/><7/>Read more about HPD Complaints and how to file them at the <8>official HPD page</8>."
 
 #: src/components/IndicatorsDatasets.tsx:34
-#: src/components/PortfolioTable.tsx:213
+#: src/components/PortfolioTable.tsx:254
 msgid "HPD Violations"
 msgstr "HPD Violations"
 
@@ -865,7 +882,7 @@ msgstr "HUD Complaint Form 958"
 msgid "Head Officer"
 msgstr "Head Officer"
 
-#: src/components/PropertiesMap.tsx:314
+#: src/components/PropertiesMap.tsx:313
 msgid "Hide legend"
 msgstr "Hide legend"
 
@@ -991,7 +1008,7 @@ msgid "LOCKS"
 msgstr "LOCKS"
 
 #: src/components/PortfolioFilters.tsx:135
-#: src/components/PortfolioTable.tsx:259
+#: src/components/PortfolioTable.tsx:180
 msgid "Landlord"
 msgstr "Landlord"
 
@@ -1007,7 +1024,7 @@ msgstr "Landlord name"
 msgid "Landlord, Portfolio, Tenant, Displacement, Map, JustFix, NYC, New York, Housing, Who Owns What"
 msgstr "Landlord, Portfolio, Tenant, Displacement, Map, JustFix, NYC, New York, Housing, Who Owns What"
 
-#: src/components/PortfolioTable.tsx:193
+#: src/components/PortfolioTable.tsx:234
 msgid "Last 3 Years"
 msgstr "Last 3 Years"
 
@@ -1052,7 +1069,7 @@ msgstr "Learn more."
 msgid "Legal Worker/Lawyer"
 msgstr "Legal Worker/Lawyer"
 
-#: src/components/PropertiesMap.tsx:314
+#: src/components/PropertiesMap.tsx:313
 msgid "Legend"
 msgstr "Legend"
 
@@ -1067,7 +1084,7 @@ msgstr "Link to Deed"
 
 #: src/components/Loader.tsx:19
 #: src/components/PortfolioTable.tsx:447
-#: src/components/PropertiesMap.tsx:256
+#: src/components/PropertiesMap.tsx:255
 msgid "Loading"
 msgstr "Loading"
 
@@ -1093,8 +1110,12 @@ msgid "Log in / sign up"
 msgstr "Log in / sign up"
 
 #: src/components/Login.tsx:299
-msgid "Log in to add {0} to your Building Updates"
-msgstr "Log in to add {0} to your Building Updates"
+msgid "Log in to add {0} to your Building Alerts"
+msgstr "Log in to add {0} to your Building Alerts"
+
+#: src/components/Login.tsx:299
+#~ msgid "Log in to add {0} to your Building Updates"
+#~ msgstr "Log in to add {0} to your Building Updates"
 
 #: src/components/Login.tsx:260
 #~ msgid "Log in to add {0} {1}, {2} to your Building Updates"
@@ -1371,7 +1392,7 @@ msgstr "Oops! A network error occurred. Try again later."
 msgid "Oops! That email is invalid."
 msgstr "Oops! That email is invalid."
 
-#: src/components/PortfolioTable.tsx:218
+#: src/components/PortfolioTable.tsx:259
 msgid "Open"
 msgstr "Open"
 
@@ -1452,7 +1473,7 @@ msgid "People"
 msgstr "People"
 
 #: src/components/PortfolioFilters.tsx:135
-#: src/components/PortfolioTable.tsx:272
+#: src/components/PortfolioTable.tsx:193
 msgid "Person/Entity"
 msgstr "Person/Entity"
 
@@ -1554,7 +1575,7 @@ msgstr "Rent Stabilized Units registered since 2007"
 msgid "Rent stabilization"
 msgstr "Rent stabilization"
 
-#: src/components/PropertiesMap.tsx:339
+#: src/components/PropertiesMap.tsx:338
 msgid "Rent stabilized units ({0}): {1}"
 msgstr "Rent stabilized units ({0}): {1}"
 
@@ -1650,7 +1671,7 @@ msgstr "Search for a different address"
 msgid "Search landlords"
 msgstr "Search landlords"
 
-#: src/components/PropertiesMap.tsx:361
+#: src/components/PropertiesMap.tsx:360
 msgid "See Building Profile"
 msgstr "See Building Profile"
 
@@ -1713,7 +1734,7 @@ msgstr "Show"
 msgid "Show all {numSelections} selections"
 msgstr "Show all {numSelections} selections"
 
-#: src/components/PropertiesMap.tsx:314
+#: src/components/PropertiesMap.tsx:313
 msgid "Show legend"
 msgstr "Show legend"
 
@@ -1752,8 +1773,13 @@ msgstr "Sign up"
 
 #: src/components/Login.tsx:304
 #: src/components/Login.tsx:309
-msgid "Sign up for Building Updates"
-msgstr "Sign up for Building Updates"
+msgid "Sign up for Building Alerts"
+msgstr "Sign up for Building Alerts"
+
+#: src/components/Login.tsx:304
+#: src/components/Login.tsx:309
+#~ msgid "Sign up for Building Updates"
+#~ msgstr "Sign up for Building Updates"
 
 #: src/containers/AccountSettingsPage.tsx:48
 #~ msgid "Sign up for Data Updates on the buildings you choose:"
@@ -1804,7 +1830,7 @@ msgstr "Sold"
 msgid "Some large corporations, however, are a bit more complicated and may share personnel and financial stake with other related companies, which all will show up on Who Owns What as one large portfolio."
 msgstr "Some large corporations, however, are a bit more complicated and may share personnel and financial stake with other related companies, which all will show up on Who Owns What as one large portfolio."
 
-#: src/components/PropertiesMap.tsx:266
+#: src/components/PropertiesMap.tsx:265
 msgid "Sorry, it looks like there's an error on the map. Try again on a different browser or <0>enable WebGL</0>."
 msgstr "Sorry, it looks like there's an error on the map. Try again on a different browser or <0>enable WebGL</0>."
 
@@ -1987,8 +2013,12 @@ msgid "There {0, plural, one {<0>is <1>1</1> building</0>} other {<2>are <3>{1}<
 msgstr "There {0, plural, one {<0>is <1>1</1> building</0>} other {<2>are <3>{1}</3> buildings</2>}} in this portfolio with a total of {2, plural, one {1 unit} other {# units}}."
 
 #: src/containers/AccountSettingsPage.tsx:61
-msgid "There {subscriptionsNumber, plural, one {is} other {are}} {subscriptionsNumber} {subscriptionsNumber, plural, one {building} other {buildings}} in your weekly updates"
-msgstr "There {subscriptionsNumber, plural, one {is} other {are}} {subscriptionsNumber} {subscriptionsNumber, plural, one {building} other {buildings}} in your weekly updates"
+msgid "There {subscriptionsNumber, plural, one {is} other {are}} {subscriptionsNumber} {subscriptionsNumber, plural, one {building} other {buildings}} in your weekly emails"
+msgstr "There {subscriptionsNumber, plural, one {is} other {are}} {subscriptionsNumber} {subscriptionsNumber, plural, one {building} other {buildings}} in your weekly emails"
+
+#: src/containers/AccountSettingsPage.tsx:61
+#~ msgid "There {subscriptionsNumber, plural, one {is} other {are}} {subscriptionsNumber} {subscriptionsNumber, plural, one {building} other {buildings}} in your weekly updates"
+#~ msgstr "There {subscriptionsNumber, plural, one {is} other {are}} {subscriptionsNumber} {subscriptionsNumber, plural, one {building} other {buildings}} in your weekly updates"
 
 #: src/containers/NychaPage.tsx:76
 msgid "This building is owned by the NYC Housing Authority (NYCHA)"
@@ -2066,13 +2096,13 @@ msgstr "This will export <0>{0}</0> addresses associated with the landlord at <1
 msgid "Timeline"
 msgstr "Timeline"
 
-#: src/components/PortfolioTable.tsx:201
+#: src/components/PortfolioTable.tsx:242
 msgid "Top Complaint"
 msgstr "Top Complaint"
 
 #: src/components/IndicatorsViz.tsx:376
-#: src/components/PortfolioTable.tsx:185
 #: src/components/PortfolioTable.tsx:226
+#: src/components/PortfolioTable.tsx:267
 msgid "Total"
 msgstr "Total"
 
@@ -2279,8 +2309,12 @@ msgid "We reorganized the contact details for each individual and corporate enti
 msgstr "We reorganized the contact details for each individual and corporate entities associated with a property on the Overview tab."
 
 #: src/components/UserSettingField.tsx:119
-msgid "We send Building Updates to this email."
-msgstr "We send Building Updates to this email."
+msgid "We send Building Alerts to this email."
+msgstr "We send Building Alerts to this email."
+
+#: src/components/UserSettingField.tsx:119
+#~ msgid "We send Building Updates to this email."
+#~ msgstr "We send Building Updates to this email."
 
 #: src/components/UserSettingField.tsx:107
 #~ msgid "We send data updates to this email."
@@ -2403,7 +2437,7 @@ msgstr "You are logged in"
 msgid "You are not subscribed to any buildings"
 msgstr "You are not subscribed to any buildings"
 
-#: src/components/EmailAlertSignup.tsx:110
+#: src/components/EmailAlertSignup.tsx:112
 msgid "You are now logged in and we’ve added this building to your updates"
 msgstr "You are now logged in and we’ve added this building to your updates"
 
@@ -2413,8 +2447,13 @@ msgstr "You are now logged in and we’ve added this building to your updates"
 
 #: src/containers/UnsubscribePage.tsx:67
 #: src/containers/UnsubscribePage.tsx:76
-msgid "You are signed up for Building Updates for"
-msgstr "You are signed up for Building Updates for"
+msgid "You are signed up for Building Alerts for"
+msgstr "You are signed up for Building Alerts for"
+
+#: src/containers/UnsubscribePage.tsx:67
+#: src/containers/UnsubscribePage.tsx:76
+#~ msgid "You are signed up for Building Updates for"
+#~ msgstr "You are signed up for Building Updates for"
 
 #: src/containers/UnsubscribePage.tsx:70
 #~ msgid "You are signed up for Building Updates for {subscriptionsNumber}"
@@ -2460,9 +2499,13 @@ msgstr "You can now close this window or <0>search for another building</0> to a
 #~ msgid "You can now start receiving Building Updates"
 #~ msgstr "You can now start receiving Building Updates"
 
+#: src/components/EmailAlertSignup.tsx:116
+msgid "You have reached the maximum number of Building Alerts"
+msgstr "You have reached the maximum number of Building Alerts"
+
 #: src/components/EmailAlertSignup.tsx:114
-msgid "You have reached the maximum number of Building Updates"
-msgstr "You have reached the maximum number of Building Updates"
+#~ msgid "You have reached the maximum number of Building Updates"
+#~ msgstr "You have reached the maximum number of Building Updates"
 
 #: src/components/EmailAlertSignup.tsx:56
 #~ msgid "You have reached the maximum number of building updates"
@@ -2509,8 +2552,12 @@ msgid "Your privacy is important to us. Read our <0>Privacy Policy</0> and <1>Te
 msgstr "Your privacy is important to us. Read our <0>Privacy Policy</0> and <1>Terms of Use</1>."
 
 #: src/components/EmailAlertSignup.tsx:49
-msgid "You’re signed up for Building Updates for {0} {1}, {2}."
-msgstr "You’re signed up for Building Updates for {0} {1}, {2}."
+msgid "You’re signed up for Building Alerts for {0} {1}, {2}."
+msgstr "You’re signed up for Building Alerts for {0} {1}, {2}."
+
+#: src/components/EmailAlertSignup.tsx:49
+#~ msgid "You’re signed up for Building Updates for {0} {1}, {2}."
+#~ msgstr "You’re signed up for Building Updates for {0} {1}, {2}."
 
 #: src/components/EmailAlertSignup.tsx:25
 #~ msgid "You’re signed up for Data Updates for this building."
@@ -2559,7 +2606,7 @@ msgstr "Zoom out"
 msgid "and"
 msgstr "and"
 
-#: src/components/PropertiesMap.tsx:323
+#: src/components/PropertiesMap.tsx:322
 msgid "associated building"
 msgstr "associated building"
 
@@ -2605,7 +2652,7 @@ msgstr "of"
 msgid "quarter"
 msgstr "quarter"
 
-#: src/components/PropertiesMap.tsx:320
+#: src/components/PropertiesMap.tsx:319
 msgid "search address"
 msgstr "search address"
 
@@ -2621,7 +2668,7 @@ msgstr "search address"
 msgid "year"
 msgstr "year"
 
-#: src/components/PropertiesMap.tsx:354
+#: src/components/PropertiesMap.tsx:353
 msgid "{0, plural, one {unit} other {units}}"
 msgstr "{0, plural, one {unit} other {units}}"
 
