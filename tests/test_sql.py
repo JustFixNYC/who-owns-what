@@ -374,6 +374,9 @@ class TestSQL:
                     bizaddr=f"{row.housenumber} {row.streetname} "
                     + f"{fake_standardize_apt(row.apartment)}, "
                     + f"{row.city} {row.state}",
+                    bizhousestreet=f"{row.housenumber} {row.streetname}",
+                    bizapt=f"{fake_standardize_apt(row.apartment)}",
+                    bizzip=row.zip,
                 )
                 for row in rows
             ]
@@ -424,9 +427,11 @@ class TestSQL:
             node_data = list(filter(lambda x: "1000010002" in x["bbls"], nodes_data))[0]
             assert node_data == {
                 "bbls": ["1000010002"],
-                "bizAddr": "6 UNRELATED AVENUE 2 FL, BROKLYN NY"
-                if os.environ.get("CI")
-                else "6 UNRELATED AVENUE 2 FL, BROOKLYN NY",
+                "bizAddr": (
+                    "6 UNRELATED AVENUE 2 FL, BROKLYN NY"
+                    if os.environ.get("CI")
+                    else "6 UNRELATED AVENUE 2 FL, BROOKLYN NY"
+                ),
                 "name": "BOOP JONES",
             }
 
