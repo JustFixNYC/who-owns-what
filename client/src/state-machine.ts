@@ -4,7 +4,6 @@ import {
   AddressRecord,
   BuildingInfoRecord,
   SummaryStatsRecord,
-  RawPortfolioGraphJson,
 } from "components/APIDataTypes";
 import APIClient from "components/APIClient";
 import { assertNotUndefined } from "@justfixnyc/util";

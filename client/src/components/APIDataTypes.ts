@@ -88,28 +88,6 @@ export type AddressRecord = {
   council: number | null;
 };
 
-export type PortfolioGraphNode = {
-  id: string;
-  type: "searchaddr" | "detailaddr" | "owner" | "name" | "bizaddr";
-  name: string;
-  bizAddr: string;
-  parent?: string;
-  value?: string;
-  bbls?: string[];
-};
-
-export type PortfolioGraphEdge = {
-  source: string;
-  target: string;
-  type: "name" | "bizAddr" | "property";
-  weight: number;
-};
-
-export type RawPortfolioGraphJson = {
-  nodes: PortfolioGraphNode[];
-  edges: PortfolioGraphEdge[];
-};
-
 export type SearchResults = {
   addrs: AddressRecord[];
   geosearch?: GeoSearchData;
