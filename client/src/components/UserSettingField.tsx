@@ -208,7 +208,7 @@ const EmailSettingFieldWithoutI18n = (props: EmailSettingFieldProps) => {
       <Trans render="label" className="user-setting-label">
         Email address
       </Trans>
-      <Trans render="p">We send Building Updates to this email.</Trans>
+      <Trans render="p">We send Building Alerts to this email.</Trans>
       <EmailInput
         email={email}
         error={emailError}

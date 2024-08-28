@@ -99,12 +99,12 @@ const AccountSettingsPage = withI18n()((props: withI18nProps) => {
             />
           </div>
           <div className="settings-section">
-            <Trans render="h2">Building Updates</Trans>
+            <Trans render="h2">Building Alerts</Trans>
             <Trans render="p" className="section-description">
               There <Plural value={subscriptionsNumber} one="is" other="are" />{" "}
               {subscriptionsNumber}{" "}
               <Plural value={subscriptionsNumber} one="building" other="buildings" /> in your weekly
-              updates
+              emails
             </Trans>
             <div className="subscriptions-container">
               {subscriptions?.length ? (
@@ -118,7 +118,7 @@ const AccountSettingsPage = withI18n()((props: withI18nProps) => {
                   <LocaleNavLink exact to={home}>
                     Search for an address
                   </LocaleNavLink>{" "}
-                  to add to your Building Updates
+                  to add to your Building Alerts
                 </Trans>
               )}
             </div>

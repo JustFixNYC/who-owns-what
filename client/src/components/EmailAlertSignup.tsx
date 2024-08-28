@@ -68,7 +68,7 @@ const BuildingSubscribeWithoutI18n = (props: BuildingSubscribeProps) => {
       <div className="status-title">
         <SubscribedIcon />
         <Trans>
-          You’re signed up for Building Updates for {addr.housenumber}
+          You’re signed up for Building Alerts for {addr.housenumber}
           {helpers.titleCase(addr.streetname)}, {helpers.titleCase(addr.boro)}.
         </Trans>
       </div>
@@ -122,10 +122,14 @@ const BuildingSubscribeWithoutI18n = (props: BuildingSubscribeProps) => {
   const renderAddBuilding = () => {
     return (
       <>
-        {!isLoggedIn && (
+        {!isLoggedIn ? (
           <Trans render="div" className="card-description">
             Get a weekly email alert on complaints, violations, and eviction filings for this
             building.
+          </Trans>
+        ) : (
+          <Trans render="div" className="card-description">
+            Follow this building to add it to your weekly email alert.
           </Trans>
         )}
         <Button
@@ -176,7 +180,7 @@ const BuildingSubscribeWithoutI18n = (props: BuildingSubscribeProps) => {
         width={40}
         onClose={() => setShowSubscriptionLimitModal(false)}
       >
-        <Trans render="h4">You have reached the maximum number of Building Updates</Trans>
+        <Trans render="h4">You have reached the maximum number of Building Alerts</Trans>
         <Trans>
           At this time we can only support {SUBSCRIPTION_LIMIT} buildings in each email. Please
           visit your <LocaleLink to={account.settings}>account</LocaleLink> to manage the buildings
