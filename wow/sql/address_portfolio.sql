@@ -1,15 +1,3 @@
--- Grab the graph json object that corresponds 
--- to the portfolio of the search address: 
-WITH PORTFOLIO_GRAPH AS (
-	SELECT 
-		%(bbl)s as BBL,
-		GRAPH,
-		relatedportfoliosbbls
-	FROM WOW_PORTFOLIOS
-	WHERE %(bbl)s = ANY(BBLS)
-	LIMIT 1
-)
-
 -- Select a subset of WOW_BLDGS that only contains
 -- BBLs within the same portfolio
 SELECT 
@@ -48,11 +36,8 @@ SELECT
 	WOW_BLDGS.LASTSALEACRISID,
 	WOW_BLDGS.LASTSALEDATE,
 	WOW_BLDGS.LASTSALEAMOUNT,
-	WOW_BLDGS.EVICTIONFILINGS,
-	PORTFOLIO_GRAPH.GRAPH,
-	PORTFOLIO_GRAPH.relatedportfoliosbbls
+	WOW_BLDGS.EVICTIONFILINGS
 FROM WOW_BLDGS
-LEFT JOIN PORTFOLIO_GRAPH USING(BBL)
 WHERE BBL = ANY(
 	SELECT UNNEST(BBLS)
 	FROM WOW_PORTFOLIOS

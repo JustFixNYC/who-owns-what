@@ -100,16 +100,6 @@ type PortfolioData = {
   assocAddrs: AddressRecord[];
   /** The address in focus on the Overview Tab and Timeline Tab */
   detailAddr: AddressRecord;
-  /** A Json object encoding the graphical representation of the portfolio.
-   * Only present when the new WOWZA graph-based portfolio mapping algorithm is
-   * used to generate the landlord portfolio.
-   */
-  portfolioGraph?: RawPortfolioGraphJson;
-  /** A list of bbls, each representing a related portfolio. That is, other
-   * portfolios that were created from splitting the same original connect component
-   * as this portfolio.
-   */
-  relatedPortfoliosBbls?: string[];
 };
 
 export type BuildingSubscription = {
@@ -234,8 +224,6 @@ async function getSearchResult(
           searchAddr,
           detailAddr: searchAddr,
           assocAddrs: apiResults.addrs,
-          portfolioGraph: apiResults.graph,
-          relatedPortfoliosBbls: apiResults.relatedPortfoliosBbls,
         },
       },
     };

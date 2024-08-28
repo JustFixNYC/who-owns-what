@@ -16,10 +16,7 @@ import { AddressRecord } from "./APIDataTypes";
 import { defaultLocale, isSupportedLocale } from "i18n-base";
 import { I18n } from "@lingui/core/i18n";
 import { I18n as I18nComponent } from "@lingui/react";
-import { PortfolioGraph } from "./PortfolioGraph";
 import { ComplaintsSummary } from "./ComplaintsSummary";
-import { BigPortfolioAlert } from "./PortfolioAlerts";
-import { LazyLoadWhenVisible } from "./LazyLoadWhenVisible";
 import { StreetViewStatic } from "./StreetView";
 
 type Props = withMachineInStateProps<"portfolioFound"> & {
@@ -90,7 +87,6 @@ export default class PropertiesSummary extends Component<Props, {}> {
     const { state } = this.props;
     let agg = state.context.summaryData;
     let searchAddr = state.context.portfolioData.searchAddr;
-    const { relatedPortfoliosBbls } = state.context.portfolioData;
     if (!agg) {
       return <FixedLoadingLabel />;
     } else {
@@ -98,59 +94,6 @@ export default class PropertiesSummary extends Component<Props, {}> {
         <div className="Page PropertiesSummary">
           <div className="PropertiesSummary__content Page__content">
             <div>
-              <Trans render="h6">Network Diagram of Portfolio</Trans>
-              <div className="network-legend">
-                <div className="network-legend-symbol symbol-owner" />
-                <div className="network-legend-label">
-                  <Trans render="span">Unique name and business address</Trans>
-                  <br />
-                  <Trans render="span" className="network-legend-sublabel">
-                    Size indicates number of buildings registered
-                  </Trans>
-                </div>
-                <div className="network-legend-symbol symbol-name" />
-                <div className="network-legend-label">
-                  <Trans render="span">Shared name</Trans>
-                </div>
-                <div className="network-legend-symbol symbol-bizaddr" />
-                <div className="network-legend-label">
-                  <Trans render="span">Shared business address</Trans>
-                </div>
-              </div>
-              {state.context.useNewPortfolioMethod && state.context.portfolioData.portfolioGraph && (
-                <div className="portfolio-graph-container">
-                  <LazyLoadWhenVisible showLoader>
-                    <PortfolioGraph
-                      graphJSON={state.context.portfolioData.portfolioGraph}
-                      state={state}
-                    />
-                    <BigPortfolioAlert
-                      closeType="session"
-                      storageId="summary-big-portfolio-alert"
-                      portfolioSize={agg.bldgs}
-                    />
-                  </LazyLoadWhenVisible>
-                </div>
-              )}
-              {!relatedPortfoliosBbls?.length ? (
-                <p>This portfolio was never split</p>
-              ) : (
-                <>
-                  <p>
-                    An initial larger portfolio was split to create this one along with these
-                    others:
-                  </p>
-                  <ul>
-                    {relatedPortfoliosBbls.map((bbl) => (
-                      <li key={bbl}>
-                        <a href={`/bbl/${bbl}`} target="_blank" rel="noopener noreferrer">
-                          {bbl}
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                </>
-              )}
               <p>
                 <Trans>
                   Across owners and management staff, the most common

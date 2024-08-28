@@ -8,8 +8,8 @@ urlpatterns = [
     path("address", views.address_query, name="address_query"),
     path(
         "address/wowza",
-        views.address_query_with_portfolio_graph,
-        name="address_query_with_portfolio_graph",
+        views.address_query_wowza,
+        name="address_query_wowza",
     ),
     path("address/aggregate", views.address_aggregate, name="address_aggregate"),
     path(
