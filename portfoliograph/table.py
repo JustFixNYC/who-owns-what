@@ -31,6 +31,13 @@ def iter_portfolio_rows(conn) -> Iterable[PortfolioRow]:
 
     g = graph.build_graph(cur)
 
+    # For each "connected component" (starting portfolio) we check if it's above
+    # our "big" size (300 bbls currently) and then attempt to split it using
+    # louvain_communities making use of our edge weights (quality of match based
+    # on name and address matches), and continue this process until the
+    # portfolio is either below 300 or there are no more splits possible using
+    # this method. Then for the resulting final portfolios we create a row to be
+    # added to the database table
     for id, portfolio_graph in graph.iter_split_graph(g):
         bbls: Set[str] = set()
         names: List[str] = []
