@@ -1,6 +1,7 @@
 import numpy
 import math
 from typing import Dict, Any, List
+from numpy.typing import NDArray
 import hashlib
 import json
 from psycopg2.extras import DictCursor
@@ -62,7 +63,7 @@ def get_landlord_data_for_algolia(
             landlord_names = split_sort_join(row["landlord_names"])
             if num_parts > 1:
                 names_array = landlord_names.split(", ")
-                names_array_subsets: List[numpy.ndarray[str]] = numpy.array_split(
+                names_array_subsets: List[NDArray[Any]] = numpy.array_split(
                     names_array, num_parts
                 )
                 portfolio_part_dict_list = [
