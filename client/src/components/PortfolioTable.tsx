@@ -300,7 +300,6 @@ const PortfolioTableWithoutI18n = React.memo((props: PortfolioTableProps) => {
                       <button
                         className="contacts-expand"
                         onClick={() => {
-                          console.log(row);
                           row.getToggleExpandedHandler()();
                           !row.getIsExpanded() &&
                             logPortfolioAnalytics("portfolioRowExpanded", { column: "ownernames" });
