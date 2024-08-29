@@ -66,13 +66,13 @@
                 "type": "bold"
               }
             ],
-            "value": "Note:",
+            "value": "Note: ",
             "nodeType": "text"
           },
           {
             "data": {},
             "marks": [],
-            "value": " You are viewing the new version of Who Owns What. Here’s the link to ",
+            "value": "As of September we've updated how we assess portfolio relationships on Who Owns What. Overall, this update produces smaller, more tightly connected portfolios. As a result, we’ll be de-commissioning the ",
             "nodeType": "text"
           },
           {
@@ -83,7 +83,7 @@
               {
                 "data": {},
                 "marks": [],
-                "value": "the old version",
+                "value": "“old version”",
                 "nodeType": "text"
               }
             ],
@@ -92,7 +92,7 @@
           {
             "data": {},
             "marks": [],
-            "value": " if you need to access it for reference.",
+            "value": " on Oct 1, as the update produces a comparable experience.",
             "nodeType": "text"
           }
         ],

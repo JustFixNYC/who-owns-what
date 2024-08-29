@@ -67,7 +67,7 @@
           },
           {
             "nodeType": "text",
-            "value": " Está viendo ",
+            "value": " A partir de septiembre hemos actualizado la forma en que analizamos las relaciones de las carteras en Quién es el Dueño en NY. En general, esta actualización produce carteras más pequeñas y más conectadas. En consecuencia, el 1o de octubre retiraremos la ",
             "marks": [],
             "data": {}
           },
@@ -79,7 +79,7 @@
             "content": [
               {
                 "nodeType": "text",
-                "value": "la nueva versión",
+                "value": "\"versión antigua\"",
                 "marks": [],
                 "data": {}
               }
@@ -87,7 +87,7 @@
           },
           {
             "nodeType": "text",
-            "value": " de ¿Quién Es El Dueño en Nueva York?. Aquí tiene el enlace a la versión antigua por si necesita acceder a ella como referencia.\n",
+            "value": ", ya que la actualización produce una experiencia comparable. (edited) ",
             "marks": [],
             "data": {}
           }
@@ -295,13 +295,7 @@
           },
           {
             "nodeType": "text",
-            "value": "La Housing Data Coalition (HDC por sus siglas en inglés) es un grupo de personas y organizaciones que usan datos públicos para promover la justicia de vivienda en la ciudad de Nueva York. La HDC tiene como objetivo hacer que los datos públicos sean más accesibles para los grupos de justicia de la vivienda y así lucha contra la creciente explotación de datos de la industria inmobiliaria que impulsa la especulación y el desplazamiento. Los miembros de la HDC se  brindan ayuda y apoyo mutuo para propulsar una variedad de proyectos que emplean datos de vivienda. Para obtener más información sobre nuestros grupos de trabajo y reuniones mensuales, ",
-            "marks": [],
-            "data": {}
-          },
-          {
-            "nodeType": "text",
-            "value": "visite su sitio web aqui ",
+            "value": "La Housing Data Coalition (HDC por sus siglas en inglés) es un grupo de personas y organizaciones que usan datos públicos para promover la justicia de vivienda en la ciudad de Nueva York. La HDC tiene como objetivo hacer que los datos públicos sean más accesibles para los grupos de justicia de la vivienda y así lucha contra la creciente explotación de datos de la industria inmobiliaria que impulsa la especulación y el desplazamiento. Los miembros de la HDC se  brindan ayuda y apoyo mutuo para propulsar una variedad de proyectos que emplean datos de vivienda. Para obtener más información sobre nuestros grupos de trabajo y reuniones mensuales, visite su sitio web aqui ",
             "marks": [],
             "data": {}
           },
