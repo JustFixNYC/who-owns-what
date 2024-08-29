@@ -16,10 +16,7 @@ import { AddressRecord } from "./APIDataTypes";
 import { defaultLocale, isSupportedLocale } from "i18n-base";
 import { I18n } from "@lingui/core/i18n";
 import { I18n as I18nComponent } from "@lingui/react";
-import { PortfolioGraph } from "./PortfolioGraph";
 import { ComplaintsSummary } from "./ComplaintsSummary";
-import { BigPortfolioAlert } from "./PortfolioAlerts";
-import { LazyLoadWhenVisible } from "./LazyLoadWhenVisible";
 import { StreetViewStatic } from "./StreetView";
 
 type Props = withMachineInStateProps<"portfolioFound"> & {
@@ -97,22 +94,6 @@ export default class PropertiesSummary extends Component<Props, {}> {
         <div className="Page PropertiesSummary">
           <div className="PropertiesSummary__content Page__content">
             <div>
-              <Trans render="h6">Network of Landlords</Trans>
-              {state.context.useNewPortfolioMethod && state.context.portfolioData.portfolioGraph && (
-                <div className="portfolio-graph-container">
-                  <LazyLoadWhenVisible showLoader>
-                    <PortfolioGraph
-                      graphJSON={state.context.portfolioData.portfolioGraph}
-                      state={state}
-                    />
-                    <BigPortfolioAlert
-                      closeType="session"
-                      storageId="summary-big-portfolio-alert"
-                      portfolioSize={agg.bldgs}
-                    />
-                  </LazyLoadWhenVisible>
-                </div>
-              )}
               <p>
                 <Trans>
                   Across owners and management staff, the most common
@@ -209,13 +190,26 @@ export default class PropertiesSummary extends Component<Props, {}> {
                   </div>
                   <div>
                     <h6 className="PropertiesSummary__linksSubtitle">
+                      <Trans>Questions or feedback?</Trans>
+                    </h6>
+                    <Link
+                      href="mailto:support@justfix.org"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      icon="external"
+                    >
+                      support@justfix.org
+                    </Link>
+                  </div>
+                  <div>
+                    <h6 className="PropertiesSummary__linksSubtitle">
                       <Trans>Share with your neighbors</Trans>
                     </h6>
                     <SocialShareAddressPage
                       location="summary-tab"
                       customContent={{
                         tweet: t`This landlord owns ${agg.bldgs} buildings, and according to @NYCHousing, has received a total of ${agg.totalviolations} violations. Can you guess which landlord it is? Find their name and more data analysis here: `,
-                        tweetCloseout: t`#WhoOwnsWhat via @JustFixNYC`,
+                        tweetCloseout: t`#WhoOwnsWhat via @JustFixOrg`,
                         emailSubject: t` This landlord’s buildings average ${agg.openviolationsperresunit} open HPD violations per apartment`,
                         getEmailBody: (url: string) =>
                           t`I was checking out this building on Who Owns What, a free landlord research tool from JustFix. It’s a remarkable website that every tenant and housing advocate should know about! Can you guess how many total violations this landlord portfolio has? Check it out here: ${url}`,

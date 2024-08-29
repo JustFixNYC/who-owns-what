@@ -139,7 +139,7 @@ export default class AddressPage extends Component<AddressPageProps, State> {
   };
 
   render() {
-    const { state, send, useNewPortfolioMethod, location } = this.props;
+    const { state, send, useNewPortfolioMethod } = this.props;
 
     if (state.matches("bblNotFound")) {
       window.gtag("event", "bbl-not-found-page");
@@ -151,7 +151,7 @@ export default class AddressPage extends Component<AddressPageProps, State> {
       window.gtag("event", "unregistered-page");
       return <NotRegisteredPage state={state} send={send} />;
     } else if (state.matches("portfolioFound")) {
-      const { assocAddrs, searchAddr, portfolioGraph } = state.context.portfolioData;
+      const { assocAddrs, searchAddr } = state.context.portfolioData;
       const analyticsEventData = {
         portfolioSize: assocAddrs.length,
         portfolioMappingMethod: !!useNewPortfolioMethod ? "wowza" : "legacy",
@@ -163,20 +163,6 @@ export default class AddressPage extends Component<AddressPageProps, State> {
         validateRouteParams(this.props.match.params),
         !useNewPortfolioMethod
       );
-
-      /**
-       * When switching between the legacy and new versions of Who Owns What,
-       * there is a delay period after clicking the `ToggleLinkBetweenPortfolioMethods` link
-       * where the url has changed but the new portfolio data hasn't yet loaded via API call.
-       *
-       * This check makes sure that we show the Loading Page while the url and data are mismatched:
-       */
-      if (
-        process.env.REACT_APP_ENABLE_NEW_WOWZA_PORTFOLIO_MAPPING === "1" &&
-        !!portfolioGraph === isLegacyPath(location.pathname)
-      ) {
-        return <LoadingPage />;
-      }
 
       return (
         <Page

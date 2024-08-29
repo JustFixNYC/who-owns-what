@@ -1,4 +1,4 @@
-FROM python:3.9.16
+FROM python:3.10
 
 # This Dockerfile is for development purposes only; we don't use it
 # for production.
@@ -24,8 +24,29 @@ RUN apt-get update \
 
 RUN npm install -g yarn
 
+ENV PATH /wow/client/node_modules/.bin:$PATH
+
+
 COPY requirements.txt requirements-dev.txt /
 
 RUN pip install -r requirements-dev.txt
 
-ENV PATH /wow/client/node_modules/.bin:$PATH
+# Setup Geosupport 
+# check the latest version here https://www.nyc.gov/site/planning/data-maps/open-data/dwn-gdelx.page
+# make sure this gets updated regularly, and matches the version in nycdb-k8s-loader
+ENV RELEASE=23c
+ENV MAJOR=23
+ENV MINOR=3
+ENV PATCH=0
+WORKDIR /geosupport
+
+RUN FILE_NAME=linux_geo${RELEASE}_${MAJOR}_${MINOR}.zip \
+  && echo ${FILE_NAME} \
+  && curl -O https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/$FILE_NAME \
+  && unzip *.zip \
+  && rm *.zip
+
+ENV GEOFILES=/geosupport/version-${RELEASE}_${MAJOR}.${MINOR}/fls/
+ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/geosupport/version-${RELEASE}_${MAJOR}.${MINOR}/lib/
+
+WORKDIR /app

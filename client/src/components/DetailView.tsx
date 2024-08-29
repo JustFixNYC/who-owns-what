@@ -11,7 +11,7 @@ import { withI18n, withI18nProps, I18n } from "@lingui/react";
 import { t, Trans } from "@lingui/macro";
 import { SocialShareAddressPage } from "./SocialShare";
 import { isPartOfGroupSale } from "./PortfolioTable";
-import { Link, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { LocaleLink } from "../i18n";
 import BuildingStatsTable from "./BuildingStatsTable";
 import { createWhoOwnsWhatRoutePaths, AddressPageRoutes } from "../routes";
@@ -227,7 +227,7 @@ class DetailViewWithoutI18n extends Component<Props, State> {
     const isMobile = Browser.isMobile();
     const { i18n, state } = this.props;
     const locale = (i18n.language as SupportedLocale) || defaultLocale;
-    const { useNewPortfolioMethod, portfolioData } = state.context;
+    const { portfolioData } = state.context;
     const { assocAddrs, detailAddr, searchAddr } = portfolioData;
 
     // Let's save some variables that will be helpful in rendering the front-end component
@@ -279,22 +279,6 @@ class DetailViewWithoutI18n extends Component<Props, State> {
                         {Helpers.titleCase(detailAddr.streetname)},{" "}
                         {Helpers.titleCase(detailAddr.boro)}
                       </h4>
-                      {!Helpers.addrsAreEqual(detailAddr, searchAddr) &&
-                        (useNewPortfolioMethod ? (
-                          <Link to={this.props.addressPageRoutes.summary}>
-                            <i>
-                              <HowIsBldgAssociatedHeader />
-                            </i>
-                          </Link>
-                        ) : (
-                          <a // eslint-disable-line jsx-a11y/anchor-is-valid
-                            onClick={() => this.setState({ showCompareModal: true })}
-                          >
-                            <i>
-                              <HowIsBldgAssociatedHeader />
-                            </i>
-                          </a>
-                        ))}
                     </div>
                     <div className="card-body">
                       <BuildingStatsTable

@@ -171,10 +171,6 @@ describe("wowMachine", () => {
         geosearch: {
           bbl: "3012380016",
         },
-        graph: {
-          edges: [],
-          nodes: [],
-        },
       }),
     });
 

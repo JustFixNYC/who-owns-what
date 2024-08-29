@@ -1,7 +1,11 @@
 from io import StringIO
 import json
+import multiprocessing
+import os
+from typing import List
 import networkx as nx
 from psycopg2.extras import DictCursor
+from unittest.mock import patch
 import freezegun
 import pytest
 import dbtool
@@ -10,6 +14,12 @@ from portfoliograph.landlord_index import (
     get_corpname_data_for_algolia,
     get_landlord_data_for_algolia,
     dict_hash,
+)
+from portfoliograph.standardize import (
+    RawLandlordRow,
+    StandardizedLandlordRow,
+    get_raw_landlord_rows,
+    populate_landlords_table,
 )
 
 from .factories.hpd_contacts import HpdContacts
@@ -34,12 +44,12 @@ from .factories.pluto_latest import PlutoLatest
 from .factories.real_property_master import RealPropertyMaster
 from .factories.real_property_legals import RealPropertyLegals
 
-from portfoliograph.graph import (
-    build_graph,
-    Node,
-    NodeKind,
+from portfoliograph.graph import build_graph
+from portfoliograph.table import (
+    iter_portfolio_rows,
+    populate_portfolios_table,
+    export_portfolios_table_json,
 )
-from portfoliograph.table import populate_portfolios_table, export_portfolios_table_json
 from ocaevictions.table import OcaConfig, populate_oca_tables
 
 # This test suite defines two landlords:
@@ -139,6 +149,7 @@ UNRELATED_CONTACT = HpdContacts(
     CorporationName="THE UNRELATED COMPANIES, L.P.",
     BusinessHouseNumber="6",
     BusinessStreetName="UNRELATED AVE",
+    BusinessApartment="2FLOOR",
     BusinessZip="11231",
 )
 
@@ -347,21 +358,90 @@ class TestSQL:
             },
         ]
 
+    @pytest.mark.skipif(
+        not os.environ.get("CI"), reason="geosupport is installed locally"
+    )
+    def test_standardize_with_no_geosuport_works(self):
+        def fake_standardize_records(rows: List[RawLandlordRow]):
+            def fake_standardize_apt(x):
+                return "2 FL" if x == "2FLOOR" else x
+
+            return [
+                StandardizedLandlordRow(
+                    bbl=row.bbl,
+                    registrationid=row.registrationid,
+                    name=row.name,
+                    bizaddr=f"{row.housenumber} {row.streetname} "
+                    + f"{fake_standardize_apt(row.apartment)}, "
+                    + f"{row.city} {row.state}",
+                    bizhousestreet=f"{row.housenumber} {row.streetname}",
+                    bizapt=f"{fake_standardize_apt(row.apartment)}",
+                    bizzip=row.zip,
+                )
+                for row in rows
+            ]
+
+        with patch(
+            "portfoliograph.standardize.standardize_records_multiprocessing",
+            wraps=fake_standardize_records,
+        ):
+            # This test has side effect from populate_landlords_table
+            with self.db.connect() as conn:
+                populate_landlords_table(conn)
+            r = self.query_one(f"SELECT * FROM wow_landlords where bbl = '1000010002'")
+            assert r["bizaddr"] == "6 UNRELATED AVENUE 2 FL, BROKLYN NY"
+
+    @pytest.mark.skipif(
+        bool(os.environ.get("CI")), reason="geosupport not installed on CI"
+    )
+    def test_standardize_with_geosupport_works(self):
+        from portfoliograph.standardize import standardize_record
+
+        with self.db.connect() as conn:
+            cur = conn.cursor(cursor_factory=DictCursor)
+            raw_rows = get_raw_landlord_rows(cur)
+        raw_row = list(filter(lambda x: x.bbl == "1000010002", raw_rows))[0]
+        assert raw_row.name == "BOOP JONES"
+
+        std_row = standardize_record(raw_row)
+        assert std_row.bizaddr == "6 UNRELATED AVENUE 2 FL, BROOKLYN NY"
+
+        with multiprocessing.Pool(processes=multiprocessing.cpu_count()) as pool:
+            std_rows = pool.map(standardize_record, raw_rows, 10000)
+        std_row = list(filter(lambda x: x.bbl == "1000010002", std_rows))[0]
+
+        assert std_row.bizaddr == "6 UNRELATED AVENUE 2 FL, BROOKLYN NY"
+
+        # This test has side effect from populate_landlords_table
+        with self.db.connect() as conn:
+            populate_landlords_table(conn)
+        r = self.query_one(f"SELECT * FROM wow_landlords where bbl = '1000010002'")
+        assert r["bizaddr"] == "6 UNRELATED AVENUE 2 FL, BROOKLYN NY"
+
     def test_built_graph_works(self):
         with self.db.connect() as conn:
             cur = conn.cursor(cursor_factory=DictCursor)
             with freezegun.freeze_time("2018-01-01"):
                 g = build_graph(cur)
-            assert set(g.nodes) == {
-                Node(kind=NodeKind.NAME, value="BOOP JONES"),
-                Node(kind=NodeKind.BIZADDR, value="6 UNRELATED AVENUE, BROKLYN NY"),
-                Node(kind=NodeKind.NAME, value="LANDLORDO CALRISIAN"),
-                Node(kind=NodeKind.NAME, value="LANDLORDO CALRISSIAN"),
-                Node(kind=NodeKind.BIZADDR, value="5 BESPIN AVENUE, BROKLYN NY"),
-                Node(kind=NodeKind.NAME, value="LOBOT JONES"),
-                Node(kind=NodeKind.BIZADDR, value="700 SUPERSPUNKY AVENUE, BROKLYN NY"),
+            nodes_data = [node[1] for node in g.nodes(data=True)]
+            node_data = list(filter(lambda x: "1000010002" in x["bbls"], nodes_data))[0]
+            assert node_data == {
+                "bbls": ["1000010002"],
+                "bizAddr": (
+                    "6 UNRELATED AVENUE 2 FL, BROKLYN NY"
+                    if os.environ.get("CI")
+                    else "6 UNRELATED AVENUE 2 FL, BROOKLYN NY"
+                ),
+                "name": "BOOP JONES",
             }
+
             assert len(list(nx.connected_components(g))) == 3
+
+    def test_iter_portfolio_rows_works(self):
+        with self.db.connect() as conn:
+            rows = [row for row in iter_portfolio_rows(conn)]
+        row = list(filter(lambda x: "1000010002" in x.bbls, rows))
+        assert row[0].landlord_names == ["BOOP JONES"]
 
     def test_portfolio_graph_works(self):
         # This test has side effect from populate_portfolios_table
@@ -369,9 +449,9 @@ class TestSQL:
             with freezegun.freeze_time("2018-01-01"):
                 populate_portfolios_table(conn)
         r = self.query_one(
-            "SELECT landlord_names FROM wow_portfolios WHERE '"
-            + FUNKY_BBL
-            + "' = any(bbls)"
+            f"""SELECT landlord_names
+                FROM wow_portfolios
+                WHERE '{FUNKY_BBL}' = any(bbls)"""
         )
         assert set(r[0]) == {"LANDLORDO CALRISSIAN", "LOBOT JONES"}
 

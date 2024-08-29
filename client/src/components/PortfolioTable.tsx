@@ -741,11 +741,27 @@ const renderContacts = ({ row, i18n }: { row: Row<AddressRecord>; i18n: I18n }) 
       {Object.entries(_groupBy(row.original.allcontacts, "value"))
         .sort(sortContactsByImportance)
         .map((group) => group[1][0])
-        .map((contact, i) => (
-          <li key={i}>
-            {Helpers.translateContactTitleAndIncludeEnglish(contact.title, i18n)}: {contact.value}
-          </li>
-        ))}
+        .map((contact, i) => {
+          const formattedAddress =
+            contact.address && Helpers.formatHpdContactAddress(contact.address);
+          return (
+            <>
+              <li key={i}>
+                {Helpers.translateContactTitleAndIncludeEnglish(contact.title, i18n)}:{" "}
+                {contact.value}
+              </li>
+              {i === 0 && formattedAddress && (
+                <>
+                  <li className="contact-address">
+                    {formattedAddress?.addressLine1}
+                    <br />
+                    {formattedAddress?.addressLine2}
+                  </li>
+                </>
+              )}
+            </>
+          );
+        })}
     </ul>
   );
 };

@@ -80,25 +80,19 @@ def address_query(request):
 
 
 @api
-def address_query_with_portfolio_graph(request):
+def address_query_wowza(request):
     bbl = get_bbl_from_request(request)
     addrs = exec_db_query(SQL_DIR / "address_portfolio.sql", {"bbl": bbl})
-    graph = None
     cleaned_addrs = []
     # Note: HPD unregistered properties will return an empty addrs array from the SQL query
     if addrs:
-        # To save memory, graph json object is only stored on search address
-        # even though it reflects the entire portfolio
-        addrs_with_graph = list(filter(lambda r: r["graph"] is not None, addrs))
-        if addrs_with_graph:
-            graph = addrs_with_graph[0]["graph"]
-        addrs_without_graph = [
-            {k: v for k, v in a.items() if k != "graph"} for a in addrs
-        ]
-        cleaned_addrs = list(map(clean_addr_dict, addrs_without_graph))
+        cleaned_addrs = list(map(clean_addr_dict, addrs))
 
     return JsonResponse(
-        {"geosearch": {"bbl": bbl}, "addrs": cleaned_addrs, "graph": graph}
+        {
+            "geosearch": {"bbl": bbl},
+            "addrs": cleaned_addrs,
+        }
     )
 
 
