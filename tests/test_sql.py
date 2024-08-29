@@ -437,15 +437,6 @@ class TestSQL:
 
             assert len(list(nx.connected_components(g))) == 3
 
-    # def test_getting_subgraph_works(self):
-    #     with self.db.connect() as conn:
-    #         cur = conn.cursor(cursor_factory=DictCursor)
-    #         with freezegun.freeze_time("2018-01-01"):
-    #             g = build_graph(cur)
-    #     subgraphs = [x for x in get_connected_component_subgraphs(g)]
-    #     assert len(subgraphs) == 3
-    #     assert type(subgraphs[0]) is nx.Graph
-
     def test_iter_portfolio_rows_works(self):
         with self.db.connect() as conn:
             rows = [row for row in iter_portfolio_rows(conn)]
