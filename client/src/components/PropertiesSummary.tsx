@@ -190,13 +190,26 @@ export default class PropertiesSummary extends Component<Props, {}> {
                   </div>
                   <div>
                     <h6 className="PropertiesSummary__linksSubtitle">
+                      <Trans>Questions or feedback?</Trans>
+                    </h6>
+                    <Link
+                      href="mailto:support@justfix.org"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      icon="external"
+                    >
+                      support@justfix.org
+                    </Link>
+                  </div>
+                  <div>
+                    <h6 className="PropertiesSummary__linksSubtitle">
                       <Trans>Share with your neighbors</Trans>
                     </h6>
                     <SocialShareAddressPage
                       location="summary-tab"
                       customContent={{
                         tweet: t`This landlord owns ${agg.bldgs} buildings, and according to @NYCHousing, has received a total of ${agg.totalviolations} violations. Can you guess which landlord it is? Find their name and more data analysis here: `,
-                        tweetCloseout: t`#WhoOwnsWhat via @JustFixNYC`,
+                        tweetCloseout: t`#WhoOwnsWhat via @JustFixOrg`,
                         emailSubject: t` This landlord’s buildings average ${agg.openviolationsperresunit} open HPD violations per apartment`,
                         getEmailBody: (url: string) =>
                           t`I was checking out this building on Who Owns What, a free landlord research tool from JustFix. It’s a remarkable website that every tenant and housing advocate should know about! Can you guess how many total violations this landlord portfolio has? Check it out here: ${url}`,
