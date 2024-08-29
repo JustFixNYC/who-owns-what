@@ -1817,7 +1817,7 @@ msgstr "Sign up for Building Alerts"
 msgid "Since 2017, landlords filed {totalEvictionFilings, plural, one {one eviction case} other {# eviction cases}} and NYC Marshals executed {totalEvictions, plural, one {one eviction} other {# evictions}} across this portfolio."
 msgstr "Since 2017, landlords filed {totalEvictionFilings, plural, one {one eviction case} other {# eviction cases}} and NYC Marshals executed {totalEvictions, plural, one {one eviction} other {# evictions}} across this portfolio."
 
-#: src/components/PortfolioTable.tsx:563
+#: src/components/PortfolioTable.tsx:576
 msgid "Since {year}"
 msgstr "Since {year}"
 
@@ -1861,7 +1861,7 @@ msgstr "Source code"
 #~ msgid "Starting March 2023 <0>the old version</0> of Who Owns What will no longer be available."
 #~ msgstr "Starting March 2023 <0>the old version</0> of Who Owns What will no longer be available."
 
-#: src/components/PortfolioTable.tsx:563
+#: src/components/PortfolioTable.tsx:576
 msgid "Starts {year}"
 msgstr "Starts {year}"
 
