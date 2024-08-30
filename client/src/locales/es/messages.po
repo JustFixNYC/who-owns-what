@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-08-29 21:21\n"
+"PO-Revision-Date: 2024-08-30 21:31\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -32,7 +32,7 @@ msgstr ""
 
 #: src/components/PropertiesSummary.tsx:142
 msgid "#WhoOwnsWhat via @JustFixOrg"
-msgstr ""
+msgstr "#QuiénEsElDueño por @JustFixOrg"
 
 #: src/util/helpers.ts:264
 msgid "(\"{textInEnglish}\" in English)"
@@ -93,7 +93,7 @@ msgstr "<0>Renta estabilizada</0> protege a los inquilinos al limitar los aument
 
 #: src/containers/UnsubscribePage.tsx:88
 msgid "<0>Search for an address</0> to add to Building Alerts"
-msgstr ""
+msgstr "<0>Busca una dirección</0> para añadir a Alertas de Edificios"
 
 #: src/containers/UnsubscribePage.tsx:88
 #~ msgid "<0>Search for an address</0> to add to Building Updates"
@@ -101,7 +101,7 @@ msgstr ""
 
 #: src/containers/AccountSettingsPage.tsx:70
 msgid "<0>Search for an address</0> to add to your Building Alerts"
-msgstr ""
+msgstr "<0>Busca una dirección</0> para añadir a Alertas de Edificios"
 
 #: src/containers/AccountSettingsPage.tsx:70
 #~ msgid "<0>Search for an address</0> to add to your Building Updates"
@@ -435,7 +435,7 @@ msgstr "Información de contacto del dueño más clara"
 
 #: src/containers/UnsubscribePage.tsx:69
 msgid "Click below to unsubscribe from all and stop receiving Building Alerts."
-msgstr ""
+msgstr "Haga clic a continuación para desuscribirse de todo y dejar de recibir las Alertas de Edificios."
 
 #: src/containers/UnsubscribePage.tsx:69
 #~ msgid "Click below to unsubscribe from all and stop receiving Building Updates."
@@ -1119,7 +1119,7 @@ msgstr "Iniciar sesión / Registrarse"
 
 #: src/components/Login.tsx:299
 msgid "Log in to add {0} to your Building Alerts"
-msgstr ""
+msgstr "Inicia sesión para añadir {0} a sus Alertas de Edificios"
 
 #: src/components/Login.tsx:299
 #~ msgid "Log in to add {0} to your Building Updates"
@@ -1536,7 +1536,7 @@ msgstr "Complejo de Vivienda Pública"
 
 #: src/components/PropertiesSummary.tsx:130
 msgid "Questions or feedback?"
-msgstr ""
+msgstr "¿preguntas o comentarios?"
 
 #: src/components/BuildingStatsTable.tsx:94
 #: src/components/PortfolioTable.tsx:148
@@ -1786,7 +1786,7 @@ msgstr "Regístrate"
 #: src/components/Login.tsx:304
 #: src/components/Login.tsx:309
 msgid "Sign up for Building Alerts"
-msgstr ""
+msgstr "Registrase para Alertas de Edificios"
 
 #: src/components/Login.tsx:304
 #: src/components/Login.tsx:309
@@ -2322,7 +2322,7 @@ msgstr "Reorganizamos los datos de contacto de cada entidad individual y corpora
 
 #: src/components/UserSettingField.tsx:119
 msgid "We send Building Alerts to this email."
-msgstr ""
+msgstr "Enviamos Alertas de Edificios a este correo electrónico."
 
 #: src/components/UserSettingField.tsx:119
 #~ msgid "We send Building Updates to this email."
@@ -2460,7 +2460,7 @@ msgstr "Ha iniciado sesión y hemos añadido este edificio a sus actualizaciones
 #: src/containers/UnsubscribePage.tsx:67
 #: src/containers/UnsubscribePage.tsx:76
 msgid "You are signed up for Building Alerts for"
-msgstr ""
+msgstr "Está inscrito a Alertas de Edificios para"
 
 #: src/containers/UnsubscribePage.tsx:67
 #: src/containers/UnsubscribePage.tsx:76
@@ -2513,7 +2513,7 @@ msgstr "Ahora puede cerrar esta ventana o <0>buscar otro edificio</0> para añad
 
 #: src/components/EmailAlertSignup.tsx:116
 msgid "You have reached the maximum number of Building Alerts"
-msgstr ""
+msgstr "Ha alcanzado el número máximo de Alertas de Edificios"
 
 #: src/components/EmailAlertSignup.tsx:114
 #~ msgid "You have reached the maximum number of Building Updates"
@@ -2565,7 +2565,7 @@ msgstr "Su privacidad es importante a nosotros. Lea nuestra <0>Política de priv
 
 #: src/components/EmailAlertSignup.tsx:49
 msgid "You’re signed up for Building Alerts for {0} {1}, {2}."
-msgstr ""
+msgstr "Está inscrito a Alertas de Edificios para {0} {1}, {2}."
 
 #: src/components/EmailAlertSignup.tsx:49
 #~ msgid "You’re signed up for Building Updates for {0} {1}, {2}."
