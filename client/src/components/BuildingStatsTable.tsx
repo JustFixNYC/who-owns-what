@@ -368,7 +368,7 @@ const BuildingStatsTableWithoutI18n = (props: { addr: AddressRecord; timelineUrl
         component={JFCLLinkInternal}
         className="timeline-link"
       >
-        <Trans render="span">View data over time</Trans>
+        <Trans render="span">View trends over time</Trans>
       </Link>
     );
   };
