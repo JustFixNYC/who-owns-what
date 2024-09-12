@@ -1,36 +1,52 @@
 @import "_vars.scss";
 @import "_typography.scss";
 
-table {
-  width: 100%;
-  border-spacing: 0;
+.BuildingStatsTable {
+  table {
+    width: 100%;
+    border-spacing: 0;
 
-  th {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border-top: 1px solid $gray-dark;
-    border-left: 1px solid $gray-dark;
-    background: #e0e5e9;
-    padding: 8px 12px;
-    text-align: left;
-    button {
+    th {
       display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid $gray-dark;
+      //border-left: 1px solid $gray-dark;
+      background: #e0e5e9;
+      padding: 8px 12px;
+      text-align: left;
+      button {
+        display: flex;
+      }
+    }
+
+    td {
+      border-top: 1px solid $gray-dark;
+      border-left: 1px solid $gray-dark;
+      //border-right: 1px solid $gray-dark;
+      padding: 8px 12px;
+    }
+
+    tr:first-child {
+      th {
+        border-top: none;
+      }
+      td {
+        border-top: none;
+      }
+    }
+
+    .info-icon {
+      color: $justfix-grey-700;
     }
   }
-
-  td {
+  .table-row {
     border-top: 1px solid $gray-dark;
-    border-left: 1px solid $gray-dark;
-    border-right: 1px solid $gray-dark;
-    padding: 4px 12px;
-  }
-}
-.BuildingStatsTable {
-  .timeline-link {
-    display: flex;
-    font-size: 14px;
-    justify-content: center;
-    padding: 4px 12px;
+    .timeline-link {
+      display: flex;
+      font-size: 14px;
+      justify-content: center;
+      padding: 8px 12px;
+    }
   }
 }

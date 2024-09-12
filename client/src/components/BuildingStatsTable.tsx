@@ -61,7 +61,7 @@ const BuildingStatsTableWithoutI18n = (props: { addr: AddressRecord; timelineUrl
                 }}
                 aria-label={description}
               >
-                <InfoIcon />
+                <Icon icon="circleInfo" className="info-icon" />
               </button>
             </th>
             <td>
@@ -101,7 +101,7 @@ const BuildingStatsTableWithoutI18n = (props: { addr: AddressRecord; timelineUrl
                 }}
                 aria-label={description}
               >
-                <InfoIcon />
+                <Icon icon="circleInfo" className="info-icon" />
               </button>
             </th>
             <td>{addr.yearbuilt !== 0 ? addr.yearbuilt : "N/A"}</td>
@@ -145,7 +145,7 @@ const BuildingStatsTableWithoutI18n = (props: { addr: AddressRecord; timelineUrl
     const addr = useContext(AddrContext).getBuildingStats();
     const title = "Units";
     const description =
-      "The number of residential units in this building, according to the Dept. of City Planning.";
+      "The year that this building was originally constructed, according to the Dept. of City Planning.";
 
     return (
       <I18n>
@@ -166,7 +166,7 @@ const BuildingStatsTableWithoutI18n = (props: { addr: AddressRecord; timelineUrl
                 }}
                 aria-label={description}
               >
-                <InfoIcon />
+                <Icon icon="circleInfo" className="info-icon" />
               </button>
             </th>
             <td>{addr.unitsres}</td>
@@ -200,7 +200,7 @@ const BuildingStatsTableWithoutI18n = (props: { addr: AddressRecord; timelineUrl
                 }}
                 aria-label={description}
               >
-                <InfoIcon />
+                <Icon icon="circleInfo" className="info-icon" />
               </button>
             </th>
             <td>{addr.openviolations}</td>
@@ -234,7 +234,7 @@ const BuildingStatsTableWithoutI18n = (props: { addr: AddressRecord; timelineUrl
                 }}
                 aria-label={description}
               >
-                <InfoIcon />
+                <Icon icon="circleInfo" className="info-icon" />
               </button>
             </th>
             <td>{addr.totalviolations}</td>
@@ -268,7 +268,7 @@ const BuildingStatsTableWithoutI18n = (props: { addr: AddressRecord; timelineUrl
                 }}
                 aria-label={description}
               >
-                <InfoIcon />
+                <Icon icon="circleInfo" className="info-icon" />
               </button>
             </th>
             <td> {addr.evictions !== null ? addr.evictions : "N/A"}</td>
@@ -302,7 +302,7 @@ const BuildingStatsTableWithoutI18n = (props: { addr: AddressRecord; timelineUrl
                 }}
                 aria-label={description}
               >
-                <InfoIcon />
+                <Icon icon="circleInfo" className="info-icon" />
               </button>
             </th>
             <td> {addr.evictionfilings !== null ? addr.evictionfilings : "N/A"}</td>
@@ -336,7 +336,7 @@ const BuildingStatsTableWithoutI18n = (props: { addr: AddressRecord; timelineUrl
                 }}
                 aria-label={description}
               >
-                <InfoIcon />
+                <Icon icon="circleInfo" className="info-icon" />
               </button>
             </th>
             <td>
@@ -383,35 +383,22 @@ const BuildingStatsTableWithoutI18n = (props: { addr: AddressRecord; timelineUrl
         <h4>{infoModalTitle}</h4>
         <p>{infoModalContent}</p>
       </Modal>
-
-      <table>
-        <BBL />
-        <YearBuilt />
-        <UnitsRes />
-        <RsUnits />
-        <OpenViolations />
-        <TotalViolations />
-        <EvictionFilings />
-        <EvictionsExecuted />
-      </table>
-      <div className="BuildingStatsTable card-body-table hide-sm">
-        {/* <div className="table-row">
+      <div className="BuildingStatsTable card-body-table">
+        <table>
           <BBL />
           <YearBuilt />
           <UnitsRes />
           <RsUnits />
-        </div>
-        <div className="table-row">
           <OpenViolations />
           <TotalViolations />
           <EvictionFilings />
           <EvictionsExecuted />
-        </div> */}
+        </table>
         <div className="table-row timeline-link">
           <TimelineLink url={props.timelineUrl} />
         </div>
       </div>
-      <div className="BuildingStatsTable card-body-table show-sm">
+      {/* <div className="BuildingStatsTable card-body-table show-sm">
         <div className="table-row">
           <BBL />
           <YearBuilt />
@@ -428,7 +415,7 @@ const BuildingStatsTableWithoutI18n = (props: { addr: AddressRecord; timelineUrl
         <div className="table-row timeline-link">
           <TimelineLink url={props.timelineUrl} />
         </div>
-      </div>
+      </div> */}
     </AddrContext.Provider>
   );
 };
