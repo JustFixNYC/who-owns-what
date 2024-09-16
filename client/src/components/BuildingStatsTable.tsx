@@ -11,10 +11,7 @@ import { Link } from "react-router-dom";
 import "styles/BuildingStatsTable.css";
 import { removeIndicatorSuffix } from "routes";
 import { Icon } from "@justfixnyc/component-library";
-import { InfoIcon } from "./Icons";
-import { LocaleLink } from "i18n";
 import Modal from "./Modal";
-import { isLegacyPath } from "./WowzaToggle";
 
 interface BuildingStatsAddrContext {
   getBuildingStats(): AddressRecord;
@@ -37,12 +34,9 @@ const BuildingStatsTableWithoutI18n = (props: { addr: AddressRecord; timelineUrl
     </span>
   );
 
-  const delta = "Δ";
-
   const BBL = () => {
     const addr = useContext(AddrContext).getBuildingStats();
     const { boro, block, lot } = Helpers.splitBBL(addr.bbl);
-    const title = "Boro-Block-Lot (BBL)";
     const description =
       "This is the official identifer for the building according to the Dept. of Finance tax records";
 
@@ -51,13 +45,17 @@ const BuildingStatsTableWithoutI18n = (props: { addr: AddressRecord; timelineUrl
         {({ i18n }) => (
           <tr>
             <th>
-              <Fragment>{title}</Fragment>
+              <Trans>{"Boro-Block-Lot (BBL)"}</Trans>
               <button
                 className="results-info"
                 onClick={() => {
                   setShowInfoModal(true);
-                  setInfoModalTitle(title);
-                  setInfoModalContent(i18n._(t`${description}`));
+                  setInfoModalTitle("Boro-Block-Lot (BBL)");
+                  setInfoModalContent(
+                    i18n._(
+                      t`${"This is the official identifer for the building according to the Dept. of Finance tax records"}`
+                    )
+                  );
                 }}
                 aria-label={description}
               >
@@ -79,7 +77,6 @@ const BuildingStatsTableWithoutI18n = (props: { addr: AddressRecord; timelineUrl
 
   const YearBuilt = () => {
     const addr = useContext(AddrContext).getBuildingStats();
-    const title = "Year Built";
     const description =
       "The year that this building was originally constructed, according to the Dept. of City Planning.";
     return (
@@ -87,7 +84,7 @@ const BuildingStatsTableWithoutI18n = (props: { addr: AddressRecord; timelineUrl
         {({ i18n }) => (
           <tr>
             <th>
-              <Fragment>{title}</Fragment>
+              <Trans>Year Built</Trans>
               <button
                 className="results-info"
                 onClick={() => {
@@ -111,39 +108,8 @@ const BuildingStatsTableWithoutI18n = (props: { addr: AddressRecord; timelineUrl
     );
   };
 
-  // const title =
-  // const description =
-  // return (
-  //   <I18n>
-  //     {({ i18n }) => (
-  //       <tr>
-  //         <th>
-  //           <Fragment>{title}</Fragment>
-  //           <button
-  //             className="results-info"
-  //             onClick={() => {
-  //               setShowInfoModal(true);
-  //               setInfoModalTitle(i18n._(t``));
-  //               setInfoModalContent(
-  //                 i18n._(
-  //                   t``
-  //                 )
-  //               );
-  //             }}
-  //             aria-label={description}
-  //           >
-  //             <InfoIcon />
-  //           </button>
-  //         </th>
-  //         <td></td>
-  //       </tr>
-  //     )}
-  //   </I18n>
-  // );
-
   const UnitsRes = () => {
     const addr = useContext(AddrContext).getBuildingStats();
-    const title = "Units";
     const description =
       "The year that this building was originally constructed, according to the Dept. of City Planning.";
 
@@ -152,7 +118,7 @@ const BuildingStatsTableWithoutI18n = (props: { addr: AddressRecord; timelineUrl
         {({ i18n }) => (
           <tr>
             <th>
-              <Fragment>{title}</Fragment>
+              <Trans>Units</Trans>
               <button
                 className="results-info"
                 onClick={() => {
@@ -178,7 +144,6 @@ const BuildingStatsTableWithoutI18n = (props: { addr: AddressRecord; timelineUrl
 
   const OpenViolations = () => {
     const addr = useContext(AddrContext).getBuildingStats();
-    const title = "Open Violations";
     const description =
       "The number of open HPD violations for this building, updated monthly. Click the HPD Building Profile button below for the most up-to-date information.";
     return (
@@ -186,7 +151,7 @@ const BuildingStatsTableWithoutI18n = (props: { addr: AddressRecord; timelineUrl
         {({ i18n }) => (
           <tr>
             <th>
-              <Fragment>{title}</Fragment>
+              <Trans>Open Violations</Trans>
               <button
                 className="results-info"
                 onClick={() => {
@@ -212,7 +177,6 @@ const BuildingStatsTableWithoutI18n = (props: { addr: AddressRecord; timelineUrl
 
   const TotalViolations = () => {
     const addr = useContext(AddrContext).getBuildingStats();
-    const title = "Total Violations";
     const description =
       "This represents the total number of HPD Violations (both open & closed) recorded by the city.";
     return (
@@ -220,7 +184,7 @@ const BuildingStatsTableWithoutI18n = (props: { addr: AddressRecord; timelineUrl
         {({ i18n }) => (
           <tr>
             <th>
-              <Fragment>{title}</Fragment>
+              <Trans>Total Violations</Trans>
               <button
                 className="results-info"
                 onClick={() => {
@@ -246,7 +210,6 @@ const BuildingStatsTableWithoutI18n = (props: { addr: AddressRecord; timelineUrl
 
   const EvictionsExecuted = () => {
     const addr = useContext(AddrContext).getBuildingStats();
-    const title = "Evictions Executed";
     const description = `Evictions executed by NYC Marshals since 2017. ANHD and the Housing Data Coalition cleaned, geocoded, and validated the data, originally sourced from DOI.`;
 
     return (
@@ -254,7 +217,7 @@ const BuildingStatsTableWithoutI18n = (props: { addr: AddressRecord; timelineUrl
         {({ i18n }) => (
           <tr>
             <th>
-              <Fragment>{title}</Fragment>
+              <Trans>Evictions Executed</Trans>
               <button
                 className="results-info"
                 onClick={() => {
@@ -280,7 +243,6 @@ const BuildingStatsTableWithoutI18n = (props: { addr: AddressRecord; timelineUrl
 
   const EvictionFilings = () => {
     const addr = useContext(AddrContext).getBuildingStats();
-    const title = "Eviction Filings";
     const description = `Eviction cases filed in Housing Court since 2017. This data comes from the Office of Court Administration via the Housing Data Coalition.`;
 
     return (
@@ -288,7 +250,7 @@ const BuildingStatsTableWithoutI18n = (props: { addr: AddressRecord; timelineUrl
         {({ i18n }) => (
           <tr>
             <th>
-              <Fragment>{title}</Fragment>
+              <Trans>Eviction Filings</Trans>
               <button
                 className="results-info"
                 onClick={() => {
@@ -314,23 +276,22 @@ const BuildingStatsTableWithoutI18n = (props: { addr: AddressRecord; timelineUrl
 
   const RsUnits = () => {
     const addr = useContext(AddrContext).getBuildingStats();
-    const title = "Change in rent stabilized units";
-    const description = `This tracks how rent stabilized units in the building have changed (i.e. "${delta}") from 2007 to ${addr.rsunitslatestyear}. If the number for ${addr.rsunitslatestyear} is red, this means there has been a loss in stabilized units! These counts are estimated from the DOF Property Tax Bills.`;
+    const description = `This tracks how rent stabilized units in the building have changed from 2007 to ${addr.rsunitslatestyear}. If the number for ${addr.rsunitslatestyear} is red, this means there has been a loss in stabilized units! These counts are estimated from the DOF Property Tax Bills.`;
 
     return (
       <I18n>
         {({ i18n }) => (
           <tr>
             <th>
-              <Fragment>{title}</Fragment>
+              <Trans>Change in rent stabilized units</Trans>
               <button
                 className="results-info"
                 onClick={() => {
                   setShowInfoModal(true);
-                  setInfoModalTitle(i18n._(t`RS Units`));
+                  setInfoModalTitle(i18n._(t`Change in rent stabilized units`));
                   setInfoModalContent(
                     i18n._(
-                      t`This tracks how rent stabilized units in the building have changed (i.e. "${delta}") from 2007 to ${addr.rsunitslatestyear}. If the number for ${addr.rsunitslatestyear} is red, this means there has been a loss in stabilized units! These counts are estimated from the DOF Property Tax Bills.`
+                      t`This tracks how rent stabilized units in the building have changed from 2007 to ${addr.rsunitslatestyear}. If the number for ${addr.rsunitslatestyear} is red, this means there has been a loss in stabilized units! These counts are estimated from the DOF Property Tax Bills.`
                     )
                   );
                 }}
@@ -340,8 +301,8 @@ const BuildingStatsTableWithoutI18n = (props: { addr: AddressRecord; timelineUrl
               </button>
             </th>
             <td>
-              <span>{addr.rsunits2007 !== null ? addr.rsunits2007 : "N/A"}</span>
-              <span>&#x21FE;</span>
+              <span>{addr.rsunits2007 !== null ? addr.rsunits2007 : "N/A"}</span>{" "}
+              <span>&#x2192;</span>{" "}
               <span
                 className={`${
                   addr.rsunits2007 && addr.rsunitslatest && addr.rsunitslatest < addr.rsunits2007
@@ -398,24 +359,6 @@ const BuildingStatsTableWithoutI18n = (props: { addr: AddressRecord; timelineUrl
           <TimelineLink url={props.timelineUrl} />
         </div>
       </div>
-      {/* <div className="BuildingStatsTable card-body-table show-sm">
-        <div className="table-row">
-          <BBL />
-          <YearBuilt />
-        </div>
-        <div className="table-row">
-          <UnitsRes />
-          <RsUnits />
-          <OpenViolations />
-        </div>
-        <div className="table-row">
-          <TotalViolations />
-          <EvictionsExecuted />
-        </div>
-        <div className="table-row timeline-link">
-          <TimelineLink url={props.timelineUrl} />
-        </div>
-      </div> */}
     </AddrContext.Provider>
   );
 };

@@ -7,8 +7,6 @@
     width: 100%;
 
     .table-row {
-      //display: flex;
-
       &:not(:last-child) {
         border-bottom: 1px solid $gray-dark;
       }

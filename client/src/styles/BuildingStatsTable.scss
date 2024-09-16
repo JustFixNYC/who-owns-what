@@ -11,10 +11,10 @@
       align-items: center;
       justify-content: space-between;
       border-top: 1px solid $gray-dark;
-      //border-left: 1px solid $gray-dark;
       background: #e0e5e9;
       padding: 8px 12px;
       text-align: left;
+
       button {
         display: flex;
       }
@@ -23,7 +23,6 @@
     td {
       border-top: 1px solid $gray-dark;
       border-left: 1px solid $gray-dark;
-      //border-right: 1px solid $gray-dark;
       padding: 8px 12px;
     }
 
@@ -42,6 +41,7 @@
   }
   .table-row {
     border-top: 1px solid $gray-dark;
+
     .timeline-link {
       display: flex;
       font-size: 14px;
