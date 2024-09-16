@@ -316,10 +316,6 @@ const PortfolioFiltersWithoutI18n = React.memo(
               </div>
               {filteredBuildings === 0 && ZeroResultsAlert}
               {!!filteredBuildings && rsunitslatestActive && RsUnitsResultAlert}
-              {!!filteredBuildings &&
-                ownernamesActive &&
-                viewType === "table" &&
-                OwnernamesResultAlert}
             </div>
           )}
         </div>
@@ -417,22 +413,6 @@ const FiltersWrapper = (props: {
     </FocusTrap>
   );
 };
-
-const OwnernamesResultAlert = (
-  <Alert
-    className="filter-results-alert"
-    type="info"
-    variant="secondary"
-    closeType="session"
-    storageId="filter-ownernames-results-alert"
-    role="status"
-  >
-    <Trans>
-      Expand the Person/ Entity column in the Table to see all contacts associated with that
-      building.
-    </Trans>
-  </Alert>
-);
 
 const RsUnitsResultAlert = (
   <Alert
