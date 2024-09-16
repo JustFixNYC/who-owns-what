@@ -6,19 +6,19 @@ import { AmplitudeEvent, logAmplitudeEvent } from "components/Amplitude";
 import { Link } from "@justfixnyc/component-library";
 
 type UsefulLinksProps = {
-  addrForLinks: AddressRecord;
+  addrForLinks: Pick<AddressRecord, "bbl"> &
+    Partial<Pick<AddressRecord, "hpdbuildingid" | "hpdbuildings">>;
   location: "overview-tab" | "timeline-tab" | "not-registered-page";
+  streetViewAddr?: string;
 };
 
-export const UsefulLinks: React.FC<UsefulLinksProps> = ({ addrForLinks, location }) => {
-  const bbl = addrForLinks.bbl;
-  const hpdbuildingid = addrForLinks.hpdbuildingid;
-  const hpdbuildings = addrForLinks.hpdbuildings;
-
+export const UsefulLinks: React.FC<UsefulLinksProps> = ({
+  addrForLinks,
+  location,
+  streetViewAddr,
+}) => {
+  const { bbl, hpdbuildingid, hpdbuildings } = addrForLinks;
   const { boro, block, lot } = Helpers.splitBBL(bbl);
-  const streetViewAddr = encodeURIComponent(
-    `${addrForLinks.housenumber} ${addrForLinks.streetname}, ${addrForLinks.boro}, NY ${addrForLinks.zip}`
-  );
 
   return (
     <div className="card-body-links">
@@ -98,20 +98,22 @@ export const UsefulLinks: React.FC<UsefulLinksProps> = ({ addrForLinks, location
             <Trans>ANHD DAP Portal</Trans>
           </Link>
         </li>
-        <li>
-          <Link
-            onClick={() => {
-              logAmplitudeEvent(`google-maps-${location}` as AmplitudeEvent);
-              window.gtag("event", `google-maps-${location}`);
-            }}
-            href={`https://www.google.com/maps/place/${streetViewAddr}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            icon="external"
-          >
-            <Trans>View on Google Maps</Trans>
-          </Link>
-        </li>
+        {!!streetViewAddr && (
+          <li>
+            <Link
+              onClick={() => {
+                logAmplitudeEvent(`google-maps-${location}` as AmplitudeEvent);
+                window.gtag("event", `google-maps-${location}`);
+              }}
+              href={`https://www.google.com/maps/place/${streetViewAddr}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              icon="external"
+            >
+              <Trans>View on Google Maps</Trans>
+            </Link>
+          </li>
+        )}
       </ul>
     </div>
   );

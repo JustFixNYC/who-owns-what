@@ -4,7 +4,6 @@ import { LazyLoadWhenVisible } from "./LazyLoadWhenVisible";
 import Helpers, { longDateOptions } from "../util/helpers";
 import Browser from "../util/browser";
 import Modal from "../components/Modal";
-import { Link as JFCLLink } from "@justfixnyc/component-library";
 
 import "styles/DetailView.css";
 import { withI18n, withI18nProps, I18n } from "@lingui/react";
@@ -382,7 +381,11 @@ class DetailViewWithoutI18n extends Component<Props, State> {
                     <EmailAlertSignup addr={detailAddr} />
                     <GetRepairs />
                     <div className="card-body-links column-right">
-                      <UsefulLinks addrForLinks={detailAddr} location="overview-tab" />
+                      <UsefulLinks
+                        addrForLinks={detailAddr}
+                        location="overview-tab"
+                        streetViewAddr={streetViewAddr}
+                      />
                     </div>
                     <div className="card-body-social social-group">
                       <h6 className="DetailView__subtitle">
