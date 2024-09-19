@@ -7,7 +7,7 @@ jobs:
       - image: circleci/python:3.10-node
         environment:
           DATABASE_URL: postgres://wow:wow@localhost/wow
-      - image: cimg/postgres:13.16-postgis
+      - image: circleci/postgres:13
         environment:
           POSTGRES_USER: wow
           POSTGRES_DB: wow
