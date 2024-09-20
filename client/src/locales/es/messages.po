@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-09-03 17:53\n"
+"PO-Revision-Date: 2024-09-20 18:47\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -739,7 +739,7 @@ msgstr "Expanda la columna Persona/Entidad en la Tabla para ver todos los contac
 
 #: src/components/AddressToolbar.tsx:27
 msgid "Export Data"
-msgstr "Exportar datos"
+msgstr "Exportar Datos"
 
 #: src/util/helpers.ts:15
 msgid "FIRE ESCAPE"
