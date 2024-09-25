@@ -419,7 +419,6 @@ def gce_eligibility(request):
     return JsonResponse({"result": list(result)})
 
 
-
 def _fixup_addr_for_csv(addr: Dict[str, Any]):
     addr["ownernames"] = csvutil.stringify_owners(addr["ownernames"] or [])
     addr["recentcomplaintsbytype"] = csvutil.stringify_complaints(
