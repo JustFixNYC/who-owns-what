@@ -62,4 +62,7 @@ urlpatterns = [
     path(
         "dataset/last_updated", views.dataset_last_updated, name="dataset_last_updated"
     ),
+    path(
+        "gce/eligibility", views.gce_eligibility, name="gce_eligibility"
+    ),
 ]
