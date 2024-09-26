@@ -230,7 +230,6 @@ class IndicatorsWithoutI18n extends Component<IndicatorsWithRouterProps, Indicat
       const { state, send } = this.props;
       const { detailAddr } = state.context.portfolioData;
       const {
-        defaultVis,
         activeVis,
         activeTimeSpan,
         monthsInGroup,
@@ -312,7 +311,7 @@ class IndicatorsWithoutI18n extends Component<IndicatorsWithRouterProps, Indicat
                       classNamePrefix="select"
                       aria-labelledby="indicator-dropdown-title"
                       name="indicator-type"
-                      defaultValue={indicatorOptions.find((i) => i.value === defaultVis)}
+                      defaultValue={indicatorOptions.find((i) => i.value === activeVis)}
                       options={indicatorOptions}
                       onChange={this.handleVisChange}
                     />
