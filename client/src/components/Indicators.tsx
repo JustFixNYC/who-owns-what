@@ -230,7 +230,6 @@ class IndicatorsWithoutI18n extends Component<IndicatorsWithRouterProps, Indicat
       const { state, send } = this.props;
       const { detailAddr } = state.context.portfolioData;
       const {
-        defaultVis,
         activeVis,
         activeTimeSpan,
         monthsInGroup,
