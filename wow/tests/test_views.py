@@ -166,13 +166,16 @@ class TestAlertsOcaLaggedFilings(ApiTest):
 
     def test_it_works(self, db, client):
         res = client.get(
-            "/api/email_oca_lag?bbl=3012380016&prev_date=2024-01-07", **ALERTS_AUTH_ARG
+            "/api/email_oca_lag?bbl=3012380016&prev_date=2024-01-07&oldest_filed_date=2023-09-01",
+            **ALERTS_AUTH_ARG,
         )
         assert res.status_code == 200
         assert res.json()["result"] is not None
 
     def test_auth_works(self, db, client):
-        res = client.get("/api/email_oca_lag?bbl=3012380016&prev_date=2024-01-07")
+        res = client.get(
+            "/api/email_oca_lag?bbl=3012380016&prev_date=2024-01-07&oldest_filed_date=2023-09-01"
+        )
         assert res.status_code == 401
 
 
@@ -189,7 +192,7 @@ class TestAlertsSingleIndicator(ApiTest):
     def test_it_works(self, db, client):
         url_bbl_base = "/api/email_alerts?bbl=3012380016"
         urls = [
-            f"{url_bbl_base}&indicator=lagged_eviction_filings&prev_date=2024-01-07",
+            f"{url_bbl_base}&indicator=lagged_eviction_filings&prev_date=2024-01-07&oldest_filed_date=2023-09-01",
             f"{url_bbl_base}&indicator=violations&start_date=2024-01-01&end_date=2024-01-07",
             f"{url_bbl_base}&indicator=complaints&start_date=2024-01-01&end_date=2024-01-07",
             f"{url_bbl_base}&indicator=eviction_filings&start_date=2024-01-01&end_date=2024-01-07",
@@ -202,7 +205,7 @@ class TestAlertsSingleIndicator(ApiTest):
     def test_auth_works(self, db, client):
         res = client.get(
             "/api/email_alerts?bbl=3012380016&indicator=lagged_eviction_filings \
-                &prev_date=2024-01-07"
+                &prev_date=2024-01-07&oldest_filed_date=2023-09-01"
         )
         assert res.status_code == 401
 
@@ -223,7 +226,7 @@ class TestAlertsMultiIndicator(ApiTest):
         start_date = "start_date=2024-01-01"
         end_date = "end_date=2024-01-07"
         urls = [
-            f"{url_bbl_base}&indicators=lagged_eviction_filings&prev_date=2024-01-07",
+            f"{url_bbl_base}&indicators=lagged_eviction_filings&prev_date=2024-01-07&oldest_filed_date=2023-09-01",
             f"{url_bbl_base}&indicators=violations&{start_date}&{end_date}",
             f"{url_bbl_base}&indicators=complaints&{start_date}&{end_date}",
             f"{url_bbl_base}&indicators=eviction_filings&{start_date}&{end_date}",
@@ -232,7 +235,7 @@ class TestAlertsMultiIndicator(ApiTest):
                 &{start_date}&{end_date}",
             f"{url_bbl_base}&indicators= \
                 violations,complaints,eviction_filings,lagged_eviction_filings,hpd_link \
-                &{start_date}&{end_date}&prev_date=2024-01-01",
+                &{start_date}&{end_date}&prev_date=2024-01-01&oldest_filed_date=2023-09-01",
         ]
         for url in urls:
             res = client.get(url, **ALERTS_AUTH_ARG)
@@ -243,7 +246,7 @@ class TestAlertsMultiIndicator(ApiTest):
     def test_auth_works(self, db, client):
         res = client.get(
             "/api/email_alerts_multi?bbl=3012380016&indicator=lagged_eviction_filings \
-                &prev_date=2024-01-07"
+                &prev_date=2024-01-07&oldest_filed_date=2023-09-01"
         )
         assert res.status_code == 401
 
