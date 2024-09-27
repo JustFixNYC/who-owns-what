@@ -271,6 +271,7 @@ def email_alerts(request):
         "start_date": args["start_date"],
         "end_date": args["end_date"],
         "prev_date": args["prev_date"],
+        "oldest_filed_date":args["oldest_filed_date"],
     }
     result = exec_db_query(sql_file, query_params)
     result[0].update(query_params)
@@ -292,6 +293,7 @@ def email_alerts_multi(request):
         "start_date": args["start_date"],
         "end_date": args["end_date"],
         "prev_date": args["prev_date"],
+        "oldest_filed_date":args["oldest_filed_date"]
     }
     sql_query = combine_alert_subqueries(args["indicators"])
     result = exec_sql(sql_query, query_params)

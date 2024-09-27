@@ -96,6 +96,7 @@ class EmailAlertSingleIndicatorForm(PaddedBBLForm):
     start_date = forms.DateField(input_formats=["%Y-%m-%d"], required=False)
     end_date = forms.DateField(input_formats=["%Y-%m-%d"], required=False)
     prev_date = forms.DateField(input_formats=["%Y-%m-%d"], required=False)
+    oldest_filed_date = forms.DateField(input_formats=["%Y-%m-%d"], required=False)
 
     def clean(self):
         data = self.cleaned_data
@@ -123,6 +124,7 @@ class EmailAlertMultiIndicatorForm(PaddedBBLForm):
     start_date = forms.DateField(input_formats=["%Y-%m-%d"], required=False)
     end_date = forms.DateField(input_formats=["%Y-%m-%d"], required=False)
     prev_date = forms.DateField(input_formats=["%Y-%m-%d"], required=False)
+    oldest_filed_date = forms.DateField(input_formats=["%Y-%m-%d"], required=False)
 
     def clean(self):
         data = self.cleaned_data
