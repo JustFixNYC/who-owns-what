@@ -78,6 +78,8 @@ class EmailAlertViolationsForm(PaddedBBLForm):
 
 class EmailAlertLaggedEvictionFilingsForm(PaddedBBLForm):
     prev_date = forms.DateField(input_formats=["%Y-%m-%d"])
+    oldest_filed_date = forms.DateField(input_formats=["%Y-%m-%d"])
+
 
 
 class EmailAlertSingleIndicatorForm(PaddedBBLForm):
