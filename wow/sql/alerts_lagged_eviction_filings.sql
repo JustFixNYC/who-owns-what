@@ -7,4 +7,4 @@ INNER JOIN OCA_ADDRESSES_WITH_BBL AS A USING(INDEXNUMBERID)
 WHERE A.BBL = %(bbl)s
   AND I.CLASSIFICATION = ANY('{Holdover,Non-Payment}')
   AND I.PROPERTYTYPE = 'Residential'
-  AND M.INITIALDATE > %(prev_date)s and I.FILEDDATE < %(prev_date)s
+  AND M.INITIALDATE > %(prev_date)s and I.FILEDDATE < %(prev_date)s and I.FILEDDATE > %(prev_date - INTERVAL '90 days')s
