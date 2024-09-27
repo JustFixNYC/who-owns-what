@@ -230,6 +230,7 @@ def email_alerts_lagged_eviction_filings(request):
     query_params = {
         "bbl": args["bbl"],
         "prev_date": args["prev_date"],
+        "oldest_filing_date": args["oldest_filing_date"],
     }
     query_sql = SQL_DIR / "alerts_lagged_eviction_filings.sql"
     result = exec_db_query(query_sql, query_params)
