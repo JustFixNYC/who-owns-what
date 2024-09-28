@@ -192,7 +192,8 @@ class TestAlertsSingleIndicator(ApiTest):
     def test_it_works(self, db, client):
         url_bbl_base = "/api/email_alerts?bbl=3012380016"
         urls = [
-            f"{url_bbl_base}&indicator=lagged_eviction_filings&prev_date=2024-01-07&oldest_filed_date=2023-09-01",
+            f"{url_bbl_base}&indicator=lagged_eviction_filings&prev_date=2024-01-07 \
+                &oldest_filed_date=2023-09-01",
             f"{url_bbl_base}&indicator=violations&start_date=2024-01-01&end_date=2024-01-07",
             f"{url_bbl_base}&indicator=complaints&start_date=2024-01-01&end_date=2024-01-07",
             f"{url_bbl_base}&indicator=eviction_filings&start_date=2024-01-01&end_date=2024-01-07",
@@ -226,7 +227,8 @@ class TestAlertsMultiIndicator(ApiTest):
         start_date = "start_date=2024-01-01"
         end_date = "end_date=2024-01-07"
         urls = [
-            f"{url_bbl_base}&indicators=lagged_eviction_filings&prev_date=2024-01-07&oldest_filed_date=2023-09-01",
+            f"{url_bbl_base}&indicators=lagged_eviction_filings&prev_date=2024-01-07 \
+                &oldest_filed_date=2023-09-01",
             f"{url_bbl_base}&indicators=violations&{start_date}&{end_date}",
             f"{url_bbl_base}&indicators=complaints&{start_date}&{end_date}",
             f"{url_bbl_base}&indicators=eviction_filings&{start_date}&{end_date}",
