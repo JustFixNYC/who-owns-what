@@ -180,7 +180,9 @@ const RsUnits = () => {
           <span>&#x21FE;</span>
           <span
             className={`${
-              addr.rsunits2007 !== null && addr.rsunitslatest !== null && addr.rsunitslatest < addr.rsunits2007
+              addr.rsunits2007 !== null &&
+              addr.rsunitslatest !== null &&
+              addr.rsunitslatest < addr.rsunits2007
                 ? "text-danger"
                 : ""
             }`}
