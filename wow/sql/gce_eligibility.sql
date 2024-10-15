@@ -7,7 +7,8 @@ SELECT
     bldgclass_desc,
     eligible_bldgclass,
     yearbuilt,
-    latest_nb_co,
+    latest_co,
+    co_bin,
     post_hstpa_rs_units,
     is_nycha,
     is_subsidized
