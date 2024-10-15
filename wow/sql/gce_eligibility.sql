@@ -10,6 +10,8 @@ SELECT
     co_bin,
     post_hstpa_rs_units,
     is_nycha,
-    is_subsidized
+    is_subsidized,
+    end_421a,
+    end_j51
 FROM gce_screener
 WHERE bbl = %(bbl)s
