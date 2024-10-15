@@ -5,7 +5,6 @@ SELECT
     wow_portfolio_bbls,
     bldgclass,
     bldgclass_desc,
-    eligible_bldgclass,
     yearbuilt,
     latest_co,
     co_bin,
