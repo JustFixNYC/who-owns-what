@@ -310,7 +310,7 @@ const BuildingStatsTableWithoutI18n = (props: { addr: AddressRecord; timelineUrl
                   addr.rsunits2007 !== null &&
                   addr.rsunitslatest !== null &&
                   addr.rsunitslatest < addr.rsunits2007
-                        ? "text-danger"
+                    ? "text-danger"
                     : ""
                 }`}
               >
