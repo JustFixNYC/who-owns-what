@@ -307,8 +307,10 @@ const BuildingStatsTableWithoutI18n = (props: { addr: AddressRecord; timelineUrl
               <span>&#x2192;</span>{" "}
               <span
                 className={`${
-                  addr.rsunits2007 && addr.rsunitslatest && addr.rsunitslatest < addr.rsunits2007
-                    ? "text-danger"
+                  addr.rsunits2007 !== null &&
+                  addr.rsunitslatest !== null &&
+                  addr.rsunitslatest < addr.rsunits2007
+                        ? "text-danger"
                     : ""
                 }`}
               >

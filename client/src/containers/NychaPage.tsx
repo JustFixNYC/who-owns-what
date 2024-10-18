@@ -227,7 +227,7 @@ const NychaPageWithoutI18n: React.FC<NychaPageProps> = (props) => {
                   </li>
                   <li>
                     <JFCLLink
-                      href="https://www1.nyc.gov/assets/nycha/downloads/pdf/Development-Guide-04-23-2020.pdf"
+                      href="https://www.nyc.gov/assets/nycha/downloads/pdf/Block-and-Lot-Guide.pdf"
                       target="_blank"
                       rel="noopener noreferrer"
                       icon="external"

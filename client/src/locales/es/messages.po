@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-09-02 17:44\n"
+"PO-Revision-Date: 2024-09-20 18:47\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -759,7 +759,7 @@ msgstr "Ejecutado"
 
 #: src/components/AddressToolbar.tsx:27
 msgid "Export Data"
-msgstr "Exportar datos"
+msgstr "Exportar Datos"
 
 #: src/util/helpers.ts:15
 msgid "FIRE ESCAPE"
@@ -819,7 +819,7 @@ msgstr "Seguir edifico"
 
 #: src/components/EmailAlertSignup.tsx:90
 msgid "Follow this building to add it to your weekly email alert."
-msgstr ""
+msgstr "Sigue este edificio para añadirlo a su alerta semanal electrónica."
 
 #: src/components/Login.tsx:143
 msgid "Forgot your password?"
@@ -2057,7 +2057,7 @@ msgstr "Hay {0, plural, one {<0><1>1</1> edificio</0>} other {<2><3>{1}</3> edif
 
 #: src/containers/AccountSettingsPage.tsx:61
 msgid "There {subscriptionsNumber, plural, one {is} other {are}} {subscriptionsNumber} {subscriptionsNumber, plural, one {building} other {buildings}} in your weekly emails"
-msgstr ""
+msgstr "Hay {subscriptionsNumber, plural, one {} other {}}{subscriptionsNumber} {subscriptionsNumber, plural, one {edificio} other {edificios}} en sus correos electrónicos semanales"
 
 #: src/containers/AccountSettingsPage.tsx:61
 #~ msgid "There {subscriptionsNumber, plural, one {is} other {are}} {subscriptionsNumber} {subscriptionsNumber, plural, one {building} other {buildings}} in your weekly updates"

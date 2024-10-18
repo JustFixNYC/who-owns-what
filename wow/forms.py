@@ -78,6 +78,7 @@ class EmailAlertViolationsForm(PaddedBBLForm):
 
 class EmailAlertLaggedEvictionFilingsForm(PaddedBBLForm):
     prev_date = forms.DateField(input_formats=["%Y-%m-%d"])
+    oldest_filed_date = forms.DateField(input_formats=["%Y-%m-%d"])
 
 
 class EmailAlertSingleIndicatorForm(PaddedBBLForm):
@@ -94,15 +95,21 @@ class EmailAlertSingleIndicatorForm(PaddedBBLForm):
     start_date = forms.DateField(input_formats=["%Y-%m-%d"], required=False)
     end_date = forms.DateField(input_formats=["%Y-%m-%d"], required=False)
     prev_date = forms.DateField(input_formats=["%Y-%m-%d"], required=False)
+    oldest_filed_date = forms.DateField(input_formats=["%Y-%m-%d"], required=False)
 
     def clean(self):
         data = self.cleaned_data
         indicator = data.get("indicator", None)
 
-        if indicator == "lagged_eviction_filings" and not data.get("prev_date", None):
-            raise forms.ValidationError(
-                "prev_date is required for lagged_eviction_filings"
-            )
+        if indicator == "lagged_eviction_filings":
+            if not data.get("prev_date", None):
+                raise forms.ValidationError(
+                    "prev_date is required for lagged_eviction_filings"
+                )
+            if not data.get("oldest_filed_date", None):
+                raise forms.ValidationError(
+                    "oldest_filed_date is required for lagged_eviction_filings"
+                )
         elif indicator != "lagged_eviction_filings":
             if not data.get("start_date", None):
                 raise forms.ValidationError(
@@ -121,6 +128,7 @@ class EmailAlertMultiIndicatorForm(PaddedBBLForm):
     start_date = forms.DateField(input_formats=["%Y-%m-%d"], required=False)
     end_date = forms.DateField(input_formats=["%Y-%m-%d"], required=False)
     prev_date = forms.DateField(input_formats=["%Y-%m-%d"], required=False)
+    oldest_filed_date = forms.DateField(input_formats=["%Y-%m-%d"], required=False)
 
     def clean(self):
         data = self.cleaned_data
@@ -134,6 +142,10 @@ class EmailAlertMultiIndicatorForm(PaddedBBLForm):
             if not data.get("prev_date", None):
                 raise forms.ValidationError(
                     "prev_date is required for lagged_eviction_filings"
+                )
+            if not data.get("oldest_filed_date", None):
+                raise forms.ValidationError(
+                    "oldest_filed_date is required for lagged_eviction_filings"
                 )
         if not set(start_end_indicators).isdisjoint(indicators):
             if not data.get("start_date", None):

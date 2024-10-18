@@ -36,6 +36,7 @@ from .factories.marshal_evictions_18 import MarshalEvictions18
 from .factories.marshal_evictions_19 import MarshalEvictions19
 from .factories.marshal_evictions_all import MarshalEvictionsAll
 from .factories.nycha_bbls_18 import NychaBbls18
+from .factories.nycha_bbls_24 import NychaBbls24
 from .factories.changes_summary import ChangesSummary
 from .factories.hpd_violations import HpdViolations
 from .factories.dob_violations import DobViolations
@@ -205,6 +206,7 @@ class TestSQL:
         nycdb_ctx.write_csv("marshal_evictions_19.csv", [MarshalEvictions19()])
         nycdb_ctx.write_csv("marshal_evictions_all.csv", [MarshalEvictionsAll()])
         nycdb_ctx.write_csv("nycha_bbls_18.csv", [NychaBbls18()])
+        nycdb_ctx.write_csv("nycha_bbls_24.csv", [NychaBbls24()])
         nycdb_ctx.write_csv("real_property_master.csv", [RealPropertyMaster()])
         nycdb_ctx.write_csv("real_property_legals.csv", [RealPropertyLegals()])
         nycdb_ctx.write_csv(
