@@ -37,8 +37,6 @@ const BuildingStatsTableWithoutI18n = (props: { addr: AddressRecord; timelineUrl
   const BBL = () => {
     const addr = useContext(AddrContext).getBuildingStats();
     const { boro, block, lot } = Helpers.splitBBL(addr.bbl);
-    const description =
-      "This is the official identifer for the building according to the Dept. of Finance tax records";
 
     return (
       <I18n>
@@ -57,7 +55,9 @@ const BuildingStatsTableWithoutI18n = (props: { addr: AddressRecord; timelineUrl
                     )
                   );
                 }}
-                aria-label={description}
+                aria-label={i18n._(
+                  t`${"This is the official identifer for the building according to the Dept. of Finance tax records"}`
+                )}
               >
                 <Icon icon="circleInfo" className="info-icon" />
               </button>
@@ -77,8 +77,6 @@ const BuildingStatsTableWithoutI18n = (props: { addr: AddressRecord; timelineUrl
 
   const YearBuilt = () => {
     const addr = useContext(AddrContext).getBuildingStats();
-    const description =
-      "The year that this building was originally constructed, according to the Dept. of City Planning.";
     return (
       <I18n>
         {({ i18n }) => (
@@ -92,11 +90,13 @@ const BuildingStatsTableWithoutI18n = (props: { addr: AddressRecord; timelineUrl
                   setInfoModalTitle(i18n._(t`Year Built`));
                   setInfoModalContent(
                     i18n._(
-                      t`The year that this building was originally constructed, according to the Dept. of City Planning.`
+                      t`The year that this building was originally constructed, according to the Dept. of Finance`
                     )
                   );
                 }}
-                aria-label={description}
+                aria-label={i18n._(
+                  t`The year that this building was originally constructed, according to the Dept. of Finance`
+                )}
               >
                 <Icon icon="circleInfo" className="info-icon" />
               </button>
@@ -110,9 +110,6 @@ const BuildingStatsTableWithoutI18n = (props: { addr: AddressRecord; timelineUrl
 
   const UnitsRes = () => {
     const addr = useContext(AddrContext).getBuildingStats();
-    const description =
-      "The year that this building was originally constructed, according to the Dept. of City Planning.";
-
     return (
       <I18n>
         {({ i18n }) => (
@@ -126,11 +123,13 @@ const BuildingStatsTableWithoutI18n = (props: { addr: AddressRecord; timelineUrl
                   setInfoModalTitle(i18n._(t`Units`));
                   setInfoModalContent(
                     i18n._(
-                      t`The number of residential units in this building, according to the Dept. of City Planning.`
+                      t`The number of residential units in this building, according to the Dept. of Finance.`
                     )
                   );
                 }}
-                aria-label={description}
+                aria-label={i18n._(
+                  t`The number of residential units in this building, according to the Dept. of Finance.`
+                )}
               >
                 <Icon icon="circleInfo" className="info-icon" />
               </button>
@@ -144,8 +143,6 @@ const BuildingStatsTableWithoutI18n = (props: { addr: AddressRecord; timelineUrl
 
   const OpenViolations = () => {
     const addr = useContext(AddrContext).getBuildingStats();
-    const description =
-      "The number of open HPD violations for this building, updated monthly. Click the HPD Building Profile button below for the most up-to-date information.";
     return (
       <I18n>
         {({ i18n }) => (
@@ -163,7 +160,9 @@ const BuildingStatsTableWithoutI18n = (props: { addr: AddressRecord; timelineUrl
                     )
                   );
                 }}
-                aria-label={description}
+                aria-label={i18n._(
+                  t`The number of open HPD violations for this building, updated monthly. Click the HPD Building Profile button below for the most up-to-date information.`
+                )}
               >
                 <Icon icon="circleInfo" className="info-icon" />
               </button>
@@ -177,8 +176,6 @@ const BuildingStatsTableWithoutI18n = (props: { addr: AddressRecord; timelineUrl
 
   const TotalViolations = () => {
     const addr = useContext(AddrContext).getBuildingStats();
-    const description =
-      "This represents the total number of HPD Violations (both open & closed) recorded by the city.";
     return (
       <I18n>
         {({ i18n }) => (
@@ -196,7 +193,9 @@ const BuildingStatsTableWithoutI18n = (props: { addr: AddressRecord; timelineUrl
                     )
                   );
                 }}
-                aria-label={description}
+                aria-label={i18n._(
+                  t`This represents the total number of HPD Violations (both open & closed) recorded by the city.`
+                )}
               >
                 <Icon icon="circleInfo" className="info-icon" />
               </button>
@@ -210,7 +209,6 @@ const BuildingStatsTableWithoutI18n = (props: { addr: AddressRecord; timelineUrl
 
   const EvictionsExecuted = () => {
     const addr = useContext(AddrContext).getBuildingStats();
-    const description = `Evictions executed by NYC Marshals since 2017. ANHD and the Housing Data Coalition cleaned, geocoded, and validated the data, originally sourced from DOI.`;
 
     return (
       <I18n>
@@ -225,11 +223,13 @@ const BuildingStatsTableWithoutI18n = (props: { addr: AddressRecord; timelineUrl
                   setInfoModalTitle(i18n._(t`Evictions Executed`));
                   setInfoModalContent(
                     i18n._(
-                      t`Evictions executed by NYC Marshals since 2017. ANHD and the Housing Data Coalition cleaned, geocoded, and validated the data, originally sourced from DOI.`
+                      t`Eviction cases filed in Housing Court since 2017. This data comes from the Office of Court Administration via the OCA Data Collective in collaboration with the Right to Counsel Coalition.`
                     )
                   );
                 }}
-                aria-label={description}
+                aria-label={i18n._(
+                  t`Eviction cases filed in Housing Court since 2017. This data comes from the Office of Court Administration via the OCA Data Collective in collaboration with the Right to Counsel Coalition.`
+                )}
               >
                 <Icon icon="circleInfo" className="info-icon" />
               </button>
@@ -243,7 +243,6 @@ const BuildingStatsTableWithoutI18n = (props: { addr: AddressRecord; timelineUrl
 
   const EvictionFilings = () => {
     const addr = useContext(AddrContext).getBuildingStats();
-    const description = `Eviction cases filed in Housing Court since 2017. This data comes from the Office of Court Administration via the Housing Data Coalition.`;
 
     return (
       <I18n>
@@ -262,7 +261,9 @@ const BuildingStatsTableWithoutI18n = (props: { addr: AddressRecord; timelineUrl
                     )
                   );
                 }}
-                aria-label={description}
+                aria-label={i18n._(
+                  t`Eviction cases filed in Housing Court since 2017. This data comes from the Office of Court Administration via the Housing Data Coalition.`
+                )}
               >
                 <Icon icon="circleInfo" className="info-icon" />
               </button>
@@ -276,7 +277,6 @@ const BuildingStatsTableWithoutI18n = (props: { addr: AddressRecord; timelineUrl
 
   const RsUnits = () => {
     const addr = useContext(AddrContext).getBuildingStats();
-    const description = `This tracks how rent stabilized units in the building have changed from 2007 to ${addr.rsunitslatestyear}. If the number for ${addr.rsunitslatestyear} is red, this means there has been a loss in stabilized units! These counts are estimated from the DOF Property Tax Bills.`;
 
     return (
       <I18n>
@@ -295,7 +295,9 @@ const BuildingStatsTableWithoutI18n = (props: { addr: AddressRecord; timelineUrl
                     )
                   );
                 }}
-                aria-label={description}
+                aria-label={i18n._(
+                  t`This tracks how rent stabilized units in the building have changed from 2007 to ${addr.rsunitslatestyear}. If the number for ${addr.rsunitslatestyear} is red, this means there has been a loss in stabilized units! These counts are estimated from the DOF Property Tax Bills.`
+                )}
               >
                 <Icon icon="circleInfo" className="info-icon" />
               </button>

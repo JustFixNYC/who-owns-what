@@ -290,7 +290,7 @@ msgstr "EDIFICIO:"
 msgid "Back to Log in"
 msgstr "Volver al inicio de sesión"
 
-#: src/components/BuildingStatsTable.tsx:31
+#: src/components/BuildingStatsTable.tsx:30
 msgid "Boro-Block-Lot (BBL)"
 msgstr ""
 
@@ -371,11 +371,11 @@ msgstr "GAS DE COCINA"
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: src/components/BuildingStatsTable.tsx:173
+#: src/components/BuildingStatsTable.tsx:165
 msgid "Change in rent stabilized units"
 msgstr ""
 
-#: src/components/BuildingStatsTable.tsx:170
+#: src/components/BuildingStatsTable.tsx:162
 msgid "Change in rent stabilized units"
 msgstr ""
 
@@ -705,25 +705,31 @@ msgstr "Ingrese un nuevo correo electrónico"
 msgid "Enter your password"
 msgstr "Ingrese su contraseña"
 
-#: src/components/BuildingStatsTable.tsx:151
-#: src/components/BuildingStatsTable.tsx:154
+#: src/components/BuildingStatsTable.tsx:144
+#: src/components/BuildingStatsTable.tsx:147
 #: src/components/IndicatorsDatasets.tsx:128
 #: src/components/IndicatorsDatasets.tsx:138
 #: src/components/IndicatorsViz.tsx:217
 msgid "Eviction Filings"
 msgstr "Demandas de desalojo"
 
-#: src/components/BuildingStatsTable.tsx:155
+#: src/components/BuildingStatsTable.tsx:148
+#: src/components/BuildingStatsTable.tsx:149
 msgid "Eviction cases filed in Housing Court since 2017. This data comes from the Office of Court Administration via the Housing Data Coalition."
 msgstr "Casos de desalojo presentados en la Corte de Vivienda desde 2017. Estos datos proceden de la Oficina de Administración Judicial a través del la Coalición de Datos de Vivienda."
+
+#: src/components/BuildingStatsTable.tsx:130
+#: src/components/BuildingStatsTable.tsx:131
+msgid "Eviction cases filed in Housing Court since 2017. This data comes from the Office of Court Administration via the OCA Data Collective in collaboration with the Right to Counsel Coalition."
+msgstr ""
 
 #: src/components/PropertiesSummary.tsx:113
 #: src/containers/NychaPage.tsx:91
 msgid "Evictions"
 msgstr "Desalojos"
 
-#: src/components/BuildingStatsTable.tsx:132
-#: src/components/BuildingStatsTable.tsx:135
+#: src/components/BuildingStatsTable.tsx:126
+#: src/components/BuildingStatsTable.tsx:129
 msgid "Evictions Executed"
 msgstr "Desalojos ejecutados"
 
@@ -732,8 +738,8 @@ msgid "Evictions Since 2017"
 msgstr "Desalojos desde 2017"
 
 #: src/components/BuildingStatsTable.tsx:136
-msgid "Evictions executed by NYC Marshals since 2017. ANHD and the Housing Data Coalition cleaned, geocoded, and validated the data, originally sourced from DOI."
-msgstr "Desalojos ejecutados en este edificio por el Mariscal de NYC desde el 2017. ANHD y la Coalición de Datos de Vivienda limpiaron, codificaron y validaron los datos, que provienen originalmente del DOI."
+#~ msgid "Evictions executed by NYC Marshals since 2017. ANHD and the Housing Data Coalition cleaned, geocoded, and validated the data, originally sourced from DOI."
+#~ msgstr "Desalojos ejecutados en este edificio por el Mariscal de NYC desde el 2017. ANHD y la Coalición de Datos de Vivienda limpiaron, codificaron y validaron los datos, que provienen originalmente del DOI."
 
 #: src/containers/NychaPage.tsx:90
 msgid "Evictions executed in this development by NYC Marshals since 2017. ANHD and the Housing Data Coalition cleaned, geocoded, and validated the data, originally sourced from DOI."
@@ -1418,8 +1424,8 @@ msgstr "¡Vaya! Ese correo electrónico no es válido."
 msgid "Open"
 msgstr "Actuales"
 
-#: src/components/BuildingStatsTable.tsx:94
-#: src/components/BuildingStatsTable.tsx:97
+#: src/components/BuildingStatsTable.tsx:90
+#: src/components/BuildingStatsTable.tsx:93
 msgid "Open Violations"
 msgstr "Violaciones Actuales"
 
@@ -1994,7 +2000,8 @@ msgstr "La entidad corporativa más común es <0>{0}</0> y la dirección adminis
 msgid "The most common {0, plural, one {issue} other {issues}} reported in this portfolio over the last three years {1, plural, one {is} other {are}} <0/>."
 msgstr "{0, plural, one {La queja más común reportada} other {Las quejas más comunes reportadas}} en este portafolio en los últimos tres años {1, plural, one {es} other {son}} <0/>."
 
-#: src/components/BuildingStatsTable.tsx:98
+#: src/components/BuildingStatsTable.tsx:94
+#: src/components/BuildingStatsTable.tsx:95
 msgid "The number of open HPD violations for this building, updated monthly. Click the HPD Building Profile button below for the most up-to-date information."
 msgstr "El número de violaciones del HPD abiertas en este edificio, actualizado mensualmente. Haz clic en el botón del Perfil de Edificio del HPD para obtener la información más reciente."
 
@@ -2003,8 +2010,13 @@ msgid "The number of residential units across all buildings in this development,
 msgstr "El número de unidades residenciales en todos los edificios de este complejo, según el Departamento de Planificación de la Ciudad."
 
 #: src/components/BuildingStatsTable.tsx:79
-msgid "The number of residential units in this building, according to the Dept. of City Planning."
-msgstr "El número de unidades residenciales en este edificio, según el Departamento de Planificación de la Ciudad."
+#~ msgid "The number of residential units in this building, according to the Dept. of City Planning."
+#~ msgstr "El número de unidades residenciales en este edificio, según el Departamento de Planificación de la Ciudad."
+
+#: src/components/BuildingStatsTable.tsx:76
+#: src/components/BuildingStatsTable.tsx:77
+msgid "The number of residential units in this building, according to the Dept. of Finance."
+msgstr ""
 
 #: src/components/UserSettingField.tsx:53
 #~ msgid "The old password you entered is incorrect"
@@ -2027,8 +2039,13 @@ msgid "The verification link that we sent you is no longer valid."
 msgstr "El enlace de verificación que le enviamos ya no es válido."
 
 #: src/components/BuildingStatsTable.tsx:60
-msgid "The year that this building was originally constructed, according to the Dept. of City Planning."
-msgstr "El año en que este edificio fue construido, según el Departamento de Planificación de la Ciudad."
+#~ msgid "The year that this building was originally constructed, according to the Dept. of City Planning."
+#~ msgstr "El año en que este edificio fue construido, según el Departamento de Planificación de la Ciudad."
+
+#: src/components/BuildingStatsTable.tsx:58
+#: src/components/BuildingStatsTable.tsx:59
+msgid "The year that this building was originally constructed, according to the Dept. of Finance"
+msgstr ""
 
 #: src/components/PropertiesSummary.tsx:104
 msgid "The {0, plural, one {} other {average}} age of {1, plural, one {this building} other {these buildings}} is <0>{2}</0> years old."
@@ -2102,7 +2119,8 @@ msgstr "Esta cartera de edificios tiene un promedio de <0>{0}</0> infracciones d
 msgid "This represents <0>{0}%</0> of the total size of this portfolio."
 msgstr "Esto representa el <0>{0}%</0> del tamaño total de este portafolio de edificios."
 
-#: src/components/BuildingStatsTable.tsx:117
+#: src/components/BuildingStatsTable.tsx:112
+#: src/components/BuildingStatsTable.tsx:113
 msgid "This represents the total number of HPD Violations (both open & closed) recorded by the city."
 msgstr "Esto representa el número total de violaciones del HPD (tanto actuales como cerradas) registradas por la ciudad."
 
@@ -2114,7 +2132,8 @@ msgstr "Esto representa el número total de violaciones del HPD (tanto actuales 
 #~ msgid "This tracks how rent stabilized units in the building have changed (i.e. \"{delta}\") from 2007 to {0}. If the number for {1} is red, this means there has been a loss in stabilzied units! These counts are estimated from the DOF Property Tax Bills."
 #~ msgstr "This tracks how rent stabilized units in the building have changed (i.e. \"{delta}\") from 2007 to {0}. If the number for {1} is red, this means there has been a loss in stabilzied units! These counts are estimated from the DOF Property Tax Bills."
 
-#: src/components/BuildingStatsTable.tsx:174
+#: src/components/BuildingStatsTable.tsx:166
+#: src/components/BuildingStatsTable.tsx:167
 msgid "This tracks how rent stabilized units in the building have changed from 2007 to {0}. If the number for {1} is red, this means there has been a loss in stabilized units! These counts are estimated from the DOF Property Tax Bills."
 msgstr ""
 
@@ -2136,8 +2155,8 @@ msgstr "Queja principal"
 msgid "Total"
 msgstr "Total"
 
-#: src/components/BuildingStatsTable.tsx:113
-#: src/components/BuildingStatsTable.tsx:116
+#: src/components/BuildingStatsTable.tsx:108
+#: src/components/BuildingStatsTable.tsx:111
 msgid "Total Violations"
 msgstr "Violaciones Totales"
 
@@ -2157,8 +2176,8 @@ msgstr "No es possible iniciar una acción judicial por falta de pago del alquil
 msgid "Unable to request Code Violation Dismissals"
 msgstr "Imposible solicitar el despido de una Infracción del Código de Vivienda"
 
+#: src/components/BuildingStatsTable.tsx:72
 #: src/components/BuildingStatsTable.tsx:75
-#: src/components/BuildingStatsTable.tsx:78
 #: src/components/PortfolioTable.tsx:138
 #: src/containers/NychaPage.tsx:87
 msgid "Units"
@@ -2295,7 +2314,7 @@ msgstr "Ver portafolio de edificios"
 msgid "View portfolio map"
 msgstr "Ver mapa de la cartera de edificios"
 
-#: src/components/BuildingStatsTable.tsx:195
+#: src/components/BuildingStatsTable.tsx:187
 msgid "View trends over time"
 msgstr ""
 
@@ -2456,8 +2475,8 @@ msgstr "¿Quién es el dueño de este edificio?"
 msgid "Why am I seeing such a big portfolio?"
 msgstr "¿Por qué estoy viendo un portafolio tan grande?"
 
-#: src/components/BuildingStatsTable.tsx:56
-#: src/components/BuildingStatsTable.tsx:59
+#: src/components/BuildingStatsTable.tsx:54
+#: src/components/BuildingStatsTable.tsx:57
 msgid "Year Built"
 msgstr "Año de construcción"
 
@@ -2709,6 +2728,7 @@ msgstr "año"
 msgid "{0, plural, one {unit} other {units}}"
 msgstr "{0, plural, one {unidad} other {unidades}}"
 
+#: src/components/BuildingStatsTable.tsx:34
 #: src/components/BuildingStatsTable.tsx:35
 msgid "{0}"
 msgstr "{0}"
