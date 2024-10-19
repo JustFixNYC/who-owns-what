@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-09-20 18:47\n"
+"PO-Revision-Date: 2024-10-19 21:39\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -739,7 +739,7 @@ msgstr "Desalojos desde 2017"
 
 #: src/components/BuildingStatsTable.tsx:136
 #~ msgid "Evictions executed by NYC Marshals since 2017. ANHD and the Housing Data Coalition cleaned, geocoded, and validated the data, originally sourced from DOI."
-#~ msgstr "Desalojos ejecutados en este edificio por el Mariscal de NYC desde el 2017. ANHD y la Coalición de Datos de Vivienda limpiaron, codificaron y validaron los datos, que provienen originalmente del DOI."
+#~ msgstr "Evictions executed by NYC Marshals since 2017. ANHD and the Housing Data Coalition cleaned, geocoded, and validated the data, originally sourced from DOI."
 
 #: src/containers/NychaPage.tsx:90
 msgid "Evictions executed in this development by NYC Marshals since 2017. ANHD and the Housing Data Coalition cleaned, geocoded, and validated the data, originally sourced from DOI."
@@ -751,7 +751,7 @@ msgstr "Ejecutado"
 
 #: src/components/PortfolioFilters.tsx:225
 #~ msgid "Expand the Person/ Entity column in the Table to see all contacts associated with that building."
-#~ msgstr "Expanda la columna Persona/Entidad en la Tabla para ver todos los contactos asociados a ese edificio."
+#~ msgstr "Expand the Person/ Entity column in the Table to see all contacts associated with that building."
 
 #: src/components/PortfolioFilters.tsx:197
 #~ msgid "Expand the the Owner/Manager column in Table view to see all contacts associated with that building."
@@ -2011,7 +2011,7 @@ msgstr "El número de unidades residenciales en todos los edificios de este comp
 
 #: src/components/BuildingStatsTable.tsx:79
 #~ msgid "The number of residential units in this building, according to the Dept. of City Planning."
-#~ msgstr "El número de unidades residenciales en este edificio, según el Departamento de Planificación de la Ciudad."
+#~ msgstr "The number of residential units in this building, according to the Dept. of City Planning."
 
 #: src/components/BuildingStatsTable.tsx:76
 #: src/components/BuildingStatsTable.tsx:77
@@ -2040,7 +2040,7 @@ msgstr "El enlace de verificación que le enviamos ya no es válido."
 
 #: src/components/BuildingStatsTable.tsx:60
 #~ msgid "The year that this building was originally constructed, according to the Dept. of City Planning."
-#~ msgstr "El año en que este edificio fue construido, según el Departamento de Planificación de la Ciudad."
+#~ msgstr "The year that this building was originally constructed, according to the Dept. of City Planning."
 
 #: src/components/BuildingStatsTable.tsx:58
 #: src/components/BuildingStatsTable.tsx:59
@@ -2089,7 +2089,7 @@ msgstr "Esto es <0>peor</0> que el promedio de la ciudad de {VIOLATIONS_AVG} por
 
 #: src/components/BuildingStatsTable.tsx:23
 #~ msgid "This is the official identifer for the building according to the Dept. of Finance tax records."
-#~ msgstr "El identificador oficial del edificio según los registros del Departamento de Finanzas."
+#~ msgstr "This is the official identifer for the building according to the Dept. of Finance tax records."
 
 #: src/containers/App.tsx:203
 #~ msgid "This is the old version of Who Owns What. <0>Check out the new version here.</0>"
@@ -2126,7 +2126,7 @@ msgstr "Esto representa el número total de violaciones del HPD (tanto actuales 
 
 #: src/components/BuildingStatsTable.tsx:92
 #~ msgid "This tracks how rent stabilized units in the building have changed (i.e. \"{delta}\") from 2007 to {0}. If the number for {1} is red, this means there has been a loss in stabilized units! These counts are estimated from the DOF Property Tax Bills."
-#~ msgstr "El cambio en apartamentos de renta estabilizada que hay en el edificio (es decir, \"{delta}\") del 2007 al {0}. Si el número en {1} está en rojo, ¡esto significa que ha habido una pérdida en las cantidad de apartamentos de renta estabilizada! Estos recuentos se calculan a partir de las facturas de impuestos del Departamento de Finanzas."
+#~ msgstr "This tracks how rent stabilized units in the building have changed (i.e. \"{delta}\") from 2007 to {0}. If the number for {1} is red, this means there has been a loss in stabilized units! These counts are estimated from the DOF Property Tax Bills."
 
 #: src/components/BuildingStatsTable.tsx:88
 #~ msgid "This tracks how rent stabilized units in the building have changed (i.e. \"{delta}\") from 2007 to {0}. If the number for {1} is red, this means there has been a loss in stabilzied units! These counts are estimated from the DOF Property Tax Bills."
@@ -2274,7 +2274,7 @@ msgstr "Visualizar por:"
 
 #: src/components/BuildingStatsTable.tsx:110
 #~ msgid "View data over time"
-#~ msgstr "Ver datos a lo largo del tiempo"
+#~ msgstr "View data over time"
 
 #: src/components/DetailView.tsx:186
 #~ msgid "View data over time ↗︎"
@@ -2686,7 +2686,7 @@ msgstr "por ${0}"
 
 #: src/components/BuildingStatsTable.tsx:117
 #~ msgid "hover over a box to learn more"
-#~ msgstr "mueva el cursor sobre un cuadro para obtener más información"
+#~ msgstr "hover over a box to learn more"
 
 #: src/components/Indicators.tsx:18
 msgid "month"
@@ -2731,7 +2731,7 @@ msgstr "{0, plural, one {unidad} other {unidades}}"
 #: src/components/BuildingStatsTable.tsx:34
 #: src/components/BuildingStatsTable.tsx:35
 msgid "{0}"
-msgstr "{0}"
+msgstr ""
 
 #: src/components/FeatureCalloutWidget.tsx:26
 msgid "{0} of {numberOfEntries}"
@@ -2792,3 +2792,4 @@ msgstr "{value, plural, one {Una Queja del HPD emitida desde el 2012} other {# Q
 #: src/components/IndicatorsDatasets.tsx:36
 msgid "{value, plural, one {One HPD Violation Issued since 2012} other {# HPD Violations Issued since 2012}}"
 msgstr "{value, plural, one {Una Violación del HPD emitida desde el 2012} other {# Violaciones del HPD emitidas desde el 2012}}"
+
