@@ -10,7 +10,7 @@ import { withI18n, withI18nProps, I18n } from "@lingui/react";
 import { t, Trans } from "@lingui/macro";
 import { SocialShareAddressPage } from "./SocialShare";
 import { isPartOfGroupSale } from "./PortfolioTable";
-import { Link, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { LocaleLink } from "../i18n";
 import BuildingStatsTable from "./BuildingStatsTable";
 import { createWhoOwnsWhatRoutePaths, AddressPageRoutes } from "../routes";
@@ -344,8 +344,8 @@ class DetailViewWithoutI18n extends Component<Props, State> {
                             <Trans>
                               Public data on registrations has not been updated by HPD since June 1,
                               2024. We're working with HPD to resolve the issue. See{" "}
-                              <Link
-                                to={
+                              <a
+                                href={
                                   !!hpdbuildingid && hpdbuildings === 1
                                     ? `https://hpdonline.nyc.gov/hpdonline/building/${hpdbuildingid}/overview`
                                     : `https://hpdonline.nyc.gov/hpdonline/building/search-results?boroId=${boro}&block=${block}&lot=${lot}`
@@ -354,7 +354,7 @@ class DetailViewWithoutI18n extends Component<Props, State> {
                                 rel="noopener noreferrer"
                               >
                                 <Trans>HPD Online</Trans>
-                              </Link>{" "}
+                              </a>{" "}
                               for latest information.
                             </Trans>
                           </span>

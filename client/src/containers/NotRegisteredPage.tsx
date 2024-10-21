@@ -209,13 +209,13 @@ class NotRegisteredPageWithoutI18n extends Component<Props, State> {
                       <Trans>
                         Public data on registrations has not been updated by HPD since June 1, 2024.
                         We're working with HPD to resolve the issue. See{" "}
-                        <Link
-                          to={`https://hpdonline.nyc.gov/hpdonline/building/search-results?boroId=${boro}&block=${block}&lot=${lot}`}
+                        <a
+                          href={`https://hpdonline.nyc.gov/hpdonline/building/search-results?boroId=${boro}&block=${block}&lot=${lot}`}
                           target="_blank"
                           rel="noopener noreferrer"
                         >
                           <Trans>HPD Online</Trans>
-                        </Link>{" "}
+                        </a>{" "}
                         for latest information.
                       </Trans>
                     </span>
