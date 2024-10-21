@@ -10,7 +10,7 @@ import { withI18n, withI18nProps, I18n } from "@lingui/react";
 import { t, Trans } from "@lingui/macro";
 import { SocialShareAddressPage } from "./SocialShare";
 import { isPartOfGroupSale } from "./PortfolioTable";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { LocaleLink } from "../i18n";
 import BuildingStatsTable from "./BuildingStatsTable";
 import { createWhoOwnsWhatRoutePaths, AddressPageRoutes } from "../routes";
@@ -40,7 +40,7 @@ type State = {
 
 const NUM_COMPLAINT_TYPES_TO_SHOW = 3;
 
-const getTodaysDate = () => new Date();
+// const getTodaysDate = () => new Date();
 
 const SocialShareDetailView = () => (
   <SocialShareAddressPage
@@ -214,14 +214,17 @@ class DetailViewWithoutI18n extends Component<Props, State> {
     const { portfolioData } = state.context;
     const { assocAddrs, detailAddr, searchAddr } = portfolioData;
 
-    // Let's save some variables that will be helpful in rendering the front-end component
-    let formattedRegEndDate, streetViewCoords, streetViewAddr, ownernames, userOwnernames;
+    const { bbl, hpdbuildingid, hpdbuildings } = detailAddr;
+    const { boro, block, lot } = Helpers.splitBBL(bbl);
 
-    formattedRegEndDate = Helpers.formatDate(
-      detailAddr.registrationenddate,
-      longDateOptions,
-      locale
-    );
+    // Let's save some variables that will be helpful in rendering the front-end component
+    let streetViewCoords, streetViewAddr, ownernames, userOwnernames; //formattedRegEndDate
+
+    // formattedRegEndDate = Helpers.formatDate(
+    //   detailAddr.registrationenddate,
+    //   longDateOptions,
+    //   locale
+    // );
 
     streetViewCoords =
       detailAddr.lat && detailAddr.lng
@@ -335,6 +338,27 @@ class DetailViewWithoutI18n extends Component<Props, State> {
                       <div className="card-body-registration">
                         <p>
                           <b>
+                            <Trans>Note:</Trans>
+                          </b>{" "}
+                          <span className="text-danger">
+                            <Trans>
+                              Public data on registrations has not been updated by HPD since June 1,
+                              2024. We're working with HPD to resolve the issue. See{" "}
+                              <Link
+                                to={
+                                  !!hpdbuildingid && hpdbuildings === 1
+                                    ? `https://hpdonline.nyc.gov/hpdonline/building/${hpdbuildingid}/overview`
+                                    : `https://hpdonline.nyc.gov/hpdonline/building/search-results?boroId=${boro}&block=${block}&lot=${lot}`
+                                }
+                                target="_blank"
+                                rel="noopener noreferrer"
+                              >
+                                <Trans>HPD Online</Trans>
+                              </Link>{" "}
+                              for latest information.
+                            </Trans>
+                          </span>
+                          {/* <b>
                             <Trans>Last registered:</Trans>
                           </b>{" "}
                           {Helpers.formatDate(
@@ -352,7 +376,7 @@ class DetailViewWithoutI18n extends Component<Props, State> {
                               {" "}
                               <Trans>(expires {formattedRegEndDate})</Trans>
                             </span>
-                          )}
+                          )} */}
                         </p>
                         {detailAddr.lastsaledate && detailAddr.lastsaleamount && (
                           <p>

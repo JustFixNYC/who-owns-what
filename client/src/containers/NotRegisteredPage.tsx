@@ -6,8 +6,7 @@ import { Trans } from "@lingui/macro";
 import Modal from "../components/Modal";
 import LegalFooter from "../components/LegalFooter";
 import { withI18n, withI18nProps } from "@lingui/react";
-import Helpers, { longDateOptions } from "../util/helpers";
-import { defaultLocale, SupportedLocale } from "../i18n-base";
+import Helpers from "../util/helpers";
 import SocialShare from "../components/SocialShare";
 import { Nobr } from "../components/Nobr";
 import { withMachineInStateProps } from "state-machine";
@@ -43,12 +42,12 @@ class NotRegisteredPageWithoutI18n extends Component<Props, State> {
   }
 
   render() {
-    const { state, i18n } = this.props;
+    const { state } = this.props; //i18n
     const { searchAddrParams, searchAddrBbl, buildingInfo } = state.context;
 
     const { boro, block, lot } = Helpers.splitBBL(searchAddrBbl);
 
-    const locale = (i18n.language as SupportedLocale) || defaultLocale;
+    // const locale = (i18n.language as SupportedLocale) || defaultLocale;
 
     /**
      * This is the address that will show up in the top header of the page.
@@ -132,43 +131,43 @@ class NotRegisteredPageWithoutI18n extends Component<Props, State> {
       );
     }
 
-    const formattedLastRegDate = Helpers.formatDate(
-      buildingInfo.lastregistrationdate,
-      longDateOptions,
-      locale
-    );
+    // const formattedLastRegDate = Helpers.formatDate(
+    //   buildingInfo.lastregistrationdate,
+    //   longDateOptions,
+    //   locale
+    // );
 
-    const formattedRegEndDate = Helpers.formatDate(
-      buildingInfo.registrationenddate,
-      longDateOptions,
-      locale
-    );
+    // const formattedRegEndDate = Helpers.formatDate(
+    //   buildingInfo.registrationenddate,
+    //   longDateOptions,
+    //   locale
+    // );
 
-    const lastRegisteredDates = buildingInfo.registrationenddate ? (
-      <div className="card-body-registration text-center">
-        {buildingInfo.lastregistrationdate ? (
-          <p>
-            <b>
-              <Trans>Last registered:</Trans>
-            </b>{" "}
-            {formattedLastRegDate}
-            <span className="text-danger">
-              {" "}
-              <Trans>(expired {formattedRegEndDate})</Trans>
-            </span>
-          </p>
-        ) : (
-          <p>
-            <b>
-              <Trans>Registration expired:</Trans>
-            </b>{" "}
-            <span className="text-danger"> {formattedRegEndDate}</span>
-          </p>
-        )}
-      </div>
-    ) : (
-      <></>
-    );
+    // const lastRegisteredDates = buildingInfo.registrationenddate ? (
+    //   <div className="card-body-registration text-center">
+    //     {buildingInfo.lastregistrationdate ? (
+    //       <p>
+    //         <b>
+    //           <Trans>Last registered:</Trans>
+    //         </b>{" "}
+    //         {formattedLastRegDate}
+    //         <span className="text-danger">
+    //           {" "}
+    //           <Trans>(expired {formattedRegEndDate})</Trans>
+    //         </span>
+    //       </p>
+    //     ) : (
+    //       <p>
+    //         <b>
+    //           <Trans>Registration expired:</Trans>
+    //         </b>{" "}
+    //         <span className="text-danger"> {formattedRegEndDate}</span>
+    //       </p>
+    //     )}
+    //   </div>
+    // ) : (
+    //   <></>
+    // );
 
     const failedToRegisterLink = (
       <div className="text-center">
@@ -201,7 +200,26 @@ class NotRegisteredPageWithoutI18n extends Component<Props, State> {
               )}
               {registrationMissingOrExpired && buildingInfo.unitsres > 0 && (
                 <>
-                  {lastRegisteredDates}
+                  {/* {lastRegisteredDates} */}
+                  <p>
+                    <b>
+                      <Trans>Note:</Trans>
+                    </b>{" "}
+                    <span className="text-danger">
+                      <Trans>
+                        Public data on registrations has not been updated by HPD since June 1, 2024.
+                        We're working with HPD to resolve the issue. See{" "}
+                        <Link
+                          to={`https://hpdonline.nyc.gov/hpdonline/building/search-results?boroId=${boro}&block=${block}&lot=${lot}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <Trans>HPD Online</Trans>
+                        </Link>{" "}
+                        for latest information.
+                      </Trans>
+                    </span>
+                  </p>
                   {failedToRegisterLink}
                 </>
               )}
