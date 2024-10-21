@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-10-19 21:39\n"
+"PO-Revision-Date: 2024-10-21 17:59\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -38,18 +38,18 @@ msgstr "#QuiénEsElDueño por @JustFixOrg"
 msgid "(\"{textInEnglish}\" in English)"
 msgstr "(\"{textInEnglish}\" en inglés)"
 
-#: src/components/DetailView.tsx:240
+#: src/components/DetailView.tsx:269
 msgid "(as part of a group sale)"
 msgstr "(como parte de una venta en grupo)"
 
 #: src/components/DetailView.tsx:222
 #: src/containers/NotRegisteredPage.tsx:104
-msgid "(expired {formattedRegEndDate})"
-msgstr "(caducado {formattedRegEndDate})"
+#~ msgid "(expired {formattedRegEndDate})"
+#~ msgstr "(expired {formattedRegEndDate})"
 
 #: src/components/DetailView.tsx:225
-msgid "(expires {formattedRegEndDate})"
-msgstr "(caduca {formattedRegEndDate})"
+#~ msgid "(expires {formattedRegEndDate})"
+#~ msgstr "(expires {formattedRegEndDate})"
 
 #: src/components/BuildingStatsTable.tsx:135
 #~ msgid "(hover over a box to learn more)"
@@ -79,7 +79,7 @@ msgstr "Datos de quejas al 311"
 #~ msgid "<0>Click to log in</0> if you are not redirected"
 #~ msgstr "<0>Click to log in</0> if you are not redirected"
 
-#: src/containers/NotRegisteredPage.tsx:81
+#: src/containers/NotRegisteredPage.tsx:80
 msgid "<0>If the landlord doesn't reside here, this property should be registered with HPD</0> because it has fewer than 3 residential units."
 msgstr "<0>Si el dueño no reside aquí, esta propiedad debería estar registrado con el HPD</0> porque tiene menos de 3 unidades residenciales."
 
@@ -119,11 +119,11 @@ msgstr "<0>Busca una dirección</0> para añadir a Alertas de Edificios"
 msgid "<0>Search for an address</0> to add to your Building Updates, or visit your <1>email settings</1> page to manage subscriptions."
 msgstr "<0>Busca una dirección</0> para añadir a sus actualizaciones de edificios, o visite su página de <1>configuración del correo electrónico</1> para administrar sus suscripciones."
 
-#: src/containers/NotRegisteredPage.tsx:73
+#: src/containers/NotRegisteredPage.tsx:72
 msgid "<0>This property is not required to register with HPD</0> because it doesn't have any residential units."
 msgstr "<0>Esta propiedad no necesita estar registrada con en HPD</0> porque no tiene ninguna unidad residencial."
 
-#: src/containers/NotRegisteredPage.tsx:89
+#: src/containers/NotRegisteredPage.tsx:88
 msgid "<0>This property should be registered with HPD</0> because it has more than 2 residential units."
 msgstr "<0>Esta propiedad debe estar registrada con en HPD</0> porque tiene más de 2 unidades residenciales."
 
@@ -281,7 +281,7 @@ msgstr "En este momento solamente podemos admitir {SUBSCRIPTION_LIMIT} edificios
 msgid "BELL/BUZZER/INTERCOM"
 msgstr "TIMBRE/INTERCOMUNICADOR"
 
-#: src/components/DetailView.tsx:164
+#: src/components/DetailView.tsx:170
 msgid "BUILDING:"
 msgstr "EDIFICIO:"
 
@@ -333,7 +333,7 @@ msgstr "Información de edificios"
 msgid "Building size: {0}"
 msgstr "Tamaño del edificio: {0}"
 
-#: src/containers/NotRegisteredPage.tsx:163
+#: src/containers/NotRegisteredPage.tsx:193
 msgid "Buildings without valid property registration are subject to the following:"
 msgstr "Edificios sin registro de propiedad válido están sujetos a las siguientes obligaciones:"
 
@@ -341,13 +341,13 @@ msgstr "Edificios sin registro de propiedad válido están sujetos a las siguien
 msgid "Built"
 msgstr "Construido"
 
-#: src/components/DetailView.tsx:304
-#: src/components/DetailView.tsx:313
+#: src/components/DetailView.tsx:333
+#: src/components/DetailView.tsx:342
 msgid "Business Addresses"
 msgstr "Dirección Comercial"
 
-#: src/components/DetailView.tsx:284
-#: src/components/DetailView.tsx:293
+#: src/components/DetailView.tsx:313
+#: src/components/DetailView.tsx:322
 msgid "Business Entities"
 msgstr "Entidades Comerciales"
 
@@ -395,7 +395,7 @@ msgstr "Revise su correo electrónico"
 #~ msgid "Check your email inbox {email} to verify your email address. Once you’ve done that, you’ll start getting email updates."
 #~ msgstr "Check your email inbox {email} to verify your email address. Once you’ve done that, you’ll start getting email updates."
 
-#: src/containers/NotRegisteredPage.tsx:167
+#: src/containers/NotRegisteredPage.tsx:197
 msgid "Civil penalties of $250-$500"
 msgstr "Sanciones civiles de $250-$500"
 
@@ -453,7 +453,7 @@ msgstr "Haga clic a continuación para desuscribirse de todo y dejar de recibir 
 #~ msgid "Click below to unsubscribe from all and stop receiving Building Updates."
 #~ msgstr "Click below to unsubscribe from all and stop receiving Building Updates."
 
-#: src/containers/NotRegisteredPage.tsx:176
+#: src/containers/NotRegisteredPage.tsx:206
 msgid "Click here to learn more."
 msgstr "HaZ clic aquí para obtener más información."
 
@@ -773,7 +773,7 @@ msgstr "PISO"
 msgid "FLOORING/STAIRS"
 msgstr "PISO/ESCALERAS"
 
-#: src/containers/NotRegisteredPage.tsx:162
+#: src/containers/NotRegisteredPage.tsx:192
 msgid "Failure to register a building with HPD"
 msgstr "Si no se registra un edificio con el HPD"
 
@@ -983,7 +983,7 @@ msgstr "Si ya ha añadido un edificio, recibirá la primera actualización de ed
 msgid "In March 2023 this version will be discontinued. Switch to the new version or learn more."
 msgstr "En marzo de 2023 esta versión dejará de funcionar. Cambie a la nueva versión u obtenga más información."
 
-#: src/containers/NotRegisteredPage.tsx:64
+#: src/containers/NotRegisteredPage.tsx:63
 msgid "Incomplete registration for {usersInputAddressFragment}."
 msgstr "Registro incompleto para {usersInputAddressFragment}."
 
@@ -991,7 +991,7 @@ msgstr "Registro incompleto para {usersInputAddressFragment}."
 msgid "Individual Owner"
 msgstr "Dueño Individual"
 
-#: src/containers/NotRegisteredPage.tsx:169
+#: src/containers/NotRegisteredPage.tsx:199
 msgid "Ineligible to certify violations"
 msgstr "Inelegible para certificar violaciones"
 
@@ -1066,10 +1066,10 @@ msgstr "Última venta desconocida"
 
 #: src/components/DetailView.tsx:217
 #: src/containers/NotRegisteredPage.tsx:99
-msgid "Last registered:"
-msgstr "Registrado por última vez:"
+#~ msgid "Last registered:"
+#~ msgstr "Last registered:"
 
-#: src/components/DetailView.tsx:230
+#: src/components/DetailView.tsx:259
 msgid "Last sold:"
 msgstr "Vendido por última vez:"
 
@@ -1233,7 +1233,7 @@ msgstr "Máx debe ser mayor que {minOption}"
 #~ msgid "Maximum"
 #~ msgstr "Maximum"
 
-#: src/containers/NotRegisteredPage.tsx:168
+#: src/containers/NotRegisteredPage.tsx:198
 msgid "May be issued official Orders"
 msgstr "Pueden emitirse órdenes oficiales"
 
@@ -1266,7 +1266,7 @@ msgstr "Mín debe ser menor que {maxOption}"
 msgid "More Mobile Friendly"
 msgstr "Más útil para dispositivos móviles"
 
-#: src/components/DetailView.tsx:174
+#: src/components/DetailView.tsx:180
 msgid "Most Common 311 Complaints, Last 3 Years"
 msgstr "Las quejas más comunes de 311, los últimos 3 años"
 
@@ -1356,11 +1356,11 @@ msgstr "No se encontraron direcciones"
 msgid "No landlords match your search."
 msgstr "No hay nombres de dueños coincidan con su búsqueda."
 
-#: src/containers/NotRegisteredPage.tsx:67
+#: src/containers/NotRegisteredPage.tsx:66
 msgid "No registration found for {usersInputAddressFragment}."
 msgstr "No se ha encontrado ningún registro para {usersInputAddressFragment}."
 
-#: src/containers/NotRegisteredPage.tsx:59
+#: src/containers/NotRegisteredPage.tsx:58
 msgid "No registration found."
 msgstr "No se ha encontrado nigún registro."
 
@@ -1372,13 +1372,18 @@ msgstr "No ECB"
 msgid "Non-Emergency"
 msgstr "No Emergencia"
 
-#: src/components/DetailView.tsx:182
+#: src/components/DetailView.tsx:188
 msgid "None"
 msgstr "Ninguna"
 
 #: src/containers/NotFoundPage.tsx:23
 msgid "Not found"
 msgstr "No encontrado"
+
+#: src/components/DetailView.tsx:223
+#: src/containers/NotRegisteredPage.tsx:151
+msgid "Note:"
+msgstr ""
 
 #: src/components/PortfolioFilters.tsx:88
 #~ msgid "Notice an inaccuracy? Click here."
@@ -1496,8 +1501,8 @@ msgstr "Contraseña"
 msgid "Password reset successful"
 msgstr "Contraseña restablecida con éxito"
 
-#: src/components/DetailView.tsx:324
-#: src/components/DetailView.tsx:334
+#: src/components/DetailView.tsx:353
+#: src/components/DetailView.tsx:363
 msgid "People"
 msgstr "Personas"
 
@@ -1555,6 +1560,11 @@ msgstr "Política de privacidad"
 msgid "Public Housing Development"
 msgstr "Complejo de Vivienda Pública"
 
+#: src/components/DetailView.tsx:226
+#: src/containers/NotRegisteredPage.tsx:154
+msgid "Public data on registrations has not been updated by HPD since June 1, 2024. We're working with HPD to resolve the issue. See <0>HPD Online</0> for latest information."
+msgstr ""
+
 #: src/components/PropertiesSummary.tsx:130
 msgid "Questions or feedback?"
 msgstr "¿preguntas o comentarios?"
@@ -1574,8 +1584,8 @@ msgid "Read more in our Methodology section"
 msgstr "Más información sobre nuestra metodología"
 
 #: src/containers/NotRegisteredPage.tsx:108
-msgid "Registration expired:"
-msgstr "El registro ha caducado:"
+#~ msgid "Registration expired:"
+#~ msgstr "Registration expired:"
 
 #: src/containers/AccountSettingsPage.tsx:25
 msgid "Remove"
@@ -1694,7 +1704,7 @@ msgstr "Busca por el nombre de tu dueño"
 msgid "Search by:"
 msgstr "Buscar por:"
 
-#: src/containers/NotRegisteredPage.tsx:158
+#: src/containers/NotRegisteredPage.tsx:188
 #: src/containers/NychaPage.tsx:200
 msgid "Search for a different address"
 msgstr "Buscar otra dirección"
@@ -1747,10 +1757,10 @@ msgstr "Envíanos una solicitud de datos"
 #~ msgid "Share this page with your neighbors"
 #~ msgstr "Share this page with your neighbors"
 
-#: src/components/DetailView.tsx:255
+#: src/components/DetailView.tsx:284
 #: src/components/EngagementPanel.tsx:11
 #: src/components/PropertiesSummary.tsx:138
-#: src/containers/NotRegisteredPage.tsx:19
+#: src/containers/NotRegisteredPage.tsx:18
 msgid "Share with your neighbors"
 msgstr "Comparte esta página con sus vecinos"
 
@@ -2026,7 +2036,7 @@ msgstr ""
 msgid "The password reset link that we sent you is no longer valid."
 msgstr "El enlace para restablecer la contraseña que le hemos enviado no es válido."
 
-#: src/containers/NotRegisteredPage.tsx:124
+#: src/containers/NotRegisteredPage.tsx:139
 msgid "The registration for this property is missing details for owner name or businesses address, which are required to link the property to a portfolio."
 msgstr "El registro de esta propiedad faltan detalles sobre el nombre del dueño o la dirección comercial, que son necesarios a vincular la propiedad a un portafolio."
 
@@ -2168,11 +2178,11 @@ msgstr "Intente ajustar o borrar los filtros para mostrar más de 0 resultados."
 #~ msgid "Try adjusting or clearing the filters to yield more than 0 results."
 #~ msgstr "Try adjusting or clearing the filters to yield more than 0 results."
 
-#: src/containers/NotRegisteredPage.tsx:171
+#: src/containers/NotRegisteredPage.tsx:201
 msgid "Unable to initiate a court action for nonpayment of rent."
 msgstr "No es possible iniciar una acción judicial por falta de pago del alquiler."
 
-#: src/containers/NotRegisteredPage.tsx:170
+#: src/containers/NotRegisteredPage.tsx:200
 msgid "Unable to request Code Violation Dismissals"
 msgstr "Imposible solicitar el despido de una Infracción del Código de Vivienda"
 
@@ -2310,11 +2320,11 @@ msgstr "Ver en Google Maps"
 msgid "View portfolio"
 msgstr "Ver portafolio de edificios"
 
-#: src/components/DetailView.tsx:154
+#: src/components/DetailView.tsx:160
 msgid "View portfolio map"
 msgstr "Ver mapa de la cartera de edificios"
 
-#: src/components/BuildingStatsTable.tsx:187
+#: src/components/BuildingStatsTable.tsx:189
 msgid "View trends over time"
 msgstr ""
 
@@ -2343,7 +2353,7 @@ msgstr "VENTANAS"
 #~ msgid "Warning"
 #~ msgstr "Warning"
 
-#: src/components/DetailView.tsx:209
+#: src/components/DetailView.tsx:215
 msgid "Warning: This building has an expired registration and was sold after the expiration date. The landlord info listed here may be outdated."
 msgstr "Aviso: Este edificio tiene un registro vencido y se vendió después del vencimiento del registro. La información del dueño que se incluye aquí puede estar desactualizada."
 
@@ -2399,7 +2409,7 @@ msgstr "Hemos mejorado ¿Quién es el Dueño en NY? para profundizar en los dato
 msgid "What are {0}?"
 msgstr "¿Qué son {0}?"
 
-#: src/containers/NotRegisteredPage.tsx:115
+#: src/containers/NotRegisteredPage.tsx:130
 msgid "What happens if the landlord has failed to register?"
 msgstr "¿Qué pasa si el propietario no ha registrado el edificio?"
 
@@ -2466,7 +2476,7 @@ msgstr "Quién es el dueño en NY"
 msgid "Who’s responsible for issues in your apartment & building? #WhoOwnsWhat helps you research NYC property owners using public, open data. A free tool built by @JustFixNYC, it works on any device with an internet connection! Search your address here:"
 msgstr "¿Quién es responsable por los problemas en tu apartamento y edificio? #QuiénEsElDueño te ayuda investigar los dueños de edificios de NYC usando data pública y abierta. Un sitio web gratis construido por @JustFixNYC, ¡funciona en cualquier aparato con internet! Úsalo ahorita:"
 
-#: src/components/DetailView.tsx:189
+#: src/components/DetailView.tsx:195
 msgid "Who’s the landlord of this building?"
 msgstr "¿Quién es el dueño de este edificio?"
 
@@ -2680,7 +2690,7 @@ msgstr "edificios"
 #~ msgid "contact support@justfix.org"
 #~ msgstr "contact support@justfix.org"
 
-#: src/components/DetailView.tsx:234
+#: src/components/DetailView.tsx:263
 msgid "for ${0}"
 msgstr "por ${0}"
 
