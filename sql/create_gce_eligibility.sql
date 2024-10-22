@@ -197,6 +197,9 @@ CREATE TABLE gce_screener AS (
         ELSE NULL
       END AS subsidy_name,
 
+      shd.end_421a,
+      shd.end_j51,
+
       wp.wow_portfolio_units,
       wp.wow_portfolio_bbls,
 
