@@ -5,7 +5,7 @@ SELECT
     wow_portfolio_bbls,
     bldgclass,
     yearbuilt,
-    latest_co,
+    co_issued,
     co_bin,
     post_hstpa_rs_units,
     is_nycha,
