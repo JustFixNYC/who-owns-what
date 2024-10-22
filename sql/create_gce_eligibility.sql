@@ -48,7 +48,7 @@ CREATE INDEX ON x_multi_bbl_docs (documentid);
 CREATE TEMPORARY TABLE x_linked_bbls AS (
 	SELECT DISTINCT ON (x.bbl, y.bbl)
 		x.bbl AS ref_bbl,
-		x.documentid,
+		x.documentid AS doc_id,
 		x.doc_date,
 		y.bbl AS bbl,
 		y.unitsres
