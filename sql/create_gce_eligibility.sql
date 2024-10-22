@@ -1,47 +1,138 @@
-CREATE TABLE gce_eligibility AS (
-  WITH all_cofos AS (
-    SELECT
-      bbl,
-      bin,
-      coissuedate AS issue_date,
-      jobtype AS job_type
-    FROM dob_certificate_occupancy
-    UNION
-    SELECT
-      bbl,
-      bin,
-      issuedate AS issue_date,
-      jobtype AS job_type
-    FROM dob_foil_certificate_occupancy
-  ),
-  latest_cofos AS (
-      SELECT DISTINCT ON (bbl)
-          bbl,
-          bin AS co_bin,
-          issue_date AS co_issued,
-          job_type AS co_type
-      FROM all_cofos
-      WHERE job_type IN ('NB', 'A1') AND issue_date IS NOT NULL
-      ORDER BY bbl, issue_date desc
-  ),
-  portolfio_bbls as (
-    SELECT 
-      unnest(bbls) AS bbl, 
-      row_number() OVER (ORDER BY bbls) AS portfolio_id
-    FROM wow_portfolios
-  ),
 
-  portfolio_size AS (
-    SELECT
-      portfolio_id,
-      sum(unitsres)::numeric AS wow_portfolio_units,
-      count(*)::numeric AS wow_portfolio_bbls
-    FROM portolfio_bbls
-    LEFT JOIN pluto_latest USING(bbl)
-    GROUP BY portfolio_id
-  ),
+-- For each BBL, find all the other properties it ever appears with on a
+-- multi-property mortgage/agreement since the last time there was a deed
+-- recorded for the property. For each linked property keep the BBL, ACRIS
+-- document id, document date, and number of residential units for custom links
+-- and context on the results page.
 
-  nycha_bbls AS (
+CREATE TEMPORARY TABLE x_latest_deeds AS (
+	SELECT DISTINCT ON (bbl)
+		l.bbl,
+		coalesce(m.docdate, m.recordedfiled) AS last_sale_date
+	FROM real_property_master AS m
+	LEFT JOIN real_property_legals AS l USING(documentid)
+	WHERE docamount > 1 AND doctype = any('{DEED,DEEDO}')
+	ORDER BY bbl, coalesce(m.docdate, m.recordedfiled) DESC
+);
+
+CREATE INDEX ON x_latest_deeds (bbl);
+
+CREATE TEMPORARY TABLE x_docs_all AS (
+	SELECT DISTINCT
+		l.bbl,
+		m.documentid,
+		coalesce(m.docdate, m.recordedfiled) as doc_date,
+		p.unitsres
+	FROM real_property_master AS m
+	LEFT JOIN real_property_legals AS l USING(documentid)
+	LEFT JOIN x_latest_deeds AS d USING(bbl)
+	LEFT JOIN pluto_latest AS p USING(bbl)
+	WHERE doctype = any('{AGMT,MTGE}') 
+		AND coalesce(m.docdate, m.recordedfiled) >= d.last_sale_date
+		AND p.unitsres > 0
+);
+
+CREATE INDEX ON x_docs_all (documentid);
+
+
+CREATE TEMPORARY TABLE x_multi_bbl_docs AS (
+	SELECT documentid
+	FROM x_docs_all 
+	GROUP BY documentid
+	HAVING count(*) > 1
+);
+
+CREATE INDEX ON x_multi_bbl_docs (documentid);
+
+
+CREATE TEMPORARY TABLE x_linked_bbls AS (
+	SELECT DISTINCT ON (x.bbl, y.bbl)
+		x.bbl AS ref_bbl,
+		x.documentid,
+		x.doc_date,
+		y.bbl AS bbl,
+		y.unitsres
+	FROM x_docs_all AS x
+	INNER JOIN x_multi_bbl_docs USING(documentid)
+	LEFT JOIN x_docs_all AS y USING (documentid)
+	WHERE x.bbl != y.bbl
+	ORDER BY x.bbl, y.bbl, x.doc_date DESC
+);
+
+CREATE INDEX ON x_linked_bbls (bbl);
+
+CREATE TEMPORARY TABLE x_acris_linked_bbls AS (
+  SELECT
+    ref_bbl AS bbl,
+    array_to_json(array_agg(row_to_json(x)::jsonb-'ref_bbl')) AS acris_data
+  FROM x_linked_bbls AS x
+  GROUP BY ref_bbl
+);
+
+CREATE INDEX ON x_acris_linked_bbls (bbl);
+
+
+-- For each BBL, get the date of most recent certificate of occupancy, if there
+-- is one. Keep the BIN, date, and type for extra context and custom links.
+CREATE TEMPORARY TABLE x_all_cofos AS (
+  SELECT
+    bbl,
+    bin,
+    coissuedate AS issue_date,
+    jobtype AS job_type
+  FROM dob_certificate_occupancy
+  UNION
+  SELECT
+    bbl,
+    bin,
+    issuedate AS issue_date,
+    jobtype AS job_type
+  FROM dob_foil_certificate_occupancy
+);
+
+CREATE INDEX ON x_all_cofos (bbl, issue_date);
+
+CREATE TEMPORARY TABLE x_latest_cofos AS (
+  SELECT DISTINCT ON (bbl)
+    bbl,
+    bin AS co_bin,
+    issue_date AS co_issued,
+    job_type AS co_type
+  FROM x_all_cofos
+  WHERE job_type IN ('NB', 'A1') AND issue_date IS NOT NULL
+  ORDER BY bbl, issue_date desc
+);
+
+
+-- For each BBL, get the number of additional properties and residential units
+-- there are in its WOW portfolio.
+CREATE TEMPORARY TABLE x_portolfio_bbls as (
+  SELECT 
+    unnest(bbls) AS bbl, 
+    row_number() OVER (ORDER BY bbls) AS portfolio_id
+  FROM wow_portfolios
+);
+
+CREATE INDEX ON x_portolfio_bbls (bbl);
+CREATE INDEX ON x_portolfio_bbls (portfolio_id);
+
+CREATE TEMPORARY TABLE x_portfolio_size AS (
+  SELECT
+    portfolio_id,
+    sum(unitsres)::numeric AS wow_portfolio_units,
+    count(*)::numeric AS wow_portfolio_bbls
+  FROM x_portolfio_bbls
+  LEFT JOIN pluto_latest USING(bbl)
+  GROUP BY portfolio_id
+);
+
+CREATE INDEX ON x_portfolio_size (portfolio_id);
+
+
+-- For each BBL, all variables used for data-driven survey questions and helper
+-- text and eligibility results.
+CREATE TABLE gce_screener AS (
+  WITH nycha_bbls AS (
     SELECT DISTINCT bbl
     FROM nycha_bbls_24
   ),
@@ -107,16 +198,19 @@ CREATE TABLE gce_eligibility AS (
       END AS subsidy_name,
 
       wp.wow_portfolio_units,
-      wp.wow_portfolio_bbls
+      wp.wow_portfolio_bbls,
+
+      a.acris_data
 
   FROM pluto_latest AS p
   LEFT JOIN rentstab_v2 AS r ON p.bbl = r.ucbbl
   LEFT JOIN nycha_bbls AS nycha USING(bbl)
   LEFT JOIN article_xi_bbls AS article_xi USING(bbl)
   LEFT JOIN subsidized AS shd USING(bbl)
-  LEFT JOIN latest_cofos AS co USING(bbl)
-  LEFT JOIN portolfio_bbls as wb USING(bbl)
-  LEFT JOIN portfolio_size AS wp USING(portfolio_id)
+  LEFT JOIN x_latest_cofos AS co USING(bbl)
+  LEFT JOIN x_portolfio_bbls as wb USING(bbl)
+  LEFT JOIN x_portfolio_size AS wp USING(portfolio_id)
+  LEFT JOIN x_acris_linked_bbls AS a USING(bbl)
 );
 
-CREATE INDEX ON gce_eligibility (bbl);
+CREATE INDEX ON gce_screener (bbl);

@@ -4,7 +4,6 @@ SELECT
     wow_portfolio_units,
     wow_portfolio_bbls,
     bldgclass,
-    bldgclass_desc,
     yearbuilt,
     latest_co,
     co_bin,
@@ -13,6 +12,7 @@ SELECT
     is_subsidized,
     subsidy_name,
     end_421a,
-    end_j51
+    end_j51,
+    acris_data
 FROM gce_screener
 WHERE bbl = %(bbl)s
