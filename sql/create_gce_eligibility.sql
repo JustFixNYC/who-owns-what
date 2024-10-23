@@ -104,7 +104,7 @@ CREATE TEMPORARY TABLE x_matched_bbls AS (
 		x.bbl AS ref_bbl,
 		y.bbl,
 		x.unitsres,
-		ST_Distance(x.geom, y.geom) AS distance_m,
+		ST_Distance(x.geom, y.geom) AS distance_ft,
 		(x.name = y.name) AS match_name,
 		(x.bizaddr = y.bizaddr) AS match_bizaddr_unit,
 		(x.bizhousestreet = y.bizhousestreet AND x.bizzip = y.bizzip) AS match_bizaddr_nounit
