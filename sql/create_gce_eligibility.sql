@@ -72,6 +72,61 @@ CREATE TEMPORARY TABLE x_acris_linked_bbls AS (
 CREATE INDEX ON x_acris_linked_bbls (bbl);
 
 
+-- For each BBL, we look at all the other properties within its WOW portfolio
+-- and add additional information to help prioritize the most likely to have
+-- common ownership. This includes the geographic distance, and whether the
+-- primary HPD registration contact matches exactly by name and business address
+-- (full and without unit number). 
+
+CREATE TEMPORARY TABLE x_portfolio_bbls AS (
+	WITH wow_bbls AS (
+		SELECT 
+			unnest(bbls) AS bbl, 
+			row_number() OVER (ORDER BY bbls) AS portfolio_id
+		FROM wow_portfolios
+	)
+	SELECT
+		w.bbl, 
+		w.portfolio_id,
+		l.name,
+		l.bizaddr,
+		l.bizhousestreet, 
+		l.bizzip,
+		p.unitsres,
+		ST_Transform(ST_SetSRID(ST_MakePoint(p.longitude, p.latitude), 4326), 2263) AS geom
+	FROM wow_bbls w
+	LEFT JOIN pluto_latest AS p USING(bbl)
+	LEFT JOIN wow_landlords AS l USING(bbl)
+);
+
+CREATE TEMPORARY TABLE x_matched_bbls AS (
+	SELECT
+		x.bbl AS ref_bbl,
+		y.bbl,
+		x.unitsres,
+		ST_Distance(x.geom, y.geom) AS distance_m,
+		(x.name = y.name) AS match_name,
+		(x.bizaddr = y.bizaddr) AS match_bizaddr_unit,
+		(x.bizhousestreet = y.bizhousestreet AND x.bizzip = y.bizzip) AS match_bizaddr_nounit
+	FROM x_portfolio_bbls AS x
+	LEFT JOIN x_portfolio_bbls AS y USING(portfolio_id)
+	WHERE x.bbl != y.bbl
+		AND (
+			x.name = y.name 
+			OR (x.bizhousestreet = y.bizhousestreet AND x.bizzip = y.bizzip)
+		)
+);
+
+CREATE INDEX ON x_matched_bbls (ref_bbl);
+
+CREATE TEMPORARY TABLE x_wow_portolio_bldgs AS (
+	SELECT 
+		ref_bbl AS bbl,
+	    array_to_json(array_agg(row_to_json(x)::jsonb-'ref_bbl')) AS wow_data
+	FROM x_matched_bbls AS x
+	GROUP BY ref_bbl
+);
+
 -- For each BBL, get the date of most recent certificate of occupancy, if there
 -- is one. Keep the BIN, date, and type for extra context and custom links.
 CREATE TEMPORARY TABLE x_all_cofos AS (
@@ -203,7 +258,9 @@ CREATE TABLE gce_screener AS (
       wp.wow_portfolio_units,
       wp.wow_portfolio_bbls,
 
-      a.acris_data
+      a.acris_data,
+
+      wd.wow_data
 
   FROM pluto_latest AS p
   LEFT JOIN rentstab_v2 AS r ON p.bbl = r.ucbbl
@@ -213,6 +270,7 @@ CREATE TABLE gce_screener AS (
   LEFT JOIN x_latest_cofos AS co USING(bbl)
   LEFT JOIN x_portolfio_bbls as wb USING(bbl)
   LEFT JOIN x_portfolio_size AS wp USING(portfolio_id)
+  LEFT JOIN x_wow_portolio_bldgs AS wd USING(bbl)
   LEFT JOIN x_acris_linked_bbls AS a USING(bbl)
 );
 
