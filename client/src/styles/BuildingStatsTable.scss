@@ -14,6 +14,7 @@
       background: #e0e5e9;
       padding: 8px 12px;
       text-align: left;
+      font-weight: normal;
 
       button {
         display: flex;
@@ -36,7 +37,9 @@
     }
 
     .info-icon {
-      color: $justfix-grey-700;
+      color: $justfix-grey-600;
+      height: 1rem;
+      width: 1rem;
     }
   }
   .table-row {
