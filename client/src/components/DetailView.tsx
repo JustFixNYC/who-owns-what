@@ -40,7 +40,7 @@ type State = {
 
 const NUM_COMPLAINT_TYPES_TO_SHOW = 3;
 
-// const getTodaysDate = () => new Date();
+const getTodaysDate = () => new Date();
 
 const SocialShareDetailView = () => (
   <SocialShareAddressPage
@@ -214,17 +214,14 @@ class DetailViewWithoutI18n extends Component<Props, State> {
     const { portfolioData } = state.context;
     const { assocAddrs, detailAddr, searchAddr } = portfolioData;
 
-    const { bbl, hpdbuildingid, hpdbuildings } = detailAddr;
-    const { boro, block, lot } = Helpers.splitBBL(bbl);
-
     // Let's save some variables that will be helpful in rendering the front-end component
-    let streetViewCoords, streetViewAddr, ownernames, userOwnernames; //formattedRegEndDate
+    let formattedRegEndDate, streetViewCoords, streetViewAddr, ownernames, userOwnernames;
 
-    // formattedRegEndDate = Helpers.formatDate(
-    //   detailAddr.registrationenddate,
-    //   longDateOptions,
-    //   locale
-    // );
+    formattedRegEndDate = Helpers.formatDate(
+      detailAddr.registrationenddate,
+      longDateOptions,
+      locale
+    );
 
     streetViewCoords =
       detailAddr.lat && detailAddr.lng
@@ -338,27 +335,6 @@ class DetailViewWithoutI18n extends Component<Props, State> {
                       <div className="card-body-registration">
                         <p>
                           <b>
-                            <Trans>Note:</Trans>
-                          </b>{" "}
-                          <span className="text-danger">
-                            <Trans>
-                              Public data on registrations has not been updated by HPD since June 1,
-                              2024. We're working with HPD to resolve the issue. See{" "}
-                              <a
-                                href={
-                                  !!hpdbuildingid && hpdbuildings === 1
-                                    ? `https://hpdonline.nyc.gov/hpdonline/building/${hpdbuildingid}/overview`
-                                    : `https://hpdonline.nyc.gov/hpdonline/building/search-results?boroId=${boro}&block=${block}&lot=${lot}`
-                                }
-                                target="_blank"
-                                rel="noopener noreferrer"
-                              >
-                                <Trans>HPD Online</Trans>
-                              </a>{" "}
-                              for latest information.
-                            </Trans>
-                          </span>
-                          {/* <b>
                             <Trans>Last registered:</Trans>
                           </b>{" "}
                           {Helpers.formatDate(
@@ -376,7 +352,7 @@ class DetailViewWithoutI18n extends Component<Props, State> {
                               {" "}
                               <Trans>(expires {formattedRegEndDate})</Trans>
                             </span>
-                          )} */}
+                          )}
                         </p>
                         {detailAddr.lastsaledate && detailAddr.lastsaleamount && (
                           <p>
