@@ -2309,7 +2309,7 @@ msgstr "View portfolio"
 msgid "View portfolio map"
 msgstr "View portfolio map"
 
-#: src/components/BuildingStatsTable.tsx:187
+#: src/components/BuildingStatsTable.tsx:189
 msgid "View trends over time"
 msgstr "View trends over time"
 

@@ -2314,7 +2314,7 @@ msgstr "Ver portafolio de edificios"
 msgid "View portfolio map"
 msgstr "Ver mapa de la cartera de edificios"
 
-#: src/components/BuildingStatsTable.tsx:187
+#: src/components/BuildingStatsTable.tsx:189
 msgid "View trends over time"
 msgstr ""
 
