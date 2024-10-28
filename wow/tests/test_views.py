@@ -223,19 +223,26 @@ class TestAlertsMultiIndicator(ApiTest):
     ]
 
     def test_it_works(self, db, client):
-        url_bbl_base = "/api/email_alerts_multi?bbl=3012380016"
+        url_base = "/api/email_alerts_multi?"
+        url_good_bbl = f"{url_base}bbl=3012380016"
+        # bbl not found in wow_bldgs
+        url_bad_bbl = f"{url_base}bbl=3111111111"
+        url_bad_bbl = "/api/email_alerts_multi?bbl=3012380016"
         start_date = "start_date=2024-01-01"
         end_date = "end_date=2024-01-07"
         urls = [
-            f"{url_bbl_base}&indicators=lagged_eviction_filings&prev_date=2024-01-07 \
+            f"{url_good_bbl}&indicators=lagged_eviction_filings&prev_date=2024-01-07 \
                 &oldest_filed_date=2023-09-01",
-            f"{url_bbl_base}&indicators=violations&{start_date}&{end_date}",
-            f"{url_bbl_base}&indicators=complaints&{start_date}&{end_date}",
-            f"{url_bbl_base}&indicators=eviction_filings&{start_date}&{end_date}",
-            f"{url_bbl_base}&indicators=hpd_link",
-            f"{url_bbl_base}&indicators=violations,complaints,eviction_filings \
+            f"{url_good_bbl}&indicators=violations&{start_date}&{end_date}",
+            f"{url_good_bbl}&indicators=complaints&{start_date}&{end_date}",
+            f"{url_good_bbl}&indicators=eviction_filings&{start_date}&{end_date}",
+            f"{url_good_bbl}&indicators=hpd_link",
+            f"{url_good_bbl}&indicators=violations,complaints,eviction_filings \
                 &{start_date}&{end_date}",
-            f"{url_bbl_base}&indicators= \
+            f"{url_good_bbl}&indicators= \
+                violations,complaints,eviction_filings,lagged_eviction_filings,hpd_link \
+                &{start_date}&{end_date}&prev_date=2024-01-01&oldest_filed_date=2023-09-01",
+            f"{url_bad_bbl}&indicators= \
                 violations,complaints,eviction_filings,lagged_eviction_filings,hpd_link \
                 &{start_date}&{end_date}&prev_date=2024-01-01&oldest_filed_date=2023-09-01",
         ]
