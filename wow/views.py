@@ -213,7 +213,6 @@ def alerts_violations(request):
         SQL_DIR / "alerts_violations.sql",
         query_params,
     )
-    result[0].update(query_params)
     return JsonResponse({"result": list(result)})
 
 
@@ -234,7 +233,6 @@ def email_alerts_lagged_eviction_filings(request):
     }
     query_sql = SQL_DIR / "alerts_lagged_eviction_filings.sql"
     result = exec_db_query(query_sql, query_params)
-    result[0].update(query_params)
     return JsonResponse({"result": list(result)})
 
 
@@ -250,9 +248,12 @@ ALERTS_QUERIES = {
 def combine_alert_subqueries(indicators):
     cte_subqueries = [f"{i} as ( {ALERTS_QUERIES[i].read_text()} )" for i in indicators]
     return f"""
-    with {",".join(cte_subqueries)}
+    with req_bbl as (
+        select %(bbl)s::text as bbl
+    ), {",".join(cte_subqueries)}
     select *
-    from {','.join(indicators)}
+    from req_bbl
+    left join {' using(bbl) left join '.join(indicators)} using(bbl)
     """
 
 
@@ -274,7 +275,6 @@ def email_alerts(request):
         "oldest_filed_date": args["oldest_filed_date"],
     }
     result = exec_db_query(sql_file, query_params)
-    result[0].update(query_params)
     return JsonResponse({"result": list(result)})
 
 
@@ -297,7 +297,6 @@ def email_alerts_multi(request):
     }
     sql_query = combine_alert_subqueries(args["indicators"])
     result = exec_sql(sql_query, query_params)
-    result[0].update(query_params)
     return JsonResponse({"result": list(result)})
 
 
