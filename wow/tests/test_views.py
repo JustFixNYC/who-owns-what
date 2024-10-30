@@ -140,123 +140,48 @@ class TestAddressLatestDeed(ApiTest):
         assert res.json()["result"] is not None
 
 
-class TestAlertsViolations(ApiTest):
+class TestEmailAlertsBuilding(ApiTest):
+    url_base = "/api/alerts/building"
+    bbl_good = "bbl=3012380016"
+    bbl_bad = "bbl=3111111111"
+    start_date = "start_date=2024-04-01"
+    end_date = "end_date=2024-04-07"
+    prev_date = "prev_date=2024-04-01"
+    oldest_filed_date = "oldest_filed_date=2024-01-01"
+
     HTTP_400_URLS = [
-        "/api/alerts/violations",
-        "/api/alerts/violations?bbl=bop",
-        "/api/alerts/violations?bbl=3012380016&start_date=2024-01-01",
-        "/api/alerts/violations?bbl=3012380016&start_date=2024-01-01&end_date=01-07-2024",
+        url_base,
+        f"{url_base}?bbl=bop",
+        f"{url_base}?{bbl_good}",
+        f"{url_base}?{bbl_good}&{start_date}&{end_date}",
+        f"{url_base}?{bbl_good}&{start_date}&{end_date}&{prev_date}",
+        f"{url_base}?{bbl_good}&{start_date}&{end_date}&{oldest_filed_date}",
     ]
 
+    url_good = (
+        f"{url_base}?{bbl_good}&{start_date}&{end_date}&{prev_date}&{oldest_filed_date}"
+    )
+    url_bad = (
+        f"{url_base}?{bbl_bad}&{start_date}&{end_date}&{prev_date}&{oldest_filed_date}"
+    )
+
     def test_it_works(self, db, client):
-        res = client.get(
-            "/api/alerts/violations?bbl=3012380016&start_date=2024-01-01&end_date=2024-01-07"
-        )
+        print(self.url_good)
+        res = client.get(self.url_good, **ALERTS_AUTH_ARG)
         assert res.status_code == 200
         assert res.json()["result"] is not None
+        assert res.json()["result"]["bbl"] == "3012380016"
+        assert res.json()["result"]["violations"] is not None
 
-
-class TestAlertsOcaLaggedFilings(ApiTest):
-    HTTP_400_URLS = [
-        "/api/email_oca_lag",
-        "/api/email_oca_lag?bbl=bop",
-        "/api/email_oca_lag?bbl=3012380016",
-        "/api/email_oca_lag?bbl=3012380016&prev_date=01-07-2024",
-    ]
-
-    def test_it_works(self, db, client):
-        res = client.get(
-            "/api/email_oca_lag?bbl=3012380016&prev_date=2024-01-07&oldest_filed_date=2023-09-01",
-            **ALERTS_AUTH_ARG,
-        )
+        res = client.get(self.url_bad, **ALERTS_AUTH_ARG)
         assert res.status_code == 200
         assert res.json()["result"] is not None
+        assert res.json()["result"]["bbl"] == "3111111111"
+        # even if bbl not found in any datasets, should still get row with non-nulls
+        assert res.json()["result"]["violations"] is not None
 
     def test_auth_works(self, db, client):
-        res = client.get(
-            "/api/email_oca_lag?bbl=3012380016&prev_date=2024-01-07&oldest_filed_date=2023-09-01"
-        )
-        assert res.status_code == 401
-
-
-class TestAlertsSingleIndicator(ApiTest):
-    HTTP_400_URLS = [
-        "/api/email_alerts",
-        "/api/email_alerts?bbl=bop",
-        "/api/email_alerts?bbl=3012380016&indicator=lagged_eviction_filings",
-        "/api/email_alerts?bbl=3012380016&indicator=violations&start_date=2024-01-01",
-        "/api/email_alerts?bbl=3012380016&indicator=complaints&end_date=2024-01-01",
-        "/api/email_alerts?bbl=3012380016&indicator=eviction_filings&end_date=2024-01-01",
-    ]
-
-    def test_it_works(self, db, client):
-        url_bbl_base = "/api/email_alerts?bbl=3012380016"
-        urls = [
-            f"{url_bbl_base}&indicator=lagged_eviction_filings&prev_date=2024-01-07 \
-                &oldest_filed_date=2023-09-01",
-            f"{url_bbl_base}&indicator=violations&start_date=2024-01-01&end_date=2024-01-07",
-            f"{url_bbl_base}&indicator=complaints&start_date=2024-01-01&end_date=2024-01-07",
-            f"{url_bbl_base}&indicator=eviction_filings&start_date=2024-01-01&end_date=2024-01-07",
-        ]
-        for url in urls:
-            res = client.get(url, **ALERTS_AUTH_ARG)
-            assert res.status_code == 200
-            assert res.json()["result"] is not None
-
-    def test_auth_works(self, db, client):
-        res = client.get(
-            "/api/email_alerts?bbl=3012380016&indicator=lagged_eviction_filings \
-                &prev_date=2024-01-07&oldest_filed_date=2023-09-01"
-        )
-        assert res.status_code == 401
-
-
-class TestAlertsMultiIndicator(ApiTest):
-    HTTP_400_URLS = [
-        "/api/email_alerts_multi",
-        "/api/email_alerts_multi?bbl=bop",
-        "/api/email_alerts_multi?bbl=3012380016&indicators=bop",
-        "/api/email_alerts_multi?bbl=3012380016&indicators=violations,lagged_eviction_filings \
-            &start_date=2024-01-01&end_date=2024-01-01",
-        "/api/email_alerts_multi?bbl=3012380016&indicators=violations,complaints \
-            &prev_date=2024-01-01",
-    ]
-
-    def test_it_works(self, db, client):
-        url_base = "/api/email_alerts_multi?"
-        url_good_bbl = f"{url_base}bbl=3012380016"
-        # bbl not found in wow_bldgs
-        url_bad_bbl = f"{url_base}bbl=3111111111"
-        url_bad_bbl = "/api/email_alerts_multi?bbl=3012380016"
-        start_date = "start_date=2024-01-01"
-        end_date = "end_date=2024-01-07"
-        urls = [
-            f"{url_good_bbl}&indicators=lagged_eviction_filings&prev_date=2024-01-07 \
-                &oldest_filed_date=2023-09-01",
-            f"{url_good_bbl}&indicators=violations&{start_date}&{end_date}",
-            f"{url_good_bbl}&indicators=complaints&{start_date}&{end_date}",
-            f"{url_good_bbl}&indicators=eviction_filings&{start_date}&{end_date}",
-            f"{url_good_bbl}&indicators=hpd_link",
-            f"{url_good_bbl}&indicators=violations,complaints,eviction_filings \
-                &{start_date}&{end_date}",
-            f"{url_good_bbl}&indicators= \
-                violations,complaints,eviction_filings,lagged_eviction_filings,hpd_link \
-                &{start_date}&{end_date}&prev_date=2024-01-01&oldest_filed_date=2023-09-01",
-            f"{url_bad_bbl}&indicators= \
-                violations,complaints,eviction_filings,lagged_eviction_filings,hpd_link \
-                &{start_date}&{end_date}&prev_date=2024-01-01&oldest_filed_date=2023-09-01",
-        ]
-        for url in urls:
-            res = client.get(url, **ALERTS_AUTH_ARG)
-            print(res.json())
-            assert res.status_code == 200
-            assert res.json()["result"] is not None
-
-    def test_auth_works(self, db, client):
-        res = client.get(
-            "/api/email_alerts_multi?bbl=3012380016&indicator=lagged_eviction_filings \
-                &prev_date=2024-01-07&oldest_filed_date=2023-09-01"
-        )
+        res = client.get(self.url_good)
         assert res.status_code == 401
 
 
