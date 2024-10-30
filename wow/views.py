@@ -4,7 +4,7 @@ from pathlib import Path
 from typing import Any, Dict
 from django.http import HttpResponse, JsonResponse
 
-from .dbutil import call_db_func, exec_db_query, exec_sql
+from .dbutil import call_db_func, exec_db_query
 from .datautil import int_or_none, float_or_none
 from . import csvutil, apiutil
 from .apiutil import (
