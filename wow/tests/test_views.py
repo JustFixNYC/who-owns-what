@@ -170,15 +170,15 @@ class TestEmailAlertsBuilding(ApiTest):
         res = client.get(self.url_good, **ALERTS_AUTH_ARG)
         assert res.status_code == 200
         assert res.json()["result"] is not None
-        assert res.json()["result"]["bbl"] == "3012380016"
-        assert res.json()["result"]["violations"] is not None
+        assert res.json()["result"][0]["bbl"] == "3012380016"
+        assert res.json()["result"][0]["violations"] is not None
 
         res = client.get(self.url_bad, **ALERTS_AUTH_ARG)
         assert res.status_code == 200
         assert res.json()["result"] is not None
-        assert res.json()["result"]["bbl"] == "3111111111"
+        assert res.json()["result"][0]["bbl"] == "3111111111"
         # even if bbl not found in any datasets, should still get row with non-nulls
-        assert res.json()["result"]["violations"] is not None
+        assert res.json()["result"][0]["violations"] is not None
 
     def test_auth_works(self, db, client):
         res = client.get(self.url_good)
