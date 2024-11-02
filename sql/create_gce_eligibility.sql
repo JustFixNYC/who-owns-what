@@ -27,8 +27,11 @@ CREATE TEMPORARY TABLE x_docs_all AS (
 	LEFT JOIN real_property_legals AS l USING(documentid)
 	LEFT JOIN x_latest_deeds AS d USING(bbl)
 	LEFT JOIN pluto_latest AS p USING(bbl)
-	WHERE doctype = any('{AGMT,MTGE}') 
-		AND coalesce(m.docdate, m.recordedfiled) >= d.last_sale_date
+	WHERE doctype = any('{AGMT,MTGE,AL&R}') 
+		AND (
+			d.last_sale_date IS NULL
+			OR coalesce(m.docdate, m.recordedfiled) > d.last_sale_date
+		)
 		AND p.unitsres > 0
 );
 
