@@ -13,6 +13,7 @@ SELECT
     subsidy_name,
     end_421a,
     end_j51,
+    acris_docs,
     acris_data,
     wow_data
 FROM gce_screener

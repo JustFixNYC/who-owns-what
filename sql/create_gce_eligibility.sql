@@ -1,3 +1,5 @@
+-- ACRIS_DATA
+-- --------
 
 -- For each BBL, find all the other properties it ever appears with on a
 -- multi-property mortgage/agreement since the last time there was a deed
@@ -17,11 +19,15 @@ CREATE TEMPORARY TABLE x_latest_deeds AS (
 
 CREATE INDEX ON x_latest_deeds (bbl);
 
-CREATE TEMPORARY TABLE x_docs_all AS (
+CREATE TEMPORARY TABLE x_docs_since_latest_deed AS (
 	SELECT DISTINCT
 		l.bbl,
 		m.documentid,
-		coalesce(m.docdate, m.recordedfiled) as doc_date,
+		coalesce(m.docdate, m.recordedfiled) AS doc_date,
+		row_number() OVER (
+			PARTITION BY bbl 
+			ORDER BY coalesce(m.docdate, m.recordedfiled) DESC
+		) AS doc_order,
 		p.unitsres
 	FROM real_property_master AS m
 	LEFT JOIN real_property_legals AS l USING(documentid)
@@ -33,14 +39,28 @@ CREATE TEMPORARY TABLE x_docs_all AS (
 			OR coalesce(m.docdate, m.recordedfiled) > d.last_sale_date
 		)
 		AND p.unitsres > 0
+  ORDER BY bbl, doc_order
 );
 
-CREATE INDEX ON x_docs_all (documentid);
+CREATE INDEX ON x_docs_since_latest_deed (bbl);
+CREATE INDEX ON x_docs_since_latest_deed (documentid);
+CREATE INDEX ON x_docs_since_latest_deed (doc_order);
+
+CREATE TEMPORARY TABLE x_bbl_acris_docs AS (
+  SELECT 
+    bbl,
+    array_agg(documentid) AS acris_docs
+  FROM x_docs_since_latest_deed
+  WHERE doc_order <= 5
+  GROUP BY bbl
+);
+
+CREATE INDEX ON x_bbl_acris_docs (bbl);
 
 
 CREATE TEMPORARY TABLE x_multi_bbl_docs AS (
 	SELECT documentid
-	FROM x_docs_all 
+	FROM x_docs_since_latest_deed 
 	GROUP BY documentid
 	HAVING count(*) > 1
 );
@@ -55,9 +75,9 @@ CREATE TEMPORARY TABLE x_linked_bbls AS (
 		x.doc_date,
 		y.bbl AS bbl,
 		y.unitsres
-	FROM x_docs_all AS x
+	FROM x_docs_since_latest_deed AS x
 	INNER JOIN x_multi_bbl_docs USING(documentid)
-	LEFT JOIN x_docs_all AS y USING (documentid)
+	LEFT JOIN x_docs_since_latest_deed AS y USING (documentid)
 	WHERE x.bbl != y.bbl
 	ORDER BY x.bbl, y.bbl, x.doc_date DESC
 );
@@ -74,6 +94,9 @@ CREATE TEMPORARY TABLE x_acris_linked_bbls AS (
 
 CREATE INDEX ON x_acris_linked_bbls (bbl);
 
+
+-- WOW_DATA
+-- --------
 
 -- For each BBL, we look at all the other properties within its WOW portfolio
 -- and add additional information to help prioritize the most likely to have
@@ -106,12 +129,14 @@ CREATE TEMPORARY TABLE x_matched_bbls AS (
 	SELECT
 		x.bbl AS ref_bbl,
 		y.bbl,
-		x.unitsres,
+		y.unitsres,
+    a.acris_docs,
 		ST_Distance(x.geom, y.geom) AS distance_ft,
 		(x.name = y.name) AS match_name,
 		(x.bizaddr = y.bizaddr) AS match_bizaddr_unit,
 		(x.bizhousestreet = y.bizhousestreet AND x.bizzip = y.bizzip) AS match_bizaddr_nounit
 	FROM x_portfolio_bbls AS x
+	LEFT JOIN x_bbl_acris_docs AS a USING(bbl)
 	LEFT JOIN x_portfolio_bbls AS y USING(portfolio_id)
 	WHERE x.bbl != y.bbl
 		AND (
@@ -125,7 +150,7 @@ CREATE INDEX ON x_matched_bbls (ref_bbl);
 CREATE TEMPORARY TABLE x_wow_portolio_bldgs AS (
 	SELECT 
 		ref_bbl AS bbl,
-	    array_to_json(array_agg(row_to_json(x)::jsonb-'ref_bbl')) AS wow_data
+	  array_to_json(array_agg(row_to_json(x)::jsonb-'ref_bbl')) AS wow_data
 	FROM x_matched_bbls AS x
 	GROUP BY ref_bbl
 );
@@ -261,7 +286,9 @@ CREATE TABLE gce_screener AS (
       wp.wow_portfolio_units,
       wp.wow_portfolio_bbls,
 
-      a.acris_data,
+      ad.acris_docs,
+
+      al.acris_data,
 
       wd.wow_data
 
@@ -274,7 +301,8 @@ CREATE TABLE gce_screener AS (
   LEFT JOIN x_portolfio_bbls as wb USING(bbl)
   LEFT JOIN x_portfolio_size AS wp USING(portfolio_id)
   LEFT JOIN x_wow_portolio_bldgs AS wd USING(bbl)
-  LEFT JOIN x_acris_linked_bbls AS a USING(bbl)
+  LEFT JOIN x_acris_linked_bbls AS al USING(bbl)
+  LEFT JOIN x_bbl_acris_docs AS ad USING(bbl)
 );
 
 CREATE INDEX ON gce_screener (bbl);
