@@ -23,6 +23,7 @@ CREATE TEMPORARY TABLE x_docs_since_latest_deed AS (
 	SELECT DISTINCT
 		l.bbl,
 		m.documentid,
+    m.doctype,
 		coalesce(m.docdate, m.recordedfiled) AS doc_date,
 		row_number() OVER (
 			PARTITION BY bbl 
@@ -49,7 +50,7 @@ CREATE INDEX ON x_docs_since_latest_deed (doc_order);
 CREATE TEMPORARY TABLE x_bbl_acris_docs AS (
   SELECT 
     bbl,
-    array_agg(documentid) AS acris_docs
+    array_to_json(array_agg(json_build_object('doc_id', documentid, 'doc_type', doctype))) AS acris_docs
   FROM x_docs_since_latest_deed
   WHERE doc_order <= 5
   GROUP BY bbl
@@ -114,6 +115,7 @@ CREATE TEMPORARY TABLE x_portfolio_bbls AS (
 	SELECT
 		w.bbl, 
 		w.portfolio_id,
+    (b.housenumber || ' ' || initcap(b.streetname) || ', ' || initcap(b.boro) || ', ' || b.zip) as addr,
 		l.name,
 		l.bizaddr,
 		l.bizhousestreet, 
@@ -121,6 +123,7 @@ CREATE TEMPORARY TABLE x_portfolio_bbls AS (
 		p.unitsres,
 		ST_Transform(ST_SetSRID(ST_MakePoint(p.longitude, p.latitude), 4326), 2263) AS geom
 	FROM wow_bbls w
+	LEFT JOIN wow_bldgs AS b USING(bbl)
 	LEFT JOIN pluto_latest AS p USING(bbl)
 	LEFT JOIN wow_landlords AS l USING(bbl)
 );
@@ -129,6 +132,7 @@ CREATE TEMPORARY TABLE x_matched_bbls AS (
 	SELECT
 		x.bbl AS ref_bbl,
 		y.bbl,
+    y.addr,
 		y.unitsres,
     a.acris_docs,
 		ST_Distance(x.geom, y.geom) AS distance_ft,
@@ -136,8 +140,8 @@ CREATE TEMPORARY TABLE x_matched_bbls AS (
 		(x.bizaddr = y.bizaddr) AS match_bizaddr_unit,
 		(x.bizhousestreet = y.bizhousestreet AND x.bizzip = y.bizzip) AS match_bizaddr_nounit
 	FROM x_portfolio_bbls AS x
-	LEFT JOIN x_bbl_acris_docs AS a USING(bbl)
 	LEFT JOIN x_portfolio_bbls AS y USING(portfolio_id)
+	LEFT JOIN x_bbl_acris_docs AS a ON a.bbl = y.bbl
 	WHERE x.bbl != y.bbl
 		AND (
 			x.name = y.name 
@@ -189,23 +193,12 @@ CREATE TEMPORARY TABLE x_latest_cofos AS (
 
 -- For each BBL, get the number of additional properties and residential units
 -- there are in its WOW portfolio.
-CREATE TEMPORARY TABLE x_portolfio_bbls as (
-  SELECT 
-    unnest(bbls) AS bbl, 
-    row_number() OVER (ORDER BY bbls) AS portfolio_id
-  FROM wow_portfolios
-);
-
-CREATE INDEX ON x_portolfio_bbls (bbl);
-CREATE INDEX ON x_portolfio_bbls (portfolio_id);
-
 CREATE TEMPORARY TABLE x_portfolio_size AS (
   SELECT
     portfolio_id,
     sum(unitsres)::numeric AS wow_portfolio_units,
     count(*)::numeric AS wow_portfolio_bbls
-  FROM x_portolfio_bbls
-  LEFT JOIN pluto_latest USING(bbl)
+  FROM x_portfolio_bbls
   GROUP BY portfolio_id
 );
 
@@ -298,7 +291,7 @@ CREATE TABLE gce_screener AS (
   LEFT JOIN article_xi_bbls AS article_xi USING(bbl)
   LEFT JOIN subsidized AS shd USING(bbl)
   LEFT JOIN x_latest_cofos AS co USING(bbl)
-  LEFT JOIN x_portolfio_bbls as wb USING(bbl)
+  LEFT JOIN x_portfolio_bbls as wb USING(bbl)
   LEFT JOIN x_portfolio_size AS wp USING(portfolio_id)
   LEFT JOIN x_wow_portolio_bldgs AS wd USING(bbl)
   LEFT JOIN x_acris_linked_bbls AS al USING(bbl)
