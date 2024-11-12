@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: who-owns-what\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-10-28 14:57\n"
+"PO-Revision-Date: 2024-11-12 15:50\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -292,7 +292,7 @@ msgstr "Volver al inicio de sesión"
 
 #: src/components/BuildingStatsTable.tsx:30
 msgid "Boro-Block-Lot (BBL)"
-msgstr ""
+msgstr "Municipio-Bloque-Lote (BBL)"
 
 #: src/components/PortfolioTable.tsx:94
 #: src/containers/NychaPage.tsx:83
@@ -373,11 +373,11 @@ msgstr "Cancelar"
 
 #: src/components/BuildingStatsTable.tsx:165
 msgid "Change in rent stabilized units"
-msgstr ""
+msgstr "Cambio en las unidades con renta estabilizada"
 
 #: src/components/BuildingStatsTable.tsx:162
 msgid "Change in rent stabilized units"
-msgstr ""
+msgstr "Cambio en unidades con renta estabilizada"
 
 #: src/components/DetailView.tsx:29
 msgid "Check out the issues in this building"
@@ -721,7 +721,7 @@ msgstr "Casos de desalojo presentados en la Corte de Vivienda desde 2017. Estos 
 #: src/components/BuildingStatsTable.tsx:130
 #: src/components/BuildingStatsTable.tsx:131
 msgid "Eviction cases filed in Housing Court since 2017. This data comes from the Office of Court Administration via the OCA Data Collective in collaboration with the Right to Counsel Coalition."
-msgstr ""
+msgstr "Casos de desalojo presentados en la Corte de Vivienda desde 2017. Estos datos provienen de la Oficina de Administración de la Corte a través del Colectivo de Datos de la OCA en colaboración con la Coalición del Derecho a Consejo Legal."
 
 #: src/components/PropertiesSummary.tsx:113
 #: src/containers/NychaPage.tsx:91
@@ -2016,7 +2016,7 @@ msgstr "El número de unidades residenciales en todos los edificios de este comp
 #: src/components/BuildingStatsTable.tsx:76
 #: src/components/BuildingStatsTable.tsx:77
 msgid "The number of residential units in this building, according to the Dept. of Finance."
-msgstr ""
+msgstr "El número de unidades residenciales en este edificio, según el Departamento de Finanzas de la Ciudad."
 
 #: src/components/UserSettingField.tsx:53
 #~ msgid "The old password you entered is incorrect"
@@ -2045,7 +2045,7 @@ msgstr "El enlace de verificación que le enviamos ya no es válido."
 #: src/components/BuildingStatsTable.tsx:58
 #: src/components/BuildingStatsTable.tsx:59
 msgid "The year that this building was originally constructed, according to the Dept. of Finance"
-msgstr ""
+msgstr "El año en que este edificio fue construido, según el Departamento de Finanzas de la Ciudad"
 
 #: src/components/PropertiesSummary.tsx:104
 msgid "The {0, plural, one {} other {average}} age of {1, plural, one {this building} other {these buildings}} is <0>{2}</0> years old."
@@ -2135,7 +2135,7 @@ msgstr "Esto representa el número total de violaciones del HPD (tanto actuales 
 #: src/components/BuildingStatsTable.tsx:166
 #: src/components/BuildingStatsTable.tsx:167
 msgid "This tracks how rent stabilized units in the building have changed from 2007 to {0}. If the number for {1} is red, this means there has been a loss in stabilized units! These counts are estimated from the DOF Property Tax Bills."
-msgstr ""
+msgstr "El cambio en apartamentos de renta estabilizada que hay en el edificio del 2007 al {0}. Si el número para {1} está en rojo, ¡esto significa que ha habido una pérdida en las cantidad de apartamentos de renta estabilizada! Estos recuentos se calculan a partir de las facturas de impuestos del Departamento de Finanzas."
 
 #: src/components/AddressToolbar.tsx:34
 msgid "This will export <0>{0}</0> addresses associated with the landlord at <1>{userAddrStr}</1>!"
@@ -2316,7 +2316,7 @@ msgstr "Ver mapa de la cartera de edificios"
 
 #: src/components/BuildingStatsTable.tsx:189
 msgid "View trends over time"
-msgstr ""
+msgstr "Ver datos a lo largo del tiempo"
 
 #: src/components/IndicatorsDatasets.tsx:42
 #: src/components/IndicatorsDatasets.tsx:99
@@ -2731,7 +2731,7 @@ msgstr "{0, plural, one {unidad} other {unidades}}"
 #: src/components/BuildingStatsTable.tsx:34
 #: src/components/BuildingStatsTable.tsx:35
 msgid "{0}"
-msgstr ""
+msgstr "{0}"
 
 #: src/components/FeatureCalloutWidget.tsx:26
 msgid "{0} of {numberOfEntries}"
