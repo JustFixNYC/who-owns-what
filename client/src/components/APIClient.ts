@@ -36,7 +36,6 @@ function searchForAddressWithGeosearch(
         reject(new NetworkError(e.message));
       },
       onResults(results) {
-        console.log({ results, addr });
         const firstBoroResult = results.features.filter(
           (bldg) => bldg.properties.borough.toUpperCase() === q.boro.toUpperCase()
         )[0];
