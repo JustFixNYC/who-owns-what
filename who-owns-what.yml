@@ -47,6 +47,7 @@ signature_post_sql:
   - create_signature_collection_charts.sql
 good_cause_sql:
   - create_gce_screener.sql
+  - create_gce_eligibility.sql
 sql:
   # These SQL scripts must be executed in order, as
   # some of them depend on others.
