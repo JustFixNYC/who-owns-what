@@ -36,15 +36,18 @@ function searchForAddressWithGeosearch(
         reject(new NetworkError(e.message));
       },
       onResults(results) {
-        const firstResult = results.features[0];
-        if (!firstResult)
+        console.log({ results, addr });
+        const firstBoroResult = results.features.filter(
+          (bldg) => bldg.properties.borough.toUpperCase() === q.boro.toUpperCase()
+        )[0];
+        if (!firstBoroResult)
           return resolve({
             addrs: [],
             geosearch: undefined,
           });
         resolve(
           searchForBBL(
-            helpers.splitBBL(firstResult.properties.addendum.pad.bbl),
+            helpers.splitBBL(firstBoroResult.properties.addendum.pad.bbl),
             useNewPortfolioMethod
           )
         );
