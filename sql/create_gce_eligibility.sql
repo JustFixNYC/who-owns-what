@@ -1,3 +1,27 @@
+
+@@ -0,0 +1,327 @@
+--- Related properties
+
+
+-- with multi_corp_owners AS (
+-- 	select 
+-- 		ownername, 
+-- 		count(*) as bbls
+-- 	from pluto_latest
+-- 	where unitsres > 0
+-- 		and ownername ~* '\s+(LLC|L\.?P|PARTNERSHIP|PTRSHP|CO|COMPANY|CORP|CORPORATION|FUND|ASSOCIATES|ASSOC|TRUST|INC|BANK|HDFC)\.?$'
+-- 	group by ownername
+-- 	having count(*) > 1
+-- )
+-- select
+-- 	ownername,
+-- 	bbl,
+-- 	address,
+-- 	bbls
+-- from pluto_latest
+-- inner join multi_corp_owners using(ownername);
+
+
 -- ACRIS_DATA
 -- --------
 
