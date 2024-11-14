@@ -408,14 +408,14 @@ def dataset_last_updated(request):
 
 
 @api
-def gce_eligibility(request):
+def gce_screener(request):
     """
     This API endpoint receives requests with a 10-digit BBL. It responds with a
     collection of data about that property to help determine eligibility for
     Good Cause Eviction protections to use on our standalone screener tool.
     """
     bbl = get_request_bbl(request)
-    result = exec_db_query(SQL_DIR / "gce_eligibility.sql", {"bbl": bbl})
+    result = exec_db_query(SQL_DIR / "gce_screener.sql", {"bbl": bbl})
     return JsonResponse({"result": list(result)})
 
 
