@@ -363,7 +363,7 @@ def signature_landlords(request):
     """
     This API endpoint returns data for all landlords in the signature program,
     along with select aggregate indicators, to populate a table on the landlord
-    search page of the dashabord
+    search page of the dashboard
     """
     authorize_for_signature(request)
     result = exec_db_query(SQL_DIR / "signature_landlords.sql")
