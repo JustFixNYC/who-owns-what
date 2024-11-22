@@ -288,7 +288,7 @@ def signature_landlords(request):
     """
     This API endpoint returns data for all landlords in the signature program,
     along with select aggregate indicators, to populate a table on the landlord
-    search page of the dashabord
+    search page of the dashboard
     """
     authorize_for_signature(request)
     result = exec_db_query(SQL_DIR / "signature_landlords.sql")
@@ -329,6 +329,18 @@ def dataset_last_updated(request):
         )
     else:
         result = exec_db_query(SQL_DIR / "dataset_last_updated_all.sql")
+    return JsonResponse({"result": list(result)})
+
+
+@api
+def gce_screener(request):
+    """
+    This API endpoint receives requests with a 10-digit BBL. It responds with a
+    collection of data about that property to help determine eligibility for
+    Good Cause Eviction protections to use on our standalone screener tool.
+    """
+    bbl = get_request_bbl(request)
+    result = exec_db_query(SQL_DIR / "gce_screener.sql", {"bbl": bbl})
     return JsonResponse({"result": list(result)})
 
 
