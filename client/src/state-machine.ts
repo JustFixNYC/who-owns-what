@@ -120,6 +120,8 @@ export type JustfixUser = {
   type: string;
   /** All buildings the user is subscribed to (email alerts) */
   subscriptions: BuildingSubscription[];
+  /** Max number of buildings a user can be subscribed to */
+  subscriptionLimit: number;
 };
 
 export interface WowContext {

@@ -47,6 +47,7 @@ const fetchUser = async () => {
         id: authCheck["id"],
         type: authCheck["type"],
         subscriptions,
+        subscriptionLimit: authCheck["subscription_limit"],
       };
     } else {
       clearUser();
