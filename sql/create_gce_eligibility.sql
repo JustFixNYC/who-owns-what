@@ -149,7 +149,7 @@ CREATE TABLE gce_eligibility AS (
 
             p.bldgclass,
 
-            (   p.bldgclass !~* '^[RIMHW]|C8|CC|D0|DC|D4' -- No Condo (R), Co-Op (C8,CC,D0,DC,D4), Health (I), Religious (M), Hotel (H), or Educational (W)
+            (   p.bldgclass !~* '^[RIMHW]|C8|C6|CC|D0|DC|D4' -- No Condo (R), Co-Op (C8,C6,CC,D0,DC,D4), Health (I), Religious (M), Hotel (H), or Educational (W)
                 AND p.bbl != '5013920002' -- NYC's only manufactured housing park
             ) AS eligible_bldgclass,
 
