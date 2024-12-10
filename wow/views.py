@@ -379,3 +379,19 @@ def server_error(request):
     from django.views import defaults
 
     return defaults.server_error(request)
+
+
+def property_by_bbl(request, bbl):
+    """
+    Fetch property details based on the provided BBL.
+    """
+    # Call database function to get associated property data for the given BBL
+    property_data = call_db_func("get_property_by_bbl", [bbl])
+
+    if not property_data:
+        return JsonResponse({"error": "BBL not found"}, status=404)
+
+    return JsonResponse({
+        "bbl": bbl,
+        "property_data": property_data,
+    })
