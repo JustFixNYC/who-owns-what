@@ -1,36 +1,19 @@
-
-@@ -0,0 +1,327 @@
---- Related properties
-
-
--- with multi_corp_owners AS (
--- 	select 
--- 		ownername, 
--- 		count(*) as bbls
--- 	from pluto_latest
--- 	where unitsres > 0
--- 		and ownername ~* '\s+(LLC|L\.?P|PARTNERSHIP|PTRSHP|CO|COMPANY|CORP|CORPORATION|FUND|ASSOCIATES|ASSOC|TRUST|INC|BANK|HDFC)\.?$'
--- 	group by ownername
--- 	having count(*) > 1
--- )
--- select
--- 	ownername,
--- 	bbl,
--- 	address,
--- 	bbls
--- from pluto_latest
--- inner join multi_corp_owners using(ownername);
+-- Create a BBL-level table with all the data we need to for the GCE screener
+-- tool. Includes information about the property to provide helper text for
+-- survey questions and assess GCE coverage, and data on potentially related
+-- properties for guide ownership portfolio research on ACRIS.
 
 
--- ACRIS_DATA
--- --------
+-- ACRIS Documents
+-- ---------------
 
--- For each BBL, find all the other properties it ever appears with on a
--- multi-property mortgage/agreement since the last time there was a deed
--- recorded for the property. For each linked property keep the BBL, ACRIS
--- document id, document date, and number of residential units for custom links
--- and context on the results page.
+-- For each BBL, find all the documents since the most recent deed transfer that
+-- might have the owner's name/signature on them, and keep the most recent 5
+-- documents to generate links for the user to research. For each BBL we also
+-- get the number of residential units, and for each of the upt to 5 documents
+-- we keep the ACRIS document id, type, and date.
 
+-- Find the most recent deed transfer
 CREATE TEMPORARY TABLE x_latest_deeds AS (
 	SELECT DISTINCT ON (bbl)
 		l.bbl,
@@ -43,6 +26,7 @@ CREATE TEMPORARY TABLE x_latest_deeds AS (
 
 CREATE INDEX ON x_latest_deeds (bbl);
 
+-- Find all the docs with possible owner names since the deed transfer
 CREATE TEMPORARY TABLE x_docs_since_latest_deed AS (
 	SELECT DISTINCT
 		l.bbl,
@@ -71,18 +55,59 @@ CREATE INDEX ON x_docs_since_latest_deed (bbl);
 CREATE INDEX ON x_docs_since_latest_deed (documentid);
 CREATE INDEX ON x_docs_since_latest_deed (doc_order);
 
+-- Take the most recent 5 documents and restructure for a bbl-level table
 CREATE TEMPORARY TABLE x_bbl_acris_docs AS (
   SELECT 
     bbl,
-    array_to_json(array_agg(json_build_object('doc_id', documentid, 'doc_type', doctype))) AS acris_docs
+    array_to_json(array_agg(json_build_object('doc_id', documentid, 'doc_type', doctype, 'doc_date', doc_date))) AS acris_docs
   FROM x_docs_since_latest_deed
   WHERE doc_order <= 5
-  GROUP BY bbl
+  GROUP BY bbl 
 );
 
 CREATE INDEX ON x_bbl_acris_docs (bbl);
 
 
+-- BBLs with Common Ownername (PLUTO) 
+-- -----------------------------------
+
+-- Find all BBLs that have the exact same ownername in PLUTO where the ownername
+-- is some sort of corporation (LLC, Corp, etc. so we don't include people's
+-- names that happen to be the same)
+
+CREATE TEMPORARY TABLE x_ownername_related_bbls AS (
+  WITH multi_corp_owners AS (
+    SELECT ownername
+    FROM pluto_latest
+    WHERE unitsres > 0
+      AND ownername ~* '\s+(LLC|L\.?P|PARTNERSHIP|PTRSHP|CO|COMPANY|CORP|CORPORATION|FUND|ASSOCIATES|ASSOC|TRUST|INC|BANK|HDFC)\.?$'
+    GROUP BY ownername
+    HAVING count(*) > 1
+  )
+  SELECT
+    x.bbl AS ref_bbl,
+    y.bbl,
+    true AS match_ownername
+  FROM pluto_latest AS x
+  INNER JOIN multi_corp_owners USING(ownername)
+  LEFT JOIN pluto_latest AS y USING(ownername)
+  WHERE x.bbl != y.bbl
+);
+
+CREATE INDEX ON x_ownername_related_bbls (ref_bbl);
+CREATE INDEX ON x_ownername_related_bbls (bbl);
+CREATE INDEX ON x_ownername_related_bbls (ref_bbl, bbl);
+
+
+-- BBLs with Multi-BBL Documents
+-- -----------------------------
+
+-- For each BBL, find all the other properties it ever appears alongside on a
+-- multi-property mortgage/agreement since the last time there was a deed
+-- transfer for the property. This indicates they are very likely owned by the
+-- same entity (with some possible exceptions, eg. air rights, etc.)
+
+-- Find all the multi-bbl documents
 CREATE TEMPORARY TABLE x_multi_bbl_docs AS (
 	SELECT documentid
 	FROM x_docs_since_latest_deed 
@@ -92,14 +117,12 @@ CREATE TEMPORARY TABLE x_multi_bbl_docs AS (
 
 CREATE INDEX ON x_multi_bbl_docs (documentid);
 
-
-CREATE TEMPORARY TABLE x_linked_bbls AS (
+-- Link all the BBLs from these docments
+CREATE TEMPORARY TABLE x_multi_doc_related_bbls AS (
 	SELECT DISTINCT ON (x.bbl, y.bbl)
 		x.bbl AS ref_bbl,
-		x.documentid AS doc_id,
-		x.doc_date,
 		y.bbl AS bbl,
-		y.unitsres
+    true AS match_multidoc
 	FROM x_docs_since_latest_deed AS x
 	INNER JOIN x_multi_bbl_docs USING(documentid)
 	LEFT JOIN x_docs_since_latest_deed AS y USING (documentid)
@@ -107,17 +130,9 @@ CREATE TEMPORARY TABLE x_linked_bbls AS (
 	ORDER BY x.bbl, y.bbl, x.doc_date DESC
 );
 
-CREATE INDEX ON x_linked_bbls (bbl);
-
-CREATE TEMPORARY TABLE x_acris_linked_bbls AS (
-  SELECT
-    ref_bbl AS bbl,
-    array_to_json(array_agg(row_to_json(x)::jsonb-'ref_bbl')) AS acris_data
-  FROM x_linked_bbls AS x
-  GROUP BY ref_bbl
-);
-
-CREATE INDEX ON x_acris_linked_bbls (bbl);
+CREATE INDEX ON x_multi_doc_related_bbls (bbl);
+CREATE INDEX ON x_multi_doc_related_bbls (ref_bbl);
+CREATE INDEX ON x_multi_doc_related_bbls (ref_bbl, bbl);
 
 
 -- WOW_DATA
@@ -126,9 +141,9 @@ CREATE INDEX ON x_acris_linked_bbls (bbl);
 -- For each BBL, we look at all the other properties within its WOW portfolio
 -- and add additional information to help prioritize the most likely to have
 -- common ownership. This includes the geographic distance, and whether the
--- primary HPD registration contact matches exactly by name and business address
--- (full and without unit number). 
+-- primary HPD registration contact matches exactly by name and business address.
 
+-- Get all all the portfolio bbls and fields needed for match quality
 CREATE TEMPORARY TABLE x_portfolio_bbls AS (
 	WITH wow_bbls AS (
 		SELECT 
@@ -152,20 +167,17 @@ CREATE TEMPORARY TABLE x_portfolio_bbls AS (
 	LEFT JOIN wow_landlords AS l USING(bbl)
 );
 
-CREATE TEMPORARY TABLE x_matched_bbls AS (
+-- Create match quality fields
+CREATE TEMPORARY TABLE x_wow_related_bbls AS (
 	SELECT
 		x.bbl AS ref_bbl,
 		y.bbl,
-    y.addr,
-		y.unitsres,
-    a.acris_docs,
+    true AS match_wow,
 		ST_Distance(x.geom, y.geom) AS distance_ft,
-		(x.name = y.name) AS match_name,
-		(x.bizaddr = y.bizaddr) AS match_bizaddr_unit,
-		(x.bizhousestreet = y.bizhousestreet AND x.bizzip = y.bizzip) AS match_bizaddr_nounit
+		(x.name = y.name) AS wow_match_name,
+		(x.bizaddr = y.bizaddr) AS wow_match_bizaddr_unit
 	FROM x_portfolio_bbls AS x
 	LEFT JOIN x_portfolio_bbls AS y USING(portfolio_id)
-	LEFT JOIN x_bbl_acris_docs AS a ON a.bbl = y.bbl
 	WHERE x.bbl != y.bbl
 		AND (
 			x.name = y.name 
@@ -173,15 +185,55 @@ CREATE TEMPORARY TABLE x_matched_bbls AS (
 		)
 );
 
-CREATE INDEX ON x_matched_bbls (ref_bbl);
+CREATE INDEX ON x_wow_related_bbls (ref_bbl);
+CREATE INDEX ON x_wow_related_bbls (bbl);
+CREATE INDEX ON x_wow_related_bbls (ref_bbl, bbl);
 
-CREATE TEMPORARY TABLE x_wow_portolio_bldgs AS (
-	SELECT 
-		ref_bbl AS bbl,
-	  array_to_json(array_agg(row_to_json(x)::jsonb-'ref_bbl')) AS wow_data
-	FROM x_matched_bbls AS x
-	GROUP BY ref_bbl
+
+-- Related Properties
+-- ------------------
+
+-- Combine the 3 sources of related properties, join in ACRIS docs, and
+-- restructure for a bbl-level table with json for all related properties and
+-- their details.
+
+CREATE TEMPORARY TABLE x_all_related_bbls AS (
+  SELECT
+    ref_bbl,
+    bbl,
+    coalesce(o.match_ownername, false) AS match_ownername,
+    coalesce(m.match_multidoc, false) AS match_multidoc,
+    coalesce(w.match_wow, false) AS match_wow,
+    p.unitsres,
+    p.address || ', ' || CASE 
+			WHEN p.borough = 'MN' THEN 'Manhattan'
+			WHEN p.borough = 'BX' THEN 'Bronx'
+			WHEN p.borough = 'BK' THEN 'Brooklyn'
+			WHEN p.borough = 'QN' THEN 'Queens'
+			WHEN p.borough = 'SI' THEN 'Staten Island'
+		END || ', ' || p.zipcode AS address,
+		w.distance_ft,
+		w.wow_match_name,
+		w.wow_match_bizaddr_unit,
+    a.acris_docs
+  FROM x_wow_related_bbls AS w
+  FULL JOIN x_ownername_related_bbls AS o USING(ref_bbl, bbl)
+  FULL JOIN x_multi_doc_related_bbls AS m  USING(ref_bbl, bbl)
+  LEFT JOIN pluto_latest AS p USING(bbl)
+  LEFT JOIN x_bbl_acris_docs AS a USING(bbl)
+  WHERE p.unitsres > 0
 );
+
+
+CREATE TEMPORARY TABLE x_related_bbl_acris_docs AS (
+  SELECT
+    ref_bbl AS bbl,
+    array_to_json(array_agg(row_to_json(x)::jsonb-'ref_bbl')) AS related_properties
+  FROM x_all_related_bbls AS x
+  GROUP BY ref_bbl
+);
+
+CREATE INDEX ON x_related_bbl_acris_docs (bbl);
 
 -- For each BBL, get the date of most recent certificate of occupancy, if there
 -- is one. Keep the BIN, date, and type for extra context and custom links.
@@ -281,7 +333,11 @@ CREATE TABLE gce_screener AS (
       coalesce(r.uc2021, 0) AS rs_units_2021, 
       coalesce(r.uc2022, 0) AS rs_units_2022,
 
-      coalesce(nullif(r.uc2022, 0), nullif(r.uc2021, 0), nullif(r.uc2020, 0), nullif(r.uc2019, 0), 0) as post_hstpa_rs_units,
+      case 
+          when coalesce(nullif(r.uc2022, 0), nullif(r.uc2021, 0), nullif(r.uc2020, 0), nullif(r.uc2019, 0), 0) > p.unitsres
+          then p.unitsres
+          else coalesce(nullif(r.uc2022, 0), nullif(r.uc2021, 0), nullif(r.uc2020, 0), nullif(r.uc2019, 0), 0)
+      end AS post_hstpa_rs_units,
 
       (nycha.bbl IS NOT NULL OR coalesce(shd.datanycha, false)) AS is_nycha,
       (article_xi.bbl IS NOT NULL) AS is_article_xi,
@@ -303,11 +359,9 @@ CREATE TABLE gce_screener AS (
       wp.wow_portfolio_units,
       wp.wow_portfolio_bbls,
 
-      ad.acris_docs,
+      a.acris_docs,
 
-      al.acris_data,
-
-      wd.wow_data
+      ra.related_properties
 
   FROM pluto_latest AS p
   LEFT JOIN rentstab_v2 AS r ON p.bbl = r.ucbbl
@@ -317,9 +371,8 @@ CREATE TABLE gce_screener AS (
   LEFT JOIN x_latest_cofos AS co USING(bbl)
   LEFT JOIN x_portfolio_bbls as wb USING(bbl)
   LEFT JOIN x_portfolio_size AS wp USING(portfolio_id)
-  LEFT JOIN x_wow_portolio_bldgs AS wd USING(bbl)
-  LEFT JOIN x_acris_linked_bbls AS al USING(bbl)
-  LEFT JOIN x_bbl_acris_docs AS ad USING(bbl)
+  LEFT JOIN x_bbl_acris_docs AS a USING(bbl)
+  LEFT JOIN x_related_bbl_acris_docs AS ra USING(bbl)
 );
 
 CREATE INDEX ON gce_screener (bbl);

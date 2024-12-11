@@ -14,7 +14,6 @@ SELECT
     end_421a,
     end_j51,
     acris_docs,
-    acris_data,
-    wow_data
+    related_properties
 FROM gce_screener
 WHERE bbl = %(bbl)s

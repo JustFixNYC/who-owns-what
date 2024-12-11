@@ -168,7 +168,7 @@ CREATE TABLE gce_eligibility AS (
                 when coalesce(nullif(r.uc2022, 0), nullif(r.uc2021, 0), nullif(r.uc2020, 0), nullif(r.uc2019, 0), 0) > unitsres
                 then unitsres
                 else coalesce(nullif(r.uc2022, 0), nullif(r.uc2021, 0), nullif(r.uc2020, 0), nullif(r.uc2019, 0), 0)
-            end AS post_hsta_rs_units,
+            end AS post_hstpa_rs_units,
 
             (   coalesce(nullif(r.uc2022, 0), nullif(r.uc2021, 0), nullif(r.uc2020, 0), nullif(r.uc2019, 0), 0) = 0
                 AND NOT coalesce(s.active_421a, false)
