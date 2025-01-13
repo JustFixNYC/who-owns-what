@@ -165,12 +165,12 @@ CREATE TABLE gce_eligibility AS (
             coalesce(s.active_421a, false) AS active_421a,
             coalesce(s.active_j51, false) AS active_j51,
             case 
-                when coalesce(nullif(r.uc2022, 0), nullif(r.uc2021, 0), nullif(r.uc2020, 0), nullif(r.uc2019, 0), 0) > unitsres
+                when coalesce(nullif(r.uc2023, 0), nullif(r.uc2022, 0), nullif(r.uc2021, 0), nullif(r.uc2020, 0), nullif(r.uc2019, 0), 0) > unitsres
                 then unitsres
-                else coalesce(nullif(r.uc2022, 0), nullif(r.uc2021, 0), nullif(r.uc2020, 0), nullif(r.uc2019, 0), 0)
+                else coalesce(nullif(r.uc2023, 0), nullif(r.uc2022, 0), nullif(r.uc2021, 0), nullif(r.uc2020, 0), nullif(r.uc2019, 0), 0)
             end AS post_hstpa_rs_units,
 
-            (   coalesce(nullif(r.uc2022, 0), nullif(r.uc2021, 0), nullif(r.uc2020, 0), nullif(r.uc2019, 0), 0) = 0
+            (   coalesce(nullif(r.uc2023, 0), nullif(r.uc2022, 0), nullif(r.uc2021, 0), nullif(r.uc2020, 0), nullif(r.uc2019, 0), 0) = 0
                 AND NOT coalesce(s.active_421a, false)
                 AND NOT coalesce(s.active_j51, false)
             ) AS eligible_rent_stab,
