@@ -89,7 +89,7 @@ DATABASES = {
     "wow": dj_database_url.parse(get_required_env("DATABASE_URL")),
 }
 CORS_ALLOW_HEADERS = default_headers + ("Access-Control-Allow-Origin", "Set-Cookie")
-CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_ALL_ORIGINS = False
 CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:3000",
@@ -104,11 +104,15 @@ CORS_ALLOWED_ORIGINS = [
     "https://demo-whoownswhat.justfix.org",
     "https://signature-dashboard.netlify.app",
     "https://signatureportfolio.org",
+    "https://gce-screener.netlify.app",
+    "https://goodcausenyc.org",
+    "https://goodcauseny.org",
 ]
 CORS_ALLOWED_ORIGIN_REGEXES = [
     r"https://deploy-preview-(?:\d{1,4})--wow-django-demo\.netlify\.app",
     r"https://deploy-preview-(?:\d{1,4})--signature-dashboard\.netlify\.app",
     r"https://deploy-preview-(?:\d{1,4})--wow-django\.netlify\.app",
+    r"https://deploy-preview-(?:\d{1,4})--gce-screener\.netlify\.app",
     r"https://([A-Za-z0-9\-\_]+)--wow-django\.netlify\.app",
     r"https://([A-Za-z0-9\-\_]+)--wow-django-demo\.netlify\.app",
 ]
