@@ -105,6 +105,7 @@ CORS_ALLOWED_ORIGINS = [
     "https://signature-dashboard.netlify.app",
     "https://signatureportfolio.org",
     "https://gce-screener.netlify.app",
+    "https://demo-gce-screener.netlify.app",
     "https://goodcausenyc.org",
     "https://goodcauseny.org",
 ]
@@ -113,8 +114,11 @@ CORS_ALLOWED_ORIGIN_REGEXES = [
     r"https://deploy-preview-(?:\d{1,4})--signature-dashboard\.netlify\.app",
     r"https://deploy-preview-(?:\d{1,4})--wow-django\.netlify\.app",
     r"https://deploy-preview-(?:\d{1,4})--gce-screener\.netlify\.app",
+    r"https://deploy-preview-(?:\d{1,4})--demo-gce-screener\.netlify\.app",
     r"https://([A-Za-z0-9\-\_]+)--wow-django\.netlify\.app",
     r"https://([A-Za-z0-9\-\_]+)--wow-django-demo\.netlify\.app",
+    r"https://([A-Za-z0-9\-\_]+)--gce-screener\.netlify\.app",
+    r"https://([A-Za-z0-9\-\_]+)--demo-gce-screener\.netlify\.app",
 ]
 
 # This is based off the default Django logging configuration:
