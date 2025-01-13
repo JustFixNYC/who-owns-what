@@ -217,7 +217,7 @@ CREATE TABLE gce_eligibility AS (
         subsidy_name,
         active_421a,
         active_j51,
-        post_hsta_rs_units,
+        post_hstpa_rs_units,
         wow_portfolio_units,
         wow_portfolio_bbls,
 
