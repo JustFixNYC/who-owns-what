@@ -215,7 +215,7 @@ CREATE TEMPORARY TABLE x_all_related_bbls AS (
 		w.distance_ft,
 		w.wow_match_name,
 		w.wow_match_bizaddr_unit,
-    a.acris_docs
+    coalesce(a.acris_docs, '[]'::json) AS acris_docs
   FROM x_wow_related_bbls AS w
   FULL JOIN x_ownername_related_bbls AS o USING(ref_bbl, bbl)
   FULL JOIN x_multi_doc_related_bbls AS m  USING(ref_bbl, bbl)
@@ -360,9 +360,9 @@ CREATE TABLE gce_screener AS (
       wp.wow_portfolio_units,
       wp.wow_portfolio_bbls,
 
-      a.acris_docs,
+      coalesce(a.acris_docs, '[]'::json) AS acris_docs,
 
-      ra.related_properties
+      coalesce(ra.related_properties, '[]'::json) AS related_properties
 
   FROM pluto_latest AS p
   LEFT JOIN rentstab_v2 AS r ON p.bbl = r.ucbbl
