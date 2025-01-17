@@ -27,7 +27,7 @@ CREATE INDEX ON x_portfolio_bbls (bbl);
 -- For each portfolio, get the number of properties and total number of
 -- residential units
 
-CREATE TEMPORARY TABLE x_portfolio_size AS (
+CREATE TEMPORARY TABLE x_wow_portfolio_size AS (
     SELECT
         portfolio_id,
         sum(unitsres)::numeric AS wow_portfolio_units,
@@ -37,7 +37,7 @@ CREATE TEMPORARY TABLE x_portfolio_size AS (
     GROUP BY portfolio_id
 );
 
-CREATE INDEX ON x_portfolio_size (portfolio_id);
+CREATE INDEX ON x_wow_portfolio_size (portfolio_id);
 
 
 --- Certificates of Occupancy
@@ -200,7 +200,7 @@ CREATE TABLE gce_eligibility AS (
         LEFT JOIN x_subsidized AS s USING(bbl)
         LEFT JOIN x_latest_cofos AS co USING(bbl)
         LEFT JOIN x_portfolio_bbls AS wb USING(bbl)
-        LEFT JOIN x_portfolio_size AS wp USING(portfolio_id)
+        LEFT JOIN x_wow_portfolio_size AS wp USING(portfolio_id)
     )
     SELECT
         bbl,
