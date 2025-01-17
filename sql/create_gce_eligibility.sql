@@ -16,7 +16,7 @@
 -- For each BBL, join together all variables and create an indicator of likely
 -- eligibility for Good Cause Eviction protections
 
-CREATE TABLE gce_eligibility2 AS (
+CREATE TABLE gce_eligibility AS (
     WITH all_data AS (
         SELECT 
             p.bbl,

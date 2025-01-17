@@ -236,7 +236,7 @@ CREATE INDEX ON x_related_bbl_acris_docs (bbl);
 
 -- For each BBL, all variables used for data-driven survey questions and helper
 -- text and eligibility results.
-CREATE TABLE gce_screener2 AS (
+CREATE TABLE gce_screener AS (
   WITH nycha_bbls AS (
     SELECT DISTINCT bbl
     FROM nycha_bbls_24
