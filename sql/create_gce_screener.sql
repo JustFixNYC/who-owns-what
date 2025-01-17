@@ -144,7 +144,7 @@ CREATE INDEX ON x_multi_doc_related_bbls (ref_bbl, bbl);
 -- primary HPD registration contact matches exactly by name and business address.
 
 -- Get all all the portfolio bbls and fields needed for match quality
-CREATE TEMPORARY TABLE x_portfolio_bbls AS (
+CREATE TEMPORARY TABLE x_portfolio_bbls_pluto AS (
 	WITH wow_bbls AS (
 		SELECT 
 			unnest(bbls) AS bbl, 
@@ -176,8 +176,8 @@ CREATE TEMPORARY TABLE x_wow_related_bbls AS (
 		ST_Distance(x.geom, y.geom) AS distance_ft,
 		(x.name = y.name) AS wow_match_name,
 		(x.bizaddr = y.bizaddr) AS wow_match_bizaddr_unit
-	FROM x_portfolio_bbls AS x
-	LEFT JOIN x_portfolio_bbls AS y USING(portfolio_id)
+	FROM x_portfolio_bbls_pluto AS x
+	LEFT JOIN x_portfolio_bbls_pluto AS y USING(portfolio_id)
 	WHERE x.bbl != y.bbl
 		AND (
 			x.name = y.name 
@@ -274,7 +274,7 @@ CREATE TEMPORARY TABLE x_portfolio_size AS (
     portfolio_id,
     sum(unitsres)::numeric AS wow_portfolio_units,
     count(*)::numeric AS wow_portfolio_bbls
-  FROM x_portfolio_bbls
+  FROM x_portfolio_bbls_pluto
   GROUP BY portfolio_id
 );
 
@@ -370,7 +370,7 @@ CREATE TABLE gce_screener AS (
   LEFT JOIN article_xi_bbls AS article_xi USING(bbl)
   LEFT JOIN subsidized AS shd USING(bbl)
   LEFT JOIN x_latest_cofos AS co USING(bbl)
-  LEFT JOIN x_portfolio_bbls as wb USING(bbl)
+  LEFT JOIN x_portfolio_bbls_pluto as wb USING(bbl)
   LEFT JOIN x_portfolio_size AS wp USING(portfolio_id)
   LEFT JOIN x_bbl_acris_docs AS a USING(bbl)
   LEFT JOIN x_related_bbl_acris_docs AS ra USING(bbl)
