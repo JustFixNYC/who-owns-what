@@ -32,7 +32,7 @@ rentstab as (
     coalesce(uc2022, 0) rsunitslatest,
     coalesce(uc2022, 0) - coalesce(unitsstab2007, 0) rsdiff
   from rentstab_summary
-  left join rentstab_v2 using(ucbbl)
+  full join rentstab_v2 using(ucbbl)
 ),
 
 complaints as (
