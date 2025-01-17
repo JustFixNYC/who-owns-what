@@ -4,7 +4,6 @@ import { LazyLoadWhenVisible } from "./LazyLoadWhenVisible";
 import Helpers, { longDateOptions } from "../util/helpers";
 import Browser from "../util/browser";
 import Modal from "../components/Modal";
-import { Link as JFCLLink } from "@justfixnyc/component-library";
 
 import "styles/DetailView.css";
 import { withI18n, withI18nProps, I18n } from "@lingui/react";
@@ -190,26 +189,12 @@ class DetailViewWithoutI18n extends Component<Props, State> {
     streetViewCoords: {
       lat: number;
       lng: number;
-    } | null,
-    isMobile: boolean
+    } | null
   ) {
     if (!(streetViewAddr && streetViewCoords)) return <></>;
 
-    const googleMapLink = (
-      <figcaption className="figure-caption">
-        <JFCLLink
-          href={`https://www.google.com/maps/place/${streetViewAddr}`}
-          target="blank"
-          icon="external"
-        >
-          <Trans>View on Google Maps</Trans>
-        </JFCLLink>
-      </figcaption>
-    );
-
     return (
       <LazyLoadWhenVisible>
-        {!isMobile && googleMapLink}
         <figure className="figure">
           <StreetViewStatic
             lat={streetViewCoords.lat}
@@ -218,7 +203,6 @@ class DetailViewWithoutI18n extends Component<Props, State> {
             imgWidth={(width, _height) => ((width || 0) < 900 ? 500 : 600)}
           />
         </figure>
-        {isMobile && googleMapLink}
       </LazyLoadWhenVisible>
     );
   }
@@ -269,7 +253,7 @@ class DetailViewWithoutI18n extends Component<Props, State> {
                   </button>
                 </div>
                 <div className="card-image show-lg">
-                  {this.renderStreetView(streetViewAddr, streetViewCoords, isMobile)}
+                  {this.renderStreetView(streetViewAddr, streetViewCoords)}
                 </div>
                 <div className="columns main-content-columns">
                   <div className="column col-lg-12 col-7 detail-column-left">
@@ -397,10 +381,11 @@ class DetailViewWithoutI18n extends Component<Props, State> {
                     <EmailAlertSignup addr={detailAddr} />
                     <GetRepairs />
                     <div className="card-body-links column-right">
-                      <UsefulLinks addrForLinks={detailAddr} location="overview-tab" />
-                    </div>
-                    <div className="card-image hide-lg">
-                      {this.renderStreetView(streetViewAddr, streetViewCoords, isMobile)}
+                      <UsefulLinks
+                        addrForLinks={detailAddr}
+                        location="overview-tab"
+                        streetViewAddr={streetViewAddr}
+                      />
                     </div>
                     <div className="card-body-social social-group">
                       <h6 className="DetailView__subtitle">

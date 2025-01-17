@@ -107,6 +107,8 @@ WITH TIME_SERIES AS (
       union
       select '2018-01' as month, uc2018 as RENTSTABILIZEDUNITS_TOTAL from RENTSTAB_DATA
       union
+      select '2019-01' as month, uc2019 as RENTSTABILIZEDUNITS_TOTAL from RENTSTAB_DATA
+      union
       select '2020-01' as month, uc2020 as RENTSTABILIZEDUNITS_TOTAL from RENTSTAB_DATA
       union
       select '2021-01' as month, uc2021 as RENTSTABILIZEDUNITS_TOTAL from RENTSTAB_DATA

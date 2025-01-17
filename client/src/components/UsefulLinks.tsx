@@ -9,11 +9,17 @@ type UsefulLinksProps = {
   addrForLinks: Pick<AddressRecord, "bbl"> &
     Partial<Pick<AddressRecord, "hpdbuildingid" | "hpdbuildings">>;
   location: "overview-tab" | "timeline-tab" | "not-registered-page";
+  streetViewAddr?: string;
 };
 
-export const UsefulLinks: React.FC<UsefulLinksProps> = ({ addrForLinks, location }) => {
+export const UsefulLinks: React.FC<UsefulLinksProps> = ({
+  addrForLinks,
+  location,
+  streetViewAddr,
+}) => {
   const { bbl, hpdbuildingid, hpdbuildings } = addrForLinks;
   const { boro, block, lot } = Helpers.splitBBL(bbl);
+
   return (
     <div className="card-body-links">
       <Trans render={location === "not-registered-page" ? "p" : "b"}>Useful links</Trans>
@@ -92,6 +98,22 @@ export const UsefulLinks: React.FC<UsefulLinksProps> = ({ addrForLinks, location
             <Trans>ANHD DAP Portal</Trans>
           </Link>
         </li>
+        {!!streetViewAddr && (
+          <li>
+            <Link
+              onClick={() => {
+                logAmplitudeEvent(`google-maps-${location}` as AmplitudeEvent);
+                window.gtag("event", `google-maps-${location}`);
+              }}
+              href={`https://www.google.com/maps/place/${streetViewAddr}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              icon="external"
+            >
+              <Trans>View on Google Maps</Trans>
+            </Link>
+          </li>
+        )}
       </ul>
     </div>
   );

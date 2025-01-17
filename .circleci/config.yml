@@ -76,7 +76,7 @@ jobs:
   deploy:
     machine:
       enabled: true
-      image: ubuntu-2004:202201-02
+      image: ubuntu-2004:current
     steps:
       - checkout
       - run:

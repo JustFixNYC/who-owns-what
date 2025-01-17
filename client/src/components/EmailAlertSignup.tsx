@@ -19,7 +19,7 @@ import helpers from "util/helpers";
 import { AddressRecord } from "./APIDataTypes";
 import SendNewLink from "./SendNewLink";
 
-const SUBSCRIPTION_LIMIT = 15;
+const DEFAULT_SUBSCRIPTION_LIMIT = 15;
 const BRANCH_NAME = process.env.REACT_APP_BRANCH;
 
 /**
@@ -47,7 +47,8 @@ const BuildingSubscribeWithoutI18n = (props: BuildingSubscribeProps) => {
   const userContext = useContext(UserContext);
   const { user, subscribe, unsubscribe } = userContext;
   const isLoggedIn = !!user?.email;
-  const atSubscriptionLimit = isLoggedIn && user.subscriptions.length >= SUBSCRIPTION_LIMIT;
+  const subscriptionLimit = user?.subscriptionLimit ?? DEFAULT_SUBSCRIPTION_LIMIT;
+  const atSubscriptionLimit = isLoggedIn && user.subscriptions.length >= subscriptionLimit;
   // avoid slower building lookup if possible to prevent flash of "add building" before "subscribed"
   const showSubscribed =
     (justSubscribed && !!user?.verified) || !!user?.subscriptions?.find((s) => s.bbl === addr.bbl);
@@ -114,7 +115,7 @@ const BuildingSubscribeWithoutI18n = (props: BuildingSubscribeProps) => {
   };
 
   const handleSubscriptionLimitReached = () => {
-    const params = { ...eventUserParams, limit: SUBSCRIPTION_LIMIT };
+    const params = { ...eventUserParams, limit: subscriptionLimit };
     window.gtag("event", "subscription-limit-exceed-attempt", { ...params });
     setShowSubscriptionLimitModal(true);
   };
@@ -182,10 +183,9 @@ const BuildingSubscribeWithoutI18n = (props: BuildingSubscribeProps) => {
       >
         <Trans render="h4">You have reached the maximum number of Building Alerts</Trans>
         <Trans>
-          At this time we can only support {SUBSCRIPTION_LIMIT} buildings in each email. Please
-          visit your <LocaleLink to={account.settings}>account</LocaleLink> to manage the buildings
-          in your email. If you would like to track more buildings, please let us know by submiting
-          a{" "}
+          At this time we can only support {subscriptionLimit} buildings in each email. Please visit
+          your <LocaleLink to={account.settings}>account</LocaleLink> to manage the buildings in
+          your email. If you would like to track more buildings, please let us know by submiting a{" "}
           <a
             href={`https://form.typeform.com/to/ChJMCNYN#email=${user?.email}`}
             target="_blank"
@@ -193,7 +193,7 @@ const BuildingSubscribeWithoutI18n = (props: BuildingSubscribeProps) => {
             onClick={() => {
               const eventParams = {
                 ...eventUserParams,
-                limit: SUBSCRIPTION_LIMIT,
+                limit: subscriptionLimit,
                 branch: BRANCH_NAME,
               };
               window.gtag("event", "subscription-limit-request", {
