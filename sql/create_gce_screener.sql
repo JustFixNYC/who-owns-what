@@ -1,11 +1,15 @@
+--- Good Cause Screener
+--- -------------------
 -- Create a BBL-level table with all the data we need to for the GCE screener
 -- tool. Includes information about the property to provide helper text for
 -- survey questions and assess GCE coverage, and data on potentially related
 -- properties for guide ownership portfolio research on ACRIS.
 
+-- NOTE: There are some temporary tables used here that are created in "create_gce_common.sql"
 
--- ACRIS Documents
--- ---------------
+
+--- ACRIS Documents
+--- ---------------
 
 -- For each BBL, find all the documents since the most recent deed transfer that
 -- might have the owner's name/signature on them, and keep the most recent 5
@@ -68,8 +72,8 @@ CREATE TEMPORARY TABLE x_bbl_acris_docs AS (
 CREATE INDEX ON x_bbl_acris_docs (bbl);
 
 
--- BBLs with Common Ownername (PLUTO) 
--- -----------------------------------
+--- BBLs with Common Ownername (PLUTO) 
+--- -----------------------------------
 
 -- Find all BBLs that have the exact same ownername in PLUTO where the ownername
 -- is some sort of corporation (LLC, Corp, etc. so we don't include people's
@@ -99,8 +103,8 @@ CREATE INDEX ON x_ownername_related_bbls (bbl);
 CREATE INDEX ON x_ownername_related_bbls (ref_bbl, bbl);
 
 
--- BBLs with Multi-BBL Documents
--- -----------------------------
+--- BBLs with Multi-BBL Documents
+--- -----------------------------
 
 -- For each BBL, find all the other properties it ever appears alongside on a
 -- multi-property mortgage/agreement since the last time there was a deed
@@ -135,8 +139,8 @@ CREATE INDEX ON x_multi_doc_related_bbls (ref_bbl);
 CREATE INDEX ON x_multi_doc_related_bbls (ref_bbl, bbl);
 
 
--- WOW_DATA
--- --------
+--- WOW_DATA
+--- --------
 
 -- For each BBL, we look at all the other properties within its WOW portfolio
 -- and add additional information to help prioritize the most likely to have
@@ -145,12 +149,6 @@ CREATE INDEX ON x_multi_doc_related_bbls (ref_bbl, bbl);
 
 -- Get all all the portfolio bbls and fields needed for match quality
 CREATE TEMPORARY TABLE x_portfolio_bbls_pluto AS (
-	WITH wow_bbls AS (
-		SELECT 
-			unnest(bbls) AS bbl, 
-			row_number() OVER (ORDER BY bbls) AS portfolio_id
-		FROM wow_portfolios
-	)
 	SELECT
 		w.bbl, 
 		w.portfolio_id,
@@ -161,7 +159,7 @@ CREATE TEMPORARY TABLE x_portfolio_bbls_pluto AS (
 		l.bizzip,
 		p.unitsres,
 		ST_Transform(ST_SetSRID(ST_MakePoint(p.longitude, p.latitude), 4326), 2263) AS geom
-	FROM wow_bbls w
+	FROM x_portfolio_bbls w
 	LEFT JOIN wow_bldgs AS b USING(bbl)
 	LEFT JOIN pluto_latest AS p USING(bbl)
 	LEFT JOIN wow_landlords AS l USING(bbl)
@@ -190,8 +188,8 @@ CREATE INDEX ON x_wow_related_bbls (bbl);
 CREATE INDEX ON x_wow_related_bbls (ref_bbl, bbl);
 
 
--- Related Properties
--- ------------------
+--- Related Properties
+--- ------------------
 
 -- Combine the 3 sources of related properties, join in ACRIS docs, and
 -- restructure for a bbl-level table with json for all related properties and
@@ -235,55 +233,10 @@ CREATE TEMPORARY TABLE x_related_bbl_acris_docs AS (
 
 CREATE INDEX ON x_related_bbl_acris_docs (bbl);
 
--- For each BBL, get the date of most recent certificate of occupancy, if there
--- is one. Keep the BIN, date, and type for extra context and custom links.
-CREATE TEMPORARY TABLE x_all_cofos AS (
-  SELECT
-    bbl,
-    bin,
-    coissuedate AS issue_date,
-    jobtype AS job_type
-  FROM dob_certificate_occupancy
-  UNION
-  SELECT
-    bbl,
-    bin,
-    issuedate AS issue_date,
-    jobtype AS job_type
-  FROM dob_foil_certificate_occupancy
-);
-
-CREATE INDEX ON x_all_cofos (bbl, issue_date);
-
-CREATE TEMPORARY TABLE x_latest_cofos AS (
-  SELECT DISTINCT ON (bbl)
-    bbl,
-    bin AS co_bin,
-    issue_date AS co_issued,
-    job_type AS co_type
-  FROM x_all_cofos
-  WHERE job_type IN ('NB', 'A1') AND issue_date IS NOT NULL
-  ORDER BY bbl, issue_date desc
-);
-
-
--- For each BBL, get the number of additional properties and residential units
--- there are in its WOW portfolio.
-CREATE TEMPORARY TABLE x_portfolio_size AS (
-  SELECT
-    portfolio_id,
-    sum(unitsres)::numeric AS wow_portfolio_units,
-    count(*)::numeric AS wow_portfolio_bbls
-  FROM x_portfolio_bbls_pluto
-  GROUP BY portfolio_id
-);
-
-CREATE INDEX ON x_portfolio_size (portfolio_id);
-
 
 -- For each BBL, all variables used for data-driven survey questions and helper
 -- text and eligibility results.
-CREATE TABLE gce_screener AS (
+CREATE TABLE gce_screener2 AS (
   WITH nycha_bbls AS (
     SELECT DISTINCT bbl
     FROM nycha_bbls_24
@@ -340,22 +293,11 @@ CREATE TABLE gce_screener AS (
           else coalesce(nullif(r.uc2023, 0), nullif(r.uc2022, 0), nullif(r.uc2021, 0), nullif(r.uc2020, 0), nullif(r.uc2019, 0), 0)
       end AS post_hstpa_rs_units,
 
-      (nycha.bbl IS NOT NULL OR coalesce(shd.datanycha, false)) AS is_nycha,
-      (article_xi.bbl IS NOT NULL) AS is_article_xi,
-      coalesce(shd.is_subsidized, false) AS is_subsidized,
-
-      CASE 
-        WHEN (datahudcon OR datahudfin) THEN 'HUD Project-Based'
-        WHEN (datahudlihtc OR datahcrlihtc) THEN 'Low-Income Housing Tax Credit (LIHTC)'
-        WHEN dataml THEN 'Mitchell-Lama'
-        WHEN datahpd THEN 'HPD Program'
-        WHEN (article_xi.bbl IS NOT NULL) THEN 'Article XI'
-        WHEN (nycha.bbl IS NOT NULL OR shd.datanycha) THEN 'NYCHA'
-        ELSE NULL
-      END AS subsidy_name,
-
-      shd.end_421a,
-      shd.end_j51,
+      coalesce(s.is_nycha, false) AS is_nycha,
+      coalesce(s.is_subsidized, false) AS is_subsidized,
+      s.subsidy_name,
+      s.end_421a,
+      s.end_j51,
 
       wp.wow_portfolio_units,
       wp.wow_portfolio_bbls,
@@ -368,7 +310,7 @@ CREATE TABLE gce_screener AS (
   LEFT JOIN rentstab_v2 AS r ON p.bbl = r.ucbbl
   LEFT JOIN nycha_bbls AS nycha USING(bbl)
   LEFT JOIN article_xi_bbls AS article_xi USING(bbl)
-  LEFT JOIN subsidized AS shd USING(bbl)
+  LEFT JOIN x_subsidized AS s USING(bbl)
   LEFT JOIN x_latest_cofos AS co USING(bbl)
   LEFT JOIN x_portfolio_bbls_pluto as wb USING(bbl)
   LEFT JOIN x_portfolio_size AS wp USING(portfolio_id)

@@ -46,6 +46,7 @@ signature_post_sql:
   - create_signature_building_charts.sql
   - create_signature_collection_charts.sql
 good_cause_sql:
+  - create_gce_common.sql
   - create_gce_screener.sql
   - create_gce_eligibility.sql
 sql:
