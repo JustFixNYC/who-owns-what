@@ -100,7 +100,7 @@ export const createCoreRoutePaths = (prefix?: string) => {
      * bbl values in a spreadsheet and want to easily generate direct links to WhoOwnsWhat.
      * See `BBLPage.tsx` for more details.
      */
-    bbl: `${pathPrefix}/bbl/:bbl`,
+    bbl: createAddressPageRoutes(`${pathPrefix}/bbl/:bbl(\\d{10})`),
     about: `${pathPrefix}/about`,
     howToUse: `${pathPrefix}/how-to-use`,
     methodology: `${pathPrefix}/how-it-works`,
@@ -119,7 +119,7 @@ export const createWhoOwnsWhatRoutePaths = (prefix?: string) => {
     /** This route path corresponds to a page identical to the `bbl` route above, but with an older url
      * pattern that we want to support so as not to break any old links that exist out in the web.
      */
-    bblSeparatedIntoParts: `${pathPrefix}/bbl/:boro/:block/:lot`,
+    bblSeparatedIntoParts: `${pathPrefix}/bbl/:boro(\\d+)/:block(\\d+)/:lot(\\d+)`,
     /** Some user testers have been accessing WOW via this pathname which we have since deprecated.
      * Let's make sure all routes with this path structure redirect back to the homepage.
      * See App.tsx and the `WowzaRedirectPage` component in WowzaToggle.tsx for more info.
