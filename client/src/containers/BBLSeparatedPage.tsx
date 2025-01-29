@@ -6,47 +6,53 @@ import { RouteComponentProps, useHistory } from "react-router";
 import { createRouteForAddressPage } from "../routes";
 import { AddrNotFoundPage } from "./NotFoundPage";
 import { reportError } from "error-reporting";
+import { isValidBblFormat } from "./BBLPage";
 
-export type BBLPageParams = {
+export type BBLSeparatedPageParams = {
   locale?: string;
-  bbl: string;
+  boro: string;
+  block: string;
+  lot: string;
 };
 
-type BBLPageProps = RouteComponentProps<BBLPageParams> & {
+type BBLPageProps = RouteComponentProps<BBLSeparatedPageParams> & {
   useNewPortfolioMethod?: boolean;
 };
 
-export const isValidBblFormat = (bbl: string) => {
-  return bbl.length === 10 && /^\d+$/.test(bbl);
+export const getFullBblFromPageParams = (params: BBLSeparatedPageParams) => {
+  if (params.boro && params.block && params.lot) {
+    return params.boro + params.block.padStart(5, "0") + params.lot.padStart(4, "0");
+  }
+  throw new Error("Invalid params, expected boro/block/lot!");
 };
 
-const BBLPage: React.FC<BBLPageProps> = (props) => {
+const BBLSeparatedPage: React.FC<BBLPageProps> = (props) => {
   const history = useHistory();
-  const { locale, bbl } = props.match.params;
+  const { locale } = props.match.params;
+  const fullBBL = getFullBblFromPageParams(props.match.params);
   const [isNotFound, setIsNotFound] = useState(false);
 
   useEffect(() => {
     window.gtag("event", "bblLink");
     let isMounted = true;
-    if (!isValidBblFormat(bbl)) {
+    if (!isValidBblFormat(fullBBL)) {
       setIsNotFound(true);
     } else {
-      APIClient.getBuildingInfo(bbl)
+      APIClient.getBuildingInfo(fullBBL)
         .then((results) => {
           if (!isMounted) return;
           if (results.result.length === 0) {
             setIsNotFound(true);
             return;
           }
-          const addressPageBase = createRouteForAddressPage(
+          const addressPage = createRouteForAddressPage(
             {
               ...results.result[0],
               locale,
             },
             !props.useNewPortfolioMethod
           );
-          const addressPageFull = props.location.pathname.replace(/.*?bbl\/\d+/, addressPageBase);
-          history.replace(addressPageFull);
+          history.replace(addressPage);
         })
         .catch(reportError);
 
@@ -54,9 +60,9 @@ const BBLPage: React.FC<BBLPageProps> = (props) => {
         isMounted = false;
       };
     }
-  }, [bbl, history, locale, props.location.pathname, props.useNewPortfolioMethod]);
+  }, [fullBBL, history, locale, props.location.pathname, props.useNewPortfolioMethod]);
 
   return isNotFound ? <AddrNotFoundPage /> : <LoadingPage />;
 };
 
-export default BBLPage;
+export default BBLSeparatedPage;
