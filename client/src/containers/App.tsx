@@ -53,6 +53,7 @@ import { JFLogo } from "components/JFLogo";
 import { STANDALONE_PAGES } from "components/StandalonePage";
 import { JFLogoDivider } from "components/JFLogoDivider";
 import { LoadingPage } from "components/Loader";
+import BBLSeparatedPage from "./BBLSeparatedPage";
 
 const BRANCH_NAME = process.env.REACT_APP_BRANCH;
 
@@ -172,17 +173,17 @@ const WhoOwnsWhatRoutes: React.FC<{}> = () => {
           />
         )}
       />
-      <Route path={paths.legacy.bbl} component={BBLPage} />
+      <Route path={Object.values(paths.legacy.bbl)} component={BBLPage} />
       <Route
-        path={paths.bblSeparatedIntoParts}
+        path={Object.values(paths.bbl)}
         render={(props) => (
           <BBLPage {...props} useNewPortfolioMethod={allowChangingPortfolioMethod} />
         )}
       />
       <Route
-        path={paths.bbl}
+        path={paths.bblSeparatedIntoParts}
         render={(props) => (
-          <BBLPage {...props} useNewPortfolioMethod={allowChangingPortfolioMethod} />
+          <BBLSeparatedPage {...props} useNewPortfolioMethod={allowChangingPortfolioMethod} />
         )}
       />
       <Route path={paths.account.login} component={LoginPage} />
