@@ -237,35 +237,6 @@ CREATE INDEX ON x_related_bbl_acris_docs (bbl);
 -- For each BBL, all variables used for data-driven survey questions and helper
 -- text and eligibility results.
 CREATE TABLE gce_screener AS (
-  WITH nycha_bbls AS (
-    SELECT DISTINCT bbl
-    FROM nycha_bbls_24
-  ),
-
-  article_xi_bbls AS (
-    SELECT distinct bbl
-    FROM hpd_ll44_projects AS p
-    LEFT JOIN hpd_ll44_tax_incentive AS t USING(projectid)
-    LEFT JOIN hpd_ll44_buildings AS b USING(projectid)
-    WHERE t.taxincentivename = 'Article XI'
-  ),
-
-  subsidized AS (
-    SELECT
-      bbl,
-      datahpd,
-      datahcrlihtc,
-      datahudlihtc,
-      datahudcon,
-      datahudfin,
-      dataml,
-      datanycha,
-      (datahpd OR datahcrlihtc OR datahudlihtc OR datahudcon OR datahudfin OR dataml) AS is_subsidized,
-      end421a AS end_421a,
-      endj51 AS end_j51
-    FROM fc_shd_building
-  )
-
   SELECT 
       p.bbl,
       p.address,
@@ -308,8 +279,6 @@ CREATE TABLE gce_screener AS (
 
   FROM pluto_latest AS p
   LEFT JOIN rentstab_v2 AS r ON p.bbl = r.ucbbl
-  LEFT JOIN nycha_bbls AS nycha USING(bbl)
-  LEFT JOIN article_xi_bbls AS article_xi USING(bbl)
   LEFT JOIN x_subsidized AS s USING(bbl)
   LEFT JOIN x_latest_cofos AS co USING(bbl)
   LEFT JOIN x_portfolio_bbls_pluto as wb USING(bbl)
