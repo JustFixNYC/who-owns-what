@@ -14,16 +14,19 @@ CREATE TEMPORARY TABLE x_all_cofos AS (
   SELECT
     bbl,
     bin,
-    coissuedate AS issue_date,
-    jobtype AS job_type
+    coissuedate AS issue_date
   FROM dob_certificate_occupancy
   UNION
   SELECT
     bbl,
     bin,
-    issuedate AS issue_date,
-    jobtype AS job_type
+    issuedate AS issue_date
   FROM dob_foil_certificate_occupancy
+  SELECT
+    bbl,
+    bin,
+    cofoissuancedate::date AS issue_date
+  FROM dob_now_certificate_occupancy
 );
 
 CREATE INDEX ON x_all_cofos (bbl, issue_date);
@@ -32,10 +35,9 @@ CREATE TEMPORARY TABLE x_latest_cofos AS (
   SELECT DISTINCT ON (bbl)
     bbl,
     bin AS co_bin,
-    issue_date AS co_issued,
-    job_type AS co_type
+    issue_date AS co_issued
   FROM x_all_cofos
-  WHERE job_type IN ('NB', 'A1') AND issue_date IS NOT NULL
+  WHERE issue_date IS NOT NULL
   ORDER BY bbl, issue_date desc
 );
 
