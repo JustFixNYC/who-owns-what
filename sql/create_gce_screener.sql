@@ -250,7 +250,6 @@ CREATE TABLE gce_screener AS (
 
       co.co_bin,
       co.co_issued,
-      co.co_type,
 
       coalesce(r.uc2019, 0) AS rs_units_2019,
       coalesce(r.uc2020, 0) AS rs_units_2020, 
