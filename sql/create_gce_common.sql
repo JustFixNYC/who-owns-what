@@ -22,6 +22,7 @@ CREATE TEMPORARY TABLE x_all_cofos AS (
     bin,
     issuedate AS issue_date
   FROM dob_foil_certificate_occupancy
+  UNION
   SELECT
     bbl,
     bin,
