@@ -333,6 +333,17 @@ def dataset_last_updated(request):
 
 
 @api
+def dataset_tracker(request):
+    """
+    This API endpoint returns data on all datasets loaded in the database via
+    our nycdb-k8s-loader, including when the dataset was last updated and the
+    expected update schedule.
+    """
+    result = exec_db_query(SQL_DIR / "dataset_tracker.sql")
+    return JsonResponse({"result": list(result)})
+
+
+@api
 def gce_screener(request):
     """
     This API endpoint receives requests with a 10-digit BBL. It responds with a
