@@ -331,6 +331,7 @@ def dataset_last_updated(request):
         result = exec_db_query(SQL_DIR / "dataset_last_updated_all.sql")
     return JsonResponse({"result": list(result)})
 
+
 @api
 def dataset_tracker(request):
     """
