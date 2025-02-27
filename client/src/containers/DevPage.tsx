@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Page from "components/Page";
-import { SearchAddressWithoutBbl } from "components/APIDataTypes";
+import { DatasetTrackerInfo, SearchAddressWithoutBbl } from "components/APIDataTypes";
 import { Link } from "react-router-dom";
 import { createRouteForAddressPage, createRouteForFullBbl } from "routes";
+import APIClient from "components/APIClient";
+import { DatasetTrackerTable } from "components/DatasetTrackerTable";
 
 type AddressExampleProps = SearchAddressWithoutBbl & {
   desc: string;
@@ -54,6 +56,15 @@ const AddressExample: React.FC<AddressExampleProps> = (props: AddressExampleProp
 
 export const DevPage: React.FC<{}> = () => {
   const fullBllUrl = createRouteForFullBbl("3012380016");
+  const [datasetInfo, setDatasetInfo] = useState<DatasetTrackerInfo[]>();
+
+  useEffect(() => {
+    async function asyncGetDatasetInfo() {
+      const data = await APIClient.getDatasetInfo();
+      setDatasetInfo(data);
+    }
+    asyncGetDatasetInfo();
+  }, []);
 
   return (
     <Page title="Developer documentation">
@@ -91,6 +102,8 @@ export const DevPage: React.FC<{}> = () => {
           <p>
             <Link to={fullBllUrl}>{fullBllUrl}</Link>
           </p>
+          <h3 id="tracker">Dataset Update Tracker</h3>
+          {datasetInfo && <DatasetTrackerTable data={datasetInfo} />}
         </div>
       </div>
     </Page>

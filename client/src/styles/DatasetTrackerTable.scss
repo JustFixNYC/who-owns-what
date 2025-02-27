@@ -1,0 +1,24 @@
+@import "_vars.scss";
+
+#dataset-tracker-table {
+  border-collapse: collapse;
+  thead {
+    font-size: 1rem;
+  }
+  tbody tr {
+    &.up-to-date {
+      background-color: rgba($justfix-green, 0.5);
+    }
+    &.late {
+      background-color: rgba($justfix-orange, 0.5);
+      font-weight: 700;
+    }
+    td {
+      border: 1px solid $justfix-black;
+    }
+  }
+  th,
+  td {
+    padding: 0.5rem;
+  }
+}
