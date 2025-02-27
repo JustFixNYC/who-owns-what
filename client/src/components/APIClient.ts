@@ -3,6 +3,8 @@ import {
   BuildingInfoResults,
   IndicatorsHistoryResults,
   WithBoroBlockLot,
+  DatasetTrackerInfoResults,
+  DatasetTrackerInfo,
 } from "./APIDataTypes";
 import { GeoSearchRequester } from "@justfixnyc/geosearch-requester";
 import {
@@ -102,6 +104,12 @@ function getBuildingInfo(bbl: string): Promise<BuildingInfoResults> {
   return getApiJson(`/api/address/buildinginfo?bbl=${bbl}`);
 }
 
+async function getDatasetInfo(): Promise<DatasetTrackerInfo[]> {
+  const apiData: Promise<DatasetTrackerInfoResults> = getApiJson("/api/dataset/tracker");
+  const rawDatasetInfo = (await apiData).result;
+  return rawDatasetInfo;
+}
+
 async function getIndicatorHistory(bbl: string): Promise<IndicatorsDataFromAPI> {
   const apiData: Promise<IndicatorsHistoryResults> = getApiJson(
     `/api/address/indicatorhistory?bbl=${bbl}`
@@ -175,6 +183,7 @@ const Client = {
   searchForBBL,
   getBuildingInfo,
   getIndicatorHistory,
+  getDatasetInfo,
 };
 
 export default Client;
