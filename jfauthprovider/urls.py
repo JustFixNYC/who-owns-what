@@ -49,4 +49,30 @@ urlpatterns = [
         "email/unsubscribe", views.email_unsubscribe_all, name="email_unsubscribe_all"
     ),
     path("unsubscribe/<int:bbl>", views.email_unsubscribe, name="email_unsubscribe"),
+    # DISTRICTS
+    path(
+        "subscribe/district",
+        views.SubscribeDistrictView.as_view(),
+        name="unsubscribe_district",
+    ),
+    path(
+        "unsubscribe/district",
+        views.UnsubscribeDistrictAllView.as_view(),
+        name="unsubscribe_district_all",
+    ),
+    path(
+        "unsubscribe/district/<int:subscription_id>",
+        views.DistrictUnsubscribeView.as_view(),
+        name="district_unsubscribe",
+    ),
+    path(
+        "email/unsubscribe/district",
+        views.email_unsubscribe_district_all,
+        name="email_unsubscribe_district_all",
+    ),
+    path(
+        "email/unsubscribe/district/<int:subscription_id>",
+        views.email_unsubscribe_district,
+        name="email_unsubscribe_district",
+    ),
 ]

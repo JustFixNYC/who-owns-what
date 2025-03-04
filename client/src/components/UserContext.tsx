@@ -2,6 +2,7 @@ import React, { createContext, useState, useEffect, useMemo, useCallback } from 
 import { JustfixUser } from "state-machine";
 import AuthClient from "./AuthClient";
 import { authRequiredPaths } from "routes";
+import { District } from "./APIDataTypes";
 
 type UserOrError = {
   user?: JustfixUser;
@@ -31,6 +32,8 @@ export type UserContextProps = {
     _user?: JustfixUser
   ) => void;
   unsubscribe: (bbl: string) => void;
+  subscribeDistrict: (district: District, _user?: JustfixUser) => void;
+  unsubscribeDistrict: (subscription_id: string) => void;
   updateEmail: (newEmail: string) => void;
   updatePassword: (currentPassword: string, newPassword: string) => void;
   requestPasswordReset: (email: string) => void;
@@ -55,6 +58,8 @@ const initialState: UserContextProps = {
     _user?: JustfixUser
   ) => {},
   unsubscribe: (bbl: string) => {},
+  subscribeDistrict: (district: District, _user?: JustfixUser) => {},
+  unsubscribeDistrict: (subscription_id: string) => {},
   updateEmail: (newEmail: string) => {},
   updatePassword: (currentPassword: string, newPassword: string) => {},
   requestPasswordReset: (email: string) => {},
@@ -180,6 +185,33 @@ export const UserContextProvider = ({ children }: { children: React.ReactNode })
     [user]
   );
 
+  const subscribeDistrict = useCallback(
+    (district: District, _user?: JustfixUser) => {
+      const currentUser = !!user?.email ? user : _user;
+      if (currentUser) {
+        const asyncSubscribe = async () => {
+          const response = await AuthClient.districtSubscribe(district);
+          setUser({ ...currentUser, districtSubscriptions: response.districtSubscriptions });
+        };
+        asyncSubscribe();
+      }
+    },
+    [user]
+  );
+
+  const unsubscribeDistrict = useCallback(
+    (subscription_id: string) => {
+      if (user) {
+        const asyncUnsubscribe = async () => {
+          const response = await AuthClient.districtUnsubscribe(subscription_id);
+          setUser({ ...user, districtSubscriptions: response.districtSubscriptions });
+        };
+        asyncUnsubscribe();
+      }
+    },
+    [user]
+  );
+
   const updateEmail = useCallback(
     (email: string) => {
       if (user) {
@@ -227,6 +259,8 @@ export const UserContextProvider = ({ children }: { children: React.ReactNode })
       logout,
       subscribe,
       unsubscribe,
+      subscribeDistrict,
+      unsubscribeDistrict,
       updateEmail,
       updatePassword,
       requestPasswordReset,
@@ -239,6 +273,8 @@ export const UserContextProvider = ({ children }: { children: React.ReactNode })
       logout,
       subscribe,
       unsubscribe,
+      subscribeDistrict,
+      unsubscribeDistrict,
       updateEmail,
       updatePassword,
       requestPasswordReset,

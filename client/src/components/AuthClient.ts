@@ -1,6 +1,7 @@
 import { NetworkError } from "error-reporting";
 import { JustfixUser } from "state-machine";
 import browser from "../util/browser";
+import { District } from "./APIDataTypes";
 
 const BASE_URL = browser.addTrailingSlash(process.env.REACT_APP_API_BASE_URL);
 
@@ -41,12 +42,17 @@ const fetchUser = async () => {
         authCheck["subscriptions"]?.map((s: any) => {
           return { ...s };
         }) || [];
+      const districtSubscriptions =
+        authCheck["district_subscriptions"]?.map((s: any) => {
+          return { ...s };
+        }) || [];
       _user = {
         email: authCheck["email"],
         verified: authCheck["verified"],
         id: authCheck["id"],
         type: authCheck["type"],
         subscriptions,
+        districtSubscriptions,
         subscriptionLimit: authCheck["subscription_limit"],
       };
     } else {
@@ -292,6 +298,42 @@ const emailUserSubscriptions = async (token: string) => {
 };
 
 /**
+ * Sends an authenticated request to subscribe the user to the district
+ */
+const districtSubscribe = async (district: District) => {
+  const post_data = { district: JSON.stringify(district) };
+  return await postAuthRequest(`${BASE_URL}auth/subscribe/district`, post_data);
+};
+
+/**
+ * Sends an authenticated request to unsubscribe the user from the district
+ */
+const districtUnsubscribe = async (subscription_id: string) => {
+  return await postAuthRequest(
+    `${BASE_URL}auth/unsubscribe/district/${subscription_id}`,
+    undefined,
+    undefined,
+    "DELETE"
+  );
+};
+
+/**
+ * Sends an unauthenticated request to unsubscribe the user from the district
+ */
+const emailDistrictUnsubscribe = async (subscription_id: string, token: string) => {
+  return await postAuthRequest(
+    `${BASE_URL}auth/email/unsubscribe/district/${subscription_id}?u=${token}`
+  );
+};
+
+/**
+ * Sends an unauthenticated request to unsubscribe the user from all districts
+ */
+const emailDistrictUnsubscribeAll = async (token: string) => {
+  return await postAuthRequest(`${BASE_URL}auth/email/unsubscribe/district?u=${token}`);
+};
+
+/**
  * Wrapper function for authentication POST requests
  */
 
@@ -394,6 +436,10 @@ const Client = {
   emailUserSubscriptions,
   emailUnsubscribeBuilding,
   emailUnsubscribeAll,
+  districtSubscribe,
+  districtUnsubscribe,
+  emailDistrictUnsubscribe,
+  emailDistrictUnsubscribeAll,
 };
 
 export default Client;

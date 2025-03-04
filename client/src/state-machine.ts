@@ -4,6 +4,7 @@ import {
   AddressRecord,
   BuildingInfoRecord,
   SummaryStatsRecord,
+  District,
 } from "components/APIDataTypes";
 import APIClient from "components/APIClient";
 import { assertNotUndefined } from "@justfixnyc/util";
@@ -109,6 +110,11 @@ export type BuildingSubscription = {
   boro: string;
 };
 
+export type DistrictSubscription = {
+  district: District;
+  pk: string;
+};
+
 export type JustfixUser = {
   /** The email address associated with this account */
   email: string;
@@ -120,6 +126,8 @@ export type JustfixUser = {
   type: string;
   /** All buildings the user is subscribed to (email alerts) */
   subscriptions: BuildingSubscription[];
+  /** All districts the user is subscribed to (email alerts) */
+  districtSubscriptions: DistrictSubscription[];
   /** Max number of buildings a user can be subscribed to */
   subscriptionLimit: number;
 };

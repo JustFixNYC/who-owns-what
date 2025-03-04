@@ -195,3 +195,10 @@ export type MonthlyTimelineData = {
 export type IndicatorsHistoryResults = {
   result: MonthlyTimelineData[];
 };
+
+export type DistrictComponent = {
+  geo_type: string;
+  geo_ids: string[];
+};
+
+export type District = DistrictComponent[];

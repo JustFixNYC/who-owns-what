@@ -95,6 +95,7 @@ export const createCoreRoutePaths = (prefix?: string) => {
     home: `${pathPrefix}/`,
     addressPage: createAddressPageRoutes(`${pathPrefix}/address/:boro/:housenumber/:streetname`),
     account: createAccountRoutePaths(`${pathPrefix}/account`),
+    district: `${pathPrefix}/district`,
     /** Note: this path doesn't correspond to a stable page on the site. It simply provides an entry point that
      * immediately redirects to an addressPageOverview. This path is helpful for folks who, say, have a list of
      * bbl values in a spreadsheet and want to easily generate direct links to WhoOwnsWhat.
