@@ -80,6 +80,10 @@ export const UserContextProvider = ({ children }: { children: React.ReactNode })
             _user.subscriptions?.map((s: any) => {
               return { ...s };
             }) || [],
+          districtSubscriptions:
+            _user.districtSubscriptions?.map((s: any) => {
+              return { ...s };
+            }) || [],
         });
       }
     };

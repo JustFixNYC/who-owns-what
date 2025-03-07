@@ -14,6 +14,7 @@ import { JFCLLocaleLink } from "i18n";
 import { BuildingSubscription } from "state-machine";
 import { FixedLoadingLabel } from "components/Loader";
 import { STANDALONE_PAGES, StandalonePageFooter } from "components/StandalonePage";
+import { DistrictSubscriptionsList } from "./DistrictAlertsPage";
 
 const BRANCH_NAME = process.env.REACT_APP_BRANCH;
 
@@ -113,6 +114,16 @@ const UnsubscribePage = withI18n()((props: withI18nProps) => {
     <Page title={isEmailUnsubscribeAll ? i18n._(t`Unsubscribe`) : i18n._(t`Manage subscriptions`)}>
       <div className="UnsubscribePage Page">
         <div className="page-container">
+          <Button
+            labelText="district unsubscribe all"
+            onClick={async () => {
+              await AuthClient.emailDistrictUnsubscribeAll(token);
+            }}
+          />
+          <DistrictSubscriptionsList />
+
+          <hr />
+
           {subscriptions === undefined ? (
             <FixedLoadingLabel />
           ) : subscriptionsNumber === 0 ? (
