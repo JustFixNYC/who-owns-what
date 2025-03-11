@@ -1,5 +1,5 @@
 -r requirements.txt
-https://github.com/nycdb/nycdb/archive/a9872f3ee51281fe87901cf49612cfde3812cc40.zip#subdirectory=src
+https://github.com/nycdb/nycdb/archive/ef8ab7914e2a5804e3905f60493f4d6a3c6c54f6.zip#subdirectory=src
 mypy==0.782
 PyYAML>=5.1
 pytest==6.2.5

@@ -283,7 +283,7 @@ export const INDICATORS_DATASETS: IndicatorsDatasetMap = {
         >
           dataset of building-level counts of rent-stabilized units
         </a>{" "}
-        from 2007 to 2022.
+        from 2007 to 2023.
         <br />
         <br />A significant limitation of the data is that{" "}
         <a
