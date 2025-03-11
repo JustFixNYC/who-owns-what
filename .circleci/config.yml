@@ -12,8 +12,6 @@ jobs:
           POSTGRES_USER: wow
           POSTGRES_DB: wow
           POSTGRES_PASSWORD: wow
-      - volumes:
-        - ./createExtensionPostGIS.sql:/docker-entrypoint-initdb.d/createExtensionPostGIS.sql
     steps:
       - checkout
       - restore_cache:
