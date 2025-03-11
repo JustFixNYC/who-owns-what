@@ -33,13 +33,12 @@ def create_db(dbname: str):
     """Create the given Postgres database."""
 
     exec_outside_of_transaction("CREATE DATABASE " + dbname)
-    
+
 
 def create_postgis_extension():
     """Install postgis extension."""
 
     exec_outside_of_transaction("CREATE EXTENSION postgis ")
-    
 
 
 @pytest.fixture(scope="module")
