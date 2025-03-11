@@ -23,6 +23,7 @@ jobs:
             . ~/venv/bin/activate
             pip install --upgrade pip
             pip install -r requirements-dev.txt
+            psql -U wow -d wow -c 'CREATE EXTENSION IF NOT EXISTS POSTGIS'
       - save_cache:
           name: Save python deps cache
           key: v1-py-cache-{{ .Branch }}-{{ checksum "requirements.txt" }}-{{ checksum "requirements-dev.txt" }}
