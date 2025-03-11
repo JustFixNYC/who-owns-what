@@ -29,6 +29,7 @@ def django_db_setup(django_db_setup, django_db_blocker):
                 try:
                     cursor.execute("select * from wow_bldgs limit 1;")
                     is_already_built = True
+                    cursor.execute("CREATE EXTENSIONS postgis;")
                 except psycopg2.errors.UndefinedTable:
                     pass
 
