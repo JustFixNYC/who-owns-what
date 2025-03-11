@@ -35,12 +35,6 @@ def create_db(dbname: str):
     exec_outside_of_transaction("CREATE DATABASE " + dbname)
 
 
-def create_postgis_extension():
-    """Install postgis extension."""
-
-    exec_outside_of_transaction("CREATE EXTENSION postgis ")
-
-
 @pytest.fixture(scope="module")
 def db():
     """
@@ -71,7 +65,6 @@ def db():
     if not created:
         drop_db(db)
         create_db(db)
-        create_postgis_extension()
 
     return DbContext()
 
