@@ -1,40 +1,37 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { withI18n, withI18nProps } from "@lingui/react";
 import { t, Trans } from "@lingui/macro";
 import { Button } from "@justfixnyc/component-library";
 
 import "styles/DistrictAlertsPage.css";
+import geoIds from "../data/district-ids.json";
 import Page from "components/Page";
 import { UserContext } from "components/UserContext";
-import { DistrictSubscription, JustfixUser } from "state-machine";
-
-const DISTRICT_1 = [
-  { geo_type: "city_council", geo_ids: ["36", "2"] },
-  {
-    geo_type: "tract_2020",
-    geo_ids: ["36047023500", "36047024100", "36047123700"],
-  },
-];
-const DISTRICT_2 = [
-  { geo_type: "state_assembly", geo_ids: ["57"] },
-  { geo_type: "state_senate", geo_ids: ["25"] },
-  { geo_type: "community_district", geo_ids: ["303", "308"] },
-];
+import { JustfixUser } from "state-machine";
+import MultiSelect from "components/Multiselect";
+import { District } from "components/APIDataTypes";
 
 const AccountSettingsPage = withI18n()((props: withI18nProps) => {
   const { i18n } = props;
-  const userContext = useContext(UserContext);
-  if (!userContext.user) return <div />;
 
-  const user = userContext.user as JustfixUser;
-  const { districtSubscriptions } = user;
+  const [districtSelection, setDistrictSelection] = useState<District>();
 
+  const handleApply = (selectedList: string[], geoType: string) => {
+    setDistrictSelection((prev) => {
+      const existingComponents = prev?.filter((component) => component.geo_type !== geoType);
+      const newDistrict = selectedList.length
+        ? (existingComponents || []).concat([{ geo_type: geoType, geo_ids: selectedList }])
+        : existingComponents;
+      return newDistrict;
+    });
+  };
+  
   return (
     <Page title={i18n._(t`District Alerts`)}>
       <div className="DistrictAlertsPage Page">
         <div className="page-container">
           <Trans render="h1">District alerts</Trans>
-          <Button
+          {/* <Button
             labelText="Subscribe to district 1"
             onClick={() => {
               userContext.subscribeDistrict(DISTRICT_1);
@@ -47,9 +44,28 @@ const AccountSettingsPage = withI18n()((props: withI18nProps) => {
               userContext.subscribeDistrict(DISTRICT_2);
               window.location.reload();
             }}
-          />
-          <h2>Subscriptions</h2>
-          <DistrictSubscriptionsList />
+          /> */}
+
+          {/* <h2>Subscriptions</h2> */}
+          {/* <DistrictSubscriptionsList /> */}
+
+          <h2>Build your district</h2>
+          {Object.entries(geoIds).map(([geo_type, options]) => {
+            return (
+              <>
+                <h3>{geo_type}</h3>
+                <MultiSelect
+                  id={`district-multiselect-${geo_type}`}
+                  options={options}
+                  onApply={(selectedList) => handleApply(selectedList, geo_type)}
+                  isOpen={true}
+                />
+              </>
+            );
+          })}
+
+          <h2>Your selections</h2>
+          <pre>{JSON.stringify(districtSelection, null, 2)}</pre>
           {/* {!districtSubscriptions || !districtSubscriptions.length ? (
             <div className="district-subscription">No subscriptions</div>
           ) : (
