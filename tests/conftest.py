@@ -33,7 +33,6 @@ def create_db(dbname: str):
     """Create the given Postgres database."""
 
     exec_outside_of_transaction("CREATE DATABASE " + dbname)
-    exec_outside_of_transaction("CREATE EXTENSION IF NOT EXISTS POSTGIS")
 
 
 @pytest.fixture(scope="module")
@@ -74,6 +73,11 @@ class DbContext:
     """
     An object facilitating interactions with the database from tests.
     """
+
+    def __init__(self):
+        with self.connect() as conn:
+            with conn.cursor(cursor_factory=psycopg2.extras.DictCursor) as cur:
+                cur.execute("CREATE EXTENSION IF NOT EXISTS POSTGIS")
 
     @contextmanager
     def connect(self):
