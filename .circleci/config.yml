@@ -25,7 +25,7 @@ jobs:
             pip install -r requirements-dev.txt
       - save_cache:
           name: Save python deps cache
-          key: v1-py-cache-{{ .Branch }}-{{ checksum "requirements.txt" }}-{{ checksum "requirements-dev.txt" }}
+          key: v2-py-cache-{{ .Branch }}-{{ checksum "requirements.txt" }}-{{ checksum "requirements-dev.txt" }}
           paths:
             - ~/venv
       - run:
