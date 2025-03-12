@@ -4,10 +4,10 @@ jobs:
   test:
     working_directory: ~/who-owns-what
     docker:
-      - image: circleci/python:3.10-node
+      - image: cimg/python:3.10-node
         environment:
           DATABASE_URL: postgres://wow:wow@localhost/wow
-      - image: circleci/postgres:13-postgis
+      - image: cimg/postgres:13.20-postgis
         environment:
           POSTGRES_USER: wow
           POSTGRES_DB: wow
@@ -23,7 +23,6 @@ jobs:
             . ~/venv/bin/activate
             pip install --upgrade pip
             pip install -r requirements-dev.txt
-            psql -U wow -d wow -c 'CREATE EXTENSION IF NOT EXISTS POSTGIS'
       - save_cache:
           name: Save python deps cache
           key: v1-py-cache-{{ .Branch }}-{{ checksum "requirements.txt" }}-{{ checksum "requirements-dev.txt" }}
