@@ -17,7 +17,7 @@ jobs:
       - run:
           name: Create PostGIS Extension
           command: |
-            psql -U wow -d wow -c 'CREATE EXTENSION IF NOT EXISTS POSTGIS'
+            psql -d $DATABASE_URL -c 'CREATE EXTENSION IF NOT EXISTS POSTGIS'
       - restore_cache:
           key: v4-py-cache-{{ .Branch }}-{{ checksum "requirements.txt" }}-{{ checksum "requirements-dev.txt" }}
       - run:
