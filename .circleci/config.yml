@@ -4,10 +4,10 @@ jobs:
   test:
     working_directory: ~/who-owns-what
     docker:
-      - image: circleci/python:3.10-node
+      - image: cimg/python:3.10.7-node
         environment:
           DATABASE_URL: postgres://wow:wow@localhost/wow
-      - image: circleci/postgres:13
+      - image: cimg/postgres:13.20-postgis
         environment:
           POSTGRES_USER: wow
           POSTGRES_DB: wow
@@ -15,7 +15,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: v1-py-cache-{{ .Branch }}-{{ checksum "requirements.txt" }}-{{ checksum "requirements-dev.txt" }}
+          key: v4-py-cache-{{ .Branch }}-{{ checksum "requirements.txt" }}-{{ checksum "requirements-dev.txt" }}
       - run:
           name: Activate venv and install requirements
           command: |
@@ -25,7 +25,7 @@ jobs:
             pip install -r requirements-dev.txt
       - save_cache:
           name: Save python deps cache
-          key: v1-py-cache-{{ .Branch }}-{{ checksum "requirements.txt" }}-{{ checksum "requirements-dev.txt" }}
+          key: v4-py-cache-{{ .Branch }}-{{ checksum "requirements.txt" }}-{{ checksum "requirements-dev.txt" }}
           paths:
             - ~/venv
       - run:
@@ -43,7 +43,7 @@ jobs:
       - restore_cache:
           name: Restore yarn package cache
           keys:
-            - yarn-packages-v2-{{ checksum "client/yarn.lock" }}
+            - yarn-packages-v3-{{ checksum "client/yarn.lock" }}
       - run:
           name: Install all node dependencies
           command: |
@@ -51,7 +51,7 @@ jobs:
             yarn install --frozen-lockfile
       - save_cache:
           name: Save yarn package cache
-          key: yarn-packages-v2-{{ checksum "client/yarn.lock" }}
+          key: yarn-packages-v3-{{ checksum "client/yarn.lock" }}
           paths:
             - ~/.cache/yarn
       - run:

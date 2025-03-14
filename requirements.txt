@@ -9,4 +9,5 @@ numpy==2.0.1
 algoliasearch==2.6.1
 boto3==1.28.44
 requests==2.25.1
+types-requests==2.25.1
 django-cors-headers==4.3.0
