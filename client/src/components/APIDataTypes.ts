@@ -195,3 +195,15 @@ export type MonthlyTimelineData = {
 export type IndicatorsHistoryResults = {
   result: MonthlyTimelineData[];
 };
+
+export type DatasetTrackerInfo = {
+  dataset: string;
+  last_updated: string;
+  update_cadence: string;
+  alert_threshold: string;
+  is_late: boolean;
+};
+
+export type DatasetTrackerInfoResults = {
+  result: DatasetTrackerInfo[];
+};

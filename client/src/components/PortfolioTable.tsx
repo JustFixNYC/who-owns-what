@@ -54,10 +54,10 @@ const currencyFormater = new Intl.NumberFormat("en-us", {
   maximumFractionDigits: 0,
 });
 
-const isNonZero: FilterFn<any> = (row, columnId, value, addMeta) =>
+export const isNonZero: FilterFn<any> = (row, columnId, value, addMeta) =>
   value ? !!row.getValue(columnId) : true;
 
-const inNumberRanges: FilterFn<any> = (
+export const inNumberRanges: FilterFn<any> = (
   row,
   columnId,
   filterValue: FilterNumberRange[],
