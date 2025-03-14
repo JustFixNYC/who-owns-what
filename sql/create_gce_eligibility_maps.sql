@@ -8,7 +8,7 @@
 CREATE TABLE gce_eligibility_nyad AS (
 	WITH gce_district_values AS (
 		SELECT
-		    p.assem_dist::int AS assemdist,
+		    assem_dist::int AS assemdist,
 		    COALESCE(SUM(unitsres), 0) :: integer AS unitsres,
 		    COALESCE(SUM(post_hstpa_rs_units), 0) :: integer AS post_hstpa_rs_units,
 		    COUNT(gce.*) :: integer AS bbls_count,
@@ -18,9 +18,8 @@ CREATE TABLE gce_eligibility_nyad AS (
 		    SUM(CASE WHEN eligible THEN 1 ELSE 0 END) :: integer AS eligible_bbls_count
 		FROM
 		    gce_eligibility AS gce
-		    LEFT JOIN pluto_latest_districts AS p USING(bbl)
 		GROUP BY
-		    p.assem_dist
+		    assem_dist
 		HAVING
 		    count(gce.*) > 0
 	)
@@ -38,7 +37,7 @@ CREATE TABLE gce_eligibility_nyad AS (
 CREATE TABLE gce_eligibility_nycc AS (
 	WITH gce_district_values AS (
 		SELECT
-		    p.coun_dist::int AS coundist,
+		    coun_dist::int AS coundist,
 		    COALESCE(SUM(unitsres), 0) :: integer AS unitsres,
 		    COALESCE(SUM(post_hstpa_rs_units), 0) :: integer AS post_hstpa_rs_units,
 		    COUNT(gce.*) :: integer AS bbls_count,
@@ -48,9 +47,8 @@ CREATE TABLE gce_eligibility_nycc AS (
 		    SUM(CASE WHEN eligible THEN 1 ELSE 0 END) :: integer AS eligible_bbls_count
 		FROM
 		    gce_eligibility AS gce
-		    LEFT JOIN pluto_latest_districts AS p USING(bbl)
 		GROUP BY
-		    p.coun_dist
+		    coun_dist
 		HAVING
 		    count(gce.*) > 0
 	)
@@ -68,7 +66,7 @@ CREATE TABLE gce_eligibility_nycc AS (
 CREATE TABLE gce_eligibility_nyss AS (
 	WITH gce_district_values AS (
 		SELECT
-		    p.stsen_dist::int AS stsendist,
+		    stsen_dist::int AS stsendist,
 		    COALESCE(SUM(unitsres), 0) :: integer AS unitsres,
 		    COALESCE(SUM(post_hstpa_rs_units), 0) :: integer AS post_hstpa_rs_units,
 		    COUNT(gce.*) :: integer AS bbls_count,
@@ -78,9 +76,8 @@ CREATE TABLE gce_eligibility_nyss AS (
 		    SUM(CASE WHEN eligible THEN 1 ELSE 0 END) :: integer AS eligible_bbls_count
 		FROM
 		    gce_eligibility AS gce
-		    LEFT JOIN pluto_latest_districts AS p USING(bbl)
 		GROUP BY
-		    p.stsen_dist
+		    stsen_dist
 		HAVING
 		    count(gce.*) > 0
 	)
@@ -98,7 +95,7 @@ CREATE TABLE gce_eligibility_nyss AS (
 CREATE TABLE gce_eligibility_nycg AS (
 	WITH gce_district_values AS (
 		SELECT
-		    p.cong_dist::int AS congdist,
+		    cong_dist::int AS congdist,
 		    COALESCE(SUM(unitsres), 0) :: integer AS unitsres,
 		    COALESCE(SUM(post_hstpa_rs_units), 0) :: integer AS post_hstpa_rs_units,
 		    COUNT(gce.*) :: integer AS bbls_count,
@@ -108,9 +105,8 @@ CREATE TABLE gce_eligibility_nycg AS (
 		    SUM(CASE WHEN eligible THEN 1 ELSE 0 END) :: integer AS eligible_bbls_count
 		FROM
 		    gce_eligibility AS gce
-		    LEFT JOIN pluto_latest_districts AS p USING(bbl)
 		GROUP BY
-		    p.cong_dist
+		    cong_dist
 		HAVING
 		    count(gce.*) > 0
 	)
