@@ -11,7 +11,10 @@ import { JustfixUser } from "state-machine";
 import MultiSelect from "components/Multiselect";
 import { District } from "components/APIDataTypes";
 
-const AccountSettingsPage = withI18n()((props: withI18nProps) => {
+const DistrictAlertsPage = withI18n()((props: withI18nProps) => {
+  const userContext = useContext(UserContext);
+  if (!userContext.user) return <div />;
+
   const { i18n } = props;
 
   const [districtSelection, setDistrictSelection] = useState<District>();
@@ -25,30 +28,12 @@ const AccountSettingsPage = withI18n()((props: withI18nProps) => {
       return newDistrict;
     });
   };
-  
+
   return (
     <Page title={i18n._(t`District Alerts`)}>
       <div className="DistrictAlertsPage Page">
         <div className="page-container">
           <Trans render="h1">District alerts</Trans>
-          {/* <Button
-            labelText="Subscribe to district 1"
-            onClick={() => {
-              userContext.subscribeDistrict(DISTRICT_1);
-              window.location.reload();
-            }}
-          />
-          <Button
-            labelText="Subscribe to district 2"
-            onClick={() => {
-              userContext.subscribeDistrict(DISTRICT_2);
-              window.location.reload();
-            }}
-          /> */}
-
-          {/* <h2>Subscriptions</h2> */}
-          {/* <DistrictSubscriptionsList /> */}
-
           <h2>Build your district</h2>
           {Object.entries(geoIds).map(([geo_type, options]) => {
             return (
@@ -63,30 +48,16 @@ const AccountSettingsPage = withI18n()((props: withI18nProps) => {
               </>
             );
           })}
-
           <h2>Your selections</h2>
           <pre>{JSON.stringify(districtSelection, null, 2)}</pre>
-          {/* {!districtSubscriptions || !districtSubscriptions.length ? (
-            <div className="district-subscription">No subscriptions</div>
-          ) : (
-            <>
-              {districtSubscriptions.map((subscription, i) => {
-                return (
-                  <div className="district-subscription">
-                    <h3>Subscription {i + 1}</h3>
-                    <pre>{JSON.stringify(subscription.district, null, 2)}</pre>
-                    <Button
-                      labelText="Unsubscribe"
-                      onClick={() => {
-                        userContext.unsubscribeDistrict(subscription.pk);
-                        window.location.reload();
-                      }}
-                    />
-                  </div>
-                );
-              })}
-            </>
-          )} */}
+          <Button
+            labelText="Subscribe"
+            onClick={() => {
+              userContext.subscribeDistrict(districtSelection!);
+              window.location.reload();
+            }}
+            disabled={!districtSelection || districtSelection.length === 0}
+          />
         </div>
       </div>
     </Page>
@@ -127,4 +98,4 @@ export const DistrictSubscriptionsList: React.FC = () => {
   );
 };
 
-export default AccountSettingsPage;
+export default DistrictAlertsPage;

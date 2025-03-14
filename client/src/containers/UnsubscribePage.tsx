@@ -8,10 +8,10 @@ import "styles/UserSetting.css";
 import "styles/UnsubscribePage.css";
 import Page from "../components/Page";
 import AuthClient from "../components/AuthClient";
-import { SubscriptionField } from "./AccountSettingsPage";
+import { BuildingSubscriptionField, DistrictSubscriptionField } from "./AccountSettingsPage";
 import { createWhoOwnsWhatRoutePaths } from "routes";
 import { JFCLLocaleLink } from "i18n";
-import { BuildingSubscription } from "state-machine";
+import { BuildingSubscription, DistrictSubscription } from "state-machine";
 import { FixedLoadingLabel } from "components/Loader";
 import { STANDALONE_PAGES, StandalonePageFooter } from "components/StandalonePage";
 import { DistrictSubscriptionsList } from "./DistrictAlertsPage";
@@ -26,8 +26,15 @@ const UnsubscribePage = withI18n()((props: withI18nProps) => {
   const token = params.get("u") || "";
   const isEmailUnsubscribeAll = !!params.get("all");
 
-  const [subscriptions, setSubscriptions] = React.useState<BuildingSubscription[]>();
-  const subscriptionsNumber: number = subscriptions?.length || 0;
+  const [buildingSubscriptions, setBuildingSubscriptions] = React.useState<
+    BuildingSubscription[]
+  >();
+  const buildingSubscriptionsNumber = buildingSubscriptions?.length || 0;
+
+  const [districtSubscriptions, setDistrictSubscriptions] = React.useState<
+    DistrictSubscription[]
+  >();
+  const districtSubscriptionsNumber = districtSubscriptions?.length || 0;
 
   const pageName = STANDALONE_PAGES.find((x) => pathname.includes(x));
   const standalonePageEventParams = { from: pageName };
@@ -35,7 +42,8 @@ const UnsubscribePage = withI18n()((props: withI18nProps) => {
   useEffect(() => {
     const asyncFetchSubscriptions = async () => {
       const response = await AuthClient.emailUserSubscriptions(token);
-      setSubscriptions(response["subscriptions"]);
+      setBuildingSubscriptions(response["building_subscriptions"]);
+      setDistrictSubscriptions(response["district_subscriptions"]);
     };
     asyncFetchSubscriptions();
 
@@ -48,16 +56,35 @@ const UnsubscribePage = withI18n()((props: withI18nProps) => {
 
   const handleUnsubscribeBuilding = async (bbl: string) => {
     const result = await AuthClient.emailUnsubscribeBuilding(bbl, token);
-    if (!!result?.["subscriptions"]) setSubscriptions(result["subscriptions"]);
+    if (!!result?.["building_subscriptions"]) {
+      setBuildingSubscriptions(result["building_subscriptions"]);
+    }
     window.gtag("event", "unsubscribe-building", {
       from: "manage subscriptions",
       branch: BRANCH_NAME,
     });
   };
 
-  const handleUnsubscribeAll = async (from: string) => {
-    const result = await AuthClient.emailUnsubscribeAll(token);
-    if (!!result?.["subscriptions"]) setSubscriptions(result["subscriptions"]);
+  const handleUnsubscribeDistrict = async (subscriptionId: string) => {
+    const result = await AuthClient.emailUnsubscribeDistrict(subscriptionId, token);
+    if (!!result?.["district_subscriptions"]) {
+      setDistrictSubscriptions(result["district_subscriptions"]);
+    }
+    window.gtag("event", "unsubscribe-district", {
+      from: "manage subscriptions",
+      branch: BRANCH_NAME,
+    });
+  };
+
+  const handleUnsubscribeAllBuilding = async (from: string) => {
+    const result = await AuthClient.emailUnsubscribeAllBuilding(token);
+    if (!!result?.["district_subscriptions"]) setBuildingSubscriptions(result["subscriptions"]);
+    window.gtag("event", "unsubscribe-building-all", { from: from, branch: BRANCH_NAME });
+  };
+
+  const handleUnsubscribeAllDistrict = async (from: string) => {
+    const result = await AuthClient.emailUnsubscribeAllDistrict(token);
+    if (!!result?.["district_subscriptions"]) setBuildingSubscriptions(result["subscriptions"]);
     window.gtag("event", "unsubscribe-building-all", { from: from, branch: BRANCH_NAME });
   };
 
@@ -65,15 +92,15 @@ const UnsubscribePage = withI18n()((props: withI18nProps) => {
     <>
       <Trans render="h1">Unsubscribe</Trans>
       <h2>
-        <Trans>You are signed up for Building Alerts for</Trans> {subscriptionsNumber}{" "}
-        {subscriptionsNumber! === 1 ? <Trans>building</Trans> : <Trans>buildings</Trans>}.{" "}
+        <Trans>You are signed up for Building Alerts for</Trans> {buildingSubscriptionsNumber}{" "}
+        {buildingSubscriptionsNumber! === 1 ? <Trans>building</Trans> : <Trans>buildings</Trans>}.{" "}
         <Trans>Click below to unsubscribe from all and stop receiving Building Alerts.</Trans>
       </h2>
       <Button
         variant="primary"
         size="large"
         labelText={i18n._(t`Unsubscribe from all`)}
-        onClick={() => handleUnsubscribeAll("unsubscribe")}
+        onClick={() => handleUnsubscribeAllBuilding("unsubscribe")}
       />
     </>
   );
@@ -82,19 +109,36 @@ const UnsubscribePage = withI18n()((props: withI18nProps) => {
     <>
       <Trans render="h1">Manage Subscriptions</Trans>
       <h2 className="settings-section">
-        <Trans>You are signed up for Building Alerts for</Trans> {subscriptionsNumber}{" "}
-        {subscriptionsNumber! === 1 ? <Trans>building</Trans> : <Trans>buildings</Trans>}
+        <Trans>You are signed up for Building Alerts for</Trans> {buildingSubscriptionsNumber}{" "}
+        {buildingSubscriptionsNumber! === 1 ? <Trans>building</Trans> : <Trans>buildings</Trans>}
       </h2>
       <div className="subscriptions-container">
-        {subscriptions!.map((s) => (
-          <SubscriptionField key={s.bbl} {...s} onRemoveClick={handleUnsubscribeBuilding} />
+        {buildingSubscriptions!.map((s) => (
+          <BuildingSubscriptionField key={s.bbl} {...s} onRemoveClick={handleUnsubscribeBuilding} />
         ))}
         <div className="unsubscribe-all-field">
           <Button
             variant="secondary"
             size="small"
-            labelText={i18n._(t`Unsubscribe from all`)}
-            onClick={() => handleUnsubscribeAll("manage subscriptions")}
+            labelText={i18n._(t`Unsubscribe from all buildings`)}
+            onClick={() => handleUnsubscribeAllBuilding("manage subscriptions")}
+          />
+        </div>
+      </div>
+      <h2 className="settings-section">
+        <Trans>You are signed up for District Alerts for</Trans> {districtSubscriptionsNumber}{" "}
+        {districtSubscriptionsNumber! === 1 ? <Trans>district</Trans> : <Trans>districts</Trans>}
+      </h2>
+      <div className="subscriptions-container">
+        {districtSubscriptions!.map((s) => (
+          <DistrictSubscriptionField key={s.pk} {...s} onRemoveClick={handleUnsubscribeDistrict} />
+        ))}
+        <div className="unsubscribe-all-field">
+          <Button
+            variant="secondary"
+            size="small"
+            labelText={i18n._(t`Unsubscribe from all districts`)}
+            onClick={() => handleUnsubscribeAllDistrict("manage subscriptions")}
           />
         </div>
       </div>
@@ -117,16 +161,16 @@ const UnsubscribePage = withI18n()((props: withI18nProps) => {
           <Button
             labelText="district unsubscribe all"
             onClick={async () => {
-              await AuthClient.emailDistrictUnsubscribeAll(token);
+              await AuthClient.emailUnsubscribeAllDistrict(token);
             }}
           />
           <DistrictSubscriptionsList />
 
           <hr />
 
-          {subscriptions === undefined ? (
+          {buildingSubscriptions === undefined ? (
             <FixedLoadingLabel />
-          ) : subscriptionsNumber === 0 ? (
+          ) : buildingSubscriptionsNumber === 0 ? (
             renderNoSubscriptionsPage()
           ) : isEmailUnsubscribeAll ? (
             renderUnsubscribePage()

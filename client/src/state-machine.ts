@@ -125,7 +125,7 @@ export type JustfixUser = {
   /** User type for passing to Google Analytics */
   type: string;
   /** All buildings the user is subscribed to (email alerts) */
-  subscriptions: BuildingSubscription[];
+  buildingSubscriptions: BuildingSubscription[];
   /** All districts the user is subscribed to (email alerts) */
   districtSubscriptions: DistrictSubscription[];
   /** Max number of buildings a user can be subscribed to */

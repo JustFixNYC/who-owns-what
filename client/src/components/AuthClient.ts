@@ -38,7 +38,7 @@ const fetchUser = async () => {
     const authCheck = await userAuthenticated();
 
     if (!!authCheck) {
-      const subscriptions =
+      const buildingSubscriptions =
         authCheck["subscriptions"]?.map((s: any) => {
           return { ...s };
         }) || [];
@@ -51,7 +51,7 @@ const fetchUser = async () => {
         verified: authCheck["verified"],
         id: authCheck["id"],
         type: authCheck["type"],
-        subscriptions,
+        buildingSubscriptions,
         districtSubscriptions,
         subscriptionLimit: authCheck["subscription_limit"],
       };
@@ -170,6 +170,20 @@ const userAuthenticated = async () => {
   return await postAuthRequest(`${BASE_URL}auth/auth_check`);
 };
 
+const isEmailAlreadyUsed = async (email: string) => {
+  const sanitizedEmail = email.toLowerCase();
+
+  const result = await friendlyFetch(`${BASE_URL}auth/account_exists/${sanitizedEmail}`, {
+    method: "GET",
+    mode: "cors",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+  });
+
+  return result.ok;
+};
+
 /**
  * Sends an unauthenticated request to verify the user email
  */
@@ -234,7 +248,7 @@ const updatePassword = async (currentPassword: string, newPassword: string) => {
 /**
  * Sends an authenticated request to subscribe the user to the building
  */
-const buildingSubscribe = async (
+const subscribeBuilding = async (
   bbl: string,
   housenumber: string,
   streetname: string,
@@ -242,38 +256,37 @@ const buildingSubscribe = async (
   boro: string
 ) => {
   const post_data = {
+    bbl,
     housenumber,
     streetname,
     zip,
     boro,
   };
-  return await postAuthRequest(`${BASE_URL}auth/subscriptions/${bbl}`, post_data);
+  return await postAuthRequest(`${BASE_URL}auth/subscribe/building`, post_data);
 };
 
 /**
  * Sends an authenticated request to unsubscribe the user from the building
  */
-const buildingUnsubscribe = async (bbl: string) => {
+const unsubscribeBuilding = async (bbl: string) => {
   return await postAuthRequest(
-    `${BASE_URL}auth/subscriptions/${bbl}`,
+    `${BASE_URL}auth/unsubscribe/building/${bbl}`,
     undefined,
     undefined,
     "DELETE"
   );
 };
 
-const isEmailAlreadyUsed = async (email: string) => {
-  const sanitizedEmail = email.toLowerCase();
-
-  const result = await friendlyFetch(`${BASE_URL}auth/account_exists/${sanitizedEmail}`, {
-    method: "GET",
-    mode: "cors",
-    headers: {
-      "Content-Type": "application/x-www-form-urlencoded",
-    },
-  });
-
-  return result.ok;
+/**
+ * Sends an authenticated request to unsubscribe the user from all buildings
+ */
+const unsubscribeAllBuilding = async (bbl: string) => {
+  return await postAuthRequest(
+    `${BASE_URL}auth/unsubscribe_all/building`,
+    undefined,
+    undefined,
+    "DELETE"
+  );
 };
 
 /**
@@ -286,21 +299,14 @@ const emailUnsubscribeBuilding = async (bbl: string, token: string) => {
 /**
  * Sends an unauthenticated request to unsubscribe the user from all buildings
  */
-const emailUnsubscribeAll = async (token: string) => {
+const emailUnsubscribeAllBuilding = async (token: string) => {
   return await postAuthRequest(`${BASE_URL}auth/email/unsubscribe?u=${token}`);
-};
-
-/**
- * Fetches the list of all subscriptions associated with a user
- */
-const emailUserSubscriptions = async (token: string) => {
-  return await postAuthRequest(`${BASE_URL}auth/email/subscriptions?u=${token}`);
 };
 
 /**
  * Sends an authenticated request to subscribe the user to the district
  */
-const districtSubscribe = async (district: District) => {
+const subscribeDistrict = async (district: District) => {
   const post_data = { district: JSON.stringify(district) };
   return await postAuthRequest(`${BASE_URL}auth/subscribe/district`, post_data);
 };
@@ -308,7 +314,7 @@ const districtSubscribe = async (district: District) => {
 /**
  * Sends an authenticated request to unsubscribe the user from the district
  */
-const districtUnsubscribe = async (subscription_id: string) => {
+const unsubscribeDistrict = async (subscription_id: string) => {
   return await postAuthRequest(
     `${BASE_URL}auth/unsubscribe/district/${subscription_id}`,
     undefined,
@@ -318,9 +324,21 @@ const districtUnsubscribe = async (subscription_id: string) => {
 };
 
 /**
+ * Sends an authenticated request to unsubscribe the user from all districts
+ */
+const unsubscribeAllDistrict = async (subscription_id: string) => {
+  return await postAuthRequest(
+    `${BASE_URL}auth/unsubscribe_all/district`,
+    undefined,
+    undefined,
+    "DELETE"
+  );
+};
+
+/**
  * Sends an unauthenticated request to unsubscribe the user from the district
  */
-const emailDistrictUnsubscribe = async (subscription_id: string, token: string) => {
+const emailUnsubscribeDistrict = async (subscription_id: string, token: string) => {
   return await postAuthRequest(
     `${BASE_URL}auth/email/unsubscribe/district/${subscription_id}?u=${token}`
   );
@@ -329,8 +347,15 @@ const emailDistrictUnsubscribe = async (subscription_id: string, token: string) 
 /**
  * Sends an unauthenticated request to unsubscribe the user from all districts
  */
-const emailDistrictUnsubscribeAll = async (token: string) => {
+const emailUnsubscribeAllDistrict = async (token: string) => {
   return await postAuthRequest(`${BASE_URL}auth/email/unsubscribe/district?u=${token}`);
+};
+
+/**
+ * Fetches the list of all subscriptions associated with a user
+ */
+const emailUserSubscriptions = async (token: string) => {
+  return await postAuthRequest(`${BASE_URL}auth/email/subscriptions?u=${token}`);
 };
 
 /**
@@ -431,15 +456,17 @@ const Client = {
   resetPasswordRequest,
   resetPasswordCheck,
   resetPassword,
-  buildingSubscribe,
-  buildingUnsubscribe,
-  emailUserSubscriptions,
+  subscribeBuilding,
+  unsubscribeBuilding,
+  unsubscribeAllBuilding,
   emailUnsubscribeBuilding,
-  emailUnsubscribeAll,
-  districtSubscribe,
-  districtUnsubscribe,
-  emailDistrictUnsubscribe,
-  emailDistrictUnsubscribeAll,
+  emailUnsubscribeAllBuilding,
+  subscribeDistrict,
+  unsubscribeDistrict,
+  unsubscribeAllDistrict,
+  emailUnsubscribeDistrict,
+  emailUnsubscribeAllDistrict,
+  emailUserSubscriptions,
 };
 
 export default Client;

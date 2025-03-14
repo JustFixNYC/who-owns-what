@@ -216,7 +216,7 @@ const WhoOwnsWhatRoutes: React.FC<{}> = () => {
       <Route path={paths.legacy.privacyPolicy} component={PrivacyPolicyPage} />
       <Route path={paths.dev} component={DevPage} />
       <Route path={paths.oldWowzaPath} component={WowzaRedirectPage} />
-      <Route path={paths.district} component={DistrictAlertsPage} />
+      <Route path={paths.districtPage} component={DistrictAlertsPage} />
       <Route component={NotFoundPage} />
     </Switch>
   );
