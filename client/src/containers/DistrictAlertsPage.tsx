@@ -7,7 +7,6 @@ import Select, { GroupBase, SelectInstance, SingleValue } from "react-select";
 import "styles/DistrictAlertsPage.css";
 import Page from "components/Page";
 import { UserContext } from "components/UserContext";
-import { JustfixUser } from "state-machine";
 import Modal from "components/Modal";
 
 import geoIds from "../data/district-ids.json";
@@ -39,40 +38,6 @@ const DistrictAlertsPage = withI18n()((props: withI18nProps) => {
     </Page>
   );
 });
-
-export const DistrictSubscriptionsList: React.FC = () => {
-  const userContext = useContext(UserContext);
-  if (!userContext.user) return <div />;
-
-  const user = userContext.user as JustfixUser;
-  const { districtSubscriptions } = user;
-
-  return (
-    <div className="district-subscriptions-list">
-      {!districtSubscriptions || !districtSubscriptions.length ? (
-        <div className="district-subscription">No subscriptions</div>
-      ) : (
-        <>
-          {districtSubscriptions.map((subscription, i) => {
-            return (
-              <div className="district-subscription">
-                <h3>Subscription {i + 1}</h3>
-                <pre>{JSON.stringify(subscription.district, null, 2)}</pre>
-                <Button
-                  labelText="Unsubscribe"
-                  onClick={() => {
-                    userContext.unsubscribeDistrict(subscription.pk);
-                    window.location.reload();
-                  }}
-                />
-              </div>
-            );
-          })}
-        </>
-      )}
-    </div>
-  );
-};
 
 type Option = { label: string; value: string; mapUrl?: string };
 
@@ -119,7 +84,7 @@ const DistrictCreation = withI18n()((props: withI18nProps) => {
 
   const removeAreaFromSelections = (area: AreaSelection) => {
     setAreaSelections((prev) =>
-      prev.filter((geo) => geo.typeValue !== area.typeValue && geo.areaValue !== area.areaValue)
+      prev.filter((geo) => !(geo.typeValue === area.typeValue && geo.areaValue === area.areaValue))
     );
   };
 

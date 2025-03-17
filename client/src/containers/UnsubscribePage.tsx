@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { withI18n, withI18nProps } from "@lingui/react";
 import { t, Trans } from "@lingui/macro";
@@ -11,10 +11,10 @@ import AuthClient from "../components/AuthClient";
 import { BuildingSubscriptionField, DistrictSubscriptionField } from "./AccountSettingsPage";
 import { createWhoOwnsWhatRoutePaths } from "routes";
 import { JFCLLocaleLink } from "i18n";
-import { BuildingSubscription, DistrictSubscription } from "state-machine";
+import { BuildingSubscription, DistrictSubscription, JustfixUser } from "state-machine";
 import { FixedLoadingLabel } from "components/Loader";
 import { STANDALONE_PAGES, StandalonePageFooter } from "components/StandalonePage";
-import { DistrictSubscriptionsList } from "./DistrictAlertsPage";
+import { UserContext } from "components/UserContext";
 
 const BRANCH_NAME = process.env.REACT_APP_BRANCH;
 
@@ -183,5 +183,39 @@ const UnsubscribePage = withI18n()((props: withI18nProps) => {
     </Page>
   );
 });
+
+const DistrictSubscriptionsList: React.FC = () => {
+  const userContext = useContext(UserContext);
+  if (!userContext.user) return <div />;
+
+  const user = userContext.user as JustfixUser;
+  const { districtSubscriptions } = user;
+
+  return (
+    <div className="district-subscriptions-list">
+      {!districtSubscriptions || !districtSubscriptions.length ? (
+        <div className="district-subscription">No subscriptions</div>
+      ) : (
+        <>
+          {districtSubscriptions.map((subscription, i) => {
+            return (
+              <div className="district-subscription">
+                <h3>Subscription {i + 1}</h3>
+                <pre>{JSON.stringify(subscription.district, null, 2)}</pre>
+                <Button
+                  labelText="Unsubscribe"
+                  onClick={() => {
+                    userContext.unsubscribeDistrict(subscription.pk);
+                    window.location.reload();
+                  }}
+                />
+              </div>
+            );
+          })}
+        </>
+      )}
+    </div>
+  );
+};
 
 export default UnsubscribePage;
