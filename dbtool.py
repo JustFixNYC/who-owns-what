@@ -128,6 +128,9 @@ class NycDbBuilder:
 
         self.conn = db.connection()
 
+        with self.conn.cursor() as cur:
+            cur.execute("CREATE EXTENSION IF NOT EXISTS POSTGIS;")
+
     def call_nycdb(self, *args: str) -> None:
         db = self.db
         subprocess.check_call(
