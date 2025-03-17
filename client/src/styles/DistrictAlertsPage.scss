@@ -1,9 +1,65 @@
 @import "./vars";
+@import "./typography";
 
 .DistrictAlertsPage {
   .district-subscription {
     padding: 1rem;
     margin: 1rem 0;
     border: 2px solid $justfix-black;
+  }
+
+  .district-selection {
+    border-radius: 0.25rem;
+    background-color: $justfix-white-200;
+    padding: 1rem;
+    margin: 2rem 0;
+    .map-modal-button {
+      display: inline-flex;
+    }
+    .dropdown-select {
+      margin-top: 0.5rem;
+    }
+    .geo-map-link {
+      display: block;
+      margin-top: 0.75rem;
+      @include wow-body-standard;
+    }
+    .add-selection {
+      justify-self: center;
+      margin: 2.25rem 0;
+    }
+    .area-selection-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 1.5rem 0 0.5rem;
+      .area-selection-chip-container {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        margin-bottom: 1.5rem;
+        .area-selection-chip {
+          display: flex;
+          padding: 0 0 0 0.75rem;
+          align-items: center;
+          gap: 0.75rem;
+          border-radius: 0.375rem;
+          border: 1px solid $justfix-black;
+          background-color: $justfix-blue-100;
+          width: fit-content;
+          button {
+            padding: 0.75rem;
+          }
+        }
+      }
+      .selection-message {
+        color: $justfix-grey-700;
+        margin: unset;
+      }
+    }
+  }
+  .save-selection {
+    justify-self: center;
   }
 }

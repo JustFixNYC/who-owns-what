@@ -1,5 +1,6 @@
 // TYPES ASSOCIATED WITH INPUT DATA:
 
+import { AreaSelection } from "containers/DistrictAlertsPage";
 import { SearchAddress } from "./AddressSearch";
 
 export type Borough = "MANHATTAN" | "BRONX" | "BROOKLYN" | "QUEENS" | "STATEN ISLAND";
@@ -196,9 +197,5 @@ export type IndicatorsHistoryResults = {
   result: MonthlyTimelineData[];
 };
 
-export type DistrictComponent = {
-  geo_type: string;
-  geo_ids: string[];
-};
-
-export type District = DistrictComponent[];
+// TODO: decide on the final format for district data and update these types
+export type District = AreaSelection[];

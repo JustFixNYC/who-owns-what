@@ -63,15 +63,10 @@ const DistrictSubscriptionFieldWithoutI18n = (props: DistrictSubscriptionFieldPr
   return (
     <div className="subscription-field">
       <ul className="subscription-district">
-        {district.map((geo) => {
+        {district.map((geo, i) => {
           return (
-            <li>
-              {geo.geo_type}:
-              <ul>
-                {geo.geo_ids.map((id) => (
-                  <li>{id}</li>
-                ))}
-              </ul>
+            <li key={i}>
+              {geo.typeLabel}: {geo.areaLabel}
             </li>
           );
         })}
@@ -151,7 +146,7 @@ const AccountSettingsPage = withI18n()((props: withI18nProps) => {
               <Plural value={buildingSubscriptionsNumber} one="building" other="buildings" /> in
               your weekly emails
             </Trans>
-            <div className="subscriptions-container">
+            <div className="subscriptions-container building-subscriptions-container">
               {buildingSubscriptions?.length ? (
                 <>
                   {buildingSubscriptions.map((s) => (
@@ -180,7 +175,7 @@ const AccountSettingsPage = withI18n()((props: withI18nProps) => {
                 other={`weekly emails for ${districtSubscriptionsNumber} districts`}
               />
             </Trans>
-            <div className="subscriptions-container">
+            <div className="subscriptions-container district-subscriptions-container">
               {districtSubscriptions?.length ? (
                 <>
                   {districtSubscriptions.map((s) => (
