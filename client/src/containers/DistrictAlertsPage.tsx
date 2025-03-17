@@ -11,6 +11,8 @@ import Modal from "components/Modal";
 
 import geoIds from "../data/district-ids.json";
 import areaTypes from "../data/area-types.json";
+import { useHistory } from "react-router-dom";
+import { createWhoOwnsWhatRoutePaths } from "routes";
 
 type AreaType = keyof typeof geoIds;
 
@@ -52,11 +54,12 @@ const DistrictCreation = withI18n()((props: withI18nProps) => {
   // const { i18n } = props;
   const userContext = useContext(UserContext);
   if (!userContext.user) return <div />;
+  const history = useHistory();
+  const { account } = createWhoOwnsWhatRoutePaths();
 
   const areaTypeOptions: Option[] = areaTypes.options;
   const defaultArea = areaTypeOptions.filter((area) => area.value === "nta")[0];
 
-  const [isLoading, setIsLoading] = useState(false);
   const [showBoundariesModal, setShowBoundariesModal] = useState(false);
   const [geoType, setGeoType] = useState<Option>(defaultArea);
   const [geo, setGeo] = useState<Option>();
@@ -89,9 +92,8 @@ const DistrictCreation = withI18n()((props: withI18nProps) => {
   };
 
   const saveSelections = async () => {
-    setIsLoading(true);
     await userContext.subscribeDistrict(areaSelections);
-    setIsLoading(false);
+    history.push(account.settings);
   };
 
   return (
@@ -167,7 +169,6 @@ const DistrictCreation = withI18n()((props: withI18nProps) => {
       <Button
         className="save-selection"
         labelText="Save selections"
-        loading={isLoading}
         disabled={!areaSelections.length}
         onClick={saveSelections}
       />
