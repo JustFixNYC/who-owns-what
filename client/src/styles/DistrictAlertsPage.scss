@@ -21,6 +21,7 @@
     }
     .geo-map-link {
       display: block;
+      width: fit-content;
       margin-top: 0.75rem;
       @include wow-body-standard;
     }

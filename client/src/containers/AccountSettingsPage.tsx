@@ -13,6 +13,7 @@ import { createRouteForAddressPage, createWhoOwnsWhatRoutePaths } from "routes";
 import { Borough } from "components/APIDataTypes";
 import { LocaleNavLink } from "i18n";
 import { useLocation } from "react-router-dom";
+import _groupBy from "lodash/groupBy";
 
 type BuildingSubscriptionFieldProps = withI18nProps & {
   bbl: string;
@@ -60,13 +61,20 @@ type DistrictSubscriptionFieldProps = withI18nProps &
 
 const DistrictSubscriptionFieldWithoutI18n = (props: DistrictSubscriptionFieldProps) => {
   const { district, pk, onRemoveClick, i18n } = props;
+  const foo = Object.entries(_groupBy(district, "typeLabel"));
+  console.log(foo);
   return (
     <div className="subscription-field">
       <ul className="subscription-district">
-        {district.map((geo, i) => {
+        {foo.map((group, i) => {
           return (
             <li key={i}>
-              {geo.typeLabel}: {geo.areaLabel}
+              {group[0]}s:
+              <ul>
+                {group[1].map((geo, i) => (
+                  <li key={i}>{geo.areaLabel}</li>
+                ))}
+              </ul>
             </li>
           );
         })}
