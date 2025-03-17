@@ -228,7 +228,9 @@ const DistrictCreation = withI18n()((props: withI18nProps) => {
   );
 });
 
-type AreaChipProps = AreaSelection & { onClose: (area: AreaSelection) => void };
+type AreaChipProps = AreaSelection & {
+  onClose: (area: AreaSelection) => void;
+};
 const AreaChip = (props: AreaChipProps) => {
   const { onClose, ...area } = props;
 
