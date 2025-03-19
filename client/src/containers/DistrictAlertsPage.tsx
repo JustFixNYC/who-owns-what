@@ -52,10 +52,10 @@ export type AreaSelection = {
 
 const DistrictCreation = withI18n()((props: withI18nProps) => {
   // const { i18n } = props;
-  const userContext = useContext(UserContext);
-  if (!userContext.user) return <div />;
+  // const userContext = useContext(UserContext);
+  // if (!userContext.user) return <div />;
   const history = useHistory();
-  const { account } = createWhoOwnsWhatRoutePaths();
+  const { home } = createWhoOwnsWhatRoutePaths();
 
   const areaTypeOptions: Option[] = areaTypes.options;
   const defaultArea = areaTypeOptions.filter((area) => area.value === "nta")[0];
@@ -92,8 +92,8 @@ const DistrictCreation = withI18n()((props: withI18nProps) => {
   };
 
   const saveSelections = async () => {
-    await userContext.subscribeDistrict(areaSelections);
-    history.push(account.settings);
+    // await userContext.subscribeDistrict(areaSelections);
+    history.push(home);
   };
 
   return (
