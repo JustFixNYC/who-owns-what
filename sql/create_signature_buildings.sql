@@ -88,7 +88,7 @@ CREATE TABLE IF NOT EXISTS signature_buildings AS (
 	rs_units AS (
 		SELECT
 			ucbbl AS bbl,
-			coalesce(nullif(uc2022, 0), nullif(uc2021, 0), nullif(uc2020, 0), nullif(uc2019, 0), 0) as rs_units
+			coalesce(nullif(uc2023, 0), nullif(uc2022, 0), nullif(uc2021, 0), nullif(uc2020, 0), nullif(uc2019, 0), 0) as rs_units
 		FROM rentstab_v2
 	),
 	

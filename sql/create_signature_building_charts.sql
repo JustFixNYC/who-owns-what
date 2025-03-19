@@ -127,6 +127,8 @@ CREATE TABLE IF NOT EXISTS signature_building_charts AS
       SELECT bbl, '2021-01' AS month, uc2021 AS rentstab_units FROM rentstab_data
       UNION
       SELECT bbl, '2022-01' AS month, uc2022 AS rentstab_units FROM rentstab_data
+      UNION
+      SELECT bbl, '2023-01' AS month, uc2023 AS rentstab_units FROM rentstab_data
     ),
 
     dob_jobs_all AS (
