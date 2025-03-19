@@ -119,7 +119,7 @@ const LoginWithoutI18n = (props: withI18nProps) => {
 
   const subscribeOnSuccess = (user: JustfixUser) => {
     !!addr &&
-      userContext.subscribe(
+      userContext.subscribeBuilding(
         addr.bbl,
         addr.housenumber,
         addr.streetname,

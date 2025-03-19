@@ -14,6 +14,13 @@
       text-decoration: none;
     }
   }
+  &.building-subscriptions-container {
+    margin-bottom: 3rem;
+  }
+  .subscription-district {
+    margin: 0;
+    width: -webkit-fill-available;
+  }
 
   a.subscription-address {
     display: flex;
