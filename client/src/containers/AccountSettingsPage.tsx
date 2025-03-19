@@ -195,12 +195,20 @@ const AccountSettingsPage = withI18n()((props: withI18nProps) => {
                   ))}
                 </>
               ) : (
-                <Trans render="div" className="settings-no-subscriptions">
-                  <LocaleNavLink exact to={districtPage}>
-                    Create a district
-                  </LocaleNavLink>{" "}
-                  to add to your weekly emails
-                </Trans>
+                <>
+                  You have not added area alerts to your weekly emails.
+                  <Trans render="div" className="settings-no-subscriptions">
+                    <p>
+                      Get a weekly email that identifies buildings and portfolios that exhibit
+                      urgent displacement indicators within a single area or multiple areas of the
+                      city.
+                    </p>
+                    <LocaleNavLink exact to={districtPage}>
+                      Add area alerts
+                    </LocaleNavLink>{" "}
+                    to add to your weekly emails
+                  </Trans>
+                </>
               )}
             </div>
           </div>
