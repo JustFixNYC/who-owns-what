@@ -27,7 +27,13 @@
     }
     .add-selection {
       justify-self: center;
-      margin: 2.25rem 0;
+      margin-top: 2.25rem;
+    }
+    hr {
+      margin-top: 2.25rem;
+    }
+    .error-message + hr {
+      margin-top: 0;
     }
     .area-selection-container {
       display: flex;
@@ -62,5 +68,14 @@
   }
   .save-selection {
     justify-self: center;
+  }
+  .error-message {
+    justify-self: center;
+    margin: 0.5rem 0;
+    color: $justfix-red;
+    svg {
+      color: $justfix-orange;
+      margin-right: 0.38rem;
+    }
   }
 }

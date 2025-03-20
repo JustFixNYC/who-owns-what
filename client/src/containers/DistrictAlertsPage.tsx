@@ -60,6 +60,8 @@ const DistrictCreation = withI18n()((props: withI18nProps) => {
   const areaTypeOptions: Option[] = areaTypes.options;
   const defaultArea = areaTypeOptions.filter((area) => area.value === "nta")[0];
 
+  const [showAddAreaError, setShowAddAreaError] = useState(false);
+  const [showSaveAreaError, setShowSaveAreaError] = useState(false);
   const [showBoundariesModal, setShowBoundariesModal] = useState(false);
   const [geoType, setGeoType] = useState<Option>(defaultArea);
   const [geo, setGeo] = useState<Option>();
@@ -74,8 +76,16 @@ const DistrictCreation = withI18n()((props: withI18nProps) => {
     geoSelectRef.current?.clearValue();
   };
 
+  const handleGeoChange = (newValue: SingleValue<Option>) => {
+    newValue && setGeo(newValue);
+    setShowAddAreaError(false);
+  };
+
   const addAreaToSelections = () => {
-    if (!geoType || !geo) return;
+    if (!geoType || !geo) {
+      setShowAddAreaError(true);
+      return;
+    }
     const selection: AreaSelection = {
       typeValue: geoType.value,
       typeLabel: geoType.label,
@@ -83,6 +93,7 @@ const DistrictCreation = withI18n()((props: withI18nProps) => {
       areaLabel: geo.label,
     };
     setAreaSelections((prev) => prev.concat([selection]));
+    setShowSaveAreaError(false);
   };
 
   const removeAreaFromSelections = (area: AreaSelection) => {
@@ -92,6 +103,10 @@ const DistrictCreation = withI18n()((props: withI18nProps) => {
   };
 
   const saveSelections = async () => {
+    if (!areaSelections.length) {
+      setShowSaveAreaError(true);
+      return;
+    }
     // await userContext.subscribeDistrict(areaSelections);
     history.push(home);
   };
@@ -125,7 +140,7 @@ const DistrictCreation = withI18n()((props: withI18nProps) => {
           aria-label="Area selection"
           placeholder={`Select or type a ${geoType.label}`}
           options={geoIds[geoType.value as AreaType]}
-          onChange={(newValue) => newValue && setGeo(newValue)}
+          onChange={handleGeoChange}
         />
         {geo && geo.value !== "borough" && (
           <Link
@@ -148,8 +163,14 @@ const DistrictCreation = withI18n()((props: withI18nProps) => {
           variant="secondary"
           size="small"
           onClick={addAreaToSelections}
-          disabled={!geoType || !geo || selectedGeoValues.includes(geo.value)}
+          disabled={!geo ? false : selectedGeoValues.includes(geo.value)}
         />
+        {showAddAreaError && (
+          <div className="error-message">
+            <Icon icon="circleExclamation" />
+            You must select an area to add to your email
+          </div>
+        )}
         <hr />
         <div className="area-selection-container">
           <div className="area-selection-chip-container">
@@ -169,9 +190,15 @@ const DistrictCreation = withI18n()((props: withI18nProps) => {
       <Button
         className="save-selection"
         labelText="Save selections"
-        disabled={!areaSelections.length}
+        // disabled={!areaSelections.length}
         onClick={saveSelections}
       />
+      {showSaveAreaError && (
+        <div className="error-message">
+          <Icon icon="circleExclamation" />
+          You must add at least one area before saving selections
+        </div>
+      )}
       <Modal showModal={showBoundariesModal} onClose={() => setShowBoundariesModal(false)}>
         <Trans render="h3">Area maps</Trans>
         <Trans render="p">View a map of each area type lorem ipsum dolor sit amet</Trans>
