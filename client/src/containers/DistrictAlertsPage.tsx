@@ -51,10 +51,12 @@ export type AreaSelection = {
 };
 
 const DistrictCreation = withI18n()((props: withI18nProps) => {
-  // const { i18n } = props;
+  const { i18n } = props;
   const userContext = useContext(UserContext);
+  const isLoggedIn = !!userContext?.user?.email;
+
   const history = useHistory();
-  const { home, account } = createWhoOwnsWhatRoutePaths();
+  const { account } = createWhoOwnsWhatRoutePaths();
 
   const areaTypeOptions: Option[] = areaTypes.options;
   const defaultArea = areaTypeOptions.filter((area) => area.value === "nta")[0];
@@ -112,12 +114,16 @@ const DistrictCreation = withI18n()((props: withI18nProps) => {
       setShowSaveAreaError(true);
       return;
     }
-    if (userContext?.user?.email) {
-      await userContext.subscribeDistrict(areaSelections);
-      history.push(account.settings);
+
+    if (!isLoggedIn) {
+      const district = areaSelections;
+      const loginRoute = `/${i18n.language}${account.login}`;
+      history.push({ pathname: loginRoute, state: { district } });
       return;
     }
-    history.push(home);
+
+    await userContext.subscribeDistrict(areaSelections);
+    history.push(account.settings);
   };
 
   return (

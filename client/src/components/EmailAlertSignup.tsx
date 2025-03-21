@@ -48,7 +48,8 @@ const BuildingSubscribeWithoutI18n = (props: BuildingSubscribeProps) => {
   const { user, subscribeBuilding, unsubscribeBuilding } = userContext;
   const isLoggedIn = !!user?.email;
   const subscriptionLimit = user?.subscriptionLimit ?? DEFAULT_SUBSCRIPTION_LIMIT;
-  const atSubscriptionLimit = isLoggedIn && user.buildingSubscriptions.length >= subscriptionLimit;
+  const atSubscriptionLimit =
+    isLoggedIn && user?.buildingSubscriptions?.length >= subscriptionLimit;
   // avoid slower building lookup if possible to prevent flash of "add building" before "subscribed"
   const showSubscribed =
     (justSubscribed && !!user?.verified) ||
