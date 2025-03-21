@@ -337,7 +337,7 @@ const LoginWithoutI18n = (props: withI18nProps) => {
       return;
     }
 
-    // context doesn't update immediately so need to reurn user to check verified status
+    // context doesn't update immediately so need to rerun user to check verified status
     const resp = await userContext.login(email, password, subscribeOnSuccess);
 
     if (!!resp?.error) {
@@ -363,7 +363,7 @@ const LoginWithoutI18n = (props: withI18nProps) => {
 
     if (!!addr || !!district) {
       const redirectTo = {
-        pathname: !!addr ? getAddrPageRoute(addr) : account.settings,
+        pathname: !!addr ? getAddrPageRoute(addr) : home,
         state: { justSubscribed: true },
       };
       history.push(redirectTo);
