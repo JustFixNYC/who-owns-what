@@ -176,12 +176,18 @@ const AccountSettingsPage = withI18n()((props: withI18nProps) => {
             </div>
             <Trans render="h2">District Alerts</Trans>
             <Trans render="p" className="section-description">
-              You are subscribed to{" "}
-              <Plural
-                value={districtSubscriptionsNumber}
-                one="a weekly email for 1 district"
-                other={`weekly emails for ${districtSubscriptionsNumber} districts`}
-              />
+              {districtSubscriptionsNumber ? (
+                <>
+                  You are subscribed to{" "}
+                  <Plural
+                    value={districtSubscriptionsNumber}
+                    one="a weekly email for 1 district"
+                    other={`weekly emails for ${districtSubscriptionsNumber} districts`}
+                  />
+                </>
+              ) : (
+                <>You have not added area alerts to your weekly emails.</>
+              )}
             </Trans>
             <div className="subscriptions-container district-subscriptions-container">
               {districtSubscriptions?.length ? (
@@ -195,20 +201,16 @@ const AccountSettingsPage = withI18n()((props: withI18nProps) => {
                   ))}
                 </>
               ) : (
-                <>
-                  You have not added area alerts to your weekly emails.
-                  <Trans render="div" className="settings-no-subscriptions">
-                    <p>
-                      Get a weekly email that identifies buildings and portfolios that exhibit
-                      urgent displacement indicators within a single area or multiple areas of the
-                      city.
-                    </p>
-                    <LocaleNavLink exact to={districtPage}>
-                      Add area alerts
-                    </LocaleNavLink>{" "}
-                    to add to your weekly emails
-                  </Trans>
-                </>
+                <Trans render="div" className="settings-no-subscriptions">
+                  <p>
+                    Get a weekly email that identifies buildings and portfolios that exhibit urgent
+                    displacement indicators within a single area or multiple areas of the city.
+                  </p>
+                  <LocaleNavLink exact to={districtPage}>
+                    Add area alerts
+                  </LocaleNavLink>{" "}
+                  to add to your weekly emails
+                </Trans>
               )}
             </div>
           </div>

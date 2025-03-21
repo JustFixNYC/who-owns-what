@@ -52,14 +52,14 @@ export type AreaSelection = {
 
 const DistrictCreation = withI18n()((props: withI18nProps) => {
   // const { i18n } = props;
-  // const userContext = useContext(UserContext);
-  // if (!userContext.user) return <div />;
+  const userContext = useContext(UserContext);
   const history = useHistory();
-  const { home } = createWhoOwnsWhatRoutePaths();
+  const { home, account } = createWhoOwnsWhatRoutePaths();
 
   const areaTypeOptions: Option[] = areaTypes.options;
   const defaultArea = areaTypeOptions.filter((area) => area.value === "nta")[0];
 
+  const [showAddAreaSuccess, setShowAddAreaSuccess] = useState(false);
   const [showAddAreaError, setShowAddAreaError] = useState(false);
   const [showSaveAreaError, setShowSaveAreaError] = useState(false);
   const [showBoundariesModal, setShowBoundariesModal] = useState(false);
@@ -79,6 +79,7 @@ const DistrictCreation = withI18n()((props: withI18nProps) => {
   const handleGeoChange = (newValue: SingleValue<Option>) => {
     newValue && setGeo(newValue);
     setShowAddAreaError(false);
+    setShowAddAreaSuccess(false);
   };
 
   const addAreaToSelections = () => {
@@ -94,6 +95,10 @@ const DistrictCreation = withI18n()((props: withI18nProps) => {
     };
     setAreaSelections((prev) => prev.concat([selection]));
     setShowSaveAreaError(false);
+    setShowAddAreaSuccess(true);
+    setTimeout(() => {
+      setShowAddAreaSuccess(false);
+    }, 3000);
   };
 
   const removeAreaFromSelections = (area: AreaSelection) => {
@@ -107,7 +112,11 @@ const DistrictCreation = withI18n()((props: withI18nProps) => {
       setShowSaveAreaError(true);
       return;
     }
-    // await userContext.subscribeDistrict(areaSelections);
+    if (userContext?.user?.email) {
+      await userContext.subscribeDistrict(areaSelections);
+      history.push(account.settings);
+      return;
+    }
     history.push(home);
   };
 
@@ -165,6 +174,12 @@ const DistrictCreation = withI18n()((props: withI18nProps) => {
           onClick={addAreaToSelections}
           disabled={!geo ? false : selectedGeoValues.includes(geo.value)}
         />
+        {showAddAreaSuccess && (
+          <div className="success-message">
+            <Icon icon="check" />
+            Added to email
+          </div>
+        )}
         {showAddAreaError && (
           <div className="error-message">
             <Icon icon="circleExclamation" />

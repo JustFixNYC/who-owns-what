@@ -26,15 +26,15 @@ const UnsubscribePage = withI18n()((props: withI18nProps) => {
   const token = params.get("u") || "";
   const isEmailUnsubscribeAll = !!params.get("all");
 
-  const [buildingSubscriptions, setBuildingSubscriptions] = React.useState<
-    BuildingSubscription[]
-  >();
-  const buildingSubscriptionsNumber = buildingSubscriptions?.length || 0;
+  const [buildingSubscriptions, setBuildingSubscriptions] = React.useState<BuildingSubscription[]>(
+    []
+  );
+  const buildingSubscriptionsNumber = buildingSubscriptions?.length;
 
-  const [districtSubscriptions, setDistrictSubscriptions] = React.useState<
-    DistrictSubscription[]
-  >();
-  const districtSubscriptionsNumber = districtSubscriptions?.length || 0;
+  const [districtSubscriptions, setDistrictSubscriptions] = React.useState<DistrictSubscription[]>(
+    []
+  );
+  const districtSubscriptionsNumber = districtSubscriptions?.length;
 
   const pageName = STANDALONE_PAGES.find((x) => pathname.includes(x));
   const standalonePageEventParams = { from: pageName };
