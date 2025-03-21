@@ -80,7 +80,11 @@ msgstr "Datos de quejas al 311"
 #~ msgstr "<0>Click to log in</0> if you are not redirected"
 
 #: src/containers/AccountSettingsPage.tsx:108
-msgid "<0>Create a district</0> to add to your weekly emails"
+#~ msgid "<0>Create a district</0> to add to your weekly emails"
+#~ msgstr ""
+
+#: src/containers/AccountSettingsPage.tsx:116
+msgid "<0>Get a weekly email that identifies buildings and portfolios that exhibit urgent displacement indicators within a single area or multiple areas of the city.</0><1>Add area alerts</1> to add to your weekly emails"
 msgstr ""
 
 #: src/containers/NotRegisteredPage.tsx:81
@@ -91,7 +95,7 @@ msgstr "<0>Si el dueño no reside aquí, esta propiedad debería estar registrad
 msgid "<0>Rent stabilization</0> protects tenants by limiting rent increases and providing the right to lease renewals. Landlords register rent-stabilized units each year with NYS Homes and Community Renewal (HCR). Though the agency does not directly make this data available, the number of registered rent-stabilized units appears on public city property tax bills. JustFix and open-source community projects have extracted these numbers to compile a <1>dataset of building-level counts of rent-stabilized units</1> from 2007 to 2022.<2/><3/>A significant limitation of the data is that <4>landlords will sometimes fail to register the units</4> or do so late, and in the tax bills, it appears there are no rent-stabilized units. For this reason, you may see a sudden drop of registered units to zero, but this doesn’t necessarily reflect an actual loss of stabilized units. If you see a gradual decline in the number of stabilized units that is more likely to represent a true destabilization of units, especially if before 2019 when the passage of the Housing Stability and Tenant Protection Act of 2019 (HSTPA) greatly limited the ways units could be legally destabilized. Even when units are actually destabilized by landlords it does not mean that this was done legally. The only way to know for sure whether your apartment is rent stabilized, was illegally destabilized, or if you are being overcharged is to <5>request your rent history</5> from HCR. Once you receive it, you can use <6>this Learning Center article</6> to guide you in reading your rent history document."
 msgstr "<0>Renta estabilizada</0> protege a los inquilinos al limitar los aumentos de renta y el derecho a la renovación del contrato de arrendamiento. Los dueños registran las unidades de renta estabilizada cada año con NYS Homes and Community Renewal (HCR). Aunque la agencia no facilita directamente estos datos, el número de unidades de renta estabilizada registradas aparece en las facturas públicas de impuestos de la ciudad. JustFix y proyectos comunitarios de fuentes abiertas han extraído estas cifras para generar <1>un registro de datos a nivel de edificio de las unidades de renta estabilizada </1> desde 2007 hasta 2022.<2/><3/>Una limitación importante de los datos es que <4>los dueños a veces no registran las unidades</4> o lo hacen tarde y, en las facturas de impuestos, parece que no hay unidades de renta estabilizada. Por este motivo, es posible que se observe un descenso repentino de las unidades registradas hasta cero, pero esto no refleja necesariamente una pérdida real de unidades con renta estabilizada. Si observa una disminución gradual en el número de unidades de renta estabilizada, es más probable que represente una verdadera desestabilización de unidades, especialmente si es antes de 2019, cuando la aprobación de la Ley de Estabilidad de la Vivienda y Protección del Inquilino de 2019 (HSTPA) limitó en enormemente las formas en que las unidades podrían desestabilizarse legalmente. Incluso cuando las unidades son realmente desestabilizadas por los dueños, no significa que esto se haya hecho legalmente. La única manera de saber con certeza si su apartamento es de renta estabilizada, fue desestabilizado ilegalmente, o si se le está cobrando de más es <5>solicitar su historial de renta</5> a HCR. Una vez que lo reciba, puede utilizar <6>este artículo del Centro de Aprendizaje</6> para guiarse en la lectura de su documento de historial de renta."
 
-#: src/containers/AccountSettingsPage.tsx:93
+#: src/containers/AccountSettingsPage.tsx:99
 msgid "<0>Search an address</0> to add to your Building Alerts"
 msgstr ""
 
@@ -111,6 +115,10 @@ msgstr "<0>Busca una dirección</0> para añadir a Alertas de Edificios"
 #~ msgid "<0>Search for an address</0> to add to your Building Alerts"
 #~ msgstr "<0>Busca una dirección</0> para añadir a Alertas de Edificios"
 
+#: src/components/Login.tsx:196
+msgid "<0>Search for an address</0> to add to your Building Alerts, <1>subscribe to District Alerts</1>, or visit your <2>email settings</2> page to manage subscriptions."
+msgstr ""
+
 #: src/containers/AccountSettingsPage.tsx:70
 #~ msgid "<0>Search for an address</0> to add to your Building Updates"
 #~ msgstr "<0>Search for an address</0> to add to your Building Updates"
@@ -124,8 +132,8 @@ msgstr "<0>Busca una dirección</0> para añadir a Alertas de Edificios"
 #~ msgstr "<0>Search for an address</0> to add to your Building Updates, or visit your <1>account</1> page to manage subscriptions."
 
 #: src/components/Login.tsx:186
-msgid "<0>Search for an address</0> to add to your Building Updates, or visit your <1>email settings</1> page to manage subscriptions."
-msgstr "<0>Busca una dirección</0> para añadir a sus actualizaciones de edificios, o visite su página de <1>configuración del correo electrónico</1> para administrar sus suscripciones."
+#~ msgid "<0>Search for an address</0> to add to your Building Updates, or visit your <1>email settings</1> page to manage subscriptions."
+#~ msgstr "<0>Busca una dirección</0> para añadir a sus actualizaciones de edificios, o visite su página de <1>configuración del correo electrónico</1> para administrar sus suscripciones."
 
 #: src/containers/NotRegisteredPage.tsx:73
 msgid "<0>This property is not required to register with HPD</0> because it doesn't have any residential units."
@@ -181,7 +189,7 @@ msgstr "Acerca de"
 msgid "According to available HPD data, this portfolio has received <0>{totalviolations}</0> total violations."
 msgstr "Según los datos del HPD disponibles, este portafolio de edificios ha recibido un total de <0>{totalviolations}</0> violaciones."
 
-#: src/containers/AccountSettingsPage.tsx:70
+#: src/containers/AccountSettingsPage.tsx:76
 msgid "Account"
 msgstr "Cuenta"
 
@@ -232,7 +240,7 @@ msgstr "Toda la información pública sobre el dueño/a de tu edificio"
 #~ msgid "Almost done. Verify your email to start receiving updates."
 #~ msgstr "Almost done. Verify your email to start receiving updates."
 
-#: src/components/Login.tsx:147
+#: src/components/Login.tsx:151
 msgid "Already have an account?"
 msgstr "¿Ya tiene una cuenta?"
 
@@ -277,15 +285,15 @@ msgstr "Aplicar selecciones y obtener resultados"
 msgid "Are you having issues in this development?"
 msgstr "¿Tienes problemas en tu edificio?"
 
-#: src/containers/DistrictAlertsPage.tsx:124
+#: src/containers/DistrictAlertsPage.tsx:130
 msgid "Area"
 msgstr ""
 
-#: src/containers/DistrictAlertsPage.tsx:40
+#: src/containers/DistrictAlertsPage.tsx:42
 msgid "Area alerts"
 msgstr ""
 
-#: src/containers/DistrictAlertsPage.tsx:143
+#: src/containers/DistrictAlertsPage.tsx:163
 msgid "Area maps"
 msgstr ""
 
@@ -328,7 +336,7 @@ msgid "Borough Management Office:"
 msgstr "Oficina de Gestión Municipal:"
 
 #: src/components/EmailAlertSignup.tsx:139
-#: src/containers/AccountSettingsPage.tsx:83
+#: src/containers/AccountSettingsPage.tsx:89
 msgid "Building Alerts"
 msgstr "Alertas de edificios"
 
@@ -407,7 +415,7 @@ msgstr ""
 msgid "Check out the issues in this building"
 msgstr "Mira los problemas en este edificio"
 
-#: src/components/Login.tsx:315
+#: src/components/Login.tsx:331
 msgid "Check your email"
 msgstr "Revise su correo electrónico"
 
@@ -481,7 +489,7 @@ msgstr "Haga clic a continuación para desuscribirse de todo y dejar de recibir 
 msgid "Click here to learn more."
 msgstr "HaZ clic aquí para obtener más información."
 
-#: src/components/Login.tsx:316
+#: src/components/Login.tsx:332
 msgid "Click the link we sent to <0>{email}</0> to verify your email. It may take a few minutes to arrive. If you can't find it, check your spam and promotions folders for an email from <1>no-reply@justfix.org</1>."
 msgstr "Haga clic en el enlace que le enviamos a <0>{email}</0> para verificar su correo electrónico. Puede tardar unos minutos en llegar. Si no lo encuentras, busque en sus carpetas de spam y promociones un correo electrónico de <1>no-reply@justfix.org</1>."
 
@@ -527,7 +535,7 @@ msgstr "Quejas Emitidas"
 msgid "Complaints to 311"
 msgstr "Quejas al 311"
 
-#: src/containers/AccountSettingsPage.tsx:116
+#: src/containers/AccountSettingsPage.tsx:128
 msgid "Contact support@justfix.org to delete your account or get help"
 msgstr "Contacte a support@justfix.org para borrar su cuenta u obtener ayuda"
 
@@ -559,11 +567,11 @@ msgstr "Crear una contraseña"
 #~ msgid "Create a password to start receiving Data Updates"
 #~ msgstr "Create a password to start receiving Data Updates"
 
-#: src/components/Login.tsx:335
+#: src/components/Login.tsx:351
 msgid "Create password"
 msgstr "Crear contraseña"
 
-#: src/containers/DistrictAlertsPage.tsx:115
+#: src/containers/DistrictAlertsPage.tsx:121
 msgid "Create your email"
 msgstr ""
 
@@ -608,7 +616,7 @@ msgid "Demo Site"
 msgstr "Sitio Demo"
 
 #: src/components/EmailAlertSignup.tsx:70
-#: src/components/Login.tsx:168
+#: src/components/Login.tsx:172
 #: src/components/UserSettingField.tsx:104
 msgid "Didn’t get the link?"
 msgstr "¿No recibió el enlace?"
@@ -630,12 +638,12 @@ msgstr "Descargo de responsabilidad: La información en JustFix no constituye as
 msgid "Display:"
 msgstr "Mostrar:"
 
-#: src/containers/AccountSettingsPage.tsx:100
-#: src/containers/DistrictAlertsPage.tsx:37
+#: src/containers/AccountSettingsPage.tsx:106
+#: src/containers/DistrictAlertsPage.tsx:39
 msgid "District Alerts"
 msgstr ""
 
-#: src/components/Login.tsx:155
+#: src/components/Login.tsx:159
 msgid "Don't have an account?"
 msgstr "¿No tiene una cuenta?"
 
@@ -672,7 +680,7 @@ msgstr "Editar"
 msgid "Email"
 msgstr "Email"
 
-#: src/components/Login.tsx:334
+#: src/components/Login.tsx:350
 #: src/components/UserSettingField.tsx:111
 #: src/components/UserSettingField.tsx:116
 #: src/containers/ForgotPasswordPage.tsx:54
@@ -687,7 +695,7 @@ msgstr "Correo electrónico no verificado. Haga clic al enlace que le enviamos a
 msgid "Email address verified"
 msgstr "Correo electrónico verificado"
 
-#: src/containers/AccountSettingsPage.tsx:73
+#: src/containers/AccountSettingsPage.tsx:79
 #: src/containers/App.tsx:124
 msgid "Email settings"
 msgstr "Configuración del correo electrónico"
@@ -734,7 +742,7 @@ msgstr "Ingrese un nuevo correo electrónico"
 #~ msgid "Enter your old password"
 #~ msgstr "Enter your old password"
 
-#: src/components/Login.tsx:335
+#: src/components/Login.tsx:351
 msgid "Enter your password"
 msgstr "Ingrese su contraseña"
 
@@ -854,7 +862,7 @@ msgstr "Seguir edifico"
 msgid "Follow this building to add it to your weekly email alert."
 msgstr "Sigue este edificio para añadirlo a su alerta semanal electrónica."
 
-#: src/components/Login.tsx:143
+#: src/components/Login.tsx:147
 msgid "Forgot your password?"
 msgstr "¿Olvidó su contraseña?"
 
@@ -1157,20 +1165,20 @@ msgstr "Cargando {0} filas"
 msgid "Location"
 msgstr "Ubicación"
 
-#: src/components/Login.tsx:111
-#: src/components/Login.tsx:152
-#: src/components/Login.tsx:298
-#: src/components/Login.tsx:301
+#: src/components/Login.tsx:115
+#: src/components/Login.tsx:156
+#: src/components/Login.tsx:314
+#: src/components/Login.tsx:317
 #: src/containers/App.tsx:132
 msgid "Log in"
 msgstr "Iniciar sesión"
 
-#: src/components/Login.tsx:289
+#: src/components/Login.tsx:305
 #: src/containers/LoginPage.tsx:23
 msgid "Log in / sign up"
 msgstr "Iniciar sesión / Registrarse"
 
-#: src/components/Login.tsx:299
+#: src/components/Login.tsx:315
 msgid "Log in to add {0} to your Building Alerts"
 msgstr "Inicia sesión para añadir {0} a sus Alertas de Edificios"
 
@@ -1186,6 +1194,10 @@ msgstr "Inicia sesión para añadir {0} a sus Alertas de Edificios"
 #~ msgid "Log in to start getting updates for this building."
 #~ msgstr "Log in to start getting updates for this building."
 
+#: src/components/Login.tsx:315
+msgid "Log in to subscribe to Area Alerts"
+msgstr ""
+
 #: src/containers/App.tsx:124
 #~ msgid "Log out"
 #~ msgstr "Log out"
@@ -1194,7 +1206,7 @@ msgstr "Inicia sesión para añadir {0} a sus Alertas de Edificios"
 #~ msgid "Login details"
 #~ msgstr "Login details"
 
-#: src/containers/AccountSettingsPage.tsx:77
+#: src/containers/AccountSettingsPage.tsx:83
 msgid "Logout"
 msgstr "Cerrar sesión"
 
@@ -1254,7 +1266,7 @@ msgstr "Administrar suscripciones"
 msgid "Map"
 msgstr "Mapa"
 
-#: src/containers/DistrictAlertsPage.tsx:128
+#: src/containers/DistrictAlertsPage.tsx:134
 msgid "Map of {0}"
 msgstr ""
 
@@ -1335,7 +1347,7 @@ msgstr "Directorio de NYCHA"
 #~ msgid "Narrow down this portfolio using filters in <0>the Portfolio tab.</0>"
 #~ msgstr "Narrow down this portfolio using filters in <0>the Portfolio tab.</0>"
 
-#: src/containers/DistrictAlertsPage.tsx:118
+#: src/containers/DistrictAlertsPage.tsx:124
 msgid "Need help finding an area? <0>See all area maps</0>"
 msgstr ""
 
@@ -1368,7 +1380,7 @@ msgid "New password"
 msgstr "Contraseña nueva"
 
 #: src/components/FeatureCalloutWidget.tsx:81
-#: src/components/Login.tsx:306
+#: src/components/Login.tsx:322
 msgid "Next"
 msgstr "Siguiente"
 
@@ -1618,8 +1630,8 @@ msgstr "Más información sobre nuestra metodología"
 msgid "Registration expired:"
 msgstr "El registro ha caducado:"
 
-#: src/containers/AccountSettingsPage.tsx:25
-#: src/containers/AccountSettingsPage.tsx:39
+#: src/containers/AccountSettingsPage.tsx:26
+#: src/containers/AccountSettingsPage.tsx:45
 msgid "Remove"
 msgstr "Eliminar"
 
@@ -1840,15 +1852,15 @@ msgstr "Mostrar {0} {1, plural, one {resultado} other {resultados}}"
 #~ msgid "Sign out"
 #~ msgstr "Sign out"
 
-#: src/components/Login.tsx:160
+#: src/components/Login.tsx:164
 #: src/components/Subscribe.tsx:81
 msgid "Sign up"
 msgstr "Regístrate"
 
 #: src/components/Login.tsx:304
 #: src/components/Login.tsx:309
-msgid "Sign up for Building Alerts"
-msgstr "Registrase para Alertas de Edificios"
+#~ msgid "Sign up for Building Alerts"
+#~ msgstr "Registrase para Alertas de Edificios"
 
 #: src/components/Login.tsx:304
 #: src/components/Login.tsx:309
@@ -1858,6 +1870,11 @@ msgstr "Registrase para Alertas de Edificios"
 #: src/containers/AccountSettingsPage.tsx:48
 #~ msgid "Sign up for Data Updates on the buildings you choose:"
 #~ msgstr "Sign up for Data Updates on the buildings you choose:"
+
+#: src/components/Login.tsx:320
+#: src/components/Login.tsx:325
+msgid "Sign up for Email Alerts"
+msgstr ""
 
 #: src/components/EngagementPanel.tsx:12
 #~ msgid "Sign up for email updates"
@@ -1932,7 +1949,7 @@ msgstr "Código fuente"
 msgid "Starts {year}"
 msgstr "Comienza {year}"
 
-#: src/components/Login.tsx:295
+#: src/components/Login.tsx:311
 msgid "Submit"
 msgstr "Enviar"
 
@@ -1985,7 +2002,7 @@ msgstr "Los inquilinos en este portafolio han reportado un total de <0>{totalhpd
 msgid "Terms of use"
 msgstr "Condiciones de uso"
 
-#: src/components/Login.tsx:122
+#: src/components/Login.tsx:126
 #: src/components/UserSettingField.tsx:114
 msgid "That email is already used."
 msgstr "El correo electrónico ya está en uso."
@@ -2026,7 +2043,7 @@ msgstr "El quinto <0>peor desalojador</0> de la ciudad en 2018, A&E es un excele
 msgid "The current password you entered is incorrect"
 msgstr "La contraseña que ha ingresado es incorrecta"
 
-#: src/components/Login.tsx:119
+#: src/components/Login.tsx:123
 msgid "The email and/or password you entered is incorrect."
 msgstr "El correo electrónico y/o la contraseña introducidos son incorrectos."
 
@@ -2097,7 +2114,7 @@ msgstr "La {0, plural, one {edad} other {edad media}} de {1, plural, one {este e
 msgid "There {0, plural, one {<0>is <1>1</1> building</0>} other {<2>are <3>{1}</3> buildings</2>}} in this portfolio with a total of {2, plural, one {1 unit} other {# units}}."
 msgstr "Hay {0, plural, one {<0><1>1</1> edificio</0>} other {<2><3>{1}</3> edificios</2>}} en este portafolio de edificios, con un total de {2, plural, one {una unidad residencial} other {# unidades residenciales}}."
 
-#: src/containers/AccountSettingsPage.tsx:84
+#: src/containers/AccountSettingsPage.tsx:90
 msgid "There {buildingSubscriptionsNumber, plural, one {is} other {are}} {buildingSubscriptionsNumber} {buildingSubscriptionsNumber, plural, one {building} other {buildings}} in your weekly emails"
 msgstr ""
 
@@ -2258,13 +2275,17 @@ msgstr "Utilice la tecla de pestaña para navegar. Pulse la tecla Intro para sel
 msgid "Use this free tool from JustFix to research your building and investigate landlords! We use property ownership mapping to identify a landlord's portfolio and provide data to indicate potential tenant harassment and displacement."
 msgstr "Utilice esta herramienta gratuita de JustFix para investigar tu edificio e investigar a los arrendadores de Nueva York! Utilizamos el mapeo de propiedad para identificar el portafolio de edificios de un arrendador y proporcionar datos para revelar posibles casos de hostigamiento y desplazamiento de inquilinos."
 
+#: src/components/Login.tsx:306
+msgid "Use your account to get weekly email alerts on {0}"
+msgstr ""
+
 #: src/components/Login.tsx:246
 #~ msgid "Use your account to get weekly email updates on the buildings you choose"
 #~ msgstr "Use your account to get weekly email updates on the buildings you choose"
 
 #: src/components/Login.tsx:290
-msgid "Use your account to get weekly email updates on {0}."
-msgstr "Utilice su cuenta para recibir actualizaciones semanales por correo electrónico sobre {0}."
+#~ msgid "Use your account to get weekly email updates on {0}."
+#~ msgstr "Utilice su cuenta para recibir actualizaciones semanales por correo electrónico sobre {0}."
 
 #: src/components/Login.tsx:246
 #~ msgid "Use your account to get weekly updates on {0}."
@@ -2320,7 +2341,7 @@ msgstr "Ver detalles"
 msgid "View Results"
 msgstr "Ver resultados"
 
-#: src/containers/DistrictAlertsPage.tsx:144
+#: src/containers/DistrictAlertsPage.tsx:164
 msgid "View a map of each area type lorem ipsum dolor sit amet"
 msgstr ""
 
@@ -2477,7 +2498,7 @@ msgstr "¿Cuál es la diferencia entre un dueño, un propietario y oficial princ
 msgid "When two parties share the same business address, we group them as part of the same portfolio."
 msgstr "Cuando dos partes comparten la misma dirección comercial, los agrupamos como parte del mismo portafolio."
 
-#: src/components/Login.tsx:310
+#: src/components/Login.tsx:326
 msgid "Which best describes you?"
 msgstr "¿Cuál le describe mejor a usted?"
 
@@ -2541,8 +2562,8 @@ msgstr "Año de construcción"
 msgid "Yes"
 msgstr "Sí"
 
-#: src/components/Login.tsx:185
-#: src/containers/AccountSettingsPage.tsx:76
+#: src/components/Login.tsx:195
+#: src/containers/AccountSettingsPage.tsx:82
 msgid "You are logged in"
 msgstr "Ha iniciado sesión"
 
@@ -2593,8 +2614,8 @@ msgstr ""
 #~ msgstr "You are signed up for email alerts from these bulidings:"
 
 #: src/containers/AccountSettingsPage.tsx:101
-msgid "You are subscribed to {districtSubscriptionsNumber, plural, one {a weekly email for 1 district} other {weekly emails for {districtSubscriptionsNumber} districts}}"
-msgstr ""
+#~ msgid "You are subscribed to {districtSubscriptionsNumber, plural, one {a weekly email for 1 district} other {weekly emails for {districtSubscriptionsNumber} districts}}"
+#~ msgstr ""
 
 #: src/components/DeprecationModal.tsx:16
 msgid "You are viewing a legacy version of Who Owns What"
@@ -2612,7 +2633,7 @@ msgstr "Está viendo la versión anterior de Quién es el Dueño"
 #~ msgid "You are viewing the old version of Who Owns What. <0>Switch to the new version.</0>"
 #~ msgstr "You are viewing the old version of Who Owns What. <0>Switch to the new version.</0>"
 
-#: src/containers/DistrictAlertsPage.tsx:117
+#: src/containers/DistrictAlertsPage.tsx:123
 msgid "You can follow one or multiple areas."
 msgstr ""
 
@@ -2672,7 +2693,7 @@ msgstr "Este correo electrónico ya está verificado"
 #~ msgid "Your privacy is important to us. Read our <0>Privacy Policy</0> and <1>Terms of Service</1>."
 #~ msgstr "Your privacy is important to us. Read our <0>Privacy Policy</0> and <1>Terms of Service</1>."
 
-#: src/components/Login.tsx:130
+#: src/components/Login.tsx:134
 msgid "Your privacy is important to us. Read our <0>Privacy Policy</0> and <1>Terms of Use</1>."
 msgstr "Su privacidad es importante a nosotros. Lea nuestra <0>Política de privacidad</0> y <1>Términos de uso</1>."
 
@@ -2807,7 +2828,8 @@ msgstr "{0, plural, one {unidad} other {unidades}}"
 
 #: src/components/BuildingStatsTable.tsx:34
 #: src/components/BuildingStatsTable.tsx:35
-#: src/containers/DistrictAlertsPage.tsx:148
+#: src/containers/AccountSettingsPage.tsx:107
+#: src/containers/DistrictAlertsPage.tsx:168
 msgid "{0}"
 msgstr "{0}"
 
@@ -2818,6 +2840,10 @@ msgstr "{0} de {numberOfEntries}"
 #: src/components/PropertiesSummary.tsx:82
 msgid "{0} {1}, {2} currently has {3, plural, one {one open HPD violation} other {# open HPD violations}} - the most in this portfolio."
 msgstr "{0} {1}, {2} tiene {3, plural, one {una violación del HPD actual} other {# violaciones del HPD actuales}} - la major cantidad en este portafolio de edificios."
+
+#: src/containers/AccountSettingsPage.tsx:110
+msgid "{districtSubscriptionsNumber, plural, one {a weekly email for 1 district} other {weekly emails for {districtSubscriptionsNumber} districts}}"
+msgstr ""
 
 #: src/components/Login.tsx:95
 #~ msgid "{header}"
