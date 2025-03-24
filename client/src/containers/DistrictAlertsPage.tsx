@@ -61,12 +61,9 @@ const DistrictCreation = withI18n()((props: withI18nProps) => {
   const areaTypeOptions: Option[] = areaTypes.options;
   const defaultArea = areaTypeOptions.filter((area) => area.value === "nta")[0];
 
-  const [showAddAreaSuccess, setShowAddAreaSuccess] = useState(false);
-  const [showAddAreaError, setShowAddAreaError] = useState(false);
   const [showSaveAreaError, setShowSaveAreaError] = useState(false);
   const [showBoundariesModal, setShowBoundariesModal] = useState(false);
   const [geoType, setGeoType] = useState<Option>(defaultArea);
-  const [geo, setGeo] = useState<Option>();
   const [areaSelections, setAreaSelections] = useState<AreaSelection[]>([]);
   const selectedGeoValues = areaSelections.map((x) => x.areaValue);
 
@@ -74,33 +71,20 @@ const DistrictCreation = withI18n()((props: withI18nProps) => {
 
   const handleGeoTypeChange = (newValue: SingleValue<Option>) => {
     newValue && setGeoType(newValue);
-    setGeo(undefined);
     geoSelectRef.current?.clearValue();
   };
 
   const handleGeoChange = (newValue: SingleValue<Option>) => {
-    newValue && setGeo(newValue);
-    setShowAddAreaError(false);
-    setShowAddAreaSuccess(false);
-  };
-
-  const addAreaToSelections = () => {
-    if (!geoType || !geo) {
-      setShowAddAreaError(true);
+    if (!newValue || selectedGeoValues.includes(newValue?.value)) {
       return;
     }
     const selection: AreaSelection = {
       typeValue: geoType.value,
       typeLabel: geoType.label,
-      areaValue: geo.value,
-      areaLabel: geo.label,
+      areaValue: newValue.value,
+      areaLabel: newValue.label,
     };
     setAreaSelections((prev) => prev.concat([selection]));
-    setShowSaveAreaError(false);
-    setShowAddAreaSuccess(true);
-    setTimeout(() => {
-      setShowAddAreaSuccess(false);
-    }, 3000);
   };
 
   const removeAreaFromSelections = (area: AreaSelection) => {
@@ -155,43 +139,9 @@ const DistrictCreation = withI18n()((props: withI18nProps) => {
           aria-label="Area selection"
           placeholder={`Select or type a ${geoType.label}`}
           options={geoIds[geoType.value as AreaType]}
+          isOptionDisabled={(option) => selectedGeoValues.includes(option.value)}
           onChange={handleGeoChange}
         />
-        {geo && geo.value !== "borough" && (
-          <Link
-            className="geo-map-link"
-            href={encodeURI(
-              `${geoType.mapUrl}&dist=${
-                geoType.value === "nta" ? geo.label.replaceAll(" ", "+") : geo.value
-              }`
-            )}
-            target="_blank"
-            rel="noopener noreferrer"
-            icon="external"
-          >
-            <Trans>Map of {geo.label}</Trans>
-          </Link>
-        )}
-        <Button
-          className="add-selection"
-          labelText="Add to email"
-          variant="secondary"
-          size="small"
-          onClick={addAreaToSelections}
-          disabled={!geo ? false : selectedGeoValues.includes(geo.value)}
-        />
-        {showAddAreaSuccess && (
-          <div className="success-message">
-            <Icon icon="check" />
-            Added to email
-          </div>
-        )}
-        {showAddAreaError && (
-          <div className="error-message">
-            <Icon icon="circleExclamation" />
-            You must select an area to add to your email
-          </div>
-        )}
         <hr />
         <div className="area-selection-container">
           <div className="area-selection-chip-container">
