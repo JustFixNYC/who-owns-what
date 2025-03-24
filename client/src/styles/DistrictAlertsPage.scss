@@ -19,21 +19,10 @@
     .dropdown-select {
       margin-top: 0.5rem;
     }
-    .geo-map-link {
-      display: block;
-      width: fit-content;
-      margin-top: 0.75rem;
-      @include wow-body-standard;
-    }
-    .add-selection {
-      justify-self: center;
-      margin-top: 2.25rem;
-    }
     hr {
       margin-top: 2.25rem;
     }
-    .error-message + hr,
-    .success-message + hr {
+    .error-message + hr {
       margin-top: 0;
     }
     .area-selection-container {
@@ -70,26 +59,13 @@
   .save-selection {
     justify-self: center;
   }
-  .error-message,
-  .success-message {
+  .error-message {
     justify-self: center;
     margin: 0.5rem 0;
-    svg {
-      color: $justfix-orange;
-      margin-right: 0.38rem;
-    }
-  }
-  .error-message {
     color: $justfix-red;
     svg {
       color: $justfix-orange;
-    }
-  }
-  .success-message {
-    color: $justfix-black;
-    svg {
-      height: 1rem;
-      color: $justfix-green;
+      margin-right: 0.38rem;
     }
   }
 }
