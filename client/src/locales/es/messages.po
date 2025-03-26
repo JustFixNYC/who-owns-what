@@ -285,7 +285,7 @@ msgstr "Aplicar selecciones y obtener resultados"
 msgid "Are you having issues in this development?"
 msgstr "¿Tienes problemas en tu edificio?"
 
-#: src/containers/DistrictAlertsPage.tsx:130
+#: src/containers/DistrictAlertsPage.tsx:115
 msgid "Area"
 msgstr ""
 
@@ -293,7 +293,7 @@ msgstr ""
 msgid "Area alerts"
 msgstr ""
 
-#: src/containers/DistrictAlertsPage.tsx:163
+#: src/containers/DistrictAlertsPage.tsx:136
 msgid "Area maps"
 msgstr ""
 
@@ -571,7 +571,7 @@ msgstr "Crear una contraseña"
 msgid "Create password"
 msgstr "Crear contraseña"
 
-#: src/containers/DistrictAlertsPage.tsx:121
+#: src/containers/DistrictAlertsPage.tsx:106
 msgid "Create your email"
 msgstr ""
 
@@ -1267,8 +1267,8 @@ msgid "Map"
 msgstr "Mapa"
 
 #: src/containers/DistrictAlertsPage.tsx:134
-msgid "Map of {0}"
-msgstr ""
+#~ msgid "Map of {0}"
+#~ msgstr ""
 
 #: src/components/MinMaxSelect.tsx:205
 msgid "Max must be greater than 0"
@@ -1347,7 +1347,7 @@ msgstr "Directorio de NYCHA"
 #~ msgid "Narrow down this portfolio using filters in <0>the Portfolio tab.</0>"
 #~ msgstr "Narrow down this portfolio using filters in <0>the Portfolio tab.</0>"
 
-#: src/containers/DistrictAlertsPage.tsx:124
+#: src/containers/DistrictAlertsPage.tsx:109
 msgid "Need help finding an area? <0>See all area maps</0>"
 msgstr ""
 
@@ -2341,7 +2341,7 @@ msgstr "Ver detalles"
 msgid "View Results"
 msgstr "Ver resultados"
 
-#: src/containers/DistrictAlertsPage.tsx:164
+#: src/containers/DistrictAlertsPage.tsx:137
 msgid "View a map of each area type lorem ipsum dolor sit amet"
 msgstr ""
 
@@ -2633,7 +2633,7 @@ msgstr "Está viendo la versión anterior de Quién es el Dueño"
 #~ msgid "You are viewing the old version of Who Owns What. <0>Switch to the new version.</0>"
 #~ msgstr "You are viewing the old version of Who Owns What. <0>Switch to the new version.</0>"
 
-#: src/containers/DistrictAlertsPage.tsx:123
+#: src/containers/DistrictAlertsPage.tsx:108
 msgid "You can follow one or multiple areas."
 msgstr ""
 
@@ -2829,7 +2829,7 @@ msgstr "{0, plural, one {unidad} other {unidades}}"
 #: src/components/BuildingStatsTable.tsx:34
 #: src/components/BuildingStatsTable.tsx:35
 #: src/containers/AccountSettingsPage.tsx:107
-#: src/containers/DistrictAlertsPage.tsx:168
+#: src/containers/DistrictAlertsPage.tsx:141
 msgid "{0}"
 msgstr "{0}"
 

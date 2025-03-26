@@ -280,7 +280,7 @@ msgstr "Apply selections and get results"
 msgid "Are you having issues in this development?"
 msgstr "Are you having issues in this development?"
 
-#: src/containers/DistrictAlertsPage.tsx:130
+#: src/containers/DistrictAlertsPage.tsx:115
 msgid "Area"
 msgstr "Area"
 
@@ -288,7 +288,7 @@ msgstr "Area"
 msgid "Area alerts"
 msgstr "Area alerts"
 
-#: src/containers/DistrictAlertsPage.tsx:163
+#: src/containers/DistrictAlertsPage.tsx:136
 msgid "Area maps"
 msgstr "Area maps"
 
@@ -566,7 +566,7 @@ msgstr "Create a password"
 msgid "Create password"
 msgstr "Create password"
 
-#: src/containers/DistrictAlertsPage.tsx:121
+#: src/containers/DistrictAlertsPage.tsx:106
 msgid "Create your email"
 msgstr "Create your email"
 
@@ -1262,8 +1262,8 @@ msgid "Map"
 msgstr "Map"
 
 #: src/containers/DistrictAlertsPage.tsx:134
-msgid "Map of {0}"
-msgstr "Map of {0}"
+#~ msgid "Map of {0}"
+#~ msgstr "Map of {0}"
 
 #: src/components/MinMaxSelect.tsx:205
 msgid "Max must be greater than 0"
@@ -1342,7 +1342,7 @@ msgstr "NYCHA Directory"
 #~ msgid "Narrow down this portfolio using filters in <0>the Portfolio tab.</0>"
 #~ msgstr "Narrow down this portfolio using filters in <0>the Portfolio tab.</0>"
 
-#: src/containers/DistrictAlertsPage.tsx:124
+#: src/containers/DistrictAlertsPage.tsx:109
 msgid "Need help finding an area? <0>See all area maps</0>"
 msgstr "Need help finding an area? <0>See all area maps</0>"
 
@@ -2336,7 +2336,7 @@ msgstr "View Detail"
 msgid "View Results"
 msgstr "View Results"
 
-#: src/containers/DistrictAlertsPage.tsx:164
+#: src/containers/DistrictAlertsPage.tsx:137
 msgid "View a map of each area type lorem ipsum dolor sit amet"
 msgstr "View a map of each area type lorem ipsum dolor sit amet"
 
@@ -2628,7 +2628,7 @@ msgstr "You are viewing a legacy version of Who Owns What"
 #~ msgid "You are viewing the old version of Who Owns What. <0>Switch to the new version.</0>"
 #~ msgstr "You are viewing the old version of Who Owns What. <0>Switch to the new version.</0>"
 
-#: src/containers/DistrictAlertsPage.tsx:123
+#: src/containers/DistrictAlertsPage.tsx:108
 msgid "You can follow one or multiple areas."
 msgstr "You can follow one or multiple areas."
 
@@ -2824,7 +2824,7 @@ msgstr "{0, plural, one {unit} other {units}}"
 #: src/components/BuildingStatsTable.tsx:34
 #: src/components/BuildingStatsTable.tsx:35
 #: src/containers/AccountSettingsPage.tsx:107
-#: src/containers/DistrictAlertsPage.tsx:168
+#: src/containers/DistrictAlertsPage.tsx:141
 msgid "{0}"
 msgstr "{0}"
 
