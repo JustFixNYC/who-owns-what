@@ -23,6 +23,10 @@ CREATE TABLE gce_eligibility AS (
             p.address,
             p.borough,
             p.zipcode,
+            pd.coun_dist,
+            pd.assem_dist,
+            pd.stsen_dist,
+            pd.cong_dist,
             p.unitsres,
             p.yearbuilt,
             p.ownername,
@@ -82,12 +86,17 @@ CREATE TABLE gce_eligibility AS (
         LEFT JOIN x_latest_cofos AS co USING(bbl)
         LEFT JOIN x_portfolio_bbls AS wb USING(bbl)
         LEFT JOIN x_portfolio_size AS wp USING(portfolio_id)
+        LEFT JOIN pluto_latest_districts AS pd USING(bbl)
     )
     SELECT
         bbl,
         address,
         borough,
         zipcode,
+        coun_dist,
+        assem_dist,
+        stsen_dist,
+        cong_dist,
         unitsres,
         yearbuilt,
         ownername,

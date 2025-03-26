@@ -3,6 +3,15 @@
 -- of duplicate table warnings when running the job in k8s-loader we'll define
 -- those here and run this first so they are available in the other two
 
+--- Array concatenate aggregate function 
+--- ------------------------------------
+-- This is used when preparing ACRIS party names to look for matches
+-- for use in prioritization of related properties on GCE portfolio size guide page
+CREATE OR REPLACE AGGREGATE array_concat_agg(anyarray) (
+   SFUNC = array_cat,
+   STYPE = anyarray
+);
+
 
 --- Certificates of Occupancy
 --- -------------------------

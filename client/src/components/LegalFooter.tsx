@@ -30,7 +30,7 @@ const LegalFooter = () => {
           <div className="d-flex">
             <p>
               <Trans>
-                Made with NYC ♥ by the team at <a href="https://www.justfix.org/">JustFix.org</a>
+                Made by the team at <a href="https://www.justfix.org/">JustFix.org</a>
               </Trans>
             </p>
             <nav className="inline">
