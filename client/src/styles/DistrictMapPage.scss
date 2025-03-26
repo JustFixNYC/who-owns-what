@@ -1,0 +1,10 @@
+.DistrictMapPage {
+  .mapboxgl-map {
+    height: 500px;
+    width: 500px;
+    .mapboxgl-canvas {
+      height: 500px;
+      width: 500px;
+    }
+  }
+}

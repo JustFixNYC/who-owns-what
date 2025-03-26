@@ -55,6 +55,7 @@ import { JFLogoDivider } from "components/JFLogoDivider";
 import { LoadingPage } from "components/Loader";
 import BBLSeparatedPage from "./BBLSeparatedPage";
 import DistrictAlertsPage from "./DistrictAlertsPage";
+import DistrictMapPage from "./DistrictMapPage";
 
 const BRANCH_NAME = process.env.REACT_APP_BRANCH;
 
@@ -217,6 +218,7 @@ const WhoOwnsWhatRoutes: React.FC<{}> = () => {
       <Route path={paths.dev} component={DevPage} />
       <Route path={paths.oldWowzaPath} component={WowzaRedirectPage} />
       <Route path={paths.districtPage} component={DistrictAlertsPage} />
+      <Route path={paths.districtMapPage} component={DistrictMapPage} />
       <Route component={NotFoundPage} />
     </Switch>
   );
