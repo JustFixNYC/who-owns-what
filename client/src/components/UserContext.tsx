@@ -70,22 +70,28 @@ export const UserContext = createContext<UserContextProps>(initialState);
 
 export const UserContextProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<JustfixUser>();
+
+  const updateUserSubscriptions = (_user: JustfixUser | undefined): JustfixUser | undefined => {
+    if (!_user) return;
+    const updatedUser = {
+      ..._user,
+      buildingSubscriptions:
+        _user.buildingSubscriptions?.map((s: any) => {
+          return { ...s };
+        }) || [],
+      districtSubscriptions:
+        _user.districtSubscriptions?.map((s: any) => {
+          return { ...s };
+        }) || [],
+    };
+    setUser(updatedUser);
+    return updatedUser;
+  };
+
   useEffect(() => {
     const asyncFetchUser = async () => {
       const _user = await AuthClient.fetchUser();
-      if (_user) {
-        setUser({
-          ..._user,
-          buildingSubscriptions:
-            _user.buildingSubscriptions?.map((s: any) => {
-              return { ...s };
-            }) || [],
-          districtSubscriptions:
-            _user.districtSubscriptions?.map((s: any) => {
-              return { ...s };
-            }) || [],
-        });
-      }
+      updateUserSubscriptions(_user);
     };
     asyncFetchUser();
   }, []);
@@ -98,20 +104,12 @@ export const UserContextProvider = ({ children }: { children: React.ReactNode })
       onSuccess?: (user: JustfixUser) => void
     ) => {
       const response = await AuthClient.register(username, password, userType);
-      if (!response.error && response.user) {
-        const _user = {
-          ...response.user,
-          subscriptions:
-            response.user.subscriptions?.map((s: any) => {
-              return { ...s };
-            }) || [],
-        };
-        setUser(_user);
-        if (onSuccess) onSuccess(_user);
-        return { user: _user };
-      } else {
+      if (response.error || !response.user) {
         return { error: response.error_description };
       }
+      const updatedUser = updateUserSubscriptions(response.user);
+      if (onSuccess && updatedUser) onSuccess(updatedUser);
+      return { user: updatedUser };
     },
     []
   );
@@ -119,21 +117,12 @@ export const UserContextProvider = ({ children }: { children: React.ReactNode })
   const login = useCallback(
     async (username: string, password: string, onSuccess?: (user: JustfixUser) => void) => {
       const response = await AuthClient.login(username, password);
-      console.log(response);
-      if (!response.error && response.user) {
-        const _user = {
-          ...response.user,
-          subscriptions:
-            response.user.subscriptions?.map((s: any) => {
-              return { ...s };
-            }) || [],
-        };
-        setUser(_user);
-        if (onSuccess) onSuccess(_user);
-        return { user: _user };
-      } else {
+      if (response.error || !response.user) {
         return { error: response.error };
       }
+      const updatedUser = updateUserSubscriptions(response.user);
+      if (onSuccess && updatedUser) onSuccess(updatedUser);
+      return { user: updatedUser };
     },
     []
   );
