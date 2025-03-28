@@ -1,20 +1,55 @@
-import { useContext, useRef, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import { withI18n, withI18nProps } from "@lingui/react";
 import { t, Trans } from "@lingui/macro";
 import { Button, Icon, Link } from "@justfixnyc/component-library";
 import Select, { GroupBase, SelectInstance, SingleValue } from "react-select";
+import { useHistory } from "react-router-dom";
 
 import "styles/DistrictAlertsPage.css";
 import Page from "components/Page";
 import { UserContext } from "components/UserContext";
 import Modal from "components/Modal";
-
-import geoIds from "../data/district-ids.json";
-import areaTypes from "../data/area-types.json";
-import { useHistory } from "react-router-dom";
 import { createWhoOwnsWhatRoutePaths } from "routes";
+import { DistrictMap } from "./DistrictMapPage";
 
-type AreaType = keyof typeof geoIds;
+import ntaData from "../data/nta.json";
+import ccdData from "../data/ccd.json";
+
+export interface AreaProperties {
+  arealabel: string;
+  areavalue: string;
+  typelabel: string;
+  typevalue: string;
+}
+
+interface GeoJsonGeometry {
+  type: "MultiPolygon";
+  coordinates: any;
+}
+
+export interface GeoJsonFeature {
+  type: "Feature";
+  id: number;
+  geometry: GeoJsonGeometry;
+  properties: AreaProperties;
+}
+
+export interface GeoJsonFeatureCollection {
+  type: "FeatureCollection";
+  features: GeoJsonFeature[];
+}
+
+type AreaTypeOption = { label: string; value: string; data: GeoJsonFeatureCollection };
+export type AreaOption = { label: string; value: string; feature: GeoJsonFeature; mapUrl?: string };
+
+const areaTypeOptions: AreaTypeOption[] = [
+  { value: "nta", label: "Neighborhoods", data: ntaData as GeoJsonFeatureCollection },
+  {
+    value: "coun_dist",
+    label: "City Council Districts",
+    data: ccdData as GeoJsonFeatureCollection,
+  },
+];
 
 const DistrictAlertsPage = withI18n()((props: withI18nProps) => {
   const userContext = useContext(UserContext);
@@ -41,15 +76,6 @@ const DistrictAlertsPage = withI18n()((props: withI18nProps) => {
   );
 });
 
-type Option = { label: string; value: string; mapUrl?: string };
-
-export type AreaSelection = {
-  typeValue: string;
-  typeLabel: string;
-  areaValue: string;
-  areaLabel: string;
-};
-
 const DistrictCreation = withI18n()((props: withI18nProps) => {
   const { i18n } = props;
   const userContext = useContext(UserContext);
@@ -58,39 +84,39 @@ const DistrictCreation = withI18n()((props: withI18nProps) => {
   const history = useHistory();
   const { account } = createWhoOwnsWhatRoutePaths();
 
-  const areaTypeOptions: Option[] = areaTypes.options;
-  const defaultArea = areaTypeOptions.filter((area) => area.value === "nta")[0];
+  const defaultAreaType = areaTypeOptions.filter((area) => area.value === "nta")[0];
+  const [areaType, setAreaType] = useState<AreaTypeOption>(defaultAreaType);
+
+  const areaOptions = areaType.data?.features.map((x) => {
+    return {
+      label: x.properties.arealabel,
+      value: x.properties.areavalue,
+      feature: x,
+    };
+  });
 
   const [showSaveAreaError, setShowSaveAreaError] = useState(false);
   const [showBoundariesModal, setShowBoundariesModal] = useState(false);
-  const [geoType, setGeoType] = useState<Option>(defaultArea);
-  const [areaSelections, setAreaSelections] = useState<AreaSelection[]>([]);
-  const selectedGeoValues = areaSelections.map((x) => x.areaValue);
 
-  const geoSelectRef = useRef<SelectInstance<Option, false, GroupBase<Option>>>(null);
+  const [areaSelections, setAreaSelections] = useState<GeoJsonFeature[]>([]);
+  const selectedAreaIds = areaSelections.map((x) => x.id);
 
-  const handleGeoTypeChange = (newValue: SingleValue<Option>) => {
-    newValue && setGeoType(newValue);
+  const geoSelectRef = useRef<SelectInstance<AreaOption, false, GroupBase<AreaOption>>>(null);
+
+  const handleGeoTypeChange = (newValue: SingleValue<AreaTypeOption>) => {
+    newValue && setAreaType(newValue);
     geoSelectRef.current?.clearValue();
   };
 
-  const handleGeoChange = (newValue: SingleValue<Option>) => {
-    if (!newValue || selectedGeoValues.includes(newValue?.value)) {
+  const handleGeoChange = (newValue: SingleValue<AreaOption>) => {
+    if (!newValue || selectedAreaIds.includes(newValue?.feature.id)) {
       return;
     }
-    const selection: AreaSelection = {
-      typeValue: geoType.value,
-      typeLabel: geoType.label,
-      areaValue: newValue.value,
-      areaLabel: newValue.label,
-    };
-    setAreaSelections((prev) => prev.concat([selection]));
+    setAreaSelections((prev) => prev.concat([newValue.feature]));
   };
 
-  const removeAreaFromSelections = (area: AreaSelection) => {
-    setAreaSelections((prev) =>
-      prev.filter((geo) => !(geo.typeValue === area.typeValue && geo.areaValue === area.areaValue))
-    );
+  const removeAreaFromSelections = (area: GeoJsonFeature) => {
+    setAreaSelections((prev) => prev.filter((x) => !(x.id === area.id)));
   };
 
   const saveSelections = async () => {
@@ -99,14 +125,15 @@ const DistrictCreation = withI18n()((props: withI18nProps) => {
       return;
     }
 
+    const district = areaSelections.map((x) => x.properties);
+
     if (!isLoggedIn) {
-      const district = areaSelections;
       const loginRoute = `/${i18n.language}${account.login}`;
       history.push({ pathname: loginRoute, state: { district } });
       return;
     }
 
-    await userContext.subscribeDistrict(areaSelections);
+    await userContext.subscribeDistrict(district);
     history.push(account.settings);
   };
 
@@ -129,7 +156,7 @@ const DistrictCreation = withI18n()((props: withI18nProps) => {
         <Select
           className="dropdown-select"
           aria-label="Area type selection"
-          defaultValue={defaultArea}
+          defaultValue={defaultAreaType}
           options={areaTypeOptions}
           onChange={handleGeoTypeChange}
         />
@@ -137,16 +164,21 @@ const DistrictCreation = withI18n()((props: withI18nProps) => {
           ref={geoSelectRef}
           className="dropdown-select"
           aria-label="Area selection"
-          placeholder={`Select or type a ${geoType.label}`}
-          options={geoIds[geoType.value as AreaType]}
-          isOptionDisabled={(option) => selectedGeoValues.includes(option.value)}
+          placeholder={`Select or type a ${areaType.label}`}
+          options={areaOptions}
+          isOptionDisabled={(option) => selectedAreaIds.includes(option.feature.id)}
           onChange={handleGeoChange}
+        />
+        <DistrictMap
+          geojson={areaType.data}
+          areaSelections={areaSelections}
+          setAreaSelections={setAreaSelections}
         />
         <hr />
         <div className="area-selection-container">
           <div className="area-selection-chip-container">
             {areaSelections.map((area, i) => (
-              <AreaChip {...area} onClose={removeAreaFromSelections} key={i} />
+              <AreaChip area={area} onClose={removeAreaFromSelections} key={i} />
             ))}
           </div>
           <span className="selection-message">
@@ -177,7 +209,7 @@ const DistrictCreation = withI18n()((props: withI18nProps) => {
           {areaTypeOptions.map((areaType, i) => (
             <li key={i}>
               <Link
-                href={areaType.mapUrl}
+                // href={areaType.mapUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 icon="external"
@@ -192,15 +224,17 @@ const DistrictCreation = withI18n()((props: withI18nProps) => {
   );
 });
 
-type AreaChipProps = AreaSelection & {
-  onClose: (area: AreaSelection) => void;
+type AreaChipProps = {
+  area: GeoJsonFeature;
+  onClose: (area: GeoJsonFeature) => void;
 };
-const AreaChip = (props: AreaChipProps) => {
-  const { onClose, ...area } = props;
+const AreaChip: React.FC<AreaChipProps> = ({ onClose, area }) => {
+  const areaTypeLabel = area.properties?.typelabel;
+  const areaLabel = area.properties?.arealabel;
 
   return (
     <div className="area-selection-chip">
-      {props.typeLabel}: {area.areaLabel}
+      {areaTypeLabel}: {areaLabel}
       <button onClick={() => onClose(area)}>
         <Icon icon="xmark" />
       </button>

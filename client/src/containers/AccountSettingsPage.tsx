@@ -72,7 +72,7 @@ const DistrictSubscriptionFieldWithoutI18n = (props: DistrictSubscriptionFieldPr
               {group[0]}s:
               <ul>
                 {group[1].map((geo, i) => (
-                  <li key={i}>{geo.areaLabel}</li>
+                  <li key={i}>{geo.arealabel}</li>
                 ))}
               </ul>
             </li>
