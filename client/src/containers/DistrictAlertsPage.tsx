@@ -10,7 +10,7 @@ import Page from "components/Page";
 import { UserContext } from "components/UserContext";
 import Modal from "components/Modal";
 import { createWhoOwnsWhatRoutePaths } from "routes";
-import { DistrictMap } from "./DistrictMapPage";
+import { DistrictMap } from "../components/DistrictMap";
 
 import ntaData from "../data/nta.json";
 import ccdData from "../data/ccd.json";

@@ -1,6 +1,0 @@
-{
-  "dependencies": {
-    "@justfixnyc/component-library": "0.42.3",
-    "mapbox-gl": "^3.10.0"
-  }
-}

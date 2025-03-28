@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 
 import "mapbox-gl/dist/mapbox-gl.css";
 import "styles/DistrictMapPage.css";
-import { GeoJsonFeature, GeoJsonFeatureCollection } from "./DistrictAlertsPage";
+import { GeoJsonFeature, GeoJsonFeatureCollection } from "../containers/DistrictAlertsPage";
 
 const MAPBOX_ACCESS_TOKEN = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN || "";
 
@@ -85,10 +85,17 @@ export const DistrictMap: React.FC<DistrictMapProps> = ({
           "fill-color": [
             "case",
             ["boolean", ["feature-state", "selected"], false],
-            "#5188ff", // justfix-blue
+            "#ffba33", // justfix-yellow
             "#ffffff",
           ],
-          "fill-opacity": ["case", ["boolean", ["feature-state", "selected"], false], 0.5, 0],
+          "fill-opacity": [
+            "case",
+            ["!", ["boolean", ["feature-state", "selected"], false]],
+            0,
+            ["boolean", ["feature-state", "hovered"], false],
+            1,
+            0.6,
+          ],
         },
       });
       map.addLayer({
@@ -96,8 +103,20 @@ export const DistrictMap: React.FC<DistrictMapProps> = ({
         type: "line",
         source: "districts",
         paint: {
-          "line-color": "#000",
-          "line-width": ["case", ["boolean", ["feature-state", "hovered"], false], 2, 1],
+          "line-color": [
+            "case",
+            ["boolean", ["feature-state", "selected"], false],
+            "#ff813a", // justfix-orange
+            "#000",
+          ],
+          "line-width": [
+            "case",
+            ["boolean", ["feature-state", "hovered"], false],
+            3,
+            ["boolean", ["feature-state", "selected"], false],
+            2,
+            1,
+          ],
         },
       });
     });
