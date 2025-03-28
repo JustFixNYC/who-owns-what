@@ -170,7 +170,7 @@ const DistrictCreation = withI18n()((props: withI18nProps) => {
           onChange={handleGeoChange}
         />
         <DistrictMap
-          geojson={areaType.data}
+          districtsData={areaType.data}
           areaSelections={areaSelections}
           setAreaSelections={setAreaSelections}
         />

@@ -70,10 +70,11 @@
   }
   .mapboxgl-map {
     height: 500px;
-    width: 500px;
+    width: 100%;
+    margin-top: 2rem;
     .mapboxgl-canvas {
       height: 500px;
-      width: 500px;
+      width: 100%;
     }
   }
 }

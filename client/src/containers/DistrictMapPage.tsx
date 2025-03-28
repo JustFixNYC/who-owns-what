@@ -23,12 +23,12 @@ const MAP_CONFIGURABLES = {
 };
 
 type DistrictMapProps = {
-  geojson: GeoJsonFeatureCollection;
+  districtsData: GeoJsonFeatureCollection;
   areaSelections: GeoJsonFeature[];
   setAreaSelections: React.Dispatch<React.SetStateAction<GeoJsonFeature[]>>;
 };
 export const DistrictMap: React.FC<DistrictMapProps> = ({
-  geojson,
+  districtsData,
   areaSelections,
   setAreaSelections,
 }) => {
@@ -57,7 +57,7 @@ export const DistrictMap: React.FC<DistrictMapProps> = ({
     map.on("load", () => {
       map.addSource("districts", {
         type: "geojson",
-        data: geojson,
+        data: districtsData,
       });
 
       map.addSource("selected", {
@@ -72,8 +72,8 @@ export const DistrictMap: React.FC<DistrictMapProps> = ({
         type: "fill",
         source: "selected",
         paint: {
-          "fill-color": "#ffa0c7", // justfix-pink
-          "fill-opacity": 1,
+          "fill-color": "#ffba33", // justfix-yellow
+          "fill-opacity": 0.4,
         },
       });
 
@@ -88,7 +88,7 @@ export const DistrictMap: React.FC<DistrictMapProps> = ({
             "#5188ff", // justfix-blue
             "#ffffff",
           ],
-          "fill-opacity": 0.5,
+          "fill-opacity": ["case", ["boolean", ["feature-state", "selected"], false], 0.5, 0],
         },
       });
       map.addLayer({
@@ -143,7 +143,13 @@ export const DistrictMap: React.FC<DistrictMapProps> = ({
     };
     // don't want to update on changed selections
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [geojson]);
+  }, []);
+
+  useEffect(() => {
+    if (!map?.getSource("districts")) return;
+    // @ts-ignore
+    map.getSource("districts").setData(districtsData);
+  }, [map, districtsData]);
 
   useEffect(() => {
     if (!map?.getSource("selected")) return;
