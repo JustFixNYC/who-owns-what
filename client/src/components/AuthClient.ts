@@ -34,7 +34,7 @@ type PasswordResetResponse = Omit<VerifyEmailResponse, "statusCode"> & {
 let _user: JustfixUser | undefined;
 const user = () => _user;
 const fetchUser = async () => {
-  if (!_user) {
+  if (!_user?.email) {
     const authCheck = await userAuthenticated();
 
     if (!!authCheck) {

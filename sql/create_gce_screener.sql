@@ -59,17 +59,47 @@ CREATE INDEX ON x_docs_since_latest_deed (bbl);
 CREATE INDEX ON x_docs_since_latest_deed (documentid);
 CREATE INDEX ON x_docs_since_latest_deed (doc_order);
 
+
+-- Get all party names on the document for the owners to later compare between
+-- search and related properties for matches so we can use paty name match to
+-- help prioritize related properties on the portfolio guide page
+CREATE TEMPORARY TABLE x_acris_party_names AS (
+	SELECT
+		documentid,
+		array_agg(distinct p.name) as party_names
+	FROM real_property_master AS m
+	LEFT JOIN real_property_parties AS p USING(documentid)
+	LEFT JOIN real_property_legals AS l USING(documentid)
+	LEFT JOIN x_latest_deeds AS d USING(bbl)
+	LEFT JOIN pluto_latest AS pl USING(bbl)
+	WHERE m.doctype = any('{AGMT,MTGE,AL&R}') 
+		-- for these doc types the owner is almost always party 1 and the bank/govt is party 2
+		AND p.partytype = 1
+		AND (
+			d.last_sale_date IS NULL
+			OR coalesce(m.docdate, m.recordedfiled) > d.last_sale_date
+		)
+		AND pl.unitsres > 0
+	GROUP BY documentid
+);
+
+CREATE INDEX ON x_acris_party_names (documentid);
+
+
 -- Take the most recent 5 documents and restructure for a bbl-level table
 CREATE TEMPORARY TABLE x_bbl_acris_docs AS (
   SELECT 
     bbl,
+    array_concat_agg(party_names) AS party_names,
     array_to_json(array_agg(json_build_object('doc_id', documentid, 'doc_type', doctype, 'doc_date', doc_date))) AS acris_docs
   FROM x_docs_since_latest_deed
+  LEFT JOIN x_acris_party_names USING(documentid)
   WHERE doc_order <= 5
   GROUP BY bbl 
 );
 
 CREATE INDEX ON x_bbl_acris_docs (bbl);
+CREATE INDEX ON x_bbl_acris_docs USING GIN (party_names);
 
 
 --- BBLs with Common Ownername (PLUTO) 
@@ -197,8 +227,8 @@ CREATE INDEX ON x_wow_related_bbls (ref_bbl, bbl);
 
 CREATE TEMPORARY TABLE x_all_related_bbls AS (
   SELECT
-    ref_bbl,
-    bbl,
+    w.ref_bbl,
+    w.bbl,
     coalesce(o.match_ownername, false) AS match_ownername,
     coalesce(m.match_multidoc, false) AS match_multidoc,
     coalesce(w.match_wow, false) AS match_wow,
@@ -213,14 +243,18 @@ CREATE TEMPORARY TABLE x_all_related_bbls AS (
 		w.distance_ft,
 		w.wow_match_name,
 		w.wow_match_bizaddr_unit,
+		coalesce(aref.party_names && a.party_names, false) AS party_name_match,
     coalesce(a.acris_docs, '[]'::json) AS acris_docs
   FROM x_wow_related_bbls AS w
   FULL JOIN x_ownername_related_bbls AS o USING(ref_bbl, bbl)
   FULL JOIN x_multi_doc_related_bbls AS m  USING(ref_bbl, bbl)
   LEFT JOIN pluto_latest AS p USING(bbl)
   LEFT JOIN x_bbl_acris_docs AS a USING(bbl)
+	LEFT JOIN x_bbl_acris_docs AS aref ON w.ref_bbl = aref.bbl
   WHERE p.unitsres > 0
 );
+
+CREATE INDEX ON x_all_related_bbls (ref_bbl);
 
 
 CREATE TEMPORARY TABLE x_related_bbl_acris_docs AS (

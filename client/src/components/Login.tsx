@@ -39,10 +39,7 @@ const LoginWithoutI18n = (props: withI18nProps) => {
   const { user } = userContext;
   const { home, account, termsOfUse, privacyPolicy, districtPage } = createWhoOwnsWhatRoutePaths();
   const history = useHistory();
-  const location = useLocation();
-  const { pathname } = location;
-
-  const { state: locationState } = location;
+  const { pathname, state: locationState } = useLocation();
   const [addr, setAddr] = React.useState<AddressRecord>();
   const [district, setDistrict] = React.useState<District>();
   // switch to regular state and clear location state since it otherwise persists after reloads
@@ -51,7 +48,6 @@ const LoginWithoutI18n = (props: withI18nProps) => {
     setDistrict(locationState?.district);
     window.history.replaceState({ state: undefined }, "");
   }, [locationState]);
-  console.log({ district, bool: !!district });
 
   const [step, setStep] = useState(Step.CheckEmail);
   const isCheckEmailStep = step === Step.CheckEmail;
@@ -363,7 +359,7 @@ const LoginWithoutI18n = (props: withI18nProps) => {
 
     if (!!addr || !!district) {
       const redirectTo = {
-        pathname: !!addr ? getAddrPageRoute(addr) : home,
+        pathname: !!addr ? getAddrPageRoute(addr) : account.settings,
         state: { justSubscribed: true },
       };
       history.push(redirectTo);
@@ -496,6 +492,7 @@ const LoginWithoutI18n = (props: withI18nProps) => {
             setIsLoading(true);
             resetAlertErrorStates();
             await onSubmit();
+            // if OnSubmit redirects, state change below raises memory leak warning, but not a problem
             setIsLoading(false);
           }}
         >

@@ -12,59 +12,12 @@ import { ViolationsSummary } from "./ViolationsSummary";
 import { StringifyListWithConjunction } from "./StringifyList";
 import { SocialShareAddressPage } from "./SocialShare";
 import { withMachineInStateProps } from "state-machine";
-import { AddressRecord } from "./APIDataTypes";
-import { defaultLocale, isSupportedLocale } from "i18n-base";
-import { I18n } from "@lingui/core/i18n";
-import { I18n as I18nComponent } from "@lingui/react";
 import { ComplaintsSummary } from "./ComplaintsSummary";
 import { StreetViewStatic } from "./StreetView";
 
 type Props = withMachineInStateProps<"portfolioFound"> & {
   isVisible: boolean;
 };
-
-const DATA_REQUEST_FORM_URLS = {
-  en: "https://airtable.com/shruDUDHViainzUBB",
-  es: "https://airtable.com/shrQudDbhUVz5J83u",
-};
-
-const generateLinkToDataRequestForm = (i18n: I18n, address?: AddressRecord) => {
-  const locale = i18n.language;
-  if (!isSupportedLocale(locale)) {
-    throw new Error(`Trying to generate Data Request Form link with unsupported locale: ${locale}`);
-  }
-  let url = DATA_REQUEST_FORM_URLS[locale] || DATA_REQUEST_FORM_URLS[defaultLocale];
-  if (address) {
-    const fullAddress = encodeURIComponent(
-      `${address.housenumber} ${address.streetname}, ${address.boro}`
-    );
-    url = `${url}?prefill_Address=${fullAddress}`;
-  }
-  return url;
-};
-
-const DataRequestButton: React.FC<{
-  address?: AddressRecord;
-}> = ({ address }) => {
-  return (
-    <I18nComponent>
-      {({ i18n }) => (
-        <Link
-          onClick={() => {
-            window.gtag("event", "data-request");
-          }}
-          href={generateLinkToDataRequestForm(i18n, address)}
-          target="_blank"
-          rel="noopener noreferrer"
-          icon="external"
-        >
-          <Trans>Send us a data request</Trans>
-        </Link>
-      )}
-    </I18nComponent>
-  );
-};
-
 export default class PropertiesSummary extends Component<Props, {}> {
   updateData() {
     if (
@@ -86,7 +39,6 @@ export default class PropertiesSummary extends Component<Props, {}> {
   render() {
     const { state } = this.props;
     let agg = state.context.summaryData;
-    let searchAddr = state.context.portfolioData.searchAddr;
     if (!agg) {
       return <FixedLoadingLabel />;
     } else {
@@ -182,12 +134,6 @@ export default class PropertiesSummary extends Component<Props, {}> {
                   <span className="PropertiesSummary__linksTitle">
                     <Trans render="em">Additional links</Trans>
                   </span>
-                  <div>
-                    <h6 className="PropertiesSummary__linksSubtitle">
-                      <Trans>Looking for more information?</Trans>
-                    </h6>
-                    <DataRequestButton address={searchAddr} />
-                  </div>
                   <div>
                     <h6 className="PropertiesSummary__linksSubtitle">
                       <Trans>Questions or feedback?</Trans>

@@ -61,12 +61,11 @@ type DistrictSubscriptionFieldProps = withI18nProps &
 
 const DistrictSubscriptionFieldWithoutI18n = (props: DistrictSubscriptionFieldProps) => {
   const { district, pk, onRemoveClick, i18n } = props;
-  const foo = Object.entries(_groupBy(district, "typeLabel"));
-  console.log(foo);
+  const groupedAreas = Object.entries(_groupBy(district, "typeLabel"));
   return (
     <div className="subscription-field">
       <ul className="subscription-district">
-        {foo.map((group, i) => {
+        {groupedAreas.map((group, i) => {
           return (
             <li key={i}>
               {group[0]}s:
