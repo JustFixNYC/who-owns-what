@@ -86,7 +86,7 @@ def validate_district_types(value):
         "stsen_dist",
         "zipcode",
     ]
-    if not value in VALID_DISTRICTS:
+    if value not in VALID_DISTRICTS:
         raise ValidationError(
             f"{value} is not a valid district type. Must be on of {', '.join(VALID_DISTRICTS)}",
         )
