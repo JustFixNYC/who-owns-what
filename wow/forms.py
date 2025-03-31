@@ -72,3 +72,14 @@ class SignatureCollectionForm(forms.Form):
 
 class DatasetLastUpdatedForm(forms.Form):
     dataset = forms.CharField(required=False)
+
+
+class DistrictTypeForm(forms.Form):
+    district_type = forms.CharField(
+        validators=[
+            RegexValidator(
+                r"^(coun_dist)|(nta)|(borough)|(community_dist)|(cong_dist)|(assem_dist)|(stsen_dist)|(zipcode)$",
+                message="This must be a valid district type value.",
+            )
+        ]
+    )
