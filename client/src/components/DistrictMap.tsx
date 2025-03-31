@@ -3,7 +3,11 @@ import { useEffect, useRef, useState } from "react";
 
 import "mapbox-gl/dist/mapbox-gl.css";
 import "styles/DistrictMapPage.css";
-import { GeoJsonFeature, GeoJsonFeatureCollection } from "../containers/DistrictAlertsPage";
+import {
+  GeoJsonFeatureDistrict,
+  DistrictsGeoJson,
+  LabelsGeoJson,
+} from "../containers/DistrictAlertsPage";
 
 const MAPBOX_ACCESS_TOKEN = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN || "";
 
@@ -22,13 +26,25 @@ const MAP_CONFIGURABLES = {
   zoom: DEFAULT_ZOOM,
 };
 
+const LABEL_MINZOOM: { [key: string]: number } = {
+  nta: 12,
+  coun_dist: 11.5,
+  borough: 9,
+  community_dist: 11,
+  cong_dist: 9.5,
+  assem_dist: 11,
+  stsen_dist: 10.5,
+};
+
 type DistrictMapProps = {
-  districtsData: GeoJsonFeatureCollection;
-  areaSelections: GeoJsonFeature[];
-  setAreaSelections: React.Dispatch<React.SetStateAction<GeoJsonFeature[]>>;
+  districtsData?: DistrictsGeoJson;
+  labelsData?: LabelsGeoJson;
+  areaSelections: GeoJsonFeatureDistrict[];
+  setAreaSelections: React.Dispatch<React.SetStateAction<GeoJsonFeatureDistrict[]>>;
 };
 export const DistrictMap: React.FC<DistrictMapProps> = ({
   districtsData,
+  labelsData,
   areaSelections,
   setAreaSelections,
 }) => {
@@ -42,7 +58,13 @@ export const DistrictMap: React.FC<DistrictMapProps> = ({
   // will contain `null` by default
   const mapNode = useRef(null);
 
+  const [initialDataReady, setInitialDataReady] = useState(!!districtsData);
+  const dataReady = initialDataReady || !!districtsData;
+
   useEffect(() => {
+    if (!dataReady) return;
+    setInitialDataReady(true);
+
     const node = mapNode.current;
     // if the window object is not found, that means
     // the component is rendered on the server
@@ -60,13 +82,19 @@ export const DistrictMap: React.FC<DistrictMapProps> = ({
         data: districtsData,
       });
 
+      map.addSource("labels", {
+        type: "geojson",
+        data: labelsData,
+      });
+
       map.addSource("selected", {
         type: "geojson",
         data: {
           type: "FeatureCollection",
           features: areaSelections,
-        } as GeoJsonFeatureCollection,
+        } as DistrictsGeoJson,
       });
+
       map.addLayer({
         id: "selected",
         type: "fill",
@@ -98,6 +126,7 @@ export const DistrictMap: React.FC<DistrictMapProps> = ({
           ],
         },
       });
+
       map.addLayer({
         id: "outline",
         type: "line",
@@ -119,6 +148,25 @@ export const DistrictMap: React.FC<DistrictMapProps> = ({
           ],
         },
       });
+
+      map.addLayer({
+        id: "labels",
+        type: "symbol",
+        source: "labels",
+        minzoom: 12,
+        layout: {
+          "text-field": ["get", "arealabel"],
+          "text-font": ["Open Sans Semibold", "Arial Unicode MS Bold"],
+          "text-max-width": 10, // default
+          "text-anchor": "center", // default
+          "text-size": 11,
+        },
+        paint: {
+          "text-color": "#000",
+          "text-halo-color": "#fff",
+          "text-halo-width": 2,
+        },
+      });
     });
 
     map.on("click", "districts", (e) => {
@@ -131,7 +179,7 @@ export const DistrictMap: React.FC<DistrictMapProps> = ({
         { selected: prev?.selected ? !prev.selected : true }
       );
       if (!prev?.selected)
-        setAreaSelections((prev) => prev.concat([(feature as unknown) as GeoJsonFeature]));
+        setAreaSelections((prev) => prev.concat([(feature as unknown) as GeoJsonFeatureDistrict]));
       if (prev?.selected) setAreaSelections((prev) => prev.filter((x) => x.id !== feature.id));
     });
 
@@ -151,8 +199,9 @@ export const DistrictMap: React.FC<DistrictMapProps> = ({
       map.setFeatureState({ source: "districts", id: hoveredFeatureId }, { hovered: true });
     });
 
-    map.on("mouseleave", "districts", (e) => {
+    map.on("mouseleave", "districts", () => {
       map.getCanvas().style.cursor = "";
+      console.log(map.getZoom());
     });
 
     map.addControl(new NavigationControl({ showCompass: false }), "top-left");
@@ -164,13 +213,23 @@ export const DistrictMap: React.FC<DistrictMapProps> = ({
     };
     // don't want to update on changed selections
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [dataReady]);
 
   useEffect(() => {
+    if (!districtsData) return;
     if (!map?.getSource("districts")) return;
     // @ts-ignore
     map.getSource("districts").setData(districtsData);
+    const areaTypeValue = districtsData.features[0].properties.typeValue;
+    map.setLayerZoomRange("labels", LABEL_MINZOOM[areaTypeValue], 23);
   }, [map, districtsData]);
+
+  useEffect(() => {
+    if (!labelsData) return;
+    if (!map?.getSource("labels")) return;
+    // @ts-ignore
+    map.getSource("labels").setData(labelsData);
+  }, [map, labelsData]);
 
   useEffect(() => {
     if (!map?.getSource("selected")) return;

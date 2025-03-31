@@ -42,17 +42,18 @@ CREATE TABLE wow_districts_geojson AS (
     ), districts_and_labels AS (
         SELECT 
             id,	
-            typevalue,
-            typelabel,
-            areavalue,
-            arealabel,
+            typevalue AS "typeValue",
+            typelabel AS "typeLabel",
+            areavalue AS "areaValue",
+            arealabel AS "areaLabel",
             districts_geom,
             labels_geom
         FROM all_districts
         LEFT JOIN district_labels USING(id)
     ), features AS (
         SELECT 
-            typeValue, 
+            "typeValue", 
+            "typeLabel",
             jsonb_build_object(
             'type',       'Feature',
             'id',         id,
@@ -63,12 +64,13 @@ CREATE TABLE wow_districts_geojson AS (
             'type',       'Feature',
             'id',         id,
             'geometry',   ST_AsGeoJSON(labels_geom)::jsonb,
-            'properties', to_jsonb(districts_and_labels) - 'id' - 'districts_geom' - 'labels_geom' - 'typevalue' - 'typelabel' - 'areavalue'
+            'properties', to_jsonb(districts_and_labels) - 'id' - 'districts_geom' - 'labels_geom' - 'typeValue' - 'typeLabel' - 'areaValue'
         ) AS labels_feature
         FROM districts_and_labels
     )
     SELECT
-        typevalue, 
+        "typeValue", 
+        "typeLabel",
         jsonb_build_object(
         'type',     'FeatureCollection',
         'features', jsonb_agg(features.districts_feature)
@@ -78,5 +80,5 @@ CREATE TABLE wow_districts_geojson AS (
         'features', jsonb_agg(features.labels_feature)
         ) AS labels_geojson
     FROM features
-    GROUP BY typevalue
+    GROUP BY "typeValue", "typeLabel"
 );

@@ -1,6 +1,7 @@
 SELECT
-	typevalue,
-	districts_geojson,
-	labels_geojson
+	"typeValue" as value,
+	"typeLabel" as label,
+	districts_geojson as "districtsData",
+	labels_geojson as "labelsData"
 FROM wow_districts_geojson
-WHERE typevalue = %(district_type)s
+WHERE "typeValue" = %(district_type)s

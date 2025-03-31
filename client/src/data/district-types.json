@@ -3,7 +3,7 @@
     { "label": "Borough", "value": "borough" },
     {
       "label": "Community District",
-      "value": "community_board",
+      "value": "community_dist",
       "mapUrl": "https://boundaries.beta.nyc/?map=cd"
     },
     {
@@ -26,11 +26,6 @@
       "label": "State Senate District",
       "value": "stsen_dist",
       "mapUrl": "https://boundaries.beta.nyc/?map=ss"
-    },
-    {
-      "label": "Zip Code",
-      "value": "zipcode",
-      "mapUrl": "https://boundaries.beta.nyc/?map=zipcode"
     }
   ]
 }
