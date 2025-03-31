@@ -155,7 +155,7 @@ export const DistrictMap: React.FC<DistrictMapProps> = ({
         source: "labels",
         minzoom: 12,
         layout: {
-          "text-field": ["get", "arealabel"],
+          "text-field": ["get", "areaLabel"],
           "text-font": ["Open Sans Semibold", "Arial Unicode MS Bold"],
           "text-max-width": 10, // default
           "text-anchor": "center", // default
@@ -201,7 +201,6 @@ export const DistrictMap: React.FC<DistrictMapProps> = ({
 
     map.on("mouseleave", "districts", () => {
       map.getCanvas().style.cursor = "";
-      console.log(map.getZoom());
     });
 
     map.addControl(new NavigationControl({ showCompass: false }), "top-left");
