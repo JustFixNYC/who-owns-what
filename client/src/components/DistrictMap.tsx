@@ -1,4 +1,4 @@
-import { Map } from "mapbox-gl";
+import { Map, NavigationControl } from "mapbox-gl";
 import { useEffect, useRef, useState } from "react";
 
 import "mapbox-gl/dist/mapbox-gl.css";
@@ -11,9 +11,9 @@ const MAPBOX_STYLE = "mapbox://styles/mapbox/light-v11";
 
 type LatLng = [number, number];
 
-const DEFAULT_CENTER: LatLng = [-73.957117, 40.653632];
+const DEFAULT_CENTER: LatLng = [-73.9716972669396, 40.70612846804647];
 
-const DEFAULT_ZOOM = 11.5;
+const DEFAULT_ZOOM = 9.25;
 
 const MAP_CONFIGURABLES = {
   accessToken: MAPBOX_ACCESS_TOKEN,
@@ -154,6 +154,8 @@ export const DistrictMap: React.FC<DistrictMapProps> = ({
     map.on("mouseleave", "districts", (e) => {
       map.getCanvas().style.cursor = "";
     });
+
+    map.addControl(new NavigationControl({ showCompass: false }), "top-left");
 
     setMap(map);
 
