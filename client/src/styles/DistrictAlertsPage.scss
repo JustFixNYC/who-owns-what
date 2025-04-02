@@ -18,6 +18,7 @@
     }
     .dropdown-select {
       margin-top: 0.5rem;
+      z-index: 3; // so that dropdown menu covers map zoom controls
     }
     hr {
       margin-top: 2.25rem;
@@ -68,13 +69,24 @@
       margin-right: 0.38rem;
     }
   }
-  .mapboxgl-map {
+  .district-map-container {
     height: 500px;
     width: 100%;
-    margin: 1rem 0;
-    .mapboxgl-canvas {
+    margin-top: 2rem;
+    .district-map-loading {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      background-color: white;
+    }
+    .mapboxgl-map {
       height: 500px;
       width: 100%;
+      .mapboxgl-canvas {
+        height: 500px;
+        width: 100%;
+      }
     }
   }
 }

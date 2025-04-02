@@ -1,31 +1,33 @@
 {
   "options": [
-    { "label": "Borough", "value": "borough" },
     {
-      "label": "Community District",
-      "value": "community_dist",
-      "mapUrl": "https://boundaries.beta.nyc/?map=cd"
+      "label": "Boroughs",
+      "value": "borough"
     },
     {
-      "label": "Congressional District",
-      "value": "cong_dist",
-      "mapUrl": "https://boundaries.beta.nyc/?map=nycongress"
+      "label": "Community Districts",
+      "value": "community_dist"
     },
     {
-      "label": "City Council District",
-      "value": "coun_dist",
-      "mapUrl": "https://boundaries.beta.nyc/?map=cc_upcoming"
-    },
-    { "label": "Neighborhood", "value": "nta", "mapUrl": "https://boundaries.beta.nyc/?map=nta" },
-    {
-      "label": "State Assembly District",
-      "value": "assem_dist",
-      "mapUrl": "https://boundaries.beta.nyc/?map=sa"
+      "label": "Congressional Districts",
+      "value": "cong_dist"
     },
     {
-      "label": "State Senate District",
-      "value": "stsen_dist",
-      "mapUrl": "https://boundaries.beta.nyc/?map=ss"
+      "label": "City Council Districts",
+      "value": "coun_dist"
+    },
+    { "label": "Neighborhood", "value": "nta" },
+    {
+      "label": "State Assembly Districts",
+      "value": "assem_dist"
+    },
+    {
+      "label": "State Senate Districts",
+      "value": "stsen_dist"
+    },
+    {
+      "label": "Zip Codes",
+      "value": "zipcode"
     }
   ]
 }

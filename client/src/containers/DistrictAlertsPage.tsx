@@ -191,12 +191,6 @@ const DistrictCreation = withI18n()((props: withI18nProps) => {
             See all area maps
           </button>
         </Trans>
-        <DistrictMap
-          districtsData={areaType.districtsData}
-          labelsData={areaType.labelsData}
-          areaSelections={areaSelections}
-          setAreaSelections={setAreaSelections}
-        />
         <Trans render="strong">Area</Trans>
         <Select
           className="dropdown-select"
@@ -213,6 +207,12 @@ const DistrictCreation = withI18n()((props: withI18nProps) => {
           options={areaOptions}
           isOptionDisabled={(option) => selectedAreaIds.includes(option.feature.id)}
           onChange={handleGeoChange}
+        />
+        <DistrictMap
+          districtsData={areaType.districtsData}
+          labelsData={areaType.labelsData}
+          areaSelections={areaSelections}
+          setAreaSelections={setAreaSelections}
         />
         <hr />
         <div className="area-selection-container">

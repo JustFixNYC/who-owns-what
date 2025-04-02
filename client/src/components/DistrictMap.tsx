@@ -34,6 +34,7 @@ const LABEL_MINZOOM: { [key: string]: number } = {
   cong_dist: 9.5,
   assem_dist: 11,
   stsen_dist: 10.5,
+  zipcode: 10.5,
 };
 
 type DistrictMapProps = {
@@ -246,7 +247,12 @@ export const DistrictMap: React.FC<DistrictMapProps> = ({
     });
   }, [map, areaSelections]);
 
-  return <div ref={mapNode} />;
+  return (
+    <div className="district-map-container">
+      {!map && <div className="district-map-loading">Loading...</div>}
+      <div ref={mapNode} />
+    </div>
+  );
 };
 
 export default DistrictMap;
