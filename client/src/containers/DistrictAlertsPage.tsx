@@ -82,9 +82,6 @@ const DistrictAlertsPage = withI18n()((props: withI18nProps) => {
             Get a weekly email that identifies buildings and portfolios that exhibit urgent
             displacement indicators within a single area or multiple areas of the city.
           </p>
-          <Link href="#" target="_blank" rel="noopener noreferrer" icon="external">
-            View sample area alerts email
-          </Link>
           <DistrictCreation />
         </div>
       </div>
@@ -182,15 +179,6 @@ const DistrictCreation = withI18n()((props: withI18nProps) => {
         <Trans render="h3">Create your email</Trans>
         <hr />
         <Trans render="p">You can follow one or multiple areas.</Trans>
-        <Trans render="p">
-          Need help finding an area?{" "}
-          <button
-            className="map-modal-button button is-text"
-            onClick={() => setShowBoundariesModal(true)}
-          >
-            See all area maps
-          </button>
-        </Trans>
         <Trans render="strong">Area</Trans>
         <Select
           className="dropdown-select"
