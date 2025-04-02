@@ -4,7 +4,7 @@ CREATE TABLE wow_districts_geom AS (
 			'coun_dist' AS typevalue,
 			'City Council' AS typelabel,
 			coundist::text AS areavalue,
-			'District' || coundist AS arealabel,
+			'District ' || coundist AS arealabel,
 			geom
 		FROM nycc
 	), state_assembly AS (
@@ -12,7 +12,7 @@ CREATE TABLE wow_districts_geom AS (
 		  'assem_dist' AS typevalue,
 			'State Assembly' AS typelabel,
 			assemdist::text AS areavalue,
-			'District' || assemdist AS arealabel,
+			'District ' || assemdist AS arealabel,
 		  geom
 		FROM nyad
 	), state_senate AS (
@@ -20,7 +20,7 @@ CREATE TABLE wow_districts_geom AS (
 		  'stsen_dist' AS typevalue,
 			'State Senate' AS typelabel,
 			stsendist::text AS areavalue,
-			'District' || stsendist AS arealabel,
+			'District ' || stsendist AS arealabel,
 			geom
 		FROM nyss
 	), congress AS (
