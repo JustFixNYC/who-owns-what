@@ -13,23 +13,13 @@ CREATE TABLE wow_districts_geojson AS (
     WITH all_districts AS (
         SELECT
             row_number() OVER () AS id,
-            geom_id AS areavalue,
-            COALESCE(geom_name, geom_id) AS arealabel,
-            geom_type AS typevalue,
-            CASE 
-                WHEN geom_type = 'borough' THEN 'Borough'
-                WHEN geom_type = 'community_board' THEN 'Community District'
-                WHEN geom_type = 'cong_dist' THEN 'Congressional District'
-                WHEN geom_type = 'coun_dist' THEN 'City Council District'
-                WHEN geom_type = 'nta' THEN 'Neighborhood'
-                WHEN geom_type = 'assem_dist' THEN 'State Assembly District'
-                WHEN geom_type = 'stsen_dist' THEN 'State Senate District'
-                WHEN geom_type = 'zipcode' THEN 'Zip Code'
-            END as typelabel,
+            areavalue,
+            arealabel,
+            typevalue,
+            typelabel,
             geom,
             ST_Transform(ST_simplify(geom, 100), 4326) AS districts_geom
-        FROM pluto_latest_geom
-        WHERE geom_type != 'census_tract'
+        FROM wow_districts_geom
     ), district_polygons AS (
         SELECT id, (ST_Dump(geom)).geom AS geom 
         FROM all_districts
