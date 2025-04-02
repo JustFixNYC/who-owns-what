@@ -38,7 +38,7 @@ export interface GeoJsonFeatureLabel {
     type: "Point";
     coordinates: any;
   };
-  properties: { arealabel: string };
+  properties: { areaLabel: string };
 }
 
 export interface DistrictsGeoJson {
