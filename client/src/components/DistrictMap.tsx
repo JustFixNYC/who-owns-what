@@ -190,18 +190,21 @@ export const DistrictMap: React.FC<DistrictMapProps> = ({
 
     let hoveredFeatureId: string | number;
     map.on("mousemove", "districts", (e) => {
-      if (!e.features?.length) return;
-      const feature = e.features[0];
-      if (!feature.id) return;
       if (hoveredFeatureId) {
         map.setFeatureState({ source: "districts", id: hoveredFeatureId }, { hovered: false });
       }
+      if (!e.features?.length) return;
+      const feature = e.features[0];
+      if (!feature.id) return;
       hoveredFeatureId = feature.id;
       map.setFeatureState({ source: "districts", id: hoveredFeatureId }, { hovered: true });
     });
 
     map.on("mouseleave", "districts", () => {
       map.getCanvas().style.cursor = "";
+      if (hoveredFeatureId) {
+        map.setFeatureState({ source: "districts", id: hoveredFeatureId }, { hovered: false });
+      }
     });
 
     map.addControl(new NavigationControl({ showCompass: false }), "top-left");
