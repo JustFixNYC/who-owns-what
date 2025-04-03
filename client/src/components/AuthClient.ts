@@ -34,31 +34,30 @@ type PasswordResetResponse = Omit<VerifyEmailResponse, "statusCode"> & {
 let _user: JustfixUser | undefined;
 const user = () => _user;
 const fetchUser = async () => {
-  if (!_user?.email) {
-    const authCheck = await userAuthenticated();
+  const authCheck = await userAuthenticated();
 
-    if (!!authCheck) {
-      const buildingSubscriptions =
-        authCheck["subscriptions"]?.map((s: any) => {
-          return { ...s };
-        }) || [];
-      const districtSubscriptions =
-        authCheck["district_subscriptions"]?.map((s: any) => {
-          return { ...s };
-        }) || [];
-      _user = {
-        email: authCheck["email"],
-        verified: authCheck["verified"],
-        id: authCheck["id"],
-        type: authCheck["type"],
-        buildingSubscriptions,
-        districtSubscriptions,
-        subscriptionLimit: authCheck["subscription_limit"],
-      };
-    } else {
-      clearUser();
-    }
+  if (!authCheck) {
+    clearUser();
+    return;
   }
+
+  const buildingSubscriptions =
+    authCheck["subscriptions"]?.map((s: any) => {
+      return { ...s };
+    }) || [];
+  const districtSubscriptions =
+    authCheck["district_subscriptions"]?.map((s: any) => {
+      return { ...s };
+    }) || [];
+  _user = {
+    email: authCheck["email"],
+    verified: authCheck["verified"],
+    id: authCheck["id"],
+    type: authCheck["type"],
+    buildingSubscriptions,
+    districtSubscriptions,
+    subscriptionLimit: authCheck["subscription_limit"],
+  };
   return _user;
 };
 const setUser = (user: JustfixUser) => (_user = user);
