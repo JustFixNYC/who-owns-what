@@ -210,6 +210,9 @@ export const DistrictMap: React.FC<DistrictMapProps> = ({
 
     map.addControl(new NavigationControl({ showCompass: false }), "top-left");
 
+    map.dragRotate.disable();
+    map.touchZoomRotate.disableRotation();
+
     setMap(map);
 
     return () => {
