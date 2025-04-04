@@ -1,14 +1,13 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { withI18n, withI18nProps } from "@lingui/react";
 import { t, Trans } from "@lingui/macro";
-import { Button, Icon, Link } from "@justfixnyc/component-library";
+import { Button, Icon } from "@justfixnyc/component-library";
 import Select, { GroupBase, SelectInstance, SingleValue } from "react-select";
 import { useHistory } from "react-router-dom";
 
 import "styles/DistrictAlertsPage.css";
 import Page from "components/Page";
 import { UserContext } from "components/UserContext";
-import Modal from "components/Modal";
 import { createWhoOwnsWhatRoutePaths } from "routes";
 import { DistrictMap } from "../components/DistrictMap";
 
@@ -109,7 +108,6 @@ const DistrictCreation = withI18n()((props: withI18nProps) => {
   });
 
   const [showSaveAreaError, setShowSaveAreaError] = useState(false);
-  const [showBoundariesModal, setShowBoundariesModal] = useState(false);
 
   const [areaSelections, setAreaSelections] = useState<GeoJsonFeatureDistrict[]>([]);
   const selectedAreaIds = areaSelections.map((x) => x.id);
@@ -176,78 +174,56 @@ const DistrictCreation = withI18n()((props: withI18nProps) => {
   return (
     <>
       <div className="district-selection">
-        <Trans render="h3">Create your email</Trans>
-        <hr />
-        <Trans render="p">You can follow one or multiple areas.</Trans>
-        <Trans render="strong">Area</Trans>
-        <Select
-          className="dropdown-select"
-          aria-label="Area type selection"
-          defaultValue={defaultAreaType}
-          options={areaTypeOptions}
-          onChange={handleGeoTypeChange}
-        />
-        <Select
-          ref={geoSelectRef}
-          className="dropdown-select"
-          aria-label="Area selection"
-          placeholder={`Select or type a ${areaType.label}`}
-          options={areaOptions}
-          isOptionDisabled={(option) => selectedAreaIds.includes(option.feature.id)}
-          onChange={handleGeoChange}
-        />
         <DistrictMap
           districtsData={areaType.districtsData}
           labelsData={areaType.labelsData}
           areaSelections={areaSelections}
           setAreaSelections={setAreaSelections}
         />
-        <hr />
-        <div className="area-selection-container">
-          <div className="area-selection-chip-container">
-            {areaSelections.map((area, i) => (
-              <AreaChip area={area} onClose={removeAreaFromSelections} key={i} />
-            ))}
+        <div className="district_selection__sidebar">
+          <Trans render="strong">Select areas you want included in your email</Trans>
+          <Select
+            className="dropdown-select"
+            aria-label="Area type selection"
+            defaultValue={defaultAreaType}
+            options={areaTypeOptions}
+            onChange={handleGeoTypeChange}
+          />
+          <Select
+            ref={geoSelectRef}
+            className="dropdown-select"
+            aria-label="Area selection"
+            placeholder={`Select or type a ${areaType.label}`}
+            options={areaOptions}
+            isOptionDisabled={(option) => selectedAreaIds.includes(option.feature.id)}
+            onChange={handleGeoChange}
+          />
+          <hr />
+          <div className="area-selection-container">
+            <div className="area-selection-chip-container">
+              {areaSelections.map((area, i) => (
+                <AreaChip area={area} onClose={removeAreaFromSelections} key={i} />
+              ))}
+            </div>
+            <span className="selection-message">
+              {areaSelections.length ? (
+                <>You can save or add more areas to your email</>
+              ) : (
+                <>Add an area to build your email</>
+              )}
+            </span>
           </div>
-          <span className="selection-message">
-            {areaSelections.length ? (
-              <>You can save or add more areas to your email</>
-            ) : (
-              <>Add an area to build your email</>
-            )}
-          </span>
         </div>
       </div>
-      <Button
-        className="save-selection"
-        labelText="Save selections"
-        // disabled={!areaSelections.length}
-        onClick={saveSelections}
-      />
-      {showSaveAreaError && (
-        <div className="error-message">
-          <Icon icon="circleExclamation" />
-          You must add at least one area before saving selections
-        </div>
-      )}
-      <Modal showModal={showBoundariesModal} onClose={() => setShowBoundariesModal(false)}>
-        <Trans render="h3">Area maps</Trans>
-        <Trans render="p">View a map of each area type lorem ipsum dolor sit amet</Trans>
-        <ul>
-          {areaTypeOptions.map((areaType, i) => (
-            <li key={i}>
-              <Link
-                // href={areaType.mapUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                icon="external"
-              >
-                <Trans>{areaType.label}</Trans>
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </Modal>
+      <div className="district-selection-save-container">
+        <Button className="save-selection" labelText="Save selections" onClick={saveSelections} />
+        {showSaveAreaError && (
+          <div className="error-message">
+            <Icon icon="circleExclamation" />
+            You must add at least one area before saving selections
+          </div>
+        )}
+      </div>
     </>
   );
 });

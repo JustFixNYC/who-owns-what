@@ -1,64 +1,88 @@
 @import "./vars";
 @import "./typography";
 
-.DistrictAlertsPage {
-  .district-subscription {
-    padding: 1rem;
-    margin: 1rem 0;
-    border: 2px solid $justfix-black;
+div.DistrictAlertsPage {
+  .page-container {
+    width: unset;
+    max-width: unset;
+    & > p {
+      width: 60%;
+    }
   }
-
   .district-selection {
     border-radius: 0.25rem;
     background-color: $justfix-white-200;
-    padding: 1rem;
     margin: 2rem 0;
-    .map-modal-button {
-      display: inline-flex;
-    }
-    .dropdown-select {
-      margin-top: 0.5rem;
-      z-index: 3; // so that dropdown menu covers map zoom controls
-    }
-    hr {
-      margin-top: 2.25rem;
-    }
-    .error-message + hr {
-      margin-top: 0;
-    }
-    .area-selection-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin: 1.5rem 0 0.5rem;
-      .area-selection-chip-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+    .district-map-container {
+      height: 500px;
+      width: 100%;
+      .district-map-loading {
         display: flex;
+        align-items: center;
         justify-content: center;
-        flex-wrap: wrap;
-        gap: 0.75rem;
-        margin-bottom: 1.5rem;
-        .area-selection-chip {
-          display: flex;
-          padding: 0 0 0 0.75rem;
-          align-items: center;
-          gap: 0.75rem;
-          border-radius: 0.375rem;
-          border: 1px solid $justfix-black;
-          background-color: $justfix-blue-100;
-          width: fit-content;
-          button {
-            padding: 0.75rem;
-          }
+        height: 100%;
+        background-color: white;
+      }
+      .mapboxgl-map {
+        height: 500px;
+        width: 100%;
+        .mapboxgl-canvas {
+          height: 500px;
+          width: 100%;
         }
       }
-      .selection-message {
-        color: $justfix-grey-700;
-        margin: unset;
+    }
+    .district_selection__sidebar {
+      padding: 1rem;
+      max-width: 500px;
+      .dropdown-select {
+        margin-top: 0.5rem;
+        z-index: 3; // so that dropdown menu covers map zoom controls
+      }
+      hr {
+        margin-top: 2.25rem;
+      }
+      .error-message + hr {
+        margin-top: 0;
+      }
+      .area-selection-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 1.5rem 0 0.5rem;
+        .area-selection-chip-container {
+          display: flex;
+          justify-content: center;
+          flex-wrap: wrap;
+          gap: 0.75rem;
+          margin-bottom: 1.5rem;
+
+          overflow: auto; // TODO: decide how to handle overflow/scrolling
+          max-height: 275px;
+
+          .area-selection-chip {
+            display: flex;
+            padding: 0 0 0 0.75rem;
+            align-items: center;
+            gap: 0.75rem;
+            border-radius: 0.375rem;
+            border: 1px solid $justfix-black;
+            background-color: $justfix-blue-100;
+            width: fit-content;
+            button {
+              padding: 0.75rem;
+            }
+          }
+        }
+        .selection-message {
+          color: $justfix-grey-700;
+          margin: unset;
+        }
       }
     }
-  }
-  .save-selection {
-    justify-self: center;
   }
   .error-message {
     justify-self: center;
@@ -69,24 +93,11 @@
       margin-right: 0.38rem;
     }
   }
-  .district-map-container {
-    height: 500px;
-    width: 100%;
-    margin-top: 2rem;
-    .district-map-loading {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 100%;
-      background-color: white;
-    }
-    .mapboxgl-map {
-      height: 500px;
-      width: 100%;
-      .mapboxgl-canvas {
-        height: 500px;
-        width: 100%;
-      }
+
+  .district-selection-save-container {
+    margin-bottom: 2rem;
+    .save-selection {
+      justify-self: center;
     }
   }
 }
