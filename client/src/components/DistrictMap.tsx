@@ -1,4 +1,4 @@
-import { Map, NavigationControl } from "mapbox-gl";
+import { LngLatBoundsLike, Map, NavigationControl } from "mapbox-gl";
 import { useEffect, useRef, useState } from "react";
 
 import "mapbox-gl/dist/mapbox-gl.css";
@@ -11,8 +11,8 @@ import {
 
 const MAPBOX_ACCESS_TOKEN = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN || "";
 
-const MAPBOX_STYLE = "mapbox://styles/mapbox/light-v11";
-// const MAPBOX_STYLE = "mapbox://styles/justfix/cm8yh302x005501qu6qhk1la2";
+// const MAPBOX_STYLE = "mapbox://styles/mapbox/light-v11";
+const MAPBOX_STYLE = "mapbox://styles/justfix/cm8yh302x005501qu6qhk1la2";
 
 type LatLng = [number, number];
 
@@ -20,11 +20,18 @@ const DEFAULT_CENTER: LatLng = [-73.9716972669396, 40.70612846804647];
 
 const DEFAULT_ZOOM = 9.25;
 
-const MAP_CONFIGURABLES = {
+const MAX_BOUNDS: LngLatBoundsLike = [
+  [-74.29965918670848, 40.48691662492075],
+  [-73.64373534717369, 40.92462112945242],
+];
+
+const MAP_CONFIGURABLES: Omit<mapboxgl.MapboxOptions, "container"> = {
   accessToken: MAPBOX_ACCESS_TOKEN,
   style: MAPBOX_STYLE,
   center: DEFAULT_CENTER,
   zoom: DEFAULT_ZOOM,
+  minZoom: DEFAULT_ZOOM,
+  maxBounds: MAX_BOUNDS,
 };
 
 const LABEL_MINZOOM: { [key: string]: number } = {
@@ -50,9 +57,6 @@ export const DistrictMap: React.FC<DistrictMapProps> = ({
   areaSelections,
   setAreaSelections,
 }) => {
-  // https://sparkgeo.com/blog/build-a-react-mapboxgl-component-with-hooks/
-
-  // this is where the map instance will be stored after initialization
   const [map, setMap] = useState<Map>();
 
   // React ref to store a reference to the DOM node that will be used

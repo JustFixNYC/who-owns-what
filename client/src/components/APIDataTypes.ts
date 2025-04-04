@@ -197,7 +197,6 @@ export type IndicatorsHistoryResults = {
   result: MonthlyTimelineData[];
 };
 
-// TODO: decide on the final format for district data and update these types
 export type District = AreaProperties[];
 
 export type DatasetTrackerInfo = {
