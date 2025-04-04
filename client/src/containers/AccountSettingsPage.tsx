@@ -165,7 +165,7 @@ const AccountSettingsPage = withI18n()((props: withI18nProps) => {
                   ))}
                 </>
               ) : (
-                <Trans render="div" className="settings-no-subscriptions">
+                <Trans render="div" className="settings-callout">
                   <LocaleNavLink exact to={home}>
                     Search an address
                   </LocaleNavLink>{" "}
@@ -198,9 +198,14 @@ const AccountSettingsPage = withI18n()((props: withI18nProps) => {
                       onRemoveClick={unsubscribeDistrict}
                     />
                   ))}
+                  <Trans render="div" className="settings-callout">
+                    <LocaleNavLink exact to={districtPage}>
+                      Add another area alert
+                    </LocaleNavLink>
+                  </Trans>
                 </>
               ) : (
-                <Trans render="div" className="settings-no-subscriptions">
+                <Trans render="div" className="settings-callout">
                   <p>
                     Get a weekly email that identifies buildings and portfolios that exhibit urgent
                     displacement indicators within a single area or multiple areas of the city.
