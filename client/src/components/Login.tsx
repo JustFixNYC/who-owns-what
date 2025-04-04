@@ -295,12 +295,20 @@ const LoginWithoutI18n = (props: withI18nProps) => {
   const renderLoginSuccess = () => (
     <>
       <Trans render="h1">You are logged in</Trans>
-      <Trans render="h2">
-        <JFCLLocaleLink to={home}>Search for an address</JFCLLocaleLink> to add to your Building
-        Alerts, <JFCLLocaleLink to={districtPage}>subscribe to District Alerts</JFCLLocaleLink>, or
-        visit your <JFCLLocaleLink to={account.settings}>email settings</JFCLLocaleLink> page to
-        manage subscriptions.
-      </Trans>
+      {!!district ? (
+        <Trans render="h2">
+          We have added Area Alerts to your weekly emails. Visit your{" "}
+          <JFCLLocaleLink to={account.settings}>email settings</JFCLLocaleLink> to manage Area
+          Alerts.
+        </Trans>
+      ) : (
+        <Trans render="h2">
+          <JFCLLocaleLink to={home}>Search for an address</JFCLLocaleLink> to add to your Building
+          Alerts, <JFCLLocaleLink to={districtPage}>subscribe to District Alerts</JFCLLocaleLink>,
+          or visit your <JFCLLocaleLink to={account.settings}>email settings</JFCLLocaleLink> page
+          to manage subscriptions.
+        </Trans>
+      )}
     </>
   );
 
