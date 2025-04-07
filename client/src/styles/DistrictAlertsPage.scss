@@ -11,7 +11,7 @@ div.DistrictAlertsPage {
   .district-selection {
     background-color: $justfix-white-200;
     display: grid;
-    grid-template-columns: 2fr 1fr;
+    grid-template-columns: 1fr 2fr;
     height: 100%;
 
     .district-map-container {
@@ -43,7 +43,7 @@ div.DistrictAlertsPage {
         font-size: 1.5rem;
       }
       hr + .dropdown-select {
-        margin-bottom: 0.5rem
+        margin-bottom: 0.5rem;
       }
       .dropdown-select {
         z-index: 3; // so that dropdown menu covers map zoom controls

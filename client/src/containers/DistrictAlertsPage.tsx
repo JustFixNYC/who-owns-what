@@ -151,12 +151,6 @@ const DistrictCreation = withI18n()((props: withI18nProps) => {
 
   return (
     <div className="district-selection">
-      <DistrictMap
-        districtsData={areaType.districtsData}
-        labelsData={areaType.labelsData}
-        areaSelections={areaSelections}
-        setAreaSelections={setAreaSelections}
-      />
       <div className="district_selection__sidebar">
         <Trans render="h2">Select areas you want included in your email</Trans>
         <hr />
@@ -199,6 +193,12 @@ const DistrictCreation = withI18n()((props: withI18nProps) => {
           </div>
         )}
       </div>
+      <DistrictMap
+        districtsData={areaType.districtsData}
+        labelsData={areaType.labelsData}
+        areaSelections={areaSelections}
+        setAreaSelections={setAreaSelections}
+      />
     </div>
   );
 });
