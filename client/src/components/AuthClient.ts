@@ -292,14 +292,14 @@ const unsubscribeAllBuilding = async (bbl: string) => {
  * Sends an unauthenticated request to unsubscribe the user from the building
  */
 const emailUnsubscribeBuilding = async (bbl: string, token: string) => {
-  return await postAuthRequest(`${BASE_URL}auth/unsubscribe/${bbl}?u=${token}`);
-};
+  return await postAuthRequest(`${BASE_URL}auth/email/unsubscribe/building/${bbl}?u=${token}`);
+}; /**
 
 /**
  * Sends an unauthenticated request to unsubscribe the user from all buildings
  */
 const emailUnsubscribeAllBuilding = async (token: string) => {
-  return await postAuthRequest(`${BASE_URL}auth/email/unsubscribe?u=${token}`);
+  return await postAuthRequest(`${BASE_URL}auth/email/unsubscribe_all/building?u=${token}`);
 };
 
 /**
@@ -347,7 +347,7 @@ const emailUnsubscribeDistrict = async (subscription_id: string, token: string) 
  * Sends an unauthenticated request to unsubscribe the user from all districts
  */
 const emailUnsubscribeAllDistrict = async (token: string) => {
-  return await postAuthRequest(`${BASE_URL}auth/email/unsubscribe/district?u=${token}`);
+  return await postAuthRequest(`${BASE_URL}auth/email/unsubscribe_all/district?u=${token}`);
 };
 
 /**

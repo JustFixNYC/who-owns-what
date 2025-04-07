@@ -368,7 +368,7 @@ def email_unsubscribe_building(request, bbl):
 
         return auth_server_request(
             "POST",
-            f"user/unsubscribe/building/{str(bbl)}/",
+            f"user/email/unsubscribe/building/{str(bbl)}/",
             post_data,
         )
     except KeyError:
@@ -378,7 +378,7 @@ def email_unsubscribe_building(request, bbl):
 @api
 def email_unsubscribe_district(request, subscription_id):
     try:
-        post_data = {"token": request.POST.get("u")}
+        post_data = {"token": request.GET.get("u")}
 
         return auth_server_request(
             "POST",
