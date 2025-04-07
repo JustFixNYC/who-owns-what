@@ -1,6 +1,7 @@
 import { NetworkError } from "error-reporting";
 import { JustfixUser } from "state-machine";
 import browser from "../util/browser";
+import { District } from "./APIDataTypes";
 
 const BASE_URL = browser.addTrailingSlash(process.env.REACT_APP_API_BASE_URL);
 
@@ -33,26 +34,30 @@ type PasswordResetResponse = Omit<VerifyEmailResponse, "statusCode"> & {
 let _user: JustfixUser | undefined;
 const user = () => _user;
 const fetchUser = async () => {
-  if (!_user) {
-    const authCheck = await userAuthenticated();
+  const authCheck = await userAuthenticated();
 
-    if (!!authCheck) {
-      const subscriptions =
-        authCheck["subscriptions"]?.map((s: any) => {
-          return { ...s };
-        }) || [];
-      _user = {
-        email: authCheck["email"],
-        verified: authCheck["verified"],
-        id: authCheck["id"],
-        type: authCheck["type"],
-        subscriptions,
-        subscriptionLimit: authCheck["subscription_limit"],
-      };
-    } else {
-      clearUser();
-    }
+  if (!authCheck) {
+    clearUser();
+    return;
   }
+
+  const buildingSubscriptions =
+    authCheck["subscriptions"]?.map((s: any) => {
+      return { ...s };
+    }) || [];
+  const districtSubscriptions =
+    authCheck["district_subscriptions"]?.map((s: any) => {
+      return { ...s };
+    }) || [];
+  _user = {
+    email: authCheck["email"],
+    verified: authCheck["verified"],
+    id: authCheck["id"],
+    type: authCheck["type"],
+    buildingSubscriptions,
+    districtSubscriptions,
+    subscriptionLimit: authCheck["subscription_limit"],
+  };
   return _user;
 };
 const setUser = (user: JustfixUser) => (_user = user);
@@ -164,6 +169,20 @@ const userAuthenticated = async () => {
   return await postAuthRequest(`${BASE_URL}auth/auth_check`);
 };
 
+const isEmailAlreadyUsed = async (email: string) => {
+  const sanitizedEmail = email.toLowerCase();
+
+  const result = await friendlyFetch(`${BASE_URL}auth/account_exists/${sanitizedEmail}`, {
+    method: "GET",
+    mode: "cors",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+  });
+
+  return result.ok;
+};
+
 /**
  * Sends an unauthenticated request to verify the user email
  */
@@ -228,7 +247,7 @@ const updatePassword = async (currentPassword: string, newPassword: string) => {
 /**
  * Sends an authenticated request to subscribe the user to the building
  */
-const buildingSubscribe = async (
+const subscribeBuilding = async (
   bbl: string,
   housenumber: string,
   streetname: string,
@@ -236,52 +255,99 @@ const buildingSubscribe = async (
   boro: string
 ) => {
   const post_data = {
+    bbl,
     housenumber,
     streetname,
     zip,
     boro,
   };
-  return await postAuthRequest(`${BASE_URL}auth/subscriptions/${bbl}`, post_data);
+  return await postAuthRequest(`${BASE_URL}auth/subscribe/building`, post_data);
 };
 
 /**
  * Sends an authenticated request to unsubscribe the user from the building
  */
-const buildingUnsubscribe = async (bbl: string) => {
+const unsubscribeBuilding = async (bbl: string) => {
   return await postAuthRequest(
-    `${BASE_URL}auth/subscriptions/${bbl}`,
+    `${BASE_URL}auth/unsubscribe/building/${bbl}`,
     undefined,
     undefined,
     "DELETE"
   );
 };
 
-const isEmailAlreadyUsed = async (email: string) => {
-  const sanitizedEmail = email.toLowerCase();
-
-  const result = await friendlyFetch(`${BASE_URL}auth/account_exists/${sanitizedEmail}`, {
-    method: "GET",
-    mode: "cors",
-    headers: {
-      "Content-Type": "application/x-www-form-urlencoded",
-    },
-  });
-
-  return result.ok;
+/**
+ * Sends an authenticated request to unsubscribe the user from all buildings
+ */
+const unsubscribeAllBuilding = async (bbl: string) => {
+  return await postAuthRequest(
+    `${BASE_URL}auth/unsubscribe_all/building`,
+    undefined,
+    undefined,
+    "DELETE"
+  );
 };
 
 /**
  * Sends an unauthenticated request to unsubscribe the user from the building
  */
 const emailUnsubscribeBuilding = async (bbl: string, token: string) => {
-  return await postAuthRequest(`${BASE_URL}auth/unsubscribe/${bbl}?u=${token}`);
-};
+  return await postAuthRequest(`${BASE_URL}auth/email/unsubscribe/building/${bbl}?u=${token}`);
+}; /**
 
 /**
  * Sends an unauthenticated request to unsubscribe the user from all buildings
  */
-const emailUnsubscribeAll = async (token: string) => {
-  return await postAuthRequest(`${BASE_URL}auth/email/unsubscribe?u=${token}`);
+const emailUnsubscribeAllBuilding = async (token: string) => {
+  return await postAuthRequest(`${BASE_URL}auth/email/unsubscribe_all/building?u=${token}`);
+};
+
+/**
+ * Sends an authenticated request to subscribe the user to the district
+ */
+const subscribeDistrict = async (district: District) => {
+  const post_data = { district: JSON.stringify(district) };
+  return await postAuthRequest(`${BASE_URL}auth/subscribe/district`, post_data);
+};
+
+/**
+ * Sends an authenticated request to unsubscribe the user from the district
+ */
+const unsubscribeDistrict = async (subscription_id: string) => {
+  return await postAuthRequest(
+    `${BASE_URL}auth/unsubscribe/district/${subscription_id}`,
+    undefined,
+    undefined,
+    "DELETE"
+  );
+};
+
+/**
+ * Sends an authenticated request to unsubscribe the user from all districts
+ */
+const unsubscribeAllDistrict = async (subscription_id: string) => {
+  return await postAuthRequest(
+    `${BASE_URL}auth/unsubscribe_all/district`,
+    undefined,
+    undefined,
+    "DELETE"
+  );
+};
+
+/**
+ * Sends an unauthenticated request to unsubscribe the user from the district
+ */
+const emailUnsubscribeDistrict = async (subscription_id: string, token: string) => {
+  return await postAuthRequest(
+    `${BASE_URL}auth/email/unsubscribe/district/${subscription_id}?u=${token}`
+  );
+};
+
+/**
+ * Sends an unauthenticated request to unsubscribe the user from all districts
+ */
+const emailUnsubscribeAllDistrict = async (token: string) => {
+  return await postAuthRequest(`${BASE_URL}auth/email/unsubscribe_all/district?u=${token}`);
 };
 
 /**
@@ -389,11 +455,17 @@ const Client = {
   resetPasswordRequest,
   resetPasswordCheck,
   resetPassword,
-  buildingSubscribe,
-  buildingUnsubscribe,
-  emailUserSubscriptions,
+  subscribeBuilding,
+  unsubscribeBuilding,
+  unsubscribeAllBuilding,
   emailUnsubscribeBuilding,
-  emailUnsubscribeAll,
+  emailUnsubscribeAllBuilding,
+  subscribeDistrict,
+  unsubscribeDistrict,
+  unsubscribeAllDistrict,
+  emailUnsubscribeDistrict,
+  emailUnsubscribeAllDistrict,
+  emailUserSubscriptions,
 };
 
 export default Client;

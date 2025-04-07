@@ -69,7 +69,7 @@ const MAP_CONFIGURABLES = {
   fitBoundsOptions: {
     padding: { top: 50, bottom: 50, left: 50, right: 50 },
     maxZoom: 20,
-    offset: [0, Browser.isMobile() ? -25 : 0],
+    offset: [0, Browser.isMobile() ? -25 : 0] as [number, number],
   },
 };
 

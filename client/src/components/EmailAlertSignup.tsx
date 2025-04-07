@@ -45,13 +45,15 @@ const BuildingSubscribeWithoutI18n = (props: BuildingSubscribeProps) => {
   }, [locationState]);
 
   const userContext = useContext(UserContext);
-  const { user, subscribe, unsubscribe } = userContext;
+  const { user, subscribeBuilding, unsubscribeBuilding } = userContext;
   const isLoggedIn = !!user?.email;
   const subscriptionLimit = user?.subscriptionLimit ?? DEFAULT_SUBSCRIPTION_LIMIT;
-  const atSubscriptionLimit = isLoggedIn && user.subscriptions.length >= subscriptionLimit;
+  const atSubscriptionLimit =
+    isLoggedIn && user?.buildingSubscriptions?.length >= subscriptionLimit;
   // avoid slower building lookup if possible to prevent flash of "add building" before "subscribed"
   const showSubscribed =
-    (justSubscribed && !!user?.verified) || !!user?.subscriptions?.find((s) => s.bbl === addr.bbl);
+    (justSubscribed && !!user?.verified) ||
+    !!user?.buildingSubscriptions?.find((s) => s.bbl === addr.bbl);
 
   const eventUserParams = { user_id: user?.id, user_type: user?.type };
 
@@ -79,7 +81,7 @@ const BuildingSubscribeWithoutI18n = (props: BuildingSubscribeProps) => {
         className="is-full-width"
         labelText={i18n._(t`Remove building`)}
         onClick={() => {
-          unsubscribe(addr.bbl);
+          unsubscribeBuilding(addr.bbl);
           setJustSubscribed(false);
           const params = { ...eventUserParams, from: "building page", branch: BRANCH_NAME };
           window.gtag("event", "unsubscribe-building", { ...params });
@@ -111,7 +113,7 @@ const BuildingSubscribeWithoutI18n = (props: BuildingSubscribeProps) => {
 
   const subscribeToBuilding = (addr: AddressRecord) => {
     window.gtag("event", "subscribe-building-page", { ...eventUserParams, branch: BRANCH_NAME });
-    subscribe(addr.bbl, addr.housenumber, addr.streetname, addr.zip ?? "", addr.boro);
+    subscribeBuilding(addr.bbl, addr.housenumber, addr.streetname, addr.zip ?? "", addr.boro);
   };
 
   const handleSubscriptionLimitReached = () => {

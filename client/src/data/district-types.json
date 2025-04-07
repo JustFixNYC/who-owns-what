@@ -1,0 +1,33 @@
+{
+  "options": [
+    {
+      "label": "Boroughs",
+      "value": "borough"
+    },
+    {
+      "label": "Community Districts",
+      "value": "community_dist"
+    },
+    {
+      "label": "Congressional Districts",
+      "value": "cong_dist"
+    },
+    {
+      "label": "City Council Districts",
+      "value": "coun_dist"
+    },
+    { "label": "Neighborhood", "value": "nta" },
+    {
+      "label": "State Assembly Districts",
+      "value": "assem_dist"
+    },
+    {
+      "label": "State Senate Districts",
+      "value": "stsen_dist"
+    },
+    {
+      "label": "Zip Codes",
+      "value": "zipcode"
+    }
+  ]
+}

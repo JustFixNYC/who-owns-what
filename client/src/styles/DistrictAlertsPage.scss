@@ -1,0 +1,113 @@
+@import "./vars";
+@import "./typography";
+
+div.DistrictAlertsPage {
+  .page-container {
+    width: unset;
+    max-width: unset;
+    margin: 0;
+    height: 100%;
+  }
+  .district-selection {
+    background-color: $justfix-white-200;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    height: 100%;
+
+    .district-map-container {
+      height: 100%;
+      width: 100%;
+      .district-map-loading {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        background-color: white;
+      }
+      .mapboxgl-map {
+        height: 100%;
+        width: 100%;
+        .mapboxgl-canvas {
+          height: 100%;
+          width: 100%;
+        }
+      }
+    }
+
+    .district_selection__sidebar {
+      display: flex;
+      flex-direction: column;
+      padding: 1rem;
+
+      h2 {
+        font-size: 1.5rem;
+      }
+      hr + .dropdown-select {
+        margin-bottom: 0.5rem;
+      }
+      .dropdown-select {
+        z-index: 3; // so that dropdown menu covers map zoom controls
+      }
+      hr {
+        width: -webkit-fill-available;
+        border: 1px solid #c5ccd1; // new grey in figma, unnamed
+        &:first-of-type {
+          margin: 0 0 1.5rem 0;
+        }
+        &:last-of-type {
+          margin: 2.125rem 0 0 0;
+        }
+      }
+      .error-message + hr {
+        margin-top: 0;
+      }
+      .area-selection-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 1.5rem 0 0.5rem;
+        .area-selection-chip-container {
+          display: flex;
+          justify-content: center;
+          flex-wrap: wrap;
+          gap: 0.75rem;
+          margin-bottom: 1.5rem;
+
+          overflow: auto; // TODO: decide how to handle overflow/scrolling
+          max-height: 500px;
+
+          .area-selection-chip {
+            display: flex;
+            padding: 0 0 0 0.75rem;
+            align-items: center;
+            gap: 0.75rem;
+            border-radius: 0.375rem;
+            border: 1px solid $justfix-black;
+            background-color: $justfix-blue-100;
+            width: fit-content;
+            button {
+              padding: 0.75rem;
+            }
+          }
+        }
+        .selection-message {
+          color: $justfix-grey-700;
+          margin: unset;
+        }
+      }
+      .save-selection {
+        align-self: center;
+        margin-top: auto;
+      }
+      .error-message {
+        justify-self: center;
+        margin: 0.5rem 0;
+        color: $justfix-red;
+        svg {
+          color: $justfix-orange;
+          margin-right: 0.38rem;
+        }
+      }
+    }
+  }
+}

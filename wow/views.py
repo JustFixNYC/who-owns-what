@@ -15,6 +15,7 @@ from .apiutil import (
 )
 from .forms import (
     DatasetLastUpdatedForm,
+    DistrictTypeForm,
     EmailAlertBuilding,
     PaddedBBLForm,
     SeparatedBBLForm,
@@ -352,6 +353,20 @@ def gce_screener(request):
     """
     bbl = get_request_bbl(request)
     result = exec_db_query(SQL_DIR / "gce_screener.sql", {"bbl": bbl})
+    return JsonResponse({"result": list(result)})
+
+
+@api
+def districts_geojson(request):
+    """
+    This API endpoint for WOW District Alerts receives requests with a type of
+    district ("typevalue"). It responds with a two geojson feature collections,
+    one for the district shapes and one with points for label placement.
+    """
+    args = get_validated_form_data(DistrictTypeForm, request.GET)
+    result = exec_db_query(
+        SQL_DIR / "districts_geojson.sql", {"district_type": args["district_type"]}
+    )
     return JsonResponse({"result": list(result)})
 
 
