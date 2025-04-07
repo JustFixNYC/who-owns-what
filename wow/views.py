@@ -364,7 +364,6 @@ def districts_geojson(request):
     one for the district shapes and one with points for label placement.
     """
     args = get_validated_form_data(DistrictTypeForm, request.GET)
-    print((SQL_DIR / "districts_geojson.sql").read_text())
     result = exec_db_query(
         SQL_DIR / "districts_geojson.sql", {"district_type": args["district_type"]}
     )
