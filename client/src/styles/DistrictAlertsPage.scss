@@ -5,19 +5,17 @@ div.DistrictAlertsPage {
   .page-container {
     width: unset;
     max-width: unset;
-    & > p {
-      width: 60%;
-    }
+    margin: 0;
+    height: 100%;
   }
   .district-selection {
-    border-radius: 0.25rem;
     background-color: $justfix-white-200;
-    margin: 2rem 0;
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 2fr 1fr;
+    height: 100%;
 
     .district-map-container {
-      height: 500px;
+      height: 100%;
       width: 100%;
       .district-map-loading {
         display: flex;
@@ -27,23 +25,38 @@ div.DistrictAlertsPage {
         background-color: white;
       }
       .mapboxgl-map {
-        height: 500px;
+        height: 100%;
         width: 100%;
         .mapboxgl-canvas {
-          height: 500px;
+          height: 100%;
           width: 100%;
         }
       }
     }
+
     .district_selection__sidebar {
+      display: flex;
+      flex-direction: column;
       padding: 1rem;
-      max-width: 500px;
+
+      h2 {
+        font-size: 1.5rem;
+      }
       .dropdown-select {
-        margin-top: 0.5rem;
         z-index: 3; // so that dropdown menu covers map zoom controls
+        &:last-of-type {
+          margin-top: 0.5rem;
+        }
       }
       hr {
-        margin-top: 2.25rem;
+        width: -webkit-fill-available;
+        border: 1px solid #c5ccd1; // new grey in figma, unnamed
+        &:first-of-type {
+          margin: 0 0 1.5rem 0;
+        }
+        &:last-of-type {
+          margin: 2.125rem 0 0 0;
+        }
       }
       .error-message + hr {
         margin-top: 0;
@@ -61,7 +74,7 @@ div.DistrictAlertsPage {
           margin-bottom: 1.5rem;
 
           overflow: auto; // TODO: decide how to handle overflow/scrolling
-          max-height: 275px;
+          max-height: 500px;
 
           .area-selection-chip {
             display: flex;
@@ -82,22 +95,19 @@ div.DistrictAlertsPage {
           margin: unset;
         }
       }
-    }
-  }
-  .error-message {
-    justify-self: center;
-    margin: 0.5rem 0;
-    color: $justfix-red;
-    svg {
-      color: $justfix-orange;
-      margin-right: 0.38rem;
-    }
-  }
-
-  .district-selection-save-container {
-    margin-bottom: 2rem;
-    .save-selection {
-      justify-self: center;
+      .save-selection {
+        align-self: center;
+        margin-top: auto;
+      }
+      .error-message {
+        justify-self: center;
+        margin: 0.5rem 0;
+        color: $justfix-red;
+        svg {
+          color: $justfix-orange;
+          margin-right: 0.38rem;
+        }
+      }
     }
   }
 }

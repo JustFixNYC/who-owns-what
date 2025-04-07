@@ -66,28 +66,6 @@ export type AreaOption = {
 
 let areaTypeOptions: AreaTypeOption[] = districtTypes.options;
 
-const DistrictAlertsPage = withI18n()((props: withI18nProps) => {
-  const userContext = useContext(UserContext);
-  if (!userContext.user) return <div />;
-
-  const { i18n } = props;
-
-  return (
-    <Page title={i18n._(t`District Alerts`)}>
-      <div className="DistrictAlertsPage Page">
-        <div className="page-container">
-          <Trans render="h2">Area alerts</Trans>
-          <p>
-            Get a weekly email that identifies buildings and portfolios that exhibit urgent
-            displacement indicators within a single area or multiple areas of the city.
-          </p>
-          <DistrictCreation />
-        </div>
-      </div>
-    </Page>
-  );
-});
-
 const DistrictCreation = withI18n()((props: withI18nProps) => {
   const { i18n } = props;
   const userContext = useContext(UserContext);
@@ -172,50 +150,47 @@ const DistrictCreation = withI18n()((props: withI18nProps) => {
   };
 
   return (
-    <>
-      <div className="district-selection">
-        <DistrictMap
-          districtsData={areaType.districtsData}
-          labelsData={areaType.labelsData}
-          areaSelections={areaSelections}
-          setAreaSelections={setAreaSelections}
+    <div className="district-selection">
+      <DistrictMap
+        districtsData={areaType.districtsData}
+        labelsData={areaType.labelsData}
+        areaSelections={areaSelections}
+        setAreaSelections={setAreaSelections}
+      />
+      <div className="district_selection__sidebar">
+        <Trans render="h2">Select areas you want included in your email</Trans>
+        <hr />
+        <Select
+          className="dropdown-select"
+          aria-label="Area type selection"
+          defaultValue={defaultAreaType}
+          options={areaTypeOptions}
+          onChange={handleGeoTypeChange}
         />
-        <div className="district_selection__sidebar">
-          <Trans render="strong">Select areas you want included in your email</Trans>
-          <Select
-            className="dropdown-select"
-            aria-label="Area type selection"
-            defaultValue={defaultAreaType}
-            options={areaTypeOptions}
-            onChange={handleGeoTypeChange}
-          />
-          <Select
-            ref={geoSelectRef}
-            className="dropdown-select"
-            aria-label="Area selection"
-            placeholder={`Select or type a ${areaType.label}`}
-            options={areaOptions}
-            isOptionDisabled={(option) => selectedAreaIds.includes(option.feature.id)}
-            onChange={handleGeoChange}
-          />
-          <hr />
-          <div className="area-selection-container">
-            <div className="area-selection-chip-container">
-              {areaSelections.map((area, i) => (
-                <AreaChip area={area} onClose={removeAreaFromSelections} key={i} />
-              ))}
-            </div>
-            <span className="selection-message">
-              {areaSelections.length ? (
-                <>You can save or add more areas to your email</>
-              ) : (
-                <>Add an area to build your email</>
-              )}
-            </span>
+        <Select
+          ref={geoSelectRef}
+          className="dropdown-select"
+          aria-label="Area selection"
+          placeholder={`Select or type a ${areaType.label}`}
+          options={areaOptions}
+          isOptionDisabled={(option) => selectedAreaIds.includes(option.feature.id)}
+          onChange={handleGeoChange}
+        />
+        <hr />
+        <div className="area-selection-container">
+          <div className="area-selection-chip-container">
+            {areaSelections.map((area, i) => (
+              <AreaChip area={area} onClose={removeAreaFromSelections} key={i} />
+            ))}
           </div>
+          <span className="selection-message">
+            {areaSelections.length ? (
+              <>You can save or add more areas to your email</>
+            ) : (
+              <>Add an area to build your email</>
+            )}
+          </span>
         </div>
-      </div>
-      <div className="district-selection-save-container">
         <Button className="save-selection" labelText="Save selections" onClick={saveSelections} />
         {showSaveAreaError && (
           <div className="error-message">
@@ -224,7 +199,7 @@ const DistrictCreation = withI18n()((props: withI18nProps) => {
           </div>
         )}
       </div>
-    </>
+    </div>
   );
 });
 
@@ -245,5 +220,22 @@ const AreaChip: React.FC<AreaChipProps> = ({ onClose, area }) => {
     </div>
   );
 };
+
+const DistrictAlertsPage = withI18n()((props: withI18nProps) => {
+  const userContext = useContext(UserContext);
+  if (!userContext.user) return <div />;
+
+  const { i18n } = props;
+
+  return (
+    <Page title={i18n._(t`District Alerts`)}>
+      <div className="DistrictAlertsPage Page">
+        <div className="page-container">
+          <DistrictCreation />
+        </div>
+      </div>
+    </Page>
+  );
+});
 
 export default DistrictAlertsPage;
