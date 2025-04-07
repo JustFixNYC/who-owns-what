@@ -42,11 +42,11 @@ div.DistrictAlertsPage {
       h2 {
         font-size: 1.5rem;
       }
+      hr + .dropdown-select {
+        margin-bottom: 0.5rem
+      }
       .dropdown-select {
         z-index: 3; // so that dropdown menu covers map zoom controls
-        &:last-of-type {
-          margin-top: 0.5rem;
-        }
       }
       hr {
         width: -webkit-fill-available;
