@@ -47,7 +47,6 @@ def log_unsupported_request_args(request):
 
 def clean_addr_dict(addr):
     """
-    ### Typecasting API Data
     Some values returned by SQL queries (especially through NYCDB) are returned as strings, even when they represent numbers. This is due to:
 
     - JSON serialization quirks (64-bit ints aren’t supported)
