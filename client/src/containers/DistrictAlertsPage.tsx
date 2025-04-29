@@ -151,12 +151,23 @@ const DistrictCreation = withI18n()((props: withI18nProps) => {
 
   return (
     <div className="district-selection">
+      <DistrictMap
+        districtsData={areaType.districtsData}
+        labelsData={areaType.labelsData}
+        areaSelections={areaSelections}
+        setAreaSelections={setAreaSelections}
+      />
       <div className="district_selection__sidebar">
-        <Trans render="h2">Select areas you want included in your email</Trans>
+        <Trans render="h2">NYC Area Alerts</Trans>
+        <Trans render="p">
+          Get a weekly email that identifies buildings and landlord portfolios where tenants are at
+          risk of displacement.
+        </Trans>
         <hr />
+        <Trans render="p">Use the drop-down menu to change between different types of areas.</Trans>
         <Select
           className="dropdown-select"
-          aria-label="Area type selection"
+          aria-label={i18n._(t`Area type selection`)}
           defaultValue={defaultAreaType}
           options={areaTypeOptions}
           onChange={handleGeoTypeChange}
@@ -164,41 +175,37 @@ const DistrictCreation = withI18n()((props: withI18nProps) => {
         <Select
           ref={geoSelectRef}
           className="dropdown-select"
-          aria-label="Area selection"
-          placeholder={`Select or type a ${areaType.label}`}
+          aria-label={i18n._(t`Area selection`)}
+          placeholder={i18n._(t`Select or type a `) + areaType.label}
           options={areaOptions}
           isOptionDisabled={(option) => selectedAreaIds.includes(option.feature.id)}
           onChange={handleGeoChange}
         />
-        <hr />
-        <div className="area-selection-container">
-          <div className="area-selection-chip-container">
-            {areaSelections.map((area, i) => (
-              <AreaChip area={area} onClose={removeAreaFromSelections} key={i} />
-            ))}
-          </div>
-          <span className="selection-message">
-            {areaSelections.length ? (
-              <>You can save or add more areas to your email</>
-            ) : (
-              <>Add an area to build your email</>
-            )}
-          </span>
-        </div>
-        <Button className="save-selection" labelText="Save selections" onClick={saveSelections} />
-        {showSaveAreaError && (
-          <div className="error-message">
-            <Icon icon="circleExclamation" />
-            You must add at least one area before saving selections
+        {!!areaSelections.length && (
+          <div className="area-selection-container">
+            <hr />
+            <div className="area-selection-chip-container">
+              {areaSelections.map((area, i) => (
+                <AreaChip area={area} onClose={removeAreaFromSelections} key={i} />
+              ))}
+            </div>
+            <Trans render="span" className="selection-message">
+              Save or add more areas
+            </Trans>
           </div>
         )}
+        {!areaSelections.length && showSaveAreaError && (
+          <div className="error-message">
+            <Icon icon="circleExclamation" />
+            <Trans>Select an area</Trans>
+          </div>
+        )}
+        <Button
+          className="save-selection"
+          labelText={i18n._(t`Save selections`)}
+          onClick={saveSelections}
+        />
       </div>
-      <DistrictMap
-        districtsData={areaType.districtsData}
-        labelsData={areaType.labelsData}
-        areaSelections={areaSelections}
-        setAreaSelections={setAreaSelections}
-      />
     </div>
   );
 });
@@ -213,7 +220,9 @@ const AreaChip: React.FC<AreaChipProps> = ({ onClose, area }) => {
 
   return (
     <div className="area-selection-chip">
-      {areaTypeLabel}: {areaLabel}
+      <Trans render="span" className="area-selection-chip__label">
+        {areaTypeLabel}: {areaLabel}
+      </Trans>
       <button onClick={() => onClose(area)}>
         <Icon icon="xmark" />
       </button>

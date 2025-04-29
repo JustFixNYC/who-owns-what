@@ -9,9 +9,7 @@ div.DistrictAlertsPage {
     height: 100%;
   }
   .district-selection {
-    background-color: $justfix-white-200;
-    display: grid;
-    grid-template-columns: 1fr 2fr;
+    position: relative;
     height: 100%;
 
     .district-map-container {
@@ -35,78 +33,97 @@ div.DistrictAlertsPage {
     }
 
     .district_selection__sidebar {
+      position: absolute;
+      top: 2rem;
+      left: 3.125rem;
       display: flex;
       flex-direction: column;
-      padding: 1rem;
+      padding: 1.5rem 1rem;
+      background-color: $justfix-white-100;
+      width: 26.375rem;
+      max-height: calc(100% - 4rem);
+      // TODO: With this it handles the chips correctly, but not the dropdown.
+      // Without this the dropdown works as expected but not the chips. If we
+      // leave out the overflow here, and instead put it on the chip container,
+      // that works, but changes the design.
+      overflow: auto;
+      border-radius: 4px;
+      border: 2px solid #c5ccd1; // new grey in figma, unnamed
 
       h2 {
-        font-size: 1.5rem;
+        @include jfcl-h3-desktop;
+        margin-bottom: 1rem;
       }
-      hr + .dropdown-select {
-        margin-bottom: 0.5rem;
-      }
-      .dropdown-select {
-        z-index: 3; // so that dropdown menu covers map zoom controls
+      p {
+        @include jfcl-body-standard-desktop;
+        margin: 0;
       }
       hr {
         width: -webkit-fill-available;
-        border: 1px solid #c5ccd1; // new grey in figma, unnamed
-        &:first-of-type {
-          margin: 0 0 1.5rem 0;
-        }
-        &:last-of-type {
-          margin: 2.125rem 0 0 0;
-        }
+        border: none;
+        border-bottom: 1px solid #c5ccd1; // new grey in figma, unnamed
+        margin: 1.5rem 0;
       }
-      .error-message + hr {
-        margin-top: 0;
+      p + .dropdown-select {
+        margin: 1.5rem 0 1rem 0;
+      }
+      .dropdown-select {
+        @include jfcl-body-standard-desktop;
+        z-index: 3; // so that dropdown menu covers map zoom controls
+      }
+      .dropdown-select + .dropdown-select {
+        margin-bottom: 1.5rem;
       }
       .area-selection-container {
         display: flex;
         flex-direction: column;
         align-items: center;
-        margin: 1.5rem 0 0.5rem;
+        hr {
+          margin: 0;
+        }
         .area-selection-chip-container {
           display: flex;
           justify-content: center;
           flex-wrap: wrap;
           gap: 0.75rem;
-          margin-bottom: 1.5rem;
-
+          margin: 1.5rem 0;
           overflow: auto; // TODO: decide how to handle overflow/scrolling
           max-height: 500px;
 
           .area-selection-chip {
             display: flex;
-            padding: 0 0 0 0.75rem;
+            padding-left: 1rem;
             align-items: center;
-            gap: 0.75rem;
             border-radius: 0.375rem;
-            border: 1px solid $justfix-black;
-            background-color: $justfix-blue-100;
+            border: 1px solid $justfix-yellow;
+            background-color: #fee9be; // New light yellow, needs namex
             width: fit-content;
+            @include jfcl-body-standard-desktop;
+            .area-selection-chip__label {
+              margin: 0.75rem 0;
+            }
             button {
-              padding: 0.75rem;
+              padding: 0.75rem 1rem 0.75rem 0.75rem;
             }
           }
         }
         .selection-message {
           color: $justfix-grey-700;
-          margin: unset;
+          margin-bottom: 1rem;
         }
       }
-      .save-selection {
-        align-self: center;
-        margin-top: auto;
-      }
       .error-message {
-        justify-self: center;
-        margin: 0.5rem 0;
+        align-self: center;
+        margin-bottom: 1rem;
         color: $justfix-red;
         svg {
           color: $justfix-orange;
           margin-right: 0.38rem;
         }
+      }
+      .save-selection {
+        align-self: center;
+        margin-top: auto;
       }
     }
   }
