@@ -176,7 +176,7 @@ const DistrictCreation = withI18n()((props: withI18nProps) => {
           ref={geoSelectRef}
           className="dropdown-select"
           aria-label={i18n._(t`Area selection`)}
-          placeholder={i18n._(t`Select or type a `) + areaType.label}
+          placeholder={i18n._(t`Select or type a`) + " " + areaType.label}
           options={areaOptions}
           isOptionDisabled={(option) => selectedAreaIds.includes(option.feature.id)}
           onChange={handleGeoChange}
