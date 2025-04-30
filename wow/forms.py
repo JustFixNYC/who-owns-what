@@ -1,6 +1,7 @@
 from django import forms
 from django.core.validators import RegexValidator
 from django.core.exceptions import ValidationError
+from django.contrib.postgres.fields import ArrayField
 
 
 class PaddedBBLForm(forms.Form):
@@ -94,3 +95,21 @@ def validate_district_types(value):
 
 class DistrictTypeForm(forms.Form):
     district_type = forms.CharField(validators=[validate_district_types])
+
+
+class EmailAlertDistrict(forms.Form):
+    send_date = forms.DateField(input_formats=["%Y-%m-%d"], required=True)
+    district = ArrayField[
+        ArrayField[
+            forms.CharField(validators=[validate_district_types]), forms.CharField()
+        ]
+    ]
+    # [ ["community_dist", "402"], ["nta", "QN02"] ]
+    # each tuple: [areaValue, typeValue]
+    def clean(self):
+        data = self.cleaned_data
+
+        if not data.get("send_date", None):
+            raise forms.ValidationError("send_date is required for indicators")
+
+        return data

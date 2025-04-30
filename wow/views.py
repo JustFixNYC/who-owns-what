@@ -17,6 +17,7 @@ from .forms import (
     DatasetLastUpdatedForm,
     DistrictTypeForm,
     EmailAlertBuilding,
+    EmailAlertDistrict,
     PaddedBBLForm,
     SeparatedBBLForm,
     SignatureCollectionForm,
@@ -220,6 +221,19 @@ def email_alerts_building(request):
         "oldest_filed_date": args["oldest_filed_date"],
     }
     query_sql = SQL_DIR / "alerts_building.sql"
+    result = exec_db_query(query_sql, query_params)
+    return JsonResponse({"result": list(result)})
+
+
+@api
+def email_alerts_district(request):
+    authorize_for_alerts(request)
+    args = get_validated_form_data(EmailAlertDistrict, request.GET)
+    query_params = {
+        "send_date": args["send_date"],
+        "district": args["district"],
+    }
+    query_sql = SQL_DIR / "alerts_district.sql"
     result = exec_db_query(query_sql, query_params)
     return JsonResponse({"result": list(result)})
 
