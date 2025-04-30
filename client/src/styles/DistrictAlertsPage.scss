@@ -74,6 +74,10 @@ div.DistrictAlertsPage {
       .dropdown-select + .dropdown-select {
         margin-bottom: 1.5rem;
       }
+      #react-select-2-listbox,
+      #react-select-3-listbox {
+        position: unset;
+      }
       .area-selection-container {
         display: flex;
         flex-direction: column;
