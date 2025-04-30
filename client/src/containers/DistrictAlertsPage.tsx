@@ -4,6 +4,7 @@ import { t, Trans } from "@lingui/macro";
 import { Button, Icon } from "@justfixnyc/component-library";
 import Select, { GroupBase, SelectInstance, SingleValue } from "react-select";
 import { useHistory } from "react-router-dom";
+import { isMobile } from "react-device-detect";
 
 import "styles/DistrictAlertsPage.css";
 import Page from "components/Page";
@@ -91,6 +92,9 @@ const DistrictCreation = withI18n()((props: withI18nProps) => {
   const selectedAreaIds = areaSelections.map((x) => x.id);
 
   const geoSelectRef = useRef<SelectInstance<AreaOption, false, GroupBase<AreaOption>>>(null);
+  const geoTypeDropdownRef = useRef<HTMLDivElement>(null);
+  const geoValueDropdownRef = useRef<HTMLDivElement>(null);
+  const saveButtonRef = useRef<HTMLButtonElement | null>(null);
 
   useEffect(() => {
     if (!!areaType.districtsData) return;
@@ -125,6 +129,9 @@ const DistrictCreation = withI18n()((props: withI18nProps) => {
       return;
     }
     setAreaSelections((prev) => prev.concat([newValue.feature]));
+    saveButtonRef.current?.scrollIntoView({
+      behavior: "smooth",
+    });
   };
 
   const removeAreaFromSelections = (area: GeoJsonFeatureDistrict) => {
@@ -157,7 +164,7 @@ const DistrictCreation = withI18n()((props: withI18nProps) => {
         areaSelections={areaSelections}
         setAreaSelections={setAreaSelections}
       />
-      <div className="district_selection__sidebar">
+      <div className="district-selection__sidebar">
         <Trans render="h2">NYC Area Alerts</Trans>
         <Trans render="p">
           Get a weekly email that identifies buildings and landlord portfolios where tenants are at
@@ -165,22 +172,35 @@ const DistrictCreation = withI18n()((props: withI18nProps) => {
         </Trans>
         <hr />
         <Trans render="p">Use the drop-down menu to change between different types of areas.</Trans>
-        <Select
-          className="dropdown-select"
-          aria-label={i18n._(t`Area type selection`)}
-          defaultValue={defaultAreaType}
-          options={areaTypeOptions}
-          onChange={handleGeoTypeChange}
-        />
-        <Select
-          ref={geoSelectRef}
-          className="dropdown-select"
-          aria-label={i18n._(t`Area selection`)}
-          placeholder={i18n._(t`Select or type a`) + " " + areaType.label}
-          options={areaOptions}
-          isOptionDisabled={(option) => selectedAreaIds.includes(option.feature.id)}
-          onChange={handleGeoChange}
-        />
+        <div className="district-type-dropdown" ref={geoTypeDropdownRef}>
+          <Select
+            className="dropdown-select"
+            aria-label={i18n._(t`Area type selection`)}
+            defaultValue={defaultAreaType}
+            options={areaTypeOptions}
+            onChange={handleGeoTypeChange}
+            onMenuOpen={() =>
+              geoTypeDropdownRef.current?.scrollIntoView({ behavior: "smooth", block: "start" })
+            }
+            // TODO check if this works
+            isSearchable={!isMobile}
+          />
+        </div>
+        <div className="district-value-dropdown" ref={geoValueDropdownRef}>
+          <Select
+            ref={geoSelectRef}
+            className="dropdown-select"
+            aria-label={i18n._(t`Area selection`)}
+            placeholder={i18n._(t`Select or type a`) + " " + areaType.label}
+            options={areaOptions}
+            isOptionDisabled={(option) => selectedAreaIds.includes(option.feature.id)}
+            onChange={handleGeoChange}
+            onMenuOpen={() =>
+              geoValueDropdownRef.current?.scrollIntoView({ behavior: "smooth", block: "start" })
+            }
+            isSearchable={!isMobile}
+          />
+        </div>
         {!!areaSelections.length && (
           <div className="area-selection-container">
             <hr />
@@ -201,6 +221,7 @@ const DistrictCreation = withI18n()((props: withI18nProps) => {
           </div>
         )}
         <Button
+          ref={saveButtonRef}
           className="save-selection"
           labelText={i18n._(t`Save selections`)}
           onClick={saveSelections}

@@ -148,3 +148,11 @@ $eyebrow-font: "Suisse Int'l Mono", "Courier New", Courier, monospace;
   line-height: 120%; /* 1.35rem */
   letter-spacing: 0.03375rem;
 }
+
+@mixin jfcl-h3-mobile {
+  font-family: $body-font;
+  font-size: 1.5rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 120%; /* 1.8rem */
+}
