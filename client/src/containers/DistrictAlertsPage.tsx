@@ -5,12 +5,14 @@ import { Button, Icon } from "@justfixnyc/component-library";
 import Select, { GroupBase, SelectInstance, SingleValue } from "react-select";
 import { useHistory } from "react-router-dom";
 import { isMobile } from "react-device-detect";
+import { I18n } from "@lingui/core";
 
 import "styles/DistrictAlertsPage.css";
 import Page from "components/Page";
 import { UserContext } from "components/UserContext";
 import { createWhoOwnsWhatRoutePaths } from "routes";
 import { DistrictMap } from "../components/DistrictMap";
+import helpers from "util/helpers";
 
 import districtTypes from "../data/district-types.json";
 
@@ -206,7 +208,7 @@ const DistrictCreation = withI18n()((props: withI18nProps) => {
             <hr />
             <div className="area-selection-chip-container">
               {areaSelections.map((area, i) => (
-                <AreaChip area={area} onClose={removeAreaFromSelections} key={i} />
+                <AreaChip area={area} onClose={removeAreaFromSelections} i18n={i18n} key={i} />
               ))}
             </div>
             <Trans render="span" className="selection-message">
@@ -234,16 +236,14 @@ const DistrictCreation = withI18n()((props: withI18nProps) => {
 type AreaChipProps = {
   area: GeoJsonFeatureDistrict;
   onClose: (area: GeoJsonFeatureDistrict) => void;
+  i18n: I18n;
 };
-const AreaChip: React.FC<AreaChipProps> = ({ onClose, area }) => {
-  const areaTypeLabel = area.properties?.typeLabel;
-  const areaLabel = area.properties?.areaLabel;
+const AreaChip: React.FC<AreaChipProps> = ({ onClose, area, i18n }) => {
+  const chipLabel = helpers.formatTranslatedAreaLabel(area.properties, i18n);
 
   return (
     <div className="area-selection-chip">
-      <Trans render="span" className="area-selection-chip__label">
-        {areaTypeLabel}: {areaLabel}
-      </Trans>
+      <span className="area-selection-chip__label">{chipLabel}</span>
       <button onClick={() => onClose(area)}>
         <Icon icon="xmark" />
       </button>
