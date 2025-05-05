@@ -1,6 +1,8 @@
 @import "./vars";
 @import "./typography";
 
+$zoom-size: 80px;
+
 div.DistrictAlertsPage {
   .page-container {
     width: unset;
@@ -31,6 +33,15 @@ div.DistrictAlertsPage {
         .mapboxgl-canvas {
           height: 100%;
           width: 100%;
+        }
+        @include for-tablet-portrait-up {
+          .mapboxgl-ctrl-group button {
+            width: $zoom-size;
+            height: $zoom-size;
+            span {
+              background-size: $zoom-size $zoom-size;
+            }
+          }
         }
       }
     }
@@ -96,6 +107,14 @@ div.DistrictAlertsPage {
       }
       .district-value-dropdown {
         padding: 0 0 1.5rem;
+      }
+      @include for-tablet-portrait-up {
+        .dropdown-select__value-container {
+          padding: 0.5rem;
+        }
+        .dropdown-select__indicators-container > div {
+          padding: 1rem;
+        }
       }
       .area-selection-container {
         display: flex;

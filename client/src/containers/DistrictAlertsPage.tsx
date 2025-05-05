@@ -158,6 +158,11 @@ const DistrictCreation = withI18n()((props: withI18nProps) => {
     history.push(account.settings);
   };
 
+  const selectClassNames = {
+    valueContainer: () => "dropdown-select__value-container",
+    indicatorsContainer: () => "dropdown-select__indicators-container",
+  };
+
   return (
     <div className="district-selection">
       <DistrictMap
@@ -177,6 +182,7 @@ const DistrictCreation = withI18n()((props: withI18nProps) => {
         <div className="district-type-dropdown" ref={geoTypeDropdownRef}>
           <Select
             className="dropdown-select"
+            classNames={selectClassNames}
             aria-label={i18n._(t`Area type selection`)}
             defaultValue={defaultAreaType}
             options={areaTypeOptions}
@@ -192,6 +198,7 @@ const DistrictCreation = withI18n()((props: withI18nProps) => {
           <Select
             ref={geoSelectRef}
             className="dropdown-select"
+            classNames={selectClassNames}
             aria-label={i18n._(t`Area selection`)}
             placeholder={i18n._(t`Select or type a`) + " " + areaType.label}
             options={areaOptions}
