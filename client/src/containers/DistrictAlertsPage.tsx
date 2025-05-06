@@ -77,16 +77,19 @@ const DistrictCreation = withI18n()((props: withI18nProps) => {
   const history = useHistory();
   const { account } = createWhoOwnsWhatRoutePaths();
 
-  const defaultAreaType = areaTypeOptions.filter((area) => area.value === "nta")[0];
+  const defaultAreaType = areaTypeOptions.filter((area) => area.value === "zipcode")[0];
   const [areaType, setAreaType] = useState<AreaTypeOption>(defaultAreaType);
 
-  const areaOptions = areaType.districtsData?.features.map((x) => {
-    return {
-      label: x.properties.areaLabel,
-      value: x.properties.areaValue,
-      feature: x,
-    };
-  });
+  const collator = new Intl.Collator(undefined, { numeric: true, sensitivity: "base" });
+  const areaOptions = areaType.districtsData?.features
+    .map((x) => {
+      return {
+        label: x.properties.areaLabel,
+        value: x.properties.areaValue,
+        feature: x,
+      };
+    })
+    .sort((a, b) => collator.compare(a.label, b.label));
 
   const [showSaveAreaError, setShowSaveAreaError] = useState(false);
 
