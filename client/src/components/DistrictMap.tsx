@@ -37,12 +37,14 @@ type DistrictMapProps = {
   labelsData?: LabelsGeoJson;
   areaSelections: GeoJsonFeatureDistrict[];
   setAreaSelections: React.Dispatch<React.SetStateAction<GeoJsonFeatureDistrict[]>>;
+  saveButtonRef: React.MutableRefObject<HTMLButtonElement | null>;
 };
 export const DistrictMap: React.FC<DistrictMapProps> = ({
   districtsData,
   labelsData,
   areaSelections,
   setAreaSelections,
+  saveButtonRef,
 }) => {
   const [map, setMap] = useState<Map>();
 
@@ -181,6 +183,9 @@ export const DistrictMap: React.FC<DistrictMapProps> = ({
       if (!prev?.selected)
         setAreaSelections((prev) => prev.concat([(feature as unknown) as GeoJsonFeatureDistrict]));
       if (prev?.selected) setAreaSelections((prev) => prev.filter((x) => x.id !== feature.id));
+      saveButtonRef.current?.scrollIntoView({
+        behavior: "smooth",
+      });
     });
 
     map.on("mouseenter", "districts", (e) => {

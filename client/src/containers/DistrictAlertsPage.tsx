@@ -134,9 +134,6 @@ const DistrictCreation = withI18n()((props: withI18nProps) => {
       return;
     }
     setAreaSelections((prev) => prev.concat([newValue.feature]));
-    saveButtonRef.current?.scrollIntoView({
-      behavior: "smooth",
-    });
   };
 
   const removeAreaFromSelections = (area: GeoJsonFeatureDistrict) => {
@@ -173,6 +170,7 @@ const DistrictCreation = withI18n()((props: withI18nProps) => {
         labelsData={areaType.labelsData}
         areaSelections={areaSelections}
         setAreaSelections={setAreaSelections}
+        saveButtonRef={saveButtonRef}
       />
       <div className="district-selection__sidebar">
         <Trans render="h2">NYC Area Alerts</Trans>
