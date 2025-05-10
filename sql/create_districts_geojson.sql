@@ -40,6 +40,7 @@ CREATE TABLE wow_districts_geojson AS (
             labels_geom
         FROM all_districts
         LEFT JOIN district_labels USING(id)
+        ORDER BY arealabel
     ), features AS (
         SELECT 
             "typeValue", 
