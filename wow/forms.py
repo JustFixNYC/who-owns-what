@@ -98,18 +98,24 @@ class DistrictTypeForm(forms.Form):
 
 
 class EmailAlertDistrict(forms.Form):
-    send_date = forms.DateField(input_formats=["%Y-%m-%d"], required=True)
-    district = ArrayField[
-        ArrayField[
-            forms.CharField(validators=[validate_district_types]), forms.CharField()
-        ]
-    ]
-    # [ ["community_dist", "402"], ["nta", "QN02"] ]
-    # each tuple: [areaValue, typeValue]
+    date = forms.DateField(input_formats=["%Y-%m-%d"], required=True)
+    coun_dist = forms.CharField(required=False)
+    nta = forms.CharField(required=False)
+    borough = forms.CharField(required=False)
+    community_dist = forms.CharField(required=False)
+    cong_dist = forms.CharField(required=False)
+    assem_dist = forms.CharField(required=False)
+    stsen_dist = forms.CharField(required=False)
+    zipcode = forms.CharField(required=False)
+
     def clean(self):
         data = self.cleaned_data
 
-        if not data.get("send_date", None):
-            raise forms.ValidationError("send_date is required for indicators")
+        if not data.get("date", None):
+            raise forms.ValidationError("date is required for indicators")
 
         return data
+
+
+class DistrictPortfolio(forms.Form):
+    portfolio_id = forms.IntegerField(required=True)
