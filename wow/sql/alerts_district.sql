@@ -402,6 +402,7 @@ top_5 AS (
     SELECT *
     FROM x_indicators_final
     WHERE rank_final BETWEEN 1 AND 5
+    LIMIT 5
 ),
 shared_portfolio_top_3 AS (
     SELECT *
@@ -430,4 +431,4 @@ SELECT
     counts.total_bbls
 FROM all_buildings b
 LEFT JOIN counts USING(portfolio_id)
-ORDER BY b.rank_final;
+ORDER BY b.rank_final
