@@ -1,7 +1,6 @@
 from django import forms
 from django.core.validators import RegexValidator
 from django.core.exceptions import ValidationError
-from django.contrib.postgres.fields import ArrayField
 
 
 class PaddedBBLForm(forms.Form):
