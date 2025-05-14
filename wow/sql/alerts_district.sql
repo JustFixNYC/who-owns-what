@@ -16,7 +16,6 @@ WHERE bbl IS NOT NULL
 );
 CREATE INDEX ON x_indicators_filtered (bbl);
 
-
 create temporary table x_indicators_normalized (
     bbl VARCHAR(10),
     bin VARCHAR(7),
@@ -27,6 +26,7 @@ create temporary table x_indicators_normalized (
     rsunitslatest INTEGER,
     size_metric DOUBLE PRECISION,
     portfolio_id INTEGER,
+    hpd_link TEXT,
     
     -- priority calcs needed for weighing
     priority_comp__week DOUBLE PRECISION,
@@ -111,6 +111,7 @@ INSERT INTO x_indicators_normalized
                 ELSE 0
             END AS size_metric,
             portfolio_id,
+            hpd_link,
             
             -- priority values
             coalesce(hpd_comp__week , 0) * ln(unitsres) as priority_comp__week,
@@ -194,12 +195,36 @@ INSERT INTO x_indicators_normalized
     ), 
     priority_normalized as (
         select *,
-            RANK() OVER (ORDER BY hpd_comp__week DESC) as rank_comp__week,
-            RANK() OVER (ORDER BY hpd_comp_per_unit__week DESC) as rank_comp_per_unit__week,
-            RANK() OVER (ORDER BY hpd_viol__week DESC) as rank_viol__week,
-            RANK() OVER (ORDER BY hpd_viol_per_unit__week DESC) as rank_viol_per_unit__week,
-            RANK() OVER (ORDER BY dob_ecb_viol__week DESC) as rank_dob_ecb_viol__week,
-            RANK() OVER (ORDER BY dob_comp__week DESC) as rank_dob_comp__week
+        	CASE
+        		WHEN hpd_comp__week = 0 THEN NULL
+			    ELSE RANK() OVER (ORDER BY hpd_comp__week DESC)
+			END AS rank_comp__week,
+			
+            CASE 
+			    WHEN hpd_comp_per_unit__week = 0 THEN NULL
+			    ELSE RANK() OVER (ORDER BY hpd_comp_per_unit__week DESC)
+			END AS rank_comp_per_unit__week,
+			
+			CASE 
+			    WHEN hpd_viol__week = 0 THEN NULL
+			    ELSE RANK() OVER (ORDER BY hpd_viol__week DESC)
+			END AS rank_viol__week,
+			
+			CASE 
+			    WHEN hpd_viol_per_unit__week = 0 THEN NULL
+			    ELSE RANK() OVER (ORDER BY hpd_viol_per_unit__week DESC)
+			END AS rank_viol_per_unit__week,
+			
+			CASE 
+			    WHEN dob_ecb_viol__week = 0 THEN NULL
+			    ELSE RANK() OVER (ORDER BY dob_ecb_viol__week DESC)
+			END AS rank_dob_ecb_viol__week,
+			
+			CASE 
+			    WHEN dob_comp__week = 0 THEN NULL
+			    ELSE RANK() OVER (ORDER BY dob_comp__week DESC)
+			END AS rank_dob_comp__week
+
         from (
             select 
                 p.*,
@@ -246,6 +271,9 @@ create temporary table x_indicators_final (
     rsunitslatest INTEGER,
     portfolio_id INTEGER,
     portfolio_size INTEGER,
+    hpd_link TEXT,
+    
+    score_sum DOUBLE PRECISION,
     rank_final INTEGER,
     
     hpd_comp_per_unit__week DOUBLE PRECISION,
@@ -316,6 +344,7 @@ INSERT INTO x_indicators_final (
     rsunitslatest,
     portfolio_id,
     portfolio_size,
+    hpd_link,
     rank_final,
     hpd_comp_per_unit__week,
     rank_comp_per_unit__week,
@@ -351,6 +380,7 @@ SELECT
     r.rsunitslatest,
     r.portfolio_id,
     ps.portfolio_size,
+    r.hpd_link,
     r.rank_final,
     r.hpd_comp_per_unit__week,
     r.rank_comp_per_unit__week,
@@ -378,17 +408,6 @@ SELECT
 FROM ranked r
 LEFT JOIN portfolio_size ps ON r.portfolio_id = ps.portfolio_id
 ORDER BY r.rank_final;
-
-
-SELECT 
-    x.housenumber, 
-    x.streetname, 
-    x.boro,
-    (SELECT COUNT(*) FROM x_indicators_filtered WHERE portfolio_id = '8929') AS area_bbls,
-    (SELECT COUNT(*) FROM wow_indicators WHERE portfolio_id = '8929') AS total_bbls
-FROM x_indicators_final AS x
-WHERE portfolio_id = '8929' AND rank_final <= 5;
-
 
 
 WITH first_shared_portfolio AS (
@@ -431,4 +450,4 @@ SELECT
     counts.total_bbls
 FROM all_buildings b
 LEFT JOIN counts USING(portfolio_id)
-ORDER BY b.rank_final
+ORDER BY b.rank_final;
