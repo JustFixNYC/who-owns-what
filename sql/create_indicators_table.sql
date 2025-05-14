@@ -1,4 +1,4 @@
-CREATE TABLE wow_indicators_temporary AS 
+CREATE TABLE wow_indicators AS 
 
 	WITH hpd_viol AS (
 		SELECT 
@@ -286,9 +286,5 @@ CREATE TABLE wow_indicators_temporary AS
 	LEFT JOIN portfolios using (bbl) 
 	LEFT JOIN hpd_lit using (bbl)
 	WHERE bbl IS NOT NULL;
-	
-
-drop table if exists wow_indicators cascade;
-alter table wow_indicators_temporary rename to wow_indicators;
 
 create index on wow_indicators (bbl);
