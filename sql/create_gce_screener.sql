@@ -226,14 +226,14 @@ CREATE INDEX ON x_wow_related_bbls (ref_bbl, bbl);
 -- their details.
 
 CREATE TEMPORARY TABLE x_all_related_bbls AS (
-  SELECT
-    w.ref_bbl,
-    w.bbl,
-    coalesce(o.match_ownername, false) AS match_ownername,
-    coalesce(m.match_multidoc, false) AS match_multidoc,
-    coalesce(w.match_wow, false) AS match_wow,
-    p.unitsres,
-    p.address || ', ' || CASE 
+	SELECT
+		w.ref_bbl,
+		w.bbl,
+		coalesce(o.match_ownername, false) AS match_ownername,
+		coalesce(m.match_multidoc, false) AS match_multidoc,
+		coalesce(w.match_wow, false) AS match_wow,
+		p.unitsres,
+		p.address || ', ' || CASE 
 			WHEN p.borough = 'MN' THEN 'Manhattan'
 			WHEN p.borough = 'BX' THEN 'Bronx'
 			WHEN p.borough = 'BK' THEN 'Brooklyn'
@@ -244,14 +244,17 @@ CREATE TEMPORARY TABLE x_all_related_bbls AS (
 		w.wow_match_name,
 		w.wow_match_bizaddr_unit,
 		coalesce(aref.party_names && a.party_names, false) AS party_name_match,
-    coalesce(a.acris_docs, '[]'::json) AS acris_docs
-  FROM x_wow_related_bbls AS w
-  FULL JOIN x_ownername_related_bbls AS o USING(ref_bbl, bbl)
-  FULL JOIN x_multi_doc_related_bbls AS m  USING(ref_bbl, bbl)
-  LEFT JOIN pluto_latest AS p USING(bbl)
-  LEFT JOIN x_bbl_acris_docs AS a USING(bbl)
+		coalesce(a.acris_docs, '[]'::json) AS acris_docs
+	FROM x_wow_related_bbls AS w
+	FULL JOIN x_ownername_related_bbls AS o USING(ref_bbl, bbl)
+	FULL JOIN x_multi_doc_related_bbls AS m  USING(ref_bbl, bbl)
+	LEFT JOIN pluto_latest AS p USING(bbl)
+	LEFT JOIN x_bbl_acris_docs AS a USING(bbl)
 	LEFT JOIN x_bbl_acris_docs AS aref ON w.ref_bbl = aref.bbl
   WHERE p.unitsres > 0
+	-- TODO: still not clear on how records with no bbl are created, it only happens on the last join here
+	AND w.ref_bbl IS NOT NULL
+	AND w.bbl IS NOT NULL
 );
 
 CREATE INDEX ON x_all_related_bbls (ref_bbl);
