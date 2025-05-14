@@ -288,14 +288,14 @@ WITH ranked AS (
     SELECT *,
         RANK() OVER (
             ORDER BY 
-                (norm_priority_comp__week)
-                + (norm_priority_comp_per_unit__week * 0.75)
-                + (norm_priority_viol__week)
-                + (norm_priority_viol_per_unit__week * 0.75)
-                + (norm_priority_dob_ecb_viol__week * 0.5)
-                + (norm_priority_dob_comp__week * 0.5)
-                + (size_metric)
-            DESC
+               COALESCE(norm_priority_comp__week, 0)
+             + COALESCE(norm_priority_comp_per_unit__week, 0) * 0.75
+             + COALESCE(norm_priority_viol__week, 0)
+             + COALESCE(norm_priority_viol_per_unit__week, 0) * 0.75
+             + COALESCE(norm_priority_dob_ecb_viol__week, 0) * 0.5
+             + COALESCE(norm_priority_dob_comp__week, 0) * 0.5
+             + COALESCE(size_metric, 0)
+           DESC
         ) AS rank_final
     FROM x_indicators_normalized
 ),
