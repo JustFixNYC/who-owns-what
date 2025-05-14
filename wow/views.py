@@ -372,13 +372,14 @@ def districts_geojson(request):
     )
     return JsonResponse({"result": list(result)})
 
+
 def get_district_query_params(args: Dict[str, any]):
     def safe_literal_eval(val):
-            try:
-                parsed = ast.literal_eval(val)
-                return parsed if isinstance(parsed, list) else []
-            except (ValueError, SyntaxError):
-                return ""
+        try:
+            parsed = ast.literal_eval(val)
+            return parsed if isinstance(parsed, list) else []
+        except (ValueError, SyntaxError):
+            return ""
 
     query_params = {
         "coun_dist": safe_literal_eval(args["coun_dist"]),
@@ -392,6 +393,7 @@ def get_district_query_params(args: Dict[str, any]):
     }
 
     return query_params
+
 
 @api
 def email_alerts_district(request):
@@ -413,6 +415,7 @@ def district_vacate_order(request):
     result = exec_db_query(query_sql, query_params)
     return JsonResponse({"result": list(result)})
 
+
 @api
 def district_building_sale(request):
     authorize_for_alerts(request)
@@ -422,6 +425,7 @@ def district_building_sale(request):
     result = exec_db_query(query_sql, query_params)
     return JsonResponse({"result": list(result)})
 
+
 @api
 def district_litigation(request):
     authorize_for_alerts(request)
@@ -430,6 +434,7 @@ def district_litigation(request):
     query_sql = SQL_DIR / "alerts_district_litigation.sql"
     result = exec_db_query(query_sql, query_params)
     return JsonResponse({"result": list(result)})
+
 
 @api
 def email_alerts_district_portfolio(request):
