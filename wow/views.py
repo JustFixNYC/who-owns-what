@@ -372,21 +372,15 @@ def districts_geojson(request):
     )
     return JsonResponse({"result": list(result)})
 
-
-@api
-def email_alerts_district(request):
-    authorize_for_alerts(request)
-    args = get_validated_form_data(EmailAlertDistrict, request.GET)
-
+def get_district_query_params(args: Dict[str, any]):
     def safe_literal_eval(val):
-        try:
-            parsed = ast.literal_eval(val)
-            return parsed if isinstance(parsed, list) else []
-        except (ValueError, SyntaxError):
-            return ""
+            try:
+                parsed = ast.literal_eval(val)
+                return parsed if isinstance(parsed, list) else []
+            except (ValueError, SyntaxError):
+                return ""
 
     query_params = {
-        "date": args["date"],
         "coun_dist": safe_literal_eval(args["coun_dist"]),
         "nta": safe_literal_eval(args["nta"]),
         "borough": safe_literal_eval(args["borough"]),
@@ -396,6 +390,14 @@ def email_alerts_district(request):
         "stsen_dist": safe_literal_eval(args["stsen_dist"]),
         "zipcode": safe_literal_eval(args["zipcode"]),
     }
+
+    return query_params
+
+@api
+def email_alerts_district(request):
+    authorize_for_alerts(request)
+    args = get_validated_form_data(EmailAlertDistrict, request.GET)
+    query_params = get_district_query_params(args)
     print(query_params)
     query_sql = SQL_DIR / "alerts_district.sql"
     result = exec_db_query(query_sql, query_params)
@@ -403,12 +405,29 @@ def email_alerts_district(request):
 
 
 @api
+def district_vacate_order(request):
+    authorize_for_alerts(request)
+    args = get_validated_form_data(EmailAlertDistrict, request.GET)
+    query_params = get_district_query_params(args)
+    query_sql = SQL_DIR / "alerts_district_vacate_order.sql"
+    result = exec_db_query(query_sql, query_params)
+    return JsonResponse({"result": list(result)})
+
+@api
+def district_building_sale(request):
+    authorize_for_alerts(request)
+    args = get_validated_form_data(EmailAlertDistrict, request.GET)
+    query_params = get_district_query_params(args)
+    query_sql = SQL_DIR / "alerts_district_sale.sql"
+    result = exec_db_query(query_sql, query_params)
+    return JsonResponse({"result": list(result)})
+
+@api
 def email_alerts_district_portfolio(request):
     authorize_for_alerts(request)
     args = get_validated_form_data(DistrictPortfolio, request.GET)
 
     query_params = {"portfolio_id": args["portfolio_id"]}
-    print(query_params)
     query_sql = SQL_DIR / "alerts_district_portfolio.sql"
     result = exec_db_query(query_sql, query_params)
     return JsonResponse({"result": list(result)})

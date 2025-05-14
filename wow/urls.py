@@ -40,6 +40,8 @@ urlpatterns = [
         name="email_alerts_district_portfolio",
     ),
     path("alerts/district/geojson", views.districts_geojson, name="districts_geojson"),
+    path("alerts/district/vacate_order", views.district_vacate_order, name="district_vacate_order"),   
+    path("alerts/district/building_sale", views.district_building_sale, name="district_building_sale"),   
     path("signature/building", views.signature_building, name="signature_building"),
     path(
         "signature/building/charts",
