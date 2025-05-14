@@ -373,7 +373,7 @@ def districts_geojson(request):
     return JsonResponse({"result": list(result)})
 
 
-def get_district_query_params(args: Dict[str, any]):
+def get_district_query_params(args: Dict[str, Any]):
     def safe_literal_eval(val):
         try:
             parsed = ast.literal_eval(val)
