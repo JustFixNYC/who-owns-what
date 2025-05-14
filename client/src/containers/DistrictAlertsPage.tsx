@@ -163,6 +163,8 @@ const DistrictCreation = withI18n()((props: withI18nProps) => {
     indicatorsContainer: () => "dropdown-select__indicators-container",
   };
 
+  areaTypeOptions = areaTypeOptions.sort((a, b) => collator.compare(a.label, b.label));
+
   return (
     <div className="district-selection">
       <DistrictMap
