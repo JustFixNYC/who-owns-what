@@ -423,6 +423,15 @@ def district_building_sale(request):
     return JsonResponse({"result": list(result)})
 
 @api
+def district_litigation(request):
+    authorize_for_alerts(request)
+    args = get_validated_form_data(EmailAlertDistrict, request.GET)
+    query_params = get_district_query_params(args)
+    query_sql = SQL_DIR / "alerts_district_litigation.sql"
+    result = exec_db_query(query_sql, query_params)
+    return JsonResponse({"result": list(result)})
+
+@api
 def email_alerts_district_portfolio(request):
     authorize_for_alerts(request)
     args = get_validated_form_data(DistrictPortfolio, request.GET)
