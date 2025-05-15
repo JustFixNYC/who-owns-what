@@ -12,7 +12,7 @@ LEFT JOIN pluto_latest_districts AS pld USING(bbl)
 LEFT JOIN hpd_litigations as l using(bbl)
 WHERE bbl IS NOT NULL
 	and (pld.coun_dist = ANY(%(coun_dist)s)
-	or pld.nta = ANY(%(nta)s)
+	or pld.nta2020 = ANY(%(nta)s)
 	or pld.borough = ANY(%(borough)s)
     OR pld.community_dist = ANY(%(community_dist)s::int[])
 	or pld.cong_dist = ANY(%(cong_dist)s)
