@@ -101,7 +101,10 @@ CREATE TABLE wow_indicators AS
 	hpd_vacate AS (
 		SELECT DISTINCT ON (bbl)
 			bbl,
-			concat(initcap(vacatetype), ' (', to_char(vacateeffectivedate, 'Mon d, YYYY'), ')') AS hpd_active_vacate
+			to_char(vacateeffectivedate, 'Mon d, YYYY') AS hpd_vacate_date,
+			initcap(vacatetype) AS hpd_vacate_type,
+			numberofvacatedunits AS hpd_vacate_units_affected,
+			primaryvacatereason AS hpd_vacate_reason
 		FROM hpd_vacateorders
 		WHERE vacateeffectivedate >= (CURRENT_DATE - interval '7' day)
 			AND rescinddate IS NULL
@@ -109,17 +112,22 @@ CREATE TABLE wow_indicators AS
 		-- keep 'entire building' orders over 'partial' ones if both
 		ORDER BY bbl, vacatetype, vacateeffectivedate DESC
 	),
+	-- DOB disposition code reference https://www.nyc.gov/assets/buildings/pdf/bis_complaint_disposition_codes.pdf
 	dob_vacate_issued AS (
 		SELECT 
 			bin,
-			concat('Entire Building', ' (', to_char(dispositiondate, 'Mon d, YYYY'), ')') AS dob_active_vacate
+			to_char(dispositiondate, 'Mon d, YYYY') AS dob_vacate_date, 
+			'Entire Building' AS dob_vacate_type,
+			complaintnumber
 		FROM dob_complaints
 			WHERE dispositioncode in ('ME', 'MH', 'Y1')
 			AND dispositiondate > (CURRENT_DATE - interval '7' day)
 		UNION ALL
 		SELECT 
 			bin,
-			concat('Partial', ' (', to_char(dispositiondate, 'Mon d, YYYY'), ')') AS dob_active_vacate
+			to_char(dispositiondate, 'Mon d, YYYY') AS dob_vacate_date, 
+			'Partial' AS dob_vacate_type,
+			complaintnumber
 		FROM dob_complaints
 			WHERE dispositioncode in ('MF', 'MI', 'Y3')
 			AND dispositiondate > (CURRENT_DATE - interval '7' day)
@@ -127,14 +135,14 @@ CREATE TABLE wow_indicators AS
 	dob_vacate_rescinded AS (
 		SELECT 
 			bin,
-			concat('Entire Building', ' (', to_char(dispositiondate, 'Mon d, YYYY'), ')') AS dob_vacate_rescind
+			to_char(dispositiondate, 'Mon d, YYYY') AS dob_vacate_rescind_date
 		FROM dob_complaints
 			WHERE dispositioncode in ('Y2')
 			AND dispositiondate > (CURRENT_DATE - interval '7' day)
 		UNION ALL
 		SELECT 
 			bin,
-			concat('Partial', ' (', to_char(dispositiondate, 'Mon d, YYYY'), ')') AS dob_vacate_rescind
+			to_char(dispositiondate, 'Mon d, YYYY') AS dob_vacate_rescind_date
 		FROM dob_complaints
 			WHERE dispositioncode in ('Y4')
 			AND dispositiondate > (CURRENT_DATE - interval '7' day)
@@ -142,7 +150,9 @@ CREATE TABLE wow_indicators AS
 	dob_vacate AS (
 		SELECT
 			bin,
-			dob_active_vacate
+			dob_vacate_date,
+			dob_vacate_type,
+			complaintnumber as dob_vacate_complaint_number
 		FROM dob_vacate_issued
 		LEFT JOIN dob_vacate_rescinded using (bin)
 		WHERE dob_vacate_rescinded is null	
@@ -173,22 +183,17 @@ CREATE TABLE wow_indicators AS
 		FROM hpd_litigations
 		WHERE casestatus not in ('CLOSED')
 		GROUP BY bbl
+	),
+	hpd_link AS (
+	    SELECT DISTINCT
+	        bbl,
+	        CASE 
+	            WHEN hpdbuildingid IS NOT NULL AND hpdbuildings = 1
+	                THEN concat('https://hpdonline.nyc.gov/hpdonline/building/', hpdbuildingid)
+	            ELSE NULL 
+	        END AS hpd_link
+	    FROM wow_bldgs
 	)
-	
---	select 
---		x.housenumber,
---        x.streetname,
---        x.zip,
---        x.boro,
---        x.bbl,
---        x.bin,
---        x.unitsres,
---        latest_deeds.last_sale_date
---	from wow_bldgs as x
---	left join latest_deeds using(bbl)
---	where last_sale_date is not null;
---	
---	
 	SELECT
 		x.housenumber,
         x.streetname,
@@ -249,9 +254,14 @@ CREATE TABLE wow_indicators AS
 			ELSE NULL
 		END AS evictions_filed__week,
 		
-		hpd_vacate.hpd_active_vacate,
-		dob_vacate.dob_active_vacate,
-		
+		hpd_vacate.hpd_vacate_date,
+		hpd_vacate.hpd_vacate_type,
+		hpd_vacate.hpd_vacate_units_affected,
+		hpd_vacate.hpd_vacate_reason,
+		dob_vacate.dob_vacate_date,
+		dob_vacate.dob_vacate_type,
+		dob_vacate.dob_vacate_complaint_number,
+			
 		latest_deeds.lastsaledate,
 		latest_deeds.lastsaleamount,
 		latest_deeds.lastsaleacrisid,
@@ -261,6 +271,17 @@ CREATE TABLE wow_indicators AS
 		
 		hpd_lit.hpd_lit__week,
 		hpd_lit.hpd_lit__month,
+		
+		CASE 
+        WHEN hpd_link.hpd_link IS NOT NULL THEN hpd_link.hpd_link
+        ELSE 
+            concat(
+                'https://hpdonline.nyc.gov/hpdonline/building/search-results', 
+                '?boroId=', substr(bbl, 1, 1),
+                '&block=', substr(bbl, 2, 5), 
+                '&lot=', substr(bbl, 7, 4)
+            )
+        END AS hpd_link,
 		
 		pld.coun_dist,
 		pld.assem_dist,
@@ -273,7 +294,7 @@ CREATE TABLE wow_indicators AS
 		pld.borough
 
 		
-	FROM x_wow_bldgs AS x
+	FROM wow_bldgs AS x
 	LEFT JOIN hpd_viol USING(bbl)
 	LEFT JOIN hpd_comp USING(bbl)
 	LEFT JOIN dob_ecb_viol USING(bbl)
@@ -285,6 +306,7 @@ CREATE TABLE wow_indicators AS
 	LEFT JOIN latest_deeds using(bbl)
 	LEFT JOIN portfolios using (bbl) 
 	LEFT JOIN hpd_lit using (bbl)
+	LEFT JOIN hpd_link using(bbl)
 	WHERE bbl IS NOT NULL;
 
 create index on wow_indicators (bbl);

@@ -270,7 +270,7 @@ create temporary table x_indicators_final (
     unitsres INTEGER,
     rsunitslatest INTEGER,
     portfolio_id INTEGER,
-    portfolio_size INTEGER,
+    area_bbls INTEGER,
     hpd_link TEXT,
     
     score_sum DOUBLE PRECISION,
@@ -327,10 +327,10 @@ WITH ranked AS (
         ) AS rank_final
     FROM x_indicators_normalized
 ),
-portfolio_size AS (
+area_bbls AS (
     SELECT 
         portfolio_id, 
-        COUNT(*)  AS portfolio_size
+        COUNT(*) AS area_bbls
     FROM x_indicators_normalized
     GROUP BY portfolio_id
 )
@@ -343,7 +343,7 @@ INSERT INTO x_indicators_final (
     unitsres,
     rsunitslatest,
     portfolio_id,
-    portfolio_size,
+    area_bbls,
     hpd_link,
     rank_final,
     hpd_comp_per_unit__week,
@@ -379,7 +379,7 @@ SELECT
     r.unitsres,
     r.rsunitslatest,
     r.portfolio_id,
-    ps.portfolio_size,
+    a.area_bbls,
     r.hpd_link,
     r.rank_final,
     r.hpd_comp_per_unit__week,
@@ -406,14 +406,14 @@ SELECT
     r.evictions_filed__1mo,
     r.evictions_filed__6mo
 FROM ranked r
-LEFT JOIN portfolio_size ps ON r.portfolio_id = ps.portfolio_id
+LEFT JOIN area_bbls a ON r.portfolio_id = a.portfolio_id
 ORDER BY r.rank_final;
 
 
 WITH first_shared_portfolio AS (
     SELECT portfolio_id
     FROM x_indicators_final
-    WHERE portfolio_size > 1
+    WHERE area_bbls > 1
     ORDER BY rank_final
     LIMIT 1
 ),
@@ -439,14 +439,12 @@ all_buildings AS (
 counts AS (
     SELECT 
         portfolio_id,
-        (SELECT COUNT(*) FROM x_indicators_filtered WHERE portfolio_id = b.portfolio_id) AS area_bbls,
         (SELECT COUNT(*) FROM wow_indicators WHERE portfolio_id = b.portfolio_id) AS total_bbls
     FROM all_buildings b
     GROUP BY portfolio_id
 )
 SELECT 
     b.*,
-    counts.area_bbls,
     counts.total_bbls
 FROM all_buildings b
 LEFT JOIN counts USING(portfolio_id)
