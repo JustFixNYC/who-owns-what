@@ -87,3 +87,4 @@ extra_nycdb_test_data:
   - "tests/data/dob_complaints.csv"
   # boundaries v25a
   - "tests/data/ny*_25a.zip"
+  - "tests/data/nyc-zip-codes.zip"

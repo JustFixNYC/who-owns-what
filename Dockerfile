@@ -19,6 +19,7 @@ RUN apt-get update \
     nodejs \
     unzip \
     postgresql-client \
+    postgis \
   && rm -rf /var/lib/apt/lists/* \
   && rm -rf /src/*.deb
 

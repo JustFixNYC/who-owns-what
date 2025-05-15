@@ -8,7 +8,7 @@ import copy
 import nycdb.dataset
 from nycdb.utility import list_wrap
 from urllib.parse import urlparse
-from typing import NamedTuple, Any, Tuple, Dict, List
+from typing import Literal, NamedTuple, Any, Tuple, Dict, List
 from pathlib import Path
 
 from portfoliograph.table import (
@@ -218,12 +218,16 @@ class NycDbBuilder:
         with self.conn.cursor() as cur:
             populate_oca_tables(cur, self.oca_config)
 
-        for sqlpath in get_sqlfile_paths():
+        for sqlpath in get_sqlfile_paths("pre"):
             print(f"Running {sqlpath.name}...")
             self.run_sql_file(sqlpath)
 
         with self.conn:
             populate_portfolios_table(self.conn)
+
+        for sqlpath in get_sqlfile_paths("post"):
+            print(f"Running {sqlpath.name}...")
+            self.run_sql_file(sqlpath)
 
 
 def get_dataset_dependencies(for_api: bool) -> List[str]:
@@ -233,8 +237,13 @@ def get_dataset_dependencies(for_api: bool) -> List[str]:
     return result
 
 
-def get_sqlfile_paths() -> List[Path]:
-    return [SQL_DIR / sqlfile for sqlfile in WOW_YML["sql"]]
+def get_sqlfile_paths(type: Literal["pre", "post", "all"]) -> List[Path]:
+    if type == "all":
+        pre_sql = [SQL_DIR / sqlfile for sqlfile in WOW_YML["wow_pre_sql"]]
+        post_sql = [SQL_DIR / sqlfile for sqlfile in WOW_YML["wow_post_sql"]]
+        return pre_sql + post_sql
+
+    return [SQL_DIR / sqlfile for sqlfile in WOW_YML[f"wow_{type}_sql"]]
 
 
 def dbshell(db: DbContext):

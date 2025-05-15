@@ -1,5 +1,6 @@
 import os
 from pathlib import Path
+import shutil
 from types import SimpleNamespace
 from io import StringIO
 import csv
@@ -99,7 +100,7 @@ class NycdbContext:
             populate_oca_tables(cur, self.oca_config)
 
         all_sql = "\n".join(
-            [sqlpath.read_text() for sqlpath in dbtool.get_sqlfile_paths()]
+            [sqlpath.read_text() for sqlpath in dbtool.get_sqlfile_paths("all")]
         )
         with self.get_cursor() as cur:
             cur.execute(all_sql)
@@ -116,6 +117,9 @@ def nycdb_ctx(get_cursor):
             tempdirpath = Path(dirname)
             for filepath in dbtool.ROOT_DIR.glob(glob):
                 tempfile_path = tempdirpath / filepath.name
-                tempfile_path.write_text(filepath.read_text())
+                if filepath.suffix == "csv":
+                    tempfile_path.write_text(filepath.read_text())
+                else:
+                    shutil.copy(filepath, tempfile_path)
 
         yield NycdbContext(dirname, get_cursor)
