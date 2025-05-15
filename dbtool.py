@@ -180,9 +180,11 @@ class NycDbBuilder:
 
     def ensure_dataset(self, name: str, force_refresh: bool = False) -> None:
         dataset = nycdb.dataset.datasets()[name]
-        tables: List[str] = [
-            schema["table_name"] for schema in list_wrap(dataset["schema"])
-        ]
+        tables: List[str] = (
+            [schema["table_name"] for schema in list_wrap(dataset["schema"])]
+            if "schema" in dataset
+            else []
+        )
         tables_str = "table" if len(tables) == 1 else "tables"
         print(
             f"Ensuring NYCDB dataset '{name}' is loaded with {len(tables)} {tables_str}..."
