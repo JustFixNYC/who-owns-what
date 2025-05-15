@@ -289,8 +289,8 @@ CREATE TABLE wow_indicators AS
 		pld.cong_dist,
 		pld.community_dist,
 		pld.zipcode, 
-		pld.census_tract,
-		pld.nta,
+		pld.boroct2020 as census_tract,
+		pld.nta2020 as nta,
 		pld.borough
 
 		
