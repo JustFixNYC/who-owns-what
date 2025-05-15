@@ -193,7 +193,7 @@ class NycDbBuilder:
         if force_refresh:
             self.drop_tables(*tables)
             self.delete_downloaded_data(*tables)
-        if not self.do_tables_exist(*tables):
+        if not tables or not self.do_tables_exist(*tables):
             print(f"Table {name} not found in the database. Downloading...")
             self.call_nycdb("--download", name)
             print(f"Loading {name} into the database...")
