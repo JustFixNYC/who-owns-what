@@ -238,12 +238,14 @@ def get_dataset_dependencies(for_api: bool) -> List[str]:
 
 
 def get_sqlfile_paths(type: Literal["pre", "post", "all"]) -> List[Path]:
-    if type == "all":
-        pre_sql = [SQL_DIR / sqlfile for sqlfile in WOW_YML["wow_pre_sql"]]
-        post_sql = [SQL_DIR / sqlfile for sqlfile in WOW_YML["wow_post_sql"]]
+    pre_sql = [SQL_DIR / sqlfile for sqlfile in WOW_YML["wow_pre_sql"]]
+    post_sql = [SQL_DIR / sqlfile for sqlfile in WOW_YML["wow_post_sql"]]
+    if type == "pre":
+        return pre_sql
+    elif type == "post":
+        return post_sql
+    else:
         return pre_sql + post_sql
-
-    return [SQL_DIR / sqlfile for sqlfile in WOW_YML[f"wow_{type}_sql"]]
 
 
 def dbshell(db: DbContext):

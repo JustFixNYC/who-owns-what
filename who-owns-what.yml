@@ -60,8 +60,6 @@ good_cause_sql:
 wow_pre_sql:
   # These SQL scripts must be executed in order, as
   # some of them depend on others.
-  - create_districts_geom.sql
-  - create_districts_geojson.sql
   - registrations_with_contacts.sql
   - create_bldgs_table.sql
   - helper_functions.sql
@@ -73,6 +71,8 @@ wow_pre_sql:
 wow_post_sql:
   # These SQL scripts are run after the above "pre" scripts and the wow_portfolios
   # table is populated via /portfoliograph python functions.
+  - create_districts_geom.sql
+  - create_districts_geojson.sql
   - create_indicators_table.sql
 extra_nycdb_test_data:
   # This is extra data our tests need that we don't

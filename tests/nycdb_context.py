@@ -99,11 +99,11 @@ class NycdbContext:
         with self.get_cursor() as cur:
             populate_oca_tables(cur, self.oca_config)
 
-        all_sql = "\n".join(
-            [sqlpath.read_text() for sqlpath in dbtool.get_sqlfile_paths("all")]
-        )
+        all_sql = [sqlpath.read_text() for sqlpath in dbtool.get_sqlfile_paths("all")]
+
         with self.get_cursor() as cur:
-            cur.execute(all_sql)
+            for sqlpath in all_sql:
+                cur.execute(sqlpath)
 
 
 def nycdb_ctx(get_cursor):
