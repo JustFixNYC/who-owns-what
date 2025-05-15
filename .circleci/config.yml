@@ -23,7 +23,6 @@ jobs:
             . ~/venv/bin/activate
             pip install --upgrade pip
             pip install -r requirements-dev.txt
-            apt-get install postgis
       - save_cache:
           name: Save python deps cache
           key: v4-py-cache-{{ .Branch }}-{{ checksum "requirements.txt" }}-{{ checksum "requirements-dev.txt" }}
