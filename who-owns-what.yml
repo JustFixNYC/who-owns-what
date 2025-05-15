@@ -20,6 +20,7 @@ dependencies:
   - oca
   - boundaries_25a
   - zipcodes
+  - pluto_latest_districts_25a
 api_dependencies:
   # These are NYCDB datasets that aren't needed by the
   # SQL scripts, but which the Django server uses

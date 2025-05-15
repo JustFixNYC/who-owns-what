@@ -14,7 +14,7 @@ SELECT
 	x.dob_vacate_type,
 	x.dob_vacate_complaint_number
 FROM wow_bldgs 
-LEFT JOIN pluto_latest_districts AS pld USING(bbl)
+LEFT JOIN pluto_latest_districts_25a AS pld USING(bbl)
 LEFT JOIN wow_indicators as x using(bbl)
 WHERE bbl IS NOT NULL
 	and (pld.coun_dist = ANY(%(coun_dist)s)

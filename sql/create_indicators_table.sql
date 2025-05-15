@@ -302,7 +302,7 @@ CREATE TABLE wow_indicators AS
 	LEFT JOIN evic_oca USING(bbl)
 	LEFT JOIN hpd_vacate USING(bbl)
 	LEFT JOIN dob_vacate using (bin)
-	LEFT JOIN pluto_latest_districts AS pld USING(bbl)
+	LEFT JOIN pluto_latest_districts_25a AS pld USING(bbl)
 	LEFT JOIN latest_deeds using(bbl)
 	LEFT JOIN portfolios using (bbl) 
 	LEFT JOIN hpd_lit using (bbl)

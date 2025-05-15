@@ -2,7 +2,7 @@ create temporary table x_indicators_filtered AS (
 SELECT
     wow_indicators.*
 FROM wow_bldgs 
-LEFT JOIN pluto_latest_districts AS pld USING(bbl)
+LEFT JOIN pluto_latest_districts_25a AS pld USING(bbl)
 LEFT JOIN wow_indicators using(bbl)
 WHERE bbl IS NOT NULL
 	and (pld.coun_dist = ANY(%(coun_dist)s)
