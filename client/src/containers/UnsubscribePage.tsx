@@ -20,7 +20,7 @@ const BRANCH_NAME = process.env.REACT_APP_BRANCH;
 const UnsubscribePage = withI18n()((props: withI18nProps) => {
   const { i18n } = props;
   const { search, pathname } = useLocation();
-  const { home, account, districtPage } = createWhoOwnsWhatRoutePaths();
+  const { home, account, areaAlerts } = createWhoOwnsWhatRoutePaths();
   const params = new URLSearchParams(search);
   const token = params.get("u") || "";
 
@@ -122,9 +122,9 @@ const UnsubscribePage = withI18n()((props: withI18nProps) => {
       <Trans render="h1">You are not subscribed to any Building or Area Alerts</Trans>
       <Trans render="h2">
         <JFCLLocaleLink to={home}>Search for an address</JFCLLocaleLink> to add to your Building
-        Alerts, <JFCLLocaleLink to={districtPage}>subscribe to Area Alerts</JFCLLocaleLink>, or
-        visit your <JFCLLocaleLink to={account.settings}>email settings</JFCLLocaleLink> page to
-        manage subscriptions.
+        Alerts, <JFCLLocaleLink to={areaAlerts}>subscribe to Area Alerts</JFCLLocaleLink>, or visit
+        your <JFCLLocaleLink to={account.settings}>email settings</JFCLLocaleLink> page to manage
+        subscriptions.
       </Trans>
     </>
   );
