@@ -1,18 +1,15 @@
 create temporary table x_indicators_filtered AS (
-SELECT
-    wow_indicators.*
-FROM wow_bldgs 
-LEFT JOIN pluto_latest_districts_25a AS pld USING(bbl)
-LEFT JOIN wow_indicators using(bbl)
+SELECT *
+FROM wow_indicators
 WHERE bbl IS NOT NULL
-	and (pld.coun_dist = ANY(%(coun_dist)s)
-	or pld.nta2020 = ANY(%(nta)s)
-	or pld.borough = ANY(%(borough)s)
-    OR pld.community_dist = ANY(%(community_dist)s::int[])
-	or pld.cong_dist = ANY(%(cong_dist)s)
-	or pld.assem_dist = ANY(%(assem_dist)s)
-	or pld.stsen_dist = ANY(%(stsen_dist)s)
-	or pld.zipcode = ANY(%(zipcode)s))
+	and (coun_dist = ANY(%(coun_dist)s)
+	or nta = ANY(%(nta)s)
+	or borough = ANY(%(borough)s)
+    OR community_dist = ANY(%(community_dist)s::int[])
+	or cong_dist = ANY(%(cong_dist)s)
+	or assem_dist = ANY(%(assem_dist)s)
+	or stsen_dist = ANY(%(stsen_dist)s)
+	or zipcode = ANY(%(zipcode)s))
 );
 CREATE INDEX ON x_indicators_filtered (bbl);
 

@@ -1,29 +1,25 @@
-
 SELECT 
 	bbl,
-	x.housenumber,
-	x.streetname,
-	x.boro,
-	x.unitsres,
-	x.hpd_link,
-	x.hpd_vacate_date,
-	x.hpd_vacate_type,
-	x.hpd_vacate_units_affected,
-	x.hpd_vacate_reason,
-	x.dob_vacate_date,
-	x.dob_vacate_type,
-	x.dob_vacate_complaint_number
-FROM wow_bldgs 
-LEFT JOIN pluto_latest_districts_25a AS pld USING(bbl)
-LEFT JOIN wow_indicators as x using(bbl)
+	housenumber,
+	streetname,
+	boro,
+	unitsres,
+	hpd_vacate_date,
+	hpd_vacate_type,
+	hpd_vacate_units_affected,
+	hpd_vacate_reason,
+	dob_vacate_date,
+	dob_vacate_type,
+	dob_vacate_complaint_number
+FROM wow_indicators
 WHERE bbl IS NOT NULL
-	and (pld.coun_dist = ANY(%(coun_dist)s)
-	or pld.nta2020 = ANY(%(nta)s)
-	or pld.borough = ANY(%(borough)s)
-    OR pld.community_dist = ANY(%(community_dist)s::int[])
-	or pld.cong_dist = ANY(%(cong_dist)s)
-	or pld.assem_dist = ANY(%(assem_dist)s)
-	or pld.stsen_dist = ANY(%(stsen_dist)s)
-	or pld.zipcode = ANY(%(zipcode)s))
-	and (x.dob_vacate_date is not null
-	or x.hpd_vacate_date is not null);
+	and (coun_dist = ANY(%(coun_dist)s)
+		or nta = ANY(%(nta)s)
+		or borough = ANY(%(borough)s)
+	    OR community_dist = ANY(%(community_dist)s::int[])
+		or cong_dist = ANY(%(cong_dist)s)
+		or assem_dist = ANY(%(assem_dist)s)
+		or stsen_dist = ANY(%(stsen_dist)s)
+		or zipcode = ANY(%(zipcode)s))
+	and (dob_vacate_date is not null
+	or hpd_vacate_date is not null);

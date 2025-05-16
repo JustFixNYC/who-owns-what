@@ -7,19 +7,18 @@ SELECT
 	l.casetype,
 	l.respondent,
 	count(*) over () as total_litigations
-FROM wow_bldgs as x
-LEFT JOIN pluto_latest_districts_25a AS pld USING(bbl)
+FROM wow_indicators AS x
 LEFT JOIN hpd_litigations as l using(bbl)
 WHERE bbl IS NOT NULL
-	and (pld.coun_dist = ANY(%(coun_dist)s)
-	or pld.nta2020 = ANY(%(nta)s)
-	or pld.borough = ANY(%(borough)s)
-    OR pld.community_dist = ANY(%(community_dist)s::int[])
-	or pld.cong_dist = ANY(%(cong_dist)s)
-	or pld.assem_dist = ANY(%(assem_dist)s)
-	or pld.stsen_dist = ANY(%(stsen_dist)s)
-	or pld.zipcode = ANY(%(zipcode)s))
-	and l.casetype IN ('Tenant Action', 'Heat and Hot Water', '7A')
+	and (x.coun_dist = ANY(%(coun_dist)s)
+	or x.nta = ANY(%(nta)s)
+	or x.borough = ANY(%(borough)s)
+    OR x.community_dist = ANY(%(community_dist)s::int[])
+	or x.cong_dist = ANY(%(cong_dist)s)
+	or x.assem_dist = ANY(%(assem_dist)s)
+	or x.stsen_dist = ANY(%(stsen_dist)s)
+	or x.zipcode = ANY(%(zipcode)s))
+	and l.casetype IN ('Tenant Action', 'Tenant Action/Harrassment', 'Heat and Hot Water')
 	and l.caseopendate > (CURRENT_DATE - interval '30' day) -- TODO FIX DATE LOGIC 
 	and l.caseopendate < CURRENT_DATE
 ORDER BY l.caseopendate DESC

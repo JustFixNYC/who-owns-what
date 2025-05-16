@@ -76,13 +76,15 @@ CREATE TABLE wow_indicators AS
 	),
 	dob_comp AS (
 		SELECT
-			bin,
+			bbl,
+			max(bin) AS bin,
 			count(*) FILTER (WHERE dateentered >= (CURRENT_DATE - interval '6' month)) AS dob_comp__6mo,
 			count(*) FILTER (WHERE dateentered >= (CURRENT_DATE - interval '1' month)) AS dob_comp__1mo,
 			count(*) FILTER (WHERE dateentered >= (CURRENT_DATE - interval '7' day)) AS dob_comp__week
 		FROM dob_complaints
+		LEFT JOIN pad_adr USING(bin)
 		WHERE GREATEST(dateentered, dispositiondate, inspectiondate) >= (CURRENT_DATE - interval '1' year)
-		GROUP BY bin
+		GROUP BY bbl
 	),
 	evic_oca AS (
 		SELECT
@@ -113,9 +115,10 @@ CREATE TABLE wow_indicators AS
 		ORDER BY bbl, vacatetype, vacateeffectivedate DESC
 	),
 	-- DOB disposition code reference https://www.nyc.gov/assets/buildings/pdf/bis_complaint_disposition_codes.pdf
-	dob_vacate_issued AS (
+    dob_vacate_issued AS (
 		SELECT 
 			bin,
+			dispositiondate,
 			to_char(dispositiondate, 'Mon d, YYYY') AS dob_vacate_date, 
 			'Entire Building' AS dob_vacate_type,
 			complaintnumber
@@ -125,6 +128,7 @@ CREATE TABLE wow_indicators AS
 		UNION ALL
 		SELECT 
 			bin,
+			dispositiondate,
 			to_char(dispositiondate, 'Mon d, YYYY') AS dob_vacate_date, 
 			'Partial' AS dob_vacate_type,
 			complaintnumber
@@ -135,27 +139,32 @@ CREATE TABLE wow_indicators AS
 	dob_vacate_rescinded AS (
 		SELECT 
 			bin,
-			to_char(dispositiondate, 'Mon d, YYYY') AS dob_vacate_rescind_date
+			dispositiondate
 		FROM dob_complaints
 			WHERE dispositioncode in ('Y2')
 			AND dispositiondate > (CURRENT_DATE - interval '7' day)
 		UNION ALL
 		SELECT 
 			bin,
-			to_char(dispositiondate, 'Mon d, YYYY') AS dob_vacate_rescind_date
+			dispositiondate
 		FROM dob_complaints
 			WHERE dispositioncode in ('Y4')
 			AND dispositiondate > (CURRENT_DATE - interval '7' day)
 	),
 	dob_vacate AS (
-		SELECT
+		SELECT DISTINCT ON (bbl)
+			bbl,
 			bin,
 			dob_vacate_date,
 			dob_vacate_type,
 			complaintnumber as dob_vacate_complaint_number
-		FROM dob_vacate_issued
-		LEFT JOIN dob_vacate_rescinded using (bin)
-		WHERE dob_vacate_rescinded is null	
+		FROM dob_vacate_issued AS i
+		LEFT JOIN dob_vacate_rescinded AS r using (bin)
+		LEFT JOIN pad_adr USING(bin)
+		WHERE r.bin is NULL
+			AND bbl IS NOT NULL
+		-- keep 'entire building' orders over 'partial' ones if both
+		ORDER BY bbl, i.dob_vacate_type, i.dispositiondate DESC
 	),
 	latest_deeds AS (
 		SELECT DISTINCT ON (bbl)
@@ -194,7 +203,7 @@ CREATE TABLE wow_indicators AS
 	        END AS hpd_link
 	    FROM wow_bldgs
 	)
-	SELECT
+	SELECT DISTINCT ON (bbl)
 		x.housenumber,
         x.streetname,
         x.zip,
@@ -289,8 +298,8 @@ CREATE TABLE wow_indicators AS
 		pld.cong_dist,
 		pld.community_dist,
 		pld.zipcode, 
-		pld.boroct2020 as census_tract,
-		pld.nta2020 as nta,
+		pld.boroct2020 AS census_tract,
+		pld.nta2020 AS nta,
 		pld.borough
 
 		
@@ -298,10 +307,10 @@ CREATE TABLE wow_indicators AS
 	LEFT JOIN hpd_viol USING(bbl)
 	LEFT JOIN hpd_comp USING(bbl)
 	LEFT JOIN dob_ecb_viol USING(bbl)
-	LEFT JOIN dob_comp USING(bin)
+	LEFT JOIN dob_comp USING(bbl)
 	LEFT JOIN evic_oca USING(bbl)
 	LEFT JOIN hpd_vacate USING(bbl)
-	LEFT JOIN dob_vacate using (bin)
+	LEFT JOIN dob_vacate using (bbl)
 	LEFT JOIN pluto_latest_districts_25a AS pld USING(bbl)
 	LEFT JOIN latest_deeds using(bbl)
 	LEFT JOIN portfolios using (bbl) 
