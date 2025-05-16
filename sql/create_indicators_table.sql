@@ -310,3 +310,13 @@ CREATE TABLE wow_indicators AS
 	WHERE bbl IS NOT NULL;
 
 create index on wow_indicators (bbl);
+create index on wow_indicators (coun_dist);
+create index on wow_indicators (assem_dist);
+create index on wow_indicators (stsen_dist);
+create index on wow_indicators (cong_dist);
+create index on wow_indicators (community_dist);
+create index on wow_indicators (zipcode);
+create index on wow_indicators (census_tract);
+create index on wow_indicators (nta);
+create index on wow_indicators (borough);
+create index on wow_indicators (lastsaledate);
