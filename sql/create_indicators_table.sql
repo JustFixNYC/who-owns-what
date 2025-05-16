@@ -1,4 +1,4 @@
-CREATE TABLE wow_indicators_temporary AS 
+CREATE TABLE wow_indicators AS 
 
 	WITH hpd_viol AS (
 		SELECT 
@@ -289,8 +289,8 @@ CREATE TABLE wow_indicators_temporary AS
 		pld.cong_dist,
 		pld.community_dist,
 		pld.zipcode, 
-		pld.census_tract,
-		pld.nta,
+		pld.boroct2020 as census_tract,
+		pld.nta2020 as nta,
 		pld.borough
 
 		
@@ -302,15 +302,21 @@ CREATE TABLE wow_indicators_temporary AS
 	LEFT JOIN evic_oca USING(bbl)
 	LEFT JOIN hpd_vacate USING(bbl)
 	LEFT JOIN dob_vacate using (bin)
-	LEFT JOIN pluto_latest_districts AS pld USING(bbl)
+	LEFT JOIN pluto_latest_districts_25a AS pld USING(bbl)
 	LEFT JOIN latest_deeds using(bbl)
 	LEFT JOIN portfolios using (bbl) 
 	LEFT JOIN hpd_lit using (bbl)
 	LEFT JOIN hpd_link using(bbl)
 	WHERE bbl IS NOT NULL;
-	
-
-drop table if exists wow_indicators cascade;
-alter table wow_indicators_temporary rename to wow_indicators;
 
 create index on wow_indicators (bbl);
+create index on wow_indicators (coun_dist);
+create index on wow_indicators (assem_dist);
+create index on wow_indicators (stsen_dist);
+create index on wow_indicators (cong_dist);
+create index on wow_indicators (community_dist);
+create index on wow_indicators (zipcode);
+create index on wow_indicators (census_tract);
+create index on wow_indicators (nta);
+create index on wow_indicators (borough);
+create index on wow_indicators (lastsaledate);

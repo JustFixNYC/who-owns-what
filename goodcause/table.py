@@ -15,5 +15,6 @@ class GoodCauseConfig:
 def populate_tables(wow_cur, config: GoodCauseConfig):
     print(f"Creating Good Cause Eviction tables")
     for f in config.sql_files:
+        print(f"- {f.stem}")
         sql = f.read_text()
         wow_cur.execute(sql)

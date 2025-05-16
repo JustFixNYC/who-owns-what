@@ -350,14 +350,16 @@ const BuildingStatsTableWithoutI18n = (props: { addr: AddressRecord; timelineUrl
       </Modal>
       <div className="BuildingStatsTable card-body-table">
         <table>
-          <BBL />
-          <YearBuilt />
-          <UnitsRes />
-          <RsUnits />
-          <OpenViolations />
-          <TotalViolations />
-          <EvictionFilings />
-          <EvictionsExecuted />
+          <tbody>
+            <BBL />
+            <YearBuilt />
+            <UnitsRes />
+            <RsUnits />
+            <OpenViolations />
+            <TotalViolations />
+            <EvictionFilings />
+            <EvictionsExecuted />
+          </tbody>
         </table>
         <div className="table-row timeline-link">
           <TimelineLink url={props.timelineUrl} />

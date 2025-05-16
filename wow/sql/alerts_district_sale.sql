@@ -8,7 +8,7 @@ SELECT
 	x.lastsaledate,
 	count(*) over () as total_sales
 FROM wow_bldgs 
-LEFT JOIN pluto_latest_districts AS pld USING(bbl)
+LEFT JOIN pluto_latest_districts_25a AS pld USING(bbl)
 LEFT JOIN wow_indicators as x using(bbl)
 WHERE bbl IS NOT NULL
 	and (pld.coun_dist = ANY(%(coun_dist)s)

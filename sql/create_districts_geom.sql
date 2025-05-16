@@ -1,52 +1,52 @@
 CREATE TABLE wow_districts_geom AS (
 	WITH city_council AS (
 		SELECT 
-			'coun_dist' AS typevalue,
-			'City Council District' AS typelabel,
+			'coun_dist'::text AS typevalue,
+			'City Council District'::text AS typelabel,
 			coundist::text AS areavalue,
-			'District ' || coundist AS arealabel,
+			'District '::text || coundist AS arealabel,
 			geom
-		FROM nycc
+		FROM nycc_25a
 	), state_assembly AS (
 		SELECT 
-		  'assem_dist' AS typevalue,
-			'State Assembly District' AS typelabel,
+		  'assem_dist'::text AS typevalue,
+			'State Assembly District'::text AS typelabel,
 			assemdist::text AS areavalue,
-			'District ' || assemdist AS arealabel,
+			'District '::text || assemdist AS arealabel,
 		  geom
-		FROM nyad
+		FROM nyad_25a
 	), state_senate AS (
 		SELECT 
-		  'stsen_dist' AS typevalue,
-			'State Senate District' AS typelabel,
+		  'stsen_dist'::text AS typevalue,
+			'State Senate District'::text AS typelabel,
 			stsendist::text AS areavalue,
-			'District ' || stsendist AS arealabel,
+			'District '::text || stsendist AS arealabel,
 			geom
-		FROM nyss
+		FROM nyss_25a
 	), congress AS (
 		SELECT 
-		  'cong_dist' AS typevalue,
-			'Congressional District' AS typelabel,
+			'cong_dist'::text AS typevalue,
+			'Congressional District'::text AS typelabel,
 			congdist::text AS areavalue,
-			'District ' || congdist AS arealabel,
+			'District '::text || congdist AS arealabel,
 		  geom
-		FROM nycg
+		FROM nycg_25a
 	), nta AS (
 		SELECT 
-		  'nta' AS typevalue,
-			'Neighborhood' AS typelabel,
+			'nta'::text AS typevalue,
+			'Neighborhood'::text AS typelabel,
 			nta2020::text AS areavalue,
-			ntaname AS arealabel,
-		  geom
-		FROM nynta2020
+			ntaname::text AS arealabel,
+			geom
+		FROM nynta2020_25a
 	), borough AS (
 		SELECT 
-		  'borough' AS typevalue,
-			'Borough' AS typelabel,
+		  'borough'::text AS typevalue,
+			'Borough'::text AS typelabel,
 			borocode::text AS areavalue,
-			boroname AS arealabel,
+			boroname::text AS arealabel,
 		  geom
-		FROM nybb
+		FROM nybb_25a
 	), cd_names AS (
 		SELECT DISTINCT ON (cdta2020)
 		  borocode,
@@ -54,24 +54,24 @@ CREATE TABLE wow_districts_geom AS (
 		  REGEXP_REPLACE(cdtaname, '\(CD.*$|\(JIA.*$', '') AS cdtaname,
 		  -- Extract numbers from cdta2020 and concatenate with borocode
 		  borocode || REGEXP_REPLACE(cdta2020, '\D', '', 'g') AS borocd
-		FROM nynta2020
+		FROM nynta2020_25a
 	), community_district AS (
 		SELECT 
-		  'community_dist' AS typevalue,
-			'Community District' AS typelabel,
-			nycd.borocd::text AS areavalue,
+		  'community_dist'::text AS typevalue,
+			'Community District'::text AS typelabel,
+			cd.borocd::text AS areavalue,
 			trim(x.cdtaname) AS arealabel,
-			nycd.geom AS geom
+			cd.geom AS geom
 		FROM cd_names as x
-		FULL JOIN nycd ON nycd.borocd::text = x.borocd
+		FULL JOIN nycd_25a as cd ON cd.borocd::text = x.borocd
 	), zip_code AS (
 		
 		SELECT 
-		  'zipcode' AS typevalue,
-			'Zip Code' AS typelabel,
+			'zipcode'::text AS typevalue,
+			'Zip Code'::text AS typelabel,
 			zipcode::text AS areavalue,
 			zipcode AS arealabel,
-		  geom
+			geom
 		FROM zipcodes
 	)
 	SELECT *

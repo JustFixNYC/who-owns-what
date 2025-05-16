@@ -78,7 +78,7 @@ const HomePage: React.FC<HomePageProps> = ({ useNewPortfolioMethod }) => {
 
   const handleFormSubmit = (searchAddress: SearchAddress, error: any) => {
     logAmplitudeEvent("searchByAddress");
-    window.gtag("event", "search");
+    window.gtag("event", "search", { bbl: searchAddress.bbl });
 
     if (error) {
       window.gtag("event", "search-error");
