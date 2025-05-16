@@ -38,8 +38,8 @@ const BuildingSubscriptionFieldWithoutI18n = (props: BuildingSubscriptionFieldPr
         rel="noreferrer noopener"
       >
         {/* title case styling via css only works if address is lowercase */}
-        <span className="street-address">{`${housenumber} ${streetname.toLowerCase()},`}</span>
-        <span>{`${boro}, NY`}</span>
+        <span className="street-address">{`${housenumber} ${helpers.titleCase(streetname)},`}</span>
+        <span>{`${helpers.titleCase(boro)}, NY`}</span>
       </a>
       <Button
         type="submit"

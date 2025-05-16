@@ -84,7 +84,7 @@ const UnsubscribePage = withI18n()((props: withI18nProps) => {
         {buildingSubs?.map((s) => (
           <BuildingSubscriptionField key={s.bbl} {...s} onRemoveClick={handleUnsubscribeBuilding} />
         ))}
-        {!!buildingSubsNumber && (
+        {!!buildingSubsNumber && buildingSubsNumber > 1 && (
           <div className="unsubscribe-all-field">
             <Button
               variant="secondary"
@@ -103,7 +103,7 @@ const UnsubscribePage = withI18n()((props: withI18nProps) => {
         {districtSubs?.map((s) => (
           <DistrictSubscriptionField key={s.pk} {...s} onRemoveClick={handleUnsubscribeDistrict} />
         ))}
-        {!!districtSubsNumber && (
+        {!!districtSubsNumber && districtSubsNumber > 1 && (
           <div className="unsubscribe-all-field">
             <Button
               variant="secondary"
