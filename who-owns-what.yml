@@ -20,6 +20,7 @@ dependencies:
   - oca
   - boundaries_25a
   - zipcodes
+  - pad
   - pluto_latest_districts_25a
 api_dependencies:
   # These are NYCDB datasets that aren't needed by the
@@ -87,3 +88,4 @@ extra_nycdb_test_data:
   # boundaries v25a
   - "tests/data/ny*_25a.zip"
   - "tests/data/nyc-zip-codes.zip"
+  - "tests/data/pad.zip"
