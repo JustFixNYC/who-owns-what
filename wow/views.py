@@ -1,3 +1,4 @@
+import ast
 import csv
 import logging
 from pathlib import Path
@@ -15,7 +16,9 @@ from .apiutil import (
 )
 from .forms import (
     DatasetLastUpdatedForm,
+    DistrictTypeForm,
     EmailAlertBuilding,
+    EmailAlertDistrict,
     PaddedBBLForm,
     SeparatedBBLForm,
     SignatureCollectionForm,
@@ -352,6 +355,83 @@ def gce_screener(request):
     """
     bbl = get_request_bbl(request)
     result = exec_db_query(SQL_DIR / "gce_screener.sql", {"bbl": bbl})
+    return JsonResponse({"result": list(result)})
+
+
+@api
+def districts_geojson(request):
+    """
+    This API endpoint for WOW District Alerts receives requests with a type of
+    district ("typevalue"). It responds with a two geojson feature collections,
+    one for the district shapes and one with points for label placement.
+    """
+    args = get_validated_form_data(DistrictTypeForm, request.GET)
+    result = exec_db_query(
+        SQL_DIR / "districts_geojson.sql", {"district_type": args["district_type"]}
+    )
+    return JsonResponse({"result": list(result)})
+
+
+def get_district_query_params(args: Dict[str, Any]):
+    def safe_literal_eval(val):
+        try:
+            parsed = ast.literal_eval(val)
+            return parsed if isinstance(parsed, list) else []
+        except (ValueError, SyntaxError):
+            return ""
+
+    query_params = {
+        "coun_dist": safe_literal_eval(args["coun_dist"]),
+        "nta": safe_literal_eval(args["nta"]),
+        "borough": safe_literal_eval(args["borough"]),
+        "community_dist": safe_literal_eval(args["community_dist"]),
+        "cong_dist": safe_literal_eval(args["cong_dist"]),
+        "assem_dist": safe_literal_eval(args["assem_dist"]),
+        "stsen_dist": safe_literal_eval(args["stsen_dist"]),
+        "zipcode": safe_literal_eval(args["zipcode"]),
+    }
+
+    return query_params
+
+
+@api
+def email_alerts_district(request):
+    authorize_for_alerts(request)
+    args = get_validated_form_data(EmailAlertDistrict, request.GET)
+    query_params = get_district_query_params(args)
+    print(query_params)
+    query_sql = SQL_DIR / "alerts_district.sql"
+    result = exec_db_query(query_sql, query_params)
+    return JsonResponse({"result": list(result)})
+
+
+@api
+def district_vacate_order(request):
+    authorize_for_alerts(request)
+    args = get_validated_form_data(EmailAlertDistrict, request.GET)
+    query_params = get_district_query_params(args)
+    query_sql = SQL_DIR / "alerts_district_vacate_order.sql"
+    result = exec_db_query(query_sql, query_params)
+    return JsonResponse({"result": list(result)})
+
+
+@api
+def district_building_sale(request):
+    authorize_for_alerts(request)
+    args = get_validated_form_data(EmailAlertDistrict, request.GET)
+    query_params = get_district_query_params(args)
+    query_sql = SQL_DIR / "alerts_district_sale.sql"
+    result = exec_db_query(query_sql, query_params)
+    return JsonResponse({"result": list(result)})
+
+
+@api
+def district_litigation(request):
+    authorize_for_alerts(request)
+    args = get_validated_form_data(EmailAlertDistrict, request.GET)
+    query_params = get_district_query_params(args)
+    query_sql = SQL_DIR / "alerts_district_litigation.sql"
+    result = exec_db_query(query_sql, query_params)
     return JsonResponse({"result": list(result)})
 
 

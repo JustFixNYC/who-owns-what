@@ -1,5 +1,6 @@
 from django import forms
 from django.core.validators import RegexValidator
+from django.core.exceptions import ValidationError
 
 
 class PaddedBBLForm(forms.Form):
@@ -72,3 +73,35 @@ class SignatureCollectionForm(forms.Form):
 
 class DatasetLastUpdatedForm(forms.Form):
     dataset = forms.CharField(required=False)
+
+
+def validate_district_types(value):
+    VALID_DISTRICTS = [
+        "coun_dist",
+        "nta",
+        "borough",
+        "community_dist",
+        "cong_dist",
+        "assem_dist",
+        "stsen_dist",
+        "zipcode",
+    ]
+    if value not in VALID_DISTRICTS:
+        raise ValidationError(
+            f"{value} is not a valid district type. Must be on of {', '.join(VALID_DISTRICTS)}",
+        )
+
+
+class DistrictTypeForm(forms.Form):
+    district_type = forms.CharField(validators=[validate_district_types])
+
+
+class EmailAlertDistrict(forms.Form):
+    coun_dist = forms.CharField(required=False)
+    nta = forms.CharField(required=False)
+    borough = forms.CharField(required=False)
+    community_dist = forms.CharField(required=False)
+    cong_dist = forms.CharField(required=False)
+    assem_dist = forms.CharField(required=False)
+    stsen_dist = forms.CharField(required=False)
+    zipcode = forms.CharField(required=False)

@@ -5,6 +5,7 @@ import { t } from "@lingui/macro";
 import { I18n, MessageDescriptor } from "@lingui/core";
 import React, { useEffect, useState, ChangeEvent } from "react";
 import _ from "lodash";
+import { AreaProperties } from "containers/DistrictAlertsPage";
 
 const hpdComplaintTypeTranslations = new Map([
   ["DOOR/WINDOW", t`DOOR/WINDOW`],
@@ -62,6 +63,17 @@ const hpdContactTitleTranslations = new Map([
 export const longDateOptions = { year: "numeric", month: "short", day: "numeric" };
 export const mediumDateOptions = { year: "numeric", month: "long" };
 export const shortDateOptions = { month: "short" };
+
+const areaTypeLabelTranslations = new Map([
+  ["nta", t`Neighborhood`],
+  ["cong_dist", t`Congressional District`],
+  ["coun_dist", t`City Council District`],
+  ["community_dist", t`Community District`],
+  ["assem_dist", t`State Assembly District`],
+  ["stsen_dist", t`State Senate District`],
+  ["zipcode", t`Zip Code`],
+  ["borough", t`Borough`],
+]);
 
 // https://www.geeksforgeeks.org/how-to-detect-the-user-browser-safari-chrome-ie-firefox-and-opera-using-javascript/
 export const getBrowserName = () => {
@@ -121,6 +133,11 @@ const translateContactTitle = createTranslationFunctionFromMap(
 const getContactTitleInEnglish = createTranslationFunctionFromMap(
   hpdContactTitleTranslations,
   "HPD Contact title",
+  "en"
+);
+const translateAreaTypeLabel = createTranslationFunctionFromMap(
+  areaTypeLabelTranslations,
+  "Area Type Label",
   "en"
 );
 
@@ -417,6 +434,19 @@ const helpers = {
     e = e || window.event;
     // Control keys (tab, delete, arrows, etc.) are length > 1
     if (!/^\d$/.test(e.key) && e.key.length === 1) e.preventDefault();
+  },
+
+  /**
+   * Format and translate Area Alerts district labels for display on settings or
+   * selection chips
+   */
+  formatTranslatedAreaLabel(area: AreaProperties, i18n: I18n): string {
+    const { typeValue, areaLabel } = area;
+    const formattedLabel = ["nta", "zipcode", "borough"].includes(typeValue)
+      ? areaLabel
+      : `${translateAreaTypeLabel(typeValue, i18n)} ${areaLabel.replace(/district\s*/i, "")}`;
+
+    return formattedLabel;
   },
 };
 

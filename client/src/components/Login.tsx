@@ -17,7 +17,7 @@ import { Alert } from "./Alert";
 import SendNewLink from "./SendNewLink";
 import { JFCLLocaleLink } from "i18n";
 import { createRouteForAddressPage, createWhoOwnsWhatRoutePaths } from "routes";
-import { AddressRecord } from "./APIDataTypes";
+import { AddressRecord, District } from "./APIDataTypes";
 import { isLegacyPath } from "./WowzaToggle";
 import { Nobr } from "./Nobr";
 
@@ -37,16 +37,15 @@ const LoginWithoutI18n = (props: withI18nProps) => {
 
   const userContext = useContext(UserContext);
   const { user } = userContext;
-  const { home, account, termsOfUse, privacyPolicy } = createWhoOwnsWhatRoutePaths();
+  const { home, account, termsOfUse, privacyPolicy, areaAlerts } = createWhoOwnsWhatRoutePaths();
   const history = useHistory();
-  const location = useLocation();
-  const { pathname } = location;
-
-  const { state: locationState } = location;
+  const { pathname, state: locationState } = useLocation();
   const [addr, setAddr] = React.useState<AddressRecord>();
-  // switch to regular state and clear location state since it othrwise persists after reloads
+  const [district, setDistrict] = React.useState<District>();
+  // switch to regular state and clear location state since it otherwise persists after reloads
   useEffect(() => {
     setAddr(locationState?.addr);
+    setDistrict(locationState?.district);
     window.history.replaceState({ state: undefined }, "");
   }, [locationState]);
 
@@ -92,7 +91,7 @@ const LoginWithoutI18n = (props: withI18nProps) => {
 
   const eventParams = (user?: JustfixUser) => {
     const customParams = {
-      from: !!addr ? "building page" : "nav",
+      from: !!addr ? "building page" : !!district ? "district page" : "nav",
       branch: BRANCH_NAME,
     };
     const params = !!user?.id
@@ -119,7 +118,7 @@ const LoginWithoutI18n = (props: withI18nProps) => {
 
   const subscribeOnSuccess = (user: JustfixUser) => {
     !!addr &&
-      userContext.subscribe(
+      userContext.subscribeBuilding(
         addr.bbl,
         addr.housenumber,
         addr.streetname,
@@ -127,6 +126,8 @@ const LoginWithoutI18n = (props: withI18nProps) => {
         addr.boro,
         user
       );
+
+    !!district && userContext.subscribeDistrict(district, user);
   };
 
   const resetAlertErrorStates = () => {
@@ -255,7 +256,7 @@ const LoginWithoutI18n = (props: withI18nProps) => {
           size="large"
           onClick={() => {
             AuthClient.resendVerifyEmail();
-            const from = (!!addr ? "building page " : "nav ") + loginOrRegister;
+            const from = `${eventParams().from} ${loginOrRegister}`;
             window.gtag("event", "email-verify-resend", { ...eventParams(user), from });
           }}
         />
@@ -274,17 +275,40 @@ const LoginWithoutI18n = (props: withI18nProps) => {
           </Link>
         </div>
       )}
+      {!!district && (
+        <div className="district-page-link">
+          <Link
+            to={{ pathname: areaAlerts, state: { justSubscribed: true } }}
+            component={JFCLLink}
+            onClick={() =>
+              window.gtag("event", "register-return-district", { ...eventParams(user) })
+            }
+          >
+            <Icon icon="arrowRight" />
+            Back to District Alerts
+          </Link>
+        </div>
+      )}
     </>
   );
 
   const renderLoginSuccess = () => (
     <>
       <Trans render="h1">You are logged in</Trans>
-      <Trans render="h2">
-        <JFCLLocaleLink to={home}>Search for an address</JFCLLocaleLink> to add to your Building
-        Updates, or visit your <JFCLLocaleLink to={account.settings}>email settings</JFCLLocaleLink>{" "}
-        page to manage subscriptions.
-      </Trans>
+      {!!district ? (
+        <Trans render="h2">
+          We have added Area Alerts to your weekly emails. Visit your{" "}
+          <JFCLLocaleLink to={account.settings}>email settings</JFCLLocaleLink> to manage Area
+          Alerts.
+        </Trans>
+      ) : (
+        <Trans render="h2">
+          <JFCLLocaleLink to={home}>Search for an address</JFCLLocaleLink> to add to your Building
+          Alerts, <JFCLLocaleLink to={areaAlerts}>subscribe to Area Alerts</JFCLLocaleLink>, or
+          visit your <JFCLLocaleLink to={account.settings}>email settings</JFCLLocaleLink> page to
+          manage subscriptions.
+        </Trans>
+      )}
     </>
   );
 
@@ -317,7 +341,7 @@ const LoginWithoutI18n = (props: withI18nProps) => {
       return;
     }
 
-    // context doesn't update immediately so need to reurn user to check verified status
+    // context doesn't update immediately so need to rerun user to check verified status
     const resp = await userContext.login(email, password, subscribeOnSuccess);
 
     if (!!resp?.error) {
@@ -328,9 +352,10 @@ const LoginWithoutI18n = (props: withI18nProps) => {
 
     window.gtag("event", "login-success", eventParams(resp?.user));
 
-    if (!!addr) {
+    if (!!addr || !!district) {
       const subscribeEventParams = { ...eventParams(), from: "login" };
-      window.gtag("event", "subscribe-building-via-register-login", { ...subscribeEventParams });
+      const eventName = `subscribe-${!!addr ? "building" : "district"}-via-register-login`;
+      window.gtag("event", eventName, { ...subscribeEventParams });
     }
 
     if (!resp?.user?.verified) {
@@ -340,8 +365,11 @@ const LoginWithoutI18n = (props: withI18nProps) => {
       return;
     }
 
-    if (!!addr) {
-      const redirectTo = { pathname: getAddrPageRoute(addr), state: { justSubscribed: true } };
+    if (!!addr || !!district) {
+      const redirectTo = {
+        pathname: !!addr ? getAddrPageRoute(addr) : account.settings,
+        state: { justSubscribed: true },
+      };
       history.push(redirectTo);
       return;
     }
@@ -394,9 +422,10 @@ const LoginWithoutI18n = (props: withI18nProps) => {
 
     window.gtag("event", "register-success", eventParams(resp?.user));
 
-    if (!!addr) {
+    if (!!addr || !!district) {
       const subscribeEventParams = { ...eventParams(), from: "register" };
-      window.gtag("event", "subscribe-building-via-register-login", { ...subscribeEventParams });
+      const eventName = `subscribe-${!!addr ? "building" : "district"}-via-register-login`;
+      window.gtag("event", eventName, { ...subscribeEventParams });
     }
 
     setLoginOrRegister("register");
@@ -412,8 +441,14 @@ const LoginWithoutI18n = (props: withI18nProps) => {
       headerText = i18n._(t`Log in / sign up`);
       subHeaderText = (
         <Trans>
-          Use your account to get weekly email updates on{" "}
-          {!!addr ? formatAddr(addr, false) : <>the buildings you choose</>}.
+          Use your account to get weekly email alerts on{" "}
+          {!!addr ? (
+            <>{formatAddr(addr, false)}.</>
+          ) : !!district ? (
+            <>buildings in your area.</>
+          ) : (
+            <>the buildings you choose.</>
+          )}
         </Trans>
       );
       onSubmit = onEmailSubmit;
@@ -423,17 +458,19 @@ const LoginWithoutI18n = (props: withI18nProps) => {
       headerText = i18n._(t`Log in`);
       subHeaderText = !!addr ? (
         <Trans>Log in to add {formatAddr(addr, false)} to your Building Alerts</Trans>
+      ) : !!district ? (
+        <Trans>Log in to subscribe to Area Alerts</Trans>
       ) : undefined;
       onSubmit = onLoginSubmit;
       submitButtonText = i18n._(t`Log in`);
       break;
     case Step.RegisterAccount:
-      headerText = i18n._(t`Sign up for Building Alerts`);
+      headerText = i18n._(t`Sign up for Email Alerts`);
       onSubmit = onAccountSubmit;
       submitButtonText = i18n._(t`Next`);
       break;
     case Step.RegisterUserType:
-      headerText = i18n._(t`Sign up for Building Alerts`);
+      headerText = i18n._(t`Sign up for Email Alerts`);
       subHeaderText = i18n._(t`Which best describes you?`);
       onSubmit = onUserTypeSubmit;
       submitButtonText = "Sign up";
@@ -463,6 +500,7 @@ const LoginWithoutI18n = (props: withI18nProps) => {
             setIsLoading(true);
             resetAlertErrorStates();
             await onSubmit();
+            // if OnSubmit redirects, state change below raises memory leak warning, but not a problem
             setIsLoading(false);
           }}
         >

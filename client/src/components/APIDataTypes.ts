@@ -1,5 +1,6 @@
 // TYPES ASSOCIATED WITH INPUT DATA:
 
+import { AreaProperties } from "containers/DistrictAlertsPage";
 import { SearchAddress } from "./AddressSearch";
 
 export type Borough = "MANHATTAN" | "BRONX" | "BROOKLYN" | "QUEENS" | "STATEN ISLAND";
@@ -195,6 +196,8 @@ export type MonthlyTimelineData = {
 export type IndicatorsHistoryResults = {
   result: MonthlyTimelineData[];
 };
+
+export type District = AreaProperties[];
 
 export type DatasetTrackerInfo = {
   dataset: string;

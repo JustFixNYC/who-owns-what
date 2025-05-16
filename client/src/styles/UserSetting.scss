@@ -14,27 +14,31 @@
       text-decoration: none;
     }
   }
-
+  &.building-subscriptions-container {
+    margin-bottom: 3rem;
+  }
+  .subscription-district {
+    margin: 0 1.5rem 0 0;
+    width: -webkit-fill-available;
+  }
   a.subscription-address {
     display: flex;
-    flex: 1;
+    margin-right: auto;
     flex-direction: column;
     color: $justfix-black;
     cursor: pointer;
-    font-weight: 600;
   }
-
   a.subscription-address:hover {
     text-decoration: none;
   }
-
-  .street-address {
-    text-transform: capitalize;
-    font-size: 1.125rem;
+  .subscription-district,
+  a.subscription-address {
+    font-size: 1rem;
+    font-weight: 500;
   }
 }
 
-.settings-no-subscriptions {
+.settings-callout {
   padding: 1.6rem;
   background-color: $justfix-grey-50;
   border-radius: 4px;

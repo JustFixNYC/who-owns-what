@@ -9,10 +9,19 @@ dependencies:
   - hpd_registrations
   - hpd_violations
   - hpd_complaints
+  - hpd_vacateorders
+  - hpd_litigations
+  - dob_violations
+  - dob_complaints
+  - ecb_violations
   - dof_exemptions
   - acris
   - nycha_bbls
   - oca
+  - boundaries_25a
+  - zipcodes
+  - pad
+  - pluto_latest_districts_25a
 api_dependencies:
   # These are NYCDB datasets that aren't needed by the
   # SQL scripts, but which the Django server uses
@@ -48,7 +57,7 @@ signature_post_sql:
 good_cause_sql:
   - create_gce_common.sql
   - create_gce_screener.sql
-sql:
+wow_pre_sql:
   # These SQL scripts must be executed in order, as
   # some of them depend on others.
   - registrations_with_contacts.sql
@@ -59,6 +68,12 @@ sql:
   - landlord_contact.sql
   - create_landlords_table.sql
   - create_portfolios_table.sql
+wow_post_sql:
+  # These SQL scripts are run after the above "pre" scripts and the wow_portfolios
+  # table is populated via /portfoliograph python functions.
+  - create_districts_geom.sql
+  - create_districts_geojson.sql
+  - create_indicators_table.sql
 extra_nycdb_test_data:
   # This is extra data our tests need that we don't
   # create ourselves via factories.
@@ -67,3 +82,10 @@ extra_nycdb_test_data:
   - "tests/data/rentstab_counts_from_doffer_2023.csv"
   - "tests/data/taxbills_joined.csv"
   - "tests/data/hpd_complaints_and_problems.csv"
+  - "tests/data/hpd_litigations.csv"
+  - "tests/data/hpd_vacateorders.csv"
+  - "tests/data/dob_complaints.csv"
+  # boundaries v25a
+  - "tests/data/ny*_25a.zip"
+  - "tests/data/nyc-zip-codes.zip"
+  - "tests/data/pad.zip"

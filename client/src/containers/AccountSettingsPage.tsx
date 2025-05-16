@@ -8,13 +8,14 @@ import "styles/UserSetting.css";
 import Page from "components/Page";
 import { UserContext } from "components/UserContext";
 import { EmailSettingField, PasswordSettingField } from "components/UserSettingField";
-import { JustfixUser } from "state-machine";
+import { DistrictSubscription, JustfixUser } from "state-machine";
 import { createRouteForAddressPage, createWhoOwnsWhatRoutePaths } from "routes";
 import { Borough } from "components/APIDataTypes";
 import { LocaleNavLink } from "i18n";
 import { useLocation } from "react-router-dom";
+import helpers from "util/helpers";
 
-type SubscriptionFieldProps = withI18nProps & {
+type BuildingSubscriptionFieldProps = withI18nProps & {
   bbl: string;
   housenumber: string;
   streetname: string;
@@ -22,7 +23,7 @@ type SubscriptionFieldProps = withI18nProps & {
   onRemoveClick: (bbl: string) => void;
 };
 
-const SubscriptionFieldWithoutI18n = (props: SubscriptionFieldProps) => {
+const BuildingSubscriptionFieldWithoutI18n = (props: BuildingSubscriptionFieldProps) => {
   const { bbl, housenumber, streetname, boro, onRemoveClick, i18n } = props;
   return (
     <div className="subscription-field">
@@ -37,8 +38,8 @@ const SubscriptionFieldWithoutI18n = (props: SubscriptionFieldProps) => {
         rel="noreferrer noopener"
       >
         {/* title case styling via css only works if address is lowercase */}
-        <span className="street-address">{`${housenumber} ${streetname.toLowerCase()},`}</span>
-        <span>{`${boro}, NY`}</span>
+        <span className="street-address">{`${housenumber} ${helpers.titleCase(streetname)},`}</span>
+        <span>{`${helpers.titleCase(boro)}, NY`}</span>
       </a>
       <Button
         type="submit"
@@ -51,20 +52,54 @@ const SubscriptionFieldWithoutI18n = (props: SubscriptionFieldProps) => {
   );
 };
 
-export const SubscriptionField = withI18n()(SubscriptionFieldWithoutI18n);
+export const BuildingSubscriptionField = withI18n()(BuildingSubscriptionFieldWithoutI18n);
+
+type DistrictSubscriptionFieldProps = withI18nProps &
+  DistrictSubscription & {
+    onRemoveClick: (bbl: string) => void;
+  };
+
+const DistrictSubscriptionFieldWithoutI18n = (props: DistrictSubscriptionFieldProps) => {
+  const { district, pk, onRemoveClick, i18n } = props;
+  return (
+    <div className="subscription-field">
+      <span className="subscription-district">
+        {district.map((area, i) => helpers.formatTranslatedAreaLabel(area, i18n)).join(", ")}
+      </span>
+      <Button
+        type="submit"
+        variant="secondary"
+        size="small"
+        labelText={i18n._(t`Remove`)}
+        onClick={() => onRemoveClick(pk)}
+      />
+    </div>
+  );
+};
+
+export const DistrictSubscriptionField = withI18n()(DistrictSubscriptionFieldWithoutI18n);
 
 const AccountSettingsPage = withI18n()((props: withI18nProps) => {
   const { i18n } = props;
-  const { home } = createWhoOwnsWhatRoutePaths();
+  const { home, areaAlerts } = createWhoOwnsWhatRoutePaths();
   const { pathname } = useLocation();
   const userContext = useContext(UserContext);
   if (!userContext.user) return <div />;
   const user = userContext.user as JustfixUser;
-  const { email, subscriptions } = user;
-  const subscriptionsNumber = !!subscriptions ? subscriptions.length : 0;
+  const { email, buildingSubscriptions, districtSubscriptions } = user;
+  const buildingSubscriptionsNumber = buildingSubscriptions?.length || 0;
+  const districtSubscriptionsNumber = districtSubscriptions?.length || 0;
 
   const unsubscribeBuilding = (bbl: string) => {
-    userContext.unsubscribe(bbl);
+    userContext.unsubscribeBuilding(bbl);
+    window.gtag("event", "unsubscribe-building", {
+      user_id: user.id,
+      user_type: user.type,
+      from: "account settings",
+    });
+  };
+  const unsubscribeDistrict = (subscriptionId: string) => {
+    userContext.unsubscribeDistrict(subscriptionId);
     window.gtag("event", "unsubscribe-building", {
       user_id: user.id,
       user_type: user.type,
@@ -101,24 +136,72 @@ const AccountSettingsPage = withI18n()((props: withI18nProps) => {
           <div className="settings-section">
             <Trans render="h2">Building Alerts</Trans>
             <Trans render="p" className="section-description">
-              There <Plural value={subscriptionsNumber} one="is" other="are" />{" "}
-              {subscriptionsNumber}{" "}
-              <Plural value={subscriptionsNumber} one="building" other="buildings" /> in your weekly
-              emails
+              There <Plural value={buildingSubscriptionsNumber} one="is" other="are" />{" "}
+              {buildingSubscriptionsNumber}{" "}
+              <Plural value={buildingSubscriptionsNumber} one="building" other="buildings" /> in
+              your weekly emails
             </Trans>
-            <div className="subscriptions-container">
-              {subscriptions?.length ? (
+            <div className="subscriptions-container building-subscriptions-container">
+              {buildingSubscriptions?.length ? (
                 <>
-                  {subscriptions.map((s) => (
-                    <SubscriptionField key={s.bbl} {...s} onRemoveClick={unsubscribeBuilding} />
+                  {buildingSubscriptions.map((s) => (
+                    <BuildingSubscriptionField
+                      key={s.bbl}
+                      {...s}
+                      onRemoveClick={unsubscribeBuilding}
+                    />
                   ))}
                 </>
               ) : (
-                <Trans render="div" className="settings-no-subscriptions">
+                <Trans render="div" className="settings-callout">
                   <LocaleNavLink exact to={home}>
-                    Search for an address
+                    Search an address
                   </LocaleNavLink>{" "}
                   to add to your Building Alerts
+                </Trans>
+              )}
+            </div>
+            <Trans render="h2">District Alerts</Trans>
+            <Trans render="p" className="section-description">
+              {districtSubscriptionsNumber ? (
+                <>
+                  You are subscribed to{" "}
+                  <Plural
+                    value={districtSubscriptionsNumber}
+                    one="a weekly email for 1 district"
+                    other={`weekly emails for ${districtSubscriptionsNumber} districts`}
+                  />
+                </>
+              ) : (
+                <>You have not added area alerts to your weekly emails.</>
+              )}
+            </Trans>
+            <div className="subscriptions-container district-subscriptions-container">
+              {districtSubscriptions?.length ? (
+                <>
+                  {districtSubscriptions.map((s) => (
+                    <DistrictSubscriptionField
+                      key={s.pk}
+                      {...s}
+                      onRemoveClick={unsubscribeDistrict}
+                    />
+                  ))}
+                  <Trans render="div" className="settings-callout">
+                    <LocaleNavLink exact to={areaAlerts}>
+                      Add another area alert
+                    </LocaleNavLink>
+                  </Trans>
+                </>
+              ) : (
+                <Trans render="div" className="settings-callout">
+                  <p>
+                    Get a weekly email that identifies buildings and portfolios that exhibit urgent
+                    displacement indicators within a single area or multiple areas of the city.
+                  </p>
+                  <LocaleNavLink exact to={areaAlerts}>
+                    Add area alerts
+                  </LocaleNavLink>{" "}
+                  to add to your weekly emails
                 </Trans>
               )}
             </div>

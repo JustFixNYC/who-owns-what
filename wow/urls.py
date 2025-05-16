@@ -33,6 +33,23 @@ urlpatterns = [
     path("address/export", views.address_export, name="address_export"),
     path("address/latestdeed", views.address_latestdeed, name="address_latestdeed"),
     path("alerts/building", views.email_alerts_building, name="email_alerts_building"),
+    path("alerts/district", views.email_alerts_district, name="email_alerts_district"),
+    path("alerts/district/geojson", views.districts_geojson, name="districts_geojson"),
+    path(
+        "alerts/district/vacate_order",
+        views.district_vacate_order,
+        name="district_vacate_order",
+    ),
+    path(
+        "alerts/district/building_sale",
+        views.district_building_sale,
+        name="district_building_sale",
+    ),
+    path(
+        "alerts/district/litigation",
+        views.district_litigation,
+        name="district_litigation",
+    ),
     path("signature/building", views.signature_building, name="signature_building"),
     path(
         "signature/building/charts",

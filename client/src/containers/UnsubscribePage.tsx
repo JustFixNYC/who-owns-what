@@ -8,10 +8,10 @@ import "styles/UserSetting.css";
 import "styles/UnsubscribePage.css";
 import Page from "../components/Page";
 import AuthClient from "../components/AuthClient";
-import { SubscriptionField } from "./AccountSettingsPage";
+import { BuildingSubscriptionField, DistrictSubscriptionField } from "./AccountSettingsPage";
 import { createWhoOwnsWhatRoutePaths } from "routes";
 import { JFCLLocaleLink } from "i18n";
-import { BuildingSubscription } from "state-machine";
+import { BuildingSubscription, DistrictSubscription } from "state-machine";
 import { FixedLoadingLabel } from "components/Loader";
 import { STANDALONE_PAGES, StandalonePageFooter } from "components/StandalonePage";
 
@@ -20,13 +20,15 @@ const BRANCH_NAME = process.env.REACT_APP_BRANCH;
 const UnsubscribePage = withI18n()((props: withI18nProps) => {
   const { i18n } = props;
   const { search, pathname } = useLocation();
-  const { home } = createWhoOwnsWhatRoutePaths();
+  const { home, account, areaAlerts } = createWhoOwnsWhatRoutePaths();
   const params = new URLSearchParams(search);
   const token = params.get("u") || "";
-  const isEmailUnsubscribeAll = !!params.get("all");
 
-  const [subscriptions, setSubscriptions] = React.useState<BuildingSubscription[]>();
-  const subscriptionsNumber: number = subscriptions?.length || 0;
+  const [buildingSubs, setBuildingSubs] = React.useState<BuildingSubscription[]>();
+  const buildingSubsNumber = buildingSubs?.length;
+
+  const [districtSubs, setDistrictSubs] = React.useState<DistrictSubscription[]>();
+  const districtSubsNumber = districtSubs?.length;
 
   const pageName = STANDALONE_PAGES.find((x) => pathname.includes(x));
   const standalonePageEventParams = { from: pageName };
@@ -34,91 +36,107 @@ const UnsubscribePage = withI18n()((props: withI18nProps) => {
   useEffect(() => {
     const asyncFetchSubscriptions = async () => {
       const response = await AuthClient.emailUserSubscriptions(token);
-      setSubscriptions(response["subscriptions"]);
+      setBuildingSubs(response["building_subscriptions"]);
+      setDistrictSubs(response["district_subscriptions"]);
     };
     asyncFetchSubscriptions();
-
-    if (isEmailUnsubscribeAll) {
-      window.gtag("event", "unsubscribe-building-all-email-link", { branch: BRANCH_NAME });
-    } else {
-      window.gtag("event", "manage-subscriptions-email-link", { branch: BRANCH_NAME });
-    }
-  }, [token, isEmailUnsubscribeAll]);
+    window.gtag("event", "manage-subscriptions-email-link", { branch: BRANCH_NAME });
+  }, [token]);
 
   const handleUnsubscribeBuilding = async (bbl: string) => {
     const result = await AuthClient.emailUnsubscribeBuilding(bbl, token);
-    if (!!result?.["subscriptions"]) setSubscriptions(result["subscriptions"]);
+    if (!!result?.["building_subscriptions"]) setBuildingSubs(result["building_subscriptions"]);
     window.gtag("event", "unsubscribe-building", {
       from: "manage subscriptions",
       branch: BRANCH_NAME,
     });
   };
 
-  const handleUnsubscribeAll = async (from: string) => {
-    const result = await AuthClient.emailUnsubscribeAll(token);
-    if (!!result?.["subscriptions"]) setSubscriptions(result["subscriptions"]);
+  const handleUnsubscribeDistrict = async (subscriptionId: string) => {
+    const result = await AuthClient.emailUnsubscribeDistrict(subscriptionId, token);
+    if (!!result?.["district_subscriptions"]) setDistrictSubs(result["district_subscriptions"]);
+    window.gtag("event", "unsubscribe-district", {
+      from: "manage subscriptions",
+      branch: BRANCH_NAME,
+    });
+  };
+
+  const handleUnsubscribeAllBuilding = async (from: string) => {
+    const result = await AuthClient.emailUnsubscribeAllBuilding(token);
+    if (!!result?.["building_subscriptions"]) setBuildingSubs(result["building_subscriptions"]);
     window.gtag("event", "unsubscribe-building-all", { from: from, branch: BRANCH_NAME });
   };
 
-  const renderUnsubscribePage = () => (
-    <>
-      <Trans render="h1">Unsubscribe</Trans>
-      <h2>
-        <Trans>You are signed up for Building Alerts for</Trans> {subscriptionsNumber}{" "}
-        {subscriptionsNumber! === 1 ? <Trans>building</Trans> : <Trans>buildings</Trans>}.{" "}
-        <Trans>Click below to unsubscribe from all and stop receiving Building Alerts.</Trans>
-      </h2>
-      <Button
-        variant="primary"
-        size="large"
-        labelText={i18n._(t`Unsubscribe from all`)}
-        onClick={() => handleUnsubscribeAll("unsubscribe")}
-      />
-    </>
-  );
+  const handleUnsubscribeAllDistrict = async (from: string) => {
+    const result = await AuthClient.emailUnsubscribeAllDistrict(token);
+    if (!!result?.["district_subscriptions"]) setDistrictSubs(result["district_subscriptions"]);
+    window.gtag("event", "unsubscribe-district-all", { from: from, branch: BRANCH_NAME });
+  };
 
   const renderManageSubscriptionsPage = () => (
     <>
       <Trans render="h1">Manage Subscriptions</Trans>
       <h2 className="settings-section">
-        <Trans>You are signed up for Building Alerts for</Trans> {subscriptionsNumber}{" "}
-        {subscriptionsNumber! === 1 ? <Trans>building</Trans> : <Trans>buildings</Trans>}
+        <Trans>You are signed up for Building Alerts for</Trans> {buildingSubsNumber}{" "}
+        {buildingSubsNumber! === 1 ? <Trans>building</Trans> : <Trans>buildings</Trans>}
       </h2>
       <div className="subscriptions-container">
-        {subscriptions!.map((s) => (
-          <SubscriptionField key={s.bbl} {...s} onRemoveClick={handleUnsubscribeBuilding} />
+        {buildingSubs?.map((s) => (
+          <BuildingSubscriptionField key={s.bbl} {...s} onRemoveClick={handleUnsubscribeBuilding} />
         ))}
-        <div className="unsubscribe-all-field">
-          <Button
-            variant="secondary"
-            size="small"
-            labelText={i18n._(t`Unsubscribe from all`)}
-            onClick={() => handleUnsubscribeAll("manage subscriptions")}
-          />
-        </div>
+        {!!buildingSubsNumber && buildingSubsNumber > 1 && (
+          <div className="unsubscribe-all-field">
+            <Button
+              variant="secondary"
+              size="small"
+              labelText={i18n._(t`Unsubscribe from all buildings`)}
+              onClick={() => handleUnsubscribeAllBuilding("manage subscriptions")}
+            />
+          </div>
+        )}
+      </div>
+      <h2 className="settings-section">
+        <Trans>You are signed up for Area Alerts for</Trans> {districtSubsNumber}{" "}
+        {districtSubsNumber! === 1 ? <Trans>area</Trans> : <Trans>areas</Trans>}
+      </h2>
+      <div className="subscriptions-container">
+        {districtSubs?.map((s) => (
+          <DistrictSubscriptionField key={s.pk} {...s} onRemoveClick={handleUnsubscribeDistrict} />
+        ))}
+        {!!districtSubsNumber && districtSubsNumber > 1 && (
+          <div className="unsubscribe-all-field">
+            <Button
+              variant="secondary"
+              size="small"
+              labelText={i18n._(t`Unsubscribe from all areas`)}
+              onClick={() => handleUnsubscribeAllDistrict("manage subscriptions")}
+            />
+          </div>
+        )}
       </div>
     </>
   );
 
   const renderNoSubscriptionsPage = () => (
     <>
-      <Trans render="h1">You are not subscribed to any buildings</Trans>
+      <Trans render="h1">You are not subscribed to any Building or Area Alerts</Trans>
       <Trans render="h2">
-        <JFCLLocaleLink to={home}>Search for an address</JFCLLocaleLink> to add to Building Alerts
+        <JFCLLocaleLink to={home}>Search for an address</JFCLLocaleLink> to add to your Building
+        Alerts, <JFCLLocaleLink to={areaAlerts}>subscribe to Area Alerts</JFCLLocaleLink>, or visit
+        your <JFCLLocaleLink to={account.settings}>email settings</JFCLLocaleLink> page to manage
+        subscriptions.
       </Trans>
     </>
   );
 
   return (
-    <Page title={isEmailUnsubscribeAll ? i18n._(t`Unsubscribe`) : i18n._(t`Manage subscriptions`)}>
+    <Page title={i18n._(t`Manage subscriptions`)}>
       <div className="UnsubscribePage Page">
         <div className="page-container">
-          {subscriptions === undefined ? (
+          {buildingSubs === undefined || districtSubs === undefined ? (
             <FixedLoadingLabel />
-          ) : subscriptionsNumber === 0 ? (
+          ) : buildingSubsNumber === 0 && districtSubsNumber === 0 ? (
             renderNoSubscriptionsPage()
-          ) : isEmailUnsubscribeAll ? (
-            renderUnsubscribePage()
           ) : (
             renderManageSubscriptionsPage()
           )}

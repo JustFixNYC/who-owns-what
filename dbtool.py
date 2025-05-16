@@ -8,7 +8,7 @@ import copy
 import nycdb.dataset
 from nycdb.utility import list_wrap
 from urllib.parse import urlparse
-from typing import NamedTuple, Any, Tuple, Dict, List
+from typing import Literal, NamedTuple, Any, Tuple, Dict, List
 from pathlib import Path
 
 from portfoliograph.table import (
@@ -180,9 +180,11 @@ class NycDbBuilder:
 
     def ensure_dataset(self, name: str, force_refresh: bool = False) -> None:
         dataset = nycdb.dataset.datasets()[name]
-        tables: List[str] = [
-            schema["table_name"] for schema in list_wrap(dataset["schema"])
-        ]
+        tables: List[str] = (
+            [schema["table_name"] for schema in list_wrap(dataset["schema"])]
+            if "schema" in dataset
+            else []
+        )
         tables_str = "table" if len(tables) == 1 else "tables"
         print(
             f"Ensuring NYCDB dataset '{name}' is loaded with {len(tables)} {tables_str}..."
@@ -191,7 +193,7 @@ class NycDbBuilder:
         if force_refresh:
             self.drop_tables(*tables)
             self.delete_downloaded_data(*tables)
-        if not self.do_tables_exist(*tables):
+        if not tables or not self.do_tables_exist(*tables):
             print(f"Table {name} not found in the database. Downloading...")
             self.call_nycdb("--download", name)
             print(f"Loading {name} into the database...")
@@ -218,12 +220,16 @@ class NycDbBuilder:
         with self.conn.cursor() as cur:
             populate_oca_tables(cur, self.oca_config)
 
-        for sqlpath in get_sqlfile_paths():
+        for sqlpath in get_sqlfile_paths("pre"):
             print(f"Running {sqlpath.name}...")
             self.run_sql_file(sqlpath)
 
         with self.conn:
             populate_portfolios_table(self.conn)
+
+        for sqlpath in get_sqlfile_paths("post"):
+            print(f"Running {sqlpath.name}...")
+            self.run_sql_file(sqlpath)
 
 
 def get_dataset_dependencies(for_api: bool) -> List[str]:
@@ -233,8 +239,15 @@ def get_dataset_dependencies(for_api: bool) -> List[str]:
     return result
 
 
-def get_sqlfile_paths() -> List[Path]:
-    return [SQL_DIR / sqlfile for sqlfile in WOW_YML["sql"]]
+def get_sqlfile_paths(type: Literal["pre", "post", "all"]) -> List[Path]:
+    pre_sql = [SQL_DIR / sqlfile for sqlfile in WOW_YML["wow_pre_sql"]]
+    post_sql = [SQL_DIR / sqlfile for sqlfile in WOW_YML["wow_post_sql"]]
+    if type == "pre":
+        return pre_sql
+    elif type == "post":
+        return post_sql
+    else:
+        return pre_sql + post_sql
 
 
 def dbshell(db: DbContext):
