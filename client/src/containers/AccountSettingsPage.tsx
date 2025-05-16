@@ -81,7 +81,7 @@ export const DistrictSubscriptionField = withI18n()(DistrictSubscriptionFieldWit
 
 const AccountSettingsPage = withI18n()((props: withI18nProps) => {
   const { i18n } = props;
-  const { home, districtPage } = createWhoOwnsWhatRoutePaths();
+  const { home, areaAlerts } = createWhoOwnsWhatRoutePaths();
   const { pathname } = useLocation();
   const userContext = useContext(UserContext);
   if (!userContext.user) return <div />;
@@ -187,7 +187,7 @@ const AccountSettingsPage = withI18n()((props: withI18nProps) => {
                     />
                   ))}
                   <Trans render="div" className="settings-callout">
-                    <LocaleNavLink exact to={districtPage}>
+                    <LocaleNavLink exact to={areaAlerts}>
                       Add another area alert
                     </LocaleNavLink>
                   </Trans>
@@ -198,7 +198,7 @@ const AccountSettingsPage = withI18n()((props: withI18nProps) => {
                     Get a weekly email that identifies buildings and portfolios that exhibit urgent
                     displacement indicators within a single area or multiple areas of the city.
                   </p>
-                  <LocaleNavLink exact to={districtPage}>
+                  <LocaleNavLink exact to={areaAlerts}>
                     Add area alerts
                   </LocaleNavLink>{" "}
                   to add to your weekly emails

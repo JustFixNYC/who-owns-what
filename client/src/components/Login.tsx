@@ -37,7 +37,7 @@ const LoginWithoutI18n = (props: withI18nProps) => {
 
   const userContext = useContext(UserContext);
   const { user } = userContext;
-  const { home, account, termsOfUse, privacyPolicy, districtPage } = createWhoOwnsWhatRoutePaths();
+  const { home, account, termsOfUse, privacyPolicy, areaAlerts } = createWhoOwnsWhatRoutePaths();
   const history = useHistory();
   const { pathname, state: locationState } = useLocation();
   const [addr, setAddr] = React.useState<AddressRecord>();
@@ -278,7 +278,7 @@ const LoginWithoutI18n = (props: withI18nProps) => {
       {!!district && (
         <div className="district-page-link">
           <Link
-            to={{ pathname: districtPage, state: { justSubscribed: true } }}
+            to={{ pathname: areaAlerts, state: { justSubscribed: true } }}
             component={JFCLLink}
             onClick={() =>
               window.gtag("event", "register-return-district", { ...eventParams(user) })
@@ -304,7 +304,7 @@ const LoginWithoutI18n = (props: withI18nProps) => {
       ) : (
         <Trans render="h2">
           <JFCLLocaleLink to={home}>Search for an address</JFCLLocaleLink> to add to your Building
-          Alerts, <JFCLLocaleLink to={districtPage}>subscribe to Area Alerts</JFCLLocaleLink>, or
+          Alerts, <JFCLLocaleLink to={areaAlerts}>subscribe to Area Alerts</JFCLLocaleLink>, or
           visit your <JFCLLocaleLink to={account.settings}>email settings</JFCLLocaleLink> page to
           manage subscriptions.
         </Trans>
