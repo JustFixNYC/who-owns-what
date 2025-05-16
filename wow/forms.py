@@ -94,3 +94,14 @@ def validate_district_types(value):
 
 class DistrictTypeForm(forms.Form):
     district_type = forms.CharField(validators=[validate_district_types])
+
+
+class EmailAlertDistrict(forms.Form):
+    coun_dist = forms.CharField(required=False)
+    nta = forms.CharField(required=False)
+    borough = forms.CharField(required=False)
+    community_dist = forms.CharField(required=False)
+    cong_dist = forms.CharField(required=False)
+    assem_dist = forms.CharField(required=False)
+    stsen_dist = forms.CharField(required=False)
+    zipcode = forms.CharField(required=False)

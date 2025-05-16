@@ -1,12 +1,12 @@
 with req_bbl as (
-    SELECT %(bbl)s AS bbl
+    SELECT %(bbl)s::text AS bbl
 ),
 violations as (
     SELECT
         bbl,
         count(*) AS violations
     FROM hpd_violations
-    WHERE bbl = %(bbl)s
+    WHERE bbl = %(bbl)s::text
         AND coalesce(inspectiondate, novissueddate) BETWEEN %(start_date)s AND %(end_date)s
     GROUP BY bbl
 ),
@@ -15,7 +15,7 @@ complaints AS (
         bbl,
         count(*) AS complaints
     FROM hpd_complaints_and_problems
-    WHERE bbl = %(bbl)s
+    WHERE bbl = %(bbl)s::text
         AND receiveddate BETWEEN %(start_date)s AND %(end_date)s
     GROUP BY bbl
 ),
@@ -24,7 +24,7 @@ oca_report_threshold AS (
     	bbl,
         (coalesce(unitsres, 0) < 11) AS cant_report_oca
     FROM pluto_latest
-    WHERE bbl = %(bbl)s
+    WHERE bbl = %(bbl)s::text
 ),
 eviction_filings AS (
     SELECT
@@ -32,7 +32,7 @@ eviction_filings AS (
         coalesce(count(distinct indexnumberid), 0)::numeric AS eviction_filings
     FROM oca_index AS i
     LEFT JOIN oca_addresses_with_bbl AS a USING(indexnumberid)
-    WHERE a.bbl = %(bbl)s
+    WHERE a.bbl = %(bbl)s::text
         AND i.fileddate BETWEEN %(start_date)s AND %(end_date)s
         AND i.classification = any('{Holdover,Non-Payment}')
         AND i.propertytype = 'Residential'
@@ -46,7 +46,7 @@ lagged_oca AS (
     FROM oca_addresses_with_bbl AS a
     LEFT JOIN oca_index AS i USING(indexnumberid)
     LEFT JOIN oca_metadata AS m USING(indexnumberid)
-    WHERE a.bbl = %(bbl)s
+    WHERE a.bbl = %(bbl)s::text
         AND i.classification = any('{Holdover,Non-Payment}')
         AND i.propertytype = 'Residential'
         AND m.initialdate > %(prev_date)s 
@@ -63,7 +63,7 @@ hpd_link AS (
             ELSE NULL 
         END AS hpd_link
     FROM wow_bldgs
-    WHERE bbl = %(bbl)s
+    WHERE bbl = %(bbl)s::text
 )
 SELECT
     bbl,
