@@ -10,18 +10,17 @@ import {
 
 const MAPBOX_ACCESS_TOKEN = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN || "";
 
-// const MAPBOX_STYLE = "mapbox://styles/mapbox/light-v11";
-const MAPBOX_STYLE = "mapbox://styles/justfix/cm8yh302x005501qu6qhk1la2";
+const MAPBOX_STYLE = "mapbox://styles/justfix/cm8yk6082005q01qudd9mdnsf";
 
 type LatLng = [number, number];
 
-const DEFAULT_CENTER: LatLng = [-73.9716972669396, 40.70612846804647];
+const DEFAULT_CENTER: LatLng = [-73.91415139243611, 40.70338934328157];
 
-const DEFAULT_ZOOM = 9.25;
+const DEFAULT_ZOOM = 10.757625625010308;
 
 const MAX_BOUNDS: LngLatBoundsLike = [
-  [-74.29965918670848, 40.48691662492075],
-  [-73.64373534717369, 40.92462112945242],
+  [-74.94518949528236, 40.23318312963903],
+  [-73.01708890934479, 41.17119264359346],
 ];
 
 const MAP_CONFIGURABLES: Omit<mapboxgl.MapboxOptions, "container"> = {
@@ -29,19 +28,8 @@ const MAP_CONFIGURABLES: Omit<mapboxgl.MapboxOptions, "container"> = {
   style: MAPBOX_STYLE,
   center: DEFAULT_CENTER,
   zoom: DEFAULT_ZOOM,
-  minZoom: DEFAULT_ZOOM,
+  minZoom: DEFAULT_ZOOM - 2,
   maxBounds: MAX_BOUNDS,
-};
-
-const LABEL_MINZOOM: { [key: string]: number } = {
-  nta: 12,
-  coun_dist: 11.5,
-  borough: 9,
-  community_dist: 11,
-  cong_dist: 9.5,
-  assem_dist: 11,
-  stsen_dist: 10.5,
-  zipcode: 10.5,
 };
 
 type DistrictMapProps = {
@@ -49,12 +37,14 @@ type DistrictMapProps = {
   labelsData?: LabelsGeoJson;
   areaSelections: GeoJsonFeatureDistrict[];
   setAreaSelections: React.Dispatch<React.SetStateAction<GeoJsonFeatureDistrict[]>>;
+  saveButtonRef: React.MutableRefObject<HTMLButtonElement | null>;
 };
 export const DistrictMap: React.FC<DistrictMapProps> = ({
   districtsData,
   labelsData,
   areaSelections,
   setAreaSelections,
+  saveButtonRef,
 }) => {
   const [map, setMap] = useState<Map>();
 
@@ -144,12 +134,20 @@ export const DistrictMap: React.FC<DistrictMapProps> = ({
             "#000",
           ],
           "line-width": [
-            "case",
-            ["boolean", ["feature-state", "hovered"], false],
-            3,
-            ["boolean", ["feature-state", "selected"], false],
-            2,
-            1,
+            "interpolate",
+            ["linear"],
+            ["zoom"],
+            8, // start zoom
+            1, // start size
+            15, // end zoom
+            [
+              "case", // end size
+              ["boolean", ["feature-state", "hovered"], false],
+              6,
+              ["boolean", ["feature-state", "selected"], false],
+              2,
+              1,
+            ],
           ],
         },
       });
@@ -158,13 +156,12 @@ export const DistrictMap: React.FC<DistrictMapProps> = ({
         id: "labels",
         type: "symbol",
         source: "labels",
-        minzoom: 12,
         layout: {
           "text-field": ["get", "areaLabel"],
           "text-font": ["Open Sans Semibold", "Arial Unicode MS Bold"],
           "text-max-width": 10, // default
           "text-anchor": "center", // default
-          "text-size": 11,
+          "text-size": ["interpolate", ["linear"], ["zoom"], 8, 9, 17, 20],
         },
         paint: {
           "text-color": "#000",
@@ -186,6 +183,9 @@ export const DistrictMap: React.FC<DistrictMapProps> = ({
       if (!prev?.selected)
         setAreaSelections((prev) => prev.concat([(feature as unknown) as GeoJsonFeatureDistrict]));
       if (prev?.selected) setAreaSelections((prev) => prev.filter((x) => x.id !== feature.id));
+      saveButtonRef.current?.scrollIntoView({
+        behavior: "smooth",
+      });
     });
 
     map.on("mouseenter", "districts", (e) => {
@@ -211,7 +211,7 @@ export const DistrictMap: React.FC<DistrictMapProps> = ({
       }
     });
 
-    map.addControl(new NavigationControl({ showCompass: false }), "top-left");
+    map.addControl(new NavigationControl({ showCompass: false }), "bottom-right");
 
     map.dragRotate.disable();
     map.touchZoomRotate.disableRotation();
@@ -230,8 +230,6 @@ export const DistrictMap: React.FC<DistrictMapProps> = ({
     if (!map?.getSource("districts")) return;
     // @ts-ignore
     map.getSource("districts").setData(districtsData);
-    const areaTypeValue = districtsData.features[0].properties.typeValue;
-    map.setLayerZoomRange("labels", LABEL_MINZOOM[areaTypeValue], 23);
   }, [map, districtsData]);
 
   useEffect(() => {

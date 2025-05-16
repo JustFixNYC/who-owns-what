@@ -13,7 +13,7 @@ import { createRouteForAddressPage, createWhoOwnsWhatRoutePaths } from "routes";
 import { Borough } from "components/APIDataTypes";
 import { LocaleNavLink } from "i18n";
 import { useLocation } from "react-router-dom";
-import _groupBy from "lodash/groupBy";
+import helpers from "util/helpers";
 
 type BuildingSubscriptionFieldProps = withI18nProps & {
   bbl: string;
@@ -61,23 +61,11 @@ type DistrictSubscriptionFieldProps = withI18nProps &
 
 const DistrictSubscriptionFieldWithoutI18n = (props: DistrictSubscriptionFieldProps) => {
   const { district, pk, onRemoveClick, i18n } = props;
-  const groupedAreas = Object.entries(_groupBy(district, "typeLabel"));
   return (
     <div className="subscription-field">
-      <ul className="subscription-district">
-        {groupedAreas.map((group, i) => {
-          return (
-            <li key={i}>
-              {group[0]}s:
-              <ul>
-                {group[1].map((geo, i) => (
-                  <li key={i}>{geo.areaLabel}</li>
-                ))}
-              </ul>
-            </li>
-          );
-        })}
-      </ul>
+      <span className="subscription-district">
+        {district.map((area, i) => helpers.formatTranslatedAreaLabel(area, i18n)).join(", ")}
+      </span>
       <Button
         type="submit"
         variant="secondary"
@@ -93,7 +81,7 @@ export const DistrictSubscriptionField = withI18n()(DistrictSubscriptionFieldWit
 
 const AccountSettingsPage = withI18n()((props: withI18nProps) => {
   const { i18n } = props;
-  const { home, districtPage } = createWhoOwnsWhatRoutePaths();
+  const { home, areaAlerts } = createWhoOwnsWhatRoutePaths();
   const { pathname } = useLocation();
   const userContext = useContext(UserContext);
   if (!userContext.user) return <div />;
@@ -199,7 +187,7 @@ const AccountSettingsPage = withI18n()((props: withI18nProps) => {
                     />
                   ))}
                   <Trans render="div" className="settings-callout">
-                    <LocaleNavLink exact to={districtPage}>
+                    <LocaleNavLink exact to={areaAlerts}>
                       Add another area alert
                     </LocaleNavLink>
                   </Trans>
@@ -210,7 +198,7 @@ const AccountSettingsPage = withI18n()((props: withI18nProps) => {
                     Get a weekly email that identifies buildings and portfolios that exhibit urgent
                     displacement indicators within a single area or multiple areas of the city.
                   </p>
-                  <LocaleNavLink exact to={districtPage}>
+                  <LocaleNavLink exact to={areaAlerts}>
                     Add area alerts
                   </LocaleNavLink>{" "}
                   to add to your weekly emails

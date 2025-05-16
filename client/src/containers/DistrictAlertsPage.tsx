@@ -4,12 +4,15 @@ import { t, Trans } from "@lingui/macro";
 import { Button, Icon } from "@justfixnyc/component-library";
 import Select, { GroupBase, SelectInstance, SingleValue } from "react-select";
 import { useHistory } from "react-router-dom";
+import { isMobile } from "react-device-detect";
+import { I18n } from "@lingui/core";
 
 import "styles/DistrictAlertsPage.css";
 import Page from "components/Page";
 import { UserContext } from "components/UserContext";
 import { createWhoOwnsWhatRoutePaths } from "routes";
 import { DistrictMap } from "../components/DistrictMap";
+import helpers from "util/helpers";
 
 import districtTypes from "../data/district-types.json";
 
@@ -74,16 +77,19 @@ const DistrictCreation = withI18n()((props: withI18nProps) => {
   const history = useHistory();
   const { account } = createWhoOwnsWhatRoutePaths();
 
-  const defaultAreaType = areaTypeOptions.filter((area) => area.value === "nta")[0];
+  const defaultAreaType = areaTypeOptions.filter((area) => area.value === "zipcode")[0];
   const [areaType, setAreaType] = useState<AreaTypeOption>(defaultAreaType);
 
-  const areaOptions = areaType.districtsData?.features.map((x) => {
-    return {
-      label: x.properties.areaLabel,
-      value: x.properties.areaValue,
-      feature: x,
-    };
-  });
+  const collator = new Intl.Collator(undefined, { numeric: true, sensitivity: "base" });
+  const areaOptions = areaType.districtsData?.features
+    .map((x) => {
+      return {
+        label: x.properties.areaLabel,
+        value: x.properties.areaValue,
+        feature: x,
+      };
+    })
+    .sort((a, b) => collator.compare(a.label, b.label));
 
   const [showSaveAreaError, setShowSaveAreaError] = useState(false);
 
@@ -91,6 +97,9 @@ const DistrictCreation = withI18n()((props: withI18nProps) => {
   const selectedAreaIds = areaSelections.map((x) => x.id);
 
   const geoSelectRef = useRef<SelectInstance<AreaOption, false, GroupBase<AreaOption>>>(null);
+  const geoTypeDropdownRef = useRef<HTMLDivElement>(null);
+  const geoValueDropdownRef = useRef<HTMLDivElement>(null);
+  const saveButtonRef = useRef<HTMLButtonElement | null>(null);
 
   useEffect(() => {
     if (!!areaType.districtsData) return;
@@ -149,56 +158,87 @@ const DistrictCreation = withI18n()((props: withI18nProps) => {
     history.push(account.settings);
   };
 
+  const selectClassNames = {
+    valueContainer: () => "dropdown-select__value-container",
+    indicatorsContainer: () => "dropdown-select__indicators-container",
+  };
+
+  areaTypeOptions = areaTypeOptions.sort((a, b) => collator.compare(a.label, b.label));
+
   return (
     <div className="district-selection">
-      <div className="district_selection__sidebar">
-        <Trans render="h2">Select areas you want included in your email</Trans>
-        <hr />
-        <Select
-          className="dropdown-select"
-          aria-label="Area type selection"
-          defaultValue={defaultAreaType}
-          options={areaTypeOptions}
-          onChange={handleGeoTypeChange}
-        />
-        <Select
-          ref={geoSelectRef}
-          className="dropdown-select"
-          aria-label="Area selection"
-          placeholder={`Select or type a ${areaType.label}`}
-          options={areaOptions}
-          isOptionDisabled={(option) => selectedAreaIds.includes(option.feature.id)}
-          onChange={handleGeoChange}
-        />
-        <hr />
-        <div className="area-selection-container">
-          <div className="area-selection-chip-container">
-            {areaSelections.map((area, i) => (
-              <AreaChip area={area} onClose={removeAreaFromSelections} key={i} />
-            ))}
-          </div>
-          <span className="selection-message">
-            {areaSelections.length ? (
-              <>You can save or add more areas to your email</>
-            ) : (
-              <>Add an area to build your email</>
-            )}
-          </span>
-        </div>
-        <Button className="save-selection" labelText="Save selections" onClick={saveSelections} />
-        {showSaveAreaError && (
-          <div className="error-message">
-            <Icon icon="circleExclamation" />
-            You must add at least one area before saving selections
-          </div>
-        )}
-      </div>
       <DistrictMap
         districtsData={areaType.districtsData}
         labelsData={areaType.labelsData}
         areaSelections={areaSelections}
         setAreaSelections={setAreaSelections}
+        saveButtonRef={saveButtonRef}
       />
+      <div className="district-selection__sidebar">
+        <Trans render="h2">NYC Area Alerts</Trans>
+        <Trans render="p">
+          Get a weekly email that identifies buildings and landlord portfolios where tenants are at
+          risk of displacement.
+        </Trans>
+        <hr />
+        <Trans render="p">Use the drop-down menu to change between different types of areas.</Trans>
+        <div className="district-type-dropdown" ref={geoTypeDropdownRef}>
+          <Select
+            className="dropdown-select"
+            classNames={selectClassNames}
+            aria-label={i18n._(t`Area type selection`)}
+            defaultValue={defaultAreaType}
+            options={areaTypeOptions}
+            onChange={handleGeoTypeChange}
+            onMenuOpen={() =>
+              geoTypeDropdownRef.current?.scrollIntoView({ behavior: "smooth", block: "start" })
+            }
+            // TODO check if this works
+            isSearchable={!isMobile}
+          />
+        </div>
+        <div className="district-value-dropdown" ref={geoValueDropdownRef}>
+          <Select
+            ref={geoSelectRef}
+            className="dropdown-select"
+            classNames={selectClassNames}
+            aria-label={i18n._(t`Area selection`)}
+            placeholder={i18n._(t`Select or type a`) + " " + areaType.label}
+            options={areaOptions}
+            isOptionDisabled={(option) => selectedAreaIds.includes(option.feature.id)}
+            onChange={handleGeoChange}
+            onMenuOpen={() =>
+              geoValueDropdownRef.current?.scrollIntoView({ behavior: "smooth", block: "start" })
+            }
+            isSearchable={!isMobile}
+          />
+        </div>
+        {!!areaSelections.length && (
+          <div className="area-selection-container">
+            <hr />
+            <div className="area-selection-chip-container">
+              {areaSelections.map((area, i) => (
+                <AreaChip area={area} onClose={removeAreaFromSelections} i18n={i18n} key={i} />
+              ))}
+            </div>
+            <Trans render="span" className="selection-message">
+              Save or add more areas
+            </Trans>
+          </div>
+        )}
+        {!areaSelections.length && showSaveAreaError && (
+          <div className="error-message">
+            <Icon icon="circleExclamation" />
+            <Trans>Select an area</Trans>
+          </div>
+        )}
+        <Button
+          ref={saveButtonRef}
+          className="save-selection"
+          labelText={i18n._(t`Save selections`)}
+          onClick={saveSelections}
+        />
+      </div>
     </div>
   );
 });
@@ -206,14 +246,14 @@ const DistrictCreation = withI18n()((props: withI18nProps) => {
 type AreaChipProps = {
   area: GeoJsonFeatureDistrict;
   onClose: (area: GeoJsonFeatureDistrict) => void;
+  i18n: I18n;
 };
-const AreaChip: React.FC<AreaChipProps> = ({ onClose, area }) => {
-  const areaTypeLabel = area.properties?.typeLabel;
-  const areaLabel = area.properties?.areaLabel;
+const AreaChip: React.FC<AreaChipProps> = ({ onClose, area, i18n }) => {
+  const chipLabel = helpers.formatTranslatedAreaLabel(area.properties, i18n);
 
   return (
     <div className="area-selection-chip">
-      {areaTypeLabel}: {areaLabel}
+      <span className="area-selection-chip__label">{chipLabel}</span>
       <button onClick={() => onClose(area)}>
         <Icon icon="xmark" />
       </button>

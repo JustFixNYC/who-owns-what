@@ -60,7 +60,7 @@ CREATE TABLE wow_districts_geom AS (
 		  'community_dist' AS typevalue,
 			'Community District' AS typelabel,
 			nycd.borocd::text AS areavalue,
-			x.cdtaname AS arealabel,
+			trim(x.cdtaname) AS arealabel,
 			nycd.geom AS geom
 		FROM cd_names as x
 		FULL JOIN nycd ON nycd.borocd::text = x.borocd
