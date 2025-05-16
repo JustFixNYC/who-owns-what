@@ -16,7 +16,6 @@ from .apiutil import (
 )
 from .forms import (
     DatasetLastUpdatedForm,
-    DistrictPortfolio,
     DistrictTypeForm,
     EmailAlertBuilding,
     EmailAlertDistrict,
@@ -434,7 +433,6 @@ def district_litigation(request):
     query_sql = SQL_DIR / "alerts_district_litigation.sql"
     result = exec_db_query(query_sql, query_params)
     return JsonResponse({"result": list(result)})
-
 
 
 def _fixup_addr_for_csv(addr: Dict[str, Any]):

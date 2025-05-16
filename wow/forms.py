@@ -105,4 +105,3 @@ class EmailAlertDistrict(forms.Form):
     assem_dist = forms.CharField(required=False)
     stsen_dist = forms.CharField(required=False)
     zipcode = forms.CharField(required=False)
-
