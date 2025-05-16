@@ -27,15 +27,16 @@
     font-size: 1.5rem;
   }
 
-  h2 {
-    &,
-    a {
-      font-size: 0.875rem;
-    }
+  h1 + h2 {
+    margin-top: 2rem;
   }
 
-  h1 + h2 {
-    margin-top: 1rem;
+  h2 {
+    font-size: 1rem;
+    font-weight: 800;
+    &:last-of-type {
+      margin-top: 3rem;
+    }
   }
 
   .jfcl-button.jfcl-variant-primary {
@@ -45,11 +46,7 @@
 
   .subscriptions-container {
     width: 100%;
-    margin-top: 3rem;
-  }
-
-  p.settings-section {
-    margin-bottom: 2rem;
+    margin-top: 2rem;
   }
 
   .wow-footer {

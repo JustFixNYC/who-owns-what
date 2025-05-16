@@ -21,23 +21,20 @@
     margin: 0 1.5rem 0 0;
     width: -webkit-fill-available;
   }
-
   a.subscription-address {
     display: flex;
     margin-right: auto;
     flex-direction: column;
     color: $justfix-black;
     cursor: pointer;
-    font-weight: 600;
   }
-
   a.subscription-address:hover {
     text-decoration: none;
   }
-
-  .street-address {
-    text-transform: capitalize;
-    font-size: 1.125rem;
+  .subscription-district,
+  a.subscription-address {
+    font-size: 1rem;
+    font-weight: 500;
   }
 }
 
