@@ -228,11 +228,11 @@ def password_change(request):
 
 
 @method_decorator(api, name="dispatch")
-class SubscriptionView(View):
+class SubscribeBuildingView(View):
     def post(self, request, *args, **kwargs):
         try:
-            bbl = kwargs["bbl"]
             post_data = {
+                "bbl": request.POST.get("bbl"),
                 "housenumber": request.POST.get("housenumber"),
                 "streetname": request.POST.get("streetname"),
                 "zip": request.POST.get("zip"),
@@ -240,18 +240,78 @@ class SubscriptionView(View):
                 "origin": request.headers["Origin"],
             }
             return authenticated_request(
-                "user/subscriptions/" + str(bbl) + "/",
+                "user/subscribe/building/",
                 request,
                 post_data,
             )
         except KeyError:
             return HttpResponse(content_type="application/json", status=401)
 
+
+@method_decorator(api, name="dispatch")
+class UnsubscribeBuildingView(View):
     def delete(self, request, *args, **kwargs):
         try:
             bbl = kwargs["bbl"]
             return authenticated_request(
-                "user/subscriptions/" + str(bbl) + "/",
+                f"user/unsubscribe/building/{str(bbl)}/",
+                request,
+                method="DELETE",
+            )
+        except KeyError:
+            return HttpResponse(content_type="application/json", status=401)
+
+
+@method_decorator(api, name="dispatch")
+class UnsubscribeBuildingAllView(View):
+    def delete(self, request, *args, **kwargs):
+        try:
+            return authenticated_request(
+                f"user/unsubscribe_all/building/",
+                request,
+                method="DELETE",
+            )
+        except KeyError:
+            return HttpResponse(content_type="application/json", status=401)
+
+
+@method_decorator(api, name="dispatch")
+class SubscribeDistrictView(View):
+    def post(self, request, *args, **kwargs):
+        try:
+            post_data = {
+                "district": request.POST.get("district"),
+                "origin": request.headers["Origin"],
+            }
+            return authenticated_request(
+                "user/subscribe/district/",
+                request,
+                post_data,
+            )
+        except KeyError:
+            return HttpResponse(content_type="application/json", status=401)
+
+
+@method_decorator(api, name="dispatch")
+class DistrictUnsubscribeView(View):
+    def delete(self, request, *args, **kwargs):
+        try:
+            subscription_id = kwargs["subscription_id"]
+            return authenticated_request(
+                f"user/unsubscribe/district/{str(subscription_id)}/",
+                request,
+                method="DELETE",
+            )
+        except KeyError:
+            return HttpResponse(content_type="application/json", status=401)
+
+
+@method_decorator(api, name="dispatch")
+class UnsubscribeDistrictAllView(View):
+    def delete(self, request, *args, **kwargs):
+        try:
+            return authenticated_request(
+                f"user/unsubscribe_all/district/",
                 request,
                 method="DELETE",
             )
@@ -274,13 +334,13 @@ def email_user_subscriptions(request):
 
 
 @api
-def email_unsubscribe_all(request):
+def email_unsubscribe_all_building(request):
     try:
         post_data = {"token": request.GET.get("u")}
 
         return auth_server_request(
             "POST",
-            "user/email/unsubscribe/",
+            "user/email/unsubscribe_all/building/",
             post_data,
         )
     except KeyError:
@@ -288,13 +348,41 @@ def email_unsubscribe_all(request):
 
 
 @api
-def email_unsubscribe(request, bbl):
+def email_unsubscribe_all_district(request):
     try:
         post_data = {"token": request.GET.get("u")}
 
         return auth_server_request(
             "POST",
-            "user/unsubscribe/" + str(bbl) + "/",
+            "user/email/unsubscribe_all/district/",
+            post_data,
+        )
+    except KeyError:
+        return HttpResponse(content_type="application/json", status=401)
+
+
+@api
+def email_unsubscribe_building(request, bbl):
+    try:
+        post_data = {"token": request.GET.get("u")}
+
+        return auth_server_request(
+            "POST",
+            f"user/email/unsubscribe/building/{str(bbl)}/",
+            post_data,
+        )
+    except KeyError:
+        return HttpResponse(content_type="application/json", status=401)
+
+
+@api
+def email_unsubscribe_district(request, subscription_id):
+    try:
+        post_data = {"token": request.GET.get("u")}
+
+        return auth_server_request(
+            "POST",
+            f"user/email/unsubscribe/district/{str(subscription_id)}/",
             post_data,
         )
     except KeyError:

@@ -36,17 +36,60 @@ urlpatterns = [
     path("set_password", views.password_reset, name="password_reset"),
     path("change_password", views.password_change, name="password_change"),
     path(
-        "subscriptions/<int:bbl>",
-        views.SubscriptionView.as_view(),
-        name="subscriptions",
-    ),
-    path(
         "email/subscriptions",
         views.email_user_subscriptions,
         name="email_user_subscriptions",
     ),
+    # BUILDINGS
     path(
-        "email/unsubscribe", views.email_unsubscribe_all, name="email_unsubscribe_all"
+        "subscribe/building",
+        views.SubscribeBuildingView.as_view(),
+        name="subscribe_building",
     ),
-    path("unsubscribe/<int:bbl>", views.email_unsubscribe, name="email_unsubscribe"),
+    path(
+        "unsubscribe/building/<int:bbl>",
+        views.UnsubscribeBuildingView.as_view(),
+        name="unsubscribe_building",
+    ),
+    path(
+        "unsubscribe_all/building",
+        views.UnsubscribeBuildingAllView.as_view(),
+        name="unsubscribe_all_building",
+    ),
+    path(
+        "email/unsubscribe_all/building",
+        views.email_unsubscribe_all_building,
+        name="email_unsubscribe_all_building",
+    ),
+    path(
+        "email/unsubscribe/building/<int:bbl>",
+        views.email_unsubscribe_building,
+        name="email_unsubscribe_building",
+    ),
+    # DISTRICTS
+    path(
+        "subscribe/district",
+        views.SubscribeDistrictView.as_view(),
+        name="subscribe_district",
+    ),
+    path(
+        "unsubscribe/district/<int:subscription_id>",
+        views.DistrictUnsubscribeView.as_view(),
+        name="unsubscribe_district",
+    ),
+    path(
+        "unsubscribe_all/district",
+        views.UnsubscribeDistrictAllView.as_view(),
+        name="unsubscribe_all_district",
+    ),
+    path(
+        "email/unsubscribe_all/district",
+        views.email_unsubscribe_all_district,
+        name="email_unsubscribe_district_all",
+    ),
+    path(
+        "email/unsubscribe/district/<int:subscription_id>",
+        views.email_unsubscribe_district,
+        name="email_unsubscribe_district",
+    ),
 ]

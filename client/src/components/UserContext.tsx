@@ -2,6 +2,7 @@ import React, { createContext, useState, useEffect, useMemo, useCallback } from 
 import { JustfixUser } from "state-machine";
 import AuthClient from "./AuthClient";
 import { authRequiredPaths } from "routes";
+import { District } from "./APIDataTypes";
 
 type UserOrError = {
   user?: JustfixUser;
@@ -22,7 +23,7 @@ export type UserContextProps = {
     onSuccess?: (user: JustfixUser) => void
   ) => Promise<UserOrError | void>;
   logout: (fromPath: string) => void;
-  subscribe: (
+  subscribeBuilding: (
     bbl: string,
     housenumber: string,
     streetname: string,
@@ -30,7 +31,9 @@ export type UserContextProps = {
     boro: string,
     _user?: JustfixUser
   ) => void;
-  unsubscribe: (bbl: string) => void;
+  unsubscribeBuilding: (bbl: string) => void;
+  subscribeDistrict: (district: District, _user?: JustfixUser) => void;
+  unsubscribeDistrict: (subscription_id: string) => void;
   updateEmail: (newEmail: string) => void;
   updatePassword: (currentPassword: string, newPassword: string) => void;
   requestPasswordReset: (email: string) => void;
@@ -46,7 +49,7 @@ const initialState: UserContextProps = {
   ) => {},
   login: async (username: string, password: string, onSuccess?: (user: JustfixUser) => void) => {},
   logout: (fromPath: string) => {},
-  subscribe: (
+  subscribeBuilding: (
     bbl: string,
     housenumber: string,
     streetname: string,
@@ -54,7 +57,9 @@ const initialState: UserContextProps = {
     boro: string,
     _user?: JustfixUser
   ) => {},
-  unsubscribe: (bbl: string) => {},
+  unsubscribeBuilding: (bbl: string) => {},
+  subscribeDistrict: (district: District, _user?: JustfixUser) => {},
+  unsubscribeDistrict: (subscription_id: string) => {},
   updateEmail: (newEmail: string) => {},
   updatePassword: (currentPassword: string, newPassword: string) => {},
   requestPasswordReset: (email: string) => {},
@@ -65,18 +70,28 @@ export const UserContext = createContext<UserContextProps>(initialState);
 
 export const UserContextProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<JustfixUser>();
+
+  const updateUserSubscriptions = (_user: JustfixUser | undefined): JustfixUser | undefined => {
+    if (!_user) return;
+    const updatedUser = {
+      ..._user,
+      buildingSubscriptions:
+        _user.buildingSubscriptions?.map((s: any) => {
+          return { ...s };
+        }) || [],
+      districtSubscriptions:
+        _user.districtSubscriptions?.map((s: any) => {
+          return { ...s };
+        }) || [],
+    };
+    setUser(updatedUser);
+    return updatedUser;
+  };
+
   useEffect(() => {
     const asyncFetchUser = async () => {
       const _user = await AuthClient.fetchUser();
-      if (_user) {
-        setUser({
-          ..._user,
-          subscriptions:
-            _user.subscriptions?.map((s: any) => {
-              return { ...s };
-            }) || [],
-        });
-      }
+      updateUserSubscriptions(_user);
     };
     asyncFetchUser();
   }, []);
@@ -89,20 +104,12 @@ export const UserContextProvider = ({ children }: { children: React.ReactNode })
       onSuccess?: (user: JustfixUser) => void
     ) => {
       const response = await AuthClient.register(username, password, userType);
-      if (!response.error && response.user) {
-        const _user = {
-          ...response.user,
-          subscriptions:
-            response.user.subscriptions?.map((s: any) => {
-              return { ...s };
-            }) || [],
-        };
-        setUser(_user);
-        if (onSuccess) onSuccess(_user);
-        return { user: _user };
-      } else {
+      if (response.error || !response.user) {
         return { error: response.error_description };
       }
+      const updatedUser = updateUserSubscriptions(response.user);
+      if (onSuccess && updatedUser) onSuccess(updatedUser);
+      return { user: updatedUser };
     },
     []
   );
@@ -110,21 +117,12 @@ export const UserContextProvider = ({ children }: { children: React.ReactNode })
   const login = useCallback(
     async (username: string, password: string, onSuccess?: (user: JustfixUser) => void) => {
       const response = await AuthClient.login(username, password);
-      console.log(response);
-      if (!response.error && response.user) {
-        const _user = {
-          ...response.user,
-          subscriptions:
-            response.user.subscriptions?.map((s: any) => {
-              return { ...s };
-            }) || [],
-        };
-        setUser(_user);
-        if (onSuccess) onSuccess(_user);
-        return { user: _user };
-      } else {
+      if (response.error || !response.user) {
         return { error: response.error };
       }
+      const updatedUser = updateUserSubscriptions(response.user);
+      if (onSuccess && updatedUser) onSuccess(updatedUser);
+      return { user: updatedUser };
     },
     []
   );
@@ -140,7 +138,7 @@ export const UserContextProvider = ({ children }: { children: React.ReactNode })
     asyncLogout();
   }, []);
 
-  const subscribe = useCallback(
+  const subscribeBuilding = useCallback(
     (
       bbl: string,
       housenumber: string,
@@ -152,14 +150,14 @@ export const UserContextProvider = ({ children }: { children: React.ReactNode })
       const currentUser = !!user?.email ? user : _user;
       if (currentUser) {
         const asyncSubscribe = async () => {
-          const response = await AuthClient.buildingSubscribe(
+          const response = await AuthClient.subscribeBuilding(
             bbl,
             housenumber,
             streetname,
             zip,
             boro
           );
-          setUser({ ...currentUser, subscriptions: response.subscriptions });
+          setUser({ ...currentUser, buildingSubscriptions: response["building_subscriptions"] });
         };
         asyncSubscribe();
       }
@@ -167,12 +165,39 @@ export const UserContextProvider = ({ children }: { children: React.ReactNode })
     [user]
   );
 
-  const unsubscribe = useCallback(
+  const unsubscribeBuilding = useCallback(
     (bbl: string) => {
       if (user) {
         const asyncUnsubscribe = async () => {
-          const response = await AuthClient.buildingUnsubscribe(bbl);
-          setUser({ ...user, subscriptions: response.subscriptions });
+          const response = await AuthClient.unsubscribeBuilding(bbl);
+          setUser({ ...user, buildingSubscriptions: response["building_subscriptions"] });
+        };
+        asyncUnsubscribe();
+      }
+    },
+    [user]
+  );
+
+  const subscribeDistrict = useCallback(
+    (district: District, _user?: JustfixUser) => {
+      const currentUser = !!user?.email ? user : _user;
+      if (currentUser) {
+        const asyncSubscribe = async () => {
+          const response = await AuthClient.subscribeDistrict(district);
+          setUser({ ...currentUser, districtSubscriptions: response["district_subscriptions"] });
+        };
+        asyncSubscribe();
+      }
+    },
+    [user]
+  );
+
+  const unsubscribeDistrict = useCallback(
+    (subscription_id: string) => {
+      if (user) {
+        const asyncUnsubscribe = async () => {
+          const response = await AuthClient.unsubscribeDistrict(subscription_id);
+          setUser({ ...user, districtSubscriptions: response["district_subscriptions"] });
         };
         asyncUnsubscribe();
       }
@@ -225,8 +250,10 @@ export const UserContextProvider = ({ children }: { children: React.ReactNode })
       register,
       login,
       logout,
-      subscribe,
-      unsubscribe,
+      subscribeBuilding,
+      unsubscribeBuilding,
+      subscribeDistrict,
+      unsubscribeDistrict,
       updateEmail,
       updatePassword,
       requestPasswordReset,
@@ -237,8 +264,10 @@ export const UserContextProvider = ({ children }: { children: React.ReactNode })
       register,
       login,
       logout,
-      subscribe,
-      unsubscribe,
+      subscribeBuilding,
+      unsubscribeBuilding,
+      subscribeDistrict,
+      unsubscribeDistrict,
       updateEmail,
       updatePassword,
       requestPasswordReset,

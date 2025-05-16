@@ -14,10 +14,17 @@
       text-decoration: none;
     }
   }
+  &.building-subscriptions-container {
+    margin-bottom: 3rem;
+  }
+  .subscription-district {
+    margin: 0;
+    width: -webkit-fill-available;
+  }
 
   a.subscription-address {
     display: flex;
-    flex: 1;
+    margin-right: auto;
     flex-direction: column;
     color: $justfix-black;
     cursor: pointer;
@@ -34,7 +41,7 @@
   }
 }
 
-.settings-no-subscriptions {
+.settings-callout {
   padding: 1.6rem;
   background-color: $justfix-grey-50;
   border-radius: 4px;
