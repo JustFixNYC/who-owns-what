@@ -97,7 +97,6 @@ class DistrictTypeForm(forms.Form):
 
 
 class EmailAlertDistrict(forms.Form):
-    # date = forms.DateField(input_formats=["%Y-%m-%d"], required=True)
     coun_dist = forms.CharField(required=False)
     nta = forms.CharField(required=False)
     borough = forms.CharField(required=False)
@@ -107,14 +106,3 @@ class EmailAlertDistrict(forms.Form):
     stsen_dist = forms.CharField(required=False)
     zipcode = forms.CharField(required=False)
 
-    # def clean(self):
-    #     data = self.cleaned_data
-
-    #     if not data.get("date", None):
-    #         raise forms.ValidationError("date is required for indicators")
-
-    #     return data
-
-
-class DistrictPortfolio(forms.Form):
-    portfolio_id = forms.IntegerField(required=True)

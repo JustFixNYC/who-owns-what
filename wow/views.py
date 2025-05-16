@@ -436,16 +436,6 @@ def district_litigation(request):
     return JsonResponse({"result": list(result)})
 
 
-@api
-def email_alerts_district_portfolio(request):
-    authorize_for_alerts(request)
-    args = get_validated_form_data(DistrictPortfolio, request.GET)
-
-    query_params = {"portfolio_id": args["portfolio_id"]}
-    query_sql = SQL_DIR / "alerts_district_portfolio.sql"
-    result = exec_db_query(query_sql, query_params)
-    return JsonResponse({"result": list(result)})
-
 
 def _fixup_addr_for_csv(addr: Dict[str, Any]):
     addr["ownernames"] = csvutil.stringify_owners(addr["ownernames"] or [])

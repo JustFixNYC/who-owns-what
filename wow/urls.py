@@ -34,11 +34,6 @@ urlpatterns = [
     path("address/latestdeed", views.address_latestdeed, name="address_latestdeed"),
     path("alerts/building", views.email_alerts_building, name="email_alerts_building"),
     path("alerts/district", views.email_alerts_district, name="email_alerts_district"),
-    path(
-        "alerts/district/portfolio",
-        views.email_alerts_district,
-        name="email_alerts_district_portfolio",
-    ),
     path("alerts/district/geojson", views.districts_geojson, name="districts_geojson"),
     path(
         "alerts/district/vacate_order",
