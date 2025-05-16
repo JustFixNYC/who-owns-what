@@ -17,7 +17,7 @@ WHERE bbl IS NOT NULL
 		or assem_dist = ANY(%(assem_dist)s)
 		or stsen_dist = ANY(%(stsen_dist)s)
 		or zipcode = ANY(%(zipcode)s))
-	and lastsaledate > (CURRENT_DATE - interval '30' day) -- TODO CHANGE TO 7 DAY
+	and lastsaledate > (CURRENT_DATE - interval '7' day)
 	and lastsaleamount >= 10000
 ORDER BY lastsaledate DESC
 LIMIT 10;
