@@ -73,6 +73,14 @@ CREATE TABLE wow_districts_geom AS (
 			zipcode::text AS arealabel,
 			geom
 		FROM zipcodes
+	), census_tract AS (
+		SELECT
+			'census_tract'::text AS typevalue,
+			'Census Tract'::text AS typelabel,
+			boroct2020::text AS areavalue,
+			SUBSTR(nta2020, 1, 2) || ' ' || ct2020 AS arealabel,
+		geom
+		FROM nyct2020_25a
 	)
 	SELECT *
 	FROM city_council
@@ -97,6 +105,9 @@ CREATE TABLE wow_districts_geom AS (
 	UNION
 	SELECT *
 	FROM zip_code
+	UNION
+	SELECT *
+	FROM census_tract
 );
 
 CREATE INDEX ON wow_districts_geom (typevalue, areavalue);

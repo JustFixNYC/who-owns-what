@@ -13,6 +13,7 @@ WHERE bbl IS NOT NULL
 	and (x.coun_dist = ANY(%(coun_dist)s)
 	or x.nta = ANY(%(nta)s)
 	or x.borough = ANY(%(borough)s)
+	or x.census_tract = ANY(%(census_tract)s)
     OR x.community_dist = ANY(%(community_dist)s::int[])
 	or x.cong_dist = ANY(%(cong_dist)s)
 	or x.assem_dist = ANY(%(assem_dist)s)

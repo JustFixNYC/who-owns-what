@@ -66,6 +66,7 @@ export const shortDateOptions = { month: "short" };
 
 const areaTypeLabelTranslations = new Map([
   ["nta", t`Neighborhood`],
+  ["census_tract", t`Census Tract`],
   ["cong_dist", t`Congressional District`],
   ["coun_dist", t`City Council District`],
   ["community_dist", t`Community District`],
@@ -442,7 +443,7 @@ const helpers = {
    */
   formatTranslatedAreaLabel(area: AreaProperties, i18n: I18n): string {
     const { typeValue, areaLabel } = area;
-    const formattedLabel = ["nta", "zipcode", "borough"].includes(typeValue)
+    const formattedLabel = ["nta", "zipcode", "borough", "census_tract"].includes(typeValue)
       ? areaLabel
       : `${translateAreaTypeLabel(typeValue, i18n)} ${areaLabel.replace(/district\s*/i, "")}`;
 

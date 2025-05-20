@@ -85,6 +85,7 @@ def validate_district_types(value):
         "assem_dist",
         "stsen_dist",
         "zipcode",
+        "census_tract",
     ]
     if value not in VALID_DISTRICTS:
         raise ValidationError(
@@ -105,3 +106,4 @@ class EmailAlertDistrict(forms.Form):
     assem_dist = forms.CharField(required=False)
     stsen_dist = forms.CharField(required=False)
     zipcode = forms.CharField(required=False)
+    census_tract = forms.CharField(required=False)

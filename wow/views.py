@@ -389,6 +389,7 @@ def get_district_query_params(args: Dict[str, Any]):
         "assem_dist": safe_literal_eval(args["assem_dist"]),
         "stsen_dist": safe_literal_eval(args["stsen_dist"]),
         "zipcode": safe_literal_eval(args["zipcode"]),
+        "census_tract": safe_literal_eval(args["census_tract"]),
     }
 
     return query_params
@@ -399,7 +400,6 @@ def email_alerts_district(request):
     authorize_for_alerts(request)
     args = get_validated_form_data(EmailAlertDistrict, request.GET)
     query_params = get_district_query_params(args)
-    print(query_params)
     query_sql = SQL_DIR / "alerts_district.sql"
     result = exec_db_query(query_sql, query_params)
     return JsonResponse({"result": list(result)})
