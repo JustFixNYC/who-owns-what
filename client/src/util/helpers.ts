@@ -443,7 +443,7 @@ const helpers = {
    */
   formatTranslatedAreaLabel(area: AreaProperties, i18n: I18n): string {
     const { typeValue, areaLabel } = area;
-    const formattedLabel = ["nta", "zipcode", "borough", "census_tract"].includes(typeValue)
+    const formattedLabel = ["nta", "zipcode", "borough"].includes(typeValue)
       ? areaLabel
       : `${translateAreaTypeLabel(typeValue, i18n)} ${areaLabel.replace(/district\s*/i, "")}`;
 
