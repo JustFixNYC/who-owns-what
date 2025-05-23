@@ -57,10 +57,12 @@ create temporary table x_indicators_normalized (
     evictions_filed__1mo BIGINT,
     evictions_filed__6mo BIGINT,
 
+    dob_ecb_viol_bin VARCHAR(7),
     dob_ecb_viol__week BIGINT,
     dob_ecb_viol__1mo BIGINT,
     dob_ecb_viol__6mo BIGINT,
     
+    dob_comp_bin VARCHAR(7),
     dob_comp__week BIGINT,
     dob_comp__1mo BIGINT,
     dob_comp__6mo BIGINT,
@@ -144,10 +146,12 @@ INSERT INTO x_indicators_normalized
             coalesce(evictions_filed__1mo, 0) as evictions_filed__1mo,
             coalesce(evictions_filed__6mo, 0) as evictions_filed__6mo,
             
+            dob_ecb_viol_bin,
             coalesce(dob_ecb_viol__week, 0) as dob_ecb_viol__week,
             coalesce(dob_ecb_viol__1mo, 0) as dob_ecb_viol__1mo,
             coalesce(dob_ecb_viol__6mo, 0) as dob_ecb_viol__6mo,
             
+            dob_comp_bin,
             coalesce(dob_comp__week, 0) as dob_comp__week,
             coalesce(dob_comp__1mo, 0) as dob_comp__1mo,
             coalesce(dob_comp__6mo, 0) as dob_comp__6mo
@@ -286,9 +290,11 @@ create temporary table x_indicators_final (
     hpd_viol__week BIGINT,
     rank_viol__week INTEGER,
     
+    dob_ecb_viol_bin VARCHAR(7),
     dob_ecb_viol__week BIGINT,
     rank_dob_ecb_viol__week INTEGER,
     
+    dob_comp_bin VARCHAR(7),
     dob_comp__week BIGINT,
     rank_dob_comp__week INTEGER,
 
@@ -352,8 +358,10 @@ INSERT INTO x_indicators_final (
     rank_viol_per_unit__week,
     hpd_viol__week,
     rank_viol__week,
+    dob_ecb_viol_bin,
     dob_ecb_viol__week,
     rank_dob_ecb_viol__week,
+    dob_comp_bin,
     dob_comp__week,
     rank_dob_comp__week,
     hpd_comp__1mo,
@@ -396,8 +404,10 @@ SELECT
     r.hpd_comp__6mo,
     r.hpd_viol__1mo,
     r.hpd_viol__6mo,
+    r.dob_ecb_viol_bin,
     r.dob_ecb_viol__1mo,
     r.dob_ecb_viol__6mo,
+    r.dob_comp_bin,
     r.dob_comp__1mo,
     r.dob_comp__6mo,
     r.evictions_filed__week,
