@@ -65,7 +65,6 @@ CREATE TABLE wow_districts_geom AS (
 		FROM cd_names as x
 		FULL JOIN nycd_25a AS cd ON cd.borocd::text = x.borocd
 	), zip_code AS (
-		
 		SELECT 
 			'zipcode'::text AS typevalue,
 			'Zip Code'::text AS typelabel,
@@ -73,6 +72,7 @@ CREATE TABLE wow_districts_geom AS (
 			zipcode::text AS arealabel,
 			geom
 		FROM zipcodes
+		WHERE zipcode NOT IN ('00083')
 	), census_tract AS (
 		SELECT
 			'census_tract'::text AS typevalue,
