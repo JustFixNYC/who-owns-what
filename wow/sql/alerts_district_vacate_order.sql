@@ -11,16 +11,18 @@ SELECT
 	hpd_link,
 	dob_vacate_date,
 	dob_vacate_type,
-	dob_vacate_complaint_number
+	dob_vacate_complaint_number,
+	COALESCE(dob_vacate_date, hpd_vacate_date) AS vacate_date
 FROM wow_indicators
 WHERE bbl IS NOT NULL
-	and (coun_dist = ANY(%(coun_dist)s)
-		or nta = ANY(%(nta)s)
-		or borough = ANY(%(borough)s)
+	AND (coun_dist = ANY(%(coun_dist)s)
+		OR nta = ANY(%(nta)s)
+		OR borough = ANY(%(borough)s)
 	    OR community_dist = ANY(%(community_dist)s::int[])
-		or cong_dist = ANY(%(cong_dist)s)
-		or assem_dist = ANY(%(assem_dist)s)
-		or stsen_dist = ANY(%(stsen_dist)s)
-		or zipcode = ANY(%(zipcode)s))
-	and (dob_vacate_date is not null
-	or hpd_vacate_date is not null);
+		OR cong_dist = ANY(%(cong_dist)s)
+		OR assem_dist = ANY(%(assem_dist)s)
+		OR stsen_dist = ANY(%(stsen_dist)s)
+		OR zipcode = ANY(%(zipcode)s))
+	AND (dob_vacate_date IS NOT NULL
+		OR hpd_vacate_date IS NOT NULL)
+ORDER BY vacate_date DESC;
