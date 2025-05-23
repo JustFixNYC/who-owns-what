@@ -7,6 +7,7 @@ import {
   DistrictsGeoJson,
   LabelsGeoJson,
 } from "../containers/DistrictAlertsPage";
+import Browser from "../util/browser";
 
 const MAPBOX_ACCESS_TOKEN = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN || "";
 
@@ -15,8 +16,10 @@ const MAPBOX_STYLE = "mapbox://styles/justfix/cm8yk6082005q01qudd9mdnsf";
 type LatLng = [number, number];
 
 const DEFAULT_CENTER: LatLng = [-73.91415139243611, 40.70338934328157];
+const DEFAULT_CENTER_MOBILE: LatLng = [-73.93522994326645, 40.72265549992619];
 
 const DEFAULT_ZOOM = 10.757625625010308;
+const DEFAULT_ZOOM_MOBILE = 9.9;
 
 const MAX_BOUNDS: LngLatBoundsLike = [
   [-74.94518949528236, 40.23318312963903],
@@ -56,6 +59,8 @@ export const DistrictMap: React.FC<DistrictMapProps> = ({
   const [initialDataReady, setInitialDataReady] = useState(!!districtsData);
   const dataReady = initialDataReady || !!districtsData;
 
+  const isMobile = Browser.isMobile();
+
   useEffect(() => {
     if (!dataReady) return;
     setInitialDataReady(true);
@@ -69,6 +74,8 @@ export const DistrictMap: React.FC<DistrictMapProps> = ({
     const map = new Map({
       container: node,
       ...MAP_CONFIGURABLES,
+      zoom: isMobile ? DEFAULT_ZOOM_MOBILE : DEFAULT_ZOOM,
+      center: isMobile ? DEFAULT_CENTER_MOBILE : DEFAULT_CENTER,
     });
 
     map.on("load", () => {
