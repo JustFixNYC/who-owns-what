@@ -18,7 +18,7 @@ WHERE bbl IS NOT NULL
 	AND (coun_dist = ANY(%(coun_dist)s)
 		OR nta = ANY(%(nta)s)
 		OR borough = ANY(%(borough)s)
-	    OR community_dist = ANY(%(community_dist)s::int[])
+		OR community_dist = ANY(%(community_dist)s::int[])
 		OR cong_dist = ANY(%(cong_dist)s)
 		OR assem_dist = ANY(%(assem_dist)s)
 		OR stsen_dist = ANY(%(stsen_dist)s)
