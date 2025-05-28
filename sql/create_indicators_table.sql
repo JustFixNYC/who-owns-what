@@ -48,6 +48,7 @@ CREATE TABLE wow_indicators AS
 	dob_ecb_stacked AS (
 		SELECT
 			bbl,
+			bin,
 			issuedate,
 			(violationcategory ~* 'ACTIVE') AS is_active
 		FROM dob_violations 
@@ -56,6 +57,7 @@ CREATE TABLE wow_indicators AS
 		UNION
 		SELECT
 			bbl,
+			bin,
 			issuedate,
 			(certificationstatus IS NULL 
 			OR certificationstatus in ('REINSPECTION SHOWS STILL IN VIOLATION', 
@@ -67,12 +69,14 @@ CREATE TABLE wow_indicators AS
 	),
 	dob_ecb_viol AS (
 		SELECT
-			bbl,
+			x.bbl,
+			max(bin) AS bin,
 			count(*) FILTER (WHERE issuedate >= (CURRENT_DATE - interval '6' month)) AS dob_ecb_viol__6mo,
 			count(*) FILTER (WHERE issuedate >= (CURRENT_DATE - interval '1' month)) AS dob_ecb_viol__1mo,
 			count(*) FILTER (WHERE issuedate >= (CURRENT_DATE - interval '7' day)) AS dob_ecb_viol__week
-		FROM dob_ecb_stacked
-		GROUP BY bbl
+		FROM dob_ecb_stacked AS x
+		LEFT JOIN pad_adr USING(bin)
+		GROUP BY x.bbl
 	),
 	dob_comp AS (
 		SELECT
@@ -241,11 +245,12 @@ CREATE TABLE wow_indicators AS
 	    	AS hpd_comp_unit_pct__week,
 		coalesce(hpd_comp.hpd_comp_distress, 0) AS hpd_comp_distressed_weeks,
 
-		
+        dob_ecb_viol.bin AS dob_ecb_viol_bin,
 		coalesce(dob_ecb_viol.dob_ecb_viol__6mo, 0) AS dob_ecb_viol__6mo,
 		coalesce(dob_ecb_viol.dob_ecb_viol__1mo, 0) AS dob_ecb_viol__1mo,
 		coalesce(dob_ecb_viol.dob_ecb_viol__week, 0) AS dob_ecb_viol__week,		
 		
+		dob_comp.bin AS dob_comp_bin,
 		coalesce(dob_comp.dob_comp__6mo, 0) AS dob_comp__6mo,
 		coalesce(dob_comp.dob_comp__1mo, 0) AS dob_comp__1mo,
 		coalesce(dob_comp.dob_comp__week, 0) AS dob_comp__week,
@@ -267,6 +272,7 @@ CREATE TABLE wow_indicators AS
 		hpd_vacate.hpd_vacate_type,
 		hpd_vacate.hpd_vacate_units_affected,
 		hpd_vacate.hpd_vacate_reason,
+		dob_vacate.bin AS dob_vacate_bin,
 		dob_vacate.dob_vacate_date,
 		dob_vacate.dob_vacate_type,
 		dob_vacate.dob_vacate_complaint_number,

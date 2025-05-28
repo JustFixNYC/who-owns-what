@@ -9,6 +9,7 @@ SELECT
 	hpd_vacate_units_affected,
 	hpd_vacate_reason,
 	hpd_link,
+	dob_vacate_bin,
 	dob_vacate_date,
 	dob_vacate_type,
 	dob_vacate_complaint_number,
