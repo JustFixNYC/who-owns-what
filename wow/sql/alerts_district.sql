@@ -436,6 +436,13 @@ shared_portfolio_top_3 AS (
     FROM x_indicators_final
     WHERE portfolio_id = (SELECT portfolio_id FROM first_shared_portfolio)
       AND rank_final > 5  -- Exclude any from top 5 to avoid dupes
+      AND ( -- Exclude any with no values to display
+        hpd_comp__6mo > 0
+        OR hpd_viol__6mo > 0
+        OR dob_ecb_viol__6mo > 0
+        OR dob_comp__6mo > 0
+        OR evictions_filed__6mo > 0
+      )
     ORDER BY rank_final
     LIMIT 3
 ),
