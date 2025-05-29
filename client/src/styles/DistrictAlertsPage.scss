@@ -164,6 +164,9 @@ div.DistrictAlertsPage {
         }
       }
       .save-selection {
+        @include body-standard;
+        font-size: 1.125rem;
+        line-height: 120%;
         align-self: center;
         margin-top: auto;
       }

@@ -268,7 +268,7 @@ const DistrictAlertsPage = withI18n()((props: withI18nProps) => {
   const { i18n } = props;
 
   return (
-    <Page title={i18n._(t`District Alerts`)}>
+    <Page title={i18n._(t`Area Alerts`)}>
       <div className="DistrictAlertsPage Page">
         <div className="page-container">
           <DistrictCreation />
