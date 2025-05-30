@@ -13,10 +13,6 @@
       "value": "community_dist"
     },
     {
-      "label": "Congressional Districts",
-      "value": "cong_dist"
-    },
-    {
       "label": "City Council Districts",
       "value": "coun_dist"
     },

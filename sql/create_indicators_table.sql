@@ -301,7 +301,6 @@ CREATE TABLE wow_indicators AS
 		pld.coun_dist,
 		pld.assem_dist,
 		pld.stsen_dist,
-		pld.cong_dist,
 		pld.community_dist,
 		pld.zipcode, 
 		pld.boroct2020 AS census_tract,
@@ -328,7 +327,6 @@ create index on wow_indicators (bbl);
 create index on wow_indicators (coun_dist);
 create index on wow_indicators (assem_dist);
 create index on wow_indicators (stsen_dist);
-create index on wow_indicators (cong_dist);
 create index on wow_indicators (community_dist);
 create index on wow_indicators (zipcode);
 create index on wow_indicators (census_tract);

@@ -7,7 +7,6 @@ WHERE bbl IS NOT NULL
 	or borough = ANY(%(borough)s)
 	or census_tract = ANY(%(census_tract)s)
     OR community_dist = ANY(%(community_dist)s::int[])
-	or cong_dist = ANY(%(cong_dist)s)
 	or assem_dist = ANY(%(assem_dist)s)
 	or stsen_dist = ANY(%(stsen_dist)s)
 	or zipcode = ANY(%(zipcode)s))

@@ -23,14 +23,6 @@ CREATE TABLE wow_districts_geom AS (
 			'District '::text || stsendist AS arealabel,
 			geom
 		FROM nyss_25a
-	), congress AS (
-		SELECT 
-			'cong_dist'::text AS typevalue,
-			'Congressional District'::text AS typelabel,
-			congdist::text AS areavalue,
-			'District ' || congdist AS arealabel,
-			geom
-		FROM nycg_25a
 	), nta AS (
 		SELECT 
 			'nta'::text AS typevalue,
@@ -90,9 +82,6 @@ CREATE TABLE wow_districts_geom AS (
 	UNION
 	SELECT *
 	FROM state_senate
-	UNION
-	SELECT *
-	FROM congress
 	UNION
 	SELECT *
 	FROM nta

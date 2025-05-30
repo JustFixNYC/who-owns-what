@@ -67,7 +67,6 @@ export const shortDateOptions = { month: "short" };
 const areaTypeLabelTranslations = new Map([
   ["nta", t`Neighborhood`],
   ["census_tract", t`Census Tract`],
-  ["cong_dist", t`Congressional District`],
   ["coun_dist", t`City Council District`],
   ["community_dist", t`Community District`],
   ["assem_dist", t`State Assembly District`],

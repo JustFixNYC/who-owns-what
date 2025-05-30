@@ -25,7 +25,6 @@ WHERE bbl IS NOT NULL
 		or x.borough = ANY(%(borough)s)
 		or x.census_tract = ANY(%(census_tract)s)
 		or x.community_dist = ANY(%(community_dist)s::int[])
-		or x.cong_dist = ANY(%(cong_dist)s)
 		or x.assem_dist = ANY(%(assem_dist)s)
 		or x.stsen_dist = ANY(%(stsen_dist)s)
 		or x.zipcode = ANY(%(zipcode)s)
