@@ -161,15 +161,15 @@ const AccountSettingsPage = withI18n()((props: withI18nProps) => {
                 </Trans>
               )}
             </div>
-            <Trans render="h2">District Alerts</Trans>
+            <Trans render="h2">Area Alerts</Trans>
             <Trans render="p" className="section-description">
               {districtSubscriptionsNumber ? (
                 <>
                   You are subscribed to{" "}
                   <Plural
                     value={districtSubscriptionsNumber}
-                    one="a weekly email for 1 district"
-                    other={`weekly emails for ${districtSubscriptionsNumber} districts`}
+                    one="a weekly email for 1 area"
+                    other={`weekly emails for ${districtSubscriptionsNumber} areas`}
                   />
                 </>
               ) : (

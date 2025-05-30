@@ -285,7 +285,7 @@ const LoginWithoutI18n = (props: withI18nProps) => {
             }
           >
             <Icon icon="arrowRight" />
-            Back to District Alerts
+            Back to Area Alerts
           </Link>
         </div>
       )}
