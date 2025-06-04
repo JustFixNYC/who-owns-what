@@ -81,7 +81,6 @@ def validate_district_types(value):
         "nta",
         "borough",
         "community_dist",
-        "cong_dist",
         "assem_dist",
         "stsen_dist",
         "zipcode",
@@ -102,7 +101,6 @@ class EmailAlertDistrict(forms.Form):
     nta = forms.CharField(required=False)
     borough = forms.CharField(required=False)
     community_dist = forms.CharField(required=False)
-    cong_dist = forms.CharField(required=False)
     assem_dist = forms.CharField(required=False)
     stsen_dist = forms.CharField(required=False)
     zipcode = forms.CharField(required=False)
