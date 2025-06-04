@@ -23,7 +23,7 @@ const EmailInputWithoutI18n = forwardRef<HTMLInputElement, EmailInputProps>(
   ({ i18n, i18nHash, email, error, setError, showError, onChange, labelText, ...props }, ref) => {
     const isBadEmailFormat = (value: string) => {
       /* valid email regex borrowed from https://stackoverflow.com/a/46181/7051239 */
-      const pattern =   /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/;
+      const pattern = /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/;
 
       // HTML input element has loose email validation requirements, so we check the input against a custom regex
       const passStrictRegex = value.match(pattern);
