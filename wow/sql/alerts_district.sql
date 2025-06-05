@@ -4,7 +4,6 @@ FROM wow_indicators
 WHERE bbl IS NOT NULL
 	and (coun_dist = ANY(%(coun_dist)s)
 	or nta = ANY(%(nta)s)
-	or borough = ANY(%(borough)s)
 	or census_tract = ANY(%(census_tract)s)
     OR community_dist = ANY(%(community_dist)s::int[])
 	or assem_dist = ANY(%(assem_dist)s)

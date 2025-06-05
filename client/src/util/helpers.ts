@@ -72,7 +72,6 @@ const areaTypeLabelTranslations = new Map([
   ["assem_dist", t`State Assembly District`],
   ["stsen_dist", t`State Senate District`],
   ["zipcode", t`Zip Code`],
-  ["borough", t`Borough`],
 ]);
 
 // https://www.geeksforgeeks.org/how-to-detect-the-user-browser-safari-chrome-ie-firefox-and-opera-using-javascript/
