@@ -383,7 +383,6 @@ def get_district_query_params(args: Dict[str, Any]):
     query_params = {
         "coun_dist": safe_literal_eval(args["coun_dist"]),
         "nta": safe_literal_eval(args["nta"]),
-        "borough": safe_literal_eval(args["borough"]),
         "community_dist": safe_literal_eval(args["community_dist"]),
         "assem_dist": safe_literal_eval(args["assem_dist"]),
         "stsen_dist": safe_literal_eval(args["stsen_dist"]),

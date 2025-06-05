@@ -31,14 +31,6 @@ CREATE TABLE wow_districts_geom AS (
 			ntaname AS arealabel,
 			geom
 		FROM nynta2020_25a
-	), borough AS (
-		SELECT 
-			'borough'::text AS typevalue,
-			'Borough'::text AS typelabel,
-			borocode::text AS areavalue,
-			boroname AS arealabel,
-			geom
-		FROM nybb_25a
 	), cd_names AS (
 		SELECT DISTINCT ON (cdta2020)
 		  borocode,
@@ -85,9 +77,6 @@ CREATE TABLE wow_districts_geom AS (
 	UNION
 	SELECT *
 	FROM nta
-	UNION
-	SELECT *
-	FROM borough
 	UNION
 	SELECT *
 	FROM community_district

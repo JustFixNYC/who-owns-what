@@ -304,9 +304,7 @@ CREATE TABLE wow_indicators AS
 		pld.community_dist,
 		pld.zipcode, 
 		pld.boroct2020 AS census_tract,
-		pld.nta2020 AS nta,
-		pld.borough
-
+		pld.nta2020 AS nta
 		
 	FROM wow_bldgs AS x
 	LEFT JOIN hpd_viol USING(bbl)
@@ -331,5 +329,4 @@ create index on wow_indicators (community_dist);
 create index on wow_indicators (zipcode);
 create index on wow_indicators (census_tract);
 create index on wow_indicators (nta);
-create index on wow_indicators (borough);
 create index on wow_indicators (lastsaledate);

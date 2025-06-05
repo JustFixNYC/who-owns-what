@@ -1,10 +1,6 @@
 {
   "options": [
     {
-      "label": "Boroughs",
-      "value": "borough"
-    },
-    {
       "label": "Census Tracts",
       "value": "census_tract"
     },
