@@ -150,11 +150,19 @@ div.DistrictAlertsPage {
           }
         }
         .selection-message {
+          @include desktop-text-small;
+          font-weight: 500;
+          line-height: 130%;
+          letter-spacing: 0.42px;
           color: $justfix-grey-700;
           margin-bottom: 1rem;
         }
       }
       .error-message {
+        @include desktop-text-small;
+        font-weight: 500;
+        line-height: 130%;
+        letter-spacing: 0.42px;
         align-self: center;
         margin-bottom: 1rem;
         color: $justfix-red;
