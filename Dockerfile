@@ -36,15 +36,15 @@ RUN pip install -r requirements-dev.txt
 # Setup Geosupport 
 # check the latest version here https://www.nyc.gov/site/planning/data-maps/open-data/dwn-gdelx.page
 # make sure this gets updated regularly, and matches the version in nycdb-k8s-loader
-ENV RELEASE=23c
-ENV MAJOR=23
-ENV MINOR=3
+ENV RELEASE=25b
+ENV MAJOR=25
+ENV MINOR=2
 ENV PATCH=0
 WORKDIR /geosupport
 
-RUN FILE_NAME=linux_geo${RELEASE}_${MAJOR}_${MINOR}.zip \
+RUN FILE_NAME=linux_geo${RELEASE}_${MAJOR}.${MINOR}.zip \
   && echo ${FILE_NAME} \
-  && curl -O https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/$FILE_NAME \
+  && curl -O https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/geosupport/$FILE_NAME \
   && unzip *.zip \
   && rm *.zip
 
