@@ -22,11 +22,8 @@ interface EmailInputProps extends React.ComponentPropsWithoutRef<"input"> {
 const EmailInputWithoutI18n = forwardRef<HTMLInputElement, EmailInputProps>(
   ({ i18n, i18nHash, email, error, setError, showError, onChange, labelText, ...props }, ref) => {
     const isBadEmailFormat = (value: string) => {
-      /* valid email regex rules 
-      alpha numeric characters are ok, upper/lower case agnostic 
-      username: leading \_ ok, chars \_\.\-\+ ok in all other positions
-      domain name: chars \.\- ok as long as not leading. must end in a \. and at least two alphabet chars */
-      const pattern = /^([a-zA-Z0-9_]+[a-zA-Z0-9+_.-]+@[a-zA-Z0-9]+[a-zA-Z0-9.-]+[a-zA-Z0-9]+\.[a-zA-Z]{2,})$/;
+      /* valid email regex borrowed from https://stackoverflow.com/a/46181/7051239 */
+      const pattern = /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/;
 
       // HTML input element has loose email validation requirements, so we check the input against a custom regex
       const passStrictRegex = value.match(pattern);
