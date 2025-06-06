@@ -179,14 +179,14 @@ export const UserContextProvider = ({ children }: { children: React.ReactNode })
   );
 
   const subscribeDistrict = useCallback(
-    (district: District, _user?: JustfixUser) => {
+    async (district: District, _user?: JustfixUser) => {
       const currentUser = !!user?.email ? user : _user;
       if (currentUser) {
         const asyncSubscribe = async () => {
           const response = await AuthClient.subscribeDistrict(district);
           setUser({ ...currentUser, districtSubscriptions: response["district_subscriptions"] });
         };
-        asyncSubscribe();
+        await asyncSubscribe();
       }
     },
     [user]
