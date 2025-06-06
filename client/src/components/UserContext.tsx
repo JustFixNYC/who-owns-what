@@ -186,7 +186,7 @@ export const UserContextProvider = ({ children }: { children: React.ReactNode })
           const response = await AuthClient.subscribeDistrict(district);
           setUser({ ...currentUser, districtSubscriptions: response["district_subscriptions"] });
         };
-        asyncSubscribe();
+        await asyncSubscribe();
       }
     },
     [user]
