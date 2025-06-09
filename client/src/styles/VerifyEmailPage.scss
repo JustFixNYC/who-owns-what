@@ -1,4 +1,15 @@
+@import "./vars";
+
 .VerifyEmailPage {
+  .success-message {
+    text-align: center;
+    color: $justfix-green;
+    font-size: 20px;
+    margin-bottom: 1rem;
+    svg {
+      margin-right: 1rem;
+    }
+  }
   .send-new-link-container {
     justify-content: center;
     margin-top: 2rem;

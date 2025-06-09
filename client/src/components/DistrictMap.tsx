@@ -16,7 +16,7 @@ const MAPBOX_STYLE = "mapbox://styles/justfix/cm8yk6082005q01qudd9mdnsf";
 type LatLng = [number, number];
 
 const DEFAULT_CENTER: LatLng = [-73.91415139243611, 40.70338934328157];
-const DEFAULT_CENTER_MOBILE: LatLng = [-73.93522994326645, 40.72265549992619];
+const DEFAULT_CENTER_MOBILE: LatLng = [-73.93294267646041, 40.74983517823421];
 
 const DEFAULT_ZOOM = 10.757625625010308;
 const DEFAULT_ZOOM_MOBILE = 9.9;
@@ -193,6 +193,7 @@ export const DistrictMap: React.FC<DistrictMapProps> = ({
       saveButtonRef.current?.scrollIntoView({
         behavior: "smooth",
       });
+      console.log(map.getCenter());
     });
 
     map.on("mouseenter", "districts", (e) => {

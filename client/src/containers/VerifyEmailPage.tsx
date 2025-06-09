@@ -8,6 +8,9 @@ import SendNewLink from "components/SendNewLink";
 import StandalonePage from "components/StandalonePage";
 import { JFCLLocaleLink } from "i18n";
 import { createWhoOwnsWhatRoutePaths } from "routes";
+import { BuildingSubscription, DistrictSubscription } from "state-machine";
+import { Icon } from "@justfixnyc/component-library";
+import "styles/VerifyEmailPage.css";
 
 const BRANCH_NAME = process.env.REACT_APP_BRANCH;
 
@@ -23,6 +26,21 @@ const VerifyEmailPage = withI18n()((props: withI18nProps) => {
   const params = new URLSearchParams(search);
   const token = params.get("u") || "";
   const { home } = createWhoOwnsWhatRoutePaths();
+
+  const [buildingSubs, setBuildingSubs] = useState<BuildingSubscription[]>();
+  const buildingSubsNumber = buildingSubs?.length;
+
+  const [districtSubs, setDistrictSubs] = useState<DistrictSubscription[]>();
+  const districtSubsNumber = districtSubs?.length;
+
+  useEffect(() => {
+    const asyncFetchSubscriptions = async () => {
+      const response = await AuthClient.emailUserSubscriptions(token);
+      setBuildingSubs(response["building_subscriptions"]);
+      setDistrictSubs(response["district_subscriptions"]);
+    };
+    asyncFetchSubscriptions();
+  }, [token]);
 
   useEffect(() => {
     const asyncVerifyEmail = async () => {
@@ -83,6 +101,10 @@ const VerifyEmailPage = withI18n()((props: withI18nProps) => {
 
   const successPage = () => (
     <>
+      <Trans render="div" className="success-message">
+        <Icon icon="check" />
+        Success
+      </Trans>
       <Trans render="h1">Email address verified</Trans>
       <Trans render="h2">
         If you already added a building, you will get your first Building Update on Monday morning.
@@ -97,11 +119,11 @@ const VerifyEmailPage = withI18n()((props: withI18nProps) => {
   const alreadyVerifiedPage = () => <Trans render="h1">Your email is already verified</Trans>;
 
   return (
-    <StandalonePage title={i18n._(t`Verify your email address`)} className="VerifyEmailPage2">
+    <StandalonePage title={i18n._(t`Verify your email address`)} className="VerifyEmailPage">
       {!loading &&
         (isVerified
           ? isAlreadyVerified
-            ? alreadyVerifiedPage()
+            ? successPage() //alreadyVerifiedPage()
             : successPage()
           : isExpired
           ? expiredLinkPage()

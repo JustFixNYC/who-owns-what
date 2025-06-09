@@ -438,16 +438,16 @@ const LoginWithoutI18n = (props: withI18nProps) => {
   let submitButtonText = "";
   switch (step) {
     case Step.CheckEmail:
-      headerText = i18n._(t`Log in / sign up`);
+      headerText = i18n._(t`Log in / Sign up`);
       subHeaderText = (
         <Trans>
           Use your account to get weekly email alerts on{" "}
           {!!addr ? (
             <>{formatAddr(addr, false)}.</>
           ) : !!district ? (
-            <>buildings in your area.</>
+            <>the areas you select.</>
           ) : (
-            <>the buildings you choose.</>
+            <>the buildings you select.</>
           )}
         </Trans>
       );
