@@ -27,6 +27,7 @@ export const JustFixLogoLink = (props: { eventParams: any }) => {
   return (
     <LocaleLink
       className="jf-logo"
+      title="JustFix"
       to={home}
       onClick={() => {
         window.gtag("event", "standalone-justfix-logo-click", {
@@ -72,19 +73,20 @@ export const StandalonePageFooter = (props: { eventParams: any }) => {
 
 type StandalonePageProps = withI18nProps & {
   title: string;
-  className: string;
   children: React.ReactNode;
+  className?: string;
+  id?: string;
 };
 
 const StandalonePage = withI18n()((props: StandalonePageProps) => {
-  const { title, className, children } = props;
+  const { title, className, id, children } = props;
   const { pathname } = useLocation();
   const pageName = STANDALONE_PAGES.find((x) => pathname.includes(x));
   const eventParams = { from: pageName };
 
   return (
     <Page title={title}>
-      <div className={classNames("StandalonePage Page", className)}>
+      <div className={classNames("StandalonePage Page", className)} id={id}>
         <div className="page-container">
           <JustFixLogoLink eventParams={eventParams} />
           <div className="standalone-container">{children}</div>

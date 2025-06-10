@@ -72,8 +72,12 @@ msgid "311 Complaints Data"
 msgstr "Datos de quejas al 311"
 
 #: src/containers/VerifyEmailPage.tsx:87
-msgid "<0/>Success"
+msgid "<0/><1>Success</1>"
 msgstr ""
+
+#: src/containers/VerifyEmailPage.tsx:87
+#~ msgid "<0/>Success"
+#~ msgstr ""
 
 #: src/containers/ResetPasswordPage.tsx:66
 #~ msgid "<0> {delaySeconds}</0> seconds"
@@ -1040,8 +1044,8 @@ msgid "I was checking out this building on Who Owns What, a free landlord resear
 msgstr "Estaba revisando este edificio en Quién Es El Dueño, una herramienta gratuita construida por JustFix. ¡Es un sitio web extraordinario que cada inquilino y defensor de viviendas debería saber sobre! ¿Puedes adivinar cuántas violaciones totales tiene este portafolio de este dueño? Míralo aquí: {url}"
 
 #: src/containers/VerifyEmailPage.tsx:92
-msgid "If you already added a building, you will get your first Building Update on Monday morning."
-msgstr "Si ya ha añadido un edificio, recibirá la primera actualización de edificios el lunes por la mañana."
+#~ msgid "If you already added a building, you will get your first Building Update on Monday morning."
+#~ msgstr "Si ya ha añadido un edificio, recibirá la primera actualización de edificios el lunes por la mañana."
 
 #: src/containers/VerifyEmailPage.tsx:114
 #~ msgid "If you are not redirected, please click <0>[here]</0>"
@@ -2426,7 +2430,7 @@ msgstr "VENTILADORES"
 #~ msgid "Verify this email:"
 #~ msgstr "Verify this email:"
 
-#: src/containers/VerifyEmailPage.tsx:101
+#: src/containers/VerifyEmailPage.tsx:102
 msgid "Verify your email address"
 msgstr "Verifica su correo electrónico"
 
@@ -2759,8 +2763,12 @@ msgstr "Está viendo la versión anterior de Quién es el Dueño"
 #~ msgstr ""
 
 #: src/containers/VerifyEmailPage.tsx:95
-msgid "You can now close this window or <0>search for another building</0> to add."
-msgstr "Ahora puede cerrar esta ventana o <0>buscar otro edificio</0> para añadir."
+#~ msgid "You can now close this window or <0>search for another building</0> to add."
+#~ msgstr "Ahora puede cerrar esta ventana o <0>buscar otro edificio</0> para añadir."
+
+#: src/containers/VerifyEmailPage.tsx:95
+msgid "You can now close this window, <0>search for another building</0> to follow, or <1>select an area</1> to follow for alerts."
+msgstr ""
 
 #: src/containers/VerifyEmailPage.tsx:65
 #~ msgid "You can now start receiving Building Updates"
@@ -2790,7 +2798,7 @@ msgstr "Ha alcanzado el número máximo de Alertas de Edificios"
 #~ msgid "You will be redirected back to Who Owns What in:"
 #~ msgstr "You will be redirected back to Who Owns What in:"
 
-#: src/containers/VerifyEmailPage.tsx:100
+#: src/containers/VerifyEmailPage.tsx:101
 msgid "Your email is already verified"
 msgstr "Este correo electrónico ya está verificado"
 
@@ -2957,6 +2965,7 @@ msgstr "{0, plural, one {unidad} other {unidades}}"
 #: src/components/BuildingStatsTable.tsx:34
 #: src/components/BuildingStatsTable.tsx:35
 #: src/containers/AccountSettingsPage.tsx:98
+#: src/containers/VerifyEmailPage.tsx:92
 msgid "{0}"
 msgstr "{0}"
 
