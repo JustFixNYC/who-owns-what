@@ -41,19 +41,23 @@ CREATE TEMPORARY TABLE x_all_cofos AS (
 		  cofoissuancedate::date AS issue_date
 		FROM dob_now_certificate_occupancy
 	), pad_bin_bbl AS (
+    -- address level data has duplicates of bin-bbl
 		SELECT DISTINCT bin, bbl
 		FROM pad_adr
 	), all_cofos_w_id AS (
+    -- create ID to join back later
 		SELECT 
 			row_number() OVER() AS id,
 			*
 		FROM all_cofos
 	), cofo_old_bbl AS (
+    -- "anti-join" cOfOs with PAD using BBL to get CofO records with BBLs that no longer exist
 		SELECT c.*
 		FROM all_cofos_w_id AS c
 		LEFT JOIN pad_bin_bbl AS p USING(bbl)
 		WHERE p.bbl IS NULL
 	), cofo_updated_bbl AS (
+    -- Join the CofOs with outdated BBLs to PAD using BIN to get the current BBL for those buildings (BINs)
 		SELECT
 			c.id,
 			c.bin,
