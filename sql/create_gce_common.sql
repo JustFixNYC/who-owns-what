@@ -18,25 +18,60 @@ CREATE OR REPLACE AGGREGATE array_concat_agg(anyarray) (
 
 -- For each BBL, get the date of most recent certificate of occupancy, if there
 -- is one. Keep the BIN, date, and type for extra context and custom links.
+-- Because BBLs change over time, some older records might not match to any
+-- current BBLs, so we need to first join with PAD using either 
 
 CREATE TEMPORARY TABLE x_all_cofos AS (
-  SELECT
-    bbl,
-    bin,
-    coissuedate AS issue_date
-  FROM dob_certificate_occupancy
-  UNION
-  SELECT
-    bbl,
-    bin,
-    issuedate AS issue_date
-  FROM dob_foil_certificate_occupancy
-  UNION
-  SELECT
-    bbl,
-    bin,
-    cofoissuancedate::date AS issue_date
-  FROM dob_now_certificate_occupancy
+	WITH all_cofos AS (
+		SELECT
+		  bbl,
+		  bin,
+		  coissuedate AS issue_date
+		FROM dob_certificate_occupancy
+		UNION
+		SELECT
+		  bbl,
+		  bin,
+		  issuedate AS issue_date
+		FROM dob_foil_certificate_occupancy
+		UNION
+		SELECT
+		  bbl,
+		  bin,
+		  cofoissuancedate::date AS issue_date
+		FROM dob_now_certificate_occupancy
+	), pad_bin_bbl AS (
+    -- address level data has duplicates of bin-bbl
+		SELECT DISTINCT bin, bbl
+		FROM pad_adr
+	), all_cofos_w_id AS (
+    -- create ID to join back later
+		SELECT 
+			row_number() OVER() AS id,
+			*
+		FROM all_cofos
+	), cofo_old_bbl AS (
+    -- "anti-join" cOfOs with PAD using BBL to get CofO records with BBLs that no longer exist
+		SELECT c.*
+		FROM all_cofos_w_id AS c
+		LEFT JOIN pad_bin_bbl AS p USING(bbl)
+		WHERE p.bbl IS NULL
+	), cofo_updated_bbl AS (
+    -- Join the CofOs with outdated BBLs to PAD using BIN to get the current BBL for those buildings (BINs)
+		SELECT
+			c.id,
+			c.bin,
+			COALESCE(p.bbl, c.bbl) AS bbl,
+			c.issue_date
+		FROM cofo_old_bbl AS c
+		LEFT JOIN pad_bin_bbl AS p USING(bin)
+	)
+	SELECT 
+		c.bin,
+		COALESCE(u.bbl, c.bbl) AS bbl,
+		c.issue_date
+	FROM all_cofos_w_id AS c
+	LEFT JOIN cofo_updated_bbl AS u USING(id)
 );
 
 CREATE INDEX ON x_all_cofos (bbl, issue_date);
