@@ -1,4 +1,19 @@
-.VerifyEmailPage {
+@import "./vars";
+
+#VerifyEmailPage {
+  h2 {
+    margin-top: 1rem;
+  }
+  .success-message {
+    text-align: center;
+    font-size: 1.25rem;
+    font-weight: 500;
+    margin-bottom: 1rem;
+    color: $justfix-green;
+    svg {
+      margin-right: 1rem;
+    }
+  }
   .send-new-link-container {
     justify-content: center;
     margin-top: 2rem;

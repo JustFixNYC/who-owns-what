@@ -8,6 +8,9 @@ import SendNewLink from "components/SendNewLink";
 import StandalonePage from "components/StandalonePage";
 import { JFCLLocaleLink } from "i18n";
 import { createWhoOwnsWhatRoutePaths } from "routes";
+import { BuildingSubscription, DistrictSubscription } from "state-machine";
+import { Icon } from "@justfixnyc/component-library";
+import "styles/VerifyEmailPage.css";
 
 const BRANCH_NAME = process.env.REACT_APP_BRANCH;
 
@@ -22,7 +25,22 @@ const VerifyEmailPage = withI18n()((props: withI18nProps) => {
   const [unknownError, setUnknownError] = useState(false);
   const params = new URLSearchParams(search);
   const token = params.get("u") || "";
-  const { home } = createWhoOwnsWhatRoutePaths();
+  const { home, areaAlerts } = createWhoOwnsWhatRoutePaths();
+
+  const [buildingSubs, setBuildingSubs] = useState<BuildingSubscription[]>();
+  const buildingSubsNumber = buildingSubs?.length;
+
+  const [districtSubs, setDistrictSubs] = useState<DistrictSubscription[]>();
+  const districtSubsNumber = districtSubs?.length;
+
+  useEffect(() => {
+    const asyncFetchSubscriptions = async () => {
+      const response = await AuthClient.emailUserSubscriptions(token);
+      setBuildingSubs(response["building_subscriptions"]);
+      setDistrictSubs(response["district_subscriptions"]);
+    };
+    asyncFetchSubscriptions();
+  }, [token]);
 
   useEffect(() => {
     const asyncVerifyEmail = async () => {
@@ -83,13 +101,26 @@ const VerifyEmailPage = withI18n()((props: withI18nProps) => {
 
   const successPage = () => (
     <>
-      <Trans render="h1">Email address verified</Trans>
-      <Trans render="h2">
-        If you already added a building, you will get your first Building Update on Monday morning.
+      <Trans render="div" className="success-message">
+        <Icon icon="check" />
+        <span>Success</span>
       </Trans>
+      <Trans render="h1">Email address verified</Trans>
+      {(!!districtSubsNumber || !!buildingSubsNumber) && (
+        <Trans render="h2">
+          {districtSubsNumber && buildingSubsNumber ? (
+            <>We will send your first Area Alert and Building Alert emails on Monday morning.</>
+          ) : districtSubsNumber ? (
+            <>We will send your first Area Alert email on Monday morning.</>
+          ) : (
+            <>We will send your first Building Alert email on Monday morning.</>
+          )}
+        </Trans>
+      )}
       <Trans render="h2">
-        You can now close this window or{" "}
-        <JFCLLocaleLink to={home}>search for another building</JFCLLocaleLink> to add.
+        You can now close this window,{" "}
+        <JFCLLocaleLink to={home}>search for another building</JFCLLocaleLink> to follow, or{" "}
+        <JFCLLocaleLink to={areaAlerts}>select an area</JFCLLocaleLink> to follow for alerts.
       </Trans>
     </>
   );
@@ -97,7 +128,7 @@ const VerifyEmailPage = withI18n()((props: withI18nProps) => {
   const alreadyVerifiedPage = () => <Trans render="h1">Your email is already verified</Trans>;
 
   return (
-    <StandalonePage title={i18n._(t`Verify your email address`)} className="VerifyEmailPage2">
+    <StandalonePage title={i18n._(t`Verify your email address`)} id="VerifyEmailPage">
       {!loading &&
         (isVerified
           ? isAlreadyVerified

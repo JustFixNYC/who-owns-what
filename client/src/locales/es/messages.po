@@ -34,7 +34,7 @@ msgstr ""
 msgid "#WhoOwnsWhat via @JustFixOrg"
 msgstr "#QuiénEsElDueño por @JustFixOrg"
 
-#: src/util/helpers.ts:276
+#: src/util/helpers.ts:275
 msgid "(\"{textInEnglish}\" in English)"
 msgstr "(\"{textInEnglish}\" en inglés)"
 
@@ -70,6 +70,14 @@ msgstr "... o descubre ejemplos de portafolios de edificios:"
 #: src/components/FeatureCalloutContent.ts:8
 msgid "311 Complaints Data"
 msgstr "Datos de quejas al 311"
+
+#: src/containers/VerifyEmailPage.tsx:87
+msgid "<0/><1>Success</1>"
+msgstr ""
+
+#: src/containers/VerifyEmailPage.tsx:87
+#~ msgid "<0/>Success"
+#~ msgstr ""
 
 #: src/containers/ResetPasswordPage.tsx:66
 #~ msgid "<0> {delaySeconds}</0> seconds"
@@ -303,7 +311,7 @@ msgstr "¿Tienes problemas en tu edificio?"
 #~ msgstr ""
 
 #: src/containers/AccountSettingsPage.tsx:97
-#: src/containers/DistrictAlertsPage.tsx:150
+#: src/containers/DistrictAlertsPage.tsx:148
 msgid "Area Alerts"
 msgstr ""
 
@@ -315,11 +323,11 @@ msgstr ""
 #~ msgid "Area maps"
 #~ msgstr ""
 
-#: src/containers/DistrictAlertsPage.tsx:117
+#: src/containers/DistrictAlertsPage.tsx:116
 msgid "Area selection"
 msgstr ""
 
-#: src/containers/DistrictAlertsPage.tsx:112
+#: src/containers/DistrictAlertsPage.tsx:111
 msgid "Area type selection"
 msgstr ""
 
@@ -354,7 +362,7 @@ msgstr ""
 
 #: src/components/PortfolioTable.tsx:94
 #: src/containers/NychaPage.tsx:83
-#: src/util/helpers.ts:69
+#: src/util/helpers.ts:68
 msgid "Borough"
 msgstr "Municipio"
 
@@ -458,7 +466,7 @@ msgstr "Revise su correo electrónico"
 #~ msgid "Check your email inbox {email} to verify your email address. Once you’ve done that, you’ll start getting email updates."
 #~ msgstr "Check your email inbox {email} to verify your email address. Once you’ve done that, you’ll start getting email updates."
 
-#: src/util/helpers.ts:64
+#: src/util/helpers.ts:63
 msgid "City Council District"
 msgstr ""
 
@@ -536,7 +544,7 @@ msgstr "Haga clic en el enlace que le enviamos a <0>{email}</0> para verificar s
 msgid "Click the link we sent to your email to reset your password."
 msgstr "Haz clic en el enlace que le enviamos a su correo electrónico para restablecer su contraseña."
 
-#: src/containers/VerifyEmailPage.tsx:59
+#: src/containers/VerifyEmailPage.tsx:73
 msgid "Click the link we sent to your email to start receiving emails."
 msgstr "Haga clic en el enlace que le enviamos a su correo electrónico para empezar a recibir correos electrónicos."
 
@@ -562,7 +570,7 @@ msgstr "Cerrar"
 #~ msgid "Close legend"
 #~ msgstr "Close legend"
 
-#: src/util/helpers.ts:65
+#: src/util/helpers.ts:64
 msgid "Community District"
 msgstr ""
 
@@ -575,8 +583,8 @@ msgid "Complaints to 311"
 msgstr "Quejas al 311"
 
 #: src/util/helpers.ts:63
-msgid "Congressional District"
-msgstr ""
+#~ msgid "Congressional District"
+#~ msgstr ""
 
 #: src/containers/AccountSettingsPage.tsx:124
 msgid "Contact support@justfix.org to delete your account or get help"
@@ -731,10 +739,10 @@ msgid "Email address"
 msgstr "Correo electrónico"
 
 #: src/components/UserSettingField.tsx:100
-msgid "Email address not verified. Click the link we sent to {email} start receiving Building Updates."
-msgstr "Correo electrónico no verificado. Haga clic al enlace que le enviamos a {email} para empezar a recibir Actualizaciones de edificios."
+#~ msgid "Email address not verified. Click the link we sent to {email} start receiving Building Updates."
+#~ msgstr "Correo electrónico no verificado. Haga clic al enlace que le enviamos a {email} para empezar a recibir Actualizaciones de edificios."
 
-#: src/containers/VerifyEmailPage.tsx:73
+#: src/containers/VerifyEmailPage.tsx:91
 msgid "Email address verified"
 msgstr "Correo electrónico verificado"
 
@@ -742,6 +750,10 @@ msgstr "Correo electrónico verificado"
 #: src/containers/App.tsx:124
 msgid "Email settings"
 msgstr "Configuración del correo electrónico"
+
+#: src/containers/DistrictAlertsPage.tsx:105
+msgid "Emails will include data on HPD & DOB complaints and violations, eviction filings, litigations, vacate orders, and building sales."
+msgstr ""
 
 #: src/components/IndicatorsViz.tsx:170
 msgid "Emergency"
@@ -926,7 +938,11 @@ msgid "Get a weekly email alert on complaints, violations, and eviction filings 
 msgstr "Reciba por correo electrónico una alerta semanal de las quejas, infracciones y expedientes de desalojo de este edificio."
 
 #: src/containers/DistrictAlertsPage.tsx:105
-msgid "Get a weekly email that identifies buildings and landlord portfolios where tenants are at risk of displacement."
+#~ msgid "Get a weekly email that identifies buildings and landlord portfolios where tenants are at risk of displacement."
+#~ msgstr ""
+
+#: src/containers/DistrictAlertsPage.tsx:101
+msgid "Get a weekly email that identifies buildings and portfolios where tenants are at an elevated risk of displacement."
 msgstr ""
 
 #: src/components/EmailAlertSignup.tsx:86
@@ -1027,9 +1043,9 @@ msgstr "Usé #QuiénEsElDueño (construido por @JustFixNYC) para ver no solo las
 msgid "I was checking out this building on Who Owns What, a free landlord research tool from JustFix. It’s a remarkable website that every tenant and housing advocate should know about! Can you guess how many total violations this landlord portfolio has? Check it out here: {url}"
 msgstr "Estaba revisando este edificio en Quién Es El Dueño, una herramienta gratuita construida por JustFix. ¡Es un sitio web extraordinario que cada inquilino y defensor de viviendas debería saber sobre! ¿Puedes adivinar cuántas violaciones totales tiene este portafolio de este dueño? Míralo aquí: {url}"
 
-#: src/containers/VerifyEmailPage.tsx:74
-msgid "If you already added a building, you will get your first Building Update on Monday morning."
-msgstr "Si ya ha añadido un edificio, recibirá la primera actualización de edificios el lunes por la mañana."
+#: src/containers/VerifyEmailPage.tsx:92
+#~ msgid "If you already added a building, you will get your first Building Update on Monday morning."
+#~ msgstr "Si ya ha añadido un edificio, recibirá la primera actualización de edificios el lunes por la mañana."
 
 #: src/containers/VerifyEmailPage.tsx:114
 #~ msgid "If you are not redirected, please click <0>[here]</0>"
@@ -1221,6 +1237,9 @@ msgid "Log in"
 msgstr "Iniciar sesión"
 
 #: src/components/Login.tsx:306
+msgid "Log in / Sign up"
+msgstr ""
+
 #: src/containers/LoginPage.tsx:23
 msgid "Log in / sign up"
 msgstr "Iniciar sesión / Registrarse"
@@ -1390,7 +1409,7 @@ msgstr "App MyNYCHA"
 msgid "NON-CONSTRUCTION"
 msgstr "NO CONSTRUCCIÓN"
 
-#: src/containers/DistrictAlertsPage.tsx:104
+#: src/containers/DistrictAlertsPage.tsx:100
 msgid "NYC Area Alerts"
 msgstr ""
 
@@ -1622,7 +1641,7 @@ msgstr "Persona/Entidad"
 #~ msgid "Please enter a response."
 #~ msgstr "Please enter a response."
 
-#: src/components/EmailInput.tsx:46
+#: src/components/EmailInput.tsx:43
 msgid "Please enter a valid email address."
 msgstr "Introduzca un correo electrónico válido."
 
@@ -1638,7 +1657,7 @@ msgstr "Por favor introduce una contraseña."
 msgid "Please select an option."
 msgstr "Elige una opción, por favor."
 
-#: src/containers/VerifyEmailPage.tsx:68
+#: src/containers/VerifyEmailPage.tsx:82
 msgid "Please try again later. If you’re still having issues, contact support@justfix.org."
 msgstr "Por favor intenté de nuevo más tarde. Si aún tiene problemas, contacte support@justfix.org."
 
@@ -1794,11 +1813,11 @@ msgstr "ESCALERAS"
 msgid "Save"
 msgstr "Guardar"
 
-#: src/containers/DistrictAlertsPage.tsx:124
+#: src/containers/DistrictAlertsPage.tsx:122
 msgid "Save or add more areas"
 msgstr ""
 
-#: src/containers/DistrictAlertsPage.tsx:132
+#: src/containers/DistrictAlertsPage.tsx:130
 msgid "Save selections"
 msgstr ""
 
@@ -1832,15 +1851,19 @@ msgstr "Ver perfil del edificio"
 msgid "See the most common complaints reported by tenants to 311, now on the Overview and Portfolio tabs."
 msgstr "Vea las quejas más comunes reportadas por inquilinos al 311, ahora en las pestañas General y Portafolio."
 
-#: src/containers/DistrictAlertsPage.tsx:130
+#: src/containers/DistrictAlertsPage.tsx:128
 msgid "Select an area"
+msgstr ""
+
+#: src/containers/DistrictAlertsPage.tsx:109
+msgid "Select an area to get started:"
 msgstr ""
 
 #: src/components/MinMaxSelect.tsx:108
 msgid "Select one or more ranges of building units, or set a custom range, then apply selections to filter the list of portfolio properties."
 msgstr "Seleccione uno o varios rangos de unidades de edificios o establezca un rango personalizado y, a continuación, aplique las selecciones para filtrar la lista de propiedades de la cartera."
 
-#: src/containers/DistrictAlertsPage.tsx:117
+#: src/containers/DistrictAlertsPage.tsx:116
 msgid "Select or type a"
 msgstr ""
 
@@ -2024,11 +2047,11 @@ msgstr "Código fuente"
 msgid "Starts {year}"
 msgstr "Comienza {year}"
 
-#: src/util/helpers.ts:66
+#: src/util/helpers.ts:65
 msgid "State Assembly District"
 msgstr ""
 
-#: src/util/helpers.ts:67
+#: src/util/helpers.ts:66
 msgid "State Senate District"
 msgstr ""
 
@@ -2176,7 +2199,7 @@ msgstr "El registro de esta propiedad faltan detalles sobre el nombre del dueño
 msgid "The same owner may have spelled their name several ways in official documents."
 msgstr "El mismo dueño puede haber escrito su nombre de varias maneras en los documentos oficiales."
 
-#: src/containers/VerifyEmailPage.tsx:59
+#: src/containers/VerifyEmailPage.tsx:73
 msgid "The verification link that we sent you is no longer valid."
 msgstr "El enlace de verificación que le enviamos ya no es válido."
 
@@ -2351,8 +2374,8 @@ msgstr ""
 #~ msgstr ""
 
 #: src/containers/DistrictAlertsPage.tsx:110
-msgid "Use the drop-down menu to change between different types of areas."
-msgstr ""
+#~ msgid "Use the drop-down menu to change between different types of areas."
+#~ msgstr ""
 
 #: src/components/LandlordSearch.tsx:68
 msgid "Use the escape key to quit searching."
@@ -2407,7 +2430,7 @@ msgstr "VENTILADORES"
 #~ msgid "Verify this email:"
 #~ msgstr "Verify this email:"
 
-#: src/containers/VerifyEmailPage.tsx:83
+#: src/containers/VerifyEmailPage.tsx:102
 msgid "Verify your email address"
 msgstr "Verifica su correo electrónico"
 
@@ -2552,7 +2575,7 @@ msgstr "Enviamos Alertas de Edificios a este correo electrónico."
 msgid "We sent a reset link to {email}. Please check your inbox and spam."
 msgstr "Hemos enviado un enlace de reinicio a {email}. Por favor, comprueba su buzón de correo y spam."
 
-#: src/containers/VerifyEmailPage.tsx:67
+#: src/containers/VerifyEmailPage.tsx:81
 msgid "We’re having trouble verifying your email at this time."
 msgstr "Estamos teniendo problemas para verificar su correo electrónico en este momento."
 
@@ -2739,9 +2762,13 @@ msgstr "Está viendo la versión anterior de Quién es el Dueño"
 #~ msgid "You can follow one or multiple areas."
 #~ msgstr ""
 
-#: src/containers/VerifyEmailPage.tsx:77
-msgid "You can now close this window or <0>search for another building</0> to add."
-msgstr "Ahora puede cerrar esta ventana o <0>buscar otro edificio</0> para añadir."
+#: src/containers/VerifyEmailPage.tsx:95
+#~ msgid "You can now close this window or <0>search for another building</0> to add."
+#~ msgstr "Ahora puede cerrar esta ventana o <0>buscar otro edificio</0> para añadir."
+
+#: src/containers/VerifyEmailPage.tsx:95
+msgid "You can now close this window, <0>search for another building</0> to follow, or <1>select an area</1> to follow for alerts."
+msgstr ""
 
 #: src/containers/VerifyEmailPage.tsx:65
 #~ msgid "You can now start receiving Building Updates"
@@ -2771,7 +2798,11 @@ msgstr "Ha alcanzado el número máximo de Alertas de Edificios"
 #~ msgid "You will be redirected back to Who Owns What in:"
 #~ msgstr "You will be redirected back to Who Owns What in:"
 
-#: src/containers/VerifyEmailPage.tsx:82
+#: src/components/UserSettingField.tsx:100
+msgid "Your email address is not yet verified. Click the link we sent to {email} start receiving email alerts."
+msgstr ""
+
+#: src/containers/VerifyEmailPage.tsx:101
 msgid "Your email is already verified"
 msgstr "Este correo electrónico ya está verificado"
 
@@ -2830,7 +2861,7 @@ msgstr "Código postal no aplicable"
 
 #: src/components/PortfolioFilters.tsx:141
 #: src/components/PortfolioTable.tsx:85
-#: src/util/helpers.ts:68
+#: src/util/helpers.ts:67
 msgid "Zip Code"
 msgstr "Código postal"
 
@@ -2938,6 +2969,7 @@ msgstr "{0, plural, one {unidad} other {unidades}}"
 #: src/components/BuildingStatsTable.tsx:34
 #: src/components/BuildingStatsTable.tsx:35
 #: src/containers/AccountSettingsPage.tsx:98
+#: src/containers/VerifyEmailPage.tsx:92
 msgid "{0}"
 msgstr "{0}"
 

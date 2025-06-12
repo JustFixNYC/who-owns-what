@@ -158,11 +158,6 @@ const DistrictCreation = withI18n()((props: withI18nProps) => {
     history.push(account.settings);
   };
 
-  const selectClassNames = {
-    valueContainer: () => "dropdown-select__value-container",
-    indicatorsContainer: () => "dropdown-select__indicators-container",
-  };
-
   areaTypeOptions = areaTypeOptions.sort((a, b) => collator.compare(a.label, b.label));
 
   return (
@@ -177,15 +172,18 @@ const DistrictCreation = withI18n()((props: withI18nProps) => {
       <div className="district-selection__sidebar">
         <Trans render="h2">NYC Area Alerts</Trans>
         <Trans render="p">
-          Get a weekly email that identifies buildings and landlord portfolios where tenants are at
-          risk of displacement.
+          Get a weekly email that identifies buildings and portfolios where tenants are at an
+          elevated risk of displacement.
         </Trans>
-        <hr />
-        <Trans render="p">Use the drop-down menu to change between different types of areas.</Trans>
+        <Trans render="p">
+          Emails will include data on HPD & DOB complaints and violations, eviction filings,
+          litigations, vacate orders, and building sales.
+        </Trans>
+        <Trans render="p">Select an area to get started:</Trans>
         <div className="district-type-dropdown" ref={geoTypeDropdownRef}>
           <Select
-            className="dropdown-select"
-            classNames={selectClassNames}
+            className="dropdown-select select-area-type"
+            classNamePrefix="dropdown-select"
             aria-label={i18n._(t`Area type selection`)}
             defaultValue={defaultAreaType}
             options={areaTypeOptions}
@@ -200,8 +198,8 @@ const DistrictCreation = withI18n()((props: withI18nProps) => {
         <div className="district-value-dropdown" ref={geoValueDropdownRef}>
           <Select
             ref={geoSelectRef}
-            className="dropdown-select"
-            classNames={selectClassNames}
+            className="dropdown-select select-area-value"
+            classNamePrefix="dropdown-select"
             aria-label={i18n._(t`Area selection`)}
             placeholder={i18n._(t`Select or type a`) + " " + areaType.label}
             options={areaOptions}
@@ -215,7 +213,6 @@ const DistrictCreation = withI18n()((props: withI18nProps) => {
         </div>
         {!!areaSelections.length && (
           <div className="area-selection-container">
-            <hr />
             <div className="area-selection-chip-container">
               {areaSelections.map((area, i) => (
                 <AreaChip area={area} onClose={removeAreaFromSelections} i18n={i18n} key={i} />
