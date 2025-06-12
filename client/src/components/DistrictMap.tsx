@@ -193,7 +193,6 @@ export const DistrictMap: React.FC<DistrictMapProps> = ({
       saveButtonRef.current?.scrollIntoView({
         behavior: "smooth",
       });
-      console.log(map.getCenter());
     });
 
     map.on("mouseenter", "districts", (e) => {

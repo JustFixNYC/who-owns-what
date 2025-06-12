@@ -172,7 +172,7 @@ const EmailSettingFieldWithoutI18n = (props: EmailSettingFieldProps) => {
     <div className="jf-callout">
       <Trans render="p">
         Your email address is not yet verified. Click the link we sent to {email} start receiving
-        Building Updates.
+        email alerts.
       </Trans>
       {!isEmailResent && <Trans render="p">Didn’t get the link?</Trans>}
       <SendNewLink

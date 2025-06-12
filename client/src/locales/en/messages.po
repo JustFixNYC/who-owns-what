@@ -734,8 +734,8 @@ msgid "Email address"
 msgstr "Email address"
 
 #: src/components/UserSettingField.tsx:100
-msgid "Email address not verified. Click the link we sent to {email} start receiving Building Updates."
-msgstr "Email address not verified. Click the link we sent to {email} start receiving Building Updates."
+#~ msgid "Email address not verified. Click the link we sent to {email} start receiving Building Updates."
+#~ msgstr "Email address not verified. Click the link we sent to {email} start receiving Building Updates."
 
 #: src/containers/VerifyEmailPage.tsx:91
 msgid "Email address verified"
@@ -2792,6 +2792,10 @@ msgstr "You have reached the maximum number of Building Alerts"
 #: src/containers/VerifyEmailPage.tsx:107
 #~ msgid "You will be redirected back to Who Owns What in:"
 #~ msgstr "You will be redirected back to Who Owns What in:"
+
+#: src/components/UserSettingField.tsx:100
+msgid "Your email address is not yet verified. Click the link we sent to {email} start receiving email alerts."
+msgstr "Your email address is not yet verified. Click the link we sent to {email} start receiving email alerts."
 
 #: src/containers/VerifyEmailPage.tsx:101
 msgid "Your email is already verified"
