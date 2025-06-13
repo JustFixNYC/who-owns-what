@@ -16,10 +16,15 @@ CREATE OR REPLACE AGGREGATE array_concat_agg(anyarray) (
 --- Certificates of Occupancy
 --- -------------------------
 
--- For each BBL, get the date of most recent certificate of occupancy, if there
--- is one. Keep the BIN, date, and type for extra context and custom links.
--- Because BBLs change over time, some older records might not match to any
--- current BBLs, so we need to first join with PAD using either 
+-- For each BBL, we need the date of most recent certificate of occupancy, if
+-- there is one. We'll keep the BIN, BBL, date, and type for extra context and
+-- custom links. Because BBLs change over time, some older CofO records might
+-- not match to any current BBLs, so we need to first update the BBL where
+-- needed/possible. To do this we use the BIN from the CofO record and use that
+-- to join with PAD to get the BBL currently associated with that BIN. Then we
+-- join all the CofO records with PLUTO using both the original BBL and the
+-- updated BBL from PAD, to make sure that these BBLs exist for currently
+-- existing residential buildings that we'd be looking at on the GCE tool. 
 
 CREATE TEMPORARY TABLE x_all_cofos AS (
 	WITH all_cofos AS (
@@ -30,48 +35,42 @@ CREATE TEMPORARY TABLE x_all_cofos AS (
 		FROM dob_certificate_occupancy
 		UNION
 		SELECT
-		  bbl,
-		  bin,
-		  issuedate AS issue_date
+      bbl,
+      bin,
+      issuedate AS issue_date
 		FROM dob_foil_certificate_occupancy
 		UNION
 		SELECT
-		  bbl,
-		  bin,
-		  cofoissuancedate::date AS issue_date
+      bbl,
+      bin,
+      cofoissuancedate::date AS issue_date
 		FROM dob_now_certificate_occupancy
 	), pad_bin_bbl AS (
-    -- address level data has duplicates of bin-bbl
+    -- PAD is address level, and so has some duplicates of bin-bbl we need to
+    -- remove before joining
 		SELECT DISTINCT bin, bbl
 		FROM pad_adr
-	), all_cofos_w_id AS (
-    -- create ID to join back later
-		SELECT 
-			row_number() OVER() AS id,
-			*
-		FROM all_cofos
-	), cofo_old_bbl AS (
-    -- "anti-join" cOfOs with PAD using BBL to get CofO records with BBLs that no longer exist
-		SELECT c.*
-		FROM all_cofos_w_id AS c
-		LEFT JOIN pad_bin_bbl AS p USING(bbl)
-		WHERE p.bbl IS NULL
-	), cofo_updated_bbl AS (
-    -- Join the CofOs with outdated BBLs to PAD using BIN to get the current BBL for those buildings (BINs)
-		SELECT
-			c.id,
-			c.bin,
-			COALESCE(p.bbl, c.bbl) AS bbl,
-			c.issue_date
-		FROM cofo_old_bbl AS c
-		LEFT JOIN pad_bin_bbl AS p USING(bin)
+	), pluto_latest_w_units AS (
+    -- Sometimes a CofO might match to two PLUTO records with the original and
+    -- PAD updated BBL the the PLUTO data is for a non-residential building
+    -- which is incorrect, so we only want to keep residential PLUTO records
+		SELECT *
+		FROM pluto_latest
+		WHERE unitsres > 0
 	)
-	SELECT 
-		c.bin,
-		COALESCE(u.bbl, c.bbl) AS bbl,
-		c.issue_date
-	FROM all_cofos_w_id AS c
-	LEFT JOIN cofo_updated_bbl AS u USING(id)
+    -- Join the CofOs to PAD using BIN to get BBL, which sometimes differs from
+    -- the BBL in the CofO data itself. Then join with pluto using each of the
+    -- versions of BBL (CofO and PAD). Then we create our final bbl column
+    -- prioritizing the CofO bbl if it matches pluto, then the PAD bbl if it
+    -- matches pluto, then the original CofO bbl.
+		SELECT
+			c.bin,
+			COALESCE(pluto_dob.bbl, pluto_pad.bbl, c.bbl) AS bbl,
+			c.issue_date
+    FROM all_cofos AS c
+    LEFT JOIN pad_bin_bbl AS p USING(bin)
+    LEFT JOIN pluto_latest_w_units AS pluto_dob ON c.bbl = pluto_dob.bbl
+    LEFT JOIN pluto_latest_w_units AS pluto_pad ON p.bbl = pluto_pad.bbl
 );
 
 CREATE INDEX ON x_all_cofos (bbl, issue_date);
