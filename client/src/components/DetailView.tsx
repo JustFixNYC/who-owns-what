@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { CSSTransition } from "react-transition-group";
-import { LazyLoadWhenVisible } from "./LazyLoadWhenVisible";
 import Helpers, { longDateOptions } from "../util/helpers";
 import Browser from "../util/browser";
 import Modal from "../components/Modal";
@@ -23,7 +22,6 @@ import { HpdContactAddress, HpdFullContact } from "./APIDataTypes";
 import { isLegacyPath } from "./WowzaToggle";
 import { logAmplitudeEvent } from "./Amplitude";
 import EmailAlertSignup from "./EmailAlertSignup";
-import { StreetViewStatic } from "./StreetView";
 import GetRepairs from "./GetRepairs";
 
 type Props = withI18nProps &
@@ -184,29 +182,6 @@ class DetailViewWithoutI18n extends Component<Props, State> {
     if (wrapper) wrapper.scrollTop = 0;
   }
 
-  renderStreetView(
-    streetViewAddr: string,
-    streetViewCoords: {
-      lat: number;
-      lng: number;
-    } | null
-  ) {
-    if (!(streetViewAddr && streetViewCoords)) return <></>;
-
-    return (
-      <LazyLoadWhenVisible>
-        <figure className="figure">
-          <StreetViewStatic
-            lat={streetViewCoords.lat}
-            lng={streetViewCoords.lng}
-            imgHeight={(width, _height) => ((width || 0) < 900 ? 200 : 400)}
-            imgWidth={(width, _height) => ((width || 0) < 900 ? 500 : 600)}
-          />
-        </figure>
-      </LazyLoadWhenVisible>
-    );
-  }
-
   render() {
     const isMobile = Browser.isMobile();
     const { i18n, state } = this.props;
@@ -215,21 +190,13 @@ class DetailViewWithoutI18n extends Component<Props, State> {
     const { assocAddrs, detailAddr, searchAddr } = portfolioData;
 
     // Let's save some variables that will be helpful in rendering the front-end component
-    let formattedRegEndDate, streetViewCoords, streetViewAddr, ownernames, userOwnernames;
+    let formattedRegEndDate, streetViewAddr, ownernames, userOwnernames;
 
     formattedRegEndDate = Helpers.formatDate(
       detailAddr.registrationenddate,
       longDateOptions,
       locale
     );
-
-    streetViewCoords =
-      detailAddr.lat && detailAddr.lng
-        ? {
-            lat: detailAddr.lat,
-            lng: detailAddr.lng,
-          }
-        : null;
 
     streetViewAddr = encodeURIComponent(
       `${detailAddr.housenumber} ${detailAddr.streetname}, ${detailAddr.boro}, NY ${detailAddr.zip}`
@@ -251,9 +218,6 @@ class DetailViewWithoutI18n extends Component<Props, State> {
                   <button onClick={() => this.props.onCloseDetail()}>
                     <Trans render="span">View portfolio map</Trans>
                   </button>
-                </div>
-                <div className="card-image show-lg">
-                  {this.renderStreetView(streetViewAddr, streetViewCoords)}
                 </div>
                 <div className="columns main-content-columns">
                   <div className="column col-lg-12 col-7 detail-column-left">
