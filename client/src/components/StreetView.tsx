@@ -4,6 +4,10 @@ import Browser from "../util/browser";
 import Helpers from "../util/helpers";
 import { FixedLoadingLabel } from "./Loader";
 
+// The API for these streetview images is quite expensive, and the quality has
+// been declining (now common to get images inside businesses etc) so we've
+// decided to completely remove it from the site for now.
+
 export type StreetViewAddr = {
   lat: number;
   lng: number;

@@ -114,7 +114,7 @@
     }
 
     .DetailView__mobilePortfolioView {
-      padding: 0.8125rem 1.25rem;
+      padding: 0.8125rem 1.25rem 0;
 
       display: none;
       @include for-phone-only() {
@@ -138,6 +138,10 @@
 
       .card-title {
         margin-bottom: 0;
+        @include for-phone-only {
+          font-weight: 700;
+          font-size: 1.35rem;
+        }
       }
 
       // how is this bldg assoc
