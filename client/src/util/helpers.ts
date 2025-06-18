@@ -439,9 +439,10 @@ const helpers = {
    * Format and translate Area Alerts district labels for display on settings or
    * selection chips
    */
-  formatTranslatedAreaLabel(area: AreaProperties, i18n: I18n): string {
+  formatTranslatedAreaLabel(area: AreaProperties, i18n: I18n, chip: boolean): string {
     const { typeValue, areaLabel } = area;
-    const formattedLabel = ["nta", "zipcode", "borough"].includes(typeValue)
+    const noPrefixTypes = chip ? ["nta", "zipcode", "borough"] : ["nta", "borough"];
+    const formattedLabel = noPrefixTypes.includes(typeValue)
       ? areaLabel
       : `${translateAreaTypeLabel(typeValue, i18n)} ${areaLabel.replace(/district\s*/i, "")}`;
 
