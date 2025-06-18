@@ -64,7 +64,7 @@ const DistrictSubscriptionFieldWithoutI18n = (props: DistrictSubscriptionFieldPr
   return (
     <div className="subscription-field">
       <span className="subscription-district">
-        {district.map((area, i) => helpers.formatTranslatedAreaLabel(area, i18n)).join(", ")}
+        {district.map((area, i) => helpers.formatTranslatedAreaLabel(area, i18n, false)).join(", ")}
       </span>
       <Button
         type="submit"

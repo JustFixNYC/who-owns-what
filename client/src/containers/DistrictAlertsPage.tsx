@@ -246,7 +246,7 @@ type AreaChipProps = {
   i18n: I18n;
 };
 const AreaChip: React.FC<AreaChipProps> = ({ onClose, area, i18n }) => {
-  const chipLabel = helpers.formatTranslatedAreaLabel(area.properties, i18n);
+  const chipLabel = helpers.formatTranslatedAreaLabel(area.properties, i18n, true);
 
   return (
     <div className="area-selection-chip">
