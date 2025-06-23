@@ -4,14 +4,13 @@
 
 .PropertiesSummary {
   position: relative;
-  // @include for-phone-only() {
-  //   padding-right: 30px;
-  // };
 
   .PropertiesSummary__content {
     padding: 30px 45px 104px 30px;
 
     @include for-tablet-portrait-up() {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
       padding: 45px 45px 104px 45px;
     }
 
@@ -31,14 +30,14 @@
       margin-bottom: 1.5rem;
     }
 
-    aside {
-      @include for-tablet-landscape-up() {
-        width: 32%;
-        margin-left: 40px;
-        margin-top: 0;
-        margin-bottom: 0;
-      }
-    }
+    // aside {
+    //   @include for-tablet-landscape-up() {
+    //     width: 32%;
+    //     margin-left: 40px;
+    //     margin-top: 0;
+    //     margin-bottom: 0;
+    //   }
+    // }
 
     .network-legend {
       // position: absolute;
@@ -133,7 +132,12 @@
     }
   }
 
+  aside {
+    width: unset;
+  }
+
   .PropertiesSummary__links {
+    width: unset;
     border: 1px solid $gray;
     padding: 1.25rem 0.94rem;
     position: relative;
