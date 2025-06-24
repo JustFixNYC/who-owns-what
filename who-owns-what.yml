@@ -43,7 +43,7 @@ oca_post_sql:
   - oca_evictions_bldgs.sql
   - oca_evictions_monthly.sql
 signature_s3_objects:
-  - "signature_unhp_data.csv"
+  - "signature_unhp_data2.csv"
 signature_pre_sql:
   # Create tables in the WOW/NYCDB DB to populate from CSVs via S3 as part of
   # the private signature data process

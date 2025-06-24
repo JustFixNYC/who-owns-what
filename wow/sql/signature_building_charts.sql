@@ -16,5 +16,5 @@ SELECT
     rentstab_units,
     dobpermits_jobs,
     hpderp_charges
-FROM signature_building_charts
+FROM signature_building_charts2
 WHERE bbl = %(bbl)s

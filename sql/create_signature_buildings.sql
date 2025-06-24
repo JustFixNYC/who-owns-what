@@ -12,45 +12,34 @@ CREATE TEMP TABLE IF NOT EXISTS signature_pluto_geos AS (
 		nullif(s.origination_date, '')::date AS origination_date,
 		nullif(s.debt_total, '')::float AS debt_total,
 		-- temporarily adding these here, later they'll be included in the data from UNHP
-		'active' AS loan_status,
-		NULL AS loan_action,
+		status_info::json AS status_info,
+		((status_info::json)->'statuses'->>-1)::json->'status' AS status_current,
 		p.borocode,
 		p.block,
 		p.lot,
 		p.address,
 		p.zipcode,
 		p.borough,
-		p.council,
+		d.coun_dist,
+		d.assem_dist,
+		d.stsen_dist,
+		d.cong_dist,
 		p.latitude,
 		p.longitude,
 		p.unitsres,
 		p.unitstotal,
 		p.yearbuilt,
 		ST_TRANSFORM(ST_SetSRID(ST_MakePoint(longitude, latitude),4326), 2263) AS geom_point
-	FROM signature_unhp_data AS s
+	FROM signature_unhp_data2 AS s
 	LEFT JOIN pluto_latest AS p USING(bbl)
+	LEFT JOIN pluto_latest_districts AS d USING(bbl)
 );
 
+CREATE INDEX ON signature_pluto_geos (bbl);
 CREATE INDEX ON signature_pluto_geos using gist (geom_point);
 
-DROP TABLE IF EXISTS signature_pluto_poli;
-CREATE TEMP TABLE IF NOT EXISTS signature_pluto_poli AS (
-	SELECT
-		p.*,
-		council::text AS coun_dist,
-		ad.assemdist::text AS assem_dist,
-		ss.stsendist::text AS stsen_dist,
-		cg.congdist::text AS cong_dist
-	FROM signature_pluto_geos AS p
-	LEFT JOIN nyad AS ad ON ST_Within(p.geom_point, ad.geom)
-	LEFT JOIN nyss AS ss ON ST_Within(p.geom_point, ss.geom)
-	LEFT JOIN nycg AS cg ON ST_Within(p.geom_point, cg.geom)
-);
-
-CREATE INDEX ON signature_pluto_poli (bbl);
-
-DROP TABLE IF EXISTS signature_buildings CASCADE;
-CREATE TABLE IF NOT EXISTS signature_buildings AS (
+DROP TABLE IF EXISTS signature_buildings2 CASCADE;
+CREATE TABLE IF NOT EXISTS signature_buildings2 AS (
 	WITH evic_marshal AS (
 	    SELECT
 	        bbl,
@@ -410,9 +399,9 @@ CREATE TABLE IF NOT EXISTS signature_buildings AS (
 		sp.loan_pool,
 		sp.loan_pool_slug,
 
-		-- LOAN
-		loan_status,
- 		loan_action,
+		-- LOAN STATUS
+		status_info,
+ 		status_current,
 		
 		-- FINANCIAL
 		acris_deed.last_sale_date,
@@ -420,7 +409,7 @@ CREATE TABLE IF NOT EXISTS signature_buildings AS (
 		sp.debt_total,
 		sp.debt_total / nullif(sp.unitsres, 0)::float AS debt_per_unit
 
-	FROM signature_pluto_poli AS sp
+	FROM signature_pluto_geos AS sp
 	LEFT JOIN evic_marshal USING(bbl)
 	LEFT JOIN evic_oca USING(bbl)
 	LEFT JOIN hp_cases USING(bbl)
@@ -441,6 +430,7 @@ CREATE TABLE IF NOT EXISTS signature_buildings AS (
 	WHERE bbl IS NOT NULL
 );
 
-CREATE INDEX ON signature_buildings (bbl);
-CREATE INDEX ON signature_buildings (landlord);
-CREATE INDEX ON signature_buildings (loan_pool);
+CREATE INDEX ON signature_buildings2 (bbl);
+CREATE INDEX ON signature_buildings2 (landlord);
+CREATE INDEX ON signature_buildings2 (loan_pool);
+CREATE INDEX ON signature_buildings2 (status_current);

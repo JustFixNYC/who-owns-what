@@ -7,16 +7,17 @@
 -- queries. 
 
 
-DROP TABLE IF EXISTS signature_unhp_data cascade;
+DROP TABLE IF EXISTS signature_unhp_data2 cascade;
 
-CREATE TABLE signature_unhp_data (
+CREATE TABLE signature_unhp_data2 (
     bbl char(10),
     loan_pool text,
     landlord text,
     bip text,
     water_charges text,
     origination_date text,
-    debt_total text
+    debt_total text,
+    status_info text
 );
 
-CREATE INDEX ON signature_unhp_data (bbl);
+CREATE INDEX ON signature_unhp_data2 (bbl);
