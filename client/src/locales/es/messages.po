@@ -30,24 +30,24 @@ msgstr ""
 #~ msgid "#WhoOwnsWhat via @JustFixNYC"
 #~ msgstr "#WhoOwnsWhat via @JustFixNYC"
 
-#: src/components/PropertiesSummary.tsx:108
+#: src/components/PropertiesSummary.tsx:95
 msgid "#WhoOwnsWhat via @JustFixOrg"
 msgstr "#QuiénEsElDueño por @JustFixOrg"
 
-#: src/util/helpers.ts:275
+#: src/util/helpers.ts:274
 msgid "(\"{textInEnglish}\" in English)"
 msgstr "(\"{textInEnglish}\" en inglés)"
 
-#: src/components/DetailView.tsx:240
+#: src/components/DetailView.tsx:219
 msgid "(as part of a group sale)"
 msgstr "(como parte de una venta en grupo)"
 
-#: src/components/DetailView.tsx:222
+#: src/components/DetailView.tsx:201
 #: src/containers/NotRegisteredPage.tsx:104
 msgid "(expired {formattedRegEndDate})"
 msgstr "(caducado {formattedRegEndDate})"
 
-#: src/components/DetailView.tsx:225
+#: src/components/DetailView.tsx:204
 msgid "(expires {formattedRegEndDate})"
 msgstr "(caduca {formattedRegEndDate})"
 
@@ -164,7 +164,7 @@ msgstr "<0>Esta propiedad no necesita estar registrada con en HPD</0> porque no 
 msgid "<0>This property should be registered with HPD</0> because it has more than 2 residential units."
 msgstr "<0>Esta propiedad debe estar registrada con en HPD</0> porque tiene más de 2 unidades residenciales."
 
-#: src/components/DetailView.tsx:65
+#: src/components/DetailView.tsx:63
 msgid "<0>While the legal owner of a building is often a company (usually called an “LLC”), these names and business addresses registered with HPD offer a clearer picture of who really controls the building.</0><1>People listed here as “Head Officer” or “Owner” usually have ties to building ownership, while “Site Managers” are part of management. That being said, these names are self reported by the landlord, so they can be misleading.</1><2>Learn more about HPD registrations and how this information powers this tool on the <3>About page</3>.</2>"
 msgstr "<0>Mientras el dueño legal de un edificio es, con frecuencia, una compañía (se llama muchas veces un “LLC”), estos nombres y direcciones de negocio registrado con HPD se ofrecen una idea más clara de quién controla el edificio.</0><1>Las personas enumeradas aquí como “Oficial Principal” o “Dueño” normalmente tienen una conexión con la propiedad del edificio, mientras que los \"Administradores del Sitio\" formen parte de la gerencia. Dicho eso, estos nombres son autoinformados por el dueño, y entonces pueden ser engañosos.</1><2>Aprende más acerca de registros de HPD y cómo esta información impulsa la herramienta en la <3>página “Acerca de”</3>.</2>"
 
@@ -220,7 +220,7 @@ msgstr "Cuenta"
 #~ msgid "Account settings"
 #~ msgstr "Account settings"
 
-#: src/components/PropertiesSummary.tsx:38
+#: src/components/PropertiesSummary.tsx:37
 msgid "Across owners and management staff, the most common {0, plural, one {name that appears in this portfolio is} other {names that appear in this portfolio are}} <0/>."
 msgstr "En todos los dueños y administradores, {0, plural, one {el nombre más común que aparece en esta cartera de edificios es} other {los nombres más comunes que aparecen en esta cartera de edificios son}} <0/>."
 
@@ -232,7 +232,7 @@ msgstr "En todos los dueños y administradores, {0, plural, one {el nombre más 
 #~ msgid "Add to Building Updates"
 #~ msgstr "Add to Building Updates"
 
-#: src/components/PropertiesSummary.tsx:92
+#: src/components/PropertiesSummary.tsx:79
 msgid "Additional links"
 msgstr "Enlaces adicionales"
 
@@ -347,7 +347,7 @@ msgstr ""
 msgid "BELL/BUZZER/INTERCOM"
 msgstr "TIMBRE/INTERCOMUNICADOR"
 
-#: src/components/DetailView.tsx:164
+#: src/components/DetailView.tsx:143
 msgid "BUILDING:"
 msgstr "EDIFICIO:"
 
@@ -362,7 +362,6 @@ msgstr ""
 
 #: src/components/PortfolioTable.tsx:94
 #: src/containers/NychaPage.tsx:83
-#: src/util/helpers.ts:68
 msgid "Borough"
 msgstr "Municipio"
 
@@ -392,7 +391,7 @@ msgstr "Tamaño del Edificio"
 #~ msgid "Building Updates"
 #~ msgstr "Building Updates"
 
-#: src/components/PropertiesSummary.tsx:63
+#: src/components/PropertiesSummary.tsx:49
 msgid "Building info"
 msgstr "Información de edificios"
 
@@ -408,13 +407,13 @@ msgstr "Edificios sin registro de propiedad válido están sujetos a las siguien
 msgid "Built"
 msgstr "Construido"
 
-#: src/components/DetailView.tsx:304
-#: src/components/DetailView.tsx:313
+#: src/components/DetailView.tsx:283
+#: src/components/DetailView.tsx:292
 msgid "Business Addresses"
 msgstr "Dirección Comercial"
 
-#: src/components/DetailView.tsx:284
-#: src/components/DetailView.tsx:293
+#: src/components/DetailView.tsx:263
+#: src/components/DetailView.tsx:272
 msgid "Business Entities"
 msgstr "Entidades Comerciales"
 
@@ -450,7 +449,7 @@ msgstr ""
 msgid "Change in rent stabilized units"
 msgstr ""
 
-#: src/components/DetailView.tsx:29
+#: src/components/DetailView.tsx:27
 msgid "Check out the issues in this building"
 msgstr "Mira los problemas en este edificio"
 
@@ -561,7 +560,7 @@ msgstr "Haga clic en el enlace que le enviamos a {0}. Puede tardar unos minutos 
 #~ msgstr "Click the link we sent to {email}. It may take a few minutes to arrive."
 
 #: src/components/CloseButton.tsx:10
-#: src/components/DetailView.tsx:60
+#: src/components/DetailView.tsx:58
 #: src/components/FeatureCalloutWidget.tsx:61
 msgid "Close"
 msgstr "Cerrar"
@@ -819,7 +818,7 @@ msgstr "Casos de desalojo presentados en la Corte de Vivienda desde 2017. Estos 
 msgid "Eviction cases filed in Housing Court since 2017. This data comes from the Office of Court Administration via the OCA Data Collective in collaboration with the Right to Counsel Coalition."
 msgstr ""
 
-#: src/components/PropertiesSummary.tsx:85
+#: src/components/PropertiesSummary.tsx:71
 #: src/containers/NychaPage.tsx:91
 msgid "Evictions"
 msgstr "Desalojos"
@@ -1022,7 +1021,7 @@ msgstr "Esconder leyenda"
 msgid "How are the results calculated?"
 msgstr "¿Cómo se calculan los resultados?"
 
-#: src/components/DetailView.tsx:89
+#: src/components/DetailView.tsx:87
 msgid "How is this building associated to this portfolio?"
 msgstr "¿Cómo se asocia este edificio a este portafolio de edificios?"
 
@@ -1031,15 +1030,15 @@ msgstr "¿Cómo se asocia este edificio a este portafolio de edificios?"
 msgid "How to use"
 msgstr "Cómo se usa"
 
-#: src/components/DetailView.tsx:30
+#: src/components/DetailView.tsx:28
 msgid "I just looked up this building on Who Owns What, a free tool built by JustFix to make data on landlords and evictors more transparent to tenants. You might want to look up your building. Check it out here: {url}"
 msgstr "Justo busqué este edificio en Quién Es El Dueño, una herramienta gratuita construida por JustFix que hace que la información sobre los dueños de edificios sea más transparente para los inquilinos. Sería bueno si buscaras tu edificio también. Míralo aquí: {url}"
 
-#: src/components/DetailView.tsx:28
+#: src/components/DetailView.tsx:26
 msgid "I used #WhoOwnsWhat (built by @JustFixNYC) to see not only the open violations in this building, but also rent stabilized losses, evictions, and more. This website is a wealth of info and costs nothing to use. Savvy New Yorkers need this info:"
 msgstr "Usé #QuiénEsElDueño (construido por @JustFixNYC) para ver no solo las violaciones del código de vivienda, sino también cuántos apartamentos con renta estabilizada se han perdido, desalojos, y más. Este sitio web no cuesta nada para usar. Ojo, neoyorquinos:"
 
-#: src/components/PropertiesSummary.tsx:110
+#: src/components/PropertiesSummary.tsx:97
 msgid "I was checking out this building on Who Owns What, a free landlord research tool from JustFix. It’s a remarkable website that every tenant and housing advocate should know about! Can you guess how many total violations this landlord portfolio has? Check it out here: {url}"
 msgstr "Estaba revisando este edificio en Quién Es El Dueño, una herramienta gratuita construida por JustFix. ¡Es un sitio web extraordinario que cada inquilino y defensor de viviendas debería saber sobre! ¿Puedes adivinar cuántas violaciones totales tiene este portafolio de este dueño? Míralo aquí: {url}"
 
@@ -1168,16 +1167,16 @@ msgstr "Última venta"
 msgid "Last Sale Unknown"
 msgstr "Última venta desconocida"
 
-#: src/components/DetailView.tsx:217
+#: src/components/DetailView.tsx:196
 #: src/containers/NotRegisteredPage.tsx:99
 msgid "Last registered:"
 msgstr "Registrado por última vez:"
 
-#: src/components/DetailView.tsx:230
+#: src/components/DetailView.tsx:209
 msgid "Last sold:"
 msgstr "Vendido por última vez:"
 
-#: src/components/DetailView.tsx:60
+#: src/components/DetailView.tsx:58
 msgid "Learn more"
 msgstr "Aprende más"
 
@@ -1385,7 +1384,7 @@ msgstr "Mín debe ser menor que {maxOption}"
 msgid "More Mobile Friendly"
 msgstr "Más útil para dispositivos móviles"
 
-#: src/components/DetailView.tsx:174
+#: src/components/DetailView.tsx:153
 msgid "Most Common 311 Complaints, Last 3 Years"
 msgstr "Las quejas más comunes de 311, los últimos 3 años"
 
@@ -1503,7 +1502,7 @@ msgstr "No ECB"
 msgid "Non-Emergency"
 msgstr "No Emergencia"
 
-#: src/components/DetailView.tsx:182
+#: src/components/DetailView.tsx:161
 msgid "None"
 msgstr "Ninguna"
 
@@ -1627,8 +1626,8 @@ msgstr "Contraseña"
 msgid "Password reset successful"
 msgstr "Contraseña restablecida con éxito"
 
-#: src/components/DetailView.tsx:324
-#: src/components/DetailView.tsx:334
+#: src/components/DetailView.tsx:303
+#: src/components/DetailView.tsx:313
 msgid "People"
 msgstr "Personas"
 
@@ -1686,7 +1685,7 @@ msgstr "Política de privacidad"
 msgid "Public Housing Development"
 msgstr "Complejo de Vivienda Pública"
 
-#: src/components/PropertiesSummary.tsx:96
+#: src/components/PropertiesSummary.tsx:83
 msgid "Questions or feedback?"
 msgstr "¿preguntas o comentarios?"
 
@@ -1735,7 +1734,7 @@ msgstr "Unidades de Renta Estabilizada registradas desde 2007"
 #~ msgid "Rent Stabilized Units registered since 2010"
 #~ msgstr "Rent Stabilized Units registered since 2010"
 
-#: src/components/PropertiesSummary.tsx:87
+#: src/components/PropertiesSummary.tsx:73
 msgid "Rent stabilization"
 msgstr "Renta estabilizada"
 
@@ -1899,9 +1898,9 @@ msgstr "Enviarme otro enlace"
 #~ msgid "Share this page with your neighbors"
 #~ msgstr "Share this page with your neighbors"
 
-#: src/components/DetailView.tsx:255
+#: src/components/DetailView.tsx:234
 #: src/components/EngagementPanel.tsx:11
-#: src/components/PropertiesSummary.tsx:104
+#: src/components/PropertiesSummary.tsx:91
 #: src/containers/NotRegisteredPage.tsx:19
 msgid "Share with your neighbors"
 msgstr "Comparte esta página con sus vecinos"
@@ -2157,7 +2156,7 @@ msgstr "El correo electrónico y/o la contraseña introducidos son incorrectos."
 #~ msgid "The link sent to you has timed out."
 #~ msgstr "The link sent to you has timed out."
 
-#: src/components/PropertiesSummary.tsx:44
+#: src/components/PropertiesSummary.tsx:43
 msgid "The most common corporate entity is <0>{0}</0> and the most common business address is <1>{1}</1>."
 msgstr "La entidad corporativa más común es <0>{0}</0> y la dirección administrativa más común es <1>{1}</1>."
 
@@ -2212,11 +2211,11 @@ msgstr "El enlace de verificación que le enviamos ya no es válido."
 msgid "The year that this building was originally constructed, according to the Dept. of Finance"
 msgstr ""
 
-#: src/components/PropertiesSummary.tsx:76
+#: src/components/PropertiesSummary.tsx:62
 msgid "The {0, plural, one {} other {average}} age of {1, plural, one {this building} other {these buildings}} is <0>{2}</0> years old."
 msgstr "La {0, plural, one {edad} other {edad media}} de {1, plural, one {este edificio} other {estos edificios}} es de <0>{2}</0> años."
 
-#: src/components/PropertiesSummary.tsx:65
+#: src/components/PropertiesSummary.tsx:51
 msgid "There {0, plural, one {<0>is <1>1</1> building</0>} other {<2>are <3>{1}</3> buildings</2>}} in this portfolio with a total of {2, plural, one {1 unit} other {# units}}."
 msgstr "Hay {0, plural, one {<0><1>1</1> edificio</0>} other {<2><3>{1}</3> edificios</2>}} en este portafolio de edificios, con un total de {2, plural, one {una unidad residencial} other {# unidades residenciales}}."
 
@@ -2264,11 +2263,11 @@ msgstr "Esto es <0>peor</0> que el promedio de la ciudad de {VIOLATIONS_AVG} por
 #~ msgid "This is the old version of Who Owns What. <0>Check out the new version here.</0>"
 #~ msgstr "This is the old version of Who Owns What. <0>Check out the new version here.</0>"
 
-#: src/components/PropertiesSummary.tsx:107
+#: src/components/PropertiesSummary.tsx:94
 msgid "This landlord owns {0} buildings, and according to @NYCHousing, has received a total of {1} violations. Can you guess which landlord it is? Find their name and more data analysis here:"
 msgstr "Este dueño de edificio posee {0} edificios, y según @NYCHousing, ha recibido un total de {1} violaciones del código de vivienda. ¿Puedes adivinar como se llama el dueño? Encuentra su nombre y ve más estadísticas aquí:"
 
-#: src/components/PropertiesSummary.tsx:109
+#: src/components/PropertiesSummary.tsx:96
 msgid "This landlord’s buildings average {0} open HPD violations per apartment"
 msgstr "Los edificios de este dueño tienen un promedio de {0} violaciones abiertas de HPD por cada apartamento"
 
@@ -2502,7 +2501,7 @@ msgstr "Ver en Google Maps"
 msgid "View portfolio"
 msgstr "Ver portafolio de edificios"
 
-#: src/components/DetailView.tsx:154
+#: src/components/DetailView.tsx:136
 msgid "View portfolio map"
 msgstr "Ver mapa de la cartera de edificios"
 
@@ -2535,11 +2534,11 @@ msgstr "VENTANAS"
 #~ msgid "Warning"
 #~ msgstr "Warning"
 
-#: src/components/DetailView.tsx:209
+#: src/components/DetailView.tsx:188
 msgid "Warning: This building has an expired registration and was sold after the expiration date. The landlord info listed here may be outdated."
 msgstr "Aviso: Este edificio tiene un registro vencido y se vendió después del vencimiento del registro. La información del dueño que se incluye aquí puede estar desactualizada."
 
-#: src/components/DetailView.tsx:93
+#: src/components/DetailView.tsx:91
 msgid "We compare your search address with a database of over 200k buildings to identify a landlord or management company's portfolio. To learn more, check out <0>our methodology</0>."
 msgstr "Comparamos la dirección que buscaste con una base de datos de más de 200 mil edificios para identificar a un propietario o compañía de gestión. Para obtener más información, consulta <0>nuestra metodología</0>."
 
@@ -2662,7 +2661,7 @@ msgstr "Quién es el dueño en NY"
 msgid "Who’s responsible for issues in your apartment & building? #WhoOwnsWhat helps you research NYC property owners using public, open data. A free tool built by @JustFixNYC, it works on any device with an internet connection! Search your address here:"
 msgstr "¿Quién es responsable por los problemas en tu apartamento y edificio? #QuiénEsElDueño te ayuda investigar los dueños de edificios de NYC usando data pública y abierta. Un sitio web gratis construido por @JustFixNYC, ¡funciona en cualquier aparato con internet! Úsalo ahorita:"
 
-#: src/components/DetailView.tsx:189
+#: src/components/DetailView.tsx:168
 msgid "Who’s the landlord of this building?"
 msgstr "¿Quién es el dueño de este edificio?"
 
@@ -2918,7 +2917,7 @@ msgstr "edificios"
 #~ msgid "districts"
 #~ msgstr ""
 
-#: src/components/DetailView.tsx:234
+#: src/components/DetailView.tsx:213
 msgid "for ${0}"
 msgstr "por ${0}"
 
@@ -2978,8 +2977,8 @@ msgid "{0} of {numberOfEntries}"
 msgstr "{0} de {numberOfEntries}"
 
 #: src/components/PropertiesSummary.tsx:54
-msgid "{0} {1}, {2} currently has {3, plural, one {one open HPD violation} other {# open HPD violations}} - the most in this portfolio."
-msgstr "{0} {1}, {2} tiene {3, plural, one {una violación del HPD actual} other {# violaciones del HPD actuales}} - la major cantidad en este portafolio de edificios."
+#~ msgid "{0} {1}, {2} currently has {3, plural, one {one open HPD violation} other {# open HPD violations}} - the most in this portfolio."
+#~ msgstr "{0} {1}, {2} tiene {3, plural, one {una violación del HPD actual} other {# violaciones del HPD actuales}} - la major cantidad en este portafolio de edificios."
 
 #: src/containers/DistrictAlertsPage.tsx:124
 #~ msgid "{areaTypeLabel}: {areaLabel}"
