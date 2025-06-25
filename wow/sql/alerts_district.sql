@@ -27,18 +27,22 @@ create temporary table x_indicators_normalized (
     -- priority calcs needed for weighing
     priority_comp__week DOUBLE PRECISION,
     priority_comp__1mo DOUBLE PRECISION,
+    priority_comp__6mo DOUBLE PRECISION,
     priority_comp_per_unit__week DOUBLE PRECISION,
     priority_comp_per_unit__1mo DOUBLE PRECISION,
 
     priority_viol__week DOUBLE PRECISION,
     priority_viol__1mo DOUBLE PRECISION,
+    priority_viol__6mo DOUBLE PRECISION,
     priority_viol_per_unit__week DOUBLE PRECISION,
     priority_viol_per_unit__1mo DOUBLE PRECISION,
 
     priority_dob_ecb_viol__week DOUBLE PRECISION,
     priority_dob_ecb_viol__1mo DOUBLE PRECISION,
+    priority_dob_ecb_viol__6mo DOUBLE PRECISION,
     priority_dob_comp__week DOUBLE PRECISION,
     priority_dob_comp__1mo DOUBLE PRECISION,
+    priority_dob_comp__6mo DOUBLE PRECISION,
     
     -- raw values
     hpd_comp_per_unit__week DOUBLE PRECISION,
@@ -70,16 +74,20 @@ create temporary table x_indicators_normalized (
     norm_priority_comp_per_unit__week DOUBLE PRECISION,
     norm_priority_comp__1mo DOUBLE PRECISION,
     norm_priority_comp_per_unit__1mo DOUBLE PRECISION,
+    norm_priority_comp__6mo DOUBLE PRECISION,
     
     norm_priority_viol__week DOUBLE PRECISION,
     norm_priority_viol_per_unit__week DOUBLE PRECISION,
     norm_priority_viol__1mo DOUBLE PRECISION,
     norm_priority_viol_per_unit__1mo DOUBLE PRECISION,
+    norm_priority_viol__6mo DOUBLE PRECISION,
             
     norm_priority_dob_ecb_viol__week DOUBLE PRECISION,
     norm_priority_dob_ecb_viol__1mo DOUBLE PRECISION,
+    norm_priority_dob_ecb_viol__6mo DOUBLE PRECISION,
     norm_priority_dob_comp__week DOUBLE PRECISION,
     norm_priority_dob_comp__1mo DOUBLE PRECISION,
+    norm_priority_dob_comp__6mo DOUBLE PRECISION,
     
     -- rank for statement explaining why building was surfaced
     rank_comp__week INTEGER,
@@ -87,11 +95,14 @@ create temporary table x_indicators_normalized (
     rank_viol__week INTEGER,
     rank_viol_per_unit__week INTEGER,
     rank_dob_ecb_viol__week INTEGER,
-    rank_dob_comp__week INTEGER
+    rank_dob_comp__week INTEGER,
+    
+    -- total bbls in given area
+    area_bbls_all BIGINT
 );
 
 INSERT INTO x_indicators_normalized
-    with prioritized as (
+    WITH prioritized as (
         SELECT 
             bbl, 
             bin,
@@ -114,18 +125,22 @@ INSERT INTO x_indicators_normalized
             -- priority values
             coalesce(hpd_comp__week , 0) * ln(unitsres) as priority_comp__week,
             coalesce(hpd_comp__1mo , 0) * ln(unitsres) as priority_comp__1mo,
+            coalesce(hpd_comp__6mo , 0) * ln(unitsres) as priority_comp__6mo,
             coalesce(hpd_comp_per_unit__week, 0) * ln(unitsres) as priority_comp_per_unit__week,
             coalesce(hpd_comp_per_unit__1mo, 0) * ln(unitsres) as priority_comp_per_unit__1mo,
             
             coalesce(hpd_viol__week , 0) * ln(unitsres) as priority_viol__week,
             coalesce(hpd_viol__1mo, 0) * ln(unitsres) as priority_viol__1mo,
+            coalesce(hpd_viol__6mo, 0) * ln(unitsres) as priority_viol__6mo,
             coalesce(hpd_viol_per_unit__week, 0) * ln(unitsres) as priority_viol_per_unit__week,
             coalesce(hpd_viol_per_unit__1mo, 0) * ln(unitsres) as priority_viol_per_unit__1mo,
             
             coalesce(dob_ecb_viol__week, 0) * ln(unitsres) as priority_dob_ecb_viol__week,
             coalesce(dob_ecb_viol__1mo, 0) * ln(unitsres) as priority_dob_ecb_viol__1mo,
+            coalesce(dob_ecb_viol__6mo, 0) * ln(unitsres) as priority_dob_ecb_viol__6mo,
             coalesce(dob_comp__week, 0) * ln(unitsres) as priority_dob_comp__week,
             coalesce(dob_comp__1mo, 0) * ln(unitsres) as priority_dob_comp__1mo,
+			coalesce(dob_comp__6mo, 0) * ln(unitsres) as priority_dob_comp__6mo,
 
         
             -- raw values 
@@ -165,6 +180,8 @@ INSERT INTO x_indicators_normalized
             max(priority_comp__week) as priority_comp__week__max,
             min(priority_comp__1mo) as priority_comp__1mo__min,
             max(priority_comp__1mo) as priority_comp__1mo__max,
+            min(priority_comp__6mo) as priority_comp__6mo__min,
+            max(priority_comp__6mo) as priority_comp__6mo__max,
             min(priority_comp_per_unit__week) as priority_comp_per_unit__week__min,
             max(priority_comp_per_unit__week) as priority_comp_per_unit__week__max,
             min(priority_comp_per_unit__1mo) as priority_comp_per_unit__1mo__min,
@@ -175,6 +192,8 @@ INSERT INTO x_indicators_normalized
             max(priority_viol__week) as priority_viol__week__max,
             min(priority_viol__1mo) as priority_viol__1mo__min,
             max(priority_viol__1mo) as priority_viol__1mo__max,
+            min(priority_viol__6mo) as priority_viol__6mo__min,
+            max(priority_viol__6mo) as priority_viol__6mo__max,
             min(priority_viol_per_unit__week) as priority_viol_per_unit__week__min,
             max(priority_viol_per_unit__week) as priority_viol_per_unit__week__max,
             min(priority_viol_per_unit__1mo) as priority_viol_per_unit__1mo__min,
@@ -185,11 +204,15 @@ INSERT INTO x_indicators_normalized
             max(priority_dob_ecb_viol__week) as priority_dob_ecb_viol__week__max,
             min(priority_dob_ecb_viol__1mo) as priority_dob_ecb_viol__1mo__min,
             max(priority_dob_ecb_viol__1mo) as priority_dob_ecb_viol__1mo__max,
+            min(priority_dob_ecb_viol__6mo) as priority_dob_ecb_viol__6mo__min,
+            max(priority_dob_ecb_viol__6mo) as priority_dob_ecb_viol__6mo__max,
 
             min(priority_dob_comp__week) as priority_dob_comp__week__min,
             max(priority_dob_comp__week) as priority_dob_comp__week__max,
             min(priority_dob_comp__1mo) as priority_dob_comp__1mo__min,
-            max(priority_dob_comp__1mo) as priority_dob_comp__1mo__max
+            max(priority_dob_comp__1mo) as priority_dob_comp__1mo__max,
+            min(priority_dob_comp__6mo) as priority_dob_comp__6mo__min,
+            max(priority_dob_comp__6mo) as priority_dob_comp__6mo__max
             
         from prioritized
     ), 
@@ -236,6 +259,8 @@ INSERT INTO x_indicators_normalized
                     / NULLIF((m.priority_comp__1mo__max - m.priority_comp__1mo__min), 0) as norm_priority_comp__1mo,
                 (priority_comp_per_unit__1mo - m.priority_comp_per_unit__1mo__min) 
                     / NULLIF((m.priority_comp_per_unit__1mo__max - m.priority_comp_per_unit__1mo__min), 0) as norm_priority_comp_per_unit__1mo,
+                (priority_comp__6mo - m.priority_comp__6mo__min) 
+                    / NULLIF((m.priority_comp__6mo__max - m.priority_comp__6mo__min), 0) as norm_priority_comp__6mo,
                 (priority_viol__week - m.priority_viol__week__min) 
                     / NULLIF((m.priority_viol__week__max - m.priority_viol__week__min), 0) as norm_priority_viol__week,
                 (priority_viol_per_unit__week - m.priority_viol_per_unit__week__min) 
@@ -244,21 +269,34 @@ INSERT INTO x_indicators_normalized
                     / NULLIF((m.priority_viol__1mo__max - m.priority_viol__1mo__min), 0) as norm_priority_viol__1mo,
                 (priority_viol_per_unit__1mo - m.priority_viol_per_unit__1mo__min) 
                     / NULLIF((m.priority_viol_per_unit__1mo__max - m.priority_viol_per_unit__1mo__min), 0) as norm_priority_viol_per_unit__1mo,
+                (priority_viol__6mo - m.priority_viol__6mo__min) 
+                    / NULLIF((m.priority_viol__6mo__max - m.priority_viol__6mo__min), 0) as norm_priority_viol__6mo,
                 (priority_dob_ecb_viol__week - m.priority_dob_ecb_viol__week__min) 
                     / NULLIF((m.priority_dob_ecb_viol__week__max - m.priority_dob_ecb_viol__week__min), 0) as norm_priority_dob_ecb_viol__week,
                 (priority_dob_ecb_viol__1mo - m.priority_dob_ecb_viol__1mo__min) 
                     / NULLIF((m.priority_dob_ecb_viol__1mo__max - m.priority_dob_ecb_viol__1mo__min), 0) as norm_priority_dob_ecb_viol__1mo,
+                (priority_dob_ecb_viol__6mo - m.priority_dob_ecb_viol__6mo__min) 
+                    / NULLIF((m.priority_dob_ecb_viol__6mo__max - m.priority_dob_ecb_viol__6mo__min), 0) as norm_priority_dob_ecb_viol__6mo,
                 (priority_dob_comp__week - m.priority_dob_comp__week__min) 
                     / NULLIF((m.priority_dob_comp__week__max - m.priority_dob_comp__week__min), 0) as norm_priority_dob_comp__week,
                 (priority_dob_comp__1mo - m.priority_dob_comp__1mo__min) 
-                    / NULLIF((m.priority_dob_comp__1mo__max - m.priority_dob_comp__1mo__min), 0) as norm_priority_dob_comp__1mo
+                    / NULLIF((m.priority_dob_comp__1mo__max - m.priority_dob_comp__1mo__min), 0) as norm_priority_dob_comp__1mo,
+                (priority_dob_comp__6mo - m.priority_dob_comp__6mo__min) 
+                    / NULLIF((m.priority_dob_comp__6mo__max - m.priority_dob_comp__6mo__min), 0) as norm_priority_dob_comp__6mo
             from prioritized p
             cross join min_max m
         ) normed
+    ), 
+    total_count AS (
+        SELECT COUNT(*) AS area_bbls_all FROM x_indicators_filtered
     )
 
-    select *
-    from priority_normalized;
+    SELECT 
+    	pn.*, 
+    	tc.area_bbls_all
+	FROM priority_normalized pn
+	CROSS JOIN total_count tc;
+
 
 
 create temporary table x_indicators_final (
@@ -270,10 +308,9 @@ create temporary table x_indicators_final (
     unitsres INTEGER,
     rsunitslatest INTEGER,
     portfolio_id INTEGER,
-    area_bbls INTEGER,
+    area_bbls_shared_portfolio INTEGER,
+    area_bbls_all BIGINT,
     hpd_link TEXT,
-    
-    score_sum DOUBLE PRECISION,
     rank_final INTEGER,
     
     hpd_comp_per_unit__week DOUBLE PRECISION,
@@ -314,7 +351,7 @@ create temporary table x_indicators_final (
     
 );
 
-WITH ranked AS (
+WiTH ranked AS (
     SELECT *,
         RANK() OVER (
             ORDER BY 
@@ -325,14 +362,21 @@ WITH ranked AS (
              + COALESCE(norm_priority_dob_ecb_viol__week, 0) * 0.5
              + COALESCE(norm_priority_dob_comp__week, 0) * 0.5
              + COALESCE(size_metric, 0)
+             -- for ranking buildings with no weekly activity
+             -- take an average of normalized 6mo indicators and weigh it lower than other indicators
+             + ((COALESCE(norm_priority_comp__6mo, 0) +
+                COALESCE(norm_priority_viol__6mo, 0) +
+                COALESCE(norm_priority_dob_ecb_viol__6mo, 0) +
+                COALESCE(norm_priority_dob_comp__6mo, 0)
+                ) / 4.0) * 0.1 
            DESC
         ) AS rank_final
     FROM x_indicators_normalized
 ),
-area_bbls AS (
+area_bbls_shared_portfolio AS (
     SELECT 
         portfolio_id, 
-        COUNT(*) AS area_bbls
+        COUNT(*) AS area_bbls_shared_portfolio
     FROM x_indicators_normalized
     GROUP BY portfolio_id
 )
@@ -345,7 +389,8 @@ INSERT INTO x_indicators_final (
     unitsres,
     rsunitslatest,
     portfolio_id,
-    area_bbls,
+    area_bbls_shared_portfolio,
+    area_bbls_all,
     hpd_link,
     rank_final,
     hpd_comp_per_unit__week,
@@ -383,7 +428,8 @@ SELECT
     r.unitsres,
     r.rsunitslatest,
     r.portfolio_id,
-    a.area_bbls,
+    a.area_bbls_shared_portfolio,
+    r.area_bbls_all,
     r.hpd_link,
     r.rank_final,
     r.hpd_comp_per_unit__week,
@@ -412,14 +458,14 @@ SELECT
     r.evictions_filed__1mo,
     r.evictions_filed__6mo
 FROM ranked r
-LEFT JOIN area_bbls a ON r.portfolio_id = a.portfolio_id
+LEFT JOIN area_bbls_shared_portfolio a ON r.portfolio_id = a.portfolio_id
 ORDER BY r.rank_final;
 
 
 WITH first_shared_portfolio AS (
     SELECT portfolio_id
     FROM x_indicators_final
-    WHERE area_bbls > 1
+    WHERE area_bbls_shared_portfolio > 1
     ORDER BY rank_final
     LIMIT 1
 ),
@@ -427,6 +473,13 @@ top_5 AS (
     SELECT *
     FROM x_indicators_final
     WHERE rank_final BETWEEN 1 AND 5
+    AND ( -- Exclude any with no values to display
+        hpd_comp__6mo > 0
+        OR hpd_viol__6mo > 0
+        OR dob_ecb_viol__6mo > 0
+        OR dob_comp__6mo > 0
+        OR evictions_filed__6mo > 0
+    )
     LIMIT 5
 ),
 shared_portfolio_top_3 AS (
@@ -440,7 +493,7 @@ shared_portfolio_top_3 AS (
         OR dob_ecb_viol__6mo > 0
         OR dob_comp__6mo > 0
         OR evictions_filed__6mo > 0
-      )
+    )
     ORDER BY rank_final
     LIMIT 3
 ),
@@ -452,13 +505,13 @@ all_buildings AS (
 counts AS (
     SELECT 
         portfolio_id,
-        (SELECT COUNT(*) FROM wow_indicators WHERE portfolio_id = b.portfolio_id) AS total_bbls
+        (SELECT COUNT(*) FROM wow_indicators WHERE portfolio_id = b.portfolio_id) AS all_bbls_shared_portfolio
     FROM all_buildings b
     GROUP BY portfolio_id
 )
 SELECT 
     b.*,
-    counts.total_bbls
+    counts.all_bbls_shared_portfolio
 FROM all_buildings b
 LEFT JOIN counts USING(portfolio_id)
 ORDER BY b.rank_final;
