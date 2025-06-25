@@ -7,9 +7,9 @@
 -- queries. 
 
 
-DROP TABLE IF EXISTS signature_unhp_data2 cascade;
+DROP TABLE IF EXISTS signature_unhp_buildings cascade;
 
-CREATE TABLE signature_unhp_data2 (
+CREATE TABLE signature_unhp_buildings (
     bbl char(10),
     loan_pool text,
     landlord text,
@@ -20,4 +20,18 @@ CREATE TABLE signature_unhp_data2 (
     status_info text
 );
 
-CREATE INDEX ON signature_unhp_data2 (bbl);
+CREATE INDEX ON signature_unhp_buildings (bbl);
+
+
+DROP TABLE IF EXISTS signature_unhp_loan_status cascade;
+
+CREATE TABLE signature_unhp_loan_status (
+    bbl char(10),
+    status text,
+    date text,
+    url text,
+    label text
+
+);
+
+CREATE INDEX ON signature_unhp_loan_status (bbl, date::date);

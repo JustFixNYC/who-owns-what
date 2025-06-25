@@ -1,19 +1,61 @@
+DROP TABLE IF EXISTS signature_loan_status;
+CREATE TEMP TABLE IF NOT EXISTS signature_loan_status AS (
+	WITH status_json_rows AS (
+		SELECT
+			bbl,
+			CASE
+				WHEN nullif(status, '') IS NULL THEN NULL
+				ELSE json_build_object(
+					'status', nullif(status, ''), 
+					'date', nullif(date, '')
+				)
+			END AS status_obj,
+			CASE
+				WHEN nullif(url, '') IS NULL THEN NULL
+				ELSE json_build_object(
+					'url', nullif(url, ''), 
+					'label', nullif(label, '')
+				)
+			END AS link_obj
+		FROM signature_unhp_loan_status
+		ORDER BY bbl, date::date
+	),
+	status_json_agg AS (
+		SELECT
+			bbl,
+			json_agg(status_obj) AS statuses,
+			json_agg(link_obj) FILTER (WHERE link_obj IS NOT NULL) AS links
+		FROM status_json_rows
+		GROUP BY bbl
+	)
+	SELECT 
+		bbl,
+		json_build_object(
+			'statuses', statuses,
+			'links', links
+		) AS status_info
+	FROM status_json_agg;
+);
+
+CREATE INDEX ON signature_loan_status (bbl);
+
+
 DROP TABLE IF EXISTS signature_pluto_geos;
 CREATE TEMP TABLE IF NOT EXISTS signature_pluto_geos AS (
 	SELECT
 		bbl,
-		nullif(s.landlord, '') AS landlord,
-		trim(BOTH '-' FROM regexp_replace(lower(trim(nullif(s.landlord, ''))), '[^a-z0-9_-]+', '-', 'gi')) AS landlord_slug,
-		nullif(s.loan_pool, '') AS loan_pool,
-		trim(BOTH '-' FROM regexp_replace(lower(trim(nullif(s.loan_pool, ''))), '[^a-z0-9_-]+', '-', 'gi')) AS loan_pool_slug,
+		nullif(b.landlord, '') AS landlord,
+		trim(BOTH '-' FROM regexp_replace(lower(trim(nullif(b.landlord, ''))), '[^a-z0-9_-]+', '-', 'gi')) AS landlord_slug,
+		nullif(b.loan_pool, '') AS loan_pool,
+		trim(BOTH '-' FROM regexp_replace(lower(trim(nullif(b.loan_pool, ''))), '[^a-z0-9_-]+', '-', 'gi')) AS loan_pool_slug,
 		-- having issues with the csv nulls, so all imported as strings
-		nullif(s.bip, '')::integer AS bip,
-		nullif(s.water_charges, '')::float AS water_charges,
-		nullif(s.origination_date, '')::date AS origination_date,
-		nullif(s.debt_total, '')::float AS debt_total,
+		nullif(b.bip, '')::integer AS bip,
+		nullif(b.water_charges, '')::float AS water_charges,
+		nullif(b.origination_date, '')::date AS origination_date,
+		nullif(b.debt_total, '')::float AS debt_total,
 		-- temporarily adding these here, later they'll be included in the data from UNHP
-		status_info::json AS status_info,
-		((status_info::json)->'statuses'->>-1)::json->'status' AS status_current,
+		s.status_info,
+		(status_info->'statuses'->>-1)::json->'status' AS status_current,
 		p.borocode,
 		p.block,
 		p.lot,
@@ -30,9 +72,11 @@ CREATE TEMP TABLE IF NOT EXISTS signature_pluto_geos AS (
 		p.unitstotal,
 		p.yearbuilt,
 		ST_TRANSFORM(ST_SetSRID(ST_MakePoint(longitude, latitude),4326), 2263) AS geom_point
-	FROM signature_unhp_data2 AS s
+	FROM signature_unhp_buildings AS b
+	LEFT JOIN signature_loan_status AS s USING(bbl)
 	LEFT JOIN pluto_latest AS p USING(bbl)
 	LEFT JOIN pluto_latest_districts AS d USING(bbl)
+	WHERE b.bbl IS NOT NULL
 );
 
 CREATE INDEX ON signature_pluto_geos (bbl);
