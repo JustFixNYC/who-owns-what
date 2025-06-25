@@ -34,4 +34,4 @@ CREATE TABLE signature_unhp_loan_status (
 
 );
 
-CREATE INDEX ON signature_unhp_loan_status (bbl, date::date);
+CREATE INDEX ON signature_unhp_loan_status (bbl, date);
