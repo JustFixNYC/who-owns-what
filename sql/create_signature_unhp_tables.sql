@@ -16,8 +16,7 @@ CREATE TABLE signature_unhp_buildings (
     bip text,
     water_charges text,
     origination_date text,
-    debt_total text,
-    status_info text
+    debt_total text
 );
 
 CREATE INDEX ON signature_unhp_buildings (bbl);
