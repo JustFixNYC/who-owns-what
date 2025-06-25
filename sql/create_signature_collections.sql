@@ -17,6 +17,7 @@ CREATE TABLE IF NOT EXISTS signature_collections2 AS (
 		FROM signature_buildings2 AS bldgs
 		WHERE loan_pool IS NOT NULL
 		GROUP BY loan_pool
+		UNION
 		SELECT
 			'all' AS collection_name,
 			'all' AS collection_type,
