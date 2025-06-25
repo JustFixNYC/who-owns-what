@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS signature_collection_charts2 CASCADE;
+-- DROP TABLE IF EXISTS signature_collection_charts2 CASCADE;
 CREATE TABLE IF NOT EXISTS signature_collection_charts2 AS (
 	WITH stacked_data AS (
 		SELECT

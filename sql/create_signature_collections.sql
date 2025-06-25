@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS signature_collections2 CASCADE;
+-- DROP TABLE IF EXISTS signature_collections2 CASCADE;
 CREATE TABLE IF NOT EXISTS signature_collections2 AS (
 	WITH collections_bldg_data AS (
 		-- include building of all statuses for table

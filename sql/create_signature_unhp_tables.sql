@@ -7,7 +7,7 @@
 -- queries. 
 
 
-DROP TABLE IF EXISTS signature_unhp_buildings cascade;
+-- DROP TABLE IF EXISTS signature_unhp_buildings cascade;
 
 CREATE TABLE signature_unhp_buildings (
     bbl char(10),
@@ -23,7 +23,7 @@ CREATE TABLE signature_unhp_buildings (
 CREATE INDEX ON signature_unhp_buildings (bbl);
 
 
-DROP TABLE IF EXISTS signature_unhp_loan_status cascade;
+-- DROP TABLE IF EXISTS signature_unhp_loan_status cascade;
 
 CREATE TABLE signature_unhp_loan_status (
     bbl char(10),
