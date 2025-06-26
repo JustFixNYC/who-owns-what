@@ -1,5 +1,4 @@
--- DROP TABLE IF EXISTS signature_loan_status;
-CREATE TEMP TABLE IF NOT EXISTS signature_loan_status AS (
+CREATE TEMP TABLE signature_loan_status AS (
 	WITH status_json_rows AS (
 		SELECT
 			bbl,
@@ -40,7 +39,6 @@ CREATE TEMP TABLE IF NOT EXISTS signature_loan_status AS (
 CREATE INDEX ON signature_loan_status (bbl);
 
 
--- DROP TABLE IF EXISTS signature_pluto_geos;
 CREATE TEMP TABLE IF NOT EXISTS signature_pluto_geos AS (
 	SELECT
 		bbl,
@@ -82,8 +80,7 @@ CREATE TEMP TABLE IF NOT EXISTS signature_pluto_geos AS (
 CREATE INDEX ON signature_pluto_geos (bbl);
 CREATE INDEX ON signature_pluto_geos using gist (geom_point);
 
--- DROP TABLE IF EXISTS signature_buildings2 CASCADE;
-CREATE TABLE IF NOT EXISTS signature_buildings2 AS (
+CREATE TABLE signature_buildings2 AS (
 	WITH evic_marshal AS (
 	    SELECT
 	        bbl,
