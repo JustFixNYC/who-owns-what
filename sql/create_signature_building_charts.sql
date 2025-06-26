@@ -1,12 +1,11 @@
-DROP TABLE IF EXISTS signature_building_charts CASCADE;
-CREATE TABLE IF NOT EXISTS signature_building_charts AS
+CREATE TABLE IF NOT EXISTS signature_building_charts2 AS
 
     WITH time_series AS (
         SELECT 
             bbl, 
             to_char(i::date , 'YYYY-MM') AS month 
         FROM 
-            signature_unhp_data, 
+            signature_unhp_buildings, 
             generate_series('2010-01-01', CURRENT_DATE - INTERVAL '1 MONTH', '1 MONTH'::INTERVAL) AS i 
     ), 
 
@@ -20,7 +19,7 @@ CREATE TABLE IF NOT EXISTS signature_building_charts AS
             count(*) FILTER (WHERE class = 'I') AS hpdviolations_class_i,
             count(*) FILTER (WHERE class IS NOT NULL) AS hpdviolations_total
         FROM hpd_violations
-        INNER JOIN signature_unhp_data USING(bbl)
+        INNER JOIN signature_unhp_buildings USING(bbl)
         WHERE inspectiondate >= '2010-01-01'
         GROUP BY bbl, month
     ),
@@ -33,7 +32,7 @@ CREATE TABLE IF NOT EXISTS signature_building_charts AS
             count(*) FILTER (WHERE type = ANY('{REFERRAL,NON EMERGENCY}')) AS hpdcomplaints_nonemergency,
             count(*) FILTER (WHERE type IS NOT NULL) AS hpdcomplaints_total
         FROM hpd_complaints_and_problems
-        INNER JOIN signature_unhp_data USING(bbl)
+        INNER JOIN signature_unhp_buildings USING(bbl)
         WHERE receiveddate >= '2010-01-01'
         GROUP BY bbl, month
     ),
@@ -44,7 +43,7 @@ CREATE TABLE IF NOT EXISTS signature_building_charts AS
             to_char(issuedate, 'YYYY-MM') AS month,
             count(*) FILTER (WHERE violationtypecode IS NOT NULL) regulardobviolations_total
         FROM dob_violations
-        INNER JOIN signature_unhp_data USING(bbl)   
+        INNER JOIN signature_unhp_buildings USING(bbl)   
         WHERE issuedate >= '2010-01-01'
         GROUP BY bbl, month
     ),
@@ -55,7 +54,7 @@ CREATE TABLE IF NOT EXISTS signature_building_charts AS
             to_char(issuedate, 'YYYY-MM') AS month,
             count(*) FILTER (WHERE severity IS NOT NULL) AS ecbviolations_total
         FROM ecb_violations
-        INNER JOIN signature_unhp_data USING(bbl)   
+        INNER JOIN signature_unhp_buildings USING(bbl)   
         WHERE issuedate >= '2010-01-01'
         GROUP BY bbl, month
     ),
@@ -69,7 +68,7 @@ CREATE TABLE IF NOT EXISTS signature_building_charts AS
         FROM oca_index AS i
         LEFT JOIN oca_addresses_with_bbl AS a USING(indexnumberid)
         LEFT JOIN pluto_latest AS p USING(bbl)
-        INNER JOIN signature_unhp_data USING(bbl)   
+        INNER JOIN signature_unhp_buildings USING(bbl)   
         WHERE i.classification = any('{Holdover,Non-Payment}') 
             AND i.propertytype = 'Residential'
             AND a.bbl IS NOT NULL
@@ -85,7 +84,7 @@ CREATE TABLE IF NOT EXISTS signature_building_charts AS
             TO_CHAR(executeddate, 'YYYY') || '-01' AS month,
             count(*) AS evictions_executed
         FROM marshal_evictions_all
-        INNER JOIN signature_unhp_data USING(bbl)   
+        INNER JOIN signature_unhp_buildings USING(bbl)   
         WHERE executeddate >= '2017-01-01'
         GROUP BY bbl, TO_CHAR(executeddate, 'YYYY')
     ),
@@ -94,7 +93,7 @@ CREATE TABLE IF NOT EXISTS signature_building_charts AS
         SELECT s.bbl, r1.*, r2.*
         FROM rentstab AS r1
         FULL JOIN rentstab_v2 AS r2 USING(ucbbl)
-        INNER JOIN signature_unhp_data AS s ON r2.ucbbl = s.bbl
+        INNER JOIN signature_unhp_buildings AS s ON r2.ucbbl = s.bbl
     ),
     
     rentstab_units AS (
@@ -137,7 +136,7 @@ CREATE TABLE IF NOT EXISTS signature_building_charts AS
             to_char(filingdate, 'YYYY-MM') AS month, 
 			count(DISTINCT jobfilingnumber) AS dob_jobs
 		FROM dob_now_jobs
-        INNER JOIN signature_unhp_data USING(bbl) 
+        INNER JOIN signature_unhp_buildings USING(bbl) 
 		WHERE filingdate >= (CURRENT_DATE - interval '1' year)
 		GROUP BY bbl, month
 		UNION 
@@ -146,7 +145,7 @@ CREATE TABLE IF NOT EXISTS signature_building_charts AS
             to_char(prefilingdate, 'YYYY-MM') AS month, 
 			count(DISTINCT job) AS dob_jobs
 		FROM dobjobs
-        INNER JOIN signature_unhp_data USING(bbl) 
+        INNER JOIN signature_unhp_buildings USING(bbl) 
 		WHERE prefilingdate >= (CURRENT_DATE - interval '1' year)
 		GROUP BY bbl, month
 	),
@@ -184,7 +183,7 @@ CREATE TABLE IF NOT EXISTS signature_building_charts AS
             to_char(order_date, 'YYYY-MM') AS month, 
 			sum(charge_amount)::float AS hpderp_charges
 		FROM hpd_erp_charges_all
-        INNER JOIN signature_unhp_data USING(bbl)   
+        INNER JOIN signature_unhp_buildings USING(bbl)   
 		GROUP BY bbl, month
 	)
 
@@ -231,4 +230,4 @@ CREATE TABLE IF NOT EXISTS signature_building_charts AS
     LEFT JOIN hpd_erp USING(bbl, month)
     ORDER BY bbl, month ASC;
 
-CREATE INDEX ON signature_building_charts (bbl);
+CREATE INDEX ON signature_building_charts2 (bbl);
