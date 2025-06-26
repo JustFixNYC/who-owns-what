@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS signature_collection_charts2 AS (
 			c.*
 		FROM signature_buildings2 AS s
 		LEFT JOIN signature_building_charts2 AS c USING(bbl)
-		WHERE status_current IS NOT IN ('left_program')
+		WHERE status_current NOT IN ('left_program')
 		UNION
 		SELECT
 			s.loan_pool AS collection_name,
@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS signature_collection_charts2 AS (
 			c.*
 		FROM signature_buildings2 AS s
 		LEFT JOIN signature_building_charts2 AS c USING(bbl)
-		WHERE status_current IS NOT IN ('left_program')
+		WHERE status_current NOT IN ('left_program')
 		UNION
 		select
 			'all' AS collection_name,
@@ -26,7 +26,7 @@ CREATE TABLE IF NOT EXISTS signature_collection_charts2 AS (
 			c.*
 		FROM signature_buildings2 AS s
 		LEFT JOIN signature_building_charts2 AS c USING(bbl)
-		WHERE status_current IS NOT IN ('left_program')
+		WHERE status_current NOT IN ('left_program')
 	)
 	SELECT
 		collection_name,

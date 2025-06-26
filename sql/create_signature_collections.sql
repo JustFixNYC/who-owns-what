@@ -66,7 +66,7 @@ CREATE TABLE IF NOT EXISTS signature_collections2 AS (
 			-- end of copied section --
 		FROM signature_buildings2 AS bldgs
 		WHERE landlord IS NOT NULL
-			AND status_current IS NOT IN ('left_program')
+			AND status_current NOT IN ('left_program')
 		GROUP BY landlord
 		UNION
 		SELECT
@@ -109,7 +109,7 @@ CREATE TABLE IF NOT EXISTS signature_collections2 AS (
 			-- end of copied section --
 		FROM signature_buildings2 AS bldgs
 		WHERE loan_pool IS NOT NULL
-			AND status_current IS NOT IN ('left_program')
+			AND status_current NOT IN ('left_program')
 		GROUP BY loan_pool
 		UNION
 		SELECT
@@ -151,7 +151,7 @@ CREATE TABLE IF NOT EXISTS signature_collections2 AS (
 			sum(debt_total) / nullif(sum(units_res), 0)::float AS debt_per_unit_agg
 			-- end of copied section --
 		FROM signature_buildings2 AS bldgs
-		WHERE status_current IS NOT IN ('left_program')
+		WHERE status_current NOT IN ('left_program')
 	)
 	SELECT 
 		collection_type,
