@@ -89,7 +89,9 @@ CREATE TABLE IF NOT EXISTS signature_buildings2 AS (
 	        bbl,
 	        count(*) AS evictions_executed
 	    FROM marshal_evictions_all
-	    WHERE residentialcommercialind = 'RESIDENTIAL'
+		LEFT JOIN signature_unhp_buildings AS sb USING(bbl)
+	    WHERE sb.bbl IS NOT NULL
+			AND residentialcommercialind = 'RESIDENTIAL'
 	    GROUP BY bbl
 	), 
 
@@ -99,7 +101,9 @@ CREATE TABLE IF NOT EXISTS signature_buildings2 AS (
 			count(distinct indexnumberid) AS evictions_filed
 		FROM oca_index AS i
 		LEFT JOIN oca_addresses_with_bbl AS a USING(indexnumberid)
-		WHERE i.fileddate >= (CURRENT_DATE - interval '1' year)
+		LEFT JOIN signature_unhp_buildings AS sb USING(bbl)
+	    WHERE sb.bbl IS NOT NULL
+			AND i.fileddate >= (CURRENT_DATE - interval '1' year)
 			AND i.classification = any('{Holdover,Non-Payment}') 
 			AND i.propertytype = 'Residential'
 			AND nullif(a.bbl, '') IS NOT NULL
@@ -115,6 +119,8 @@ CREATE TABLE IF NOT EXISTS signature_buildings2 AS (
 			count(*) FILTER (WHERE findingofharassment IN ('After Trial', 'After Inquest')) AS hp_find_harassment,
 			count(*) FILTER (WHERE casestatus IN ('APPLICATION PENDING', 'PENDING')) AS hp_active
 		FROM hpd_litigations
+		LEFT JOIN signature_unhp_buildings AS sb USING(bbl)
+	    WHERE sb.bbl IS NOT NULL
 		GROUP BY bbl
 	),
 
@@ -122,7 +128,9 @@ CREATE TABLE IF NOT EXISTS signature_buildings2 AS (
 		SELECT
 			ucbbl AS bbl,
 			coalesce(nullif(uc2023, 0), nullif(uc2022, 0), nullif(uc2021, 0), nullif(uc2020, 0), nullif(uc2019, 0), 0) as rs_units
-		FROM rentstab_v2
+		FROM rentstab_v2 AS rs
+		LEFT JOIN signature_unhp_buildings AS sb ON rs.ucbbl = sb.bbl
+	    WHERE sb.bbl IS NOT NULL
 	),
 	
 	hpd_erp_charges_all AS (
@@ -132,6 +140,8 @@ CREATE TABLE IF NOT EXISTS signature_buildings2 AS (
 			sum(i.chargeamount) AS charge_amount
 		FROM hpd_omo_charges AS c
 		LEFT JOIN hpd_omo_invoices AS i USING(omonumber)
+		LEFT JOIN signature_unhp_buildings AS sb USING(bbl)
+	    WHERE sb.bbl IS NOT NULL
 		GROUP BY bbl, omonumber, c.omocreatedate
 		UNION
 		SELECT 
@@ -139,6 +149,8 @@ CREATE TABLE IF NOT EXISTS signature_buildings2 AS (
 			hwocreatedate AS order_date, 
 			chargeamount AS charge_amount
 		FROM hpd_hwo_charges
+		LEFT JOIN signature_unhp_buildings AS sb USING(bbl)
+	    WHERE sb.bbl IS NOT NULL
 	), 
 	
 	hpd_erp AS (
@@ -147,7 +159,9 @@ CREATE TABLE IF NOT EXISTS signature_buildings2 AS (
 			count(*) AS hpd_erp_orders,
 			sum(charge_amount)::float AS hpd_erp_charges
 		FROM hpd_erp_charges_all
-		WHERE order_date >= (CURRENT_DATE - interval '1' year)
+		LEFT JOIN signature_unhp_buildings AS sb USING(bbl)
+	    WHERE sb.bbl IS NOT NULL
+			AND order_date >= (CURRENT_DATE - interval '1' year)
 		GROUP BY bbl
 	), 
 	
@@ -156,7 +170,9 @@ CREATE TABLE IF NOT EXISTS signature_buildings2 AS (
 	    	bbl,
 	        count(*) AS hpd_viol_bc_open
 	    FROM hpd_violations
-	    WHERE class = any('{B,C}') 
+		LEFT JOIN signature_unhp_buildings AS sb USING(bbl)
+	    WHERE sb.bbl IS NOT NULL
+			AND class = any('{B,C}') 
 			AND violationstatus = 'Open' 
 			AND inspectiondate >= (CURRENT_DATE - interval '5' year)
 	    GROUP BY bbl
@@ -174,7 +190,9 @@ CREATE TABLE IF NOT EXISTS signature_buildings2 AS (
 			-- mold=550 according to guide, but also shows up often under other numbers
 			count(*) FILTER (WHERE novdescription ~* 'mold' OR ordernumber = any('{583,507,878,879,550}')) AS hpd_viol_water
 	    FROM hpd_violations
-	    WHERE inspectiondate >= (CURRENT_DATE - interval '1' year)
+		LEFT JOIN signature_unhp_buildings AS sb USING(bbl)
+	    WHERE sb.bbl IS NOT NULL
+			AND inspectiondate >= (CURRENT_DATE - interval '1' year)
 	    GROUP BY bbl
 	), 
 	
@@ -192,8 +210,10 @@ CREATE TABLE IF NOT EXISTS signature_buildings2 AS (
 			COUNT(*) FILTER (
 				WHERE majorcategory = 'PESTS' OR minorcategory = 'PESTS'
 			) as hpd_comp_pests
-		FROM HPD_COMPLAINTS_AND_PROBLEMS
-		WHERE RECEIVEDDATE >= (CURRENT_DATE - interval '1' year)
+		FROM hpd_complaints_and_problems
+		LEFT JOIN signature_unhp_buildings AS sb USING(bbl)
+	    WHERE sb.bbl IS NOT NULL
+			AND receiveddate >= (CURRENT_DATE - interval '1' year)
 		GROUP BY bbl
 	), 
 
@@ -202,7 +222,9 @@ CREATE TABLE IF NOT EXISTS signature_buildings2 AS (
 			bbl,
 			concat(initcap(vacatetype), ' (', to_char(vacateeffectivedate, 'Mon d, YYYY'), ')') AS hpd_active_vacate
 		FROM hpd_vacateorders
-		WHERE vacateeffectivedate <= CURRENT_DATE
+		LEFT JOIN signature_unhp_buildings AS sb USING(bbl)
+	    WHERE sb.bbl IS NOT NULL
+			AND vacateeffectivedate <= CURRENT_DATE
 			AND rescinddate IS NULL
 			AND coalesce(bbl, '') != ''
 		-- keep 'entire building' orders over 'partial' ones if both
@@ -214,7 +236,9 @@ CREATE TABLE IF NOT EXISTS signature_buildings2 AS (
 			bbl,
 			true as in_aep
 		FROM hpd_aep
-		WHERE currentstatus = 'AEP Active'
+		LEFT JOIN signature_unhp_buildings AS sb USING(bbl)
+	    WHERE sb.bbl IS NOT NULL
+			AND currentstatus = 'AEP Active'
 	), 
 	
 	conh AS (
@@ -223,6 +247,8 @@ CREATE TABLE IF NOT EXISTS signature_buildings2 AS (
 			bbl,
 			true as in_conh
 		FROM hpd_conh
+		LEFT JOIN signature_unhp_buildings AS sb USING(bbl)
+	    WHERE sb.bbl IS NOT NULL
 	), 
 	
 	ucp AS (
@@ -230,7 +256,9 @@ CREATE TABLE IF NOT EXISTS signature_buildings2 AS (
 			bbl,
 			true as in_ucp
 		FROM hpd_underlying_conditions
-		WHERE currentstatus = 'Active'
+		LEFT JOIN signature_unhp_buildings AS sb USING(bbl)
+	    WHERE sb.bbl IS NOT NULL
+			AND currentstatus = 'Active'
 	), 
 	
 	hpd_reg AS (
@@ -238,6 +266,8 @@ CREATE TABLE IF NOT EXISTS signature_buildings2 AS (
 			bbl,
 			CASE WHEN count(*) = 1 THEN max(buildingid) ELSE NULL END AS buildingid
 		FROM hpd_registrations
+		LEFT JOIN signature_unhp_buildings AS sb USING(bbl)
+	    WHERE sb.bbl IS NOT NULL
 		GROUP BY bbl
 	), 
 	
@@ -247,7 +277,9 @@ CREATE TABLE IF NOT EXISTS signature_buildings2 AS (
 			coalesce(m.docdate, m.recordedfiled) AS last_sale_date
 		FROM real_property_master AS m
 		LEFT JOIN real_property_legals AS l USING(documentid)
-		WHERE docamount > 1 AND doctype = any('{DEED,DEEDO}')
+		LEFT JOIN signature_unhp_buildings AS sb USING(bbl)
+	    WHERE sb.bbl IS NOT NULL
+			AND docamount > 1 AND doctype = any('{DEED,DEEDO}')
 		ORDER BY bbl, docdate DESC
 	), 
 	
@@ -260,7 +292,9 @@ CREATE TABLE IF NOT EXISTS signature_buildings2 AS (
 				ELSE 'Passed'
 			END AS last_rodent_result
 		FROM dohmh_rodent_inspections
-		WHERE inspectiontype IN ('Initial', 'Compliance') 
+		LEFT JOIN signature_unhp_buildings AS sb USING(bbl)
+	    WHERE sb.bbl IS NOT NULL
+			AND inspectiontype IN ('Initial', 'Compliance') 
 			AND result IS NOT NULL
 			AND coalesce(approveddate, inspectiondate) IS NOT NULL
 		ORDER BY bbl, coalesce(approveddate, inspectiondate) DESC
@@ -271,14 +305,18 @@ CREATE TABLE IF NOT EXISTS signature_buildings2 AS (
 			bbl,
 			count(DISTINCT jobfilingnumber) AS dob_jobs
 		FROM dob_now_jobs
-		WHERE filingdate >= (CURRENT_DATE - interval '1' year)
+		LEFT JOIN signature_unhp_buildings AS sb USING(bbl)
+	    WHERE sb.bbl IS NOT NULL
+			AND filingdate >= (CURRENT_DATE - interval '1' year)
 		GROUP BY bbl
 		UNION 
 		SELECT 
 			bbl,
 			count(DISTINCT job) AS dob_jobs
 		FROM dobjobs
-		WHERE prefilingdate >= (CURRENT_DATE - interval '1' year)
+		LEFT JOIN signature_unhp_buildings AS sb USING(bbl)
+	    WHERE sb.bbl IS NOT NULL
+			AND prefilingdate >= (CURRENT_DATE - interval '1' year)
 		GROUP BY bbl
 	),
 
@@ -287,6 +325,8 @@ CREATE TABLE IF NOT EXISTS signature_buildings2 AS (
 			bbl,
 			sum(dob_jobs)::int as dob_jobs
 		FROM dob_jobs_all
+		LEFT JOIN signature_unhp_buildings AS sb USING(bbl)
+	    WHERE sb.bbl IS NOT NULL
 		GROUP BY bbl
 	),
 
@@ -296,7 +336,9 @@ CREATE TABLE IF NOT EXISTS signature_buildings2 AS (
 			issuedate,
 			(violationcategory ~* 'ACTIVE') AS is_active
 		FROM dob_violations 
-		WHERE issuedate >= (CURRENT_DATE - interval '5' year)
+		LEFT JOIN signature_unhp_buildings AS sb USING(bbl)
+	    WHERE sb.bbl IS NOT NULL
+			AND issuedate >= (CURRENT_DATE - interval '5' year)
 			AND violationtypecode IS NOT NULL
 		UNION
 		SELECT
@@ -307,7 +349,9 @@ CREATE TABLE IF NOT EXISTS signature_buildings2 AS (
 					'CERTIFICATE PENDING', 'CERTIFICATE DISAPPROVED', 'NO COMPLIANCE RECORDED')
 			) AS is_active
 		FROM ecb_violations 
-		WHERE issuedate >= (CURRENT_DATE - interval '5' year)
+		LEFT JOIN signature_unhp_buildings AS sb USING(bbl)
+	    WHERE sb.bbl IS NOT NULL
+			AND issuedate >= (CURRENT_DATE - interval '5' year)
 			AND severity IS NOT NULL
 	),
 
@@ -317,6 +361,8 @@ CREATE TABLE IF NOT EXISTS signature_buildings2 AS (
 			count(*) FILTER (WHERE issuedate >= (CURRENT_DATE - interval '1' year)) AS dob_ecb_viol_total,
 			count(*) FILTER (WHERE is_active) AS dob_ecb_viol_open
 		FROM dob_ecb_stacked
+		LEFT JOIN signature_unhp_buildings AS sb USING(bbl)
+	    WHERE sb.bbl IS NOT NULL
 		GROUP BY bbl
 	)
 
