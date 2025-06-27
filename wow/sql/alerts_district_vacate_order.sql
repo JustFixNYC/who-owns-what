@@ -14,7 +14,7 @@ SELECT
 	dob_vacate_type,
 	dob_vacate_complaint_number,
 	COALESCE(dob_vacate_date, hpd_vacate_date) AS vacate_date
-FROM wow_indicators
+FROM wow_indicators2
 WHERE bbl IS NOT NULL
 	and (
 		coun_dist = ANY(%(coun_dist)s)

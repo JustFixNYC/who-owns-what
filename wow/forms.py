@@ -1,6 +1,22 @@
+import re
 from django import forms
 from django.core.validators import RegexValidator
 from django.core.exceptions import ValidationError
+
+
+class CommaSeparatedField(forms.CharField):
+    def to_python(self, value):
+        if value in self.empty_values:
+            return self.empty_value
+        value = str(value).split(",")
+        if self.strip:
+            value = [s.strip() for s in value]
+        return value
+
+    def prepare_value(self, value):
+        if value is None:
+            return None
+        return ", ".join([str(s) for s in value])
 
 
 class PaddedBBLForm(forms.Form):
@@ -36,6 +52,23 @@ class SeparatedBBLForm(forms.Form):
             )
         ]
     )
+
+
+class PaddedBBLListForm(forms.Form):
+    bbls = CommaSeparatedField(
+        label="10-digit padded BBL (comma-separated list)", required=True
+    )
+
+    def clean(self):
+        data = self.cleaned_data
+        if "bbls" not in data:
+            return data
+        for bbl in data["bbls"]:
+            if not re.match(r"^[1-5]\d\d\d\d\d\d\d\d\d$", bbl):
+                raise ValidationError(
+                    f"Invalid BBL: '{bbl}'. All BBLs but be in 10-digit zer-padded format."
+                )
+        return data
 
 
 class EmailAlertBuilding(PaddedBBLForm):

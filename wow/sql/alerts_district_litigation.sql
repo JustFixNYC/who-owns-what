@@ -16,7 +16,7 @@ SELECT
 	count(*) over () as total_litigations,
 	d.last_updated
 FROM last_updated AS d, 
-	wow_indicators AS x
+	wow_indicators2 AS x
 LEFT JOIN hpd_litigations as l using(bbl)
 WHERE bbl IS NOT NULL
 	and (

@@ -1,6 +1,6 @@
 create temporary table x_indicators_filtered AS (
 SELECT *
-FROM wow_indicators
+FROM wow_indicators2
 WHERE bbl IS NOT NULL
 	and (coun_dist = ANY(%(coun_dist)s)
 	or nta = ANY(%(nta)s)
@@ -452,7 +452,7 @@ all_buildings AS (
 counts AS (
     SELECT 
         portfolio_id,
-        (SELECT COUNT(*) FROM wow_indicators WHERE portfolio_id = b.portfolio_id) AS total_bbls
+        (SELECT COUNT(*) FROM wow_indicators2 WHERE portfolio_id = b.portfolio_id) AS total_bbls
     FROM all_buildings b
     GROUP BY portfolio_id
 )

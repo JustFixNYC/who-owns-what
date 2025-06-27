@@ -1,4 +1,4 @@
-CREATE TABLE wow_indicators AS 
+CREATE TABLE wow_indicators2 AS 
 
 	WITH email_dates AS (
 		SELECT 
@@ -453,6 +453,7 @@ CREATE TABLE wow_indicators AS
 	LEFT JOIN dob_ecb_viol USING(bbl)
 	LEFT JOIN dob_comp USING(bbl)
 	LEFT JOIN evic_oca USING(bbl)
+	LEFT JOIN lagged_oca USING(bbl)
 	LEFT JOIN hpd_vacate USING(bbl)
 	LEFT JOIN dob_vacate using (bbl)
 	LEFT JOIN pluto_latest_districts_25a AS pld USING(bbl)
@@ -462,12 +463,12 @@ CREATE TABLE wow_indicators AS
 	LEFT JOIN hpd_link using(bbl)
 	WHERE bbl IS NOT NULL;
 
-create index on wow_indicators (bbl);
-create index on wow_indicators (coun_dist);
-create index on wow_indicators (assem_dist);
-create index on wow_indicators (stsen_dist);
-create index on wow_indicators (community_dist);
-create index on wow_indicators (zipcode);
-create index on wow_indicators (census_tract);
-create index on wow_indicators (nta);
-create index on wow_indicators (lastsaledate);
+create index on wow_indicators2 (bbl);
+create index on wow_indicators2 (coun_dist);
+create index on wow_indicators2 (assem_dist);
+create index on wow_indicators2 (stsen_dist);
+create index on wow_indicators2 (community_dist);
+create index on wow_indicators2 (zipcode);
+create index on wow_indicators2 (census_tract);
+create index on wow_indicators2 (nta);
+create index on wow_indicators2 (lastsaledate);
