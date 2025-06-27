@@ -17,7 +17,6 @@ from .apiutil import (
 from .forms import (
     DatasetLastUpdatedForm,
     DistrictTypeForm,
-    EmailAlertBuilding,
     EmailAlertDistrict,
     PaddedBBLForm,
     PaddedBBLListForm,
@@ -209,15 +208,18 @@ def email_alerts_building(request):
     when the emails are sent, and the month values will either be for the entire
     current month, or when the last week spans the start of a new month it
     covers the complete prior month. For each BBL the following indicator are included:
-        bbl,
-        hpd_viol_all__week, hpd_viol__month - HPD complaints (0 or greater)
-        hpd_comp__week, hpd_comp__month - HPD violations (0 or greater)
-        dob_comp__week, dob_comp__month - DOB complaints (0 or greater)
-        dob_ecb_viol__week, dob_ecb_viol__month - DOB violations (0 or greater)
-        evictions_filed__week, evictions_filed__month - Eviction filings (null if can't report, otherwise 0 or greater)
-        lagged_eviction_filings (null if can't report, otherwise 0 or greater)
-        lagged_eviction_date - Most recent filing date of any lagged fillings (null if no lagged filings or can't report)
-        hpd_link - URL for HPD Online (direct to building page if single-building BBL, otherwise to BBL results page)
+     - bbl
+     - hpd_viol_all__week, hpd_viol__month - HPD complaints (0 or greater)
+     - hpd_comp__week, hpd_comp__month - HPD violations (0 or greater)
+     - dob_comp__week, dob_comp__month - DOB complaints (0 or greater)
+     - dob_ecb_viol__week, dob_ecb_viol__month - DOB violations (0 or greater)
+     - evictions_filed__week, evictions_filed__month - Eviction filings
+       (null if can't report, otherwise 0 or greater)
+     - lagged_eviction_filings (null if can't report, otherwise 0 or greater)
+     - lagged_eviction_date - Most recent filing date of any lagged fillings
+       (null if no lagged filings or can't report)
+     - hpd_link - URL for HPD Online (direct to building page if single-building BBL,
+       otherwise to BBL results page)
     """
     authorize_for_alerts(request)
     bbls = get_validated_form_data(PaddedBBLListForm, request.GET)

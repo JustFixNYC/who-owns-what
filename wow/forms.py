@@ -71,35 +71,6 @@ class PaddedBBLListForm(forms.Form):
         return data
 
 
-class EmailAlertBuilding(PaddedBBLForm):
-    start_date = forms.DateField(input_formats=["%Y-%m-%d"], required=False)
-    end_date = forms.DateField(input_formats=["%Y-%m-%d"], required=False)
-    prev_date = forms.DateField(input_formats=["%Y-%m-%d"], required=False)
-    oldest_filed_date = forms.DateField(input_formats=["%Y-%m-%d"], required=False)
-
-    def clean(self):
-        data = self.cleaned_data
-
-        if not data.get("start_date", None):
-            raise forms.ValidationError(
-                "start_date is required for violations, complaints, and eviction_filings"
-            )
-        if not data.get("end_date", None):
-            raise forms.ValidationError(
-                "end_date is required for violations, complaints, and eviction_filings"
-            )
-        if not data.get("prev_date", None):
-            raise forms.ValidationError(
-                "prev_date is required for lagged_eviction_filings"
-            )
-        if not data.get("oldest_filed_date", None):
-            raise forms.ValidationError(
-                "oldest_filed_date is required for lagged_eviction_filings"
-            )
-
-        return data
-
-
 class SignatureCollectionForm(forms.Form):
     collection = forms.CharField()
 
