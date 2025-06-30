@@ -164,7 +164,7 @@ class TestEmailAlertsBuilding(ApiTest):
         assert res.status_code == 200
         assert res.json()["result"] is not None
         assert res.json()["result"][0]["bbl"] == self.bbl1
-        assert res.json()["result"][0]["hpd_viol_all__week"] is not None
+        assert res.json()["result"][0]["hpd_viol__week"] is not None
 
     def test_bbl_validation_works(self, db, client):
         res = client.get(self.url_bad, **ALERTS_AUTH_ARG)
