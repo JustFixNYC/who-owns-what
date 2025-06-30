@@ -12,6 +12,8 @@ SELECT
     evictions_filed__bldg_month AS evictions_filed__month,
     lagged_eviction_filings,
     lagged_eviction_date,
-    hpd_link
+    hpd_link,
+    dob_ecb_viol_bin,
+    dob_comp_bin
 FROM wow_indicators2
 WHERE bbl = ANY(%(bbls)s)
