@@ -129,8 +129,8 @@ div.DistrictAlertsPage {
             padding-left: 1rem;
             align-items: center;
             border-radius: 0.375rem;
-            border: 1px solid $justfix-yellow;
-            background-color: #fee9be; // New light yellow, needs namex
+            border: 1px solid $justfix-purple-200;
+            background-color: $justfix-purple-100;
             width: fit-content;
             @include jfcl-body-standard-desktop;
             .area-selection-chip__label {

@@ -102,7 +102,7 @@ export const DistrictMap: React.FC<DistrictMapProps> = ({
         type: "fill",
         source: "selected",
         paint: {
-          "fill-color": "#ffba33", // justfix-yellow
+          "fill-color": "#BC9AFF", // justfix-purple-200
           "fill-opacity": 0.4,
         },
       });
@@ -115,7 +115,7 @@ export const DistrictMap: React.FC<DistrictMapProps> = ({
           "fill-color": [
             "case",
             ["boolean", ["feature-state", "selected"], false],
-            "#ffba33", // justfix-yellow
+            "#BC9AFF", // justfix-purple-200
             "#ffffff",
           ],
           "fill-opacity": [
@@ -137,7 +137,7 @@ export const DistrictMap: React.FC<DistrictMapProps> = ({
           "line-color": [
             "case",
             ["boolean", ["feature-state", "selected"], false],
-            "#ff813a", // justfix-orange
+            "#A96BFF", // justfix-purple
             "#000",
           ],
           "line-width": [
