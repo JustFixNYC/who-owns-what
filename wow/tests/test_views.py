@@ -5,7 +5,6 @@ from django.urls import path
 from django.test import Client
 from django.conf import settings
 import pytest
-from wow import dbutil
 
 from wow.apiutil import api
 from project.urls import handler500  # noqa
@@ -154,10 +153,6 @@ class TestEmailAlertsBuilding(ApiTest):
 
     url_good = f"{url_base}?bbls={bbl1},{bbl2}"
     url_bad = f"{url_base}?bbls={bbl1},123"
-
-    def test_db_contents(self, db, client):
-        result = dbutil.exec_sql("""select bbl from wow_indicators limit 5""")
-        print(result)
 
     def test_it_works(self, db, client):
         res = client.get(self.url_good, **ALERTS_AUTH_ARG)
