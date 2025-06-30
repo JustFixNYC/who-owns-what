@@ -1,6 +1,6 @@
 SELECT
     bbl,
-    hpd_viol_all__week,
+    hpd_viol_all__week AS hpd_viol__week,
     hpd_viol_all__bldg_month AS hpd_viol__month,
     hpd_comp__week,
     hpd_comp__bldg_month AS hpd_comp__month,
