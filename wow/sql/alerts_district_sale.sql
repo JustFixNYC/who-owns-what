@@ -16,7 +16,7 @@ SELECT
 	count(*) over () as total_sales,
 	d.last_updated
 FROM last_updated AS d,
-	wow_indicators2
+	wow_indicators
 WHERE bbl IS NOT NULL
 	and (
 		coun_dist = ANY(%(coun_dist)s)

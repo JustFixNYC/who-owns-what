@@ -156,7 +156,7 @@ class TestEmailAlertsBuilding(ApiTest):
     url_bad = f"{url_base}?bbls={bbl1},123"
 
     def test_db_contents(self, db, client):
-        result = dbutil.exec_sql("""select bbl from wow_indicators2 limit 5""")
+        result = dbutil.exec_sql("""select bbl from wow_indicators limit 5""")
         print(result)
 
     def test_it_works(self, db, client):

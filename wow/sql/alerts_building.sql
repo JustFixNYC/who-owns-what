@@ -15,5 +15,5 @@ SELECT
     hpd_link,
     dob_ecb_viol_bin,
     dob_comp_bin
-FROM wow_indicators2
+FROM wow_indicators
 WHERE bbl = ANY(%(bbls)s)

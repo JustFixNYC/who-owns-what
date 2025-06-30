@@ -1,6 +1,6 @@
 create temporary table x_indicators_filtered AS (
 SELECT *
-FROM wow_indicators2
+FROM wow_indicators
 WHERE bbl IS NOT NULL
 	and (coun_dist = ANY(%(coun_dist)s)
 	or nta = ANY(%(nta)s)
