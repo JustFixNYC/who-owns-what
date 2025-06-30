@@ -17,7 +17,7 @@ CREATE TEMP TABLE signature_loan_status AS (
 				)
 			END AS link_obj
 		FROM signature_unhp_loan_status
-		ORDER BY bbl, date::date
+		ORDER BY bbl, nullif(date, '')::date
 	),
 	status_json_agg AS (
 		SELECT
