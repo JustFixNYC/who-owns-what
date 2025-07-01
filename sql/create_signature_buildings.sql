@@ -53,7 +53,7 @@ CREATE TEMP TABLE IF NOT EXISTS signature_pluto_geos AS (
 		nullif(b.debt_total, '')::float AS debt_total,
 		-- temporarily adding these here, later they'll be included in the data from UNHP
 		s.status_info,
-		coalesce((s.status_info->'statuses'->>-1)::json->>'status', "pending") AS status_current,
+		coalesce((s.status_info->'statuses'->>-1)::json->>'status', 'pending') AS status_current,
 		p.borocode,
 		p.block,
 		p.lot,
