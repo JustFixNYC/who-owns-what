@@ -16,5 +16,5 @@ SELECT
     rentstab_units,
     dobpermits_jobs,
     hpderp_charges
-FROM signature_collection_charts
+FROM signature_collection_charts2
 WHERE collection_slug = %(collection)s
