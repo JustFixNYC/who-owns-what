@@ -86,7 +86,7 @@ CREATE TABLE gce_eligibility AS (
         LEFT JOIN x_latest_cofos AS co USING(bbl)
         LEFT JOIN x_portfolio_bbls AS wb USING(bbl)
         LEFT JOIN x_portfolio_size AS wp USING(portfolio_id)
-        LEFT JOIN pluto_latest_districts_25a AS pd USING(bbl)
+        LEFT JOIN pluto_latest_districts AS pd USING(bbl)
     )
     SELECT
         bbl,
